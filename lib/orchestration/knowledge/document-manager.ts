@@ -224,6 +224,116 @@ export async function transitionToCleanup(
   return { document, conversationId, redirectTo: CLEANUP_REDIRECT(document.id) };
 }
 
+export type CleanupFinaliseMode = 'commit' | 'use-original';
+
+// Finalise a Document Clean Up session: chunk and embed either the cleaned
+// content (mode='commit') or the original parsed text (mode='use-original'),
+// flip status cleaning → ready, and clear the cleanup Text columns to
+// reclaim storage. Mirrors the chunk+embed+insert sequence in confirmPreview
+// so cleanup docs land in the same shape as PDF-confirmed docs.
+//
+// On chunk/embed failure: status flips to 'failed' and originalContent is
+// preserved so the admin can retry from the KB list (existing retry path
+// works because originalContent is still populated until the transaction
+// completes).
+export async function commitCleanupAndChunk(
+  documentId: string,
+  userId: string,
+  mode: CleanupFinaliseMode
+): Promise<AiKnowledgeDocument> {
+  const doc = await prisma.aiKnowledgeDocument.findFirst({
+    where: { id: documentId, uploadedBy: userId, status: 'cleaning' },
+  });
+  if (!doc) {
+    throw new Error(
+      `Document ${documentId} not found, not owned by this user, or not in cleaning status`
+    );
+  }
+
+  const content = mode === 'commit' ? (doc.processedContent ?? '') : (doc.originalContent ?? '');
+  if (!content.trim()) {
+    throw new Error(
+      mode === 'commit'
+        ? 'processedContent is empty — there are no cleanup changes to commit'
+        : 'originalContent is empty — nothing to fall back to'
+    );
+  }
+
+  logger.info('Committing cleanup', {
+    documentId,
+    mode,
+    contentLength: content.length,
+  });
+
+  await prisma.aiKnowledgeDocument.update({
+    where: { id: documentId },
+    data: { status: 'processing' },
+  });
+
+  try {
+    const chunks = await chunkMarkdownDocument(content, doc.name, documentId);
+
+    if (chunks.length === 0) {
+      return await prisma.aiKnowledgeDocument.update({
+        where: { id: documentId },
+        data: {
+          status: 'ready',
+          chunkCount: 0,
+          originalContent: null,
+          processedContent: null,
+        },
+      });
+    }
+
+    const texts = chunks.map((c) => c.content);
+    const { embeddings, provenance } = await embedBatch(texts);
+
+    const coverage = computeCoverage(content, texts);
+    const coverageWarning = buildCoverageWarning(coverage);
+    const prevMeta = parseDocumentMetadata(doc.metadata) ?? {};
+    const warnings = coverageWarning ? [coverageWarning] : [];
+
+    const updated = await executeTransaction(async (tx) => {
+      await insertChunks(tx, documentId, chunks, embeddings, provenance);
+      return await tx.aiKnowledgeDocument.update({
+        where: { id: documentId },
+        data: {
+          status: 'ready',
+          chunkCount: chunks.length,
+          metadata: {
+            ...prevMeta,
+            rawContent: content,
+            coverage,
+            warnings,
+            cleanupCommittedMode: mode,
+          },
+          // Reclaim storage — the cleanup Text columns are no longer needed
+          // once the doc has been chunked.
+          originalContent: null,
+          processedContent: null,
+        },
+      });
+    });
+
+    logger.info('Cleanup committed', {
+      documentId,
+      mode,
+      chunkCount: chunks.length,
+      coveragePct: coverage.coveragePct,
+    });
+
+    return updated;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    logger.error('Cleanup commit failed', { documentId, error: message });
+    await prisma.aiKnowledgeDocument.update({
+      where: { id: documentId },
+      data: { status: 'failed', errorMessage: message },
+    });
+    throw error;
+  }
+}
+
 /** A single CSV row persisted on the document for lossless re-chunking. */
 const csvSectionSchema = z.object({
   title: z.string(),
