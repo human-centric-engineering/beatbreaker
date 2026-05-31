@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 
 import { CleanupView } from '@/components/admin/orchestration/knowledge/cleanup-view';
-import { prisma } from '@/lib/db/client';
+import { API } from '@/lib/api/endpoints';
+import { parseApiResponse, serverFetch } from '@/lib/api/server-fetch';
+import { logger } from '@/lib/logging';
 import { parseDocumentMetadata } from '@/lib/orchestration/knowledge/document-manager';
 
 export const metadata: Metadata = {
@@ -11,22 +13,34 @@ export const metadata: Metadata = {
   description: 'Interactively clean up an uploaded document before chunking.',
 };
 
+interface CleanupDocResponse {
+  document: {
+    id: string;
+    name: string;
+    fileName: string;
+    status: string;
+    originalContent: string | null;
+    processedContent: string | null;
+    metadata: unknown;
+  };
+}
+
+async function getCleanupDocument(id: string): Promise<CleanupDocResponse['document'] | null> {
+  try {
+    const res = await serverFetch(API.ADMIN.ORCHESTRATION.knowledgeDocumentById(id));
+    if (!res.ok) return null;
+    const body = await parseApiResponse<CleanupDocResponse>(res);
+    return body.success ? body.data.document : null;
+  } catch (err) {
+    logger.error('cleanup page: document fetch failed', { documentId: id, err });
+    return null;
+  }
+}
+
 export default async function CleanupPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
-  const document = await prisma.aiKnowledgeDocument.findUnique({
-    where: { id },
-    select: {
-      id: true,
-      name: true,
-      fileName: true,
-      status: true,
-      originalContent: true,
-      processedContent: true,
-      metadata: true,
-    },
-  });
-
+  const document = await getCleanupDocument(id);
   if (!document) notFound();
 
   // Already-finalised docs shouldn't be reachable via this URL — kick the
@@ -35,16 +49,11 @@ export default async function CleanupPage({ params }: { params: Promise<{ id: st
     redirect('/admin/orchestration/knowledge');
   }
 
-  // The cleanup chat session was created at upload time. Find it so the
-  // ChatInterface can hydrate prior turns. Using contextType + contextId
-  // (indexed on AiConversation) so the lookup stays cheap.
-  const conversation = await prisma.aiConversation.findFirst({
-    where: { contextType: 'knowledge_document', contextId: id },
-    orderBy: { createdAt: 'desc' },
-    select: { id: true },
-  });
-
   const meta = parseDocumentMetadata(document.metadata);
+
+  // ChatInterface looks up (or creates) the cleanup conversation via
+  // contextType='knowledge_document' + contextId={documentId} server-side,
+  // so the page doesn't need to resolve the conversationId itself.
 
   return (
     <div className="space-y-4">
@@ -69,7 +78,6 @@ export default async function CleanupPage({ params }: { params: Promise<{ id: st
         sizeClass={meta?.sizeClass ?? 'small'}
         sizeTokens={meta?.sizeTokens ?? 0}
         llmRewriteAllowed={meta?.llmRewriteAllowed ?? true}
-        conversationId={conversation?.id ?? null}
       />
     </div>
   );

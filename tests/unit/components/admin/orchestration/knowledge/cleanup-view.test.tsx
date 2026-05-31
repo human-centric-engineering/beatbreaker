@@ -92,7 +92,6 @@ const BASE_PROPS = {
   sizeClass: 'medium' as const,
   sizeTokens: 12000,
   llmRewriteAllowed: true,
-  conversationId: null,
 };
 
 /** A happy-path fetch mock — returns updated processedContent. */

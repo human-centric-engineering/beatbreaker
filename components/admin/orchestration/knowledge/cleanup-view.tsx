@@ -20,7 +20,6 @@ interface CleanupViewProps {
   sizeClass: 'small' | 'medium' | 'large' | 'too-large';
   sizeTokens: number;
   llmRewriteAllowed: boolean;
-  conversationId: string | null;
 }
 
 const docResponseSchema = z.object({
@@ -55,7 +54,6 @@ export function CleanupView({
   sizeClass,
   sizeTokens,
   llmRewriteAllowed,
-  conversationId: _conversationId,
 }: CleanupViewProps) {
   const router = useRouter();
   const [processedContent, setProcessedContent] = useState(initialProcessedContent);
