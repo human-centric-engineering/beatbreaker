@@ -72,6 +72,158 @@ export async function getOrCreateDefaultKnowledgeBase(): Promise<string> {
   return kb.id;
 }
 
+// ─── Document Clean Up kickoff ────────────────────────────────────────────────
+// See `.context/admin/document-cleanup.md` for the end-to-end flow. These two
+// helpers exist so the upload route and the PDF-confirm route share a single
+// path for "promote this doc into the cleanup state": create a 'cleaning' doc
+// with originalContent populated and spin up an AiConversation bound to the
+// Cleanup Agent. The cleanup page reads both via /knowledge/[id]/cleanup.
+
+export interface CleanupKickoff {
+  document: AiKnowledgeDocument;
+  conversationId: string;
+  redirectTo: string;
+}
+
+const CLEANUP_AGENT_SLUG = 'cleanup-agent';
+const CLEANUP_REDIRECT = (id: string): string => `/admin/orchestration/knowledge/${id}/cleanup`;
+
+async function getCleanupAgentId(): Promise<string> {
+  const agent = await prisma.aiAgent.findUnique({
+    where: { slug: CLEANUP_AGENT_SLUG },
+    select: { id: true },
+  });
+  if (!agent) {
+    throw new Error(
+      `Cleanup agent "${CLEANUP_AGENT_SLUG}" not found — run \`npm run db:seed\` (seed 020-cleanup-agent).`
+    );
+  }
+  return agent.id;
+}
+
+async function createCleanupConversation(
+  documentId: string,
+  documentName: string,
+  userId: string
+): Promise<string> {
+  const agentId = await getCleanupAgentId();
+  const conv = await prisma.aiConversation.create({
+    data: {
+      userId,
+      agentId,
+      contextType: 'knowledge_document',
+      contextId: documentId,
+      title: `Cleanup: ${documentName}`,
+    },
+    select: { id: true },
+  });
+  return conv.id;
+}
+
+// Create a fresh document in 'cleaning' status from already-parsed text. Used
+// for text uploads (.md/.txt) and parsed binary uploads (EPUB/DOCX). PDF takes
+// the transitionToCleanup path because the doc already exists in
+// 'pending_review' by the time we know the admin wants cleanup.
+export async function createDocumentForCleanup(
+  content: string,
+  fileName: string,
+  userId: string,
+  displayName?: string,
+  sourceUrl?: string
+): Promise<CleanupKickoff> {
+  const { getDocumentSizeReport } = await import('@/lib/orchestration/knowledge/size-report');
+
+  const fileHash = createHash('sha256').update(content).digest('hex');
+  const name = displayName?.trim() || fileName.replace(/\.[^.]+$/, '');
+  const knowledgeBaseId = await getOrCreateDefaultKnowledgeBase();
+  const sizeReport = getDocumentSizeReport(content);
+
+  const document = await prisma.aiKnowledgeDocument.create({
+    data: {
+      name,
+      fileName,
+      fileHash,
+      scope: 'app',
+      sourceUrl: sourceUrl ?? null,
+      status: 'cleaning',
+      uploadedBy: userId,
+      knowledgeBaseId,
+      originalContent: content,
+      metadata: {
+        sizeClass: sizeReport.sizeClass,
+        sizeTokens: sizeReport.tokenCount,
+        llmRewriteAllowed: sizeReport.llmRewriteAllowed,
+      },
+    },
+  });
+
+  let conversationId: string;
+  try {
+    conversationId = await createCleanupConversation(document.id, name, userId);
+  } catch (err) {
+    // Roll back the doc so the admin doesn't end up with an orphan in
+    // 'cleaning' with no chat session.
+    await prisma.aiKnowledgeDocument.delete({ where: { id: document.id } });
+    throw err;
+  }
+
+  logger.info('Document Clean Up session created', {
+    documentId: document.id,
+    sizeClass: sizeReport.sizeClass,
+    sizeTokens: sizeReport.tokenCount,
+    conversationId,
+  });
+
+  return { document, conversationId, redirectTo: CLEANUP_REDIRECT(document.id) };
+}
+
+// Promote an existing pending_review doc (created by previewDocument) into
+// 'cleaning' state with originalContent populated. Used by the PDF confirm
+// route when the upload was flagged runCleanup. Reuses any tag grants the
+// admin attached during preview.
+export async function transitionToCleanup(
+  documentId: string,
+  content: string,
+  userId: string
+): Promise<CleanupKickoff> {
+  const { getDocumentSizeReport } = await import('@/lib/orchestration/knowledge/size-report');
+
+  const existing = await prisma.aiKnowledgeDocument.findUnique({
+    where: { id: documentId },
+    select: { name: true, status: true, metadata: true },
+  });
+  if (!existing) throw new Error(`Document ${documentId} not found`);
+
+  const sizeReport = getDocumentSizeReport(content);
+  const existingMeta = parseDocumentMetadata(existing.metadata) ?? {};
+
+  const document = await prisma.aiKnowledgeDocument.update({
+    where: { id: documentId },
+    data: {
+      status: 'cleaning',
+      originalContent: content,
+      metadata: {
+        ...existingMeta,
+        runCleanup: true,
+        sizeClass: sizeReport.sizeClass,
+        sizeTokens: sizeReport.tokenCount,
+        llmRewriteAllowed: sizeReport.llmRewriteAllowed,
+      },
+    },
+  });
+
+  const conversationId = await createCleanupConversation(document.id, document.name, userId);
+
+  logger.info('Document transitioned into cleanup', {
+    documentId,
+    fromStatus: existing.status,
+    sizeClass: sizeReport.sizeClass,
+    conversationId,
+  });
+
+  return { document, conversationId, redirectTo: CLEANUP_REDIRECT(document.id) };
+}
+
 /** A single CSV row persisted on the document for lossless re-chunking. */
 const csvSectionSchema = z.object({
   title: z.string(),
@@ -125,6 +277,16 @@ const documentMetadataSchema = z
         coveragePct: z.number(),
       })
       .optional(),
+    /**
+     * Document Clean Up fields, written at upload-with-cleanup time and
+     * read by both the cleanup agent (sizeClass → self-restrict on LLM
+     * rewrites) and the PDF confirm endpoint (runCleanup → branch into
+     * cleanup instead of chunking).
+     */
+    runCleanup: z.boolean().optional(),
+    sizeClass: z.enum(['small', 'medium', 'large', 'too-large']).optional(),
+    sizeTokens: z.number().optional(),
+    llmRewriteAllowed: z.boolean().optional(),
   })
   .passthrough()
   .nullable();

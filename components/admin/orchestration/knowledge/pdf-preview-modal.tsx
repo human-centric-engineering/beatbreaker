@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { AlertTriangle, CheckCircle, CheckCircle2, FileText } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -27,6 +28,7 @@ interface PdfPreviewModalProps {
 }
 
 export function PdfPreviewModal({ data, open, onOpenChange, onConfirmed }: PdfPreviewModalProps) {
+  const router = useRouter();
   const [correctedContent, setCorrectedContent] = useState('');
   const [confirming, setConfirming] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -62,15 +64,27 @@ export function PdfPreviewModal({ data, open, onOpenChange, onConfirmed }: PdfPr
         throw new Error(resBody?.error?.message ?? `Confirmation failed (${res.status})`);
       }
 
+      const okBody = (await res.json().catch(() => null)) as {
+        data?: { redirectTo?: string };
+      } | null;
+
       setCorrectedContent('');
       onOpenChange(false);
+      // When the upload was flagged runCleanup, the server returns a
+      // redirectTo URL pointing at the cleanup chat page instead of
+      // chunking. Navigate there; the list-refresh callback isn't useful
+      // because the doc is now in 'cleaning', not 'ready'.
+      if (okBody?.data?.redirectTo) {
+        router.push(okBody.data.redirectTo);
+        return;
+      }
       onConfirmed();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Confirmation failed');
     } finally {
       setConfirming(false);
     }
-  }, [data, correctedContent, onOpenChange, onConfirmed]);
+  }, [data, correctedContent, onOpenChange, onConfirmed, router]);
 
   const handleDiscard = useCallback(async () => {
     if (!data) return;
