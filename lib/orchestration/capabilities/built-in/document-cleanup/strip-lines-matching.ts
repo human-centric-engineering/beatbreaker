@@ -1,0 +1,69 @@
+import { z } from 'zod';
+import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
+import type {
+  CapabilityContext,
+  CapabilityFunctionDefinition,
+  CapabilityResult,
+} from '@/lib/orchestration/capabilities/types';
+import {
+  MutationSummary,
+  resolveCleanupTarget,
+  summariseMutation,
+  writeCleanupContent,
+} from '@/lib/orchestration/capabilities/built-in/document-cleanup/context';
+
+const schema = z.object({
+  regex: z.string().min(1).max(500),
+  flags: z.string().max(8).optional(),
+});
+
+type Args = z.infer<typeof schema>;
+
+interface Data extends MutationSummary {
+  pattern: string;
+}
+
+export class StripLinesMatchingCapability extends BaseCapability<Args, Data> {
+  readonly slug = 'strip_lines_matching';
+  protected readonly schema = schema;
+
+  readonly functionDefinition: CapabilityFunctionDefinition = {
+    name: 'strip_lines_matching',
+    description:
+      'Remove whole lines from the document where the given regex matches anywhere in the line. Use for line-oriented noise (e.g. transcript metadata rows, repeated banners). Deterministic — does not consume LLM tokens.',
+    parameters: {
+      type: 'object',
+      properties: {
+        regex: {
+          type: 'string',
+          description: 'Regex pattern (no surrounding slashes). Tested against each line.',
+        },
+        flags: {
+          type: 'string',
+          description: 'Regex flags (e.g. "i" for case-insensitive). Default: "".',
+        },
+      },
+      required: ['regex'],
+    },
+  };
+
+  async execute(args: Args, context: CapabilityContext): Promise<CapabilityResult<Data>> {
+    const target = await resolveCleanupTarget(context);
+    if (!target) return this.error('Not in a Document Clean Up session.', 'not_cleanup_session');
+
+    let pattern: RegExp;
+    try {
+      pattern = new RegExp(args.regex, args.flags ?? '');
+    } catch (err) {
+      return this.error(`Invalid regex: ${(err as Error).message}`, 'invalid_regex');
+    }
+
+    const next = target.content
+      .split('\n')
+      .filter((line) => !pattern.test(line))
+      .join('\n');
+
+    await writeCleanupContent(target.documentId, next);
+    return this.success({ pattern: args.regex, ...summariseMutation(target.content, next) });
+  }
+}
