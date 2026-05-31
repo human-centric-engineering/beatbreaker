@@ -12,19 +12,20 @@ The server page fetches documents from `GET /api/v1/admin/orchestration/knowledg
 
 ## Components
 
-| Component                 | Type   | File                                                                     | Purpose                                                                       |
-| ------------------------- | ------ | ------------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
-| `KnowledgeView`           | Client | `components/admin/orchestration/knowledge/knowledge-view.tsx`            | Tabbed layout (Manage / Explore / Visualize / Errors)                         |
-| `ManageTab`               | Client | `components/admin/orchestration/knowledge/manage-tab.tsx`                | Document table with per-row seed / rechunk / enrich-keywords / delete actions |
-| `DocumentUploadZone`      | Client | `components/admin/orchestration/knowledge/document-upload-zone.tsx`      | Staged file upload with title + tags (inline-create)                          |
-| `PdfPreviewModal`         | Client | `components/admin/orchestration/knowledge/pdf-preview-modal.tsx`         | Review/correct PDF extraction before chunking                                 |
-| `DocumentChunksModal`     | Client | `components/admin/orchestration/knowledge/document-chunks-modal.tsx`     | View all chunks for a document                                                |
-| `ExploreTab`              | Client | `components/admin/orchestration/knowledge/explore-tab.tsx`               | Vector search testing interface                                               |
-| `VisualizeTab`            | Client | `components/admin/orchestration/knowledge/visualize-tab.tsx`             | Interactive knowledge graph (Structure / Embedded views) + view-toggle host   |
-| `EmbeddingProjectionView` | Client | `components/admin/orchestration/knowledge/embedding-projection-view.tsx` | 2D scatter of UMAP-projected chunk embeddings (the "Embedding space" view)    |
-| `ErrorsTab`               | Client | `components/admin/orchestration/knowledge/errors-tab.tsx`                | Failed document recovery                                                      |
-| `CompareProvidersModal`   | Client | `components/admin/orchestration/knowledge/compare-providers-modal.tsx`   | Embedding model comparison table with guide                                   |
-| `EmbeddingStatusBanner`   | Client | `components/admin/orchestration/knowledge/embedding-status-banner.tsx`   | Warning banner when embeddings are incomplete                                 |
+| Component                 | Type   | File                                                                     | Purpose                                                                                                         |
+| ------------------------- | ------ | ------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
+| `KnowledgeView`           | Client | `components/admin/orchestration/knowledge/knowledge-view.tsx`            | Tabbed layout (Manage / Explore / Visualize / Errors)                                                           |
+| `ManageTab`               | Client | `components/admin/orchestration/knowledge/manage-tab.tsx`                | Document table with per-row seed / rechunk / enrich-keywords / delete actions                                   |
+| `DocumentUploadZone`      | Client | `components/admin/orchestration/knowledge/document-upload-zone.tsx`      | Staged file upload with title + tags (inline-create) + optional Document Clean Up toggle                        |
+| `PdfPreviewModal`         | Client | `components/admin/orchestration/knowledge/pdf-preview-modal.tsx`         | Review/correct PDF extraction before chunking                                                                   |
+| `CleanupView`             | Client | `components/admin/orchestration/knowledge/cleanup-view.tsx`              | Two-column cleanup page — doc preview + cleanup-agent chat (see [`document-cleanup.md`](./document-cleanup.md)) |
+| `DocumentChunksModal`     | Client | `components/admin/orchestration/knowledge/document-chunks-modal.tsx`     | View all chunks for a document                                                                                  |
+| `ExploreTab`              | Client | `components/admin/orchestration/knowledge/explore-tab.tsx`               | Vector search testing interface                                                                                 |
+| `VisualizeTab`            | Client | `components/admin/orchestration/knowledge/visualize-tab.tsx`             | Interactive knowledge graph (Structure / Embedded views) + view-toggle host                                     |
+| `EmbeddingProjectionView` | Client | `components/admin/orchestration/knowledge/embedding-projection-view.tsx` | 2D scatter of UMAP-projected chunk embeddings (the "Embedding space" view)                                      |
+| `ErrorsTab`               | Client | `components/admin/orchestration/knowledge/errors-tab.tsx`                | Failed document recovery                                                                                        |
+| `CompareProvidersModal`   | Client | `components/admin/orchestration/knowledge/compare-providers-modal.tsx`   | Embedding model comparison table with guide                                                                     |
+| `EmbeddingStatusBanner`   | Client | `components/admin/orchestration/knowledge/embedding-status-banner.tsx`   | Warning banner when embeddings are incomplete                                                                   |
 
 ## Features
 
@@ -53,17 +54,19 @@ The Coverage column shows the post-chunking text-capture percentage from `docume
 | `processing`     | secondary     | Processing   |
 | `ready`          | default       | Ready        |
 | `failed`         | destructive   | Failed       |
+| `cleaning`       | outline       | Cleaning     |
 
 ### Document actions
 
-| Action          | Condition                      | Endpoint                                                                                   |
-| --------------- | ------------------------------ | ------------------------------------------------------------------------------------------ |
-| Rechunk         | Non-seeded, not pending_review | `POST /documents/:id/rechunk`                                                              |
-| Enrich keywords | Non-seeded, not pending_review | `POST /documents/:id/enrich-keywords` (LLM-summarises each chunk into 3–8 keyword phrases) |
-| Review          | `pending_review` status        | Opens chunks viewer                                                                        |
-| Delete          | Non-seeded                     | `DELETE /documents/:id` (with inline confirm)                                              |
-| View            | Click document name            | Opens chunks modal via `GET /documents/:id/chunks`                                         |
-| Edit tags       | Click tag count chip           | Opens tags modal — picks from existing tags                                                |
+| Action           | Condition                                  | Endpoint                                                                                                   |
+| ---------------- | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
+| Rechunk          | Non-seeded, not pending_review or cleaning | `POST /documents/:id/rechunk`                                                                              |
+| Enrich keywords  | Non-seeded, not pending_review or cleaning | `POST /documents/:id/enrich-keywords` (LLM-summarises each chunk into 3–8 keyword phrases)                 |
+| Review           | `pending_review` status                    | Opens chunks viewer                                                                                        |
+| Continue cleanup | `cleaning` status                          | Links to `/admin/orchestration/knowledge/:id/cleanup` — see [`document-cleanup.md`](./document-cleanup.md) |
+| Delete           | Non-seeded                                 | `DELETE /documents/:id` (with inline confirm)                                                              |
+| View             | Click document name                        | Opens chunks modal via `GET /documents/:id/chunks`                                                         |
+| Edit tags        | Click tag count chip                       | Opens tags modal — picks from existing tags                                                                |
 
 Delete uses an inline "Delete? Yes / No" confirmation pattern rather than a separate modal.
 

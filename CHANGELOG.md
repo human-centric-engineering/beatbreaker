@@ -5680,6 +5680,10 @@ release process.
   — unset leaves every surface byte-for-byte unchanged. Marketing-page body copy
   is intentionally out of scope (a separate content concern); `SUNRISE_VERSION`
   and internal platform identifiers deliberately do not use this seam.
+- **Document Clean Up** — interactive knowledge-base preprocessing. Opt in via a checkbox on the document upload form; the doc lands in `status='cleaning'` and opens a chat with the seeded `cleanup-agent`, which can apply deterministic transforms (regex strips, whitespace collapse, dedupe, punctuation normalisation) and LLM-backed rewrites before chunking. Three finalise actions on the cleanup page: Mark cleaned (chunk processedContent), Use original (chunk originalContent), Discard & delete. See [`.context/admin/document-cleanup.md`](./.context/admin/document-cleanup.md).
+- **Public surface** — new `AiKnowledgeDocument` fields `originalContent` and `processedContent` (both nullable `Text`, used only by the cleanup flow), new status value `'cleaning'` on the existing CHECK constraint, new `cleanup-agent` seeded `AiAgent`, and eleven new `AiCapability` rows (`strip_lines_matching`, `strip_matches`, `strip_timestamps`, `strip_speaker_labels`, `collapse_whitespace`, `dedupe_lines`, `normalise_punctuation`, `preview_diff`, `estimate_size`, `rewrite_with_llm`, `rewrite_section_with_llm`) bound to the cleanup-agent.
+- **API** — `POST /api/v1/admin/orchestration/knowledge/documents/:id/cleanup/finalise` accepting `{ action: 'commit' | 'use-original' | 'delete' }`. Existing `POST /documents` and `POST /documents/:id/confirm` gain an opt-in `runCleanup` formData flag that returns `{ document, redirectTo }` instead of chunking.
+- **`KnowledgeDocumentListItem`** — narrowed to `Omit<AiKnowledgeDocument, 'originalContent' | 'processedContent'>` so the documents-list endpoint stays small; the cleanup page reads those fields via the existing per-document GET.
 
 ### Changed
 
