@@ -174,6 +174,17 @@ export async function createDocumentForCleanup(
     conversationId,
   });
 
+  // Fire-and-forget bookmark email — the admin gets a link back to the
+  // cleanup chat in case they close the tab or come back to it later.
+  const { sendCleanupReadyEmail } = await import('@/lib/orchestration/knowledge/cleanup-email');
+  void sendCleanupReadyEmail({
+    userId,
+    documentId: document.id,
+    documentName: name,
+    sizeClass: sizeReport.sizeClass,
+    sizeTokens: sizeReport.tokenCount,
+  });
+
   return { document, conversationId, redirectTo: CLEANUP_REDIRECT(document.id) };
 }
 
@@ -219,6 +230,15 @@ export async function transitionToCleanup(
     fromStatus: existing.status,
     sizeClass: sizeReport.sizeClass,
     conversationId,
+  });
+
+  const { sendCleanupReadyEmail } = await import('@/lib/orchestration/knowledge/cleanup-email');
+  void sendCleanupReadyEmail({
+    userId,
+    documentId: document.id,
+    documentName: document.name,
+    sizeClass: sizeReport.sizeClass,
+    sizeTokens: sizeReport.tokenCount,
   });
 
   return { document, conversationId, redirectTo: CLEANUP_REDIRECT(document.id) };
