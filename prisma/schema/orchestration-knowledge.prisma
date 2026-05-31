@@ -39,10 +39,12 @@ model AiKnowledgeBase {
 //    `(fileHash, status='ready')` rows, defeating the dedupe contract.
 //
 // 2. CHECK constraint `ai_knowledge_document_status_lowercase` pinning
-//    `status` to ('processing', 'ready', 'failed', 'pending_review'). The
-//    Prisma field is a free-form String; the CHECK catches casing drift /
-//    typos from raw-SQL or direct-DB writes before they corrupt the upload
-//    state machine.
+//    `status` to ('processing', 'ready', 'failed', 'pending_review',
+//    'cleaning'). The Prisma field is a free-form String; the CHECK catches
+//    casing drift / typos from raw-SQL or direct-DB writes before they
+//    corrupt the upload state machine. `cleaning` was added by
+//    20260531120000_add_document_cleanup_fields for the Document Clean Up
+//    interactive preprocessing flow.
 //
 // `npx prisma migrate dev` will emit DROP statements for both on schema-diff
 // runs. Always inspect generated migration SQL and remove any line touching
@@ -59,11 +61,16 @@ model AiKnowledgeDocument {
   fileName        String
   fileHash        String // SHA-256 for deduplication
   chunkCount      Int      @default(0)
-  status          String // "processing", "ready", "failed"
+  status          String // "processing", "ready", "failed", "pending_review", "cleaning" (CHECK constraint enforced; see warning above)
   scope           String   @default("app") // "system" | "app"
   sourceUrl       String? // URL the document was fetched from (null = manual upload)
   errorMessage    String?  @db.Text
-  metadata        Json? // format-specific metadata, preview data for pending_review docs
+  metadata        Json? // format-specific metadata, preview data for pending_review docs, sizeClass for cleaning docs
+  // Document Clean Up flow only: original parsed text (set once on upload) + current cleaned state (mutated by cleanup capabilities).
+  // Both null for documents that bypass cleanup. Cleared after successful finalise + chunking to reclaim storage (see finalise endpoint).
+  // The cleanup chat session is reachable via AiConversation where contextType='knowledge_document' AND contextId={this.id}.
+  originalContent  String?  @db.Text
+  processedContent String?  @db.Text
   uploadedBy      String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
