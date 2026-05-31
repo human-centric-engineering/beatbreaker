@@ -15,6 +15,16 @@ import type { PdfPreviewData } from '@/components/admin/orchestration/knowledge/
 
 // ─── Mocks ────────────────────────────────────────────────────────────────────
 
+// vi.hoisted ensures mockPush is available inside the vi.mock factory because
+// vi.mock calls are hoisted to module scope at transform time.
+const { mockPush } = vi.hoisted(() => ({
+  mockPush: vi.fn(),
+}));
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ push: mockPush }),
+}));
+
 const mockFetch = vi.fn();
 globalThis.fetch = mockFetch;
 
@@ -40,6 +50,7 @@ describe('PdfPreviewModal', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    mockPush.mockReset();
     mockFetch.mockResolvedValue({
       ok: true,
       json: () => Promise.resolve({ success: true, data: { document: { id: 'doc-1' } } }),
@@ -371,6 +382,74 @@ describe('PdfPreviewModal', () => {
 
       expect(screen.getByText(/50% of pages produced text/i)).toBeInTheDocument();
       expect(screen.getByText(/2 likely scanned/i)).toBeInTheDocument();
+    });
+
+    // ── redirectTo routing behaviour ──────────────────────────────────────────
+
+    it('calls router.push(redirectTo) and does NOT call onConfirmed when confirm response carries redirectTo', async () => {
+      // Arrange: server returns a redirectTo (PDF uploaded with runCleanup=true)
+      const redirectUrl = '/admin/orchestration/knowledge/doc-1/cleanup';
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () =>
+          Promise.resolve({
+            data: {
+              document: { id: 'doc-1' },
+              redirectTo: redirectUrl,
+            },
+          }),
+      });
+
+      const user = userEvent.setup();
+      render(
+        <PdfPreviewModal
+          data={mockPreviewData}
+          open={true}
+          onOpenChange={onOpenChange}
+          onConfirmed={onConfirmed}
+        />
+      );
+
+      // Act: click Confirm & Chunk
+      await user.click(screen.getByRole('button', { name: /confirm & chunk/i }));
+
+      // Assert: the component navigated to the cleanup chat — proving it handled
+      // the redirectTo rather than just passing data through unchanged
+      await waitFor(() => {
+        expect(mockPush).toHaveBeenCalledWith(redirectUrl);
+      });
+      // onConfirmed must NOT fire — the doc is in 'cleaning' status, so the list
+      // refresh from onConfirmed would be misleading
+      expect(onConfirmed).not.toHaveBeenCalled();
+    });
+
+    it('calls onConfirmed and closes modal when confirm response has no redirectTo', async () => {
+      // Arrange: standard confirm — no cleanup redirect (runCleanup was not set)
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ data: { document: { id: 'doc-1' } } }),
+      });
+
+      const user = userEvent.setup();
+      render(
+        <PdfPreviewModal
+          data={mockPreviewData}
+          open={true}
+          onOpenChange={onOpenChange}
+          onConfirmed={onConfirmed}
+        />
+      );
+
+      // Act
+      await user.click(screen.getByRole('button', { name: /confirm & chunk/i }));
+
+      // Assert: existing behaviour preserved — onConfirmed fires, modal closes,
+      // and the router is NOT used (document is ready, not cleaning)
+      await waitFor(() => {
+        expect(onConfirmed).toHaveBeenCalled(); // test-review:accept no_arg_called — UI callback-fired guard;
+        expect(onOpenChange).toHaveBeenCalledWith(false);
+      });
+      expect(mockPush).not.toHaveBeenCalled();
     });
 
     it('renders one bar per page in the strip', () => {
