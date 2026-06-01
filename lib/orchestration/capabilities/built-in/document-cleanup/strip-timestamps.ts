@@ -88,7 +88,10 @@ export class StripTimestampsCapability extends BaseCapability<Args, Data> {
       next = next.replace(HH_MM, '');
     }
 
-    await writeCleanupContent(target.documentId, next);
+    await writeCleanupContent(target.documentId, next, {
+      source: 'capability:strip_timestamps',
+      actorId: context.userId,
+    });
     return this.success({ formats: selected, removed, ...summariseMutation(target.content, next) });
   }
 }

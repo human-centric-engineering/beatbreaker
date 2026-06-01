@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/db/client';
 import type { CapabilityContext } from '@/lib/orchestration/capabilities/types';
+import { writeRevision } from '@/lib/orchestration/knowledge/revisions';
 
 export interface CleanupTarget {
   documentId: string;
@@ -41,10 +42,37 @@ export async function resolveCleanupTarget(
   };
 }
 
-export async function writeCleanupContent(documentId: string, content: string): Promise<void> {
+export interface WriteCleanupContentOpts {
+  /** Where the mutation came from — flows into AiKnowledgeDocumentRevision.source. */
+  source: string;
+  /** Caller principal (admin in chat session, null if internal). */
+  actorId: string | null;
+  /** Optional — section marker for per-section edits. */
+  sectionMarker?: string;
+  /** Optional — instructions for LLM-source rewrites. */
+  instructions?: string;
+}
+
+// Mutate processedContent AND append a revision row in one logical step.
+// Every callsite — capabilities, edit endpoints, finalise — flows through
+// here so the revision history is always written. Callers MUST hold the
+// edit lock (see requireEditableTarget); this helper does not check.
+export async function writeCleanupContent(
+  documentId: string,
+  content: string,
+  opts: WriteCleanupContentOpts
+): Promise<void> {
   await prisma.aiKnowledgeDocument.update({
     where: { id: documentId },
     data: { processedContent: content },
+  });
+  await writeRevision({
+    documentId,
+    content,
+    source: opts.source,
+    actorId: opts.actorId,
+    sectionMarker: opts.sectionMarker,
+    instructions: opts.instructions,
   });
 }
 

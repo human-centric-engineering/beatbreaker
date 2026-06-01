@@ -201,7 +201,14 @@ describe('CollapseWhitespaceCapability', () => {
     // Assert: no changes needed
     expect(result.success).toBe(true);
     expect(result.data?.charsRemoved).toBe(0);
-    expect(mockWriteCleanupContent).toHaveBeenCalledWith(DOCUMENT_ID, content);
+    expect(mockWriteCleanupContent).toHaveBeenCalledWith(
+      DOCUMENT_ID,
+      content,
+      expect.objectContaining({
+        source: expect.stringMatching(/^capability:/),
+        actorId: expect.anything(),
+      })
+    );
   });
 
   // ── writeCleanupContent called with doc id ───────────────────────────────
@@ -215,7 +222,14 @@ describe('CollapseWhitespaceCapability', () => {
     await capability.execute({}, makeContext());
 
     // Assert
-    expect(mockWriteCleanupContent).toHaveBeenCalledWith(DOCUMENT_ID, expect.any(String));
+    expect(mockWriteCleanupContent).toHaveBeenCalledWith(
+      DOCUMENT_ID,
+      expect.any(String),
+      expect.objectContaining({
+        source: expect.stringMatching(/^capability:/),
+        actorId: expect.anything(),
+      })
+    );
   });
 
   // ── MutationSummary shape ────────────────────────────────────────────────

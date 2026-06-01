@@ -74,7 +74,10 @@ export class DedupeLinesCapability extends BaseCapability<Args, Data> {
       }
     }
     const next = nextLines.join('\n');
-    await writeCleanupContent(target.documentId, next);
+    await writeCleanupContent(target.documentId, next, {
+      source: 'capability:dedupe_lines',
+      actorId: context.userId,
+    });
     return this.success({
       consecutiveOnly,
       removed: lines.length - nextLines.length,

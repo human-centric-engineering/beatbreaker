@@ -143,7 +143,14 @@ describe('StripLinesMatchingCapability', () => {
     expect(result.data?.charsRemoved).toBe(0);
     expect(result.data?.linesRemoved).toBe(0);
     // Content is unchanged, so writeCleanupContent was still called with the same content
-    expect(mockWriteCleanupContent).toHaveBeenCalledWith(DOCUMENT_ID, content);
+    expect(mockWriteCleanupContent).toHaveBeenCalledWith(
+      DOCUMENT_ID,
+      content,
+      expect.objectContaining({
+        source: expect.stringMatching(/^capability:/),
+        actorId: expect.anything(),
+      })
+    );
   });
 
   // ── common case: strips matching lines ──────────────────────────────────
@@ -159,7 +166,14 @@ describe('StripLinesMatchingCapability', () => {
 
     // Assert: two [Music] lines removed — writeCleanupContent was called with the stripped content
     expect(result.success).toBe(true);
-    expect(mockWriteCleanupContent).toHaveBeenCalledWith(DOCUMENT_ID, expectedNext);
+    expect(mockWriteCleanupContent).toHaveBeenCalledWith(
+      DOCUMENT_ID,
+      expectedNext,
+      expect.objectContaining({
+        source: expect.stringMatching(/^capability:/),
+        actorId: expect.anything(),
+      })
+    );
     // MutationSummary reflects the removal
     expect(result.data?.linesRemoved).toBe(2);
     expect(result.data?.charsAfter).toBe(expectedNext.length);
@@ -180,7 +194,14 @@ describe('StripLinesMatchingCapability', () => {
 
     // Assert: all three casing variants were stripped thanks to the i flag
     expect(result.success).toBe(true);
-    expect(mockWriteCleanupContent).toHaveBeenCalledWith(DOCUMENT_ID, expectedNext);
+    expect(mockWriteCleanupContent).toHaveBeenCalledWith(
+      DOCUMENT_ID,
+      expectedNext,
+      expect.objectContaining({
+        source: expect.stringMatching(/^capability:/),
+        actorId: expect.anything(),
+      })
+    );
     expect(result.data?.linesRemoved).toBe(3);
   });
 

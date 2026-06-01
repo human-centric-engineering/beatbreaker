@@ -100,7 +100,10 @@ export class RewriteWithLlmCapability extends BaseCapability<Args, Data> {
     if (next.length === 0) {
       return this.error('LLM returned empty content.', 'empty_response');
     }
-    await writeCleanupContent(target.documentId, next);
+    await writeCleanupContent(target.documentId, next, {
+      source: 'capability:rewrite_with_llm',
+      actorId: context.userId,
+    });
     return this.success({
       instructions: args.instructions,
       inputTokens: response.usage.inputTokens,

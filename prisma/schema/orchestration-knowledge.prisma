@@ -88,6 +88,7 @@ model AiKnowledgeDocument {
   chunks        AiKnowledgeChunk[]
   tags          AiKnowledgeDocumentTag[]
   agentGrants   AiAgentKnowledgeDocument[]
+  revisions     AiKnowledgeDocumentRevision[]
 
   @@index([uploadedBy])
   @@index([status])
@@ -95,6 +96,39 @@ model AiKnowledgeDocument {
   @@index([fileHash])
   @@index([knowledgeBaseId])
   @@map("ai_knowledge_document")
+}
+
+// Immutable, append-only history of every processedContent mutation during
+// a Document Clean Up session. One row per capability or human edit. The
+// editor's history drawer (Phase 6) lists these; Restore writes a new row
+// rather than deleting old ones.
+//
+// `source` taxonomy:
+//   - 'capability:<slug>'  — e.g. 'capability:strip_timestamps'
+//   - 'human_full'         — whole-doc inline edit
+//   - 'human_section'      — per-section inline edit
+//   - 'restore'            — restored from an earlier revision
+//   - 'finalise:<mode>'    — final commit before chunking, mode ∈ {commit, use-original}
+//
+// `actorId` is the admin who triggered the change (the user in the chat
+// session for capability sources). Nullable for restores triggered by
+// system processes — they don't exist today but reserving the option.
+model AiKnowledgeDocumentRevision {
+  id             String   @id @default(cuid())
+  documentId     String
+  version        Int
+  content        String   @db.Text
+  source         String
+  actorId        String?
+  sectionMarker  String?
+  instructions   String?  @db.Text
+  createdAt      DateTime @default(now())
+
+  document AiKnowledgeDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@unique([documentId, version])
+  @@index([documentId, createdAt])
+  @@map("ai_knowledge_document_revision")
 }
 
 // Vector store for knowledge base content.

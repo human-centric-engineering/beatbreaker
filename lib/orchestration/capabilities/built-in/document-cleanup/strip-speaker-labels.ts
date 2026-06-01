@@ -70,7 +70,10 @@ export class StripSpeakerLabelsCapability extends BaseCapability<Args, Data> {
       removed += (next.match(BRACKETED) ?? []).length;
       next = next.replace(BRACKETED, '');
     }
-    await writeCleanupContent(target.documentId, next);
+    await writeCleanupContent(target.documentId, next, {
+      source: 'capability:strip_speaker_labels',
+      actorId: context.userId,
+    });
     return this.success({ format, removed, ...summariseMutation(target.content, next) });
   }
 }

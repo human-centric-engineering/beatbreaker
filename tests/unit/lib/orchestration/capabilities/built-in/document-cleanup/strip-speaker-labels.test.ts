@@ -216,7 +216,14 @@ describe('StripSpeakerLabelsCapability', () => {
     expect(result.success).toBe(true);
     expect(result.data?.charsRemoved).toBe(0);
     expect(result.data?.removed).toBe(0);
-    expect(mockWriteCleanupContent).toHaveBeenCalledWith(DOCUMENT_ID, content);
+    expect(mockWriteCleanupContent).toHaveBeenCalledWith(
+      DOCUMENT_ID,
+      content,
+      expect.objectContaining({
+        source: expect.stringMatching(/^capability:/),
+        actorId: expect.anything(),
+      })
+    );
   });
 
   // ── removed count ────────────────────────────────────────────────────────
@@ -245,7 +252,14 @@ describe('StripSpeakerLabelsCapability', () => {
     await capability.execute({ format: 'colon' }, makeContext());
 
     // Assert: write called with correct doc id and stripped content
-    expect(mockWriteCleanupContent).toHaveBeenCalledWith(DOCUMENT_ID, 'Hello world');
+    expect(mockWriteCleanupContent).toHaveBeenCalledWith(
+      DOCUMENT_ID,
+      'Hello world',
+      expect.objectContaining({
+        source: expect.stringMatching(/^capability:/),
+        actorId: expect.anything(),
+      })
+    );
   });
 
   // ── MutationSummary shape ────────────────────────────────────────────────

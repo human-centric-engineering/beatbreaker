@@ -181,7 +181,14 @@ describe('DedupeLinesCapability', () => {
     expect(result.success).toBe(true);
     expect(result.data?.removed).toBe(0);
     expect(result.data?.charsRemoved).toBe(0);
-    expect(mockWriteCleanupContent).toHaveBeenCalledWith(DOCUMENT_ID, content);
+    expect(mockWriteCleanupContent).toHaveBeenCalledWith(
+      DOCUMENT_ID,
+      content,
+      expect.objectContaining({
+        source: expect.stringMatching(/^capability:/),
+        actorId: expect.anything(),
+      })
+    );
   });
 
   // ── writeCleanupContent called with doc id ───────────────────────────────
@@ -195,7 +202,14 @@ describe('DedupeLinesCapability', () => {
     await capability.execute({}, makeContext());
 
     // Assert
-    expect(mockWriteCleanupContent).toHaveBeenCalledWith(DOCUMENT_ID, 'dup\nunique');
+    expect(mockWriteCleanupContent).toHaveBeenCalledWith(
+      DOCUMENT_ID,
+      'dup\nunique',
+      expect.objectContaining({
+        source: expect.stringMatching(/^capability:/),
+        actorId: expect.anything(),
+      })
+    );
   });
 
   // ── MutationSummary shape ────────────────────────────────────────────────

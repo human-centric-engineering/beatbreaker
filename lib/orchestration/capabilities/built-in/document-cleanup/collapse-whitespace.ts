@@ -64,7 +64,10 @@ export class CollapseWhitespaceCapability extends BaseCapability<Args, Data> {
           .filter((l) => l.trim() !== '')
           .join('\n');
 
-    await writeCleanupContent(target.documentId, next);
+    await writeCleanupContent(target.documentId, next, {
+      source: 'capability:collapse_whitespace',
+      actorId: context.userId,
+    });
     return this.success({ keepBlankLines, ...summariseMutation(target.content, next) });
   }
 }

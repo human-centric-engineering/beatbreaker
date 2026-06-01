@@ -69,7 +69,10 @@ export class StripLinesMatchingCapability extends BaseCapability<Args, Data> {
       .filter((line) => !pattern.test(line))
       .join('\n');
 
-    await writeCleanupContent(target.documentId, next);
+    await writeCleanupContent(target.documentId, next, {
+      source: 'capability:strip_lines_matching',
+      actorId: context.userId,
+    });
     return this.success({ pattern: args.regex, ...summariseMutation(target.content, next) });
   }
 }

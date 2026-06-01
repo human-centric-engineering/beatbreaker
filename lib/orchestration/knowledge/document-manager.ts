@@ -285,6 +285,18 @@ export async function commitCleanupAndChunk(
     contentLength: content.length,
   });
 
+  // Terminal revision marking the finalise state — the revision drawer's
+  // history is now complete (it shows every intermediate mutation + this
+  // closing checkpoint with source 'finalise:commit' or 'finalise:use-original').
+  // Written BEFORE chunking so a chunker failure doesn't lose the audit trail.
+  const { writeRevision } = await import('@/lib/orchestration/knowledge/revisions');
+  await writeRevision({
+    documentId,
+    content,
+    source: `finalise:${mode}`,
+    actorId: userId,
+  });
+
   await prisma.aiKnowledgeDocument.update({
     where: { id: documentId },
     data: { status: 'processing' },

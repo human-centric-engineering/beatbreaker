@@ -145,7 +145,10 @@ export class RewriteSectionWithLlmCapability extends BaseCapability<Args, Data> 
       (target.content.endsWith('\n') ? '\n' : '') +
       target.content.slice(located.bodyEnd);
 
-    await writeCleanupContent(target.documentId, next);
+    await writeCleanupContent(target.documentId, next, {
+      source: 'capability:rewrite_section_with_llm',
+      actorId: context.userId,
+    });
     return this.success({
       sectionMarker: args.sectionMarker,
       instructions: args.instructions,

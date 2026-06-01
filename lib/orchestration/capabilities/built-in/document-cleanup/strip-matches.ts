@@ -68,7 +68,10 @@ export class StripMatchesCapability extends BaseCapability<Args, Data> {
 
     const matches = target.content.match(pattern);
     const next = target.content.replace(pattern, '');
-    await writeCleanupContent(target.documentId, next);
+    await writeCleanupContent(target.documentId, next, {
+      source: 'capability:strip_matches',
+      actorId: context.userId,
+    });
     return this.success({
       pattern: args.regex,
       matchCount: matches?.length ?? 0,

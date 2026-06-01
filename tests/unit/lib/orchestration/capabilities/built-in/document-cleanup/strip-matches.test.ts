@@ -126,7 +126,14 @@ describe('StripMatchesCapability', () => {
     // Assert: all three X characters removed
     expect(result.success).toBe(true);
     expect(result.data?.matchCount).toBe(3);
-    expect(mockWriteCleanupContent).toHaveBeenCalledWith(DOCUMENT_ID, 'ab ab ab');
+    expect(mockWriteCleanupContent).toHaveBeenCalledWith(
+      DOCUMENT_ID,
+      'ab ab ab',
+      expect.objectContaining({
+        source: expect.stringMatching(/^capability:/),
+        actorId: expect.anything(),
+      })
+    );
   });
 
   // ── matchCount reflects total matches ───────────────────────────────────
@@ -143,7 +150,14 @@ describe('StripMatchesCapability', () => {
     expect(result.success).toBe(true);
     expect(result.data?.matchCount).toBe(0);
     expect(result.data?.charsRemoved).toBe(0);
-    expect(mockWriteCleanupContent).toHaveBeenCalledWith(DOCUMENT_ID, content);
+    expect(mockWriteCleanupContent).toHaveBeenCalledWith(
+      DOCUMENT_ID,
+      content,
+      expect.objectContaining({
+        source: expect.stringMatching(/^capability:/),
+        actorId: expect.anything(),
+      })
+    );
   });
 
   // ── partial-line match preserves surrounding text ────────────────────────

@@ -325,7 +325,14 @@ describe('RewriteWithLlmCapability', () => {
 
     // Assert: writeCleanupContent was called with the TRIMMED content, not the raw response
     expect(result.success).toBe(true);
-    expect(mockWriteCleanupContent).toHaveBeenCalledWith(DOCUMENT_ID, expectedTrimmed);
+    expect(mockWriteCleanupContent).toHaveBeenCalledWith(
+      DOCUMENT_ID,
+      expectedTrimmed,
+      expect.objectContaining({
+        source: expect.stringMatching(/^capability:/),
+        actorId: expect.anything(),
+      })
+    );
   });
 
   it('returns input and output token counts from the LLM response', async () => {

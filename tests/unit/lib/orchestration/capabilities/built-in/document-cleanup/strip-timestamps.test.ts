@@ -221,7 +221,14 @@ describe('StripTimestampsCapability', () => {
     expect(result.success).toBe(true);
     expect(result.data?.charsRemoved).toBe(0);
     expect(result.data?.removed).toBe(0);
-    expect(mockWriteCleanupContent).toHaveBeenCalledWith(DOCUMENT_ID, content);
+    expect(mockWriteCleanupContent).toHaveBeenCalledWith(
+      DOCUMENT_ID,
+      content,
+      expect.objectContaining({
+        source: expect.stringMatching(/^capability:/),
+        actorId: expect.anything(),
+      })
+    );
   });
 
   // ── MutationSummary shape ────────────────────────────────────────────────
@@ -257,6 +264,13 @@ describe('StripTimestampsCapability', () => {
     await capability.execute({}, makeContext());
 
     // Assert: the correct doc id is passed to the write helper
-    expect(mockWriteCleanupContent).toHaveBeenCalledWith(DOCUMENT_ID, expect.any(String));
+    expect(mockWriteCleanupContent).toHaveBeenCalledWith(
+      DOCUMENT_ID,
+      expect.any(String),
+      expect.objectContaining({
+        source: expect.stringMatching(/^capability:/),
+        actorId: expect.anything(),
+      })
+    );
   });
 });

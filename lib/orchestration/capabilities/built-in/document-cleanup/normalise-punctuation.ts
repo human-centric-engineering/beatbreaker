@@ -56,7 +56,10 @@ export class NormalisePunctuationCapability extends BaseCapability<Args, Data> {
       substitutions += matches?.length ?? 0;
       next = next.replace(pattern, replacement);
     }
-    await writeCleanupContent(target.documentId, next);
+    await writeCleanupContent(target.documentId, next, {
+      source: 'capability:normalise_punctuation',
+      actorId: context.userId,
+    });
     return this.success({ substitutions, ...summariseMutation(target.content, next) });
   }
 }

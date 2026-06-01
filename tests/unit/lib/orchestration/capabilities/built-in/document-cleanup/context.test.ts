@@ -23,6 +23,10 @@ vi.mock('@/lib/db/client', () => ({
       findUnique: vi.fn(),
       update: vi.fn(),
     },
+    aiKnowledgeDocumentRevision: {
+      findFirst: vi.fn(),
+      create: vi.fn(),
+    },
   },
 }));
 
@@ -248,9 +252,14 @@ describe('writeCleanupContent', () => {
     const docId = 'doc-write-123';
     const newContent = 'Cleaned and processed content.';
     vi.mocked(prisma.aiKnowledgeDocument.update).mockResolvedValue({} as never); // full model shape not needed — only side effect matters
+    vi.mocked(prisma.aiKnowledgeDocumentRevision.findFirst).mockResolvedValue(null);
+    vi.mocked(prisma.aiKnowledgeDocumentRevision.create).mockResolvedValue({} as never);
 
     // Act
-    await writeCleanupContent(docId, newContent);
+    await writeCleanupContent(docId, newContent, {
+      source: 'capability:test',
+      actorId: 'user-1',
+    });
 
     // Assert: the function must write processedContent, not originalContent
     expect(prisma.aiKnowledgeDocument.update).toHaveBeenCalledTimes(1);
@@ -258,6 +267,52 @@ describe('writeCleanupContent', () => {
       where: { id: docId },
       data: { processedContent: newContent },
     });
+  });
+
+  it('appends a revision row with the supplied source + actorId after writing', async () => {
+    const docId = 'doc-write-456';
+    const newContent = 'Step two of cleanup';
+    vi.mocked(prisma.aiKnowledgeDocument.update).mockResolvedValue({} as never);
+    vi.mocked(prisma.aiKnowledgeDocumentRevision.findFirst).mockResolvedValue({
+      version: 3,
+    } as never);
+    vi.mocked(prisma.aiKnowledgeDocumentRevision.create).mockResolvedValue({} as never);
+
+    await writeCleanupContent(docId, newContent, {
+      source: 'human_full',
+      actorId: 'admin-7',
+      sectionMarker: 'Intro',
+      instructions: 'tighten',
+    });
+
+    expect(prisma.aiKnowledgeDocumentRevision.create).toHaveBeenCalledTimes(1);
+    expect(prisma.aiKnowledgeDocumentRevision.create).toHaveBeenCalledWith({
+      data: {
+        documentId: docId,
+        version: 4, // next after 3
+        content: newContent,
+        source: 'human_full',
+        actorId: 'admin-7',
+        sectionMarker: 'Intro',
+        instructions: 'tighten',
+      },
+    });
+  });
+
+  it('allocates version 1 when there is no prior revision for the document', async () => {
+    const docId = 'doc-write-789';
+    vi.mocked(prisma.aiKnowledgeDocument.update).mockResolvedValue({} as never);
+    vi.mocked(prisma.aiKnowledgeDocumentRevision.findFirst).mockResolvedValue(null);
+    vi.mocked(prisma.aiKnowledgeDocumentRevision.create).mockResolvedValue({} as never);
+
+    await writeCleanupContent(docId, 'first content', {
+      source: 'capability:strip_timestamps',
+      actorId: 'admin-1',
+    });
+
+    expect(prisma.aiKnowledgeDocumentRevision.create).toHaveBeenCalledWith(
+      expect.objectContaining({ data: expect.objectContaining({ version: 1 }) })
+    );
   });
 });
 
