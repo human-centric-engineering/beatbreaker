@@ -6,6 +6,7 @@ import {
   AlertTriangle,
   CheckCircle2,
   FileText,
+  History,
   Loader2,
   Lock,
   Sparkles,
@@ -15,6 +16,7 @@ import { z } from 'zod';
 
 import { ChatInterface } from '@/components/admin/orchestration/chat/chat-interface';
 import { EditableSection } from '@/components/admin/orchestration/knowledge/editable-section';
+import { RevisionDrawer } from '@/components/admin/orchestration/knowledge/revision-drawer';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSession } from '@/lib/auth/client';
@@ -75,6 +77,7 @@ export function CleanupView({
     null
   );
   const [error, setError] = useState<string | null>(null);
+  const [historyOpen, setHistoryOpen] = useState(false);
 
   const lock = useCleanupEditLock(documentId, currentUserId);
 
@@ -182,6 +185,15 @@ export function CleanupView({
             </p>
           </div>
           <div className="flex shrink-0 gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setHistoryOpen(true)}
+              disabled={pendingAction !== null}
+            >
+              <History className="mr-1 h-3 w-3" />
+              History
+            </Button>
             <Button
               variant="ghost"
               size="sm"
@@ -318,6 +330,14 @@ export function CleanupView({
           />
         </section>
       </div>
+
+      <RevisionDrawer
+        documentId={documentId}
+        currentContent={processedContent}
+        open={historyOpen}
+        onOpenChange={setHistoryOpen}
+        onRestored={() => void refetchDoc()}
+      />
     </div>
   );
 }
