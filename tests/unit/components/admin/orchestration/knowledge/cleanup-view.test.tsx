@@ -486,4 +486,66 @@ describe('CleanupView', () => {
       expect(screen.getByText('stable content')).toBeInTheDocument();
     });
   });
+
+  // ── Edge-case branches (Cover unreached fallbacks) ───────────────────────────
+
+  it('refetch with null processed AND null original content sets the preview to empty', async () => {
+    vi.mocked(apiClient.get).mockResolvedValue({
+      document: {
+        id: DOC_ID,
+        status: 'cleaning',
+        originalContent: null,
+        processedContent: null,
+      },
+    });
+    render(<CleanupView {...BASE_PROPS} initialProcessedContent="seed text" />);
+    expect(screen.getByText('seed text')).toBeInTheDocument();
+
+    await act(async () => {
+      capturedOnStreamComplete?.();
+    });
+
+    await waitFor(() => {
+      expect(screen.queryByText('seed text')).not.toBeInTheDocument();
+      expect(screen.getByText('(empty)')).toBeInTheDocument();
+    });
+  });
+
+  it('renders "(empty)" placeholders and 0% reduction when originalContent is empty', () => {
+    render(<CleanupView {...BASE_PROPS} originalContent="" initialProcessedContent="" />);
+    // Two "(empty)" placeholders render — one in the Cleaned tab, one in Original.
+    expect(screen.getAllByText('(empty)').length).toBeGreaterThanOrEqual(1);
+    // Zero-original branch in reductionPct must not produce a NaN / Infinity label.
+    expect(screen.queryByText(/% reduction/)).not.toBeInTheDocument();
+  });
+
+  it('falls back to "Failed (status)" when the finalise error body has no message', async () => {
+    const user = userEvent.setup();
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 503,
+      json: () => Promise.resolve({}),
+    });
+    render(<CleanupView {...BASE_PROPS} />);
+
+    await user.click(screen.getByRole('button', { name: /Mark cleaned/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Failed (503)')).toBeInTheDocument();
+    });
+    expect(mockPush).not.toHaveBeenCalled();
+  });
+
+  it('falls back to "Action failed" when finalise rejects with a non-Error value', async () => {
+    const user = userEvent.setup();
+    globalThis.fetch = vi.fn().mockRejectedValue('boom — plain string thrown');
+    render(<CleanupView {...BASE_PROPS} />);
+
+    await user.click(screen.getByRole('button', { name: /Mark cleaned/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Action failed')).toBeInTheDocument();
+    });
+    expect(mockPush).not.toHaveBeenCalled();
+  });
 });
