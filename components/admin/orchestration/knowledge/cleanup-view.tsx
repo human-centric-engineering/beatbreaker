@@ -1,15 +1,27 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { AlertTriangle, CheckCircle2, FileText, Loader2, Sparkles, Trash2 } from 'lucide-react';
+import {
+  AlertTriangle,
+  CheckCircle2,
+  FileText,
+  Loader2,
+  Lock,
+  Sparkles,
+  Trash2,
+} from 'lucide-react';
 import { z } from 'zod';
 
 import { ChatInterface } from '@/components/admin/orchestration/chat/chat-interface';
+import { EditableSection } from '@/components/admin/orchestration/knowledge/editable-section';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useSession } from '@/lib/auth/client';
 import { apiClient } from '@/lib/api/client';
 import { API } from '@/lib/api/endpoints';
+import { detectSections } from '@/lib/orchestration/knowledge/section-detection';
+import { useCleanupEditLock } from '@/lib/hooks/use-cleanup-edit-lock';
 
 interface CleanupViewProps {
   documentId: string;
@@ -56,11 +68,25 @@ export function CleanupView({
   llmRewriteAllowed,
 }: CleanupViewProps) {
   const router = useRouter();
+  const session = useSession();
+  const currentUserId = session.data?.user.id ?? '';
   const [processedContent, setProcessedContent] = useState(initialProcessedContent);
   const [pendingAction, setPendingAction] = useState<'commit' | 'use-original' | 'delete' | null>(
     null
   );
   const [error, setError] = useState<string | null>(null);
+
+  const lock = useCleanupEditLock(documentId, currentUserId);
+
+  // Release the lock when the page unmounts (admin navigated away mid-edit).
+  // Best-effort — server-side TTL expiry covers the case where the browser
+  // crashes before this fires.
+  useEffect(() => {
+    return () => {
+      if (lock.heldByMe) void lock.release();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Re-fetch the doc after each chat turn so the preview pane reflects any
   // mutations the agent applied via its capabilities. The cleanup capabilities
@@ -130,6 +156,9 @@ export function CleanupView({
     [llmRewriteAllowed]
   );
 
+  const sections = useMemo(() => detectSections(processedContent), [processedContent]);
+  const finaliseDisabled = pendingAction !== null || lock.heldByOther;
+
   return (
     <div className="space-y-4">
       <header className="bg-background sticky top-0 z-30 -mx-6 border-b px-6 pt-3 pb-3">
@@ -157,7 +186,7 @@ export function CleanupView({
               variant="ghost"
               size="sm"
               onClick={() => void finalise('delete')}
-              disabled={pendingAction !== null}
+              disabled={finaliseDisabled}
               className="text-destructive hover:text-destructive"
             >
               {pendingAction === 'delete' ? (
@@ -171,18 +200,14 @@ export function CleanupView({
               variant="outline"
               size="sm"
               onClick={() => void finalise('use-original')}
-              disabled={pendingAction !== null}
+              disabled={finaliseDisabled}
             >
               {pendingAction === 'use-original' ? (
                 <Loader2 className="mr-1 h-3 w-3 animate-spin" />
               ) : null}
               Use original
             </Button>
-            <Button
-              size="sm"
-              onClick={() => void finalise('commit')}
-              disabled={pendingAction !== null}
-            >
+            <Button size="sm" onClick={() => void finalise('commit')} disabled={finaliseDisabled}>
               {pendingAction === 'commit' ? (
                 <Loader2 className="mr-1 h-3 w-3 animate-spin" />
               ) : (
@@ -202,6 +227,17 @@ export function CleanupView({
             </span>
           </div>
         ) : null}
+        {lock.heldByOther ? (
+          <div className="mt-3 flex items-start gap-2 rounded-md border border-amber-300/40 bg-amber-50 p-2 text-xs text-amber-900 dark:border-amber-700/40 dark:bg-amber-900/20 dark:text-amber-200">
+            <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+            <span>
+              This document is being edited by{' '}
+              <strong>{lock.state?.heldBy ?? 'another admin'}</strong>. Editor and chat are paused
+              until they finish (auto-released after {Math.round((lock.state?.ttlMs ?? 0) / 60_000)}{' '}
+              minutes of inactivity).
+            </span>
+          </div>
+        ) : null}
         {error ? <p className="text-destructive mt-3 text-sm">{error}</p> : null}
       </header>
 
@@ -212,6 +248,11 @@ export function CleanupView({
               <div className="flex items-center gap-2">
                 <FileText className="text-muted-foreground h-4 w-4" />
                 <span className="text-sm font-medium">Document preview</span>
+                {lock.heldByMe ? (
+                  <span className="inline-flex items-center gap-1 text-xs text-amber-700 dark:text-amber-300">
+                    <Lock className="h-3 w-3" /> editing
+                  </span>
+                ) : null}
               </div>
               <TabsList>
                 <TabsTrigger value="cleaned">Cleaned</TabsTrigger>
@@ -219,9 +260,28 @@ export function CleanupView({
               </TabsList>
             </div>
             <TabsContent value="cleaned" className="m-0">
-              <pre className="max-h-[60vh] overflow-auto p-3 text-xs whitespace-pre-wrap">
-                {processedContent || '(empty)'}
-              </pre>
+              <div className="max-h-[60vh] overflow-auto">
+                {lock.heldByOther ? (
+                  // Read-only fallback when another admin owns the lock — show
+                  // the doc but don't render editable sections (would surface
+                  // confusing 423s on every save).
+                  <pre className="p-3 text-xs whitespace-pre-wrap">
+                    {processedContent || '(empty)'}
+                  </pre>
+                ) : sections.length === 0 ? (
+                  <pre className="p-3 text-xs whitespace-pre-wrap">(empty)</pre>
+                ) : (
+                  sections.map((section) => (
+                    <EditableSection
+                      key={section.id}
+                      documentId={documentId}
+                      section={section}
+                      acquireLock={lock.acquire}
+                      onSaved={() => void refetchDoc()}
+                    />
+                  ))
+                )}
+              </div>
             </TabsContent>
             <TabsContent value="original" className="m-0">
               <pre className="text-muted-foreground max-h-[60vh] overflow-auto p-3 text-xs whitespace-pre-wrap">
@@ -231,7 +291,20 @@ export function CleanupView({
           </Tabs>
         </section>
 
-        <section className="bg-card flex h-[70vh] flex-col rounded-lg border">
+        <section className="bg-card relative flex h-[70vh] flex-col rounded-lg border">
+          {lock.heldByMe ? (
+            // Pessimistic overlay — disables the chat while the admin is
+            // mid-edit so a capability call can't race the in-progress save.
+            <div className="bg-background/70 absolute inset-0 z-10 flex items-start justify-center backdrop-blur-sm">
+              <div className="bg-background mt-12 max-w-xs rounded-md border p-3 text-center text-xs">
+                <Lock className="text-muted-foreground mx-auto mb-2 h-4 w-4" />
+                <p className="font-medium">Paused: document is being edited</p>
+                <p className="text-muted-foreground mt-1">
+                  Save or cancel the current section to re-enable the agent.
+                </p>
+              </div>
+            </div>
+          ) : null}
           <ChatInterface
             agentSlug="cleanup-agent"
             contextType="knowledge_document"
