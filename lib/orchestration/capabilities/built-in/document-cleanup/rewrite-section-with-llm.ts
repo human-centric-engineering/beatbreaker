@@ -8,12 +8,7 @@ import type {
   CapabilityResult,
 } from '@/lib/orchestration/capabilities/types';
 import { getProvider } from '@/lib/orchestration/llm/provider-manager';
-import {
-  MutationSummary,
-  resolveCleanupTarget,
-  summariseMutation,
-  writeCleanupContent,
-} from '@/lib/orchestration/capabilities/built-in/document-cleanup/context';
+import { resolveCleanupTarget } from '@/lib/orchestration/capabilities/built-in/document-cleanup/context';
 import { requireEditableTarget } from '@/lib/orchestration/knowledge/edit-lock';
 
 const schema = z.object({
@@ -23,11 +18,18 @@ const schema = z.object({
 
 type Args = z.infer<typeof schema>;
 
-interface Data extends MutationSummary {
+interface Data {
+  pendingChangeId: string;
   sectionMarker: string;
   instructions: string;
   inputTokens: number;
   outputTokens: number;
+  summary: {
+    charsBefore: number;
+    charsAfter: number;
+    deltaPct: number;
+  };
+  status: 'pending_human_review';
 }
 
 const SYSTEM_PROMPT = `You are a document cleanup assistant. You will be given ONE section of a document and instructions for how to clean it up. Apply the instructions faithfully and return ONLY the cleaned section — no preamble, no commentary, no markdown code fences. Do not add or restate the section heading; just return the cleaned body text.`;
@@ -145,16 +147,35 @@ export class RewriteSectionWithLlmCapability extends BaseCapability<Args, Data> 
       (target.content.endsWith('\n') ? '\n' : '') +
       target.content.slice(located.bodyEnd);
 
-    await writeCleanupContent(target.documentId, next, {
-      source: 'capability:rewrite_section_with_llm',
-      actorId: context.userId,
+    // Mixed agent/human model: section LLM rewrites emit a pending change
+    // tagged with the sectionMarker so the diff card on the chat surface
+    // can scope its preview to the changed section.
+    const pending = await prisma.aiKnowledgeDocumentPendingChange.create({
+      data: {
+        documentId: target.documentId,
+        source: 'rewrite_section_with_llm',
+        beforeContent: target.content,
+        afterContent: next,
+        sectionMarker: args.sectionMarker,
+        instructions: args.instructions,
+        actorId: context.userId ?? '',
+      },
     });
+
+    const charsBefore = target.content.length;
+    const charsAfter = next.length;
     return this.success({
+      pendingChangeId: pending.id,
       sectionMarker: args.sectionMarker,
       instructions: args.instructions,
       inputTokens: response.usage.inputTokens,
       outputTokens: response.usage.outputTokens,
-      ...summariseMutation(target.content, next),
+      status: 'pending_human_review',
+      summary: {
+        charsBefore,
+        charsAfter,
+        deltaPct: charsBefore === 0 ? 0 : ((charsAfter - charsBefore) / charsBefore) * 100,
+      },
     });
   }
 }

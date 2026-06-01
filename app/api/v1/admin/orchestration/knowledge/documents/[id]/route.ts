@@ -35,6 +35,22 @@ export const GET = withAdminAuth<{ id: string }>(async (request, _session, { par
     include: {
       _count: { select: { chunks: true } },
       tags: { select: { tagId: true } },
+      // Surfaced for the cleanup PendingChangeModal so it can render the
+      // diff card without a separate per-change fetch. Only populated for
+      // docs in 'cleaning' status with at least one pending LLM rewrite
+      // awaiting Accept / Reject.
+      pendingChanges: {
+        orderBy: { createdAt: 'desc' },
+        select: {
+          id: true,
+          source: true,
+          beforeContent: true,
+          afterContent: true,
+          sectionMarker: true,
+          instructions: true,
+          createdAt: true,
+        },
+      },
     },
   });
   if (!document) throw new NotFoundError(`Document ${id} not found`);

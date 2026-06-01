@@ -52,6 +52,13 @@ vi.mock('@/lib/db/client', () => ({
     aiAgent: {
       findUnique: vi.fn(),
     },
+    aiKnowledgeDocumentPendingChange: {
+      create: vi
+        .fn()
+        .mockImplementation(({ data }: { data: Record<string, unknown> }) =>
+          Promise.resolve({ id: 'pending-id-1', ...data })
+        ),
+    },
   },
 }));
 
@@ -309,8 +316,10 @@ describe('RewriteWithLlmCapability', () => {
     expect(result.success).toBe(true);
   });
 
-  it('writes the trimmed LLM response as processedContent', async () => {
-    // Arrange: LLM response has leading/trailing whitespace that should be stripped
+  it('emits a pending change with the trimmed LLM response as afterContent', async () => {
+    // Mixed agent/human model — LLM rewrites no longer auto-apply. The
+    // capability writes a pending change instead. Assert the trimmed content
+    // lands in the pending row's afterContent.
     const rawLlmContent = '  \n Cleaned document. \n  ';
     const expectedTrimmed = 'Cleaned document.';
     const fakeProvider = makeFakeProvider(makeLlmResponse({ content: rawLlmContent }));
@@ -320,19 +329,23 @@ describe('RewriteWithLlmCapability', () => {
     vi.mocked(prisma.aiAgent.findUnique).mockResolvedValue(makeAgentRow());
     mockGetProvider.mockResolvedValue(fakeProvider);
 
-    // Act
     const result = await capability.execute({ instructions: 'Clean it.' }, makeContext());
 
-    // Assert: writeCleanupContent was called with the TRIMMED content, not the raw response
     expect(result.success).toBe(true);
-    expect(mockWriteCleanupContent).toHaveBeenCalledWith(
-      DOCUMENT_ID,
-      expectedTrimmed,
-      expect.objectContaining({
-        source: expect.stringMatching(/^capability:/),
-        actorId: expect.anything(),
-      })
-    );
+    expect(mockWriteCleanupContent).not.toHaveBeenCalled();
+    expect(prisma.aiKnowledgeDocumentPendingChange.create).toHaveBeenCalledWith({
+      data: expect.objectContaining({
+        documentId: DOCUMENT_ID,
+        source: 'rewrite_with_llm',
+        beforeContent: 'Original text.',
+        afterContent: expectedTrimmed,
+        instructions: 'Clean it.',
+      }),
+    });
+    if (result.success && result.data) {
+      expect(result.data.pendingChangeId).toBe('pending-id-1');
+      expect(result.data.status).toBe('pending_human_review');
+    }
   });
 
   it('returns input and output token counts from the LLM response', async () => {

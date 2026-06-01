@@ -8,12 +8,7 @@ import type {
   CapabilityResult,
 } from '@/lib/orchestration/capabilities/types';
 import { getProvider } from '@/lib/orchestration/llm/provider-manager';
-import {
-  MutationSummary,
-  resolveCleanupTarget,
-  summariseMutation,
-  writeCleanupContent,
-} from '@/lib/orchestration/capabilities/built-in/document-cleanup/context';
+import { resolveCleanupTarget } from '@/lib/orchestration/capabilities/built-in/document-cleanup/context';
 import { requireEditableTarget } from '@/lib/orchestration/knowledge/edit-lock';
 import { getDocumentSizeReport } from '@/lib/orchestration/knowledge/size-report';
 
@@ -23,10 +18,18 @@ const schema = z.object({
 
 type Args = z.infer<typeof schema>;
 
-interface Data extends MutationSummary {
+interface Data {
+  pendingChangeId: string;
   instructions: string;
   inputTokens: number;
   outputTokens: number;
+  summary: {
+    charsBefore: number;
+    charsAfter: number;
+    deltaPct: number;
+  };
+  /** Human guidance for the agent: don't claim the rewrite is applied yet. */
+  status: 'pending_human_review';
 }
 
 const SYSTEM_PROMPT = `You are a document cleanup assistant. The user will give you a document and instructions for how to clean it up. Apply the instructions faithfully and return ONLY the cleaned document — no preamble, no commentary, no markdown code fences. Preserve the document's meaning and factual content. Remove only what the instructions specify or clear noise (filler words, repetition, formatting artefacts) the instructions imply.`;
@@ -100,15 +103,34 @@ export class RewriteWithLlmCapability extends BaseCapability<Args, Data> {
     if (next.length === 0) {
       return this.error('LLM returned empty content.', 'empty_response');
     }
-    await writeCleanupContent(target.documentId, next, {
-      source: 'capability:rewrite_with_llm',
-      actorId: context.userId,
+
+    // Mixed agent/human model: LLM rewrites no longer auto-apply. We write a
+    // pending change for the admin to Accept or Reject via the diff card the
+    // chat surface renders against this capability_result event.
+    const pending = await prisma.aiKnowledgeDocumentPendingChange.create({
+      data: {
+        documentId: target.documentId,
+        source: 'rewrite_with_llm',
+        beforeContent: target.content,
+        afterContent: next,
+        instructions: args.instructions,
+        actorId: context.userId ?? '',
+      },
     });
+
+    const charsBefore = target.content.length;
+    const charsAfter = next.length;
     return this.success({
+      pendingChangeId: pending.id,
       instructions: args.instructions,
       inputTokens: response.usage.inputTokens,
       outputTokens: response.usage.outputTokens,
-      ...summariseMutation(target.content, next),
+      status: 'pending_human_review',
+      summary: {
+        charsBefore,
+        charsAfter,
+        deltaPct: charsBefore === 0 ? 0 : ((charsAfter - charsBefore) / charsBefore) * 100,
+      },
     });
   }
 }

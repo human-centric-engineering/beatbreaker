@@ -50,6 +50,13 @@ vi.mock('@/lib/db/client', () => ({
     aiAgent: {
       findUnique: vi.fn(),
     },
+    aiKnowledgeDocumentPendingChange: {
+      create: vi
+        .fn()
+        .mockImplementation(({ data }: { data: Record<string, unknown> }) =>
+          Promise.resolve({ id: 'pending-id-1', ...data })
+        ),
+    },
   },
 }));
 
@@ -298,7 +305,8 @@ describe('RewriteSectionWithLlmCapability', () => {
     // Assert: section was found (capability did not return section_not_found)
     expect(result.success).toBe(true);
     // The written content must have the rewritten body stitched in
-    const writtenContent = vi.mocked(mockWriteCleanupContent).mock.calls[0]?.[1] as string;
+    const createCall = vi.mocked(prisma.aiKnowledgeDocumentPendingChange.create).mock.calls[0];
+    const writtenContent = (createCall?.[0]?.data as { afterContent?: string })?.afterContent ?? '';
     expect(writtenContent).toContain('Improved intro body.');
     expect(writtenContent).toContain('# Introduction');
     expect(writtenContent).toContain('# Conclusion');
@@ -325,7 +333,8 @@ describe('RewriteSectionWithLlmCapability', () => {
     );
 
     // Assert: the written document starts with the heading, then the rewritten body, then B
-    const writtenContent = vi.mocked(mockWriteCleanupContent).mock.calls[0]?.[1] as string;
+    const createCall = vi.mocked(prisma.aiKnowledgeDocumentPendingChange.create).mock.calls[0];
+    const writtenContent = (createCall?.[0]?.data as { afterContent?: string })?.afterContent ?? '';
     // The heading is preserved before the rewritten body
     expect(writtenContent.startsWith('# Section A\n')).toBe(true);
     expect(writtenContent).toContain('New body for A.');
@@ -356,7 +365,8 @@ describe('RewriteSectionWithLlmCapability', () => {
     // Assert: the capability succeeded (not section_not_found)
     expect(result.success).toBe(true);
     // Preamble is preserved before the match
-    const writtenContent = vi.mocked(mockWriteCleanupContent).mock.calls[0]?.[1] as string;
+    const createCall = vi.mocked(prisma.aiKnowledgeDocumentPendingChange.create).mock.calls[0];
+    const writtenContent = (createCall?.[0]?.data as { afterContent?: string })?.afterContent ?? '';
     expect(writtenContent).toContain('Preamble paragraph.');
     expect(writtenContent).toContain('Introduction');
     expect(writtenContent).toContain('Cleaner body text.');
@@ -413,7 +423,8 @@ describe('RewriteSectionWithLlmCapability', () => {
 
     // Assert: the prefix (heading + newline) and suffix (next section) are preserved,
     // with only the body replaced
-    const writtenContent = vi.mocked(mockWriteCleanupContent).mock.calls[0]?.[1] as string;
+    const createCall = vi.mocked(prisma.aiKnowledgeDocumentPendingChange.create).mock.calls[0];
+    const writtenContent = (createCall?.[0]?.data as { afterContent?: string })?.afterContent ?? '';
     expect(writtenContent).toContain('# A\n');
     expect(writtenContent).toContain('REWRITTEN');
     expect(writtenContent).toContain('# B\nbeta');
@@ -441,7 +452,8 @@ describe('RewriteSectionWithLlmCapability', () => {
     );
 
     // Assert: the rewritten document ends with \n because the original did
-    const writtenContent = vi.mocked(mockWriteCleanupContent).mock.calls[0]?.[1] as string;
+    const createCall = vi.mocked(prisma.aiKnowledgeDocumentPendingChange.create).mock.calls[0];
+    const writtenContent = (createCall?.[0]?.data as { afterContent?: string })?.afterContent ?? '';
     expect(writtenContent.endsWith('\n')).toBe(true);
     expect(writtenContent).toContain('Rewritten body text.');
   });
@@ -463,7 +475,8 @@ describe('RewriteSectionWithLlmCapability', () => {
     );
 
     // Assert: no trailing newline added when original didn't have one
-    const writtenContent = vi.mocked(mockWriteCleanupContent).mock.calls[0]?.[1] as string;
+    const createCall = vi.mocked(prisma.aiKnowledgeDocumentPendingChange.create).mock.calls[0];
+    const writtenContent = (createCall?.[0]?.data as { afterContent?: string })?.afterContent ?? '';
     expect(writtenContent.endsWith('\n')).toBe(false);
   });
 

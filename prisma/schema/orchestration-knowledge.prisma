@@ -89,6 +89,7 @@ model AiKnowledgeDocument {
   tags          AiKnowledgeDocumentTag[]
   agentGrants   AiAgentKnowledgeDocument[]
   revisions     AiKnowledgeDocumentRevision[]
+  pendingChanges AiKnowledgeDocumentPendingChange[]
 
   @@index([uploadedBy])
   @@index([status])
@@ -129,6 +130,31 @@ model AiKnowledgeDocumentRevision {
   @@unique([documentId, version])
   @@index([documentId, createdAt])
   @@map("ai_knowledge_document_revision")
+}
+
+// Pending LLM-rewrite proposal awaiting human Accept / Reject. Written by
+// rewrite_with_llm and rewrite_section_with_llm — they no longer mutate
+// processedContent directly (the mixed agent/human model: deterministic
+// capabilities auto-apply, LLM rewrites go through this review queue).
+//
+// Hard-deleted on Accept (after applying afterContent + writing a revision)
+// or Reject. No `status` field — the row's existence IS the pending state.
+// `sectionMarker` is null for whole-doc rewrites; populated for per-section.
+model AiKnowledgeDocumentPendingChange {
+  id             String   @id @default(cuid())
+  documentId     String
+  source         String   // capability slug: 'rewrite_with_llm' | 'rewrite_section_with_llm'
+  beforeContent  String   @db.Text
+  afterContent   String   @db.Text
+  sectionMarker  String?
+  instructions   String   @db.Text
+  actorId        String   // admin who triggered the LLM call (chat session owner)
+  createdAt      DateTime @default(now())
+
+  document AiKnowledgeDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@index([documentId, createdAt])
+  @@map("ai_knowledge_document_pending_change")
 }
 
 // Vector store for knowledge base content.

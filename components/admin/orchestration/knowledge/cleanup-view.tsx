@@ -16,6 +16,7 @@ import { z } from 'zod';
 
 import { ChatInterface } from '@/components/admin/orchestration/chat/chat-interface';
 import { EditableSection } from '@/components/admin/orchestration/knowledge/editable-section';
+import { PendingChangeModal } from '@/components/admin/orchestration/knowledge/pending-change-modal';
 import { RevisionDrawer } from '@/components/admin/orchestration/knowledge/revision-drawer';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -78,6 +79,19 @@ export function CleanupView({
   );
   const [error, setError] = useState<string | null>(null);
   const [historyOpen, setHistoryOpen] = useState(false);
+  // When the agent's rewrite_with_llm or rewrite_section_with_llm capability
+  // returns, the result carries a pendingChangeId. We pop the diff modal so
+  // the admin can Accept or Reject before the change applies.
+  const [pendingChangeId, setPendingChangeId] = useState<string | null>(null);
+
+  const onCapabilityResult = useCallback((slug: string, result: unknown) => {
+    if (slug !== 'rewrite_with_llm' && slug !== 'rewrite_section_with_llm') return;
+    if (typeof result !== 'object' || result === null) return;
+    const r = result as { data?: { pendingChangeId?: string } };
+    if (r.data?.pendingChangeId) {
+      setPendingChangeId(r.data.pendingChangeId);
+    }
+  }, []);
 
   const lock = useCleanupEditLock(documentId, currentUserId);
 
@@ -324,7 +338,10 @@ export function CleanupView({
             persistenceKey={`kb-cleanup-${documentId}`}
             starterPrompts={starterPrompts}
             onStreamComplete={() => void refetchDoc()}
-            onCapabilityResult={() => void refetchDoc()}
+            onCapabilityResult={(slug, result) => {
+              onCapabilityResult(slug, result);
+              void refetchDoc();
+            }}
             embedded
             className="flex-1"
           />
@@ -337,6 +354,13 @@ export function CleanupView({
         open={historyOpen}
         onOpenChange={setHistoryOpen}
         onRestored={() => void refetchDoc()}
+      />
+
+      <PendingChangeModal
+        documentId={documentId}
+        changeId={pendingChangeId}
+        onClose={() => setPendingChangeId(null)}
+        onResolved={() => void refetchDoc()}
       />
     </div>
   );
