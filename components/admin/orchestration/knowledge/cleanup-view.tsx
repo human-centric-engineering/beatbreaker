@@ -304,6 +304,7 @@ export function CleanupView({
                       section={section}
                       acquireLock={lock.acquire}
                       onSaved={() => void refetchDoc()}
+                      onPendingChange={(id) => setPendingChangeId(id)}
                     />
                   ))
                 )}

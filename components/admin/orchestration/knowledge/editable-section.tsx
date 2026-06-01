@@ -1,9 +1,10 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { AlertCircle, Loader2, Pencil } from 'lucide-react';
+import { AlertCircle, Loader2, Pencil, Sparkles } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { sha256Hex } from '@/lib/orchestration/knowledge/cleanup-client';
 import type { Section } from '@/lib/orchestration/knowledge/section-detection';
 
@@ -14,6 +15,8 @@ interface EditableSectionProps {
   acquireLock: () => Promise<boolean>;
   /** Called when this section is saved successfully — host refetches the doc. */
   onSaved: () => void;
+  /** Called when "Refine with agent" produces a pending change — host opens the diff modal. */
+  onPendingChange: (pendingChangeId: string) => void;
 }
 
 interface ConflictState {
@@ -30,12 +33,16 @@ export function EditableSection({
   section,
   acquireLock,
   onSaved,
+  onPendingChange,
 }: EditableSectionProps) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(section.body);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [conflict, setConflict] = useState<ConflictState | null>(null);
+  const [refining, setRefining] = useState(false);
+  const [refineInstructions, setRefineInstructions] = useState('');
+  const [refinePromptOpen, setRefinePromptOpen] = useState(false);
 
   // Reset draft when section.body changes from underneath (capability fired
   // OR a refetch surfaced server-side updates) and we're NOT mid-edit.
@@ -124,6 +131,45 @@ export function EditableSection({
     // Stay in edit mode so the admin can hand-merge if they want.
   }, [conflict]);
 
+  const refineWithAgent = useCallback(async () => {
+    if (refineInstructions.trim().length === 0) return;
+    setRefining(true);
+    setError(null);
+    try {
+      const res = await fetch(
+        `/api/v1/admin/orchestration/knowledge/documents/${documentId}/cleanup/section/refine`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sectionMarker: section.marker,
+            instructions: refineInstructions.trim(),
+          }),
+        }
+      );
+      if (!res.ok) {
+        const body = (await res.json().catch(() => null)) as {
+          error?: { message?: string };
+        } | null;
+        throw new Error(body?.error?.message ?? `Refine failed (${res.status})`);
+      }
+      const body = (await res.json()) as { data?: { pendingChangeId?: string } };
+      if (body.data?.pendingChangeId) {
+        onPendingChange(body.data.pendingChangeId);
+      }
+      setRefinePromptOpen(false);
+      setRefineInstructions('');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Refine failed');
+    } finally {
+      setRefining(false);
+    }
+  }, [documentId, refineInstructions, section.marker, onPendingChange]);
+
+  // Live diff strip — char/line delta vs. the saved baseline (section.body).
+  const draftCharsDelta = draft.length - section.body.length;
+  const draftLinesDelta = draft.split('\n').length - section.body.split('\n').length;
+
   if (!editing) {
     return (
       <div className="group relative border-b last:border-b-0">
@@ -176,15 +222,82 @@ export function EditableSection({
           </div>
         </div>
       ) : null}
+      {refinePromptOpen ? (
+        <div className="bg-muted/40 border-t p-2">
+          <label
+            htmlFor="cleanup-refine-instructions"
+            className="text-muted-foreground mb-1 block text-xs font-medium"
+          >
+            Tell the agent what to do with this section
+          </label>
+          <div className="flex gap-2">
+            <Input
+              id="cleanup-refine-instructions"
+              value={refineInstructions}
+              onChange={(e) => setRefineInstructions(e.target.value)}
+              placeholder="e.g. shorten to one paragraph; remove filler words"
+              disabled={refining}
+              className="h-8 flex-1 text-xs"
+            />
+            <Button
+              size="sm"
+              onClick={() => void refineWithAgent()}
+              disabled={refining || refineInstructions.trim().length === 0}
+            >
+              {refining ? <Loader2 className="mr-1 h-3 w-3 animate-spin" /> : null}
+              Refine
+            </Button>
+            <Button
+              size="sm"
+              variant="ghost"
+              onClick={() => setRefinePromptOpen(false)}
+              disabled={refining}
+            >
+              Cancel
+            </Button>
+          </div>
+          <p className="text-muted-foreground mt-1 text-xs">
+            The agent&apos;s rewrite opens as a diff card for you to Accept or Reject — it
+            doesn&apos;t replace your edit until you do.
+          </p>
+        </div>
+      ) : null}
       <div className="flex items-center justify-between border-t px-3 py-2">
         <span className="text-muted-foreground text-xs">
           {draft.length.toLocaleString()} chars · {draft.split('\n').length} lines
+          {draftCharsDelta !== 0 ? (
+            <>
+              {' · '}
+              <span
+                className={
+                  draftCharsDelta < 0
+                    ? 'text-emerald-700 dark:text-emerald-300'
+                    : 'text-amber-700 dark:text-amber-300'
+                }
+              >
+                {draftCharsDelta > 0 ? '+' : ''}
+                {draftCharsDelta.toLocaleString()} chars
+                {draftLinesDelta !== 0
+                  ? `, ${draftLinesDelta > 0 ? '+' : ''}${draftLinesDelta} lines`
+                  : ''}
+              </span>
+            </>
+          ) : null}
         </span>
         <div className="flex gap-2">
-          <Button size="sm" variant="ghost" onClick={cancel} disabled={saving}>
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={() => setRefinePromptOpen(true)}
+            disabled={saving || refining || refinePromptOpen}
+          >
+            <Sparkles className="mr-1 h-3 w-3" />
+            Refine with agent
+          </Button>
+          <Button size="sm" variant="ghost" onClick={cancel} disabled={saving || refining}>
             Cancel
           </Button>
-          <Button size="sm" onClick={() => void save()} disabled={saving}>
+          <Button size="sm" onClick={() => void save()} disabled={saving || refining}>
             {saving ? <Loader2 className="mr-1 h-3 w-3 animate-spin" /> : null}
             Save
           </Button>
