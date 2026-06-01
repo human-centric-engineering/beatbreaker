@@ -57,6 +57,10 @@ vi.mock('@/lib/db/client', () => ({
       upsert: vi.fn(),
     },
     aiKnowledgeChunk: { deleteMany: vi.fn() },
+    aiKnowledgeDocumentRevision: {
+      findFirst: vi.fn().mockResolvedValue(null),
+      create: vi.fn().mockResolvedValue({}),
+    },
     aiConversation: {
       create: vi.fn(),
     },
