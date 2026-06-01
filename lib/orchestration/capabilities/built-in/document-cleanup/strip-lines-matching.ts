@@ -11,6 +11,7 @@ import {
   summariseMutation,
   writeCleanupContent,
 } from '@/lib/orchestration/capabilities/built-in/document-cleanup/context';
+import { requireEditableTarget } from '@/lib/orchestration/knowledge/edit-lock';
 
 const schema = z.object({
   regex: z.string().min(1).max(500),
@@ -50,6 +51,11 @@ export class StripLinesMatchingCapability extends BaseCapability<Args, Data> {
   async execute(args: Args, context: CapabilityContext): Promise<CapabilityResult<Data>> {
     const target = await resolveCleanupTarget(context);
     if (!target) return this.error('Not in a Document Clean Up session.', 'not_cleanup_session');
+
+    const lock = await requireEditableTarget(target.documentId, context.userId);
+    if (!lock.ok) {
+      return this.error('The document is being edited by another admin.', 'target_locked');
+    }
 
     let pattern: RegExp;
     try {

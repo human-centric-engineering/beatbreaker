@@ -14,6 +14,7 @@ import {
   summariseMutation,
   writeCleanupContent,
 } from '@/lib/orchestration/capabilities/built-in/document-cleanup/context';
+import { requireEditableTarget } from '@/lib/orchestration/knowledge/edit-lock';
 import { getDocumentSizeReport } from '@/lib/orchestration/knowledge/size-report';
 
 const schema = z.object({
@@ -54,6 +55,11 @@ export class RewriteWithLlmCapability extends BaseCapability<Args, Data> {
   async execute(args: Args, context: CapabilityContext): Promise<CapabilityResult<Data>> {
     const target = await resolveCleanupTarget(context);
     if (!target) return this.error('Not in a Document Clean Up session.', 'not_cleanup_session');
+
+    const lock = await requireEditableTarget(target.documentId, context.userId);
+    if (!lock.ok) {
+      return this.error('The document is being edited by another admin.', 'target_locked');
+    }
 
     const size = getDocumentSizeReport(target.content);
     if (!size.llmRewriteAllowed) {

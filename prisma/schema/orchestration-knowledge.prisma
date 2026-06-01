@@ -71,6 +71,13 @@ model AiKnowledgeDocument {
   // The cleanup chat session is reachable via AiConversation where contextType='knowledge_document' AND contextId={this.id}.
   originalContent  String?  @db.Text
   processedContent String?  @db.Text
+  // Cooperative single-writer lock for the Document Clean Up co-authoring
+  // surface. Held by either an admin actively editing in the cleanup UI or
+  // by a capability about to mutate processedContent. 5-minute TTL enforced
+  // at read time (see lib/orchestration/knowledge/edit-lock.ts); no
+  // background sweeper. Both null when no admin is editing.
+  editLockHolder      String?
+  editLockAcquiredAt  DateTime?
   uploadedBy      String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt

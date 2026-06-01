@@ -27,6 +27,14 @@ vi.mock('@/lib/orchestration/capabilities/built-in/document-cleanup/context', ()
   summariseMutation: mockSummariseMutation,
 }));
 
+const { mockRequireEditableTarget } = vi.hoisted(() => ({
+  mockRequireEditableTarget: vi.fn(),
+}));
+
+vi.mock('@/lib/orchestration/knowledge/edit-lock', () => ({
+  requireEditableTarget: mockRequireEditableTarget,
+}));
+
 // ─── Imports ────────────────────────────────────────────────────────────────
 
 import { StripTimestampsCapability } from '@/lib/orchestration/capabilities/built-in/document-cleanup/strip-timestamps';
@@ -60,6 +68,7 @@ describe('StripTimestampsCapability', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    mockRequireEditableTarget.mockResolvedValue({ ok: true });
     capability = new StripTimestampsCapability();
     // Real summariseMutation logic for accurate assertions
     mockSummariseMutation.mockImplementation((before: string, after: string) => ({

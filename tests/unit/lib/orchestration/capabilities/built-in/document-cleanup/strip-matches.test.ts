@@ -26,6 +26,14 @@ vi.mock('@/lib/orchestration/capabilities/built-in/document-cleanup/context', ()
   summariseMutation: mockSummariseMutation,
 }));
 
+const { mockRequireEditableTarget } = vi.hoisted(() => ({
+  mockRequireEditableTarget: vi.fn(),
+}));
+
+vi.mock('@/lib/orchestration/knowledge/edit-lock', () => ({
+  requireEditableTarget: mockRequireEditableTarget,
+}));
+
 // ─── Imports ────────────────────────────────────────────────────────────────
 
 import { StripMatchesCapability } from '@/lib/orchestration/capabilities/built-in/document-cleanup/strip-matches';
@@ -59,6 +67,7 @@ describe('StripMatchesCapability', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    mockRequireEditableTarget.mockResolvedValue({ ok: true });
     capability = new StripMatchesCapability();
     // Real summariseMutation logic for accurate assertions
     mockSummariseMutation.mockImplementation((before: string, after: string) => ({

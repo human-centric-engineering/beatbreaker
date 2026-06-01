@@ -31,6 +31,14 @@ vi.mock('@/lib/orchestration/capabilities/built-in/document-cleanup/context', ()
   summariseMutation: mockSummariseMutation,
 }));
 
+const { mockRequireEditableTarget } = vi.hoisted(() => ({
+  mockRequireEditableTarget: vi.fn(),
+}));
+
+vi.mock('@/lib/orchestration/knowledge/edit-lock', () => ({
+  requireEditableTarget: mockRequireEditableTarget,
+}));
+
 const { mockGetDocumentSizeReport } = vi.hoisted(() => ({
   mockGetDocumentSizeReport: vi.fn(),
 }));
@@ -135,6 +143,7 @@ describe('RewriteWithLlmCapability', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    mockRequireEditableTarget.mockResolvedValue({ ok: true });
     capability = new RewriteWithLlmCapability();
 
     // Default: summariseMutation returns a real-shaped summary from actual inputs

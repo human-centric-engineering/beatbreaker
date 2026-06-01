@@ -1407,7 +1407,7 @@ export interface DocumentTagRef {
  */
 export type KnowledgeDocumentListItem = Omit<
   AiKnowledgeDocument,
-  'originalContent' | 'processedContent'
+  'originalContent' | 'processedContent' | 'editLockHolder' | 'editLockAcquiredAt'
 > & {
   tags?: DocumentTagRef[];
   /**

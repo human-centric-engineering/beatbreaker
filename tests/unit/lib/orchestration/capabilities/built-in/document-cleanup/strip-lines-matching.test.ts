@@ -26,6 +26,14 @@ vi.mock('@/lib/orchestration/capabilities/built-in/document-cleanup/context', ()
   summariseMutation: mockSummariseMutation,
 }));
 
+const { mockRequireEditableTarget } = vi.hoisted(() => ({
+  mockRequireEditableTarget: vi.fn(),
+}));
+
+vi.mock('@/lib/orchestration/knowledge/edit-lock', () => ({
+  requireEditableTarget: mockRequireEditableTarget,
+}));
+
 // ─── Imports ────────────────────────────────────────────────────────────────
 
 import { StripLinesMatchingCapability } from '@/lib/orchestration/capabilities/built-in/document-cleanup/strip-lines-matching';
@@ -59,6 +67,7 @@ describe('StripLinesMatchingCapability', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    mockRequireEditableTarget.mockResolvedValue({ ok: true });
     capability = new StripLinesMatchingCapability();
     // Default: summariseMutation returns a realistic shape so we can assert on it
     mockSummariseMutation.mockImplementation((before: string, after: string) => ({
@@ -85,6 +94,21 @@ describe('StripLinesMatchingCapability', () => {
     // Assert: capability surfaces the correct error code — not a generic failure
     expect(result.success).toBe(false);
     expect(result.error?.code).toBe('not_cleanup_session');
+    expect(mockWriteCleanupContent).not.toHaveBeenCalled();
+  });
+
+  it('returns target_locked when the edit lock is held by another admin', async () => {
+    mockResolveCleanupTarget.mockResolvedValue({
+      documentId: DOCUMENT_ID,
+      content: 'a\nb',
+      originalContent: 'a\nb',
+    });
+    mockRequireEditableTarget.mockResolvedValueOnce({ ok: false, heldBy: 'other-admin' });
+
+    const result = await capability.execute({ regex: 'foo' }, makeContext());
+
+    expect(result.success).toBe(false);
+    expect(result.error?.code).toBe('target_locked');
     expect(mockWriteCleanupContent).not.toHaveBeenCalled();
   });
 

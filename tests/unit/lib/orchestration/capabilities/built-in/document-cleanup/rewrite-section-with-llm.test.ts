@@ -37,6 +37,14 @@ vi.mock('@/lib/orchestration/capabilities/built-in/document-cleanup/context', ()
   summariseMutation: mockSummariseMutation,
 }));
 
+const { mockRequireEditableTarget } = vi.hoisted(() => ({
+  mockRequireEditableTarget: vi.fn(),
+}));
+
+vi.mock('@/lib/orchestration/knowledge/edit-lock', () => ({
+  requireEditableTarget: mockRequireEditableTarget,
+}));
+
 vi.mock('@/lib/db/client', () => ({
   prisma: {
     aiAgent: {
@@ -129,6 +137,7 @@ describe('RewriteSectionWithLlmCapability', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    mockRequireEditableTarget.mockResolvedValue({ ok: true });
     capability = new RewriteSectionWithLlmCapability();
 
     // Default: summariseMutation returns real-shaped output so assertions stay meaningful
