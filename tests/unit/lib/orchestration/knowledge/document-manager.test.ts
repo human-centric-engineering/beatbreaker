@@ -60,6 +60,8 @@ vi.mock('@/lib/db/client', () => ({
     aiKnowledgeDocumentRevision: {
       findFirst: vi.fn().mockResolvedValue(null),
       create: vi.fn().mockResolvedValue({}),
+      findMany: vi.fn().mockResolvedValue([]),
+      deleteMany: vi.fn().mockResolvedValue({ count: 0 }),
     },
     aiConversation: {
       create: vi.fn(),
@@ -2063,6 +2065,12 @@ describe('commitCleanupAndChunk', () => {
 
   beforeEach(() => {
     vi.resetAllMocks();
+    // writeRevision now prunes via findMany/deleteMany — reset wipes the
+    // default impls set in the top-level mock, so re-arm them here.
+    vi.mocked(prisma.aiKnowledgeDocumentRevision.findMany).mockResolvedValue([]);
+    vi.mocked(prisma.aiKnowledgeDocumentRevision.deleteMany).mockResolvedValue({
+      count: 0,
+    });
   });
 
   it('throws when the document is not in cleaning status or not owned by the calling user', async () => {
