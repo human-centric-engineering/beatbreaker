@@ -26,6 +26,8 @@ vi.mock('@/lib/db/client', () => ({
     aiKnowledgeDocumentRevision: {
       findFirst: vi.fn(),
       create: vi.fn(),
+      findMany: vi.fn().mockResolvedValue([]),
+      deleteMany: vi.fn().mockResolvedValue({ count: 0 }),
     },
   },
 }));

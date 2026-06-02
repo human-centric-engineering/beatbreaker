@@ -9,18 +9,25 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render } from '@testing-library/react';
 
 // vi.hoisted so the spies are available inside vi.mock factories.
-const { mockNotFound, mockRedirect, mockServerFetch, mockParseApiResponse, mockCleanupView } =
-  vi.hoisted(() => ({
-    mockNotFound: vi.fn(() => {
-      throw new Error('NEXT_NOT_FOUND');
-    }),
-    mockRedirect: vi.fn((url: string) => {
-      throw new Error(`NEXT_REDIRECT:${url}`);
-    }),
-    mockServerFetch: vi.fn(),
-    mockParseApiResponse: vi.fn(),
-    mockCleanupView: vi.fn(() => null as unknown as React.ReactElement),
-  }));
+const {
+  mockNotFound,
+  mockRedirect,
+  mockServerFetch,
+  mockParseApiResponse,
+  mockCleanupView,
+  mockResolveCleanupAgentContextWindow,
+} = vi.hoisted(() => ({
+  mockNotFound: vi.fn(() => {
+    throw new Error('NEXT_NOT_FOUND');
+  }),
+  mockRedirect: vi.fn((url: string) => {
+    throw new Error(`NEXT_REDIRECT:${url}`);
+  }),
+  mockServerFetch: vi.fn(),
+  mockParseApiResponse: vi.fn(),
+  mockCleanupView: vi.fn(() => null as unknown as React.ReactElement),
+  mockResolveCleanupAgentContextWindow: vi.fn().mockResolvedValue(128_000),
+}));
 
 vi.mock('next/navigation', () => ({
   notFound: mockNotFound,
@@ -38,6 +45,10 @@ vi.mock('@/lib/logging', () => ({
 
 vi.mock('@/components/admin/orchestration/knowledge/cleanup-view', () => ({
   CleanupView: mockCleanupView,
+}));
+
+vi.mock('@/lib/orchestration/knowledge/cleanup-agent', () => ({
+  resolveCleanupAgentContextWindow: mockResolveCleanupAgentContextWindow,
 }));
 
 vi.mock('next/link', () => ({
