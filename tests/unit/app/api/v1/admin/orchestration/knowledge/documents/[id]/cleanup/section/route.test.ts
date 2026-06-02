@@ -89,6 +89,29 @@ describe('POST /cleanup/section', () => {
     mockWriteCleanupContent.mockResolvedValue(undefined);
   });
 
+  describe('document id validation', () => {
+    it('400 on invalid document CUID — cuidSchema rejects the id before any DB call', async () => {
+      const r = await POST(
+        req({ sectionMarker: 'Intro', content: 'x', expectedFingerprint: INTRO_FP }),
+        params('not-a-cuid')
+      );
+      expect(r.status).toBe(400);
+      // Confirm the DB was not called — the route must short-circuit on id validation
+      expect(mockFindFirst).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('document not found', () => {
+    it('400 when doc is not found, not owned by caller, or not in cleaning status', async () => {
+      mockFindFirst.mockResolvedValue(null);
+      const r = await POST(
+        req({ sectionMarker: 'Intro', content: 'x', expectedFingerprint: INTRO_FP }),
+        params(DOC_ID)
+      );
+      expect(r.status).toBe(400);
+    });
+  });
+
   describe('auth + validation', () => {
     it('401 unauthenticated', async () => {
       vi.mocked(auth.api.getSession).mockResolvedValue(mockUnauthenticatedUser());

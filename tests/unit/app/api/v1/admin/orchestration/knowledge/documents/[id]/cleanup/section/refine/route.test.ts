@@ -280,6 +280,78 @@ describe('POST /cleanup/section/refine', () => {
     });
   });
 
+  describe('section without a leading markdown heading', () => {
+    it('uses (section: <marker>) as the SECTION HEADING label when the section body has no leading # heading', async () => {
+      // Arrange: doc whose sections have no markdown heading lines — detectSections
+      // falls back to paragraph-run detection, producing sections with plain body text.
+      // We use a multi-paragraph doc (≥2 paragraph breaks) so the fallback produces ≥2 sections.
+      // The section body will NOT match LEADING_HEADING, so headingForPrompt must
+      // fall back to `(section: <marker>)`, and newSectionBody must be `${rewritten}${trailing}`
+      // (no headingLine prefix) — covering the L108/L109/L142/L143 no-heading branches.
+      const plainDoc =
+        'First paragraph without any heading.\n\nSecond paragraph also without heading.\n\nThird paragraph plain.';
+      mockFindFirstDoc.mockResolvedValue({
+        processedContent: plainDoc,
+        originalContent: null,
+      });
+
+      // Use the real detectSections to find the actual marker for the first section.
+      const { detectSections } = await import('@/lib/orchestration/knowledge/section-detection');
+      const sections = detectSections(plainDoc);
+      expect(sections.length).toBeGreaterThan(0);
+      const firstSection = sections[0];
+
+      const r = await POST(
+        req({ sectionMarker: firstSection.marker, instructions: 'clean it' }),
+        params(DOC_ID)
+      );
+
+      expect(r.status).toBe(200);
+
+      // The user message sent to LLM must use `(section: <marker>)` as the heading label,
+      // NOT a markdown heading line — exercises the `headingLine ?? \`(section: ...)\`` branch.
+      const chatCall = mockProviderChat.mock.calls[0];
+      const userMessage = chatCall[0].find((m: { role: string }) => m.role === 'user') as
+        | { role: string; content: string }
+        | undefined;
+      expect(userMessage?.content).toContain(`(section: ${firstSection.marker})`);
+      // The SECTION BODY must equal the full first-section body (no heading stripped).
+      expect(userMessage?.content).toContain(`SECTION BODY:\n${firstSection.body}`);
+
+      // afterContent in the pending change must contain the LLM output directly
+      // (no headingLine prefix) — covering the `headingLine ? ... : ...` cond-expr at L142/L143.
+      const pendingData = mockCreatePending.mock.calls[0][0].data as { afterContent: string };
+      expect(pendingData.afterContent).toContain(LLM_REWRITTEN_BODY);
+    });
+  });
+
+  describe('deltaPct with empty current content', () => {
+    it('returns deltaPct=0 when processedContent and originalContent are both absent (null/null)', async () => {
+      // detectSections('') always returns at least one section (the '(empty)' fallback).
+      // This means we can feed processedContent=null, originalContent=null to the route,
+      // currentContent becomes '', detectSections finds the '(empty)' section with id we can look up,
+      // and the deltaPct guard `currentContent.length === 0 ? 0 : ...` must fire → deltaPct=0.
+      const { detectSections } = await import('@/lib/orchestration/knowledge/section-detection');
+      const emptySections = detectSections('');
+      // The paragraph-run fallback always produces at least one section for empty input.
+      expect(emptySections.length).toBeGreaterThan(0);
+      const emptyMarker = emptySections[0].marker;
+
+      mockFindFirstDoc.mockResolvedValue({ processedContent: null, originalContent: null });
+
+      const r = await POST(
+        req({ sectionMarker: emptyMarker, instructions: 'clean it' }),
+        params(DOC_ID)
+      );
+
+      expect(r.status).toBe(200);
+      const body = await r.json();
+      // currentContent = '' → length === 0 → deltaPct must be 0 (guards against division-by-zero)
+      expect(body.data.summary.deltaPct).toBe(0);
+      expect(body.data.summary.charsBefore).toBe(0);
+    });
+  });
+
   describe('happy path', () => {
     it('sends SECTION HEADING and SECTION BODY as separate prompt parts; body must not contain the heading line', async () => {
       await POST(req({ sectionMarker: 'Intro', instructions: 'make it concise' }), params(DOC_ID));

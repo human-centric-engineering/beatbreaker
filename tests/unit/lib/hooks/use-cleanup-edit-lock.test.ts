@@ -352,4 +352,104 @@ describe('useCleanupEditLock', () => {
 
     expect(fetchMock.mock.calls.length).toBe(callsAtUnmount);
   });
+
+  // ── Edge-case branches (Cover the defensive fallbacks) ───────────────────────
+
+  it('acquire success without heldBy/acquiredAt in response uses fallback defaults', async () => {
+    const fetchMock = vi.fn().mockImplementation((_url: string, opts?: RequestInit) => {
+      if (opts?.method === 'POST') {
+        // POST response omits the optional fields → exercises `?? currentUserId`
+        // and `?? null` on lines 83/84 of the hook.
+        return Promise.resolve({
+          ok: true,
+          status: 200,
+          json: () => Promise.resolve({ success: true, data: { acquired: true, ttlMs: 300000 } }),
+        });
+      }
+      return Promise.resolve({
+        ok: true,
+        status: 200,
+        json: () =>
+          Promise.resolve({
+            success: true,
+            data: { heldBy: null, acquiredAt: null, active: false, ttlMs: 300000 },
+          }),
+      });
+    });
+    globalThis.fetch = fetchMock;
+
+    const { result } = renderHook(() => useCleanupEditLock(DOC_ID, USER_ID));
+    await waitFor(() => expect(result.current.state).not.toBeNull());
+
+    let acquired: boolean | undefined;
+    await act(async () => {
+      acquired = await result.current.acquire();
+    });
+    expect(acquired).toBe(true);
+    // Falls back to currentUserId because heldBy was undefined in the response.
+    expect(result.current.state?.heldBy).toBe(USER_ID);
+    expect(result.current.state?.acquiredAt).toBeNull();
+  });
+
+  it('acquire 423 without error.details surfaces the "another admin" fallback message', async () => {
+    const fetchMock = vi.fn().mockImplementation((_url: string, opts?: RequestInit) => {
+      if (opts?.method === 'POST') {
+        // 423 response with no details.heldBy → exercises the `?? 'another admin'`
+        // fallback on line 90.
+        return Promise.resolve({
+          ok: false,
+          status: 423,
+          json: () => Promise.resolve({ success: false, error: { message: 'Locked' } }),
+        });
+      }
+      return Promise.resolve({
+        ok: true,
+        status: 200,
+        json: () =>
+          Promise.resolve({
+            success: true,
+            data: { heldBy: null, acquiredAt: null, active: false, ttlMs: 300000 },
+          }),
+      });
+    });
+    globalThis.fetch = fetchMock;
+
+    const { result } = renderHook(() => useCleanupEditLock(DOC_ID, USER_ID));
+    await waitFor(() => expect(result.current.state).not.toBeNull());
+
+    await act(async () => {
+      await result.current.acquire();
+    });
+    expect(result.current.error).toBe('Edit lock is held by another admin.');
+  });
+
+  it('acquire catch branch surfaces a generic message when fetch rejects with a non-Error', async () => {
+    const fetchMock = vi.fn().mockImplementation((_url: string, opts?: RequestInit) => {
+      if (opts?.method === 'POST') {
+        // Reject with a plain string (not an Error) — covers the
+        // `err instanceof Error ? err.message : 'Failed to acquire lock'`
+        // false branch on line 95.
+        // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
+        return Promise.reject('boom');
+      }
+      return Promise.resolve({
+        ok: true,
+        status: 200,
+        json: () =>
+          Promise.resolve({
+            success: true,
+            data: { heldBy: null, acquiredAt: null, active: false, ttlMs: 300000 },
+          }),
+      });
+    });
+    globalThis.fetch = fetchMock;
+
+    const { result } = renderHook(() => useCleanupEditLock(DOC_ID, USER_ID));
+    await waitFor(() => expect(result.current.state).not.toBeNull());
+
+    await act(async () => {
+      await result.current.acquire();
+    });
+    expect(result.current.error).toBe('Failed to acquire lock');
+  });
 });

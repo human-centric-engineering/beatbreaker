@@ -296,4 +296,163 @@ describe('PendingChangeModal', () => {
     expect(onResolved).not.toHaveBeenCalled();
     expect(onClose).not.toHaveBeenCalled();
   });
+
+  // ── Accept: fallback when error body has no message ───────────────────────────
+
+  it('shows "Accept failed (500)" when accept returns 500 with no error.message', async () => {
+    // Exercises the `body?.error?.message ?? \`Accept failed (${res.status})\`` fallback.
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 500,
+      json: () => Promise.resolve({ success: false }),
+    });
+
+    render(<PendingChangeModal {...BASE_PROPS} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Accept/i })).not.toBeDisabled();
+    });
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: /Accept/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Accept failed (500)')).toBeInTheDocument();
+    });
+  });
+
+  // ── Accept: non-Error thrown by fetch ─────────────────────────────────────────
+
+  it('shows "Accept failed" when accept fetch rejects with a non-Error value', async () => {
+    // Exercises the `err instanceof Error ? err.message : 'Accept failed'` branch.
+    globalThis.fetch = vi.fn().mockRejectedValue('plain string — not an Error');
+
+    render(<PendingChangeModal {...BASE_PROPS} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Accept/i })).not.toBeDisabled();
+    });
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: /Accept/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Accept failed')).toBeInTheDocument();
+    });
+  });
+
+  // ── Reject: fallback when error body has no message ───────────────────────────
+
+  it('shows "Reject failed (422)" when reject returns 422 with no error.message', async () => {
+    // Exercises the `body?.error?.message ?? \`Reject failed (${res.status})\`` fallback.
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 422,
+      json: () => Promise.resolve({ success: false }),
+    });
+
+    render(<PendingChangeModal {...BASE_PROPS} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Reject/i })).not.toBeDisabled();
+    });
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: /Reject/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Reject failed (422)')).toBeInTheDocument();
+    });
+  });
+
+  // ── Reject: non-Error thrown by fetch ─────────────────────────────────────────
+
+  it('shows "Reject failed" when reject fetch rejects with a non-Error value', async () => {
+    // Exercises the `err instanceof Error ? err.message : 'Reject failed'` branch.
+    globalThis.fetch = vi.fn().mockRejectedValue('plain string — not an Error');
+
+    render(<PendingChangeModal {...BASE_PROPS} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Reject/i })).not.toBeDisabled();
+    });
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: /Reject/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Reject failed')).toBeInTheDocument();
+    });
+  });
+
+  // ── Error body JSON parse failure ──────────────────────────────────────────
+
+  it('falls back to "Accept failed (status)" when the error response body fails to parse as JSON', async () => {
+    // Exercises the `.catch(() => null)` arrow on `res.json()` in the accept
+    // handler — fires when the server returned a non-OK status AND the body
+    // is malformed JSON.
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 502,
+      // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
+      json: () => Promise.reject('not json'),
+    });
+
+    render(<PendingChangeModal {...BASE_PROPS} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Accept/i })).not.toBeDisabled();
+    });
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: /Accept/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Accept failed (502)')).toBeInTheDocument();
+    });
+  });
+
+  it('falls back to "Reject failed (status)" when the error response body fails to parse as JSON', async () => {
+    // Exercises the `.catch(() => null)` arrow on `res.json()` in the reject handler.
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 502,
+      // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
+      json: () => Promise.reject('not json'),
+    });
+
+    render(<PendingChangeModal {...BASE_PROPS} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Reject/i })).not.toBeDisabled();
+    });
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: /Reject/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Reject failed (502)')).toBeInTheDocument();
+    });
+  });
+
+  // ── Dialog dismissal via ESC / overlay ────────────────────────────────────
+
+  it('calls onClose when the Dialog is dismissed (ESC key)', async () => {
+    // Exercises the `onOpenChange={(next) => (next ? null : onClose())}` prop.
+    // The Dialog primitive fires onOpenChange(false) when the user presses ESC
+    // or clicks the overlay; the inline arrow must route that to onClose().
+    const onClose = vi.fn();
+    render(<PendingChangeModal {...BASE_PROPS} onClose={onClose} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Accept/i })).not.toBeDisabled();
+    });
+
+    const user = userEvent.setup();
+    await user.keyboard('{Escape}');
+
+    await waitFor(() => {
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+  });
 });

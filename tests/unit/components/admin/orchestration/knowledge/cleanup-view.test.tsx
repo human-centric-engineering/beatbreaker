@@ -26,14 +26,33 @@ import { CleanupView } from '@/components/admin/orchestration/knowledge/cleanup-
 
 // ─── Mocks ────────────────────────────────────────────────────────────────────
 
-// vi.hoisted ensures mockPush is available inside the vi.mock factory because
+// vi.hoisted ensures refs are available inside the vi.mock factory because
 // vi.mock calls are hoisted to module scope at transform time.
-const { mockPush } = vi.hoisted(() => ({
+const { mockPush, mockLockRelease, mockLockAcquire } = vi.hoisted(() => ({
   mockPush: vi.fn(),
+  mockLockRelease: vi.fn().mockResolvedValue(undefined),
+  mockLockAcquire: vi.fn().mockResolvedValue(true),
 }));
 
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: mockPush }),
+}));
+
+// Default lock state: no one holds the lock (heldByMe=false, heldByOther=false).
+// Individual tests that need different lock state override this mock via
+// vi.mocked(useCleanupEditLock).mockReturnValue({ ... }).
+let mockLockState = {
+  state: null as CleanupLockState | null,
+  heldByMe: false,
+  heldByOther: false,
+  error: null as string | null,
+  acquire: mockLockAcquire,
+  release: mockLockRelease,
+  refresh: vi.fn().mockResolvedValue(undefined),
+};
+
+vi.mock('@/lib/hooks/use-cleanup-edit-lock', () => ({
+  useCleanupEditLock: vi.fn(() => mockLockState),
 }));
 
 // Capture the callback props so tests can fire them manually.
@@ -41,6 +60,8 @@ vi.mock('next/navigation', () => ({
 // closure update the value the test body reads.
 let capturedOnStreamComplete: (() => void) | undefined;
 let capturedOnCapabilityResult: (() => void) | undefined;
+// Full-arity version so tests can pass any slug + result to onCapabilityResult.
+let capturedOnCapabilityResultFull: ((slug: string, result: unknown) => void) | undefined;
 
 vi.mock('@/components/admin/orchestration/chat/chat-interface', () => ({
   ChatInterface: (props: {
@@ -50,6 +71,7 @@ vi.mock('@/components/admin/orchestration/chat/chat-interface', () => ({
   }) => {
     // Capture callbacks on every render so the latest closure is available.
     capturedOnStreamComplete = props.onStreamComplete;
+    capturedOnCapabilityResultFull = props.onCapabilityResult;
     // Adapt the signature: the plan specifies onCapabilityResult fires with no args from
     // the test side; we wrap the real prop (which takes slug + result) to satisfy the
     // component's signature while exposing a zero-arg call from the test.
@@ -73,9 +95,66 @@ vi.mock('@/lib/api/client', () => ({
   },
 }));
 
+// EditableSection / RevisionDrawer / PendingChangeModal are mocked so tests
+// can fire the inline callback props passed by CleanupView (onSaved,
+// onPendingChange, onRestored, onClose, onResolved). The real components are
+// exercised by their own test files; here we only verify CleanupView's wiring.
+let capturedEditableSectionProps: {
+  onSaved?: () => void;
+  onPendingChange?: (id: string) => void;
+}[] = [];
+let capturedRevisionDrawerProps: {
+  open?: boolean;
+  onOpenChange?: (next: boolean) => void;
+  onRestored?: () => void;
+} | null = null;
+let capturedPendingChangeModalProps: {
+  changeId?: string | null;
+  onClose?: () => void;
+  onResolved?: () => void;
+} | null = null;
+
+vi.mock('@/components/admin/orchestration/knowledge/editable-section', () => ({
+  EditableSection: (props: {
+    section: { body: string };
+    onSaved?: () => void;
+    onPendingChange?: (id: string) => void;
+  }) => {
+    capturedEditableSectionProps.push({
+      onSaved: props.onSaved,
+      onPendingChange: props.onPendingChange,
+    });
+    // Render the section body so existing content-presence assertions still work.
+    return <div data-testid="editable-section">{props.section.body}</div>;
+  },
+}));
+
+vi.mock('@/components/admin/orchestration/knowledge/revision-drawer', () => ({
+  RevisionDrawer: (props: {
+    open: boolean;
+    onOpenChange: (next: boolean) => void;
+    onRestored: () => void;
+  }) => {
+    capturedRevisionDrawerProps = props;
+    return props.open ? <div data-testid="revision-drawer-open" /> : null;
+  },
+}));
+
+vi.mock('@/components/admin/orchestration/knowledge/pending-change-modal', () => ({
+  PendingChangeModal: (props: {
+    changeId: string | null;
+    onClose: () => void;
+    onResolved: () => void;
+  }) => {
+    capturedPendingChangeModalProps = props;
+    return props.changeId ? <div data-testid="pending-change-modal-open" /> : null;
+  },
+}));
+
 // ─── Import mocked modules (after vi.mock declarations) ───────────────────────
 
 import { apiClient } from '@/lib/api/client';
+import { useCleanupEditLock, type CleanupLockState } from '@/lib/hooks/use-cleanup-edit-lock';
 
 // ─── Fixtures ─────────────────────────────────────────────────────────────────
 
@@ -131,12 +210,30 @@ describe('CleanupView', () => {
     vi.clearAllMocks();
     capturedOnStreamComplete = undefined;
     capturedOnCapabilityResult = undefined;
+    capturedOnCapabilityResultFull = undefined;
+    capturedEditableSectionProps = [];
+    capturedRevisionDrawerProps = null;
+    capturedPendingChangeModalProps = null;
 
     // Default: all fetches succeed with an empty JSON body
     globalThis.fetch = vi.fn().mockImplementation(() => makeFetchSuccess({}));
 
     // Default: apiClient.get returns the base doc shape
     vi.mocked(apiClient.get).mockResolvedValue(makeDocResponse());
+
+    // Reset lock state to the default (no one holds the lock) before each test.
+    mockLockRelease.mockResolvedValue(undefined);
+    mockLockAcquire.mockResolvedValue(true);
+    mockLockState = {
+      state: null,
+      heldByMe: false,
+      heldByOther: false,
+      error: null,
+      acquire: mockLockAcquire,
+      release: mockLockRelease,
+      refresh: vi.fn().mockResolvedValue(undefined),
+    };
+    vi.mocked(useCleanupEditLock).mockReturnValue(mockLockState);
   });
 
   afterEach(() => {
@@ -550,5 +647,227 @@ describe('CleanupView', () => {
       expect(screen.getByText('Action failed')).toBeInTheDocument();
     });
     expect(mockPush).not.toHaveBeenCalled();
+  });
+
+  // ── Lock state branches ───────────────────────────────────────────────────────
+
+  it('renders the "being edited by another admin" lock banner when heldByOther=true', () => {
+    // Override the lock hook to return heldByOther=true.
+    vi.mocked(useCleanupEditLock).mockReturnValue({
+      ...mockLockState,
+      state: {
+        heldBy: 'other-admin-id',
+        acquiredAt: '2026-01-01T00:00:00.000Z',
+        active: true,
+        ttlMs: 300_000,
+      } satisfies CleanupLockState,
+      heldByMe: false,
+      heldByOther: true,
+    });
+    render(<CleanupView {...BASE_PROPS} />);
+    // The banner must be visible — it tells the user who holds the lock.
+    expect(screen.getByText(/being edited by/i)).toBeInTheDocument();
+    // The action buttons must be disabled (finaliseDisabled = true when heldByOther).
+    expect(screen.getByRole('button', { name: /Mark cleaned/i })).toBeDisabled();
+  });
+
+  it('renders the "Paused: document is being edited" overlay when heldByMe=true', () => {
+    // When the local admin holds the lock (heldByMe=true), the chat section shows
+    // a blocking overlay so a capability call cannot race an in-progress save.
+    vi.mocked(useCleanupEditLock).mockReturnValue({
+      ...mockLockState,
+      state: {
+        heldBy: 'local-admin-id',
+        acquiredAt: '2026-01-01T00:00:00.000Z',
+        active: true,
+        ttlMs: 300_000,
+      } satisfies CleanupLockState,
+      heldByMe: true,
+      heldByOther: false,
+    });
+    render(<CleanupView {...BASE_PROPS} />);
+    expect(screen.getByText(/Paused: document is being edited/i)).toBeInTheDocument();
+  });
+
+  it('calls lock.release on unmount when heldByMe=true', async () => {
+    // The useEffect cleanup in CleanupView calls `if (lock.heldByMe) void lock.release()`.
+    // We need to confirm release fires when the component unmounts while heldByMe=true.
+    const release = vi.fn().mockResolvedValue(undefined);
+    vi.mocked(useCleanupEditLock).mockReturnValue({
+      ...mockLockState,
+      state: {
+        heldBy: 'local-admin-id',
+        acquiredAt: '2026-01-01T00:00:00.000Z',
+        active: true,
+        ttlMs: 300_000,
+      } satisfies CleanupLockState,
+      heldByMe: true,
+      heldByOther: false,
+      release,
+    });
+
+    const { unmount } = render(<CleanupView {...BASE_PROPS} />);
+
+    // The lock is held by me; unmounting should trigger the cleanup effect.
+    unmount();
+
+    // release() is called inside a void-wrapped async; wait for it.
+    await waitFor(() => {
+      expect(release).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it('does NOT call lock.release on unmount when heldByMe=false', () => {
+    const release = vi.fn().mockResolvedValue(undefined);
+    vi.mocked(useCleanupEditLock).mockReturnValue({
+      ...mockLockState,
+      heldByMe: false,
+      heldByOther: false,
+      release,
+    });
+
+    const { unmount } = render(<CleanupView {...BASE_PROPS} />);
+    unmount();
+
+    // heldByMe was false — release must NOT have been called.
+    expect(release).not.toHaveBeenCalled();
+  });
+
+  it('does NOT open the PendingChangeModal when onCapabilityResult fires with a non-rewrite slug', async () => {
+    // The CleanupView onCapabilityResult has an early return for slugs that are
+    // not 'rewrite_with_llm' or 'rewrite_section_with_llm' (L103 in the source).
+    // Firing with 'strip_timestamps' must NOT set pendingChangeId.
+    render(<CleanupView {...BASE_PROPS} />);
+
+    await act(async () => {
+      capturedOnCapabilityResultFull?.('strip_timestamps', {
+        data: { pendingChangeId: 'should-not-be-set' },
+      });
+    });
+
+    // changeId on the mocked PendingChangeModal must remain null.
+    expect(capturedPendingChangeModalProps?.changeId).toBeNull();
+  });
+
+  // ── History button + child-callback wiring ────────────────────────────────
+
+  it('opens the RevisionDrawer when the History button is clicked', async () => {
+    const user = userEvent.setup();
+    render(<CleanupView {...BASE_PROPS} />);
+
+    // Drawer starts closed.
+    expect(screen.queryByTestId('revision-drawer-open')).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /History/i }));
+
+    // The History onClick (L205) flips historyOpen → the mocked drawer renders.
+    expect(screen.getByTestId('revision-drawer-open')).toBeInTheDocument();
+  });
+
+  it('falls back to "Failed (status)" when finalise error body fails to parse as JSON', async () => {
+    // Exercises the `.catch(() => null)` arrow on `res.json()` (L144) — fires
+    // when the server returned non-OK AND the body is malformed JSON.
+    const user = userEvent.setup();
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 504,
+      // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
+      json: () => Promise.reject('not json'),
+    });
+    render(<CleanupView {...BASE_PROPS} />);
+
+    await user.click(screen.getByRole('button', { name: /Mark cleaned/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Failed (504)')).toBeInTheDocument();
+    });
+    expect(mockPush).not.toHaveBeenCalled();
+  });
+
+  it('refetches the doc when an EditableSection fires onSaved', async () => {
+    // L306: the `onSaved={() => void refetchDoc()}` arrow passed to every
+    // EditableSection. Firing it must trigger apiClient.get for the doc.
+    vi.mocked(apiClient.get).mockResolvedValue(makeDocResponse('After section save'));
+
+    render(<CleanupView {...BASE_PROPS} initialProcessedContent="initial" />);
+
+    // At least one EditableSection was rendered (initialProcessedContent is non-empty).
+    expect(capturedEditableSectionProps.length).toBeGreaterThan(0);
+
+    await act(async () => {
+      capturedEditableSectionProps[0].onSaved?.();
+    });
+
+    await waitFor(() => {
+      expect(vi.mocked(apiClient.get)).toHaveBeenCalledWith(expect.stringContaining(DOC_ID));
+    });
+  });
+
+  it('opens the PendingChangeModal when an EditableSection fires onPendingChange', async () => {
+    // L307: the `onPendingChange={(id) => setPendingChangeId(id)}` arrow.
+    render(<CleanupView {...BASE_PROPS} initialProcessedContent="initial" />);
+
+    expect(capturedEditableSectionProps.length).toBeGreaterThan(0);
+
+    await act(async () => {
+      capturedEditableSectionProps[0].onPendingChange?.('pending-change-id-42');
+    });
+
+    // The mocked modal now sees a non-null changeId and renders.
+    await waitFor(() => {
+      expect(capturedPendingChangeModalProps?.changeId).toBe('pending-change-id-42');
+      expect(screen.getByTestId('pending-change-modal-open')).toBeInTheDocument();
+    });
+  });
+
+  it('refetches the doc when the RevisionDrawer fires onRestored', async () => {
+    // L357: `onRestored={() => void refetchDoc()}` on RevisionDrawer.
+    vi.mocked(apiClient.get).mockResolvedValue(makeDocResponse('Restored content'));
+
+    render(<CleanupView {...BASE_PROPS} />);
+    expect(capturedRevisionDrawerProps).not.toBeNull();
+
+    await act(async () => {
+      capturedRevisionDrawerProps!.onRestored?.();
+    });
+
+    await waitFor(() => {
+      expect(vi.mocked(apiClient.get)).toHaveBeenCalledWith(expect.stringContaining(DOC_ID));
+    });
+  });
+
+  it('clears pendingChangeId when the PendingChangeModal fires onClose', async () => {
+    // L363: `onClose={() => setPendingChangeId(null)}` on PendingChangeModal.
+    // First open the modal via an EditableSection callback, then close it.
+    render(<CleanupView {...BASE_PROPS} initialProcessedContent="initial" />);
+
+    await act(async () => {
+      capturedEditableSectionProps[0].onPendingChange?.('change-77');
+    });
+    expect(capturedPendingChangeModalProps?.changeId).toBe('change-77');
+
+    await act(async () => {
+      capturedPendingChangeModalProps!.onClose?.();
+    });
+
+    await waitFor(() => {
+      expect(capturedPendingChangeModalProps?.changeId).toBeNull();
+    });
+  });
+
+  it('refetches the doc when the PendingChangeModal fires onResolved', async () => {
+    // L364: `onResolved={() => void refetchDoc()}` on PendingChangeModal.
+    vi.mocked(apiClient.get).mockResolvedValue(makeDocResponse('After accept'));
+
+    render(<CleanupView {...BASE_PROPS} />);
+    expect(capturedPendingChangeModalProps).not.toBeNull();
+
+    await act(async () => {
+      capturedPendingChangeModalProps!.onResolved?.();
+    });
+
+    await waitFor(() => {
+      expect(vi.mocked(apiClient.get)).toHaveBeenCalledWith(expect.stringContaining(DOC_ID));
+    });
   });
 });

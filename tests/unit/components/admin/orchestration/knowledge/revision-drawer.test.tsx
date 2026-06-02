@@ -279,6 +279,92 @@ describe('RevisionDrawer', () => {
     });
   });
 
+  // ── formatSource: restore source ─────────────────────────────────────────────
+
+  it('restore source renders as "You: restore"', async () => {
+    // Exercises the `if (source === 'restore') return 'You: restore'` branch at L46.
+    mockApiClientGet.mockResolvedValue(
+      makeRevisionListResponse([makeRevision({ version: 1, source: 'restore' })])
+    );
+
+    render(<RevisionDrawer {...BASE_PROPS} />);
+
+    await waitFor(() => {
+      expect(screen.getByText('You: restore')).toBeInTheDocument();
+    });
+  });
+
+  // ── formatSource: unknown source → pass-through ───────────────────────────────
+
+  it('unknown source string is rendered as-is (else fallback)', async () => {
+    // Exercises the `return source` else branch at L47 in formatSource.
+    // Any string that doesn't match the known prefixes/values passes through unchanged.
+    const unknownSource = 'unknown_source_type';
+    mockApiClientGet.mockResolvedValue(
+      makeRevisionListResponse([makeRevision({ version: 1, source: unknownSource })])
+    );
+
+    render(<RevisionDrawer {...BASE_PROPS} />);
+
+    await waitFor(() => {
+      expect(screen.getByText(unknownSource)).toBeInTheDocument();
+    });
+  });
+
+  // ── fetchRevisions error path ─────────────────────────────────────────────────
+
+  it('renders "Failed to load revisions" when apiClient.get rejects', async () => {
+    // Exercises the catch block at L71 with an Error instance.
+    mockApiClientGet.mockRejectedValue(new Error('Network timeout'));
+
+    render(<RevisionDrawer {...BASE_PROPS} open={true} />);
+
+    await waitFor(() => {
+      expect(screen.getByText('Network timeout')).toBeInTheDocument();
+    });
+  });
+
+  it('renders "Failed to load revisions" when apiClient.get rejects with a non-Error value', async () => {
+    // Exercises the `err instanceof Error ? err.message : 'Failed to load revisions'` fallback.
+    mockApiClientGet.mockRejectedValue('plain string rejection');
+
+    render(<RevisionDrawer {...BASE_PROPS} open={true} />);
+
+    await waitFor(() => {
+      expect(screen.getByText('Failed to load revisions')).toBeInTheDocument();
+    });
+  });
+
+  // ── Non-most-recent revision: preview deferred message ───────────────────────
+
+  it('selecting a non-most-recent revision shows the "deferred" preview message instead of TextDiffViewer', async () => {
+    // previewableVersions = { revisions[0].version } = the FIRST (most recent) version.
+    // Selecting the second revision (not in previewableVersions) renders the Phase-8 message.
+    const revisions = [
+      makeRevision({ version: 3, source: 'human_section' }),
+      makeRevision({ version: 2, source: 'human_full' }),
+    ];
+    mockApiClientGet.mockResolvedValue(makeRevisionListResponse(revisions));
+
+    render(<RevisionDrawer {...BASE_PROPS} />);
+
+    await waitFor(() => {
+      expect(screen.getByText('v2')).toBeInTheDocument();
+    });
+
+    const user = userEvent.setup();
+    // Click version 2 — NOT the most-recent (version 3)
+    await user.click(screen.getByRole('button', { name: /v2/i }));
+
+    await waitFor(() => {
+      // The Phase-8 deferred preview message renders for non-most-recent revisions.
+      expect(screen.getByText(/Side-by-side diff preview lands in Phase 8/i)).toBeInTheDocument();
+    });
+
+    // TextDiffViewer must NOT be rendered (the previewable-versions guard blocked it).
+    expect(screen.queryByTestId('text-diff')).not.toBeInTheDocument();
+  });
+
   // ── Restore: failure ──────────────────────────────────────────────────────────
 
   it('Restore failure (5xx) renders an error message; modal stays open (onOpenChange NOT called)', async () => {

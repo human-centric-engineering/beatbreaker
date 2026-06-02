@@ -471,6 +471,281 @@ describe('EditableSection', () => {
     });
   });
 
+  // ── Save: non-ok with no error.message ───────────────────────────────────────
+
+  it('shows "Save failed (500)" when save returns 500 with no error.message in the body', async () => {
+    // Exercises the `body?.error?.message ?? \`Save failed (${res.status})\`` fallback at L105.
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 500,
+      json: () => Promise.resolve({ success: false }),
+    });
+
+    render(<EditableSection {...BASE_PROPS} />);
+
+    const pencilButton = document.querySelector(
+      `[aria-label="Edit section ${SECTION_MARKER}"]`
+    ) as HTMLElement;
+    fireEvent.click(pencilButton);
+
+    await waitFor(() => {
+      expect(document.querySelector('textarea')).not.toBeNull();
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: /Save/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Save failed (500)')).toBeInTheDocument();
+    });
+  });
+
+  // ── Save: non-Error thrown by fetch ──────────────────────────────────────────
+
+  it('shows "Save failed" when fetch rejects with a non-Error value', async () => {
+    // Exercises the `err instanceof Error ? err.message : 'Save failed'` branch at L111.
+    globalThis.fetch = vi.fn().mockRejectedValue('plain string — not an Error');
+
+    render(<EditableSection {...BASE_PROPS} />);
+
+    const pencilButton = document.querySelector(
+      `[aria-label="Edit section ${SECTION_MARKER}"]`
+    ) as HTMLElement;
+    fireEvent.click(pencilButton);
+
+    await waitFor(() => {
+      expect(document.querySelector('textarea')).not.toBeNull();
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: /Save/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Save failed')).toBeInTheDocument();
+    });
+  });
+
+  // ── Refine: non-Error thrown by fetch ────────────────────────────────────────
+
+  it('shows "Refine failed" when refine fetch rejects with a non-Error value', async () => {
+    // Exercises the `err instanceof Error ? err.message : 'Refine failed'` branch in refineWithAgent.
+    globalThis.fetch = vi.fn().mockRejectedValue('boom — not an Error object');
+
+    render(<EditableSection {...BASE_PROPS} />);
+
+    const pencilButton = document.querySelector(
+      `[aria-label="Edit section ${SECTION_MARKER}"]`
+    ) as HTMLElement;
+    fireEvent.click(pencilButton);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Refine with agent/i })).toBeInTheDocument();
+    });
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: /Refine with agent/i }));
+
+    const instructionsInput = screen.getByPlaceholderText(/shorten to one paragraph/i);
+    await user.type(instructionsInput, 'Clean it up');
+
+    const refineButtons = screen.getAllByRole('button', { name: /^Refine$/i });
+    await user.click(refineButtons[refineButtons.length - 1]);
+
+    await waitFor(() => {
+      expect(screen.getByText('Refine failed')).toBeInTheDocument();
+    });
+  });
+
+  // ── Refine: response missing pendingChangeId ──────────────────────────────────
+
+  it('does NOT call onPendingChange when refine response has no data.pendingChangeId', async () => {
+    // Exercises the `if (body.data?.pendingChangeId)` guard at L157.
+    // When the response has no pendingChangeId, onPendingChange must not fire.
+    const onPendingChange = vi.fn();
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: () => Promise.resolve({ success: true, data: {} }), // no pendingChangeId
+    });
+
+    render(<EditableSection {...BASE_PROPS} onPendingChange={onPendingChange} />);
+
+    const pencilButton = document.querySelector(
+      `[aria-label="Edit section ${SECTION_MARKER}"]`
+    ) as HTMLElement;
+    fireEvent.click(pencilButton);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Refine with agent/i })).toBeInTheDocument();
+    });
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: /Refine with agent/i }));
+
+    const instructionsInput = screen.getByPlaceholderText(/shorten to one paragraph/i);
+    await user.type(instructionsInput, 'Shorten it');
+
+    const refineButtons = screen.getAllByRole('button', { name: /^Refine$/i });
+    await user.click(refineButtons[refineButtons.length - 1]);
+
+    await waitFor(() => {
+      // Prompt should close on success (refinePromptOpen → false)
+      expect(screen.queryByPlaceholderText(/shorten to one paragraph/i)).not.toBeInTheDocument();
+    });
+
+    // onPendingChange must NOT have been called because there was no pendingChangeId
+    expect(onPendingChange).not.toHaveBeenCalled();
+  });
+
+  // ── keepMine: re-saves with server fingerprint ───────────────────────────────
+
+  it('Keep mine re-saves the draft using the server fingerprint from the conflict', async () => {
+    const serverFingerprint = 'server-fp-abc123';
+    // First fetch returns 409 with a conflict
+    const fetchMock = vi.fn();
+    fetchMock
+      .mockResolvedValueOnce({
+        ok: false,
+        status: 409,
+        json: () =>
+          Promise.resolve({
+            success: false,
+            error: {
+              code: 'CONTENT_MISMATCH',
+              details: {
+                currentBody: ['server body'],
+                currentFingerprint: [serverFingerprint],
+              },
+            },
+          }),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: () => Promise.resolve({ success: true }),
+      });
+    globalThis.fetch = fetchMock;
+
+    const onSaved = vi.fn();
+    render(<EditableSection {...BASE_PROPS} onSaved={onSaved} />);
+
+    const pencilButton = document.querySelector(
+      `[aria-label="Edit section ${SECTION_MARKER}"]`
+    ) as HTMLElement;
+    fireEvent.click(pencilButton);
+
+    await waitFor(() => {
+      expect(document.querySelector('textarea')).not.toBeNull();
+    });
+
+    // Trigger first save → 409 conflict
+    fireEvent.click(screen.getByRole('button', { name: /Save/i }));
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Keep mine/i })).toBeInTheDocument();
+    });
+
+    // Click Keep mine → should re-save using the server fingerprint
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: /Keep mine/i }));
+
+    await waitFor(() => {
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+    });
+
+    // The second fetch must use the server's fingerprint (overrideFingerprint)
+    const secondCall = fetchMock.mock.calls[1];
+    const secondBody = JSON.parse(secondCall[1].body as string) as {
+      expectedFingerprint: string;
+    };
+    expect(secondBody.expectedFingerprint).toBe(serverFingerprint);
+
+    // After the second save succeeds, component exits edit mode and fires onSaved
+    await waitFor(() => {
+      expect(onSaved).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  // ── Refine: non-ok with error.message in the body ─────────────────────────────
+
+  it('shows the server error message when refine returns non-ok with error.message in the body', async () => {
+    // Exercises the `body?.error?.message ?? \`Refine failed (${res.status})\`` path at L154
+    // where the body DOES have an error.message.
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 422,
+      json: () =>
+        Promise.resolve({
+          success: false,
+          error: { message: 'Instructions too vague' },
+        }),
+    });
+
+    render(<EditableSection {...BASE_PROPS} />);
+
+    const pencilButton = document.querySelector(
+      `[aria-label="Edit section ${SECTION_MARKER}"]`
+    ) as HTMLElement;
+    fireEvent.click(pencilButton);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Refine with agent/i })).toBeInTheDocument();
+    });
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: /Refine with agent/i }));
+
+    const instructionsInput = screen.getByPlaceholderText(/shorten to one paragraph/i);
+    await user.type(instructionsInput, 'Clean it');
+
+    const refineButtons = screen.getAllByRole('button', { name: /^Refine$/i });
+    await user.click(refineButtons[refineButtons.length - 1]);
+
+    await waitFor(() => {
+      expect(screen.getByText('Instructions too vague')).toBeInTheDocument();
+    });
+  });
+
+  // ── Refine prompt Cancel button ───────────────────────────────────────────────
+
+  it('clicking Cancel inside the refine prompt panel closes the prompt without calling fetch', async () => {
+    // Exercises the onClick={() => setRefinePromptOpen(false)} handler at L253.
+    const fetchMock = vi.fn();
+    globalThis.fetch = fetchMock;
+
+    render(<EditableSection {...BASE_PROPS} />);
+
+    const pencilButton = document.querySelector(
+      `[aria-label="Edit section ${SECTION_MARKER}"]`
+    ) as HTMLElement;
+    fireEvent.click(pencilButton);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Refine with agent/i })).toBeInTheDocument();
+    });
+
+    const user = userEvent.setup();
+    // Open the refine prompt
+    await user.click(screen.getByRole('button', { name: /Refine with agent/i }));
+
+    // The instructions input should be visible
+    expect(screen.getByPlaceholderText(/shorten to one paragraph/i)).toBeInTheDocument();
+
+    // The refine panel renders: [instructions input] [Refine button] [Cancel button]
+    // The edit footer renders: [Refine with agent (disabled)] [Cancel] [Save]
+    // DOM order: panel Cancel comes BEFORE footer Cancel.
+    // We identify the panel's Cancel button as the FIRST Cancel button in the DOM.
+    const cancelButtons = screen.getAllByRole('button', { name: /^Cancel$/i });
+    // First Cancel is the refine-prompt Cancel (panel is rendered before the footer row).
+    await user.click(cancelButtons[0]);
+
+    // The instructions input should no longer be visible — refine prompt closed.
+    await waitFor(() => {
+      expect(screen.queryByPlaceholderText(/shorten to one paragraph/i)).not.toBeInTheDocument();
+    });
+
+    // No fetch should have been called (Refine was never submitted)
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
   // ── Live diff strip ───────────────────────────────────────────────────────────
 
   it('live diff strip shows +N chars when text is typed into the textarea', async () => {
