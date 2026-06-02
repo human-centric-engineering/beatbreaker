@@ -15,9 +15,9 @@ import {
 import { z } from 'zod';
 
 import { ChatInterface } from '@/components/admin/orchestration/chat/chat-interface';
-import { EditableSection } from '@/components/admin/orchestration/knowledge/editable-section';
 import { PendingChangeModal } from '@/components/admin/orchestration/knowledge/pending-change-modal';
 import { RevisionDrawer } from '@/components/admin/orchestration/knowledge/revision-drawer';
+import { SectionList } from '@/components/admin/orchestration/knowledge/section-list';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSession } from '@/lib/auth/client';
@@ -294,30 +294,29 @@ export function CleanupView({
               </TabsList>
             </div>
             <TabsContent value="cleaned" className="m-0">
-              <div className="max-h-[60vh] overflow-auto">
-                {lock.heldByOther ? (
-                  // Read-only fallback when another admin owns the lock — show
-                  // the doc but don't render editable sections (would surface
-                  // confusing 423s on every save).
+              {lock.heldByOther ? (
+                // Read-only fallback when another admin owns the lock — show
+                // the doc but don't render editable sections (would surface
+                // confusing 423s on every save).
+                <div className="max-h-[60vh] overflow-auto">
                   <pre className="p-3 text-xs whitespace-pre-wrap">
                     {processedContent || '(empty)'}
                   </pre>
-                ) : sections.length === 0 ? (
+                </div>
+              ) : sections.length === 0 ? (
+                <div className="max-h-[60vh] overflow-auto">
                   <pre className="p-3 text-xs whitespace-pre-wrap">(empty)</pre>
-                ) : (
-                  sections.map((section) => (
-                    <EditableSection
-                      key={section.id}
-                      documentId={documentId}
-                      section={section}
-                      contextWindow={contextWindow}
-                      acquireLock={lock.acquire}
-                      onSaved={() => void refetchDoc()}
-                      onPendingChange={(id) => setPendingChangeId(id)}
-                    />
-                  ))
-                )}
-              </div>
+                </div>
+              ) : (
+                <SectionList
+                  documentId={documentId}
+                  sections={sections}
+                  contextWindow={contextWindow}
+                  acquireLock={lock.acquire}
+                  onSaved={() => void refetchDoc()}
+                  onPendingChange={(id) => setPendingChangeId(id)}
+                />
+              )}
             </TabsContent>
             <TabsContent value="original" className="m-0">
               <pre className="text-muted-foreground max-h-[60vh] overflow-auto p-3 text-xs whitespace-pre-wrap">
