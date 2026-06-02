@@ -24,8 +24,10 @@ import { ValidationError } from '@/lib/api/errors';
 import { validateRequestBody } from '@/lib/api/validation';
 import { getRouteLogger } from '@/lib/api/context';
 import { logger } from '@/lib/logging';
+import { estimateTokens } from '@/lib/orchestration/chat/token-estimator';
 import { getEditLockState } from '@/lib/orchestration/knowledge/edit-lock';
 import { detectSections } from '@/lib/orchestration/knowledge/section-detection';
+import { getModel } from '@/lib/orchestration/llm/model-registry';
 import { getProvider } from '@/lib/orchestration/llm/provider-manager';
 import { cuidSchema } from '@/lib/validations/common';
 
@@ -37,6 +39,13 @@ const bodySchema = z.object({
 const SYSTEM_PROMPT = `You are a document cleanup assistant. You will be given ONE section of a document and instructions for how to clean it up. Apply the instructions faithfully and return ONLY the cleaned section — no preamble, no commentary, no markdown code fences. Do not add or restate the section heading; just return the cleaned body text.`;
 
 const LEADING_HEADING = /^(#{1,6}\s+.+?)\r?\n/;
+
+// Reserved for the model's response. The guard rejects requests where the
+// estimated prompt size would leave less than this for output.
+const RESPONSE_TOKEN_BUDGET = 4_096;
+// Fallback context window when the model isn't in the registry — modern
+// frontier minimum. Conservative: under-reports rather than over-promises.
+const FALLBACK_CONTEXT_WINDOW = 128_000;
 
 export const POST = withAdminAuth<{ id: string }>(async (request, session, { params }) => {
   const log = await getRouteLogger(request);
@@ -109,6 +118,29 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
   const bodyAfter = headingMatch ? section.body.slice(headingMatch[0].length) : section.body;
   const headingForPrompt = headingLine ?? `(section: ${section.marker})`;
 
+  // Pre-flight token check — refuse sections that wouldn't leave room for a
+  // response. Catches the case where a single section in a book-sized doc
+  // exceeds the model's context window.
+  const userMessage = `INSTRUCTIONS:\n${body.instructions}\n\n---\nSECTION HEADING:\n${headingForPrompt}\n\nSECTION BODY:\n${bodyAfter}`;
+  const promptTokens =
+    estimateTokens(SYSTEM_PROMPT, agent.model) + estimateTokens(userMessage, agent.model);
+  const modelInfo = getModel(agent.model);
+  const contextWindow = modelInfo?.maxContext ?? FALLBACK_CONTEXT_WINDOW;
+  if (promptTokens + RESPONSE_TOKEN_BUDGET > contextWindow) {
+    return errorResponse('Section is too large to refine with the current model', {
+      code: 'SECTION_TOO_LARGE',
+      status: 413,
+      details: {
+        promptTokens: [String(promptTokens)],
+        contextWindow: [String(contextWindow)],
+        responseBudget: [String(RESPONSE_TOKEN_BUDGET)],
+        suggestion: [
+          'Split this section into smaller pieces or use a model with a larger context window',
+        ],
+      },
+    });
+  }
+
   let provider;
   try {
     provider = await getProvider(agent.provider);
@@ -123,10 +155,7 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
   const response = await provider.chat(
     [
       { role: 'system', content: SYSTEM_PROMPT },
-      {
-        role: 'user',
-        content: `INSTRUCTIONS:\n${body.instructions}\n\n---\nSECTION HEADING:\n${headingForPrompt}\n\nSECTION BODY:\n${bodyAfter}`,
-      },
+      { role: 'user', content: userMessage },
     ],
     { model: agent.model, temperature: agent.temperature ?? 0.2 }
   );

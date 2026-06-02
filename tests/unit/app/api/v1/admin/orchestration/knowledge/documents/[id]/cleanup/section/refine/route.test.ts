@@ -10,6 +10,7 @@ const {
   mockCreatePending,
   mockProviderChat,
   mockGetProvider,
+  mockGetModel,
 } = vi.hoisted(() => {
   const mockProviderChat = vi.fn();
   const mockGetProvider = vi.fn();
@@ -21,6 +22,7 @@ const {
     mockCreatePending: vi.fn(),
     mockProviderChat,
     mockGetProvider,
+    mockGetModel: vi.fn(),
   };
 });
 
@@ -50,6 +52,10 @@ vi.mock('@/lib/orchestration/knowledge/edit-lock', async () => {
 
 vi.mock('@/lib/orchestration/llm/provider-manager', () => ({
   getProvider: mockGetProvider,
+}));
+
+vi.mock('@/lib/orchestration/llm/model-registry', () => ({
+  getModel: mockGetModel,
 }));
 
 vi.mock('@/lib/security/ip', () => ({ getClientIP: vi.fn(() => '127.0.0.1') }));
@@ -115,6 +121,9 @@ describe('POST /cleanup/section/refine', () => {
     });
     mockGetProvider.mockResolvedValue({ chat: mockProviderChat });
     mockCreatePending.mockResolvedValue({ id: PENDING_CHANGE_ID });
+    // Default: model registry returns a comfortably-large context window so
+    // the guard is a no-op. Tests that exercise the guard override this.
+    mockGetModel.mockReturnValue({ maxContext: 200_000 });
   });
 
   describe('auth boundary', () => {
@@ -248,6 +257,46 @@ describe('POST /cleanup/section/refine', () => {
       expect(r.status).toBe(404);
       const body = await r.json();
       expect(body.error.code).toBe('SECTION_NOT_FOUND');
+    });
+  });
+
+  describe('token budget guard', () => {
+    it('413 SECTION_TOO_LARGE when estimated prompt + response budget exceeds the model context window; LLM not called', async () => {
+      // Shrink the registry's context window to a value that any non-empty
+      // prompt will exceed once the 4096-token response budget is added.
+      mockGetModel.mockReturnValue({ maxContext: 1_000 });
+
+      const r = await POST(
+        req({ sectionMarker: 'Intro', instructions: 'clean it' }),
+        params(DOC_ID)
+      );
+
+      expect(r.status).toBe(413);
+      const body = await r.json();
+      expect(body.success).toBe(false);
+      expect(body.error.code).toBe('SECTION_TOO_LARGE');
+      expect(body.error.details).toMatchObject({
+        contextWindow: ['1000'],
+        responseBudget: ['4096'],
+      });
+      // LLM must not be invoked once the guard fires.
+      expect(mockProviderChat).not.toHaveBeenCalled();
+      // Pending change must not be written.
+      expect(mockCreatePending).not.toHaveBeenCalled();
+    });
+
+    it('falls back to a 128k context window when the model is not in the registry; small section still succeeds', async () => {
+      // getModel returns undefined for unknown ids — guard should use the
+      // 128k fallback, which trivially fits a short section.
+      mockGetModel.mockReturnValue(undefined);
+
+      const r = await POST(
+        req({ sectionMarker: 'Intro', instructions: 'clean it' }),
+        params(DOC_ID)
+      );
+
+      expect(r.status).toBe(200);
+      expect(mockProviderChat).toHaveBeenCalledTimes(1);
     });
   });
 
