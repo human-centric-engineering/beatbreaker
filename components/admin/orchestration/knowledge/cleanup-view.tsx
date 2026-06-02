@@ -35,6 +35,13 @@ interface CleanupViewProps {
   sizeClass: 'small' | 'medium' | 'large' | 'too-large';
   sizeTokens: number;
   llmRewriteAllowed: boolean;
+  /**
+   * Context window (in tokens) of the cleanup conversation's bound model.
+   * Used to warn the admin before they trigger a per-section refine that
+   * would exceed the model's budget. Falls back to a 128k default when the
+   * cleanup conversation hasn't been created yet.
+   */
+  contextWindow: number;
 }
 
 const docResponseSchema = z.object({
@@ -69,6 +76,7 @@ export function CleanupView({
   sizeClass,
   sizeTokens,
   llmRewriteAllowed,
+  contextWindow,
 }: CleanupViewProps) {
   const router = useRouter();
   const session = useSession();
@@ -302,6 +310,7 @@ export function CleanupView({
                       key={section.id}
                       documentId={documentId}
                       section={section}
+                      contextWindow={contextWindow}
                       acquireLock={lock.acquire}
                       onSaved={() => void refetchDoc()}
                       onPendingChange={(id) => setPendingChangeId(id)}

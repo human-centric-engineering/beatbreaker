@@ -11,12 +11,33 @@ import type { Section } from '@/lib/orchestration/knowledge/section-detection';
 interface EditableSectionProps {
   documentId: string;
   section: Section;
+  /**
+   * Context window (in tokens) of the cleanup conversation's bound model.
+   * Used to compute the section size badge and disable refine when the
+   * section would exceed budget. The server-side guard in
+   * /cleanup/section/refine remains the authoritative check.
+   */
+  contextWindow: number;
   /** Acquire the doc-level edit lock. Resolves true on success. */
   acquireLock: () => Promise<boolean>;
   /** Called when this section is saved successfully — host refetches the doc. */
   onSaved: () => void;
   /** Called when "Refine with agent" produces a pending change — host opens the diff modal. */
   onPendingChange: (pendingChangeId: string) => void;
+}
+
+// Mirrors RESPONSE_TOKEN_BUDGET in /cleanup/section/refine/route.ts. Kept as
+// a sibling constant so the UI's "would refine fit?" prediction matches the
+// server's gate.
+const RESPONSE_TOKEN_BUDGET = 4_096;
+// 4 chars/token is a coarse but stable approximation across English text.
+// The server uses a model-aware tokeniser; this client-side estimate is for
+// signalling only — the server stays authoritative.
+const CHARS_PER_TOKEN = 4;
+const SOFT_WARNING_RATIO = 0.8;
+
+function estimateSectionTokens(body: string): number {
+  return Math.ceil(body.length / CHARS_PER_TOKEN);
 }
 
 interface ConflictState {
@@ -31,6 +52,7 @@ interface ConflictState {
 export function EditableSection({
   documentId,
   section,
+  contextWindow,
   acquireLock,
   onSaved,
   onPendingChange,
@@ -170,17 +192,49 @@ export function EditableSection({
   const draftCharsDelta = draft.length - section.body.length;
   const draftLinesDelta = draft.split('\n').length - section.body.split('\n').length;
 
+  // Size-vs-context-window prediction. Driven by the live draft (in edit
+  // mode) or the saved body (in view mode). The ratio drives the badge tint
+  // and the refine-button gating.
+  const sizeSourceBody = editing ? draft : section.body;
+  const estimatedTokens = estimateSectionTokens(sizeSourceBody);
+  const refineBudgetTokens = estimatedTokens + RESPONSE_TOKEN_BUDGET;
+  const sizeRatio = contextWindow > 0 ? refineBudgetTokens / contextWindow : 0;
+  const sizeOverBudget = sizeRatio >= 1;
+  const sizeNearBudget = !sizeOverBudget && sizeRatio >= SOFT_WARNING_RATIO;
+  const sizeBadgeClass = sizeOverBudget
+    ? 'bg-red-100 text-red-900 dark:bg-red-900/30 dark:text-red-200'
+    : sizeNearBudget
+      ? 'bg-amber-100 text-amber-900 dark:bg-amber-900/30 dark:text-amber-200'
+      : 'bg-muted text-muted-foreground';
+  const refineDisabledReason = sizeOverBudget
+    ? `Section is too large for this model's context window (${estimatedTokens.toLocaleString()} tokens + 4k response budget exceeds ${contextWindow.toLocaleString()}). Split it or switch model.`
+    : null;
+
   if (!editing) {
     return (
       <div className="group relative border-b last:border-b-0">
-        <button
-          type="button"
-          aria-label={`Edit section ${section.marker}`}
-          onClick={() => void startEdit()}
-          className="text-muted-foreground hover:bg-muted hover:text-foreground absolute top-2 right-2 hidden rounded-md p-1 opacity-0 transition group-hover:flex group-hover:opacity-100"
-        >
-          <Pencil className="h-3.5 w-3.5" />
-        </button>
+        <div className="absolute top-2 right-2 flex items-center gap-1">
+          {sizeNearBudget || sizeOverBudget ? (
+            <span
+              className={`rounded-md px-1.5 py-0.5 text-[10px] font-medium ${sizeBadgeClass}`}
+              title={
+                sizeOverBudget
+                  ? (refineDisabledReason ?? '')
+                  : `Approaching model context window — ${Math.round(sizeRatio * 100)}% of ${contextWindow.toLocaleString()} tokens.`
+              }
+            >
+              ~{estimatedTokens.toLocaleString()} tok
+            </span>
+          ) : null}
+          <button
+            type="button"
+            aria-label={`Edit section ${section.marker}`}
+            onClick={() => void startEdit()}
+            className="text-muted-foreground hover:bg-muted hover:text-foreground hidden rounded-md p-1 opacity-0 transition group-hover:flex group-hover:opacity-100"
+          >
+            <Pencil className="h-3.5 w-3.5" />
+          </button>
+        </div>
         <pre className="overflow-auto p-3 text-xs whitespace-pre-wrap">{section.body}</pre>
       </div>
     );
@@ -263,25 +317,39 @@ export function EditableSection({
         </div>
       ) : null}
       <div className="flex items-center justify-between border-t px-3 py-2">
-        <span className="text-muted-foreground text-xs">
-          {draft.length.toLocaleString()} chars · {draft.split('\n').length} lines
-          {draftCharsDelta !== 0 ? (
-            <>
-              {' · '}
-              <span
-                className={
-                  draftCharsDelta < 0
-                    ? 'text-emerald-700 dark:text-emerald-300'
-                    : 'text-amber-700 dark:text-amber-300'
-                }
-              >
-                {draftCharsDelta > 0 ? '+' : ''}
-                {draftCharsDelta.toLocaleString()} chars
-                {draftLinesDelta !== 0
-                  ? `, ${draftLinesDelta > 0 ? '+' : ''}${draftLinesDelta} lines`
-                  : ''}
-              </span>
-            </>
+        <span className="text-muted-foreground flex items-center gap-2 text-xs">
+          <span>
+            {draft.length.toLocaleString()} chars · {draft.split('\n').length} lines
+            {draftCharsDelta !== 0 ? (
+              <>
+                {' · '}
+                <span
+                  className={
+                    draftCharsDelta < 0
+                      ? 'text-emerald-700 dark:text-emerald-300'
+                      : 'text-amber-700 dark:text-amber-300'
+                  }
+                >
+                  {draftCharsDelta > 0 ? '+' : ''}
+                  {draftCharsDelta.toLocaleString()} chars
+                  {draftLinesDelta !== 0
+                    ? `, ${draftLinesDelta > 0 ? '+' : ''}${draftLinesDelta} lines`
+                    : ''}
+                </span>
+              </>
+            ) : null}
+          </span>
+          {sizeNearBudget || sizeOverBudget ? (
+            <span
+              className={`rounded-md px-1.5 py-0.5 text-[10px] font-medium ${sizeBadgeClass}`}
+              title={
+                sizeOverBudget
+                  ? (refineDisabledReason ?? '')
+                  : `Approaching model context window — ${Math.round(sizeRatio * 100)}% of ${contextWindow.toLocaleString()} tokens.`
+              }
+            >
+              ~{estimatedTokens.toLocaleString()} tok
+            </span>
           ) : null}
         </span>
         <div className="flex gap-2">
@@ -289,7 +357,8 @@ export function EditableSection({
             size="sm"
             variant="ghost"
             onClick={() => setRefinePromptOpen(true)}
-            disabled={saving || refining || refinePromptOpen}
+            disabled={saving || refining || refinePromptOpen || sizeOverBudget}
+            title={refineDisabledReason ?? undefined}
           >
             <Sparkles className="mr-1 h-3 w-3" />
             Refine with agent

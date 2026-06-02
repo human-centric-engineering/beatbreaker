@@ -6,6 +6,7 @@ import { CleanupView } from '@/components/admin/orchestration/knowledge/cleanup-
 import { API } from '@/lib/api/endpoints';
 import { parseApiResponse, serverFetch } from '@/lib/api/server-fetch';
 import { logger } from '@/lib/logging';
+import { resolveCleanupAgentContextWindow } from '@/lib/orchestration/knowledge/cleanup-agent';
 import { parseDocumentMetadata } from '@/lib/orchestration/knowledge/document-manager';
 
 export const metadata: Metadata = {
@@ -50,6 +51,7 @@ export default async function CleanupPage({ params }: { params: Promise<{ id: st
   }
 
   const meta = parseDocumentMetadata(document.metadata);
+  const contextWindow = await resolveCleanupAgentContextWindow(document.id);
 
   // ChatInterface looks up (or creates) the cleanup conversation via
   // contextType='knowledge_document' + contextId={documentId} server-side,
@@ -78,6 +80,7 @@ export default async function CleanupPage({ params }: { params: Promise<{ id: st
         sizeClass={meta?.sizeClass ?? 'small'}
         sizeTokens={meta?.sizeTokens ?? 0}
         llmRewriteAllowed={meta?.llmRewriteAllowed ?? true}
+        contextWindow={contextWindow}
       />
     </div>
   );

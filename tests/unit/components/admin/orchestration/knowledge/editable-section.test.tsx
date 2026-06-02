@@ -48,6 +48,8 @@ function makeSection(overrides?: Partial<Section>): Section {
 const BASE_PROPS = {
   documentId: DOC_ID,
   section: makeSection(),
+  // Generous default so the existing tests don't trip the over-budget gate.
+  contextWindow: 200_000,
   acquireLock: vi.fn().mockResolvedValue(true),
   onSaved: vi.fn(),
   onPendingChange: vi.fn(),
@@ -772,6 +774,72 @@ describe('EditableSection', () => {
       expect(
         screen.getByText(new RegExp(`\\+${expectedDelta.toLocaleString()}\\s*chars`, 'i'))
       ).toBeInTheDocument();
+    });
+  });
+
+  // ── Size badge & refine gating ────────────────────────────────────────────────
+
+  describe('size-vs-context-window signalling', () => {
+    it('does not render the size badge in view mode when well under 80% of the context window', () => {
+      // SECTION_BODY = ~38 chars → ~10 tokens. With contextWindow=200k, the
+      // ratio is far below the 80% soft-warning threshold.
+      render(<EditableSection {...BASE_PROPS} />);
+      expect(screen.queryByText(/tok\b/i)).toBeNull();
+    });
+
+    it('renders an amber size badge in view mode when the section is in the 80–100% band', () => {
+      // 4 chars/token. To land at 90% of a 2000-token window, we need
+      // 0.9 * 2000 - 4096(response budget) = -2296 tokens of content — which
+      // is impossible. The refine response budget alone exceeds the small
+      // window, so any section is over-budget. Use a window where the body
+      // pushes the ratio into the warning band but stays under 1.0.
+      // contextWindow = 5500; budget reserve = 4096; soft window = 0.8 * 5500 = 4400.
+      // We want refineBudgetTokens >= 4400 but < 5500 → estimatedTokens in
+      // [304, 1403]. 1500 chars / 4 = 375 tokens, total 4471 → ratio ≈ 81%.
+      const section = makeSection({ body: 'x'.repeat(1500) });
+      render(<EditableSection {...BASE_PROPS} section={section} contextWindow={5500} />);
+      const badge = screen.getByText(/~375\s*tok/i);
+      expect(badge).toBeInTheDocument();
+      expect(badge.className).toMatch(/amber/);
+    });
+
+    it('renders a red size badge in view mode and disables the refine button after entering edit mode when over budget', async () => {
+      // contextWindow=4000 → budget reserve alone (4096) exceeds it, so any
+      // section is over-budget. Use a clearly-large body so the token count
+      // is meaningful in the title attribute.
+      const section = makeSection({ body: 'x'.repeat(400) });
+      render(<EditableSection {...BASE_PROPS} section={section} contextWindow={4000} />);
+
+      const badge = screen.getByText(/~100\s*tok/i);
+      expect(badge.className).toMatch(/red/);
+
+      // Enter edit mode and confirm the refine button is disabled with a
+      // tooltip-style title attribute describing the over-budget state.
+      const pencilButton = document.querySelector(
+        `[aria-label="Edit section ${SECTION_MARKER}"]`
+      ) as HTMLElement;
+      fireEvent.click(pencilButton);
+      await waitFor(() => expect(document.querySelector('textarea')).not.toBeNull());
+
+      const refineBtn = screen.getByRole('button', { name: /refine with agent/i });
+      expect(refineBtn).toBeDisabled();
+      expect(refineBtn.getAttribute('title') ?? '').toMatch(/too large/i);
+    });
+
+    it('keeps the refine button enabled when the section fits the context window', async () => {
+      // Short section, generous window — should not be disabled and the
+      // tooltip should be absent.
+      render(<EditableSection {...BASE_PROPS} />);
+      const pencilButton = document.querySelector(
+        `[aria-label="Edit section ${SECTION_MARKER}"]`
+      ) as HTMLElement;
+      fireEvent.click(pencilButton);
+      await waitFor(() => expect(document.querySelector('textarea')).not.toBeNull());
+
+      const refineBtn = screen.getByRole('button', { name: /refine with agent/i });
+      expect(refineBtn).not.toBeDisabled();
+      // No over-budget tooltip when within budget.
+      expect(refineBtn.getAttribute('title')).toBeFalsy();
     });
   });
 });

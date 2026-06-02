@@ -171,6 +171,7 @@ const BASE_PROPS = {
   sizeClass: 'medium' as const,
   sizeTokens: 12000,
   llmRewriteAllowed: true,
+  contextWindow: 200_000,
 };
 
 /** A happy-path fetch mock — returns updated processedContent. */
