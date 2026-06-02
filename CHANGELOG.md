@@ -5694,10 +5694,6 @@ release process.
 
 ### Changed
 
-- The cleanup agent's system prompt (`prisma/seeds/020-cleanup-agent.ts`) adds rule #8 spelling out that LLM rewrites no longer auto-apply. Existing installs won't auto-pick-up the new prompt — the seed's `update: { isSystem: true }` is intentionally conservative; admins re-paste the prompt in the agent admin UI, or the next fresh install of the same agent gets it.
-
-### Changed
-
 - **Auth bootstrap — first account on a fresh database becomes `ADMIN`.**
   `userCreateBeforeHook` (`lib/auth/config.ts`) promotes the first real account
   created on an empty database (email/password **or** OAuth) to `ADMIN`; every
@@ -5711,6 +5707,7 @@ release process.
   users. New export: `SYSTEM_USER_EMAIL` from `lib/auth/constants.ts`.
 - **Orchestration seeds resolve the config owner deterministically** via
   `serviceAccountWhere` (the SERVICE account) rather than the first `ADMIN` row.
+- The cleanup agent's system prompt (`prisma/seeds/020-cleanup-agent.ts`) adds rule #8 spelling out that LLM rewrites no longer auto-apply. Existing installs won't auto-pick-up the new prompt — the seed's `update: { isSystem: true }` is intentionally conservative; admins re-paste the prompt in the agent admin UI, or the next fresh install of the same agent gets it.
 
 ### Fixed
 
