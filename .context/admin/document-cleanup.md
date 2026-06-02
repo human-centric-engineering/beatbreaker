@@ -12,8 +12,9 @@ Interactive preprocessing for knowledge-base documents. Lives at `/admin/orchest
 ## When not to use
 
 - CSV uploads — the upload route refuses with `CLEANUP_UNSUPPORTED_FORMAT` because each row is already an atomic chunk.
-- Whole books (~100k+ tokens). The deterministic capabilities still work but `rewrite_with_llm` refuses at that size — use `rewrite_section_with_llm` per chapter, or split the file before upload.
 - Docs that are already clean and well-structured — skip the cleanup checkbox and let them flow straight into chunking.
+
+Book-sized docs (>100k tokens) are supported but degrade in a known way: deterministic capabilities work as normal, whole-doc `rewrite_with_llm` refuses with `document_too_large`, and per-section refines are gated by the section-size guard (see [Refine with agent](#refine-with-agent-from-the-editor)). The UI virtualises the section list so a 200-section doc loads without stalling. If a single section still exceeds the model context window, split it manually before refining or switch to a larger-context model.
 
 ## Flow
 
@@ -139,6 +140,8 @@ The doc is broken into editable sections by a layered detector (`lib/orchestrati
 
 Section ids are content-hashed (FNV-1a of marker + index) so small body edits don't shift ids — the editor can address the same logical section across re-fetches.
 
+Under 50 sections the list renders directly. At or above 50 it virtualises via `react-window` (`components/admin/orchestration/knowledge/section-list.tsx`) so only on-screen rows mount — keeps the DOM bounded and reconciliation fast for book-sized docs. Trade-off: browser Ctrl-F won't match text inside un-rendered sections — scroll the doc to surface them first if you need an in-page find.
+
 ### Edit lock
 
 A cooperative single-writer lock coordinates the agent and the human. While ANY section is being edited:
@@ -155,7 +158,9 @@ Every section edit POST carries an `expectedFingerprint` — SHA-256 of the sect
 
 ### Revision history
 
-Every mutation — capability call, human edit, restore, finalise — writes an immutable row to `AiKnowledgeDocumentRevision`. The cleanup page's History button opens a drawer listing revisions newest-first with source label (e.g. "Agent: strip_timestamps", "You: section edit", "Finalise: commit"). Clicking Restore writes a NEW revision with `source: 'restore'` — never destructive.
+Every mutation — capability call, human edit, restore, finalise — writes a row to `AiKnowledgeDocumentRevision`. The cleanup page's History button opens a drawer listing revisions newest-first with source label (e.g. "Agent: strip_timestamps", "You: section edit", "Finalise: commit"). Clicking Restore writes a NEW revision with `source: 'restore'` — never destructive.
+
+**Retention is bounded.** Each revision row stores the document's full content (no diff storage), so an unbounded history scales linearly with edit count × document size. After each write, `writeRevision()` prunes everything beyond the most recent N rows per document. Default N = 50; configurable via `KB_REVISION_RETENTION` env (clamped to `[10, 500]`). When the drawer is at capacity the UI shows a "Showing latest 50 revisions — older entries have been pruned" hint so the cap is visible. The shared constant lives at `lib/orchestration/knowledge/revision-retention.ts` so the server's prune and the client's hint don't drift.
 
 ### Diff-card review for LLM rewrites
 
@@ -171,6 +176,10 @@ Deterministic capabilities (`strip_*`, `collapse_whitespace`, `dedupe_lines`, `n
 ### Refine with agent (from the editor)
 
 Inside the section editor, a **Refine with agent** button opens an instructions input. Submitting calls `POST /cleanup/section/refine` which wraps the same LLM-rewrite logic as `rewrite_section_with_llm` but invokable directly from the editor (no chat round-trip). The result emerges as a pending change handled by the same diff modal — unified Accept/Reject UX whether the rewrite came from chat or the editor button.
+
+**Per-section size guard.** Each section shows a token-count badge tinted by ratio to the bound model's context window — amber at ≥80%, red at ≥100% (treating the 4096-token response reserve as part of the budget). When red, the **Refine with agent** button is disabled with a tooltip explaining the limit. The badge estimate is client-side (`chars / 4`); the server-side guard is authoritative. The cleanup page resolves the active agent's context window once at load via `resolveCleanupAgentContextWindow()` (`lib/orchestration/knowledge/cleanup-agent.ts`); when no cleanup conversation exists yet (initial load before any chat), it falls back to 128k.
+
+`POST /cleanup/section/refine` enforces the same budget server-side and returns `413 SECTION_TOO_LARGE` with `{ promptTokens, contextWindow, responseBudget, suggestion }` in `error.details` when the estimated prompt plus the 4096-token response reserve would exceed the model's window. The LLM is not invoked when the guard fires.
 
 ### API summary (inline editing)
 
@@ -193,9 +202,14 @@ Inside the section editor, a **Refine with agent** button opens an instructions 
 | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Cleanup page                                                               | `app/admin/orchestration/knowledge/[id]/cleanup/page.tsx`                                                                                                                                                                                                                                      |
 | Cleanup view (client)                                                      | `components/admin/orchestration/knowledge/cleanup-view.tsx`                                                                                                                                                                                                                                    |
+| Adaptive section list (direct ↔ react-window)                              | `components/admin/orchestration/knowledge/section-list.tsx`                                                                                                                                                                                                                                    |
+| Editable section (badge, refine gating)                                    | `components/admin/orchestration/knowledge/editable-section.tsx`                                                                                                                                                                                                                                |
 | Finalise endpoint                                                          | `app/api/v1/admin/orchestration/knowledge/documents/[id]/cleanup/finalise/route.ts`                                                                                                                                                                                                            |
 | `createDocumentForCleanup`, `transitionToCleanup`, `commitCleanupAndChunk` | `lib/orchestration/knowledge/document-manager.ts`                                                                                                                                                                                                                                              |
-| Size report helper                                                         | `lib/orchestration/knowledge/size-report.ts`                                                                                                                                                                                                                                                   |
+| Size report helper (whole-doc)                                             | `lib/orchestration/knowledge/size-report.ts`                                                                                                                                                                                                                                                   |
+| Cleanup-agent context-window resolver                                      | `lib/orchestration/knowledge/cleanup-agent.ts`                                                                                                                                                                                                                                                 |
+| Revision retention constant (shared server/client)                         | `lib/orchestration/knowledge/revision-retention.ts`                                                                                                                                                                                                                                            |
+| Revisions writer + prune                                                   | `lib/orchestration/knowledge/revisions.ts`                                                                                                                                                                                                                                                     |
 | Confirmation email helper                                                  | `lib/orchestration/knowledge/cleanup-email.ts`                                                                                                                                                                                                                                                 |
 | Email template                                                             | `emails/cleanup-ready.tsx`                                                                                                                                                                                                                                                                     |
 | Cleanup capabilities                                                       | `lib/orchestration/capabilities/built-in/document-cleanup/*.ts`                                                                                                                                                                                                                                |
