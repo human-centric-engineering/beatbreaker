@@ -407,4 +407,31 @@ describe('RevisionDrawer', () => {
     expect(onRestored).not.toHaveBeenCalled();
     expect(onOpenChange).not.toHaveBeenCalled();
   });
+
+  describe('retention hint', () => {
+    it('does not show the retention hint when revisions are below the cap', async () => {
+      mockApiClientGet.mockResolvedValue({ revisions: THREE_REVISIONS });
+      render(<RevisionDrawer {...BASE_PROPS} />);
+      await waitFor(() => {
+        expect(screen.getByText('v3')).toBeInTheDocument();
+      });
+      expect(screen.queryByTestId('revision-retention-hint')).toBeNull();
+    });
+
+    it('shows the retention hint when revisions are at/above the default cap (50)', async () => {
+      const fifty = Array.from({ length: 50 }, (_, i) =>
+        makeRevision({ version: 50 - i, source: 'human_full' })
+      );
+      mockApiClientGet.mockResolvedValue({ revisions: fifty });
+
+      render(<RevisionDrawer {...BASE_PROPS} />);
+      await waitFor(() => {
+        expect(screen.getByText('v50')).toBeInTheDocument();
+      });
+
+      const hint = screen.getByTestId('revision-retention-hint');
+      expect(hint).toBeInTheDocument();
+      expect(hint.textContent).toMatch(/latest 50 revisions/i);
+    });
+  });
 });

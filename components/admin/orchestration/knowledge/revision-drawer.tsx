@@ -13,6 +13,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { apiClient } from '@/lib/api/client';
+import { DEFAULT_REVISION_RETENTION } from '@/lib/orchestration/knowledge/revision-retention';
 
 interface RevisionRow {
   id: string;
@@ -138,12 +139,20 @@ export function RevisionDrawer({
           </DialogTitle>
           <DialogDescription>
             Every change to this document — your edits, agent capability calls, finalise events — in
-            chronological order. Restoring any revision writes a new entry; older versions are never
-            deleted.
+            chronological order. Restoring any revision writes a new entry. Only the most recent{' '}
+            {DEFAULT_REVISION_RETENTION} revisions are kept per document; older ones are pruned
+            automatically.
           </DialogDescription>
         </DialogHeader>
 
         {error ? <p className="text-destructive text-sm">{error}</p> : null}
+
+        {revisions.length >= DEFAULT_REVISION_RETENTION ? (
+          <p className="text-muted-foreground text-xs" data-testid="revision-retention-hint">
+            Showing the latest {DEFAULT_REVISION_RETENTION} revisions — older entries have been
+            pruned to bound storage.
+          </p>
+        ) : null}
 
         <div className="grid gap-4 md:grid-cols-[1fr_2fr]">
           <div className="max-h-[60vh] overflow-auto rounded-md border">
