@@ -26,8 +26,11 @@ import { successResponse } from '@/lib/api/responses';
 import { getRouteLogger } from '@/lib/api/context';
 import { getClientIP } from '@/lib/security/ip';
 import { ConflictError, NotFoundError } from '@/lib/api/errors';
-import { logAdminAction } from '@/lib/orchestration/audit/admin-audit-logger';
-import { visibleExperimentClause, isUnowned } from '@/lib/orchestration/experiments/visible-scope';
+import {
+  experimentVisibilityWhere,
+  experimentAccessBasis,
+  logExperimentAccess,
+} from '@/lib/orchestration/access/experiment-access';
 
 type Params = { id: string };
 
@@ -40,14 +43,24 @@ export const POST = withAdminAuth<Params>(
     // Read under the same visible clause as every other route, so a row this
     // caller could not have seen is not one they can learn about by claiming it.
     const existing = await prisma.aiExperiment.findFirst({
-      where: { AND: [await visibleExperimentClause(session), { id }] },
+      where: { AND: [experimentVisibilityWhere(session), { id }] },
       select: { id: true, name: true, createdBy: true },
     });
     if (!existing) throw new NotFoundError('Experiment not found');
 
-    if (!isUnowned(existing)) {
-      // Reachable only when the row is the caller's own — a third party's was
-      // already a 404 above — so saying so leaks nothing.
+    // Two refusals, in this order, and the order is the point. A null basis
+    // means the row was not admitted by the clause above — the state a widening
+    // regression produces — and folding it into the `!== 'orphan'` test below
+    // would answer a foreign row with a 409 that CONFIRMS it exists, which is
+    // exactly what this family's 404 posture prevents. Every other handler in
+    // the PR narrows this way; this one kept the old `isUnowned` shape and was
+    // the last to.
+    const basis = experimentAccessBasis(existing, session.user.id);
+    if (!basis) throw new NotFoundError('Experiment not found');
+
+    if (basis !== 'orphan') {
+      // Now reachable only when the row is the caller's own, so saying so leaks
+      // nothing.
       throw new ConflictError('Experiment already has an owner');
     }
 
@@ -76,13 +89,18 @@ export const POST = withAdminAuth<Params>(
       },
     });
 
-    logAdminAction({
-      userId: session.user.id,
+    // The basis is the state BEFORE the claim — `'orphan'`, checked above and
+    // re-checked by the null guard on the write. Reading it off `experiment`
+    // would say `'owner'`, which is true a millisecond later and useless as a
+    // record of why this admin was allowed to take it.
+    logExperimentAccess({
+      adminUserId: session.user.id,
+      experimentId: id,
+      experimentName: experiment.name,
+      basis: 'orphan',
       action: 'experiment.claim',
-      entityType: 'experiment',
-      entityId: id,
-      entityName: experiment.name,
-      metadata: { previousOwner: null },
+      record: 'always',
+      extra: { previousOwner: null },
       clientIp: clientIP,
     });
 

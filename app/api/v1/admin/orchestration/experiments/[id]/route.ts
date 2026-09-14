@@ -10,8 +10,8 @@
  * Ownership: owner-scoped on `createdBy`, matching the rest of the family — a
  * cross-user read, edit or delete is a 404, so the existence of another admin's
  * experiment never leaks. See the header of `../route.ts` for why the family is
- * owner-scoped rather than admin-global (#741), and `visibleExperimentClause`
- * for why an experiment nobody owns is still reachable here (t-678).
+ * owner-scoped rather than admin-global (#741), and `experiment-access.ts` for
+ * why an experiment nobody owns is still reachable here (t-678).
  */
 
 import { z } from 'zod';
@@ -22,8 +22,11 @@ import { validateRequestBody } from '@/lib/api/validation';
 import { getRouteLogger } from '@/lib/api/context';
 import { getClientIP } from '@/lib/security/ip';
 import { NotFoundError, ValidationError } from '@/lib/api/errors';
-import { logAdminAction } from '@/lib/orchestration/audit/admin-audit-logger';
-import { visibleExperimentClause } from '@/lib/orchestration/experiments/visible-scope';
+import {
+  experimentVisibilityWhere,
+  experimentAccessBasis,
+  logExperimentAccess,
+} from '@/lib/orchestration/access/experiment-access';
 
 type Params = { id: string };
 
@@ -49,7 +52,7 @@ export const GET = withAdminAuth<Params>(
     const log = await getRouteLogger(request);
 
     const experiment = await prisma.aiExperiment.findFirst({
-      where: { AND: [await visibleExperimentClause(session), { id }] },
+      where: { AND: [experimentVisibilityWhere(session), { id }] },
       include: {
         agent: { select: { id: true, name: true, slug: true } },
         variants: {
@@ -61,6 +64,27 @@ export const GET = withAdminAuth<Params>(
       },
     });
     if (!experiment) throw new NotFoundError('Experiment not found');
+
+    // Narrowing for the type, not re-checking the boundary: the `where` above
+    // admits only 'owner' and 'orphan' rows, so this cannot be null. It used to
+    // fall back to `?? 'orphan'`, which filed a null — the exact state a
+    // widening regression produces — as an ordinary orphan read, in the log an
+    // operator would use to notice that regression. A 404 keeps the signal.
+    const basis = experimentAccessBasis(experiment, session.user.id);
+    if (!basis) throw new NotFoundError('Experiment not found');
+
+    // The row reached the caller, so the policy already said yes — this only
+    // names WHICH of the two reasons it was. Reading a row whose creator was
+    // erased is worth a record; reading your own is not.
+    logExperimentAccess({
+      adminUserId: session.user.id,
+      experimentId: id,
+      experimentName: experiment.name,
+      basis,
+      action: 'experiment.view',
+      record: 'non-owner-only',
+      clientIp: getClientIP(request),
+    });
 
     log.info('Experiment fetched', { experimentId: id });
     return successResponse(experiment);
@@ -83,9 +107,17 @@ export const PATCH = withAdminAuth<Params>(
     const body = await validateRequestBody(request, updateSchema);
 
     const existing = await prisma.aiExperiment.findFirst({
-      where: { AND: [await visibleExperimentClause(session), { id }] },
+      where: { AND: [experimentVisibilityWhere(session), { id }] },
     });
     if (!existing) throw new NotFoundError('Experiment not found');
+
+    // Narrowing for the type, not re-checking the boundary: the `where` above
+    // admits only 'owner' and 'orphan' rows, so this cannot be null. It used to
+    // fall back to `?? 'orphan'`, which filed a null — the exact state a
+    // widening regression produces — as an ordinary orphan read, in the log an
+    // operator would use to notice that regression. A 404 keeps the signal.
+    const basis = experimentAccessBasis(existing, session.user.id);
+    if (!basis) throw new NotFoundError('Experiment not found');
 
     if (body.status !== undefined) {
       const allowed = ALLOWED_TRANSITIONS[existing.status] ?? [];
@@ -120,13 +152,18 @@ export const PATCH = withAdminAuth<Params>(
       },
     });
 
-    logAdminAction({
-      userId: session.user.id,
+    // `'always'`, not `'non-owner-only'`: every mutation of an experiment wrote
+    // an audit row before this helper existed, including the owner's own, and
+    // narrowing that to match `logDatasetAccess` would delete rows an operator
+    // can read today. See `ExperimentAuditRule`.
+    logExperimentAccess({
+      adminUserId: session.user.id,
+      experimentId: id,
+      experimentName: experiment.name,
+      basis,
       action: 'experiment.update',
-      entityType: 'experiment',
-      entityId: id,
-      entityName: experiment.name,
-      metadata: { changedKeys: Object.keys(body) },
+      record: 'always',
+      extra: { changedKeys: Object.keys(body) },
       clientIp: clientIP,
     });
 
@@ -150,9 +187,17 @@ export const DELETE = withAdminAuth<Params>(
     const log = await getRouteLogger(request);
 
     const existing = await prisma.aiExperiment.findFirst({
-      where: { AND: [await visibleExperimentClause(session), { id }] },
+      where: { AND: [experimentVisibilityWhere(session), { id }] },
     });
     if (!existing) throw new NotFoundError('Experiment not found');
+
+    // Narrowing for the type, not re-checking the boundary: the `where` above
+    // admits only 'owner' and 'orphan' rows, so this cannot be null. It used to
+    // fall back to `?? 'orphan'`, which filed a null — the exact state a
+    // widening regression produces — as an ordinary orphan read, in the log an
+    // operator would use to notice that regression. A 404 keeps the signal.
+    const basis = experimentAccessBasis(existing, session.user.id);
+    if (!basis) throw new NotFoundError('Experiment not found');
 
     if (existing.status === 'running') {
       throw new ValidationError('Cannot delete a running experiment — stop it first');
@@ -161,12 +206,13 @@ export const DELETE = withAdminAuth<Params>(
     // Pinned to the ownership the read above saw — see the PATCH handler.
     await prisma.aiExperiment.delete({ where: { id, createdBy: existing.createdBy } });
 
-    logAdminAction({
-      userId: session.user.id,
+    logExperimentAccess({
+      adminUserId: session.user.id,
+      experimentId: id,
+      experimentName: existing.name,
+      basis,
       action: 'experiment.delete',
-      entityType: 'experiment',
-      entityId: id,
-      entityName: existing.name,
+      record: 'always',
       clientIp: clientIP,
     });
 

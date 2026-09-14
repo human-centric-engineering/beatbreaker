@@ -24,12 +24,17 @@
 
 import type { Prisma } from '@prisma/client';
 import { withAdminAuth } from '@/lib/auth/guards';
-import { visibleExperimentClause } from '@/lib/orchestration/experiments/visible-scope';
+import {
+  experimentVisibilityWhere,
+  experimentAccessBasis,
+  logExperimentAccess,
+} from '@/lib/orchestration/access/experiment-access';
 import { prisma } from '@/lib/db/client';
 import { successResponse } from '@/lib/api/responses';
 import { ConflictError, NotFoundError, ValidationError } from '@/lib/api/errors';
 import { validateRequestBody } from '@/lib/api/validation';
 import { getRouteLogger } from '@/lib/api/context';
+import { getClientIP } from '@/lib/security/ip';
 import { runPairwiseVerdictSchema } from '@/lib/validations/orchestration-evaluations';
 import { pairwiseVerdictLimiter, createRateLimitResponse } from '@/lib/security/rate-limit';
 import { pairwiseJudgeAgentGrader } from '@/lib/orchestration/evaluations/graders/pairwise/judge-agent';
@@ -61,22 +66,36 @@ export const POST = withAdminAuth<Params>(
     // every other route in this family. Cross-user 404 so a foreign experiment's
     // existence never leaks.
     const experiment = await prisma.aiExperiment.findFirst({
-      where: { AND: [await visibleExperimentClause(session), { id }] },
+      where: { AND: [experimentVisibilityWhere(session), { id }] },
       select: {
         id: true,
         // Not for the ownership test — the `where` above settles that — but so
-        // the write at the end can pin itself to the owner this read saw.
+        // the write at the end can pin itself to the owner this read saw, and
+        // so the audit row can say which of the two reasons admitted it.
         createdBy: true,
+        name: true,
         datasetId: true,
         variants: {
           select: { id: true, label: true, evaluationRunId: true },
         },
-        dataset: { select: { caseCount: true } },
+        // `userId` for the defence-in-depth check below, not for the
+        // experiment's own ownership — the `where` above settled that.
+        dataset: { select: { caseCount: true, userId: true } },
       },
     });
     if (!experiment) {
       throw new NotFoundError(`Experiment ${id} not found`);
     }
+
+    // Narrowing for the type, not re-checking the boundary: the `where` above
+    // admits only 'owner' and 'orphan' rows, so this cannot be null. It used to
+    // fall back to `?? 'orphan'`, which filed a null — the exact state a
+    // widening regression produces — as an ordinary orphan read, in the log an
+    // operator would use to notice that regression. A 404 keeps the signal.
+    // Read here rather than beside the audit call at the end: the judging below
+    // is slow, and this must not be the thing that throws after it.
+    const basis = experimentAccessBasis(experiment, session.user.id);
+    if (!basis) throw new NotFoundError(`Experiment ${id} not found`);
 
     const variantA = experiment.variants.find((v) => v.id === body.variantAId);
     const variantB = experiment.variants.find((v) => v.id === body.variantBId);
@@ -94,6 +113,31 @@ export const POST = withAdminAuth<Params>(
         'Experiment has no dataset — verdicts need dataset-driven variants'
       );
     }
+
+    // Defence in depth on the bound dataset, the same check `run` makes and for
+    // the same reason: create-time validation at `POST /experiments` is the only
+    // thing binding a dataset today, and a future writer adding a second
+    // create path — or a PATCH that accepts `datasetId`, which the update schema
+    // deliberately does not — would otherwise re-open the cross-user hole here.
+    //
+    // This route needs it more than `run` does. `run` reads the dataset's
+    // `contentHash` and `caseCount`; this one returns `datasetCase.input` and
+    // `expectedOutput` for every case in the `perCase` payload, so the same
+    // miss would hand back another admin's dataset content rather than start a
+    // run against it.
+    //
+    // Three cases, exactly as for the experiment itself: `AiDataset.userId` is
+    // `SetNull` too, so an erasure orphans the dataset alongside the experiment
+    // and a bare `!== session.user.id` would make a claimed orphan unscoreable
+    // (t-678).
+    const datasetOwner = experiment.dataset.userId;
+    const mayUseDataset =
+      datasetOwner === session.user.id ||
+      (datasetOwner === null && session.unattributedReads.dataset);
+    // Names the DATASET, not the experiment — see the same refusal in `run`.
+    // Reachable with an experiment that is unambiguously the caller's, once
+    // another admin claims an orphan dataset they had legitimately bound.
+    if (!mayUseDataset) throw new NotFoundError(`Experiment ${id} dataset not found`);
     if (experiment.dataset.caseCount > MAX_CASES_FOR_SYNC) {
       throw new ConflictError(
         `Pairwise verdicts cap at ${MAX_CASES_FOR_SYNC} cases — this dataset has ${experiment.dataset.caseCount}. Use a smaller dataset.`
@@ -237,6 +281,27 @@ export const POST = withAdminAuth<Params>(
     await prisma.aiExperiment.update({
       where: { id, createdBy: experiment.createdBy },
       data: { pairwiseVerdict: summary as unknown as Prisma.InputJsonValue },
+    });
+
+    // This write recorded nothing before t-687 — the only mutation in the
+    // family that left no audit row at all. `'always'`, like the other three:
+    // overwriting an experiment's stored verdict is a config change whoever
+    // reads the result afterwards may need to place.
+    logExperimentAccess({
+      adminUserId: session.user.id,
+      experimentId: id,
+      experimentName: experiment.name,
+      basis,
+      action: 'experiment.verdict_compute',
+      record: 'always',
+      extra: {
+        judgeAgentSlug: body.judgeAgentSlug,
+        variantAId: variantA.id,
+        variantBId: variantB.id,
+        casesScored,
+        casesFailed,
+      },
+      clientIp: getClientIP(request),
     });
 
     log.info('Pairwise verdict computed', {
