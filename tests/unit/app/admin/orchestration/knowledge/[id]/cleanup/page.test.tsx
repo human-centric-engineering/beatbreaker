@@ -1,3 +1,5 @@
+// @vitest-environment happy-dom
+
 /**
  * Cleanup page (Server Component) — branch coverage for the three SSR paths:
  *   1. doc not found → notFound()

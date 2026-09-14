@@ -172,20 +172,23 @@ const unit: SeedUnit = {
         description: cap.description,
         parameters: cap.parameters as Prisma.InputJsonValue,
       };
+      const codeOwned = {
+        executionType: 'internal' as const,
+        executionHandler: cap.handler,
+        functionDefinition: functionDefinition,
+      };
       await prisma.aiCapability.upsert({
         where: { slug: cap.slug },
-        update: { isSystem: true },
+        update: { isSystem: true, ...codeOwned },
         create: {
           slug: cap.slug,
           name: cap.name,
           description: cap.description,
           category: 'document_cleanup',
-          executionType: 'internal',
-          executionHandler: cap.handler,
-          functionDefinition,
           rateLimit: cap.rateLimit,
           isActive: true,
           isSystem: true,
+          ...codeOwned,
         },
       });
     }

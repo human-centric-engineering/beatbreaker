@@ -1,3 +1,4 @@
+import { humanAdminWhere } from '@/lib/auth/account';
 import type { SeedUnit } from '@/prisma/runner';
 
 const CLEANUP_INSTRUCTIONS = `You are the Document Clean Up Assistant. Your job is to help an admin prepare an uploaded document for chunking and embedding into the knowledge base. The admin will tell you what they want cleaned up; you choose the right tools and apply the changes.
@@ -41,7 +42,7 @@ const unit: SeedUnit = {
     logger.info('🧹 Seeding cleanup-agent...');
 
     const admin = await prisma.user.findFirst({
-      where: { role: 'ADMIN' },
+      where: humanAdminWhere,
       select: { id: true },
     });
     if (!admin) {

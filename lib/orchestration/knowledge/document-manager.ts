@@ -137,9 +137,11 @@ export async function createDocumentForCleanup(
   const name = displayName?.trim() || fileName.replace(/\.[^.]+$/, '');
   const knowledgeBaseId = await getOrCreateDefaultKnowledgeBase();
   const sizeReport = getDocumentSizeReport(content);
+  const slug = await generateUniqueDocumentSlug(prisma, name, fileHash);
 
   const document = await prisma.aiKnowledgeDocument.create({
     data: {
+      slug,
       name,
       fileName,
       fileHash,
