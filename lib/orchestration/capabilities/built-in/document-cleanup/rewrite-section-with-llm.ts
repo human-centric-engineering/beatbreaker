@@ -158,7 +158,7 @@ export class RewriteSectionWithLlmCapability extends BaseCapability<Args, Data> 
         afterContent: next,
         sectionMarker: args.sectionMarker,
         instructions: args.instructions,
-        actorId: context.userId ?? '',
+        actorId: context.userId ?? null,
       },
     });
 

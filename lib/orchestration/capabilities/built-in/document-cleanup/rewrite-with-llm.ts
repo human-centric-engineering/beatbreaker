@@ -114,7 +114,7 @@ export class RewriteWithLlmCapability extends BaseCapability<Args, Data> {
         beforeContent: target.content,
         afterContent: next,
         instructions: args.instructions,
-        actorId: context.userId ?? '',
+        actorId: context.userId ?? null,
       },
     });
 

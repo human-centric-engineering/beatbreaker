@@ -449,6 +449,36 @@ export const SUBJECT_DATA_SOURCES: SubjectDataSource[] = [
       ),
   },
   {
+    model: 'AiKnowledgeDocumentRevision',
+    section: 'knowledgeDocumentRevisions',
+    disposition: 'attribution',
+    description:
+      'Document Clean Up edits the subject made or triggered. Revision content is not included.',
+    fetch: async ({ userId }: SubjectQuery): Promise<AttributionRow[]> => {
+      const rows = await prisma.aiKnowledgeDocumentRevision.findMany({
+        where: { actorId: userId },
+        select: { id: true, source: true, createdAt: true },
+        orderBy: byCreatedAt,
+      });
+      return rows.map((row) => ({ id: row.id, label: row.source, createdAt: row.createdAt }));
+    },
+  },
+  {
+    model: 'AiKnowledgeDocumentPendingChange',
+    section: 'knowledgeDocumentPendingChanges',
+    disposition: 'attribution',
+    description:
+      'LLM rewrite proposals the subject triggered during Document Clean Up. Proposal content is not included.',
+    fetch: async ({ userId }: SubjectQuery): Promise<AttributionRow[]> => {
+      const rows = await prisma.aiKnowledgeDocumentPendingChange.findMany({
+        where: { actorId: userId },
+        select: { id: true, source: true, createdAt: true },
+        orderBy: byCreatedAt,
+      });
+      return rows.map((row) => ({ id: row.id, label: row.source, createdAt: row.createdAt }));
+    },
+  },
+  {
     model: 'AiDataset',
     section: 'datasets',
     disposition: 'attribution',
