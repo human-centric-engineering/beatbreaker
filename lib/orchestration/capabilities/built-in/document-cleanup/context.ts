@@ -1,3 +1,4 @@
+import safeRegex from 'safe-regex2';
 import { prisma } from '@/lib/db/client';
 import type { CapabilityContext } from '@/lib/orchestration/capabilities/types';
 import { writeRevision } from '@/lib/orchestration/knowledge/revisions';
@@ -8,6 +9,30 @@ export interface CleanupTarget {
   content: string;
   /** Immutable source-of-truth; never mutated by capabilities. */
   originalContent: string;
+}
+
+export type CompileRegexResult = { ok: true; regex: RegExp } | { ok: false; error: string };
+
+// strip_lines_matching / strip_matches let the cleanup agent pick a regex from
+// natural-language instructions and run it against the document. Node's
+// RegExp engine has no built-in guard against catastrophic backtracking, and
+// a synchronous `.test()` / `.replace()` already in flight cannot be timed
+// out — so a crafted or hallucinated pattern (e.g. `(a+)+b`) must be rejected
+// before it ever runs, not caught after it hangs the process.
+export function compileSafeRegex(pattern: string, flags: string): CompileRegexResult {
+  let regex: RegExp;
+  try {
+    regex = new RegExp(pattern, flags);
+  } catch (err) {
+    return { ok: false, error: `Invalid regex: ${(err as Error).message}` };
+  }
+  if (!safeRegex(regex)) {
+    return {
+      ok: false,
+      error: 'Regex rejected: pattern is vulnerable to catastrophic backtracking.',
+    };
+  }
+  return { ok: true, regex };
 }
 
 // Document Clean Up capabilities run inside a chat session bound to a single

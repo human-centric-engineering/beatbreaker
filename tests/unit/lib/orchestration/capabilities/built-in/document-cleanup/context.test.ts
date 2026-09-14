@@ -6,6 +6,8 @@
  *   returning null in all invalid-context cases.
  * - writeCleanupContent: writes processedContent to the named document.
  * - summariseMutation: computes char/line removal counts from a before/after pair.
+ * - compileSafeRegex: compiles a caller-supplied pattern, rejecting invalid
+ *   syntax and patterns vulnerable to catastrophic backtracking.
  *
  * @see lib/orchestration/capabilities/built-in/document-cleanup/context.ts
  */
@@ -40,6 +42,7 @@ import {
   resolveCleanupTarget,
   writeCleanupContent,
   summariseMutation,
+  compileSafeRegex,
 } from '@/lib/orchestration/capabilities/built-in/document-cleanup/context';
 
 // ─── Fixtures ───────────────────────────────────────────────────────────────
@@ -375,5 +378,37 @@ describe('summariseMutation', () => {
     // '' split on '\n' yields [''] — 1 element; before has 2 lines
     expect(summary.linesRemoved).toBe(before.split('\n').length - 1);
     expect(summary.linesAfter).toBe(1);
+  });
+});
+
+describe('compileSafeRegex', () => {
+  it('returns the compiled RegExp for an ordinary pattern', () => {
+    const result = compileSafeRegex('^\\[Music\\]', 'i');
+
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.regex).toBeInstanceOf(RegExp);
+      expect(result.regex.source).toBe('^\\[Music\\]');
+      expect(result.regex.flags).toBe('i');
+    }
+  });
+
+  it('rejects a syntactically invalid pattern', () => {
+    const result = compileSafeRegex('[invalid', '');
+
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error).toMatch(/invalid regex/i);
+    }
+  });
+
+  it('rejects a pattern vulnerable to catastrophic backtracking', () => {
+    // Classic nested-quantifier ReDoS shape — exponential worst-case runtime.
+    const result = compileSafeRegex('(a+)+$', '');
+
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error).toMatch(/backtracking/i);
+    }
   });
 });

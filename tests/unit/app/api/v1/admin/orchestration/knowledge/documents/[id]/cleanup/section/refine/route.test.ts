@@ -361,8 +361,7 @@ describe('POST /cleanup/section/refine', () => {
       // NOT a markdown heading line — exercises the `headingLine ?? \`(section: ...)\`` branch.
       const chatCall = mockProviderChat.mock.calls[0];
       const userMessage = chatCall[0].find((m: { role: string }) => m.role === 'user') as
-        | { role: string; content: string }
-        | undefined;
+        { role: string; content: string } | undefined;
       expect(userMessage?.content).toContain(`(section: ${firstSection.marker})`);
       // The SECTION BODY must equal the full first-section body (no heading stripped).
       expect(userMessage?.content).toContain(`SECTION BODY:\n${firstSection.body}`);
@@ -411,8 +410,7 @@ describe('POST /cleanup/section/refine', () => {
       // After heading separation: heading = '# Intro', body after = 'first body\n'
       const chatCall = mockProviderChat.mock.calls[0];
       const userMessage = chatCall[0].find((m: { role: string }) => m.role === 'user') as
-        | { role: string; content: string }
-        | undefined;
+        { role: string; content: string } | undefined;
       expect(userMessage).toBeDefined();
       expect(userMessage?.content).toContain('SECTION HEADING:\n# Intro');
       expect(userMessage?.content).toContain('SECTION BODY:\nfirst body\n');

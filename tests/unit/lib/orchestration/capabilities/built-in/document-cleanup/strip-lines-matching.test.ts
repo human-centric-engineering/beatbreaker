@@ -20,11 +20,23 @@ const { mockResolveCleanupTarget, mockWriteCleanupContent, mockSummariseMutation
   })
 );
 
-vi.mock('@/lib/orchestration/capabilities/built-in/document-cleanup/context', () => ({
-  resolveCleanupTarget: mockResolveCleanupTarget,
-  writeCleanupContent: mockWriteCleanupContent,
-  summariseMutation: mockSummariseMutation,
-}));
+// `compileSafeRegex` is kept real (it's pure — no DB) so regex-safety
+// behaviour is actually exercised, not just assumed.
+vi.mock(
+  '@/lib/orchestration/capabilities/built-in/document-cleanup/context',
+  async (importOriginal) => {
+    const actual =
+      await importOriginal<
+        typeof import('@/lib/orchestration/capabilities/built-in/document-cleanup/context')
+      >();
+    return {
+      ...actual,
+      resolveCleanupTarget: mockResolveCleanupTarget,
+      writeCleanupContent: mockWriteCleanupContent,
+      summariseMutation: mockSummariseMutation,
+    };
+  }
+);
 
 const { mockRequireEditableTarget } = vi.hoisted(() => ({
   mockRequireEditableTarget: vi.fn(),
@@ -125,6 +137,20 @@ describe('StripLinesMatchingCapability', () => {
     expect(result.success).toBe(false);
     expect(result.error?.code).toBe('invalid_regex');
     expect(result.error?.message).toMatch(/invalid regex/i);
+    expect(mockWriteCleanupContent).not.toHaveBeenCalled();
+  });
+
+  it('returns invalid_regex error for a pattern vulnerable to catastrophic backtracking', async () => {
+    // Arrange — classic nested-quantifier ReDoS shape; must never reach .test()/.replace()
+    mockResolveCleanupTarget.mockResolvedValue(makeTarget('some content'));
+
+    // Act
+    const result = await capability.execute({ regex: '(a+)+$' }, makeContext());
+
+    // Assert: rejected before execution, not left to hang the process
+    expect(result.success).toBe(false);
+    expect(result.error?.code).toBe('invalid_regex');
+    expect(result.error?.message).toMatch(/backtracking/i);
     expect(mockWriteCleanupContent).not.toHaveBeenCalled();
   });
 

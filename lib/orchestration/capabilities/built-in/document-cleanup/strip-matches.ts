@@ -6,6 +6,7 @@ import type {
   CapabilityResult,
 } from '@/lib/orchestration/capabilities/types';
 import {
+  compileSafeRegex,
   MutationSummary,
   resolveCleanupTarget,
   summariseMutation,
@@ -59,12 +60,11 @@ export class StripMatchesCapability extends BaseCapability<Args, Data> {
     }
 
     const flags = (args.flags ?? '').includes('g') ? args.flags! : `${args.flags ?? ''}g`;
-    let pattern: RegExp;
-    try {
-      pattern = new RegExp(args.regex, flags);
-    } catch (err) {
-      return this.error(`Invalid regex: ${(err as Error).message}`, 'invalid_regex');
+    const compiled = compileSafeRegex(args.regex, flags);
+    if (!compiled.ok) {
+      return this.error(compiled.error, 'invalid_regex');
     }
+    const pattern = compiled.regex;
 
     const matches = target.content.match(pattern);
     const next = target.content.replace(pattern, '');

@@ -6,6 +6,7 @@ import type {
   CapabilityResult,
 } from '@/lib/orchestration/capabilities/types';
 import {
+  compileSafeRegex,
   MutationSummary,
   resolveCleanupTarget,
   summariseMutation,
@@ -57,12 +58,11 @@ export class StripLinesMatchingCapability extends BaseCapability<Args, Data> {
       return this.error('The document is being edited by another admin.', 'target_locked');
     }
 
-    let pattern: RegExp;
-    try {
-      pattern = new RegExp(args.regex, args.flags ?? '');
-    } catch (err) {
-      return this.error(`Invalid regex: ${(err as Error).message}`, 'invalid_regex');
+    const compiled = compileSafeRegex(args.regex, args.flags ?? '');
+    if (!compiled.ok) {
+      return this.error(compiled.error, 'invalid_regex');
     }
+    const pattern = compiled.regex;
 
     const next = target.content
       .split('\n')
