@@ -55,14 +55,16 @@ All eleven capabilities resolve the active document via the chat session's `cont
 
 | Slug                    | Args                                                                  | What it does                                                                                                                   |
 | ----------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `strip_lines_matching`  | `{ regex, flags? }`                                                   | Removes whole lines where the regex matches. Returns `invalid_regex` on malformed pattern.                                     |
-| `strip_matches`         | `{ regex, flags? }`                                                   | Removes inline regex matches; forces `g` flag.                                                                                 |
+| `strip_lines_matching`  | `{ regex, flags? }`                                                   | Removes whole lines where the regex matches. Returns `invalid_regex` on a malformed or unsafe pattern (see below).             |
+| `strip_matches`         | `{ regex, flags? }`                                                   | Removes inline regex matches; forces `g` flag. Same `invalid_regex` rejection as `strip_lines_matching`.                       |
 | `strip_timestamps`      | `{ formats?: ('hh_mm'\|'hh_mm_ss'\|'bracketed'\|'parenthesised')[] }` | Removes timestamp markers in the named formats; default removes all four.                                                      |
 | `strip_speaker_labels`  | `{ format?: 'colon'\|'bracketed'\|'both' }`                           | Removes `Name:` and/or `[Name]` at line start. Multi-word names up to 4 words supported. Non-capitalised speakers not matched. |
 | `collapse_whitespace`   | `{ keepBlankLines?: boolean }`                                        | Collapses runs of spaces/tabs to one space, trims trailing whitespace, collapses or removes blank lines.                       |
 | `dedupe_lines`          | `{ consecutiveOnly?: boolean }`                                       | Removes duplicate lines (adjacent or doc-wide).                                                                                |
 | `normalise_punctuation` | none                                                                  | Smart quotes → straight, en/em dashes → `-`/`--`, ellipsis char → `...`, non-breaking space → space.                           |
 | `preview_diff`          | none                                                                  | Read-only — reports `charsOriginal`, `charsCurrent`, `linesOriginal`, `linesCurrent`, `reductionPct` for the agent to narrate. |
+
+**Regex safety.** The cleanup agent picks `regex`/`flags` itself from natural-language instructions, so `strip_lines_matching` and `strip_matches` run every pattern through `compileSafeRegex()` (`lib/orchestration/capabilities/built-in/document-cleanup/context.ts`) before compiling it — a `safe-regex2` check that rejects patterns vulnerable to catastrophic backtracking (e.g. `(a+)+$`) with `invalid_regex`, alongside the existing syntax-error check. Node's `RegExp` engine has no built-in timeout, so this runs _before_ the pattern is ever executed rather than trying to recover from a hang afterward.
 
 ### LLM-backed (size-permitting)
 
