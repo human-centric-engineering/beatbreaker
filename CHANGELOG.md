@@ -390,8 +390,9 @@ release process.
   fork registering a narrowing `canRead` changed nothing, because the helper
   never asked. It now reads `session.unattributedReads.execution`, so a policy
   that refuses `'unattributed'` reads closes the executions list, the sidebar
-  status counts, the live-engine dashboard, the observability dashboard, the
-  workflow-execute resume path and the `workflow_execution` arm of the
+  status counts, the live-engine dashboard, **the execution counts on** the
+  observability dashboard (its conversation counts are not behind the policy
+  yet), the workflow-execute resume path and the `workflow_execution` arm of the
   evaluation-dataset capture route, and turns nine of the twelve
   `/executions/:id` routes into 404s — `rerun` among them, which is narrowed by
   the `where` fragment rather than by the yes/no helper. Another admin's *own* run stays invisible
@@ -406,8 +407,30 @@ release process.
   than an answer to the ownerless question, so it is left exactly as it was — the
   same line `conversation-access.ts` draws around its `'shared'` basis.
 
-  **That carve-out covers the act and not the discovery, so do not read it as
-  "approvals keep working".** The list, detail and live routes have no approver
+  **Know what a narrowing policy costs you before you register one — two
+  operator paths lose their manual controls.** A wedged scheduled run counts as
+  zero on the live-engine Running / Queued / Orphaned cards (the Provider
+  in-flight card is process-wide and unaffected), and `force-fail`, the escape
+  hatch for exactly that situation, is gated solely on `adminCanViewExecution`
+  with no second grant of any kind — so the run cannot be seen, drilled into, or
+  killed **by hand**. And a run paused at an approval gate is absent from the
+  approvals queue, zero in the badge, and 404 on its detail route, though a named
+  approver could still clear it if they learned the id from somewhere. Neither is
+  reachable on a default install.
+
+  **Automatic recovery is unaffected**, which is the difference between an
+  annoyance and an outage: `reapZombieExecutions` (the `zombieReaper` platform
+  job) filters on status and a time cutoff with no `userId` and no policy, so it
+  still force-fails a stuck `running` row after 30 minutes, a `pending` one after
+  an hour, and an abandoned approval after 7 days. What a narrowing fork loses is
+  **operator-initiated** recovery inside those windows. Keep a vendor-level
+  operator role your own policy admits if you want an engineer able to act
+  sooner. The approvals half is tracked as a defect on the multi-tenancy
+  programme; the force-fail half is recorded beside it rather than separately,
+  since the 7-day approval sweep is the slower of the two.
+
+  **The approver carve-out below covers the act and not the discovery, so do not
+  read it as "approvals keep working".** The list, detail and live routes have no approver
   arm, so under a narrowing policy a scheduled run paused at a gate is absent
   from the approvals queue, counted as zero by the sidebar badge, and 404 on its
   detail route — while the `approve` POST would still succeed for the named
@@ -471,7 +494,8 @@ release process.
   ```
 
   **No behaviour moved when this landed.** `execution-access.ts` was converged
-  onto the record later in this same release (see **Changed**, below);
+  onto the record later in this same release (the execution entry at the top of
+  **Changed**, above);
   `conversation-access.ts` still hard-codes its answer, and `dataset-access.ts`
   and `experiments/visible-scope.ts` still ask on demand. A default install
   serves exactly what it served before, at every stage.

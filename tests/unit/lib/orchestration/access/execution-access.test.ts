@@ -151,15 +151,14 @@ describe('executionVisibilityWhere', () => {
     // Not `{ OR: [{ userId }] }` — a single-armed OR would work, but the
     // narrowed fragment is what a caller composes filters against, and the
     // flat form is the one a reader can see is closed.
+    //
+    // **`toEqual`, and it is load-bearing.** This is the branch that fails
+    // OPEN: `{ userId: undefined }` is what a regression here would most likely
+    // produce, Prisma drops an undefined key, and the query then returns every
+    // row — for exactly the fork that asked to be narrowed. A weaker check that
+    // counted keys would pass on that shape, because `{ userId: undefined }`
+    // has one. Pinning the whole object rejects it, and rejects a stray extra
+    // key with it.
     expect(executionVisibilityWhere(narrowedAdmin)).toEqual({ userId: ADMIN_ID });
-  });
-
-  it('is never empty, so a narrowed caller cannot fall through to every row', () => {
-    // `{}` is the widest value this type can express. If the narrowed branch
-    // ever produced one, every list and count would silently go global for
-    // exactly the fork that asked to be narrowed.
-    for (const session of [admin, narrowedAdmin]) {
-      expect(Object.keys(executionVisibilityWhere(session))).not.toHaveLength(0);
-    }
   });
 });
