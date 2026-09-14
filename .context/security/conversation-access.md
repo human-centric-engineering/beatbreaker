@@ -6,6 +6,23 @@ End users own their conversations. An admin (or any other user) gains access to 
 
 An admin can access a conversation iff:
 
+0. **Nobody owns it** (`AiConversation.userId IS NULL`) and the authorization
+   policy permits this caller an unattributed read. Inbound threads — SMS,
+   WhatsApp, email, Slack — are stored ownerless since
+   [#502](https://github.com/human-centric-engineering/sunrise/issues/502),
+   because the messages belong to a member of the public with no account here
+   rather than to the operator who configured the channel. This basis is
+   `'system'`, it is audit-logged like `'shared'`, and since t-686 it is the
+   **policy's** answer rather than a fixed rule: a fork registering a narrowing
+   `canRead` keeps one tenant's admins out of another tenant's customers'
+   messages **on the conversation surfaces**. It does not reach the analytics
+   routes, which read `AiMessage.content` with no owner clause and no policy —
+   `/analytics/unanswered` returns the sender's question verbatim — nor
+   `POST /conversations/clear?allUsers`, which deletes ownerless threads
+   unguarded. Neither is a regression, and both are why "narrowed the policy"
+   is not the same as "contained the correspondence". See
+   [`.context/auth/authorization.md`](../auth/authorization.md).
+
 1. They are the participant (`AiConversation.userId == session.user.id`), or
 2. The participant has created an active share record.
 
@@ -13,14 +30,31 @@ An admin can access a conversation iff:
 
 ## Single source of truth
 
-Every admin conversation route gates through `adminCanViewConversation(conversationId, adminUserId)` at [`lib/orchestration/access/conversation-access.ts`](../../lib/orchestration/access/conversation-access.ts). Returns `{ ok, basis: 'owner' | 'shared' | null, ownerId }`. No route hand-rolls the check — the helper exists precisely to make "do I have access?" answerable in one place.
+Every per-id admin conversation route gates through
+`adminCanViewConversation(conversationId, session)` at
+[`lib/orchestration/access/conversation-access.ts`](../../lib/orchestration/access/conversation-access.ts).
+Returns `{ ok, basis: 'owner' | 'shared' | 'system' | null, ownerId }`.
 
-The list and search routes encode the same predicate in their SQL/Prisma where clause:
+**It takes the session, not a user id** — the `'system'` arm reads the policy's
+answer from `session.unattributedReads.conversation`, which the guard resolved
+before the handler ran. Passing `session.user.id` will not compile, and what a
+cast does next depends on what you cast: a bare string throws `TypeError` on
+every conversation read, while a hand-built object carrying only `user` reads
+its owner arm fine and throws only when it reaches an ownerless row — a quiet,
+partial failure that looks like a data problem. Pass the session the guard gave
+you.
+
+The set form is `conversationVisibilityWhere(session)` in the same module, and
+the list route uses it. The two faces are written next to each other and read the
+same answer, because a list that admits a thread its detail route refuses is the
+divergence this module exists to prevent — and nothing mechanical catches it.
 
 ```typescript
+// What the fragment produces on a default install:
 where: {
   OR: [
     { userId: session.user.id },
+    { userId: null }, // present only where the policy permits it
     {
       share: {
         revokedAt: null,
@@ -30,6 +64,16 @@ where: {
   ],
 }
 ```
+
+**Two routes do not use either face, and both are deliberate.** Semantic search
+hand-writes the predicate in SQL, because a pgvector distance query is not
+expressible through Prisma's query builder — the copies are pinned against each
+other in `policy-narrowing.test.ts`, in both directions: the arm is asserted
+present on a default install and absent under a narrowing policy, and the
+active-share test is compared character for character against the fragment's. And `GET /conversations/export` is
+hard-scoped to `{ userId: session.user.id }`: bulk export of other people's
+conversations is a privacy footgun, so it is owner-only by design and sees
+neither shared nor ownerless rows.
 
 ## What's owner-only, what's consent-gated
 

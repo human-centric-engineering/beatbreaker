@@ -382,6 +382,75 @@ release process.
 
 ### Changed
 
+- **A fork can finally narrow who reads a stranger's inbound messages.** When a
+  member of the public texts, emails or Slacks an agent, the thread is stored
+  owned by nobody (`AiConversation.userId = null`, #502) — the correspondence is
+  theirs, not the operator's who configured the channel. To keep those threads
+  reachable, `lib/orchestration/access/conversation-access.ts` hard-coded the
+  answer: every admin read every inbound thread. Correct for one company running
+  its own install; indefensible under a customer tier, where one tenant's staff
+  would read another tenant's customers' messages. It now reads
+  `session.unattributedReads.conversation`, so a policy refusing `'unattributed'`
+  reads closes the conversations list, semantic search, the detail / messages /
+  provenance routes, the observability dashboard's conversation counts, and the
+  `conversation_turn` arm of the evaluation-dataset capture route.
+
+  Of the four ownerless-capable models, this is the one holding a living third
+  party's data — someone with no account here and no way to see who read it —
+  which is why it was worth doing even though the seam it plugs into is younger
+  than the problem.
+
+  **`conversationVisibilityWhere(session)` is new**, and is the reason this was
+  more than a signature change: the module had a yes/no face and no set face, so
+  `conversations/route.ts` spelled the three arms out again and the observability
+  dashboard spelled two of them out a third time. Both now call the fragment.
+  It takes `{ excludeShared }` for a caller counting its *own* conversations,
+  where a thread merely shared with the admin would overstate the total; that
+  only ever narrows.
+
+  **Only the ownerless arm asks the policy, and a fork should know it.** Owning a
+  conversation and holding an active share are facts about one caller and one
+  row, not questions about a class of rows — so an admin handed an active share
+  still reads that thread whatever `canRead` says. Widening *that* belongs to the
+  identity work, not here. No policy value can widen the owner or share arms,
+  which is what stops "nobody owns this" being rewritten into "somebody else owns
+  this".
+
+  **Read the next paragraph before you register a narrowing policy.** `canRead`
+  is a read predicate, and `PATCH` / `DELETE /conversations/:id` gate on it —
+  so refusing unattributed reads also closes the per-thread **erasure** route for
+  inbound threads. That route matters more than it sounds: the person who sent
+  those messages has no account, so `eraseUser()` cannot reach them and deleting
+  the thread is the only Art. 17 remedy they have. `POST /conversations/clear`
+  with `allUsers` still reaches those rows because it consults no policy at all,
+  which is a blunter instrument rather than an answer, and an incoherent posture
+  we have not settled: writes over ownerless rows are not behind the seam, and
+  deciding what they should be is its own piece of work — tracked as #776, with
+  four costed options. **A fork narrowing this arm must keep some principal its
+  own policy admits for ownerless threads.**
+  `lib/auth/orphan-reads.ts` already warned that widening this arm grants more
+  than reading; this is the same coupling seen from the other side.
+
+  **Breaking for a fork that calls the helper**, which
+  [`.context/privacy/data-erasure.md`](./.context/privacy/data-erasure.md) tells
+  you to rather than hand-rolling a `userId` comparison:
+  `adminCanViewConversation(id, session)` takes the `AuthenticatedSession` where
+  it took an admin user id. Pass `session`, not `session.user.id`.
+
+  Two things worth knowing about the shape. Semantic search keeps a hand-written
+  SQL predicate — a pgvector distance query is not expressible through Prisma's
+  query builder — so the rule genuinely exists twice; the copies are pinned
+  against each other in `policy-narrowing.test.ts`, including the expiry
+  boundary, where `gt` versus `gte` decides whether a share expiring exactly now
+  appears in a list that its detail route would refuse. The share arm also
+  excludes ownerless rows in both spellings, which is what keeps the set form in
+  step with the yes/no one: that decides an ownerless row on the policy alone and
+  never reaches its share check. And narrowing visibility
+  narrows the audit trail with it, in the safe direction: a thread that is no
+  longer returned is not read, so there is nothing to record. A row returned
+  *without* a log would be the defect, which is why the basis is still derived
+  from the row rather than assumed from the query.
+
 - **A fork can finally narrow who sees workflow runs nobody started.**
   `lib/orchestration/access/execution-access.ts` decided that question itself:
   every admin saw every schedule- and inbound-triggered run (`userId = null`,

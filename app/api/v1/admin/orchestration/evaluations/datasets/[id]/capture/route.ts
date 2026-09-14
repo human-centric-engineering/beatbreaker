@@ -22,9 +22,9 @@
  * system-owned rows stay capturable; a hand-rolled `userId ===
  * session.user.id` comparison 404s every scheduled and inbound row now
  * that they carry `userId = null` (#502). Going through the helper is also
- * what puts the execution arm behind the policy seam — a fork that narrows
- * `canRead` stops this route capturing other tenants' scheduled runs
- * without editing it.
+ * what puts **both** arms behind the policy seam — a fork that narrows
+ * `canRead` stops this route capturing other tenants' scheduled runs and other
+ * tenants' customers' messages, without editing it.
  *
  * The capture helpers themselves are ownership-agnostic — they only
  * verify the cross-reference between message/execution and dataset.
@@ -87,7 +87,11 @@ export const POST = withAdminAuth<{ id: string }>(
       });
       if (!message) throw new NotFoundError(`Message ${body.messageId} not found`);
 
-      const access = await adminCanViewConversation(message.conversationId, session.user.id);
+      const access = await adminCanViewConversation(message.conversationId, session);
+      // `'shared'` is refused here on purpose — see the header. A narrowing
+      // policy additionally makes `basis` null for an inbound thread, which
+      // this same condition catches: the refusal widens, and the 404 it
+      // produces is the one it always produced.
       if (access.basis !== 'owner' && access.basis !== 'system') {
         throw new NotFoundError(`Message ${body.messageId} not found`);
       }
