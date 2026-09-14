@@ -22,9 +22,10 @@
  *     distinguish admin termination from natural failure.
  *
  * Authentication: Admin role required. Ownership: same as the cancel
- * route — the caller's own runs plus system-owned ones (`userId = null`);
- * any other admin's own run returns 404 (not 403) so admins cannot probe
- * for each other's rows.
+ * route — the caller's own runs plus system-owned ones (`userId = null`)
+ * where the authorization policy permits an unattributed read; any other
+ * admin's own run returns 404 (not 403) so admins cannot probe for each
+ * other's rows.
  */
 
 import { z } from 'zod';
@@ -83,7 +84,7 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
   if (!existing) {
     throw new NotFoundError(`Execution ${id} not found`);
   }
-  if (!adminCanViewExecution(existing, session.user.id)) {
+  if (!adminCanViewExecution(existing, session)) {
     // Same scoping as the cancel route — don't leak existence of rows the
     // caller can't see. Admin role gates the endpoint; row visibility gates
     // the action. System-owned runs (`userId = null`) are visible to every

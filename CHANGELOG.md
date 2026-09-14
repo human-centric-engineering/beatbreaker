@@ -382,6 +382,64 @@ release process.
 
 ### Changed
 
+- **A fork can finally narrow who sees workflow runs nobody started.**
+  `lib/orchestration/access/execution-access.ts` decided that question itself:
+  every admin saw every schedule- and inbound-triggered run (`userId = null`,
+  #502). Correct on a single-tenant install and wrong under a customer tier,
+  where one tenant's admin would see another tenant's scheduled runs — and a
+  fork registering a narrowing `canRead` changed nothing, because the helper
+  never asked. It now reads `session.unattributedReads.execution`, so a policy
+  that refuses `'unattributed'` reads closes the executions list, the sidebar
+  status counts, the live-engine dashboard, the observability dashboard, the
+  workflow-execute resume path and the `workflow_execution` arm of the
+  evaluation-dataset capture route, and turns nine of the twelve
+  `/executions/:id` routes into 404s — `rerun` among them, which is narrowed by
+  the `where` fragment rather than by the yes/no helper. Another admin's *own* run stays invisible
+  whatever the policy says: "nobody owns this" is a third case, not a softer
+  spelling of "someone else's".
+
+  **The other three are `approve`, `reject` and `cancel`, and they are
+  deliberately not fully behind the seam.** Each carries a second, independent
+  grant: an admin named as an approver in that run's own trace may act on it even
+  when they cannot otherwise see it (`cancel` only while the run is
+  `paused_for_approval`). That is a per-run nomination the workflow made rather
+  than an answer to the ownerless question, so it is left exactly as it was — the
+  same line `conversation-access.ts` draws around its `'shared'` basis.
+
+  **That carve-out covers the act and not the discovery, so do not read it as
+  "approvals keep working".** The list, detail and live routes have no approver
+  arm, so under a narrowing policy a scheduled run paused at a gate is absent
+  from the approvals queue, counted as zero by the sidebar badge, and 404 on its
+  detail route — while the `approve` POST would still succeed for the named
+  approver, if they could learn the id. **A fork that narrows `canRead` must
+  surface pending approvals some other way** until that is closed; it is tracked
+  as a defect rather than settled here, because giving the list an approver arm
+  means querying `approverUserIds` inside the `executionTrace` JSON, which no
+  index covers, and would widen what a default install shows.
+
+  **A default install is unchanged** — every system-owned run stays visible to a
+  platform admin, and the helper's existing tests prove it by still passing.
+
+  **Breaking for a fork that calls these helpers**, which
+  [`.context/privacy/data-erasure.md`](./.context/privacy/data-erasure.md) tells
+  you to rather than hand-rolling a `userId` comparison.
+  `executionAccessBasis(row, session)`, `adminCanViewExecution(row, session)` and
+  `executionVisibilityWhere(session)` take the `AuthenticatedSession` where they
+  took an admin user id; pass `session`, not `session.user.id`. They stay
+  **synchronous** — that is what t-684's eager resolution bought, and why this
+  was a signature change rather than a restructuring of every call site that
+  builds a `where` fragment inline. `getLiveEngineSnapshot()`'s option moves the
+  same way: `{ session }`, not `{ userId }`.
+
+  Two smaller things ride along. `executionAccessBasis` re-asks the ownerless
+  question rather than classifying an already-admitted row, unlike its dataset
+  sibling — the detail routes fetch by id and then ask, so without that a
+  narrowing fork would get a filtered list whose rows still opened. And the
+  visibility fragment is now `AND`-composed at every call site, including the
+  rerun route and the live-engine queries that spread it: the widened fragment's
+  key is `OR`, and a boundary sitting at the same level as the next filter
+  someone adds is one edit from being flattened.
+
 - **The coverage-exclusion drift guard resolves `vitest.config.ts` instead of
   parsing it.** `tests/unit/scripts/ci/missing-tests.test.ts` used to extract
   single-quoted literals from the config's text, which cannot see a spread — the
@@ -412,11 +470,11 @@ release process.
     : { createdBy: session.user.id };
   ```
 
-  **No behaviour moved.** Nothing in core reads it yet — the two hard-coded
-  helpers (`conversation-access.ts`, `execution-access.ts`) and the two that ask
-  on demand (`dataset-access.ts`, `experiments/visible-scope.ts`) are converged
-  onto it in follow-up work. A default install serves exactly what it served
-  before.
+  **No behaviour moved when this landed.** `execution-access.ts` was converged
+  onto the record later in this same release (see **Changed**, below);
+  `conversation-access.ts` still hard-codes its answer, and `dataset-access.ts`
+  and `experiments/visible-scope.ts` still ask on demand. A default install
+  serves exactly what it served before, at every stage.
 
   **The cost is eager and a fork inherits it.** The policy is asked once per kind
   on **every** guarded request, `withAuth` included, and on requests touching
