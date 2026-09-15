@@ -2150,6 +2150,15 @@ describe('listDocumentsQuerySchema', () => {
     expect(result.success).toBe(true);
   });
 
+  it("accepts status='cleaning' — the Manage tab's Cleaning filter sends it", () => {
+    // manage-tab.tsx offers { value: 'cleaning', label: 'Cleaning' } and sends
+    // it as ?status=cleaning. Leaving it out of the enum 400s the request and
+    // empties the list instead of filtering it.
+    const result = listDocumentsQuerySchema.safeParse({ status: 'cleaning' });
+    // test-review:accept tobe_true — structural assertion on Zod safeParse success field; valid-input contract check
+    expect(result.success).toBe(true);
+  });
+
   it('rejects an invalid status enum value', () => {
     const result = listDocumentsQuerySchema.safeParse({ status: 'archived' });
     expect(result.success).toBe(false);

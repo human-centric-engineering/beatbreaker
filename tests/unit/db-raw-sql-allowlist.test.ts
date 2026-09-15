@@ -126,6 +126,11 @@ const ALLOWLIST: ReadonlyArray<{ file: string; calls: number; why: string }> = [
     why: 'chunk-management vector write',
   },
   {
+    file: 'lib/orchestration/knowledge/revisions.ts',
+    calls: 1,
+    why: 'SELECT … FOR UPDATE row lock on ai_knowledge_document — Prisma has no row-lock API; one row, addressed by id',
+  },
+  {
     file: 'lib/orchestration/knowledge/search.ts',
     calls: 2,
     why: 'pgvector similarity + hybrid BM25 search',

@@ -70,6 +70,58 @@ release process.
   #776): the seam gains no approver arm on the execution read routes and no
   write face, and the decision with its costs is on the `f-mt-authz` journal.
 
+- **Knowledge documents can be downloaded as text.** New
+  `GET /knowledge/documents/:id/download` returns a Markdown attachment, from
+  the ⋯ menu on the Manage tab and from the Document Clean Up page header
+  (where it follows the visible tab — cleaned or original). `?variant=` picks
+  explicitly; omitted takes the best available for the document's state. A
+  finished document has had `originalContent` and `processedContent` cleared on
+  finalise, so its text is rebuilt from the stored chunks by
+  `rebuildTextFromChunks` — ordered by the numeric suffix of `chunkKey`, not the
+  lexicographic sort used elsewhere, which puts `-10` before `-2` and sorts by
+  section slug first. That rebuild is the ingested text rather than the source
+  file, so the menu item says "Download text (from chunks)".
+
+- **The Document Clean Up agent can now see the document it is editing.** Two
+  read-only capabilities — `read_document` (a window of numbered lines from the
+  working text or the original) and `find_in_document` (line numbers and text
+  for a regex) — plus a `knowledge_document` case in `buildContext` that puts
+  the document's name, size and a numbered opening excerpt into the system
+  prompt each turn. Before this, every cleanup tool reported counts and none
+  returned text, and the prompt carried the literal string `No context loader
+  for type 'knowledge_document'.`, so the agent chose transforms blind and could
+  not tell whether one had done anything. The excerpt is deliberately not cached
+  — the document changes almost every turn.
+
+- **`join_wrapped_lines` — the missing tool for PDF text.** Rejoins sentences a
+  fixed-width renderer wrapped across lines and words split by a trailing
+  hyphen, leaving blank lines, headings, list items and table rows alone.
+  Nothing in the toolbox could do this: `collapse_whitespace` works inside a
+  line, `strip_lines_matching` tests each line separately (so a `\n` pattern can
+  never match), and `strip_matches` can only delete a match, never replace it
+  with a space. A mid-word break with no hyphen is not decidable from the text,
+  so those line numbers come back in `suspectedSplitWords` rather than being
+  guessed at.
+
+- **The Document Clean Up page can now show what actually changed.** The
+  document-preview pane gained a **Diff** tab (original vs cleaned) and a
+  **History** tab, alongside Cleaned and Original. Both render the rewritten
+  `TextDiffViewer`, which reads like a file diff: line numbers down each gutter,
+  an added/removed summary, long unchanged runs collapsed behind an expander,
+  and a **unified / split** switch. Because split is tight beside the chat, the
+  pane header also has an expand control that spans it across the full grid.
+
+- **Any revision can be diffed, not just the newest.** New
+  `GET /cleanup/revisions/:version` returns one revision's content plus its
+  predecessor's, so the history view answers "what did this step change?" — with
+  a selector to compare against the current document instead. The predecessor is
+  the highest surviving version below the selected one, not `version - 1`, and
+  the response flags `previousPruned` when retention has removed it. The list
+  endpoint still sends metadata only; content is fetched one revision at a time.
+  The list, diff and restore now live in a shared `<RevisionHistory>` rendered
+  by both the History tab and the header's History dialog, replacing the
+  drawer's placeholder that could only preview the most recent revision.
+
 - **`lib/app/ci.ts` — a fork declares its own coverage exclusions and always-run
   tests without editing a platform file.** Two lists, both shipped empty:
   `appCoverageExclusions` (`{ pattern, reason }`) is spread into
@@ -1105,6 +1157,23 @@ release process.
 
 ### Fixed
 
+- **Editing or refining a section whose heading repeats hit the wrong section.**
+  `POST /cleanup/section` and `POST /cleanup/section/refine` took a
+  `sectionMarker` and resolved it marker-first, but markers are human-facing
+  labels and repeat within a document — two `## Introduction` headings, a
+  transcript's recurring speaker turns, the `(preamble)` label. The inline
+  editor sent the marker, so editing the second of two identically-marked
+  sections addressed the first: refine proposed a rewrite of the wrong body
+  with no fingerprint guard to catch it, and save 409'd against a different
+  section's fingerprint, after which "Keep mine" spliced the draft over that
+  other section. Both routes now take `sectionId` — the `detectSections` id,
+  which folds in the section index and is therefore unique — and no longer
+  accept a marker as an address. **Breaking for direct API callers:** send
+  `sectionId` (from the section list) instead of `sectionMarker`; the refine
+  response now carries both `sectionId` and the resolved `sectionMarker`.
+  Revision and pending-change records keep `sectionMarker` as a display label,
+  now always the resolved section's own.
+
 - **Every install logged two authorization warnings about a resolver that does
   not exist.** `canRead`'s `'unattributed'` arm answers two questions — "a
   resolver named this row and could not attribute it" and "may this caller read
@@ -1326,6 +1395,51 @@ release process.
   `lib/tenancy/client.ts` — a file that has never existed. The covered seam is, and
   always was, `TENANCY_MODE` + the `lib/db/client.ts` chokepoint. Forks that went
   looking for `lib/tenancy/` were chasing a phantom module.
+
+- **Ticking "Clean up before chunking" on a PDF upload looked like it did
+  nothing.** The extraction-review modal opened exactly as it does without the
+  box, with a `Confirm & Chunk` button — the cleanup only revealed itself one
+  click later, when confirm redirected to the cleanup chat. The modal now carries
+  the flag (`PdfPreviewData.runCleanup`, a new required field on that exported
+  interface), shows a "Clean up before chunking is on" notice, and labels the
+  button `Confirm & Clean Up`. Server behaviour is unchanged.
+
+- **The LLM half of Document Clean Up had never worked on a default install.**
+  `rewrite_with_llm`, `rewrite_section_with_llm` and
+  `POST /cleanup/section/refine` all read `provider`/`model` off the agent row
+  and bailed with `agent_misconfigured` when either was empty — but the cleanup
+  agent is seeded with both empty **by design**, so it inherits whatever the
+  install is configured with. All three now resolve through
+  `resolveAgentProviderAndModel`, the same seam the chat loop uses, and the
+  refusal that remains (genuinely no provider configured) says so in words the
+  agent can relay.
+
+- **The cleanup agent is now pinned to a model chosen for the job, and its
+  prompt is kept current.** The seed pins the strongest tool-using model the
+  install can actually reach rather than inheriting the global default chat
+  model, never overwriting an admin's own binding (it fills only rows where both
+  fields are still empty). The system prompt now tells the agent to read before
+  acting and verify after, and states what each tool cannot do — the two wrong
+  tool choices seen in practice were both cases of a tool's limits being
+  invisible from its name. Re-seeding refreshes the prompt only while
+  `systemInstructionsHistory` is empty, so a prompt an admin has edited is never
+  clobbered.
+
+- **Document Clean Up applied roughly one of every N mutations the agent ran in
+  a batch, and reported errors for the rest.** The chat tool loop dispatches a
+  turn's tool calls in parallel, so an agent answering "yes, proceed" to a
+  five-step cleanup plan fired five mutating capabilities at once. Each read the
+  same `processedContent` and wrote back its own whole-document result — last
+  write wins, four mutations silently discarded — and the concurrent
+  `max(version)+1` revision allocation collided on the `(documentId, version)`
+  unique index, so two of the five also failed outright and the agent relayed
+  the raw Postgres error as "there was an error processing this step". Every
+  cleanup mutation now reads, transforms and writes inside one transaction
+  holding a `SELECT … FOR UPDATE` row lock on the document
+  (`mutateCleanupContent`), so a parallel batch queues and composes: each
+  transform sees the previous one's output. New `npm run
+  smoke:cleanup-concurrency` fires five capabilities concurrently against a real
+  database and fails if any mutation is lost or any version collides.
 
 ## [0.11.2] — 2026-08-31
 
@@ -5680,6 +5794,17 @@ release process.
   — unset leaves every surface byte-for-byte unchanged. Marketing-page body copy
   is intentionally out of scope (a separate content concern); `SUNRISE_VERSION`
   and internal platform identifiers deliberately do not use this seam.
+- **Document Clean Up** — interactive knowledge-base preprocessing. Opt in via a checkbox on the document upload form; the doc lands in `status='cleaning'` and opens a chat with the seeded `cleanup-agent`, which can apply deterministic transforms (regex strips, whitespace collapse, dedupe, punctuation normalisation) and LLM-backed rewrites before chunking. Three finalise actions on the cleanup page: Mark cleaned (chunk processedContent), Use original (chunk originalContent), Discard & delete. See [`.context/admin/document-cleanup.md`](./.context/admin/document-cleanup.md).
+- **Public surface** — new `AiKnowledgeDocument` fields `originalContent` and `processedContent` (both nullable `Text`, used only by the cleanup flow), new status value `'cleaning'` on the existing CHECK constraint, new `cleanup-agent` seeded `AiAgent`, and eleven new `AiCapability` rows (`strip_lines_matching`, `strip_matches`, `strip_timestamps`, `strip_speaker_labels`, `collapse_whitespace`, `dedupe_lines`, `normalise_punctuation`, `preview_diff`, `estimate_size`, `rewrite_with_llm`, `rewrite_section_with_llm`) bound to the cleanup-agent.
+- **API** — `POST /api/v1/admin/orchestration/knowledge/documents/:id/cleanup/finalise` accepting `{ action: 'commit' | 'use-original' | 'delete' }`. Existing `POST /documents` and `POST /documents/:id/confirm` gain an opt-in `runCleanup` formData flag that returns `{ document, redirectTo }` instead of chunking.
+- **`KnowledgeDocumentListItem`** — narrowed to `Omit<AiKnowledgeDocument, 'originalContent' | 'processedContent'>` so the documents-list endpoint stays small; the cleanup page reads those fields via the existing per-document GET.
+- **Document Clean Up — inline editing** (on top of the chat-driven flow above). Admins can hover any detected section, click the pencil, and edit the body in-place; saves go to `processedContent` and are recorded in revision history alongside agent capability mutations. A doc-level cooperative edit lock coordinates agent and human writers (5-minute TTL, surfaced as a "held by other admin" banner). Every section save carries a SHA-256 fingerprint of the body the editor opened against — server returns 409 with the current body if anything has drifted, and the UI shows Keep mine / Take theirs. Section detection layers Markdown headings → speaker turns → title-case lines → paragraph-runs fallback. See the new "Inline editing" section of [`.context/admin/document-cleanup.md`](./.context/admin/document-cleanup.md).
+- **Document Clean Up — revision history**. New `AiKnowledgeDocumentRevision` model: append-only, one row per mutation (capability, human edit, restore, finalise). Cleanup page gains a History drawer listing revisions newest-first with source label + char delta + Restore button. Restore writes a NEW revision (`source: 'restore'`) — never destructive.
+- **Document Clean Up — diff-card review for LLM rewrites**. `rewrite_with_llm` and `rewrite_section_with_llm` capabilities now emit a pending change for the admin to Accept or Reject via a side-by-side diff modal, instead of mutating `processedContent` directly. Deterministic capabilities (strips, dedupes, whitespace, punctuation) keep auto-apply. New `AiKnowledgeDocumentPendingChange` model holds the proposed before/after; Accept applies + writes a revision; Reject just deletes the pending row.
+- **Document Clean Up — inline refine-with-agent**. Section editor gains a "Refine with agent" button that calls the LLM directly with a user-supplied instruction and emerges as a pending change handled by the same diff modal — unified UX whether the rewrite came from chat or the editor button.
+- **Public surface** (inline-editing layer) — new `AiKnowledgeDocument` columns `editLockHolder` (String?) + `editLockAcquiredAt` (DateTime?); new `AiKnowledgeDocumentRevision` and `AiKnowledgeDocumentPendingChange` Prisma models, each with an `actor User? @relation(..., onDelete: SetNull)` on `actorId` (nulled on the actor's account deletion; `AiKnowledgeDocumentPendingChange.actorId` is now nullable to support this) and listed in `SUBJECT_DATA_SOURCES`; new endpoints under `/cleanup/{lock, content, section, section/refine, revisions, revisions/:version/restore, changes/:changeId, changes/:changeId/accept, changes/:changeId/reject}`; `KnowledgeDocumentListItem` further narrowed to omit the two new lock columns. `GET /cleanup/changes/:changeId` returns one pending proposal; the per-document `GET /documents/:id` deliberately does **not** inline `pendingChanges`, because each row carries a full before + after copy of the document text and the cleanup view re-fetches that route after every chat turn, capability result, section save and restore.
+- **Public surface (capability contract change)** — `rewrite_with_llm` and `rewrite_section_with_llm` now return `{ pendingChangeId, status: 'pending_human_review', summary: { charsBefore, charsAfter, deltaPct } }` instead of `MutationSummary`. Forks consuming these capabilities directly will need to update their result handlers; the cleanup-agent system prompt has been updated to match.
+- **Section detection helper** — new `lib/orchestration/knowledge/section-detection.ts` exporting `detectSections`, `findSectionByMarker`, `spliceSection`. Isomorphic (browser + server); used by the cleanup editor UI to render one EditableSection per detected section.
 
 ### Changed
 
@@ -5696,6 +5821,7 @@ release process.
   users. New export: `SYSTEM_USER_EMAIL` from `lib/auth/constants.ts`.
 - **Orchestration seeds resolve the config owner deterministically** via
   `serviceAccountWhere` (the SERVICE account) rather than the first `ADMIN` row.
+- The cleanup agent's system prompt (`prisma/seeds/020-cleanup-agent.ts`) adds rule #8 spelling out that LLM rewrites no longer auto-apply. Existing installs won't auto-pick-up the new prompt — the seed's `update: { isSystem: true }` is intentionally conservative; admins re-paste the prompt in the agent admin UI, or the next fresh install of the same agent gets it.
 
 ### Fixed
 
