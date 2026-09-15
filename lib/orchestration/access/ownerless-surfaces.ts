@@ -349,6 +349,57 @@ export const OWNERLESS_SURFACE_EXCEPTIONS: readonly OwnerlessSurfaceException[] 
       'it loads that one row by id to learn its channel.',
   },
 
+  // ── Document Clean Up: the thread is a soft pointer to an owned document ──
+  //
+  // Every `knowledge_document` conversation is created by `document-manager.ts`
+  // below with the uploader's `userId` set, so none of these rows is ownerless.
+  // The visibility decision is made on `AiKnowledgeDocument.uploadedBy` before
+  // the thread is touched at all; the thread is then dereferenced for one field
+  // (`agentId`, or its own `contextId`), never listed for a caller. The soft
+  // pointer runs the other way to the helper's grain — `contextType`/`contextId`
+  // to a document, not a conversation to a user — so there is no visibility
+  // fragment to apply here.
+  {
+    path: 'lib/orchestration/knowledge/document-manager.ts',
+    disposition: 'by-design',
+    reason:
+      'creates the cleanup thread with the uploading admin\u2019s `userId` \u2014 the sole origin of ' +
+      'every `knowledge_document` conversation, which is why none of them is ownerless. ' +
+      'A write that sets the owner has no read to scope.',
+  },
+  {
+    path: 'lib/orchestration/capabilities/built-in/document-cleanup/context.ts',
+    disposition: 'by-design',
+    reason:
+      'dereferences `context.conversationId` \u2014 the id the engine handed the running ' +
+      'capability \u2014 by primary key for its `contextType`/`contextId`, then makes the ' +
+      'real decision on the document. A capability has no caller of its own to scope by.',
+  },
+  {
+    path: 'lib/orchestration/knowledge/cleanup-agent.ts',
+    disposition: 'by-design',
+    reason:
+      'reads one `agentId` off the document\u2019s newest cleanup thread to resolve that ' +
+      'model\u2019s context window \u2014 no row content. The page above it 404s on a document ' +
+      'the admin cannot fetch before this runs.',
+  },
+  {
+    path: 'app/api/v1/admin/orchestration/knowledge/documents/[id]/cleanup/section/refine/route.ts',
+    disposition: 'by-design',
+    reason:
+      "checks `{ id, uploadedBy: session.user.id, status: 'cleaning' }` on the document " +
+      'immediately above, then dereferences that document\u2019s thread for `agentId` alone to ' +
+      'pick the provider/model. The document is the owned thing; the thread is a pointer.',
+  },
+  {
+    path: 'app/api/v1/admin/orchestration/knowledge/documents/[id]/cleanup/finalise/route.ts',
+    disposition: 'by-design',
+    reason:
+      'a hand-written cascade, not a read: `contextType`/`contextId` is a soft pointer with ' +
+      'no FK, so deleting the document must `deleteMany` its thread in the same transaction. ' +
+      'Ownership is already settled by the `uploadedBy` check above it.',
+  },
+
   // The fork-owned tail. Sunrise ships it empty; everything above is core's.
   ...appOwnerlessSurfaceExceptions,
 ];
