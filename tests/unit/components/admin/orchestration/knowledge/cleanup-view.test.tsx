@@ -40,6 +40,19 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: mockPush }),
 }));
 
+// CleanupView calls `useSession()` for the current user id it hands the edit
+// lock. Left unmocked, the REAL better-auth client subscribes this render to
+// its nanostores session atom, and nanostores defers the unsubscribe teardown
+// onto a timer. When that timer fires after the test environment is gone,
+// better-auth's `cleanupBroadcastSetup` reaches for `window` and throws
+// `ReferenceError: window is not defined` as an unhandled error — which fails
+// the whole shard with every test still green (CI run 35013955758, shard 2/4).
+// `data: null` is exactly what the real client returns here anyway: there is
+// no session in a unit test, so `currentUserId` was already ''.
+vi.mock('@/lib/auth/client', () => ({
+  useSession: () => ({ data: null, isPending: false, error: null }),
+}));
+
 // Default lock state: no one holds the lock (heldByMe=false, heldByOther=false).
 // Individual tests that need different lock state override this mock via
 // vi.mocked(useCleanupEditLock).mockReturnValue({ ... }).
