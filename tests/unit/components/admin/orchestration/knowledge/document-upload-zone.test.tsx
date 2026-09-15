@@ -229,6 +229,128 @@ describe('DocumentUploadZone', () => {
     });
   });
 
+  it('forwards the cleanup checkbox state to onPdfPreview for a PDF preview', async () => {
+    // A PDF flagged for cleanup still goes through the extraction review
+    // first, so the preview modal needs the flag to tell the operator that
+    // confirming opens the cleanup chat rather than chunking.
+    const onPdfPreview = vi.fn();
+    mockFetch.mockImplementation((url: string, options?: RequestInit) => {
+      if (typeof url === 'string' && url.includes('/meta-tags')) {
+        return Promise.resolve({
+          ok: true,
+          json: () =>
+            Promise.resolve({
+              data: {
+                app: { categories: [], keywords: [] },
+                system: { categories: [], keywords: [] },
+              },
+            }),
+        });
+      }
+      if (options?.method === 'POST') {
+        return Promise.resolve({
+          ok: true,
+          json: () =>
+            Promise.resolve({
+              data: {
+                document: {
+                  id: 'doc-1',
+                  name: 'test.pdf',
+                  fileName: 'test.pdf',
+                  status: 'pending_review',
+                },
+                preview: {
+                  extractedText: 'Hello world',
+                  title: 'Test PDF',
+                  author: null,
+                  sectionCount: 3,
+                  warnings: [],
+                  requiresConfirmation: true,
+                },
+              },
+            }),
+        });
+      }
+      return Promise.resolve({ ok: true, json: () => Promise.resolve({}) });
+    });
+
+    const user = userEvent.setup();
+    render(<DocumentUploadZone onUploadComplete={onUploadComplete} onPdfPreview={onPdfPreview} />);
+
+    const input = screen.getByLabelText(/upload document/i);
+    fireEvent.change(input, {
+      target: { files: [new File(['content'], 'test.pdf', { type: 'application/pdf' })] },
+    });
+
+    const checkbox = await screen.findByLabelText(/clean up before chunking/i);
+    await user.click(checkbox);
+    await user.click(screen.getByRole('button', { name: /^upload$/i }));
+
+    await waitFor(() => {
+      expect(onPdfPreview).toHaveBeenCalledWith(expect.objectContaining({ runCleanup: true }));
+    });
+  });
+
+  it('passes runCleanup=false to onPdfPreview when the cleanup checkbox is left unchecked', async () => {
+    const onPdfPreview = vi.fn();
+    mockFetch.mockImplementation((url: string, options?: RequestInit) => {
+      if (typeof url === 'string' && url.includes('/meta-tags')) {
+        return Promise.resolve({
+          ok: true,
+          json: () =>
+            Promise.resolve({
+              data: {
+                app: { categories: [], keywords: [] },
+                system: { categories: [], keywords: [] },
+              },
+            }),
+        });
+      }
+      if (options?.method === 'POST') {
+        return Promise.resolve({
+          ok: true,
+          json: () =>
+            Promise.resolve({
+              data: {
+                document: {
+                  id: 'doc-1',
+                  name: 'test.pdf',
+                  fileName: 'test.pdf',
+                  status: 'pending_review',
+                },
+                preview: {
+                  extractedText: 'Hello world',
+                  title: 'Test PDF',
+                  author: null,
+                  sectionCount: 3,
+                  warnings: [],
+                  requiresConfirmation: true,
+                },
+              },
+            }),
+        });
+      }
+      return Promise.resolve({ ok: true, json: () => Promise.resolve({}) });
+    });
+
+    const user = userEvent.setup();
+    render(<DocumentUploadZone onUploadComplete={onUploadComplete} onPdfPreview={onPdfPreview} />);
+
+    const input = screen.getByLabelText(/upload document/i);
+    fireEvent.change(input, {
+      target: { files: [new File(['content'], 'test.pdf', { type: 'application/pdf' })] },
+    });
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /^upload$/i })).toBeInTheDocument();
+    });
+    await user.click(screen.getByRole('button', { name: /^upload$/i }));
+
+    await waitFor(() => {
+      expect(onPdfPreview).toHaveBeenCalledWith(expect.objectContaining({ runCleanup: false }));
+    });
+  });
+
   it('stages valid file and shows upload button', async () => {
     render(<DocumentUploadZone onUploadComplete={onUploadComplete} />);
 

@@ -111,6 +111,12 @@ export interface PdfPreviewData {
     pages?: { num: number; charCount: number; hasText: boolean }[] | null;
     requiresConfirmation: boolean;
   };
+  /**
+   * True when the upload was flagged "Clean up before chunking". PDFs still
+   * go through the extraction review first, so the modal needs this to tell
+   * the operator that confirming opens the cleanup chat instead of chunking.
+   */
+  runCleanup: boolean;
 }
 
 interface DocumentUploadZoneProps {
@@ -251,6 +257,9 @@ export function DocumentUploadZone({ onUploadComplete, onPdfPreview }: DocumentU
           responseBody.data.document &&
           onPdfPreview
         ) {
+          // Capture before the reset below — the modal labels its confirm
+          // button off this flag.
+          const wantsCleanup = runCleanup;
           setStagedFiles([]);
           setTagIds([]);
           setDisplayName('');
@@ -258,6 +267,7 @@ export function DocumentUploadZone({ onUploadComplete, onPdfPreview }: DocumentU
           onPdfPreview({
             document: responseBody.data.document,
             preview: responseBody.data.preview,
+            runCleanup: wantsCleanup,
           });
           return;
         }
@@ -558,6 +568,11 @@ export function DocumentUploadZone({ onUploadComplete, onPdfPreview }: DocumentU
                       The cleaned text — not the original — is what gets chunked and embedded when
                       you click <em>Mark cleaned</em>. The original is preserved so you can discard
                       the cleanup and use the raw version instead.
+                    </p>
+                    <p className="mt-2">
+                      <strong>PDFs take two steps:</strong> you review the extracted text first, and
+                      the <em>Confirm &amp; Clean Up</em> button on that screen opens the cleanup
+                      chat. Every other format goes straight to the chat.
                     </p>
                     <p className="mt-2">
                       <strong>When to use:</strong> raw transcripts (YouTube, meeting recordings),

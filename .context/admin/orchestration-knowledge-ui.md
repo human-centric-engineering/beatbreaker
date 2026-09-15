@@ -135,6 +135,7 @@ Opened automatically after a PDF upload. Displays:
 - Editable textarea with extracted text (for correcting OCR errors)
 - Confirm & Chunk button → calls `POST /documents/:id/confirm`
 - Discard button → calls `DELETE /documents/:id`
+- When the upload was flagged **Clean up before chunking**, the modal still opens first (extraction review is not skippable for PDFs). It then shows a blue "Clean up before chunking is on" notice and the confirm button reads **Confirm & Clean Up** — the same `POST /documents/:id/confirm` call, which branches on `metadata.runCleanup` and returns a `redirectTo` for the cleanup chat instead of chunking. The flag reaches the modal as `PdfPreviewData.runCleanup`, set by the upload zone from the checkbox.
 - Page-coverage banner: `X% of pages produced text (N of M pages, K chars total)` green/amber — pre-chunking signal. Below 95% indicates scanned pages.
 - Per-page extraction bar strip: one bar per page, height proportional to char count, amber for scanned-suspect pages
 

@@ -40,6 +40,7 @@ const mockPreviewData: PdfPreviewData = {
     warnings: ['Some pages had low OCR confidence'],
     requiresConfirmation: true,
   },
+  runCleanup: false,
 };
 
 // ─── Tests ────────────────────────────────────────────────────────────────────
@@ -382,6 +383,37 @@ describe('PdfPreviewModal', () => {
 
       expect(screen.getByText(/50% of pages produced text/i)).toBeInTheDocument();
       expect(screen.getByText(/2 likely scanned/i)).toBeInTheDocument();
+    });
+
+    // ── cleanup-pending signalling ────────────────────────────────────────────
+
+    it('labels the confirm button "Confirm & Clean Up" and explains the next step when runCleanup is set', () => {
+      render(
+        <PdfPreviewModal
+          data={{ ...mockPreviewData, runCleanup: true }}
+          open={true}
+          onOpenChange={onOpenChange}
+          onConfirmed={onConfirmed}
+        />
+      );
+
+      expect(screen.getByRole('button', { name: /confirm & clean up/i })).toBeInTheDocument();
+      expect(screen.queryByRole('button', { name: /confirm & chunk/i })).not.toBeInTheDocument();
+      expect(screen.getByText(/clean up before chunking is on/i)).toBeInTheDocument();
+    });
+
+    it('keeps the "Confirm & Chunk" label and shows no cleanup notice when runCleanup is not set', () => {
+      render(
+        <PdfPreviewModal
+          data={mockPreviewData}
+          open={true}
+          onOpenChange={onOpenChange}
+          onConfirmed={onConfirmed}
+        />
+      );
+
+      expect(screen.getByRole('button', { name: /confirm & chunk/i })).toBeInTheDocument();
+      expect(screen.queryByText(/clean up before chunking is on/i)).not.toBeInTheDocument();
     });
 
     // ── redirectTo routing behaviour ──────────────────────────────────────────

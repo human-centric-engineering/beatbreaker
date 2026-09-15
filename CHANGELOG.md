@@ -1327,6 +1327,14 @@ release process.
   always was, `TENANCY_MODE` + the `lib/db/client.ts` chokepoint. Forks that went
   looking for `lib/tenancy/` were chasing a phantom module.
 
+- **Ticking "Clean up before chunking" on a PDF upload looked like it did
+  nothing.** The extraction-review modal opened exactly as it does without the
+  box, with a `Confirm & Chunk` button — the cleanup only revealed itself one
+  click later, when confirm redirected to the cleanup chat. The modal now carries
+  the flag (`PdfPreviewData.runCleanup`, a new required field on that exported
+  interface), shows a "Clean up before chunking is on" notice, and labels the
+  button `Confirm & Clean Up`. Server behaviour is unchanged.
+
 ## [0.11.2] — 2026-08-31
 
 > **Alpha release.** Sixteenth tagged Sunrise release. **PATCH bump** — a
