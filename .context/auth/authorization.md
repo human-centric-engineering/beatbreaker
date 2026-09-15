@@ -286,6 +286,39 @@ between an unreviewed omission and a reviewed decision. Closing it properly
 needs a control at the query, which is the tenancy chokepoint in
 `lib/db/client.ts` — see [the leak](#the-leak-stated-plainly).
 
+**Which files read rows nobody owns outside the helpers is derived, not
+recalled.** The always-run test `tests/unit/scripts/ci/ownerless-surfaces.test.ts`
+lists every source file under `app/`, `lib/` and `components/` and, through the
+library `scripts/ci/ownerless-surfaces.ts` (no entry point of its own), parses
+each with the TypeScript compiler and finds each
+read of `AiWorkflowExecution`, `AiConversation` or `AiMessage` — a property or
+element access on any receiver, a destructured client, a table name in SQL text
+— and the always-run test fails unless the file value-imports the access helper
+for that model or is declared in `OWNERLESS_SURFACE_EXCEPTIONS`
+(`lib/orchestration/access/ownerless-surfaces.ts`, beside the helpers) with a
+reason the checker enforces as non-trivial. The parser rather than a regex,
+deliberately: a first draft tokenized source by hand and three review rounds
+each found ordinary shapes it could not see. Two dispositions: `'by-design'` for a file
+with no caller to scope to (the engine, the reaper, a webhook receiver, a
+consumer route keyed on `session.user.id`), and `'known-gap'` for one that
+should go through the helper and does not yet, which must name the issue or
+task that closes it and is reported as stale the moment the file starts
+importing the helper. The first pass (t-692) measured 54 files touching the
+three models — 23 through the helpers, 29 by design, and **two known gaps**:
+`approvals/history` (#773) and the analytics service (t-694). Three earlier
+coverage claims on this page were each written from the files their author had
+read and each was wrong; this is what replaces them. **It raises the floor; it
+is not a proof** — a file that imports the helper and runs an unscoped query
+beside it passes (an import of a helper _type_ — with or without the `type`
+keyword — does not, nor does `isShareActive`, a predicate on a row: coverage is
+an import of one of the helper's _decisions_, the exported functions that take
+the `AuthenticatedSession`, read off the helper's own source; nor does a bare
+import nothing uses), and a read through a relation `include` is not seen at
+all. A fork's own files land
+in the roster the moment they exist, and a fork declares its exceptions in
+`appOwnerlessSurfaceExceptions` (`lib/app/ci.ts`) rather than editing the core
+list.
+
 ---
 
 ## Owner-scoped reads: the recipe
@@ -682,11 +715,13 @@ directly with no owner clause and no policy in the loop, and `unanswered`
 returns the verbatim text of both the agent's reply and the member of the
 public's question. That is not a regression — it is consistent with the rule
 this seam replaced — but a fork that narrows `canRead`, confirms an inbound
-thread 404s, and concludes the correspondence is contained will be wrong. See
-[#775](https://github.com/human-centric-engineering/sunrise/issues/775) for the
-check that would catch surfaces like these mechanically. (`POST
-/conversations/clear` with `allUsers` used to be on this list; since t-691 it
-reads the same policy answer as the targeted delete.)
+thread 404s, and concludes the correspondence is contained will be wrong. The
+gap is now held open mechanically rather than by this paragraph: the analytics
+service is a `'known-gap'` entry in `OWNERLESS_SURFACE_EXCEPTIONS`
+(`lib/orchestration/access/ownerless-surfaces.ts`, tracked as t-694), and the
+roster test reports the entry as stale the day it starts going through the
+helper. (`POST /conversations/clear` with `allUsers` used to be on this list;
+since t-691 it reads the same policy answer as the targeted delete.)
 
 **The same answer decides the writes, deliberately, and that closes two doors a
 policy must leave someone a key to.** There is no `canWrite` face: every core
