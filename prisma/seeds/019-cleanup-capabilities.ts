@@ -98,6 +98,21 @@ const DETERMINISTIC: CleanupCap[] = [
     rateLimit: 60,
   },
   {
+    slug: 'join_wrapped_lines',
+    name: 'Join Wrapped Lines',
+    description:
+      'Rejoin sentences a PDF or fixed-width renderer wrapped across lines, and rejoin hyphen-split words.',
+    handler: 'JoinWrappedLinesCapability',
+    parameters: {
+      type: 'object',
+      properties: {
+        dehyphenate: { type: 'boolean' },
+        onlyLowercaseContinuations: { type: 'boolean' },
+      },
+    },
+    rateLimit: 60,
+  },
+  {
     slug: 'normalise_punctuation',
     name: 'Normalise Punctuation',
     description: 'Convert typographic punctuation (smart quotes, dashes, ellipsis) to ASCII.',
@@ -108,6 +123,39 @@ const DETERMINISTIC: CleanupCap[] = [
 ];
 
 const READ_ONLY: CleanupCap[] = [
+  {
+    slug: 'read_document',
+    name: 'Read Document',
+    description:
+      'Read a window of the cleanup document as numbered lines — the only capability that returns actual text.',
+    handler: 'ReadDocumentCapability',
+    parameters: {
+      type: 'object',
+      properties: {
+        fromLine: { type: 'number' },
+        lineCount: { type: 'number' },
+        which: { type: 'string', enum: ['current', 'original'] },
+      },
+    },
+    rateLimit: 120,
+  },
+  {
+    slug: 'find_in_document',
+    name: 'Find In Document',
+    description:
+      'Find lines matching a regex, returning line numbers and text. Checks a pattern before a destructive transform uses it.',
+    handler: 'FindInDocumentCapability',
+    parameters: {
+      type: 'object',
+      properties: {
+        regex: { type: 'string', description: 'Regex pattern (no surrounding slashes).' },
+        flags: { type: 'string' },
+        maxMatches: { type: 'number' },
+      },
+      required: ['regex'],
+    },
+    rateLimit: 120,
+  },
   {
     slug: 'preview_diff',
     name: 'Preview Diff',
@@ -159,7 +207,7 @@ const LLM_BACKED: CleanupCap[] = [
 
 const ALL = [...DETERMINISTIC, ...READ_ONLY, ...LLM_BACKED];
 
-// Seeds the eleven Document Clean Up capabilities the Cleanup Agent owns.
+// Seeds the Document Clean Up capabilities the Cleanup Agent owns.
 // Idempotent — re-seeding only sets isSystem: true so admin edits (name,
 // description, rate limit) survive. Agent binding lives in 020-cleanup-agent.
 const unit: SeedUnit = {

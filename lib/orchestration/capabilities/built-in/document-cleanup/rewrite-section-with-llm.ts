@@ -8,6 +8,7 @@ import type {
   CapabilityResult,
 } from '@/lib/orchestration/capabilities/types';
 import { getProvider } from '@/lib/orchestration/llm/provider-manager';
+import { resolveAgentProviderAndModel } from '@/lib/orchestration/llm/agent-resolver';
 import { resolveCleanupTarget } from '@/lib/orchestration/capabilities/built-in/document-cleanup/context';
 import { requireEditableTarget } from '@/lib/orchestration/knowledge/edit-lock';
 
@@ -106,23 +107,37 @@ export class RewriteSectionWithLlmCapability extends BaseCapability<Args, Data> 
 
     const agent = await prisma.aiAgent.findUnique({
       where: { id: context.agentId },
-      select: { provider: true, model: true, temperature: true },
+      select: { provider: true, model: true, temperature: true, fallbackProviders: true },
     });
-    if (!agent?.provider || !agent.model) {
-      return this.error('Agent has no provider or model configured.', 'agent_misconfigured');
+    if (!agent) {
+      return this.error('Agent not found.', 'agent_misconfigured');
+    }
+
+    // Same resolver the chat loop uses — see the note in rewrite-with-llm.ts:
+    // the cleanup agent ships with provider/model empty by design, so reading
+    // the row directly made this path dead on every default install.
+    let binding;
+    try {
+      binding = await resolveAgentProviderAndModel(agent, 'chat');
+    } catch (err) {
+      logger.error('rewrite_section_with_llm: no usable provider binding', { err });
+      return this.error(
+        'No LLM provider is configured for this install, so an LLM rewrite is not available. Deterministic cleanups still work.',
+        'agent_misconfigured'
+      );
     }
 
     const sectionBody = target.content.slice(located.bodyStart, located.bodyEnd);
 
     let provider;
     try {
-      provider = await getProvider(agent.provider);
+      provider = await getProvider(binding.providerSlug);
     } catch (err) {
       logger.error('rewrite_section_with_llm: provider load failed', {
         err,
-        slug: agent.provider,
+        slug: binding.providerSlug,
       });
-      return this.error(`Provider "${agent.provider}" unavailable.`, 'provider_unavailable');
+      return this.error(`Provider "${binding.providerSlug}" unavailable.`, 'provider_unavailable');
     }
 
     const response = await provider.chat(
@@ -133,7 +148,7 @@ export class RewriteSectionWithLlmCapability extends BaseCapability<Args, Data> 
           content: `INSTRUCTIONS:\n${args.instructions}\n\n---\nSECTION HEADING:\n${located.headingLine}\n\nSECTION BODY:\n${sectionBody}`,
         },
       ],
-      { model: agent.model, temperature: agent.temperature ?? 0.2 }
+      { model: binding.model, temperature: agent.temperature ?? 0.2 }
     );
 
     const rewritten = response.content.trim();

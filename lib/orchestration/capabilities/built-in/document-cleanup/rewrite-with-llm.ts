@@ -8,6 +8,7 @@ import type {
   CapabilityResult,
 } from '@/lib/orchestration/capabilities/types';
 import { getProvider } from '@/lib/orchestration/llm/provider-manager';
+import { resolveAgentProviderAndModel } from '@/lib/orchestration/llm/agent-resolver';
 import { resolveCleanupTarget } from '@/lib/orchestration/capabilities/built-in/document-cleanup/context';
 import { requireEditableTarget } from '@/lib/orchestration/knowledge/edit-lock';
 import { getDocumentSizeReport } from '@/lib/orchestration/knowledge/size-report';
@@ -74,18 +75,34 @@ export class RewriteWithLlmCapability extends BaseCapability<Args, Data> {
 
     const agent = await prisma.aiAgent.findUnique({
       where: { id: context.agentId },
-      select: { provider: true, model: true, temperature: true },
+      select: { provider: true, model: true, temperature: true, fallbackProviders: true },
     });
-    if (!agent?.provider || !agent.model) {
-      return this.error('Agent has no provider or model configured.', 'agent_misconfigured');
+    if (!agent) {
+      return this.error('Agent not found.', 'agent_misconfigured');
+    }
+
+    // Resolve through the same seam the chat loop uses. Reading
+    // agent.provider/model directly would fail on every default install: the
+    // cleanup agent is seeded with both fields EMPTY so it inherits whatever
+    // provider the install is configured with, which made this capability —
+    // and the whole LLM half of Document Clean Up — permanently unavailable.
+    let binding;
+    try {
+      binding = await resolveAgentProviderAndModel(agent, 'chat');
+    } catch (err) {
+      logger.error('rewrite_with_llm: no usable provider binding', { err });
+      return this.error(
+        'No LLM provider is configured for this install, so an LLM rewrite is not available. Deterministic cleanups still work.',
+        'agent_misconfigured'
+      );
     }
 
     let provider;
     try {
-      provider = await getProvider(agent.provider);
+      provider = await getProvider(binding.providerSlug);
     } catch (err) {
-      logger.error('rewrite_with_llm: provider load failed', { err, slug: agent.provider });
-      return this.error(`Provider "${agent.provider}" unavailable.`, 'provider_unavailable');
+      logger.error('rewrite_with_llm: provider load failed', { err, slug: binding.providerSlug });
+      return this.error(`Provider "${binding.providerSlug}" unavailable.`, 'provider_unavailable');
     }
 
     const response = await provider.chat(
@@ -96,7 +113,7 @@ export class RewriteWithLlmCapability extends BaseCapability<Args, Data> {
           content: `INSTRUCTIONS:\n${args.instructions}\n\n---\nDOCUMENT:\n${target.content}`,
         },
       ],
-      { model: agent.model, temperature: agent.temperature ?? 0.2 }
+      { model: binding.model, temperature: agent.temperature ?? 0.2 }
     );
 
     const next = response.content.trim();

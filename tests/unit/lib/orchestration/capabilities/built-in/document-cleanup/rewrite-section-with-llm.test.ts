@@ -68,6 +68,17 @@ vi.mock('@/lib/orchestration/llm/provider-manager', () => ({
   getProvider: mockGetProvider,
 }));
 
+// The capability resolves its binding through the same seam the chat loop
+// uses, because the cleanup agent ships with provider/model EMPTY. Mocked so
+// these tests state what binding came back rather than what the row held.
+const { mockResolveAgentProviderAndModel } = vi.hoisted(() => ({
+  mockResolveAgentProviderAndModel: vi.fn(),
+}));
+
+vi.mock('@/lib/orchestration/llm/agent-resolver', () => ({
+  resolveAgentProviderAndModel: mockResolveAgentProviderAndModel,
+}));
+
 vi.mock('@/lib/logging', () => ({
   logger: {
     info: vi.fn(),
@@ -145,6 +156,13 @@ describe('RewriteSectionWithLlmCapability', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockRequireEditableTarget.mockResolvedValue({ ok: true });
+    // Default: the resolver hands back a usable binding, as it does whenever
+    // the install has any reachable provider.
+    mockResolveAgentProviderAndModel.mockResolvedValue({
+      providerSlug: 'openai',
+      model: 'gpt-4.1',
+      fallbacks: [],
+    });
     capability = new RewriteSectionWithLlmCapability();
 
     // Default: summariseMutation returns real-shaped output so assertions stay meaningful
@@ -199,39 +217,67 @@ describe('RewriteSectionWithLlmCapability', () => {
     expect(mockWriteCleanupContent).not.toHaveBeenCalled();
   });
 
-  // ── agent_misconfigured ──────────────────────────────────────────────────
+  // ── binding resolution ───────────────────────────────────────────────────
 
-  it('returns agent_misconfigured when the agent has no provider', async () => {
-    // Arrange
+  it('rewrites with the RESOLVED binding when the agent row has no provider or model', async () => {
+    // Same regression as rewrite_with_llm: the cleanup agent ships with both
+    // fields empty, so reading the row directly made this path dead on every
+    // default install.
     const content = '# Introduction\nBody text here.';
     mockResolveCleanupTarget.mockResolvedValue(makeTarget(content));
-    vi.mocked(prisma.aiAgent.findUnique).mockResolvedValue(makeAgentRow({ provider: null }));
+    vi.mocked(prisma.aiAgent.findUnique).mockResolvedValue(
+      makeAgentRow({ provider: '', model: '' })
+    );
+    mockResolveAgentProviderAndModel.mockResolvedValue({
+      providerSlug: 'anthropic',
+      model: 'claude-sonnet-4',
+      fallbacks: [],
+    });
+    const fakeProvider = makeFakeProvider(makeLlmResponse());
+    mockGetProvider.mockResolvedValue(fakeProvider);
 
-    // Act
     const result = await capability.execute(
       { sectionMarker: 'Introduction', instructions: 'Rewrite it.' },
       makeContext()
     );
 
-    // Assert
+    expect(result.success).toBe(true);
+    expect(mockGetProvider).toHaveBeenCalledWith('anthropic');
+    expect(fakeProvider.chat).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({ model: 'claude-sonnet-4' })
+    );
+  });
+
+  it('returns agent_misconfigured when no provider is configured for the install', async () => {
+    const content = '# Introduction\nBody text here.';
+    mockResolveCleanupTarget.mockResolvedValue(makeTarget(content));
+    vi.mocked(prisma.aiAgent.findUnique).mockResolvedValue(makeAgentRow());
+    mockResolveAgentProviderAndModel.mockRejectedValue(
+      new Error('No active LLM provider is configured.')
+    );
+
+    const result = await capability.execute(
+      { sectionMarker: 'Introduction', instructions: 'Rewrite it.' },
+      makeContext()
+    );
+
     expect(result.success).toBe(false);
     expect(result.error?.code).toBe('agent_misconfigured');
+    expect(result.error?.message).toMatch(/deterministic cleanups still work/i);
     expect(mockGetProvider).not.toHaveBeenCalled();
   });
 
-  it('returns agent_misconfigured when the agent has no model', async () => {
-    // Arrange
+  it('returns agent_misconfigured when the agent row is missing entirely', async () => {
     const content = '# Introduction\nBody text here.';
     mockResolveCleanupTarget.mockResolvedValue(makeTarget(content));
-    vi.mocked(prisma.aiAgent.findUnique).mockResolvedValue(makeAgentRow({ model: null }));
+    vi.mocked(prisma.aiAgent.findUnique).mockResolvedValue(null);
 
-    // Act
     const result = await capability.execute(
       { sectionMarker: 'Introduction', instructions: 'Rewrite it.' },
       makeContext()
     );
 
-    // Assert
     expect(result.success).toBe(false);
     expect(result.error?.code).toBe('agent_misconfigured');
     expect(mockGetProvider).not.toHaveBeenCalled();

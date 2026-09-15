@@ -70,6 +70,17 @@ vi.mock('@/lib/orchestration/llm/provider-manager', () => ({
   getProvider: mockGetProvider,
 }));
 
+// The capability resolves its binding through the same seam the chat loop
+// uses, because the cleanup agent ships with provider/model EMPTY. Mocked so
+// these tests state what binding came back rather than what the row held.
+const { mockResolveAgentProviderAndModel } = vi.hoisted(() => ({
+  mockResolveAgentProviderAndModel: vi.fn(),
+}));
+
+vi.mock('@/lib/orchestration/llm/agent-resolver', () => ({
+  resolveAgentProviderAndModel: mockResolveAgentProviderAndModel,
+}));
+
 vi.mock('@/lib/logging', () => ({
   logger: {
     info: vi.fn(),
@@ -151,6 +162,13 @@ describe('RewriteWithLlmCapability', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockRequireEditableTarget.mockResolvedValue({ ok: true });
+    // Default: the resolver hands back a usable binding, as it does whenever
+    // the install has any reachable provider.
+    mockResolveAgentProviderAndModel.mockResolvedValue({
+      providerSlug: 'openai',
+      model: 'gpt-4.1',
+      fallbacks: [],
+    });
     capability = new RewriteWithLlmCapability();
 
     // Default: summariseMutation returns a real-shaped summary from actual inputs
@@ -203,33 +221,61 @@ describe('RewriteWithLlmCapability', () => {
     expect(mockWriteCleanupContent).not.toHaveBeenCalled();
   });
 
-  // ── agent_misconfigured ──────────────────────────────────────────────────
+  // ── binding resolution ───────────────────────────────────────────────────
 
-  it('returns agent_misconfigured when the agent row has no provider', async () => {
-    // Arrange
+  it('rewrites with the RESOLVED binding when the agent row has no provider or model', async () => {
+    // The regression this guards: the cleanup agent is seeded with both
+    // fields empty so it inherits the install's binding, and this capability
+    // used to read the row directly and bail — making the whole LLM half of
+    // Document Clean Up permanently unavailable on a default install.
     mockResolveCleanupTarget.mockResolvedValue(makeTarget('doc content'));
     mockGetDocumentSizeReport.mockReturnValue(makeSizeReport(true));
-    vi.mocked(prisma.aiAgent.findUnique).mockResolvedValue(makeAgentRow({ provider: null }));
+    vi.mocked(prisma.aiAgent.findUnique).mockResolvedValue(
+      makeAgentRow({ provider: '', model: '' })
+    );
+    const fakeProvider = makeFakeProvider(makeLlmResponse());
+    mockGetProvider.mockResolvedValue(fakeProvider);
+    mockResolveAgentProviderAndModel.mockResolvedValue({
+      providerSlug: 'anthropic',
+      model: 'claude-sonnet-4',
+      fallbacks: [],
+    });
 
-    // Act
     const result = await capability.execute({ instructions: 'Clean it up.' }, makeContext());
 
-    // Assert
+    expect(result.success).toBe(true);
+    expect(mockGetProvider).toHaveBeenCalledWith('anthropic');
+    expect(fakeProvider.chat).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({ model: 'claude-sonnet-4' })
+    );
+  });
+
+  it('returns agent_misconfigured when no provider is configured for the install', async () => {
+    mockResolveCleanupTarget.mockResolvedValue(makeTarget('doc content'));
+    mockGetDocumentSizeReport.mockReturnValue(makeSizeReport(true));
+    vi.mocked(prisma.aiAgent.findUnique).mockResolvedValue(makeAgentRow());
+    mockResolveAgentProviderAndModel.mockRejectedValue(
+      new Error('No active LLM provider is configured.')
+    );
+
+    const result = await capability.execute({ instructions: 'Clean it up.' }, makeContext());
+
     expect(result.success).toBe(false);
     expect(result.error?.code).toBe('agent_misconfigured');
+    // The message has to tell the admin deterministic cleanups still work —
+    // the agent relays it verbatim into the chat.
+    expect(result.error?.message).toMatch(/deterministic cleanups still work/i);
     expect(mockGetProvider).not.toHaveBeenCalled();
   });
 
-  it('returns agent_misconfigured when the agent row has no model', async () => {
-    // Arrange
+  it('returns agent_misconfigured when the agent row is missing entirely', async () => {
     mockResolveCleanupTarget.mockResolvedValue(makeTarget('doc content'));
     mockGetDocumentSizeReport.mockReturnValue(makeSizeReport(true));
-    vi.mocked(prisma.aiAgent.findUnique).mockResolvedValue(makeAgentRow({ model: null }));
+    vi.mocked(prisma.aiAgent.findUnique).mockResolvedValue(null);
 
-    // Act
     const result = await capability.execute({ instructions: 'Clean it up.' }, makeContext());
 
-    // Assert
     expect(result.success).toBe(false);
     expect(result.error?.code).toBe('agent_misconfigured');
     expect(mockGetProvider).not.toHaveBeenCalled();
@@ -275,7 +321,7 @@ describe('RewriteWithLlmCapability', () => {
 
   // ── happy path ───────────────────────────────────────────────────────────
 
-  it('calls getProvider with the agent provider slug then calls provider.chat with system + user messages', async () => {
+  it('calls getProvider with the resolved provider slug then calls provider.chat with system + user messages', async () => {
     // Arrange
     const docContent = 'The original document text.';
     const instructions = 'Remove all filler words.';
@@ -290,12 +336,19 @@ describe('RewriteWithLlmCapability', () => {
     vi.mocked(prisma.aiAgent.findUnique).mockResolvedValue(
       makeAgentRow({ provider: 'anthropic', model: 'claude-3-5-haiku-20241022' })
     );
+    // An explicitly-bound agent resolves to its own provider/model — the
+    // resolver returns them unchanged.
+    mockResolveAgentProviderAndModel.mockResolvedValue({
+      providerSlug: 'anthropic',
+      model: 'claude-3-5-haiku-20241022',
+      fallbacks: [],
+    });
     mockGetProvider.mockResolvedValue(fakeProvider);
 
     // Act
     const result = await capability.execute({ instructions }, makeContext());
 
-    // Assert: provider was fetched by slug
+    // Assert: provider was fetched by the RESOLVED slug
     expect(mockGetProvider).toHaveBeenCalledWith('anthropic');
     // Provider.chat was called with a 2-message array
     expect(fakeProvider.chat).toHaveBeenCalledWith(
@@ -440,7 +493,12 @@ describe('RewriteWithLlmCapability', () => {
     // Assert: the capability uses context.agentId — not a hardcoded value
     expect(prisma.aiAgent.findUnique).toHaveBeenCalledWith({
       where: { id: 'agent-xyz-999' },
-      select: { provider: true, model: true, temperature: true },
+      select: {
+        provider: true,
+        model: true,
+        temperature: true,
+        fallbackProviders: true,
+      },
     });
   });
 });

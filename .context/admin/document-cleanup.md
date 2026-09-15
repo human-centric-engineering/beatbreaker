@@ -35,38 +35,87 @@ PDFs go through the existing preview modal first (so coverage warnings are visib
 
 ## Cleanup Agent
 
-| Field                 | Value                                                                                   |
-| --------------------- | --------------------------------------------------------------------------------------- |
-| `slug`                | `cleanup-agent`                                                                         |
-| `name`                | Document Clean Up Assistant                                                             |
-| `visibility`          | `internal`                                                                              |
-| `isSystem`            | `true` (seeded by `prisma/seeds/020-cleanup-agent.ts`)                                  |
-| Default model         | Resolved at runtime via `agent-resolver.ts` (admin can pin a cheaper Haiku-class model) |
-| Temperature           | `0.2` — cleanup is procedural, not creative                                             |
-| `knowledgeAccessMode` | `restricted` — cleanup never searches the wider KB                                      |
+| Field                 | Value                                                                                                                                            |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `slug`                | `cleanup-agent`                                                                                                                                  |
+| `name`                | Document Clean Up Assistant                                                                                                                      |
+| `visibility`          | `internal`                                                                                                                                       |
+| `isSystem`            | `true` (seeded by `prisma/seeds/020-cleanup-agent.ts`)                                                                                           |
+| Default model         | **Pinned at seed time** to the strongest tool-using model the install can reach (see below); empty → resolved at runtime via `agent-resolver.ts` |
+| Temperature           | `0.2` — cleanup is procedural, not creative                                                                                                      |
+| `knowledgeAccessMode` | `restricted` — cleanup never searches the wider KB                                                                                               |
 
-The seeded system prompt instructs the agent to prefer deterministic capabilities, summarise changes before and after, call `estimate_size` early, ask for clarification on vague instructions, and remind the admin to click **Mark cleaned** when satisfied. Admins can edit the prompt in the standard agent admin UI; re-seeding only sets `isSystem: true` so customisations survive.
+**Why the model is pinned rather than inherited.** Cleanup is a tool-choice
+task: fourteen capabilities whose differences are subtle (`collapse_whitespace`
+vs `join_wrapped_lines`, `strip_lines_matching` vs `strip_matches`), and a weak
+model picks the wrong one and reports success. `pickPinnedBinding()` in the seed
+chooses among models that are `toolUse: 'strong'` on a provider the install can
+actually reach — active, and with its `apiKeyEnvVar` set or marked local,
+mirroring `pickActiveProviderCandidates()` — preferring worker tier over
+thinking tier (a whole-document rewrite on a thinking-tier model costs far more
+and is no better at picking a regex), then deepest reasoning, then model id for
+a stable tie-break. Nothing reachable → both fields stay empty and the runtime
+resolver fills them, exactly as before. An admin's own choice is never
+overwritten: the fill only targets rows where **both** fields are still empty.
+
+The seeded system prompt tells the agent to read before it acts and verify
+after, states what each tool cannot do, prefers deterministic capabilities,
+covers the PDF / transcript / verbose-article / large-document flows, and
+reminds the admin to click **Mark cleaned** when satisfied. Admins can edit it
+in the standard agent admin UI. Re-seeding refreshes the prompt **only while
+`systemInstructionsHistory` is still empty** — that array is appended to on
+every admin save, so an untouched row still holds exactly what a previous seed
+wrote and can safely be brought up to date, while an edited one is left alone.
 
 ## Capabilities reference
 
-All eleven capabilities resolve the active document via the chat session's `contextType` + `contextId`. They error with `not_cleanup_session` if invoked outside a cleanup conversation.
+All fourteen capabilities resolve the active document via the chat session's `contextType` + `contextId`. They error with `not_cleanup_session` if invoked outside a cleanup conversation.
+
+### The agent has to be able to SEE the document
+
+**`read_document` and `find_in_document` are the only capabilities that return
+document text.** Everything else reports counts. Without them the agent chooses
+transforms blind and cannot tell whether one worked — which is how a real
+session ran `strip_lines_matching` with a `\n` pattern (a line-wise tool, so
+the pattern could never match), got `success: true, charsRemoved: 0`, and told
+the admin the document had been fixed.
+
+Two things close that gap, and both must stay in place:
+
+1. These two read-only capabilities.
+2. The `knowledge_document` case in `buildContext`
+   (`lib/orchestration/chat/context-builder.ts`), which puts the document's
+   name, size and a numbered opening excerpt into the system prompt every turn.
+   Before it existed the prompt carried the literal string
+   `No context loader for type 'knowledge_document'.` — the agent did not know
+   what it was editing. That block is deliberately **not cached**: the document
+   changes on almost every turn, so the 60-second context cache would serve a
+   stale copy of the thing being edited.
 
 ### Deterministic (no LLM cost)
 
-| Slug                    | Args                                                                  | What it does                                                                                                                   |
-| ----------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `strip_lines_matching`  | `{ regex, flags? }`                                                   | Removes whole lines where the regex matches. Returns `invalid_regex` on a malformed or unsafe pattern (see below).             |
-| `strip_matches`         | `{ regex, flags? }`                                                   | Removes inline regex matches; forces `g` flag. Same `invalid_regex` rejection as `strip_lines_matching`.                       |
-| `strip_timestamps`      | `{ formats?: ('hh_mm'\|'hh_mm_ss'\|'bracketed'\|'parenthesised')[] }` | Removes timestamp markers in the named formats; default removes all four.                                                      |
-| `strip_speaker_labels`  | `{ format?: 'colon'\|'bracketed'\|'both' }`                           | Removes `Name:` and/or `[Name]` at line start. Multi-word names up to 4 words supported. Non-capitalised speakers not matched. |
-| `collapse_whitespace`   | `{ keepBlankLines?: boolean }`                                        | Collapses runs of spaces/tabs to one space, trims trailing whitespace, collapses or removes blank lines.                       |
-| `dedupe_lines`          | `{ consecutiveOnly?: boolean }`                                       | Removes duplicate lines (adjacent or doc-wide).                                                                                |
-| `normalise_punctuation` | none                                                                  | Smart quotes → straight, en/em dashes → `-`/`--`, ellipsis char → `...`, non-breaking space → space.                           |
-| `preview_diff`          | none                                                                  | Read-only — reports `charsOriginal`, `charsCurrent`, `linesOriginal`, `linesCurrent`, `reductionPct` for the agent to narrate. |
+| Slug                    | Args                                                                  | What it does                                                                                                                                             |
+| ----------------------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `strip_lines_matching`  | `{ regex, flags? }`                                                   | Removes whole lines where the regex matches. Returns `invalid_regex` on a malformed or unsafe pattern (see below).                                       |
+| `strip_matches`         | `{ regex, flags? }`                                                   | Removes inline regex matches; forces `g` flag. Same `invalid_regex` rejection as `strip_lines_matching`.                                                 |
+| `strip_timestamps`      | `{ formats?: ('hh_mm'\|'hh_mm_ss'\|'bracketed'\|'parenthesised')[] }` | Removes timestamp markers in the named formats; default removes all four.                                                                                |
+| `strip_speaker_labels`  | `{ format?: 'colon'\|'bracketed'\|'both' }`                           | Removes `Name:` and/or `[Name]` at line start. Multi-word names up to 4 words supported. Non-capitalised speakers not matched.                           |
+| `collapse_whitespace`   | `{ keepBlankLines?: boolean }`                                        | Collapses runs of spaces/tabs to one space, trims trailing whitespace, collapses or removes blank lines. Works INSIDE a line — it never joins two lines. |
+| `join_wrapped_lines`    | `{ dehyphenate?: boolean, onlyLowercaseContinuations?: boolean }`     | Rejoins sentences a PDF wrapped across lines, and hyphen-split words. The tool for "sentences broken mid-way by a newline".                              |
+| `dedupe_lines`          | `{ consecutiveOnly?: boolean }`                                       | Removes duplicate lines (adjacent or doc-wide).                                                                                                          |
+| `normalise_punctuation` | none                                                                  | Smart quotes → straight, en/em dashes → `-`/`--`, ellipsis char → `...`, non-breaking space → space.                                                     |
+| `preview_diff`          | none                                                                  | Read-only — reports `charsOriginal`, `charsCurrent`, `linesOriginal`, `linesCurrent`, `reductionPct` for the agent to narrate.                           |
 
 **Regex safety.** The cleanup agent picks `regex`/`flags` itself from natural-language instructions, so `strip_lines_matching` and `strip_matches` run every pattern through `compileSafeRegex()` (`lib/orchestration/capabilities/built-in/document-cleanup/context.ts`) before compiling it — a `safe-regex2` check that rejects patterns vulnerable to catastrophic backtracking (e.g. `(a+)+$`) with `invalid_regex`, alongside the existing syntax-error check. Node's `RegExp` engine has no built-in timeout, so this runs _before_ the pattern is ever executed rather than trying to recover from a hang afterward.
 
 ### LLM-backed (size-permitting)
+
+**These resolve their binding through `resolveAgentProviderAndModel`, not from
+the agent row.** The cleanup agent ships with `provider`/`model` empty so it
+inherits the install's configuration; reading the row directly (which all three
+LLM paths used to do — both capabilities and `/cleanup/section/refine`) returned
+`agent_misconfigured` on every default install, so the LLM half of Document
+Clean Up had never worked outside an install that had pinned the agent by hand.
 
 | Slug                       | Args                              | What it does                                                                                                                                      |
 | -------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -75,9 +124,24 @@ All eleven capabilities resolve the active document via the chat session's `cont
 
 ### Utility
 
-| Slug            | Args | What it does                                                                                                   |
-| --------------- | ---- | -------------------------------------------------------------------------------------------------------------- |
-| `estimate_size` | none | Read-only — returns `tokenCount`, `sizeClass` (`small`/`medium`/`large`/`too-large`), and `llmRewriteAllowed`. |
+| Slug               | Args                                | What it does                                                                                                                                          |
+| ------------------ | ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `estimate_size`    | none                                | Read-only — returns `tokenCount`, `sizeClass` (`small`/`medium`/`large`/`too-large`), and `llmRewriteAllowed`.                                        |
+| `read_document`    | `{ fromLine?, lineCount?, which? }` | Read-only — a window of numbered lines from the working text (or the original). Capped at 400 lines / 20,000 chars per call; says when it clamped.    |
+| `find_in_document` | `{ regex, flags?, maxMatches? }`    | Read-only — line numbers and text of matching lines. Same `compileSafeRegex` guard; `g`/`y` stripped. Check a pattern here before destroying with it. |
+
+### What the tools cannot do
+
+The agent picked the wrong tool twice in one session because the toolbox's
+limits are not obvious from the names. They are stated in the system prompt,
+and they are these:
+
+| Tool                   | Does not                                                                                                                                                                                                                                                            |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `collapse_whitespace`  | join two lines. It works within a line.                                                                                                                                                                                                                             |
+| `strip_lines_matching` | match a pattern containing `\n` — it tests each line separately — and it deletes WHOLE lines.                                                                                                                                                                       |
+| `strip_matches`        | replace a match with anything. It only deletes, so it cannot turn a newline into a space.                                                                                                                                                                           |
+| `join_wrapped_lines`   | resolve a mid-word break with no hyphen (`SurveyMonke` / `y`). Joining with a space and joining without one are both wrong somewhere in the same document, so it reports those line numbers in `suspectedSplitWords` and leaves them for an LLM rewrite or a human. |
 
 ## Size class behaviour
 

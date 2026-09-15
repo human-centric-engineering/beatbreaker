@@ -29,6 +29,7 @@ import { getEditLockState } from '@/lib/orchestration/knowledge/edit-lock';
 import { detectSections } from '@/lib/orchestration/knowledge/section-detection';
 import { getModel } from '@/lib/orchestration/llm/model-registry';
 import { getProvider } from '@/lib/orchestration/llm/provider-manager';
+import { resolveAgentProviderAndModel } from '@/lib/orchestration/llm/agent-resolver';
 import { cleanupRefineLimiter, createRateLimitResponse } from '@/lib/security/rate-limit';
 import { cuidSchema } from '@/lib/validations/common';
 
@@ -97,10 +98,26 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
   }
   const agent = await prisma.aiAgent.findUnique({
     where: { id: conv.agentId },
-    select: { provider: true, model: true, temperature: true },
+    select: { provider: true, model: true, temperature: true, fallbackProviders: true },
   });
-  if (!agent?.provider || !agent.model) {
-    return errorResponse('Cleanup agent has no provider or model configured', {
+  if (!agent) {
+    return errorResponse('Cleanup agent not found', {
+      code: 'AGENT_MISCONFIGURED',
+      status: 500,
+    });
+  }
+  // Resolve through the same seam the chat loop uses. The cleanup agent is
+  // seeded with provider/model EMPTY so it inherits the install's binding;
+  // reading the row directly made this route return 500 on every default
+  // install. See lib/orchestration/llm/agent-resolver.ts.
+  let binding;
+  try {
+    binding = await resolveAgentProviderAndModel(agent, 'chat');
+  } catch (err) {
+    log.error('cleanup-refine: no usable provider binding', {
+      error: err instanceof Error ? err.message : String(err),
+    });
+    return errorResponse('No LLM provider is configured for this install', {
       code: 'AGENT_MISCONFIGURED',
       status: 500,
     });
@@ -130,8 +147,8 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
   // exceeds the model's context window.
   const userMessage = `INSTRUCTIONS:\n${body.instructions}\n\n---\nSECTION HEADING:\n${headingForPrompt}\n\nSECTION BODY:\n${bodyAfter}`;
   const promptTokens =
-    estimateTokens(SYSTEM_PROMPT, agent.model) + estimateTokens(userMessage, agent.model);
-  const modelInfo = getModel(agent.model);
+    estimateTokens(SYSTEM_PROMPT, binding.model) + estimateTokens(userMessage, binding.model);
+  const modelInfo = getModel(binding.model);
   const contextWindow = modelInfo?.maxContext ?? FALLBACK_CONTEXT_WINDOW;
   if (promptTokens + RESPONSE_TOKEN_BUDGET > contextWindow) {
     return errorResponse('Section is too large to refine with the current model', {
@@ -150,10 +167,10 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
 
   let provider;
   try {
-    provider = await getProvider(agent.provider);
+    provider = await getProvider(binding.providerSlug);
   } catch (err) {
-    logger.error('cleanup-refine: provider load failed', { err, slug: agent.provider });
-    return errorResponse(`Provider "${agent.provider}" unavailable`, {
+    logger.error('cleanup-refine: provider load failed', { err, slug: binding.providerSlug });
+    return errorResponse(`Provider "${binding.providerSlug}" unavailable`, {
       code: 'PROVIDER_UNAVAILABLE',
       status: 502,
     });
@@ -164,7 +181,7 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
       { role: 'system', content: SYSTEM_PROMPT },
       { role: 'user', content: userMessage },
     ],
-    { model: agent.model, temperature: agent.temperature ?? 0.2 }
+    { model: binding.model, temperature: agent.temperature ?? 0.2 }
   );
 
   const rewritten = response.content.trim();

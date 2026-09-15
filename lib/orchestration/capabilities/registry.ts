@@ -43,6 +43,9 @@ import { StripSpeakerLabelsCapability } from '@/lib/orchestration/capabilities/b
 import { CollapseWhitespaceCapability } from '@/lib/orchestration/capabilities/built-in/document-cleanup/collapse-whitespace';
 import { DedupeLinesCapability } from '@/lib/orchestration/capabilities/built-in/document-cleanup/dedupe-lines';
 import { NormalisePunctuationCapability } from '@/lib/orchestration/capabilities/built-in/document-cleanup/normalise-punctuation';
+import { JoinWrappedLinesCapability } from '@/lib/orchestration/capabilities/built-in/document-cleanup/join-wrapped-lines';
+import { ReadDocumentCapability } from '@/lib/orchestration/capabilities/built-in/document-cleanup/read-document';
+import { FindInDocumentCapability } from '@/lib/orchestration/capabilities/built-in/document-cleanup/find-in-document';
 import { PreviewDiffCapability } from '@/lib/orchestration/capabilities/built-in/document-cleanup/preview-diff';
 import { EstimateSizeCapability } from '@/lib/orchestration/capabilities/built-in/document-cleanup/estimate-size';
 import { RewriteWithLlmCapability } from '@/lib/orchestration/capabilities/built-in/document-cleanup/rewrite-with-llm';
@@ -264,6 +267,9 @@ export function registerBuiltInCapabilities(): void {
     capabilityDispatcher.register(new CollapseWhitespaceCapability());
     capabilityDispatcher.register(new DedupeLinesCapability());
     capabilityDispatcher.register(new NormalisePunctuationCapability());
+    capabilityDispatcher.register(new JoinWrappedLinesCapability());
+    capabilityDispatcher.register(new ReadDocumentCapability());
+    capabilityDispatcher.register(new FindInDocumentCapability());
     capabilityDispatcher.register(new PreviewDiffCapability());
     capabilityDispatcher.register(new EstimateSizeCapability());
     capabilityDispatcher.register(new RewriteWithLlmCapability());

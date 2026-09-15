@@ -70,6 +70,27 @@ release process.
   #776): the seam gains no approver arm on the execution read routes and no
   write face, and the decision with its costs is on the `f-mt-authz` journal.
 
+- **The Document Clean Up agent can now see the document it is editing.** Two
+  read-only capabilities — `read_document` (a window of numbered lines from the
+  working text or the original) and `find_in_document` (line numbers and text
+  for a regex) — plus a `knowledge_document` case in `buildContext` that puts
+  the document's name, size and a numbered opening excerpt into the system
+  prompt each turn. Before this, every cleanup tool reported counts and none
+  returned text, and the prompt carried the literal string `No context loader
+  for type 'knowledge_document'.`, so the agent chose transforms blind and could
+  not tell whether one had done anything. The excerpt is deliberately not cached
+  — the document changes almost every turn.
+
+- **`join_wrapped_lines` — the missing tool for PDF text.** Rejoins sentences a
+  fixed-width renderer wrapped across lines and words split by a trailing
+  hyphen, leaving blank lines, headings, list items and table rows alone.
+  Nothing in the toolbox could do this: `collapse_whitespace` works inside a
+  line, `strip_lines_matching` tests each line separately (so a `\n` pattern can
+  never match), and `strip_matches` can only delete a match, never replace it
+  with a space. A mid-word break with no hyphen is not decidable from the text,
+  so those line numbers come back in `suspectedSplitWords` rather than being
+  guessed at.
+
 - **The Document Clean Up page can now show what actually changed.** The
   document-preview pane gained a **Diff** tab (original vs cleaned) and a
   **History** tab, alongside Cleaned and Original. Both render the rewritten
@@ -1353,6 +1374,27 @@ release process.
   the flag (`PdfPreviewData.runCleanup`, a new required field on that exported
   interface), shows a "Clean up before chunking is on" notice, and labels the
   button `Confirm & Clean Up`. Server behaviour is unchanged.
+
+- **The LLM half of Document Clean Up had never worked on a default install.**
+  `rewrite_with_llm`, `rewrite_section_with_llm` and
+  `POST /cleanup/section/refine` all read `provider`/`model` off the agent row
+  and bailed with `agent_misconfigured` when either was empty — but the cleanup
+  agent is seeded with both empty **by design**, so it inherits whatever the
+  install is configured with. All three now resolve through
+  `resolveAgentProviderAndModel`, the same seam the chat loop uses, and the
+  refusal that remains (genuinely no provider configured) says so in words the
+  agent can relay.
+
+- **The cleanup agent is now pinned to a model chosen for the job, and its
+  prompt is kept current.** The seed pins the strongest tool-using model the
+  install can actually reach rather than inheriting the global default chat
+  model, never overwriting an admin's own binding (it fills only rows where both
+  fields are still empty). The system prompt now tells the agent to read before
+  acting and verify after, and states what each tool cannot do — the two wrong
+  tool choices seen in practice were both cases of a tool's limits being
+  invisible from its name. Re-seeding refreshes the prompt only while
+  `systemInstructionsHistory` is empty, so a prompt an admin has edited is never
+  clobbered.
 
 - **Document Clean Up applied roughly one of every N mutations the agent ran in
   a batch, and reported errors for the rest.** The chat tool loop dispatches a

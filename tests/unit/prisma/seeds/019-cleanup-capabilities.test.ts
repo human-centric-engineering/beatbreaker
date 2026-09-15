@@ -15,7 +15,10 @@ import type { SeedContext } from '@/prisma/runner';
  * the seed and asserts the actual call shape rather than the source text.
  */
 
-const ELEVEN_SLUGS = [
+const CLEANUP_SLUGS = [
+  'read_document',
+  'find_in_document',
+  'join_wrapped_lines',
   'strip_lines_matching',
   'strip_matches',
   'strip_timestamps',
@@ -42,14 +45,14 @@ function makeCtx() {
 }
 
 describe('019-cleanup-capabilities seed', () => {
-  it('upserts exactly the eleven documented capability slugs', async () => {
+  it('upserts exactly the documented capability slugs', async () => {
     const { ctx, upsert } = makeCtx();
 
     await cleanupCapabilitiesSeed.run(ctx);
 
-    expect(upsert).toHaveBeenCalledTimes(11);
+    expect(upsert).toHaveBeenCalledTimes(CLEANUP_SLUGS.length);
     const slugs = upsert.mock.calls.map((call) => call[0].where.slug);
-    expect(slugs.sort()).toEqual([...ELEVEN_SLUGS].sort());
+    expect(slugs.sort()).toEqual([...CLEANUP_SLUGS].sort());
   });
 
   it('re-applies functionDefinition, executionType and executionHandler on update, not just create', async () => {
