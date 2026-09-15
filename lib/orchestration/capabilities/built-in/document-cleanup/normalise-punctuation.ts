@@ -6,12 +6,10 @@ import type {
   CapabilityResult,
 } from '@/lib/orchestration/capabilities/types';
 import {
+  describeRefusal,
   MutationSummary,
-  resolveCleanupTarget,
-  summariseMutation,
-  writeCleanupContent,
+  mutateCleanupContent,
 } from '@/lib/orchestration/capabilities/built-in/document-cleanup/context';
-import { requireEditableTarget } from '@/lib/orchestration/knowledge/edit-lock';
 
 const schema = z.object({}).strict();
 type Args = z.infer<typeof schema>;
@@ -41,25 +39,24 @@ export class NormalisePunctuationCapability extends BaseCapability<Args, Data> {
   };
 
   async execute(_args: Args, context: CapabilityContext): Promise<CapabilityResult<Data>> {
-    const target = await resolveCleanupTarget(context);
-    if (!target) return this.error('Not in a Document Clean Up session.', 'not_cleanup_session');
-
-    const lock = await requireEditableTarget(target.documentId, context.userId);
-    if (!lock.ok) {
-      return this.error('The document is being edited by another admin.', 'target_locked');
+    const outcome = await mutateCleanupContent(
+      context,
+      { source: 'capability:normalise_punctuation', actorId: context.userId },
+      (content) => {
+        let next = content;
+        let substitutions = 0;
+        for (const [pattern, replacement] of SUBS) {
+          const matches = next.match(pattern);
+          substitutions += matches?.length ?? 0;
+          next = next.replace(pattern, replacement);
+        }
+        return { next, data: { substitutions } };
+      }
+    );
+    if (!outcome.ok) {
+      const refusal = describeRefusal(outcome);
+      return this.error(refusal.message, refusal.code);
     }
-
-    let next = target.content;
-    let substitutions = 0;
-    for (const [pattern, replacement] of SUBS) {
-      const matches = next.match(pattern);
-      substitutions += matches?.length ?? 0;
-      next = next.replace(pattern, replacement);
-    }
-    await writeCleanupContent(target.documentId, next, {
-      source: 'capability:normalise_punctuation',
-      actorId: context.userId,
-    });
-    return this.success({ substitutions, ...summariseMutation(target.content, next) });
+    return this.success({ ...outcome.data, ...outcome.summary });
   }
 }

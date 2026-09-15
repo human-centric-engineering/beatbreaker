@@ -42,8 +42,8 @@ vi.mock('@/lib/orchestration/knowledge/size-report', () => ({
   getDocumentSizeReport: mockGetDocumentSizeReport,
 }));
 
-vi.mock('@/lib/db/client', () => ({
-  prisma: {
+vi.mock('@/lib/db/client', () => {
+  const prisma = {
     aiKnowledgeDocument: {
       create: vi.fn(),
       update: vi.fn(),
@@ -70,9 +70,15 @@ vi.mock('@/lib/db/client', () => ({
       findUnique: vi.fn(),
     },
     $executeRawUnsafe: vi.fn(),
-    $queryRaw: vi.fn(),
-  },
-}));
+    // The finalise checkpoint writes its revision through writeRevision,
+    // which now takes the document row lock inside an interactive
+    // transaction. Hand the callback the same client and return an empty
+    // locked-row result — nothing here asserts on the lock itself.
+    $transaction: vi.fn(async (fn: (tx: unknown) => unknown) => fn(prisma)),
+    $queryRaw: vi.fn().mockResolvedValue([]),
+  };
+  return { prisma };
+});
 
 vi.mock('@/lib/orchestration/knowledge/chunker', () => ({
   chunkMarkdownDocument: vi.fn(),
@@ -2084,12 +2090,16 @@ describe('commitCleanupAndChunk', () => {
 
   beforeEach(() => {
     vi.resetAllMocks();
-    // writeRevision now prunes via findMany/deleteMany — reset wipes the
-    // default impls set in the top-level mock, so re-arm them here.
+    // writeRevision prunes via findMany/deleteMany and takes the document row
+    // lock inside an interactive transaction — reset wipes the default impls
+    // set in the top-level mock, so re-arm them here.
     vi.mocked(prisma.aiKnowledgeDocumentRevision.findMany).mockResolvedValue([]);
     vi.mocked(prisma.aiKnowledgeDocumentRevision.deleteMany).mockResolvedValue({
       count: 0,
     });
+    vi.mocked(prisma.$transaction).mockImplementation((async (fn: (tx: unknown) => unknown) =>
+      fn(prisma)) as never);
+    vi.mocked(prisma.$queryRaw).mockResolvedValue([]);
   });
 
   it('throws when the document is not in cleaning status or not owned by the calling user', async () => {

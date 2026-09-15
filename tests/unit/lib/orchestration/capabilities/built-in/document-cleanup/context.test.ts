@@ -16,8 +16,8 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 // ─── Mocks ──────────────────────────────────────────────────────────────────
 
-vi.mock('@/lib/db/client', () => ({
-  prisma: {
+vi.mock('@/lib/db/client', () => {
+  const prisma = {
     aiConversation: {
       findUnique: vi.fn(),
     },
@@ -31,8 +31,14 @@ vi.mock('@/lib/db/client', () => ({
       findMany: vi.fn().mockResolvedValue([]),
       deleteMany: vi.fn().mockResolvedValue({ count: 0 }),
     },
-  },
-}));
+    // Interactive transaction: hand the callback the same client so the
+    // model-method assertions below see the calls made inside it.
+    $transaction: vi.fn(async (fn: (tx: unknown) => unknown) => fn(prisma)),
+    // Row lock — `lockDocumentRow` issues this. Tests set the returned row.
+    $queryRaw: vi.fn().mockResolvedValue([]),
+  };
+  return { prisma };
+});
 
 // ─── Imports ────────────────────────────────────────────────────────────────
 
@@ -41,6 +47,8 @@ import type { CapabilityContext } from '@/lib/orchestration/capabilities/types';
 import {
   resolveCleanupTarget,
   writeCleanupContent,
+  mutateCleanupContent,
+  describeRefusal,
   summariseMutation,
   compileSafeRegex,
 } from '@/lib/orchestration/capabilities/built-in/document-cleanup/context';
@@ -410,5 +418,220 @@ describe('compileSafeRegex', () => {
     if (!result.ok) {
       expect(result.error).toMatch(/backtracking/i);
     }
+  });
+});
+
+describe('mutateCleanupContent', () => {
+  // Shape of the row `lockDocumentRow` returns from its SELECT … FOR UPDATE.
+  function lockedRow(
+    overrides: Partial<{
+      status: string;
+      originalContent: string | null;
+      processedContent: string | null;
+      editLockHolder: string | null;
+      editLockAcquiredAt: Date | null;
+    }> = {}
+  ) {
+    return [
+      {
+        id: DOCUMENT_ID,
+        status: 'cleaning',
+        originalContent: 'original text',
+        processedContent: null,
+        editLockHolder: null,
+        editLockAcquiredAt: null,
+        ...overrides,
+      },
+    ];
+  }
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    vi.mocked(prisma.aiConversation.findUnique).mockResolvedValue(makeConvRow());
+    vi.mocked(prisma.aiKnowledgeDocument.update).mockResolvedValue({} as never);
+    vi.mocked(prisma.aiKnowledgeDocumentRevision.findFirst).mockResolvedValue(null);
+    vi.mocked(prisma.aiKnowledgeDocumentRevision.create).mockResolvedValue({} as never);
+    vi.mocked(prisma.aiKnowledgeDocumentRevision.findMany).mockResolvedValue([]);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('reads the document with a row lock inside the transaction before transforming', async () => {
+    vi.mocked(prisma.$queryRaw).mockResolvedValue(lockedRow({ processedContent: 'abc' }));
+
+    const seen: string[] = [];
+    await mutateCleanupContent(
+      makeContext(),
+      { source: 'capability:test', actorId: 'user-1' },
+      (content) => {
+        seen.push(content);
+        return { next: content.toUpperCase(), data: {} };
+      }
+    );
+
+    // The transform must see what the locked read returned — this is the whole
+    // point of the helper: a parallel tool batch cannot hand it stale content.
+    expect(seen).toEqual(['abc']);
+    expect(prisma.$transaction).toHaveBeenCalledTimes(1);
+    const sql = vi.mocked(prisma.$queryRaw).mock.calls[0]?.[0] as unknown as { raw?: string[] };
+    expect(sql.raw?.join('')).toContain('FOR UPDATE');
+  });
+
+  it('writes the transform output and its revision, and returns the mutation summary', async () => {
+    vi.mocked(prisma.$queryRaw).mockResolvedValue(
+      lockedRow({ processedContent: 'one\ntwo\ntwo\n' })
+    );
+    vi.mocked(prisma.aiKnowledgeDocumentRevision.findFirst).mockResolvedValue({
+      version: 2,
+    } as never);
+
+    const outcome = await mutateCleanupContent(
+      makeContext(),
+      { source: 'capability:dedupe_lines', actorId: 'user-1' },
+      (content) => ({ next: content.replace('two\ntwo\n', 'two\n'), data: { removed: 1 } })
+    );
+
+    expect(prisma.aiKnowledgeDocument.update).toHaveBeenCalledWith({
+      where: { id: DOCUMENT_ID },
+      data: { processedContent: 'one\ntwo\n' },
+    });
+    expect(prisma.aiKnowledgeDocumentRevision.create).toHaveBeenCalledWith({
+      data: expect.objectContaining({
+        documentId: DOCUMENT_ID,
+        version: 3,
+        content: 'one\ntwo\n',
+        source: 'capability:dedupe_lines',
+        actorId: 'user-1',
+      }),
+    });
+    expect(outcome.ok).toBe(true);
+    if (!outcome.ok) throw new Error('expected a successful mutation');
+    expect(outcome.data).toEqual({ removed: 1 });
+    expect(outcome.before).toBe('one\ntwo\ntwo\n');
+    expect(outcome.after).toBe('one\ntwo\n');
+    expect(outcome.summary.charsRemoved).toBe(4);
+    expect(outcome.summary.linesRemoved).toBe(1);
+  });
+
+  it('falls back to originalContent when processedContent has not been written yet', async () => {
+    vi.mocked(prisma.$queryRaw).mockResolvedValue(
+      lockedRow({ originalContent: 'raw parsed text', processedContent: null })
+    );
+
+    let seen = '';
+    await mutateCleanupContent(
+      makeContext(),
+      { source: 'capability:test', actorId: 'user-1' },
+      (content) => {
+        seen = content;
+        return { next: content, data: {} };
+      }
+    );
+
+    expect(seen).toBe('raw parsed text');
+  });
+
+  it('refuses without writing when the conversation is not a cleanup session', async () => {
+    vi.mocked(prisma.aiConversation.findUnique).mockResolvedValue(
+      makeConvRow({ contextType: 'agent_chat' })
+    );
+
+    const outcome = await mutateCleanupContent(
+      makeContext(),
+      { source: 'capability:test', actorId: 'user-1' },
+      () => ({ next: 'never', data: {} })
+    );
+
+    expect(outcome).toEqual({ ok: false, reason: 'not_cleanup_session' });
+    expect(prisma.$transaction).not.toHaveBeenCalled();
+    expect(prisma.aiKnowledgeDocument.update).not.toHaveBeenCalled();
+  });
+
+  it('refuses without writing when the document has left cleaning status', async () => {
+    vi.mocked(prisma.$queryRaw).mockResolvedValue(lockedRow({ status: 'ready' }));
+
+    const outcome = await mutateCleanupContent(
+      makeContext(),
+      { source: 'capability:test', actorId: 'user-1' },
+      () => ({ next: 'never', data: {} })
+    );
+
+    expect(outcome).toEqual({ ok: false, reason: 'not_cleanup_session' });
+    expect(prisma.aiKnowledgeDocument.update).not.toHaveBeenCalled();
+    expect(prisma.aiKnowledgeDocumentRevision.create).not.toHaveBeenCalled();
+  });
+
+  it('refuses without writing when another admin holds a live edit lock', async () => {
+    vi.mocked(prisma.$queryRaw).mockResolvedValue(
+      lockedRow({ editLockHolder: 'other-admin', editLockAcquiredAt: new Date() })
+    );
+
+    const outcome = await mutateCleanupContent(
+      makeContext({ userId: 'user-1' }),
+      { source: 'capability:test', actorId: 'user-1' },
+      () => ({ next: 'never', data: {} })
+    );
+
+    expect(outcome).toEqual({ ok: false, reason: 'target_locked', heldBy: 'other-admin' });
+    expect(prisma.aiKnowledgeDocument.update).not.toHaveBeenCalled();
+  });
+
+  it('proceeds when the stale lock belongs to another admin but has expired', async () => {
+    // 6 minutes old — past the 5-minute TTL, so the row is takeable.
+    vi.mocked(prisma.$queryRaw).mockResolvedValue(
+      lockedRow({
+        editLockHolder: 'other-admin',
+        editLockAcquiredAt: new Date(Date.now() - 6 * 60 * 1000),
+        processedContent: 'content',
+      })
+    );
+
+    const outcome = await mutateCleanupContent(
+      makeContext({ userId: 'user-1' }),
+      { source: 'capability:test', actorId: 'user-1' },
+      (content) => ({ next: `${content}!`, data: {} })
+    );
+
+    expect(outcome.ok).toBe(true);
+    expect(prisma.aiKnowledgeDocument.update).toHaveBeenCalledWith({
+      where: { id: DOCUMENT_ID },
+      data: { processedContent: 'content!' },
+    });
+  });
+
+  it('proceeds when the caller is the admin already holding the lock', async () => {
+    vi.mocked(prisma.$queryRaw).mockResolvedValue(
+      lockedRow({
+        editLockHolder: 'user-1',
+        editLockAcquiredAt: new Date(),
+        processedContent: 'mine',
+      })
+    );
+
+    const outcome = await mutateCleanupContent(
+      makeContext({ userId: 'user-1' }),
+      { source: 'capability:test', actorId: 'user-1' },
+      (content) => ({ next: content, data: {} })
+    );
+
+    expect(outcome.ok).toBe(true);
+  });
+});
+
+describe('describeRefusal', () => {
+  it('maps target_locked to the another-admin message and code', () => {
+    expect(describeRefusal({ reason: 'target_locked', heldBy: 'admin-2' })).toEqual({
+      message: 'The document is being edited by another admin.',
+      code: 'target_locked',
+    });
+  });
+
+  it('maps not_cleanup_session to the wrong-session message and code', () => {
+    expect(describeRefusal({ reason: 'not_cleanup_session' })).toEqual({
+      message: 'Not in a Document Clean Up session.',
+      code: 'not_cleanup_session',
+    });
   });
 });

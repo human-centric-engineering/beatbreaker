@@ -7,12 +7,10 @@ import type {
 } from '@/lib/orchestration/capabilities/types';
 import {
   compileSafeRegex,
+  describeRefusal,
   MutationSummary,
-  resolveCleanupTarget,
-  summariseMutation,
-  writeCleanupContent,
+  mutateCleanupContent,
 } from '@/lib/orchestration/capabilities/built-in/document-cleanup/context';
-import { requireEditableTarget } from '@/lib/orchestration/knowledge/edit-lock';
 
 const schema = z.object({
   regex: z.string().min(1).max(500),
@@ -51,14 +49,6 @@ export class StripMatchesCapability extends BaseCapability<Args, Data> {
   };
 
   async execute(args: Args, context: CapabilityContext): Promise<CapabilityResult<Data>> {
-    const target = await resolveCleanupTarget(context);
-    if (!target) return this.error('Not in a Document Clean Up session.', 'not_cleanup_session');
-
-    const lock = await requireEditableTarget(target.documentId, context.userId);
-    if (!lock.ok) {
-      return this.error('The document is being edited by another admin.', 'target_locked');
-    }
-
     // 'y' (sticky) anchors each attempt at lastIndex, so a 'gy' pattern makes
     // String.replace stop at the first non-contiguous match — it would strip a
     // leading prefix of the intended matches and still report the partial
@@ -72,16 +62,21 @@ export class StripMatchesCapability extends BaseCapability<Args, Data> {
     }
     const pattern = compiled.regex;
 
-    const matches = target.content.match(pattern);
-    const next = target.content.replace(pattern, '');
-    await writeCleanupContent(target.documentId, next, {
-      source: 'capability:strip_matches',
-      actorId: context.userId,
-    });
-    return this.success({
-      pattern: args.regex,
-      matchCount: matches?.length ?? 0,
-      ...summariseMutation(target.content, next),
-    });
+    const outcome = await mutateCleanupContent(
+      context,
+      { source: 'capability:strip_matches', actorId: context.userId },
+      (content) => {
+        const matches = content.match(pattern);
+        return {
+          next: content.replace(pattern, ''),
+          data: { pattern: args.regex, matchCount: matches?.length ?? 0 },
+        };
+      }
+    );
+    if (!outcome.ok) {
+      const refusal = describeRefusal(outcome);
+      return this.error(refusal.message, refusal.code);
+    }
+    return this.success({ ...outcome.data, ...outcome.summary });
   }
 }

@@ -6,12 +6,10 @@ import type {
   CapabilityResult,
 } from '@/lib/orchestration/capabilities/types';
 import {
+  describeRefusal,
   MutationSummary,
-  resolveCleanupTarget,
-  summariseMutation,
-  writeCleanupContent,
+  mutateCleanupContent,
 } from '@/lib/orchestration/capabilities/built-in/document-cleanup/context';
-import { requireEditableTarget } from '@/lib/orchestration/knowledge/edit-lock';
 
 const schema = z.object({
   format: z.enum(['colon', 'bracketed', 'both']).optional(),
@@ -54,29 +52,28 @@ export class StripSpeakerLabelsCapability extends BaseCapability<Args, Data> {
   };
 
   async execute(args: Args, context: CapabilityContext): Promise<CapabilityResult<Data>> {
-    const target = await resolveCleanupTarget(context);
-    if (!target) return this.error('Not in a Document Clean Up session.', 'not_cleanup_session');
-
-    const lock = await requireEditableTarget(target.documentId, context.userId);
-    if (!lock.ok) {
-      return this.error('The document is being edited by another admin.', 'target_locked');
-    }
-
     const format = args.format ?? 'both';
-    let next = target.content;
-    let removed = 0;
-    if (format === 'colon' || format === 'both') {
-      removed += (next.match(COLON) ?? []).length;
-      next = next.replace(COLON, '');
+    const outcome = await mutateCleanupContent(
+      context,
+      { source: 'capability:strip_speaker_labels', actorId: context.userId },
+      (content) => {
+        let next = content;
+        let removed = 0;
+        if (format === 'colon' || format === 'both') {
+          removed += (next.match(COLON) ?? []).length;
+          next = next.replace(COLON, '');
+        }
+        if (format === 'bracketed' || format === 'both') {
+          removed += (next.match(BRACKETED) ?? []).length;
+          next = next.replace(BRACKETED, '');
+        }
+        return { next, data: { format, removed } };
+      }
+    );
+    if (!outcome.ok) {
+      const refusal = describeRefusal(outcome);
+      return this.error(refusal.message, refusal.code);
     }
-    if (format === 'bracketed' || format === 'both') {
-      removed += (next.match(BRACKETED) ?? []).length;
-      next = next.replace(BRACKETED, '');
-    }
-    await writeCleanupContent(target.documentId, next, {
-      source: 'capability:strip_speaker_labels',
-      actorId: context.userId,
-    });
-    return this.success({ format, removed, ...summariseMutation(target.content, next) });
+    return this.success({ ...outcome.data, ...outcome.summary });
   }
 }

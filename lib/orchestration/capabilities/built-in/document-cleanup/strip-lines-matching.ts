@@ -7,12 +7,10 @@ import type {
 } from '@/lib/orchestration/capabilities/types';
 import {
   compileSafeRegex,
+  describeRefusal,
   MutationSummary,
-  resolveCleanupTarget,
-  summariseMutation,
-  writeCleanupContent,
+  mutateCleanupContent,
 } from '@/lib/orchestration/capabilities/built-in/document-cleanup/context';
-import { requireEditableTarget } from '@/lib/orchestration/knowledge/edit-lock';
 
 const schema = z.object({
   regex: z.string().min(1).max(500),
@@ -50,14 +48,6 @@ export class StripLinesMatchingCapability extends BaseCapability<Args, Data> {
   };
 
   async execute(args: Args, context: CapabilityContext): Promise<CapabilityResult<Data>> {
-    const target = await resolveCleanupTarget(context);
-    if (!target) return this.error('Not in a Document Clean Up session.', 'not_cleanup_session');
-
-    const lock = await requireEditableTarget(target.documentId, context.userId);
-    if (!lock.ok) {
-      return this.error('The document is being edited by another admin.', 'target_locked');
-    }
-
     // 'g'/'y' flags make RegExp.test() stateful (lastIndex persists across
     // calls) — since pattern is reused across every line below via a plain
     // "does this line match anywhere" test, a global/sticky flag would skip
@@ -71,15 +61,21 @@ export class StripLinesMatchingCapability extends BaseCapability<Args, Data> {
     }
     const pattern = compiled.regex;
 
-    const next = target.content
-      .split('\n')
-      .filter((line) => !pattern.test(line))
-      .join('\n');
-
-    await writeCleanupContent(target.documentId, next, {
-      source: 'capability:strip_lines_matching',
-      actorId: context.userId,
-    });
-    return this.success({ pattern: args.regex, ...summariseMutation(target.content, next) });
+    const outcome = await mutateCleanupContent(
+      context,
+      { source: 'capability:strip_lines_matching', actorId: context.userId },
+      (content) => ({
+        next: content
+          .split('\n')
+          .filter((line) => !pattern.test(line))
+          .join('\n'),
+        data: { pattern: args.regex },
+      })
+    );
+    if (!outcome.ok) {
+      const refusal = describeRefusal(outcome);
+      return this.error(refusal.message, refusal.code);
+    }
+    return this.success({ ...outcome.data, ...outcome.summary });
   }
 }

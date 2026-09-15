@@ -20,6 +20,10 @@ const { mockResolveCleanupTarget, mockWriteCleanupContent, mockSummariseMutation
   })
 );
 
+const { mockRequireEditableTarget } = vi.hoisted(() => ({
+  mockRequireEditableTarget: vi.fn(),
+}));
+
 // `compileSafeRegex` is kept real (it's pure — no DB) so regex-safety
 // behaviour is actually exercised, not just assumed.
 vi.mock(
@@ -29,22 +33,22 @@ vi.mock(
       await importOriginal<
         typeof import('@/lib/orchestration/capabilities/built-in/document-cleanup/context')
       >();
+    // `mutateCleanupContent` owns the row-locked transaction; these tests
+    // exercise the transform passed into it, so it is replaced by a double
+    // that runs that transform against mockResolveCleanupTarget's content.
+    const { makeMutateCleanupContentDouble } = await import('@/tests/helpers/cleanup-mutation');
     return {
       ...actual,
-      resolveCleanupTarget: mockResolveCleanupTarget,
-      writeCleanupContent: mockWriteCleanupContent,
-      summariseMutation: mockSummariseMutation,
+      mutateCleanupContent: makeMutateCleanupContentDouble({
+        resolveTarget: (context) => mockResolveCleanupTarget(context),
+        requireEditable: (documentId, userId) => mockRequireEditableTarget(documentId, userId),
+        recordWrite: (documentId, content, opts) =>
+          mockWriteCleanupContent(documentId, content, opts),
+        summarise: (before, after) => mockSummariseMutation(before, after),
+      }),
     };
   }
 );
-
-const { mockRequireEditableTarget } = vi.hoisted(() => ({
-  mockRequireEditableTarget: vi.fn(),
-}));
-
-vi.mock('@/lib/orchestration/knowledge/edit-lock', () => ({
-  requireEditableTarget: mockRequireEditableTarget,
-}));
 
 // ─── Imports ────────────────────────────────────────────────────────────────
 

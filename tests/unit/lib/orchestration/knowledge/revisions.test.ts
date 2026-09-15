@@ -1,22 +1,34 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-const { mockFindFirst, mockCreate, mockFindMany, mockDeleteMany } = vi.hoisted(() => ({
-  mockFindFirst: vi.fn(),
-  mockCreate: vi.fn(),
-  mockFindMany: vi.fn(),
-  mockDeleteMany: vi.fn(),
-}));
+const { mockFindFirst, mockCreate, mockFindMany, mockDeleteMany, mockQueryRaw, mockTransaction } =
+  vi.hoisted(() => ({
+    mockFindFirst: vi.fn(),
+    mockCreate: vi.fn(),
+    mockFindMany: vi.fn(),
+    mockDeleteMany: vi.fn(),
+    mockQueryRaw: vi.fn(),
+    mockTransaction: vi.fn(),
+  }));
 
-vi.mock('@/lib/db/client', () => ({
-  prisma: {
+vi.mock('@/lib/db/client', () => {
+  const prisma = {
     aiKnowledgeDocumentRevision: {
       findFirst: mockFindFirst,
       create: mockCreate,
       findMany: mockFindMany,
       deleteMany: mockDeleteMany,
     },
-  },
-}));
+    aiKnowledgeDocument: { update: vi.fn() },
+    // writeRevision now opens an interactive transaction and takes the
+    // document row lock inside it. Run the callback against the same client
+    // so the model-level assertions below still see its queries.
+    $transaction: mockTransaction.mockImplementation(async (fn: (tx: unknown) => unknown) =>
+      fn(prisma)
+    ),
+    $queryRaw: mockQueryRaw.mockResolvedValue([]),
+  };
+  return { prisma };
+});
 
 import {
   DEFAULT_REVISION_RETENTION,
@@ -33,6 +45,7 @@ describe('revisions', () => {
     // Default: prune lookup returns no cutoff row → nothing to delete.
     mockFindMany.mockResolvedValue([]);
     mockDeleteMany.mockResolvedValue({ count: 0 });
+    mockQueryRaw.mockResolvedValue([]);
     delete process.env.KB_REVISION_RETENTION;
   });
 
@@ -58,6 +71,32 @@ describe('revisions', () => {
   });
 
   describe('writeRevision', () => {
+    it('allocates the version inside a transaction that holds the document row lock', async () => {
+      // The version is max+1 from a read, so the read and the insert are only
+      // atomic under a lock. Without it, a parallel batch of cleanup tools all
+      // read the same max and collide on the (documentId, version) index.
+      mockFindFirst.mockResolvedValue({ version: 7 });
+
+      await writeRevision({
+        documentId: DOC_ID,
+        content: 'cleaned content',
+        source: 'capability:dedupe_lines',
+        actorId: 'admin-1',
+      });
+
+      expect(mockTransaction).toHaveBeenCalledTimes(1);
+      const sql = mockQueryRaw.mock.calls[0]?.[0] as { raw?: string[] };
+      expect(sql.raw?.join('')).toContain('FOR UPDATE');
+      // Lock first, then allocate: the read that decides the version must
+      // happen after the lock is held.
+      expect(mockQueryRaw.mock.invocationCallOrder[0]).toBeLessThan(
+        mockFindFirst.mock.invocationCallOrder[0]
+      );
+      expect(mockCreate).toHaveBeenCalledWith(
+        expect.objectContaining({ data: expect.objectContaining({ version: 8 }) })
+      );
+    });
+
     it('writes a row with the allocated version + supplied fields', async () => {
       mockFindFirst.mockResolvedValue({ version: 2 });
       await writeRevision({

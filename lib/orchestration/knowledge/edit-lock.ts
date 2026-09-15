@@ -38,6 +38,23 @@ function isActive(acquiredAt: Date | null, now: number): boolean {
   return now - acquiredAt.getTime() < LOCK_TTL_MS;
 }
 
+// Pure lock decision, given a document's lock columns and the principal whose
+// write is about to land. Exported so a caller that has ALREADY read those
+// columns — notably the row-locked read inside a cleanup mutation
+// transaction — can reach the same verdict without a second round trip, and
+// without re-implementing the TTL rule. `requireEditableTarget` below is this
+// function plus the read.
+export function evaluateLock(
+  heldBy: string | null,
+  acquiredAt: Date | null,
+  userId: string | null,
+  now: number = Date.now()
+): RequireResult {
+  if (heldBy === null || !isActive(acquiredAt, now)) return { ok: true };
+  if (heldBy === userId) return { ok: true };
+  return { ok: false, heldBy };
+}
+
 export async function getEditLockState(documentId: string): Promise<LockState> {
   const row = await prisma.aiKnowledgeDocument.findUnique({
     where: { id: documentId },
@@ -105,7 +122,5 @@ export async function requireEditableTarget(
   userId: string | null
 ): Promise<RequireResult> {
   const state = await getEditLockState(documentId);
-  if (!state.active) return { ok: true };
-  if (state.heldBy === userId) return { ok: true };
-  return { ok: false, heldBy: state.heldBy ?? undefined };
+  return evaluateLock(state.heldBy, state.acquiredAt, userId);
 }

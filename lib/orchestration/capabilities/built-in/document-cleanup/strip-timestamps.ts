@@ -6,12 +6,10 @@ import type {
   CapabilityResult,
 } from '@/lib/orchestration/capabilities/types';
 import {
+  describeRefusal,
   MutationSummary,
-  resolveCleanupTarget,
-  summariseMutation,
-  writeCleanupContent,
+  mutateCleanupContent,
 } from '@/lib/orchestration/capabilities/built-in/document-cleanup/context';
-import { requireEditableTarget } from '@/lib/orchestration/knowledge/edit-lock';
 
 const formats = ['hh_mm', 'hh_mm_ss', 'bracketed', 'parenthesised'] as const;
 
@@ -58,40 +56,38 @@ export class StripTimestampsCapability extends BaseCapability<Args, Data> {
   };
 
   async execute(args: Args, context: CapabilityContext): Promise<CapabilityResult<Data>> {
-    const target = await resolveCleanupTarget(context);
-    if (!target) return this.error('Not in a Document Clean Up session.', 'not_cleanup_session');
-
-    const lock = await requireEditableTarget(target.documentId, context.userId);
-    if (!lock.ok) {
-      return this.error('The document is being edited by another admin.', 'target_locked');
-    }
-
     const selected = args.formats ?? [...formats];
-    let next = target.content;
-    let removed = 0;
-    // Order matters: do the longer/bracketed forms first so the plain ones
-    // don't eat the inner part and leave dangling brackets.
-    if (selected.includes('bracketed')) {
-      removed += (next.match(BRACKETED) ?? []).length;
-      next = next.replace(BRACKETED, '');
+    const outcome = await mutateCleanupContent(
+      context,
+      { source: 'capability:strip_timestamps', actorId: context.userId },
+      (content) => {
+        let next = content;
+        let removed = 0;
+        // Order matters: do the longer/bracketed forms first so the plain ones
+        // don't eat the inner part and leave dangling brackets.
+        if (selected.includes('bracketed')) {
+          removed += (next.match(BRACKETED) ?? []).length;
+          next = next.replace(BRACKETED, '');
+        }
+        if (selected.includes('parenthesised')) {
+          removed += (next.match(PARENTHESISED) ?? []).length;
+          next = next.replace(PARENTHESISED, '');
+        }
+        if (selected.includes('hh_mm_ss')) {
+          removed += (next.match(HH_MM_SS) ?? []).length;
+          next = next.replace(HH_MM_SS, '');
+        }
+        if (selected.includes('hh_mm')) {
+          removed += (next.match(HH_MM) ?? []).length;
+          next = next.replace(HH_MM, '');
+        }
+        return { next, data: { formats: selected, removed } };
+      }
+    );
+    if (!outcome.ok) {
+      const refusal = describeRefusal(outcome);
+      return this.error(refusal.message, refusal.code);
     }
-    if (selected.includes('parenthesised')) {
-      removed += (next.match(PARENTHESISED) ?? []).length;
-      next = next.replace(PARENTHESISED, '');
-    }
-    if (selected.includes('hh_mm_ss')) {
-      removed += (next.match(HH_MM_SS) ?? []).length;
-      next = next.replace(HH_MM_SS, '');
-    }
-    if (selected.includes('hh_mm')) {
-      removed += (next.match(HH_MM) ?? []).length;
-      next = next.replace(HH_MM, '');
-    }
-
-    await writeCleanupContent(target.documentId, next, {
-      source: 'capability:strip_timestamps',
-      actorId: context.userId,
-    });
-    return this.success({ formats: selected, removed, ...summariseMutation(target.content, next) });
+    return this.success({ ...outcome.data, ...outcome.summary });
   }
 }

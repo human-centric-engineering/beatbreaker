@@ -24,18 +24,28 @@ const { mockResolveCleanupTarget, mockWriteCleanupContent, mockSummariseMutation
   })
 );
 
-vi.mock('@/lib/orchestration/capabilities/built-in/document-cleanup/context', () => ({
-  resolveCleanupTarget: mockResolveCleanupTarget,
-  writeCleanupContent: mockWriteCleanupContent,
-  summariseMutation: mockSummariseMutation,
-}));
+// The capability now mutates through `mutateCleanupContent`, which owns the
+// row-locked transaction. These tests exercise the transform it passes in, so
+// the transaction is replaced by a double that runs that transform against
+// `mockResolveCleanupTarget`'s content and records the write. Every existing
+// arrange/assert below keeps its original meaning.
+vi.mock('@/lib/orchestration/capabilities/built-in/document-cleanup/context', async () => {
+  const { makeMutateCleanupContentDouble, describeRefusalDouble } =
+    await import('@/tests/helpers/cleanup-mutation');
+  return {
+    mutateCleanupContent: makeMutateCleanupContentDouble({
+      resolveTarget: (context) => mockResolveCleanupTarget(context),
+      requireEditable: (documentId, userId) => mockRequireEditableTarget(documentId, userId),
+      recordWrite: (documentId, content, opts) =>
+        mockWriteCleanupContent(documentId, content, opts),
+      summarise: (before, after) => mockSummariseMutation(before, after),
+    }),
+    describeRefusal: describeRefusalDouble,
+  };
+});
 
 const { mockRequireEditableTarget } = vi.hoisted(() => ({
   mockRequireEditableTarget: vi.fn(),
-}));
-
-vi.mock('@/lib/orchestration/knowledge/edit-lock', () => ({
-  requireEditableTarget: mockRequireEditableTarget,
 }));
 
 // ─── Imports ────────────────────────────────────────────────────────────────

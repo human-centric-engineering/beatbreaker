@@ -1335,6 +1335,22 @@ release process.
   interface), shows a "Clean up before chunking is on" notice, and labels the
   button `Confirm & Clean Up`. Server behaviour is unchanged.
 
+- **Document Clean Up applied roughly one of every N mutations the agent ran in
+  a batch, and reported errors for the rest.** The chat tool loop dispatches a
+  turn's tool calls in parallel, so an agent answering "yes, proceed" to a
+  five-step cleanup plan fired five mutating capabilities at once. Each read the
+  same `processedContent` and wrote back its own whole-document result — last
+  write wins, four mutations silently discarded — and the concurrent
+  `max(version)+1` revision allocation collided on the `(documentId, version)`
+  unique index, so two of the five also failed outright and the agent relayed
+  the raw Postgres error as "there was an error processing this step". Every
+  cleanup mutation now reads, transforms and writes inside one transaction
+  holding a `SELECT … FOR UPDATE` row lock on the document
+  (`mutateCleanupContent`), so a parallel batch queues and composes: each
+  transform sees the previous one's output. New `npm run
+  smoke:cleanup-concurrency` fires five capabilities concurrently against a real
+  database and fails if any mutation is lost or any version collides.
+
 ## [0.11.2] — 2026-08-31
 
 > **Alpha release.** Sixteenth tagged Sunrise release. **PATCH bump** — a

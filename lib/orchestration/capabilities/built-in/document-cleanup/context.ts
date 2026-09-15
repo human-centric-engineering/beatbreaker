@@ -1,7 +1,13 @@
 import safeRegex from 'safe-regex2';
 import { prisma } from '@/lib/db/client';
 import type { CapabilityContext } from '@/lib/orchestration/capabilities/types';
-import { writeRevision } from '@/lib/orchestration/knowledge/revisions';
+import { evaluateLock } from '@/lib/orchestration/knowledge/edit-lock';
+import {
+  CLEANUP_TX_MAX_WAIT_MS,
+  CLEANUP_TX_TIMEOUT_MS,
+  lockDocumentRow,
+  writeRevisionWithin,
+} from '@/lib/orchestration/knowledge/revisions';
 
 export interface CleanupTarget {
   documentId: string;
@@ -78,27 +84,128 @@ export interface WriteCleanupContentOpts {
   instructions?: string;
 }
 
-// Mutate processedContent AND append a revision row in one logical step.
-// Every callsite — capabilities, edit endpoints, finalise — flows through
-// here so the revision history is always written. Callers MUST hold the
-// edit lock (see requireEditableTarget); this helper does not check.
+// Mutate processedContent AND append a revision row in one transaction, under
+// the document row lock. Every callsite — capabilities, edit endpoints —
+// flows through here so the revision history is always written.
+//
+// Use this only when the content was computed from a snapshot the caller has
+// already validated against (the edit routes' fingerprint / stale-change
+// guards). A caller that derives new content FROM current content must use
+// `mutateCleanupContent`, which keeps the read inside the same lock.
 export async function writeCleanupContent(
   documentId: string,
   content: string,
   opts: WriteCleanupContentOpts
 ): Promise<void> {
-  await prisma.aiKnowledgeDocument.update({
-    where: { id: documentId },
-    data: { processedContent: content },
+  await prisma.$transaction(
+    async (tx) => {
+      await lockDocumentRow(tx, documentId);
+      await tx.aiKnowledgeDocument.update({
+        where: { id: documentId },
+        data: { processedContent: content },
+      });
+      await writeRevisionWithin(tx, {
+        documentId,
+        content,
+        source: opts.source,
+        actorId: opts.actorId,
+        sectionMarker: opts.sectionMarker,
+        instructions: opts.instructions,
+      });
+    },
+    { timeout: CLEANUP_TX_TIMEOUT_MS, maxWait: CLEANUP_TX_MAX_WAIT_MS }
+  );
+}
+
+/** Why a cleanup mutation didn't run. Maps 1:1 onto a capability error code. */
+export type CleanupMutationRefusal =
+  { reason: 'not_cleanup_session' } | { reason: 'target_locked'; heldBy?: string };
+
+export type CleanupMutationOutcome<T> =
+  | { ok: true; before: string; after: string; data: T; summary: MutationSummary }
+  | ({ ok: false } & CleanupMutationRefusal);
+
+/**
+ * Map a refusal onto the message + error code a capability returns to the
+ * agent. Kept here so all seven deterministic cleanups word it identically.
+ */
+export function describeRefusal(refusal: CleanupMutationRefusal): {
+  message: string;
+  code: string;
+} {
+  if (refusal.reason === 'target_locked') {
+    return { message: 'The document is being edited by another admin.', code: 'target_locked' };
+  }
+  return { message: 'Not in a Document Clean Up session.', code: 'not_cleanup_session' };
+}
+
+/**
+ * Read the current cleanup content, apply `transform` to it, and write the
+ * result plus its revision — all inside one transaction holding the document
+ * row lock, so the read cannot be stale by the time the write lands.
+ *
+ * This is the only safe way for a capability to mutate the document. The chat
+ * loop dispatches a turn's tool calls in parallel (`Promise.allSettled` in
+ * streaming-handler), so without the lock five deterministic cleanups all read
+ * the same base content and the last write silently discarded the other four.
+ * Under the lock they queue and compose: each transform sees the previous
+ * one's output, which is what a multi-step cleanup plan means.
+ *
+ * `transform` runs inside the transaction and must stay cheap and pure — no
+ * network calls, no LLM. An LLM rewrite proposes a pending change instead and
+ * lands through `writeCleanupContent` on accept.
+ */
+export async function mutateCleanupContent<T>(
+  context: CapabilityContext,
+  opts: WriteCleanupContentOpts,
+  transform: (content: string, target: CleanupTarget) => { next: string; data: T }
+): Promise<CleanupMutationOutcome<T>> {
+  if (!context.conversationId) return { ok: false, reason: 'not_cleanup_session' };
+  const conv = await prisma.aiConversation.findUnique({
+    where: { id: context.conversationId },
+    select: { contextType: true, contextId: true },
   });
-  await writeRevision({
-    documentId,
-    content,
-    source: opts.source,
-    actorId: opts.actorId,
-    sectionMarker: opts.sectionMarker,
-    instructions: opts.instructions,
-  });
+  if (conv?.contextType !== 'knowledge_document' || !conv.contextId) {
+    return { ok: false, reason: 'not_cleanup_session' };
+  }
+  const documentId = conv.contextId;
+
+  return prisma.$transaction(
+    async (tx): Promise<CleanupMutationOutcome<T>> => {
+      const row = await lockDocumentRow(tx, documentId);
+      if (!row || row.status !== 'cleaning' || row.originalContent === null) {
+        return { ok: false, reason: 'not_cleanup_session' };
+      }
+
+      // Same verdict requireEditableTarget would reach, but against the row we
+      // already hold — one round trip, and no window between check and write.
+      const lock = evaluateLock(row.editLockHolder, row.editLockAcquiredAt, context.userId);
+      if (!lock.ok) return { ok: false, reason: 'target_locked', heldBy: lock.heldBy };
+
+      const before = row.processedContent ?? row.originalContent;
+      const { next, data } = transform(before, {
+        documentId,
+        content: before,
+        originalContent: row.originalContent,
+      });
+
+      await tx.aiKnowledgeDocument.update({
+        where: { id: documentId },
+        data: { processedContent: next },
+      });
+      await writeRevisionWithin(tx, {
+        documentId,
+        content: next,
+        source: opts.source,
+        actorId: opts.actorId,
+        sectionMarker: opts.sectionMarker,
+        instructions: opts.instructions,
+      });
+
+      return { ok: true, before, after: next, data, summary: summariseMutation(before, next) };
+    },
+    { timeout: CLEANUP_TX_TIMEOUT_MS, maxWait: CLEANUP_TX_MAX_WAIT_MS }
+  );
 }
 
 export interface MutationSummary {

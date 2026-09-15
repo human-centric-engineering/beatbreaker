@@ -6,12 +6,10 @@ import type {
   CapabilityResult,
 } from '@/lib/orchestration/capabilities/types';
 import {
+  describeRefusal,
   MutationSummary,
-  resolveCleanupTarget,
-  summariseMutation,
-  writeCleanupContent,
+  mutateCleanupContent,
 } from '@/lib/orchestration/capabilities/built-in/document-cleanup/context';
-import { requireEditableTarget } from '@/lib/orchestration/knowledge/edit-lock';
 
 const schema = z.object({
   keepBlankLines: z.boolean().optional(),
@@ -44,30 +42,28 @@ export class CollapseWhitespaceCapability extends BaseCapability<Args, Data> {
   };
 
   async execute(args: Args, context: CapabilityContext): Promise<CapabilityResult<Data>> {
-    const target = await resolveCleanupTarget(context);
-    if (!target) return this.error('Not in a Document Clean Up session.', 'not_cleanup_session');
-
-    const lock = await requireEditableTarget(target.documentId, context.userId);
-    if (!lock.ok) {
-      return this.error('The document is being edited by another admin.', 'target_locked');
-    }
-
     const keepBlankLines = args.keepBlankLines ?? true;
-    let next = target.content
-      .split('\n')
-      .map((line) => line.replace(/[ \t]+/g, ' ').replace(/\s+$/, ''))
-      .join('\n');
-    next = keepBlankLines
-      ? next.replace(/\n{3,}/g, '\n\n')
-      : next
+    const outcome = await mutateCleanupContent(
+      context,
+      { source: 'capability:collapse_whitespace', actorId: context.userId },
+      (content) => {
+        let next = content
           .split('\n')
-          .filter((l) => l.trim() !== '')
+          .map((line) => line.replace(/[ \t]+/g, ' ').replace(/\s+$/, ''))
           .join('\n');
-
-    await writeCleanupContent(target.documentId, next, {
-      source: 'capability:collapse_whitespace',
-      actorId: context.userId,
-    });
-    return this.success({ keepBlankLines, ...summariseMutation(target.content, next) });
+        next = keepBlankLines
+          ? next.replace(/\n{3,}/g, '\n\n')
+          : next
+              .split('\n')
+              .filter((l) => l.trim() !== '')
+              .join('\n');
+        return { next, data: { keepBlankLines } };
+      }
+    );
+    if (!outcome.ok) {
+      const refusal = describeRefusal(outcome);
+      return this.error(refusal.message, refusal.code);
+    }
+    return this.success({ ...outcome.data, ...outcome.summary });
   }
 }

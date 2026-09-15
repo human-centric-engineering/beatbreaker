@@ -144,13 +144,50 @@ Section ids are content-hashed (FNV-1a of marker + index) so small body edits do
 
 Under 50 sections the list renders directly. At or above 50 it virtualises via `react-window` (`components/admin/orchestration/knowledge/section-list.tsx`) so only on-screen rows mount — keeps the DOM bounded and reconciliation fast for book-sized docs. Trade-off: browser Ctrl-F won't match text inside un-rendered sections — scroll the doc to surface them first if you need an in-page find.
 
+### Write serialisation (the row lock)
+
+**Every mutation of `processedContent` goes through `mutateCleanupContent()` in
+`lib/orchestration/capabilities/built-in/document-cleanup/context.ts`, which
+reads, transforms and writes inside one interactive transaction holding a
+Postgres row lock (`SELECT … FOR UPDATE`) on the document.** This is not
+optional bookkeeping — it is what makes a multi-step cleanup plan work at all.
+
+The chat tool loop dispatches a turn's tool calls in parallel
+(`Promise.allSettled`, `streaming-handler.ts`), so an agent answering "yes,
+proceed" to a five-step plan fires five mutating capabilities at once. Without
+the lock each one read the same `processedContent` and wrote back its own full
+document: last write wins, and four of the five mutations vanished with no
+error. The same race broke `writeRevision`'s `max(version)+1` allocation, so
+two of the five also failed outright on the `(documentId, version)` unique
+index and the agent relayed a raw Postgres error to the admin as "there was an
+error processing this step".
+
+Under the lock the five queue and **compose** — each transform sees the
+previous one's output. `npm run smoke:cleanup-concurrency` proves it against a
+real database: it fires five capabilities concurrently and fails if any
+mutation is lost or any revision version collides.
+
+Consequences for anyone adding a cleanup capability:
+
+- Derive new content from the `content` argument `mutateCleanupContent` hands
+  your transform — never from a separate read. A capability that reads the
+  document itself is back in the race.
+- The transform runs inside the transaction: keep it pure and cheap. No network
+  calls, no LLM. An LLM rewrite proposes a pending change instead and lands
+  through `writeCleanupContent` when the admin accepts it.
+- `writeCleanupContent` (used by the edit routes, which already validate
+  against a fingerprint) takes the same lock for its write half.
+
 ### Edit lock
 
-A cooperative single-writer lock coordinates the agent and the human. While ANY section is being edited:
+A cooperative single-writer lock coordinates the agent and the human. It is a
+UX-level signal — "another admin is typing" — and is a different mechanism from
+the row lock above, which is held for milliseconds and is what actually
+serialises writes. While ANY section is being edited:
 
 - The local admin acquires a server-side lock via `POST /cleanup/lock` (5-minute TTL).
 - The chat input is disabled with a "Paused: document is being edited" overlay so a capability call can't race the in-progress save.
-- Every cleanup capability calls `requireEditableTarget()` before mutating; if the lock is held by a different admin, the capability returns `target_locked`.
+- Every cleanup capability checks the lock before mutating — inside the row-locked read, via `evaluateLock()` against the columns it has just read; if the lock is held by a different admin, the capability returns `target_locked`. (`requireEditableTarget()` is the same verdict for callers that have not already read the row.)
 
 Lock-held-by-other-admin is surfaced in a banner at the top of the page; the editor and chat are both paused until the holder releases or the TTL expires.
 
@@ -162,7 +199,7 @@ Every section edit POST carries an `expectedFingerprint` — SHA-256 of the sect
 
 Every mutation — capability call, human edit, restore, finalise — writes a row to `AiKnowledgeDocumentRevision`. The cleanup page's History button opens a drawer listing revisions newest-first with source label (e.g. "Agent: strip_timestamps", "You: section edit", "Finalise: commit"). Clicking Restore writes a NEW revision with `source: 'restore'` — never destructive.
 
-**Retention is bounded.** Each revision row stores the document's full content (no diff storage), so an unbounded history scales linearly with edit count × document size. After each write, `writeRevision()` prunes everything beyond the most recent N rows per document. Default N = 50; configurable via `KB_REVISION_RETENTION` env (clamped to `[10, 500]`). When the drawer is at capacity the UI shows a "Showing latest 50 revisions — older entries have been pruned" hint so the cap is visible. The shared constant lives at `lib/orchestration/knowledge/revision-retention.ts` so the server's prune and the client's hint don't drift.
+**Retention is bounded.** Each revision row stores the document's full content (no diff storage), so an unbounded history scales linearly with edit count × document size. After each write, the revision writer prunes everything beyond the most recent N rows per document. Default N = 50; configurable via `KB_REVISION_RETENTION` env (clamped to `[10, 500]`). When the drawer is at capacity the UI shows a "Showing latest 50 revisions — older entries have been pruned" hint so the cap is visible. The shared constant lives at `lib/orchestration/knowledge/revision-retention.ts` so the server's prune and the client's hint don't drift.
 
 ### Diff-card review for LLM rewrites
 
