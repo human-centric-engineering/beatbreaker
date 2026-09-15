@@ -312,6 +312,12 @@ The cleanup agent's system prompt knows this contract — it says "I've proposed
 
 Deterministic capabilities (`strip_*`, `collapse_whitespace`, `dedupe_lines`, `normalise_punctuation`) keep their auto-apply behaviour — admins don't want to click Accept on a 200-line timestamp strip.
 
+### Sections are addressed by id, never by marker
+
+`POST /cleanup/section` and `POST /cleanup/section/refine` both take a `sectionId` — the id `detectSections` assigns, which hashes the marker _together with the section index_ and is therefore unique within a document. Do not address a section by its `marker`: markers are display labels and repeat routinely (two `## Introduction` headings, a transcript's recurring speaker turns, the `(preamble)` label every doc with leading text gets). Marker lookup resolves to the first match, which means editing the second of two identically-marked sections silently rewrites the first — on the save path the fingerprint check fires against the wrong body, and "Keep mine" then splices over that other section.
+
+The `sectionMarker` field on revision and pending-change rows is a display label only, and is written from the _resolved_ section rather than from the request. The `rewrite_section_with_llm` capability is the deliberate exception: it takes a marker because the agent addresses sections by the text it can see, and it uses its own more-lenient private finder.
+
 ### Refine with agent (from the editor)
 
 Inside the section editor, a **Refine with agent** button opens an instructions input. Submitting calls `POST /cleanup/section/refine` which wraps the same LLM-rewrite logic as `rewrite_section_with_llm` but invokable directly from the editor (no chat round-trip). The result emerges as a pending change handled by the same diff modal — unified Accept/Reject UX whether the rewrite came from chat or the editor button.

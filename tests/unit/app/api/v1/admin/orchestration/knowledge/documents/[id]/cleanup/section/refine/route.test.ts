@@ -79,6 +79,7 @@ import {
   mockAuthenticatedUser,
   mockUnauthenticatedUser,
 } from '@/tests/helpers/auth';
+import { detectSections } from '@/lib/orchestration/knowledge/section-detection';
 
 // ADMIN_ID matches the hardcoded id in mockAuthenticatedUser. The route
 // compares lockState.heldBy to session.user.id — they must agree for happy-path.
@@ -89,6 +90,9 @@ const PENDING_CHANGE_ID = 'cmjbv4i3x00003wsloputgwu4';
 
 // Two-heading doc — detectSections (the REAL implementation, not mocked) splits into two sections.
 const FULL_DOC = '# Intro\nfirst body\n# Body\nsecond body';
+// Sections are addressed by their detectSections id, never by marker — markers
+// repeat within a document. Derived from the real detector.
+const INTRO_ID = detectSections(FULL_DOC)[0].id;
 const LLM_REWRITTEN_BODY = 'rewritten intro body text';
 
 const mockAgent = { provider: 'anthropic', model: 'claude-3-5-sonnet', temperature: 0.2 };
@@ -141,19 +145,13 @@ describe('POST /cleanup/section/refine', () => {
   describe('auth boundary', () => {
     it('401 when unauthenticated', async () => {
       vi.mocked(auth.api.getSession).mockResolvedValue(mockUnauthenticatedUser());
-      const r = await POST(
-        req({ sectionMarker: 'Intro', instructions: 'clean it' }),
-        params(DOC_ID)
-      );
+      const r = await POST(req({ sectionId: INTRO_ID, instructions: 'clean it' }), params(DOC_ID));
       expect(r.status).toBe(401);
     });
 
     it('403 when non-admin', async () => {
       vi.mocked(auth.api.getSession).mockResolvedValue(mockAuthenticatedUser('USER'));
-      const r = await POST(
-        req({ sectionMarker: 'Intro', instructions: 'clean it' }),
-        params(DOC_ID)
-      );
+      const r = await POST(req({ sectionId: INTRO_ID, instructions: 'clean it' }), params(DOC_ID));
       expect(r.status).toBe(403);
     });
   });
@@ -161,25 +159,25 @@ describe('POST /cleanup/section/refine', () => {
   describe('validation', () => {
     it('400 on invalid document CUID', async () => {
       const r = await POST(
-        req({ sectionMarker: 'Intro', instructions: 'clean it' }),
+        req({ sectionId: INTRO_ID, instructions: 'clean it' }),
         params(INVALID_ID)
       );
       expect(r.status).toBe(400);
     });
 
-    it('400 when sectionMarker is missing from body', async () => {
+    it('400 when sectionId is missing from body', async () => {
       const r = await POST(req({ instructions: 'clean it' }), params(DOC_ID));
       expect(r.status).toBe(400);
     });
 
     it('400 when instructions is missing from body', async () => {
-      const r = await POST(req({ sectionMarker: 'Intro' }), params(DOC_ID));
+      const r = await POST(req({ sectionId: INTRO_ID }), params(DOC_ID));
       expect(r.status).toBe(400);
     });
 
     it('400 when instructions exceed 2000 characters', async () => {
       const r = await POST(
-        req({ sectionMarker: 'Intro', instructions: 'x'.repeat(2001) }),
+        req({ sectionId: INTRO_ID, instructions: 'x'.repeat(2001) }),
         params(DOC_ID)
       );
       expect(r.status).toBe(400);
@@ -194,10 +192,7 @@ describe('POST /cleanup/section/refine', () => {
         active: true,
       });
 
-      const r = await POST(
-        req({ sectionMarker: 'Intro', instructions: 'clean it' }),
-        params(DOC_ID)
-      );
+      const r = await POST(req({ sectionId: INTRO_ID, instructions: 'clean it' }), params(DOC_ID));
 
       expect(r.status).toBe(423);
       const body = await r.json();
@@ -211,10 +206,7 @@ describe('POST /cleanup/section/refine', () => {
   describe('document state', () => {
     it('400 when doc is not in cleaning status or not owned by the caller', async () => {
       mockFindFirstDoc.mockResolvedValue(null);
-      const r = await POST(
-        req({ sectionMarker: 'Intro', instructions: 'clean it' }),
-        params(DOC_ID)
-      );
+      const r = await POST(req({ sectionId: INTRO_ID, instructions: 'clean it' }), params(DOC_ID));
       expect(r.status).toBe(400);
     });
   });
@@ -222,10 +214,7 @@ describe('POST /cleanup/section/refine', () => {
   describe('conversation and agent lookup', () => {
     it('400 when no cleanup conversation found for the doc', async () => {
       mockFindFirstConv.mockResolvedValue(null);
-      const r = await POST(
-        req({ sectionMarker: 'Intro', instructions: 'clean it' }),
-        params(DOC_ID)
-      );
+      const r = await POST(req({ sectionId: INTRO_ID, instructions: 'clean it' }), params(DOC_ID));
       expect(r.status).toBe(400);
     });
 
@@ -235,10 +224,7 @@ describe('POST /cleanup/section/refine', () => {
         model: 'claude-3-5-sonnet',
         temperature: 0.2,
       });
-      const r = await POST(
-        req({ sectionMarker: 'Intro', instructions: 'clean it' }),
-        params(DOC_ID)
-      );
+      const r = await POST(req({ sectionId: INTRO_ID, instructions: 'clean it' }), params(DOC_ID));
       expect(r.status).toBe(500);
       const body = await r.json();
       expect(body.error.code).toBe('AGENT_MISCONFIGURED');
@@ -250,10 +236,7 @@ describe('POST /cleanup/section/refine', () => {
         model: null,
         temperature: 0.2,
       });
-      const r = await POST(
-        req({ sectionMarker: 'Intro', instructions: 'clean it' }),
-        params(DOC_ID)
-      );
+      const r = await POST(req({ sectionId: INTRO_ID, instructions: 'clean it' }), params(DOC_ID));
       expect(r.status).toBe(500);
       const body = await r.json();
       expect(body.error.code).toBe('AGENT_MISCONFIGURED');
@@ -261,14 +244,37 @@ describe('POST /cleanup/section/refine', () => {
   });
 
   describe('section detection', () => {
-    it('404 SECTION_NOT_FOUND when the marker matches nothing in detectSections', async () => {
+    it('404 SECTION_NOT_FOUND when the id matches nothing in detectSections', async () => {
       const r = await POST(
-        req({ sectionMarker: 'NonExistent Section', instructions: 'clean it' }),
+        req({ sectionId: 'deadbeef', instructions: 'clean it' }),
         params(DOC_ID)
       );
       expect(r.status).toBe(404);
       const body = await r.json();
       expect(body.error.code).toBe('SECTION_NOT_FOUND');
+    });
+  });
+
+  describe('duplicate markers', () => {
+    // Addressing by marker proposed a rewrite of the FIRST match's body.
+    it('refines the second of two identically-marked sections', async () => {
+      const dupDoc = '# Intro\nfirst body\n# Intro\nsecond body';
+      mockFindFirstDoc.mockResolvedValue({ processedContent: dupDoc, originalContent: null });
+      const [first, second] = detectSections(dupDoc);
+      expect(second.marker).toBe(first.marker);
+
+      const r = await POST(req({ sectionId: second.id, instructions: 'clean it' }), params(DOC_ID));
+
+      expect(r.status).toBe(200);
+      // The prompt must carry the SECOND section's body.
+      const userMessage = mockProviderChat.mock.calls[0][0].find(
+        (m: { role: string }) => m.role === 'user'
+      ) as { content: string } | undefined;
+      expect(userMessage?.content).toContain('SECTION BODY:\nsecond body');
+      expect(userMessage?.content).not.toContain('first body');
+      // ...and the splice must leave the first section intact.
+      const pendingData = mockCreatePending.mock.calls[0][0].data as { afterContent: string };
+      expect(pendingData.afterContent).toBe(`# Intro\nfirst body\n# Intro\n${LLM_REWRITTEN_BODY}`);
     });
   });
 
@@ -278,10 +284,7 @@ describe('POST /cleanup/section/refine', () => {
       // prompt will exceed once the 4096-token response budget is added.
       mockGetModel.mockReturnValue({ maxContext: 1_000 });
 
-      const r = await POST(
-        req({ sectionMarker: 'Intro', instructions: 'clean it' }),
-        params(DOC_ID)
-      );
+      const r = await POST(req({ sectionId: INTRO_ID, instructions: 'clean it' }), params(DOC_ID));
 
       expect(r.status).toBe(413);
       const body = await r.json();
@@ -302,10 +305,7 @@ describe('POST /cleanup/section/refine', () => {
       // 128k fallback, which trivially fits a short section.
       mockGetModel.mockReturnValue(undefined);
 
-      const r = await POST(
-        req({ sectionMarker: 'Intro', instructions: 'clean it' }),
-        params(DOC_ID)
-      );
+      const r = await POST(req({ sectionId: INTRO_ID, instructions: 'clean it' }), params(DOC_ID));
 
       expect(r.status).toBe(200);
       expect(mockProviderChat).toHaveBeenCalledTimes(1);
@@ -315,10 +315,7 @@ describe('POST /cleanup/section/refine', () => {
   describe('LLM errors', () => {
     it('502 PROVIDER_UNAVAILABLE when getProvider throws', async () => {
       mockGetProvider.mockRejectedValue(new Error('connection refused'));
-      const r = await POST(
-        req({ sectionMarker: 'Intro', instructions: 'clean it' }),
-        params(DOC_ID)
-      );
+      const r = await POST(req({ sectionId: INTRO_ID, instructions: 'clean it' }), params(DOC_ID));
       expect(r.status).toBe(502);
       const body = await r.json();
       expect(body.error.code).toBe('PROVIDER_UNAVAILABLE');
@@ -331,10 +328,7 @@ describe('POST /cleanup/section/refine', () => {
         model: 'claude-3-5-sonnet',
         finishReason: 'stop',
       });
-      const r = await POST(
-        req({ sectionMarker: 'Intro', instructions: 'clean it' }),
-        params(DOC_ID)
-      );
+      const r = await POST(req({ sectionId: INTRO_ID, instructions: 'clean it' }), params(DOC_ID));
       expect(r.status).toBe(502);
       const body = await r.json();
       expect(body.error.code).toBe('EMPTY_RESPONSE');
@@ -356,14 +350,13 @@ describe('POST /cleanup/section/refine', () => {
         originalContent: null,
       });
 
-      // Use the real detectSections to find the actual marker for the first section.
-      const { detectSections } = await import('@/lib/orchestration/knowledge/section-detection');
+      // Use the real detectSections to find the actual first section.
       const sections = detectSections(plainDoc);
       expect(sections.length).toBeGreaterThan(0);
       const firstSection = sections[0];
 
       const r = await POST(
-        req({ sectionMarker: firstSection.marker, instructions: 'clean it' }),
+        req({ sectionId: firstSection.id, instructions: 'clean it' }),
         params(DOC_ID)
       );
 
@@ -389,20 +382,16 @@ describe('POST /cleanup/section/refine', () => {
     it('returns deltaPct=0 when processedContent and originalContent are both absent (null/null)', async () => {
       // detectSections('') always returns at least one section (the '(empty)' fallback).
       // This means we can feed processedContent=null, originalContent=null to the route,
-      // currentContent becomes '', detectSections finds the '(empty)' section with id we can look up,
+      // currentContent becomes '', detectSections finds the '(empty)' section whose id we address,
       // and the deltaPct guard `currentContent.length === 0 ? 0 : ...` must fire → deltaPct=0.
-      const { detectSections } = await import('@/lib/orchestration/knowledge/section-detection');
       const emptySections = detectSections('');
       // The paragraph-run fallback always produces at least one section for empty input.
       expect(emptySections.length).toBeGreaterThan(0);
-      const emptyMarker = emptySections[0].marker;
+      const emptyId = emptySections[0].id;
 
       mockFindFirstDoc.mockResolvedValue({ processedContent: null, originalContent: null });
 
-      const r = await POST(
-        req({ sectionMarker: emptyMarker, instructions: 'clean it' }),
-        params(DOC_ID)
-      );
+      const r = await POST(req({ sectionId: emptyId, instructions: 'clean it' }), params(DOC_ID));
 
       expect(r.status).toBe(200);
       const body = await r.json();
@@ -414,7 +403,7 @@ describe('POST /cleanup/section/refine', () => {
 
   describe('happy path', () => {
     it('sends SECTION HEADING and SECTION BODY as separate prompt parts; body must not contain the heading line', async () => {
-      await POST(req({ sectionMarker: 'Intro', instructions: 'make it concise' }), params(DOC_ID));
+      await POST(req({ sectionId: INTRO_ID, instructions: 'make it concise' }), params(DOC_ID));
 
       // The route must strip the leading heading from the body before sending to LLM.
       // FULL_DOC = '# Intro\nfirst body\n# Body\nsecond body'
@@ -432,7 +421,7 @@ describe('POST /cleanup/section/refine', () => {
     });
 
     it('creates aiKnowledgeDocumentPendingChange with correct source, markers, and actor', async () => {
-      await POST(req({ sectionMarker: 'Intro', instructions: 'make it concise' }), params(DOC_ID));
+      await POST(req({ sectionId: INTRO_ID, instructions: 'make it concise' }), params(DOC_ID));
 
       expect(mockCreatePending).toHaveBeenCalledTimes(1);
       expect(mockCreatePending).toHaveBeenCalledWith({
@@ -448,7 +437,7 @@ describe('POST /cleanup/section/refine', () => {
     });
 
     it('afterContent in the pending change splices the rewritten body into the full doc', async () => {
-      await POST(req({ sectionMarker: 'Intro', instructions: 'make it concise' }), params(DOC_ID));
+      await POST(req({ sectionId: INTRO_ID, instructions: 'make it concise' }), params(DOC_ID));
 
       const callData = mockCreatePending.mock.calls[0][0].data as { afterContent: string };
       // afterContent should contain the rewritten section and preserve the rest of the doc
@@ -458,9 +447,9 @@ describe('POST /cleanup/section/refine', () => {
       expect(callData.afterContent).not.toBe(FULL_DOC);
     });
 
-    it('returns { pendingChangeId, sectionMarker, summary: { charsBefore, charsAfter, deltaPct } }', async () => {
+    it('returns { pendingChangeId, sectionId, sectionMarker, summary: { charsBefore, charsAfter, deltaPct } }', async () => {
       const r = await POST(
-        req({ sectionMarker: 'Intro', instructions: 'make it concise' }),
+        req({ sectionId: INTRO_ID, instructions: 'make it concise' }),
         params(DOC_ID)
       );
 
@@ -469,6 +458,8 @@ describe('POST /cleanup/section/refine', () => {
       expect(body.success).toBe(true);
       expect(body.data).toMatchObject({
         pendingChangeId: PENDING_CHANGE_ID,
+        sectionId: INTRO_ID,
+        // The label is the RESOLVED section's marker, not client-supplied.
         sectionMarker: 'Intro',
         summary: expect.objectContaining({
           charsBefore: expect.any(Number),

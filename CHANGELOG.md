@@ -1157,6 +1157,23 @@ release process.
 
 ### Fixed
 
+- **Editing or refining a section whose heading repeats hit the wrong section.**
+  `POST /cleanup/section` and `POST /cleanup/section/refine` took a
+  `sectionMarker` and resolved it marker-first, but markers are human-facing
+  labels and repeat within a document — two `## Introduction` headings, a
+  transcript's recurring speaker turns, the `(preamble)` label. The inline
+  editor sent the marker, so editing the second of two identically-marked
+  sections addressed the first: refine proposed a rewrite of the wrong body
+  with no fingerprint guard to catch it, and save 409'd against a different
+  section's fingerprint, after which "Keep mine" spliced the draft over that
+  other section. Both routes now take `sectionId` — the `detectSections` id,
+  which folds in the section index and is therefore unique — and no longer
+  accept a marker as an address. **Breaking for direct API callers:** send
+  `sectionId` (from the section list) instead of `sectionMarker`; the refine
+  response now carries both `sectionId` and the resolved `sectionMarker`.
+  Revision and pending-change records keep `sectionMarker` as a display label,
+  now always the resolved section's own.
+
 - **Every install logged two authorization warnings about a resolver that does
   not exist.** `canRead`'s `'unattributed'` arm answers two questions — "a
   resolver named this row and could not attribute it" and "may this caller read

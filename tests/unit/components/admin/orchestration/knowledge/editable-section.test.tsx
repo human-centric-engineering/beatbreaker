@@ -7,7 +7,7 @@
  * - View mode: renders <pre> with section.body; pencil button present in DOM (hidden via CSS)
  * - Click pencil → acquireLock called; on false return, stays in view mode (no textarea)
  * - Click pencil → acquireLock returns true → enters edit mode (textarea, Save/Cancel/Refine buttons)
- * - Save POSTs /cleanup/section with { sectionMarker, content, expectedFingerprint } using real sha256Hex
+ * - Save POSTs /cleanup/section with { sectionId, content, expectedFingerprint } using real sha256Hex
  * - 423 response → error banner matching /another admin is editing/i; stays in edit mode
  * - 409 response → conflict panel with Keep mine / Take theirs; clicking Take theirs replaces draft
  * - Save success → exits edit mode; onSaved callback fires
@@ -34,11 +34,13 @@ import type { Section } from '@/lib/orchestration/knowledge/section-detection';
 
 const DOC_ID = 'doc-abc-123';
 const SECTION_MARKER = '## Introduction';
+// Sections are addressed by id — markers repeat within a document.
+const SECTION_ID = 'section-id-001';
 const SECTION_BODY = 'This is the introduction section body.';
 
 function makeSection(overrides?: Partial<Section>): Section {
   return {
-    id: 'section-id-001',
+    id: SECTION_ID,
     marker: SECTION_MARKER,
     body: SECTION_BODY,
     startOffset: 0,
@@ -186,7 +188,7 @@ describe('EditableSection', () => {
         expect.objectContaining({
           method: 'POST',
           body: JSON.stringify({
-            sectionMarker: SECTION_MARKER,
+            sectionId: SECTION_ID,
             content: SECTION_BODY,
             expectedFingerprint,
           }),
@@ -439,7 +441,7 @@ describe('EditableSection', () => {
     expect(refineButtons.length).toBeGreaterThan(0);
   });
 
-  it('Refine POSTs /cleanup/section/refine with { sectionMarker, instructions }', async () => {
+  it('Refine POSTs /cleanup/section/refine with { sectionId, instructions }', async () => {
     const instructions = 'Make it shorter and clearer';
     const pendingChangeId = 'change-abc-789';
     const fetchMock = vi.fn().mockResolvedValue({
@@ -476,7 +478,7 @@ describe('EditableSection', () => {
         expect.objectContaining({
           method: 'POST',
           body: JSON.stringify({
-            sectionMarker: SECTION_MARKER,
+            sectionId: SECTION_ID,
             instructions,
           }),
         })

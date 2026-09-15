@@ -3,11 +3,15 @@
  *
  *   POST /api/v1/admin/orchestration/knowledge/documents/:id/cleanup/section
  *
- * Body: { sectionMarker: string, content: string, expectedFingerprint: string }
+ * Body: { sectionId: string, content: string, expectedFingerprint: string }
  *
- * Per-section inline edit. Looks up the section by marker via
- * detectSections, asserts the section body hashes to expectedFingerprint,
- * splices the new body in, writes a `human_section` revision.
+ * Per-section inline edit. Looks up the section by its detectSections id,
+ * asserts the section body hashes to expectedFingerprint, splices the new
+ * body in, writes a `human_section` revision.
+ *
+ * Addressed by id, never by marker: markers are human-facing labels and are
+ * not unique (two `## Introduction` headings, repeated speaker turns, a
+ * `(preamble)`), so marker lookup would splice over the first match.
  *
  * Same auth + lock semantics as the whole-doc endpoint: 423 LOCK_HELD
  * when another admin owns the lock; 409 CONTENT_MISMATCH when the
@@ -32,7 +36,7 @@ import { cuidSchema } from '@/lib/validations/common';
 import { logAdminAction } from '@/lib/orchestration/audit/admin-audit-logger';
 
 const bodySchema = z.object({
-  sectionMarker: z.string().min(1).max(200),
+  sectionId: z.string().min(1).max(64),
   content: z.string().max(5_000_000),
   expectedFingerprint: z
     .string()
@@ -78,13 +82,12 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
 
   const currentContent = doc.processedContent ?? doc.originalContent ?? '';
   const sections = detectSections(currentContent);
-  const section =
-    sections.find((s) => s.marker === body.sectionMarker || s.id === body.sectionMarker) ?? null;
+  const section = sections.find((s) => s.id === body.sectionId) ?? null;
   if (!section) {
     return errorResponse('Section not found', {
       code: 'SECTION_NOT_FOUND',
       status: 404,
-      details: { sectionMarker: [body.sectionMarker] },
+      details: { sectionId: [body.sectionId] },
     });
   }
 

@@ -111,7 +111,10 @@ export function EditableSection({
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              sectionMarker: section.marker,
+              // Addressed by id, not marker: markers repeat within a document
+              // (duplicate headings, repeated speakers), so a marker would
+              // fingerprint — and splice over — the first match instead.
+              sectionId: section.id,
               content: draft,
               expectedFingerprint,
             }),
@@ -145,7 +148,7 @@ export function EditableSection({
         setSaving(false);
       }
     },
-    [documentId, draft, baselineBody, section.marker, onSaved]
+    [documentId, draft, baselineBody, section.id, onSaved]
   );
 
   const keepMine = useCallback(() => {
@@ -177,7 +180,7 @@ export function EditableSection({
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            sectionMarker: section.marker,
+            sectionId: section.id,
             instructions: refineInstructions.trim(),
           }),
         }
@@ -199,7 +202,7 @@ export function EditableSection({
     } finally {
       setRefining(false);
     }
-  }, [documentId, refineInstructions, section.marker, onPendingChange]);
+  }, [documentId, refineInstructions, section.id, onPendingChange]);
 
   // Live diff strip — char/line delta vs. the saved baseline (section.body).
   const draftCharsDelta = draft.length - section.body.length;

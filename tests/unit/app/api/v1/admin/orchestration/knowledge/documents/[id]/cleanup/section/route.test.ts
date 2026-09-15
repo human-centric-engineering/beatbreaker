@@ -45,6 +45,7 @@ import {
   mockAuthenticatedUser,
   mockUnauthenticatedUser,
 } from '@/tests/helpers/auth';
+import { detectSections } from '@/lib/orchestration/knowledge/section-detection';
 
 // ADMIN_ID matches the hardcoded id in mockAuthenticatedUser. The route
 // compares lockState.heldBy to session.user.id — they must agree for the
@@ -56,6 +57,9 @@ const ADMIN_ID = 'cmjbv4i3x00003wsloputgwul';
 const FULL_DOC = '# Intro\nfirst body\n# Body\nsecond body';
 const INTRO_SECTION_BODY = '# Intro\nfirst body\n';
 const INTRO_FP = createHash('sha256').update(INTRO_SECTION_BODY).digest('hex');
+// Sections are addressed by their detectSections id, not their marker. Derived
+// from the real detector so the test breaks if the id scheme changes.
+const INTRO_ID = detectSections(FULL_DOC)[0].id;
 
 function req(body: Record<string, unknown>): NextRequest {
   return new NextRequest(
@@ -92,7 +96,7 @@ describe('POST /cleanup/section', () => {
   describe('document id validation', () => {
     it('400 on invalid document CUID — cuidSchema rejects the id before any DB call', async () => {
       const r = await POST(
-        req({ sectionMarker: 'Intro', content: 'x', expectedFingerprint: INTRO_FP }),
+        req({ sectionId: INTRO_ID, content: 'x', expectedFingerprint: INTRO_FP }),
         params('not-a-cuid')
       );
       expect(r.status).toBe(400);
@@ -105,7 +109,7 @@ describe('POST /cleanup/section', () => {
     it('400 when doc is not found, not owned by caller, or not in cleaning status', async () => {
       mockFindFirst.mockResolvedValue(null);
       const r = await POST(
-        req({ sectionMarker: 'Intro', content: 'x', expectedFingerprint: INTRO_FP }),
+        req({ sectionId: INTRO_ID, content: 'x', expectedFingerprint: INTRO_FP }),
         params(DOC_ID)
       );
       expect(r.status).toBe(400);
@@ -116,7 +120,7 @@ describe('POST /cleanup/section', () => {
     it('401 unauthenticated', async () => {
       vi.mocked(auth.api.getSession).mockResolvedValue(mockUnauthenticatedUser());
       const r = await POST(
-        req({ sectionMarker: 'Intro', content: 'x', expectedFingerprint: INTRO_FP }),
+        req({ sectionId: INTRO_ID, content: 'x', expectedFingerprint: INTRO_FP }),
         params(DOC_ID)
       );
       expect(r.status).toBe(401);
@@ -125,7 +129,7 @@ describe('POST /cleanup/section', () => {
     it('403 non-admin', async () => {
       vi.mocked(auth.api.getSession).mockResolvedValue(mockAuthenticatedUser('USER'));
       const r = await POST(
-        req({ sectionMarker: 'Intro', content: 'x', expectedFingerprint: INTRO_FP }),
+        req({ sectionId: INTRO_ID, content: 'x', expectedFingerprint: INTRO_FP }),
         params(DOC_ID)
       );
       expect(r.status).toBe(403);
@@ -140,7 +144,7 @@ describe('POST /cleanup/section', () => {
         active: true,
       });
       const r = await POST(
-        req({ sectionMarker: 'Intro', content: 'x', expectedFingerprint: INTRO_FP }),
+        req({ sectionId: INTRO_ID, content: 'x', expectedFingerprint: INTRO_FP }),
         params(DOC_ID)
       );
       expect(r.status).toBe(423);
@@ -148,10 +152,10 @@ describe('POST /cleanup/section', () => {
   });
 
   describe('section not found', () => {
-    it('404 SECTION_NOT_FOUND when marker matches nothing', async () => {
+    it('404 SECTION_NOT_FOUND when the id matches nothing', async () => {
       const r = await POST(
         req({
-          sectionMarker: 'No Such Heading',
+          sectionId: 'deadbeef',
           content: 'x',
           expectedFingerprint: INTRO_FP,
         }),
@@ -167,7 +171,7 @@ describe('POST /cleanup/section', () => {
     it('409 when section body has changed since edit began', async () => {
       const wrongFp = createHash('sha256').update('stale').digest('hex');
       const r = await POST(
-        req({ sectionMarker: 'Intro', content: 'x', expectedFingerprint: wrongFp }),
+        req({ sectionId: INTRO_ID, content: 'x', expectedFingerprint: wrongFp }),
         params(DOC_ID)
       );
       expect(r.status).toBe(409);
@@ -177,11 +181,40 @@ describe('POST /cleanup/section', () => {
     });
   });
 
+  describe('duplicate markers', () => {
+    // Markers are labels and repeat within a document; only the id
+    // distinguishes them. Addressing by marker spliced the FIRST match.
+    it('edits the second of two identically-marked sections', async () => {
+      const dupDoc = '# Intro\nfirst body\n# Intro\nsecond body';
+      mockFindFirst.mockResolvedValue({
+        processedContent: dupDoc,
+        originalContent: 'irrelevant',
+        fileName: 'test.md',
+      });
+      const second = detectSections(dupDoc)[1];
+      expect(second.marker).toBe(detectSections(dupDoc)[0].marker);
+
+      const r = await POST(
+        req({
+          sectionId: second.id,
+          content: '# Intro\nsecond body rewritten',
+          expectedFingerprint: createHash('sha256').update(second.body).digest('hex'),
+        }),
+        params(DOC_ID)
+      );
+      expect(r.status).toBe(200);
+      // The FIRST 'Intro' section must be untouched.
+      expect(mockWriteCleanupContent.mock.calls[0][1]).toBe(
+        '# Intro\nfirst body\n# Intro\nsecond body rewritten'
+      );
+    });
+  });
+
   describe('happy path', () => {
     it('splices the new body into the doc and writes a human_section revision', async () => {
       const r = await POST(
         req({
-          sectionMarker: 'Intro',
+          sectionId: INTRO_ID,
           content: '# Intro\nrewritten by hand\n',
           expectedFingerprint: INTRO_FP,
         }),

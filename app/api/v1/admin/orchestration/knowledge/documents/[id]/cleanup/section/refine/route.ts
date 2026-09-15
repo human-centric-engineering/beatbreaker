@@ -3,9 +3,9 @@
  *
  *   POST /api/v1/admin/orchestration/knowledge/documents/:id/cleanup/section/refine
  *
- * Body: { sectionMarker: string, instructions: string }
+ * Body: { sectionId: string, instructions: string }
  *
- * Calls the cleanup agent's LLM with the named section + instructions and
+ * Calls the cleanup agent's LLM with the addressed section + instructions and
  * emits a pending change for the admin to Accept or Reject — same contract
  * as `rewrite_section_with_llm` from chat, but invoked directly from the
  * inline section editor without needing a chat round-trip.
@@ -34,7 +34,7 @@ import { cleanupRefineLimiter, createRateLimitResponse } from '@/lib/security/ra
 import { cuidSchema } from '@/lib/validations/common';
 
 const bodySchema = z.object({
-  sectionMarker: z.string().min(1).max(200),
+  sectionId: z.string().min(1).max(64),
   instructions: z.string().min(1).max(2000),
 });
 
@@ -125,13 +125,14 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
 
   const currentContent = doc.processedContent ?? doc.originalContent ?? '';
   const sections = detectSections(currentContent);
-  const section =
-    sections.find((s) => s.marker === body.sectionMarker || s.id === body.sectionMarker) ?? null;
+  // By id, never by marker — markers are labels and repeat within a doc, so
+  // a marker lookup would propose a rewrite of the wrong section's body.
+  const section = sections.find((s) => s.id === body.sectionId) ?? null;
   if (!section) {
     return errorResponse('Section not found', {
       code: 'SECTION_NOT_FOUND',
       status: 404,
-      details: { sectionMarker: [body.sectionMarker] },
+      details: { sectionId: [body.sectionId] },
     });
   }
 
@@ -207,7 +208,7 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
       source: 'rewrite_section_with_llm',
       beforeContent: currentContent,
       afterContent: after,
-      sectionMarker: body.sectionMarker,
+      sectionMarker: section.marker,
       instructions: body.instructions,
       actorId: session.user.id,
     },
@@ -216,13 +217,15 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
   log.info('Cleanup section refine emitted pending change', {
     documentId,
     pendingChangeId: pending.id,
-    sectionMarker: body.sectionMarker,
+    sectionId: section.id,
+    sectionMarker: section.marker,
     adminId: session.user.id,
   });
 
   return successResponse({
     pendingChangeId: pending.id,
-    sectionMarker: body.sectionMarker,
+    sectionId: section.id,
+    sectionMarker: section.marker,
     summary: {
       charsBefore: currentContent.length,
       charsAfter: after.length,
