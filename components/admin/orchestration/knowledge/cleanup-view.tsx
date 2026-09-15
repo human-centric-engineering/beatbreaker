@@ -9,6 +9,8 @@ import {
   History,
   Loader2,
   Lock,
+  Maximize2,
+  Minimize2,
   Sparkles,
   Trash2,
 } from 'lucide-react';
@@ -17,7 +19,13 @@ import { z } from 'zod';
 import { ChatInterface } from '@/components/admin/orchestration/chat/chat-interface';
 import { PendingChangeModal } from '@/components/admin/orchestration/knowledge/pending-change-modal';
 import { RevisionDrawer } from '@/components/admin/orchestration/knowledge/revision-drawer';
+import { RevisionHistory } from '@/components/admin/orchestration/knowledge/revision-history';
 import { SectionList } from '@/components/admin/orchestration/knowledge/section-list';
+import {
+  DiffModeToggle,
+  TextDiffViewer,
+  type DiffMode,
+} from '@/components/admin/orchestration/knowledge/text-diff-viewer';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSession } from '@/lib/auth/client';
@@ -87,6 +95,14 @@ export function CleanupView({
   );
   const [error, setError] = useState<string | null>(null);
   const [historyOpen, setHistoryOpen] = useState(false);
+  const [diffMode, setDiffMode] = useState<DiffMode>('unified');
+  // The preview pane sits beside the chat at half width, which is tight for a
+  // side-by-side diff. Expanding spans it across both columns and drops the
+  // chat below it, rather than hiding either.
+  const [previewExpanded, setPreviewExpanded] = useState(false);
+  // Bumped after every document refetch so the History tab's list picks up
+  // revisions the agent has just written.
+  const [historyRefreshKey, setHistoryRefreshKey] = useState(0);
   // When the agent's rewrite_with_llm or rewrite_section_with_llm capability
   // returns, the result carries a pendingChangeId. We pop the diff modal so
   // the admin can Accept or Reject before the change applies.
@@ -135,6 +151,7 @@ export function CleanupView({
       const next =
         parsed.data.document.processedContent ?? parsed.data.document.originalContent ?? '';
       setProcessedContent(next);
+      setHistoryRefreshKey((k) => k + 1);
     } catch {
       // Best-effort refresh; the chat continues to work even if this fails.
     }
@@ -285,9 +302,9 @@ export function CleanupView({
       </header>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <section className="rounded-lg border">
+        <section className={`rounded-lg border ${previewExpanded ? 'lg:col-span-2' : ''}`}>
           <Tabs defaultValue="cleaned" className="w-full">
-            <div className="flex items-center justify-between border-b px-3 py-2">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b px-3 py-2">
               <div className="flex items-center gap-2">
                 <FileText className="text-muted-foreground h-4 w-4" />
                 <span className="text-sm font-medium">Document preview</span>
@@ -297,10 +314,30 @@ export function CleanupView({
                   </span>
                 ) : null}
               </div>
-              <TabsList>
-                <TabsTrigger value="cleaned">Cleaned</TabsTrigger>
-                <TabsTrigger value="original">Original</TabsTrigger>
-              </TabsList>
+              <div className="flex items-center gap-2">
+                <TabsList>
+                  <TabsTrigger value="cleaned">Cleaned</TabsTrigger>
+                  <TabsTrigger value="original">Original</TabsTrigger>
+                  <TabsTrigger value="diff">Diff</TabsTrigger>
+                  <TabsTrigger value="history">History</TabsTrigger>
+                </TabsList>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setPreviewExpanded((v) => !v)}
+                  aria-pressed={previewExpanded}
+                  title={previewExpanded ? 'Shrink to half width' : 'Expand to full width'}
+                >
+                  {previewExpanded ? (
+                    <Minimize2 className="h-3.5 w-3.5" />
+                  ) : (
+                    <Maximize2 className="h-3.5 w-3.5" />
+                  )}
+                  <span className="sr-only">
+                    {previewExpanded ? 'Shrink document preview' : 'Expand document preview'}
+                  </span>
+                </Button>
+              </div>
             </div>
             <TabsContent value="cleaned" className="m-0">
               {lock.heldByOther ? (
@@ -332,10 +369,42 @@ export function CleanupView({
                 {originalContent || '(empty)'}
               </pre>
             </TabsContent>
+            <TabsContent value="diff" className="m-0">
+              <div className="space-y-2 p-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-muted-foreground text-xs">
+                    Original on the left as it was parsed, cleaned on the right. Long unchanged runs
+                    are collapsed — click one to expand it.
+                  </p>
+                  <DiffModeToggle mode={diffMode} onChange={setDiffMode} />
+                </div>
+                <TextDiffViewer
+                  before={originalContent}
+                  after={processedContent}
+                  mode={diffMode}
+                  beforeLabel="Original"
+                  afterLabel="Cleaned"
+                />
+              </div>
+            </TabsContent>
+            <TabsContent value="history" className="m-0">
+              <div className="p-3">
+                <RevisionHistory
+                  documentId={documentId}
+                  currentContent={processedContent}
+                  onRestored={() => void refetchDoc()}
+                  refreshKey={historyRefreshKey}
+                />
+              </div>
+            </TabsContent>
           </Tabs>
         </section>
 
-        <section className="bg-card relative flex h-[70vh] flex-col rounded-lg border">
+        <section
+          className={`bg-card relative flex h-[70vh] flex-col rounded-lg border ${
+            previewExpanded ? 'lg:col-span-2' : ''
+          }`}
+        >
           {lock.heldByMe ? (
             // Pessimistic overlay — disables the chat while the admin is
             // mid-edit so a capability call can't race the in-progress save.

@@ -142,6 +142,35 @@ vi.mock('@/components/admin/orchestration/knowledge/revision-drawer', () => ({
   },
 }));
 
+// The Diff and History tabs delegate to these two. Mock them to markers that
+// echo their inputs, so the tab tests assert WHAT is handed over rather than
+// re-testing diff rendering or the revision list (both have their own suites).
+vi.mock('@/components/admin/orchestration/knowledge/text-diff-viewer', () => ({
+  TextDiffViewer: (props: { before: string; after: string; mode?: string }) => (
+    <div
+      data-testid="text-diff"
+      data-before={props.before}
+      data-after={props.after}
+      data-mode={props.mode}
+    />
+  ),
+  DiffModeToggle: (props: { mode: string; onChange: (mode: string) => void }) => (
+    <button type="button" data-testid="diff-mode-toggle" onClick={() => props.onChange('split')}>
+      {props.mode}
+    </button>
+  ),
+}));
+
+vi.mock('@/components/admin/orchestration/knowledge/revision-history', () => ({
+  RevisionHistory: (props: { documentId: string; currentContent: string }) => (
+    <div
+      data-testid="revision-history"
+      data-document-id={props.documentId}
+      data-current={props.currentContent}
+    />
+  ),
+}));
+
 vi.mock('@/components/admin/orchestration/knowledge/pending-change-modal', () => ({
   PendingChangeModal: (props: {
     changeId: string | null;
@@ -872,5 +901,76 @@ describe('CleanupView', () => {
     await waitFor(() => {
       expect(vi.mocked(apiClient.get)).toHaveBeenCalledWith(expect.stringContaining(DOC_ID));
     });
+  });
+});
+
+describe('CleanupView — preview pane tabs', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    globalThis.fetch = vi.fn().mockImplementation(() => makeFetchSuccess({}));
+    vi.mocked(apiClient.get).mockResolvedValue(makeDocResponse());
+    mockLockState = {
+      state: null,
+      heldByMe: false,
+      heldByOther: false,
+      error: null,
+      acquire: mockLockAcquire,
+      release: mockLockRelease,
+      refresh: vi.fn().mockResolvedValue(undefined),
+    };
+    vi.mocked(useCleanupEditLock).mockReturnValue(mockLockState);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('Diff tab diffs the original against the current cleaned content', async () => {
+    const user = userEvent.setup();
+    render(<CleanupView {...BASE_PROPS} />);
+
+    await user.click(screen.getByRole('tab', { name: /diff/i }));
+
+    const diff = await screen.findByTestId('text-diff');
+    expect(diff.getAttribute('data-before')).toBe(BASE_PROPS.originalContent);
+    expect(diff.getAttribute('data-after')).toBe(BASE_PROPS.initialProcessedContent);
+  });
+
+  it('Diff tab honours the unified/split toggle', async () => {
+    const user = userEvent.setup();
+    render(<CleanupView {...BASE_PROPS} />);
+
+    await user.click(screen.getByRole('tab', { name: /diff/i }));
+    expect((await screen.findByTestId('text-diff')).getAttribute('data-mode')).toBe('unified');
+
+    await user.click(screen.getByTestId('diff-mode-toggle'));
+
+    expect(screen.getByTestId('text-diff').getAttribute('data-mode')).toBe('split');
+  });
+
+  it('History tab mounts the revision history against the live cleaned content', async () => {
+    const user = userEvent.setup();
+    render(<CleanupView {...BASE_PROPS} />);
+
+    await user.click(screen.getByRole('tab', { name: /history/i }));
+
+    const history = await screen.findByTestId('revision-history');
+    expect(history.getAttribute('data-document-id')).toBe(DOC_ID);
+    expect(history.getAttribute('data-current')).toBe(BASE_PROPS.initialProcessedContent);
+  });
+
+  it('the expand control widens the preview pane to the full grid and back', async () => {
+    const user = userEvent.setup();
+    const { container } = render(<CleanupView {...BASE_PROPS} />);
+
+    const previewSection = container.querySelector('section');
+    expect(previewSection?.className).not.toMatch(/lg:col-span-2/);
+
+    const expand = screen.getByRole('button', { name: /expand document preview/i });
+    await user.click(expand);
+    expect(previewSection?.className).toMatch(/lg:col-span-2/);
+
+    await user.click(screen.getByRole('button', { name: /shrink document preview/i }));
+    expect(previewSection?.className).not.toMatch(/lg:col-span-2/);
   });
 });

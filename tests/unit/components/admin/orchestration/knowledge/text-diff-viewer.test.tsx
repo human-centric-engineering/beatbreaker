@@ -4,12 +4,17 @@
  * TextDiffViewer Component Tests
  *
  * Test Coverage:
- * - Identical inputs → all rows have equal styling (text-muted-foreground)
- * - Pure addition → rows have add styling (bg-emerald-100) and '+ ' prefix
- * - Pure deletion → rows have del styling (bg-red-100) and '- ' prefix
- * - Mixed edit → sequence of equal/del/add/equal rows in the correct order
- * - Empty line preservation → a blank line in the diff still produces one row
- * - DOM contract: outer wrapper is a <pre>, each Op is a direct child <div>
+ * - Unified rows carry the op type they represent, with the right prefix and
+ *   both line-number gutters.
+ * - Pure addition / pure deletion / mixed edit produce the expected op mix.
+ * - Long unchanged runs collapse behind an expander and expand on click; short
+ *   runs are never collapsed.
+ * - Split mode pairs a removal with its replacement on one row, and emits a
+ *   filler when one side has no counterpart.
+ * - The +added/−removed summary counts the ops, not the rendered rows (which
+ *   collapsing hides).
+ * - The 1,500-changed-line cap still swaps the diff for a notice, and the
+ *   prefix/suffix trim still keeps a small change in a large document diffable.
  *
  * Mocking: none. Renders with @testing-library/react and inspects the real DOM.
  *
@@ -17,224 +22,223 @@
  */
 
 import { describe, expect, it } from 'vitest';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { TextDiffViewer } from '@/components/admin/orchestration/knowledge/text-diff-viewer';
 
 // ── helpers ───────────────────────────────────────────────────────────────────
 
-/** Return true when at least one class substring is present on the element. */
-function hasClassSubstring(el: Element, substring: string): boolean {
-  return (el.getAttribute('class') ?? '').includes(substring);
+function rowTypes(container: HTMLElement, testid = 'diff-row'): string[] {
+  return Array.from(container.querySelectorAll(`[data-testid="${testid}"]`)).map(
+    (el) => el.getAttribute('data-diff-type') ?? ''
+  );
+}
+
+/** Line text of a unified row, with the two gutters and the +/- marker stripped. */
+function rowText(el: Element): string {
+  const spans = Array.from(el.querySelectorAll('span'));
+  return spans[spans.length - 1]?.textContent ?? '';
 }
 
 // ── tests ─────────────────────────────────────────────────────────────────────
 
 describe('TextDiffViewer', () => {
-  it('identical inputs → every row has equal styling and the row count matches the line count', () => {
-    // Arrange
-    const text = 'alpha\nbeta\ngamma';
-    const lineCount = text.split('\n').length; // 3
+  describe('unified mode', () => {
+    it('marks each row with its op type and renders both line-number gutters', () => {
+      // 'b' replaced by 'x'; 'a' and 'c' unchanged.
+      const { container } = render(<TextDiffViewer before={'a\nb\nc'} after={'a\nx\nc'} />);
 
-    // Act
-    const { container } = render(<TextDiffViewer before={text} after={text} />);
-    const rows = container.querySelectorAll('pre > div');
+      const types = rowTypes(container);
+      expect(types.filter((t) => t === 'equal').length).toBe(2);
+      expect(types.filter((t) => t === 'add').length).toBe(1);
+      expect(types.filter((t) => t === 'del').length).toBe(1);
 
-    // Assert: number of rows equals number of lines
-    expect(rows.length).toBe(lineCount);
+      // The deleted line carries a before-number but no after-number; the
+      // added line the reverse. That asymmetry is what makes the gutters
+      // readable, so assert it rather than just "a number appears".
+      const del = container.querySelector('[data-diff-type="del"]');
+      const add = container.querySelector('[data-diff-type="add"]');
+      const gutters = (el: Element | null) =>
+        Array.from(el?.querySelectorAll('span') ?? [])
+          .slice(0, 2)
+          .map((s) => s.textContent);
+      expect(gutters(del)).toEqual(['2', '']);
+      expect(gutters(add)).toEqual(['', '2']);
+    });
 
-    // Assert: every row has the equal-class (text-muted-foreground)
-    for (const row of rows) {
-      expect(hasClassSubstring(row, 'text-muted-foreground')).toBe(true);
-    }
+    it('pure addition against empty input renders both new lines as adds', () => {
+      const { container } = render(<TextDiffViewer before="" after={'a\nb'} />);
+      expect(rowTypes(container).filter((t) => t === 'add').length).toBe(2);
+    });
+
+    it('pure deletion to empty input renders both old lines as deletions', () => {
+      const { container } = render(<TextDiffViewer before={'a\nb'} after="" />);
+      expect(rowTypes(container).filter((t) => t === 'del').length).toBe(2);
+    });
+
+    it('preserves a blank line as its own row rather than dropping it', async () => {
+      // No changes at all, so the whole document sits behind one expander —
+      // expand it to inspect the rows.
+      const user = userEvent.setup();
+      const { container } = render(
+        <TextDiffViewer before={'first\n\nthird'} after={'first\n\nthird'} />
+      );
+      await user.click(screen.getByTestId('diff-gap'));
+
+      const rows = container.querySelectorAll('[data-testid="diff-row"]');
+      expect(rows.length).toBe(3);
+      // The middle row renders a non-breaking placeholder so it still has height.
+      expect(rowText(rows[1])).toBe(' ');
+    });
+
+    it('reports added and removed counts in the summary', () => {
+      const { container } = render(<TextDiffViewer before={'a\nb\nc'} after={'a\nx\ny\nc'} />);
+      expect(container.textContent).toMatch(/\+2 added/);
+      expect(container.textContent).toMatch(/−1 removed/);
+    });
+
+    it('says "no differences" when the two sides are identical', () => {
+      const { container } = render(<TextDiffViewer before="same" after="same" />);
+      expect(container.textContent).toMatch(/no differences/i);
+    });
   });
 
-  it('pure addition (empty before) → 2 rows with add styling and "+" prefix', () => {
-    // Arrange: nothing before, two lines added
-    const before = '';
-    const after = 'a\nb';
+  describe('collapsing unchanged runs', () => {
+    it('collapses a long unchanged run and keeps contextLines rows either side of the change', () => {
+      // 20 unchanged lines, one changed line, 20 more unchanged.
+      const before = [
+        ...Array.from({ length: 20 }, (_, i) => `pre ${i}`),
+        'target',
+        ...Array.from({ length: 20 }, (_, i) => `post ${i}`),
+      ].join('\n');
+      const after = before.replace('target', 'target rewritten');
 
-    // Act
-    const { container } = render(<TextDiffViewer before={before} after={after} />);
-    const rows = container.querySelectorAll('pre > div');
+      const { container } = render(
+        <TextDiffViewer before={before} after={after} contextLines={3} />
+      );
 
-    // Assert: exactly two rows (one per added line — the empty 'before' produces
-    // no lines because split('') in the source gives [''], handled as a del op
-    // for a single empty line; but 'before=""' means the LCS of [''] vs ['a','b']
-    // deletes the empty line and adds 'a','b'. However the component source splits
-    // '' → [''] giving one row on the before side. Verify the add rows:
-    // The plan specifies before='', after='a\nb' → exactly 2 rendered add rows.
-    // Empirically: before.split('\n') = [''] (1 element), after.split('\n') = ['a','b'].
-    // LCS([''], ['a','b']) = 0 → del '' then add 'a', add 'b' → 3 ops.
-    // BUT the plan says "exactly 2 add rows". Let's assert what the component
-    // actually computes: at minimum the 'a' and 'b' add rows exist.
-    const addRows = Array.from(rows).filter((r) => hasClassSubstring(r, 'bg-emerald-100'));
-    expect(addRows.length).toBe(2);
+      // Two gaps — one before the change, one after.
+      expect(container.querySelectorAll('[data-testid="diff-gap"]').length).toBe(2);
+      // Visible rows: 3 context + del + add + 3 context = 8. The other 34
+      // unchanged lines are behind the expanders.
+      expect(container.querySelectorAll('[data-testid="diff-row"]').length).toBe(8);
+      expect(container.textContent).toMatch(/17 unchanged lines/);
+    });
 
-    // Assert: each add row has the '+ ' prefix (first two chars of textContent)
-    for (const row of addRows) {
-      expect(row.textContent?.startsWith('+ ')).toBe(true);
-    }
+    it('expands a collapsed run in place when its expander is clicked', async () => {
+      const before = [...Array.from({ length: 20 }, (_, i) => `pre ${i}`), 'target'].join('\n');
+      const after = before.replace('target', 'target rewritten');
+
+      const user = userEvent.setup();
+      const { container } = render(
+        <TextDiffViewer before={before} after={after} contextLines={3} />
+      );
+
+      const collapsedRows = container.querySelectorAll('[data-testid="diff-row"]').length;
+      await user.click(screen.getByTestId('diff-gap'));
+
+      // The 17 hidden lines are now rendered, and the expander is gone.
+      expect(container.querySelectorAll('[data-testid="diff-row"]').length).toBe(
+        collapsedRows + 17
+      );
+      expect(container.querySelector('[data-testid="diff-gap"]')).toBeNull();
+    });
+
+    it('does not collapse an unchanged run short enough to fit in the context', () => {
+      // 4 unchanged lines between two changes, with contextLines=3 either
+      // side — collapsing would hide nothing and cost a row.
+      const before = ['x', 'a', 'b', 'c', 'd', 'y'].join('\n');
+      const after = ['x1', 'a', 'b', 'c', 'd', 'y1'].join('\n');
+
+      const { container } = render(
+        <TextDiffViewer before={before} after={after} contextLines={3} />
+      );
+
+      expect(container.querySelector('[data-testid="diff-gap"]')).toBeNull();
+      expect(rowTypes(container).filter((t) => t === 'equal').length).toBe(4);
+    });
   });
 
-  it('pure deletion (empty after) → 2 rows with del styling and "-" prefix', () => {
-    // Arrange: two lines removed, nothing added
-    const before = 'a\nb';
-    const after = '';
+  describe('split mode', () => {
+    it('pairs a removal with its replacement on the same row', () => {
+      const { container } = render(
+        <TextDiffViewer before={'a\nb\nc'} after={'a\nx\nc'} mode="split" />
+      );
 
-    // Act
-    const { container } = render(<TextDiffViewer before={before} after={after} />);
-    const rows = container.querySelectorAll('pre > div');
+      const rows = Array.from(container.querySelectorAll('.grid.grid-cols-2')).filter((el) =>
+        el.querySelector('[data-testid="diff-half"]')
+      );
+      const replaced = rows.find((r) => r.querySelector('[data-diff-type="del"]'));
+      expect(replaced).toBeDefined();
+      // Same row carries the addition — this is the whole point of split view.
+      expect(replaced?.querySelector('[data-diff-type="add"]')).not.toBeNull();
+    });
 
-    // Assert: the 'a' and 'b' del rows both exist with del styling
-    const delRows = Array.from(rows).filter((r) => hasClassSubstring(r, 'bg-red-100'));
-    expect(delRows.length).toBe(2);
+    it('renders a filler opposite an unmatched addition', () => {
+      const { container } = render(
+        <TextDiffViewer before={'a\nc'} after={'a\nb\nc'} mode="split" />
+      );
+      expect(container.querySelector('[data-diff-type="filler"]')).not.toBeNull();
+    });
 
-    // Assert: each del row has the '- ' prefix
-    for (const row of delRows) {
-      expect(row.textContent?.startsWith('- ')).toBe(true);
-    }
+    it('labels the two columns', () => {
+      render(
+        <TextDiffViewer
+          before="a"
+          after="b"
+          mode="split"
+          beforeLabel="Original"
+          afterLabel="Cleaned"
+        />
+      );
+      expect(screen.getByText('Original')).toBeInTheDocument();
+      expect(screen.getByText('Cleaned')).toBeInTheDocument();
+    });
   });
 
-  it('mixed edit → rows contain equal/add/del/equal ops in LCS backtrack order', () => {
-    // Arrange: 'b' replaced by 'x'; 'a' and 'c' are unchanged.
-    // The LCS backtracking algorithm produces ops in this sequence for the
-    // given inputs: equal 'a', add 'x', del 'b', equal 'c'. This is the
-    // correct LCS output — the add and del appear adjacent, add before del.
-    const before = 'a\nb\nc';
-    const after = 'a\nx\nc';
+  describe('size guard', () => {
+    it('renders a notice instead of a diff when more than 1500 lines changed on one side', () => {
+      // The LCS table is (m+1)·(n+1) numbers, so an unbounded whole-document
+      // diff on a cleanup-sized doc allocates tens of millions of slots and
+      // hangs the tab. Nothing is shared here, so the changed span is the
+      // whole input on both sides.
+      const before = Array.from({ length: 2_000 }, (_, i) => `old line ${i}`).join('\n');
+      const after = Array.from({ length: 2_000 }, (_, i) => `new line ${i}`).join('\n');
 
-    // Act
-    const { container } = render(<TextDiffViewer before={before} after={after} />);
-    const rows = Array.from(container.querySelectorAll('pre > div'));
+      const { container } = render(<TextDiffViewer before={before} after={after} />);
 
-    // Assert: 4 rows in the exact sequence the LCS produces
-    expect(rows.length).toBe(4);
+      expect(container.querySelector('[data-testid="diff-row"]')).toBeNull();
+      expect(container.textContent).toMatch(/Too much changed to diff inline/i);
+      expect(container.textContent).toMatch(/2,000 lines before/);
+    });
 
-    // Row 0: equal 'a' → text-muted-foreground, prefix '  '
-    expect(hasClassSubstring(rows[0], 'text-muted-foreground')).toBe(true);
-    expect(rows[0].textContent).toBe('  a');
+    it('still diffs a large document when only a few lines changed', () => {
+      // A section rewrite changes a handful of lines in an otherwise untouched
+      // document. Trimming the common prefix/suffix keeps the table small, so
+      // this must NOT hit the cap.
+      const lines = Array.from({ length: 5_000 }, (_, i) => `line ${i}`);
+      const before = lines.join('\n');
+      const changed = [...lines];
+      changed[2_500] = 'line 2500 — rewritten';
+      const after = changed.join('\n');
 
-    // Row 1: add 'x' → bg-emerald-100, prefix '+ '
-    // LCS backtracks: 'x' appears in `after` but not at the matching position,
-    // and the add op is emitted before the del op during backtracking.
-    expect(hasClassSubstring(rows[1], 'bg-emerald-100')).toBe(true);
-    expect(rows[1].textContent).toBe('+ x');
+      const { container } = render(<TextDiffViewer before={before} after={after} />);
 
-    // Row 2: del 'b' → bg-red-100, prefix '- '
-    expect(hasClassSubstring(rows[2], 'bg-red-100')).toBe(true);
-    expect(rows[2].textContent).toBe('- b');
+      expect(container.textContent).not.toMatch(/Too much changed to diff inline/i);
+      expect(rowTypes(container).filter((t) => t === 'del').length).toBe(1);
+      expect(rowTypes(container).filter((t) => t === 'add').length).toBe(1);
+    });
 
-    // Row 3: equal 'c' → text-muted-foreground, prefix '  '
-    expect(hasClassSubstring(rows[3], 'text-muted-foreground')).toBe(true);
-    expect(rows[3].textContent).toBe('  c');
-  });
+    it('short-circuits identical large inputs instead of building the table', () => {
+      // The history view passes the same string on both sides whenever a
+      // revision made no net change. That must not build a 5000×5000 table.
+      const text = Array.from({ length: 5_000 }, (_, i) => `line ${i}`).join('\n');
 
-  it('empty line preservation → a blank line in the diff still occupies one row', () => {
-    // Arrange: text with a genuine blank line in the middle. The source renders
-    // `op.line || ' '` so the row's content is never an empty string — the
-    // fallback ' ' ensures the div has non-zero height in the browser. But
-    // `.textContent` will be `'   '` (prefix '  ' + fallback ' '), which trims
-    // to '' — so we assert the row EXISTS and has the equal styling rather than
-    // asserting on trimmed text content.
-    const text = 'first\n\nthird';
+      const { container } = render(<TextDiffViewer before={text} after={text} />);
 
-    // Act
-    const { container } = render(<TextDiffViewer before={text} after={text} />);
-    const rows = container.querySelectorAll('pre > div');
-
-    // Assert: 3 rows — 'first', '', 'third'. The blank line must produce a row,
-    // not be silently dropped. With identical before/after all are equal rows.
-    expect(rows.length).toBe(3);
-
-    const middleRow = rows[1];
-    expect(middleRow).toBeDefined();
-
-    // The blank line is an equal op → rendered with equal styling
-    expect(hasClassSubstring(middleRow, 'text-muted-foreground')).toBe(true);
-
-    // The source uses `op.line || ' '` so the rendered child text is the
-    // fallback ' ' (not an empty string). The prefix '  ' + ' ' = 3 chars total.
-    // We verify the row has content by checking it is not null/undefined and
-    // that it is a real DOM element (which the querySelectorAll above guarantees).
-    expect(middleRow.textContent).toBe('   ');
-  });
-
-  it('DOM contract: outer element is <pre> with one direct child <div> per Op', () => {
-    // Arrange: 2 lines, identical → 2 equal ops
-    const text = 'line1\nline2';
-
-    // Act
-    const { container } = render(<TextDiffViewer before={text} after={text} />);
-
-    // Assert: outer wrapper is a <pre>
-    const pre = container.querySelector('pre');
-    expect(pre).not.toBeNull();
-
-    // Assert: direct children of <pre> are all <div> elements
-    const directChildren = pre ? Array.from(pre.children) : [];
-    expect(directChildren.length).toBe(2);
-    for (const child of directChildren) {
-      expect(child.tagName.toLowerCase()).toBe('div');
-    }
-
-    // Assert: count via the combined selector matches the direct-children count
-    const rowsViaSelector = container.querySelectorAll('pre > div');
-    expect(rowsViaSelector.length).toBe(directChildren.length);
-  });
-
-  // ── size guard ────────────────────────────────────────────────────────────
-
-  it('renders a notice instead of a diff when more than 1500 lines changed on one side', () => {
-    // Arrange: the LCS table is (m+1)·(n+1) numbers, so an unbounded
-    // whole-document diff on a cleanup-sized doc allocates tens of millions
-    // of slots and hangs the tab. Nothing here is shared, so the changed span
-    // is the whole input on both sides.
-    const before = Array.from({ length: 2_000 }, (_, i) => `old line ${i}`).join('\n');
-    const after = Array.from({ length: 2_000 }, (_, i) => `new line ${i}`).join('\n');
-
-    // Act
-    const { container } = render(<TextDiffViewer before={before} after={after} />);
-
-    // Assert: the notice replaced the diff entirely
-    expect(container.querySelector('pre')).toBeNull();
-    expect(container.textContent).toMatch(/Too much changed to diff inline/i);
-    expect(container.textContent).toMatch(/2,000 lines before/);
-  });
-
-  it('still diffs a large document when only a few lines changed', () => {
-    // Arrange: a section rewrite changes a handful of lines in an otherwise
-    // untouched document. Trimming the common prefix/suffix keeps the table
-    // small, so this must NOT hit the cap.
-    const lines = Array.from({ length: 5_000 }, (_, i) => `line ${i}`);
-    const before = lines.join('\n');
-    const changed = [...lines];
-    changed[2_500] = 'line 2500 — rewritten';
-    const after = changed.join('\n');
-
-    // Act
-    const { container } = render(<TextDiffViewer before={before} after={after} />);
-
-    // Assert: a real diff, with exactly one deletion and one addition
-    expect(container.textContent).not.toMatch(/Too much changed to diff inline/i);
-    const rows = Array.from(container.querySelectorAll('pre > div'));
-    expect(rows.filter((r) => hasClassSubstring(r, 'bg-red-100')).length).toBe(1);
-    expect(rows.filter((r) => hasClassSubstring(r, 'bg-emerald-100')).length).toBe(1);
-  });
-
-  it('renders identical large inputs as all-equal without hitting the cap', () => {
-    // Arrange: the revision drawer's preview deliberately passes the same
-    // string on both sides. That must short-circuit rather than build a
-    // 5000×5000 table to discover every line is unchanged.
-    const text = Array.from({ length: 5_000 }, (_, i) => `line ${i}`).join('\n');
-
-    // Act
-    const { container } = render(<TextDiffViewer before={text} after={text} />);
-
-    // Assert
-    expect(container.textContent).not.toMatch(/Too much changed to diff inline/i);
-    const rows = Array.from(container.querySelectorAll('pre > div'));
-    expect(rows.length).toBe(5_000);
-    expect(rows.every((r) => hasClassSubstring(r, 'text-muted-foreground'))).toBe(true);
+      expect(container.textContent).not.toMatch(/Too much changed to diff inline/i);
+      expect(container.textContent).toMatch(/5,000 unchanged lines/);
+    });
   });
 });

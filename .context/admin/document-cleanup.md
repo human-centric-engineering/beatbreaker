@@ -195,9 +195,45 @@ Lock-held-by-other-admin is surfaced in a banner at the top of the page; the edi
 
 Every section edit POST carries an `expectedFingerprint` — SHA-256 of the section body the editor opened against. On a mismatch (e.g. a capability landed despite the lock), the server returns 409 with the current section body. The UI shows a "Section changed since you started editing" panel with **Keep mine** (re-saves the local draft over the server's update) and **Take theirs** (replaces the textarea content with the server's current body for manual merge).
 
+### Document preview pane
+
+The left half of the cleanup page is a four-tab pane over the same document:
+
+| Tab          | Shows                                                                                                                                      |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Cleaned**  | The current `processedContent`, as editable sections (read-only while another admin holds the lock).                                       |
+| **Original** | `originalContent` as parsed, never mutated.                                                                                                |
+| **Diff**     | Original vs cleaned, the way a file diff reads: line numbers, changed lines highlighted, long unchanged runs collapsed behind an expander. |
+| **History**  | Every revision, and a diff of whichever one you select. Same component as the header's History dialog.                                     |
+
+The Diff and History tabs both carry a **unified / split** switch
+(`DiffModeToggle`). Split is tight at half width, so the pane header also has an
+expand control that spans it across the full grid and drops the chat below —
+neither is hidden.
+
 ### Revision history
 
-Every mutation — capability call, human edit, restore, finalise — writes a row to `AiKnowledgeDocumentRevision`. The cleanup page's History button opens a drawer listing revisions newest-first with source label (e.g. "Agent: strip_timestamps", "You: section edit", "Finalise: commit"). Clicking Restore writes a NEW revision with `source: 'restore'` — never destructive.
+Every mutation — capability call, human edit, restore, finalise — writes a row
+to `AiKnowledgeDocumentRevision`. Two entry points render the same
+`<RevisionHistory>`: the **History** tab in the preview pane, and the History
+button in the page header (a dialog). Revisions are listed newest-first with a
+source label (e.g. "Agent: strip_timestamps", "You: section edit", "Finalise:
+commit").
+
+Selecting one fetches `GET /cleanup/revisions/:version`, which returns that
+revision's content **and** its predecessor's, and diffs the pair — "what did
+this step change?". A selector switches the comparison to the current document
+— "what would restoring this undo?". The list endpoint deliberately sends
+metadata only: every revision row holds the whole document, so content is
+fetched one revision at a time.
+
+The predecessor is the highest surviving version below the selected one, not
+`version - 1`: retention pruning leaves gaps. When an older revision has no
+surviving predecessor the response sets `previousPruned`, and the UI says the
+diff is the full revision rather than only what it changed.
+
+Clicking Restore writes a NEW revision with `source: 'restore'` — never
+destructive.
 
 **Retention is bounded.** Each revision row stores the document's full content (no diff storage), so an unbounded history scales linearly with edit count × document size. After each write, the revision writer prunes everything beyond the most recent N rows per document. Default N = 50; configurable via `KB_REVISION_RETENTION` env (clamped to `[10, 500]`). When the drawer is at capacity the UI shows a "Showing latest 50 revisions — older entries have been pruned" hint so the cap is visible. The shared constant lives at `lib/orchestration/knowledge/revision-retention.ts` so the server's prune and the client's hint don't drift.
 
@@ -230,7 +266,8 @@ Inside the section editor, a **Refine with agent** button opens an instructions 
 | POST   | `/cleanup/content`                    | Whole-document inline edit                                        |
 | POST   | `/cleanup/section`                    | Per-section inline edit                                           |
 | POST   | `/cleanup/section/refine`             | LLM refine of a section without chat                              |
-| GET    | `/cleanup/revisions`                  | List revisions (newest first, paginated)                          |
+| GET    | `/cleanup/revisions`                  | List revisions (newest first, paginated) — metadata only          |
+| GET    | `/cleanup/revisions/:version`         | One revision's content + its predecessor's, for the history diff  |
 | POST   | `/cleanup/revisions/:version/restore` | Restore prior revision (writes a new `source: 'restore'` row)     |
 | GET    | `/cleanup/changes/:changeId`          | Read one pending LLM rewrite (what the diff modal loads)          |
 | POST   | `/cleanup/changes/:changeId/accept`   | Accept a pending LLM rewrite                                      |
@@ -246,7 +283,9 @@ document on each of those responses.
 The inline diff itself is bounded: `TextDiffViewer` trims the common prefix and
 suffix, then refuses to build its LCS table when more than 1,500 lines still
 differ on one side, rendering a "too much changed to diff inline" notice
-instead. Cleanup targets documents up to ~100k tokens, where an unbounded
+instead. Unchanged runs longer than the kept context collapse behind an
+expander, so a five-line change in a 600-line document is findable without
+scrolling. Cleanup targets documents up to ~100k tokens, where an unbounded
 `m × n` table hangs or crashes the tab.
 
 ## Code map
@@ -262,6 +301,11 @@ instead. Cleanup targets documents up to ~100k tokens, where an unbounded
 | Size report helper (whole-doc)                                             | `lib/orchestration/knowledge/size-report.ts`                                                                                                                                                                                                                                                   |
 | Cleanup-agent context-window resolver                                      | `lib/orchestration/knowledge/cleanup-agent.ts`                                                                                                                                                                                                                                                 |
 | Revision retention constant (shared server/client)                         | `lib/orchestration/knowledge/revision-retention.ts`                                                                                                                                                                                                                                            |
+| Revision history (list + per-revision diff + restore)                      | `components/admin/orchestration/knowledge/revision-history.tsx`                                                                                                                                                                                                                                |
+| Revision history dialog (header entry point)                               | `components/admin/orchestration/knowledge/revision-drawer.tsx`                                                                                                                                                                                                                                 |
+| Diff renderer (unified / split, collapsing, line numbers)                  | `components/admin/orchestration/knowledge/text-diff-viewer.tsx`                                                                                                                                                                                                                                |
+| Row-locked mutation helper (`mutateCleanupContent`)                        | `lib/orchestration/capabilities/built-in/document-cleanup/context.ts`                                                                                                                                                                                                                          |
+| Concurrency smoke script                                                   | `scripts/smoke/cleanup-concurrency.ts`                                                                                                                                                                                                                                                         |
 | Revisions writer + prune                                                   | `lib/orchestration/knowledge/revisions.ts`                                                                                                                                                                                                                                                     |
 | Confirmation email helper                                                  | `lib/orchestration/knowledge/cleanup-email.ts`                                                                                                                                                                                                                                                 |
 | Email template                                                             | `emails/cleanup-ready.tsx`                                                                                                                                                                                                                                                                     |

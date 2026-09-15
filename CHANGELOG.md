@@ -70,6 +70,25 @@ release process.
   #776): the seam gains no approver arm on the execution read routes and no
   write face, and the decision with its costs is on the `f-mt-authz` journal.
 
+- **The Document Clean Up page can now show what actually changed.** The
+  document-preview pane gained a **Diff** tab (original vs cleaned) and a
+  **History** tab, alongside Cleaned and Original. Both render the rewritten
+  `TextDiffViewer`, which reads like a file diff: line numbers down each gutter,
+  an added/removed summary, long unchanged runs collapsed behind an expander,
+  and a **unified / split** switch. Because split is tight beside the chat, the
+  pane header also has an expand control that spans it across the full grid.
+
+- **Any revision can be diffed, not just the newest.** New
+  `GET /cleanup/revisions/:version` returns one revision's content plus its
+  predecessor's, so the history view answers "what did this step change?" — with
+  a selector to compare against the current document instead. The predecessor is
+  the highest surviving version below the selected one, not `version - 1`, and
+  the response flags `previousPruned` when retention has removed it. The list
+  endpoint still sends metadata only; content is fetched one revision at a time.
+  The list, diff and restore now live in a shared `<RevisionHistory>` rendered
+  by both the History tab and the header's History dialog, replacing the
+  drawer's placeholder that could only preview the most recent revision.
+
 - **`lib/app/ci.ts` — a fork declares its own coverage exclusions and always-run
   tests without editing a platform file.** Two lists, both shipped empty:
   `appCoverageExclusions` (`{ pattern, reason }`) is spread into
