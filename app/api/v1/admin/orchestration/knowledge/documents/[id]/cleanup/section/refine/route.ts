@@ -29,6 +29,7 @@ import { getEditLockState } from '@/lib/orchestration/knowledge/edit-lock';
 import { detectSections } from '@/lib/orchestration/knowledge/section-detection';
 import { getModel } from '@/lib/orchestration/llm/model-registry';
 import { getProvider } from '@/lib/orchestration/llm/provider-manager';
+import { cleanupRefineLimiter, createRateLimitResponse } from '@/lib/security/rate-limit';
 import { cuidSchema } from '@/lib/validations/common';
 
 const bodySchema = z.object({
@@ -56,6 +57,12 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
     throw new ValidationError('Invalid document id', { id: ['Must be a valid CUID'] });
   }
   const documentId = parsedId.data;
+
+  // Per-flow sub-cap — this route calls the LLM provider directly rather
+  // than through the capability dispatcher, so it doesn't otherwise inherit
+  // any per-call limit (see cleanupRefineLimiter for the parity rationale).
+  const rateLimit = cleanupRefineLimiter.check(`cleanup-refine:user:${session.user.id}`);
+  if (!rateLimit.success) return createRateLimitResponse(rateLimit);
 
   const body = await validateRequestBody(request, bodySchema);
 

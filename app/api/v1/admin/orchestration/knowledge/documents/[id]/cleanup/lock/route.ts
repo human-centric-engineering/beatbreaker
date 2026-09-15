@@ -13,6 +13,7 @@
  */
 
 import { withAdminAuth } from '@/lib/auth/guards';
+import { prisma } from '@/lib/db/client';
 import { errorResponse, successResponse } from '@/lib/api/responses';
 import { ValidationError } from '@/lib/api/errors';
 import { getRouteLogger } from '@/lib/api/context';
@@ -48,6 +49,20 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
   const log = await getRouteLogger(request);
   const { id: rawId } = await params;
   const documentId = parseDocumentId(rawId);
+
+  // Only the document's own uploader may acquire (or refresh) its lock —
+  // otherwise any admin could grab and perpetually renew the lock on a
+  // document they'll never actually be able to save an edit to, locking
+  // out the real owner.
+  const doc = await prisma.aiKnowledgeDocument.findFirst({
+    where: { id: documentId, uploadedBy: session.user.id, status: 'cleaning' },
+    select: { id: true },
+  });
+  if (!doc) {
+    throw new ValidationError(
+      'Document not found, not owned by this user, or not in cleaning status'
+    );
+  }
 
   const result = await acquireEditLock(documentId, session.user.id);
   if (!result.acquired) {

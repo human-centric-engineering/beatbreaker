@@ -141,10 +141,14 @@ export class RewriteSectionWithLlmCapability extends BaseCapability<Args, Data> 
       return this.error('LLM returned empty content.', 'empty_response');
     }
 
+    // Whether to re-append a trailing newline depends on the section body
+    // being replaced, not the whole document — using the document's overall
+    // trailing newline here would insert a duplicate blank line before the
+    // next heading on every non-final section of a newline-terminated doc.
     const next =
       target.content.slice(0, located.bodyStart) +
       rewritten +
-      (target.content.endsWith('\n') ? '\n' : '') +
+      (sectionBody.endsWith('\n') ? '\n' : '') +
       target.content.slice(located.bodyEnd);
 
     // Mixed agent/human model: section LLM rewrites emit a pending change

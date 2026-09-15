@@ -1,11 +1,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { NextRequest } from 'next/server';
 
-const { mockAcquireEditLock, mockReleaseEditLock, mockGetEditLockState } = vi.hoisted(() => ({
-  mockAcquireEditLock: vi.fn(),
-  mockReleaseEditLock: vi.fn(),
-  mockGetEditLockState: vi.fn(),
-}));
+const { mockAcquireEditLock, mockReleaseEditLock, mockGetEditLockState, mockFindFirstDoc } =
+  vi.hoisted(() => ({
+    mockAcquireEditLock: vi.fn(),
+    mockReleaseEditLock: vi.fn(),
+    mockGetEditLockState: vi.fn(),
+    mockFindFirstDoc: vi.fn(),
+  }));
 
 vi.mock('@/lib/orchestration/knowledge/edit-lock', async () => {
   const actual = await vi.importActual<typeof import('@/lib/orchestration/knowledge/edit-lock')>(
@@ -18,6 +20,12 @@ vi.mock('@/lib/orchestration/knowledge/edit-lock', async () => {
     getEditLockState: mockGetEditLockState,
   };
 });
+
+vi.mock('@/lib/db/client', () => ({
+  prisma: {
+    aiKnowledgeDocument: { findFirst: mockFindFirstDoc },
+  },
+}));
 
 vi.mock('@/lib/auth/config', () => ({
   auth: { api: { getSession: vi.fn() } },
@@ -107,6 +115,11 @@ describe('Cleanup edit-lock route', () => {
   });
 
   describe('POST', () => {
+    beforeEach(() => {
+      // Default: caller owns the doc and it's in cleaning status
+      mockFindFirstDoc.mockResolvedValue({ id: DOC_ID });
+    });
+
     it('200 when lock acquired', async () => {
       vi.mocked(auth.api.getSession).mockResolvedValue(mockAdminUser());
       const acquiredAt = new Date('2026-06-01T10:00:00Z');
@@ -129,6 +142,19 @@ describe('Cleanup edit-lock route', () => {
       expect(body.success).toBe(false);
       expect(body.error.code).toBe('LOCK_HELD');
       expect(body.error.details.heldBy).toEqual(['other-admin']);
+    });
+
+    it('400 when the caller does not own the document (or it is not in cleaning status)', async () => {
+      vi.mocked(auth.api.getSession).mockResolvedValue(mockAdminUser());
+      mockFindFirstDoc.mockResolvedValue(null);
+
+      const response = await POST(req('POST'), params(DOC_ID));
+      expect(response.status).toBe(400);
+      const body = await response.json();
+      expect(body.success).toBe(false);
+      // Ownership must be checked before acquiring — a non-owner can't grab
+      // (or perpetually renew) the lock on someone else's document.
+      expect(mockAcquireEditLock).not.toHaveBeenCalled();
     });
   });
 

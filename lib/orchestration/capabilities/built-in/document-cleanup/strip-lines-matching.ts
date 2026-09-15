@@ -58,7 +58,14 @@ export class StripLinesMatchingCapability extends BaseCapability<Args, Data> {
       return this.error('The document is being edited by another admin.', 'target_locked');
     }
 
-    const compiled = compileSafeRegex(args.regex, args.flags ?? '');
+    // 'g'/'y' flags make RegExp.test() stateful (lastIndex persists across
+    // calls) — since pattern is reused across every line below via a plain
+    // "does this line match anywhere" test, a global/sticky flag would skip
+    // matches on later lines depending on where the previous match landed.
+    // Neither flag adds anything here (each line is tested independently),
+    // so they're stripped rather than passed through.
+    const sanitizedFlags = (args.flags ?? '').replace(/[gy]/g, '');
+    const compiled = compileSafeRegex(args.regex, sanitizedFlags);
     if (!compiled.ok) {
       return this.error(compiled.error, 'invalid_regex');
     }

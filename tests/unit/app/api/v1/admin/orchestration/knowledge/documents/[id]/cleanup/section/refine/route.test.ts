@@ -60,6 +60,18 @@ vi.mock('@/lib/orchestration/llm/model-registry', () => ({
 
 vi.mock('@/lib/security/ip', () => ({ getClientIP: vi.fn(() => '127.0.0.1') }));
 
+vi.mock('@/lib/security/rate-limit', async () => {
+  const actual = await vi.importActual<typeof import('@/lib/security/rate-limit')>(
+    '@/lib/security/rate-limit'
+  );
+  return {
+    ...actual,
+    cleanupRefineLimiter: {
+      check: vi.fn(() => ({ success: true, limit: 12, remaining: 11, reset: 0 })),
+    },
+  };
+});
+
 import { auth } from '@/lib/auth/config';
 import { POST } from '@/app/api/v1/admin/orchestration/knowledge/documents/[id]/cleanup/section/refine/route';
 import {

@@ -6,6 +6,7 @@ const {
   mockGetEditLockState,
   mockWriteCleanupContent,
   mockFindFirstDoc,
+  mockFindUniqueDoc,
   mockFindFirstChange,
   mockDeleteChange,
   mockLogAdminAction,
@@ -13,6 +14,7 @@ const {
   mockGetEditLockState: vi.fn(),
   mockWriteCleanupContent: vi.fn(),
   mockFindFirstDoc: vi.fn(),
+  mockFindUniqueDoc: vi.fn(),
   mockFindFirstChange: vi.fn(),
   mockDeleteChange: vi.fn(),
   mockLogAdminAction: vi.fn(),
@@ -28,7 +30,7 @@ vi.mock('next/headers', () => ({
 
 vi.mock('@/lib/db/client', () => ({
   prisma: {
-    aiKnowledgeDocument: { findFirst: mockFindFirstDoc },
+    aiKnowledgeDocument: { findFirst: mockFindFirstDoc, findUnique: mockFindUniqueDoc },
     aiKnowledgeDocumentPendingChange: {
       findFirst: mockFindFirstChange,
       delete: mockDeleteChange,
@@ -103,6 +105,12 @@ describe('POST /cleanup/changes/:changeId/accept', () => {
       active: true,
     });
     mockFindFirstDoc.mockResolvedValue({ fileName: 'test.md' });
+    // Happy-path default: processedContent still matches the change's
+    // beforeContent, so the freshness guard passes.
+    mockFindUniqueDoc.mockResolvedValue({
+      processedContent: mockChange.beforeContent,
+      originalContent: null,
+    });
     mockFindFirstChange.mockResolvedValue(mockChange);
     mockWriteCleanupContent.mockResolvedValue(undefined);
     mockDeleteChange.mockResolvedValue(mockChange);
@@ -160,6 +168,25 @@ describe('POST /cleanup/changes/:changeId/accept', () => {
       mockFindFirstDoc.mockResolvedValue(null);
       const r = await POST(req(), params(DOC_ID, CHANGE_ID));
       expect(r.status).toBe(400);
+    });
+  });
+
+  describe('content freshness', () => {
+    it('409 CHANGE_STALE when processedContent no longer matches change.beforeContent', async () => {
+      mockFindUniqueDoc.mockResolvedValue({
+        processedContent: 'someone else already edited this',
+        originalContent: null,
+      });
+
+      const r = await POST(req(), params(DOC_ID, CHANGE_ID));
+
+      expect(r.status).toBe(409);
+      const body = await r.json();
+      expect(body.success).toBe(false);
+      expect(body.error.code).toBe('CHANGE_STALE');
+      // Must not apply the change or delete the pending row on a stale mismatch
+      expect(mockWriteCleanupContent).not.toHaveBeenCalled();
+      expect(mockDeleteChange).not.toHaveBeenCalled();
     });
   });
 

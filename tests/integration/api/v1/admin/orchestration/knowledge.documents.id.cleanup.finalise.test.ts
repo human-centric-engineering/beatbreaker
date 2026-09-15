@@ -71,6 +71,13 @@ vi.mock('@/lib/orchestration/mcp/resource-update-hooks', () => ({
   notifyMcpKnowledgeChanged: vi.fn(),
 }));
 
+vi.mock('@/lib/orchestration/knowledge/edit-lock', async () => {
+  const actual = await vi.importActual<typeof import('@/lib/orchestration/knowledge/edit-lock')>(
+    '@/lib/orchestration/knowledge/edit-lock'
+  );
+  return { ...actual, getEditLockState: vi.fn() };
+});
+
 // ─── Imports after mocks ─────────────────────────────────────────────────────
 
 import { auth } from '@/lib/auth/config';
@@ -78,6 +85,7 @@ import { prisma } from '@/lib/db/client';
 import { commitCleanupAndChunk } from '@/lib/orchestration/knowledge/document-manager';
 import { logAdminAction } from '@/lib/orchestration/audit/admin-audit-logger';
 import { notifyMcpKnowledgeChanged } from '@/lib/orchestration/mcp/resource-update-hooks';
+import { getEditLockState } from '@/lib/orchestration/knowledge/edit-lock';
 
 // ─── Fixtures ────────────────────────────────────────────────────────────────
 
@@ -147,6 +155,13 @@ describe('POST /api/v1/admin/orchestration/knowledge/documents/:id/cleanup/final
 
     // Default session: admin user
     vi.mocked(auth.api.getSession).mockResolvedValue(mockAdminUser());
+
+    // Default: lock is free
+    vi.mocked(getEditLockState).mockResolvedValue({
+      heldBy: null,
+      acquiredAt: null,
+      active: false,
+    });
 
     // Default: doc exists in cleaning status, owned by the calling admin
     vi.mocked(prisma.aiKnowledgeDocument.findFirst).mockResolvedValue({

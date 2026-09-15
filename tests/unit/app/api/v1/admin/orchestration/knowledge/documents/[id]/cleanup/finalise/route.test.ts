@@ -56,6 +56,13 @@ vi.mock('@/lib/orchestration/mcp/resource-update-hooks', () => ({
   notifyMcpKnowledgeChanged: vi.fn(),
 }));
 
+vi.mock('@/lib/orchestration/knowledge/edit-lock', async () => {
+  const actual = await vi.importActual<typeof import('@/lib/orchestration/knowledge/edit-lock')>(
+    '@/lib/orchestration/knowledge/edit-lock'
+  );
+  return { ...actual, getEditLockState: vi.fn() };
+});
+
 // ─── Imports after mocks ─────────────────────────────────────────────────────
 
 import { POST } from '@/app/api/v1/admin/orchestration/knowledge/documents/[id]/cleanup/finalise/route';
@@ -64,6 +71,7 @@ import { prisma } from '@/lib/db/client';
 import { commitCleanupAndChunk } from '@/lib/orchestration/knowledge/document-manager';
 import { logAdminAction } from '@/lib/orchestration/audit/admin-audit-logger';
 import { notifyMcpKnowledgeChanged } from '@/lib/orchestration/mcp/resource-update-hooks';
+import { getEditLockState } from '@/lib/orchestration/knowledge/edit-lock';
 import {
   mockAdminUser,
   mockUnauthenticatedUser,
@@ -128,6 +136,12 @@ describe('POST /api/v1/admin/orchestration/knowledge/documents/:id/cleanup/final
   beforeEach(() => {
     vi.clearAllMocks();
     vi.mocked(auth.api.getSession).mockResolvedValue(mockAdminUser());
+    // Default: lock is free
+    vi.mocked(getEditLockState).mockResolvedValue({
+      heldBy: null,
+      acquiredAt: null,
+      active: false,
+    });
     // Default: doc exists in cleaning status, owned by the admin
     vi.mocked(prisma.aiKnowledgeDocument.findFirst).mockResolvedValue({
       fileName: 'report.txt',
@@ -189,6 +203,32 @@ describe('POST /api/v1/admin/orchestration/knowledge/documents/:id/cleanup/final
       expect(data.success).toBe(false);
       expect(data.error.code).toBe('VALIDATION_ERROR');
       expect(commitCleanupAndChunk).not.toHaveBeenCalled();
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // Lock check
+  // ---------------------------------------------------------------------------
+
+  describe('lock check', () => {
+    it('returns 423 LOCK_HELD when another admin owns the lock, for every action', async () => {
+      vi.mocked(getEditLockState).mockResolvedValue({
+        heldBy: 'other-admin',
+        acquiredAt: new Date(),
+        active: true,
+      });
+
+      const response = await POST(
+        makeRequest(VALID_DOC_ID, { action: 'commit' }),
+        makeContext(VALID_DOC_ID)
+      );
+      const data = await parseResponse<ErrorBody>(response);
+
+      expect(response.status).toBe(423);
+      expect(data.success).toBe(false);
+      expect(data.error.code).toBe('LOCK_HELD');
+      expect(commitCleanupAndChunk).not.toHaveBeenCalled();
+      expect(prisma.aiKnowledgeDocument.findFirst).not.toHaveBeenCalled();
     });
   });
 

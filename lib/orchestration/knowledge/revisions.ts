@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db/client';
 import { DEFAULT_REVISION_RETENTION } from '@/lib/orchestration/knowledge/revision-retention';
 
@@ -9,11 +10,12 @@ export { DEFAULT_REVISION_RETENTION };
 // AiKnowledgeDocumentRevision model header for the `source` taxonomy.
 //
 // version numbers are per-document monotonic and allocated by nextVersion
-// inside the same call. There's no global lock around nextVersion+create
-// because the cooperative edit lock (see edit-lock.ts) is acquired by
-// every mutator before it gets here — the lock serialises writers, so
-// version collisions can't happen in practice. The (documentId, version)
-// UNIQUE index is the defence-in-depth backstop.
+// inside the same call. Cleanup capabilities only check the edit lock
+// (requireEditableTarget) rather than holding it for the duration of the
+// mutation, so two writers can still land here close together — the
+// (documentId, version) UNIQUE index catches that, and writeRevision
+// retries with a freshly-read version on conflict instead of surfacing
+// the raw P2002 as an unhandled 500.
 
 // Default retention cap is shared with the client-side drawer via
 // `revision-retention.ts` so the server prune and the UI hint stay in sync.
@@ -58,19 +60,39 @@ export async function nextVersion(documentId: string): Promise<number> {
   return (latest?.version ?? 0) + 1;
 }
 
+function isVersionConflict(err: unknown): boolean {
+  if (!(err instanceof Prisma.PrismaClientKnownRequestError) || err.code !== 'P2002') {
+    return false;
+  }
+  const target = err.meta?.target;
+  return Array.isArray(target)
+    ? target.includes('version')
+    : typeof target === 'string' && target.includes('version');
+}
+
+const MAX_VERSION_ATTEMPTS = 5;
+
 export async function writeRevision(opts: WriteRevisionOpts): Promise<void> {
-  const version = await nextVersion(opts.documentId);
-  await prisma.aiKnowledgeDocumentRevision.create({
-    data: {
-      documentId: opts.documentId,
-      version,
-      content: opts.content,
-      source: opts.source,
-      actorId: opts.actorId,
-      sectionMarker: opts.sectionMarker,
-      instructions: opts.instructions,
-    },
-  });
+  for (let attempt = 1; attempt <= MAX_VERSION_ATTEMPTS; attempt++) {
+    const version = await nextVersion(opts.documentId);
+    try {
+      await prisma.aiKnowledgeDocumentRevision.create({
+        data: {
+          documentId: opts.documentId,
+          version,
+          content: opts.content,
+          source: opts.source,
+          actorId: opts.actorId,
+          sectionMarker: opts.sectionMarker,
+          instructions: opts.instructions,
+        },
+      });
+      break;
+    } catch (err) {
+      if (isVersionConflict(err) && attempt < MAX_VERSION_ATTEMPTS) continue;
+      throw err;
+    }
+  }
   await pruneOldRevisions(opts.documentId);
 }
 

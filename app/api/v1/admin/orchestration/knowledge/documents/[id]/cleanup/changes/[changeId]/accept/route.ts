@@ -70,6 +70,23 @@ export const POST = withAdminAuth<{ id: string; changeId: string }>(
       });
     }
 
+    // The change's afterContent was computed from beforeContent. If another
+    // change (or edit) landed on processedContent since then, applying it
+    // blind would silently clobber that intervening write — so require the
+    // two to still match, same guard as the whole-doc edit route.
+    const currentDoc = await prisma.aiKnowledgeDocument.findUnique({
+      where: { id: documentId },
+      select: { processedContent: true, originalContent: true },
+    });
+    const currentContent = currentDoc?.processedContent ?? currentDoc?.originalContent ?? '';
+    if (currentContent !== change.beforeContent) {
+      return errorResponse('Content has changed since this proposal was generated', {
+        code: 'CHANGE_STALE',
+        status: 409,
+        details: { changeId: [changeId] },
+      });
+    }
+
     // Apply: writeCleanupContent records a revision with the capability
     // source so the timeline correctly attributes the change to the LLM
     // rewrite that produced it.

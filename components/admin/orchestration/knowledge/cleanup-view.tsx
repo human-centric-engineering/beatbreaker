@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   AlertTriangle,
@@ -105,10 +105,19 @@ export function CleanupView({
 
   // Release the lock when the page unmounts (admin navigated away mid-edit).
   // Best-effort — server-side TTL expiry covers the case where the browser
-  // crashes before this fires.
+  // crashes before this fires. The effect below must stay mount/unmount-only
+  // (empty deps) so its cleanup fires exactly once, on real unmount — so
+  // heldByMe is tracked via a ref rather than an effect dependency, which
+  // would otherwise leave the cleanup closure permanently reading the
+  // initial-render value (always false).
+  const heldByMeRef = useRef(lock.heldByMe);
+  useEffect(() => {
+    heldByMeRef.current = lock.heldByMe;
+  }, [lock.heldByMe]);
+
   useEffect(() => {
     return () => {
-      if (lock.heldByMe) void lock.release();
+      if (heldByMeRef.current) void lock.release();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

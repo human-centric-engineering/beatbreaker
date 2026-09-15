@@ -15,12 +15,13 @@
 import { z } from 'zod';
 import { withAdminAuth } from '@/lib/auth/guards';
 import { prisma } from '@/lib/db/client';
-import { successResponse } from '@/lib/api/responses';
+import { errorResponse, successResponse } from '@/lib/api/responses';
 import { ValidationError } from '@/lib/api/errors';
 import { validateRequestBody } from '@/lib/api/validation';
 import { getRouteLogger } from '@/lib/api/context';
 import { getClientIP } from '@/lib/security/ip';
 import { commitCleanupAndChunk } from '@/lib/orchestration/knowledge/document-manager';
+import { getEditLockState } from '@/lib/orchestration/knowledge/edit-lock';
 import { cuidSchema } from '@/lib/validations/common';
 import { logAdminAction } from '@/lib/orchestration/audit/admin-audit-logger';
 import { notifyMcpKnowledgeChanged } from '@/lib/orchestration/mcp/resource-update-hooks';
@@ -41,6 +42,18 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
   const documentId = parsed.data;
 
   const body = await validateRequestBody(request, bodySchema);
+
+  // Lock check — finalise commits or deletes the document, so it must not
+  // run out from under an admin with an in-progress section edit, same
+  // guard every other mutating cleanup route applies.
+  const lockState = await getEditLockState(documentId);
+  if (lockState.active && lockState.heldBy !== session.user.id) {
+    return errorResponse('Document is being edited by another admin', {
+      code: 'LOCK_HELD',
+      status: 423,
+      details: { heldBy: [lockState.heldBy ?? 'unknown'] },
+    });
+  }
 
   if (body.action === 'delete') {
     // Cascade-delete the cleanup conversation via Prisma's onDelete=Cascade
