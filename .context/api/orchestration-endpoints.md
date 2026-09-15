@@ -85,6 +85,7 @@ Validation schemas for every request body / query live in `lib/validations/orche
 | `/knowledge/documents/:id`                | GET, DELETE        | Read / delete document                                                                                                                                                                                                     | 3.3     |
 | `/knowledge/documents/:id/rechunk`        | POST               | Rechunk + re-embed                                                                                                                                                                                                         | 3.3     |
 | `/knowledge/documents/:id/agents`         | GET                | List active agents that can search this document, with access paths (full / direct / tag / system)                                                                                                                         | —       |
+| `/knowledge/documents/:id/download`       | GET                | Download the document's text as Markdown. `?variant=cleaned\|original\|chunks`; omitted takes the best available for the document's state                                                                                  | —       |
 | `/knowledge/seed`                         | POST               | Seed chunks (no embeddings) for design patterns                                                                                                                                                                            | 3.3     |
 | `/knowledge/embed`                        | POST               | Generate embeddings for unembedded chunks                                                                                                                                                                                  | 3.3     |
 | `/knowledge/documents/:id/retry`          | POST               | Retry failed document ingestion                                                                                                                                                                                            | 5.1     |
@@ -806,6 +807,35 @@ Returns `201` with the created `AiKnowledgeDocument`. Files over 50 MB → `413 
 ### `GET / DELETE /knowledge/documents/:id`
 
 Read / delete. Chunks cascade via the FK relation.
+
+### `GET /knowledge/documents/:id/download`
+
+Returns the document's text as a `text/markdown` attachment named after its
+slug. Which text exists depends on lifecycle stage:
+
+| Status           | `cleaned`          | `original`         | `chunks`                |
+| ---------------- | ------------------ | ------------------ | ----------------------- |
+| `pending_review` | —                  | extracted PDF text | —                       |
+| `cleaning`       | `processedContent` | `originalContent`  | —                       |
+| `ready`          | —                  | —                  | rebuilt from chunk rows |
+
+`originalContent` and `processedContent` are **both cleared on finalise** to
+reclaim storage — a cleanup document otherwise holds two full copies of itself
+forever — so for a finished document the chunk rows are the only surviving copy
+of the text. `rebuildTextFromChunks`
+(`lib/orchestration/knowledge/document-text.ts`) orders them by the numeric
+suffix of `chunkKey`, NOT the lexicographic `chunkKey` sort used everywhere
+else: that sorts by the section slug first and puts `-10` before `-2`, which
+would scramble the document.
+
+The rebuild is the **ingested** text, not the source file — the chunker can
+drop a fragment that fits no chunk, which is what the Coverage column reports.
+The UI labels it "Download text (from chunks)" for that reason.
+
+Omitting `variant` takes the best available (cleaned → original → chunks). The
+variant actually served comes back in `X-Document-Variant`. A variant with no
+text 404s with `NO_TEXT_AVAILABLE` and reports both the variant and the
+document's status, since the two together explain the emptiness.
 
 ### `POST /knowledge/documents/:id/rechunk`
 

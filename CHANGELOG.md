@@ -70,6 +70,18 @@ release process.
   #776): the seam gains no approver arm on the execution read routes and no
   write face, and the decision with its costs is on the `f-mt-authz` journal.
 
+- **Knowledge documents can be downloaded as text.** New
+  `GET /knowledge/documents/:id/download` returns a Markdown attachment, from
+  the ⋯ menu on the Manage tab and from the Document Clean Up page header
+  (where it follows the visible tab — cleaned or original). `?variant=` picks
+  explicitly; omitted takes the best available for the document's state. A
+  finished document has had `originalContent` and `processedContent` cleared on
+  finalise, so its text is rebuilt from the stored chunks by
+  `rebuildTextFromChunks` — ordered by the numeric suffix of `chunkKey`, not the
+  lexicographic sort used elsewhere, which puts `-10` before `-2` and sorts by
+  section slug first. That rebuild is the ingested text rather than the source
+  file, so the menu item says "Download text (from chunks)".
+
 - **The Document Clean Up agent can now see the document it is editing.** Two
   read-only capabilities — `read_document` (a window of numbered lines from the
   working text or the original) and `find_in_document` (line numbers and text

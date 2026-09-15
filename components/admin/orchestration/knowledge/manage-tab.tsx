@@ -9,6 +9,7 @@ import {
   ChevronRight,
   Cpu,
   Eye,
+  Download,
   MoreHorizontal,
   Pencil,
   RefreshCw,
@@ -1205,6 +1206,27 @@ export function ManageTab({ documents: initialDocuments, onRefresh, scope }: Man
                                       >
                                         <TagIcon className="mr-2 h-4 w-4" />
                                         Edit tags
+                                      </DropdownMenuItem>
+                                      <DropdownMenuSeparator />
+                                      {/* A finished document no longer stores
+                                          its own text — originalContent and
+                                          processedContent are cleared on
+                                          finalise — so the download is rebuilt
+                                          from its chunks. Say so in the label
+                                          rather than implying it is the source
+                                          file. */}
+                                      <DropdownMenuItem asChild>
+                                        <a
+                                          href={API.ADMIN.ORCHESTRATION.knowledgeDocumentDownload(
+                                            doc.id
+                                          )}
+                                          download
+                                        >
+                                          <Download className="mr-2 h-4 w-4" />
+                                          {doc.status === 'ready'
+                                            ? 'Download text (from chunks)'
+                                            : 'Download text'}
+                                        </a>
                                       </DropdownMenuItem>
                                       <DropdownMenuSeparator />
                                       <DropdownMenuItem

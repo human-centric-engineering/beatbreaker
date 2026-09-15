@@ -959,6 +959,22 @@ describe('CleanupView — preview pane tabs', () => {
     expect(history.getAttribute('data-current')).toBe(BASE_PROPS.initialProcessedContent);
   });
 
+  it('offers a download of the cleaned text, switching to the original with the tab', async () => {
+    // The button follows the visible tab so it can never disagree with what
+    // the admin is looking at.
+    const user = userEvent.setup();
+    render(<CleanupView {...BASE_PROPS} />);
+
+    const cleaned = screen.getByRole('link', { name: /download cleaned/i });
+    expect(cleaned).toHaveAttribute('href', expect.stringContaining('/download?variant=cleaned'));
+    expect(cleaned).toHaveAttribute('download');
+
+    await user.click(screen.getByRole('tab', { name: /original/i }));
+
+    const original = await screen.findByRole('link', { name: /download original/i });
+    expect(original).toHaveAttribute('href', expect.stringContaining('/download?variant=original'));
+  });
+
   it('the expand control widens the preview pane to the full grid and back', async () => {
     const user = userEvent.setup();
     const { container } = render(<CleanupView {...BASE_PROPS} />);

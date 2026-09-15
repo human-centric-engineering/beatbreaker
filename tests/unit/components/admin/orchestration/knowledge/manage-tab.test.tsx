@@ -654,6 +654,33 @@ describe('ManageTab', () => {
     });
   });
 
+  it('offers a download link pointing at the document download route', async () => {
+    const user = userEvent.setup();
+    render(<ManageTab documents={[USER_DOC]} onRefresh={vi.fn()} />);
+
+    await user.click(screen.getByRole('button', { name: /document actions/i }));
+    const link = await screen.findByRole('menuitem', { name: /download text/i });
+
+    // A real <a download>, not a fetch — the browser handles the save, and the
+    // route sets the filename via Content-Disposition.
+    expect(link).toHaveAttribute('href', expect.stringContaining('doc-user/download'));
+    expect(link).toHaveAttribute('download');
+  });
+
+  it('says the download is rebuilt from chunks once the document is ready', async () => {
+    // A finished document has had originalContent and processedContent
+    // cleared, so its download is reconstructed — the label must not imply
+    // it is the source file.
+    const user = userEvent.setup();
+    render(<ManageTab documents={[USER_DOC]} onRefresh={vi.fn()} />);
+
+    await user.click(screen.getByRole('button', { name: /document actions/i }));
+
+    expect(
+      await screen.findByRole('menuitem', { name: /download text \(from chunks\)/i })
+    ).toBeInTheDocument();
+  });
+
   // ── Delete action ─────────────────────────────────────────────────────────
 
   it('shows delete confirmation when Delete is chosen from the actions menu', async () => {

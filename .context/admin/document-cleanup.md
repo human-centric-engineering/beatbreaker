@@ -158,13 +158,13 @@ The agent reads the class from its session context and self-restricts. The clean
 
 ## Storage model
 
-| Field                                                                     | Type      | Lifecycle                                                                                                                                 |
-| ------------------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `originalContent`                                                         | `Text?`   | Populated once at upload; never mutated. Cleared on finalise (commit OR use-original) to reclaim storage.                                 |
-| `processedContent`                                                        | `Text?`   | Mutated in-place by deterministic + LLM capabilities across the cleanup chat. Cleared on finalise.                                        |
-| `metadata.sizeClass`, `metadata.sizeTokens`, `metadata.llmRewriteAllowed` | JSON      | Written at upload time; read by the agent's session prompt and the cleanup page header.                                                   |
-| `metadata.runCleanup`                                                     | JSON bool | Written on PDF preview docs to signal that the confirm endpoint should branch into `transitionToCleanup()` instead of `confirmPreview()`. |
-| `metadata.cleanupCommittedMode`                                           | JSON      | Written on finalise — `'commit'` or `'use-original'` so audit / diagnostics can tell which path produced the chunks.                      |
+| Field                                                                     | Type      | Lifecycle                                                                                                                                                                                       |
+| ------------------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `originalContent`                                                         | `Text?`   | Populated once at upload; never mutated. Cleared on finalise (commit OR use-original) to reclaim storage — after which `GET /documents/:id/download` rebuilds text from the chunk rows instead. |
+| `processedContent`                                                        | `Text?`   | Mutated in-place by deterministic + LLM capabilities across the cleanup chat. Cleared on finalise.                                                                                              |
+| `metadata.sizeClass`, `metadata.sizeTokens`, `metadata.llmRewriteAllowed` | JSON      | Written at upload time; read by the agent's session prompt and the cleanup page header.                                                                                                         |
+| `metadata.runCleanup`                                                     | JSON bool | Written on PDF preview docs to signal that the confirm endpoint should branch into `transitionToCleanup()` instead of `confirmPreview()`.                                                       |
+| `metadata.cleanupCommittedMode`                                           | JSON      | Written on finalise — `'commit'` or `'use-original'` so audit / diagnostics can tell which path produced the chunks.                                                                            |
 
 ## API surface
 
@@ -322,20 +322,21 @@ Inside the section editor, a **Refine with agent** button opens an instructions 
 
 ### API summary (inline editing)
 
-| Method | Path                                  | Purpose                                                           |
-| ------ | ------------------------------------- | ----------------------------------------------------------------- |
-| GET    | `/cleanup/lock`                       | Current lock state                                                |
-| POST   | `/cleanup/lock`                       | Acquire / refresh lock (423 LOCK_HELD when another admin owns it) |
-| DELETE | `/cleanup/lock`                       | Release lock                                                      |
-| POST   | `/cleanup/content`                    | Whole-document inline edit                                        |
-| POST   | `/cleanup/section`                    | Per-section inline edit                                           |
-| POST   | `/cleanup/section/refine`             | LLM refine of a section without chat                              |
-| GET    | `/cleanup/revisions`                  | List revisions (newest first, paginated) — metadata only          |
-| GET    | `/cleanup/revisions/:version`         | One revision's content + its predecessor's, for the history diff  |
-| POST   | `/cleanup/revisions/:version/restore` | Restore prior revision (writes a new `source: 'restore'` row)     |
-| GET    | `/cleanup/changes/:changeId`          | Read one pending LLM rewrite (what the diff modal loads)          |
-| POST   | `/cleanup/changes/:changeId/accept`   | Accept a pending LLM rewrite                                      |
-| POST   | `/cleanup/changes/:changeId/reject`   | Reject a pending LLM rewrite                                      |
+| Method | Path                                  | Purpose                                                              |
+| ------ | ------------------------------------- | -------------------------------------------------------------------- |
+| GET    | `/cleanup/lock`                       | Current lock state                                                   |
+| POST   | `/cleanup/lock`                       | Acquire / refresh lock (423 LOCK_HELD when another admin owns it)    |
+| DELETE | `/cleanup/lock`                       | Release lock                                                         |
+| POST   | `/cleanup/content`                    | Whole-document inline edit                                           |
+| POST   | `/cleanup/section`                    | Per-section inline edit                                              |
+| POST   | `/cleanup/section/refine`             | LLM refine of a section without chat                                 |
+| GET    | `/documents/:id/download`             | Download the current text as Markdown (`?variant=cleaned\|original`) |
+| GET    | `/cleanup/revisions`                  | List revisions (newest first, paginated) — metadata only             |
+| GET    | `/cleanup/revisions/:version`         | One revision's content + its predecessor's, for the history diff     |
+| POST   | `/cleanup/revisions/:version/restore` | Restore prior revision (writes a new `source: 'restore'` row)        |
+| GET    | `/cleanup/changes/:changeId`          | Read one pending LLM rewrite (what the diff modal loads)             |
+| POST   | `/cleanup/changes/:changeId/accept`   | Accept a pending LLM rewrite                                         |
+| POST   | `/cleanup/changes/:changeId/reject`   | Reject a pending LLM rewrite                                         |
 
 The diff modal reads its proposal from `GET /cleanup/changes/:changeId`, not
 from the per-document `GET /documents/:id`. Every pending row holds a full

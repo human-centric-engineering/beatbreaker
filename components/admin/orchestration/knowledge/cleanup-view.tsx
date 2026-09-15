@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import {
   AlertTriangle,
   CheckCircle2,
+  Download,
   FileText,
   History,
   Loader2,
@@ -95,6 +96,7 @@ export function CleanupView({
   );
   const [error, setError] = useState<string | null>(null);
   const [historyOpen, setHistoryOpen] = useState(false);
+  const [previewTab, setPreviewTab] = useState('cleaned');
   const [diffMode, setDiffMode] = useState<DiffMode>('unified');
   // The preview pane sits beside the chat at half width, which is tight for a
   // side-by-side diff. Expanding spans it across both columns and drops the
@@ -233,6 +235,21 @@ export function CleanupView({
             </p>
           </div>
           <div className="flex shrink-0 gap-2">
+            {/* Downloads the text as it stands right now — mid-session, before
+                anything is chunked. The variant follows the visible tab so the
+                button never disagrees with what the admin is looking at. */}
+            <Button variant="ghost" size="sm" asChild>
+              <a
+                href={API.ADMIN.ORCHESTRATION.knowledgeDocumentDownload(
+                  documentId,
+                  previewTab === 'original' ? 'original' : 'cleaned'
+                )}
+                download
+              >
+                <Download className="mr-1 h-3 w-3" />
+                Download {previewTab === 'original' ? 'original' : 'cleaned'}
+              </a>
+            </Button>
             <Button
               variant="ghost"
               size="sm"
@@ -303,7 +320,7 @@ export function CleanupView({
 
       <div className="grid gap-4 lg:grid-cols-2">
         <section className={`rounded-lg border ${previewExpanded ? 'lg:col-span-2' : ''}`}>
-          <Tabs defaultValue="cleaned" className="w-full">
+          <Tabs value={previewTab} onValueChange={setPreviewTab} className="w-full">
             <div className="flex flex-wrap items-center justify-between gap-2 border-b px-3 py-2">
               <div className="flex items-center gap-2">
                 <FileText className="text-muted-foreground h-4 w-4" />
