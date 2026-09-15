@@ -39,7 +39,8 @@ release process.
   helper); reasons under 20 characters, duplicate paths and a by-design entry
   claiming to be tracked all fail. The first pass measured 54 files: 23 through
   the helpers, 29 by design, and two known gaps — `approvals/history` (#773) and
-  the analytics service (t-694, new). **A fork's own routes and jobs are in the
+  the analytics service, which t-694 closed in this same release (see Changed),
+  so the roster ships with **one**. **A fork's own routes and jobs are in the
   roster the moment they exist, so the merge that brings this in goes red on any
   fork file that reads these models directly** — that is the check working.
   Import the helper if it is an admin surface; otherwise declare it in
@@ -433,6 +434,25 @@ release process.
 
 ### Changed
 
+- **The five analytics query functions take the guard's session, and the
+  analytics routes now follow the authorization policy on threads nobody
+  owns.** `getPopularTopics`, `getUnansweredQuestions`, `getEngagementMetrics`,
+  `getContentGaps` and `getFeedbackSummary` (`@/lib/orchestration/analytics`)
+  each take `(query, session)`; a fork calling them directly adds the argument.
+  Every read they make now carries `deploymentWideConversationWhere(session)`,
+  a new export of `@/lib/orchestration/access/conversation-access` for a
+  reader that aggregates every user's conversations by design and asks the
+  policy only about the ownerless ones: `{}` when `canRead` admits the caller
+  an unattributed conversation read, `{ userId: { not: null } }` when it
+  refuses. On a default install nothing changes — the clause is empty and every
+  `where` is what it was. On a fork whose policy refuses an admin threads nobody
+  owns, inbound threads drop out of every analytics section, and
+  `/analytics/unanswered` stops returning the sender's question verbatim to a
+  caller the conversation routes already 404. The service leaves the
+  ownerless-surface roster (t-694). It does **not** take the per-caller
+  `conversationVisibilityWhere`: a member's chat with a public agent is outside
+  that set and inside the aggregate, and narrowing to it would have emptied the
+  dashboard on every install.
 - **`adminCanViewConversation()` returns a discriminated union on `ok`, so a
   permitted result's `basis` is never `null`.** `AdminCanViewResult` used to be
   one shape with `basis: AccessBasis | null` for both outcomes; a caller that
