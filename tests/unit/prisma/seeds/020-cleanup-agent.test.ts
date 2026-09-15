@@ -1,17 +1,20 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 import cleanupAgentSeed from '@/prisma/seeds/020-cleanup-agent';
-import { humanAdminWhere } from '@/lib/auth/account';
+import { serviceAccountWhere } from '@/lib/auth/account';
 import type { SeedContext } from '@/prisma/runner';
 
 /**
  * Tests for the `020-cleanup-agent` seed.
  *
  * The contract this seed must hold:
- *  - it throws when no human admin exists, rather than seeding an agent with
- *    a dangling `createdBy` (see `#278` / `humanAdminWhere` — the query must
- *    exclude the seeded SERVICE config-owner, never a raw `role: 'ADMIN'`
- *    literal);
+ *  - it throws when no config owner exists, rather than seeding an agent with
+ *    a dangling `createdBy`, and it resolves that owner via
+ *    `serviceAccountWhere` — the non-login SERVICE principal 001-system-owner
+ *    creates — never a raw `role: 'ADMIN'` literal and never a *human* admin.
+ *    A human admin exists only under the dev-only 001-test-users profile, so
+ *    requiring one aborted the profile-gated seed run CI and `docker-compose
+ *    up` use on a fresh database;
  *  - the agent upsert only sets `isSystem: true` on update, so an admin's
  *    edits to the prompt, model, or temperature survive re-seeding;
  *  - it binds every slug in its capability list, skipping (not throwing on)
@@ -53,13 +56,13 @@ function modelRow(
 }
 
 function makeCtx({
-  adminFound = true,
+  ownerFound = true,
   missingSlugs = new Set<string>(),
   providers = [providerRow('openai', 'OPENAI_API_KEY')],
   models = [modelRow('openai', 'gpt-4.1')],
   untouchedAgent = null as { id: string; systemInstructions: string } | null,
 } = {}) {
-  const userFindFirst = vi.fn().mockResolvedValue(adminFound ? { id: 'admin-1' } : null);
+  const userFindFirst = vi.fn().mockResolvedValue(ownerFound ? { id: 'system-owner-1' } : null);
   const agentUpsert = vi.fn().mockResolvedValue({ id: 'agent-cleanup-1' });
   const agentUpdateMany = vi.fn().mockResolvedValue({ count: 0 });
   const agentFindFirst = vi.fn().mockResolvedValue(untouchedAgent);
@@ -118,21 +121,23 @@ describe('020-cleanup-agent seed', () => {
     else process.env.OPENAI_API_KEY = savedKey;
   });
 
-  it('throws when no human admin exists', async () => {
-    const { ctx } = makeCtx({ adminFound: false });
+  it('throws when no config owner exists', async () => {
+    const { ctx } = makeCtx({ ownerFound: false });
 
-    await expect(cleanupAgentSeed.run(ctx)).rejects.toThrow(/no admin user found/i);
+    await expect(cleanupAgentSeed.run(ctx)).rejects.toThrow(/no config owner found/i);
   });
 
-  it('looks up the admin via humanAdminWhere, not a raw role literal', async () => {
+  it('looks up the owner via serviceAccountWhere, not a human admin or a raw role literal', async () => {
     const { ctx, userFindFirst } = makeCtx();
 
     await cleanupAgentSeed.run(ctx);
 
-    expect(userFindFirst).toHaveBeenCalledWith(expect.objectContaining({ where: humanAdminWhere }));
+    expect(userFindFirst).toHaveBeenCalledWith(
+      expect.objectContaining({ where: serviceAccountWhere })
+    );
   });
 
-  it('upserts the agent with isSystem-only on update, attributed to the admin on create', async () => {
+  it('upserts the agent with isSystem-only on update, attributed to the config owner on create', async () => {
     const { ctx, agentUpsert } = makeCtx();
 
     await cleanupAgentSeed.run(ctx);
@@ -148,7 +153,7 @@ describe('020-cleanup-agent seed', () => {
       visibility: 'internal',
       knowledgeAccessMode: 'restricted',
       temperature: 0.2,
-      createdBy: 'admin-1',
+      createdBy: 'system-owner-1',
     });
   });
 

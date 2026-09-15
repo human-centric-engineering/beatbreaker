@@ -8,6 +8,8 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
+import { nestedQuantifierPattern } from '@/tests/helpers/redos-pattern';
+
 const { mockResolveCleanupTarget } = vi.hoisted(() => ({ mockResolveCleanupTarget: vi.fn() }));
 
 // compileSafeRegex is kept REAL — the backtracking guard is the point of
@@ -104,7 +106,7 @@ describe('FindInDocumentCapability', () => {
   });
 
   it('rejects a regex vulnerable to catastrophic backtracking', async () => {
-    const result = await capability.execute({ regex: '(a+)+b' }, context);
+    const result = await capability.execute({ regex: nestedQuantifierPattern('b') }, context);
 
     expect(result.success).toBe(false);
     expect(result.error?.code).toBe('invalid_regex');

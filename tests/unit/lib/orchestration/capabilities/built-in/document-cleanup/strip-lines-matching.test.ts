@@ -9,6 +9,8 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
+import { nestedQuantifierPattern } from '@/tests/helpers/redos-pattern';
+
 // ─── Mocks ──────────────────────────────────────────────────────────────────
 
 // vi.mock is hoisted — use vi.hoisted() so mock fn refs exist before the factory runs
@@ -149,7 +151,7 @@ describe('StripLinesMatchingCapability', () => {
     mockResolveCleanupTarget.mockResolvedValue(makeTarget('some content'));
 
     // Act
-    const result = await capability.execute({ regex: '(a+)+$' }, makeContext());
+    const result = await capability.execute({ regex: nestedQuantifierPattern('$') }, makeContext());
 
     // Assert: rejected before execution, not left to hang the process
     expect(result.success).toBe(false);

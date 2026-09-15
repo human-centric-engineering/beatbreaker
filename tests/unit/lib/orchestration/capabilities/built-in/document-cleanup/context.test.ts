@@ -14,6 +14,8 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
+import { nestedQuantifierPattern } from '@/tests/helpers/redos-pattern';
+
 // ─── Mocks ──────────────────────────────────────────────────────────────────
 
 vi.mock('@/lib/db/client', () => {
@@ -412,7 +414,7 @@ describe('compileSafeRegex', () => {
 
   it('rejects a pattern vulnerable to catastrophic backtracking', () => {
     // Classic nested-quantifier ReDoS shape — exponential worst-case runtime.
-    const result = compileSafeRegex('(a+)+$', '');
+    const result = compileSafeRegex(nestedQuantifierPattern('$'), '');
 
     expect(result.ok).toBe(false);
     if (!result.ok) {

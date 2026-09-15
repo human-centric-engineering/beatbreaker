@@ -1,4 +1,4 @@
-import { humanAdminWhere } from '@/lib/auth/account';
+import { serviceAccountWhere } from '@/lib/auth/account';
 import type { SeedContext, SeedUnit } from '@/prisma/runner';
 
 const CLEANUP_INSTRUCTIONS = `You are the Document Clean Up Assistant. An admin has uploaded a document into the knowledge base and wants it cleaned before it is chunked and embedded. They tell you what they want; you choose the tools and apply the changes.
@@ -115,12 +115,19 @@ const unit: SeedUnit = {
   async run({ prisma, logger }) {
     logger.info('🧹 Seeding cleanup-agent...');
 
-    const admin = await prisma.user.findFirst({
-      where: humanAdminWhere,
+    // Attribute the agent to the non-login SERVICE config-owner that
+    // 001-system-owner guarantees, exactly as every other seeded agent does
+    // (016-evaluation-judges, 017-case-generator-agent). An earlier version
+    // looked for a *human* admin, which exists only under the dev-only
+    // 001-test-users profile — so the profile-gated seeder used by CI and by
+    // `docker-compose up` on a fresh database hit a database with no human
+    // admin yet and aborted the whole seed run here.
+    const owner = await prisma.user.findFirst({
+      where: serviceAccountWhere,
       select: { id: true },
     });
-    if (!admin) {
-      throw new Error('No admin user found — ensure 001-test-users runs first.');
+    if (!owner) {
+      throw new Error('No config owner found — ensure 001-system-owner runs first.');
     }
 
     const pinned = await pickPinnedBinding(prisma);
@@ -152,7 +159,7 @@ const unit: SeedUnit = {
         visibility: 'internal',
         isActive: true,
         isSystem: true,
-        createdBy: admin.id,
+        createdBy: owner.id,
       },
     });
 
