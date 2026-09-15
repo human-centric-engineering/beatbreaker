@@ -182,4 +182,59 @@ describe('TextDiffViewer', () => {
     const rowsViaSelector = container.querySelectorAll('pre > div');
     expect(rowsViaSelector.length).toBe(directChildren.length);
   });
+
+  // ── size guard ────────────────────────────────────────────────────────────
+
+  it('renders a notice instead of a diff when more than 1500 lines changed on one side', () => {
+    // Arrange: the LCS table is (m+1)·(n+1) numbers, so an unbounded
+    // whole-document diff on a cleanup-sized doc allocates tens of millions
+    // of slots and hangs the tab. Nothing here is shared, so the changed span
+    // is the whole input on both sides.
+    const before = Array.from({ length: 2_000 }, (_, i) => `old line ${i}`).join('\n');
+    const after = Array.from({ length: 2_000 }, (_, i) => `new line ${i}`).join('\n');
+
+    // Act
+    const { container } = render(<TextDiffViewer before={before} after={after} />);
+
+    // Assert: the notice replaced the diff entirely
+    expect(container.querySelector('pre')).toBeNull();
+    expect(container.textContent).toMatch(/Too much changed to diff inline/i);
+    expect(container.textContent).toMatch(/2,000 lines before/);
+  });
+
+  it('still diffs a large document when only a few lines changed', () => {
+    // Arrange: a section rewrite changes a handful of lines in an otherwise
+    // untouched document. Trimming the common prefix/suffix keeps the table
+    // small, so this must NOT hit the cap.
+    const lines = Array.from({ length: 5_000 }, (_, i) => `line ${i}`);
+    const before = lines.join('\n');
+    const changed = [...lines];
+    changed[2_500] = 'line 2500 — rewritten';
+    const after = changed.join('\n');
+
+    // Act
+    const { container } = render(<TextDiffViewer before={before} after={after} />);
+
+    // Assert: a real diff, with exactly one deletion and one addition
+    expect(container.textContent).not.toMatch(/Too much changed to diff inline/i);
+    const rows = Array.from(container.querySelectorAll('pre > div'));
+    expect(rows.filter((r) => hasClassSubstring(r, 'bg-red-100')).length).toBe(1);
+    expect(rows.filter((r) => hasClassSubstring(r, 'bg-emerald-100')).length).toBe(1);
+  });
+
+  it('renders identical large inputs as all-equal without hitting the cap', () => {
+    // Arrange: the revision drawer's preview deliberately passes the same
+    // string on both sides. That must short-circuit rather than build a
+    // 5000×5000 table to discover every line is unchanged.
+    const text = Array.from({ length: 5_000 }, (_, i) => `line ${i}`).join('\n');
+
+    // Act
+    const { container } = render(<TextDiffViewer before={text} after={text} />);
+
+    // Assert
+    expect(container.textContent).not.toMatch(/Too much changed to diff inline/i);
+    const rows = Array.from(container.querySelectorAll('pre > div'));
+    expect(rows.length).toBe(5_000);
+    expect(rows.every((r) => hasClassSubstring(r, 'text-muted-foreground'))).toBe(true);
+  });
 });

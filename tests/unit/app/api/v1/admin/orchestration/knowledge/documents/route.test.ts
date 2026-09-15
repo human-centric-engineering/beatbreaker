@@ -199,6 +199,30 @@ describe('Knowledge Documents API', () => {
       expect(doc2.distinctKeywordCount).toBe(0);
     });
 
+    it('omits the cleanup Text columns and lock bookkeeping from the query', async () => {
+      // Arrange
+      vi.mocked(prisma.aiKnowledgeDocument.findMany).mockResolvedValue([
+        { ...mockDocument, _count: { chunks: 0 }, tags: [] },
+      ] as never);
+      vi.mocked(prisma.aiKnowledgeDocument.count).mockResolvedValue(1);
+
+      // Act
+      await GET(makeGetRequest());
+
+      // Assert: a page of cleaning documents would otherwise carry the full
+      // original + processed text of each one. KnowledgeDocumentListItem
+      // declares these absent — the query is what makes that true.
+      const callArg = vi.mocked(prisma.aiKnowledgeDocument.findMany).mock.calls[0][0] as {
+        omit: Record<string, boolean>;
+      };
+      expect(callArg.omit).toEqual({
+        originalContent: true,
+        processedContent: true,
+        editLockHolder: true,
+        editLockAcquiredAt: true,
+      });
+    });
+
     it('filters by status', async () => {
       // Arrange
       vi.mocked(prisma.aiKnowledgeDocument.findMany).mockResolvedValue([]);

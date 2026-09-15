@@ -74,27 +74,38 @@ describe('edit-lock', () => {
   });
 
   describe('acquireEditLock', () => {
+    // acquireEditLock is a single conditional updateMany (no read-then-write),
+    // so it's atomic under concurrent callers — see edit-lock.ts. Tests drive
+    // it purely through updateMany's result, not a prior findUnique read.
+
     it('acquires when free', async () => {
-      mockFindUnique.mockResolvedValue({ editLockHolder: null, editLockAcquiredAt: null });
+      mockUpdateMany.mockResolvedValue({ count: 1 });
       const result = await acquireEditLock(DOC_ID, USER_A);
       expect(result.acquired).toBe(true);
-      expect(mockUpdate).toHaveBeenCalledWith({
-        where: { id: DOC_ID },
+      expect(mockUpdateMany).toHaveBeenCalledWith({
+        where: {
+          id: DOC_ID,
+          OR: [
+            { editLockHolder: null },
+            { editLockHolder: USER_A },
+            { editLockAcquiredAt: { lt: expect.any(Date) } },
+            { editLockAcquiredAt: null },
+          ],
+        },
         data: { editLockHolder: USER_A, editLockAcquiredAt: expect.any(Date) },
       });
     });
 
     it('refreshes when held by the same user', async () => {
-      mockFindUnique.mockResolvedValue({
-        editLockHolder: USER_A,
-        editLockAcquiredAt: new Date('2026-06-01T09:59:00Z'),
-      });
+      mockUpdateMany.mockResolvedValue({ count: 1 });
       const result = await acquireEditLock(DOC_ID, USER_A);
       expect(result.acquired).toBe(true);
-      expect(mockUpdate).toHaveBeenCalled();
+      expect(mockUpdateMany).toHaveBeenCalled();
     });
 
     it('refuses when held by a different user within TTL', async () => {
+      mockUpdateMany.mockResolvedValue({ count: 0 });
+      // acquireEditLock re-reads state to report who holds it after a failed acquire.
       mockFindUnique.mockResolvedValue({
         editLockHolder: USER_A,
         editLockAcquiredAt: new Date('2026-06-01T09:59:00Z'),
@@ -102,18 +113,22 @@ describe('edit-lock', () => {
       const result = await acquireEditLock(DOC_ID, USER_B);
       expect(result.acquired).toBe(false);
       expect(result.heldBy).toBe(USER_A);
-      expect(mockUpdate).not.toHaveBeenCalled();
     });
 
     it('takes over when held by a different user but TTL has expired', async () => {
-      mockFindUnique.mockResolvedValue({
-        editLockHolder: USER_A,
-        editLockAcquiredAt: new Date('2026-06-01T09:50:00Z'), // 10 min ago
-      });
+      mockUpdateMany.mockResolvedValue({ count: 1 });
       const result = await acquireEditLock(DOC_ID, USER_B);
       expect(result.acquired).toBe(true);
-      expect(mockUpdate).toHaveBeenCalledWith({
-        where: { id: DOC_ID },
+      expect(mockUpdateMany).toHaveBeenCalledWith({
+        where: {
+          id: DOC_ID,
+          OR: [
+            { editLockHolder: null },
+            { editLockHolder: USER_B },
+            { editLockAcquiredAt: { lt: expect.any(Date) } },
+            { editLockAcquiredAt: null },
+          ],
+        },
         data: { editLockHolder: USER_B, editLockAcquiredAt: expect.any(Date) },
       });
     });

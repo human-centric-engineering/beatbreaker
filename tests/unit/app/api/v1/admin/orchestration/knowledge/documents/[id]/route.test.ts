@@ -87,79 +87,19 @@ describe('GET /api/v1/admin/orchestration/knowledge/documents/:id', () => {
     });
   });
 
-  describe('pendingChanges include (Phase 7 contract)', () => {
-    it('calls findUnique with the pendingChanges include (newest first, scoped fields)', async () => {
+  describe('pendingChanges are NOT included', () => {
+    it('does not include pendingChanges — each row carries a full before + after copy of the document', async () => {
       vi.mocked(auth.api.getSession).mockResolvedValue(mockAdminUser());
-      mockFindUnique.mockResolvedValue({
-        id: DOC_ID,
-        name: 'doc',
-        tags: [],
-        pendingChanges: [],
-      });
+      mockFindUnique.mockResolvedValue({ id: DOC_ID, name: 'doc', tags: [] });
       await GET(req(), params(DOC_ID));
 
-      const callArg = mockFindUnique.mock.calls[0][0] as {
-        include: {
-          pendingChanges: { orderBy: { createdAt: string }; select: Record<string, boolean> };
-        };
-      };
-      // Newest-first is the wire contract — the PendingChangeModal picks the
-      // currently-active row by id; ordering also makes the list deterministic.
-      expect(callArg.include.pendingChanges.orderBy).toEqual({ createdAt: 'desc' });
-      // The select keys ARE the public contract — the modal reads exactly
-      // these fields. Dropping or renaming any breaks the modal silently.
-      expect(callArg.include.pendingChanges.select).toEqual({
-        id: true,
-        source: true,
-        beforeContent: true,
-        afterContent: true,
-        sectionMarker: true,
-        instructions: true,
-        createdAt: true,
-      });
-    });
-
-    it('returns pendingChanges array in the response body for a doc with pending rewrites', async () => {
-      vi.mocked(auth.api.getSession).mockResolvedValue(mockAdminUser());
-      const pendingChange = {
-        id: 'pc-1',
-        source: 'rewrite_section_with_llm',
-        beforeContent: '# A\nold',
-        afterContent: '# A\nnew',
-        sectionMarker: 'A',
-        instructions: 'tighten',
-        createdAt: new Date('2026-06-01'),
-      };
-      mockFindUnique.mockResolvedValue({
-        id: DOC_ID,
-        name: 'doc',
-        status: 'cleaning',
-        tags: [],
-        pendingChanges: [pendingChange],
-      });
-      const r = await GET(req(), params(DOC_ID));
-      expect(r.status).toBe(200);
-      const body = await r.json();
-      expect(body.success).toBe(true);
-      expect(body.data.document.pendingChanges).toHaveLength(1);
-      expect(body.data.document.pendingChanges[0].id).toBe('pc-1');
-      expect(body.data.document.pendingChanges[0].source).toBe('rewrite_section_with_llm');
-      expect(body.data.document.pendingChanges[0].afterContent).toBe('# A\nnew');
-    });
-
-    it('returns an empty pendingChanges array for a non-cleaning doc with no pending rewrites', async () => {
-      vi.mocked(auth.api.getSession).mockResolvedValue(mockAdminUser());
-      mockFindUnique.mockResolvedValue({
-        id: DOC_ID,
-        name: 'doc',
-        status: 'ready',
-        tags: [],
-        pendingChanges: [],
-      });
-      const r = await GET(req(), params(DOC_ID));
-      expect(r.status).toBe(200);
-      const body = await r.json();
-      expect(body.data.document.pendingChanges).toEqual([]);
+      // The cleanup view re-fetches this route after every chat turn,
+      // capability result, section save and restore. Including the proposals
+      // would put two extra copies of the document text on each of those
+      // responses; the diff modal reads the single row it needs from
+      // GET .../cleanup/changes/:changeId instead.
+      const callArg = mockFindUnique.mock.calls[0][0] as { include: Record<string, unknown> };
+      expect(callArg.include).not.toHaveProperty('pendingChanges');
     });
   });
 

@@ -55,15 +55,32 @@ export async function acquireEditLock(
   documentId: string,
   userId: string
 ): Promise<LockAcquireResult> {
-  const state = await getEditLockState(documentId);
-  if (state.active && state.heldBy !== userId) {
-    return { acquired: false, heldBy: state.heldBy ?? undefined };
-  }
   const now = new Date();
-  await prisma.aiKnowledgeDocument.update({
-    where: { id: documentId },
+  const cutoff = new Date(now.getTime() - LOCK_TTL_MS);
+  // A single conditional update, not a read-then-write — Postgres serialises
+  // concurrent UPDATEs on the same row, so when two acquires race, the
+  // second re-evaluates this WHERE clause against the first's already-
+  // committed write and loses cleanly instead of silently clobbering it.
+  const result = await prisma.aiKnowledgeDocument.updateMany({
+    where: {
+      id: documentId,
+      OR: [
+        { editLockHolder: null },
+        { editLockHolder: userId },
+        { editLockAcquiredAt: { lt: cutoff } },
+        // A holder with no timestamp is what getEditLockState() already
+        // reports as inactive (isActive returns false for a null acquiredAt).
+        // Without this branch the two disagree: reads say "free", but
+        // `NULL < cutoff` is NULL so no other user could ever take the row.
+        { editLockAcquiredAt: null },
+      ],
+    },
     data: { editLockHolder: userId, editLockAcquiredAt: now },
   });
+  if (result.count === 0) {
+    const state = await getEditLockState(documentId);
+    return { acquired: false, heldBy: state.heldBy ?? undefined };
+  }
   return { acquired: true, acquiredAt: now };
 }
 

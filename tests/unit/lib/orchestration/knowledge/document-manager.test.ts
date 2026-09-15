@@ -1984,6 +1984,25 @@ describe('transitionToCleanup', () => {
     );
   });
 
+  it('refuses a second transition once the document is already cleaning', async () => {
+    // Arrange: metadata.runCleanup survives the first transition, so a repeat
+    // POST to /confirm reaches here again. Without the status guard it would
+    // overwrite originalContent, open a second conversation for the same
+    // contextId, and send a duplicate cleanup-ready email.
+    vi.mocked(prisma.aiKnowledgeDocument.findUnique).mockResolvedValue({
+      ...existingDoc,
+      status: 'cleaning',
+    } as never);
+
+    // Act & Assert
+    await expect(transitionToCleanup(DOCUMENT_ID, CONTENT, USER_ID)).rejects.toThrow(
+      /not in pending_review status \(found 'cleaning'\)/
+    );
+    expect(prisma.aiKnowledgeDocument.update).not.toHaveBeenCalled();
+    expect(prisma.aiConversation.create).not.toHaveBeenCalled();
+    expect(mockSendCleanupReadyEmail).not.toHaveBeenCalled();
+  });
+
   it('updates status to cleaning, sets originalContent, and merges size-report metadata with runCleanup: true', async () => {
     // Act
     await transitionToCleanup(DOCUMENT_ID, CONTENT, USER_ID);
@@ -2083,15 +2102,39 @@ describe('commitCleanupAndChunk', () => {
     );
   });
 
-  it('throws when mode is commit and processedContent is empty', async () => {
-    // Arrange: doc exists but cleaned content is blank
-    vi.mocked(prisma.aiKnowledgeDocument.findFirst).mockResolvedValue(
-      makeCleaningDoc({ processedContent: '   ' }) as never
+  it('commit falls back to originalContent when the session made no edits (processedContent still NULL)', async () => {
+    // Arrange: the admin read the doc, judged it clean, and clicked "Mark
+    // cleaned" without triggering a single mutation — processedContent is
+    // never written until the first one, so it is still NULL here.
+    const cleaningDoc = makeCleaningDoc({ processedContent: null });
+    vi.mocked(prisma.aiKnowledgeDocument.findFirst).mockResolvedValue(cleaningDoc as never);
+    vi.mocked(chunkMarkdownDocument).mockResolvedValue([makeChunk()]);
+    vi.mocked(embedBatch).mockResolvedValue(mockEmbedResult([[0.1, 0.2, 0.3]]));
+    vi.mocked(prisma.$executeRawUnsafe).mockResolvedValue(1);
+    vi.mocked(prisma.aiKnowledgeDocument.update).mockResolvedValue(
+      makeDocument({ id: DOCUMENT_ID, status: 'ready', chunkCount: 1 }) as never
     );
 
-    // Act & Assert: should require processedContent for commit mode
+    // Act
+    await commitCleanupAndChunk(DOCUMENT_ID, USER_ID, 'commit');
+
+    // Assert: the original text is chunked rather than the call throwing
+    expect(chunkMarkdownDocument).toHaveBeenCalledWith(
+      cleaningDoc.originalContent,
+      cleaningDoc.name,
+      DOCUMENT_ID
+    );
+  });
+
+  it('throws when mode is commit and both processedContent and originalContent are empty', async () => {
+    // Arrange: nothing to chunk on either column
+    vi.mocked(prisma.aiKnowledgeDocument.findFirst).mockResolvedValue(
+      makeCleaningDoc({ processedContent: '   ', originalContent: '  ' }) as never
+    );
+
+    // Act & Assert
     await expect(commitCleanupAndChunk(DOCUMENT_ID, USER_ID, 'commit')).rejects.toThrow(
-      /processedContent is empty/
+      /there is nothing to commit/
     );
   });
 

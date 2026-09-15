@@ -37,13 +37,10 @@ interface PendingChangeModalProps {
 // `rewrite_with_llm` or `rewrite_section_with_llm` and the response carries
 // a `pendingChangeId`.
 //
-// Loads the full change record on open via a per-change GET that doesn't
-// exist as a dedicated endpoint — we use the documents/[id] route to read
-// the doc itself for currentContent, then look up the pending change via
-// a list-style fetch. v1 keeps this simple by fetching the doc + assuming
-// the most recent pending change is the right one when the changeId is
-// supplied. (A dedicated GET /changes/[changeId] would be cleaner; left
-// for a future tightening.)
+// Loads the change record on open from the per-change GET. Fetching it there
+// rather than off the documents/[id] route keeps the proposal's full before +
+// after copy of the document out of the doc payload, which the cleanup view
+// re-fetches after every chat turn and capability result.
 export function PendingChangeModal({
   documentId,
   changeId,
@@ -70,18 +67,13 @@ export function PendingChangeModal({
       try {
         // The capability_result that triggers this modal carries the pending
         // change content directly in the chat trace, but the modal is rendered
-        // outside that scope — fetch the row by id via a list-style endpoint.
-        // Since there's no dedicated GET, we use the doc-by-id route which
-        // includes pending changes inline (added below).
-        const body = await apiClient.get<{
-          document: {
-            pendingChanges?: PendingChangeRecord[];
-          };
-        }>(`/api/v1/admin/orchestration/knowledge/documents/${documentId}`);
+        // outside that scope — fetch the row by id.
+        const body = await apiClient.get<{ change: PendingChangeRecord }>(
+          `/api/v1/admin/orchestration/knowledge/documents/${documentId}/cleanup/changes/${changeId}`
+        );
         if (cancelled) return;
-        const match = body.document.pendingChanges?.find((c) => c.id === changeId) ?? null;
-        if (!match) throw new Error('Pending change not found');
-        setRecord(match);
+        if (!body.change) throw new Error('Pending change not found');
+        setRecord(body.change);
       } catch (err) {
         if (cancelled) return;
         setError(err instanceof Error ? err.message : 'Failed to load pending change');

@@ -59,7 +59,13 @@ export class StripMatchesCapability extends BaseCapability<Args, Data> {
       return this.error('The document is being edited by another admin.', 'target_locked');
     }
 
-    const flags = (args.flags ?? '').includes('g') ? args.flags! : `${args.flags ?? ''}g`;
+    // 'y' (sticky) anchors each attempt at lastIndex, so a 'gy' pattern makes
+    // String.replace stop at the first non-contiguous match — it would strip a
+    // leading prefix of the intended matches and still report the partial
+    // count as the total. It adds nothing to a whole-document replace, so it
+    // is dropped rather than passed through (same reasoning as the 'g'/'y'
+    // strip in strip_lines_matching). 'g' is then forced on.
+    const flags = `${(args.flags ?? '').replace(/[gy]/g, '')}g`;
     const compiled = compileSafeRegex(args.regex, flags);
     if (!compiled.ok) {
       return this.error(compiled.error, 'invalid_regex');

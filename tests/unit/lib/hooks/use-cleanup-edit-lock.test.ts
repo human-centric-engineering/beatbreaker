@@ -189,6 +189,42 @@ describe('useCleanupEditLock', () => {
     expect(result.current.heldByOther).toBe(false);
   });
 
+  it('reports neither heldByMe nor heldByOther while the session is still resolving (currentUserId is "")', async () => {
+    // Arrange: the admin's own live lock, but useSession() has not resolved
+    // yet so the caller passes ''. Comparing against '' would classify the
+    // admin's own lock as someone else's — on a refresh inside the 5-minute
+    // TTL that shows a "being edited by <my own id>" banner, renders the
+    // read-only view instead of the section editors, and disables finalise.
+    const fetchMock = vi.fn().mockResolvedValue(
+      makeGetResponse({
+        heldBy: USER_ID,
+        acquiredAt: '2026-01-01T00:00:00.000Z',
+        active: true,
+        ttlMs: 30_000,
+      })
+    );
+    globalThis.fetch = fetchMock;
+
+    // Act
+    const { result, rerender } = renderHook(
+      ({ userId }: { userId: string }) => useCleanupEditLock(DOC_ID, userId),
+      { initialProps: { userId: '' } }
+    );
+
+    await waitFor(() => {
+      expect(result.current.state?.active).toBe(true);
+    });
+
+    // Assert: no verdict either way while identity is unknown
+    expect(result.current.heldByOther).toBe(false);
+    expect(result.current.heldByMe).toBe(false);
+
+    // Once the session resolves, the same lock is correctly claimed as mine.
+    rerender({ userId: USER_ID });
+    expect(result.current.heldByMe).toBe(true);
+    expect(result.current.heldByOther).toBe(false);
+  });
+
   it('acquire() POSTs to the lock URL and on 200 updates state to heldByMe=true, resolves true', async () => {
     // Arrange: initial GET returns inactive lock
     const fetchMock = vi

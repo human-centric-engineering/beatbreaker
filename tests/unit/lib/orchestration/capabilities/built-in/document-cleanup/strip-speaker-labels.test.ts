@@ -283,4 +283,49 @@ describe('StripSpeakerLabelsCapability', () => {
       removed: expect.any(Number),
     });
   });
+
+  // ── regression: horizontal whitespace only ───────────────────────────────
+
+  it('leaves the preceding line alone when a speaker turn follows a capitalised line', async () => {
+    // Arrange: `\s` also matches `\n`, so under the `m` flag the old pattern
+    // started matching on "Introduction", ran through the newline and finished
+    // at "Bob:" — deleting the heading and joining the two lines.
+    const content = 'Introduction\nBob: hello there';
+    mockResolveCleanupTarget.mockResolvedValue(makeTarget(content));
+
+    // Act
+    await capability.execute({ format: 'colon' }, makeContext());
+
+    // Assert
+    const written = vi.mocked(mockWriteCleanupContent).mock.calls[0]?.[1] as string;
+    expect(written).toBe('Introduction\nhello there');
+  });
+
+  it('does not join lines when a bracketed label sits alone on its own line', async () => {
+    // Arrange: the trailing `\s?` used to swallow the newline after "[Bob]".
+    const content = '[Bob]\nhello there';
+    mockResolveCleanupTarget.mockResolvedValue(makeTarget(content));
+
+    // Act
+    await capability.execute({ format: 'bracketed' }, makeContext());
+
+    // Assert
+    const written = vi.mocked(mockWriteCleanupContent).mock.calls[0]?.[1] as string;
+    expect(written).toBe('\nhello there');
+  });
+
+  it('still strips multi-word labels separated by spaces', async () => {
+    // Arrange: the fix narrowed `\s` to `[ \t]` — multi-word labels on one
+    // line must keep working.
+    const content = 'Mary Smith: hi\nJohn: yes';
+    mockResolveCleanupTarget.mockResolvedValue(makeTarget(content));
+
+    // Act
+    const result = await capability.execute({ format: 'colon' }, makeContext());
+
+    // Assert
+    const written = vi.mocked(mockWriteCleanupContent).mock.calls[0]?.[1] as string;
+    expect(written).toBe('hi\nyes');
+    expect(result.data?.removed).toBe(2);
+  });
 });

@@ -135,6 +135,17 @@ export const GET = withAdminAuth(async (request, _session) => {
       orderBy: { createdAt: 'desc' },
       skip,
       take: limit,
+      // Cleanup Text columns and lock bookkeeping are per-document detail,
+      // not list data — a page of cleaning documents would otherwise carry
+      // the full original + processed text of each one. `omit` keeps the
+      // payload in step with KnowledgeDocumentListItem, which declares them
+      // absent.
+      omit: {
+        originalContent: true,
+        processedContent: true,
+        editLockHolder: true,
+        editLockAcquiredAt: true,
+      },
       include: {
         _count: { select: { chunks: true } },
         tags: { include: { tag: { select: { id: true, slug: true, name: true } } } },

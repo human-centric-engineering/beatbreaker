@@ -195,8 +195,22 @@ Inside the section editor, a **Refine with agent** button opens an instructions 
 | POST   | `/cleanup/section/refine`             | LLM refine of a section without chat                              |
 | GET    | `/cleanup/revisions`                  | List revisions (newest first, paginated)                          |
 | POST   | `/cleanup/revisions/:version/restore` | Restore prior revision (writes a new `source: 'restore'` row)     |
+| GET    | `/cleanup/changes/:changeId`          | Read one pending LLM rewrite (what the diff modal loads)          |
 | POST   | `/cleanup/changes/:changeId/accept`   | Accept a pending LLM rewrite                                      |
 | POST   | `/cleanup/changes/:changeId/reject`   | Reject a pending LLM rewrite                                      |
+
+The diff modal reads its proposal from `GET /cleanup/changes/:changeId`, not
+from the per-document `GET /documents/:id`. Every pending row holds a full
+before **and** after copy of the document text, and the cleanup view re-fetches
+the document route after every chat turn, capability result, section save and
+restore — inlining the proposals there would put two extra copies of the
+document on each of those responses.
+
+The inline diff itself is bounded: `TextDiffViewer` trims the common prefix and
+suffix, then refuses to build its LCS table when more than 1,500 lines still
+differ on one side, rendering a "too much changed to diff inline" notice
+instead. Cleanup targets documents up to ~100k tokens, where an unbounded
+`m × n` table hangs or crashes the tab.
 
 ## Code map
 

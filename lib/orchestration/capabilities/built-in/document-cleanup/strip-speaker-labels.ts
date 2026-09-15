@@ -25,9 +25,12 @@ interface Data extends MutationSummary {
 }
 
 // "John:", "Mary Smith:" at start of line. Allows 1-4 capitalised words.
-const COLON = /^([A-Z][A-Za-z'’-]+)(\s[A-Z][A-Za-z'’-]+){0,3}:\s?/gm;
+// Horizontal whitespace only: `\s` also matches `\n`, so under the `m` flag a
+// match could start on one line and finish on the next — "Introduction\nBob:"
+// would delete the "Introduction" heading and join the lines.
+const COLON = /^([A-Z][A-Za-z'’-]+)([ \t]+[A-Z][A-Za-z'’-]+){0,3}:[ \t]?/gm;
 // "[John]", "[Mary Smith]" at start of line (transcript convention).
-const BRACKETED = /^\[([A-Z][A-Za-z'’-]+)(\s[A-Z][A-Za-z'’-]+){0,3}\]\s?/gm;
+const BRACKETED = /^\[([A-Z][A-Za-z'’-]+)([ \t]+[A-Z][A-Za-z'’-]+){0,3}\][ \t]?/gm;
 
 export class StripSpeakerLabelsCapability extends BaseCapability<Args, Data> {
   readonly slug = 'strip_speaker_labels';

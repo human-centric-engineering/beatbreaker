@@ -2576,7 +2576,9 @@ export const clearConversationsBodySchema = z
 
 /** List knowledge documents query (GET /admin/orchestration/knowledge/documents). */
 export const listDocumentsQuerySchema = paginationQuerySchema.extend({
-  status: z.enum(['pending', 'processing', 'ready', 'failed', 'pending_review']).optional(),
+  status: z
+    .enum(['pending', 'processing', 'ready', 'failed', 'pending_review', 'cleaning'])
+    .optional(),
   scope: documentScopeSchema.optional(),
   q: z.string().trim().min(1).max(200).optional(),
 });

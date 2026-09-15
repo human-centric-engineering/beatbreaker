@@ -206,6 +206,17 @@ export async function transitionToCleanup(
     select: { name: true, status: true, metadata: true },
   });
   if (!existing) throw new Error(`Document ${documentId} not found`);
+  // Mirrors confirmPreview's guard. metadata.runCleanup survives the
+  // transition (it is re-written below), so without this a second POST to
+  // /confirm would overwrite originalContent, open a *second* cleanup
+  // conversation for the same contextId — which the "latest conversation"
+  // lookups in resolveCleanupAgentContextWindow and /section/refine would
+  // then bind to — and send a duplicate cleanup-ready email.
+  if (existing.status !== 'pending_review') {
+    throw new Error(
+      `Document ${documentId} is not in pending_review status (found '${existing.status}')`
+    );
+  }
 
   const sizeReport = getDocumentSizeReport(content);
   const existingMeta = parseDocumentMetadata(existing.metadata) ?? {};
@@ -272,11 +283,18 @@ export async function commitCleanupAndChunk(
     );
   }
 
-  const content = mode === 'commit' ? (doc.processedContent ?? '') : (doc.originalContent ?? '');
+  // processedContent stays NULL until the first mutation, so an admin who
+  // reads the document, decides it needs no changes and clicks "Mark cleaned"
+  // has nothing in that column. Committing then means committing the original
+  // text — the same bytes the 'use-original' path would chunk.
+  const content =
+    mode === 'commit'
+      ? (doc.processedContent ?? doc.originalContent ?? '')
+      : (doc.originalContent ?? '');
   if (!content.trim()) {
     throw new Error(
       mode === 'commit'
-        ? 'processedContent is empty — there are no cleanup changes to commit'
+        ? 'Both processedContent and originalContent are empty — there is nothing to commit'
         : 'originalContent is empty — nothing to fall back to'
     );
   }

@@ -226,4 +226,37 @@ describe('StripMatchesCapability', () => {
       matchCount: 2,
     });
   });
+
+  // ── regression: sticky flag is dropped ───────────────────────────────────
+
+  it('drops a model-supplied "y" flag so every match is removed, not just a leading run', async () => {
+    // Arrange: with flags 'gy' the sticky anchor makes String.replace stop at
+    // the first position where the match is not contiguous — "x" at index 0
+    // would go, "x" after the gap would survive, and matchCount would report
+    // the partial number as the total.
+    const content = 'xx keep xx';
+    mockResolveCleanupTarget.mockResolvedValue(makeTarget(content));
+
+    // Act
+    const result = await capability.execute({ regex: 'x', flags: 'y' }, makeContext());
+
+    // Assert: all four occurrences removed
+    const written = vi.mocked(mockWriteCleanupContent).mock.calls[0]?.[1] as string;
+    expect(written).toBe(' keep ');
+    expect(result.data?.matchCount).toBe(4);
+  });
+
+  it('keeps non-global flags the model asked for (e.g. "i")', async () => {
+    // Arrange: only 'g'/'y' are stripped — case-insensitivity must survive.
+    const content = 'Foo and foo';
+    mockResolveCleanupTarget.mockResolvedValue(makeTarget(content));
+
+    // Act
+    const result = await capability.execute({ regex: 'foo', flags: 'i' }, makeContext());
+
+    // Assert
+    const written = vi.mocked(mockWriteCleanupContent).mock.calls[0]?.[1] as string;
+    expect(written).toBe(' and ');
+    expect(result.data?.matchCount).toBe(2);
+  });
 });

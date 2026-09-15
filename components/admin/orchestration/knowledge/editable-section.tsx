@@ -59,6 +59,12 @@ export function EditableSection({
 }: EditableSectionProps) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(section.body);
+  // The body this editor opened against. `section.body` is a prop derived
+  // from the parent's processedContent, which refetches on every chat turn
+  // and capability result — fingerprinting it at save time would match the
+  // server's *new* content and silently overwrite whatever landed mid-edit.
+  // Captured once at startEdit so the 409 CONTENT_MISMATCH guard can fire.
+  const [baselineBody, setBaselineBody] = useState(section.body);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [conflict, setConflict] = useState<ConflictState | null>(null);
@@ -69,7 +75,10 @@ export function EditableSection({
   // Reset draft when section.body changes from underneath (capability fired
   // OR a refetch surfaced server-side updates) and we're NOT mid-edit.
   useEffect(() => {
-    if (!editing) setDraft(section.body);
+    if (!editing) {
+      setDraft(section.body);
+      setBaselineBody(section.body);
+    }
   }, [section.body, editing]);
 
   const startEdit = useCallback(async () => {
@@ -79,6 +88,7 @@ export function EditableSection({
     const ok = await acquireLock();
     if (!ok) return;
     setDraft(section.body);
+    setBaselineBody(section.body);
     setEditing(true);
   }, [acquireLock, section.body]);
 
@@ -94,7 +104,7 @@ export function EditableSection({
       setSaving(true);
       setError(null);
       try {
-        const expectedFingerprint = overrideFingerprint ?? (await sha256Hex(section.body));
+        const expectedFingerprint = overrideFingerprint ?? (await sha256Hex(baselineBody));
         const res = await fetch(
           `/api/v1/admin/orchestration/knowledge/documents/${documentId}/cleanup/section`,
           {
@@ -135,7 +145,7 @@ export function EditableSection({
         setSaving(false);
       }
     },
-    [documentId, draft, section.body, section.marker, onSaved]
+    [documentId, draft, baselineBody, section.marker, onSaved]
   );
 
   const keepMine = useCallback(() => {
@@ -148,6 +158,9 @@ export function EditableSection({
   const takeTheirs = useCallback(() => {
     if (!conflict) return;
     setDraft(conflict.currentBody);
+    // The server's version is now what this editor is based on, so a later
+    // plain Save fingerprints against it rather than the stale original.
+    setBaselineBody(conflict.currentBody);
     setConflict(null);
     setError(null);
     // Stay in edit mode so the admin can hand-merge if they want.

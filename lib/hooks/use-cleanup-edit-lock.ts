@@ -19,6 +19,9 @@ export interface CleanupLockState {
 }
 
 const POLL_INTERVAL_MS = 10_000;
+// Re-acquire well inside the 5-minute server TTL so a long-running edit
+// never has its lock silently expire and get taken over mid-save.
+const HEARTBEAT_INTERVAL_MS = 2 * 60 * 1000;
 
 function lockUrl(documentId: string): string {
   return `/api/v1/admin/orchestration/knowledge/documents/${documentId}/cleanup/lock`;
@@ -97,6 +100,27 @@ export function useCleanupEditLock(documentId: string, currentUserId: string): U
     }
   }, [documentId, currentUserId, fetchState]);
 
+  // Until the session resolves, currentUserId is '' — comparing against it
+  // would classify the admin's *own* live lock as held by someone else, which
+  // on a refresh inside the TTL shows a "being edited by <my own id>" banner
+  // and disables the finalise buttons. Treat unknown identity as "no verdict".
+  const identityKnown = currentUserId !== '';
+  const heldByMe = identityKnown && state?.active === true && state.heldBy === currentUserId;
+  const heldByOther = identityKnown && state?.active === true && state.heldBy !== currentUserId;
+
+  // Heartbeat: while the local admin actively holds the lock, periodically
+  // re-acquire (POST is idempotent for the current holder) to push the
+  // server-side TTL out. Without this, an edit that runs longer than the
+  // TTL loses the lock mid-session with no warning, and a second admin can
+  // start editing the same document concurrently.
+  useEffect(() => {
+    if (!heldByMe) return;
+    const timer = setInterval(() => {
+      void acquire();
+    }, HEARTBEAT_INTERVAL_MS);
+    return () => clearInterval(timer);
+  }, [heldByMe, acquire]);
+
   const release = useCallback(async (): Promise<void> => {
     try {
       await fetch(lockUrl(documentId), { method: 'DELETE' });
@@ -105,9 +129,6 @@ export function useCleanupEditLock(documentId: string, currentUserId: string): U
       /* swallow — release is idempotent server-side; UI doesn't block on this */
     }
   }, [documentId, fetchState]);
-
-  const heldByMe = state?.active === true && state.heldBy === currentUserId;
-  const heldByOther = state?.active === true && state.heldBy !== currentUserId;
 
   return {
     state,

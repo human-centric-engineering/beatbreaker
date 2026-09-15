@@ -195,6 +195,49 @@ describe('EditableSection', () => {
     });
   });
 
+  it('Save fingerprints the body the editor OPENED against, not the prop as it stands at save time', async () => {
+    // Arrange: section.body is derived from the parent's processedContent,
+    // which refetches on every chat turn and capability result. If the
+    // fingerprint were computed at save time it would match whatever the
+    // agent just wrote, the server's 409 CONTENT_MISMATCH guard would never
+    // fire, and the agent's change would be silently overwritten.
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: () => Promise.resolve({ success: true }),
+    });
+    globalThis.fetch = fetchMock;
+
+    const { rerender } = render(<EditableSection {...BASE_PROPS} />);
+
+    const pencilButton = document.querySelector(
+      `[aria-label="Edit section ${SECTION_MARKER}"]`
+    ) as HTMLElement;
+    fireEvent.click(pencilButton);
+
+    await waitFor(() => {
+      expect(document.querySelector('textarea')).not.toBeNull();
+    });
+
+    // A capability mutated this section while the editor was open.
+    const AGENT_BODY = 'The agent rewrote this section underneath the editor.';
+    rerender(<EditableSection {...BASE_PROPS} section={makeSection({ body: AGENT_BODY })} />);
+
+    fireEvent.click(screen.getByRole('button', { name: /Save/i }));
+
+    const openedAgainstFingerprint = await sha256Hex(SECTION_BODY);
+    const agentBodyFingerprint = await sha256Hex(AGENT_BODY);
+
+    await waitFor(() => {
+      expect(fetchMock).toHaveBeenCalled();
+    });
+    const sentBody = JSON.parse((fetchMock.mock.calls[0][1] as { body: string }).body) as {
+      expectedFingerprint: string;
+    };
+    expect(sentBody.expectedFingerprint).toBe(openedAgainstFingerprint);
+    expect(sentBody.expectedFingerprint).not.toBe(agentBodyFingerprint);
+  });
+
   // ── Save: 423 lock-held response ──────────────────────────────────────────────
 
   it('423 response shows error banner matching /another admin is editing/i; stays in edit mode', async () => {

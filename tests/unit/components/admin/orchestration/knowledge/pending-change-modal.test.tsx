@@ -5,8 +5,8 @@
  *
  * Test Coverage:
  * - changeId=null → modal is closed (no DialogTitle in DOM)
- * - changeId='abc' → modal opens; calls apiClient.get for the doc; finds change by id; renders TextDiffViewer
- * - Pending change not in response → "Pending change not found" error rendered
+ * - changeId='abc' → modal opens; calls the per-change GET; renders TextDiffViewer
+ * - Per-change GET 404s → "Pending change not found" error rendered
  * - Section rewrite (sectionMarker set) → source line matches /Section rewrite: <marker>/i
  * - Whole-doc rewrite (sectionMarker null) → source line matches /Whole-document rewrite/i
  * - Accept button POSTs /cleanup/changes/<id>/accept; on success calls onResolved + onClose
@@ -14,7 +14,7 @@
  * - Accept failure → error rendered; onResolved and onClose NOT called
  *
  * Mocking:
- * - @/lib/api/client (apiClient.get returning { document: { pendingChanges: [...] } })
+ * - @/lib/api/client (apiClient.get returning { change: {...} })
  * - globalThis.fetch for accept/reject
  * - @/components/admin/orchestration/knowledge/text-diff-viewer → <div data-testid="text-diff" />
  *
@@ -81,13 +81,12 @@ function makePendingChange(overrides?: Partial<PendingChangeRecord>): PendingCha
   };
 }
 
-function makeDocResponse(changes: PendingChangeRecord[]) {
-  return {
-    document: {
-      id: DOC_ID,
-      pendingChanges: changes,
-    },
-  };
+function makeChangeResponse(change: PendingChangeRecord) {
+  return { change };
+}
+
+function makeChangeUrl(docId: string, changeId: string) {
+  return `/api/v1/admin/orchestration/knowledge/documents/${docId}/cleanup/changes/${changeId}`;
 }
 
 const BASE_PROPS = {
@@ -111,8 +110,8 @@ describe('PendingChangeModal', () => {
       status: 200,
       json: () => Promise.resolve({ success: true }),
     });
-    // Default: returns doc with the matching pending change
-    mockApiClientGet.mockResolvedValue(makeDocResponse([makePendingChange()]));
+    // Default: the per-change GET resolves the requested proposal
+    mockApiClientGet.mockResolvedValue(makeChangeResponse(makePendingChange()));
   });
 
   afterEach(() => {
@@ -131,9 +130,9 @@ describe('PendingChangeModal', () => {
 
   // ── Open state ────────────────────────────────────────────────────────────────
 
-  it('changeId set → modal opens; calls apiClient.get for the document and renders TextDiffViewer', async () => {
+  it('changeId set → modal opens; calls the per-change GET and renders TextDiffViewer', async () => {
     const change = makePendingChange({ sectionMarker: null });
-    mockApiClientGet.mockResolvedValue(makeDocResponse([change]));
+    mockApiClientGet.mockResolvedValue(makeChangeResponse(change));
 
     render(<PendingChangeModal {...BASE_PROPS} changeId={CHANGE_ID} />);
 
@@ -142,17 +141,17 @@ describe('PendingChangeModal', () => {
       expect(screen.getByTestId('text-diff')).toBeInTheDocument();
     });
 
-    // The GET was called with the doc endpoint
-    expect(mockApiClientGet).toHaveBeenCalledWith(expect.stringContaining(`/documents/${DOC_ID}`));
+    // The GET targets the per-change endpoint, NOT the document route — the
+    // document payload must stay free of before/after copies of the text.
+    expect(mockApiClientGet).toHaveBeenCalledWith(makeChangeUrl(DOC_ID, CHANGE_ID));
   });
 
   // ── Pending change not found ──────────────────────────────────────────────────
 
-  it('pending change not in response → "Pending change not found" error rendered', async () => {
-    // The doc response has no pendingChanges matching the changeId
-    mockApiClientGet.mockResolvedValue(
-      makeDocResponse([makePendingChange({ id: 'other-change-id' })])
-    );
+  it('per-change GET 404s → "Pending change not found" error rendered', async () => {
+    // The row was already accepted or rejected elsewhere; the route answers
+    // 404 CHANGE_NOT_FOUND, which apiClient surfaces as a rejection.
+    mockApiClientGet.mockRejectedValue(new Error('Pending change not found'));
 
     render(<PendingChangeModal {...BASE_PROPS} changeId={CHANGE_ID} />);
 
@@ -166,12 +165,12 @@ describe('PendingChangeModal', () => {
   it('section rewrite (sectionMarker set) → source line matches /Section rewrite: <marker>/i', async () => {
     const marker = '## Overview';
     mockApiClientGet.mockResolvedValue(
-      makeDocResponse([
+      makeChangeResponse(
         makePendingChange({
           source: 'rewrite_section_with_llm',
           sectionMarker: marker,
-        }),
-      ])
+        })
+      )
     );
 
     render(<PendingChangeModal {...BASE_PROPS} changeId={CHANGE_ID} />);
@@ -185,12 +184,12 @@ describe('PendingChangeModal', () => {
 
   it('whole-doc rewrite (sectionMarker null) → source line matches /Whole-document rewrite/i', async () => {
     mockApiClientGet.mockResolvedValue(
-      makeDocResponse([
+      makeChangeResponse(
         makePendingChange({
           source: 'rewrite_with_llm',
           sectionMarker: null,
-        }),
-      ])
+        })
+      )
     );
 
     render(<PendingChangeModal {...BASE_PROPS} changeId={CHANGE_ID} />);

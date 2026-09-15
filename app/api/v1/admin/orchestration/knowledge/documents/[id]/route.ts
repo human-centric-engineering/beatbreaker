@@ -35,22 +35,11 @@ export const GET = withAdminAuth<{ id: string }>(async (request, _session, { par
     include: {
       _count: { select: { chunks: true } },
       tags: { select: { tagId: true } },
-      // Surfaced for the cleanup PendingChangeModal so it can render the
-      // diff card without a separate per-change fetch. Only populated for
-      // docs in 'cleaning' status with at least one pending LLM rewrite
-      // awaiting Accept / Reject.
-      pendingChanges: {
-        orderBy: { createdAt: 'desc' },
-        select: {
-          id: true,
-          source: true,
-          beforeContent: true,
-          afterContent: true,
-          sectionMarker: true,
-          instructions: true,
-          createdAt: true,
-        },
-      },
+      // Pending LLM-rewrite proposals are deliberately NOT included: each
+      // carries a full before + after copy of the document text, and the
+      // cleanup view re-fetches this route after every chat turn, capability
+      // result, section save and restore. The diff modal reads the one
+      // proposal it needs from GET .../cleanup/changes/:changeId instead.
     },
   });
   if (!document) throw new NotFoundError(`Document ${id} not found`);
