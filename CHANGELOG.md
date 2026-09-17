@@ -55,6 +55,15 @@ release process.
   so the export drags where the playback drags — except a hit pushed in front
   of bar 1, which has nowhere earlier to go and lands on the downbeat.
 
+- **The break doctor and the famous-breaks library** — `doctor.ts` (`doctor`,
+  twelve named musical edits) and `library.ts` (`LIBRARY`, 47 breaks in 8
+  groups; `patternFromLibrary`, `libraryGroups`).
+
+  `doctor` returns a new pattern rather than editing in place, which is what
+  makes undo a matter of keeping the old reference — several of the moves have
+  no inverse. Its `entropy` argument defaults to the clock so two presses of
+  the same button differ, and can be pinned to make a move reproducible.
+
 - **Every install has an org, and every user belongs to one** (multi-tenancy
   §106, first task). Two published model interfaces in a new
   `prisma/schema/tenancy.prisma`: `Org` (`slug`, `name`, `status`
