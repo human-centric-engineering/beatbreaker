@@ -32,6 +32,16 @@ release process.
   break on any machine, which is what lets a share code carry a seed and the
   server re-derive a break from it.
 
+- **The critic, the layer stack and the engraver** — `critic.ts` (`playability`,
+  the hard four-limb filter; `critique`, the 0–100 score; `generateGood`, the
+  rejection sampler), `layers.ts` (`reduceBar` / `reducePattern` — L5 is stored,
+  1–4 are derived views), and `engrave.ts` (`engrave`, notation as SVG).
+
+  `engrave` returns a plain `SvgNode[]` tree rather than building DOM, so the
+  same call works in a React render, in a test, and on the server. Beaming and
+  rest merging work in the meter's pulse groups, so a compound bar beams in
+  threes without the engraver knowing what compound time is.
+
 - **Every install has an org, and every user belongs to one** (multi-tenancy
   §106, first task). Two published model interfaces in a new
   `prisma/schema/tenancy.prisma`: `Org` (`slug`, `name`, `status`
