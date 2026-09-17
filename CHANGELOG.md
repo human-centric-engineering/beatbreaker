@@ -32,9 +32,6 @@ release process.
   break on any machine, which is what lets a share code carry a seed and the
   server re-derive a break from it.
 
-
-### Added
-
 - **Every install has an org, and every user belongs to one** (multi-tenancy
   §106, first task). Two published model interfaces in a new
   `prisma/schema/tenancy.prisma`: `Org` (`slug`, `name`, `status`
