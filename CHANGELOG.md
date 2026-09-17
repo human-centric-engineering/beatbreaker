@@ -64,6 +64,14 @@ release process.
   no inverse. Its `entropy` argument defaults to the clock so two presses of
   the same button differ, and can be pinned to make a move reproducible.
 
+- **`Break` and `Take` Prisma models** in `prisma/schema/app.prisma`. `Break`
+  holds the share-code wire document as JSON with `style`, `meter`, `bpm`,
+  `seed` and `bars` lifted out as columns; `Take` is a recording of someone
+  playing one. Both carry a plain-scalar `userId` with a hand-written
+  `ON DELETE CASCADE` FK to `user`, declared as `export` sources in
+  `lib/app/data-export.ts` and guarded by two new drift probes in
+  `lib/app/db-drift.ts`.
+
 - **Every install has an org, and every user belongs to one** (multi-tenancy
   §106, first task). Two published model interfaces in a new
   `prisma/schema/tenancy.prisma`: `Org` (`slug`, `name`, `status`

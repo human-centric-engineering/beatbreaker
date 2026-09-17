@@ -49,6 +49,9 @@
  * Full guide: .context/privacy/data-export.md · CUSTOMIZATION.md §4
  */
 
+import { prisma } from '@/lib/db/client';
+import { registerAppSubjectSources } from '@/lib/privacy/subject-source-registry';
+
 /** Identity of the subject being exported. */
 export interface AppSubjectQuery {
   /** Id of the data subject. */
@@ -102,7 +105,24 @@ export type AppSubjectData = Record<string, unknown>;
  * `rows.length ? rows : undefined` is the shape to avoid.
  */
 export function initAppSubjectSources(): void {
-  // No app subject sources by default.
+  registerAppSubjectSources({
+    tier: 'app',
+    sources: [
+      {
+        model: 'Break',
+        section: 'breaks',
+        disposition: 'export',
+        description: 'Drum breaks you generated, edited or saved.',
+      },
+      {
+        model: 'Take',
+        section: 'takes',
+        disposition: 'export',
+        description:
+          'Recordings of you playing a break — the metadata and the storage key, not the video file itself.',
+      },
+    ],
+  });
 }
 
 /**
@@ -114,7 +134,21 @@ export function initAppSubjectSources(): void {
  * collector awaits its queries, and the empty default must not force forks to
  * change the signature just to add one.
  */
-// eslint-disable-next-line @typescript-eslint/require-await
-export async function collectAppSubjectData(_subject: AppSubjectQuery): Promise<AppSubjectData> {
-  return {};
+export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promise<AppSubjectData> {
+  const [breaks, takes] = await Promise.all([
+    prisma.break.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } }),
+    prisma.take.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } }),
+  ]);
+
+  /* Both keys are returned unconditionally, empty arrays included. A bundle
+     short by a section reads exactly like a complete answer, and the subject
+     has no way to tell the difference — `rows.length ? rows : undefined` is the
+     shape to avoid, because JSON.stringify drops the key entirely.
+
+     `seed` is a BigInt column and BigInt does not survive JSON.stringify, so it
+     is narrowed to a string here rather than thrown at the serialiser. */
+  return {
+    breaks: breaks.map((b) => ({ ...b, seed: b.seed.toString() })),
+    takes,
+  };
 }
