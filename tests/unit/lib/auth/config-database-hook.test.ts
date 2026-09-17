@@ -21,6 +21,9 @@
  * - Not apply role for non-OAuth paths
  *
  * After hook:
+ * - Every new user becomes a member of the install org (§106): MEMBER, or
+ *   OWNER for a real platform admin; a failure there is logged at error and
+ *   the signup still completes (a throw would strand a credential-less user)
  * - Default preferences set for OAuth signup
  * - Default preferences set for email/password signup
  * - Non-blocking error handling (preferences failures don't break signup)
@@ -41,6 +44,8 @@ import type { InvitationRecord } from '@/lib/utils/invitation-token';
 import type { UserCreateData, DatabaseHookContext } from '@/lib/auth/config';
 import { SYSTEM_USER_EMAIL } from '@/lib/auth/constants';
 import { humanWhere } from '@/lib/auth/account';
+import { INSTALL_ORG_ID } from '@/lib/tenancy/constants';
+import { ORG_OWNER_ROLE, DEFAULT_ORG_ROLE } from '@/lib/tenancy/roles';
 
 // ---------------------------------------------------------------------------
 // Mutable env object — individual tests mutate fields to exercise branches.
@@ -124,6 +129,9 @@ vi.mock('@/lib/db/client', () => ({
       findUnique: vi.fn(),
       upsert: vi.fn(),
     },
+    orgMembership: {
+      upsert: vi.fn(),
+    },
     account: {
       findFirst: vi.fn(),
     },
@@ -175,6 +183,7 @@ interface SharedMocks {
   prisma: {
     user: { update: MockedFn; count: MockedFn };
     authBootstrap: { findUnique: MockedFn; upsert: MockedFn };
+    orgMembership: { upsert: MockedFn };
     verification: { findFirst: MockedFn };
   };
   logger: {
@@ -249,6 +258,9 @@ describe('lib/auth/config - databaseHooks.user.create', () => {
           findUnique: vi.mocked(db.prisma.authBootstrap.findUnique),
           upsert: vi.mocked(db.prisma.authBootstrap.upsert),
         },
+        orgMembership: {
+          upsert: vi.mocked(db.prisma.orgMembership.upsert),
+        },
         verification: {
           findFirst: vi.mocked(db.prisma.verification.findFirst),
         },
@@ -280,6 +292,10 @@ describe('lib/auth/config - databaseHooks.user.create', () => {
     // this to return a row. The marker upsert resolves successfully.
     mocks.prisma.authBootstrap.findUnique.mockResolvedValue(null);
     mocks.prisma.authBootstrap.upsert.mockResolvedValue({ id: 'singleton' });
+
+    // Default mock behavior: the install-org membership write succeeds. Tests
+    // of the failure arm override this to reject.
+    mocks.prisma.orgMembership.upsert.mockResolvedValue({ id: 'membership-1' });
   });
 
   afterEach(() => {
@@ -899,6 +915,109 @@ describe('lib/auth/config - databaseHooks.user.create', () => {
     // Bootstrap-complete marker (issue #278): record that an admin now exists
     // so the before-hook promotion can never re-fire.
     // -----------------------------------------------------------------------
+    describe('install-org membership (§106 t-669)', () => {
+      // The invariant the org layer stands on: every user created after the
+      // identity migration is a member of the install org. The role rule is
+      // the migration's (asserted to agree in tests/unit/lib/tenancy/
+      // migration.test.ts): a real platform admin OWNS the install org,
+      // everyone else is a MEMBER. Idempotent by shape — an upsert on the
+      // (orgId, userId) unique with an empty update.
+
+      it('makes a regular signup a MEMBER of the install org', async () => {
+        const mockUser = makeUserCreateData({
+          id: 'member-1',
+          email: 'member@example.com',
+          role: 'USER',
+        });
+
+        await userCreateAfterHook(mockUser, { path: '/api/auth/signup' });
+
+        expect(mocks.prisma.orgMembership.upsert).toHaveBeenCalledTimes(1);
+        expect(mocks.prisma.orgMembership.upsert).toHaveBeenCalledWith({
+          where: { orgId_userId: { orgId: INSTALL_ORG_ID, userId: 'member-1' } },
+          update: {},
+          create: { orgId: INSTALL_ORG_ID, userId: 'member-1', role: DEFAULT_ORG_ROLE },
+        });
+      });
+
+      it('makes a platform ADMIN the OWNER of the install org', async () => {
+        const mockUser = makeUserCreateData({
+          id: 'first-admin',
+          email: 'founder@example.com',
+          role: 'ADMIN',
+        });
+
+        await userCreateAfterHook(mockUser, { path: '/api/auth/signup' });
+
+        expect(mocks.prisma.orgMembership.upsert).toHaveBeenCalledWith(
+          expect.objectContaining({
+            create: { orgId: INSTALL_ORG_ID, userId: 'first-admin', role: ORG_OWNER_ROLE },
+          })
+        );
+      });
+
+      it('makes a SERVICE account a MEMBER, not an OWNER, despite its ADMIN role', async () => {
+        // The seeded config-owner holds platform ADMIN but never logs in;
+        // the byte-identical argument is that nobody gains an org grant they
+        // did not hold as a *real* platform admin.
+        const mockUser = makeUserCreateData({
+          id: 'system-owner',
+          email: SYSTEM_USER_EMAIL,
+          role: 'ADMIN',
+          accountType: 'SERVICE',
+        });
+
+        await userCreateAfterHook(mockUser, { path: '/api/auth/signup' });
+
+        expect(mocks.prisma.orgMembership.upsert).toHaveBeenCalledWith(
+          expect.objectContaining({
+            create: { orgId: INSTALL_ORG_ID, userId: 'system-owner', role: DEFAULT_ORG_ROLE },
+          })
+        );
+      });
+
+      it('runs before every non-blocking step, so a memberless user never gets a welcome email', async () => {
+        const mockUser = makeUserCreateData({ id: 'ordered', email: 'ordered@example.com' });
+
+        await userCreateAfterHook(mockUser, { path: '/api/auth/callback/google' });
+
+        // vitest numbers every mock call globally; the membership write must
+        // precede the first non-blocking step and the welcome email.
+        const [membership] = mocks.prisma.orgMembership.upsert.mock.invocationCallOrder;
+        const [preferences] = mocks.prisma.user.update.mock.invocationCallOrder;
+        const [email] = mocks.sendEmail.mock.invocationCallOrder;
+        expect(membership).toBeDefined();
+        expect(preferences).toBeDefined();
+        expect(email).toBeDefined();
+        expect(membership).toBeLessThan(preferences);
+        expect(membership).toBeLessThan(email);
+      });
+
+      it('logs at error and lets the signup complete when the membership write fails', async () => {
+        // Deliberately non-blocking: better-auth runs this hook after the
+        // sign-up transaction has committed, so a throw could not prevent the
+        // memberless state — it would only 500 a usable signup. See the comment
+        // in config.ts. The failure is the operator's signal (error log), and
+        // the session path self-heals the membership.
+        const mockUser = makeUserCreateData({ id: 'memberless', email: 'ml@example.com' });
+        const dbDown = new Error('connection refused');
+        mocks.prisma.orgMembership.upsert.mockRejectedValue(dbDown);
+
+        await expect(
+          userCreateAfterHook(mockUser, { path: '/api/auth/signup' })
+        ).resolves.toBeUndefined();
+
+        expect(mocks.logger.error).toHaveBeenCalledWith(
+          'Failed to create org membership for new user',
+          dbDown,
+          expect.objectContaining({ userId: 'memberless' })
+        );
+        // And the rest of the hook still ran: preferences and the welcome email.
+        expect(mocks.prisma.user.update).toHaveBeenCalled();
+        expect(mocks.sendEmail).toHaveBeenCalled();
+      });
+    });
+
     describe('auth bootstrap marker', () => {
       it('records the bootstrap marker when an ADMIN user is created', async () => {
         const mockUser = makeUserCreateData({

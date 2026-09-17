@@ -12,6 +12,7 @@ import { validateEmailConfig } from '@/lib/email/client';
 import { resolveEmailTemplate } from '@/lib/email/registry';
 import { logger } from '@/lib/logging';
 import { dispatchUserCreated } from '@/lib/auth/user-created-hooks';
+import { ensureMembership, initialMembershipFor } from '@/lib/tenancy/membership';
 import {
   validateInvitationToken,
   deleteInvitationToken,
@@ -297,6 +298,32 @@ export async function userCreateAfterHook(
   // Detect signup method for logging purposes
   const isOAuthSignup = ctx?.path?.includes('/callback/') ?? false;
   const signupMethod = isOAuthSignup ? 'OAuth' : 'email/password';
+
+  // Every user belongs to an org (tenancy design, principle 1). First, and
+  // non-blocking like everything else here — deliberately. better-auth queues
+  // `create.after` hooks and runs them only after the sign-up's transaction
+  // has resolved (`@better-auth/core` `runWithTransaction`), so by the time
+  // this runs the user, the credential/OAuth account and — for email sign-up
+  // — the session are all committed. A throw here would therefore not
+  // protect anything: it would turn a fully usable signup into a 500 the
+  // person cannot act on (retrying says the address is taken), and the user
+  // would still be memberless. So a failure is logged at `error` — the
+  // operator's signal — and the signup completes. The invariant is restored
+  // on the session path: §106 t-670's `session.create.before` hook re-runs
+  // `ensureMembership` for a user with no membership, and at `single` the
+  // guard resolves a null membership to the install org (t-671); at `multi`
+  // the guard refuses until a membership exists.
+  //
+  // Inline rather than a `registerUserCreatedHook` contributor: that registry
+  // is the fork's seam and runs last; this is a core invariant that goes first.
+  try {
+    await ensureMembership(user.id, initialMembershipFor(user));
+  } catch (membershipError) {
+    logger.error('Failed to create org membership for new user', membershipError, {
+      userId: user.id,
+      signupMethod,
+    });
+  }
 
   // Record that the first-user-is-admin bootstrap has completed, the first time
   // a real (non-system) admin exists. Once this singleton row is written, the
