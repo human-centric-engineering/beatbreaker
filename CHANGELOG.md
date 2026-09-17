@@ -96,6 +96,12 @@ release process.
   fader move or a cell change take effect on the next note rather than the next
   loop.
 
+- **The console** — `/breaks`, and `components/app/breaks/`: `BreakConsole`,
+  `Stave` (renders the engraver's node tree, playhead moved through a ref),
+  `StepEditor` (draws the layer you are on, and pins what you add to it), and
+  `useBreakConsole`, which holds the state the prototype kept in a module
+  global. `/breaks` is registered in `lib/app/protected-routes.ts`.
+
 - **Every install has an org, and every user belongs to one** (multi-tenancy
   §106, first task). Two published model interfaces in a new
   `prisma/schema/tenancy.prisma`: `Org` (`slug`, `name`, `status`
