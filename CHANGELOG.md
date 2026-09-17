@@ -83,6 +83,19 @@ release process.
   critic nobody can identify. A break the caller does not own answers 404
   rather than 403, so private ids cannot be enumerated.
 
+- **The kit table and the audio engine** — `kit.ts` (11 kits across four
+  engines, the slot map, and the knob definitions each engine exposes),
+  `audio/engine.ts` (`BreakAudio` — the drum synth and the shared master chain)
+  and `audio/transport.ts` (`Transport` — the scheduler, swing, feel and the
+  tempo trainer).
+
+  The sampled engines plug in through a `SampleSource` interface rather than
+  being wired into the synth, so a missing sample falls through to the
+  synthesised voice and a half-loaded kit still plays. `Transport` reads a
+  snapshot supplied by the caller on every scheduled step, which is what lets a
+  fader move or a cell change take effect on the next note rather than the next
+  loop.
+
 - **Every install has an org, and every user belongs to one** (multi-tenancy
   §106, first task). Two published model interfaces in a new
   `prisma/schema/tenancy.prisma`: `Org` (`slug`, `name`, `status`
