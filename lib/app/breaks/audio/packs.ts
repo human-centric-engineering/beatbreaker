@@ -100,7 +100,12 @@ export class PackSource implements SampleSource {
     if (this.manifestLoading) return null;
     this.manifestLoading = true;
     try {
-      const res = await fetch(`${BASE}/manifest.json`);
+      /* `redirect: 'error'` on a same-origin static asset: these paths are
+         ours and a redirect would be a misconfiguration, not a hop to follow.
+         The guard in outbound-fetch-redirects.test.ts is right to insist —
+         fetch follows redirects by default, so any validation upstream of it
+         only ever sees the first hop. */
+      const res = await fetch(`${BASE}/manifest.json`, { redirect: 'error' });
       if (!res.ok) throw new Error(`manifest ${res.status}`);
       this.manifest = (await res.json()) as Manifest;
       return this.manifest;
@@ -123,7 +128,7 @@ export class PackSource implements SampleSource {
     const out = await Promise.all(
       files.map(async (file, i): Promise<Layer | null> => {
         try {
-          const res = await fetch(`${BASE}/${pack}/${file}`);
+          const res = await fetch(`${BASE}/${pack}/${file}`, { redirect: 'error' });
           const buf = await ctx.decodeAudioData(await res.arrayBuffer());
           return { buf, v: vs?.[i] ?? 1, off: onsetOf(buf) };
         } catch {

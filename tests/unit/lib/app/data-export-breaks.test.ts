@@ -11,6 +11,15 @@
  * operator can tell the difference — `rows.length ? rows : undefined` would
  * pass every type check and ship a silently short response, because
  * `JSON.stringify` drops an undefined key.
+ *
+ * FORK NOTE — this file reads `@/lib/app/data-export` for real, with no
+ * `vi.mock`, because the collector's behaviour IS what it is testing. A fork of
+ * BeatBreaker that adds its own tables to that seam will see this fail on the
+ * section list: expect `['breaks', 'takes']` plus yours, and pin the new list
+ * here. Do not mock the seam to make it pass — the assertion is that the real
+ * collector returns every declared section as a key, and a mock cannot tell you
+ * that. The two `prisma` methods are mocked instead, which is the part this
+ * test genuinely does not need to be real.
  */
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
