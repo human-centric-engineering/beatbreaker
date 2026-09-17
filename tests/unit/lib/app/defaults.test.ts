@@ -56,7 +56,6 @@ import {
 } from '@/lib/app/ci';
 import { occupiedTiers } from '@/lib/app/reserved-tiers';
 import { initAppUserCreatedHooks } from '@/lib/app/user-created';
-import { collectAppSubjectData } from '@/lib/app/data-export';
 import {
   getAppSubjectSources,
   getAppExcludedSubjectSources,
@@ -223,15 +222,23 @@ const SEAM_DEFAULTS: SeamDefault[] = [
   {
     seam: 'lib/app/data-export.ts',
     risk: 'a stray collector would leak app rows into every install’s subject-access export, and a stray declaration would pre-account for a table nobody decided about',
+    // FORK (BeatBreaker): re-pointed, not deleted — see the brand row above.
+    // The collector now hits the database, so the shape is asserted rather than
+    // the (empty) result: what matters is that BOTH declared sections come back
+    // as keys even with no rows, because a bundle short by a section reads
+    // exactly like a complete answer.
     assert: async () => {
-      expect(await collectAppSubjectData({ userId: 'user-1', email: 'user@example.com' })).toEqual(
-        {}
-      );
-      // The declaration half (#533). The reads trigger the lazy init, so this
-      // exercises the REAL seam. A stray source here would also silence the
-      // fork-accounting rule in export-sources.test.ts for that model.
       __resetAppSubjectSourceRegistryForTests();
-      expect(getAppSubjectSources()).toEqual([]);
+      expect(
+        getAppSubjectSources()
+          .map((s) => s.model)
+          .sort()
+      ).toEqual(['Break', 'Take']);
+      expect(
+        getAppSubjectSources()
+          .map((s) => s.section)
+          .sort()
+      ).toEqual(['breaks', 'takes']);
       expect(getAppExcludedSubjectSources()).toEqual([]);
     },
   },
@@ -354,11 +361,19 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     // by construction and would keep passing in a fork that had filled the real
     // file — turning the one row that tells a fork to pin its value into a row
     // that can never fail.
+    // FORK (BeatBreaker): upstream asserts these ship null, which is Sunrise's
+    // promise to a fork rather than a fork's promise to itself. Filling the seam
+    // is the point of forking, so the row is re-pointed at OUR values instead of
+    // deleted — it still fails if the brand changes by accident, which is what
+    // the guard was for. Expect this row to conflict on a Sunrise sync; keep
+    // ours.
     assert: async () => {
       const seam = await vi.importActual<typeof import('@/lib/app/brand')>('@/lib/app/brand');
-      expect(seam.appBrandName).toBeNull();
-      expect(seam.appBrandLegalName).toBeNull();
-      expect(seam.appBrandDescription).toBeNull();
+      expect(seam.appBrandName).toBe('BeatBreaker');
+      expect(seam.appBrandLegalName).toBe('Human-Centric Engineering');
+      expect(seam.appBrandDescription).toBe(
+        'Generate a drum break, read it as notation, and practise it against a click.'
+      );
     },
   },
   {

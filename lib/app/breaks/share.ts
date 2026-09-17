@@ -2,7 +2,7 @@ import { BASE_LANES, LANES, percRoster } from '@/lib/app/breaks/lanes';
 import { DEFAULT_METER, METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { LAYER_V1_TO_V2 } from '@/lib/app/breaks/layers';
 import { emptyBar } from '@/lib/app/breaks/pattern';
-import { type PackedPattern, sharePayloadSchema } from '@/lib/app/breaks/schema';
+import { type PackedPattern, type SharePayload, sharePayloadSchema } from '@/lib/app/breaks/schema';
 import { STYLES } from '@/lib/app/breaks/styles';
 import type { LaneKey, Pattern, PercLaneKey, Pins } from '@/lib/app/breaks/types';
 
@@ -147,8 +147,18 @@ function unpack(p: PackedPattern): Pattern {
  */
 export function decodeBreak(code: string): BreakDoc {
   const raw: unknown = JSON.parse(fromBase64(code));
-  const payload = sharePayloadSchema.parse(raw);
+  return breakDocFromPayload(sharePayloadSchema.parse(raw));
+}
 
+/**
+ * A validated wire payload as a usable break.
+ *
+ * Split out from {@link decodeBreak} because the API route receives the same
+ * payload as a JSON body rather than as base64 — one shape, one conversion, so
+ * a break that arrived over HTTP and one that arrived through the paste box
+ * cannot drift apart.
+ */
+export function breakDocFromPayload(payload: SharePayload): BreakDoc {
   /* Layer numbers moved when the L2->L3 step was split in two: what was 3
      (16ths + ghosts) is now 4, and the full break moved from 4 to 5. */
   const level =

@@ -101,6 +101,7 @@ covered by the version contract.
   - `lib/app/authorization.ts` → `initAppAuthorizationPolicy()` — the authorization policy: who administers, and over whose data (primitives: `registerAuthorizationPolicy()` / `DEFAULT_AUTHORIZATION_POLICY` in `lib/auth/authorization.ts`)
   - `lib/app/bootstrap.ts` → `initApp()` — the app boot hook, awaited by `instrumentation.ts`
   - `lib/app/brand.ts` → `appBrandName` / `appBrandLegalName` / `appBrandDescription` — brand overrides
+  - `lib/app/breaks/` → BeatBreaker's break domain: `generatePattern` / `deriveB` (`generate.ts`), `playability` / `critique` / `generateGood` (`critic.ts`), `reducePattern` (`layers.ts`), `engrave` (`engrave.ts`), `doctor` (`doctor.ts`), `encodeBreak` / `decodeBreak` / `breakDocFromPayload` (`share.ts`), `buildMidi` (`midi.ts`), `Pattern` (`types.ts`) — the app's own public surface, not a Sunrise seam
   - `lib/app/capabilities.ts` → `initAppCapabilities()` — capability registry (`registerAppCapability()`)
   - `lib/app/ci.ts` → `appCoverageExclusions` / `appAlwaysRunTests` / `appOwnerlessSurfaceExceptions` — the fork's own coverage exclusions, whole-tree always-run tests, and files allowed to read an ownerless-capable model outside the access helpers
   - `lib/app/context-contributors.ts` → `initAppContextContributors()` — chat context contributors (primitive: `registerContextContributor()` in `lib/orchestration/chat/context-builder.ts`)

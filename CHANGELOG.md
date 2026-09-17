@@ -72,6 +72,17 @@ release process.
   `lib/app/data-export.ts` and guarded by two new drift probes in
   `lib/app/db-drift.ts`.
 
+- **`/api/v1/breaks`** — `GET` (the caller's own breaks, cursor-paginated),
+  `POST` (save one), and `GET` / `PATCH` / `DELETE` on
+  `/api/v1/breaks/[id]`. Request schemas in `lib/validations/breaks.ts` reuse
+  `sharePayloadSchema`, so a break that arrived over HTTP and one pasted as a
+  share code are held to one standard.
+
+  The critic runs server-side on save and on read, and its report is derived
+  rather than stored — a stored score is a number computed by a version of the
+  critic nobody can identify. A break the caller does not own answers 404
+  rather than 403, so private ids cannot be enumerated.
+
 - **Every install has an org, and every user belongs to one** (multi-tenancy
   §106, first task). Two published model interfaces in a new
   `prisma/schema/tenancy.prisma`: `Org` (`slug`, `name`, `status`
