@@ -31,18 +31,47 @@ release process.
   everyone else (the SERVICE config-owner included) as `MEMBER` — and adds a
   nullable, backfilled `orgId` to `AiApiKey`, `AiAgentEmbedToken`,
   `AiAgentInviteToken` and `McpApiKey` (an `admin`-scoped API key stays
-  `NULL`: it is a platform credential) plus an unread `Session.activeOrgId`.
+  `NULL`: it is a platform credential) plus `Session.activeOrgId`, wired by
+  the next bullet.
   `userCreateAfterHook` gives every later user a membership (non-blocking,
   logged at error on failure; the session path self-heals it in t-670), and
   the `001-system-owner` seed gives the config-owner one on a fresh install.
   `OrgMembership` is an `export` source and `Org` an `attribution` source in
   `SUBJECT_DATA_SOURCES`; `npm run smoke:tenancy` proves the invariant against
   a real database. Behaviour at `TENANCY_MODE=single` is unchanged: no
-  request path reads the new rows yet (only the Art. 15 export does). Fork note: the role-literal guard
+  request path reads the new rows for an authorization decision (the session
+  reads them to choose its org; the Art. 15 export reads them). Fork note: the role-literal guard
   (`tests/unit/auth-role-literals.test.ts`) now also polices `'OWNER'` /
   `'MEMBER'` outside `lib/tenancy/roles.ts`; the org-role enum is closed —
   product tiers belong beneath the org, on your side of the FK. Guide:
   [`.context/tenancy/identity.md`](./.context/tenancy/identity.md).
+- **A session knows which org it acts in, a user can switch between theirs,
+  and an invitation can name one** (multi-tenancy §106, second task).
+  `Session.activeOrgId` is now a better-auth session `additionalField`
+  (`input: false` — server-written only; the public `/update-session`
+  refuses it) chosen by a new `sessionCreateBeforeHook` at every sign-in: the
+  user's only org, else the install org if they belong to it, else the most
+  recently joined — and a user with **no membership at all** is given the
+  install-org default right there (the self-heal t-669 promised). It reaches
+  `AuthSession.session` (`lib/auth/guards.ts`, optional so hand-built
+  sessions still compile), the inferred server type, and `useSession()` on the
+  client. New endpoint `POST /api/v1/orgs/switch` `{ orgId }` (`API.ORGS.SWITCH`)
+  verifies membership, writes the row and re-issues the cookie cache; API-key
+  callers are refused. `invitationMetadataSchema` gains optional `orgId` /
+  `orgRole` and `POST /api/v1/users/invite` accepts both (the org must exist
+  and be active; the authorization policy is asked `canAdminister` about it —
+  platform admins only under the default policy). The membership a new user
+  gets is one function, `membershipForNewUser(user, invitation)` in
+  `lib/tenancy/membership.ts`: the install org by the role rule on the role
+  the invitation **grants** (so an invited platform ADMIN now owns the install
+  org — the gap t-669 documented), or the named org with its `orgRole`, where
+  **the first member of a new org is its `OWNER`**. `runInvitedSignup` takes
+  the invitation as a second argument. `@better-auth/core` moves from
+  devDependencies to dependencies (same exact pin): the hooks share the
+  membership through its request state (`lib/auth/pending-signup.ts`).
+  Behaviour at `TENANCY_MODE=single` is unchanged: with one org and no
+  invitation metadata every session flow writes the same rows plus one
+  populated column, and every pending invitation round-trips as before.
 
 ## [0.12.1] — 2026-09-17
 
