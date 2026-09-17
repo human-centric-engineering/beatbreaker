@@ -74,4 +74,9 @@
  * tier, not an empty reservation. Sunrise ships files there (this one included)
  * and the test has never asserted it empty.
  */
-export const occupiedTiers: readonly string[] = [];
+export const occupiedTiers: readonly string[] = [
+  // The break console: components/app/breaks/. Declared so the reserved-tier
+  // guard keeps checking the tiers we have NOT taken — a permanently-red row
+  // for one we have would train everyone to ignore the rest.
+  'components/app',
+];
