@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { BreakAudio } from '@/lib/app/breaks/audio/engine';
+import { PackSource } from '@/lib/app/breaks/audio/packs';
 import {
   Transport,
   type PlayEvent,
@@ -195,6 +196,8 @@ export function useBreakConsole(): BreakConsole {
   const [clickSub, setClickSub] = useState(4);
   const [ramp, setRamp] = useState(0);
   const [playing, setPlaying] = useState(false);
+  /** Bumped when a pack finishes decoding, so the kit panel can say so. */
+  const [, setSamplesVersion] = useState(0);
   const [loops, setLoops] = useState(0);
   const [position, setPosition] = useState<PlayEvent | null>(null);
 
@@ -500,6 +503,10 @@ export function useBreakConsole(): BreakConsole {
      on the server or twice under StrictMode is a leak, not a re-render. */
   useEffect(() => {
     const audio = new BreakAudio();
+    /* The sampled kits are a source the synth falls through to, not a branch
+       inside it — a pack still decoding, or one slot short, plays the
+       synthesised voice for that hit rather than nothing. */
+    audio.samples = new PackSource(() => setSamplesVersion((n) => n + 1));
     audioRef.current = audio;
     const t = new Transport(audio, {
       getSnapshot: () => snapshotRef.current,

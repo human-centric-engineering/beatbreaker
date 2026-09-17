@@ -666,8 +666,10 @@ export function BreakConsole() {
                   ))}
                 </div>
                 <div className="hint" style={{ marginTop: 12 }}>
-                  Only the five synthesised kits play so far — the recorded kits and the
-                  drum-machine voice models are the next thing to land.
+                  The five synthesised kits are a graph per hit, so every knob is live. The recorded
+                  kits decode on first pick, and any lane still arriving falls through to the
+                  synthesised voice — a half-loaded kit still plays. The TR-808 and TR-909 voice
+                  models are the one engine not ported yet.
                 </div>
               </div>
             </div>

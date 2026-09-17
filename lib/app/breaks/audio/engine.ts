@@ -40,6 +40,11 @@ export interface PlayedBuffer {
  */
 export interface SampleSource {
   hit(engine: BreakAudio, t: number, slotId: string, vel: number): boolean;
+  /**
+   * Recorded percussion, which is deliberately not tied to a kit — a
+   * tambourine over a synthesised set should still be a tambourine.
+   */
+  percHit?(engine: BreakAudio, t: number, inst: string, vel: number, accent: boolean): boolean;
   /** Called when the kit or its knobs change. */
   refresh?(engine: BreakAudio): void;
 }
@@ -732,6 +737,7 @@ export class BreakAudio {
    */
   perc(t: number, vel: number, inst: string, accent?: boolean, slot?: string): void {
     if (slot && this.sampleHit(t, slot, vel)) return; // your own sample in that lane wins
+    if (this.samples?.percHit?.(this, t, inst, vel, !!accent)) return;
     const ctx = this.ctx as AudioContext;
     const P = this.P('p');
     const pitch = P.tune ?? 1;

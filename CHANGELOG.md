@@ -102,6 +102,16 @@ release process.
   `useBreakConsole`, which holds the state the prototype kept in a module
   global. `/breaks` is registered in `lib/app/protected-routes.ts`.
 
+- **The recorded kits** — 106 mp3 one-shots under `public/kits/` with a
+  manifest, and `audio/packs.ts` (`PackSource`) to fetch and decode them.
+  Covers the Muldjord kit, the Dusty sampler, the Trap kit, the Virtuosity jazz
+  kit and the Brush kit, plus nine recorded percussion instruments that any kit
+  can reach. Attribution is in the README.
+
+  The prototype inlined these as base64 in the page, because a preview frame has
+  nowhere to put a file. As real files the browser caches them, a kit you never
+  pick costs nothing, and they are out of the JS bundle.
+
 - **Every install has an org, and every user belongs to one** (multi-tenancy
   §106, first task). Two published model interfaces in a new
   `prisma/schema/tenancy.prisma`: `Org` (`slug`, `name`, `status`
