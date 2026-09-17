@@ -7,7 +7,7 @@ import { StepEditor } from '@/components/app/breaks/step-editor';
 import { useBreakConsole } from '@/components/app/breaks/use-break-console';
 import { DOCTOR_MOVES } from '@/lib/app/breaks/doctor';
 import { engrave } from '@/lib/app/breaks/engrave';
-import { KITS, KIT_KEYS } from '@/lib/app/breaks/kit';
+import { KITS, KIT_KEYS, kitIsPlayable } from '@/lib/app/breaks/kit';
 import { LANE_DEFS, activeLanes, laneName } from '@/lib/app/breaks/lanes';
 import { LAYER_BLURB, LAYER_NAMES } from '@/lib/app/breaks/layers';
 import { libraryGroups } from '@/lib/app/breaks/library';
@@ -648,8 +648,9 @@ export function BreakConsole() {
                   <label htmlFor="bb-kit">Kit</label>
                   <select id="bb-kit" value={c.kit} onChange={(e) => c.setKit(e.target.value)}>
                     {KIT_KEYS.map((k) => (
-                      <option key={k} value={k}>
+                      <option key={k} value={k} disabled={!kitIsPlayable(k)}>
                         {KITS[k].label}
+                        {kitIsPlayable(k) ? '' : ' — not ported yet'}
                       </option>
                     ))}
                   </select>

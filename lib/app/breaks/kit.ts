@@ -256,6 +256,22 @@ export function kitEngine(key: string): KitEngine {
 }
 
 /**
+ * The engines that actually have an implementation behind them.
+ *
+ * `drift` (the TR-808 / TR-909 voice models) and `user` (your own one-shots in
+ * IndexedDB) are declared by kits in the table but not yet ported. Without this
+ * they would not fail — they would fall through to the synthesised voices with
+ * the Machine kit's parameters, so picking "TR-909" would quietly give you
+ * something else and sound like a poor 909 rather than a missing one. The kit
+ * picker reads this and says so instead.
+ */
+const IMPLEMENTED_ENGINES: ReadonlySet<KitEngine> = new Set<KitEngine>(['synth', 'pack']);
+
+export function kitIsPlayable(key: string): boolean {
+  return IMPLEMENTED_ENGINES.has(kitEngine(key));
+}
+
+/**
  * Which driftbox voice plays each lane and variant.
  *
  * The 808 has no ride and no crash — borrowing the 909's is the honest fix;

@@ -30,7 +30,7 @@ import { clamp } from '@/lib/app/breaks/rng';
 import { type BreakDoc, decodeBreak, encodeBreak } from '@/lib/app/breaks/share';
 import { STYLES, styleIn } from '@/lib/app/breaks/styles';
 import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
-import { KITS, kitDefaults } from '@/lib/app/breaks/kit';
+import { KITS, kitDefaults, kitIsPlayable } from '@/lib/app/breaks/kit';
 import { useLocalStorage } from '@/lib/hooks/use-local-storage';
 import { logger } from '@/lib/logging';
 
@@ -410,7 +410,7 @@ export function useBreakConsole(): BreakConsole {
          to both. The meter and kit you chose yourself are remembered
          separately, so the waltz does not strand medium swing in 3/4. */
       if (st?.meter) setMeterRaw(st.meter);
-      if (st?.kit) setKitRaw(st.kit);
+      if (st?.kit && kitIsPlayable(st.kit)) setKitRaw(st.kit);
       if (st && !locks.bpm) setBpm(Math.round((st.bpm[0] + st.bpm[1]) / 2));
       setMixTouched((touched) => {
         applyStyleMix(s, touched);
@@ -492,7 +492,10 @@ export function useBreakConsole(): BreakConsole {
 
   const setKit = useCallback(
     (k: string) => {
-      if (!KITS[k]) return;
+      /* An unported engine would not error — it would fall through to the
+         synthesised voices with another kit's parameters, so picking TR-909
+         would quietly hand you the Machine kit. Refuse instead. */
+      if (!KITS[k] || !kitIsPlayable(k)) return;
       setKitRaw(k);
     },
     [setKitRaw]

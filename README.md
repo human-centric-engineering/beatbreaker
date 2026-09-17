@@ -31,9 +31,11 @@ while the groove leans off it.
 - **Practice rig** — metronome, tempo trainer that ramps to a ceiling, quick
   tempo percentages, per-lane mutes for playing a limb yourself, and a mixer
   whose faders start where the style puts them.
-- **Kits** — four playback engines behind one path: synthesised voices, TR-808 /
-  TR-909 voice models, recorded acoustic kits, and your own one-shots (kept in
-  IndexedDB; nothing is uploaded).
+- **Kits** — four playback engines behind one path. Five synthesised kits (a
+  graph per hit, so every knob is live) and five recorded kits are playing; the
+  TR-808 / TR-909 voice models and your own one-shots are declared but not
+  wired up yet, and the kit picker says so rather than quietly substituting
+  something else.
 - **Export** — a break code and a share link that carry both sections, and GM
   drum-map MIDI with swing, feel and ghost velocities written into the tick
   positions.
@@ -52,7 +54,7 @@ while the groove leans off it.
 
 Sunrise's AI agent orchestration layer comes along with the fork. BeatBreaker
 uses a model in three places only — turning a sentence into a grid patch, naming
-a break from its own rhythm, and writing the practice note that says *why* a bar
+a break from its own rhythm, and writing the practice note that says _why_ a bar
 is hard. The notes themselves are written by rules, which are faster and never
 produce something unplayable.
 
@@ -128,6 +130,24 @@ are fetched from `upstream` and are not pushed to this repo's origin.
 - [**CHANGELOG.md**](./CHANGELOG.md) — carries Sunrise's release history below
   BeatBreaker's own `[Unreleased]` entries, so upstream syncs merge cleanly
 
+## What is not built yet
+
+The port is honest about its edges — a kit or a control that is not there says
+so, rather than falling through to something that sounds nearly right.
+
+- **TR-808 / TR-909 voice models** and **your own one-shots** — the two kit
+  engines still to wire up. Both are listed in the kit picker, disabled.
+- **Per-voice kit tuning** — the kit parameter tables and their knob definitions
+  are ported; the panel that exposes them is not, so kits play at their shipped
+  values.
+- **Web MIDI out**, **recording a take against the click**, **play-along
+  scoring from the mic**, and **PDF export**.
+
+The first two of those last four are what turn it from a practice tool into a
+product: film yourself against the click, the take is stored with the break
+code, and the feed becomes drummers answering each other's breaks. The `Take`
+model is already in the schema for it.
+
 ## Credits
 
 Every sampled recording here is licence-clean by construction, and checked
@@ -135,21 +155,21 @@ against each project's own metadata rather than a blog post. Kits under
 CC-BY-SA were deliberately passed over: share-alike creates obligations when
 samples are embedded in a distributed page.
 
-| Source                                                                         | Licence      | Used for                             |
-| ------------------------------------------------------------------------------ | ------------ | ------------------------------------ |
-| Virtuosity Drums — Versilian Studios & Karoryfer Samples                       | CC0 1.0      | Jazz kit, recorded percussion        |
-| Versilian Community Sample Library                                              | CC0 1.0      | Woodblock, handclaps                 |
-| Swirly Drums — Karoryfer Samples                                                | CC0 1.0      | Brush kit                            |
-| Muldjord kit — recorded by Lars Muldjord, Hydrogen conversion by FreePats       | CC BY 4.0    | Muldjord kit                         |
-| Soulful Vintage, Hard Trap — Boochi44                                           | CC0 1.0      | Dusty sampler, Trap kit              |
-| [`@driftbox/engine`](https://github.com/emmettl/driftbox) — Louis Emmett        | MIT          | TR-808 / TR-909 voice models         |
+| Source                                                                    | Licence   | Used for                      |
+| ------------------------------------------------------------------------- | --------- | ----------------------------- |
+| Virtuosity Drums — Versilian Studios & Karoryfer Samples                  | CC0 1.0   | Jazz kit, recorded percussion |
+| Versilian Community Sample Library                                        | CC0 1.0   | Woodblock, handclaps          |
+| Swirly Drums — Karoryfer Samples                                          | CC0 1.0   | Brush kit                     |
+| Muldjord kit — recorded by Lars Muldjord, Hydrogen conversion by FreePats | CC BY 4.0 | Muldjord kit                  |
+| Soulful Vintage, Hard Trap — Boochi44                                     | CC0 1.0   | Dusty sampler, Trap kit       |
+| [`@driftbox/engine`](https://github.com/emmettl/driftbox) — Louis Emmett  | MIT       | TR-808 / TR-909 voice models  |
 
 CC0 requires no attribution. It is given anyway, because not being obliged to is
 a poor reason not to. Not affiliated with Roland; every drum-machine waveform is
 generated, and no samples of theirs are used.
 
 The 21 design patterns referenced in the inherited orchestration learning area
-are adapted from *Agentic Design Patterns* by Antonio Gullí.
+are adapted from _Agentic Design Patterns_ by Antonio Gullí.
 
 ## License
 
