@@ -42,6 +42,19 @@ release process.
   rest merging work in the meter's pulse groups, so a compound bar beams in
   threes without the engraver knowing what compound time is.
 
+- **Share codes and MIDI export** — `share.ts` (`encodeBreak` / `decodeBreak`,
+  wire version 3), `midi.ts` (`buildMidi` — Standard MIDI File, format 0, GM
+  drum map), and `schema.ts`, the Zod schemas both of them and the API route
+  validate against.
+
+  A share code is a base64 blob a stranger can paste in, so `decodeBreak`
+  parses it through Zod rather than trusting `JSON.parse`. Version 2 codes
+  still load: no meter means 4/4, no roster means the five lanes everybody had.
+
+  Swing and the style's off-grid feel are written into the MIDI tick positions,
+  so the export drags where the playback drags — except a hit pushed in front
+  of bar 1, which has nowhere earlier to go and lands on the downbeat.
+
 - **Every install has an org, and every user belongs to one** (multi-tenancy
   §106, first task). Two published model interfaces in a new
   `prisma/schema/tenancy.prisma`: `Org` (`slug`, `name`, `status`
