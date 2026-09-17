@@ -1,0 +1,1312 @@
+import { DEFAULT_METER, groupsOf, meterOf, remapList, remapWeights } from '@/lib/app/breaks/meter';
+import type { PercSpec, Style } from '@/lib/app/breaks/types';
+
+/**
+ * The style table — 37 grooves, each one a set of tendencies rather than a
+ * fixed pattern, so the generator can write a different break in the same idiom
+ * every time.
+ *
+ * **Every style here is written in 4/4** (bar the seven that name their own
+ * `meter`). Carrying one into another meter is {@link styleIn}'s job, and it
+ * travels by pulse rather than by raw step index — see `remapStep`.
+ */
+export const STYLES: Record<string, Style> = {
+  funk: {
+    label: 'Funk 16ths',
+    mix: { h: 0.72 }, // unbroken 16ths under a kick-and-ghost conversation
+    hint: 'Stubblefield and Jabo territory — unbroken 16th hats, a kick that answers the snare, ghosts everywhere.',
+    hats: 16,
+    bpm: [88, 106],
+    swing: 8,
+    ghostBias: 1.0,
+    opens: 2,
+    backbeats: [4, 12],
+    kick1: [
+      ['1000', 5],
+      ['1010', 2],
+      ['1001', 1.6],
+      ['1100', 1.4],
+    ],
+    kick: [
+      ['0000', 1.1],
+      ['0010', 1.9],
+      ['0001', 1.6],
+      ['1000', 1.3],
+      ['1010', 0.9],
+      ['0011', 0.7],
+      ['1001', 0.9],
+      ['0110', 0.5],
+      ['0101', 0.35],
+      ['0100', 0.5],
+    ],
+  },
+  boombap: {
+    label: 'Boom bap',
+    hint: 'Sparse and heavy. Hats on 8ths, kick leaves room, the snare is the loudest thing in the bar.',
+    hats: 8,
+    bpm: [80, 96],
+    swing: 16,
+    ghostBias: 0.45,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 10,
+    kick1: [
+      ['1000', 6],
+      ['1001', 1.4],
+      ['1010', 1.2],
+    ],
+    kick: [
+      ['0000', 2.2],
+      ['0010', 1.5],
+      ['0001', 1.2],
+      ['1000', 1.1],
+      ['0100', 0.6],
+      ['1001', 0.5],
+    ],
+  },
+  amen: {
+    label: 'Amen / jungle',
+    mix: { h: 0.82 }, // ride-led once it is chopped; the hats are filler
+    hint: 'Fast, ride-led, backbeat displaced late in the phrase. Built to be chopped.',
+    hats: 8,
+    bpm: [128, 172],
+    swing: 0,
+    ghostBias: 0.6,
+    opens: 1,
+    backbeats: [4, 12],
+    displace: 0.65,
+    kick1: [
+      ['1000', 5],
+      ['1010', 2.4],
+    ],
+    kick: [
+      ['0000', 1.6],
+      ['0010', 2.2],
+      ['1000', 0.8],
+      ['0001', 0.9],
+      ['0011', 0.5],
+    ],
+  },
+  reggae: {
+    label: 'Reggae — one drop',
+    crossStick: true,
+    hint: 'The one drop: nothing on beat 1, kick and rim landing together on 3. The 3 is a cross-stick and the page plays one — the stick laid across the head with its shoulder on the rim, drawn as an X on the snare line. Everything else is what you leave out.',
+    hats: 8,
+    bpm: [68, 88],
+    swing: 8,
+    ghostBias: 0.3,
+    opens: 1,
+    backbeats: [8],
+    targetDensity: 6,
+    noKick: [0],
+    forceKick: [8],
+    feel: {
+      label: 'One drop',
+      k: 0.05,
+      s: 0.09,
+      sGhost: 0.06,
+      h: [0, 0.06],
+      r: [0, 0.06],
+      c: 0.02,
+      jitter: 0.015,
+    },
+    kick1: [
+      ['0000', 9],
+      ['0001', 1.2],
+      ['0010', 0.8],
+    ],
+    kick: [
+      ['0000', 3.0],
+      ['0001', 1.0],
+      ['0010', 0.9],
+      ['1000', 0.8],
+      ['0100', 0.4],
+    ],
+  },
+  dub: {
+    label: 'Dub — steppers',
+    hint: 'Four on the floor under a one-drop snare, and space everywhere else. Wants the Live room kit with the Room knob up — half of dub is the return signal.',
+    hats: 8,
+    bpm: [60, 80],
+    swing: 4,
+    ghostBias: 0.25,
+    opens: 2,
+    backbeats: [8],
+    targetDensity: 7,
+    forceKick: [0, 4, 8, 12],
+    feel: {
+      label: 'Dub time',
+      k: 0.03,
+      s: 0.12,
+      sGhost: 0.08,
+      h: [0, 0.08],
+      r: [0, 0.08],
+      c: 0.02,
+      jitter: 0.02,
+    },
+    kick1: [['1000', 9]],
+    kick: [
+      ['1000', 6],
+      ['1001', 1.0],
+      ['1010', 0.6],
+    ],
+  },
+  halftime: {
+    label: 'Half-time heavy',
+    hint: 'One backbeat, on 3. Everything hangs off how long you can leave it.',
+    toms: true,
+    hats: 8,
+    bpm: [68, 90],
+    swing: 4,
+    ghostBias: 0.35,
+    opens: 1,
+    backbeats: [8],
+    targetDensity: 8,
+    kick1: [
+      ['1000', 6],
+      ['1001', 1.2],
+    ],
+    kick: [
+      ['0000', 2.6],
+      ['0010', 1.4],
+      ['0001', 1.3],
+      ['1000', 0.8],
+      ['0011', 0.4],
+    ],
+  },
+  motown: {
+    label: 'Motown',
+    hint: 'Straight 8ths, a backbeat you could set a watch by, and a kick that stays out of its way. Leans a hair in front of the click rather than behind it.',
+    perc: [{ inst: 'tamb', every: 2, accentPulse: true }],
+    hats: 8,
+    bpm: [112, 134],
+    swing: 0,
+    ghostBias: 0.3,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 9,
+    hatDepth: 0.9,
+    forceKick: [0],
+    feel: {
+      label: 'Pushed',
+      k: -0.03,
+      s: -0.035,
+      sGhost: -0.02,
+      h: [-0.02, -0.01],
+      r: [-0.02, -0.01],
+      c: -0.03,
+      jitter: 0.012,
+    },
+    kick1: [
+      ['1000', 7],
+      ['1010', 1.2],
+      ['1001', 0.8],
+    ],
+    kick: [
+      ['0000', 1.8],
+      ['1000', 2.2],
+      ['0010', 1.0],
+      ['0001', 0.6],
+      ['1001', 0.5],
+    ],
+  },
+  shuffle: {
+    label: 'Shuffle',
+    mix: { h: 0.62 }, // a swung hat repeated all bar wears out fast
+    hint: 'Swung 8ths: the “and” sits two thirds of the way through the beat instead of halfway. The Swing slider moves the 8ths here, not the 16ths — 100% is a full triplet shuffle.',
+    hats: 8,
+    bpm: [78, 108],
+    swing: 85,
+    swingUnit: 8,
+    ghostBias: 0.5,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 9,
+    kick1: [
+      ['1000', 6],
+      ['1010', 1.4],
+    ],
+    kick: [
+      ['0000', 2.0],
+      ['1000', 1.5],
+      ['0010', 1.6],
+      ['0001', 0.4],
+    ],
+  },
+  twostep: {
+    label: 'Two-step',
+    mix: { h: 0.75 }, // skippy 16ths, but the kick is the hook
+    hint: 'UK garage: swung 16ths, snare on 2 and 4, and a kick that refuses to play beat 3. Skippy on purpose.',
+    hats: 16,
+    bpm: [128, 140],
+    swing: 26,
+    ghostBias: 0.55,
+    opens: 2,
+    backbeats: [4, 12],
+    targetDensity: 10,
+    hatDepth: 0.8,
+    openSlots: [2, 6, 10, 14],
+    noKick: [8],
+    forceKick: [0],
+    kick1: [
+      ['1000', 6],
+      ['1001', 1.4],
+      ['1010', 1.0],
+    ],
+    kick: [
+      ['0000', 1.6],
+      ['0001', 1.8],
+      ['0010', 1.4],
+      ['0011', 0.8],
+      ['1000', 0.6],
+      ['0100', 0.5],
+    ],
+  },
+  linearfunk: {
+    label: 'Linear funk',
+    mix: { h: 0.6 }, // a linear groove is one voice — no limb should lead
+    hint: 'No two limbs at once. The hats are punched out wherever the kick or the snare lands, which is what makes a linear groove sound like one voice rather than three.',
+    hats: 16,
+    bpm: [92, 112],
+    swing: 6,
+    ghostBias: 1.1,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 12,
+    hatDepth: 0.95,
+    linear: true,
+    kick1: [
+      ['1000', 4],
+      ['1010', 1.6],
+      ['1001', 1.4],
+    ],
+    kick: [
+      ['0010', 1.9],
+      ['0001', 1.6],
+      ['0000', 1.2],
+      ['1000', 1.0],
+      ['0011', 0.8],
+      ['1001', 0.8],
+      ['0110', 0.5],
+    ],
+  },
+  afrobeat: {
+    label: 'Afrobeat',
+    hint: 'Tony Allen territory — the accent sits on the “and” of 2 rather than on 2, open hats bark on every off-beat, and the kick leaves most of the bar alone.',
+    perc: [
+      { inst: 'shaker', every: 2, accentPulse: true },
+      { inst: 'cowbell', steps: [0, 6, 8, 14] },
+    ],
+    hats: 16,
+    bpm: [100, 118],
+    swing: 14,
+    ghostBias: 1.35,
+    opens: 3,
+    backbeats: [6, 12],
+    hatDepth: 1.15,
+    openSlots: [2, 6, 10, 14],
+    /* Sits a shade behind the click rather than on it. Nothing like the Dilla drag —
+       this is the difference between a groove that pushes and one that rolls. */
+    feel: {
+      label: 'Laid back',
+      k: 0.01,
+      s: 0.06,
+      sGhost: 0.04,
+      h: [0, 0.05],
+      r: [0, 0.05],
+      c: 0,
+      jitter: 0.018,
+    },
+    kick1: [
+      ['1000', 3.2],
+      ['1001', 1.5],
+      ['1010', 1.0],
+      ['0010', 1.0],
+      ['0000', 0.7],
+    ],
+    kick: [
+      ['0000', 2.0],
+      ['0010', 1.9],
+      ['0001', 1.5],
+      ['1000', 0.8],
+      ['0011', 0.7],
+      ['0100', 0.6],
+      ['1001', 0.6],
+      ['0110', 0.4],
+    ],
+  },
+  dilla: {
+    label: 'Dilla time',
+    mix: { h: 0.6 }, // the hats lean their own way and should not lead
+    hint: 'Snare well behind the beat, kick just in front of it, hats leaning their own way. The page stays on the grid; the playback does not.',
+    hats: 16,
+    bpm: [84, 96],
+    swing: 5,
+    ghostBias: 0.7,
+    opens: 1,
+    backbeats: [4, 12],
+    hatDepth: 0.55,
+    /* Offsets are fractions of a 16th, so the feel travels with the tempo. The snare
+       drag is the load-bearing one: everything else is there to lean against it.
+       `h` and `r` are [on-16th, off-16th] — the off-beats lag while the beats sit a
+       hair early, which is the lurch, not swing. */
+    feel: {
+      label: 'Dilla time',
+      k: -0.055,
+      s: 0.175,
+      sGhost: 0.09,
+      h: [-0.02, 0.09],
+      r: [-0.02, 0.09],
+      c: -0.03,
+      jitter: 0.022,
+    },
+    kick1: [
+      ['1000', 4],
+      ['1001', 2.2],
+      ['1010', 1.5],
+      ['1100', 1.1],
+    ],
+    kick: [
+      ['0000', 1.5],
+      ['0010', 1.9],
+      ['0001', 1.7],
+      ['1000', 1.2],
+      ['1001', 1.1],
+      ['0011', 0.9],
+      ['1010', 0.7],
+      ['0100', 0.5],
+    ],
+  },
+  secondline: {
+    label: 'Second line',
+    mix: { h: 0.72 }, // the snare never sits still; let it through
+    hint: 'New Orleans roll — the kick is conversational, the snare never sits still.',
+    toms: true,
+    hats: 16,
+    bpm: [86, 104],
+    swing: 22,
+    ghostBias: 1.2,
+    opens: 2,
+    backbeats: [4, 12],
+    kick1: [
+      ['1001', 3],
+      ['1000', 3],
+      ['1010', 1.6],
+      ['1011', 0.8],
+    ],
+    kick: [
+      ['0010', 2],
+      ['0011', 1.2],
+      ['0001', 1.6],
+      ['0110', 1],
+      ['1001', 1],
+      ['0000', 0.9],
+      ['1010', 0.8],
+    ],
+  },
+  /* ---- soul, gospel and disco -------------------------------------- */
+  disco: {
+    label: 'Disco',
+    hint: 'Four on the floor, clap-hard backbeat, and an open hat barking on every "and". The hats carry the 16ths; the kick never moves.',
+    toms: true,
+    perc: [{ inst: 'tamb', every: 4, from: 2 }],
+    hats: 16,
+    bpm: [110, 128],
+    swing: 0,
+    ghostBias: 0.22,
+    opens: 4,
+    backbeats: [4, 12],
+    targetDensity: 11,
+    hatDepth: 0.7,
+    openSlots: [2, 6, 10, 14],
+    forceKick: [0, 4, 8, 12],
+    kick1: [['1000', 9]],
+    kick: [
+      ['1000', 9],
+      ['1001', 0.5],
+    ],
+  },
+  soul: {
+    label: 'Soul',
+    hint: 'Al Jackson weight without the funk busyness — 8th hats, a backbeat you lean on, ghosts filling the gaps. Sits a hair behind the click.',
+    hats: 8,
+    bpm: [86, 104],
+    swing: 12,
+    ghostBias: 0.8,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 10,
+    feel: {
+      label: 'Deep pocket',
+      k: 0.01,
+      s: 0.045,
+      sGhost: 0.03,
+      h: [0, 0.03],
+      r: [0, 0.03],
+      c: 0,
+      jitter: 0.014,
+    },
+    kick1: [
+      ['1000', 6],
+      ['1001', 1.6],
+      ['1010', 1.2],
+    ],
+    kick: [
+      ['0000', 1.8],
+      ['0010', 1.6],
+      ['0001', 1.4],
+      ['1000', 1.2],
+      ['1001', 0.7],
+      ['0011', 0.5],
+    ],
+  },
+  neosoul: {
+    label: 'Neo-soul',
+    mix: { h: 0.55 }, // quiet hats are the style; the ghosts do the talking
+    hint: 'Questlove and Chris Dave — snare well behind, kick syncopated against it, hats quiet and slightly swung. The ghosts do the talking.',
+    hats: 16,
+    bpm: [72, 92],
+    swing: 18,
+    ghostBias: 1.25,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 11,
+    hatDepth: 0.7,
+    feel: {
+      label: 'Behind',
+      k: -0.02,
+      s: 0.11,
+      sGhost: 0.07,
+      h: [-0.01, 0.05],
+      r: [-0.01, 0.05],
+      c: -0.02,
+      jitter: 0.02,
+    },
+    kick1: [
+      ['1000', 4],
+      ['1001', 2.0],
+      ['1010', 1.4],
+      ['1100', 0.9],
+    ],
+    kick: [
+      ['0000', 1.6],
+      ['0010', 1.8],
+      ['0001', 1.7],
+      ['1000', 1.0],
+      ['1001', 1.0],
+      ['0011', 0.8],
+      ['0110', 0.5],
+    ],
+  },
+  purdie: {
+    label: 'Purdie shuffle',
+    mix: { h: 0.35 }, // six ghost notes a bar with the hats landing between them
+    /* Written in 12/8, which is what it is: four pulses of three. The triplets are the
+       meter rather than a swing setting, so all three partials are real positions and
+       the page can draw the thing properly. The right hand shuffles the hi-hat on the
+       first and third partial of every pulse; the left hand puts a ghost on the second
+       — in the gap, between the hats — and the two hands together come out as an
+       unbroken triplet stream. That gap is the groove, so those ghosts are written in
+       rather than rolled for; the Ghost notes slider adds the extra ones around them. */
+    hint: 'Half-time shuffle in 12/8 — picking it moves the time signature for you. The hi-hat shuffles the first and third triplet of every pulse and the snare ghosts sit in the gaps between them, so the two hands together read as unbroken triplets. One backbeat, on 3. Leave Swing at zero: the triplets are the meter here, not a setting. The tempo counts quarter notes, so the dotted-quarter pulse is two thirds of what the readout says.',
+    kit: 'virtuosity',
+    meter: '12/8',
+    hats: 8,
+    bpm: [126, 150],
+    swing: 0,
+    ghostBias: 1.1,
+    opens: 0,
+    backbeats: [12],
+    targetDensity: 9,
+    hatDepth: 0.95,
+    hat: { steps: [0, 4, 6, 10, 12, 16, 18, 22], accents: [0, 6, 12, 18] },
+    snareGhosts: [2, 8, 14, 20],
+    ghostWeights: { 4: 0.34, 10: 0.34, 16: 0.34, 22: 0.34, 0: 0.2, 6: 0.2, 18: 0.2 },
+    forceKick: [0],
+    kick1: [['1000', 9]],
+    kick: [
+      ['0000', 3.6],
+      ['1000', 1.0],
+      ['0010', 0.9],
+      ['0001', 0.5],
+    ],
+  },
+  gospel: {
+    label: 'Gospel',
+    mix: { h: 0.7 }, // busy 16ths under a busier snare
+    hint: 'Interactive and loud — a planted backbeat, a kick that answers the room, ghosts and 16ths packed in between. Busier than soul on purpose.',
+    toms: true,
+    perc: [{ inst: 'tamb', every: 2, accents: [4, 12] }],
+    hats: 16,
+    bpm: [76, 104],
+    swing: 10,
+    ghostBias: 1.3,
+    opens: 2,
+    backbeats: [4, 12],
+    targetDensity: 13,
+    feel: {
+      label: 'Church',
+      k: -0.01,
+      s: 0.03,
+      sGhost: 0.02,
+      h: [0, 0.02],
+      r: [0, 0.02],
+      c: -0.02,
+      jitter: 0.016,
+    },
+    kick1: [
+      ['1000', 5],
+      ['1001', 1.8],
+      ['1010', 1.4],
+      ['1100', 1.0],
+    ],
+    kick: [
+      ['0010', 1.9],
+      ['0001', 1.7],
+      ['0000', 1.4],
+      ['1000', 1.1],
+      ['1001', 1.0],
+      ['0011', 0.9],
+      ['0110', 0.6],
+    ],
+  },
+  stax: {
+    label: 'Stax / Memphis soul',
+    hint: 'Sparse kick, huge snare, almost nothing else. The whole thing sits behind the click and stays there. If you are adding notes you are playing the wrong style.',
+    hats: 8,
+    bpm: [84, 102],
+    swing: 6,
+    ghostBias: 0.45,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 8,
+    forceKick: [0],
+    feel: {
+      label: 'Behind',
+      k: 0.03,
+      s: 0.08,
+      sGhost: 0.05,
+      h: [0, 0.04],
+      r: [0, 0.04],
+      c: 0.01,
+      jitter: 0.016,
+    },
+    kick1: [
+      ['1000', 8],
+      ['1001', 1.0],
+    ],
+    kick: [
+      ['0000', 3.2],
+      ['0010', 1.0],
+      ['1000', 1.0],
+      ['0001', 0.7],
+    ],
+  },
+
+  /* ---- rock and country -------------------------------------------- */
+  rock: {
+    label: 'Rock',
+    hint: 'Straight 8ths, snare on 2 and 4, kick on 1 and somewhere near 3. No swing, few ghosts, nothing behind the beat.',
+    toms: true,
+    hats: 8,
+    bpm: [100, 144],
+    swing: 0,
+    ghostBias: 0.2,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 9,
+    hatDepth: 0.8,
+    forceKick: [0],
+    kick1: [
+      ['1000', 7],
+      ['1001', 1.2],
+      ['1010', 0.8],
+    ],
+    kick: [
+      ['0000', 1.6],
+      ['1000', 1.8],
+      ['0010', 1.2],
+      ['0001', 0.9],
+      ['1001', 0.5],
+    ],
+  },
+  metal: {
+    label: 'Metal',
+    mix: { h: 0.85 }, // dense 8ths at speed add up
+    hint: 'Fast, flat and dense — 8ths on the ride or a china, kick doubles under everything, ghosts off. Expect the playability check to complain about the doubles: at this tempo you want a double pedal.',
+    toms: true,
+    hats: 8,
+    bpm: [140, 184],
+    swing: 0,
+    ghostBias: 0.12,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 13,
+    hatDepth: 0.45,
+    kick1: [
+      ['1010', 3],
+      ['1000', 2.4],
+      ['1100', 2.0],
+      ['1011', 1.0],
+    ],
+    kick: [
+      ['1010', 2.2],
+      ['0011', 1.5],
+      ['1100', 1.3],
+      ['0010', 1.2],
+      ['1000', 1.1],
+      ['0110', 0.8],
+      ['1001', 0.7],
+    ],
+  },
+  country: {
+    label: 'Country',
+    hint: 'Boom-chick: kick on 1 and 3, snare on 2 and 4, straight 8ths above. Play the snare with brushes and it is a ballad; play the 16ths and it is a train beat, which this grid will not write for you.',
+    toms: true,
+    hats: 8,
+    bpm: [96, 132],
+    swing: 0,
+    ghostBias: 0.35,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 9,
+    hatDepth: 0.85,
+    forceKick: [0],
+    kick1: [
+      ['1000', 8],
+      ['1010', 0.8],
+    ],
+    kick: [
+      ['0000', 2.0],
+      ['1000', 2.4],
+      ['0010', 0.7],
+      ['0001', 0.5],
+    ],
+  },
+
+  /* ---- Afro-Latin ---------------------------------------------------
+     Every clave below is written across one bar of sixteenths — the two bars
+     of a chart, compressed. That is why the tempos look half what you would
+     expect: one bar here is one full cycle of the clave. Play the accented
+     snare line is written as a cross-stick and played as one; the hat line is cascara,
+     which you play on the shell.
+     `clave:true` tells the generator the snare figure is the groove itself,
+     so a closing fill is not allowed to write over it.
+     ------------------------------------------------------------------- */
+  son: {
+    label: 'Son / Cuban',
+    mix: { p2: 0.75 }, // cascara under the clave, not over it
+    crossStick: true,
+    hint: '3-2 son clave on the cross-stick, cascara above it, bombo on the "and" of 2 and the ponche on 4. The clave is fixed — everything else is written around it.',
+    perc: [
+      { inst: 'clave', follow: 'backbeats' },
+      { inst: 'cascara', steps: [0, 2, 3, 6, 8, 10, 11, 14] },
+    ],
+    hats: 8,
+    bpm: [92, 112],
+    swing: 0,
+    ghostBias: 0.3,
+    opens: 1,
+    backbeats: [0, 3, 6, 10, 12],
+    clave: true,
+    targetDensity: 11,
+    hatDepth: 0.9,
+    forceKick: [3, 12],
+    kick1: [
+      ['0000', 6],
+      ['0001', 2.0],
+      ['0010', 1.0],
+    ],
+    kick: [
+      ['0000', 3.0],
+      ['0010', 1.0],
+      ['0001', 0.8],
+      ['1000', 0.6],
+    ],
+  },
+  rumba: {
+    label: 'Rumba',
+    crossStick: true,
+    hint: 'Guaguancó — the clave with its middle stroke pushed late, which pulls the whole bar onto the offbeats. The true rumba stroke falls between two sixteenths, so this grid rounds it; the displacement is the point, the exact column is not.',
+    perc: [
+      { inst: 'clave', follow: 'backbeats' },
+      { inst: 'conga', every: 2, accents: [3, 7, 11, 15] },
+    ],
+    hats: 8,
+    bpm: [92, 116],
+    swing: 0,
+    ghostBias: 0.5,
+    opens: 1,
+    backbeats: [0, 4, 6, 10, 12],
+    clave: true,
+    targetDensity: 11,
+    hatDepth: 0.95,
+    forceKick: [12],
+    kick1: [
+      ['0000', 6],
+      ['0010', 1.4],
+      ['0001', 1.0],
+    ],
+    kick: [
+      ['0000', 3.4],
+      ['0010', 1.1],
+      ['0001', 0.9],
+      ['0110', 0.4],
+    ],
+  },
+  mambo: {
+    label: 'Mambo',
+    mix: { h: 0.75 }, // the bell and the clave are the front line
+    crossStick: true,
+    hint: '2-3 clave, bell-driven and busy, with the weight landing across the bar line rather than on beat 1. Louder and squarer than son.',
+    perc: [
+      { inst: 'clave', follow: 'backbeats' },
+      { inst: 'cowbell', every: 2, accentPulse: true },
+    ],
+    hats: 16,
+    bpm: [96, 116],
+    swing: 0,
+    ghostBias: 0.5,
+    opens: 2,
+    backbeats: [2, 4, 8, 11, 14],
+    clave: true,
+    targetDensity: 12,
+    hatDepth: 0.9,
+    openSlots: [2, 6, 10, 14],
+    forceKick: [0, 12],
+    kick1: [
+      ['1000', 6],
+      ['1001', 1.2],
+    ],
+    kick: [
+      ['0000', 2.2],
+      ['0010', 1.2],
+      ['1000', 1.0],
+      ['0001', 0.9],
+    ],
+  },
+  songo: {
+    label: 'Songo',
+    mix: { h: 0.7 }, // the displaced backbeat and the congas carry it
+    hint: 'Los Van Van — the backbeat is displaced onto the "and" of 2, the kick argues with it, and the 16ths never stop. Cuban roots, kit-shaped.',
+    perc: [
+      { inst: 'cowbell', every: 2, accentPulse: true },
+      { inst: 'conga', steps: [3, 7, 10, 11, 14, 15], accents: [10, 14] },
+    ],
+    hats: 16,
+    bpm: [96, 116],
+    swing: 6,
+    ghostBias: 1.1,
+    opens: 2,
+    backbeats: [6, 12],
+    targetDensity: 13,
+    hatDepth: 1.0,
+    openSlots: [2, 6, 10, 14],
+    kick1: [
+      ['1000', 4],
+      ['1001', 1.8],
+      ['0010', 1.4],
+      ['0000', 1.2],
+    ],
+    kick: [
+      ['0010', 2.0],
+      ['0001', 1.6],
+      ['0000', 1.4],
+      ['1000', 1.0],
+      ['0011', 0.8],
+      ['0110', 0.6],
+    ],
+  },
+  samba: {
+    label: 'Samba',
+    mix: { h: 0.65, p1: 0.55 }, // continuous 16ths on both the hat and the shaker
+    hint: 'Surdo on 1 and the "a" of 1, again in the second half of the bar — that lurching kick is the whole groove. Continuous 16ths above it, shaker or hat, no let-up.',
+    perc: [
+      { inst: 'shaker', every: 1 },
+      { inst: 'agogo', steps: [0, 3, 6, 8, 11, 14], accents: [0, 8] },
+    ],
+    hats: 16,
+    bpm: [96, 116],
+    swing: 0,
+    ghostBias: 0.7,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 13,
+    hatDepth: 1.05,
+    forceKick: [0, 3, 8, 11],
+    kick1: [
+      ['1001', 7],
+      ['1000', 1.0],
+    ],
+    kick: [
+      ['0000', 3.0],
+      ['1001', 1.4],
+      ['0001', 0.8],
+    ],
+  },
+  bossa: {
+    label: 'Bossa nova',
+    mix: { h: 0.58, p2: 0.65 }, // understated is the whole style
+    crossStick: true,
+    hint: 'Everything quiet. Bossa clave on the cross-stick, the same surdo kick as samba underneath, steady 16ths on brushes or a shaker. Nothing accents; that is the style.',
+    perc: [
+      { inst: 'clave', follow: 'backbeats' },
+      { inst: 'shaker', every: 2 },
+    ],
+    hats: 16,
+    bpm: [124, 146],
+    swing: 0,
+    ghostBias: 0.15,
+    opens: 0,
+    backbeats: [0, 3, 7, 10, 12],
+    clave: true,
+    targetDensity: 9,
+    hatDepth: 0.55,
+    forceKick: [0, 3, 8, 11],
+    kick1: [['1001', 8]],
+    kick: [
+      ['0000', 4.0],
+      ['1001', 1.2],
+    ],
+  },
+  afrocuban: {
+    label: 'Afro-Cuban 6/8',
+    mix: { r: 0.85, p2: 0.68 }, // bell, clave and shaker all at once
+    crossStick: true,
+    hint: 'Written in 12/8 — one bar is a full cycle, and picking this style moves the time signature for you. The bell is the standard 6/8 pattern, the cross-stick and the claves play the 6/8 clave, and the foot marks the second and fourth pulse. Triplets are written into the meter, so leave Swing at zero.',
+    kit: 'virtuosity',
+    meter: '12/8',
+    hats: 8,
+    bpm: [92, 126],
+    swing: 0,
+    ghostBias: 0.4,
+    opens: 0,
+    backbeats: [0, 6, 12, 16, 20],
+    clave: true,
+    targetDensity: 8,
+    hatDepth: 0.9,
+    ride: { steps: [0, 4, 6, 10, 14, 16, 20], bell: [0] },
+    foot: [6, 18],
+    perc: [
+      { inst: 'clave', follow: 'backbeats' },
+      { inst: 'shaker', every: 2, accentPulse: true },
+    ],
+    kick1: [
+      ['0000', 6],
+      ['0010', 1.2],
+    ],
+    kick: [
+      ['0000', 3.4],
+      ['0010', 1.0],
+      ['0001', 0.7],
+    ],
+  },
+  reggaeton: {
+    label: 'Reggaeton',
+    hint: 'Dem bow: kick on 1 and 3, snare on the "a" of 1, the "and" of 2 and the same again in the second half. Two bars that repeat forever, machine-tight, no ghosts.',
+    perc: [{ inst: 'clap', follow: 'snare' }],
+    hats: 8,
+    bpm: [88, 100],
+    swing: 0,
+    ghostBias: 0.1,
+    opens: 1,
+    backbeats: [3, 6, 11, 14],
+    clave: true,
+    targetDensity: 11,
+    hatDepth: 0.7,
+    forceKick: [0, 8],
+    kick1: [['1000', 9]],
+    kick: [
+      ['0000', 3.0],
+      ['1000', 2.0],
+      ['0010', 0.5],
+    ],
+  },
+
+  /* ---- jazz -----------------------------------------------------------
+     Three things here are unlike everything above. The cymbal pattern is written
+     out rather than derived, because a swing ride is not eighths with an accent on
+     it. There is no snare backbeat at all — the 2 and the 4 are the hi-hat foot,
+     which is what `backbeatLane` says — and the snare is left free to comp. And the
+     kick plays all four quarters at about a third of the volume, which is written
+     as ordinary quarter notes and marked `kickFeather`, because feathering is a
+     dynamic rather than a rhythm.
+     --------------------------------------------------------------------- */
+  swing: {
+    label: 'Jazz — medium swing',
+    /* Written in 12/8 rather than 4/4-with-swing, for the same reason as the Purdie
+       shuffle: a swing ride is a triplet figure, and on a sixteenth grid two of the
+       three partials exist and the middle one does not. That middle partial is where
+       half of jazz comping lives. In 12/8 every partial is a real position, the
+       Swing slider goes to zero because the triplets are the meter, and the ride
+       lands exactly where a drummer puts it instead of two thirds of the way there. */
+    hint: 'The ride is the whole thing: 1, 2, the last triplet of 2, 3, 4, the last triplet of 4. Written in 12/8, so picking it moves the time signature — leave Swing at zero, the triplets are the meter. Hi-hat foot on 2 and 4, snare comping across the triplets, kick feathering all four beats at about a third of the volume. It sounds like itself on the Jazz kit; on a synthesised cymbal it never quite will.',
+    kit: 'virtuosity',
+    meter: '12/8',
+    hats: 8,
+    bpm: [180, 248],
+    swing: 0,
+    ghostBias: 1.7,
+    opens: 0,
+    fill: 'comp',
+    backbeats: [6, 18],
+    backbeatLane: 'hf',
+    targetDensity: 4.5,
+    hatDepth: 0.9,
+    ride: { steps: [0, 6, 10, 12, 18, 22] },
+    forceKick: [0, 6, 12, 18],
+    kickFeather: 0.34,
+    ghostHit: 0.45,
+    /* Weighted towards the gaps. Steps 4 and 16 are the last triplet of beats 1 and 3,
+       where the ride is silent and most comping actually lives; 10 and 22 are the same
+       spot on 2 and 4, where the ride is playing, so a comp there doubles it — good
+       occasionally, wrong as a habit. */
+    ghostWeights: {
+      4: 0.4,
+      16: 0.4,
+      10: 0.22,
+      22: 0.22,
+      8: 0.22,
+      20: 0.22,
+      2: 0.18,
+      14: 0.18,
+      0: 0.08,
+      12: 0.1,
+    },
+    kick1: [['0000', 9]],
+    kick: [
+      ['0000', 9],
+      ['0010', 0.5],
+    ],
+  },
+  bebop: {
+    label: 'Jazz — up-tempo',
+    hint: 'Fast enough that the feathering stops and the kick is free to drop bombs, and the comping thins right out. Also 12/8 — the triplets are written in. The very fastest bebop is past what this page can clock; this is the top of the useful range.',
+    kit: 'virtuosity',
+    meter: '12/8',
+    hats: 8,
+    bpm: [238, 292],
+    swing: 0,
+    ghostBias: 1.5,
+    opens: 0,
+    fill: 'comp',
+    backbeats: [6, 18],
+    backbeatLane: 'hf',
+    targetDensity: 2,
+    hatDepth: 0.85,
+    ride: { steps: [0, 6, 10, 12, 18, 22] },
+    ghostHit: 0.62,
+    ghostWeights: { 4: 0.34, 16: 0.34, 10: 0.2, 22: 0.2, 8: 0.18, 20: 0.18, 2: 0.1, 14: 0.1 },
+    kick1: [
+      ['0000', 11],
+      ['0010', 1.0],
+    ],
+    kick: [
+      ['0000', 10],
+      ['0010', 1.0],
+      ['0001', 0.6],
+    ],
+  },
+  jazzballad: {
+    label: 'Jazz ballad',
+    hint: 'Slow, deep, almost nothing happening — whole bars where the ride and the foot are all there is. 12/8, so the triplets are the meter. Play it with brushes: the ride figure becomes a swirl in the left hand and taps in the right, which this page can draw but not make.',
+    kit: 'brush',
+    meter: '12/8',
+    hats: 8,
+    bpm: [84, 117],
+    swing: 0,
+    ghostBias: 1.6,
+    opens: 0,
+    fill: 'comp',
+    fillComps: 1,
+    backbeats: [6, 18],
+    backbeatLane: 'hf',
+    targetDensity: 3,
+    hatDepth: 0.8,
+    ride: { steps: [0, 6, 10, 12, 18, 22] },
+    forceKick: [0, 6, 12, 18],
+    kickFeather: 0.26,
+    ghostHit: 0.3,
+    ghostWeights: { 4: 0.26, 16: 0.26, 10: 0.16, 22: 0.16, 8: 0.12, 20: 0.12 },
+    kick1: [['0000', 9]],
+    kick: [['0000', 9]],
+  },
+  jazzwaltz: {
+    label: 'Jazz waltz',
+    hint: 'Written in 3/4 and it needs to stay there — picking this style moves the time signature for you. Ride on 1, 2, the "and" of 2, 3, the "and" of 3; hi-hat foot on 2 and 3, not on 2 and 4, because there is no 4. Swing sits at 96 rather than 100: this one is notated straight and swung by feel, so the slider is doing the work the meter does in the other jazz styles. Drag it to 100 for a dead-on triplet, or pick 9/8 if you would rather see the triplets written out.',
+    kit: 'virtuosity',
+    meter: '3/4',
+    hats: 8,
+    bpm: [120, 180],
+    swing: 96,
+    swingUnit: 8,
+    ghostBias: 1.1,
+    opens: 0,
+    fill: 'comp',
+    backbeats: [4, 8],
+    backbeatLane: 'hf',
+    targetDensity: 4,
+    hatDepth: 0.85,
+    ride: { steps: [0, 4, 6, 8, 10] },
+    forceKick: [0],
+    kickFeather: 0.34,
+    ghostHit: 0.42,
+    ghostWeights: { 2: 0.34, 6: 0.46, 10: 0.46, 0: 0.12, 4: 0.16, 8: 0.16 },
+    kick1: [['1000', 9]],
+    kick: [
+      ['0000', 7],
+      ['0010', 0.9],
+      ['0001', 0.7],
+    ],
+  },
+
+  takefive: {
+    label: 'Jazz 5/4 (Take Five)',
+    mix: { r: 0.85 }, // a bell on every group start is plenty
+    /* 5/4 swung is five pulses of three, so it is written in 15/8 for the same reason
+       medium swing is written in 12/8: the triplets become real positions instead of
+       something the swing slider approximates. Brubeck's 5/4 is felt 3 + 2, which is a
+       grouping of the five pulses rather than of the meter — so the accents say it,
+       not the barline. */
+    hint: 'Five in a bar, felt three then two — the ride carries the phrasing and the hi-hat foot marks where the two-group starts. Written in 15/8, so the triplets are the meter and Swing stays at zero. Morello played it with the ride pattern breaking across the group, which is what the accents on 1 and 4 are doing here.',
+    meter: '15/8',
+    kit: 'virtuosity',
+    hats: 8,
+    bpm: [210, 285],
+    swing: 0,
+    ghostBias: 1.3,
+    opens: 0,
+    fill: 'comp',
+    backbeats: [18],
+    backbeatLane: 'hf',
+    targetDensity: 4,
+    hatDepth: 0.9,
+    ride: { steps: [0, 6, 10, 12, 18, 22, 24, 28], bell: [0, 18] },
+    foot: [6, 18],
+    forceKick: [0, 18],
+    kickFeather: 0.34,
+    ghostHit: 0.42,
+    ghostWeights: {
+      4: 0.34,
+      16: 0.34,
+      28: 0.3,
+      10: 0.2,
+      22: 0.2,
+      8: 0.18,
+      20: 0.18,
+      26: 0.16,
+      12: 0.12,
+    },
+    kick1: [['1000', 9]],
+    kick: [
+      ['0000', 7],
+      ['0010', 1.0],
+    ],
+  },
+  fusion: {
+    label: 'Jazz fusion',
+    mix: { r: 0.8 }, // the ride never stops, so it cannot sit on top
+    /* Electric Miles: Tony Williams and Jack DeJohnette are playing straight sixteenths,
+       not swing, so this one stays in 4/4. What makes it jazz rather than funk is where
+       the snare goes — not a backbeat on 2 and 4 but accents wherever the phrase wants
+       them — and a ride that never stops. */
+    hint: 'Electric Miles — Tony Williams, DeJohnette, Al Foster. Straight sixteenths rather than swing, a ride that never stops, a kick full of holes, and a snare that accents wherever the phrase wants rather than sitting on 2 and 4. Busy on purpose: this is the one jazz style with no backbeat and no feathering.',
+    kit: 'virtuosity',
+    hats: 16,
+    bpm: [96, 132],
+    swing: 0,
+    ghostBias: 1.35,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 14,
+    hatDepth: 0.75,
+    ride: { steps: [0, 2, 4, 6, 8, 10, 12, 14], bell: [0, 8] },
+    ghostHit: 0.42,
+    ghostWeights: {
+      3: 0.4,
+      7: 0.44,
+      11: 0.4,
+      15: 0.44,
+      2: 0.24,
+      6: 0.26,
+      10: 0.24,
+      14: 0.26,
+      1: 0.16,
+      5: 0.18,
+      9: 0.16,
+      13: 0.18,
+    },
+    feel: {
+      label: 'Pushed',
+      k: -0.02,
+      s: -0.015,
+      sGhost: -0.01,
+      h: [-0.015, -0.005],
+      r: [-0.015, -0.005],
+      c: -0.02,
+      jitter: 0.02,
+    },
+    kick1: [
+      ['1000', 3.4],
+      ['1001', 1.8],
+      ['1010', 1.4],
+      ['0010', 1.0],
+    ],
+    kick: [
+      ['0010', 1.9],
+      ['0001', 1.7],
+      ['0000', 1.3],
+      ['1001', 1.1],
+      ['1000', 1.0],
+      ['0011', 0.9],
+      ['0110', 0.6],
+    ],
+  },
+
+  /* ---- more funk ----------------------------------------------------- */
+  nolafunk: {
+    label: 'New Orleans funk',
+    mix: { h: 0.7 }, // the displaced accents are what you are meant to hear
+    hint: 'Zigaboo — second-line phrasing pulled into a funk band. Loose, syncopated, accents landing where you do not expect them, and the backbeat happy to arrive late at the end of a phrase.',
+    toms: true,
+    hats: 16,
+    bpm: [88, 104],
+    swing: 18,
+    ghostBias: 1.25,
+    opens: 2,
+    backbeats: [4, 12],
+    targetDensity: 12,
+    hatDepth: 1.05,
+    displace: 0.4,
+    feel: {
+      label: 'Loose',
+      k: 0.02,
+      s: 0.055,
+      sGhost: 0.04,
+      h: [0, 0.045],
+      r: [0, 0.045],
+      c: 0,
+      jitter: 0.024,
+    },
+    kick1: [
+      ['1001', 3],
+      ['1000', 2.6],
+      ['1010', 1.8],
+      ['0010', 1.0],
+    ],
+    kick: [
+      ['0010', 2.0],
+      ['0001', 1.7],
+      ['0011', 1.1],
+      ['0110', 1.0],
+      ['1001', 1.0],
+      ['0000', 1.0],
+      ['1010', 0.8],
+      ['0100', 0.6],
+    ],
+  },
+};
+
+export const STYLE_KEYS = Object.keys(STYLES);
+
+/**
+ * The style as it applies in a meter it was not written for.
+ *
+ * Positions travel as **(pulse, offset)** rather than by raw step index, so
+ * "the top of the second pulse" stays the top of the second pulse. A 2-and-4
+ * backbeat becomes one backbeat on 2 in 3/4, one on the second dotted quarter
+ * in 6/8, and beats 2 and 4 of four dotted quarters in 12/8. Positions the new
+ * bar has no room for are dropped — a five-stroke clave in 3/4 loses its fifth
+ * stroke, because there is nowhere for it to go. The critic scores the result
+ * honestly rather than pretending it worked.
+ */
+const STYLE_CACHE = new Map<string, Style>();
+
+export function styleIn(styleKey: string, meterKey: string): Style {
+  const st = STYLES[styleKey] ?? STYLES.funk;
+  const from = meterOf(st.meter ?? DEFAULT_METER);
+  const to = meterOf(meterKey ?? DEFAULT_METER);
+  if (from === to) return st;
+
+  const ck = `${styleKey}@${meterKey}`;
+  const cached = STYLE_CACHE.get(ck);
+  if (cached) return cached;
+
+  const out: Style = { ...st };
+  const stepLists = [
+    'backbeats',
+    'forceKick',
+    'noKick',
+    'openSlots',
+    'foot',
+    'snareGhosts',
+  ] as const;
+  for (const f of stepLists) {
+    const list = st[f];
+    if (list) out[f] = remapList(list, from, to);
+  }
+  if (st.ride) {
+    out.ride = {
+      steps: remapList(st.ride.steps ?? [], from, to),
+      bell: remapList(st.ride.bell ?? [], from, to),
+    };
+  }
+  if (st.hat) {
+    out.hat = {
+      steps: remapList(st.hat.steps ?? [], from, to),
+      accents: remapList(st.hat.accents ?? [], from, to),
+      opens: remapList(st.hat.opens ?? [], from, to),
+    };
+  }
+  if (st.ghostWeights) out.ghostWeights = remapWeights(st.ghostWeights, from, to);
+  if (st.perc) {
+    out.perc = st.perc.map((pc): PercSpec => {
+      if (!pc.steps && !pc.accents) return pc;
+      const o: PercSpec = { ...pc };
+      if (pc.steps) o.steps = remapList(pc.steps, from, to);
+      if (pc.accents) o.accents = remapList(pc.accents, from, to);
+      return o;
+    });
+  }
+  // a bar with no room for the style's backbeat still needs one to be a groove
+  if (!out.backbeats?.length) {
+    const g = groupsOf(to);
+    out.backbeats = [g[Math.min(1, g.length - 1)].start];
+  }
+
+  STYLE_CACHE.set(ck, out);
+  return out;
+}
+
+/**
+ * Grouping for the style picker. Presentation only — a style not named here
+ * still appears, under "Other", so adding one to {@link STYLES} is enough to
+ * ship it.
+ */
+export const STYLE_GROUPS: Array<[string, string[]]> = [
+  [
+    'Funk and breaks',
+    [
+      'funk',
+      'linearfunk',
+      'nolafunk',
+      'secondline',
+      'boombap',
+      'dilla',
+      'halftime',
+      'amen',
+      'twostep',
+    ],
+  ],
+  [
+    'Soul, gospel, disco',
+    ['motown', 'stax', 'soul', 'neosoul', 'gospel', 'disco', 'shuffle', 'purdie'],
+  ],
+  ['Jazz', ['swing', 'bebop', 'jazzballad', 'jazzwaltz', 'takefive', 'fusion']],
+  ['Rock and country', ['rock', 'metal', 'country']],
+  ['Jamaica', ['reggae', 'dub']],
+  [
+    'Afro-Latin',
+    ['afrobeat', 'son', 'rumba', 'mambo', 'songo', 'samba', 'bossa', 'afrocuban', 'reggaeton'],
+  ],
+];

@@ -18,6 +18,23 @@ release process.
 
 ### Added
 
+- **BeatBreaker's break domain** — the first of the app's own code, under the
+  fork-owned `lib/app/breaks/` seam. Pure functions, no DOM, no audio: a seeded
+  xorshift RNG (`makeRng`), the twelve-meter table and its pulse-group helpers
+  (`meter.ts`), the lane roster and GM drum map (`lanes.ts`), bar/pattern
+  construction with layer pins (`pattern.ts`), the feel and hi-hat dynamics
+  tables (`feel.ts`), the 37-style table with its cross-meter remapper
+  (`styles.ts`), and the generator itself (`generate.ts` — `generatePattern`,
+  `deriveB`, `varyBar`, `applyFill`, `applyCompFill`). `Pattern` in `types.ts`
+  is the shape every one of them agrees on.
+
+  Generation is deterministic: the same seed and options give back the same
+  break on any machine, which is what lets a share code carry a seed and the
+  server re-derive a break from it.
+
+
+### Added
+
 - **Every install has an org, and every user belongs to one** (multi-tenancy
   §106, first task). Two published model interfaces in a new
   `prisma/schema/tenancy.prisma`: `Org` (`slug`, `name`, `status`
