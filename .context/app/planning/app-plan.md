@@ -1011,9 +1011,6 @@ Writing the tests turned up two more:
 
 **Still open from Phase 0:**
 
-- `test:changed:coverage` still fails on `components/app/breaks/use-break-console.ts`
-  (about 76% statements and 53% branches). That is the 1,166-line hook Phase 1
-  splits into a provider. It gets unit tests as it is decomposed.
 - Spike A (drawers on a real phone and iPad) and Spike B (the BeatBuddy loop,
   which needs an OpenAI key) have not been started, and neither has the model
   choice for §8.

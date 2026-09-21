@@ -142,7 +142,9 @@ bar length, legal values, determinism, a findable backbeat, and NaN-free
 engraving with one playhead anchor per step. It also covers share-code
 round-trips in every style (pins included) and what the schema refuses, the
 library, every doctor move, the MIDI file at byte level, and the RNG's pinned
-sequence. `audio/transport.test.ts` drives the clock against a fake engine for
-the metronome in all 12 meters and for MIDI out.
+sequence. `tests/unit/lib/app/breaks/audio/transport.test.ts` drives the clock
+against a fake engine for the metronome in all 12 meters and for MIDI out.
 `tests/unit/components/app/breaks/break-console.test.tsx` mounts the whole
-console.
+console with no audio. `use-break-console.test.ts` beside it drives the state
+hook's actions one at a time, with the engine, sample sources and MIDI port
+faked.
