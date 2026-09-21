@@ -22,6 +22,7 @@ for the public pages, dialogs and empty states.
 8. [Decisions](#8-decisions)
 9. [Risks](#9-risks)
 10. [Later](#10-later)
+11. [Code health — what the gates found](#11-code-health--what-the-gates-found)
 
 ---
 
@@ -29,13 +30,13 @@ for the public pages, dialogs and empty states.
 
 ### What is built, and is good
 
-| Area                   | State                                                                                                                                                                                                                                                                                                                                  |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Domain**             | `lib/app/breaks/` — ~6,000 lines of pure, tested TypeScript: seeded generator (37 styles, 12 meters), critic and four-limb playability filter, five difficulty layers with pins, SVG engraver, twelve doctor moves, 47-entry famous-breaks library, share codes (Zod-validated, wire v3), MIDI writer. No DOM, runs on the server too. |
-| **Audio**              | `lib/app/breaks/audio/` — Web Audio engine, look-ahead transport, five synth kits and five recorded kits, the user's own one-shots, Web MIDI out.                                                                                                                                                                                      |
-| **Console**            | `components/app/breaks/` — one page at `/breaks`: chart, step editor, and a six-tab rail (Generate · Doctor · Library · Kit · Practice · Export). ~60 controls. Bespoke paper-and-brass look in a `.bb`-scoped stylesheet, light and dark, with print styles.                                                                          |
-| **Persistence (back)** | `Break` and `Take` models; `GET/POST /api/v1/breaks` and `GET/PATCH/DELETE /api/v1/breaks/[id]`, owner-scoped, 404-not-403, critic run server-side. GDPR export and erasure wired.                                                                                                                                                     |
-| **Fork hygiene**       | Brand seam, protected-routes seam, data-export seam and reserved-tier declaration are filled in correctly. The fork is merge-clean against Sunrise.                                                                                                                                                                                    |
+| Area                   | State                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Domain**             | `lib/app/breaks/` — ~6,000 lines of pure TypeScript: seeded generator (37 styles, 12 meters), critic and four-limb playability filter, five difficulty layers with pins, SVG engraver, twelve doctor moves, 47-entry famous-breaks library, share codes (Zod-validated, wire v3), MIDI writer. No DOM, runs on the server too. **Exercised only indirectly** — through one 17-case console integration test; no module has a unit test of its own (see §11, H0). |
+| **Audio**              | `lib/app/breaks/audio/` — Web Audio engine, look-ahead transport, five synth kits and five recorded kits, the user's own one-shots, Web MIDI out.                                                                                                                                                                                                                                                                                                                |
+| **Console**            | `components/app/breaks/` — one page at `/breaks`: chart, step editor, and a six-tab rail (Generate · Doctor · Library · Kit · Practice · Export). ~60 controls. Bespoke paper-and-brass look in a `.bb`-scoped stylesheet, light and dark, with print styles.                                                                                                                                                                                                    |
+| **Persistence (back)** | `Break` and `Take` models; `GET/POST /api/v1/breaks` and `GET/PATCH/DELETE /api/v1/breaks/[id]`, owner-scoped, 404-not-403, critic run server-side. GDPR export and erasure wired.                                                                                                                                                                                                                                                                               |
+| **Fork hygiene**       | Brand seam, protected-routes seam, data-export seam and reserved-tier declaration are filled in correctly. The fork is merge-clean against Sunrise.                                                                                                                                                                                                                                                                                                              |
 
 ### What is missing, against the brief
 
@@ -280,10 +281,19 @@ anything is built on them.
   call's output (this decides the workspace design in §6).
 - Fix what the review found that is cheap and independent: add `/breaks` (then
   `/studio`) to `robots.ts` disallow.
+- **Safety net and hygiene pass** — §11's _Fix before building on it_ list. Above
+  all H0: turn the invariants the porting commits checked by hand into committed
+  tests, because Phase 1 is a large refactor and today almost nothing would tell
+  you it broke the generator. Then H1–H6, each a small PR with its own test. This
+  is the one place the plan spends time on code that exists rather than code it
+  is about to write, and it is deliberately limited to things that survive the
+  refactor.
 
 **Done when:** the OpenAI model is chosen and recorded in §8; both spikes
 have a one-paragraph write-up in `.context/app/` saying what was learnt; the
-spike branches are deleted.
+spike branches are deleted; H0–H6 in §11 are closed or explicitly deferred with a
+reason; `.context/app/breaks.md` documents the domain, the wire format and
+`/api/v1/breaks`.
 
 ### Phase 1 — App shell · L
 
@@ -306,8 +316,10 @@ that it can be reviewed as one.
    `components/app/studio/panels/`. State stays in one place:
    `useBreakConsole` becomes a context provider mounted by the `(studio)`
    layout so the header's transport, the footer's read-out, the stage and the
-   drawers all read the same state. The existing console test suite is the
-   safety net and must pass unchanged in behaviour.
+   drawers all read the same state. The Phase 0 domain tests (§11, H0) and the
+   existing console suite are the safety net, and must pass unchanged in
+   behaviour. The provider owns the audio lifecycle, including closing the
+   `AudioContext` on unmount (§11, H7).
 4. **Move the transport** into the header and the **read-out and LEDs** into the
    footer. Remove the console's own top bar and wordmark.
 5. **Theme.** Fill `app/brand-theme.css` for the consumer surface (light and
@@ -667,7 +679,7 @@ and published a pattern.
 | E14 | **Long explanatory paragraphs inside panels** (match-tempo, MIDI out, library note). Good writing, wrong place — it pushes controls down in a narrow drawer.                                                              | One-line summary + `<FieldHelp>` ⓘ popover, per Sunrise's contextual-help rule. Needs a `.bb`-styled FieldHelp or the token unification from Phase 1.                     |
 | E15 | **Shortcuts exist** (Space, N, 1–5, G, A/B/V, `[` `]`, ⌘Z) **with no cheat-sheet.**                                                                                                                                       | `?` opens a shortcuts sheet; shortcut shown in each control's tooltip/help; add S (save), P (patterns), `/` (BeatBuddy).                                                  |
 | E16 | **LEDs and position read-out occupy the top bar**, competing with transport for the most valuable strip on the page.                                                                                                      | Footer status strip (Phase 1).                                                                                                                                            |
-| E17 | **Mixer has mute but no solo**, and a muted lane still plays over MIDI out — reasonable, but surprising.                                                                                                                  | Add solo; state the MIDI behaviour next to the MIDI-out control, or make it a choice.                                                                                     |
+| E17 | **Mixer has mute but no solo.** The MIDI-out hint says a muted lane still plays over the port; the code does the opposite (§11, H4).                                                                                      | Add solo; fix H4 so the port hears every lane, then say so next to the MIDI-out control.                                                                                  |
 | E18 | **Under 1080px the whole rail drops below the chart.**                                                                                                                                                                    | Solved structurally by drawers and the mobile transport (Phase 1).                                                                                                        |
 | E19 | **Toggle buttons say their state in their label** ("Click on" / "Click off", "On" / "Off") inconsistently, some with `aria-pressed`, some without.                                                                        | One toggle component: fixed label, pressed state visual + `aria-pressed`. One segmented-control component. One slider component with value read-out and reset-to-default. |
 | E20 | **"New" replaces your pattern with one keypress (N)** — fine while undo holds 40 steps, dangerous once patterns are saved documents with autosave.                                                                        | New on a saved pattern opens a fresh scratch pattern rather than overwriting the open one. Decide alongside Phase 3's document model.                                     |
@@ -904,17 +916,17 @@ Recommendation first in each case. None blocks Phases 0–3.
 
 ## 9. Risks
 
-| Risk                                                                                                                  | Mitigation                                                                                                                                                                                         |
-| --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Phase 1 is a big-bang refactor** of a 1,633-line component and its 1,166-line state hook.                           | No behaviour change allowed in that phase; the existing console tests are the contract; land it as a sequence of mechanical PRs (extract provider → extract panels → move transport → swap frame). |
-| **Non-modal drawers are an accessibility trap** — focus order, screen-reader discovery, `Esc`.                        | Spike A, on real devices, before committing. Fall back to modal drawers with a lighter scrim if it cannot be made sane.                                                                            |
-| **Upstream merges.** A new route group, a themed surface and an app chat route all sit near platform code that moves. | Everything is in fork tiers or documented shim points; re-run the fork checklist (CUSTOMIZATION.md §9) after each Sunrise release; keep `defaults.test.ts` pins honest.                            |
-| **Photo-to-notation accuracy** will be mixed; a confident wrong transcription is worse than none.                     | Set expectations in the copy ("mostly right"); model must name uncertain bars; playability check; keep MIDI and link import as the reliable paths; measure in the eval set.                        |
-| **AI cost with no per-user cap in the platform.**                                                                     | App-level daily allowance from day one; per-turn and monthly caps; alerts on the cost dashboard.                                                                                                   |
-| **Community library attracts junk or copied work.**                                                                   | Profile required; duplicate-grid check; publish rate cap; report → admin queue; site-wide publish kill-switch; start with publishing behind a feature flag for invited users.                      |
-| **Autosave vs. undo vs. BeatBuddy edits** — three writers to one document.                                            | One reducer owns the document; BeatBuddy's result and autosave both go through it; `rev` guards stale results; undo is local and unaffected by saves.                                              |
-| **User-supplied links on public pages** — spam, malicious redirects, tracking embeds.                                 | Host allowlist and id validation, canonical URLs rebuilt server-side, iframe `src` built from the id only, exact-origin CSP, click-to-load, `nofollow ugc`, report reason, admin strip.            |
-| **Audio on iOS/Safari**, and Web MIDI not existing there.                                                             | Unlock on first gesture wherever it lands; feature-detect MIDI and say so plainly; in the Phase 7 browser matrix.                                                                                  |
+| Risk                                                                                                                  | Mitigation                                                                                                                                                                                                                                                          |
+| --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Phase 1 is a big-bang refactor** of a 1,633-line component and its 1,166-line state hook.                           | No behaviour change allowed in that phase; the Phase 0 domain tests (§11, H0) plus the console suite are the contract — without H0 there is no contract; land it as a sequence of mechanical PRs (extract provider → extract panels → move transport → swap frame). |
+| **Non-modal drawers are an accessibility trap** — focus order, screen-reader discovery, `Esc`.                        | Spike A, on real devices, before committing. Fall back to modal drawers with a lighter scrim if it cannot be made sane.                                                                                                                                             |
+| **Upstream merges.** A new route group, a themed surface and an app chat route all sit near platform code that moves. | Everything is in fork tiers or documented shim points; re-run the fork checklist (CUSTOMIZATION.md §9) after each Sunrise release; keep `defaults.test.ts` pins honest.                                                                                             |
+| **Photo-to-notation accuracy** will be mixed; a confident wrong transcription is worse than none.                     | Set expectations in the copy ("mostly right"); model must name uncertain bars; playability check; keep MIDI and link import as the reliable paths; measure in the eval set.                                                                                         |
+| **AI cost with no per-user cap in the platform.**                                                                     | App-level daily allowance from day one; per-turn and monthly caps; alerts on the cost dashboard.                                                                                                                                                                    |
+| **Community library attracts junk or copied work.**                                                                   | Profile required; duplicate-grid check; publish rate cap; report → admin queue; site-wide publish kill-switch; start with publishing behind a feature flag for invited users.                                                                                       |
+| **Autosave vs. undo vs. BeatBuddy edits** — three writers to one document.                                            | One reducer owns the document; BeatBuddy's result and autosave both go through it; `rev` guards stale results; undo is local and unaffected by saves.                                                                                                               |
+| **User-supplied links on public pages** — spam, malicious redirects, tracking embeds.                                 | Host allowlist and id validation, canonical URLs rebuilt server-side, iframe `src` built from the id only, exact-origin CSP, click-to-load, `nofollow ugc`, report reason, admin strip.                                                                             |
+| **Audio on iOS/Safari**, and Web MIDI not existing there.                                                             | Unlock on first gesture wherever it lands; feature-detect MIDI and say so plainly; in the Phase 7 browser matrix.                                                                                                                                                   |
 
 ---
 
@@ -928,3 +940,77 @@ collections / setlists / lesson plans for teachers; embeddable player for other
 sites; offline PWA; native apps; more import formats (MusicXML, Guitar Pro);
 BeatBuddy voice input; BeatBuddy as an MCP server through `lib/app/mcp-resources.ts`
 so a user's own assistant can read their patterns; paid tier.
+
+---
+
+## 11. Code health — what the gates found
+
+The gates (`/pre-pr`, `/security-review`, `/code-review`) were run on
+2026-09-21 over everything BeatBreaker has added since the fork
+(`origin/main...HEAD`, 16 commits, ~16,000 lines). The code was ported from a
+single-file prototype artefact, and most of `components/app/breaks/` is about to
+be reshaped by Phases 1 and 3. So this is **a heads-up, not a rewrite**. Things
+are sorted by what to do about them: fix the handful that are real bugs in code
+that survives the refactor, build the test net before the refactor, and leave the
+rest to the phase that replaces it.
+
+### What passed
+
+- `npm run validate` exit 0 — CHANGELOG structure, Node version, client-env
+  delivery, type-check, lint, Prettier, Prisma format.
+- Migration drift: all 11 probes pass, including both hand-written cascading
+  FKs. Lockfile: no metadata loss, no override change. No barrel export changed.
+- Security review: **no exploitable vulnerability.** Owner scoping on every
+  query, 404-not-403, Zod on every body, share codes parsed through a schema
+  with no `eval`, SVG rendered through React with no `dangerouslySetInnerHTML`,
+  kit fetches same-origin with `redirect: 'error'`.
+- Anti-pattern scan: no console use, relative imports, hand-rolled session
+  checks, unvalidated bodies, bare server `fetch`, Prisma outside the API, or
+  hand-rolled router mocks.
+- Tests: 24,231 pass. The two failures are the `chunked-lint` heap-ceiling
+  pair, sized against this machine's RAM; they fail the same way on an
+  untouched Sunrise checkout.
+
+### Fix before building on it — Phase 0
+
+| #   | Finding                                                                                                                                                                                                                                                                                                                                                                                                                             | Sev.   | Fix                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| H0  | **Almost no tests of its own.** 27 of the fork's source files have no test. Per-file coverage from the fork's tests: 25 of 34 changed files under the 80% gate, 49% of lines overall; both `/api/v1/breaks` routes, `lib/validations/breaks.ts`, `doctor.ts`, `midi.ts` and `feel.ts` at 0–4%.                                                                                                                                      | High   | The porting commits already list what was checked by hand — _444 style × meter combinations generate and engrave with no NaN; share codes round-trip in all 37 styles, pins included; all 47 library entries parse and 43 pass playability; every doctor move keeps bar count and length and leaves its input alone; the MIDI track length matches the bytes; same seed, byte-identical pattern_. Commit those as tests, plus route tests for ownership, 404-not-403, shared reads and partial PATCH. `/test-plan` → `/test-write`. The audio engine can wait for Phase 1. |
+| H1  | **Renaming a break unshares it.** `updateBreakSchema = createBreakSchema.partial()` keeps `shared`'s `.default(false)`; Zod 4 applies defaults inside `.partial()`, so any PATCH without `shared` — a rename, a doc save — writes `shared = false`, and every link to it starts returning 404. _Reproduced._ `lib/validations/breaks.ts:23`.                                                                                        | High   | Build the update schema from a base with no defaults. Route test: PATCH `{ title }` leaves `shared` alone. The same trap waits for Phase 5's `visibility` default — **never `.partial()` a schema that has defaults.**                                                                                                                                                                                                                                                                                                                                                     |
+| H2  | **The RNG is not the xorshift32 it says it is.** `s ^= s >> 17` uses the signed shift, so that step always clears bit 31 and the generator is not a bijection — some states merge. No collisions or zero-lock turned up across the first 300k seeds, but it is not the algorithm the docstring promises. `lib/app/breaks/rng.ts:24`.                                                                                                | Medium | `>>>`. Fixing it changes what every seed generates. Stored breaks keep their full grid in `doc` and share codes carry the grid, so nothing saved changes — but do it **before** anything starts re-deriving from a seed (BeatBuddy's `generate_pattern` seed argument, Phase 5's duplicate check). Pin a golden-sequence test.                                                                                                                                                                                                                                             |
+| H3  | **The metronome is only right in 4/4.** `clickEvery = round(stepsOf(meter) / clickSub)` means "four clicks a bar", not "one per quarter": 3/4 clicks every three sixteenths, 7/8 clicks mid-beat, 6/8 on sixteenths no eighth sits on. `lib/app/breaks/audio/transport.ts:312`. _From review, not yet reproduced._                                                                                                                  | Medium | Click every 4 steps for quarters, 2 for eighths; in compound meters click the pulse groups `meter.ts` already computes. Test across all 12 meters.                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| H4  | **Muting a lane also silences it on MIDI out.** Every `send(...)` sits inside the `g(lane)` gain check, so a muted lane never reaches the port — the opposite of what the UI hint and the code comment promise, and it defeats "mute the snare on the page, hear it on the module". `transport.ts:237`. _From review._                                                                                                              | Medium | Send MIDI before the gain check. Test with a fake port.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| H5  | **A share link does not survive sign-in.** `/breaks` is protected and the break is in the `#b=` fragment, which the server never sees; the login round-trip returns to bare `/breaks` and a new break. A signed-out person opening a link someone sent them never sees it — against D2. `lib/app/protected-routes.ts`, `proxy.ts:245`.                                                                                              | Medium | Short term: before redirecting, stash the fragment in `sessionStorage` and restore it after login. Properly: Phase 5's public `/p/[slug]`, and Phase 1's `/breaks` → `/studio` redirect must not reintroduce it.                                                                                                                                                                                                                                                                                                                                                           |
+| H6  | **The share-code schema is loose about what is present.** In `packedPatternSchema` bar rows accept any string, `pc` any instrument key, `bb` and `sd` any number; `unpack` then does `Number(ch)`, so `'x'` becomes `NaN` and `'9'` becomes 9, and `POST /api/v1/breaks` stores it. Not exploitable — it renders as escaped text — but it breaks the file's own "strict about what is present" rule. `lib/app/breaks/schema.ts:85`. | Low    | Rows `^[0-4]*$` with a length cap, `pc` checked against `PERC_KEYS`, bounds on `bb` and `sd`. Worth doing now: Phase 5 makes these documents public and Phase 6 lets a model write them.                                                                                                                                                                                                                                                                                                                                                                                   |
+
+### Fix in the phase that touches it
+
+| #   | Finding                                                                                                                                                                                                                                                                | When                                                                                                                                     |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| H7  | The console's effect cleanup stops the transport but never closes the `AudioContext`, so each client-side visit leaves a live context behind. `use-break-console.ts:840`.                                                                                              | **Phase 1** — the studio provider owns the audio lifecycle.                                                                              |
+| H8  | `GET /api/v1/breaks/:id` spreads `...row`, so any signed-in reader of a shared break receives the owner's internal `userId`. Not PII, but no reason to send it.                                                                                                        | **Phase 5**, alongside the public API, whose responses already never carry a user id. Drop it from the signed-in route at the same time. |
+| H9  | `as` casts on data from outside the type system with no Zod behind them: the kit manifest (`packs.ts:110`), IndexedDB rows (`user-kit.ts:75`), and the ~30 `useLocalStorage` values the console trusts by type — an old or hand-edited value reaches the engine as-is. | **Phase 3** moves most of that state to the server. Validate what stays in `localStorage` at read, and the manifest at load.             |
+| H10 | No `.context/` documentation for the break domain, the wire format or `/api/v1/breaks`.                                                                                                                                                                                | **Phase 0**, as `.context/app/breaks.md`, alongside H0; each later phase adds its own page.                                              |
+| H11 | `(protected)` has an `error.tsx` but no `loading.tsx`. Harmless today (the page fetches nothing), but not once `/studio/[id]` loads a pattern server-side.                                                                                                             | **Phase 1** — `(studio)` ships both.                                                                                                     |
+
+### Accepted until the code is replaced
+
+- `break-console.tsx` (1,633 lines) and `use-break-console.ts` (1,166) are one
+  component and one hook — **Phase 1** splits them.
+- Sixteen `this.ctx as AudioContext` non-null casts in `engine.ts` — internal
+  nullability, not external data; tidy when the engine is next opened for a
+  reason.
+- The `.bb` stylesheet carries its own tokens — **Phase 1** moves the palette
+  into `app/brand-theme.css`.
+- Persistence to `localStorage` — **Phase 3**.
+
+### Housekeeping when this branch goes up as a PR
+
+- `npm run check:changelog-drift` flags nine `[Unreleased]` bullets this branch
+  wrote. Those pointing at the plan commit are mentions, not changes; the
+  others need the manual re-read the check asks for.
+- None of the fork is on GitHub yet and the repo is public: confirm the licence
+  of each recorded kit in `public/kits/` allows redistribution, and run a
+  secret scan over `origin/main..HEAD`, before the first push.
+- The two `chunked-lint` heap tests will fail on any machine this size; CI's
+  runner is the arbiter.
