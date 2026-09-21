@@ -71,10 +71,14 @@ export const GET = withAuth<{ id: string }>(
   {
     // Ownership: the row is fetched by `{ id, OR: [own, shared] }`, so the query
     // itself is the authorisation — see RouteOwnership in lib/auth/guards.ts.
+    // Not 'resource': that claims a `resource` resolver asked the policy about
+    // the row, and there is none — a resolver would refuse every shared read,
+    // since the policy narrows a user to their own rows. Not 'self' either: a
+    // shared row is someone else's. The policy is deliberately not consulted.
     ownership: {
-      decidedBy: 'resource',
+      decidedBy: 'nothing',
       because:
-        'Readable if the caller owns the row or the row is marked shared; both are conditions of the single fetch, and a miss is a 404 either way.',
+        'The handler decides in its own query: readable if the caller owns the row or the row is marked shared; a miss is a 404 either way.',
     },
   }
 );
