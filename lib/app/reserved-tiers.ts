@@ -79,4 +79,7 @@ export const occupiedTiers: readonly string[] = [
   // guard keeps checking the tiers we have NOT taken — a permanently-red row
   // for one we have would train everyone to ignore the rest.
   'components/app',
+  // The fork's own docs: .context/app/planning/ holds the app plan and the
+  // pre-written site copy.
+  '.context/app',
 ];

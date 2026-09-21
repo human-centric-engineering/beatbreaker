@@ -354,9 +354,10 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     seam: 'lib/app/reserved-tiers.ts',
     risk: 'a stray entry would switch OFF the guard that keeps a reserved tier empty — and it is upstream, where core is the only thing that could put a file there, that the guard is the promise rather than a formality',
     // FORK (BeatBreaker): re-pointed, not deleted — see the brand row above.
-    // components/app/breaks/ is the console. The other reserved tiers are still
-    // asserted empty, which is the point of declaring only what we occupy.
-    assert: () => expect(occupiedTiers).toEqual(['components/app']),
+    // components/app/breaks/ is the console and .context/app/ is the fork's own
+    // docs. The other reserved tiers are still asserted empty, which is the
+    // point of declaring only what we occupy.
+    assert: () => expect(occupiedTiers).toEqual(['components/app', '.context/app']),
   },
   {
     seam: 'lib/app/brand.ts',
