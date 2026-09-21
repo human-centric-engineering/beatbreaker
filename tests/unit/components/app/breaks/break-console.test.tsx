@@ -18,6 +18,9 @@ import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { BreakConsole } from '@/components/app/breaks/break-console';
+import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
+import { stashPendingLink } from '@/lib/app/breaks/pending-link';
+import { encodeBreak } from '@/lib/app/breaks/share';
 
 // jsdom/happy-dom has no CSS loader, and the stylesheet is not what is under test
 vi.mock('@/components/app/breaks/breaks.css', () => ({}));
@@ -164,6 +167,36 @@ describe('BreakConsole', () => {
     expect(document.querySelector('.title-block h2')?.textContent).toBe('Funky Drummer');
     // it brings its own tempo with it
     expect(document.querySelector('.bpmval')?.textContent).toContain('94');
+  });
+
+  it('opens a shared link that was stashed on the way through sign-in (H5)', async () => {
+    const A = generatePattern({
+      style: 'funk',
+      meter: '4/4',
+      seed: 5,
+      bars: 2,
+      density: 50,
+      ghosts: 50,
+    });
+    A.name = 'The One Somebody Sent';
+    const code = encodeBreak({
+      bpm: 101,
+      swing: 0,
+      level: 5,
+      arrangement: ['A', 'B'],
+      A,
+      B: deriveB(A),
+    });
+    window.history.replaceState(null, '', '/breaks');
+    stashPendingLink(localStorage, `#b=${code}`);
+
+    render(<BreakConsole />);
+
+    expect(await screen.findByRole('heading', { name: 'The One Somebody Sent' })).toBeTruthy();
+    // the address bar is the link that was sent, and the stash is spent
+    expect(window.location.hash).toBe(`#b=${code}`);
+    expect(localStorage.getItem('bb.pendingLink')).toBeNull();
+    window.history.replaceState(null, '', '/breaks');
   });
 
   it('round-trips the break through a share code', async () => {
