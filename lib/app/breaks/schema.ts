@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { LANES, PERC_KEYS } from '@/lib/app/breaks/lanes';
+import { LANES, LANE_VALUES, PERC_KEYS } from '@/lib/app/breaks/lanes';
 import { METER_KEYS } from '@/lib/app/breaks/meter';
 import { STYLE_KEYS } from '@/lib/app/breaks/styles';
 
@@ -44,6 +44,36 @@ export const patternSchema = z.object({
   bars: z.array(barSchema).min(1).max(8),
 });
 
+/* Bounds on a packed bar. The longest meter (15/8) is 30 steps, and a bar is
+   every lane's row joined by `|`; the caps leave room without letting a pasted
+   code carry a megabyte of digits into the database. */
+const MAX_ROW = 32;
+const MAX_BAR_STRING = LANES.length * (MAX_ROW + 1);
+
+/**
+ * One bar of a share code: every lane's row, in `LANES` order, joined by `|`.
+ * Each step is a digit no higher than that lane has values for — a crash is
+ * 0 or 1, a snare 0–4 (see `LANE_VALUES`). This is the one place untrusted
+ * step values enter, so it is where they are held to the lane's own range.
+ */
+const packedBar = z
+  .string()
+  .max(MAX_BAR_STRING)
+  .regex(/^[0-4|]*$/, 'a bar is step values 0-4 separated by |')
+  .refine((b) => {
+    const rows = b.split('|');
+    return rows.length <= LANES.length && rows.every((r) => r.length <= MAX_ROW);
+  }, 'too many lanes, or a lane longer than any meter')
+  .refine(
+    (b) =>
+      b.split('|').every((row, i) => {
+        const max = LANE_VALUES[LANES[i]]?.length ?? 0;
+        for (const ch of row) if (Number(ch) > max) return false;
+        return true;
+      }),
+    'a step value that lane does not have'
+  );
+
 /* ---- the wire format ------------------------------------------------
    Version 3 adds the meter, the lane roster and what is in each percussion
    slot. A version 2 code still decodes: no meter means 4/4, no roster means
@@ -59,15 +89,20 @@ export const packedPatternSchema = z.object({
   /** voice */
   v: z.enum(['hat', 'ride']).default('hat'),
   /** seed */
-  sd: z.number().int().default(0),
+  sd: z.number().int().min(0).max(0xffffffff).default(0),
   /** backbeats */
-  bb: z.array(z.number().int()).default([]),
+  bb: z.array(z.number().int().min(0).max(63)).max(MAX_ROW).default([]),
   /** meter — absent in a v2 code */
   mt: z.string().optional(),
   /** lane roster — absent in a v2 code */
-  ln: z.array(z.string()).optional(),
+  ln: z.array(z.string().max(4)).max(LANES.length).optional(),
   /** percussion slots */
-  pc: z.record(z.string(), z.string()).optional(),
+  pc: z
+    .partialRecord(
+      z.enum(['p1', 'p2']),
+      z.string().refine((s) => PERC_KEYS.includes(s), 'unknown percussion instrument')
+    )
+    .optional(),
   /** backbeat lane */
   bl: z.string().optional(),
   /** has a written ride pattern */
@@ -79,10 +114,26 @@ export const packedPatternSchema = z.object({
    * none. `0` for the whole field means the code predates pins.
    */
   pn: z
-    .union([z.literal(0), z.array(z.union([z.literal(0), z.record(z.string(), z.string())]))])
+    .union([
+      z.literal(0),
+      z
+        .array(
+          z.union([
+            z.literal(0),
+            z.record(
+              z.string(),
+              z
+                .string()
+                .max(MAX_ROW)
+                .regex(/^[0-5]*$/, 'a pin is a layer 0-5')
+            ),
+          ])
+        )
+        .max(8),
+    ])
     .optional(),
   /** bars, each one every lane's row joined by `|` */
-  b: z.array(z.string()).min(1).max(8),
+  b: z.array(packedBar).min(1).max(8),
 });
 
 export const sharePayloadSchema = z.object({

@@ -11,9 +11,9 @@
  * generator, the critic and the layer reducer all do arithmetic on them
  * (`v >= 2` = "a real note", `Math.min(v, 2)` = "no louder than a hit"), and a
  * union would need a cast at every one of those sites. The legal values per
- * lane are documented on {@link LANE_VALUES} in `lanes.ts` and enforced by
- * `sanitisePattern()` in `share.ts`, which is the only place untrusted values
- * enter.
+ * lane are documented on {@link LANE_VALUES} in `lanes.ts` and enforced on the
+ * way in by the packed-bar schema in `schema.ts`, which is the only place
+ * untrusted values enter.
  */
 
 /** Lanes every style gets. */
