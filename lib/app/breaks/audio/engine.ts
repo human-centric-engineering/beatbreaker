@@ -50,6 +50,33 @@ export interface SampleSource {
 }
 
 /**
+ * Several sample sources behind one, tried in order.
+ *
+ * The recorded packs and your own one-shots are different engines that answer
+ * for different kits, and both have to be reachable at once — the kit picker
+ * can move between them without a reload. Each source already returns `false`
+ * for a slot it does not cover, so "ask the next one" is the same rule the
+ * synthesised fallback uses, one level up.
+ */
+export class SourceStack implements SampleSource {
+  constructor(private readonly sources: SampleSource[]) {}
+
+  hit(engine: BreakAudio, t: number, slotId: string, vel: number): boolean {
+    for (const s of this.sources) if (s.hit(engine, t, slotId, vel)) return true;
+    return false;
+  }
+
+  percHit(engine: BreakAudio, t: number, inst: string, vel: number, accent: boolean): boolean {
+    for (const s of this.sources) if (s.percHit?.(engine, t, inst, vel, accent)) return true;
+    return false;
+  }
+
+  refresh(engine: BreakAudio): void {
+    for (const s of this.sources) s.refresh?.(engine);
+  }
+}
+
+/**
  * Soft clipping for the drive control.
  *
  * Odd length, so index `(n-1)/2` is exactly `x = 0`. An even-length curve maps
@@ -879,6 +906,35 @@ export class BreakAudio {
   }
 
   /** The metronome. Deliberately straight to the bus: it never goes in the room. */
+  /**
+   * A bar of the kit, for comparing one against another.
+   *
+   * Deliberately plays every voice — kick, snare, ghost, closed and open hat,
+   * ride and its bell, crash — because what separates two kits is rarely the
+   * kick. Scheduled as one phrase rather than as single hits so the room and
+   * the glue compressor are doing what they do when it is actually playing.
+   */
+  demo(): boolean {
+    const ctx = this.init();
+    if (!ctx) return false;
+    this.resume();
+    const t = ctx.currentTime + 0.05;
+    const q = 0.26;
+    this.kick(t, 1);
+    this.hat(t, 0.8);
+    this.hat(t + q * 0.5, 0.6);
+    this.snare(t + q, 1);
+    this.hat(t + q, 0.8);
+    this.hat(t + q * 1.5, 0.6, true);
+    this.kick(t + q * 2, 0.95);
+    this.ride(t + q * 2, 0.9, true);
+    this.ride(t + q * 2.5, 0.7);
+    this.snare(t + q * 3, 0.5, true);
+    this.snare(t + q * 3.5, 1);
+    this.crash(t + q * 3.5, 0.9);
+    return true;
+  }
+
   click(t: number, strong?: boolean): void {
     const ctx = this.ctx;
     if (!ctx || !this.bus) return;

@@ -1,7 +1,9 @@
 import type { BreakAudio } from '@/lib/app/breaks/audio/engine';
+import type { MidiSink } from '@/lib/app/breaks/audio/midi-out';
 import { feelOf, feelOffset, hatShape, isSwung } from '@/lib/app/breaks/feel';
-import { DEFAULT_PERC, FOOT_LANE, PERC_LANES, TOM_LANES } from '@/lib/app/breaks/lanes';
+import { DEFAULT_PERC, FOOT_LANE, PERC_LANES, TOM_LANES, percInst } from '@/lib/app/breaks/lanes';
 import { M44, groupAt, isGroupStart, meterOf, pulseInfo, stepsOf } from '@/lib/app/breaks/meter';
+import { MIDI_MAP } from '@/lib/app/breaks/midi';
 import { meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
 import { STYLES } from '@/lib/app/breaks/styles';
 import type { Bar, LaneKey, Meter, Pattern } from '@/lib/app/breaks/types';
@@ -111,6 +113,13 @@ export class Transport {
   private loops = 0;
 
   playing = false;
+
+  /**
+   * An optional MIDI port playing alongside the kit. It is handed the time the
+   * transport actually scheduled — swung, and shifted by the style's feel — so
+   * the port drags exactly where the speakers drag.
+   */
+  midi: MidiSink | null = null;
 
   constructor(
     private readonly audio: BreakAudio,
@@ -241,10 +250,18 @@ export class Transport {
     /* Feathering: a jazz kick plays all four quarters, but you are meant to feel
        them rather than hear them. Written as ordinary quarter notes, played at a
        third — so the critic reads timekeeping, not syncopation. */
+    /* The port hears the same note at the same velocity as the kit, before the
+       mixer: a muted lane is a lane you are playing yourself, and the whole
+       point of sending it out is that the module plays it instead. */
+    const out = this.midi;
+    const send = (note: number, vel: number, when: number): void => out?.hit(note, vel, when);
+
     if (bar.k[i] && g('k')) {
       const feather =
         style?.kickFeather && bar.k[i] === 1 && isGroupStart(m, i) ? style.kickFeather : 1;
-      this.audio.kick(at('k'), (bar.k[i] === 2 ? 1 : 0.9) * feather * g('k'));
+      const v = (bar.k[i] === 2 ? 1 : 0.9) * feather;
+      this.audio.kick(at('k'), v * g('k'));
+      send(MIDI_MAP.k, v, at('k'));
     }
 
     /* A foot chick is a quiet sound. At 0.62 the sample picker reached for the
@@ -252,36 +269,44 @@ export class Transport {
        hit than the pedal actually makes at that volume. */
     if (bar[FOOT_LANE][i] && g(FOOT_LANE)) {
       this.audio.hat(at('h'), 0.4 * g(FOOT_LANE), false, true);
+      send(MIDI_MAP.hf, 0.55, at('h'));
     }
 
     if (bar.s[i] && g('s')) {
       const sv = bar.s[i];
       const v = sv === 1 ? 0.5 : sv === 3 ? 1 : sv === 4 ? 0.82 : 0.78;
       this.audio.snare(at('s', sv === 1), v * g('s'), sv === 1, sv === 4);
+      send(sv === 4 ? MIDI_MAP.sCross : MIDI_MAP.s, v, at('s', sv === 1));
     }
     if (bar.h[i] && g('h')) {
-      this.audio.hat(
-        at('h'),
-        0.86 * hatShape(i, bar.h[i], 'h', m, style, snap.hats) * g('h'),
-        bar.h[i] === 3
-      );
+      const v = 0.86 * hatShape(i, bar.h[i], 'h', m, style, snap.hats);
+      this.audio.hat(at('h'), v * g('h'), bar.h[i] === 3);
+      send(bar.h[i] === 3 ? MIDI_MAP.hOpen : MIDI_MAP.h, v, at('h'));
     }
     if (bar.r[i] && g('r')) {
-      this.audio.ride(
-        at('r'),
-        (bar.r[i] === 2 ? 0.95 : 0.84) * hatShape(i, bar.r[i], 'r', m, style, snap.hats) * g('r'),
-        bar.r[i] === 2
-      );
+      const v = (bar.r[i] === 2 ? 0.95 : 0.84) * hatShape(i, bar.r[i], 'r', m, style, snap.hats);
+      this.audio.ride(at('r'), v * g('r'), bar.r[i] === 2);
+      send(bar.r[i] === 2 ? MIDI_MAP.rBell : MIDI_MAP.r, v, at('r'));
     }
-    if (bar.c[i] && g('c')) this.audio.crash(at('c'), 0.9 * g('c'));
+    if (bar.c[i] && g('c')) {
+      this.audio.crash(at('c'), 0.9 * g('c'));
+      send(MIDI_MAP.c, 0.9, at('c'));
+    }
 
     for (const L of TOM_LANES) {
-      if (bar[L][i] && g(L)) this.audio.tom(at('s'), (bar[L][i] === 2 ? 1 : 0.86) * g(L), L);
+      if (!bar[L][i] || !g(L)) continue;
+      const v = bar[L][i] === 2 ? 1 : 0.86;
+      this.audio.tom(at('s'), v * g(L), L);
+      send(MIDI_MAP[L], v, at('s'));
     }
     PERC_LANES.forEach((L, li) => {
       if (!bar[L][i] || !g(L)) return;
       const inst = livePat.perc?.[L] ?? DEFAULT_PERC[li];
-      this.audio.perc(at('s'), (bar[L][i] === 2 ? 0.95 : 0.7) * g(L), inst, bar[L][i] === 2, L);
+      const accent = bar[L][i] === 2;
+      const v = accent ? 0.95 : 0.7;
+      this.audio.perc(at('s'), v * g(L), inst, accent, L);
+      const pi = percInst(inst);
+      send(accent ? pi.hi : pi.midi, v, at('s'));
     });
 
     const clickEvery = Math.max(1, Math.round(stepsOf(m) / snap.clickSub));

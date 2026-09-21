@@ -258,17 +258,49 @@ export function kitEngine(key: string): KitEngine {
 /**
  * The engines that actually have an implementation behind them.
  *
- * `drift` (the TR-808 / TR-909 voice models) and `user` (your own one-shots in
- * IndexedDB) are declared by kits in the table but not yet ported. Without this
- * they would not fail — they would fall through to the synthesised voices with
- * the Machine kit's parameters, so picking "TR-909" would quietly give you
- * something else and sound like a poor 909 rather than a missing one. The kit
- * picker reads this and says so instead.
+ * `drift` — the TR-808 / TR-909 voice models — is declared by two kits in the
+ * table but not yet ported. Without this it would not fail: it would fall
+ * through to the synthesised voices with the Machine kit's parameters, so
+ * picking "TR-909" would quietly give you something else and sound like a poor
+ * 909 rather than a missing one. The kit picker reads this and says so instead.
  */
-const IMPLEMENTED_ENGINES: ReadonlySet<KitEngine> = new Set<KitEngine>(['synth', 'pack']);
+const IMPLEMENTED_ENGINES: ReadonlySet<KitEngine> = new Set<KitEngine>(['synth', 'pack', 'user']);
 
 export function kitIsPlayable(key: string): boolean {
   return IMPLEMENTED_ENGINES.has(kitEngine(key));
+}
+
+/**
+ * What the picker calls each engine.
+ *
+ * `pack` and `user` share a heading on purpose: both are recordings, and the
+ * only difference to someone choosing is whose recordings they are.
+ */
+export const KIT_GROUP_LABELS: Record<KitEngine, string> = {
+  synth: 'Synthesised',
+  drift: 'Drum machines',
+  pack: 'Recordings',
+  user: 'Recordings',
+};
+
+/**
+ * The kits as the picker shows them: runs of consecutive kits that share a
+ * heading, in table order.
+ *
+ * Grouping by run rather than by engine keeps the table the single place the
+ * order is decided — move a kit in {@link KITS} and the picker follows. A kit
+ * dropped between two runs of the same heading splits it into two, which is
+ * the visible symptom of a table that wants reordering.
+ */
+export function kitGroups(): { label: string; keys: string[] }[] {
+  const groups: { label: string; keys: string[] }[] = [];
+  for (const key of KIT_KEYS) {
+    const label = KIT_GROUP_LABELS[kitEngine(key)];
+    const last = groups[groups.length - 1];
+    if (last && last.label === label) last.keys.push(key);
+    else groups.push({ label, keys: [key] });
+  }
+  return groups;
 }
 
 /**
@@ -444,6 +476,32 @@ export function fmtParam(def: ParamDef, v: number): string {
   if (def.fmt === 's') return `${v < 0.1 ? v.toFixed(3) : v.toFixed(2)}s`;
   if (def.fmt === 'x') return `${v.toFixed(2)}×`;
   return `${Math.round(v * 100)}%`;
+}
+
+/**
+ * A kit's numbers with your tuning laid over the top.
+ *
+ * Tuning is stored **per kit**, keyed by kit name, rather than as one global
+ * override: a 909's knobs are 0–1 and a synthesised kick's are hertz and
+ * seconds, so one saved set carried onto the other kit is not a preference,
+ * it is a 50 Hz kick read as a half-open filter. Only keys the kit already has
+ * are taken, so a stale saved key from an older kit table is ignored rather
+ * than inventing a parameter the voice does not read.
+ */
+export function withTuning(
+  kitKey: string,
+  tuning: Record<string, VoiceParams> | undefined
+): Record<string, VoiceParams> {
+  const out = kitDefaults(kitKey);
+  if (!tuning) return out;
+  for (const voice of Object.keys(out)) {
+    const saved = tuning[voice];
+    if (!saved) continue;
+    for (const key of Object.keys(out[voice])) {
+      if (typeof saved[key] === 'number') out[voice][key] = saved[key];
+    }
+  }
+  return out;
 }
 
 /** A kit's shipped values — the thing a user's tuning is an override of. */

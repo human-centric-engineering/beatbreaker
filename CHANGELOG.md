@@ -112,6 +112,28 @@ release process.
   nowhere to put a file. As real files the browser caches them, a kit you never
   pick costs nothing, and they are out of the JS bundle.
 
+- **Your own samples, and live MIDI out** — `audio/user-kit.ts` (`UserSource`,
+  `MAX_SAMPLE_SECONDS`) fills the kit's slots from one-shots on your machine,
+  decoded once and kept in IndexedDB; nothing is uploaded. `audio/midi-out.ts`
+  (`MidiOut`, `MidiSink`) plays the break out of a MIDI port as it happens, on
+  the same GM drum map the file export writes. `SourceStack` in `audio/engine.ts`
+  puts the recorded packs and your samples behind one `SampleSource`, so moving
+  between them needs no reload, and `BreakAudio.demo()` plays a bar of the
+  current kit.
+
+  The two clocks are not the same clock: Web Audio schedules against
+  `AudioContext.currentTime` and Web MIDI against `performance.now()`.
+  `MidiOut` converts at send time, so a note that swings late in the speakers
+  swings late on the port. `Transport.midi` is the seam it hangs off.
+
+  `kitIsPlayable()` now reports the `user` engine as playable. `drift` — the
+  TR-808 and TR-909 voice models — is still the one engine not ported.
+
+- **Per-kit tuning** — `withTuning(kitKey, tuning)` in `kit.ts` lays a saved
+  override over a kit's shipped numbers. Tuning is keyed by kit rather than
+  held globally: a 909's knobs are 0–1 and a synthesised kick's are hertz and
+  seconds, so one saved set carried onto the other kit is not a preference.
+
 - **Every install has an org, and every user belongs to one** (multi-tenancy
   §106, first task). Two published model interfaces in a new
   `prisma/schema/tenancy.prisma`: `Org` (`slug`, `name`, `status`

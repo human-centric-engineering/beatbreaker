@@ -13,7 +13,7 @@
  * ways this has actually broken during the port.
  */
 
-import { render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -22,12 +22,17 @@ import { BreakConsole } from '@/components/app/breaks/break-console';
 // jsdom/happy-dom has no CSS loader, and the stylesheet is not what is under test
 vi.mock('@/components/app/breaks/breaks.css', () => ({}));
 
+/** A grid cell holding a note: its value is in `data-on`, and 0 is empty. */
+const NOTES = ".cell:not([data-on='0'])";
+
 /**
  * No `AudioContext` here, which is the point: `BreakAudio.init()` returns null
  * and the console has to stay usable. Notation and the critic do not need
  * audio, and a browser without Web Audio should still be able to read a chart.
  */
 beforeEach(() => {
+  // every one of these starts from a browser that has never seen the app
+  localStorage.clear();
   vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
     return setTimeout(() => cb(0), 0) as unknown as number;
   });
@@ -71,8 +76,9 @@ describe('BreakConsole', () => {
     const cells = document.querySelectorAll('.cell');
     // 2 bars x 16 steps x 5 lanes for a funk kit, at least
     expect(cells.length).toBeGreaterThanOrEqual(2 * 16 * 5);
-    // some of them are notes
-    expect(document.querySelectorAll('.cell.on').length).toBeGreaterThan(0);
+    // some of them are notes — a cell's value lives in `data-on`, which is
+    // what the stylesheet keys off too, so 0 is the empty cell
+    expect(document.querySelectorAll(NOTES).length).toBeGreaterThan(0);
   });
 
   it('changes the chart when the layer changes', async () => {
@@ -80,9 +86,9 @@ describe('BreakConsole', () => {
     render(<BreakConsole />);
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    const before = document.querySelectorAll('.cell.on').length;
+    const before = document.querySelectorAll(NOTES).length;
     await user.click(screen.getByRole('button', { name: 'L1' }));
-    const after = document.querySelectorAll('.cell.on').length;
+    const after = document.querySelectorAll(NOTES).length;
 
     /* L1 is the skeleton — kick on the beat, backbeat, 8th hats — so it must
        carry strictly fewer notes than the full break. Equal would mean the
@@ -117,7 +123,7 @@ describe('BreakConsole', () => {
       .map((c) => c.getAttribute('data-on'))
       .join('');
 
-    await user.click(screen.getByRole('button', { name: 'New break' }));
+    await user.click(screen.getByRole('button', { name: /^New break/ }));
 
     const secondGrid = [...document.querySelectorAll('.cell')]
       .map((c) => c.getAttribute('data-on'))
@@ -188,5 +194,187 @@ describe('BreakConsole', () => {
     await user.click(screen.getByRole('button', { name: 'Load it' }));
 
     expect(await within(document.body).findByText('Break loaded')).toBeTruthy();
+  });
+  it('keeps your tuning of a kit, and hands it back when you reset', async () => {
+    const user = userEvent.setup();
+    render(<BreakConsole />);
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+
+    await user.click(screen.getByRole('tab', { name: 'Kit' }));
+
+    /* Nothing is tuned yet, so there is nothing to put back — the reset has to
+       say so rather than sitting there live and doing nothing. */
+    const resetKit = screen.getByRole('button', { name: 'Reset whole kit' });
+    expect(resetKit).toBeDisabled();
+
+    /* Two cards carry a Room: the kit's whole-mix send, and the one lane the
+       Voice card is editing. Scope to the card, or this asserts on whichever
+       happens to be first in the DOM. */
+    const kitCard = within(screen.getByRole('heading', { name: 'Kit' }).closest('.card')!);
+    const room = kitCard.getByLabelText<HTMLInputElement>('Room');
+    const shipped = room.value;
+    fireEvent.change(room, { target: { value: '61' } });
+
+    expect(kitCard.getByLabelText<HTMLInputElement>('Room').value).toBe('61');
+    expect(screen.getByRole('button', { name: 'Reset whole kit' })).toBeEnabled();
+    // it is an override of the kit's numbers, saved against that kit by name
+    expect(JSON.parse(localStorage.getItem('bb.sound') ?? '{}')).toMatchObject({
+      studio70: { master: { room: 0.61 } },
+    });
+
+    await user.click(screen.getByRole('button', { name: 'Reset whole kit' }));
+    expect(kitCard.getByLabelText<HTMLInputElement>('Room').value).toBe(shipped);
+  });
+
+  it('shows the knobs the loaded engine actually has', async () => {
+    const user = userEvent.setup();
+    render(<BreakConsole />);
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+    await user.click(screen.getByRole('tab', { name: 'Kit' }));
+
+    /* A synthesised hi-hat is built from noise and a filter, so it has a size
+       and a brightness. A recording has neither — what is left is how fast it
+       plays back. Showing "Bright" over a sample would be a knob that lies. */
+    const voice = () => within(screen.getByRole('heading', { name: 'Voice' }).closest('.card')!);
+    expect(voice().getByLabelText('Size')).toBeTruthy();
+    expect(voice().getByLabelText('Bright')).toBeTruthy();
+
+    await user.selectOptions(screen.getByLabelText('Kit'), 'virtuosity');
+    expect(voice().queryByLabelText('Bright')).toBeNull();
+    expect(voice().getByLabelText('Speed')).toBeTruthy();
+  });
+
+  it('saves a break and gives it back', async () => {
+    const user = userEvent.setup();
+    render(<BreakConsole />);
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+
+    const name = document.querySelector('.title-block h2')?.textContent ?? '';
+    await user.click(screen.getByRole('tab', { name: 'Library' }));
+    await user.click(screen.getByRole('button', { name: '＋ Save current' }));
+
+    /* The delete button is named after the break too, so match the row rather
+       than anything carrying the name. */
+    const savedRow = (_n: string, el: Element) =>
+      el.classList.contains('item') && !!el.textContent?.startsWith(name);
+    expect(await screen.findByRole('button', { name: savedRow })).toBeTruthy();
+
+    // a new break moves the grid on; loading the saved one has to bring it back
+    const gridOf = () =>
+      [...document.querySelectorAll('.cell')].map((c) => c.getAttribute('data-on')).join('');
+    const before = gridOf();
+    await user.click(screen.getByRole('button', { name: /^New break/ }));
+    expect(gridOf()).not.toBe(before);
+
+    await user.click(screen.getByRole('tab', { name: 'Library' }));
+    await user.click(screen.getByRole('button', { name: savedRow }));
+    expect(gridOf()).toBe(before);
+
+    await user.click(screen.getByRole('button', { name: `Delete ${name}` }));
+    expect(screen.queryByRole('button', { name: savedRow })).toBeNull();
+  });
+
+  it('clears a section without losing it', async () => {
+    const user = userEvent.setup();
+    render(<BreakConsole />);
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+
+    const notes = () => document.querySelectorAll(NOTES).length;
+    const before = notes();
+    expect(before).toBeGreaterThan(0);
+
+    await user.click(screen.getByRole('tab', { name: 'Doctor' }));
+    await user.click(screen.getByRole('button', { name: 'Clear section' }));
+    expect(notes()).toBe(0);
+
+    await user.click(screen.getByRole('button', { name: '↶ Undo' }));
+    expect(notes()).toBe(before);
+  });
+
+  it('drops the tempo to suit the layer, and puts it back at L5', async () => {
+    const user = userEvent.setup();
+    render(<BreakConsole />);
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+
+    const bpm = () => Number(document.querySelector('.bpmval')?.textContent?.match(/\d+/)?.[0]);
+    const written = bpm();
+
+    await user.click(screen.getByRole('tab', { name: 'Practice' }));
+    await user.click(screen.getByRole('button', { name: 'Off' }));
+    await user.click(screen.getByRole('button', { name: 'L1' }));
+
+    // L1 is a practice speed, not the break's speed
+    expect(bpm()).toBeLessThan(written);
+
+    await user.click(screen.getByRole('button', { name: 'L5' }));
+    expect(bpm()).toBe(written);
+
+    /* Dragging the tempo while the match is on sets the speed for the layer
+       you are on, not the break's — so practising L1 slowly must not quietly
+       rewrite the break as a slow break. */
+    await user.click(screen.getByRole('button', { name: 'L1' }));
+    const slow = bpm();
+    fireEvent.change(screen.getByLabelText('Tempo'), { target: { value: String(slow - 10) } });
+    await user.click(screen.getByRole('button', { name: 'L5' }));
+    expect(bpm()).toBeGreaterThan(slow);
+    await user.click(screen.getByRole('button', { name: 'L1' }));
+    expect(Math.abs(bpm() - (slow - 10))).toBeLessThanOrEqual(1);
+  });
+
+  it('drives the console from the keyboard', async () => {
+    const user = userEvent.setup();
+    render(<BreakConsole />);
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+
+    const notes = () => document.querySelectorAll(NOTES).length;
+    const full = notes();
+    await user.keyboard('1');
+    expect(notes()).toBeLessThan(full);
+
+    // and typing into a field is typing, not a shortcut
+    await user.click(screen.getByRole('tab', { name: 'Export' }));
+    const box = screen.getByLabelText('Load a break code');
+    await user.click(box);
+    await user.keyboard('5');
+    expect((box as HTMLTextAreaElement).value).toBe('5');
+    expect(notes()).toBeLessThan(full);
+  });
+
+  it('draws the next layer faintly when asked, and nothing at the top', async () => {
+    const user = userEvent.setup();
+    render(<BreakConsole />);
+    const staves = await screen.findAllByRole('img', { name: /Drum notation/ });
+
+    /* The preview is the next layer's notes in faint ink. L5 is the whole
+       break, so above it there is nothing to show and the button has to say so
+       rather than previewing an empty difference. */
+    const faint = () =>
+      staves[0].querySelectorAll('[stroke="var(--faint)"], [fill="var(--faint)"]');
+    const preview = screen.getByRole('button', { name: 'Preview next layer' });
+    expect(preview).toBeEnabled();
+    expect(faint().length).toBeGreaterThan(0);
+
+    await user.click(screen.getByRole('button', { name: 'L5' }));
+    expect(screen.getByRole('button', { name: 'Preview next layer' })).toBeDisabled();
+  });
+
+  it('shows what the style asked for before you take the lanes over', async () => {
+    const user = userEvent.setup();
+    render(<BreakConsole />);
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+
+    // the picker is readable while the style owns it, so you can see the roster
+    const picker = document.querySelector('.lanepick');
+    expect(picker?.getAttribute('data-locked')).toBe('1');
+
+    await user.click(screen.getByRole('button', { name: 'Following the style' }));
+    expect(document.querySelector('.lanepick')?.getAttribute('data-locked')).toBe('0');
+
+    /* Taking it over must not change the sound: it starts from the roster that
+       was on screen, not from an empty kit. */
+    const toms = screen.getByRole<HTMLInputElement>('checkbox', { name: 'Toms' });
+    expect(toms.checked).toBe(false);
+    await user.click(toms);
+    expect(document.querySelectorAll('.gridrow').length).toBeGreaterThan(5);
   });
 });

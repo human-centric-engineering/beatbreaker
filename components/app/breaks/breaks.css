@@ -11,7 +11,10 @@
  *
  *  - Every selector is prefixed with `.bb`, and bare `body` became `.bb`
  *    itself, so nothing here reaches the admin surface or the marketing pages.
- *    Done with PostCSS rather than by hand, so no selector is missed.
+ *    Done with PostCSS rather than by hand, so no selector is missed. The one
+ *    deliberate exception is `main:has(.bb)` under LAYOUT, which reaches *up*
+ *    to release the protected layout's centred container — still keyed on
+ *    `.bb`, so it only fires on a page this console is on.
  *  - The prototype carried its own theme system (`prefers-color-scheme` plus a
  *    `data-theme` attribute). Sunrise themes with a `.dark` class and a
  *    ThemeProvider, so the dark tokens hang off `.dark .bb` and the console
@@ -324,14 +327,22 @@
 /* ============================================================
    LAYOUT
    ============================================================ */
+/* The console is an app view, not an article: it fills the window rather than
+   sitting in the centred column the rest of the site reads in. The protected
+   layout wraps every page in a `container mx-auto px-4 py-8`, and a nested
+   route layout cannot escape its parent, so the container is released from
+   here — `:has()` keeps it to the one page that wants it and leaves every
+   other protected page alone. */
+main:has(.bb) {
+  max-width: none;
+  padding: 0;
+}
 .bb .console {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 366px;
   gap: 18px;
   padding: 18px;
   align-items: start;
-  max-width: 1560px;
-  margin: 0 auto;
 }
 @media (max-width: 1080px) {
   .bb .console {
@@ -485,12 +496,42 @@
   font-family: var(--f-mono);
 }
 
+/* The chart's own controls: how the staff is drawn, not what it plays.
+   They live on the chart rather than in the rail because every one of them
+   changes something you are looking at while you look at it. */
+.bb .chart-tools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+.bb .chart-tools .sizer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+.bb .chart-tools .sizer input[type='range'] {
+  width: 148px;
+}
+
 .bb .paper {
   position: relative;
   background:
     radial-gradient(circle at 20% 10%, var(--paper-grain) 0 1px, transparent 1px) 0 0/7px 7px,
     var(--raised);
   padding: 6px 4px 2px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+/* The engraving is drawn at a fixed pixel width, and the size slider can take
+   that past the panel. Scrolling the staff sideways beats clipping it — the
+   chartwrap itself is `overflow: hidden`, so without this the last bar of a
+   zoomed chart would simply be gone. */
+.bb .stave {
   overflow-x: auto;
   overflow-y: hidden;
 }
@@ -692,9 +733,9 @@
   border-color: var(--line);
   background: color-mix(in srgb, var(--sunk) 70%, var(--panel));
 }
-.bb .cell[data-on='1'],
-.bb .cell[data-on='2'],
-.bb .cell[data-on='3'] {
+/* Any value at all — enumerating 1..3 left the snare's cross-stick, value 4,
+   wearing a border no other note has. */
+.bb .cell:not([data-on='0']) {
   border-color: transparent;
 }
 .bb .cell.fire {
@@ -1131,6 +1172,42 @@
 .bb .item .kill:hover {
   color: var(--bad);
 }
+/* A saved break: load on the left, forget on the right. Two buttons in a row
+   rather than one inside the other — nesting them is invalid HTML, and every
+   way of faking the nesting costs the keyboard the delete control. */
+.bb .favrow {
+  display: flex;
+  gap: 6px;
+  align-items: stretch;
+}
+.bb .favrow .item:first-child {
+  flex: 1;
+  min-width: 0;
+}
+.bb .item.kill {
+  flex: 0 0 auto;
+  width: 34px;
+  justify-content: center;
+  padding: 4px 6px;
+  color: var(--faint);
+  font-size: 14px;
+  line-height: 1;
+}
+.bb .item.kill:hover {
+  color: var(--bad);
+  border-color: var(--bad);
+}
+
+/* The sample loader is a <label> wrapping a hidden file input, so the click
+   reaches the input with no script at all. It still has to look and behave
+   like the buttons beside it. */
+.bb label.mini {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
 .bb .list-hd {
   font-family: var(--f-mono);
   font-size: 10.5px;
@@ -1172,6 +1249,13 @@
 }
 .bb .mixrow input[type='range'] {
   width: 92px;
+}
+/* one fixed width so the mute column is a column, and the label does not
+   shuffle sideways when "Mute" becomes "Muted" */
+.bb .mixrow .mixmute {
+  flex: 0 0 auto;
+  width: 72px;
+  text-align: center;
 }
 
 .bb .notes h4 {
@@ -1282,6 +1366,7 @@
   .bb .topbar,
   .bb .rail,
   .bb .chart-ft,
+  .bb .chart-tools,
   .bb .gridwrap,
   .bb .legend,
   .bb .card-hd {

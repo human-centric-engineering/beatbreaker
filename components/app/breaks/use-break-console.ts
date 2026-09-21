@@ -2,8 +2,10 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { BreakAudio } from '@/lib/app/breaks/audio/engine';
+import { BreakAudio, SourceStack } from '@/lib/app/breaks/audio/engine';
+import { MidiOut } from '@/lib/app/breaks/audio/midi-out';
 import { PackSource } from '@/lib/app/breaks/audio/packs';
+import { UserSource } from '@/lib/app/breaks/audio/user-kit';
 import {
   Transport,
   type PlayEvent,
@@ -20,17 +22,23 @@ import {
 } from '@/lib/app/breaks/critic';
 import { type DoctorMove, doctor } from '@/lib/app/breaks/doctor';
 import { deriveB } from '@/lib/app/breaks/generate';
-import { DEFAULT_MIX } from '@/lib/app/breaks/lanes';
+import { DEFAULT_MIX, LANES, PERC_LANES, TOM_LANES } from '@/lib/app/breaks/lanes';
 import { LIBRARY, patternFromLibrary } from '@/lib/app/breaks/library';
 import { reducePattern } from '@/lib/app/breaks/layers';
 import { DEFAULT_METER } from '@/lib/app/breaks/meter';
 import { buildMidi } from '@/lib/app/breaks/midi';
-import { type CustomLanes, clonePattern, resolveLanes, setPin } from '@/lib/app/breaks/pattern';
-import { clamp } from '@/lib/app/breaks/rng';
+import {
+  type CustomLanes,
+  clonePattern,
+  resolveLanes,
+  setPin,
+  writePerc,
+} from '@/lib/app/breaks/pattern';
+import { clamp, makeRng } from '@/lib/app/breaks/rng';
 import { type BreakDoc, decodeBreak, encodeBreak } from '@/lib/app/breaks/share';
 import { STYLES, styleIn } from '@/lib/app/breaks/styles';
 import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
-import { KITS, kitDefaults, kitIsPlayable } from '@/lib/app/breaks/kit';
+import { KITS, type VoiceParams, kitEngine, kitIsPlayable, withTuning } from '@/lib/app/breaks/kit';
 import { useLocalStorage } from '@/lib/hooks/use-local-storage';
 import { logger } from '@/lib/logging';
 
@@ -62,6 +70,12 @@ export interface BreakConsole {
   patterns: Record<SectionLetter, Pattern | null>;
   /** The sections as they sound and look at the current layer. */
   view: Record<SectionLetter, Pattern | null>;
+  /**
+   * The same sections one layer up, or `null` at the top layer. The chart
+   * draws the difference faintly, so you can see what arrives next without
+   * committing to playing it.
+   */
+  next: Record<SectionLetter, Pattern | null> | null;
   report: Critique | null;
   checks: Playability | null;
   tries: { tries: number; rejected: number } | null;
@@ -104,6 +118,31 @@ export interface BreakConsole {
 
   kit: string;
   setKit: (k: string) => void;
+  /**
+   * The live voice parameters — the kit's own numbers with your tuning on top.
+   * This is what the engine is playing, not what the table ships.
+   */
+  sound: Record<string, VoiceParams>;
+  /** Which voice the kit panel is editing. */
+  voice: string;
+  setVoice: (v: string) => void;
+  setParam: (voice: string, key: string, value: number) => void;
+  resetVoice: (voice: string) => void;
+  resetKit: () => void;
+  /** Whether this kit is carrying any tuning of yours, so "reset" can say so. */
+  kitTuned: boolean;
+  /** How many of this kit's slots have decoded; 0 when it is not a sampled kit. */
+  kitSlots: number;
+  /** Play the synthesised percussion voices instead of the recordings. */
+  percSamples: boolean;
+  setPercSamples: (b: boolean) => void;
+  /** How many percussion instruments have recordings in memory. */
+  percCount: number;
+  /** Your own one-shots: filename per slot. */
+  userNames: Record<string, string>;
+  /** Returns an empty string on success, or the sentence to show. */
+  addSample: (slot: string, file: File) => Promise<string>;
+  removeSample: (slot: string) => Promise<void>;
   mix: Record<string, number>;
   setLaneMix: (lane: string, v: number) => void;
   resetMix: () => void;
@@ -121,6 +160,9 @@ export interface BreakConsole {
   setRamp: (n: number) => void;
   ceiling: number;
   setCeiling: (n: number) => void;
+  /** Drop the tempo to suit the layer you are on, and put it back at L5. */
+  matchTempo: boolean;
+  setMatchTempo: (b: boolean) => void;
 
   arrangement: SectionLetter[];
   setArrangement: (a: SectionLetter[]) => void;
@@ -131,6 +173,11 @@ export interface BreakConsole {
   setGuides: (b: boolean) => void;
   sticking: boolean;
   setSticking: (b: boolean) => void;
+  preview: boolean;
+  setPreview: (b: boolean) => void;
+  /** Chart zoom. 1 is the reference size the engraver is drawn at. */
+  size: number;
+  setSize: (n: number) => void;
 
   newBreak: (which?: SectionLetter | 'both') => void;
   buildBFromA: () => void;
@@ -148,11 +195,47 @@ export interface BreakConsole {
   canUndo: boolean;
   canRedo: boolean;
 
+  /** Saved breaks, newest first. */
+  favs: Fav[];
+  saveFav: () => void;
+  loadFav: (index: number) => boolean;
+  deleteFav: (index: number) => void;
+
+  /** Empty every lane of the section being edited. */
+  clearSection: () => void;
+
   shareCode: () => string;
+  /** The same code as a URL, so a link carries the break. */
+  shareLink: () => string;
   loadCode: (code: string) => boolean;
   midiBase64: () => string;
+  /** Plays a bar of the current kit. False when there is no Web Audio. */
+  auditionKit: () => boolean;
+  /** The MIDI port playback is also driving, if you have opened one. */
+  midiPort: string;
+  openMidiOut: () => Promise<string>;
+  closeMidiOut: () => void;
   audition: (voice: string, variant?: string) => void;
 }
+
+/** One saved break. The code is the whole of it; the rest is for the row. */
+export interface Fav {
+  name: string;
+  bpm: number;
+  style: string;
+  level: number;
+  code: string;
+}
+
+/** How many saved breaks are kept. Oldest fall off the end. */
+const FAV_CAP = 30;
+
+/**
+ * How far below the break's own tempo each layer sits, when the tempo is
+ * matched to the layer. L5 is the break as written, so it is the tempo as
+ * written; everything below it is a practice speed.
+ */
+const LAYER_TEMPO: Record<number, number> = { 1: 0.68, 2: 0.78, 3: 0.86, 4: 0.93, 5: 1 };
 
 export function useBreakConsole(): BreakConsole {
   const [ready, setReady] = useState(false);
@@ -168,21 +251,40 @@ export function useBreakConsole(): BreakConsole {
 
   const [style, setStyleRaw] = useLocalStorage('bb.style', 'funk');
   const [meter, setMeterRaw] = useLocalStorage('bb.meter', DEFAULT_METER);
+  /** The meter you picked yourself, handed back when a style stops imposing one. */
+  const [userMeter, setUserMeter] = useLocalStorage('bb.userMeter', DEFAULT_METER);
   const [bars, setBars] = useLocalStorage('bb.bars', 2);
   const [density, setDensity] = useLocalStorage('bb.density', 55);
   const [ghosts, setGhosts] = useLocalStorage('bb.ghosts', 60);
   const [swing, setSwing] = useLocalStorage('bb.swing', 8);
   const [hats, setHats] = useLocalStorage('bb.hats', 100);
   const [feel, setFeel] = useLocalStorage('bb.feel', 100);
-  const [lanesMode, setLanesMode] = useLocalStorage<'style' | 'custom'>('bb.lanesMode', 'style');
-  const [customLanes, setCustomLanes] = useLocalStorage<CustomLanes>('bb.customLanes', {
+  const [lanesMode, setLanesModeRaw] = useLocalStorage<'style' | 'custom'>('bb.lanesMode', 'style');
+  const [customLanes, setCustomLanesRaw] = useLocalStorage<CustomLanes>('bb.customLanes', {
     toms: false,
   });
 
   const [bpm, setBpmRaw] = useLocalStorage('bb.bpm', 94);
   const [kit, setKitRaw] = useLocalStorage('bb.kit', 'studio70');
+  /**
+   * The kit you picked yourself, as opposed to one a style brought with it.
+   * A style that names a kit switches to it; leaving that style hands yours
+   * back, so picking the jazz set for one break does not silently keep the
+   * ballad's brushes on everything afterwards.
+   */
+  const [userKit, setUserKit] = useLocalStorage('bb.userKit', 'studio70');
+  const [tuning, setTuning] = useLocalStorage<Record<string, Record<string, VoiceParams>>>(
+    'bb.sound',
+    {}
+  );
+  const [voice, setVoice] = useState('h');
+  const [percSamples, setPercSamplesRaw] = useLocalStorage('bb.percSamples', true);
+  const [favs, setFavs] = useLocalStorage<Fav[]>('bb.favs', []);
+  const [midiPort, setMidiPort] = useState('');
   const [guides, setGuides] = useLocalStorage('bb.guides', true);
   const [sticking, setSticking] = useLocalStorage('bb.sticking', false);
+  const [preview, setPreview] = useLocalStorage('bb.preview', true);
+  const [size, setSizeRaw] = useLocalStorage('bb.size', 1);
   const [arrangement, setArrangement] = useLocalStorage<SectionLetter[]>('bb.arr', [
     'A',
     'A',
@@ -191,13 +293,12 @@ export function useBreakConsole(): BreakConsole {
   ]);
   const [countIn, setCountIn] = useLocalStorage('bb.count', 1);
   const [ceiling, setCeiling] = useLocalStorage('bb.ceiling', 130);
+  const [matchTempo, setMatchTempo] = useLocalStorage('bb.matchTempo', false);
 
   const [click, setClick] = useState(false);
   const [clickSub, setClickSub] = useState(4);
   const [ramp, setRamp] = useState(0);
   const [playing, setPlaying] = useState(false);
-  /** Bumped when a pack finishes decoding, so the kit panel can say so. */
-  const [, setSamplesVersion] = useState(0);
   const [loops, setLoops] = useState(0);
   const [position, setPosition] = useState<PlayEvent | null>(null);
 
@@ -211,10 +312,39 @@ export function useBreakConsole(): BreakConsole {
 
   const bpmCeiling = maxBpm(meter);
 
-  const setBpm = useCallback(
-    (n: number) => setBpmRaw(clamp(Math.round(n), 50, maxBpm(meter))),
-    [meter, setBpmRaw]
+  const setSize = useCallback(
+    (n: number) => setSizeRaw(clamp(Math.round(n * 100) / 100, 0.7, 1.7)),
+    [setSizeRaw]
   );
+
+  /** The tempo the break is written at — the 100% the layer match works from. */
+  const [baseBpm, setBaseBpm] = useLocalStorage('bb.baseBpm', 94);
+
+  /**
+   * Set the tempo.
+   *
+   * With the layer match on, the number you are dragging is the speed for the
+   * layer you are on, not the break's — so what is stored is what that implies
+   * about the break, and the effect below puts the slider back where you left
+   * it. Storing the dragged number directly instead would make practising L1
+   * quietly rewrite the break as a slow break.
+   */
+  const setBpm = useCallback(
+    (n: number) => {
+      const top = maxBpm(meter);
+      const v = clamp(Math.round(n), 50, top);
+      setBaseBpm(matchTempo ? clamp(Math.round(v / (LAYER_TEMPO[level] ?? 1)), 50, top) : v);
+      setBpmRaw(v);
+    },
+    [meter, matchTempo, level, setBaseBpm, setBpmRaw]
+  );
+
+  /* The layer moved, or the match was switched on: put the tempo where that
+     layer should be practised, measured against the break's own tempo. */
+  useEffect(() => {
+    if (!matchTempo) return;
+    setBpmRaw(clamp(Math.round(baseBpm * (LAYER_TEMPO[level] ?? 1)), 50, maxBpm(meter)));
+  }, [matchTempo, level, meter, baseBpm, setBpmRaw]);
 
   /* ---- derived: the sections as they sound and look ------------------- */
 
@@ -223,6 +353,18 @@ export function useBreakConsole(): BreakConsole {
       A: patterns.A ? reducePattern(patterns.A, level) : null,
       B: patterns.B ? reducePattern(patterns.B, level) : null,
     }),
+    [patterns, level]
+  );
+
+  /* Layer 5 is what's stored, so there is nothing above it to preview. */
+  const next = useMemo(
+    () =>
+      level >= 5
+        ? null
+        : {
+            A: patterns.A ? reducePattern(patterns.A, level + 1) : null,
+            B: patterns.B ? reducePattern(patterns.B, level + 1) : null,
+          },
     [patterns, level]
   );
 
@@ -382,6 +524,67 @@ export function useBreakConsole(): BreakConsole {
     [patterns, level, pushHistory]
   );
 
+  /**
+   * Blank the section being edited — every lane, every bar, and the pins with
+   * them. A cleared section that still carried pins would re-derive notes the
+   * moment you moved layers, which is not what "clear" means.
+   */
+  const clearSection = useCallback(() => {
+    const pat = patterns[editing];
+    if (!pat) return;
+    pushHistory();
+    const next = clonePattern(pat);
+    for (const bar of next.bars) for (const lane of LANES) bar[lane].fill(0);
+    next.pins = null;
+    setPatterns((prev) => ({ ...prev, [editing]: next }));
+  }, [patterns, editing, pushHistory]);
+
+  /**
+   * Turning a lane on or off should not throw the break away.
+   *
+   * The kit lanes keep what they had; the percussion parts are **rewritten**,
+   * because those are the style's figure rather than anything you played. A
+   * lane that has just gone away is emptied, so switching back and forth does
+   * not leave notes on a lane nothing draws.
+   */
+  const applyLaneChoice = useCallback((mode: 'style' | 'custom', lanes: CustomLanes) => {
+    setPatterns((prev) => {
+      const out = { ...prev };
+      for (const letter of ['A', 'B'] as SectionLetter[]) {
+        const pat = prev[letter];
+        if (!pat) continue;
+        const st = styleIn(pat.style, pat.meter);
+        const roster = resolveLanes(st, mode === 'custom' ? lanes : null);
+        const next = clonePattern(pat);
+        next.lanes = roster.lanes.slice();
+        next.perc = { ...roster.perc };
+        for (const bar of next.bars) for (const L of PERC_LANES) bar[L].fill(0);
+        if (!next.lanes.includes('t1')) {
+          for (const bar of next.bars) for (const L of TOM_LANES) bar[L].fill(0);
+        }
+        writePerc(next, st, makeRng(pat.seed ^ 0x2545f491));
+        out[letter] = next;
+      }
+      return out;
+    });
+  }, []);
+
+  const setLanesMode = useCallback(
+    (m: 'style' | 'custom') => {
+      setLanesModeRaw(m);
+      applyLaneChoice(m, customLanes);
+    },
+    [setLanesModeRaw, customLanes, applyLaneChoice]
+  );
+
+  const setCustomLanes = useCallback(
+    (l: CustomLanes) => {
+      setCustomLanesRaw(l);
+      if (lanesMode === 'custom') applyLaneChoice('custom', l);
+    },
+    [setCustomLanesRaw, lanesMode, applyLaneChoice]
+  );
+
   const loadLibraryItem = useCallback(
     (index: number) => {
       const item = LIBRARY[index];
@@ -407,35 +610,75 @@ export function useBreakConsole(): BreakConsole {
       setStyleRaw(s);
       const st = STYLES[s];
       /* A style may name its own meter and its own kit — picking one switches
-         to both. The meter and kit you chose yourself are remembered
-         separately, so the waltz does not strand medium swing in 3/4. */
-      if (st?.meter) setMeterRaw(st.meter);
-      if (st?.kit && kitIsPlayable(st.kit)) setKitRaw(st.kit);
+         to both, and **leaving it hands yours back**. A jazz waltz in 4/4 is
+         not a jazz waltz, but neither is every style after it a waltz: without
+         the second half of this, picking the waltz once strands medium swing
+         in 3/4 and the ballad's brushes on everything afterwards. */
+      setMeterRaw(st?.meter ?? userMeter);
+      const wantKit = st?.kit && kitIsPlayable(st.kit) ? st.kit : userKit;
+      if (KITS[wantKit] && kitIsPlayable(wantKit)) setKitRaw(wantKit);
       if (st && !locks.bpm) setBpm(Math.round((st.bpm[0] + st.bpm[1]) / 2));
       setMixTouched((touched) => {
         applyStyleMix(s, touched);
         return touched;
       });
     },
-    [setStyleRaw, setMeterRaw, setKitRaw, locks.bpm, setBpm, applyStyleMix]
+    [setStyleRaw, setMeterRaw, setKitRaw, userMeter, userKit, locks.bpm, setBpm, applyStyleMix]
   );
 
   const setMeter = useCallback(
     (m: string) => {
       setMeterRaw(m);
+      setUserMeter(m);
       setBpmRaw((b) => clamp(b, 50, maxBpm(m)));
     },
-    [setMeterRaw, setBpmRaw]
+    [setMeterRaw, setUserMeter, setBpmRaw]
   );
 
   /* ---- audio ---------------------------------------------------------- */
 
   const audioRef = useRef<BreakAudio | null>(null);
   const transportRef = useRef<Transport | null>(null);
+  const packsRef = useRef<PackSource | null>(null);
+  const userRef = useRef<UserSource | null>(null);
+  const midiRef = useRef<MidiOut | null>(null);
   const kitRef = useRef(kit);
   useEffect(() => {
     kitRef.current = kit;
   }, [kit]);
+
+  /**
+   * What has decoded so far, for the kit panel to report.
+   *
+   * Copied out into state rather than read off the sources at render time: a
+   * decode finishes inside a promise, long after the render that started it,
+   * and a ref read during render is exactly the value React is entitled not to
+   * re-run for. The sources call `bump` when they land; so does a kit change.
+   */
+  const [samples, setSamples] = useState<{
+    kitSlots: number;
+    percCount: number;
+    userNames: Record<string, string>;
+  }>({ kitSlots: 0, percCount: 0, userNames: {} });
+
+  const refreshSamples = useCallback(() => {
+    const packs = packsRef.current;
+    const user = userRef.current;
+    if (!packs || !user) return;
+    const k = kitRef.current;
+    const pack = KITS[k]?.pack;
+    setSamples({
+      kitSlots: kitEngine(k) === 'user' ? user.count() : pack ? packs.count(pack) : 0,
+      percCount: packs.percCount(),
+      userNames: { ...user.names },
+    });
+  }, []);
+
+  const refreshRef = useRef(refreshSamples);
+  useEffect(() => {
+    refreshRef.current = refreshSamples;
+  }, [refreshSamples]);
+  useEffect(refreshSamples, [kit, refreshSamples]);
 
   /**
    * What the transport reads on every scheduled step.
@@ -486,9 +729,21 @@ export function useBreakConsole(): BreakConsole {
     snapshotRef.current = snapshot;
   }, [snapshot]);
 
+  /* ---- the kit, and your tuning of it --------------------------------- */
+
+  /** What the engine is actually playing: the kit's numbers, your knobs on top. */
+  const sound = useMemo(() => withTuning(kit, tuning[kit]), [kit, tuning]);
+  const kitTuned = Object.keys(tuning[kit] ?? {}).length > 0;
+
   useEffect(() => {
-    audioRef.current?.setKit(kit, kitDefaults(kit));
-  }, [kit]);
+    const audio = audioRef.current;
+    if (!audio) return;
+    /* A sampled kit needs a context to decode into. Picking one is a gesture,
+       so this is the moment to have it — rather than the first note, which
+       would arrive synthesised while the decode caught up behind it. */
+    if (kitEngine(kit) !== 'synth') audio.init();
+    audio.setKit(kit, sound);
+  }, [kit, sound]);
 
   const setKit = useCallback(
     (k: string) => {
@@ -497,9 +752,57 @@ export function useBreakConsole(): BreakConsole {
          would quietly hand you the Machine kit. Refuse instead. */
       if (!KITS[k] || !kitIsPlayable(k)) return;
       setKitRaw(k);
+      setUserKit(k);
     },
-    [setKitRaw]
+    [setKitRaw, setUserKit]
   );
+
+  const setParam = useCallback(
+    (v: string, key: string, value: number) => {
+      setTuning((prev) => ({
+        ...prev,
+        [kit]: { ...prev[kit], [v]: { ...prev[kit]?.[v], [key]: value } },
+      }));
+    },
+    [kit, setTuning]
+  );
+
+  const resetVoice = useCallback(
+    (v: string) => {
+      setTuning((prev) => {
+        const forKit = { ...prev[kit] };
+        delete forKit[v];
+        return { ...prev, [kit]: forKit };
+      });
+    },
+    [kit, setTuning]
+  );
+
+  const resetKit = useCallback(() => {
+    setTuning((prev) => {
+      const next = { ...prev };
+      delete next[kit];
+      return next;
+    });
+  }, [kit, setTuning]);
+
+  const setPercSamples = useCallback(
+    (b: boolean) => {
+      setPercSamplesRaw(b);
+      if (packsRef.current) packsRef.current.usePercSamples = b;
+    },
+    [setPercSamplesRaw]
+  );
+
+  /* The AudioContext is built once, in an effect with no state in its deps.
+     These refs are how that effect reads the current kit and preferences
+     without being torn down and rebuilt every time one of them changes. */
+  const soundRef = useRef(sound);
+  const percSamplesRef = useRef(percSamples);
+  useEffect(() => {
+    soundRef.current = sound;
+    percSamplesRef.current = percSamples;
+  }, [sound, percSamples]);
 
   /* The AudioContext and the clock are created together, in an effect rather
      than during render: an AudioContext is a real resource, and constructing one
@@ -508,9 +811,19 @@ export function useBreakConsole(): BreakConsole {
     const audio = new BreakAudio();
     /* The sampled kits are a source the synth falls through to, not a branch
        inside it — a pack still decoding, or one slot short, plays the
-       synthesised voice for that hit rather than nothing. */
-    audio.samples = new PackSource(() => setSamplesVersion((n) => n + 1));
+       synthesised voice for that hit rather than nothing. Your own one-shots
+       are a second source behind the same rule, so moving between a recorded
+       kit and your own needs no reload. */
+    const bump = () => refreshRef.current();
+    const packs = new PackSource(bump);
+    const user = new UserSource(bump);
+    packs.usePercSamples = percSamplesRef.current;
+    packsRef.current = packs;
+    userRef.current = user;
+    audio.samples = new SourceStack([packs, user]);
     audioRef.current = audio;
+    const midi = new MidiOut();
+    midiRef.current = midi;
     const t = new Transport(audio, {
       getSnapshot: () => snapshotRef.current,
       onBpm: (n) => setBpmRaw(n),
@@ -521,14 +834,37 @@ export function useBreakConsole(): BreakConsole {
         setPosition(null);
       },
     });
+    t.midi = midi;
     transportRef.current = t;
-    audio.setKit(kitRef.current, kitDefaults(kitRef.current));
+    audio.setKit(kitRef.current, soundRef.current);
     return () => {
       t.stop();
+      midi.disconnect();
       transportRef.current = null;
       audioRef.current = null;
+      packsRef.current = null;
+      userRef.current = null;
+      midiRef.current = null;
     };
   }, [setBpmRaw]);
+
+  /* ---- MIDI out -------------------------------------------------------- */
+
+  const openMidiOut = useCallback(async (): Promise<string> => {
+    const midi = midiRef.current;
+    if (!midi) return 'No transport yet';
+    const { name, error } = await midi.connect();
+    if (error) return error;
+    // the offset between the two clocks can only be measured against a live one
+    midi.ctx = audioRef.current?.init() ?? null;
+    setMidiPort(name);
+    return '';
+  }, []);
+
+  const closeMidiOut = useCallback(() => {
+    midiRef.current?.disconnect();
+    setMidiPort('');
+  }, []);
 
   /* An event handler, so reading the ref here is the normal case rather than a
      render-time access — the transport instance is never captured in a closure. */
@@ -552,10 +888,34 @@ export function useBreakConsole(): BreakConsole {
     audioRef.current?.hit(voice, variant);
   }, []);
 
+  /** A bar of the whole kit — the only honest way to compare two of them. */
+  const auditionKit = useCallback(() => audioRef.current?.demo() ?? false, []);
+
   /* ---- first break ----------------------------------------------------- */
 
   useEffect(() => {
     if (ready) return;
+    /* A shared link puts the break in the fragment. Arriving on one should
+       land you on that break rather than on a fresh one that is then replaced
+       — so this is checked before anything is generated. */
+    if (typeof window !== 'undefined' && window.location.hash.startsWith('#b=')) {
+      try {
+        const doc = decodeBreak(window.location.hash.slice(3));
+        setPatterns({ A: doc.A, B: doc.B });
+        setBpmRaw(doc.bpm);
+        setSwing(doc.swing);
+        setLevel(doc.level);
+        setArrangement(doc.arrangement);
+        setStyleRaw(doc.A.style);
+        setMeterRaw(doc.A.meter);
+        setBars(doc.A.bars.length);
+        applyStyleMix(doc.A.style, {});
+        setReady(true);
+        return;
+      } catch (error) {
+        logger.warn('BeatBreaker: the link carried a break that would not read', { error });
+      }
+    }
     const st = styleIn(style, meter);
     const roster = resolveLanes(st, lanesMode === 'custom' ? customLanes : null);
     const made = generateGood(
@@ -591,10 +951,24 @@ export function useBreakConsole(): BreakConsole {
     return doc ? encodeBreak(doc) : '';
   }, [asDoc]);
 
+  /**
+   * The code as a link. The break rides in the fragment rather than the query
+   * string on purpose: a fragment is never sent to the server, so sharing a
+   * break does not put it in anyone's access log.
+   */
+  const shareLink = useCallback(() => {
+    const code = shareCode();
+    if (!code || typeof window === 'undefined') return '';
+    const { origin, pathname } = window.location;
+    return `${origin}${pathname}#b=${code}`;
+  }, [shareCode]);
+
   const loadCode = useCallback(
     (code: string): boolean => {
       try {
-        const doc = decodeBreak(code);
+        // people paste the link, not the code inside it
+        const at = code.indexOf('#b=');
+        const doc = decodeBreak(at >= 0 ? code.slice(at + 3) : code.trim());
         pushHistory();
         setPatterns({ A: doc.A, B: doc.B });
         setBpmRaw(doc.bpm);
@@ -626,10 +1000,48 @@ export function useBreakConsole(): BreakConsole {
     return buildMidi(seq, { bpm, swing, feel, hats }).base64;
   }, [arrangement, view, viewMode, bpm, swing, feel, hats]);
 
+  /* ---- saved breaks ----------------------------------------------------- */
+
+  const saveFav = useCallback(() => {
+    const code = shareCode();
+    const pat = patterns.A;
+    if (!code || !pat) return;
+    setFavs((prev) =>
+      [{ name: pat.name, bpm, style: pat.style, level, code }, ...prev].slice(0, FAV_CAP)
+    );
+  }, [shareCode, patterns.A, bpm, level, setFavs]);
+
+  const loadFav = useCallback(
+    (index: number): boolean => {
+      const fav = favs[index];
+      return fav ? loadCode(fav.code) : false;
+    },
+    [favs, loadCode]
+  );
+
+  const deleteFav = useCallback(
+    (index: number) => setFavs((prev) => prev.filter((_, i) => i !== index)),
+    [setFavs]
+  );
+
+  /* ---- your own samples ------------------------------------------------- */
+
+  const addSample = useCallback(async (slot: string, file: File): Promise<string> => {
+    const audio = audioRef.current;
+    const user = userRef.current;
+    if (!audio || !user) return 'No audio engine yet';
+    return user.add(audio, slot, file);
+  }, []);
+
+  const removeSample = useCallback(async (slot: string) => {
+    await userRef.current?.remove(slot);
+  }, []);
+
   return {
     ready,
     patterns,
     view,
+    next,
     report,
     checks,
     tries,
@@ -668,6 +1080,20 @@ export function useBreakConsole(): BreakConsole {
     position,
     kit,
     setKit,
+    sound,
+    voice,
+    setVoice,
+    setParam,
+    resetVoice,
+    resetKit,
+    kitTuned,
+    kitSlots: samples.kitSlots,
+    percSamples,
+    setPercSamples,
+    percCount: samples.percCount,
+    userNames: samples.userNames,
+    addSample,
+    removeSample,
     mix,
     setLaneMix,
     resetMix,
@@ -684,6 +1110,8 @@ export function useBreakConsole(): BreakConsole {
     setRamp,
     ceiling,
     setCeiling,
+    matchTempo,
+    setMatchTempo,
     arrangement,
     setArrangement,
     locks,
@@ -692,6 +1120,10 @@ export function useBreakConsole(): BreakConsole {
     setGuides,
     sticking,
     setSticking,
+    preview,
+    setPreview,
+    size,
+    setSize,
     newBreak,
     buildBFromA,
     applyDoctor,
@@ -701,10 +1133,20 @@ export function useBreakConsole(): BreakConsole {
     redo,
     canUndo: history.length > 0,
     canRedo: future.length > 0,
+    favs,
+    saveFav,
+    loadFav,
+    deleteFav,
+    clearSection,
     shareCode,
+    shareLink,
     loadCode,
     midiBase64,
+    midiPort,
+    openMidiOut,
+    closeMidiOut,
     audition,
+    auditionKit,
   };
 }
 
