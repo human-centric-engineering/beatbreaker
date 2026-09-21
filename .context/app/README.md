@@ -6,6 +6,7 @@ folders beside this one; start at [`../substrate.md`](../substrate.md).
 
 | Doc                                                | What it is                                                                                                              |
 | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| [`breaks.md`](./breaks.md)                         | The break domain: modules, invariants, the share-code wire format, `/api/v1/breaks`.                                    |
 | [`planning/app-plan.md`](./planning/app-plan.md)   | The phased plan for turning the console into a live app: shell and drawers, saved patterns, sharing, BeatBuddy, launch. |
 | [`planning/site-copy.md`](./planning/site-copy.md) | Pre-written copy for the public pages, dialogs and empty states.                                                        |
 

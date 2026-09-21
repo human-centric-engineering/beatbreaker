@@ -30,13 +30,13 @@ for the public pages, dialogs and empty states.
 
 ### What is built, and is good
 
-| Area                   | State                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Domain**             | `lib/app/breaks/` — ~6,000 lines of pure TypeScript: seeded generator (37 styles, 12 meters), critic and four-limb playability filter, five difficulty layers with pins, SVG engraver, twelve doctor moves, 47-entry famous-breaks library, share codes (Zod-validated, wire v3), MIDI writer. No DOM, runs on the server too. **Exercised only indirectly** — through one 17-case console integration test; no module has a unit test of its own (see §11, H0). |
-| **Audio**              | `lib/app/breaks/audio/` — Web Audio engine, look-ahead transport, five synth kits and five recorded kits, the user's own one-shots, Web MIDI out.                                                                                                                                                                                                                                                                                                                |
-| **Console**            | `components/app/breaks/` — one page at `/breaks`: chart, step editor, and a six-tab rail (Generate · Doctor · Library · Kit · Practice · Export). ~60 controls. Bespoke paper-and-brass look in a `.bb`-scoped stylesheet, light and dark, with print styles.                                                                                                                                                                                                    |
-| **Persistence (back)** | `Break` and `Take` models; `GET/POST /api/v1/breaks` and `GET/PATCH/DELETE /api/v1/breaks/[id]`, owner-scoped, 404-not-403, critic run server-side. GDPR export and erasure wired.                                                                                                                                                                                                                                                                               |
-| **Fork hygiene**       | Brand seam, protected-routes seam, data-export seam and reserved-tier declaration are filled in correctly. The fork is merge-clean against Sunrise.                                                                                                                                                                                                                                                                                                              |
+| Area                   | State                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Domain**             | `lib/app/breaks/` — ~6,000 lines of pure TypeScript: seeded generator (37 styles, 12 meters), critic and four-limb playability filter, five difficulty layers with pins, SVG engraver, twelve doctor moves, 47-entry famous-breaks library, share codes (Zod-validated, wire v3), MIDI writer. No DOM, runs on the server too. Unit-tested since Phase 0 (§11, H0): sweeps over all 444 style × meter combinations, share-code round-trips, the library, every doctor move, the MIDI bytes, the pinned RNG. Documented in [`breaks.md`](../breaks.md). |
+| **Audio**              | `lib/app/breaks/audio/` — Web Audio engine, look-ahead transport, five synth kits and five recorded kits, the user's own one-shots, Web MIDI out.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| **Console**            | `components/app/breaks/` — one page at `/breaks`: chart, step editor, and a six-tab rail (Generate · Doctor · Library · Kit · Practice · Export). ~60 controls. Bespoke paper-and-brass look in a `.bb`-scoped stylesheet, light and dark, with print styles.                                                                                                                                                                                                                                                                                          |
+| **Persistence (back)** | `Break` and `Take` models; `GET/POST /api/v1/breaks` and `GET/PATCH/DELETE /api/v1/breaks/[id]`, owner-scoped, 404-not-403, critic run server-side. GDPR export and erasure wired.                                                                                                                                                                                                                                                                                                                                                                     |
+| **Fork hygiene**       | Brand seam, protected-routes seam, data-export seam and reserved-tier declaration are filled in correctly. The fork is merge-clean against Sunrise.                                                                                                                                                                                                                                                                                                                                                                                                    |
 
 ### What is missing, against the brief
 
@@ -230,7 +230,8 @@ These apply to every phase; they are Sunrise's rules plus what this review found
   button, and BeatBuddy's tools call the same `lib/app/breaks` functions and the
   same data layer the endpoints do. One implementation, three callers.
 - **The critic is the gate for generated content.** Anything a model writes goes
-  through `sanitisePattern` and `playability` before a user sees it.
+  through the share-code schema (`sharePayloadSchema`, which holds every step to
+  its lane's range) and `playability` before a user sees it.
 - **Every new table**: hand-written cascading/nulling FK, drift probe in
   `lib/app/db-drift.ts`, declaration in `lib/app/data-export.ts`.
 - **Every phase ends** with the gates in order — `/pre-pr`, `/security-review`,
@@ -750,20 +751,20 @@ All are `BaseCapability` classes with Zod-validated arguments, all act only on
 the caller's workspace or the caller's own rows (`context.userId`), and none
 can publish, share or delete.
 
-| Tool                 | Does                                                                                                                                               | Built on                                     |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
-| `get_pattern`        | Returns the working pattern as text, with style, meter, tempo, swing, layer, and the critic's report.                                              | `toText`, `critique`, `playability`          |
-| `list_styles`        | The style table: key, label, hint, tempo range, meter. Lets the model map "something like Dilla" onto `dilla`.                                     | `STYLES`, `STYLE_GROUPS`                     |
-| `generate_pattern`   | New A (and derived B) from style, meter, bars, density, ghosts, swing, tempo, optional seed.                                                       | `generateGood`, `deriveB`                    |
-| `write_bars`         | Replace named bars of a section with model-authored lane strings. **The route for "a genre you don't have".** Refuses unplayable bars, saying why. | `fromText`, `sanitisePattern`, `playability` |
-| `apply_doctor_move`  | One of the twelve named edits, on A, B or both.                                                                                                    | `doctor`                                     |
-| `tidy_pattern`       | Deterministic clean-up — see below.                                                                                                                | `tidy` (new)                                 |
-| `set_playback`       | Tempo, swing, layer, count-in. Settings, not notes.                                                                                                | —                                            |
-| `explain_difficulty` | Which bars and beats cost the score, and why, in the critic's own terms.                                                                           | `critique`, `playability`                    |
-| `find_patterns`      | Search the caller's own patterns, the famous breaks, and the published library.                                                                    | Phase 3 and 5 list queries                   |
-| `open_pattern`       | Load one of those into the workspace (a copy, if it is someone else's).                                                                            | Phase 3 and 5 read queries                   |
-| `save_pattern`       | Save the workspace to the caller's account with a title.                                                                                           | the same function `POST /breaks` calls       |
-| `suggest_title`      | Name a pattern from its own rhythm. Returns candidates; the user picks.                                                                            | —                                            |
+| Tool                 | Does                                                                                                                                               | Built on                                        |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| `get_pattern`        | Returns the working pattern as text, with style, meter, tempo, swing, layer, and the critic's report.                                              | `toText`, `critique`, `playability`             |
+| `list_styles`        | The style table: key, label, hint, tempo range, meter. Lets the model map "something like Dilla" onto `dilla`.                                     | `STYLES`, `STYLE_GROUPS`                        |
+| `generate_pattern`   | New A (and derived B) from style, meter, bars, density, ghosts, swing, tempo, optional seed.                                                       | `generateGood`, `deriveB`                       |
+| `write_bars`         | Replace named bars of a section with model-authored lane strings. **The route for "a genre you don't have".** Refuses unplayable bars, saying why. | `fromText`, `sharePayloadSchema`, `playability` |
+| `apply_doctor_move`  | One of the twelve named edits, on A, B or both.                                                                                                    | `doctor`                                        |
+| `tidy_pattern`       | Deterministic clean-up — see below.                                                                                                                | `tidy` (new)                                    |
+| `set_playback`       | Tempo, swing, layer, count-in. Settings, not notes.                                                                                                | —                                               |
+| `explain_difficulty` | Which bars and beats cost the score, and why, in the critic's own terms.                                                                           | `critique`, `playability`                       |
+| `find_patterns`      | Search the caller's own patterns, the famous breaks, and the published library.                                                                    | Phase 3 and 5 list queries                      |
+| `open_pattern`       | Load one of those into the workspace (a copy, if it is someone else's).                                                                            | Phase 3 and 5 read queries                      |
+| `save_pattern`       | Save the workspace to the caller's account with a title.                                                                                           | the same function `POST /breaks` calls          |
+| `suggest_title`      | Name a pattern from its own rhythm. Returns candidates; the user picks.                                                                            | —                                               |
 
 **`tidy_pattern`** needs defining, since "tidy up notes" is in the brief. A pure
 function with its own tests, doing only uncontroversial things and reporting
@@ -982,6 +983,40 @@ rest to the phase that replaces it.
 | H4  | **Muting a lane also silences it on MIDI out.** Every `send(...)` sits inside the `g(lane)` gain check, so a muted lane never reaches the port — the opposite of what the UI hint and the code comment promise, and it defeats "mute the snare on the page, hear it on the module". `transport.ts:237`. _From review._                                                                                                              | Medium | Send MIDI before the gain check. Test with a fake port.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | H5  | **A share link does not survive sign-in.** `/breaks` is protected and the break is in the `#b=` fragment, which the server never sees; the login round-trip returns to bare `/breaks` and a new break. A signed-out person opening a link someone sent them never sees it — against D2. `lib/app/protected-routes.ts`, `proxy.ts:245`.                                                                                              | Medium | Short term: before redirecting, stash the fragment in `sessionStorage` and restore it after login. Properly: Phase 5's public `/p/[slug]`, and Phase 1's `/breaks` → `/studio` redirect must not reintroduce it.                                                                                                                                                                                                                                                                                                                                                           |
 | H6  | **The share-code schema is loose about what is present.** In `packedPatternSchema` bar rows accept any string, `pc` any instrument key, `bb` and `sd` any number; `unpack` then does `Number(ch)`, so `'x'` becomes `NaN` and `'9'` becomes 9, and `POST /api/v1/breaks` stores it. Not exploitable — it renders as escaped text — but it breaks the file's own "strict about what is present" rule. `lib/app/breaks/schema.ts:85`. | Low    | Rows `^[0-4]*$` with a length cap, `pc` checked against `PERC_KEYS`, bounds on `bb` and `sd`. Worth doing now: Phase 5 makes these documents public and Phase 6 lets a model write them.                                                                                                                                                                                                                                                                                                                                                                                   |
+
+**Status, 2026-09-21 (branch `phase-0-groundwork`).** H0–H6 are closed, each
+with tests that fail against the code they replaced:
+
+- **H0.** The hand-checked invariants are now tests under
+  `tests/unit/lib/app/breaks/`, with route tests in
+  `tests/integration/api/v1/breaks/`.
+- **H1.** Create and update are built from one base schema with no defaults.
+- **H2.** `>>>` fixed, and the sequence pinned to Marsaglia's published
+  reference value.
+- **H3.** Reproduced, then fixed: `isClickStep` clicks the pulse groups.
+- **H4.** Reproduced with a fake port, then fixed.
+- **H5.** `/breaks` gates itself in its page and stashes the fragment in
+  localStorage for one hour. localStorage rather than sessionStorage, because a
+  new user's verification email opens a new tab.
+- **H6.** The share-code schema now checks bar rows, instruments, the seed,
+  backbeats and pins.
+
+H10 is done: [`breaks.md`](../breaks.md). The `/breaks` robots.txt line is done.
+Writing the tests turned up two more:
+
+| #   | Finding                                                                                                                                                                                                                                                            | Resolution                                                                                                                                                         |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| H12 | `GET /api/v1/breaks/:id` declared `ownership: { decidedBy: 'resource' }` with no `resource` resolver. The guard refuses that under test and, in every other environment, logs `authorization: a route made no ownership decision` as an error for signed-in users. | **Fixed.** Now `'nothing'`, with the reason: the query decides (own or shared). A resolver would make the policy refuse every shared read.                         |
+| H13 | `sanitisePattern()`, which `types.ts` and this plan both called the one place untrusted lane values are checked, did not exist. Nothing held a crash cell to 0–1 or a foot chick to 0–1.                                                                           | **Fixed** in the packed-bar schema: each lane's digits are checked against `LANE_VALUES`. References updated. Phase 6's `write_bars` goes through the same schema. |
+
+**Still open from Phase 0:**
+
+- `test:changed:coverage` still fails on `components/app/breaks/use-break-console.ts`
+  (about 76% statements and 53% branches). That is the 1,166-line hook Phase 1
+  splits into a provider. It gets unit tests as it is decomposed.
+- Spike A (drawers on a real phone and iPad) and Spike B (the BeatBuddy loop,
+  which needs an OpenAI key) have not been started, and neither has the model
+  choice for §8.
 
 ### Fix in the phase that touches it
 
