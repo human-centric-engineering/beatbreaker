@@ -151,3 +151,83 @@ export const sharePayloadSchema = z.object({
 
 export type PackedPattern = z.infer<typeof packedPatternSchema>;
 export type SharePayload = z.infer<typeof sharePayloadSchema>;
+
+/* ---- reading a stored row ------------------------------------------
+   The schema above is what a break is held to on the way *in*. Rows saved
+   before it was tightened (H6) could carry a crash of 3, a stray letter in a
+   bar row, an unknown percussion key or a negative seed — nothing a real
+   encoder writes, but nothing that stopped a hand-written API body either.
+   Refusing those on the way *out* would make a saved break unopenable for its
+   owner and for everyone its link was sent to, with no repair short of a
+   PATCH of the whole document. So a stored row is repaired to the nearest
+   thing the current rules allow, then held to them like anything else.
+   -------------------------------------------------------------------- */
+
+function isObject(v: unknown): v is Record<string, unknown> {
+  return typeof v === 'object' && v !== null && !Array.isArray(v);
+}
+
+/** One bar string, each lane's steps clamped into that lane's range and length. */
+function repairBar(bar: unknown): unknown {
+  if (typeof bar !== 'string') return bar;
+  return bar
+    .split('|')
+    .slice(0, LANES.length)
+    .map((row, i) => {
+      const max = LANE_VALUES[LANES[i]]?.length ?? 0;
+      let out = '';
+      for (const ch of row.slice(0, MAX_ROW)) {
+        const n = /^[0-9]$/.test(ch) ? Number(ch) : 0;
+        out += String(Math.min(n, max));
+      }
+      return out;
+    })
+    .join('|');
+}
+
+function repairPacked(p: unknown): unknown {
+  if (!isObject(p)) return p;
+  const out: Record<string, unknown> = { ...p };
+  if (Array.isArray(p.b)) out.b = p.b.map(repairBar);
+  if (typeof p.sd === 'number' && Number.isInteger(p.sd)) out.sd = p.sd >>> 0;
+  if (Array.isArray(p.bb)) {
+    out.bb = p.bb
+      .filter((x): x is number => Number.isInteger(x) && x >= 0 && x <= 63)
+      .slice(0, MAX_ROW);
+  }
+  if (isObject(p.pc)) {
+    const pc: Record<string, unknown> = {};
+    for (const k of ['p1', 'p2']) {
+      const v = p.pc[k];
+      if (typeof v === 'string' && PERC_KEYS.includes(v)) pc[k] = v;
+    }
+    out.pc = pc;
+  }
+  if (Array.isArray(p.ln)) {
+    out.ln = p.ln
+      .filter((l) => typeof l === 'string' && (LANES as string[]).includes(l))
+      .slice(0, LANES.length);
+  }
+  if (Array.isArray(p.pn)) {
+    out.pn = p.pn.slice(0, 8).map((bar) => {
+      if (!isObject(bar)) return 0;
+      const o: Record<string, string> = {};
+      for (const [k, v] of Object.entries(bar)) {
+        if (typeof v === 'string') o[k] = v.slice(0, MAX_ROW).replace(/[^0-5]/g, '0');
+      }
+      return o;
+    });
+  }
+  return out;
+}
+
+/**
+ * A `Break.doc` read back from the database: repaired where rows written under
+ * the looser rules would now fail, then parsed by {@link sharePayloadSchema}.
+ * Use this for stored rows only — anything arriving from outside is refused,
+ * not repaired.
+ */
+export const storedPayloadSchema = z.preprocess((raw) => {
+  if (!isObject(raw)) return raw;
+  return { ...raw, A: repairPacked(raw.A), B: repairPacked(raw.B) };
+}, sharePayloadSchema);

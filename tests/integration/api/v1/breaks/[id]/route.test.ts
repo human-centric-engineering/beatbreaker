@@ -130,6 +130,25 @@ describe('GET /api/v1/breaks/:id', () => {
     expect(typeof data.critique.playable).toBe('boolean');
   });
 
+  it('still opens a row saved before the share-code schema was tightened, repairing it', async () => {
+    const legacy = wireDoc() as { A: Record<string, unknown>; B: Record<string, unknown> };
+    // what the looser schema let a hand-written body store: a crash of 3, a
+    // stray letter, an unknown instrument key and a negative seed
+    legacy.A.b = ['1x00100010001000|0000100000001000|2222222222222222|0|3000'];
+    legacy.A.pc = { p1: 'kazoo', zz: 'cowbell' };
+    legacy.A.sd = -1;
+    vi.mocked(prisma.break.findFirst).mockResolvedValue(row({ doc: legacy }) as never);
+
+    const res = await GET(new NextRequest(url()), ctx());
+    expect(res.status).toBe(200);
+    const { data } = await json<{
+      data: { doc: { A: { b: string[]; pc: Record<string, string>; sd: number } } };
+    }>(res);
+    expect(data.doc.A.b).toEqual(['1000100010001000|0000100000001000|2222222222222222|0|1000']);
+    expect(data.doc.A.pc).toEqual({});
+    expect(data.doc.A.sd).toBe(0xffffffff);
+  });
+
   it('returns someone else’s shared break with mine=false', async () => {
     vi.mocked(prisma.break.findFirst).mockResolvedValue(
       row({ userId: OTHER_ID, shared: true }) as never

@@ -209,6 +209,9 @@ release process.
   lane's own range (`LANE_VALUES`), at most 11 lanes of 32 steps. `pc` must name
   a real percussion instrument, the seed must be a uint32, backbeats must fall
   within 0–63, and pins are layer digits. A code the encoder wrote still decodes.
+  A row already stored under the looser rules is repaired on read rather than
+  refused (`storedPayloadSchema`, used by `GET /api/v1/breaks/:id`), so it
+  still opens.
 
 ### Fixed
 

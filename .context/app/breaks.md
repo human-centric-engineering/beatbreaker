@@ -110,6 +110,15 @@ All routes need a session (`withAuth`). The section rate cap comes from
 `proxy.ts`, so there is no limiter in the handlers. Every body goes through
 `sharePayloadSchema`, the same schema a pasted code goes through.
 
+**Strict on the way in, forgiving on the way out.** A stored `doc` is read
+through `storedPayloadSchema`, which repairs what rows saved under the looser
+rules (before H6) could carry, then applies `sharePayloadSchema` as normal.
+Repair means clamping each step to its lane's range, zeroing stray
+characters, dropping unknown instruments, lanes and backbeats, and wrapping
+the seed to 32 bits. Otherwise one bad digit would make a saved break
+unopenable for its owner and for everyone it was shared with. Use it for
+database rows only; input from outside is refused, not repaired.
+
 | Route                       | Does                                                                                                                                                                                                                              |
 | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `GET /api/v1/breaks`        | The caller's own breaks, newest first. `style`, `meter`, `limit` (≤100, default 50), `cursor`. `meta.nextCursor` comes from a look-ahead row. List rows never carry `doc`.                                                        |

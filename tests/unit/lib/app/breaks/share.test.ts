@@ -9,7 +9,7 @@ import { describe, expect, it } from 'vitest';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { LANES } from '@/lib/app/breaks/lanes';
 import { setPin } from '@/lib/app/breaks/pattern';
-import { patternSchema, sharePayloadSchema } from '@/lib/app/breaks/schema';
+import { patternSchema, sharePayloadSchema, storedPayloadSchema } from '@/lib/app/breaks/schema';
 import {
   type BreakDoc,
   SHARE_VERSION,
@@ -172,5 +172,53 @@ describe('patternSchema', () => {
     ['no bars', { bars: [] }],
   ])('refuses %s', (_label, over) => {
     expect(patternSchema.safeParse({ ...pat, ...over }).success).toBe(false);
+  });
+});
+
+describe('storedPayloadSchema', () => {
+  const bar = '1000100010001000|0000100000001000|2222222222222222';
+  const stored = (A: Record<string, unknown>) =>
+    storedPayloadSchema.parse({ ver: 3, A: { b: [bar], ...A }, B: { b: [bar] } }).A;
+
+  it('passes a valid payload through unchanged', () => {
+    const payload: unknown = JSON.parse(atob(encodeBreak(docFor('funk'))));
+    expect(storedPayloadSchema.parse(payload)).toEqual(sharePayloadSchema.parse(payload));
+  });
+
+  it('clamps each lane to its own range and zeroes anything that is not a digit', () => {
+    // crash (lane 5) of 3 → 1; a letter in the kick → 0; a snare 9 → 4
+    expect(stored({ b: ['1x00|9000|0|0|3000'] }).b).toEqual(['1000|4000|0|0|1000']);
+  });
+
+  it('trims extra lanes and over-long rows', () => {
+    const [b] = stored({ b: [Array(13).fill('0'.repeat(40)).join('|')] }).b;
+    const rows = b.split('|');
+    expect(rows).toHaveLength(11);
+    expect(rows.every((r) => r.length === 32)).toBe(true);
+  });
+
+  it('keeps known instruments, drops the rest, and wraps the seed to 32 bits', () => {
+    const A = stored({ pc: { p1: 'cowbell', p2: 'kazoo', p9: 'shaker' }, sd: -1 });
+    expect(A.pc).toEqual({ p1: 'cowbell' });
+    expect(A.sd).toBe(0xffffffff);
+  });
+
+  it('drops backbeats, lanes and pins it cannot use', () => {
+    const A = stored({
+      bb: [4, -1, 99, 12, 1.5],
+      ln: ['k', 'zz', 's', 7],
+      pn: [{ s: '0090' }, 'x'],
+    });
+    expect(A.bb).toEqual([4, 12]);
+    expect(A.ln).toEqual(['k', 's']);
+    expect(A.pn).toEqual([{ s: '0000' }, 0]);
+  });
+
+  it('still refuses a payload that is not a break at all', () => {
+    expect(storedPayloadSchema.safeParse({ ver: 3, A: {} }).success).toBe(false);
+    expect(storedPayloadSchema.safeParse('nope').success).toBe(false);
+    expect(storedPayloadSchema.safeParse({ ver: 3, A: { b: [1] }, B: { b: [bar] } }).success).toBe(
+      false
+    );
   });
 });
