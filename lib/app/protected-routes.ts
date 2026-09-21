@@ -21,4 +21,10 @@
  * Boundary-clean: a plain string array (no imports), safe to import at the
  * proxy runtime.
  */
-export const appProtectedRoutes: string[] = [];
+export const appProtectedRoutes: string[] = [
+  // The break console. Saving a break or a take needs a session, and the page
+  // is the only way in — without this it rendered fine signed out and every
+  // save failed at the API with a 401, which is a worse answer than the login
+  // page. The API guards itself regardless; this is the edge redirect.
+  '/breaks',
+];

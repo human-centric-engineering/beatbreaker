@@ -18,6 +18,122 @@ release process.
 
 ### Added
 
+- **BeatBreaker's break domain** — the first of the app's own code, under the
+  fork-owned `lib/app/breaks/` seam. Pure functions, no DOM, no audio: a seeded
+  xorshift RNG (`makeRng`), the twelve-meter table and its pulse-group helpers
+  (`meter.ts`), the lane roster and GM drum map (`lanes.ts`), bar/pattern
+  construction with layer pins (`pattern.ts`), the feel and hi-hat dynamics
+  tables (`feel.ts`), the 37-style table with its cross-meter remapper
+  (`styles.ts`), and the generator itself (`generate.ts` — `generatePattern`,
+  `deriveB`, `varyBar`, `applyFill`, `applyCompFill`). `Pattern` in `types.ts`
+  is the shape every one of them agrees on.
+
+  Generation is deterministic: the same seed and options give back the same
+  break on any machine, which is what lets a share code carry a seed and the
+  server re-derive a break from it.
+
+- **The critic, the layer stack and the engraver** — `critic.ts` (`playability`,
+  the hard four-limb filter; `critique`, the 0–100 score; `generateGood`, the
+  rejection sampler), `layers.ts` (`reduceBar` / `reducePattern` — L5 is stored,
+  1–4 are derived views), and `engrave.ts` (`engrave`, notation as SVG).
+
+  `engrave` returns a plain `SvgNode[]` tree rather than building DOM, so the
+  same call works in a React render, in a test, and on the server. Beaming and
+  rest merging work in the meter's pulse groups, so a compound bar beams in
+  threes without the engraver knowing what compound time is.
+
+- **Share codes and MIDI export** — `share.ts` (`encodeBreak` / `decodeBreak`,
+  wire version 3), `midi.ts` (`buildMidi` — Standard MIDI File, format 0, GM
+  drum map), and `schema.ts`, the Zod schemas both of them and the API route
+  validate against.
+
+  A share code is a base64 blob a stranger can paste in, so `decodeBreak`
+  parses it through Zod rather than trusting `JSON.parse`. Version 2 codes
+  still load: no meter means 4/4, no roster means the five lanes everybody had.
+
+  Swing and the style's off-grid feel are written into the MIDI tick positions,
+  so the export drags where the playback drags — except a hit pushed in front
+  of bar 1, which has nowhere earlier to go and lands on the downbeat.
+
+- **The break doctor and the famous-breaks library** — `doctor.ts` (`doctor`,
+  twelve named musical edits) and `library.ts` (`LIBRARY`, 47 breaks in 8
+  groups; `patternFromLibrary`, `libraryGroups`).
+
+  `doctor` returns a new pattern rather than editing in place, which is what
+  makes undo a matter of keeping the old reference — several of the moves have
+  no inverse. Its `entropy` argument defaults to the clock so two presses of
+  the same button differ, and can be pinned to make a move reproducible.
+
+- **`Break` and `Take` Prisma models** in `prisma/schema/app.prisma`. `Break`
+  holds the share-code wire document as JSON with `style`, `meter`, `bpm`,
+  `seed` and `bars` lifted out as columns; `Take` is a recording of someone
+  playing one. Both carry a plain-scalar `userId` with a hand-written
+  `ON DELETE CASCADE` FK to `user`, declared as `export` sources in
+  `lib/app/data-export.ts` and guarded by two new drift probes in
+  `lib/app/db-drift.ts`.
+
+- **`/api/v1/breaks`** — `GET` (the caller's own breaks, cursor-paginated),
+  `POST` (save one), and `GET` / `PATCH` / `DELETE` on
+  `/api/v1/breaks/[id]`. Request schemas in `lib/validations/breaks.ts` reuse
+  `sharePayloadSchema`, so a break that arrived over HTTP and one pasted as a
+  share code are held to one standard.
+
+  The critic runs server-side on save and on read, and its report is derived
+  rather than stored — a stored score is a number computed by a version of the
+  critic nobody can identify. A break the caller does not own answers 404
+  rather than 403, so private ids cannot be enumerated.
+
+- **The kit table and the audio engine** — `kit.ts` (11 kits across four
+  engines, the slot map, and the knob definitions each engine exposes),
+  `audio/engine.ts` (`BreakAudio` — the drum synth and the shared master chain)
+  and `audio/transport.ts` (`Transport` — the scheduler, swing, feel and the
+  tempo trainer).
+
+  The sampled engines plug in through a `SampleSource` interface rather than
+  being wired into the synth, so a missing sample falls through to the
+  synthesised voice and a half-loaded kit still plays. `Transport` reads a
+  snapshot supplied by the caller on every scheduled step, which is what lets a
+  fader move or a cell change take effect on the next note rather than the next
+  loop.
+
+- **The console** — `/breaks`, and `components/app/breaks/`: `BreakConsole`,
+  `Stave` (renders the engraver's node tree, playhead moved through a ref),
+  `StepEditor` (draws the layer you are on, and pins what you add to it), and
+  `useBreakConsole`, which holds the state the prototype kept in a module
+  global. `/breaks` is registered in `lib/app/protected-routes.ts`.
+
+- **The recorded kits** — 106 mp3 one-shots under `public/kits/` with a
+  manifest, and `audio/packs.ts` (`PackSource`) to fetch and decode them.
+  Covers the Muldjord kit, the Dusty sampler, the Trap kit, the Virtuosity jazz
+  kit and the Brush kit, plus nine recorded percussion instruments that any kit
+  can reach. Attribution is in the README.
+
+  The prototype inlined these as base64 in the page, because a preview frame has
+  nowhere to put a file. As real files the browser caches them, a kit you never
+  pick costs nothing, and they are out of the JS bundle.
+
+- **Your own samples, and live MIDI out** — `audio/user-kit.ts` (`UserSource`,
+  `MAX_SAMPLE_SECONDS`) fills the kit's slots from one-shots on your machine,
+  decoded once and kept in IndexedDB; nothing is uploaded. `audio/midi-out.ts`
+  (`MidiOut`, `MidiSink`) plays the break out of a MIDI port as it happens, on
+  the same GM drum map the file export writes. `SourceStack` in `audio/engine.ts`
+  puts the recorded packs and your samples behind one `SampleSource`, so moving
+  between them needs no reload, and `BreakAudio.demo()` plays a bar of the
+  current kit.
+
+  The two clocks are not the same clock: Web Audio schedules against
+  `AudioContext.currentTime` and Web MIDI against `performance.now()`.
+  `MidiOut` converts at send time, so a note that swings late in the speakers
+  swings late on the port. `Transport.midi` is the seam it hangs off.
+
+  `kitIsPlayable()` now reports the `user` engine as playable. `drift` — the
+  TR-808 and TR-909 voice models — is still the one engine not ported.
+
+- **Per-kit tuning** — `withTuning(kitKey, tuning)` in `kit.ts` lays a saved
+  override over a kit's shipped numbers. Tuning is keyed by kit rather than
+  held globally: a 909's knobs are 0–1 and a synthesised kick's are hertz and
+  seconds, so one saved set carried onto the other kit is not a preference.
+
 - **Every install has an org, and every user belongs to one** (multi-tenancy
   §106, first task). Two published model interfaces in a new
   `prisma/schema/tenancy.prisma`: `Org` (`slug`, `name`, `status`

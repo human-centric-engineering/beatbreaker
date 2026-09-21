@@ -10,3 +10,79 @@
 //
 // See CUSTOMIZATION.md §5 for the FK/onDelete rules a model with a `userId`
 // must follow (GDPR erasure depends on them).
+
+/// A saved break: both sections, the tempo, the swing and the style.
+///
+/// `doc` holds the wire-format payload a share code carries — the same shape
+/// `sharePayloadSchema` validates in `lib/app/breaks/schema.ts`, so a row and a
+/// pasted code are interchangeable. `style`, `meter`, `bpm` and `seed` are
+/// lifted out of it as columns because they are what you filter and sort a
+/// library by; everything else stays in the document.
+///
+/// `userId` is a plain scalar, not a Prisma `@relation`: a relation needs a
+/// back-reference field ON `User`, and editing that model is the fork-and-edit
+/// trap CUSTOMIZATION.md §5 warns about. The FK — and its `ON DELETE CASCADE`,
+/// which is what makes erasure reach these rows — is written by hand in the
+/// migration and asserted by a drift probe in `lib/app/db-drift.ts`.
+model Break {
+  id     String @id @default(cuid())
+  /// FK to User.id — no @relation (that needs a field ON User). Cascades.
+  userId String
+
+  title  String  @db.VarChar(120)
+  /// Key into STYLES.
+  style  String  @db.VarChar(40)
+  /// Key into METERS.
+  meter  String  @db.VarChar(8)
+  bpm    Int
+  /// Swing slider, 0-100.
+  swing  Int     @default(0)
+  /// The generator seed, so the break can be re-derived rather than trusted.
+  seed   BigInt
+  /// Bars per section — denormalised for the list, also derivable from `doc`.
+  bars   Int     @default(2)
+  /// Visible to anyone with the link.
+  shared Boolean @default(false)
+
+  /// The whole break, in the share-code wire format (version 3).
+  doc Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  takes Take[] @relation("TakeBreak")
+
+  @@index([userId, createdAt])
+  @@index([shared, createdAt])
+  @@map("break")
+}
+
+/// A recording of someone playing a break.
+///
+/// The video itself lives in storage; this row is the pointer and the metadata.
+/// Cascades from both sides: deleting the break takes its takes with it, and
+/// erasing the user takes theirs.
+model Take {
+  id      String @id @default(cuid())
+  /// FK to User.id — no @relation. Cascades.
+  userId  String
+  breakId String
+
+  /// Storage key for the video. Never a URL — those are minted per request.
+  videoKey String  @db.VarChar(512)
+  /// Milliseconds.
+  duration Int?
+  /// The tempo it was actually played at, which need not be the break's.
+  bpm      Int?
+  /// The difficulty layer it was played at, 1-5.
+  layer    Int     @default(5)
+  notes    String? @db.Text
+
+  createdAt DateTime @default(now())
+
+  breakRef Break @relation("TakeBreak", fields: [breakId], references: [id], onDelete: Cascade)
+
+  @@index([breakId, createdAt])
+  @@index([userId, createdAt])
+  @@map("take")
+}

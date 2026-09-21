@@ -44,6 +44,35 @@
  *
  * Full guide: CUSTOMIZATION.md §5 · .context/database/prisma-unmodelled-objects.md
  */
+import { constraintExists, registerAppDriftProbe } from '@/lib/db/drift-probes';
+
 export function registerAppDriftProbes(): void {
-  // No app drift probes by default.
+  /* Break.userId and Take.userId are plain scalars in prisma/schema/app.prisma
+     — a @relation would need a back-reference field on User, which is the model
+     CUSTOMIZATION.md §5 tells a fork not to touch. So their FKs to `user` are
+     hand-written in 20260917215110_breaks_and_takes and invisible to Prisma,
+     which means a future `migrate dev` will compute desired state without them
+     and emit a DROP.
+
+     Without these probes that drop is silent, and the first symptom is either
+     orphaned rows after an erasure (a retention violation nobody can see) or a
+     P2003 that breaks erasure for every user. The second argument pins the
+     ON DELETE action, so weakening the cascade to NO ACTION fails CI too —
+     the constraint existing is not the same as the constraint still cascading.
+
+     This is not hypothetical here: the first attempt at that migration had
+     Prisma's generated DROP INDEX statements still in it, and applying it took
+     out all three of Sunrise's hand-folded vector and full-text indexes. */
+  registerAppDriftProbe({
+    name: 'break_userId_fkey (hand-written FK → user)',
+    kind: 'FK constraint',
+    table: 'break',
+    probe: constraintExists('break_userId_fkey', 'ON DELETE CASCADE'),
+  });
+  registerAppDriftProbe({
+    name: 'take_userId_fkey (hand-written FK → user)',
+    kind: 'FK constraint',
+    table: 'take',
+    probe: constraintExists('take_userId_fkey', 'ON DELETE CASCADE'),
+  });
 }

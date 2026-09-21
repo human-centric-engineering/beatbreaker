@@ -204,18 +204,28 @@ describe('reserved fork tiers', () => {
     expect(filesUnder(dir).length).toBeGreaterThan(0);
   });
 
-  it('prisma/schema/app.prisma declares no models', () => {
-    // The same promise, in the file the docs single out as "ships empty".
+  it('prisma/schema/app.prisma declares exactly the app models we know about', () => {
+    // FORK (BeatBreaker): upstream asserts this file is empty. CUSTOMIZATION.md
+    // §5 tells a fork to put its models in exactly this file, so the row is
+    // pinned rather than deleted — the file's own header block says as much.
+    // Pinned to the list, not to a count: a model appearing here that nobody
+    // decided about is the thing worth catching, and every model in this file
+    // also needs a row in lib/app/data-export.ts before erasure and subject
+    // access are honest about it.
     const src = readFileSync(join(REPO_ROOT, 'prisma/schema/app.prisma'), 'utf8');
     const declarations = src
       .split('\n')
-      .filter((line) => /^\s*(model|enum|type|view)\s+\w+/.test(line));
+      .map((line) => /^\s*(model|enum|type|view)\s+(\w+)/.exec(line))
+      .filter((m): m is RegExpExecArray => m !== null)
+      .map((m) => `${m[1]} ${m[2]}`)
+      .sort();
 
     expect(
       declarations,
-      'prisma/schema/app.prisma is fork-reserved and ships empty; platform ' +
-        'app-domain models belong in prisma/schema/platform.prisma.'
-    ).toEqual([]);
+      'A model in prisma/schema/app.prisma that is not pinned here. Add it to ' +
+        'this list AND to lib/app/data-export.ts, or a data subject gets a ' +
+        'short answer that looks like a complete one.'
+    ).toEqual(['model Break', 'model Take']);
   });
 
   it('the reservation is documented in both places a fork would look', () => {

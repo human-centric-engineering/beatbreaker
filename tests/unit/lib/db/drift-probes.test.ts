@@ -355,8 +355,22 @@ describe('mergeDriftProbes', () => {
 });
 
 describe('shipped lib/app/db-drift.ts scaffold', () => {
-  it('registers zero probes by default (Sunrise ships the scaffold empty)', () => {
+  // FORK (BeatBreaker): upstream asserts the scaffold registers nothing. We
+  // register two — the hand-written FKs from Break and Take to `user`, which
+  // Prisma cannot see and will emit a DROP for on some future `migrate dev`.
+  // Pinning the names AND the cascade here means deleting a probe fails a test
+  // rather than quietly removing the only thing standing between an unrelated
+  // migration and a broken erasure path.
+  it('registers the app FK probes (BeatBreaker fills this scaffold)', () => {
     registerAppDriftProbes();
-    expect(getAppDriftProbes()).toEqual([]);
+    expect(
+      getAppDriftProbes()
+        .map((p) => p.table)
+        .sort()
+    ).toEqual(['break', 'take']);
+    for (const probe of getAppDriftProbes()) {
+      expect(probe.kind).toBe('FK constraint');
+      expect(probe.name).toMatch(/hand-written FK/);
+    }
   });
 });

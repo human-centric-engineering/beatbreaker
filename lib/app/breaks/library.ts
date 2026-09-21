@@ -1,0 +1,670 @@
+import { BASE_LANES, FOOT_LANE, TOM_LANES, percRoster } from '@/lib/app/breaks/lanes';
+import { DEFAULT_METER, METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
+import { type BarSpec, parseBar } from '@/lib/app/breaks/pattern';
+import { STYLES } from '@/lib/app/breaks/styles';
+import type { CymbalVoice, LaneKey, Pattern } from '@/lib/app/breaks/types';
+
+/**
+ * Famous breaks — the main groove off each record, a bar or two of it, in the
+ * meter it was played in.
+ *
+ * Fills and variations are not here. These are **practice approximations**: the
+ * thing you would be taught, not a transcription of a particular take. The feel
+ * studies at the bottom are written rather than transcribed, and say so in
+ * their `artist` line.
+ */
+export interface LibraryItem {
+  /** Heading it files under in the picker. */
+  group: string;
+  title: string;
+  /** Who played it, and when. */
+  artist: string;
+  bpm: number;
+  /** Key into `STYLES` — what the generator would call this. */
+  style: string;
+  voice?: CymbalVoice;
+  /** The thing worth listening for. */
+  note?: string;
+  /** Where the entry is not in 4/4. Its bar strings are then read at that meter's step count. */
+  meter?: string;
+  /** Where the style's own backbeats are in the wrong meter for this entry. */
+  backbeats?: number[];
+  bars: BarSpec[];
+}
+
+export const LIBRARY: LibraryItem[] = [
+  /* ---- the sampled breaks ------------------------------------------- */
+  {
+    group: 'Funk and the breaks',
+    title: 'Funky Drummer',
+    artist: 'James Brown · Clyde Stubblefield, 1970',
+    bpm: 94,
+    style: 'funk',
+    voice: 'hat',
+    note: 'The hard note is the ghost on the “a” of 3 — quiet, with the loud 4 straight after it.',
+    bars: [{ k: 'X.X.......X..X..', s: '....S..g.g.gS..g', h: 'XxxxXxoxXxxxXxox' }],
+  },
+  {
+    group: 'Funk and the breaks',
+    title: 'Cold Sweat',
+    artist: 'James Brown · Clyde Stubblefield, 1967',
+    bpm: 104,
+    style: 'funk',
+    voice: 'hat',
+    bars: [{ k: 'X..X..X...X.....', s: '....S...g...S..g', h: 'XxxxXxxxXxxxXxxx' }],
+  },
+  {
+    group: 'Funk and the breaks',
+    title: 'Amen, Brother',
+    artist: 'The Winstons · G. C. Coleman, 1969',
+    bpm: 136,
+    style: 'amen',
+    voice: 'ride',
+    note: 'Four bars, not one. The backbeat walks late across bars 3 and 4 — that is what everyone chops.',
+    bars: [
+      {
+        k: 'X.X.......X.....',
+        s: '....S.......S...',
+        r: 'r.r.r.r.r.r.r.r.',
+        c: 'C...............',
+      },
+      { k: 'X.X.......X.....', s: '....S.......S.g.', r: 'r.r.r.r.r.r.r.r.' },
+      { k: 'X.........X.....', s: '....S......S....', r: 'r.r.r.r.r.r.r.r.' },
+      { k: 'X.........X.....', s: '....S.....S...g.', r: 'r.r.r.r.r.r.r.r.' },
+    ],
+  },
+  {
+    group: 'Funk and the breaks',
+    title: 'Impeach the President',
+    artist: 'The Honey Drippers, 1973',
+    bpm: 92,
+    style: 'boombap',
+    voice: 'hat',
+    bars: [{ k: 'X.....X...X.....', s: '....S.......S...', h: 'X.x.X.x.X.x.X.x.' }],
+  },
+  {
+    group: 'Funk and the breaks',
+    title: 'Apache',
+    artist: 'Incredible Bongo Band · Jim Gordon, 1973',
+    bpm: 116,
+    style: 'boombap',
+    voice: 'hat',
+    bars: [{ k: 'X.......X.X.....', s: '....S.......S...', h: 'X.x.X.x.X.x.X.x.' }],
+  },
+  {
+    group: 'Funk and the breaks',
+    title: 'Ashley’s Roachclip',
+    artist: 'The Soul Searchers, 1974',
+    bpm: 96,
+    style: 'funk',
+    voice: 'hat',
+    bars: [{ k: 'X..X....X.......', s: '....S...g...S..g', h: 'XxxxXxxxXxxxXxxx' }],
+  },
+
+  /* ---- Copeland ----------------------------------------------------- */
+  {
+    group: 'The Police · Stewart Copeland',
+    title: 'Roxanne',
+    artist: 'The Police · Stewart Copeland, 1978',
+    bpm: 136,
+    style: 'rock',
+    voice: 'hat',
+    note: 'Nothing on beat 1. The kick runs “and — two” into the snare, which is the tango Copeland put under it.',
+    bars: [{ k: '..X.X...........', s: '....S.......S...', h: 'X.x.X.x.X.x.X.o.' }],
+  },
+  {
+    group: 'The Police · Stewart Copeland',
+    title: 'Message in a Bottle',
+    artist: 'The Police · Stewart Copeland, 1979',
+    bpm: 150,
+    style: 'rock',
+    voice: 'hat',
+    note: 'Every kick sits on an off-beat. The only thing on a downbeat is the hat.',
+    bars: [{ k: '..X...X...X...X.', s: '....S.......S...', h: 'X.x.X.x.X.x.X.o.' }],
+  },
+  {
+    group: 'The Police · Stewart Copeland',
+    title: 'Every Breath You Take',
+    artist: 'The Police · Stewart Copeland, 1983',
+    bpm: 117,
+    style: 'rock',
+    voice: 'hat',
+    bars: [{ k: 'X.....X.X.......', s: '....S.......S...', h: 'X.x.X.x.X.x.X.x.' }],
+  },
+
+  /* ---- Ringo -------------------------------------------------------- */
+  {
+    group: 'The Beatles · Ringo Starr',
+    title: 'Come Together',
+    artist: 'The Beatles · Ringo Starr, 1969',
+    bpm: 82,
+    style: 'rock',
+    voice: 'hat',
+    note: 'No backbeat in the verse at all. The kick figure is the groove; the tom lick is the turnaround.',
+    bars: [{ k: 'X..XX...X..XX...', h: 'X.x.X.x.X.x.X.x.', c: 'C...............' }],
+  },
+  {
+    group: 'The Beatles · Ringo Starr',
+    title: 'A Hard Day’s Night',
+    artist: 'The Beatles · Ringo Starr, 1964',
+    bpm: 140,
+    style: 'rock',
+    voice: 'hat',
+    bars: [{ k: 'X.......X.X...X.', s: '....S.......S...', h: 'X.x.X.x.X.x.X.x.' }],
+  },
+  {
+    group: 'The Beatles · Ringo Starr',
+    title: 'Birthday',
+    artist: 'The Beatles · Ringo Starr, 1968',
+    bpm: 150,
+    style: 'rock',
+    voice: 'hat',
+    note: 'Two bars. The second one answers the first by putting the snare on all four beats.',
+    bars: [
+      { k: 'X.......X.X.....', s: '....S.......S...', h: 'X.x.X.x.X.x.X.x.' },
+      { k: 'X...X...X...X...', s: 'S...S...S...S...', h: 'X.x.X.x.X.x.X.x.' },
+    ],
+  },
+
+  /* ---- Chad Smith --------------------------------------------------- */
+  {
+    group: 'Red Hot Chili Peppers · Chad Smith',
+    title: 'Can’t Stop',
+    artist: 'Red Hot Chili Peppers · Chad Smith, 2002',
+    bpm: 91,
+    style: 'funk',
+    voice: 'hat',
+    note: 'Two ghosts run “a of 2, e of 3” between the backbeats. Play them at a whisper or it is a different song.',
+    bars: [{ k: 'X.X.......X.....', s: '....S..g.g..S..g', h: 'X.x.X.x.X.x.X.x.' }],
+  },
+  {
+    group: 'Red Hot Chili Peppers · Chad Smith',
+    title: 'Give It Away',
+    artist: 'Red Hot Chili Peppers · Chad Smith, 1991',
+    bpm: 100,
+    style: 'funk',
+    voice: 'hat',
+    bars: [{ k: 'X..X..X...X...X.', s: '....S.......S...', h: 'X.x.X.x.X.x.X.x.' }],
+  },
+  {
+    group: 'Red Hot Chili Peppers · Chad Smith',
+    title: 'By the Way',
+    artist: 'Red Hot Chili Peppers · Chad Smith, 2002',
+    bpm: 166,
+    style: 'rock',
+    voice: 'hat',
+    note: 'The verse is on the floor tom, not the hats. Kick doubles under the back half of the bar.',
+    bars: [
+      {
+        k: 'X.X.....X.XX...X',
+        s: '....S....s..S...',
+        t3: '..X.X.X.X.X.X.X.',
+        c: 'C...............',
+      },
+    ],
+  },
+  {
+    group: 'Red Hot Chili Peppers · Chad Smith',
+    title: 'Around the World',
+    artist: 'Red Hot Chili Peppers · Chad Smith, 1999',
+    bpm: 123,
+    style: 'funk',
+    voice: 'hat',
+    bars: [{ k: 'X..X.....XX.....', s: '....S..s....S...', h: 'XxXx.XX.XxXx.XXX' }],
+  },
+  {
+    group: 'Red Hot Chili Peppers · Chad Smith',
+    title: 'Under the Bridge',
+    artist: 'Red Hot Chili Peppers · Chad Smith, 1991',
+    bpm: 84,
+    style: 'soul',
+    voice: 'hat',
+    note: 'The kick plays twice a bar and never on 1.',
+    bars: [{ k: '..X.....X.......', s: '....S.......S...', h: 'X.x.X.x.X.x.X.x.' }],
+  },
+
+  /* ---- Bonham ------------------------------------------------------- */
+  {
+    group: 'Led Zeppelin · John Bonham',
+    title: 'When the Levee Breaks',
+    artist: 'Led Zeppelin · John Bonham, 1971',
+    bpm: 70,
+    style: 'halftime',
+    voice: 'hat',
+    note: 'One backbeat, on 3. The room on the record is a stairwell, so push the Room knob up.',
+    bars: [{ k: 'X.....X.........', s: '........S.......', h: 'X.x.X.x.X.x.X.x.' }],
+  },
+  {
+    group: 'Led Zeppelin · John Bonham',
+    title: 'Rock and Roll',
+    artist: 'Led Zeppelin · John Bonham, 1971',
+    bpm: 170,
+    style: 'rock',
+    voice: 'hat',
+    bars: [{ k: 'X.X.....X.X.....', s: '....S.......S...', h: 'X.x.X.x.X.x.X.x.' }],
+  },
+  {
+    group: 'Led Zeppelin · John Bonham',
+    title: 'Immigrant Song',
+    artist: 'Led Zeppelin · John Bonham, 1970',
+    bpm: 112,
+    style: 'rock',
+    voice: 'hat',
+    note: 'The gallop is four kicks a half-bar. Ghost the snare on the “a” of 2 and 4 and it locks.',
+    bars: [{ k: 'X.XX.X..X.XX.X..', s: '....S..g....S..g', h: 'X.x.X.x.X.x.X.x.' }],
+  },
+  {
+    group: 'Led Zeppelin · John Bonham',
+    title: 'Kashmir',
+    artist: 'Led Zeppelin · John Bonham, 1975',
+    bpm: 80,
+    style: 'rock',
+    voice: 'hat',
+    note: 'The kit stays in 4/4 while the riff walks in 3/4. They only meet again every three bars.',
+    bars: [
+      {
+        k: 'X.......XX......',
+        s: '....S.......S...',
+        h: 'X.x.X.x.X.x.X.x.',
+        c: 'C...............',
+      },
+    ],
+  },
+  {
+    group: 'Led Zeppelin · John Bonham',
+    title: 'Good Times Bad Times',
+    artist: 'Led Zeppelin · John Bonham, 1969',
+    bpm: 140,
+    style: 'rock',
+    voice: 'hat',
+    note: 'All of that on one pedal. The playability check will complain; Bonham did it anyway.',
+    bars: [{ k: 'X.X....X.XXX...X', s: '....Ss......Ss..', h: 'X.x.X.x.X.x.X.x.' }],
+  },
+
+  /* ---- shuffles and odd metres -------------------------------------- */
+  {
+    group: 'Shuffles and odd metres',
+    title: 'Fool in the Rain',
+    artist: 'Led Zeppelin · John Bonham, 1979',
+    bpm: 150,
+    style: 'purdie',
+    voice: 'hat',
+    meter: '12/8',
+    note: '12/8, so the triplets are the meter — leave Swing at zero. The slider counts quarters, so the pulse you feel is two thirds of the reading.',
+    bars: [
+      {
+        k: 'X...X.....X...........X.',
+        s: '..g.....g...S.......g...',
+        h: 'X...o.x...x.X...x.X...x.',
+      },
+    ],
+  },
+  {
+    group: 'Shuffles and odd metres',
+    title: 'Rosanna',
+    artist: 'after Jeff Porcaro · Toto, 1982',
+    bpm: 130,
+    style: 'purdie',
+    voice: 'hat',
+    meter: '12/8',
+    note: 'Hats on the outer triplets, a ghost on every middle one, one backbeat on 3. Porcaro kept moving the kick; this is the plain reading of it.',
+    bars: [
+      {
+        k: 'X.........X.............',
+        s: '..g.....g...S.g.....g...',
+        h: 'X...x.x...x.X...x.X...x.',
+      },
+    ],
+  },
+  {
+    group: 'Shuffles and odd metres',
+    title: 'Hold the Line',
+    artist: 'Toto · Jeff Porcaro, 1978',
+    bpm: 96,
+    style: 'shuffle',
+    voice: 'hat',
+    note: 'Four on the floor under a shuffled 8th. Written straight — the Swing slider is doing the triplets.',
+    bars: [{ k: 'X...X...X...X...', s: '....S.......S...', h: 'X.x.X.x.X.x.X.x.' }],
+  },
+  {
+    group: 'Shuffles and odd metres',
+    title: 'Hot for Teacher',
+    artist: 'Van Halen · Alex Van Halen, 1984',
+    bpm: 255,
+    style: 'purdie',
+    voice: 'hat',
+    meter: '12/8',
+    backbeats: [12],
+    note: 'The intro. A shuffled double pedal under a tom shuffle — at this tempo it wants two feet.',
+    bars: [{ k: 'X...X.X...X.X...X.X...X.', t3: 'X.X.X.X.X.X.X.X.X.X.X.X.' }],
+  },
+  {
+    group: 'Shuffles and odd metres',
+    title: 'Money',
+    artist: 'Pink Floyd · Nick Mason, 1973',
+    bpm: 122,
+    style: 'rock',
+    voice: 'hat',
+    meter: '7/4',
+    backbeats: [4, 12, 20],
+    note: 'Seven beats. Kick on the odd ones, snare on the even ones, and the bar runs out a beat early.',
+    bars: [
+      {
+        k: 'X.......X.......X.......X...',
+        s: '....S.......S.......S.......',
+        h: 'X.x.X.x.X.x.X.x.X.x.X.x.X.x.',
+        c: 'C...........................',
+      },
+    ],
+  },
+
+  /* ---- rock and pop ------------------------------------------------- */
+  {
+    group: 'Rock and pop',
+    title: 'Back in Black',
+    artist: 'AC/DC · Phil Rudd, 1980',
+    bpm: 94,
+    style: 'rock',
+    voice: 'hat',
+    note: 'Nothing extra anywhere. What makes it is how late Rudd lets the snare sit, not what he plays.',
+    bars: [{ k: 'X.......X.......', s: '....S.......S...', h: 'X.x.X.x.X.x.X.x.' }],
+  },
+  {
+    group: 'Rock and pop',
+    title: 'Highway to Hell',
+    artist: 'AC/DC · Phil Rudd, 1979',
+    bpm: 116,
+    style: 'rock',
+    voice: 'hat',
+    bars: [{ k: 'X.......X.....X.', s: '....S.......S...', h: 'X.x.X.x.X.x.X.x.' }],
+  },
+  {
+    group: 'Rock and pop',
+    title: '(I Can’t Get No) Satisfaction',
+    artist: 'The Rolling Stones · Charlie Watts, 1965',
+    bpm: 136,
+    style: 'rock',
+    voice: 'hat',
+    note: 'Snare on all four beats rather than on 2 and 4.',
+    bars: [{ k: 'X...X...X...X...', s: 'S...S...S...S...', h: 'X.x.X.x.X.x.X.x.' }],
+  },
+  {
+    group: 'Rock and pop',
+    title: 'Smells Like Teen Spirit',
+    artist: 'Nirvana · Dave Grohl, 1991',
+    bpm: 117,
+    style: 'rock',
+    voice: 'hat',
+    note: 'The chorus. Open hats only — nothing closed in the whole bar.',
+    bars: [
+      {
+        k: 'X..X....X.XX..X.',
+        s: '....S..s.s..S...',
+        h: '....o...o...o...',
+        c: 'C...............',
+      },
+    ],
+  },
+  {
+    group: 'Rock and pop',
+    title: 'Come As You Are',
+    artist: 'Nirvana · Dave Grohl, 1991',
+    bpm: 120,
+    style: 'rock',
+    voice: 'ride',
+    note: 'Two bars on the ride. The second one fills the front of the bar in.',
+    bars: [
+      {
+        k: 'X.......X.X...X.',
+        s: '....S.......S...',
+        r: 'r.r.r.r.r.r.r.r.',
+        c: 'C...............',
+      },
+      { k: 'X.X...X...X...X.', s: '....S.......S...', r: 'r.r.r.r.r.r.r.r.' },
+    ],
+  },
+  {
+    group: 'Rock and pop',
+    title: 'Everlong',
+    artist: 'Foo Fighters · Taylor Hawkins, 1997',
+    bpm: 158,
+    style: 'rock',
+    voice: 'hat',
+    note: '16ths on the hat that drop out exactly where the snare lands.',
+    bars: [{ k: 'X.......X.X.....', s: '....S.......S...', h: 'Xxxx.xxxXxxx.xxx' }],
+  },
+  {
+    group: 'Rock and pop',
+    title: 'Tom Sawyer',
+    artist: 'Rush · Neil Peart, 1981',
+    bpm: 88,
+    style: 'rock',
+    voice: 'hat',
+    note: 'Two bars. The second adds a kick on the “e” of 4 to push into the next one.',
+    bars: [
+      {
+        k: 'X.......X.X.....',
+        s: '....S.......S...',
+        h: 'XxxxXxxxXxxxXxxx',
+        c: 'C...............',
+      },
+      { k: 'X.......X.X..X..', s: '....S.......S...', h: 'XxxxXxxxXxxxXxxx' },
+    ],
+  },
+  {
+    group: 'Rock and pop',
+    title: 'Walk This Way',
+    artist: 'Aerosmith · Joey Kramer, 1975',
+    bpm: 106,
+    style: 'funk',
+    voice: 'hat',
+    note: 'Two bars. The second moves the first snare onto the “and” of 2.',
+    bars: [
+      {
+        k: 'X.........X..X..',
+        s: '....S.......S...',
+        h: '..x.X.x.X.x.X.x.',
+        c: 'C...............',
+      },
+      { k: 'X.X.......X..X..', s: '......S.....S...', h: 'X.x.X.x.X.x.X.x.' },
+    ],
+  },
+  {
+    group: 'Rock and pop',
+    title: 'Beat It',
+    artist: 'Michael Jackson · Jeff Porcaro, 1982',
+    bpm: 139,
+    style: 'rock',
+    voice: 'hat',
+    note: 'The drum intro. The floor tom takes beat 4 and the hat gets out of its way.',
+    bars: [
+      {
+        k: 'X.......X...X...',
+        s: '....S.......S...',
+        h: 'X.x.X.x.X.x...x.',
+        t3: '............X...',
+      },
+      {
+        k: 'X.........X.X...',
+        s: '....S.......S...',
+        h: 'X.x.X.x.X.x...x.',
+        t3: '............X...',
+      },
+    ],
+  },
+  {
+    group: 'Rock and pop',
+    title: 'Seven Nation Army',
+    artist: 'The White Stripes · Meg White, 2003',
+    bpm: 124,
+    style: 'rock',
+    voice: 'hat',
+    note: 'Floor tom and kick together on all four beats. Nothing in the right hand — the hat is the foot.',
+    bars: [
+      {
+        k: 'X...X...X...X...',
+        s: '....S.......S...',
+        t3: 'X...X...X...X...',
+        hf: 'f...f...f...f...',
+      },
+    ],
+  },
+  {
+    group: 'Rock and pop',
+    title: 'Another One Bites the Dust',
+    artist: 'Queen · Roger Taylor, 1980',
+    bpm: 110,
+    style: 'disco',
+    voice: 'hat',
+    bars: [{ k: 'X...X...X...X...', s: '....S.......S...', h: 'X.x.X.x.X.x.X.x.' }],
+  },
+  {
+    group: 'Rock and pop',
+    title: 'We Will Rock You',
+    artist: 'Queen, 1977',
+    bpm: 81,
+    style: 'rock',
+    voice: 'hat',
+    note: 'Stomp, stomp, clap. There is no kit on the record — it is feet on staging and hands.',
+    bars: [{ k: 'X.X.....X.X.....', s: '....S.......S...', t3: 'X.X.....X.X.....' }],
+  },
+  {
+    group: 'Rock and pop',
+    title: 'In the Air Tonight',
+    artist: 'Phil Collins, 1981',
+    bpm: 98,
+    style: 'rock',
+    voice: 'hat',
+    note: 'Bar one is the groove, bar two is the fill — doubles all the way down the kit. Room knob up.',
+    bars: [
+      { k: 'X.....X.........', s: '....S.......S...' },
+      {
+        t1: 'XX.XX...........',
+        t2: '......XX.XX.....',
+        t3: '............X.X.',
+        c: 'C...............',
+      },
+    ],
+  },
+
+  /* ---- feel studies, written rather than transcribed ---------------- */
+  {
+    group: 'Feel studies',
+    title: 'Off-grid study',
+    artist: 'after J Dilla — late snare, pushed kick',
+    bpm: 88,
+    style: 'dilla',
+    voice: 'hat',
+    bars: [{ k: 'X..X..X...X.....', s: '....S..g...gS..g', h: 'XxxxXxxxXxxxXxox' }],
+  },
+  {
+    group: 'Feel studies',
+    title: 'Afrobeat study',
+    artist: 'after Tony Allen — accent on the “and”, hats barking',
+    bpm: 108,
+    style: 'afrobeat',
+    voice: 'hat',
+    bars: [{ k: 'X......X..X.....', s: '...g..S.g..gS..g', h: 'XxoxXxoxXxoxXxox' }],
+  },
+  {
+    group: 'Feel studies',
+    title: 'One drop study',
+    artist: 'reggae — nothing on 1, kick and cross-stick on 3',
+    bpm: 76,
+    style: 'reggae',
+    voice: 'hat',
+    bars: [{ k: '........X.......', s: '........S.......', h: 'X.x.X.x.X.x.X.o.' }],
+  },
+  {
+    group: 'Feel studies',
+    title: 'Steppers study',
+    artist: 'dub — four on the floor, snare on 3, space for the delay',
+    bpm: 70,
+    style: 'dub',
+    voice: 'hat',
+    bars: [{ k: 'X...X...X...X...', s: '........S.....g.', h: 'X.x.X.o.X.x.X.o.' }],
+  },
+  {
+    group: 'Feel studies',
+    title: 'Linear study',
+    artist: 'linear funk — no two limbs land together',
+    bpm: 100,
+    style: 'linearfunk',
+    voice: 'hat',
+    bars: [{ k: 'X.....X...X.....', s: '...gS..g....S..g', h: '.xx..x..xx.x.x.x' }],
+  },
+  {
+    group: 'Feel studies',
+    title: 'Two-step study',
+    artist: 'UK garage — kick on 1 and the “a” of 3, nothing on beat 3',
+    bpm: 134,
+    style: 'twostep',
+    voice: 'hat',
+    bars: [{ k: 'X..........X....', s: '....S.......S...', h: 'XxoxXxxxXxoxXxxx' }],
+  },
+  {
+    group: 'Feel studies',
+    title: 'Motown backbeat',
+    artist: 'straight 8ths, kick on 1 and 3, snare that does not move',
+    bpm: 124,
+    style: 'motown',
+    voice: 'hat',
+    bars: [{ k: 'X.......X.......', s: '....S.......S...', h: 'X.X.X.X.X.X.X.X.' }],
+  },
+];
+
+/**
+ * One library entry as a playable {@link Pattern}.
+ *
+ * Most of the library is one bar of 4/4 sixteenths, but a half-time shuffle is
+ * not a half-time shuffle on a straight grid and *Money* is not *Money* in
+ * four. An entry may therefore name its own meter, and its bar strings are read
+ * at that meter's step count rather than at sixteen — 24 for 12/8, 28 for 7/4.
+ *
+ * Two things come from the **entry** rather than from the style: the lane
+ * roster (a transcription that writes the floor tom gets that row on the page;
+ * one that does not keeps the five-lane kit) and the backbeat positions, where
+ * the style's own are in the wrong meter.
+ *
+ * `bbLane` stays the snare even for styles whose generated form marks 2 and 4
+ * with the foot. These are written notes, not generated ones — if a
+ * transcription puts the backbeat on the snare, that is where the critic should
+ * look for it.
+ */
+export function patternFromLibrary(item: LibraryItem, index: number): Pattern {
+  const meter = item.meter && METERS[item.meter] ? item.meter : DEFAULT_METER;
+  const steps = stepsOf(meterOf(meter));
+  const style = STYLES[item.style];
+
+  const lanes: LaneKey[] = BASE_LANES.slice();
+  for (const L of [...TOM_LANES, FOOT_LANE]) {
+    if (item.bars.some((spec) => spec[L as keyof BarSpec])) lanes.push(L);
+  }
+
+  return {
+    name: item.title,
+    style: item.style,
+    meter,
+    seed: 1000 + index,
+    voice: item.voice ?? 'hat',
+    lanes,
+    perc: percRoster(style),
+    backbeats: (item.backbeats ?? style?.backbeats ?? []).slice(),
+    bbLane: 's',
+    hasRide: false,
+    hasHat: false,
+    pins: null,
+    bars: item.bars.map((spec) => parseBar(spec, steps)),
+  };
+}
+
+/** The library grouped for the picker, in table order. */
+export function libraryGroups(): Array<[string, Array<{ item: LibraryItem; index: number }>]> {
+  const out = new Map<string, Array<{ item: LibraryItem; index: number }>>();
+  LIBRARY.forEach((item, index) => {
+    const list = out.get(item.group);
+    if (list) list.push({ item, index });
+    else out.set(item.group, [{ item, index }]);
+  });
+  return [...out.entries()];
+}

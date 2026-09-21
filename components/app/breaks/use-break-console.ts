@@ -1,0 +1,1166 @@
+'use client';
+
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
+import { BreakAudio, SourceStack } from '@/lib/app/breaks/audio/engine';
+import { MidiOut } from '@/lib/app/breaks/audio/midi-out';
+import { PackSource } from '@/lib/app/breaks/audio/packs';
+import { UserSource } from '@/lib/app/breaks/audio/user-kit';
+import {
+  Transport,
+  type PlayEvent,
+  type SectionLetter,
+  type TransportSnapshot,
+  maxBpm,
+} from '@/lib/app/breaks/audio/transport';
+import {
+  type Critique,
+  type Playability,
+  critique,
+  generateGood,
+  playability,
+} from '@/lib/app/breaks/critic';
+import { type DoctorMove, doctor } from '@/lib/app/breaks/doctor';
+import { deriveB } from '@/lib/app/breaks/generate';
+import { DEFAULT_MIX, LANES, PERC_LANES, TOM_LANES } from '@/lib/app/breaks/lanes';
+import { LIBRARY, patternFromLibrary } from '@/lib/app/breaks/library';
+import { reducePattern } from '@/lib/app/breaks/layers';
+import { DEFAULT_METER } from '@/lib/app/breaks/meter';
+import { buildMidi } from '@/lib/app/breaks/midi';
+import {
+  type CustomLanes,
+  clonePattern,
+  resolveLanes,
+  setPin,
+  writePerc,
+} from '@/lib/app/breaks/pattern';
+import { clamp, makeRng } from '@/lib/app/breaks/rng';
+import { type BreakDoc, decodeBreak, encodeBreak } from '@/lib/app/breaks/share';
+import { STYLES, styleIn } from '@/lib/app/breaks/styles';
+import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
+import { KITS, type VoiceParams, kitEngine, kitIsPlayable, withTuning } from '@/lib/app/breaks/kit';
+import { useLocalStorage } from '@/lib/hooks/use-local-storage';
+import { logger } from '@/lib/logging';
+
+/**
+ * All of the console's state, and every action that changes it.
+ *
+ * The prototype kept one module-global `state` object and re-rendered the page
+ * by hand. Here React owns it, and the transport is handed a `getSnapshot`
+ * callback that reads the *current* values on every scheduled step — so moving
+ * a fader or editing a cell lands on the next note rather than the next loop,
+ * without the transport holding a stale copy or re-subscribing.
+ *
+ * Patterns are stored at **layer 5** and reduced for display and playback.
+ * That is what lets you drop to L2 and back without losing anything.
+ */
+
+export type ViewMode = 'A' | 'B' | 'both';
+
+/** Two undo steps' worth of both sections. */
+interface Snapshot {
+  A: Pattern | null;
+  B: Pattern | null;
+}
+
+const HISTORY_CAP = 40;
+
+export interface BreakConsole {
+  ready: boolean;
+  patterns: Record<SectionLetter, Pattern | null>;
+  /** The sections as they sound and look at the current layer. */
+  view: Record<SectionLetter, Pattern | null>;
+  /**
+   * The same sections one layer up, or `null` at the top layer. The chart
+   * draws the difference faintly, so you can see what arrives next without
+   * committing to playing it.
+   */
+  next: Record<SectionLetter, Pattern | null> | null;
+  report: Critique | null;
+  checks: Playability | null;
+  tries: { tries: number; rejected: number } | null;
+
+  level: number;
+  setLevel: (n: number) => void;
+  viewMode: ViewMode;
+  setViewMode: (v: ViewMode) => void;
+  editing: SectionLetter;
+  setEditing: (s: SectionLetter) => void;
+
+  style: string;
+  setStyle: (s: string) => void;
+  meter: string;
+  setMeter: (m: string) => void;
+  bars: number;
+  setBars: (n: number) => void;
+  density: number;
+  setDensity: (n: number) => void;
+  ghosts: number;
+  setGhosts: (n: number) => void;
+  swing: number;
+  setSwing: (n: number) => void;
+  hats: number;
+  setHats: (n: number) => void;
+  feel: number;
+  setFeel: (n: number) => void;
+  lanesMode: 'style' | 'custom';
+  setLanesMode: (m: 'style' | 'custom') => void;
+  customLanes: CustomLanes;
+  setCustomLanes: (c: CustomLanes) => void;
+
+  bpm: number;
+  setBpm: (n: number) => void;
+  bpmCeiling: number;
+  playing: boolean;
+  togglePlay: () => void;
+  loops: number;
+  position: PlayEvent | null;
+
+  kit: string;
+  setKit: (k: string) => void;
+  /**
+   * The live voice parameters — the kit's own numbers with your tuning on top.
+   * This is what the engine is playing, not what the table ships.
+   */
+  sound: Record<string, VoiceParams>;
+  /** Which voice the kit panel is editing. */
+  voice: string;
+  setVoice: (v: string) => void;
+  setParam: (voice: string, key: string, value: number) => void;
+  resetVoice: (voice: string) => void;
+  resetKit: () => void;
+  /** Whether this kit is carrying any tuning of yours, so "reset" can say so. */
+  kitTuned: boolean;
+  /** How many of this kit's slots have decoded; 0 when it is not a sampled kit. */
+  kitSlots: number;
+  /** Play the synthesised percussion voices instead of the recordings. */
+  percSamples: boolean;
+  setPercSamples: (b: boolean) => void;
+  /** How many percussion instruments have recordings in memory. */
+  percCount: number;
+  /** Your own one-shots: filename per slot. */
+  userNames: Record<string, string>;
+  /** Returns an empty string on success, or the sentence to show. */
+  addSample: (slot: string, file: File) => Promise<string>;
+  removeSample: (slot: string) => Promise<void>;
+  mix: Record<string, number>;
+  setLaneMix: (lane: string, v: number) => void;
+  resetMix: () => void;
+  mixTouched: Record<string, boolean>;
+  mute: Record<string, boolean>;
+  toggleMute: (lane: string) => void;
+
+  click: boolean;
+  setClick: (b: boolean) => void;
+  clickSub: number;
+  setClickSub: (n: number) => void;
+  countIn: number;
+  setCountIn: (n: number) => void;
+  ramp: number;
+  setRamp: (n: number) => void;
+  ceiling: number;
+  setCeiling: (n: number) => void;
+  /** Drop the tempo to suit the layer you are on, and put it back at L5. */
+  matchTempo: boolean;
+  setMatchTempo: (b: boolean) => void;
+
+  arrangement: SectionLetter[];
+  setArrangement: (a: SectionLetter[]) => void;
+  locks: Record<string, boolean>;
+  toggleLock: (k: string) => void;
+
+  guides: boolean;
+  setGuides: (b: boolean) => void;
+  sticking: boolean;
+  setSticking: (b: boolean) => void;
+  preview: boolean;
+  setPreview: (b: boolean) => void;
+  /** Chart zoom. 1 is the reference size the engraver is drawn at. */
+  size: number;
+  setSize: (n: number) => void;
+
+  newBreak: (which?: SectionLetter | 'both') => void;
+  buildBFromA: () => void;
+  applyDoctor: (move: DoctorMove) => void;
+  cycleCell: (
+    letter: SectionLetter,
+    bar: number,
+    lane: LaneKey,
+    step: number,
+    back: boolean
+  ) => void;
+  loadLibraryItem: (index: number) => void;
+  undo: () => void;
+  redo: () => void;
+  canUndo: boolean;
+  canRedo: boolean;
+
+  /** Saved breaks, newest first. */
+  favs: Fav[];
+  saveFav: () => void;
+  loadFav: (index: number) => boolean;
+  deleteFav: (index: number) => void;
+
+  /** Empty every lane of the section being edited. */
+  clearSection: () => void;
+
+  shareCode: () => string;
+  /** The same code as a URL, so a link carries the break. */
+  shareLink: () => string;
+  loadCode: (code: string) => boolean;
+  midiBase64: () => string;
+  /** Plays a bar of the current kit. False when there is no Web Audio. */
+  auditionKit: () => boolean;
+  /** The MIDI port playback is also driving, if you have opened one. */
+  midiPort: string;
+  openMidiOut: () => Promise<string>;
+  closeMidiOut: () => void;
+  audition: (voice: string, variant?: string) => void;
+}
+
+/** One saved break. The code is the whole of it; the rest is for the row. */
+export interface Fav {
+  name: string;
+  bpm: number;
+  style: string;
+  level: number;
+  code: string;
+}
+
+/** How many saved breaks are kept. Oldest fall off the end. */
+const FAV_CAP = 30;
+
+/**
+ * How far below the break's own tempo each layer sits, when the tempo is
+ * matched to the layer. L5 is the break as written, so it is the tempo as
+ * written; everything below it is a practice speed.
+ */
+const LAYER_TEMPO: Record<number, number> = { 1: 0.68, 2: 0.78, 3: 0.86, 4: 0.93, 5: 1 };
+
+export function useBreakConsole(): BreakConsole {
+  const [ready, setReady] = useState(false);
+  const [patterns, setPatterns] = useState<Record<SectionLetter, Pattern | null>>({
+    A: null,
+    B: null,
+  });
+  const [tries, setTries] = useState<{ tries: number; rejected: number } | null>(null);
+
+  const [level, setLevel] = useLocalStorage('bb.level', 3);
+  const [viewMode, setViewMode] = useLocalStorage<ViewMode>('bb.view', 'both');
+  const [editing, setEditing] = useState<SectionLetter>('A');
+
+  const [style, setStyleRaw] = useLocalStorage('bb.style', 'funk');
+  const [meter, setMeterRaw] = useLocalStorage('bb.meter', DEFAULT_METER);
+  /** The meter you picked yourself, handed back when a style stops imposing one. */
+  const [userMeter, setUserMeter] = useLocalStorage('bb.userMeter', DEFAULT_METER);
+  const [bars, setBars] = useLocalStorage('bb.bars', 2);
+  const [density, setDensity] = useLocalStorage('bb.density', 55);
+  const [ghosts, setGhosts] = useLocalStorage('bb.ghosts', 60);
+  const [swing, setSwing] = useLocalStorage('bb.swing', 8);
+  const [hats, setHats] = useLocalStorage('bb.hats', 100);
+  const [feel, setFeel] = useLocalStorage('bb.feel', 100);
+  const [lanesMode, setLanesModeRaw] = useLocalStorage<'style' | 'custom'>('bb.lanesMode', 'style');
+  const [customLanes, setCustomLanesRaw] = useLocalStorage<CustomLanes>('bb.customLanes', {
+    toms: false,
+  });
+
+  const [bpm, setBpmRaw] = useLocalStorage('bb.bpm', 94);
+  const [kit, setKitRaw] = useLocalStorage('bb.kit', 'studio70');
+  /**
+   * The kit you picked yourself, as opposed to one a style brought with it.
+   * A style that names a kit switches to it; leaving that style hands yours
+   * back, so picking the jazz set for one break does not silently keep the
+   * ballad's brushes on everything afterwards.
+   */
+  const [userKit, setUserKit] = useLocalStorage('bb.userKit', 'studio70');
+  const [tuning, setTuning] = useLocalStorage<Record<string, Record<string, VoiceParams>>>(
+    'bb.sound',
+    {}
+  );
+  const [voice, setVoice] = useState('h');
+  const [percSamples, setPercSamplesRaw] = useLocalStorage('bb.percSamples', true);
+  const [favs, setFavs] = useLocalStorage<Fav[]>('bb.favs', []);
+  const [midiPort, setMidiPort] = useState('');
+  const [guides, setGuides] = useLocalStorage('bb.guides', true);
+  const [sticking, setSticking] = useLocalStorage('bb.sticking', false);
+  const [preview, setPreview] = useLocalStorage('bb.preview', true);
+  const [size, setSizeRaw] = useLocalStorage('bb.size', 1);
+  const [arrangement, setArrangement] = useLocalStorage<SectionLetter[]>('bb.arr', [
+    'A',
+    'A',
+    'A',
+    'B',
+  ]);
+  const [countIn, setCountIn] = useLocalStorage('bb.count', 1);
+  const [ceiling, setCeiling] = useLocalStorage('bb.ceiling', 130);
+  const [matchTempo, setMatchTempo] = useLocalStorage('bb.matchTempo', false);
+
+  const [click, setClick] = useState(false);
+  const [clickSub, setClickSub] = useState(4);
+  const [ramp, setRamp] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const [loops, setLoops] = useState(0);
+  const [position, setPosition] = useState<PlayEvent | null>(null);
+
+  const [mix, setMix] = useState<Record<string, number>>({ ...DEFAULT_MIX });
+  const [mixTouched, setMixTouched] = useState<Record<string, boolean>>({});
+  const [mute, setMute] = useState<Record<string, boolean>>({});
+  const [locks, setLocks] = useState<Record<string, boolean>>({});
+
+  const [history, setHistory] = useState<Snapshot[]>([]);
+  const [future, setFuture] = useState<Snapshot[]>([]);
+
+  const bpmCeiling = maxBpm(meter);
+
+  const setSize = useCallback(
+    (n: number) => setSizeRaw(clamp(Math.round(n * 100) / 100, 0.7, 1.7)),
+    [setSizeRaw]
+  );
+
+  /** The tempo the break is written at — the 100% the layer match works from. */
+  const [baseBpm, setBaseBpm] = useLocalStorage('bb.baseBpm', 94);
+
+  /**
+   * Set the tempo.
+   *
+   * With the layer match on, the number you are dragging is the speed for the
+   * layer you are on, not the break's — so what is stored is what that implies
+   * about the break, and the effect below puts the slider back where you left
+   * it. Storing the dragged number directly instead would make practising L1
+   * quietly rewrite the break as a slow break.
+   */
+  const setBpm = useCallback(
+    (n: number) => {
+      const top = maxBpm(meter);
+      const v = clamp(Math.round(n), 50, top);
+      setBaseBpm(matchTempo ? clamp(Math.round(v / (LAYER_TEMPO[level] ?? 1)), 50, top) : v);
+      setBpmRaw(v);
+    },
+    [meter, matchTempo, level, setBaseBpm, setBpmRaw]
+  );
+
+  /* The layer moved, or the match was switched on: put the tempo where that
+     layer should be practised, measured against the break's own tempo. */
+  useEffect(() => {
+    if (!matchTempo) return;
+    setBpmRaw(clamp(Math.round(baseBpm * (LAYER_TEMPO[level] ?? 1)), 50, maxBpm(meter)));
+  }, [matchTempo, level, meter, baseBpm, setBpmRaw]);
+
+  /* ---- derived: the sections as they sound and look ------------------- */
+
+  const view = useMemo(
+    () => ({
+      A: patterns.A ? reducePattern(patterns.A, level) : null,
+      B: patterns.B ? reducePattern(patterns.B, level) : null,
+    }),
+    [patterns, level]
+  );
+
+  /* Layer 5 is what's stored, so there is nothing above it to preview. */
+  const next = useMemo(
+    () =>
+      level >= 5
+        ? null
+        : {
+            A: patterns.A ? reducePattern(patterns.A, level + 1) : null,
+            B: patterns.B ? reducePattern(patterns.B, level + 1) : null,
+          },
+    [patterns, level]
+  );
+
+  const report = useMemo(() => (view.A ? critique(view.A, bpm) : null), [view.A, bpm]);
+  const checks = useMemo(() => (view.A ? playability(view.A, bpm) : null), [view.A, bpm]);
+
+  /* ---- the style's opinions, applied when it changes ------------------ */
+
+  /**
+   * A style's mix is a property of the style, and the rule for setting it is
+   * not "is this lane busy" but "is this lane sitting on top of the thing that
+   * *is* the groove". A fader you have moved yourself is yours until you hand
+   * it back.
+   */
+  const applyStyleMix = useCallback((styleKey: string, touched: Record<string, boolean>) => {
+    const m = STYLES[styleKey]?.mix ?? {};
+    setMix((prev) => {
+      const next = { ...prev };
+      for (const lane of Object.keys(DEFAULT_MIX) as LaneKey[]) {
+        if (touched[lane]) continue;
+        next[lane] = m[lane] ?? DEFAULT_MIX[lane];
+      }
+      return next;
+    });
+  }, []);
+
+  const setLaneMix = useCallback((lane: string, v: number) => {
+    setMix((prev) => ({ ...prev, [lane]: v }));
+    setMixTouched((prev) => ({ ...prev, [lane]: true }));
+  }, []);
+
+  const resetMix = useCallback(() => {
+    setMixTouched({});
+    applyStyleMix(style, {});
+  }, [applyStyleMix, style]);
+
+  const toggleMute = useCallback((lane: string) => {
+    setMute((prev) => ({ ...prev, [lane]: !prev[lane] }));
+  }, []);
+
+  const toggleLock = useCallback((k: string) => {
+    setLocks((prev) => ({ ...prev, [k]: !prev[k] }));
+  }, []);
+
+  /* ---- history -------------------------------------------------------- */
+
+  const pushHistory = useCallback(() => {
+    setHistory((h) => {
+      const next = [
+        ...h,
+        { A: patterns.A && clonePattern(patterns.A), B: patterns.B && clonePattern(patterns.B) },
+      ];
+      return next.length > HISTORY_CAP ? next.slice(next.length - HISTORY_CAP) : next;
+    });
+    setFuture([]);
+  }, [patterns]);
+
+  const undo = useCallback(() => {
+    setHistory((h) => {
+      if (!h.length) return h;
+      const prev = h[h.length - 1];
+      setFuture((f) => [...f, { A: patterns.A, B: patterns.B }]);
+      setPatterns({ A: prev.A, B: prev.B });
+      return h.slice(0, -1);
+    });
+  }, [patterns]);
+
+  const redo = useCallback(() => {
+    setFuture((f) => {
+      if (!f.length) return f;
+      const next = f[f.length - 1];
+      setHistory((h) => [...h, { A: patterns.A, B: patterns.B }]);
+      setPatterns({ A: next.A, B: next.B });
+      return f.slice(0, -1);
+    });
+  }, [patterns]);
+
+  /* ---- generation ----------------------------------------------------- */
+
+  const generate = useCallback(
+    (which: SectionLetter | 'both', seed?: number) => {
+      const st = styleIn(style, meter);
+      const roster = resolveLanes(st, lanesMode === 'custom' ? customLanes : null);
+      const made = generateGood(
+        {
+          style,
+          meter,
+          bars,
+          density,
+          ghosts,
+          seed: seed ?? Math.floor(Math.random() * 0xffffffff),
+          lanes: roster.lanes,
+          perc: roster.perc,
+        },
+        bpm
+      );
+      setTries({ tries: made.tries, rejected: made.rejected });
+
+      setPatterns((prev) => {
+        if (which === 'A') return { ...prev, A: made.pattern };
+        if (which === 'B') return { ...prev, B: made.pattern };
+        return { A: made.pattern, B: deriveB(made.pattern) };
+      });
+      return made.pattern;
+    },
+    [style, meter, bars, density, ghosts, bpm, lanesMode, customLanes]
+  );
+
+  const newBreak = useCallback(
+    (which: SectionLetter | 'both' = 'both') => {
+      pushHistory();
+      generate(which);
+    },
+    [generate, pushHistory]
+  );
+
+  const buildBFromA = useCallback(() => {
+    if (!patterns.A) return;
+    pushHistory();
+    setPatterns((prev) => (prev.A ? { ...prev, B: deriveB(prev.A) } : prev));
+  }, [patterns.A, pushHistory]);
+
+  /* ---- editing -------------------------------------------------------- */
+
+  const applyDoctor = useCallback(
+    (move: DoctorMove) => {
+      const pat = patterns[editing];
+      if (!pat) return;
+      pushHistory();
+      setPatterns((prev) => ({ ...prev, [editing]: doctor(pat, move) }));
+    },
+    [patterns, editing, pushHistory]
+  );
+
+  /**
+   * Cycle one cell.
+   *
+   * The note is **pinned to the layer you are looking at**, so the reduction
+   * stops taking it back out — a ghost written at L2 is a ghost L2 keeps, and
+   * it is still there at L3, L4 and L5. Without the pin you would draw a ghost
+   * note and hear nothing, because ghosts do not exist below L4.
+   */
+  const cycleCell = useCallback(
+    (letter: SectionLetter, bar: number, lane: LaneKey, step: number, back: boolean) => {
+      const pat = patterns[letter];
+      if (!pat) return;
+      pushHistory();
+      const next = clonePattern(pat);
+      // edits are written against the stored break (L5), which is what a layer is a view of
+      const states = LANE_STATES[lane] ?? 2;
+      const shown = reducePattern(pat, level).bars[bar][lane][step];
+      const v = (shown + (back ? states - 1 : 1)) % states;
+      next.bars[bar][lane][step] = v;
+      if (v) setPin(next, bar, lane, step, level);
+      setPatterns((prev) => ({ ...prev, [letter]: next }));
+    },
+    [patterns, level, pushHistory]
+  );
+
+  /**
+   * Blank the section being edited — every lane, every bar, and the pins with
+   * them. A cleared section that still carried pins would re-derive notes the
+   * moment you moved layers, which is not what "clear" means.
+   */
+  const clearSection = useCallback(() => {
+    const pat = patterns[editing];
+    if (!pat) return;
+    pushHistory();
+    const next = clonePattern(pat);
+    for (const bar of next.bars) for (const lane of LANES) bar[lane].fill(0);
+    next.pins = null;
+    setPatterns((prev) => ({ ...prev, [editing]: next }));
+  }, [patterns, editing, pushHistory]);
+
+  /**
+   * Turning a lane on or off should not throw the break away.
+   *
+   * The kit lanes keep what they had; the percussion parts are **rewritten**,
+   * because those are the style's figure rather than anything you played. A
+   * lane that has just gone away is emptied, so switching back and forth does
+   * not leave notes on a lane nothing draws.
+   */
+  const applyLaneChoice = useCallback((mode: 'style' | 'custom', lanes: CustomLanes) => {
+    setPatterns((prev) => {
+      const out = { ...prev };
+      for (const letter of ['A', 'B'] as SectionLetter[]) {
+        const pat = prev[letter];
+        if (!pat) continue;
+        const st = styleIn(pat.style, pat.meter);
+        const roster = resolveLanes(st, mode === 'custom' ? lanes : null);
+        const next = clonePattern(pat);
+        next.lanes = roster.lanes.slice();
+        next.perc = { ...roster.perc };
+        for (const bar of next.bars) for (const L of PERC_LANES) bar[L].fill(0);
+        if (!next.lanes.includes('t1')) {
+          for (const bar of next.bars) for (const L of TOM_LANES) bar[L].fill(0);
+        }
+        writePerc(next, st, makeRng(pat.seed ^ 0x2545f491));
+        out[letter] = next;
+      }
+      return out;
+    });
+  }, []);
+
+  const setLanesMode = useCallback(
+    (m: 'style' | 'custom') => {
+      setLanesModeRaw(m);
+      applyLaneChoice(m, customLanes);
+    },
+    [setLanesModeRaw, customLanes, applyLaneChoice]
+  );
+
+  const setCustomLanes = useCallback(
+    (l: CustomLanes) => {
+      setCustomLanesRaw(l);
+      if (lanesMode === 'custom') applyLaneChoice('custom', l);
+    },
+    [setCustomLanesRaw, lanesMode, applyLaneChoice]
+  );
+
+  const loadLibraryItem = useCallback(
+    (index: number) => {
+      const item = LIBRARY[index];
+      if (!item) return;
+      pushHistory();
+      const pat = patternFromLibrary(item, index);
+      const b = deriveB(pat);
+      b.name = `${item.title} (B)`;
+      setPatterns({ A: pat, B: b });
+      setStyleRaw(item.style);
+      setMeterRaw(pat.meter);
+      setBars(pat.bars.length);
+      if (!locks.bpm) setBpm(item.bpm);
+      setTries(null);
+    },
+    [pushHistory, setStyleRaw, setMeterRaw, setBars, locks.bpm, setBpm]
+  );
+
+  /* ---- style and meter follow each other ------------------------------ */
+
+  const setStyle = useCallback(
+    (s: string) => {
+      setStyleRaw(s);
+      const st = STYLES[s];
+      /* A style may name its own meter and its own kit — picking one switches
+         to both, and **leaving it hands yours back**. A jazz waltz in 4/4 is
+         not a jazz waltz, but neither is every style after it a waltz: without
+         the second half of this, picking the waltz once strands medium swing
+         in 3/4 and the ballad's brushes on everything afterwards. */
+      setMeterRaw(st?.meter ?? userMeter);
+      const wantKit = st?.kit && kitIsPlayable(st.kit) ? st.kit : userKit;
+      if (KITS[wantKit] && kitIsPlayable(wantKit)) setKitRaw(wantKit);
+      if (st && !locks.bpm) setBpm(Math.round((st.bpm[0] + st.bpm[1]) / 2));
+      setMixTouched((touched) => {
+        applyStyleMix(s, touched);
+        return touched;
+      });
+    },
+    [setStyleRaw, setMeterRaw, setKitRaw, userMeter, userKit, locks.bpm, setBpm, applyStyleMix]
+  );
+
+  const setMeter = useCallback(
+    (m: string) => {
+      setMeterRaw(m);
+      setUserMeter(m);
+      setBpmRaw((b) => clamp(b, 50, maxBpm(m)));
+    },
+    [setMeterRaw, setUserMeter, setBpmRaw]
+  );
+
+  /* ---- audio ---------------------------------------------------------- */
+
+  const audioRef = useRef<BreakAudio | null>(null);
+  const transportRef = useRef<Transport | null>(null);
+  const packsRef = useRef<PackSource | null>(null);
+  const userRef = useRef<UserSource | null>(null);
+  const midiRef = useRef<MidiOut | null>(null);
+  const kitRef = useRef(kit);
+  useEffect(() => {
+    kitRef.current = kit;
+  }, [kit]);
+
+  /**
+   * What has decoded so far, for the kit panel to report.
+   *
+   * Copied out into state rather than read off the sources at render time: a
+   * decode finishes inside a promise, long after the render that started it,
+   * and a ref read during render is exactly the value React is entitled not to
+   * re-run for. The sources call `bump` when they land; so does a kit change.
+   */
+  const [samples, setSamples] = useState<{
+    kitSlots: number;
+    percCount: number;
+    userNames: Record<string, string>;
+  }>({ kitSlots: 0, percCount: 0, userNames: {} });
+
+  const refreshSamples = useCallback(() => {
+    const packs = packsRef.current;
+    const user = userRef.current;
+    if (!packs || !user) return;
+    const k = kitRef.current;
+    const pack = KITS[k]?.pack;
+    setSamples({
+      kitSlots: kitEngine(k) === 'user' ? user.count() : pack ? packs.count(pack) : 0,
+      percCount: packs.percCount(),
+      userNames: { ...user.names },
+    });
+  }, []);
+
+  const refreshRef = useRef(refreshSamples);
+  useEffect(() => {
+    refreshRef.current = refreshSamples;
+  }, [refreshSamples]);
+  useEffect(refreshSamples, [kit, refreshSamples]);
+
+  /**
+   * What the transport reads on every scheduled step.
+   *
+   * Held in a ref and refreshed after each render rather than passed in at
+   * `start()`: the transport must see the CURRENT tempo, mix and grid, or a
+   * fader move would not land until the next loop — but it must not re-subscribe
+   * on every keystroke either. A ref updated in an effect is exactly that, and
+   * keeps the render itself pure.
+   */
+  const snapshot: TransportSnapshot = useMemo(
+    () => ({
+      patterns: view,
+      arrangement,
+      solo: viewMode === 'both' ? null : viewMode,
+      bpm,
+      swing,
+      feel,
+      hats,
+      click,
+      clickSub,
+      countIn,
+      ramp,
+      ceiling,
+      mix,
+      mute,
+    }),
+    [
+      view,
+      arrangement,
+      viewMode,
+      bpm,
+      swing,
+      feel,
+      hats,
+      click,
+      clickSub,
+      countIn,
+      ramp,
+      ceiling,
+      mix,
+      mute,
+    ]
+  );
+
+  const snapshotRef = useRef(snapshot);
+  useEffect(() => {
+    snapshotRef.current = snapshot;
+  }, [snapshot]);
+
+  /* ---- the kit, and your tuning of it --------------------------------- */
+
+  /** What the engine is actually playing: the kit's numbers, your knobs on top. */
+  const sound = useMemo(() => withTuning(kit, tuning[kit]), [kit, tuning]);
+  const kitTuned = Object.keys(tuning[kit] ?? {}).length > 0;
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    /* A sampled kit needs a context to decode into. Picking one is a gesture,
+       so this is the moment to have it — rather than the first note, which
+       would arrive synthesised while the decode caught up behind it. */
+    if (kitEngine(kit) !== 'synth') audio.init();
+    audio.setKit(kit, sound);
+  }, [kit, sound]);
+
+  const setKit = useCallback(
+    (k: string) => {
+      /* An unported engine would not error — it would fall through to the
+         synthesised voices with another kit's parameters, so picking TR-909
+         would quietly hand you the Machine kit. Refuse instead. */
+      if (!KITS[k] || !kitIsPlayable(k)) return;
+      setKitRaw(k);
+      setUserKit(k);
+    },
+    [setKitRaw, setUserKit]
+  );
+
+  const setParam = useCallback(
+    (v: string, key: string, value: number) => {
+      setTuning((prev) => ({
+        ...prev,
+        [kit]: { ...prev[kit], [v]: { ...prev[kit]?.[v], [key]: value } },
+      }));
+    },
+    [kit, setTuning]
+  );
+
+  const resetVoice = useCallback(
+    (v: string) => {
+      setTuning((prev) => {
+        const forKit = { ...prev[kit] };
+        delete forKit[v];
+        return { ...prev, [kit]: forKit };
+      });
+    },
+    [kit, setTuning]
+  );
+
+  const resetKit = useCallback(() => {
+    setTuning((prev) => {
+      const next = { ...prev };
+      delete next[kit];
+      return next;
+    });
+  }, [kit, setTuning]);
+
+  const setPercSamples = useCallback(
+    (b: boolean) => {
+      setPercSamplesRaw(b);
+      if (packsRef.current) packsRef.current.usePercSamples = b;
+    },
+    [setPercSamplesRaw]
+  );
+
+  /* The AudioContext is built once, in an effect with no state in its deps.
+     These refs are how that effect reads the current kit and preferences
+     without being torn down and rebuilt every time one of them changes. */
+  const soundRef = useRef(sound);
+  const percSamplesRef = useRef(percSamples);
+  useEffect(() => {
+    soundRef.current = sound;
+    percSamplesRef.current = percSamples;
+  }, [sound, percSamples]);
+
+  /* The AudioContext and the clock are created together, in an effect rather
+     than during render: an AudioContext is a real resource, and constructing one
+     on the server or twice under StrictMode is a leak, not a re-render. */
+  useEffect(() => {
+    const audio = new BreakAudio();
+    /* The sampled kits are a source the synth falls through to, not a branch
+       inside it — a pack still decoding, or one slot short, plays the
+       synthesised voice for that hit rather than nothing. Your own one-shots
+       are a second source behind the same rule, so moving between a recorded
+       kit and your own needs no reload. */
+    const bump = () => refreshRef.current();
+    const packs = new PackSource(bump);
+    const user = new UserSource(bump);
+    packs.usePercSamples = percSamplesRef.current;
+    packsRef.current = packs;
+    userRef.current = user;
+    audio.samples = new SourceStack([packs, user]);
+    audioRef.current = audio;
+    const midi = new MidiOut();
+    midiRef.current = midi;
+    const t = new Transport(audio, {
+      getSnapshot: () => snapshotRef.current,
+      onBpm: (n) => setBpmRaw(n),
+      onLoop: (n) => setLoops(n),
+      onPaint: (ev) => setPosition(ev),
+      onStop: () => {
+        setPlaying(false);
+        setPosition(null);
+      },
+    });
+    t.midi = midi;
+    transportRef.current = t;
+    audio.setKit(kitRef.current, soundRef.current);
+    return () => {
+      t.stop();
+      midi.disconnect();
+      transportRef.current = null;
+      audioRef.current = null;
+      packsRef.current = null;
+      userRef.current = null;
+      midiRef.current = null;
+    };
+  }, [setBpmRaw]);
+
+  /* ---- MIDI out -------------------------------------------------------- */
+
+  const openMidiOut = useCallback(async (): Promise<string> => {
+    const midi = midiRef.current;
+    if (!midi) return 'No transport yet';
+    const { name, error } = await midi.connect();
+    if (error) return error;
+    // the offset between the two clocks can only be measured against a live one
+    midi.ctx = audioRef.current?.init() ?? null;
+    setMidiPort(name);
+    return '';
+  }, []);
+
+  const closeMidiOut = useCallback(() => {
+    midiRef.current?.disconnect();
+    setMidiPort('');
+  }, []);
+
+  /* An event handler, so reading the ref here is the normal case rather than a
+     render-time access — the transport instance is never captured in a closure. */
+  const togglePlay = useCallback(() => {
+    const t = transportRef.current;
+    if (!t) return;
+    if (t.playing) {
+      t.stop();
+      return;
+    }
+    if (t.start()) setPlaying(true);
+    else logger.warn('BeatBreaker: no Web Audio in this browser — notation still works');
+  }, []);
+
+  // the arrangement or the solo changed while playing — keep going, new sequence
+  useEffect(() => {
+    transportRef.current?.resync();
+  }, [arrangement, viewMode]);
+
+  const audition = useCallback((voice: string, variant?: string) => {
+    audioRef.current?.hit(voice, variant);
+  }, []);
+
+  /** A bar of the whole kit — the only honest way to compare two of them. */
+  const auditionKit = useCallback(() => audioRef.current?.demo() ?? false, []);
+
+  /* ---- first break ----------------------------------------------------- */
+
+  useEffect(() => {
+    if (ready) return;
+    /* A shared link puts the break in the fragment. Arriving on one should
+       land you on that break rather than on a fresh one that is then replaced
+       — so this is checked before anything is generated. */
+    if (typeof window !== 'undefined' && window.location.hash.startsWith('#b=')) {
+      try {
+        const doc = decodeBreak(window.location.hash.slice(3));
+        setPatterns({ A: doc.A, B: doc.B });
+        setBpmRaw(doc.bpm);
+        setSwing(doc.swing);
+        setLevel(doc.level);
+        setArrangement(doc.arrangement);
+        setStyleRaw(doc.A.style);
+        setMeterRaw(doc.A.meter);
+        setBars(doc.A.bars.length);
+        applyStyleMix(doc.A.style, {});
+        setReady(true);
+        return;
+      } catch (error) {
+        logger.warn('BeatBreaker: the link carried a break that would not read', { error });
+      }
+    }
+    const st = styleIn(style, meter);
+    const roster = resolveLanes(st, lanesMode === 'custom' ? customLanes : null);
+    const made = generateGood(
+      {
+        style,
+        meter,
+        bars,
+        density,
+        ghosts,
+        seed: Math.floor(Math.random() * 0xffffffff),
+        lanes: roster.lanes,
+        perc: roster.perc,
+      },
+      bpm
+    );
+    setPatterns({ A: made.pattern, B: deriveB(made.pattern) });
+    setTries({ tries: made.tries, rejected: made.rejected });
+    applyStyleMix(style, {});
+    setReady(true);
+    // deliberately once, on mount: this is the break you arrive to
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready]);
+
+  /* ---- export ---------------------------------------------------------- */
+
+  const asDoc = useCallback((): BreakDoc | null => {
+    if (!patterns.A || !patterns.B) return null;
+    return { bpm, swing, level, arrangement, A: patterns.A, B: patterns.B };
+  }, [patterns, bpm, swing, level, arrangement]);
+
+  const shareCode = useCallback(() => {
+    const doc = asDoc();
+    return doc ? encodeBreak(doc) : '';
+  }, [asDoc]);
+
+  /**
+   * The code as a link. The break rides in the fragment rather than the query
+   * string on purpose: a fragment is never sent to the server, so sharing a
+   * break does not put it in anyone's access log.
+   */
+  const shareLink = useCallback(() => {
+    const code = shareCode();
+    if (!code || typeof window === 'undefined') return '';
+    const { origin, pathname } = window.location;
+    return `${origin}${pathname}#b=${code}`;
+  }, [shareCode]);
+
+  const loadCode = useCallback(
+    (code: string): boolean => {
+      try {
+        // people paste the link, not the code inside it
+        const at = code.indexOf('#b=');
+        const doc = decodeBreak(at >= 0 ? code.slice(at + 3) : code.trim());
+        pushHistory();
+        setPatterns({ A: doc.A, B: doc.B });
+        setBpmRaw(doc.bpm);
+        setSwing(doc.swing);
+        setLevel(doc.level);
+        setArrangement(doc.arrangement);
+        setStyleRaw(doc.A.style);
+        setMeterRaw(doc.A.meter);
+        setBars(doc.A.bars.length);
+        setTries(null);
+        return true;
+      } catch (error) {
+        logger.warn('BeatBreaker: could not read that break code', { error });
+        return false;
+      }
+    },
+    [pushHistory, setBpmRaw, setSwing, setLevel, setArrangement, setStyleRaw, setMeterRaw, setBars]
+  );
+
+  const midiBase64 = useCallback(() => {
+    const solo = viewMode === 'both' ? null : viewMode;
+    const seq = arrangement
+      .filter((L) => !solo || L === solo)
+      .flatMap((L) => {
+        const pat = view[L];
+        return pat ? pat.bars.map((_, i) => ({ pattern: pat, barIdx: i })) : [];
+      });
+    if (!seq.length) return '';
+    return buildMidi(seq, { bpm, swing, feel, hats }).base64;
+  }, [arrangement, view, viewMode, bpm, swing, feel, hats]);
+
+  /* ---- saved breaks ----------------------------------------------------- */
+
+  const saveFav = useCallback(() => {
+    const code = shareCode();
+    const pat = patterns.A;
+    if (!code || !pat) return;
+    setFavs((prev) =>
+      [{ name: pat.name, bpm, style: pat.style, level, code }, ...prev].slice(0, FAV_CAP)
+    );
+  }, [shareCode, patterns.A, bpm, level, setFavs]);
+
+  const loadFav = useCallback(
+    (index: number): boolean => {
+      const fav = favs[index];
+      return fav ? loadCode(fav.code) : false;
+    },
+    [favs, loadCode]
+  );
+
+  const deleteFav = useCallback(
+    (index: number) => setFavs((prev) => prev.filter((_, i) => i !== index)),
+    [setFavs]
+  );
+
+  /* ---- your own samples ------------------------------------------------- */
+
+  const addSample = useCallback(async (slot: string, file: File): Promise<string> => {
+    const audio = audioRef.current;
+    const user = userRef.current;
+    if (!audio || !user) return 'No audio engine yet';
+    return user.add(audio, slot, file);
+  }, []);
+
+  const removeSample = useCallback(async (slot: string) => {
+    await userRef.current?.remove(slot);
+  }, []);
+
+  return {
+    ready,
+    patterns,
+    view,
+    next,
+    report,
+    checks,
+    tries,
+    level,
+    setLevel,
+    viewMode,
+    setViewMode,
+    editing,
+    setEditing,
+    style,
+    setStyle,
+    meter,
+    setMeter,
+    bars,
+    setBars,
+    density,
+    setDensity,
+    ghosts,
+    setGhosts,
+    swing,
+    setSwing,
+    hats,
+    setHats,
+    feel,
+    setFeel,
+    lanesMode,
+    setLanesMode,
+    customLanes,
+    setCustomLanes,
+    bpm,
+    setBpm,
+    bpmCeiling,
+    playing,
+    togglePlay,
+    loops,
+    position,
+    kit,
+    setKit,
+    sound,
+    voice,
+    setVoice,
+    setParam,
+    resetVoice,
+    resetKit,
+    kitTuned,
+    kitSlots: samples.kitSlots,
+    percSamples,
+    setPercSamples,
+    percCount: samples.percCount,
+    userNames: samples.userNames,
+    addSample,
+    removeSample,
+    mix,
+    setLaneMix,
+    resetMix,
+    mixTouched,
+    mute,
+    toggleMute,
+    click,
+    setClick,
+    clickSub,
+    setClickSub,
+    countIn,
+    setCountIn,
+    ramp,
+    setRamp,
+    ceiling,
+    setCeiling,
+    matchTempo,
+    setMatchTempo,
+    arrangement,
+    setArrangement,
+    locks,
+    toggleLock,
+    guides,
+    setGuides,
+    sticking,
+    setSticking,
+    preview,
+    setPreview,
+    size,
+    setSize,
+    newBreak,
+    buildBFromA,
+    applyDoctor,
+    cycleCell,
+    loadLibraryItem,
+    undo,
+    redo,
+    canUndo: history.length > 0,
+    canRedo: future.length > 0,
+    favs,
+    saveFav,
+    loadFav,
+    deleteFav,
+    clearSection,
+    shareCode,
+    shareLink,
+    loadCode,
+    midiBase64,
+    midiPort,
+    openMidiOut,
+    closeMidiOut,
+    audition,
+    auditionKit,
+  };
+}
+
+/** How many values each lane cycles through, including empty. */
+const LANE_STATES: Record<string, number> = {
+  k: 3,
+  s: 5,
+  h: 4,
+  r: 3,
+  c: 2,
+  t1: 3,
+  t2: 3,
+  t3: 3,
+  hf: 2,
+  p1: 3,
+  p2: 3,
+};
