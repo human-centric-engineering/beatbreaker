@@ -211,6 +211,21 @@ does and does not use a language model for.
 > drum parts, credited to the drummers who played them. They are here for
 > study. No recordings are used or sampled.
 >
+> ## The sounds
+>
+> The recorded kits come from free, openly licensed sample libraries: Virtuosity
+> Drums, the Versilian Community Sample Library and Swirly Drums (Versilian
+> Studios and Karoryfer Samples), the Boochi44 kits, built from Michael
+> Fischer's TR-808 recordings, and MuldjordKit by Lars Muldjord. Drum samples
+> provided by DrumGizmo.org. MuldjordKit is used under
+> [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), re-encoded and
+> arranged into velocity layers for BeatBreaker; the rest are CC0. Samples you
+> load yourself stay in your browser.
+>
+> _(Owner: this section is the licence's attribution for MuldjordKit on the
+> deployed site. It has to ship with the recorded kits, so don't cut it for
+> length.)_
+>
 > ## Who makes it
 >
 > Human-Centric Engineering. [Get in touch](/contact) — especially if a groove

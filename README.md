@@ -150,23 +150,34 @@ model is already in the schema for it.
 
 ## Credits
 
-Every sampled recording here is licence-clean by construction, and checked
-against each project's own metadata rather than a blog post. Kits under
-CC-BY-SA were deliberately passed over: share-alike creates obligations when
-samples are embedded in a distributed page.
+Every sampled recording here is under a licence that allows redistribution,
+checked on 2026-09-21 against the licence each source publishes itself. Kits
+under CC-BY-SA were deliberately passed over: share-alike creates obligations
+when samples are embedded in a distributed page.
 
-| Source                                                                    | Licence   | Used for                      |
-| ------------------------------------------------------------------------- | --------- | ----------------------------- |
-| Virtuosity Drums — Versilian Studios & Karoryfer Samples                  | CC0 1.0   | Jazz kit, recorded percussion |
-| Versilian Community Sample Library                                        | CC0 1.0   | Woodblock, handclaps          |
-| Swirly Drums — Karoryfer Samples                                          | CC0 1.0   | Brush kit                     |
-| Muldjord kit — recorded by Lars Muldjord, Hydrogen conversion by FreePats | CC BY 4.0 | Muldjord kit                  |
-| Soulful Vintage, Hard Trap — Boochi44                                     | CC0 1.0   | Dusty sampler, Trap kit       |
-| [`@driftbox/engine`](https://github.com/emmettl/driftbox) — Louis Emmett  | MIT       | TR-808 / TR-909 voice models  |
+| Source                                                                                                                    | Licence                                                   | Used for                      |
+| ------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- | ----------------------------- |
+| [Virtuosity Drums](https://github.com/sfzinstruments/virtuosity_drums) — Versilian Studios & Karoryfer Samples            | CC0 1.0                                                   | Jazz kit, recorded percussion |
+| [Versilian Community Sample Library](https://github.com/sgossner/VCSL)                                                    | CC0 1.0                                                   | Woodblock, handclaps          |
+| [Swirly Drums](https://github.com/sfzinstruments/karoryfer.swirly-drums) — Karoryfer Samples                              | CC0 1.0                                                   | Brush kit                     |
+| [MuldjordKit](https://github.com/freepats/muldjordkit) — recorded by Lars Muldjord, FreePats stereo version               | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | Muldjord kit                  |
+| [Soulful Vintage, Hard Trap](https://github.com/Boochi44/free-drum-samples) — Boochi44, from Michael Fischer's TR-808 set | CC0 1.0                                                   | Dusty sampler, Trap kit       |
+| [`@driftbox/engine`](https://github.com/emmettl/driftbox) — Louis Emmett                                                  | MIT                                                       | TR-808 / TR-909 voice models  |
+
+**Drum samples provided by DrumGizmo.org.** The Muldjord kit is changed from
+the FreePats version: a subset of its samples, re-encoded as mp3 and grouped
+into velocity layers. The changed files are under the same CC BY 4.0 licence.
+
+The Boochi44 kits carry their CC0 grant in the project's README; the repository
+has no separate licence file. Their sounds are processed from Michael Fischer's
+1994 TR-808 recordings, which he released as "absolutely free" and which are
+republished under CC0 in
+[tidalcycles/sounds-tr808-fischer](https://github.com/tidalcycles/sounds-tr808-fischer).
 
 CC0 requires no attribution. It is given anyway, because not being obliged to is
-a poor reason not to. Not affiliated with Roland; every drum-machine waveform is
-generated, and no samples of theirs are used.
+a poor reason not to. Not affiliated with Roland. The TR-808 / TR-909 kits are
+synthesised; the Dusty sampler and Trap kits are processed recordings of a real
+TR-808, and no Roland-published samples are used.
 
 The 21 design patterns referenced in the inherited orchestration learning area
 are adapted from _Agentic Design Patterns_ by Antonio Gullí.
