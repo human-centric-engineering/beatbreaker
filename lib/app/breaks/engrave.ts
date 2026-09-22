@@ -647,9 +647,15 @@ function drawVoice(ctx: VoiceCtx): void {
    it. A detached `o` floating over the beams is the other convention, but on a
    16th-note chart it lands in the one strip already full of ink, and it makes
    the reader look in two places to read one note. Circling the head keeps the
-   marking where the note is. The ring clears the X (r 0.56 SP) and still fits
-   the 2.1 SP slot, so neighbouring hats never touch. */
-const OPEN_RING_R = 0.78;
+   marking where the note is.
+
+   The radius is bounded from above, not chosen for looks: an up-stem is drawn
+   at `x + 0.62 SP`, so any ring wider than that has the note's own stem drawn
+   through it. Staying inside the stem also keeps the ring within the X's own
+   vertical footprint (±0.56 SP), which is what stops it reaching the ride a
+   half-space below or the crash's ledger line above. The X's diagonal tips
+   cross the ring, which is what `⊗` looks like anyway. */
+const OPEN_RING_R = 0.58;
 const OPEN_RING_W = 1.15;
 
 function drawHead(
@@ -695,9 +701,14 @@ function drawHead(
   } else if (h.type === 'bell') {
     /* A diamond, not a circled X: the circled X is the open hi-hat, one staff
        position above, and two rings half a space apart cannot be told apart at
-       chart size. The diamond is the other standard bell notehead. */
-    const rx = 0.6 * SP;
-    const ry = 0.72 * SP;
+       chart size. The diamond is the other standard bell notehead.
+
+       It is drawn to the same footprint as the X it replaces (±0.56 SP tall)
+       and wider than it is tall, the way a diamond notehead is cut. A taller
+       diamond would be a solid fill spilling onto the hi-hat position a half
+       space above — where the X's two thin strokes had been transparent. */
+    const rx = 0.62 * SP;
+    const ry = 0.56 * SP;
     out.add('polygon', {
       points: [`${x},${yy - ry}`, `${x + rx},${yy}`, `${x},${yy + ry}`, `${x - rx},${yy}`].join(
         ' '
