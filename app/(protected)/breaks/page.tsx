@@ -3,6 +3,7 @@ import { Anton, Chivo, IBM_Plex_Mono } from 'next/font/google';
 
 import { BreakConsole } from '@/components/app/breaks/break-console';
 import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
+import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { getServerSession } from '@/lib/auth/utils';
 
 /**
@@ -56,7 +57,9 @@ export default async function BreaksPage() {
 
   return (
     <div className={`${anton.variable} ${chivo.variable} ${plexMono.variable}`}>
-      <BreakConsole />
+      <StudioProvider>
+        <BreakConsole />
+      </StudioProvider>
     </div>
   );
 }

@@ -12,6 +12,7 @@ vi.mock('@/components/app/breaks/break-console', () => ({ BreakConsole: () => nu
 import BreaksPage from '@/app/(protected)/breaks/page';
 import { BreakConsole } from '@/components/app/breaks/break-console';
 import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
+import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { getServerSession } from '@/lib/auth/utils';
 import { createMockAuthSession } from '@/tests/helpers/auth';
 
@@ -23,9 +24,11 @@ describe('/breaks', () => {
     expect(el.props).toEqual({ loginHref: '/login?callbackUrl=%2Fbreaks' });
   });
 
-  it('renders the console for a signed-in user', async () => {
+  it('renders the console for a signed-in user, inside the Studio provider', async () => {
     vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
     const el = await BreaksPage();
-    expect(el.props.children.type).toBe(BreakConsole);
+    // the console reads its state from the provider, so the order matters
+    expect(el.props.children.type).toBe(StudioProvider);
+    expect(el.props.children.props.children.type).toBe(BreakConsole);
   });
 });

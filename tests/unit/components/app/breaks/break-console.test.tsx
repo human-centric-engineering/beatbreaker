@@ -18,12 +18,25 @@ import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { BreakConsole } from '@/components/app/breaks/break-console';
+import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { stashPendingLink } from '@/lib/app/breaks/pending-link';
 import { encodeBreak } from '@/lib/app/breaks/share';
 
 // jsdom/happy-dom has no CSS loader, and the stylesheet is not what is under test
 vi.mock('@/components/app/breaks/breaks.css', () => ({}));
+
+/**
+ * The console reads its state from the Studio provider, which the `(studio)`
+ * frame mounts around the whole app view; mounting the console alone is not a
+ * thing the app does. Nothing else about these tests changes.
+ */
+const renderConsole = () =>
+  render(
+    <StudioProvider>
+      <BreakConsole />
+    </StudioProvider>
+  );
 
 /** A grid cell holding a note: its value is in `data-on`, and 0 is empty. */
 const NOTES = ".cell:not([data-on='0'])";
@@ -44,7 +57,7 @@ beforeEach(() => {
 
 describe('BreakConsole', () => {
   it('generates and engraves a break on mount', async () => {
-    render(<BreakConsole />);
+    renderConsole();
 
     // the placeholder is gone, so generation finished
     // A and B are both on screen in A+B mode
@@ -58,7 +71,7 @@ describe('BreakConsole', () => {
   });
 
   it('scores the break rather than showing a placeholder', async () => {
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const score = document.querySelector('.scorenum');
@@ -73,7 +86,7 @@ describe('BreakConsole', () => {
   });
 
   it('draws a grid cell for every step of every lane it carries', async () => {
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const cells = document.querySelectorAll('.cell');
@@ -86,7 +99,7 @@ describe('BreakConsole', () => {
 
   it('changes the chart when the layer changes', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const before = document.querySelectorAll(NOTES).length;
@@ -103,7 +116,7 @@ describe('BreakConsole', () => {
 
   it('survives a browser with no Web Audio, and says so rather than throwing', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const play = screen.getByRole('button', { name: 'Play or stop' });
@@ -117,7 +130,7 @@ describe('BreakConsole', () => {
 
   it('writes a new break when asked', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const titleOf = () => document.querySelector('.title-block h2')?.textContent;
@@ -138,7 +151,7 @@ describe('BreakConsole', () => {
 
   it('cycles a grid cell on click', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const cells = [...document.querySelectorAll<HTMLButtonElement>('.cell')];
@@ -157,7 +170,7 @@ describe('BreakConsole', () => {
 
   it('loads a famous break from the library', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     await user.click(screen.getByRole('tab', { name: 'Library' }));
@@ -190,7 +203,7 @@ describe('BreakConsole', () => {
     window.history.replaceState(null, '', '/breaks');
     stashPendingLink(localStorage, `#b=${code}`);
 
-    render(<BreakConsole />);
+    renderConsole();
 
     expect(await screen.findByRole('heading', { name: 'The One Somebody Sent' })).toBeTruthy();
     // the address bar is the link that was sent, and the stash is spent
@@ -201,7 +214,7 @@ describe('BreakConsole', () => {
 
   it('round-trips the break through a share code', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     await user.click(screen.getByRole('tab', { name: 'Export' }));
@@ -230,7 +243,7 @@ describe('BreakConsole', () => {
   });
   it('keeps your tuning of a kit, and hands it back when you reset', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     await user.click(screen.getByRole('tab', { name: 'Kit' }));
@@ -261,7 +274,7 @@ describe('BreakConsole', () => {
 
   it('shows the knobs the loaded engine actually has', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
     await user.click(screen.getByRole('tab', { name: 'Kit' }));
 
@@ -279,7 +292,7 @@ describe('BreakConsole', () => {
 
   it('saves a break and gives it back', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const name = document.querySelector('.title-block h2')?.textContent ?? '';
@@ -309,7 +322,7 @@ describe('BreakConsole', () => {
 
   it('clears a section without losing it', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const notes = () => document.querySelectorAll(NOTES).length;
@@ -326,7 +339,7 @@ describe('BreakConsole', () => {
 
   it('drops the tempo to suit the layer, and puts it back at L5', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const bpm = () => Number(document.querySelector('.bpmval')?.textContent?.match(/\d+/)?.[0]);
@@ -356,7 +369,7 @@ describe('BreakConsole', () => {
 
   it('drives the console from the keyboard', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const notes = () => document.querySelectorAll(NOTES).length;
@@ -375,7 +388,7 @@ describe('BreakConsole', () => {
 
   it('draws the next layer faintly when asked, and nothing at the top', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     const staves = await screen.findAllByRole('img', { name: /Drum notation/ });
 
     /* The preview is the next layer's notes in faint ink. L5 is the whole
@@ -393,7 +406,7 @@ describe('BreakConsole', () => {
 
   it('shows what the style asked for before you take the lanes over', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     // the picker is readable while the style owns it, so you can see the roster

@@ -4,7 +4,8 @@ import { Fragment, useEffect, useId, useMemo, useRef, useState } from 'react';
 
 import { Stave, type StaveHandle } from '@/components/app/breaks/stave';
 import { StepEditor } from '@/components/app/breaks/step-editor';
-import { type BreakConsole, useBreakConsole } from '@/components/app/breaks/use-break-console';
+import type { BreakConsole } from '@/components/app/breaks/use-break-console';
+import { useStudio } from '@/components/app/studio/studio-provider';
 import { DOCTOR_MOVES } from '@/lib/app/breaks/doctor';
 import { engrave } from '@/lib/app/breaks/engrave';
 import {
@@ -91,7 +92,7 @@ const TABS: Array<[Tab, string]> = [
 ];
 
 export function BreakConsole() {
-  const c = useBreakConsole();
+  const c = useStudio();
   const staveA = useRef<StaveHandle>(null);
   const staveB = useRef<StaveHandle>(null);
   const [tab, setTab] = useState<Tab>('gen');
