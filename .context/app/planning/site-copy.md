@@ -1,7 +1,7 @@
 # BeatBreaker — site copy
 
 Pre-written content for the public pages and the first-run / empty states of the
-app. Companion to [`app-plan.md`](./app-plan.md); Phase 2 of that plan puts this
+app. Companion to [`app-plan.md`](./app-plan.md); Phase 3 of that plan puts this
 copy on the pages.
 
 **House style.** Plain English. Short sentences. Say what the thing does and
@@ -38,7 +38,7 @@ it.
 
 Beside or below the hero: one real screenshot of the chart and the step grid
 with the playhead mid-bar. No illustration, no stock photo. A live, playable
-read-only pattern is better still if Phase 5's public pattern view exists by then.
+read-only pattern is better still if Phase 6's public pattern view exists by then.
 
 ### Three columns
 
@@ -248,7 +248,7 @@ Keep the platform's contact form. Replace only the intro copy.
 
 ---
 
-## 4. Community library — `/explore` (public, new in Phase 5)
+## 4. Community library — `/explore` (public, new in Phase 6)
 
 **Meta title:** Community library
 **Meta description:** Drum patterns written and published by BeatBreaker users.
@@ -269,7 +269,7 @@ Empty result:
 
 ---
 
-## 5. A shared or published pattern — `/p/[slug]` (public, new in Phase 5)
+## 5. A shared or published pattern — `/p/[slug]` (public, new in Phase 6)
 
 Header block:
 
@@ -333,7 +333,7 @@ Unsaved-changes prompt when opening another pattern:
 > **Save your changes to "{Title}"?**
 > [Save] · [Don't save] · [Cancel]
 
-Migrating browser-only favourites (one-time, Phase 3):
+Migrating browser-only favourites (one-time, Phase 4):
 
 > **You have {n} patterns saved in this browser from before accounts existed.**
 > Move them into your account so they are on all your devices?
@@ -440,7 +440,7 @@ When a photo was read with low confidence:
 that say so. Real ones depend on facts only the owner has (the legal entity's
 registered details, hosting region, the model provider and its data terms, the
 minimum age, the governing law) and should be reviewed by someone qualified.
-Phase 2 drafts them; what they must cover, in plain English:
+Phase 3 drafts them; what they must cover, in plain English:
 
 **Privacy**
 

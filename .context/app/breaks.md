@@ -1,7 +1,7 @@
 # The break domain
 
 `lib/app/breaks/` is BeatBreaker's engine: pure TypeScript with no DOM and no
-state, so the same code runs in the browser, on the server, and (Phase 6) behind
+state, so the same code runs in the browser, on the server, and (Phase 7) behind
 BeatBuddy's tools. This page is the map: what each module does, the rules that
 hold across them, the wire format a break travels in, and `/api/v1/breaks`.
 
@@ -141,7 +141,7 @@ and the login form drops. Signed out, the page renders `SignInToOpen`, which
 stashes the fragment (`pending-link.ts`, localStorage, one-hour expiry) and
 sends the visitor to `/login?callbackUrl=/breaks`. After sign-in, the console
 puts the fragment back in the URL before reading it. Phase 1's `/breaks` →
-`/studio` redirect has to keep this working. Phase 5's public `/p/[slug]`
+`/studio` redirect has to keep this working. Phase 6's public `/p/[slug]`
 replaces it.
 
 ## Tests
