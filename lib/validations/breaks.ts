@@ -13,14 +13,25 @@ import { STYLE_KEYS } from '@/lib/app/breaks/styles';
  * place to change when the wire format moves to version 4.
  */
 
-export const createBreakSchema = z.object({
+/**
+ * The fields, with no defaults. Defaults belong to create only: Zod applies a
+ * `.default()` inside `.partial()`, so a PATCH schema built from one that has
+ * them fills in every field the request left out — a rename would write
+ * `shared: false` and every link to the break would start answering 404.
+ * **Never `.partial()` a schema that has defaults.**
+ */
+const breakFields = z.object({
   title: z.string().trim().min(1, 'A break needs a name').max(120),
   /** The whole break, in share-code wire format. */
   doc: sharePayloadSchema,
-  shared: z.boolean().default(false),
+  shared: z.boolean(),
 });
 
-export const updateBreakSchema = createBreakSchema.partial();
+export const createBreakSchema = breakFields.extend({
+  shared: breakFields.shape.shared.default(false),
+});
+
+export const updateBreakSchema = breakFields.partial();
 
 export const listBreaksSchema = z.object({
   style: z

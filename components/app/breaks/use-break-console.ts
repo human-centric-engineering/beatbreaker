@@ -27,6 +27,7 @@ import { LIBRARY, patternFromLibrary } from '@/lib/app/breaks/library';
 import { reducePattern } from '@/lib/app/breaks/layers';
 import { DEFAULT_METER } from '@/lib/app/breaks/meter';
 import { buildMidi } from '@/lib/app/breaks/midi';
+import { takePendingLink } from '@/lib/app/breaks/pending-link';
 import {
   type CustomLanes,
   clonePattern,
@@ -895,6 +896,21 @@ export function useBreakConsole(): BreakConsole {
 
   useEffect(() => {
     if (ready) return;
+    /* A link opened while signed out had its fragment stashed on the way to
+       the login page (H5). Put it back in the URL before reading it, so the
+       break arrives and the address bar is the link that was sent. */
+    if (typeof window !== 'undefined' && !window.location.hash.startsWith('#b=')) {
+      let pending: string | null = null;
+      try {
+        pending = takePendingLink(window.localStorage);
+      } catch {
+        // storage blocked — nothing was stashed, then
+      }
+      if (pending) {
+        const { pathname, search } = window.location;
+        window.history.replaceState(null, '', `${pathname}${search}${pending}`);
+      }
+    }
     /* A shared link puts the break in the fragment. Arriving on one should
        land you on that break rather than on a fresh one that is then replaced
        — so this is checked before anything is generated. */

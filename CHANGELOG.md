@@ -100,7 +100,7 @@ release process.
   `Stave` (renders the engraver's node tree, playhead moved through a ref),
   `StepEditor` (draws the layer you are on, and pins what you add to it), and
   `useBreakConsole`, which holds the state the prototype kept in a module
-  global. `/breaks` is registered in `lib/app/protected-routes.ts`.
+  global. `/breaks` needs a session (see Changed below for how it asks for one).
 
 - **The recorded kits** — 106 mp3 one-shots under `public/kits/` with a
   manifest, and `audio/packs.ts` (`PackSource`) to fetch and decode them.
@@ -188,6 +188,43 @@ release process.
   Behaviour at `TENANCY_MODE=single` is unchanged: with one org and no
   invitation metadata every session flow writes the same rows plus one
   populated column, and every pending invitation round-trips as before.
+
+### Changed
+
+- **`/breaks` gates itself instead of sitting behind the proxy.** It left
+  `lib/app/protected-routes.ts` (the seam is back to `[]`). Signed out, the
+  page renders `SignInToOpen`, which stashes the `#b=` fragment of a shared link
+  (`lib/app/breaks/pending-link.ts`) and sends the visitor to sign in. The
+  console restores the fragment afterwards. An edge redirect cannot forward a
+  fragment, so a link opened signed out used to land on a fresh break. `/breaks`
+  is disallowed in `robots.ts`.
+- **`makeRng` is now xorshift32, as its docstring says.** The middle step was a
+  signed shift, so every seed generates a different break than it did before.
+  Saved breaks and share codes carry their whole grid and are unaffected.
+- **The metronome clicks the pulse in every meter** (`isClickStep` in
+  `audio/transport.ts`). "Quarters" is quarters in 3/4, the dotted quarter in
+  6/8 and 12/8, and 2+2+3 in 7/8; "eighths" is every eighth. Before this, only
+  4/4 was right.
+- **Share codes are strict about step values.** Bar rows are digits within each
+  lane's own range (`LANE_VALUES`), at most 11 lanes of 32 steps. `pc` must name
+  a real percussion instrument, the seed must be a uint32, backbeats must fall
+  within 0–63, and pins are layer digits. A code the encoder wrote still decodes.
+  A row already stored under the looser rules is repaired on read rather than
+  refused (`storedPayloadSchema`, used by `GET /api/v1/breaks/:id`), so it
+  still opens.
+
+### Fixed
+
+- **Renaming a break no longer unshares it.** `updateBreakSchema` was
+  `createBreakSchema.partial()`, and Zod 4 applies `shared`'s default inside
+  `.partial()`. So any `PATCH /api/v1/breaks/:id` without `shared` wrote
+  `shared: false`.
+- **MIDI out plays muted lanes**, as the MIDI-out hint says: muting a lane
+  silences it in the page's kit, not on the port.
+- **`GET /api/v1/breaks/:id` declares the ownership it has.** It claimed
+  `decidedBy: 'resource'` with no resolver, which logs an ownership error on
+  every signed-in read (and refuses under test). It is now `'nothing'`, with
+  the query itself deciding: own or shared.
 
 ## [0.12.1] — 2026-09-17
 

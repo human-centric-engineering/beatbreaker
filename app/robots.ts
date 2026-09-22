@@ -26,6 +26,10 @@ export default function robots(): MetadataRoute.Robots {
           '/dashboard/',
           '/settings/',
           '/profile/',
+          // FORK (BeatBreaker): the console. It gates itself rather than sitting
+          // behind the proxy (H5), so a crawler gets the sign-in hand-off —
+          // nothing worth indexing, and a shared link's break is in the fragment.
+          '/breaks',
           '/login',
           '/signup',
         ],

@@ -276,9 +276,9 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     seam: 'lib/app/protected-routes.ts',
     risk: 'a stray path would put a public route behind auth on every install',
     // FORK (BeatBreaker): re-pointed, not deleted — see the brand row above.
-    // /breaks is the console, and it renders fine signed out while every save
-    // behind it 401s, which is a worse answer than the login page.
-    assert: () => expect(appProtectedRoutes).toEqual(['/breaks']),
+    // Back to empty on purpose: /breaks gates itself in its page, because the
+    // edge redirect lost the `#b=` fragment of a shared link (H5).
+    assert: () => expect(appProtectedRoutes).toEqual([]),
   },
   {
     seam: 'lib/app/env.ts',

@@ -23,7 +23,7 @@ import { validateRequestBody } from '@/lib/api/validation';
 import { withAuth } from '@/lib/auth/guards';
 import { critique, playability } from '@/lib/app/breaks/critic';
 import { breakDocFromPayload } from '@/lib/app/breaks/share';
-import { sharePayloadSchema } from '@/lib/app/breaks/schema';
+import { storedPayloadSchema } from '@/lib/app/breaks/schema';
 import { prisma } from '@/lib/db/client';
 import { cuidSchema } from '@/lib/validations/common';
 import { updateBreakSchema } from '@/lib/validations/breaks';
@@ -52,16 +52,21 @@ export const GET = withAuth<{ id: string }>(
     });
     if (!row) throw new NotFoundError(`Break ${id} not found`);
 
-    /* The report is derived, not stored. Storing it would mean a row whose
-       score was computed by a version of the critic nobody can identify, and
-       the critic is cheap and pure — so it runs on the way out. */
-    const doc = breakDocFromPayload(sharePayloadSchema.parse(row.doc));
+    /* The document is repaired rather than refused: a row saved before the
+       share-code schema was tightened must still open (see storedPayloadSchema),
+       and the repaired payload is what goes back, so the client reads what was
+       scored. The report is derived, not stored. Storing it would mean a row
+       whose score was computed by a version of the critic nobody can identify,
+       and the critic is cheap and pure — so it runs on the way out. */
+    const payload = storedPayloadSchema.parse(row.doc);
+    const doc = breakDocFromPayload(payload);
     const checks = playability(doc.A, doc.bpm);
     const report = critique(doc.A, doc.bpm);
 
     log.info('Break fetched', { breakId: id, mine: row.userId === session.user.id });
     return successResponse({
       ...row,
+      doc: payload,
       // BigInt does not survive JSON.stringify
       seed: row.seed.toString(),
       mine: row.userId === session.user.id,
@@ -71,10 +76,14 @@ export const GET = withAuth<{ id: string }>(
   {
     // Ownership: the row is fetched by `{ id, OR: [own, shared] }`, so the query
     // itself is the authorisation — see RouteOwnership in lib/auth/guards.ts.
+    // Not 'resource': that claims a `resource` resolver asked the policy about
+    // the row, and there is none — a resolver would refuse every shared read,
+    // since the policy narrows a user to their own rows. Not 'self' either: a
+    // shared row is someone else's. The policy is deliberately not consulted.
     ownership: {
-      decidedBy: 'resource',
+      decidedBy: 'nothing',
       because:
-        'Readable if the caller owns the row or the row is marked shared; both are conditions of the single fetch, and a miss is a 404 either way.',
+        'The handler decides in its own query: readable if the caller owns the row or the row is marked shared; a miss is a 404 either way.',
     },
   }
 );

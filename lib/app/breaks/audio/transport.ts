@@ -2,7 +2,7 @@ import type { BreakAudio } from '@/lib/app/breaks/audio/engine';
 import type { MidiSink } from '@/lib/app/breaks/audio/midi-out';
 import { feelOf, feelOffset, hatShape, isSwung } from '@/lib/app/breaks/feel';
 import { DEFAULT_PERC, FOOT_LANE, PERC_LANES, TOM_LANES, percInst } from '@/lib/app/breaks/lanes';
-import { M44, groupAt, isGroupStart, meterOf, pulseInfo, stepsOf } from '@/lib/app/breaks/meter';
+import { M44, groupAt, isGroupStart, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
 import { MIDI_MAP } from '@/lib/app/breaks/midi';
 import { meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
 import { STYLES } from '@/lib/app/breaks/styles';
@@ -58,7 +58,7 @@ export interface TransportSnapshot {
   /** Hi-hat dynamics, 0–150. */
   hats: number;
   click: boolean;
-  /** Clicks per bar: 4 for quarters, 8 for eighths. */
+  /** 4 clicks the pulse (quarters, or dotted quarters in compound time); 8 clicks every eighth. See {@link isClickStep}. */
   clickSub: number;
   /** Count-in bars. */
   countIn: number;
@@ -256,61 +256,60 @@ export class Transport {
     const out = this.midi;
     const send = (note: number, vel: number, when: number): void => out?.hit(note, vel, when);
 
-    if (bar.k[i] && g('k')) {
+    if (bar.k[i]) {
       const feather =
         style?.kickFeather && bar.k[i] === 1 && isGroupStart(m, i) ? style.kickFeather : 1;
       const v = (bar.k[i] === 2 ? 1 : 0.9) * feather;
-      this.audio.kick(at('k'), v * g('k'));
+      if (g('k')) this.audio.kick(at('k'), v * g('k'));
       send(MIDI_MAP.k, v, at('k'));
     }
 
     /* A foot chick is a quiet sound. At 0.62 the sample picker reached for the
        hardest stomp in the kit and turned it down, which is a duller, thuddier
        hit than the pedal actually makes at that volume. */
-    if (bar[FOOT_LANE][i] && g(FOOT_LANE)) {
-      this.audio.hat(at('h'), 0.4 * g(FOOT_LANE), false, true);
+    if (bar[FOOT_LANE][i]) {
+      if (g(FOOT_LANE)) this.audio.hat(at('h'), 0.4 * g(FOOT_LANE), false, true);
       send(MIDI_MAP.hf, 0.55, at('h'));
     }
 
-    if (bar.s[i] && g('s')) {
+    if (bar.s[i]) {
       const sv = bar.s[i];
       const v = sv === 1 ? 0.5 : sv === 3 ? 1 : sv === 4 ? 0.82 : 0.78;
-      this.audio.snare(at('s', sv === 1), v * g('s'), sv === 1, sv === 4);
+      if (g('s')) this.audio.snare(at('s', sv === 1), v * g('s'), sv === 1, sv === 4);
       send(sv === 4 ? MIDI_MAP.sCross : MIDI_MAP.s, v, at('s', sv === 1));
     }
-    if (bar.h[i] && g('h')) {
+    if (bar.h[i]) {
       const v = 0.86 * hatShape(i, bar.h[i], 'h', m, style, snap.hats);
-      this.audio.hat(at('h'), v * g('h'), bar.h[i] === 3);
+      if (g('h')) this.audio.hat(at('h'), v * g('h'), bar.h[i] === 3);
       send(bar.h[i] === 3 ? MIDI_MAP.hOpen : MIDI_MAP.h, v, at('h'));
     }
-    if (bar.r[i] && g('r')) {
+    if (bar.r[i]) {
       const v = (bar.r[i] === 2 ? 0.95 : 0.84) * hatShape(i, bar.r[i], 'r', m, style, snap.hats);
-      this.audio.ride(at('r'), v * g('r'), bar.r[i] === 2);
+      if (g('r')) this.audio.ride(at('r'), v * g('r'), bar.r[i] === 2);
       send(bar.r[i] === 2 ? MIDI_MAP.rBell : MIDI_MAP.r, v, at('r'));
     }
-    if (bar.c[i] && g('c')) {
-      this.audio.crash(at('c'), 0.9 * g('c'));
+    if (bar.c[i]) {
+      if (g('c')) this.audio.crash(at('c'), 0.9 * g('c'));
       send(MIDI_MAP.c, 0.9, at('c'));
     }
 
     for (const L of TOM_LANES) {
-      if (!bar[L][i] || !g(L)) continue;
+      if (!bar[L][i]) continue;
       const v = bar[L][i] === 2 ? 1 : 0.86;
-      this.audio.tom(at('s'), v * g(L), L);
+      if (g(L)) this.audio.tom(at('s'), v * g(L), L);
       send(MIDI_MAP[L], v, at('s'));
     }
     PERC_LANES.forEach((L, li) => {
-      if (!bar[L][i] || !g(L)) return;
+      if (!bar[L][i]) return;
       const inst = livePat.perc?.[L] ?? DEFAULT_PERC[li];
       const accent = bar[L][i] === 2;
       const v = accent ? 0.95 : 0.7;
-      this.audio.perc(at('s'), v * g(L), inst, accent, L);
+      if (g(L)) this.audio.perc(at('s'), v * g(L), inst, accent, L);
       const pi = percInst(inst);
       send(accent ? pi.hi : pi.midi, v, at('s'));
     });
 
-    const clickEvery = Math.max(1, Math.round(stepsOf(m) / snap.clickSub));
-    if (snap.click && i % clickEvery === 0) this.audio.click(t, i === 0);
+    if (snap.click && isClickStep(m, i, snap.clickSub)) this.audio.click(t, i === 0);
 
     this.queue.push({
       t,
@@ -367,6 +366,20 @@ export class Transport {
       this.raf = requestAnimationFrame(this.paint);
     }
   };
+}
+
+/**
+ * Does the metronome click on this step?
+ *
+ * "Quarters" clicks the pulse you count, which is what `groupsOf` already
+ * computes: every quarter in 3/4 or 5/4, the dotted quarter in 6/8 and 12/8, and
+ * the uneven 2+2+3 in 7/8. "Eighths" clicks every eighth, which is every other
+ * step because a step is a sixteenth in every meter. Dividing the bar into
+ * `clickSub` equal parts only worked in 4/4: it put 3/4's clicks three
+ * sixteenths apart and 6/8's on sixteenths no eighth sits on (H3).
+ */
+export function isClickStep(m: Meter, step: number, clickSub: number): boolean {
+  return clickSub >= 8 ? step % 2 === 0 : isGroupStart(m, step);
 }
 
 /** Which beat of the bar a step falls on, 1-based — for the position readout. */
