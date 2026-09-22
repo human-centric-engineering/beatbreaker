@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useMemo } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import { type BreakConsole, useBreakConsole } from '@/components/app/breaks/use-break-console';
 import { KITS, kitGroups } from '@/lib/app/breaks/kit';
@@ -55,6 +55,14 @@ export function codeCatalogue(): StudioCatalogue {
 
 export interface Studio extends BreakConsole {
   catalogue: StudioCatalogue;
+  /**
+   * The line of feedback under the frame — "Copied", "That code is not one of
+   * ours". It lives here because the drawers raise it and the frame shows it,
+   * and those are siblings now; the console could keep it to itself when it was
+   * both.
+   */
+  toast: string;
+  say: (message: string) => void;
 }
 
 const StudioContext = createContext<Studio | null>(null);
@@ -70,11 +78,22 @@ export function StudioProvider({
   const state = useBreakConsole();
   const content = useMemo(() => catalogue ?? codeCatalogue(), [catalogue]);
 
+  const [toast, setToast] = useState('');
+  const say = useCallback((message: string) => setToast(message), []);
+  useEffect(() => {
+    if (!toast) return;
+    const id = setTimeout(() => setToast(''), 2200);
+    return () => clearTimeout(id);
+  }, [toast]);
+
   /* `useBreakConsole` returns a fresh object each render, so there is nothing to
      memoise away here — every consumer re-renders when any of the state moves,
      exactly as the single component did. Splitting the context by concern is a
      Phase 4 optimisation with a measurement behind it, not a guess now. */
-  const value = useMemo<Studio>(() => ({ ...state, catalogue: content }), [state, content]);
+  const value = useMemo<Studio>(
+    () => ({ ...state, catalogue: content, toast, say }),
+    [state, content, toast, say]
+  );
 
   return <StudioContext.Provider value={value}>{children}</StudioContext.Provider>;
 }
