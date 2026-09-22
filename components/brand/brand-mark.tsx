@@ -35,12 +35,23 @@ import { BRAND } from '@/lib/brand';
  */
 export function BrandMark(): React.ReactNode {
   /* The wordmark the console has always carried: the name set solid, with the
-     second half in brass. Two elements rather than an image, so it takes the
-     surface's own colours in light and dark and stays selectable text. BRAND.name
-     stays the identity string everywhere a name is read rather than seen. */
+     second half in brass. Text rather than an image, so it takes the surface's
+     own colours in light and dark and stays selectable.
+
+     It is cut out of BRAND.name rather than spelled out here, because a mark
+     that ignores the seam would leave `NEXT_PUBLIC_APP_NAME` doing nothing to
+     the one place the name is actually seen. A camel-cased name splits at its
+     inner capital; anything else — "Sunrise", a one-word fork — has no seam to
+     cut on and comes back as the bare string the platform default returns, with
+     no wrapper element, so vanilla header HTML stays byte-for-byte. */
+  const name = BRAND.name;
+  const cut = name.search(/(?!^)\p{Lu}/u);
+  if (cut < 1) return name;
+
   return (
-    <span className="brand-mark" aria-label={BRAND.name}>
-      Beat<span className="brand-mark-em">Breaker</span>
+    <span className="brand-mark">
+      {name.slice(0, cut)}
+      <span className="brand-mark-em">{name.slice(cut)}</span>
     </span>
   );
 }
