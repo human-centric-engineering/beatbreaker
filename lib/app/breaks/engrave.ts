@@ -83,7 +83,7 @@ interface Head {
   type: 'oval' | 'x' | 'bell' | 'mark-o';
   ghost?: boolean;
   accent?: boolean;
-  /** `'o'` draws the open-hat ring above the head. */
+  /** `'o'` circles the head — an open hi-hat. */
   mark?: string | null;
   ledger?: boolean;
 }
@@ -111,7 +111,7 @@ export function engrave(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOpt
      way an added percussion part is written on a chart. */
   const percRowH = 2.5 * SP;
   const percH = percLanes.length * percRowH;
-  const upper = 6.6 * SP; // beams, open-hat marks and accents all live up here
+  const upper = 6.6 * SP; // beams and accents live up here
   const hasFoot = lanes.includes(FOOT_LANE);
   const lower = (opts.sticking ? 5.9 * SP : 4.5 * SP) + (hasFoot ? 0.6 * SP : 0);
   const sysH = guideH + percH + upper + 4 * SP + lower;
@@ -498,11 +498,11 @@ function drawVoice(ctx: VoiceCtx): void {
         if (h.type === 'mark-o') {
           out.add('circle', {
             cx: xs(i),
-            cy: y(9) - 1.7 * SP,
-            r: 0.32 * SP,
+            cy: y(9),
+            r: OPEN_RING_R * SP,
             fill: 'none',
             stroke: 'var(--faint)',
-            'stroke-width': 1 * scale,
+            'stroke-width': OPEN_RING_W * scale,
             opacity: 0.45,
           });
           continue;
@@ -627,11 +627,11 @@ function drawVoice(ctx: VoiceCtx): void {
         if (h.mark === 'o') {
           out.add('circle', {
             cx: x,
-            cy: y(h.step) - 1.7 * SP,
-            r: 0.34 * SP,
+            cy: y(h.step),
+            r: OPEN_RING_R * SP,
             fill: 'none',
             stroke: ink,
-            'stroke-width': 1.1 * scale,
+            'stroke-width': OPEN_RING_W * scale,
           });
         }
         if (h.accent) {
@@ -642,6 +642,21 @@ function drawVoice(ctx: VoiceCtx): void {
     }
   }
 }
+
+/* An open hi-hat is a circled X — the ring goes round the notehead, not above
+   it. A detached `o` floating over the beams is the other convention, but on a
+   16th-note chart it lands in the one strip already full of ink, and it makes
+   the reader look in two places to read one note. Circling the head keeps the
+   marking where the note is.
+
+   The radius is bounded from above, not chosen for looks: an up-stem is drawn
+   at `x + 0.62 SP`, so any ring wider than that has the note's own stem drawn
+   through it. Staying inside the stem also keeps the ring within the X's own
+   vertical footprint (±0.56 SP), which is what stops it reaching the ride a
+   half-space below or the crash's ledger line above. The X's diagonal tips
+   cross the ring, which is what `⊗` looks like anyway. */
+const OPEN_RING_R = 0.58;
+const OPEN_RING_W = 1.15;
 
 function drawHead(
   out: AnySink,
@@ -683,7 +698,25 @@ function drawHead(
         );
       });
     }
-  } else if (h.type === 'x' || h.type === 'bell') {
+  } else if (h.type === 'bell') {
+    /* A diamond, not a circled X: the circled X is the open hi-hat, one staff
+       position above, and two rings half a space apart cannot be told apart at
+       chart size. The diamond is the other standard bell notehead.
+
+       It is drawn to the same footprint as the X it replaces (±0.56 SP tall)
+       and wider than it is tall, the way a diamond notehead is cut. A taller
+       diamond would be a solid fill spilling onto the hi-hat position a half
+       space above — where the X's two thin strokes had been transparent. */
+    const rx = 0.62 * SP;
+    const ry = 0.56 * SP;
+    out.add('polygon', {
+      points: [`${x},${yy - ry}`, `${x + rx},${yy}`, `${x},${yy + ry}`, `${x - rx},${yy}`].join(
+        ' '
+      ),
+      fill: color,
+      opacity,
+    });
+  } else if (h.type === 'x') {
     const r = 0.56 * SP;
     const w = 1.5 * scale;
     out.add('line', {
@@ -704,17 +737,6 @@ function drawHead(
       opacity,
       'stroke-width': w,
     });
-    if (h.type === 'bell') {
-      out.add('circle', {
-        cx: x,
-        cy: yy,
-        r: 0.88 * SP,
-        fill: 'none',
-        stroke: color,
-        opacity,
-        'stroke-width': 1.1 * scale,
-      });
-    }
   }
 }
 
