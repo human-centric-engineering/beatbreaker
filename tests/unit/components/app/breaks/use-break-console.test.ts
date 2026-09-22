@@ -43,6 +43,9 @@ const fakes = vi.hoisted(() => {
       this.ctx = ctx;
       return ctx;
     });
+    close = vi.fn(() => {
+      this.ctx = null;
+    });
   }
   class FakePacks {
     usePercSamples = true;
@@ -476,6 +479,19 @@ describe('playing', () => {
     const midi = fakes.made.midi.at(-1)!;
     unmount();
     expect(midi.disconnect).toHaveBeenCalled();
+  });
+
+  /* H7. A browser allows a page only a handful of AudioContexts and will not
+     reopen a closed one, so leaving the Studio has to give this one back —
+     stopping the transport silences it but leaves it running. */
+  it('gives the AudioContext back on unmount, not just the transport', async () => {
+    const { result, unmount } = await mount();
+    act(() => result.current.togglePlay());
+    const audio = fakes.made.audio.at(-1)!;
+    expect(audio.ctx).not.toBeNull();
+    unmount();
+    expect(audio.close).toHaveBeenCalledTimes(1);
+    expect(audio.ctx).toBeNull();
   });
 });
 

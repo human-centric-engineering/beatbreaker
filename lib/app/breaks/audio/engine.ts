@@ -173,6 +173,39 @@ export class BreakAudio {
     if (this.ctx?.state === 'suspended') void this.ctx.resume();
   }
 
+  /**
+   * Give the audio hardware back.
+   *
+   * An `AudioContext` is a real resource — a browser allows only a handful of
+   * them per page, and a closed one cannot be reopened. Stopping the transport
+   * silences the output but leaves the context running, so every client-side
+   * visit to the Studio used to leave a live one behind (H7); enough visits and
+   * the next `new AudioContext()` throws and the page falls back to silence.
+   *
+   * The engine is finished after this: the nodes are gone and `init()` builds a
+   * new graph rather than reviving the old one, which is why only the component
+   * that owns the engine's lifetime calls it.
+   */
+  close(): void {
+    const ctx = this.ctx;
+    this.ctx = null;
+    this.bus = null;
+    this.master = null;
+    this.shaper = null;
+    this.lp = null;
+    this.comp = null;
+    this.convolver = null;
+    this.wet = null;
+    this.noise = null;
+    this.hatTail = null;
+    this.irRoom = -1;
+    this.driveAt = -1;
+    this.ready = false;
+    /* Already-closed contexts throw rather than no-op, and a close that races a
+       navigation is not worth an unhandled rejection in the console. */
+    if (ctx && ctx.state !== 'closed') void ctx.close().catch(() => {});
+  }
+
   setKit(kitKey: string, sound: Record<string, VoiceParams> | null): void {
     this.kitKey = kitKey;
     this.sound = sound;

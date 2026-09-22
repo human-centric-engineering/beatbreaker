@@ -841,6 +841,11 @@ export function useBreakConsole(): BreakConsole {
     return () => {
       t.stop();
       midi.disconnect();
+      /* Stopping the transport only silences the output; the AudioContext stays
+         open, and the browser allows a page only a handful of them (H7). The
+         provider that owns this effect is mounted once by the Studio frame, so
+         this runs when the Studio is left, not between renders. */
+      audio.close();
       transportRef.current = null;
       audioRef.current = null;
       packsRef.current = null;
