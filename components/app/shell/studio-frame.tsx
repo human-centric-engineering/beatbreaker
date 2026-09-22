@@ -1,0 +1,178 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+
+import { StudioFooter } from '@/components/app/shell/studio-footer';
+import { StudioHeader } from '@/components/app/shell/studio-header';
+import { ToolDrawer } from '@/components/app/shell/tool-drawer';
+import { ToolRail, type Tool } from '@/components/app/shell/tool-rail';
+import { DoctorPanel } from '@/components/app/studio/panels/doctor-panel';
+import { ExportPanel } from '@/components/app/studio/panels/export-panel';
+import { GeneratePanel } from '@/components/app/studio/panels/generate-panel';
+import { KitPanel } from '@/components/app/studio/panels/kit-panel';
+import { LibraryPanel } from '@/components/app/studio/panels/library-panel';
+import { PracticePanel } from '@/components/app/studio/panels/practice-panel';
+import { Stage } from '@/components/app/studio/stage';
+import { useStudio } from '@/components/app/studio/studio-provider';
+import { cn } from '@/lib/utils';
+
+import '@/components/app/breaks/breaks.css';
+import '@/components/app/shell/studio.css';
+
+/**
+ * The Studio: a full-window app view in the site's frame.
+ *
+ * Header, stage, tool rail, footer — and every tool in a drawer over the top, so
+ * the chart keeps the whole window and nothing it can do moves it. The layout is
+ * the stylesheet's job (`studio.css`); this file decides only which component a
+ * tool opens *into*, which is the one thing a media query cannot express.
+ */
+
+const PANELS: Record<Tool, React.ComponentType> = {
+  gen: GeneratePanel,
+  doctor: DoctorPanel,
+  lib: LibraryPanel,
+  kit: KitPanel,
+  practice: PracticePanel,
+  export: ExportPanel,
+};
+
+/** Matches the 1024px breakpoint in studio.css — a drawer above it, a sheet below. */
+const WIDE = '(min-width: 1024px)';
+
+function useWide(): boolean {
+  /* Starts true so the server and the first client render agree; the CSS has
+     already laid the frame out for the real width either way, so this only ever
+     decides which of the two components mounts once a tool is opened. */
+  const [wide, setWide] = useState(true);
+  useEffect(() => {
+    const mq = window.matchMedia(WIDE);
+    const on = () => setWide(mq.matches);
+    on();
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
+  return wide;
+}
+
+export function StudioFrame() {
+  const c = useStudio();
+  const wide = useWide();
+  const [tool, setTool] = useState<Tool | null>(null);
+  const [frame, setFrame] = useState<HTMLDivElement | null>(null);
+  const railButtons = useRef<Partial<Record<Tool, HTMLButtonElement | null>>>({});
+  const toolsButton = useRef<HTMLButtonElement>(null);
+  const lastTool = useRef<Tool>('gen');
+
+  /* A drawer and a sheet are different components; nothing carries across when
+     the window crosses the breakpoint. */
+  useEffect(() => setTool(null), [wide]);
+
+  const toggle = (t: Tool) => {
+    if (tool !== t) lastTool.current = t;
+    setTool((cur) => (cur === t ? null : t));
+  };
+  const open = (t: Tool) => {
+    lastTool.current = t;
+    setTool(t);
+  };
+
+  /**
+   * The Studio from the keyboard.
+   *
+   * Bound on the document rather than on a focused element: there is no one
+   * place to stand. The guard skips anything you could be typing into — and, as
+   * of the drawers, anything Space already means something on. A tool panel is
+   * full of buttons and sliders, and Space on a focused button presses it
+   * (Spike A, finding 2); firing play as well would be a second action the user
+   * did not ask for. Keep this list as BeatBuddy's composer arrives.
+   */
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const el = e.target instanceof HTMLElement ? e.target : null;
+      if (
+        el?.closest(
+          'input, textarea, select, button, [role="slider"], [role="menuitem"], [contenteditable="true"]'
+        )
+      ) {
+        return;
+      }
+      if (e.altKey) return;
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'z') {
+        e.preventDefault();
+        if (e.shiftKey) c.redo();
+        else c.undo();
+        return;
+      }
+      if (e.metaKey || e.ctrlKey) return;
+
+      if (e.key === ' ') {
+        e.preventDefault();
+        c.togglePlay();
+      } else if (e.key === 'n' || e.key === 'N') {
+        c.newBreak('both');
+      } else if (e.key >= '1' && e.key <= '5') {
+        c.setLevel(Number(e.key));
+      } else if (e.key === 'g') {
+        c.setGuides(!c.guides);
+      } else if (e.key === 'a') {
+        c.setViewMode('A');
+      } else if (e.key === 'b') {
+        c.setViewMode('B');
+      } else if (e.key === 'v') {
+        c.setViewMode('both');
+      } else if (e.key === '[') {
+        c.setBpm(c.bpm - 2);
+      } else if (e.key === ']') {
+        c.setBpm(c.bpm + 2);
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [c]);
+
+  const Panel = tool ? PANELS[tool] : null;
+
+  return (
+    <div className="bb studio-frame" ref={setFrame}>
+      <StudioHeader
+        onOpenTool={open}
+        onNewBreak={() => c.newBreak('both')}
+        toolsButtonRef={toolsButton}
+        container={frame}
+      />
+
+      <div className="studio-body">
+        <div className="studio-stage">
+          <div className="studio-chart">
+            <Stage />
+          </div>
+        </div>
+        <ToolRail
+          open={tool}
+          onToggle={toggle}
+          onNewBreak={() => c.newBreak('both')}
+          buttonRef={railButtons}
+        />
+      </div>
+
+      <StudioFooter />
+
+      <ToolDrawer
+        tool={tool}
+        wide={wide}
+        container={frame}
+        onClose={() => setTool(null)}
+        onReturnFocus={() =>
+          (wide ? railButtons.current[lastTool.current] : toolsButton.current)?.focus()
+        }
+      >
+        {Panel ? <Panel /> : null}
+      </ToolDrawer>
+
+      <div className={cn('toast', c.toast && 'show')} role="status">
+        {c.toast}
+      </div>
+    </div>
+  );
+}

@@ -191,13 +191,34 @@ release process.
 
 ### Changed
 
-- **`/breaks` gates itself instead of sitting behind the proxy.** It left
-  `lib/app/protected-routes.ts` (the seam is back to `[]`). Signed out, the
-  page renders `SignInToOpen`, which stashes the `#b=` fragment of a shared link
-  (`lib/app/breaks/pending-link.ts`) and sends the visitor to sign in. The
-  console restores the fragment afterwards. An edge redirect cannot forward a
-  fragment, so a link opened signed out used to land on a fresh break. `/breaks`
-  is disallowed in `robots.ts`.
+- **The console is now the Studio, at `/studio`.** It has its own route group
+  (`app/(studio)/`) with a full-window frame — header, stage, tool rail, footer —
+  and every tool in a drawer (a bottom sheet below 1024px) instead of a rail of
+  tabs. `/breaks` is a permanent redirect to `/studio` and stays for good, so
+  every share link handed out before the move still opens its break: a browser
+  carries a `#b=` fragment across to a target that has none of its own. Both
+  routes still gate themselves in the page rather than at the edge, for the same
+  reason.
+
+  No feature was added or removed — this is a re-housing. The frame's layout is
+  driven by media queries rather than a measured width, so the server HTML is
+  laid out correctly on first paint.
+
+- **Seams filled by the fork:** `BrandMark` renders the wordmark;
+  `app/brand-theme.css` carries the paper-and-brass palette on the `consumer`
+  surface (light and dark) so overlays are branded and `/admin` is not;
+  `protected-nav.ts` is Home · Studio · Admin; `auth-landing.ts` relabels
+  `/dashboard` as "Home" without moving it. Each is re-pinned, not deleted, in
+  `tests/unit/lib/app/defaults.test.ts`.
+
+- **The Studio gates itself instead of sitting behind the proxy.**
+  `lib/app/protected-routes.ts` stays `[]`. Signed out, the page renders
+  `SignInToOpen`, which stashes the `#b=` fragment of a shared link
+  (`lib/app/breaks/pending-link.ts`) and sends the visitor to sign in; the Studio
+  restores the fragment afterwards. An edge redirect cannot forward a fragment,
+  so a link opened signed out used to land on a fresh break. Both `/studio` and
+  `/breaks` are disallowed in `robots.ts`. (This landed for `/breaks` before the
+  move to `/studio`, above, and carries over unchanged.)
 - **`makeRng` is now xorshift32, as its docstring says.** The middle step was a
   signed shift, so every seed generates a different break than it did before.
   Saved breaks and share codes carry their whole grid and are unaffected.
@@ -215,6 +236,11 @@ release process.
 
 ### Fixed
 
+- **The `AudioContext` is given back when you leave the Studio (H7).** The
+  console's cleanup stopped the transport and disconnected MIDI, which silences
+  the output but leaves the context open; a browser allows a page only a handful
+  and will not reopen a closed one, so enough client-side visits and the next one
+  threw and the page fell back to silence. `BreakAudio.close()` is new.
 - **Renaming a break no longer unshares it.** `updateBreakSchema` was
   `createBreakSchema.partial()`, and Zod 4 applies `shared`'s default inside
   `.partial()`. So any `PATCH /api/v1/breaks/:id` without `shared` wrote

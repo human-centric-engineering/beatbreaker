@@ -132,3 +132,16 @@
   --color-destructive: #e2735a;
   --color-destructive-foreground: #16130e;
 }
+
+/* The wordmark. `BrandMark` is a fork-owned seam, so its type lives with the
+ * fork's theme rather than in a platform stylesheet. The display face is the one
+ * the Studio loads; elsewhere on the site it falls back to the body stack, which
+ * is the right trade for a mark that appears once per page. */
+.brand-mark {
+  font-family: var(--bb-display, inherit), 'Anton', 'Arial Narrow', sans-serif;
+  letter-spacing: 0.02em;
+  font-weight: 400;
+}
+.brand-mark-em {
+  color: var(--color-primary);
+}

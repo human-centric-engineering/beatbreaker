@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 
 /**
- * The console, mounted.
+ * The Studio, mounted.
  *
  * Every other test in this port exercises a pure function. This one is the
  * check that the whole thing actually assembles: generator → critic → layer
@@ -17,7 +17,7 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { BreakConsole } from '@/components/app/breaks/break-console';
+import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { stashPendingLink } from '@/lib/app/breaks/pending-link';
@@ -25,18 +25,42 @@ import { encodeBreak } from '@/lib/app/breaks/share';
 
 // jsdom/happy-dom has no CSS loader, and the stylesheet is not what is under test
 vi.mock('@/components/app/breaks/breaks.css', () => ({}));
+vi.mock('@/components/app/shell/studio.css', () => ({}));
+
+/* The platform's own header and footer controls need their providers, which the
+   real layout supplies and this test has no business rebuilding. They are
+   Sunrise's and tested as Sunrise's; what is under test here is the Studio. */
+vi.mock('@/components/layouts/header-actions', () => ({
+  HeaderActions: () => null,
+}));
+vi.mock('@/lib/consent', () => ({
+  useConsent: () => ({ openPreferences: vi.fn() }),
+}));
 
 /**
- * The console reads its state from the Studio provider, which the `(studio)`
- * frame mounts around the whole app view; mounting the console alone is not a
- * thing the app does. Nothing else about these tests changes.
+ * The frame reads its state from the Studio provider, which the `(studio)` route
+ * mounts around it. Nothing else about these tests changes: they were written
+ * against the console and they hold the frame to the same behaviour, which is
+ * the whole point of a phase that only re-houses things.
  */
 const renderConsole = () =>
   render(
     <StudioProvider>
-      <BreakConsole />
+      <StudioFrame />
     </StudioProvider>
   );
+
+/**
+ * Open a tool.
+ *
+ * The six tools were tabs in a rail and are drawers now, so a test reaches one
+ * the way a person does: press its tab in the rail, and the drawer opens over
+ * the chart. The chart itself never moves, which is what the frame is for.
+ */
+const openTool = async (user: ReturnType<typeof userEvent.setup>, name: string) => {
+  const rail = within(screen.getByRole('navigation', { name: 'Tools' }));
+  await user.click(rail.getByRole('button', { name }));
+};
 
 /** A grid cell holding a note: its value is in `data-on`, and 0 is empty. */
 const NOTES = ".cell:not([data-on='0'])";
@@ -55,7 +79,7 @@ beforeEach(() => {
   vi.stubGlobal('cancelAnimationFrame', (id: number) => clearTimeout(id));
 });
 
-describe('BreakConsole', () => {
+describe('the Studio', () => {
   it('generates and engraves a break on mount', async () => {
     renderConsole();
 
@@ -71,9 +95,12 @@ describe('BreakConsole', () => {
   });
 
   it('scores the break rather than showing a placeholder', async () => {
+    const user = userEvent.setup();
     renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
+    // the critic reads out in the Generate drawer, beside what it is judging
+    await openTool(user, 'Generate');
     const score = document.querySelector('.scorenum');
     expect(score).toBeTruthy();
     const n = Number(score?.textContent?.replace(/\D+/g, ''));
@@ -173,7 +200,7 @@ describe('BreakConsole', () => {
     renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    await user.click(screen.getByRole('tab', { name: 'Library' }));
+    await openTool(user, 'Library');
     const row = await screen.findByRole('button', { name: /Funky Drummer/ });
     await user.click(row);
 
@@ -217,7 +244,7 @@ describe('BreakConsole', () => {
     renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    await user.click(screen.getByRole('tab', { name: 'Export' }));
+    await openTool(user, 'Export');
 
     const written: string[] = [];
     vi.stubGlobal('navigator', {
@@ -246,7 +273,7 @@ describe('BreakConsole', () => {
     renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    await user.click(screen.getByRole('tab', { name: 'Kit' }));
+    await openTool(user, 'Kit');
 
     /* Nothing is tuned yet, so there is nothing to put back — the reset has to
        say so rather than sitting there live and doing nothing. */
@@ -256,7 +283,11 @@ describe('BreakConsole', () => {
     /* Two cards carry a Room: the kit's whole-mix send, and the one lane the
        Voice card is editing. Scope to the card, or this asserts on whichever
        happens to be first in the DOM. */
-    const kitCard = within(screen.getByRole('heading', { name: 'Kit' }).closest('.card')!);
+    /* "Kit" names the rail tab and the drawer's own title too, so reach for the
+       heading that belongs to a card. */
+    const cardHeading = (name: string) =>
+      screen.getAllByRole('heading', { name }).find((h) => h.closest('.card'))!;
+    const kitCard = within(cardHeading('Kit').closest('.card')!);
     const room = kitCard.getByLabelText<HTMLInputElement>('Room');
     const shipped = room.value;
     fireEvent.change(room, { target: { value: '61' } });
@@ -276,16 +307,23 @@ describe('BreakConsole', () => {
     const user = userEvent.setup();
     renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
-    await user.click(screen.getByRole('tab', { name: 'Kit' }));
+    await openTool(user, 'Kit');
 
     /* A synthesised hi-hat is built from noise and a filter, so it has a size
        and a brightness. A recording has neither — what is left is how fast it
        plays back. Showing "Bright" over a sample would be a knob that lies. */
     const voice = () => within(screen.getByRole('heading', { name: 'Voice' }).closest('.card')!);
+    const kitPicker = () =>
+      within(
+        screen
+          .getAllByRole('heading', { name: 'Kit' })
+          .find((h) => h.closest('.card'))!
+          .closest('.card')!
+      ).getByLabelText('Kit');
     expect(voice().getByLabelText('Size')).toBeTruthy();
     expect(voice().getByLabelText('Bright')).toBeTruthy();
 
-    await user.selectOptions(screen.getByLabelText('Kit'), 'virtuosity');
+    await user.selectOptions(kitPicker(), 'virtuosity');
     expect(voice().queryByLabelText('Bright')).toBeNull();
     expect(voice().getByLabelText('Speed')).toBeTruthy();
   });
@@ -296,7 +334,7 @@ describe('BreakConsole', () => {
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const name = document.querySelector('.title-block h2')?.textContent ?? '';
-    await user.click(screen.getByRole('tab', { name: 'Library' }));
+    await openTool(user, 'Library');
     await user.click(screen.getByRole('button', { name: '＋ Save current' }));
 
     /* The delete button is named after the break too, so match the row rather
@@ -312,7 +350,9 @@ describe('BreakConsole', () => {
     await user.click(screen.getByRole('button', { name: /^New break/ }));
     expect(gridOf()).not.toBe(before);
 
-    await user.click(screen.getByRole('tab', { name: 'Library' }));
+    /* The drawer is non-modal, so writing a new break from the rail leaves
+       Library open beside it — which is the point of the drawers. Pressing the
+       tab again here would close it. */
     await user.click(screen.getByRole('button', { name: savedRow }));
     expect(gridOf()).toBe(before);
 
@@ -329,7 +369,7 @@ describe('BreakConsole', () => {
     const before = notes();
     expect(before).toBeGreaterThan(0);
 
-    await user.click(screen.getByRole('tab', { name: 'Doctor' }));
+    await openTool(user, 'Doctor');
     await user.click(screen.getByRole('button', { name: 'Clear section' }));
     expect(notes()).toBe(0);
 
@@ -345,7 +385,7 @@ describe('BreakConsole', () => {
     const bpm = () => Number(document.querySelector('.bpmval')?.textContent?.match(/\d+/)?.[0]);
     const written = bpm();
 
-    await user.click(screen.getByRole('tab', { name: 'Practice' }));
+    await openTool(user, 'Practice');
     await user.click(screen.getByRole('button', { name: 'Off' }));
     await user.click(screen.getByRole('button', { name: 'L1' }));
 
@@ -378,7 +418,7 @@ describe('BreakConsole', () => {
     expect(notes()).toBeLessThan(full);
 
     // and typing into a field is typing, not a shortcut
-    await user.click(screen.getByRole('tab', { name: 'Export' }));
+    await openTool(user, 'Export');
     const box = screen.getByLabelText('Load a break code');
     await user.click(box);
     await user.keyboard('5');
@@ -408,6 +448,7 @@ describe('BreakConsole', () => {
     const user = userEvent.setup();
     renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
+    await openTool(user, 'Generate');
 
     // the picker is readable while the style owns it, so you can see the roster
     const picker = document.querySelector('.lanepick');

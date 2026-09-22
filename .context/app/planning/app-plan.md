@@ -1170,11 +1170,20 @@ Writing the tests turned up two more:
 | H12 | `GET /api/v1/breaks/:id` declared `ownership: { decidedBy: 'resource' }` with no `resource` resolver. The guard refuses that under test and, in every other environment, logs `authorization: a route made no ownership decision` as an error for signed-in users. | **Fixed.** Now `'nothing'`, with the reason: the query decides (own or shared). A resolver would make the policy refuse every shared read.                         |
 | H13 | `sanitisePattern()`, which `types.ts` and this plan both called the one place untrusted lane values are checked, did not exist. Nothing held a crash cell to 0–1 or a foot chick to 0–1.                                                                           | **Fixed** in the packed-bar schema: each lane's digits are checked against `LANE_VALUES`. References updated. Phase 7's `write_bars` goes through the same schema. |
 
-**Still open from Phase 0:**
+**Still open from Phase 0, 2026-09-22.**
 
-- Spike A (drawers on a real phone and iPad) and Spike B (the BeatBuddy loop,
-  which needs an OpenAI key) have not been started, and neither has the model
-  choice for §8.
+- **Spike A — done enough to build on.** The throwaway page was built and
+  measured headless at 1440/1024/768/390; the write-up and its seven findings are
+  [`spike-drawers.md`](../spike-drawers.md), and Phase 1 applied them. **The
+  real-device pass (iOS/iPad Safari, VoiceOver, rotation) was deliberately
+  skipped** on the owner's call — the judgement being that a mobile problem found
+  later is cheaper than blocking the shell on a device session. The untested
+  risks are scroll-vs-drag inside the sheet, rubber-banding and keyboard resize,
+  and they are what `vaul` exists for if the hand-rolled sheet does not hold up.
+- **Spike B and the model choice are deferred to before Phase 7** (BeatBuddy),
+  with the reason: nothing in Phases 1–6 calls a model, the spike needs an OpenAI
+  key that is not in the tree, and D5 already fixes the provider. This is the
+  explicit deferral the phase's "done when" allows, not an omission.
 
 ### Fix in the phase that touches it
 
@@ -1188,13 +1197,16 @@ Writing the tests turned up two more:
 
 ### Accepted until the code is replaced
 
-- `break-console.tsx` (1,633 lines) and `use-break-console.ts` (1,166) are one
-  component and one hook — **Phase 1** splits them.
+- ~~`break-console.tsx` (1,633 lines)~~ — **split in Phase 1**: a provider, a
+  stage, six panels and a frame, none over 350 lines. `use-break-console.ts`
+  (1,182) is untouched and is still one hook; splitting it is a Phase 5 question
+  with a measurement behind it, not a guess.
 - Sixteen `this.ctx as AudioContext` non-null casts in `engine.ts` — internal
   nullability, not external data; tidy when the engine is next opened for a
   reason.
-- The `.bb` stylesheet carries its own tokens — **Phase 1** moves the palette
-  into `app/brand-theme.css`.
+- ~~The `.bb` stylesheet carries its own tokens~~ — **Phase 1** put the palette
+  on the `consumer` surface in `app/brand-theme.css`. The `.bb` block remains as
+  the Studio's own working set; trimming it to aliases is tidying, not a blocker.
 - Persistence to `localStorage` — **Phase 4**.
 
 ### Housekeeping when this branch goes up as a PR

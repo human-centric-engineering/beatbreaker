@@ -34,5 +34,13 @@ import { BRAND } from '@/lib/brand';
  * Full guide: CUSTOMIZATION.md §2.
  */
 export function BrandMark(): React.ReactNode {
-  return BRAND.name;
+  /* The wordmark the console has always carried: the name set solid, with the
+     second half in brass. Two elements rather than an image, so it takes the
+     surface's own colours in light and dark and stays selectable text. BRAND.name
+     stays the identity string everywhere a name is read rather than seen. */
+  return (
+    <span className="brand-mark" aria-label={BRAND.name}>
+      Beat<span className="brand-mark-em">Breaker</span>
+    </span>
+  );
 }
