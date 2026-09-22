@@ -12,9 +12,9 @@ import { cn } from '@/lib/utils';
 
 export function GeneratePanel() {
   const c = useStudio();
-  const { styles: STYLES, styleGroups: STYLE_GROUPS, kits: KITS, kitGroups } = c.catalogue;
+  const { styles, styleGroups, kits, kitGroups } = c.catalogue;
 
-  const style = STYLES[c.style];
+  const style = styles[c.style];
   const meter = meterOf(c.meter);
   const pulse = pulseInfo(meter);
 
@@ -76,11 +76,11 @@ export function GeneratePanel() {
           <div className="field">
             <label htmlFor="bb-style">Style</label>
             <select id="bb-style" value={c.style} onChange={(e) => c.setStyle(e.target.value)}>
-              {STYLE_GROUPS.map(([group, keys]) => (
+              {styleGroups.map(([group, keys]) => (
                 <optgroup key={group} label={group}>
                   {keys.map((k) => (
                     <option key={k} value={k}>
-                      {STYLES[k]?.label ?? k}
+                      {styles[k]?.label ?? k}
                     </option>
                   ))}
                 </optgroup>
@@ -96,7 +96,7 @@ export function GeneratePanel() {
                 <optgroup key={group.label} label={group.label}>
                   {group.keys.map((k) => (
                     <option key={k} value={k} disabled={!kitIsPlayable(k)}>
-                      {KITS[k].label}
+                      {kits[k].label}
                       {kitIsPlayable(k) ? '' : ' — not ported yet'}
                     </option>
                   ))}
@@ -104,12 +104,12 @@ export function GeneratePanel() {
               ))}
             </select>
             <div className="hint">
-              {KITS[c.kit]?.label}
+              {kits[c.kit]?.label}
               {style?.kit === c.kit
                 ? ' — chosen by the style. Pick another and it stays picked.'
                 : ' — your pick, kept across styles that do not name one.'}{' '}
               {c.kit === 'brush' ? '' : 'Sticks; pick Brush kit for brushes. '}
-              {KITS[c.kit]?.hint}
+              {kits[c.kit]?.hint}
             </div>
           </div>
 

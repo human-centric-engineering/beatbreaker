@@ -66,6 +66,19 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
   background: var(--panel);
   min-width: 0;
 }
+.bb .studio-brand {
+  font-family: var(--f-display);
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.bb .studio-brand:hover {
+  opacity: 0.85;
+}
+
 .bb .studio-title {
   font-family: var(--f-mono);
   font-size: 12px;
@@ -209,7 +222,7 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
     display: flex;
   }
 }
-.bb .studio-rail button {
+.bb .studio-rail button:not(.studio-new) {
   display: grid;
   grid-template-rows: auto auto;
   place-content: center;
@@ -224,10 +237,35 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
   color: var(--muted);
   line-height: 1;
 }
-.bb .studio-rail button:hover {
+/* The one action in the rail that is not a tool. It carries the brass rather
+   than the sunk paper the tabs do, because it is a thing you do, not a place you
+   go — the same distinction the console's big button made. */
+.bb .studio-rail .studio-new {
+  display: grid;
+  grid-template-rows: auto auto;
+  place-content: center;
+  justify-items: center;
+  gap: 3px;
+  width: 100%;
+  height: 56px;
+  padding: 0 6px;
+  margin-bottom: 4px;
+  border: 0;
+  background: var(--brass);
+  color: var(--paper);
+  line-height: 1;
+}
+.bb .studio-rail .studio-new:hover {
+  background: var(--brass-bright);
+}
+.bb .studio-rail .studio-new svg {
+  display: block;
+}
+
+.bb .studio-rail button:not(.studio-new):hover {
   color: var(--ink);
 }
-.bb .studio-rail button.on {
+.bb .studio-rail button.on:not(.studio-new) {
   background: var(--panel);
   color: var(--ink);
   box-shadow:
@@ -243,7 +281,7 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
-.bb .studio-rail button svg {
+.bb .studio-rail button:not(.studio-new) svg {
   display: block;
 }
 
@@ -270,6 +308,18 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
     padding: 0 14px env(safe-area-inset-bottom, 0px);
   }
 }
+.bb .studio-footer-link {
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.bb .studio-footer-link:hover {
+  color: var(--ink);
+}
+
 .bb .studio-readout {
   color: var(--ink);
   min-width: 170px;

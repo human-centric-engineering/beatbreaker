@@ -16,7 +16,7 @@ import { cn } from '@/lib/utils';
 export function KitPanel() {
   const c = useStudio();
   const { say } = c;
-  const { kits: KITS, kitGroups } = c.catalogue;
+  const { kits, kitGroups } = c.catalogue;
 
   /**
    * What the sampled kits have actually decoded. A kit that is still arriving
@@ -47,15 +47,15 @@ export function KitPanel() {
                 <optgroup key={group.label} label={group.label}>
                   {group.keys.map((k) => (
                     <option key={k} value={k} disabled={!kitIsPlayable(k)}>
-                      {KITS[k].label}
+                      {kits[k].label}
                       {kitIsPlayable(k) ? '' : ' — not ported yet'}
                     </option>
                   ))}
                 </optgroup>
               ))}
             </select>
-            <div className="hint">{KITS[c.kit]?.hint}</div>
-            {KITS[c.kit]?.credit ? <div className="hint mono">{KITS[c.kit].credit}</div> : null}
+            <div className="hint">{kits[c.kit]?.hint}</div>
+            {kits[c.kit]?.credit ? <div className="hint mono">{kits[c.kit].credit}</div> : null}
             {kitStatus ? <div className="hint mono">{kitStatus}</div> : null}
           </div>
 
@@ -204,7 +204,7 @@ export function KitPanel() {
               disabled={!c.kitTuned}
               onClick={() => {
                 c.resetKit();
-                say(`${KITS[c.kit]?.label ?? c.kit} reset`);
+                say(`${kits[c.kit]?.label ?? c.kit} reset`);
               }}
             >
               Reset whole kit
