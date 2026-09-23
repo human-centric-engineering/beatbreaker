@@ -5,6 +5,10 @@ state, so the same code runs in the browser, on the server, and (Phase 7) behind
 BeatBuddy's tools. This page is the map: what each module does, the rules that
 hold across them, the wire format a break travels in, and `/api/v1/breaks`.
 
+**The content it works on lives in the database** — styles, the famous-breaks
+library and the kits are rows, and every function here takes what it needs as an
+argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
+
 ## Rules that hold everywhere
 
 - **One step is a sixteenth note in every meter.** A meter decides how many
@@ -30,14 +34,22 @@ hold across them, the wire format a break travels in, and `/api/v1/breaks`.
 - **Layers are a view, not a copy.** A break is stored whole (L5); L1–L4 are
   derived by `reducePattern()`. A pin (`Pattern.pins`) records the layer a note
   was placed at, so reduction does not remove a note someone drew by hand.
+- **Nothing here imports content.** No module under `lib/app/breaks/` reads a
+  style, library or kit table; the caller resolves one and passes it in. A grep
+  test enforces it (`no-content-imports.test.ts`). See
+  [`catalogue.md`](./catalogue.md).
+- **A pattern stands on its own.** It carries `styleVersionId` (which version
+  made it) and `attrs` (the five style facts playback, the critic and the MIDI
+  export read). Playing, scoring and exporting need nothing else; generating,
+  deriving a B section and doctoring take the live `Style` as an argument.
 
 ## Modules
 
 | Module            | What it does                                                                                                                                                                                                        |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `types.ts`        | `Pattern`, `Bar`, `Pins`, `Meter`, `Style`, `Feel`: the shapes everything else agrees on.                                                                                                                           |
+| `types.ts`        | `Pattern`, `Bar`, `Pins`, `Meter`, `Style`, `StyleAttrs`, `ResolvedStyle`, `Feel`: the shapes everything else agrees on.                                                                                            |
 | `meter.ts`        | The 12 meters. `stepsOf`, `groupsOf` (pulse groups in steps), `isGroupStart`, `pulseInfo`, `countLabelsOf`, and `remapStep`/`remapList`, which carry a style's 4/4 positions into another meter by (pulse, offset). |
-| `styles.ts`       | The 37 styles, `styleIn(style, meter)` (a style remapped into a meter), `STYLE_GROUPS` for the picker.                                                                                                              |
+| `styles.ts`       | `styleIn(style, meter)` — a style carried into a meter it was not written for, by pulse rather than by raw step index. The style **table** is seed data now; see `catalogue.md`.                                    |
 | `lanes.ts`        | Lane keys and order, `LANE_VALUES`, `LANE_DEFS`, percussion instruments (`PERC_INSTS`), the default mix, rosters per style.                                                                                         |
 | `pattern.ts`      | `emptyBar`, `clonePattern`, pins (`pinArray`, `setPin`), `resolveLanes`, `writePerc`, and `parseBar`, which reads the bar-string notation the library is written in.                                                |
 | `rng.ts`          | `makeRng`, `wpick` (weighted pick), `clamp`.                                                                                                                                                                        |
@@ -46,16 +58,17 @@ hold across them, the wire format a break travels in, and `/api/v1/breaks`.
 | `layers.ts`       | `reduceBar` / `reducePattern` for L1–L5, `LAYER_NAMES`, and `LAYER_V1_TO_V2` for codes saved before the layers were renumbered.                                                                                     |
 | `engrave.ts`      | Notation as an `SvgNode` tree plus a playhead `map` with one anchor per step. It builds no DOM, so it runs on the server.                                                                                           |
 | `doctor.ts`       | The twelve named edits (`DOCTOR_MOVES`). `entropy` makes a move reproducible when you pass a fixed value.                                                                                                           |
-| `library.ts`      | The 47 famous breaks as bar strings, `patternFromLibrary`, `libraryGroups`. Four entries fail playability, and are right to (see the library test).                                                                 |
+| `library.ts`      | `LibraryItem` (the shape the seed data is written in) and `patternFromLibrary(item, index, style?)`, which the seed runs to build each entry's stored document. The 47 entries themselves are rows.                 |
 | `feel.ts`         | Swing positions, the per-style off-grid feel, and hi-hat dynamics. These change _when and how hard_ a note sounds, never the pattern.                                                                               |
 | `share.ts`        | `encodeBreak` / `decodeBreak` (base64 share codes) and `breakDocFromPayload` (the same conversion for a JSON body).                                                                                                 |
-| `schema.ts`       | Zod schemas for everything from outside: `sharePayloadSchema`, `packedPatternSchema`.                                                                                                                               |
+| `schema.ts`       | Zod schemas for everything from outside: `sharePayloadSchema`, `packedPatternSchema`, `styleAttrsSchema`, `feelSchema`.                                                                                             |
+| `catalogue/*`     | The data layer, the row schemas and the admin write shapes. Server-side. See `catalogue.md`.                                                                                                                        |
 | `midi.ts`         | `buildMidi`: a format-0 Standard MIDI File, GM drum map on channel 10, with swing and feel written into the tick positions.                                                                                         |
-| `kit.ts`          | Kits, voices, tuning parameters. Browser-only consumers.                                                                                                                                                            |
+| `kit.ts`          | The kit vocabulary — slots, voices, knob definitions, `ResolvedKit`, and the synth's own `SYNTH_FALLBACK` / `SAMPLE_STAND_IN`. The kit **table** is rows. Browser-only consumers.                                   |
 | `pending-link.ts` | Carries a shared link's `#b=` fragment through sign-in (see below).                                                                                                                                                 |
 | `audio/*`         | Browser only. `engine.ts` (Web Audio), `transport.ts` (the look-ahead clock, metronome, MIDI out), `packs.ts` / `user-kit.ts` (recorded and user samples), `midi-out.ts` (Web MIDI port).                           |
 
-## The wire format (share code, version 3)
+## The wire format (share code, version 4)
 
 A break travels as a `BreakDoc` (`{ bpm, swing, level, arrangement, A, B }`)
 packed into a `SharePayload`. As a share code or a `#b=` link, the payload is
@@ -64,14 +77,17 @@ itself. All three are checked by the same schema.
 
 ```jsonc
 {
-  "ver": 3,            // 1–3 accepted; encode writes 3
+  "ver": 4,            // 1–4 accepted; encode writes 4
   "bpm": 94,           // 20–400
   "sw": 0,             // swing, 0–100
   "lv": 5,             // layer 1–5 (v1 numbers are remapped)
   "arr": ["A","A","B","A"],
   "A": {
     "n": "Name",       // ≤120 chars
-    "st": "funk",      // unknown → funk
+    "st": "funk",      // kept as written — v4 does NOT substitute a default
+    "sv": "clx…",      // style version id — v4; absent in v3
+    "sa": { "feel": {…}, "swingUnit": 8, "kickFeather": 0.26,
+            "targetDensity": 12, "hatDepth": 0.9 },   // the snapshot — v4
     "v": "hat",        // hat | ride
     "sd": 12345,       // seed, uint32
     "bb": [4, 12],     // backbeat steps, 0–63
@@ -86,6 +102,15 @@ itself. All three are checked by the same schema.
   "B": { … }
 }
 ```
+
+**Version 4 is what makes a pattern stand on its own.** `sa` is a snapshot of
+the five style attributes playback, the critic and the MIDI export read, so a
+break plays, scores and exports identically on an installation that has never
+heard of its style. `sv` records which version produced it, for provenance and
+for re-deriving from the seed. A v3 code still decodes: `decodeBreak(code,
+styles)` takes an optional synchronous lookup that rebuilds the snapshot from
+the current catalogue, and without one the break opens with default feel. See
+[`catalogue.md`](./catalogue.md) for why `sa` must not carry a Zod `.default()`.
 
 Each bar string is **every lane's row in `LANES` order** (`k s h r c t1 t2 t3
 hf p1 p2`), joined by `|`, one digit per step. A shorter bar string (a v2 code

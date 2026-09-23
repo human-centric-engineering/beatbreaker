@@ -18,6 +18,43 @@ release process.
 
 ### Added
 
+- **BeatBreaker's catalogue — styles, pattern libraries and kits as database
+  rows.** Five new models in `prisma/schema/app.prisma`: `Style` /
+  `StyleVersion`, `PatternLibrary` / `LibraryEntry`, and `Kit`. Every row carries
+  `ownerId String?` (null = a system row) and a `visibility`, so the tables are
+  already shaped for rows a user authors later. `Break` gains `styleVersionId`.
+
+  **Style versions are immutable.** Editing a style adds version n+1 and moves
+  `Style.currentVersion`; there is no update path, because a saved break points
+  at the version it was generated from and rewriting that version would change
+  breaks nobody touched.
+
+- **`/api/v1/catalogue/*` — public, cached, conditional reads.**
+  `GET styles`, `styles/[key]` (with `?version=`), `libraries`,
+  `libraries/[key]` (every entry's document included), `kits` (sample URLs
+  built server-side) and `meters` (the structural constants, which deliberately
+  did **not** become rows). Each answers a matching `If-None-Match` with `304`.
+  No session — a signed-out visitor opening a shared pattern needs them, and so
+  does a native client. New `catalogue` rate-limit tier, 240/min keyed on IP.
+
+- **`/api/v1/admin/catalogue/*` — admin writes, audited.** Create a style, add a
+  version, move a style in the picker, add/correct/remove a library entry, and
+  edit a kit's metadata, knobs and credit. Every write records an
+  `AiAdminAuditLog` entry and invalidates the catalogue cache, so a credit
+  correction lands without a deploy and is still findable afterwards.
+
+- **`lib/app/breaks/catalogue/`** — the data layer (`listStyles`, `getStyle`,
+  `listKits`, `listLibraries`, `getLibrary`, `studioCatalogue`), the row schemas
+  (`styleParamsSchema`, `kitParamsSchema`, `kitSamplesSchema`,
+  `libraryEntrySchema`) and the admin write shapes. Rows are validated on write
+  **and on read** — the write path that checked may not be the write path that
+  wrote.
+
+- **`prisma/seeds/app-beatbreaker/001-catalogue.ts`** seeds 37 styles, 47 famous
+  breaks and 13 kits from `prisma/seeds/app-beatbreaker/data/`. Re-seeding is a
+  no-op; changed parameters add a version rather than overwriting one.
+
+
 - **BeatBreaker's break domain** — the first of the app's own code, under the
   fork-owned `lib/app/breaks/` seam. Pure functions, no DOM, no audio: a seeded
   xorshift RNG (`makeRng`), the twelve-meter table and its pulse-group helpers
@@ -191,6 +228,42 @@ release process.
 
 ### Changed
 
+- **Wire format v4 — a pattern stands on its own.** `Pattern` gains
+  `styleVersionId` and `attrs`, and the packed form gains `sv` and `sa`: a
+  snapshot of the five style attributes playback, the critic and the MIDI export
+  read. A break now plays, scores and exports identically on an installation
+  that has never heard of its style. v3 codes still decode —
+  `decodeBreak(code, styles?)` and `breakDocFromPayload(payload, styles?)` take
+  an optional synchronous `StyleLookup` that rebuilds the snapshot. New exports
+  `packPattern` and `patternFromPacked`.
+
+  **BREAKING for anything constructing a `Pattern` by hand**: both new fields
+  are required.
+
+- **The domain takes content as an argument.** Nothing under `lib/app/breaks/`
+  or `components/app/` imports a style, library or kit table; a grep test
+  enforces it. Signature changes: `styleIn(style, meter)` takes the style
+  object, `generatePattern`/`generateGood` take a `ResolvedStyle`,
+  `deriveB(pattern, style)` and `doctor(pattern, style, move, entropy?)` take
+  the style, `kitEngine`/`kitIsPlayable`/`paramDefs`/`withTuning`/`kitDefaults`
+  take a `Kit` object, `kitGroups(kits)` takes the list, and
+  `feelOf`/`hatShape`/`swingUnitOf`/`isSwung` take a `StyleAttrs`.
+  `BreakAudio.kitKey` becomes `BreakAudio.kit: ResolvedKit | null`;
+  `PackSource.load` takes the slot map and no longer fetches
+  `/kits/manifest.json`. `useBreakConsole(catalogue)` and `StudioProvider`'s
+  `catalogue` prop are now required, and `codeCatalogue()` is gone.
+
+- **`STYLES`, `STYLE_KEYS`, `STYLE_GROUPS`, `LIBRARY`, `libraryGroups()`, `KITS`
+  and `KIT_KEYS` no longer exist under `lib/`.** The data moved to
+  `prisma/seeds/app-beatbreaker/data/`, which only the seed imports.
+  `BreakConsole.loadLibraryItem(index)` is replaced by `loadLibraryEntry(id)`.
+
+- A style key arriving from outside is no longer checked against a list of known
+  styles — the list is a database query now, and a key this installation does
+  not have is not a malformed request. `patternSchema.style` and
+  `listBreaksSchema.style` are bounded strings.
+
+
 - **The console is now the Studio, at `/studio`.** It has its own route group
   (`app/(studio)/`) with a full-window frame — header, stage, tool rail, footer —
   and every tool in a drawer instead of stacked in the page. From 1024px up the
@@ -241,6 +314,15 @@ release process.
   still opens.
 
 ### Fixed
+
+- **A step index past the end of a bar punched a hole in the lane.**
+  `applyKickRules` wrote `bar.k[i] = 0` for every entry in a style's `noKick`
+  without a bounds check, and the two clave branches did the same for
+  `backbeats`. Writing past the end of a lane array does not throw — it extends
+  the array and leaves holes, so the bar read `undefined` at step 16 and reached
+  the engraver as a note at NaN pixels. Found by the new generator property
+  test.
+
 
 - **The `AudioContext` is given back when you leave the Studio (H7).** The
   console's cleanup stopped the transport and disconnected MIDI, which silences
