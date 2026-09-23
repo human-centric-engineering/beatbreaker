@@ -10,7 +10,9 @@ describe('robots.txt', () => {
   it('keeps crawlers out of the break console as well as the platform’s private pages', () => {
     const rules = robots().rules;
     const rule = Array.isArray(rules) ? rules[0] : rules;
-    expect(rule.disallow).toEqual(expect.arrayContaining(['/breaks', '/dashboard/', '/api/']));
+    expect(rule.disallow).toEqual(
+      expect.arrayContaining(['/studio', '/breaks', '/dashboard/', '/api/'])
+    );
   });
 
   it('points at the sitemap on the configured origin', () => {

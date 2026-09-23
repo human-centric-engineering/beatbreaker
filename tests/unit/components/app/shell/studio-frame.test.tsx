@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 
 /**
- * The console, mounted.
+ * The Studio, mounted.
  *
  * Every other test in this port exercises a pure function. This one is the
  * check that the whole thing actually assembles: generator → critic → layer
@@ -17,13 +17,50 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { BreakConsole } from '@/components/app/breaks/break-console';
+import { StudioFrame } from '@/components/app/shell/studio-frame';
+import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { stashPendingLink } from '@/lib/app/breaks/pending-link';
 import { encodeBreak } from '@/lib/app/breaks/share';
 
 // jsdom/happy-dom has no CSS loader, and the stylesheet is not what is under test
 vi.mock('@/components/app/breaks/breaks.css', () => ({}));
+vi.mock('@/components/app/shell/studio.css', () => ({}));
+
+/* The platform's own header and footer controls need their providers, which the
+   real layout supplies and this test has no business rebuilding. They are
+   Sunrise's and tested as Sunrise's; what is under test here is the Studio. */
+vi.mock('@/components/layouts/header-actions', () => ({
+  HeaderActions: () => null,
+}));
+vi.mock('@/lib/consent', () => ({
+  useConsent: () => ({ openPreferences: vi.fn() }),
+}));
+
+/**
+ * The frame reads its state from the Studio provider, which the `(studio)` route
+ * mounts around it. Nothing else about these tests changes: they were written
+ * against the console and they hold the frame to the same behaviour, which is
+ * the whole point of a phase that only re-houses things.
+ */
+const renderConsole = () =>
+  render(
+    <StudioProvider>
+      <StudioFrame />
+    </StudioProvider>
+  );
+
+/**
+ * Open a tool.
+ *
+ * The six tools were tabs in a rail and are drawers now, so a test reaches one
+ * the way a person does: press its tab in the rail, and the drawer opens over
+ * the chart. The chart itself never moves, which is what the frame is for.
+ */
+const openTool = async (user: ReturnType<typeof userEvent.setup>, name: string) => {
+  const rail = within(screen.getByRole('navigation', { name: 'Tools' }));
+  await user.click(rail.getByRole('button', { name }));
+};
 
 /** A grid cell holding a note: its value is in `data-on`, and 0 is empty. */
 const NOTES = ".cell:not([data-on='0'])";
@@ -42,9 +79,22 @@ beforeEach(() => {
   vi.stubGlobal('cancelAnimationFrame', (id: number) => clearTimeout(id));
 });
 
-describe('BreakConsole', () => {
+describe('the Studio', () => {
+  /* The plan puts the transport in the header and the read-out and the lamps in
+     the footer. Rendering TransportLeds in both put two strips on screen at once
+     above 1024px — one more than the console ever had, and invisible to any test
+     that renders header and footer apart. */
+  it('draws one lamp strip, not one per end of the frame', async () => {
+    renderConsole();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+
+    const strips = document.querySelectorAll('.leds');
+    expect(strips).toHaveLength(1);
+    expect(strips[0].closest('.studio-footer')).toBeTruthy();
+  });
+
   it('generates and engraves a break on mount', async () => {
-    render(<BreakConsole />);
+    renderConsole();
 
     // the placeholder is gone, so generation finished
     // A and B are both on screen in A+B mode
@@ -58,9 +108,12 @@ describe('BreakConsole', () => {
   });
 
   it('scores the break rather than showing a placeholder', async () => {
-    render(<BreakConsole />);
+    const user = userEvent.setup();
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
+    // the critic reads out in the Generate drawer, beside what it is judging
+    await openTool(user, 'Generate');
     const score = document.querySelector('.scorenum');
     expect(score).toBeTruthy();
     const n = Number(score?.textContent?.replace(/\D+/g, ''));
@@ -73,7 +126,7 @@ describe('BreakConsole', () => {
   });
 
   it('draws a grid cell for every step of every lane it carries', async () => {
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const cells = document.querySelectorAll('.cell');
@@ -86,7 +139,7 @@ describe('BreakConsole', () => {
 
   it('changes the chart when the layer changes', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const before = document.querySelectorAll(NOTES).length;
@@ -103,7 +156,7 @@ describe('BreakConsole', () => {
 
   it('survives a browser with no Web Audio, and says so rather than throwing', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const play = screen.getByRole('button', { name: 'Play or stop' });
@@ -117,7 +170,7 @@ describe('BreakConsole', () => {
 
   it('writes a new break when asked', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const titleOf = () => document.querySelector('.title-block h2')?.textContent;
@@ -138,7 +191,7 @@ describe('BreakConsole', () => {
 
   it('cycles a grid cell on click', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const cells = [...document.querySelectorAll<HTMLButtonElement>('.cell')];
@@ -157,10 +210,10 @@ describe('BreakConsole', () => {
 
   it('loads a famous break from the library', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    await user.click(screen.getByRole('tab', { name: 'Library' }));
+    await openTool(user, 'Library');
     const row = await screen.findByRole('button', { name: /Funky Drummer/ });
     await user.click(row);
 
@@ -190,7 +243,7 @@ describe('BreakConsole', () => {
     window.history.replaceState(null, '', '/breaks');
     stashPendingLink(localStorage, `#b=${code}`);
 
-    render(<BreakConsole />);
+    renderConsole();
 
     expect(await screen.findByRole('heading', { name: 'The One Somebody Sent' })).toBeTruthy();
     // the address bar is the link that was sent, and the stash is spent
@@ -201,10 +254,10 @@ describe('BreakConsole', () => {
 
   it('round-trips the break through a share code', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    await user.click(screen.getByRole('tab', { name: 'Export' }));
+    await openTool(user, 'Export');
 
     const written: string[] = [];
     vi.stubGlobal('navigator', {
@@ -230,10 +283,10 @@ describe('BreakConsole', () => {
   });
   it('keeps your tuning of a kit, and hands it back when you reset', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    await user.click(screen.getByRole('tab', { name: 'Kit' }));
+    await openTool(user, 'Kit');
 
     /* Nothing is tuned yet, so there is nothing to put back — the reset has to
        say so rather than sitting there live and doing nothing. */
@@ -243,7 +296,11 @@ describe('BreakConsole', () => {
     /* Two cards carry a Room: the kit's whole-mix send, and the one lane the
        Voice card is editing. Scope to the card, or this asserts on whichever
        happens to be first in the DOM. */
-    const kitCard = within(screen.getByRole('heading', { name: 'Kit' }).closest('.card')!);
+    /* "Kit" names the rail tab and the drawer's own title too, so reach for the
+       heading that belongs to a card. */
+    const cardHeading = (name: string) =>
+      screen.getAllByRole('heading', { name }).find((h) => h.closest('.card'))!;
+    const kitCard = within(cardHeading('Kit').closest('.card')!);
     const room = kitCard.getByLabelText<HTMLInputElement>('Room');
     const shipped = room.value;
     fireEvent.change(room, { target: { value: '61' } });
@@ -261,29 +318,36 @@ describe('BreakConsole', () => {
 
   it('shows the knobs the loaded engine actually has', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
-    await user.click(screen.getByRole('tab', { name: 'Kit' }));
+    await openTool(user, 'Kit');
 
     /* A synthesised hi-hat is built from noise and a filter, so it has a size
        and a brightness. A recording has neither — what is left is how fast it
        plays back. Showing "Bright" over a sample would be a knob that lies. */
     const voice = () => within(screen.getByRole('heading', { name: 'Voice' }).closest('.card')!);
+    const kitPicker = () =>
+      within(
+        screen
+          .getAllByRole('heading', { name: 'Kit' })
+          .find((h) => h.closest('.card'))!
+          .closest('.card')!
+      ).getByLabelText('Kit');
     expect(voice().getByLabelText('Size')).toBeTruthy();
     expect(voice().getByLabelText('Bright')).toBeTruthy();
 
-    await user.selectOptions(screen.getByLabelText('Kit'), 'virtuosity');
+    await user.selectOptions(kitPicker(), 'virtuosity');
     expect(voice().queryByLabelText('Bright')).toBeNull();
     expect(voice().getByLabelText('Speed')).toBeTruthy();
   });
 
   it('saves a break and gives it back', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const name = document.querySelector('.title-block h2')?.textContent ?? '';
-    await user.click(screen.getByRole('tab', { name: 'Library' }));
+    await openTool(user, 'Library');
     await user.click(screen.getByRole('button', { name: '＋ Save current' }));
 
     /* The delete button is named after the break too, so match the row rather
@@ -299,7 +363,9 @@ describe('BreakConsole', () => {
     await user.click(screen.getByRole('button', { name: /^New break/ }));
     expect(gridOf()).not.toBe(before);
 
-    await user.click(screen.getByRole('tab', { name: 'Library' }));
+    /* The drawer is non-modal, so writing a new break from the rail leaves
+       Library open beside it — which is the point of the drawers. Pressing the
+       tab again here would close it. */
     await user.click(screen.getByRole('button', { name: savedRow }));
     expect(gridOf()).toBe(before);
 
@@ -309,14 +375,14 @@ describe('BreakConsole', () => {
 
   it('clears a section without losing it', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const notes = () => document.querySelectorAll(NOTES).length;
     const before = notes();
     expect(before).toBeGreaterThan(0);
 
-    await user.click(screen.getByRole('tab', { name: 'Doctor' }));
+    await openTool(user, 'Doctor');
     await user.click(screen.getByRole('button', { name: 'Clear section' }));
     expect(notes()).toBe(0);
 
@@ -326,13 +392,13 @@ describe('BreakConsole', () => {
 
   it('drops the tempo to suit the layer, and puts it back at L5', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const bpm = () => Number(document.querySelector('.bpmval')?.textContent?.match(/\d+/)?.[0]);
     const written = bpm();
 
-    await user.click(screen.getByRole('tab', { name: 'Practice' }));
+    await openTool(user, 'Practice');
     await user.click(screen.getByRole('button', { name: 'Off' }));
     await user.click(screen.getByRole('button', { name: 'L1' }));
 
@@ -356,7 +422,7 @@ describe('BreakConsole', () => {
 
   it('drives the console from the keyboard', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const notes = () => document.querySelectorAll(NOTES).length;
@@ -365,7 +431,7 @@ describe('BreakConsole', () => {
     expect(notes()).toBeLessThan(full);
 
     // and typing into a field is typing, not a shortcut
-    await user.click(screen.getByRole('tab', { name: 'Export' }));
+    await openTool(user, 'Export');
     const box = screen.getByLabelText('Load a break code');
     await user.click(box);
     await user.keyboard('5');
@@ -375,7 +441,7 @@ describe('BreakConsole', () => {
 
   it('draws the next layer faintly when asked, and nothing at the top', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     const staves = await screen.findAllByRole('img', { name: /Drum notation/ });
 
     /* The preview is the next layer's notes in faint ink. L5 is the whole
@@ -393,8 +459,9 @@ describe('BreakConsole', () => {
 
   it('shows what the style asked for before you take the lanes over', async () => {
     const user = userEvent.setup();
-    render(<BreakConsole />);
+    renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
+    await openTool(user, 'Generate');
 
     // the picker is readable while the style owns it, so you can see the roster
     const picker = document.querySelector('.lanepick');

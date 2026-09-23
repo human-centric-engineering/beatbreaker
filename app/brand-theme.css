@@ -56,3 +56,96 @@
  * See .context/ui/surface-theming.md for all six design constraints.
  * --------------------------------------------------------------------------
  */
+
+/* ==========================================================================
+ * BeatBreaker — the consumer surface
+ * ==========================================================================
+ * The paper-and-brass palette the console has always used, lifted out of the
+ * `.bb` stylesheet so it dresses the whole consumer surface: the studio frame,
+ * the marketing pages, the dashboard, and every body-portaled overlay (dialogs,
+ * dropdowns, toasts, the cookie banner) — those mount outside the route-group
+ * subtree and inherit from `<html data-surface>`, which is the reason this lives
+ * here and not in a layout.
+ *
+ * `/admin` keeps the Sunrise defaults, unbranded and unstyled by this file, so
+ * upstream palette changes flow straight through to it.
+ *
+ * Unlayered on purpose (constraint 6): Tailwind 4 emits its `@theme` tokens
+ * inside a layer at `:root`, and unlayered selectors beat layered ones whatever
+ * the specificity. Dark mode is the COMPOUND form (constraint 4) because
+ * `.dark` and `data-surface` sit on the same element, `<html>`.
+ *
+ * Source of truth for the palette is this file. `breaks.css` maps its own `--bb-*`
+ * names onto these where the two coincide, rather than carrying second copies.
+ */
+
+[data-surface='consumer'] {
+  /* Paper, ink and rules */
+  --color-background: #f1efe8;
+  --color-foreground: #1a1712;
+  --color-card: #fbfaf6;
+  --color-card-foreground: #1a1712;
+  --color-popover: #fbfaf6;
+  --color-popover-foreground: #1a1712;
+  --color-border: #d8d3c6;
+  --color-input: #d8d3c6;
+
+  /* Brass is the accent the transport and the marker already use */
+  --color-primary: #9c6f1c;
+  --color-primary-foreground: #fbfaf6;
+  --color-ring: #c08a2a;
+
+  /* Sunk paper reads as the secondary/muted/accent fill */
+  --color-secondary: #e7e4da;
+  --color-secondary-foreground: #1a1712;
+  --color-muted: #e7e4da;
+  --color-muted-foreground: #6f685c;
+  --color-accent: #e7e4da;
+  --color-accent-foreground: #1a1712;
+
+  /* Rust, not red */
+  --color-destructive: #b8422a;
+  --color-destructive-foreground: #fbfaf6;
+}
+
+[data-surface='consumer'].dark {
+  --color-background: #16130e;
+  --color-foreground: #efe9dc;
+  --color-card: #1d1a14;
+  --color-card-foreground: #efe9dc;
+  --color-popover: #1d1a14;
+  --color-popover-foreground: #efe9dc;
+  --color-border: #383225;
+  --color-input: #383225;
+
+  --color-primary: #dba644;
+  --color-primary-foreground: #16130e;
+  --color-ring: #f0bd5c;
+
+  --color-secondary: #252119;
+  --color-secondary-foreground: #efe9dc;
+  --color-muted: #252119;
+  --color-muted-foreground: #a0988a;
+  --color-accent: #252119;
+  --color-accent-foreground: #efe9dc;
+
+  --color-destructive: #e2735a;
+  --color-destructive-foreground: #16130e;
+}
+
+/* The wordmark. `BrandMark` is a fork-owned seam, so its type lives with the
+ * fork's theme rather than in a platform stylesheet.
+ *
+ * `--bb-display` is only defined on the `(studio)` layout's wrapper, so off the
+ * Studio this falls through to the named faces. It must NOT fall back to
+ * `inherit`: that is a CSS-wide keyword, only valid as a declaration's sole
+ * value, and substituting it invalidates the whole `font-family` at computed-
+ * value time — which silently dropped 'Anton' along with it. */
+.brand-mark {
+  font-family: var(--bb-display), 'Anton', 'Arial Narrow', sans-serif;
+  letter-spacing: 0.02em;
+  font-weight: 400;
+}
+.brand-mark-em {
+  color: var(--color-primary);
+}

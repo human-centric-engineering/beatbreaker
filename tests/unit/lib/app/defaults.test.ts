@@ -199,14 +199,25 @@ const SEAM_DEFAULTS: SeamDefault[] = [
   {
     seam: 'lib/app/protected-nav.ts',
     risk: 'a stray non-null list would silently REPLACE the authenticated nav',
-    assert: () => expect(protectedNavItems).toBeNull(),
+    // FORK (BeatBreaker): re-pointed, not deleted — see the brand row above.
+    // The nav a signed-in drummer sees. Pinned by href so that a rename is free
+    // and a route quietly disappearing from the header is not.
+    assert: () => {
+      // No '/explore' until Phase 6 builds it — see the seam's own note
+      expect(protectedNavItems?.map((i) => i.href)).toEqual(['/dashboard', '/studio', '/admin']);
+      // Profile and Settings live in UserButton; listing them twice was the bug
+      expect(protectedNavItems?.some((i) => i.href === '/profile')).toBe(false);
+    },
   },
   {
     seam: 'lib/app/auth-landing.ts',
     risk: 'a stray value would send every install somewhere else after login',
+    // FORK (BeatBreaker): re-pointed, not deleted — see the brand row above.
+    // The route is deliberately Sunrise's own, so nothing in the platform moves;
+    // only the label does.
     assert: () => {
-      expect(appAuthLandingRoute).toBeNull();
-      expect(appAuthLandingLabel).toBeNull();
+      expect(appAuthLandingRoute).toBe('/dashboard');
+      expect(appAuthLandingLabel).toBe('Home');
     },
   },
   {
@@ -276,8 +287,11 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     seam: 'lib/app/protected-routes.ts',
     risk: 'a stray path would put a public route behind auth on every install',
     // FORK (BeatBreaker): re-pointed, not deleted — see the brand row above.
-    // Back to empty on purpose: /breaks gates itself in its page, because the
-    // edge redirect lost the `#b=` fragment of a shared link (H5).
+    // Back to empty on purpose, and this row is what holds it there. /studio
+    // gates itself in its page, and /breaks only redirects to it, because the
+    // edge redirect loses the `#b=` fragment a shared link carries (H5) — so
+    // adding either one here would break every shared link already handed out
+    // without breaking anything else.
     assert: () => expect(appProtectedRoutes).toEqual([]),
   },
   {

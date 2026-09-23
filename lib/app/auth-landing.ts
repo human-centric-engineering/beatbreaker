@@ -31,7 +31,7 @@
  */
 
 /** Where an authenticated user lands. `null` = platform default (`/dashboard`). */
-export const appAuthLandingRoute: string | null = null;
+export const appAuthLandingRoute: string | null = '/dashboard';
 
 /**
  * What that destination is called in user-visible copy — the admin "Back to …"
@@ -43,4 +43,6 @@ export const appAuthLandingRoute: string | null = null;
  *
  * `null` = platform default (`Dashboard`).
  */
-export const appAuthLandingLabel: string | null = null;
+/* "Dashboard" is a word about software; this one is about where you keep
+   your patterns. The route is unchanged — only what it is called. */
+export const appAuthLandingLabel: string | null = 'Home';

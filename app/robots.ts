@@ -26,9 +26,12 @@ export default function robots(): MetadataRoute.Robots {
           '/dashboard/',
           '/settings/',
           '/profile/',
-          // FORK (BeatBreaker): the console. It gates itself rather than sitting
-          // behind the proxy (H5), so a crawler gets the sign-in hand-off —
-          // nothing worth indexing, and a shared link's break is in the fragment.
+          // FORK (BeatBreaker): the Studio, and the path it used to live at.
+          // It gates itself rather than sitting behind the proxy (H5), so a
+          // crawler gets the sign-in hand-off — nothing worth indexing, and a
+          // shared link's break is in the fragment, which never leaves the
+          // browser. Public pattern pages arrive in Phase 6 and are indexable.
+          '/studio',
           '/breaks',
           '/login',
           '/signup',

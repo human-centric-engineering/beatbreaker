@@ -11,10 +11,10 @@
  *
  *  - Every selector is prefixed with `.bb`, and bare `body` became `.bb`
  *    itself, so nothing here reaches the admin surface or the marketing pages.
- *    Done with PostCSS rather than by hand, so no selector is missed. The one
- *    deliberate exception is `main:has(.bb)` under LAYOUT, which reaches *up*
- *    to release the protected layout's centred container — still keyed on
- *    `.bb`, so it only fires on a page this console is on.
+ *    Done with PostCSS rather than by hand, so no selector is missed. There
+ *    used to be one exception, `main:has(.bb)`, which reached up out of the
+ *    protected layout to release its centred container; it went when the Studio
+ *    got a route group of its own.
  *  - The prototype carried its own theme system (`prefers-color-scheme` plus a
  *    `data-theme` attribute). Sunrise themes with a `.dark` class and a
  *    ThemeProvider, so the dark tokens hang off `.dark .bb` and the console
@@ -327,16 +327,11 @@
 /* ============================================================
    LAYOUT
    ============================================================ */
-/* The console is an app view, not an article: it fills the window rather than
-   sitting in the centred column the rest of the site reads in. The protected
-   layout wraps every page in a `container mx-auto px-4 py-8`, and a nested
-   route layout cannot escape its parent, so the container is released from
-   here — `:has()` keeps it to the one page that wants it and leaves every
-   other protected page alone. */
-main:has(.bb) {
-  max-width: none;
-  padding: 0;
-}
+/* The `main:has(.bb)` hatch that used to live here is gone. It existed because
+   the console was a page inside `(protected)`, whose layout wraps everything in
+   a centred container a nested layout cannot escape — so the stylesheet reached
+   *up* and released it. The Studio has its own route group now, so it has its
+   own layout, and nothing has to reach out of anything. */
 .bb .console {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 366px;

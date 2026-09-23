@@ -59,15 +59,21 @@ afterEach(() => {
 });
 
 describe('ProtectedNav', () => {
-  it('renders the platform default links when no override is set', async () => {
+  // FORK (BeatBreaker): re-pinned, not deleted, exactly as the FORK NOTE above
+  // asks. The seam is filled, so this case renders OUR list; what it still buys
+  // is that the header links to the product at all, which is the failure the
+  // case was written for.
+  it('renders the fork’s own links, and links to the Studio', async () => {
     asUser();
     vi.resetModules();
     const { ProtectedNav } = await import('@/components/layouts/protected-nav');
     render(React.createElement(ProtectedNav));
 
-    expect(screen.getByRole('link', { name: /dashboard/i })).toHaveAttribute('href', '/dashboard');
-    expect(screen.getByRole('link', { name: /profile/i })).toHaveAttribute('href', '/profile');
-    expect(screen.getByRole('link', { name: /settings/i })).toHaveAttribute('href', '/settings');
+    expect(screen.getByRole('link', { name: /home/i })).toHaveAttribute('href', '/dashboard');
+    expect(screen.getByRole('link', { name: /studio/i })).toHaveAttribute('href', '/studio');
+    // Profile and Settings are in UserButton; listing them twice was the bug
+    expect(screen.queryByRole('link', { name: /profile/i })).toBeNull();
+    expect(screen.queryByRole('link', { name: /settings/i })).toBeNull();
   });
 
   it('hides an adminOnly item from a non-admin and shows it to an admin', async () => {

@@ -1,31 +1,24 @@
 /**
- * /breaks gates itself, because the proxy's edge redirect lost a shared link's
- * `#b=` fragment (H5). That /breaks is off the proxy's list is pinned in
- * tests/unit/lib/app/defaults.test.ts.
+ * `/breaks` is where the console lived. Every share link handed out before the
+ * move points there, so the route stays and redirects — and the redirect must
+ * stay bare, because the browser only carries a `#b=` fragment across to a
+ * target that has none of its own (H5).
  */
 
 import { describe, expect, it, vi } from 'vitest';
 
-vi.mock('@/lib/auth/utils', () => ({ getServerSession: vi.fn() }));
-vi.mock('@/components/app/breaks/break-console', () => ({ BreakConsole: () => null }));
+vi.mock('next/navigation', () => ({
+  permanentRedirect: vi.fn(() => {
+    throw new Error('NEXT_REDIRECT');
+  }),
+}));
 
-import BreaksPage from '@/app/(protected)/breaks/page';
-import { BreakConsole } from '@/components/app/breaks/break-console';
-import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
-import { getServerSession } from '@/lib/auth/utils';
-import { createMockAuthSession } from '@/tests/helpers/auth';
+import BreaksRedirect from '@/app/(protected)/breaks/page';
+import { permanentRedirect } from 'next/navigation';
 
 describe('/breaks', () => {
-  it('sends a signed-out visitor to sign in through the browser, returning to /breaks', async () => {
-    vi.mocked(getServerSession).mockResolvedValue(null);
-    const el = await BreaksPage();
-    expect(el.type).toBe(SignInToOpen);
-    expect(el.props).toEqual({ loginHref: '/login?callbackUrl=%2Fbreaks' });
-  });
-
-  it('renders the console for a signed-in user', async () => {
-    vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
-    const el = await BreaksPage();
-    expect(el.props.children.type).toBe(BreakConsole);
+  it('sends every old link to the Studio, permanently and without a fragment', () => {
+    expect(() => BreaksRedirect()).toThrow('NEXT_REDIRECT');
+    expect(permanentRedirect).toHaveBeenCalledWith('/studio');
   });
 });
