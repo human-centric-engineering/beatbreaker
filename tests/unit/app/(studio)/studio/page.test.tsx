@@ -16,13 +16,21 @@ import { describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/lib/auth/utils', () => ({ getServerSession: vi.fn() }));
 vi.mock('@/components/app/shell/studio-frame', () => ({ StudioFrame: () => null }));
+/* The catalogue is three database queries. Mocked because this file is about
+   the gate and the nesting, not about what is in the catalogue — but mocked at
+   the data layer rather than at Prisma, so the page's own call still has to be
+   the one the Studio expects. `tests/helpers/catalogue.ts` builds the real
+   shape from the seed data, so what the provider receives is not a stub. */
+vi.mock('@/lib/app/breaks/catalogue/data', () => ({ studioCatalogue: vi.fn() }));
 
 import StudioPage from '@/app/(studio)/studio/page';
 import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
 import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { getServerSession } from '@/lib/auth/utils';
+import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { createMockAuthSession } from '@/tests/helpers/auth';
+import { testCatalogue } from '@/tests/helpers/catalogue';
 
 describe('/studio', () => {
   it('hands a signed-out visitor to the shim that keeps their link', async () => {
@@ -35,9 +43,16 @@ describe('/studio', () => {
 
   it('renders the frame inside the provider, in that order', async () => {
     vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+    const catalogue = testCatalogue();
+    vi.mocked(studioCatalogue).mockResolvedValue(catalogue);
     const el = await StudioPage();
     // the frame reads its state from the provider, so the nesting is the contract
     expect(el.type).toBe(StudioProvider);
     expect(el.props.children.type).toBe(StudioFrame);
+    /* The catalogue is loaded here, server-side, and handed down — not fetched
+       by the client. The provider has no fallback, so a page that forgot this
+       would render nothing at all; asserting identity is what says the page is
+       the one doing the loading. */
+    expect(el.props.catalogue).toBe(catalogue);
   });
 });

@@ -225,7 +225,15 @@ describe('reserved fork tiers', () => {
       'A model in prisma/schema/app.prisma that is not pinned here. Add it to ' +
         'this list AND to lib/app/data-export.ts, or a data subject gets a ' +
         'short answer that looks like a complete one.'
-    ).toEqual(['model Break', 'model Take']);
+    ).toEqual([
+      'model Break',
+      'model Kit',
+      'model LibraryEntry',
+      'model PatternLibrary',
+      'model Style',
+      'model StyleVersion',
+      'model Take',
+    ]);
   });
 
   it('the reservation is documented in both places a fork would look', () => {

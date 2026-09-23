@@ -23,6 +23,7 @@ import { StudioHeader } from '@/components/app/shell/studio-header';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { BRAND } from '@/lib/brand';
 import { beatOf } from '@/lib/app/breaks/audio/transport';
+import { testCatalogue } from '@/tests/helpers/catalogue';
 
 vi.mock('@/components/app/breaks/breaks.css', () => ({}));
 vi.mock('@/components/app/shell/studio.css', () => ({}));
@@ -45,7 +46,7 @@ const noop = () => {};
 
 function renderHeader() {
   return render(
-    <StudioProvider>
+    <StudioProvider catalogue={testCatalogue()}>
       <StudioHeader
         onOpenTool={noop}
         onNewBreak={noop}
@@ -106,7 +107,7 @@ describe('StudioHeader', () => {
 describe('StudioFooter', () => {
   it('reads out dashes while nothing is playing', async () => {
     render(
-      <StudioProvider>
+      <StudioProvider catalogue={testCatalogue()}>
         <StudioFooter />
       </StudioProvider>
     );
@@ -120,7 +121,7 @@ describe('StudioFooter', () => {
 
   it('opens the cookie preferences rather than linking away to them', async () => {
     render(
-      <StudioProvider>
+      <StudioProvider catalogue={testCatalogue()}>
         <StudioFooter />
       </StudioProvider>
     );
@@ -134,7 +135,7 @@ describe('StudioFooter, playing', () => {
   it('says where in the break the playhead is', async () => {
     positionOverride = { letter: 'A', barIdx: 2, slot: 4, count: 0, bar: null };
     const { container } = render(
-      <StudioProvider>
+      <StudioProvider catalogue={testCatalogue()}>
         <StudioFooter />
       </StudioProvider>
     );
@@ -155,7 +156,7 @@ describe('StudioFooter, playing', () => {
       return null;
     }
     const { container } = render(
-      <StudioProvider>
+      <StudioProvider catalogue={testCatalogue()}>
         <Probe />
         <StudioFooter />
       </StudioProvider>
@@ -169,7 +170,7 @@ describe('StudioFooter, playing', () => {
   it('falls back to dashes during a count-in, which is not yet the break', async () => {
     positionOverride = { letter: 'A', barIdx: 0, slot: 0, count: 1, bar: null };
     const { container } = render(
-      <StudioProvider>
+      <StudioProvider catalogue={testCatalogue()}>
         <StudioFooter />
       </StudioProvider>
     );

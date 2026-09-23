@@ -1,7 +1,6 @@
 import type { BreakAudio, SampleSource } from '@/lib/app/breaks/audio/engine';
-import { KITS, SLOT_BY_ID } from '@/lib/app/breaks/kit';
+import { type KitSampleSlot, SLOT_BY_ID } from '@/lib/app/breaks/kit';
 import { clamp } from '@/lib/app/breaks/rng';
-import { logger } from '@/lib/logging';
 
 /**
  * The recorded kits.
@@ -24,14 +23,6 @@ interface Layer {
   /** Seconds of encoder padding to skip. See {@link onsetOf}. */
   off: number;
 }
-
-interface PackManifestEntry {
-  sampleRate: number;
-  slots: Record<string, { v: number[] | null; files: string[] }>;
-  perc?: Record<string, { v: number[] | null; files: string[] }>;
-}
-
-type Manifest = Record<string, PackManifestEntry>;
 
 /**
  * An mp3 decodes with the encoder's own silence in front of it — about 23 ms
@@ -57,16 +48,12 @@ export function onsetOf(buf: AudioBuffer): number {
 const BASE = '/kits';
 
 export class PackSource implements SampleSource {
-  private manifest: Manifest | null = null;
-  private manifestLoading = false;
   private readonly loaded = new Map<string, Record<string, Layer[]>>();
   private readonly loading = new Set<string>();
 
   /** Recorded percussion, shared across every kit. */
   private perc: Record<string, Layer[]> = {};
   private percLoaded = false;
-  /** Which pack the percussion recordings come from. */
-  private static readonly PERC_FROM = 'virtuosity';
 
   /** Set false to play the synthesised percussion voices instead. */
   usePercSamples = true;
@@ -89,32 +76,10 @@ export class PackSource implements SampleSource {
   }
 
   refresh(engine: BreakAudio): void {
-    const kit = KITS[engine.kitKey];
-    if (kit?.engine === 'pack' && kit.pack) void this.load(engine, kit.pack);
+    const kit = engine.kit;
+    if (kit?.engine === 'pack' && kit.pack) void this.load(engine, kit.pack, kit.samples.slots);
     // percussion is shared, so it loads whichever kit is selected
     void this.loadPerc(engine);
-  }
-
-  private async manifestFor(): Promise<Manifest | null> {
-    if (this.manifest) return this.manifest;
-    if (this.manifestLoading) return null;
-    this.manifestLoading = true;
-    try {
-      /* `redirect: 'error'` on a same-origin static asset: these paths are
-         ours and a redirect would be a misconfiguration, not a hop to follow.
-         The guard in outbound-fetch-redirects.test.ts is right to insist —
-         fetch follows redirects by default, so any validation upstream of it
-         only ever sees the first hop. */
-      const res = await fetch(`${BASE}/manifest.json`, { redirect: 'error' });
-      if (!res.ok) throw new Error(`manifest ${res.status}`);
-      this.manifest = (await res.json()) as Manifest;
-      return this.manifest;
-    } catch (error) {
-      logger.warn('BeatBreaker: could not load the kit manifest', { error });
-      return null;
-    } finally {
-      this.manifestLoading = false;
-    }
   }
 
   private async decode(
@@ -140,17 +105,27 @@ export class PackSource implements SampleSource {
     return out.filter((x): x is Layer => x !== null);
   }
 
-  async load(engine: BreakAudio, pack: string): Promise<void> {
+  /**
+   * Decode one pack's slots.
+   *
+   * The slot map used to be fetched from `/kits/manifest.json`; it is the
+   * `samples` column on the kit's catalogue row now, and arrives with the kit.
+   * One fewer round trip, and — more to the point — one fewer way for the row
+   * and the file that describes it to disagree.
+   */
+  async load(
+    engine: BreakAudio,
+    pack: string,
+    slotSpecs: Record<string, KitSampleSlot> | undefined
+  ): Promise<void> {
     if (this.loaded.has(pack) || this.loading.has(pack)) return;
-    const manifest = await this.manifestFor();
-    const entry = manifest?.[pack];
-    if (!entry || !engine.ctx) return;
+    if (!slotSpecs || !engine.ctx) return;
 
     this.loading.add(pack);
     try {
       const slots: Record<string, Layer[]> = {};
       await Promise.all(
-        Object.entries(entry.slots).map(async ([slot, spec]) => {
+        Object.entries(slotSpecs).map(async ([slot, spec]) => {
           slots[slot] = await this.decode(engine, pack, spec.files, spec.v);
         })
       );
@@ -164,19 +139,22 @@ export class PackSource implements SampleSource {
   /**
    * The percussion lanes are deliberately **not** tied to a kit: a tambourine
    * over the Studio '70s set should be a tambourine. So these load once, from
-   * whichever pack ships them, and every kit can reach them.
+   * whichever kit ships them, and every kit can reach them.
+   *
+   * Which kit that is used to be the constant `PERC_FROM = 'virtuosity'`. It is
+   * data now — the catalogue names the kit whose `samples.perc` is set — so a
+   * fork that ships a different percussion set changes a row rather than this
+   * file.
    */
   async loadPerc(engine: BreakAudio): Promise<void> {
-    if (this.percLoaded || !engine.ctx) return;
-    const manifest = await this.manifestFor();
-    const entry = manifest?.[PackSource.PERC_FROM];
-    if (!entry?.perc) return;
+    const source = engine.percussion;
+    if (this.percLoaded || !engine.ctx || !source) return;
 
     this.percLoaded = true;
     const out: Record<string, Layer[]> = {};
     await Promise.all(
-      Object.entries(entry.perc).map(async ([inst, spec]) => {
-        out[inst] = await this.decode(engine, PackSource.PERC_FROM, spec.files, spec.v);
+      Object.entries(source.slots).map(async ([inst, spec]) => {
+        out[inst] = await this.decode(engine, source.pack, spec.files, spec.v);
       })
     );
     this.perc = out;
@@ -213,7 +191,7 @@ export class PackSource implements SampleSource {
   }
 
   hit(engine: BreakAudio, t: number, slotId: string, vel: number): boolean {
-    const kit = KITS[engine.kitKey];
+    const kit = engine.kit;
     if (kit?.engine !== 'pack' || !kit.pack) return false;
     const slot = SLOT_BY_ID[slotId];
     if (!slot) return false;
@@ -221,7 +199,7 @@ export class PackSource implements SampleSource {
     const pack = this.loaded.get(kit.pack);
     if (!pack) {
       // not decoded yet — the synthesised voice covers for it this bar
-      void this.load(engine, kit.pack);
+      void this.load(engine, kit.pack, kit.samples.slots);
       return false;
     }
 

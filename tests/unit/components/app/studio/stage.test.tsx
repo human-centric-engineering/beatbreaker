@@ -21,10 +21,11 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { GeneratePanel } from '@/components/app/studio/panels/generate-panel';
 import { Stage } from '@/components/app/studio/stage';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
+import { testCatalogue } from '@/tests/helpers/catalogue';
 
 const renderStage = () =>
   render(
-    <StudioProvider>
+    <StudioProvider catalogue={testCatalogue()}>
       <Stage />
     </StudioProvider>
   );
@@ -35,6 +36,28 @@ beforeEach(() => {
     return setTimeout(() => cb(0), 0) as unknown as number;
   });
   vi.stubGlobal('cancelAnimationFrame', (id: number) => clearTimeout(id));
+});
+
+describe('Stage, with nothing in the catalogue', () => {
+  it('says so, instead of sitting on "Writing you a break…" for ever', async () => {
+    /* The styles arrive server-side with the page, so an empty set at mount
+       stays empty — there is no later arrival to wait for. The mount effect
+       bailed before `setReady(true)` and its deps are `[ready]`, so nothing
+       ever re-ran it and the Studio showed a loading line with no end.
+
+       Two ways in, and the second is the one worth naming: an install whose
+       seed has not run, and an install where every style row failed
+       `styleParamsSchema` and was dropped — which the log records a line at a
+       time while the screen says nothing at all. */
+    render(
+      <StudioProvider catalogue={{ ...testCatalogue(), styles: {}, styleGroups: [] }}>
+        <Stage />
+      </StudioProvider>
+    );
+
+    expect(await screen.findByText(/no styles in the catalogue/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Writing you a break/i)).not.toBeInTheDocument();
+  });
 });
 
 describe('Stage', () => {
@@ -199,7 +222,7 @@ describe('Stage', () => {
   it('singularises the bar-count chip at one bar, and shows the style feel chip when the style has one', async () => {
     const user = userEvent.setup();
     render(
-      <StudioProvider>
+      <StudioProvider catalogue={testCatalogue()}>
         <Stage />
         <GeneratePanel />
       </StudioProvider>

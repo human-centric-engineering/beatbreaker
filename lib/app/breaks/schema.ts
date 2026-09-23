@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
 import { LANES, LANE_VALUES, PERC_KEYS } from '@/lib/app/breaks/lanes';
+import type { LaneKey } from '@/lib/app/breaks/types';
 import { METER_KEYS } from '@/lib/app/breaks/meter';
-import { STYLE_KEYS } from '@/lib/app/breaks/styles';
 
 /**
  * Zod schemas for everything that arrives from outside: a pasted share code, a
@@ -17,7 +17,18 @@ import { STYLE_KEYS } from '@/lib/app/breaks/styles';
  * The schemas are deliberately **tolerant of what is missing and strict about
  * what is present**: a version-2 code has no meter and no lane roster, and
  * should still load as 4/4 with the five lanes everybody had.
+ *
+ * **A style key is not checked against a list here, and that is deliberate.**
+ * Styles are catalogue rows from Phase 2, so the list is a database query and
+ * these schemas are synchronous and run in the browser. More to the point, a
+ * code naming a style this installation does not have is not malformed — it is
+ * a pattern from somebody else's catalogue, and a v4 code carries everything
+ * needed to play, score and export it anyway. What a key is still held to is
+ * its column width, because it is written to `Break.style VARCHAR(40)`.
  */
+
+/** As wide as `Style.key` and `Break.style`, which is what a key is written to. */
+const styleKey = z.string().max(40);
 
 const laneKey = z.enum(LANES as [string, ...string[]]);
 const laneRow = z.array(z.number().int().min(0).max(4));
@@ -25,9 +36,76 @@ const laneRow = z.array(z.number().int().min(0).max(4));
 /** One bar: a lane-keyed map of step values. Absent lanes are filled in on load. */
 const barSchema = z.record(laneKey, laneRow);
 
+/* ---- the style snapshot ---------------------------------------------
+   Wire version 4 carries, on every pattern, the five style attributes playback,
+   the critic and the MIDI export read. The bounds below are what makes that
+   safe: the snapshot arrives inside a base64 blob a stranger pasted in, and it
+   reaches the audio scheduler, so an unbounded `jitter` or a NaN offset is a
+   hostile input with a real effect rather than a shape error.
+
+   Everything is optional, because most styles set none of it. An absent field
+   means the same thing it means on a `Style`: take the default.
+   -------------------------------------------------------------------- */
+
+/** How far off the grid one lane sits, or a pair alternating by step parity. */
+const feelValue = z.union([
+  z.number().min(-1).max(1),
+  z.tuple([z.number().min(-1).max(1), z.number().min(-1).max(1)]),
+]);
+
+/**
+ * A feel table: a per-lane offset in fractions of a 16th, plus its name and the
+ * two scalars that are not lanes.
+ *
+ * A whole 16th of lean either way is already past anything musical — Dilla, the
+ * most extreme style in the table, is 0.175 — so ±1 is a bound that refuses
+ * nonsense without arguing about taste.
+ */
+export const feelSchema = z.object({
+  label: z.string().max(40),
+  sGhost: z.number().min(-1).max(1).optional(),
+  jitter: z.number().min(0).max(0.5).optional(),
+  /* One optional entry per lane, built from `LANES` rather than `.catchall()`:
+     a catch-all would accept any key at all, and Zod would then type the whole
+     object with an index signature that `Feel`'s `label: string` cannot satisfy.
+     Naming the lanes gives both the narrower parse and the right type. */
+  ...(Object.fromEntries(LANES.map((lane) => [lane, feelValue.optional()])) as Record<
+    LaneKey,
+    z.ZodOptional<typeof feelValue>
+  >),
+});
+
+/**
+ * The style facts a pattern carries with it — see `StyleAttrs` in `types.ts`
+ * for why these five and no others.
+ */
+/*
+ * No `.default({})` on this schema, and that is load-bearing rather than a
+ * style choice. `sa` below is `styleAttrsSchema.optional()`, and Zod applies a
+ * default THROUGH an `.optional()` wrapper — so a schema that defaulted here
+ * would parse an absent `sa` to `{}` rather than to `undefined`, and
+ * `patternFromPacked`'s `p.sa ?? styleAttrs(known?.params)` would never reach
+ * the lookup. A v3 code would then decode with its style version id rebuilt and
+ * its feel silently empty: provenance asserting something the attributes
+ * contradict. The default belongs at the one site that wants it,
+ * `patternSchema.attrs`.
+ */
+export const styleAttrsSchema = z.object({
+  feel: feelSchema.optional(),
+  /** 8 or 16. `isSwung` asks whether it is 8; nothing else is meaningful. */
+  swingUnit: z.union([z.literal(8), z.literal(16)]).optional(),
+  /** A velocity multiplier, not a probability. */
+  kickFeather: z.number().min(0).max(1).optional(),
+  /** Notes per bar the style aims at. The busiest style in the table is 14. */
+  targetDensity: z.number().min(0).max(64).optional(),
+  hatDepth: z.number().min(0).max(3).optional(),
+});
+
 export const patternSchema = z.object({
   name: z.string().max(120),
-  style: z.string().refine((s) => STYLE_KEYS.includes(s), 'unknown style'),
+  style: styleKey,
+  styleVersionId: z.string().max(40).nullable(),
+  attrs: styleAttrsSchema.default({}),
   meter: z.string().refine((s) => METER_KEYS.includes(s), 'unknown meter'),
   seed: z.number().int().min(0).max(0xffffffff),
   voice: z.enum(['hat', 'ride']),
@@ -84,8 +162,12 @@ const packedBar = z
 export const packedPatternSchema = z.object({
   /** name */
   n: z.string().max(120).default(''),
-  /** style */
-  st: z.string().default('funk'),
+  /** style key */
+  st: styleKey.default('funk'),
+  /** style version id — v4. Absent in a v3 code, which knew of no versions. */
+  sv: z.string().max(40).optional(),
+  /** the style snapshot — v4. Absent in a v3 code; see `unpack`. */
+  sa: styleAttrsSchema.optional(),
   /** voice */
   v: z.enum(['hat', 'ride']).default('hat'),
   /** seed */
@@ -137,7 +219,7 @@ export const packedPatternSchema = z.object({
 });
 
 export const sharePayloadSchema = z.object({
-  ver: z.number().int().min(1).max(3),
+  ver: z.number().int().min(1).max(4),
   bpm: z.number().min(20).max(400).default(94),
   sw: z.number().min(0).max(100).default(0),
   lv: z.number().int().min(1).max(5).optional(),

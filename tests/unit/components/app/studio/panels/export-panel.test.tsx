@@ -22,6 +22,7 @@ import { ExportPanel } from '@/components/app/studio/panels/export-panel';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { encodeBreak } from '@/lib/app/breaks/share';
+import { testCatalogue, testStyle } from '@/tests/helpers/catalogue';
 
 function ToastProbe() {
   const c = useStudio();
@@ -30,7 +31,7 @@ function ToastProbe() {
 
 const renderPanel = () =>
   render(
-    <StudioProvider>
+    <StudioProvider catalogue={testCatalogue()}>
       <ExportPanel />
       <ToastProbe />
     </StudioProvider>
@@ -87,8 +88,9 @@ describe('ExportPanel', () => {
     const user = userEvent.setup();
     renderPanel();
 
+    const funk = testStyle('funk');
     const A = generatePattern({
-      style: 'funk',
+      style: funk,
       meter: '4/4',
       seed: 7,
       bars: 2,
@@ -101,7 +103,7 @@ describe('ExportPanel', () => {
       level: 5,
       arrangement: ['A', 'B'],
       A,
-      B: deriveB(A),
+      B: deriveB(A, funk.params),
     });
 
     const box = screen.getByLabelText('Load a break code');

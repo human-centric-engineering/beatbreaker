@@ -8,9 +8,11 @@ import { describe, expect, it } from 'vitest';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { encodeBreak } from '@/lib/app/breaks/share';
 import { createBreakSchema, listBreaksSchema, updateBreakSchema } from '@/lib/validations/breaks';
+import { testStyle } from '@/tests/helpers/catalogue';
 
+const funk = testStyle('funk');
 const A = generatePattern({
-  style: 'funk',
+  style: funk,
   meter: '4/4',
   seed: 1,
   bars: 2,
@@ -18,7 +20,9 @@ const A = generatePattern({
   ghosts: 50,
 });
 const doc: unknown = JSON.parse(
-  atob(encodeBreak({ bpm: 94, swing: 0, level: 5, arrangement: ['A'], A, B: deriveB(A) }))
+  atob(
+    encodeBreak({ bpm: 94, swing: 0, level: 5, arrangement: ['A'], A, B: deriveB(A, funk.params) })
+  )
 );
 
 describe('createBreakSchema', () => {
@@ -56,9 +60,20 @@ describe('listBreaksSchema', () => {
     expect(listBreaksSchema.safeParse({ limit: '101' }).success).toBe(false);
   });
 
-  it('accepts only styles and meters that exist', () => {
+  it('takes any style key that fits the column, and only meters that exist', () => {
     expect(listBreaksSchema.safeParse({ style: 'funk', meter: '7/8' }).success).toBe(true);
-    expect(listBreaksSchema.safeParse({ style: 'polka' }).success).toBe(false);
+
+    /* `polka` is not a style, and this schema no longer says so. The check moved
+       out because styles are catalogue rows from Phase 2: a key list is a
+       database query, and this schema is synchronous and runs in the browser.
+       More to the point, filtering by a style this installation does not have
+       is an empty page rather than a bad request — the honest answer. What a
+       key is still held to is the width of the column it is compared against,
+       `Break.style VARCHAR(40)`, which is the assertion below. */
+    expect(listBreaksSchema.safeParse({ style: 'polka' }).success).toBe(true);
+    expect(listBreaksSchema.safeParse({ style: 'x'.repeat(40) }).success).toBe(true);
+    expect(listBreaksSchema.safeParse({ style: 'x'.repeat(41) }).success).toBe(false);
+
     expect(listBreaksSchema.safeParse({ meter: '5/3' }).success).toBe(false);
   });
 });

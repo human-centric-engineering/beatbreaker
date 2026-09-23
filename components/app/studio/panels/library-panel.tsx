@@ -3,11 +3,17 @@
 import { Fragment } from 'react';
 
 import { useStudio } from '@/components/app/studio/studio-provider';
+import { libraryGroups } from '@/lib/app/breaks/catalogue/types';
+import { DEFAULT_METER } from '@/lib/app/breaks/meter';
 
 export function LibraryPanel() {
   const c = useStudio();
   const { say } = c;
-  const { styles, library } = c.catalogue;
+  const { styles, libraries } = c.catalogue;
+  /* One library, shown under the headings its entries name. `libraryGroups`
+     derives that from the rows rather than the API returning it pre-grouped:
+     the order is already in the rows, so deriving keeps one source of truth. */
+  const groups = libraryGroups(libraries[0]);
 
   return (
     <>
@@ -21,17 +27,17 @@ export function LibraryPanel() {
               column is what puts an even gap between every row, and what
               lets the first heading lose its top padding. */}
           <div className="list">
-            {library.map(([group, items]) => (
+            {groups.map(([group, items]) => (
               <Fragment key={group}>
                 <div className="list-hd">{group}</div>
-                {items.map(({ item, index }) => (
+                {items.map((item) => (
                   <button
-                    key={index}
+                    key={item.id}
                     type="button"
                     className="item"
-                    title={item.note}
+                    title={item.note ?? undefined}
                     onClick={() => {
-                      c.loadLibraryItem(index);
+                      c.loadLibraryEntry(item.id);
                       say(item.note ? `${item.title} — ${item.note}` : `${item.title} loaded`);
                     }}
                   >
@@ -39,11 +45,15 @@ export function LibraryPanel() {
                       <b>{item.title}</b>
                       <span>{item.artist}</span>
                     </div>
-                    {/* the meter rides with the tempo, because a break in
-                        7/8 at 150 is not the same read as one in 4/4 */}
+                    {/* The meter rides with the tempo, because a break in 7/8
+                        at 150 is not the same read as one in 4/4 — and only
+                        when it is not 4/4. Every entry carries a meter now that
+                        they are rows, where the old `LibraryItem.meter` was set
+                        only for the exceptions; printing it unconditionally
+                        would put "· 4/4" on forty of the forty-seven rows. */}
                     <span className="bpm">
                       {item.bpm}
-                      {item.meter ? ` · ${item.meter}` : ''}
+                      {item.meter === DEFAULT_METER ? '' : ` · ${item.meter}`}
                     </span>
                   </button>
                 ))}
@@ -91,7 +101,7 @@ export function LibraryPanel() {
                     <div className="nm">
                       <b>{fav.name}</b>
                       <span>
-                        {styles[fav.style]?.label ?? fav.style} · L{fav.level}
+                        {styles[fav.style]?.params.label ?? fav.style} · L{fav.level}
                       </span>
                     </div>
                     <span className="bpm">{fav.bpm}</span>

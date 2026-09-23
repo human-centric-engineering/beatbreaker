@@ -25,6 +25,7 @@ import {
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { activeLanes } from '@/lib/app/breaks/lanes';
 import type { LaneKey } from '@/lib/app/breaks/types';
+import { testCatalogue } from '@/tests/helpers/catalogue';
 
 /**
  * The scheduler's own clock, faked exactly as far as it has to be: a plain
@@ -107,7 +108,7 @@ function DebugSpy() {
 
 const renderTransport = (children: React.ReactNode) =>
   render(
-    <StudioProvider>
+    <StudioProvider catalogue={testCatalogue()}>
       {children}
       <DebugSpy />
     </StudioProvider>

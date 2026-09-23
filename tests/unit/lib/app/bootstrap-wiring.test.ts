@@ -81,17 +81,44 @@ describe('rate-limit auto-wire (lib/app/rate-limit.ts → middleware realm)', ()
     expect(resolveRateLimitTier('wiretest')).toBeDefined();
   });
 
-  it('default lib/app/rate-limit is a no-op (effective policy is the base policy by identity)', async () => {
-    // Arrange — no doMock: the real (empty) registerAppRateLimits runs
+  /*
+   * FORK (BeatBreaker): re-pointed, not deleted.
+   *
+   * This asserted that the untouched seam is a no-op and the effective policy
+   * is Sunrise's own array BY IDENTITY. Phase 2 fills the seam with one rule
+   * for the public catalogue reads, so identity is gone — but the property
+   * that mattered is not, and it is what this now pins: the real seam adds
+   * exactly what it means to, Sunrise's own rules survive unchanged and in
+   * order, and the `/api/v1/` catch-all stays last.
+   *
+   * That last clause is the one worth a test. App rules are spliced in ahead
+   * of the catch-all; a rule that landed after it would never be reached, and
+   * the symptom would be a cap silently not applying rather than an error.
+   */
+  it('the real lib/app/rate-limit adds its own rule without disturbing Sunrise’s', async () => {
+    // Arrange — no doMock: the real registerAppRateLimits runs
     vi.resetModules();
 
     // Act
     await import('@/lib/security/rate-limit-middleware');
     const { getEffectiveRateLimitPolicy, RATE_LIMIT_POLICY } =
       await import('@/lib/security/rate-limit-policy');
+    const eff = getEffectiveRateLimitPolicy();
 
-    // Assert — no app rules registered → identity return (no allocation, no extra rule)
-    expect(getEffectiveRateLimitPolicy()).toBe(RATE_LIMIT_POLICY);
+    // Assert — one added rule, and it is the catalogue's
+    const added = eff.filter((rule) => !RATE_LIMIT_POLICY.includes(rule));
+    expect(added).toHaveLength(1);
+    expect(added[0].tier).toBe('catalogue');
+    expect(
+      added[0].match instanceof RegExp && added[0].match.test('/api/v1/catalogue/styles')
+    ).toBe(true);
+
+    // Sunrise's own rules, by identity and in order
+    expect(eff.filter((rule) => RATE_LIMIT_POLICY.includes(rule))).toEqual([...RATE_LIMIT_POLICY]);
+
+    // The catch-all is still last, so the app rule is actually reachable
+    expect(eff[eff.length - 1].key, 'catch-all stays last').toBe('session-user');
+    expect(eff.indexOf(added[0])).toBeLessThan(eff.length - 1);
   });
 
   it('aborts boot when an app rule references an unregistered tier (finding #6 integrity check)', async () => {

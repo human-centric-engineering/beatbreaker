@@ -19,10 +19,11 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { GeneratePanel } from '@/components/app/studio/panels/generate-panel';
 import { Stage } from '@/components/app/studio/stage';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
+import { testCatalogue } from '@/tests/helpers/catalogue';
 
 const renderPanel = () =>
   render(
-    <StudioProvider>
+    <StudioProvider catalogue={testCatalogue()}>
       <GeneratePanel />
     </StudioProvider>
   );
@@ -126,7 +127,7 @@ describe('GeneratePanel', () => {
   it('recomputes B from the current A when "Build B from A" is pressed', async () => {
     const user = userEvent.setup();
     render(
-      <StudioProvider>
+      <StudioProvider catalogue={testCatalogue()}>
         <Stage />
         <GeneratePanel />
       </StudioProvider>

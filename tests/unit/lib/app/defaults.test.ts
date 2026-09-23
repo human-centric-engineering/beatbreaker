@@ -160,10 +160,27 @@ const SEAM_DEFAULTS: SeamDefault[] = [
   {
     seam: 'lib/app/rate-limit.ts',
     risk: 'a stray tier or rule would re-cap every install',
+    // FORK (BeatBreaker): re-pointed, not deleted — see the brand row above.
+    // Phase 2 fills this seam with ONE rule, for the public catalogue reads.
+    // The pin is now "exactly that rule and nothing else", which is the same
+    // guarantee the empty version gave: the risk is a rule nobody decided
+    // about, not a rule existing.
     assert: () => {
       registerAppRateLimits();
-      // No app rules → the effective policy is the base policy BY IDENTITY.
-      expect(getEffectiveRateLimitPolicy()).toBe(RATE_LIMIT_POLICY);
+      const effective = getEffectiveRateLimitPolicy();
+      const added = effective.filter((rule) => !RATE_LIMIT_POLICY.includes(rule));
+      expect(added).toHaveLength(1);
+      expect(added[0].match).toEqual(/^\/api\/v1\/catalogue\//);
+      expect(added[0].tier).toBe('catalogue');
+      /* Keyed on IP, not on the session user: the catalogue answers signed-out
+         callers (D2), so session keying would collapse every anonymous reader
+         onto their IP anyway — this says so rather than implying it. */
+      expect(added[0].key).toBe('ip');
+      /* And the base policy is still in there, by identity, in order: an app
+         rule must ADD to Sunrise's caps, never replace or reorder one. */
+      expect(effective.filter((rule) => RATE_LIMIT_POLICY.includes(rule))).toEqual([
+        ...RATE_LIMIT_POLICY,
+      ]);
     },
   },
   {
@@ -181,10 +198,21 @@ const SEAM_DEFAULTS: SeamDefault[] = [
   {
     seam: 'lib/app/admin-nav.ts',
     risk: 'a stray section would appear in every install’s admin sidebar',
+    // FORK (BeatBreaker): re-pointed, not deleted — see the brand row above.
+    // Phase 2 adds one section with one item, for the catalogue. Pinned to the
+    // href rather than the label so a rename is free and a link quietly
+    // pointing somewhere else is not.
     assert: () => {
       __resetNavRegistryForTests();
       initAppNav();
-      expect(getRegisteredNavSections()).toHaveLength(0);
+      const sections = getRegisteredNavSections();
+      expect(sections).toHaveLength(1);
+      expect(sections[0].title).toBe('BeatBreaker');
+      expect(sections[0].items?.map((i) => i.href)).toEqual(['/admin/catalogue']);
+      // Registration is idempotent by title, and the sidebar imports this at
+      // module load — under HMR it runs more than once.
+      initAppNav();
+      expect(getRegisteredNavSections()).toHaveLength(1);
     },
   },
   {
@@ -235,22 +263,37 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     risk: 'a stray collector would leak app rows into every install’s subject-access export, and a stray declaration would pre-account for a table nobody decided about',
     // FORK (BeatBreaker): re-pointed, not deleted — see the brand row above.
     // The collector now hits the database, so the shape is asserted rather than
-    // the (empty) result: what matters is that BOTH declared sections come back
-    // as keys even with no rows, because a bundle short by a section reads
+    // the (empty) result: what matters is that EVERY declared section comes back
+    // as a key even with no rows, because a bundle short by a section reads
     // exactly like a complete answer.
+    //
+    // Phase 2 added the three catalogue tables. Every row in them is a system
+    // row today (`ownerId` null), so those sections come back empty for
+    // everybody — and they are declared anyway, so that the day D16 ships
+    // user-authored styles the export does not quietly stop being complete.
+    // StyleVersion and LibraryEntry are excluded with reasons rather than
+    // undeclared: they are exported inside their parent.
     assert: async () => {
       __resetAppSubjectSourceRegistryForTests();
       expect(
         getAppSubjectSources()
           .map((s) => s.model)
           .sort()
-      ).toEqual(['Break', 'Take']);
+      ).toEqual(['Break', 'Kit', 'PatternLibrary', 'Style', 'Take']);
       expect(
         getAppSubjectSources()
           .map((s) => s.section)
           .sort()
-      ).toEqual(['breaks', 'takes']);
-      expect(getAppExcludedSubjectSources()).toEqual([]);
+      ).toEqual(['breaks', 'kits', 'libraries', 'styles', 'takes']);
+      expect(
+        getAppExcludedSubjectSources()
+          .map((s) => s.model)
+          .sort()
+      ).toEqual(['LibraryEntry', 'StyleVersion']);
+      // An exclusion without a reason is a table nobody decided about.
+      for (const excluded of getAppExcludedSubjectSources()) {
+        expect(excluded.reason.length).toBeGreaterThan(20);
+      }
     },
   },
   {

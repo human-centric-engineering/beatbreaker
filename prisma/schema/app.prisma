@@ -44,13 +44,22 @@ model Break {
   /// Visible to anyone with the link.
   shared Boolean @default(false)
 
-  /// The whole break, in the share-code wire format (version 3).
+  /// The whole break, in the share-code wire format (version 4).
   doc Json
+
+  /// Which version of `style` produced it. Provenance, and what a
+  /// re-derivation from the seed reads. Nulled rather than cascading when the
+  /// version goes: the v4 `doc` carries a snapshot of everything playback and
+  /// the critic need, so a pattern whose style row was deleted still opens.
+  /// Null on every row written before v4, and on a v3 code that was decoded.
+  styleVersionId String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   takes Take[] @relation("TakeBreak")
+
+  styleVersion StyleVersion? @relation("BreakStyleVersion", fields: [styleVersionId], references: [id], onDelete: SetNull)
 
   @@index([userId, createdAt])
   @@index([shared, createdAt])
@@ -85,4 +94,209 @@ model Take {
   @@index([breakId, createdAt])
   @@index([userId, createdAt])
   @@map("take")
+}
+
+// ---- the catalogue ---------------------------------------------------------
+//
+// Styles, pattern libraries and kits are content, not code (D13). They were
+// three TypeScript constants; they are rows from Phase 2 so that any client
+// reads them through `/api/v1/catalogue/*`, an admin can correct a credit
+// without a deploy, and a user can author their own later (§10, D16).
+//
+// What did NOT move: meters, lanes and slots. Those are the structural
+// constants the wire format is built on — a saved pattern means nothing
+// without them — so they stay in code and are served read-only.
+//
+// Every row carries `ownerId String?` (null = a system row, seeded) and a
+// `visibility` that is `system` for all of them today. Both columns exist now
+// rather than later because retrofitting ownership onto rows other people's
+// patterns already point at is the migration nobody wants to write.
+//
+// `ownerId` is a plain scalar, not a `@relation`, for the reason `Break.userId`
+// is: a relation needs a back-reference ON `User`. The FK and its ON DELETE
+// are hand-written in the migration and asserted by `lib/app/db-drift.ts`.
+
+/// A generator style: the tendencies that make a break sound like funk rather
+/// than like bossa nova.
+///
+/// A style is never edited in place — it is edited by adding a
+/// {@link StyleVersion}. That is what keeps the reproducibility promise: a seed
+/// plus a style version always gives back the same pattern, so a break saved in
+/// March still plays in June after its style was retuned. `currentVersion` is
+/// the version a new pattern is generated from; every other version stays
+/// readable forever because patterns point at it.
+model Style {
+  id String @id @default(cuid())
+
+  /// Stable key — `funk`, `boombap`. What a pattern document records.
+  key     String  @db.VarChar(40)
+  /// FK to User.id — no @relation. Null means a system row. Cascades.
+  ownerId String?
+
+  label String @db.VarChar(80)
+  /// Heading it files under in the picker.
+  group String @db.VarChar(60)
+  hint  String @db.Text
+  /// Key into METERS — the meter the style is written in.
+  meter String @default("4/4") @db.VarChar(8)
+
+  /// "system" | "private" | "published". Only `system` exists until D16.
+  visibility     String @default("system") @db.VarChar(16)
+  /// Which version `getStyle(key)` resolves to.
+  currentVersion Int    @default(1)
+  /// Order within `group`, so the picker reads as it was written.
+  position       Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  versions StyleVersion[]
+
+  /// Postgres treats NULLs as distinct, so this does NOT stop two system rows
+  /// sharing a key. The partial unique index that does is hand-written in the
+  /// migration and probed in `lib/app/db-drift.ts`.
+  @@unique([ownerId, key])
+  @@index([visibility, group, position])
+  @@map("style")
+}
+
+/// One immutable version of a style's parameters.
+///
+/// **Nothing here is ever updated.** `params` is the `Style` object the
+/// generator reads, validated by `styleParamsSchema` on the way in and on the
+/// way out — a row is external data the moment an admin can edit it.
+model StyleVersion {
+  id      String @id @default(cuid())
+  styleId String
+  version Int
+
+  /// The whole style, as `styleParamsSchema` describes it.
+  params Json
+  /// What changed, for the admin list. Empty on a seeded version 1.
+  note   String @default("") @db.VarChar(200)
+
+  /// FK to User.id — no @relation. Nulled on erasure: the version outlives its
+  /// author, because patterns other people made point at it.
+  createdById String?
+  createdAt   DateTime @default(now())
+
+  style Style @relation(fields: [styleId], references: [id], onDelete: Cascade)
+
+  breaks         Break[]        @relation("BreakStyleVersion")
+  libraryEntries LibraryEntry[] @relation("EntryStyleVersion")
+
+  @@unique([styleId, version])
+  @@map("style_version")
+}
+
+/// A named, ordered list of patterns — the famous breaks today, a teacher's
+/// lesson plan or a user's setlist later (§10).
+model PatternLibrary {
+  id String @id @default(cuid())
+
+  key     String  @db.VarChar(40)
+  /// FK to User.id — no @relation. Null means a system row. Cascades.
+  ownerId String?
+
+  title       String @db.VarChar(120)
+  description String @default("") @db.Text
+  /// "system" | "private" | "published".
+  visibility  String @default("system") @db.VarChar(16)
+  position    Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  entries LibraryEntry[]
+
+  @@unique([ownerId, key])
+  @@index([visibility, position])
+  @@map("pattern_library")
+}
+
+/// One pattern in a library.
+///
+/// `doc` is a wire-v4 **packed pattern** — one section, the shape a share code
+/// carries per section — converted from its bar string at seed time. So a
+/// client never needs the bar-string parser to show an entry, and an entry
+/// survives the style it was written against being retuned or deleted.
+model LibraryEntry {
+  id        String @id @default(cuid())
+  libraryId String
+  position  Int
+
+  /// Heading within the library — "Funk and the breaks", "The Police · Stewart
+  /// Copeland". A shelf inside one library rather than eight libraries: the
+  /// famous breaks are one collection, and the picker has always shown them
+  /// under these headings.
+  group  String  @db.VarChar(80)
+  title  String  @db.VarChar(160)
+  /// Who played it, and when.
+  artist String  @db.VarChar(200)
+  /// The thing worth listening for.
+  note   String? @db.Text
+  bpm    Int
+
+  /// Key into `Style` — what the generator would call this.
+  styleKey       String  @db.VarChar(40)
+  /// The version it was written against. Nulled if that version is deleted;
+  /// `doc` still carries the snapshot, so only provenance is lost.
+  styleVersionId String?
+  /// Key into METERS.
+  meter          String  @db.VarChar(8)
+
+  /// The pattern itself, wire format v4.
+  doc   Json
+  /// Reference links (D11) — `[]` until Phase 6 fills them.
+  links Json @default("[]")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  library      PatternLibrary @relation(fields: [libraryId], references: [id], onDelete: Cascade)
+  styleVersion StyleVersion?  @relation("EntryStyleVersion", fields: [styleVersionId], references: [id], onDelete: SetNull)
+
+  @@unique([libraryId, position])
+  @@index([libraryId, group, position])
+  @@index([styleKey])
+  @@map("library_entry")
+}
+
+/// A kit: the knobs a playback engine reads, and where its samples are.
+///
+/// The audio never lives in the row. System kits are files under
+/// `public/kits/`; a user's own one-shots go to Sunrise storage when D16 lands.
+/// `samples` is the slot → files + velocity-layers map, which for a `pack` kit
+/// is what `public/kits/manifest.json` used to hold.
+model Kit {
+  id String @id @default(cuid())
+
+  key     String  @db.VarChar(40)
+  /// FK to User.id — no @relation. Null means a system row. Cascades.
+  ownerId String?
+
+  /// "synth" | "drift" | "pack" | "user" — which playback path it takes.
+  engine String @db.VarChar(16)
+  label  String @db.VarChar(80)
+  hint   String @db.Text
+  /// Heading it files under in the picker. Derived from `engine` today.
+  group  String @db.VarChar(60)
+
+  /// Voice defaults and the master chain, as `kitParamsSchema` describes them.
+  params  Json
+  /// Slot → { files, velocities }. `{}` for a kit that synthesises its voices.
+  samples Json    @default("{}")
+  /// Attribution. CC BY 4.0 asks for it and the Kit panel shows it.
+  credit  String? @db.Text
+
+  /// "system" | "private" | "published".
+  visibility String @default("system") @db.VarChar(16)
+  position   Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([ownerId, key])
+  @@index([visibility, position])
+  @@map("kit")
 }

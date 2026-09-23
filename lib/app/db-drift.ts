@@ -44,7 +44,33 @@
  *
  * Full guide: CUSTOMIZATION.md §5 · .context/database/prisma-unmodelled-objects.md
  */
-import { constraintExists, registerAppDriftProbe } from '@/lib/db/drift-probes';
+import { prisma } from '@/lib/db/client';
+import { constraintExists, registerAppDriftProbe, type Probe } from '@/lib/db/drift-probes';
+
+/**
+ * A partial unique index, asserted *with* its predicate.
+ *
+ * `indexExists` would pass on an index of the same name recreated without the
+ * `WHERE "ownerId" IS NULL` clause. That is not a harmless difference: without
+ * the predicate the constraint covers user rows too, and the first two people
+ * to write a style called `funk` collide. With the predicate dropped the other
+ * way — the index gone entirely — two *system* rows can share a key and
+ * `getStyle('funk')` starts returning whichever the planner picked.
+ */
+function partialUniqueIndexExists(indexName: string, predicate: string): Probe {
+  return async () => {
+    const rows = await prisma.$queryRaw<Array<{ indexdef: string }>>`
+      SELECT indexdef FROM pg_indexes WHERE indexname = ${indexName}
+    `;
+    const def = rows[0]?.indexdef;
+    if (!def) return { ok: false };
+    if (!def.includes('UNIQUE')) return { ok: false, note: `not unique — saw: ${def}` };
+    if (!def.includes(predicate)) {
+      return { ok: false, note: `predicate missing "${predicate}" — saw: ${def}` };
+    }
+    return { ok: true };
+  };
+}
 
 export function registerAppDriftProbes(): void {
   /* Break.userId and Take.userId are plain scalars in prisma/schema/app.prisma
@@ -74,5 +100,39 @@ export function registerAppDriftProbes(): void {
     kind: 'FK constraint',
     table: 'take',
     probe: constraintExists('take_userId_fkey', 'ON DELETE CASCADE'),
+  });
+
+  /* The catalogue's own hand-written FKs, added in 20260923102558_catalogue and
+     invisible to Prisma for the same reason.
+
+     No row has an owner yet — the seed writes system rows with ownerId NULL —
+     so a dropped cascade here would break nothing today and everything on the
+     day D16 ships user-authored styles. That is exactly the drift a probe is
+     for: the constraint is unexercised, so nothing else would notice it go. */
+  for (const table of ['style', 'pattern_library', 'kit']) {
+    registerAppDriftProbe({
+      name: `${table}_ownerId_fkey (hand-written FK → user)`,
+      kind: 'FK constraint',
+      table,
+      probe: constraintExists(`${table}_ownerId_fkey`, 'ON DELETE CASCADE'),
+    });
+    registerAppDriftProbe({
+      name: `${table}_system_key_key (partial unique on the system rows)`,
+      kind: 'partial unique index',
+      table,
+      probe: partialUniqueIndexExists(`${table}_system_key_key`, 'WHERE ("ownerId" IS NULL)'),
+    });
+  }
+
+  /* SET NULL, not CASCADE, and the difference is the point: a style version
+     outlives its author because other people's patterns point at it and carry
+     its id as provenance. Erasing the author erases the link, not the row. A
+     migration that "fixed" this to CASCADE would delete rows that are not only
+     about the person being erased. */
+  registerAppDriftProbe({
+    name: 'style_version_createdById_fkey (hand-written FK → user)',
+    kind: 'FK constraint',
+    table: 'style_version',
+    probe: constraintExists('style_version_createdById_fkey', 'ON DELETE SET NULL'),
   });
 }

@@ -60,8 +60,30 @@ export type Pins = Array<Partial<Record<LaneKey, number[]>> | undefined>;
 
 export interface Pattern {
   name: string;
-  /** Key into `STYLES`. */
+  /** Key of the `Style` row it was generated from. */
   style: string;
+  /**
+   * `StyleVersion.id` — which version of that style produced it.
+   *
+   * Provenance, and what a re-derivation from the seed reads. Null for a
+   * pattern that did not come from the catalogue: a v3 share code whose style
+   * no longer exists, or a fixture built by hand in a test.
+   */
+  styleVersionId: string | null;
+  /**
+   * The style facts playback, the critic and the MIDI export read.
+   *
+   * Carried **on the pattern** rather than looked up, because a pattern has to
+   * stand on its own: the style that made it may since have been retuned,
+   * deleted, or be private to somebody else, and none of those should change
+   * how a saved break sounds or scores. This is the snapshot the wire format
+   * carries as `sa`.
+   *
+   * What is *not* here is everything the generator reads — kick cells, weights,
+   * ghost tables. Re-generating or doctoring a pattern needs the live style and
+   * takes it as an argument; playing, scoring and exporting one do not.
+   */
+  attrs: StyleAttrs;
   /** Key into `METERS`. */
   meter: string;
   /** Seed the generator ran from — what makes a break reproducible. */
@@ -172,7 +194,42 @@ export interface PercSpec {
   drop?: number;
 }
 
-export interface Style {
+/**
+ * The part of a style that travels with a pattern.
+ *
+ * Five fields, and the list is not arbitrary — it is exactly what the transport
+ * (`isSwung`, `hatShape`, `feelOffset`), the critic (`kickFeather`,
+ * `targetDensity`) and the MIDI export read off a style once a pattern exists.
+ * Everything else a style says is an instruction to the *generator*, and is
+ * spent the moment the notes are written.
+ *
+ * {@link Style} extends this, so a resolved style is a `StyleAttrs` wherever
+ * one is wanted and no conversion is needed on the generating path.
+ */
+export interface StyleAttrs {
+  /** Off-grid offsets per lane. See `feel.ts`. */
+  feel?: Feel;
+  /**
+   * Which note value the swing slider moves. Defaults to 16ths.
+   *
+   * The union rather than `number`: `isSwung` asks whether it is 8 and treats
+   * everything else as 16, so a third value would be silently ignored — and
+   * now that a style is a row an admin edits, "silently ignored" is a support
+   * ticket rather than a typo somebody would notice in review.
+   */
+  swingUnit?: 8 | 16;
+  /**
+   * Feathered quarters — a jazz kick played so quietly it is felt rather than
+   * heard. The number is its velocity, not a probability.
+   */
+  kickFeather?: number;
+  /** Notes per bar the style is aiming at, which is what the critic scores against. */
+  targetDensity?: number;
+  /** How hard this style leans on the hi-hat dynamic shape. */
+  hatDepth?: number;
+}
+
+export interface Style extends StyleAttrs {
   label: string;
   hint: string;
   /**
@@ -186,8 +243,6 @@ export interface Style {
   /** `[min, max]` tempo range the style is written for. */
   bpm: [number, number];
   swing: number;
-  /** Which note value the swing slider moves. Defaults to 16ths. */
-  swingUnit?: number;
   ghostBias: number;
   /** Where ghosts want to land, as step → weight. */
   ghostWeights?: Record<number, number>;
@@ -200,25 +255,16 @@ export interface Style {
   backbeats?: number[];
   /** Defaults to the snare; jazz marks 2 and 4 with the foot instead. */
   backbeatLane?: LaneKey;
-  targetDensity?: number;
-  /** How hard this style leans on the hi-hat dynamic shape. */
-  hatDepth?: number;
   /** Kick cells for bar 1, which carries the downbeat. */
   kick1: Array<Weighted<KickCell>>;
   /** Kick cells for every other beat. */
   kick: Array<Weighted<KickCell>>;
   noKick?: number[];
   forceKick?: number[];
-  /**
-   * Feathered quarters — a jazz kick played so quietly it is felt rather than
-   * heard. The number is its velocity, not a probability.
-   */
-  kickFeather?: number;
   toms?: boolean;
   /** Steps the left foot marks. */
   foot?: number[];
   perc?: PercSpec[];
-  feel?: Feel;
   /** The meter this style is written in. Defaults to 4/4. */
   meter?: string;
   /** A kit the style asks for — picking the style switches to it. */
@@ -237,4 +283,23 @@ export interface Style {
   /** `'comp'` ends a phrase by saying slightly more, rather than with a fill. */
   fill?: 'comp';
   fillComps?: number;
+}
+
+/**
+ * A style as the domain receives it: which catalogue row it is, and what that
+ * row says.
+ *
+ * Nothing under `lib/app/breaks` reads a style table — the caller resolves one
+ * (from the database on the server, from the Studio's catalogue in the browser)
+ * and hands it over. `key` and `versionId` are what the generated pattern
+ * records as provenance; `params` is what the generator actually reads.
+ *
+ * `versionId` is null for a style that did not come from the catalogue: a test
+ * fixture, or the fallback a v3 share code resolves to when its style is gone.
+ */
+export interface ResolvedStyle {
+  key: string;
+  versionId: string | null;
+  version: number;
+  params: Style;
 }

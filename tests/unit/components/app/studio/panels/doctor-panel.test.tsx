@@ -23,6 +23,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DoctorPanel } from '@/components/app/studio/panels/doctor-panel';
 import { Stage } from '@/components/app/studio/stage';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
+import { testCatalogue } from '@/tests/helpers/catalogue';
 
 function ToastProbe() {
   const c = useStudio();
@@ -31,7 +32,7 @@ function ToastProbe() {
 
 const renderPanel = () =>
   render(
-    <StudioProvider>
+    <StudioProvider catalogue={testCatalogue()}>
       <Stage />
       <DoctorPanel />
       <ToastProbe />

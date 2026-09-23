@@ -57,7 +57,7 @@ export function Stage() {
       target.current?.moveTo(eng.map[pos.barIdx * eng.steps + pos.slot]);
   }, [c.position, engravings]);
 
-  const style = c.catalogue.styles[c.style];
+  const style = c.catalogue.styles[c.style]?.params;
   const shown: SectionLetter[] = c.viewMode === 'both' ? ['A', 'B'] : [c.viewMode];
   const editingView = c.view[c.editing];
   const editingStored = c.patterns[c.editing];
@@ -66,6 +66,18 @@ export function Stage() {
     c.position && !c.position.count && c.position.letter === c.editing && c.position.barIdx != null
       ? c.position.barIdx * (engravings[c.editing]?.steps ?? 16) + c.position.slot
       : null;
+
+  if (c.noCatalogue) {
+    /* Not a loading state and not a crash: the styles come from the database
+       now, and an install with none has nothing to write a break from. Saying
+       which it is beats a spinner that never stops. */
+    return (
+      <p className="hint" style={{ padding: 24 }}>
+        There are no styles in the catalogue yet, so there is nothing to write a break from. Seed
+        the catalogue (<code>npm run db:seed</code>) and reload.
+      </p>
+    );
+  }
 
   if (!c.ready || !c.view.A) {
     return (

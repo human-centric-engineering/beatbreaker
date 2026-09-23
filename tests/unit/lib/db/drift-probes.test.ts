@@ -356,21 +356,35 @@ describe('mergeDriftProbes', () => {
 
 describe('shipped lib/app/db-drift.ts scaffold', () => {
   // FORK (BeatBreaker): upstream asserts the scaffold registers nothing. We
-  // register two — the hand-written FKs from Break and Take to `user`, which
-  // Prisma cannot see and will emit a DROP for on some future `migrate dev`.
-  // Pinning the names AND the cascade here means deleting a probe fails a test
-  // rather than quietly removing the only thing standing between an unrelated
-  // migration and a broken erasure path.
+  // register the hand-written FKs to `user` — from Break and Take, and from
+  // Phase 2 the catalogue's three owner columns and StyleVersion's author —
+  // which Prisma cannot see and will emit a DROP for on some future
+  // `migrate dev`. Pinning the names AND the ON DELETE action here means
+  // deleting a probe fails a test rather than quietly removing the only thing
+  // standing between an unrelated migration and a broken erasure path.
   it('registers the app FK probes (BeatBreaker fills this scaffold)', () => {
     registerAppDriftProbes();
+    const probes = getAppDriftProbes();
+
     expect(
-      getAppDriftProbes()
+      probes
+        .filter((p) => p.kind === 'FK constraint')
         .map((p) => p.table)
         .sort()
-    ).toEqual(['break', 'take']);
-    for (const probe of getAppDriftProbes()) {
-      expect(probe.kind).toBe('FK constraint');
+    ).toEqual(['break', 'kit', 'pattern_library', 'style', 'style_version', 'take']);
+    for (const probe of probes.filter((p) => p.kind === 'FK constraint')) {
       expect(probe.name).toMatch(/hand-written FK/);
     }
+
+    /* The partial unique indexes on the system rows. `@@unique([ownerId, key])`
+       does NOT stop two system styles sharing a key — Postgres treats NULLs as
+       distinct — so these are what make `getStyle('funk')` deterministic, and
+       they are Prisma-invisible for the same reason the FKs are. */
+    expect(
+      probes
+        .filter((p) => p.kind === 'partial unique index')
+        .map((p) => p.table)
+        .sort()
+    ).toEqual(['kit', 'pattern_library', 'style']);
   });
 });

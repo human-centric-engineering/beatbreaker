@@ -1,8 +1,11 @@
 import {
-  KITS,
+  type KitSampleSlot,
   RATIOS,
+  SAMPLE_STAND_IN,
   SLOT_BY_ID,
+  SYNTH_FALLBACK,
   SYNTH_ONLY,
+  type ResolvedKit,
   type VoiceParams,
   kitEngine,
 } from '@/lib/app/breaks/kit';
@@ -113,7 +116,25 @@ export class BreakAudio {
   private driveAt = -1;
 
   ready = false;
-  kitKey = 'studio70';
+  /**
+   * The kit currently loaded, as the catalogue resolved it.
+   *
+   * An object rather than a key, because a key would mean this module owning a
+   * kit table (D13). Null until the Studio has a catalogue to pick from, which
+   * is a real state now that the kits are rows fetched from the server: the
+   * synthesised voices cover for it with {@link SYNTH_FALLBACK}.
+   */
+  kit: ResolvedKit | null = null;
+  /**
+   * The shared percussion recordings, and which pack's folder they sit in.
+   *
+   * Not part of {@link kit} because percussion is deliberately not per kit — a
+   * tambourine over the Studio '70s set should be a tambourine. The Studio sets
+   * it once from the catalogue, naming whichever kit row carries a `perc` map,
+   * which is where the hard-coded `'virtuosity'` used to live.
+   */
+  percussion: { pack: string; slots: Record<string, KitSampleSlot> } | null = null;
+
   /** The user's tuning — a saved override of the kit's own numbers. */
   sound: Record<string, VoiceParams> | null = null;
   samples: SampleSource | null = null;
@@ -206,8 +227,8 @@ export class BreakAudio {
     if (ctx && ctx.state !== 'closed') void ctx.close().catch(() => {});
   }
 
-  setKit(kitKey: string, sound: Record<string, VoiceParams> | null): void {
-    this.kitKey = kitKey;
+  setKit(kit: ResolvedKit | null, sound: Record<string, VoiceParams> | null): void {
+    this.kit = kit;
     this.sound = sound;
     if (this.ctx) {
       this.applyKit();
@@ -224,10 +245,10 @@ export class BreakAudio {
    * 0.5 Hz.
    */
   P(voice: string): VoiceParams {
-    if (!SYNTH_ONLY[voice] && kitEngine(this.kitKey) !== 'synth') {
-      return KITS.machine[voice as 'k'];
+    if (!SYNTH_ONLY[voice] && kitEngine(this.kit) !== 'synth') {
+      return SAMPLE_STAND_IN[voice];
     }
-    return this.sound?.[voice] ?? (KITS[this.kitKey] ?? KITS.studio70)[voice as 'k'];
+    return this.sound?.[voice] ?? (this.kit ?? SYNTH_FALLBACK)[voice as 'k'];
   }
 
   /** The reverb send is per-lane on every engine, so it reads the live kit. */
@@ -275,7 +296,11 @@ export class BreakAudio {
   applyKit(): void {
     const ctx = this.ctx;
     if (!ctx || !this.lp || !this.wet || !this.convolver) return;
-    const m = this.sound?.master ?? KITS[this.kitKey].master;
+    /* `?? SYNTH_FALLBACK.master`, where this used to index the kit table
+       unguarded. With kits as rows the key can legitimately name nothing —
+       a deleted kit, a catalogue that has not arrived — and the old form threw
+       on the first `applyKit()` rather than playing through the default. */
+    const m = this.sound?.master ?? this.kit?.master ?? SYNTH_FALLBACK.master;
     this.lp.frequency.setTargetAtTime(m.lp ?? 16000, ctx.currentTime, 0.01);
     this.setDrive(m.drive ?? 1);
     const room = m.room ?? 0;

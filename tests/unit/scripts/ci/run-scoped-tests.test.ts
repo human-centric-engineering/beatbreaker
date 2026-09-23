@@ -453,7 +453,7 @@ describe('main', () => {
     expect(argv).toContain('--coverage');
     expect(argv).toContain('--coverage.include=lib-a.ts');
     expect(argv).toContain('--coverage.include=lib-b.ts');
-    expect(argv).toContain('--coverage.thresholds.perFile=true');
+    expect(argv).toContain('--coverage.thresholds.perFile');
     expect(argv).toContain('--coverage.thresholds.lines=80');
   });
 

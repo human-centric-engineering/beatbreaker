@@ -17,6 +17,9 @@ export function KitPanel() {
   const c = useStudio();
   const { say } = c;
   const { kits, kitGroups } = c.catalogue;
+  /* The kit as a row, not a key — `kitEngine`, `kitIsPlayable` and `paramDefs`
+     all read the row now that kits are catalogue content. */
+  const kitRow = kits[c.kit];
 
   /**
    * What the sampled kits have actually decoded. A kit that is still arriving
@@ -25,7 +28,7 @@ export function KitPanel() {
    * yet".
    */
   const kitStatus = ((): string => {
-    const engine = kitEngine(c.kit);
+    const engine = kitEngine(kitRow);
     if (engine === 'user') {
       return c.kitSlots ? `${c.kitSlots} of your own samples loaded` : 'No samples loaded yet';
     }
@@ -46,9 +49,9 @@ export function KitPanel() {
               {kitGroups.map((group) => (
                 <optgroup key={group.label} label={group.label}>
                   {group.keys.map((k) => (
-                    <option key={k} value={k} disabled={!kitIsPlayable(k)}>
+                    <option key={k} value={k} disabled={!kitIsPlayable(kits[k])}>
                       {kits[k].label}
-                      {kitIsPlayable(k) ? '' : ' — not ported yet'}
+                      {kitIsPlayable(kits[k]) ? '' : ' — not ported yet'}
                     </option>
                   ))}
                 </optgroup>
@@ -149,7 +152,7 @@ export function KitPanel() {
             ))}
           </div>
 
-          {kitEngine(c.kit) === 'user' ? <SampleSlots /> : null}
+          {kitEngine(kitRow) === 'user' ? <SampleSlots /> : null}
 
           {c.voice === 'p' && c.percCount ? (
             <div className="field">
@@ -173,7 +176,7 @@ export function KitPanel() {
             </div>
           ) : null}
 
-          {paramDefs(c.voice, c.kit).map((def) => (
+          {paramDefs(c.voice, kitRow).map((def) => (
             <Slider
               key={def.key}
               label={def.label}
@@ -212,7 +215,7 @@ export function KitPanel() {
           </div>
 
           <div className="hint" style={{ marginTop: 14 }}>
-            {VOICE_HINTS[SYNTH_ONLY[c.voice] ? 'aux' : kitEngine(c.kit)] ?? VOICE_HINTS.synth}
+            {VOICE_HINTS[SYNTH_ONLY[c.voice] ? 'aux' : kitEngine(kitRow)] ?? VOICE_HINTS.synth}
           </div>
         </div>
       </div>

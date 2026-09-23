@@ -24,9 +24,10 @@ import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { Stage } from '@/components/app/studio/stage';
-import { codeCatalogue, type Studio } from '@/components/app/studio/studio-provider';
+import { type Studio } from '@/components/app/studio/studio-provider';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import type { PlayEvent } from '@/lib/app/breaks/audio/transport';
+import { testCatalogue, testStyle } from '@/tests/helpers/catalogue';
 
 let fake: Studio;
 
@@ -43,15 +44,16 @@ const noop = () => {
 };
 
 beforeEach(() => {
+  const funk = testStyle('funk');
   const A = generatePattern({
-    style: 'funk',
+    style: funk,
     meter: '4/4',
     seed: 7,
     bars: 2,
     density: 50,
     ghosts: 50,
   });
-  const B = deriveB(A);
+  const B = deriveB(A, funk.params);
 
   fake = {
     ready: true,
@@ -152,7 +154,7 @@ beforeEach(() => {
     buildBFromA: vi.fn(),
     applyDoctor: vi.fn(),
     cycleCell: vi.fn(),
-    loadLibraryItem: vi.fn(),
+    loadLibraryEntry: vi.fn(),
     undo: vi.fn(),
     redo: vi.fn(),
     canUndo: false,
@@ -175,7 +177,7 @@ beforeEach(() => {
     closeMidiOut: vi.fn(),
     audition: vi.fn(),
 
-    catalogue: codeCatalogue(),
+    catalogue: testCatalogue(),
     toast: '',
     say: noop,
   } as unknown as Studio;

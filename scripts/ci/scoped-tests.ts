@@ -456,7 +456,15 @@ export function buildVitestArgv(plan: ScopedRunPlan): string[] {
   if (plan.coverage.length > 0) {
     argv.push('--coverage');
     for (const path of plan.coverage) argv.push(`--coverage.include=${escapeGlob(path)}`);
-    argv.push('--coverage.thresholds.perFile=true');
+    /* The bare flag, NOT `--coverage.thresholds.perFile=true`. Vitest 5.0.1
+       accepts the `=true` spelling on the command line and silently drops it:
+       the floor then applies to the AVERAGE across the included files, which a
+       branch touching 62 files passes at 96% while carrying one at 62%. Both
+       spellings exit 0 on a single-file run, which is why it survived its own
+       tests — the two that pin this string are the only place the difference
+       shows without a mixed set. Measured: 67%-lines file under `lines=80`,
+       `=true` exits 0, bare flag exits 1. */
+    argv.push('--coverage.thresholds.perFile');
     for (const metric of ['lines', 'functions', 'branches', 'statements']) {
       argv.push(`--coverage.thresholds.${metric}=${plan.threshold}`);
     }
@@ -605,7 +613,7 @@ export function selfTestFailure(deps: Partial<SelfTestDeps> = {}): string | null
   }
 
   const argv = build({ selected: [], alwaysRun: [], coverage: ['lib/a.ts'], threshold: 80 });
-  if (!argv.includes('--coverage.thresholds.perFile=true')) {
+  if (!argv.includes('--coverage.thresholds.perFile')) {
     return 'buildVitestArgv stopped asking for per-file coverage thresholds.';
   }
 

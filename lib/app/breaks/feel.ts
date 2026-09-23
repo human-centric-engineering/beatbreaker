@@ -1,5 +1,5 @@
 import { M44, groupAt, groupsOf } from '@/lib/app/breaks/meter';
-import type { Feel, LaneKey, Meter, Style } from '@/lib/app/breaks/types';
+import type { Feel, LaneKey, Meter, StyleAttrs } from '@/lib/app/breaks/types';
 
 /**
  * Feel and dynamics — everything that decides a hit is not exactly on the grid,
@@ -36,8 +36,14 @@ export function feelOffset(
   return v + wobble;
 }
 
-/** The style's feel table, if it has one. */
-export function feelOf(style: Style | undefined): Feel | null {
+/**
+ * The feel table, if there is one.
+ *
+ * Takes a {@link StyleAttrs} rather than a whole `Style`, which is what lets
+ * playback read it off `pattern.attrs` — the snapshot the pattern carries —
+ * rather than off a style table that may since have moved or gone.
+ */
+export function feelOf(style: StyleAttrs | undefined): Feel | null {
   return style?.feel ?? null;
 }
 
@@ -90,7 +96,7 @@ export function hatShape(
   chip: number,
   kind: 'h' | 'r',
   m: Meter,
-  style: Style | undefined,
+  style: StyleAttrs | undefined,
   hatsPct: number
 ): number {
   const depth = (hatsPct / 100) * (style?.hatDepth ?? 1) * (kind === 'r' ? 0.8 : 1);
@@ -102,12 +108,12 @@ export function hatShape(
 }
 
 /** Which note value the swing slider moves for this style. */
-export function swingUnitOf(style: Style | undefined): number {
+export function swingUnitOf(style: StyleAttrs | undefined): number {
   return style?.swingUnit ?? 16;
 }
 
 /** Whether this step is one the swing slider pushes late. */
-export function isSwung(step: number, m: Meter, style: Style | undefined): boolean {
+export function isSwung(step: number, m: Meter, style: StyleAttrs | undefined): boolean {
   if (swingUnitOf(style) === 8 && m.sub === 4) return step % 4 === 2;
   return step % 2 === 1;
 }

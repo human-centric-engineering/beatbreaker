@@ -2,9 +2,9 @@
  * BeatBreaker's own half of the Art. 15 export seam.
  *
  * `tests/unit/lib/app/defaults.test.ts` is Sunrise's file and asserts the
- * *declarations* — that `Break` and `Take` are accounted for at all. This is
- * ours, and asserts the behaviour that actually reaches a data subject: **both
- * sections come back as keys even when the person has no rows.**
+ * *declarations* — that every app model is accounted for at all. This is ours,
+ * and asserts the behaviour that actually reaches a data subject: **every
+ * section comes back as a key even when the person has no rows.**
  *
  * That is the failure worth a test of its own. A bundle short by a section
  * reads exactly like a complete answer, and neither the subject nor the
@@ -15,23 +15,35 @@
  * FORK NOTE — this file reads `@/lib/app/data-export` for real, with no
  * `vi.mock`, because the collector's behaviour IS what it is testing. A fork of
  * BeatBreaker that adds its own tables to that seam will see this fail on the
- * section list: expect `['breaks', 'takes']` plus yours, and pin the new list
- * here. Do not mock the seam to make it pass — the assertion is that the real
+ * section list: expect the five below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
  * collector returns every declared section as a key, and a mock cannot tell you
- * that. The two `prisma` methods are mocked instead, which is the part this
- * test genuinely does not need to be real.
+ * that. The `prisma` methods are mocked instead, which is the part this test
+ * genuinely does not need to be real.
  */
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-const findMany = { breaks: vi.fn(), takes: vi.fn() };
+const findMany = {
+  breaks: vi.fn(),
+  takes: vi.fn(),
+  styles: vi.fn(),
+  libraries: vi.fn(),
+  kits: vi.fn(),
+};
 
 vi.mock('@/lib/db/client', () => ({
   prisma: {
     break: { findMany: (...args: unknown[]) => findMany.breaks(...args) },
     take: { findMany: (...args: unknown[]) => findMany.takes(...args) },
+    style: { findMany: (...args: unknown[]) => findMany.styles(...args) },
+    patternLibrary: { findMany: (...args: unknown[]) => findMany.libraries(...args) },
+    kit: { findMany: (...args: unknown[]) => findMany.kits(...args) },
   },
 }));
+
+/** Every spy, reset together and defaulted together. */
+const ALL = Object.values(findMany);
+const OWNED = [findMany.styles, findMany.libraries, findMany.kits];
 
 const { collectAppSubjectData } = await import('@/lib/app/data-export');
 
@@ -39,33 +51,36 @@ const SUBJECT = { userId: 'user-1', email: 'user@example.com' };
 
 describe('collectAppSubjectData', () => {
   beforeEach(() => {
-    findMany.breaks.mockReset();
-    findMany.takes.mockReset();
+    for (const spy of ALL) {
+      spy.mockReset();
+      spy.mockResolvedValue([]);
+    }
   });
 
-  it('returns both sections as empty arrays when the subject has nothing', async () => {
-    findMany.breaks.mockResolvedValue([]);
-    findMany.takes.mockResolvedValue([]);
-
+  it('returns every section as an empty array when the subject has nothing', async () => {
     const data = await collectAppSubjectData(SUBJECT);
 
     // `toHaveProperty`, not a truthiness check: the bug this guards against is
     // the key being absent, which an `expect(data.breaks).toEqual([])` would
     // also catch — but only by accident, since undefined fails that too for a
     // different reason.
-    expect(Object.keys(data).sort()).toEqual(['breaks', 'takes']);
-    expect(data.breaks).toEqual([]);
-    expect(data.takes).toEqual([]);
+    expect(Object.keys(data).sort()).toEqual(['breaks', 'kits', 'libraries', 'styles', 'takes']);
+    for (const section of Object.values(data)) expect(section).toEqual([]);
   });
 
-  it('scopes both queries to the subject', async () => {
-    findMany.breaks.mockResolvedValue([]);
-    findMany.takes.mockResolvedValue([]);
-
+  it('scopes every query to the subject', async () => {
     await collectAppSubjectData(SUBJECT);
 
     for (const spy of [findMany.breaks, findMany.takes]) {
       expect(spy).toHaveBeenCalledWith(expect.objectContaining({ where: { userId: 'user-1' } }));
+    }
+    /* The catalogue names its owner `ownerId`, not `userId`. A copy-paste that
+       left `userId` here would throw at the database rather than silently
+       return everyone's rows — but a copy-paste that left the filter off
+       entirely would hand one subject every other subject's styles, and that is
+       what this pins. */
+    for (const spy of OWNED) {
+      expect(spy).toHaveBeenCalledWith(expect.objectContaining({ where: { ownerId: 'user-1' } }));
     }
   });
 
@@ -77,7 +92,6 @@ describe('collectAppSubjectData', () => {
     findMany.breaks.mockResolvedValue([
       { id: 'b1', title: 'Cold Carpet', seed: 4294967295n, bpm: 94 },
     ]);
-    findMany.takes.mockResolvedValue([]);
 
     const data = await collectAppSubjectData(SUBJECT);
 

@@ -121,6 +121,41 @@ export function initAppSubjectSources(): void {
         description:
           'Recordings of you playing a break — the metadata and the storage key, not the video file itself.',
       },
+      /* The catalogue. Every row is a system row today (`ownerId` null), so
+         these three sections come back empty for everybody — and they are
+         declared anyway, because the alternative is that the day D16 ships
+         user-authored styles, the export quietly stops being complete and
+         nothing says so. An empty section is a truthful answer; a missing one
+         reads exactly like a complete bundle. */
+      {
+        model: 'Style',
+        section: 'styles',
+        disposition: 'export',
+        description: 'Generator styles you authored, with every version of their parameters.',
+      },
+      {
+        model: 'PatternLibrary',
+        section: 'libraries',
+        disposition: 'export',
+        description: 'Pattern libraries you authored, and the patterns in them.',
+      },
+      {
+        model: 'Kit',
+        section: 'kits',
+        disposition: 'export',
+        description: 'Drum kits you authored — the settings, not the sample audio.',
+      },
+    ],
+    excluded: [
+      {
+        model: 'StyleVersion',
+        reason:
+          "Exported as part of its Style rather than on its own — a version has no meaning apart from the style it versions. A version you authored of somebody ELSE's style carries only your user id in `createdById`, which is nulled on erasure and is not content about you.",
+      },
+      {
+        model: 'LibraryEntry',
+        reason: 'Exported inside its PatternLibrary; an entry has no owner of its own.',
+      },
     ],
   });
 }
@@ -135,9 +170,22 @@ export function initAppSubjectSources(): void {
  * change the signature just to add one.
  */
 export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promise<AppSubjectData> {
-  const [breaks, takes] = await Promise.all([
+  const [breaks, takes, styles, libraries, kits] = await Promise.all([
     prisma.break.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } }),
     prisma.take.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } }),
+    /* `ownerId`, not `userId` — the catalogue names its owner differently, and
+       that is precisely the column core's own user-id heuristic cannot see. */
+    prisma.style.findMany({
+      where: { ownerId: userId },
+      orderBy: { createdAt: 'asc' },
+      include: { versions: { orderBy: { version: 'asc' } } },
+    }),
+    prisma.patternLibrary.findMany({
+      where: { ownerId: userId },
+      orderBy: { createdAt: 'asc' },
+      include: { entries: { orderBy: { position: 'asc' } } },
+    }),
+    prisma.kit.findMany({ where: { ownerId: userId }, orderBy: { createdAt: 'asc' } }),
   ]);
 
   /* Both keys are returned unconditionally, empty arrays included. A bundle
@@ -150,5 +198,8 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
   return {
     breaks: breaks.map((b) => ({ ...b, seed: b.seed.toString() })),
     takes,
+    styles,
+    libraries,
+    kits,
   };
 }

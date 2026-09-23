@@ -2,26 +2,36 @@
  * The famous-breaks library: 47 hand-written transcriptions. Nothing type-checks
  * a bar string against its meter, so a typo in one entry is a silently short bar
  * until something here reads it.
+ *
+ * The entries are seed data now (D13) rather than a table in `lib/`, and
+ * `patternFromLibrary` takes the resolved style as an argument. Both are read
+ * here the way the seed reads them — the same rows, through the new arguments —
+ * so a transcription typo still fails here and not in production.
  */
 
 import { describe, expect, it } from 'vitest';
 
+import { libraryGroups } from '@/lib/app/breaks/catalogue/types';
 import { playability } from '@/lib/app/breaks/critic';
 import { engrave } from '@/lib/app/breaks/engrave';
 import { LANES } from '@/lib/app/breaks/lanes';
-import { LIBRARY, libraryGroups, patternFromLibrary } from '@/lib/app/breaks/library';
+import { patternFromLibrary } from '@/lib/app/breaks/library';
 import { METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
-import { STYLES } from '@/lib/app/breaks/styles';
+import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
+import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
+import { testLibrary, testStyle } from '@/tests/helpers/catalogue';
 
 const ENTRIES = LIBRARY.map((item, index) => ({
   item,
   index,
-  pat: patternFromLibrary(item, index),
+  pat: patternFromLibrary(item, index, STYLES[item.style] ? testStyle(item.style) : undefined),
 }));
 
 describe('the famous-breaks library', () => {
   it('has 47 entries — the number the site copy quotes', () => {
     expect(LIBRARY).toHaveLength(47);
+    // and every one of them reaches the catalogue the picker is built from
+    expect(testLibrary().entries).toHaveLength(47);
   });
 
   it('names only styles and meters that exist', () => {
@@ -87,7 +97,13 @@ describe('the famous-breaks library', () => {
   });
 
   it('groups every entry exactly once, in table order', () => {
-    const indices = libraryGroups().flatMap(([, rows]) => rows.map((r) => r.index));
+    /* `libraryGroups` groups the catalogue's own entries now, so the position a
+       row was seeded at is its index in `entries` rather than a field on it. */
+    const library = testLibrary();
+    const position = new Map(library.entries.map((entry, i) => [entry.id, i]));
+    const indices = libraryGroups(library).flatMap(([, rows]) =>
+      rows.map((r) => position.get(r.id) ?? -1)
+    );
     expect(indices.slice().sort((a, b) => a - b)).toEqual(LIBRARY.map((_, i) => i));
   });
 });

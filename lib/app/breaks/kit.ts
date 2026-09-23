@@ -1,5 +1,12 @@
 /**
- * The kits, and the knobs each one exposes.
+ * What a kit is, and the knobs each one exposes.
+ *
+ * **The kit table itself is not in this file any more.** Kits are `Kit` rows
+ * from Phase 2 (D13), seeded from `prisma/seeds/app-beatbreaker/data/kits.ts`,
+ * and playback receives a {@link ResolvedKit} rather than looking one up by
+ * key. What is left here is the vocabulary — the slots, the voices, the knob
+ * definitions — which is structural: a saved tuning is meaningless without it,
+ * so it stays in code and is served read-only.
  *
  * **Four engines, one playback path.** Each kit is a plain parameter object
  * plus an engine name, so a fork adds a kit without touching playback and a
@@ -28,6 +35,32 @@ export type KitEngine = 'synth' | 'drift' | 'pack' | 'user';
 /** One voice's knobs. Units depend on the engine — see {@link PARAM_DEFS}. */
 export type VoiceParams = Record<string, number>;
 
+/**
+ * One slot's recordings: the files, and the velocity each was recorded at.
+ *
+ * `v: null` means one layer at full velocity. This is the shape
+ * `public/kits/manifest.json` carried before Phase 2; it is now the `samples`
+ * column on a `Kit` row, and the audio files stay where they were.
+ */
+export interface KitSampleSlot {
+  v: number[] | null;
+  files: string[];
+}
+
+/**
+ * A kit's recordings: slots keyed by {@link Slot} id, plus the shared
+ * percussion set where the kit ships one.
+ *
+ * Percussion is deliberately **not** per kit — a tambourine over the Studio
+ * '70s set should be a tambourine — so exactly one system kit carries `perc`
+ * and every kit reaches it. Empty for a kit that synthesises its voices.
+ */
+export interface KitSamples {
+  sampleRate?: number;
+  slots?: Record<string, KitSampleSlot>;
+  perc?: Record<string, KitSampleSlot>;
+}
+
 export interface Kit {
   label: string;
   hint: string;
@@ -50,209 +83,74 @@ export interface Kit {
   p: VoiceParams;
 }
 
-export const KITS: Record<string, Kit> = {
-  studio70: {
-    label: "Studio '70s",
-    hint: 'Warm and dry, tuned low. Fat snare, dark ride — carpet on the walls and a blanket in the kick.',
-    master: { lp: 15000, drive: 1.25, room: 0.16 },
-    k: { tune: 50, decay: 0.36, tone: 0.3, room: 0.04 },
-    s: { tune: 186, decay: 0.18, tone: 0.52, room: 0.2 },
-    h: { tune: 0.96, decay: 0.048, open: 0.34, tone: 7600, room: 0.12 },
-    r: { tune: 0.92, decay: 1.6, tone: 3100, room: 0.26 },
-    c: { tune: 0.88, decay: 2.4, tone: 2500, room: 0.38 },
-    t: { tune: 88, decay: 0.52, tone: 0.34, room: 0.2 },
-    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.16 },
-  },
-  raregroove: {
-    label: 'Rare groove',
-    hint: 'Sampled off a worn record: rolled-off top, a bit of drive, everything slightly further away.',
-    master: { lp: 7200, drive: 1.75, room: 0.24 },
-    k: { tune: 46, decay: 0.3, tone: 0.22, room: 0.08 },
-    s: { tune: 178, decay: 0.15, tone: 0.44, room: 0.3 },
-    h: { tune: 0.88, decay: 0.04, open: 0.26, tone: 6200, room: 0.18 },
-    r: { tune: 0.86, decay: 1.2, tone: 2600, room: 0.34 },
-    c: { tune: 0.82, decay: 1.9, tone: 2000, room: 0.46 },
-    t: { tune: 82, decay: 0.44, tone: 0.26, room: 0.26 },
-    p: { tune: 0.94, level: 0.85, tone: 0.86, room: 0.22 },
-  },
-  liveroom: {
-    label: 'Live room',
-    hint: 'Big and open. Long cymbals, plenty of air — how it sounds when nobody puts tape on anything.',
-    master: { lp: 17500, drive: 1.1, room: 0.44 },
-    k: { tune: 54, decay: 0.42, tone: 0.42, room: 0.16 },
-    s: { tune: 196, decay: 0.24, tone: 0.62, room: 0.46 },
-    h: { tune: 1.04, decay: 0.058, open: 0.52, tone: 8800, room: 0.3 },
-    r: { tune: 1.0, decay: 2.6, tone: 3600, room: 0.44 },
-    c: { tune: 0.95, decay: 3.4, tone: 2900, room: 0.58 },
-    t: { tune: 94, decay: 0.66, tone: 0.44, room: 0.42 },
-    p: { tune: 1.04, level: 0.9, tone: 1.1, room: 0.34 },
-  },
-  machine: {
-    label: 'Machine',
-    hint: 'Drum-box flavour — clicky kick, noisy snare, pure metal cymbals. No room at all.',
-    master: { lp: 18000, drive: 1.35, room: 0.0 },
-    k: { tune: 42, decay: 0.52, tone: 0.62, room: 0 },
-    s: { tune: 220, decay: 0.13, tone: 0.8, room: 0.04 },
-    h: { tune: 1.22, decay: 0.034, open: 0.3, tone: 9800, room: 0.02 },
-    r: { tune: 1.18, decay: 1.1, tone: 4400, room: 0.04 },
-    c: { tune: 1.1, decay: 1.8, tone: 3400, room: 0.06 },
-    t: { tune: 100, decay: 0.4, tone: 0.6, room: 0.02 },
-    p: { tune: 1.1, level: 0.9, tone: 1.2, room: 0.03 },
-  },
-  practice: {
-    label: 'Practice',
-    hint: 'Built to be played over. Short, dry and bright so it still cuts when you are hitting real drums.',
-    master: { lp: 16000, drive: 1.0, room: 0.04 },
-    k: { tune: 58, decay: 0.22, tone: 0.72, room: 0 },
-    s: { tune: 210, decay: 0.12, tone: 0.66, room: 0.05 },
-    h: { tune: 1.1, decay: 0.032, open: 0.22, tone: 9200, room: 0.04 },
-    r: { tune: 1.05, decay: 0.85, tone: 4200, room: 0.06 },
-    c: { tune: 1.0, decay: 1.5, tone: 3200, room: 0.1 },
-    t: { tune: 96, decay: 0.34, tone: 0.62, room: 0.05 },
-    p: { tune: 1.06, level: 0.9, tone: 1.14, room: 0.05 },
-  },
+/**
+ * A kit as playback receives it: a {@link Kit} that knows which row it is.
+ *
+ * `key` is not on `Kit` because the seed data writes the table as a record and
+ * the key is the record key. Everything downstream of the catalogue works in
+ * `ResolvedKit`, so nothing has to keep a key and an object in step.
+ */
+export interface ResolvedKit extends Kit {
+  key: string;
+  /** Heading the picker files it under — the `group` column. */
+  group: string;
+  /** Slot → files. `{}` for a kit that synthesises its voices. */
+  samples: KitSamples;
+}
 
-  /* ---- drum-machine kits: voices come from @driftbox/engine, baked to buffers ----
-     Knobs here are the machine's own 0..1 knobs, not Hz and seconds, because that
-     is what the circuit models take. `room` is still our send, not theirs.        */
-  tr909: {
-    label: 'TR-909',
-    engine: 'drift',
-    machine: '909',
-    trim: 0.68,
-    hint: 'Roland TR-909 voice models — analogue kick and snare, 6-bit PCM hats and cymbals. Baked to samples once, then played back like samples.',
-    master: { lp: 18000, drive: 1.15, room: 0.06 },
-    k: { tune: 0.34, decay: 0.42, tone: 0.5, colour: 0.0, level: 0.86, room: 0.02 },
-    s: { tune: 0.5, decay: 0.42, tone: 0.52, colour: 0.58, level: 0.72, room: 0.06 },
-    h: { tune: 0.5, decay: 0.34, tone: 0.52, colour: 0.5, level: 0.6, room: 0.04 },
-    r: { tune: 0.5, decay: 0.55, tone: 0.5, colour: 0.5, level: 0.55, room: 0.08 },
-    c: { tune: 0.5, decay: 0.62, tone: 0.5, colour: 0.5, level: 0.55, room: 0.12 },
-    t: { tune: 92, decay: 0.44, tone: 0.55, room: 0.05 },
-    p: { tune: 1.08, level: 0.9, tone: 1.16, room: 0.05 },
-  },
-  tr808: {
-    label: 'TR-808',
-    engine: 'drift',
-    machine: '808',
-    trim: 0.62,
-    hint: 'Roland TR-808 voice models. The 808 never had a ride or a crash, so those two come from the 909 — everything else is 808.',
-    master: { lp: 16500, drive: 1.1, room: 0.05 },
-    k: { tune: 0.42, decay: 0.3, tone: 0.34, colour: 0.55, level: 0.88, room: 0.02 },
-    s: { tune: 0.5, decay: 0.4, tone: 0.5, colour: 0.55, level: 0.7, room: 0.06 },
-    h: { tune: 0.5, decay: 0.3, tone: 0.55, colour: 0.5, level: 0.55, room: 0.04 },
-    r: { tune: 0.5, decay: 0.55, tone: 0.5, colour: 0.5, level: 0.55, room: 0.08 },
-    c: { tune: 0.5, decay: 0.62, tone: 0.5, colour: 0.5, level: 0.55, room: 0.12 },
-    t: { tune: 76, decay: 0.7, tone: 0.18, room: 0.05 },
-    p: { tune: 1.02, level: 0.9, tone: 1.05, room: 0.05 },
-  },
+/* ---- the synthesiser's own numbers -----------------------------------
+   Two fallbacks, and they are code rather than catalogue rows on purpose: a
+   fallback that reads a row is not a fallback, because the row is the thing
+   that can be edited, unpublished or deleted.
 
-  /* ---- recorded kits that ship with the page (see packs.js) ---- */
-  muldjord: {
-    label: 'Muldjord kit',
-    engine: 'pack',
-    pack: 'muldjord',
-    trim: 1.42,
-    hint: 'A real kit, recorded properly: two kick mics, a snare with its own rest strokes, hats, ride, ride bell and crash. Three velocity layers on the lanes that need them.',
-    credit:
-      'MuldjordKit by Lars Muldjord · CC BY 4.0 · Hydrogen conversion by FreePats (freepats.zenvoid.org)',
-    master: { lp: 18000, drive: 1.05, room: 0.1 },
-    k: { rate: 1, level: 0.95, room: 0.03 },
-    s: { rate: 1, level: 0.95, room: 0.1 },
-    h: { rate: 1, level: 0.9, room: 0.06 },
-    r: { rate: 1, level: 0.85, room: 0.12 },
-    c: { rate: 1, level: 0.85, room: 0.16 },
-    t: { tune: 90, decay: 0.54, tone: 0.38, room: 0.14 },
-    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.12 },
-  },
-  vintage: {
-    label: 'Dusty sampler',
-    engine: 'pack',
-    pack: 'vintage',
-    trim: 1.34,
-    hint: 'Down-sampled and bit-crushed hits — SP-1200 territory. Dark kick, snare layered with a clap, one 808 cymbal doing both ride and crash. Made for the boom-bap and Dilla styles.',
-    credit: 'Soulful Vintage kit by Boochi44 · CC0 1.0 (public domain)',
-    master: { lp: 9000, drive: 1.5, room: 0.14 },
-    k: { rate: 1, level: 1.0, room: 0.02 },
-    s: { rate: 1, level: 0.95, room: 0.12 },
-    h: { rate: 1, level: 0.85, room: 0.08 },
-    r: { rate: 1, level: 0.75, room: 0.14 },
-    c: { rate: 1, level: 0.8, room: 0.18 },
-    t: { tune: 80, decay: 0.4, tone: 0.24, room: 0.16 },
-    p: { tune: 0.92, level: 0.9, tone: 0.84, room: 0.16 },
-  },
-  trap: {
-    label: 'Trap kit',
-    engine: 'pack',
-    pack: 'trap',
-    trim: 0.87,
-    hint: 'Long distorted 808 kick, snare with a clap on top, tight hats. Not a break-practice kit — it is here because the same grid drives it.',
-    credit: 'Hard Trap kit by Boochi44 · CC0 1.0 (public domain)',
-    master: { lp: 18000, drive: 1.1, room: 0.04 },
-    k: { rate: 1, level: 0.85, room: 0.0 },
-    s: { rate: 1, level: 0.95, room: 0.06 },
-    h: { rate: 1, level: 0.9, room: 0.03 },
-    r: { rate: 1, level: 0.8, room: 0.06 },
-    c: { rate: 1, level: 0.8, room: 0.1 },
-    t: { tune: 74, decay: 0.6, tone: 0.3, room: 0.04 },
-    p: { tune: 1.12, level: 0.9, tone: 1.22, room: 0.04 },
-  },
+   They started life as the Studio '70s and Machine kits and are now
+   independent of them. An admin retuning either kit does not move these, which
+   is the point — what plays while a pack is still decoding should not change
+   under you because somebody edited an unrelated kit.
+   -------------------------------------------------------------------- */
 
-  virtuosity: {
-    label: 'Jazz kit (Virtuosity)',
-    engine: 'pack',
-    pack: 'virtuosity',
-    trim: 1.15,
-    hint: 'A real kit recorded live-club style — the one acoustic set here with its own toms, a hi-hat played with the foot, a cross-stick, and a ride worth riding on. The jazz styles switch to it on their own, because a swing ride on a synthesised cymbal never quite arrives. Made for the jazz styles, but it will play anything. The tom, foot-hat and percussion knobs are for the synthesised voices; on this kit those lanes are recordings, so only Room does anything to them.',
-    credit:
-      'Virtuosity Drums by Versilian Studios and Karoryfer Samples · CC0 1.0 (public domain). Percussion from the same library; woodblock and handclaps from the Versilian Community Sample Library · CC0 1.0. Mid ribbon mic, mono, trimmed and re-encoded for the web.',
-    master: { lp: 18000, drive: 1.06, room: 0.16 },
-    k: { rate: 1, level: 0.95, room: 0.03 },
-    s: { rate: 1, level: 0.95, room: 0.14 },
-    h: { rate: 1, level: 0.95, room: 0.09 },
-    r: { rate: 1, level: 0.9, room: 0.16 },
-    c: { rate: 1, level: 0.88, room: 0.22 },
-    t: { tune: 90, decay: 0.5, tone: 0.4, room: 0.16 },
-    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.14 },
-  },
-
-  brush: {
-    label: 'Brush kit',
-    engine: 'pack',
-    pack: 'brush',
-    trim: 1.1,
-    hint: 'Wire brushes, not sticks — the snare becomes a soft slap with no crack in it, and the cymbals are played light. Made for the ballad. The continuous swirl a brush player keeps going with the left hand is not here: a swirl is not a step, and this page only has steps.',
-    credit:
-      'Swirly Drums by Karoryfer Samples · CC0 1.0 (public domain). Top snare mic, mono, trimmed and re-encoded for the web.',
-    master: { lp: 17000, drive: 1.02, room: 0.2 },
-    k: { rate: 1, level: 0.95, room: 0.04 },
-    s: { rate: 1, level: 1.0, room: 0.16 },
-    h: { rate: 1, level: 0.95, room: 0.1 },
-    r: { rate: 1, level: 0.92, room: 0.18 },
-    c: { rate: 1, level: 0.88, room: 0.24 },
-    t: { tune: 88, decay: 0.5, tone: 0.34, room: 0.18 },
-    p: { tune: 1.0, level: 0.9, tone: 0.94, room: 0.16 },
-  },
-
-  /* ---- your own recordings ---- */
-  user: {
-    label: 'Your samples',
-    engine: 'user',
-    hint: 'Load your own one-shots — a real kit, your kit, or whatever is on the drive. Nothing is uploaded; the files stay in this browser.',
-    master: { lp: 18000, drive: 1.0, room: 0.08 },
-    k: { rate: 1, level: 0.95, room: 0.02 },
-    s: { rate: 1, level: 0.95, room: 0.08 },
-    h: { rate: 1, level: 0.95, room: 0.06 },
-    r: { rate: 1, level: 0.95, room: 0.1 },
-    c: { rate: 1, level: 0.95, room: 0.14 },
-    t: { tune: 90, decay: 0.5, tone: 0.4, room: 0.12 },
-    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.1 },
-  },
+/**
+ * What the synthesised voices use when there is no kit at all: the catalogue
+ * has not arrived yet, or a saved kit key no longer names a row.
+ */
+export const SYNTH_FALLBACK: Kit = {
+  label: 'Default',
+  hint: 'The synthesised voices, before any kit is chosen.',
+  master: { lp: 15000, drive: 1.25, room: 0.16 },
+  k: { tune: 50, decay: 0.36, tone: 0.3, room: 0.04 },
+  s: { tune: 186, decay: 0.18, tone: 0.52, room: 0.2 },
+  h: { tune: 0.96, decay: 0.048, open: 0.34, tone: 7600, room: 0.12 },
+  r: { tune: 0.92, decay: 1.6, tone: 3100, room: 0.26 },
+  c: { tune: 0.88, decay: 2.4, tone: 2500, room: 0.38 },
+  t: { tune: 88, decay: 0.52, tone: 0.34, room: 0.2 },
+  p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.16 },
 };
 
-export const KIT_KEYS = Object.keys(KITS);
+/**
+ * What the synthesised voices use while a **sample or drum-machine** kit is
+ * loading.
+ *
+ * Those kits store 0..1 knobs, and the synth only understands Hz and seconds —
+ * handing it 0.5 would read as 0.5 Hz. So it stands in with a neutral, clicky
+ * set rather than with the loading kit's numbers.
+ */
+export const SAMPLE_STAND_IN: Record<string, VoiceParams> = {
+  k: { tune: 42, decay: 0.52, tone: 0.62, room: 0 },
+  s: { tune: 220, decay: 0.13, tone: 0.8, room: 0.04 },
+  h: { tune: 1.22, decay: 0.034, open: 0.3, tone: 9800, room: 0.02 },
+  r: { tune: 1.18, decay: 1.1, tone: 4400, room: 0.04 },
+  c: { tune: 1.1, decay: 1.8, tone: 3400, room: 0.06 },
+  t: { tune: 100, decay: 0.4, tone: 0.6, room: 0.02 },
+  p: { tune: 1.1, level: 0.9, tone: 1.2, room: 0.03 },
+};
 
-export function kitEngine(key: string): KitEngine {
-  return KITS[key]?.engine ?? 'synth';
+/**
+ * Which playback path a kit takes. `synth` is the default because a row with
+ * no engine named is a set of synthesised voices — that is what the column
+ * meant before it existed.
+ */
+export function kitEngine(kit: Kit | undefined | null): KitEngine {
+  return kit?.engine ?? 'synth';
 }
 
 /**
@@ -266,8 +164,21 @@ export function kitEngine(key: string): KitEngine {
  */
 const IMPLEMENTED_ENGINES: ReadonlySet<KitEngine> = new Set<KitEngine>(['synth', 'pack', 'user']);
 
-export function kitIsPlayable(key: string): boolean {
-  return IMPLEMENTED_ENGINES.has(kitEngine(key));
+/**
+ * Whether this kit can actually be played.
+ *
+ * A kit that is not there is not playable, and that has to be said explicitly:
+ * `kitEngine(undefined)` is `'synth'` — the right answer for a ROW that names
+ * no engine, and the wrong one for no row at all — so without the first clause
+ * this returns `true` for a key the catalogue has never heard of. The caller
+ * that found out was the style-change path in `use-break-console`, which reads
+ * a kit key out of localStorage: once an admin deleted a kit, picking any style
+ * wrote that dead key into state, the picker showed nothing selected, and
+ * playback fell through to the synthesised fallback.
+ */
+export function kitIsPlayable(kit: Kit | undefined | null): boolean {
+  if (!kit) return false;
+  return IMPLEMENTED_ENGINES.has(kitEngine(kit));
 }
 
 /**
@@ -285,20 +196,21 @@ export const KIT_GROUP_LABELS: Record<KitEngine, string> = {
 
 /**
  * The kits as the picker shows them: runs of consecutive kits that share a
- * heading, in table order.
+ * heading, in catalogue order.
  *
- * Grouping by run rather than by engine keeps the table the single place the
- * order is decided — move a kit in {@link KITS} and the picker follows. A kit
- * dropped between two runs of the same heading splits it into two, which is
- * the visible symptom of a table that wants reordering.
+ * Grouping by run rather than by heading keeps the catalogue's `position` the
+ * single place the order is decided. A kit dropped between two runs of the same
+ * heading splits it into two, which is the visible symptom of a catalogue that
+ * wants reordering — and now that an admin can reorder one, that symptom is
+ * information rather than a bug.
  */
-export function kitGroups(): { label: string; keys: string[] }[] {
+export function kitGroups(kits: readonly ResolvedKit[]): { label: string; keys: string[] }[] {
   const groups: { label: string; keys: string[] }[] = [];
-  for (const key of KIT_KEYS) {
-    const label = KIT_GROUP_LABELS[kitEngine(key)];
+  for (const kit of kits) {
+    const label = kit.group || KIT_GROUP_LABELS[kitEngine(kit)];
     const last = groups[groups.length - 1];
-    if (last && last.label === label) last.keys.push(key);
-    else groups.push({ label, keys: [key] });
+    if (last && last.label === label) last.keys.push(kit.key);
+    else groups.push({ label, keys: [kit.key] });
   }
   return groups;
 }
@@ -463,9 +375,9 @@ export const USER_PARAM_DEFS: ParamDef[] = [
 ];
 
 /** Which knobs a voice shows, given the kit currently loaded. */
-export function paramDefs(voice: string, kitKey: string): ParamDef[] {
+export function paramDefs(voice: string, kit: Kit | undefined | null): ParamDef[] {
   if (SYNTH_ONLY[voice]) return PARAM_DEFS[voice];
-  const e = kitEngine(kitKey);
+  const e = kitEngine(kit);
   if (e === 'drift') return DRIFT_PARAM_DEFS;
   if (e === 'user' || e === 'pack') return USER_PARAM_DEFS;
   return PARAM_DEFS[voice];
@@ -489,10 +401,10 @@ export function fmtParam(def: ParamDef, v: number): string {
  * than inventing a parameter the voice does not read.
  */
 export function withTuning(
-  kitKey: string,
+  kit: Kit | undefined | null,
   tuning: Record<string, VoiceParams> | undefined
 ): Record<string, VoiceParams> {
-  const out = kitDefaults(kitKey);
+  const out = kitDefaults(kit);
   if (!tuning) return out;
   for (const voice of Object.keys(out)) {
     const saved = tuning[voice];
@@ -504,11 +416,18 @@ export function withTuning(
   return out;
 }
 
-/** A kit's shipped values — the thing a user's tuning is an override of. */
-export function kitDefaults(kitKey: string): Record<string, VoiceParams> {
-  const kit = KITS[kitKey] ?? KITS.studio70;
+/**
+ * A kit's shipped values — the thing a user's tuning is an override of.
+ *
+ * With no kit (the catalogue has not arrived, or the saved kit is gone) this
+ * falls back to {@link SYNTH_FALLBACK}, which is the synthesiser's own safe
+ * numbers rather than any catalogue kit: a kit row can be edited or deleted and
+ * the fallback must not move when it is.
+ */
+export function kitDefaults(kit: Kit | undefined | null): Record<string, VoiceParams> {
+  const src = kit ?? SYNTH_FALLBACK;
   const out: Record<string, VoiceParams> = {};
-  for (const v of VOICE_KEYS) out[v] = { ...kit[v as 'k'] };
-  out.master = { ...kit.master };
+  for (const v of VOICE_KEYS) out[v] = { ...src[v as 'k'] };
+  out.master = { ...src.master };
   return out;
 }
