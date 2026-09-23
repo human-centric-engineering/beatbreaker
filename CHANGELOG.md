@@ -193,8 +193,11 @@ release process.
 
 - **The console is now the Studio, at `/studio`.** It has its own route group
   (`app/(studio)/`) with a full-window frame — header, stage, tool rail, footer —
-  and every tool in a drawer (a bottom sheet below 1024px) instead of a rail of
-  tabs. `/breaks` is a permanent redirect to `/studio` and stays for good, so
+  and every tool in a drawer instead of stacked in the page. From 1024px up the
+  rail is a tab strip that opens a drawer at the right-hand edge; below that the
+  rail goes, the tools move behind a header button, and a tool opens as a
+  two-snap bottom sheet — which leaves the phone's footer to the transport
+  alone. `/breaks` is a permanent redirect to `/studio` and stays for good, so
   every share link handed out before the move still opens its break: a browser
   carries a `#b=` fragment across to a target that has none of its own. Both
   routes still gate themselves in the page rather than at the edge, for the same
@@ -204,7 +207,10 @@ release process.
   driven by media queries rather than a measured width, so the server HTML is
   laid out correctly on first paint.
 
-- **Seams filled by the fork:** `BrandMark` renders the wordmark;
+- **Seams filled by the fork:** `BrandMark` cuts a two-tone wordmark out of
+  `BRAND.name` by splitting at its inner capital — a name with no inner capital
+  (`Sunrise`, or a one-word fork) comes back as the bare string the platform
+  default returns, wrapper and all, so vanilla header HTML is unchanged;
   `app/brand-theme.css` carries the paper-and-brass palette on the `consumer`
   surface (light and dark) so overlays are branded and `/admin` is not;
   `protected-nav.ts` is Home · Studio · Admin; `auth-landing.ts` relabels
