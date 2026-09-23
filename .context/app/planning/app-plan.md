@@ -376,6 +376,28 @@ for inputs — keep it that way when BeatBuddy's composer arrives); iOS audio
 unlock when the first tap is on a drawer rather than Play; print stylesheet
 still isolating the chart after the DOM moves.
 
+**Status, 2026-09-23.** Built, gated and documented in
+[`shell.md`](../shell.md). All seven items above are done; H7 and H11 closed
+with it. The console's nineteen-case suite mounts the frame and passes
+unchanged, which is what "no feature added or removed" had to mean, and
+changed-file coverage went 49% → 97.6% lines — the audio engine among it, which
+is H0's one deferral discharged.
+
+**Three of the done-when clauses are unverified, and that is the honest state of
+this phase.** The bounding box at the four widths, light/dark across the frame,
+and VoiceOver through open → use → close were never checked in a browser: no
+device pass was run (deliberately — see Phase 0's status), and the visual pass
+needs a session the tooling to hand could not hold. Everything found by reading
+instead — three classes named in JSX and never styled, a `font-family` fallback
+that invalidated its own declaration, two lamp strips where the console had one
+— is the class of defect a look catches in seconds, so treat those three as
+open until somebody opens the page.
+
+**Also deliberate, and worth revisiting in Phase 5:** the critic's score used to
+be visible at all times in the rail and now sits behind the Generate drawer.
+That is the drawers' trade rather than a bug, and the footer beside the read-out
+is where it probably belongs.
+
 ### Phase 2 — The catalogue · M
 
 **Goal:** styles, libraries and kits are rows in the database that any client
