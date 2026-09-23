@@ -158,6 +158,48 @@ a `resource` resolver would make the policy refuse every shared read (H12).
 
 Tests: `tests/integration/api/v1/breaks/`.
 
+## The domain endpoints
+
+Every domain operation is an endpoint as well as a function. The web Studio
+keeps running them in the browser — a regenerate should not wait on the network
+— but the web app is the first client and not the only one (D14), and a native
+app has nothing but `/api/v1`. **One implementation, many callers.**
+
+All five are `POST`, signed-in, stateless (nothing is written), and under the
+section cap. All are `decidedBy: 'nothing'` because there is no row and
+therefore no subject to scope to.
+
+| Route                          | Body                                                                              | Answers                                                                  |
+| ------------------------------ | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| `POST /api/v1/breaks/generate` | `styleKey`, `styleVersion?`, `meter`, `bars`, `density`, `ghosts`, `bpm`, `seed?` | `{ seed, styleVersionId, A, B, critique, playability, tries, rejected }` |
+| `POST /api/v1/breaks/doctor`   | `styleKey`, `styleVersion?`, `doc`, `move`, `entropy?`                            | `{ doc, critique, playability }`                                         |
+| `POST /api/v1/breaks/critique` | `doc`, `bpm`                                                                      | `{ critique, playability }`                                              |
+| `POST /api/v1/breaks/engrave`  | `doc`, `layer`, `scale`, `perSystem`, `guides`, `sticking`                        | the `Engraving` — nodes, playhead map, dimensions                        |
+| `POST /api/v1/breaks/midi`     | `doc` (a whole `SharePayload`), `feel`, `hats`, `bars`                            | `audio/midi` bytes                                                       |
+
+Four things worth knowing:
+
+- **`generate` with a seed runs the generator once; without one it runs the
+  rejection sampler.** Handing `generateGood` a seed would give a different
+  pattern on every call, which is the opposite of what a seed is for. The
+  response always reports the seed of the pattern it returned.
+- **`critique` takes no style.** The critic reads the snapshot the pattern
+  carries, so a break scores the same for the person who made it and for anyone
+  they send it to. `doctor` _does_ take one, because a move writes new notes.
+- **`engrave` returns the node tree, not an SVG string.** A caller that wants a
+  file serialises it in three lines; a caller drawing natively reads the same
+  structure. A string would make the second one parse XML to find the notes.
+- **`midi` answers with bytes, not the JSON envelope** — the one domain endpoint
+  that does. Refusals still use the envelope.
+
+Tests: `tests/unit/app/api/v1/breaks/domain-operations.route.test.ts`. Every one
+asserts the route's output is **byte-identical to calling the function
+directly** — that is the claim worth making, and a test that only checked for a
+200 would pass on the day the server and the browser diverge. The MIDI
+comparison is made at `hats: 0`, because `hatShape` carries a deliberate
+`Math.random()` wobble at anything above it; a second case pins that the wobble
+is still there.
+
 ## Opening a shared link signed out
 
 `/breaks` is **not** in `lib/app/protected-routes.ts`. The page gates itself

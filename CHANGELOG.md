@@ -37,6 +37,14 @@ release process.
   No session — a signed-out visitor opening a shared pattern needs them, and so
   does a native client. New `catalogue` rate-limit tier, 240/min keyed on IP.
 
+- **The domain operations are endpoints.** `POST /api/v1/breaks/generate`,
+  `…/doctor`, `…/critique`, `…/engrave` and `…/midi` — signed-in, stateless, on
+  the same functions and the same catalogue data the browser uses. A native
+  client (D14) needs no second implementation of the generator, the critic or
+  the engraver. `engrave` returns the node tree rather than an SVG string;
+  `midi` answers with `audio/midi` bytes rather than the JSON envelope. Route
+  tests assert each one is byte-identical to calling the function directly.
+
 - **`/api/v1/admin/catalogue/*` — admin writes, audited.** Create a style, add a
   version, move a style in the picker, add/correct/remove a library entry, and
   edit a kit's metadata, knobs and credit. Every write records an
