@@ -42,8 +42,9 @@ export function ToolDrawer({
   container,
   children,
 }: {
+  /** `null` closes it; the panel keeps its last identity through the exit. */
   tool: Tool | null;
-  /** Null until the first client measurement; the CSS has already laid out. */
+  /** Which shape to mount. The CSS has already laid the frame out either way. */
   wide: boolean;
   onClose: () => void;
   /** Focus goes back to whatever opened it — a rail tab, or the header button. */
@@ -51,6 +52,14 @@ export function ToolDrawer({
   container: HTMLElement | null;
   children: React.ReactNode;
 }) {
+  /* Radix keeps the content mounted for the exit animation, so a drawer closed
+     by setting `tool` to null would render its last 180ms with no title and no
+     children — the panel empties, then slides away. Echoing the last real tool
+     keeps it whole until it is gone. */
+  const [lastTool, setLastTool] = useState<Tool | null>(tool);
+  if (tool !== null && tool !== lastTool) setLastTool(tool);
+  const shown = tool ?? lastTool;
+
   return (
     <Dialog.Root open={tool !== null} onOpenChange={(open) => !open && onClose()} modal={false}>
       <Dialog.Portal container={container}>
@@ -69,11 +78,11 @@ export function ToolDrawer({
           }}
         >
           {wide ? (
-            <DrawerBody tool={tool} onClose={onClose}>
+            <DrawerBody tool={shown} onClose={onClose}>
               {children}
             </DrawerBody>
           ) : (
-            <SheetBody tool={tool} onClose={onClose}>
+            <SheetBody tool={shown} onClose={onClose}>
               {children}
             </SheetBody>
           )}
@@ -173,10 +182,14 @@ function SheetBody({
     d.lastT = e.timeStamp;
     setDragY(e.clientY - d.startY);
   };
-  const onUp = () => {
+  const onUp = (e: ReactPointerEvent<HTMLDivElement>) => {
     const d = drag.current;
     drag.current = null;
     if (!d || dragY === null) return; // a tap, not a drag — the buttons handle taps
+    /* Velocity is only sampled while the pointer moves, so a drag that stopped
+       and was held still would lift with the speed it had before the pause and
+       read as a flick. Stale means stopped. */
+    if (e.timeStamp - d.lastT > 100) d.v = 0;
     const moved = d.lastY - d.startY;
     const shown = SHEET_MAX - (rest + moved) / vh;
     const i = SNAPS.indexOf(snap as (typeof SNAPS)[number]);

@@ -134,11 +134,15 @@
 }
 
 /* The wordmark. `BrandMark` is a fork-owned seam, so its type lives with the
- * fork's theme rather than in a platform stylesheet. The display face is the one
- * the Studio loads; elsewhere on the site it falls back to the body stack, which
- * is the right trade for a mark that appears once per page. */
+ * fork's theme rather than in a platform stylesheet.
+ *
+ * `--bb-display` is only defined on the `(studio)` layout's wrapper, so off the
+ * Studio this falls through to the named faces. It must NOT fall back to
+ * `inherit`: that is a CSS-wide keyword, only valid as a declaration's sole
+ * value, and substituting it invalidates the whole `font-family` at computed-
+ * value time — which silently dropped 'Anton' along with it. */
 .brand-mark {
-  font-family: var(--bb-display, inherit), 'Anton', 'Arial Narrow', sans-serif;
+  font-family: var(--bb-display), 'Anton', 'Arial Narrow', sans-serif;
   letter-spacing: 0.02em;
   font-weight: 400;
 }

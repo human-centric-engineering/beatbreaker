@@ -141,21 +141,45 @@ describe('Studio shortcuts', () => {
     expect(grid()).toBe(edited);
   });
 
-  it('does not fire while a button in a drawer has focus', async () => {
+  /* The guard is about the double action, not about muting the keyboard. Space
+     on a focused button already presses it, so play must not also fire; but
+     every other shortcut has to keep working with a rail tab or Play focused,
+     which is how the console behaved and how this is used one-handed. */
+  it('leaves Space to the button that has focus, and keeps the rest working', async () => {
+    const user = userEvent.setup();
+    await mount();
+
+    const rail = within(screen.getByRole('navigation', { name: 'Tools' }));
+    const tab = rail.getByRole('button', { name: 'Practice' });
+    await user.click(tab);
+    tab.focus();
+
+    const playing = () => screen.getByRole('button', { name: 'Play or stop' }).textContent;
+    const stopped = playing();
+
+    // Space belongs to the button — it must not start the transport as well
+    fireEvent.keyDown(tab, { key: ' ' });
+    expect(playing()).toBe(stopped);
+
+    // everything else still reaches the Studio
+    const before = bpm();
+    fireEvent.keyDown(tab, { key: ']' });
+    expect(bpm()).toBe(before + 2);
+  });
+
+  it('still leaves every key to a field you could be typing in', async () => {
     const user = userEvent.setup();
     await mount();
     const before = bpm();
 
     const rail = within(screen.getByRole('navigation', { name: 'Tools' }));
-    await user.click(rail.getByRole('button', { name: 'Practice' }));
+    await user.click(rail.getByRole('button', { name: 'Export' }));
 
-    /* Space on a focused button already presses it. The guard is what stops the
-       Studio starting playback at the same time — the whole reason drawers made
-       this list longer than "skip text fields". */
-    const button = screen.getAllByRole('button')[0];
-    button.focus();
-    fireEvent.keyDown(button, { key: ' ' });
-    fireEvent.keyDown(button, { key: ']' });
+    // `]` is a character, not a shortcut, the moment you are pasting a code
+    const box = screen.getByLabelText('Load a break code');
+    await user.click(box);
+    await user.keyboard(']');
+    expect((box as HTMLTextAreaElement).value).toBe(']');
     expect(bpm()).toBe(before);
   });
 });

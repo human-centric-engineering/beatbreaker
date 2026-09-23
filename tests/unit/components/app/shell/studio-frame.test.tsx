@@ -80,6 +80,19 @@ beforeEach(() => {
 });
 
 describe('the Studio', () => {
+  /* The plan puts the transport in the header and the read-out and the lamps in
+     the footer. Rendering TransportLeds in both put two strips on screen at once
+     above 1024px — one more than the console ever had, and invisible to any test
+     that renders header and footer apart. */
+  it('draws one lamp strip, not one per end of the frame', async () => {
+    renderConsole();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+
+    const strips = document.querySelectorAll('.leds');
+    expect(strips).toHaveLength(1);
+    expect(strips[0].closest('.studio-footer')).toBeTruthy();
+  });
+
   it('generates and engraves a break on mount', async () => {
     renderConsole();
 

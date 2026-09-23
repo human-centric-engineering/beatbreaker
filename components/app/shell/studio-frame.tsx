@@ -90,10 +90,18 @@ export function StudioFrame() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const el = e.target instanceof HTMLElement ? e.target : null;
+
+      /* Anything you could be typing into takes every key: `b` has to stay a
+         letter the moment you paste a break code. */
+      if (el?.closest('input, textarea, select, [contenteditable="true"]')) return;
+
+      /* A control that Space or Enter already activates takes only those. The
+         rest of the shortcuts still work with a rail tab or Play focused, which
+         is how the console behaved and how you use it one-handed — it is only
+         the double action that had to go. */
       if (
-        el?.closest(
-          'input, textarea, select, button, [role="slider"], [role="menuitem"], [contenteditable="true"]'
-        )
+        (e.key === ' ' || e.key === 'Enter') &&
+        el?.closest('button, [role="slider"], [role="menuitem"], [role="button"]')
       ) {
         return;
       }

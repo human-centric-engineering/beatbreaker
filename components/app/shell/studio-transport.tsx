@@ -79,7 +79,13 @@ export function TransportLeds() {
   );
 }
 
-/** The header transport, from 1024px up. */
+/**
+ * The header transport, from 1024px up.
+ *
+ * No lamps here: the plan puts the transport in the header and the read-out and
+ * the lamps in the footer, and rendering `TransportLeds` in both put two strips
+ * on screen at once — one more than the console ever had.
+ */
 export function StudioTransport() {
   const c = useStudio();
   const tapTempo = useTapTempo();
@@ -120,7 +126,6 @@ export function StudioTransport() {
           Tap
         </button>
       </div>
-      <TransportLeds />
     </div>
   );
 }

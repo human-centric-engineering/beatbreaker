@@ -103,24 +103,6 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
     display: flex;
   }
 }
-.bb .studio-play {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-width: 88px;
-  min-height: 36px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--line);
-  background: var(--raised);
-  font-family: var(--f-mono);
-  font-weight: 600;
-}
-.bb .studio-play.on {
-  background: var(--brass);
-  color: var(--paper);
-  border-color: var(--brass);
-}
 .bb .studio-step {
   display: grid;
   place-items: center;
@@ -444,12 +426,6 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
    SHEET — below 1024px, hand-rolled two snaps (no `vaul`)
    ============================================================ */
 
-.bb .studio-scrim {
-  position: absolute;
-  inset: 0;
-  background: rgba(20, 16, 10, 0.18);
-  z-index: 19;
-}
 .bb .studio-sheet {
   position: absolute;
   left: 0;

@@ -17,7 +17,11 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { PhoneTransport, StudioTransport } from '@/components/app/shell/studio-transport';
+import {
+  PhoneTransport,
+  StudioTransport,
+  TransportLeds,
+} from '@/components/app/shell/studio-transport';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { activeLanes } from '@/lib/app/breaks/lanes';
 import type { LaneKey } from '@/lib/app/breaks/types';
@@ -109,10 +113,10 @@ const renderTransport = (children: React.ReactNode) =>
     </StudioProvider>
   );
 
-/** The break is generated in an effect; wait for the LEDs (gated on `view.A`)
- *  before interacting, exactly as `studio-frame.test.tsx` waits on the staves. */
-const waitForReady = () =>
-  waitFor(() => expect(document.querySelectorAll('.led').length).toBeGreaterThan(0));
+/** The break is generated in an effect; wait for it before interacting. Gated on
+ *  the spy's own view of the state rather than on the lamps, which live in the
+ *  footer — the transport may be rendered here with no lamps beside it at all. */
+const waitForReady = () => waitFor(() => expect(readDebug().lanes).toBeTruthy());
 
 const readDebug = (): DebugState => JSON.parse(screen.getByTestId('debug').textContent ?? '{}');
 
@@ -245,7 +249,14 @@ describe('StudioTransport', () => {
 
   it('lights the lamp for the lane that actually fired on the current step', async () => {
     const user = userEvent.setup();
-    renderTransport(<StudioTransport />);
+    /* The lamps sit in the footer now, beside the read-out, so they are rendered
+       alongside the transport rather than inside it. */
+    renderTransport(
+      <>
+        <StudioTransport />
+        <TransportLeds />
+      </>
+    );
     await waitForReady();
 
     // drop the count-in so the first scheduled step is a bar, not a click
