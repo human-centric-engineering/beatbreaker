@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { libraryGroups } from '@/lib/app/breaks/catalogue/types';
+import { DEFAULT_METER } from '@/lib/app/breaks/meter';
 
 export function LibraryPanel() {
   const c = useStudio();
@@ -44,11 +45,15 @@ export function LibraryPanel() {
                       <b>{item.title}</b>
                       <span>{item.artist}</span>
                     </div>
-                    {/* the meter rides with the tempo, because a break in
-                        7/8 at 150 is not the same read as one in 4/4 */}
+                    {/* The meter rides with the tempo, because a break in 7/8
+                        at 150 is not the same read as one in 4/4 — and only
+                        when it is not 4/4. Every entry carries a meter now that
+                        they are rows, where the old `LibraryItem.meter` was set
+                        only for the exceptions; printing it unconditionally
+                        would put "· 4/4" on forty of the forty-seven rows. */}
                     <span className="bpm">
                       {item.bpm}
-                      {item.meter ? ` · ${item.meter}` : ''}
+                      {item.meter === DEFAULT_METER ? '' : ` · ${item.meter}`}
                     </span>
                   </button>
                 ))}

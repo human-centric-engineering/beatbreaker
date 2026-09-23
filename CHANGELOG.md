@@ -330,6 +330,16 @@ release process.
 
 ### Fixed
 
+- **The per-file coverage floor in `test:changed:coverage` was never applied.**
+  `buildVitestArgv` asked for it as `--coverage.thresholds.perFile=true`; vitest
+  accepts that spelling on the command line and ignores it, so the 80% floor
+  landed on the *average* across the changed files instead of on each one. A
+  branch touching 62 files at a 96% average passed while carrying a file at 62%
+  — the "quiet green" the runner's own docblock is written against. Now passed
+  as the bare `--coverage.thresholds.perFile`. The two tests that pin the flag
+  pinned the broken string, which is why it survived; both spellings behave
+  identically on a single-file run.
+
 - **A step index past the end of a bar punched a hole in the lane.**
   `applyKickRules` wrote `bar.k[i] = 0` for every entry in a style's `noKick`
   without a bounds check, and the two clave branches did the same for

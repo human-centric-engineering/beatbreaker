@@ -40,7 +40,10 @@ export async function GET(request: Request): Promise<Response> {
       };
     }),
     lanes: LANES.map((lane) => ({ key: lane, values: LANE_VALUES[lane] })),
-    percussion: PERC_KEYS.map((key) => ({ key, label: PERC_INSTS[key]?.label ?? key })),
+    /* No `?? key` fallback: `PERC_KEYS` is `Object.keys(PERC_INSTS)`, so a key
+       with no entry cannot exist. A fallback here would be a branch nothing can
+       reach, which is worse than none — it reads as a case somebody considered. */
+    percussion: PERC_KEYS.map((key) => ({ key, label: PERC_INSTS[key].label })),
     slots: SLOTS,
     voices: VOICE_KEYS.map((key) => ({ key, label: VOICE_LABEL[key] })),
   };

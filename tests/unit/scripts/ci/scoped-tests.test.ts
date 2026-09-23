@@ -272,7 +272,13 @@ describe('buildVitestArgv', () => {
     expect(argv).toContain('--coverage.include=lib/b.ts');
     // Without perFile the floor is an average over the included set, which one
     // well-covered file carries for a bare one.
-    expect(argv).toContain('--coverage.thresholds.perFile=true');
+    expect(argv).toContain('--coverage.thresholds.perFile');
+    // And the BARE flag specifically. Vitest takes `=true` on the command line
+    // and drops it, so that spelling turns the per-file floor off while still
+    // reading as if it asked for it — which is how it survived here for as long
+    // as it did: this assertion used to pin the broken string. The negative is
+    // the one that would have caught it.
+    expect(argv.join(' ')).not.toContain('--coverage.thresholds.perFile=');
     for (const metric of ['lines', 'functions', 'branches', 'statements']) {
       expect(argv).toContain(`--coverage.thresholds.${metric}=80`);
     }
