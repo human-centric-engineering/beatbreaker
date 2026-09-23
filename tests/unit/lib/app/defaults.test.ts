@@ -287,8 +287,10 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     seam: 'lib/app/protected-routes.ts',
     risk: 'a stray path would put a public route behind auth on every install',
     // FORK (BeatBreaker): re-pointed, not deleted — see the brand row above.
-    // Back to empty on purpose: /breaks gates itself in its page, because the
-    // edge redirect lost the `#b=` fragment of a shared link (H5).
+    // Back to empty on purpose, and this row is what holds it there. /studio
+    // and /breaks gate themselves in their pages, because the edge redirect
+    // loses the `#b=` fragment a shared link carries (H5) — so adding either
+    // one here would break every shared link without breaking anything else.
     assert: () => expect(appProtectedRoutes).toEqual([]),
   },
   {
