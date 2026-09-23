@@ -164,7 +164,20 @@ export function kitEngine(kit: Kit | undefined | null): KitEngine {
  */
 const IMPLEMENTED_ENGINES: ReadonlySet<KitEngine> = new Set<KitEngine>(['synth', 'pack', 'user']);
 
+/**
+ * Whether this kit can actually be played.
+ *
+ * A kit that is not there is not playable, and that has to be said explicitly:
+ * `kitEngine(undefined)` is `'synth'` — the right answer for a ROW that names
+ * no engine, and the wrong one for no row at all — so without the first clause
+ * this returns `true` for a key the catalogue has never heard of. The caller
+ * that found out was the style-change path in `use-break-console`, which reads
+ * a kit key out of localStorage: once an admin deleted a kit, picking any style
+ * wrote that dead key into state, the picker showed nothing selected, and
+ * playback fell through to the synthesised fallback.
+ */
 export function kitIsPlayable(kit: Kit | undefined | null): boolean {
+  if (!kit) return false;
   return IMPLEMENTED_ENGINES.has(kitEngine(kit));
 }
 

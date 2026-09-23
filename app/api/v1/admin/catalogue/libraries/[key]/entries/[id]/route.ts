@@ -31,9 +31,9 @@ const GONE = errorResponse.bind(null, 'No such entry', {
 
 export const PATCH = withAdminAuth<{ key: string; id: string }>(
   async (request, session, { params }) => {
-    const { id } = await params;
+    const { key, id } = await params;
     const input = await validateRequestBody(request, patchEntrySchema);
-    const ok = await patchEntry(id, input, {
+    const ok = await patchEntry(key, id, input, {
       userId: session.user.id,
       clientIp: getClientIP(request),
     });
@@ -44,8 +44,8 @@ export const PATCH = withAdminAuth<{ key: string; id: string }>(
 
 export const DELETE = withAdminAuth<{ key: string; id: string }>(
   async (request, session, { params }) => {
-    const { id } = await params;
-    const ok = await deleteEntry(id, {
+    const { key, id } = await params;
+    const ok = await deleteEntry(key, id, {
       userId: session.user.id,
       clientIp: getClientIP(request),
     });

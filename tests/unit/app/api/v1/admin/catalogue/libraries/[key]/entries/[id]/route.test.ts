@@ -102,6 +102,7 @@ describe('PATCH /api/v1/admin/catalogue/libraries/[key]/entries/[id]', () => {
     expect(res.status).toBe(200);
 
     expect(patchEntry).toHaveBeenCalledWith(
+      'famous-breaks',
       'e1',
       { title: 'Corrected title' },
       { userId: mockAdminUser().user.id, clientIp: '127.0.0.1' }
@@ -109,6 +110,22 @@ describe('PATCH /api/v1/admin/catalogue/libraries/[key]/entries/[id]', () => {
 
     const body = await json<{ success: boolean; data: { id: string } }>(res);
     expect(body).toEqual({ success: true, data: { id: 'e1' } });
+  });
+
+  it('passes the library from the URL down, so the segment is not decorative', async () => {
+    // `patchEntry`/`deleteEntry` used to resolve by id alone, which made
+    // `…/libraries/anything-at-all/entries/<id>` hit the entry anyway and
+    // write an audit line naming a library the row was never in. The key has
+    // to reach the data layer for the scoping there to mean anything.
+    vi.mocked(patchEntry).mockResolvedValue(true);
+    await PATCH(patch({ title: 'x' }), ctx('e1', 'some-other-library'));
+
+    expect(patchEntry).toHaveBeenCalledWith(
+      'some-other-library',
+      'e1',
+      expect.anything(),
+      expect.anything()
+    );
   });
 });
 
@@ -138,7 +155,7 @@ describe('DELETE /api/v1/admin/catalogue/libraries/[key]/entries/[id]', () => {
     const res = await DELETE(del(), ctx());
     expect(res.status).toBe(200);
 
-    expect(deleteEntry).toHaveBeenCalledWith('e1', {
+    expect(deleteEntry).toHaveBeenCalledWith('famous-breaks', 'e1', {
       userId: mockAdminUser().user.id,
       clientIp: '127.0.0.1',
     });

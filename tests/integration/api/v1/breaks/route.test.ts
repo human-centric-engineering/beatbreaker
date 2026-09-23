@@ -194,6 +194,21 @@ describe('POST /api/v1/breaks', () => {
     expect(typeof body.data.critique.playable).toBe('boolean');
   });
 
+  it('records the style VERSION the pattern came from, not just the style key', async () => {
+    /* `Break.styleVersionId` is the provenance column, and its `ON DELETE SET
+       NULL` FK only ever means anything if something writes it. The value is
+       already on the decoded document (`sv` on the wire), so a save that
+       denormalised `style` and left this NULL made "which breaks came from
+       version 3 of funk" unanswerable while every other column said the row
+       knew where it came from. */
+    vi.mocked(prisma.break.create).mockResolvedValue(listRow() as never);
+    await POST(post({ title: 'Provenance', doc: wireDoc() }));
+
+    const data = vi.mocked(prisma.break.create).mock.calls[0][0].data;
+    expect(data.styleVersionId).toBe(testStyle('funk').versionId);
+    expect(data.styleVersionId).toBeTruthy();
+  });
+
   it('ignores an owner named in the body', async () => {
     vi.mocked(prisma.break.create).mockResolvedValue(listRow() as never);
     await POST(post({ title: 'Mine', doc: wireDoc(), userId: OTHER_ID }));

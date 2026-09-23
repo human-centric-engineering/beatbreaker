@@ -22,6 +22,11 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 const tx = {
   style: { create: vi.fn(), update: vi.fn() },
   styleVersion: { create: vi.fn(), update: vi.fn(), findFirst: vi.fn() },
+  /* `createEntry` reads the current max position and creates inside ONE
+     transaction — `(libraryId, position)` is unique, so the read is the whole
+     reason the write needs one. Both halves are on the tx client, not on
+     `prisma`, which is what these fakes have to reflect. */
+  libraryEntry: { findFirst: vi.fn(), create: vi.fn() },
 };
 
 vi.mock('@/lib/db/client', () => ({
@@ -313,13 +318,13 @@ describe('createEntry', () => {
       id: 'lib-1',
       title: 'Famous breaks',
     } as never);
-    vi.mocked(prisma.libraryEntry.findFirst).mockResolvedValue({ position: 3 } as never);
-    vi.mocked(prisma.libraryEntry.create).mockResolvedValue({ id: 'entry-9' } as never);
+    vi.mocked(tx.libraryEntry.findFirst).mockResolvedValue({ position: 3 });
+    vi.mocked(tx.libraryEntry.create).mockResolvedValue({ id: 'entry-9', position: 4 });
 
     const result = await createEntry('famous-breaks', entryInput, ACTOR);
 
     expect(result).toEqual({ id: 'entry-9' });
-    expect(prisma.libraryEntry.create).toHaveBeenCalledWith(
+    expect(tx.libraryEntry.create).toHaveBeenCalledWith(
       expect.objectContaining({
         data: expect.objectContaining({ position: 4, libraryId: 'lib-1' }),
       })
@@ -335,12 +340,12 @@ describe('createEntry', () => {
       id: 'lib-1',
       title: 'Famous breaks',
     } as never);
-    vi.mocked(prisma.libraryEntry.create).mockResolvedValue({ id: 'entry-9' } as never);
+    vi.mocked(tx.libraryEntry.create).mockResolvedValue({ id: 'entry-9', position: 0 });
 
     await createEntry('famous-breaks', { ...entryInput, position: 0 }, ACTOR);
 
-    expect(prisma.libraryEntry.findFirst).not.toHaveBeenCalled();
-    expect(prisma.libraryEntry.create).toHaveBeenCalledWith(
+    expect(tx.libraryEntry.findFirst).not.toHaveBeenCalled();
+    expect(tx.libraryEntry.create).toHaveBeenCalledWith(
       expect.objectContaining({ data: expect.objectContaining({ position: 0 }) })
     );
   });
@@ -351,7 +356,7 @@ describe('createEntry', () => {
     const result = await createEntry('no-such-library', entryInput, ACTOR);
 
     expect(result).toBeNull();
-    expect(prisma.libraryEntry.create).not.toHaveBeenCalled();
+    expect(tx.libraryEntry.create).not.toHaveBeenCalled();
     expect(logAdminAction).not.toHaveBeenCalled();
   });
 
@@ -364,12 +369,12 @@ describe('createEntry', () => {
       id: 'lib-empty',
       title: 'New library',
     } as never);
-    vi.mocked(prisma.libraryEntry.findFirst).mockResolvedValue(null);
-    vi.mocked(prisma.libraryEntry.create).mockResolvedValue({ id: 'entry-1' } as never);
+    vi.mocked(tx.libraryEntry.findFirst).mockResolvedValue(null);
+    vi.mocked(tx.libraryEntry.create).mockResolvedValue({ id: 'entry-1', position: 0 });
 
     await createEntry('new-library', entryInput, ACTOR);
 
-    expect(prisma.libraryEntry.create).toHaveBeenCalledWith(
+    expect(tx.libraryEntry.create).toHaveBeenCalledWith(
       expect.objectContaining({ data: expect.objectContaining({ position: 0 }) })
     );
   });
@@ -379,40 +384,58 @@ describe('createEntry', () => {
       id: 'lib-1',
       title: 'Famous breaks',
     } as never);
-    vi.mocked(prisma.libraryEntry.findFirst).mockResolvedValue({ position: 3 } as never);
-    vi.mocked(prisma.libraryEntry.create).mockResolvedValue({ id: 'entry-9' } as never);
+    vi.mocked(tx.libraryEntry.findFirst).mockResolvedValue({ position: 3 });
+    vi.mocked(tx.libraryEntry.create).mockResolvedValue({ id: 'entry-9', position: 4 });
 
     const { note: _note, ...withoutNote } = entryInput;
     void _note;
 
     await createEntry('famous-breaks', withoutNote, ACTOR);
 
-    expect(prisma.libraryEntry.create).toHaveBeenCalledWith(
+    expect(tx.libraryEntry.create).toHaveBeenCalledWith(
       expect.objectContaining({ data: expect.objectContaining({ note: null }) })
     );
   });
 });
 
+/** What `entryIn` hands back: the title for the audit line, plus the two halves
+ *  the meter rule reconciles. */
+function storedEntry() {
+  const entry = testLibrary().entries[0];
+  if (!entry) throw new Error('seed library has no entries to build a fixture from');
+  return { title: 'Old title', meter: entry.meter, doc: entry.doc };
+}
+const storedMeter = () => storedEntry().doc.mt ?? '4/4';
+
 describe('patchEntry', () => {
   it('returns false for an id that does not exist', async () => {
-    vi.mocked(prisma.libraryEntry.findUnique).mockResolvedValue(null);
+    vi.mocked(prisma.libraryEntry.findFirst).mockResolvedValue(null);
 
-    const result = await patchEntry('ghost', { title: 'New title' }, ACTOR);
+    const result = await patchEntry('famous-breaks', 'ghost', { title: 'New title' }, ACTOR);
 
     expect(result).toBe(false);
     expect(prisma.libraryEntry.update).not.toHaveBeenCalled();
   });
 
   it('corrects a field and audits it — D10, a correction landing without a deploy', async () => {
-    vi.mocked(prisma.libraryEntry.findUnique).mockResolvedValue({ title: 'Old title' } as never);
+    vi.mocked(prisma.libraryEntry.findFirst).mockResolvedValue(storedEntry() as never);
     vi.mocked(prisma.libraryEntry.update).mockResolvedValue({} as never);
 
-    const result = await patchEntry('entry-1', { title: 'Corrected title' }, ACTOR);
+    const result = await patchEntry(
+      'famous-breaks',
+      'entry-1',
+      { title: 'Corrected title' },
+      ACTOR
+    );
 
     expect(result).toBe(true);
     expect(prisma.libraryEntry.update).toHaveBeenCalledWith({
       where: { id: 'entry-1' },
-      data: { title: 'Corrected title' },
+      // `meter` rides along on every patch because it is DERIVED from the
+      // document rather than trusted from the caller — that is what keeps the
+      // column the library panel prints and the meter the transport loads from
+      // drifting apart.
+      data: { title: 'Corrected title', meter: storedMeter() },
     });
     expect(logAdminAction).toHaveBeenCalledWith(
       expect.objectContaining({ action: 'catalogue.entry.update' })
@@ -425,39 +448,48 @@ describe('patchEntry', () => {
     // note" (send `null`) apart from "leave the note alone" (don't send the
     // key). Collapsing that to a plain `??` would make a cleared note
     // impossible to write — every clear would look identical to "no change".
-    vi.mocked(prisma.libraryEntry.findUnique).mockResolvedValue({ title: 'Some title' } as never);
+    vi.mocked(prisma.libraryEntry.findFirst).mockResolvedValue(storedEntry() as never);
     vi.mocked(prisma.libraryEntry.update).mockResolvedValue({} as never);
 
-    const result = await patchEntry('entry-1', { note: null }, ACTOR);
+    const result = await patchEntry('famous-breaks', 'entry-1', { note: null }, ACTOR);
 
     expect(result).toBe(true);
     expect(prisma.libraryEntry.update).toHaveBeenCalledWith({
       where: { id: 'entry-1' },
-      data: { note: null },
+      data: { note: null, meter: storedMeter() },
     });
   });
 
   it('replaces the pattern body when doc is part of the patch — D10, correcting the pattern itself', async () => {
     const doc = testLibrary().entries[0]?.doc;
     if (!doc) throw new Error('seed library has no entries to build a fixture from');
-    vi.mocked(prisma.libraryEntry.findUnique).mockResolvedValue({ title: 'Some title' } as never);
+    // The stored row is deliberately mis-labelled, so this asserts the column
+    // is DERIVED from the incoming document rather than left as it was. A
+    // patch that replaced only `doc` used to leave `meter` behind: the panel
+    // then printed one meter while loading the entry set the transport from
+    // the document's, and nothing errored.
+    vi.mocked(prisma.libraryEntry.findFirst).mockResolvedValue({
+      ...storedEntry(),
+      meter: '7/4',
+    } as never);
     vi.mocked(prisma.libraryEntry.update).mockResolvedValue({} as never);
 
-    const result = await patchEntry('entry-1', { doc }, ACTOR);
+    const result = await patchEntry('famous-breaks', 'entry-1', { doc }, ACTOR);
 
     expect(result).toBe(true);
     expect(prisma.libraryEntry.update).toHaveBeenCalledWith({
       where: { id: 'entry-1' },
-      data: { doc },
+      data: { doc, meter: doc.mt ?? '4/4' },
     });
+    expect(doc.mt ?? '4/4').not.toBe('7/4');
   });
 });
 
 describe('deleteEntry', () => {
   it('returns false for an id that does not exist, and does not touch the audit log', async () => {
-    vi.mocked(prisma.libraryEntry.findUnique).mockResolvedValue(null);
+    vi.mocked(prisma.libraryEntry.findFirst).mockResolvedValue(null);
 
-    const result = await deleteEntry('ghost', ACTOR);
+    const result = await deleteEntry('famous-breaks', 'ghost', ACTOR);
 
     expect(result).toBe(false);
     expect(prisma.libraryEntry.delete).not.toHaveBeenCalled();
@@ -465,12 +497,12 @@ describe('deleteEntry', () => {
   });
 
   it('is a real delete — the row is gone, and the removal is itself audited', async () => {
-    vi.mocked(prisma.libraryEntry.findUnique).mockResolvedValue({
+    vi.mocked(prisma.libraryEntry.findFirst).mockResolvedValue({
       title: 'Funky Drummer',
     } as never);
     vi.mocked(prisma.libraryEntry.delete).mockResolvedValue({} as never);
 
-    const result = await deleteEntry('entry-1', ACTOR);
+    const result = await deleteEntry('famous-breaks', 'entry-1', ACTOR);
 
     expect(result).toBe(true);
     expect(prisma.libraryEntry.delete).toHaveBeenCalledWith({ where: { id: 'entry-1' } });

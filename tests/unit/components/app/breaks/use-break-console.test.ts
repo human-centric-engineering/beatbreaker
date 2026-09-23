@@ -398,6 +398,43 @@ describe('the kit', () => {
     expect(result.current.kit).toBe('studio70');
   });
 
+  it('does not fall back to a kit key the catalogue no longer has', async () => {
+    /* `setKit` has always refused an unknown key. The style-change path did
+       not: it asked `kitIsPlayable(catalogue.kits[wantKit])`, and
+       `kitEngine(undefined)` is `'synth'` — the right answer for a ROW naming
+       no engine, the wrong one for no row at all — so the check passed for a
+       key that is not there. The key it reaches for is the remembered one, out
+       of localStorage, so an admin deleting a kit left anyone who had it
+       selected writing a dead key into state on their next style change: the
+       picker showed nothing selected and playback fell through to the
+       synthesised fallback with no error anywhere.
+
+       Driven through `setStyle` rather than by calling the predicate, because
+       the predicate was never the thing that was wrong — the two paths
+       disagreeing was. */
+    const { result } = await mount();
+
+    // Remember `liveroom`, then move to a style that names a kit of its own —
+    // so the REMEMBERED key and the selected one are now different things.
+    act(() => result.current.setKit('liveroom'));
+    act(() => result.current.setStyle('jazzballad'));
+    expect(result.current.kit).toBe(STYLES.jazzballad.kit);
+
+    // The remembered row goes away underneath the hook, the way a reseed or an
+    // admin delete takes it away.
+    const gone = catalogue.kits.liveroom;
+    delete catalogue.kits.liveroom;
+    try {
+      // `funk` names no kit, so this is the branch that hands the remembered
+      // one back — and the remembered one is now a key with no row.
+      act(() => result.current.setStyle('funk'));
+      expect(result.current.kit).not.toBe('liveroom');
+      expect(catalogue.kits[result.current.kit]).toBeDefined();
+    } finally {
+      catalogue.kits.liveroom = gone;
+    }
+  });
+
   it('hands a sampled kit to the engine, initialising audio to decode into', async () => {
     const { result } = await mount();
     const audio = fakes.made.audio.at(-1)!;

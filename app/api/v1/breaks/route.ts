@@ -104,6 +104,12 @@ export const POST = withAuth(
         userId: session.user.id,
         title,
         style: decoded.A.style,
+        /* The version the pattern was generated from, not just the style key.
+           `doc` carries the snapshot either way, so playback does not need
+           this — provenance does: without it "which breaks came from version 3
+           of funk" has no answer, and the column's `ON DELETE SET NULL` never
+           has anything to null. It arrives on the document as `sv`. */
+        styleVersionId: decoded.A.styleVersionId,
         meter: decoded.A.meter,
         bpm: Math.round(decoded.bpm),
         swing: Math.round(decoded.swing),

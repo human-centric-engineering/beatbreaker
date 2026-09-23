@@ -9,6 +9,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { styleParamsSchema } from '@/lib/app/breaks/catalogue/schemas';
+import { z } from 'zod';
+
+/** Just enough of the 201 body to name the version that was written. */
+const savedVersionSchema = z.object({ data: z.object({ version: z.number().int().min(1) }) });
 
 /**
  * Editing one style.
@@ -106,7 +110,16 @@ export function StyleEditor({ styleKey, group, position, currentVersion, params 
         body: JSON.stringify({ params: checked.data, note }),
       });
       if (!res.ok) throw new Error(`The server refused that (${res.status})`);
-      setMessage(`Saved as version ${currentVersion + 1}.`);
+      /* The number the server wrote, not `currentVersion + 1`. `addStyleVersion`
+         numbers from the highest version that EXISTS, and the pointer can lag
+         it — the seed's own docblock documents the interrupted run that leaves
+         them apart. That is exactly when this would tell you it saved v4 while
+         the server wrote v6. */
+      const body: unknown = await res.json();
+      const wrote = savedVersionSchema.safeParse(body);
+      setMessage(
+        wrote.success ? `Saved as version ${wrote.data.data.version}.` : 'Saved a new version.'
+      );
       setNote('');
       router.refresh();
     } catch (error) {

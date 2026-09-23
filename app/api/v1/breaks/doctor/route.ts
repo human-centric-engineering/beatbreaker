@@ -45,8 +45,8 @@ export const POST = withAuth(
 
     return successResponse({
       doc: packPattern(patched),
-      critique: critique(patched),
-      playability: playability(patched, 94),
+      critique: critique(patched, input.bpm),
+      playability: playability(patched, input.bpm),
     });
   },
   {

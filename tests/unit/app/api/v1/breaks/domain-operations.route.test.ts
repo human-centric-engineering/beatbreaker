@@ -18,6 +18,7 @@
  */
 
 import { NextRequest } from 'next/server';
+import { z } from 'zod';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { critique, playability } from '@/lib/app/breaks/critic';
@@ -66,6 +67,9 @@ function post(path: string, body: unknown): NextRequest {
 async function json(res: Response): Promise<{ success: boolean; data: Record<string, unknown> }> {
   return (await res.json()) as { success: boolean; data: Record<string, unknown> };
 }
+
+/** Just enough of a `playability` body to read the check labels off it. */
+const playabilitySchema = z.object({ checks: z.array(z.object({ label: z.string() })) });
 
 /** The pattern the direct call produces, for the fixtures below. */
 function directPattern(seed: number, meter = '4/4') {
@@ -162,6 +166,35 @@ describe('POST /api/v1/breaks/doctor', () => {
     const expected = doctor(patternFromPacked(doc), FUNK.params, 'ghosts+', 7);
     expect(data.doc).toEqual(packPattern(expected));
     expect(data.critique).toEqual(critique(expected));
+  });
+
+  it('judges the result at the tempo it was given, not a fixed one', async () => {
+    /* The route used to hardcode 94 for `playability`, with no `bpm` in the
+       schema at all. Several checks are tempo-dependent — `fastDoubles` cannot
+       fire below 132 — so a caller doctoring a 170 BPM break was told its kick
+       doubles were fine at a tempo it never asked about, and the check's own
+       label said "94 BPM". The label is the assertion: it is the only part of
+       the response that names the number the server actually used. */
+    const doc = packPattern(directPattern(11));
+    const body = { styleKey: 'funk', doc, move: 'ghosts+', entropy: 7 };
+
+    const { data: fast } = await json(await DOCTOR(post('doctor', { ...body, bpm: 170 })));
+    const { data: slow } = await json(await DOCTOR(post('doctor', { ...body, bpm: 70 })));
+
+    /* Narrowed rather than cast: `playability.checks` is where the tempo the
+       server used is actually visible, so a wrong shape here has to fail
+       loudly instead of quietly producing an empty string that `toContain`
+       would then fail on for the wrong reason. */
+    const labels = (d: Record<string, unknown>): string => {
+      const checks = playabilitySchema.parse(d.playability).checks;
+      return checks.map((c) => c.label).join(' | ');
+    };
+    expect(labels(fast)).toContain('170');
+    expect(labels(slow)).toContain('70');
+
+    // And the default still stands for a caller that sends no tempo at all.
+    const { data: bare } = await json(await DOCTOR(post('doctor', body)));
+    expect(labels(bare)).toContain('94');
   });
 
   it.each([

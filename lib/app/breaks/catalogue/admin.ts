@@ -63,15 +63,30 @@ export const addStyleVersionSchema = z.object({
   note: z.string().max(200).default(''),
 });
 
-export const createEntrySchema = libraryEntrySchema.extend({
-  doc: packedPatternSchema,
-  position: z.number().int().min(0).max(9999).optional(),
-});
+/* The `meter` column has to say what the document says. It is what the library
+   panel prints, while loading the entry sets the transport from
+   `patternFromPacked(entry.doc).meter` — so a row advertising 7/4 whose
+   document is in 4/4 shows one meter and plays another, and nothing errors.
+   The seed derives the column from the document (`001-catalogue.ts`); the admin
+   write path is held to the same thing, named rather than silently corrected. */
+const meterMatchesDoc = (v: { meter?: string; doc?: { mt?: string } }): boolean =>
+  v.meter === undefined || v.doc === undefined || v.meter === (v.doc.mt ?? '4/4');
+const METER_MISMATCH = { message: "meter must match the document's own", path: ['meter'] };
+
+export const createEntrySchema = libraryEntrySchema
+  .extend({
+    doc: packedPatternSchema,
+    position: z.number().int().min(0).max(9999).optional(),
+  })
+  .refine(meterMatchesDoc, METER_MISMATCH);
 
 export const patchEntrySchema = libraryEntrySchema
   .partial()
   .extend({ doc: packedPatternSchema.optional() })
-  .refine((v) => Object.keys(v).length > 0, 'nothing to change');
+  .refine((v) => Object.keys(v).length > 0, 'nothing to change')
+  /* Only catches the both-supplied case. A patch that moves one of them alone
+     is checked in `patchEntry`, against whichever half is already stored. */
+  .refine(meterMatchesDoc, METER_MISMATCH);
 
 export const patchKitSchema = z
   .object({
@@ -248,48 +263,95 @@ export async function createEntry(
   if (!library) return null;
 
   const { position, doc, ...fields } = input;
-  const at =
-    position ??
-    ((
-      await prisma.libraryEntry.findFirst({
-        where: { libraryId: library.id },
-        orderBy: { position: 'desc' },
-        select: { position: true },
-      })
-    )?.position ?? -1) + 1;
 
-  const entry = await prisma.libraryEntry.create({
-    data: {
-      libraryId: library.id,
-      position: at,
-      ...fields,
-      note: fields.note ?? null,
-      doc: doc,
-    },
-    select: { id: true },
+  /* Read-then-create in one transaction. `(libraryId, position)` is unique, so
+     two admins appending to the same library at once otherwise compute the same
+     index and the loser gets a P2002 surfaced as a 409 with nothing to retry.
+     The read is the reason the write needs a transaction at all. */
+  const entry = await prisma.$transaction(async (tx) => {
+    const at =
+      position ??
+      ((
+        await tx.libraryEntry.findFirst({
+          where: { libraryId: library.id },
+          orderBy: { position: 'desc' },
+          select: { position: true },
+        })
+      )?.position ?? -1) + 1;
+
+    return tx.libraryEntry.create({
+      data: {
+        libraryId: library.id,
+        position: at,
+        ...fields,
+        note: fields.note ?? null,
+        doc: doc,
+      },
+      select: { id: true, position: true },
+    });
   });
+  const at = entry.position;
 
   recorded(actor, 'catalogue.entry.create', 'library_entry', entry.id, fields.title, {
     library: library.title,
     position: at,
   });
-  return entry;
+  /* `{ id }`, not `entry` — the create selects `position` back so the audit
+     line can name the index that was actually taken, and that is an internal
+     need. Returning the row as-is would widen the declared contract by a field
+     the caller never asked for. */
+  return { id: entry.id };
 }
 
 /** Correct an entry — a title, a credit, a note, or the pattern itself (D10). */
+/**
+ * One entry, but only if it is in the library the URL named.
+ *
+ * `findUnique({ where: { id } })` is the obvious version and it makes the
+ * `[key]` segment decorative: `DELETE …/libraries/anything-at-all/entries/<id>`
+ * would delete the entry and write an audit line naming a library the row was
+ * never in. The sibling list/create route resolves the library and 404s on a
+ * bad key, so the pair read as scoped while only one of them was.
+ *
+ * `ownerId: null` is on the library rather than the entry because that is where
+ * ownership lives. It is redundant today — every library is a system row — and
+ * it is the line that keeps this from becoming a cross-owner write the day a
+ * user owns a library.
+ */
+async function entryIn(
+  libraryKey: string,
+  id: string
+): Promise<{ title: string; meter: string; doc: unknown } | null> {
+  return prisma.libraryEntry.findFirst({
+    where: { id, library: { key: libraryKey, ownerId: null } },
+    select: { title: true, meter: true, doc: true },
+  });
+}
+
 export async function patchEntry(
+  libraryKey: string,
   id: string,
   input: z.infer<typeof patchEntrySchema>,
   actor: Actor
 ): Promise<boolean> {
-  const entry = await prisma.libraryEntry.findUnique({ where: { id }, select: { title: true } });
+  const entry = await entryIn(libraryKey, id);
   if (!entry) return false;
 
+  /* The schema rejects a patch that supplies both halves and disagrees. A
+     ONE-SIDED patch cannot be judged there — replacing only `doc`, or moving
+     only `meter`, puts the column and the document out of step just as
+     effectively — so the column is derived from whichever document the row ends
+     up with. The document is the source of truth (the seed derives the column
+     the same way); returning an error here would have to travel as the route's
+     410, which is not what a bad field means. */
   const { doc, note, ...rest } = input;
+  const finalDoc = doc ?? packedPatternSchema.parse(entry.doc);
+
   await prisma.libraryEntry.update({
     where: { id },
     data: {
       ...rest,
+      meter: finalDoc.mt ?? '4/4',
       ...(note !== undefined ? { note: note ?? null } : {}),
       ...(doc ? { doc: doc } : {}),
     },
@@ -309,8 +371,8 @@ export async function patchEntry(
  * from it are their own rows and are untouched — a library entry is a starting
  * point, not a parent.
  */
-export async function deleteEntry(id: string, actor: Actor): Promise<boolean> {
-  const entry = await prisma.libraryEntry.findUnique({ where: { id }, select: { title: true } });
+export async function deleteEntry(libraryKey: string, id: string, actor: Actor): Promise<boolean> {
+  const entry = await entryIn(libraryKey, id);
   if (!entry) return false;
 
   await prisma.libraryEntry.delete({ where: { id } });

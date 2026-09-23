@@ -65,6 +65,13 @@ export const doctorBreakSchema = styleRef.extend({
    * identical requests give two different answers **on purpose**.
    */
   entropy: z.number().int().min(0).max(0xffffffff).optional(),
+  /**
+   * The tempo to judge the result at. Several playability checks are
+   * tempo-dependent — `fastDoubles` cannot fire below 132 — so a fixed value
+   * here would report on a tempo the caller never asked about, and the check's
+   * own label says which one it used. Same default and bounds as `/critique`.
+   */
+  bpm: z.number().min(20).max(400).default(94),
 });
 
 export const critiqueBreakSchema = z.object({

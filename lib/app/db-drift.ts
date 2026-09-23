@@ -102,7 +102,7 @@ export function registerAppDriftProbes(): void {
     probe: constraintExists('take_userId_fkey', 'ON DELETE CASCADE'),
   });
 
-  /* The catalogue's own hand-written FKs, added in 20260923100203_catalogue and
+  /* The catalogue's own hand-written FKs, added in 20260923102558_catalogue and
      invisible to Prisma for the same reason.
 
      No row has an owner yet — the seed writes system rows with ownerId NULL —
