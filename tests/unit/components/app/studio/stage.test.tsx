@@ -38,6 +38,28 @@ beforeEach(() => {
   vi.stubGlobal('cancelAnimationFrame', (id: number) => clearTimeout(id));
 });
 
+describe('Stage, with nothing in the catalogue', () => {
+  it('says so, instead of sitting on "Writing you a break…" for ever', async () => {
+    /* The styles arrive server-side with the page, so an empty set at mount
+       stays empty — there is no later arrival to wait for. The mount effect
+       bailed before `setReady(true)` and its deps are `[ready]`, so nothing
+       ever re-ran it and the Studio showed a loading line with no end.
+
+       Two ways in, and the second is the one worth naming: an install whose
+       seed has not run, and an install where every style row failed
+       `styleParamsSchema` and was dropped — which the log records a line at a
+       time while the screen says nothing at all. */
+    render(
+      <StudioProvider catalogue={{ ...testCatalogue(), styles: {}, styleGroups: [] }}>
+        <Stage />
+      </StudioProvider>
+    );
+
+    expect(await screen.findByText(/no styles in the catalogue/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Writing you a break/i)).not.toBeInTheDocument();
+  });
+});
+
 describe('Stage', () => {
   it('shows one stave for A only, one for B only, and two for A + B', async () => {
     const user = userEvent.setup();

@@ -16,6 +16,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 vi.mock('@/lib/db/client', () => ({
   prisma: {
     style: { findMany: vi.fn(), findFirst: vi.fn() },
+    /* The list read attaches each style's CURRENT version with a second,
+       bounded query — Prisma cannot filter a relation against a column of the
+       parent row, so `versions: { where: { version: currentVersion } }` is not
+       expressible and this is what replaces reading the whole history. */
+    styleVersion: { findMany: vi.fn() },
     kit: { findMany: vi.fn() },
     patternLibrary: { findMany: vi.fn() },
   },
@@ -54,6 +59,25 @@ function styleRow(key = 'funk'): StyleRow {
   };
 }
 
+/** What `style.findMany` returns now: columns, no relation. */
+function styleColumns(key = 'funk') {
+  const s = testStyle(key);
+  return { id: `sid-${s.key}`, key: s.key, group: s.group, currentVersion: s.version, position: 0 };
+}
+
+/** What the follow-up `styleVersion.findMany` returns for those styles. */
+function versionRows(...keys: string[]) {
+  return (keys.length ? keys : ['funk']).map((key) => {
+    const s = testStyle(key);
+    return {
+      id: s.versionId ?? '',
+      styleId: `sid-${s.key}`,
+      version: s.version,
+      params: s.params,
+    };
+  });
+}
+
 function kitRow(key = 'studio70'): KitRow {
   const k = testKit(key);
   const { key: kitKey, label, hint, engine, credit, group, samples, ...params } = k;
@@ -86,6 +110,7 @@ beforeEach(() => {
   invalidateCatalogue();
   vi.mocked(prisma.style.findMany).mockReset();
   vi.mocked(prisma.style.findFirst).mockReset();
+  vi.mocked(prisma.styleVersion.findMany).mockReset();
   vi.mocked(prisma.kit.findMany).mockReset();
   vi.mocked(prisma.patternLibrary.findMany).mockReset();
   vi.mocked(logger.warn).mockReset();
@@ -97,7 +122,8 @@ afterEach(() => {
 
 describe('the memo', () => {
   it('caches the promise, so two callers that overlap share one query rather than racing to run the same three', async () => {
-    vi.mocked(prisma.style.findMany).mockResolvedValue([styleRow()] as never);
+    vi.mocked(prisma.style.findMany).mockResolvedValue([styleColumns()] as never);
+    vi.mocked(prisma.styleVersion.findMany).mockResolvedValue(versionRows() as never);
 
     const [a, b] = await Promise.all([listStyles(), listStyles()]);
 
@@ -106,7 +132,8 @@ describe('the memo', () => {
   });
 
   it('invalidateCatalogue empties it, so the next read re-queries', async () => {
-    vi.mocked(prisma.style.findMany).mockResolvedValue([styleRow()] as never);
+    vi.mocked(prisma.style.findMany).mockResolvedValue([styleColumns()] as never);
+    vi.mocked(prisma.styleVersion.findMany).mockResolvedValue(versionRows() as never);
 
     await listStyles();
     invalidateCatalogue();
@@ -121,7 +148,8 @@ describe('the memo', () => {
 
     // If the rejection had been cached, this second call would replay the
     // same error instead of reaching the (now healthy) database.
-    vi.mocked(prisma.style.findMany).mockResolvedValueOnce([styleRow()] as never);
+    vi.mocked(prisma.style.findMany).mockResolvedValueOnce([styleColumns()] as never);
+    vi.mocked(prisma.styleVersion.findMany).mockResolvedValue(versionRows() as never);
     const styles = await listStyles();
 
     expect(styles).toHaveLength(1);
@@ -130,7 +158,8 @@ describe('the memo', () => {
 
   it('serves a cached read within the TTL, and re-queries once it has passed', async () => {
     vi.useFakeTimers();
-    vi.mocked(prisma.style.findMany).mockResolvedValue([styleRow()] as never);
+    vi.mocked(prisma.style.findMany).mockResolvedValue([styleColumns()] as never);
+    vi.mocked(prisma.styleVersion.findMany).mockResolvedValue(versionRows() as never);
 
     await listStyles();
 
@@ -144,6 +173,72 @@ describe('the memo', () => {
     await vi.advanceTimersByTimeAsync(2);
     await listStyles();
     expect(prisma.style.findMany).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe('how much of the version history a read pulls', () => {
+  it('asks for one version per style, not every version of every style', async () => {
+    /* The obvious select — `versions: { select: … }` with no filter — reads the
+       whole history to use one row of it, and `params` is the entire weighted
+       table. The set grows every time an admin saves a style, which is the one
+       thing this phase set out to make easy, so the picker's query would get
+       slower in proportion to how much the catalogue had been edited. This is
+       the assertion that the list read does not do that. */
+    vi.mocked(prisma.style.findMany).mockResolvedValue([
+      styleColumns('funk'),
+      { id: 'sid-boombap', key: 'boombap', group: 'Classic', currentVersion: 4, position: 1 },
+    ] as never);
+    vi.mocked(prisma.styleVersion.findMany).mockResolvedValue(versionRows('funk') as never);
+
+    await listStyles();
+
+    const styleArgs = vi.mocked(prisma.style.findMany).mock.calls[0][0];
+    expect(styleArgs?.select).not.toHaveProperty('versions');
+
+    /* One (styleId, version) pair per style — so the follow-up is bounded by
+       the number of styles, not by how many times each has been retuned. */
+    const versionArgs = vi.mocked(prisma.styleVersion.findMany).mock.calls[0][0];
+    expect(versionArgs?.where).toEqual({
+      OR: [
+        { styleId: 'sid-funk', version: testStyle('funk').version },
+        { styleId: 'sid-boombap', version: 4 },
+      ],
+    });
+  });
+
+  it('resolves by the pointer, not by the newest row', async () => {
+    /* `take: 1` ordered by version descending is the cheap way to get "one
+       version" and it is the wrong row: a seed interrupted between writing a
+       version and moving `currentVersion` leaves a newer one the style does not
+       point at, and serving it would hand everyone parameters that were never
+       committed. A style pointing at a version the query did not return reports
+       through `toStyle` instead of falling back to whatever did come back. */
+    vi.mocked(prisma.style.findMany).mockResolvedValue([
+      { id: 'sid-funk', key: 'funk', group: 'Classic', currentVersion: 2, position: 0 },
+    ] as never);
+    vi.mocked(prisma.styleVersion.findMany).mockResolvedValue([] as never);
+
+    expect(await listStyles()).toEqual([]);
+    expect(logger.warn).toHaveBeenCalledWith(
+      expect.stringContaining('did not validate'),
+      expect.objectContaining({ key: 'funk', reason: 'no version 2' })
+    );
+  });
+
+  it('asks for one named version by name when a version is given', async () => {
+    // `version` is a parameter here rather than a column of the parent row, so
+    // unlike the list read this one CAN filter the relation — and must, for the
+    // same reason.
+    vi.mocked(prisma.style.findFirst).mockResolvedValue(styleRow('funk') as never);
+
+    await getStyle('funk', testStyle('funk').version);
+
+    const args = vi.mocked(prisma.style.findFirst).mock.calls[0][0];
+    const versions = args?.select?.versions;
+    if (typeof versions !== 'object') {
+      throw new Error(`versions must be selected with an args object, got ${typeof versions}`);
+    }
+    expect(versions.where).toEqual({ version: testStyle('funk').version });
   });
 });
 
@@ -169,13 +264,19 @@ describe('visibility', () => {
 
 describe('a row that fails validation', () => {
   it('is dropped from the list and logged, not thrown — the picker keeps the other rows', async () => {
-    const broken: StyleRow = {
-      key: 'broken',
-      group: 'Classic',
-      currentVersion: 1,
-      versions: [{ id: 'bad-1', version: 1, params: { ...testStyle('funk').params, swing: 999 } }],
-    };
-    vi.mocked(prisma.style.findMany).mockResolvedValue([styleRow(), broken] as never);
+    vi.mocked(prisma.style.findMany).mockResolvedValue([
+      styleColumns(),
+      { id: 'sid-broken', key: 'broken', group: 'Classic', currentVersion: 1, position: 1 },
+    ] as never);
+    vi.mocked(prisma.styleVersion.findMany).mockResolvedValue([
+      ...versionRows(),
+      {
+        id: 'bad-1',
+        styleId: 'sid-broken',
+        version: 1,
+        params: { ...testStyle('funk').params, swing: 999 },
+      },
+    ] as never);
 
     const styles = await listStyles();
 
@@ -198,7 +299,8 @@ describe('getStyle', () => {
    * pins that, not just that the right style key comes back.
    */
   it('with no version, resolves against the cached list rather than querying by key', async () => {
-    vi.mocked(prisma.style.findMany).mockResolvedValue([styleRow('funk')] as never);
+    vi.mocked(prisma.style.findMany).mockResolvedValue([styleColumns('funk')] as never);
+    vi.mocked(prisma.styleVersion.findMany).mockResolvedValue(versionRows('funk') as never);
 
     const style = await getStyle('funk');
 
@@ -207,7 +309,8 @@ describe('getStyle', () => {
   });
 
   it('with no version, returns null for a key the list does not have — no throw for a bad link or stale share', async () => {
-    vi.mocked(prisma.style.findMany).mockResolvedValue([styleRow('funk')] as never);
+    vi.mocked(prisma.style.findMany).mockResolvedValue([styleColumns('funk')] as never);
+    vi.mocked(prisma.styleVersion.findMany).mockResolvedValue(versionRows('funk') as never);
 
     const style = await getStyle('does-not-exist');
 
@@ -308,7 +411,8 @@ describe('getLibrary', () => {
 
 describe('studioCatalogue', () => {
   it('makes exactly one query per table — the "no per-item catalogue requests" contract, true by construction', async () => {
-    vi.mocked(prisma.style.findMany).mockResolvedValue([styleRow()] as never);
+    vi.mocked(prisma.style.findMany).mockResolvedValue([styleColumns()] as never);
+    vi.mocked(prisma.styleVersion.findMany).mockResolvedValue(versionRows() as never);
     vi.mocked(prisma.kit.findMany).mockResolvedValue([kitRow()] as never);
     vi.mocked(prisma.patternLibrary.findMany).mockResolvedValue([libraryRow()] as never);
 

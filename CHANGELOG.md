@@ -330,6 +330,25 @@ release process.
 
 ### Fixed
 
+- **The Studio hung on "Writing you a break…" when the catalogue was empty.**
+  The styles arrive server-side with the page, so an empty set at mount stays
+  empty, and the mount effect bailed before `setReady(true)` with deps that
+  could never re-run it. `BreakConsole` gains `noCatalogue`, distinct from
+  `!ready`, and the stage says which it is. Reachable on an unseeded install —
+  and, the case worth naming, when every style row fails `styleParamsSchema`
+  and is dropped, which the log records a line at a time while the screen said
+  nothing.
+
+- **The style list read every version of every style to use one of each.**
+  `STYLE_SELECT` pulled the `versions` relation unfiltered, so `listStyles()`
+  loaded the full `params` blob of every `StyleVersion` row on each cache
+  rebuild — a set that grows every time an admin saves, which is the thing this
+  phase exists to make easy. The list now attaches each style's current version
+  with a second query bounded by the number of styles, and `getStyle(key,
+  version)` filters the relation by name. It still resolves by
+  `Style.currentVersion` rather than by the newest row, because an interrupted
+  seed leaves those different and the newest one was never committed.
+
 - **The per-file coverage floor in `test:changed:coverage` was never applied.**
   `buildVitestArgv` asked for it as `--coverage.thresholds.perFile=true`; vitest
   accepts that spelling on the command line and ignores it, so the 80% floor

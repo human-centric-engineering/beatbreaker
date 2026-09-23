@@ -1,5 +1,6 @@
 import {
   type RowProblem,
+  type StyleRow,
   styleGroupsOf,
   toKits,
   toLibrary,
@@ -120,13 +121,51 @@ function report(problems: RowProblem[]): void {
 
 /* ---- styles --------------------------------------------------------- */
 
+/**
+ * The style columns. **No `versions` relation** — see `readStyles`.
+ *
+ * An unfiltered `versions: { select: … }` here is the obvious version and it
+ * reads every version of every style to use one of each: `params` is the whole
+ * weighted-table blob, and the set grows every time an admin saves, which is
+ * the thing this phase exists to make easy. A hundred retunes of one style and
+ * the picker's query is a hundred blobs to render one row.
+ */
 const STYLE_SELECT = {
+  id: true,
   key: true,
   group: true,
   currentVersion: true,
   position: true,
-  versions: { select: { id: true, version: true, params: true } },
 } as const;
+
+type StyleColumns = { id: string; currentVersion: number } & Omit<StyleRow, 'versions'>;
+
+/**
+ * Attach exactly the version each style points at.
+ *
+ * Prisma cannot filter a relation against a column of the parent row — there is
+ * no `versions: { where: { version: currentVersion } }` — so this is a second
+ * query over the (styleId, version) pairs the first one returned. One row per
+ * style, whatever the history behind it.
+ *
+ * It resolves by `currentVersion` rather than by "the newest", because those
+ * are not the same row: a seed interrupted between writing a version and moving
+ * the pointer leaves the newest one uncommitted, and `take: 1` ordered by
+ * version would quietly serve it. A style whose pointer names a version that is
+ * not there still reports through `toStyle`'s own "no version N".
+ */
+async function withCurrentVersions(rows: StyleColumns[]): Promise<StyleRow[]> {
+  if (rows.length === 0) return [];
+  const versions = await prisma.styleVersion.findMany({
+    where: { OR: rows.map((r) => ({ styleId: r.id, version: r.currentVersion })) },
+    select: { id: true, styleId: true, version: true, params: true },
+  });
+  const byStyle = new Map(versions.map((v) => [v.styleId, v]));
+  return rows.map(({ id, ...row }) => {
+    const v = byStyle.get(id);
+    return { ...row, versions: v ? [{ id: v.id, version: v.version, params: v.params }] : [] };
+  });
+}
 
 const readStyles = memoised('styles', async (): Promise<CatalogueStyle[]> => {
   const rows = await prisma.style.findMany({
@@ -134,7 +173,7 @@ const readStyles = memoised('styles', async (): Promise<CatalogueStyle[]> => {
     select: STYLE_SELECT,
     orderBy: [{ group: 'asc' }, { position: 'asc' }],
   });
-  const { rows: styles, problems } = toStyles(rows);
+  const { rows: styles, problems } = toStyles(await withCurrentVersions(rows));
   report(problems);
   return styles;
 });
@@ -158,9 +197,17 @@ export async function getStyle(key: string, version?: number): Promise<Catalogue
     return (await readStyles()).find((s) => s.key === key) ?? null;
   }
 
+  /* `version` is a parameter here rather than a column of the row, so the
+     relation CAN be filtered — one version, by name, instead of the style's
+     whole history to read one of it. */
   const row = await prisma.style.findFirst({
     where: { ...PUBLIC, key },
-    select: STYLE_SELECT,
+    select: {
+      key: true,
+      group: true,
+      currentVersion: true,
+      versions: { where: { version }, select: { id: true, version: true, params: true } },
+    },
   });
   if (!row) return null;
 

@@ -70,6 +70,19 @@ const HISTORY_CAP = 40;
 
 export interface BreakConsole {
   ready: boolean;
+  /**
+   * There is no catalogue to write a break from.
+   *
+   * Distinct from `!ready`, which means "still working". This one never
+   * resolves: the styles arrive server-side with the page, so an empty set at
+   * mount stays empty, and the generator has nothing to start from. It happens
+   * on an install whose seed has not run, and — the one worth naming — when
+   * every style row fails `styleParamsSchema` and is dropped, which the log
+   * records one line at a time while the screen says nothing.
+   *
+   * Without this the Studio sat on "Writing you a break…" for ever.
+   */
+  noCatalogue: boolean;
   patterns: Record<SectionLetter, Pattern | null>;
   /** The sections as they sound and look at the current layer. */
   view: Record<SectionLetter, Pattern | null>;
@@ -242,6 +255,7 @@ const LAYER_TEMPO: Record<number, number> = { 1: 0.68, 2: 0.78, 3: 0.86, 4: 0.93
 
 export function useBreakConsole(catalogue: StudioCatalogue): BreakConsole {
   const [ready, setReady] = useState(false);
+  const [noCatalogue, setNoCatalogue] = useState(false);
   const [patterns, setPatterns] = useState<Record<SectionLetter, Pattern | null>>({
     A: null,
     B: null,
@@ -1014,7 +1028,13 @@ export function useBreakConsole(catalogue: StudioCatalogue): BreakConsole {
         logger.warn('BeatBreaker: the link carried a break that would not read', { error });
       }
     }
-    if (!styleRow) return;
+    if (!styleRow) {
+      /* Nothing to generate from, and nothing that will arrive later. Say so
+         rather than leaving `ready` false, which the stage renders as work in
+         progress. */
+      setNoCatalogue(true);
+      return;
+    }
     const st = styleIn(styleRow.params, meter);
     const roster = resolveLanes(st, lanesMode === 'custom' ? customLanes : null);
     const made = generateGood(
@@ -1138,6 +1158,7 @@ export function useBreakConsole(catalogue: StudioCatalogue): BreakConsole {
 
   return {
     ready,
+    noCatalogue,
     patterns,
     view,
     next,
