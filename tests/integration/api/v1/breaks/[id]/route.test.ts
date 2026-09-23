@@ -16,6 +16,7 @@ import { DELETE, GET, PATCH } from '@/app/api/v1/breaks/[id]/route';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { encodeBreak } from '@/lib/app/breaks/share';
 import { mockAuthenticatedUser } from '@/tests/helpers/auth';
+import { testStyle } from '@/tests/helpers/catalogue';
 
 vi.mock('@/lib/auth/config', () => ({ auth: { api: { getSession: vi.fn() } } }));
 vi.mock('@/lib/db/client', () => ({
@@ -30,14 +31,19 @@ const OTHER_ID = 'clzx9k8p40000x8c2g3h5m7b1';
 const BREAK_ID = 'cbrk00000000000000000001';
 
 function wireDoc(meter = '4/4'): Record<string, unknown> {
-  const A = generatePattern({ style: 'funk', meter, seed: 9, bars: 2, density: 50, ghosts: 50 });
+  /* The real seed style, resolved as the catalogue resolves it — not a stub.
+     The document this produces carries the style's own snapshot, which is what
+     the route's critic reads, so a fixture with an empty one would be scoring
+     something the app never generates. */
+  const funk = testStyle('funk');
+  const A = generatePattern({ style: funk, meter, seed: 9, bars: 2, density: 50, ghosts: 50 });
   const code = encodeBreak({
     bpm: 88,
     swing: 30,
     level: 5,
     arrangement: ['A', 'B'],
     A,
-    B: deriveB(A),
+    B: deriveB(A, funk.params),
   });
   return JSON.parse(atob(code)) as Record<string, unknown>;
 }

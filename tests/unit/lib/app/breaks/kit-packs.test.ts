@@ -6,6 +6,13 @@
  * quiet: a renamed or dropped file makes one lane of one kit silently fall
  * through to the synthesised voice, which sounds like a kit that is simply not
  * very good rather than like a bug.
+ *
+ * The kit table moved out of `lib/app/breaks/kit.ts` and into the seed data in
+ * Phase 2, and the manifest moved with it: `001-catalogue` reads
+ * `public/kits/manifest.json` and writes it to each pack kit's `samples`
+ * column, and `packs.ts` no longer fetches it at run time. That makes this
+ * cross-check more worth having, not less — the manifest is now read once, at
+ * seed time, so a file that is named but not shipped is baked into a row.
  */
 
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
@@ -13,7 +20,7 @@ import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
-import { KITS } from '@/lib/app/breaks/kit';
+import { KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
 
 const ROOT = join(process.cwd(), 'public/kits');
 

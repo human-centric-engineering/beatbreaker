@@ -5,7 +5,6 @@ import { DEFAULT_PERC, FOOT_LANE, PERC_LANES, TOM_LANES, percInst } from '@/lib/
 import { M44, groupAt, isGroupStart, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
 import { MIDI_MAP } from '@/lib/app/breaks/midi';
 import { meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
-import { STYLES } from '@/lib/app/breaks/styles';
 import type { Bar, LaneKey, Meter, Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -215,11 +214,15 @@ export class Transport {
     const pos = this.seq[this.seqIndex];
     const livePat = pos ? snap.patterns[pos.letter] : null;
     const cm = meterOfPat(livePat ?? snap.patterns.A);
-    const style = STYLES[(livePat ?? snap.patterns.A)?.style ?? ''];
+    /* The pattern's own snapshot, not a style lookup. This runs on every
+       scheduler tick, so it has to be synchronous — and styles are rows now, so
+       a lookup here would either be async or a cache to keep in step with the
+       server. The snapshot is already in the pattern and is what was played. */
+    const attrs = (livePat ?? snap.patterns.A)?.attrs;
 
     /* Swing pushes the off-beats late — which off-beats depends on the style. A
        shuffle swings the 8ths (the "and"), everything else swings the 16ths. */
-    const swung = isSwung(this.step, cm, style) ? t + dur * (snap.swing / 100) * 0.66 : t;
+    const swung = isSwung(this.step, cm, attrs) ? t + dur * (snap.swing / 100) * 0.66 : t;
 
     if (this.countLeft > 0) {
       const cn = patSteps(snap.patterns.A);
@@ -238,7 +241,7 @@ export class Transport {
 
     /* The style's own feel, on top of swing. The click and the playhead stay on
        the grid — being able to hear the gap is the whole point. */
-    const feel = feelOf(style);
+    const feel = feelOf(attrs);
     const m = meterOfPat(livePat);
     const amt = snap.feel / 100;
     const floor = (this.audio.ctx as AudioContext).currentTime + 0.002;
@@ -258,7 +261,7 @@ export class Transport {
 
     if (bar.k[i]) {
       const feather =
-        style?.kickFeather && bar.k[i] === 1 && isGroupStart(m, i) ? style.kickFeather : 1;
+        attrs?.kickFeather && bar.k[i] === 1 && isGroupStart(m, i) ? attrs.kickFeather : 1;
       const v = (bar.k[i] === 2 ? 1 : 0.9) * feather;
       if (g('k')) this.audio.kick(at('k'), v * g('k'));
       send(MIDI_MAP.k, v, at('k'));
@@ -279,12 +282,12 @@ export class Transport {
       send(sv === 4 ? MIDI_MAP.sCross : MIDI_MAP.s, v, at('s', sv === 1));
     }
     if (bar.h[i]) {
-      const v = 0.86 * hatShape(i, bar.h[i], 'h', m, style, snap.hats);
+      const v = 0.86 * hatShape(i, bar.h[i], 'h', m, attrs, snap.hats);
       if (g('h')) this.audio.hat(at('h'), v * g('h'), bar.h[i] === 3);
       send(bar.h[i] === 3 ? MIDI_MAP.hOpen : MIDI_MAP.h, v, at('h'));
     }
     if (bar.r[i]) {
-      const v = (bar.r[i] === 2 ? 0.95 : 0.84) * hatShape(i, bar.r[i], 'r', m, style, snap.hats);
+      const v = (bar.r[i] === 2 ? 0.95 : 0.84) * hatShape(i, bar.r[i], 'r', m, attrs, snap.hats);
       if (g('r')) this.audio.ride(at('r'), v * g('r'), bar.r[i] === 2);
       send(bar.r[i] === 2 ? MIDI_MAP.rBell : MIDI_MAP.r, v, at('r'));
     }

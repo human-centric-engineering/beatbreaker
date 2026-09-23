@@ -3,7 +3,6 @@ import { feelOf, feelOffset, hatShape, isSwung } from '@/lib/app/breaks/feel';
 import { isGroupStart } from '@/lib/app/breaks/meter';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import { clamp } from '@/lib/app/breaks/rng';
-import { STYLES } from '@/lib/app/breaks/styles';
 import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -81,14 +80,17 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
     const bar = pat.bars[pos.barIdx];
     if (!bar) continue;
 
-    const style = STYLES[pat.style];
-    const feel = feelOf(style);
+    /* The pattern's own snapshot of its style, not a lookup. An export has to
+       match what was played, and what was played is what the pattern carries —
+       the style row may since have been retuned or deleted. */
+    const attrs = pat.attrs;
+    const feel = feelOf(attrs);
     const m = meterOfPat(pat);
     const nSteps = bar.k.length;
     const amt = opts.feel / 100;
 
     for (let i = 0; i < nSteps; i++) {
-      const swing = isSwung(i, m, style) ? ST * (opts.swing / 100) * 0.66 : 0;
+      const swing = isSwung(i, m, attrs) ? ST * (opts.swing / 100) * 0.66 : 0;
       const at = tick + i * ST + swing;
 
       const add = (note: number, vel: number, lane: LaneKey, ghost?: boolean): void => {
@@ -102,7 +104,7 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
 
       if (bar.k[i]) {
         const feather =
-          style?.kickFeather && bar.k[i] === 1 && isGroupStart(m, i) ? style.kickFeather : 1;
+          attrs?.kickFeather && bar.k[i] === 1 && isGroupStart(m, i) ? attrs.kickFeather : 1;
         add(MIDI_MAP.k, clamp(Math.round((bar.k[i] === 2 ? 118 : 100) * feather), 1, 127), 'k');
       }
       if (bar[FOOT_LANE][i]) add(MIDI_MAP.hf, 76, 'h');
@@ -117,7 +119,7 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
       if (bar.h[i]) {
         add(
           bar.h[i] === 3 ? MIDI_MAP.hOpen : MIDI_MAP.h,
-          clamp(Math.round(100 * hatShape(i, bar.h[i], 'h', m, style, opts.hats)), 1, 127),
+          clamp(Math.round(100 * hatShape(i, bar.h[i], 'h', m, attrs, opts.hats)), 1, 127),
           'h'
         );
       }
@@ -126,7 +128,7 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
           bar.r[i] === 2 ? MIDI_MAP.rBell : MIDI_MAP.r,
           clamp(
             Math.round(
-              (bar.r[i] === 2 ? 112 : 96) * hatShape(i, bar.r[i], 'r', m, style, opts.hats)
+              (bar.r[i] === 2 ? 112 : 96) * hatShape(i, bar.r[i], 'r', m, attrs, opts.hats)
             ),
             1,
             127

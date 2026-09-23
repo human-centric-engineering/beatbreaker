@@ -1,5 +1,5 @@
 import type { BreakAudio, SampleSource } from '@/lib/app/breaks/audio/engine';
-import { KITS, SLOT_BY_ID } from '@/lib/app/breaks/kit';
+import { SLOT_BY_ID } from '@/lib/app/breaks/kit';
 import { logger } from '@/lib/logging';
 
 /**
@@ -107,7 +107,7 @@ export class UserSource implements SampleSource {
   }
 
   refresh(engine: BreakAudio): void {
-    if (KITS[engine.kitKey]?.engine === 'user') void this.load(engine);
+    if (engine.kit?.engine === 'user') void this.load(engine);
   }
 
   /** Decode everything the store is holding. Once per session. */
@@ -188,7 +188,7 @@ export class UserSource implements SampleSource {
   }
 
   hit(engine: BreakAudio, t: number, slotId: string, vel: number): boolean {
-    const kit = KITS[engine.kitKey];
+    const kit = engine.kit;
     if (kit?.engine !== 'user') return false;
     const slot = SLOT_BY_ID[slotId];
     if (!slot) return false;
@@ -202,7 +202,7 @@ export class UserSource implements SampleSource {
     }
     if (!buf) return false;
 
-    const P = engine.sound?.[slot.voice] ?? KITS.user[slot.voice as 'k'];
+    const P = engine.sound?.[slot.voice] ?? kit[slot.voice as 'k'];
     const rate = (P.rate ?? 1) * (1 + (Math.random() - 0.5) * 0.01);
     const played = engine.playBuf(t, buf, vel * (P.level ?? 1) * soften, slot.voice, rate);
     if (slotId === 'hOpen') engine.noteHatTail(played);

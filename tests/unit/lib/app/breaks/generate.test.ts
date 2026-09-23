@@ -16,14 +16,20 @@ import { engrave } from '@/lib/app/breaks/engrave';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { LANES } from '@/lib/app/breaks/lanes';
 import { METER_KEYS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
-import { STYLE_KEYS } from '@/lib/app/breaks/styles';
+import { TEST_STYLE_KEYS, testStyles } from '@/tests/helpers/catalogue';
 import type { Pattern } from '@/lib/app/breaks/types';
 import type { SvgNode } from '@/lib/app/breaks/engrave';
 
-const COMBOS = STYLE_KEYS.flatMap((style) => METER_KEYS.map((meter) => ({ style, meter })));
+/* The same style table the generator used to import, resolved once — the
+   generator takes the style as an argument now, so the sweep feeds it in. Built
+   once rather than per call so every combo sees the same style object, which is
+   what `styleIn`'s per-style remap cache is keyed on. */
+const STYLES = testStyles();
+
+const COMBOS = TEST_STYLE_KEYS.flatMap((style) => METER_KEYS.map((meter) => ({ style, meter })));
 
 function gen(style: string, meter: string, seed = 12345, bars = 2): Pattern {
-  return generatePattern({ style, meter, seed, bars, density: 50, ghosts: 50 });
+  return generatePattern({ style: STYLES[style], meter, seed, bars, density: 50, ghosts: 50 });
 }
 
 function expectBarsFit(pat: Pattern, bars: number): void {
@@ -45,7 +51,7 @@ function hasNaN(nodes: SvgNode[]): boolean {
 
 describe('the style table', () => {
   it('is 37 styles in 12 meters — the numbers the site copy quotes', () => {
-    expect(STYLE_KEYS).toHaveLength(37);
+    expect(TEST_STYLE_KEYS).toHaveLength(37);
     expect(METER_KEYS).toHaveLength(12);
     expect(COMBOS).toHaveLength(444);
   });
@@ -113,7 +119,7 @@ describe('deriveB', () => {
     for (const { style, meter } of COMBOS) {
       const a = gen(style, meter);
       const before = JSON.stringify(a);
-      const b = deriveB(a);
+      const b = deriveB(a, STYLES[style].params);
       expect(JSON.stringify(a)).toBe(before);
       expect(b.style).toBe(style);
       expect(b.meter).toBe(meter);
@@ -126,7 +132,10 @@ describe('deriveB', () => {
 describe('generateGood', () => {
   it('keeps a playable candidate whenever one exists, and counts what it rejected', () => {
     for (const { style, meter } of COMBOS.filter((_, i) => i % 3 === 0)) {
-      const res = generateGood({ style, meter, seed: 4242, bars: 2, density: 50, ghosts: 50 }, 100);
+      const res = generateGood(
+        { style: STYLES[style], meter, seed: 4242, bars: 2, density: 50, ghosts: 50 },
+        100
+      );
       expect(res.tries).toBe(CANDIDATES);
       expect(res.rejected).toBeGreaterThanOrEqual(0);
       expect(res.rejected).toBeLessThanOrEqual(CANDIDATES);
@@ -138,7 +147,7 @@ describe('generateGood', () => {
   it('keeps a findable backbeat in every style in every meter', () => {
     for (const { style, meter } of COMBOS) {
       const { pattern } = generateGood(
-        { style, meter, seed: 31, bars: 2, density: 50, ghosts: 50 },
+        { style: STYLES[style], meter, seed: 31, bars: 2, density: 50, ghosts: 50 },
         100
       );
       const backbeat = playability(pattern, 100).checks[3];

@@ -15,10 +15,11 @@ import { act, renderHook, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
-import { LIBRARY } from '@/lib/app/breaks/library';
 import { stashPendingLink } from '@/lib/app/breaks/pending-link';
 import { encodeBreak } from '@/lib/app/breaks/share';
-import { STYLES } from '@/lib/app/breaks/styles';
+import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
+import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
+import { testCatalogue } from '@/tests/helpers/catalogue';
 
 const fakes = vi.hoisted(() => {
   const ctx = { currentTime: 0 };
@@ -111,15 +112,26 @@ vi.mock('@/lib/app/breaks/audio/midi-out', () => ({
 
 import { useBreakConsole } from '@/components/app/breaks/use-break-console';
 
+/**
+ * The catalogue the hook is driven with — the seed data, built once.
+ *
+ * Once rather than per render: the hook memoises the resolved style, the kit
+ * row and the percussion source on the catalogue itself, so a fresh object each
+ * render would re-run the sample refresh forever. A client is handed one
+ * catalogue for the life of the page, and this is that.
+ */
+const catalogue = testCatalogue();
+
 async function mount() {
-  const hook = renderHook(() => useBreakConsole());
+  const hook = renderHook(() => useBreakConsole(catalogue));
   await waitFor(() => expect(hook.result.current.ready).toBe(true));
   return hook;
 }
 
 function codeFor(name: string, bpm = 101) {
+  const funk = catalogue.styles.funk;
   const A = generatePattern({
-    style: 'funk',
+    style: funk,
     meter: '4/4',
     seed: 5,
     bars: 2,
@@ -127,7 +139,14 @@ function codeFor(name: string, bpm = 101) {
     ghosts: 50,
   });
   A.name = name;
-  return encodeBreak({ bpm, swing: 12, level: 4, arrangement: ['A', 'B'], A, B: deriveB(A) });
+  return encodeBreak({
+    bpm,
+    swing: 12,
+    level: 4,
+    arrangement: ['A', 'B'],
+    A,
+    B: deriveB(A, funk.params),
+  });
 }
 
 beforeEach(() => {
@@ -221,7 +240,9 @@ describe('generating and editing', () => {
     const { result } = await mount();
     act(() => result.current.newBreak('B'));
     act(() => result.current.buildBFromA());
-    expect(result.current.patterns.B).toEqual(deriveB(result.current.patterns.A!));
+    expect(result.current.patterns.B).toEqual(
+      deriveB(result.current.patterns.A!, catalogue.styles.funk.params)
+    );
   });
 
   it('applies a doctor move to the section being edited only', async () => {
@@ -254,8 +275,11 @@ describe('generating and editing', () => {
 
   it('loads a famous break and takes its tempo, unless the tempo is locked', async () => {
     const { result } = await mount();
+    /* Entries are loaded by id now, not by index into a compiled-in array. The
+       helper numbers them in library order, so `entry-0` is `LIBRARY[0]` — the
+       same break this has always loaded. */
     const item = LIBRARY[0];
-    act(() => result.current.loadLibraryItem(0));
+    act(() => result.current.loadLibraryEntry('entry-0'));
     expect(result.current.patterns.A?.name).toBe(item.title);
     expect(result.current.patterns.B?.name).toBe(`${item.title} (B)`);
     expect(result.current.bpm).toBe(item.bpm);
@@ -263,11 +287,11 @@ describe('generating and editing', () => {
 
     act(() => result.current.toggleLock('bpm'));
     act(() => result.current.setBpm(77));
-    act(() => result.current.loadLibraryItem(1));
+    act(() => result.current.loadLibraryEntry('entry-1'));
     expect(result.current.bpm).toBe(77);
 
     const at = result.current.patterns;
-    act(() => result.current.loadLibraryItem(999));
+    act(() => result.current.loadLibraryEntry('no-such-entry'));
     expect(result.current.patterns).toBe(at);
   });
 
@@ -378,8 +402,10 @@ describe('the kit', () => {
     const { result } = await mount();
     const audio = fakes.made.audio.at(-1)!;
     act(() => result.current.setKit('muldjord'));
+    /* The engine takes the resolved row now, not a key — which is the whole
+       point of the move: playback never looks a kit up for itself. */
     await waitFor(() =>
-      expect(audio.setKit).toHaveBeenLastCalledWith('muldjord', expect.anything())
+      expect(audio.setKit).toHaveBeenLastCalledWith(catalogue.kits.muldjord, expect.anything())
     );
     expect(audio.init).toHaveBeenCalled();
     expect(result.current.kitSlots).toBe(5);

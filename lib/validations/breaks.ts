@@ -2,7 +2,6 @@ import { z } from 'zod';
 
 import { METER_KEYS } from '@/lib/app/breaks/meter';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
-import { STYLE_KEYS } from '@/lib/app/breaks/styles';
 
 /**
  * Request schemas for `/api/v1/breaks`.
@@ -10,7 +9,7 @@ import { STYLE_KEYS } from '@/lib/app/breaks/styles';
  * The break itself is validated by `sharePayloadSchema` — the same schema a
  * pasted share code goes through — so a break that arrived over HTTP and one
  * that arrived through the textarea are held to one standard, and there is one
- * place to change when the wire format moves to version 4.
+ * place to change when the wire format moves again.
  */
 
 /**
@@ -34,10 +33,12 @@ export const createBreakSchema = breakFields.extend({
 export const updateBreakSchema = breakFields.partial();
 
 export const listBreaksSchema = z.object({
-  style: z
-    .string()
-    .refine((s) => STYLE_KEYS.includes(s), 'unknown style')
-    .optional(),
+  /* A filter, not a claim about the catalogue. It used to be checked against
+     the compiled-in style list; styles are rows now, so the list is a query and
+     this schema is synchronous. Filtering by a style that no longer exists is
+     not an error — it is an empty page, which is the honest answer. What the
+     value is still held to is the column width it is compared against. */
+  style: z.string().max(40).optional(),
   meter: z
     .string()
     .refine((s) => METER_KEYS.includes(s), 'unknown meter')

@@ -25,6 +25,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { KitPanel } from '@/components/app/studio/panels/kit-panel';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
+import { testCatalogue } from '@/tests/helpers/catalogue';
 
 vi.mock('@/lib/app/breaks/audio/packs', () => {
   class FakePackSource {
@@ -65,7 +66,7 @@ vi.mock('@/lib/app/breaks/audio/user-kit', () => {
 
 const renderPanel = () =>
   render(
-    <StudioProvider>
+    <StudioProvider catalogue={testCatalogue()}>
       <KitPanel />
     </StudioProvider>
   );

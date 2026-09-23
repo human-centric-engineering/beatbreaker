@@ -5,7 +5,7 @@ import { reduceBar } from '@/lib/app/breaks/layers';
 import { clonePattern, meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
 import { makeRng, wpick } from '@/lib/app/breaks/rng';
 import { styleIn } from '@/lib/app/breaks/styles';
-import type { Meter, Pattern } from '@/lib/app/breaks/types';
+import type { Meter, Pattern, Style } from '@/lib/app/breaks/types';
 
 /**
  * The break doctor: twelve musical edits, applied to a whole section.
@@ -57,13 +57,23 @@ function inMeter(list: number[], m: Meter): number[] {
  * what makes undo a matter of keeping the old reference rather than replaying
  * the inverse of a move — several of these have no inverse.
  *
+ * @param style0 the pattern's style, resolved by the caller. A move writes new
+ * notes — where ghosts want to land, which steps the kick may not take — and
+ * that is generator knowledge, not the five attributes a pattern carries with
+ * it. A pattern whose style has been deleted can still be played, scored and
+ * exported; it cannot be doctored, and the caller is the one who can say so.
  * @param entropy varies the result between presses of the same button. Pass a
  * fixed value to make a move reproducible (a test, or a server-side replay).
  */
-export function doctor(input: Pattern, move: DoctorMove, entropy = Date.now()): Pattern {
+export function doctor(
+  input: Pattern,
+  style0: Style,
+  move: DoctorMove,
+  entropy = Date.now()
+): Pattern {
   const pat = clonePattern(input);
   const rng = makeRng((pat.seed + entropy) >>> 0);
-  const style = styleIn(pat.style, pat.meter);
+  const style = styleIn(style0, pat.meter);
   const m = meterOfPat(pat);
   const steps = patSteps(pat);
   const groups = groupsOf(m);
@@ -149,8 +159,11 @@ export function doctor(input: Pattern, move: DoctorMove, entropy = Date.now()): 
               : applyFill(rng, b, m, pat.lanes);
           // a clave is the identity of the groove, not decoration a fill may write over
           if (style.clave) {
+            /* Bounded by the bar: a backbeat past its end would extend the
+               lane array and leave holes, not throw. See the same guard in
+               `applyKickRules`. */
             for (const s of pat.backbeats) {
-              if (s >= lastGroup.start) nb.s[s] = bbValue('s', style);
+              if (s >= lastGroup.start && s < nb.s.length) nb.s[s] = bbValue('s', style);
             }
           }
           for (const L of LANES) b[L] = nb[L];

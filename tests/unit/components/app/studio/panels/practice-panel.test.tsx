@@ -22,10 +22,11 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { PracticePanel } from '@/components/app/studio/panels/practice-panel';
 import { StudioTransport } from '@/components/app/shell/studio-transport';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
+import { testCatalogue } from '@/tests/helpers/catalogue';
 
 const renderPanel = () =>
   render(
-    <StudioProvider>
+    <StudioProvider catalogue={testCatalogue()}>
       <StudioTransport />
       <PracticePanel />
     </StudioProvider>

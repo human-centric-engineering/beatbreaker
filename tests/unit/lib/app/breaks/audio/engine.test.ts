@@ -25,7 +25,14 @@ import {
   SourceStack,
   type SampleSource,
 } from '@/lib/app/breaks/audio/engine';
-import { KITS, RATIOS, withTuning } from '@/lib/app/breaks/kit';
+import {
+  RATIOS,
+  SAMPLE_STAND_IN,
+  SYNTH_FALLBACK,
+  withTuning,
+  type ResolvedKit,
+} from '@/lib/app/breaks/kit';
+import { testKit } from '@/tests/helpers/catalogue';
 import {
   FakeAudioBufferSourceNode,
   FakeAudioContext,
@@ -81,13 +88,37 @@ function roomSend(source: FakeAudioNode, convolver: FakeConvolverNode): number |
   return send ? send.gain.value : null;
 }
 
+/* The kits these tests play through, resolved from the seed data exactly as the
+   catalogue resolves them. Kits are `Kit` rows from Phase 2 — `KITS` is gone
+   from `lib/app/breaks/kit.ts` and playback receives a `ResolvedKit` object
+   rather than looking one up by key — so the numbers asserted below are the
+   same numbers, reached through the new argument rather than through the table
+   this file used to import. Module constants rather than per-call `testKit()`
+   so identity comparisons (`expect(audio.kit).toBe(MACHINE)`) mean something. */
+const STUDIO70: ResolvedKit = testKit('studio70');
+const MACHINE: ResolvedKit = testKit('machine');
+const LIVEROOM: ResolvedKit = testKit('liveroom');
+const TR909: ResolvedKit = testKit('tr909');
+
 function newEngine(): BreakAudio {
   return new BreakAudio();
 }
 
-/** A freshly initialised engine, with its fake context available for inspection. */
-function initEngine(): { audio: BreakAudio; ctx: FakeAudioContext } {
+/**
+ * A freshly initialised engine, with its fake context available for inspection.
+ *
+ * The kit is chosen explicitly. A new `BreakAudio` starts with `kit: null`
+ * now — a real state, since the kits are rows fetched from the server and the
+ * catalogue may not have arrived — so "the kit the engine happens to default
+ * to" is no longer a thing to lean on. Every voice test below is about the
+ * Studio '70s kit, and now says so.
+ */
+function initEngine(kit: ResolvedKit | null = STUDIO70): {
+  audio: BreakAudio;
+  ctx: FakeAudioContext;
+} {
   const audio = newEngine();
+  audio.setKit(kit, null);
   const ctx = audio.init() as unknown as FakeAudioContext;
   return { audio, ctx };
 }
@@ -239,7 +270,7 @@ describe('init()', () => {
     expect(master.outputs).toContain(ctx.destination);
 
     // the applied kit's own lowpass, via setTargetAtTime rather than a hard-set
-    const m = KITS.studio70.master;
+    const m = STUDIO70.master;
     const lpEvent = lp.frequency.events.at(-1);
     expect(lpEvent).toMatchObject({ type: 'setTargetAtTime', value: m.lp, timeConstant: 0.01 });
   });
@@ -343,8 +374,9 @@ describe('resume()', () => {
 describe('setKit()', () => {
   it('records the kit and sound before init(), without touching audio', () => {
     const audio = newEngine();
-    audio.setKit('machine', null);
-    expect(audio.kitKey).toBe('machine');
+    audio.setKit(MACHINE, null);
+    // the resolved row itself, not a key into a table this module no longer owns
+    expect(audio.kit).toBe(MACHINE);
     expect(audio.sound).toBeNull();
     expect(FakeAudioContext.instances).toHaveLength(0);
   });
@@ -354,10 +386,10 @@ describe('setKit()', () => {
     const refresh = vi.fn();
     audio.samples = { hit: vi.fn(() => false), refresh };
 
-    audio.setKit('machine', null);
+    audio.setKit(MACHINE, null);
 
     const lp = pick<FakeBiquadFilterNode>(ctx.nodes, 'biquad')[0];
-    expect(lp.frequency.events.at(-1)).toMatchObject({ value: KITS.machine.master.lp });
+    expect(lp.frequency.events.at(-1)).toMatchObject({ value: MACHINE.master.lp });
     expect(refresh).toHaveBeenCalledWith(audio);
   });
 });
@@ -369,50 +401,67 @@ describe('setKit()', () => {
 describe('P()', () => {
   it('reads a synth kit’s own numbers with no sound override', () => {
     const audio = newEngine();
-    audio.setKit('studio70', null);
-    expect(audio.P('k')).toEqual(KITS.studio70.k);
+    audio.setKit(STUDIO70, null);
+    expect(audio.P('k')).toEqual(STUDIO70.k);
   });
 
   it('layers a sound override over the kit defaults, leaving the rest untouched', () => {
     const audio = newEngine();
-    const sound = withTuning('studio70', { k: { tune: 999 } });
-    audio.setKit('studio70', sound);
+    const sound = withTuning(STUDIO70, { k: { tune: 999 } });
+    audio.setKit(STUDIO70, sound);
     expect(audio.P('k').tune).toBe(999);
-    expect(audio.P('k').decay).toBe(KITS.studio70.k.decay);
+    expect(audio.P('k').decay).toBe(STUDIO70.k.decay);
   });
 
-  it('stands in with the Machine kit’s numbers for a non-synth-lane voice on a non-synth kit', () => {
+  it('stands in with SAMPLE_STAND_IN for a non-synth-lane voice on a non-synth kit', () => {
     const audio = newEngine();
-    audio.setKit('tr909', null); // engine: 'drift' — not yet implemented as its own synth
-    expect(audio.P('k')).toEqual(KITS.machine.k);
-    expect(audio.P('s')).toEqual(KITS.machine.s);
+    audio.setKit(TR909, null); // engine: 'drift' — not yet implemented as its own synth
+    /* The same numbers this test always asserted — they were the Machine kit's
+       — but they are `SAMPLE_STAND_IN` in `kit.ts` now rather than a row, and
+       deliberately so: a drum-machine or sample kit stores 0..1 knobs and the
+       synth only understands Hz and seconds, so what stands in while one loads
+       must not move because somebody retuned an unrelated kit. */
+    expect(audio.P('k')).toEqual(SAMPLE_STAND_IN.k);
+    expect(audio.P('s')).toEqual(SAMPLE_STAND_IN.s);
+    expect(audio.P('k')).toEqual({ tune: 42, decay: 0.52, tone: 0.62, room: 0 });
   });
 
   it('reads toms and percussion from the kit itself even on a non-synth kit (SYNTH_ONLY)', () => {
     const audio = newEngine();
-    audio.setKit('tr909', null);
-    expect(audio.P('t')).toEqual(KITS.tr909.t);
-    expect(audio.P('p')).toEqual(KITS.tr909.p);
+    audio.setKit(TR909, null);
+    expect(audio.P('t')).toEqual(TR909.t);
+    expect(audio.P('p')).toEqual(TR909.p);
   });
 
-  it('falls back to studio70 for an unknown kit key', () => {
+  it('falls back to SYNTH_FALLBACK when there is no kit at all', () => {
+    /* The old shape of this test was "an unknown kit key". A key cannot be
+       unknown any more — playback takes the resolved row — but the state it
+       stood for is still real and is now `null`: the catalogue has not arrived
+       yet, or the saved kit no longer names a row. The fallback is the
+       synthesiser's own numbers rather than any catalogue kit, because a row
+       can be edited or deleted and what plays meanwhile must not move with it. */
     const audio = newEngine();
-    audio.setKit('not-a-real-kit', null);
-    expect(audio.P('k')).toEqual(KITS.studio70.k);
+    audio.setKit(null, null);
+    expect(audio.kit).toBeNull();
+    expect(audio.P('k')).toEqual(SYNTH_FALLBACK.k);
+    expect(audio.P('s')).toEqual(SYNTH_FALLBACK.s);
+
+    // never initialised at all is the same state, and just as quiet
+    expect(newEngine().P('k')).toEqual(SYNTH_FALLBACK.k);
   });
 });
 
 describe('roomOf()', () => {
   it('reads the live sound override when present', () => {
     const audio = newEngine();
-    audio.setKit('studio70', withTuning('studio70', { k: { room: 0.77 } }));
+    audio.setKit(STUDIO70, withTuning(STUDIO70, { k: { room: 0.77 } }));
     expect(audio.roomOf('k')).toBeCloseTo(0.77, 9);
   });
 
   it('falls back to the kit’s own room when there is no override', () => {
     const audio = newEngine();
-    audio.setKit('studio70', null);
-    expect(audio.roomOf('k')).toBeCloseTo(KITS.studio70.k.room, 9);
+    audio.setKit(STUDIO70, null);
+    expect(audio.roomOf('k')).toBeCloseTo(STUDIO70.k.room, 9);
   });
 });
 
@@ -424,7 +473,7 @@ describe('drive cache (driveAt)', () => {
   it('does not splice a new waveshaper when the drive amount is unchanged', () => {
     const { audio, ctx } = initEngine();
     const before = pick<FakeWaveShaperNode>(ctx.nodes, 'waveshaper').length;
-    audio.setKit('studio70', null); // same master.drive as the kit already applied
+    audio.setKit(STUDIO70, null); // same master.drive as the kit already applied
     expect(pick<FakeWaveShaperNode>(ctx.nodes, 'waveshaper')).toHaveLength(before);
   });
 
@@ -434,7 +483,7 @@ describe('drive cache (driveAt)', () => {
     const oldShaper = bus.outputs[0] as FakeWaveShaperNode;
     const before = pick<FakeWaveShaperNode>(ctx.nodes, 'waveshaper').length;
 
-    audio.setKit('machine', null); // machine.master.drive (1.35) differs from studio70's (1.25)
+    audio.setKit(MACHINE, null); // machine.master.drive (1.35) differs from studio70's (1.25)
 
     const shapers = pick<FakeWaveShaperNode>(ctx.nodes, 'waveshaper');
     expect(shapers).toHaveLength(before + 1);
@@ -450,7 +499,7 @@ describe('drive cache (driveAt)', () => {
     const oldShaper = bus.outputs[0] as FakeWaveShaperNode;
     bus.disconnect(oldShaper); // simulate external tampering: already gone
 
-    expect(() => audio.setKit('machine', null)).not.toThrow();
+    expect(() => audio.setKit(MACHINE, null)).not.toThrow();
     const newShaper = bus.outputs[0] as FakeWaveShaperNode;
     expect(newShaper).not.toBe(oldShaper);
     expect(pick<FakeWaveShaperNode>(ctx.nodes, 'waveshaper')).toContain(newShaper);
@@ -469,7 +518,7 @@ describe('reverb IR cache (irRoom)', () => {
   it('builds a room impulse sized from the kit’s room amount', () => {
     const { ctx } = initEngine();
     const convolver = pick<FakeConvolverNode>(ctx.nodes, 'convolver')[0];
-    const room = KITS.studio70.master.room as number;
+    const room = STUDIO70.master.room as number;
     const expectedLen = Math.floor(ctx.sampleRate * (0.35 + room * 2.0));
     expect(convolver.buffer).not.toBeNull();
     expect(convolver.buffer?.length).toBe(expectedLen);
@@ -480,7 +529,7 @@ describe('reverb IR cache (irRoom)', () => {
     const { audio, ctx } = initEngine();
     const convolver = pick<FakeConvolverNode>(ctx.nodes, 'convolver')[0];
     const before = convolver.buffer;
-    audio.setKit('studio70', null); // same master.room
+    audio.setKit(STUDIO70, null); // same master.room
     expect(convolver.buffer).toBe(before);
   });
 
@@ -488,7 +537,7 @@ describe('reverb IR cache (irRoom)', () => {
     const { audio, ctx } = initEngine();
     const convolver = pick<FakeConvolverNode>(ctx.nodes, 'convolver')[0];
     const before = convolver.buffer;
-    audio.setKit('machine', null); // machine.master.room = 0, studio70's is 0.16
+    audio.setKit(MACHINE, null); // machine.master.room = 0, studio70's is 0.16
     expect(convolver.buffer).not.toBe(before);
     const expectedLen = Math.floor(ctx.sampleRate * 0.35); // room = 0
     expect(convolver.buffer?.length).toBe(expectedLen);
@@ -496,8 +545,8 @@ describe('reverb IR cache (irRoom)', () => {
 
   it('reads a sound override on master, not just the kit default', () => {
     const audio = newEngine();
-    const sound = withTuning('studio70', { master: { room: 0.5 } });
-    audio.setKit('studio70', sound);
+    const sound = withTuning(STUDIO70, { master: { room: 0.5 } });
+    audio.setKit(STUDIO70, sound);
     const ctx = audio.init() as unknown as FakeAudioContext;
     const convolver = pick<FakeConvolverNode>(ctx.nodes, 'convolver')[0];
     const expectedLen = Math.floor(ctx.sampleRate * (0.35 + 0.5 * 2.0));
@@ -513,7 +562,7 @@ describe('kick()', () => {
   it('schedules the pitch-drop oscillator and envelope from the kit table', () => {
     const { audio, ctx } = initEngine();
     const t = 0.5;
-    const P = KITS.studio70.k;
+    const P = STUDIO70.k;
     const nodes = recordNodes(ctx, () => audio.kick(t, 1));
 
     const osc = pick<FakeOscillatorNode>(nodes, 'oscillator')[0];
@@ -539,7 +588,7 @@ describe('kick()', () => {
   it('adds the beater noise layer only when tone is above the floor', () => {
     const { audio, ctx } = initEngine();
     const t = 0.2;
-    const P = KITS.studio70.k;
+    const P = STUDIO70.k;
 
     const withBeater = recordNodes(ctx, () => audio.kick(t, 1));
     const beaterNoise = pick<FakeAudioBufferSourceNode>(withBeater, 'bufferSource')[0];
@@ -552,19 +601,19 @@ describe('kick()', () => {
     const g2 = bp.outputs[0] as FakeGainNode;
     expectEnvelope(g2, t, 1 * P.tone * 0.45, 0.0004, 0.013);
 
-    audio.setKit('studio70', withTuning('studio70', { k: { tone: 0 } }));
+    audio.setKit(STUDIO70, withTuning(STUDIO70, { k: { tone: 0 } }));
     const noBeater = recordNodes(ctx, () => audio.kick(t, 1));
     expect(pick(noBeater, 'bufferSource')).toHaveLength(0);
   });
 
   it('reads its numbers from whichever kit is loaded, not a hardcoded constant', () => {
     const { audio, ctx } = initEngine();
-    audio.setKit('machine', null);
+    audio.setKit(MACHINE, null);
     const t = 0.1;
     const nodes = recordNodes(ctx, () => audio.kick(t, 1));
     const osc = pick<FakeOscillatorNode>(nodes, 'oscillator')[0];
     expect((osc.frequency.events[0] as { value: number }).value).toBeCloseTo(
-      KITS.machine.k.tune * 5.2,
+      MACHINE.k.tune * 5.2,
       9
     );
   });
@@ -596,7 +645,7 @@ describe('snare()', () => {
   it('layers six membrane partials and the wire/crack noise for a normal hit', () => {
     const { audio, ctx } = initEngine();
     const t = 0.4;
-    const P = KITS.studio70.s;
+    const P = STUDIO70.s;
     const nodes = recordNodes(ctx, () => audio.snare(t, 1));
 
     const oscs = pick<FakeOscillatorNode>(nodes, 'oscillator');
@@ -620,7 +669,7 @@ describe('snare()', () => {
   it('softens a ghost hit: shorter decay, brighter wire filter, halved peaks', () => {
     const { audio, ctx } = initEngine();
     const t = 0.1;
-    const P = KITS.studio70.s;
+    const P = STUDIO70.s;
     const nodes = recordNodes(ctx, () => audio.snare(t, 1, true));
 
     const ghostHp = pick<FakeBiquadFilterNode>(nodes, 'biquad').find(
@@ -637,7 +686,7 @@ describe('snare()', () => {
   it('plays the cross-stick voice entirely differently: no membrane, no wires', () => {
     const { audio, ctx } = initEngine();
     const t = 0.2;
-    const P = KITS.studio70.s;
+    const P = STUDIO70.s;
     const nodes = recordNodes(ctx, () => audio.snare(t, 1, false, true));
 
     const oscs = pick<FakeOscillatorNode>(nodes, 'oscillator');
@@ -658,11 +707,11 @@ describe('snare()', () => {
 
   it('reads a different kit’s numbers rather than a hardcoded pitch', () => {
     const { audio, ctx } = initEngine();
-    audio.setKit('liveroom', null);
+    audio.setKit(LIVEROOM, null);
     const nodes = recordNodes(ctx, () => audio.snare(0.1, 1));
     const oscs = pick<FakeOscillatorNode>(nodes, 'oscillator');
     expect((oscs[0].frequency.events[0] as { value: number }).value).toBeCloseTo(
-      KITS.liveroom.s.tune,
+      LIVEROOM.s.tune,
       9
     );
   });
@@ -686,7 +735,7 @@ describe('hat()', () => {
   it('plays the closed hat as a metal cluster with a noise cap, sized off the kit table', () => {
     const { audio, ctx } = initEngine();
     const t = 0.3;
-    const P = KITS.studio70.h;
+    const P = STUDIO70.h;
     const nodes = recordNodes(ctx, () => audio.hat(t, 1));
 
     const oscs = pick<FakeOscillatorNode>(nodes, 'oscillator');
@@ -705,7 +754,7 @@ describe('hat()', () => {
 
   it('opens: longer decay from P.open, and registers a chokeable tail', () => {
     const { audio, ctx } = initEngine();
-    const P = KITS.studio70.h;
+    const P = STUDIO70.h;
     const nodes = recordNodes(ctx, () => audio.hat(0, 1, true));
     const oscs = pick<FakeOscillatorNode>(nodes, 'oscillator');
     // metal()'s oscillators stop at t + decay + 0.08; decay for an open hat is P.open
@@ -773,10 +822,10 @@ describe('hat()', () => {
 
   it('reads a different kit’s size (P.tune) rather than a hardcoded base frequency', () => {
     const { audio, ctx } = initEngine();
-    audio.setKit('machine', null);
+    audio.setKit(MACHINE, null);
     const nodes = recordNodes(ctx, () => audio.hat(0, 1));
     const oscs = pick<FakeOscillatorNode>(nodes, 'oscillator');
-    const base = 208 * KITS.machine.h.tune;
+    const base = 208 * MACHINE.h.tune;
     expect(oscs[0].frequency.value).toBeCloseTo(base * RATIOS[0], 6);
   });
 });
@@ -788,7 +837,7 @@ describe('hat()', () => {
 describe('ride()', () => {
   it('plays the plain ride: metal cluster plus the stick ping, no bell tone', () => {
     const { audio, ctx } = initEngine();
-    const P = KITS.studio70.r;
+    const P = STUDIO70.r;
     const t = 0.2;
     const nodes = recordNodes(ctx, () => audio.ride(t, 1));
 
@@ -805,7 +854,7 @@ describe('ride()', () => {
 
   it('adds the bell partial and re-tunes the stick ping when bell is struck', () => {
     const { audio, ctx } = initEngine();
-    const P = KITS.studio70.r;
+    const P = STUDIO70.r;
     const nodes = recordNodes(ctx, () => audio.ride(0.2, 1, true));
 
     const oscs = pick<FakeOscillatorNode>(nodes, 'oscillator');
@@ -836,7 +885,7 @@ describe('ride()', () => {
 describe('crash()', () => {
   it('plays a closing-filter wash plus a metal cluster with no extra noise layer', () => {
     const { audio, ctx } = initEngine();
-    const P = KITS.studio70.c;
+    const P = STUDIO70.c;
     const t = 0.15;
     const nodes = recordNodes(ctx, () => audio.crash(t, 1));
 
@@ -871,7 +920,7 @@ describe('tom()', () => {
     'lane %s reads its multiplier and decay scale from the kit table',
     (lane, mult, decMult) => {
       const { audio, ctx } = initEngine();
-      const P = KITS.studio70.t;
+      const P = STUDIO70.t;
       const t = 0.25;
       const nodes = recordNodes(ctx, () => audio.tom(t, 1, lane));
 
@@ -892,7 +941,7 @@ describe('tom()', () => {
     const withStick = recordNodes(ctx, () => audio.tom(0.1, 1, 't2'));
     expect(pick(withStick, 'bufferSource')).toHaveLength(1);
 
-    audio.setKit('studio70', withTuning('studio70', { t: { tone: 0 } }));
+    audio.setKit(STUDIO70, withTuning(STUDIO70, { t: { tone: 0 } }));
     const noStick = recordNodes(ctx, () => audio.tom(0.2, 1, 't2'));
     expect(pick(noStick, 'bufferSource')).toHaveLength(0);
   });
@@ -913,7 +962,7 @@ describe('tom()', () => {
 describe('perc()', () => {
   it('shaker: filtered noise burst, longer when accented', () => {
     const { audio, ctx } = initEngine();
-    const P = KITS.studio70.p;
+    const P = STUDIO70.p;
     const v = 1 * P.level;
     // hiss()'s wiring: noise -> highpass -> bandpass -> envelope gain
     const envelopeOf = (nodes: FakeAudioNode[]) => {
@@ -957,7 +1006,7 @@ describe('perc()', () => {
 
   it('cowbell: two detuned square partials through one narrow band, longer when accented', () => {
     const { audio, ctx } = initEngine();
-    const P = KITS.studio70.p;
+    const P = STUDIO70.p;
     const v = 1 * P.level;
     const nodes = recordNodes(ctx, () => audio.perc(0.1, 1, 'cowbell', true));
     const oscs = pick<FakeOscillatorNode>(nodes, 'oscillator');
@@ -979,7 +1028,7 @@ describe('perc()', () => {
 
   it('conga: a tuned membrane, with a hand-slap noise layer only when accented', () => {
     const { audio, ctx } = initEngine();
-    const P = KITS.studio70.p;
+    const P = STUDIO70.p;
     const v = 1 * P.level;
 
     const open = recordNodes(ctx, () => audio.perc(0.1, 1, 'conga', false));
@@ -1028,7 +1077,7 @@ describe('perc()', () => {
     };
     const lastEnvelope = envelopeOf(bursts[3]);
     const firstEnvelope = envelopeOf(bursts[0]);
-    const P = KITS.studio70.p;
+    const P = STUDIO70.p;
     const v = 1 * P.level;
     expectEnvelope(lastEnvelope, t + 0.026, v * 0.24, 0.0006, 0.14);
     expectEnvelope(firstEnvelope, t, v * 0.17, 0.0006, 0.012);

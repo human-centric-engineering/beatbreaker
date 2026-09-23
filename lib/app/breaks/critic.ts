@@ -3,7 +3,6 @@ import { STEPS, isGroupStart } from '@/lib/app/breaks/meter';
 import { generatePattern, type GenerateOptions } from '@/lib/app/breaks/generate';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import { clamp } from '@/lib/app/breaks/rng';
-import { STYLES } from '@/lib/app/breaks/styles';
 import type { Bar, LaneKey, Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -118,8 +117,12 @@ export function critique(pat: Pattern, _bpm?: number): Critique {
 
   /* A feathered kick is timekeeping, not syncopation: it plays the quarters on
      purpose. Reading "square" off it would be reading the wrong hand, so where
-     a style feathers, syncopation is measured across the comping instead. */
-  const feathered = !!STYLES[pat.style]?.kickFeather;
+     a style feathers, syncopation is measured across the comping instead.
+
+     Read off the pattern's own snapshot rather than a style table: a break
+     shared by someone whose style you cannot see must still score, and it must
+     score the same for them and for you. */
+  const feathered = !!pat.attrs?.kickFeather;
 
   let kicks = 0,
     syncK = 0,
@@ -169,7 +172,7 @@ export function critique(pat: Pattern, _bpm?: number): Critique {
   /* A one drop is not a failed funk break. Sparse styles say what they are
      aiming at, or the rejection sampler quietly picks the busiest candidate
      every time. */
-  const target = (STYLES[pat.style]?.targetDensity ?? 12) * scale;
+  const target = (pat.attrs?.targetDensity ?? 12) * scale;
   const sDens = 1 - Math.min(1, Math.abs(lowerDensity - target) / (10 * scale));
 
   const gpb = perBar(ghosts);

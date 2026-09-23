@@ -18,6 +18,7 @@ import { GET, POST } from '@/app/api/v1/breaks/route';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { encodeBreak } from '@/lib/app/breaks/share';
 import { mockAuthenticatedUser } from '@/tests/helpers/auth';
+import { testStyle } from '@/tests/helpers/catalogue';
 
 vi.mock('@/lib/auth/config', () => ({ auth: { api: { getSession: vi.fn() } } }));
 vi.mock('@/lib/db/client', () => ({
@@ -32,14 +33,26 @@ const OTHER_ID = 'clzx9k8p40000x8c2g3h5m7b1';
 
 /** A real wire-format document, built the way the console builds one. */
 function wireDoc(style = 'funk', meter = '4/4'): Record<string, unknown> {
-  const A = generatePattern({ style, meter, seed: 777, bars: 2, density: 50, ghosts: 50 });
+  /* The real seed style, resolved as the catalogue resolves it — not a stub.
+     The document this produces carries the style's own snapshot, which is what
+     the route's critic reads, so a fixture with an empty one would be scoring
+     something the app never generates. */
+  const resolved = testStyle(style);
+  const A = generatePattern({
+    style: resolved,
+    meter,
+    seed: 777,
+    bars: 2,
+    density: 50,
+    ghosts: 50,
+  });
   const code = encodeBreak({
     bpm: 103.6,
     swing: 12.4,
     level: 5,
     arrangement: ['A', 'B'],
     A,
-    B: deriveB(A),
+    B: deriveB(A, resolved.params),
   });
   return JSON.parse(atob(code)) as Record<string, unknown>;
 }
@@ -125,8 +138,30 @@ describe('GET /api/v1/breaks', () => {
     expect(body.meta.nextCursor).toBeNull();
   });
 
-  it('refuses a style that does not exist', async () => {
+  /**
+   * This used to refuse `?style=polka` with a 400, because the style list was
+   * compiled in and the filter could be checked against it. Styles are rows
+   * now, so the list is a query and the filter schema is synchronous — and,
+   * more to the point, a style this installation does not have is not a bad
+   * request. It is an empty page, which is the honest answer to "show me my
+   * polka breaks" when there are none.
+   *
+   * What a style key is still held to is the width of the column it is
+   * compared against, `Break.style VARCHAR(40)`.
+   */
+  it('takes a style key it cannot vouch for, and filters by it', async () => {
+    vi.mocked(prisma.break.findMany).mockResolvedValue([] as never);
     const res = await GET(new NextRequest('http://localhost:3000/api/v1/breaks?style=polka'));
+    expect(res.status).toBe(200);
+    expect(prisma.break.findMany).toHaveBeenCalledWith(
+      expect.objectContaining({ where: expect.objectContaining({ style: 'polka' }) })
+    );
+  });
+
+  it('refuses a style key wider than the column', async () => {
+    const res = await GET(
+      new NextRequest(`http://localhost:3000/api/v1/breaks?style=${'x'.repeat(41)}`)
+    );
     expect(res.status).toBe(400);
     expect(prisma.break.findMany).not.toHaveBeenCalled(); // test-review:accept no_arg_called — validation must short-circuit
   });

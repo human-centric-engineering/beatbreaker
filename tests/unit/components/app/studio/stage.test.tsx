@@ -21,10 +21,11 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { GeneratePanel } from '@/components/app/studio/panels/generate-panel';
 import { Stage } from '@/components/app/studio/stage';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
+import { testCatalogue } from '@/tests/helpers/catalogue';
 
 const renderStage = () =>
   render(
-    <StudioProvider>
+    <StudioProvider catalogue={testCatalogue()}>
       <Stage />
     </StudioProvider>
   );
@@ -199,7 +200,7 @@ describe('Stage', () => {
   it('singularises the bar-count chip at one bar, and shows the style feel chip when the style has one', async () => {
     const user = userEvent.setup();
     render(
-      <StudioProvider>
+      <StudioProvider catalogue={testCatalogue()}>
         <Stage />
         <GeneratePanel />
       </StudioProvider>

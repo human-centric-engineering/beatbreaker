@@ -57,7 +57,7 @@ export function Stage() {
       target.current?.moveTo(eng.map[pos.barIdx * eng.steps + pos.slot]);
   }, [c.position, engravings]);
 
-  const style = c.catalogue.styles[c.style];
+  const style = c.catalogue.styles[c.style]?.params;
   const shown: SectionLetter[] = c.viewMode === 'both' ? ['A', 'B'] : [c.viewMode];
   const editingView = c.view[c.editing];
   const editingStored = c.patterns[c.editing];

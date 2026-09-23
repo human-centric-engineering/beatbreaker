@@ -14,7 +14,8 @@ export function GeneratePanel() {
   const c = useStudio();
   const { styles, styleGroups, kits, kitGroups } = c.catalogue;
 
-  const style = styles[c.style];
+  const styleRow = styles[c.style];
+  const style = styleRow?.params;
   const meter = meterOf(c.meter);
   const pulse = pulseInfo(meter);
 
@@ -51,7 +52,7 @@ export function GeneratePanel() {
      same roster while it is following a style, which is how you can see what
      the style asked for without taking it over first. */
   const roster = resolveLanes(
-    styleIn(c.style, c.meter),
+    style ? styleIn(style, c.meter) : undefined,
     c.lanesMode === 'custom' ? c.customLanes : null
   );
   const shownLanes: CustomLanes =
@@ -80,7 +81,7 @@ export function GeneratePanel() {
                 <optgroup key={group} label={group}>
                   {keys.map((k) => (
                     <option key={k} value={k}>
-                      {styles[k]?.label ?? k}
+                      {styles[k]?.params.label ?? k}
                     </option>
                   ))}
                 </optgroup>
@@ -95,9 +96,9 @@ export function GeneratePanel() {
               {kitGroups.map((group) => (
                 <optgroup key={group.label} label={group.label}>
                   {group.keys.map((k) => (
-                    <option key={k} value={k} disabled={!kitIsPlayable(k)}>
+                    <option key={k} value={k} disabled={!kitIsPlayable(kits[k])}>
                       {kits[k].label}
-                      {kitIsPlayable(k) ? '' : ' — not ported yet'}
+                      {kitIsPlayable(kits[k]) ? '' : ' — not ported yet'}
                     </option>
                   ))}
                 </optgroup>

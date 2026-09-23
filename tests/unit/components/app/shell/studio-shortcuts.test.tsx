@@ -19,6 +19,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
+import { testCatalogue } from '@/tests/helpers/catalogue';
 
 vi.mock('@/components/app/breaks/breaks.css', () => ({}));
 vi.mock('@/components/app/shell/studio.css', () => ({}));
@@ -35,7 +36,7 @@ beforeEach(() => {
 
 const mount = async () => {
   render(
-    <StudioProvider>
+    <StudioProvider catalogue={testCatalogue()}>
       <StudioFrame />
     </StudioProvider>
   );

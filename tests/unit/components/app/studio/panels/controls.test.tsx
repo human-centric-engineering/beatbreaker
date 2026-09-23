@@ -22,6 +22,7 @@ import {
   VOICE_HINTS,
 } from '@/components/app/studio/panels/controls';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
+import { testCatalogue } from '@/tests/helpers/catalogue';
 
 /** The browser-facing edge of the audio graph, faked so `addSample` /
  *  `removeSample` run their real path through `use-break-console.ts` without
@@ -177,7 +178,7 @@ describe('SampleSlots', () => {
 
   const renderSlots = () =>
     render(
-      <StudioProvider>
+      <StudioProvider catalogue={testCatalogue()}>
         <SampleSlots />
         <ToastSpy />
       </StudioProvider>

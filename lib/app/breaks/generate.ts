@@ -17,10 +17,25 @@ import {
   remapWeights,
   stepsOf,
 } from '@/lib/app/breaks/meter';
-import { cloneBar, clonePattern, emptyBar, meterOfPat, writePerc } from '@/lib/app/breaks/pattern';
+import {
+  cloneBar,
+  clonePattern,
+  emptyBar,
+  meterOfPat,
+  styleAttrs,
+  writePerc,
+} from '@/lib/app/breaks/pattern';
 import { clamp, makeRng, wpick, type Rng } from '@/lib/app/breaks/rng';
 import { styleIn } from '@/lib/app/breaks/styles';
-import type { Bar, LaneKey, Meter, Pattern, PercLaneKey, Style } from '@/lib/app/breaks/types';
+import type {
+  Bar,
+  LaneKey,
+  Meter,
+  Pattern,
+  PercLaneKey,
+  ResolvedStyle,
+  Style,
+} from '@/lib/app/breaks/types';
 
 /**
  * The generator: seeded RNG in, {@link Pattern} out.
@@ -93,7 +108,14 @@ function applyKickRules(bar: Bar, style: Style): Bar {
   const n = bar.k.length;
   const forced = style.forceKick ?? [];
   const banned = style.noKick ?? [];
-  for (const i of banned) bar.k[i] = 0;
+  /* Both bounded by the bar. A step list is written for one meter and carried
+     into others by `styleIn`, and from Phase 2 it is also a row somebody can
+     edit — so a step past the end of this bar is reachable. Writing to it does
+     not throw: it EXTENDS the lane array and leaves holes behind, which is a
+     bar that reads `undefined` at step 16 and draws a note at NaN pixels.
+     (`forced` was already guarded; `banned` was not. Found by the property
+     test in tests/unit/lib/app/breaks/catalogue/schemas.test.ts.) */
+  for (const i of banned) if (i < n) bar.k[i] = 0;
   for (const i of forced) if (i < n) bar.k[i] = 1;
   // never more than two 16ths of kick in a row — drop whichever the style did not ask for
   for (let i = 0; i < n - 2; i++) {
@@ -422,7 +444,15 @@ export function applyCompFill(rng: Rng, bar: Bar, style: Style, m: Meter): Bar {
 }
 
 export interface GenerateOptions {
-  style: string;
+  /**
+   * The style to write in, already resolved from the catalogue.
+   *
+   * A key would mean this module owning a style table, and styles are rows now
+   * (D13). The caller looks one up — `getStyle()` on the server, the Studio's
+   * catalogue in the browser — and the pattern records `key` and `versionId`
+   * off it, which is how a break says which version of a style produced it.
+   */
+  style: ResolvedStyle;
   seed: number;
   bars: number;
   /** Kick density, 0–100. */
@@ -438,7 +468,7 @@ export interface GenerateOptions {
 export function generatePattern(opts: GenerateOptions): Pattern {
   const meterKey = opts.meter ?? DEFAULT_METER;
   const m = meterOf(meterKey);
-  const style = styleIn(opts.style, meterKey);
+  const style = styleIn(opts.style.params, meterKey);
   const lanes = opts.lanes ?? laneRoster(style);
   const perc = opts.perc ?? percRoster(style);
   const rng = makeRng(opts.seed);
@@ -482,8 +512,9 @@ export function generatePattern(opts: GenerateOptions): Pattern {
           : applyStyleRules(applyFill(rng, bars[last], m, lanes), style);
       // A clave is the identity of the groove, not decoration a fill may write over.
       if (style.clave) {
+        const n = filled.s.length;
         for (const x of backbeats) {
-          if (x >= lastGroup.start) filled.s[x] = bbValue('s', style);
+          if (x >= lastGroup.start && x < n) filled.s[x] = bbValue('s', style);
         }
       }
       bars[last] = filled;
@@ -492,7 +523,14 @@ export function generatePattern(opts: GenerateOptions): Pattern {
 
   const pat: Pattern = {
     name: '',
-    style: opts.style,
+    style: opts.style.key,
+    styleVersionId: opts.style.versionId,
+    /* The snapshot is taken from the style as *written*, not as remapped into
+       this meter: `styleIn` moves step positions around and none of the five
+       attrs is a step position. Taking it off `style` would work today and
+       silently start carrying remapped values the day one of them becomes
+       positional. */
+    attrs: styleAttrs(opts.style.params),
     meter: meterKey,
     voice: style.ride ? 'ride' : (opts.voice ?? 'hat'),
     lanes: lanes.slice(),
@@ -536,12 +574,19 @@ export function toRide(pat: Pattern, rng?: Rng): Pattern {
   return pat;
 }
 
-/** The B section of an arrangement, built from the A section. */
-export function deriveB(patA: Pattern): Pattern {
+/**
+ * The B section of an arrangement, built from the A section.
+ *
+ * Takes the style because it writes new notes — varying bars, adding a kick,
+ * dropping a ghost — and that needs the kick cells and weights the pattern's
+ * own snapshot deliberately does not carry. Playing, scoring and exporting a
+ * pattern need no style; changing one does.
+ */
+export function deriveB(patA: Pattern, style0: Style): Pattern {
   const rng = makeRng((patA.seed ^ 0x9e3779b9) >>> 0);
   const p = clonePattern(patA);
   const m = meterOfPat(p);
-  const style = styleIn(p.style, p.meter);
+  const style = styleIn(style0, p.meter);
   p.seed = (patA.seed ^ 0x9e3779b9) >>> 0;
 
   p.bars = p.bars.map((b, i) => {

@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
 import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
+import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { getServerSession } from '@/lib/auth/utils';
 
 /**
@@ -23,8 +24,10 @@ export default async function StudioPatternPage({ params }: { params: Promise<{ 
     return <SignInToOpen loginHref={`/login?callbackUrl=${encodeURIComponent(`/studio/${id}`)}`} />;
   }
 
+  const catalogue = await studioCatalogue();
+
   return (
-    <StudioProvider>
+    <StudioProvider catalogue={catalogue}>
       <StudioFrame />
     </StudioProvider>
   );

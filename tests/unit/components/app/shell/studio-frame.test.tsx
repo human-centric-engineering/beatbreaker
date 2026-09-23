@@ -22,6 +22,8 @@ import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { stashPendingLink } from '@/lib/app/breaks/pending-link';
 import { encodeBreak } from '@/lib/app/breaks/share';
+import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
+import { testCatalogue, testStyle } from '@/tests/helpers/catalogue';
 
 // jsdom/happy-dom has no CSS loader, and the stylesheet is not what is under test
 vi.mock('@/components/app/breaks/breaks.css', () => ({}));
@@ -45,7 +47,7 @@ vi.mock('@/lib/consent', () => ({
  */
 const renderConsole = () =>
   render(
-    <StudioProvider>
+    <StudioProvider catalogue={testCatalogue()}>
       <StudioFrame />
     </StudioProvider>
   );
@@ -214,17 +216,22 @@ describe('the Studio', () => {
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     await openTool(user, 'Library');
-    const row = await screen.findByRole('button', { name: /Funky Drummer/ });
+    /* Still the Funky Drummer at 94, and still the first row in the library —
+       read off the seed data the catalogue is built from rather than typed out
+       again, so an edit to the table moves the expectation with it. */
+    const famous = LIBRARY[0];
+    const row = await screen.findByRole('button', { name: new RegExp(famous.title) });
     await user.click(row);
 
-    expect(document.querySelector('.title-block h2')?.textContent).toBe('Funky Drummer');
+    expect(document.querySelector('.title-block h2')?.textContent).toBe(famous.title);
     // it brings its own tempo with it
-    expect(document.querySelector('.bpmval')?.textContent).toContain('94');
+    expect(document.querySelector('.bpmval')?.textContent).toContain(String(famous.bpm));
   });
 
   it('opens a shared link that was stashed on the way through sign-in (H5)', async () => {
+    const funk = testStyle('funk');
     const A = generatePattern({
-      style: 'funk',
+      style: funk,
       meter: '4/4',
       seed: 5,
       bars: 2,
@@ -238,7 +245,7 @@ describe('the Studio', () => {
       level: 5,
       arrangement: ['A', 'B'],
       A,
-      B: deriveB(A),
+      B: deriveB(A, funk.params),
     });
     window.history.replaceState(null, '', '/breaks');
     stashPendingLink(localStorage, `#b=${code}`);

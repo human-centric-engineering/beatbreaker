@@ -27,6 +27,10 @@ function patternOf(edit: (bar: Bar) => void, lanes: Pattern['lanes'] = ['k', 's'
   return {
     name: 'test',
     style: 'funk16',
+    /* No catalogue row behind this fixture, and the engraver reads neither:
+       it draws the grid it is handed. */
+    styleVersionId: null,
+    attrs: {},
     meter: '4/4',
     seed: 1,
     voice: 'hat',

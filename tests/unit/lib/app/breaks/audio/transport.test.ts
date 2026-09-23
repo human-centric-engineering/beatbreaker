@@ -18,14 +18,29 @@ import {
 } from '@/lib/app/breaks/audio/transport';
 import { METER_KEYS, groupsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { MIDI_MAP } from '@/lib/app/breaks/midi';
-import { emptyBar } from '@/lib/app/breaks/pattern';
-import type { Pattern } from '@/lib/app/breaks/types';
+import { emptyBar, styleAttrs } from '@/lib/app/breaks/pattern';
+import type { Pattern, StyleAttrs } from '@/lib/app/breaks/types';
+import { testStyle } from '@/tests/helpers/catalogue';
 
-function patternIn(meter: string): Pattern {
+/**
+ * Rock's own attributes, snapshotted the way the generator snapshots them.
+ *
+ * The transport used to read `pat.style` and look the style up; from Phase 2 it
+ * reads `pat.attrs`, the snapshot the pattern carries. Feeding it the real
+ * Rock row keeps this fixture the same pattern it has always been — `hatDepth`
+ * and `targetDensity` included — rather than quietly becoming a style with no
+ * attributes at all.
+ */
+const ROCK_ATTRS = styleAttrs(testStyle('rock').params);
+
+function patternIn(meter: string, attrs: StyleAttrs = ROCK_ATTRS): Pattern {
   const n = stepsOf(meterOf(meter));
   return {
     name: 't',
     style: 'rock',
+    /* Not from the catalogue: a hand-built fixture has no version to point at. */
+    styleVersionId: null,
+    attrs,
     meter,
     seed: 1,
     voice: 'hat',
@@ -327,7 +342,10 @@ describe('Transport — the clock', () => {
   });
 
   it('applies the style’s feel on top of the grid, never before the clock', () => {
-    const pat = patternIn('4/4');
+    /* The feel travels *on the pattern* now (`attrs.feel`) rather than being
+       looked up from `pat.style` — which is why the key is set alongside the
+       snapshot here but is not what the transport reads. */
+    const pat = patternIn('4/4', styleAttrs(testStyle('dilla').params));
     pat.style = 'dilla';
     pat.bars[0].s[4] = 2;
     const straight = drive(snapshot(pat, { feel: 0, click: false }), 1).audio.snare.mock

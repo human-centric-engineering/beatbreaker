@@ -3,9 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import { type BreakConsole, useBreakConsole } from '@/components/app/breaks/use-break-console';
-import { KITS, kitGroups } from '@/lib/app/breaks/kit';
-import { libraryGroups } from '@/lib/app/breaks/library';
-import { STYLES, STYLE_GROUPS } from '@/lib/app/breaks/styles';
+import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 
 /**
  * The Studio's state, in one place.
@@ -22,36 +20,16 @@ import { STYLES, STYLE_GROUPS } from '@/lib/app/breaks/styles';
  * The only difference is which component calls it.
  */
 
-/**
- * The content the Studio's pickers are built from.
+/*
+ * The content the Studio's pickers are built from is `StudioCatalogue`, which
+ * now lives in `lib/app/breaks/catalogue/types.ts` — the server component that
+ * reads the database, `/api/v1/catalogue/*` and this provider all work in the
+ * same shape, so a native client (D14) has one type to implement against.
  *
- * Styles, kits and the famous-breaks library are TypeScript constants today and
- * database rows from Phase 2 (D13). Everything that renders a picker reads them
- * from here rather than importing the constants, so that phase changes where the
- * data comes from and nothing else.
- *
- * Structural constants are deliberately NOT here. Meters, lanes and slots are
+ * Structural constants are deliberately NOT in it. Meters, lanes and slots are
  * what the wire format is built on — a saved pattern means nothing without them
  * — so they stay in code and stay imported directly.
  */
-export interface StudioCatalogue {
-  styles: typeof STYLES;
-  styleGroups: typeof STYLE_GROUPS;
-  kits: typeof KITS;
-  kitGroups: ReturnType<typeof kitGroups>;
-  library: ReturnType<typeof libraryGroups>;
-}
-
-/** The catalogue as it stands before Phase 2: read out of the code constants. */
-export function codeCatalogue(): StudioCatalogue {
-  return {
-    styles: STYLES,
-    styleGroups: STYLE_GROUPS,
-    kits: KITS,
-    kitGroups: kitGroups(),
-    library: libraryGroups(),
-  };
-}
 
 export interface Studio extends BreakConsole {
   catalogue: StudioCatalogue;
@@ -71,12 +49,19 @@ export function StudioProvider({
   catalogue,
   children,
 }: {
-  /** Defaults to the code constants; Phase 2 passes rows fetched from the API. */
-  catalogue?: StudioCatalogue;
+  /**
+   * The catalogue, loaded server-side by the `(studio)` layout.
+   *
+   * Required, with no fallback to a compiled-in default. A default would be a
+   * second copy of the content, which is the thing Phase 2 got rid of — and a
+   * Studio that quietly renders 37 styles that are not the ones in the database
+   * is worse than one that will not render at all.
+   */
+  catalogue: StudioCatalogue;
   children: React.ReactNode;
 }) {
-  const state = useBreakConsole();
-  const content = useMemo(() => catalogue ?? codeCatalogue(), [catalogue]);
+  const state = useBreakConsole(catalogue);
+  const content = catalogue;
 
   const [toast, setToast] = useState('');
   const say = useCallback((message: string) => setToast(message), []);

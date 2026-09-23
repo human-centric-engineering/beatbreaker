@@ -23,7 +23,7 @@ import {
 import { type DoctorMove, doctor } from '@/lib/app/breaks/doctor';
 import { deriveB } from '@/lib/app/breaks/generate';
 import { DEFAULT_MIX, LANES, PERC_LANES, TOM_LANES } from '@/lib/app/breaks/lanes';
-import { LIBRARY, patternFromLibrary } from '@/lib/app/breaks/library';
+
 import { reducePattern } from '@/lib/app/breaks/layers';
 import { DEFAULT_METER } from '@/lib/app/breaks/meter';
 import { buildMidi } from '@/lib/app/breaks/midi';
@@ -36,10 +36,12 @@ import {
   writePerc,
 } from '@/lib/app/breaks/pattern';
 import { clamp, makeRng } from '@/lib/app/breaks/rng';
-import { type BreakDoc, decodeBreak, encodeBreak } from '@/lib/app/breaks/share';
-import { STYLES, styleIn } from '@/lib/app/breaks/styles';
-import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
-import { KITS, type VoiceParams, kitEngine, kitIsPlayable, withTuning } from '@/lib/app/breaks/kit';
+import { type BreakDoc, decodeBreak, encodeBreak, patternFromPacked } from '@/lib/app/breaks/share';
+import { styleIn } from '@/lib/app/breaks/styles';
+import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
+import { percussionSource } from '@/lib/app/breaks/catalogue/types';
+import type { LaneKey, Pattern, ResolvedStyle } from '@/lib/app/breaks/types';
+import { type VoiceParams, kitEngine, kitIsPlayable, withTuning } from '@/lib/app/breaks/kit';
 import { useLocalStorage } from '@/lib/hooks/use-local-storage';
 import { logger } from '@/lib/logging';
 
@@ -190,7 +192,7 @@ export interface BreakConsole {
     step: number,
     back: boolean
   ) => void;
-  loadLibraryItem: (index: number) => void;
+  loadLibraryEntry: (id: string) => void;
   undo: () => void;
   redo: () => void;
   canUndo: boolean;
@@ -238,7 +240,7 @@ const FAV_CAP = 30;
  */
 const LAYER_TEMPO: Record<number, number> = { 1: 0.68, 2: 0.78, 3: 0.86, 4: 0.93, 5: 1 };
 
-export function useBreakConsole(): BreakConsole {
+export function useBreakConsole(catalogue: StudioCatalogue): BreakConsole {
   const [ready, setReady] = useState(false);
   const [patterns, setPatterns] = useState<Record<SectionLetter, Pattern | null>>({
     A: null,
@@ -369,6 +371,21 @@ export function useBreakConsole(): BreakConsole {
     [patterns, level]
   );
 
+  /* ---- the catalogue, resolved ---------------------------------------
+     Styles and kits are rows now, so a key on its own is not enough to
+     generate, doctor or play with — every one of those takes the resolved row.
+     These three are that resolution, done once per render instead of at each
+     of the dozen call sites below.
+
+     `?? first` rather than a compiled-in default: a saved key can name a style
+     that has since been deleted, and falling back to whatever the catalogue
+     does have is the only answer that does not invent content. */
+  const styleRow: ResolvedStyle | undefined = useMemo(
+    () => catalogue.styles[style] ?? Object.values(catalogue.styles)[0],
+    [catalogue.styles, style]
+  );
+  const styleParams = styleRow?.params;
+
   const report = useMemo(() => (view.A ? critique(view.A, bpm) : null), [view.A, bpm]);
   const checks = useMemo(() => (view.A ? playability(view.A, bpm) : null), [view.A, bpm]);
 
@@ -380,17 +397,20 @@ export function useBreakConsole(): BreakConsole {
    * *is* the groove". A fader you have moved yourself is yours until you hand
    * it back.
    */
-  const applyStyleMix = useCallback((styleKey: string, touched: Record<string, boolean>) => {
-    const m = STYLES[styleKey]?.mix ?? {};
-    setMix((prev) => {
-      const next = { ...prev };
-      for (const lane of Object.keys(DEFAULT_MIX) as LaneKey[]) {
-        if (touched[lane]) continue;
-        next[lane] = m[lane] ?? DEFAULT_MIX[lane];
-      }
-      return next;
-    });
-  }, []);
+  const applyStyleMix = useCallback(
+    (styleKey: string, touched: Record<string, boolean>) => {
+      const m = catalogue.styles[styleKey]?.params.mix ?? {};
+      setMix((prev) => {
+        const next = { ...prev };
+        for (const lane of Object.keys(DEFAULT_MIX) as LaneKey[]) {
+          if (touched[lane]) continue;
+          next[lane] = m[lane] ?? DEFAULT_MIX[lane];
+        }
+        return next;
+      });
+    },
+    [catalogue.styles]
+  );
 
   const setLaneMix = useCallback((lane: string, v: number) => {
     setMix((prev) => ({ ...prev, [lane]: v }));
@@ -447,11 +467,12 @@ export function useBreakConsole(): BreakConsole {
 
   const generate = useCallback(
     (which: SectionLetter | 'both', seed?: number) => {
-      const st = styleIn(style, meter);
+      if (!styleRow) return null;
+      const st = styleIn(styleRow.params, meter);
       const roster = resolveLanes(st, lanesMode === 'custom' ? customLanes : null);
       const made = generateGood(
         {
-          style,
+          style: styleRow,
           meter,
           bars,
           density,
@@ -467,11 +488,11 @@ export function useBreakConsole(): BreakConsole {
       setPatterns((prev) => {
         if (which === 'A') return { ...prev, A: made.pattern };
         if (which === 'B') return { ...prev, B: made.pattern };
-        return { A: made.pattern, B: deriveB(made.pattern) };
+        return { A: made.pattern, B: deriveB(made.pattern, styleRow.params) };
       });
       return made.pattern;
     },
-    [style, meter, bars, density, ghosts, bpm, lanesMode, customLanes]
+    [styleRow, meter, bars, density, ghosts, bpm, lanesMode, customLanes]
   );
 
   const newBreak = useCallback(
@@ -483,21 +504,25 @@ export function useBreakConsole(): BreakConsole {
   );
 
   const buildBFromA = useCallback(() => {
-    if (!patterns.A) return;
+    if (!patterns.A || !styleParams) return;
     pushHistory();
-    setPatterns((prev) => (prev.A ? { ...prev, B: deriveB(prev.A) } : prev));
-  }, [patterns.A, pushHistory]);
+    setPatterns((prev) => (prev.A ? { ...prev, B: deriveB(prev.A, styleParams) } : prev));
+  }, [patterns.A, styleParams, pushHistory]);
 
   /* ---- editing -------------------------------------------------------- */
 
   const applyDoctor = useCallback(
     (move: DoctorMove) => {
       const pat = patterns[editing];
-      if (!pat) return;
+      /* A doctor's move writes new notes, so it needs the live style rather
+         than the snapshot the pattern carries. A pattern whose style is gone
+         can be played, scored and exported; it cannot be doctored, and the
+         panel's buttons are what say so. */
+      if (!pat || !styleParams) return;
       pushHistory();
-      setPatterns((prev) => ({ ...prev, [editing]: doctor(pat, move) }));
+      setPatterns((prev) => ({ ...prev, [editing]: doctor(pat, styleParams, move) }));
     },
-    [patterns, editing, pushHistory]
+    [patterns, editing, styleParams, pushHistory]
   );
 
   /**
@@ -548,27 +573,35 @@ export function useBreakConsole(): BreakConsole {
    * lane that has just gone away is emptied, so switching back and forth does
    * not leave notes on a lane nothing draws.
    */
-  const applyLaneChoice = useCallback((mode: 'style' | 'custom', lanes: CustomLanes) => {
-    setPatterns((prev) => {
-      const out = { ...prev };
-      for (const letter of ['A', 'B'] as SectionLetter[]) {
-        const pat = prev[letter];
-        if (!pat) continue;
-        const st = styleIn(pat.style, pat.meter);
-        const roster = resolveLanes(st, mode === 'custom' ? lanes : null);
-        const next = clonePattern(pat);
-        next.lanes = roster.lanes.slice();
-        next.perc = { ...roster.perc };
-        for (const bar of next.bars) for (const L of PERC_LANES) bar[L].fill(0);
-        if (!next.lanes.includes('t1')) {
-          for (const bar of next.bars) for (const L of TOM_LANES) bar[L].fill(0);
+  const applyLaneChoice = useCallback(
+    (mode: 'style' | 'custom', lanes: CustomLanes) => {
+      setPatterns((prev) => {
+        const out = { ...prev };
+        for (const letter of ['A', 'B'] as SectionLetter[]) {
+          const pat = prev[letter];
+          if (!pat) continue;
+          /* The pattern's own style, not the one selected: A and B can be from
+           different styles after a library load, and a lane roster belongs to
+           the style that wrote the notes. */
+          const params = catalogue.styles[pat.style]?.params;
+          if (!params) continue;
+          const st = styleIn(params, pat.meter);
+          const roster = resolveLanes(st, mode === 'custom' ? lanes : null);
+          const next = clonePattern(pat);
+          next.lanes = roster.lanes.slice();
+          next.perc = { ...roster.perc };
+          for (const bar of next.bars) for (const L of PERC_LANES) bar[L].fill(0);
+          if (!next.lanes.includes('t1')) {
+            for (const bar of next.bars) for (const L of TOM_LANES) bar[L].fill(0);
+          }
+          writePerc(next, st, makeRng(pat.seed ^ 0x2545f491));
+          out[letter] = next;
         }
-        writePerc(next, st, makeRng(pat.seed ^ 0x2545f491));
-        out[letter] = next;
-      }
-      return out;
-    });
-  }, []);
+        return out;
+      });
+    },
+    [catalogue.styles]
+  );
 
   const setLanesMode = useCallback(
     (m: 'style' | 'custom') => {
@@ -586,22 +619,36 @@ export function useBreakConsole(): BreakConsole {
     [setCustomLanesRaw, lanesMode, applyLaneChoice]
   );
 
-  const loadLibraryItem = useCallback(
-    (index: number) => {
-      const item = LIBRARY[index];
-      if (!item) return;
+  /**
+   * Load one of the famous breaks.
+   *
+   * By entry id rather than by index into a compiled-in array: the library is
+   * rows now, and an index into a list the server sent is a number that means
+   * something different after the next admin edit.
+   *
+   * The entry's `doc` is a packed pattern, so opening it is the same unpack a
+   * pasted share code goes through — no bar-string parser in the client at all.
+   * The B section is derived where the style is still known, and is simply the
+   * A section again where it is not; an entry whose style was deleted is still
+   * worth opening.
+   */
+  const loadLibraryEntry = useCallback(
+    (id: string) => {
+      const entry = catalogue.libraries.flatMap((l) => l.entries).find((e) => e.id === id);
+      if (!entry) return;
       pushHistory();
-      const pat = patternFromLibrary(item, index);
-      const b = deriveB(pat);
-      b.name = `${item.title} (B)`;
+      const pat = patternFromPacked(entry.doc, (key) => catalogue.styles[key]);
+      const params = catalogue.styles[entry.styleKey]?.params;
+      const b = params ? deriveB(pat, params) : clonePattern(pat);
+      b.name = `${entry.title} (B)`;
       setPatterns({ A: pat, B: b });
-      setStyleRaw(item.style);
+      setStyleRaw(entry.styleKey);
       setMeterRaw(pat.meter);
       setBars(pat.bars.length);
-      if (!locks.bpm) setBpm(item.bpm);
+      if (!locks.bpm) setBpm(entry.bpm);
       setTries(null);
     },
-    [pushHistory, setStyleRaw, setMeterRaw, setBars, locks.bpm, setBpm]
+    [catalogue, pushHistory, setStyleRaw, setMeterRaw, setBars, locks.bpm, setBpm]
   );
 
   /* ---- style and meter follow each other ------------------------------ */
@@ -609,22 +656,35 @@ export function useBreakConsole(): BreakConsole {
   const setStyle = useCallback(
     (s: string) => {
       setStyleRaw(s);
-      const st = STYLES[s];
+      const st = catalogue.styles[s]?.params;
       /* A style may name its own meter and its own kit — picking one switches
          to both, and **leaving it hands yours back**. A jazz waltz in 4/4 is
          not a jazz waltz, but neither is every style after it a waltz: without
          the second half of this, picking the waltz once strands medium swing
          in 3/4 and the ballad's brushes on everything afterwards. */
       setMeterRaw(st?.meter ?? userMeter);
-      const wantKit = st?.kit && kitIsPlayable(st.kit) ? st.kit : userKit;
-      if (KITS[wantKit] && kitIsPlayable(wantKit)) setKitRaw(wantKit);
+      /* `named.key` rather than `st.kit`: the same string, read off the row
+         that was actually found, so there is nothing to assert non-null. */
+      const named = st?.kit ? catalogue.kits[st.kit] : undefined;
+      const wantKit = named && kitIsPlayable(named) ? named.key : userKit;
+      if (kitIsPlayable(catalogue.kits[wantKit])) setKitRaw(wantKit);
       if (st && !locks.bpm) setBpm(Math.round((st.bpm[0] + st.bpm[1]) / 2));
       setMixTouched((touched) => {
         applyStyleMix(s, touched);
         return touched;
       });
     },
-    [setStyleRaw, setMeterRaw, setKitRaw, userMeter, userKit, locks.bpm, setBpm, applyStyleMix]
+    [
+      catalogue,
+      setStyleRaw,
+      setMeterRaw,
+      setKitRaw,
+      userMeter,
+      userKit,
+      locks.bpm,
+      setBpm,
+      applyStyleMix,
+    ]
   );
 
   const setMeter = useCallback(
@@ -666,14 +726,14 @@ export function useBreakConsole(): BreakConsole {
     const packs = packsRef.current;
     const user = userRef.current;
     if (!packs || !user) return;
-    const k = kitRef.current;
-    const pack = KITS[k]?.pack;
+    const row = catalogue.kits[kitRef.current];
+    const pack = row?.pack;
     setSamples({
-      kitSlots: kitEngine(k) === 'user' ? user.count() : pack ? packs.count(pack) : 0,
+      kitSlots: kitEngine(row) === 'user' ? user.count() : pack ? packs.count(pack) : 0,
       percCount: packs.percCount(),
       userNames: { ...user.names },
     });
-  }, []);
+  }, [catalogue.kits]);
 
   const refreshRef = useRef(refreshSamples);
   useEffect(() => {
@@ -733,7 +793,14 @@ export function useBreakConsole(): BreakConsole {
   /* ---- the kit, and your tuning of it --------------------------------- */
 
   /** What the engine is actually playing: the kit's numbers, your knobs on top. */
-  const sound = useMemo(() => withTuning(kit, tuning[kit]), [kit, tuning]);
+  /* The kit as the catalogue resolved it — an object, not a key. Playback,
+     the sample loaders and the tuning all take the row. */
+  const kitRow = useMemo(() => catalogue.kits[kit], [catalogue.kits, kit]);
+  /* Percussion is not per kit — a tambourine over the Studio '70s set should be
+     a tambourine — so it is found once, by looking for the kit row that ships a
+     `perc` map rather than by naming one. */
+  const percussion = useMemo(() => percussionSource(catalogue.kits), [catalogue.kits]);
+  const sound = useMemo(() => withTuning(kitRow, tuning[kit]), [kitRow, kit, tuning]);
   const kitTuned = Object.keys(tuning[kit] ?? {}).length > 0;
 
   useEffect(() => {
@@ -742,20 +809,22 @@ export function useBreakConsole(): BreakConsole {
     /* A sampled kit needs a context to decode into. Picking one is a gesture,
        so this is the moment to have it — rather than the first note, which
        would arrive synthesised while the decode caught up behind it. */
-    if (kitEngine(kit) !== 'synth') audio.init();
-    audio.setKit(kit, sound);
-  }, [kit, sound]);
+    audio.percussion = percussion;
+    if (kitEngine(kitRow) !== 'synth') audio.init();
+    audio.setKit(kitRow ?? null, sound);
+  }, [kitRow, sound, percussion]);
 
   const setKit = useCallback(
     (k: string) => {
       /* An unported engine would not error — it would fall through to the
          synthesised voices with another kit's parameters, so picking TR-909
          would quietly hand you the Machine kit. Refuse instead. */
-      if (!KITS[k] || !kitIsPlayable(k)) return;
+      const row = catalogue.kits[k];
+      if (!row || !kitIsPlayable(row)) return;
       setKitRaw(k);
       setUserKit(k);
     },
-    [setKitRaw, setUserKit]
+    [catalogue.kits, setKitRaw, setUserKit]
   );
 
   const setParam = useCallback(
@@ -799,11 +868,15 @@ export function useBreakConsole(): BreakConsole {
      These refs are how that effect reads the current kit and preferences
      without being torn down and rebuilt every time one of them changes. */
   const soundRef = useRef(sound);
+  const kitRowRef = useRef(kitRow);
+  const percussionRef = useRef(percussion);
   const percSamplesRef = useRef(percSamples);
   useEffect(() => {
     soundRef.current = sound;
+    kitRowRef.current = kitRow;
+    percussionRef.current = percussion;
     percSamplesRef.current = percSamples;
-  }, [sound, percSamples]);
+  }, [sound, kitRow, percussion, percSamples]);
 
   /* The AudioContext and the clock are created together, in an effect rather
      than during render: an AudioContext is a real resource, and constructing one
@@ -837,7 +910,8 @@ export function useBreakConsole(): BreakConsole {
     });
     t.midi = midi;
     transportRef.current = t;
-    audio.setKit(kitRef.current, soundRef.current);
+    audio.percussion = percussionRef.current;
+    audio.setKit(kitRowRef.current, soundRef.current);
     return () => {
       t.stop();
       midi.disconnect();
@@ -921,7 +995,10 @@ export function useBreakConsole(): BreakConsole {
        — so this is checked before anything is generated. */
     if (typeof window !== 'undefined' && window.location.hash.startsWith('#b=')) {
       try {
-        const doc = decodeBreak(window.location.hash.slice(3));
+        /* The lookup is what lets a v3 code — one written before styles had
+           versions — find its style and rebuild the snapshot a v4 code
+           carries. Without it the break still opens, with default feel. */
+        const doc = decodeBreak(window.location.hash.slice(3), (key) => catalogue.styles[key]);
         setPatterns({ A: doc.A, B: doc.B });
         setBpmRaw(doc.bpm);
         setSwing(doc.swing);
@@ -937,11 +1014,12 @@ export function useBreakConsole(): BreakConsole {
         logger.warn('BeatBreaker: the link carried a break that would not read', { error });
       }
     }
-    const st = styleIn(style, meter);
+    if (!styleRow) return;
+    const st = styleIn(styleRow.params, meter);
     const roster = resolveLanes(st, lanesMode === 'custom' ? customLanes : null);
     const made = generateGood(
       {
-        style,
+        style: styleRow,
         meter,
         bars,
         density,
@@ -952,7 +1030,7 @@ export function useBreakConsole(): BreakConsole {
       },
       bpm
     );
-    setPatterns({ A: made.pattern, B: deriveB(made.pattern) });
+    setPatterns({ A: made.pattern, B: deriveB(made.pattern, styleRow.params) });
     setTries({ tries: made.tries, rejected: made.rejected });
     applyStyleMix(style, {});
     setReady(true);
@@ -1149,7 +1227,7 @@ export function useBreakConsole(): BreakConsole {
     buildBFromA,
     applyDoctor,
     cycleCell,
-    loadLibraryItem,
+    loadLibraryEntry,
     undo,
     redo,
     canUndo: history.length > 0,

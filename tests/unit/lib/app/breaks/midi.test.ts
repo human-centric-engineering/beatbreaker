@@ -14,6 +14,7 @@ import {
   vlq,
 } from '@/lib/app/breaks/midi';
 import { emptyBar } from '@/lib/app/breaks/pattern';
+import { testStyle } from '@/tests/helpers/catalogue';
 import type { Pattern } from '@/lib/app/breaks/types';
 
 const OPTS: MidiOptions = { bpm: 100, swing: 0, feel: 0, hats: 100 };
@@ -81,7 +82,7 @@ describe('vlq', () => {
 
 describe('buildMidi', () => {
   const pat = generatePattern({
-    style: 'funk',
+    style: testStyle('funk'),
     meter: '4/4',
     seed: 3,
     bars: 2,
@@ -104,7 +105,7 @@ describe('buildMidi', () => {
     const tempo = f.meta.find((m) => m.type === 0x51);
     expect(tempo?.data).toEqual([0x07, 0xa1, 0x20]); // 500,000 µs per quarter
     const sig = generatePattern({
-      style: 'funk',
+      style: testStyle('funk'),
       meter: '7/8',
       seed: 3,
       bars: 1,
@@ -154,7 +155,7 @@ describe('buildMidi', () => {
 
   it('comes out different with the feel slider up on a style that has a feel', () => {
     const dilla = generatePattern({
-      style: 'dilla',
+      style: testStyle('dilla'),
       meter: '4/4',
       seed: 3,
       bars: 2,

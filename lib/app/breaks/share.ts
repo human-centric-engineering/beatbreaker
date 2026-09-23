@@ -1,16 +1,23 @@
 import { BASE_LANES, LANES, percRoster } from '@/lib/app/breaks/lanes';
 import { DEFAULT_METER, METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { LAYER_V1_TO_V2 } from '@/lib/app/breaks/layers';
-import { emptyBar } from '@/lib/app/breaks/pattern';
+import { emptyBar, styleAttrs } from '@/lib/app/breaks/pattern';
 import { type PackedPattern, type SharePayload, sharePayloadSchema } from '@/lib/app/breaks/schema';
-import { STYLES } from '@/lib/app/breaks/styles';
-import type { LaneKey, Pattern, PercLaneKey, Pins } from '@/lib/app/breaks/types';
+import type { LaneKey, Pattern, PercLaneKey, Pins, ResolvedStyle } from '@/lib/app/breaks/types';
 
 /**
  * Share codes: a whole break — both sections, the tempo, the swing and the
  * style — as one base64 string you can paste to anyone.
  *
- * **Version 3** adds the meter, the lane roster and what is in each percussion
+ * **Version 4** makes a pattern stand on its own. It adds the style version the
+ * pattern came from (`sv`) and a snapshot of the five style attributes playback,
+ * the critic and the MIDI export read (`sa`). Before it, all three of those
+ * looked the style up in a table compiled into the app — which was fine while
+ * styles were code and is wrong now they are rows somebody can edit, delete, or
+ * keep private. A v4 code plays, scores and exports the same on any
+ * installation, including one that has never heard of its style.
+ *
+ * **Version 3** added the meter, the lane roster and what is in each percussion
  * slot. A version 2 code still decodes: no meter means 4/4, no roster means the
  * five lanes everyone had, and the rows it does not carry come back empty.
  *
@@ -19,7 +26,21 @@ import type { LaneKey, Pattern, PercLaneKey, Pins } from '@/lib/app/breaks/types
  * something has actually checked.
  */
 
-export const SHARE_VERSION = 3;
+export const SHARE_VERSION = 4;
+
+/**
+ * How a code older than v4 gets its snapshot back.
+ *
+ * A v3 code names a style and nothing else, so decoding one means looking that
+ * style up. The lookup is the caller's, passed in rather than imported, because
+ * `lib/app/breaks` owns no tables — the server resolves against the database,
+ * the Studio against the catalogue it was handed.
+ *
+ * Synchronous on purpose: `decodeBreak` runs on a paste, in the browser, and an
+ * `await` here would make every caller async for the sake of a case that only
+ * arises for old codes.
+ */
+export type StyleLookup = (key: string) => ResolvedStyle | undefined;
 
 /** Everything a share code carries. */
 export interface BreakDoc {
@@ -46,10 +67,19 @@ function fromBase64(code: string): string {
   return new TextDecoder().decode(bytes);
 }
 
-function pack(p: Pattern): PackedPattern {
+/**
+ * One pattern, as it travels: short keys, rows as strings.
+ *
+ * Exported because a share code is no longer the only thing that carries one —
+ * a library entry's `doc` column is a packed pattern too, written by the seed.
+ * One packer, so an entry and a code cannot drift apart.
+ */
+export function packPattern(p: Pattern): PackedPattern {
   return {
     n: p.name,
     st: p.style,
+    sv: p.styleVersionId ?? undefined,
+    sa: p.attrs ?? {},
     v: p.voice,
     sd: p.seed,
     bb: p.backbeats,
@@ -84,16 +114,39 @@ export function encodeBreak(doc: BreakDoc): string {
     sw: doc.swing,
     lv: doc.level,
     arr: doc.arrangement,
-    A: pack(doc.A),
-    B: pack(doc.B),
+    A: packPattern(doc.A),
+    B: packPattern(doc.B),
   };
   return toBase64(JSON.stringify(payload));
 }
 
-function unpack(p: PackedPattern): Pattern {
+/**
+ * A packed pattern, back as a {@link Pattern}.
+ *
+ * Exported alongside {@link packPattern} for the same reason: a library entry
+ * is a packed pattern, and opening one must go through exactly the path a
+ * pasted code goes through.
+ */
+export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Pattern {
   const mk = p.mt && METERS[p.mt] ? p.mt : DEFAULT_METER;
   const n = stepsOf(meterOf(mk));
-  const style = STYLES[p.st] ? p.st : 'funk';
+
+  /* The style key is kept as written. v3 and earlier substituted `'funk'` for a
+     style they did not recognise, which quietly relabelled somebody else's
+     pattern as one of ours — and now that styles are rows, "not recognised"
+     usually means "not on this installation", which is not a reason to rewrite
+     what the author said. An unknown key is a key the picker cannot select and
+     nothing else: the pattern still plays, because the snapshot travels with
+     it. */
+  const known = styles?.(p.st);
+
+  /* v4 carries its own snapshot. Older codes did not, so the style is looked up
+     — and where the lookup comes back empty, because the caller passed none or
+     the style is gone, the pattern loads with default feel rather than refusing
+     to load. A v3 break that sounds a shade straighter is a better answer than
+     an unopenable one. */
+  const attrs = p.sa ?? styleAttrs(known?.params);
+  const styleVersionId = p.sv ?? known?.versionId ?? null;
 
   const lanes = (p.ln?.length ? p.ln : BASE_LANES).filter((l): l is LaneKey =>
     (LANES as string[]).includes(l)
@@ -114,12 +167,14 @@ function unpack(p: PackedPattern): Pattern {
 
   return {
     name: p.n,
-    style,
+    style: p.st,
+    styleVersionId,
+    attrs,
     meter: mk,
     seed: p.sd >>> 0,
     voice: p.v,
     lanes: lanes.length ? lanes : BASE_LANES.slice(),
-    perc: { ...percRoster(STYLES[style]), ...(p.pc as Partial<Record<PercLaneKey, string>>) },
+    perc: { ...percRoster(known?.params), ...(p.pc as Partial<Record<PercLaneKey, string>>) },
     backbeats: p.bb,
     bbLane: ((LANES as string[]).includes(p.bl ?? '') ? p.bl : 's') as LaneKey,
     hasRide: !!p.hr,
@@ -145,9 +200,9 @@ function unpack(p: PackedPattern): Pattern {
  * the caller should say "that is not a BeatBreaker code" rather than relay the
  * reason.
  */
-export function decodeBreak(code: string): BreakDoc {
+export function decodeBreak(code: string, styles?: StyleLookup): BreakDoc {
   const raw: unknown = JSON.parse(fromBase64(code));
-  return breakDocFromPayload(sharePayloadSchema.parse(raw));
+  return breakDocFromPayload(sharePayloadSchema.parse(raw), styles);
 }
 
 /**
@@ -158,7 +213,7 @@ export function decodeBreak(code: string): BreakDoc {
  * a break that arrived over HTTP and one that arrived through the paste box
  * cannot drift apart.
  */
-export function breakDocFromPayload(payload: SharePayload): BreakDoc {
+export function breakDocFromPayload(payload: SharePayload, styles?: StyleLookup): BreakDoc {
   /* Layer numbers moved when the L2->L3 step was split in two: what was 3
      (16ths + ghosts) is now 4, and the full break moved from 4 to 5. */
   const level =
@@ -173,7 +228,7 @@ export function breakDocFromPayload(payload: SharePayload): BreakDoc {
     swing: payload.sw,
     level,
     arrangement: payload.arr?.length ? payload.arr : ['A', 'A', 'B', 'A'],
-    A: unpack(payload.A),
-    B: unpack(payload.B),
+    A: patternFromPacked(payload.A, styles),
+    B: patternFromPacked(payload.B, styles),
   };
 }

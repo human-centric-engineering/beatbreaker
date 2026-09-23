@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 
 export function PracticePanel() {
   const c = useStudio();
-  const style = c.catalogue.styles[c.style];
+  const style = c.catalogue.styles[c.style]?.params;
   /* The console guarded on a pattern existing before it drew anything; a panel
      is mounted on its own, so the mixer asks for itself. No pattern means no
      lanes to fade, not an empty Practice panel. */

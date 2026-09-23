@@ -18,6 +18,7 @@ import type {
   PercLaneKey,
   Pins,
   Style,
+  StyleAttrs,
 } from '@/lib/app/breaks/types';
 
 /**
@@ -74,6 +75,11 @@ export function clonePattern(p: Pattern): Pattern {
   return {
     name: p.name,
     style: p.style,
+    styleVersionId: p.styleVersionId ?? null,
+    /* Shallow on purpose: the snapshot is immutable — nothing in the app edits
+       a pattern's `attrs`, it replaces them when the style changes. Cloning the
+       feel table on every undo step would be copying a constant. */
+    attrs: p.attrs ?? {},
     voice: p.voice,
     seed: p.seed,
     meter: p.meter || DEFAULT_METER,
@@ -276,4 +282,22 @@ export function parseBar(spec: BarSpec, n?: number): Bar {
   put('t3', spec.t3, { X: 1, A: 2 });
   put('hf', spec.hf, { f: 1 });
   return b;
+}
+
+/**
+ * The snapshot a pattern carries, taken off a style.
+ *
+ * Explicit field-by-field rather than a spread, so that adding a field to
+ * {@link Style} does not silently widen what every share code carries — the
+ * wire format is a compatibility surface and growing it should be a decision.
+ */
+export function styleAttrs(style: StyleAttrs | undefined): StyleAttrs {
+  if (!style) return {};
+  const out: StyleAttrs = {};
+  if (style.feel) out.feel = style.feel;
+  if (style.swingUnit != null) out.swingUnit = style.swingUnit;
+  if (style.kickFeather != null) out.kickFeather = style.kickFeather;
+  if (style.targetDensity != null) out.targetDensity = style.targetDensity;
+  if (style.hatDepth != null) out.hatDepth = style.hatDepth;
+  return out;
 }
