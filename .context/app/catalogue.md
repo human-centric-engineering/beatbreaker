@@ -226,6 +226,38 @@ label, hint and meter live both in the row (so a list query can read them) and i
 separately would let the two disagree, and then "what is this style called" has
 two answers.
 
+## `/admin/catalogue`
+
+A plain operator page, at `/admin/catalogue`, registered through the
+`lib/app/admin-nav.ts` seam. Three lists — styles with their version counts, the
+libraries with their headings, the kits with their credits — and a detail page
+per style.
+
+**Rendered on the server from `admin-lists.ts`, not from `data.ts`.** Two
+reasons, and both matter: the public data layer is memoised, which is right for
+a picker read on every page load and wrong for the page an admin reloads to
+check the edit they just saved; and the queries are different, because a list
+row needs counts an editor reads and a client does not.
+
+The style editor has two forms, and the split is the model rather than a layout
+choice. **Where it sits** (heading, position) is a `PATCH`; **what it plays** is
+a `POST` that writes a new version, and the button says which number it will be.
+There is no "save" for the current version because there is no endpoint that
+could do it.
+
+Parameters are a **validated JSON editor** rather than a generated form. A style
+has thirty-odd fields, half of them weighted tables and step lists, and a form
+rendering all of them would be a week of work to produce something worse than a
+text box for the handful of people who will use it. What the text box must not
+be is unvalidated: it parses through the same `styleParamsSchema` the endpoint
+does, before the request goes out, so a bad weight is named with its field and
+reason rather than coming back as a 400.
+
+Library entries and kits are corrected through the API rather than through a
+form. That is a real stop, not an oversight — the endpoints exist, they are
+audited, and a form for them is worth building when somebody has actually needed
+one twice.
+
 ## Seeding
 
 `prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 37 styles, 47 famous

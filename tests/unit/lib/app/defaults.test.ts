@@ -198,10 +198,21 @@ const SEAM_DEFAULTS: SeamDefault[] = [
   {
     seam: 'lib/app/admin-nav.ts',
     risk: 'a stray section would appear in every install’s admin sidebar',
+    // FORK (BeatBreaker): re-pointed, not deleted — see the brand row above.
+    // Phase 2 adds one section with one item, for the catalogue. Pinned to the
+    // href rather than the label so a rename is free and a link quietly
+    // pointing somewhere else is not.
     assert: () => {
       __resetNavRegistryForTests();
       initAppNav();
-      expect(getRegisteredNavSections()).toHaveLength(0);
+      const sections = getRegisteredNavSections();
+      expect(sections).toHaveLength(1);
+      expect(sections[0].title).toBe('BeatBreaker');
+      expect(sections[0].items?.map((i) => i.href)).toEqual(['/admin/catalogue']);
+      // Registration is idempotent by title, and the sidebar imports this at
+      // module load — under HMR it runs more than once.
+      initAppNav();
+      expect(getRegisteredNavSections()).toHaveLength(1);
     },
   },
   {

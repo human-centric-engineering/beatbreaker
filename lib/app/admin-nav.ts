@@ -13,6 +13,27 @@
  *
  * Full guide + example: CUSTOMIZATION.md §4 · lib/admin-nav/registry.ts
  */
+import { Disc3 } from 'lucide-react';
+
+import { registerNavSection } from '@/lib/admin-nav/registry';
+
 export function initAppNav(): void {
-  // No app nav sections by default.
+  /* One section, one item. The catalogue is the only part of BeatBreaker an
+     operator administers — everything else a user does they do in the Studio,
+     and the platform's own sections cover users, flags and logs.
+
+     Client-safe on purpose: this file is imported by the sidebar at module
+     load, so it may hold a registrar and an icon and nothing else. The page
+     behind the href does the data work. */
+  registerNavSection({
+    title: 'BeatBreaker',
+    items: [
+      {
+        href: '/admin/catalogue',
+        label: 'Catalogue',
+        icon: Disc3,
+        description: 'Styles, famous breaks and kits — the content the generator works from.',
+      },
+    ],
+  });
 }

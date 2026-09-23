@@ -51,6 +51,13 @@ release process.
   `AiAdminAuditLog` entry and invalidates the catalogue cache, so a credit
   correction lands without a deploy and is still findable afterwards.
 
+- **`/admin/catalogue`** — a plain operator page: the styles with their version
+  counts, the libraries with their headings, the kits with their credits, and a
+  detail page per style with a metadata form and a validated JSON editor that
+  writes a new version. Registered through the `lib/app/admin-nav.ts` seam.
+  Rendered server-side from uncached queries, so an admin sees their own edit
+  rather than the picker's memoised snapshot.
+
 - **`lib/app/breaks/catalogue/`** — the data layer (`listStyles`, `getStyle`,
   `listKits`, `listLibraries`, `getLibrary`, `studioCatalogue`), the row schemas
   (`styleParamsSchema`, `kitParamsSchema`, `kitSamplesSchema`,
