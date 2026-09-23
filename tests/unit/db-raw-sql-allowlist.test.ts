@@ -106,6 +106,12 @@ const ALLOWLIST: ReadonlyArray<{ file: string; calls: number; why: string }> = [
     why: 'conversation-context vector lookup on the hot path',
   },
   {
+    // FORK (BeatBreaker): the app tier's own drift probe.
+    file: 'lib/app/db-drift.ts',
+    calls: 1,
+    why: 'pg_indexes lookup asserting the PARTIAL predicate on the catalogue’s system-key unique indexes — `indexExists` only checks the name, and an index recreated without its `WHERE "ownerId" IS NULL` clause is a different constraint. Reads a system catalog, never tenant rows',
+  },
+  {
     file: 'lib/db/drift-probes.ts',
     calls: 6,
     why: 'catalog queries (pg_indexes/pg_constraint/pg_class/pg_policies/information_schema) — reads system catalogs, never tenant rows',
