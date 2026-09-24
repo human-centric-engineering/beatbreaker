@@ -7,7 +7,12 @@ import {
   type InitialPattern,
   useBreakConsole,
 } from '@/components/app/breaks/use-break-console';
+import {
+  type PatternDocument,
+  usePatternDocument,
+} from '@/components/app/studio/use-pattern-document';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
+import { decodeBreak } from '@/lib/app/breaks/share';
 
 /**
  * The Studio's state, in one place.
@@ -45,9 +50,31 @@ export interface Studio extends BreakConsole {
    */
   toast: string;
   say: (message: string) => void;
+  /** The pattern on the stage as a saved-or-not document (Phase 4). */
+  doc: PatternDocument;
+  /** Save As: rename the pattern on the stage and save it as a new one. */
+  saveAs: (title: string) => Promise<boolean>;
+  /**
+   * A different pattern is waiting to replace one with edits that letting go
+   * would lose — the unsaved-changes prompt is open while this is set.
+   */
+  leaving: { title: string } | null;
+  /** The prompt's answer: save first, discard, or stay. */
+  resolveLeave: (choice: 'save' | 'discard' | 'cancel') => Promise<void>;
 }
 
 const StudioContext = createContext<Studio | null>(null);
+
+/** Would this pasted text load? The console's own decode, without the loading. */
+function readsAsBreak(code: string): boolean {
+  try {
+    const at = code.indexOf('#b=');
+    decodeBreak(at >= 0 ? code.slice(at + 3) : code.trim());
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 export function StudioProvider({
   catalogue,
@@ -78,13 +105,109 @@ export function StudioProvider({
     return () => clearTimeout(id);
   }, [toast]);
 
+  /* The document is built from the fields that make up a saved pattern, and
+     only those: the console re-renders at frame rate while playing, and the
+     pattern does not change with the playhead. */
+  const { ready, patterns, bpm, swing, level, arrangement, payload: toPayload } = state;
+  const payload = useMemo(
+    () => (ready ? toPayload() : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- toPayload is rebuilt from exactly these
+    [ready, patterns, bpm, swing, level, arrangement]
+  );
+  const doc = usePatternDocument({ payload, title: patterns.A?.name ?? '', initial, say });
+
+  /* Every action that puts a different pattern on the stage lets the current
+     document go first, so the pattern being left keeps its last edit and the
+     new one starts as scratch. Wrapped here, where both hooks meet, rather than
+     taught to the console, which should not need to know patterns are saved.
+     Regenerating one section is an edit to the pattern, not a new one, so
+     `newBreak('A')` and `newBreak('B')` pass straight through. */
+  const { detach, needsPrompt } = doc;
+  const { newBreak, loadLibraryEntry, loadFav, loadCode, rename, favs } = state;
+
+  /* The replacement waiting on the prompt, if there is one. Kept as a thunk so
+     "Don't save" and "Save" run exactly what was asked for, later. */
+  const [pending, setPending] = useState<(() => void) | null>(null);
+
+  /** Let the document go and replace it — or ask first, when that would lose edits. */
+  const replace = useCallback(
+    (go: () => void) => {
+      const run = () => {
+        detach();
+        go();
+      };
+      if (needsPrompt) setPending(() => run);
+      else run();
+    },
+    [detach, needsPrompt]
+  );
+
+  const replacing = useMemo(
+    () => ({
+      newBreak: (which?: Parameters<typeof newBreak>[0]) => {
+        if (which === undefined || which === 'both') replace(() => newBreak(which));
+        else newBreak(which);
+      },
+      loadLibraryEntry: (id: string) => replace(() => loadLibraryEntry(id)),
+      loadFav: (index: number) => {
+        // same rule as a pasted code: one that will not read replaces nothing
+        const fav = favs[index];
+        if (!fav || !readsAsBreak(fav.code)) return loadFav(index);
+        replace(() => loadFav(index));
+        return true;
+      },
+      loadCode: (code: string) => {
+        /* A code that does not read replaces nothing, so it is checked before
+           anything is let go — and before anyone is asked about letting go. */
+        if (!readsAsBreak(code)) return loadCode(code);
+        replace(() => loadCode(code));
+        return true;
+      },
+    }),
+    [replace, newBreak, loadLibraryEntry, loadFav, loadCode, favs]
+  );
+
+  const resolveLeave = useCallback(
+    async (choice: 'save' | 'discard' | 'cancel') => {
+      const go = pending;
+      if (!go || choice === 'cancel') {
+        setPending(null);
+        return;
+      }
+      /* A save that fails keeps the prompt open: the edits are still only
+         here, and the toast has said why. */
+      if (choice === 'save' && !(await doc.save())) return;
+      setPending(null);
+      go();
+    },
+    [pending, doc]
+  );
+
+  const saveAs = useCallback(
+    (title: string) => {
+      rename(title);
+      return doc.saveAs(title);
+    },
+    [rename, doc]
+  );
+
   /* `useBreakConsole` returns a fresh object each render, so there is nothing to
      memoise away here — every consumer re-renders when any of the state moves,
      exactly as the single component did. Splitting the context by concern is a
      Phase 4 optimisation with a measurement behind it, not a guess now. */
   const value = useMemo<Studio>(
-    () => ({ ...state, catalogue: content, toast, say }),
-    [state, content, toast, say]
+    () => ({
+      ...state,
+      ...replacing,
+      catalogue: content,
+      toast,
+      say,
+      doc,
+      saveAs,
+      leaving: pending ? { title: patterns.A?.name ?? '' } : null,
+      resolveLeave,
+    }),
+    [state, replacing, content, toast, say, doc, saveAs, pending, patterns.A?.name, resolveLeave]
   );
 
   return <StudioContext.Provider value={value}>{children}</StudioContext.Provider>;

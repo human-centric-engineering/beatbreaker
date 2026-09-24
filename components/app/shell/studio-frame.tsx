@@ -13,6 +13,7 @@ import { KitPanel } from '@/components/app/studio/panels/kit-panel';
 import { LibraryPanel } from '@/components/app/studio/panels/library-panel';
 import { PracticePanel } from '@/components/app/studio/panels/practice-panel';
 import { Stage } from '@/components/app/studio/stage';
+import { LeaveDialog } from '@/components/app/studio/leave-dialog';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { cn } from '@/lib/utils';
 
@@ -112,11 +113,19 @@ export function StudioFrame() {
         else c.undo();
         return;
       }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') {
+        // the browser's own Save Page is never what you meant in here
+        e.preventDefault();
+        void c.doc.save();
+        return;
+      }
       if (e.metaKey || e.ctrlKey) return;
 
       if (e.key === ' ') {
         e.preventDefault();
         c.togglePlay();
+      } else if (e.key === 's' || e.key === 'S') {
+        void c.doc.save();
       } else if (e.key === 'n' || e.key === 'N') {
         c.newBreak('both');
       } else if (e.key >= '1' && e.key <= '5') {
@@ -177,6 +186,8 @@ export function StudioFrame() {
       >
         {Panel ? <Panel /> : null}
       </ToolDrawer>
+
+      <LeaveDialog />
 
       <div className={cn('toast', c.toast && 'show')} role="status">
         {c.toast}

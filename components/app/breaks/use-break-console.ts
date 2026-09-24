@@ -37,9 +37,11 @@ import {
 } from '@/lib/app/breaks/pattern';
 import { clamp, makeRng } from '@/lib/app/breaks/rng';
 import type { SharePayload } from '@/lib/app/breaks/schema';
+import { readScratch } from '@/lib/app/breaks/scratch';
 import {
   type BreakDoc,
   breakDocFromPayload,
+  breakPayload,
   decodeBreak,
   encodeBreak,
   patternFromPacked,
@@ -226,8 +228,12 @@ export interface BreakConsole {
 
   /** Empty every lane of the section being edited. */
   clearSection: () => void;
+  /** Name the pattern — what a saved one is called in your list. */
+  rename: (name: string) => void;
 
   shareCode: () => string;
+  /** The break as its wire payload — what a save sends. Null until there is one. */
+  payload: () => SharePayload | null;
   /** The same code as a URL, so a link carries the break. */
   shareLink: () => string;
   loadCode: (code: string) => boolean;
@@ -1078,6 +1084,26 @@ export function useBreakConsole(
         logger.warn('BeatBreaker: the link carried a break that would not read', { error });
       }
     }
+    /* The pattern you had on the stage before a reload, if it was never saved.
+       After a link, because a link is something you just asked for; before
+       generating, because rolling a new one over it is what used to lose it. */
+    if (typeof window !== 'undefined') {
+      let scratch: SharePayload | null = null;
+      try {
+        scratch = readScratch(window.localStorage);
+      } catch {
+        // storage blocked — nothing kept, then
+      }
+      if (scratch) {
+        try {
+          applyDoc(breakDocFromPayload(scratch, (key) => catalogue.styles[key]));
+          setReady(true);
+          return;
+        } catch (error) {
+          logger.warn('BeatBreaker: the kept scratch pattern would not read', { error });
+        }
+      }
+    }
     if (!styleRow) {
       /* Nothing to generate from, and nothing that will arrive later. Say so
          rather than leaving `ready` false, which the stage renders as work in
@@ -1118,6 +1144,11 @@ export function useBreakConsole(
   const shareCode = useCallback(() => {
     const doc = asDoc();
     return doc ? encodeBreak(doc) : '';
+  }, [asDoc]);
+
+  const payload = useCallback(() => {
+    const doc = asDoc();
+    return doc ? breakPayload(doc) : null;
   }, [asDoc]);
 
   /**
@@ -1168,6 +1199,14 @@ export function useBreakConsole(
     if (!seq.length) return '';
     return buildMidi(seq, { bpm, swing, feel, hats }).base64;
   }, [arrangement, view, viewMode, bpm, swing, feel, hats]);
+
+  const rename = useCallback((name: string) => {
+    /* The name is not the music, so it is not an undo step: undoing a note
+       should not also take back the title you typed after it. */
+    setPatterns((prev) =>
+      prev.A ? { ...prev, A: { ...prev.A, name: name.slice(0, 120) } } : prev
+    );
+  }, []);
 
   /* ---- saved breaks ----------------------------------------------------- */
 
@@ -1309,6 +1348,8 @@ export function useBreakConsole(
     deleteFav,
     clearSection,
     shareCode,
+    payload,
+    rename,
     shareLink,
     loadCode,
     midiBase64,

@@ -17,6 +17,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { stashPendingLink, takePendingLink } from '@/lib/app/breaks/pending-link';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
+import { writeScratch } from '@/lib/app/breaks/scratch';
 import { encodeBreak } from '@/lib/app/breaks/share';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
@@ -201,6 +202,44 @@ describe('arriving', () => {
     window.history.replaceState(null, '', `/breaks#b=${codeFor('In the URL')}`);
     const { result } = await mount();
     expect(result.current.patterns.A?.name).toBe('In the URL');
+  });
+});
+
+describe('arriving on the scratch pattern you left (Phase 4)', () => {
+  const kept = (name: string) => sharePayloadSchema.parse(JSON.parse(atob(codeFor(name, 77))));
+
+  it('puts back the unsaved pattern a reload would have rolled over', async () => {
+    writeScratch(localStorage, kept('Before the reload'));
+    const { result } = await mount();
+    expect(result.current.patterns.A?.name).toBe('Before the reload');
+    expect(result.current.bpm).toBe(77);
+    // nothing was generated
+    expect(result.current.tries).toBeNull();
+  });
+
+  it('gives way to a link in the URL — a link is something you just asked for', async () => {
+    writeScratch(localStorage, kept('Scratch'));
+    window.history.replaceState(null, '', `/studio#b=${codeFor('Linked')}`);
+    const { result } = await mount();
+    expect(result.current.patterns.A?.name).toBe('Linked');
+  });
+
+  it('gives way to a saved pattern opened by its address', async () => {
+    writeScratch(localStorage, kept('Scratch'));
+    const saved: InitialPattern = {
+      id: 'cbrk00000000000000000001',
+      title: 'Saved',
+      payload: kept('Saved'),
+      mine: true,
+    };
+    const { result } = await mount(saved);
+    expect(result.current.patterns.A?.name).toBe('Saved');
+  });
+
+  it('generates as before when what was kept will not read', async () => {
+    localStorage.setItem('bb.scratch', '{"payload":{"ver":4},"at":1}');
+    const { result } = await mount();
+    expect(result.current.tries).not.toBeNull();
   });
 });
 

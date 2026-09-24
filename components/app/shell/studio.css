@@ -92,6 +92,39 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
   flex: 1;
 }
 
+/* ---- where the pattern stands (Phase 4) --------------------------- */
+.bb .studio-save-state {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.bb .studio-save-state[data-status='offline'],
+.bb .studio-save-state[data-status='error'] {
+  color: var(--warn);
+}
+.bb .studio-save {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.bb .studio-save:hover {
+  border-color: var(--ink);
+}
+/* Below the width where the transport joins the header, the status word
+   goes: the header is the mark, the title and the menu, and Save stays. */
+@media (max-width: 1023px) {
+  .bb .studio-save-state {
+    display: none;
+  }
+}
+
 /* ---- transport, in the header from 1024px up --------------------- */
 .bb .studio-transport {
   display: none;
