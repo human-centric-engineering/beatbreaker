@@ -298,7 +298,7 @@ export function usePatternDocument({
         if (generation.current !== sentFor) {
           // the stage moved on while this was out: saved, but not what is shown now
           setPhase('idle');
-          say('Saved');
+          say('Saved to your account');
           return true;
         }
         setId(data.id);
@@ -312,7 +312,10 @@ export function usePatternDocument({
         const store = storage();
         if (store) clearScratch(store);
         showAddress(data.id);
-        say('Saved');
+        /* Where it went, not just that it went: "My breaks" in the Library
+           drawer is the browser-only favourites list, so a bare "Saved" sent
+           people looking for it there. */
+        say('Saved to your account');
         return true;
       } catch (error) {
         setPhase(
