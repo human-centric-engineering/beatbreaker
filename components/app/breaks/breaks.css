@@ -883,6 +883,27 @@
   color: var(--ink);
   box-shadow: var(--shadow);
 }
+/* The Patterns drawer's five, with a count beside the shelves. */
+.bb .tabs.tabs-5 {
+  grid-template-columns: repeat(5, 1fr);
+  margin-bottom: 12px;
+}
+.bb .tabs .tab-n {
+  color: var(--brass);
+}
+
+/* Search over two pickers, above a list you can filter. */
+.bb .filters {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.bb .filters-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
 
 .bb .field {
   display: flex;
@@ -921,6 +942,7 @@
 }
 .bb select,
 .bb input[type='text'],
+.bb input[type='search'],
 .bb textarea {
   width: 100%;
   padding: 9px 10px;

@@ -112,10 +112,12 @@ const place = () => {
 };
 const back = () => screen.getByRole('button', { name: /^Back/ });
 
-async function openLibrary(user: ReturnType<typeof userEvent.setup>) {
+async function openPatterns(user: ReturnType<typeof userEvent.setup>, tab: string) {
   const rail = within(screen.getByRole('navigation', { name: 'Tools' }));
-  await user.click(rail.getByRole('button', { name: 'Library' }));
+  await user.click(rail.getByRole('button', { name: 'Patterns' }));
+  await user.click(screen.getByRole('tab', { name: new RegExp(`^${tab}`) }));
 }
+const openLibrary = (user: ReturnType<typeof userEvent.setup>) => openPatterns(user, 'Libraries');
 
 beforeEach(() => {
   localStorage.clear();
@@ -311,12 +313,13 @@ describe('Recent', () => {
       initial: COLD_CARPET,
       history: [visit(mineTarget, 5, 90), visit(entryTarget(ENTRY_A), 2, 72)],
     });
-    await openLibrary(user);
+    await openPatterns(user, 'Recent');
 
-    const recent = within(
-      screen.getByRole('heading', { name: 'Recent' }).closest('.card') as HTMLElement
-    );
-    const rows = recent.getAllByRole('button').filter((b) => b.classList.contains('item'));
+    const recent = within(screen.getByRole('tabpanel'));
+    // each row is the open button and its ★ — the ★ is not a row
+    const rows = recent
+      .getAllByRole('button')
+      .filter((b) => b.classList.contains('item') && !b.classList.contains('pin'));
     expect(rows.map((r) => r.textContent)).toEqual([
       'Cold CarpetYour patternL5 · 90',
       `${ENTRY_A.title}${ENTRY_A.artist}L2 · 72`,
@@ -332,9 +335,9 @@ describe('Recent', () => {
   it('clears', async () => {
     const user = userEvent.setup();
     await open({ initial: COLD_CARPET, history: [visit(mineTarget, 5, 90)] });
-    await openLibrary(user);
+    await openPatterns(user, 'Recent');
 
-    await user.click(screen.getByRole('button', { name: 'Clear' }));
+    await user.click(screen.getByRole('button', { name: 'Clear history' }));
 
     expect(apiClient.delete).toHaveBeenCalledWith('/api/v1/history');
     await waitFor(() => expect(screen.getByText(/What you open shows up here/)).toBeTruthy());

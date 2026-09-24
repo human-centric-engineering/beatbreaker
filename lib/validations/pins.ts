@@ -74,18 +74,37 @@ export type UpdatePinInput = z.infer<typeof updatePinSchema>;
 
 /**
  * What `GET /api/v1/pins` answers, as a client reads it — checked, not cast.
- * Only what the Studio uses is held to a shape; the rest of each target (bpm,
- * meter, artist…) is what the Patterns drawer and Home will read in 4.8/4.9.
+ * The numbers a row prints (tempo, meter, style, layer) are optional here: the
+ * server always sends them, and a row without one prints less rather than
+ * failing to render the shelf.
  */
-const pinnedTargetSchema = z.discriminatedUnion('kind', [
-  z.object({ kind: z.literal('break'), id: z.string(), title: z.string(), mine: z.boolean() }),
+const shownFields = {
+  bpm: z.number().optional(),
+  meter: z.string().optional(),
+};
+
+export const pinnedTargetSchema = z.discriminatedUnion('kind', [
+  z.object({
+    kind: z.literal('break'),
+    id: z.string(),
+    title: z.string(),
+    mine: z.boolean(),
+    style: z.string().optional(),
+    level: z.number().optional(),
+    ...shownFields,
+  }),
   z.object({
     kind: z.literal('entry'),
     id: z.string(),
     title: z.string(),
     libraryKey: z.string(),
+    artist: z.string().optional(),
+    styleKey: z.string().optional(),
+    ...shownFields,
   }),
 ]);
+
+export type PinnedTarget = z.infer<typeof pinnedTargetSchema>;
 
 export const pinViewSchema = z.object({
   id: z.string(),

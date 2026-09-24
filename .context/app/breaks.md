@@ -258,8 +258,7 @@ library entry it was opened from — is recorded when it arrives, and again 2s
 place at once. **Back** in the header and `Alt+←` / `Alt+→` step through it
 like a browser: each open moves its item to the top on the server, so
 stepping walks a frozen _trail_ (the list when stepping began, and a cursor),
-and any other open ends it. **Recent** leads the Library drawer until task 4.8
-gives it a tab.
+and any other open ends it. **Recent** is a tab in the Patterns drawer.
 
 Opening an item lands where it was left. A library entry reopens from the
 catalogue in the page (`loadLibraryEntry(id, at)`). A saved pattern is fetched
@@ -273,6 +272,33 @@ says where you left it. A pattern that has since been deleted or unshared
 
 Tests: `tests/integration/api/v1/history/`,
 `tests/unit/components/app/studio/practice-history.test.tsx`.
+
+### The Patterns drawer (task 4.8)
+
+`components/app/studio/panels/patterns-panel.tsx` — the rail's **Patterns**
+tool (it was _Library_), in five tabs: **Practising** · **Later** (the
+shelves) · **Recent** (the history) · **All** (your saved patterns) ·
+**Libraries** (every library in the catalogue). The tab is remembered per
+browser (`bb.patternsTab`); with none stored it opens on Practising if
+anything is on it, else Recent, else Libraries.
+
+- Shelves and Recent come from the provider — read with the page — so they
+  ask the server for nothing. **All** makes one `GET /api/v1/breaks`
+  (`sort=updated`, `limit=100`) when it is shown; search, style and meter go
+  to the server as `q` / `style` / `meter` once the typing settles (250ms). It
+  reads again when a pattern of yours that it has not got lands on the stage
+  (a save). **Libraries** filters the catalogue in the page by title or
+  artist, style and meter.
+- Every row opens **in place** through the provider's `open(target)` — the
+  same fetch-and-attach the history uses — and carries a ★ (`PinButton`).
+  The row for whatever is on the stage (`stagePin`) is `aria-current`.
+- The browser favourites (`bb.favs`) show under All as **In this browser**,
+  load and delete, until task 4.10 imports them. _Save current_ into them is
+  gone: **Save** in the header is the one way to keep a pattern.
+- `ShelfList` is exported; the **Practice** drawer shows the Practising shelf
+  above the rig when anything is on it.
+
+Tests: `tests/unit/components/app/studio/panels/patterns-panel.test.tsx`.
 
 ## The domain endpoints
 

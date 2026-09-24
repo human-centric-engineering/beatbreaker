@@ -91,6 +91,11 @@ export interface Studio extends BreakConsole {
   stagePin: PinTarget | null;
   /** The practice history (D18): Recent, and Back / Forward through it. */
   history: PracticeHistoryState;
+  /**
+   * Open a pattern or library entry from a shelf or a list (task 4.8) — in
+   * place, as the history does, so undo and the Back trail survive.
+   */
+  open: (target: PinTarget) => Promise<OpenResult>;
 }
 
 const StudioContext = createContext<Studio | null>(null);
@@ -104,6 +109,28 @@ function readsAsBreak(code: string): boolean {
   } catch {
     return false;
   }
+}
+
+/**
+ * Open from a shelf or a list (task 4.8): in place, at the top of the pattern,
+ * and say so when it has gone. A hook of its own for the compiler's refs rule:
+ * `openTarget` reads the latest `replace` from a ref, but only once its fetch
+ * has landed — never during render — and the rule cannot see that through a
+ * `useMemo` value, only through a hook's return (as with the history's open).
+ */
+function useOpenFromList(
+  openTarget: (target: PinTarget) => Promise<OpenResult>,
+  say: (message: string) => void
+) {
+  return useCallback(
+    async (target: PinTarget) => {
+      const result = await openTarget(target);
+      if (result === 'gone') say('That pattern is no longer there');
+      else if (result === 'failed') say('Could not open that — try again');
+      return result;
+    },
+    [openTarget, say]
+  );
 }
 
 export function StudioProvider({
@@ -254,10 +281,10 @@ export function StudioProvider({
    * document already holds where you left it, and applying the visit on top
    * could only disagree with it — and then autosave the disagreement.
    */
-  const openItem = useCallback(
-    async (item: HistoryItem, at: PracticePlace): Promise<OpenResult> => {
-      if (item.target.kind === 'entry') {
-        const id = item.target.id;
+  const openTarget = useCallback(
+    async (target: PinTarget, at?: PracticePlace): Promise<OpenResult> => {
+      if ('libraryEntryId' in target) {
+        const id = target.libraryEntryId;
         if (!catalogue.libraries.some((l) => l.entries.some((e) => e.id === id))) return 'gone';
         replaceNow.current(() => {
           setEntryId(id);
@@ -265,7 +292,7 @@ export function StudioProvider({
         });
         return 'opened';
       }
-      const opened = await fetchSavedPattern(item.target.id);
+      const opened = await fetchSavedPattern(target.breakId);
       if (opened === 'gone') return 'gone';
       if (!opened) return 'failed';
       replaceNow.current(() => {
@@ -280,6 +307,19 @@ export function StudioProvider({
     },
     [catalogue, loadLibraryEntry, loadPayload, attach, say]
   );
+
+  const openItem = useCallback(
+    (item: HistoryItem, at: PracticePlace) =>
+      openTarget(
+        item.target.kind === 'entry'
+          ? { libraryEntryId: item.target.id }
+          : { breakId: item.target.id },
+        at
+      ),
+    [openTarget]
+  );
+
+  const open = useOpenFromList(openTarget, say);
 
   const historyCurrent = useMemo<HistoryCurrent | null>(
     () => (ready && stagePin ? { target: stagePin, level, bpm } : null),
@@ -339,6 +379,7 @@ export function StudioProvider({
       pins,
       stagePin,
       history,
+      open,
     }),
     [
       state,
@@ -354,6 +395,7 @@ export function StudioProvider({
       pins,
       stagePin,
       history,
+      open,
     ]
   );
 

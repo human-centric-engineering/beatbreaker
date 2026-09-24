@@ -318,10 +318,9 @@ export function usePatternDocument({
         const store = storage();
         if (store) clearScratch(store);
         showAddress(data.id);
-        /* Where it went, not just that it went: "My breaks" in the Library
-           drawer is the browser-only favourites list, so a bare "Saved" sent
-           people looking for it there. */
-        say('Saved to your account');
+        /* Where it went, not just that it went: a bare "Saved" sent people
+           looking for it among the browser-only favourites. */
+        say('Saved to your account — under Patterns › All');
         return true;
       } catch (error) {
         setPhase(

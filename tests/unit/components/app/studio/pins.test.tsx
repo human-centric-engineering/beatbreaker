@@ -105,10 +105,12 @@ async function open({ initial, pins }: { initial?: InitialPattern; pins?: Practi
 
 const stageStar = () => document.querySelector('.title-row .pin') as HTMLButtonElement;
 
-async function openLibrary(user: ReturnType<typeof userEvent.setup>) {
+async function openPatterns(user: ReturnType<typeof userEvent.setup>, tab: string) {
   const rail = within(screen.getByRole('navigation', { name: 'Tools' }));
-  await user.click(rail.getByRole('button', { name: 'Library' }));
+  await user.click(rail.getByRole('button', { name: 'Patterns' }));
+  await user.click(screen.getByRole('tab', { name: new RegExp(`^${tab}`) }));
 }
+const openLibrary = (user: ReturnType<typeof userEvent.setup>) => openPatterns(user, 'Libraries');
 
 async function pick(user: ReturnType<typeof userEvent.setup>, star: HTMLElement, shelf: string) {
   await user.click(star);
