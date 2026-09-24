@@ -107,15 +107,21 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
   font-size: 11px;
   min-height: 32px;
   padding: 0 10px;
-  border: 1px solid var(--line);
+  /* Save is the one thing in the header that asks for a decision, so it takes
+     the "go" colour: outlined green, filled on hover. `--ok` has a light and a
+     dark value and `--paper` is the ground in either, so the filled state
+     keeps its contrast in both themes. */
+  border: 1px solid color-mix(in srgb, var(--ok) 55%, var(--line));
   border-radius: var(--radius-sm);
   background: transparent;
-  color: var(--ink);
+  color: var(--ok);
   cursor: pointer;
   white-space: nowrap;
 }
 .bb .studio-save:hover {
-  border-color: var(--ink);
+  background: var(--ok);
+  border-color: var(--ok);
+  color: var(--paper);
 }
 /* Below the width where the transport joins the header, the status word
    goes: the header is the mark, the title and the menu, and Save stays. */
@@ -453,6 +459,12 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 14px;
+}
+/* Cards stacked in a drawer (Practice rig over Mixer, Famous breaks over My
+   breaks) sat border to border: nothing spaced one from the next. The gap is
+   the drawer's padding, so the edges and the seams read alike. */
+.bb .studio-drawer-bd > * + * {
+  margin-top: 14px;
 }
 
 /* ============================================================

@@ -401,7 +401,7 @@ describe('a scratch pattern', () => {
     });
     expect(window.location.pathname).toBe('/studio/cbrk00000000000000000002');
     expect(readScratch(localStorage)).toBeNull();
-    expect(say).toHaveBeenCalledWith('Saved');
+    expect(say).toHaveBeenCalledWith('Saved to your account');
   });
 
   it('creates one pattern however many times Save is pressed before the first answers', async () => {

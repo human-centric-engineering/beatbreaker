@@ -170,6 +170,22 @@ async function seedStyles({ prisma, logger }: SeedContext): Promise<Map<string, 
   return resolved;
 }
 
+/**
+ * The seed's identity for a library entry: a slug of its title. The backfill
+ * in 20260924170000_library_entry_seed_key computes the same thing in SQL —
+ * change one, change both.
+ */
+export function seedKeyOf(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 80);
+}
+
+/** Positions are parked this far up while a library is reordered. */
+const PARKED = 100_000;
+
 async function seedLibrary(
   { prisma, logger }: SeedContext,
   styles: Map<string, ResolvedStyle>
@@ -187,6 +203,41 @@ async function seedLibrary(
     { title: 'Famous breaks', description: LIBRARY_DESCRIPTION }
   );
 
+  /* Entries are matched by `seedKey`, not by position. A pin holds an entry's
+     id, so keyed by slot, inserting a break mid-list would hand every later
+     row — and every pin on it — a different break. Two titles with one slug
+     would make two data-file entries fight over one row, so that stops the
+     seed rather than shipping. */
+  const keys = LIBRARY.map((item) => seedKeyOf(item.title));
+  const clash = keys.find((key, i) => keys.indexOf(key) !== i);
+  if (clash) throw new Error(`Two library entries share the seed key "${clash}"`);
+
+  /* A seeded entry the data file no longer has goes, and pins on it go with
+     it — that break is not in the library any more. An entry an admin added
+     (no seedKey) is not the data file's to remove, and stays. */
+  const { count } = await prisma.libraryEntry.deleteMany({
+    where: { libraryId, AND: [{ seedKey: { not: null } }, { seedKey: { notIn: keys } }] },
+  });
+
+  /* `(libraryId, position)` is unique, so a reorder done row by row collides
+     with itself. When a seeded row is moving, or an admin-added row sits in a
+     slot a seeded one needs, every row is parked out of the way first — which
+     leaves admin-added rows after the seeded ones, in their own order. When
+     nothing needs to move, nothing is written, which keeps a re-seed a no-op. */
+  const placed = await prisma.libraryEntry.findMany({
+    where: { libraryId },
+    select: { seedKey: true, position: true },
+  });
+  const inTheWay = placed.some((row) =>
+    row.seedKey === null ? row.position < keys.length : row.position !== keys.indexOf(row.seedKey)
+  );
+  if (inTheWay) {
+    await prisma.libraryEntry.updateMany({
+      where: { libraryId },
+      data: { position: { increment: PARKED } },
+    });
+  }
+
   for (const [index, item] of LIBRARY.entries()) {
     const style = styles.get(item.style);
     /* The index is the seed the pattern is built from, so an entry's notes are
@@ -195,6 +246,7 @@ async function seedLibrary(
     const doc = packPattern(patternFromLibrary(item, index, style));
 
     const fields = {
+      position: index,
       group: item.group,
       title: item.title,
       artist: item.artist,
@@ -207,19 +259,11 @@ async function seedLibrary(
     };
 
     await prisma.libraryEntry.upsert({
-      where: { libraryId_position: { libraryId, position: index } },
+      where: { libraryId_seedKey: { libraryId, seedKey: keys[index] } },
       update: fields,
-      create: { libraryId, position: index, ...fields },
+      create: { libraryId, seedKey: keys[index], ...fields },
     });
   }
-
-  /* An entry removed from `data/library.ts` has to go from the table too, or
-     the list keeps showing something the source no longer has — and the only
-     way to find out would be to count. Positions are contiguous from 0, so
-     anything at or past the end is a leftover. */
-  const { count } = await prisma.libraryEntry.deleteMany({
-    where: { libraryId, position: { gte: LIBRARY.length } },
-  });
 
   logger.info(`🥁 Famous breaks: ${LIBRARY.length} entries${count ? ` (${count} removed)` : ''}`);
 }

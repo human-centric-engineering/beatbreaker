@@ -66,6 +66,7 @@ model Break {
   updatedAt DateTime @updatedAt
 
   takes Take[] @relation("TakeBreak")
+  pins  Pin[]  @relation("PinBreak")
 
   styleVersion StyleVersion? @relation("BreakStyleVersion", fields: [styleVersionId], references: [id], onDelete: SetNull)
 
@@ -102,6 +103,44 @@ model Take {
   @@index([breakId, createdAt])
   @@index([userId, createdAt])
   @@map("take")
+}
+
+/// Something you are practising, or want to practise later (D17).
+///
+/// The only record of what is pinned. A pin points at **exactly one** target —
+/// one of your own patterns, someone else's shared one, or an entry in a
+/// library — which is why it is a row and not a `Break` column: a famous break
+/// is a system row with no owner to hold a flag, and one flag has one state
+/// where there are two shelves. "Exactly one" is a hand-written CHECK in the
+/// migration, probed by `lib/app/db-drift.ts`.
+///
+/// Personal data: `userId` cascades (hand-written FK), and so do both targets —
+/// a pin on a pattern that was deleted is a pin on nothing.
+model Pin {
+  id     String @id @default(cuid())
+  /// FK to User.id — no @relation. Cascades.
+  userId String
+
+  /// "practising" | "later".
+  shelf    String @db.VarChar(16)
+  /// Order within the shelf, 0 first. Dense — renumbered on every move.
+  position Int
+
+  breakId        String?
+  libraryEntryId String?
+
+  createdAt DateTime @default(now())
+
+  breakRef     Break?        @relation("PinBreak", fields: [breakId], references: [id], onDelete: Cascade)
+  libraryEntry LibraryEntry? @relation("PinEntry", fields: [libraryEntryId], references: [id], onDelete: Cascade)
+
+  /// One pin per target per person: moving it between shelves is an update,
+  /// never a second row. NULLs are distinct, so these do not collide across
+  /// the two kinds of target.
+  @@unique([userId, breakId])
+  @@unique([userId, libraryEntryId])
+  @@index([userId, shelf, position])
+  @@map("pin")
 }
 
 // ---- the catalogue ---------------------------------------------------------
@@ -229,9 +268,15 @@ model PatternLibrary {
 /// client never needs the bar-string parser to show an entry, and an entry
 /// survives the style it was written against being retuned or deleted.
 model LibraryEntry {
-  id        String @id @default(cuid())
+  id        String  @id @default(cuid())
   libraryId String
   position  Int
+  /// The seed's identity for an entry it wrote — a slug of the title in the
+  /// data file. The seed upserts by this, not by `position`, because a pin
+  /// holds the row's id: keyed by slot, inserting a break mid-list would hand
+  /// every later row, and every pin on it, a different break. Null for an entry
+  /// an admin added.
+  seedKey   String? @db.VarChar(80)
 
   /// Heading within the library — "Funk and the breaks", "The Police · Stewart
   /// Copeland". A shelf inside one library rather than eight libraries: the
@@ -264,7 +309,10 @@ model LibraryEntry {
   library      PatternLibrary @relation(fields: [libraryId], references: [id], onDelete: Cascade)
   styleVersion StyleVersion?  @relation("EntryStyleVersion", fields: [styleVersionId], references: [id], onDelete: SetNull)
 
+  pins Pin[] @relation("PinEntry")
+
   @@unique([libraryId, position])
+  @@unique([libraryId, seedKey])
   @@index([libraryId, group, position])
   @@index([styleKey])
   @@map("library_entry")

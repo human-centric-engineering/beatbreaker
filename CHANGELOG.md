@@ -18,6 +18,21 @@ release process.
 
 ### Added
 
+- **Practice shelves — a `Pin` model and `/api/v1/pins`** (migration
+  `practice_shelves`, additive). Pin your own patterns, shared ones, or library
+  entries to **Practising** or **Later**. `GET` returns both shelves in one
+  request. `POST` pins to the top of a shelf, and pinning again moves the pin
+  rather than duplicating it. `PATCH /:id` takes `{ shelf?, after? }` to move
+  and reorder. `DELETE /:id` unpins. The user FK and a CHECK for exactly one
+  target are hand-written and drift-probed. The account export gains a `pins`
+  section.
+
+- **`LibraryEntry.seedKey`** (migration `library_entry_seed_key`, additive, and
+  backfilled from each title). The catalogue seed now matches entries by this
+  slug rather than by position, so an entry keeps its id, and any pins on it,
+  when the library is reordered. It also leaves entries an admin added (which
+  have no key) in place rather than deleting them.
+
 - **Your patterns — `Break` gains `level`, `description` and `links`**
   (migration `break_your_patterns`, additive; `level` backfilled from each
   stored document's `lv`). `links` holds up to four reference links — YouTube,

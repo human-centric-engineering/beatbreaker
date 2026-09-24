@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 
 import { logger } from '@/lib/logging';
-import unit from '@/prisma/seeds/app-beatbreaker/001-catalogue';
+import unit, { seedKeyOf } from '@/prisma/seeds/app-beatbreaker/001-catalogue';
 import { KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
@@ -54,10 +54,20 @@ function table(name: string, defaults: Record<string, unknown> = {}) {
   const rows: Row[] = [];
   let next = 0;
 
+  /* The filter shapes the seed actually sends — `gte`, `not`, `notIn`, and
+     `AND` over them — and nothing more. `notIn` follows SQL, where
+     `NULL NOT IN (…)` is not true: that is what keeps an admin-added entry
+     (no seedKey) out of the seed's delete even without the `not: null`. */
   const matches = (row: Row, where: Record<string, unknown> | undefined): boolean =>
     Object.entries(where ?? {}).every(([k, v]) => {
-      if (v !== null && typeof v === 'object' && 'gte' in v) {
-        return (row[k] as number) >= (v as { gte: number }).gte;
+      if (k === 'AND') {
+        return (v as Record<string, unknown>[]).every((part) => matches(row, part));
+      }
+      if (v !== null && typeof v === 'object' && !Array.isArray(v)) {
+        const op = v as { gte?: number; not?: unknown; notIn?: unknown[] };
+        if ('gte' in op) return (row[k] as number) >= (op.gte as number);
+        if ('not' in op) return row[k] !== op.not;
+        if ('notIn' in op) return row[k] !== null && !(op.notIn ?? []).includes(row[k]);
       }
       return row[k] === v;
     });
@@ -117,6 +127,23 @@ function table(name: string, defaults: Record<string, unknown> = {}) {
         );
       }
       return Promise.resolve(found[0] ?? null);
+    },
+    findMany: ({ where }: { where?: Record<string, unknown> }) =>
+      Promise.resolve(rows.filter((r) => matches(r, where))),
+    updateMany: ({
+      where,
+      data,
+    }: {
+      where: Record<string, unknown>;
+      data: Record<string, { increment: number }>;
+    }) => {
+      const hit = rows.filter((r) => matches(r, where));
+      for (const row of hit) {
+        for (const [k, change] of Object.entries(data)) {
+          row[k] = (row[k] as number) + change.increment;
+        }
+      }
+      return Promise.resolve({ count: hit.length });
     },
     deleteMany: ({ where }: { where: Record<string, unknown> }) => {
       const doomed = rows.filter((r) => matches(r, where));
@@ -224,9 +251,8 @@ describe('the catalogue seed', () => {
   });
 
   it('removes a library entry that is no longer in the data file', async () => {
-    /* Positions are contiguous from 0, so anything at or past the end is a
-       leftover. Without the sweep the list keeps showing a pattern the source
-       no longer has, and the only way to find out is to count. */
+    /* Without the sweep the list keeps showing a pattern the source no longer
+       has, and the only way to find out is to count. */
     const prisma = fakePrisma();
     await seed(prisma);
 
@@ -237,6 +263,78 @@ describe('the catalogue seed', () => {
     } finally {
       if (removed) LIBRARY.push(removed);
     }
+  });
+
+  it('keeps each entry’s row when a break is inserted mid-list, so a pin stays on its break', async () => {
+    /* The reason entries are keyed by title rather than by slot. A pin holds
+       the row id; keyed by position, inserting one break at the top would have
+       rewritten row 0 as the new break and every row after it as its
+       neighbour — every pin silently on a different record. */
+    const prisma = fakePrisma();
+    await seed(prisma);
+    const idOf = (title: string) => prisma.libraryEntry.rows.find((r) => r.title === title)?.id;
+    const before = Object.fromEntries(LIBRARY.map((item) => [item.title, idOf(item.title)]));
+
+    LIBRARY.unshift({ ...LIBRARY[0], title: 'A New Break' });
+    try {
+      await seed(prisma);
+      // one row per entry: the same rows, moved — not new rows beside parked old ones
+      expect(prisma.libraryEntry.rows).toHaveLength(LIBRARY.length);
+      for (const item of LIBRARY.slice(1)) expect(idOf(item.title)).toBe(before[item.title]);
+      // and each sits in the slot the data file now gives it
+      const positions = new Map(prisma.libraryEntry.rows.map((r) => [r.title, r.position]));
+      expect(LIBRARY.map((item) => positions.get(item.title))).toEqual(LIBRARY.map((_, i) => i));
+    } finally {
+      LIBRARY.shift();
+    }
+  });
+
+  it('leaves an entry an admin added, after the seeded ones', async () => {
+    const prisma = fakePrisma();
+    await seed(prisma);
+    // appended the way `createEntry` does: the next free slot, no seedKey
+    await prisma.libraryEntry.create({
+      data: {
+        libraryId: prisma.libraryEntry.rows[0].libraryId,
+        position: LIBRARY.length,
+        seedKey: null,
+        title: 'Added by an admin',
+      },
+    });
+
+    LIBRARY.push({ ...LIBRARY[0], title: 'One More From Upstream' });
+    try {
+      await seed(prisma);
+      const added = prisma.libraryEntry.rows.find((r) => r.title === 'Added by an admin');
+      expect(added).toBeDefined();
+      // out of the slot the new seeded entry needed, and after every seeded one
+      const seeded = prisma.libraryEntry.rows.filter((r) => r.seedKey !== null);
+      expect(Math.max(...seeded.map((r) => r.position as number))).toBe(LIBRARY.length - 1);
+      expect(added?.position as number).toBeGreaterThan(LIBRARY.length - 1);
+    } finally {
+      LIBRARY.pop();
+    }
+  });
+
+  it('refuses two data-file entries whose titles make one key', async () => {
+    const prisma = fakePrisma();
+    LIBRARY.push({ ...LIBRARY[0], title: 'FUNKY   drummer!' });
+    try {
+      await expect(seed(prisma)).rejects.toThrow('share the seed key "funky-drummer"');
+    } finally {
+      LIBRARY.pop();
+    }
+  });
+
+  it('keys an entry by a slug of its title — the same slug the migration backfilled', () => {
+    /* The SQL in 20260924170000_library_entry_seed_key computes this too. The
+       two must agree, or the first seed after that migration replaces every
+       row and cascades away every pin on the library. */
+    expect(seedKeyOf('Funky Drummer')).toBe('funky-drummer');
+    expect(seedKeyOf('Ashley’s Roachclip')).toBe('ashley-s-roachclip');
+    expect(seedKeyOf("Ashley's Roachclip")).toBe('ashley-s-roachclip');
+    expect(seedKeyOf('  — 50 Ways to Leave Your Lover —  ')).toBe('50-ways-to-leave-your-lover');
+    expect(seedKeyOf('x'.repeat(100))).toHaveLength(80);
   });
 
   it('files each style under its heading, and anything ungrouped under "Other"', async () => {

@@ -31,13 +31,13 @@ that keeps the golden-byte assertions meaningful.
 
 ## Tables
 
-| Model            | Table             | Notes                                                                                       |
-| ---------------- | ----------------- | ------------------------------------------------------------------------------------------- |
-| `Style`          | `style`           | `key`, `label`, `group`, `hint`, `meter`, `position`, `currentVersion`. Never holds params. |
-| `StyleVersion`   | `style_version`   | `params Json`, `version`, `note`, `createdById`. **Immutable.**                             |
-| `PatternLibrary` | `pattern_library` | A named, ordered list. One system row today: `famous-breaks`.                               |
-| `LibraryEntry`   | `library_entry`   | `group`, `title`, `artist`, `note`, `bpm`, `styleKey`, `meter`, `doc Json`, `links Json`.   |
-| `Kit`            | `kit`             | `engine`, `label`, `hint`, `group`, `credit`, `params Json`, `samples Json`.                |
+| Model            | Table             | Notes                                                                                                |
+| ---------------- | ----------------- | ---------------------------------------------------------------------------------------------------- |
+| `Style`          | `style`           | `key`, `label`, `group`, `hint`, `meter`, `position`, `currentVersion`. Never holds params.          |
+| `StyleVersion`   | `style_version`   | `params Json`, `version`, `note`, `createdById`. **Immutable.**                                      |
+| `PatternLibrary` | `pattern_library` | A named, ordered list. One system row today: `famous-breaks`.                                        |
+| `LibraryEntry`   | `library_entry`   | `seedKey`, `group`, `title`, `artist`, `note`, `bpm`, `styleKey`, `meter`, `doc Json`, `links Json`. |
+| `Kit`            | `kit`             | `engine`, `label`, `hint`, `group`, `credit`, `params Json`, `samples Json`.                         |
 
 Every row carries `ownerId String?` (null = a system row) and a `visibility`
 that is `system` on all of them today. Both columns exist now rather than later
@@ -274,8 +274,20 @@ breaks in one library, and 13 kits. Its data lives beside it under `data/`, and
   does not change how Funky Drummer plays.
 - A kit's `samples` comes from `public/kits/manifest.json`. The audio files stay
   where they are; the row is the copy every client reads.
+- Library entries are **matched by `seedKey`**, a slug of the title
+  (`seedKeyOf`), not by position. A pin holds an entry's id, so keyed by slot,
+  inserting a break mid-list would have handed every later row, and every pin
+  on it, a different break. Reordering parks every position out of the way
+  first, because `(libraryId, position)` is unique. Two titles with one slug
+  stop the seed.
+- Renaming a break in `data/library.ts` changes its key, which means the old
+  row is deleted (with its pins) and a new one is created. To correct a title
+  without that, edit it through `/admin/catalogue`. Note that the next seed run
+  writes the data file's title back.
 - An entry removed from `data/library.ts` is deleted from the table, so the list
-  cannot keep showing something the source no longer has.
+  cannot keep showing something the source no longer has. An entry an admin
+  added has no `seedKey` and is left alone, moved after the seeded ones if it
+  is in their way.
 
 Because `ownerId` is nullable, `upsert({ where: { ownerId_key: … } })` does not
 work — Prisma types a compound unique's fields as non-null and Postgres would not

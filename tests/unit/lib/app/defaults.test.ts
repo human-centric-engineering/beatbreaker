@@ -272,19 +272,20 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     // everybody — and they are declared anyway, so that the day D16 ships
     // user-authored styles the export does not quietly stop being complete.
     // StyleVersion and LibraryEntry are excluded with reasons rather than
-    // undeclared: they are exported inside their parent.
+    // undeclared: they are exported inside their parent. Phase 4 (task 4.6)
+    // added Pin — the practice shelves, personal data like Break.
     assert: async () => {
       __resetAppSubjectSourceRegistryForTests();
       expect(
         getAppSubjectSources()
           .map((s) => s.model)
           .sort()
-      ).toEqual(['Break', 'Kit', 'PatternLibrary', 'Style', 'Take']);
+      ).toEqual(['Break', 'Kit', 'PatternLibrary', 'Pin', 'Style', 'Take']);
       expect(
         getAppSubjectSources()
           .map((s) => s.section)
           .sort()
-      ).toEqual(['breaks', 'kits', 'libraries', 'styles', 'takes']);
+      ).toEqual(['breaks', 'kits', 'libraries', 'pins', 'styles', 'takes']);
       expect(
         getAppExcludedSubjectSources()
           .map((s) => s.model)

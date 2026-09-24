@@ -425,6 +425,40 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* The title and its ★ on one line; the title still ellipsises before the
+   star is pushed off. */
+.bb .title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+/* ★ — a practice-shelf pin. Hollow and faint until pinned, then brass. */
+.bb .pin {
+  flex: 0 0 auto;
+  padding: 2px 4px;
+  color: var(--faint);
+  font-size: 16px;
+  line-height: 1;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.bb .pin.on {
+  color: var(--brass);
+}
+.bb .pin:hover:not(:disabled) {
+  color: var(--brass);
+}
+.bb .pin:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+.bb .item.pin {
+  width: 34px;
+  justify-content: center;
+  border: 1px solid var(--line);
+}
 .bb .title-sub {
   display: flex;
   gap: 8px;
@@ -1170,12 +1204,14 @@
 /* A saved break: load on the left, forget on the right. Two buttons in a row
    rather than one inside the other — nesting them is invalid HTML, and every
    way of faking the nesting costs the keyboard the delete control. */
-.bb .favrow {
+.bb .favrow,
+.bb .pinrow {
   display: flex;
   gap: 6px;
   align-items: stretch;
 }
-.bb .favrow .item:first-child {
+.bb .favrow .item:first-child,
+.bb .pinrow .item:first-child {
   flex: 1;
   min-width: 0;
 }

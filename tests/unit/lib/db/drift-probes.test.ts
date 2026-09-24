@@ -371,7 +371,7 @@ describe('shipped lib/app/db-drift.ts scaffold', () => {
         .filter((p) => p.kind === 'FK constraint')
         .map((p) => p.table)
         .sort()
-    ).toEqual(['break', 'kit', 'pattern_library', 'style', 'style_version', 'take']);
+    ).toEqual(['break', 'kit', 'pattern_library', 'pin', 'style', 'style_version', 'take']);
     for (const probe of probes.filter((p) => p.kind === 'FK constraint')) {
       expect(probe.name).toMatch(/hand-written FK/);
     }
@@ -386,5 +386,12 @@ describe('shipped lib/app/db-drift.ts scaffold', () => {
         .map((p) => p.table)
         .sort()
     ).toEqual(['kit', 'pattern_library', 'style']);
+
+    /* A pin points at exactly one thing. Prisma cannot express the CHECK, so
+       it is unmodelled too — and without it a pin on nothing, or on two things
+       at once, is a row the list silently drops. */
+    expect(
+      probes.filter((p) => p.kind === 'CHECK constraint').map((p) => [p.table, p.name])
+    ).toEqual([['pin', expect.stringContaining('pin_one_target')]]);
   });
 });
