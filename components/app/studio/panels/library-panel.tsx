@@ -94,9 +94,10 @@ export function LibraryPanel() {
                   <button
                     type="button"
                     className="item"
-                    onClick={() =>
-                      say(c.loadFav(i) ? 'Loaded' : 'That saved break could not be read')
-                    }
+                    onClick={() => {
+                      // "Loaded" is said when it loads — it may wait on the unsaved-changes prompt
+                      if (!c.loadFav(i)) say('That saved break could not be read');
+                    }}
                   >
                     <div className="nm">
                       <b>{fav.name}</b>

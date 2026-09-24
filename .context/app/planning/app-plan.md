@@ -536,17 +536,17 @@ were working on, and pick up where you left off on any device.
    Opening another pattern with unsaved changes prompts (copy in
    `site-copy.md` §6). A scratch pattern that was never saved survives a reload
    via `localStorage`, as the whole console does today.
-3. **Schema** (additive migration on `Break`; see §7): `pinned`,
-   `lastOpenedAt`, `level`, `description`, `links`. `GET /api/v1/breaks` gains
-   `pinned`, `q` (title search), `sort=opened|updated|created`. Opening a
-   pattern touches `lastOpenedAt`. The list stays one enriched endpoint — no
-   per-row fetches.
-4. **Patterns drawer** (left): _Working on_ (pinned) · _Recent_ (by
-   `lastOpenedAt`) · _All_ with search and style / time-signature filters ·
+3. **Schema** (additive migration on `Break`; see §7): `level`,
+   `description`, `links`. `GET /api/v1/breaks` gains `q` (title search) and
+   `sort=updated|created`. What is pinned and what was opened recently are
+   their own tables (D17, D18; tasks 4.6, 4.7). The list stays one enriched
+   endpoint — no per-row fetches.
+4. **Patterns drawer** (left): _Practising_ · _Later_ (D17) · _Recent_ (the
+   practice history, D18) · _All_ with search and style / time-signature filters ·
    _Libraries_ (the famous breaks, and any other library the catalogue
    holds, read from `GET /api/v1/catalogue/libraries/[key]`) · (Phase 6)
    _Community_. The open pattern is highlighted.
-   ★ toggles pinned from the row and from the header.
+   ★ pins from the row and from the header, to either shelf.
 5. **Home** (`/dashboard` body replaced): _Working on_ cards with a small
    engraved thumbnail (the engraver runs server-side — it returns a plain SVG
    tree), style, tempo, last opened, **Continue**; _Recent_ list; **New
@@ -595,6 +595,73 @@ reopen intact, while `javascript:`, plain `http:`, a look-alike host and a
 fifth link are each refused with a clear message; account export contains the new columns; account erasure removes
 everything.
 
+**Reconciled against the tree, 2026-09-24 (branch `phase-4-your-patterns`).**
+What is already there: `/api/v1/breaks` list / create / get / patch / delete,
+owner-scoped, the document held to the share-code schema; `/studio/[id]`
+accepts an id and ignores it; favourites live in `bb.favs`, saved and opened
+from the Library drawer. Two things the plan assumed and the code does not
+bear out: **the pattern itself is not in `localStorage`** — only the settings
+are, and a reload rolls a fresh pattern — so the scratch-pattern survival in
+item 2 is new work, not a keep-as-is; and the level is carried inside `doc`
+(`lv`) with no column, so the `level` column is derived from the document the
+way `bpm` and `swing` already are, never taken from the body.
+
+Tasks, in order — API first, each with a done-when provable at merge:
+
+| #    | Task                                                                                                                                                                                                                                                                                                                                                        | Done when                                                                                                                                                                                                                                        |
+| ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 4.1  | Migration: `level`, `description`, `links` on `Break` (`pinned` and `lastOpenedAt` were built, then taken out before merge — D17, D18)                                                                                                                                                                                                                      | Migration applies to a fresh DB and to one holding Phase 2 rows; `level` is backfilled from `doc.lv`, v1 layers remapped; the export test shows the new columns in `breaks`                                                                      |
+| 4.2  | `lib/app/breaks/links.ts` — `parseReferenceLink`; wired into create / update schemas with `description` and `links`                                                                                                                                                                                                                                         | Unit tests: YouTube with `t=`, youtu.be, Vimeo, Spotify track / album / playlist accepted and canonicalised; `javascript:`, `http:`, look-alike host, fifth link refused                                                                         |
+| 4.3  | API: list gains `q`, `sort=updated\|created` and the new columns; PATCH takes the new fields; POST takes a bulk form (≤ 30)                                                                                                                                                                                                                                 | Route tests for search and each sort, and a bulk create that is all-or-nothing                                                                                                                                                                   |
+| 4.4  | `/studio/[id]` loads the pattern server-side and hands it to the console as initial state; a miss is a 404 page                                                                                                                                                                                                                                             | Component test: the console mounts on the stored pattern, not a generated one; someone else's private id renders not-found                                                                                                                       |
+| 4.5  | Document model: current id, dirty flag, debounced autosave, header status, unsaved-changes prompt, scratch pattern in `localStorage`                                                                                                                                                                                                                        | Hook tests with fake timers: one PATCH ~2s after the last edit, retry on reconnect, no save for a scratch pattern; a reload restores the scratch pattern                                                                                         |
+| 4.6  | **Practice shelves** — a `Pin` table, the only record of what is pinned: pin your own patterns _and_ library entries to **Practising** or **Later**; `/api/v1/pins` (enriched list, create, move, reorder, delete); ★ on library rows and on the stage                                                                                                      | Route tests: pin a library entry and a pattern to each shelf, move between shelves, reorder; a pin on someone else's pattern vanishes from the list when it is unshared; erasure removes pins, export lists them; one request fills both shelves |
+| 4.7  | **Practice history** — a `PracticeVisit` table, the only record of what was opened: every pattern or library entry you open is recorded with the layer and tempo you left it at, newest 200 kept; `/api/v1/history` (enriched list, record, clear); a **Back** control and `Alt+←` / `Alt+→` to step through it; the list at the top of the Patterns drawer | Route tests: a second visit moves an item to the top rather than duplicating it; the list is capped at 200; clear empties it; the Studio test toggles to the previous item and lands on its layer and tempo; erasure and export as above         |
+| 4.8  | Patterns drawer — Practising · Later · Recent (from 4.7) · All (search, style, meter) · Libraries                                                                                                                                                                                                                                                           | One list request per open; open pattern highlighted; pin round-trips                                                                                                                                                                             |
+| 4.9  | Home replaces the `/dashboard` body — Practising cards with server-engraved thumbnails, Recent, New pattern, first-run copy (§6)                                                                                                                                                                                                                            | Page test for first-run and populated states; one query for the page                                                                                                                                                                             |
+| 4.10 | One-time `bb.favs` import through the bulk POST; the key cleared only after the server has the rows                                                                                                                                                                                                                                                         | Hook test: 30 favourites → one request → 30 rows → empty key; a failed request leaves the key                                                                                                                                                    |
+| 4.11 | Details (title, description, links) at the top of the Export drawer, each with `<FieldHelp>`; link chips on the stage                                                                                                                                                                                                                                       | Form test for each refusal message; chips open in a new tab with `noopener noreferrer`                                                                                                                                                           |
+| 4.12 | `.context/app/patterns.md` (including D8: `Take` dormant), `breaks.md` updated, CHANGELOG entry                                                                                                                                                                                                                                                             | Docs name every new column, query parameter and component                                                                                                                                                                                        |
+
+**Added 2026-09-24 — practice shelves and practice history (tasks 4.6, 4.7).**
+Two requests from the owner, both about what a drummer is _learning_ rather
+than what they have _made_:
+
+- **Shelves.** Pin things you are actively practising, and things you like and
+  want to practise later — and that includes the famous breaks in the library,
+  not only your own patterns. A boolean on `Break` could do neither half: it has
+  one state, and a library entry is a system row with no owner to hold it. So a
+  pin is its own row — `Pin { userId, shelf: practising | later, breakId? |
+libraryEntryId?, position, createdAt }` — pointing at exactly one target.
+  **Practising** is what Home and the drawer lead with (the plan's "Working
+  on"); **Later** is the wish list under it. Moving a pin between shelves is one
+  PATCH; opening a pinned library entry opens it as a scratch copy, as the
+  library does today.
+- **History.** Remember what you were recently learning, and let you toggle
+  back to it quickly. A `lastOpenedAt` column on `Break` would record that a
+  _saved pattern_ was opened; it cannot hold a famous break, and it does not
+  know where you were in it. A visit row does: `PracticeVisit { userId, breakId? | libraryEntryId?,
+level, bpm, visitedAt }`, one per target (a revisit moves it to the top), the
+  newest 200 kept (D18). The point of storing the layer and tempo is the toggle: going
+  back to the break you were drilling at L3 and 72 BPM puts you at L3 and 72
+  BPM, not at the top of the pattern at full speed. **Back** in the header and
+  `Alt+←` / `Alt+→` step through it like a browser's history; the drawer shows
+  it as **Recent**. A scratch pattern that was never saved has no identity to
+  record and is not in the history — saving it puts it there.
+
+Tasks 4.1–4.3 first built `pinned` and `lastOpenedAt` as `Break` columns, with
+a `pinned` filter, `sort=opened` and a raw-SQL "opened" touch. **They were taken
+out before the PR that takes Phase 4 onto main** (D17, D18, decided
+2026-09-24), so there is one record of each fact, and main never carried the
+columns. Both new tables are personal data: `userId` cascades, and each gets an
+export section.
+
+**Not yet looked at in a browser.** 4.5's header status, Save button and
+unsaved-changes prompt are covered by component tests over the real console
+and frame, but nobody has seen them on screen — the browser extension was not
+connected. Deferred to Phase 5 with Phase 1's unchecked clauses (decided
+2026-09-24); see there.
+
 ### Phase 5 — Ergonomic review · M
 
 **Goal:** every control is where a drummer would look for it, is the right size
@@ -607,6 +674,13 @@ reason; the control inventory in `.context/app/controls.md` lists each control
 with its drawer, label, help text, shortcut and minimum target size; three people
 who play drums and have not seen the app complete the five test tasks in §5
 without help.
+
+**Carried in from Phases 1 and 4 (decided 2026-09-24):** the browser checks
+those phases did not run — the frame's bounding box at 360, 768, 1024 and
+1440px; light and dark across the frame; VoiceOver through open → use → close
+on a drawer; and 4.5's save status line, Save / Save a copy / Retry button and
+the unsaved-changes prompt, on a phone and a laptop. These belong to this
+phase's done-when: it is not done until each has been looked at.
 
 ### Phase 6 — Sharing and the community library · L
 
@@ -1029,7 +1103,9 @@ every table declared in `lib/app/data-export.ts`.
 | 2     | New `PatternLibrary` — `key`, `ownerId?`, `title`, `description`, `visibility`, `position`. New `LibraryEntry` — `libraryId` (cascade), `position`, `title`, `artist`, `note`, `bpm`, `styleKey`, `styleVersionId?` (SetNull), `meter`, `doc Json` (wire v4), `links Json`.                                                              | owner's rows cascade                                     | new section `libraries`                         |
 | 2     | New `Kit` — `key`, `ownerId?`, `engine` (`synth`/`pack`/`user`), `label`, `hint`, `group`, `params Json` (voice defaults, master), `samples Json` (slot → files + velocities), `credit`, `visibility`. Audio stays in files / storage, never in the table.                                                                               | owner's rows cascade                                     | new section `kits`                              |
 | 2     | `Break` + `styleVersionId String?` → `StyleVersion` `onDelete: SetNull` (the v4 `doc` carries the snapshot, so losing the link loses provenance only).                                                                                                                                                                                   | as now                                                   | in `breaks`                                     |
-| 4     | `Break` + `pinned Boolean`, `lastOpenedAt DateTime?`, `level Int`, `description String?`, `links Json` (≤ 4, canonical URLs only); index `(userId, pinned, lastOpenedAt)`.                                                                                                                                                               | cascade (as now)                                         | in `breaks` (as now)                            |
+| 4     | `Break` + `level Int`, `description String?`, `links Json` (≤ 4, canonical URLs only). `level` backfilled from `doc.lv`.                                                                                                                                                                                                                 | cascade (as now)                                         | in `breaks` (as now)                            |
+| 4     | New `Pin` — `userId` (cascade), `shelf` (`practising`/`later`), `breakId?` → `Break` (cascade), `libraryEntryId?` → `LibraryEntry` (cascade), `position Int`, `createdAt`; CHECK exactly one target; unique `(userId, breakId)` and `(userId, libraryEntryId)`; the only record of what is pinned (D17).                                 | cascade                                                  | new section `pins`                              |
+| 4     | New `PracticeVisit` — `userId` (cascade), `breakId?` (cascade), `libraryEntryId?` (cascade), `level Int`, `bpm Int`, `visitedAt`; CHECK exactly one target; unique per `(userId, target)`; newest 200 kept per user; the only record of what was opened (D18).                                                                           | cascade                                                  | new section `practiceHistory`                   |
 | 6     | `Break` + `visibility` (`private`/`link`/`published`, replaces `shared`), `slug String? @unique`, `publishedAt`, `parentId String?` → `Break` `onDelete: SetNull`, `gridHash String?`; index `(visibility, publishedAt)`, `(visibility, style, meter)`.                                                                                  | cascade; children keep, parent nulled                    | in `breaks`                                     |
 | 6     | New `DrummerProfile` — `userId @unique`, `username @unique` (stored lower-case), `bio`, `usernameChangedAt`; plus `ReservedUsername` (`username`, `releasedAt`) holding a changed name for 30 days — no user FK, excluded from export with that reason.                                                                                  | cascade                                                  | new section `drummerProfile`                    |
 | 6     | New `BreakReport` — `breakId` (cascade), `reporterId?` (**SetNull** — the report outlives the reporter), `reason`, `note`, `status`, `resolvedById?` (SetNull), timestamps.                                                                                                                                                              | reporter nulled                                          | new section `reportsFiled`                      |
@@ -1060,6 +1136,14 @@ already cascade and already export.
 | --- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | D13 | Where catalogue content lives | **In the database.** Styles, pattern libraries and kits are tables, seeded, versioned (styles), read through `/api/v1/catalogue/*`, and shaped for user-created rows. Code keeps algorithms and the structural constants of the wire format (meters, lanes, slots). Phase 2.                                       |
 | D14 | Which clients the API serves  | **Web first; native mobile and iPad apps later.** Every capability is reachable through `/api/v1` with nothing web-specific in it, including the domain operations, so a native client needs no second implementation of the generator, critic or engraver. The native apps themselves are not in this plan (§10). |
+
+### Decided — 2026-09-24
+
+| #   | Decision         | Outcome                                                                                                                                                                                                                                                                      |
+| --- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D17 | Practice shelves | **Two shelves — Practising and Later — in a `Pin` table that holds your own patterns and library entries alike.** The `Break.pinned` column tasks 4.1–4.3 built was taken out before merge, so there is one record of what is pinned. Task 4.6.                              |
+| D18 | Practice history | **A `PracticeVisit` table, newest 200 per user, each with the layer and tempo you left it at.** Longer than the 50 first proposed, so it can later serve as a practice log. `Break.lastOpenedAt`, `sort=opened` and the raw-SQL touch were taken out before merge. Task 4.7. |
+| —   | Browser checks   | **Deferred to Phase 5.** Phase 1's four widths, light/dark and VoiceOver, and 4.5's save status, Save button and prompt, are checked in the ergonomic review rather than before Phase 4 merges.                                                                              |
 
 ### Still open
 

@@ -54,6 +54,14 @@ model Break {
   /// Null on every row written before v4, and on a v3 code that was decoded.
   styleVersionId String?
 
+  /// Practice layer 1-5, derived from `doc.lv` like `bpm` from `doc.bpm`.
+  level       Int     @default(5)
+  description String? @db.VarChar(500)
+  /// Up to four reference links, `[{ kind, url, label? }]`, each `url` the
+  /// canonical form `parseReferenceLink` rebuilt. Kept out of `doc` so a
+  /// pasted share code cannot carry a URL onto someone's screen.
+  links       Json    @default("[]")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

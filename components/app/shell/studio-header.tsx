@@ -8,6 +8,48 @@ import { useStudio } from '@/components/app/studio/studio-provider';
 import { BrandMark } from '@/components/brand/brand-mark';
 import { HeaderActions } from '@/components/layouts/header-actions';
 import { AUTH_LANDING_ROUTE } from '@/lib/auth-landing/route';
+import type { SaveStatus } from '@/components/app/studio/use-pattern-document';
+
+/** What the header says about the pattern — the plan's four words, and two more. */
+const STATUS_TEXT: Record<SaveStatus, string> = {
+  scratch: 'Not saved',
+  saved: 'Saved',
+  unsaved: 'Unsaved',
+  saving: 'Saving…',
+  offline: 'Offline — will retry',
+  error: 'Not saved — the server refused it',
+};
+
+/**
+ * Where the pattern stands, and Save when there is something Save would do.
+ *
+ * A saved pattern of yours has no Save button: it autosaves, and a button that
+ * does nothing a second later would teach people to press it. It comes back
+ * when a save is stuck, as the way to try again now.
+ */
+function SaveState() {
+  const { doc } = useStudio();
+  const stuck = doc.status === 'offline' || doc.status === 'error';
+  const showSave = doc.status === 'scratch' || stuck;
+  const label = doc.status === 'scratch' && !doc.mine ? 'Save a copy' : stuck ? 'Retry' : 'Save';
+  return (
+    <>
+      <span className="studio-save-state mono" role="status" data-status={doc.status}>
+        {doc.status === 'scratch' && !doc.mine ? 'Someone else’s pattern' : STATUS_TEXT[doc.status]}
+      </span>
+      {showSave ? (
+        <button
+          type="button"
+          className="studio-save"
+          onClick={() => void doc.save()}
+          aria-keyshortcuts="S Control+S Meta+S"
+        >
+          {label}
+        </button>
+      ) : null}
+    </>
+  );
+}
 
 /**
  * The Studio's header: the mark, what you are working on, and the transport.
@@ -37,6 +79,7 @@ export function StudioHeader({
         <BrandMark />
       </Link>
       <span className="studio-title">{c.view.A?.name ?? '…'}</span>
+      <SaveState />
       <StudioTransport />
       <span className="studio-spacer" />
       <ToolMenu

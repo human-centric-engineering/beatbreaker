@@ -36,7 +36,16 @@ import {
   writePerc,
 } from '@/lib/app/breaks/pattern';
 import { clamp, makeRng } from '@/lib/app/breaks/rng';
-import { type BreakDoc, decodeBreak, encodeBreak, patternFromPacked } from '@/lib/app/breaks/share';
+import type { SharePayload } from '@/lib/app/breaks/schema';
+import { readScratch } from '@/lib/app/breaks/scratch';
+import {
+  type BreakDoc,
+  breakDocFromPayload,
+  breakPayload,
+  decodeBreak,
+  encodeBreak,
+  patternFromPacked,
+} from '@/lib/app/breaks/share';
 import { styleIn } from '@/lib/app/breaks/styles';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import { percussionSource } from '@/lib/app/breaks/catalogue/types';
@@ -219,8 +228,12 @@ export interface BreakConsole {
 
   /** Empty every lane of the section being edited. */
   clearSection: () => void;
+  /** Name the pattern — what a saved one is called in your list. */
+  rename: (name: string) => void;
 
   shareCode: () => string;
+  /** The break as its wire payload — what a save sends. Null until there is one. */
+  payload: () => SharePayload | null;
   /** The same code as a URL, so a link carries the break. */
   shareLink: () => string;
   loadCode: (code: string) => boolean;
@@ -243,6 +256,21 @@ export interface Fav {
   code: string;
 }
 
+/**
+ * A saved pattern the Studio opens on, loaded server-side by `/studio/[id]`.
+ *
+ * The payload, not a decoded `BreakDoc`: it is plain JSON, so it crosses the
+ * server/client boundary as it is, and it is decoded here with the same style
+ * lookup a `#b=` link gets — one decode path however a pattern arrives.
+ */
+export interface InitialPattern {
+  id: string;
+  title: string;
+  payload: SharePayload;
+  /** False for someone else's shared pattern, which opens as yours to copy. */
+  mine: boolean;
+}
+
 /** How many saved breaks are kept. Oldest fall off the end. */
 const FAV_CAP = 30;
 
@@ -253,7 +281,10 @@ const FAV_CAP = 30;
  */
 const LAYER_TEMPO: Record<number, number> = { 1: 0.68, 2: 0.78, 3: 0.86, 4: 0.93, 5: 1 };
 
-export function useBreakConsole(catalogue: StudioCatalogue): BreakConsole {
+export function useBreakConsole(
+  catalogue: StudioCatalogue,
+  initial?: InitialPattern
+): BreakConsole {
   const [ready, setReady] = useState(false);
   const [noCatalogue, setNoCatalogue] = useState(false);
   const [patterns, setPatterns] = useState<Record<SectionLetter, Pattern | null>>({
@@ -354,6 +385,36 @@ export function useBreakConsole(catalogue: StudioCatalogue): BreakConsole {
       setBpmRaw(v);
     },
     [meter, matchTempo, level, setBaseBpm, setBpmRaw]
+  );
+
+  /**
+   * The break's own tempo, for a pattern that arrives at `bpm` on `level`.
+   *
+   * A loaded pattern sets the tempo directly, and the match effect below then
+   * re-derives it from `baseBpm` for the new layer — so a base left over from
+   * the last session silently moved every pattern you opened with the match on.
+   * A saved pattern then opened "Unsaved" and autosaved a tempo you never
+   * chose. Setting the base from the pattern makes the effect land on the tempo
+   * it arrived with. Unrounded on purpose: rounding here is what would move it.
+   *
+   * The match setting is read from storage, not from `matchTempo`: a pattern
+   * loads in the first commit, before `useLocalStorage` has hydrated, so the
+   * state still holds its default there and the stored `true` arrives a render
+   * later — exactly when the effect below would move the tempo. Storage is
+   * written synchronously by the setter, so it is never behind the state.
+   */
+  const baseFor = useCallback(
+    (bpmAt: number, levelAt: number) => {
+      let on = matchTempo;
+      try {
+        const raw = window.localStorage.getItem('bb.matchTempo');
+        if (raw !== null) on = raw === 'true';
+      } catch {
+        // storage blocked — the state is all there is
+      }
+      return on ? bpmAt / (LAYER_TEMPO[levelAt] ?? 1) : bpmAt;
+    },
+    [matchTempo]
   );
 
   /* The layer moved, or the match was switched on: put the tempo where that
@@ -987,8 +1048,43 @@ export function useBreakConsole(catalogue: StudioCatalogue): BreakConsole {
 
   /* ---- first break ----------------------------------------------------- */
 
+  /** Put a whole decoded break on the stage — the arrival paths share this. */
+  const applyDoc = (doc: BreakDoc) => {
+    setPatterns({ A: doc.A, B: doc.B });
+    setBpmRaw(doc.bpm);
+    setBaseBpm(baseFor(doc.bpm, doc.level));
+    setSwing(doc.swing);
+    setLevel(doc.level);
+    setArrangement(doc.arrangement);
+    setStyleRaw(doc.A.style);
+    setMeterRaw(doc.A.meter);
+    setBars(doc.A.bars.length);
+    applyStyleMix(doc.A.style, {});
+  };
+
   useEffect(() => {
     if (ready) return;
+    /* A saved pattern the page loaded is the one you asked for by its address,
+       so it wins over everything below — including a stashed link, which is
+       left in storage for the next plain `/studio` visit rather than consumed
+       here and lost. */
+    if (initial) {
+      try {
+        const doc = breakDocFromPayload(initial.payload, (key) => catalogue.styles[key]);
+        /* The row's title, not the name inside the document: a rename is a
+           PATCH of the title alone, so after one the two differ, and the title
+           is what the owner last called it. */
+        applyDoc({ ...doc, A: { ...doc.A, name: initial.title } });
+        setReady(true);
+        return;
+      } catch (error) {
+        // the row passed the server's schema, so this is a decoder bug, not bad data
+        logger.error('BeatBreaker: a saved pattern would not decode', {
+          error,
+          breakId: initial.id,
+        });
+      }
+    }
     /* A link opened while signed out had its fragment stashed on the way to
        the login page (H5). Put it back in the URL before reading it, so the
        break arrives and the address bar is the link that was sent. */
@@ -1012,20 +1108,31 @@ export function useBreakConsole(catalogue: StudioCatalogue): BreakConsole {
         /* The lookup is what lets a v3 code — one written before styles had
            versions — find its style and rebuild the snapshot a v4 code
            carries. Without it the break still opens, with default feel. */
-        const doc = decodeBreak(window.location.hash.slice(3), (key) => catalogue.styles[key]);
-        setPatterns({ A: doc.A, B: doc.B });
-        setBpmRaw(doc.bpm);
-        setSwing(doc.swing);
-        setLevel(doc.level);
-        setArrangement(doc.arrangement);
-        setStyleRaw(doc.A.style);
-        setMeterRaw(doc.A.meter);
-        setBars(doc.A.bars.length);
-        applyStyleMix(doc.A.style, {});
+        applyDoc(decodeBreak(window.location.hash.slice(3), (key) => catalogue.styles[key]));
         setReady(true);
         return;
       } catch (error) {
         logger.warn('BeatBreaker: the link carried a break that would not read', { error });
+      }
+    }
+    /* The pattern you had on the stage before a reload, if it was never saved.
+       After a link, because a link is something you just asked for; before
+       generating, because rolling a new one over it is what used to lose it. */
+    if (typeof window !== 'undefined') {
+      let scratch: SharePayload | null = null;
+      try {
+        scratch = readScratch(window.localStorage);
+      } catch {
+        // storage blocked — nothing kept, then
+      }
+      if (scratch) {
+        try {
+          applyDoc(breakDocFromPayload(scratch, (key) => catalogue.styles[key]));
+          setReady(true);
+          return;
+        } catch (error) {
+          logger.warn('BeatBreaker: the kept scratch pattern would not read', { error });
+        }
       }
     }
     if (!styleRow) {
@@ -1070,6 +1177,11 @@ export function useBreakConsole(catalogue: StudioCatalogue): BreakConsole {
     return doc ? encodeBreak(doc) : '';
   }, [asDoc]);
 
+  const payload = useCallback(() => {
+    const doc = asDoc();
+    return doc ? breakPayload(doc) : null;
+  }, [asDoc]);
+
   /**
    * The code as a link. The break rides in the fragment rather than the query
    * string on purpose: a fragment is never sent to the server, so sharing a
@@ -1091,6 +1203,7 @@ export function useBreakConsole(catalogue: StudioCatalogue): BreakConsole {
         pushHistory();
         setPatterns({ A: doc.A, B: doc.B });
         setBpmRaw(doc.bpm);
+        setBaseBpm(baseFor(doc.bpm, doc.level));
         setSwing(doc.swing);
         setLevel(doc.level);
         setArrangement(doc.arrangement);
@@ -1104,7 +1217,18 @@ export function useBreakConsole(catalogue: StudioCatalogue): BreakConsole {
         return false;
       }
     },
-    [pushHistory, setBpmRaw, setSwing, setLevel, setArrangement, setStyleRaw, setMeterRaw, setBars]
+    [
+      pushHistory,
+      setBpmRaw,
+      setBaseBpm,
+      baseFor,
+      setSwing,
+      setLevel,
+      setArrangement,
+      setStyleRaw,
+      setMeterRaw,
+      setBars,
+    ]
   );
 
   const midiBase64 = useCallback(() => {
@@ -1118,6 +1242,14 @@ export function useBreakConsole(catalogue: StudioCatalogue): BreakConsole {
     if (!seq.length) return '';
     return buildMidi(seq, { bpm, swing, feel, hats }).base64;
   }, [arrangement, view, viewMode, bpm, swing, feel, hats]);
+
+  const rename = useCallback((name: string) => {
+    /* The name is not the music, so it is not an undo step: undoing a note
+       should not also take back the title you typed after it. */
+    setPatterns((prev) =>
+      prev.A ? { ...prev, A: { ...prev.A, name: name.slice(0, 120) } } : prev
+    );
+  }, []);
 
   /* ---- saved breaks ----------------------------------------------------- */
 
@@ -1259,6 +1391,8 @@ export function useBreakConsole(catalogue: StudioCatalogue): BreakConsole {
     deleteFav,
     clearSection,
     shareCode,
+    payload,
+    rename,
     shareLink,
     loadCode,
     midiBase64,

@@ -18,6 +18,18 @@ release process.
 
 ### Added
 
+- **Your patterns — `Break` gains `level`, `description` and `links`**
+  (migration `break_your_patterns`, additive; `level` backfilled from each
+  stored document's `lv`). `links` holds up to four reference links — YouTube,
+  Vimeo, Spotify — each stored as the canonical URL `parseReferenceLink`
+  (`lib/app/breaks/links.ts`) rebuilt from the id, never the typed string.
+
+- **`/api/v1/breaks` — search, sort, and a bulk create.** `GET` takes `q`
+  (case-insensitive title search) and `sort=created|updated`, and every row
+  carries the new columns. `PATCH /:id` takes `description` and `links`.
+  `POST` also accepts `{ breaks: [...] }` — up to 30, one transaction, all or
+  none — for the one-time import of browser favourites.
+
 - **BeatBreaker's catalogue — styles, pattern libraries and kits as database
   rows.** Five new models in `prisma/schema/app.prisma`: `Style` /
   `StyleVersion`, `PatternLibrary` / `LibraryEntry`, and `Kit`. Every row carries
@@ -329,6 +341,10 @@ release process.
   still opens.
 
 ### Fixed
+
+- **`PATCH /api/v1/breaks/:id` now re-derives `styleVersionId` with the
+  document.** It re-derived style, meter, tempo and the rest but left the
+  provenance column pointing at the version the pattern was first saved from.
 
 - **The Studio hung on "Writing you a break…" when the catalogue was empty.**
   The styles arrive server-side with the page, so an empty set at mount stays

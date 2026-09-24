@@ -15,7 +15,7 @@ app/(studio)/
 ├── error.tsx           same shape as (protected)'s, incl. the session check
 └── studio/
     ├── page.tsx        /studio
-    └── [id]/page.tsx   /studio/<id> — accepted, inert until Phase 4
+    └── [id]/page.tsx   /studio/<id> — opens a saved pattern (Phase 4)
 ```
 
 A group of its own because the Studio is not a page in the site's centred

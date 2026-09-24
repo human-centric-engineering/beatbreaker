@@ -98,4 +98,23 @@ describe('collectAppSubjectData', () => {
     expect(data.breaks).toEqual([{ id: 'b1', title: 'Cold Carpet', seed: '4294967295', bpm: 94 }]);
     expect(() => JSON.stringify(data)).not.toThrow();
   });
+
+  it('reads whole break rows, so Phase 4’s columns — and any later one — are in the export', async () => {
+    /* A `select` here would be a second list of columns to keep in step with
+       the schema, and the subject would never see the column it forgot. Whole
+       rows are what makes `level`, `description` and `links` part of the answer without this file changing. */
+    const row = {
+      id: 'b1',
+      seed: 1n,
+      level: 3,
+      description: 'The one from the lesson',
+      links: [{ kind: 'video', url: 'https://vimeo.com/76979871' }],
+    };
+    findMany.breaks.mockResolvedValue([row]);
+
+    const data = await collectAppSubjectData(SUBJECT);
+
+    expect(findMany.breaks.mock.calls[0][0]).not.toHaveProperty('select');
+    expect(data.breaks).toEqual([{ ...row, seed: '1' }]);
+  });
 });

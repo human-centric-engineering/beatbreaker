@@ -1,11 +1,10 @@
 /**
  * `/studio/<id>` — one saved pattern, open in the Studio.
  *
- * The id is accepted and nothing more until Phase 4 gives patterns a server-side
- * life. The route exists now so every link the later phases hand out already
- * resolves, and so the frame is reviewed once rather than twice. What matters
- * today is that it gates exactly as `/studio` does, and that the id it was asked
- * for is the id a visitor comes back to after signing in.
+ * It gates exactly as `/studio` does, sends a signed-out visitor back to the id
+ * they asked for, and — from Phase 4 — opens the saved pattern behind the id
+ * through `openSavedBreak`, handing it to the console as initial state. Every
+ * way of not having a pattern to show is the same not-found page.
  */
 
 import { describe, expect, it, vi } from 'vitest';
@@ -18,6 +17,14 @@ vi.mock('@/components/app/shell/studio-frame', () => ({ StudioFrame: () => null 
    the one the Studio expects. `tests/helpers/catalogue.ts` builds the real
    shape from the seed data, so what the provider receives is not a stub. */
 vi.mock('@/lib/app/breaks/catalogue/data', () => ({ studioCatalogue: vi.fn() }));
+/* The loader is mocked at its own seam; its query, its scope and its touch are
+   tested through the API route that shares it. */
+vi.mock('@/lib/app/breaks/saved/data', () => ({ openSavedBreak: vi.fn() }));
+vi.mock('next/navigation', () => ({
+  notFound: vi.fn(() => {
+    throw new Error('NEXT_NOT_FOUND');
+  }),
+}));
 
 import StudioPatternPage from '@/app/(studio)/studio/[id]/page';
 import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
@@ -25,6 +32,7 @@ import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { getServerSession } from '@/lib/auth/utils';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
+import { openSavedBreak } from '@/lib/app/breaks/saved/data';
 import { createMockAuthSession } from '@/tests/helpers/auth';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 
@@ -42,11 +50,27 @@ describe('/studio/[id]', () => {
     expect(el.props.loginHref).toBe('/login?callbackUrl=%2Fstudio%2Fa%2Fb%3Fc%3Dd');
   });
 
-  it('renders the frame inside the provider for a signed-in user', async () => {
+  const ID = 'cbrk00000000000000000001';
+  const payload = { ver: 4 } as never;
+
+  function opened(overrides: Record<string, unknown> = {}) {
+    return {
+      row: { id: ID, title: 'Cold Carpet' },
+      payload,
+      links: [],
+      mine: true,
+      ...overrides,
+    } as never;
+  }
+
+  it('opens the saved pattern for its owner, inside the provider, with the catalogue', async () => {
     vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
     const catalogue = testCatalogue();
     vi.mocked(studioCatalogue).mockResolvedValue(catalogue);
-    const el = await StudioPatternPage({ params: Promise.resolve({ id: 'abc123' }) });
+    vi.mocked(openSavedBreak).mockResolvedValue(opened());
+
+    const el = await StudioPatternPage({ params: Promise.resolve({ id: ID }) });
+
     expect(el.type).toBe(StudioProvider);
     expect(el.props.children.type).toBe(StudioFrame);
     /* The catalogue is loaded here, server-side, and handed down — not fetched
@@ -54,5 +78,34 @@ describe('/studio/[id]', () => {
        would render nothing at all; asserting identity is what says the page is
        the one doing the loading. */
     expect(el.props.catalogue).toBe(catalogue);
+    // asked for as the session user — the loader's scope is only as good as this
+    expect(openSavedBreak).toHaveBeenCalledWith(ID, createMockAuthSession().user.id);
+    expect(el.props.initial).toEqual({ id: ID, title: 'Cold Carpet', payload, mine: true });
+  });
+
+  it('opens someone else’s shared pattern as not theirs', async () => {
+    vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+    vi.mocked(studioCatalogue).mockResolvedValue(testCatalogue());
+    vi.mocked(openSavedBreak).mockResolvedValue(opened({ mine: false }));
+    const el = await StudioPatternPage({ params: Promise.resolve({ id: ID }) });
+    expect(el.props.initial.mine).toBe(false);
+  });
+
+  it('is not found when there is nothing the caller may open', async () => {
+    vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+    vi.mocked(studioCatalogue).mockResolvedValue(testCatalogue());
+    vi.mocked(openSavedBreak).mockResolvedValue(null);
+    await expect(StudioPatternPage({ params: Promise.resolve({ id: ID }) })).rejects.toThrow(
+      'NEXT_NOT_FOUND'
+    );
+  });
+
+  it('is not found for an id that is not an id, without asking the database', async () => {
+    vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+    vi.mocked(openSavedBreak).mockClear();
+    await expect(
+      StudioPatternPage({ params: Promise.resolve({ id: "x'; drop table" }) })
+    ).rejects.toThrow('NEXT_NOT_FOUND');
+    expect(openSavedBreak).not.toHaveBeenCalled(); // test-review:accept no_arg_called — validation must short-circuit
   });
 });

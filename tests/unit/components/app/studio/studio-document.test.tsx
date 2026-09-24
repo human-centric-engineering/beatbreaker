@@ -1,0 +1,376 @@
+// @vitest-environment happy-dom
+
+/**
+ * The Studio with a document in it — the provider, the frame, the header and
+ * the unsaved-changes prompt together, as a person meets them.
+ *
+ * `use-pattern-document.test.ts` holds the timing rules. This holds the
+ * wiring: which actions let a pattern go and which only edit it, what the
+ * header says, what S does, and that the prompt's three answers each do what
+ * they say. The API is mocked at `apiClient`; the console, the frame and the
+ * dialog are real.
+ *
+ * @see components/app/studio/studio-provider.tsx
+ */
+
+import { act, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('@/components/app/breaks/breaks.css', () => ({}));
+vi.mock('@/components/app/shell/studio.css', () => ({}));
+vi.mock('@/components/layouts/header-actions', () => ({ HeaderActions: () => null }));
+vi.mock('@/lib/consent', () => ({ useConsent: () => ({ openPreferences: vi.fn() }) }));
+vi.mock('@/lib/api/client', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/lib/api/client')>();
+  return { ...actual, apiClient: { patch: vi.fn(), post: vi.fn() } };
+});
+
+import type { InitialPattern } from '@/components/app/breaks/use-break-console';
+import { StudioFrame } from '@/components/app/shell/studio-frame';
+import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
+import { APIClientError, apiClient } from '@/lib/api/client';
+import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
+import { breakPayload, encodeBreak } from '@/lib/app/breaks/share';
+import { testCatalogue, testStyle } from '@/tests/helpers/catalogue';
+
+const ID = 'cbrk00000000000000000001';
+const catalogue = testCatalogue();
+
+function saved(mine: boolean): InitialPattern {
+  const funk = testStyle('funk');
+  const A = generatePattern({
+    style: funk,
+    meter: '4/4',
+    seed: 8,
+    bars: 2,
+    density: 50,
+    ghosts: 50,
+  });
+  return {
+    id: ID,
+    title: 'Cold Carpet',
+    payload: breakPayload({
+      bpm: 90,
+      swing: 0,
+      level: 5,
+      arrangement: ['A', 'B'],
+      A,
+      B: deriveB(A, funk.params),
+    }),
+    mine,
+  };
+}
+
+/** Save As has no control of its own until the details editor (task 4.11). */
+function SaveAsProbe() {
+  const c = useStudio();
+  return (
+    <button type="button" onClick={() => void c.saveAs('Groove v2')}>
+      probe: save as
+    </button>
+  );
+}
+
+async function open(initial?: InitialPattern) {
+  render(
+    <StudioProvider catalogue={catalogue} initial={initial}>
+      <StudioFrame />
+      <SaveAsProbe />
+    </StudioProvider>
+  );
+  // the stage has a pattern once the header has a title
+  await waitFor(() => expect(document.querySelector('.studio-title')?.textContent).not.toBe('…'));
+}
+
+const title = () => document.querySelector('.studio-title')?.textContent;
+
+/** A share code for a different pattern, as someone would paste it. */
+const CODE = (() => {
+  const funk = testStyle('funk');
+  const A = generatePattern({
+    style: funk,
+    meter: '4/4',
+    seed: 99,
+    bars: 1,
+    density: 50,
+    ghosts: 50,
+  });
+  A.name = 'Pasted';
+  return encodeBreak({
+    bpm: 100,
+    swing: 0,
+    level: 5,
+    arrangement: ['A'],
+    A,
+    B: deriveB(A, funk.params),
+  });
+})();
+const saveState = () => document.querySelector('.studio-save-state')?.textContent;
+
+beforeEach(() => {
+  localStorage.clear();
+  vi.mocked(apiClient.patch).mockReset().mockResolvedValue({});
+  vi.mocked(apiClient.post).mockReset().mockResolvedValue({ id: 'cbrk00000000000000000002' });
+  window.history.replaceState(null, '', '/studio');
+});
+
+describe('the header', () => {
+  it('says a fresh pattern is not saved, and offers Save', async () => {
+    await open();
+    expect(saveState()).toBe('Not saved');
+    expect(screen.getByRole('button', { name: 'Save' })).toBeTruthy();
+  });
+
+  it('says a saved pattern of yours is saved, with no Save button — it autosaves', async () => {
+    window.history.replaceState(null, '', `/studio/${ID}`);
+    await open(saved(true));
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+    expect(screen.queryByRole('button', { name: 'Save' })).toBeNull();
+  });
+
+  it('offers to save a copy of someone else’s pattern', async () => {
+    await open(saved(false));
+    expect(saveState()).toBe('Someone else’s pattern');
+    expect(screen.getByRole('button', { name: 'Save a copy' })).toBeTruthy();
+  });
+});
+
+describe('saving', () => {
+  it('saves a scratch pattern on S, under its name, and moves to its address', async () => {
+    const user = userEvent.setup();
+    await open();
+    await user.keyboard('s');
+    await waitFor(() => expect(apiClient.post).toHaveBeenCalledTimes(1));
+    expect(vi.mocked(apiClient.post).mock.calls[0][1]?.body).toMatchObject({ title: title() });
+    await waitFor(() => expect(window.location.pathname).toBe('/studio/cbrk00000000000000000002'));
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+  });
+
+  it('saves a scratch pattern from the header’s Save button', async () => {
+    const user = userEvent.setup();
+    await open();
+    await user.click(screen.getByRole('button', { name: 'Save' }));
+    await waitFor(() => expect(apiClient.post).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+    // saved and autosaving: the button has nothing left to do, so it goes
+    expect(screen.queryByRole('button', { name: 'Save' })).toBeNull();
+  });
+
+  it('turns Save into Retry when a save is stuck offline, and Retry sends it again', async () => {
+    vi.mocked(apiClient.patch).mockRejectedValueOnce(
+      new APIClientError('Failed to fetch', 'NETWORK_ERROR')
+    );
+    const user = userEvent.setup();
+    window.history.replaceState(null, '', `/studio/${ID}`);
+    await open(saved(true));
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+    await user.keyboard(']');
+
+    // the autosave waits two seconds, then finds no connection
+    await waitFor(() => expect(saveState()).toBe('Offline — will retry'), { timeout: 4000 });
+    await user.click(screen.getByRole('button', { name: 'Retry' }));
+
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+    expect(apiClient.patch).toHaveBeenCalledTimes(2);
+    expect(screen.queryByRole('button', { name: 'Retry' })).toBeNull();
+  });
+
+  it('takes Ctrl+S from the browser’s Save Page', async () => {
+    const user = userEvent.setup();
+    await open();
+    await user.keyboard('{Control>}s{/Control}');
+    await waitFor(() => expect(apiClient.post).toHaveBeenCalledTimes(1));
+  });
+});
+
+describe('what lets a pattern go, and what only edits it', () => {
+  it('N on a saved pattern starts a new scratch one at /studio, and leaves the saved one alone', async () => {
+    const user = userEvent.setup();
+    window.history.replaceState(null, '', `/studio/${ID}`);
+    await open(saved(true));
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+
+    await user.keyboard('n');
+
+    await waitFor(() => expect(window.location.pathname).toBe('/studio'));
+    expect(saveState()).toBe('Not saved');
+    expect(title()).not.toBe('Cold Carpet');
+    // it had no edits, so nothing was saved on the way out — and the roll never went to its row
+    await act(async () => new Promise((r) => setTimeout(r, 50)));
+    expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — the roll must not overwrite the saved row
+  });
+
+  it('a tempo change is an edit to the saved pattern, not a new one', async () => {
+    const user = userEvent.setup();
+    window.history.replaceState(null, '', `/studio/${ID}`);
+    await open(saved(true));
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+    await user.keyboard(']');
+    await waitFor(() => expect(saveState()).toBe('Unsaved'));
+    expect(window.location.pathname).toBe(`/studio/${ID}`);
+  });
+});
+
+describe('opening a saved pattern with the tempo matched to the layer', () => {
+  it('opens at the tempo it was saved at, as Saved — a base left from last session does not move it', async () => {
+    // what an earlier session left behind: the match on, and a base for some other pattern
+    localStorage.setItem('bb.matchTempo', 'true');
+    localStorage.setItem('bb.baseBpm', '200');
+    window.history.replaceState(null, '', `/studio/${ID}`);
+    await open(saved(true));
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+    await act(async () => new Promise((r) => setTimeout(r, 2500)));
+    expect(saveState()).toBe('Saved');
+    expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — opening must not write
+  });
+});
+
+describe('the unsaved-changes prompt', () => {
+  /** Someone else's pattern, edited — the case letting go would lose. */
+  async function editedCopy() {
+    const user = userEvent.setup();
+    await open(saved(false));
+    await user.keyboard(']');
+    await user.keyboard('n');
+    await screen.findByRole('alertdialog');
+    return user;
+  }
+
+  it('asks before N replaces an edited copy of someone else’s pattern, naming it', async () => {
+    await editedCopy();
+    expect(screen.getByRole('alertdialog').textContent).toContain(
+      'Save your changes to “Cold Carpet”?'
+    );
+    // nothing has been replaced while it asks
+    expect(title()).toBe('Cold Carpet');
+  });
+
+  it('Cancel keeps the pattern and the edits', async () => {
+    const user = await editedCopy();
+    await user.click(screen.getByRole('button', { name: 'Cancel' }));
+    await waitFor(() => expect(screen.queryByRole('alertdialog')).toBeNull());
+    expect(title()).toBe('Cold Carpet');
+    expect(apiClient.post).not.toHaveBeenCalled(); // test-review:accept no_arg_called — Cancel saves nothing
+  });
+
+  it('Don’t save replaces it and saves nothing', async () => {
+    const user = await editedCopy();
+    await user.click(screen.getByRole('button', { name: 'Don’t save' }));
+    await waitFor(() => expect(title()).not.toBe('Cold Carpet'));
+    expect(apiClient.post).not.toHaveBeenCalled(); // test-review:accept no_arg_called — Don't save saves nothing
+    expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — and never PATCHes theirs
+  });
+
+  it('Save keeps a copy of your own with the edits, then replaces it', async () => {
+    const user = await editedCopy();
+    await user.click(screen.getByRole('button', { name: 'Save' }));
+    await waitFor(() => expect(title()).not.toBe('Cold Carpet'));
+    expect(apiClient.post).toHaveBeenCalledTimes(1);
+    const body = vi.mocked(apiClient.post).mock.calls[0][1]?.body as {
+      title: string;
+      doc: { bpm: number };
+    };
+    expect(body.title).toBe('Cold Carpet');
+    expect(body.doc.bpm).toBe(92); // 90, and the one edit
+  });
+
+  it('stays open when the save fails, so the edits are still here', async () => {
+    vi.mocked(apiClient.post).mockRejectedValueOnce(new Error('boom'));
+    const user = await editedCopy();
+    await user.click(screen.getByRole('button', { name: 'Save' }));
+    await waitFor(() => expect(apiClient.post).toHaveBeenCalledTimes(1));
+    expect(screen.getByRole('alertdialog')).toBeTruthy();
+    expect(title()).toBe('Cold Carpet');
+  });
+});
+
+describe('Save As', () => {
+  it('renames the stage to the copy once the copy exists', async () => {
+    const user = userEvent.setup();
+    window.history.replaceState(null, '', `/studio/${ID}`);
+    await open(saved(true));
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+    await user.click(screen.getByRole('button', { name: 'probe: save as' }));
+    await waitFor(() => expect(window.location.pathname).toBe('/studio/cbrk00000000000000000002'));
+    expect(title()).toBe('Groove v2');
+    expect(vi.mocked(apiClient.post).mock.calls[0][1]?.body).toMatchObject({ title: 'Groove v2' });
+  });
+
+  it('leaves the original’s name alone when the copy could not be made', async () => {
+    vi.mocked(apiClient.post).mockRejectedValueOnce(
+      new APIClientError('Failed to fetch', 'NETWORK_ERROR')
+    );
+    const user = userEvent.setup();
+    window.history.replaceState(null, '', `/studio/${ID}`);
+    await open(saved(true));
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+    await user.click(screen.getByRole('button', { name: 'probe: save as' }));
+    await waitFor(() => expect(apiClient.post).toHaveBeenCalledTimes(1));
+
+    expect(title()).toBe('Cold Carpet');
+    expect(window.location.pathname).toBe(`/studio/${ID}`);
+    // and nothing carries the new name onto the original afterwards
+    await act(async () => new Promise((r) => setTimeout(r, 2500)));
+    const renamed = vi
+      .mocked(apiClient.patch)
+      .mock.calls.filter((c) => (c[1]?.body as { title?: string })?.title === 'Groove v2');
+    expect(renamed).toEqual([]);
+  });
+});
+
+describe('what the load buttons say', () => {
+  const toast = () => document.querySelector('.toast')?.textContent;
+
+  it('does not say a pasted code loaded while the prompt is still asking, nor after Cancel', async () => {
+    const user = userEvent.setup();
+    await open(saved(false));
+    await user.keyboard(']');
+    await user.click(screen.getByRole('button', { name: 'Export' }));
+    await user.type(screen.getByPlaceholderText('Paste a BeatBreaker code here…'), CODE);
+    await user.click(screen.getByRole('button', { name: 'Load it' }));
+
+    await screen.findByRole('alertdialog');
+    expect(toast()).not.toBe('Break loaded');
+    await user.click(screen.getByRole('button', { name: 'Cancel' }));
+    await waitFor(() => expect(screen.queryByRole('alertdialog')).toBeNull());
+    expect(toast()).not.toBe('Break loaded');
+    expect(title()).toBe('Cold Carpet');
+  });
+
+  it('says it once it has', async () => {
+    const user = userEvent.setup();
+    await open(saved(false));
+    await user.keyboard(']');
+    await user.click(screen.getByRole('button', { name: 'Export' }));
+    await user.type(screen.getByPlaceholderText('Paste a BeatBreaker code here…'), CODE);
+    await user.click(screen.getByRole('button', { name: 'Load it' }));
+    await screen.findByRole('alertdialog');
+    await user.click(screen.getByRole('button', { name: 'Don’t save' }));
+    await waitFor(() => expect(toast()).toBe('Break loaded'));
+    expect(title()).toBe('Pasted');
+  });
+});
+
+describe('Don’t save on your own pattern, stuck offline', () => {
+  it('lets it go without sending the edits it said would be lost', async () => {
+    vi.mocked(apiClient.patch).mockRejectedValue(
+      new APIClientError('Failed to fetch', 'NETWORK_ERROR')
+    );
+    const user = userEvent.setup();
+    window.history.replaceState(null, '', `/studio/${ID}`);
+    await open(saved(true));
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+    await user.keyboard(']');
+    await waitFor(() => expect(saveState()).toBe('Offline — will retry'), { timeout: 4000 });
+    const tries = vi.mocked(apiClient.patch).mock.calls.length;
+
+    await user.keyboard('n');
+    await screen.findByRole('alertdialog');
+    await user.click(screen.getByRole('button', { name: 'Don’t save' }));
+    await waitFor(() => expect(window.location.pathname).toBe('/studio'));
+    await act(async () => new Promise((r) => setTimeout(r, 100)));
+
+    expect(vi.mocked(apiClient.patch).mock.calls.length).toBe(tries);
+  });
+});

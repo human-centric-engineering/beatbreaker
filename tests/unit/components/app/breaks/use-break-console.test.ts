@@ -15,7 +15,9 @@ import { act, renderHook, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
-import { stashPendingLink } from '@/lib/app/breaks/pending-link';
+import { stashPendingLink, takePendingLink } from '@/lib/app/breaks/pending-link';
+import { sharePayloadSchema } from '@/lib/app/breaks/schema';
+import { writeScratch } from '@/lib/app/breaks/scratch';
 import { encodeBreak } from '@/lib/app/breaks/share';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
@@ -110,7 +112,7 @@ vi.mock('@/lib/app/breaks/audio/midi-out', () => ({
   },
 }));
 
-import { useBreakConsole } from '@/components/app/breaks/use-break-console';
+import { type InitialPattern, useBreakConsole } from '@/components/app/breaks/use-break-console';
 
 /**
  * The catalogue the hook is driven with — the seed data, built once.
@@ -122,8 +124,8 @@ import { useBreakConsole } from '@/components/app/breaks/use-break-console';
  */
 const catalogue = testCatalogue();
 
-async function mount() {
-  const hook = renderHook(() => useBreakConsole(catalogue));
+async function mount(initial?: InitialPattern) {
+  const hook = renderHook(() => useBreakConsole(catalogue, initial));
   await waitFor(() => expect(hook.result.current.ready).toBe(true));
   return hook;
 }
@@ -200,6 +202,79 @@ describe('arriving', () => {
     window.history.replaceState(null, '', `/breaks#b=${codeFor('In the URL')}`);
     const { result } = await mount();
     expect(result.current.patterns.A?.name).toBe('In the URL');
+  });
+});
+
+describe('arriving on the scratch pattern you left (Phase 4)', () => {
+  const kept = (name: string) => sharePayloadSchema.parse(JSON.parse(atob(codeFor(name, 77))));
+
+  it('puts back the unsaved pattern a reload would have rolled over', async () => {
+    writeScratch(localStorage, kept('Before the reload'));
+    const { result } = await mount();
+    expect(result.current.patterns.A?.name).toBe('Before the reload');
+    expect(result.current.bpm).toBe(77);
+    // nothing was generated
+    expect(result.current.tries).toBeNull();
+  });
+
+  it('gives way to a link in the URL — a link is something you just asked for', async () => {
+    writeScratch(localStorage, kept('Scratch'));
+    window.history.replaceState(null, '', `/studio#b=${codeFor('Linked')}`);
+    const { result } = await mount();
+    expect(result.current.patterns.A?.name).toBe('Linked');
+  });
+
+  it('gives way to a saved pattern opened by its address', async () => {
+    writeScratch(localStorage, kept('Scratch'));
+    const saved: InitialPattern = {
+      id: 'cbrk00000000000000000001',
+      title: 'Saved',
+      payload: kept('Saved'),
+      mine: true,
+    };
+    const { result } = await mount(saved);
+    expect(result.current.patterns.A?.name).toBe('Saved');
+  });
+
+  it('generates as before when what was kept will not read', async () => {
+    localStorage.setItem('bb.scratch', '{"payload":{"ver":4},"at":1}');
+    const { result } = await mount();
+    expect(result.current.tries).not.toBeNull();
+  });
+});
+
+describe('arriving on a saved pattern (/studio/[id])', () => {
+  /** A saved row as the page hands it over: the stored payload, plain JSON. */
+  function saved(name: string, title = name): InitialPattern {
+    return {
+      id: 'cbrk00000000000000000001',
+      title,
+      payload: sharePayloadSchema.parse(JSON.parse(atob(codeFor(name, 88)))),
+      mine: true,
+    };
+  }
+
+  it('mounts on the saved pattern rather than generating one', async () => {
+    const { result } = await mount(saved('From the database'));
+    expect(result.current.patterns.A?.name).toBe('From the database');
+    expect(result.current.bpm).toBe(88);
+    expect(result.current.level).toBe(4);
+    // nothing was rolled: a generated arrival records its tries
+    expect(result.current.tries).toBeNull();
+  });
+
+  it('takes the title from the row, which a rename changes and the document does not', async () => {
+    const { result } = await mount(saved('Name in the doc', 'Renamed since'));
+    expect(result.current.patterns.A?.name).toBe('Renamed since');
+  });
+
+  it('wins over a #b= link, and leaves a stashed link for the next plain visit', async () => {
+    const stashed = `#b=${codeFor('Stashed')}`;
+    stashPendingLink(localStorage, stashed);
+    window.history.replaceState(null, '', `/studio/x#b=${codeFor('In the URL')}`);
+    const { result } = await mount(saved('The saved one'));
+    expect(result.current.patterns.A?.name).toBe('The saved one');
+    expect(takePendingLink(localStorage)).toBe(stashed);
   });
 });
 

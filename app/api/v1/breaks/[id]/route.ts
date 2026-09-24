@@ -2,7 +2,8 @@
  * Breaks — one break
  *
  * GET    /api/v1/breaks/:id — the break, whole, with its critic report
- * PATCH  /api/v1/breaks/:id — rename, replace the document, share or unshare
+ * PATCH  /api/v1/breaks/:id — rename, replace the document, share or unshare,
+ *        describe, set its reference links
  * DELETE /api/v1/breaks/:id
  *
  * A break the caller does not own answers **404, not 403**, and a shared break
@@ -22,8 +23,10 @@ import { successResponse } from '@/lib/api/responses';
 import { validateRequestBody } from '@/lib/api/validation';
 import { withAuth } from '@/lib/auth/guards';
 import { critique, playability } from '@/lib/app/breaks/critic';
+import { columnsFromDoc } from '@/lib/app/breaks/columns';
+import { readStoredLinks } from '@/lib/app/breaks/links';
+import { openSavedBreak } from '@/lib/app/breaks/saved/data';
 import { breakDocFromPayload } from '@/lib/app/breaks/share';
-import { storedPayloadSchema } from '@/lib/app/breaks/schema';
 import { prisma } from '@/lib/db/client';
 import { cuidSchema } from '@/lib/validations/common';
 import { updateBreakSchema } from '@/lib/validations/breaks';
@@ -40,41 +43,32 @@ export const GET = withAuth<{ id: string }>(
     const log = await getRouteLogger(request);
     const id = breakId((await params).id);
 
-    const row = await prisma.break.findFirst({
-      where: { id, OR: [{ userId: session.user.id }, { shared: true }] },
-      include: {
-        takes: {
-          where: { userId: session.user.id },
-          select: { id: true, bpm: true, layer: true, duration: true, createdAt: true },
-          orderBy: { createdAt: 'desc' },
-        },
-      },
-    });
-    if (!row) throw new NotFoundError(`Break ${id} not found`);
+    const opened = await openSavedBreak(id, session.user.id);
+    if (!opened) throw new NotFoundError(`Break ${id} not found`);
+    const { row, payload, links, mine } = opened;
 
-    /* The document is repaired rather than refused: a row saved before the
-       share-code schema was tightened must still open (see storedPayloadSchema),
-       and the repaired payload is what goes back, so the client reads what was
+    /* The repaired payload is what goes back, so the client reads what was
        scored. The report is derived, not stored. Storing it would mean a row
        whose score was computed by a version of the critic nobody can identify,
        and the critic is cheap and pure — so it runs on the way out. */
-    const payload = storedPayloadSchema.parse(row.doc);
     const doc = breakDocFromPayload(payload);
     const checks = playability(doc.A, doc.bpm);
     const report = critique(doc.A, doc.bpm);
 
-    log.info('Break fetched', { breakId: id, mine: row.userId === session.user.id });
+    log.info('Break fetched', { breakId: id, mine });
     return successResponse({
       ...row,
+      links,
       doc: payload,
       // BigInt does not survive JSON.stringify
       seed: row.seed.toString(),
-      mine: row.userId === session.user.id,
+      mine,
       critique: { ...report, checks: checks.checks, playable: checks.hard },
     });
   },
   {
-    // Ownership: the row is fetched by `{ id, OR: [own, shared] }`, so the query
+    // Ownership: the row is fetched by `{ id, OR: [own, shared] }` in
+    // `openSavedBreak` (lib/app/breaks/saved/data.ts), so the query
     // itself is the authorisation — see RouteOwnership in lib/auth/guards.ts.
     // Not 'resource': that claims a `resource` resolver asked the policy about
     // the row, and there is none — a resolver would refuse every shared read,
@@ -83,7 +77,7 @@ export const GET = withAuth<{ id: string }>(
     ownership: {
       decidedBy: 'nothing',
       because:
-        'The handler decides in its own query: readable if the caller owns the row or the row is marked shared; a miss is a 404 either way.',
+        'The handler decides in the query openSavedBreak runs: readable if the caller owns the row or the row is marked shared; a miss is a 404 either way.',
     },
   }
 );
@@ -103,24 +97,17 @@ export const PATCH = withAuth<{ id: string }>(
     });
     if (!existing) throw new NotFoundError(`Break ${id} not found`);
 
-    const derived = patch.doc ? breakDocFromPayload(patch.doc) : null;
+    const derived = patch.doc ? columnsFromDoc(patch.doc).columns : null;
 
     const saved = await prisma.break.update({
       where: { id },
       data: {
         ...(patch.title === undefined ? {} : { title: patch.title }),
         ...(patch.shared === undefined ? {} : { shared: patch.shared }),
-        ...(derived && patch.doc
-          ? {
-              doc: patch.doc,
-              style: derived.A.style,
-              meter: derived.A.meter,
-              bpm: Math.round(derived.bpm),
-              swing: Math.round(derived.swing),
-              seed: BigInt(derived.A.seed),
-              bars: derived.A.bars.length,
-            }
-          : {}),
+        // an empty description clears it rather than storing ''
+        ...(patch.description === undefined ? {} : { description: patch.description || null }),
+        ...(patch.links === undefined ? {} : { links: patch.links }),
+        ...(derived && patch.doc ? { doc: patch.doc, ...derived } : {}),
       },
       select: {
         id: true,
@@ -131,12 +118,15 @@ export const PATCH = withAuth<{ id: string }>(
         swing: true,
         bars: true,
         shared: true,
+        level: true,
+        description: true,
+        links: true,
         updatedAt: true,
       },
     });
 
     log.info('Break updated', { breakId: id, fields: Object.keys(patch) });
-    return successResponse(saved);
+    return successResponse({ ...saved, links: readStoredLinks(saved.links) });
   },
   {
     ownership: {

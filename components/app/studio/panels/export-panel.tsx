@@ -57,9 +57,10 @@ export function ExportPanel() {
             <button
               type="button"
               className="mini"
-              onClick={() =>
-                say(c.loadCode(codeIn) ? 'Break loaded' : 'That is not a BeatBreaker code')
-              }
+              onClick={() => {
+                // "Break loaded" is said when it loads — it may wait on the unsaved-changes prompt
+                if (!c.loadCode(codeIn)) say('That is not a BeatBreaker code');
+              }}
             >
               Load it
             </button>

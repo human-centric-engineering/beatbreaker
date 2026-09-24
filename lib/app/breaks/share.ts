@@ -107,8 +107,12 @@ export function packPattern(p: Pattern): PackedPattern {
   };
 }
 
-export function encodeBreak(doc: BreakDoc): string {
-  const payload = {
+/**
+ * A break as its wire payload — the JSON a share code is the base64 of, and
+ * the `doc` a `POST`/`PATCH` of `/api/v1/breaks` carries.
+ */
+export function breakPayload(doc: BreakDoc): SharePayload {
+  return {
     ver: SHARE_VERSION,
     bpm: doc.bpm,
     sw: doc.swing,
@@ -117,7 +121,10 @@ export function encodeBreak(doc: BreakDoc): string {
     A: packPattern(doc.A),
     B: packPattern(doc.B),
   };
-  return toBase64(JSON.stringify(payload));
+}
+
+export function encodeBreak(doc: BreakDoc): string {
+  return toBase64(JSON.stringify(breakPayload(doc)));
 }
 
 /**
