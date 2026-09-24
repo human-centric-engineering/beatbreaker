@@ -29,7 +29,7 @@ vi.mock('@/lib/api/client', async (importOriginal) => {
 import type { InitialPattern } from '@/components/app/breaks/use-break-console';
 import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
-import { apiClient } from '@/lib/api/client';
+import { APIClientError, apiClient } from '@/lib/api/client';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { breakPayload } from '@/lib/app/breaks/share';
 import { testCatalogue, testStyle } from '@/tests/helpers/catalogue';
@@ -112,6 +112,35 @@ describe('saving', () => {
     expect(vi.mocked(apiClient.post).mock.calls[0][1]?.body).toMatchObject({ title: title() });
     await waitFor(() => expect(window.location.pathname).toBe('/studio/cbrk00000000000000000002'));
     await waitFor(() => expect(saveState()).toBe('Saved'));
+  });
+
+  it('saves a scratch pattern from the header’s Save button', async () => {
+    const user = userEvent.setup();
+    await open();
+    await user.click(screen.getByRole('button', { name: 'Save' }));
+    await waitFor(() => expect(apiClient.post).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+    // saved and autosaving: the button has nothing left to do, so it goes
+    expect(screen.queryByRole('button', { name: 'Save' })).toBeNull();
+  });
+
+  it('turns Save into Retry when a save is stuck offline, and Retry sends it again', async () => {
+    vi.mocked(apiClient.patch).mockRejectedValueOnce(
+      new APIClientError('Failed to fetch', 'NETWORK_ERROR')
+    );
+    const user = userEvent.setup();
+    window.history.replaceState(null, '', `/studio/${ID}`);
+    await open(saved(true));
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+    await user.keyboard(']');
+
+    // the autosave waits two seconds, then finds no connection
+    await waitFor(() => expect(saveState()).toBe('Offline — will retry'), { timeout: 4000 });
+    await user.click(screen.getByRole('button', { name: 'Retry' }));
+
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+    expect(apiClient.patch).toHaveBeenCalledTimes(2);
+    expect(screen.queryByRole('button', { name: 'Retry' })).toBeNull();
   });
 
   it('takes Ctrl+S from the browser’s Save Page', async () => {
