@@ -387,6 +387,36 @@ export function useBreakConsole(
     [meter, matchTempo, level, setBaseBpm, setBpmRaw]
   );
 
+  /**
+   * The break's own tempo, for a pattern that arrives at `bpm` on `level`.
+   *
+   * A loaded pattern sets the tempo directly, and the match effect below then
+   * re-derives it from `baseBpm` for the new layer — so a base left over from
+   * the last session silently moved every pattern you opened with the match on.
+   * A saved pattern then opened "Unsaved" and autosaved a tempo you never
+   * chose. Setting the base from the pattern makes the effect land on the tempo
+   * it arrived with. Unrounded on purpose: rounding here is what would move it.
+   *
+   * The match setting is read from storage, not from `matchTempo`: a pattern
+   * loads in the first commit, before `useLocalStorage` has hydrated, so the
+   * state still holds its default there and the stored `true` arrives a render
+   * later — exactly when the effect below would move the tempo. Storage is
+   * written synchronously by the setter, so it is never behind the state.
+   */
+  const baseFor = useCallback(
+    (bpmAt: number, levelAt: number) => {
+      let on = matchTempo;
+      try {
+        const raw = window.localStorage.getItem('bb.matchTempo');
+        if (raw !== null) on = raw === 'true';
+      } catch {
+        // storage blocked — the state is all there is
+      }
+      return on ? bpmAt / (LAYER_TEMPO[levelAt] ?? 1) : bpmAt;
+    },
+    [matchTempo]
+  );
+
   /* The layer moved, or the match was switched on: put the tempo where that
      layer should be practised, measured against the break's own tempo. */
   useEffect(() => {
@@ -1022,6 +1052,7 @@ export function useBreakConsole(
   const applyDoc = (doc: BreakDoc) => {
     setPatterns({ A: doc.A, B: doc.B });
     setBpmRaw(doc.bpm);
+    setBaseBpm(baseFor(doc.bpm, doc.level));
     setSwing(doc.swing);
     setLevel(doc.level);
     setArrangement(doc.arrangement);
@@ -1172,6 +1203,7 @@ export function useBreakConsole(
         pushHistory();
         setPatterns({ A: doc.A, B: doc.B });
         setBpmRaw(doc.bpm);
+        setBaseBpm(baseFor(doc.bpm, doc.level));
         setSwing(doc.swing);
         setLevel(doc.level);
         setArrangement(doc.arrangement);
@@ -1185,7 +1217,18 @@ export function useBreakConsole(
         return false;
       }
     },
-    [pushHistory, setBpmRaw, setSwing, setLevel, setArrangement, setStyleRaw, setMeterRaw, setBars]
+    [
+      pushHistory,
+      setBpmRaw,
+      setBaseBpm,
+      baseFor,
+      setSwing,
+      setLevel,
+      setArrangement,
+      setStyleRaw,
+      setMeterRaw,
+      setBars,
+    ]
   );
 
   const midiBase64 = useCallback(() => {

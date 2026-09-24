@@ -126,18 +126,19 @@ export function StudioProvider({
   const { newBreak, loadLibraryEntry, loadFav, loadCode, rename, favs } = state;
 
   /* The replacement waiting on the prompt, if there is one. Kept as a thunk so
-     "Don't save" and "Save" run exactly what was asked for, later. */
+     "Don't save" and "Save" run exactly what was asked for, later. The detach
+     is not in it: the answer decides how the document is let go. */
   const [pending, setPending] = useState<(() => void) | null>(null);
 
   /** Let the document go and replace it — or ask first, when that would lose edits. */
   const replace = useCallback(
     (go: () => void) => {
-      const run = () => {
-        detach();
-        go();
-      };
-      if (needsPrompt) setPending(() => run);
-      else run();
+      if (needsPrompt) {
+        setPending(() => go);
+        return;
+      }
+      detach();
+      go();
     },
     [detach, needsPrompt]
   );
@@ -186,9 +187,10 @@ export function StudioProvider({
          here, and the toast has said why. */
       if (choice === 'save' && !(await doc.save())) return;
       setPending(null);
+      detach({ discard: choice === 'discard' });
       go();
     },
-    [pending, doc]
+    [pending, doc, detach]
   );
 
   /* The stage is renamed only once the copy exists. Renamed first, a Save As

@@ -75,8 +75,11 @@ export interface PatternDocument {
   save: () => Promise<boolean>;
   /** A new pattern of yours from what is on the stage, under this title. */
   saveAs: (title: string) => Promise<boolean>;
-  /** A different pattern is about to replace this one on the stage. */
-  detach: () => void;
+  /**
+   * A different pattern is about to replace this one on the stage. Its last
+   * edit is saved on the way out unless `discard` — the prompt's Don't save.
+   */
+  detach: (options?: { discard?: boolean }) => void;
   /** True when {@link detach} would lose edits — see the module comment. */
   needsPrompt: boolean;
 }
@@ -275,17 +278,29 @@ export function usePatternDocument({
      second Save that the pattern already exists, so a double click, S pressed
      twice or a held Cmd+S would each POST — and each POST is another row. */
   const creating = useRef(false);
+  /* Which pattern is on the stage, as a count of detaches. A first save that
+     answers after the stage has moved on created its row — the pattern that
+     was saved is saved — but must not bind the new pattern to that row, or
+     its autosave would write the new pattern over the one just saved. */
+  const generation = useRef(0);
 
   const create = useCallback(
     async (name: string): Promise<boolean> => {
       const now = latest.current;
       if (!now.payload || now.key === null || creating.current) return false;
       creating.current = true;
+      const sentFor = generation.current;
       setPhase('saving');
       try {
         const data = created.parse(
           await apiClient.post('/api/v1/breaks', { body: { title: name, doc: now.payload } })
         );
+        if (generation.current !== sentFor) {
+          // the stage moved on while this was out: saved, but not what is shown now
+          setPhase('idle');
+          say('Saved');
+          return true;
+        }
         setId(data.id);
         setMine(true);
         /* The baseline is what was sent under the name it was sent as. A Save
@@ -325,20 +340,25 @@ export function usePatternDocument({
 
   const saveAs = useCallback((name: string) => create(titleFor(name)), [create]);
 
-  const detach = useCallback(() => {
-    /* The last edit to the pattern being left goes now, not after a wait the
+  const detach = useCallback(
+    (options?: { discard?: boolean }) => {
+      generation.current += 1;
+      /* The last edit to the pattern being left goes now, not after a wait the
        new pattern would cancel. Queued behind any save already in flight, and
        its outcome is logged rather than shown: it belongs to a pattern that is
-       no longer on the stage. */
-    const snap = snapshot();
-    if (snap && snap.key !== latest.current.savedKey) void patch(snap);
-    setId(null);
-    setMine(true);
-    setSavedKey(null);
-    setRefusedKey(null);
-    setPhase('idle');
-    showAddress(null);
-  }, [snapshot, patch]);
+       no longer on the stage. Not when the prompt was answered Don't save:
+       that answer is a promise that the edits go nowhere. */
+      const snap = snapshot();
+      if (!options?.discard && snap && snap.key !== latest.current.savedKey) void patch(snap);
+      setId(null);
+      setMine(true);
+      setSavedKey(null);
+      setRefusedKey(null);
+      setPhase('idle');
+      showAddress(null);
+    },
+    [snapshot, patch]
+  );
 
   let status: SaveStatus;
   // a first save on its way says so, and takes Save away until it answers

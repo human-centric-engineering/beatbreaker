@@ -289,6 +289,45 @@ describe('letting go (detach)', () => {
     expect(result.current.needsPrompt).toBe(false);
   });
 
+  it('sends nothing on Don’t save — discard means the edits go nowhere', async () => {
+    const { result, edit } = mount(opened());
+    await pass(0);
+    edit(91);
+    act(() => result.current.detach({ discard: true }));
+    await pass(AUTOSAVE_MS * 3);
+    expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — discarded edits must not be sent
+    expect(result.current).toMatchObject({ id: null, status: 'scratch' });
+  });
+
+  it('does not bind the next pattern to a first save that answers after the stage moved on', async () => {
+    window.history.replaceState(null, '', '/studio');
+    let answer!: (v: unknown) => void;
+    vi.mocked(apiClient.post).mockImplementationOnce(
+      () => new Promise((resolve) => (answer = resolve))
+    );
+    const { result, rerender } = mount(undefined);
+    await pass(0);
+    let saving!: Promise<boolean>;
+    act(() => {
+      saving = result.current.save();
+    });
+    // N, before the POST answers: a new roll goes on the stage
+    act(() => result.current.detach());
+    rerender({ payload: payloadAt(140), title: 'A new roll' });
+
+    answer({ id: 'cbrk00000000000000000002' });
+    await act(async () => {
+      expect(await saving).toBe(true);
+    });
+
+    // the pattern that was saved is saved; the one on the stage is still scratch
+    expect(result.current).toMatchObject({ id: null, status: 'scratch' });
+    expect(window.location.pathname).toBe('/studio');
+    expect(readScratch(localStorage)).toEqual(payloadAt(140));
+    await pass(AUTOSAVE_MS * 3);
+    expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — the new roll must never reach the saved row
+  });
+
   it('saves nothing when the pattern being left had no edits', async () => {
     const { result } = mount(opened());
     await pass(0);

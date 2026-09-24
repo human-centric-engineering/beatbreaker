@@ -212,6 +212,20 @@ describe('what lets a pattern go, and what only edits it', () => {
   });
 });
 
+describe('opening a saved pattern with the tempo matched to the layer', () => {
+  it('opens at the tempo it was saved at, as Saved — a base left from last session does not move it', async () => {
+    // what an earlier session left behind: the match on, and a base for some other pattern
+    localStorage.setItem('bb.matchTempo', 'true');
+    localStorage.setItem('bb.baseBpm', '200');
+    window.history.replaceState(null, '', `/studio/${ID}`);
+    await open(saved(true));
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+    await act(async () => new Promise((r) => setTimeout(r, 2500)));
+    expect(saveState()).toBe('Saved');
+    expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — opening must not write
+  });
+});
+
 describe('the unsaved-changes prompt', () => {
   /** Someone else's pattern, edited — the case letting go would lose. */
   async function editedCopy() {
@@ -335,5 +349,28 @@ describe('what the load buttons say', () => {
     await user.click(screen.getByRole('button', { name: 'Don’t save' }));
     await waitFor(() => expect(toast()).toBe('Break loaded'));
     expect(title()).toBe('Pasted');
+  });
+});
+
+describe('Don’t save on your own pattern, stuck offline', () => {
+  it('lets it go without sending the edits it said would be lost', async () => {
+    vi.mocked(apiClient.patch).mockRejectedValue(
+      new APIClientError('Failed to fetch', 'NETWORK_ERROR')
+    );
+    const user = userEvent.setup();
+    window.history.replaceState(null, '', `/studio/${ID}`);
+    await open(saved(true));
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+    await user.keyboard(']');
+    await waitFor(() => expect(saveState()).toBe('Offline — will retry'), { timeout: 4000 });
+    const tries = vi.mocked(apiClient.patch).mock.calls.length;
+
+    await user.keyboard('n');
+    await screen.findByRole('alertdialog');
+    await user.click(screen.getByRole('button', { name: 'Don’t save' }));
+    await waitFor(() => expect(window.location.pathname).toBe('/studio'));
+    await act(async () => new Promise((r) => setTimeout(r, 100)));
+
+    expect(vi.mocked(apiClient.patch).mock.calls.length).toBe(tries);
   });
 });
