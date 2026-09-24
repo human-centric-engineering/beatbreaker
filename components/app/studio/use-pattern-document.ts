@@ -53,11 +53,12 @@ export const RETRY_MS = 15000;
 
 /**
  * - `scratch` — never saved (or someone else's, not yet copied)
+ * - `saving` is also what a first save says while it is on its way
  * - `saved` — the server has exactly this
  * - `unsaved` — edited, the autosave is waiting for you to stop
  * - `saving` — on its way
  * - `offline` — could not reach the server; will retry
- * - `error` — the server refused it; the next edit tries again
+ * - `error` — the server refused it; the next edit tries again, not a timer
  */
 export type SaveStatus = 'scratch' | 'saved' | 'unsaved' | 'saving' | 'offline' | 'error';
 
@@ -123,6 +124,13 @@ export function usePatternDocument({
   /** The document as the server last acknowledged it; null before a baseline. */
   const [savedKey, setSavedKey] = useState<string | null>(null);
   const [phase, setPhase] = useState<'idle' | 'saving' | 'offline' | 'error'>('idle');
+  /**
+   * The document as it stood when the server last refused it. Sending the same
+   * thing again gets the same answer, so the autosave waits for an edit that
+   * makes it something else — without this it re-armed on the refusal itself
+   * and resent the refused pattern every AUTOSAVE_MS, forever.
+   */
+  const [refusedKey, setRefusedKey] = useState<string | null>(null);
 
   /* Everything a save sends is read from here at the moment it is sent, so a
      save fired by a timer or by `detach` sends what was on the stage then —
@@ -167,6 +175,7 @@ export function usePatternDocument({
           });
           if (current()) {
             setSavedKey(snap.key);
+            setRefusedKey(null);
             setPhase('idle');
           }
           return true;
@@ -190,6 +199,7 @@ export function usePatternDocument({
             say('That pattern was deleted elsewhere — it is unsaved here now');
           } else {
             logger.warn('BeatBreaker: autosave refused', { error, breakId: snap.id });
+            setRefusedKey(snap.key);
             setPhase('error');
           }
           return false;
@@ -218,9 +228,11 @@ export function usePatternDocument({
   useEffect(() => {
     if (!id || !mine || key === null || savedKey === null || key === savedKey) return;
     if (phase === 'saving' || phase === 'offline') return;
+    // refused as it stands: wait for an edit, not a timer
+    if (key === refusedKey) return;
     const t = setTimeout(() => void saveNow(), AUTOSAVE_MS);
     return () => clearTimeout(t);
-  }, [id, mine, key, savedKey, phase, saveNow]);
+  }, [id, mine, key, savedKey, phase, refusedKey, saveNow]);
 
   /* Offline: try again when the browser says it is back, and on a timer in
      case it never says (it often does not). */
@@ -259,10 +271,16 @@ export function usePatternDocument({
     return () => window.removeEventListener('beforeunload', warn);
   }, [id, dirty, needsPrompt]);
 
+  /* One create at a time. Until the first answers there is no id to tell a
+     second Save that the pattern already exists, so a double click, S pressed
+     twice or a held Cmd+S would each POST — and each POST is another row. */
+  const creating = useRef(false);
+
   const create = useCallback(
     async (name: string): Promise<boolean> => {
       const now = latest.current;
-      if (!now.payload || now.key === null) return false;
+      if (!now.payload || now.key === null || creating.current) return false;
+      creating.current = true;
       setPhase('saving');
       try {
         const data = created.parse(
@@ -271,10 +289,9 @@ export function usePatternDocument({
         setId(data.id);
         setMine(true);
         /* The baseline is what was sent under the name it was sent as. A Save
-           As renames the stage as it calls this (the provider does that), but
-           the rename renders after this read the stage — so the document sent
-           still carries the old name inside it, and one autosave follows to
-           put the new one there too. */
+           As renames the stage once this has succeeded (the provider does
+           that), so the document sent still carries the old name inside it,
+           and one autosave follows to put the new one there too. */
         setSavedKey(JSON.stringify({ payload: now.payload, title: name }));
         setPhase('idle');
         const store = storage();
@@ -293,6 +310,8 @@ export function usePatternDocument({
             : 'That did not save'
         );
         return false;
+      } finally {
+        creating.current = false;
       }
     },
     [say]
@@ -316,12 +335,15 @@ export function usePatternDocument({
     setId(null);
     setMine(true);
     setSavedKey(null);
+    setRefusedKey(null);
     setPhase('idle');
     showAddress(null);
   }, [snapshot, patch]);
 
   let status: SaveStatus;
-  if (!id || !mine) status = 'scratch';
+  // a first save on its way says so, and takes Save away until it answers
+  if ((!id || !mine) && phase === 'saving') status = 'saving';
+  else if (!id || !mine) status = 'scratch';
   else if (phase !== 'idle') status = phase;
   else status = dirty ? 'unsaved' : 'saved';
 

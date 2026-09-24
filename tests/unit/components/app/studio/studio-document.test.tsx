@@ -28,10 +28,10 @@ vi.mock('@/lib/api/client', async (importOriginal) => {
 
 import type { InitialPattern } from '@/components/app/breaks/use-break-console';
 import { StudioFrame } from '@/components/app/shell/studio-frame';
-import { StudioProvider } from '@/components/app/studio/studio-provider';
+import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { APIClientError, apiClient } from '@/lib/api/client';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
-import { breakPayload } from '@/lib/app/breaks/share';
+import { breakPayload, encodeBreak } from '@/lib/app/breaks/share';
 import { testCatalogue, testStyle } from '@/tests/helpers/catalogue';
 
 const ID = 'cbrk00000000000000000001';
@@ -62,10 +62,21 @@ function saved(mine: boolean): InitialPattern {
   };
 }
 
+/** Save As has no control of its own until the details editor (task 4.11). */
+function SaveAsProbe() {
+  const c = useStudio();
+  return (
+    <button type="button" onClick={() => void c.saveAs('Groove v2')}>
+      probe: save as
+    </button>
+  );
+}
+
 async function open(initial?: InitialPattern) {
   render(
     <StudioProvider catalogue={catalogue} initial={initial}>
       <StudioFrame />
+      <SaveAsProbe />
     </StudioProvider>
   );
   // the stage has a pattern once the header has a title
@@ -73,6 +84,28 @@ async function open(initial?: InitialPattern) {
 }
 
 const title = () => document.querySelector('.studio-title')?.textContent;
+
+/** A share code for a different pattern, as someone would paste it. */
+const CODE = (() => {
+  const funk = testStyle('funk');
+  const A = generatePattern({
+    style: funk,
+    meter: '4/4',
+    seed: 99,
+    bars: 1,
+    density: 50,
+    ghosts: 50,
+  });
+  A.name = 'Pasted';
+  return encodeBreak({
+    bpm: 100,
+    swing: 0,
+    level: 5,
+    arrangement: ['A'],
+    A,
+    B: deriveB(A, funk.params),
+  });
+})();
 const saveState = () => document.querySelector('.studio-save-state')?.textContent;
 
 beforeEach(() => {
@@ -235,5 +268,72 @@ describe('the unsaved-changes prompt', () => {
     await waitFor(() => expect(apiClient.post).toHaveBeenCalledTimes(1));
     expect(screen.getByRole('alertdialog')).toBeTruthy();
     expect(title()).toBe('Cold Carpet');
+  });
+});
+
+describe('Save As', () => {
+  it('renames the stage to the copy once the copy exists', async () => {
+    const user = userEvent.setup();
+    window.history.replaceState(null, '', `/studio/${ID}`);
+    await open(saved(true));
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+    await user.click(screen.getByRole('button', { name: 'probe: save as' }));
+    await waitFor(() => expect(window.location.pathname).toBe('/studio/cbrk00000000000000000002'));
+    expect(title()).toBe('Groove v2');
+    expect(vi.mocked(apiClient.post).mock.calls[0][1]?.body).toMatchObject({ title: 'Groove v2' });
+  });
+
+  it('leaves the original’s name alone when the copy could not be made', async () => {
+    vi.mocked(apiClient.post).mockRejectedValueOnce(
+      new APIClientError('Failed to fetch', 'NETWORK_ERROR')
+    );
+    const user = userEvent.setup();
+    window.history.replaceState(null, '', `/studio/${ID}`);
+    await open(saved(true));
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+    await user.click(screen.getByRole('button', { name: 'probe: save as' }));
+    await waitFor(() => expect(apiClient.post).toHaveBeenCalledTimes(1));
+
+    expect(title()).toBe('Cold Carpet');
+    expect(window.location.pathname).toBe(`/studio/${ID}`);
+    // and nothing carries the new name onto the original afterwards
+    await act(async () => new Promise((r) => setTimeout(r, 2500)));
+    const renamed = vi
+      .mocked(apiClient.patch)
+      .mock.calls.filter((c) => (c[1]?.body as { title?: string })?.title === 'Groove v2');
+    expect(renamed).toEqual([]);
+  });
+});
+
+describe('what the load buttons say', () => {
+  const toast = () => document.querySelector('.toast')?.textContent;
+
+  it('does not say a pasted code loaded while the prompt is still asking, nor after Cancel', async () => {
+    const user = userEvent.setup();
+    await open(saved(false));
+    await user.keyboard(']');
+    await user.click(screen.getByRole('button', { name: 'Export' }));
+    await user.type(screen.getByPlaceholderText('Paste a BeatBreaker code here…'), CODE);
+    await user.click(screen.getByRole('button', { name: 'Load it' }));
+
+    await screen.findByRole('alertdialog');
+    expect(toast()).not.toBe('Break loaded');
+    await user.click(screen.getByRole('button', { name: 'Cancel' }));
+    await waitFor(() => expect(screen.queryByRole('alertdialog')).toBeNull());
+    expect(toast()).not.toBe('Break loaded');
+    expect(title()).toBe('Cold Carpet');
+  });
+
+  it('says it once it has', async () => {
+    const user = userEvent.setup();
+    await open(saved(false));
+    await user.keyboard(']');
+    await user.click(screen.getByRole('button', { name: 'Export' }));
+    await user.type(screen.getByPlaceholderText('Paste a BeatBreaker code here…'), CODE);
+    await user.click(screen.getByRole('button', { name: 'Load it' }));
+    await screen.findByRole('alertdialog');
+    await user.click(screen.getByRole('button', { name: 'Don’t save' }));
+    await waitFor(() => expect(toast()).toBe('Break loaded'));
+    expect(title()).toBe('Pasted');
   });
 });

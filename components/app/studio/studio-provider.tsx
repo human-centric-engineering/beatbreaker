@@ -149,22 +149,30 @@ export function StudioProvider({
         else newBreak(which);
       },
       loadLibraryEntry: (id: string) => replace(() => loadLibraryEntry(id)),
+      /* These two answer "does it read?", not "has it loaded?": a code that
+         reads may be waiting on the unsaved-changes prompt, which can still be
+         cancelled. So the panels say only when it will not read, and the
+         "Loaded" is said here, when the load actually happens. */
       loadFav: (index: number) => {
         // same rule as a pasted code: one that will not read replaces nothing
         const fav = favs[index];
         if (!fav || !readsAsBreak(fav.code)) return loadFav(index);
-        replace(() => loadFav(index));
+        replace(() => {
+          if (loadFav(index)) say('Loaded');
+        });
         return true;
       },
       loadCode: (code: string) => {
         /* A code that does not read replaces nothing, so it is checked before
            anything is let go — and before anyone is asked about letting go. */
         if (!readsAsBreak(code)) return loadCode(code);
-        replace(() => loadCode(code));
+        replace(() => {
+          if (loadCode(code)) say('Break loaded');
+        });
         return true;
       },
     }),
-    [replace, newBreak, loadLibraryEntry, loadFav, loadCode, favs]
+    [replace, newBreak, loadLibraryEntry, loadFav, loadCode, favs, say]
   );
 
   const resolveLeave = useCallback(
@@ -183,10 +191,14 @@ export function StudioProvider({
     [pending, doc]
   );
 
+  /* The stage is renamed only once the copy exists. Renamed first, a Save As
+     that failed left the new name on the pattern it was copying — and the
+     autosave then wrote that name onto the original. */
   const saveAs = useCallback(
-    (title: string) => {
-      rename(title);
-      return doc.saveAs(title);
+    async (title: string) => {
+      const ok = await doc.saveAs(title);
+      if (ok) rename(title);
+      return ok;
     },
     [rename, doc]
   );

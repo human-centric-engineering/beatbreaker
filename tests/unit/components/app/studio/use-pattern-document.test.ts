@@ -196,6 +196,23 @@ describe('a saved pattern of yours', () => {
     expect(readScratch(localStorage)).toEqual(payloadAt(91));
   });
 
+  it('does not resend a refused pattern on a timer — only an edit tries again', async () => {
+    vi.mocked(apiClient.patch).mockRejectedValue(
+      new APIClientError('Invalid request body', 'VALIDATION_ERROR', 400)
+    );
+    const { result, edit } = mount(opened());
+    await pass(0);
+    edit(91);
+    await pass(AUTOSAVE_MS);
+    expect(result.current.status).toBe('error');
+    // the refusal itself must not re-arm the autosave
+    await pass(AUTOSAVE_MS * 10);
+    expect(apiClient.patch).toHaveBeenCalledTimes(1);
+    edit(92);
+    await pass(AUTOSAVE_MS);
+    expect(apiClient.patch).toHaveBeenCalledTimes(2);
+  });
+
   it('says a refused save is refused, and tries again on the next edit', async () => {
     vi.mocked(apiClient.patch).mockRejectedValueOnce(
       new APIClientError('Invalid request body', 'VALIDATION_ERROR', 400)
@@ -346,6 +363,34 @@ describe('a scratch pattern', () => {
     expect(window.location.pathname).toBe('/studio/cbrk00000000000000000002');
     expect(readScratch(localStorage)).toBeNull();
     expect(say).toHaveBeenCalledWith('Saved');
+  });
+
+  it('creates one pattern however many times Save is pressed before the first answers', async () => {
+    let answer!: (v: unknown) => void;
+    vi.mocked(apiClient.post).mockImplementationOnce(
+      () => new Promise((resolve) => (answer = resolve))
+    );
+    const { result } = mount(undefined);
+    await pass(0);
+    let first!: Promise<boolean>;
+    act(() => {
+      first = result.current.save();
+    });
+    // on its way: it says so, which is what takes the Save button away
+    expect(result.current.status).toBe('saving');
+    let again!: boolean;
+    await act(async () => {
+      again = await result.current.save();
+    });
+    expect(again).toBe(false);
+    expect(apiClient.post).toHaveBeenCalledTimes(1);
+
+    answer({ id: 'cbrk00000000000000000002' });
+    await act(async () => {
+      expect(await first).toBe(true);
+    });
+    expect(result.current.id).toBe('cbrk00000000000000000002');
+    expect(apiClient.post).toHaveBeenCalledTimes(1);
   });
 
   it('gets a name the API will take when it has none', async () => {
