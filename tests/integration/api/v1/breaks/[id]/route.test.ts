@@ -20,7 +20,10 @@ import { testStyle } from '@/tests/helpers/catalogue';
 
 vi.mock('@/lib/auth/config', () => ({ auth: { api: { getSession: vi.fn() } } }));
 vi.mock('@/lib/db/client', () => ({
-  prisma: { break: { findFirst: vi.fn(), update: vi.fn(), deleteMany: vi.fn() } },
+  prisma: {
+    break: { findFirst: vi.fn(), update: vi.fn(), deleteMany: vi.fn() },
+    $executeRaw: vi.fn(),
+  },
 }));
 
 import { auth } from '@/lib/auth/config';
@@ -60,6 +63,11 @@ function row(overrides: Record<string, unknown> = {}) {
     seed: BigInt(9),
     bars: 2,
     shared: false,
+    pinned: false,
+    lastOpenedAt: null,
+    level: 5,
+    description: null,
+    links: [],
     doc: wireDoc(),
     createdAt: new Date('2026-09-01T00:00:00Z'),
     updatedAt: new Date('2026-09-01T00:00:00Z'),
@@ -163,13 +171,78 @@ describe('GET /api/v1/breaks/:id', () => {
     expect(res.status).toBe(200);
     expect((await json<{ data: { mine: boolean } }>(res)).data.mine).toBe(false);
   });
+
+  it('marks the owner’s own break opened, in a statement scoped to the owner', async () => {
+    vi.mocked(prisma.break.findFirst).mockResolvedValue(row() as never);
+    const before = Date.now();
+    const res = await GET(new NextRequest(url()), ctx());
+
+    expect(prisma.$executeRaw).toHaveBeenCalledTimes(1);
+    // a tagged template: the SQL is the strings, the values are bound separately
+    const [strings, openedAt, id, userId] = vi.mocked(prisma.$executeRaw).mock.calls[0];
+    expect((strings as TemplateStringsArray).join('?')).toBe(
+      'UPDATE "break" SET "lastOpenedAt" = ? WHERE "id" = ? AND "userId" = ?'
+    );
+    expect(id).toBe(BREAK_ID);
+    expect(userId).toBe(USER_ID);
+    expect((openedAt as Date).getTime()).toBeGreaterThanOrEqual(before);
+    // and the response carries the time it was just opened, not the stale null
+    const { data } = await json<{ data: { lastOpenedAt: string } }>(res);
+    expect(new Date(data.lastOpenedAt).getTime()).toBe((openedAt as Date).getTime());
+  });
+
+  it('does not mark someone else’s shared break opened — their Recent is theirs', async () => {
+    vi.mocked(prisma.break.findFirst).mockResolvedValue(
+      row({
+        userId: OTHER_ID,
+        shared: true,
+        lastOpenedAt: new Date('2026-09-02T00:00:00Z'),
+      }) as never
+    );
+    const res = await GET(new NextRequest(url()), ctx());
+    expect(prisma.$executeRaw).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a non-owner read must not write
+    const { data } = await json<{ data: { lastOpenedAt: string } }>(res);
+    expect(data.lastOpenedAt).toBe('2026-09-02T00:00:00.000Z');
+  });
+
+  it('drops a stored link that no longer passes the allowlist, and keeps the pattern open', async () => {
+    vi.mocked(prisma.break.findFirst).mockResolvedValue(
+      row({
+        links: [
+          { kind: 'video', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=321s' },
+          { kind: 'video', url: 'javascript:alert(1)' },
+          'not even an object',
+        ],
+      }) as never
+    );
+    const res = await GET(new NextRequest(url()), ctx());
+    expect(res.status).toBe(200);
+    const { data } = await json<{ data: { links: unknown[] } }>(res);
+    expect(data.links).toEqual([
+      { kind: 'video', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=321s' },
+    ]);
+  });
 });
 
 describe('PATCH /api/v1/breaks/:id', () => {
   beforeEach(() => {
     vi.mocked(prisma.break.findFirst).mockResolvedValue({ id: BREAK_ID } as never);
     // what the route's `select` returns — no seed, no doc
-    const { id, title, style, meter, bpm, swing, bars, shared, updatedAt } = row();
+    const {
+      id,
+      title,
+      style,
+      meter,
+      bpm,
+      swing,
+      bars,
+      shared,
+      pinned,
+      level,
+      description,
+      links,
+      updatedAt,
+    } = row();
     vi.mocked(prisma.break.update).mockResolvedValue({
       id,
       title,
@@ -179,6 +252,10 @@ describe('PATCH /api/v1/breaks/:id', () => {
       swing,
       bars,
       shared,
+      pinned,
+      level,
+      description,
+      links,
       updatedAt,
     } as never);
   });
@@ -217,6 +294,79 @@ describe('PATCH /api/v1/breaks/:id', () => {
     expect(vi.mocked(prisma.break.update).mock.calls[0][0].data).toEqual({ shared: true });
     await PATCH(patch({ shared: false }), ctx());
     expect(vi.mocked(prisma.break.update).mock.calls[1][0].data).toEqual({ shared: false });
+  });
+
+  it('re-derives the style version and the layer with the document, not just the list columns', async () => {
+    const doc = wireDoc();
+    const withLayer = { ...doc, lv: 2, A: { ...(doc.A as object), sv: 'csv00000000000000000001' } };
+    await PATCH(patch({ doc: withLayer }), ctx());
+    expect(vi.mocked(prisma.break.update).mock.calls[0][0].data).toMatchObject({
+      styleVersionId: 'csv00000000000000000001',
+      level: 2,
+    });
+  });
+
+  it('pins and unpins, and touches nothing else', async () => {
+    await PATCH(patch({ pinned: true }), ctx());
+    expect(vi.mocked(prisma.break.update).mock.calls[0][0].data).toEqual({ pinned: true });
+    await PATCH(patch({ pinned: false }), ctx());
+    expect(vi.mocked(prisma.break.update).mock.calls[1][0].data).toEqual({ pinned: false });
+  });
+
+  it('stores an empty description as null, so clearing it clears it', async () => {
+    await PATCH(patch({ description: '   ' }), ctx());
+    expect(vi.mocked(prisma.break.update).mock.calls[0][0].data).toEqual({ description: null });
+  });
+
+  it('stores the canonical link it rebuilt, never the string that was typed', async () => {
+    await PATCH(
+      patch({
+        links: [
+          { url: 'https://youtu.be/dQw4w9WgXcQ?t=5m21s&si=tracking', label: ' The break ' },
+          { url: 'https://open.spotify.com/intl-de/track/4uLU6hMCjMI75M1A2tKUQC?si=x' },
+        ],
+      }),
+      ctx()
+    );
+    expect(vi.mocked(prisma.break.update).mock.calls[0][0].data).toEqual({
+      links: [
+        {
+          kind: 'video',
+          url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=321s',
+          label: 'The break',
+        },
+        { kind: 'song', url: 'https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC' },
+      ],
+    });
+  });
+
+  it.each([
+    ['javascript:', 'javascript:alert(1)'],
+    ['plain http', 'http://www.youtube.com/watch?v=dQw4w9WgXcQ'],
+    ['a look-alike host', 'https://youtube.com.example.net/watch?v=dQw4w9WgXcQ'],
+  ])('refuses %s with the message that names what is accepted', async (_name, bad) => {
+    const res = await PATCH(patch({ links: [{ url: bad }] }), ctx());
+    expect(res.status).toBe(400);
+    const body = await json<{
+      error: { details: { errors: Array<{ path: string; message: string }> } };
+    }>(res);
+    expect(body.error.details.errors).toEqual([
+      {
+        path: 'links.0.url',
+        message:
+          'Use an https link to a YouTube or Vimeo video, or a Spotify track, album or playlist.',
+      },
+    ]);
+    expect(prisma.break.update).not.toHaveBeenCalled(); // test-review:accept no_arg_called — validation must short-circuit
+  });
+
+  it('refuses a fifth link', async () => {
+    const one = { url: 'https://vimeo.com/76979871' };
+    const res = await PATCH(patch({ links: [one, one, one, one, one] }), ctx());
+    expect(res.status).toBe(400);
+    const body = await json<{ error: { details: { errors: Array<{ message: string }> } } }>(res);
+    expect(body.error.details.errors[0].message).toBe('Up to 4 links');
+    expect(prisma.break.update).not.toHaveBeenCalled(); // test-review:accept no_arg_called — validation must short-circuit
   });
 
   it('refuses a malformed document', async () => {

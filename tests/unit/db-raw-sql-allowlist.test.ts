@@ -101,6 +101,11 @@ const ALLOWLIST: ReadonlyArray<{ file: string; calls: number; why: string }> = [
     why: 'knowledge-graph adjacency aggregation',
   },
   {
+    file: 'app/api/v1/breaks/[id]/route.ts',
+    calls: 1,
+    why: 'owner-scoped lastOpenedAt touch on break, raw so Prisma does not stamp @updatedAt',
+  },
+  {
     file: 'app/api/v1/chat/stream/route.ts',
     calls: 1,
     why: 'conversation-context vector lookup on the hot path',

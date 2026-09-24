@@ -22,7 +22,10 @@ import { testStyle } from '@/tests/helpers/catalogue';
 
 vi.mock('@/lib/auth/config', () => ({ auth: { api: { getSession: vi.fn() } } }));
 vi.mock('@/lib/db/client', () => ({
-  prisma: { break: { findMany: vi.fn(), create: vi.fn() } },
+  prisma: {
+    break: { findMany: vi.fn(), create: vi.fn() },
+    $transaction: vi.fn((ops: Array<Promise<unknown>>) => Promise.all(ops)),
+  },
 }));
 
 import { auth } from '@/lib/auth/config';
@@ -67,6 +70,11 @@ function listRow(overrides: Record<string, unknown> = {}) {
     swing: 0,
     bars: 2,
     shared: false,
+    pinned: false,
+    lastOpenedAt: null,
+    level: 5,
+    description: null,
+    links: [],
     createdAt: new Date('2026-09-01T00:00:00Z'),
     updatedAt: new Date('2026-09-01T00:00:00Z'),
     _count: { takes: 0 },
@@ -107,7 +115,8 @@ describe('GET /api/v1/breaks', () => {
     expect(res.status).toBe(200);
     const args = vi.mocked(prisma.break.findMany).mock.calls[0][0];
     expect(args?.where).toEqual({ userId: USER_ID, style: 'funk', meter: '7/8' });
-    expect(args?.orderBy).toEqual({ createdAt: 'desc' });
+    // newest first, with the id as the tie-break the cursor needs
+    expect(args?.orderBy).toEqual([{ createdAt: 'desc' }, { id: 'desc' }]);
     expect(args?.take).toBe(11);
     // the list never carries the whole document
     expect(args?.select).not.toHaveProperty('doc');
@@ -167,6 +176,78 @@ describe('GET /api/v1/breaks', () => {
   });
 });
 
+describe('GET /api/v1/breaks — Working on, Recent, search', () => {
+  beforeEach(() => vi.mocked(prisma.break.findMany).mockResolvedValue([] as never));
+
+  const argsFor = async (query: string) => {
+    const res = await GET(new NextRequest(`http://localhost:3000/api/v1/breaks?${query}`));
+    return { res, args: vi.mocked(prisma.break.findMany).mock.calls[0]?.[0] };
+  };
+
+  it('sorts by last opened, never-opened rows last, for Recent', async () => {
+    const { args } = await argsFor('sort=opened');
+    expect(args?.orderBy).toEqual([
+      { lastOpenedAt: { sort: 'desc', nulls: 'last' } },
+      { id: 'desc' },
+    ]);
+  });
+
+  it('sorts by last edited', async () => {
+    const { args } = await argsFor('sort=updated');
+    expect(args?.orderBy).toEqual([{ updatedAt: 'desc' }, { id: 'desc' }]);
+  });
+
+  it('filters to pinned — and `pinned=false` means unpinned, not "anything"', async () => {
+    expect((await argsFor('pinned=true')).args?.where).toEqual({ userId: USER_ID, pinned: true });
+    vi.mocked(prisma.break.findMany).mockClear();
+    expect((await argsFor('pinned=false')).args?.where).toEqual({ userId: USER_ID, pinned: false });
+  });
+
+  it('searches titles case-insensitively, still inside the caller’s own rows', async () => {
+    const { args } = await argsFor('q=%20funky%20');
+    expect(args?.where).toEqual({
+      userId: USER_ID,
+      title: { contains: 'funky', mode: 'insensitive' },
+    });
+  });
+
+  it('treats an empty search as no search', async () => {
+    expect((await argsFor('q=')).args?.where).toEqual({ userId: USER_ID });
+  });
+
+  it.each([['sort=random'], ['pinned=yes']])('refuses %s', async (query) => {
+    const { res } = await argsFor(query);
+    expect(res.status).toBe(400);
+  });
+
+  it('returns the new columns, with stored links re-checked on the way out', async () => {
+    vi.mocked(prisma.break.findMany).mockResolvedValue([
+      listRow({
+        pinned: true,
+        level: 3,
+        links: [
+          { kind: 'song', url: 'https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC' },
+          { kind: 'video', url: 'https://evil.example/watch?v=dQw4w9WgXcQ' },
+        ],
+      }),
+    ] as never);
+    const res = await GET(new NextRequest('http://localhost:3000/api/v1/breaks'));
+    const { data } = await json<{ data: Array<Record<string, unknown>> }>(res);
+    expect(data[0]).toMatchObject({
+      pinned: true,
+      level: 3,
+      links: [{ kind: 'song', url: 'https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC' }],
+    });
+    expect(vi.mocked(prisma.break.findMany).mock.calls[0][0]?.select).toMatchObject({
+      pinned: true,
+      lastOpenedAt: true,
+      level: true,
+      description: true,
+      links: true,
+    });
+  });
+});
+
 describe('POST /api/v1/breaks', () => {
   it('saves under the session user, deriving the list columns from the document', async () => {
     vi.mocked(prisma.break.create).mockResolvedValue(
@@ -223,5 +304,60 @@ describe('POST /api/v1/breaks', () => {
     const res = await POST(post({ doc: wireDoc(), ...body }));
     expect(res.status).toBe(400);
     expect(prisma.break.create).not.toHaveBeenCalled(); // test-review:accept no_arg_called — validation must short-circuit
+  });
+});
+
+describe('POST /api/v1/breaks — bulk', () => {
+  beforeEach(() => {
+    let n = 0;
+    vi.mocked(prisma.break.create).mockImplementation(
+      () => Promise.resolve(listRow({ id: `cbrk0000000000000000000${n++}` })) as never
+    );
+  });
+
+  it('saves every pattern under the session user in one transaction', async () => {
+    const breaks = [1, 2, 3].map((n) => ({ title: `Fav ${n}`, doc: wireDoc(), userId: OTHER_ID }));
+    const res = await POST(post({ breaks }));
+    expect(res.status).toBe(201);
+    expect(prisma.$transaction).toHaveBeenCalledTimes(1);
+    const calls = vi.mocked(prisma.break.create).mock.calls;
+    expect(calls.map((c) => c[0].data.title)).toEqual(['Fav 1', 'Fav 2', 'Fav 3']);
+    // the body cannot name an owner here any more than in the single form
+    expect(calls.every((c) => c[0].data.userId === USER_ID)).toBe(true);
+    const body = await json<{ data: unknown[]; meta: { count: number } }>(res);
+    expect(body.data).toHaveLength(3);
+    expect(body.meta.count).toBe(3);
+  });
+
+  it('writes nothing when any one pattern is malformed — all of them or none', async () => {
+    const breaks = [
+      { title: 'Good', doc: wireDoc() },
+      { title: 'Bad', doc: { ver: 3 } },
+    ];
+    const res = await POST(post({ breaks }));
+    expect(res.status).toBe(400);
+    const body = await json<{ error: { details: { errors: Array<{ path: string }> } } }>(res);
+    // reported against the bulk form, pointing at the bad entry
+    expect(body.error.details.errors[0].path).toMatch(/^breaks\.1\.doc/);
+    expect(prisma.$transaction).not.toHaveBeenCalled(); // test-review:accept no_arg_called — validation must short-circuit
+    expect(prisma.break.create).not.toHaveBeenCalled(); // test-review:accept no_arg_called — validation must short-circuit
+  });
+
+  it.each([
+    ['an empty list', 0],
+    ['more than the thirty bb.favs can hold', 31],
+  ])('refuses %s', async (_label, count) => {
+    const breaks = Array.from({ length: count }, (_, i) => ({ title: `Fav ${i}`, doc: wireDoc() }));
+    const res = await POST(post({ breaks }));
+    expect(res.status).toBe(400);
+    expect(prisma.$transaction).not.toHaveBeenCalled(); // test-review:accept no_arg_called — validation must short-circuit
+  });
+
+  it('takes exactly thirty', async () => {
+    const doc = wireDoc();
+    const breaks = Array.from({ length: 30 }, (_, i) => ({ title: `Fav ${i}`, doc }));
+    const res = await POST(post({ breaks }));
+    expect(res.status).toBe(201);
+    expect(prisma.break.create).toHaveBeenCalledTimes(30);
   });
 });

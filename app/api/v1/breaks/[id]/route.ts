@@ -1,8 +1,11 @@
 /**
  * Breaks — one break
  *
- * GET    /api/v1/breaks/:id — the break, whole, with its critic report
- * PATCH  /api/v1/breaks/:id — rename, replace the document, share or unshare
+ * GET    /api/v1/breaks/:id — the break, whole, with its critic report. Opening
+ *        your own break marks it opened ("Recent"); opening someone else's
+ *        shared one does not.
+ * PATCH  /api/v1/breaks/:id — rename, replace the document, share or unshare,
+ *        pin, describe, set its reference links
  * DELETE /api/v1/breaks/:id
  *
  * A break the caller does not own answers **404, not 403**, and a shared break
@@ -22,6 +25,8 @@ import { successResponse } from '@/lib/api/responses';
 import { validateRequestBody } from '@/lib/api/validation';
 import { withAuth } from '@/lib/auth/guards';
 import { critique, playability } from '@/lib/app/breaks/critic';
+import { columnsFromDoc } from '@/lib/app/breaks/columns';
+import { readStoredLinks } from '@/lib/app/breaks/links';
 import { breakDocFromPayload } from '@/lib/app/breaks/share';
 import { storedPayloadSchema } from '@/lib/app/breaks/schema';
 import { prisma } from '@/lib/db/client';
@@ -63,13 +68,25 @@ export const GET = withAuth<{ id: string }>(
     const checks = playability(doc.A, doc.bpm);
     const report = critique(doc.A, doc.bpm);
 
-    log.info('Break fetched', { breakId: id, mine: row.userId === session.user.id });
+    const mine = row.userId === session.user.id;
+    const openedAt = mine ? new Date() : row.lastOpenedAt;
+    if (mine) {
+      /* Raw, and scoped to the owner in the statement itself. Through the
+         client this would be an `update`, and Prisma stamps `@updatedAt` on
+         every update it issues — so merely opening a pattern would move it to
+         the top of "sort by last edited", and the two sorts would be one. */
+      await prisma.$executeRaw`UPDATE "break" SET "lastOpenedAt" = ${openedAt} WHERE "id" = ${id} AND "userId" = ${session.user.id}`;
+    }
+
+    log.info('Break fetched', { breakId: id, mine });
     return successResponse({
       ...row,
+      lastOpenedAt: openedAt,
+      links: readStoredLinks(row.links),
       doc: payload,
       // BigInt does not survive JSON.stringify
       seed: row.seed.toString(),
-      mine: row.userId === session.user.id,
+      mine,
       critique: { ...report, checks: checks.checks, playable: checks.hard },
     });
   },
@@ -103,24 +120,18 @@ export const PATCH = withAuth<{ id: string }>(
     });
     if (!existing) throw new NotFoundError(`Break ${id} not found`);
 
-    const derived = patch.doc ? breakDocFromPayload(patch.doc) : null;
+    const derived = patch.doc ? columnsFromDoc(patch.doc).columns : null;
 
     const saved = await prisma.break.update({
       where: { id },
       data: {
         ...(patch.title === undefined ? {} : { title: patch.title }),
         ...(patch.shared === undefined ? {} : { shared: patch.shared }),
-        ...(derived && patch.doc
-          ? {
-              doc: patch.doc,
-              style: derived.A.style,
-              meter: derived.A.meter,
-              bpm: Math.round(derived.bpm),
-              swing: Math.round(derived.swing),
-              seed: BigInt(derived.A.seed),
-              bars: derived.A.bars.length,
-            }
-          : {}),
+        ...(patch.pinned === undefined ? {} : { pinned: patch.pinned }),
+        // an empty description clears it rather than storing ''
+        ...(patch.description === undefined ? {} : { description: patch.description || null }),
+        ...(patch.links === undefined ? {} : { links: patch.links }),
+        ...(derived && patch.doc ? { doc: patch.doc, ...derived } : {}),
       },
       select: {
         id: true,
@@ -131,12 +142,16 @@ export const PATCH = withAuth<{ id: string }>(
         swing: true,
         bars: true,
         shared: true,
+        pinned: true,
+        level: true,
+        description: true,
+        links: true,
         updatedAt: true,
       },
     });
 
     log.info('Break updated', { breakId: id, fields: Object.keys(patch) });
-    return successResponse(saved);
+    return successResponse({ ...saved, links: readStoredLinks(saved.links) });
   },
   {
     ownership: {

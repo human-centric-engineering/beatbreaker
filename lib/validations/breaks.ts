@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import { LINK_RULE, MAX_LINKS, parseReferenceLink } from '@/lib/app/breaks/links';
 import { METER_KEYS } from '@/lib/app/breaks/meter';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
 
@@ -13,6 +14,30 @@ import { sharePayloadSchema } from '@/lib/app/breaks/schema';
  */
 
 /**
+ * One reference link as it arrives: what was typed, and an optional label. What
+ * comes out is the canonical URL `parseReferenceLink` rebuilt and the kind it
+ * read off the host — never the typed string, and never a kind the client
+ * claimed (see `lib/app/breaks/links.ts`).
+ */
+const linkSchema = z
+  .object({
+    url: z.string().trim().max(2048),
+    label: z.string().trim().max(60).optional(),
+  })
+  .transform((link, ctx) => {
+    const parsed = parseReferenceLink(link.url);
+    if (!parsed) {
+      ctx.addIssue({ code: 'custom', message: LINK_RULE, path: ['url'] });
+      return z.NEVER;
+    }
+    return {
+      kind: parsed.kind,
+      url: parsed.canonicalUrl,
+      ...(link.label ? { label: link.label } : {}),
+    };
+  });
+
+/**
  * The fields, with no defaults. Defaults belong to create only: Zod applies a
  * `.default()` inside `.partial()`, so a PATCH schema built from one that has
  * them fills in every field the request left out — a rename would write
@@ -24,10 +49,29 @@ const breakFields = z.object({
   /** The whole break, in share-code wire format. */
   doc: sharePayloadSchema,
   shared: z.boolean(),
+  /** "Working on". */
+  pinned: z.boolean(),
+  /** Empty clears it. */
+  description: z.string().trim().max(500),
+  links: z.array(linkSchema).max(MAX_LINKS, `Up to ${MAX_LINKS} links`),
 });
 
 export const createBreakSchema = breakFields.extend({
   shared: breakFields.shape.shared.default(false),
+  pinned: breakFields.shape.pinned.default(false),
+  description: breakFields.shape.description.optional(),
+  links: breakFields.shape.links.default([]),
+});
+
+/**
+ * How many patterns one bulk create may carry — the most `bb.favs` can hold,
+ * which is the one thing the bulk form exists for (Phase 4, item 6).
+ */
+export const MAX_BULK_BREAKS = 30;
+
+/** `POST /api/v1/breaks` with `{ breaks: [...] }`: all of them, or none. */
+export const bulkCreateBreaksSchema = z.object({
+  breaks: z.array(createBreakSchema).min(1).max(MAX_BULK_BREAKS),
 });
 
 export const updateBreakSchema = breakFields.partial();
@@ -43,6 +87,18 @@ export const listBreaksSchema = z.object({
     .string()
     .refine((s) => METER_KEYS.includes(s), 'unknown meter')
     .optional(),
+  /** Only pinned (`true`) or only unpinned (`false`). */
+  pinned: z
+    .enum(['true', 'false'])
+    .transform((v) => v === 'true')
+    .optional(),
+  /** Title search, case-insensitive. */
+  q: z.string().trim().max(120).optional(),
+  /**
+   * `created` (the default, and what the list always did), `updated`, or
+   * `opened` — "Recent", never-opened rows last.
+   */
+  sort: z.enum(['created', 'updated', 'opened']).default('created'),
   /** Page size. */
   limit: z.coerce.number().int().min(1).max(100).default(50),
   cursor: z.string().optional(),
@@ -50,3 +106,4 @@ export const listBreaksSchema = z.object({
 
 export type CreateBreakInput = z.infer<typeof createBreakSchema>;
 export type UpdateBreakInput = z.infer<typeof updateBreakSchema>;
+export type BulkCreateBreaksInput = z.infer<typeof bulkCreateBreaksSchema>;

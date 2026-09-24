@@ -595,6 +595,32 @@ reopen intact, while `javascript:`, plain `http:`, a look-alike host and a
 fifth link are each refused with a clear message; account export contains the new columns; account erasure removes
 everything.
 
+**Reconciled against the tree, 2026-09-24 (branch `phase-4-your-patterns`).**
+What is already there: `/api/v1/breaks` list / create / get / patch / delete,
+owner-scoped, the document held to the share-code schema; `/studio/[id]`
+accepts an id and ignores it; favourites live in `bb.favs`, saved and opened
+from the Library drawer. Two things the plan assumed and the code does not
+bear out: **the pattern itself is not in `localStorage`** — only the settings
+are, and a reload rolls a fresh pattern — so the scratch-pattern survival in
+item 2 is new work, not a keep-as-is; and the level is carried inside `doc`
+(`lv`) with no column, so the `level` column is derived from the document the
+way `bpm` and `swing` already are, never taken from the body.
+
+Tasks, in order — API first, each with a done-when provable at merge:
+
+| #    | Task                                                                                                                                                                                           | Done when                                                                                                                                                                |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 4.1  | Migration: `pinned`, `lastOpenedAt`, `level`, `description`, `links` on `Break`; index `(userId, pinned, lastOpenedAt)`                                                                        | Migration applies to a fresh DB and to one holding Phase 2 rows; the export test shows the new columns in `breaks`                                                       |
+| 4.2  | `lib/app/breaks/links.ts` — `parseReferenceLink`; wired into create / update schemas with `description`, `links`, `pinned`                                                                     | Unit tests: YouTube with `t=`, youtu.be, Vimeo, Spotify track / album / playlist accepted and canonicalised; `javascript:`, `http:`, look-alike host, fifth link refused |
+| 4.3  | API: list gains `pinned`, `q`, `sort=opened\|updated\|created` and the new columns; `GET /:id` touches `lastOpenedAt` for the owner; PATCH takes the new fields; POST takes a bulk form (≤ 30) | Route tests for each filter and sort, the owner-only touch (a shared read by someone else does not move it), and a bulk create that is all-or-nothing                    |
+| 4.4  | `/studio/[id]` loads the pattern server-side and hands it to the console as initial state; a miss is a 404 page                                                                                | Component test: the console mounts on the stored pattern, not a generated one; someone else's private id renders not-found                                               |
+| 4.5  | Document model: current id, dirty flag, debounced autosave, header status, unsaved-changes prompt, scratch pattern in `localStorage`                                                           | Hook tests with fake timers: one PATCH ~2s after the last edit, retry on reconnect, no save for a scratch pattern; a reload restores the scratch pattern                 |
+| 4.6  | Patterns drawer — Working on · Recent · All (search, style, meter) · Libraries; ★ pin from row and header                                                                                      | One list request per open; open pattern highlighted; pin round-trips                                                                                                     |
+| 4.7  | Home replaces the `/dashboard` body — Working on cards with server-engraved thumbnails, Recent, New pattern, first-run copy (§6)                                                               | Page test for first-run and populated states; one query for the page                                                                                                     |
+| 4.8  | One-time `bb.favs` import through the bulk POST; the key cleared only after the server has the rows                                                                                            | Hook test: 30 favourites → one request → 30 rows → empty key; a failed request leaves the key                                                                            |
+| 4.9  | Details (title, description, links) at the top of the Export drawer, each with `<FieldHelp>`; link chips on the stage                                                                          | Form test for each refusal message; chips open in a new tab with `noopener noreferrer`                                                                                   |
+| 4.10 | `.context/app/patterns.md` (including D8: `Take` dormant), `breaks.md` updated, CHANGELOG entry                                                                                                | Docs name every new column, query parameter and component                                                                                                                |
+
 ### Phase 5 — Ergonomic review · M
 
 **Goal:** every control is where a drummer would look for it, is the right size
