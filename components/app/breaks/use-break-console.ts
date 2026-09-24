@@ -36,7 +36,14 @@ import {
   writePerc,
 } from '@/lib/app/breaks/pattern';
 import { clamp, makeRng } from '@/lib/app/breaks/rng';
-import { type BreakDoc, decodeBreak, encodeBreak, patternFromPacked } from '@/lib/app/breaks/share';
+import type { SharePayload } from '@/lib/app/breaks/schema';
+import {
+  type BreakDoc,
+  breakDocFromPayload,
+  decodeBreak,
+  encodeBreak,
+  patternFromPacked,
+} from '@/lib/app/breaks/share';
 import { styleIn } from '@/lib/app/breaks/styles';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import { percussionSource } from '@/lib/app/breaks/catalogue/types';
@@ -243,6 +250,21 @@ export interface Fav {
   code: string;
 }
 
+/**
+ * A saved pattern the Studio opens on, loaded server-side by `/studio/[id]`.
+ *
+ * The payload, not a decoded `BreakDoc`: it is plain JSON, so it crosses the
+ * server/client boundary as it is, and it is decoded here with the same style
+ * lookup a `#b=` link gets — one decode path however a pattern arrives.
+ */
+export interface InitialPattern {
+  id: string;
+  title: string;
+  payload: SharePayload;
+  /** False for someone else's shared pattern, which opens as yours to copy. */
+  mine: boolean;
+}
+
 /** How many saved breaks are kept. Oldest fall off the end. */
 const FAV_CAP = 30;
 
@@ -253,7 +275,10 @@ const FAV_CAP = 30;
  */
 const LAYER_TEMPO: Record<number, number> = { 1: 0.68, 2: 0.78, 3: 0.86, 4: 0.93, 5: 1 };
 
-export function useBreakConsole(catalogue: StudioCatalogue): BreakConsole {
+export function useBreakConsole(
+  catalogue: StudioCatalogue,
+  initial?: InitialPattern
+): BreakConsole {
   const [ready, setReady] = useState(false);
   const [noCatalogue, setNoCatalogue] = useState(false);
   const [patterns, setPatterns] = useState<Record<SectionLetter, Pattern | null>>({
@@ -987,8 +1012,42 @@ export function useBreakConsole(catalogue: StudioCatalogue): BreakConsole {
 
   /* ---- first break ----------------------------------------------------- */
 
+  /** Put a whole decoded break on the stage — the arrival paths share this. */
+  const applyDoc = (doc: BreakDoc) => {
+    setPatterns({ A: doc.A, B: doc.B });
+    setBpmRaw(doc.bpm);
+    setSwing(doc.swing);
+    setLevel(doc.level);
+    setArrangement(doc.arrangement);
+    setStyleRaw(doc.A.style);
+    setMeterRaw(doc.A.meter);
+    setBars(doc.A.bars.length);
+    applyStyleMix(doc.A.style, {});
+  };
+
   useEffect(() => {
     if (ready) return;
+    /* A saved pattern the page loaded is the one you asked for by its address,
+       so it wins over everything below — including a stashed link, which is
+       left in storage for the next plain `/studio` visit rather than consumed
+       here and lost. */
+    if (initial) {
+      try {
+        const doc = breakDocFromPayload(initial.payload, (key) => catalogue.styles[key]);
+        /* The row's title, not the name inside the document: a rename is a
+           PATCH of the title alone, so after one the two differ, and the title
+           is what the owner last called it. */
+        applyDoc({ ...doc, A: { ...doc.A, name: initial.title } });
+        setReady(true);
+        return;
+      } catch (error) {
+        // the row passed the server's schema, so this is a decoder bug, not bad data
+        logger.error('BeatBreaker: a saved pattern would not decode', {
+          error,
+          breakId: initial.id,
+        });
+      }
+    }
     /* A link opened while signed out had its fragment stashed on the way to
        the login page (H5). Put it back in the URL before reading it, so the
        break arrives and the address bar is the link that was sent. */
@@ -1012,16 +1071,7 @@ export function useBreakConsole(catalogue: StudioCatalogue): BreakConsole {
         /* The lookup is what lets a v3 code — one written before styles had
            versions — find its style and rebuild the snapshot a v4 code
            carries. Without it the break still opens, with default feel. */
-        const doc = decodeBreak(window.location.hash.slice(3), (key) => catalogue.styles[key]);
-        setPatterns({ A: doc.A, B: doc.B });
-        setBpmRaw(doc.bpm);
-        setSwing(doc.swing);
-        setLevel(doc.level);
-        setArrangement(doc.arrangement);
-        setStyleRaw(doc.A.style);
-        setMeterRaw(doc.A.meter);
-        setBars(doc.A.bars.length);
-        applyStyleMix(doc.A.style, {});
+        applyDoc(decodeBreak(window.location.hash.slice(3), (key) => catalogue.styles[key]));
         setReady(true);
         return;
       } catch (error) {

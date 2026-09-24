@@ -27,8 +27,8 @@ import { withAuth } from '@/lib/auth/guards';
 import { critique, playability } from '@/lib/app/breaks/critic';
 import { columnsFromDoc } from '@/lib/app/breaks/columns';
 import { readStoredLinks } from '@/lib/app/breaks/links';
+import { openSavedBreak } from '@/lib/app/breaks/saved/data';
 import { breakDocFromPayload } from '@/lib/app/breaks/share';
-import { storedPayloadSchema } from '@/lib/app/breaks/schema';
 import { prisma } from '@/lib/db/client';
 import { cuidSchema } from '@/lib/validations/common';
 import { updateBreakSchema } from '@/lib/validations/breaks';
@@ -45,44 +45,23 @@ export const GET = withAuth<{ id: string }>(
     const log = await getRouteLogger(request);
     const id = breakId((await params).id);
 
-    const row = await prisma.break.findFirst({
-      where: { id, OR: [{ userId: session.user.id }, { shared: true }] },
-      include: {
-        takes: {
-          where: { userId: session.user.id },
-          select: { id: true, bpm: true, layer: true, duration: true, createdAt: true },
-          orderBy: { createdAt: 'desc' },
-        },
-      },
-    });
-    if (!row) throw new NotFoundError(`Break ${id} not found`);
+    const opened = await openSavedBreak(id, session.user.id);
+    if (!opened) throw new NotFoundError(`Break ${id} not found`);
+    const { row, payload, links, mine, lastOpenedAt } = opened;
 
-    /* The document is repaired rather than refused: a row saved before the
-       share-code schema was tightened must still open (see storedPayloadSchema),
-       and the repaired payload is what goes back, so the client reads what was
+    /* The repaired payload is what goes back, so the client reads what was
        scored. The report is derived, not stored. Storing it would mean a row
        whose score was computed by a version of the critic nobody can identify,
        and the critic is cheap and pure — so it runs on the way out. */
-    const payload = storedPayloadSchema.parse(row.doc);
     const doc = breakDocFromPayload(payload);
     const checks = playability(doc.A, doc.bpm);
     const report = critique(doc.A, doc.bpm);
 
-    const mine = row.userId === session.user.id;
-    const openedAt = mine ? new Date() : row.lastOpenedAt;
-    if (mine) {
-      /* Raw, and scoped to the owner in the statement itself. Through the
-         client this would be an `update`, and Prisma stamps `@updatedAt` on
-         every update it issues — so merely opening a pattern would move it to
-         the top of "sort by last edited", and the two sorts would be one. */
-      await prisma.$executeRaw`UPDATE "break" SET "lastOpenedAt" = ${openedAt} WHERE "id" = ${id} AND "userId" = ${session.user.id}`;
-    }
-
     log.info('Break fetched', { breakId: id, mine });
     return successResponse({
       ...row,
-      lastOpenedAt: openedAt,
-      links: readStoredLinks(row.links),
+      lastOpenedAt,
+      links,
       doc: payload,
       // BigInt does not survive JSON.stringify
       seed: row.seed.toString(),
@@ -91,7 +70,8 @@ export const GET = withAuth<{ id: string }>(
     });
   },
   {
-    // Ownership: the row is fetched by `{ id, OR: [own, shared] }`, so the query
+    // Ownership: the row is fetched by `{ id, OR: [own, shared] }` in
+    // `openSavedBreak` (lib/app/breaks/saved/data.ts), so the query
     // itself is the authorisation — see RouteOwnership in lib/auth/guards.ts.
     // Not 'resource': that claims a `resource` resolver asked the policy about
     // the row, and there is none — a resolver would refuse every shared read,
@@ -100,7 +80,7 @@ export const GET = withAuth<{ id: string }>(
     ownership: {
       decidedBy: 'nothing',
       because:
-        'The handler decides in its own query: readable if the caller owns the row or the row is marked shared; a miss is a 404 either way.',
+        'The handler decides in the query openSavedBreak runs: readable if the caller owns the row or the row is marked shared; a miss is a 404 either way.',
     },
   }
 );

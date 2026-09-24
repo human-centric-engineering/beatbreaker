@@ -2,7 +2,11 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
-import { type BreakConsole, useBreakConsole } from '@/components/app/breaks/use-break-console';
+import {
+  type BreakConsole,
+  type InitialPattern,
+  useBreakConsole,
+} from '@/components/app/breaks/use-break-console';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 
 /**
@@ -47,6 +51,7 @@ const StudioContext = createContext<Studio | null>(null);
 
 export function StudioProvider({
   catalogue,
+  initial,
   children,
 }: {
   /**
@@ -58,9 +63,11 @@ export function StudioProvider({
    * is worse than one that will not render at all.
    */
   catalogue: StudioCatalogue;
+  /** The saved pattern `/studio/[id]` opened, if any. */
+  initial?: InitialPattern;
   children: React.ReactNode;
 }) {
-  const state = useBreakConsole(catalogue);
+  const state = useBreakConsole(catalogue, initial);
   const content = catalogue;
 
   const [toast, setToast] = useState('');
