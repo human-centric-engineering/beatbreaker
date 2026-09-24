@@ -32,6 +32,8 @@
   --ink: #1a1712;
   --ink-soft: #4a453c;
   --muted: #6f685c;
+  /* A select's chevron, in --muted: a data URI cannot read a custom property. */
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%236f685c' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   --faint: #a49c8d;
   --line: #d8d3c6;
   --line-soft: #e6e2d7;
@@ -64,6 +66,8 @@
   --ink: #efe9dc;
   --ink-soft: #cdc4b2;
   --muted: #a0988a;
+  /* A select's chevron, in --muted: a data URI cannot read a custom property. */
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23a0988a' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   --faint: #726a5c;
   --line: #383225;
   --line-soft: #2a251c;
@@ -885,7 +889,9 @@
 }
 /* The Patterns drawer's five, with a count beside the shelves. */
 .bb .tabs.tabs-5 {
-  grid-template-columns: repeat(5, 1fr);
+  /* Sized to their labels, so a count stays inside its tab's highlight;
+     the space left over is shared out evenly. */
+  grid-template-columns: repeat(5, auto);
   margin-bottom: 12px;
 }
 .bb .tabs .tab-n {
@@ -951,6 +957,16 @@
   background: var(--raised);
   color: var(--ink);
   font-size: 13.5px;
+}
+/* The browser's own arrow sits hard against the border; draw one inset. */
+.bb select {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 32px;
+  background-image: var(--chevron);
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 11px 8px;
 }
 .bb textarea {
   font-family: var(--f-mono);

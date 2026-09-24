@@ -276,6 +276,16 @@ describe('GET /api/v1/history', () => {
     expect(body.data[0].target).not.toHaveProperty('userId');
   });
 
+  it('drops a visit that comes back with no target, rather than listing a blank row', async () => {
+    seed(USER_ID, BREAK_ID, { level: 3, bpm: 72 });
+    // neither a `cbrk` nor a `centry` id: the store selects it with both relations null
+    seed(USER_ID, 'cgone00000000000000000001', { level: 2, bpm: 68 });
+
+    const body = await json<{ data: VisitBody['data'][] }>(await GET(new NextRequest(BASE)));
+
+    expect(body.data.map((v) => v.target.id)).toEqual([BREAK_ID]);
+  });
+
   it('shows only the caller’s visits', async () => {
     seed(OTHER_ID, BREAK_ID, { level: 3, bpm: 72 });
     const body = await json<{ data: unknown[] }>(await GET(new NextRequest(BASE)));
@@ -374,6 +384,18 @@ describe('POST /api/v1/history', () => {
     const res = await record(body);
     expect(res.status).toBe(400);
     expect(prisma.$transaction).not.toHaveBeenCalled(); // test-review:accept no_arg_called — validation must short-circuit
+  });
+
+  it('404s when the visit is gone by the time it is read back', async () => {
+    // a clear in another tab can land between the upsert and the re-read
+    vi.mocked(prisma.practiceVisit.findUnique).mockResolvedValue(null);
+
+    const res = await record({ breakId: BREAK_ID, level: 3, bpm: 72 });
+
+    expect(res.status).toBe(404);
+    expect(prisma.practiceVisit.findUnique).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { id: rows[0].id } })
+    );
   });
 
   it('never takes the owner from the body', async () => {
