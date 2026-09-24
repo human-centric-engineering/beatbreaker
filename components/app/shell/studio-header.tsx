@@ -52,6 +52,33 @@ function SaveState() {
 }
 
 /**
+ * Back through the practice history (D18) — to the pattern you had open
+ * before this one, where you left it. `Alt+←` does the same, and `Alt+→`
+ * comes forward again.
+ */
+function BackButton() {
+  const { history } = useStudio();
+  const to = history.previous;
+  return (
+    <button
+      type="button"
+      className="studio-back"
+      disabled={!to}
+      onClick={() => history.step('back')}
+      aria-keyshortcuts="Alt+ArrowLeft"
+      aria-label={to ? `Back to ${to.target.title}` : 'Back — nothing opened before this'}
+      title={
+        to
+          ? `Back to ${to.target.title} — L${to.level} at ${to.bpm} (Alt+←)`
+          : 'Nothing to go back to'
+      }
+    >
+      ← Back
+    </button>
+  );
+}
+
+/**
  * The Studio's header: the mark, what you are working on, and the transport.
  *
  * It is not `AppHeader`. That one is a centred container with navigation, which
@@ -78,6 +105,7 @@ export function StudioHeader({
       <Link href={AUTH_LANDING_ROUTE} className="studio-brand">
         <BrandMark />
       </Link>
+      <BackButton />
       <span className="studio-title">{c.view.A?.name ?? '…'}</span>
       <SaveState />
       <StudioTransport />

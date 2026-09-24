@@ -123,6 +123,29 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
   border-color: var(--ok);
   color: var(--paper);
 }
+/* Back through the practice history (D18). Quiet, like the title beside it:
+   it is a way around, not a decision. Disabled rather than hidden when there
+   is nowhere to go, so the header does not shift under the pointer. */
+.bb .studio-back {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  min-height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.bb .studio-back:hover:not(:disabled) {
+  border-color: var(--ink);
+}
+.bb .studio-back:disabled {
+  color: var(--muted);
+  cursor: default;
+  opacity: 0.6;
+}
 /* Below the width where the transport joins the header, the status word
    goes: the header is the mark, the title and the menu, and Save stays. */
 @media (max-width: 1023px) {

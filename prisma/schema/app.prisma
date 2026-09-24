@@ -65,8 +65,9 @@ model Break {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  takes Take[] @relation("TakeBreak")
-  pins  Pin[]  @relation("PinBreak")
+  takes  Take[]          @relation("TakeBreak")
+  pins   Pin[]           @relation("PinBreak")
+  visits PracticeVisit[] @relation("VisitBreak")
 
   styleVersion StyleVersion? @relation("BreakStyleVersion", fields: [styleVersionId], references: [id], onDelete: SetNull)
 
@@ -141,6 +142,42 @@ model Pin {
   @@unique([userId, libraryEntryId])
   @@index([userId, shelf, position])
   @@map("pin")
+}
+
+/// The only record of what was opened (D18) — the practice history. One row per
+/// target per person: a revisit moves it to the top (`visitedAt`) rather than
+/// adding a second row, and the newest 200 are kept (`HISTORY_CAP`).
+///
+/// It stores **where you left it** — the layer and the tempo — because the
+/// point of going back is to land where you were drilling, not at the top of
+/// the pattern at full speed. A scratch pattern has no identity and is not
+/// here; saving it puts it here.
+///
+/// Targets as {@link Pin}: exactly one of a pattern (yours, or someone else's
+/// shared one) or a library entry — a hand-written CHECK, probed by
+/// `lib/app/db-drift.ts`. Personal data: `userId` cascades (hand-written FK),
+/// and so do both targets.
+model PracticeVisit {
+  id     String @id @default(cuid())
+  /// FK to User.id — no @relation. Cascades.
+  userId String
+
+  breakId        String?
+  libraryEntryId String?
+
+  /// The layer (1–5) and tempo the target was left at.
+  level Int
+  bpm   Int
+
+  visitedAt DateTime @default(now())
+
+  breakRef     Break?        @relation("VisitBreak", fields: [breakId], references: [id], onDelete: Cascade)
+  libraryEntry LibraryEntry? @relation("VisitEntry", fields: [libraryEntryId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, breakId])
+  @@unique([userId, libraryEntryId])
+  @@index([userId, visitedAt])
+  @@map("practice_visit")
 }
 
 // ---- the catalogue ---------------------------------------------------------
@@ -309,7 +346,8 @@ model LibraryEntry {
   library      PatternLibrary @relation(fields: [libraryId], references: [id], onDelete: Cascade)
   styleVersion StyleVersion?  @relation("EntryStyleVersion", fields: [styleVersionId], references: [id], onDelete: SetNull)
 
-  pins Pin[] @relation("PinEntry")
+  pins   Pin[]           @relation("PinEntry")
+  visits PracticeVisit[] @relation("VisitEntry")
 
   @@unique([libraryId, position])
   @@unique([libraryId, seedKey])

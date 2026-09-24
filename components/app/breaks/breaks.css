@@ -1163,6 +1163,10 @@
 .bb .item:hover {
   border-color: var(--brass);
 }
+/* The one on the stage, in a list of things you could open. */
+.bb .item[aria-current='true'] {
+  border-color: var(--ink);
+}
 .bb .item:active {
   transform: translateY(1px);
 }

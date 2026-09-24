@@ -106,6 +106,20 @@ export function StudioFrame() {
       ) {
         return;
       }
+      /* Back and Forward through the practice history, the browser's own
+         chord for it. Taken from the browser here, where it would otherwise
+         leave the Studio. */
+      if (
+        e.altKey &&
+        !e.metaKey &&
+        !e.ctrlKey &&
+        !e.shiftKey &&
+        (e.key === 'ArrowLeft' || e.key === 'ArrowRight')
+      ) {
+        e.preventDefault();
+        c.history.step(e.key === 'ArrowLeft' ? 'back' : 'forward');
+        return;
+      }
       if (e.altKey) return;
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'z') {
         e.preventDefault();

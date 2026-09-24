@@ -16,23 +16,30 @@ export type Shelf = (typeof SHELVES)[number];
 
 export const shelfSchema = z.enum(SHELVES);
 
-/** What a pin points at — exactly one of these. */
+/**
+ * What a pin points at — exactly one of these. A practice visit (D18) points
+ * the same way, so `/api/v1/history` uses this type and {@link oneTarget} too.
+ */
 export type PinTarget = { breakId: string } | { libraryEntryId: string };
+
+/** The two target fields of a request body, before exactly-one is checked. */
+export const targetFields = {
+  breakId: cuidSchema.optional(),
+  libraryEntryId: cuidSchema.optional(),
+};
+
+/** Exactly one of the two, as a target — or null for both or neither. */
+export function oneTarget(breakId?: string, libraryEntryId?: string): PinTarget | null {
+  if (breakId !== undefined && libraryEntryId === undefined) return { breakId };
+  if (libraryEntryId !== undefined && breakId === undefined) return { libraryEntryId };
+  return null;
+}
 
 /** `POST /api/v1/pins` — pin one pattern or one library entry to a shelf. */
 export const createPinSchema = z
-  .object({
-    shelf: shelfSchema,
-    breakId: cuidSchema.optional(),
-    libraryEntryId: cuidSchema.optional(),
-  })
+  .object({ shelf: shelfSchema, ...targetFields })
   .transform(({ shelf, breakId, libraryEntryId }, ctx) => {
-    const target =
-      breakId !== undefined && libraryEntryId === undefined
-        ? { breakId }
-        : libraryEntryId !== undefined && breakId === undefined
-          ? { libraryEntryId }
-          : null;
+    const target = oneTarget(breakId, libraryEntryId);
     if (!target) {
       ctx.addIssue({
         code: 'custom',

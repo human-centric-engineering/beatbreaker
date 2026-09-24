@@ -214,7 +214,11 @@ export interface BreakConsole {
     step: number,
     back: boolean
   ) => void;
-  loadLibraryEntry: (id: string) => void;
+  /**
+   * Open a library entry. With `at`, on that layer and at that tempo — where
+   * it was left, when the practice history (D18) brings you back to it.
+   */
+  loadLibraryEntry: (id: string, at?: PracticePlace) => void;
   undo: () => void;
   redo: () => void;
   canUndo: boolean;
@@ -237,6 +241,13 @@ export interface BreakConsole {
   /** The same code as a URL, so a link carries the break. */
   shareLink: () => string;
   loadCode: (code: string) => boolean;
+  /**
+   * Put a saved pattern on the stage without a page load — what `/studio/[id]`
+   * does on arrival, for a pattern opened from inside the Studio. The row's
+   * title names it; `at` overrides the layer and tempo the document carries.
+   * False when it does not decode.
+   */
+  loadPayload: (payload: SharePayload, title: string, at?: PracticePlace) => boolean;
   midiBase64: () => string;
   /** Plays a bar of the current kit. False when there is no Web Audio. */
   auditionKit: () => boolean;
@@ -269,6 +280,12 @@ export interface InitialPattern {
   payload: SharePayload;
   /** False for someone else's shared pattern, which opens as yours to copy. */
   mine: boolean;
+}
+
+/** Where a pattern was left: the layer, and the tempo it was being played at. */
+export interface PracticePlace {
+  level: number;
+  bpm: number;
 }
 
 /** How many saved breaks are kept. Oldest fall off the end. */
@@ -708,7 +725,7 @@ export function useBreakConsole(
    * worth opening.
    */
   const loadLibraryEntry = useCallback(
-    (id: string) => {
+    (id: string, at?: PracticePlace) => {
       const entry = catalogue.libraries.flatMap((l) => l.entries).find((e) => e.id === id);
       if (!entry) return;
       pushHistory();
@@ -720,10 +737,30 @@ export function useBreakConsole(
       setStyleRaw(entry.styleKey);
       setMeterRaw(pat.meter);
       setBars(pat.bars.length);
-      if (!locks.bpm) setBpm(entry.bpm);
+      if (at) {
+        /* Going back to where you were is an explicit ask, so it wins over
+           the tempo lock — and the base is set from it, as a loaded pattern's
+           is, so the layer match lands on this tempo rather than moving it. */
+        const bpmAt = clamp(Math.round(at.bpm), 50, maxBpm(pat.meter));
+        setLevel(at.level);
+        setBpmRaw(bpmAt);
+        setBaseBpm(baseFor(bpmAt, at.level));
+      } else if (!locks.bpm) setBpm(entry.bpm);
       setTries(null);
     },
-    [catalogue, pushHistory, setStyleRaw, setMeterRaw, setBars, locks.bpm, setBpm]
+    [
+      catalogue,
+      pushHistory,
+      setStyleRaw,
+      setMeterRaw,
+      setBars,
+      locks.bpm,
+      setBpm,
+      setLevel,
+      setBpmRaw,
+      setBaseBpm,
+      baseFor,
+    ]
   );
 
   /* ---- style and meter follow each other ------------------------------ */
@@ -1194,28 +1231,20 @@ export function useBreakConsole(
     return `${origin}${pathname}#b=${code}`;
   }, [shareCode]);
 
-  const loadCode = useCallback(
-    (code: string): boolean => {
-      try {
-        // people paste the link, not the code inside it
-        const at = code.indexOf('#b=');
-        const doc = decodeBreak(at >= 0 ? code.slice(at + 3) : code.trim());
-        pushHistory();
-        setPatterns({ A: doc.A, B: doc.B });
-        setBpmRaw(doc.bpm);
-        setBaseBpm(baseFor(doc.bpm, doc.level));
-        setSwing(doc.swing);
-        setLevel(doc.level);
-        setArrangement(doc.arrangement);
-        setStyleRaw(doc.A.style);
-        setMeterRaw(doc.A.meter);
-        setBars(doc.A.bars.length);
-        setTries(null);
-        return true;
-      } catch (error) {
-        logger.warn('BeatBreaker: could not read that break code', { error });
-        return false;
-      }
+  /** Put a decoded pattern on the stage, as an edit undo can take back. */
+  const putDoc = useCallback(
+    (doc: BreakDoc) => {
+      pushHistory();
+      setPatterns({ A: doc.A, B: doc.B });
+      setBpmRaw(doc.bpm);
+      setBaseBpm(baseFor(doc.bpm, doc.level));
+      setSwing(doc.swing);
+      setLevel(doc.level);
+      setArrangement(doc.arrangement);
+      setStyleRaw(doc.A.style);
+      setMeterRaw(doc.A.meter);
+      setBars(doc.A.bars.length);
+      setTries(null);
     },
     [
       pushHistory,
@@ -1229,6 +1258,41 @@ export function useBreakConsole(
       setMeterRaw,
       setBars,
     ]
+  );
+
+  const loadCode = useCallback(
+    (code: string): boolean => {
+      try {
+        // people paste the link, not the code inside it
+        const at = code.indexOf('#b=');
+        putDoc(decodeBreak(at >= 0 ? code.slice(at + 3) : code.trim()));
+        return true;
+      } catch (error) {
+        logger.warn('BeatBreaker: could not read that break code', { error });
+        return false;
+      }
+    },
+    [putDoc]
+  );
+
+  const loadPayload = useCallback(
+    (stored: SharePayload, title: string, at?: PracticePlace): boolean => {
+      try {
+        const doc = breakDocFromPayload(stored, (key) => catalogue.styles[key]);
+        const bpmAt = at ? clamp(Math.round(at.bpm), 50, maxBpm(doc.A.meter)) : doc.bpm;
+        // the row's title, for the reason the arrival path gives
+        putDoc({
+          ...doc,
+          ...(at ? { level: at.level, bpm: bpmAt } : {}),
+          A: { ...doc.A, name: title },
+        });
+        return true;
+      } catch (error) {
+        logger.error('BeatBreaker: a saved pattern would not decode', { error });
+        return false;
+      }
+    },
+    [catalogue, putDoc]
   );
 
   const midiBase64 = useCallback(() => {
@@ -1395,6 +1459,7 @@ export function useBreakConsole(
     rename,
     shareLink,
     loadCode,
+    loadPayload,
     midiBase64,
     midiPort,
     openMidiOut,

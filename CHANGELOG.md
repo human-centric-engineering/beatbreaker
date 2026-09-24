@@ -18,6 +18,15 @@ release process.
 
 ### Added
 
+- **Practice history — a `PracticeVisit` model and `/api/v1/history`**
+  (migration `practice_history`, additive). What you opened — your own
+  patterns, shared ones and library entries — one row per target with the
+  layer and tempo you left it at, the newest 200 kept. `GET` lists it newest
+  first in one request; `POST` records a visit (a revisit moves it to the top
+  rather than duplicating it); `DELETE` clears it. The user FK and a CHECK for
+  exactly one target are hand-written and drift-probed. The account export
+  gains a `practiceHistory` section.
+
 - **Practice shelves — a `Pin` model and `/api/v1/pins`** (migration
   `practice_shelves`, additive). Pin your own patterns, shared ones, or library
   entries to **Practising** or **Later**. `GET` returns both shelves in one

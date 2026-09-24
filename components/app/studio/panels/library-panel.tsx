@@ -1,11 +1,80 @@
 'use client';
 
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 
 import { PinButton } from '@/components/app/studio/pin-button';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { libraryGroups } from '@/lib/app/breaks/catalogue/types';
 import { DEFAULT_METER } from '@/lib/app/breaks/meter';
+
+/** How many of the history show before "Show all". */
+const RECENT_SHOWN = 8;
+
+/**
+ * Recent — the practice history (D18), newest first, each where you left it.
+ * Opening one lands on that layer and tempo. The Patterns drawer (task 4.8)
+ * gives it a tab of its own; until then it leads this one.
+ */
+function RecentCard() {
+  const { history } = useStudio();
+  const [all, setAll] = useState(false);
+  const { items, currentId } = history;
+  const shown = all ? items : items.slice(0, RECENT_SHOWN);
+
+  return (
+    <div className="card">
+      <div className="card-hd">
+        <h3>Recent</h3>
+        <div className="spacer" />
+        {items.length ? (
+          <button type="button" className="mini" onClick={() => void history.clear()}>
+            Clear
+          </button>
+        ) : null}
+      </div>
+      <div className="card-bd">
+        {items.length ? (
+          <div className="list">
+            {shown.map((item) => (
+              <button
+                type="button"
+                className="item"
+                key={item.id}
+                aria-current={item.id === currentId ? 'true' : undefined}
+                onClick={() => history.open(item)}
+              >
+                <div className="nm">
+                  <b>{item.target.title}</b>
+                  <span>
+                    {item.target.kind === 'entry'
+                      ? item.target.artist
+                      : item.target.mine
+                        ? 'Your pattern'
+                        : 'Shared with you'}
+                  </span>
+                </div>
+                <span className="bpm">
+                  L{item.level} · {item.bpm}
+                </span>
+              </button>
+            ))}
+            {items.length > RECENT_SHOWN ? (
+              <button type="button" className="mini" onClick={() => setAll((v) => !v)}>
+                {all ? 'Show fewer' : `Show all ${items.length}`}
+              </button>
+            ) : null}
+          </div>
+        ) : (
+          <div className="hint">
+            What you open shows up here, at the layer and tempo you left it — a famous break, or a
+            pattern once it is saved. <b>Back</b> in the header (<b>Alt+←</b>) takes you to the one
+            before.
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export function LibraryPanel() {
   const c = useStudio();
@@ -18,6 +87,7 @@ export function LibraryPanel() {
 
   return (
     <>
+      <RecentCard />
       <div className="card">
         <div className="card-hd">
           <h3>Famous breaks</h3>

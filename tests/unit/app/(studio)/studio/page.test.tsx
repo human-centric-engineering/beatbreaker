@@ -25,6 +25,8 @@ vi.mock('@/lib/app/breaks/catalogue/data', () => ({ studioCatalogue: vi.fn() }))
 /* The practice shelves, mocked at their own seam like the loader: their query
    and scope are tested through /api/v1/pins, which shares them. */
 vi.mock('@/lib/app/breaks/saved/pins', () => ({ listPins: vi.fn() }));
+// and the practice history, for the same reason (/api/v1/history)
+vi.mock('@/lib/app/breaks/saved/history', () => ({ listHistory: vi.fn() }));
 
 import StudioPage from '@/app/(studio)/studio/page';
 import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
@@ -32,15 +34,18 @@ import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { getServerSession } from '@/lib/auth/utils';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
+import { listHistory } from '@/lib/app/breaks/saved/history';
 import { listPins } from '@/lib/app/breaks/saved/pins';
 import { createMockAuthSession } from '@/tests/helpers/auth';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 
 const SHELVES = { practising: [], later: [] };
+const HISTORY: Awaited<ReturnType<typeof listHistory>> = [];
 
 describe('/studio', () => {
   beforeEach(() => {
     vi.mocked(listPins).mockResolvedValue(SHELVES);
+    vi.mocked(listHistory).mockResolvedValue(HISTORY);
   });
 
   it('hands a signed-out visitor to the shim that keeps their link', async () => {
@@ -67,5 +72,7 @@ describe('/studio', () => {
     // the shelves come the same way, read for the session user
     expect(listPins).toHaveBeenCalledWith(createMockAuthSession().user.id);
     expect(el.props.pins).toBe(SHELVES);
+    expect(listHistory).toHaveBeenCalledWith(createMockAuthSession().user.id);
+    expect(el.props.history).toBe(HISTORY);
   });
 });

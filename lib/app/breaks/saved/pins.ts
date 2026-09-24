@@ -1,7 +1,15 @@
 import type { Prisma } from '@prisma/client';
 
 import { ValidationError } from '@/lib/api/errors';
-import { PUBLIC } from '@/lib/app/breaks/catalogue/data';
+import {
+  TARGET_SELECT,
+  type TargetBreak,
+  type TargetEntry,
+  type TargetView,
+  targetVisible,
+  toTargetView,
+  visibleTarget,
+} from '@/lib/app/breaks/saved/targets';
 import { prisma } from '@/lib/db/client';
 import { type PinTarget, SHELVES, type Shelf } from '@/lib/validations/pins';
 
@@ -27,38 +35,17 @@ import { type PinTarget, SHELVES, type Shelf } from '@/lib/validations/pins';
  */
 
 /** A pinned pattern — one of yours, or a shared one of someone else's. */
-export interface PinnedBreak {
-  kind: 'break';
-  id: string;
-  title: string;
-  style: string;
-  meter: string;
-  bpm: number;
-  level: number;
-  /** False for someone else's shared pattern. */
-  mine: boolean;
-  updatedAt: Date;
-}
+export type PinnedBreak = TargetBreak;
 
 /** A pinned library entry — a famous break, opened as a scratch copy. */
-export interface PinnedEntry {
-  kind: 'entry';
-  id: string;
-  /** The library it is in, for `GET /api/v1/catalogue/libraries/[key]`. */
-  libraryKey: string;
-  title: string;
-  artist: string;
-  styleKey: string;
-  meter: string;
-  bpm: number;
-}
+export type PinnedEntry = TargetEntry;
 
 export interface PinView {
   id: string;
   shelf: Shelf;
   position: number;
   createdAt: Date;
-  target: PinnedBreak | PinnedEntry;
+  target: TargetView;
 }
 
 /** Both shelves, each in order. What one `GET /api/v1/pins` answers. */
@@ -66,44 +53,12 @@ export type PracticeShelves = Record<Shelf, PinView[]>;
 
 type Tx = Prisma.TransactionClient;
 
-/** Pins whose target the caller may still see. */
-function visibleTarget(userId: string): Prisma.PinWhereInput {
-  return {
-    OR: [
-      { breakRef: { OR: [{ userId }, { shared: true }] } },
-      { libraryEntry: { library: PUBLIC } },
-    ],
-  };
-}
-
 const PIN_SELECT = {
   id: true,
   shelf: true,
   position: true,
   createdAt: true,
-  breakRef: {
-    select: {
-      id: true,
-      userId: true,
-      title: true,
-      style: true,
-      meter: true,
-      bpm: true,
-      level: true,
-      updatedAt: true,
-    },
-  },
-  libraryEntry: {
-    select: {
-      id: true,
-      title: true,
-      artist: true,
-      styleKey: true,
-      meter: true,
-      bpm: true,
-      library: { select: { key: true } },
-    },
-  },
+  ...TARGET_SELECT,
 } as const satisfies Prisma.PinSelect;
 
 type PinRow = Prisma.PinGetPayload<{ select: typeof PIN_SELECT }>;
@@ -118,17 +73,10 @@ function toView(row: PinRow, userId: string): PinView | null {
      later, a hand edit) is dropped rather than put on a shelf that does not
      exist. */
   if (!isShelf(row.shelf)) return null;
-  const base = { id: row.id, shelf: row.shelf, position: row.position, createdAt: row.createdAt };
-  if (row.breakRef) {
-    const { userId: owner, ...b } = row.breakRef;
-    // the owner's id is theirs — the view says only whether it is you
-    return { ...base, target: { kind: 'break', ...b, mine: owner === userId } };
-  }
-  if (row.libraryEntry) {
-    const { library, ...e } = row.libraryEntry;
-    return { ...base, target: { kind: 'entry', ...e, libraryKey: library.key } };
-  }
-  return null;
+  const target = toTargetView(row, userId);
+  return target
+    ? { id: row.id, shelf: row.shelf, position: row.position, createdAt: row.createdAt, target }
+    : null;
 }
 
 /** Both shelves in one query — the list that fills Home and the Patterns drawer. */
@@ -153,22 +101,6 @@ async function readPin(tx: Tx, id: string, userId: string): Promise<PinView | nu
     select: PIN_SELECT,
   });
   return row ? toView(row, userId) : null;
-}
-
-/** Can the caller pin this? The same visibility the list applies. */
-async function targetVisible(tx: Tx, userId: string, target: PinTarget): Promise<boolean> {
-  if ('breakId' in target) {
-    const found = await tx.break.findFirst({
-      where: { id: target.breakId, OR: [{ userId }, { shared: true }] },
-      select: { id: true },
-    });
-    return found !== null;
-  }
-  const found = await tx.libraryEntry.findFirst({
-    where: { id: target.libraryEntryId, library: PUBLIC },
-    select: { id: true },
-  });
-  return found !== null;
 }
 
 /**

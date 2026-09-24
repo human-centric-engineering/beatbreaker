@@ -1,10 +1,20 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import {
   type BreakConsole,
   type InitialPattern,
+  type PracticePlace,
   useBreakConsole,
 } from '@/components/app/breaks/use-break-console';
 import {
@@ -12,8 +22,16 @@ import {
   usePatternDocument,
 } from '@/components/app/studio/use-pattern-document';
 import { type PracticeShelvesState, usePins } from '@/components/app/studio/use-pins';
+import {
+  fetchSavedPattern,
+  type HistoryCurrent,
+  type OpenResult,
+  type PracticeHistoryState,
+  usePracticeHistory,
+} from '@/components/app/studio/use-practice-history';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import { decodeBreak } from '@/lib/app/breaks/share';
+import type { HistoryItem } from '@/lib/validations/history';
 import type { PinTarget, PracticeShelvesView } from '@/lib/validations/pins';
 
 /**
@@ -71,6 +89,8 @@ export interface Studio extends BreakConsole {
    * identity to pin until it is saved.
    */
   stagePin: PinTarget | null;
+  /** The practice history (D18): Recent, and Back / Forward through it. */
+  history: PracticeHistoryState;
 }
 
 const StudioContext = createContext<Studio | null>(null);
@@ -90,6 +110,7 @@ export function StudioProvider({
   catalogue,
   initial,
   pins: initialPins,
+  history: initialHistory,
   children,
 }: {
   /**
@@ -105,6 +126,8 @@ export function StudioProvider({
   initial?: InitialPattern;
   /** The practice shelves, read server-side with the page. */
   pins?: PracticeShelvesView;
+  /** The practice history, read server-side with the page. */
+  history?: HistoryItem[];
   children: React.ReactNode;
 }) {
   const state = useBreakConsole(catalogue, initial);
@@ -212,6 +235,63 @@ export function StudioProvider({
     [replace, newBreak, loadLibraryEntry, loadFav, loadCode, favs, say]
   );
 
+  /* Opening from the history happens after a fetch, so it reads `replace` as
+     it is when the answer lands — the prompt may be due by then, or not. */
+  const replaceNow = useRef(replace);
+  useLayoutEffect(() => {
+    replaceNow.current = replace;
+  });
+  const { loadPayload } = state;
+  const { attach } = doc;
+
+  /**
+   * Put a history item on the stage, where it was left. A library entry opens
+   * from the catalogue already in the page; a saved pattern is fetched and
+   * opened in place — no page load, so the trail and the undo stack survive.
+   *
+   * The place is applied to library entries and to other people's patterns.
+   * Your own pattern autosaves its layer and tempo as you change them, so the
+   * document already holds where you left it, and applying the visit on top
+   * could only disagree with it — and then autosave the disagreement.
+   */
+  const openItem = useCallback(
+    async (item: HistoryItem, at: PracticePlace): Promise<OpenResult> => {
+      if (item.target.kind === 'entry') {
+        const id = item.target.id;
+        if (!catalogue.libraries.some((l) => l.entries.some((e) => e.id === id))) return 'gone';
+        replaceNow.current(() => {
+          setEntryId(id);
+          loadLibraryEntry(id, at);
+        });
+        return 'opened';
+      }
+      const opened = await fetchSavedPattern(item.target.id);
+      if (opened === 'gone') return 'gone';
+      if (!opened) return 'failed';
+      replaceNow.current(() => {
+        if (!loadPayload(opened.payload, opened.title, opened.mine ? undefined : at)) {
+          say('That pattern would not open');
+          return;
+        }
+        setEntryId(null);
+        attach(opened.id, opened.mine);
+      });
+      return 'opened';
+    },
+    [catalogue, loadLibraryEntry, loadPayload, attach, say]
+  );
+
+  const historyCurrent = useMemo<HistoryCurrent | null>(
+    () => (ready && stagePin ? { target: stagePin, level, bpm } : null),
+    [ready, stagePin, level, bpm]
+  );
+  const history = usePracticeHistory({
+    initial: initialHistory,
+    current: historyCurrent,
+    openItem,
+    say,
+  });
+
   const resolveLeave = useCallback(
     async (choice: 'save' | 'discard' | 'cancel') => {
       const go = pending;
@@ -258,6 +338,7 @@ export function StudioProvider({
       resolveLeave,
       pins,
       stagePin,
+      history,
     }),
     [
       state,
@@ -272,6 +353,7 @@ export function StudioProvider({
       resolveLeave,
       pins,
       stagePin,
+      history,
     ]
   );
 

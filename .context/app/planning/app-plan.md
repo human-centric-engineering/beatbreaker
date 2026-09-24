@@ -670,6 +670,19 @@ drilling something. Also: Save gave no sign of where the pattern went, because
 nothing lists account-saved patterns until 4.8. The toast now says "Saved to
 your account" and Save is green. 4.8 is what answers it properly.
 
+**4.7 built 2026-09-24** (branch `phase-4-7-practice-history`). **Back**
+sits between the mark and the title; `Alt+←` / `Alt+→` step like a
+browser's history, over a frozen trail, since every open moves its item to
+the top. **Recent** leads the Library drawer until 4.8 gives it a tab. A
+saved pattern opened from the history opens in place — fetched, loaded and
+attached to its id — rather than by a page load, so the trail and undo
+survive. The layer and tempo are applied to library entries and other
+people's patterns but **not to your own**: yours autosaves them, so its
+document already holds where you left it, and overriding it could only
+disagree and then autosave the disagreement. Checked against a real Postgres:
+the upsert is one `INSERT … ON CONFLICT` (five concurrent first visits, one
+row), the cap holds at 200, the CHECK fires, and both cascades reach the rows.
+
 **Not yet looked at in a browser.** 4.5's header status, Save button and
 unsaved-changes prompt are covered by component tests over the real console
 and frame, but nobody has seen them on screen — the browser extension was not

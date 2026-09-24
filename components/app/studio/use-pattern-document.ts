@@ -80,6 +80,12 @@ export interface PatternDocument {
    * edit is saved on the way out unless `discard` — the prompt's Don't save.
    */
   detach: (options?: { discard?: boolean }) => void;
+  /**
+   * The pattern just put on the stage is this saved one — opened from inside
+   * the Studio rather than by its address. Call it after {@link detach}, in
+   * the same update as the load: the next render's pattern is the baseline.
+   */
+  attach: (id: string, mine: boolean) => void;
   /** True when {@link detach} would lose edits — see the module comment. */
   needsPrompt: boolean;
 }
@@ -363,6 +369,17 @@ export function usePatternDocument({
     [snapshot, patch]
   );
 
+  const attach = useCallback((savedId: string, isMine: boolean) => {
+    generation.current += 1;
+    setId(savedId);
+    setMine(isMine);
+    // null, so the baseline effect takes the pattern as it arrives
+    setSavedKey(null);
+    setRefusedKey(null);
+    setPhase('idle');
+    showAddress(savedId);
+  }, []);
+
   let status: SaveStatus;
   // a first save on its way says so, and takes Save away until it answers
   if ((!id || !mine) && phase === 'saving') status = 'saving';
@@ -370,5 +387,5 @@ export function usePatternDocument({
   else if (phase !== 'idle') status = phase;
   else status = dirty ? 'unsaved' : 'saved';
 
-  return { id, mine, status, save, saveAs, detach, needsPrompt };
+  return { id, mine, status, save, saveAs, detach, attach, needsPrompt };
 }
