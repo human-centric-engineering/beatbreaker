@@ -96,6 +96,23 @@ export const listBreaksSchema = z.object({
   cursor: z.string().optional(),
 });
 
+/**
+ * One row of `GET /api/v1/breaks` as a client reads it — checked, not cast.
+ * Only what the Patterns drawer's _All_ tab prints is held to a shape.
+ */
+export const savedPatternRowSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  style: z.string(),
+  meter: z.string(),
+  bpm: z.number(),
+  level: z.number(),
+});
+
+export const savedPatternListSchema = z.array(savedPatternRowSchema);
+
+export type SavedPatternRow = z.infer<typeof savedPatternRowSchema>;
+
 export type CreateBreakInput = z.infer<typeof createBreakSchema>;
 export type UpdateBreakInput = z.infer<typeof updateBreakSchema>;
 export type BulkCreateBreaksInput = z.infer<typeof bulkCreateBreaksSchema>;

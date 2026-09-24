@@ -10,7 +10,7 @@ import { DoctorPanel } from '@/components/app/studio/panels/doctor-panel';
 import { ExportPanel } from '@/components/app/studio/panels/export-panel';
 import { GeneratePanel } from '@/components/app/studio/panels/generate-panel';
 import { KitPanel } from '@/components/app/studio/panels/kit-panel';
-import { LibraryPanel } from '@/components/app/studio/panels/library-panel';
+import { PatternsPanel } from '@/components/app/studio/panels/patterns-panel';
 import { PracticePanel } from '@/components/app/studio/panels/practice-panel';
 import { Stage } from '@/components/app/studio/stage';
 import { LeaveDialog } from '@/components/app/studio/leave-dialog';
@@ -32,7 +32,7 @@ import '@/components/app/shell/studio.css';
 const PANELS: Record<Tool, React.ComponentType> = {
   gen: GeneratePanel,
   doctor: DoctorPanel,
-  lib: LibraryPanel,
+  patterns: PatternsPanel,
   kit: KitPanel,
   practice: PracticePanel,
   export: ExportPanel,
@@ -104,6 +104,20 @@ export function StudioFrame() {
         (e.key === ' ' || e.key === 'Enter') &&
         el?.closest('button, [role="slider"], [role="menuitem"], [role="button"]')
       ) {
+        return;
+      }
+      /* Back and Forward through the practice history, the browser's own
+         chord for it. Taken from the browser here, where it would otherwise
+         leave the Studio. */
+      if (
+        e.altKey &&
+        !e.metaKey &&
+        !e.ctrlKey &&
+        !e.shiftKey &&
+        (e.key === 'ArrowLeft' || e.key === 'ArrowRight')
+      ) {
+        e.preventDefault();
+        c.history.step(e.key === 'ArrowLeft' ? 'back' : 'forward');
         return;
       }
       if (e.altKey) return;

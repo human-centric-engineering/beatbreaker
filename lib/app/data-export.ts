@@ -128,6 +128,13 @@ export function initAppSubjectSources(): void {
         description:
           'What you pinned to your Practising and Later shelves — your own patterns, shared ones and library entries — and in what order.',
       },
+      {
+        model: 'PracticeVisit',
+        section: 'practiceHistory',
+        disposition: 'export',
+        description:
+          'What you opened in the Studio — your own patterns, shared ones and library entries — when, and the layer and tempo you left each at. The newest 200.',
+      },
       /* The catalogue. Every row is a system row today (`ownerId` null), so
          these three sections come back empty for everybody — and they are
          declared anyway, because the alternative is that the day D16 ships
@@ -177,7 +184,7 @@ export function initAppSubjectSources(): void {
  * change the signature just to add one.
  */
 export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promise<AppSubjectData> {
-  const [breaks, takes, pins, styles, libraries, kits] = await Promise.all([
+  const [breaks, takes, pins, practiceHistory, styles, libraries, kits] = await Promise.all([
     prisma.break.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } }),
     prisma.take.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } }),
     /* The pin rows alone. A pin on someone else's shared pattern names it by
@@ -186,6 +193,8 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
       where: { userId },
       orderBy: [{ shelf: 'asc' }, { position: 'asc' }],
     }),
+    // the visit rows alone, for the reason the pins are
+    prisma.practiceVisit.findMany({ where: { userId }, orderBy: { visitedAt: 'desc' } }),
     /* `ownerId`, not `userId` — the catalogue names its owner differently, and
        that is precisely the column core's own user-id heuristic cannot see. */
     prisma.style.findMany({
@@ -212,6 +221,7 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
     breaks: breaks.map((b) => ({ ...b, seed: b.seed.toString() })),
     takes,
     pins,
+    practiceHistory,
     styles,
     libraries,
     kits,

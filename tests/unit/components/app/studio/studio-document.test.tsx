@@ -21,6 +21,25 @@ vi.mock('@/components/app/breaks/breaks.css', () => ({}));
 vi.mock('@/components/app/shell/studio.css', () => ({}));
 vi.mock('@/components/layouts/header-actions', () => ({ HeaderActions: () => null }));
 vi.mock('@/lib/consent', () => ({ useConsent: () => ({ openPreferences: vi.fn() }) }));
+/* The practice history posts a visit whenever a saved pattern is on the
+   stage, and this file counts POSTs to /api/v1/breaks. It has a file of its
+   own (practice-history.test.tsx); here it is inert. */
+vi.mock('@/components/app/studio/use-practice-history', async (importOriginal) => {
+  const actual =
+    await importOriginal<typeof import('@/components/app/studio/use-practice-history')>();
+  return {
+    ...actual,
+    usePracticeHistory: () => ({
+      items: [],
+      currentId: null,
+      previous: null,
+      following: null,
+      step: () => {},
+      open: () => {},
+      clear: () => Promise.resolve(true),
+    }),
+  };
+});
 vi.mock('@/lib/api/client', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/lib/api/client')>();
   return { ...actual, apiClient: { patch: vi.fn(), post: vi.fn() } };

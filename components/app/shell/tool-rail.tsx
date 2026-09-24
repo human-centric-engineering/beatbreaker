@@ -26,7 +26,7 @@ import { cn } from '@/lib/utils';
  * leaves the phone's footer to the transport alone.
  */
 
-export type Tool = 'gen' | 'doctor' | 'lib' | 'kit' | 'practice' | 'export';
+export type Tool = 'gen' | 'doctor' | 'patterns' | 'kit' | 'practice' | 'export';
 
 /**
  * Dice for Generate because a break really is rolled from a seed; a stethoscope
@@ -36,7 +36,7 @@ export type Tool = 'gen' | 'doctor' | 'lib' | 'kit' | 'practice' | 'export';
 export const TOOLS: Array<{ id: Tool; label: string; Icon: ComponentType<{ size?: number }> }> = [
   { id: 'gen', label: 'Generate', Icon: Dices },
   { id: 'doctor', label: 'Doctor', Icon: Stethoscope },
-  { id: 'lib', label: 'Library', Icon: Library },
+  { id: 'patterns', label: 'Patterns', Icon: Library },
   { id: 'kit', label: 'Kit', Icon: SlidersHorizontal },
   { id: 'practice', label: 'Practice', Icon: Timer },
   { id: 'export', label: 'Export', Icon: Download },

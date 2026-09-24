@@ -4,6 +4,7 @@ import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
 import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
+import { listHistory } from '@/lib/app/breaks/saved/history';
 import { listPins } from '@/lib/app/breaks/saved/pins';
 import { getServerSession } from '@/lib/auth/utils';
 
@@ -17,7 +18,8 @@ import { getServerSession } from '@/lib/auth/utils';
  * It is three cached queries, so the Studio loads with its styles, kits and
  * famous breaks already in the markup and makes no per-item request (the
  * "no N+1 client-side fetches" rule, and this phase's done-when). The practice
- * shelves come the same way, so every ★ is right on first paint.
+ * shelves and history come the same way, so every ★ and Back is right on
+ * first paint.
  *
  * **It gates itself rather than sitting behind the proxy's edge redirect**, and
  * `/studio` is deliberately absent from `lib/app/protected-routes.ts` for the
@@ -38,10 +40,14 @@ export default async function StudioPage() {
   const session = await getServerSession();
   if (!session) return <SignInToOpen loginHref={LOGIN_HREF} />;
 
-  const [catalogue, pins] = await Promise.all([studioCatalogue(), listPins(session.user.id)]);
+  const [catalogue, pins, history] = await Promise.all([
+    studioCatalogue(),
+    listPins(session.user.id),
+    listHistory(session.user.id),
+  ]);
 
   return (
-    <StudioProvider catalogue={catalogue} pins={pins}>
+    <StudioProvider catalogue={catalogue} pins={pins} history={history}>
       <StudioFrame />
     </StudioProvider>
   );

@@ -16,23 +16,30 @@ export type Shelf = (typeof SHELVES)[number];
 
 export const shelfSchema = z.enum(SHELVES);
 
-/** What a pin points at — exactly one of these. */
+/**
+ * What a pin points at — exactly one of these. A practice visit (D18) points
+ * the same way, so `/api/v1/history` uses this type and {@link oneTarget} too.
+ */
 export type PinTarget = { breakId: string } | { libraryEntryId: string };
+
+/** The two target fields of a request body, before exactly-one is checked. */
+export const targetFields = {
+  breakId: cuidSchema.optional(),
+  libraryEntryId: cuidSchema.optional(),
+};
+
+/** Exactly one of the two, as a target — or null for both or neither. */
+export function oneTarget(breakId?: string, libraryEntryId?: string): PinTarget | null {
+  if (breakId !== undefined && libraryEntryId === undefined) return { breakId };
+  if (libraryEntryId !== undefined && breakId === undefined) return { libraryEntryId };
+  return null;
+}
 
 /** `POST /api/v1/pins` — pin one pattern or one library entry to a shelf. */
 export const createPinSchema = z
-  .object({
-    shelf: shelfSchema,
-    breakId: cuidSchema.optional(),
-    libraryEntryId: cuidSchema.optional(),
-  })
+  .object({ shelf: shelfSchema, ...targetFields })
   .transform(({ shelf, breakId, libraryEntryId }, ctx) => {
-    const target =
-      breakId !== undefined && libraryEntryId === undefined
-        ? { breakId }
-        : libraryEntryId !== undefined && breakId === undefined
-          ? { libraryEntryId }
-          : null;
+    const target = oneTarget(breakId, libraryEntryId);
     if (!target) {
       ctx.addIssue({
         code: 'custom',
@@ -67,18 +74,37 @@ export type UpdatePinInput = z.infer<typeof updatePinSchema>;
 
 /**
  * What `GET /api/v1/pins` answers, as a client reads it — checked, not cast.
- * Only what the Studio uses is held to a shape; the rest of each target (bpm,
- * meter, artist…) is what the Patterns drawer and Home will read in 4.8/4.9.
+ * The numbers a row prints (tempo, meter, style, layer) are optional here: the
+ * server always sends them, and a row without one prints less rather than
+ * failing to render the shelf.
  */
-const pinnedTargetSchema = z.discriminatedUnion('kind', [
-  z.object({ kind: z.literal('break'), id: z.string(), title: z.string(), mine: z.boolean() }),
+const shownFields = {
+  bpm: z.number().optional(),
+  meter: z.string().optional(),
+};
+
+export const pinnedTargetSchema = z.discriminatedUnion('kind', [
+  z.object({
+    kind: z.literal('break'),
+    id: z.string(),
+    title: z.string(),
+    mine: z.boolean(),
+    style: z.string().optional(),
+    level: z.number().optional(),
+    ...shownFields,
+  }),
   z.object({
     kind: z.literal('entry'),
     id: z.string(),
     title: z.string(),
     libraryKey: z.string(),
+    artist: z.string().optional(),
+    styleKey: z.string().optional(),
+    ...shownFields,
   }),
 ]);
+
+export type PinnedTarget = z.infer<typeof pinnedTargetSchema>;
 
 export const pinViewSchema = z.object({
   id: z.string(),

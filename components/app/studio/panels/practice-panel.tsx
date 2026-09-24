@@ -1,6 +1,7 @@
 'use client';
 
 import { Slider } from '@/components/app/studio/panels/controls';
+import { ShelfList } from '@/components/app/studio/panels/patterns-panel';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { LANE_DEFS, activeLanes, laneName } from '@/lib/app/breaks/lanes';
 import { cn } from '@/lib/utils';
@@ -15,6 +16,19 @@ export function PracticePanel() {
 
   return (
     <>
+      {/* The shelf you are drilling from, where you are when you drill it —
+          asked for on seeing 4.6. Only when there is something on it: an
+          empty shelf is the Patterns drawer's to explain. */}
+      {c.pins.shelves.practising.length ? (
+        <div className="card">
+          <div className="card-hd">
+            <h3>Practising</h3>
+          </div>
+          <div className="card-bd">
+            <ShelfList shelf="practising" empty={null} />
+          </div>
+        </div>
+      ) : null}
       <div className="card">
         <div className="card-hd">
           <h3>Practice rig</h3>

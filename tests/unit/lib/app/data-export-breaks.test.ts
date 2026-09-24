@@ -15,7 +15,7 @@
  * FORK NOTE — this file reads `@/lib/app/data-export` for real, with no
  * `vi.mock`, because the collector's behaviour IS what it is testing. A fork of
  * BeatBreaker that adds its own tables to that seam will see this fail on the
- * section list: expect the six below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
+ * section list: expect the seven below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
  * collector returns every declared section as a key, and a mock cannot tell you
  * that. The `prisma` methods are mocked instead, which is the part this test
  * genuinely does not need to be real.
@@ -27,6 +27,7 @@ const findMany = {
   breaks: vi.fn(),
   takes: vi.fn(),
   pins: vi.fn(),
+  visits: vi.fn(),
   styles: vi.fn(),
   libraries: vi.fn(),
   kits: vi.fn(),
@@ -37,6 +38,7 @@ vi.mock('@/lib/db/client', () => ({
     break: { findMany: (...args: unknown[]) => findMany.breaks(...args) },
     take: { findMany: (...args: unknown[]) => findMany.takes(...args) },
     pin: { findMany: (...args: unknown[]) => findMany.pins(...args) },
+    practiceVisit: { findMany: (...args: unknown[]) => findMany.visits(...args) },
     style: { findMany: (...args: unknown[]) => findMany.styles(...args) },
     patternLibrary: { findMany: (...args: unknown[]) => findMany.libraries(...args) },
     kit: { findMany: (...args: unknown[]) => findMany.kits(...args) },
@@ -71,6 +73,7 @@ describe('collectAppSubjectData', () => {
       'kits',
       'libraries',
       'pins',
+      'practiceHistory',
       'styles',
       'takes',
     ]);
@@ -80,7 +83,7 @@ describe('collectAppSubjectData', () => {
   it('scopes every query to the subject', async () => {
     await collectAppSubjectData(SUBJECT);
 
-    for (const spy of [findMany.breaks, findMany.takes, findMany.pins]) {
+    for (const spy of [findMany.breaks, findMany.takes, findMany.pins, findMany.visits]) {
       expect(spy).toHaveBeenCalledWith(expect.objectContaining({ where: { userId: 'user-1' } }));
     }
     /* The catalogue names its owner `ownerId`, not `userId`. A copy-paste that
@@ -148,5 +151,28 @@ describe('collectAppSubjectData', () => {
     expect(args).not.toHaveProperty('select');
     expect(args.orderBy).toEqual([{ shelf: 'asc' }, { position: 'asc' }]);
     expect(data.pins).toEqual([pin]);
+  });
+
+  it('exports the practice history newest first, with where each was left, by id alone', async () => {
+    /* The same rule as the pins: a visit to someone else's shared pattern is
+       the subject's data, the pattern is not — so a `breakId`, not a title. */
+    const visit = {
+      id: 'v1',
+      userId: 'user-1',
+      breakId: null,
+      libraryEntryId: 'e1',
+      level: 3,
+      bpm: 72,
+      visitedAt: new Date('2026-09-24T12:00:00Z'),
+    };
+    findMany.visits.mockResolvedValue([visit]);
+
+    const data = await collectAppSubjectData(SUBJECT);
+
+    const args = findMany.visits.mock.calls[0][0] as Record<string, unknown>;
+    expect(args).not.toHaveProperty('include');
+    expect(args).not.toHaveProperty('select');
+    expect(args.orderBy).toEqual({ visitedAt: 'desc' });
+    expect(data.practiceHistory).toEqual([visit]);
   });
 });

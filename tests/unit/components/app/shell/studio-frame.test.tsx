@@ -215,7 +215,8 @@ describe('the Studio', () => {
     renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    await openTool(user, 'Library');
+    await openTool(user, 'Patterns');
+    await user.click(screen.getByRole('tab', { name: 'Libraries' }));
     /* Still the Funky Drummer at 94, and still the first row in the library —
        read off the seed data the catalogue is built from rather than typed out
        again, so an edit to the table moves the expectation with it. */
@@ -347,38 +348,6 @@ describe('the Studio', () => {
     await user.selectOptions(kitPicker(), 'virtuosity');
     expect(voice().queryByLabelText('Bright')).toBeNull();
     expect(voice().getByLabelText('Speed')).toBeTruthy();
-  });
-
-  it('saves a break and gives it back', async () => {
-    const user = userEvent.setup();
-    renderConsole();
-    await screen.findAllByRole('img', { name: /Drum notation/ });
-
-    const name = document.querySelector('.title-block h2')?.textContent ?? '';
-    await openTool(user, 'Library');
-    await user.click(screen.getByRole('button', { name: '＋ Save current' }));
-
-    /* The delete button is named after the break too, so match the row rather
-       than anything carrying the name. */
-    const savedRow = (_n: string, el: Element) =>
-      el.classList.contains('item') && !!el.textContent?.startsWith(name);
-    expect(await screen.findByRole('button', { name: savedRow })).toBeTruthy();
-
-    // a new break moves the grid on; loading the saved one has to bring it back
-    const gridOf = () =>
-      [...document.querySelectorAll('.cell')].map((c) => c.getAttribute('data-on')).join('');
-    const before = gridOf();
-    await user.click(screen.getByRole('button', { name: /^New break/ }));
-    expect(gridOf()).not.toBe(before);
-
-    /* The drawer is non-modal, so writing a new break from the rail leaves
-       Library open beside it — which is the point of the drawers. Pressing the
-       tab again here would close it. */
-    await user.click(screen.getByRole('button', { name: savedRow }));
-    expect(gridOf()).toBe(before);
-
-    await user.click(screen.getByRole('button', { name: `Delete ${name}` }));
-    expect(screen.queryByRole('button', { name: savedRow })).toBeNull();
   });
 
   it('clears a section without losing it', async () => {

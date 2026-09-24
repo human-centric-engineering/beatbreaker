@@ -142,6 +142,24 @@ export function registerAppDriftProbes(): void {
     probe: constraintExists('pin_one_target', 'num_nonnulls("breakId", "libraryEntryId") = 1'),
   });
 
+  /* Practice history (20260924200000_practice_history) — the same two, for
+     the same reasons: a visit points at exactly one thing, and goes with you. */
+  registerAppDriftProbe({
+    name: 'practice_visit_userId_fkey (hand-written FK → user)',
+    kind: 'FK constraint',
+    table: 'practice_visit',
+    probe: constraintExists('practice_visit_userId_fkey', 'ON DELETE CASCADE'),
+  });
+  registerAppDriftProbe({
+    name: 'practice_visit_one_target (CHECK: exactly one of breakId, libraryEntryId)',
+    kind: 'CHECK constraint',
+    table: 'practice_visit',
+    probe: constraintExists(
+      'practice_visit_one_target',
+      'num_nonnulls("breakId", "libraryEntryId") = 1'
+    ),
+  });
+
   /* SET NULL, not CASCADE, and the difference is the point: a style version
      outlives its author because other people's patterns point at it and carry
      its id as provenance. Erasing the author erases the link, not the row. A

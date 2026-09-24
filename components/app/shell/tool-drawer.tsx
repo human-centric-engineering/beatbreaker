@@ -28,7 +28,7 @@ const SHEET_MAX = SNAPS[SNAPS.length - 1];
 const TITLES: Record<Tool, string> = {
   gen: 'Generate',
   doctor: 'Break doctor',
-  lib: 'Library',
+  patterns: 'Patterns',
   kit: 'Kit',
   practice: 'Practice',
   export: 'Export',
