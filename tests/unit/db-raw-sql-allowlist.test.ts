@@ -106,12 +106,6 @@ const ALLOWLIST: ReadonlyArray<{ file: string; calls: number; why: string }> = [
     why: 'conversation-context vector lookup on the hot path',
   },
   {
-    // FORK (BeatBreaker): opening a saved pattern.
-    file: 'lib/app/breaks/saved/data.ts',
-    calls: 1,
-    why: 'owner-scoped touch of break."lastOpenedAt" — raw because a Prisma update stamps @updatedAt, which would make "last opened" and "last edited" one sort. One table, filtered on id AND userId in the statement',
-  },
-  {
     // FORK (BeatBreaker): the app tier's own drift probe.
     file: 'lib/app/db-drift.ts',
     calls: 1,

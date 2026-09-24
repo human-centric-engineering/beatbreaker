@@ -1,11 +1,9 @@
 /**
  * Breaks — one break
  *
- * GET    /api/v1/breaks/:id — the break, whole, with its critic report. Opening
- *        your own break marks it opened ("Recent"); opening someone else's
- *        shared one does not.
+ * GET    /api/v1/breaks/:id — the break, whole, with its critic report
  * PATCH  /api/v1/breaks/:id — rename, replace the document, share or unshare,
- *        pin, describe, set its reference links
+ *        describe, set its reference links
  * DELETE /api/v1/breaks/:id
  *
  * A break the caller does not own answers **404, not 403**, and a shared break
@@ -47,7 +45,7 @@ export const GET = withAuth<{ id: string }>(
 
     const opened = await openSavedBreak(id, session.user.id);
     if (!opened) throw new NotFoundError(`Break ${id} not found`);
-    const { row, payload, links, mine, lastOpenedAt } = opened;
+    const { row, payload, links, mine } = opened;
 
     /* The repaired payload is what goes back, so the client reads what was
        scored. The report is derived, not stored. Storing it would mean a row
@@ -60,7 +58,6 @@ export const GET = withAuth<{ id: string }>(
     log.info('Break fetched', { breakId: id, mine });
     return successResponse({
       ...row,
-      lastOpenedAt,
       links,
       doc: payload,
       // BigInt does not survive JSON.stringify
@@ -107,7 +104,6 @@ export const PATCH = withAuth<{ id: string }>(
       data: {
         ...(patch.title === undefined ? {} : { title: patch.title }),
         ...(patch.shared === undefined ? {} : { shared: patch.shared }),
-        ...(patch.pinned === undefined ? {} : { pinned: patch.pinned }),
         // an empty description clears it rather than storing ''
         ...(patch.description === undefined ? {} : { description: patch.description || null }),
         ...(patch.links === undefined ? {} : { links: patch.links }),
@@ -122,7 +118,6 @@ export const PATCH = withAuth<{ id: string }>(
         swing: true,
         bars: true,
         shared: true,
-        pinned: true,
         level: true,
         description: true,
         links: true,

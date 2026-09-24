@@ -18,18 +18,15 @@ release process.
 
 ### Added
 
-- **Your patterns — `Break` gains `pinned`, `lastOpenedAt`, `level`,
-  `description` and `links`** (migration `break_your_patterns`, additive;
-  `level` backfilled from each stored document's `lv`). `links` holds up to
-  four reference links — YouTube, Vimeo, Spotify — each stored as the canonical
-  URL `parseReferenceLink` (`lib/app/breaks/links.ts`) rebuilt from the id,
-  never the typed string.
+- **Your patterns — `Break` gains `level`, `description` and `links`**
+  (migration `break_your_patterns`, additive; `level` backfilled from each
+  stored document's `lv`). `links` holds up to four reference links — YouTube,
+  Vimeo, Spotify — each stored as the canonical URL `parseReferenceLink`
+  (`lib/app/breaks/links.ts`) rebuilt from the id, never the typed string.
 
-- **`/api/v1/breaks` — Working on, Recent, search, and a bulk create.**
-  `GET` takes `pinned=true|false`, `q` (case-insensitive title search) and
-  `sort=created|updated|opened`, and every row carries the new columns.
-  `GET /:id` marks the owner's own pattern opened (someone else's shared one is
-  left alone). `PATCH /:id` takes `pinned`, `description` and `links`.
+- **`/api/v1/breaks` — search, sort, and a bulk create.** `GET` takes `q`
+  (case-insensitive title search) and `sort=created|updated`, and every row
+  carries the new columns. `PATCH /:id` takes `description` and `links`.
   `POST` also accepts `{ breaks: [...] }` — up to 30, one transaction, all or
   none — for the one-time import of browser favourites.
 

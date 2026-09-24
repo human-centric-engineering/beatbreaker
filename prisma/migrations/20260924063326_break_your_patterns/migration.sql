@@ -1,7 +1,9 @@
 -- BeatBreaker Phase 4: your patterns.
 --
--- Break gains what "Working on", "Recent", the details editor and reference
--- links need.
+-- Break gains its practice layer as a column, a description and reference
+-- links. What is pinned and what was recently opened are not columns here:
+-- they are per-user rows (Pin, PracticeVisit — D17, D18), because a famous
+-- break from the library can be pinned and opened too, and it has no owner.
 --
 -- TEN STATEMENTS PRISMA GENERATED HAVE BEEN DELETED BY HAND, for the reason
 -- given in 20260917215110_breaks_and_takes and 20260923102558_catalogue:
@@ -22,10 +24,8 @@
 
 -- AlterTable
 ALTER TABLE "break" ADD COLUMN     "description" VARCHAR(500),
-ADD COLUMN     "lastOpenedAt" TIMESTAMP(3),
 ADD COLUMN     "level" INTEGER NOT NULL DEFAULT 5,
-ADD COLUMN     "links" JSONB NOT NULL DEFAULT '[]',
-ADD COLUMN     "pinned" BOOLEAN NOT NULL DEFAULT false;
+ADD COLUMN     "links" JSONB NOT NULL DEFAULT '[]';
 
 -- `level` is derived from the document, as `bpm` and `swing` are, and by the
 -- same rule `breakDocFromPayload` applies: a version-1 document numbered its
@@ -38,5 +38,3 @@ SET "level" = CASE
   END
 WHERE "doc" ? 'lv' AND ("doc"->>'lv') ~ '^[1-5]$' AND ("doc"->>'ver') ~ '^[0-9]+$';
 
--- CreateIndex
-CREATE INDEX "break_userId_pinned_lastOpenedAt_idx" ON "break"("userId", "pinned", "lastOpenedAt");

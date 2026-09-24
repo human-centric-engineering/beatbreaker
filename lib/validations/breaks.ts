@@ -49,8 +49,6 @@ const breakFields = z.object({
   /** The whole break, in share-code wire format. */
   doc: sharePayloadSchema,
   shared: z.boolean(),
-  /** "Working on". */
-  pinned: z.boolean(),
   /** Empty clears it. */
   description: z.string().trim().max(500),
   links: z.array(linkSchema).max(MAX_LINKS, `Up to ${MAX_LINKS} links`),
@@ -58,7 +56,6 @@ const breakFields = z.object({
 
 export const createBreakSchema = breakFields.extend({
   shared: breakFields.shape.shared.default(false),
-  pinned: breakFields.shape.pinned.default(false),
   description: breakFields.shape.description.optional(),
   links: breakFields.shape.links.default([]),
 });
@@ -87,18 +84,13 @@ export const listBreaksSchema = z.object({
     .string()
     .refine((s) => METER_KEYS.includes(s), 'unknown meter')
     .optional(),
-  /** Only pinned (`true`) or only unpinned (`false`). */
-  pinned: z
-    .enum(['true', 'false'])
-    .transform((v) => v === 'true')
-    .optional(),
   /** Title search, case-insensitive. */
   q: z.string().trim().max(120).optional(),
   /**
-   * `created` (the default, and what the list always did), `updated`, or
-   * `opened` — "Recent", never-opened rows last.
+   * `created` (the default, and what the list always did) or `updated`. What
+   * you opened recently is the practice history (task 4.7, D18), not a sort.
    */
-  sort: z.enum(['created', 'updated', 'opened']).default('created'),
+  sort: z.enum(['created', 'updated']).default('created'),
   /** Page size. */
   limit: z.coerce.number().int().min(1).max(100).default(50),
   cursor: z.string().optional(),

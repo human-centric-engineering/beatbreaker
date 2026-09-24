@@ -22,7 +22,6 @@ vi.mock('@/lib/auth/config', () => ({ auth: { api: { getSession: vi.fn() } } }))
 vi.mock('@/lib/db/client', () => ({
   prisma: {
     break: { findFirst: vi.fn(), update: vi.fn(), deleteMany: vi.fn() },
-    $executeRaw: vi.fn(),
   },
 }));
 
@@ -63,8 +62,6 @@ function row(overrides: Record<string, unknown> = {}) {
     seed: BigInt(9),
     bars: 2,
     shared: false,
-    pinned: false,
-    lastOpenedAt: null,
     level: 5,
     description: null,
     links: [],
@@ -172,39 +169,6 @@ describe('GET /api/v1/breaks/:id', () => {
     expect((await json<{ data: { mine: boolean } }>(res)).data.mine).toBe(false);
   });
 
-  it('marks the owner’s own break opened, in a statement scoped to the owner', async () => {
-    vi.mocked(prisma.break.findFirst).mockResolvedValue(row() as never);
-    const before = Date.now();
-    const res = await GET(new NextRequest(url()), ctx());
-
-    expect(prisma.$executeRaw).toHaveBeenCalledTimes(1);
-    // a tagged template: the SQL is the strings, the values are bound separately
-    const [strings, openedAt, id, userId] = vi.mocked(prisma.$executeRaw).mock.calls[0];
-    expect((strings as TemplateStringsArray).join('?')).toBe(
-      'UPDATE "break" SET "lastOpenedAt" = ? WHERE "id" = ? AND "userId" = ?'
-    );
-    expect(id).toBe(BREAK_ID);
-    expect(userId).toBe(USER_ID);
-    expect((openedAt as Date).getTime()).toBeGreaterThanOrEqual(before);
-    // and the response carries the time it was just opened, not the stale null
-    const { data } = await json<{ data: { lastOpenedAt: string } }>(res);
-    expect(new Date(data.lastOpenedAt).getTime()).toBe((openedAt as Date).getTime());
-  });
-
-  it('does not mark someone else’s shared break opened — their Recent is theirs', async () => {
-    vi.mocked(prisma.break.findFirst).mockResolvedValue(
-      row({
-        userId: OTHER_ID,
-        shared: true,
-        lastOpenedAt: new Date('2026-09-02T00:00:00Z'),
-      }) as never
-    );
-    const res = await GET(new NextRequest(url()), ctx());
-    expect(prisma.$executeRaw).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a non-owner read must not write
-    const { data } = await json<{ data: { lastOpenedAt: string } }>(res);
-    expect(data.lastOpenedAt).toBe('2026-09-02T00:00:00.000Z');
-  });
-
   it('drops a stored link that no longer passes the allowlist, and keeps the pattern open', async () => {
     vi.mocked(prisma.break.findFirst).mockResolvedValue(
       row({
@@ -237,7 +201,6 @@ describe('PATCH /api/v1/breaks/:id', () => {
       swing,
       bars,
       shared,
-      pinned,
       level,
       description,
       links,
@@ -252,7 +215,6 @@ describe('PATCH /api/v1/breaks/:id', () => {
       swing,
       bars,
       shared,
-      pinned,
       level,
       description,
       links,
@@ -304,13 +266,6 @@ describe('PATCH /api/v1/breaks/:id', () => {
       styleVersionId: 'csv00000000000000000001',
       level: 2,
     });
-  });
-
-  it('pins and unpins, and touches nothing else', async () => {
-    await PATCH(patch({ pinned: true }), ctx());
-    expect(vi.mocked(prisma.break.update).mock.calls[0][0].data).toEqual({ pinned: true });
-    await PATCH(patch({ pinned: false }), ctx());
-    expect(vi.mocked(prisma.break.update).mock.calls[1][0].data).toEqual({ pinned: false });
   });
 
   it('stores an empty description as null, so clearing it clears it', async () => {

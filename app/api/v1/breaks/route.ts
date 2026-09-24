@@ -2,8 +2,8 @@
  * Breaks — list and create
  *
  * GET  /api/v1/breaks — the caller's own saved breaks. `sort=created` (the
- *      default, newest first), `updated`, or `opened` ("Recent", never-opened
- *      last); `pinned=true|false`; `q` searches titles; `style`, `meter`.
+ *      default, newest first) or `updated`; `q` searches titles; `style`,
+ *      `meter`.
  * POST /api/v1/breaks — save a break, or `{ breaks: [...] }` to save up to 30
  *      in one transaction (the one-time import of browser favourites)
  *
@@ -49,8 +49,6 @@ const LIST_SELECT = {
   swing: true,
   bars: true,
   shared: true,
-  pinned: true,
-  lastOpenedAt: true,
   level: true,
   description: true,
   links: true,
@@ -66,14 +64,12 @@ function withLinks<T extends { links: unknown }>(row: T) {
 
 /*
  * Every sort ends on `id`, so rows that tie — two breaks created in the same
- * millisecond by the bulk import, or every never-opened row under `opened` —
- * come back in one fixed order, and the id cursor lands where the last page
+ * millisecond by the bulk import — come back in one fixed order, and the id cursor lands where the last page
  * ended rather than skipping or repeating a tied row.
  */
 const ORDER = {
   created: [{ createdAt: 'desc' }, { id: 'desc' }],
   updated: [{ updatedAt: 'desc' }, { id: 'desc' }],
-  opened: [{ lastOpenedAt: { sort: 'desc', nulls: 'last' } }, { id: 'desc' }],
 } as const;
 
 /** One create's row data — the owner from the session, the columns from the document. */
@@ -85,7 +81,6 @@ function createData(userId: string, input: CreateBreakInput) {
       userId,
       title: input.title,
       shared: input.shared,
-      pinned: input.pinned,
       ...(input.description ? { description: input.description } : {}),
       links: input.links,
       ...columns,
@@ -112,10 +107,9 @@ export const GET = withAuth(
   async (request, session) => {
     const log = await getRouteLogger(request);
     const url = new URL(request.url);
-    const { style, meter, pinned, q, sort, limit, cursor } = listBreaksSchema.parse({
+    const { style, meter, q, sort, limit, cursor } = listBreaksSchema.parse({
       style: url.searchParams.get('style') ?? undefined,
       meter: url.searchParams.get('meter') ?? undefined,
-      pinned: url.searchParams.get('pinned') ?? undefined,
       q: url.searchParams.get('q') || undefined,
       sort: url.searchParams.get('sort') ?? undefined,
       limit: url.searchParams.get('limit') ?? undefined,
@@ -129,7 +123,6 @@ export const GET = withAuth(
         userId: session.user.id,
         ...(style ? { style } : {}),
         ...(meter ? { meter } : {}),
-        ...(pinned === undefined ? {} : { pinned }),
         ...(q ? { title: { contains: q, mode: 'insensitive' as const } } : {}),
       },
       select: LIST_SELECT,
@@ -141,7 +134,7 @@ export const GET = withAuth(
     const hasMore = rows.length > limit;
     const breaks = hasMore ? rows.slice(0, limit) : rows;
 
-    log.info('Breaks listed', { count: breaks.length, style, meter, pinned, sort });
+    log.info('Breaks listed', { count: breaks.length, style, meter, sort });
     return successResponse(breaks.map(withLinks), {
       nextCursor: hasMore ? breaks[breaks.length - 1].id : null,
     });

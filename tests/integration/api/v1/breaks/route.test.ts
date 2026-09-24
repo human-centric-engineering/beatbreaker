@@ -70,8 +70,6 @@ function listRow(overrides: Record<string, unknown> = {}) {
     swing: 0,
     bars: 2,
     shared: false,
-    pinned: false,
-    lastOpenedAt: null,
     level: 5,
     description: null,
     links: [],
@@ -176,7 +174,7 @@ describe('GET /api/v1/breaks', () => {
   });
 });
 
-describe('GET /api/v1/breaks — Working on, Recent, search', () => {
+describe('GET /api/v1/breaks — sort and search', () => {
   beforeEach(() => vi.mocked(prisma.break.findMany).mockResolvedValue([] as never));
 
   const argsFor = async (query: string) => {
@@ -184,23 +182,9 @@ describe('GET /api/v1/breaks — Working on, Recent, search', () => {
     return { res, args: vi.mocked(prisma.break.findMany).mock.calls[0]?.[0] };
   };
 
-  it('sorts by last opened, never-opened rows last, for Recent', async () => {
-    const { args } = await argsFor('sort=opened');
-    expect(args?.orderBy).toEqual([
-      { lastOpenedAt: { sort: 'desc', nulls: 'last' } },
-      { id: 'desc' },
-    ]);
-  });
-
   it('sorts by last edited', async () => {
     const { args } = await argsFor('sort=updated');
     expect(args?.orderBy).toEqual([{ updatedAt: 'desc' }, { id: 'desc' }]);
-  });
-
-  it('filters to pinned — and `pinned=false` means unpinned, not "anything"', async () => {
-    expect((await argsFor('pinned=true')).args?.where).toEqual({ userId: USER_ID, pinned: true });
-    vi.mocked(prisma.break.findMany).mockClear();
-    expect((await argsFor('pinned=false')).args?.where).toEqual({ userId: USER_ID, pinned: false });
   });
 
   it('searches titles case-insensitively, still inside the caller’s own rows', async () => {
@@ -215,7 +199,7 @@ describe('GET /api/v1/breaks — Working on, Recent, search', () => {
     expect((await argsFor('q=')).args?.where).toEqual({ userId: USER_ID });
   });
 
-  it.each([['sort=random'], ['pinned=yes']])('refuses %s', async (query) => {
+  it.each([['sort=random'], ['sort=opened']])('refuses %s', async (query) => {
     const { res } = await argsFor(query);
     expect(res.status).toBe(400);
   });
@@ -223,7 +207,6 @@ describe('GET /api/v1/breaks — Working on, Recent, search', () => {
   it('returns the new columns, with stored links re-checked on the way out', async () => {
     vi.mocked(prisma.break.findMany).mockResolvedValue([
       listRow({
-        pinned: true,
         level: 3,
         links: [
           { kind: 'song', url: 'https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC' },
@@ -234,13 +217,10 @@ describe('GET /api/v1/breaks — Working on, Recent, search', () => {
     const res = await GET(new NextRequest('http://localhost:3000/api/v1/breaks'));
     const { data } = await json<{ data: Array<Record<string, unknown>> }>(res);
     expect(data[0]).toMatchObject({
-      pinned: true,
       level: 3,
       links: [{ kind: 'song', url: 'https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC' }],
     });
     expect(vi.mocked(prisma.break.findMany).mock.calls[0][0]?.select).toMatchObject({
-      pinned: true,
-      lastOpenedAt: true,
       level: true,
       description: true,
       links: true,

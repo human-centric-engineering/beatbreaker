@@ -59,7 +59,6 @@ describe('/studio/[id]', () => {
       payload,
       links: [],
       mine: true,
-      lastOpenedAt: new Date(),
       ...overrides,
     } as never;
   }
