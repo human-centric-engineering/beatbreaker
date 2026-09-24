@@ -169,6 +169,58 @@ share code cannot carry a URL onto someone's screen.
 
 Tests: `tests/integration/api/v1/breaks/`.
 
+## `/api/v1/pins` — practice shelves
+
+What you are **practising**, and what you want to practise **later** (D17). A
+`Pin` row is the only record of it. There is no `Break.pinned`: a famous break
+is a system row with no owner to hold a flag, and one flag cannot say which of
+two shelves.
+
+A pin points at **exactly one** target: one of your patterns, someone else's
+**shared** pattern, or a library entry the catalogue shows. That rule is the
+CHECK `pin_one_target`, hand-written in `20260924130455_practice_shelves` and
+probed in `lib/app/db-drift.ts`, beside the hand-written `pin_userId_fkey`
+(cascade). Deleting either target cascades to its pins. There is one pin per
+target per person (`@@unique([userId, breakId])`, `…libraryEntryId`), so moving
+between shelves is an update, never a second row.
+
+Data layer: `lib/app/breaks/saved/pins.ts` (`listPins`, `pinTarget`, `movePin`,
+`unpin`), server-side only. Schemas: `lib/validations/pins.ts`.
+
+| Route                     | Does                                                                                                                                                                                                                                                |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /api/v1/pins`        | Both shelves in one query: `{ practising: [...], later: [...] }`, each in order. A pin carries its target: `kind: 'break'` (title, style, meter, bpm, level, `mine`) or `kind: 'entry'` (title, artist, `libraryKey`, …).                           |
+| `POST /api/v1/pins`       | `{ shelf, breakId }` or `{ shelf, libraryEntryId }`. Pins it to the **top** of the shelf, 201. Already pinned: 200, left where it is on the same shelf, moved to the top of the other one. A target you cannot see is a 404.                        |
+| `PATCH /api/v1/pins/:id`  | `{ shelf?, after? }`. `after` is another pin on the destination shelf (`null` is the top). A shelf change with no `after` lands at the top. An `after` not on that shelf is a 400. Someone else's pin, or one whose pattern was unshared, is a 404. |
+| `DELETE /api/v1/pins/:id` | Unpin. Someone else's pin is a 404.                                                                                                                                                                                                                 |
+
+**A pin is only as visible as its target.** When the owner of a shared pattern
+unshares it, your pin on it stays on the shelf but drops out of the list. It
+comes back if the pattern is shared again. The list and `POST` use the same
+rule: yours, or `shared`, or in a `system` library.
+
+**Positions are dense, 0 first.** Each placement renumbers the destination
+shelf in one transaction. Unpinning or moving away leaves a gap, which sorts
+the same and is closed by the next placement. Reordering is relative (`after`)
+rather than by index, so pins hidden by the rule above cannot throw an index
+off.
+
+**Library entries are pinned by id, so the seed keeps ids stable.** It
+upserts entries by `seedKey` (a slug of the title), not by position, so
+inserting or reordering breaks in `data/library.ts` moves rows without
+re-pointing pins. Renaming a break in the data file makes it a new entry and
+drops pins on the old one; see `catalogue.md` § Seeding.
+
+In the Studio, the shelves are read server-side with the page and handed to
+`StudioProvider` (`pins`), so every ★ is right on first paint. `usePins`
+(`components/app/studio/use-pins.ts`) reads them back from `GET` after each
+change. `PinButton` is the ★ menu (Practising · Later · Not pinned). It sits on
+each library row and beside the stage title. On the stage it pins the saved
+pattern (`doc.id`), or else the library entry the stage was opened from. On a
+scratch pattern it is disabled until the pattern is saved.
+
+Tests: `tests/integration/api/v1/pins/`, `tests/unit/components/app/studio/pins.test.tsx`.
+
 ## The domain endpoints
 
 Every domain operation is an endpoint as well as a function. The web Studio

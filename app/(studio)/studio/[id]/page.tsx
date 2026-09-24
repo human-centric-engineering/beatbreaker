@@ -6,6 +6,7 @@ import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { openSavedBreak } from '@/lib/app/breaks/saved/data';
+import { listPins } from '@/lib/app/breaks/saved/pins';
 import { getServerSession } from '@/lib/auth/utils';
 import { cuidSchema } from '@/lib/validations/common';
 
@@ -35,15 +36,17 @@ export default async function StudioPatternPage({ params }: { params: Promise<{ 
   const parsedId = cuidSchema.safeParse(id);
   if (!parsedId.success) notFound();
 
-  const [opened, catalogue] = await Promise.all([
+  const [opened, catalogue, pins] = await Promise.all([
     openSavedBreak(parsedId.data, session.user.id),
     studioCatalogue(),
+    listPins(session.user.id),
   ]);
   if (!opened) notFound();
 
   return (
     <StudioProvider
       catalogue={catalogue}
+      pins={pins}
       initial={{
         id: opened.row.id,
         title: opened.row.title,

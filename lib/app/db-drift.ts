@@ -124,6 +124,24 @@ export function registerAppDriftProbes(): void {
     });
   }
 
+  /* Practice shelves (20260924130455_practice_shelves). The FK to `user` is
+     hand-written for the reason the ones above are. The CHECK is what makes a
+     pin point at exactly one thing: without it a row with neither target is a
+     pin on nothing that the list silently drops, and a row with both is
+     counted by both unique indexes — so the same pin could never be moved. */
+  registerAppDriftProbe({
+    name: 'pin_userId_fkey (hand-written FK → user)',
+    kind: 'FK constraint',
+    table: 'pin',
+    probe: constraintExists('pin_userId_fkey', 'ON DELETE CASCADE'),
+  });
+  registerAppDriftProbe({
+    name: 'pin_one_target (CHECK: exactly one of breakId, libraryEntryId)',
+    kind: 'CHECK constraint',
+    table: 'pin',
+    probe: constraintExists('pin_one_target', 'num_nonnulls("breakId", "libraryEntryId") = 1'),
+  });
+
   /* SET NULL, not CASCADE, and the difference is the point: a style version
      outlives its author because other people's patterns point at it and carry
      its id as provenance. Erasing the author erases the link, not the row. A

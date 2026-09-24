@@ -7,7 +7,7 @@
  * way of not having a pattern to show is the same not-found page.
  */
 
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/lib/auth/utils', () => ({ getServerSession: vi.fn() }));
 vi.mock('@/components/app/shell/studio-frame', () => ({ StudioFrame: () => null }));
@@ -17,6 +17,9 @@ vi.mock('@/components/app/shell/studio-frame', () => ({ StudioFrame: () => null 
    the one the Studio expects. `tests/helpers/catalogue.ts` builds the real
    shape from the seed data, so what the provider receives is not a stub. */
 vi.mock('@/lib/app/breaks/catalogue/data', () => ({ studioCatalogue: vi.fn() }));
+/* The practice shelves, mocked at their own seam like the loader: their query
+   and scope are tested through /api/v1/pins, which shares them. */
+vi.mock('@/lib/app/breaks/saved/pins', () => ({ listPins: vi.fn() }));
 /* The loader is mocked at its own seam; its query, its scope and its touch are
    tested through the API route that shares it. */
 vi.mock('@/lib/app/breaks/saved/data', () => ({ openSavedBreak: vi.fn() }));
@@ -32,11 +35,18 @@ import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { getServerSession } from '@/lib/auth/utils';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
+import { listPins } from '@/lib/app/breaks/saved/pins';
 import { openSavedBreak } from '@/lib/app/breaks/saved/data';
 import { createMockAuthSession } from '@/tests/helpers/auth';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 
+const SHELVES = { practising: [], later: [] };
+
 describe('/studio/[id]', () => {
+  beforeEach(() => {
+    vi.mocked(listPins).mockResolvedValue(SHELVES);
+  });
+
   it('sends a signed-out visitor back to the pattern they asked for', async () => {
     vi.mocked(getServerSession).mockResolvedValue(null);
     const el = await StudioPatternPage({ params: Promise.resolve({ id: 'abc123' }) });
@@ -78,6 +88,9 @@ describe('/studio/[id]', () => {
        would render nothing at all; asserting identity is what says the page is
        the one doing the loading. */
     expect(el.props.catalogue).toBe(catalogue);
+    // the shelves come the same way, read for the session user
+    expect(listPins).toHaveBeenCalledWith(createMockAuthSession().user.id);
+    expect(el.props.pins).toBe(SHELVES);
     // asked for as the session user — the loader's scope is only as good as this
     expect(openSavedBreak).toHaveBeenCalledWith(ID, createMockAuthSession().user.id);
     expect(el.props.initial).toEqual({ id: ID, title: 'Cold Carpet', payload, mine: true });

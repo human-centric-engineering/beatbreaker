@@ -11,8 +11,10 @@ import {
   type PatternDocument,
   usePatternDocument,
 } from '@/components/app/studio/use-pattern-document';
+import { type PracticeShelvesState, usePins } from '@/components/app/studio/use-pins';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import { decodeBreak } from '@/lib/app/breaks/share';
+import type { PinTarget, PracticeShelvesView } from '@/lib/validations/pins';
 
 /**
  * The Studio's state, in one place.
@@ -61,6 +63,14 @@ export interface Studio extends BreakConsole {
   leaving: { title: string } | null;
   /** The prompt's answer: save first, discard, or stay. */
   resolveLeave: (choice: 'save' | 'discard' | 'cancel') => Promise<void>;
+  /** The practice shelves (D17). */
+  pins: PracticeShelvesState;
+  /**
+   * What a ★ on the stage pins: the saved pattern if it has an id, else the
+   * library entry it was opened from, else nothing — a scratch pattern has no
+   * identity to pin until it is saved.
+   */
+  stagePin: PinTarget | null;
 }
 
 const StudioContext = createContext<Studio | null>(null);
@@ -79,6 +89,7 @@ function readsAsBreak(code: string): boolean {
 export function StudioProvider({
   catalogue,
   initial,
+  pins: initialPins,
   children,
 }: {
   /**
@@ -92,6 +103,8 @@ export function StudioProvider({
   catalogue: StudioCatalogue;
   /** The saved pattern `/studio/[id]` opened, if any. */
   initial?: InitialPattern;
+  /** The practice shelves, read server-side with the page. */
+  pins?: PracticeShelvesView;
   children: React.ReactNode;
 }) {
   const state = useBreakConsole(catalogue, initial);
@@ -115,6 +128,17 @@ export function StudioProvider({
     [ready, patterns, bpm, swing, level, arrangement]
   );
   const doc = usePatternDocument({ payload, title: patterns.A?.name ?? '', initial, say });
+  const pins = usePins(initialPins, say);
+
+  /* The library entry on the stage, if that is where it came from. Set when an
+     entry is opened and cleared by anything else that replaces the pattern;
+     edits keep it, as they keep a saved pattern's id — it is still that break,
+     being practised. */
+  const [entryId, setEntryId] = useState<string | null>(null);
+  const stagePin = useMemo<PinTarget | null>(
+    () => (doc.id ? { breakId: doc.id } : entryId ? { libraryEntryId: entryId } : null),
+    [doc.id, entryId]
+  );
 
   /* Every action that puts a different pattern on the stage lets the current
      document go first, so the pattern being left keeps its last edit and the
@@ -146,10 +170,18 @@ export function StudioProvider({
   const replacing = useMemo(
     () => ({
       newBreak: (which?: Parameters<typeof newBreak>[0]) => {
-        if (which === undefined || which === 'both') replace(() => newBreak(which));
+        if (which === undefined || which === 'both')
+          replace(() => {
+            setEntryId(null);
+            newBreak(which);
+          });
         else newBreak(which);
       },
-      loadLibraryEntry: (id: string) => replace(() => loadLibraryEntry(id)),
+      loadLibraryEntry: (id: string) =>
+        replace(() => {
+          setEntryId(id);
+          loadLibraryEntry(id);
+        }),
       /* These two answer "does it read?", not "has it loaded?": a code that
          reads may be waiting on the unsaved-changes prompt, which can still be
          cancelled. So the panels say only when it will not read, and the
@@ -159,7 +191,9 @@ export function StudioProvider({
         const fav = favs[index];
         if (!fav || !readsAsBreak(fav.code)) return loadFav(index);
         replace(() => {
-          if (loadFav(index)) say('Loaded');
+          if (!loadFav(index)) return;
+          setEntryId(null);
+          say('Loaded');
         });
         return true;
       },
@@ -168,7 +202,9 @@ export function StudioProvider({
            anything is let go — and before anyone is asked about letting go. */
         if (!readsAsBreak(code)) return loadCode(code);
         replace(() => {
-          if (loadCode(code)) say('Break loaded');
+          if (!loadCode(code)) return;
+          setEntryId(null);
+          say('Break loaded');
         });
         return true;
       },
@@ -220,8 +256,23 @@ export function StudioProvider({
       saveAs,
       leaving: pending ? { title: patterns.A?.name ?? '' } : null,
       resolveLeave,
+      pins,
+      stagePin,
     }),
-    [state, replacing, content, toast, say, doc, saveAs, pending, patterns.A?.name, resolveLeave]
+    [
+      state,
+      replacing,
+      content,
+      toast,
+      say,
+      doc,
+      saveAs,
+      pending,
+      patterns.A?.name,
+      resolveLeave,
+      pins,
+      stagePin,
+    ]
   );
 
   return <StudioContext.Provider value={value}>{children}</StudioContext.Provider>;

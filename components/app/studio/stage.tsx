@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { Stave, type StaveHandle } from '@/components/app/breaks/stave';
 import { StepEditor } from '@/components/app/breaks/step-editor';
+import { PinButton } from '@/components/app/studio/pin-button';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { type SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { engrave } from '@/lib/app/breaks/engrave';
@@ -92,7 +93,10 @@ export function Stage() {
       <div className="chartwrap">
         <div className="chart-hd">
           <div className="title-block">
-            <h2>{c.view.A.name}</h2>
+            <div className="title-row">
+              <h2>{c.view.A.name}</h2>
+              <PinButton target={c.stagePin} label={c.view.A.name} />
+            </div>
             <div className="title-sub">
               <span className="chip">{style?.label ?? c.style}</span>
               <span className="chip brass">

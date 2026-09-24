@@ -106,8 +106,11 @@ export function invalidateCatalogue(): void {
   memos.clear();
 }
 
-/** Only rows the public may see. `system` is all of them until D16. */
-const PUBLIC = { visibility: 'system' } as const;
+/**
+ * Only rows the public may see. `system` is all of them until D16. Exported
+ * for the pins, which must not reach an entry the catalogue would not show.
+ */
+export const PUBLIC = { visibility: 'system' } as const;
 
 function report(problems: RowProblem[]): void {
   /* Warn rather than throw: one unreadable row costs you that row, and the

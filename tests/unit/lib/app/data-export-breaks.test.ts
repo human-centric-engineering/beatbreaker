@@ -15,7 +15,7 @@
  * FORK NOTE — this file reads `@/lib/app/data-export` for real, with no
  * `vi.mock`, because the collector's behaviour IS what it is testing. A fork of
  * BeatBreaker that adds its own tables to that seam will see this fail on the
- * section list: expect the five below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
+ * section list: expect the six below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
  * collector returns every declared section as a key, and a mock cannot tell you
  * that. The `prisma` methods are mocked instead, which is the part this test
  * genuinely does not need to be real.
@@ -26,6 +26,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 const findMany = {
   breaks: vi.fn(),
   takes: vi.fn(),
+  pins: vi.fn(),
   styles: vi.fn(),
   libraries: vi.fn(),
   kits: vi.fn(),
@@ -35,6 +36,7 @@ vi.mock('@/lib/db/client', () => ({
   prisma: {
     break: { findMany: (...args: unknown[]) => findMany.breaks(...args) },
     take: { findMany: (...args: unknown[]) => findMany.takes(...args) },
+    pin: { findMany: (...args: unknown[]) => findMany.pins(...args) },
     style: { findMany: (...args: unknown[]) => findMany.styles(...args) },
     patternLibrary: { findMany: (...args: unknown[]) => findMany.libraries(...args) },
     kit: { findMany: (...args: unknown[]) => findMany.kits(...args) },
@@ -64,14 +66,21 @@ describe('collectAppSubjectData', () => {
     // the key being absent, which an `expect(data.breaks).toEqual([])` would
     // also catch — but only by accident, since undefined fails that too for a
     // different reason.
-    expect(Object.keys(data).sort()).toEqual(['breaks', 'kits', 'libraries', 'styles', 'takes']);
+    expect(Object.keys(data).sort()).toEqual([
+      'breaks',
+      'kits',
+      'libraries',
+      'pins',
+      'styles',
+      'takes',
+    ]);
     for (const section of Object.values(data)) expect(section).toEqual([]);
   });
 
   it('scopes every query to the subject', async () => {
     await collectAppSubjectData(SUBJECT);
 
-    for (const spy of [findMany.breaks, findMany.takes]) {
+    for (const spy of [findMany.breaks, findMany.takes, findMany.pins]) {
       expect(spy).toHaveBeenCalledWith(expect.objectContaining({ where: { userId: 'user-1' } }));
     }
     /* The catalogue names its owner `ownerId`, not `userId`. A copy-paste that
@@ -116,5 +125,28 @@ describe('collectAppSubjectData', () => {
 
     expect(findMany.breaks.mock.calls[0][0]).not.toHaveProperty('select');
     expect(data.breaks).toEqual([{ ...row, seed: '1' }]);
+  });
+
+  it('exports the pins shelf by shelf, in order, naming each target by id alone', async () => {
+    /* A pin on someone else's shared pattern is the subject's data; the
+       pattern is not. So the rows go out whole and unjoined — a `breakId`, not
+       the other person's title — and in the order the shelves show them. */
+    const pin = {
+      id: 'p1',
+      userId: 'user-1',
+      shelf: 'later',
+      position: 0,
+      breakId: 'b-theirs',
+      libraryEntryId: null,
+    };
+    findMany.pins.mockResolvedValue([pin]);
+
+    const data = await collectAppSubjectData(SUBJECT);
+
+    const args = findMany.pins.mock.calls[0][0] as Record<string, unknown>;
+    expect(args).not.toHaveProperty('include');
+    expect(args).not.toHaveProperty('select');
+    expect(args.orderBy).toEqual([{ shelf: 'asc' }, { position: 'asc' }]);
+    expect(data.pins).toEqual([pin]);
   });
 });

@@ -220,7 +220,8 @@ describe('the Studio', () => {
        read off the seed data the catalogue is built from rather than typed out
        again, so an edit to the table moves the expectation with it. */
     const famous = LIBRARY[0];
-    const row = await screen.findByRole('button', { name: new RegExp(famous.title) });
+    // anchored: the row's ★ is named "Pin Funky Drummer"
+    const row = await screen.findByRole('button', { name: new RegExp(`^${famous.title}`) });
     await user.click(row);
 
     expect(document.querySelector('.title-block h2')?.textContent).toBe(famous.title);

@@ -2,6 +2,7 @@
 
 import { Fragment } from 'react';
 
+import { PinButton } from '@/components/app/studio/pin-button';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { libraryGroups } from '@/lib/app/breaks/catalogue/types';
 import { DEFAULT_METER } from '@/lib/app/breaks/meter';
@@ -31,31 +32,39 @@ export function LibraryPanel() {
               <Fragment key={group}>
                 <div className="list-hd">{group}</div>
                 {items.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className="item"
-                    title={item.note ?? undefined}
-                    onClick={() => {
-                      c.loadLibraryEntry(item.id);
-                      say(item.note ? `${item.title} — ${item.note}` : `${item.title} loaded`);
-                    }}
-                  >
-                    <div className="nm">
-                      <b>{item.title}</b>
-                      <span>{item.artist}</span>
-                    </div>
-                    {/* The meter rides with the tempo, because a break in 7/8
+                  /* Load and pin side by side, as the saved rows below do: a
+                     menu button inside the row's button is not valid HTML. */
+                  <div className="pinrow" key={item.id}>
+                    <button
+                      type="button"
+                      className="item"
+                      title={item.note ?? undefined}
+                      onClick={() => {
+                        c.loadLibraryEntry(item.id);
+                        say(item.note ? `${item.title} — ${item.note}` : `${item.title} loaded`);
+                      }}
+                    >
+                      <div className="nm">
+                        <b>{item.title}</b>
+                        <span>{item.artist}</span>
+                      </div>
+                      {/* The meter rides with the tempo, because a break in 7/8
                         at 150 is not the same read as one in 4/4 — and only
                         when it is not 4/4. Every entry carries a meter now that
                         they are rows, where the old `LibraryItem.meter` was set
                         only for the exceptions; printing it unconditionally
                         would put "· 4/4" on forty of the forty-seven rows. */}
-                    <span className="bpm">
-                      {item.bpm}
-                      {item.meter === DEFAULT_METER ? '' : ` · ${item.meter}`}
-                    </span>
-                  </button>
+                      <span className="bpm">
+                        {item.bpm}
+                        {item.meter === DEFAULT_METER ? '' : ` · ${item.meter}`}
+                      </span>
+                    </button>
+                    <PinButton
+                      className="item"
+                      target={{ libraryEntryId: item.id }}
+                      label={item.title}
+                    />
+                  </div>
                 ))}
               </Fragment>
             ))}

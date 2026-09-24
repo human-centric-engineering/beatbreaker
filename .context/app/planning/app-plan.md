@@ -656,6 +656,20 @@ out before the PR that takes Phase 4 onto main** (D17, D18, decided
 columns. Both new tables are personal data: `userId` cascades, and each gets an
 export section.
 
+**4.6 built 2026-09-24** (branch `phase-4-6-practice-shelves`). The ★ sits
+on library rows and beside the stage title. The Patterns drawer's shelves
+are 4.8. Code review found that the seed upserted library entries **by
+position**, so inserting a famous break mid-list would have re-pointed pins
+at the wrong breaks. Fixed on the same branch: entries carry a `seedKey`
+(migration `library_entry_seed_key`) and the seed upserts by it.
+
+Owner requests on seeing it, 2026-09-24, for 4.8 after 4.7: filter the
+famous-breaks library (search, style, meter, as _All_ already plans), and show
+the **Practising** shelf in the Practice drawer too, where you are when you are
+drilling something. Also: Save gave no sign of where the pattern went, because
+nothing lists account-saved patterns until 4.8. The toast now says "Saved to
+your account" and Save is green. 4.8 is what answers it properly.
+
 **Not yet looked at in a browser.** 4.5's header status, Save button and
 unsaved-changes prompt are covered by component tests over the real console
 and frame, but nobody has seen them on screen — the browser extension was not
