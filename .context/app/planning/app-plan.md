@@ -723,8 +723,9 @@ is kept in the key rather than sent or dropped; with nothing readable left
 there is no request, so the import does not repeat. The Patterns drawer's
 _In this browser_ card and the console's `favs` / `saveFav` / `loadFav` /
 `deleteFav` are gone. No API or schema change. Two tabs making their first
-load at the same moment are kept from both importing by a claim
-(`bb.favs.importing`, 60s), added when the 4.10 code review raised it. Not
+load are kept from both importing by a claim (`bb.favs.importing`, 60s),
+added when the 4.10 code review raised it; only two loads in the same
+instant can still both send, since `localStorage` has no lock (`breaks.md`). Not
 looked at in a browser, as for 4.5–4.9.
 
 **4.11 and 4.12 built 2026-09-25** (branch `phase-4-11-4-12-details-docs`,
