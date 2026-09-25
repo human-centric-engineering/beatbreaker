@@ -321,15 +321,23 @@ called once by `StudioProvider`, moves them into the account:
   past 30); with nothing readable in it, no request is made, so the import
   does not repeat. The toast says how many arrived and where: _under
   Patterns › All_.
-- Two Studio tabs opened at the same moment, before either has finished,
-  would each import the list. Not guarded: it needs two first loads racing,
-  once.
+- **One import in flight at a time.** Before the request goes, the hook
+  writes the time to `bb.favs.importing` (`CLAIM_KEY`) and removes it when the
+  request settles, either way. A Studio that finds a claim younger than
+  `CLAIM_MS` (60 s) does nothing — a second tab, or this one remounted by
+  `/studio` → `/studio/[id]` while the request is still out, would otherwise
+  send the same list and save every favourite twice. An older claim is from a
+  tab that died mid-request and is ignored. It is a check-then-write in
+  `localStorage`, not a lock: two tabs whose first loads land in the same
+  instant can still both send.
 
 The console no longer has `favs`, `saveFav`, `loadFav` or `deleteFav`; the
 Patterns drawer's _In this browser_ card is gone with them.
 
-Tests: `tests/unit/lib/app/breaks/favs.test.ts`, and the import through the
-real provider in `tests/unit/components/app/studio/panels/patterns-panel.test.tsx`.
+Tests: `tests/unit/lib/app/breaks/favs.test.ts`, the import through the
+real provider in `tests/unit/components/app/studio/panels/patterns-panel.test.tsx`,
+and the hook's own edges (more than 30, not JSON, no storage, a Strict Mode
+remount, a second Studio while the request is out, a stale claim) in `tests/unit/components/app/studio/use-favs-import.test.ts`.
 
 ## `/api/v1/home` — Home (task 4.9)
 
@@ -356,14 +364,18 @@ page calls `readHome` directly, as the Studio's pages call `listPins`.
 - **The thumbnail is engraved on the server**: the first two bars of section A
   at the card's layer, `engrave(…, { scale: 0.55, perSystem: 2 })`, as an
   `Engraving` node tree — the shape `POST /api/v1/breaks/engrave` answers. A
-  document that will not read gets `thumbnail: null` and a warning in the log;
-  the card stays.
+  document that will not read gets `thumbnail: null` and the card stays; only
+  an engraver that throws is logged (a warning). The `doc` itself is read for
+  the thumbnail and is not in the response — `target` carries the same fields
+  the shelves' does.
 - **No links in the response** (D14). The web page builds them
   (`studioHref` in `components/app/home/home-view.tsx`): a saved pattern opens
   at `/studio/[id]`, a library entry at **`/studio?entry=<id>`** — the Studio
   page passes a valid id to `StudioProvider` as `openEntry`, which opens it
   once the console is ready through the same `openTarget` a shelf row uses, at
-  the layer and tempo of its latest visit. An id the catalogue does not hold
+  the layer and tempo of its latest visit — or, never visited, at
+  `FULL_LAYER` (5) and the entry's own tempo, which is what the card says; not
+  the layer the Studio last had. An id the catalogue does not hold
   says "That pattern is no longer there" over a working Studio.
 - The thumbnail renders through `components/app/breaks/svg-nodes.tsx`
   (`renderSvgNode`) — the stave's own node renderer, moved out of `stave.tsx`

@@ -11,6 +11,9 @@
  * as visible is asserted as the `where` sent, as the pins and history tests
  * do; `visibleTarget` itself is exercised there.
  *
+ * `engrave` is wrapped in a pass-through spy so one test can make it throw —
+ * no real document does — and every other test still gets the real drawing.
+ *
  * @see app/api/v1/home/route.ts
  * @see lib/app/breaks/saved/home.ts
  */
@@ -26,6 +29,10 @@ import { mockAuthenticatedUser } from '@/tests/helpers/auth';
 import { testCatalogue, testStyle } from '@/tests/helpers/catalogue';
 
 vi.mock('@/lib/auth/config', () => ({ auth: { api: { getSession: vi.fn() } } }));
+vi.mock('@/lib/app/breaks/engrave', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/lib/app/breaks/engrave')>();
+  return { ...actual, engrave: vi.fn(actual.engrave) };
+});
 vi.mock('@/lib/db/client', () => ({
   prisma: {
     pin: { findMany: vi.fn() },
@@ -34,6 +41,7 @@ vi.mock('@/lib/db/client', () => ({
   },
 }));
 
+import { engrave } from '@/lib/app/breaks/engrave';
 import { auth } from '@/lib/auth/config';
 import { prisma } from '@/lib/db/client';
 
@@ -231,6 +239,18 @@ describe('GET /api/v1/home', () => {
     expect(bars).toEqual([2, 1]);
   });
 
+  it('sends the thumbnail, not the stored document it was drawn from', async () => {
+    vi.mocked(prisma.pin.findMany).mockResolvedValue([
+      pinRow('cpin1', { breakRef: breakRef(MINE, USER_ID, 5, 90, savedDoc(3)) }),
+      pinRow('cpin2', { libraryEntry: entryRef }),
+    ] as never);
+
+    const { data } = await home();
+
+    expect(data.practising.map((c) => c.thumbnail === null)).toEqual([false, false]);
+    for (const card of data.practising) expect(card.target).not.toHaveProperty('doc');
+  });
+
   it('draws the thumbnail at the layer the card opens at', async () => {
     const doc = savedDoc(7);
     vi.mocked(prisma.pin.findMany).mockResolvedValue([
@@ -256,6 +276,62 @@ describe('GET /api/v1/home', () => {
     expect(status).toBe(200);
     expect(data.practising).toHaveLength(1);
     expect(data.practising[0].thumbnail).toBeNull();
+  });
+
+  it('opens someone else’s pattern you never visited at its own layer and tempo', async () => {
+    vi.mocked(prisma.pin.findMany).mockResolvedValue([
+      pinRow('cpin1', { breakRef: breakRef(THEIRS, OTHER_ID, 3, 104, savedDoc(5)) }),
+    ] as never);
+
+    const { data } = await home();
+
+    expect(data.practising.map((c) => [c.level, c.bpm, c.lastOpenedAt])).toEqual([[3, 104, null]]);
+  });
+
+  it('keeps a famous break whose document will not read, without a thumbnail', async () => {
+    vi.mocked(prisma.pin.findMany).mockResolvedValue([
+      pinRow('cpin1', { libraryEntry: { ...entryRef, doc: { not: 'a pattern' } } }),
+    ] as never);
+
+    const { data } = await home();
+
+    expect(data.practising.map((c) => [c.pinId, c.thumbnail])).toEqual([['cpin1', null]]);
+  });
+
+  it('drops a pin whose target came back as neither a pattern nor a library entry', async () => {
+    vi.mocked(prisma.pin.findMany).mockResolvedValue([
+      pinRow('cpin1', {}),
+      pinRow('cpin2', { breakRef: breakRef(MINE, USER_ID, 5, 90, savedDoc(3)) }),
+    ] as never);
+
+    const { data } = await home();
+
+    expect(data.practising.map((c) => c.pinId)).toEqual(['cpin2']);
+  });
+
+  it.each([
+    ['an Error', new Error('bad bar')],
+    ['a non-Error', 'bad bar'],
+  ])('keeps the card without a thumbnail when the engraver throws %s', async (_, thrown) => {
+    vi.mocked(engrave).mockImplementationOnce(() => {
+      // eslint-disable-next-line @typescript-eslint/only-throw-error -- the non-Error arm is under test
+      throw thrown;
+    });
+    vi.mocked(prisma.pin.findMany).mockResolvedValue([
+      pinRow('cpin1', { breakRef: breakRef(MINE, USER_ID, 5, 90, savedDoc(3)) }),
+      pinRow('cpin2', {
+        breakRef: breakRef('cbrk00000000000000000003', USER_ID, 5, 90, savedDoc(4)),
+      }),
+    ] as never);
+
+    const { status, data } = await home();
+
+    expect(status).toBe(200);
+    // one bad card costs its own drawing, not the page or its neighbours'
+    expect(data.practising.map((c) => [c.pinId, c.thumbnail === null])).toEqual([
+      ['cpin1', true],
+      ['cpin2', false],
+    ]);
   });
 
   it(`lists the newest ${HOME_RECENT} history items and counts what you have saved`, async () => {

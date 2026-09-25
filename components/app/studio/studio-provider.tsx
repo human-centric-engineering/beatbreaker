@@ -31,6 +31,7 @@ import {
   usePracticeHistory,
 } from '@/components/app/studio/use-practice-history';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
+import { FULL_LAYER } from '@/lib/app/breaks/layers';
 import { decodeBreak } from '@/lib/app/breaks/share';
 import type { HistoryItem } from '@/lib/validations/history';
 import type { PinTarget, PracticeShelvesView } from '@/lib/validations/pins';
@@ -329,13 +330,18 @@ export function StudioProvider({
     if (!ready || !id) return;
     entryToOpen.current = undefined;
     const left = initialHistory?.find((v) => v.target.kind === 'entry' && v.target.id === id);
-    void openTarget(
-      { libraryEntryId: id },
-      left ? { level: left.level, bpm: left.bpm } : undefined
-    ).then((result) => {
+    /* Never opened: the full break at its own tempo — what Home's card says it
+       opens at, rather than whatever layer and tempo the Studio last had. */
+    const entry = catalogue.libraries.flatMap((l) => l.entries).find((e) => e.id === id);
+    const at = left
+      ? { level: left.level, bpm: left.bpm }
+      : entry
+        ? { level: FULL_LAYER, bpm: entry.bpm }
+        : undefined;
+    void openTarget({ libraryEntryId: id }, at).then((result) => {
       if (result === 'gone') say('That pattern is no longer there');
     });
-  }, [ready, initialHistory, openTarget, say]);
+  }, [ready, initialHistory, catalogue, openTarget, say]);
 
   const historyCurrent = useMemo<HistoryCurrent | null>(
     () => (ready && stagePin ? { target: stagePin, level, bpm } : null),

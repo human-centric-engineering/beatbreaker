@@ -36,6 +36,7 @@ import { StudioProvider, useStudio } from '@/components/app/studio/studio-provid
 import { RECORD_MS } from '@/components/app/studio/use-practice-history';
 import { APIClientError, apiClient } from '@/lib/api/client';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
+import { FULL_LAYER } from '@/lib/app/breaks/layers';
 import { breakPayload } from '@/lib/app/breaks/share';
 import type { HistoryItem } from '@/lib/validations/history';
 import { testCatalogue, testStyle } from '@/tests/helpers/catalogue';
@@ -367,13 +368,14 @@ describe("opening an entry by its address — /studio?entry= (Home's Continue, t
     );
   });
 
-  it('opens one never visited at its own tempo', async () => {
+  it('opens one never visited as the full break at its own tempo — what Home’s card says', async () => {
     // not the Studio's default tempo, so arriving on the default would fail this
     expect(ENTRY_B.bpm).not.toBe(94);
     await open({ openEntry: ENTRY_B.id });
 
     await waitFor(() => expect(title()).toBe(ENTRY_B.title));
-    expect(place().bpm).toBe(ENTRY_B.bpm);
+    // the Studio's default layer is 3, so a load that ignored the card would land there
+    expect(place()).toEqual({ level: FULL_LAYER, bpm: ENTRY_B.bpm });
   });
 
   it('says so when the catalogue no longer holds it, and leaves the Studio usable', async () => {

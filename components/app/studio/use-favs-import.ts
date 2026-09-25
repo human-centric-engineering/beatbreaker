@@ -12,6 +12,20 @@ import { logger } from '@/lib/logging';
 /** The bulk create answers with the rows it wrote — only how many is read. */
 const created = z.array(z.object({ id: z.string() }));
 
+/**
+ * Set while a request is in flight, so a second Studio — another tab, or this
+ * one remounted by a navigation — does not send the same favourites again.
+ * It holds when it was set; one older than `CLAIM_MS` is from a tab that died
+ * mid-request and is ignored.
+ */
+export const CLAIM_KEY = 'bb.favs.importing';
+export const CLAIM_MS = 60_000;
+
+function claimed(store: Storage): boolean {
+  const at = Number(store.getItem(CLAIM_KEY));
+  return Number.isFinite(at) && at > 0 && Date.now() - at < CLAIM_MS;
+}
+
 function storage(): Storage | null {
   try {
     return typeof window === 'undefined' ? null : window.localStorage;
@@ -30,7 +44,8 @@ function storage(): Storage | null {
  * and the next Studio load tries again. On success what was sent is taken out;
  * an entry that did not read is left in, since nothing was done with it, and
  * with nothing readable left there is no request to make, so the import does
- * not repeat.
+ * not repeat. While the request is in flight a claim ({@link CLAIM_KEY}) keeps
+ * any other Studio from sending the same list.
  */
 export function useFavsImport(styles: StyleLookup, say: (message: string) => void): void {
   const started = useRef(false);
@@ -49,6 +64,7 @@ export function useFavsImport(styles: StyleLookup, say: (message: string) => voi
 
     let raw: unknown;
     try {
+      if (claimed(store)) return;
       const text = store.getItem(FAVS_KEY);
       if (text === null) return;
       raw = JSON.parse(text);
@@ -60,6 +76,12 @@ export function useFavsImport(styles: StyleLookup, say: (message: string) => voi
     if (!breaks.length) return;
     const sending = breaks.slice(0, MAX_BULK_BREAKS);
     const left = [...unreadable, ...breaks.slice(MAX_BULK_BREAKS).map((b) => b.entry)];
+
+    try {
+      store.setItem(CLAIM_KEY, String(Date.now()));
+    } catch {
+      return; // a claim that cannot be written cannot keep a second import out
+    }
 
     void (async () => {
       try {
@@ -79,6 +101,8 @@ export function useFavsImport(styles: StyleLookup, say: (message: string) => voi
           error,
           count: sending.length,
         });
+      } finally {
+        store.removeItem(CLAIM_KEY);
       }
     })();
   }, []);

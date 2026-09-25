@@ -1,7 +1,7 @@
 import type { Prisma } from '@prisma/client';
 
 import { type Engraving, engrave } from '@/lib/app/breaks/engrave';
-import { reducePattern } from '@/lib/app/breaks/layers';
+import { FULL_LAYER, reducePattern } from '@/lib/app/breaks/layers';
 import { packedPatternSchema, storedPayloadSchema } from '@/lib/app/breaks/schema';
 import { listHistory, type PracticeVisitView } from '@/lib/app/breaks/saved/history';
 import {
@@ -90,13 +90,29 @@ export function thumbnailOf(
   return engrave(shown, null, { scale: THUMB_SCALE, perSystem: THUMB_BARS });
 }
 
+function withoutDoc<T extends { doc: Prisma.JsonValue }>({
+  doc: _doc,
+  ...rest
+}: T): Omit<T, 'doc'> {
+  return rest;
+}
+
 function toCard(
   row: CardRow,
   userId: string,
   visits: Map<string, PracticeVisitView>
 ): HomeCard | null {
-  const target = toTargetView(row, userId);
-  const doc = row.breakRef?.doc ?? row.libraryEntry?.doc;
+  /* The document is read for the thumbnail and goes no further: `toTargetView`
+     spreads what it is given, and a card is not the way to fetch a pattern. */
+  const { breakRef, libraryEntry } = row;
+  const doc = breakRef?.doc ?? libraryEntry?.doc;
+  const target = toTargetView(
+    {
+      breakRef: breakRef && withoutDoc(breakRef),
+      libraryEntry: libraryEntry && withoutDoc(libraryEntry),
+    },
+    userId
+  );
   if (!target || doc === undefined) return null;
 
   const visit = visits.get(`${target.kind}:${target.id}`);
@@ -108,7 +124,7 @@ function toCard(
       ? { level: target.level, bpm: target.bpm }
       : visit
         ? { level: visit.level, bpm: visit.bpm }
-        : { level: target.kind === 'break' ? target.level : 5, bpm: target.bpm };
+        : { level: target.kind === 'break' ? target.level : FULL_LAYER, bpm: target.bpm };
 
   let thumbnail: Engraving | null = null;
   try {
