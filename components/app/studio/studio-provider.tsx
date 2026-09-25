@@ -301,7 +301,7 @@ export function StudioProvider({
           return;
         }
         setEntryId(null);
-        attach(opened.id, opened.mine);
+        attach(opened.id, opened.mine, opened.details);
       });
       return 'opened';
     },

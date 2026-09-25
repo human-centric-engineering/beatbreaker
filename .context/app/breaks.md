@@ -45,33 +45,33 @@ argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
 
 ## Modules
 
-| Module             | What it does                                                                                                                                                                                                        |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `types.ts`         | `Pattern`, `Bar`, `Pins`, `Meter`, `Style`, `StyleAttrs`, `ResolvedStyle`, `Feel`: the shapes everything else agrees on.                                                                                            |
-| `meter.ts`         | The 12 meters. `stepsOf`, `groupsOf` (pulse groups in steps), `isGroupStart`, `pulseInfo`, `countLabelsOf`, and `remapStep`/`remapList`, which carry a style's 4/4 positions into another meter by (pulse, offset). |
-| `styles.ts`        | `styleIn(style, meter)` — a style carried into a meter it was not written for, by pulse rather than by raw step index. The style **table** is seed data now; see `catalogue.md`.                                    |
-| `lanes.ts`         | Lane keys and order, `LANE_VALUES`, `LANE_DEFS`, percussion instruments (`PERC_INSTS`), the default mix, rosters per style.                                                                                         |
-| `pattern.ts`       | `emptyBar`, `clonePattern`, pins (`pinArray`, `setPin`), `resolveLanes`, `writePerc`, and `parseBar`, which reads the bar-string notation the library is written in.                                                |
-| `rng.ts`           | `makeRng`, `wpick` (weighted pick), `clamp`.                                                                                                                                                                        |
-| `generate.ts`      | `generatePattern` (one candidate), `deriveB` (the B section from an A), `toRide`, fills, `nameBreak`.                                                                                                               |
-| `critic.ts`        | `playability` is a pass/fail gate ("can four limbs play this?"). `critique` is a 0–100 opinion. `generateGood` draws 16 candidates and keeps the best, and an unplayable one wins only if nothing passes.           |
-| `layers.ts`        | `reduceBar` / `reducePattern` for L1–L5, `LAYER_NAMES`, and `LAYER_V1_TO_V2` for codes saved before the layers were renumbered.                                                                                     |
-| `engrave.ts`       | Notation as an `SvgNode` tree plus a playhead `map` with one anchor per step. It builds no DOM, so it runs on the server.                                                                                           |
-| `doctor.ts`        | The twelve named edits (`DOCTOR_MOVES`). `entropy` makes a move reproducible when you pass a fixed value.                                                                                                           |
-| `library.ts`       | `LibraryItem` (the shape the seed data is written in) and `patternFromLibrary(item, index, style?)`, which the seed runs to build each entry's stored document. The 47 entries themselves are rows.                 |
-| `feel.ts`          | Swing positions, the per-style off-grid feel, and hi-hat dynamics. These change _when and how hard_ a note sounds, never the pattern.                                                                               |
-| `share.ts`         | `encodeBreak` / `decodeBreak` (base64 share codes), `breakDocFromPayload` (the same conversion for a JSON body) and `breakPayload` (a break as the JSON a save sends).                                              |
-| `schema.ts`        | Zod schemas for everything from outside: `sharePayloadSchema`, `packedPatternSchema`, `styleAttrsSchema`, `feelSchema`.                                                                                             |
-| `catalogue/*`      | The data layer, the row schemas and the admin write shapes. Server-side. See `catalogue.md`.                                                                                                                        |
-| `midi.ts`          | `buildMidi`: a format-0 Standard MIDI File, GM drum map on channel 10, with swing and feel written into the tick positions.                                                                                         |
-| `kit.ts`           | The kit vocabulary — slots, voices, knob definitions, `ResolvedKit`, and the synth's own `SYNTH_FALLBACK` / `SAMPLE_STAND_IN`. The kit **table** is rows. Browser-only consumers.                                   |
-| `pending-link.ts`  | Carries a shared link's `#b=` fragment through sign-in (see below).                                                                                                                                                 |
-| `links.ts`         | `parseReferenceLink`: a YouTube, Vimeo or Spotify link, https and exact hosts only, rebuilt as a canonical URL from its id. `readStoredLinks` re-checks a stored list on the way out.                               |
-| `columns.ts`       | `columnsFromDoc`: the `Break` columns read off the document (style, style version, meter, tempo, swing, seed, bars, level), never off the request.                                                                  |
-| `scratch.ts`       | The pattern that has never been saved, kept in `localStorage` (`bb.scratch`) across a reload; read back through `sharePayloadSchema`.                                                                               |
-| `saved/data.ts`    | `openSavedBreak`: the one "yours or shared" read that `GET /:id` and `/studio/[id]` share. Server-side.                                                                                                             |
-| `saved/targets.ts` | What a pin and a practice visit point at: `visibleTarget` (the "yours, shared, or in the catalogue" rule), `TARGET_SELECT`, `toTargetView`, `targetVisible`. Server-side; `pins.ts` and `history.ts` share it.      |
-| `audio/*`          | Browser only. `engine.ts` (Web Audio), `transport.ts` (the look-ahead clock, metronome, MIDI out), `packs.ts` / `user-kit.ts` (recorded and user samples), `midi-out.ts` (Web MIDI port).                           |
+| Module             | What it does                                                                                                                                                                                                                      |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `types.ts`         | `Pattern`, `Bar`, `Pins`, `Meter`, `Style`, `StyleAttrs`, `ResolvedStyle`, `Feel`: the shapes everything else agrees on.                                                                                                          |
+| `meter.ts`         | The 12 meters. `stepsOf`, `groupsOf` (pulse groups in steps), `isGroupStart`, `pulseInfo`, `countLabelsOf`, and `remapStep`/`remapList`, which carry a style's 4/4 positions into another meter by (pulse, offset).               |
+| `styles.ts`        | `styleIn(style, meter)` — a style carried into a meter it was not written for, by pulse rather than by raw step index. The style **table** is seed data now; see `catalogue.md`.                                                  |
+| `lanes.ts`         | Lane keys and order, `LANE_VALUES`, `LANE_DEFS`, percussion instruments (`PERC_INSTS`), the default mix, rosters per style.                                                                                                       |
+| `pattern.ts`       | `emptyBar`, `clonePattern`, pins (`pinArray`, `setPin`), `resolveLanes`, `writePerc`, and `parseBar`, which reads the bar-string notation the library is written in.                                                              |
+| `rng.ts`           | `makeRng`, `wpick` (weighted pick), `clamp`.                                                                                                                                                                                      |
+| `generate.ts`      | `generatePattern` (one candidate), `deriveB` (the B section from an A), `toRide`, fills, `nameBreak`.                                                                                                                             |
+| `critic.ts`        | `playability` is a pass/fail gate ("can four limbs play this?"). `critique` is a 0–100 opinion. `generateGood` draws 16 candidates and keeps the best, and an unplayable one wins only if nothing passes.                         |
+| `layers.ts`        | `reduceBar` / `reducePattern` for L1–L5, `LAYER_NAMES`, and `LAYER_V1_TO_V2` for codes saved before the layers were renumbered.                                                                                                   |
+| `engrave.ts`       | Notation as an `SvgNode` tree plus a playhead `map` with one anchor per step. It builds no DOM, so it runs on the server.                                                                                                         |
+| `doctor.ts`        | The twelve named edits (`DOCTOR_MOVES`). `entropy` makes a move reproducible when you pass a fixed value.                                                                                                                         |
+| `library.ts`       | `LibraryItem` (the shape the seed data is written in) and `patternFromLibrary(item, index, style?)`, which the seed runs to build each entry's stored document. The 47 entries themselves are rows.                               |
+| `feel.ts`          | Swing positions, the per-style off-grid feel, and hi-hat dynamics. These change _when and how hard_ a note sounds, never the pattern.                                                                                             |
+| `share.ts`         | `encodeBreak` / `decodeBreak` (base64 share codes), `breakDocFromPayload` (the same conversion for a JSON body) and `breakPayload` (a break as the JSON a save sends).                                                            |
+| `schema.ts`        | Zod schemas for everything from outside: `sharePayloadSchema`, `packedPatternSchema`, `styleAttrsSchema`, `feelSchema`.                                                                                                           |
+| `catalogue/*`      | The data layer, the row schemas and the admin write shapes. Server-side. See `catalogue.md`.                                                                                                                                      |
+| `midi.ts`          | `buildMidi`: a format-0 Standard MIDI File, GM drum map on channel 10, with swing and feel written into the tick positions.                                                                                                       |
+| `kit.ts`           | The kit vocabulary — slots, voices, knob definitions, `ResolvedKit`, and the synth's own `SYNTH_FALLBACK` / `SAMPLE_STAND_IN`. The kit **table** is rows. Browser-only consumers.                                                 |
+| `pending-link.ts`  | Carries a shared link's `#b=` fragment through sign-in (see below).                                                                                                                                                               |
+| `links.ts`         | `parseReferenceLink`: a YouTube, Vimeo or Spotify link, https and exact hosts only, rebuilt as a canonical URL from its id. `readStoredLinks` re-checks a stored list on the way out; `storedLinkSchema` reads one on the client. |
+| `columns.ts`       | `columnsFromDoc`: the `Break` columns read off the document (style, style version, meter, tempo, swing, seed, bars, level), never off the request.                                                                                |
+| `scratch.ts`       | The pattern that has never been saved, kept in `localStorage` (`bb.scratch`) across a reload; read back through `sharePayloadSchema`.                                                                                             |
+| `saved/data.ts`    | `openSavedBreak`: the one "yours or shared" read that `GET /:id` and `/studio/[id]` share. Server-side.                                                                                                                           |
+| `saved/targets.ts` | What a pin and a practice visit point at: `visibleTarget` (the "yours, shared, or in the catalogue" rule), `TARGET_SELECT`, `toTargetView`, `targetVisible`. Server-side; `pins.ts` and `history.ts` share it.                    |
+| `audio/*`          | Browser only. `engine.ts` (Web Audio), `transport.ts` (the look-ahead clock, metronome, MIDI out), `packs.ts` / `user-kit.ts` (recorded and user samples), `midi-out.ts` (Web MIDI port).                                         |
 
 ## The wire format (share code, version 4)
 
@@ -166,7 +166,10 @@ a `resource` resolver would make the policy refuse every shared read (H12).
 the id checked against the provider's shape. What is stored is the URL rebuilt
 from the id, never what was typed. A YouTube `t=` start time survives. Anything
 else is a 400 naming what is accepted. They are kept out of `doc` so a pasted
-share code cannot carry a URL onto someone's screen.
+share code cannot carry a URL onto someone's screen. `GET /:id` answers them
+with `description`; the Studio edits both in its Details form and draws the
+links as chips beside the title (task 4.11 — see [`patterns.md`](./patterns.md)).
+A copy — Save on someone else's pattern, or Save a copy — carries them.
 
 Tests: `tests/integration/api/v1/breaks/`.
 

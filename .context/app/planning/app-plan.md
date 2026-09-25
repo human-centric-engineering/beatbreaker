@@ -726,6 +726,24 @@ _In this browser_ card and the console's `favs` / `saveFav` / `loadFav` /
 load at the same moment would each import; not guarded. Not looked at in a
 browser, as for 4.5–4.9.
 
+**4.11 and 4.12 built 2026-09-25** (branch `phase-4-11-4-12-details-docs`,
+one PR). **Details** heads the Export drawer: Name, Description and up to four
+Links, each with `<FieldHelp>`, checked by the same `parseReferenceLink` the
+API runs, so every refusal is made before anything is sent, with `LINK_RULE`
+naming what is accepted. The name can be changed on anything (it autosaves
+with the document); the description and links only on a saved pattern of
+yours — on scratch they wait for Save, on someone else's they are shown
+read-only and a copy keeps them. They are held beside the document
+(`doc.details`), not in it, and sent by their own PATCH. **Save a copy** in the
+same form is Save As, which had no control until now. The ▶ Video / ♫ Song
+chips sit beside the stage title, open in a new tab with `noopener
+noreferrer`, and re-check each `href` on the way to the screen. 4.12:
+[`patterns.md`](../patterns.md) (the document model, which no doc covered, and
+D8: `Take` dormant), `breaks.md` pointed at it. **No CHANGELOG line**: neither
+task changes an endpoint, a column or a seam, and the Phase 4 API and schema
+changes already have theirs (CLAUDE.md: only the public surface goes in). Not
+looked at in a browser, as for 4.5–4.10.
+
 **Not yet looked at in a browser.** 4.5's header status, Save button and
 unsaved-changes prompt are covered by component tests over the real console
 and frame, but nobody has seen them on screen — the browser extension was not

@@ -9,7 +9,39 @@ import { useStudio } from '@/components/app/studio/studio-provider';
 import { type SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { engrave } from '@/lib/app/breaks/engrave';
 import { LAYER_BLURB, LAYER_NAMES } from '@/lib/app/breaks/layers';
+import { parseReferenceLink, type StoredLink } from '@/lib/app/breaks/links';
 import { cn } from '@/lib/utils';
+
+/**
+ * The pattern's reference links as chips beside its title (task 4.11): ▶ Video
+ * or ♫ Song, each opening in a new tab. Every href is re-read through the
+ * allowlist on the way to the screen — a stored link that no longer passes is
+ * not drawn, whatever put it there.
+ */
+function LinkChips({ links }: { links: StoredLink[] }) {
+  if (!links.length) return null;
+  return (
+    <span className="title-links">
+      {links.map((link, i) => {
+        const parsed = parseReferenceLink(link.url);
+        if (!parsed) return null;
+        const text = link.label ?? (parsed.kind === 'video' ? 'Video' : 'Song');
+        return (
+          <a
+            key={i}
+            className="chip link"
+            href={parsed.canonicalUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${text} (opens in a new tab)`}
+          >
+            <span aria-hidden="true">{parsed.kind === 'video' ? '▶' : '♫'}</span> {text}
+          </a>
+        );
+      })}
+    </span>
+  );
+}
 
 /**
  * The chart and the step editor: what the Studio is actually for.
@@ -96,6 +128,7 @@ export function Stage() {
             <div className="title-row">
               <h2>{c.view.A.name}</h2>
               <PinButton target={c.stagePin} label={c.view.A.name} />
+              <LinkChips links={c.doc.details.links} />
             </div>
             <div className="title-sub">
               <span className="chip">{style?.label ?? c.style}</span>

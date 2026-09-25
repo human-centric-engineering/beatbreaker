@@ -157,6 +157,17 @@ export interface StoredLink {
 const storedEntry = z.object({ url: z.string(), label: z.string().optional() });
 
 /**
+ * A {@link StoredLink} as the API answers it, for a client reading one back —
+ * checked, not cast. The API has already re-parsed each link; a client that
+ * puts one in an `href` still goes through {@link parseReferenceLink}.
+ */
+export const storedLinkSchema = z.object({
+  kind: z.enum(['video', 'song']),
+  url: z.string(),
+  label: z.string().optional(),
+});
+
+/**
  * `Break.links` read back from the database. A row is external data (H9), so
  * each entry is re-parsed, and one that no longer passes — a provider dropped
  * from the list, a hand-edited row — is left out rather than failing the read:

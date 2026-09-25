@@ -392,7 +392,8 @@ describe('a scratch pattern', () => {
       expect(await result.current.save()).toBe(true);
     });
     expect(apiClient.post).toHaveBeenCalledWith('/api/v1/breaks', {
-      body: { title: 'First one', doc: payloadAt(90) },
+      // a scratch pattern has no details: no description, and no links to carry
+      body: { title: 'First one', doc: payloadAt(90), links: [] },
     });
     expect(result.current).toMatchObject({
       id: 'cbrk00000000000000000002',
@@ -483,5 +484,68 @@ describe('someone else’s shared pattern', () => {
     expect(vi.mocked(apiClient.patch).mock.calls[0][0]).toBe(
       '/api/v1/breaks/cbrk00000000000000000002'
     );
+  });
+});
+
+describe('details — description and links (task 4.11)', () => {
+  const VIDEO = {
+    kind: 'video' as const,
+    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=321s',
+  };
+
+  it('opens with the row’s details, and PATCHes new ones without the document', async () => {
+    vi.mocked(apiClient.patch).mockResolvedValueOnce({ description: 'At 5:21', links: [VIDEO] });
+    const { result } = mount({ ...opened(), details: { description: 'Old', links: [] } });
+    await pass(0);
+    expect(result.current.details).toEqual({ description: 'Old', links: [] });
+
+    let ok = false;
+    await act(async () => {
+      ok = await result.current.saveDetails({ description: 'At 5:21', links: [VIDEO] });
+    });
+
+    expect(ok).toBe(true);
+    expect(patchBody(0)).toEqual({ description: 'At 5:21', links: [VIDEO] });
+    expect(result.current.details).toEqual({ description: 'At 5:21', links: [VIDEO] });
+  });
+
+  it('keeps the details it had, and says so, when the server refuses new ones', async () => {
+    vi.mocked(apiClient.patch).mockRejectedValueOnce(
+      new APIClientError('Bad', 'VALIDATION_ERROR', 400)
+    );
+    const { result, say } = mount({ ...opened(), details: { description: 'Old', links: [] } });
+    await pass(0);
+
+    let ok = true;
+    await act(async () => {
+      ok = await result.current.saveDetails({ description: 'New', links: [VIDEO] });
+    });
+
+    expect(ok).toBe(false);
+    expect(say).toHaveBeenCalledWith('Those details did not save');
+    expect(result.current.details).toEqual({ description: 'Old', links: [] });
+  });
+
+  it('sends nothing for a scratch pattern — there is no row to describe', async () => {
+    const { result } = mount();
+    let ok = true;
+    await act(async () => {
+      ok = await result.current.saveDetails({ description: 'x', links: [] });
+    });
+    expect(ok).toBe(false);
+    expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — scratch has no row
+  });
+
+  it('lets them go with the pattern, and takes the next one’s on attach', async () => {
+    const { result } = mount({ ...opened(), details: { description: 'Old', links: [VIDEO] } });
+    await pass(0);
+
+    act(() => result.current.detach());
+    expect(result.current.details).toEqual({ description: '', links: [] });
+
+    act(() =>
+      result.current.attach('cbrk00000000000000000003', true, { description: 'Next', links: [] })
+    );
+    expect(result.current.details).toEqual({ description: 'Next', links: [] });
   });
 });

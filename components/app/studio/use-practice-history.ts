@@ -5,6 +5,7 @@ import { z } from 'zod';
 
 import type { InitialPattern, PracticePlace } from '@/components/app/breaks/use-break-console';
 import { APIClientError, apiClient } from '@/lib/api/client';
+import { storedLinkSchema } from '@/lib/app/breaks/links';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
 import { logger } from '@/lib/logging';
 import { type HistoryItem, practiceVisitViewSchema } from '@/lib/validations/history';
@@ -74,6 +75,9 @@ const openedSchema = z.object({
   title: z.string(),
   mine: z.boolean(),
   doc: sharePayloadSchema,
+  description: z.string().nullish(),
+  // links that will not read cost the pattern its chips, never its opening
+  links: z.array(storedLinkSchema).catch([]),
 });
 
 /**
@@ -83,7 +87,13 @@ const openedSchema = z.object({
 export async function fetchSavedPattern(id: string): Promise<InitialPattern | 'gone' | null> {
   try {
     const row = openedSchema.parse(await apiClient.get(`/api/v1/breaks/${id}`));
-    return { id: row.id, title: row.title, mine: row.mine, payload: row.doc };
+    return {
+      id: row.id,
+      title: row.title,
+      mine: row.mine,
+      payload: row.doc,
+      details: { description: row.description ?? '', links: row.links },
+    };
   } catch (error) {
     if (error instanceof APIClientError && error.status === 404) return 'gone';
     logger.warn('BeatBreaker: could not fetch a saved pattern', { error, breakId: id });
