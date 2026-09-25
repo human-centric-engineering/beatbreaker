@@ -112,11 +112,15 @@ describe('/dashboard — Home', () => {
     expect(readHome).toHaveBeenCalledWith(createMockAuthSession().user.id);
   });
 
-  it('welcomes a first visit, with New pattern and nothing else to show', async () => {
+  it('welcomes a first visit, with New pattern and a way into the famous grooves', async () => {
     await show(EMPTY);
     expect(screen.getByRole('heading', { level: 1, name: 'Welcome to BeatBreaker' })).toBeTruthy();
     expect(screen.getByText(/Nothing here yet/)).toBeTruthy();
     expect(screen.getByRole('link', { name: 'New pattern' }).getAttribute('href')).toBe('/studio');
+    // the Studio, opened on the Patterns drawer's Libraries tab
+    expect(
+      screen.getByRole('link', { name: 'Browse the famous grooves' }).getAttribute('href')
+    ).toBe('/studio?drawer=patterns&tab=libraries');
     expect(screen.queryByRole('heading', { name: 'Practising' })).toBeNull();
   });
 

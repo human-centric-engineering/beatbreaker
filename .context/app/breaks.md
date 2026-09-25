@@ -379,7 +379,10 @@ page calls `readHome` directly, as the Studio's pages call `listPins`.
   the layer and tempo of its latest visit — or, never visited, at
   `FULL_LAYER` (5) and the entry's own tempo, which is what the card says; not
   the layer the Studio last had. An id the catalogue does not hold
-  says "That pattern is no longer there" over a working Studio.
+  says "That pattern is no longer there" over a working Studio. The first-run
+  welcome's _Browse the famous grooves_ opens the Studio on the Patterns
+  drawer's Libraries tab (`/studio?drawer=patterns&tab=libraries`; see
+  [`shell.md`](./shell.md) § Opening on a drawer).
 - The thumbnail renders through `components/app/breaks/svg-nodes.tsx`
   (`renderSvgNode`) — the stave's own node renderer, moved out of `stave.tsx`
   so a server component can use it. `EngravedThumbnail` maps the engraver's

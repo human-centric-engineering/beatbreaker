@@ -723,8 +723,9 @@ is kept in the key rather than sent or dropped; with nothing readable left
 there is no request, so the import does not repeat. The Patterns drawer's
 _In this browser_ card and the console's `favs` / `saveFav` / `loadFav` /
 `deleteFav` are gone. No API or schema change. Two tabs making their first
-load at the same moment would each import; not guarded. Not looked at in a
-browser, as for 4.5–4.9.
+load at the same moment are kept from both importing by a claim
+(`bb.favs.importing`, 60s), added when the 4.10 code review raised it. Not
+looked at in a browser, as for 4.5–4.9.
 
 **4.11 and 4.12 built 2026-09-25** (branch `phase-4-11-4-12-details-docs`,
 one PR). **Details** heads the Export drawer: Name, Description and up to four
@@ -743,6 +744,16 @@ D8: `Take` dormant), `breaks.md` pointed at it. **No CHANGELOG line**: neither
 task changes an endpoint, a column or a seam, and the Phase 4 API and schema
 changes already have theirs (CLAUDE.md: only the public surface goes in). Not
 looked at in a browser, as for 4.5–4.10.
+
+**Phase 4 finished 2026-09-25** (same branch). The one gap left by 4.9 is
+closed: `/studio?drawer=<tool>&tab=<tab>` opens the Studio on a drawer, and
+Home's first-run welcome has its _Browse the famous grooves_ link, to the
+Patterns drawer's Libraries tab (`shell.md` § Opening on a drawer). Code
+review of 4.11 found the Details form could lose typed links when the name
+moved or a save failed; fixed on the branch. What Phase 4 hands on: the
+browser checks (Phase 5, as decided), _Browse the community library_ and the
+_Published_ section (Phase 6), `Take` (D8, after launch), and settings that
+follow the user (§10).
 
 **Not yet looked at in a browser.** 4.5's header status, Save button and
 unsaved-changes prompt are covered by component tests over the real console

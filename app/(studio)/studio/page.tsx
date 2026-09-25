@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 
+import { readStudioDrawer } from '@/components/app/shell/studio-address';
 import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
 import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
@@ -33,6 +34,10 @@ import { cuidSchema } from '@/lib/validations/common';
  * on a pinned famous break. An id that is not one is ignored, and one the
  * catalogue does not hold is said so in the Studio, not a 404: the Studio
  * itself is still there to use.
+ *
+ * `?drawer=<tool>` (and, for the Patterns drawer, `&tab=<tab>`) opens that
+ * drawer once the Studio is up — Home's "Browse the famous grooves". Values
+ * that are not a tool or a tab are ignored (`studio-address.ts`).
  */
 
 export const metadata: Metadata = {
@@ -45,12 +50,17 @@ const LOGIN_HREF = `/login?callbackUrl=${encodeURIComponent('/studio')}`;
 export default async function StudioPage({
   searchParams,
 }: {
-  searchParams: Promise<{ entry?: string | string[] }>;
+  searchParams: Promise<{
+    entry?: string | string[];
+    drawer?: string | string[];
+    tab?: string | string[];
+  }>;
 }) {
   const session = await getServerSession();
   if (!session) return <SignInToOpen loginHref={LOGIN_HREF} />;
 
-  const entry = cuidSchema.safeParse((await searchParams).entry);
+  const query = await searchParams;
+  const entry = cuidSchema.safeParse(query.entry);
 
   const [catalogue, pins, history] = await Promise.all([
     studioCatalogue(),
@@ -64,6 +74,7 @@ export default async function StudioPage({
       pins={pins}
       history={history}
       openEntry={entry.success ? entry.data : undefined}
+      openDrawer={readStudioDrawer(query)}
     >
       <StudioFrame />
     </StudioProvider>

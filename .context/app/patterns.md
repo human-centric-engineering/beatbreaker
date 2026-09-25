@@ -81,6 +81,10 @@ by the provider's `leaving` / `resolveLeave`. Copy is in
   `loadPayload` and calls `attach`, so undo and the Back trail survive. The
   history, the shelves, the Patterns drawer and Home's library-entry deep link
   (`/studio?entry=<id>`) all go through it.
+- **On a drawer** — `/studio?drawer=<tool>&tab=<tab>` opens the Studio with
+  that drawer showing, and for the Patterns drawer on that tab. Home's
+  first-run _Browse the famous grooves_ is `?drawer=patterns&tab=libraries`.
+  See [`shell.md`](./shell.md) § Opening on a drawer.
 
 ## Where each piece lives
 
@@ -143,8 +147,6 @@ the save, scratch and someone-else's, Save a copy, the chips);
 - **Settings stay in the browser.** Kit tuning, mixer defaults and chart
   preferences (`bb.level`, `bb.view`, and the rest) are `localStorage`, per
   device. Moving them to the account is in the plan's §10.
-- **Two tabs importing favourites at once** would each import; not guarded
-  (task 4.10).
 - **Not yet looked at in a browser.** The header's save status, Save / Save a
   copy / Retry, the prompt, and now the Details form and chips are covered by
   component tests over the real console, but nobody has seen them on screen.

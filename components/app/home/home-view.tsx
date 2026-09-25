@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
 
+import { studioDrawerHref } from '@/components/app/shell/studio-address';
 import { EngravedThumbnail } from '@/components/app/home/engraved-thumbnail';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,7 +15,8 @@ import type { TargetView } from '@/lib/app/breaks/saved/targets';
  *
  * A server component drawing what `readHome()` returned: nothing here fetches.
  * Copy is `site-copy.md` §6. The Published section and the community library
- * link wait for Phase 6.
+ * link wait for Phase 6; "Browse the famous grooves" opens the Studio on the
+ * Patterns drawer's Libraries tab (`?drawer=patterns&tab=libraries`).
  */
 
 /** Where a target opens: a saved pattern at its address, a library entry through `?entry=`. */
@@ -108,7 +110,14 @@ export function HomeView({
           Nothing here yet. Press <strong>New pattern</strong>, pick a style, and save the first one
           you like. It will show up here.
         </p>
-        <NewPattern />
+        <div className="flex flex-wrap gap-3">
+          <NewPattern />
+          <Button asChild variant="outline">
+            <Link href={studioDrawerHref({ tool: 'patterns', tab: 'libraries' })}>
+              Browse the famous grooves
+            </Link>
+          </Button>
+        </div>
       </section>
     );
   }

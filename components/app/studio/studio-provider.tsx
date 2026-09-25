@@ -17,6 +17,7 @@ import {
   type PracticePlace,
   useBreakConsole,
 } from '@/components/app/breaks/use-break-console';
+import type { StudioDrawer } from '@/components/app/shell/studio-address';
 import {
   type PatternDocument,
   usePatternDocument,
@@ -98,6 +99,8 @@ export interface Studio extends BreakConsole {
    * place, as the history does, so undo and the Back trail survive.
    */
   open: (target: PinTarget) => Promise<OpenResult>;
+  /** The drawer the address asked for (`?drawer=`), opened once by the frame. */
+  openDrawer?: StudioDrawer;
 }
 
 const StudioContext = createContext<Studio | null>(null);
@@ -141,6 +144,7 @@ export function StudioProvider({
   pins: initialPins,
   history: initialHistory,
   openEntry,
+  openDrawer,
   children,
 }: {
   /**
@@ -164,6 +168,8 @@ export function StudioProvider({
    * history last left it.
    */
   openEntry?: string;
+  /** A drawer to open once the Studio is up — `/studio?drawer=patterns&tab=libraries`. */
+  openDrawer?: StudioDrawer;
   children: React.ReactNode;
 }) {
   const state = useBreakConsole(catalogue, initial);
@@ -402,6 +408,7 @@ export function StudioProvider({
       stagePin,
       history,
       open,
+      openDrawer,
     }),
     [
       state,
@@ -418,6 +425,7 @@ export function StudioProvider({
       stagePin,
       history,
       open,
+      openDrawer,
     ]
   );
 
