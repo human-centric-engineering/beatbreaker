@@ -125,7 +125,10 @@ there are load-bearing:
 
 The tab is written where the Patterns drawer keeps the one you last chose
 (`rememberPatternsTab`, `bb.patternsTab`), so a link and your own choice are
-one setting.
+one setting. Once opened, `drawer` and `tab` are taken out of the address
+(`history.replaceState`, keeping anything else, a `#b=` included), so a reload
+or a return to that history entry does not open it again over the tab you
+chose since.
 
 ## Adding a control
 

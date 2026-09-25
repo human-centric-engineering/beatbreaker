@@ -82,6 +82,12 @@ export function StudioFrame() {
     const want = toOpen.current;
     if (!measured || !want) return;
     toOpen.current = undefined;
+    /* Asked once: the address stops asking, so a reload — or coming back to
+       this history entry — does not open it again over the tab you chose. */
+    const url = new URL(window.location.href);
+    url.searchParams.delete('drawer');
+    url.searchParams.delete('tab');
+    window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
     if (want.tab) rememberPatternsTab(want.tab);
     lastTool.current = want.tool;
     setTool(want.tool);

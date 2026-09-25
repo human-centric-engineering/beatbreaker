@@ -23,6 +23,7 @@ vi.mock('@/lib/consent', () => ({ useConsent: () => ({ openPreferences: vi.fn() 
 import type { StudioDrawer } from '@/components/app/shell/studio-address';
 import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
+import type { PracticeShelvesView } from '@/lib/validations/pins';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 
 function atWidth(wide: boolean) {
@@ -34,9 +35,35 @@ function atWidth(wide: boolean) {
   }));
 }
 
+/* Something on the Practising shelf, so the drawer's own default tab would be
+   Practising — a Libraries tab selected below can only have come from the
+   address. */
+const catalogue = testCatalogue();
+const firstEntry = catalogue.libraries[0].entries[0];
+const PINS: PracticeShelvesView = {
+  practising: [
+    {
+      id: 'cpin00000000000000000001',
+      shelf: 'practising',
+      position: 0,
+      target: {
+        kind: 'entry',
+        id: firstEntry.id,
+        title: firstEntry.title,
+        artist: firstEntry.artist,
+        libraryKey: catalogue.libraries[0].key,
+        styleKey: firstEntry.styleKey,
+        meter: firstEntry.meter,
+        bpm: firstEntry.bpm,
+      },
+    },
+  ],
+  later: [],
+};
+
 function mount(openDrawer?: StudioDrawer) {
   render(
-    <StudioProvider catalogue={testCatalogue()} openDrawer={openDrawer}>
+    <StudioProvider catalogue={catalogue} pins={PINS} openDrawer={openDrawer}>
       <StudioFrame />
     </StudioProvider>
   );
@@ -44,6 +71,7 @@ function mount(openDrawer?: StudioDrawer) {
 
 beforeEach(() => {
   localStorage.clear();
+  window.history.replaceState(null, '', '/studio?drawer=patterns&tab=libraries#b=keep');
   vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
     return setTimeout(() => cb(0), 0) as unknown as number;
   });
@@ -63,8 +91,24 @@ describe('opening the Studio on a drawer', () => {
 
     const libraries = await screen.findByRole('tab', { name: 'Libraries' });
     expect(libraries).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByRole('tab', { name: /Practising/ })).toHaveAttribute(
+      'aria-selected',
+      'false'
+    );
     // the tab is the drawer's own remembered one now, as if chosen by hand
     expect(localStorage.getItem('bb.patternsTab')).toBe('"libraries"');
+    // and the address stops asking, keeping anything else it carried
+    expect(window.location.pathname + window.location.search + window.location.hash).toBe(
+      '/studio#b=keep'
+    );
+  });
+
+  it('without a drawer asked for, the Patterns drawer keeps its own default tab', async () => {
+    // the control for the test above: the shelf does make Practising the default
+    atWidth(true);
+    mount({ tool: 'patterns' });
+    const practising = await screen.findByRole('tab', { name: /Practising/ });
+    expect(practising).toHaveAttribute('aria-selected', 'true');
   });
 
   it('opens a drawer that has no tabs', async () => {
