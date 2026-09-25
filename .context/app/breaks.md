@@ -300,6 +300,51 @@ anything is on it, else Recent, else Libraries.
 
 Tests: `tests/unit/components/app/studio/panels/patterns-panel.test.tsx`.
 
+## `/api/v1/home` — Home (task 4.9)
+
+What the signed-in landing page (`/dashboard`, labelled **Home**) shows, in
+one request: the **Practising** shelf as cards, the newest `HOME_RECENT` (8)
+history items, and `savedCount` — how many patterns you have saved, which is
+what tells a first visit (the welcome copy, `site-copy.md` §6) from an empty
+shelf (the "Pin the patterns…" line).
+
+| Route              | Does                                                                                                                                                       |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /api/v1/home` | `{ practising: HomeCard[], recent: PracticeVisitView[], savedCount }`. A card is `{ pinId, target, level, bpm, lastOpenedAt, thumbnail }`, in shelf order. |
+
+Data layer: `lib/app/breaks/saved/home.ts` (`readHome`, `thumbnailOf`). The
+page calls `readHome` directly, as the Studio's pages call `listPins`.
+
+- **Three queries side by side, none per card**: the Practising pins with
+  each target's `doc`, `listHistory`, and a `Break` count. The pin query uses
+  the shelves' visibility rule (`visibleTarget`), so an unshared pattern drops
+  off Home as it drops off the shelf.
+- **A card opens where you left it.** Your own pattern at its row's `level`
+  and `bpm` (it autosaves them); anything else at its latest visit's, or — never
+  opened — at its own tempo (and the full break, for a library entry).
+- **The thumbnail is engraved on the server**: the first two bars of section A
+  at the card's layer, `engrave(…, { scale: 0.55, perSystem: 2 })`, as an
+  `Engraving` node tree — the shape `POST /api/v1/breaks/engrave` answers. A
+  document that will not read gets `thumbnail: null` and a warning in the log;
+  the card stays.
+- **No links in the response** (D14). The web page builds them
+  (`studioHref` in `components/app/home/home-view.tsx`): a saved pattern opens
+  at `/studio/[id]`, a library entry at **`/studio?entry=<id>`** — the Studio
+  page passes a valid id to `StudioProvider` as `openEntry`, which opens it
+  once the console is ready through the same `openTarget` a shelf row uses, at
+  the layer and tempo of its latest visit. An id the catalogue does not hold
+  says "That pattern is no longer there" over a working Studio.
+- The thumbnail renders through `components/app/breaks/svg-nodes.tsx`
+  (`renderSvgNode`) — the stave's own node renderer, moved out of `stave.tsx`
+  so a server component can use it. `EngravedThumbnail` maps the engraver's
+  `--ink` / `--faint` / `--f-*` onto the consumer surface's tokens, since those
+  are only defined inside the Studio's `.bb` wrapper.
+
+Tests: `tests/integration/api/v1/home/`,
+`tests/unit/app/(protected)/dashboard/page.test.tsx`, and the `?entry=` open
+in `tests/unit/components/app/studio/practice-history.test.tsx` and
+`tests/unit/app/(studio)/studio/page.test.tsx`.
+
 ## The domain endpoints
 
 Every domain operation is an endpoint as well as a function. The web Studio

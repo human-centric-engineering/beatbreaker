@@ -138,6 +138,7 @@ export function StudioProvider({
   initial,
   pins: initialPins,
   history: initialHistory,
+  openEntry,
   children,
 }: {
   /**
@@ -155,6 +156,12 @@ export function StudioProvider({
   pins?: PracticeShelvesView;
   /** The practice history, read server-side with the page. */
   history?: HistoryItem[];
+  /**
+   * A library entry to open once the Studio is up — `/studio?entry=<id>`,
+   * which is how Home's Continue reaches a famous break. It opens where the
+   * history last left it.
+   */
+  openEntry?: string;
   children: React.ReactNode;
 }) {
   const state = useBreakConsole(catalogue, initial);
@@ -320,6 +327,23 @@ export function StudioProvider({
   );
 
   const open = useOpenFromList(openTarget, say);
+
+  /* Once, when the console is first ready: the entry the address asked for,
+     through the same open a shelf uses, so it lands on the stage as that
+     entry — pinnable, and recorded in the history. */
+  const entryToOpen = useRef(openEntry);
+  useEffect(() => {
+    const id = entryToOpen.current;
+    if (!ready || !id) return;
+    entryToOpen.current = undefined;
+    const left = initialHistory?.find((v) => v.target.kind === 'entry' && v.target.id === id);
+    void openTarget(
+      { libraryEntryId: id },
+      left ? { level: left.level, bpm: left.bpm } : undefined
+    ).then((result) => {
+      if (result === 'gone') say('That pattern is no longer there');
+    });
+  }, [ready, initialHistory, openTarget, say]);
 
   const historyCurrent = useMemo<HistoryCurrent | null>(
     () => (ready && stagePin ? { target: stagePin, level, bpm } : null),

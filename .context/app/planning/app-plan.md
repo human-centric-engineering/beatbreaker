@@ -695,6 +695,24 @@ gone, and the save toast now says "Saved to your account — under Patterns ›
 All". No API or schema change. Not looked at in a browser: the extension was
 not connected, as for 4.5–4.7.
 
+**4.9 built 2026-09-25** (branch `phase-4-9-home`). `/dashboard` is Home:
+**Practising** cards with a server-engraved thumbnail (first two bars, at the
+layer the card opens at), tempo, layer, last opened and **Continue**; **Recent**
+(the newest eight visits); **New pattern**; the first-run welcome from
+`site-copy.md` §6 when nothing is saved, pinned or opened, and the "Pin the
+patterns…" line when patterns are saved but the shelf is empty. API first:
+`GET /api/v1/home` answers from the same `readHome` the page calls. "One query
+for the page" is met as **one read with no per-card fetch** — three queries
+side by side (shelf with documents, history, a saved count) — rather than a
+single SQL statement. A pinned famous break had no address to continue it at,
+so `/studio?entry=<id>` now opens one, where its last visit left it. Left
+out, and why: the first-run _Browse the famous grooves_ link, because the
+Studio cannot yet be opened on a given drawer (a deep link to the Patterns
+drawer's Libraries tab is a small follow-up); _Browse the community library_
+and the _Published_ section wait for Phase 6. The platform dashboard's
+profile-completion and email-verification cards are gone with the old body;
+both still live under Settings. Not looked at in a browser, as for 4.5–4.8.
+
 **Not yet looked at in a browser.** 4.5's header status, Save button and
 unsaved-changes prompt are covered by component tests over the real console
 and frame, but nobody has seen them on screen — the browser extension was not

@@ -1,151 +1,209 @@
 // @vitest-environment happy-dom
 
 /**
- * Dashboard Page Tests
+ * Home — the `/dashboard` page (task 4.9)
  *
- * Tests the protected dashboard Server Component. Modelled on its direct
- * sibling `tests/unit/app/(protected)/profile/page.test.tsx` — same shape
- * (async server component, `getServerSession` + a single Prisma read), so the
- * mocking follows that file rather than inventing a second convention.
+ * The real page and the real `HomeView` over a mocked `readHome` and a mocked
+ * style list. `readHome`'s queries, scope and thumbnails are tested through
+ * `GET /api/v1/home`, which shares it; what is pinned here is that the page
+ * reads Home once, for the session user, and draws each state the copy in
+ * `site-copy.md` §6 calls for.
  *
- * Test Coverage:
- * - Redirect (via clearInvalidSession) when no session exists
- * - Redirect when the session's user is no longer in the database
- * - Greeting, email and avatar initials
- * - Profile completion arithmetic at both ends and in between
- * - Role badge, including the fallback when `role` is null
- *
- * The page had no test at all before this; it was picked up by the per-file
- * coverage floor when the role sweep touched one line of it, which is the floor
- * doing its job.
+ * The thumbnail is a real engraving of a real pattern, so the card is checked
+ * for drawing it rather than for passing a stub along.
  *
  * @see app/(protected)/dashboard/page.tsx
+ * @see components/app/home/home-view.tsx
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/lib/auth/utils', () => ({ getServerSession: vi.fn() }));
-
 vi.mock('@/lib/auth/clear-session', () => ({
   clearInvalidSession: vi.fn((returnUrl: string) => {
     throw new Error(`NEXT_REDIRECT:${returnUrl}`);
   }),
 }));
-
-vi.mock('@/lib/db/client', () => ({ prisma: { user: { findUnique: vi.fn() } } }));
-
-vi.mock('@/lib/auth/verification-status', () => ({
-  getVerificationStatus: vi.fn().mockResolvedValue({ status: 'verified' }),
-}));
-
-// Stubbed to a marker that renders NO page data. It has its own test, and a
-// stub echoing the email would make `getByText(email)` ambiguous — the welcome
-// card is the one this file is asserting.
-vi.mock('@/components/dashboard/email-status-card', () => ({
-  EmailStatusCard: () => <div data-testid="email-card" />,
-}));
+vi.mock('@/lib/app/breaks/saved/home', () => ({ readHome: vi.fn() }));
+vi.mock('@/lib/app/breaks/catalogue/data', () => ({ listStyles: vi.fn() }));
 
 import DashboardPage from '@/app/(protected)/dashboard/page';
+import { studioHref } from '@/components/app/home/home-view';
+import { listStyles } from '@/lib/app/breaks/catalogue/data';
+import { engrave } from '@/lib/app/breaks/engrave';
+import { generatePattern } from '@/lib/app/breaks/generate';
+import type { HomeCard, HomeView } from '@/lib/app/breaks/saved/home';
+import { readHome } from '@/lib/app/breaks/saved/home';
 import { getServerSession } from '@/lib/auth/utils';
-import { prisma } from '@/lib/db/client';
-import { DEFAULT_USER_ROLE, PLATFORM_ADMIN_ROLE } from '@/lib/auth/roles';
+import { createMockAuthSession } from '@/tests/helpers/auth';
+import { testStyle } from '@/tests/helpers/catalogue';
 
-const MOCK_SESSION = {
-  session: { id: 'session_abc', userId: 'user_abc' },
-  user: { id: 'user_abc', name: 'Ada Lovelace', email: 'ada@example.com' },
+const MINE = 'cbrk00000000000000000001';
+const ENTRY = 'centry000000000000000001';
+
+const funk = testStyle('funk');
+const thumbnail = engrave(
+  generatePattern({ style: funk, meter: '4/4', seed: 5, bars: 2, density: 50, ghosts: 50 }),
+  null,
+  { scale: 0.55, perSystem: 2 }
+);
+
+const mineCard: HomeCard = {
+  pinId: 'cpin1',
+  target: {
+    kind: 'break',
+    id: MINE,
+    title: 'Cold Carpet',
+    style: 'funk',
+    meter: '4/4',
+    bpm: 88,
+    level: 4,
+    mine: true,
+    updatedAt: new Date('2026-09-20T00:00:00Z'),
+  },
+  level: 4,
+  bpm: 88,
+  lastOpenedAt: new Date('2026-09-24T10:00:00Z'),
+  thumbnail,
 };
 
-/** A fully-populated user — every profile field set, so completion is 100%. */
-function completeUser(overrides: Record<string, unknown> = {}) {
-  return {
-    id: 'user_abc',
-    name: 'Ada Lovelace',
-    email: 'ada@example.com',
-    emailVerified: true,
-    image: 'https://example.com/a.png',
-    role: DEFAULT_USER_ROLE,
-    bio: 'Mathematician',
-    phone: '+44 20 7946 0000',
-    timezone: 'Europe/London',
-    location: 'London',
-    ...overrides,
-  };
-}
+const entryCard: HomeCard = {
+  pinId: 'cpin2',
+  target: {
+    kind: 'entry',
+    id: ENTRY,
+    libraryKey: 'famous',
+    title: 'Funky Drummer',
+    artist: 'James Brown · Clyde Stubblefield, 1970',
+    styleKey: 'funk',
+    meter: '4/4',
+    bpm: 94,
+  },
+  level: 2,
+  bpm: 72,
+  lastOpenedAt: null,
+  thumbnail: null,
+};
 
-const mockedSession = vi.mocked(getServerSession);
-const mockedFindUnique = vi.mocked(prisma.user.findUnique);
+const EMPTY: HomeView = { practising: [], recent: [], savedCount: 0 };
 
-/** Render the async server component. */
-async function renderPage() {
+async function show(home: HomeView) {
+  vi.mocked(readHome).mockResolvedValue(home);
   render(await DashboardPage());
 }
 
 beforeEach(() => {
   vi.clearAllMocks();
-  // @ts-expect-error — the mock returns the narrow shape the page reads.
-  mockedSession.mockResolvedValue(MOCK_SESSION);
-  // @ts-expect-error — as above.
-  mockedFindUnique.mockResolvedValue(completeUser());
+  vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+  vi.mocked(listStyles).mockResolvedValue([{ ...funk, group: 'Funk' }]);
 });
 
-describe('access', () => {
-  it('redirects when there is no session', async () => {
-    mockedSession.mockResolvedValue(null);
-    await expect(renderPage()).rejects.toThrow('NEXT_REDIRECT:/dashboard');
+describe('/dashboard — Home', () => {
+  it('sends a request with no session to sign in, before reading anything', async () => {
+    vi.mocked(getServerSession).mockResolvedValue(null);
+    await expect(DashboardPage()).rejects.toThrow('NEXT_REDIRECT:/dashboard');
+    expect(readHome).not.toHaveBeenCalled(); // test-review:accept no_arg_called — redirect must short-circuit
   });
 
-  it('redirects when the session user no longer exists', async () => {
-    // A deleted account with a live cookie. The page must not render a
-    // half-populated dashboard from the session alone.
-    mockedFindUnique.mockResolvedValue(null);
-    await expect(renderPage()).rejects.toThrow('NEXT_REDIRECT:/dashboard');
+  it('reads Home once, for the session user', async () => {
+    await show(EMPTY);
+    expect(readHome).toHaveBeenCalledTimes(1);
+    expect(readHome).toHaveBeenCalledWith(createMockAuthSession().user.id);
+  });
+
+  it('welcomes a first visit, with New pattern and nothing else to show', async () => {
+    await show(EMPTY);
+    expect(screen.getByRole('heading', { level: 1, name: 'Welcome to BeatBreaker' })).toBeTruthy();
+    expect(screen.getByText(/Nothing here yet/)).toBeTruthy();
+    expect(screen.getByRole('link', { name: 'New pattern' }).getAttribute('href')).toBe('/studio');
+    expect(screen.queryByRole('heading', { name: 'Practising' })).toBeNull();
+  });
+
+  it('asks for a pin once there are saved patterns but an empty shelf', async () => {
+    await show({ ...EMPTY, savedCount: 3 });
+    expect(screen.getByRole('heading', { level: 1, name: 'Home' })).toBeTruthy();
+    expect(screen.getByText(/Pin the patterns you are practising this week/)).toBeTruthy();
+    expect(screen.queryByText(/Welcome to BeatBreaker/)).toBeNull();
+  });
+
+  it('draws a Practising card per pin, with its thumbnail, tempo, layer and Continue', async () => {
+    await show({ practising: [mineCard, entryCard], recent: [], savedCount: 1 });
+
+    const cards = within(
+      screen.getByRole('heading', { name: 'Practising' }).parentElement!
+    ).getAllByRole('listitem');
+    expect(cards).toHaveLength(2);
+
+    const mine = within(cards[0]);
+    expect(mine.getByText('Cold Carpet')).toBeTruthy();
+    // the style by its picker name, not its key
+    expect(mine.getByText(funk.params.label)).toBeTruthy();
+    expect(mine.getByText('88 BPM · Ghosted')).toBeTruthy();
+    // the engraving itself, drawn from its node tree
+    const svg = mine.getByRole('img', { name: thumbnail.label });
+    expect(svg.getAttribute('viewBox')).toBe(`0 0 ${thumbnail.width} ${thumbnail.height}`);
+    expect(svg.children).toHaveLength(thumbnail.nodes.length);
+    expect(mine.getByRole('link', { name: 'Continue Cold Carpet' }).getAttribute('href')).toBe(
+      `/studio/${MINE}`
+    );
+
+    const entry = within(cards[1]);
+    expect(entry.getByText('James Brown · Clyde Stubblefield, 1970')).toBeTruthy();
+    expect(entry.getByText('72 BPM · Groove')).toBeTruthy();
+    expect(entry.getByText('Not yet')).toBeTruthy();
+    expect(entry.getByText('No preview')).toBeTruthy();
+    expect(entry.getByRole('link', { name: 'Continue Funky Drummer' }).getAttribute('href')).toBe(
+      `/studio?entry=${ENTRY}`
+    );
+  });
+
+  it('lists Recent, each row opening where it lives', async () => {
+    await show({
+      practising: [],
+      savedCount: 1,
+      recent: [
+        {
+          id: 'cvis1',
+          level: 5,
+          bpm: 90,
+          visitedAt: new Date('2026-09-24T10:00:00Z'),
+          target: mineCard.target,
+        },
+        {
+          id: 'cvis2',
+          level: 2,
+          bpm: 72,
+          visitedAt: new Date('2026-09-23T10:00:00Z'),
+          target: entryCard.target,
+        },
+      ],
+    });
+
+    const recent = within(screen.getByRole('heading', { name: 'Recent' }).parentElement!);
+    const links = recent.getAllByRole('link');
+    expect(links.map((a) => a.getAttribute('href'))).toEqual([
+      `/studio/${MINE}`,
+      `/studio?entry=${ENTRY}`,
+    ]);
+    expect(links[0].textContent).toContain('Cold Carpet');
+    expect(links[1].textContent).toContain('Funky Drummer');
+  });
+
+  it('names a style the catalogue no longer holds by its key', async () => {
+    await show({
+      practising: [
+        { ...mineCard, target: { ...mineCard.target, style: 'gone-style' } as HomeCard['target'] },
+      ],
+      recent: [],
+      savedCount: 1,
+    });
+    expect(screen.getByText('gone-style')).toBeTruthy();
   });
 });
 
-describe('rendering', () => {
-  it('greets by first name and shows the email', async () => {
-    await renderPage();
-    expect(screen.getByText('Hello, Ada!')).toBeTruthy();
-    expect(screen.getByText('ada@example.com')).toBeTruthy();
-  });
-
-  it('builds avatar initials from the first two name parts', async () => {
-    await renderPage();
-    expect(screen.getByText('AL')).toBeTruthy();
-  });
-
-  it('shows the role', async () => {
-    // @ts-expect-error — narrow shape.
-    mockedFindUnique.mockResolvedValue(completeUser({ role: PLATFORM_ADMIN_ROLE }));
-    await renderPage();
-    expect(screen.getByText(PLATFORM_ADMIN_ROLE)).toBeTruthy();
-  });
-
-  it('falls back to the default role when the column is null', async () => {
-    // `role` is nullable in the schema. The badge must name a role rather than
-    // rendering empty — the fallback the sweep pointed at the constant.
-    // @ts-expect-error — narrow shape.
-    mockedFindUnique.mockResolvedValue(completeUser({ role: null }));
-    await renderPage();
-    expect(screen.getByText(DEFAULT_USER_ROLE)).toBeTruthy();
-  });
-});
-
-describe('profile completion', () => {
-  it('is 100% when every field is set', async () => {
-    await renderPage();
-    expect(screen.getByText('100%')).toBeTruthy();
-    expect(screen.getByText(/7 of 7 fields completed/)).toBeTruthy();
-  });
-
-  it('counts only the populated fields', async () => {
-    // Four of seven set (name, email, timezone, location) → 57%. Asserting the
-    // rounded number rather than the ratio, since that is what a user reads.
-    // @ts-expect-error — narrow shape.
-    mockedFindUnique.mockResolvedValue(completeUser({ image: null, bio: null, phone: null }));
-    await renderPage();
-    expect(screen.getByText('57%')).toBeTruthy();
-    expect(screen.getByText(/4 of 7 fields completed/)).toBeTruthy();
+describe('studioHref', () => {
+  it('escapes an entry id it puts in a query string', () => {
+    expect(studioHref({ ...entryCard.target, id: 'a&b' })).toBe('/studio?entry=a%26b');
   });
 });

@@ -95,9 +95,17 @@ function Probe() {
   );
 }
 
-async function open({ initial, history }: { initial?: InitialPattern; history?: HistoryItem[] }) {
+async function open({
+  initial,
+  history,
+  openEntry,
+}: {
+  initial?: InitialPattern;
+  history?: HistoryItem[];
+  openEntry?: string;
+}) {
   render(
-    <StudioProvider catalogue={catalogue} initial={initial} history={history}>
+    <StudioProvider catalogue={catalogue} initial={initial} history={history} openEntry={openEntry}>
       <StudioFrame />
       <Probe />
     </StudioProvider>
@@ -341,5 +349,39 @@ describe('Recent', () => {
 
     expect(apiClient.delete).toHaveBeenCalledWith('/api/v1/history');
     await waitFor(() => expect(screen.getByText(/What you open shows up here/)).toBeTruthy());
+  });
+});
+
+describe("opening an entry by its address — /studio?entry= (Home's Continue, task 4.9)", () => {
+  it('opens it where the history left it, and records it as that entry', async () => {
+    await open({
+      history: [visit(entryTarget(ENTRY_A), 2, 72)],
+      openEntry: ENTRY_A.id,
+    });
+
+    await waitFor(() => expect(title()).toBe(ENTRY_A.title));
+    expect(place()).toEqual({ level: 2, bpm: 72 });
+    // on the stage as the entry, not as a scratch copy with no identity
+    await waitFor(() =>
+      expect(recorded().at(-1)).toEqual({ libraryEntryId: ENTRY_A.id, level: 2, bpm: 72 })
+    );
+  });
+
+  it('opens one never visited at its own tempo', async () => {
+    // not the Studio's default tempo, so arriving on the default would fail this
+    expect(ENTRY_B.bpm).not.toBe(94);
+    await open({ openEntry: ENTRY_B.id });
+
+    await waitFor(() => expect(title()).toBe(ENTRY_B.title));
+    expect(place().bpm).toBe(ENTRY_B.bpm);
+  });
+
+  it('says so when the catalogue no longer holds it, and leaves the Studio usable', async () => {
+    await open({ openEntry: 'cgone0000000000000000001' });
+
+    await waitFor(() =>
+      expect(screen.getByTestId('probe').textContent).toBe('That pattern is no longer there')
+    );
+    expect(title()).not.toBe('…');
   });
 });
