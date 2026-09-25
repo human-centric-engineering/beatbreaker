@@ -21,6 +21,7 @@ import {
   type PatternDocument,
   usePatternDocument,
 } from '@/components/app/studio/use-pattern-document';
+import { useFavsImport } from '@/components/app/studio/use-favs-import';
 import { type PracticeShelvesState, usePins } from '@/components/app/studio/use-pins';
 import {
   fetchSavedPattern,
@@ -186,6 +187,8 @@ export function StudioProvider({
   );
   const doc = usePatternDocument({ payload, title: patterns.A?.name ?? '', initial, say });
   const pins = usePins(initialPins, say);
+  const styleLookup = useCallback((key: string) => catalogue.styles[key], [catalogue]);
+  useFavsImport(styleLookup, say);
 
   /* The library entry on the stage, if that is where it came from. Set when an
      entry is opened and cleared by anything else that replaces the pattern;
@@ -204,7 +207,7 @@ export function StudioProvider({
      Regenerating one section is an edit to the pattern, not a new one, so
      `newBreak('A')` and `newBreak('B')` pass straight through. */
   const { detach, needsPrompt } = doc;
-  const { newBreak, loadLibraryEntry, loadFav, loadCode, rename, favs } = state;
+  const { newBreak, loadLibraryEntry, loadCode, rename } = state;
 
   /* The replacement waiting on the prompt, if there is one. Kept as a thunk so
      "Don't save" and "Save" run exactly what was asked for, later. The detach
@@ -239,21 +242,10 @@ export function StudioProvider({
           setEntryId(id);
           loadLibraryEntry(id);
         }),
-      /* These two answer "does it read?", not "has it loaded?": a code that
+      /* This answers "does it read?", not "has it loaded?": a code that
          reads may be waiting on the unsaved-changes prompt, which can still be
-         cancelled. So the panels say only when it will not read, and the
-         "Loaded" is said here, when the load actually happens. */
-      loadFav: (index: number) => {
-        // same rule as a pasted code: one that will not read replaces nothing
-        const fav = favs[index];
-        if (!fav || !readsAsBreak(fav.code)) return loadFav(index);
-        replace(() => {
-          if (!loadFav(index)) return;
-          setEntryId(null);
-          say('Loaded');
-        });
-        return true;
-      },
+         cancelled. So the panels say only when it will not read, and
+         "Break loaded" is said here, when the load actually happens. */
       loadCode: (code: string) => {
         /* A code that does not read replaces nothing, so it is checked before
            anything is let go — and before anyone is asked about letting go. */
@@ -266,7 +258,7 @@ export function StudioProvider({
         return true;
       },
     }),
-    [replace, newBreak, loadLibraryEntry, loadFav, loadCode, favs, say]
+    [replace, newBreak, loadLibraryEntry, loadCode, say]
   );
 
   /* Opening from the history happens after a fetch, so it reads `replace` as

@@ -1234,41 +1234,17 @@
   color: var(--brass);
   white-space: nowrap;
 }
-.bb .item .kill {
-  padding: 4px 6px;
-  color: var(--faint);
-  font-size: 14px;
-  line-height: 1;
-}
-.bb .item .kill:hover {
-  color: var(--bad);
-}
-/* A saved break: load on the left, forget on the right. Two buttons in a row
+/* A row on a list: open on the left, its ★ on the right. Two buttons in a row
    rather than one inside the other — nesting them is invalid HTML, and every
-   way of faking the nesting costs the keyboard the delete control. */
-.bb .favrow,
+   way of faking the nesting costs the keyboard the second control. */
 .bb .pinrow {
   display: flex;
   gap: 6px;
   align-items: stretch;
 }
-.bb .favrow .item:first-child,
 .bb .pinrow .item:first-child {
   flex: 1;
   min-width: 0;
-}
-.bb .item.kill {
-  flex: 0 0 auto;
-  width: 34px;
-  justify-content: center;
-  padding: 4px 6px;
-  color: var(--faint);
-  font-size: 14px;
-  line-height: 1;
-}
-.bb .item.kill:hover {
-  color: var(--bad);
-  border-color: var(--bad);
 }
 
 /* The sample loader is a <label> wrapping a hidden file input, so the click

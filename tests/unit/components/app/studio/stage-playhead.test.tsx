@@ -160,11 +160,6 @@ beforeEach(() => {
     canUndo: false,
     canRedo: false,
 
-    favs: [],
-    saveFav: vi.fn(),
-    loadFav: vi.fn(() => false),
-    deleteFav: vi.fn(),
-
     clearSection: vi.fn(),
 
     shareCode: vi.fn(() => ''),

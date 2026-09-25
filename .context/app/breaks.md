@@ -292,13 +292,44 @@ anything is on it, else Recent, else Libraries.
 - Every row opens **in place** through the provider's `open(target)` — the
   same fetch-and-attach the history uses — and carries a ★ (`PinButton`).
   The row for whatever is on the stage (`stagePin`) is `aria-current`.
-- The browser favourites (`bb.favs`) show under All as **In this browser**,
-  load and delete, until task 4.10 imports them. _Save current_ into them is
-  gone: **Save** in the header is the one way to keep a pattern.
+- **Save** in the header is the one way to keep a pattern. The browser
+  favourites (`bb.favs`) that older builds kept are imported into the account
+  once (task 4.10, below) and have no list of their own.
 - `ShelfList` is exported; the **Practice** drawer shows the Practising shelf
   above the rig when anything is on it.
 
 Tests: `tests/unit/components/app/studio/panels/patterns-panel.test.tsx`.
+
+## Browser favourites import (task 4.10)
+
+Before patterns lived in an account, the Studio kept up to 30 favourites in
+`localStorage` under `bb.favs` (`{ name, bpm, style, level, code }`, the code a
+share code). `useFavsImport` (`components/app/studio/use-favs-import.ts`),
+called once by `StudioProvider`, moves them into the account:
+
+- `readFavs` (`lib/app/breaks/favs.ts`) checks each entry on its own. A
+  readable one is decoded with the catalogue's style lookup and re-encoded
+  with `breakPayload`, so an older code arrives as a v4 document with its
+  style snapshot — what opening it and pressing Save would have sent. A blank
+  name becomes _Untitled pattern_.
+- Everything readable goes in **one** `POST /api/v1/breaks` with
+  `{ breaks: [...] }` (at most `MAX_BULK_BREAKS`, 30), which saves all or none.
+- **The key changes only after that request succeeds.** A failure — offline,
+  a refusal, a server error — leaves it exactly as it was, logs a warning,
+  says nothing, and the next Studio load tries again. On success the key is
+  removed, or rewritten to hold only the entries that did not read (and any
+  past 30); with nothing readable in it, no request is made, so the import
+  does not repeat. The toast says how many arrived and where: _under
+  Patterns › All_.
+- Two Studio tabs opened at the same moment, before either has finished,
+  would each import the list. Not guarded: it needs two first loads racing,
+  once.
+
+The console no longer has `favs`, `saveFav`, `loadFav` or `deleteFav`; the
+Patterns drawer's _In this browser_ card is gone with them.
+
+Tests: `tests/unit/lib/app/breaks/favs.test.ts`, and the import through the
+real provider in `tests/unit/components/app/studio/panels/patterns-panel.test.tsx`.
 
 ## `/api/v1/home` — Home (task 4.9)
 

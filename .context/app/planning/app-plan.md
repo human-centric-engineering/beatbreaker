@@ -713,6 +713,19 @@ and the _Published_ section wait for Phase 6. The platform dashboard's
 profile-completion and email-verification cards are gone with the old body;
 both still live under Settings. Not looked at in a browser, as for 4.5–4.8.
 
+**4.10 built 2026-09-25** (on `phase-4-9-home`, so 4.9 and 4.10 go to main
+in one PR and are gated once). `useFavsImport` runs once when the Studio
+opens: every favourite that reads goes in one bulk `POST /api/v1/breaks`, and
+`bb.favs` is emptied only once that has succeeded — a failure leaves it as it
+was for the next load. Each code is decoded and re-encoded, so an older code
+arrives as a v4 document with its style snapshot. An entry that does not read
+is kept in the key rather than sent or dropped; with nothing readable left
+there is no request, so the import does not repeat. The Patterns drawer's
+_In this browser_ card and the console's `favs` / `saveFav` / `loadFav` /
+`deleteFav` are gone. No API or schema change. Two tabs making their first
+load at the same moment would each import; not guarded. Not looked at in a
+browser, as for 4.5–4.9.
+
 **Not yet looked at in a browser.** 4.5's header status, Save button and
 unsaved-changes prompt are covered by component tests over the real console
 and frame, but nobody has seen them on screen — the browser extension was not

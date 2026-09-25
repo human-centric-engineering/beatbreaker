@@ -224,12 +224,6 @@ export interface BreakConsole {
   canUndo: boolean;
   canRedo: boolean;
 
-  /** Saved breaks, newest first. */
-  favs: Fav[];
-  saveFav: () => void;
-  loadFav: (index: number) => boolean;
-  deleteFav: (index: number) => void;
-
   /** Empty every lane of the section being edited. */
   clearSection: () => void;
   /** Name the pattern — what a saved one is called in your list. */
@@ -258,15 +252,6 @@ export interface BreakConsole {
   audition: (voice: string, variant?: string) => void;
 }
 
-/** One saved break. The code is the whole of it; the rest is for the row. */
-export interface Fav {
-  name: string;
-  bpm: number;
-  style: string;
-  level: number;
-  code: string;
-}
-
 /**
  * A saved pattern the Studio opens on, loaded server-side by `/studio/[id]`.
  *
@@ -287,9 +272,6 @@ export interface PracticePlace {
   level: number;
   bpm: number;
 }
-
-/** How many saved breaks are kept. Oldest fall off the end. */
-const FAV_CAP = 30;
 
 /**
  * How far below the break's own tempo each layer sits, when the tempo is
@@ -344,7 +326,6 @@ export function useBreakConsole(
   );
   const [voice, setVoice] = useState('h');
   const [percSamples, setPercSamplesRaw] = useLocalStorage('bb.percSamples', true);
-  const [favs, setFavs] = useLocalStorage<Fav[]>('bb.favs', []);
   const [midiPort, setMidiPort] = useState('');
   const [guides, setGuides] = useLocalStorage('bb.guides', true);
   const [sticking, setSticking] = useLocalStorage('bb.sticking', false);
@@ -1315,30 +1296,6 @@ export function useBreakConsole(
     );
   }, []);
 
-  /* ---- saved breaks ----------------------------------------------------- */
-
-  const saveFav = useCallback(() => {
-    const code = shareCode();
-    const pat = patterns.A;
-    if (!code || !pat) return;
-    setFavs((prev) =>
-      [{ name: pat.name, bpm, style: pat.style, level, code }, ...prev].slice(0, FAV_CAP)
-    );
-  }, [shareCode, patterns.A, bpm, level, setFavs]);
-
-  const loadFav = useCallback(
-    (index: number): boolean => {
-      const fav = favs[index];
-      return fav ? loadCode(fav.code) : false;
-    },
-    [favs, loadCode]
-  );
-
-  const deleteFav = useCallback(
-    (index: number) => setFavs((prev) => prev.filter((_, i) => i !== index)),
-    [setFavs]
-  );
-
   /* ---- your own samples ------------------------------------------------- */
 
   const addSample = useCallback(async (slot: string, file: File): Promise<string> => {
@@ -1449,10 +1406,6 @@ export function useBreakConsole(
     redo,
     canUndo: history.length > 0,
     canRedo: future.length > 0,
-    favs,
-    saveFav,
-    loadFav,
-    deleteFav,
     clearSection,
     shareCode,
     payload,

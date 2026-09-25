@@ -456,61 +456,6 @@ function LibrariesList() {
   );
 }
 
-/**
- * The favourites kept in this browser (`bb.favs`) — until task 4.10 brings
- * them into your account, they are only here.
- */
-function BrowserFavs() {
-  const c = useStudio();
-  const { say } = c;
-  const { styles } = c.catalogue;
-  if (!c.favs.length) return null;
-  return (
-    <div className="card">
-      <div className="card-hd">
-        <h3>In this browser</h3>
-      </div>
-      <div className="card-bd">
-        <div className="list">
-          {c.favs.map((fav, i) => (
-            /* Load and delete side by side, not nested — see `Row`. */
-            <div className="favrow" key={`${fav.code.slice(0, 12)}-${i}`}>
-              <button
-                type="button"
-                className="item"
-                onClick={() => {
-                  // "Loaded" is said when it loads — it may wait on the unsaved-changes prompt
-                  if (!c.loadFav(i)) say('That saved break could not be read');
-                }}
-              >
-                <div className="nm">
-                  <b>{fav.name}</b>
-                  <span>
-                    {styles[fav.style]?.params.label ?? fav.style} · L{fav.level}
-                  </span>
-                </div>
-                <span className="bpm">{fav.bpm}</span>
-              </button>
-              <button
-                type="button"
-                className="item kill"
-                aria-label={`Delete ${fav.name}`}
-                onClick={() => c.deleteFav(i)}
-              >
-                ✕
-              </button>
-            </div>
-          ))}
-        </div>
-        <div className="hint" style={{ marginTop: 10 }}>
-          Saved in this browser before patterns lived in your account. Open one and <b>Save</b> it
-          to keep it everywhere.
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function PatternsPanel() {
   const { pins, history } = useStudio();
   /* The tab you were on, per browser — a convenience, so it is checked on the
@@ -565,7 +510,6 @@ export function PatternsPanel() {
           <LibrariesList />
         )}
       </div>
-      {tab === 'all' ? <BrowserFavs /> : null}
     </>
   );
 }
