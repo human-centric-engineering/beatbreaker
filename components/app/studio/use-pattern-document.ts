@@ -98,10 +98,11 @@ export interface PatternDocument {
   /** The description and links of the pattern on the stage; empty for scratch. */
   details: PatternDetails;
   /**
-   * Send new details for a saved pattern of yours. False, with the toast
-   * saying why, when there is no such pattern or the server refused them.
+   * Send new details for a saved pattern of yours. What the server kept (its
+   * canonical links), or null — with the toast saying why — when there is no
+   * such pattern or the server refused them.
    */
-  saveDetails: (details: PatternDetails) => Promise<boolean>;
+  saveDetails: (details: PatternDetails) => Promise<PatternDetails | null>;
 }
 
 const NO_DETAILS: PatternDetails = { description: '', links: [] };
@@ -409,19 +410,19 @@ export function usePatternDocument({
   }, []);
 
   const saveDetails = useCallback(
-    async (next: PatternDetails): Promise<boolean> => {
+    async (next: PatternDetails): Promise<PatternDetails | null> => {
       const savedId = latest.current.mine ? latest.current.id : null;
-      if (!savedId) return false;
+      if (!savedId) return null;
       try {
         const answer = detailsAnswer.parse(
           await apiClient.patch(`/api/v1/breaks/${savedId}`, {
             body: { description: next.description, links: next.links },
           })
         );
+        const kept = { description: answer.description ?? '', links: answer.links };
         // the stage may have moved on while this was out
-        if (latest.current.id === savedId)
-          setDetails({ description: answer.description ?? '', links: answer.links });
-        return true;
+        if (latest.current.id === savedId) setDetails(kept);
+        return kept;
       } catch (error) {
         logger.warn('BeatBreaker: details refused', { error, breakId: savedId });
         say(
@@ -429,7 +430,7 @@ export function usePatternDocument({
             ? 'Could not reach the server — details not saved'
             : 'Those details did not save'
         );
-        return false;
+        return null;
       }
     },
     [say]

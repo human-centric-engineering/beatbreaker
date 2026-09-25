@@ -1,10 +1,11 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMemo } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import type { PatternDetails } from '@/components/app/breaks/use-break-console';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { FieldHelp } from '@/components/ui/field-help';
 import { LINK_RULE, MAX_LINKS, parseReferenceLink, type StoredLink } from '@/lib/app/breaks/links';
@@ -48,6 +49,15 @@ const detailsSchema = z.object({
 
 type DetailsValues = z.infer<typeof detailsSchema>;
 
+/** The form's values for a name and a pattern's details. */
+function formValues(title: string, details: PatternDetails): DetailsValues {
+  return {
+    title,
+    description: details.description,
+    links: details.links.map((l) => ({ url: l.url, ...(l.label ? { label: l.label } : {}) })),
+  };
+}
+
 /** A link the form has already checked, as the row stores it. */
 function toStored(link: DetailsValues['links'][number]): StoredLink | null {
   const parsed = parseReferenceLink(link.url);
@@ -65,39 +75,60 @@ export function DetailsForm() {
   const name = c.patterns.A?.name ?? '';
   const editable = !!doc.id && doc.mine;
 
-  /* The form follows the stage: another pattern opened, or the server's
-     canonical version of what was just saved, resets it. React Hook Form
-     compares these deeply, so a new object with the same contents does not. */
-  const values = useMemo<DetailsValues>(
-    () => ({
-      title: name,
-      description: doc.details.description,
-      links: doc.details.links.map((l) => ({ url: l.url, ...(l.label ? { label: l.label } : {}) })),
-    }),
-    [name, doc.details]
-  );
-
   const {
     register,
     control,
     handleSubmit,
+    reset,
+    resetField,
+    getFieldState,
     formState: { errors, isDirty, isSubmitting },
   } = useForm<DetailsValues>({
     resolver: zodResolver(detailsSchema),
     mode: 'onTouched',
-    values,
+    defaultValues: formValues(name, doc.details),
   });
+
+  /* The form follows the stage, in two ways, and never over what is being
+     typed without a reason:
+
+     - **Different details** — another pattern opened (or let go), or the
+       server's answer to a save — replace the whole form. `doc.details` only
+       changes for those, and the answer carries the canonical links, so the
+       form shows what was stored rather than what was typed.
+     - **A new name** on its own — a regenerate, a rename that landed —
+       reaches the Name field only if you have not edited it, and touches
+       nothing else. A half-typed description survives it.
+
+     Not React Hook Form's `values` prop: that resets every field on any
+     change, which lost typed links whenever the name moved. */
+  const nameNow = useRef(name);
+  useLayoutEffect(() => {
+    nameNow.current = name;
+  });
+  useEffect(() => {
+    reset(formValues(nameNow.current, doc.details));
+  }, [doc.id, doc.details, reset]);
+  useEffect(() => {
+    if (!getFieldState('title').isDirty) resetField('title', { defaultValue: name });
+  }, [name, getFieldState, resetField]);
   const { fields, append, remove } = useFieldArray({ control, name: 'links' });
   const full = fields.length >= MAX_LINKS;
 
   const onSubmit = async (next: DetailsValues) => {
-    if (next.title !== name) rename(next.title);
     if (!editable) {
+      if (next.title !== name) rename(next.title);
       say('Renamed');
       return;
     }
     const links = next.links.map(toStored).filter((l): l is StoredLink => l !== null);
-    if (await doc.saveDetails({ description: next.description, links })) say('Details saved');
+    /* The rename waits for the save. Renamed first, the stage's new name
+       would reach the form while the save was still out — and a save that
+       then failed would leave the name changed and the rest looking saved. */
+    if (!(await doc.saveDetails({ description: next.description, links }))) return;
+    // the saved details reset the form; the rename then brings its name level
+    if (next.title !== name) rename(next.title);
+    say('Details saved');
   };
 
   /* Save As. The copy is named from the field and carries the details as they

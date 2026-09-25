@@ -499,12 +499,12 @@ describe('details — description and links (task 4.11)', () => {
     await pass(0);
     expect(result.current.details).toEqual({ description: 'Old', links: [] });
 
-    let ok = false;
+    let kept: unknown = null;
     await act(async () => {
-      ok = await result.current.saveDetails({ description: 'At 5:21', links: [VIDEO] });
+      kept = await result.current.saveDetails({ description: 'At 5:21', links: [VIDEO] });
     });
 
-    expect(ok).toBe(true);
+    expect(kept).toEqual({ description: 'At 5:21', links: [VIDEO] });
     expect(patchBody(0)).toEqual({ description: 'At 5:21', links: [VIDEO] });
     expect(result.current.details).toEqual({ description: 'At 5:21', links: [VIDEO] });
   });
@@ -516,23 +516,23 @@ describe('details — description and links (task 4.11)', () => {
     const { result, say } = mount({ ...opened(), details: { description: 'Old', links: [] } });
     await pass(0);
 
-    let ok = true;
+    let kept: unknown = 'unset';
     await act(async () => {
-      ok = await result.current.saveDetails({ description: 'New', links: [VIDEO] });
+      kept = await result.current.saveDetails({ description: 'New', links: [VIDEO] });
     });
 
-    expect(ok).toBe(false);
+    expect(kept).toBeNull();
     expect(say).toHaveBeenCalledWith('Those details did not save');
     expect(result.current.details).toEqual({ description: 'Old', links: [] });
   });
 
   it('sends nothing for a scratch pattern — there is no row to describe', async () => {
     const { result } = mount();
-    let ok = true;
+    let kept: unknown = 'unset';
     await act(async () => {
-      ok = await result.current.saveDetails({ description: 'x', links: [] });
+      kept = await result.current.saveDetails({ description: 'x', links: [] });
     });
-    expect(ok).toBe(false);
+    expect(kept).toBeNull();
     expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — scratch has no row
   });
 

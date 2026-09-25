@@ -44,7 +44,7 @@ import type { InitialPattern } from '@/components/app/breaks/use-break-console';
 import { DetailsForm } from '@/components/app/studio/details-form';
 import { Stage } from '@/components/app/studio/stage';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
-import { apiClient } from '@/lib/api/client';
+import { APIClientError, apiClient } from '@/lib/api/client';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { LINK_RULE } from '@/lib/app/breaks/links';
 import { breakPayload } from '@/lib/app/breaks/share';
@@ -87,6 +87,16 @@ function ToastProbe() {
   return <div role="status">{useStudio().toast}</div>;
 }
 
+/** A rename from elsewhere — what regenerating section A does to the name. */
+function RenameProbe() {
+  const c = useStudio();
+  return (
+    <button type="button" onClick={() => c.rename('Renamed elsewhere')}>
+      probe: rename
+    </button>
+  );
+}
+
 /** The header's Save, without mounting the header. */
 function SaveProbe() {
   const c = useStudio();
@@ -104,6 +114,7 @@ async function mount(initial?: InitialPattern) {
       <DetailsForm />
       <ToastProbe />
       <SaveProbe />
+      <RenameProbe />
     </StudioProvider>
   );
   await screen.findByRole('heading', { level: 2 });
@@ -210,9 +221,72 @@ describe('DetailsForm — saving', () => {
       },
     });
     expect(await screen.findByText('Details saved')).toBeInTheDocument();
+    // the form shows what was stored, not what was typed
+    expect(screen.getByRole('textbox', { name: 'Link 1' })).toHaveValue(
+      'https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=321s'
+    );
+    expect(screen.getByRole('button', { name: 'Save details' })).toBeDisabled();
     // the chips follow what the server answered
     expect(screen.getByRole('link', { name: 'Video (opens in a new tab)' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Song (opens in a new tab)' })).toBeInTheDocument();
+  });
+
+  it('keeps a new name and the typed links when the save fails — and renames nothing', async () => {
+    const user = userEvent.setup();
+    vi.mocked(apiClient.patch).mockRejectedValue(
+      new APIClientError('Failed to fetch', 'NETWORK_ERROR')
+    );
+    await mount(saved(true));
+
+    const name = screen.getByRole('textbox', { name: /Name/ });
+    await user.clear(name);
+    await user.type(name, 'Cold Carpet II');
+    await user.type(screen.getByRole('textbox', { name: /Description/ }), 'From the lesson');
+    await addLink(user, FUNKY);
+    await user.click(screen.getByRole('button', { name: 'Save details' }));
+
+    expect(
+      await screen.findByText('Could not reach the server — details not saved')
+    ).toBeInTheDocument();
+    // nothing typed is lost, and the stage keeps its name until a save lands
+    expect(screen.getByRole('textbox', { name: /Name/ })).toHaveValue('Cold Carpet II');
+    expect(screen.getByRole('textbox', { name: /Description/ })).toHaveValue('From the lesson');
+    expect(screen.getByRole('textbox', { name: 'Link 1' })).toHaveValue(FUNKY);
+    expect(screen.getByRole('heading', { level: 2, name: 'Cold Carpet' })).toBeInTheDocument();
+  });
+
+  it('renames the stage once the details have saved, and leaves nothing unsaved', async () => {
+    const user = userEvent.setup();
+    vi.mocked(apiClient.patch).mockResolvedValue({ description: 'Slower', links: [] });
+    await mount(saved(true));
+
+    const name = screen.getByRole('textbox', { name: /Name/ });
+    await user.clear(name);
+    await user.type(name, 'Cold Carpet II');
+    await user.type(screen.getByRole('textbox', { name: /Description/ }), 'Slower');
+    await user.click(screen.getByRole('button', { name: 'Save details' }));
+
+    expect(await screen.findByRole('heading', { level: 2, name: 'Cold Carpet II' })).toBeTruthy();
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'Save details' })).toBeDisabled()
+    );
+    expect(screen.getByRole('textbox', { name: /Name/ })).toHaveValue('Cold Carpet II');
+    expect(screen.getByRole('textbox', { name: /Description/ })).toHaveValue('Slower');
+  });
+
+  it('keeps what is being typed when the stage is renamed from elsewhere', async () => {
+    const user = userEvent.setup();
+    await mount(saved(true));
+
+    await user.type(screen.getByRole('textbox', { name: /Description/ }), 'Half-typed');
+    await addLink(user, FUNKY);
+    await user.click(screen.getByRole('button', { name: 'probe: rename' }));
+
+    await screen.findByRole('heading', { level: 2, name: 'Renamed elsewhere' });
+    // the untouched name follows the stage; the edited fields stay as typed
+    expect(screen.getByRole('textbox', { name: /Name/ })).toHaveValue('Renamed elsewhere');
+    expect(screen.getByRole('textbox', { name: /Description/ })).toHaveValue('Half-typed');
+    expect(screen.getByRole('textbox', { name: 'Link 1' })).toHaveValue(FUNKY);
   });
 
   it('locks the description and links on a scratch pattern, and says why', async () => {
