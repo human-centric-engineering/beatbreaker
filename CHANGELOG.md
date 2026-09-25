@@ -18,6 +18,14 @@ release process.
 
 ### Added
 
+- **Home — `GET /api/v1/home`**, and the `/dashboard` body rebuilt on it.
+  One request answers the Practising shelf as cards (each with the layer and
+  tempo it opens at, when it was last opened, and a server-engraved thumbnail
+  as an `Engraving` node tree), the newest eight history items, and how many
+  patterns you have saved. No schema change. `/studio?entry=<id>` now opens a
+  library entry once the Studio is up, which is how Home continues a pinned
+  famous break.
+
 - **Practice history — a `PracticeVisit` model and `/api/v1/history`**
   (migration `practice_history`, additive). What you opened — your own
   patterns, shared ones and library entries — one row per target with the

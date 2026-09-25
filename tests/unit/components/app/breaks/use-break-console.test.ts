@@ -667,28 +667,4 @@ describe('sharing and saving', () => {
     act(() => result.current.setArrangement(['B']));
     expect(result.current.midiBase64()).toBe('');
   });
-
-  it('saves, loads and deletes favourites, newest first', async () => {
-    const { result } = await mount();
-    const first = result.current.patterns.A?.name;
-    act(() => result.current.saveFav());
-    act(() => result.current.newBreak());
-    act(() => result.current.saveFav());
-    expect(result.current.favs).toHaveLength(2);
-    expect(result.current.favs[1].name).toBe(first);
-
-    let ok = false;
-    act(() => {
-      ok = result.current.loadFav(1);
-    });
-    expect(ok).toBe(true);
-    expect(result.current.patterns.A?.name).toBe(first);
-    act(() => {
-      ok = result.current.loadFav(9);
-    });
-    expect(ok).toBe(false);
-
-    act(() => result.current.deleteFav(0));
-    expect(result.current.favs.map((f) => f.name)).toEqual([first]);
-  });
 });

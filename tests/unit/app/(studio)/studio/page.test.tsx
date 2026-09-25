@@ -41,6 +41,11 @@ import { testCatalogue } from '@/tests/helpers/catalogue';
 
 const SHELVES = { practising: [], later: [] };
 const HISTORY: Awaited<ReturnType<typeof listHistory>> = [];
+const ENTRY_ID = 'centry000000000000000001';
+
+const params = (entry?: string | string[]) => ({
+  searchParams: Promise.resolve(entry === undefined ? {} : { entry }),
+});
 
 describe('/studio', () => {
   beforeEach(() => {
@@ -50,7 +55,7 @@ describe('/studio', () => {
 
   it('hands a signed-out visitor to the shim that keeps their link', async () => {
     vi.mocked(getServerSession).mockResolvedValue(null);
-    const el = await StudioPage();
+    const el = await StudioPage(params());
     expect(el.type).toBe(SignInToOpen);
     // back to /studio, so the shim has somewhere to restore the fragment onto
     expect(el.props).toEqual({ loginHref: '/login?callbackUrl=%2Fstudio' });
@@ -60,7 +65,7 @@ describe('/studio', () => {
     vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
     const catalogue = testCatalogue();
     vi.mocked(studioCatalogue).mockResolvedValue(catalogue);
-    const el = await StudioPage();
+    const el = await StudioPage(params());
     // the frame reads its state from the provider, so the nesting is the contract
     expect(el.type).toBe(StudioProvider);
     expect(el.props.children.type).toBe(StudioFrame);
@@ -74,5 +79,29 @@ describe('/studio', () => {
     expect(el.props.pins).toBe(SHELVES);
     expect(listHistory).toHaveBeenCalledWith(createMockAuthSession().user.id);
     expect(el.props.history).toBe(HISTORY);
+    // a plain /studio opens nothing on top of the pattern it arrives to
+    expect(el.props.openEntry).toBeUndefined();
+  });
+
+  describe("?entry= — Home's Continue on a famous break", () => {
+    beforeEach(() => {
+      vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+      vi.mocked(studioCatalogue).mockResolvedValue(testCatalogue());
+    });
+
+    it('hands the entry to the provider to open once the Studio is up', async () => {
+      const el = await StudioPage(params(ENTRY_ID));
+      expect(el.props.openEntry).toBe(ENTRY_ID);
+    });
+
+    it.each([
+      ['not an id', 'javascript:alert(1)'],
+      ['repeated', [ENTRY_ID, ENTRY_ID]],
+      ['empty', ''],
+    ])('ignores one that is %s, and still opens the Studio', async (_, entry) => {
+      const el = await StudioPage(params(entry));
+      expect(el.type).toBe(StudioProvider);
+      expect(el.props.openEntry).toBeUndefined();
+    });
   });
 });

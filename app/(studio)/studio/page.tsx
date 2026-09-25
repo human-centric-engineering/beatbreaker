@@ -7,6 +7,7 @@ import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { listHistory } from '@/lib/app/breaks/saved/history';
 import { listPins } from '@/lib/app/breaks/saved/pins';
 import { getServerSession } from '@/lib/auth/utils';
+import { cuidSchema } from '@/lib/validations/common';
 
 /**
  * The Studio.
@@ -27,6 +28,11 @@ import { getServerSession } from '@/lib/auth/utils';
  * fragment, which a server redirect cannot forward and the login form drops, so
  * a signed-out visitor with a link would sign in and land on a fresh break.
  * {@link SignInToOpen} stashes the fragment in the browser first.
+ *
+ * `?entry=<id>` opens a library entry once the Studio is up — Home's Continue
+ * on a pinned famous break. An id that is not one is ignored, and one the
+ * catalogue does not hold is said so in the Studio, not a 404: the Studio
+ * itself is still there to use.
  */
 
 export const metadata: Metadata = {
@@ -36,9 +42,15 @@ export const metadata: Metadata = {
 
 const LOGIN_HREF = `/login?callbackUrl=${encodeURIComponent('/studio')}`;
 
-export default async function StudioPage() {
+export default async function StudioPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ entry?: string | string[] }>;
+}) {
   const session = await getServerSession();
   if (!session) return <SignInToOpen loginHref={LOGIN_HREF} />;
+
+  const entry = cuidSchema.safeParse((await searchParams).entry);
 
   const [catalogue, pins, history] = await Promise.all([
     studioCatalogue(),
@@ -47,7 +59,12 @@ export default async function StudioPage() {
   ]);
 
   return (
-    <StudioProvider catalogue={catalogue} pins={pins} history={history}>
+    <StudioProvider
+      catalogue={catalogue}
+      pins={pins}
+      history={history}
+      openEntry={entry.success ? entry.data : undefined}
+    >
       <StudioFrame />
     </StudioProvider>
   );

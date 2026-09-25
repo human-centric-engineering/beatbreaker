@@ -15,6 +15,9 @@ import type { Bar, LaneKey, Meter, Pattern } from '@/lib/app/breaks/types';
  * break's own kick syncopations land with the rest at L5.
  */
 
+/** The whole break — where a library entry you have never opened starts. */
+export const FULL_LAYER = 5;
+
 export const LAYER_NAMES: Record<number, string> = {
   1: 'Skeleton',
   2: 'Groove',

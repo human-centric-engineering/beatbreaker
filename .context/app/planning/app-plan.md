@@ -695,6 +695,37 @@ gone, and the save toast now says "Saved to your account — under Patterns ›
 All". No API or schema change. Not looked at in a browser: the extension was
 not connected, as for 4.5–4.7.
 
+**4.9 built 2026-09-25** (branch `phase-4-9-home`). `/dashboard` is Home:
+**Practising** cards with a server-engraved thumbnail (first two bars, at the
+layer the card opens at), tempo, layer, last opened and **Continue**; **Recent**
+(the newest eight visits); **New pattern**; the first-run welcome from
+`site-copy.md` §6 when nothing is saved, pinned or opened, and the "Pin the
+patterns…" line when patterns are saved but the shelf is empty. API first:
+`GET /api/v1/home` answers from the same `readHome` the page calls. "One query
+for the page" is met as **one read with no per-card fetch** — three queries
+side by side (shelf with documents, history, a saved count) — rather than a
+single SQL statement. A pinned famous break had no address to continue it at,
+so `/studio?entry=<id>` now opens one, where its last visit left it. Left
+out, and why: the first-run _Browse the famous grooves_ link, because the
+Studio cannot yet be opened on a given drawer (a deep link to the Patterns
+drawer's Libraries tab is a small follow-up); _Browse the community library_
+and the _Published_ section wait for Phase 6. The platform dashboard's
+profile-completion and email-verification cards are gone with the old body;
+both still live under Settings. Not looked at in a browser, as for 4.5–4.8.
+
+**4.10 built 2026-09-25** (on `phase-4-9-home`, so 4.9 and 4.10 go to main
+in one PR and are gated once). `useFavsImport` runs once when the Studio
+opens: every favourite that reads goes in one bulk `POST /api/v1/breaks`, and
+`bb.favs` is emptied only once that has succeeded — a failure leaves it as it
+was for the next load. Each code is decoded and re-encoded, so an older code
+arrives as a v4 document with its style snapshot. An entry that does not read
+is kept in the key rather than sent or dropped; with nothing readable left
+there is no request, so the import does not repeat. The Patterns drawer's
+_In this browser_ card and the console's `favs` / `saveFav` / `loadFav` /
+`deleteFav` are gone. No API or schema change. Two tabs making their first
+load at the same moment would each import; not guarded. Not looked at in a
+browser, as for 4.5–4.9.
+
 **Not yet looked at in a browser.** 4.5's header status, Save button and
 unsaved-changes prompt are covered by component tests over the real console
 and frame, but nobody has seen them on screen — the browser extension was not

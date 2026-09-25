@@ -292,13 +292,101 @@ anything is on it, else Recent, else Libraries.
 - Every row opens **in place** through the provider's `open(target)` — the
   same fetch-and-attach the history uses — and carries a ★ (`PinButton`).
   The row for whatever is on the stage (`stagePin`) is `aria-current`.
-- The browser favourites (`bb.favs`) show under All as **In this browser**,
-  load and delete, until task 4.10 imports them. _Save current_ into them is
-  gone: **Save** in the header is the one way to keep a pattern.
+- **Save** in the header is the one way to keep a pattern. The browser
+  favourites (`bb.favs`) that older builds kept are imported into the account
+  once (task 4.10, below) and have no list of their own.
 - `ShelfList` is exported; the **Practice** drawer shows the Practising shelf
   above the rig when anything is on it.
 
 Tests: `tests/unit/components/app/studio/panels/patterns-panel.test.tsx`.
+
+## Browser favourites import (task 4.10)
+
+Before patterns lived in an account, the Studio kept up to 30 favourites in
+`localStorage` under `bb.favs` (`{ name, bpm, style, level, code }`, the code a
+share code). `useFavsImport` (`components/app/studio/use-favs-import.ts`),
+called once by `StudioProvider`, moves them into the account:
+
+- `readFavs` (`lib/app/breaks/favs.ts`) checks each entry on its own. A
+  readable one is decoded with the catalogue's style lookup and re-encoded
+  with `breakPayload`, so an older code arrives as a v4 document with its
+  style snapshot — what opening it and pressing Save would have sent. A blank
+  name becomes _Untitled pattern_.
+- Everything readable goes in **one** `POST /api/v1/breaks` with
+  `{ breaks: [...] }` (at most `MAX_BULK_BREAKS`, 30), which saves all or none.
+- **The key changes only after that request succeeds.** A failure — offline,
+  a refusal, a server error — leaves it exactly as it was, logs a warning,
+  says nothing, and the next Studio load tries again. On success the key is
+  removed, or rewritten to hold only the entries that did not read (and any
+  past 30); with nothing readable in it, no request is made, so the import
+  does not repeat. The toast says how many arrived and where: _under
+  Patterns › All_.
+- **One import in flight at a time.** Before the request goes, the hook
+  writes the time to `bb.favs.importing` (`CLAIM_KEY`) and removes it when the
+  request settles, either way. A Studio that finds a claim younger than
+  `CLAIM_MS` (60 s) does nothing — a second tab, or this one remounted by
+  `/studio` → `/studio/[id]` while the request is still out, would otherwise
+  send the same list and save every favourite twice. An older claim is from a
+  tab that died mid-request and is ignored. It is a check-then-write in
+  `localStorage`, not a lock: two tabs whose first loads land in the same
+  instant can still both send.
+
+The console no longer has `favs`, `saveFav`, `loadFav` or `deleteFav`; the
+Patterns drawer's _In this browser_ card is gone with them.
+
+Tests: `tests/unit/lib/app/breaks/favs.test.ts`, the import through the
+real provider in `tests/unit/components/app/studio/panels/patterns-panel.test.tsx`,
+and the hook's own edges (more than 30, not JSON, no storage, a Strict Mode
+remount, a second Studio while the request is out, a stale claim) in `tests/unit/components/app/studio/use-favs-import.test.ts`.
+
+## `/api/v1/home` — Home (task 4.9)
+
+What the signed-in landing page (`/dashboard`, labelled **Home**) shows, in
+one request: the **Practising** shelf as cards, the newest `HOME_RECENT` (8)
+history items, and `savedCount` — how many patterns you have saved, which is
+what tells a first visit (the welcome copy, `site-copy.md` §6) from an empty
+shelf (the "Pin the patterns…" line).
+
+| Route              | Does                                                                                                                                                       |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /api/v1/home` | `{ practising: HomeCard[], recent: PracticeVisitView[], savedCount }`. A card is `{ pinId, target, level, bpm, lastOpenedAt, thumbnail }`, in shelf order. |
+
+Data layer: `lib/app/breaks/saved/home.ts` (`readHome`, `thumbnailOf`). The
+page calls `readHome` directly, as the Studio's pages call `listPins`.
+
+- **Three queries side by side, none per card**: the Practising pins with
+  each target's `doc`, `listHistory`, and a `Break` count. The pin query uses
+  the shelves' visibility rule (`visibleTarget`), so an unshared pattern drops
+  off Home as it drops off the shelf.
+- **A card opens where you left it.** Your own pattern at its row's `level`
+  and `bpm` (it autosaves them); anything else at its latest visit's, or — never
+  opened — at its own tempo (and the full break, for a library entry).
+- **The thumbnail is engraved on the server**: the first two bars of section A
+  at the card's layer, `engrave(…, { scale: 0.55, perSystem: 2 })`, as an
+  `Engraving` node tree — the shape `POST /api/v1/breaks/engrave` answers. A
+  document that will not read gets `thumbnail: null` and the card stays; only
+  an engraver that throws is logged (a warning). The `doc` itself is read for
+  the thumbnail and is not in the response — `target` carries the same fields
+  the shelves' does.
+- **No links in the response** (D14). The web page builds them
+  (`studioHref` in `components/app/home/home-view.tsx`): a saved pattern opens
+  at `/studio/[id]`, a library entry at **`/studio?entry=<id>`** — the Studio
+  page passes a valid id to `StudioProvider` as `openEntry`, which opens it
+  once the console is ready through the same `openTarget` a shelf row uses, at
+  the layer and tempo of its latest visit — or, never visited, at
+  `FULL_LAYER` (5) and the entry's own tempo, which is what the card says; not
+  the layer the Studio last had. An id the catalogue does not hold
+  says "That pattern is no longer there" over a working Studio.
+- The thumbnail renders through `components/app/breaks/svg-nodes.tsx`
+  (`renderSvgNode`) — the stave's own node renderer, moved out of `stave.tsx`
+  so a server component can use it. `EngravedThumbnail` maps the engraver's
+  `--ink` / `--faint` / `--f-*` onto the consumer surface's tokens, since those
+  are only defined inside the Studio's `.bb` wrapper.
+
+Tests: `tests/integration/api/v1/home/`,
+`tests/unit/app/(protected)/dashboard/page.test.tsx`, and the `?entry=` open
+in `tests/unit/components/app/studio/practice-history.test.tsx` and
+`tests/unit/app/(studio)/studio/page.test.tsx`.
 
 ## The domain endpoints
 
