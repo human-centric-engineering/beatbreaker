@@ -150,11 +150,9 @@ describe('GeneratePanel', () => {
     const gridOf = () =>
       [...document.querySelectorAll('.cell')].map((c) => c.getAttribute('data-on')).join('');
 
-    // switch to B-only so the grid we are reading is B's, not A's
+    // choose B, so the grid we are reading is B's, not A's
     await user.click(
-      within(screen.getByRole('radiogroup', { name: 'Edit which section' })).getByRole('radio', {
-        name: 'Edit B',
-      })
+      within(screen.getByRole('radiogroup', { name: 'Section' })).getByRole('radio', { name: 'B' })
     );
     const originalB = gridOf();
 

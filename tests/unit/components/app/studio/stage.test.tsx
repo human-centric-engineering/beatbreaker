@@ -10,8 +10,8 @@
  * does not repeat any of that: it mounts `<Stage/>` by itself and reaches the
  * branches the frame test's journeys never touch — the view-mode buttons
  * themselves, an intermediate layer, the chart-tool toggles, the size slider,
- * the arrangement controls, and the step editor's own show/hide and
- * edit-which-section toggles.
+ * the arrangement controls, the step editor's show/hide, and the one section
+ * choice the chart and the grid share.
  */
 
 import { fireEvent, render, screen, within } from '@testing-library/react';
@@ -20,8 +20,21 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { GeneratePanel } from '@/components/app/studio/panels/generate-panel';
 import { Stage } from '@/components/app/studio/stage';
-import { StudioProvider } from '@/components/app/studio/studio-provider';
+import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { testCatalogue } from '@/tests/helpers/catalogue';
+
+/** A's and B's bars at the layer on show, and the section the grid is editing. */
+let studio: ReturnType<typeof useStudio> | null = null;
+function Probe() {
+  studio = useStudio();
+  return null;
+}
+const barOf = (L: 'A' | 'B') => JSON.stringify(studio!.view[L]!.bars);
+const probe = () => ({
+  a: barOf('A'),
+  b: barOf('B'),
+  grid: barOf(studio!.editing),
+});
 
 const renderStage = () =>
   render(
@@ -61,25 +74,26 @@ describe('Stage, with nothing in the catalogue', () => {
 });
 
 describe('Stage', () => {
-  it('shows one stave for A only, one for B only, and two for A + B', async () => {
+  it('shows one stave for A, one for B, and two for Both', async () => {
     const user = userEvent.setup();
     renderStage();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    const seg = within(screen.getByRole('radiogroup', { name: 'Which section to show and play' }));
+    const seg = within(screen.getByRole('radiogroup', { name: 'Section' }));
+    expect(seg.getAllByRole('radio').map((r) => r.textContent)).toEqual(['A', 'B', 'Both']);
 
-    await user.click(seg.getByRole('radio', { name: 'A only' }));
+    await user.click(seg.getByRole('radio', { name: 'A' }));
     expect(screen.getAllByRole('img', { name: /Drum notation/ }).length).toBe(1);
-    expect(seg.getByRole('radio', { name: 'A only' })).toHaveAttribute('aria-checked', 'true');
+    expect(seg.getByRole('radio', { name: 'A' })).toHaveAttribute('aria-checked', 'true');
 
-    await user.click(seg.getByRole('radio', { name: 'B only' }));
+    await user.click(seg.getByRole('radio', { name: 'B' }));
     expect(screen.getAllByRole('img', { name: /Drum notation/ }).length).toBe(1);
-    expect(seg.getByRole('radio', { name: 'B only' })).toHaveAttribute('aria-checked', 'true');
-    expect(seg.getByRole('radio', { name: 'A only' })).toHaveAttribute('aria-checked', 'false');
+    expect(seg.getByRole('radio', { name: 'B' })).toHaveAttribute('aria-checked', 'true');
+    expect(seg.getByRole('radio', { name: 'A' })).toHaveAttribute('aria-checked', 'false');
 
-    await user.click(seg.getByRole('radio', { name: 'A + B' }));
+    await user.click(seg.getByRole('radio', { name: 'Both' }));
     expect(screen.getAllByRole('img', { name: /Drum notation/ }).length).toBe(2);
-    expect(seg.getByRole('radio', { name: 'A + B' })).toHaveAttribute('aria-checked', 'true');
+    expect(seg.getByRole('radio', { name: 'Both' })).toHaveAttribute('aria-checked', 'true');
   });
 
   it('names each arrangement cell for what it plays, and says so again when switched', async () => {
@@ -276,25 +290,32 @@ describe('Stage', () => {
     expect(document.querySelector('.chip.teal')?.textContent).toBe('One drop');
   });
 
-  it('switches which section the step editor edits', async () => {
+  it('has one section choice: choosing B shows B, and the grid is B and edits B', async () => {
     const user = userEvent.setup();
-    renderStage();
+    render(
+      <StudioProvider catalogue={testCatalogue()}>
+        <Stage />
+        <Probe />
+      </StudioProvider>
+    );
     await screen.findAllByRole('img', { name: /Drum notation/ });
+    /* No second picker on the grid: the chart's is the only one. */
+    expect(screen.getAllByRole('radiogroup').map((g) => g.getAttribute('aria-label'))).toEqual([
+      'Section',
+      'Difficulty layer',
+    ]);
 
-    const editGroup = within(screen.getByRole('radiogroup', { name: 'Edit which section' }));
-    expect(editGroup.getByRole('radio', { name: 'Edit A' })).toHaveAttribute(
-      'aria-checked',
-      'true'
-    );
+    await user.click(screen.getByRole('radio', { name: 'B' }));
+    expect(screen.getByText('Section B')).toBeTruthy();
+    expect(probe().grid).toBe(probe().b);
 
-    await user.click(editGroup.getByRole('radio', { name: 'Edit B' }));
-    expect(editGroup.getByRole('radio', { name: 'Edit B' })).toHaveAttribute(
-      'aria-checked',
-      'true'
-    );
-    expect(editGroup.getByRole('radio', { name: 'Edit A' })).toHaveAttribute(
-      'aria-checked',
-      'false'
-    );
+    const a = probe().a;
+    const b = probe().b;
+    fireEvent.click(document.querySelector('.cell')!);
+    expect(probe().a).toBe(a);
+    expect(probe().b).not.toBe(b);
+    /* What plays follows the same choice: the transport solos `viewMode`, as
+       the console's MIDI test checks for the export cut the same way. */
+    expect(studio!.viewMode).toBe('B');
   });
 });

@@ -72,6 +72,21 @@ import { DEFAULT_STUDIO_SETTINGS, type StudioSettings } from '@/lib/validations/
 
 export type ViewMode = (typeof VIEW_MODES)[number];
 
+/**
+ * The section the grid and the Doctor work on (E11) — one choice, not two.
+ * A or B when that is the choice. With Both, the section under the playhead
+ * while it moves, so the section you hear is the one you see; during the
+ * count-in and when stopped, whichever you last chose or edited.
+ */
+export function editingSection(
+  viewMode: ViewMode,
+  playhead: PlayEvent | null,
+  touched: SectionLetter
+): SectionLetter {
+  if (viewMode !== 'both') return viewMode;
+  return playhead && !playhead.count && playhead.letter ? playhead.letter : touched;
+}
+
 /** Two undo steps' worth of both sections. */
 interface Snapshot {
   A: Pattern | null;
@@ -110,10 +125,15 @@ export interface BreakConsole {
 
   level: number;
   setLevel: (n: number) => void;
+  /** The one section choice (E11): what the chart shows and plays, and the grid edits. */
   viewMode: ViewMode;
   setViewMode: (v: ViewMode) => void;
+  /**
+   * The section the grid shows and the Doctor works on — never chosen on its
+   * own. A or B when that is the choice; with Both, the section under the
+   * playhead while playing, and otherwise the last one you touched.
+   */
   editing: SectionLetter;
-  setEditing: (s: SectionLetter) => void;
 
   style: string;
   setStyle: (s: string) => void;
@@ -376,8 +396,16 @@ export function useBreakConsole(
      A new pattern starts from your starting values (D21), and changing one of
      these while the pattern on the stage is new and unsaved moves them. */
   const [level, setLevel] = useState(3);
-  const [viewMode, setViewMode] = useStoredSetting(VIEW);
-  const [editing, setEditing] = useState<SectionLetter>('A');
+  const [viewMode, setViewModeRaw] = useStoredSetting(VIEW);
+  /** The section last chosen or edited — what Both edits when nothing is playing. */
+  const [touched, setTouched] = useState<SectionLetter>('A');
+  const setViewMode = useCallback(
+    (v: ViewMode) => {
+      setViewModeRaw(v);
+      if (v !== 'both') setTouched(v);
+    },
+    [setViewModeRaw]
+  );
 
   const [style, setStyleRaw] = useState(settings.startStyle);
   const [meter, setMeterRaw] = useState(settings.startMeter);
@@ -429,6 +457,8 @@ export function useBreakConsole(
   const [playing, setPlaying] = useState(false);
   const [loops, setLoops] = useState(0);
   const [position, setPosition] = useState<PlayEvent | null>(null);
+
+  const editing = editingSection(viewMode, playing ? position : null, touched);
 
   const [mix, setMix] = useState<Record<string, number>>({ ...DEFAULT_MIX });
   const [mixTouched, setMixTouched] = useState<Record<string, boolean>>({});
@@ -750,6 +780,7 @@ export function useBreakConsole(
       const pat = patterns[letter];
       if (!pat) return;
       pushHistory();
+      setTouched(letter);
       const next = clonePattern(pat);
       // edits are written against the stored break (L5), which is what a layer is a view of
       const states = LANE_STATES[lane] ?? 2;
@@ -1446,7 +1477,6 @@ export function useBreakConsole(
     viewMode,
     setViewMode,
     editing,
-    setEditing,
     style,
     setStyle,
     meter,

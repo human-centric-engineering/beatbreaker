@@ -145,11 +145,13 @@ export function Stage() {
             </div>
           </div>
 
+          {/* The one section choice (E11): the chart shows it, the transport
+              plays it, and the grid and the Doctor below work on it. */}
           <Segmented
-            label="Which section to show and play"
+            label="Section"
             options={(['A', 'B', 'both'] as const).map((v) => ({
               value: v,
-              face: v === 'both' ? 'A + B' : `${v} only`,
+              face: v === 'both' ? 'Both' : v,
               keyshortcuts: v === 'both' ? 'V' : v,
             }))}
             value={c.viewMode}
@@ -317,13 +319,10 @@ export function Stage() {
           <h3>Step editor</h3>
           <span className="hint">Click a cell to cycle it. Shift-click steps back.</span>
           <div className="spacer" />
-          <Segmented
-            label="Edit which section"
-            small
-            options={(['A', 'B'] as const).map((L) => ({ value: L, face: `Edit ${L}` }))}
-            value={c.editing}
-            onChange={c.setEditing}
-          />
+          {/* Which section the grid is, said rather than chosen: the choice is
+              the one on the chart. With Both it follows the playhead, so it is
+              not a live region — it would be read out every bar. */}
+          <span className="chip">Section {c.editing}</span>
           <button
             type="button"
             className="mini"
