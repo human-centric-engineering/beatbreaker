@@ -170,4 +170,48 @@ describe('your kits', () => {
     expect(res.status).toBe(409);
     expect((await json<unknown>(res)).error?.code).toBe('KIT_LIMIT');
   });
+
+  it('reads your own kit, and 400s an id that is not one', async () => {
+    const kick = seedSample(USER_ID);
+    const kit = seedKit(USER_ID, { k: kick.id });
+
+    const res = await read(kit.id);
+    expect(res.status).toBe(200);
+    expect(Object.keys((await json<Kit>(res)).data.slots)).toEqual(['k']);
+
+    expect((await read('not-an-id')).status).toBe(400);
+    expect((await patch('not-an-id', { label: 'x' })).status).toBe(400);
+    expect((await remove('not-an-id')).status).toBe(400);
+  });
+
+  it('shows a slot naming a sample that is gone, or someone else’s, as empty', async () => {
+    const theirs = seedSample(OTHER_ID);
+    const kit = seedKit(USER_ID, { k: 'cgone0000000000000000000', s: theirs.id });
+
+    const { data } = await json<Kit>(await read(kit.id));
+    expect(data.slots).toEqual({});
+  });
+
+  it('reads a slots column that does not parse as an empty kit, and can still fill it', async () => {
+    const kick = seedSample(USER_ID);
+    const kit = seedKit(USER_ID, {}, { samples: { slots: 'garbage' } });
+
+    expect((await json<Kit>(await read(kit.id))).data.slots).toEqual({});
+    const res = await patch(kit.id, { slots: { k: kick.id } });
+    expect(Object.keys((await json<Kit>(res)).data.slots)).toEqual(['k']);
+  });
+
+  it('renames without touching the slots', async () => {
+    const kick = seedSample(USER_ID);
+    const kit = seedKit(USER_ID, { k: kick.id });
+
+    await patch(kit.id, { label: 'Only the name' });
+    expect(db.kits[0]).toMatchObject({ label: 'Only the name' });
+    expect(db.kits[0].samples).toEqual({ slots: { k: { v: null, files: [kick.id] } } });
+  });
+
+  it('refuses a patch that changes nothing', async () => {
+    const kit = seedKit(USER_ID);
+    expect((await patch(kit.id, {})).status).toBe(400);
+  });
 });

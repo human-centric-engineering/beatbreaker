@@ -346,6 +346,10 @@ describe('GET /api/v1/samples/:id/audio', () => {
     expect(storage.download).not.toHaveBeenCalled();
   });
 
+  it('400s an id that is not one', async () => {
+    expect((await audio('not-an-id')).status).toBe(400);
+  });
+
   it('404s a row whose file is missing', async () => {
     const mine = seedSample(USER_ID);
     expect((await audio(mine.id)).status).toBe(404);

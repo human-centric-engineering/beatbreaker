@@ -317,4 +317,47 @@ describe('the Kit drawer, on a kit of yours', () => {
     await waitFor(() => expect((kitPicker() as HTMLSelectElement).value).toBe('studio70'));
     expect(screen.getByRole('status').textContent).toMatch(/Garage kit deleted/);
   });
+
+  it('renames the kit on Enter, and puts back an empty or unchanged name without asking', async () => {
+    const user = userEvent.setup();
+    renderDrawer(START);
+    await user.selectOptions(kitPicker(), 'yours-a');
+    const name = screen.getByLabelText('Name');
+
+    await user.clear(name);
+    await user.tab();
+    expect(name.value).toBe('Garage kit');
+    await user.click(name);
+    await user.tab();
+    expect(sent.some((s) => s.method === 'PATCH')).toBe(false);
+
+    await user.clear(name);
+    await user.type(name, 'Basement kit{Enter}');
+    await waitFor(() =>
+      expect(sent.find((s) => s.method === 'PATCH')?.body).toEqual({ label: 'Basement kit' })
+    );
+  });
+
+  it('empties a filled slot with its clear button', async () => {
+    const user = userEvent.setup();
+    renderDrawer(START);
+    await user.selectOptions(kitPicker(), 'yours-a');
+    const input = slotRow('Kick').querySelector('input[type="file"]') as HTMLInputElement;
+    pick(input, new File([new Uint8Array(512)], 'kick.mp3'));
+    await screen.findByRole('button', { name: 'Clear Kick' });
+
+    await user.click(screen.getByRole('button', { name: 'Clear Kick' }));
+
+    await waitFor(() =>
+      expect(sent.filter((s) => s.method === 'PATCH').at(-1)?.body).toEqual({ slots: { k: null } })
+    );
+    expect(await within(slotRow('Kick') as HTMLElement).findByText('Load')).toBeTruthy();
+  });
+
+  it('says nothing is uploaded yet when you have no samples', async () => {
+    const user = userEvent.setup();
+    renderDrawer({ samples: [], usage: START.usage });
+    await user.selectOptions(kitPicker(), 'yours-a');
+    expect(screen.getByText('Nothing uploaded yet.')).toBeTruthy();
+  });
 });
