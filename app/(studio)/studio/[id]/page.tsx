@@ -9,6 +9,7 @@ import { openSavedBreak } from '@/lib/app/breaks/saved/data';
 import { listHistory } from '@/lib/app/breaks/saved/history';
 import { listPins } from '@/lib/app/breaks/saved/pins';
 import { readStudioSettings } from '@/lib/app/breaks/saved/settings';
+import { listYourKits } from '@/lib/app/breaks/samples/kits';
 import { getServerSession } from '@/lib/auth/utils';
 import { cuidSchema } from '@/lib/validations/common';
 
@@ -38,12 +39,13 @@ export default async function StudioPatternPage({ params }: { params: Promise<{ 
   const parsedId = cuidSchema.safeParse(id);
   if (!parsedId.success) notFound();
 
-  const [opened, catalogue, pins, history, settings] = await Promise.all([
+  const [opened, catalogue, pins, history, settings, yourKits] = await Promise.all([
     openSavedBreak(parsedId.data, session.user.id),
     studioCatalogue(),
     listPins(session.user.id),
     listHistory(session.user.id),
     readStudioSettings(session.user.id),
+    listYourKits(session.user.id),
   ]);
   if (!opened) notFound();
 
@@ -53,6 +55,7 @@ export default async function StudioPatternPage({ params }: { params: Promise<{ 
       pins={pins}
       history={history}
       settings={settings}
+      yourKits={yourKits}
       initial={{
         id: opened.row.id,
         title: opened.row.title,

@@ -26,6 +26,7 @@ vi.mock('@/lib/auth/config', () => ({ auth: { api: { getSession: vi.fn() } } }))
 vi.mock('@/lib/db/client', () => ({
   prisma: {
     studioSettings: { findUnique: vi.fn() },
+    kit: { findMany: vi.fn() },
     $executeRaw: vi.fn(),
   },
 }));
@@ -82,7 +83,20 @@ function install() {
     { key: 'tr808', engine: 'drift' },
   ] as never);
   vi.mocked(listStyles).mockResolvedValue([{ key: 'funk' }, { key: 'jazz' }] as never);
+
+  /* Your own kits (D20), owner-scoped: the caller has one, someone else has
+     another. The data layer asks for `{ ownerId, engine: 'user' }`. */
+  vi.mocked(prisma.kit.findMany).mockImplementation(((args: {
+    where: { ownerId: string; engine: string };
+  }) =>
+    Promise.resolve(
+      yourKits
+        .filter((k) => k.ownerId === args.where.ownerId && args.where.engine === 'user')
+        .map(({ key }) => ({ key }))
+    )) as never);
 }
+
+let yourKits: Array<{ ownerId: string; key: string }>;
 
 /* ---- requests --------------------------------------------------------- */
 
@@ -123,6 +137,10 @@ async function refused(res: Response): Promise<string[]> {
 beforeEach(() => {
   vi.clearAllMocks();
   rows = new Map();
+  yourKits = [
+    { ownerId: USER_ID, key: 'yours-mine' },
+    { ownerId: OTHER_ID, key: 'yours-theirs' },
+  ];
   install();
   vi.mocked(auth.api.getSession).mockResolvedValue(mockAuthenticatedUser());
 });
@@ -198,6 +216,17 @@ describe('GET', () => {
       userId: USER_ID,
       fields: ['userKit', 'startStyle'],
     });
+  });
+
+  it('reads a kit of yours as itself, and as its default once you delete it', async () => {
+    rows.set(USER_ID, { kit: 'yours-mine', userKit: 'yours-mine' });
+    expect((await json(await read())).data.kit).toBe('yours-mine');
+
+    yourKits = yourKits.filter((k) => k.key !== 'yours-mine');
+    const { data } = await json(await read());
+
+    expect(data.kit).toBe(DEFAULT_STUDIO_SETTINGS.kit);
+    expect(data.userKit).toBe(DEFAULT_STUDIO_SETTINGS.userKit);
   });
 
   it('says nothing when every stored field is good', async () => {
@@ -309,6 +338,18 @@ describe('PATCH', () => {
     ['startStyle', 'polka'],
   ])('refuses %s %s, which the catalogue cannot play, and writes nothing', async (field, key) => {
     expect(await refused(await patch({ countIn: 2, [field]: key }))).toEqual([field]);
+    expect(prisma.$executeRaw).not.toHaveBeenCalled();
+  });
+
+  it('takes one of your own kits', async () => {
+    const res = await patch({ kit: 'yours-mine', userKit: 'yours-mine' });
+
+    expect(res.status).toBe(200);
+    expect((await json(res)).data.kit).toBe('yours-mine');
+  });
+
+  it('refuses someone else’s kit, and writes nothing', async () => {
+    expect(await refused(await patch({ kit: 'yours-theirs' }))).toEqual(['kit']);
     expect(prisma.$executeRaw).not.toHaveBeenCalled();
   });
 

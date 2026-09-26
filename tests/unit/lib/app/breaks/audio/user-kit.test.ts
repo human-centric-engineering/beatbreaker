@@ -27,6 +27,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { BreakAudio } from '@/lib/app/breaks/audio/engine';
 import { MAX_SAMPLE_SECONDS, UserSource } from '@/lib/app/breaks/audio/user-kit';
 import type { ResolvedKit } from '@/lib/app/breaks/kit';
+import { yourKitToCatalogue } from '@/lib/app/breaks/samples/your-kit';
 import { testKit } from '@/tests/helpers/catalogue';
 import { FakeAudioBuffer, FakeAudioContext } from '@/tests/helpers/fake-audio-context';
 
@@ -175,7 +176,9 @@ class FakeIndexedDB {
 /* fixtures                                                                 */
 /* ------------------------------------------------------------------------ */
 
-const USER_KIT: ResolvedKit = testKit('user');
+const USER_KIT: ResolvedKit = {
+  ...yourKitToCatalogue({ id: 'k1', key: 'user', label: 'Your samples', slots: {} }),
+};
 // Any non-user kit whose voice params share `user`'s rate/level/room shape.
 const PACK_KIT: ResolvedKit = testKit('muldjord');
 

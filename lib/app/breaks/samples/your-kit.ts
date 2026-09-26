@@ -1,4 +1,4 @@
-import type { CatalogueKit } from '@/lib/app/breaks/catalogue/types';
+import type { CatalogueKit, StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import type { Kit } from '@/lib/app/breaks/kit';
 import type { YourKitView } from '@/lib/validations/samples';
 
@@ -44,5 +44,26 @@ export function yourKitToCatalogue(view: YourKitView): CatalogueKit {
     group: YOUR_KITS_GROUP,
     engine: 'user',
     samples: { slots },
+  };
+}
+
+/**
+ * The catalogue with your kits added, under their own heading at the end.
+ *
+ * The catalogue itself is everyone's and cached for everyone, so your kits are
+ * never in it; the Studio adds them here, per person. Their keys carry a prefix
+ * no system kit may use, so an entry of yours never replaces one of the
+ * catalogue's.
+ */
+export function withYourKits(
+  catalogue: StudioCatalogue,
+  kits: readonly YourKitView[]
+): StudioCatalogue {
+  if (!kits.length) return catalogue;
+  const yours = kits.map(yourKitToCatalogue);
+  return {
+    ...catalogue,
+    kits: { ...catalogue.kits, ...Object.fromEntries(yours.map((k) => [k.key, k])) },
+    kitGroups: [...catalogue.kitGroups, { label: YOUR_KITS_GROUP, keys: yours.map((k) => k.key) }],
   };
 }

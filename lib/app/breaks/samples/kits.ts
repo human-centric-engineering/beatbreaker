@@ -88,6 +88,12 @@ export async function listYourKits(userId: string): Promise<YourKitView[]> {
   return toViews(userId, rows);
 }
 
+/** One kit of yours. `null` if it is not yours or not there. */
+export async function getYourKit(userId: string, id: string): Promise<YourKitView | null> {
+  const row = await prisma.kit.findFirst({ where: { id, ...OWN(userId) }, select: KIT_SELECT });
+  return row ? (await toViews(userId, [row]))[0] : null;
+}
+
 /** The keys of your kits — what the `kit` setting may name besides a system kit. */
 export async function yourKitKeys(userId: string): Promise<Set<string>> {
   const rows = await prisma.kit.findMany({ where: OWN(userId), select: { key: true } });

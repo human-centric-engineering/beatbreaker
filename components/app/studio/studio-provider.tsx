@@ -32,10 +32,12 @@ import {
 } from '@/components/app/studio/use-practice-history';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import { FULL_LAYER } from '@/lib/app/breaks/layers';
+import { withYourKits } from '@/lib/app/breaks/samples/your-kit';
 import { decodeBreak } from '@/lib/app/breaks/share';
 import type { HistoryItem } from '@/lib/validations/history';
 import type { StudioSettings } from '@/lib/validations/studio-settings';
 import type { PinTarget, PracticeShelvesView } from '@/lib/validations/pins';
+import type { YourKitView } from '@/lib/validations/samples';
 
 /**
  * The Studio's state, in one place.
@@ -144,6 +146,7 @@ export function StudioProvider({
   pins: initialPins,
   history: initialHistory,
   settings,
+  yourKits,
   openEntry,
   openDrawer,
   children,
@@ -169,6 +172,11 @@ export function StudioProvider({
    */
   settings?: StudioSettings;
   /**
+   * Your own kits (D20), read server-side with the page. Never part of the
+   * catalogue, which is everyone's; added to it here, for you.
+   */
+  yourKits?: YourKitView[];
+  /**
    * A library entry to open once the Studio is up — `/studio?entry=<id>`,
    * which is how Home's Continue reaches a famous break. It opens where the
    * history last left it.
@@ -184,8 +192,9 @@ export function StudioProvider({
      once the document has rendered. */
   const stageIsSaved = useRef(initial !== undefined);
   const stageSaved = useCallback(() => stageIsSaved.current, []);
-  const state = useBreakConsole(catalogue, initial, { settings, stageSaved });
-  const content = catalogue;
+  const [kitsOfYours] = useState(() => yourKits ?? []);
+  const content = useMemo(() => withYourKits(catalogue, kitsOfYours), [catalogue, kitsOfYours]);
+  const state = useBreakConsole(content, initial, { settings, stageSaved });
 
   const [toast, setToast] = useState('');
   const say = useCallback((message: string) => setToast(message), []);

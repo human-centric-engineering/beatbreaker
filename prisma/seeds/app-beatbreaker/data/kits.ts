@@ -1,9 +1,15 @@
 /**
  * The kit table — seed data.
  *
- * 13 kits across four engines, each a plain parameter object plus an engine
+ * 12 kits across three engines, each a plain parameter object plus an engine
  * name, so a kit is a row rather than a branch in playback and a user's tuning
  * is a saved override of these numbers.
+ *
+ * No kit here is `engine: 'user'`. Your own kits are rows you own, made through
+ * `/api/v1/kits` (D20); the system "Your samples" kit that kept one-shots in
+ * the browser left in Phase 4A, and the seed removes it from a database seeded
+ * before then. No key here may start with `yours-`, which is what the server
+ * mints your kits' keys under.
  *
  * **Content, not code** (D13). This file is the source the `001-catalogue` seed
  * unit reads, and nothing else imports it — playback takes a `ResolvedKit` as
@@ -203,20 +209,5 @@ export const KITS: Record<string, Kit> = {
     c: { rate: 1, level: 0.88, room: 0.24 },
     t: { tune: 88, decay: 0.5, tone: 0.34, room: 0.18 },
     p: { tune: 1.0, level: 0.9, tone: 0.94, room: 0.16 },
-  },
-
-  /* ---- your own recordings ---- */
-  user: {
-    label: 'Your samples',
-    engine: 'user',
-    hint: 'Load your own one-shots — a real kit, your kit, or whatever is on the drive. Nothing is uploaded; the files stay in this browser.',
-    master: { lp: 18000, drive: 1.0, room: 0.08 },
-    k: { rate: 1, level: 0.95, room: 0.02 },
-    s: { rate: 1, level: 0.95, room: 0.08 },
-    h: { rate: 1, level: 0.95, room: 0.06 },
-    r: { rate: 1, level: 0.95, room: 0.1 },
-    c: { rate: 1, level: 0.95, room: 0.14 },
-    t: { tune: 90, decay: 0.5, tone: 0.4, room: 0.12 },
-    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.1 },
   },
 };
