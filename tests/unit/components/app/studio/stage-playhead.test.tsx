@@ -171,7 +171,8 @@ beforeEach(() => {
     audition: vi.fn(),
 
     catalogue: testCatalogue(),
-    toast: '',
+    notice: null,
+    dismiss: vi.fn(),
     doc: { details: { description: '', links: [] } },
     say: noop,
   } as unknown as Studio;

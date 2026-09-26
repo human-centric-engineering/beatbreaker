@@ -10,7 +10,7 @@
  * set; the uploads are `your-sounds.test.tsx`'s), the `kitStatus` line's branches, the master-chain read-outs, the
  * audition button with no Web Audio, and reset-this-voice.
  *
- * `KitPanel` renders no toast itself — `say()` only sets `Studio.toast`,
+ * `KitPanel` renders no toast itself — `say()` only sets `Studio.notice`,
  * which `StudioFrame` displays. A small probe reads it back here.
  */
 
@@ -24,7 +24,7 @@ import { testCatalogue } from '@/tests/helpers/catalogue';
 
 function ToastProbe() {
   const c = useStudio();
-  return <div role="status">{c.toast}</div>;
+  return <div role="status">{c.notice?.message}</div>;
 }
 
 /* An empty kit of your own (D20), handed over the way the page does. */

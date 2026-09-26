@@ -172,7 +172,7 @@ describe('the kit calls, when they fail', () => {
     });
 
     expect(answer === false || answer === null).toBe(true);
-    expect(say).toHaveBeenCalledWith(message);
+    expect(say).toHaveBeenCalledWith(message, { error: true });
     expect(result.current.kits).toEqual([KIT]);
     expect(result.current.samples).toEqual(SAMPLES.samples);
   });
@@ -184,7 +184,7 @@ describe('the kit calls, when they fail', () => {
     await act(async () => {
       await result.current.deleteKit(KIT.id);
     });
-    expect(say).toHaveBeenCalledWith('Could not delete the kit — try again');
+    expect(say).toHaveBeenCalledWith('Could not delete the kit — try again', { error: true });
   });
 });
 

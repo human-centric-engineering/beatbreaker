@@ -90,7 +90,7 @@ function shelves(
 }
 
 function ToastProbe() {
-  return <div data-testid="toast">{useStudio().toast}</div>;
+  return <div data-testid="toast">{useStudio().notice?.message}</div>;
 }
 
 async function open({ initial, pins }: { initial?: InitialPattern; pins?: PracticeShelvesView }) {

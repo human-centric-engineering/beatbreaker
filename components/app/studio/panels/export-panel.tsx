@@ -32,7 +32,7 @@ export function ExportPanel() {
       await navigator.clipboard.writeText(text);
       say(`${label} copied`);
     } catch {
-      say('Copy blocked — select the text manually');
+      say('Copy blocked — select the text manually', { error: true });
     }
   };
 
@@ -82,7 +82,7 @@ export function ExportPanel() {
                 className="mini"
                 onClick={() => {
                   // "Break loaded" is said when it loads — it may wait on the unsaved-changes prompt
-                  if (!c.loadCode(codeIn)) say('That is not a BeatBreaker code');
+                  if (!c.loadCode(codeIn)) say('That is not a BeatBreaker code', { error: true });
                 }}
               >
                 Load it
@@ -114,7 +114,7 @@ export function ExportPanel() {
                 onClick={() => {
                   const file = c.midi();
                   if (!file) {
-                    say('There is nothing in the arrangement to write');
+                    say('There is nothing in the arrangement to write', { error: true });
                     return;
                   }
                   const name = midiFileName(c.patterns.A?.name ?? '');
@@ -132,7 +132,9 @@ export function ExportPanel() {
                     say('MIDI out closed');
                     return;
                   }
-                  void c.openMidiOut().then((err) => say(err || 'MIDI out open'));
+                  void c
+                    .openMidiOut()
+                    .then((err) => (err ? say(err, { error: true }) : say('MIDI out open')));
                 }}
               >
                 MIDI out

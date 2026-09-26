@@ -10,7 +10,7 @@
  * both disabled; after a move: undo enabled, redo still not; after undo:
  * redo enabled too) and the clear-section feedback text.
  *
- * `DoctorPanel` renders no toast itself — `say()` only sets `Studio.toast`,
+ * `DoctorPanel` renders no toast itself — `say()` only sets `Studio.notice`,
  * which `StudioFrame` displays. A small probe reads it back here, and
  * `<Stage/>` is mounted alongside to read the grid so "clear" is proven by
  * what is drawn, not just by the toast.
@@ -27,7 +27,7 @@ import { testCatalogue } from '@/tests/helpers/catalogue';
 
 function ToastProbe() {
   const c = useStudio();
-  return <div role="status">{c.toast}</div>;
+  return <div role="status">{c.notice?.message}</div>;
 }
 
 const renderPanel = () =>

@@ -10,6 +10,7 @@ import { sharePayloadSchema } from '@/lib/app/breaks/schema';
 import { logger } from '@/lib/logging';
 import { type HistoryItem, practiceVisitViewSchema } from '@/lib/validations/history';
 import type { PinTarget } from '@/lib/validations/pins';
+import { type Say, UNDO_MS } from '@/components/app/studio/use-notice';
 
 /**
  * The practice history as the Studio holds it (D18, task 4.7): what you
@@ -57,8 +58,11 @@ export interface PracticeHistoryState {
   step: (direction: 'back' | 'forward') => void;
   /** Open an item from the list — which ends any trail. */
   open: (item: HistoryItem) => void;
-  /** Forget all of it. */
-  clear: () => Promise<boolean>;
+  /**
+   * Forget all of it — at once on screen, with an Undo for {@link UNDO_MS},
+   * and on the server when the Undo has gone.
+   */
+  clear: () => void;
 }
 
 export function keyOf(target: PinTarget): string {
@@ -113,7 +117,7 @@ export function usePracticeHistory({
   current: HistoryCurrent | null;
   /** Put an item on the stage, where it was left. */
   openItem: (item: HistoryItem, at: PracticePlace) => Promise<OpenResult>;
-  say: (message: string) => void;
+  say: Say;
 }): PracticeHistoryState {
   const [items, setItems] = useState<HistoryItem[]>(initial ?? []);
   /** The list as it stood when stepping started, and where on it you are. */
@@ -247,9 +251,9 @@ export function usePracticeHistory({
               }
             : t
         );
-        say('That pattern is no longer there — taken out of your history');
+        say('That pattern is no longer there — taken out of your history', { error: true });
       } else {
-        say('Could not open that — try again');
+        say('Could not open that — try again', { error: true });
       }
     },
     [openItem, say]
@@ -273,18 +277,88 @@ export function usePracticeHistory({
     [currentKey, go]
   );
 
-  const clear = useCallback(async () => {
-    try {
-      await apiClient.delete('/api/v1/history');
-      setItems([]);
-      setTrail(null);
-      return true;
-    } catch (error) {
-      logger.warn('BeatBreaker: history could not be cleared', { error });
-      say('Could not clear your history — try again');
-      return false;
-    }
-  }, [say]);
+  /* ---- clearing, with an undo ---------------------------------------- */
+
+  /**
+   * A clear that has not been sent yet: what it took off the screen, and the
+   * gate that holds every later request behind it. A visit recorded while the
+   * Undo is up waits for the gate, so it lands after the DELETE and is kept —
+   * sent first, the DELETE would take it too.
+   */
+  const clearing = useRef<{
+    items: HistoryItem[];
+    trail: { items: HistoryItem[]; cursor: number } | null;
+    timer: ReturnType<typeof setTimeout>;
+    ahead: Promise<unknown>;
+    release: () => void;
+  } | null>(null);
+
+  const commitClear = useCallback(
+    (keepalive: boolean) => {
+      const held = clearing.current;
+      if (!held) return;
+      clearing.current = null;
+      clearTimeout(held.timer);
+      const run = async () => {
+        try {
+          await apiClient.delete('/api/v1/history', keepalive ? { options: { keepalive } } : {});
+        } catch (error) {
+          logger.warn('BeatBreaker: history could not be cleared', { error });
+          /* Still on the server, so back on the screen, under anything since. */
+          setItems((now) => [...now, ...held.items.filter((i) => !now.some((n) => n.id === i.id))]);
+          say('Could not clear your history — try again', { error: true });
+        } finally {
+          held.release();
+        }
+      };
+      void held.ahead.then(run, run);
+    },
+    [say]
+  );
+
+  const undoClear = useCallback(() => {
+    const held = clearing.current;
+    if (!held) return;
+    clearing.current = null;
+    clearTimeout(held.timer);
+    setItems(held.items);
+    setTrail(held.trail);
+    held.release();
+  }, []);
+
+  const clear = useCallback(() => {
+    if (clearing.current) commitClear(false);
+    let release = () => {};
+    const gate = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    const ahead = chain.current;
+    chain.current = ahead.then(
+      () => gate,
+      () => gate
+    );
+    clearing.current = {
+      items,
+      trail,
+      timer: setTimeout(() => commitClear(false), UNDO_MS),
+      ahead,
+      release,
+    };
+    setItems([]);
+    setTrail(null);
+    say('History cleared', { action: { label: 'Undo', run: undoClear } });
+  }, [items, trail, commitClear, undoClear, say]);
+
+  /* Leaving the Studio, or the page, sends a clear the Undo was holding: the
+     list said it was gone, so it goes. */
+  useEffect(() => {
+    const leave = () => commitClear(true);
+    window.addEventListener('pagehide', leave);
+    return () => {
+      window.removeEventListener('pagehide', leave);
+      commitClear(true);
+    };
+  }, [commitClear]);
 
   const currentId = useMemo(
     () => items.find((i) => itemKey(i) === currentKey)?.id ?? null,

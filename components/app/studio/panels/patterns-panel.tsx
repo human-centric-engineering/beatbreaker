@@ -213,7 +213,7 @@ function RecentList() {
             {all ? 'Show fewer' : `Show all ${items.length}`}
           </button>
         ) : null}
-        <button type="button" className="mini" onClick={() => void history.clear()}>
+        <button type="button" className="mini" onClick={history.clear}>
           Clear history
         </button>
       </div>

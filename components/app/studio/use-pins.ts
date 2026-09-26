@@ -10,6 +10,7 @@ import {
   type PracticeShelvesView,
   type Shelf,
 } from '@/lib/validations/pins';
+import type { Say } from '@/components/app/studio/use-notice';
 
 /**
  * The practice shelves as the Studio holds them (D17, task 4.6).
@@ -35,10 +36,7 @@ function keyOf(target: PinTarget): string {
   return 'breakId' in target ? `break:${target.breakId}` : `entry:${target.libraryEntryId}`;
 }
 
-export function usePins(
-  initial: PracticeShelvesView | undefined,
-  say: (message: string) => void
-): PracticeShelvesState {
+export function usePins(initial: PracticeShelvesView | undefined, say: Say): PracticeShelvesState {
   const [shelves, setShelves] = useState<PracticeShelvesView>(initial ?? EMPTY);
 
   /* target → pin, so a list of forty-seven library rows asks a map, not a scan */
@@ -69,7 +67,9 @@ export function usePins(
       } catch (err) {
         ok = false;
         logger.warn('Pin change failed', { error: err instanceof Error ? err.message : err });
-        say(shelf ? 'Could not pin that — try again' : 'Could not unpin that — try again');
+        say(shelf ? 'Could not pin that — try again' : 'Could not unpin that — try again', {
+          error: true,
+        });
       }
       /* Read back either way: after a failure the shelves may still have moved
          (another tab, a pin that had already gone), and what is shown should be

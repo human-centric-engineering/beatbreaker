@@ -123,7 +123,7 @@ export function KitPanel() {
               type="button"
               className="mini"
               onClick={() => {
-                if (!c.auditionKit()) say('No Web Audio in this browser');
+                if (!c.auditionKit()) say('No Web Audio in this browser', { error: true });
               }}
             >
               ▸ Play the kit

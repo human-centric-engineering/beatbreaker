@@ -1448,6 +1448,37 @@
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
+/* The line itself lets clicks through to the Studio under it; its buttons do not. */
+.bb .toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.bb .toast.error {
+  background: var(--bad);
+}
+.bb .toast-btn {
+  pointer-events: auto;
+  min-height: 24px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  border: 1px solid color-mix(in srgb, var(--paper) 45%, transparent);
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.bb .toast-btn.icon {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  padding: 0;
+}
+/* An open toast that is only a line still takes no clicks. */
+.bb .toast:not(.show) .toast-btn {
+  pointer-events: none;
+}
 
 .bb .legend {
   display: flex;

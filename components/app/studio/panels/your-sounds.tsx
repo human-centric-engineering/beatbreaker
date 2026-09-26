@@ -147,7 +147,8 @@ export function SampleSlots({ kit }: { kit: YourKitView }) {
                     setBusy(slot.id);
                     void sounds.uploadToSlot(kit.id, slot.id, file).then((err) => {
                       setBusy(null);
-                      say(err || `${slot.label}: ${file.name}`);
+                      if (err) say(err, { error: true });
+                      else say(`${slot.label}: ${file.name}`);
                     });
                   }}
                 />

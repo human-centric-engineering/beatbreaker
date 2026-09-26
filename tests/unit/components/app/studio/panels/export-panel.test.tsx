@@ -8,7 +8,7 @@
  * repeat that: it covers the copy-rejected branch, a garbage pasted code, the
  * MIDI download, Print, and opening/closing a MIDI output port.
  *
- * `ExportPanel` itself renders no toast — `say()` only sets `Studio.toast`,
+ * `ExportPanel` itself renders no toast — `say()` only sets `Studio.notice`,
  * which `StudioFrame` displays. A small probe reads it back here without
  * mounting the frame (and its CSS/header/consent dependencies) just to show
  * one line of text.
@@ -27,7 +27,7 @@ import { testCatalogue, testStyle } from '@/tests/helpers/catalogue';
 
 function ToastProbe() {
   const c = useStudio();
-  return <div role="status">{c.toast}</div>;
+  return <div role="status">{c.notice?.message}</div>;
 }
 
 /** The console's own MIDI and title, read at the moment the test asks. */

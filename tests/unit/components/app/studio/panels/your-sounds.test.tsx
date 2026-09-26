@@ -164,7 +164,7 @@ async function route(url: string, init: RequestInit = {}): Promise<Response> {
 const YOUR_KIT: YourKitView = { id: KIT_ID, key: 'yours-a', label: 'Garage kit', slots: {} };
 
 function ToastProbe() {
-  return <div role="status">{useStudio().toast}</div>;
+  return <div role="status">{useStudio().notice?.message}</div>;
 }
 
 function renderDrawer(samples: SampleList) {

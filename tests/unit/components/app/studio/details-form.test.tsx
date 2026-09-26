@@ -84,7 +84,7 @@ function saved(
 }
 
 function ToastProbe() {
-  return <div role="status">{useStudio().toast}</div>;
+  return <div role="status">{useStudio().notice?.message}</div>;
 }
 
 /** A rename from elsewhere — what regenerating section A does to the name. */
