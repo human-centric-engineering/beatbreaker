@@ -145,7 +145,7 @@ describe('the Studio', () => {
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const before = document.querySelectorAll(NOTES).length;
-    await user.click(screen.getByRole('button', { name: 'L1' }));
+    await user.click(screen.getByRole('button', { name: 'Skeleton' }));
     const after = document.querySelectorAll(NOTES).length;
 
     /* L1 is the skeleton — kick on the beat, backbeat, 8th hats — so it must
@@ -266,7 +266,7 @@ describe('the Studio', () => {
     renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    await openTool(user, 'Export');
+    await openTool(user, 'Share');
 
     const written: string[] = [];
     vi.stubGlobal('navigator', {
@@ -295,7 +295,7 @@ describe('the Studio', () => {
     renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    await openTool(user, 'Kit');
+    await openTool(user, 'Sound');
 
     /* Nothing is tuned yet, so there is nothing to put back — the reset has to
        say so rather than sitting there live and doing nothing. */
@@ -328,7 +328,7 @@ describe('the Studio', () => {
     const user = userEvent.setup();
     renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
-    await openTool(user, 'Kit');
+    await openTool(user, 'Sound');
 
     /* A synthesised hi-hat is built from noise and a filter, so it has a size
        and a brightness. A recording has neither — what is left is how fast it
@@ -358,7 +358,7 @@ describe('the Studio', () => {
     const before = notes();
     expect(before).toBeGreaterThan(0);
 
-    await openTool(user, 'Doctor');
+    await openTool(user, 'Edit');
     await user.click(screen.getByRole('button', { name: 'Clear section' }));
     expect(notes()).toBe(0);
 
@@ -374,25 +374,25 @@ describe('the Studio', () => {
     const bpm = () => Number(document.querySelector('.bpmval')?.textContent?.match(/\d+/)?.[0]);
     const written = bpm();
 
-    await openTool(user, 'Practice');
+    await openTool(user, 'Practise');
     await user.click(screen.getByRole('button', { name: 'Off' }));
-    await user.click(screen.getByRole('button', { name: 'L1' }));
+    await user.click(screen.getByRole('button', { name: 'Skeleton' }));
 
     // L1 is a practice speed, not the break's speed
     expect(bpm()).toBeLessThan(written);
 
-    await user.click(screen.getByRole('button', { name: 'L5' }));
+    await user.click(screen.getByRole('button', { name: 'Full break' }));
     expect(bpm()).toBe(written);
 
     /* Dragging the tempo while the match is on sets the speed for the layer
        you are on, not the break's — so practising L1 slowly must not quietly
        rewrite the break as a slow break. */
-    await user.click(screen.getByRole('button', { name: 'L1' }));
+    await user.click(screen.getByRole('button', { name: 'Skeleton' }));
     const slow = bpm();
     fireEvent.change(screen.getByLabelText('Tempo'), { target: { value: String(slow - 10) } });
-    await user.click(screen.getByRole('button', { name: 'L5' }));
+    await user.click(screen.getByRole('button', { name: 'Full break' }));
     expect(bpm()).toBeGreaterThan(slow);
-    await user.click(screen.getByRole('button', { name: 'L1' }));
+    await user.click(screen.getByRole('button', { name: 'Skeleton' }));
     expect(Math.abs(bpm() - (slow - 10))).toBeLessThanOrEqual(1);
   });
 
@@ -407,7 +407,7 @@ describe('the Studio', () => {
     expect(notes()).toBeLessThan(full);
 
     // and typing into a field is typing, not a shortcut
-    await openTool(user, 'Export');
+    await openTool(user, 'Share');
     const box = screen.getByLabelText('Load a break code');
     await user.click(box);
     await user.keyboard('5');
@@ -429,7 +429,7 @@ describe('the Studio', () => {
     expect(preview).toBeEnabled();
     expect(faint().length).toBeGreaterThan(0);
 
-    await user.click(screen.getByRole('button', { name: 'L5' }));
+    await user.click(screen.getByRole('button', { name: 'Full break' }));
     expect(screen.getByRole('button', { name: 'Preview next layer' })).toBeDisabled();
   });
 

@@ -65,7 +65,7 @@ describe('DoctorPanel', () => {
 
     // ghosts only survive the layer reduction from L4 up, so view the full
     // break or an added ghost note would be invisible in the grid
-    await user.click(screen.getByRole('button', { name: 'L5' }));
+    await user.click(screen.getByRole('button', { name: 'Full break' }));
     const before = document.querySelectorAll(NOTES).length;
 
     await user.click(screen.getByRole('button', { name: 'Add ghost notes' }));

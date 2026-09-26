@@ -82,15 +82,36 @@ describe('Stage', () => {
     expect(seg.getByRole('button', { name: 'A + B' })).toHaveAttribute('aria-pressed', 'true');
   });
 
+  it('names each layer button by its layer, with its number as the shortcut', async () => {
+    renderStage();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+    const seg = within(screen.getByRole('group', { name: 'Difficulty layer' }));
+    const buttons = seg.getAllByRole('button');
+    expect(buttons.map((b) => b.getAttribute('aria-keyshortcuts'))).toEqual([
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+    ]);
+    /* The accessible name is the name alone: the key is aria-hidden, so a
+       screen reader does not say "1 Skeleton". */
+    expect(
+      ['Skeleton', 'Groove', 'Sixteenths', 'Ghosted', 'Full break'].map((name) =>
+        seg.getByRole('button', { name })
+      )
+    ).toEqual(buttons);
+  });
+
   it('names the layer chip after the layer you are on, at an in-between layer too', async () => {
     const user = userEvent.setup();
     renderStage();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    await user.click(screen.getByRole('button', { name: 'L3' }));
+    await user.click(screen.getByRole('button', { name: 'Sixteenths' }));
     expect(document.querySelector('.chip.rust')?.textContent).toMatch(/^Layer 3 ·/);
 
-    await user.click(screen.getByRole('button', { name: 'L1' }));
+    await user.click(screen.getByRole('button', { name: 'Skeleton' }));
     expect(document.querySelector('.chip.rust')?.textContent).toMatch(/^Layer 1 ·/);
   });
 

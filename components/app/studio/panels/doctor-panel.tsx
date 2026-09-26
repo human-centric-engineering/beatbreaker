@@ -10,7 +10,7 @@ export function DoctorPanel() {
   return (
     <div className="card">
       <div className="card-hd">
-        <h3>Break doctor</h3>
+        <h3>Musical edits</h3>
       </div>
       <div className="card-bd">
         <div className="hint" style={{ marginBottom: 12 }}>

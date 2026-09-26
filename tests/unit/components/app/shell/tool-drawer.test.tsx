@@ -56,11 +56,11 @@ const HIGHER_SNAP = 0.92;
 /** The tool -> title map, mirrored from the source's `TITLES` (not exported). */
 const TITLES: Record<Tool, string> = {
   gen: 'Generate',
-  doctor: 'Break doctor',
+  doctor: 'Edit',
   patterns: 'Patterns',
-  kit: 'Kit',
-  practice: 'Practice',
-  export: 'Export',
+  kit: 'Sound',
+  practice: 'Practise',
+  export: 'Share & export',
 };
 
 /**

@@ -207,7 +207,7 @@ describe('PatternsPanel — All', () => {
       ],
     ]);
     const [cold, warm] = rows();
-    expect(cold.textContent).toBe(`Cold Carpet${FUNK} · L390`);
+    expect(cold.textContent).toBe(`Cold Carpet${FUNK} · Sixteenths90`);
     expect(cold.getAttribute('aria-current')).toBe('true');
     expect(warm.getAttribute('aria-current')).toBeNull();
   });
@@ -361,7 +361,7 @@ describe('PatternsPanel — pins', () => {
     expect(screen.getByRole('button', { name: 'Warm Floor — on Practising' })).toBeTruthy();
 
     await user.click(screen.getByRole('tab', { name: /^Practising/ }));
-    expect(rows().map((r) => r.textContent)).toEqual([`Warm Floor${FUNK} · L390`]);
+    expect(rows().map((r) => r.textContent)).toEqual([`Warm Floor${FUNK} · Sixteenths90`]);
   });
 });
 
@@ -467,6 +467,6 @@ describe('PracticePanel — Practising', () => {
   it('leaves it out when nothing is on it', () => {
     mount({ pins: NONE, panel: <PracticePanel /> });
     expect(screen.queryByRole('heading', { name: 'Practising' })).toBeNull();
-    expect(screen.getByRole('heading', { name: 'Practice rig' })).toBeTruthy();
+    expect(screen.getByRole('heading', { name: 'Click and tempo' })).toBeTruthy();
   });
 });

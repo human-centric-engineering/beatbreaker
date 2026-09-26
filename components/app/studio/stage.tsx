@@ -162,10 +162,15 @@ export function Stage() {
                 key={n}
                 type="button"
                 aria-pressed={c.level === n}
-                title={`${LAYER_NAMES[n]} — ${LAYER_BLURB[n]}`}
+                title={`${LAYER_BLURB[n]} (${n})`}
+                aria-keyshortcuts={String(n)}
                 onClick={() => c.setLevel(n)}
               >
-                L{n}
+                {/* The name leads (E12); the number is the key that picks it. */}
+                <span className="layer-key" aria-hidden="true">
+                  {n}
+                </span>
+                {LAYER_NAMES[n]}
               </button>
             ))}
           </div>
@@ -199,8 +204,8 @@ export function Stage() {
               disabled={!c.next}
               title={
                 c.next
-                  ? `Show what L${c.level + 1} (${LAYER_NAMES[c.level + 1]}) adds, in faint ink`
-                  : 'Layer 5 is the whole break — there is nothing above it'
+                  ? `Show what ${LAYER_NAMES[c.level + 1]} adds, in faint ink`
+                  : 'Full break is the whole break — there is nothing above it'
               }
               onClick={() => c.setPreview(!c.preview)}
             >

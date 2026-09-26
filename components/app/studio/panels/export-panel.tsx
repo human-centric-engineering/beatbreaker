@@ -25,7 +25,7 @@ export function ExportPanel() {
       <DetailsForm />
       <div className="card">
         <div className="card-hd">
-          <h3>Take it away</h3>
+          <h3>Links and files</h3>
         </div>
         <div className="card-bd">
           <div className="field">

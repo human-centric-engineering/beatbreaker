@@ -330,8 +330,8 @@ describe('Recent', () => {
       .getAllByRole('button')
       .filter((b) => b.classList.contains('item') && !b.classList.contains('pin'));
     expect(rows.map((r) => r.textContent)).toEqual([
-      'Cold CarpetYour patternL5 · 90',
-      `${ENTRY_A.title}${ENTRY_A.artist}L2 · 72`,
+      'Cold CarpetYour patternFull break · 90',
+      `${ENTRY_A.title}${ENTRY_A.artist}Groove · 72`,
     ]);
     expect(rows[0].getAttribute('aria-current')).toBe('true');
 

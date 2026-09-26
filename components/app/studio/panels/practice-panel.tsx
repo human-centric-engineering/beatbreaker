@@ -31,7 +31,7 @@ export function PracticePanel() {
       ) : null}
       <div className="card">
         <div className="card-hd">
-          <h3>Practice rig</h3>
+          <h3>Click and tempo</h3>
         </div>
         <div className="card-bd">
           <div className="field">
@@ -111,9 +111,9 @@ export function PracticePanel() {
               </button>
             </div>
             <div className="hint">
-              L1 at 68% of the break&apos;s own tempo, L2 at 78%, L3 at 86%, L4 at 93%, L5 as
-              written. Move the tempo slider while this is on and you are setting the speed for that
-              layer, not the break.
+              Skeleton at 68% of the break&apos;s own tempo, Groove at 78%, Sixteenths at 86%,
+              Ghosted at 93%, Full break as written. Move the tempo slider while this is on and you
+              are setting the speed for that layer, not the break.
             </div>
           </div>
         </div>

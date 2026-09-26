@@ -151,7 +151,7 @@ describe('Studio shortcuts', () => {
     await mount();
 
     const rail = within(screen.getByRole('navigation', { name: 'Tools' }));
-    const tab = rail.getByRole('button', { name: 'Practice' });
+    const tab = rail.getByRole('button', { name: 'Practise' });
     await user.click(tab);
     tab.focus();
 
@@ -174,7 +174,7 @@ describe('Studio shortcuts', () => {
     const before = bpm();
 
     const rail = within(screen.getByRole('navigation', { name: 'Tools' }));
-    await user.click(rail.getByRole('button', { name: 'Export' }));
+    await user.click(rail.getByRole('button', { name: 'Share' }));
 
     // `]` is a character, not a shortcut, the moment you are pasting a code
     const box = screen.getByLabelText('Load a break code');

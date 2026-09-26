@@ -71,7 +71,7 @@ export function GeneratePanel() {
     <>
       <div className="card">
         <div className="card-hd">
-          <h3>Generator</h3>
+          <h3>Style and shape</h3>
         </div>
         <div className="card-bd">
           <div className="field">
@@ -280,7 +280,7 @@ export function GeneratePanel() {
 
       <div className="card">
         <div className="card-hd">
-          <h3>Groove critic</h3>
+          <h3>Score</h3>
           <div className="spacer" />
           {c.tries ? (
             <span className="chip">

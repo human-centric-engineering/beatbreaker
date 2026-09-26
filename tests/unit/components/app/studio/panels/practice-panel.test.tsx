@@ -46,7 +46,7 @@ describe('PracticePanel', () => {
   it('toggles the metronome click on and off', async () => {
     const user = userEvent.setup();
     renderPanel();
-    await screen.findByText('Practice rig');
+    await screen.findByText('Click and tempo');
 
     const clickBtn = screen.getByRole('button', { name: /^Click (on|off)$/ });
     const startedOn = clickBtn.textContent === 'Click on';
@@ -58,7 +58,7 @@ describe('PracticePanel', () => {
   it('toggles the click subdivision between quarters and eighths', async () => {
     const user = userEvent.setup();
     renderPanel();
-    await screen.findByText('Practice rig');
+    await screen.findByText('Click and tempo');
 
     const subBtn = screen.getByRole('button', { name: /^(Quarters|Eighths)$/ });
     const startedQuarters = subBtn.textContent === 'Quarters';

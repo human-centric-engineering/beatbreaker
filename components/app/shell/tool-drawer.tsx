@@ -27,11 +27,11 @@ const SHEET_MAX = SNAPS[SNAPS.length - 1];
 
 const TITLES: Record<Tool, string> = {
   gen: 'Generate',
-  doctor: 'Break doctor',
+  doctor: 'Edit',
   patterns: 'Patterns',
-  kit: 'Kit',
-  practice: 'Practice',
-  export: 'Export',
+  kit: 'Sound',
+  practice: 'Practise',
+  export: 'Share & export',
 };
 
 export function ToolDrawer({

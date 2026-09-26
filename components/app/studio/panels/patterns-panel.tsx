@@ -8,6 +8,7 @@ import { useStudio } from '@/components/app/studio/studio-provider';
 import { apiClient } from '@/lib/api/client';
 import { PATTERNS_TAB } from '@/lib/app/breaks/browser-keys';
 import { type CatalogueEntry, libraryGroups } from '@/lib/app/breaks/catalogue/types';
+import { layerName } from '@/lib/app/breaks/layers';
 import { DEFAULT_METER, METER_KEYS } from '@/lib/app/breaks/meter';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import { logger } from '@/lib/logging';
@@ -158,7 +159,7 @@ export function ShelfList({ shelf, empty }: { shelf: Shelf; empty: React.ReactNo
             key={pin.id}
             target={{ breakId: t.id }}
             title={t.title}
-            sub={t.level === undefined ? who : `${who} · L${t.level}`}
+            sub={t.level === undefined ? who : `${who} · ${layerName(t.level)}`}
             right={tempo(t.bpm, t.meter)}
           />
         );
@@ -200,7 +201,7 @@ function RecentList() {
                 ? 'Your pattern'
                 : 'Shared with you'
           }
-          right={`L${item.level} · ${item.bpm}`}
+          right={`${layerName(item.level)} · ${item.bpm}`}
           // the history opens at the layer and tempo you left it
           onOpen={() => history.open(item)}
         />
@@ -375,7 +376,7 @@ function AllList() {
               key={r.id}
               target={{ breakId: r.id }}
               title={r.title}
-              sub={`${styleLabel(r.style)} · L${r.level}`}
+              sub={`${styleLabel(r.style)} · ${layerName(r.level)}`}
               right={tempo(r.bpm, r.meter)}
             />
           ))}

@@ -26,6 +26,14 @@ export const LAYER_NAMES: Record<number, string> = {
   5: 'Full break',
 };
 
+/**
+ * A layer as a player reads it: by name, not number. A level outside 1–5
+ * (an old history row, say) still reads as something.
+ */
+export function layerName(level: number): string {
+  return LAYER_NAMES[level] ?? `Layer ${level}`;
+}
+
 export const LAYER_BLURB: Record<number, string> = {
   1: 'kick on the beat, backbeat, 8th hats',
   2: 'the kick starts moving, still on 8ths',
