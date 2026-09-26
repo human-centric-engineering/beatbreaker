@@ -325,7 +325,7 @@ describe('POST /api/v1/breaks — bulk', () => {
 
   it.each([
     ['an empty list', 0],
-    ['more than the thirty bb.favs can hold', 31],
+    ['more than the thirty one request may carry', 31],
   ])('refuses %s', async (_label, count) => {
     const breaks = Array.from({ length: count }, (_, i) => ({ title: `Fav ${i}`, doc: wireDoc() }));
     const res = await POST(post({ breaks }));

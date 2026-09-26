@@ -22,7 +22,6 @@ import {
   type PatternDocument,
   usePatternDocument,
 } from '@/components/app/studio/use-pattern-document';
-import { useFavsImport } from '@/components/app/studio/use-favs-import';
 import { type PracticeShelvesState, usePins } from '@/components/app/studio/use-pins';
 import {
   fetchSavedPattern,
@@ -210,8 +209,6 @@ export function StudioProvider({
     stageIsSaved.current = doc.id !== null;
   });
   const pins = usePins(initialPins, say);
-  const styleLookup = useCallback((key: string) => catalogue.styles[key], [catalogue]);
-  useFavsImport(styleLookup, say);
 
   /* The library entry on the stage, if that is where it came from. Set when an
      entry is opened and cleared by anything else that replaces the pattern;

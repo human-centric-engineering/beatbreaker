@@ -7,8 +7,7 @@
  * Done-when: one list request per open, the open pattern highlighted, and a
  * pin that round-trips. Also covered: the shelves and Recent ask the server
  * for nothing; _All_'s search goes to the server; the libraries filter on the
- * page; the browser favourites (`bb.favs`) are imported once, and kept
- * when the import fails; the Practice drawer shows the Practising shelf.
+ * page; the Practice drawer shows the Practising shelf.
  *
  * `say()` only sets `Studio.toast`, which the frame shows; a probe reads it.
  */
@@ -32,7 +31,7 @@ import { PracticePanel } from '@/components/app/studio/panels/practice-panel';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { apiClient } from '@/lib/api/client';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
-import { breakPayload, encodeBreak } from '@/lib/app/breaks/share';
+import { breakPayload } from '@/lib/app/breaks/share';
 import type { HistoryItem } from '@/lib/validations/history';
 import type { PracticeShelvesView } from '@/lib/validations/pins';
 import { testCatalogue, testStyle } from '@/tests/helpers/catalogue';
@@ -446,78 +445,6 @@ describe('PatternsPanel — Libraries', () => {
         .getByRole('button', { name: new RegExp(`^${noNote!.title}`) })
         .getAttribute('aria-current')
     ).toBe('true');
-  });
-});
-
-describe('Studio — browser favourites import (task 4.10)', () => {
-  const fav = (name: string, code: string) => ({ name, bpm: 100, style: 'funk', level: 3, code });
-  const thirty = () =>
-    Array.from({ length: 30 }, (_, i) => fav(`Fav ${i}`, encodeBreak(sections(100 + i))));
-  const bulkCalls = () =>
-    vi.mocked(apiClient.post).mock.calls.filter(([url]) => url === '/api/v1/breaks');
-
-  it('sends 30 favourites in one request, then empties the key', async () => {
-    localStorage.setItem('bb.favs', JSON.stringify(thirty()));
-    vi.mocked(apiClient.post).mockImplementation((_url, options) => {
-      const { breaks } = (options?.body ?? {}) as { breaks: unknown[] };
-      return Promise.resolve(breaks.map((_, i) => ({ id: `cbrk${String(i).padStart(20, '0')}` })));
-    });
-    mount({ pins: NONE });
-
-    await waitFor(() =>
-      expect(screen.getByTestId('toast').textContent).toBe(
-        'Your 30 browser favourites are now in your account — under Patterns › All'
-      )
-    );
-    expect(bulkCalls()).toHaveLength(1);
-    const { breaks } = bulkCalls()[0][1]?.body as {
-      breaks: Array<{ title: string; doc: { ver: number; A: { n: string } } }>;
-    };
-    expect(breaks).toHaveLength(30);
-    expect(breaks.map((b) => b.title)).toEqual(thirty().map((f) => f.name));
-    // each code re-encoded as a current document, not forwarded as base64
-    expect(breaks[0].doc).toEqual(breakPayload(sections(100)));
-    expect(localStorage.getItem('bb.favs')).toBeNull();
-  });
-
-  it('leaves the key as it was when the request fails, and says nothing', async () => {
-    const stored = JSON.stringify(thirty());
-    localStorage.setItem('bb.favs', stored);
-    vi.mocked(apiClient.post).mockRejectedValue(new Error('offline'));
-    mount({ pins: NONE });
-
-    await waitFor(() => expect(bulkCalls()).toHaveLength(1));
-    await Promise.resolve();
-    expect(localStorage.getItem('bb.favs')).toBe(stored);
-    expect(screen.getByTestId('toast').textContent).toBe('');
-  });
-
-  it('keeps an entry that does not read, and sends nothing when that is all there is', async () => {
-    const broken = fav('Broken save', 'not-a-real-code');
-    localStorage.setItem(
-      'bb.favs',
-      JSON.stringify([fav('Old Friend', encodeBreak(sections(33))), broken])
-    );
-    vi.mocked(apiClient.post).mockResolvedValue([{ id: MINE }]);
-    const first = mount({ pins: NONE });
-
-    await waitFor(() =>
-      expect(screen.getByTestId('toast').textContent).toBe(
-        'Your browser favourite is now in your account — under Patterns › All'
-      )
-    );
-    expect(JSON.parse(localStorage.getItem('bb.favs') ?? 'null')).toEqual([broken]);
-
-    first.unmount();
-    mount({ pins: NONE });
-    await Promise.resolve();
-    expect(bulkCalls()).toHaveLength(1);
-  });
-
-  it('makes no request when there are no favourites', async () => {
-    mount({ pins: NONE });
-    await Promise.resolve();
-    expect(bulkCalls()).toHaveLength(0);
   });
 });
 

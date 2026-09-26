@@ -149,13 +149,13 @@ the seed to 32 bits. Otherwise one bad digit would make a saved break
 unopenable for its owner and for everyone it was shared with. Use it for
 database rows only; input from outside is refused, not repaired.
 
-| Route                       | Does                                                                                                                                                                                                                                                                                                                                                                                               |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GET /api/v1/breaks`        | The caller's own breaks. `sort=created` (default, newest first) or `updated`; `q` (case-insensitive title search), `style`, `meter`, `limit` (≤100, default 50), `cursor`. Every order ends on `id`, so the cursor holds across ties. `meta.nextCursor` comes from a look-ahead row. List rows carry `level`, `description` and `links`, never `doc`.                                              |
-| `POST /api/v1/breaks`       | `{ title, doc, shared?, description?, links? }`. Owner is the session user (a `userId` in the body is ignored). `style`, `styleVersionId`, `meter`, `bpm`, `swing`, `seed`, `bars` and `level` are **derived from `doc`** (`columns.ts`). The response adds `critique: { score, playable }`. 201. `{ breaks: [...] }` saves up to 30 in one transaction — all or none — for the favourites import. |
-| `GET /api/v1/breaks/:id`    | One break if the caller owns it **or** it is `shared`, in a single query (`openSavedBreak`). A miss is **404, never 403**. `seed` is a string (BigInt). `mine` says whose it is. `critique` is computed on the way out, never stored.                                                                                                                                                              |
-| `PATCH /api/v1/breaks/:id`  | Owner only (someone else's shared break is a 404). Writes only the fields the request names: `title`, `doc`, `shared`, `description` (empty clears it), `links`. A new `doc` re-derives the list columns, `styleVersionId` included. This is what the Studio's autosave sends.                                                                                                                     |
-| `DELETE /api/v1/breaks/:id` | Owner only, via `deleteMany` with the owner in the filter. A miss is 404. Takes cascade.                                                                                                                                                                                                                                                                                                           |
+| Route                       | Does                                                                                                                                                                                                                                                                                                                                                                                       |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `GET /api/v1/breaks`        | The caller's own breaks. `sort=created` (default, newest first) or `updated`; `q` (case-insensitive title search), `style`, `meter`, `limit` (≤100, default 50), `cursor`. Every order ends on `id`, so the cursor holds across ties. `meta.nextCursor` comes from a look-ahead row. List rows carry `level`, `description` and `links`, never `doc`.                                      |
+| `POST /api/v1/breaks`       | `{ title, doc, shared?, description?, links? }`. Owner is the session user (a `userId` in the body is ignored). `style`, `styleVersionId`, `meter`, `bpm`, `swing`, `seed`, `bars` and `level` are **derived from `doc`** (`columns.ts`). The response adds `critique: { score, playable }`. 201. `{ breaks: [...] }` saves up to 30 (`MAX_BULK_BREAKS`) in one transaction — all or none. |
+| `GET /api/v1/breaks/:id`    | One break if the caller owns it **or** it is `shared`, in a single query (`openSavedBreak`). A miss is **404, never 403**. `seed` is a string (BigInt). `mine` says whose it is. `critique` is computed on the way out, never stored.                                                                                                                                                      |
+| `PATCH /api/v1/breaks/:id`  | Owner only (someone else's shared break is a 404). Writes only the fields the request names: `title`, `doc`, `shared`, `description` (empty clears it), `links`. A new `doc` re-derives the list columns, `styleVersionId` included. This is what the Studio's autosave sends.                                                                                                             |
+| `DELETE /api/v1/breaks/:id` | Owner only, via `deleteMany` with the owner in the filter. A miss is 404. Takes cascade.                                                                                                                                                                                                                                                                                                   |
 
 Ownership markers: list, create, PATCH and DELETE are `decidedBy: 'self'`.
 `GET /:id` is `decidedBy: 'nothing'`: its own query decides (own or shared), and
@@ -295,52 +295,18 @@ anything is on it, else Recent, else Libraries.
 - Every row opens **in place** through the provider's `open(target)` — the
   same fetch-and-attach the history uses — and carries a ★ (`PinButton`).
   The row for whatever is on the stage (`stagePin`) is `aria-current`.
-- **Save** in the header is the one way to keep a pattern. The browser
-  favourites (`bb.favs`) that older builds kept are imported into the account
-  once (task 4.10, below) and have no list of their own.
+- **Save** in the header is the one way to keep a pattern.
 - `ShelfList` is exported; the **Practice** drawer shows the Practising shelf
   above the rig when anything is on it.
 
 Tests: `tests/unit/components/app/studio/panels/patterns-panel.test.tsx`.
 
-## Browser favourites import (task 4.10)
+## Browser favourites import (task 4.10) — removed
 
-Before patterns lived in an account, the Studio kept up to 30 favourites in
-`localStorage` under `bb.favs` (`{ name, bpm, style, level, code }`, the code a
-share code). `useFavsImport` (`components/app/studio/use-favs-import.ts`),
-called once by `StudioProvider`, moves them into the account:
-
-- `readFavs` (`lib/app/breaks/favs.ts`) checks each entry on its own. A
-  readable one is decoded with the catalogue's style lookup and re-encoded
-  with `breakPayload`, so an older code arrives as a v4 document with its
-  style snapshot — what opening it and pressing Save would have sent. A blank
-  name becomes _Untitled pattern_.
-- Everything readable goes in **one** `POST /api/v1/breaks` with
-  `{ breaks: [...] }` (at most `MAX_BULK_BREAKS`, 30), which saves all or none.
-- **The key changes only after that request succeeds.** A failure — offline,
-  a refusal, a server error — leaves it exactly as it was, logs a warning,
-  says nothing, and the next Studio load tries again. On success the key is
-  removed, or rewritten to hold only the entries that did not read (and any
-  past 30); with nothing readable in it, no request is made, so the import
-  does not repeat. The toast says how many arrived and where: _under
-  Patterns › All_.
-- **One import in flight at a time.** Before the request goes, the hook
-  writes the time to `bb.favs.importing` (`CLAIM_KEY`) and removes it when the
-  request settles, either way. A Studio that finds a claim younger than
-  `CLAIM_MS` (60 s) does nothing — a second tab, or this one remounted by
-  `/studio` → `/studio/[id]` while the request is still out, would otherwise
-  send the same list and save every favourite twice. An older claim is from a
-  tab that died mid-request and is ignored. It is a check-then-write in
-  `localStorage`, not a lock: two tabs whose first loads land in the same
-  instant can still both send.
-
-The console no longer has `favs`, `saveFav`, `loadFav` or `deleteFav`; the
-Patterns drawer's _In this browser_ card is gone with them.
-
-Tests: `tests/unit/lib/app/breaks/favs.test.ts`, the import through the
-real provider in `tests/unit/components/app/studio/panels/patterns-panel.test.tsx`,
-and the hook's own edges (more than 30, not JSON, no storage, a Strict Mode
-remount, a second Studio while the request is out, a stale claim) in `tests/unit/components/app/studio/use-favs-import.test.ts`.
+Phase 4 moved the favourites older builds kept in the browser into the
+account, once. There were no users of those builds, so Phase 4A took the
+import out: the hook, its parser, its claim key and their tests. The bulk
+form of `POST /api/v1/breaks` stays, as a capability of its own.
 
 ## `/api/v1/home` — Home (task 4.9)
 

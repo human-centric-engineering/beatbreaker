@@ -61,8 +61,8 @@ export const createBreakSchema = breakFields.extend({
 });
 
 /**
- * How many patterns one bulk create may carry — the most `bb.favs` can hold,
- * which is the one thing the bulk form exists for (Phase 4, item 6).
+ * How many patterns one bulk create may carry. They are written in one
+ * transaction, so the ceiling keeps a single request's writes small.
  */
 export const MAX_BULK_BREAKS = 30;
 

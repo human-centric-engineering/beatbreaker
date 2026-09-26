@@ -99,7 +99,7 @@ by the provider's `leaving` / `resolveLeave`. Copy is in
 | 4.7  | Practice history, Back / Forward           | `PracticeVisit`, `/api/v1/history`, `lib/app/breaks/saved/history.ts`, `use-practice-history.ts`                  | [`breaks.md`](./breaks.md) § `/api/v1/history`         |
 | 4.8  | Patterns drawer                            | `components/app/studio/panels/patterns-panel.tsx`                                                                 | [`breaks.md`](./breaks.md) § The Patterns drawer       |
 | 4.9  | Home                                       | `/api/v1/home`, `lib/app/breaks/saved/home.ts`, `components/app/home/`                                            | [`breaks.md`](./breaks.md) § `/api/v1/home`            |
-| 4.10 | `bb.favs` import                           | `components/app/studio/use-favs-import.ts`                                                                        | [`breaks.md`](./breaks.md) § Browser favourites import |
+| 4.10 | Browser favourites import                  | removed in Phase 4A                                                                                               | [`breaks.md`](./breaks.md) § Browser favourites import |
 | 4.11 | Details and link chips                     | `components/app/studio/details-form.tsx`, `LinkChips` in `stage.tsx`                                              | below                                                  |
 
 ## Details and link chips (task 4.11)

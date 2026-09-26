@@ -24,9 +24,6 @@ const ROOT = process.cwd();
 const KEY_MODULE = 'lib/app/breaks/browser-keys.ts';
 const WRAPPER = 'lib/app/breaks/use-stored-setting.ts';
 
-/** The `bb.favs` import, which 4A.4 removes along with these two keys. */
-const LEAVING = new Set(['bb.favs', 'bb.favs.importing']);
-
 const KEY_LITERAL = /['"](bb\.[A-Za-z.]+)['"]/g;
 
 function walk(dir: string): string[] {
@@ -64,9 +61,7 @@ describe('the browser keys', () => {
     const offenders: string[] = [];
     for (const { path, source } of FILES) {
       if (path === KEY_MODULE) continue;
-      for (const [, key] of source.matchAll(KEY_LITERAL)) {
-        if (!LEAVING.has(key)) offenders.push(`${path}: ${key}`);
-      }
+      for (const [, key] of source.matchAll(KEY_LITERAL)) offenders.push(`${path}: ${key}`);
     }
     expect(offenders).toEqual([]);
   });

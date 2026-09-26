@@ -155,9 +155,9 @@ export const POST = withAuth(
     if (await isBulk(request)) {
       const { breaks } = await validateRequestBody(request, bulkCreateBreaksSchema);
       /* Every document is decoded before anything is written, and the writes
-         are one transaction: an import that fails halfway would leave the
-         caller not knowing which favourites made it, and the client clears
-         `bb.favs` only on success — so it must be all of them or none. */
+         are one transaction: a batch that failed halfway would leave the
+         caller not knowing which patterns made it, so it is all of them or
+         none. */
       const rows = breaks.map((input) => createData(session.user.id, input).data);
       const saved = await prisma.$transaction(
         rows.map((data) => prisma.break.create({ data, select: LIST_SELECT }))
