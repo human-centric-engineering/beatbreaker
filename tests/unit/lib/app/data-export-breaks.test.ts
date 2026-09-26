@@ -15,7 +15,7 @@
  * FORK NOTE — this file reads `@/lib/app/data-export` for real, with no
  * `vi.mock`, because the collector's behaviour IS what it is testing. A fork of
  * BeatBreaker that adds its own tables to that seam will see this fail on the
- * section list: expect the seven below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
+ * section list: expect the eight below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
  * collector returns every declared section as a key, and a mock cannot tell you
  * that. The `prisma` methods are mocked instead, which is the part this test
  * genuinely does not need to be real.
@@ -28,6 +28,7 @@ const findMany = {
   takes: vi.fn(),
   pins: vi.fn(),
   visits: vi.fn(),
+  settings: vi.fn(),
   styles: vi.fn(),
   libraries: vi.fn(),
   kits: vi.fn(),
@@ -39,6 +40,7 @@ vi.mock('@/lib/db/client', () => ({
     take: { findMany: (...args: unknown[]) => findMany.takes(...args) },
     pin: { findMany: (...args: unknown[]) => findMany.pins(...args) },
     practiceVisit: { findMany: (...args: unknown[]) => findMany.visits(...args) },
+    studioSettings: { findMany: (...args: unknown[]) => findMany.settings(...args) },
     style: { findMany: (...args: unknown[]) => findMany.styles(...args) },
     patternLibrary: { findMany: (...args: unknown[]) => findMany.libraries(...args) },
     kit: { findMany: (...args: unknown[]) => findMany.kits(...args) },
@@ -74,6 +76,7 @@ describe('collectAppSubjectData', () => {
       'libraries',
       'pins',
       'practiceHistory',
+      'studioSettings',
       'styles',
       'takes',
     ]);
@@ -83,7 +86,13 @@ describe('collectAppSubjectData', () => {
   it('scopes every query to the subject', async () => {
     await collectAppSubjectData(SUBJECT);
 
-    for (const spy of [findMany.breaks, findMany.takes, findMany.pins, findMany.visits]) {
+    for (const spy of [
+      findMany.breaks,
+      findMany.takes,
+      findMany.pins,
+      findMany.visits,
+      findMany.settings,
+    ]) {
       expect(spy).toHaveBeenCalledWith(expect.objectContaining({ where: { userId: 'user-1' } }));
     }
     /* The catalogue names its owner `ownerId`, not `userId`. A copy-paste that
@@ -174,5 +183,21 @@ describe('collectAppSubjectData', () => {
     expect(args).not.toHaveProperty('select');
     expect(args.orderBy).toEqual({ visitedAt: 'desc' });
     expect(data.practiceHistory).toEqual([visit]);
+  });
+
+  it('exports the settings row as stored, including a value the app would now ignore', async () => {
+    /* The subject is owed what is held about them. `readStudioSettings` would
+       replace an out-of-range value with its default; the export must not, or
+       it answers with something that is not in the database. */
+    const row = {
+      userId: 'user-1',
+      prefs: { countIn: 2, startBpm: 9000 },
+      updatedAt: new Date('2026-09-26T12:00:00Z'),
+    };
+    findMany.settings.mockResolvedValue([row]);
+
+    const data = await collectAppSubjectData(SUBJECT);
+
+    expect(data.studioSettings).toEqual([row]);
   });
 });

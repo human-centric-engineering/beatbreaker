@@ -135,6 +135,13 @@ export function initAppSubjectSources(): void {
         description:
           'What you opened in the Studio — your own patterns, shared ones and library entries — when, and the layer and tempo you left each at. The newest 200.',
       },
+      {
+        model: 'StudioSettings',
+        section: 'studioSettings',
+        disposition: 'export',
+        description:
+          "How you set up the Studio — your kit and its tuning, count-in, the generator's settings, and what a new pattern starts with.",
+      },
       /* The catalogue. Every row is a system row today (`ownerId` null), so
          these three sections come back empty for everybody — and they are
          declared anyway, because the alternative is that the day D16 ships
@@ -184,31 +191,36 @@ export function initAppSubjectSources(): void {
  * change the signature just to add one.
  */
 export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promise<AppSubjectData> {
-  const [breaks, takes, pins, practiceHistory, styles, libraries, kits] = await Promise.all([
-    prisma.break.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } }),
-    prisma.take.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } }),
-    /* The pin rows alone. A pin on someone else's shared pattern names it by
+  const [breaks, takes, pins, practiceHistory, studioSettings, styles, libraries, kits] =
+    await Promise.all([
+      prisma.break.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } }),
+      prisma.take.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } }),
+      /* The pin rows alone. A pin on someone else's shared pattern names it by
        id only: that pattern is their data, not the subject's. */
-    prisma.pin.findMany({
-      where: { userId },
-      orderBy: [{ shelf: 'asc' }, { position: 'asc' }],
-    }),
-    // the visit rows alone, for the reason the pins are
-    prisma.practiceVisit.findMany({ where: { userId }, orderBy: { visitedAt: 'desc' } }),
-    /* `ownerId`, not `userId` — the catalogue names its owner differently, and
+      prisma.pin.findMany({
+        where: { userId },
+        orderBy: [{ shelf: 'asc' }, { position: 'asc' }],
+      }),
+      // the visit rows alone, for the reason the pins are
+      prisma.practiceVisit.findMany({ where: { userId }, orderBy: { visitedAt: 'desc' } }),
+      /* At most one row. Exported as stored, not as `readStudioSettings`
+       reads it: the subject is owed what is held about them, including a
+       value the app would now ignore. */
+      prisma.studioSettings.findMany({ where: { userId } }),
+      /* `ownerId`, not `userId` — the catalogue names its owner differently, and
        that is precisely the column core's own user-id heuristic cannot see. */
-    prisma.style.findMany({
-      where: { ownerId: userId },
-      orderBy: { createdAt: 'asc' },
-      include: { versions: { orderBy: { version: 'asc' } } },
-    }),
-    prisma.patternLibrary.findMany({
-      where: { ownerId: userId },
-      orderBy: { createdAt: 'asc' },
-      include: { entries: { orderBy: { position: 'asc' } } },
-    }),
-    prisma.kit.findMany({ where: { ownerId: userId }, orderBy: { createdAt: 'asc' } }),
-  ]);
+      prisma.style.findMany({
+        where: { ownerId: userId },
+        orderBy: { createdAt: 'asc' },
+        include: { versions: { orderBy: { version: 'asc' } } },
+      }),
+      prisma.patternLibrary.findMany({
+        where: { ownerId: userId },
+        orderBy: { createdAt: 'asc' },
+        include: { entries: { orderBy: { position: 'asc' } } },
+      }),
+      prisma.kit.findMany({ where: { ownerId: userId }, orderBy: { createdAt: 'asc' } }),
+    ]);
 
   /* Both keys are returned unconditionally, empty arrays included. A bundle
      short by a section reads exactly like a complete answer, and the subject
@@ -222,6 +234,7 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
     takes,
     pins,
     practiceHistory,
+    studioSettings,
     styles,
     libraries,
     kits,

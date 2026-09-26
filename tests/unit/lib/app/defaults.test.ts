@@ -274,19 +274,38 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     // StyleVersion and LibraryEntry are excluded with reasons rather than
     // undeclared: they are exported inside their parent. Phase 4 (task 4.6)
     // added Pin — the practice shelves, personal data like Break — and task
-    // 4.7 PracticeVisit, the practice history.
+    // 4.7 PracticeVisit, the practice history. Phase 4A (task 4A.1) added
+    // StudioSettings, how you set up the Studio.
     assert: async () => {
       __resetAppSubjectSourceRegistryForTests();
       expect(
         getAppSubjectSources()
           .map((s) => s.model)
           .sort()
-      ).toEqual(['Break', 'Kit', 'PatternLibrary', 'Pin', 'PracticeVisit', 'Style', 'Take']);
+      ).toEqual([
+        'Break',
+        'Kit',
+        'PatternLibrary',
+        'Pin',
+        'PracticeVisit',
+        'StudioSettings',
+        'Style',
+        'Take',
+      ]);
       expect(
         getAppSubjectSources()
           .map((s) => s.section)
           .sort()
-      ).toEqual(['breaks', 'kits', 'libraries', 'pins', 'practiceHistory', 'styles', 'takes']);
+      ).toEqual([
+        'breaks',
+        'kits',
+        'libraries',
+        'pins',
+        'practiceHistory',
+        'studioSettings',
+        'styles',
+        'takes',
+      ]);
       expect(
         getAppExcludedSubjectSources()
           .map((s) => s.model)

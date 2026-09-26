@@ -374,6 +374,17 @@ export const USER_PARAM_DEFS: ParamDef[] = [
   { key: 'room', label: 'Room', min: 0, max: 1, step: 0.01, fmt: 'pc' },
 ];
 
+/**
+ * The master chain's knobs, after all four engines. These are the Kit
+ * drawer's ranges, and so the ranges a saved override can hold — tighter than
+ * `kitParamsSchema`'s, which bounds what a kit row may ship with.
+ */
+export const MASTER_PARAM_DEFS: ParamDef[] = [
+  { key: 'room', label: 'Room', min: 0, max: 1, step: 0.01, fmt: 'pc' },
+  { key: 'drive', label: 'Drive', min: 1, max: 2.6, step: 0.01, fmt: 'x' },
+  { key: 'lp', label: 'Top end', min: 2500, max: 18000, step: 100, fmt: 'hz' },
+];
+
 /** Which knobs a voice shows, given the kit currently loaded. */
 export function paramDefs(voice: string, kit: Kit | undefined | null): ParamDef[] {
   if (SYNTH_ONLY[voice]) return PARAM_DEFS[voice];
