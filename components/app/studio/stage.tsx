@@ -150,6 +150,7 @@ export function Stage() {
                 key={v}
                 type="button"
                 aria-pressed={c.viewMode === v}
+                aria-keyshortcuts={v === 'both' ? 'V' : v}
                 onClick={() => c.setViewMode(v)}
               >
                 {v === 'both' ? 'A + B' : `${v} only`}
@@ -184,6 +185,7 @@ export function Stage() {
               type="button"
               className={cn('mini', c.guides && 'on')}
               aria-pressed={c.guides}
+              aria-keyshortcuts="G"
               title="Number the beats and the &ldquo;and&rdquo;s under the staff"
               onClick={() => c.setGuides(!c.guides)}
             >

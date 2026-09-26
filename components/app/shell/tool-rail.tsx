@@ -63,7 +63,7 @@ export function ToolRail({
     <nav className="studio-rail" aria-label="Tools">
       {/* It sat above the tabs in the console and stays there: the one action
           that is not a tool, and the one you reach for most. */}
-      <button type="button" className="studio-new" onClick={onNewBreak}>
+      <button type="button" className="studio-new" onClick={onNewBreak} aria-keyshortcuts="N">
         <span className="studio-rail-label">New break</span>
         <Shuffle size={20} />
       </button>
@@ -77,6 +77,7 @@ export function ToolRail({
           className={cn(open === t.id && 'on')}
           aria-expanded={open === t.id}
           aria-controls="studio-drawer"
+          aria-keyshortcuts={t.id === 'patterns' ? 'P' : undefined}
           onClick={() => onToggle(t.id)}
         >
           <span className="studio-rail-label">{t.label}</span>

@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 
+import { shortcutFor } from '@/components/app/shell/shortcuts';
+import { ShortcutsSheet } from '@/components/app/shell/shortcuts-sheet';
 import { StudioFooter } from '@/components/app/shell/studio-footer';
 import { StudioHeader } from '@/components/app/shell/studio-header';
 import { ToolDrawer } from '@/components/app/shell/tool-drawer';
@@ -70,6 +72,7 @@ export function StudioFrame() {
   const railButtons = useRef<Partial<Record<Tool, HTMLButtonElement | null>>>({});
   const toolsButton = useRef<HTMLButtonElement>(null);
   const lastTool = useRef<Tool>('gen');
+  const [sheet, setSheet] = useState(false);
 
   /* A drawer and a sheet are different components; nothing carries across when
      the window crosses the breakpoint. */
@@ -132,57 +135,14 @@ export function StudioFrame() {
       ) {
         return;
       }
-      /* Back and Forward through the practice history, the browser's own
-         chord for it. Taken from the browser here, where it would otherwise
-         leave the Studio. */
-      if (
-        e.altKey &&
-        !e.metaKey &&
-        !e.ctrlKey &&
-        !e.shiftKey &&
-        (e.key === 'ArrowLeft' || e.key === 'ArrowRight')
-      ) {
-        e.preventDefault();
-        c.history.step(e.key === 'ArrowLeft' ? 'back' : 'forward');
-        return;
-      }
-      if (e.altKey) return;
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'z') {
-        e.preventDefault();
-        if (e.shiftKey) c.redo();
-        else c.undo();
-        return;
-      }
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') {
-        // the browser's own Save Page is never what you meant in here
-        e.preventDefault();
-        void c.doc.save();
-        return;
-      }
-      if (e.metaKey || e.ctrlKey) return;
-
-      if (e.key === ' ') {
-        e.preventDefault();
-        c.togglePlay();
-      } else if (e.key === 's' || e.key === 'S') {
-        void c.doc.save();
-      } else if (e.key === 'n' || e.key === 'N') {
-        c.newBreak('both');
-      } else if (e.key >= '1' && e.key <= '5') {
-        c.setLevel(Number(e.key));
-      } else if (e.key === 'g') {
-        c.setGuides(!c.guides);
-      } else if (e.key === 'a') {
-        c.setViewMode('A');
-      } else if (e.key === 'b') {
-        c.setViewMode('B');
-      } else if (e.key === 'v') {
-        c.setViewMode('both');
-      } else if (e.key === '[') {
-        c.setBpm(c.bpm - 2);
-      } else if (e.key === ']') {
-        c.setBpm(c.bpm + 2);
-      }
+      /* Everything else is the table (`shortcuts.ts`), which the `?` sheet
+         draws — so what works and what is listed cannot drift apart. Alt+←
+         is Back through the practice history, taken from the browser here,
+         where it would otherwise leave the Studio. */
+      const shortcut = shortcutFor(e);
+      if (!shortcut) return;
+      if (shortcut.preventDefault) e.preventDefault();
+      shortcut.run({ studio: c, openTool: open, openSheet: () => setSheet(true) }, e);
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
@@ -213,7 +173,7 @@ export function StudioFrame() {
         />
       </div>
 
-      <StudioFooter />
+      <StudioFooter onShowShortcuts={() => setSheet(true)} />
 
       <ToolDrawer
         tool={tool}
@@ -228,6 +188,7 @@ export function StudioFrame() {
       </ToolDrawer>
 
       <LeaveDialog />
+      <ShortcutsSheet open={sheet} onOpenChange={setSheet} />
 
       <div className={cn('toast', c.toast && 'show')} role="status">
         {c.toast}

@@ -33,10 +33,22 @@ export function DoctorPanel() {
           <div className="field" style={{ marginTop: 16 }}>
             <span className="fieldlab">Undo history</span>
             <div className="btnrow">
-              <button type="button" className="mini" onClick={c.undo} disabled={!c.canUndo}>
+              <button
+                type="button"
+                className="mini"
+                onClick={c.undo}
+                disabled={!c.canUndo}
+                aria-keyshortcuts="Control+Z Meta+Z"
+              >
                 ↶ Undo
               </button>
-              <button type="button" className="mini" onClick={c.redo} disabled={!c.canRedo}>
+              <button
+                type="button"
+                className="mini"
+                onClick={c.redo}
+                disabled={!c.canRedo}
+                aria-keyshortcuts="Control+Shift+Z Meta+Shift+Z"
+              >
                 ↷ Redo
               </button>
               <button

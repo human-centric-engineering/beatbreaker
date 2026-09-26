@@ -103,6 +103,7 @@ export function StudioTransport() {
         onClick={c.togglePlay}
         aria-label="Play or stop"
         aria-pressed={c.playing}
+        aria-keyshortcuts="Space"
       >
         {c.playing ? '■ Stop' : '▶ Play'}
       </button>
@@ -128,6 +129,7 @@ export function StudioTransport() {
           value={c.bpm}
           onChange={(e) => c.setBpm(Number(e.target.value))}
           aria-label="Tempo"
+          aria-keyshortcuts="[ ]"
         />
         <button
           type="button"
@@ -182,6 +184,7 @@ export function PhoneTransport() {
         onClick={c.togglePlay}
         aria-pressed={c.playing}
         aria-label={c.playing ? 'Stop' : 'Play'}
+        aria-keyshortcuts="Space"
       >
         {c.playing ? <Square size={22} /> : <Play size={22} />}
       </button>
