@@ -103,6 +103,12 @@ plus two things the split created:
 The provider also owns the audio lifetime, closing the `AudioContext` on unmount
 (H7). A browser allows a page only a handful and will not reopen a closed one.
 
+**Settings.** The pages read your `StudioSettings` row and pass it to the
+provider as `settings`; what stays in the browser is read through
+`useStoredSetting` and listed in `lib/app/breaks/browser-keys.ts`. Where each
+value lives, and why, is in [`settings.md`](./settings.md). A new control that
+remembers something starts there.
+
 ## Opening on a drawer
 
 `/studio?drawer=<tool>` opens the Studio with that tool's drawer showing, and

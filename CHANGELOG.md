@@ -18,6 +18,21 @@ release process.
 
 ### Added
 
+- **Studio settings in your account — a `StudioSettings` model and
+  `/api/v1/studio-settings`** (migration `studio_settings`, additive). One row
+  per person holds the kit and its tuning, count-in, tempo ceiling, layer tempo
+  match, the generator's dials, notation guides, sticking, preview, and the
+  starting style / meter / bars / tempo for a new pattern. `GET` answers every
+  field, the default where one was never set; `PATCH` merges any subset in one
+  statement. Every field is bounded, kit and style keys are checked against
+  the catalogue, and a stored field that no longer parses reads as its default
+  without taking the rest of the row. The user FK is hand-written and
+  drift-probed; the account export gains a `studioSettings` section. Both
+  Studio pages read the row and the Studio writes back debounced. The console
+  no longer keeps these, or the open pattern's own values, in `localStorage`;
+  the few browser keys left are read through a schema (`useStoredSetting`,
+  `lib/app/breaks/browser-keys.ts`). See `.context/app/settings.md`.
+
 - **Home — `GET /api/v1/home`**, and the `/dashboard` body rebuilt on it.
   One request answers the Practising shelf as cards (each with the layer and
   tempo it opens at, when it was last opened, and a server-engraved thumbnail
@@ -60,7 +75,7 @@ release process.
   (case-insensitive title search) and `sort=created|updated`, and every row
   carries the new columns. `PATCH /:id` takes `description` and `links`.
   `POST` also accepts `{ breaks: [...] }` — up to 30, one transaction, all or
-  none — for the one-time import of browser favourites.
+  none.
 
 - **BeatBreaker's catalogue — styles, pattern libraries and kits as database
   rows.** Five new models in `prisma/schema/app.prisma`: `Style` /
