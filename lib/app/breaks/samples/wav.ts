@@ -122,7 +122,7 @@ export function parseWav(bytes: Uint8Array): WavVerdict {
  * and nothing else. Values outside −1…1 are clipped rather than wrapped, since
  * a wrapped sample is a click.
  */
-export function writeWav(samples: Float32Array): Uint8Array {
+export function writeWav(samples: Float32Array): Uint8Array<ArrayBuffer> {
   const bytesPerSample = SAMPLE_FORMAT.bitsPerSample / 8;
   const dataBytes = samples.length * bytesPerSample;
   const out = new Uint8Array(44 + dataBytes);

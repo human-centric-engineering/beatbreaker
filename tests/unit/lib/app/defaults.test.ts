@@ -38,6 +38,10 @@ import { protectedNavItems } from '@/lib/app/protected-nav';
 import { appAuthLandingRoute, appAuthLandingLabel } from '@/lib/app/auth-landing';
 import { emailOverrides } from '@/lib/app/emails';
 import { initApp } from '@/lib/app/bootstrap';
+import {
+  __resetErasureCleanupHooksForTests,
+  getErasureCleanupHooks,
+} from '@/lib/privacy/erasure-hooks';
 import { initAppKnowledgeAccessContributors } from '@/lib/app/knowledge-access-contributors';
 import { initAppGuardFloorContributors } from '@/lib/app/guard-floor-contributors';
 import { initAppGuardEventContributors } from '@/lib/app/guard-event-contributors';
@@ -275,7 +279,8 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     // undeclared: they are exported inside their parent. Phase 4 (task 4.6)
     // added Pin — the practice shelves, personal data like Break — and task
     // 4.7 PracticeVisit, the practice history. Phase 4A (task 4A.1) added
-    // StudioSettings, how you set up the Studio.
+    // StudioSettings, how you set up the Studio, and 4A.7 Sample, your own
+    // drum samples.
     assert: async () => {
       __resetAppSubjectSourceRegistryForTests();
       expect(
@@ -288,6 +293,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
         'PatternLibrary',
         'Pin',
         'PracticeVisit',
+        'Sample',
         'StudioSettings',
         'Style',
         'Take',
@@ -302,6 +308,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
         'libraries',
         'pins',
         'practiceHistory',
+        'samples',
         'studioSettings',
         'styles',
         'takes',
@@ -322,8 +329,13 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     risk: 'a stray default would run one-time work on every install boot',
     // That instrumentation calls this in all envs, try/catch-isolated, is
     // covered by tests/unit/instrumentation.test.ts.
+    // FORK (BeatBreaker): re-pointed, not deleted. Phase 4A (task 4A.7)
+    // registers the app's one erasure hook, which removes your samples' files
+    // (D20); what it deletes is covered by sample-erasure.test.ts.
     assert: async () => {
+      __resetErasureCleanupHooksForTests();
       await expect(initApp()).resolves.toBeUndefined();
+      expect(getErasureCleanupHooks().map((h) => h.name)).toEqual(['beatbreaker-samples']);
     },
   },
   {
@@ -361,8 +373,15 @@ const SEAM_DEFAULTS: SeamDefault[] = [
   {
     seam: 'lib/app/env.ts',
     risk: 'a stray key would make an unset env var fail boot on every install',
-    // An empty z.object() accepts (and strips) anything → parses {} to {}.
-    assert: () => expect(appEnvSchema.parse({})).toEqual({}),
+    // FORK (BeatBreaker): re-pointed, not deleted. Phase 4A (task 4A.7) adds
+    // the sample allowance (D20). Both keys have defaults, so an install that
+    // sets neither still boots — which is the risk this row guards — and gets
+    // the decided allowance.
+    assert: () =>
+      expect(appEnvSchema.parse({})).toEqual({
+        SAMPLES_MAX_COUNT: 150,
+        SAMPLES_MAX_BYTES: 50 * 1024 * 1024,
+      }),
   },
   {
     seam: 'lib/app/eslint.config.mjs',
