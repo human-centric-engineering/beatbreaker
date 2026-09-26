@@ -144,7 +144,7 @@ that you delete makes those read as their defaults ([`settings.md`](./settings.m
 
 Both Studio pages read your kits and samples server-side with the pattern. The
 provider holds them in `useYourSounds` (`components/app/studio/`) and adds your
-kits to the catalogue, so a slot you fill plays on the next bar. The Kit drawer
+kits to the catalogue, so a slot you fill plays on the next bar. The Sound drawer
 (`panels/your-sounds.tsx`): _New kit of your own_, the kit's name, _Delete this
 kit_, a Load / Replace / ✕ per slot, and a _Your samples_ card with the usage
 meter and a delete (asked twice) per sample.

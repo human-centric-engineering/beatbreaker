@@ -380,7 +380,7 @@ describe('what the load buttons say', () => {
     const user = userEvent.setup();
     await open(saved(false));
     await user.keyboard(']');
-    await user.click(screen.getByRole('button', { name: 'Export' }));
+    await user.click(screen.getByRole('button', { name: 'Share' }));
     await user.type(screen.getByPlaceholderText('Paste a BeatBreaker code here…'), CODE);
     await user.click(screen.getByRole('button', { name: 'Load it' }));
 
@@ -396,7 +396,7 @@ describe('what the load buttons say', () => {
     const user = userEvent.setup();
     await open(saved(false));
     await user.keyboard(']');
-    await user.click(screen.getByRole('button', { name: 'Export' }));
+    await user.click(screen.getByRole('button', { name: 'Share' }));
     await user.type(screen.getByPlaceholderText('Paste a BeatBreaker code here…'), CODE);
     await user.click(screen.getByRole('button', { name: 'Load it' }));
     await screen.findByRole('alertdialog');

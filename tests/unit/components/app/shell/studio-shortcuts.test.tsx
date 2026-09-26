@@ -13,10 +13,11 @@
  * element, which is how the handler actually receives them.
  */
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { SHORTCUTS } from '@/components/app/shell/shortcuts';
 import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { testCatalogue } from '@/tests/helpers/catalogue';
@@ -151,7 +152,7 @@ describe('Studio shortcuts', () => {
     await mount();
 
     const rail = within(screen.getByRole('navigation', { name: 'Tools' }));
-    const tab = rail.getByRole('button', { name: 'Practice' });
+    const tab = rail.getByRole('button', { name: 'Practise' });
     await user.click(tab);
     tab.focus();
 
@@ -174,7 +175,7 @@ describe('Studio shortcuts', () => {
     const before = bpm();
 
     const rail = within(screen.getByRole('navigation', { name: 'Tools' }));
-    await user.click(rail.getByRole('button', { name: 'Export' }));
+    await user.click(rail.getByRole('button', { name: 'Share' }));
 
     // `]` is a character, not a shortcut, the moment you are pasting a code
     const box = screen.getByLabelText('Load a break code');
@@ -182,5 +183,100 @@ describe('Studio shortcuts', () => {
     await user.keyboard(']');
     expect((box as HTMLTextAreaElement).value).toBe(']');
     expect(bpm()).toBe(before);
+  });
+
+  it('opens the sheet on ?, lists every shortcut the handler reads, and closes on Escape', async () => {
+    const user = userEvent.setup();
+    await mount();
+
+    fireEvent.keyDown(document, { key: '?', shiftKey: true });
+    const sheet = await screen.findByRole('dialog', { name: 'Keyboard shortcuts' });
+    /* The handler and the sheet read one table, so a row here is a key that
+       works and every key that works has a row (E15). */
+    const rows = within(sheet).getAllByRole('row');
+    expect(rows.map((r) => within(r).getByRole('rowheader').textContent)).toEqual(
+      SHORTCUTS.map((s) => s.keys)
+    );
+    expect(rows.length).toBeGreaterThanOrEqual(12);
+
+    await user.keyboard('{Escape}');
+    await waitFor(() =>
+      expect(screen.queryByRole('dialog', { name: 'Keyboard shortcuts' })).toBeNull()
+    );
+  });
+
+  it('opens the sheet from the footer too', async () => {
+    const user = userEvent.setup();
+    await mount();
+    await user.click(screen.getByRole('button', { name: /^Shortcuts/ }));
+    expect(await screen.findByRole('dialog', { name: 'Keyboard shortcuts' })).toBeTruthy();
+  });
+
+  it('opens Patterns on P, and leaves P to a field', async () => {
+    const user = userEvent.setup();
+    await mount();
+    const patternsTab = () =>
+      within(screen.getByRole('navigation', { name: 'Tools' })).getByRole('button', {
+        name: 'Patterns',
+      });
+
+    fireEvent.keyDown(document, { key: 'p' });
+    expect(patternsTab()).toHaveAttribute('aria-expanded', 'true');
+
+    await user.click(
+      within(screen.getByRole('navigation', { name: 'Tools' })).getByRole('button', {
+        name: 'Share',
+      })
+    );
+    const box = screen.getByLabelText('Load a break code');
+    await user.click(box);
+    await user.keyboard('p');
+    expect((box as HTMLTextAreaElement).value).toBe('p');
+    expect(patternsTab()).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('takes a letter with Shift or Caps Lock the same as without', async () => {
+    await mount();
+    const both = staves();
+    fireEvent.keyDown(document, { key: 'A', shiftKey: true });
+    expect(staves()).toBe(1);
+    fireEvent.keyDown(document, { key: 'V' });
+    expect(staves()).toBe(both);
+  });
+
+  it('sends no key to the Studio behind the shortcuts sheet', async () => {
+    await mount();
+    const grid = () =>
+      [...document.querySelectorAll('.cell')].map((c) => c.getAttribute('data-on')).join('');
+    const before = grid();
+    const tempo = bpm();
+
+    fireEvent.keyDown(document, { key: '?', shiftKey: true });
+    await screen.findByRole('dialog', { name: 'Keyboard shortcuts' });
+    /* Pressed with the list up, these would change the break out of sight. */
+    fireEvent.keyDown(document, { key: 'n' });
+    fireEvent.keyDown(document, { key: ']' });
+    expect(grid()).toBe(before);
+    expect(bpm()).toBe(tempo);
+  });
+
+  it('sends no key to the Studio from inside an ⓘ popover', async () => {
+    const user = userEvent.setup();
+    await mount();
+    await user.click(
+      within(screen.getByRole('navigation', { name: 'Tools' })).getByRole('button', {
+        name: 'Practise',
+      })
+    );
+    await user.click(screen.getByRole('button', { name: 'About Mixer' }));
+    const text = await screen.findByText(/Mute a limb to play it yourself/);
+    expect(text.closest('[data-radix-popper-content-wrapper]')).toBeTruthy();
+
+    const tempo = bpm();
+    fireEvent.keyDown(text, { key: ']' });
+    expect(bpm()).toBe(tempo);
+    /* and the same key outside it still works */
+    fireEvent.keyDown(document.body, { key: ']' });
+    expect(bpm()).toBe(tempo + 2);
   });
 });

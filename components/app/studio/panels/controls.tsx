@@ -2,6 +2,8 @@
 
 import { useId } from 'react';
 
+import { StudioHelp } from '@/components/app/studio/studio-help';
+
 /**
  * The controls more than one panel is built from.
  *
@@ -29,6 +31,7 @@ export function Slider({
   suffix = '',
   format,
   hint,
+  help,
   onCommit,
 }: {
   label: string;
@@ -41,6 +44,8 @@ export function Slider({
   /** Overrides the plain number readout — hertz, seconds, a multiplier. */
   format?: (n: number) => string;
   hint?: string;
+  /** Behind an ⓘ beside the label — the why, where `hint` is the what (E14). */
+  help?: React.ReactNode;
   /** Fired when the drag ends, so tuning a voice can play it back to you. */
   onCommit?: () => void;
 }) {
@@ -52,7 +57,16 @@ export function Slider({
   const id = useId();
   return (
     <div className="field">
-      <label htmlFor={id}>{label}</label>
+      {help ? (
+        /* The ⓘ sits beside the label, not in it: a button inside a <label>
+           would be labelled by it too, and share the slider's name. */
+        <div className="fieldhead">
+          <label htmlFor={id}>{label}</label>
+          <StudioHelp title={label}>{help}</StudioHelp>
+        </div>
+      ) : (
+        <label htmlFor={id}>{label}</label>
+      )}
       <div className="row">
         <input
           id={id}

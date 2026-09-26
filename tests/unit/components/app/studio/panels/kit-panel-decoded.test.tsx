@@ -153,7 +153,9 @@ describe('KitPanel with samples already decoded', () => {
     await user.click(screen.getByRole('button', { name: 'Perc' }));
 
     const field = await screen.findByText('Percussion source');
-    const toggle = within(field.closest('.field')!).getByRole('button');
+    const toggle = within(field.closest('.field')!).getByRole('button', {
+      name: /Recorded|Synthesised/,
+    });
 
     // percCount is 2 (from the fake pack source) — the field starts on Recorded
     expect(toggle.textContent).toBe('Recorded (2)');

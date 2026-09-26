@@ -7,7 +7,7 @@ import { z } from 'zod';
 
 import type { PatternDetails } from '@/components/app/breaks/use-break-console';
 import { useStudio } from '@/components/app/studio/studio-provider';
-import { FieldHelp } from '@/components/ui/field-help';
+import { StudioHelp } from '@/components/app/studio/studio-help';
 import { LINK_RULE, MAX_LINKS, parseReferenceLink, type StoredLink } from '@/lib/app/breaks/links';
 
 /**
@@ -153,11 +153,11 @@ export function DetailsForm() {
         <div className="field">
           <label htmlFor="bb-details-title">
             Name{' '}
-            <FieldHelp title="Name">
+            <StudioHelp title="Name">
               What the pattern is called — on the stage, in Patterns, on Home. Changing it renames
               this pattern; Save a copy is for keeping both. Default: the name the generator gave
               it.
-            </FieldHelp>
+            </StudioHelp>
           </label>
           <input
             id="bb-details-title"
@@ -178,10 +178,10 @@ export function DetailsForm() {
           <div className="field">
             <label htmlFor="bb-details-description">
               Description{' '}
-              <FieldHelp title="Description">
+              <StudioHelp title="Description">
                 A line or two about the pattern — what you are working on in it, the tempo you are
                 building towards. Up to 500 characters. Default: none.
-              </FieldHelp>
+              </StudioHelp>
             </label>
             <textarea
               id="bb-details-description"
@@ -200,12 +200,12 @@ export function DetailsForm() {
           <div className="field">
             <span className="fieldlab">
               Links{' '}
-              <FieldHelp title="Reference links">
+              <StudioHelp title="Reference links">
                 Up to {MAX_LINKS} links to where the pattern came from or what teaches it: a YouTube
                 or Vimeo video, or a Spotify track, album or playlist. A YouTube start time
                 (&hellip;&amp;t=5m21s) is kept, so the link opens on the break. They show as chips
                 beside the title and open in a new tab. Default: none.
-              </FieldHelp>
+              </StudioHelp>
             </span>
             {fields.map((field, i) => {
               const err = errors.links?.[i]?.url;
@@ -276,8 +276,11 @@ export function DetailsForm() {
         </div>
         {editable ? (
           <div className="hint">
-            <b>Save a copy</b> makes a new pattern of yours under the name above, with this
-            one&rsquo;s saved description and links. This one stays as it is.
+            <b>Save a copy</b> keeps this one as it is.{' '}
+            <StudioHelp title="Save a copy">
+              Makes a new pattern of yours under the name above, with this one&rsquo;s saved
+              description and links. This one stays as it is.
+            </StudioHelp>
           </div>
         ) : null}
       </div>

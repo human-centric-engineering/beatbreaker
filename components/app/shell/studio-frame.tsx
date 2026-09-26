@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 
+import { shortcutFor } from '@/components/app/shell/shortcuts';
+import { ShortcutsSheet } from '@/components/app/shell/shortcuts-sheet';
 import { StudioFooter } from '@/components/app/shell/studio-footer';
 import { StudioHeader } from '@/components/app/shell/studio-header';
 import { ToolDrawer } from '@/components/app/shell/tool-drawer';
@@ -29,7 +31,9 @@ import '@/components/app/shell/studio.css';
  * tool opens *into*, which is the one thing a media query cannot express.
  */
 
-const PANELS: Record<Tool, React.ComponentType> = {
+/* A panel may send you to another drawer — Generate names the kit and links to
+   Sound, which is where the kit is chosen (E10). */
+const PANELS: Record<Tool, React.ComponentType<{ onOpenTool?: (tool: Tool) => void }>> = {
   gen: GeneratePanel,
   doctor: DoctorPanel,
   patterns: PatternsPanel,
@@ -68,6 +72,12 @@ export function StudioFrame() {
   const railButtons = useRef<Partial<Record<Tool, HTMLButtonElement | null>>>({});
   const toolsButton = useRef<HTMLButtonElement>(null);
   const lastTool = useRef<Tool>('gen');
+  const [sheet, setSheet] = useState(false);
+  /* Read by the key handler, which is bound once per Studio, not per render. */
+  const sheetOpen = useRef(false);
+  useEffect(() => {
+    sheetOpen.current = sheet;
+  }, [sheet]);
 
   /* A drawer and a sheet are different components; nothing carries across when
      the window crosses the breakpoint. */
@@ -120,6 +130,18 @@ export function StudioFrame() {
          letter the moment you paste a break code. */
       if (el?.closest('input, textarea, select, [contenteditable="true"]')) return;
 
+      /* Nothing reaches the Studio behind a modal — the shortcuts sheet or the
+         unsaved-changes prompt — or from inside an ⓘ popover, where you are
+         reading, not playing. The drawers are dialogs too, but non-modal, and
+         the keys are meant to work while one is open. */
+      if (
+        sheetOpen.current ||
+        document.querySelector('[role="alertdialog"]') ||
+        el?.closest('[data-radix-popper-content-wrapper]')
+      ) {
+        return;
+      }
+
       /* A control that Space or Enter already activates takes only those. The
          rest of the shortcuts still work with a rail tab or Play focused, which
          is how the console behaved and how you use it one-handed — it is only
@@ -130,57 +152,14 @@ export function StudioFrame() {
       ) {
         return;
       }
-      /* Back and Forward through the practice history, the browser's own
-         chord for it. Taken from the browser here, where it would otherwise
-         leave the Studio. */
-      if (
-        e.altKey &&
-        !e.metaKey &&
-        !e.ctrlKey &&
-        !e.shiftKey &&
-        (e.key === 'ArrowLeft' || e.key === 'ArrowRight')
-      ) {
-        e.preventDefault();
-        c.history.step(e.key === 'ArrowLeft' ? 'back' : 'forward');
-        return;
-      }
-      if (e.altKey) return;
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'z') {
-        e.preventDefault();
-        if (e.shiftKey) c.redo();
-        else c.undo();
-        return;
-      }
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') {
-        // the browser's own Save Page is never what you meant in here
-        e.preventDefault();
-        void c.doc.save();
-        return;
-      }
-      if (e.metaKey || e.ctrlKey) return;
-
-      if (e.key === ' ') {
-        e.preventDefault();
-        c.togglePlay();
-      } else if (e.key === 's' || e.key === 'S') {
-        void c.doc.save();
-      } else if (e.key === 'n' || e.key === 'N') {
-        c.newBreak('both');
-      } else if (e.key >= '1' && e.key <= '5') {
-        c.setLevel(Number(e.key));
-      } else if (e.key === 'g') {
-        c.setGuides(!c.guides);
-      } else if (e.key === 'a') {
-        c.setViewMode('A');
-      } else if (e.key === 'b') {
-        c.setViewMode('B');
-      } else if (e.key === 'v') {
-        c.setViewMode('both');
-      } else if (e.key === '[') {
-        c.setBpm(c.bpm - 2);
-      } else if (e.key === ']') {
-        c.setBpm(c.bpm + 2);
-      }
+      /* Everything else is the table (`shortcuts.ts`), which the `?` sheet
+         draws — so what works and what is listed cannot drift apart. Alt+←
+         is Back through the practice history, taken from the browser here,
+         where it would otherwise leave the Studio. */
+      const shortcut = shortcutFor(e);
+      if (!shortcut) return;
+      if (shortcut.preventDefault) e.preventDefault();
+      shortcut.run({ studio: c, openTool: open, openSheet: () => setSheet(true) }, e);
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
@@ -211,7 +190,7 @@ export function StudioFrame() {
         />
       </div>
 
-      <StudioFooter />
+      <StudioFooter onShowShortcuts={() => setSheet(true)} />
 
       <ToolDrawer
         tool={tool}
@@ -222,10 +201,11 @@ export function StudioFrame() {
           (wide ? railButtons.current[lastTool.current] : toolsButton.current)?.focus()
         }
       >
-        {Panel ? <Panel /> : null}
+        {Panel ? <Panel onOpenTool={open} /> : null}
       </ToolDrawer>
 
       <LeaveDialog />
+      <ShortcutsSheet open={sheet} onOpenChange={setSheet} />
 
       <div className={cn('toast', c.toast && 'show')} role="status">
         {c.toast}

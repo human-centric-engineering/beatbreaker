@@ -1,13 +1,16 @@
 'use client';
 
+import { countInLabel, useTapTempo } from '@/components/app/shell/studio-transport';
 import { Slider } from '@/components/app/studio/panels/controls';
 import { ShelfList } from '@/components/app/studio/panels/patterns-panel';
+import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { LANE_DEFS, activeLanes, laneName } from '@/lib/app/breaks/lanes';
 import { cn } from '@/lib/utils';
 
 export function PracticePanel() {
   const c = useStudio();
+  const tapTempo = useTapTempo();
   const style = c.catalogue.styles[c.style]?.params;
   /* The console guarded on a pattern existing before it drew anything; a panel
      is mounted on its own, so the mixer asks for itself. No pattern means no
@@ -31,7 +34,7 @@ export function PracticePanel() {
       ) : null}
       <div className="card">
         <div className="card-hd">
-          <h3>Practice rig</h3>
+          <h3>Click and tempo</h3>
         </div>
         <div className="card-bd">
           <div className="field">
@@ -54,8 +57,41 @@ export function PracticePanel() {
             </div>
           </div>
 
+          {/* Count-in and Tap live in the header transport too, but that is
+              not on a phone; here they are at every width (E3). */}
           <div className="field">
-            <span className="fieldlab">Tempo trainer</span>
+            <span className="fieldlab">Count-in</span>
+            <div className="seg small" role="group" aria-label="Count-in">
+              {[0, 1, 2].map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  aria-pressed={c.countIn === n}
+                  onClick={() => c.setCountIn(n)}
+                >
+                  {countInLabel(n)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="field">
+            <span className="fieldlab">Tap tempo</span>
+            <div className="btnrow">
+              <button type="button" className="mini" aria-label="Tap tempo" onClick={tapTempo}>
+                Tap
+              </button>
+            </div>
+            <div className="hint">Tap four times on the beat.</div>
+          </div>
+
+          <div className="field">
+            <span className="fieldlab">
+              Tempo trainer{' '}
+              <StudioHelp title="Tempo trainer">
+                Adds BPM every time the arrangement comes round, and stops at your ceiling.
+              </StudioHelp>
+            </span>
             <div className="btnrow">
               <button
                 type="button"
@@ -74,9 +110,6 @@ export function PracticePanel() {
                   +{n}
                 </button>
               ))}
-            </div>
-            <div className="hint">
-              Adds BPM every time the arrangement comes round. Stops at your ceiling.
             </div>
           </div>
 
@@ -99,7 +132,14 @@ export function PracticePanel() {
           </div>
 
           <div className="field">
-            <span className="fieldlab">Match tempo to layer</span>
+            <span className="fieldlab">
+              Match tempo to layer{' '}
+              <StudioHelp title="Match tempo to layer">
+                Skeleton at 68% of the break&apos;s own tempo, Groove at 78%, Sixteenths at 86%,
+                Ghosted at 93%, Full break as written. Move the tempo while this is on and you are
+                setting the speed for that layer, not the break.
+              </StudioHelp>
+            </span>
             <div className="btnrow">
               <button
                 type="button"
@@ -110,11 +150,6 @@ export function PracticePanel() {
                 {c.matchTempo ? 'On' : 'Off'}
               </button>
             </div>
-            <div className="hint">
-              L1 at 68% of the break&apos;s own tempo, L2 at 78%, L3 at 86%, L4 at 93%, L5 as
-              written. Move the tempo slider while this is on and you are setting the speed for that
-              layer, not the break.
-            </div>
           </div>
         </div>
       </div>
@@ -122,13 +157,17 @@ export function PracticePanel() {
       <div className="card">
         <div className="card-hd">
           <h3>Mixer</h3>
+          <StudioHelp title="Mixer">
+            Mute a limb to play it yourself. Faders start where the style puts them — a few styles
+            push a lane down because something else is the music and that lane was sitting on it.
+            Move one and it is yours until you hit <b>Back to the style</b>.
+          </StudioHelp>
           <div className="spacer" />
           {Object.keys(c.mixTouched).length ? (
             <button type="button" className="mini" onClick={c.resetMix}>
               Back to the style
             </button>
           ) : null}
-          <span className="hint">Mute a limb to play it yourself</span>
         </div>
         <div className="card-bd">
           {lanes.map((lane) => (
@@ -156,11 +195,6 @@ export function PracticePanel() {
               </button>
             </div>
           ))}
-          <div className="hint" style={{ marginTop: 10 }}>
-            Faders start where the style puts them — a few styles push a lane down because something
-            else is the music and that lane was sitting on it. Move one and it is yours until you
-            hit <b>Back to the style</b>.
-          </div>
         </div>
       </div>
     </>

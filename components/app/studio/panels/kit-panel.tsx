@@ -7,6 +7,7 @@ import {
   YourSamples,
   useCurrentYourKit,
 } from '@/components/app/studio/panels/your-sounds';
+import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import {
   MASTER_PARAM_DEFS,
@@ -59,6 +60,12 @@ export function KitPanel() {
       <div className="card">
         <div className="card-hd">
           <h3>Kit</h3>
+          <StudioHelp title="Kits">
+            The five synthesised kits are a graph per hit, so every knob is live. The recorded kits
+            decode on first pick, and any lane still arriving falls through to the synthesised voice
+            — a half-loaded kit still plays. A kit of your own is your samples, kept in your
+            account. The TR-808 and TR-909 voice models are the one engine not ported yet.
+          </StudioHelp>
         </div>
         <div className="card-bd">
           <div className="field">
@@ -75,7 +82,7 @@ export function KitPanel() {
                 </optgroup>
               ))}
             </select>
-            <div className="hint">{kits[c.kit]?.hint}</div>
+            <div className="hint blurb">{kits[c.kit]?.hint}</div>
             {kits[c.kit]?.credit ? <div className="hint mono">{kits[c.kit].credit}</div> : null}
             {kitStatus ? <div className="hint mono">{kitStatus}</div> : null}
           </div>
@@ -122,19 +129,15 @@ export function KitPanel() {
               ▸ Play the kit
             </button>
           </div>
-
-          <div className="hint" style={{ marginTop: 12 }}>
-            The five synthesised kits are a graph per hit, so every knob is live. The recorded kits
-            decode on first pick, and any lane still arriving falls through to the synthesised voice
-            — a half-loaded kit still plays. A kit of your own is your samples, kept in your
-            account. The TR-808 and TR-909 voice models are the one engine not ported yet.
-          </div>
         </div>
       </div>
 
       <div className="card">
         <div className="card-hd">
           <h3>Voice</h3>
+          <StudioHelp title="Voice">
+            {VOICE_HINTS[SYNTH_ONLY[c.voice] ? 'aux' : kitEngine(kitRow)] ?? VOICE_HINTS.synth}
+          </StudioHelp>
           <div className="spacer" />
           <button
             type="button"
@@ -178,7 +181,15 @@ export function KitPanel() {
 
           {c.voice === 'p' && c.percCount ? (
             <div className="field">
-              <span className="fieldlab">Percussion source</span>
+              <span className="fieldlab">
+                Percussion source{' '}
+                <StudioHelp title="Percussion source">
+                  Percussion is deliberately not tied to the kit — a tambourine over the Studio
+                  &apos;70s set should be a tambourine — so the recordings load once and every kit
+                  reaches them. Timbales had no source worth shipping, so they stay synthesised
+                  either way.
+                </StudioHelp>
+              </span>
               <div className="btnrow">
                 <button
                   type="button"
@@ -188,12 +199,6 @@ export function KitPanel() {
                 >
                   {c.percSamples ? `Recorded (${c.percCount})` : 'Synthesised'}
                 </button>
-              </div>
-              <div className="hint">
-                Percussion is deliberately not tied to the kit — a tambourine over the Studio
-                &apos;70s set should be a tambourine — so the recordings load once and every kit
-                reaches them. Timbales had no source worth shipping, so they stay synthesised either
-                way.
               </div>
             </div>
           ) : null}
@@ -234,10 +239,6 @@ export function KitPanel() {
             >
               Reset whole kit
             </button>
-          </div>
-
-          <div className="hint" style={{ marginTop: 14 }}>
-            {VOICE_HINTS[SYNTH_ONLY[c.voice] ? 'aux' : kitEngine(kitRow)] ?? VOICE_HINTS.synth}
           </div>
         </div>
       </div>

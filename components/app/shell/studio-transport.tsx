@@ -38,7 +38,7 @@ const LED_CHAR: Record<LaneKey, string> = {
 };
 
 /** Tap four times and it takes the mean of the gaps. */
-function useTapTempo(): () => void {
+export function useTapTempo(): () => void {
   const c = useStudio();
   const taps = useRef<number[]>([]);
   return () => {
@@ -51,6 +51,11 @@ function useTapTempo(): () => void {
     const mean = gaps.reduce((a, b) => a + b, 0) / gaps.length;
     if (mean > 120) c.setBpm(60000 / mean);
   };
+}
+
+/** How many bars of click come before the break: off, 1 bar or 2 bars. */
+export function countInLabel(bars: number): string {
+  return bars ? `${bars} bar${bars === 1 ? '' : 's'}` : 'off';
 }
 
 /** The lamps: which limb fired on this step. Decorative — the chart is the truth. */
@@ -98,16 +103,19 @@ export function StudioTransport() {
         onClick={c.togglePlay}
         aria-label="Play or stop"
         aria-pressed={c.playing}
+        aria-keyshortcuts="Space"
       >
         {c.playing ? '■ Stop' : '▶ Play'}
       </button>
+      {/* It was a bare digit with a tooltip (E3). A header has room for a word
+          and the number; the accessible name says the whole thing. */}
       <button
         type="button"
-        className="tbtn icon"
-        title="Count-in bars"
+        className="tbtn"
+        aria-label={`Count-in: ${countInLabel(c.countIn)}`}
         onClick={() => c.setCountIn((c.countIn + 1) % 3)}
       >
-        <span className="mono">{c.countIn}</span>
+        Count-in <span className="mono">{c.countIn || 'off'}</span>
       </button>
       <div className="bpmbox">
         <div className="bpmval mono">
@@ -121,8 +129,15 @@ export function StudioTransport() {
           value={c.bpm}
           onChange={(e) => c.setBpm(Number(e.target.value))}
           aria-label="Tempo"
+          aria-keyshortcuts="[ ]"
         />
-        <button type="button" className="tbtn" title="Tap four times" onClick={tapTempo}>
+        <button
+          type="button"
+          className="tbtn"
+          aria-label="Tap tempo"
+          title="Tap four times on the beat"
+          onClick={tapTempo}
+        >
           Tap
         </button>
       </div>
@@ -169,6 +184,7 @@ export function PhoneTransport() {
         onClick={c.togglePlay}
         aria-pressed={c.playing}
         aria-label={c.playing ? 'Stop' : 'Play'}
+        aria-keyshortcuts="Space"
       >
         {c.playing ? <Square size={22} /> : <Play size={22} />}
       </button>

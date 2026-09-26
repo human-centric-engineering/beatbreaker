@@ -14,7 +14,7 @@ import { beatOf } from '@/lib/app/breaks/audio/transport';
  * tools moved into the header menu precisely so that this line could belong to
  * Play (Spike A).
  */
-export function StudioFooter() {
+export function StudioFooter({ onShowShortcuts }: { onShowShortcuts?: () => void }) {
   const c = useStudio();
   const { openPreferences } = useConsent();
 
@@ -38,8 +38,23 @@ export function StudioFooter() {
             </>
           )}
         </span>
+        {/* The critic's number, always in view: it used to be, in the console's
+            rail, and the drawers had hidden it behind Generate. */}
+        <span className="studio-readout mono">
+          score <b>{c.report?.score ?? '–'}</b>
+        </span>
         <TransportLeds />
         <span className="studio-spacer" />
+        {onShowShortcuts ? (
+          <button
+            type="button"
+            onClick={onShowShortcuts}
+            className="studio-footer-link"
+            aria-keyshortcuts="Shift+?"
+          >
+            Shortcuts <span className="mono">?</span>
+          </button>
+        ) : null}
         <button type="button" onClick={openPreferences} className="studio-footer-link">
           Cookie preferences
         </button>

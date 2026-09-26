@@ -6,7 +6,7 @@ import { EngravedThumbnail } from '@/components/app/home/engraved-thumbnail';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ClientDate } from '@/components/ui/client-date';
-import { LAYER_NAMES } from '@/lib/app/breaks/layers';
+import { layerName } from '@/lib/app/breaks/layers';
 import type { HomeCard, HomeView as HomeData } from '@/lib/app/breaks/saved/home';
 import type { TargetView } from '@/lib/app/breaks/saved/targets';
 
@@ -72,7 +72,7 @@ function PractisingCard({
             ) : null}
             <dt>Tempo</dt>
             <dd>
-              {card.bpm} BPM · {LAYER_NAMES[card.level] ?? `Layer ${card.level}`}
+              {card.bpm} BPM · {layerName(card.level)}
             </dd>
             <dt>Last opened</dt>
             <dd>{card.lastOpenedAt ? <ClientDate date={card.lastOpenedAt} /> : 'Not yet'}</dd>

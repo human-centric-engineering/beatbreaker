@@ -4,10 +4,12 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'rea
 
 import { PATTERNS_TABS, type PatternsTab } from '@/components/app/shell/studio-address';
 import { PinButton, SHELF_LABEL } from '@/components/app/studio/pin-button';
+import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { apiClient } from '@/lib/api/client';
 import { PATTERNS_TAB } from '@/lib/app/breaks/browser-keys';
 import { type CatalogueEntry, libraryGroups } from '@/lib/app/breaks/catalogue/types';
+import { layerName } from '@/lib/app/breaks/layers';
 import { DEFAULT_METER, METER_KEYS } from '@/lib/app/breaks/meter';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import { logger } from '@/lib/logging';
@@ -158,7 +160,7 @@ export function ShelfList({ shelf, empty }: { shelf: Shelf; empty: React.ReactNo
             key={pin.id}
             target={{ breakId: t.id }}
             title={t.title}
-            sub={t.level === undefined ? who : `${who} · L${t.level}`}
+            sub={t.level === undefined ? who : `${who} · ${layerName(t.level)}`}
             right={tempo(t.bpm, t.meter)}
           />
         );
@@ -200,7 +202,7 @@ function RecentList() {
                 ? 'Your pattern'
                 : 'Shared with you'
           }
-          right={`L${item.level} · ${item.bpm}`}
+          right={`${layerName(item.level)} · ${item.bpm}`}
           // the history opens at the layer and tempo you left it
           onOpen={() => history.open(item)}
         />
@@ -375,7 +377,7 @@ function AllList() {
               key={r.id}
               target={{ breakId: r.id }}
               title={r.title}
-              sub={`${styleLabel(r.style)} · L${r.level}`}
+              sub={`${styleLabel(r.style)} · ${layerName(r.level)}`}
               right={tempo(r.bpm, r.meter)}
             />
           ))}
@@ -460,9 +462,12 @@ function LibrariesList() {
         <div className="empty">Nothing in the libraries matches.</div>
       )}
       <div className="hint">
-        The main groove off each record — a bar or two of it, in the meter it was played in. Fills
-        and variations are not here. The feel studies at the bottom are written rather than
-        transcribed, and say so.
+        The main groove off each record, a bar or two of it.{' '}
+        <StudioHelp title="The libraries">
+          The main groove off each record — a bar or two of it, in the meter it was played in. Fills
+          and variations are not here. The feel studies at the bottom are written rather than
+          transcribed, and say so.
+        </StudioHelp>
       </div>
     </>
   );

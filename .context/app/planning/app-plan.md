@@ -975,7 +975,7 @@ Tasks, in order, API first. **4A-i — your settings:**
 | 4A.8 | Your kits: `GET`/`POST /api/v1/kits`, `PATCH`/`DELETE /api/v1/kits/[id]` (rename; slot → one of your samples, or empty), owner-scoped; slot keys held to `SLOTS`; server-minted keys under a reserved prefix. The Studio page adds your kits to the catalogue it passes in; the catalogue route and its cache untouched. The settings route accepts your kit keys. The system `user` kit leaves the seed                                                                                    | Route tests: create a kit, assign two samples, the list shows it with each slot's audio URL; another user gets 404 on read, rename and delete; assigning someone else's sample is refused. The catalogue response has no user rows. A seed test: no system key uses the reserved prefix. Deleting the kit your settings name makes the setting read as its default                                                                        |
 | 4A.9 | Browser: `encodeWav` (decode → mono → 44.1 kHz via `OfflineAudioContext` → trim leading silence → PCM16); a sample source that plays your kit from `/api/v1/samples/[id]/audio`, replacing `UserSource`; the Kit drawer uploads to your account, shows refusals and the usage meter, and lists your kits; `user-kit.ts` and its IndexedDB store removed; "Nothing is uploaded" copy gone. Docs: `.context/app/samples.md` (limits, storage, the Phase 8 bucket setting, erasure), CHANGELOG | Unit tests: the encoder's output is mono, 16-bit, 44.1 kHz, and its leading silence is gone. Component tests: an mp3 goes up as WAV; a server refusal shows its message; usage updates after an upload and a delete. No `indexedDB` in `lib/app/`. By hand: upload a kick and a snare on a laptop, and the phone plays them                                                                                                               |
 
-### Phase 5 — Ergonomic review · M
+### Phase 5 — Ergonomic review · L
 
 **Goal:** every control is where a drummer would look for it, is the right size
 for a finger, says what it does, and behaves like its neighbours. Method and the
@@ -984,16 +984,94 @@ homes; its fixes land as small PRs alongside Phases 4 and 6.
 
 **Done when:** every row of the §5 findings table is fixed, or declined with a
 reason; the control inventory in `.context/app/controls.md` lists each control
-with its drawer, label, help text, shortcut and minimum target size; three people
-who play drums and have not seen the app complete the five test tasks in §5
-without help.
+with its drawer, label, help text, shortcut and minimum target size.
 
-**Carried in from Phases 1 and 4 (decided 2026-09-24):** the browser checks
-those phases did not run — the frame's bounding box at 360, 768, 1024 and
-1440px; light and dark across the frame; VoiceOver through open → use → close
-on a drawer; and 4.5's save status line, Save / Save a copy / Retry button and
-the unsaved-changes prompt, on a phone and a laptop. These belong to this
-phase's done-when: it is not done until each has been looked at.
+**Reconciled against the tree, 2026-09-26 (branch `phase-5-reconcile`).**
+Resized from M to L. Decided with the owner the same day (D22–D24):
+
+- **No usability test.** The owner is the only tester. The five tasks in §5
+  stay as a checklist the owner can walk; they are not a gate.
+- **No browser checks by Claude.** No browser can be driven from the sessions
+  that build this. The checks carried in from Phases 1 and 4 (the frame at
+  360, 768, 1024 and 1440px; light and dark; VoiceOver through a drawer; 4.5's
+  save status, Save / Save a copy / Retry and the unsaved-changes prompt on a
+  phone and a laptop) are listed in `controls.md` for the owner to look at.
+  They do not block this phase, and nothing in it is described as seen.
+- **Delete (E8), solo (E17) and the Back trail for unsaved rolls (E20) are
+  in.**
+
+What the code bears out, finding by finding:
+
+- **Still as written:** E1 (cells 22×22px, 2px gaps, no grid zoom — the Size
+  slider scales only the chart), E2 (`onClick` cycles and Shift-click goes
+  back; the value legend under the grid is the only help), E5 (quick tempo is
+  `style.bpm[0] × pct` in `practice-panel.tsx`; `baseBpm` never leaves the
+  hook — a bug), E6 (Copy MIDI (base64) and a `base64 -d` hint), E7 (a ⌘P hint,
+  no button), E10 (a kit `<select>` in both Generate and Kit), E11 ("A only /
+  B only / A + B" on the chart and "Edit A / Edit B" on the grid are separate
+  state, and the Doctor acts on the second), E12 (buttons read `L1`–`L5`, names
+  only in `title`), E14 (about 25 inline paragraphs; `<FieldHelp>` is used only
+  in the Details form), E15 (twelve bindings, no sheet; `aria-keyshortcuts`
+  only on Save and Back), E17 (Mute only; the MIDI-out hint now matches the
+  fixed H4), E19 (four toggle styles; the only shared control is `Slider`).
+- **Worse:** E3. Count-in is a bare digit with no accessible name, and it and
+  Tap live only in the header transport, which is hidden below 1024px. On a
+  phone neither exists.
+- **Partly done:** E4 (phones have ±2 buttons; wide screens are slider-only,
+  and nothing can be typed), E9 (save state is in the header now, but errors
+  share the 2.2s toast, and repeating the same message does not restart it),
+  E13 (rail reads Generate · Doctor · Patterns · Kit · Practice · Export;
+  "Break doctor", "Generator", "Practice rig", "Take it away" remain), E20 (N
+  on a saved pattern no longer overwrites it; an unsaved roll is replaced
+  silently and only undo brings it back).
+- **Gone:** E8 — there is no delete in the UI at all (the route exists and
+  nothing calls it). E16 — at 1024px and up the read-out and lamps are in the
+  footer. E18 — the 1080px rules target `.console` and `.rail`, which nothing
+  renders; they are dead CSS.
+- **Found while reconciling:** the critic's score is only in Generate, while
+  the Doctor tells you to watch it and only one drawer opens at a time;
+  _Clear history_ acts at once; phones have no read-out or lamps (declined —
+  the phone footer is the transport, and the stage already shows where the
+  playhead is).
+
+Ships as **four PRs**, each through the gates, each cut from main once the one
+before has merged.
+
+**5-i — names and help:**
+
+| #   | Task                                                                                                                                                                                                                                                                                                    | Done when                                                                                                                                                        |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 5.1 | Names (E13, E12). Drawers: Generate · Edit · Patterns · Sound · Practise · Share & export. Card headings lose "Generator", "Break doctor", "Practice rig", "Take it away". Layer buttons lead with the name (Skeleton … Full break), the number as the shortcut hint; `L{n}` elsewhere becomes the name | A test fails on any of the old names in `components/app/`; each layer button's accessible name is its name; the rail, the phone menu and the drawer titles agree |
+| 5.2 | A `<FieldHelp>` that sits in the Studio's look, and the inline paragraphs (E14) cut to one line plus ⓘ. Empty-state copy stays prose — it is the content, not help                                                                                                                                      | No paragraph of help over ~15 words left inline in a panel (listed in the PR); each ⓘ opens, closes on Escape and is reachable by keyboard                       |
+| 5.3 | Count-in and Tap (E3): labelled ("Count-in: 1 bar", "Tap tempo"), with accessible names, and in the Practise drawer as well as the wide header, so a phone has them                                                                                                                                     | Component tests: both reachable and working below 1024px; count-in's accessible name says the bars                                                               |
+| 5.4 | Shortcuts (E15): `?` opens a sheet of every binding, read from the same table the key handler uses; `aria-keyshortcuts` on every bound control; P opens Patterns; lowercase-only keys also match with Shift / Caps Lock where that is not a different binding                                           | A test: every key the handler binds is in the sheet, and every sheet row is bound; `?` opens it, Escape closes it; P opens Patterns and is ignored while typing  |
+| 5.5 | The kit in one place (E10): Sound only; Generate shows the kit the style asks for and links to Sound. The critic's score in the footer beside the read-out, and in the Edit drawer, so a Doctor move shows whether it helped                                                                            | Generate has no kit control; the score updates in the Edit drawer after a move                                                                                   |
+
+**5-ii — controls:**
+
+| #    | Task                                                                                                                                                                                                                                                        | Done when                                                                                                                                                                                 |
+| ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 5.6  | One `Toggle` and one `Segmented` in `components/app/studio/` (E19): fixed label, `aria-pressed` / `aria-checked`, state shown at rest. Every Studio toggle and segmented choice moves onto them. The dead 1080px rules go (E18)                             | A test: no `aria-pressed` hand-written outside the two components; no toggle label carries its state (Play/Stop excepted); Ramp, the locks and the arrangement cells announce their state |
+| 5.7  | Tempo (E4, E5): a number you can type (clamped to 50–ceiling), − / + steppers (tap 1, hold repeats), the slider for coarse moves, the same on every width. Quick tempo is a percentage of the pattern's `baseBpm`, and choosing one does not move `baseBpm` | Tests: typing 300 in a simple meter clamps to the ceiling; holding + repeats; at 75% then 100% the tempo is back where the pattern was written, with match tempo on and off               |
+| 5.8  | **Download .mid** (E6) from the same `midi.ts` bytes; copy-as-base64 leaves the UI. **Print chart** (E7) calls `window.print()`; the hint becomes help text                                                                                                 | Tests: the download is a `audio/midi` blob named after the pattern whose bytes equal `toMidi`'s; no "base64" in the Studio's UI copy; Print calls `window.print`                          |
+| 5.9  | Feedback (E9): confirmations stay a short toast; errors stay until dismissed; the same message twice restarts the toast. _Clear history_ gets an undo                                                                                                       | Tests: an error is still shown after 5s and goes on dismiss; saying the same thing twice keeps it up for the full time; clearing history and pressing Undo restores it                    |
+| 5.10 | One section choice (E11): A / B / Both, on the chart; the grid and the Doctor follow it (Both → the section under the playhead when playing, else the last one touched). a / b / v unchanged                                                                | Tests: one control; choosing B shows, plays and edits B; with Both, a Doctor move lands on the last section edited                                                                        |
+
+**5-iii — your patterns and the mixer:**
+
+| #    | Task                                                                                                                                                                                                                                                                  | Done when                                                                                                                                                                                                                                    |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 5.11 | Delete (E8, D22): a Delete on your own patterns' rows in Patterns and on the open pattern. The row goes at once with "Deleted — Undo" for 6s; the `DELETE` is sent when the toast ends. Deleting the open pattern leaves its notes on the stage as an unsaved pattern | Tests: Undo within 6s sends no request and the row returns; otherwise one `DELETE`, and the pattern is gone from Practising, Later and Recent; no Delete on library entries or other people's patterns; the open pattern survives as scratch |
+| 5.12 | Solo (E17, D23): a Solo beside each Mute. If any lane is soloed only soloed lanes sound; mute still wins on a soloed lane. MIDI out is unaffected, as for mute. Kept in the same place mute is                                                                        | Engine tests: solo snare → only the snare's gain is open; solo + mute on one lane is silent; the port still receives every lane; clearing all solos restores the mix                                                                         |
+| 5.13 | The Back trail holds unsaved rolls (E20, D24): pressing N, or opening something else, puts the roll you were on onto the trail, so ← Back returns to it intact (notes, tempo, layer). In the page, no reload; a trail entry shows as "Unsaved · 14:02"                | Tests: roll, N, N, Back, Back → the first roll's notes; Forward returns; saving a trail entry turns it into a normal history item                                                                                                            |
+
+**5-iv — the grid and the inventory:**
+
+| #    | Task                                                                                                                                                                                                                                     | Done when                                                                                                                                                                                     |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 5.14 | Cell size (E1): ≥24px with a fine pointer, ≥32px with a coarse one, and a grid zoom beside the chart's Size, kept in the browser (`bb.gridSize`, in the key module)                                                                      | CSS test on the rules for both pointers; the zoom's value is read through its schema; one bar per row stays an option, not a default                                                          |
+| 5.15 | Setting a cell (E2): tap sets the lane's default hit or clears it; long-press (500ms) or right-click opens a value picker listing the lane's values; drag paints the value the drag started with. Shift-click back stays for mouse users | Tests: tap on an empty snare cell gives the default hit; long-press opens the picker and choosing cross-stick sets it in one step; a drag across four cells sets four; one undo step per drag |
+| 5.16 | `.context/app/controls.md`: every control, its drawer, label, help text, shortcut and minimum target; the owner's browser checklist; `shell.md` and `patterns.md` point at it. CHANGELOG. §5's table marked fixed or declined per row    | The inventory lists every control a test can find by role in the Studio; every E-row has an outcome                                                                                           |
 
 ### Phase 6 — Sharing and the community library · L
 
@@ -1195,7 +1273,7 @@ and published a pattern.
    for five loops, then nudge tempo up mid-loop; (d) find last week's pattern,
    change its kit, export MIDI; (e) print a chart with counting on. Count taps,
    scrolls and hesitations.
-5. **Fix, then re-walk** with three drummers who have not seen it.
+5. **Fix, then re-walk.** (Decided 2026-09-26: the owner walks the tasks; there is no test with outside drummers.)
 
 ### First findings (from reading the code — to be confirmed hands-on)
 
@@ -1469,6 +1547,11 @@ already cascade and already export.
 | —   | `bb.favs` import                                 | **Removed.** It was for prototype users and there are none. The bulk create stays. Phase 4A.                                                                                                                                                                                                                                                                                |
 | D21 | What moves the starting values for a new pattern | **Your choices on a new, unsaved pattern.** Changing its style, meter, bars or tempo updates the starting values in your settings; opening or editing a saved pattern never does. Phase 4A.                                                                                                                                                                                 |
 | —   | How Phase 4A ships                               | **Two PRs:** 4A-i your settings (4A.1–4A.5), then 4A-ii your sounds (4A.6–4A.9). Resized from M to L once reconciled.                                                                                                                                                                                                                                                       |
+| D22 | Deleting a pattern                               | **Yes, with undo.** The row goes at once and the request is sent six seconds later unless you undo. The open pattern stays on the stage as unsaved. Phase 5 (5.11).                                                                                                                                                                                                         |
+| D23 | Solo in the mixer                                | **Yes.** Any solo silences the unsoloed lanes; mute still wins; MIDI out hears every lane, as with mute. Phase 5 (5.12).                                                                                                                                                                                                                                                    |
+| D24 | Losing an unsaved roll to N                      | **Nothing is lost: it goes on the Back trail.** No prompt, since rolling one pattern after another is the workflow; ← Back returns to the roll, in the page. Phase 5 (5.13).                                                                                                                                                                                                |
+| —   | Usability testing and browser checks             | **Not a gate for Phase 5.** The owner is the only tester. The browser checks carried in from Phases 1 and 4 go on the owner's list in `controls.md`.                                                                                                                                                                                                                        |
+| —   | How Phase 5 ships                                | **Four PRs:** 5-i names and help (5.1–5.5), 5-ii controls (5.6–5.10), 5-iii your patterns and the mixer (5.11–5.13), 5-iv the grid and the inventory (5.14–5.16). Resized from M to L.                                                                                                                                                                                      |
 
 ### Still open
 

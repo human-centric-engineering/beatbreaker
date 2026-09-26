@@ -8,6 +8,7 @@ import { useStudio } from '@/components/app/studio/studio-provider';
 import { BrandMark } from '@/components/brand/brand-mark';
 import { HeaderActions } from '@/components/layouts/header-actions';
 import { AUTH_LANDING_ROUTE } from '@/lib/auth-landing/route';
+import { layerName } from '@/lib/app/breaks/layers';
 import type { SaveStatus } from '@/components/app/studio/use-pattern-document';
 
 /** What the header says about the pattern — the plan's four words, and two more. */
@@ -69,7 +70,7 @@ function BackButton() {
       aria-label={to ? `Back to ${to.target.title}` : 'Back — nothing opened before this'}
       title={
         to
-          ? `Back to ${to.target.title} — L${to.level} at ${to.bpm} (Alt+←)`
+          ? `Back to ${to.target.title} — ${layerName(to.level)} at ${to.bpm} (Alt+←)`
           : 'Nothing to go back to'
       }
     >

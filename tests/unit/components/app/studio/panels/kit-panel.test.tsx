@@ -14,7 +14,7 @@
  * which `StudioFrame` displays. A small probe reads it back here.
  */
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -118,6 +118,14 @@ describe('KitPanel', () => {
     expect(await screen.findByText('No Web Audio in this browser')).toBeTruthy();
   });
 
+  it('marks a not-yet-ported kit as disabled, with a note in its label', async () => {
+    renderPanel();
+    await screen.findByLabelText('Kit');
+
+    const option = screen.getByRole('option', { name: /TR-909 — not ported yet/ });
+    expect(option).toBeDisabled();
+  });
+
   it('switches the voice knobs and hint per voice, including the toms/perc "aux" hint', async () => {
     const user = userEvent.setup();
     renderPanel();
@@ -125,11 +133,19 @@ describe('KitPanel', () => {
 
     const seg = within(screen.getByRole('group', { name: 'Voice to tune' }));
     const hearIt = () => screen.getByRole('button', { name: '▸ Hear it' });
+    /* The hint is behind the Voice card's ⓘ (E14): open it, read it, close it. */
+    const voiceHelp = async () => {
+      await user.click(voiceCard().getByRole('button', { name: 'About Voice' }));
+      const text = (await screen.findByRole('dialog')).textContent;
+      await user.keyboard('{Escape}');
+      await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
+      return text;
+    };
 
     // the hi-hat (default) is a synthesised voice: Size/Closed/Open/Bright/Room
     expect(voiceCard().getByLabelText('Size')).toBeTruthy();
     expect(voiceCard().getByLabelText('Bright')).toBeTruthy();
-    expect(screen.getByText(/Cymbals are built from an inharmonic partial cluster/)).toBeTruthy();
+    expect(await voiceHelp()).toMatch(/Cymbals are built from an inharmonic partial cluster/);
     // hearing the hi-hat schedules a second, delayed "open" hit — let it land
     await user.click(hearIt());
     await new Promise((r) => setTimeout(r, 350));
@@ -140,11 +156,11 @@ describe('KitPanel', () => {
     // "aux" hint rather than the engine's own — even on a synthesised kit
     await user.click(seg.getByRole('button', { name: 'Toms' }));
     expect(voiceCard().getByLabelText('Floor')).toBeTruthy();
-    expect(screen.getByText(/Toms and percussion are synthesised on every kit/)).toBeTruthy();
+    expect(await voiceHelp()).toMatch(/Toms and percussion are synthesised on every kit/);
 
     await user.click(seg.getByRole('button', { name: 'Perc' }));
     expect(voiceCard().getByLabelText('Pitch')).toBeTruthy();
-    expect(screen.getByText(/Toms and percussion are synthesised on every kit/)).toBeTruthy();
+    expect(await voiceHelp()).toMatch(/Toms and percussion are synthesised on every kit/);
 
     // the snare's "Hear it" plays a ghost variant, with no second hit
     await user.click(seg.getByRole('button', { name: 'Snare' }));
@@ -158,7 +174,7 @@ describe('KitPanel', () => {
     // back to a kit-engine voice: the synth hint returns
     await user.click(seg.getByRole('button', { name: 'Kick' }));
     expect(voiceCard().getByLabelText('Tune')).toBeTruthy();
-    expect(screen.getByText(/Cymbals are built from an inharmonic partial cluster/)).toBeTruthy();
+    expect(await voiceHelp()).toMatch(/Cymbals are built from an inharmonic partial cluster/);
     // committing a knob drag away from the hi-hat plays it back with no variant
     fireEvent.pointerUp(voiceCard().getByLabelText('Tune'));
   });

@@ -32,16 +32,19 @@ export type Tool = StudioTool;
 
 /**
  * Dice for Generate because a break really is rolled from a seed; a stethoscope
- * for the doctor. Nothing here borrows the sparkle that would imply a model
+ * for Edit, whose moves are the break doctor's. The ids are the old names,
+ * because they are in `?drawer=` links; the labels are what a drummer reads
+ * (E13). Share is short for the drawer's title, _Share & export_, which the
+ * 72px rail cannot hold. Nothing here borrows the sparkle that would imply a model
  * wrote your break — nothing in this phase does.
  */
 export const TOOLS: Array<{ id: Tool; label: string; Icon: ComponentType<{ size?: number }> }> = [
   { id: 'gen', label: 'Generate', Icon: Dices },
-  { id: 'doctor', label: 'Doctor', Icon: Stethoscope },
+  { id: 'doctor', label: 'Edit', Icon: Stethoscope },
   { id: 'patterns', label: 'Patterns', Icon: Library },
-  { id: 'kit', label: 'Kit', Icon: SlidersHorizontal },
-  { id: 'practice', label: 'Practice', Icon: Timer },
-  { id: 'export', label: 'Export', Icon: Download },
+  { id: 'kit', label: 'Sound', Icon: SlidersHorizontal },
+  { id: 'practice', label: 'Practise', Icon: Timer },
+  { id: 'export', label: 'Share', Icon: Download },
 ];
 
 export function ToolRail({
@@ -60,7 +63,7 @@ export function ToolRail({
     <nav className="studio-rail" aria-label="Tools">
       {/* It sat above the tabs in the console and stays there: the one action
           that is not a tool, and the one you reach for most. */}
-      <button type="button" className="studio-new" onClick={onNewBreak}>
+      <button type="button" className="studio-new" onClick={onNewBreak} aria-keyshortcuts="N">
         <span className="studio-rail-label">New break</span>
         <Shuffle size={20} />
       </button>
@@ -74,6 +77,7 @@ export function ToolRail({
           className={cn(open === t.id && 'on')}
           aria-expanded={open === t.id}
           aria-controls="studio-drawer"
+          aria-keyshortcuts={t.id === 'patterns' ? 'P' : undefined}
           onClick={() => onToggle(t.id)}
         >
           <span className="studio-rail-label">{t.label}</span>

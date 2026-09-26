@@ -21,7 +21,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { PracticePanel } from '@/components/app/studio/panels/practice-panel';
 import { StudioTransport } from '@/components/app/shell/studio-transport';
-import { StudioProvider } from '@/components/app/studio/studio-provider';
+import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 
 const renderPanel = () =>
@@ -42,11 +42,50 @@ beforeEach(() => {
   vi.stubGlobal('cancelAnimationFrame', (id: number) => clearTimeout(id));
 });
 
+/** The console's own count-in and tempo, read with no transport mounted. */
+function Probe() {
+  const c = useStudio();
+  return <output data-testid="probe">{`${c.countIn}|${c.bpm}`}</output>;
+}
+
 describe('PracticePanel', () => {
+  /* Below 1024px the header transport is not there, so these are the only
+     count-in and Tap a phone has (E3). Mounted without it, as on a phone. */
+  it('sets the count-in and taps the tempo with no header transport', async () => {
+    const user = userEvent.setup();
+    render(
+      <StudioProvider catalogue={testCatalogue()}>
+        <PracticePanel />
+        <Probe />
+      </StudioProvider>
+    );
+    await screen.findByText('Click and tempo');
+    const probe = () => screen.getByTestId('probe').textContent.split('|').map(Number);
+
+    const count = within(screen.getByRole('group', { name: 'Count-in' }));
+    expect(count.getAllByRole('button').map((b) => b.textContent)).toEqual([
+      'off',
+      '1 bar',
+      '2 bars',
+    ]);
+    await user.click(count.getByRole('button', { name: '2 bars' }));
+    expect(count.getByRole('button', { name: '2 bars' })).toHaveAttribute('aria-pressed', 'true');
+    expect(probe()[0]).toBe(2);
+
+    /* Two taps half a second apart is 120 bpm. */
+    const now = vi.spyOn(performance, 'now');
+    now.mockReturnValue(10_000);
+    await user.click(screen.getByRole('button', { name: 'Tap tempo' }));
+    now.mockReturnValue(10_500);
+    await user.click(screen.getByRole('button', { name: 'Tap tempo' }));
+    now.mockRestore();
+    expect(probe()[1]).toBe(120);
+  });
+
   it('toggles the metronome click on and off', async () => {
     const user = userEvent.setup();
     renderPanel();
-    await screen.findByText('Practice rig');
+    await screen.findByText('Click and tempo');
 
     const clickBtn = screen.getByRole('button', { name: /^Click (on|off)$/ });
     const startedOn = clickBtn.textContent === 'Click on';
@@ -58,7 +97,7 @@ describe('PracticePanel', () => {
   it('toggles the click subdivision between quarters and eighths', async () => {
     const user = userEvent.setup();
     renderPanel();
-    await screen.findByText('Practice rig');
+    await screen.findByText('Click and tempo');
 
     const subBtn = screen.getByRole('button', { name: /^(Quarters|Eighths)$/ });
     const startedQuarters = subBtn.textContent === 'Quarters';

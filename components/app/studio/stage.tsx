@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Stave, type StaveHandle } from '@/components/app/breaks/stave';
 import { StepEditor } from '@/components/app/breaks/step-editor';
 import { PinButton } from '@/components/app/studio/pin-button';
+import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { type SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { engrave } from '@/lib/app/breaks/engrave';
@@ -149,6 +150,7 @@ export function Stage() {
                 key={v}
                 type="button"
                 aria-pressed={c.viewMode === v}
+                aria-keyshortcuts={v === 'both' ? 'V' : v}
                 onClick={() => c.setViewMode(v)}
               >
                 {v === 'both' ? 'A + B' : `${v} only`}
@@ -162,10 +164,15 @@ export function Stage() {
                 key={n}
                 type="button"
                 aria-pressed={c.level === n}
-                title={`${LAYER_NAMES[n]} — ${LAYER_BLURB[n]}`}
+                title={`${LAYER_BLURB[n]} (${n})`}
+                aria-keyshortcuts={String(n)}
                 onClick={() => c.setLevel(n)}
               >
-                L{n}
+                {/* The name leads (E12); the number is the key that picks it. */}
+                <span className="layer-key" aria-hidden="true">
+                  {n}
+                </span>
+                {LAYER_NAMES[n]}
               </button>
             ))}
           </div>
@@ -178,6 +185,7 @@ export function Stage() {
               type="button"
               className={cn('mini', c.guides && 'on')}
               aria-pressed={c.guides}
+              aria-keyshortcuts="G"
               title="Number the beats and the &ldquo;and&rdquo;s under the staff"
               onClick={() => c.setGuides(!c.guides)}
             >
@@ -199,8 +207,8 @@ export function Stage() {
               disabled={!c.next}
               title={
                 c.next
-                  ? `Show what L${c.level + 1} (${LAYER_NAMES[c.level + 1]}) adds, in faint ink`
-                  : 'Layer 5 is the whole break — there is nothing above it'
+                  ? `Show what ${LAYER_NAMES[c.level + 1]} adds, in faint ink`
+                  : 'Full break is the whole break — there is nothing above it'
               }
               onClick={() => c.setPreview(!c.preview)}
             >
@@ -344,9 +352,12 @@ export function Stage() {
             />
           ) : null}
           <div className="hint" style={{ marginTop: 10 }}>
-            The grid shows <b>the layer you are on</b>, so what you see is what you hear. A note
-            added at a lower layer is pinned there — marked with a dot — instead of being derived
-            back out: a ghost note written at L2 is a ghost note L2 keeps.
+            The grid shows <b>the layer you are on</b>.{' '}
+            <StudioHelp title="The grid and layers">
+              What you see is what you hear. A note added at a lower layer is pinned there — marked
+              with a dot — instead of being derived back out: a ghost note written at Groove is a
+              ghost note Groove keeps.
+            </StudioHelp>
           </div>
         </div>
       </div>
