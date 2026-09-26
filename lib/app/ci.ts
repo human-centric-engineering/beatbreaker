@@ -172,7 +172,7 @@ export const appAlwaysRunTests: AppAlwaysRunTest[] = [
   {
     path: 'tests/unit/lib/app/breaks/browser-keys.test.ts',
     reason:
-      'greps `lib/app/` and `components/app/` for `useLocalStorage` and for `bb.` keys spelled ' +
+      'greps `lib/app/` and `components/app/` for the Sunrise local-storage hook and for `bb.` keys spelled ' +
       'outside the key module (D19). A component adding a raw key imports neither the ' +
       'wrapper nor the key module, so nothing selects the test.',
   },
