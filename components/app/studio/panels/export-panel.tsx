@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { DetailsForm } from '@/components/app/studio/details-form';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
-import { cn } from '@/lib/utils';
+import { Toggle } from '@/components/app/studio/toggle';
 
 export function ExportPanel() {
   const c = useStudio();
@@ -101,11 +101,10 @@ export function ExportPanel() {
               >
                 Copy MIDI (base64)
               </button>
-              <button
-                type="button"
-                className={cn('mini', c.midiPort && 'on')}
-                onClick={() => {
-                  if (c.midiPort) {
+              <Toggle
+                pressed={!!c.midiPort}
+                onPressedChange={(on) => {
+                  if (!on) {
                     c.closeMidiOut();
                     say('MIDI out closed');
                     return;
@@ -113,8 +112,8 @@ export function ExportPanel() {
                   void c.openMidiOut().then((err) => say(err || 'MIDI out open'));
                 }}
               >
-                {c.midiPort ? `MIDI out: ${c.midiPort}` : 'MIDI out…'}
-              </button>
+                MIDI out
+              </Toggle>
             </div>
             {c.midiPort ? (
               <div className="hint">

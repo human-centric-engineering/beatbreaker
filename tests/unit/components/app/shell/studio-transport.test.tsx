@@ -290,19 +290,18 @@ describe('StudioTransport', () => {
 });
 
 describe('PhoneTransport', () => {
-  it('toggles play and stop, with the icon and aria-pressed following', async () => {
+  it('toggles play and stop under one name, with aria-pressed following', async () => {
     const user = userEvent.setup();
     renderTransport(<PhoneTransport />);
 
-    const playBtn = screen.getByRole('button', { name: 'Play' });
+    const playBtn = screen.getByRole('button', { name: 'Play or stop' });
     expect(playBtn).toHaveAttribute('aria-pressed', 'false');
 
     await user.click(playBtn);
-    const stopBtn = screen.getByRole('button', { name: 'Stop' });
-    expect(stopBtn).toHaveAttribute('aria-pressed', 'true');
+    expect(playBtn).toHaveAttribute('aria-pressed', 'true');
 
-    await user.click(stopBtn);
-    expect(screen.getByRole('button', { name: 'Play' })).toHaveAttribute('aria-pressed', 'false');
+    await user.click(playBtn);
+    expect(playBtn).toHaveAttribute('aria-pressed', 'false');
   });
 
   it('steps the tempo down and up with the +/- buttons, and the read-out follows', async () => {

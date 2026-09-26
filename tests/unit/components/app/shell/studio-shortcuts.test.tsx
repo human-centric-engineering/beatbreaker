@@ -156,7 +156,11 @@ describe('Studio shortcuts', () => {
     await user.click(tab);
     tab.focus();
 
-    const playing = () => screen.getByRole('button', { name: 'Play or stop' }).textContent;
+    /* Both transports are in the page, and CSS shows one: read the header's. */
+    const playing = () =>
+      within(document.querySelector<HTMLElement>('.studio-transport')!).getByRole('button', {
+        name: 'Play or stop',
+      }).textContent;
     const stopped = playing();
 
     // Space belongs to the button — it must not start the transport as well

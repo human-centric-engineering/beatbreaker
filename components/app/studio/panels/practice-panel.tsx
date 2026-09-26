@@ -3,10 +3,11 @@
 import { countInLabel, useTapTempo } from '@/components/app/shell/studio-transport';
 import { Slider } from '@/components/app/studio/panels/controls';
 import { ShelfList } from '@/components/app/studio/panels/patterns-panel';
+import { Segmented } from '@/components/app/studio/segmented';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
+import { Toggle } from '@/components/app/studio/toggle';
 import { LANE_DEFS, activeLanes, laneName } from '@/lib/app/breaks/lanes';
-import { cn } from '@/lib/utils';
 
 export function PracticePanel() {
   const c = useStudio();
@@ -40,20 +41,19 @@ export function PracticePanel() {
           <div className="field">
             <span className="fieldlab">Metronome</span>
             <div className="btnrow">
-              <button
-                type="button"
-                className={cn('mini', c.click && 'on')}
-                onClick={() => c.setClick(!c.click)}
-              >
-                Click {c.click ? 'on' : 'off'}
-              </button>
-              <button
-                type="button"
-                className="mini"
-                onClick={() => c.setClickSub(c.clickSub === 4 ? 8 : 4)}
-              >
-                {c.clickSub === 4 ? 'Quarters' : 'Eighths'}
-              </button>
+              <Toggle pressed={c.click} onPressedChange={c.setClick}>
+                Click
+              </Toggle>
+              <Segmented
+                label="Click plays"
+                small
+                options={[
+                  { value: 4, face: 'Quarters' },
+                  { value: 8, face: 'Eighths' },
+                ]}
+                value={c.clickSub}
+                onChange={c.setClickSub}
+              />
             </div>
           </div>
 
@@ -61,18 +61,13 @@ export function PracticePanel() {
               not on a phone; here they are at every width (E3). */}
           <div className="field">
             <span className="fieldlab">Count-in</span>
-            <div className="seg small" role="group" aria-label="Count-in">
-              {[0, 1, 2].map((n) => (
-                <button
-                  key={n}
-                  type="button"
-                  aria-pressed={c.countIn === n}
-                  onClick={() => c.setCountIn(n)}
-                >
-                  {countInLabel(n)}
-                </button>
-              ))}
-            </div>
+            <Segmented
+              label="Count-in"
+              small
+              options={[0, 1, 2].map((n) => ({ value: n, face: countInLabel(n) }))}
+              value={c.countIn}
+              onChange={c.setCountIn}
+            />
           </div>
 
           <div className="field">
@@ -92,25 +87,13 @@ export function PracticePanel() {
                 Adds BPM every time the arrangement comes round, and stops at your ceiling.
               </StudioHelp>
             </span>
-            <div className="btnrow">
-              <button
-                type="button"
-                className={cn('mini', !c.ramp && 'on')}
-                onClick={() => c.setRamp(0)}
-              >
-                Ramp off
-              </button>
-              {[1, 2, 5].map((n) => (
-                <button
-                  key={n}
-                  type="button"
-                  className={cn('mini', c.ramp === n && 'on')}
-                  onClick={() => c.setRamp(n)}
-                >
-                  +{n}
-                </button>
-              ))}
-            </div>
+            <Segmented
+              label="Tempo trainer"
+              small
+              options={[0, 1, 2, 5].map((n) => ({ value: n, face: n ? `+${n}` : 'Off' }))}
+              value={c.ramp}
+              onChange={c.setRamp}
+            />
           </div>
 
           <Slider label="Ceiling" value={c.ceiling} onChange={c.setCeiling} min={60} max={200} />
@@ -141,14 +124,9 @@ export function PracticePanel() {
               </StudioHelp>
             </span>
             <div className="btnrow">
-              <button
-                type="button"
-                className={cn('mini', c.matchTempo && 'on')}
-                aria-pressed={c.matchTempo}
-                onClick={() => c.setMatchTempo(!c.matchTempo)}
-              >
-                {c.matchTempo ? 'On' : 'Off'}
-              </button>
+              <Toggle pressed={c.matchTempo} onPressedChange={c.setMatchTempo}>
+                Match tempo
+              </Toggle>
             </div>
           </div>
         </div>
@@ -184,15 +162,14 @@ export function PracticePanel() {
                 value={Math.round((c.mix[lane] ?? 1) * 100)}
                 onChange={(e) => c.setLaneMix(lane, Number(e.target.value) / 100)}
               />
-              <button
-                type="button"
-                className={cn('mini', 'mixmute', c.mute[lane] && 'on')}
-                onClick={() => c.toggleMute(lane)}
-                aria-pressed={!!c.mute[lane]}
-                aria-label={`Mute ${laneName(lane, c.view.A?.perc)}`}
+              <Toggle
+                className="mini mixmute"
+                pressed={!!c.mute[lane]}
+                onPressedChange={() => c.toggleMute(lane)}
+                label={`Mute ${laneName(lane, c.view.A?.perc)}`}
               >
-                {c.mute[lane] ? 'Muted' : 'Mute'}
-              </button>
+                Mute
+              </Toggle>
             </div>
           ))}
         </div>

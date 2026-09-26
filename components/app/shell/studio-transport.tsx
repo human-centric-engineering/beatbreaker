@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, Play, Square } from 'lucide-react';
 import { useRef } from 'react';
 
 import { useStudio } from '@/components/app/studio/studio-provider';
+import { Toggle } from '@/components/app/studio/toggle';
 import { LANE_DEFS, activeLanes, laneName } from '@/lib/app/breaks/lanes';
 import type { LaneKey } from '@/lib/app/breaks/types';
 import { cn } from '@/lib/utils';
@@ -97,16 +98,15 @@ export function StudioTransport() {
 
   return (
     <div className="studio-transport" role="group" aria-label="Transport">
-      <button
-        type="button"
-        className={cn('tbtn play', c.playing && 'on')}
-        onClick={c.togglePlay}
-        aria-label="Play or stop"
-        aria-pressed={c.playing}
-        aria-keyshortcuts="Space"
+      <Toggle
+        className="tbtn play"
+        pressed={c.playing}
+        onPressedChange={c.togglePlay}
+        label="Play or stop"
+        keyshortcuts="Space"
       >
         {c.playing ? '■ Stop' : '▶ Play'}
-      </button>
+      </Toggle>
       {/* It was a bare digit with a tooltip (E3). A header has room for a word
           and the number; the accessible name says the whole thing. */}
       <button
@@ -178,16 +178,17 @@ export function PhoneTransport() {
           <ChevronRight size={18} />
         </button>
       </div>
-      <button
-        type="button"
-        className={cn('studio-play-lg', c.playing && 'on')}
-        onClick={c.togglePlay}
-        aria-pressed={c.playing}
-        aria-label={c.playing ? 'Stop' : 'Play'}
-        aria-keyshortcuts="Space"
+      {/* Named for what it does, not what it is doing: the pressed state is
+          the state, as on every other toggle (E19). */}
+      <Toggle
+        className="studio-play-lg"
+        pressed={c.playing}
+        onPressedChange={c.togglePlay}
+        label="Play or stop"
+        keyshortcuts="Space"
       >
         {c.playing ? <Square size={22} /> : <Play size={22} />}
-      </button>
+      </Toggle>
       <div aria-hidden="true" />
     </div>
   );

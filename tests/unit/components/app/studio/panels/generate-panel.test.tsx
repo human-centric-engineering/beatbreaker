@@ -89,7 +89,7 @@ describe('GeneratePanel', () => {
     renderPanel();
     await screen.findByLabelText('Style');
 
-    await user.click(screen.getByRole('button', { name: 'Following the style' }));
+    await user.click(screen.getByRole('radio', { name: 'My own' }));
     expect(document.querySelector('.lanepick')?.getAttribute('data-locked')).toBe('0');
 
     const perc1 = screen.getByLabelText<HTMLSelectElement>('Perc 1');
@@ -108,11 +108,14 @@ describe('GeneratePanel', () => {
     renderPanel();
     await screen.findByLabelText('Style');
 
+    const locks = within(screen.getByRole('group', { name: 'Lock while regenerating' }));
     for (const name of ['Tempo', 'Kick', 'Snare', 'Hats']) {
-      const btn = screen.getByRole('button', { name });
-      expect(btn.className).not.toMatch(/\bon\b/);
+      const btn = locks.getByRole('button', { name: `Lock ${name}` });
+      expect(btn).toHaveAttribute('aria-pressed', 'false');
       await user.click(btn);
+      expect(btn).toHaveAttribute('aria-pressed', 'true');
       expect(btn.className).toMatch(/\bon\b/);
+      expect(btn.textContent).toBe(name);
     }
   });
 
@@ -149,7 +152,7 @@ describe('GeneratePanel', () => {
 
     // switch to B-only so the grid we are reading is B's, not A's
     await user.click(
-      within(screen.getByRole('group', { name: 'Edit which section' })).getByRole('button', {
+      within(screen.getByRole('radiogroup', { name: 'Edit which section' })).getByRole('radio', {
         name: 'Edit B',
       })
     );

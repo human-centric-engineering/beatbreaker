@@ -131,7 +131,7 @@ describe('KitPanel', () => {
     renderPanel();
     await screen.findByLabelText('Kit');
 
-    const seg = within(screen.getByRole('group', { name: 'Voice to tune' }));
+    const seg = within(screen.getByRole('radiogroup', { name: 'Voice to tune' }));
     const hearIt = () => screen.getByRole('button', { name: '▸ Hear it' });
     /* The hint is behind the Voice card's ⓘ (E14): open it, read it, close it. */
     const voiceHelp = async () => {
@@ -154,25 +154,25 @@ describe('KitPanel', () => {
 
     // toms and percussion are synthesised on every kit, so they get the
     // "aux" hint rather than the engine's own — even on a synthesised kit
-    await user.click(seg.getByRole('button', { name: 'Toms' }));
+    await user.click(seg.getByRole('radio', { name: 'Toms' }));
     expect(voiceCard().getByLabelText('Floor')).toBeTruthy();
     expect(await voiceHelp()).toMatch(/Toms and percussion are synthesised on every kit/);
 
-    await user.click(seg.getByRole('button', { name: 'Perc' }));
+    await user.click(seg.getByRole('radio', { name: 'Perc' }));
     expect(voiceCard().getByLabelText('Pitch')).toBeTruthy();
     expect(await voiceHelp()).toMatch(/Toms and percussion are synthesised on every kit/);
 
     // the snare's "Hear it" plays a ghost variant, with no second hit
-    await user.click(seg.getByRole('button', { name: 'Snare' }));
+    await user.click(seg.getByRole('radio', { name: 'Snare' }));
     await user.click(hearIt());
 
     // the ride's "Hear it" schedules a second, delayed "bell" hit
-    await user.click(seg.getByRole('button', { name: 'Ride' }));
+    await user.click(seg.getByRole('radio', { name: 'Ride' }));
     await user.click(hearIt());
     await new Promise((r) => setTimeout(r, 350));
 
     // back to a kit-engine voice: the synth hint returns
-    await user.click(seg.getByRole('button', { name: 'Kick' }));
+    await user.click(seg.getByRole('radio', { name: 'Kick' }));
     expect(voiceCard().getByLabelText('Tune')).toBeTruthy();
     expect(await voiceHelp()).toMatch(/Cymbals are built from an inharmonic partial cluster/);
     // committing a knob drag away from the hi-hat plays it back with no variant

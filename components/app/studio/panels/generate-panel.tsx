@@ -3,14 +3,15 @@
 import type { Tool } from '@/components/app/shell/tool-rail';
 import { Slider } from '@/components/app/studio/panels/controls';
 import { ScoreCard } from '@/components/app/studio/panels/score-card';
+import { Segmented } from '@/components/app/studio/segmented';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
+import { Toggle } from '@/components/app/studio/toggle';
 import { HAT_SHAPE } from '@/lib/app/breaks/feel';
 import { BASE_LANES, PERC_INSTS, PERC_KEYS, PERC_LANES, laneName } from '@/lib/app/breaks/lanes';
 import { METERS, METER_KEYS, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
 import { type CustomLanes, resolveLanes } from '@/lib/app/breaks/pattern';
 import { styleIn } from '@/lib/app/breaks/styles';
-import { cn } from '@/lib/utils';
 
 export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => void }) {
   const c = useStudio();
@@ -138,23 +139,24 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
                 2 and 4.
               </StudioHelp>
             </span>
-            <div className="btnrow">
-              <button
-                type="button"
-                className="mini"
-                aria-pressed={c.lanesMode === 'custom'}
-                onClick={() => {
-                  /* Switching to custom starts from what you can already
-                     hear rather than from an empty kit: the picker has
-                     been showing the style's roster all along, so taking
-                     it over should not silently change the sound. */
-                  if (c.lanesMode === 'style') c.setCustomLanes(shownLanes);
-                  c.setLanesMode(c.lanesMode === 'style' ? 'custom' : 'style');
-                }}
-              >
-                {c.lanesMode === 'style' ? 'Following the style' : 'Choosing my own'}
-              </button>
-            </div>
+            <Segmented
+              label="Kit lanes"
+              small
+              options={[
+                { value: 'style' as const, face: "The style's" },
+                { value: 'custom' as const, face: 'My own' },
+              ]}
+              value={c.lanesMode}
+              onChange={(mode) => {
+                if (mode === c.lanesMode) return;
+                /* Switching to custom starts from what you can already
+                   hear rather than from an empty kit: the picker has
+                   been showing the style's roster all along, so taking
+                   it over should not silently change the sound. */
+                if (mode === 'custom') c.setCustomLanes(shownLanes);
+                c.setLanesMode(mode);
+              }}
+            />
             {/* Shown while following the style too, disabled — it is how
                 you see what the style asked for, and what you would be
                 starting from if you took it over. */}
@@ -196,18 +198,13 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
 
           <div className="field">
             <span className="fieldlab">Bars per section</span>
-            <div className="seg small" role="group" aria-label="Bars">
-              {[1, 2, 3, 4].map((n) => (
-                <button
-                  key={n}
-                  type="button"
-                  aria-pressed={c.bars === n}
-                  onClick={() => c.setBars(n)}
-                >
-                  {n}
-                </button>
-              ))}
-            </div>
+            <Segmented
+              label="Bars per section"
+              small
+              options={[1, 2, 3, 4].map((n) => ({ value: n, face: String(n) }))}
+              value={c.bars}
+              onChange={c.setBars}
+            />
           </div>
 
           <Slider label="Kick density" value={c.density} onChange={c.setDensity} />
@@ -244,17 +241,21 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
 
           <div className="field">
             <span className="fieldlab">Lock while regenerating</span>
-            <div className="btnrow">
-              {(['k', 's', 'h', 'bpm'] as const).map((k) => (
-                <button
-                  key={k}
-                  type="button"
-                  className={cn('mini', c.locks[k] && 'on')}
-                  onClick={() => c.toggleLock(k)}
-                >
-                  {k === 'bpm' ? 'Tempo' : k === 'k' ? 'Kick' : k === 's' ? 'Snare' : 'Hats'}
-                </button>
-              ))}
+            <div className="btnrow" role="group" aria-label="Lock while regenerating">
+              {(['k', 's', 'h', 'bpm'] as const).map((k) => {
+                const name =
+                  k === 'bpm' ? 'Tempo' : k === 'k' ? 'Kick' : k === 's' ? 'Snare' : 'Hats';
+                return (
+                  <Toggle
+                    key={k}
+                    pressed={!!c.locks[k]}
+                    onPressedChange={() => c.toggleLock(k)}
+                    label={`Lock ${name}`}
+                  >
+                    {name}
+                  </Toggle>
+                );
+              })}
             </div>
           </div>
 

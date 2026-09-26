@@ -62,14 +62,14 @@ describe('PracticePanel', () => {
     await screen.findByText('Click and tempo');
     const probe = () => screen.getByTestId('probe').textContent.split('|').map(Number);
 
-    const count = within(screen.getByRole('group', { name: 'Count-in' }));
-    expect(count.getAllByRole('button').map((b) => b.textContent)).toEqual([
+    const count = within(screen.getByRole('radiogroup', { name: 'Count-in' }));
+    expect(count.getAllByRole('radio').map((b) => b.textContent)).toEqual([
       'off',
       '1 bar',
       '2 bars',
     ]);
-    await user.click(count.getByRole('button', { name: '2 bars' }));
-    expect(count.getByRole('button', { name: '2 bars' })).toHaveAttribute('aria-pressed', 'true');
+    await user.click(count.getByRole('radio', { name: '2 bars' }));
+    expect(count.getByRole('radio', { name: '2 bars' })).toHaveAttribute('aria-checked', 'true');
     expect(probe()[0]).toBe(2);
 
     /* Two taps half a second apart is 120 bpm. */
@@ -82,51 +82,66 @@ describe('PracticePanel', () => {
     expect(probe()[1]).toBe(120);
   });
 
-  it('toggles the metronome click on and off', async () => {
+  it('toggles the metronome click, with a label that stays put', async () => {
     const user = userEvent.setup();
     renderPanel();
     await screen.findByText('Click and tempo');
 
-    const clickBtn = screen.getByRole('button', { name: /^Click (on|off)$/ });
-    const startedOn = clickBtn.textContent === 'Click on';
+    const clickBtn = screen.getByRole('button', { name: 'Click' });
+    const startedOn = clickBtn.getAttribute('aria-pressed') === 'true';
     await user.click(clickBtn);
-    expect(clickBtn.textContent).toBe(startedOn ? 'Click off' : 'Click on');
+    expect(clickBtn).toHaveAttribute('aria-pressed', String(!startedOn));
     expect(clickBtn.className.includes('on')).toBe(!startedOn);
+    expect(clickBtn.textContent).toBe('Click');
   });
 
-  it('toggles the click subdivision between quarters and eighths', async () => {
+  it('chooses the click subdivision between quarters and eighths', async () => {
     const user = userEvent.setup();
     renderPanel();
     await screen.findByText('Click and tempo');
 
-    const subBtn = screen.getByRole('button', { name: /^(Quarters|Eighths)$/ });
-    const startedQuarters = subBtn.textContent === 'Quarters';
-    await user.click(subBtn);
-    expect(subBtn.textContent).toBe(startedQuarters ? 'Eighths' : 'Quarters');
+    const plays = within(screen.getByRole('radiogroup', { name: 'Click plays' }));
+    expect(plays.getByRole('radio', { name: 'Quarters' })).toHaveAttribute('aria-checked', 'true');
+    await user.click(plays.getByRole('radio', { name: 'Eighths' }));
+    expect(plays.getByRole('radio', { name: 'Eighths' })).toHaveAttribute('aria-checked', 'true');
+    expect(plays.getByRole('radio', { name: 'Quarters' })).toHaveAttribute('aria-checked', 'false');
   });
 
-  it('moves the ramp lock between off and each step size', async () => {
+  it('moves the tempo trainer between off and each step size, and says which', async () => {
     const user = userEvent.setup();
     renderPanel();
     await screen.findByText('Tempo trainer');
 
-    const off = screen.getByRole('button', { name: 'Ramp off' });
-    const plus1 = screen.getByRole('button', { name: '+1' });
-    const plus2 = screen.getByRole('button', { name: '+2' });
-    const plus5 = screen.getByRole('button', { name: '+5' });
+    const ramp = within(screen.getByRole('radiogroup', { name: 'Tempo trainer' }));
+    const off = ramp.getByRole('radio', { name: 'Off' });
+    const plus1 = ramp.getByRole('radio', { name: '+1' });
+    const plus2 = ramp.getByRole('radio', { name: '+2' });
+    const plus5 = ramp.getByRole('radio', { name: '+5' });
 
     // ramp ships off
-    expect(off.className).toMatch(/\bon\b/);
+    expect(off).toHaveAttribute('aria-checked', 'true');
 
     await user.click(plus2);
-    expect(off.className).not.toMatch(/\bon\b/);
-    expect(plus2.className).toMatch(/\bon\b/);
-    expect(plus1.className).not.toMatch(/\bon\b/);
-    expect(plus5.className).not.toMatch(/\bon\b/);
+    expect(off).toHaveAttribute('aria-checked', 'false');
+    expect(plus2).toHaveAttribute('aria-checked', 'true');
+    expect(plus1).toHaveAttribute('aria-checked', 'false');
+    expect(plus5).toHaveAttribute('aria-checked', 'false');
 
-    await user.click(off);
-    expect(off.className).toMatch(/\bon\b/);
-    expect(plus2.className).not.toMatch(/\bon\b/);
+    /* One tab stop for the group, and the arrows move the choice. */
+    expect(plus2).toHaveAttribute('tabindex', '0');
+    expect(off).toHaveAttribute('tabindex', '-1');
+    plus2.focus();
+    await user.keyboard('{ArrowRight}');
+    expect(plus5).toHaveAttribute('aria-checked', 'true');
+    expect(plus5).toHaveFocus();
+    await user.keyboard('{ArrowRight}');
+    expect(off).toHaveAttribute('aria-checked', 'true');
+    await user.keyboard('{End}');
+    expect(plus5).toHaveAttribute('aria-checked', 'true');
+    await user.keyboard('{Home}');
+    expect(off).toHaveAttribute('aria-checked', 'true');
+    await user.keyboard('{ArrowLeft}');
+    expect(plus5).toHaveAttribute('aria-checked', 'true');
   });
 
   it('moves the ceiling slider', async () => {
@@ -159,11 +174,12 @@ describe('PracticePanel', () => {
     renderPanel();
     await screen.findByText('Match tempo to layer');
 
-    const toggle = screen.getByRole('button', { name: 'Off' });
+    const toggle = screen.getByRole('button', { name: 'Match tempo' });
     expect(toggle).toHaveAttribute('aria-pressed', 'false');
 
     await user.click(toggle);
-    expect(screen.getByRole('button', { name: 'On' })).toHaveAttribute('aria-pressed', 'true');
+    expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    expect(toggle.textContent).toBe('Match tempo');
   });
 
   it('shows one mixer row per active lane, and drags a fader', async () => {
@@ -194,7 +210,7 @@ describe('PracticePanel', () => {
 
     await user.click(muteBtn);
     expect(muteBtn).toHaveAttribute('aria-pressed', 'true');
-    expect(muteBtn.textContent).toBe('Muted');
+    expect(muteBtn.textContent).toBe('Mute');
 
     await user.click(muteBtn);
     expect(muteBtn).toHaveAttribute('aria-pressed', 'false');

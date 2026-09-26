@@ -336,38 +336,12 @@
    a centred container a nested layout cannot escape — so the stylesheet reached
    *up* and released it. The Studio has its own route group now, so it has its
    own layout, and nothing has to reach out of anything. */
-.bb .console {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 366px;
-  gap: 18px;
-  padding: 18px;
-  align-items: start;
-}
-@media (max-width: 1080px) {
-  .bb .console {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
 .bb .stage {
   display: flex;
   flex-direction: column;
   gap: 14px;
   min-width: 0;
 }
-.bb .rail {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  min-width: 0;
-  position: sticky;
-  top: 74px;
-}
-@media (max-width: 1080px) {
-  .bb .rail {
-    position: static;
-  }
-}
-
 .bb .card {
   background: var(--panel);
   border: 1px solid var(--line);
@@ -533,7 +507,7 @@
 .bb .seg button:hover {
   color: var(--ink);
 }
-.bb .seg button[aria-pressed='true'] {
+.bb .seg [role='radio'][aria-checked='true'] {
   background: var(--ink);
   color: var(--paper);
 }
@@ -541,6 +515,10 @@
   padding: 5px 9px;
   font-size: 11px;
   font-family: var(--f-mono);
+}
+/* The voices sit above the knobs they choose between. */
+.bb .seg.voice-pick {
+  margin-bottom: 14px;
 }
 /* The layer's key, ahead of its name: a hint, not the label (E12). */
 .bb .seg .layer-key {

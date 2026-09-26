@@ -145,7 +145,7 @@ describe('the Studio', () => {
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const before = document.querySelectorAll(NOTES).length;
-    await user.click(screen.getByRole('button', { name: 'Skeleton' }));
+    await user.click(screen.getByRole('radio', { name: 'Skeleton' }));
     const after = document.querySelectorAll(NOTES).length;
 
     /* L1 is the skeleton — kick on the beat, backbeat, 8th hats — so it must
@@ -161,7 +161,9 @@ describe('the Studio', () => {
     renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    const play = screen.getByRole('button', { name: 'Play or stop' });
+    /* Both transports are in the page, and CSS shows one: take the header's. */
+    const header = document.querySelector<HTMLElement>('.studio-transport')!;
+    const play = within(header).getByRole('button', { name: 'Play or stop' });
     await user.click(play);
 
     // no AudioContext in this environment, so the transport refuses to start
@@ -375,24 +377,24 @@ describe('the Studio', () => {
     const written = bpm();
 
     await openTool(user, 'Practise');
-    await user.click(screen.getByRole('button', { name: 'Off' }));
-    await user.click(screen.getByRole('button', { name: 'Skeleton' }));
+    await user.click(screen.getByRole('button', { name: 'Match tempo' }));
+    await user.click(screen.getByRole('radio', { name: 'Skeleton' }));
 
     // L1 is a practice speed, not the break's speed
     expect(bpm()).toBeLessThan(written);
 
-    await user.click(screen.getByRole('button', { name: 'Full break' }));
+    await user.click(screen.getByRole('radio', { name: 'Full break' }));
     expect(bpm()).toBe(written);
 
     /* Dragging the tempo while the match is on sets the speed for the layer
        you are on, not the break's — so practising L1 slowly must not quietly
        rewrite the break as a slow break. */
-    await user.click(screen.getByRole('button', { name: 'Skeleton' }));
+    await user.click(screen.getByRole('radio', { name: 'Skeleton' }));
     const slow = bpm();
     fireEvent.change(screen.getByLabelText('Tempo'), { target: { value: String(slow - 10) } });
-    await user.click(screen.getByRole('button', { name: 'Full break' }));
+    await user.click(screen.getByRole('radio', { name: 'Full break' }));
     expect(bpm()).toBeGreaterThan(slow);
-    await user.click(screen.getByRole('button', { name: 'Skeleton' }));
+    await user.click(screen.getByRole('radio', { name: 'Skeleton' }));
     expect(Math.abs(bpm() - (slow - 10))).toBeLessThanOrEqual(1);
   });
 
@@ -429,7 +431,7 @@ describe('the Studio', () => {
     expect(preview).toBeEnabled();
     expect(faint().length).toBeGreaterThan(0);
 
-    await user.click(screen.getByRole('button', { name: 'Full break' }));
+    await user.click(screen.getByRole('radio', { name: 'Full break' }));
     expect(screen.getByRole('button', { name: 'Preview next layer' })).toBeDisabled();
   });
 
@@ -443,7 +445,7 @@ describe('the Studio', () => {
     const picker = document.querySelector('.lanepick');
     expect(picker?.getAttribute('data-locked')).toBe('1');
 
-    await user.click(screen.getByRole('button', { name: 'Following the style' }));
+    await user.click(screen.getByRole('radio', { name: 'My own' }));
     expect(document.querySelector('.lanepick')?.getAttribute('data-locked')).toBe('0');
 
     /* Taking it over must not change the sound: it starts from the roster that

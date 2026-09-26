@@ -150,22 +150,20 @@ describe('KitPanel with samples already decoded', () => {
     await user.selectOptions(kitPicker(), 'virtuosity');
 
     // Perc is one of the VOICE_KEYS tabs, always present regardless of kit
-    await user.click(screen.getByRole('button', { name: 'Perc' }));
+    await user.click(screen.getByRole('radio', { name: 'Perc' }));
 
-    const field = await screen.findByText('Percussion source');
-    const toggle = within(field.closest('.field')!).getByRole('button', {
-      name: /Recorded|Synthesised/,
-    });
+    const source = within(await screen.findByRole('radiogroup', { name: 'Percussion source' }));
+    const recorded = source.getByRole('radio', { name: 'Recorded (2)' });
+    const synth = source.getByRole('radio', { name: 'Synthesised' });
 
     // percCount is 2 (from the fake pack source) — the field starts on Recorded
-    expect(toggle.textContent).toBe('Recorded (2)');
-    expect(toggle.getAttribute('aria-pressed')).toBe('true');
+    expect(recorded).toHaveAttribute('aria-checked', 'true');
 
-    await user.click(toggle);
-    expect(toggle.textContent).toBe('Synthesised');
-    expect(toggle.getAttribute('aria-pressed')).toBe('false');
+    await user.click(synth);
+    expect(synth).toHaveAttribute('aria-checked', 'true');
+    expect(recorded).toHaveAttribute('aria-checked', 'false');
 
-    await user.click(toggle);
-    expect(toggle.textContent).toBe('Recorded (2)');
+    await user.click(recorded);
+    expect(recorded).toHaveAttribute('aria-checked', 'true');
   });
 });

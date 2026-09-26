@@ -66,27 +66,42 @@ describe('Stage', () => {
     renderStage();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    const seg = within(screen.getByRole('group', { name: 'Which section to show and play' }));
+    const seg = within(screen.getByRole('radiogroup', { name: 'Which section to show and play' }));
 
-    await user.click(seg.getByRole('button', { name: 'A only' }));
+    await user.click(seg.getByRole('radio', { name: 'A only' }));
     expect(screen.getAllByRole('img', { name: /Drum notation/ }).length).toBe(1);
-    expect(seg.getByRole('button', { name: 'A only' })).toHaveAttribute('aria-pressed', 'true');
+    expect(seg.getByRole('radio', { name: 'A only' })).toHaveAttribute('aria-checked', 'true');
 
-    await user.click(seg.getByRole('button', { name: 'B only' }));
+    await user.click(seg.getByRole('radio', { name: 'B only' }));
     expect(screen.getAllByRole('img', { name: /Drum notation/ }).length).toBe(1);
-    expect(seg.getByRole('button', { name: 'B only' })).toHaveAttribute('aria-pressed', 'true');
-    expect(seg.getByRole('button', { name: 'A only' })).toHaveAttribute('aria-pressed', 'false');
+    expect(seg.getByRole('radio', { name: 'B only' })).toHaveAttribute('aria-checked', 'true');
+    expect(seg.getByRole('radio', { name: 'A only' })).toHaveAttribute('aria-checked', 'false');
 
-    await user.click(seg.getByRole('button', { name: 'A + B' }));
+    await user.click(seg.getByRole('radio', { name: 'A + B' }));
     expect(screen.getAllByRole('img', { name: /Drum notation/ }).length).toBe(2);
-    expect(seg.getByRole('button', { name: 'A + B' })).toHaveAttribute('aria-pressed', 'true');
+    expect(seg.getByRole('radio', { name: 'A + B' })).toHaveAttribute('aria-checked', 'true');
+  });
+
+  it('names each arrangement cell for what it plays, and says so again when switched', async () => {
+    const user = userEvent.setup();
+    renderStage();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+    const arr = within(screen.getByRole('group', { name: 'Arrangement' }));
+    expect(arr.getAllByRole('button').map((b) => b.getAttribute('aria-label'))).toEqual([
+      'Section 1 plays A',
+      'Section 2 plays A',
+      'Section 3 plays A',
+      'Section 4 plays B',
+    ]);
+    await user.click(arr.getByRole('button', { name: 'Section 2 plays A' }));
+    expect(arr.getByRole('button', { name: 'Section 2 plays B' })).toBeTruthy();
   });
 
   it('names each layer button by its layer, with its number as the shortcut', async () => {
     renderStage();
     await screen.findAllByRole('img', { name: /Drum notation/ });
-    const seg = within(screen.getByRole('group', { name: 'Difficulty layer' }));
-    const buttons = seg.getAllByRole('button');
+    const seg = within(screen.getByRole('radiogroup', { name: 'Difficulty layer' }));
+    const buttons = seg.getAllByRole('radio');
     expect(buttons.map((b) => b.getAttribute('aria-keyshortcuts'))).toEqual([
       '1',
       '2',
@@ -98,7 +113,7 @@ describe('Stage', () => {
        screen reader does not say "1 Skeleton". */
     expect(
       ['Skeleton', 'Groove', 'Sixteenths', 'Ghosted', 'Full break'].map((name) =>
-        seg.getByRole('button', { name })
+        seg.getByRole('radio', { name })
       )
     ).toEqual(buttons);
   });
@@ -108,10 +123,10 @@ describe('Stage', () => {
     renderStage();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    await user.click(screen.getByRole('button', { name: 'Sixteenths' }));
+    await user.click(screen.getByRole('radio', { name: 'Sixteenths' }));
     expect(document.querySelector('.chip.rust')?.textContent).toMatch(/^Layer 3 ·/);
 
-    await user.click(screen.getByRole('button', { name: 'Skeleton' }));
+    await user.click(screen.getByRole('radio', { name: 'Skeleton' }));
     expect(document.querySelector('.chip.rust')?.textContent).toMatch(/^Layer 1 ·/);
   });
 
@@ -254,7 +269,7 @@ describe('Stage', () => {
     expect(document.querySelector('.chip.brass')?.textContent).toBe('2 bars');
     expect(document.querySelector('.chip.teal')).toBeNull();
 
-    await user.click(screen.getByRole('button', { name: '1' }));
+    await user.click(screen.getByRole('radio', { name: '1' }));
     expect(document.querySelector('.chip.brass')?.textContent).toBe('1 bar');
 
     await user.selectOptions(screen.getByLabelText('Style'), 'reggae');
@@ -266,19 +281,19 @@ describe('Stage', () => {
     renderStage();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    const editGroup = within(screen.getByRole('group', { name: 'Edit which section' }));
-    expect(editGroup.getByRole('button', { name: 'Edit A' })).toHaveAttribute(
-      'aria-pressed',
+    const editGroup = within(screen.getByRole('radiogroup', { name: 'Edit which section' }));
+    expect(editGroup.getByRole('radio', { name: 'Edit A' })).toHaveAttribute(
+      'aria-checked',
       'true'
     );
 
-    await user.click(editGroup.getByRole('button', { name: 'Edit B' }));
-    expect(editGroup.getByRole('button', { name: 'Edit B' })).toHaveAttribute(
-      'aria-pressed',
+    await user.click(editGroup.getByRole('radio', { name: 'Edit B' }));
+    expect(editGroup.getByRole('radio', { name: 'Edit B' })).toHaveAttribute(
+      'aria-checked',
       'true'
     );
-    expect(editGroup.getByRole('button', { name: 'Edit A' })).toHaveAttribute(
-      'aria-pressed',
+    expect(editGroup.getByRole('radio', { name: 'Edit A' })).toHaveAttribute(
+      'aria-checked',
       'false'
     );
   });

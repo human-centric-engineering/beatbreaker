@@ -150,7 +150,7 @@ describe('ExportPanel', () => {
     const user = userEvent.setup();
     renderPanel();
 
-    await user.click(screen.getByRole('button', { name: 'MIDI out…' }));
+    await user.click(screen.getByRole('button', { name: 'MIDI out' }));
     expect(await screen.findByText('This browser has no Web MIDI')).toBeTruthy();
   });
 
@@ -165,16 +165,19 @@ describe('ExportPanel', () => {
     });
     renderPanel();
 
-    const midiBtn = screen.getByRole('button', { name: 'MIDI out…' });
+    const midiBtn = screen.getByRole('button', { name: 'MIDI out' });
+    expect(midiBtn).toHaveAttribute('aria-pressed', 'false');
     await user.click(midiBtn);
 
-    const opened = await screen.findByRole('button', { name: 'MIDI out: Test Port' });
-    expect(opened.className).toMatch(/\bon\b/);
-    expect(screen.getByText(/Playback is also driving/)).toBeTruthy();
+    expect(await screen.findByText(/Playback is also driving/)).toBeTruthy();
+    expect(screen.getByText('Test Port')).toBeTruthy();
+    expect(midiBtn).toHaveAttribute('aria-pressed', 'true');
+    expect(midiBtn.className).toMatch(/\bon\b/);
+    expect(midiBtn.textContent).toBe('MIDI out');
 
-    await user.click(opened);
+    await user.click(midiBtn);
     expect(await screen.findByText('MIDI out closed')).toBeTruthy();
-    expect(screen.getByRole('button', { name: 'MIDI out…' })).toBeTruthy();
+    expect(midiBtn).toHaveAttribute('aria-pressed', 'false');
     expect(screen.queryByText(/Playback is also driving/)).toBeNull();
   });
 });
