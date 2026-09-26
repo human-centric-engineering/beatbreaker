@@ -130,6 +130,19 @@ export function usePracticeHistory({
   /* ---- recording ------------------------------------------------------ */
 
   const chain = useRef<Promise<unknown>>(Promise.resolve());
+  /**
+   * A clear that has not been sent yet: what it took off the screen, and the
+   * gate that holds every later request behind it. A visit recorded while the
+   * Undo is up waits for the gate, so it lands after the DELETE and is kept —
+   * sent first, the DELETE would take it too.
+   */
+  const clearing = useRef<{
+    items: HistoryItem[];
+    trail: { items: HistoryItem[]; cursor: number } | null;
+    timer: ReturnType<typeof setTimeout>;
+    ahead: Promise<unknown>;
+    release: () => void;
+  } | null>(null);
   const send = useCallback((place: HistoryCurrent) => {
     const run = async () => {
       try {
@@ -138,9 +151,15 @@ export function usePracticeHistory({
             body: { ...place.target, level: place.level, bpm: Math.round(place.bpm) },
           })
         );
-        setItems((list) =>
-          [visit, ...list.filter((i) => itemKey(i) !== itemKey(visit))].slice(0, CAP)
-        );
+        const onTop = (list: HistoryItem[]) =>
+          [visit, ...list.filter((i) => itemKey(i) !== itemKey(visit))].slice(0, CAP);
+        /* Answered while a clear is held, it was already on its way when
+           Clear was pressed — everything since waits behind the clear. The
+           clear will take it, so it is not put on the emptied list; it joins
+           what an Undo brings back. */
+        const held = clearing.current;
+        if (held) held.items = onTop(held.items);
+        else setItems(onTop);
       } catch (error) {
         // a history that missed one visit is still a history — nothing to tell anyone
         logger.warn('BeatBreaker: a practice visit was not recorded', { error });
@@ -279,20 +298,6 @@ export function usePracticeHistory({
 
   /* ---- clearing, with an undo ---------------------------------------- */
 
-  /**
-   * A clear that has not been sent yet: what it took off the screen, and the
-   * gate that holds every later request behind it. A visit recorded while the
-   * Undo is up waits for the gate, so it lands after the DELETE and is kept —
-   * sent first, the DELETE would take it too.
-   */
-  const clearing = useRef<{
-    items: HistoryItem[];
-    trail: { items: HistoryItem[]; cursor: number } | null;
-    timer: ReturnType<typeof setTimeout>;
-    ahead: Promise<unknown>;
-    release: () => void;
-  } | null>(null);
-
   const commitClear = useCallback(
     (keepalive: boolean) => {
       const held = clearing.current;
@@ -311,7 +316,11 @@ export function usePracticeHistory({
           held.release();
         }
       };
-      void held.ahead.then(run, run);
+      /* Leaving, it goes now: behind a request still in flight, it would
+         start after the page had gone. Otherwise after what was already
+         sent, so the order the server sees is the order things happened. */
+      if (keepalive) void run();
+      else void held.ahead.then(run, run);
     },
     [say]
   );

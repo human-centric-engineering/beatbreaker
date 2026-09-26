@@ -159,6 +159,26 @@ describe('quick tempo', () => {
     expect(probe().bpm).toBe(written);
   });
 
+  it('is not made the pattern’s tempo by tabbing through the tempo field', async () => {
+    const user = userEvent.setup();
+    await mount(
+      <>
+        <PracticePanel />
+      </>
+    );
+    const written = probe().bpm;
+    await quick(user, '60%');
+    const sixty = probe().bpm;
+
+    /* Into the field and out, typing nothing. */
+    await user.click(field());
+    await user.tab();
+    expect(probe().bpm).toBe(sixty);
+
+    await quick(user, 'Back to 100%');
+    expect(probe().bpm).toBe(written);
+  });
+
   it('with the match on, is a percentage of the layer’s tempo, and leaves the break’s alone', async () => {
     const user = userEvent.setup();
     await mount(<PracticePanel />);

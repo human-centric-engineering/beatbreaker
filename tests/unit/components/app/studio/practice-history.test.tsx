@@ -417,6 +417,62 @@ describe('Clear history, with an Undo (5.9)', () => {
     expect(screen.getByRole('alert').textContent).toBe('');
   });
 
+  /** Hold the next POST /api/v1/history until the test lets it answer. */
+  function holdNextVisit() {
+    let answer = () => {};
+    const record = vi.mocked(apiClient.post).getMockImplementation()!;
+    vi.mocked(apiClient.post).mockImplementationOnce(((url: string, options: never) => {
+      const reply = record(url, options);
+      return new Promise((resolve) => {
+        answer = () => resolve(reply);
+      });
+    }) as never);
+    return () => answer();
+  }
+
+  async function clearWithVisitInFlight() {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+    const answer = holdNextVisit();
+    const view = render(
+      <StudioProvider
+        catalogue={catalogue}
+        initial={COLD_CARPET}
+        history={[visit(theirTarget, 3, 80)]}
+      >
+        <StudioFrame />
+      </StudioProvider>
+    );
+    /* Cold Carpet's arrival is sent and not yet answered. */
+    await waitFor(() => expect(recorded()).toHaveLength(1));
+    await openPatterns(user, 'Recent');
+    await user.click(screen.getByRole('button', { name: 'Clear history' }));
+    return { user, answer, view };
+  }
+
+  it('keeps a visit that was on its way off the cleared list, and brings it back on Undo', async () => {
+    const { user, answer } = await clearWithVisitInFlight();
+    answer();
+    await act(() => vi.advanceTimersByTimeAsync(10));
+    expect(screen.getByText(/What you open shows up here/)).toBeTruthy();
+    expect(screen.queryByRole('button', { name: /^Cold Carpet/ })).toBeNull();
+
+    await user.click(screen.getByRole('button', { name: 'Undo' }));
+    const rows = screen
+      .getAllByRole('button', { name: /^(Cold Carpet|Their Groove)/ })
+      .map((b) => b.textContent);
+    expect(rows[0]).toMatch(/^Cold Carpet/);
+    expect(rows[1]).toMatch(/^Their Groove/);
+  });
+
+  it('sends a held clear at once when the Studio goes, not behind a visit still in flight', async () => {
+    const { view } = await clearWithVisitInFlight();
+    view.unmount();
+    await act(() => vi.advanceTimersByTimeAsync(10));
+    expect(deletes()).toHaveLength(1);
+    expect(deletes()[0][1]).toEqual({ options: { keepalive: true } });
+  });
+
   it('sends a held clear when the Studio goes, as the list said it had', async () => {
     const { unmount } = await (async () => {
       vi.useFakeTimers({ shouldAdvanceTime: true });

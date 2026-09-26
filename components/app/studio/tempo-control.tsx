@@ -69,6 +69,10 @@ export function TempoControl({
   const [draft, setDraft] = useState<string | null>(null);
   /* Escape blurs to leave, and the blur must not then set what was typed. */
   const cancelled = useRef(false);
+  /* What the field showed when it took focus. Only a change to that is a
+     tempo: tabbing through must not turn a quick tempo, or a tempo the
+     trainer has since moved on from, into the pattern's own. */
+  const shown = useRef('');
   /* A hold counts from its own last step, not from the last render: steps can
      land faster than the Studio re-renders, and each would otherwise add one
      to the same number. Clamped here, or holding + at the ceiling would count
@@ -85,7 +89,8 @@ export function TempoControl({
   const faster = useHoldRepeat(() => nudge(1));
 
   const commit = () => {
-    if (!cancelled.current && draft !== null && draft !== '') c.setBpm(Number(draft));
+    if (!cancelled.current && draft !== null && draft !== '' && draft !== shown.current)
+      c.setBpm(Number(draft));
     cancelled.current = false;
     setDraft(null);
   };
@@ -104,7 +109,8 @@ export function TempoControl({
           aria-keyshortcuts="[ ]"
           value={draft ?? String(Math.round(c.bpm))}
           onFocus={(e) => {
-            setDraft(String(Math.round(c.bpm)));
+            shown.current = String(Math.round(c.bpm));
+            setDraft(shown.current);
             e.currentTarget.select();
           }}
           onChange={(e) => setDraft(e.target.value.replace(/\D/g, '').slice(0, 3))}
