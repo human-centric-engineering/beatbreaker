@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import type { ComponentType } from 'react';
 
+import type { StudioTool } from '@/components/app/shell/studio-address';
 import { cn } from '@/lib/utils';
 
 /**
@@ -26,7 +27,8 @@ import { cn } from '@/lib/utils';
  * leaves the phone's footer to the transport alone.
  */
 
-export type Tool = 'gen' | 'doctor' | 'patterns' | 'kit' | 'practice' | 'export';
+/** The list itself is in `studio-address.ts`, where the server can read it too. */
+export type Tool = StudioTool;
 
 /**
  * Dice for Generate because a break really is rolled from a seed; a stethoscope

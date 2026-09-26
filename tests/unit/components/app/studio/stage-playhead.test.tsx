@@ -174,6 +174,7 @@ beforeEach(() => {
 
     catalogue: testCatalogue(),
     toast: '',
+    doc: { details: { description: '', links: [] } },
     say: noop,
   } as unknown as Studio;
 });

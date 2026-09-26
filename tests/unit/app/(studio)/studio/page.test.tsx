@@ -81,6 +81,35 @@ describe('/studio', () => {
     expect(el.props.history).toBe(HISTORY);
     // a plain /studio opens nothing on top of the pattern it arrives to
     expect(el.props.openEntry).toBeUndefined();
+    expect(el.props.openDrawer).toBeUndefined();
+  });
+
+  describe("?drawer= — Home's Browse the famous grooves", () => {
+    beforeEach(() => {
+      vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+      vi.mocked(studioCatalogue).mockResolvedValue(testCatalogue());
+    });
+    const query = (q: Record<string, string | string[]>) => ({ searchParams: Promise.resolve(q) });
+
+    it('hands the drawer and its tab to the provider', async () => {
+      const el = await StudioPage(query({ drawer: 'patterns', tab: 'libraries' }));
+      expect(el.props.openDrawer).toEqual({ tool: 'patterns', tab: 'libraries' });
+    });
+
+    it('opens a drawer on its usual tab when the tab is not one', async () => {
+      const el = await StudioPage(query({ drawer: 'patterns', tab: 'nope' }));
+      expect(el.props.openDrawer).toEqual({ tool: 'patterns' });
+    });
+
+    it.each([
+      ['not a tool', { drawer: 'admin' }],
+      ['repeated', { drawer: ['patterns', 'kit'] }],
+      ['empty', { drawer: '' }],
+    ])('ignores a drawer that is %s, and still opens the Studio', async (_, q) => {
+      const el = await StudioPage(query(q));
+      expect(el.type).toBe(StudioProvider);
+      expect(el.props.openDrawer).toBeUndefined();
+    });
   });
 
   describe("?entry= — Home's Continue on a famous break", () => {

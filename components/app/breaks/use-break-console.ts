@@ -25,6 +25,7 @@ import { deriveB } from '@/lib/app/breaks/generate';
 import { DEFAULT_MIX, LANES, PERC_LANES, TOM_LANES } from '@/lib/app/breaks/lanes';
 
 import { reducePattern } from '@/lib/app/breaks/layers';
+import type { StoredLink } from '@/lib/app/breaks/links';
 import { DEFAULT_METER } from '@/lib/app/breaks/meter';
 import { buildMidi } from '@/lib/app/breaks/midi';
 import { takePendingLink } from '@/lib/app/breaks/pending-link';
@@ -259,12 +260,25 @@ export interface BreakConsole {
  * server/client boundary as it is, and it is decoded here with the same style
  * lookup a `#b=` link gets — one decode path however a pattern arrives.
  */
+/**
+ * What a saved pattern says about itself beyond its notes: a description and
+ * its reference links. Held beside the document, never inside it — `doc` is
+ * the share-code wire format, and a pasted code must not be able to put a URL
+ * on someone's screen.
+ */
+export interface PatternDetails {
+  description: string;
+  links: StoredLink[];
+}
+
 export interface InitialPattern {
   id: string;
   title: string;
   payload: SharePayload;
   /** False for someone else's shared pattern, which opens as yours to copy. */
   mine: boolean;
+  /** What the row says about it (task 4.11) — none when left out. */
+  details?: PatternDetails;
 }
 
 /** Where a pattern was left: the layer, and the tempo it was being played at. */

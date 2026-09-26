@@ -2,6 +2,7 @@
 
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { PATTERNS_TABS, type PatternsTab } from '@/components/app/shell/studio-address';
 import { PinButton, SHELF_LABEL } from '@/components/app/studio/pin-button';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { apiClient } from '@/lib/api/client';
@@ -27,8 +28,25 @@ import { type PinTarget, type Shelf } from '@/lib/validations/pins';
  * the stage is marked `aria-current`.
  */
 
-const TABS = ['practising', 'later', 'recent', 'all', 'libraries'] as const;
-type Tab = (typeof TABS)[number];
+const TABS = PATTERNS_TABS;
+type Tab = PatternsTab;
+
+/** Where the tab you were on is kept, per browser. */
+const TAB_KEY = 'bb.patternsTab';
+
+/**
+ * Open the drawer on this tab next time it mounts — how a link to
+ * `?drawer=patterns&tab=…` lands on the tab it names. Written where the panel
+ * reads its remembered tab, so the link and your own last choice are one
+ * setting, not two that could disagree.
+ */
+export function rememberPatternsTab(tab: Tab): void {
+  try {
+    window.localStorage.setItem(TAB_KEY, JSON.stringify(tab));
+  } catch {
+    // storage refused: the drawer opens on its usual tab instead
+  }
+}
 
 const TAB_LABEL: Record<Tab, string> = {
   practising: 'Practising',
@@ -460,7 +478,7 @@ export function PatternsPanel() {
   const { pins, history } = useStudio();
   /* The tab you were on, per browser — a convenience, so it is checked on the
      way out of storage and falls back rather than trusting what is there. */
-  const [stored, setStored] = useLocalStorage<string | null>('bb.patternsTab', null);
+  const [stored, setStored] = useLocalStorage<string | null>(TAB_KEY, null);
   const fallback: Tab = pins.shelves.practising.length
     ? 'practising'
     : history.items.length

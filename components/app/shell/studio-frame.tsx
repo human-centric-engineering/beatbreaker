@@ -10,7 +10,7 @@ import { DoctorPanel } from '@/components/app/studio/panels/doctor-panel';
 import { ExportPanel } from '@/components/app/studio/panels/export-panel';
 import { GeneratePanel } from '@/components/app/studio/panels/generate-panel';
 import { KitPanel } from '@/components/app/studio/panels/kit-panel';
-import { PatternsPanel } from '@/components/app/studio/panels/patterns-panel';
+import { PatternsPanel, rememberPatternsTab } from '@/components/app/studio/panels/patterns-panel';
 import { PracticePanel } from '@/components/app/studio/panels/practice-panel';
 import { Stage } from '@/components/app/studio/stage';
 import { LeaveDialog } from '@/components/app/studio/leave-dialog';
@@ -41,24 +41,28 @@ const PANELS: Record<Tool, React.ComponentType> = {
 /** Matches the 1024px breakpoint in studio.css — a drawer above it, a sheet below. */
 const WIDE = '(min-width: 1024px)';
 
-function useWide(): boolean {
+function useWide(): { wide: boolean; measured: boolean } {
   /* Starts true so the server and the first client render agree; the CSS has
      already laid the frame out for the real width either way, so this only ever
-     decides which of the two components mounts once a tool is opened. */
+     decides which of the two components mounts once a tool is opened.
+     `measured` says the media query has been read — until then `wide` is a
+     guess, and a drawer opened on it would be the wrong component on a phone. */
   const [wide, setWide] = useState(true);
+  const [measured, setMeasured] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia(WIDE);
     const on = () => setWide(mq.matches);
     on();
+    setMeasured(true);
     mq.addEventListener('change', on);
     return () => mq.removeEventListener('change', on);
   }, []);
-  return wide;
+  return { wide, measured };
 }
 
 export function StudioFrame() {
   const c = useStudio();
-  const wide = useWide();
+  const { wide, measured } = useWide();
   const [tool, setTool] = useState<Tool | null>(null);
   const [frame, setFrame] = useState<HTMLDivElement | null>(null);
   const railButtons = useRef<Partial<Record<Tool, HTMLButtonElement | null>>>({});
@@ -68,6 +72,26 @@ export function StudioFrame() {
   /* A drawer and a sheet are different components; nothing carries across when
      the window crosses the breakpoint. */
   useEffect(() => setTool(null), [wide]);
+
+  /* The drawer the address asked for (`?drawer=`), once, as soon as the width
+     is known — a drawer opened before that would be closed by the width
+     arriving. Declared after that effect so it runs after it: on a phone
+     both fire in the same commit, and the close must not come last. */
+  const toOpen = useRef(c.openDrawer);
+  useEffect(() => {
+    const want = toOpen.current;
+    if (!measured || !want) return;
+    toOpen.current = undefined;
+    /* Asked once: the address stops asking, so a reload — or coming back to
+       this history entry — does not open it again over the tab you chose. */
+    const url = new URL(window.location.href);
+    url.searchParams.delete('drawer');
+    url.searchParams.delete('tab');
+    window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
+    if (want.tab) rememberPatternsTab(want.tab);
+    lastTool.current = want.tool;
+    setTool(want.tool);
+  }, [measured]);
 
   const toggle = (t: Tool) => {
     if (tool !== t) lastTool.current = t;

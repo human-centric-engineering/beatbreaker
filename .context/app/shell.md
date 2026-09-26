@@ -103,6 +103,33 @@ plus two things the split created:
 The provider also owns the audio lifetime, closing the `AudioContext` on unmount
 (H7). A browser allows a page only a handful and will not reopen a closed one.
 
+## Opening on a drawer
+
+`/studio?drawer=<tool>` opens the Studio with that tool's drawer showing, and
+`&tab=<tab>` picks the Patterns drawer's tab. Build the address with
+`studioDrawerHref()` and read it with `readStudioDrawer()`, both in
+`components/app/shell/studio-address.ts` — a plain module, not a client one,
+so the server page validates the query against the same `STUDIO_TOOLS` and
+`PATTERNS_TABS` the rail and the drawer are built from. A value that is not a
+tool is no drawer; a tab that is not one is the drawer on its usual tab.
+
+The page hands it to `StudioProvider` as `openDrawer`, and the frame opens it
+**once the width is measured** (`useWide()` returns `measured`). Two things
+there are load-bearing:
+
+- **Not before.** Until the media query is read, `wide` is a guess, and the
+  frame closes whatever is open when the width changes.
+- **The open effect is declared after the close-on-width-change effect.** On a
+  phone both fire in the same commit, in declaration order, and the close must
+  not come last. `studio-open-drawer.test.tsx` fails if they are swapped.
+
+The tab is written where the Patterns drawer keeps the one you last chose
+(`rememberPatternsTab`, `bb.patternsTab`), so a link and your own choice are
+one setting. Once opened, `drawer` and `tab` are taken out of the address
+(`history.replaceState`, keeping anything else, a `#b=` included), so a reload
+or a return to that history entry does not open it again over the tab you
+chose since.
+
 ## Adding a control
 
 - **To an existing tool** — edit that panel under

@@ -67,12 +67,13 @@ describe('/studio/[id]', () => {
 
   const ID = 'cbrk00000000000000000001';
   const payload = { ver: 4 } as never;
+  const LINK = { kind: 'song', url: 'https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC' };
 
   function opened(overrides: Record<string, unknown> = {}) {
     return {
-      row: { id: ID, title: 'Cold Carpet' },
+      row: { id: ID, title: 'Cold Carpet', description: 'From the lesson' },
       payload,
-      links: [],
+      links: [LINK],
       mine: true,
       ...overrides,
     } as never;
@@ -100,7 +101,13 @@ describe('/studio/[id]', () => {
     expect(el.props.history).toBe(HISTORY);
     // asked for as the session user — the loader's scope is only as good as this
     expect(openSavedBreak).toHaveBeenCalledWith(ID, createMockAuthSession().user.id);
-    expect(el.props.initial).toEqual({ id: ID, title: 'Cold Carpet', payload, mine: true });
+    expect(el.props.initial).toEqual({
+      id: ID,
+      title: 'Cold Carpet',
+      payload,
+      mine: true,
+      details: { description: 'From the lesson', links: [LINK] },
+    });
   });
 
   it('opens someone else’s shared pattern as not theirs', async () => {

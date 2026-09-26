@@ -3,8 +3,9 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { z } from 'zod';
 
-import type { InitialPattern } from '@/components/app/breaks/use-break-console';
+import type { InitialPattern, PatternDetails } from '@/components/app/breaks/use-break-console';
 import { APIClientError, apiClient } from '@/lib/api/client';
+import { storedLinkSchema } from '@/lib/app/breaks/links';
 import type { SharePayload } from '@/lib/app/breaks/schema';
 import { clearScratch, writeScratch } from '@/lib/app/breaks/scratch';
 import { logger } from '@/lib/logging';
@@ -44,6 +45,12 @@ import { logger } from '@/lib/logging';
  * whole workflow, and undo brings the last one back. What is asked about is
  * an edited copy of someone else's pattern, and edits to your own that could
  * not reach the server.
+ *
+ * **Details** (task 4.11) — the description and reference links — are the
+ * row's, not the document's, so they are not autosaved with the notes:
+ * {@link PatternDocument.saveDetails} sends them when the Details form is
+ * submitted. A copy (Save on someone else's pattern, or Save a copy) carries
+ * them into the new row.
  */
 
 /** How long after the last edit an autosave waits. */
@@ -85,10 +92,26 @@ export interface PatternDocument {
    * the Studio rather than by its address. Call it after {@link detach}, in
    * the same update as the load: the next render's pattern is the baseline.
    */
-  attach: (id: string, mine: boolean) => void;
+  attach: (id: string, mine: boolean, details?: PatternDetails) => void;
   /** True when {@link detach} would lose edits — see the module comment. */
   needsPrompt: boolean;
+  /** The description and links of the pattern on the stage; empty for scratch. */
+  details: PatternDetails;
+  /**
+   * Send new details for a saved pattern of yours. What the server kept (its
+   * canonical links), or null — with the toast saying why — when there is no
+   * such pattern or the server refused them.
+   */
+  saveDetails: (details: PatternDetails) => Promise<PatternDetails | null>;
 }
+
+const NO_DETAILS: PatternDetails = { description: '', links: [] };
+
+/** What a details PATCH answers with that this reads — checked, not cast. */
+const detailsAnswer = z.object({
+  description: z.string().nullable(),
+  links: z.array(storedLinkSchema),
+});
 
 /** What a create answers with that this reads — checked, not cast. */
 const created = z.object({ id: z.string().min(1) });
@@ -140,17 +163,18 @@ export function usePatternDocument({
    * and resent the refused pattern every AUTOSAVE_MS, forever.
    */
   const [refusedKey, setRefusedKey] = useState<string | null>(null);
+  const [details, setDetails] = useState<PatternDetails>(initial?.details ?? NO_DETAILS);
 
   /* Everything a save sends is read from here at the moment it is sent, so a
      save fired by a timer or by `detach` sends what was on the stage then —
      not what a closure captured renders ago. */
   const key = payload ? JSON.stringify({ payload, title: titleFor(title) }) : null;
-  const latest = useRef({ payload, title, key, id, mine, savedKey });
+  const latest = useRef({ payload, title, key, id, mine, savedKey, details });
   /* A layout effect, not a plain one: it runs after the commit and before any
      ordinary effect or event, so the autosave and scratch effects below, and a
      `detach` from the next click, all read this render's values. */
   useLayoutEffect(() => {
-    latest.current = { payload, title, key, id, mine, savedKey };
+    latest.current = { payload, title, key, id, mine, savedKey, details };
   });
 
   /* Saves go one after another. Two PATCHes of one pattern in flight at once
@@ -298,8 +322,12 @@ export function usePatternDocument({
       const sentFor = generation.current;
       setPhase('saving');
       try {
+        /* A copy keeps what the pattern it came from says about itself. */
+        const { description, links } = now.details;
         const data = created.parse(
-          await apiClient.post('/api/v1/breaks', { body: { title: name, doc: now.payload } })
+          await apiClient.post('/api/v1/breaks', {
+            body: { title: name, doc: now.payload, ...(description ? { description } : {}), links },
+          })
         );
         if (generation.current !== sentFor) {
           // the stage moved on while this was out: saved, but not what is shown now
@@ -363,21 +391,50 @@ export function usePatternDocument({
       setSavedKey(null);
       setRefusedKey(null);
       setPhase('idle');
+      setDetails(NO_DETAILS);
       showAddress(null);
     },
     [snapshot, patch]
   );
 
-  const attach = useCallback((savedId: string, isMine: boolean) => {
+  const attach = useCallback((savedId: string, isMine: boolean, next?: PatternDetails) => {
     generation.current += 1;
     setId(savedId);
     setMine(isMine);
+    setDetails(next ?? NO_DETAILS);
     // null, so the baseline effect takes the pattern as it arrives
     setSavedKey(null);
     setRefusedKey(null);
     setPhase('idle');
     showAddress(savedId);
   }, []);
+
+  const saveDetails = useCallback(
+    async (next: PatternDetails): Promise<PatternDetails | null> => {
+      const savedId = latest.current.mine ? latest.current.id : null;
+      if (!savedId) return null;
+      try {
+        const answer = detailsAnswer.parse(
+          await apiClient.patch(`/api/v1/breaks/${savedId}`, {
+            body: { description: next.description, links: next.links },
+          })
+        );
+        const kept = { description: answer.description ?? '', links: answer.links };
+        // the stage may have moved on while this was out
+        if (latest.current.id === savedId) setDetails(kept);
+        return kept;
+      } catch (error) {
+        logger.warn('BeatBreaker: details refused', { error, breakId: savedId });
+        say(
+          error instanceof APIClientError && error.code === 'NETWORK_ERROR'
+            ? 'Could not reach the server — details not saved'
+            : 'Those details did not save'
+        );
+        return null;
+      }
+    },
+    [say]
+  );
 
   let status: SaveStatus;
   // a first save on its way says so, and takes Save away until it answers
@@ -386,5 +443,5 @@ export function usePatternDocument({
   else if (phase !== 'idle') status = phase;
   else status = dirty ? 'unsaved' : 'saved';
 
-  return { id, mine, status, save, saveAs, detach, attach, needsPrompt };
+  return { id, mine, status, save, saveAs, detach, attach, needsPrompt, details, saveDetails };
 }

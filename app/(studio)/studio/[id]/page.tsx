@@ -55,6 +55,7 @@ export default async function StudioPatternPage({ params }: { params: Promise<{ 
         title: opened.row.title,
         payload: opened.payload,
         mine: opened.mine,
+        details: { description: opened.row.description ?? '', links: opened.links },
       }}
     >
       <StudioFrame />

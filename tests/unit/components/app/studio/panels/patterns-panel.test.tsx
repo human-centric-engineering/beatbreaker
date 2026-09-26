@@ -27,6 +27,7 @@ vi.mock('@/lib/api/client', async (importOriginal) => {
 
 import type { InitialPattern } from '@/components/app/breaks/use-break-console';
 import { PatternsPanel } from '@/components/app/studio/panels/patterns-panel';
+import { Stage } from '@/components/app/studio/stage';
 import { PracticePanel } from '@/components/app/studio/panels/practice-panel';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { apiClient } from '@/lib/api/client';
@@ -238,6 +239,43 @@ describe('PatternsPanel — All', () => {
     expect(window.location.pathname).toBe(`/studio/${OTHER}`);
     // still one list request: opening a row does not read the list again
     expect(listCalls()).toHaveLength(1);
+  });
+
+  it('brings a row’s description and links with it when it opens in place (task 4.11)', async () => {
+    const user = userEvent.setup();
+    const track = 'https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC';
+    vi.mocked(apiClient.get).mockImplementation((url: string) =>
+      Promise.resolve(
+        url === '/api/v1/breaks'
+          ? [row(MINE, 'Cold Carpet'), row(OTHER, 'Warm Floor')]
+          : {
+              id: OTHER,
+              title: 'Warm Floor',
+              mine: true,
+              doc: breakPayload(sections(21)),
+              description: 'From the record',
+              links: [{ kind: 'song', url: track }],
+            }
+      )
+    );
+    mount({
+      initial: COLD_CARPET,
+      pins: NONE,
+      panel: (
+        <>
+          <PatternsPanel />
+          <Stage />
+        </>
+      ),
+    });
+    await user.click(screen.getByRole('tab', { name: 'All' }));
+    await waitFor(() => expect(rows()).toHaveLength(2));
+    expect(screen.queryByRole('link', { name: /opens in a new tab/ })).toBeNull();
+
+    await user.click(rows()[1]);
+
+    const chip = await screen.findByRole('link', { name: 'Song (opens in a new tab)' });
+    expect(chip).toHaveAttribute('href', track);
   });
 
   it('sends a search to the server once the typing stops, not per keystroke', async () => {

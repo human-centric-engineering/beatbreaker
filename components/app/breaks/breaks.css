@@ -493,6 +493,20 @@
   color: var(--teal);
   border-color: color-mix(in srgb, var(--teal) 45%, var(--line));
 }
+/* A reference link beside the title (task 4.11). */
+.bb .title-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.bb a.chip.link {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.bb a.chip.link:hover {
+  color: var(--ink);
+  border-color: var(--ink-soft);
+}
 
 .bb .seg {
   display: inline-flex;
@@ -949,6 +963,7 @@
 .bb select,
 .bb input[type='text'],
 .bb input[type='search'],
+.bb input[type='url'],
 .bb textarea {
   width: 100%;
   padding: 9px 10px;
@@ -982,6 +997,33 @@
 .bb .hint b {
   color: var(--ink-soft);
   font-weight: 600;
+}
+.bb .hint.err {
+  color: var(--rust);
+}
+
+/* Details (task 4.11): the description and links sit in a fieldset so one
+   `disabled` locks them on a pattern that is not yours to describe. */
+.bb fieldset.details-row {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.bb fieldset.details-row:disabled {
+  opacity: 0.55;
+}
+.bb .details-link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.bb .details-link .btnrow {
+  flex-wrap: nowrap;
+}
+.bb .details-link input {
+  flex: 1;
+  min-width: 0;
 }
 
 .bb .bigbtn {
