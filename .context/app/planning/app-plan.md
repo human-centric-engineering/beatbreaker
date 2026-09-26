@@ -19,8 +19,9 @@ for the public pages, dialogs and empty states.
 2. [What we are building](#2-what-we-are-building)
 3. [Ground rules](#3-ground-rules)
 4. [The phases](#4-the-phases) — 0 Groundwork · 1 App shell · 2 The catalogue ·
-   3 Front door · 4 Your patterns · 5 Ergonomic review · 6 Sharing and the
-   community library · 7 BeatBuddy · 8 Launch readiness
+   3 Front door · 4 Your patterns · 4A Your settings and your sounds ·
+   5 Ergonomic review · 6 Sharing and the community library · 7 BeatBuddy ·
+   8 Launch readiness
 5. [Ergonomic review — method and first findings](#5-ergonomic-review--method-and-first-findings)
 6. [BeatBuddy — design](#6-beatbuddy--design)
 7. [Data model changes, in one place](#7-data-model-changes-in-one-place)
@@ -279,9 +280,9 @@ developer working with Claude Code. Phases 3 and 5 can overlap their neighbours;
 the rest are sequential because each stands on the one before.
 
 ```
-0 Groundwork ─► 1 App shell ─┬─► 2 Catalogue ─► 4 Your patterns ─► 6 Sharing ─► 7 BeatBuddy ─► 8 Launch
+0 Groundwork ─► 1 App shell ─┬─► 2 Catalogue ─► 4 Your patterns ─► 4A Settings & sounds ─► 6 Sharing ─► 7 BeatBuddy ─► 8 Launch
                              ├─► 3 Front door  (any time after 1's theme tokens)
-                             └─► 5 Ergonomic review (after 1; feeds 4, 6, 7)
+                             └─► 5 Ergonomic review (after 1; feeds 4, 4A, 6, 7)
 ```
 
 ### Phase 0 — Groundwork · S
@@ -579,7 +580,8 @@ were working on, and pick up where you left off on any device.
      is in §10.
    - A copy of a pattern carries its links with it.
 8. **Settings that should follow the user** (kit tuning, mixer defaults,
-   chart preferences) stay in `localStorage` for now — see §10.
+   chart preferences) stay in `localStorage` for now — see §10. _Superseded
+   2026-09-26: they move to your account in Phase 4A (D19)._
 9. Decide `Take`: it has a model and no surface. Either build the smallest
    useful version here (record audio of yourself against the click, keep the
    last few per pattern — needs storage and a consent line), or leave the table
@@ -762,6 +764,120 @@ and frame, but nobody has seen them on screen — the browser extension was not
 connected. Deferred to Phase 5 with Phase 1's unchecked clauses (decided
 2026-09-24); see there.
 
+**Signed off 2026-09-26.** Every task, 4.1–4.12, is on main (PRs #12–#16).
+One piece of code health was assigned to Phase 4 and not closed, H9. Its
+first item, the kit manifest cast, went away when the manifest moved into the
+`Kit` row (Phase 2). The other two are not patched here but moved to Phase 4A,
+because 4A replaces the code they sit in: the IndexedDB cast in `user-kit.ts`
+goes when your samples move to the server (D20), and the ~25 settings the
+console reads from `localStorage` unchecked either move to the database or
+are read through a schema (D19). Phase 4 hands on the browser checks (Phase 5),
+H9 (Phase 4A), _Browse the community library_ and _Published_ (Phase 6),
+`Take` (D8, after launch).
+
+### Phase 4A — Your settings and your sounds · M
+
+**Goal:** your Studio is the same on every device you sign in on (the kit you
+play, its tuning, how you like to practise), your own drum samples live in your
+account, and what stays in the browser is there for a reason and checked when
+it is read back.
+
+The app is not in production and has no users yet, so nothing here carries
+state over from the prototype. There are no old values to migrate, and
+`bb.favs` has no one to import it for.
+
+1. **Where each setting lives (D19).** Three places, and each value in exactly
+   one of them:
+
+   | Where                                                | What                                                                                                                                                                                                                                                                                                                                                            | Why there                                                                                                                 |
+   | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+   | **The pattern** (in its `doc`, in the database)      | tempo, swing, layer, arrangement, and for each section its style, meter, lanes and notes                                                                                                                                                                                                                                                                        | It is part of the pattern. Opening the pattern restores it. A pattern that has never been saved keeps it in `bb.scratch`. |
+   | **Your account** (`StudioSettings`, in the database) | kit and the kit you picked yourself (`kit`, `userKit`), voice tuning (`bb.sound`), sampled percussion on/off, count-in, tempo ceiling, layer tempo match, the generator's dials (density, ghosts, hats, feel, lanes mode and custom lanes, your own meter), notation guides, sticking, preview, and the starting style / meter / bars / tempo for a new pattern | It is about how you play, not about one device. Signing in on a phone brings it.                                          |
+   | **This browser** (`localStorage`)                    | chart size, view mode (chart / grid / both), the Patterns drawer's last tab, the open drawer, light/dark, and two short-lived hand-offs: `bb.scratch` (the unsaved pattern) and `bb.pendingLink` (a shared link held across sign-in)                                                                                                                            | It depends on the screen in front of you, or it only has to last a few minutes.                                           |
+
+   The starting values for a new pattern are a setting only because they
+   decide what _New pattern_ opens with. Once a pattern exists, its own
+   document is the only record of its tempo and style. The console stops
+   keeping a second copy in `bb.bpm`, `bb.style` and the like.
+
+2. **Settings API.** `GET /api/v1/me/studio-settings` and `PATCH` (a partial
+   merge), held to `studioSettingsSchema`. That is one Zod schema with every
+   field bounded: tempo 50–300, tuning parameters in their engine ranges, kit
+   keys that exist in the catalogue or are yours. An unknown field is refused
+   on write. On read, a stored value that no longer parses falls back to its
+   default for that field only, and a log line says so. The Studio page reads
+   the row server-side and hands it to the console with the pattern, so there
+   is no flash of defaults. Changes are written back debounced, the same way
+   a pattern autosaves (4.5).
+
+3. **What stays in the browser is read through a schema.** One wrapper,
+   `useStoredSetting(key, schema, default)` in `lib/app/`, on top of Sunrise's
+   `useLocalStorage`, which stays untouched. Any value that fails its schema
+   is the default. Every key the app writes is listed with its schema in one
+   module, and that list is documented in `.context/app/shell.md`. This closes
+   H9's third item.
+
+4. **Your own samples, stored in your account (D20).**
+   - **Upload.** In the Sound drawer, one file per kit slot, as now. The
+     browser decodes the file, trims silence from the start, and sends it as
+     16-bit PCM WAV, mono, 44.1 kHz. Whatever format you picked (mp3, m4a,
+     ogg, wav), the server receives only one. The server does not trust the
+     browser: it reads the WAV header itself and refuses anything that is not
+     that format, is longer than 12 seconds, or is bigger than 1.5 MB (12 s
+     of that WAV is about 1.06 MB).
+   - **Limits.** 150 samples and 50 MB per account, checked on the server
+     inside the same transaction that records the upload. Both are env
+     settings, so production can move them without a release. Uploads get a
+     rate sub-cap of their own (`lib/app/rate-limit.ts`). The Sound drawer
+     shows how much of the allowance you have used.
+   - **Where the audio goes.** Sunrise storage (`lib/storage`), under
+     `samples/<userId>/<sampleId>.wav`. In development that is the `local`
+     provider (`public/uploads/`), so nothing extra needs setting up. In
+     production it is a **private** S3-compatible bucket (S3 or R2; chosen in
+     Phase 8). The audio is served through an owner-checked route,
+     `GET /api/v1/samples/[id]/audio`, never a public URL. Your samples are
+     yours alone until Phase 6 decides whether a published pattern may carry
+     them.
+   - **What the database holds.** A `Sample` row for each file (name, slot,
+     bytes, duration, storage key), and your kits as `Kit` rows with
+     `ownerId` set and `engine: 'user'`. The table and its `samples` column
+     were built for exactly this in Phase 2. More than one kit of your own is
+     fine. A pattern names its kit by key, as it does now.
+   - **Erasure and export.** Rows cascade from `User`. The files are removed
+     by an erasure cleanup hook (`cleanupExternal`, `deleteByPrefix`
+     `samples/<userId>/`), which is the same path avatars take. The export
+     lists each sample's name, slot, size and duration, and your kits.
+   - **IndexedDB goes.** `user-kit.ts`'s browser store, and with it H9's
+     second item, is replaced rather than validated.
+
+5. **Remove the `bb.favs` import (4.10).** It exists for prototype users,
+   and there are none. The bulk `POST /api/v1/breaks` stays, because it is a
+   public capability of its own. The import hook, its prompt and the
+   _In this browser_ group go.
+
+**Done when:** change the kit, a voice's tuning and the count-in on a laptop,
+sign in on a phone, and all three are there; a hand-edited `bb.size` of
+`"huge"` opens the Studio at the default size; upload a kick and a snare on
+the laptop, and the phone plays them. A 20-second file, an 8 MB file and a
+text file renamed `.wav` are each refused with a message saying why. The
+151st sample, and the upload that would take you past 50 MB, are refused.
+Another account cannot fetch your sample's audio by its id. Erasing the
+account removes the rows and the files. The export lists the samples. No
+`useLocalStorage` call is left in `components/app/` outside the wrapper.
+
+Tasks, in order, API first:
+
+| #    | Task                                                                                                                                                                                                                                                      | Done when                                                                                                                                                                                       |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4A.1 | `StudioSettings` table, `studioSettingsSchema`, `GET`/`PATCH /api/v1/me/studio-settings`; export section, cascade                                                                                                                                         | Route tests: partial merge; unknown field refused; out-of-range value refused; a stored value that no longer parses reads as its default and the rest of the row survives; export lists the row |
+| 4A.2 | The console reads account settings from the server (handed in with the pattern) and writes them back debounced; `bb.*` keys for those settings removed                                                                                                    | Studio test: settings arrive with the page, one PATCH after a burst of changes, none for a pattern-only change; a new pattern opens with the account's starting values                          |
+| 4A.3 | `useStoredSetting` and the key list; the browser-only keys moved onto it                                                                                                                                                                                  | Hook test: bad JSON and a value that fails its schema both read as the default; no `useLocalStorage` in `components/app/` outside the wrapper (a grep test)                                     |
+| 4A.4 | `Sample` table; `POST /api/v1/samples` (WAV header parse, 12 s, 1.5 MB, per-account count and bytes checked in the transaction), `GET` list with usage, `DELETE`, `GET …/[id]/audio` owner-checked; upload sub-cap; erasure hook; export section          | Route tests for each refusal, quota at the boundary, someone else's id → 404, delete removes the file; erasure test removes rows and calls the prefix delete                                    |
+| 4A.5 | User kits as `Kit` rows (`ownerId`, `engine: 'user'`) with `POST`, `PATCH` (rename, slot → sample) and `DELETE` on `/api/v1/catalogue/kits`, owner-scoped. This brings §10's user write endpoints forward for kits only; styles and libraries stay in §10 | Route tests: create a kit, assign two samples, list shows it with sample URLs; another user cannot see it                                                                                       |
+| 4A.6 | Sound drawer: upload (decode → trim → WAV in the browser), usage meter, your kits; IndexedDB store removed                                                                                                                                                | Component test: an mp3 goes up as WAV; refusal messages shown; usage updates; `user-kit.ts` store gone                                                                                          |
+| 4A.7 | Remove the `bb.favs` import                                                                                                                                                                                                                               | No reference to `bb.favs` outside the CHANGELOG; the bulk POST's tests still pass                                                                                                               |
+| 4A.8 | Docs: `.context/app/settings.md` (the three places, the key list), `.context/app/samples.md` (limits, storage, erasure), CHANGELOG                                                                                                                        | Docs name every new table, route, env setting and key                                                                                                                                           |
+
 ### Phase 5 — Ergonomic review · M
 
 **Goal:** every control is where a drummer would look for it, is the right size
@@ -923,7 +1039,7 @@ of the Studio fully working.
 - **Production**: hosting per `.context/architecture/` and
   `hosting-requirements.md`; Postgres with backups and a tested restore; env
   audit; transactional email domain verified (signup verification and password
-  reset must arrive); storage only if Takes or avatars need it; request-body
+  reset must arrive); a private S3-compatible bucket for samples (D20), with the upload limits checked against real use; request-body
   limit checked against photo uploads (Vercel's 4.5MB edge cap is below Sunrise's
   25MB server cap — downscale images client-side before sending).
 - **AI operations**: provider key, `AiProvider` row and default models via the
@@ -1206,6 +1322,8 @@ every table declared in `lib/app/data-export.ts`.
 | 4     | `Break` + `level Int`, `description String?`, `links Json` (≤ 4, canonical URLs only). `level` backfilled from `doc.lv`.                                                                                                                                                                                                                 | cascade (as now)                                         | in `breaks` (as now)                            |
 | 4     | New `Pin` — `userId` (cascade), `shelf` (`practising`/`later`), `breakId?` → `Break` (cascade), `libraryEntryId?` → `LibraryEntry` (cascade), `position Int`, `createdAt`; CHECK exactly one target; unique `(userId, breakId)` and `(userId, libraryEntryId)`; the only record of what is pinned (D17).                                 | cascade                                                  | new section `pins`                              |
 | 4     | New `PracticeVisit` — `userId` (cascade), `breakId?` (cascade), `libraryEntryId?` (cascade), `level Int`, `bpm Int`, `visitedAt`; CHECK exactly one target; unique per `(userId, target)`; newest 200 kept per user; the only record of what was opened (D18).                                                                           | cascade                                                  | new section `practiceHistory`                   |
+| 4A    | New `StudioSettings` — `userId @id` (cascade), `prefs Json` (`studioSettingsSchema`), `updatedAt`; one row per user (D19).                                                                                                                                                                                                               | cascade                                                  | new section `studioSettings`                    |
+| 4A    | New `Sample` — `userId` (cascade), `name`, `slot`, `bytes Int`, `durationMs Int`, `storageKey @unique`, `createdAt`; index `(userId)` for the quota sum. User kits are `Kit` rows with `ownerId` and `engine: 'user'`, `samples` naming `Sample` ids. Audio in Sunrise storage under `samples/<userId>/`, never in the table (D20).      | cascade; files removed by an erasure cleanup hook        | new section `samples`; `kits` gains your rows   |
 | 6     | `Break` + `visibility` (`private`/`link`/`published`, replaces `shared`), `slug String? @unique`, `publishedAt`, `parentId String?` → `Break` `onDelete: SetNull`, `gridHash String?`; index `(visibility, publishedAt)`, `(visibility, style, meter)`.                                                                                  | cascade; children keep, parent nulled                    | in `breaks`                                     |
 | 6     | New `DrummerProfile` — `userId @unique`, `username @unique` (stored lower-case), `bio`, `usernameChangedAt`; plus `ReservedUsername` (`username`, `releasedAt`) holding a changed name for 30 days — no user FK, excluded from export with that reason.                                                                                  | cascade                                                  | new section `drummerProfile`                    |
 | 6     | New `BreakReport` — `breakId` (cascade), `reporterId?` (**SetNull** — the report outlives the reporter), `reason`, `note`, `status`, `resolvedById?` (SetNull), timestamps.                                                                                                                                                              | reporter nulled                                          | new section `reportsFiled`                      |
@@ -1244,6 +1362,14 @@ already cascade and already export.
 | D17 | Practice shelves | **Two shelves — Practising and Later — in a `Pin` table that holds your own patterns and library entries alike.** The `Break.pinned` column tasks 4.1–4.3 built was taken out before merge, so there is one record of what is pinned. Task 4.6.                              |
 | D18 | Practice history | **A `PracticeVisit` table, newest 200 per user, each with the layer and tempo you left it at.** Longer than the 50 first proposed, so it can later serve as a practice log. `Break.lastOpenedAt`, `sort=opened` and the raw-SQL touch were taken out before merge. Task 4.7. |
 | —   | Browser checks   | **Deferred to Phase 5.** Phase 1's four widths, light/dark and VoiceOver, and 4.5's save status, Save button and prompt, are checked in the ergonomic review rather than before Phase 4 merges.                                                                              |
+
+### Decided — 2026-09-26
+
+| #   | Decision            | Outcome                                                                                                                                                                                                                                                                                                                                                                     |
+| --- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D19 | Where settings live | **Three places, each value in one.** What belongs to a pattern is in its document. What is about how you play is in a `StudioSettings` row in your account, so it follows you across devices. What depends on the screen, or only has to last minutes, is in `localStorage`, read through a schema. Nothing is carried over from the prototype. Phase 4A.                   |
+| D20 | Your own samples    | **Uploaded to your account, not kept in the browser.** Sent as mono 16-bit WAV, at most 12 s and 1.5 MB each, 150 samples and 50 MB per account (env-configurable). Stored in Sunrise storage: the local provider in development, a private S3-compatible bucket in production, served only through an owner-checked route. Private until Phase 6 says otherwise. Phase 4A. |
+| —   | `bb.favs` import    | **Removed.** It was for prototype users and there are none. The bulk create stays. Phase 4A.                                                                                                                                                                                                                                                                                |
 
 ### Still open
 
@@ -1297,14 +1423,14 @@ Recommendation first in each case. None blocks Phases 0–4.
   user write endpoints (`/api/v1/catalogue/*` gains `POST`/`PATCH`/`DELETE`
   scoped to the owner), a style editor in the Studio, a library editor (a
   library is a named, ordered list of pattern documents, which also covers
-  _collections / setlists / lesson plans for teachers_), sample upload to
-  Sunrise storage in place of today's browser-only IndexedDB kit, export and
-  erasure sections filled in, and publishing through Phase 6's moderation.
+  _collections / setlists / lesson plans for teachers_), export and erasure
+  sections filled in, and publishing through Phase 6's moderation. Your own
+  kits and sample upload came forward into Phase 4A (D20).
 
 Deliberately not in this plan: an in-Studio player for a pattern's reference
 video or song (so you can hear the original without leaving the chart — needs
-thought about two audio sources and the click); synced settings (kit tuning, mixer) across
-devices; pattern revision history; Takes (D8); likes, comments and following;
+thought about two audio sources and the click); syncing the mixer's levels, which
+are per session today (the rest of your settings sync from Phase 4A, D19); pattern revision history; Takes (D8); likes, comments and following;
 embeddable player for other sites; offline PWA; more import formats (MusicXML, Guitar Pro);
 BeatBuddy voice input; BeatBuddy as an MCP server through `lib/app/mcp-resources.ts`
 so a user's own assistant can read their patterns; paid tier.
@@ -1393,13 +1519,13 @@ Writing the tests turned up two more:
 
 ### Fix in the phase that touches it
 
-| #   | Finding                                                                                                                                                                                                                                                                | When                                                                                                                                     |
-| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| H7  | The console's effect cleanup stops the transport but never closes the `AudioContext`, so each client-side visit leaves a live context behind. `use-break-console.ts:840`.                                                                                              | **Phase 1** — the studio provider owns the audio lifecycle.                                                                              |
-| H8  | `GET /api/v1/breaks/:id` spreads `...row`, so any signed-in reader of a shared break receives the owner's internal `userId`. Not PII, but no reason to send it.                                                                                                        | **Phase 6**, alongside the public API, whose responses already never carry a user id. Drop it from the signed-in route at the same time. |
-| H9  | `as` casts on data from outside the type system with no Zod behind them: the kit manifest (`packs.ts:110`), IndexedDB rows (`user-kit.ts:75`), and the ~30 `useLocalStorage` values the console trusts by type — an old or hand-edited value reaches the engine as-is. | **Phase 4** moves most of that state to the server. Validate what stays in `localStorage` at read, and the manifest at load.             |
-| H10 | No `.context/` documentation for the break domain, the wire format or `/api/v1/breaks`.                                                                                                                                                                                | **Phase 0**, as `.context/app/breaks.md`, alongside H0; each later phase adds its own page.                                              |
-| H11 | `(protected)` has an `error.tsx` but no `loading.tsx`. Harmless today (the page fetches nothing), but not once `/studio/[id]` loads a pattern server-side.                                                                                                             | **Phase 1** — `(studio)` ships both.                                                                                                     |
+| #   | Finding                                                                                                                                                                                                                                                                | When                                                                                                                                                                               |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| H7  | The console's effect cleanup stops the transport but never closes the `AudioContext`, so each client-side visit leaves a live context behind. `use-break-console.ts:840`.                                                                                              | **Phase 1** — the studio provider owns the audio lifecycle.                                                                                                                        |
+| H8  | `GET /api/v1/breaks/:id` spreads `...row`, so any signed-in reader of a shared break receives the owner's internal `userId`. Not PII, but no reason to send it.                                                                                                        | **Phase 6**, alongside the public API, whose responses already never carry a user id. Drop it from the signed-in route at the same time.                                           |
+| H9  | `as` casts on data from outside the type system with no Zod behind them: the kit manifest (`packs.ts:110`), IndexedDB rows (`user-kit.ts:75`), and the ~30 `useLocalStorage` values the console trusts by type — an old or hand-edited value reaches the engine as-is. | Manifest: gone in Phase 2 (it is the `Kit` row). The rest: **Phase 4A**. IndexedDB is replaced by uploads (D20); settings move to the database or are read through a schema (D19). |
+| H10 | No `.context/` documentation for the break domain, the wire format or `/api/v1/breaks`.                                                                                                                                                                                | **Phase 0**, as `.context/app/breaks.md`, alongside H0; each later phase adds its own page.                                                                                        |
+| H11 | `(protected)` has an `error.tsx` but no `loading.tsx`. Harmless today (the page fetches nothing), but not once `/studio/[id]` loads a pattern server-side.                                                                                                             | **Phase 1** — `(studio)` ships both.                                                                                                                                               |
 
 ### Accepted until the code is replaced
 
@@ -1413,7 +1539,8 @@ Writing the tests turned up two more:
 - ~~The `.bb` stylesheet carries its own tokens~~ — **Phase 1** put the palette
   on the `consumer` surface in `app/brand-theme.css`. The `.bb` block remains as
   the Studio's own working set; trimming it to aliases is tidying, not a blocker.
-- Persistence to `localStorage` — **Phase 4**.
+- ~~Persistence to `localStorage`~~ — **Phase 4** moved patterns to the
+  server; **Phase 4A** moves settings and samples (D19, D20).
 
 ### Housekeeping when this branch goes up as a PR
 
