@@ -1,5 +1,6 @@
 'use client';
 
+import { countInLabel, useTapTempo } from '@/components/app/shell/studio-transport';
 import { Slider } from '@/components/app/studio/panels/controls';
 import { ShelfList } from '@/components/app/studio/panels/patterns-panel';
 import { StudioHelp } from '@/components/app/studio/studio-help';
@@ -9,6 +10,7 @@ import { cn } from '@/lib/utils';
 
 export function PracticePanel() {
   const c = useStudio();
+  const tapTempo = useTapTempo();
   const style = c.catalogue.styles[c.style]?.params;
   /* The console guarded on a pattern existing before it drew anything; a panel
      is mounted on its own, so the mixer asks for itself. No pattern means no
@@ -53,6 +55,34 @@ export function PracticePanel() {
                 {c.clickSub === 4 ? 'Quarters' : 'Eighths'}
               </button>
             </div>
+          </div>
+
+          {/* Count-in and Tap live in the header transport too, but that is
+              not on a phone; here they are at every width (E3). */}
+          <div className="field">
+            <span className="fieldlab">Count-in</span>
+            <div className="seg small" role="group" aria-label="Count-in">
+              {[0, 1, 2].map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  aria-pressed={c.countIn === n}
+                  onClick={() => c.setCountIn(n)}
+                >
+                  {countInLabel(n)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="field">
+            <span className="fieldlab">Tap tempo</span>
+            <div className="btnrow">
+              <button type="button" className="mini" aria-label="Tap tempo" onClick={tapTempo}>
+                Tap
+              </button>
+            </div>
+            <div className="hint">Tap four times on the beat.</div>
           </div>
 
           <div className="field">

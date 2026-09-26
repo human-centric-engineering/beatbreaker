@@ -146,20 +146,23 @@ describe('StudioTransport', () => {
     expect(playBtn.textContent).toContain('Play');
   });
 
-  it('cycles the count-in 0 → 1 → 2 → 0', async () => {
+  it('cycles the count-in 1 → 2 → off → 1, and says so in words', async () => {
     const user = userEvent.setup();
     renderTransport(<StudioTransport />);
     await waitForReady();
 
-    const countBtn = screen.getByTitle('Count-in bars');
+    /* It was a bare digit named only by a tooltip (E3). */
+    const countBtn = () => screen.getByRole('button', { name: /^Count-in:/ });
     // the saved default is 1 bar
-    expect(countBtn.textContent).toBe('1');
-    await user.click(countBtn);
-    expect(countBtn.textContent).toBe('2');
-    await user.click(countBtn);
-    expect(countBtn.textContent).toBe('0');
-    await user.click(countBtn);
-    expect(countBtn.textContent).toBe('1');
+    expect(countBtn()).toHaveAccessibleName('Count-in: 1 bar');
+    expect(countBtn().textContent).toBe('Count-in 1');
+    await user.click(countBtn());
+    expect(countBtn()).toHaveAccessibleName('Count-in: 2 bars');
+    await user.click(countBtn());
+    expect(countBtn()).toHaveAccessibleName('Count-in: off');
+    expect(countBtn().textContent).toBe('Count-in off');
+    await user.click(countBtn());
+    expect(countBtn()).toHaveAccessibleName('Count-in: 1 bar');
   });
 
   it('moves the tempo with the range input and the read-out follows', async () => {
@@ -188,7 +191,7 @@ describe('StudioTransport', () => {
       const clock = useFakeClock();
       renderTransport(<StudioTransport />);
       await waitForReady();
-      const tapBtn = screen.getByRole('button', { name: 'Tap' });
+      const tapBtn = screen.getByRole('button', { name: 'Tap tempo' });
 
       for (const t of [0, 600, 1200, 1800]) {
         clock.now = t;
@@ -203,7 +206,7 @@ describe('StudioTransport', () => {
       const clock = useFakeClock();
       renderTransport(<StudioTransport />);
       await waitForReady();
-      const tapBtn = screen.getByRole('button', { name: 'Tap' });
+      const tapBtn = screen.getByRole('button', { name: 'Tap tempo' });
 
       clock.now = 0;
       await user.click(tapBtn);
@@ -225,7 +228,7 @@ describe('StudioTransport', () => {
       await waitForReady();
 
       clock.now = 0;
-      await user.click(screen.getByRole('button', { name: 'Tap' }));
+      await user.click(screen.getByRole('button', { name: 'Tap tempo' }));
       expect(document.querySelector('.bpmval')?.textContent).toContain('94');
     });
 
@@ -234,7 +237,7 @@ describe('StudioTransport', () => {
       const clock = useFakeClock();
       renderTransport(<StudioTransport />);
       await waitForReady();
-      const tapBtn = screen.getByRole('button', { name: 'Tap' });
+      const tapBtn = screen.getByRole('button', { name: 'Tap tempo' });
 
       for (const t of [0, 100, 200, 300]) {
         clock.now = t;
@@ -258,9 +261,9 @@ describe('StudioTransport', () => {
     await waitForReady();
 
     // drop the count-in so the first scheduled step is a bar, not a click
-    const countBtn = screen.getByTitle('Count-in bars');
+    const countBtn = screen.getByRole('button', { name: /^Count-in:/ });
     await user.click(countBtn); // 1 -> 2
-    await user.click(countBtn); // 2 -> 0
+    await user.click(countBtn); // 2 -> off
 
     await user.click(screen.getByRole('button', { name: 'Play or stop' }));
     // push the fake clock well past the first scheduled step so the engine's
