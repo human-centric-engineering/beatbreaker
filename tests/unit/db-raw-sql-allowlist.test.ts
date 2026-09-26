@@ -106,6 +106,12 @@ const ALLOWLIST: ReadonlyArray<{ file: string; calls: number; why: string }> = [
     why: 'conversation-context vector lookup on the hot path',
   },
   {
+    // FORK (BeatBreaker): your Studio settings (D19).
+    file: 'lib/app/breaks/saved/settings.ts',
+    calls: 1,
+    why: 'one-statement upsert that merges a settings patch into the caller’s own `studio_settings.prefs` with jsonb `||`, so two devices patching different fields both land — a Prisma read-modify-write loses one. Addressed by the session userId (the primary key); a per-user table, as `pins` is, with no org column to isolate on',
+  },
+  {
     // FORK (BeatBreaker): the app tier's own drift probe.
     file: 'lib/app/db-drift.ts',
     calls: 1,

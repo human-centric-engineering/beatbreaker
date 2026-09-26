@@ -144,9 +144,11 @@ the save, scratch and someone-else's, Save a copy, the chips);
   video of this pattern" without hosting any video. It stays in the account
   export (`takes`) and in erasure, so a row that somehow exists is still
   handled. Decide it after launch.
-- **Settings stay in the browser.** Kit tuning, mixer defaults and chart
-  preferences (`bb.level`, `bb.view`, and the rest) are `localStorage`, per
-  device. Moving them to the account is in the plan's §10.
+- **Settings moved to the account in Phase 4A (D19).** Kit, tuning, count-in
+  and the rest are a `StudioSettings` row, read with the page and written back
+  debounced; a pattern's own tempo, layer and style are only in its document.
+  What still lives in the browser is chart size, view mode, the Patterns
+  drawer's tab and two short-lived hand-offs (`bb.scratch`, `bb.pendingLink`).
 - **Not yet looked at in a browser.** The header's save status, Save / Save a
   copy / Retry, the prompt, and now the Details form and chips are covered by
   component tests over the real console, but nobody has seen them on screen.

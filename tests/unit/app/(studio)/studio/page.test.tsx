@@ -27,6 +27,9 @@ vi.mock('@/lib/app/breaks/catalogue/data', () => ({ studioCatalogue: vi.fn() }))
 vi.mock('@/lib/app/breaks/saved/pins', () => ({ listPins: vi.fn() }));
 // and the practice history, for the same reason (/api/v1/history)
 vi.mock('@/lib/app/breaks/saved/history', () => ({ listHistory: vi.fn() }));
+/* and your settings (D19): their per-field fallback and catalogue check are
+   tested through /api/v1/studio-settings, which shares the reader */
+vi.mock('@/lib/app/breaks/saved/settings', () => ({ readStudioSettings: vi.fn() }));
 
 import StudioPage from '@/app/(studio)/studio/page';
 import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
@@ -36,11 +39,14 @@ import { getServerSession } from '@/lib/auth/utils';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { listHistory } from '@/lib/app/breaks/saved/history';
 import { listPins } from '@/lib/app/breaks/saved/pins';
+import { readStudioSettings } from '@/lib/app/breaks/saved/settings';
+import { DEFAULT_STUDIO_SETTINGS } from '@/lib/validations/studio-settings';
 import { createMockAuthSession } from '@/tests/helpers/auth';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 
 const SHELVES = { practising: [], later: [] };
 const HISTORY: Awaited<ReturnType<typeof listHistory>> = [];
+const SETTINGS = { ...DEFAULT_STUDIO_SETTINGS, kit: 'liveroom', countIn: 2 };
 const ENTRY_ID = 'centry000000000000000001';
 
 const params = (entry?: string | string[]) => ({
@@ -51,6 +57,7 @@ describe('/studio', () => {
   beforeEach(() => {
     vi.mocked(listPins).mockResolvedValue(SHELVES);
     vi.mocked(listHistory).mockResolvedValue(HISTORY);
+    vi.mocked(readStudioSettings).mockResolvedValue(SETTINGS);
   });
 
   it('hands a signed-out visitor to the shim that keeps their link', async () => {
@@ -79,6 +86,10 @@ describe('/studio', () => {
     expect(el.props.pins).toBe(SHELVES);
     expect(listHistory).toHaveBeenCalledWith(createMockAuthSession().user.id);
     expect(el.props.history).toBe(HISTORY);
+    /* and your settings, so the Studio opens with your kit and tuning rather
+       than the defaults first — handed over as read, for the session user */
+    expect(readStudioSettings).toHaveBeenCalledWith(createMockAuthSession().user.id);
+    expect(el.props.settings).toBe(SETTINGS);
     // a plain /studio opens nothing on top of the pattern it arrives to
     expect(el.props.openEntry).toBeUndefined();
     expect(el.props.openDrawer).toBeUndefined();

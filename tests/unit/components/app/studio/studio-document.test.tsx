@@ -49,6 +49,7 @@ import type { InitialPattern } from '@/components/app/breaks/use-break-console';
 import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { APIClientError, apiClient } from '@/lib/api/client';
+import { DEFAULT_STUDIO_SETTINGS, type StudioSettings } from '@/lib/validations/studio-settings';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { breakPayload, encodeBreak } from '@/lib/app/breaks/share';
 import { testCatalogue, testStyle } from '@/tests/helpers/catalogue';
@@ -91,9 +92,9 @@ function SaveAsProbe() {
   );
 }
 
-async function open(initial?: InitialPattern) {
+async function open(initial?: InitialPattern, settings?: StudioSettings) {
   render(
-    <StudioProvider catalogue={catalogue} initial={initial}>
+    <StudioProvider catalogue={catalogue} initial={initial} settings={settings}>
       <StudioFrame />
       <SaveAsProbe />
     </StudioProvider>
@@ -231,13 +232,47 @@ describe('what lets a pattern go, and what only edits it', () => {
   });
 });
 
-describe('opening a saved pattern with the tempo matched to the layer', () => {
-  it('opens at the tempo it was saved at, as Saved — a base left from last session does not move it', async () => {
-    // what an earlier session left behind: the match on, and a base for some other pattern
-    localStorage.setItem('bb.matchTempo', 'true');
-    localStorage.setItem('bb.baseBpm', '200');
+describe('which patterns move your starting values (D21)', () => {
+  /** What reached the settings route, one body per request. */
+  const settingsPatches = () =>
+    vi
+      .mocked(apiClient.patch)
+      .mock.calls.filter(([url]) => url === '/api/v1/studio-settings')
+      .map(([, opts]) => opts?.body);
+
+  it('a tempo change on a new pattern is your starting tempo', async () => {
+    const user = userEvent.setup();
+    await open();
+    await user.keyboard(']');
+    await waitFor(() => expect(settingsPatches()).toHaveLength(1), { timeout: 4000 });
+    expect(settingsPatches()[0]).toHaveProperty('startBpm');
+  });
+
+  it('a tempo change on a saved pattern of yours is not', async () => {
+    const user = userEvent.setup();
     window.history.replaceState(null, '', `/studio/${ID}`);
     await open(saved(true));
+    await user.keyboard(']');
+    await act(async () => new Promise((r) => setTimeout(r, 2500)));
+    expect(settingsPatches()).toEqual([]);
+  });
+
+  it('nor, once it has been saved, on a pattern that started new', async () => {
+    const user = userEvent.setup();
+    await open();
+    await user.keyboard('s');
+    await waitFor(() => expect(saveState()).toBe('Saved'));
+    await user.keyboard(']');
+    await act(async () => new Promise((r) => setTimeout(r, 2500)));
+    expect(settingsPatches()).toEqual([]);
+  });
+});
+
+describe('opening a saved pattern with the tempo matched to the layer', () => {
+  it('opens at the tempo it was saved at, as Saved — your starting tempo does not move it', async () => {
+    // the match on, and a starting tempo far from the pattern's own
+    window.history.replaceState(null, '', `/studio/${ID}`);
+    await open(saved(true), { ...DEFAULT_STUDIO_SETTINGS, matchTempo: true, startBpm: 200 });
     await waitFor(() => expect(saveState()).toBe('Saved'));
     await act(async () => new Promise((r) => setTimeout(r, 2500)));
     expect(saveState()).toBe('Saved');

@@ -232,6 +232,7 @@ describe('reserved fork tiers', () => {
       'model PatternLibrary',
       'model Pin',
       'model PracticeVisit',
+      'model StudioSettings',
       'model Style',
       'model StyleVersion',
       'model Take',

@@ -26,7 +26,6 @@ import { DEFAULT_MIX, LANES, PERC_LANES, TOM_LANES } from '@/lib/app/breaks/lane
 
 import { reducePattern } from '@/lib/app/breaks/layers';
 import type { StoredLink } from '@/lib/app/breaks/links';
-import { DEFAULT_METER } from '@/lib/app/breaks/meter';
 import { buildMidi } from '@/lib/app/breaks/midi';
 import { takePendingLink } from '@/lib/app/breaks/pending-link';
 import {
@@ -52,8 +51,10 @@ import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import { percussionSource } from '@/lib/app/breaks/catalogue/types';
 import type { LaneKey, Pattern, ResolvedStyle } from '@/lib/app/breaks/types';
 import { type VoiceParams, kitEngine, kitIsPlayable, withTuning } from '@/lib/app/breaks/kit';
+import { useStudioSettings } from '@/components/app/breaks/use-studio-settings';
 import { useLocalStorage } from '@/lib/hooks/use-local-storage';
 import { logger } from '@/lib/logging';
+import { DEFAULT_STUDIO_SETTINGS, type StudioSettings } from '@/lib/validations/studio-settings';
 
 /**
  * All of the console's state, and every action that changes it.
@@ -287,6 +288,14 @@ export interface PracticePlace {
   bpm: number;
 }
 
+/** What the generator writes with: a style, a meter, a length and the tempo it is judged at. */
+interface Setup {
+  style: string;
+  meter: string;
+  bars: number;
+  bpm: number;
+}
+
 /**
  * How far below the break's own tempo each layer sits, when the tempo is
  * matched to the layer. L5 is the break as written, so it is the tempo as
@@ -294,9 +303,26 @@ export interface PracticePlace {
  */
 const LAYER_TEMPO: Record<number, number> = { 1: 0.68, 2: 0.78, 3: 0.86, 4: 0.93, 5: 1 };
 
+/** What the console is told beyond the catalogue and the pattern it opens on. */
+export interface ConsoleOptions {
+  /**
+   * Your settings, as the page read them server-side (D19). Left out, the
+   * console starts from the defaults a new account has.
+   */
+  settings?: StudioSettings;
+  /**
+   * Whether the pattern on the stage is a saved one. Asked when a style,
+   * meter, length or tempo is changed: only a new, unsaved pattern moves your
+   * starting values (D21). The console does not know about saving, so the
+   * provider, which holds the document, answers. Left out, every pattern is new.
+   */
+  stageSaved?: () => boolean;
+}
+
 export function useBreakConsole(
   catalogue: StudioCatalogue,
-  initial?: InitialPattern
+  initial?: InitialPattern,
+  options: ConsoleOptions = {}
 ): BreakConsole {
   const [ready, setReady] = useState(false);
   const [noCatalogue, setNoCatalogue] = useState(false);
@@ -306,54 +332,86 @@ export function useBreakConsole(
   });
   const [tries, setTries] = useState<{ tries: number; rejected: number } | null>(null);
 
-  const [level, setLevel] = useLocalStorage('bb.level', 3);
+  /* ---- your settings (D19) --------------------------------------------
+     How you play, from your account: seeded from what the page read and
+     written back debounced. Each setter below writes its field; a load never
+     does, because opening something is not choosing a setting. */
+  const { settings, update } = useStudioSettings(options.settings ?? DEFAULT_STUDIO_SETTINGS);
+  const {
+    kit,
+    userKit,
+    sound: tuning,
+    percSamples,
+    countIn,
+    ceiling,
+    matchTempo,
+    density,
+    ghosts,
+    hats,
+    feel,
+    lanesMode,
+    customLanes,
+    userMeter,
+    guides,
+    sticking,
+    preview,
+  } = settings;
+  const stageSaved = options.stageSaved;
+
+  /* ---- the pattern's own values ----------------------------------------
+     Tempo, swing, layer and arrangement are the open pattern's, and its
+     document is their only record: plain state, set by whatever put the
+     pattern on the stage. Style, meter and bars are what the generator writes
+     with — the open pattern's, until you pick others. None is kept in the
+     browser; a pattern that was never saved is kept whole in `bb.scratch`.
+
+     A new pattern starts from your starting values (D21), and changing one of
+     these while the pattern on the stage is new and unsaved moves them. */
+  const [level, setLevel] = useState(3);
   const [viewMode, setViewMode] = useLocalStorage<ViewMode>('bb.view', 'both');
   const [editing, setEditing] = useState<SectionLetter>('A');
 
-  const [style, setStyleRaw] = useLocalStorage('bb.style', 'funk');
-  const [meter, setMeterRaw] = useLocalStorage('bb.meter', DEFAULT_METER);
-  /** The meter you picked yourself, handed back when a style stops imposing one. */
-  const [userMeter, setUserMeter] = useLocalStorage('bb.userMeter', DEFAULT_METER);
-  const [bars, setBars] = useLocalStorage('bb.bars', 2);
-  const [density, setDensity] = useLocalStorage('bb.density', 55);
-  const [ghosts, setGhosts] = useLocalStorage('bb.ghosts', 60);
-  const [swing, setSwing] = useLocalStorage('bb.swing', 8);
-  const [hats, setHats] = useLocalStorage('bb.hats', 100);
-  const [feel, setFeel] = useLocalStorage('bb.feel', 100);
-  const [lanesMode, setLanesModeRaw] = useLocalStorage<'style' | 'custom'>('bb.lanesMode', 'style');
-  const [customLanes, setCustomLanesRaw] = useLocalStorage<CustomLanes>('bb.customLanes', {
-    toms: false,
-  });
-
-  const [bpm, setBpmRaw] = useLocalStorage('bb.bpm', 94);
-  const [kit, setKitRaw] = useLocalStorage('bb.kit', 'studio70');
-  /**
-   * The kit you picked yourself, as opposed to one a style brought with it.
-   * A style that names a kit switches to it; leaving that style hands yours
-   * back, so picking the jazz set for one break does not silently keep the
-   * ballad's brushes on everything afterwards.
-   */
-  const [userKit, setUserKit] = useLocalStorage('bb.userKit', 'studio70');
-  const [tuning, setTuning] = useLocalStorage<Record<string, Record<string, VoiceParams>>>(
-    'bb.sound',
-    {}
+  const [style, setStyleRaw] = useState(settings.startStyle);
+  const [meter, setMeterRaw] = useState(settings.startMeter);
+  const [bars, setBarsRaw] = useState(settings.startBars);
+  const [swing, setSwing] = useState(8);
+  const [bpm, setBpmRaw] = useState(() =>
+    clamp(settings.startBpm, 50, maxBpm(settings.startMeter))
   );
+  /** The tempo the break is written at — the 100% the layer match works from. */
+  const [baseBpm, setBaseBpm] = useState(bpm);
+  const [arrangement, setArrangement] = useState<SectionLetter[]>(['A', 'A', 'A', 'B']);
+
+  /**
+   * Whether a change of style, meter, bars or tempo should move the starting
+   * values: only while the pattern on the stage has never been saved. Opening
+   * or editing a saved pattern never does (D21). Asked at the moment of the
+   * change, from the document the provider keeps.
+   */
+  const settingUpNew = useCallback(() => !(stageSaved?.() ?? false), [stageSaved]);
+
+  /**
+   * Style, meter and bars picked since the last pattern was opened. What
+   * _New pattern_ opens with is your starting values, whatever you have opened
+   * since — except for anything you picked for the next one while looking at
+   * something saved, which moved the pickers but not the starting values.
+   */
+  const chosen = useRef<{ style?: string; meter?: string; bars?: number }>({});
+
+  const setDensity = useCallback((n: number) => update({ density: n }), [update]);
+  const setGhosts = useCallback((n: number) => update({ ghosts: n }), [update]);
+  const setHats = useCallback((n: number) => update({ hats: n }), [update]);
+  const setFeel = useCallback((n: number) => update({ feel: n }), [update]);
+  const setGuides = useCallback((b: boolean) => update({ guides: b }), [update]);
+  const setSticking = useCallback((b: boolean) => update({ sticking: b }), [update]);
+  const setPreview = useCallback((b: boolean) => update({ preview: b }), [update]);
+  const setCountIn = useCallback((n: number) => update({ countIn: n }), [update]);
+  const setCeiling = useCallback((n: number) => update({ ceiling: n }), [update]);
+  const setMatchTempo = useCallback((b: boolean) => update({ matchTempo: b }), [update]);
+
   const [voice, setVoice] = useState('h');
-  const [percSamples, setPercSamplesRaw] = useLocalStorage('bb.percSamples', true);
   const [midiPort, setMidiPort] = useState('');
-  const [guides, setGuides] = useLocalStorage('bb.guides', true);
-  const [sticking, setSticking] = useLocalStorage('bb.sticking', false);
-  const [preview, setPreview] = useLocalStorage('bb.preview', true);
   const [size, setSizeRaw] = useLocalStorage('bb.size', 1);
-  const [arrangement, setArrangement] = useLocalStorage<SectionLetter[]>('bb.arr', [
-    'A',
-    'A',
-    'A',
-    'B',
-  ]);
-  const [countIn, setCountIn] = useLocalStorage('bb.count', 1);
-  const [ceiling, setCeiling] = useLocalStorage('bb.ceiling', 130);
-  const [matchTempo, setMatchTempo] = useLocalStorage('bb.matchTempo', false);
 
   const [click, setClick] = useState(false);
   const [clickSub, setClickSub] = useState(4);
@@ -377,9 +435,6 @@ export function useBreakConsole(
     [setSizeRaw]
   );
 
-  /** The tempo the break is written at — the 100% the layer match works from. */
-  const [baseBpm, setBaseBpm] = useLocalStorage('bb.baseBpm', 94);
-
   /**
    * Set the tempo.
    *
@@ -388,15 +443,27 @@ export function useBreakConsole(
    * about the break, and the effect below puts the slider back where you left
    * it. Storing the dragged number directly instead would make practising L1
    * quietly rewrite the break as a slow break.
+   *
+   * On a new pattern the break's tempo is also your starting tempo (D21).
    */
-  const setBpm = useCallback(
+  const placeTempo = useCallback(
     (n: number) => {
       const top = maxBpm(meter);
       const v = clamp(Math.round(n), 50, top);
-      setBaseBpm(matchTempo ? clamp(Math.round(v / (LAYER_TEMPO[level] ?? 1)), 50, top) : v);
+      const base = matchTempo ? clamp(Math.round(v / (LAYER_TEMPO[level] ?? 1)), 50, top) : v;
+      setBaseBpm(base);
       setBpmRaw(v);
+      return base;
     },
-    [meter, matchTempo, level, setBaseBpm, setBpmRaw]
+    [meter, matchTempo, level]
+  );
+
+  const setBpm = useCallback(
+    (n: number) => {
+      const base = placeTempo(n);
+      if (settingUpNew()) update({ startBpm: base });
+    },
+    [placeTempo, settingUpNew, update]
   );
 
   /**
@@ -404,28 +471,15 @@ export function useBreakConsole(
    *
    * A loaded pattern sets the tempo directly, and the match effect below then
    * re-derives it from `baseBpm` for the new layer — so a base left over from
-   * the last session silently moved every pattern you opened with the match on.
-   * A saved pattern then opened "Unsaved" and autosaved a tempo you never
-   * chose. Setting the base from the pattern makes the effect land on the tempo
-   * it arrived with. Unrounded on purpose: rounding here is what would move it.
-   *
-   * The match setting is read from storage, not from `matchTempo`: a pattern
-   * loads in the first commit, before `useLocalStorage` has hydrated, so the
-   * state still holds its default there and the stored `true` arrives a render
-   * later — exactly when the effect below would move the tempo. Storage is
-   * written synchronously by the setter, so it is never behind the state.
+   * the last pattern would move every pattern you opened with the match on,
+   * and a saved one would then open "Unsaved" and autosave a tempo you never
+   * chose. Deriving the base from the pattern makes the effect land on the
+   * tempo it arrived with, which is also why a scratch pattern needs no base
+   * of its own kept beside it. Unrounded on purpose: rounding here is what
+   * would move it.
    */
   const baseFor = useCallback(
-    (bpmAt: number, levelAt: number) => {
-      let on = matchTempo;
-      try {
-        const raw = window.localStorage.getItem('bb.matchTempo');
-        if (raw !== null) on = raw === 'true';
-      } catch {
-        // storage blocked — the state is all there is
-      }
-      return on ? bpmAt / (LAYER_TEMPO[levelAt] ?? 1) : bpmAt;
-    },
+    (bpmAt: number, levelAt: number) => (matchTempo ? bpmAt / (LAYER_TEMPO[levelAt] ?? 1) : bpmAt),
     [matchTempo]
   );
 
@@ -553,41 +607,88 @@ export function useBreakConsole(
   /* ---- generation ----------------------------------------------------- */
 
   const generate = useCallback(
-    (which: SectionLetter | 'both', seed?: number) => {
-      if (!styleRow) return null;
-      const st = styleIn(styleRow.params, meter);
+    (which: SectionLetter | 'both', setup: Setup) => {
+      const row = catalogue.styles[setup.style] ?? styleRow;
+      if (!row) return null;
+      const st = styleIn(row.params, setup.meter);
       const roster = resolveLanes(st, lanesMode === 'custom' ? customLanes : null);
       const made = generateGood(
         {
-          style: styleRow,
-          meter,
-          bars,
+          style: row,
+          meter: setup.meter,
+          bars: setup.bars,
           density,
           ghosts,
-          seed: seed ?? Math.floor(Math.random() * 0xffffffff),
+          seed: Math.floor(Math.random() * 0xffffffff),
           lanes: roster.lanes,
           perc: roster.perc,
         },
-        bpm
+        setup.bpm
       );
       setTries({ tries: made.tries, rejected: made.rejected });
 
       setPatterns((prev) => {
         if (which === 'A') return { ...prev, A: made.pattern };
         if (which === 'B') return { ...prev, B: made.pattern };
-        return { A: made.pattern, B: deriveB(made.pattern, styleRow.params) };
+        return { A: made.pattern, B: deriveB(made.pattern, row.params) };
       });
       return made.pattern;
     },
-    [styleRow, meter, bars, density, ghosts, bpm, lanesMode, customLanes]
+    [catalogue.styles, styleRow, density, ghosts, lanesMode, customLanes]
   );
 
+  /**
+   * Roll a new pattern, or a new A or B.
+   *
+   * A new section is an edit to the pattern on the stage, so it is written
+   * with that pattern's style, meter, length and tempo. A whole new pattern
+   * opens at your starting values (D21) — whatever you have opened since —
+   * with anything you picked for it while looking at a saved pattern on top,
+   * and the tempo left alone when it is locked.
+   */
   const newBreak = useCallback(
     (which: SectionLetter | 'both' = 'both') => {
       pushHistory();
-      generate(which);
+      if (which !== 'both') {
+        generate(which, { style, meter, bars, bpm });
+        return;
+      }
+      const next = {
+        style: chosen.current.style ?? settings.startStyle,
+        meter: chosen.current.meter ?? settings.startMeter,
+        bars: chosen.current.bars ?? settings.startBars,
+      };
+      const top = maxBpm(next.meter);
+      const base = locks.bpm ? baseBpm : clamp(settings.startBpm, 50, top);
+      const at = matchTempo ? Math.round(base * (LAYER_TEMPO[level] ?? 1)) : base;
+      const bpmAt = locks.bpm ? clamp(bpm, 50, top) : clamp(at, 50, top);
+      setStyleRaw(next.style);
+      setMeterRaw(next.meter);
+      setBarsRaw(next.bars);
+      setBaseBpm(base);
+      setBpmRaw(bpmAt);
+      if (next.style !== style) {
+        setMixTouched((touched) => {
+          applyStyleMix(next.style, touched);
+          return touched;
+        });
+      }
+      generate('both', { ...next, bpm: bpmAt });
     },
-    [generate, pushHistory]
+    [
+      pushHistory,
+      generate,
+      style,
+      meter,
+      bars,
+      bpm,
+      baseBpm,
+      settings,
+      locks.bpm,
+      matchTempo,
+      level,
+      applyStyleMix,
+    ]
   );
 
   const buildBFromA = useCallback(() => {
@@ -692,18 +793,18 @@ export function useBreakConsole(
 
   const setLanesMode = useCallback(
     (m: 'style' | 'custom') => {
-      setLanesModeRaw(m);
+      update({ lanesMode: m });
       applyLaneChoice(m, customLanes);
     },
-    [setLanesModeRaw, customLanes, applyLaneChoice]
+    [update, customLanes, applyLaneChoice]
   );
 
   const setCustomLanes = useCallback(
     (l: CustomLanes) => {
-      setCustomLanesRaw(l);
+      update({ customLanes: l });
       if (lanesMode === 'custom') applyLaneChoice('custom', l);
     },
-    [setCustomLanesRaw, lanesMode, applyLaneChoice]
+    [update, lanesMode, applyLaneChoice]
   );
 
   /**
@@ -729,9 +830,10 @@ export function useBreakConsole(
       const b = params ? deriveB(pat, params) : clonePattern(pat);
       b.name = `${entry.title} (B)`;
       setPatterns({ A: pat, B: b });
+      chosen.current = {};
       setStyleRaw(entry.styleKey);
       setMeterRaw(pat.meter);
-      setBars(pat.bars.length);
+      setBarsRaw(pat.bars.length);
       if (at) {
         /* Going back to where you were is an explicit ask, so it wins over
            the tempo lock — and the base is set from it, as a loaded pattern's
@@ -740,67 +842,67 @@ export function useBreakConsole(
         setLevel(at.level);
         setBpmRaw(bpmAt);
         setBaseBpm(baseFor(bpmAt, at.level));
-      } else if (!locks.bpm) setBpm(entry.bpm);
+      } else if (!locks.bpm) placeTempo(entry.bpm);
       setTries(null);
     },
-    [
-      catalogue,
-      pushHistory,
-      setStyleRaw,
-      setMeterRaw,
-      setBars,
-      locks.bpm,
-      setBpm,
-      setLevel,
-      setBpmRaw,
-      setBaseBpm,
-      baseFor,
-    ]
+    [catalogue, pushHistory, locks.bpm, placeTempo, baseFor]
   );
 
   /* ---- style and meter follow each other ------------------------------ */
 
+  /**
+   * Pick a style. On a new pattern it is also your starting style, with the
+   * meter and tempo it brings (D21); on a saved one it is what the next new
+   * pattern is written in.
+   */
   const setStyle = useCallback(
     (s: string) => {
       setStyleRaw(s);
       const st = catalogue.styles[s]?.params;
+      const nextMeter = st?.meter ?? userMeter;
       /* A style may name its own meter and its own kit — picking one switches
          to both, and **leaving it hands yours back**. A jazz waltz in 4/4 is
          not a jazz waltz, but neither is every style after it a waltz: without
          the second half of this, picking the waltz once strands medium swing
          in 3/4 and the ballad's brushes on everything afterwards. */
-      setMeterRaw(st?.meter ?? userMeter);
+      setMeterRaw(nextMeter);
+      if (settingUpNew()) update({ startStyle: s, startMeter: nextMeter });
+      else chosen.current = { ...chosen.current, style: s, meter: nextMeter };
       /* `named.key` rather than `st.kit`: the same string, read off the row
          that was actually found, so there is nothing to assert non-null. */
       const named = st?.kit ? catalogue.kits[st.kit] : undefined;
       const wantKit = named && kitIsPlayable(named) ? named.key : userKit;
-      if (kitIsPlayable(catalogue.kits[wantKit])) setKitRaw(wantKit);
+      if (wantKit !== kit && kitIsPlayable(catalogue.kits[wantKit])) update({ kit: wantKit });
       if (st && !locks.bpm) setBpm(Math.round((st.bpm[0] + st.bpm[1]) / 2));
       setMixTouched((touched) => {
         applyStyleMix(s, touched);
         return touched;
       });
     },
-    [
-      catalogue,
-      setStyleRaw,
-      setMeterRaw,
-      setKitRaw,
-      userMeter,
-      userKit,
-      locks.bpm,
-      setBpm,
-      applyStyleMix,
-    ]
+    [catalogue, userMeter, userKit, kit, settingUpNew, update, locks.bpm, setBpm, applyStyleMix]
   );
 
   const setMeter = useCallback(
     (m: string) => {
       setMeterRaw(m);
-      setUserMeter(m);
+      if (settingUpNew()) update({ userMeter: m, startMeter: m });
+      else {
+        update({ userMeter: m });
+        chosen.current = { ...chosen.current, meter: m };
+      }
       setBpmRaw((b) => clamp(b, 50, maxBpm(m)));
     },
-    [setMeterRaw, setUserMeter, setBpmRaw]
+    [settingUpNew, update]
+  );
+
+  /** How many bars a new pattern is written with. On a new pattern, your starting length too. */
+  const setBars = useCallback(
+    (n: number) => {
+      setBarsRaw(n);
+      if (settingUpNew()) update({ startBars: n });
+      else chosen.current = { ...chosen.current, bars: n };
+    },
+    [settingUpNew, update]
   );
 
   /* ---- audio ---------------------------------------------------------- */
@@ -928,47 +1030,45 @@ export function useBreakConsole(
          would quietly hand you the Machine kit. Refuse instead. */
       const row = catalogue.kits[k];
       if (!row || !kitIsPlayable(row)) return;
-      setKitRaw(k);
-      setUserKit(k);
+      update({ kit: k, userKit: k });
     },
-    [catalogue.kits, setKitRaw, setUserKit]
+    [catalogue.kits, update]
   );
 
   const setParam = useCallback(
     (v: string, key: string, value: number) => {
-      setTuning((prev) => ({
-        ...prev,
-        [kit]: { ...prev[kit], [v]: { ...prev[kit]?.[v], [key]: value } },
+      update(({ sound: prev }) => ({
+        sound: { ...prev, [kit]: { ...prev[kit], [v]: { ...prev[kit]?.[v], [key]: value } } },
       }));
     },
-    [kit, setTuning]
+    [kit, update]
   );
 
   const resetVoice = useCallback(
     (v: string) => {
-      setTuning((prev) => {
+      update(({ sound: prev }) => {
         const forKit = { ...prev[kit] };
         delete forKit[v];
-        return { ...prev, [kit]: forKit };
+        return { sound: { ...prev, [kit]: forKit } };
       });
     },
-    [kit, setTuning]
+    [kit, update]
   );
 
   const resetKit = useCallback(() => {
-    setTuning((prev) => {
+    update(({ sound: prev }) => {
       const next = { ...prev };
       delete next[kit];
-      return next;
+      return { sound: next };
     });
-  }, [kit, setTuning]);
+  }, [kit, update]);
 
   const setPercSamples = useCallback(
     (b: boolean) => {
-      setPercSamplesRaw(b);
+      update({ percSamples: b });
       if (packsRef.current) packsRef.current.usePercSamples = b;
     },
-    [setPercSamplesRaw]
+    [update]
   );
 
   /* The AudioContext is built once, in an effect with no state in its deps.
@@ -1090,7 +1190,8 @@ export function useBreakConsole(
     setArrangement(doc.arrangement);
     setStyleRaw(doc.A.style);
     setMeterRaw(doc.A.meter);
-    setBars(doc.A.bars.length);
+    setBarsRaw(doc.A.bars.length);
+    chosen.current = {};
     applyStyleMix(doc.A.style, {});
   };
 
@@ -1238,21 +1339,11 @@ export function useBreakConsole(
       setArrangement(doc.arrangement);
       setStyleRaw(doc.A.style);
       setMeterRaw(doc.A.meter);
-      setBars(doc.A.bars.length);
+      setBarsRaw(doc.A.bars.length);
+      chosen.current = {};
       setTries(null);
     },
-    [
-      pushHistory,
-      setBpmRaw,
-      setBaseBpm,
-      baseFor,
-      setSwing,
-      setLevel,
-      setArrangement,
-      setStyleRaw,
-      setMeterRaw,
-      setBars,
-    ]
+    [pushHistory, baseFor]
   );
 
   const loadCode = useCallback(

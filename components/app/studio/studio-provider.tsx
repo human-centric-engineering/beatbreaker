@@ -35,6 +35,7 @@ import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import { FULL_LAYER } from '@/lib/app/breaks/layers';
 import { decodeBreak } from '@/lib/app/breaks/share';
 import type { HistoryItem } from '@/lib/validations/history';
+import type { StudioSettings } from '@/lib/validations/studio-settings';
 import type { PinTarget, PracticeShelvesView } from '@/lib/validations/pins';
 
 /**
@@ -143,6 +144,7 @@ export function StudioProvider({
   initial,
   pins: initialPins,
   history: initialHistory,
+  settings,
   openEntry,
   openDrawer,
   children,
@@ -163,6 +165,11 @@ export function StudioProvider({
   /** The practice history, read server-side with the page. */
   history?: HistoryItem[];
   /**
+   * Your Studio settings (D19), read server-side with the page so the Studio
+   * opens with your kit and tuning rather than the defaults first.
+   */
+  settings?: StudioSettings;
+  /**
    * A library entry to open once the Studio is up — `/studio?entry=<id>`,
    * which is how Home's Continue reaches a famous break. It opens where the
    * history last left it.
@@ -172,7 +179,13 @@ export function StudioProvider({
   openDrawer?: StudioDrawer;
   children: React.ReactNode;
 }) {
-  const state = useBreakConsole(catalogue, initial);
+  /* Whether the stage holds a saved pattern, for the console's starting values
+     (D21). The console is called before the document exists, so it asks
+     through this when a change is made, and the answer is kept current below
+     once the document has rendered. */
+  const stageIsSaved = useRef(initial !== undefined);
+  const stageSaved = useCallback(() => stageIsSaved.current, []);
+  const state = useBreakConsole(catalogue, initial, { settings, stageSaved });
   const content = catalogue;
 
   const [toast, setToast] = useState('');
@@ -193,6 +206,9 @@ export function StudioProvider({
     [ready, patterns, bpm, swing, level, arrangement]
   );
   const doc = usePatternDocument({ payload, title: patterns.A?.name ?? '', initial, say });
+  useLayoutEffect(() => {
+    stageIsSaved.current = doc.id !== null;
+  });
   const pins = usePins(initialPins, say);
   const styleLookup = useCallback((key: string) => catalogue.styles[key], [catalogue]);
   useFavsImport(styleLookup, say);
