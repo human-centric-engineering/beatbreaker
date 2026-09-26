@@ -4,6 +4,7 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'rea
 
 import { PATTERNS_TABS, type PatternsTab } from '@/components/app/shell/studio-address';
 import { PinButton, SHELF_LABEL } from '@/components/app/studio/pin-button';
+import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { apiClient } from '@/lib/api/client';
 import { PATTERNS_TAB } from '@/lib/app/breaks/browser-keys';
@@ -461,9 +462,12 @@ function LibrariesList() {
         <div className="empty">Nothing in the libraries matches.</div>
       )}
       <div className="hint">
-        The main groove off each record — a bar or two of it, in the meter it was played in. Fills
-        and variations are not here. The feel studies at the bottom are written rather than
-        transcribed, and say so.
+        The main groove off each record, a bar or two of it.{' '}
+        <StudioHelp title="The libraries">
+          The main groove off each record — a bar or two of it, in the meter it was played in. Fills
+          and variations are not here. The feel studies at the bottom are written rather than
+          transcribed, and say so.
+        </StudioHelp>
       </div>
     </>
   );

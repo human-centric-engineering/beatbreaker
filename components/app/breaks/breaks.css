@@ -942,7 +942,13 @@
 /* `.fieldlab` is the same thing as a field's label, for the fields whose
    control is a GROUP of buttons rather than one input — a <label> there has
    nothing to point at, and aria-label on the group is the honest markup. */
+.bb .fieldhead {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
 .bb .field > label,
+.bb .fieldhead > label,
 .bb .field > .fieldlab {
   font-family: var(--f-mono);
   font-size: 10px;
@@ -1092,6 +1098,12 @@
   background: var(--ink);
   color: var(--paper);
   border-color: var(--ink);
+}
+.bb .textbtn {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  min-height: 24px;
 }
 .bb .mini.ghost {
   border-style: dashed;

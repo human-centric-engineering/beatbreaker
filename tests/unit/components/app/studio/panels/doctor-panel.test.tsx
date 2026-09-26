@@ -58,6 +58,21 @@ describe('DoctorPanel', () => {
     expect(screen.getByRole('button', { name: '↷ Redo' })).toBeDisabled();
   });
 
+  it('shows the critic beside the edits, and re-scores after one', async () => {
+    const user = userEvent.setup();
+    renderPanel();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+
+    /* Only one drawer opens at a time, so the score the moves are judged by
+       has to be here as well as in Generate (5.5). */
+    const score = () => document.querySelector('.scorenum')?.textContent ?? '';
+    expect(score()).toMatch(/^\d+\/100$/);
+    const before = score();
+
+    await user.click(screen.getByRole('button', { name: 'Clear section' }));
+    expect(score()).not.toBe(before);
+  });
+
   it('enables undo after a doctor move, and redo after undoing it', async () => {
     const user = userEvent.setup();
     renderPanel();

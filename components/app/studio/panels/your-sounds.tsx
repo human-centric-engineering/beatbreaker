@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
+import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { SLOTS, SLOT_BY_ID } from '@/lib/app/breaks/kit';
 import { MAX_SAMPLE_SECONDS, mb } from '@/lib/app/breaks/samples/limits';
@@ -167,9 +168,12 @@ export function SampleSlots({ kit }: { kit: YourKitView }) {
         })}
       </div>
       <div className="hint">
-        Each file goes to your account as a mono WAV, so the kit plays on any device you sign in on.
-        A single hit, up to {MAX_SAMPLE_SECONDS} seconds. A slot you leave empty falls through to
-        the synthesised voice, so a half-filled kit still plays.
+        One hit per slot, up to {MAX_SAMPLE_SECONDS} seconds.{' '}
+        <StudioHelp title="Your kit">
+          Each file goes to your account as a mono WAV, so the kit plays on any device you sign in
+          on. A single hit, up to {MAX_SAMPLE_SECONDS} seconds. A slot you leave empty falls through
+          to the synthesised voice, so a half-filled kit still plays.
+        </StudioHelp>
       </div>
     </div>
   );
@@ -244,8 +248,11 @@ export function YourSamples() {
           <div className="hint">Nothing uploaded yet.</div>
         )}
         <div className="hint">
-          Deleting a sample takes it out of every kit of yours it is in. Your samples are yours
-          alone — nobody else can play them.
+          Deleting a sample takes it out of every kit of yours.{' '}
+          <StudioHelp title="Your samples">
+            Deleting a sample takes it out of every kit of yours it is in. Your samples are yours
+            alone — nobody else can play them.
+          </StudioHelp>
         </div>
       </div>
     </div>

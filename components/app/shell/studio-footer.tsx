@@ -38,6 +38,11 @@ export function StudioFooter() {
             </>
           )}
         </span>
+        {/* The critic's number, always in view: it used to be, in the console's
+            rail, and the drawers had hidden it behind Generate. */}
+        <span className="studio-readout mono">
+          score <b>{c.report?.score ?? '–'}</b>
+        </span>
         <TransportLeds />
         <span className="studio-spacer" />
         <button type="button" onClick={openPreferences} className="studio-footer-link">

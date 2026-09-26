@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { DetailsForm } from '@/components/app/studio/details-form';
+import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { cn } from '@/lib/utils';
 
@@ -47,7 +48,7 @@ export function ExportPanel() {
               </button>
             </div>
             <div className="hint">
-              The code carries both sections, the tempo, swing and the style — paste it to anyone.
+              Both sections, the tempo, swing and the style — paste it to anyone.
             </div>
           </div>
 
@@ -75,7 +76,23 @@ export function ExportPanel() {
           </div>
 
           <div className="field">
-            <span className="fieldlab">MIDI</span>
+            <span className="fieldlab">
+              MIDI{' '}
+              <StudioHelp title="MIDI">
+                GM drum map, one bar per bar, velocity-mapped ghosts. Swing and the style&apos;s
+                off-grid feel are written into the tick positions, so the export drags where the
+                playback drags. <code>base64 -d &gt; break.mid</code> in a terminal turns the copy
+                into a file.
+                {c.midiPort ? (
+                  <>
+                    {' '}
+                    MIDI out plays the same notes at the same velocities, at the moment the
+                    transport scheduled them, so the port swings and drags exactly where the
+                    speakers do. Mute a lane in the mixer and the port still plays it.
+                  </>
+                ) : null}
+              </StudioHelp>
+            </span>
             <div className="btnrow">
               <button
                 type="button"
@@ -101,25 +118,20 @@ export function ExportPanel() {
             </div>
             {c.midiPort ? (
               <div className="hint">
-                Playback is also driving <b>{c.midiPort}</b>, on the GM drum map — the same notes at
-                the same velocities, at the moment the transport scheduled them, so the port swings
-                and drags exactly where the speakers do. Mute a lane in the mixer and the port still
-                plays it.
+                Playback is also driving <b>{c.midiPort}</b>, muted lanes too.
               </div>
             ) : null}
-            <div className="hint">
-              GM drum map, one bar per bar, velocity-mapped ghosts. Swing and the style&apos;s
-              off-grid feel are written into the tick positions, so the export drags where the
-              playback drags. <code>base64 -d &gt; break.mid</code> in a terminal.
-            </div>
           </div>
 
           <div className="field">
-            <span className="fieldlab">Print</span>
-            <div className="hint">
-              ⌘P prints just the chart, exactly as it is set above it — the counting guide, the
-              sticking row and the size all come out with it.
-            </div>
+            <span className="fieldlab">
+              Print{' '}
+              <StudioHelp title="Print">
+                Prints just the chart, exactly as it is set above it — the counting guide, the
+                sticking row and the size all come out with it.
+              </StudioHelp>
+            </span>
+            <div className="hint">⌘P prints the chart.</div>
           </div>
         </div>
       </div>

@@ -1,18 +1,20 @@
 'use client';
 
-import { Slider, meterHue } from '@/components/app/studio/panels/controls';
+import type { Tool } from '@/components/app/shell/tool-rail';
+import { Slider } from '@/components/app/studio/panels/controls';
+import { ScoreCard } from '@/components/app/studio/panels/score-card';
+import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { HAT_SHAPE } from '@/lib/app/breaks/feel';
-import { kitIsPlayable } from '@/lib/app/breaks/kit';
 import { BASE_LANES, PERC_INSTS, PERC_KEYS, PERC_LANES, laneName } from '@/lib/app/breaks/lanes';
 import { METERS, METER_KEYS, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
 import { type CustomLanes, resolveLanes } from '@/lib/app/breaks/pattern';
 import { styleIn } from '@/lib/app/breaks/styles';
 import { cn } from '@/lib/utils';
 
-export function GeneratePanel() {
+export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => void }) {
   const c = useStudio();
-  const { styles, styleGroups, kits, kitGroups } = c.catalogue;
+  const { styles, styleGroups, kits } = c.catalogue;
 
   const styleRow = styles[c.style];
   const style = styleRow?.params;
@@ -87,30 +89,21 @@ export function GeneratePanel() {
                 </optgroup>
               ))}
             </select>
-            <div className="hint">{style?.hint}</div>
+            <div className="hint blurb">{style?.hint}</div>
           </div>
 
+          {/* The kit is chosen in one place, Sound (E10). Here it is only named,
+              because a style can ask for one and you should see that it did. */}
           <div className="field">
-            <label htmlFor="bb-gen-kit">Kit</label>
-            <select id="bb-gen-kit" value={c.kit} onChange={(e) => c.setKit(e.target.value)}>
-              {kitGroups.map((group) => (
-                <optgroup key={group.label} label={group.label}>
-                  {group.keys.map((k) => (
-                    <option key={k} value={k} disabled={!kitIsPlayable(kits[k])}>
-                      {kits[k].label}
-                      {kitIsPlayable(kits[k]) ? '' : ' — not ported yet'}
-                    </option>
-                  ))}
-                </optgroup>
-              ))}
-            </select>
+            <span className="fieldlab">Kit</span>
             <div className="hint">
-              {kits[c.kit]?.label}
-              {style?.kit === c.kit
-                ? ' — chosen by the style. Pick another and it stays picked.'
-                : ' — your pick, kept across styles that do not name one.'}{' '}
-              {c.kit === 'brush' ? '' : 'Sticks; pick Brush kit for brushes. '}
-              {kits[c.kit]?.hint}
+              {kits[c.kit]?.label ?? c.kit}
+              {style?.kit === c.kit ? ', as the style asks. ' : ', your pick. '}
+              {onOpenTool ? (
+                <button type="button" className="textbtn" onClick={() => onOpenTool('kit')}>
+                  Change it in Sound
+                </button>
+              ) : null}
             </div>
           </div>
 
@@ -136,7 +129,15 @@ export function GeneratePanel() {
           </div>
 
           <div className="field">
-            <span className="fieldlab">Kit lanes</span>
+            <span className="fieldlab">
+              Kit lanes{' '}
+              <StudioHelp title="Kit lanes">
+                Toms are notated at the usual heights — high in the fourth space, mid on the fourth
+                line, floor in the second. Percussion gets its own line above the staff. The foot
+                follows the style either way: without it a jazz groove loses the only thing marking
+                2 and 4.
+              </StudioHelp>
+            </span>
             <div className="btnrow">
               <button
                 type="button"
@@ -189,11 +190,7 @@ export function GeneratePanel() {
             <div className="hint">
               {extras.length
                 ? `On top of the kit: ${extras.join(', ')}.`
-                : 'Kick, snare, hats, ride and crash. Toms and percussion arrive when a style asks for them, or when you do.'}{' '}
-              Toms are notated at the usual heights — high in the fourth space, mid on the fourth
-              line, floor in the second. Percussion gets its own line above the staff. The foot
-              follows the style either way: without it a jazz groove loses the only thing marking 2
-              and 4.
+                : 'Kick, snare, hats, ride and crash.'}
             </div>
           </div>
 
@@ -237,13 +234,10 @@ export function GeneratePanel() {
                 onChange={c.setFeel}
                 max={150}
                 suffix="%"
+                help="Drag it to 0 to hear the same notes quantised. The click and the playhead never move — the gap between them and the kit is the feel."
               />
               <div className="hint mono" style={{ marginTop: -8, marginBottom: 12 }}>
                 {feelRead}
-              </div>
-              <div className="hint" style={{ marginTop: -8, marginBottom: 12 }}>
-                Drag it to 0 to hear the same notes quantised. The click and the playhead never move
-                — the gap between them and the kit is the feel.
               </div>
             </>
           ) : null}
@@ -278,51 +272,7 @@ export function GeneratePanel() {
         </div>
       </div>
 
-      <div className="card">
-        <div className="card-hd">
-          <h3>Score</h3>
-          <div className="spacer" />
-          {c.tries ? (
-            <span className="chip">
-              {c.tries.rejected}/{c.tries.tries} rejected
-            </span>
-          ) : null}
-        </div>
-        <div className="card-bd">
-          <div className="score">
-            <div className="scorenum mono">
-              {c.report?.score ?? '–'}
-              <small>/100</small>
-            </div>
-            <div className="meters">
-              {c.report?.dims.map((d) => (
-                <div className="meter" key={d.key}>
-                  <span>{d.key}</span>
-                  <div className="track">
-                    <div
-                      className="fill"
-                      style={{
-                        width: `${Math.round(d.v * 100)}%`,
-                        background: meterHue(d.v),
-                      }}
-                    />
-                  </div>
-                  <em>{d.read}</em>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="verdict">{c.report?.verdict}</div>
-          <div className="checks">
-            {c.checks?.checks.map((k) => (
-              <div key={k.label} className={cn('check', k.ok ? 'ok' : 'no')}>
-                <i>{k.ok ? '✓' : '✕'}</i>
-                <span>{k.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      <ScoreCard />
     </>
   );
 }

@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Stave, type StaveHandle } from '@/components/app/breaks/stave';
 import { StepEditor } from '@/components/app/breaks/step-editor';
 import { PinButton } from '@/components/app/studio/pin-button';
+import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { type SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { engrave } from '@/lib/app/breaks/engrave';
@@ -349,9 +350,12 @@ export function Stage() {
             />
           ) : null}
           <div className="hint" style={{ marginTop: 10 }}>
-            The grid shows <b>the layer you are on</b>, so what you see is what you hear. A note
-            added at a lower layer is pinned there — marked with a dot — instead of being derived
-            back out: a ghost note written at L2 is a ghost note L2 keeps.
+            The grid shows <b>the layer you are on</b>.{' '}
+            <StudioHelp title="The grid and layers">
+              What you see is what you hear. A note added at a lower layer is pinned there — marked
+              with a dot — instead of being derived back out: a ghost note written at Groove is a
+              ghost note Groove keeps.
+            </StudioHelp>
           </div>
         </div>
       </div>

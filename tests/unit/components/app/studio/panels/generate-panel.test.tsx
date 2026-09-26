@@ -9,7 +9,7 @@
  * does not repeat those: it reaches the panel's own computed read-outs (the
  * hi-hat dynamics string, the off-grid feel string and when it does or does
  * not render), the perc-lane rosters, the lock chips, the "Build B from A"
- * button, and the not-yet-ported kit option.
+ * button, and the kit it names but no longer chooses.
  */
 
 import { fireEvent, render, screen, within } from '@testing-library/react';
@@ -116,12 +116,22 @@ describe('GeneratePanel', () => {
     }
   });
 
-  it('marks a not-yet-ported kit as disabled, with a note in its label', async () => {
-    renderPanel();
-    await screen.findByLabelText('Kit');
+  it('names the kit without choosing it, and sends you to Sound to change it', async () => {
+    const onOpenTool = vi.fn();
+    render(
+      <StudioProvider catalogue={testCatalogue()}>
+        <GeneratePanel onOpenTool={onOpenTool} />
+      </StudioProvider>
+    );
+    await screen.findByLabelText('Style');
 
-    const option = screen.getByRole('option', { name: /TR-909 — not ported yet/ });
-    expect(option).toBeDisabled();
+    /* One home for the kit (E10): nothing here can change it. */
+    expect(screen.queryByLabelText('Kit')).toBeNull();
+    const field = screen.getByText('Kit', { selector: '.fieldlab' }).closest('.field')!;
+    expect(field.textContent).toMatch(/^Kit.+, (as the style asks|your pick)\./);
+
+    await userEvent.setup().click(screen.getByRole('button', { name: 'Change it in Sound' }));
+    expect(onOpenTool).toHaveBeenCalledWith('kit');
   });
 
   it('recomputes B from the current A when "Build B from A" is pressed', async () => {

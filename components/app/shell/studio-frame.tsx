@@ -29,7 +29,9 @@ import '@/components/app/shell/studio.css';
  * tool opens *into*, which is the one thing a media query cannot express.
  */
 
-const PANELS: Record<Tool, React.ComponentType> = {
+/* A panel may send you to another drawer — Generate names the kit and links to
+   Sound, which is where the kit is chosen (E10). */
+const PANELS: Record<Tool, React.ComponentType<{ onOpenTool?: (tool: Tool) => void }>> = {
   gen: GeneratePanel,
   doctor: DoctorPanel,
   patterns: PatternsPanel,
@@ -222,7 +224,7 @@ export function StudioFrame() {
           (wide ? railButtons.current[lastTool.current] : toolsButton.current)?.focus()
         }
       >
-        {Panel ? <Panel /> : null}
+        {Panel ? <Panel onOpenTool={open} /> : null}
       </ToolDrawer>
 
       <LeaveDialog />

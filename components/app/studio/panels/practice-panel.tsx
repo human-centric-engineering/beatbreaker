@@ -2,6 +2,7 @@
 
 import { Slider } from '@/components/app/studio/panels/controls';
 import { ShelfList } from '@/components/app/studio/panels/patterns-panel';
+import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { LANE_DEFS, activeLanes, laneName } from '@/lib/app/breaks/lanes';
 import { cn } from '@/lib/utils';
@@ -55,7 +56,12 @@ export function PracticePanel() {
           </div>
 
           <div className="field">
-            <span className="fieldlab">Tempo trainer</span>
+            <span className="fieldlab">
+              Tempo trainer{' '}
+              <StudioHelp title="Tempo trainer">
+                Adds BPM every time the arrangement comes round, and stops at your ceiling.
+              </StudioHelp>
+            </span>
             <div className="btnrow">
               <button
                 type="button"
@@ -74,9 +80,6 @@ export function PracticePanel() {
                   +{n}
                 </button>
               ))}
-            </div>
-            <div className="hint">
-              Adds BPM every time the arrangement comes round. Stops at your ceiling.
             </div>
           </div>
 
@@ -99,7 +102,14 @@ export function PracticePanel() {
           </div>
 
           <div className="field">
-            <span className="fieldlab">Match tempo to layer</span>
+            <span className="fieldlab">
+              Match tempo to layer{' '}
+              <StudioHelp title="Match tempo to layer">
+                Skeleton at 68% of the break&apos;s own tempo, Groove at 78%, Sixteenths at 86%,
+                Ghosted at 93%, Full break as written. Move the tempo while this is on and you are
+                setting the speed for that layer, not the break.
+              </StudioHelp>
+            </span>
             <div className="btnrow">
               <button
                 type="button"
@@ -110,11 +120,6 @@ export function PracticePanel() {
                 {c.matchTempo ? 'On' : 'Off'}
               </button>
             </div>
-            <div className="hint">
-              Skeleton at 68% of the break&apos;s own tempo, Groove at 78%, Sixteenths at 86%,
-              Ghosted at 93%, Full break as written. Move the tempo slider while this is on and you
-              are setting the speed for that layer, not the break.
-            </div>
           </div>
         </div>
       </div>
@@ -122,13 +127,17 @@ export function PracticePanel() {
       <div className="card">
         <div className="card-hd">
           <h3>Mixer</h3>
+          <StudioHelp title="Mixer">
+            Mute a limb to play it yourself. Faders start where the style puts them — a few styles
+            push a lane down because something else is the music and that lane was sitting on it.
+            Move one and it is yours until you hit <b>Back to the style</b>.
+          </StudioHelp>
           <div className="spacer" />
           {Object.keys(c.mixTouched).length ? (
             <button type="button" className="mini" onClick={c.resetMix}>
               Back to the style
             </button>
           ) : null}
-          <span className="hint">Mute a limb to play it yourself</span>
         </div>
         <div className="card-bd">
           {lanes.map((lane) => (
@@ -156,11 +165,6 @@ export function PracticePanel() {
               </button>
             </div>
           ))}
-          <div className="hint" style={{ marginTop: 10 }}>
-            Faders start where the style puts them — a few styles push a lane down because something
-            else is the music and that lane was sitting on it. Move one and it is yours until you
-            hit <b>Back to the style</b>.
-          </div>
         </div>
       </div>
     </>
