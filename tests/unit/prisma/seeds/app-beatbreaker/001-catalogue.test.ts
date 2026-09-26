@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { logger } from '@/lib/logging';
 import unit, { seedKeyOf } from '@/prisma/seeds/app-beatbreaker/001-catalogue';
 import { KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
+import { YOUR_KIT_KEY_PREFIX } from '@/lib/app/breaks/samples/limits';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { packedPatternSchema } from '@/lib/app/breaks/schema';
@@ -181,6 +182,29 @@ describe('the catalogue seed', () => {
     expect(prisma.libraryEntry.rows).toHaveLength(LIBRARY.length);
     expect(prisma.kit.rows).toHaveLength(Object.keys(KITS).length);
     expect(prisma.patternLibrary.rows).toHaveLength(1);
+  });
+
+  it('mints no system kit key under the prefix your own kits use, and no kit on your engine', () => {
+    /* Your kits' keys are server-minted under YOUR_KIT_KEY_PREFIX (D20), and
+       the `kit` setting stores whichever key you picked. A system kit under
+       that prefix could be shadowed by one of yours, or shadow it. */
+    for (const [key, kit] of Object.entries(KITS)) {
+      expect(key.startsWith(YOUR_KIT_KEY_PREFIX), key).toBe(false);
+      expect(kit.engine, key).not.toBe('user');
+    }
+  });
+
+  it('removes the system "Your samples" kit an earlier seed wrote, and no one’s own kit', async () => {
+    const prisma = fakePrisma();
+    await prisma.kit.create({ data: { key: 'user', engine: 'user', label: 'Your samples' } });
+    await prisma.kit.create({
+      data: { key: 'yours-abc', engine: 'user', ownerId: 'u1', label: 'My kit' },
+    });
+
+    await seed(prisma);
+
+    expect(prisma.kit.rows.find((r) => r.key === 'user')).toBeUndefined();
+    expect(prisma.kit.rows.find((r) => r.key === 'yours-abc')).toMatchObject({ ownerId: 'u1' });
   });
 
   it('is a no-op the second time', async () => {

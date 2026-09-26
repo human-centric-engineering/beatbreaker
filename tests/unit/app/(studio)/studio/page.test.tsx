@@ -30,6 +30,11 @@ vi.mock('@/lib/app/breaks/saved/history', () => ({ listHistory: vi.fn() }));
 /* and your settings (D19): their per-field fallback and catalogue check are
    tested through /api/v1/studio-settings, which shares the reader */
 vi.mock('@/lib/app/breaks/saved/settings', () => ({ readStudioSettings: vi.fn() }));
+/* and your own kits (D20): their owner scope is tested through /api/v1/kits,
+   which shares the reader */
+vi.mock('@/lib/app/breaks/samples/kits', () => ({ listYourKits: vi.fn() }));
+// and your samples, whose scope is tested through /api/v1/samples
+vi.mock('@/lib/app/breaks/samples/data', () => ({ listSamples: vi.fn() }));
 
 import StudioPage from '@/app/(studio)/studio/page';
 import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
@@ -40,12 +45,19 @@ import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { listHistory } from '@/lib/app/breaks/saved/history';
 import { listPins } from '@/lib/app/breaks/saved/pins';
 import { readStudioSettings } from '@/lib/app/breaks/saved/settings';
+import { listSamples } from '@/lib/app/breaks/samples/data';
+import { listYourKits } from '@/lib/app/breaks/samples/kits';
 import { DEFAULT_STUDIO_SETTINGS } from '@/lib/validations/studio-settings';
 import { createMockAuthSession } from '@/tests/helpers/auth';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 
 const SHELVES = { practising: [], later: [] };
 const HISTORY: Awaited<ReturnType<typeof listHistory>> = [];
+const YOUR_SAMPLES = {
+  samples: [],
+  usage: { count: 0, bytes: 0, maxCount: 150, maxBytes: 52_428_800 },
+};
+const YOUR_KITS = [{ id: 'ckit00000000000000000001', key: 'yours-a', label: 'Mine', slots: {} }];
 const SETTINGS = { ...DEFAULT_STUDIO_SETTINGS, kit: 'liveroom', countIn: 2 };
 const ENTRY_ID = 'centry000000000000000001';
 
@@ -58,6 +70,8 @@ describe('/studio', () => {
     vi.mocked(listPins).mockResolvedValue(SHELVES);
     vi.mocked(listHistory).mockResolvedValue(HISTORY);
     vi.mocked(readStudioSettings).mockResolvedValue(SETTINGS);
+    vi.mocked(listYourKits).mockResolvedValue(YOUR_KITS);
+    vi.mocked(listSamples).mockResolvedValue(YOUR_SAMPLES);
   });
 
   it('hands a signed-out visitor to the shim that keeps their link', async () => {
@@ -90,6 +104,11 @@ describe('/studio', () => {
        than the defaults first — handed over as read, for the session user */
     expect(readStudioSettings).toHaveBeenCalledWith(createMockAuthSession().user.id);
     expect(el.props.settings).toBe(SETTINGS);
+    // and your own kits, read for the session user, never through the catalogue
+    expect(listYourKits).toHaveBeenCalledWith(createMockAuthSession().user.id);
+    expect(el.props.yourKits).toBe(YOUR_KITS);
+    expect(listSamples).toHaveBeenCalledWith(createMockAuthSession().user.id);
+    expect(el.props.yourSamples).toBe(YOUR_SAMPLES);
     // a plain /studio opens nothing on top of the pattern it arrives to
     expect(el.props.openEntry).toBeUndefined();
     expect(el.props.openDrawer).toBeUndefined();

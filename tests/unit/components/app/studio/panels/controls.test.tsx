@@ -4,74 +4,14 @@
  * The controls more than one panel is built from.
  *
  * `meterHue` and `Slider` are pure/presentational and need nothing beyond
- * React Testing Library. `SampleSlots` reads `useStudio()`, so it is mounted
- * inside a real `StudioProvider` (following `studio-frame.test.tsx`), with
- * only the browser-facing edge of the audio graph faked — the same seam
- * `use-break-console.test.ts` replaces to drive sample loading without a
- * sound card or IndexedDB.
+ * React Testing Library. The sample slots that used to live here are in
+ * `your-sounds.tsx` now, tested in `your-sounds.test.tsx`.
  */
 
-import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 
-import {
-  meterHue,
-  SampleSlots,
-  Slider,
-  VOICE_HINTS,
-} from '@/components/app/studio/panels/controls';
-import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
-import { testCatalogue } from '@/tests/helpers/catalogue';
-
-/** The browser-facing edge of the audio graph, faked so `addSample` /
- *  `removeSample` run their real path through `use-break-console.ts` without
- *  a sound card or IndexedDB. Only `SampleSlots` needs this. */
-const fakes = vi.hoisted(() => {
-  class FakeAudio {
-    ctx: unknown = null;
-    samples: unknown = null;
-    setKit = vi.fn();
-    close = vi.fn();
-  }
-  class FakePacks {
-    usePercSamples = true;
-    count = vi.fn(() => 0);
-    percCount = vi.fn(() => 0);
-  }
-  class FakeUser {
-    names: Record<string, string> = {};
-    private onChange?: () => void;
-    constructor(onChange?: () => void) {
-      this.onChange = onChange;
-    }
-    count = vi.fn(() => Object.keys(this.names).length);
-    add = vi.fn(async (_engine: unknown, slot: string, file: File) => {
-      if (fakes.state.addError) return fakes.state.addError;
-      this.names[slot] = file.name;
-      this.onChange?.();
-      return '';
-    });
-    remove = vi.fn(async (slot: string) => {
-      delete this.names[slot];
-      this.onChange?.();
-    });
-  }
-  class FakeMidi {
-    ctx: unknown = null;
-    disconnect = vi.fn();
-    connect = vi.fn(async () => ({ name: '', error: '' }));
-  }
-  return { state: { addError: '' }, FakeAudio, FakePacks, FakeUser, FakeMidi };
-});
-
-vi.mock('@/lib/app/breaks/audio/engine', () => ({
-  BreakAudio: fakes.FakeAudio,
-  SourceStack: class {},
-}));
-vi.mock('@/lib/app/breaks/audio/packs', () => ({ PackSource: fakes.FakePacks }));
-vi.mock('@/lib/app/breaks/audio/user-kit', () => ({ UserSource: fakes.FakeUser }));
-vi.mock('@/lib/app/breaks/audio/midi-out', () => ({ MidiOut: fakes.FakeMidi }));
+import { meterHue, Slider, VOICE_HINTS } from '@/components/app/studio/panels/controls';
 
 describe('meterHue', () => {
   it('reads ok above 0.7', () => {
@@ -164,123 +104,5 @@ describe('VOICE_HINTS', () => {
       expect(typeof hint).toBe('string');
       expect(hint.length).toBeGreaterThan(0);
     }
-  });
-});
-
-describe('SampleSlots', () => {
-  /** Surfaces the toast `say()` raised, so the confirmation/error message the
-   *  slot produced is checked against what actually happened, not asserted
-   *  blind. */
-  function ToastSpy() {
-    const c = useStudio();
-    return <pre data-testid="toast">{c.toast}</pre>;
-  }
-
-  const renderSlots = () =>
-    render(
-      <StudioProvider catalogue={testCatalogue()}>
-        <SampleSlots />
-        <ToastSpy />
-      </StudioProvider>
-    );
-
-  const selectFile = (input: HTMLInputElement, file: File | null) => {
-    const list = file
-      ? ({
-          0: file,
-          length: 1,
-          item: () => file,
-          [Symbol.iterator]: function* () {
-            yield file;
-          },
-        } as unknown as FileList)
-      : ({
-          length: 0,
-          item: () => null,
-          [Symbol.iterator]: function* () {},
-        } as unknown as FileList);
-    Object.defineProperty(input, 'files', { value: list, configurable: true });
-    fireEvent.change(input);
-  };
-
-  beforeEach(() => {
-    fakes.state.addError = '';
-  });
-
-  it('says an empty slot has nothing loaded, and offers to Load rather than Replace', () => {
-    renderSlots();
-
-    const kickSlot = screen.getByText('Kick').closest('.slot') as HTMLElement;
-    expect(within(kickSlot).getByText('—')).toBeInTheDocument();
-    expect(within(kickSlot).getByText('Load')).toBeInTheDocument();
-    expect(within(kickSlot).queryByRole('button', { name: /Clear/ })).not.toBeInTheDocument();
-  });
-
-  it('fills a slot with a chosen file, and offers Replace and a way to clear it', async () => {
-    renderSlots();
-    const kickSlot = screen.getByText('Kick').closest('.slot') as HTMLElement;
-    const input = kickSlot.querySelector('input[type="file"]') as HTMLInputElement;
-    const file = new File(['data'], 'kick.wav', { type: 'audio/wav' });
-
-    selectFile(input, file);
-
-    await waitFor(() => expect(within(kickSlot).getByText('kick.wav')).toBeInTheDocument());
-    expect(within(kickSlot).getByText('Replace')).toBeInTheDocument();
-    expect(within(kickSlot).getByRole('button', { name: 'Clear Kick' })).toBeInTheDocument();
-    // the input is cleared after a pick, so choosing the same file again still fires a change
-    expect(input.value).toBe('');
-    await waitFor(() => expect(screen.getByTestId('toast').textContent).toBe('Kick: kick.wav'));
-  });
-
-  it('says what went wrong instead of the filename when the file cannot be used', async () => {
-    fakes.state.addError = 'Could not decode that file — try WAV, MP3, FLAC or M4A';
-    renderSlots();
-    const kickSlot = screen.getByText('Kick').closest('.slot') as HTMLElement;
-    const input = kickSlot.querySelector('input[type="file"]') as HTMLInputElement;
-
-    selectFile(input, new File(['data'], 'kick.mov', { type: 'video/quicktime' }));
-
-    await waitFor(() =>
-      expect(screen.getByTestId('toast').textContent).toBe(
-        'Could not decode that file — try WAV, MP3, FLAC or M4A'
-      )
-    );
-    // and the slot itself stays empty — a failed decode never reaches the store
-    expect(within(kickSlot).getByText('—')).toBeInTheDocument();
-  });
-
-  it('does nothing when the file picker is dismissed with no file chosen', () => {
-    renderSlots();
-    const kickSlot = screen.getByText('Kick').closest('.slot') as HTMLElement;
-    const input = kickSlot.querySelector('input[type="file"]') as HTMLInputElement;
-
-    selectFile(input, null);
-
-    expect(within(kickSlot).getByText('—')).toBeInTheDocument();
-    expect(screen.getByTestId('toast').textContent).toBe('');
-  });
-
-  it('removes a loaded sample and falls back to the empty state', async () => {
-    const user = userEvent.setup();
-    renderSlots();
-    const kickSlot = screen.getByText('Kick').closest('.slot') as HTMLElement;
-    const input = kickSlot.querySelector('input[type="file"]') as HTMLInputElement;
-    selectFile(input, new File(['data'], 'kick.wav', { type: 'audio/wav' }));
-    await waitFor(() => expect(within(kickSlot).getByText('kick.wav')).toBeInTheDocument());
-
-    await user.click(within(kickSlot).getByRole('button', { name: 'Clear Kick' }));
-
-    await waitFor(() => expect(within(kickSlot).getByText('—')).toBeInTheDocument());
-    expect(within(kickSlot).getByText('Load')).toBeInTheDocument();
-    expect(within(kickSlot).queryByRole('button', { name: 'Clear Kick' })).not.toBeInTheDocument();
-  });
-
-  it('marks the optional slots as optional', () => {
-    renderSlots();
-    const ghostSlot = screen.getByText('Ghost snare').closest('.slot') as HTMLElement;
-    expect(within(ghostSlot).getByText('optional')).toBeInTheDocument();
-
-    const kickSlot = screen.getByText('Kick').closest('.slot') as HTMLElement;
-    expect(within(kickSlot).queryByText('optional')).not.toBeInTheDocument();
   });
 });

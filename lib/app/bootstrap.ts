@@ -23,6 +23,31 @@
  *
  * Full guide: CUSTOMIZATION.md §4 · the reserved `/framework` fork tier.
  */
-export async function initApp(): Promise<void> {
-  // No app boot work by default.
+import { registerErasureCleanupHook } from '@/lib/privacy/erasure-hooks';
+import { deleteByPrefix, isStorageEnabled } from '@/lib/storage/upload';
+export function initApp(): Promise<void> {
+  registerSampleErasure();
+  // still a promise: the seam's contract, so boot work that awaits fits here
+  return Promise.resolve();
+}
+
+/**
+ * Your samples' files go when you do (D20).
+ *
+ * The `sample` rows cascade from `user`, but no FK reaches storage, so the WAVs
+ * under `samples/<userId>/` are removed here, before the erasure transaction.
+ * Best-effort by the hook contract: a storage failure is logged by `eraseUser`
+ * and does not block the erasure. Avatars do not come through here — core
+ * `eraseUser` removes theirs itself.
+ */
+export function registerSampleErasure(): void {
+  registerErasureCleanupHook({
+    name: 'beatbreaker-samples',
+    cleanupExternal: async ({ userId }) => {
+      if (!isStorageEnabled()) return;
+      const result = await deleteByPrefix(`samples/${userId}/`);
+      // thrown so `eraseUser` records it; it does not stop the erasure
+      if (!result.success) throw new Error(`Could not delete samples/${userId}/`);
+    },
+  });
 }

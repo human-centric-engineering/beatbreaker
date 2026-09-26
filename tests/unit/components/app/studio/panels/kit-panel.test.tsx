@@ -6,8 +6,8 @@
  * `tests/unit/components/app/shell/studio-frame.test.tsx` already covers the
  * kit-tuning round trip (Room slider, disabled-until-tuned) and the
  * synth-vs-pack knob difference through the full frame. This file does not
- * repeat those: it covers the `user` engine (sample slots, its own param
- * set), the `kitStatus` line's branches, the master-chain read-outs, the
+ * repeat those: it covers a kit of your own (sample slots, its own param
+ * set; the uploads are `your-sounds.test.tsx`'s), the `kitStatus` line's branches, the master-chain read-outs, the
  * audition button with no Web Audio, and reset-this-voice.
  *
  * `KitPanel` renders no toast itself — `say()` only sets `Studio.toast`,
@@ -27,9 +27,12 @@ function ToastProbe() {
   return <div role="status">{c.toast}</div>;
 }
 
+/* An empty kit of your own (D20), handed over the way the page does. */
+const YOUR_KIT = { id: 'ckit00000000000000000001', key: 'yours-a', label: 'Mine', slots: {} };
+
 const renderPanel = () =>
   render(
-    <StudioProvider catalogue={testCatalogue()}>
+    <StudioProvider catalogue={testCatalogue()} yourKits={[YOUR_KIT]}>
       <KitPanel />
       <ToastProbe />
     </StudioProvider>
@@ -69,19 +72,19 @@ describe('KitPanel', () => {
     expect(await screen.findByText('Decoding the recordings…')).toBeTruthy();
   });
 
-  it('says no samples are loaded yet for the user-samples kit with nothing loaded', async () => {
+  it('says a kit of yours with nothing in it has no samples yet', async () => {
     const user = userEvent.setup();
     renderPanel();
-    await user.selectOptions(kitPicker(), 'user');
-    expect(await screen.findByText('No samples loaded yet')).toBeTruthy();
+    await user.selectOptions(kitPicker(), 'yours-a');
+    expect(await screen.findByText('No samples in this kit yet')).toBeTruthy();
   });
 
-  it('shows the sample-slot loader only for the user-samples engine', async () => {
+  it('shows the sample slots only for a kit of yours', async () => {
     const user = userEvent.setup();
     renderPanel();
     expect(screen.queryByText('Samples')).toBeNull();
 
-    await user.selectOptions(kitPicker(), 'user');
+    await user.selectOptions(kitPicker(), 'yours-a');
     expect(await screen.findByText('Samples')).toBeTruthy();
     // and the voice knobs switch to the recording's own set: speed, level, room
     // — the hi-hat (the default voice) no longer offers a filter to sweep

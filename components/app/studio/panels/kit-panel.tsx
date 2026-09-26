@@ -1,6 +1,12 @@
 'use client';
 
-import { SampleSlots, Slider, VOICE_HINTS } from '@/components/app/studio/panels/controls';
+import { Slider, VOICE_HINTS } from '@/components/app/studio/panels/controls';
+import {
+  SampleSlots,
+  YourKitControls,
+  YourSamples,
+  useCurrentYourKit,
+} from '@/components/app/studio/panels/your-sounds';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import {
   MASTER_PARAM_DEFS,
@@ -24,6 +30,7 @@ export function KitPanel() {
   /* The kit as a row, not a key — `kitEngine`, `kitIsPlayable` and `paramDefs`
      all read the row now that kits are catalogue content. */
   const kitRow = kits[c.kit];
+  const yourKit = useCurrentYourKit();
 
   /**
    * What the sampled kits have actually decoded. A kit that is still arriving
@@ -34,7 +41,14 @@ export function KitPanel() {
   const kitStatus = ((): string => {
     const engine = kitEngine(kitRow);
     if (engine === 'user') {
-      return c.kitSlots ? `${c.kitSlots} of your own samples loaded` : 'No samples loaded yet';
+      const filled = Object.keys(yourKit?.slots ?? {}).length;
+      if (!filled) return 'No samples in this kit yet';
+      if (c.kitSlots + c.kitFailed < filled)
+        return `Loading your samples… ${c.kitSlots} of ${filled}`;
+      if (c.kitFailed) {
+        return `${c.kitSlots} of ${filled} of your samples loaded — ${c.kitFailed} would not load and ${c.kitFailed === 1 ? 'plays' : 'play'} synthesised`;
+      }
+      return `${filled} of your own samples loaded`;
     }
     if (engine !== 'pack') return '';
     return c.kitSlots ? `${c.kitSlots} recorded lanes loaded` : 'Decoding the recordings…';
@@ -65,6 +79,8 @@ export function KitPanel() {
             {kits[c.kit]?.credit ? <div className="hint mono">{kits[c.kit].credit}</div> : null}
             {kitStatus ? <div className="hint mono">{kitStatus}</div> : null}
           </div>
+
+          <YourKitControls />
 
           {/* The master chain, after all four engines — which is what
               makes the kits comparable rather than four separate apps. */}
@@ -110,8 +126,8 @@ export function KitPanel() {
           <div className="hint" style={{ marginTop: 12 }}>
             The five synthesised kits are a graph per hit, so every knob is live. The recorded kits
             decode on first pick, and any lane still arriving falls through to the synthesised voice
-            — a half-loaded kit still plays. The TR-808 and TR-909 voice models are the one engine
-            not ported yet.
+            — a half-loaded kit still plays. A kit of your own is your samples, kept in your
+            account. The TR-808 and TR-909 voice models are the one engine not ported yet.
           </div>
         </div>
       </div>
@@ -158,7 +174,7 @@ export function KitPanel() {
             ))}
           </div>
 
-          {kitEngine(kitRow) === 'user' ? <SampleSlots /> : null}
+          {yourKit ? <SampleSlots kit={yourKit} /> : null}
 
           {c.voice === 'p' && c.percCount ? (
             <div className="field">
@@ -225,6 +241,8 @@ export function KitPanel() {
           </div>
         </div>
       </div>
+
+      {yourKit || c.sounds.samples.length ? <YourSamples /> : null}
     </>
   );
 }

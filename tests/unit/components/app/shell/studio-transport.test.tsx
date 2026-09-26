@@ -5,7 +5,7 @@
  *
  * Mounted inside a real `StudioProvider`, following `studio-frame.test.tsx`.
  * The one seam replaced is the browser-facing edge of the audio graph
- * (`BreakAudio` / `PackSource` / `UserSource` / `MidiOut`) — the same fakes
+ * (`BreakAudio` / `PackSource` / `YourSampleSource` / `MidiOut`) — the same fakes
  * `use-break-console.test.ts` uses to drive play/stop without a sound card.
  * Everything above that seam — the provider, the real scheduler in
  * `lib/app/breaks/audio/transport.ts`, and the transport/LED components
@@ -63,11 +63,8 @@ const fakes = vi.hoisted(() => {
     count = vi.fn(() => 0);
     percCount = vi.fn(() => 0);
   }
-  class FakeUser {
-    names: Record<string, string> = {};
+  class FakeYours {
     count = vi.fn(() => 0);
-    add = vi.fn(async () => '');
-    remove = vi.fn(async () => undefined);
   }
   class FakeMidi {
     ctx: unknown = null;
@@ -75,7 +72,7 @@ const fakes = vi.hoisted(() => {
     disconnect = vi.fn();
     connect = vi.fn(async () => ({ name: '', error: '' }));
   }
-  return { ctx, FakeAudio, FakePacks, FakeUser, FakeMidi };
+  return { ctx, FakeAudio, FakePacks, FakeYours, FakeMidi };
 });
 
 vi.mock('@/lib/app/breaks/audio/engine', () => ({
@@ -83,7 +80,7 @@ vi.mock('@/lib/app/breaks/audio/engine', () => ({
   SourceStack: class {},
 }));
 vi.mock('@/lib/app/breaks/audio/packs', () => ({ PackSource: fakes.FakePacks }));
-vi.mock('@/lib/app/breaks/audio/user-kit', () => ({ UserSource: fakes.FakeUser }));
+vi.mock('@/lib/app/breaks/audio/your-samples', () => ({ YourSampleSource: fakes.FakeYours }));
 vi.mock('@/lib/app/breaks/audio/midi-out', () => ({ MidiOut: fakes.FakeMidi }));
 
 interface DebugState {

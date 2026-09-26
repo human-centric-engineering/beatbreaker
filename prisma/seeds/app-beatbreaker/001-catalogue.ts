@@ -17,7 +17,7 @@ import { STYLES, STYLE_GROUPS } from '@/prisma/seeds/app-beatbreaker/data/styles
 import type { SeedContext, SeedUnit } from '@/prisma/runner';
 
 /**
- * The catalogue: 37 styles, 47 famous breaks and 13 kits.
+ * The catalogue: 37 styles, 47 famous breaks and 12 kits.
  *
  * This is where content became data (D13). The three tables it fills used to be
  * three TypeScript constants compiled into the app; the constants are still the
@@ -303,7 +303,15 @@ async function seedKits({ prisma, logger }: SeedContext): Promise<void> {
     );
   }
 
-  logger.info(`🥁 Kits: ${Object.keys(KITS).length} in place`);
+  /* The system "Your samples" kit kept one-shots in the browser. Your own kits
+     are rows you own now (D20), so a system row on the `user` engine is one a
+     seed before Phase 4A wrote, and it goes. A setting that named it reads as
+     its default. */
+  const retired = await prisma.kit.deleteMany({ where: { ownerId: null, engine: 'user' } });
+
+  logger.info(
+    `🥁 Kits: ${Object.keys(KITS).length} in place${retired.count ? ` (${retired.count} retired)` : ''}`
+  );
 }
 
 /** What the picker calls each engine. `pack` and `user` share a heading. */

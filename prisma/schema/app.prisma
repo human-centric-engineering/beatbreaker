@@ -202,6 +202,41 @@ model StudioSettings {
   @@map("studio_settings")
 }
 
+/// One of your own drum samples (D20): a one-shot you uploaded for a kit slot.
+///
+/// The audio is never in the table. It is in Sunrise storage under
+/// `samples/<userId>/`, always written private, and served only through the
+/// owner-checked `GET /api/v1/samples/:id/audio`. Every file is the one format
+/// the upload route accepts — mono, 16-bit PCM, 44.1 kHz WAV — so this row
+/// holds only what the list and the quota need.
+///
+/// Your kits are `Kit` rows with `ownerId` set and `engine: 'user'`; each slot
+/// names a sample by id. Deleting a sample clears it from those slots.
+///
+/// Personal data: `userId` cascades (hand-written FK, probed by
+/// `lib/app/db-drift.ts`). The files are removed by the app's erasure cleanup
+/// hook, registered in `initApp()`, because no FK reaches storage.
+model Sample {
+  id         String   @id @default(cuid())
+  /// FK to User.id — no @relation. Cascades.
+  userId     String
+  /// The file name you picked, for the list. Not a path.
+  name       String   @db.VarChar(120)
+  /// The kit slot it was uploaded for (`SLOTS`). A hint for the list; a kit
+  /// may put it in any slot.
+  slot       String   @db.VarChar(24)
+  /// Size of the stored WAV, for the quota.
+  bytes      Int
+  durationMs Int
+  /// Where the WAV is in storage. Never a URL.
+  storageKey String   @unique @db.VarChar(512)
+  createdAt  DateTime @default(now())
+
+  /// The quota is a count and a sum over one person's rows.
+  @@index([userId])
+  @@map("sample")
+}
+
 // ---- the catalogue ---------------------------------------------------------
 //
 // Styles, pattern libraries and kits are content, not code (D13). They were
@@ -381,9 +416,10 @@ model LibraryEntry {
 /// A kit: the knobs a playback engine reads, and where its samples are.
 ///
 /// The audio never lives in the row. System kits are files under
-/// `public/kits/`; a user's own one-shots go to Sunrise storage when D16 lands.
-/// `samples` is the slot → files + velocity-layers map, which for a `pack` kit
-/// is what `public/kits/manifest.json` used to hold.
+/// `public/kits/`. Your own kits (`engine: 'user'`, `ownerId` set) name a
+/// {@link Sample} id in each slot's `files`, and the audio is in Sunrise
+/// storage (D20). `samples` is the slot → files + velocity-layers map, which
+/// for a `pack` kit is what `public/kits/manifest.json` used to hold.
 model Kit {
   id String @id @default(cuid())
 

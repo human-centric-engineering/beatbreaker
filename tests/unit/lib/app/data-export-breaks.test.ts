@@ -15,7 +15,7 @@
  * FORK NOTE — this file reads `@/lib/app/data-export` for real, with no
  * `vi.mock`, because the collector's behaviour IS what it is testing. A fork of
  * BeatBreaker that adds its own tables to that seam will see this fail on the
- * section list: expect the eight below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
+ * section list: expect the nine below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
  * collector returns every declared section as a key, and a mock cannot tell you
  * that. The `prisma` methods are mocked instead, which is the part this test
  * genuinely does not need to be real.
@@ -29,6 +29,7 @@ const findMany = {
   pins: vi.fn(),
   visits: vi.fn(),
   settings: vi.fn(),
+  samples: vi.fn(),
   styles: vi.fn(),
   libraries: vi.fn(),
   kits: vi.fn(),
@@ -41,6 +42,7 @@ vi.mock('@/lib/db/client', () => ({
     pin: { findMany: (...args: unknown[]) => findMany.pins(...args) },
     practiceVisit: { findMany: (...args: unknown[]) => findMany.visits(...args) },
     studioSettings: { findMany: (...args: unknown[]) => findMany.settings(...args) },
+    sample: { findMany: (...args: unknown[]) => findMany.samples(...args) },
     style: { findMany: (...args: unknown[]) => findMany.styles(...args) },
     patternLibrary: { findMany: (...args: unknown[]) => findMany.libraries(...args) },
     kit: { findMany: (...args: unknown[]) => findMany.kits(...args) },
@@ -76,6 +78,7 @@ describe('collectAppSubjectData', () => {
       'libraries',
       'pins',
       'practiceHistory',
+      'samples',
       'studioSettings',
       'styles',
       'takes',
@@ -92,6 +95,7 @@ describe('collectAppSubjectData', () => {
       findMany.pins,
       findMany.visits,
       findMany.settings,
+      findMany.samples,
     ]) {
       expect(spy).toHaveBeenCalledWith(expect.objectContaining({ where: { userId: 'user-1' } }));
     }
@@ -199,5 +203,26 @@ describe('collectAppSubjectData', () => {
     const data = await collectAppSubjectData(SUBJECT);
 
     expect(data.studioSettings).toEqual([row]);
+  });
+
+  it('exports each sample row whole — name, slot, size, length and storage key — not the audio', async () => {
+    const row = {
+      id: 's1',
+      userId: 'user-1',
+      name: 'kick.mp3',
+      slot: 'k',
+      bytes: 88_244,
+      durationMs: 1000,
+      storageKey: 'samples/user-1/0b6f.wav',
+      createdAt: new Date('2026-09-26T12:00:00Z'),
+    };
+    findMany.samples.mockResolvedValue([row]);
+
+    const data = await collectAppSubjectData(SUBJECT);
+
+    const args = findMany.samples.mock.calls[0][0] as Record<string, unknown>;
+    expect(args).not.toHaveProperty('select');
+    expect(args.orderBy).toEqual({ createdAt: 'asc' });
+    expect(data.samples).toEqual([row]);
   });
 });

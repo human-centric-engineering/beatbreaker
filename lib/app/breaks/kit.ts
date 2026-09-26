@@ -17,7 +17,8 @@
  * - `drift` — TR-808 / TR-909 voice models, rendered through an
  *   `OfflineAudioContext` into one buffer per velocity layer when a knob moves.
  * - `pack` — recorded kits, decoded on first use.
- * - `user` — your own one-shots, kept in IndexedDB. Nothing is uploaded.
+ * - `user` — your own kits: samples you uploaded to your account (D20),
+ *   fetched from the owner-checked audio route and decoded on first use.
  *
  * Mix, mute, room send, drive and the glue compressor sit after all four, which
  * is what makes the kits comparable rather than four separate apps. Each kit
