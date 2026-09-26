@@ -180,6 +180,28 @@ model PracticeVisit {
   @@map("practice_visit")
 }
 
+/// Your Studio settings (D19): how you play, as opposed to what you are
+/// playing. The kit and its tuning, the count-in, the generator's dials, and
+/// the starting values a new pattern opens with. One row per person, so
+/// signing in on another device brings them.
+///
+/// `prefs` is held to `studioSettingsSchema` (`lib/validations/studio-settings.ts`)
+/// on write, and read back field by field: a stored value that no longer
+/// parses falls back to its own default without taking the rest with it. What
+/// belongs to a pattern is in its document and never here; what depends on
+/// the screen stays in the browser.
+///
+/// Personal data: `userId` cascades (hand-written FK, probed by
+/// `lib/app/db-drift.ts`).
+model StudioSettings {
+  /// FK to User.id — no @relation. Cascades. The key: one row per person.
+  userId    String   @id
+  prefs     Json     @default("{}")
+  updatedAt DateTime @updatedAt
+
+  @@map("studio_settings")
+}
+
 // ---- the catalogue ---------------------------------------------------------
 //
 // Styles, pattern libraries and kits are content, not code (D13). They were

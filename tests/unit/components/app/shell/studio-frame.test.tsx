@@ -316,10 +316,9 @@ describe('the Studio', () => {
 
     expect(kitCard.getByLabelText<HTMLInputElement>('Room').value).toBe('61');
     expect(screen.getByRole('button', { name: 'Reset whole kit' })).toBeEnabled();
-    // it is an override of the kit's numbers, saved against that kit by name
-    expect(JSON.parse(localStorage.getItem('bb.sound') ?? '{}')).toMatchObject({
-      studio70: { master: { room: 0.61 } },
-    });
+    /* It is an override of the kit's numbers, kept in your account against
+       that kit by name — what the PATCH carries is pinned in the console's
+       own tests (use-break-console.test.ts, "your settings"). */
 
     await user.click(screen.getByRole('button', { name: 'Reset whole kit' }));
     expect(kitCard.getByLabelText<HTMLInputElement>('Room').value).toBe(shipped);

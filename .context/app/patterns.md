@@ -99,7 +99,7 @@ by the provider's `leaving` / `resolveLeave`. Copy is in
 | 4.7  | Practice history, Back / Forward           | `PracticeVisit`, `/api/v1/history`, `lib/app/breaks/saved/history.ts`, `use-practice-history.ts`                  | [`breaks.md`](./breaks.md) § `/api/v1/history`         |
 | 4.8  | Patterns drawer                            | `components/app/studio/panels/patterns-panel.tsx`                                                                 | [`breaks.md`](./breaks.md) § The Patterns drawer       |
 | 4.9  | Home                                       | `/api/v1/home`, `lib/app/breaks/saved/home.ts`, `components/app/home/`                                            | [`breaks.md`](./breaks.md) § `/api/v1/home`            |
-| 4.10 | `bb.favs` import                           | `components/app/studio/use-favs-import.ts`                                                                        | [`breaks.md`](./breaks.md) § Browser favourites import |
+| 4.10 | Browser favourites import                  | removed in Phase 4A                                                                                               | [`breaks.md`](./breaks.md) § Browser favourites import |
 | 4.11 | Details and link chips                     | `components/app/studio/details-form.tsx`, `LinkChips` in `stage.tsx`                                              | below                                                  |
 
 ## Details and link chips (task 4.11)
@@ -144,9 +144,11 @@ the save, scratch and someone-else's, Save a copy, the chips);
   video of this pattern" without hosting any video. It stays in the account
   export (`takes`) and in erasure, so a row that somehow exists is still
   handled. Decide it after launch.
-- **Settings stay in the browser.** Kit tuning, mixer defaults and chart
-  preferences (`bb.level`, `bb.view`, and the rest) are `localStorage`, per
-  device. Moving them to the account is in the plan's §10.
+- **Settings moved to the account in Phase 4A (D19).** Kit, tuning, count-in
+  and the rest are a `StudioSettings` row, read with the page and written back
+  debounced; a pattern's own tempo, layer and style are only in its document.
+  What still lives in the browser is chart size, view mode, the Patterns
+  drawer's tab and two short-lived hand-offs (`bb.scratch`, `bb.pendingLink`).
 - **Not yet looked at in a browser.** The header's save status, Save / Save a
   copy / Retry, the prompt, and now the Details form and chips are covered by
   component tests over the real console, but nobody has seen them on screen.

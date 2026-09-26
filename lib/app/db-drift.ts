@@ -160,6 +160,16 @@ export function registerAppDriftProbes(): void {
     ),
   });
 
+  /* Studio settings (20260926120000_studio_settings). The one unmodelled
+     object is the FK, hand-written for the reason the ones above are; it is
+     the whole of what makes your settings go when you do. */
+  registerAppDriftProbe({
+    name: 'studio_settings_userId_fkey (hand-written FK → user)',
+    kind: 'FK constraint',
+    table: 'studio_settings',
+    probe: constraintExists('studio_settings_userId_fkey', 'ON DELETE CASCADE'),
+  });
+
   /* SET NULL, not CASCADE, and the difference is the point: a style version
      outlives its author because other people's patterns point at it and carry
      its id as provenance. Erasing the author erases the link, not the row. A

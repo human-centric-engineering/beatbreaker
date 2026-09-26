@@ -17,7 +17,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { stashPendingLink, takePendingLink } from '@/lib/app/breaks/pending-link';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
-import { writeScratch } from '@/lib/app/breaks/scratch';
+import { clearScratch, readScratch, writeScratch } from '@/lib/app/breaks/scratch';
 import { encodeBreak } from '@/lib/app/breaks/share';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
@@ -103,6 +103,12 @@ vi.mock('@/lib/app/breaks/audio/user-kit', () => ({
     }
   },
 }));
+/* Your settings go to your account through the API client; what they send is
+   asserted on the mock, and nothing reaches a network. */
+vi.mock('@/lib/api/client', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/lib/api/client')>();
+  return { ...actual, apiClient: { patch: vi.fn() } };
+});
 vi.mock('@/lib/app/breaks/audio/midi-out', () => ({
   MidiOut: class extends fakes.FakeMidi {
     constructor() {
@@ -112,7 +118,14 @@ vi.mock('@/lib/app/breaks/audio/midi-out', () => ({
   },
 }));
 
-import { type InitialPattern, useBreakConsole } from '@/components/app/breaks/use-break-console';
+import {
+  type ConsoleOptions,
+  type InitialPattern,
+  useBreakConsole,
+} from '@/components/app/breaks/use-break-console';
+import { AUTOSAVE_MS } from '@/components/app/studio/use-pattern-document';
+import { apiClient } from '@/lib/api/client';
+import { DEFAULT_STUDIO_SETTINGS } from '@/lib/validations/studio-settings';
 
 /**
  * The catalogue the hook is driven with — the seed data, built once.
@@ -124,8 +137,8 @@ import { type InitialPattern, useBreakConsole } from '@/components/app/breaks/us
  */
 const catalogue = testCatalogue();
 
-async function mount(initial?: InitialPattern) {
-  const hook = renderHook(() => useBreakConsole(catalogue, initial));
+async function mount(initial?: InitialPattern, options?: ConsoleOptions) {
+  const hook = renderHook(() => useBreakConsole(catalogue, initial, options));
   await waitFor(() => expect(hook.result.current.ready).toBe(true));
   return hook;
 }
@@ -153,6 +166,7 @@ function codeFor(name: string, bpm = 101) {
 
 beforeEach(() => {
   localStorage.clear();
+  vi.mocked(apiClient.patch).mockReset().mockResolvedValue({});
   window.history.replaceState(null, '', '/breaks');
   fakes.state.hasAudio = true;
   fakes.state.midiError = '';
@@ -161,6 +175,7 @@ beforeEach(() => {
   vi.stubGlobal('cancelAnimationFrame', vi.fn());
 });
 afterEach(() => {
+  vi.useRealTimers();
   vi.unstubAllGlobals();
 });
 
@@ -666,5 +681,221 @@ describe('sharing and saving', () => {
     expect(aOnly.length).toBeLessThan(both.length);
     act(() => result.current.setArrangement(['B']));
     expect(result.current.midiBase64()).toBe('');
+  });
+});
+
+describe('your settings (D19, D21)', () => {
+  /** What reached `PATCH /api/v1/studio-settings`, one body per request. */
+  const patches = () =>
+    vi
+      .mocked(apiClient.patch)
+      .mock.calls.filter(([url]) => url === '/api/v1/studio-settings')
+      .map(([, opts]) => opts?.body);
+
+  /** Let the debounce run out. Fake timers go on after mounting, so `waitFor` still polls. */
+  async function settle() {
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(AUTOSAVE_MS);
+    });
+  }
+
+  function savedAt(bpm: number): InitialPattern {
+    return {
+      id: 'cbrk00000000000000000001',
+      title: 'Saved',
+      payload: sharePayloadSchema.parse(JSON.parse(atob(codeFor('Saved', bpm)))),
+      mine: true,
+    };
+  }
+
+  it('starts from the settings the page read, not the defaults', async () => {
+    const { result } = await mount(undefined, {
+      settings: { ...DEFAULT_STUDIO_SETTINGS, kit: 'liveroom', countIn: 2, startStyle: 'bossa' },
+    });
+    expect(result.current.kit).toBe('liveroom');
+    expect(result.current.countIn).toBe(2);
+    // a pattern you arrive to is written in your starting style
+    expect(result.current.patterns.A?.style).toBe('bossa');
+  });
+
+  it('sends a burst of changes as one PATCH, after the last', async () => {
+    const { result } = await mount();
+    vi.useFakeTimers();
+    act(() => result.current.setDensity(10));
+    act(() => result.current.setDensity(20));
+    act(() => result.current.setCountIn(2));
+    act(() => result.current.setParam('k', 'pitch', 0.5));
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(AUTOSAVE_MS - 1);
+    });
+    expect(patches()).toEqual([]);
+    await settle();
+    // the tuning is kept against the kit by name, merged into what it had
+    expect(patches()).toEqual([
+      { density: 20, countIn: 2, sound: { studio70: { k: { pitch: 0.5 } } } },
+    ]);
+  });
+
+  it('sends nothing for opening a pattern — only a choice is a setting', async () => {
+    const { result } = await mount();
+    vi.useFakeTimers();
+    act(() => result.current.loadLibraryEntry('entry-0'));
+    act(() => {
+      result.current.loadCode(codeFor('Pasted', 140));
+    });
+    await settle();
+    expect(patches()).toEqual([]);
+  });
+
+  it('on a new pattern, changing the style moves your starting style, meter and tempo', async () => {
+    const { result } = await mount();
+    vi.useFakeTimers();
+    act(() => result.current.setStyle('jazzballad'));
+    await settle();
+    const [lo, hi] = STYLES.jazzballad.bpm;
+    expect(patches()).toEqual([
+      expect.objectContaining({
+        startStyle: 'jazzballad',
+        startMeter: '12/8',
+        startBpm: Math.round((lo + hi) / 2),
+        // the style brings its own kit, which is the kit you are now playing
+        kit: STYLES.jazzballad.kit,
+      }),
+    ]);
+  });
+
+  it('on a new pattern, changing the length and meter moves them too', async () => {
+    const { result } = await mount();
+    vi.useFakeTimers();
+    act(() => result.current.setBars(4));
+    act(() => result.current.setMeter('7/8'));
+    await settle();
+    expect(patches()).toEqual([{ startBars: 4, startMeter: '7/8', userMeter: '7/8' }]);
+  });
+
+  it('changing the tempo of a saved pattern sends nothing and leaves the starting tempo alone', async () => {
+    const { result } = await mount(savedAt(88), { stageSaved: () => true });
+    vi.useFakeTimers();
+    act(() => result.current.setBpm(120));
+    expect(result.current.bpm).toBe(120);
+    await settle();
+    expect(patches()).toEqual([]);
+    // New pattern opens at the starting tempo, not the saved pattern's
+    act(() => result.current.newBreak());
+    expect(result.current.bpm).toBe(DEFAULT_STUDIO_SETTINGS.startBpm);
+  });
+
+  it('after opening a saved pattern at another tempo, New pattern opens at your starting values', async () => {
+    const { result } = await mount(undefined, {
+      settings: { ...DEFAULT_STUDIO_SETTINGS, startStyle: 'bossa', startBpm: 132, startBars: 1 },
+    });
+    act(() => {
+      result.current.loadPayload(savedAt(88).payload, 'Saved');
+    });
+    expect(result.current.bpm).toBe(88);
+    expect(result.current.style).toBe('funk');
+
+    act(() => result.current.newBreak());
+    expect(result.current.bpm).toBe(132);
+    expect(result.current.style).toBe('bossa');
+    expect(result.current.patterns.A?.style).toBe('bossa');
+    expect(result.current.patterns.A?.bars).toHaveLength(1);
+  });
+
+  it('a style picked while looking at a saved pattern is what New writes in, without moving the starting style', async () => {
+    const { result } = await mount(savedAt(88), { stageSaved: () => true });
+    vi.useFakeTimers();
+    act(() => result.current.setStyle('bossa'));
+    act(() => result.current.newBreak());
+    expect(result.current.patterns.A?.style).toBe('bossa');
+    await settle();
+    expect(patches().some((b) => b && typeof b === 'object' && 'startStyle' in b)).toBe(false);
+  });
+
+  it('New uses up a style picked on a saved pattern, and the next New is your starting style again', async () => {
+    const { result } = await mount(savedAt(88), { stageSaved: () => true });
+    act(() => result.current.setStyle('bossa'));
+    act(() => result.current.newBreak());
+    expect(result.current.patterns.A?.style).toBe('bossa');
+    act(() => result.current.newBreak());
+    expect(result.current.patterns.A?.style).toBe(DEFAULT_STUDIO_SETTINGS.startStyle);
+  });
+
+  it('picking again on a new pattern drops the pick made on a saved one', async () => {
+    let saved = true;
+    const { result } = await mount(savedAt(88), { stageSaved: () => saved });
+    act(() => result.current.setStyle('bossa'));
+    act(() => result.current.setBars(4));
+    // the stage becomes a new pattern without New (a pasted code, say)
+    saved = false;
+    act(() => result.current.setStyle('jazzballad'));
+    act(() => result.current.newBreak());
+    // the style you picked on the new pattern, not the one from before it
+    expect(result.current.patterns.A?.style).toBe('jazzballad');
+    // the length picked on the saved pattern was not picked again, so it still counts
+    expect(result.current.patterns.A?.bars).toHaveLength(4);
+  });
+
+  it('sends tuning a kit at a time, and a reset as that kit with nothing in it', async () => {
+    const { result } = await mount(undefined, {
+      settings: { ...DEFAULT_STUDIO_SETTINGS, sound: { liveroom: { k: { rate: 1.1 } } } },
+    });
+    vi.useFakeTimers();
+    act(() => result.current.setParam('k', 'pitch', 0.5));
+    await settle();
+    act(() => result.current.resetKit());
+    await settle();
+    // never the other kit's tuning, which another device may have changed since
+    expect(patches()).toEqual([
+      { sound: { studio70: { k: { pitch: 0.5 } } } },
+      { sound: { studio70: {} } },
+    ]);
+    expect(result.current.kitTuned).toBe(false);
+  });
+
+  it('a new section is written with the pattern on the stage, not the starting values', async () => {
+    const { result } = await mount(undefined, {
+      settings: { ...DEFAULT_STUDIO_SETTINGS, startStyle: 'bossa' },
+    });
+    act(() => {
+      result.current.loadCode(codeFor('Pasted'));
+    });
+    act(() => result.current.newBreak('B'));
+    expect(result.current.patterns.B?.style).toBe('funk');
+    expect(result.current.bpm).toBe(101);
+  });
+
+  it('keeps the layer tempo match through a reload of an unsaved pattern', async () => {
+    const options = { settings: { ...DEFAULT_STUDIO_SETTINGS, matchTempo: true } };
+    const first = await mount(undefined, options);
+    act(() => first.result.current.setLevel(5));
+    act(() => first.result.current.setBpm(100));
+    act(() => first.result.current.setLevel(1));
+    expect(first.result.current.bpm).toBe(68);
+    // what the document keeps for a pattern that was never saved
+    clearScratch(localStorage);
+    writeScratch(localStorage, first.result.current.payload()!);
+    first.unmount();
+
+    const { result } = await mount(undefined, options);
+    expect(readScratch(localStorage)).not.toBeNull();
+    expect(result.current.level).toBe(1);
+    expect(result.current.bpm).toBe(68);
+    // the break's own tempo came back with it: L5 is where it was written
+    act(() => result.current.setLevel(5));
+    expect(result.current.bpm).toBe(100);
+  });
+
+  it('keeps nothing of the pattern or your settings in the browser', async () => {
+    const { result } = await mount();
+    act(() => result.current.setBpm(120));
+    act(() => result.current.setStyle('bossa'));
+    act(() => result.current.setDensity(12));
+    act(() => result.current.setKit('liveroom'));
+    act(() => result.current.setLevel(2));
+    const keys = Object.keys(localStorage);
+    expect(keys.filter((k) => k !== 'bb.scratch' && k !== 'bb.view' && k !== 'bb.size')).toEqual(
+      []
+    );
   });
 });

@@ -1,6 +1,5 @@
-import { z } from 'zod';
-
-import { type SharePayload, sharePayloadSchema } from '@/lib/app/breaks/schema';
+import { SCRATCH } from '@/lib/app/breaks/browser-keys';
+import { type SharePayload } from '@/lib/app/breaks/schema';
 
 /**
  * The scratch pattern — the one on the stage that has never been saved.
@@ -16,9 +15,7 @@ import { type SharePayload, sharePayloadSchema } from '@/lib/app/breaks/schema';
  * that fails it is treated as no scratch at all.
  */
 
-const KEY = 'bb.scratch';
-
-const stored = z.object({ payload: sharePayloadSchema, at: z.number() });
+const { key: KEY, schema: stored } = SCRATCH;
 
 /** The slice of `Storage` this needs — injectable so it tests without a DOM. */
 export type ScratchStore = Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;

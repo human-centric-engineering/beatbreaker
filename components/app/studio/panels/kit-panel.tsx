@@ -3,6 +3,7 @@
 import { SampleSlots, Slider, VOICE_HINTS } from '@/components/app/studio/panels/controls';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import {
+  MASTER_PARAM_DEFS,
   SYNTH_ONLY,
   VOICE_KEYS,
   VOICE_LABEL,
@@ -12,6 +13,9 @@ import {
   paramDefs,
 } from '@/lib/app/breaks/kit';
 import { cn } from '@/lib/utils';
+
+/** The master chain's ranges, shared with the settings schema so a saved override is one these sliders can show. */
+const MASTER = Object.fromEntries(MASTER_PARAM_DEFS.map((d) => [d.key, d]));
 
 export function KitPanel() {
   const c = useStudio();
@@ -68,23 +72,25 @@ export function KitPanel() {
             label="Room"
             value={Math.round((c.sound.master.room ?? 0) * 100)}
             onChange={(n) => c.setParam('master', 'room', n / 100)}
+            min={Math.round(MASTER.room.min * 100)}
+            max={Math.round(MASTER.room.max * 100)}
             suffix="%"
           />
           <Slider
             label="Drive"
             value={Math.round((c.sound.master.drive ?? 1) * 100)}
             onChange={(n) => c.setParam('master', 'drive', n / 100)}
-            min={100}
-            max={260}
+            min={Math.round(MASTER.drive.min * 100)}
+            max={Math.round(MASTER.drive.max * 100)}
             format={(n) => `${(n / 100).toFixed(2)}×`}
           />
           <Slider
             label="Top end"
             value={Math.round(c.sound.master.lp ?? 16000)}
             onChange={(n) => c.setParam('master', 'lp', n)}
-            min={2500}
-            max={18000}
-            step={100}
+            min={MASTER.lp.min}
+            max={MASTER.lp.max}
+            step={MASTER.lp.step}
             format={(n) => `${(n / 1000).toFixed(1)}k`}
             hint="Roll this off to get the dusty, sampled-off-vinyl sound."
           />

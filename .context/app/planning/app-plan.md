@@ -775,7 +775,7 @@ are read through a schema (D19). Phase 4 hands on the browser checks (Phase 5),
 H9 (Phase 4A), _Browse the community library_ and _Published_ (Phase 6),
 `Take` (D8, after launch).
 
-### Phase 4A — Your settings and your sounds · M
+### Phase 4A — Your settings and your sounds · L
 
 **Goal:** your Studio is the same on every device you sign in on (the kit you
 play, its tuning, how you like to practise), your own drum samples live in your
@@ -786,6 +786,11 @@ The app is not in production and has no users yet, so nothing here carries
 state over from the prototype. There are no old values to migrate, and
 `bb.favs` has no one to import it for.
 
+Ships as **two PRs** (decided 2026-09-26): **4A-i, your settings** (4A.1–4A.5,
+branch `phase-4a-your-settings`), then **4A-ii, your sounds** (4A.6–4A.9, cut
+from main once 4A-i has merged). Neither half needs the other to work; 4A-ii
+only adds your own kit keys to the list 4A.1's settings route accepts.
+
 1. **Where each setting lives (D19).** Three places, and each value in exactly
    one of them:
 
@@ -793,67 +798,103 @@ state over from the prototype. There are no old values to migrate, and
    | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
    | **The pattern** (in its `doc`, in the database)      | tempo, swing, layer, arrangement, and for each section its style, meter, lanes and notes                                                                                                                                                                                                                                                                        | It is part of the pattern. Opening the pattern restores it. A pattern that has never been saved keeps it in `bb.scratch`. |
    | **Your account** (`StudioSettings`, in the database) | kit and the kit you picked yourself (`kit`, `userKit`), voice tuning (`bb.sound`), sampled percussion on/off, count-in, tempo ceiling, layer tempo match, the generator's dials (density, ghosts, hats, feel, lanes mode and custom lanes, your own meter), notation guides, sticking, preview, and the starting style / meter / bars / tempo for a new pattern | It is about how you play, not about one device. Signing in on a phone brings it.                                          |
-   | **This browser** (`localStorage`)                    | chart size, view mode (chart / grid / both), the Patterns drawer's last tab, the open drawer, light/dark, and two short-lived hand-offs: `bb.scratch` (the unsaved pattern) and `bb.pendingLink` (a shared link held across sign-in)                                                                                                                            | It depends on the screen in front of you, or it only has to last a few minutes.                                           |
+   | **This browser** (`localStorage`)                    | chart size, view mode (chart / grid / both), the Patterns drawer's last tab, and two short-lived hand-offs: `bb.scratch` (the unsaved pattern) and `bb.pendingLink` (a shared link held across sign-in). Light/dark is Sunrise's own `theme` key and is left alone                                                                                              | It depends on the screen in front of you, or it only has to last a few minutes.                                           |
 
    The starting values for a new pattern are a setting only because they
    decide what _New pattern_ opens with. Once a pattern exists, its own
    document is the only record of its tempo and style. The console stops
-   keeping a second copy in `bb.bpm`, `bb.style` and the like.
+   keeping a second copy in `bb.bpm`, `bb.style`, `bb.meter`, `bb.bars`,
+   `bb.swing`, `bb.level`, `bb.arr` and `bb.baseBpm`.
 
-2. **Settings API.** `GET /api/v1/me/studio-settings` and `PATCH` (a partial
-   merge), held to `studioSettingsSchema`. That is one Zod schema with every
-   field bounded: tempo 50–300, tuning parameters in their engine ranges, kit
-   keys that exist in the catalogue or are yours. An unknown field is refused
-   on write. On read, a stored value that no longer parses falls back to its
-   default for that field only, and a log line says so. The Studio page reads
-   the row server-side and hands it to the console with the pattern, so there
-   is no flash of defaults. Changes are written back debounced, the same way
-   a pattern autosaves (4.5).
+   **What moves the starting values (D21).** Changing style, meter, bars or
+   tempo while the open pattern is new and unsaved updates them. Opening or
+   editing a saved pattern never does. So _New pattern_ opens the way you last
+   set one up, whatever you have opened since.
+
+2. **Settings API.** `GET /api/v1/studio-settings` and `PATCH` (a partial
+   merge), held to `studioSettingsSchema` in `lib/validations/`. The path sits
+   beside `/pins` and `/history`, which are yours without saying so, and out of
+   Sunrise's `/users/me/` folder. Every field is bounded:
+   - starting tempo and tempo ceiling 50–300, clamped to the meter's
+     `maxBpm` where they are used;
+   - `bb.sound` is keyed by kit, then by voice or `master`, then by parameter.
+     Each parameter is held to the widest range any engine gives it
+     (`PARAM_DEFS`, `DRIFT_PARAM_DEFS`, `USER_PARAM_DEFS`, the master
+     sliders), and `withTuning` clamps it to the kit's own engine when the
+     kit is used;
+   - `kit` and `userKit` must be a playable system kit or, after 4A-ii, one
+     of yours. The handler checks this against the catalogue, because a
+     static schema cannot.
+
+   An unknown field is refused on write. On read, a stored value that no
+   longer parses (or names a kit that has gone) falls back to its default for
+   that field only, and a log line says so. Both Studio pages read the row
+   server-side and hand it to the console with the pattern, so there is no
+   flash of defaults. Changes are written back debounced, the same way a
+   pattern autosaves (4.5).
 
 3. **What stays in the browser is read through a schema.** One wrapper,
    `useStoredSetting(key, schema, default)` in `lib/app/`, on top of Sunrise's
    `useLocalStorage`, which stays untouched. Any value that fails its schema
    is the default. Every key the app writes is listed with its schema in one
-   module, and that list is documented in `.context/app/shell.md`. This closes
-   H9's third item.
+   module, and that list is documented in `.context/app/settings.md`
+   (`shell.md` links to it). This closes H9's third item.
 
 4. **Your own samples, stored in your account (D20).**
-   - **Upload.** In the Sound drawer, one file per kit slot, as now. The
-     browser decodes the file, trims silence from the start, and sends it as
-     16-bit PCM WAV, mono, 44.1 kHz. Whatever format you picked (mp3, m4a,
-     ogg, wav), the server receives only one. The server does not trust the
-     browser: it reads the WAV header itself and refuses anything that is not
-     that format, is longer than 12 seconds, or is bigger than 1.5 MB (12 s
-     of that WAV is about 1.06 MB).
+   - **Upload.** In the Kit drawer (`KitPanel` / `SampleSlots`; the rename to
+     _Sound_ is Phase 5's call), one file per kit slot, as now. The browser
+     decodes the file, mixes it to mono, resamples it to 44.1 kHz, trims
+     silence from the start, and sends it as 16-bit PCM WAV. Whatever format
+     you picked (mp3, m4a, ogg, wav), the server receives only one. The
+     server does not trust the browser: it reads the WAV header itself and
+     refuses anything that is not that format, is longer than 12 seconds, or
+     is bigger than 1.5 MB (12 s of that WAV is about 1.06 MB). The body is
+     capped with `enforceContentLengthCap` before `formData()` is read.
    - **Limits.** 150 samples and 50 MB per account, checked on the server
      inside the same transaction that records the upload. Both are env
      settings, so production can move them without a release. Uploads get a
-     rate sub-cap of their own (`lib/app/rate-limit.ts`). The Sound drawer
-     shows how much of the allowance you have used.
+     per-flow cap of their own, called inside the handler and keyed on your
+     session, not Sunrise's `uploadLimiter` (10 per 15 minutes per IP is too
+     few to fill a 15-slot kit). The Kit drawer shows how much of the
+     allowance you have used.
    - **Where the audio goes.** Sunrise storage (`lib/storage`), under
-     `samples/<userId>/<sampleId>.wav`. In development that is the `local`
-     provider (`public/uploads/`), so nothing extra needs setting up. In
-     production it is a **private** S3-compatible bucket (S3 or R2; chosen in
-     Phase 8). The audio is served through an owner-checked route,
-     `GET /api/v1/samples/[id]/audio`, never a public URL. Your samples are
-     yours alone until Phase 6 decides whether a published pattern may carry
-     them.
+     `samples/<userId>/<sampleId>.wav`, always written with `public: false`.
+     In development that is the `local` provider's private directory
+     (`.storage/private/`, not `public/uploads/`, which Next serves to
+     anyone). In production it is a **private** S3-compatible bucket (S3 or
+     R2; chosen in Phase 8) with `S3_OBJECTS_PRIVATE_BY_DEFAULT=true`.
+     Vercel Blob cannot hold private objects and cannot back this. The
+     sample routes refuse with a 503 when the provider cannot keep an object
+     private or read it back, rather than store it in the open. The audio is
+     served through an owner-checked route, `GET /api/v1/samples/[id]/audio`,
+     which reads the bytes with `download()`, never through a public URL.
+     Your samples are yours alone until Phase 6 decides whether a published
+     pattern may carry them.
    - **What the database holds.** A `Sample` row for each file (name, slot,
      bytes, duration, storage key), and your kits as `Kit` rows with
-     `ownerId` set and `engine: 'user'`. The table and its `samples` column
-     were built for exactly this in Phase 2. More than one kit of your own is
-     fine. A pattern names its kit by key, as it does now.
-   - **Erasure and export.** Rows cascade from `User`. The files are removed
-     by an erasure cleanup hook (`cleanupExternal`, `deleteByPrefix`
-     `samples/<userId>/`), which is the same path avatars take. The export
-     lists each sample's name, slot, size and duration, and your kits.
+     `ownerId` set and `engine: 'user'`, each slot naming a `Sample` id. The
+     table and its `samples` column were built for this in Phase 2. More
+     than one kit of your own is fine. Your kits are read and written
+     through **`/api/v1/kits`**, not the catalogue: the catalogue is public,
+     cached for everyone, and rate-limited by IP, and must stay that way.
+     The Studio page adds your kits to the catalogue it hands the console,
+     per request. A pattern does not name a kit (only a style may), so your
+     kit is chosen by the `kit` setting. Its key is minted by the server
+     with a prefix no system kit may use, so it can never shadow one. The
+     seeded system `user` kit ("Nothing is uploaded") goes.
+   - **Erasure and export.** Rows cascade from `User`, by a hand-written FK
+     and a `db-drift.ts` probe, like every app table. The files are removed
+     by the app's first erasure cleanup hook (`cleanupExternal`,
+     `deleteByPrefix` `samples/<userId>/`), registered in `initApp()`.
+     Avatars do not take this path: core `eraseUser` hard-codes theirs. The
+     export lists each sample's name, slot, size and duration, and your kits.
    - **IndexedDB goes.** `user-kit.ts`'s browser store, and with it H9's
      second item, is replaced rather than validated.
 
 5. **Remove the `bb.favs` import (4.10).** It exists for prototype users,
    and there are none. The bulk `POST /api/v1/breaks` stays, because it is a
-   public capability of its own. The import hook, its prompt and the
-   _In this browser_ group go.
+   public capability of its own. The import hook, `favs.ts` and the
+   `bb.favs.importing` claim go.
 
 **Done when:** change the kit, a voice's tuning and the count-in on a laptop,
 sign in on a phone, and all three are there; a hand-edited `bb.size` of
@@ -865,18 +906,74 @@ Another account cannot fetch your sample's audio by its id. Erasing the
 account removes the rows and the files. The export lists the samples. No
 `useLocalStorage` call is left in `components/app/` outside the wrapper.
 
-Tasks, in order, API first:
+**Reconciled against the tree, 2026-09-26 (branch `phase-4a-your-settings`).**
+What is already there: 27 settings in the console hook, each a
+`useLocalStorage` call that parses without checking (`use-break-console.ts`),
+and one more in the Patterns drawer, which already validates its tab;
+`bb.scratch` and `bb.pendingLink`, already read through Zod; the `Kit` table
+with `ownerId`, `engine: 'user'` and a `samples` column, and a `kits` export
+section; Sunrise storage with private objects and `download()` on the local and
+S3 providers; an erasure hook registry with nothing registered in it.
 
-| #    | Task                                                                                                                                                                                                                                                      | Done when                                                                                                                                                                                       |
-| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 4A.1 | `StudioSettings` table, `studioSettingsSchema`, `GET`/`PATCH /api/v1/me/studio-settings`; export section, cascade                                                                                                                                         | Route tests: partial merge; unknown field refused; out-of-range value refused; a stored value that no longer parses reads as its default and the rest of the row survives; export lists the row |
-| 4A.2 | The console reads account settings from the server (handed in with the pattern) and writes them back debounced; `bb.*` keys for those settings removed                                                                                                    | Studio test: settings arrive with the page, one PATCH after a burst of changes, none for a pattern-only change; a new pattern opens with the account's starting values                          |
-| 4A.3 | `useStoredSetting` and the key list; the browser-only keys moved onto it                                                                                                                                                                                  | Hook test: bad JSON and a value that fails its schema both read as the default; no `useLocalStorage` in `components/app/` outside the wrapper (a grep test)                                     |
-| 4A.4 | `Sample` table; `POST /api/v1/samples` (WAV header parse, 12 s, 1.5 MB, per-account count and bytes checked in the transaction), `GET` list with usage, `DELETE`, `GET …/[id]/audio` owner-checked; upload sub-cap; erasure hook; export section          | Route tests for each refusal, quota at the boundary, someone else's id → 404, delete removes the file; erasure test removes rows and calls the prefix delete                                    |
-| 4A.5 | User kits as `Kit` rows (`ownerId`, `engine: 'user'`) with `POST`, `PATCH` (rename, slot → sample) and `DELETE` on `/api/v1/catalogue/kits`, owner-scoped. This brings §10's user write endpoints forward for kits only; styles and libraries stay in §10 | Route tests: create a kit, assign two samples, list shows it with sample URLs; another user cannot see it                                                                                       |
-| 4A.6 | Sound drawer: upload (decode → trim → WAV in the browser), usage meter, your kits; IndexedDB store removed                                                                                                                                                | Component test: an mp3 goes up as WAV; refusal messages shown; usage updates; `user-kit.ts` store gone                                                                                          |
-| 4A.7 | Remove the `bb.favs` import                                                                                                                                                                                                                               | No reference to `bb.favs` outside the CHANGELOG; the bulk POST's tests still pass                                                                                                               |
-| 4A.8 | Docs: `.context/app/settings.md` (the three places, the key list), `.context/app/samples.md` (limits, storage, erasure), CHANGELOG                                                                                                                        | Docs name every new table, route, env setting and key                                                                                                                                           |
+Where the plan did not match the code, the items above now say what the code
+bears out:
+
+- **Starting values are the live console state.** `bb.style`, `bb.meter`,
+  `bb.bars` and `bb.bpm` are overwritten by every opened pattern and read by
+  the generator. 4A.2 splits them in two; it does not just move keys. Four
+  more keys copy the document (`bb.swing`, `bb.level`, `bb.arr`) or derive
+  from it (`bb.baseBpm`) and were not named.
+- **The open drawer is not stored.** It is component state plus a one-shot
+  `?drawer=` link. It stays that way; listing it as a browser key would have
+  been new behaviour.
+- **A pattern does not name its kit.** Only a style can, so the kit is purely
+  a setting.
+- **`bb.sound` depends on the kit's engine**, and includes a `master`
+  pseudo-voice. Tempo is 50–190 in simple meters and 50–300 in compound ones.
+  Item 2 bounds both accordingly.
+- **The `/api/v1/me/` path does not exist.** Sunrise uses `/users/me/`, which
+  is core's folder. The route is `/api/v1/studio-settings`.
+- **Dev storage is `.storage/private/`, not `public/uploads/`.** The latter is
+  world-readable. The local provider also exists only in development, so
+  route tests mock storage.
+- **Avatars are not an erasure hook.** Samples will be the first app hook.
+- **`lib/app/rate-limit.ts` cannot express an upload cap.** Its rules match a
+  path with no method, and Sunrise's `uploadLimiter` is 10 per 15 minutes per
+  IP. The cap is a session-keyed per-flow limiter in the handler. Separately,
+  the catalogue rule's comment says GET only, but it matches every method.
+  That does not matter while the catalogue has no user writes, which is
+  another reason 4A.7 keeps them out.
+- **User kits cannot live on `/api/v1/catalogue/kits`.** Its responses are
+  `Cache-Control: public`, its reads are memoised per process and filtered to
+  `visibility: 'system'`, and nothing about it is owner-scoped. Mixing your
+  kits in would leak them through shared caches.
+- **The browser has no WAV encoder or silence trim.** `onsetOf` finds an
+  offset for pack samples; it does not trim. The server has no WAV parser
+  (`silent-wav.ts` only writes one). Both are new code.
+- **Cascade needs a hand-written FK and a drift probe,** not only a Prisma
+  relation.
+- **The `bb.favs` import is half gone.** There is no prompt, and the _In this
+  browser_ group went in Phase 4. The hook, `favs.ts`, the
+  `bb.favs.importing` claim, their tests and three comments remain.
+
+Tasks, in order, API first. **4A-i — your settings:**
+
+| #    | Task                                                                                                                                                                                                                                                                                                                                                           | Done when                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 4A.1 | `StudioSettings` table (hand-written FK, cascade, drift probe); `studioSettingsSchema`; a data layer that reads the row with per-field fallback; `GET`/`PATCH /api/v1/studio-settings`, with the kit keys checked against the catalogue; export section                                                                                                        | Route tests: no row reads as all defaults; partial merge keeps the other fields; an unknown field, an out-of-range tempo, an out-of-range tuning value and a kit key that is not in the catalogue are each refused; a stored field that no longer parses reads as its default, the rest of the row survives, and one log line names the field; export lists the row; the drift probe covers the FK                       |
+| 4A.2 | Both Studio pages read the row and hand it to the console. The console keeps account settings in state seeded from it and writes them back debounced. Live style/meter/bars/tempo split from the starting values (D21). `bb.*` keys for account settings and for pattern fields removed; `bb.baseBpm` derived when a pattern opens, or carried in `bb.scratch` | Page tests: `/studio` and `/studio/[id]` pass the settings in. Console tests: a burst of changes sends one PATCH; changing tempo in a saved pattern sends none and leaves the starting tempo alone; changing the style of a new pattern patches the starting style; after opening a saved pattern at another tempo, _New pattern_ opens at the starting tempo; layer tempo match survives a reload of an unsaved pattern |
+| 4A.3 | `useStoredSetting` and the key module (`bb.size` 0.7–1.7, `bb.view`, `bb.patternsTab`, `bb.scratch`, `bb.pendingLink`); the browser keys moved onto it                                                                                                                                                                                                         | Hook tests: bad JSON, a value of the wrong type (`"huge"`) and an out-of-range size each read as the default. A grep test: no `useLocalStorage` in `components/app/` outside the wrapper, and every `bb.` key written in `components/app/` or `lib/app/` is in the key module                                                                                                                                            |
+| 4A.4 | Remove the `bb.favs` import: `use-favs-import.ts`, `favs.ts`, the `bb.favs.importing` claim, their tests; reword the comments that point at it (`MAX_BULK_BREAKS`, the bulk POST, the bulk test's case name); docs say it went                                                                                                                                 | No `bb.favs` in `app/`, `components/`, `lib/` or `tests/`; the bulk POST's tests pass                                                                                                                                                                                                                                                                                                                                    |
+| 4A.5 | Docs: `.context/app/settings.md` (the three places, D21, the key module, the route), `shell.md` pointing at it; CHANGELOG                                                                                                                                                                                                                                      | The doc names the table, the route, every account field and every browser key; nothing in `.context/app/` still describes `bb.bpm` or `bb.style` as the console's memory                                                                                                                                                                                                                                                 |
+
+**4A-ii — your sounds:**
+
+| #    | Task                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Done when                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 4A.6 | A server WAV parser (RIFF/WAVE, PCM, mono, 16-bit, 44.1 kHz, duration from the data chunk), pure and unit-tested                                                                                                                                                                                                                                                                                                                                                                            | Unit tests: a valid file gives its duration; stereo, 48 kHz, 24-bit, float, a missing data chunk, a truncated header and a text file each give a distinct refusal                                                                                                                                                                                                                                                                         |
+| 4A.7 | `Sample` table (FK, cascade, probe, index `userId`). `POST /api/v1/samples` (length cap, parse, 12 s, 1.5 MB, count and bytes checked in the transaction, `public: false` upload), `GET` list with usage, `DELETE` (removes the file and clears the slot in your kits), `GET …/[id]/audio` (owner-checked, `download()`, private cache). Session-keyed upload cap; env limits; 503 when storage cannot keep it private; erasure hook in `initApp()`; export section                         | Route tests: each refusal carries its reason; the 150th sample is accepted and the 151st refused; an upload that would pass 50 MB is refused; a failed storage write leaves no row and a refused quota leaves no file; someone else's id is 404 on audio and on delete; delete removes the file; a provider without private objects gives 503. Erasure test: the hook is registered and calls the prefix delete. Export lists the samples |
+| 4A.8 | Your kits: `GET`/`POST /api/v1/kits`, `PATCH`/`DELETE /api/v1/kits/[id]` (rename; slot → one of your samples, or empty), owner-scoped; slot keys held to `SLOTS`; server-minted keys under a reserved prefix. The Studio page adds your kits to the catalogue it passes in; the catalogue route and its cache untouched. The settings route accepts your kit keys. The system `user` kit leaves the seed                                                                                    | Route tests: create a kit, assign two samples, the list shows it with each slot's audio URL; another user gets 404 on read, rename and delete; assigning someone else's sample is refused. The catalogue response has no user rows. A seed test: no system key uses the reserved prefix. Deleting the kit your settings name makes the setting read as its default                                                                        |
+| 4A.9 | Browser: `encodeWav` (decode → mono → 44.1 kHz via `OfflineAudioContext` → trim leading silence → PCM16); a sample source that plays your kit from `/api/v1/samples/[id]/audio`, replacing `UserSource`; the Kit drawer uploads to your account, shows refusals and the usage meter, and lists your kits; `user-kit.ts` and its IndexedDB store removed; "Nothing is uploaded" copy gone. Docs: `.context/app/samples.md` (limits, storage, the Phase 8 bucket setting, erasure), CHANGELOG | Unit tests: the encoder's output is mono, 16-bit, 44.1 kHz, and its leading silence is gone. Component tests: an mp3 goes up as WAV; a server refusal shows its message; usage updates after an upload and a delete. No `indexedDB` in `lib/app/`. By hand: upload a kick and a snare on a laptop, and the phone plays them                                                                                                               |
 
 ### Phase 5 — Ergonomic review · M
 
@@ -1039,7 +1136,7 @@ of the Studio fully working.
 - **Production**: hosting per `.context/architecture/` and
   `hosting-requirements.md`; Postgres with backups and a tested restore; env
   audit; transactional email domain verified (signup verification and password
-  reset must arrive); a private S3-compatible bucket for samples (D20), with the upload limits checked against real use; request-body
+  reset must arrive); a private S3-compatible bucket for samples (D20) with `S3_OBJECTS_PRIVATE_BY_DEFAULT=true` (Vercel Blob cannot hold private objects), with the upload limits checked against real use; request-body
   limit checked against photo uploads (Vercel's 4.5MB edge cap is below Sunrise's
   25MB server cap — downscale images client-side before sending).
 - **AI operations**: provider key, `AiProvider` row and default models via the
@@ -1365,11 +1462,13 @@ already cascade and already export.
 
 ### Decided — 2026-09-26
 
-| #   | Decision            | Outcome                                                                                                                                                                                                                                                                                                                                                                     |
-| --- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| D19 | Where settings live | **Three places, each value in one.** What belongs to a pattern is in its document. What is about how you play is in a `StudioSettings` row in your account, so it follows you across devices. What depends on the screen, or only has to last minutes, is in `localStorage`, read through a schema. Nothing is carried over from the prototype. Phase 4A.                   |
-| D20 | Your own samples    | **Uploaded to your account, not kept in the browser.** Sent as mono 16-bit WAV, at most 12 s and 1.5 MB each, 150 samples and 50 MB per account (env-configurable). Stored in Sunrise storage: the local provider in development, a private S3-compatible bucket in production, served only through an owner-checked route. Private until Phase 6 says otherwise. Phase 4A. |
-| —   | `bb.favs` import    | **Removed.** It was for prototype users and there are none. The bulk create stays. Phase 4A.                                                                                                                                                                                                                                                                                |
+| #   | Decision                                         | Outcome                                                                                                                                                                                                                                                                                                                                                                     |
+| --- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D19 | Where settings live                              | **Three places, each value in one.** What belongs to a pattern is in its document. What is about how you play is in a `StudioSettings` row in your account, so it follows you across devices. What depends on the screen, or only has to last minutes, is in `localStorage`, read through a schema. Nothing is carried over from the prototype. Phase 4A.                   |
+| D20 | Your own samples                                 | **Uploaded to your account, not kept in the browser.** Sent as mono 16-bit WAV, at most 12 s and 1.5 MB each, 150 samples and 50 MB per account (env-configurable). Stored in Sunrise storage: the local provider in development, a private S3-compatible bucket in production, served only through an owner-checked route. Private until Phase 6 says otherwise. Phase 4A. |
+| —   | `bb.favs` import                                 | **Removed.** It was for prototype users and there are none. The bulk create stays. Phase 4A.                                                                                                                                                                                                                                                                                |
+| D21 | What moves the starting values for a new pattern | **Your choices on a new, unsaved pattern.** Changing its style, meter, bars or tempo updates the starting values in your settings; opening or editing a saved pattern never does. Phase 4A.                                                                                                                                                                                 |
+| —   | How Phase 4A ships                               | **Two PRs:** 4A-i your settings (4A.1–4A.5), then 4A-ii your sounds (4A.6–4A.9). Resized from M to L once reconciled.                                                                                                                                                                                                                                                       |
 
 ### Still open
 
