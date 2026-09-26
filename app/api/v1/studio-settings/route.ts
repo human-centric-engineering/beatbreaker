@@ -5,7 +5,8 @@
  *       never set one. A stored value that no longer parses, or names a kit or
  *       style the catalogue no longer has, reads as its default.
  * PATCH /api/v1/studio-settings — any subset of the fields; each one given
- *       replaces the stored value, and the rest are left alone. 200 with the
+ *       replaces the stored value, and the rest are left alone. Tuning
+ *       (`sound`) merges by kit: each kit given replaces that kit. 200 with the
  *       settings as they now stand. An unknown field, a value out of range, or
  *       a kit or style key the catalogue does not have is a 400 naming it, and
  *       nothing is written.

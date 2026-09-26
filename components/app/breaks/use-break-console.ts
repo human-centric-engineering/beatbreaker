@@ -396,6 +396,8 @@ export function useBreakConsole(
    * _New pattern_ opens with is your starting values, whatever you have opened
    * since — except for anything you picked for the next one while looking at
    * something saved, which moved the pickers but not the starting values.
+   * _New pattern_ uses them up, and picking the same thing again on a new
+   * pattern (which moves the starting value) drops it.
    */
   const chosen = useRef<{ style?: string; meter?: string; bars?: number }>({});
 
@@ -659,6 +661,8 @@ export function useBreakConsole(
         meter: chosen.current.meter ?? settings.startMeter,
         bars: chosen.current.bars ?? settings.startBars,
       };
+      // used up: the pattern they were picked for is this one
+      chosen.current = {};
       const top = maxBpm(next.meter);
       const base = locks.bpm ? baseBpm : clamp(settings.startBpm, 50, top);
       const at = matchTempo ? Math.round(base * (LAYER_TEMPO[level] ?? 1)) : base;
@@ -867,8 +871,10 @@ export function useBreakConsole(
          the second half of this, picking the waltz once strands medium swing
          in 3/4 and the ballad's brushes on everything afterwards. */
       setMeterRaw(nextMeter);
-      if (settingUpNew()) update({ startStyle: s, startMeter: nextMeter });
-      else chosen.current = { ...chosen.current, style: s, meter: nextMeter };
+      if (settingUpNew()) {
+        update({ startStyle: s, startMeter: nextMeter });
+        chosen.current = { bars: chosen.current.bars };
+      } else chosen.current = { ...chosen.current, style: s, meter: nextMeter };
       /* `named.key` rather than `st.kit`: the same string, read off the row
          that was actually found, so there is nothing to assert non-null. */
       const named = st?.kit ? catalogue.kits[st.kit] : undefined;
@@ -886,8 +892,10 @@ export function useBreakConsole(
   const setMeter = useCallback(
     (m: string) => {
       setMeterRaw(m);
-      if (settingUpNew()) update({ userMeter: m, startMeter: m });
-      else {
+      if (settingUpNew()) {
+        update({ userMeter: m, startMeter: m });
+        chosen.current = { style: chosen.current.style, bars: chosen.current.bars };
+      } else {
         update({ userMeter: m });
         chosen.current = { ...chosen.current, meter: m };
       }
@@ -900,8 +908,10 @@ export function useBreakConsole(
   const setBars = useCallback(
     (n: number) => {
       setBarsRaw(n);
-      if (settingUpNew()) update({ startBars: n });
-      else chosen.current = { ...chosen.current, bars: n };
+      if (settingUpNew()) {
+        update({ startBars: n });
+        chosen.current = { style: chosen.current.style, meter: chosen.current.meter };
+      } else chosen.current = { ...chosen.current, bars: n };
     },
     [settingUpNew, update]
   );
@@ -1036,10 +1046,14 @@ export function useBreakConsole(
     [catalogue.kits, update]
   );
 
+  /* Tuning is sent a kit at a time — `sound` merges by kit — so a change
+     carries only the kit it touches, and another device's tuning of a
+     different kit is not written back over. A reset is the kit with no
+     overrides. */
   const setParam = useCallback(
     (v: string, key: string, value: number) => {
       update(({ sound: prev }) => ({
-        sound: { ...prev, [kit]: { ...prev[kit], [v]: { ...prev[kit]?.[v], [key]: value } } },
+        sound: { [kit]: { ...prev[kit], [v]: { ...prev[kit]?.[v], [key]: value } } },
       }));
     },
     [kit, update]
@@ -1050,18 +1064,14 @@ export function useBreakConsole(
       update(({ sound: prev }) => {
         const forKit = { ...prev[kit] };
         delete forKit[v];
-        return { sound: { ...prev, [kit]: forKit } };
+        return { sound: { [kit]: forKit } };
       });
     },
     [kit, update]
   );
 
   const resetKit = useCallback(() => {
-    update(({ sound: prev }) => {
-      const next = { ...prev };
-      delete next[kit];
-      return { sound: next };
-    });
+    update({ sound: { [kit]: {} } });
   }, [kit, update]);
 
   const setPercSamples = useCallback(

@@ -812,6 +812,47 @@ describe('your settings (D19, D21)', () => {
     expect(patches().some((b) => b && typeof b === 'object' && 'startStyle' in b)).toBe(false);
   });
 
+  it('New uses up a style picked on a saved pattern, and the next New is your starting style again', async () => {
+    const { result } = await mount(savedAt(88), { stageSaved: () => true });
+    act(() => result.current.setStyle('bossa'));
+    act(() => result.current.newBreak());
+    expect(result.current.patterns.A?.style).toBe('bossa');
+    act(() => result.current.newBreak());
+    expect(result.current.patterns.A?.style).toBe(DEFAULT_STUDIO_SETTINGS.startStyle);
+  });
+
+  it('picking again on a new pattern drops the pick made on a saved one', async () => {
+    let saved = true;
+    const { result } = await mount(savedAt(88), { stageSaved: () => saved });
+    act(() => result.current.setStyle('bossa'));
+    act(() => result.current.setBars(4));
+    // the stage becomes a new pattern without New (a pasted code, say)
+    saved = false;
+    act(() => result.current.setStyle('jazzballad'));
+    act(() => result.current.newBreak());
+    // the style you picked on the new pattern, not the one from before it
+    expect(result.current.patterns.A?.style).toBe('jazzballad');
+    // the length picked on the saved pattern was not picked again, so it still counts
+    expect(result.current.patterns.A?.bars).toHaveLength(4);
+  });
+
+  it('sends tuning a kit at a time, and a reset as that kit with nothing in it', async () => {
+    const { result } = await mount(undefined, {
+      settings: { ...DEFAULT_STUDIO_SETTINGS, sound: { liveroom: { k: { rate: 1.1 } } } },
+    });
+    vi.useFakeTimers();
+    act(() => result.current.setParam('k', 'pitch', 0.5));
+    await settle();
+    act(() => result.current.resetKit());
+    await settle();
+    // never the other kit's tuning, which another device may have changed since
+    expect(patches()).toEqual([
+      { sound: { studio70: { k: { pitch: 0.5 } } } },
+      { sound: { studio70: {} } },
+    ]);
+    expect(result.current.kitTuned).toBe(false);
+  });
+
   it('a new section is written with the pattern on the stage, not the starting values', async () => {
     const { result } = await mount(undefined, {
       settings: { ...DEFAULT_STUDIO_SETTINGS, startStyle: 'bossa' },

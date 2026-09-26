@@ -24,7 +24,7 @@ release process.
   match, the generator's dials, notation guides, sticking, preview, and the
   starting style / meter / bars / tempo for a new pattern. `GET` answers every
   field, the default where one was never set; `PATCH` merges any subset in one
-  statement. Every field is bounded, kit and style keys are checked against
+  statement, tuning by kit. Every field is bounded, kit and style keys are checked against
   the catalogue, and a stored field that no longer parses reads as its default
   without taking the rest of the row. The user FK is hand-written and
   drift-probed; the account export gains a `studioSettings` section. Both

@@ -59,10 +59,10 @@ default and is named in one `warn` log line; the rest of the row is unaffected.
 
 ### `/api/v1/studio-settings`
 
-| Method  | What                                                                                                                                                                                                                                                                                                                   |
-| ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GET`   | Every field, the default where you have never set one.                                                                                                                                                                                                                                                                 |
-| `PATCH` | Any subset; each field given replaces the stored one, the rest are left alone. One jsonb `\|\|` statement, so two devices patching different fields both land. 200 with the settings as they now stand. An unknown field, a value out of range or an unknown kit/style key is a 400 naming it, and nothing is written. |
+| Method  | What                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET`   | Every field, the default where you have never set one.                                                                                                                                                                                                                                                                                                                                                                                 |
+| `PATCH` | Any subset; each field given replaces the stored one, the rest are left alone. `sound` merges a level deeper: each kit given replaces that kit, the other kits stay, and a kit reset is sent as `{}`. One jsonb statement, so two devices patching different fields both land. 200 with the settings as they now stand. An unknown field, a value out of range or an unknown kit/style key is a 400 naming it, and nothing is written. |
 
 `withAuth`, scoped to the session user; the section rate limit from `proxy.ts`
 applies. It sits beside `/pins` and `/history`, outside Sunrise's `/users/me/`.
@@ -74,9 +74,19 @@ Both Studio pages read the row server-side (`readStudioSettings`) and pass it to
 not a flash of defaults. `useStudioSettings`
 (`components/app/breaks/use-studio-settings.ts`) holds the console's copy and
 writes changes back the way a pattern autosaves: one `PATCH` `AUTOSAVE_MS` after
-the last change, carrying only the fields changed; requests go one at a time; a
-dropped connection keeps what did not land and retries; anything waiting is sent
-with `keepalive` when the Studio unmounts or the page is hidden.
+the last change, carrying only the fields changed (for tuning, only the kits
+changed).
+
+- **One request at a time**, each taking what is waiting when its turn comes,
+  so an older request cannot land after a newer one.
+- **A failure keeps the change**: a dropped connection, a 5xx, a 429 or an
+  expired session puts back what did not land (unless a later request has
+  carried it since) and retries on `online` and every `RETRY_MS`. Only a 400
+  is dropped, and only the fields it names; the rest goes again at once.
+- **Leaving**: when the Studio unmounts or the page is hidden, anything
+  waiting is queued straight away with `keepalive`. On `pagehide` it goes at
+  once rather than behind a request still out — the one case where two
+  requests can overlap.
 
 ### What moves the starting values (D21)
 

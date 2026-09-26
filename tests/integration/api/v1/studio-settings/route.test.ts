@@ -53,12 +53,25 @@ function install() {
     return Promise.resolve(prefs ? { prefs } : null);
   }) as never);
 
-  /* `prefs || patch`: the patch's top-level keys replace the stored ones, the
-     rest stay. A tagged-template call passes the SQL's strings, then its bound
-     parameters in order — userId, then the patch as JSON. */
+  /* `prefs || patch`, with `sound` merged a level deeper: the patch's
+     top-level keys replace the stored ones, its kits replace the stored kits,
+     and the rest stay. What the statement really does was checked against
+     Postgres by hand; this models it. A tagged-template call passes the SQL's
+     strings, then its bound parameters in order — userId, then the patch as
+     JSON. */
   vi.mocked(prisma.$executeRaw).mockImplementation(((_sql: unknown, ...values: unknown[]) => {
     const [userId, json] = values as [string, string];
-    rows.set(userId, { ...rows.get(userId), ...(JSON.parse(json) as Record<string, unknown>) });
+    const stored = rows.get(userId) ?? {};
+    const patch = JSON.parse(json) as Record<string, unknown>;
+    const merged: Record<string, unknown> = { ...stored, ...patch };
+    if (patch.sound) {
+      const was = stored.sound;
+      merged.sound = {
+        ...(was && typeof was === 'object' ? was : {}),
+        ...(patch.sound as Record<string, unknown>),
+      };
+    }
+    rows.set(userId, merged);
     return Promise.resolve(1);
   }) as never);
 
@@ -225,12 +238,17 @@ describe('PATCH', () => {
     expect(JSON.parse(values[1] as string)).toEqual({ sticking: true });
   });
 
-  it('replaces a nested field whole — tuning is sent as the whole map', async () => {
-    await patch({ sound: { studio70: { k: { tune: 50 } }, brush: { s: { rate: 1.2 } } } });
+  it('merges tuning by kit — a kit sent replaces that kit, the others stay', async () => {
+    await patch({
+      sound: { studio70: { k: { tune: 50 }, s: { tune: 40 } }, brush: { s: { rate: 1.2 } } },
+    });
     await patch({ sound: { studio70: { k: { tune: 60 } } } });
 
     const { data } = await json(await read());
-    expect(data.sound).toEqual({ studio70: { k: { tune: 60 } } });
+    expect(data.sound).toEqual({ studio70: { k: { tune: 60 } }, brush: { s: { rate: 1.2 } } });
+    // the statement does the kit-level merge itself, not only the top-level `||`
+    const [strings] = vi.mocked(prisma.$executeRaw).mock.calls[1] as unknown[];
+    expect((strings as string[]).join('')).toContain(`-> 'sound'`);
   });
 
   it('refuses an unknown field, and writes nothing', async () => {

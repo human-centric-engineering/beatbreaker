@@ -23,8 +23,9 @@ import {
  * tightened bound never costs someone their tuning.
  *
  * **Written as a merge.** Each field in a patch replaces the stored one;
- * fields not in it are left alone. The merge happens in one statement, so two
- * devices saving different fields at the same moment both land.
+ * fields not in it are left alone, and tuning merges a level deeper, by kit.
+ * The merge happens in one statement, so two devices saving different fields
+ * at the same moment both land.
  */
 
 /** Which kit and style keys a setting may name: kits that play, and every style. */
@@ -92,15 +93,31 @@ export async function updateStudioSettings(
 
   /* `||` on jsonb replaces the top-level keys the patch has and keeps the
      rest. A read-modify-write in Prisma would lose one of two concurrent
-     patches; this cannot. `updatedAt` is set by hand because `@updatedAt` is
-     Prisma's, and this statement does not go through it. The tagged template
-     binds `userId` and the JSON as parameters; nothing is interpolated. */
+     patches; this cannot. `sound` goes one level deeper: the kits in the patch
+     replace the stored ones and the other kits stay, so tuning one kit on one
+     device does not put back another device's old tuning of a different kit.
+     A kit reset is sent as that kit with no overrides (`{}`). A stored `sound`
+     that is not an object starts again from empty.
+
+     `updatedAt` is set by hand because `@updatedAt` is Prisma's, and this
+     statement does not go through it. The tagged template binds `userId` and
+     the JSON as parameters; nothing is interpolated. */
   const json = JSON.stringify(patch);
   await prisma.$executeRaw`
     INSERT INTO "studio_settings" ("userId", "prefs", "updatedAt")
     VALUES (${userId}, ${json}::jsonb, NOW())
     ON CONFLICT ("userId") DO UPDATE
-      SET "prefs" = "studio_settings"."prefs" || EXCLUDED."prefs",
+      SET "prefs" = "studio_settings"."prefs" || EXCLUDED."prefs" || CASE
+            WHEN EXCLUDED."prefs" ? 'sound' THEN jsonb_build_object(
+              'sound',
+              CASE
+                WHEN jsonb_typeof("studio_settings"."prefs" -> 'sound') = 'object'
+                THEN "studio_settings"."prefs" -> 'sound'
+                ELSE '{}'::jsonb
+              END || (EXCLUDED."prefs" -> 'sound')
+            )
+            ELSE '{}'::jsonb
+          END,
           "updatedAt" = NOW()
   `;
 
