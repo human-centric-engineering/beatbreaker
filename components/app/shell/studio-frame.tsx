@@ -73,6 +73,11 @@ export function StudioFrame() {
   const toolsButton = useRef<HTMLButtonElement>(null);
   const lastTool = useRef<Tool>('gen');
   const [sheet, setSheet] = useState(false);
+  /* Read by the key handler, which is bound once per Studio, not per render. */
+  const sheetOpen = useRef(false);
+  useEffect(() => {
+    sheetOpen.current = sheet;
+  }, [sheet]);
 
   /* A drawer and a sheet are different components; nothing carries across when
      the window crosses the breakpoint. */
@@ -124,6 +129,18 @@ export function StudioFrame() {
       /* Anything you could be typing into takes every key: `b` has to stay a
          letter the moment you paste a break code. */
       if (el?.closest('input, textarea, select, [contenteditable="true"]')) return;
+
+      /* Nothing reaches the Studio behind a modal — the shortcuts sheet or the
+         unsaved-changes prompt — or from inside an ⓘ popover, where you are
+         reading, not playing. The drawers are dialogs too, but non-modal, and
+         the keys are meant to work while one is open. */
+      if (
+        sheetOpen.current ||
+        document.querySelector('[role="alertdialog"]') ||
+        el?.closest('[data-radix-popper-content-wrapper]')
+      ) {
+        return;
+      }
 
       /* A control that Space or Enter already activates takes only those. The
          rest of the shortcuts still work with a rail tab or Play focused, which

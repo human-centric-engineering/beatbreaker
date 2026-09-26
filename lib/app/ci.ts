@@ -161,7 +161,29 @@ export interface AppAlwaysRunTest {
  * ];
  * ```
  */
-export const appAlwaysRunTests: AppAlwaysRunTest[] = [];
+export const appAlwaysRunTests: AppAlwaysRunTest[] = [
+  {
+    path: 'tests/unit/components/app/shell/studio-names.test.ts',
+    reason:
+      'greps every `.tsx` under `components/app/` for the drawer names Phase 5 retired ' +
+      '("Break doctor", "Take it away"…). It imports only `tool-rail.tsx`, so a new panel ' +
+      'that brings one back selects nothing.',
+  },
+  {
+    path: 'tests/unit/lib/app/breaks/browser-keys.test.ts',
+    reason:
+      'greps `lib/app/` and `components/app/` for `useLocalStorage` and for `bb.` keys spelled ' +
+      'outside the key module (D19). A component adding a raw key imports neither the ' +
+      'wrapper nor the key module, so nothing selects the test.',
+  },
+  {
+    path: 'tests/unit/lib/app/breaks/no-content-imports.test.ts',
+    reason:
+      'greps `lib/app/`, `components/app/` and `app/` for imports of `prisma/seeds/app-beatbreaker/data/` and ' +
+      'the old compiled-in table names (D13). The file that re-adds such an import is, by ' +
+      'definition, not one this test imports.',
+  },
+];
 
 /**
  * One source file allowed to read `AiWorkflowExecution`, `AiConversation` or

@@ -243,4 +243,40 @@ describe('Studio shortcuts', () => {
     fireEvent.keyDown(document, { key: 'V' });
     expect(staves()).toBe(both);
   });
+
+  it('sends no key to the Studio behind the shortcuts sheet', async () => {
+    await mount();
+    const grid = () =>
+      [...document.querySelectorAll('.cell')].map((c) => c.getAttribute('data-on')).join('');
+    const before = grid();
+    const tempo = bpm();
+
+    fireEvent.keyDown(document, { key: '?', shiftKey: true });
+    await screen.findByRole('dialog', { name: 'Keyboard shortcuts' });
+    /* Pressed with the list up, these would change the break out of sight. */
+    fireEvent.keyDown(document, { key: 'n' });
+    fireEvent.keyDown(document, { key: ']' });
+    expect(grid()).toBe(before);
+    expect(bpm()).toBe(tempo);
+  });
+
+  it('sends no key to the Studio from inside an ⓘ popover', async () => {
+    const user = userEvent.setup();
+    await mount();
+    await user.click(
+      within(screen.getByRole('navigation', { name: 'Tools' })).getByRole('button', {
+        name: 'Practise',
+      })
+    );
+    await user.click(screen.getByRole('button', { name: 'About Mixer' }));
+    const text = await screen.findByText(/Mute a limb to play it yourself/);
+    expect(text.closest('[data-radix-popper-content-wrapper]')).toBeTruthy();
+
+    const tempo = bpm();
+    fireEvent.keyDown(text, { key: ']' });
+    expect(bpm()).toBe(tempo);
+    /* and the same key outside it still works */
+    fireEvent.keyDown(document.body, { key: ']' });
+    expect(bpm()).toBe(tempo + 2);
+  });
 });
