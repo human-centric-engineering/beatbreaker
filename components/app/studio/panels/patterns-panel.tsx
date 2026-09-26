@@ -6,9 +6,10 @@ import { PATTERNS_TABS, type PatternsTab } from '@/components/app/shell/studio-a
 import { PinButton, SHELF_LABEL } from '@/components/app/studio/pin-button';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { apiClient } from '@/lib/api/client';
+import { PATTERNS_TAB } from '@/lib/app/breaks/browser-keys';
 import { type CatalogueEntry, libraryGroups } from '@/lib/app/breaks/catalogue/types';
 import { DEFAULT_METER, METER_KEYS } from '@/lib/app/breaks/meter';
-import { useLocalStorage } from '@/lib/hooks/use-local-storage';
+import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import { logger } from '@/lib/logging';
 import { type SavedPatternRow, savedPatternListSchema } from '@/lib/validations/breaks';
 import { type PinTarget, type Shelf } from '@/lib/validations/pins';
@@ -31,9 +32,6 @@ import { type PinTarget, type Shelf } from '@/lib/validations/pins';
 const TABS = PATTERNS_TABS;
 type Tab = PatternsTab;
 
-/** Where the tab you were on is kept, per browser. */
-const TAB_KEY = 'bb.patternsTab';
-
 /**
  * Open the drawer on this tab next time it mounts — how a link to
  * `?drawer=patterns&tab=…` lands on the tab it names. Written where the panel
@@ -42,7 +40,7 @@ const TAB_KEY = 'bb.patternsTab';
  */
 export function rememberPatternsTab(tab: Tab): void {
   try {
-    window.localStorage.setItem(TAB_KEY, JSON.stringify(tab));
+    window.localStorage.setItem(PATTERNS_TAB.key, JSON.stringify(tab));
   } catch {
     // storage refused: the drawer opens on its usual tab instead
   }
@@ -62,10 +60,6 @@ const ALL_LIMIT = 100;
 const SEARCH_MS = 250;
 /** How many of the history show before "Show all". */
 const RECENT_SHOWN = 8;
-
-function isTab(value: unknown): value is Tab {
-  return typeof value === 'string' && (TABS as readonly string[]).includes(value);
-}
 
 function sameTarget(a: PinTarget | null, b: PinTarget): boolean {
   if (!a) return false;
@@ -478,13 +472,13 @@ export function PatternsPanel() {
   const { pins, history } = useStudio();
   /* The tab you were on, per browser — a convenience, so it is checked on the
      way out of storage and falls back rather than trusting what is there. */
-  const [stored, setStored] = useLocalStorage<string | null>(TAB_KEY, null);
+  const [stored, setStored] = useStoredSetting(PATTERNS_TAB);
   const fallback: Tab = pins.shelves.practising.length
     ? 'practising'
     : history.items.length
       ? 'recent'
       : 'libraries';
-  const tab: Tab = isTab(stored) ? stored : fallback;
+  const tab: Tab = stored ?? fallback;
 
   const count: Partial<Record<Tab, number>> = {
     practising: pins.shelves.practising.length,

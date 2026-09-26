@@ -22,6 +22,7 @@ import {
 } from '@/lib/app/breaks/critic';
 import { type DoctorMove, doctor } from '@/lib/app/breaks/doctor';
 import { deriveB } from '@/lib/app/breaks/generate';
+import { SIZE, SIZE_MAX, SIZE_MIN, VIEW, type VIEW_MODES } from '@/lib/app/breaks/browser-keys';
 import { DEFAULT_MIX, LANES, PERC_LANES, TOM_LANES } from '@/lib/app/breaks/lanes';
 
 import { reducePattern } from '@/lib/app/breaks/layers';
@@ -47,12 +48,12 @@ import {
   patternFromPacked,
 } from '@/lib/app/breaks/share';
 import { styleIn } from '@/lib/app/breaks/styles';
+import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import { percussionSource } from '@/lib/app/breaks/catalogue/types';
 import type { LaneKey, Pattern, ResolvedStyle } from '@/lib/app/breaks/types';
 import { type VoiceParams, kitEngine, kitIsPlayable, withTuning } from '@/lib/app/breaks/kit';
 import { useStudioSettings } from '@/components/app/breaks/use-studio-settings';
-import { useLocalStorage } from '@/lib/hooks/use-local-storage';
 import { logger } from '@/lib/logging';
 import { DEFAULT_STUDIO_SETTINGS, type StudioSettings } from '@/lib/validations/studio-settings';
 
@@ -69,7 +70,7 @@ import { DEFAULT_STUDIO_SETTINGS, type StudioSettings } from '@/lib/validations/
  * That is what lets you drop to L2 and back without losing anything.
  */
 
-export type ViewMode = 'A' | 'B' | 'both';
+export type ViewMode = (typeof VIEW_MODES)[number];
 
 /** Two undo steps' worth of both sections. */
 interface Snapshot {
@@ -368,7 +369,7 @@ export function useBreakConsole(
      A new pattern starts from your starting values (D21), and changing one of
      these while the pattern on the stage is new and unsaved moves them. */
   const [level, setLevel] = useState(3);
-  const [viewMode, setViewMode] = useLocalStorage<ViewMode>('bb.view', 'both');
+  const [viewMode, setViewMode] = useStoredSetting(VIEW);
   const [editing, setEditing] = useState<SectionLetter>('A');
 
   const [style, setStyleRaw] = useState(settings.startStyle);
@@ -411,7 +412,7 @@ export function useBreakConsole(
 
   const [voice, setVoice] = useState('h');
   const [midiPort, setMidiPort] = useState('');
-  const [size, setSizeRaw] = useLocalStorage('bb.size', 1);
+  const [size, setSizeRaw] = useStoredSetting(SIZE);
 
   const [click, setClick] = useState(false);
   const [clickSub, setClickSub] = useState(4);
@@ -431,7 +432,7 @@ export function useBreakConsole(
   const bpmCeiling = maxBpm(meter);
 
   const setSize = useCallback(
-    (n: number) => setSizeRaw(clamp(Math.round(n * 100) / 100, 0.7, 1.7)),
+    (n: number) => setSizeRaw(clamp(Math.round(n * 100) / 100, SIZE_MIN, SIZE_MAX)),
     [setSizeRaw]
   );
 

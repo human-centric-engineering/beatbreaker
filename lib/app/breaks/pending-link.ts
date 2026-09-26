@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { PENDING_LINK } from '@/lib/app/breaks/browser-keys';
 
 /**
  * A shared link that has to survive a trip through sign-in (H5).
@@ -18,9 +18,7 @@ import { z } from 'zod';
  * redirect must keep it working until then.
  */
 
-const KEY = 'bb.pendingLink';
-
-const stashed = z.object({ hash: z.string().startsWith('#b='), at: z.number() });
+const { key: KEY, schema: stashed } = PENDING_LINK;
 /** How long a stashed link stays good. */
 export const PENDING_LINK_TTL_MS = 60 * 60 * 1000;
 
