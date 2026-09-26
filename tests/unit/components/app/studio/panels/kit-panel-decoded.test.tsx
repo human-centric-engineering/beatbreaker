@@ -47,11 +47,17 @@ vi.mock('@/lib/app/breaks/audio/packs', () => {
   return { PackSource: FakePackSource };
 });
 
+/* What the fake source of your samples reports; four decoded, none given up on, by default. */
+const yours = vi.hoisted(() => ({ loaded: 4, failed: 0 }));
+
 vi.mock('@/lib/app/breaks/audio/your-samples', () => {
   class FakeYourSampleSource {
     constructor(_onChange?: () => void) {}
     count(): number {
-      return 4;
+      return yours.loaded;
+    }
+    failedCount(): number {
+      return yours.failed;
     }
     hit(): boolean {
       return false;
@@ -85,6 +91,8 @@ const renderPanel = () =>
 
 beforeEach(() => {
   localStorage.clear();
+  yours.loaded = 4;
+  yours.failed = 0;
 });
 
 describe('KitPanel with samples already decoded', () => {
@@ -108,6 +116,24 @@ describe('KitPanel with samples already decoded', () => {
     await user.selectOptions(kitPicker(), 'yours-a');
 
     expect(await screen.findByText('4 of your own samples loaded')).toBeTruthy();
+  });
+
+  it('says a sample would not load, rather than that it is still loading', async () => {
+    yours.loaded = 3;
+    yours.failed = 1;
+    const user = userEvent.setup();
+    renderPanel();
+
+    const kitPicker = () =>
+      within(screen.getByRole('heading', { name: 'Kit' }).closest('.card')!).getByLabelText('Kit');
+    await user.selectOptions(kitPicker(), 'yours-a');
+
+    expect(
+      await screen.findByText(
+        '3 of 4 of your samples loaded — 1 would not load and plays synthesised'
+      )
+    ).toBeTruthy();
+    expect(screen.queryByText(/Loading your samples/)).toBeNull();
   });
 
   it('shows the percussion source toggle once recordings exist, and flips its label', async () => {

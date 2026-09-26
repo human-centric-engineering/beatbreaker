@@ -58,6 +58,7 @@ const fakes = vi.hoisted(() => {
   }
   class FakeYours {
     count = vi.fn(() => 1);
+    failedCount = vi.fn(() => 2);
   }
   class FakeMidi {
     ctx: unknown = null;
@@ -542,6 +543,8 @@ describe('the kit', () => {
     );
     expect(audio.init).toHaveBeenCalled();
     expect(result.current.kitSlots).toBe(5);
+    // only your own kits have samples that can fail to load
+    expect(result.current.kitFailed).toBe(0);
     expect(result.current.percCount).toBe(9);
   });
 
@@ -550,6 +553,10 @@ describe('the kit', () => {
     act(() => result.current.setKit('yours-a'));
     await waitFor(() => expect(result.current.kitSlots).toBe(1));
     expect(fakes.made.yours.at(-1)?.count).toHaveBeenLastCalledWith(catalogue.kits['yours-a']);
+    expect(result.current.kitFailed).toBe(2);
+    expect(fakes.made.yours.at(-1)?.failedCount).toHaveBeenLastCalledWith(
+      catalogue.kits['yours-a']
+    );
   });
 
   it('keeps your tuning per kit, per voice, and resets it', async () => {

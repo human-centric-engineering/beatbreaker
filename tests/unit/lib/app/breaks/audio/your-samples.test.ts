@@ -13,7 +13,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { BreakAudio } from '@/lib/app/breaks/audio/engine';
-import { YourSampleSource } from '@/lib/app/breaks/audio/your-samples';
+import { RETRY_DELAYS_MS, YourSampleSource } from '@/lib/app/breaks/audio/your-samples';
 import type { ResolvedKit } from '@/lib/app/breaks/kit';
 import { yourKitToCatalogue } from '@/lib/app/breaks/samples/your-kit';
 import { testKit } from '@/tests/helpers/catalogue';
@@ -71,6 +71,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
+  vi.useRealTimers();
   vi.restoreAllMocks();
   vi.unstubAllGlobals();
 });
@@ -121,6 +122,85 @@ describe('load()', () => {
     expect(fetchMock).toHaveBeenCalledTimes(2);
     // the kick falls through to the synthesised voice
     expect(source.hit(audio, 0, 'k', 1)).toBe(false);
+    expect(source.failedCount(kit)).toBe(1);
+  });
+
+  it('tries a sample that failed for now again after a wait, and plays it once it lands', async () => {
+    vi.useFakeTimers();
+    const kit = kitWith({ k: KICK });
+    const { audio } = initEngine(kit);
+    fetchMock.mockResolvedValueOnce(new Response(null, { status: 503 }));
+    const onChange = vi.fn();
+    const source = new YourSampleSource(onChange);
+
+    await source.load(audio, kit);
+    expect(source.count(kit)).toBe(0);
+    // still on its way, not given up on
+    expect(source.failedCount(kit)).toBe(0);
+    // a kit change while it waits does not ask a second time
+    await source.load(audio, kit);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+
+    await vi.advanceTimersByTimeAsync(RETRY_DELAYS_MS[0]);
+
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(source.count(kit)).toBe(1);
+    expect(onChange).toHaveBeenCalledTimes(2);
+    expect(source.hit(audio, 0, 'k', 1)).toBe(true);
+    expect(loggerWarn).not.toHaveBeenCalled();
+  });
+
+  it('gives up on a sample whose connection keeps dropping once its retries are spent, and says so', async () => {
+    vi.useFakeTimers();
+    const kit = kitWith({ k: KICK });
+    const { audio } = initEngine(kit);
+    fetchMock.mockRejectedValue(new TypeError('Failed to fetch'));
+    const source = new YourSampleSource();
+
+    await source.load(audio, kit);
+    for (const delay of RETRY_DELAYS_MS) await vi.advanceTimersByTimeAsync(delay);
+
+    expect(fetchMock).toHaveBeenCalledTimes(1 + RETRY_DELAYS_MS.length);
+    expect(source.failedCount(kit)).toBe(1);
+    expect(loggerWarn).toHaveBeenCalledTimes(1);
+
+    await vi.advanceTimersByTimeAsync(60_000);
+    await source.load(audio, kit);
+    expect(fetchMock).toHaveBeenCalledTimes(1 + RETRY_DELAYS_MS.length);
+  });
+
+  it('retries a 429, but not a file that will not decode', async () => {
+    vi.useFakeTimers();
+    const kit = kitWith({ k: KICK, s: SNARE });
+    const { audio, ctx } = initEngine(kit);
+    fetchMock.mockImplementation(async (url: string) =>
+      url.includes(KICK) ? new Response(null, { status: 429 }) : new Response(new Uint8Array(8))
+    );
+    ctx.decodeAudioData.mockRejectedValueOnce(new DOMException('bad data', 'EncodingError'));
+    const source = new YourSampleSource();
+
+    await source.load(audio, kit);
+
+    // the snare did not decode: given up on at once
+    expect(source.failedCount(kit)).toBe(1);
+    await vi.advanceTimersByTimeAsync(RETRY_DELAYS_MS[0]);
+    const asked = fetchMock.mock.calls.map((c) => c[0]);
+    expect(asked.filter((u) => u.includes(KICK))).toHaveLength(2);
+    expect(asked.filter((u) => u.includes(SNARE))).toHaveLength(1);
+  });
+
+  it('does not retry for an engine that has been closed while it waited', async () => {
+    vi.useFakeTimers();
+    const kit = kitWith({ k: KICK });
+    const { audio } = initEngine(kit);
+    fetchMock.mockResolvedValueOnce(new Response(null, { status: 500 }));
+    const source = new YourSampleSource();
+
+    await source.load(audio, kit);
+    audio.close();
+    await vi.advanceTimersByTimeAsync(RETRY_DELAYS_MS[0]);
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
   it('asks for nothing on a kit that is not yours', async () => {

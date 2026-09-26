@@ -112,6 +112,12 @@ const ALLOWLIST: ReadonlyArray<{ file: string; calls: number; why: string }> = [
     why: 'pg_advisory_xact_lock keyed on the caller’s session userId, taken inside the upload transaction so two uploads from one person cannot both see room under the sample allowance. Locks, reads no rows; the count and sum that follow are Prisma queries scoped to that userId',
   },
   {
+    // FORK (BeatBreaker): your own kits (D20).
+    file: 'lib/app/breaks/samples/kits.ts',
+    calls: 1,
+    why: 'pg_advisory_xact_lock keyed on the caller’s session userId, taken inside each write to their kits so two creates cannot both see room under MAX_YOUR_KITS and two slot changes cannot each write back a column missing the other’s. Locks, reads no rows; the reads and writes that follow are Prisma queries scoped to that userId',
+  },
+  {
     // FORK (BeatBreaker): your Studio settings (D19).
     file: 'lib/app/breaks/saved/settings.ts',
     calls: 1,

@@ -43,9 +43,12 @@ export function KitPanel() {
     if (engine === 'user') {
       const filled = Object.keys(yourKit?.slots ?? {}).length;
       if (!filled) return 'No samples in this kit yet';
-      return c.kitSlots < filled
-        ? `Loading your samples… ${c.kitSlots} of ${filled}`
-        : `${filled} of your own samples loaded`;
+      if (c.kitSlots + c.kitFailed < filled)
+        return `Loading your samples… ${c.kitSlots} of ${filled}`;
+      if (c.kitFailed) {
+        return `${c.kitSlots} of ${filled} of your samples loaded — ${c.kitFailed} would not load and ${c.kitFailed === 1 ? 'plays' : 'play'} synthesised`;
+      }
+      return `${filled} of your own samples loaded`;
     }
     if (engine !== 'pack') return '';
     return c.kitSlots ? `${c.kitSlots} recorded lanes loaded` : 'Decoding the recordings…';

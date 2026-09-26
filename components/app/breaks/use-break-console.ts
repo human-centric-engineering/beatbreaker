@@ -161,6 +161,8 @@ export interface BreakConsole {
   kitTuned: boolean;
   /** How many of this kit's slots have decoded; 0 when it is not a sampled kit. */
   kitSlots: number;
+  /** How many of your kit's samples would not load; 0 for any other kit. */
+  kitFailed: number;
   /** Play the synthesised percussion voices instead of the recordings. */
   percSamples: boolean;
   setPercSamples: (b: boolean) => void;
@@ -931,10 +933,11 @@ export function useBreakConsole(
    * and a ref read during render is exactly the value React is entitled not to
    * re-run for. The sources call `bump` when they land; so does a kit change.
    */
-  const [samples, setSamples] = useState<{ kitSlots: number; percCount: number }>({
-    kitSlots: 0,
-    percCount: 0,
-  });
+  const [samples, setSamples] = useState<{
+    kitSlots: number;
+    kitFailed: number;
+    percCount: number;
+  }>({ kitSlots: 0, kitFailed: 0, percCount: 0 });
 
   const refreshSamples = useCallback(() => {
     const packs = packsRef.current;
@@ -942,8 +945,10 @@ export function useBreakConsole(
     if (!packs || !yours) return;
     const row = catalogue.kits[kitRef.current];
     const pack = row?.pack;
+    const user = kitEngine(row) === 'user';
     setSamples({
-      kitSlots: kitEngine(row) === 'user' ? yours.count(row) : pack ? packs.count(pack) : 0,
+      kitSlots: user ? yours.count(row) : pack ? packs.count(pack) : 0,
+      kitFailed: user ? yours.failedCount(row) : 0,
       percCount: packs.percCount(),
     });
   }, [catalogue.kits]);
@@ -1457,6 +1462,7 @@ export function useBreakConsole(
     resetKit,
     kitTuned,
     kitSlots: samples.kitSlots,
+    kitFailed: samples.kitFailed,
     percSamples,
     setPercSamples,
     percCount: samples.percCount,

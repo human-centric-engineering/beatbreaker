@@ -17,7 +17,13 @@ import { DELETE, GET as GET_ONE, PATCH } from '@/app/api/v1/kits/[id]/route';
 import { GET, POST } from '@/app/api/v1/kits/route';
 import { MAX_YOUR_KITS, YOUR_KIT_KEY_PREFIX } from '@/lib/app/breaks/samples/limits';
 import { mockAuthenticatedUser } from '@/tests/helpers/auth';
-import { db, resetYourSoundsDb, seedKit, seedSample } from '@/tests/helpers/your-sounds-db';
+import {
+  db,
+  fakePrisma,
+  resetYourSoundsDb,
+  seedKit,
+  seedSample,
+} from '@/tests/helpers/your-sounds-db';
 
 vi.mock('@/lib/auth/config', () => ({ auth: { api: { getSession: vi.fn() } } }));
 vi.mock('@/lib/db/client', async () => ({
@@ -169,6 +175,34 @@ describe('your kits', () => {
     const res = await create();
     expect(res.status).toBe(409);
     expect((await json<unknown>(res)).error?.code).toBe('KIT_LIMIT');
+  });
+
+  /* The fake runs a transaction straight through, so it cannot race two
+     requests; what it can show is that the lock comes before the read it
+     guards, inside the transaction, keyed on you. */
+  function lockedBefore(read: { mock: { invocationCallOrder: number[] } }): void {
+    expect(fakePrisma.$transaction).toHaveBeenCalledTimes(1);
+    const lock = vi.mocked(fakePrisma.$executeRaw);
+    const [strings, ...values] = lock.mock.calls[0] as unknown as [
+      TemplateStringsArray,
+      ...unknown[],
+    ];
+    expect(strings.join('?')).toContain('pg_advisory_xact_lock');
+    expect(values).toContain(USER_ID);
+    expect(lock.mock.invocationCallOrder[0]).toBeLessThan(read.mock.invocationCallOrder[0]);
+  }
+
+  it('counts your kits behind the per-person lock, so two creates cannot both see room', async () => {
+    expect((await create()).status).toBe(201);
+    lockedBefore(fakePrisma.kit.count);
+  });
+
+  it('reads the slots behind the per-person lock, so two changes cannot lose one', async () => {
+    const kick = seedSample(USER_ID);
+    const kit = seedKit(USER_ID);
+
+    expect((await patch(kit.id, { slots: { k: kick.id } })).status).toBe(200);
+    lockedBefore(fakePrisma.kit.findFirst);
   });
 
   it('reads your own kit, and 400s an id that is not one', async () => {

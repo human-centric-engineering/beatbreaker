@@ -25,7 +25,21 @@ import type { UpdateYourKit, YourKitView } from '@/lib/validations/samples';
  * a recorded kit uses (`files` holds the id). A kit's key is minted here under
  * {@link YOUR_KIT_KEY_PREFIX}, which no system kit may use, so the key the
  * `kit` setting stores can never shadow a system kit.
+ *
+ * **Writes to your kits queue behind a per-person advisory lock.** Creating a
+ * kit counts then inserts, and changing slots reads the column then writes it
+ * back; without the lock two requests at once (two tabs, an API client) could
+ * both see room for one more kit, or each write back a column missing the
+ * other's slot. Emptying a deleted sample's slots takes the same lock.
  */
+
+/** A namespace for this module's advisory locks, so they cannot meet another's. */
+const KITS_LOCK = 4_120_002;
+
+/** Held until `tx` ends. Keyed on the user id, so other people are not held up. */
+async function lockYourKits(tx: Prisma.TransactionClient, userId: string): Promise<void> {
+  await tx.$executeRaw`SELECT pg_advisory_xact_lock(${KITS_LOCK}::int, hashtext(${userId}))`;
+}
 
 const OWN = (userId: string) => ({ ownerId: userId, engine: 'user' }) as const;
 
@@ -102,24 +116,27 @@ export async function yourKitKeys(userId: string): Promise<Set<string>> {
 
 /** A new, empty kit. Refused once you have {@link MAX_YOUR_KITS}. */
 export async function createYourKit(userId: string, label: string): Promise<YourKitView> {
-  const count = await prisma.kit.count({ where: OWN(userId) });
-  if (count >= MAX_YOUR_KITS) {
-    throw new APIError(`You can keep ${MAX_YOUR_KITS} kits of your own`, 'KIT_LIMIT', 409);
-  }
-  const row = await prisma.kit.create({
-    data: {
-      ...OWN(userId),
-      /* 6 + 32 characters, inside the column's 40. Random rather than derived
-         from the id, which does not exist until the row does. */
-      key: `${YOUR_KIT_KEY_PREFIX}${crypto.randomUUID().replace(/-/g, '')}`,
-      label,
-      hint: 'Your own recordings. A slot you leave empty plays the synthesised voice.',
-      group: YOUR_KITS_GROUP,
-      params: kitParamsSchema.parse(YOUR_KIT_PARAMS),
-      samples: toSamplesColumn({}),
-      visibility: 'private',
-    },
-    select: KIT_SELECT,
+  const row = await prisma.$transaction(async (tx) => {
+    await lockYourKits(tx, userId);
+    const count = await tx.kit.count({ where: OWN(userId) });
+    if (count >= MAX_YOUR_KITS) {
+      throw new APIError(`You can keep ${MAX_YOUR_KITS} kits of your own`, 'KIT_LIMIT', 409);
+    }
+    return tx.kit.create({
+      data: {
+        ...OWN(userId),
+        /* 6 + 32 characters, inside the column's 40. Random rather than derived
+           from the id, which does not exist until the row does. */
+        key: `${YOUR_KIT_KEY_PREFIX}${crypto.randomUUID().replace(/-/g, '')}`,
+        label,
+        hint: 'Your own recordings. A slot you leave empty plays the synthesised voice.',
+        group: YOUR_KITS_GROUP,
+        params: kitParamsSchema.parse(YOUR_KIT_PARAMS),
+        samples: toSamplesColumn({}),
+        visibility: 'private',
+      },
+      select: KIT_SELECT,
+    });
   });
   return (await toViews(userId, [row]))[0];
 }
@@ -134,36 +151,41 @@ export async function updateYourKit(
   id: string,
   patch: UpdateYourKit
 ): Promise<YourKitView | null> {
-  const row = await prisma.kit.findFirst({ where: { id, ...OWN(userId) }, select: KIT_SELECT });
-  if (!row) return null;
+  const updated = await prisma.$transaction(async (tx) => {
+    /* Before the read, so the slots written back are the latest, and a sample
+       checked here cannot be deleted before this commits. */
+    await lockYourKits(tx, userId);
+    const row = await tx.kit.findFirst({ where: { id, ...OWN(userId) }, select: KIT_SELECT });
+    if (!row) return null;
 
-  const data: Prisma.KitUpdateInput = {};
-  if (patch.label !== undefined) data.label = patch.label;
+    const data: Prisma.KitUpdateInput = {};
+    if (patch.label !== undefined) data.label = patch.label;
 
-  if (patch.slots) {
-    const assigned = Object.entries(patch.slots).filter(
-      (e): e is [string, string] => typeof e[1] === 'string'
-    );
-    const ids = [...new Set(assigned.map(([, sampleId]) => sampleId))];
-    const found = ids.length
-      ? await prisma.sample.findMany({ where: { userId, id: { in: ids } }, select: { id: true } })
-      : [];
-    const mine = new Set(found.map((s) => s.id));
-    const errors = assigned
-      .filter(([, sampleId]) => !mine.has(sampleId))
-      .map(([slot]) => ({ path: `slots.${slot}`, message: 'Not one of your samples' }));
-    if (errors.length) throw new ValidationError('Invalid request body', { errors });
+    if (patch.slots) {
+      const assigned = Object.entries(patch.slots).filter(
+        (e): e is [string, string] => typeof e[1] === 'string'
+      );
+      const ids = [...new Set(assigned.map(([, sampleId]) => sampleId))];
+      const found = ids.length
+        ? await tx.sample.findMany({ where: { userId, id: { in: ids } }, select: { id: true } })
+        : [];
+      const mine = new Set(found.map((s) => s.id));
+      const errors = assigned
+        .filter(([, sampleId]) => !mine.has(sampleId))
+        .map(([slot]) => ({ path: `slots.${slot}`, message: 'Not one of your samples' }));
+      if (errors.length) throw new ValidationError('Invalid request body', { errors });
 
-    const slots = slotIds(row.samples);
-    for (const [slot, sampleId] of Object.entries(patch.slots)) {
-      if (sampleId) slots[slot] = sampleId;
-      else delete slots[slot];
+      const slots = slotIds(row.samples);
+      for (const [slot, sampleId] of Object.entries(patch.slots)) {
+        if (sampleId) slots[slot] = sampleId;
+        else delete slots[slot];
+      }
+      data.samples = toSamplesColumn(slots);
     }
-    data.samples = toSamplesColumn(slots);
-  }
 
-  const updated = await prisma.kit.update({ where: { id: row.id }, data, select: KIT_SELECT });
-  return (await toViews(userId, [updated]))[0];
+    return tx.kit.update({ where: { id: row.id }, data, select: KIT_SELECT });
+  });
+  return updated ? (await toViews(userId, [updated]))[0] : null;
 }
 
 /** Delete a kit of yours. `false` if it is not yours or not there. */
@@ -182,6 +204,7 @@ export async function clearSampleFromYourKits(
   userId: string,
   sampleId: string
 ): Promise<void> {
+  await lockYourKits(tx, userId);
   const rows = await tx.kit.findMany({
     where: OWN(userId),
     select: { id: true, samples: true },
