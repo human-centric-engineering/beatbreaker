@@ -18,6 +18,19 @@ release process.
 
 ### Added
 
+- **Sharing by link, usernames and copies — `Break.visibility`, a
+  `DrummerProfile` model, `/api/v1/drummer-profile` and
+  `POST /api/v1/breaks/:id/copy`** (migration `sharing`). A saved pattern is
+  `private`, `link` (anyone with its `/p/<slug>` address) or `published`; the
+  slug is minted the first time a pattern leaves private and kept after.
+  `DrummerProfile` holds the username public work is credited to — never the
+  account name or email — with its rules in one module, a once-a-month change
+  limit and the old name held for 30 days in `ReservedUsername` (no user id;
+  excluded from the export with that reason). A copy of someone else's pattern
+  records `parentId` (`ON DELETE SET NULL`) and is credited to it while it is
+  published. The profile's user FK is hand-written and drift-probed, and the
+  export gains a `drummerProfile` section. See `.context/app/sharing.md`.
+
 - **Your own samples and kits in your account — a `Sample` model,
   `/api/v1/samples` and `/api/v1/kits`** (migration `samples`, additive; new
   env `SAMPLES_MAX_COUNT`, `SAMPLES_MAX_BYTES`, both defaulted). Drum samples
@@ -318,6 +331,13 @@ release process.
   populated column, and every pending invitation round-trips as before.
 
 ### Changed
+
+- **`Break.shared` is gone; `visibility` replaces it** (migration `sharing`,
+  which maps `shared = true` to `link` and gives each such row a slug).
+  `POST` and `PATCH /api/v1/breaks` take `visibility: 'private' | 'link'`
+  instead of `shared`, and list rows carry `visibility`, `slug` and
+  `difficulty`. `GET /api/v1/breaks/:id` no longer returns the owner's
+  `userId` (H8), and gains `basedOn`.
 
 - **Your samples are uploaded, not kept in the browser.** `UserSource` and
   `lib/app/breaks/audio/user-kit.ts` (the IndexedDB store) are gone; a kit of

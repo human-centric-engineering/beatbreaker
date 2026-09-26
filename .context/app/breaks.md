@@ -69,8 +69,8 @@ argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
 | `links.ts`         | `parseReferenceLink`: a YouTube, Vimeo or Spotify link, https and exact hosts only, rebuilt as a canonical URL from its id. `readStoredLinks` re-checks a stored list on the way out; `storedLinkSchema` reads one on the client.                                      |
 | `columns.ts`       | `columnsFromDoc`: the `Break` columns read off the document (style, style version, meter, tempo, swing, seed, bars, level), never off the request.                                                                                                                     |
 | `scratch.ts`       | The pattern that has never been saved, kept in `localStorage` (`bb.scratch`) across a reload; read back through `sharePayloadSchema`.                                                                                                                                  |
-| `saved/data.ts`    | `openSavedBreak`: the one "yours or shared" read that `GET /:id` and `/studio/[id]` share. Server-side.                                                                                                                                                                |
-| `saved/targets.ts` | What a pin and a practice visit point at: `visibleTarget` (the "yours, shared, or in the catalogue" rule), `TARGET_SELECT`, `toTargetView`, `targetVisible`. Server-side; `pins.ts` and `history.ts` share it.                                                         |
+| `saved/data.ts`    | `openSavedBreak`: the one "yours or not private" read that `GET /:id`, `/studio/[id]` and the copy route share. Server-side.                                                                                                                                           |
+| `saved/targets.ts` | What a pin and a practice visit point at: `visibleTarget` (the "yours, not private, or in the catalogue" rule), `TARGET_SELECT`, `toTargetView`, `targetVisible`. Server-side; `pins.ts` and `history.ts` share it.                                                    |
 | `audio/*`          | Browser only. `engine.ts` (Web Audio), `transport.ts` (the look-ahead clock, metronome, MIDI out), `packs.ts` / `your-samples.ts` (recorded kits and yours, [`samples.md`](./samples.md)), `encode-wav.ts` (a picked file as a sample), `midi-out.ts` (Web MIDI port). |
 
 ## The wire format (share code, version 4)
@@ -132,7 +132,8 @@ junk rows in the database.
 defaults inside `.partial()`, so a PATCH schema built that way writes the
 default into every field the request left out. `lib/validations/breaks.ts`
 builds create and update from one default-free base for this reason. Before
-that fix, a rename unshared the break (H1).
+that fix, a rename unshared the break (H1). `visibility` has no default in
+the update schema for the same reason.
 
 ## `/api/v1/breaks`
 
@@ -149,16 +150,17 @@ the seed to 32 bits. Otherwise one bad digit would make a saved break
 unopenable for its owner and for everyone it was shared with. Use it for
 database rows only; input from outside is refused, not repaired.
 
-| Route                       | Does                                                                                                                                                                                                                                                                                                                                                                                       |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `GET /api/v1/breaks`        | The caller's own breaks. `sort=created` (default, newest first) or `updated`; `q` (case-insensitive title search), `style`, `meter`, `limit` (≤100, default 50), `cursor`. Every order ends on `id`, so the cursor holds across ties. `meta.nextCursor` comes from a look-ahead row. List rows carry `level`, `description` and `links`, never `doc`.                                      |
-| `POST /api/v1/breaks`       | `{ title, doc, shared?, description?, links? }`. Owner is the session user (a `userId` in the body is ignored). `style`, `styleVersionId`, `meter`, `bpm`, `swing`, `seed`, `bars` and `level` are **derived from `doc`** (`columns.ts`). The response adds `critique: { score, playable }`. 201. `{ breaks: [...] }` saves up to 30 (`MAX_BULK_BREAKS`) in one transaction — all or none. |
-| `GET /api/v1/breaks/:id`    | One break if the caller owns it **or** it is `shared`, in a single query (`openSavedBreak`). A miss is **404, never 403**. `seed` is a string (BigInt). `mine` says whose it is. `critique` is computed on the way out, never stored.                                                                                                                                                      |
-| `PATCH /api/v1/breaks/:id`  | Owner only (someone else's shared break is a 404). Writes only the fields the request names: `title`, `doc`, `shared`, `description` (empty clears it), `links`. A new `doc` re-derives the list columns, `styleVersionId` included. This is what the Studio's autosave sends.                                                                                                             |
-| `DELETE /api/v1/breaks/:id` | Owner only, via `deleteMany` with the owner in the filter. A miss is 404. Takes cascade.                                                                                                                                                                                                                                                                                                   |
+| Route                       | Does                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /api/v1/breaks`        | The caller's own breaks. `sort=created` (default, newest first) or `updated`; `q` (case-insensitive title search), `style`, `meter`, `visibility`, `limit` (≤100, default 50), `cursor`. Every order ends on `id`, so the cursor holds across ties. `meta.nextCursor` comes from a look-ahead row. List rows carry `level`, `visibility`, `slug`, `difficulty`, `description` and `links`, never `doc`.                                                                                                             |
+| `POST /api/v1/breaks`       | `{ title, doc, visibility?, description?, links? }` — `visibility` is `private` (the default) or `link`, which mints a slug; never `published`. Owner is the session user (a `userId` in the body is ignored). `style`, `styleVersionId`, `meter`, `bpm`, `swing`, `seed`, `bars`, `level`, `gridHash` and `difficulty` are **derived from `doc`** (`columns.ts`). The response adds `critique: { score, playable }`. 201. `{ breaks: [...] }` saves up to 30 (`MAX_BULK_BREAKS`) in one transaction — all or none. |
+| `GET /api/v1/breaks/:id`    | One break if the caller owns it **or** it is not `private`, in a single query (`openSavedBreak`). A miss is **404, never 403**. `seed` is a string (BigInt). `mine` says whose it is; the owner's `userId`, the `parentId` and the `gridHash` are never sent (H8). `basedOn` is the credit line on a copy, while its parent is published. `critique` is computed on the way out, never stored.                                                                                                                      |
+| `PATCH /api/v1/breaks/:id`  | Owner only (someone else's shared break is a 404). Writes only the fields the request names: `title`, `doc`, `visibility` (`private` or `link`; the first move off private mints a slug, which is kept after), `description` (empty clears it), `links`. A new `doc` re-derives the list columns, `styleVersionId` included. This is what the Studio's autosave sends.                                                                                                                                              |
+| `DELETE /api/v1/breaks/:id` | Owner only, via `deleteMany` with the owner in the filter. A miss is 404. Takes cascade.                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 Ownership markers: list, create, PATCH and DELETE are `decidedBy: 'self'`.
-`GET /:id` is `decidedBy: 'nothing'`: its own query decides (own or shared), and
+`GET /:id` and `POST /:id/copy` are `decidedBy: 'nothing'`: the query decides (own or
+not private), and
 a `resource` resolver would make the policy refuse every shared read (H12).
 
 **Reference links** (`links`, up to four): `https` on `youtube.com`,
@@ -170,6 +172,10 @@ share code cannot carry a URL onto someone's screen. `GET /:id` answers them
 with `description`; the Studio edits both in its Details form and draws the
 links as chips beside the title (task 4.11 — see [`patterns.md`](./patterns.md)).
 A copy — Save on someone else's pattern, or Save a copy — carries them.
+
+**Sharing, copies and usernames** (Phase 6) are in [`sharing.md`](./sharing.md):
+`visibility` and the slug, `POST /api/v1/breaks/:id/copy`, and
+`/api/v1/drummer-profile`.
 
 Tests: `tests/integration/api/v1/breaks/`.
 
@@ -201,7 +207,7 @@ Data layer: `lib/app/breaks/saved/pins.ts` (`listPins`, `pinTarget`, `movePin`,
 **A pin is only as visible as its target.** When the owner of a shared pattern
 unshares it, your pin on it stays on the shelf but drops out of the list. It
 comes back if the pattern is shared again. The list and `POST` use the same
-rule: yours, or `shared`, or in a `system` library.
+rule: yours, or not `private`, or in a `system` library.
 
 **Positions are dense, 0 first.** Each placement renumbers the destination
 shelf in one transaction. Unpinning or moving away leaves a gap, which sorts
@@ -410,8 +416,9 @@ and the login form drops. Signed out, the page renders `SignInToOpen`, which
 stashes the fragment (`pending-link.ts`, localStorage, one-hour expiry) and
 sends the visitor to `/login?callbackUrl=/breaks`. After sign-in, the console
 puts the fragment back in the URL before reading it. Phase 1's `/breaks` →
-`/studio` redirect has to keep this working. Phase 6's public `/p/[slug]`
-replaces it.
+`/studio` redirect has to keep this working. For a saved pattern, Phase 6's
+`/p/[slug]` is the link to send; the `#b=` link stays for a pattern nobody
+saved.
 
 ## Tests
 
