@@ -6,7 +6,7 @@
  * `tests/unit/components/app/shell/studio-frame.test.tsx` already round-trips
  * a break through the share code (copy → paste → load). This file does not
  * repeat that: it covers the copy-rejected branch, a garbage pasted code, the
- * MIDI base64 copy, and opening/closing a MIDI output port.
+ * MIDI download, Print, and opening/closing a MIDI output port.
  *
  * `ExportPanel` itself renders no toast — `say()` only sets `Studio.toast`,
  * which `StudioFrame` displays. A small probe reads it back here without
@@ -14,13 +14,14 @@
  * one line of text.
  */
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { ExportPanel } from '@/components/app/studio/panels/export-panel';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
+import { midiFileName } from '@/lib/app/breaks/midi';
 import { encodeBreak } from '@/lib/app/breaks/share';
 import { testCatalogue, testStyle } from '@/tests/helpers/catalogue';
 
@@ -29,11 +30,19 @@ function ToastProbe() {
   return <div role="status">{c.toast}</div>;
 }
 
+/** The console's own MIDI and title, read at the moment the test asks. */
+let studio: ReturnType<typeof useStudio> | null = null;
+function StudioProbe() {
+  studio = useStudio();
+  return null;
+}
+
 const renderPanel = () =>
   render(
     <StudioProvider catalogue={testCatalogue()}>
       <ExportPanel />
       <ToastProbe />
+      <StudioProbe />
     </StudioProvider>
   );
 
@@ -126,24 +135,55 @@ describe('ExportPanel', () => {
     expect(await screen.findByText('That is not a BeatBreaker code')).toBeTruthy();
   });
 
-  it('copies a plausible base64 MIDI file', async () => {
+  it('downloads the arrangement as an audio/midi file named after the pattern', async () => {
     const user = userEvent.setup();
-    const written: string[] = [];
-    vi.stubGlobal('navigator', {
-      ...navigator,
-      clipboard: {
-        writeText: (t: string) => {
-          written.push(t);
-          return Promise.resolve();
-        },
-      },
+    const blobs: Blob[] = [];
+    const created = vi.spyOn(URL, 'createObjectURL').mockImplementation((b) => {
+      blobs.push(b as Blob);
+      return 'blob:midi';
+    });
+    const revoked = vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => {});
+    /* The hats are humanised with Math.random, so two exports of one pattern
+       differ by a velocity here and there; held still, they are the same file. */
+    const random = vi.spyOn(Math, 'random').mockReturnValue(0.5);
+    const clicked: HTMLAnchorElement[] = [];
+    const click = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(function (
+      this: HTMLAnchorElement
+    ) {
+      clicked.push(this);
     });
     renderPanel();
+    await screen.findByRole('button', { name: 'Download .mid' });
+    await waitFor(() => expect(studio?.patterns.A).toBeTruthy());
 
-    await user.click(screen.getByRole('button', { name: 'Copy MIDI (base64)' }));
-    expect(await screen.findByText('MIDI copied')).toBeTruthy();
-    expect(written[0]?.length).toBeGreaterThan(0);
-    expect(written[0]).toMatch(/^[A-Za-z0-9+/=]+$/);
+    await user.click(screen.getByRole('button', { name: 'Download .mid' }));
+
+    const title = studio!.patterns.A!.name;
+    expect(blobs).toHaveLength(1);
+    expect(blobs[0].type).toBe('audio/midi');
+    const bytes = [...new Uint8Array(await blobs[0].arrayBuffer())];
+    expect(bytes).toEqual(studio!.midi()!.bytes);
+    expect(clicked).toHaveLength(1);
+    expect(clicked[0].download).toBe(midiFileName(title));
+    expect(clicked[0].href).toBe('blob:midi');
+    expect(await screen.findByText(`Downloaded ${midiFileName(title)}`)).toBeTruthy();
+    await waitFor(() => expect(revoked).toHaveBeenCalledWith('blob:midi'));
+
+    created.mockRestore();
+    revoked.mockRestore();
+    click.mockRestore();
+    random.mockRestore();
+  });
+
+  it('prints from a button, not a hint', async () => {
+    const user = userEvent.setup();
+    const print = vi.fn();
+    vi.stubGlobal('print', print);
+    renderPanel();
+
+    await user.click(await screen.findByRole('button', { name: 'Print chart' }));
+    expect(print).toHaveBeenCalledTimes(1);
+    expect(screen.queryByText(/⌘P prints/)).toBeNull();
   });
 
   it('says there is no Web MIDI when the browser has none', async () => {

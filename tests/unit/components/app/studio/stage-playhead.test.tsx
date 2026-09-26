@@ -94,6 +94,7 @@ beforeEach(() => {
 
     bpm: 100,
     setBpm: vi.fn(),
+    quickTempo: vi.fn(),
     bpmCeiling: 200,
     playing: false,
     togglePlay: vi.fn(),
@@ -162,7 +163,7 @@ beforeEach(() => {
     shareCode: vi.fn(() => ''),
     shareLink: vi.fn(() => ''),
     loadCode: vi.fn(() => false),
-    midiBase64: vi.fn(() => ''),
+    midi: vi.fn(() => null),
     auditionKit: vi.fn(() => false),
     midiPort: '',
     openMidiOut: vi.fn().mockResolvedValue(''),

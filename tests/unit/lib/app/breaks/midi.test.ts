@@ -12,6 +12,7 @@ import {
   type SequencedBar,
   buildMidi,
   vlq,
+  midiFileName,
 } from '@/lib/app/breaks/midi';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import { testStyle } from '@/tests/helpers/catalogue';
@@ -65,6 +66,24 @@ function parse(bytes: number[]) {
   }
   return { header, trackId, trackLen, track, notes, meta };
 }
+
+describe('midiFileName', () => {
+  it('names the file after the pattern', () => {
+    expect(midiFileName('Funky Drummer')).toBe('Funky Drummer.mid');
+  });
+
+  it('keeps only what every file system takes', () => {
+    expect(midiFileName('  A/B: “Amen” break?  ')).toBe('AB Amen break.mid');
+    expect(midiFileName('Café au lait')).toBe('Cafe au lait.mid');
+    expect(midiFileName('..hidden..')).toBe('hidden.mid');
+  });
+
+  it('falls back to "break" when nothing usable is left, and keeps it short', () => {
+    expect(midiFileName('')).toBe('break.mid');
+    expect(midiFileName('///')).toBe('break.mid');
+    expect(midiFileName('x'.repeat(200))).toBe(`${'x'.repeat(80)}.mid`);
+  });
+});
 
 describe('vlq', () => {
   it.each([

@@ -673,13 +673,14 @@ describe('sharing and saving', () => {
 
   it('exports the arrangement as MIDI, or only the soloed section', async () => {
     const { result } = await mount();
-    const both = result.current.midiBase64();
-    expect(atob(both).startsWith('MThd')).toBe(true);
+    const both = result.current.midi()!.bytes;
+    // 'MThd', the Standard MIDI File header
+    expect(both.slice(0, 4)).toEqual([0x4d, 0x54, 0x68, 0x64]);
     act(() => result.current.setViewMode('A'));
-    const aOnly = result.current.midiBase64();
+    const aOnly = result.current.midi()!.bytes;
     expect(aOnly.length).toBeLessThan(both.length);
     act(() => result.current.setArrangement(['B']));
-    expect(result.current.midiBase64()).toBe('');
+    expect(result.current.midi()).toBeNull();
   });
 });
 

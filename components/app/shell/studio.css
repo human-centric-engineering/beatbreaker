@@ -553,3 +553,33 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
     transition: none !important;
   }
 }
+
+/* ============================================================
+   PRINT — the chart, and nothing else (5.8)
+   ============================================================ */
+/* The frame is fixed to the window and clips everything outside the stage,
+   which on paper is one page of whatever the stage had scrolled to. Printed,
+   it is an ordinary block of flowing content, and the chrome goes. What of
+   the stage itself is left out is `breaks.css`'s call. */
+@media print {
+  .bb.studio-frame {
+    position: static;
+    display: block;
+    overflow: visible;
+  }
+  .bb .studio-header,
+  .bb .studio-rail,
+  .bb .studio-footer,
+  .bb .studio-drawer,
+  .bb .studio-sheet,
+  .bb .toast {
+    display: none !important;
+  }
+  .bb .studio-body {
+    display: block;
+  }
+  .bb .studio-stage {
+    overflow: visible;
+    padding: 0;
+  }
+}

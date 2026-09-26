@@ -27,7 +27,7 @@ import { DEFAULT_MIX, LANES, PERC_LANES, TOM_LANES } from '@/lib/app/breaks/lane
 
 import { reducePattern } from '@/lib/app/breaks/layers';
 import type { StoredLink } from '@/lib/app/breaks/links';
-import { buildMidi } from '@/lib/app/breaks/midi';
+import { buildMidi, type MidiFile } from '@/lib/app/breaks/midi';
 import { takePendingLink } from '@/lib/app/breaks/pending-link';
 import {
   type CustomLanes,
@@ -248,7 +248,11 @@ export interface BreakConsole {
    * False when it does not decode.
    */
   loadPayload: (payload: SharePayload, title: string, at?: PracticePlace) => boolean;
-  midiBase64: () => string;
+  /**
+   * The arrangement as a Standard MIDI File — only the section on show, when
+   * one is. Null when there is nothing to play.
+   */
+  midi: () => MidiFile | null;
   /** Plays a bar of the current kit. False when there is no Web Audio. */
   auditionKit: () => boolean;
   /** The MIDI port playback is also driving, if you have opened one. */
@@ -1408,7 +1412,7 @@ export function useBreakConsole(
     [catalogue, putDoc]
   );
 
-  const midiBase64 = useCallback(() => {
+  const midi = useCallback((): MidiFile | null => {
     const solo = viewMode === 'both' ? null : viewMode;
     const seq = arrangement
       .filter((L) => !solo || L === solo)
@@ -1416,8 +1420,8 @@ export function useBreakConsole(
         const pat = view[L];
         return pat ? pat.bars.map((_, i) => ({ pattern: pat, barIdx: i })) : [];
       });
-    if (!seq.length) return '';
-    return buildMidi(seq, { bpm, swing, feel, hats }).base64;
+    if (!seq.length) return null;
+    return buildMidi(seq, { bpm, swing, feel, hats });
   }, [arrangement, view, viewMode, bpm, swing, feel, hats]);
 
   const rename = useCallback((name: string) => {
@@ -1531,7 +1535,7 @@ export function useBreakConsole(
     shareLink,
     loadCode,
     loadPayload,
-    midiBase64,
+    midi,
     midiPort,
     openMidiOut,
     closeMidiOut,

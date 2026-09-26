@@ -1479,18 +1479,14 @@
   }
 }
 @media print {
-  .bb .topbar,
-  .bb .rail,
+  /* The step editor, the section and layer pickers, the chart's own switches
+     and the arrangement are how the chart is set, not part of it. */
+  .bb .stage > .card,
+  .bb .chart-hd .seg,
   .bb .chart-ft,
   .bb .chart-tools,
-  .bb .gridwrap,
-  .bb .legend,
-  .bb .card-hd {
+  .bb .legend {
     display: none !important;
-  }
-  .bb .console {
-    display: block;
-    padding: 0;
   }
   .bb .chartwrap {
     border: none;
