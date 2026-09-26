@@ -326,7 +326,7 @@ describe('the Kit drawer, on a kit of yours', () => {
 
     await user.clear(name);
     await user.tab();
-    expect(name.value).toBe('Garage kit');
+    expect(name).toHaveValue('Garage kit');
     await user.click(name);
     await user.tab();
     expect(sent.some((s) => s.method === 'PATCH')).toBe(false);
