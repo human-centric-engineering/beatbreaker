@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { BreakAudio, SourceStack } from '@/lib/app/breaks/audio/engine';
 import { MidiOut } from '@/lib/app/breaks/audio/midi-out';
 import { PackSource } from '@/lib/app/breaks/audio/packs';
-import { UserSource } from '@/lib/app/breaks/audio/user-kit';
+import { YourSampleSource } from '@/lib/app/breaks/audio/your-samples';
 import {
   Transport,
   type PlayEvent,
@@ -166,11 +166,6 @@ export interface BreakConsole {
   setPercSamples: (b: boolean) => void;
   /** How many percussion instruments have recordings in memory. */
   percCount: number;
-  /** Your own one-shots: filename per slot. */
-  userNames: Record<string, string>;
-  /** Returns an empty string on success, or the sentence to show. */
-  addSample: (slot: string, file: File) => Promise<string>;
-  removeSample: (slot: string) => Promise<void>;
   mix: Record<string, number>;
   setLaneMix: (lane: string, v: number) => void;
   resetMix: () => void;
@@ -921,7 +916,7 @@ export function useBreakConsole(
   const audioRef = useRef<BreakAudio | null>(null);
   const transportRef = useRef<Transport | null>(null);
   const packsRef = useRef<PackSource | null>(null);
-  const userRef = useRef<UserSource | null>(null);
+  const yoursRef = useRef<YourSampleSource | null>(null);
   const midiRef = useRef<MidiOut | null>(null);
   const kitRef = useRef(kit);
   useEffect(() => {
@@ -936,22 +931,20 @@ export function useBreakConsole(
    * and a ref read during render is exactly the value React is entitled not to
    * re-run for. The sources call `bump` when they land; so does a kit change.
    */
-  const [samples, setSamples] = useState<{
-    kitSlots: number;
-    percCount: number;
-    userNames: Record<string, string>;
-  }>({ kitSlots: 0, percCount: 0, userNames: {} });
+  const [samples, setSamples] = useState<{ kitSlots: number; percCount: number }>({
+    kitSlots: 0,
+    percCount: 0,
+  });
 
   const refreshSamples = useCallback(() => {
     const packs = packsRef.current;
-    const user = userRef.current;
-    if (!packs || !user) return;
+    const yours = yoursRef.current;
+    if (!packs || !yours) return;
     const row = catalogue.kits[kitRef.current];
     const pack = row?.pack;
     setSamples({
-      kitSlots: kitEngine(row) === 'user' ? user.count() : pack ? packs.count(pack) : 0,
+      kitSlots: kitEngine(row) === 'user' ? yours.count(row) : pack ? packs.count(pack) : 0,
       percCount: packs.percCount(),
-      userNames: { ...user.names },
     });
   }, [catalogue.kits]);
 
@@ -1103,16 +1096,16 @@ export function useBreakConsole(
     const audio = new BreakAudio();
     /* The sampled kits are a source the synth falls through to, not a branch
        inside it — a pack still decoding, or one slot short, plays the
-       synthesised voice for that hit rather than nothing. Your own one-shots
-       are a second source behind the same rule, so moving between a recorded
-       kit and your own needs no reload. */
+       synthesised voice for that hit rather than nothing. Your own kits are a
+       second source behind the same rule, so moving between a recorded kit and
+       one of yours needs no reload. */
     const bump = () => refreshRef.current();
     const packs = new PackSource(bump);
-    const user = new UserSource(bump);
+    const yours = new YourSampleSource(bump);
     packs.usePercSamples = percSamplesRef.current;
     packsRef.current = packs;
-    userRef.current = user;
-    audio.samples = new SourceStack([packs, user]);
+    yoursRef.current = yours;
+    audio.samples = new SourceStack([packs, yours]);
     audioRef.current = audio;
     const midi = new MidiOut();
     midiRef.current = midi;
@@ -1141,7 +1134,7 @@ export function useBreakConsole(
       transportRef.current = null;
       audioRef.current = null;
       packsRef.current = null;
-      userRef.current = null;
+      yoursRef.current = null;
       midiRef.current = null;
     };
   }, [setBpmRaw]);
@@ -1412,19 +1405,6 @@ export function useBreakConsole(
     );
   }, []);
 
-  /* ---- your own samples ------------------------------------------------- */
-
-  const addSample = useCallback(async (slot: string, file: File): Promise<string> => {
-    const audio = audioRef.current;
-    const user = userRef.current;
-    if (!audio || !user) return 'No audio engine yet';
-    return user.add(audio, slot, file);
-  }, []);
-
-  const removeSample = useCallback(async (slot: string) => {
-    await userRef.current?.remove(slot);
-  }, []);
-
   return {
     ready,
     noCatalogue,
@@ -1480,9 +1460,6 @@ export function useBreakConsole(
     percSamples,
     setPercSamples,
     percCount: samples.percCount,
-    userNames: samples.userNames,
-    addSample,
-    removeSample,
     mix,
     setLaneMix,
     resetMix,

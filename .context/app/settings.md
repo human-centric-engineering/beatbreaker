@@ -50,8 +50,9 @@ the defaults are `DEFAULT_STUDIO_SETTINGS` beside it. The data layer is
 `maxBpm` where they are used. Each tuning parameter is held to the widest range
 any engine gives it (`TUNING_RANGES`), and `withTuning` takes only the keys the
 kit's own engine has. `kit`, `userKit` and `startStyle` must name a playable
-kit or a style the catalogue has; a static schema cannot know that, so the data
-layer checks them on write and on read.
+kit or a style the catalogue has — or, for the two kit fields, one of your own
+kits ([`samples.md`](./samples.md)); a static schema cannot know that, so the
+data layer checks them on write and on read.
 
 **Read field by field.** A field never set takes its default quietly. A stored
 field that no longer parses, or names a kit or style that has gone, takes its

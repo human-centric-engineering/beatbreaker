@@ -18,6 +18,23 @@ release process.
 
 ### Added
 
+- **Your own samples and kits in your account — a `Sample` model,
+  `/api/v1/samples` and `/api/v1/kits`** (migration `samples`, additive; new
+  env `SAMPLES_MAX_COUNT`, `SAMPLES_MAX_BYTES`, both defaulted). Drum samples
+  you load into a kit are uploaded as mono 16-bit 44.1 kHz WAV (the browser
+  encodes whatever you pick) and stored private in Sunrise storage under
+  `samples/<userId>/`, served only through the owner-checked
+  `GET /api/v1/samples/:id/audio`. The upload route reads the WAV header itself
+  and refuses anything over 12 s or 1.5 MB, not that format, or past the
+  account's 150 samples / 50 MB, each with its own code; the allowance is
+  checked in the transaction that records the upload. A provider that cannot
+  keep an object private (Vercel Blob) is a 503. Your kits are `Kit` rows you
+  own, read and written through `/api/v1/kits`, never through the public
+  catalogue; the Studio adds them to the catalogue per person, and the settings
+  route accepts their keys. The user FK is hand-written and drift-probed,
+  `initApp()` registers an erasure hook that deletes your samples' files, and
+  the export gains a `samples` section. See `.context/app/samples.md`.
+
 - **Studio settings in your account — a `StudioSettings` model and
   `/api/v1/studio-settings`** (migration `studio_settings`, additive). One row
   per person holds the kit and its tuning, count-in, tempo ceiling, layer tempo
@@ -301,6 +318,15 @@ release process.
   populated column, and every pending invitation round-trips as before.
 
 ### Changed
+
+- **Your samples are uploaded, not kept in the browser.** `UserSource` and
+  `lib/app/breaks/audio/user-kit.ts` (the IndexedDB store) are gone; a kit of
+  yours plays through `YourSampleSource` (`lib/app/breaks/audio/your-samples.ts`),
+  which fetches each sample from your account. `BreakConsole` loses `addSample`,
+  `removeSample` and `userNames`; uploading is `Studio.sounds`
+  (`useYourSounds`). The seeded system `user` kit ("Your samples") is removed,
+  and the seed deletes it from an existing database; a setting that named it
+  reads as its default. `StudioProvider` takes `yourKits` and `yourSamples`.
 
 - **Wire format v4 — a pattern stands on its own.** `Pattern` gains
   `styleVersionId` and `attrs`, and the packed form gains `sv` and `sa`: a

@@ -5,12 +5,12 @@
  * actually decoded — the "N recorded lanes loaded" / "N of your own samples
  * loaded" halves of `kitStatus`, and the percussion-source field that only
  * shows once `c.percCount` is non-zero. In the plain test environment those
- * never happen: `PackSource`/`UserSource` decode through a real `fetch` +
+ * never happen: `PackSource`/`YourSampleSource` decode through a real `fetch` +
  * `AudioContext.decodeAudioData`, neither of which exists here (by design —
  * the rest of the Studio has to stay usable without them).
  *
  * `kitSlots`/`percCount` are plain numbers read straight off `PackSource`'s
- * and `UserSource`'s own `count()`/`percCount()` methods (see
+ * and `YourSampleSource`'s own `count()`/`percCount()` methods (see
  * `use-break-console.ts`'s `refreshSamples`) — nothing in that wiring reaches
  * into decoded audio itself, so a real kit that has finished decoding is
  * indistinguishable, from the panel's point of view, from a fake source whose
@@ -47,9 +47,8 @@ vi.mock('@/lib/app/breaks/audio/packs', () => {
   return { PackSource: FakePackSource };
 });
 
-vi.mock('@/lib/app/breaks/audio/user-kit', () => {
-  class FakeUserSource {
-    readonly names: Record<string, string> = {};
+vi.mock('@/lib/app/breaks/audio/your-samples', () => {
+  class FakeYourSampleSource {
     constructor(_onChange?: () => void) {}
     count(): number {
       return 4;
@@ -61,12 +60,25 @@ vi.mock('@/lib/app/breaks/audio/user-kit', () => {
       /* never called without a live AudioContext */
     }
   }
-  return { UserSource: FakeUserSource };
+  return { YourSampleSource: FakeYourSampleSource };
 });
+
+/* A kit of yours with four slots filled (D20). */
+const sample = (n: number) => ({
+  sampleId: `csmp0000000000000000000${n}`,
+  name: `${n}.wav`,
+  audioUrl: '',
+});
+const YOUR_KIT = {
+  id: 'ckit00000000000000000001',
+  key: 'yours-a',
+  label: 'Mine',
+  slots: { k: sample(1), s: sample(2), h: sample(3), c: sample(4) },
+};
 
 const renderPanel = () =>
   render(
-    <StudioProvider catalogue={testCatalogue()}>
+    <StudioProvider catalogue={testCatalogue()} yourKits={[YOUR_KIT]}>
       <KitPanel />
     </StudioProvider>
   );
@@ -93,7 +105,7 @@ describe('KitPanel with samples already decoded', () => {
 
     const kitPicker = () =>
       within(screen.getByRole('heading', { name: 'Kit' }).closest('.card')!).getByLabelText('Kit');
-    await user.selectOptions(kitPicker(), 'user');
+    await user.selectOptions(kitPicker(), 'yours-a');
 
     expect(await screen.findByText('4 of your own samples loaded')).toBeTruthy();
   });

@@ -23,6 +23,7 @@ import {
   usePatternDocument,
 } from '@/components/app/studio/use-pattern-document';
 import { type PracticeShelvesState, usePins } from '@/components/app/studio/use-pins';
+import { type YourSounds, useYourSounds } from '@/components/app/studio/use-your-sounds';
 import {
   fetchSavedPattern,
   type HistoryCurrent,
@@ -37,7 +38,7 @@ import { decodeBreak } from '@/lib/app/breaks/share';
 import type { HistoryItem } from '@/lib/validations/history';
 import type { StudioSettings } from '@/lib/validations/studio-settings';
 import type { PinTarget, PracticeShelvesView } from '@/lib/validations/pins';
-import type { YourKitView } from '@/lib/validations/samples';
+import type { SampleList, YourKitView } from '@/lib/validations/samples';
 
 /**
  * The Studio's state, in one place.
@@ -103,6 +104,8 @@ export interface Studio extends BreakConsole {
   open: (target: PinTarget) => Promise<OpenResult>;
   /** The drawer the address asked for (`?drawer=`), opened once by the frame. */
   openDrawer?: StudioDrawer;
+  /** Your own samples and kits (D20), for the Kit drawer. */
+  sounds: YourSounds;
 }
 
 const StudioContext = createContext<Studio | null>(null);
@@ -147,6 +150,7 @@ export function StudioProvider({
   history: initialHistory,
   settings,
   yourKits,
+  yourSamples,
   openEntry,
   openDrawer,
   children,
@@ -176,6 +180,8 @@ export function StudioProvider({
    * catalogue, which is everyone's; added to it here, for you.
    */
   yourKits?: YourKitView[];
+  /** Your samples and how much of your allowance they use (D20), read with the page. */
+  yourSamples?: SampleList;
   /**
    * A library entry to open once the Studio is up — `/studio?entry=<id>`,
    * which is how Home's Continue reaches a famous break. It opens where the
@@ -192,10 +198,6 @@ export function StudioProvider({
      once the document has rendered. */
   const stageIsSaved = useRef(initial !== undefined);
   const stageSaved = useCallback(() => stageIsSaved.current, []);
-  const [kitsOfYours] = useState(() => yourKits ?? []);
-  const content = useMemo(() => withYourKits(catalogue, kitsOfYours), [catalogue, kitsOfYours]);
-  const state = useBreakConsole(content, initial, { settings, stageSaved });
-
   const [toast, setToast] = useState('');
   const say = useCallback((message: string) => setToast(message), []);
   useEffect(() => {
@@ -203,6 +205,13 @@ export function StudioProvider({
     const id = setTimeout(() => setToast(''), 2200);
     return () => clearTimeout(id);
   }, [toast]);
+
+  /* Your own kits join the catalogue here, per person, and the console never
+     knows the difference: a kit of yours is a catalogue entry on the `user`
+     engine, and filling a slot changes the entry it plays from. */
+  const sounds = useYourSounds({ kits: yourKits, samples: yourSamples }, say);
+  const content = useMemo(() => withYourKits(catalogue, sounds.kits), [catalogue, sounds.kits]);
+  const state = useBreakConsole(content, initial, { settings, stageSaved });
 
   /* The document is built from the fields that make up a saved pattern, and
      only those: the console re-renders at frame rate while playing, and the
@@ -431,6 +440,7 @@ export function StudioProvider({
       history,
       open,
       openDrawer,
+      sounds,
     }),
     [
       state,
@@ -448,6 +458,7 @@ export function StudioProvider({
       history,
       open,
       openDrawer,
+      sounds,
     ]
   );
 

@@ -28,6 +28,8 @@ vi.mock('@/lib/app/breaks/saved/settings', () => ({ readStudioSettings: vi.fn() 
 /* and your own kits (D20): their owner scope is tested through /api/v1/kits,
    which shares the reader */
 vi.mock('@/lib/app/breaks/samples/kits', () => ({ listYourKits: vi.fn() }));
+// and your samples, whose scope is tested through /api/v1/samples
+vi.mock('@/lib/app/breaks/samples/data', () => ({ listSamples: vi.fn() }));
 /* The loader is mocked at its own seam; its query, its scope and its touch are
    tested through the API route that shares it. */
 vi.mock('@/lib/app/breaks/saved/data', () => ({ openSavedBreak: vi.fn() }));
@@ -46,6 +48,7 @@ import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { listHistory } from '@/lib/app/breaks/saved/history';
 import { listPins } from '@/lib/app/breaks/saved/pins';
 import { readStudioSettings } from '@/lib/app/breaks/saved/settings';
+import { listSamples } from '@/lib/app/breaks/samples/data';
 import { listYourKits } from '@/lib/app/breaks/samples/kits';
 import { DEFAULT_STUDIO_SETTINGS } from '@/lib/validations/studio-settings';
 import { openSavedBreak } from '@/lib/app/breaks/saved/data';
@@ -54,6 +57,10 @@ import { testCatalogue } from '@/tests/helpers/catalogue';
 
 const SHELVES = { practising: [], later: [] };
 const HISTORY: Awaited<ReturnType<typeof listHistory>> = [];
+const YOUR_SAMPLES = {
+  samples: [],
+  usage: { count: 0, bytes: 0, maxCount: 150, maxBytes: 52_428_800 },
+};
 const YOUR_KITS = [{ id: 'ckit00000000000000000001', key: 'yours-a', label: 'Mine', slots: {} }];
 const SETTINGS = { ...DEFAULT_STUDIO_SETTINGS, kit: 'liveroom', countIn: 2 };
 
@@ -63,6 +70,7 @@ describe('/studio/[id]', () => {
     vi.mocked(listHistory).mockResolvedValue(HISTORY);
     vi.mocked(readStudioSettings).mockResolvedValue(SETTINGS);
     vi.mocked(listYourKits).mockResolvedValue(YOUR_KITS);
+    vi.mocked(listSamples).mockResolvedValue(YOUR_SAMPLES);
   });
 
   it('sends a signed-out visitor back to the pattern they asked for', async () => {
@@ -119,6 +127,8 @@ describe('/studio/[id]', () => {
     // and your own kits, read for the session user, never through the catalogue
     expect(listYourKits).toHaveBeenCalledWith(createMockAuthSession().user.id);
     expect(el.props.yourKits).toBe(YOUR_KITS);
+    expect(listSamples).toHaveBeenCalledWith(createMockAuthSession().user.id);
+    expect(el.props.yourSamples).toBe(YOUR_SAMPLES);
     // asked for as the session user — the loader's scope is only as good as this
     expect(openSavedBreak).toHaveBeenCalledWith(ID, createMockAuthSession().user.id);
     expect(el.props.initial).toEqual({

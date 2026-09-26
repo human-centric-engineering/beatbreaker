@@ -21,6 +21,7 @@ import { clearScratch, readScratch, writeScratch } from '@/lib/app/breaks/scratc
 import { encodeBreak } from '@/lib/app/breaks/share';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
+import { withYourKits } from '@/lib/app/breaks/samples/your-kit';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 
 const fakes = vi.hoisted(() => {
@@ -55,11 +56,8 @@ const fakes = vi.hoisted(() => {
     count = vi.fn(() => 5);
     percCount = vi.fn(() => 9);
   }
-  class FakeUser {
-    names: Record<string, string> = { k: 'kick.wav' };
+  class FakeYours {
     count = vi.fn(() => 1);
-    add = vi.fn(async () => Promise.resolve(''));
-    remove = vi.fn(async () => Promise.resolve());
   }
   class FakeMidi {
     ctx: unknown = null;
@@ -72,10 +70,10 @@ const fakes = vi.hoisted(() => {
   const made = {
     audio: [] as FakeAudio[],
     packs: [] as FakePacks[],
-    user: [] as FakeUser[],
+    yours: [] as FakeYours[],
     midi: [] as FakeMidi[],
   };
-  return { ctx, state, made, FakeAudio, FakePacks, FakeUser, FakeMidi };
+  return { ctx, state, made, FakeAudio, FakePacks, FakeYours, FakeMidi };
 });
 
 vi.mock('@/lib/app/breaks/audio/engine', () => ({
@@ -95,11 +93,11 @@ vi.mock('@/lib/app/breaks/audio/packs', () => ({
     }
   },
 }));
-vi.mock('@/lib/app/breaks/audio/user-kit', () => ({
-  UserSource: class extends fakes.FakeUser {
+vi.mock('@/lib/app/breaks/audio/your-samples', () => ({
+  YourSampleSource: class extends fakes.FakeYours {
     constructor() {
       super();
-      fakes.made.user.push(this);
+      fakes.made.yours.push(this);
     }
   },
 }));
@@ -135,7 +133,15 @@ import { DEFAULT_STUDIO_SETTINGS } from '@/lib/validations/studio-settings';
  * render would re-run the sample refresh forever. A client is handed one
  * catalogue for the life of the page, and this is that.
  */
-const catalogue = testCatalogue();
+/* With one kit of your own in it (D20), the way the provider hands it over. */
+const catalogue = withYourKits(testCatalogue(), [
+  {
+    id: 'ckit00000000000000000001',
+    key: 'yours-a',
+    label: 'Mine',
+    slots: { k: { sampleId: 'csmp00000000000000000001', name: 'kick.wav', audioUrl: '' } },
+  },
+]);
 
 async function mount(initial?: InitialPattern, options?: ConsoleOptions) {
   const hook = renderHook(() => useBreakConsole(catalogue, initial, options));
@@ -539,11 +545,11 @@ describe('the kit', () => {
     expect(result.current.percCount).toBe(9);
   });
 
-  it('counts your own samples for the user kit', async () => {
+  it('counts the decoded samples of a kit of yours, asking the source about that kit', async () => {
     const { result } = await mount();
-    act(() => result.current.setKit('user'));
+    act(() => result.current.setKit('yours-a'));
     await waitFor(() => expect(result.current.kitSlots).toBe(1));
-    expect(result.current.userNames).toEqual({ k: 'kick.wav' });
+    expect(fakes.made.yours.at(-1)?.count).toHaveBeenLastCalledWith(catalogue.kits['yours-a']);
   });
 
   it('keeps your tuning per kit, per voice, and resets it', async () => {
@@ -569,20 +575,6 @@ describe('the kit', () => {
     act(() => result.current.audition('s', 'rim'));
     expect(fakes.made.audio.at(-1)?.hit).toHaveBeenCalledWith('s', 'rim');
     expect(result.current.auditionKit()).toBe(true);
-  });
-
-  it('adds and removes your own samples through the user source', async () => {
-    const { result } = await mount();
-    const file = new File([new Uint8Array(4)], 'kick.wav');
-    await act(async () => {
-      expect(await result.current.addSample('k', file)).toBe('');
-    });
-    const user = fakes.made.user.at(-1)!;
-    expect(user.add).toHaveBeenCalledWith(fakes.made.audio.at(-1), 'k', file);
-    await act(async () => {
-      await result.current.removeSample('k');
-    });
-    expect(user.remove).toHaveBeenCalledWith('k');
   });
 });
 
