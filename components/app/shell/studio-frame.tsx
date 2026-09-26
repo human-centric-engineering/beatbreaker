@@ -16,8 +16,8 @@ import { PatternsPanel, rememberPatternsTab } from '@/components/app/studio/pane
 import { PracticePanel } from '@/components/app/studio/panels/practice-panel';
 import { Stage } from '@/components/app/studio/stage';
 import { LeaveDialog } from '@/components/app/studio/leave-dialog';
+import { StudioToast } from '@/components/app/studio/studio-toast';
 import { useStudio } from '@/components/app/studio/studio-provider';
-import { cn } from '@/lib/utils';
 
 import '@/components/app/breaks/breaks.css';
 import '@/components/app/shell/studio.css';
@@ -207,9 +207,7 @@ export function StudioFrame() {
       <LeaveDialog />
       <ShortcutsSheet open={sheet} onOpenChange={setSheet} />
 
-      <div className={cn('toast', c.toast && 'show')} role="status">
-        {c.toast}
-      </div>
+      <StudioToast />
     </div>
   );
 }

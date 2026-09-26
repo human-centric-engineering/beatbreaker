@@ -490,13 +490,14 @@ const SEAM_DEFAULTS: SeamDefault[] = [
   {
     seam: 'lib/app/ci.ts',
     risk: 'a stray coverage exclusion would switch the per-file 80% floor OFF for that path on every install, a stray always-run entry would make every scoped run load a test whose file the install may not even have, and a stray ownerless-surface exception would let a route read rows nobody owns without the policy being asked — the first silences a gate, the second breaks the gate that replaced it, the third exempts a file from the authorization seam',
-    // Filled by BeatBreaker: its three whole-tree greps are always-run (Phase 5).
+    // Filled by BeatBreaker: its four whole-tree greps are always-run (Phase 5).
     // Re-pointed at our entries rather than deleted, so an accidental addition
     // still fails. Expect this row to conflict on a Sunrise sync; keep ours.
     assert: () => {
       expect(appCoverageExclusions).toEqual([]);
       expect(appAlwaysRunTests.map((t) => t.path)).toEqual([
         'tests/unit/components/app/shell/studio-names.test.ts',
+        'tests/unit/components/app/shell/studio-controls.test.ts',
         'tests/unit/lib/app/breaks/browser-keys.test.ts',
         'tests/unit/lib/app/breaks/no-content-imports.test.ts',
       ]);

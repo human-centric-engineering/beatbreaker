@@ -1,9 +1,11 @@
 'use client';
 
-import { ChevronLeft, ChevronRight, Play, Square } from 'lucide-react';
+import { Play, Square } from 'lucide-react';
 import { useRef } from 'react';
 
 import { useStudio } from '@/components/app/studio/studio-provider';
+import { TempoControl } from '@/components/app/studio/tempo-control';
+import { Toggle } from '@/components/app/studio/toggle';
 import { LANE_DEFS, activeLanes, laneName } from '@/lib/app/breaks/lanes';
 import type { LaneKey } from '@/lib/app/breaks/types';
 import { cn } from '@/lib/utils';
@@ -97,16 +99,15 @@ export function StudioTransport() {
 
   return (
     <div className="studio-transport" role="group" aria-label="Transport">
-      <button
-        type="button"
-        className={cn('tbtn play', c.playing && 'on')}
-        onClick={c.togglePlay}
-        aria-label="Play or stop"
-        aria-pressed={c.playing}
-        aria-keyshortcuts="Space"
+      <Toggle
+        className="tbtn play"
+        pressed={c.playing}
+        onPressedChange={c.togglePlay}
+        label="Play or stop"
+        keyshortcuts="Space"
       >
         {c.playing ? '■ Stop' : '▶ Play'}
-      </button>
+      </Toggle>
       {/* It was a bare digit with a tooltip (E3). A header has room for a word
           and the number; the accessible name says the whole thing. */}
       <button
@@ -118,19 +119,7 @@ export function StudioTransport() {
         Count-in <span className="mono">{c.countIn || 'off'}</span>
       </button>
       <div className="bpmbox">
-        <div className="bpmval mono">
-          {c.bpm}
-          <sup>bpm</sup>
-        </div>
-        <input
-          type="range"
-          min={50}
-          max={c.bpmCeiling}
-          value={c.bpm}
-          onChange={(e) => c.setBpm(Number(e.target.value))}
-          aria-label="Tempo"
-          aria-keyshortcuts="[ ]"
-        />
+        <TempoControl slider />
         <button
           type="button"
           className="tbtn"
@@ -148,8 +137,9 @@ export function StudioTransport() {
 /**
  * The phone transport: the whole footer.
  *
- * A range input is no use under a thumb at this size, so tempo is a stepper —
- * and the empty third column is what keeps Play on the centre line however wide
+ * A range input is no use under a thumb at this size, so tempo is the stepper
+ * and the number, without the slider — which is in the Practise drawer — and
+ * the empty third column is what keeps Play on the centre line however wide
  * the reading gets.
  */
 export function PhoneTransport() {
@@ -157,37 +147,18 @@ export function PhoneTransport() {
 
   return (
     <div className="studio-transport-lg" role="group" aria-label="Transport">
-      <div className="studio-tempo">
-        <button
-          type="button"
-          className="studio-step"
-          onClick={() => c.setBpm(c.bpm - 2)}
-          aria-label="Slower"
-        >
-          <ChevronLeft size={18} />
-        </button>
-        <span className="studio-bpm mono">
-          {Math.round(c.bpm)} <small>bpm</small>
-        </span>
-        <button
-          type="button"
-          className="studio-step"
-          onClick={() => c.setBpm(c.bpm + 2)}
-          aria-label="Faster"
-        >
-          <ChevronRight size={18} />
-        </button>
-      </div>
-      <button
-        type="button"
-        className={cn('studio-play-lg', c.playing && 'on')}
-        onClick={c.togglePlay}
-        aria-pressed={c.playing}
-        aria-label={c.playing ? 'Stop' : 'Play'}
-        aria-keyshortcuts="Space"
+      <TempoControl className="studio-tempo" />
+      {/* Named for what it does, not what it is doing: the pressed state is
+          the state, as on every other toggle (E19). */}
+      <Toggle
+        className="studio-play-lg"
+        pressed={c.playing}
+        onPressedChange={c.togglePlay}
+        label="Play or stop"
+        keyshortcuts="Space"
       >
         {c.playing ? <Square size={22} /> : <Play size={22} />}
-      </button>
+      </Toggle>
       <div aria-hidden="true" />
     </div>
   );

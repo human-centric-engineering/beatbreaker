@@ -15,6 +15,7 @@ import {
   type YourKitView,
   yourKitViewSchema,
 } from '@/lib/validations/samples';
+import type { Say } from '@/components/app/studio/use-notice';
 
 /**
  * Your own samples and kits, in the Studio (D20).
@@ -97,7 +98,7 @@ async function postSample(
 
 export function useYourSounds(
   initial: { kits?: YourKitView[]; samples?: SampleList },
-  say: (message: string) => void
+  say: Say
 ): YourSounds {
   const [kits, setKits] = useState<YourKitView[]>(() => initial.kits ?? []);
   const [samples, setSamples] = useState<SampleView[]>(() => (initial.samples ?? EMPTY).samples);
@@ -130,7 +131,7 @@ export function useYourSounds(
         setKits((prev) => [...prev, kit]);
         return kit;
       } catch (error) {
-        say(messageOf(error, 'Could not make a kit — try again'));
+        say(messageOf(error, 'Could not make a kit — try again'), { error: true });
         return null;
       }
     },
@@ -140,7 +141,7 @@ export function useYourSounds(
   const renameKit = useCallback(
     async (id: string, label: string) => {
       const err = await patchKit(id, { label });
-      if (err) say(err);
+      if (err) say(err, { error: true });
       return !err;
     },
     [patchKit, say]
@@ -153,7 +154,7 @@ export function useYourSounds(
         setKits((prev) => prev.filter((k) => k.id !== id));
         return true;
       } catch (error) {
-        say(messageOf(error, 'Could not delete the kit — try again'));
+        say(messageOf(error, 'Could not delete the kit — try again'), { error: true });
         return false;
       }
     },
@@ -179,7 +180,7 @@ export function useYourSounds(
   const clearSlot = useCallback(
     async (kitId: string, slot: string) => {
       const err = await patchKit(kitId, { slots: { [slot]: null } });
-      if (err) say(err);
+      if (err) say(err, { error: true });
       return !err;
     },
     [patchKit, say]
@@ -202,7 +203,9 @@ export function useYourSounds(
         );
         return true;
       } catch (error) {
-        say(messageOf(error, 'Could not delete that sample — try again'));
+        say(messageOf(error, 'Could not delete that sample — try again'), {
+          error: true,
+        });
         return false;
       }
     },

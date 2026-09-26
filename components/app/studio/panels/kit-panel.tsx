@@ -7,6 +7,7 @@ import {
   YourSamples,
   useCurrentYourKit,
 } from '@/components/app/studio/panels/your-sounds';
+import { Segmented } from '@/components/app/studio/segmented';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import {
@@ -19,7 +20,6 @@ import {
   kitIsPlayable,
   paramDefs,
 } from '@/lib/app/breaks/kit';
-import { cn } from '@/lib/utils';
 
 /** The master chain's ranges, shared with the settings schema so a saved override is one these sliders can show. */
 const MASTER = Object.fromEntries(MASTER_PARAM_DEFS.map((d) => [d.key, d]));
@@ -123,7 +123,7 @@ export function KitPanel() {
               type="button"
               className="mini"
               onClick={() => {
-                if (!c.auditionKit()) say('No Web Audio in this browser');
+                if (!c.auditionKit()) say('No Web Audio in this browser', { error: true });
               }}
             >
               ▸ Play the kit
@@ -156,26 +156,17 @@ export function KitPanel() {
           </button>
         </div>
         <div className="card-bd">
-          <div
-            className="seg small"
-            role="group"
-            aria-label="Voice to tune"
-            style={{ marginBottom: 14 }}
-          >
-            {VOICE_KEYS.map((v) => (
-              <button
-                key={v}
-                type="button"
-                aria-pressed={c.voice === v}
-                onClick={() => {
-                  c.setVoice(v);
-                  c.audition(v, v === 't' ? 't2' : undefined);
-                }}
-              >
-                {VOICE_LABEL[v]}
-              </button>
-            ))}
-          </div>
+          <Segmented
+            label="Voice to tune"
+            small
+            className="voice-pick"
+            options={VOICE_KEYS.map((v) => ({ value: v, face: VOICE_LABEL[v] }))}
+            value={c.voice}
+            onChange={(v) => {
+              c.setVoice(v);
+              c.audition(v, v === 't' ? 't2' : undefined);
+            }}
+          />
 
           {yourKit ? <SampleSlots kit={yourKit} /> : null}
 
@@ -190,16 +181,16 @@ export function KitPanel() {
                   either way.
                 </StudioHelp>
               </span>
-              <div className="btnrow">
-                <button
-                  type="button"
-                  className={cn('mini', c.percSamples && 'on')}
-                  aria-pressed={c.percSamples}
-                  onClick={() => c.setPercSamples(!c.percSamples)}
-                >
-                  {c.percSamples ? `Recorded (${c.percCount})` : 'Synthesised'}
-                </button>
-              </div>
+              <Segmented
+                label="Percussion source"
+                small
+                options={[
+                  { value: true, face: `Recorded (${c.percCount})` },
+                  { value: false, face: 'Synthesised' },
+                ]}
+                value={c.percSamples}
+                onChange={c.setPercSamples}
+              />
             </div>
           ) : null}
 

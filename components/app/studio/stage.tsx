@@ -5,13 +5,14 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Stave, type StaveHandle } from '@/components/app/breaks/stave';
 import { StepEditor } from '@/components/app/breaks/step-editor';
 import { PinButton } from '@/components/app/studio/pin-button';
+import { Segmented } from '@/components/app/studio/segmented';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
+import { Toggle } from '@/components/app/studio/toggle';
 import { type SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { engrave } from '@/lib/app/breaks/engrave';
 import { LAYER_BLURB, LAYER_NAMES } from '@/lib/app/breaks/layers';
 import { parseReferenceLink, type StoredLink } from '@/lib/app/breaks/links';
-import { cn } from '@/lib/utils';
 
 /**
  * The pattern's reference links as chips beside its title (task 4.11): ▶ Video
@@ -144,76 +145,71 @@ export function Stage() {
             </div>
           </div>
 
-          <div className="seg" role="group" aria-label="Which section to show and play">
-            {(['A', 'B', 'both'] as const).map((v) => (
-              <button
-                key={v}
-                type="button"
-                aria-pressed={c.viewMode === v}
-                aria-keyshortcuts={v === 'both' ? 'V' : v}
-                onClick={() => c.setViewMode(v)}
-              >
-                {v === 'both' ? 'A + B' : `${v} only`}
-              </button>
-            ))}
-          </div>
+          {/* The one section choice (E11): the chart shows it, the transport
+              plays it, and the grid and the Doctor below work on it. */}
+          <Segmented
+            label="Section"
+            options={(['A', 'B', 'both'] as const).map((v) => ({
+              value: v,
+              face: v === 'both' ? 'Both' : v,
+              keyshortcuts: v === 'both' ? 'V' : v,
+            }))}
+            value={c.viewMode}
+            onChange={c.setViewMode}
+          />
 
-          <div className="seg small" role="group" aria-label="Difficulty layer">
-            {[1, 2, 3, 4, 5].map((n) => (
-              <button
-                key={n}
-                type="button"
-                aria-pressed={c.level === n}
-                title={`${LAYER_BLURB[n]} (${n})`}
-                aria-keyshortcuts={String(n)}
-                onClick={() => c.setLevel(n)}
-              >
-                {/* The name leads (E12); the number is the key that picks it. */}
-                <span className="layer-key" aria-hidden="true">
-                  {n}
-                </span>
-                {LAYER_NAMES[n]}
-              </button>
-            ))}
-          </div>
+          <Segmented
+            label="Difficulty layer"
+            small
+            options={[1, 2, 3, 4, 5].map((n) => ({
+              value: n,
+              title: `${LAYER_BLURB[n]} (${n})`,
+              keyshortcuts: String(n),
+              /* The name leads (E12); the number is the key that picks it. */
+              face: (
+                <>
+                  <span className="layer-key" aria-hidden="true">
+                    {n}
+                  </span>
+                  {LAYER_NAMES[n]}
+                </>
+              ),
+            }))}
+            value={c.level}
+            onChange={c.setLevel}
+          />
         </div>
 
         <div className="chart-tools">
           <span className="eyebrow">Chart</span>
           <div className="btnrow">
-            <button
-              type="button"
-              className={cn('mini', c.guides && 'on')}
-              aria-pressed={c.guides}
-              aria-keyshortcuts="G"
+            <Toggle
+              pressed={c.guides}
+              onPressedChange={c.setGuides}
+              keyshortcuts="G"
               title="Number the beats and the &ldquo;and&rdquo;s under the staff"
-              onClick={() => c.setGuides(!c.guides)}
             >
               Counting guide
-            </button>
-            <button
-              type="button"
-              className={cn('mini', c.sticking && 'on')}
-              aria-pressed={c.sticking}
+            </Toggle>
+            <Toggle
+              pressed={c.sticking}
+              onPressedChange={c.setSticking}
               title="Print the suggested hand and foot under each note"
-              onClick={() => c.setSticking(!c.sticking)}
             >
               Sticking
-            </button>
-            <button
-              type="button"
-              className={cn('mini', c.preview && 'on')}
-              aria-pressed={c.preview}
+            </Toggle>
+            <Toggle
+              pressed={c.preview}
+              onPressedChange={c.setPreview}
               disabled={!c.next}
               title={
                 c.next
                   ? `Show what ${LAYER_NAMES[c.level + 1]} adds, in faint ink`
                   : 'Full break is the whole break — there is nothing above it'
               }
-              onClick={() => c.setPreview(!c.preview)}
             >
               Preview next layer
-            </button>
+            </Toggle>
           </div>
 
           {/* A plain div, not a <label>: wrapping the input would name it
@@ -280,12 +276,14 @@ export function Stage() {
 
         <div className="chart-ft">
           <span className="eyebrow">Arrangement</span>
-          <div className="arr">
+          <div className="arr" role="group" aria-label="Arrangement">
             {c.arrangement.map((letter, i) => (
               <button
                 key={i}
                 type="button"
                 className={c.position?.secIdx === i ? 'now' : undefined}
+                aria-label={`Section ${i + 1} plays ${letter}`}
+                title={`Switch to ${letter === 'A' ? 'B' : 'A'}`}
                 onClick={() =>
                   c.setArrangement(
                     c.arrangement.map((x, j) => (j === i ? (x === 'A' ? 'B' : 'A') : x))
@@ -321,18 +319,10 @@ export function Stage() {
           <h3>Step editor</h3>
           <span className="hint">Click a cell to cycle it. Shift-click steps back.</span>
           <div className="spacer" />
-          <div className="seg small" role="group" aria-label="Edit which section">
-            {(['A', 'B'] as const).map((L) => (
-              <button
-                key={L}
-                type="button"
-                aria-pressed={c.editing === L}
-                onClick={() => c.setEditing(L)}
-              >
-                Edit {L}
-              </button>
-            ))}
-          </div>
+          {/* Which section the grid is, said rather than chosen: the choice is
+              the one on the chart. With Both it follows the playhead, so it is
+              not a live region — it would be read out every bar. */}
+          <span className="chip">Section {c.editing}</span>
           <button
             type="button"
             className="mini"

@@ -9,6 +9,7 @@ import { storedLinkSchema } from '@/lib/app/breaks/links';
 import type { SharePayload } from '@/lib/app/breaks/schema';
 import { clearScratch, writeScratch } from '@/lib/app/breaks/scratch';
 import { logger } from '@/lib/logging';
+import type { Say } from '@/components/app/studio/use-notice';
 
 /**
  * The pattern on the stage, as a document: which saved pattern it is (if any),
@@ -149,7 +150,7 @@ export function usePatternDocument({
   /** The saved pattern `/studio/[id]` opened on, if any. */
   initial?: InitialPattern;
   /** The Studio's one line of feedback. */
-  say: (message: string) => void;
+  say: Say;
 }): PatternDocument {
   const [id, setId] = useState<string | null>(initial?.id ?? null);
   const [mine, setMine] = useState(initial ? initial.mine : true);
@@ -229,7 +230,7 @@ export function usePatternDocument({
             setSavedKey(null);
             setPhase('idle');
             showAddress(null);
-            say('That pattern was deleted elsewhere — it is unsaved here now');
+            say('That pattern was deleted elsewhere — it is unsaved here now', { error: true });
           } else {
             logger.warn('BeatBreaker: autosave refused', { error, breakId: snap.id });
             setRefusedKey(snap.key);
@@ -358,7 +359,8 @@ export function usePatternDocument({
         say(
           error instanceof APIClientError && error.code === 'NETWORK_ERROR'
             ? 'Could not reach the server — not saved yet'
-            : 'That did not save'
+            : 'That did not save',
+          { error: true }
         );
         return false;
       } finally {
@@ -428,7 +430,8 @@ export function usePatternDocument({
         say(
           error instanceof APIClientError && error.code === 'NETWORK_ERROR'
             ? 'Could not reach the server — details not saved'
-            : 'Those details did not save'
+            : 'Those details did not save',
+          { error: true }
         );
         return null;
       }

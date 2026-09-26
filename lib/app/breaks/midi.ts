@@ -200,3 +200,19 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
   for (const b of bytes) bin += String.fromCharCode(b & 255);
   return { base64: btoa(bin), bytes };
 }
+
+/**
+ * A file name for a pattern's MIDI: its title, kept to what every file system
+ * takes, with `.mid` on the end. A title with nothing usable in it is a break.
+ */
+export function midiFileName(title: string): string {
+  const safe = title
+    .normalize('NFKD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^\w\s.-]+/g, '')
+    .trim()
+    .replace(/\s+/g, ' ')
+    .slice(0, 80)
+    .replace(/^[.\s]+|[.\s]+$/g, '');
+  return `${safe || 'break'}.mid`;
+}

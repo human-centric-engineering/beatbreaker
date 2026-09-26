@@ -59,7 +59,7 @@ export const SHORTCUTS: Shortcut[] = [
   },
   {
     keys: 'A  B  V',
-    does: 'Show and play A, B, or both',
+    does: 'Section: A, B or Both — shown, played and edited',
     match: (e) => plain(e) && ['a', 'b', 'v'].includes(e.key.toLowerCase()),
     run: ({ studio }: ShortcutActions, e: KeyboardEvent): void => {
       const k = e.key.toLowerCase();

@@ -9,7 +9,7 @@
  * for nothing; _All_'s search goes to the server; the libraries filter on the
  * page; the Practice drawer shows the Practising shelf.
  *
- * `say()` only sets `Studio.toast`, which the frame shows; a probe reads it.
+ * `say()` only sets `Studio.notice`, which the frame shows; a probe reads it.
  */
 
 import { render, screen, waitFor, within } from '@testing-library/react';
@@ -98,7 +98,7 @@ const onPractising = (): PracticeShelvesView => ({
 });
 
 function ToastProbe() {
-  return <div data-testid="toast">{useStudio().toast}</div>;
+  return <div data-testid="toast">{useStudio().notice?.message}</div>;
 }
 
 function mount({

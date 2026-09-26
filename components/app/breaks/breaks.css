@@ -244,19 +244,49 @@
   border-left: 1px solid var(--line);
   border-right: 1px solid var(--line);
 }
-.bb .bpmval {
-  font-family: var(--f-display);
-  font-size: 30px;
-  line-height: 1;
-  letter-spacing: 0.01em;
+/* Tempo: − / a number you can type / + and, where there is room, the slider
+   (E4). The number looks like a read-out until you touch it. 16px at the
+   least, or a phone zooms the page when the field takes focus. */
+.bb .tempo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
-.bb .bpmval sup {
+.bb .tempo-read {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+}
+.bb .tempo-num {
+  width: 3.4ch;
+  font-size: 16px;
+  text-align: center;
+  color: inherit;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 2px 0;
+}
+.bb .tempo-num:hover {
+  border-color: var(--line);
+}
+.bb .tempo-num:focus-visible {
+  outline: none;
+  border-color: var(--brass);
+  background: var(--raised);
+}
+.bb .tempo-unit {
   font-family: var(--f-mono);
   font-size: 9px;
   letter-spacing: 0.12em;
-  vertical-align: super;
   color: var(--faint);
-  margin-left: 3px;
+}
+/* In the header the number is the transport's headline, as the read-out was. */
+.bb .bpmbox .tempo-num {
+  font-family: var(--f-display);
+  font-size: 30px;
+  line-height: 1;
+  width: 2.3em;
 }
 .bb input[type='range'] {
   -webkit-appearance: none;
@@ -336,38 +366,12 @@
    a centred container a nested layout cannot escape — so the stylesheet reached
    *up* and released it. The Studio has its own route group now, so it has its
    own layout, and nothing has to reach out of anything. */
-.bb .console {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 366px;
-  gap: 18px;
-  padding: 18px;
-  align-items: start;
-}
-@media (max-width: 1080px) {
-  .bb .console {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
 .bb .stage {
   display: flex;
   flex-direction: column;
   gap: 14px;
   min-width: 0;
 }
-.bb .rail {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  min-width: 0;
-  position: sticky;
-  top: 74px;
-}
-@media (max-width: 1080px) {
-  .bb .rail {
-    position: static;
-  }
-}
-
 .bb .card {
   background: var(--panel);
   border: 1px solid var(--line);
@@ -533,7 +537,7 @@
 .bb .seg button:hover {
   color: var(--ink);
 }
-.bb .seg button[aria-pressed='true'] {
+.bb .seg [role='radio'][aria-checked='true'] {
   background: var(--ink);
   color: var(--paper);
 }
@@ -541,6 +545,10 @@
   padding: 5px 9px;
   font-size: 11px;
   font-family: var(--f-mono);
+}
+/* The voices sit above the knobs they choose between. */
+.bb .seg.voice-pick {
+  margin-bottom: 14px;
 }
 /* The layer's key, ahead of its name: a hint, not the label (E12). */
 .bb .seg .layer-key {
@@ -1440,6 +1448,37 @@
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
+/* The line itself lets clicks through to the Studio under it; its buttons do not. */
+.bb .toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.bb .toast.error {
+  background: var(--bad);
+}
+.bb .toast-btn {
+  pointer-events: auto;
+  min-height: 24px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  border: 1px solid color-mix(in srgb, var(--paper) 45%, transparent);
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.bb .toast-btn.icon {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  padding: 0;
+}
+/* An open toast that is only a line still takes no clicks. */
+.bb .toast:not(.show) .toast-btn {
+  pointer-events: none;
+}
 
 .bb .legend {
   display: flex;
@@ -1471,18 +1510,14 @@
   }
 }
 @media print {
-  .bb .topbar,
-  .bb .rail,
+  /* The step editor, the section and layer pickers, the chart's own switches
+     and the arrangement are how the chart is set, not part of it. */
+  .bb .stage > .card,
+  .bb .chart-hd .seg,
   .bb .chart-ft,
   .bb .chart-tools,
-  .bb .gridwrap,
-  .bb .legend,
-  .bb .card-hd {
+  .bb .legend {
     display: none !important;
-  }
-  .bb .console {
-    display: block;
-    padding: 0;
   }
   .bb .chartwrap {
     border: none;

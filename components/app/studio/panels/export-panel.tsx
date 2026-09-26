@@ -5,7 +5,22 @@ import { useState } from 'react';
 import { DetailsForm } from '@/components/app/studio/details-form';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
-import { cn } from '@/lib/utils';
+import { Toggle } from '@/components/app/studio/toggle';
+import { midiFileName } from '@/lib/app/breaks/midi';
+
+/**
+ * Hand a file to the browser to save. An object URL rather than a data URL,
+ * so the bytes are not copied into a string on the way, and let go of once
+ * the click has had it.
+ */
+function download(blob: Blob, name: string) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 0);
+}
 
 export function ExportPanel() {
   const c = useStudio();
@@ -17,7 +32,7 @@ export function ExportPanel() {
       await navigator.clipboard.writeText(text);
       say(`${label} copied`);
     } catch {
-      say('Copy blocked — select the text manually');
+      say('Copy blocked — select the text manually', { error: true });
     }
   };
 
@@ -67,7 +82,7 @@ export function ExportPanel() {
                 className="mini"
                 onClick={() => {
                   // "Break loaded" is said when it loads — it may wait on the unsaved-changes prompt
-                  if (!c.loadCode(codeIn)) say('That is not a BeatBreaker code');
+                  if (!c.loadCode(codeIn)) say('That is not a BeatBreaker code', { error: true });
                 }}
               >
                 Load it
@@ -81,8 +96,7 @@ export function ExportPanel() {
               <StudioHelp title="MIDI">
                 GM drum map, one bar per bar, velocity-mapped ghosts. Swing and the style&apos;s
                 off-grid feel are written into the tick positions, so the export drags where the
-                playback drags. <code>base64 -d &gt; break.mid</code> in a terminal turns the copy
-                into a file.
+                playback drags. With one section on show, only that section is written.
                 {c.midiPort ? (
                   <>
                     {' '}
@@ -97,24 +111,34 @@ export function ExportPanel() {
               <button
                 type="button"
                 className="mini"
-                onClick={() => void copy(c.midiBase64(), 'MIDI')}
-              >
-                Copy MIDI (base64)
-              </button>
-              <button
-                type="button"
-                className={cn('mini', c.midiPort && 'on')}
                 onClick={() => {
-                  if (c.midiPort) {
+                  const file = c.midi();
+                  if (!file) {
+                    say('There is nothing in the arrangement to write', { error: true });
+                    return;
+                  }
+                  const name = midiFileName(c.patterns.A?.name ?? '');
+                  download(new Blob([new Uint8Array(file.bytes)], { type: 'audio/midi' }), name);
+                  say(`Downloaded ${name}`);
+                }}
+              >
+                Download .mid
+              </button>
+              <Toggle
+                pressed={!!c.midiPort}
+                onPressedChange={(on) => {
+                  if (!on) {
                     c.closeMidiOut();
                     say('MIDI out closed');
                     return;
                   }
-                  void c.openMidiOut().then((err) => say(err || 'MIDI out open'));
+                  void c
+                    .openMidiOut()
+                    .then((err) => (err ? say(err, { error: true }) : say('MIDI out open')));
                 }}
               >
-                {c.midiPort ? `MIDI out: ${c.midiPort}` : 'MIDI out…'}
-              </button>
+                MIDI out
+              </Toggle>
             </div>
             {c.midiPort ? (
               <div className="hint">
@@ -128,10 +152,14 @@ export function ExportPanel() {
               Print{' '}
               <StudioHelp title="Print">
                 Prints just the chart, exactly as it is set above it — the counting guide, the
-                sticking row and the size all come out with it.
+                sticking row and the size all come out with it. ⌘P or Ctrl+P does the same.
               </StudioHelp>
             </span>
-            <div className="hint">⌘P prints the chart.</div>
+            <div className="btnrow">
+              <button type="button" className="mini" onClick={() => window.print()}>
+                Print chart
+              </button>
+            </div>
           </div>
         </div>
       </div>

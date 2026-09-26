@@ -14,9 +14,9 @@
  * break you were drilling at L2 and 72 BPM puts you at L2 and 72 BPM.
  */
 
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { act, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/components/app/breaks/breaks.css', () => ({}));
 vi.mock('@/components/app/shell/studio.css', () => ({}));
@@ -33,6 +33,7 @@ vi.mock('@/lib/api/client', async (importOriginal) => {
 import type { InitialPattern } from '@/components/app/breaks/use-break-console';
 import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
+import { UNDO_MS } from '@/components/app/studio/use-notice';
 import { RECORD_MS } from '@/components/app/studio/use-practice-history';
 import { APIClientError, apiClient } from '@/lib/api/client';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
@@ -91,7 +92,7 @@ function Probe() {
   const c = useStudio();
   return (
     <div data-testid="probe" data-level={c.level} data-bpm={c.bpm}>
-      {c.toast}
+      {c.notice?.message}
     </div>
   );
 }
@@ -340,16 +341,160 @@ describe('Recent', () => {
     await waitFor(() => expect(title()).toBe(ENTRY_A.title));
     expect(place()).toEqual({ level: 2, bpm: 72 });
   });
+});
 
-  it('clears', async () => {
-    const user = userEvent.setup();
+describe('Clear history, with an Undo (5.9)', () => {
+  /* The clear is held back for UNDO_MS. Fake timers that still run on their
+     own, so everything else in the Studio keeps time and the test can jump. */
+  const deletes = () =>
+    vi.mocked(apiClient.delete).mock.calls.filter(([url]) => url === '/api/v1/history');
+
+  async function clearIt() {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
     await open({ initial: COLD_CARPET, history: [visit(mineTarget, 5, 90)] });
+    await waitFor(() => expect(recorded()).toHaveLength(1));
     await openPatterns(user, 'Recent');
-
     await user.click(screen.getByRole('button', { name: 'Clear history' }));
+    return user;
+  }
 
-    expect(apiClient.delete).toHaveBeenCalledWith('/api/v1/history');
-    await waitFor(() => expect(screen.getByText(/What you open shows up here/)).toBeTruthy());
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it('empties the list at once, and sends the clear only when the Undo has gone', async () => {
+    await clearIt();
+    expect(screen.getByText(/What you open shows up here/)).toBeTruthy();
+    expect(screen.getByTestId('probe').textContent).toBe('History cleared');
+    expect(screen.getByRole('button', { name: 'Undo' })).toBeTruthy();
+    expect(deletes()).toHaveLength(0);
+
+    await act(() => vi.advanceTimersByTimeAsync(UNDO_MS - 100));
+    expect(deletes()).toHaveLength(0);
+    await act(() => vi.advanceTimersByTimeAsync(200));
+    await waitFor(() => expect(deletes()).toHaveLength(1));
+    expect(screen.queryByRole('button', { name: 'Undo' })).toBeNull();
+  });
+
+  it('puts it all back on Undo, and never sends the clear', async () => {
+    const user = await clearIt();
+    await user.click(screen.getByRole('button', { name: 'Undo' }));
+    expect(screen.getByRole('button', { name: /^Cold Carpet/ })).toBeTruthy();
+
+    await act(() => vi.advanceTimersByTimeAsync(UNDO_MS * 2));
+    expect(deletes()).toHaveLength(0);
+  });
+
+  it('sends a visit recorded while the Undo is up after the clear, so it is kept', async () => {
+    const user = await clearIt();
+    await user.keyboard('2');
+    await act(() => vi.advanceTimersByTimeAsync(RECORD_MS + 100));
+    /* Due, but held behind the clear. */
+    expect(recorded()).toHaveLength(1);
+
+    await act(() => vi.advanceTimersByTimeAsync(UNDO_MS));
+    await waitFor(() => expect(recorded()).toHaveLength(2));
+    expect(recorded()[1]).toMatchObject({ breakId: MINE, level: 2 });
+    const del = vi.mocked(apiClient.delete).mock.invocationCallOrder.at(-1)!;
+    const post = vi.mocked(apiClient.post).mock.invocationCallOrder.at(-1)!;
+    expect(del).toBeLessThan(post);
+    expect(screen.getByRole('button', { name: /^Cold Carpet/ })).toBeTruthy();
+  });
+
+  it('brings the list back and says so, until dismissed, when the clear is refused', async () => {
+    vi.mocked(apiClient.delete).mockRejectedValue(new Error('down'));
+    const user = await clearIt();
+    await act(() => vi.advanceTimersByTimeAsync(UNDO_MS + 100));
+
+    await waitFor(() =>
+      expect(screen.getByRole('alert').textContent).toBe('Could not clear your history — try again')
+    );
+    expect(screen.getByRole('button', { name: /^Cold Carpet/ })).toBeTruthy();
+    await act(() => vi.advanceTimersByTimeAsync(10_000));
+    expect(screen.getByRole('alert').textContent).toBe('Could not clear your history — try again');
+    await user.click(screen.getByRole('button', { name: 'Dismiss' }));
+    expect(screen.getByRole('alert').textContent).toBe('');
+  });
+
+  /** Hold the next POST /api/v1/history until the test lets it answer. */
+  function holdNextVisit() {
+    let answer = () => {};
+    const record = vi.mocked(apiClient.post).getMockImplementation()!;
+    vi.mocked(apiClient.post).mockImplementationOnce(((url: string, options: never) => {
+      const reply = record(url, options);
+      return new Promise((resolve) => {
+        answer = () => resolve(reply);
+      });
+    }) as never);
+    return () => answer();
+  }
+
+  async function clearWithVisitInFlight() {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+    const answer = holdNextVisit();
+    const view = render(
+      <StudioProvider
+        catalogue={catalogue}
+        initial={COLD_CARPET}
+        history={[visit(theirTarget, 3, 80)]}
+      >
+        <StudioFrame />
+      </StudioProvider>
+    );
+    /* Cold Carpet's arrival is sent and not yet answered. */
+    await waitFor(() => expect(recorded()).toHaveLength(1));
+    await openPatterns(user, 'Recent');
+    await user.click(screen.getByRole('button', { name: 'Clear history' }));
+    return { user, answer, view };
+  }
+
+  it('keeps a visit that was on its way off the cleared list, and brings it back on Undo', async () => {
+    const { user, answer } = await clearWithVisitInFlight();
+    answer();
+    await act(() => vi.advanceTimersByTimeAsync(10));
+    expect(screen.getByText(/What you open shows up here/)).toBeTruthy();
+    expect(screen.queryByRole('button', { name: /^Cold Carpet/ })).toBeNull();
+
+    await user.click(screen.getByRole('button', { name: 'Undo' }));
+    const rows = screen
+      .getAllByRole('button', { name: /^(Cold Carpet|Their Groove)/ })
+      .map((b) => b.textContent);
+    expect(rows[0]).toMatch(/^Cold Carpet/);
+    expect(rows[1]).toMatch(/^Their Groove/);
+  });
+
+  it('sends a held clear at once when the Studio goes, not behind a visit still in flight', async () => {
+    const { view } = await clearWithVisitInFlight();
+    view.unmount();
+    await act(() => vi.advanceTimersByTimeAsync(10));
+    expect(deletes()).toHaveLength(1);
+    expect(deletes()[0][1]).toEqual({ options: { keepalive: true } });
+  });
+
+  it('sends a held clear when the Studio goes, as the list said it had', async () => {
+    const { unmount } = await (async () => {
+      vi.useFakeTimers({ shouldAdvanceTime: true });
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+      const view = render(
+        <StudioProvider
+          catalogue={catalogue}
+          initial={COLD_CARPET}
+          history={[visit(mineTarget, 5, 90)]}
+        >
+          <StudioFrame />
+        </StudioProvider>
+      );
+      await waitFor(() => expect(recorded()).toHaveLength(1));
+      await openPatterns(user, 'Recent');
+      await user.click(screen.getByRole('button', { name: 'Clear history' }));
+      return view;
+    })();
+    expect(deletes()).toHaveLength(0);
+    unmount();
+    await waitFor(() => expect(deletes()).toHaveLength(1));
+    expect(deletes()[0][1]).toEqual({ options: { keepalive: true } });
   });
 });
 

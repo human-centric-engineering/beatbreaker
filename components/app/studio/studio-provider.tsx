@@ -23,6 +23,7 @@ import {
   usePatternDocument,
 } from '@/components/app/studio/use-pattern-document';
 import { type PracticeShelvesState, usePins } from '@/components/app/studio/use-pins';
+import { type Notice, type Say, useNotice } from '@/components/app/studio/use-notice';
 import { type YourSounds, useYourSounds } from '@/components/app/studio/use-your-sounds';
 import {
   fetchSavedPattern,
@@ -72,10 +73,12 @@ export interface Studio extends BreakConsole {
    * The line of feedback under the frame — "Copied", "That code is not one of
    * ours". It lives here because the drawers raise it and the frame shows it,
    * and those are siblings now; the console could keep it to itself when it was
-   * both.
+   * both. See `useNotice` for how long each kind stays.
    */
-  toast: string;
-  say: (message: string) => void;
+  notice: Notice | null;
+  say: Say;
+  /** Take the line down — how an error, which does not time out, goes. */
+  dismiss: () => void;
   /** The pattern on the stage as a saved-or-not document (Phase 4). */
   doc: PatternDocument;
   /** Save As: rename the pattern on the stage and save it as a new one. */
@@ -128,15 +131,12 @@ function readsAsBreak(code: string): boolean {
  * has landed — never during render — and the rule cannot see that through a
  * `useMemo` value, only through a hook's return (as with the history's open).
  */
-function useOpenFromList(
-  openTarget: (target: PinTarget) => Promise<OpenResult>,
-  say: (message: string) => void
-) {
+function useOpenFromList(openTarget: (target: PinTarget) => Promise<OpenResult>, say: Say) {
   return useCallback(
     async (target: PinTarget) => {
       const result = await openTarget(target);
-      if (result === 'gone') say('That pattern is no longer there');
-      else if (result === 'failed') say('Could not open that — try again');
+      if (result === 'gone') say('That pattern is no longer there', { error: true });
+      else if (result === 'failed') say('Could not open that — try again', { error: true });
       return result;
     },
     [openTarget, say]
@@ -198,13 +198,7 @@ export function StudioProvider({
      once the document has rendered. */
   const stageIsSaved = useRef(initial !== undefined);
   const stageSaved = useCallback(() => stageIsSaved.current, []);
-  const [toast, setToast] = useState('');
-  const say = useCallback((message: string) => setToast(message), []);
-  useEffect(() => {
-    if (!toast) return;
-    const id = setTimeout(() => setToast(''), 2200);
-    return () => clearTimeout(id);
-  }, [toast]);
+  const { notice, say, dismiss } = useNotice();
 
   /* Your own kits join the catalogue here, per person, and the console never
      knows the difference: a kit of yours is a catalogue entry on the `user`
@@ -334,7 +328,7 @@ export function StudioProvider({
       if (!opened) return 'failed';
       replaceNow.current(() => {
         if (!loadPayload(opened.payload, opened.title, opened.mine ? undefined : at)) {
-          say('That pattern would not open');
+          say('That pattern would not open', { error: true });
           return;
         }
         setEntryId(null);
@@ -376,7 +370,7 @@ export function StudioProvider({
         ? { level: FULL_LAYER, bpm: entry.bpm }
         : undefined;
     void openTarget({ libraryEntryId: id }, at).then((result) => {
-      if (result === 'gone') say('That pattern is no longer there');
+      if (result === 'gone') say('That pattern is no longer there', { error: true });
     });
   }, [ready, initialHistory, catalogue, openTarget, say]);
 
@@ -429,8 +423,9 @@ export function StudioProvider({
       ...state,
       ...replacing,
       catalogue: content,
-      toast,
+      notice,
       say,
+      dismiss,
       doc,
       saveAs,
       leaving: pending ? { title: patterns.A?.name ?? '' } : null,
@@ -446,8 +441,9 @@ export function StudioProvider({
       state,
       replacing,
       content,
-      toast,
+      notice,
       say,
+      dismiss,
       doc,
       saveAs,
       pending,

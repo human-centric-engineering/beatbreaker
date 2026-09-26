@@ -120,6 +120,7 @@ vi.mock('@/lib/app/breaks/audio/midi-out', () => ({
 import {
   type ConsoleOptions,
   type InitialPattern,
+  editingSection,
   useBreakConsole,
 } from '@/components/app/breaks/use-break-console';
 import { AUTOSAVE_MS } from '@/components/app/studio/use-pattern-document';
@@ -345,10 +346,46 @@ describe('generating and editing', () => {
   it('applies a doctor move to the section being edited only', async () => {
     const { result } = await mount();
     const before = result.current.patterns;
-    act(() => result.current.setEditing('B'));
+    act(() => result.current.setViewMode('B'));
+    expect(result.current.editing).toBe('B');
     act(() => result.current.applyDoctor('ghosts-'));
     expect(result.current.patterns.A).toBe(before.A);
     expect(result.current.patterns.B?.bars.every((b) => !b.s.includes(1))).toBe(true);
+  });
+
+  it('with Both, edits the section under the playhead while it plays', () => {
+    const at = (letter: 'A' | 'B', count = false) => ({ t: 0, slot: 0, letter, count });
+    expect(editingSection('both', at('B'), 'A')).toBe('B');
+    expect(editingSection('both', at('A'), 'B')).toBe('A');
+    /* The count-in has no bar under it: the last one touched. */
+    expect(editingSection('both', at('B', true), 'A')).toBe('A');
+    /* Stopped: the last one touched. */
+    expect(editingSection('both', null, 'B')).toBe('B');
+    /* A or B chosen: that, whatever is playing. */
+    expect(editingSection('A', at('B'), 'B')).toBe('A');
+    expect(editingSection('B', at('A'), 'A')).toBe('B');
+  });
+
+  /* One section choice (E11): A or B is what the grid and the Doctor work on;
+     Both works on the last section chosen or edited while nothing plays. */
+  it('edits the chosen section, and with Both the last one touched', async () => {
+    const { result } = await mount();
+    act(() => result.current.setViewMode('B'));
+    act(() => result.current.setViewMode('both'));
+    expect(result.current.editing).toBe('B');
+
+    /* A cell edited in A makes A the one Both edits… */
+    act(() => result.current.cycleCell('A', 0, 'k', 1, false));
+    expect(result.current.editing).toBe('A');
+
+    /* …so a Doctor move lands on A and leaves B alone. */
+    const before = result.current.patterns;
+    act(() => result.current.applyDoctor('ghosts-'));
+    expect(result.current.patterns.B).toBe(before.B);
+    expect(result.current.patterns.A).not.toBe(before.A);
+
+    act(() => result.current.setViewMode('A'));
+    expect(result.current.editing).toBe('A');
   });
 
   it('cycles a cell forward and back, pinning a note to the layer it was drawn at', async () => {
@@ -673,13 +710,14 @@ describe('sharing and saving', () => {
 
   it('exports the arrangement as MIDI, or only the soloed section', async () => {
     const { result } = await mount();
-    const both = result.current.midiBase64();
-    expect(atob(both).startsWith('MThd')).toBe(true);
+    const both = result.current.midi()!.bytes;
+    // 'MThd', the Standard MIDI File header
+    expect(both.slice(0, 4)).toEqual([0x4d, 0x54, 0x68, 0x64]);
     act(() => result.current.setViewMode('A'));
-    const aOnly = result.current.midiBase64();
+    const aOnly = result.current.midi()!.bytes;
     expect(aOnly.length).toBeLessThan(both.length);
     act(() => result.current.setArrangement(['B']));
-    expect(result.current.midiBase64()).toBe('');
+    expect(result.current.midi()).toBeNull();
   });
 });
 

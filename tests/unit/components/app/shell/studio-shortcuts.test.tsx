@@ -46,7 +46,8 @@ const mount = async () => {
 
 /** Which sections the chart is showing — the view mode, read off what is drawn. */
 const staves = () => screen.queryAllByRole('img', { name: /Drum notation/ }).length;
-const bpm = () => Number(document.querySelector('.bpmval')?.textContent?.replace(/\D+/g, ''));
+const bpm = () =>
+  Number(document.querySelector<HTMLInputElement>('.tempo-num')?.value?.replace(/\D+/g, ''));
 
 describe('Studio shortcuts', () => {
   it('moves the tempo by two either way', async () => {
@@ -156,7 +157,11 @@ describe('Studio shortcuts', () => {
     await user.click(tab);
     tab.focus();
 
-    const playing = () => screen.getByRole('button', { name: 'Play or stop' }).textContent;
+    /* Both transports are in the page, and CSS shows one: read the header's. */
+    const playing = () =>
+      within(document.querySelector<HTMLElement>('.studio-transport')!).getByRole('button', {
+        name: 'Play or stop',
+      }).textContent;
     const stopped = playing();
 
     // Space belongs to the button — it must not start the transport as well

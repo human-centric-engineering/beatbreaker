@@ -191,7 +191,10 @@ describe('a saved pattern of yours', () => {
     expect(result.current.id).toBeNull();
     expect(result.current.status).toBe('scratch');
     expect(window.location.pathname).toBe('/studio');
-    expect(say).toHaveBeenCalledWith('That pattern was deleted elsewhere — it is unsaved here now');
+    expect(say).toHaveBeenCalledWith(
+      'That pattern was deleted elsewhere — it is unsaved here now',
+      { error: true }
+    );
     // and what is on the stage is kept, as scratch is
     expect(readScratch(localStorage)).toEqual(payloadAt(91));
   });
@@ -453,7 +456,7 @@ describe('a scratch pattern', () => {
     });
     expect(result.current.id).toBeNull();
     expect(readScratch(localStorage)).toEqual(payloadAt(90));
-    expect(say).toHaveBeenCalledWith('Could not reach the server — not saved yet');
+    expect(say).toHaveBeenCalledWith('Could not reach the server — not saved yet', { error: true });
   });
 
   it('refuses a create answer without an id rather than trusting it', async () => {
@@ -522,7 +525,7 @@ describe('details — description and links (task 4.11)', () => {
     });
 
     expect(kept).toBeNull();
-    expect(say).toHaveBeenCalledWith('Those details did not save');
+    expect(say).toHaveBeenCalledWith('Those details did not save', { error: true });
     expect(result.current.details).toEqual({ description: 'Old', links: [] });
   });
 

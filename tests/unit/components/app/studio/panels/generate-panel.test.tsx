@@ -84,12 +84,35 @@ describe('GeneratePanel', () => {
     ).toBeTruthy();
   });
 
+  it('hands the lanes back to the style, and does nothing when the choice is already made', async () => {
+    const user = userEvent.setup();
+    renderPanel();
+    await screen.findByLabelText('Style');
+    const locked = () => document.querySelector('.lanepick')?.getAttribute('data-locked');
+
+    await user.click(screen.getByRole('radio', { name: "The style's" }));
+    expect(locked()).toBe('1');
+
+    await user.click(screen.getByRole('radio', { name: 'My own' }));
+    await user.click(screen.getByRole<HTMLInputElement>('checkbox', { name: 'Toms' }));
+    /* Choosing My own again keeps the lanes you just set, not the style's. */
+    await user.click(screen.getByRole('radio', { name: 'My own' }));
+    expect(screen.getByRole<HTMLInputElement>('checkbox', { name: 'Toms' }).checked).toBe(true);
+
+    await user.click(screen.getByRole('radio', { name: "The style's" }));
+    expect(locked()).toBe('1');
+    expect(screen.getByRole('radio', { name: "The style's" })).toHaveAttribute(
+      'aria-checked',
+      'true'
+    );
+  });
+
   it('lets you pick a percussion instrument for Perc 1 and Perc 2 once you take the lanes over', async () => {
     const user = userEvent.setup();
     renderPanel();
     await screen.findByLabelText('Style');
 
-    await user.click(screen.getByRole('button', { name: 'Following the style' }));
+    await user.click(screen.getByRole('radio', { name: 'My own' }));
     expect(document.querySelector('.lanepick')?.getAttribute('data-locked')).toBe('0');
 
     const perc1 = screen.getByLabelText<HTMLSelectElement>('Perc 1');
@@ -108,11 +131,14 @@ describe('GeneratePanel', () => {
     renderPanel();
     await screen.findByLabelText('Style');
 
+    const locks = within(screen.getByRole('group', { name: 'Lock while regenerating' }));
     for (const name of ['Tempo', 'Kick', 'Snare', 'Hats']) {
-      const btn = screen.getByRole('button', { name });
-      expect(btn.className).not.toMatch(/\bon\b/);
+      const btn = locks.getByRole('button', { name: `Lock ${name}` });
+      expect(btn).toHaveAttribute('aria-pressed', 'false');
       await user.click(btn);
+      expect(btn).toHaveAttribute('aria-pressed', 'true');
       expect(btn.className).toMatch(/\bon\b/);
+      expect(btn.textContent).toBe(name);
     }
   });
 
@@ -147,11 +173,9 @@ describe('GeneratePanel', () => {
     const gridOf = () =>
       [...document.querySelectorAll('.cell')].map((c) => c.getAttribute('data-on')).join('');
 
-    // switch to B-only so the grid we are reading is B's, not A's
+    // choose B, so the grid we are reading is B's, not A's
     await user.click(
-      within(screen.getByRole('group', { name: 'Edit which section' })).getByRole('button', {
-        name: 'Edit B',
-      })
+      within(screen.getByRole('radiogroup', { name: 'Section' })).getByRole('radio', { name: 'B' })
     );
     const originalB = gridOf();
 

@@ -169,10 +169,10 @@ describe('StudioTransport', () => {
     renderTransport(<StudioTransport />);
     await waitForReady();
 
-    expect(document.querySelector('.bpmval')?.textContent).toContain('94');
+    expect(document.querySelector<HTMLInputElement>('.tempo-num')?.value).toContain('94');
     const range = screen.getByLabelText('Tempo');
     fireEvent.change(range, { target: { value: '150' } });
-    expect(document.querySelector('.bpmval')?.textContent).toContain('150');
+    expect(document.querySelector<HTMLInputElement>('.tempo-num')?.value).toContain('150');
   });
 
   describe('tap tempo', () => {
@@ -198,7 +198,7 @@ describe('StudioTransport', () => {
         await user.click(tapBtn);
       }
       // three 600ms gaps -> mean 600ms -> 60000 / 600 = 100bpm
-      expect(document.querySelector('.bpmval')?.textContent).toContain('100');
+      expect(document.querySelector<HTMLInputElement>('.tempo-num')?.value).toContain('100');
     });
 
     it('discards a tap more than 2400ms after the last one, rather than averaging it in', async () => {
@@ -213,12 +213,12 @@ describe('StudioTransport', () => {
       clock.now = 500;
       await user.click(tapBtn);
       // 500ms gap -> 60000 / 500 = 120bpm
-      expect(document.querySelector('.bpmval')?.textContent).toContain('120');
+      expect(document.querySelector<HTMLInputElement>('.tempo-num')?.value).toContain('120');
 
       clock.now = 4000; // 3500ms after the last tap: both prior taps age out of the 2400ms window
       await user.click(tapBtn);
       // only the new tap survives the filter, so there is nothing to average and the tempo holds
-      expect(document.querySelector('.bpmval')?.textContent).toContain('120');
+      expect(document.querySelector<HTMLInputElement>('.tempo-num')?.value).toContain('120');
     });
 
     it('does nothing on a single tap', async () => {
@@ -229,7 +229,7 @@ describe('StudioTransport', () => {
 
       clock.now = 0;
       await user.click(screen.getByRole('button', { name: 'Tap tempo' }));
-      expect(document.querySelector('.bpmval')?.textContent).toContain('94');
+      expect(document.querySelector<HTMLInputElement>('.tempo-num')?.value).toContain('94');
     });
 
     it('rejects a mean under 120ms as noise, not a tempo', async () => {
@@ -244,7 +244,7 @@ describe('StudioTransport', () => {
         await user.click(tapBtn);
       }
       // 100ms mean is below the 120ms floor, so the tempo never moved off the default
-      expect(document.querySelector('.bpmval')?.textContent).toContain('94');
+      expect(document.querySelector<HTMLInputElement>('.tempo-num')?.value).toContain('94');
     });
   });
 
@@ -290,31 +290,36 @@ describe('StudioTransport', () => {
 });
 
 describe('PhoneTransport', () => {
-  it('toggles play and stop, with the icon and aria-pressed following', async () => {
+  it('toggles play and stop under one name, with aria-pressed following', async () => {
     const user = userEvent.setup();
     renderTransport(<PhoneTransport />);
 
-    const playBtn = screen.getByRole('button', { name: 'Play' });
+    const playBtn = screen.getByRole('button', { name: 'Play or stop' });
     expect(playBtn).toHaveAttribute('aria-pressed', 'false');
 
     await user.click(playBtn);
-    const stopBtn = screen.getByRole('button', { name: 'Stop' });
-    expect(stopBtn).toHaveAttribute('aria-pressed', 'true');
+    expect(playBtn).toHaveAttribute('aria-pressed', 'true');
 
-    await user.click(stopBtn);
-    expect(screen.getByRole('button', { name: 'Play' })).toHaveAttribute('aria-pressed', 'false');
+    await user.click(playBtn);
+    expect(playBtn).toHaveAttribute('aria-pressed', 'false');
   });
 
-  it('steps the tempo down and up with the +/- buttons, and the read-out follows', async () => {
+  it('steps the tempo down and up by one with the − and + buttons', async () => {
     const user = userEvent.setup();
     renderTransport(<PhoneTransport />);
 
-    expect(document.querySelector('.studio-bpm')?.textContent).toContain('94');
+    expect(document.querySelector<HTMLInputElement>('.tempo-num')?.value).toBe('94');
     await user.click(screen.getByRole('button', { name: 'Slower' }));
-    expect(document.querySelector('.studio-bpm')?.textContent).toContain('92');
+    expect(document.querySelector<HTMLInputElement>('.tempo-num')?.value).toBe('93');
 
     await user.click(screen.getByRole('button', { name: 'Faster' }));
     await user.click(screen.getByRole('button', { name: 'Faster' }));
-    expect(document.querySelector('.studio-bpm')?.textContent).toContain('96');
+    expect(document.querySelector<HTMLInputElement>('.tempo-num')?.value).toBe('95');
+  });
+
+  it('has no slider on the phone: the footer is the stepper and the number', () => {
+    renderTransport(<PhoneTransport />);
+    expect(screen.queryByRole('slider')).toBeNull();
+    expect(screen.getByRole('textbox', { name: 'Tempo in bpm' })).toBeTruthy();
   });
 });

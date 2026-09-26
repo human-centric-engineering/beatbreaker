@@ -170,6 +170,14 @@ export const appAlwaysRunTests: AppAlwaysRunTest[] = [
       'that brings one back selects nothing.',
   },
   {
+    path: 'tests/unit/components/app/shell/studio-controls.test.ts',
+    reason:
+      'greps every `.tsx` under `components/app/` for `aria-pressed` and `aria-checked` written ' +
+      'outside `Toggle` and `Segmented` (E19) and for base64 in the UI (E6), and reads the ' +
+      "Studio's print rules (E7). It imports nothing, so a panel that hand-rolls a toggle, or " +
+      'a stylesheet edit that prints the whole frame, selects nothing.',
+  },
+  {
     path: 'tests/unit/lib/app/breaks/browser-keys.test.ts',
     reason:
       'greps `lib/app/` and `components/app/` for the Sunrise local-storage hook and for `bb.` keys spelled ' +

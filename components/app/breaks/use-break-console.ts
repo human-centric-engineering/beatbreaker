@@ -27,7 +27,7 @@ import { DEFAULT_MIX, LANES, PERC_LANES, TOM_LANES } from '@/lib/app/breaks/lane
 
 import { reducePattern } from '@/lib/app/breaks/layers';
 import type { StoredLink } from '@/lib/app/breaks/links';
-import { buildMidi } from '@/lib/app/breaks/midi';
+import { buildMidi, type MidiFile } from '@/lib/app/breaks/midi';
 import { takePendingLink } from '@/lib/app/breaks/pending-link';
 import {
   type CustomLanes,
@@ -72,6 +72,21 @@ import { DEFAULT_STUDIO_SETTINGS, type StudioSettings } from '@/lib/validations/
 
 export type ViewMode = (typeof VIEW_MODES)[number];
 
+/**
+ * The section the grid and the Doctor work on (E11) — one choice, not two.
+ * A or B when that is the choice. With Both, the section under the playhead
+ * while it moves, so the section you hear is the one you see; during the
+ * count-in and when stopped, whichever you last chose or edited.
+ */
+export function editingSection(
+  viewMode: ViewMode,
+  playhead: PlayEvent | null,
+  touched: SectionLetter
+): SectionLetter {
+  if (viewMode !== 'both') return viewMode;
+  return playhead && !playhead.count && playhead.letter ? playhead.letter : touched;
+}
+
 /** Two undo steps' worth of both sections. */
 interface Snapshot {
   A: Pattern | null;
@@ -110,10 +125,15 @@ export interface BreakConsole {
 
   level: number;
   setLevel: (n: number) => void;
+  /** The one section choice (E11): what the chart shows and plays, and the grid edits. */
   viewMode: ViewMode;
   setViewMode: (v: ViewMode) => void;
+  /**
+   * The section the grid shows and the Doctor works on — never chosen on its
+   * own. A or B when that is the choice; with Both, the section under the
+   * playhead while playing, and otherwise the last one you touched.
+   */
   editing: SectionLetter;
-  setEditing: (s: SectionLetter) => void;
 
   style: string;
   setStyle: (s: string) => void;
@@ -138,6 +158,12 @@ export interface BreakConsole {
 
   bpm: number;
   setBpm: (n: number) => void;
+  /**
+   * Play at a percentage of the pattern's own tempo — of the layer's, with the
+   * match on — without changing what the pattern's own tempo is (E5). 100 is
+   * back where it was written.
+   */
+  quickTempo: (pct: number) => void;
   bpmCeiling: number;
   playing: boolean;
   togglePlay: () => void;
@@ -242,7 +268,11 @@ export interface BreakConsole {
    * False when it does not decode.
    */
   loadPayload: (payload: SharePayload, title: string, at?: PracticePlace) => boolean;
-  midiBase64: () => string;
+  /**
+   * The arrangement as a Standard MIDI File — only the section on show, when
+   * one is. Null when there is nothing to play.
+   */
+  midi: () => MidiFile | null;
   /** Plays a bar of the current kit. False when there is no Web Audio. */
   auditionKit: () => boolean;
   /** The MIDI port playback is also driving, if you have opened one. */
@@ -366,8 +396,16 @@ export function useBreakConsole(
      A new pattern starts from your starting values (D21), and changing one of
      these while the pattern on the stage is new and unsaved moves them. */
   const [level, setLevel] = useState(3);
-  const [viewMode, setViewMode] = useStoredSetting(VIEW);
-  const [editing, setEditing] = useState<SectionLetter>('A');
+  const [viewMode, setViewModeRaw] = useStoredSetting(VIEW);
+  /** The section last chosen or edited — what Both edits when nothing is playing. */
+  const [touched, setTouched] = useState<SectionLetter>('A');
+  const setViewMode = useCallback(
+    (v: ViewMode) => {
+      setViewModeRaw(v);
+      if (v !== 'both') setTouched(v);
+    },
+    [setViewModeRaw]
+  );
 
   const [style, setStyleRaw] = useState(settings.startStyle);
   const [meter, setMeterRaw] = useState(settings.startMeter);
@@ -420,6 +458,8 @@ export function useBreakConsole(
   const [loops, setLoops] = useState(0);
   const [position, setPosition] = useState<PlayEvent | null>(null);
 
+  const editing = editingSection(viewMode, playing ? position : null, touched);
+
   const [mix, setMix] = useState<Record<string, number>>({ ...DEFAULT_MIX });
   const [mixTouched, setMixTouched] = useState<Record<string, boolean>>({});
   const [mute, setMute] = useState<Record<string, boolean>>({});
@@ -464,6 +504,18 @@ export function useBreakConsole(
       if (settingUpNew()) update({ startBpm: base });
     },
     [placeTempo, settingUpNew, update]
+  );
+
+  /* A practice speed, not a new tempo for the break: the base stays where it
+     is, so 100% finds it again, and your starting tempo is not moved either.
+     The console used to take these from the style's slowest tempo, so "Back to
+     100%" went somewhere the pattern had never been. */
+  const quickTempo = useCallback(
+    (pct: number) => {
+      const written = matchTempo ? baseBpm * (LAYER_TEMPO[level] ?? 1) : baseBpm;
+      setBpmRaw(clamp(Math.round((written * pct) / 100), 50, maxBpm(meter)));
+    },
+    [matchTempo, baseBpm, level, meter]
   );
 
   /**
@@ -728,6 +780,7 @@ export function useBreakConsole(
       const pat = patterns[letter];
       if (!pat) return;
       pushHistory();
+      setTouched(letter);
       const next = clonePattern(pat);
       // edits are written against the stored break (L5), which is what a layer is a view of
       const states = LANE_STATES[lane] ?? 2;
@@ -1390,7 +1443,7 @@ export function useBreakConsole(
     [catalogue, putDoc]
   );
 
-  const midiBase64 = useCallback(() => {
+  const midi = useCallback((): MidiFile | null => {
     const solo = viewMode === 'both' ? null : viewMode;
     const seq = arrangement
       .filter((L) => !solo || L === solo)
@@ -1398,8 +1451,8 @@ export function useBreakConsole(
         const pat = view[L];
         return pat ? pat.bars.map((_, i) => ({ pattern: pat, barIdx: i })) : [];
       });
-    if (!seq.length) return '';
-    return buildMidi(seq, { bpm, swing, feel, hats }).base64;
+    if (!seq.length) return null;
+    return buildMidi(seq, { bpm, swing, feel, hats });
   }, [arrangement, view, viewMode, bpm, swing, feel, hats]);
 
   const rename = useCallback((name: string) => {
@@ -1424,7 +1477,6 @@ export function useBreakConsole(
     viewMode,
     setViewMode,
     editing,
-    setEditing,
     style,
     setStyle,
     meter,
@@ -1447,6 +1499,7 @@ export function useBreakConsole(
     setCustomLanes,
     bpm,
     setBpm,
+    quickTempo,
     bpmCeiling,
     playing,
     togglePlay,
@@ -1512,7 +1565,7 @@ export function useBreakConsole(
     shareLink,
     loadCode,
     loadPayload,
-    midiBase64,
+    midi,
     midiPort,
     openMidiOut,
     closeMidiOut,
