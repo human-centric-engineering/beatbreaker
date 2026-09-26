@@ -4,6 +4,12 @@
  * The `sample` rows cascade from `user`; nothing in the database reaches
  * storage, so `initApp()` registers a cleanup hook that deletes everything
  * under `samples/<userId>/`. This drives the hook as `eraseUser` does.
+ *
+ * FORK NOTE — this reads `@/lib/app/bootstrap` for real, because the hook
+ * `initApp()` registers is what is under test. A fork of BeatBreaker that adds
+ * its own boot work there keeps this passing as long as the
+ * `beatbreaker-samples` hook stays; one that drops samples should delete this
+ * file with them.
  */
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
