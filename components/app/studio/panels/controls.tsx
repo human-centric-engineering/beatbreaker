@@ -2,10 +2,6 @@
 
 import { useId } from 'react';
 
-import { useStudio } from '@/components/app/studio/studio-provider';
-import { cn } from '@/lib/utils';
-import { SLOTS } from '@/lib/app/breaks/kit';
-
 /**
  * The controls more than one panel is built from.
  *
@@ -72,67 +68,6 @@ export function Slider({
         <span className="val mono">{format ? format(value) : `${value}${suffix}`}</span>
       </div>
       {hint ? <div className="hint">{hint}</div> : null}
-    </div>
-  );
-}
-
-/**
- * Your own one-shots, slot by slot.
- *
- * A hidden file input per slot rather than one shared input driven by a ref:
- * the label *is* the button, so the click reaches the input with no script at
- * all, and there is no "which slot was I filling?" state to get wrong.
- */
-export function SampleSlots() {
-  const c = useStudio();
-  const { say } = c;
-  return (
-    <div className="field">
-      <span className="fieldlab">Samples</span>
-      <div className="slots">
-        {SLOTS.map((slot) => {
-          const name = c.userNames[slot.id];
-          return (
-            <div key={slot.id} className={cn('slot', name && 'filled')}>
-              <b>
-                {slot.label}
-                {slot.opt ? <span className="opt">optional</span> : null}
-              </b>
-              <span className="fn mono">{name ?? '—'}</span>
-              <label className="mini">
-                {name ? 'Replace' : 'Load'}
-                <input
-                  type="file"
-                  accept="audio/*"
-                  hidden
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    e.target.value = '';
-                    if (!file) return;
-                    void c.addSample(slot.id, file).then((err) => {
-                      say(err || `${slot.label}: ${file.name}`);
-                    });
-                  }}
-                />
-              </label>
-              {name ? (
-                <button
-                  type="button"
-                  className="mini ghost"
-                  aria-label={`Clear ${slot.label}`}
-                  onClick={() => void c.removeSample(slot.id)}
-                >
-                  ✕
-                </button>
-              ) : null}
-            </div>
-          );
-        })}
-      </div>
-      <div className="hint">
-        Nothing is uploaded — the files stay in this browser. A slot you leave empty falls through
-        to the synthesised voice, so a half-loaded kit still plays.
-      </div>
     </div>
   );
 }

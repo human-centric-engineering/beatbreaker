@@ -1,6 +1,7 @@
 import { ValidationError } from '@/lib/api/errors';
 import { listKits, listStyles } from '@/lib/app/breaks/catalogue/data';
 import { kitIsPlayable } from '@/lib/app/breaks/kit';
+import { yourKitKeys } from '@/lib/app/breaks/samples/kits';
 import { prisma } from '@/lib/db/client';
 import { logger } from '@/lib/logging';
 import {
@@ -18,7 +19,8 @@ import {
  * **Server-side only**, like `pins.ts` beside it.
  *
  * **Read field by field.** A stored value that no longer parses, or names a
- * kit or style the catalogue no longer has, reads as its own default, and one
+ * kit or style the catalogue no longer has (a kit of yours you deleted
+ * included), reads as its own default, and one
  * log line names the fields that did. The rest of the row is unaffected, so a
  * tightened bound never costs someone their tuning.
  *
@@ -28,11 +30,15 @@ import {
  * at the same moment both land.
  */
 
-/** Which kit and style keys a setting may name: kits that play, and every style. */
-async function catalogueKeys(): Promise<Record<'kit' | 'style', Set<string>>> {
-  const [kits, styles] = await Promise.all([listKits(), listStyles()]);
+/**
+ * Which kit and style keys a setting may name: system kits that play, your own
+ * kits (D20), and every style. Your kits are read per call, never from the
+ * catalogue's shared memo, so another person's kit is never a valid answer.
+ */
+async function catalogueKeys(userId: string): Promise<Record<'kit' | 'style', Set<string>>> {
+  const [kits, styles, yours] = await Promise.all([listKits(), listStyles(), yourKitKeys(userId)]);
   return {
-    kit: new Set(kits.filter(kitIsPlayable).map((k) => k.key)),
+    kit: new Set([...kits.filter(kitIsPlayable).map((k) => k.key), ...yours]),
     style: new Set(styles.map((s) => s.key)),
   };
 }
@@ -45,7 +51,7 @@ const catalogueFields = Object.entries(CATALOGUE_FIELDS) as Array<
 export async function readStudioSettings(userId: string): Promise<StudioSettings> {
   const [row, keys] = await Promise.all([
     prisma.studioSettings.findUnique({ where: { userId }, select: { prefs: true } }),
-    catalogueKeys(),
+    catalogueKeys(userId),
   ]);
   if (!row) return structuredClone(DEFAULT_STUDIO_SETTINGS);
 
@@ -81,7 +87,7 @@ export async function updateStudioSettings(
 ): Promise<StudioSettings> {
   const named = catalogueFields.filter(([field]) => patch[field] !== undefined);
   if (named.length) {
-    const keys = await catalogueKeys();
+    const keys = await catalogueKeys(userId);
     const errors = named
       .filter(([field, kind]) => !keys[kind].has(patch[field] ?? ''))
       .map(([field, kind]) => ({

@@ -142,6 +142,13 @@ export function initAppSubjectSources(): void {
         description:
           "How you set up the Studio — your kit and its tuning, count-in, the generator's settings, and what a new pattern starts with.",
       },
+      {
+        model: 'Sample',
+        section: 'samples',
+        disposition: 'export',
+        description:
+          'Drum samples you uploaded — the name, kit slot, size, length and storage key of each, not the audio files themselves.',
+      },
       /* The catalogue. Every row is a system row today (`ownerId` null), so
          these three sections come back empty for everybody — and they are
          declared anyway, because the alternative is that the day D16 ships
@@ -164,7 +171,8 @@ export function initAppSubjectSources(): void {
         model: 'Kit',
         section: 'kits',
         disposition: 'export',
-        description: 'Drum kits you authored — the settings, not the sample audio.',
+        description:
+          'Drum kits of your own — the name, the settings and which of your samples is in each slot, not the audio.',
       },
     ],
     excluded: [
@@ -191,7 +199,7 @@ export function initAppSubjectSources(): void {
  * change the signature just to add one.
  */
 export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promise<AppSubjectData> {
-  const [breaks, takes, pins, practiceHistory, studioSettings, styles, libraries, kits] =
+  const [breaks, takes, pins, practiceHistory, studioSettings, samples, styles, libraries, kits] =
     await Promise.all([
       prisma.break.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } }),
       prisma.take.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } }),
@@ -207,6 +215,9 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
        reads it: the subject is owed what is held about them, including a
        value the app would now ignore. */
       prisma.studioSettings.findMany({ where: { userId } }),
+      /* The rows, with the storage key, as takes carry theirs — not the audio,
+       which is in storage and is a download of its own, not a JSON field. */
+      prisma.sample.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } }),
       /* `ownerId`, not `userId` — the catalogue names its owner differently, and
        that is precisely the column core's own user-id heuristic cannot see. */
       prisma.style.findMany({
@@ -235,6 +246,7 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
     pins,
     practiceHistory,
     studioSettings,
+    samples,
     styles,
     libraries,
     kits,

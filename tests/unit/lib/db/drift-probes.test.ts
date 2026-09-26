@@ -377,6 +377,7 @@ describe('shipped lib/app/db-drift.ts scaffold', () => {
       'pattern_library',
       'pin',
       'practice_visit',
+      'sample',
       'studio_settings',
       'style',
       'style_version',

@@ -262,6 +262,30 @@ describe('visibility', () => {
   });
 });
 
+describe('your own kits', () => {
+  it('never come back from the catalogue, whatever the table holds (D20)', async () => {
+    /* The table holds your kits beside the system ones. The catalogue is
+       served to everyone and cached for everyone, so its read is what keeps
+       them out; this answers the where clause the way Postgres would. */
+    const rows = [
+      { ...kitRow('studio70'), visibility: 'system', ownerId: null },
+      {
+        ...kitRow('studio70'),
+        key: 'yours-abc',
+        engine: 'user',
+        visibility: 'private',
+        ownerId: 'u1',
+      },
+    ];
+    vi.mocked(prisma.kit.findMany).mockImplementation(((args: { where: { visibility: string } }) =>
+      Promise.resolve(rows.filter((r) => r.visibility === args.where.visibility))) as never);
+
+    const kits = await listKits();
+
+    expect(kits.map((k) => k.key)).toEqual(['studio70']);
+  });
+});
+
 describe('a row that fails validation', () => {
   it('is dropped from the list and logged, not thrown — the picker keeps the other rows', async () => {
     vi.mocked(prisma.style.findMany).mockResolvedValue([

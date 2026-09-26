@@ -42,4 +42,15 @@ import { z } from 'zod';
  *
  * Full guide: CUSTOMIZATION.md §4 · .context/environment/overview.md
  */
-export const appEnvSchema = z.object({});
+export const appEnvSchema = z.object({
+  /* BeatBreaker: how much of your own audio an account may keep (D20). Env
+     settings so production can move them without a release; the defaults are
+     the decided allowance. See .context/app/samples.md. */
+  SAMPLES_MAX_COUNT: z.coerce.number().int().min(1).max(10_000).default(150),
+  SAMPLES_MAX_BYTES: z.coerce
+    .number()
+    .int()
+    .min(1)
+    .max(5 * 1024 * 1024 * 1024)
+    .default(50 * 1024 * 1024),
+});

@@ -8,6 +8,8 @@ import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { listHistory } from '@/lib/app/breaks/saved/history';
 import { listPins } from '@/lib/app/breaks/saved/pins';
 import { readStudioSettings } from '@/lib/app/breaks/saved/settings';
+import { listSamples } from '@/lib/app/breaks/samples/data';
+import { listYourKits } from '@/lib/app/breaks/samples/kits';
 import { getServerSession } from '@/lib/auth/utils';
 import { cuidSchema } from '@/lib/validations/common';
 
@@ -23,7 +25,9 @@ import { cuidSchema } from '@/lib/validations/common';
  * "no N+1 client-side fetches" rule, and this phase's done-when). The practice
  * shelves and history come the same way, so every ★ and Back is right on
  * first paint, and so do your settings (D19), so the kit and tuning are yours
- * from the first note.
+ * from the first note. So do your own kits (D20): they are read per request,
+ * never through the catalogue's shared cache, and the provider adds them to
+ * the catalogue it hands the console.
  *
  * **It gates itself rather than sitting behind the proxy's edge redirect**, and
  * `/studio` is deliberately absent from `lib/app/protected-routes.ts` for the
@@ -64,11 +68,13 @@ export default async function StudioPage({
   const query = await searchParams;
   const entry = cuidSchema.safeParse(query.entry);
 
-  const [catalogue, pins, history, settings] = await Promise.all([
+  const [catalogue, pins, history, settings, yourKits, yourSamples] = await Promise.all([
     studioCatalogue(),
     listPins(session.user.id),
     listHistory(session.user.id),
     readStudioSettings(session.user.id),
+    listYourKits(session.user.id),
+    listSamples(session.user.id),
   ]);
 
   return (
@@ -77,6 +83,8 @@ export default async function StudioPage({
       pins={pins}
       history={history}
       settings={settings}
+      yourKits={yourKits}
+      yourSamples={yourSamples}
       openEntry={entry.success ? entry.data : undefined}
       openDrawer={readStudioDrawer(query)}
     >

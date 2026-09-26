@@ -170,6 +170,15 @@ export function registerAppDriftProbes(): void {
     probe: constraintExists('studio_settings_userId_fkey', 'ON DELETE CASCADE'),
   });
 
+  /* Your samples (20260926180000_samples). The FK is what makes the rows go
+     when you do; the files go by the erasure hook in `initApp()`. */
+  registerAppDriftProbe({
+    name: 'sample_userId_fkey (hand-written FK → user)',
+    kind: 'FK constraint',
+    table: 'sample',
+    probe: constraintExists('sample_userId_fkey', 'ON DELETE CASCADE'),
+  });
+
   /* SET NULL, not CASCADE, and the difference is the point: a style version
      outlives its author because other people's patterns point at it and carry
      its id as provenance. Erasing the author erases the link, not the row. A
