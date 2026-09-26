@@ -99,8 +99,20 @@ plus two things the split created:
   from here rather than importing the constants, which is the seam Phase 2 moves
   to the database behind. Meters, lanes and slots are **not** in it: they are what
   the wire format is built on, so they stay in code.
-- **`toast` / `say`** — the drawers raise it and the frame shows it, and those
-  are siblings now.
+- **`notice` / `say` / `dismiss`** — the drawers raise it and the frame shows it
+  (`StudioToast`), and those are siblings now. `useNotice`
+  (`components/app/studio/use-notice.ts`) decides how long each kind stays:
+  `say('Link copied')` goes after `TOAST_MS`; `say(msg, { error: true })` is
+  announced as an alert and stays until dismissed; `say(msg, { action: { label:
+'Undo', run } })` stays for `UNDO_MS`. Every `say` is a new line with a new
+  timer, even with the same words, and a line's timer only ever takes down
+  that line. A hook that says things takes the `Say` type, not
+  `(message: string) => void`.
+- **`viewMode` and `editing`** — one section choice (E11). `viewMode` (A · B ·
+  Both, on the chart) is what shows, plays and exports. `editing` is derived,
+  never set: the chosen section, or with Both the one under the playhead while
+  it moves, else the last one chosen or edited (`editingSection()` in
+  `use-break-console.ts`). The grid and the Doctor use `editing`.
 
 The provider also owns the audio lifetime, closing the `AudioContext` on unmount
 (H7). A browser allows a page only a handful and will not reopen a closed one.
@@ -155,6 +167,30 @@ chose since.
   `input, textarea, select` and anything contenteditable, and leaves Space and
   Enter to a focused button, slider or menu item: a drawer is full of buttons,
   and firing play as well is an action the user did not ask for.
+- **An on/off or a pick-one** — `<Toggle>` or `<Segmented>` from
+  `components/app/studio/`. A toggle's label is fixed and its state is
+  `aria-pressed` and the lit `on` style; a segmented choice is a radio group
+  with one tab stop, the arrows moving the choice. Nothing else writes
+  `aria-pressed` or `aria-checked` — `shell/studio-controls.test.ts` greps for
+  it — and no label carries its state ("Click on", "Muted"):
+  `toggle-and-segmented.test.tsx` presses every toggle in the Studio and fails
+  if a name changes. Play is the one face that changes (▶ / ■); its name does
+  not.
+- **Tempo** — `<TempoControl>`: − and + step by one and repeat while held, the
+  number is typed and clamped to 50 and the meter's ceiling as it is set, and
+  `slider` adds the range input. The header and the Practise drawer have the
+  slider; the phone footer does not. A quick tempo is `quickTempo(pct)`, a
+  percentage of the pattern's own tempo that leaves `baseBpm` where it is —
+  never `setBpm`, which would make it the break's tempo.
+- **Something undoable that the server does** — clear the screen at once, say
+  it with an Undo action, and send the request when `UNDO_MS` has passed or the
+  Studio goes (`pagehide`, with `keepalive`). Clear history is the model
+  (`use-practice-history.ts`): requests made while it is held queue behind it,
+  so the deferred request cannot take them.
+- **Printing** — `@media print` in `studio.css` flattens the frame and hides
+  its chrome; the one in `breaks.css` hides what of the stage is for setting
+  the chart rather than reading it. A new control on the stage needs a line
+  there too; `studio-controls.test.ts` checks the frame's rules.
 - **Help text** — one line in the panel, the rest in `<StudioHelp>`
   (`components/app/studio/studio-help.tsx`), Sunrise's `FieldHelp` with a 24px
   target. `studio-help.test.tsx` opens every drawer and fails on a hint over
