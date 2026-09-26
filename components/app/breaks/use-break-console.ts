@@ -20,6 +20,7 @@ import {
   generateGood,
   playability,
 } from '@/lib/app/breaks/critic';
+import type { Visibility } from '@/lib/app/breaks/community/visibility';
 import { type DoctorMove, doctor } from '@/lib/app/breaks/doctor';
 import { deriveB } from '@/lib/app/breaks/generate';
 import { SIZE, SIZE_MAX, SIZE_MIN, VIEW, type VIEW_MODES } from '@/lib/app/breaks/browser-keys';
@@ -300,6 +301,18 @@ export interface PatternDetails {
   links: StoredLink[];
 }
 
+/**
+ * Who can open a saved pattern, and whom it is credited to (Phase 6). Held
+ * beside the document for the reason {@link PatternDetails} is.
+ */
+export interface PatternSharing {
+  visibility: Visibility;
+  /** Its public address, `/p/<slug>` — null until it first leaves private. */
+  slug: string | null;
+  /** The credit line on a copy, while the pattern it came from is published. */
+  basedOn: { title: string; username: string; slug: string } | null;
+}
+
 export interface InitialPattern {
   id: string;
   title: string;
@@ -308,6 +321,8 @@ export interface InitialPattern {
   mine: boolean;
   /** What the row says about it (task 4.11) — none when left out. */
   details?: PatternDetails;
+  /** Who can open it (Phase 6) — private and uncredited when left out. */
+  sharing?: PatternSharing;
 }
 
 /** Where a pattern was left: the layer, and the tempo it was being played at. */

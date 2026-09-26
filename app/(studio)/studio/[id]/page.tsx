@@ -5,6 +5,8 @@ import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
 import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
+import { lineageOf } from '@/lib/app/breaks/community/sharing';
+import { readVisibility } from '@/lib/app/breaks/community/visibility';
 import { openSavedBreak } from '@/lib/app/breaks/saved/data';
 import { listHistory } from '@/lib/app/breaks/saved/history';
 import { listPins } from '@/lib/app/breaks/saved/pins';
@@ -50,6 +52,7 @@ export default async function StudioPatternPage({ params }: { params: Promise<{ 
     listSamples(session.user.id),
   ]);
   if (!opened) notFound();
+  const basedOn = await lineageOf(opened.row.parentId);
 
   return (
     <StudioProvider
@@ -65,6 +68,11 @@ export default async function StudioPatternPage({ params }: { params: Promise<{ 
         payload: opened.payload,
         mine: opened.mine,
         details: { description: opened.row.description ?? '', links: opened.links },
+        sharing: {
+          visibility: readVisibility(opened.row.visibility),
+          slug: opened.row.slug,
+          basedOn,
+        },
       }}
     >
       <StudioFrame />

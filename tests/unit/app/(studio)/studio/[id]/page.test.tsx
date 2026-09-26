@@ -33,6 +33,8 @@ vi.mock('@/lib/app/breaks/samples/data', () => ({ listSamples: vi.fn() }));
 /* The loader is mocked at its own seam; its query, its scope and its touch are
    tested through the API route that shares it. */
 vi.mock('@/lib/app/breaks/saved/data', () => ({ openSavedBreak: vi.fn() }));
+// the credit line's own read, tested with the route
+vi.mock('@/lib/app/breaks/community/sharing', () => ({ lineageOf: vi.fn() }));
 vi.mock('next/navigation', () => ({
   notFound: vi.fn(() => {
     throw new Error('NEXT_NOT_FOUND');
@@ -51,6 +53,7 @@ import { readStudioSettings } from '@/lib/app/breaks/saved/settings';
 import { listSamples } from '@/lib/app/breaks/samples/data';
 import { listYourKits } from '@/lib/app/breaks/samples/kits';
 import { DEFAULT_STUDIO_SETTINGS } from '@/lib/validations/studio-settings';
+import { lineageOf } from '@/lib/app/breaks/community/sharing';
 import { openSavedBreak } from '@/lib/app/breaks/saved/data';
 import { createMockAuthSession } from '@/tests/helpers/auth';
 import { testCatalogue } from '@/tests/helpers/catalogue';
@@ -92,7 +95,14 @@ describe('/studio/[id]', () => {
 
   function opened(overrides: Record<string, unknown> = {}) {
     return {
-      row: { id: ID, title: 'Cold Carpet', description: 'From the lesson' },
+      row: {
+        id: ID,
+        title: 'Cold Carpet',
+        description: 'From the lesson',
+        visibility: 'link',
+        slug: 'cold000001',
+        parentId: 'cbrk00000000000000000009',
+      },
       payload,
       links: [LINK],
       mine: true,
@@ -105,6 +115,8 @@ describe('/studio/[id]', () => {
     const catalogue = testCatalogue();
     vi.mocked(studioCatalogue).mockResolvedValue(catalogue);
     vi.mocked(openSavedBreak).mockResolvedValue(opened());
+    const credit = { title: 'The original', username: 'ghostnotes', slug: 'orig000001' };
+    vi.mocked(lineageOf).mockResolvedValue(credit);
 
     const el = await StudioPatternPage({ params: Promise.resolve({ id: ID }) });
 
@@ -137,7 +149,9 @@ describe('/studio/[id]', () => {
       payload,
       mine: true,
       details: { description: 'From the lesson', links: [LINK] },
+      sharing: { visibility: 'link', slug: 'cold000001', basedOn: credit },
     });
+    expect(lineageOf).toHaveBeenCalledWith('cbrk00000000000000000009');
   });
 
   it('opens someone else’s shared pattern as not theirs', async () => {

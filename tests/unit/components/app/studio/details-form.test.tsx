@@ -314,7 +314,7 @@ describe('DetailsForm — saving', () => {
     expect(apiClient.post).not.toHaveBeenCalled();
   });
 
-  it("shows someone else's links read-only, and a copy of it carries them", async () => {
+  it("shows someone else's links read-only, and saves a copy through the copy route", async () => {
     const user = userEvent.setup();
     vi.mocked(apiClient.post).mockResolvedValue({ id: 'cbrk00000000000000000002' });
     await mount(
@@ -327,9 +327,13 @@ describe('DetailsForm — saving', () => {
     await user.click(screen.getByRole('button', { name: 'probe: save' }));
 
     await waitFor(() => expect(apiClient.post).toHaveBeenCalledTimes(1));
-    expect(vi.mocked(apiClient.post).mock.calls[0]?.[1]).toMatchObject({
-      body: { description: 'From the lesson', links: [{ kind: 'video', url: FUNKY }] },
-    });
+    /* Through the copy route, so the copy records where it came from (task
+       6.3); the server carries the description and links across, so the body
+       is the notes as they are now and the name. */
+    const [path, options] = vi.mocked(apiClient.post).mock.calls[0] ?? [];
+    expect(path).toBe(`/api/v1/breaks/${ID}/copy`);
+    expect(options).toMatchObject({ body: { title: expect.any(String), doc: expect.any(Object) } });
+    expect(options?.body).not.toHaveProperty('links');
   });
 
   it('Save a copy makes a new pattern under the name typed, with the saved links', async () => {

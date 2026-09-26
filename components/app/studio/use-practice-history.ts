@@ -5,6 +5,7 @@ import { z } from 'zod';
 
 import type { InitialPattern, PracticePlace } from '@/components/app/breaks/use-break-console';
 import { APIClientError, apiClient } from '@/lib/api/client';
+import { VISIBILITIES } from '@/lib/app/breaks/community/visibility';
 import { storedLinkSchema } from '@/lib/app/breaks/links';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
 import { logger } from '@/lib/logging';
@@ -82,6 +83,13 @@ const openedSchema = z.object({
   description: z.string().nullish(),
   // links that will not read cost the pattern its chips, never its opening
   links: z.array(storedLinkSchema).catch([]),
+  // nor does a sharing field that will not read: it opens as private, uncredited
+  visibility: z.enum(VISIBILITIES).catch('private'),
+  slug: z.string().nullish().catch(null),
+  basedOn: z
+    .object({ title: z.string(), username: z.string(), slug: z.string() })
+    .nullish()
+    .catch(null),
 });
 
 /**
@@ -97,6 +105,7 @@ export async function fetchSavedPattern(id: string): Promise<InitialPattern | 'g
       mine: row.mine,
       payload: row.doc,
       details: { description: row.description ?? '', links: row.links },
+      sharing: { visibility: row.visibility, slug: row.slug ?? null, basedOn: row.basedOn ?? null },
     };
   } catch (error) {
     if (error instanceof APIClientError && error.status === 404) return 'gone';
