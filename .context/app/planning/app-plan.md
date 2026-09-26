@@ -1156,6 +1156,95 @@ queue and unpublishing takes effect immediately; private patterns 404 on every
 public route (tested by enumeration); erasing a user removes their library
 entries and breaks nobody else's copies.
 
+**Reconciled against the tree, 2026-09-27 (branch `phase-6-visibility`).**
+Stays L. What the code bears out, item by item:
+
+- **1 — as written, with one correction.** `Break.shared` exists, but nothing
+  in the Studio sets it: _Copy link_ in Share & export is the `#b=` fragment,
+  which carries the whole pattern and needs no row. So "shared" today means
+  "readable by any signed-in user who knows the cuid", and only the API can
+  turn it on. The migration still maps `shared = true` → `link` and mints a
+  slug for each such row. `openSavedBreak`, `saved/targets.ts` and
+  `saved/pins.ts` read `OR: [{ userId }, { shared: true }]` in three places;
+  all three become `visibility <> 'private'`. The `#b=` link stays as _Copy
+  break code_'s companion for a pattern that is not saved.
+- **2 — as written.** `lib/app/account-sections.ts` is still empty, so the
+  Drummer profile is the first thing registered there. Changing a username is
+  capped at once per 30 days (site-copy §6 says "once a month"), and the old
+  one is held for 30 days.
+- **3 — one filter has no source.** The critic has no notion of difficulty —
+  its dimensions are backbeat, syncopation, density, ghosts, air, phrasing.
+  Difficulty becomes a derived column, `difficulty` 1–3, from hits per second
+  at the pattern's tempo, computed by `columnsFromDoc` like `level` and `bpm`.
+  A first cut; the thresholds are named constants. Tempo bands are fixed:
+  slow < 90, medium 90–120, fast > 120. "Most saved" sorts on the count of
+  copies; cursors are opaque offsets, since a count cannot be a keyset.
+  `robots.ts` disallows `/api/`, so the Open Graph image is the page's own
+  `opengraph-image`, not an API route.
+- **4 — as written.** The transport (`audio/transport.ts`) and engine take a
+  snapshot callback and no React, so the read-only player is a small client
+  component over them, not a trimmed copy of `useBreakConsole`. A pattern's
+  document carries no kit — the kit is a setting (D19) — so the public player
+  plays the default system kit, and **your samples stay private (D20)**:
+  nothing about publishing a pattern reaches them.
+- **5 — as written.** `lib/app/csp.ts` → `appFrameSrc` is empty today.
+  _Optional: Spotify links on the famous breaks_ — **declined for now.** The
+  admin entry route does not take `links`, and the value is 47 records someone
+  has to look up and check by ear; the column is there when that is done.
+- **6 — as written.** The Studio's _Save_ on someone else's pattern creates a
+  plain row today; it moves onto the copy endpoint so the lineage is kept.
+- **7 — as written.** No profanity check exists in Sunrise; a short word list
+  in `lib/app/breaks/community/`. The "gridHash" is a hash of the notes only
+  (every lane's cells, both sections, no tempo, name or style), and the
+  library check compares each section against each famous break's.
+  The kill-switch is a Sunrise feature flag, `PATTERN_PUBLISHING`, seeded on;
+  a missing flag reads as off, so the switch fails closed.
+- **8, 9 — as written.** The Community tab reads the public list.
+- **10 — as written.** `parentId` is a Prisma self-relation, so its
+  `ON DELETE SET NULL` is Prisma's, not hand-written.
+- **D9 — the recommendation is taken** (a plain-language grant in the Terms:
+  others may play, copy and build on with credit), so publishing is not
+  blocked on it; it is marked for the D7 review.
+- **H8 — in 6-i**, with the signed-in read.
+
+Checks that need a browser — the chart within a second, hearing it play, a
+preview in a chat app, zero requests to YouTube/Spotify in the network panel,
+the embeds under the production CSP — go on the owner's list in `sharing.md`
+(D22–D24's rule: no browser is driven from these sessions). What stands in for
+them in tests: the page's HTML contains the engraved chart; the placeholder
+renders no iframe until pressed; `appFrameSrc` is exactly three origins; the
+OG route returns a PNG.
+
+Ships as **three PRs**, stacked:
+
+**6-i — visibility, usernames and copies:**
+
+| #   | Task                                                                                                                                                                                                                                           | Done when                                                                                                                                                     |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 6.1 | `visibility`, `slug`, `publishedAt`, `parentId`, `gridHash`, `difficulty` on `Break`; `shared` goes. PATCH takes `visibility: private \| link` (publishing has its own route, 6.9); a slug is minted the first time a row leaves `private`. H8 | Migration maps `shared` → `link` with slugs; a rename leaves visibility alone; private rows of others 404; no response carries `userId`                       |
+| 6.2 | `DrummerProfile` + `ReservedUsername`; `GET`/`PUT /api/v1/drummer-profile`, `GET …/available`; the rules in one module; the Settings section                                                                                                   | Tests: case-folding, reserved words and look-alikes refused, a second change inside 30 days refused, an old name held 30 days; export and erasure declared    |
+| 6.3 | `POST /api/v1/breaks/[id]/copy`; GET returns lineage ("Based on _X_ by _Y_" while the parent is published)                                                                                                                                     | Tests: a copy is private and the caller's with `parentId`; a private pattern cannot be copied by anyone else; lineage vanishes when the parent is unpublished |
+| 6.4 | Studio: the Share dialog (_Share with a link_ · Copy link · Stop sharing) in Share & export; Save on someone else's pattern goes through copy; the credit line on the stage                                                                    | Component tests: sharing mints a `/p/` link; Stop sharing returns it to private; saving someone else's pattern calls copy                                     |
+
+**6-ii — the public pages:**
+
+| #   | Task                                                                                                                                                                      | Done when                                                                                                                                                             |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 6.5 | `GET /api/v1/public/patterns` (style, meter, tempo band, difficulty; newest / most saved; cursor) and `GET …/[slug]`; IP-limited; ETag                                    | Tests: private and link patterns never listed; link patterns readable by slug; private 404 by enumeration; no `userId`, `name` or `email` anywhere in a response; 304 |
+| 6.6 | `/p/[slug]`: engraved chart server-side, a read-only player (play, tempo, layer), signed-in actions, the sign-up strip, `noindex` for link patterns, the Open Graph image | Tests: the page renders the chart and the credit; a private slug is the "isn't shared any more" page; the OG route returns a PNG                                      |
+| 6.7 | Click-to-load embeds for the reference links; `appFrameSrc` gains exactly the three origins; outbound links `noopener noreferrer nofollow ugc`                            | Tests: no iframe until pressed; `src` built from the id; the CSP list is exactly three origins                                                                        |
+| 6.8 | `/explore` with the filters, `/u/[username]`; the sitemap gains published patterns and profiles                                                                           | Tests: filters reach the query; an unknown username 404s; the sitemap lists published slugs and not link ones                                                         |
+
+**6-iii — publishing and moderation:**
+
+| #    | Task                                                                                                                                                                                        | Done when                                                                                                                                                        |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 6.9  | `POST /api/v1/breaks/[id]/publish`: the flag, a username, the "I wrote this" tick, sanitised title and description, the word check, the duplicate check, a per-user cap. The publish dialog | Tests: no username → refused; an unchanged copy of another's published pattern or of a famous break → refused with the reason; flag off → refused; the cap holds |
+| 6.10 | `BreakReport`; `POST /api/v1/public/patterns/[slug]/report` (signed-in); Report on `/p/`                                                                                                    | Tests: a report lands; signed-out is refused; a reporter's erasure keeps the report with the reporter nulled                                                     |
+| 6.11 | `/admin/patterns`: the queue, unpublish (email to the owner), dismiss, strip links; the nav entry                                                                                           | Tests: unpublishing takes effect on the next public read; stripping links keeps it published                                                                     |
+| 6.12 | The Community tab in Patterns; Home's _Published_ section                                                                                                                                   | Tests: the tab reads the public list; Home lists your published patterns                                                                                         |
+| 6.13 | Erasure semantics, the privacy policy and Terms lines (D9), `sharing.md`, CHANGELOG                                                                                                         | Test: erasing a user removes their published patterns and nulls `parentId` on others' copies                                                                     |
+
 ### Phase 7 — BeatBuddy · L
 
 **Goal:** a drummer can ask for things in words and watch the chart change —
