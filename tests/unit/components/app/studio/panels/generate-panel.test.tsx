@@ -84,6 +84,29 @@ describe('GeneratePanel', () => {
     ).toBeTruthy();
   });
 
+  it('hands the lanes back to the style, and does nothing when the choice is already made', async () => {
+    const user = userEvent.setup();
+    renderPanel();
+    await screen.findByLabelText('Style');
+    const locked = () => document.querySelector('.lanepick')?.getAttribute('data-locked');
+
+    await user.click(screen.getByRole('radio', { name: "The style's" }));
+    expect(locked()).toBe('1');
+
+    await user.click(screen.getByRole('radio', { name: 'My own' }));
+    await user.click(screen.getByRole<HTMLInputElement>('checkbox', { name: 'Toms' }));
+    /* Choosing My own again keeps the lanes you just set, not the style's. */
+    await user.click(screen.getByRole('radio', { name: 'My own' }));
+    expect(screen.getByRole<HTMLInputElement>('checkbox', { name: 'Toms' }).checked).toBe(true);
+
+    await user.click(screen.getByRole('radio', { name: "The style's" }));
+    expect(locked()).toBe('1');
+    expect(screen.getByRole('radio', { name: "The style's" })).toHaveAttribute(
+      'aria-checked',
+      'true'
+    );
+  });
+
   it('lets you pick a percussion instrument for Perc 1 and Perc 2 once you take the lanes over', async () => {
     const user = userEvent.setup();
     renderPanel();
