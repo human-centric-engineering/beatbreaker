@@ -1,3 +1,4 @@
+import { difficultyOf, gridHash } from '@/lib/app/breaks/community/grid';
 import { type BreakDoc, breakDocFromPayload } from '@/lib/app/breaks/share';
 import type { SharePayload } from '@/lib/app/breaks/schema';
 
@@ -12,8 +13,13 @@ import type { SharePayload } from '@/lib/app/breaks/schema';
  * replaces the document go through this one function; the earlier PATCH
  * derived its own copy and forgot `styleVersionId`, which is the drift one
  * function is for.
+ *
+ * `gridHash` and `difficulty` (Phase 6) are derived the same way: the
+ * duplicate check at publish and the community library's filter read them,
+ * and neither may be something the client said. The hash is Web Crypto's,
+ * which is why this is async.
  */
-export function columnsFromDoc(payload: SharePayload): {
+export async function columnsFromDoc(payload: SharePayload): Promise<{
   decoded: BreakDoc;
   columns: {
     style: string;
@@ -24,8 +30,10 @@ export function columnsFromDoc(payload: SharePayload): {
     seed: bigint;
     bars: number;
     level: number;
+    gridHash: string;
+    difficulty: number;
   };
-} {
+}> {
   const decoded = breakDocFromPayload(payload);
   return {
     decoded,
@@ -38,6 +46,8 @@ export function columnsFromDoc(payload: SharePayload): {
       seed: BigInt(decoded.A.seed),
       bars: decoded.A.bars.length,
       level: decoded.level,
+      gridHash: await gridHash(decoded),
+      difficulty: difficultyOf(decoded),
     },
   };
 }

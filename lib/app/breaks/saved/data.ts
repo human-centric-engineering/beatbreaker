@@ -1,3 +1,4 @@
+import { openableBy } from '@/lib/app/breaks/community/visibility';
 import { readStoredLinks, type StoredLink } from '@/lib/app/breaks/links';
 import { type SharePayload, storedPayloadSchema } from '@/lib/app/breaks/schema';
 import { prisma } from '@/lib/db/client';
@@ -9,7 +10,7 @@ import { prisma } from '@/lib/db/client';
  * **Server-side only**, for the reason given in `catalogue/data.ts`: the
  * Studio gets what this returns as a prop, never by importing it.
  *
- * **Readable if it is yours or it is shared, in one query.** A private pattern
+ * **Readable if it is yours or it is not private, in one query.** A private pattern
  * of someone else's and an id that was never saved are the same `null`, so
  * neither caller can confirm that an id exists (the 404-not-403 rule in the
  * route's header). One function, so the route and the page cannot disagree.
@@ -29,7 +30,7 @@ export interface OpenedBreak {
 
 function findOpenable(id: string, userId: string) {
   return prisma.break.findFirst({
-    where: { id, OR: [{ userId }, { shared: true }] },
+    where: { id, ...openableBy(userId) },
     include: {
       takes: {
         where: { userId },

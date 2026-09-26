@@ -41,8 +41,8 @@ function payload(overrides: Partial<SharePayload> = {}): SharePayload {
 }
 
 describe('columnsFromDoc', () => {
-  it('derives every list column from the document, rounding what the list shows whole', () => {
-    const { columns } = columnsFromDoc(payload());
+  it('derives every list column from the document, rounding what the list shows whole', async () => {
+    const { columns } = await columnsFromDoc(payload());
     expect(columns).toEqual({
       style: 'funk',
       styleVersionId: testStyle('funk').versionId,
@@ -52,27 +52,42 @@ describe('columnsFromDoc', () => {
       seed: 42n,
       bars: 3,
       level: 3,
+      gridHash: expect.stringMatching(/^[0-9a-f]{64}$/),
+      difficulty: expect.any(Number),
     });
   });
 
-  it('reads the level a version-1 document meant, not the number it wrote', () => {
+  it('hashes the notes alone: a rename or a new tempo keeps the hash, a moved note does not', async () => {
+    const base = payload();
+    const { gridHash } = (await columnsFromDoc(base)).columns;
+    const renamed = { ...base, bpm: 80, A: { ...base.A, n: 'Something else' } };
+    expect((await columnsFromDoc(renamed)).columns.gridHash).toBe(gridHash);
+
+    // the first row of a packed bar is the kick
+    const [kick, ...rest] = base.A.b[0].split('|');
+    const moved = [(kick[0] === '0' ? '1' : '0') + kick.slice(1), ...rest].join('|');
+    const A = { ...base.A, b: [moved, ...base.A.b.slice(1)] };
+    expect((await columnsFromDoc({ ...base, A })).columns.gridHash).not.toBe(gridHash);
+  });
+
+  it('reads the level a version-1 document meant, not the number it wrote', async () => {
     // v1 numbered its layers before L2→L3 was split: its 3 is today's 4
-    expect(columnsFromDoc(payload({ ver: 1, lv: 3 })).columns.level).toBe(4);
-    expect(columnsFromDoc(payload({ ver: 1, lv: 4 })).columns.level).toBe(5);
+    expect((await columnsFromDoc(payload({ ver: 1, lv: 3 }))).columns.level).toBe(4);
+    expect((await columnsFromDoc(payload({ ver: 1, lv: 4 }))).columns.level).toBe(5);
   });
 
-  it('takes the full break, layer 5, for a document that names no layer', () => {
-    expect(columnsFromDoc(payload({ lv: undefined })).columns.level).toBe(5);
+  it('takes the full break, layer 5, for a document that names no layer', async () => {
+    expect((await columnsFromDoc(payload({ lv: undefined }))).columns.level).toBe(5);
   });
 
-  it('has no style version for a v3-style document that carries none', () => {
+  it('has no style version for a v3-style document that carries none', async () => {
     const p = payload();
     const { sv: _sv, ...A } = p.A;
-    expect(columnsFromDoc({ ...p, A }).columns.styleVersionId).toBeNull();
+    expect((await columnsFromDoc({ ...p, A })).columns.styleVersionId).toBeNull();
   });
 
-  it('hands back the decoded break it derived them from', () => {
-    const { decoded, columns } = columnsFromDoc(payload());
+  it('hands back the decoded break it derived them from', async () => {
+    const { decoded, columns } = await columnsFromDoc(payload());
     expect(decoded.A.bars).toHaveLength(columns.bars);
     expect(decoded.level).toBe(columns.level);
   });

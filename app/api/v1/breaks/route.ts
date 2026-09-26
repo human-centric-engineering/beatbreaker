@@ -3,7 +3,7 @@
  *
  * GET  /api/v1/breaks — the caller's own saved breaks. `sort=created` (the
  *      default, newest first) or `updated`; `q` searches titles; `style`,
- *      `meter`.
+ *      `meter`, `visibility`.
  * POST /api/v1/breaks — save a break, or `{ breaks: [...] }` to save up to 30
  *      in one transaction (the one-time import of browser favourites)
  *
@@ -30,6 +30,7 @@ import { validateRequestBody } from '@/lib/api/validation';
 import { withAuth } from '@/lib/auth/guards';
 import { critique, playability } from '@/lib/app/breaks/critic';
 import { columnsFromDoc } from '@/lib/app/breaks/columns';
+import { visibilityData, withFreshSlug } from '@/lib/app/breaks/community/sharing';
 import { readStoredLinks } from '@/lib/app/breaks/links';
 import { prisma } from '@/lib/db/client';
 import {
@@ -48,7 +49,10 @@ const LIST_SELECT = {
   bpm: true,
   swing: true,
   bars: true,
-  shared: true,
+  visibility: true,
+  slug: true,
+  publishedAt: true,
+  difficulty: true,
   level: true,
   description: true,
   links: true,
@@ -72,20 +76,25 @@ const ORDER = {
   updated: [{ updatedAt: 'desc' }, { id: 'desc' }],
 } as const;
 
-/** One create's row data — the owner from the session, the columns from the document. */
-function createData(userId: string, input: CreateBreakInput) {
-  const { decoded, columns } = columnsFromDoc(input.doc);
+/**
+ * One create's row data — the owner from the session, the columns from the
+ * document. `withSlug` adds the visibility, and a fresh slug when it is a
+ * link share, each time it is called: a retry after a slug clash must not
+ * resend the slug that clashed.
+ */
+async function createData(userId: string, input: CreateBreakInput) {
+  const { decoded, columns } = await columnsFromDoc(input.doc);
+  const data = {
+    userId,
+    title: input.title,
+    ...(input.description ? { description: input.description } : {}),
+    links: input.links,
+    ...columns,
+    doc: input.doc,
+  };
   return {
     decoded,
-    data: {
-      userId,
-      title: input.title,
-      shared: input.shared,
-      ...(input.description ? { description: input.description } : {}),
-      links: input.links,
-      ...columns,
-      doc: input.doc,
-    },
+    withSlug: () => ({ ...data, ...visibilityData({ slug: null }, input.visibility) }),
   };
 }
 
@@ -107,8 +116,9 @@ export const GET = withAuth(
   async (request, session) => {
     const log = await getRouteLogger(request);
     const url = new URL(request.url);
-    const { style, meter, q, sort, limit, cursor } = listBreaksSchema.parse({
+    const { style, meter, visibility, q, sort, limit, cursor } = listBreaksSchema.parse({
       style: url.searchParams.get('style') ?? undefined,
+      visibility: url.searchParams.get('visibility') ?? undefined,
       meter: url.searchParams.get('meter') ?? undefined,
       q: url.searchParams.get('q') || undefined,
       sort: url.searchParams.get('sort') ?? undefined,
@@ -123,6 +133,7 @@ export const GET = withAuth(
         userId: session.user.id,
         ...(style ? { style } : {}),
         ...(meter ? { meter } : {}),
+        ...(visibility ? { visibility } : {}),
         ...(q ? { title: { contains: q, mode: 'insensitive' as const } } : {}),
       },
       select: LIST_SELECT,
@@ -158,9 +169,11 @@ export const POST = withAuth(
          are one transaction: a batch that failed halfway would leave the
          caller not knowing which patterns made it, so it is all of them or
          none. */
-      const rows = breaks.map((input) => createData(session.user.id, input).data);
-      const saved = await prisma.$transaction(
-        rows.map((data) => prisma.break.create({ data, select: LIST_SELECT }))
+      const rows = await Promise.all(breaks.map((input) => createData(session.user.id, input)));
+      const saved = await withFreshSlug(() =>
+        prisma.$transaction(
+          rows.map((row) => prisma.break.create({ data: row.withSlug(), select: LIST_SELECT }))
+        )
       );
       log.info('Breaks saved in bulk', { count: saved.length });
       return successResponse(saved.map(withLinks), { count: saved.length }, { status: 201 });
@@ -180,11 +193,13 @@ export const POST = withAuth(
        either way, so playback does not need it — provenance does: without it
        "which breaks came from version 3 of funk" has no answer, and the
        column's `ON DELETE SET NULL` never has anything to null. */
-    const { decoded, data } = createData(session.user.id, input);
+    const { decoded, withSlug } = await createData(session.user.id, input);
     const checks = playability(decoded.A, decoded.bpm);
     const score = critique(decoded.A, decoded.bpm);
 
-    const saved = await prisma.break.create({ data, select: LIST_SELECT });
+    const saved = await withFreshSlug(() =>
+      prisma.break.create({ data: withSlug(), select: LIST_SELECT })
+    );
 
     log.info('Break saved', {
       breakId: saved.id,
