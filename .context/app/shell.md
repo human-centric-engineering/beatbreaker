@@ -45,7 +45,9 @@ browser only carries a fragment across to a target that has none of its own.
 
 | File                   | What it is                                                           |
 | ---------------------- | -------------------------------------------------------------------- |
-| `studio-frame.tsx`     | Puts it together; owns which tool is open and the keyboard shortcuts |
+| `studio-frame.tsx`     | Puts it together; owns which tool is open and the key handler        |
+| `shortcuts.ts`         | Every keyboard shortcut, in one table the handler and `?` sheet read |
+| `shortcuts-sheet.tsx`  | The `?` sheet                                                        |
 | `studio-header.tsx`    | Mark, pattern name, transport, tools menu, `HeaderActions`           |
 | `studio-footer.tsx`    | Read-out and lamps wide; the whole transport on a phone              |
 | `studio-transport.tsx` | Both transports and the lamps                                        |
@@ -146,11 +148,21 @@ chose since.
 - **Conditional class names** — use `cn()`, never string concatenation.
   `prettier-plugin-tailwindcss` rewrites template literals inside `className` and
   turned `` `btn${on ? ' on' : ''}` `` into `btnon`, silently (Spike A).
-- **A new keyboard shortcut** — it goes in `studio-frame.tsx`, behind the guard
-  that skips `input, textarea, select, button, [role="slider"], [role="menuitem"]`
-  and anything contenteditable. A drawer is full of buttons, and Space on a
-  focused button already presses it; firing play as well is an action the user
-  did not ask for.
+- **A new keyboard shortcut** — add a row to `SHORTCUTS` in `shortcuts.ts`. The
+  handler in `studio-frame.tsx` walks that table and the `?` sheet draws it, so
+  the new key is listed the moment it works. Give the control it stands in for
+  the row's `aria` as `aria-keyshortcuts`. The handler's guard skips
+  `input, textarea, select` and anything contenteditable, and leaves Space and
+  Enter to a focused button, slider or menu item: a drawer is full of buttons,
+  and firing play as well is an action the user did not ask for.
+- **Help text** — one line in the panel, the rest in `<StudioHelp>`
+  (`components/app/studio/studio-help.tsx`), Sunrise's `FieldHelp` with a 24px
+  target. `studio-help.test.tsx` opens every drawer and fails on a hint over
+  fifteen words; a style's or kit's own description is marked `.blurb` and is
+  exempt.
+- **What the tools are called** — the rail reads Generate · Edit · Patterns ·
+  Sound · Practise · Share. The ids (`gen`, `doctor`, `kit`, `practice`,
+  `export`) are the old names, kept because they are in `?drawer=` links.
 
 ## Theme
 
@@ -164,10 +176,10 @@ file depends on.
 
 ## Known, and deliberate
 
-- **The critic's score is behind the Generate drawer.** It was visible at all
-  times in the console's rail. That is the drawers' trade, and it is the kind of
-  thing Phase 5's ergonomic review exists to settle — possibly by putting the
-  score in the footer beside the read-out.
+- **The critic's number is in the footer, its card in two drawers.** Generate
+  and Edit both show `ScoreCard`, because only one drawer opens at a time and a
+  musical edit is judged by whether the score went up (Phase 5, 5.5). Phones
+  have no footer read-out, so there the score is in those two drawers only.
 - **The cookie banner and the phone transport.** The banner is `fixed bottom-0`
   and 205px tall at 390px, over the footer transport until it is answered. The
   frame makes room for it with `body:has([role='dialog'][aria-label='Cookie
