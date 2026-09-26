@@ -5,6 +5,7 @@ import { Slider } from '@/components/app/studio/panels/controls';
 import { ShelfList } from '@/components/app/studio/panels/patterns-panel';
 import { Segmented } from '@/components/app/studio/segmented';
 import { StudioHelp } from '@/components/app/studio/studio-help';
+import { TempoControl } from '@/components/app/studio/tempo-control';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
 import { LANE_DEFS, activeLanes, laneName } from '@/lib/app/breaks/lanes';
@@ -12,7 +13,6 @@ import { LANE_DEFS, activeLanes, laneName } from '@/lib/app/breaks/lanes';
 export function PracticePanel() {
   const c = useStudio();
   const tapTempo = useTapTempo();
-  const style = c.catalogue.styles[c.style]?.params;
   /* The console guarded on a pattern existing before it drew anything; a panel
      is mounted on its own, so the mixer asks for itself. No pattern means no
      lanes to fade, not an empty Practice panel. */
@@ -70,14 +70,17 @@ export function PracticePanel() {
             />
           </div>
 
+          {/* The tempo, with Tap beside it, at every width: the header has it
+              too, but a phone has only the footer's stepper (E4). */}
           <div className="field">
-            <span className="fieldlab">Tap tempo</span>
+            <span className="fieldlab">Tempo</span>
             <div className="btnrow">
+              <TempoControl slider />
               <button type="button" className="mini" aria-label="Tap tempo" onClick={tapTempo}>
                 Tap
               </button>
             </div>
-            <div className="hint">Tap four times on the beat.</div>
+            <div className="hint">Type a tempo, hold − or +, or tap four times on the beat.</div>
           </div>
 
           <div className="field">
@@ -102,12 +105,7 @@ export function PracticePanel() {
             <span className="fieldlab">Quick tempo</span>
             <div className="btnrow">
               {[60, 75, 90, 100].map((pct) => (
-                <button
-                  key={pct}
-                  type="button"
-                  className="mini"
-                  onClick={() => c.setBpm(Math.round((style?.bpm[0] ?? 94) * (pct / 100)))}
-                >
+                <button key={pct} type="button" className="mini" onClick={() => c.quickTempo(pct)}>
                   {pct === 100 ? 'Back to 100%' : `${pct}%`}
                 </button>
               ))}

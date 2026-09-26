@@ -244,19 +244,49 @@
   border-left: 1px solid var(--line);
   border-right: 1px solid var(--line);
 }
-.bb .bpmval {
-  font-family: var(--f-display);
-  font-size: 30px;
-  line-height: 1;
-  letter-spacing: 0.01em;
+/* Tempo: − / a number you can type / + and, where there is room, the slider
+   (E4). The number looks like a read-out until you touch it. 16px at the
+   least, or a phone zooms the page when the field takes focus. */
+.bb .tempo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
-.bb .bpmval sup {
+.bb .tempo-read {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+}
+.bb .tempo-num {
+  width: 3.4ch;
+  font-size: 16px;
+  text-align: center;
+  color: inherit;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 2px 0;
+}
+.bb .tempo-num:hover {
+  border-color: var(--line);
+}
+.bb .tempo-num:focus-visible {
+  outline: none;
+  border-color: var(--brass);
+  background: var(--raised);
+}
+.bb .tempo-unit {
   font-family: var(--f-mono);
   font-size: 9px;
   letter-spacing: 0.12em;
-  vertical-align: super;
   color: var(--faint);
-  margin-left: 3px;
+}
+/* In the header the number is the transport's headline, as the read-out was. */
+.bb .bpmbox .tempo-num {
+  font-family: var(--f-display);
+  font-size: 30px;
+  line-height: 1;
+  width: 2.3em;
 }
 .bb input[type='range'] {
   -webkit-appearance: none;

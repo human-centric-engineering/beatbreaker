@@ -229,7 +229,9 @@ describe('the Studio', () => {
 
     expect(document.querySelector('.title-block h2')?.textContent).toBe(famous.title);
     // it brings its own tempo with it
-    expect(document.querySelector('.bpmval')?.textContent).toContain(String(famous.bpm));
+    expect(document.querySelector<HTMLInputElement>('.tempo-num')?.value).toContain(
+      String(famous.bpm)
+    );
   });
 
   it('opens a shared link that was stashed on the way through sign-in (H5)', async () => {
@@ -373,7 +375,8 @@ describe('the Studio', () => {
     renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    const bpm = () => Number(document.querySelector('.bpmval')?.textContent?.match(/\d+/)?.[0]);
+    const bpm = () =>
+      Number(document.querySelector<HTMLInputElement>('.tempo-num')?.value?.match(/\d+/)?.[0]);
     const written = bpm();
 
     await openTool(user, 'Practise');
@@ -391,7 +394,10 @@ describe('the Studio', () => {
        rewrite the break as a slow break. */
     await user.click(screen.getByRole('radio', { name: 'Skeleton' }));
     const slow = bpm();
-    fireEvent.change(screen.getByLabelText('Tempo'), { target: { value: String(slow - 10) } });
+    /* The header's slider and the Practise drawer's are the same tempo. */
+    fireEvent.change(screen.getAllByLabelText('Tempo')[0], {
+      target: { value: String(slow - 10) },
+    });
     await user.click(screen.getByRole('radio', { name: 'Full break' }));
     expect(bpm()).toBeGreaterThan(slow);
     await user.click(screen.getByRole('radio', { name: 'Skeleton' }));

@@ -175,11 +175,6 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
   background: var(--raised);
   font-size: 18px;
 }
-.bb .studio-bpm {
-  font-family: var(--f-mono);
-  min-width: 64px;
-  text-align: center;
-}
 
 /* ---- the phone's tools menu -------------------------------------- */
 /* Below 1024px there is no rail: the tools sit behind one header button, which
@@ -399,10 +394,6 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
   align-items: center;
   justify-content: flex-end;
   gap: 4px;
-}
-.bb .studio-tempo .studio-bpm {
-  min-width: 58px;
-  font-size: 13px;
 }
 .bb .studio-play-lg {
   display: grid;

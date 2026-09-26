@@ -46,7 +46,8 @@ const mount = async () => {
 
 /** Which sections the chart is showing — the view mode, read off what is drawn. */
 const staves = () => screen.queryAllByRole('img', { name: /Drum notation/ }).length;
-const bpm = () => Number(document.querySelector('.bpmval')?.textContent?.replace(/\D+/g, ''));
+const bpm = () =>
+  Number(document.querySelector<HTMLInputElement>('.tempo-num')?.value?.replace(/\D+/g, ''));
 
 describe('Studio shortcuts', () => {
   it('moves the tempo by two either way', async () => {

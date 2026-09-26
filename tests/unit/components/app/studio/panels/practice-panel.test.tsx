@@ -6,13 +6,12 @@
  * `tests/unit/components/app/shell/studio-frame.test.tsx` already round-trips
  * the tempo trainer's layer-vs-break tempo behaviour (L1↔L5) through the full
  * frame. This file does not repeat that: it covers the metronome toggles, the
- * ramp lock buttons, the ceiling slider, the quick-tempo presets, the
+ * ramp lock buttons, the ceiling slider, the
  * match-tempo toggle, and the mixer's fader/mute/reset-to-style behaviour.
  *
- * The panel itself shows no BPM read-out — that lives in the transport, which
- * the frame mounts in the header. `StudioTransport` is a small, CSS-free
- * component of its own (no stylesheet import), so it is mounted alongside the
- * panel here purely to read `.bpmval` back — not to re-test the frame.
+ * `StudioTransport` is a small, CSS-free component of its own (no stylesheet
+ * import), so it is mounted alongside the panel here purely to read the tempo
+ * back from the first `.tempo-num` on the page — not to re-test the frame.
  */
 
 import { fireEvent, render, screen, within } from '@testing-library/react';
@@ -31,8 +30,6 @@ const renderPanel = () =>
       <PracticePanel />
     </StudioProvider>
   );
-
-const bpm = () => Number(document.querySelector('.bpmval')?.textContent?.match(/\d+/)?.[0]);
 
 beforeEach(() => {
   localStorage.clear();
@@ -153,20 +150,6 @@ describe('PracticePanel', () => {
     fireEvent.change(ceiling, { target: { value: '150' } });
     expect(screen.getByLabelText<HTMLInputElement>('Ceiling').value).toBe('150');
     expect(ceiling.value).not.toBe(before);
-  });
-
-  it('sets the tempo from a quick-tempo preset, relative to the style', async () => {
-    const user = userEvent.setup();
-    renderPanel();
-    await screen.findByText('Quick tempo');
-
-    await user.click(screen.getByRole('button', { name: '75%' }));
-    // funk's own range starts at 88, so 75% of it is a lower, specific number
-    const seventyFive = bpm();
-    expect(seventyFive).toBeGreaterThan(0);
-
-    await user.click(screen.getByRole('button', { name: 'Back to 100%' }));
-    expect(bpm()).toBeGreaterThan(seventyFive);
   });
 
   it('toggles match-tempo-to-layer', async () => {

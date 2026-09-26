@@ -138,6 +138,12 @@ export interface BreakConsole {
 
   bpm: number;
   setBpm: (n: number) => void;
+  /**
+   * Play at a percentage of the pattern's own tempo — of the layer's, with the
+   * match on — without changing what the pattern's own tempo is (E5). 100 is
+   * back where it was written.
+   */
+  quickTempo: (pct: number) => void;
   bpmCeiling: number;
   playing: boolean;
   togglePlay: () => void;
@@ -464,6 +470,18 @@ export function useBreakConsole(
       if (settingUpNew()) update({ startBpm: base });
     },
     [placeTempo, settingUpNew, update]
+  );
+
+  /* A practice speed, not a new tempo for the break: the base stays where it
+     is, so 100% finds it again, and your starting tempo is not moved either.
+     The console used to take these from the style's slowest tempo, so "Back to
+     100%" went somewhere the pattern had never been. */
+  const quickTempo = useCallback(
+    (pct: number) => {
+      const written = matchTempo ? baseBpm * (LAYER_TEMPO[level] ?? 1) : baseBpm;
+      setBpmRaw(clamp(Math.round((written * pct) / 100), 50, maxBpm(meter)));
+    },
+    [matchTempo, baseBpm, level, meter]
   );
 
   /**
@@ -1447,6 +1465,7 @@ export function useBreakConsole(
     setCustomLanes,
     bpm,
     setBpm,
+    quickTempo,
     bpmCeiling,
     playing,
     togglePlay,
