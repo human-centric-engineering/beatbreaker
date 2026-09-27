@@ -9,7 +9,7 @@ import { PublicChart } from '@/components/app/community/public-chart';
 import { ReferenceEmbeds } from '@/components/app/community/reference-embeds';
 import { Button } from '@/components/ui/button';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
-import { DIFFICULTY_LABELS, type Difficulty } from '@/lib/app/breaks/community/grid';
+import { difficultyLabel } from '@/lib/app/breaks/community/grid';
 import { getPublicPattern, openableIdForSlug } from '@/lib/app/breaks/community/public';
 import { publicPath, slugSchema } from '@/lib/app/breaks/community/visibility';
 import { meterOf } from '@/lib/app/breaks/meter';
@@ -77,7 +77,7 @@ export default async function PublicPatternPage({ params }: Props) {
             </>
           ) : null}
           {style} · {meterOf(pattern.meter).label} · {pattern.bpm} bpm
-          {pattern.difficulty ? ` · ${DIFFICULTY_LABELS[pattern.difficulty as Difficulty]}` : ''}
+          {difficultyLabel(pattern.difficulty) ? ` · ${difficultyLabel(pattern.difficulty)}` : ''}
         </p>
         {pattern.basedOn ? (
           <p className="text-muted-foreground text-sm italic">

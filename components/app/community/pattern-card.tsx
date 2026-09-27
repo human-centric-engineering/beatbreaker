@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { DIFFICULTY_LABELS, type Difficulty } from '@/lib/app/breaks/community/grid';
+import { difficultyLabel } from '@/lib/app/breaks/community/grid';
 import type { PublicPatternCard } from '@/lib/app/breaks/community/public';
 import { publicPath } from '@/lib/app/breaks/community/visibility';
 import { meterOf } from '@/lib/app/breaks/meter';
@@ -31,7 +31,7 @@ export function PatternCard({
         ) : null}
         <span className="text-muted-foreground block text-sm">
           {styleLabel} · {meterOf(pattern.meter).label} · {pattern.bpm} bpm
-          {pattern.difficulty ? ` · ${DIFFICULTY_LABELS[pattern.difficulty as Difficulty]}` : ''}
+          {difficultyLabel(pattern.difficulty) ? ` · ${difficultyLabel(pattern.difficulty)}` : ''}
         </span>
         <span className="text-muted-foreground flex gap-3 text-xs">
           {video ? <span aria-label="Has a video link">▶</span> : null}

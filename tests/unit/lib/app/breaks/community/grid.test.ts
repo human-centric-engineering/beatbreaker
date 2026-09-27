@@ -15,6 +15,7 @@ import { describe, expect, it } from 'vitest';
 import {
   HARD_FROM,
   MEDIUM_FROM,
+  difficultyLabel,
   difficultyOf,
   gridHash,
   sectionHash,
@@ -181,5 +182,14 @@ describe('difficultyOf', () => {
     // stops meaning what its name says
     expect(MEDIUM_FROM).toBe(6);
     expect(HARD_FROM).toBe(10);
+  });
+});
+
+describe('difficultyLabel', () => {
+  it('names 1, 2 and 3, and reads anything else a stored column holds as no difficulty', () => {
+    expect([1, 2, 3].map(difficultyLabel)).toEqual(['Easy', 'Medium', 'Hard']);
+    for (const odd of [null, undefined, 0, 4, 2.5, '2', -1]) {
+      expect(difficultyLabel(odd)).toBeNull();
+    }
   });
 });
