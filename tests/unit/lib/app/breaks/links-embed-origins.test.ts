@@ -5,6 +5,12 @@
  * changes in one file without the other, this fails — an `<iframe src>`
  * blocked by the CSP is a silent broken embed, not an error anyone sees.
  *
+ * FORK NOTE — this file reads `@/lib/app/csp` for real, with no `vi.mock`,
+ * because the agreement between the real allowlist and the real parser IS
+ * what it tests. A fork that adds its own `frame-src` origins will see the
+ * "no orphaned origin" case fail: add those origins to the expected extras
+ * here rather than mocking the seam.
+ *
  * @see lib/app/breaks/links.ts
  * @see lib/app/csp.ts
  */
