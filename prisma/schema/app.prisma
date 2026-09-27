@@ -96,11 +96,47 @@ model Break {
   parent   Break?  @relation("BreakParent", fields: [parentId], references: [id], onDelete: SetNull)
   children Break[] @relation("BreakParent")
 
+  reports BreakReport[]
+
   @@index([userId, createdAt])
   @@index([visibility, publishedAt])
   @@index([visibility, style, meter])
   @@index([parentId])
   @@map("break")
+}
+
+/// A report that a shared or published pattern should not be public (Phase 6,
+/// task 6.10) — spam, someone else's work, something offensive, a bad link.
+///
+/// The report outlives the person who filed it: `reporterId` is **nulled**,
+/// not cascaded, on erasure, because the moderation record is about the
+/// pattern, and deleting it would let an erased account take its report with
+/// it. `resolvedById` is the admin who acted, nulled the same way. Both FKs are
+/// hand-written (no field on `User`) and probed by `lib/app/db-drift.ts`. The
+/// pattern is a Prisma relation: a report on a deleted pattern goes with it.
+model BreakReport {
+  id      String @id @default(cuid())
+  breakId String
+  /// FK to User.id — no @relation. Nulled on erasure.
+  reporterId String?
+
+  /// "spam" | "not-theirs" | "offensive" | "bad-link" | "other".
+  reason String  @db.VarChar(24)
+  note   String? @db.VarChar(500)
+  /// "open" | "dismissed" | "actioned".
+  status String  @default("open") @db.VarChar(16)
+
+  /// FK to User.id — no @relation. The admin who resolved it; nulled on erasure.
+  resolvedById String?
+  resolvedAt   DateTime?
+  createdAt    DateTime  @default(now())
+
+  breakRef Break @relation(fields: [breakId], references: [id], onDelete: Cascade)
+
+  @@index([status, createdAt])
+  @@index([breakId, status])
+  @@index([reporterId, createdAt])
+  @@map("break_report")
 }
 
 /// The name your published patterns appear under (D3).

@@ -742,3 +742,102 @@ describe('sharing — who can open it (Phase 6)', () => {
     expect(result.current.sharing).toEqual(NO_SHARING);
   });
 });
+
+describe('publishing (task 6.9)', () => {
+  it('publishes: POSTs confirm: true, updates sharing, and says so', async () => {
+    vi.mocked(apiClient.post).mockResolvedValueOnce({
+      visibility: 'published',
+      slug: 'freshslug1',
+    });
+    const { result, say } = mount({
+      ...opened(),
+      sharing: { visibility: 'private', slug: null, basedOn: null },
+    });
+    await pass(0);
+
+    let outcome: { ok: boolean } | undefined;
+    await act(async () => {
+      outcome = await result.current.publish();
+    });
+
+    expect(outcome).toEqual({ ok: true });
+    expect(apiClient.post).toHaveBeenCalledWith(`/api/v1/breaks/${ID}/publish`, {
+      body: { confirm: true },
+    });
+    expect(result.current.sharing).toEqual({
+      visibility: 'published',
+      slug: 'freshslug1',
+      basedOn: null,
+    });
+    expect(say).toHaveBeenCalledWith('Published to the community library');
+  });
+
+  it('refuses to publish a scratch pattern — there is nothing saved to publish', async () => {
+    const { result } = mount(undefined);
+    await pass(0);
+
+    let outcome;
+    await act(async () => {
+      outcome = await result.current.publish();
+    });
+
+    expect(outcome).toEqual({ ok: false, code: null, message: 'Save the pattern first.' });
+    expect(apiClient.post).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing to publish
+  });
+
+  it('refuses to publish someone else’s pattern', async () => {
+    const { result } = mount(opened(false));
+    await pass(0);
+
+    let outcome;
+    await act(async () => {
+      outcome = await result.current.publish();
+    });
+
+    expect(outcome).toEqual({ ok: false, code: null, message: 'Save the pattern first.' });
+    expect(apiClient.post).not.toHaveBeenCalled(); // test-review:accept no_arg_called — theirs, not yours to publish
+  });
+
+  it('returns the server’s code and message on a refusal, leaving sharing untouched', async () => {
+    vi.mocked(apiClient.post).mockRejectedValueOnce(
+      new APIClientError('Choose a username first.', 'USERNAME_REQUIRED', 409)
+    );
+    const { result } = mount({
+      ...opened(),
+      sharing: { visibility: 'private', slug: null, basedOn: null },
+    });
+    await pass(0);
+
+    let outcome;
+    await act(async () => {
+      outcome = await result.current.publish();
+    });
+
+    expect(outcome).toEqual({
+      ok: false,
+      code: 'USERNAME_REQUIRED',
+      message: 'Choose a username first.',
+    });
+    expect(result.current.sharing).toEqual({ visibility: 'private', slug: null, basedOn: null });
+  });
+
+  it('reports a network failure distinctly, without an APIClientError code', async () => {
+    vi.mocked(apiClient.post).mockRejectedValueOnce(network());
+    const { result } = mount({
+      ...opened(),
+      sharing: { visibility: 'private', slug: null, basedOn: null },
+    });
+    await pass(0);
+
+    let outcome;
+    await act(async () => {
+      outcome = await result.current.publish();
+    });
+
+    expect(outcome).toEqual({
+      ok: false,
+      code: 'NETWORK_ERROR',
+      message: 'Could not reach the server — not published.',
+    });
+  });
+});
