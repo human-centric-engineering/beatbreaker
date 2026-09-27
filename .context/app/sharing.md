@@ -127,10 +127,10 @@ No session needed (D2); rate-limited by IP through the `public` tier
 `public, max-age=0, must-revalidate`, so a pattern made private stops being
 served on the next request (`app/api/v1/public/_shared.ts`).
 
-| Route                               | Does                                                                                                                                                                                                                                                                                                                                |
-| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GET /api/v1/public/patterns`       | Published patterns only. `style`, `meter`, `tempo` (`slow` < 90 · `medium` 90–120 · `fast` > 120), `difficulty` (1–3), `sort=newest\|saved`, `limit` ≤ 48, `cursor` (opaque; `meta.nextCursor`). Cards: slug, title, description, style, meter, bpm, level, difficulty, `linkKinds`, `publishedAt`, `author` (a username), `saves`. |
-| `GET /api/v1/public/patterns/:slug` | A `link` or `published` pattern, whole: the card's fields plus `visibility`, `links`, `doc`, `basedOn` and `critique: { score, verdict, playable }`. Private, deleted, never minted and malformed are one 404.                                                                                                                      |
+| Route                               | Does                                                                                                                                                                                                                                                                                                                                                                               |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /api/v1/public/patterns`       | Published patterns only. `style`, `meter`, `tempo` (`slow` < 90 · `medium` 90–120 · `fast` > 120), `difficulty` (1–3; an empty value is no filter, as on `/explore`), `sort=newest\|saved`, `limit` ≤ 48, `cursor` (opaque; `meta.nextCursor`). Cards: slug, title, description, style, meter, bpm, level, difficulty, `linkKinds`, `publishedAt`, `author` (a username), `saves`. |
+| `GET /api/v1/public/patterns/:slug` | A `link` or `published` pattern, whole: the card's fields plus `visibility`, `links`, `doc`, `basedOn` and `critique: { score, verdict, playable }`. Private, deleted, never minted and malformed are one 404.                                                                                                                                                                     |
 
 `saves` is the count of copies (`children`), and "most saved" sorts on it —
 no separate table. Cursors are offsets, base64url'd, because a count cannot
@@ -165,6 +165,9 @@ All in `app/(public)/`, under the marketing header and footer.
   and the signed-in one (`lib/app/protected-nav.ts`).
 - **Sitemap** — `/explore`, every published `/p/` and every drummer with
   something published (`publishedForSitemap`). Never a link share.
+  Regenerated at most hourly (`revalidate`), not frozen at build time.
+- **Signing up from `/p/`** returns to the pattern: the signup form honours
+  `callbackUrl` as the login form does (a platform file, marked FORK).
 
 **Your samples stay private.** A pattern carries no kit (the kit is a setting,
 D19), so the player plays the default system kit. Nothing about publishing a
