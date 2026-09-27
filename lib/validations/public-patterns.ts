@@ -37,14 +37,29 @@ export type PublicListQueryInput = z.infer<typeof publicListQuerySchema>;
  * parse falls back to no filter, so a hand-edited URL shows the library
  * rather than an error page.
  */
+/**
+ * Search params as the schema should see them: the first value of each, and
+ * none that is empty — an HTML filter form sends `meter=` for "any time
+ * signature", and that is no filter, not a wrong one. Shared by the API and
+ * `/explore` so the same URL means the same thing to both.
+ */
+export function nonEmptyParams(
+  params: Record<string, string | string[] | undefined> | URLSearchParams
+): Record<string, string> {
+  const entries =
+    params instanceof URLSearchParams ? [...params.entries()] : Object.entries(params);
+  const flat: Record<string, string> = {};
+  for (const [k, v] of entries) {
+    const value = Array.isArray(v) ? v[0] : v;
+    if (value && !(k in flat)) flat[k] = value;
+  }
+  return flat;
+}
+
 export function readPublicListQuery(
   params: Record<string, string | string[] | undefined>
 ): PublicListQueryInput {
-  const flat: Record<string, string> = {};
-  for (const [k, v] of Object.entries(params)) {
-    const value = Array.isArray(v) ? v[0] : v;
-    if (value) flat[k] = value;
-  }
+  const flat = nonEmptyParams(params);
   const parsed = publicListQuerySchema.safeParse(flat);
   if (parsed.success) return parsed.data;
   // drop the fields that failed, keep the rest

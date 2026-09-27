@@ -21,12 +21,15 @@ import { getRouteLogger } from '@/lib/api/context';
 import { ErrorCodes } from '@/lib/api/errors';
 import { errorResponse } from '@/lib/api/responses';
 import { listPublished } from '@/lib/app/breaks/community/public';
-import { publicListQuerySchema } from '@/lib/validations/public-patterns';
+import { nonEmptyParams, publicListQuerySchema } from '@/lib/validations/public-patterns';
 
 export async function GET(request: Request): Promise<Response> {
   const log = await getRouteLogger(request);
+  /* Empty values are dropped first, as `/explore` drops them: `meter=` from a
+     filter form means any time signature. A value that is present and wrong
+     is still a 400. */
   const parsed = publicListQuerySchema.safeParse(
-    Object.fromEntries(new URL(request.url).searchParams)
+    nonEmptyParams(new URL(request.url).searchParams)
   );
   if (!parsed.success) {
     return errorResponse(parsed.error.issues.map((i) => i.message).join('; '), {

@@ -11,7 +11,11 @@ import { describe, expect, it } from 'vitest';
 
 import { PUBLIC_PAGE_DEFAULT, PUBLIC_PAGE_MAX } from '@/lib/app/breaks/community/public';
 import { METER_KEYS } from '@/lib/app/breaks/meter';
-import { publicListQuerySchema, readPublicListQuery } from '@/lib/validations/public-patterns';
+import {
+  nonEmptyParams,
+  publicListQuerySchema,
+  readPublicListQuery,
+} from '@/lib/validations/public-patterns';
 
 describe('publicListQuerySchema', () => {
   it('defaults sort to newest and limit to the page default', () => {
@@ -55,6 +59,23 @@ describe('publicListQuerySchema', () => {
     for (const tempo of ['slow', 'medium', 'fast']) {
       expect(publicListQuerySchema.safeParse({ tempo }).success).toBe(true);
     }
+  });
+});
+
+describe('nonEmptyParams', () => {
+  it('drops empty values and keeps the first of repeated ones, from a record or URLSearchParams', () => {
+    expect(
+      nonEmptyParams({ style: 'funk', meter: '', tempo: undefined, sort: ['saved', 'newest'] })
+    ).toEqual({
+      style: 'funk',
+      sort: 'saved',
+    });
+    expect(nonEmptyParams(new URLSearchParams('style=funk&meter=&sort=saved&sort=newest'))).toEqual(
+      {
+        style: 'funk',
+        sort: 'saved',
+      }
+    );
   });
 });
 

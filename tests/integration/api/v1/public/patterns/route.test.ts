@@ -74,6 +74,18 @@ describe('GET /api/v1/public/patterns', () => {
     expect(listPublished).not.toHaveBeenCalled(); // test-review:accept no_arg_called — validation must short-circuit
   });
 
+  it('reads empty filters as no filter, as /explore does — a form sends meter= for "any"', async () => {
+    const res = await GET(req('?style=&meter=&tempo=&difficulty=&sort=saved'));
+    expect(res.status).toBe(200);
+    expect(listPublished).toHaveBeenCalledWith(
+      expect.objectContaining({ sort: 'saved', limit: 24 })
+    );
+    const passed = vi.mocked(listPublished).mock.calls[0][0];
+    for (const key of ['style', 'meter', 'tempo', 'difficulty'] as const) {
+      expect(passed[key]).toBeUndefined();
+    }
+  });
+
   it('400s an unknown meter, without calling the data layer', async () => {
     const res = await GET(req('?meter=bogus'));
     expect(res.status).toBe(400);
