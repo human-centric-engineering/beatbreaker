@@ -152,6 +152,29 @@ describe('difficultyOf', () => {
     expect(difficultyOf({ A, B: A, bpm: 100 })).toBe(1);
   });
 
+  it('reads a tempo of zero or no bars as easy rather than dividing by zero', () => {
+    const busy = veryBusy();
+    expect(difficultyOf({ A: busy, B: busy, bpm: 0 })).toBe(1);
+    const empty = pattern([]);
+    expect(difficultyOf({ A: empty, B: empty, bpm: 100 })).toBe(1);
+  });
+
+  it('counts only the lanes the pattern carries, and tolerates a bar missing one', () => {
+    // hits in the ride lane of a pattern that carries no ride are not played
+    const ridden = pattern([bar({ r: new Array(16).fill(1) })], { lanes: ['k', 's', 'h'] });
+    expect(difficultyOf({ A: ridden, B: ridden, bpm: 100 })).toBe(1);
+    // a stored bar can be short a lane; it reads as silence, not a crash
+    const { t1: _dropped, ...partial } = bar();
+    const holed = pattern([partial as Bar], { lanes: ['k', 't1'] });
+    expect(difficultyOf({ A: holed, B: holed, bpm: 100 })).toBe(1);
+  });
+
+  it('hashes a bar short a lane the same as one with that lane silent', async () => {
+    const { t1: _dropped, ...partial } = bar();
+    const full = pattern([bar({ t1: [] })]);
+    expect(await sectionHash(pattern([partial as Bar]))).toBe(await sectionHash(full));
+  });
+
   it('sits exactly at the medium and hard boundaries as documented', () => {
     // sanity on the thresholds themselves, so a future change to the
     // constants is visible here rather than only in a fixture that silently
