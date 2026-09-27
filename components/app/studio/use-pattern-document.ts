@@ -350,22 +350,37 @@ export function usePatternDocument({
         /* Someone else's pattern is saved through the copy route, so the
            copy records where it came from and can credit it (task 6.3); the
            server carries its description and links across. A copy of your own
-           keeps what your pattern said about itself. */
+           keeps what your pattern said about itself.
+
+           If the original has gone — deleted, or made private while it was
+           open here — the copy route answers 404 however often it is asked.
+           The notes on the stage are still yours to keep, so that is saved
+           as a plain new pattern instead, with no credit to a pattern nobody
+           can open any more. */
         const { description, links } = now.details;
-        const data = created.parse(
-          now.id && !now.mine
-            ? await apiClient.post(`/api/v1/breaks/${now.id}/copy`, {
-                body: { title: name, doc: now.payload },
-              })
-            : await apiClient.post('/api/v1/breaks', {
-                body: {
-                  title: name,
-                  doc: now.payload,
-                  ...(description ? { description } : {}),
-                  links,
-                },
-              })
-        );
+        const plain = () =>
+          apiClient.post('/api/v1/breaks', {
+            body: {
+              title: name,
+              doc: now.payload,
+              ...(description ? { description } : {}),
+              links,
+            },
+          });
+        let answer: unknown;
+        if (now.id && !now.mine) {
+          try {
+            answer = await apiClient.post(`/api/v1/breaks/${now.id}/copy`, {
+              body: { title: name, doc: now.payload },
+            });
+          } catch (error) {
+            if (!(error instanceof APIClientError && error.status === 404)) throw error;
+            answer = await plain();
+          }
+        } else {
+          answer = await plain();
+        }
+        const data = created.parse(answer);
         if (generation.current !== sentFor) {
           // the stage moved on while this was out: saved, but not what is shown now
           setPhase('idle');

@@ -690,6 +690,46 @@ describe('sharing — who can open it (Phase 6)', () => {
     });
   });
 
+  it('saves a plain new pattern when the original has gone, rather than failing for good', async () => {
+    // made private or deleted while it was open here: the copy route 404s
+    vi.mocked(apiClient.post)
+      .mockRejectedValueOnce(new APIClientError('Break not found', 'NOT_FOUND', 404))
+      .mockResolvedValueOnce({ id: 'cbrk00000000000000000003' });
+    const { result } = mount(opened(false));
+    await pass(0);
+
+    let ok = false;
+    await act(async () => {
+      ok = await result.current.save();
+    });
+
+    expect(ok).toBe(true);
+    expect(vi.mocked(apiClient.post).mock.calls.map((c) => c[0])).toEqual([
+      `/api/v1/breaks/${ID}/copy`,
+      '/api/v1/breaks',
+    ]);
+    expect(result.current.id).toBe('cbrk00000000000000000003');
+    expect(result.current.mine).toBe(true);
+    // nobody can open the original any more, so nobody is credited
+    expect(result.current.sharing.basedOn).toBeNull();
+  });
+
+  it('does not fall back on any other refusal from the copy route', async () => {
+    vi.mocked(apiClient.post).mockRejectedValueOnce(
+      new APIClientError('Invalid', 'VALIDATION_ERROR', 400)
+    );
+    const { result } = mount(opened(false));
+    await pass(0);
+
+    let ok = true;
+    await act(async () => {
+      ok = await result.current.save();
+    });
+
+    expect(ok).toBe(false);
+    expect(apiClient.post).toHaveBeenCalledTimes(1);
+  });
+
   it('has no credit for a scratch pattern saved for the first time', async () => {
     vi.mocked(apiClient.post).mockResolvedValueOnce({ id: 'cbrk00000000000000000002' });
     const { result } = mount(undefined);
