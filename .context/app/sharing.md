@@ -4,7 +4,8 @@ What Phase 6 of [`planning/app-plan.md`](./planning/app-plan.md) builds: a
 pattern anyone can open from a link, a public library of patterns published
 under a username, copies that credit what they came from, and moderation. This
 page grows with each of Phase 6's three PRs: **6-i** — who can open a
-pattern, usernames and copies; **6-ii** — the public pages and API.
+pattern, usernames and copies; **6-ii** — the public pages and API;
+**6-iii** — publishing, reports and moderation.
 
 ## Anti-patterns first
 
@@ -12,9 +13,12 @@ pattern, usernames and copies; **6-ii** — the public pages and API.
   non-owner reads.** Public work is attributed to the username (D3) and to
   nothing else. `GET /api/v1/breaks/:id` strips `userId`, `parentId` and
   `gridHash` (H8); a new read that returns a `Break` row does the same.
-- **Don't write `visibility: 'published'` outside the publish route.** The
+- **Don't write `visibility: 'published'` outside `publishBreak`.** The
   create and update schemas accept `private` and `link` only, so a PATCH
-  cannot skip the username, duplicate and word checks publishing runs (6.9).
+  cannot skip the flag, username, word, duplicate and daily-cap checks.
+- **Don't name a reporter to anyone.** The queue shows only whether the
+  reporter's account still exists; the owner's email says a report was made,
+  not by whom.
 - **Don't filter "someone else may open it" by hand.** It is `openableBy(userId)`
   / `OPENABLE` in `lib/app/breaks/community/visibility.ts`, used by the Studio,
   the API, the copy route, pins and the history. Before Phase 6 it was
@@ -186,6 +190,87 @@ it cannot drive (the rule from Phase 5):
   then play under the production CSP.
 - `/explore` and `/u/` at 390px and 1440px, light and dark.
 
+## Publishing
+
+`POST /api/v1/breaks/:id/publish` — `{ confirm: true }` (the "I wrote this, or
+I built it from a pattern whose author is credited on it" tick). The one place
+a row becomes `published` (`community/publish.ts`); the create and update
+schemas cannot write it. In order:
+
+| Refusal             | Status | When                                                                                                                                                                                                    |
+| ------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PUBLISHING_PAUSED` | 403    | The `PATTERN_PUBLISHING` flag is off. A missing flag reads as off (`isFeatureEnabled`), so the switch fails closed; the seed `app-beatbreaker/002-publishing-flag` creates it on.                       |
+| `NOT_FOUND`         | 404    | Not yours, as every write.                                                                                                                                                                              |
+| `USERNAME_REQUIRED` | 409    | No drummer profile (D3).                                                                                                                                                                                |
+| `NOT_ALLOWED`       | 422    | A blocked word in the title or description (`textIsBlocked`).                                                                                                                                           |
+| `DUPLICATE`         | 409    | The notes (`gridHash`, recomputed from the document) match someone else's published pattern, or either section matches a famous break (`sectionHash`). Your own earlier publication is not a duplicate. |
+| `PUBLISH_LIMIT`     | 429    | `PUBLISH_DAILY_CAP` (10) publications in 24 hours, republishing included.                                                                                                                               |
+
+On success: a slug if it had none, `visibility: 'published'`, `publishedAt`,
+and a fresh `gridHash` and `difficulty`. **Unpublishing** is
+`PATCH /api/v1/breaks/:id` with `visibility: 'link'` (the Studio's
+_Unpublish_ — the link still works) or `'private'` (_Stop sharing_).
+
+The title and description are not HTML-sanitised on the way in: every surface
+renders them as text through React, and the one place that writes markup by
+hand — the Open Graph image's SVG — escapes its own text.
+
+**In the Studio**, the Share card has **Publish…** beside _Share with a link_,
+opening `publish-dialog.tsx` (site-copy §6). With no username yet, choosing
+one is the first step of the same dialog. A refusal stays in the dialog with
+the server's words; `doc.publish()` in `use-pattern-document.ts` returns them.
+
+## Reports and moderation
+
+`BreakReport` — `breakId` (a Prisma relation, cascade), `reporterId` and
+`resolvedById` (hand-written FKs to `user`, **SET NULL**, probed), `reason`,
+`note`, `status` (`open` · `dismissed` · `actioned`), `resolvedAt`. The report
+outlives the reporter and the admin: it is the moderation record about a
+pattern. The export's `reportsFiled` section is the reports you filed — not
+those about your patterns, and never the admin who resolved one.
+
+| Route                                       | Does                                                                                                                                                                                     |
+| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST /api/v1/public/patterns/:slug/report` | Signed in. `{ reason: spam \| not-theirs \| offensive \| bad-link \| other, note? }`. One open report per person per pattern (a second updates it). Your own pattern is a 400; 20 a day. |
+| `GET /api/v1/admin/patterns`                | Admin. The queue: every pattern with an open report, oldest first, with its owner's username and email. Never who reported it.                                                           |
+| `POST /api/v1/admin/patterns/:id`           | Admin. `{ action: unpublish \| strip-links \| dismiss }`. Audit-logged (`pattern.<action>`).                                                                                             |
+
+- **unpublish** — `private` (not `link`: a link being passed around may be
+  what was reported), open reports actioned, the owner emailed
+  (`components/app/emails/pattern-unpublished.tsx`) after the write, so a
+  failed email never leaves it public.
+- **strip-links** — links removed, still published, open `bad-link` reports
+  actioned.
+- **dismiss** — open reports dismissed; nothing else moves.
+
+Each takes effect on the next public read: the public layer reads
+`visibility` fresh and its responses must revalidate.
+
+`/admin/patterns` (registered in `lib/app/admin-nav.ts` as _Reported
+patterns_) renders the queue on the server and shows whether publishing is on.
+**Report** on `/p/` is `components/app/community/report-button.tsx`, shown to a
+signed-in reader who does not own the pattern.
+
+## The community in the Studio and on Home
+
+- **Patterns › Community** (`CommunityList` in `patterns-panel.tsx`) reads
+  `GET /api/v1/public/patterns` once when shown, newest or most saved, and
+  opens a pattern in place by its id — as someone else's, so Save keeps a
+  credited copy.
+- **Home › Published** lists your published patterns (`readHome`), each
+  linking to its public page, with its saves; the first-visit screen gains
+  _Browse the community library_.
+
+## Erasure
+
+Deleting an account deletes its patterns, published ones included (the
+`break_userId_fkey` cascade), and its profile. Copies other people saved keep
+their new owner and lose the credit line: `parentId` is `ON DELETE SET NULL`.
+A report the erased user filed stays, with `reporterId` nulled. Checked
+against a real database on 2026-09-27 through `eraseUser()`: the published
+original and the profile gone, the other person's copy kept with `parentId`
+null. The Privacy page says so; the Terms carry D9's grant.
+
 ## In the Studio
 
 The **Share with a link** card sits under Details at the top of Share &
@@ -221,4 +306,9 @@ else's pattern posts to the copy route);
 `tests/unit/components/app/account/`. 6-ii:
 `tests/integration/api/v1/public/`, `tests/unit/lib/app/breaks/community/`
 (`public.ts`, `svg-markup.ts`), `tests/unit/app/(public)/`,
-`tests/unit/components/app/community/`.
+`tests/unit/components/app/community/`. 6-iii:
+`tests/unit/lib/app/breaks/community/` (`publish.ts`, `reports.ts`,
+`moderation.ts`), `tests/integration/api/v1/breaks/[id]/publish*`,
+`tests/integration/api/v1/public/patterns/[slug]/report*`,
+`tests/integration/api/v1/admin/patterns/`, `tests/unit/app/admin/patterns/`,
+the publish dialog, the report button, the Community tab and Home.

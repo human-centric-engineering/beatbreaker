@@ -1245,6 +1245,30 @@ Ships as **three PRs**, stacked:
 | 6.12 | The Community tab in Patterns; Home's _Published_ section                                                                                                                                   | Tests: the tab reads the public list; Home lists your published patterns                                                                                         |
 | 6.13 | Erasure semantics, the privacy policy and Terms lines (D9), `sharing.md`, CHANGELOG                                                                                                         | Test: erasing a user removes their published patterns and nulls `parentId` on others' copies                                                                     |
 
+**Status, 2026-09-27.** 6.1–6.13 are built on three stacked branches —
+`phase-6-visibility` (6-i), `phase-6-public` (6-ii), `phase-6-publishing`
+(6-iii) — each with its tests and docs ([`sharing.md`](../sharing.md)). Against
+the done-when:
+
+- **Tested:** publishing without a username is refused; no public response
+  carries a user id, account name or email (checked by string scan); a
+  published pattern shows its author on every public surface; a copy shows its
+  lineage; the embeds render no iframe until pressed and build `src` from the
+  id; the CSP lists exactly the three origins; republishing someone's pattern
+  or a famous break unchanged is refused; a report reaches the queue and
+  unpublishing is read by the next public request; private patterns 404 on
+  every public route.
+- **Checked against a real database:** erasing a user through `eraseUser()`
+  removed their published pattern and profile and kept another user's copy
+  with `parentId` nulled.
+- **For the owner, in a browser** (listed in `sharing.md`): the chart within a
+  second and audio on a signed-out `/p/`, including iOS; the link preview in a
+  chat app; zero requests to YouTube or Spotify before a placeholder is
+  pressed, and the embeds under the production CSP.
+- **Decided along the way:** D9 takes the recommendation (Terms, _Patterns You
+  Publish_), pending D7's review. An erased user's username is not held
+  afterwards.
+
 ### Phase 7 — BeatBuddy · L
 
 **Goal:** a drummer can ask for things in words and watch the chart change —

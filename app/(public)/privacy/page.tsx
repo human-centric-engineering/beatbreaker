@@ -72,6 +72,38 @@ export default function PrivacyPolicyPage() {
             </p>
           </section>
 
+          {/* FORK (BeatBreaker, Phase 6): what sharing and the community library
+              make public, and what erasure does to it. The rest of this page is
+              still the platform's placeholder, pending the review in D7. */}
+          <section className="mt-8">
+            <h2>Sharing and the Community Library</h2>
+            <p>
+              Your patterns are private until you share them. A pattern shared with a link can be
+              opened by anyone who has the link; it is not listed anywhere and is hidden from search
+              engines. A pattern you publish is listed in the community library and on your public
+              page.
+            </p>
+            <p>
+              Anything public is shown under the username you choose, never your account name or
+              email address. Your username and what you write about yourself are public; a username
+              you give up is held for 30 days so nobody else can take it while old links still point
+              to it.
+            </p>
+            <p>
+              A pattern&apos;s video and song links are shown as buttons. Nothing is loaded from
+              YouTube, Vimeo or Spotify until a visitor presses one; after that, that service may
+              set its own cookies.
+            </p>
+            <p>
+              When you delete your account, your patterns — published ones included — are deleted
+              with it. Copies other people saved of your published patterns are theirs and stay with
+              them, without your name: the credit line that named you is removed. If you report a
+              pattern, the report is kept after your account is deleted so moderators can act on it,
+              but it no longer says who made it. The person you report is never told who reported
+              them.
+            </p>
+          </section>
+
           <section className="mt-8">
             <h2>Your Rights</h2>
             <p>Outline the rights users have regarding their data:</p>
