@@ -36,7 +36,14 @@ export async function moderate(
       id: true,
       title: true,
       userId: true,
-      reports: { where: { status: 'open' }, select: { reason: true }, take: 50 },
+      visibility: true,
+      // the oldest open report's reason is the one the owner is told
+      reports: {
+        where: { status: 'open' },
+        select: { reason: true },
+        orderBy: { createdAt: 'asc' },
+        take: 1,
+      },
     },
   });
   if (!row) throw new NotFoundError(`Break ${breakId} not found`);
@@ -70,8 +77,14 @@ export async function moderate(
     }),
   ]);
 
-  /* After the write: a failed email must not leave the pattern public. The
-     result is logged, not thrown — the moderation happened either way. */
+  /* Only when this unpublished something: a pattern its owner had already made
+     private has nothing to tell them about, and when two moderators act at
+     once the second closes no reports and sends nothing. After the write: a
+     failed email must not leave the pattern public. The result is logged, not
+     thrown — the moderation happened either way. */
+  if (row.visibility === 'private' || count === 0) {
+    return { breakId, title: row.title, action, reportsClosed: count };
+  }
   const owner = await prisma.user.findUnique({
     where: { id: row.userId },
     select: { email: true },

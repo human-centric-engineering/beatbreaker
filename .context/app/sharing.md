@@ -249,7 +249,10 @@ those about your patterns, and never the admin who resolved one.
 - **unpublish** — `private` (not `link`: a link being passed around may be
   what was reported), open reports actioned, the owner emailed
   (`components/app/emails/pattern-unpublished.tsx`) after the write, so a
-  failed email never leaves it public.
+  failed email never leaves it public — and only when it really unpublished
+  something: not for a pattern the owner had already made private, and not
+  from a second moderator who closed no reports. The reason named is the
+  oldest open report's.
 - **strip-links** — links removed, still published, open `bad-link` reports
   actioned.
 - **dismiss** — open reports dismissed; nothing else moves.

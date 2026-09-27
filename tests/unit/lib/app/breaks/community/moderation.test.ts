@@ -44,6 +44,7 @@ function breakRow(overrides: Record<string, unknown> = {}) {
     id: BREAK_ID,
     title: 'Cold Carpet',
     userId: OWNER_ID,
+    visibility: 'published',
     reports: [{ reason: 'bad-link' }],
     ...overrides,
   };
@@ -105,6 +106,29 @@ describe('strip-links', () => {
 });
 
 describe('unpublish', () => {
+  it('emails nobody when the owner had already made it private — there is nothing to tell', async () => {
+    vi.mocked(prisma.break.findUnique).mockResolvedValue(
+      breakRow({ visibility: 'private' }) as never
+    );
+    const result = await moderate(BREAK_ID, 'unpublish', ADMIN_ID, NOW);
+    expect(result.reportsClosed).toBe(2);
+    expect(sendEmail).not.toHaveBeenCalled(); // test-review:accept no_arg_called — no change, no email
+  });
+
+  it('emails nobody when a second moderator got there first and closed nothing', async () => {
+    vi.mocked(prisma.breakReport.updateMany).mockResolvedValue({ count: 0 });
+    await moderate(BREAK_ID, 'unpublish', ADMIN_ID, NOW);
+    expect(sendEmail).not.toHaveBeenCalled(); // test-review:accept no_arg_called — the first moderator's email is the only one
+  });
+
+  it("names the oldest open report's reason", async () => {
+    await moderate(BREAK_ID, 'unpublish', ADMIN_ID, NOW);
+    const select = vi.mocked(prisma.break.findUnique).mock.calls[0]?.[0]?.select as {
+      reports: { orderBy: unknown; take: number };
+    };
+    expect(select.reports).toMatchObject({ orderBy: { createdAt: 'asc' }, take: 1 });
+  });
+
   it('makes the pattern private, actions every open report, and emails the owner naming the reason', async () => {
     const result = await moderate(BREAK_ID, 'unpublish', ADMIN_ID, NOW);
 
