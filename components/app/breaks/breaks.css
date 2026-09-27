@@ -924,10 +924,11 @@
   box-shadow: var(--shadow);
 }
 /* The Patterns drawer's five, with a count beside the shelves. */
-.bb .tabs.tabs-5 {
+.bb .tabs.tabs-6 {
   /* Sized to their labels, so a count stays inside its tab's highlight;
-     the space left over is shared out evenly. */
-  grid-template-columns: repeat(5, auto);
+     the space left over is shared out evenly. Six since the Community tab
+     (Phase 6): two rows of three, which fits the 400px drawer and a phone. */
+  grid-template-columns: repeat(3, auto);
   margin-bottom: 12px;
 }
 .bb .tabs .tab-n {

@@ -20,6 +20,8 @@ import { mockAuthenticatedUser } from '@/tests/helpers/auth';
 import { testStyle } from '@/tests/helpers/catalogue';
 
 vi.mock('@/lib/auth/config', () => ({ auth: { api: { getSession: vi.fn() } } }));
+// the checks themselves are tested in publish.test.ts; here, only when they run
+vi.mock('@/lib/app/breaks/community/publish', () => ({ assertPublishable: vi.fn() }));
 vi.mock('@/lib/db/client', () => ({
   prisma: {
     break: { findFirst: vi.fn(), update: vi.fn(), deleteMany: vi.fn() },
@@ -27,6 +29,8 @@ vi.mock('@/lib/db/client', () => ({
   },
 }));
 
+import { assertPublishable } from '@/lib/app/breaks/community/publish';
+import { APIError } from '@/lib/api/errors';
 import { auth } from '@/lib/auth/config';
 import { prisma } from '@/lib/db/client';
 
@@ -330,6 +334,58 @@ describe('PATCH /api/v1/breaks/:id', () => {
   it('makes it private without touching the slug', async () => {
     await PATCH(patch({ visibility: 'private' }), ctx());
     expect(vi.mocked(prisma.break.update).mock.calls[0][0].data).toEqual({ visibility: 'private' });
+  });
+
+  describe('a published pattern', () => {
+    const published = () =>
+      vi.mocked(prisma.break.findFirst).mockResolvedValue({
+        id: BREAK_ID,
+        slug: 'pub0000001',
+        visibility: 'published',
+        title: 'Out in the world',
+        description: null,
+        doc: wireDoc(),
+      } as never);
+
+    it('runs the publish checks on a rename, and refuses what they refuse', async () => {
+      published();
+      vi.mocked(assertPublishable).mockRejectedValue(
+        new APIError("That title or description can't be published.", 'NOT_ALLOWED', 422)
+      );
+      const res = await PATCH(patch({ title: 'Something rude' }), ctx());
+      expect(res.status).toBe(422);
+      expect(vi.mocked(assertPublishable).mock.calls[0]?.[1]).toMatchObject({
+        title: 'Something rude',
+        description: null,
+      });
+      expect(prisma.break.update).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a refused edit writes nothing
+    });
+
+    it('checks new notes as the notes, and writes the columns the check derived', async () => {
+      published();
+      const doc = wireDoc('6/8');
+      const columns = { meter: '6/8', gridHash: 'e'.repeat(64) };
+      vi.mocked(assertPublishable).mockResolvedValue({ decoded: {}, columns } as never);
+      await PATCH(patch({ doc }), ctx());
+      expect(vi.mocked(assertPublishable).mock.calls[0]?.[1]).toMatchObject({
+        title: 'Out in the world',
+        payload: doc,
+      });
+      expect(vi.mocked(prisma.break.update).mock.calls[0][0].data).toMatchObject(columns);
+    });
+
+    it('needs no check to unpublish it, even with other changes in the same edit', async () => {
+      published();
+      await PATCH(patch({ visibility: 'link', title: 'Anything' }), ctx());
+      expect(assertPublishable).not.toHaveBeenCalled(); // test-review:accept no_arg_called — leaving the library is never refused
+      expect(prisma.break.update).toHaveBeenCalledTimes(1);
+    });
+
+    it('needs no check for a change the library does not show — its links', async () => {
+      published();
+      await PATCH(patch({ links: [] }), ctx());
+      expect(assertPublishable).not.toHaveBeenCalled(); // test-review:accept no_arg_called — links are moderated separately
+    });
   });
 
   it('refuses to publish through a PATCH — publishing has its own checks', async () => {

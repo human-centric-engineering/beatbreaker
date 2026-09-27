@@ -178,6 +178,50 @@ describe('ShareCard — a saved pattern of yours', () => {
     // PATCH visibility: 'private', which is not what unpublishing means
     expect(screen.getByRole('button', { name: 'Stop sharing' })).toBeInTheDocument();
   });
+
+  it('offers Publish… on a private pattern, and opens the publish dialog', async () => {
+    const user = userEvent.setup();
+    vi.mocked(apiClient.get).mockResolvedValue({ username: 'ghostnotes' });
+    await mount(saved(true));
+
+    await user.click(screen.getByRole('button', { name: 'Publish…' }));
+
+    expect(
+      await screen.findByRole('heading', { name: /Publish “Cold Carpet” to the community library/ })
+    ).toBeInTheDocument();
+  });
+
+  it('offers Publish… on a link-shared pattern too', async () => {
+    await mount(saved(true, { visibility: 'link', slug: 'kept000001', basedOn: null }));
+    expect(screen.getByRole('button', { name: 'Publish…' })).toBeInTheDocument();
+  });
+
+  it('unpublishes: PATCHes visibility: link, and the toast says the link still works', async () => {
+    const user = userEvent.setup();
+    vi.mocked(apiClient.patch).mockResolvedValueOnce({ visibility: 'link', slug: 'pub0000001' });
+    await mount(saved(true, { visibility: 'published', slug: 'pub0000001', basedOn: null }));
+
+    await user.click(screen.getByRole('button', { name: 'Unpublish' }));
+
+    expect(apiClient.patch).toHaveBeenCalledWith(`/api/v1/breaks/${ID}`, {
+      body: { visibility: 'link' },
+    });
+    expect(await screen.findByRole('status')).toHaveTextContent(
+      'Unpublished — anyone with the link can still open it'
+    );
+    // no longer published — the card falls back to the plain link-share copy
+    expect(
+      screen.getByText(
+        "Anyone with this link can read and play the pattern. It won't appear in the community library."
+      )
+    ).toBeInTheDocument();
+  });
+
+  it('shows no Publish… button and no Unpublish button for someone else’s pattern', async () => {
+    await mount(saved(false, { visibility: 'published', slug: 'pub0000001', basedOn: null }));
+    expect(screen.queryByRole('button', { name: 'Publish…' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Unpublish' })).not.toBeInTheDocument();
+  });
 });
 
 describe('ShareCard — someone else’s pattern', () => {

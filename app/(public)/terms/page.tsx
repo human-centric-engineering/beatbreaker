@@ -61,6 +61,24 @@ export default function TermsOfServicePage() {
             </p>
           </section>
 
+          {/* FORK (BeatBreaker, Phase 6): the licence on published patterns
+              (D9, the plan's recommendation, pending the review in D7). */}
+          <section className="mt-8">
+            <h2>Patterns You Publish</h2>
+            <p>
+              A pattern you write is yours. When you publish one to the community library, you let
+              everyone who uses the service play it, save a copy, change it and publish what they
+              make from it, as long as it keeps the credit to you that the service shows. You can
+              unpublish it whenever you like; copies people have already saved stay with them.
+            </p>
+            <p>
+              Only publish what you wrote, or built from a pattern whose author is credited on it.
+              Don&apos;t publish someone else&apos;s pattern as your own, or anything offensive. We
+              may unpublish a pattern that breaks these rules, and remove its links, and we will
+              tell you when we do.
+            </p>
+          </section>
+
           <section className="mt-8">
             <h2>Payment Terms</h2>
             <p>If applicable, outline:</p>

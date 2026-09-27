@@ -156,6 +156,13 @@ export function initAppSubjectSources(): void {
         description:
           'The username your published patterns appear under, what you wrote about yourself, and when the username last changed.',
       },
+      {
+        model: 'BreakReport',
+        section: 'reportsFiled',
+        disposition: 'export',
+        description:
+          'Reports you filed about shared or published patterns — which pattern, the reason, your note, and what became of it.',
+      },
       /* The catalogue. Every row is a system row today (`ownerId` null), so
          these three sections come back empty for everybody — and they are
          declared anyway, because the alternative is that the day D16 ships
@@ -219,6 +226,7 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
     studioSettings,
     samples,
     drummerProfile,
+    reportsFiled,
     styles,
     libraries,
     kits,
@@ -242,6 +250,21 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
     prisma.sample.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } }),
     // at most one row, as studioSettings
     prisma.drummerProfile.findMany({ where: { userId } }),
+    /* The reports you filed, not the ones filed about your patterns: those
+       are the reporters' data. The admin who resolved one is not named. */
+    prisma.breakReport.findMany({
+      where: { reporterId: userId },
+      orderBy: { createdAt: 'asc' },
+      select: {
+        id: true,
+        breakId: true,
+        reason: true,
+        note: true,
+        status: true,
+        resolvedAt: true,
+        createdAt: true,
+      },
+    }),
     /* `ownerId`, not `userId` — the catalogue names its owner differently, and
        that is precisely the column core's own user-id heuristic cannot see. */
     prisma.style.findMany({
@@ -272,6 +295,7 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
     studioSettings,
     samples,
     drummerProfile,
+    reportsFiled,
     styles,
     libraries,
     kits,

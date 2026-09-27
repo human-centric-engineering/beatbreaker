@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { PublishDialog } from '@/components/app/studio/publish-dialog';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { publicPath } from '@/lib/app/breaks/community/visibility';
 
@@ -19,6 +20,13 @@ export function ShareCard() {
   const { doc, say } = c;
   const { visibility, slug } = doc.sharing;
   const [busy, setBusy] = useState(false);
+  const [publishing, setPublishing] = useState(false);
+
+  const publishButton = (
+    <button type="button" className="mini" disabled={busy} onClick={() => setPublishing(true)}>
+      Publish…
+    </button>
+  );
 
   const change = async (next: 'private' | 'link') => {
     setBusy(true);
@@ -65,6 +73,7 @@ export function ShareCard() {
           >
             Share with a link
           </button>
+          {publishButton}
         </div>
       </>
     );
@@ -78,6 +87,18 @@ export function ShareCard() {
         </p>
         {link ? <LinkRow path={link} onCopy={copyLink} /> : null}
         <div className="btnrow">
+          {visibility === 'published' ? (
+            <button
+              type="button"
+              className="mini"
+              disabled={busy}
+              onClick={() => void change('link')}
+            >
+              Unpublish
+            </button>
+          ) : (
+            publishButton
+          )}
           <button
             type="button"
             className="mini"
@@ -97,6 +118,7 @@ export function ShareCard() {
         <h3>Share with a link</h3>
       </div>
       <div className="card-bd">{body}</div>
+      <PublishDialog open={publishing} onOpenChange={setPublishing} />
     </div>
   );
 }

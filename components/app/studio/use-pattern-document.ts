@@ -117,9 +117,21 @@ export interface PatternDocument {
    * it; false, with the toast saying why, when it did not.
    */
   share: (visibility: 'private' | 'link') => Promise<boolean>;
+  /**
+   * Publish a saved pattern of yours to the community library (task 6.9).
+   * `ok`, or the server's refusal — its code (`USERNAME_REQUIRED`,
+   * `DUPLICATE`, …) and the words to show — for the publish dialog to put in
+   * front of you. The dialog, not the toast, says what went wrong.
+   */
+  publish: () => Promise<PublishResult>;
 }
 
 const NO_DETAILS: PatternDetails = { description: '', links: [] };
+export type PublishResult = { ok: true } | { ok: false; code: string | null; message: string };
+
+/** What a publish answers with that this reads — checked, not cast. */
+const publishedAnswer = z.object({ visibility: z.literal('published'), slug: z.string() });
+
 const NO_SHARING: PatternSharing = { visibility: 'private', slug: null, basedOn: null };
 
 /** What a visibility PATCH answers with that this reads — checked, not cast. */
@@ -188,6 +200,11 @@ export function usePatternDocument({
   const [refusedKey, setRefusedKey] = useState<string | null>(null);
   const [details, setDetails] = useState<PatternDetails>(initial?.details ?? NO_DETAILS);
   const [sharing, setSharing] = useState<PatternSharing>(initial?.sharing ?? NO_SHARING);
+  // read by `share`, which says what changed, without re-creating it on every change
+  const sharingNow = useRef(sharing);
+  useLayoutEffect(() => {
+    sharingNow.current = sharing;
+  });
 
   /* Everything a save sends is read from here at the moment it is sent, so a
      save fired by a timer or by `detach` sends what was on the stage then —
@@ -472,6 +489,7 @@ export function usePatternDocument({
     async (visibility: 'private' | 'link'): Promise<boolean> => {
       const savedId = latest.current.mine ? latest.current.id : null;
       if (!savedId) return false;
+      const wasPublished = sharingNow.current.visibility === 'published';
       try {
         const answer = sharingAnswer.parse(
           await apiClient.patch(`/api/v1/breaks/${savedId}`, { body: { visibility } })
@@ -480,9 +498,11 @@ export function usePatternDocument({
           setSharing((was) => ({ ...was, visibility: answer.visibility, slug: answer.slug }));
         }
         say(
-          visibility === 'link'
-            ? 'Shared — anyone with the link can open it'
-            : 'Not shared any more'
+          visibility === 'private'
+            ? 'Not shared any more'
+            : wasPublished
+              ? 'Unpublished — anyone with the link can still open it'
+              : 'Shared — anyone with the link can open it'
         );
         return true;
       } catch (error) {
@@ -498,6 +518,34 @@ export function usePatternDocument({
     },
     [say]
   );
+
+  const publish = useCallback(async (): Promise<PublishResult> => {
+    const savedId = latest.current.mine ? latest.current.id : null;
+    if (!savedId) return { ok: false, code: null, message: 'Save the pattern first.' };
+    try {
+      const answer = publishedAnswer.parse(
+        await apiClient.post(`/api/v1/breaks/${savedId}/publish`, { body: { confirm: true } })
+      );
+      if (latest.current.id === savedId) {
+        setSharing((was) => ({ ...was, visibility: 'published', slug: answer.slug }));
+      }
+      say('Published to the community library');
+      return { ok: true };
+    } catch (error) {
+      if (error instanceof APIClientError) {
+        return {
+          ok: false,
+          code: error.code ?? null,
+          message:
+            error.code === 'NETWORK_ERROR'
+              ? 'Could not reach the server — not published.'
+              : error.message,
+        };
+      }
+      logger.warn('BeatBreaker: publish failed', { error, breakId: savedId });
+      return { ok: false, code: null, message: 'That did not publish. Try again.' };
+    }
+  }, [say]);
 
   const saveDetails = useCallback(
     async (next: PatternDetails): Promise<PatternDetails | null> => {
@@ -547,5 +595,6 @@ export function usePatternDocument({
     saveDetails,
     sharing,
     share,
+    publish,
   };
 }

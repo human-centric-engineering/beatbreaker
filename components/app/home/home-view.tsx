@@ -6,6 +6,7 @@ import { EngravedThumbnail } from '@/components/app/home/engraved-thumbnail';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ClientDate } from '@/components/ui/client-date';
+import { publicPath } from '@/lib/app/breaks/community/visibility';
 import { layerName } from '@/lib/app/breaks/layers';
 import type { HomeCard, HomeView as HomeData } from '@/lib/app/breaks/saved/home';
 import type { TargetView } from '@/lib/app/breaks/saved/targets';
@@ -14,9 +15,10 @@ import type { TargetView } from '@/lib/app/breaks/saved/targets';
  * Home (task 4.9) — the signed-in landing page's body.
  *
  * A server component drawing what `readHome()` returned: nothing here fetches.
- * Copy is `site-copy.md` §6. The Published section and the community library
- * link wait for Phase 6; "Browse the famous grooves" opens the Studio on the
- * Patterns drawer's Libraries tab (`?drawer=patterns&tab=libraries`).
+ * Copy is `site-copy.md` §6. "Browse the famous grooves" opens the Studio on
+ * the Patterns drawer's Libraries tab (`?drawer=patterns&tab=libraries`);
+ * "Browse the community library" is `/explore`. _Published_ (Phase 6) lists
+ * your published patterns, each linking to its public page.
  */
 
 /** Where a target opens: a saved pattern at its address, a library entry through `?entry=`. */
@@ -98,7 +100,7 @@ export function HomeView({
   /** A style key as the picker names it; the key itself for one not in the catalogue. */
   styleLabel: (key: string) => string;
 }) {
-  const { practising, recent, savedCount } = home;
+  const { practising, recent, savedCount, published } = home;
 
   if (practising.length === 0 && recent.length === 0 && savedCount === 0) {
     return (
@@ -116,6 +118,9 @@ export function HomeView({
             <Link href={studioDrawerHref({ tool: 'patterns', tab: 'libraries' })}>
               Browse the famous grooves
             </Link>
+          </Button>
+          <Button asChild variant="outline">
+            <Link href="/explore">Browse the community library</Link>
           </Button>
         </div>
       </section>
@@ -168,6 +173,35 @@ export function HomeView({
                   </span>
                   <span className="text-muted-foreground shrink-0 text-xs">
                     {visit.bpm} BPM · <ClientDate date={visit.visitedAt} />
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {published.length ? (
+        <section className="space-y-3" aria-labelledby="home-published">
+          <h2 id="home-published" className="text-xl font-semibold">
+            Published
+          </h2>
+          <ul className="divide-y rounded-md border">
+            {published.map((p) => (
+              <li key={p.id}>
+                <Link
+                  href={publicPath(p.slug)}
+                  className="hover:bg-muted flex min-h-11 items-center justify-between gap-4 px-4 py-2"
+                >
+                  <span className="min-w-0">
+                    <span className="block truncate font-medium">{p.title}</span>
+                    <span className="text-muted-foreground block truncate text-xs">
+                      {styleLabel(p.style)} · {p.bpm} BPM
+                    </span>
+                  </span>
+                  <span className="text-muted-foreground shrink-0 text-xs">
+                    {p.saves ? `${p.saves} ${p.saves === 1 ? 'save' : 'saves'} · ` : ''}
+                    <ClientDate date={p.publishedAt} />
                   </span>
                 </Link>
               </li>

@@ -178,7 +178,7 @@ describe('PatternsPanel — tabs', () => {
   });
 
   it('shows a tab that is not one of its own as the fallback', () => {
-    localStorage.setItem('bb.patternsTab', JSON.stringify('community'));
+    localStorage.setItem('bb.patternsTab', JSON.stringify('explore'));
     mount({ pins: NONE });
     expect(screen.getByRole('tab', { name: 'Libraries' }).getAttribute('aria-selected')).toBe(
       'true'
@@ -445,6 +445,103 @@ describe('PatternsPanel — Libraries', () => {
         .getByRole('button', { name: new RegExp(`^${noNote!.title}`) })
         .getAttribute('aria-current')
     ).toBe('true');
+  });
+});
+
+describe('PatternsPanel — Community', () => {
+  const communityRow = (over: Record<string, unknown> = {}) => ({
+    id: OTHER,
+    slug: 'cold000001',
+    title: 'Cold Carpet',
+    style: 'funk',
+    meter: '4/4',
+    bpm: 90,
+    author: 'ghostnotes',
+    ...over,
+  });
+
+  /** Every `GET /api/v1/public/patterns` made, with its params. */
+  const communityCalls = () =>
+    vi.mocked(apiClient.get).mock.calls.filter(([url]) => url === '/api/v1/public/patterns');
+
+  it('reads the library with one request when the tab is shown, newest first', async () => {
+    const user = userEvent.setup();
+    vi.mocked(apiClient.get).mockResolvedValue([communityRow()]);
+    mount({ pins: NONE });
+
+    await user.click(screen.getByRole('tab', { name: 'Community' }));
+
+    await waitFor(() => expect(rows()).toHaveLength(1));
+    expect(communityCalls()).toEqual([
+      ['/api/v1/public/patterns', { params: { sort: 'newest', limit: 48 } }],
+    ]);
+    expect(rows()[0].textContent).toBe(`Cold Carpet@ghostnotes · ${FUNK}90`);
+  });
+
+  it('shows no @username for a pattern shared by someone with none', async () => {
+    const user = userEvent.setup();
+    vi.mocked(apiClient.get).mockResolvedValue([communityRow({ author: null })]);
+    mount({ pins: NONE });
+    await user.click(screen.getByRole('tab', { name: 'Community' }));
+    await waitFor(() => expect(rows()).toHaveLength(1));
+    expect(rows()[0].textContent).toBe(`Cold Carpet${FUNK}90`);
+  });
+
+  it('re-reads with sort=saved when Most saved is pressed', async () => {
+    const user = userEvent.setup();
+    vi.mocked(apiClient.get).mockResolvedValue([communityRow()]);
+    mount({ pins: NONE });
+    await user.click(screen.getByRole('tab', { name: 'Community' }));
+    await waitFor(() => expect(communityCalls()).toHaveLength(1));
+
+    await user.click(screen.getByRole('button', { name: 'Most saved' }));
+
+    await waitFor(() => expect(communityCalls()).toHaveLength(2));
+    expect(communityCalls()[1]).toEqual([
+      '/api/v1/public/patterns',
+      { params: { sort: 'saved', limit: 48 } },
+    ]);
+  });
+
+  it('opens a row in place, by breakId — as someone else’s pattern', async () => {
+    const user = userEvent.setup();
+    vi.mocked(apiClient.get).mockImplementation((url: string) =>
+      Promise.resolve(
+        url === '/api/v1/public/patterns'
+          ? [communityRow()]
+          : { id: OTHER, title: 'Cold Carpet', mine: false, doc: breakPayload(sections(9)) }
+      )
+    );
+    mount({ pins: NONE });
+    await user.click(screen.getByRole('tab', { name: 'Community' }));
+    await waitFor(() => expect(rows()).toHaveLength(1));
+
+    await user.click(rows()[0]);
+
+    expect(apiClient.get).toHaveBeenCalledWith(`/api/v1/breaks/${OTHER}`);
+    await waitFor(() => expect(rows()[0].getAttribute('aria-current')).toBe('true'));
+  });
+
+  it('says nothing has been published yet, when the library is empty', async () => {
+    const user = userEvent.setup();
+    vi.mocked(apiClient.get).mockResolvedValue([]);
+    mount({ pins: NONE });
+    await user.click(screen.getByRole('tab', { name: 'Community' }));
+    expect(await screen.findByText(/Nothing published yet/)).toBeTruthy();
+  });
+
+  it('says the library could not be read, and reads it again on asking', async () => {
+    const user = userEvent.setup();
+    vi.mocked(apiClient.get)
+      .mockRejectedValueOnce(new Error('offline'))
+      .mockResolvedValue([communityRow()]);
+    mount({ pins: NONE });
+    await user.click(screen.getByRole('tab', { name: 'Community' }));
+
+    await user.click(await screen.findByRole('button', { name: 'Try again' }));
+
+    await waitFor(() => expect(rows()).toHaveLength(1));
+    expect(communityCalls()).toHaveLength(2);
   });
 });
 

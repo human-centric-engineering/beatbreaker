@@ -22,6 +22,7 @@ vi.mock('@/lib/app/breaks/community/public', () => ({
   getPublicPattern: vi.fn(),
   openableIdForSlug: vi.fn(),
 }));
+vi.mock('@/lib/app/breaks/community/reports', () => ({ ownsSlug: vi.fn() }));
 vi.mock('@/lib/app/breaks/catalogue/data', () => ({ studioCatalogue: vi.fn() }));
 vi.mock('@/lib/auth/utils', () => ({ getServerSession: vi.fn() }));
 vi.mock('next/navigation', () => ({
@@ -39,11 +40,23 @@ vi.mock('@/components/app/community/reference-embeds', () => ({
   ReferenceEmbeds: () => <div data-testid="reference-embeds" />,
 }));
 vi.mock('@/components/app/community/pattern-actions', () => ({
-  PatternActions: ({ id }: { id: string }) => <div data-testid="pattern-actions" data-id={id} />,
+  PatternActions: ({ id, children }: { id: string; children?: React.ReactNode }) => (
+    <div data-testid="pattern-actions" data-id={id}>
+      {children}
+    </div>
+  ),
+}));
+vi.mock('@/components/app/community/report-button', () => ({
+  ReportButton: ({ slug }: { slug: string }) => (
+    <button type="button" data-testid="report-button" data-slug={slug}>
+      Report
+    </button>
+  ),
 }));
 
 import PublicPatternPage, { generateMetadata } from '@/app/(public)/p/[slug]/page';
 import { getPublicPattern, openableIdForSlug } from '@/lib/app/breaks/community/public';
+import { ownsSlug } from '@/lib/app/breaks/community/reports';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { getServerSession } from '@/lib/auth/utils';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
@@ -102,6 +115,7 @@ const params = (slug = SLUG) => Promise.resolve({ slug });
 beforeEach(() => {
   vi.clearAllMocks();
   vi.mocked(studioCatalogue).mockResolvedValue(testCatalogue());
+  vi.mocked(ownsSlug).mockResolvedValue(false);
 });
 
 describe('generateMetadata', () => {
@@ -183,6 +197,32 @@ describe('PublicPatternPage', () => {
     render(el);
     expect(screen.queryByTestId('pattern-actions')).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Create a free account' })).toBeInTheDocument();
+  });
+
+  it('shows Report inside PatternActions for a signed-in reader who does not own the pattern', async () => {
+    vi.mocked(getPublicPattern).mockResolvedValue(pattern());
+    vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+    vi.mocked(openableIdForSlug).mockResolvedValue('cbrk00000000000000000099');
+    vi.mocked(ownsSlug).mockResolvedValue(false);
+    const el = await PublicPatternPage({ params: params() });
+    render(el);
+
+    expect(ownsSlug).toHaveBeenCalledWith(SLUG, createMockAuthSession().user.id);
+    const button = screen.getByTestId('report-button');
+    expect(button).toHaveAttribute('data-slug', SLUG);
+    // it is rendered as a child of PatternActions, not beside it
+    expect(screen.getByTestId('pattern-actions')).toContainElement(button);
+  });
+
+  it('shows no Report button for the pattern’s own owner', async () => {
+    vi.mocked(getPublicPattern).mockResolvedValue(pattern());
+    vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+    vi.mocked(openableIdForSlug).mockResolvedValue('cbrk00000000000000000099');
+    vi.mocked(ownsSlug).mockResolvedValue(true);
+    const el = await PublicPatternPage({ params: params() });
+    render(el);
+
+    expect(screen.queryByTestId('report-button')).not.toBeInTheDocument();
   });
 
   it('shows the credit line for a copy', async () => {

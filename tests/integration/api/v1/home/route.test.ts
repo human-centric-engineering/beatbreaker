@@ -37,7 +37,7 @@ vi.mock('@/lib/db/client', () => ({
   prisma: {
     pin: { findMany: vi.fn() },
     practiceVisit: { findMany: vi.fn() },
-    break: { count: vi.fn() },
+    break: { count: vi.fn(), findMany: vi.fn() },
   },
 }));
 
@@ -127,6 +127,7 @@ interface Home {
   practising: Card[];
   recent: Array<{ id: string; target: { id: string } }>;
   savedCount: number;
+  published: unknown[];
 }
 
 async function home(): Promise<{ status: number; data: Home }> {
@@ -141,6 +142,7 @@ beforeEach(() => {
   vi.mocked(prisma.pin.findMany).mockResolvedValue([] as never);
   vi.mocked(prisma.practiceVisit.findMany).mockResolvedValue([] as never);
   vi.mocked(prisma.break.count).mockResolvedValue(0);
+  vi.mocked(prisma.break.findMany).mockResolvedValue([] as never);
 });
 
 describe('auth', () => {
@@ -157,7 +159,7 @@ describe('GET /api/v1/home', () => {
   it('answers a first visit with nothing in it, from one query per table', async () => {
     const { status, data } = await home();
     expect(status).toBe(200);
-    expect(data).toEqual({ practising: [], recent: [], savedCount: 0 });
+    expect(data).toEqual({ practising: [], recent: [], savedCount: 0, published: [] });
     expect(prisma.pin.findMany).toHaveBeenCalledTimes(1);
     expect(prisma.practiceVisit.findMany).toHaveBeenCalledTimes(1);
     expect(prisma.break.count).toHaveBeenCalledTimes(1);
@@ -354,5 +356,43 @@ describe('GET /api/v1/home', () => {
       Array.from({ length: HOME_RECENT }, (_, i) => `cvis${i}`)
     );
     expect(data.savedCount).toBe(12);
+  });
+
+  describe('GET /api/v1/home — Published (Phase 6)', () => {
+    it('lists your published patterns, newest first, with how many saved a copy', async () => {
+      vi.mocked(prisma.break.findMany).mockResolvedValue([
+        {
+          id: 'cbrk00000000000000000007',
+          slug: 'pub0000001',
+          title: 'Out in the world',
+          style: 'funk',
+          bpm: 96,
+          publishedAt: new Date('2026-09-20T00:00:00Z'),
+          _count: { children: 3 },
+        },
+      ] as never);
+
+      const { data } = await home();
+
+      expect(data.published).toEqual([
+        {
+          id: 'cbrk00000000000000000007',
+          slug: 'pub0000001',
+          title: 'Out in the world',
+          style: 'funk',
+          bpm: 96,
+          publishedAt: '2026-09-20T00:00:00.000Z',
+          saves: 3,
+        },
+      ]);
+      const args = vi.mocked(prisma.break.findMany).mock.calls[0][0];
+      // yours, published, with an address — never anyone else's
+      expect(args?.where).toEqual({
+        userId: USER_ID,
+        visibility: 'published',
+        slug: { not: null },
+      });
+      expect(args?.orderBy).toEqual([{ publishedAt: 'desc' }, { id: 'desc' }]);
+    });
   });
 });

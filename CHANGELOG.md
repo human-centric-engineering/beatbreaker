@@ -18,6 +18,21 @@ release process.
 
 ### Added
 
+- **Publishing, reports and moderation — `POST /api/v1/breaks/:id/publish`,
+  a `BreakReport` model, `POST /api/v1/public/patterns/:slug/report`,
+  `/api/v1/admin/patterns` and `/admin/patterns`** (migration
+  `break_reports`). Publishing needs the `PATTERN_PUBLISHING` flag (seeded
+  on; missing reads as off), a username and the "I wrote this" tick, and
+  refuses a blocked word, the same notes as someone else's published pattern
+  or a famous break, and more than 10 a day, each with its own code. Reports
+  are one open per person per pattern and outlive the reporter
+  (`reporterId`, `resolvedById` → `ON DELETE SET NULL`, hand-written and
+  probed); the export gains `reportsFiled`. A moderator can unpublish (the
+  owner is emailed), strip links or dismiss, audit-logged. The Studio gains a
+  publish dialog, Unpublish and a Community tab; Home gains Published; the
+  Privacy and Terms pages say what publishing makes public and what erasure
+  does to it. See `.context/app/sharing.md`.
+
 - **The community library in public — `GET /api/v1/public/patterns`,
   `GET /api/v1/public/patterns/:slug`, and the pages `/p/[slug]`, `/explore`
   and `/u/[username]`.** No session needed; rate-limited per IP through a new

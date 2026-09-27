@@ -214,7 +214,11 @@ const SEAM_DEFAULTS: SeamDefault[] = [
       const sections = getRegisteredNavSections();
       expect(sections).toHaveLength(1);
       expect(sections[0].title).toBe('BeatBreaker');
-      expect(sections[0].items?.map((i) => i.href)).toEqual(['/admin/catalogue']);
+      // Phase 6 adds the moderation queue
+      expect(sections[0].items?.map((i) => i.href)).toEqual([
+        '/admin/catalogue',
+        '/admin/patterns',
+      ]);
       // Registration is idempotent by title, and the sidebar imports this at
       // module load — under HMR it runs more than once.
       initAppNav();
@@ -291,7 +295,8 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     // StudioSettings, how you set up the Studio, and 4A.7 Sample, your own
     // drum samples. Phase 6 (task 6.2) added DrummerProfile, the username you
     // publish under, and excluded ReservedUsername, a released name with no
-    // user id on it.
+    // user id on it. Phase 6-iii (task 6.10) added BreakReport, the reports
+    // you filed — not those about your own patterns.
     assert: async () => {
       __resetAppSubjectSourceRegistryForTests();
       expect(
@@ -300,6 +305,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
           .sort()
       ).toEqual([
         'Break',
+        'BreakReport',
         'DrummerProfile',
         'Kit',
         'PatternLibrary',
@@ -321,6 +327,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
         'libraries',
         'pins',
         'practiceHistory',
+        'reportsFiled',
         'samples',
         'studioSettings',
         'styles',
