@@ -15,7 +15,9 @@ pattern, usernames and copies; **6-ii** — the public pages and API;
   `gridHash` (H8); a new read that returns a `Break` row does the same.
 - **Don't write `visibility: 'published'` outside `publishBreak`.** The
   create and update schemas accept `private` and `link` only, so a PATCH
-  cannot skip the flag, username, word, duplicate and daily-cap checks.
+  cannot skip the flag, username, word, duplicate and daily-cap checks — and
+  a PATCH that edits a pattern already published runs the word and duplicate
+  checks again (`assertPublishable`).
 - **Don't name a reporter to anyone.** The queue shows only whether the
   reporter's account still exists; the owner's email says a report was made,
   not by whom.
@@ -204,10 +206,19 @@ schemas cannot write it. In order:
 | `USERNAME_REQUIRED` | 409    | No drummer profile (D3).                                                                                                                                                                                |
 | `NOT_ALLOWED`       | 422    | A blocked word in the title or description (`textIsBlocked`).                                                                                                                                           |
 | `DUPLICATE`         | 409    | The notes (`gridHash`, recomputed from the document) match someone else's published pattern, or either section matches a famous break (`sectionHash`). Your own earlier publication is not a duplicate. |
-| `PUBLISH_LIMIT`     | 429    | `PUBLISH_DAILY_CAP` (10) publications in 24 hours, republishing included.                                                                                                                               |
+| `PUBLISH_LIMIT`     | 429    | `PUBLISH_DAILY_CAP` (10) _first_ publications in 24 hours. Republishing keeps the pattern's first `publishedAt`, so it neither counts again nor jumps back to the top of Newest.                        |
 
-On success: a slug if it had none, `visibility: 'published'`, `publishedAt`,
-and a fresh `gridHash` and `difficulty`. **Unpublishing** is
+On success: a slug if it had none, `visibility: 'published'`, `publishedAt`
+(the first one, if it was published before), and a fresh `gridHash` and
+`difficulty`.
+
+**Editing a published pattern is held to the same checks.** `NOT_ALLOWED` and
+`DUPLICATE` are `assertPublishable`, which `PATCH /api/v1/breaks/:id` also runs
+when a pattern stays published and its title, description or notes change —
+refusing with the same codes and writing nothing. Unpublishing in the same
+edit (`visibility` given) needs no check, and neither do links, which are
+moderated by report. In the Studio a refused autosave shows as the header's
+save error and waits for the next edit. **Unpublishing** is
 `PATCH /api/v1/breaks/:id` with `visibility: 'link'` (the Studio's
 _Unpublish_ — the link still works) or `'private'` (_Stop sharing_).
 

@@ -24,7 +24,11 @@ vi.mock('@/lib/db/client', () => ({
 }));
 
 import { APIError, NotFoundError } from '@/lib/api/errors';
-import { PUBLISH_DAILY_CAP, publishBreak } from '@/lib/app/breaks/community/publish';
+import {
+  PUBLISH_DAILY_CAP,
+  assertPublishable,
+  publishBreak,
+} from '@/lib/app/breaks/community/publish';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { breakPayload, packPattern } from '@/lib/app/breaks/share';
 import { prisma } from '@/lib/db/client';
@@ -56,6 +60,7 @@ function row(overrides: Record<string, unknown> = {}) {
     description: 'A groove from the lesson',
     doc: wireDoc(),
     slug: null,
+    publishedAt: null,
     ...overrides,
   };
 }
@@ -216,6 +221,50 @@ it('counts the daily cap only against publications in the last 24 hours', async 
   };
   expect(countArgs.where.userId).toBe(USER_ID);
   expect(countArgs.where.publishedAt.gte.getTime()).toBe(NOW.getTime() - 24 * 60 * 60 * 1000);
+});
+
+it('republishes a pattern published before without counting it again, and keeps its first date', async () => {
+  const first = new Date('2026-09-20T00:00:00Z');
+  vi.mocked(prisma.break.findFirst)
+    .mockResolvedValueOnce(row({ slug: 'kept000001', publishedAt: first }) as never)
+    .mockResolvedValueOnce(null);
+  // at the cap: a first publication would be refused, a republication is not
+  vi.mocked(prisma.break.count).mockResolvedValue(PUBLISH_DAILY_CAP);
+
+  await publishBreak(USER_ID, BREAK_ID, NOW);
+
+  expect(prisma.break.count).not.toHaveBeenCalled(); // test-review:accept no_arg_called — only a first publication is counted
+  const call = vi.mocked(prisma.break.update).mock.calls[0][0] as { data: Record<string, unknown> };
+  // not bumped back to the top of Newest
+  expect(call.data.publishedAt).toBe(first);
+});
+
+describe('assertPublishable — the checks an edit to a published pattern also runs', () => {
+  it('passes clean content and hands back the columns it derived', async () => {
+    vi.mocked(prisma.break.findFirst).mockResolvedValue(null);
+    const doc = wireDoc(3);
+    const { columns } = await assertPublishable(USER_ID, {
+      title: 'Cold Carpet',
+      description: null,
+      payload: doc as never,
+    });
+    expect(columns.gridHash).toMatch(/^[0-9a-f]{64}$/);
+    // someone else's published pattern with those notes is the query
+    expect(vi.mocked(prisma.break.findFirst).mock.calls[0]?.[0]).toMatchObject({
+      where: { gridHash: columns.gridHash, visibility: 'published', userId: { not: USER_ID } },
+    });
+  });
+
+  it('refuses a blocked word before looking at the notes', async () => {
+    await expect(
+      assertPublishable(USER_ID, {
+        title: 'fuck this',
+        description: null,
+        payload: wireDoc() as never,
+      })
+    ).rejects.toMatchObject({ code: 'NOT_ALLOWED', status: 422 });
+    expect(prisma.break.findFirst).not.toHaveBeenCalled(); // test-review:accept no_arg_called — refused before any query
+  });
 });
 
 describe('on success', () => {

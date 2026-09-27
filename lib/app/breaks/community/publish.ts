@@ -5,7 +5,11 @@ import { sectionHash } from '@/lib/app/breaks/community/grid';
 import { usernameOf } from '@/lib/app/breaks/community/profile';
 import { visibilityData, withFreshSlug } from '@/lib/app/breaks/community/sharing';
 import { textIsBlocked } from '@/lib/app/breaks/community/words';
-import { packedPatternSchema, storedPayloadSchema } from '@/lib/app/breaks/schema';
+import {
+  packedPatternSchema,
+  type SharePayload,
+  storedPayloadSchema,
+} from '@/lib/app/breaks/schema';
 import { patternFromPacked } from '@/lib/app/breaks/share';
 import { prisma } from '@/lib/db/client';
 import { isFeatureEnabled } from '@/lib/feature-flags';
@@ -24,7 +28,12 @@ import { isFeatureEnabled } from '@/lib/feature-flags';
  * 5. `DUPLICATE` (409) — the notes are the same as another person's published
  *    pattern, or as a section of a famous break: publishing it would credit
  *    it to the wrong person. Your own earlier publication is not a duplicate.
- * 6. `PUBLISH_LIMIT` (429) — more than `PUBLISH_DAILY_CAP` in 24 hours.
+ * 6. `PUBLISH_LIMIT` (429) — more than `PUBLISH_DAILY_CAP` first publications
+ *    in 24 hours. Republishing a pattern keeps its first `publishedAt`, so it
+ *    neither counts again nor jumps back to the top of Newest.
+ *
+ * Checks 4 and 5 are `assertPublishable`, which the PATCH route also runs on
+ * any edit to a published pattern's title, description or notes.
  *
  * The title and description need no HTML sanitising: every surface renders
  * them as text through React, and nothing puts them in markup by hand (the Open
@@ -32,7 +41,7 @@ import { isFeatureEnabled } from '@/lib/feature-flags';
  */
 
 export const PUBLISHING_FLAG = 'PATTERN_PUBLISHING';
-/** Publications per person per 24 hours — republishing counts. */
+/** First publications per person per 24 hours. */
 export const PUBLISH_DAILY_CAP = 10;
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -63,30 +72,21 @@ export interface Published {
   publishedAt: Date;
 }
 
-export async function publishBreak(
+/**
+ * The content checks every published pattern must pass — at publish, and
+ * again whenever a published pattern's title, description or notes change
+ * (`PATCH /api/v1/breaks/:id`), so an edit after publishing cannot put into
+ * the library what publishing refuses. In order: a blocked word in the title
+ * or description (`NOT_ALLOWED`, 422), then the same notes as someone else's
+ * published pattern or as a section of a famous break (`DUPLICATE`, 409).
+ * Returns the columns derived on the way, so the caller need not derive them
+ * again.
+ */
+export async function assertPublishable(
   userId: string,
-  breakId: string,
-  now = new Date()
-): Promise<Published> {
-  if (!(await isFeatureEnabled(PUBLISHING_FLAG))) {
-    refuse('PUBLISHING_PAUSED', 403, 'Publishing is paused for now. Your pattern is still saved.');
-  }
-
-  const row = await prisma.break.findFirst({
-    where: { id: breakId, userId },
-    select: { id: true, title: true, description: true, doc: true, slug: true },
-  });
-  if (!row) throw new NotFoundError(`Break ${breakId} not found`);
-
-  if (!(await usernameOf(userId))) {
-    refuse(
-      'USERNAME_REQUIRED',
-      409,
-      'Choose a username first — it is the name other drummers will see on your patterns.'
-    );
-  }
-
-  if (textIsBlocked(row.title) || (row.description && textIsBlocked(row.description))) {
+  content: { title: string; description: string | null; payload: SharePayload }
+): Promise<Awaited<ReturnType<typeof columnsFromDoc>>> {
+  if (textIsBlocked(content.title) || (content.description && textIsBlocked(content.description))) {
     refuse(
       'NOT_ALLOWED',
       422,
@@ -96,8 +96,8 @@ export async function publishBreak(
 
   /* The hash is taken from the document now rather than trusted from the
      column: a row written before Phase 6 has none. */
-  const payload = storedPayloadSchema.parse(row.doc);
-  const { decoded, columns } = await columnsFromDoc(payload);
+  const derived = await columnsFromDoc(content.payload);
+  const { decoded, columns } = derived;
 
   const copied = await prisma.break.findFirst({
     where: {
@@ -127,15 +127,59 @@ export async function publishBreak(
     }
   }
 
-  const recent = await prisma.break.count({
-    where: { userId, publishedAt: { gte: new Date(now.getTime() - DAY_MS) } },
+  return derived;
+}
+
+export async function publishBreak(
+  userId: string,
+  breakId: string,
+  now = new Date()
+): Promise<Published> {
+  if (!(await isFeatureEnabled(PUBLISHING_FLAG))) {
+    refuse('PUBLISHING_PAUSED', 403, 'Publishing is paused for now. Your pattern is still saved.');
+  }
+
+  const row = await prisma.break.findFirst({
+    where: { id: breakId, userId },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      doc: true,
+      slug: true,
+      publishedAt: true,
+    },
   });
-  if (recent >= PUBLISH_DAILY_CAP) {
+  if (!row) throw new NotFoundError(`Break ${breakId} not found`);
+
+  if (!(await usernameOf(userId))) {
     refuse(
-      'PUBLISH_LIMIT',
-      429,
-      `That's ${PUBLISH_DAILY_CAP} published in a day — the limit. Try again tomorrow.`
+      'USERNAME_REQUIRED',
+      409,
+      'Choose a username first — it is the name other drummers will see on your patterns.'
     );
+  }
+
+  const { columns } = await assertPublishable(userId, {
+    title: row.title,
+    description: row.description,
+    payload: storedPayloadSchema.parse(row.doc),
+  });
+
+  /* A pattern published before keeps its first date: republishing it after an
+     unpublish does not put it back at the top of Newest, and does not count
+     against the cap a second time. Only a first publication is counted. */
+  if (!row.publishedAt) {
+    const recent = await prisma.break.count({
+      where: { userId, publishedAt: { gte: new Date(now.getTime() - DAY_MS) } },
+    });
+    if (recent >= PUBLISH_DAILY_CAP) {
+      refuse(
+        'PUBLISH_LIMIT',
+        429,
+        `That's ${PUBLISH_DAILY_CAP} published in a day — the limit. Try again tomorrow.`
+      );
+    }
   }
 
   const saved = await withFreshSlug(() =>
@@ -145,7 +189,7 @@ export async function publishBreak(
         // a slug if it has none yet; published is set over the top
         ...visibilityData(row, 'link'),
         visibility: 'published',
-        publishedAt: now,
+        publishedAt: row.publishedAt ?? now,
         gridHash: columns.gridHash,
         difficulty: columns.difficulty,
       },

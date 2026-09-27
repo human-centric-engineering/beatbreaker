@@ -32,9 +32,11 @@ import { validateRequestBody } from '@/lib/api/validation';
 import { withAuth } from '@/lib/auth/guards';
 import { critique, playability } from '@/lib/app/breaks/critic';
 import { columnsFromDoc } from '@/lib/app/breaks/columns';
+import { assertPublishable } from '@/lib/app/breaks/community/publish';
 import { lineageOf, visibilityData, withFreshSlug } from '@/lib/app/breaks/community/sharing';
 import { readStoredLinks } from '@/lib/app/breaks/links';
 import { openSavedBreak } from '@/lib/app/breaks/saved/data';
+import { storedPayloadSchema } from '@/lib/app/breaks/schema';
 import { breakDocFromPayload } from '@/lib/app/breaks/share';
 import { prisma } from '@/lib/db/client';
 import { cuidSchema } from '@/lib/validations/common';
@@ -110,11 +112,31 @@ export const PATCH = withAuth<{ id: string }>(
        should get the same 404 as one editing a break that does not exist. */
     const existing = await prisma.break.findFirst({
       where: { id, userId: session.user.id },
-      select: { id: true, slug: true },
+      select: { id: true, slug: true, visibility: true, title: true, description: true, doc: true },
     });
     if (!existing) throw new NotFoundError(`Break ${id} not found`);
 
-    const derived = patch.doc ? (await columnsFromDoc(patch.doc)).columns : null;
+    /* A published pattern stays held to what publishing checked. An edit that
+       keeps it published and changes what the library shows — the title, the
+       description or the notes — goes through the same word and duplicate
+       checks, and is refused with the same codes; otherwise publishing once
+       and renaming after would put in the library what publishing refuses.
+       An edit that unpublishes it (`visibility` given) needs no check. */
+    const staysPublished = existing.visibility === 'published' && patch.visibility === undefined;
+    const showsChange =
+      patch.title !== undefined || patch.description !== undefined || patch.doc !== undefined;
+    let derived: Awaited<ReturnType<typeof columnsFromDoc>>['columns'] | null = null;
+    if (staysPublished && showsChange) {
+      const checked = await assertPublishable(session.user.id, {
+        title: patch.title ?? existing.title,
+        description:
+          patch.description === undefined ? existing.description : patch.description || null,
+        payload: patch.doc ?? storedPayloadSchema.parse(existing.doc),
+      });
+      if (patch.doc) derived = checked.columns;
+    } else if (patch.doc) {
+      derived = (await columnsFromDoc(patch.doc)).columns;
+    }
 
     const saved = await withFreshSlug(() =>
       prisma.break.update({
