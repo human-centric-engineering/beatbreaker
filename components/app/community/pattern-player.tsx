@@ -22,6 +22,9 @@ import { DEFAULT_STUDIO_SETTINGS } from '@/lib/validations/studio-settings';
 const MIN_BPM = 40;
 const LEVELS = [1, 2, 3, 4, 5] as const;
 
+/** For the transport and pack events this player has nothing to show for. */
+const noop = (): void => {};
+
 /**
  * The read-only player on `/p/[slug]` (Phase 6, task 6.6): play, tempo and
  * layer — the Studio's transport and engine, without the editor.
@@ -77,16 +80,16 @@ export function PatternPlayer({
 
   useEffect(() => {
     const audio = new BreakAudio();
-    const packs = new PackSource(() => {});
+    const packs = new PackSource(noop);
     audio.samples = new SourceStack([packs]);
     audio.percussion = percussionSource(kits);
     const kit = kits[DEFAULT_STUDIO_SETTINGS.kit] ?? Object.values(kits)[0] ?? null;
     audio.setKit(kit, withTuning(kit, undefined));
     const t = new Transport(audio, {
       getSnapshot: () => snapshotRef.current,
-      onBpm: () => {},
-      onLoop: () => {},
-      onPaint: () => {},
+      onBpm: noop,
+      onLoop: noop,
+      onPaint: noop,
       onStop: () => setPlaying(false),
     });
     transportRef.current = t;

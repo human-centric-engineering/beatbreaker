@@ -56,6 +56,20 @@ describe('sitemap', () => {
     expect(rows.some((r) => r.url.endsWith('/u/snaredrummer'))).toBe(true);
   });
 
+  it('falls back to http://localhost:3000 when NEXT_PUBLIC_APP_URL is not set', async () => {
+    // tests/setup.ts sets NEXT_PUBLIC_APP_URL for every other test in the suite —
+    // unset it here to exercise the `||` fallback the source falls back to.
+    const original = process.env.NEXT_PUBLIC_APP_URL;
+    delete process.env.NEXT_PUBLIC_APP_URL;
+    try {
+      vi.mocked(publishedForSitemap).mockResolvedValue({ patterns: [], usernames: [] });
+      const rows = await sitemap();
+      expect(rows.some((r) => r.url === 'http://localhost:3000/explore')).toBe(true);
+    } finally {
+      process.env.NEXT_PUBLIC_APP_URL = original;
+    }
+  });
+
   it('still returns the static pages, and logs, when the community library cannot be read', async () => {
     vi.mocked(publishedForSitemap).mockRejectedValue(new Error('db down'));
     const rows = await sitemap();

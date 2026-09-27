@@ -50,6 +50,18 @@ describe('generateMetadata', () => {
     const meta = await generateMetadata({ params: params(), searchParams: searchParams() });
     expect(meta.title).toBe('@ghostnotes');
   });
+
+  it('uses the bio as the description when the drummer has one', async () => {
+    vi.mocked(getPublicProfile).mockResolvedValue({ username: 'ghostnotes', bio: 'Plays funk.' });
+    const meta = await generateMetadata({ params: params(), searchParams: searchParams() });
+    expect(meta.description).toBe('Plays funk.');
+  });
+
+  it('falls back to a generic description when there is no bio', async () => {
+    vi.mocked(getPublicProfile).mockResolvedValue({ username: 'ghostnotes', bio: null });
+    const meta = await generateMetadata({ params: params(), searchParams: searchParams() });
+    expect(meta.description).toBe('Drum patterns published by @ghostnotes on BeatBreaker.');
+  });
 });
 
 describe('DrummerPage', () => {
@@ -82,5 +94,47 @@ describe('DrummerPage', () => {
     vi.mocked(getPublicProfile).mockResolvedValue({ username: 'ghostnotes', bio: null });
     await DrummerPage({ params: params(), searchParams: searchParams({ cursor: 'MjQ' }) });
     expect(listPublished).toHaveBeenCalledWith(expect.objectContaining({ cursor: 'MjQ' }));
+  });
+
+  it('renders each published pattern with its catalogue style label — falling back to the raw key for a style the catalogue does not carry — and a "More patterns" link when there is a next page', async () => {
+    vi.mocked(getPublicProfile).mockResolvedValue({ username: 'ghostnotes', bio: null });
+    const known = {
+      id: 'cbrk00000000000000000001',
+      slug: 'funkpattern1',
+      title: 'Funk One',
+      description: null,
+      style: 'funk',
+      meter: '4/4',
+      bpm: 96,
+      level: 5,
+      difficulty: null,
+      linkKinds: [],
+      publishedAt: '2026-01-01T00:00:00.000Z',
+      author: 'ghostnotes',
+      saves: 0,
+    };
+    const unknownStyle = {
+      ...known,
+      slug: 'mysterygroove',
+      title: 'Mystery Groove',
+      style: 'not-a-real-style',
+    };
+    vi.mocked(listPublished).mockResolvedValue({
+      patterns: [known, unknownStyle],
+      nextCursor: 'MjQ',
+    });
+
+    const el = await DrummerPage({ params: params(), searchParams: searchParams() });
+    render(el);
+
+    expect(screen.getByText('Funk One')).toBeInTheDocument();
+    expect(screen.getByText('Mystery Groove')).toBeInTheDocument();
+    // the catalogue resolves a known style to its label...
+    expect(screen.getByText(/Funk 16ths/)).toBeInTheDocument();
+    // ...and falls back to the raw style key when the catalogue has nothing for it
+    expect(screen.getByText(/not-a-real-style/)).toBeInTheDocument();
+
+    const more = screen.getByRole('link', { name: /more patterns/i });
+    expect(more).toHaveAttribute('href', '/u/ghostnotes?cursor=MjQ');
   });
 });

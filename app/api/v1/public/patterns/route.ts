@@ -29,7 +29,7 @@ export async function GET(request: Request): Promise<Response> {
     Object.fromEntries(new URL(request.url).searchParams)
   );
   if (!parsed.success) {
-    return errorResponse(parsed.error.issues[0]?.message ?? 'Invalid query', {
+    return errorResponse(parsed.error.issues.map((i) => i.message).join('; '), {
       code: ErrorCodes.VALIDATION_ERROR,
       status: 400,
     });

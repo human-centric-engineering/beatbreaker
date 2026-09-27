@@ -22,6 +22,8 @@ vi.mock('@/lib/app/breaks/engrave', () => ({
   engrave: vi.fn(() => ({ width: 100, height: 50, nodes: [], label: '' })),
 }));
 
+import { renderToStaticMarkup } from 'react-dom/server';
+
 import Image, { size } from '@/app/(public)/p/[slug]/opengraph-image';
 import { getPublicPattern } from '@/lib/app/breaks/community/public';
 import { svgMarkup } from '@/lib/app/breaks/community/svg-markup';
@@ -89,5 +91,36 @@ describe('opengraph-image', () => {
     expect(svgMarkup).toHaveBeenCalledTimes(1);
     expect(imageResponse).toHaveBeenCalledTimes(1);
     expect(imageResponse.mock.calls[0][1]).toEqual({ width: 1200, height: 630 });
+    // the author IS on the card when the pattern has one
+    const html = renderToStaticMarkup(imageResponse.mock.calls[0][0] as never);
+    expect(html).toContain('@ghostnotes');
+  });
+
+  it('never reaches the data layer for a slug that fails validation, and falls back to the site name', async () => {
+    await Image({ params: params('Not-A-Valid-Slug!') });
+
+    expect(getPublicPattern).not.toHaveBeenCalled(); // test-review:accept no_arg_called — an invalid slug must short-circuit before the DB
+    expect(engrave).not.toHaveBeenCalled();
+    expect(svgMarkup).not.toHaveBeenCalled();
+    expect(imageResponse).toHaveBeenCalledTimes(1);
+    expect(imageResponse.mock.calls[0][1]).toEqual({ width: 1200, height: 630 });
+  });
+
+  it('omits the "@handle ·" prefix when the pattern has no author', async () => {
+    vi.mocked(getPublicPattern).mockResolvedValue({
+      id: 'cbrk00000000000000000002',
+      slug: 'cold000001',
+      title: 'No Name Yet',
+      author: null,
+      meter: '4/4',
+      bpm: 100,
+      doc: doc(),
+    } as never);
+
+    await Image({ params: params() });
+
+    const html = renderToStaticMarkup(imageResponse.mock.calls[0][0] as never);
+    expect(html).toContain('No Name Yet');
+    expect(html).not.toContain('@');
   });
 });
