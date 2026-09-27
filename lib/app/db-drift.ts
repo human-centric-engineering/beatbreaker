@@ -189,6 +189,18 @@ export function registerAppDriftProbes(): void {
     probe: constraintExists('drummer_profile_userId_fkey', 'ON DELETE CASCADE'),
   });
 
+  /* Reports on public patterns (20260927140000_break_reports). SET NULL, not
+     CASCADE, for both: the report is the moderation record about a pattern,
+     and erasing the reporter or the admin must not take it with them. */
+  for (const column of ['reporterId', 'resolvedById']) {
+    registerAppDriftProbe({
+      name: `break_report_${column}_fkey (hand-written FK → user)`,
+      kind: 'FK constraint',
+      table: 'break_report',
+      probe: constraintExists(`break_report_${column}_fkey`, 'ON DELETE SET NULL'),
+    });
+  }
+
   /* SET NULL, not CASCADE, and the difference is the point: a style version
      outlives its author because other people's patterns point at it and carry
      its id as provenance. Erasing the author erases the link, not the row. A

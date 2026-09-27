@@ -7,10 +7,12 @@ import { PatternActions } from '@/components/app/community/pattern-actions';
 import { PatternPlayer } from '@/components/app/community/pattern-player';
 import { PublicChart } from '@/components/app/community/public-chart';
 import { ReferenceEmbeds } from '@/components/app/community/reference-embeds';
+import { ReportButton } from '@/components/app/community/report-button';
 import { Button } from '@/components/ui/button';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { difficultyLabel } from '@/lib/app/breaks/community/grid';
 import { getPublicPattern, openableIdForSlug } from '@/lib/app/breaks/community/public';
+import { ownsSlug } from '@/lib/app/breaks/community/reports';
 import { publicPath, slugSchema } from '@/lib/app/breaks/community/visibility';
 import { meterOf } from '@/lib/app/breaks/meter';
 import { getServerSession } from '@/lib/auth/utils';
@@ -22,8 +24,8 @@ import { getServerSession } from '@/lib/auth/utils';
  * The chart is engraved on the server, so it is in the first paint and in
  * what a crawler or a chat app's link preview reads. The player is a small
  * client component over the Studio's engine. Signed in, a reader can save a
- * copy or open it in the editor; signed out, they are asked to make an
- * account for that.
+ * copy, open it in the editor, or report it if it is not theirs; signed out,
+ * they are asked to make an account for that.
  *
  * A pattern shared by link is `noindex`: it is reachable by whoever has the
  * link and nobody else, and a search engine is not one of them. Published
@@ -63,7 +65,9 @@ export default async function PublicPatternPage({ params }: Props) {
   if (!pattern) notFound();
 
   const [session, catalogue] = await Promise.all([getServerSession(), studioCatalogue()]);
-  const id = session ? await openableIdForSlug(pattern.slug) : null;
+  const [id, mine] = session
+    ? await Promise.all([openableIdForSlug(pattern.slug), ownsSlug(pattern.slug, session.user.id)])
+    : [null, false];
   const style = catalogue.styles[pattern.style]?.params.label ?? pattern.style;
 
   return (
@@ -95,7 +99,9 @@ export default async function PublicPatternPage({ params }: Props) {
       <ReferenceEmbeds links={pattern.links} />
 
       {id ? (
-        <PatternActions id={id} />
+        <PatternActions id={id}>
+          {mine ? null : <ReportButton slug={pattern.slug} />}
+        </PatternActions>
       ) : (
         <aside className="bg-muted/50 space-y-3 rounded-lg border p-4">
           <p>
