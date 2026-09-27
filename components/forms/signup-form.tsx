@@ -15,6 +15,7 @@ import { FormError } from '@/components/forms/form-error';
 import { PasswordStrength } from '@/components/forms/password-strength';
 import { OAuthButtons } from '@/components/forms/oauth-buttons';
 import { AUTH_LANDING_ROUTE } from '@/lib/auth-landing/route';
+import { safeCallbackUrl } from '@/lib/security';
 
 /**
  * Signup Form Component
@@ -37,6 +38,10 @@ import { AUTH_LANDING_ROUTE } from '@/lib/auth-landing/route';
 export function SignupForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  // FORK (BeatBreaker, Phase 6): honour `callbackUrl` the way the login form
+  // does, so "Create a free account" on a shared pattern returns to it. Only a
+  // same-origin path survives `safeCallbackUrl`; anything else is the landing.
+  const callbackUrl = safeCallbackUrl(searchParams.get('callbackUrl'), AUTH_LANDING_ROUTE);
   const { track, identify } = useAnalytics();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -96,7 +101,7 @@ export function SignupForm() {
 
             if (session) {
               // Session created → verification not required or auto-verified (OAuth)
-              router.push(AUTH_LANDING_ROUTE);
+              router.push(callbackUrl);
             } else {
               // No session → verification required, show "check email" page
               router.push('/verify-email?email=' + encodeURIComponent(data.email));
@@ -118,7 +123,7 @@ export function SignupForm() {
   return (
     <div className="space-y-4">
       {/* OAuth Buttons */}
-      <OAuthButtons callbackUrl={AUTH_LANDING_ROUTE} />
+      <OAuthButtons callbackUrl={callbackUrl} />
 
       {/* Email/Password Form */}
       <form onSubmit={(e) => void handleSubmit(onSubmit)(e)} className="space-y-4">

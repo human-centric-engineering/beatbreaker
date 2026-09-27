@@ -439,6 +439,42 @@ describe('components/forms/signup-form', () => {
       });
     });
 
+    it('returns to a same-origin callbackUrl after signup, and ignores an off-site one', async () => {
+      // FORK (BeatBreaker, Phase 6): "Create a free account" on a shared pattern
+      const user = userEvent.setup();
+      const { authClient } = await import('@/lib/auth/client');
+      const { useSearchParams } = await import('next/navigation');
+      vi.mocked(authClient.signUp.email).mockImplementation(async (_data, callbacks) => {
+        void callbacks?.onSuccess?.(
+          {} as unknown as Parameters<NonNullable<typeof callbacks.onSuccess>>[0]
+        );
+      });
+      vi.mocked(authClient.getSession).mockResolvedValue({ data: { user: { id: '1' } } });
+
+      const signUp = async (query: string) => {
+        vi.mocked(useSearchParams).mockReturnValue(
+          new URLSearchParams(query) as unknown as ReturnType<typeof useSearchParams>
+        );
+        const { unmount } = render(<SignupForm />);
+        await user.type(screen.getByLabelText(/full name/i), 'John Doe');
+        await user.type(screen.getByLabelText(/email/i), 'test@example.com');
+        await user.type(screen.getByLabelText(/^password$/i), 'Password123!');
+        await user.type(screen.getByLabelText(/confirm password/i), 'Password123!');
+        await user.click(screen.getByRole('button', { name: /create account/i }));
+        await waitFor(() => expect(mockRouter.push).toHaveBeenCalled());
+        const to = vi.mocked(mockRouter.push).mock.calls.at(-1)?.[0];
+        unmount();
+        mockRouter.push.mockClear();
+        return to;
+      };
+
+      expect(await signUp('callbackUrl=%2Fp%2Fabc0000001')).toBe('/p/abc0000001');
+      expect(await signUp('callbackUrl=https%3A%2F%2Fevil.example%2F')).toBe(AUTH_LANDING_ROUTE);
+      vi.mocked(useSearchParams).mockReturnValue(
+        new URLSearchParams() as unknown as ReturnType<typeof useSearchParams>
+      );
+    });
+
     it('should redirect to verify-email when no session (verification required)', async () => {
       // Arrange
       const user = userEvent.setup();
