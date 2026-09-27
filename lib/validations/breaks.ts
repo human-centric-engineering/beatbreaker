@@ -41,21 +41,27 @@ const linkSchema = z
  * The fields, with no defaults. Defaults belong to create only: Zod applies a
  * `.default()` inside `.partial()`, so a PATCH schema built from one that has
  * them fills in every field the request left out — a rename would write
- * `shared: false` and every link to the break would start answering 404.
+ * `visibility: 'private'` and every link to the break would start answering
+ * 404 (H1).
  * **Never `.partial()` a schema that has defaults.**
  */
 const breakFields = z.object({
   title: z.string().trim().min(1, 'A break needs a name').max(120),
   /** The whole break, in share-code wire format. */
   doc: sharePayloadSchema,
-  shared: z.boolean(),
+  /**
+   * `private` or `link` — what the owner sets directly. `published` is not
+   * here: publishing has its own route and its own checks (task 6.9), so a
+   * PATCH cannot skip them.
+   */
+  visibility: z.enum(['private', 'link']),
   /** Empty clears it. */
   description: z.string().trim().max(500),
   links: z.array(linkSchema).max(MAX_LINKS, `Up to ${MAX_LINKS} links`),
 });
 
 export const createBreakSchema = breakFields.extend({
-  shared: breakFields.shape.shared.default(false),
+  visibility: breakFields.shape.visibility.default('private'),
   description: breakFields.shape.description.optional(),
   links: breakFields.shape.links.default([]),
 });
@@ -84,6 +90,8 @@ export const listBreaksSchema = z.object({
     .string()
     .refine((s) => METER_KEYS.includes(s), 'unknown meter')
     .optional(),
+  /** Only rows at this visibility — Home's _Published_ reads `published`. */
+  visibility: z.enum(['private', 'link', 'published']).optional(),
   /** Title search, case-insensitive. */
   q: z.string().trim().max(120).optional(),
   /**
@@ -112,6 +120,12 @@ export const savedPatternRowSchema = z.object({
 export const savedPatternListSchema = z.array(savedPatternRowSchema);
 
 export type SavedPatternRow = z.infer<typeof savedPatternRowSchema>;
+
+/** `POST /api/v1/breaks/:id/copy` — a new name, and the notes as you have them now. Both optional. */
+export const copyBreakSchema = z.object({
+  title: breakFields.shape.title.optional(),
+  doc: sharePayloadSchema.optional(),
+});
 
 export type CreateBreakInput = z.infer<typeof createBreakSchema>;
 export type UpdateBreakInput = z.infer<typeof updateBreakSchema>;

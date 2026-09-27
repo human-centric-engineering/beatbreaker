@@ -73,8 +73,8 @@ describe('ExportPanel', () => {
     expect(await screen.findByText('Break code copied')).toBeTruthy();
     expect(written[0]?.length).toBeGreaterThan(100);
 
-    await user.click(screen.getByRole('button', { name: 'Copy link' }));
-    expect(await screen.findByText('Link copied')).toBeTruthy();
+    await user.click(screen.getByRole('button', { name: 'Copy Studio link' }));
+    expect(await screen.findByText('Studio link copied')).toBeTruthy();
     expect(written[1]).toContain(written[0]);
     expect(written[1]).toMatch(/#b=/);
   });

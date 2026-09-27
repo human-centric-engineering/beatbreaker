@@ -3,8 +3,13 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { z } from 'zod';
 
-import type { InitialPattern, PatternDetails } from '@/components/app/breaks/use-break-console';
+import type {
+  InitialPattern,
+  PatternDetails,
+  PatternSharing,
+} from '@/components/app/breaks/use-break-console';
 import { APIClientError, apiClient } from '@/lib/api/client';
+import { VISIBILITIES } from '@/lib/app/breaks/community/visibility';
 import { storedLinkSchema } from '@/lib/app/breaks/links';
 import type { SharePayload } from '@/lib/app/breaks/schema';
 import { clearScratch, writeScratch } from '@/lib/app/breaks/scratch';
@@ -93,7 +98,7 @@ export interface PatternDocument {
    * the Studio rather than by its address. Call it after {@link detach}, in
    * the same update as the load: the next render's pattern is the baseline.
    */
-  attach: (id: string, mine: boolean, details?: PatternDetails) => void;
+  attach: (id: string, mine: boolean, details?: PatternDetails, sharing?: PatternSharing) => void;
   /** True when {@link detach} would lose edits — see the module comment. */
   needsPrompt: boolean;
   /** The description and links of the pattern on the stage; empty for scratch. */
@@ -104,9 +109,26 @@ export interface PatternDocument {
    * such pattern or the server refused them.
    */
   saveDetails: (details: PatternDetails) => Promise<PatternDetails | null>;
+  /** Who can open it, and whom a copy is credited to (Phase 6). */
+  sharing: PatternSharing;
+  /**
+   * Share a saved pattern of yours by link, or make it private again. Making
+   * a published pattern either one unpublishes it. True once the server has
+   * it; false, with the toast saying why, when it did not.
+   */
+  share: (visibility: 'private' | 'link') => Promise<boolean>;
 }
 
 const NO_DETAILS: PatternDetails = { description: '', links: [] };
+const NO_SHARING: PatternSharing = { visibility: 'private', slug: null, basedOn: null };
+
+/** What a visibility PATCH answers with that this reads — checked, not cast. */
+const sharingAnswer = z.object({
+  visibility: z.enum(VISIBILITIES),
+  slug: z.string().nullable(),
+});
+
+const basedOnSchema = z.object({ title: z.string(), username: z.string(), slug: z.string() });
 
 /** What a details PATCH answers with that this reads — checked, not cast. */
 const detailsAnswer = z.object({
@@ -114,8 +136,8 @@ const detailsAnswer = z.object({
   links: z.array(storedLinkSchema),
 });
 
-/** What a create answers with that this reads — checked, not cast. */
-const created = z.object({ id: z.string().min(1) });
+/** What a create or a copy answers with that this reads — checked, not cast. */
+const created = z.object({ id: z.string().min(1), basedOn: basedOnSchema.nullish() });
 
 /** A title the API will take: it refuses an empty one. */
 function titleFor(title: string): string {
@@ -165,6 +187,7 @@ export function usePatternDocument({
    */
   const [refusedKey, setRefusedKey] = useState<string | null>(null);
   const [details, setDetails] = useState<PatternDetails>(initial?.details ?? NO_DETAILS);
+  const [sharing, setSharing] = useState<PatternSharing>(initial?.sharing ?? NO_SHARING);
 
   /* Everything a save sends is read from here at the moment it is sent, so a
      save fired by a timer or by `detach` sends what was on the stage then —
@@ -228,6 +251,7 @@ export function usePatternDocument({
             setId(null);
             setMine(true);
             setSavedKey(null);
+            setSharing(NO_SHARING);
             setPhase('idle');
             showAddress(null);
             say('That pattern was deleted elsewhere — it is unsaved here now', { error: true });
@@ -323,13 +347,40 @@ export function usePatternDocument({
       const sentFor = generation.current;
       setPhase('saving');
       try {
-        /* A copy keeps what the pattern it came from says about itself. */
+        /* Someone else's pattern is saved through the copy route, so the
+           copy records where it came from and can credit it (task 6.3); the
+           server carries its description and links across. A copy of your own
+           keeps what your pattern said about itself.
+
+           If the original has gone — deleted, or made private while it was
+           open here — the copy route answers 404 however often it is asked.
+           The notes on the stage are still yours to keep, so that is saved
+           as a plain new pattern instead, with no credit to a pattern nobody
+           can open any more. */
         const { description, links } = now.details;
-        const data = created.parse(
-          await apiClient.post('/api/v1/breaks', {
-            body: { title: name, doc: now.payload, ...(description ? { description } : {}), links },
-          })
-        );
+        const plain = () =>
+          apiClient.post('/api/v1/breaks', {
+            body: {
+              title: name,
+              doc: now.payload,
+              ...(description ? { description } : {}),
+              links,
+            },
+          });
+        let answer: unknown;
+        if (now.id && !now.mine) {
+          try {
+            answer = await apiClient.post(`/api/v1/breaks/${now.id}/copy`, {
+              body: { title: name, doc: now.payload },
+            });
+          } catch (error) {
+            if (!(error instanceof APIClientError && error.status === 404)) throw error;
+            answer = await plain();
+          }
+        } else {
+          answer = await plain();
+        }
+        const data = created.parse(answer);
         if (generation.current !== sentFor) {
           // the stage moved on while this was out: saved, but not what is shown now
           setPhase('idle');
@@ -338,6 +389,7 @@ export function usePatternDocument({
         }
         setId(data.id);
         setMine(true);
+        setSharing({ ...NO_SHARING, basedOn: data.basedOn ?? null });
         /* The baseline is what was sent under the name it was sent as. A Save
            As renames the stage once this has succeeded (the provider does
            that), so the document sent still carries the old name inside it,
@@ -394,22 +446,58 @@ export function usePatternDocument({
       setRefusedKey(null);
       setPhase('idle');
       setDetails(NO_DETAILS);
+      setSharing(NO_SHARING);
       showAddress(null);
     },
     [snapshot, patch]
   );
 
-  const attach = useCallback((savedId: string, isMine: boolean, next?: PatternDetails) => {
-    generation.current += 1;
-    setId(savedId);
-    setMine(isMine);
-    setDetails(next ?? NO_DETAILS);
-    // null, so the baseline effect takes the pattern as it arrives
-    setSavedKey(null);
-    setRefusedKey(null);
-    setPhase('idle');
-    showAddress(savedId);
-  }, []);
+  const attach = useCallback(
+    (savedId: string, isMine: boolean, next?: PatternDetails, nextSharing?: PatternSharing) => {
+      generation.current += 1;
+      setId(savedId);
+      setMine(isMine);
+      setDetails(next ?? NO_DETAILS);
+      setSharing(nextSharing ?? NO_SHARING);
+      // null, so the baseline effect takes the pattern as it arrives
+      setSavedKey(null);
+      setRefusedKey(null);
+      setPhase('idle');
+      showAddress(savedId);
+    },
+    []
+  );
+
+  const share = useCallback(
+    async (visibility: 'private' | 'link'): Promise<boolean> => {
+      const savedId = latest.current.mine ? latest.current.id : null;
+      if (!savedId) return false;
+      try {
+        const answer = sharingAnswer.parse(
+          await apiClient.patch(`/api/v1/breaks/${savedId}`, { body: { visibility } })
+        );
+        if (latest.current.id === savedId) {
+          setSharing((was) => ({ ...was, visibility: answer.visibility, slug: answer.slug }));
+        }
+        say(
+          visibility === 'link'
+            ? 'Shared — anyone with the link can open it'
+            : 'Not shared any more'
+        );
+        return true;
+      } catch (error) {
+        logger.warn('BeatBreaker: sharing refused', { error, breakId: savedId });
+        say(
+          error instanceof APIClientError && error.code === 'NETWORK_ERROR'
+            ? 'Could not reach the server — sharing not changed'
+            : 'That did not change who can open it',
+          { error: true }
+        );
+        return false;
+      }
+    },
+    [say]
+  );
 
   const saveDetails = useCallback(
     async (next: PatternDetails): Promise<PatternDetails | null> => {
@@ -446,5 +534,18 @@ export function usePatternDocument({
   else if (phase !== 'idle') status = phase;
   else status = dirty ? 'unsaved' : 'saved';
 
-  return { id, mine, status, save, saveAs, detach, attach, needsPrompt, details, saveDetails };
+  return {
+    id,
+    mine,
+    status,
+    save,
+    saveAs,
+    detach,
+    attach,
+    needsPrompt,
+    details,
+    saveDetails,
+    sharing,
+    share,
+  };
 }

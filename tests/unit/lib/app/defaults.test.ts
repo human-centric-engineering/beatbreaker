@@ -280,7 +280,9 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     // added Pin — the practice shelves, personal data like Break — and task
     // 4.7 PracticeVisit, the practice history. Phase 4A (task 4A.1) added
     // StudioSettings, how you set up the Studio, and 4A.7 Sample, your own
-    // drum samples.
+    // drum samples. Phase 6 (task 6.2) added DrummerProfile, the username you
+    // publish under, and excluded ReservedUsername, a released name with no
+    // user id on it.
     assert: async () => {
       __resetAppSubjectSourceRegistryForTests();
       expect(
@@ -289,6 +291,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
           .sort()
       ).toEqual([
         'Break',
+        'DrummerProfile',
         'Kit',
         'PatternLibrary',
         'Pin',
@@ -304,6 +307,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
           .sort()
       ).toEqual([
         'breaks',
+        'drummerProfile',
         'kits',
         'libraries',
         'pins',
@@ -317,7 +321,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
         getAppExcludedSubjectSources()
           .map((s) => s.model)
           .sort()
-      ).toEqual(['LibraryEntry', 'StyleVersion']);
+      ).toEqual(['LibraryEntry', 'ReservedUsername', 'StyleVersion']);
       // An exclusion without a reason is a table nobody decided about.
       for (const excluded of getAppExcludedSubjectSources()) {
         expect(excluded.reason.length).toBeGreaterThan(20);
@@ -430,12 +434,19 @@ const SEAM_DEFAULTS: SeamDefault[] = [
   {
     seam: 'lib/app/account-sections.ts',
     risk: 'a stray section would appear on every install\u2019s /profile and /settings',
+    // FORK (BeatBreaker): re-pointed, not deleted. Phase 6 adds the Drummer
+    // profile to /settings and nothing to /profile — pinned by id per surface,
+    // so an accidental addition on either still fails.
     assert: () => {
       __resetAccountSectionRegistryForTests();
       // The read triggers the lazy init, so this exercises the REAL seam.
-      for (const surface of ACCOUNT_SURFACES) {
-        expect(getRegisteredAccountSections(surface)).toEqual([]);
-      }
+      const ids = Object.fromEntries(
+        ACCOUNT_SURFACES.map((surface) => [
+          surface,
+          getRegisteredAccountSections(surface).map((s) => s.id),
+        ])
+      );
+      expect(ids).toEqual({ profile: [], settings: ['drummer-profile'] });
     },
   },
   {

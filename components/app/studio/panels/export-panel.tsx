@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { DetailsForm } from '@/components/app/studio/details-form';
+import { ShareCard } from '@/components/app/studio/share-card';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
@@ -39,13 +40,21 @@ export function ExportPanel() {
   return (
     <>
       <DetailsForm />
+      <ShareCard />
       <div className="card">
         <div className="card-hd">
           <h3>Links and files</h3>
         </div>
         <div className="card-bd">
           <div className="field">
-            <span className="fieldlab">Share this break</span>
+            <span className="fieldlab">
+              The notes as a code{' '}
+              <StudioHelp title="Break code">
+                Both sections, the tempo, swing and the style, carried in the code itself, so there
+                is nothing to save first. Paste it into Load a break code; the Studio link opens the
+                same notes in the Studio for anyone signed in.
+              </StudioHelp>
+            </span>
             <div className="btnrow">
               <button
                 type="button"
@@ -57,14 +66,12 @@ export function ExportPanel() {
               <button
                 type="button"
                 className="mini"
-                onClick={() => void copy(c.shareLink(), 'Link')}
+                onClick={() => void copy(c.shareLink(), 'Studio link')}
               >
-                Copy link
+                Copy Studio link
               </button>
             </div>
-            <div className="hint">
-              Both sections, the tempo, swing and the style — paste it to anyone.
-            </div>
+            <div className="hint">The notes travel in the code itself — no need to save.</div>
           </div>
 
           <div className="field">

@@ -3,8 +3,9 @@
  *
  * The real `withAuth` guard runs over a mocked session and a mocked Prisma.
  * The rules under test: a break the caller does not own answers 404 (not 403);
- * a shared break is readable by anyone signed in but writable only by its
- * owner; a PATCH changes only the fields it names.
+ * a break that is not private is readable by anyone signed in but writable
+ * only by its owner; a PATCH changes only the fields it names; no answer
+ * carries the owner's id (H8).
  *
  * @see app/api/v1/breaks/[id]/route.ts
  */
@@ -22,6 +23,7 @@ vi.mock('@/lib/auth/config', () => ({ auth: { api: { getSession: vi.fn() } } }))
 vi.mock('@/lib/db/client', () => ({
   prisma: {
     break: { findFirst: vi.fn(), update: vi.fn(), deleteMany: vi.fn() },
+    drummerProfile: { findUnique: vi.fn() },
   },
 }));
 
@@ -61,7 +63,12 @@ function row(overrides: Record<string, unknown> = {}) {
     swing: 30,
     seed: BigInt(9),
     bars: 2,
-    shared: false,
+    visibility: 'private',
+    slug: null,
+    publishedAt: null,
+    parentId: null,
+    gridHash: 'f'.repeat(64),
+    difficulty: 2,
     level: 5,
     description: null,
     links: [],
@@ -107,11 +114,14 @@ describe('GET /api/v1/breaks/:id', () => {
     expect(prisma.break.findFirst).not.toHaveBeenCalled(); // test-review:accept no_arg_called — validation must short-circuit
   });
 
-  it('fetches by id scoped to "mine or shared" in one query', async () => {
+  it('fetches by id scoped to "mine or not private" in one query', async () => {
     vi.mocked(prisma.break.findFirst).mockResolvedValue(row() as never);
     await GET(new NextRequest(url()), ctx());
     const args = vi.mocked(prisma.break.findFirst).mock.calls[0][0];
-    expect(args?.where).toEqual({ id: BREAK_ID, OR: [{ userId: USER_ID }, { shared: true }] });
+    expect(args?.where).toEqual({
+      id: BREAK_ID,
+      OR: [{ userId: USER_ID }, { visibility: { in: ['link', 'published'] } }],
+    });
     // another user's takes on a shared break are never included
     expect(args?.include?.takes).toMatchObject({ where: { userId: USER_ID } });
   });
@@ -160,13 +170,56 @@ describe('GET /api/v1/breaks/:id', () => {
     expect(data.doc.A.sd).toBe(0xffffffff);
   });
 
-  it('returns someone else’s shared break with mine=false', async () => {
+  it('returns someone else’s link share with mine=false, and never their user id (H8)', async () => {
     vi.mocked(prisma.break.findFirst).mockResolvedValue(
-      row({ userId: OTHER_ID, shared: true }) as never
+      row({ userId: OTHER_ID, visibility: 'link', slug: 'abcdefghjk' }) as never
     );
     const res = await GET(new NextRequest(url()), ctx());
     expect(res.status).toBe(200);
-    expect((await json<{ data: { mine: boolean } }>(res)).data.mine).toBe(false);
+    const text = await res.text();
+    expect(text).not.toContain(OTHER_ID);
+    const { data } = JSON.parse(text) as { data: Record<string, unknown> };
+    expect(data).toMatchObject({ mine: false, visibility: 'link', slug: 'abcdefghjk' });
+    expect(data).not.toHaveProperty('userId');
+    expect(data).not.toHaveProperty('parentId');
+    expect(data).not.toHaveProperty('gridHash');
+  });
+
+  it('credits a copy to the published pattern it came from, by username', async () => {
+    const PARENT_ID = 'cbrk00000000000000000009';
+    vi.mocked(prisma.break.findFirst)
+      .mockResolvedValueOnce(row({ parentId: PARENT_ID }) as never)
+      .mockResolvedValueOnce({
+        title: 'The original',
+        slug: 'orig000001',
+        userId: OTHER_ID,
+      } as never);
+    vi.mocked(prisma.drummerProfile.findUnique).mockResolvedValue({
+      username: 'ghostnotes',
+    } as never);
+
+    const res = await GET(new NextRequest(url()), ctx());
+    const { data } = await json<{ data: { basedOn: unknown } }>(res);
+    expect(data.basedOn).toEqual({
+      title: 'The original',
+      username: 'ghostnotes',
+      slug: 'orig000001',
+    });
+    // only while the parent is published
+    expect(vi.mocked(prisma.break.findFirst).mock.calls[1][0]?.where).toEqual({
+      id: PARENT_ID,
+      visibility: 'published',
+    });
+  });
+
+  it('credits nobody when the parent is no longer published', async () => {
+    vi.mocked(prisma.break.findFirst)
+      .mockResolvedValueOnce(row({ parentId: 'cbrk00000000000000000009' }) as never)
+      .mockResolvedValueOnce(null);
+    const res = await GET(new NextRequest(url()), ctx());
+    const { data } = await json<{ data: { basedOn: unknown } }>(res);
+    expect(data.basedOn).toBeNull();
+    expect(prisma.drummerProfile.findUnique).not.toHaveBeenCalled(); // test-review:accept no_arg_called — no parent, no lookup
   });
 
   it('drops a stored link that no longer passes the allowlist, and keeps the pattern open', async () => {
@@ -190,7 +243,7 @@ describe('GET /api/v1/breaks/:id', () => {
 
 describe('PATCH /api/v1/breaks/:id', () => {
   beforeEach(() => {
-    vi.mocked(prisma.break.findFirst).mockResolvedValue({ id: BREAK_ID } as never);
+    vi.mocked(prisma.break.findFirst).mockResolvedValue({ id: BREAK_ID, slug: null } as never);
     // what the route's `select` returns — no seed, no doc
     const {
       id,
@@ -200,7 +253,10 @@ describe('PATCH /api/v1/breaks/:id', () => {
       bpm,
       swing,
       bars,
-      shared,
+      visibility,
+      slug,
+      publishedAt,
+      difficulty,
       level,
       description,
       links,
@@ -214,7 +270,10 @@ describe('PATCH /api/v1/breaks/:id', () => {
       bpm,
       swing,
       bars,
-      shared,
+      visibility,
+      slug,
+      publishedAt,
+      difficulty,
       level,
       description,
       links,
@@ -222,7 +281,7 @@ describe('PATCH /api/v1/breaks/:id', () => {
     } as never);
   });
 
-  it('checks ownership — not "mine or shared" — before writing', async () => {
+  it('checks ownership — not "mine or not private" — before writing', async () => {
     await PATCH(patch({ title: 'New name' }), ctx());
     expect(vi.mocked(prisma.break.findFirst).mock.calls[0][0]?.where).toEqual({
       id: BREAK_ID,
@@ -247,15 +306,36 @@ describe('PATCH /api/v1/breaks/:id', () => {
     await PATCH(patch({ doc: wireDoc('6/8') }), ctx());
     const data = vi.mocked(prisma.break.update).mock.calls[0][0].data;
     expect(data).not.toHaveProperty('title');
-    expect(data).not.toHaveProperty('shared');
+    expect(data).not.toHaveProperty('visibility');
     expect(data).toMatchObject({ meter: '6/8', bpm: 88, swing: 30, bars: 2, style: 'funk' });
   });
 
-  it('shares and unshares', async () => {
-    await PATCH(patch({ shared: true }), ctx());
-    expect(vi.mocked(prisma.break.update).mock.calls[0][0].data).toEqual({ shared: true });
-    await PATCH(patch({ shared: false }), ctx());
-    expect(vi.mocked(prisma.break.update).mock.calls[1][0].data).toEqual({ shared: false });
+  it('shares by link, minting a slug the first time', async () => {
+    await PATCH(patch({ visibility: 'link' }), ctx());
+    expect(vi.mocked(prisma.break.update).mock.calls[0][0].data).toEqual({
+      visibility: 'link',
+      slug: expect.stringMatching(/^[0-9a-z]{10}$/),
+    });
+  });
+
+  it('keeps the slug it already has, so an old link works again when shared again', async () => {
+    vi.mocked(prisma.break.findFirst).mockResolvedValue({
+      id: BREAK_ID,
+      slug: 'kept000001',
+    } as never);
+    await PATCH(patch({ visibility: 'link' }), ctx());
+    expect(vi.mocked(prisma.break.update).mock.calls[0][0].data).toEqual({ visibility: 'link' });
+  });
+
+  it('makes it private without touching the slug', async () => {
+    await PATCH(patch({ visibility: 'private' }), ctx());
+    expect(vi.mocked(prisma.break.update).mock.calls[0][0].data).toEqual({ visibility: 'private' });
+  });
+
+  it('refuses to publish through a PATCH — publishing has its own checks', async () => {
+    const res = await PATCH(patch({ visibility: 'published' }), ctx());
+    expect(res.status).toBe(400);
+    expect(prisma.break.update).not.toHaveBeenCalled(); // test-review:accept no_arg_called — must not write a refused value
   });
 
   it('re-derives the style version and the layer with the document, not just the list columns', async () => {

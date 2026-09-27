@@ -332,7 +332,7 @@ export function StudioProvider({
           return;
         }
         setEntryId(null);
-        attach(opened.id, opened.mine, opened.details);
+        attach(opened.id, opened.mine, opened.details, opened.sharing);
       });
       return 'opened';
     },

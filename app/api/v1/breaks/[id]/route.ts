@@ -1,16 +1,24 @@
 /**
  * Breaks — one break
  *
- * GET    /api/v1/breaks/:id — the break, whole, with its critic report
- * PATCH  /api/v1/breaks/:id — rename, replace the document, share or unshare,
- *        describe, set its reference links
+ * GET    /api/v1/breaks/:id — the break, whole, with its critic report and,
+ *        for a copy, `basedOn` — the credit line, while the pattern it came
+ *        from is published
+ * PATCH  /api/v1/breaks/:id — rename, replace the document, share by link or
+ *        make private (`visibility`), describe, set its reference links.
+ *        Making a published pattern `link` or `private` unpublishes it;
+ *        publishing is `POST /api/v1/breaks/:id/publish`.
  * DELETE /api/v1/breaks/:id
  *
- * A break the caller does not own answers **404, not 403**, and a shared break
- * is readable by anyone signed in. Those two rules interact: the read is scoped
- * to `{ id, OR: [own, shared] }` in one query, so a private break belonging to
- * someone else is indistinguishable from one that was never saved. Answering
- * 403 would confirm it exists, which is a slow enumeration of every id.
+ * A break the caller does not own answers **404, not 403**, and a break that
+ * is not private is readable by anyone signed in. Those two rules interact:
+ * the read is scoped to `{ id, OR: [own, not private] }` in one query, so a
+ * private break belonging to someone else is indistinguishable from one that
+ * was never saved. Answering 403 would confirm it exists, which is a slow
+ * enumeration of every id.
+ *
+ * No response carries the owner's `userId` (H8): `mine` says whether it is
+ * yours, and that is all a reader needs.
  *
  * Authentication: any authenticated user.
  *
@@ -24,6 +32,7 @@ import { validateRequestBody } from '@/lib/api/validation';
 import { withAuth } from '@/lib/auth/guards';
 import { critique, playability } from '@/lib/app/breaks/critic';
 import { columnsFromDoc } from '@/lib/app/breaks/columns';
+import { lineageOf, visibilityData, withFreshSlug } from '@/lib/app/breaks/community/sharing';
 import { readStoredLinks } from '@/lib/app/breaks/links';
 import { openSavedBreak } from '@/lib/app/breaks/saved/data';
 import { breakDocFromPayload } from '@/lib/app/breaks/share';
@@ -45,7 +54,14 @@ export const GET = withAuth<{ id: string }>(
 
     const opened = await openSavedBreak(id, session.user.id);
     if (!opened) throw new NotFoundError(`Break ${id} not found`);
-    const { row, payload, links, mine } = opened;
+    /* The owner's id, the parent's id and the grid hash stay in the house
+       (H8): `mine` and `basedOn` are what a reader is owed. */
+    const {
+      row: { userId: _owner, parentId, gridHash: _hash, ...row },
+      payload,
+      links,
+      mine,
+    } = opened;
 
     /* The repaired payload is what goes back, so the client reads what was
        scored. The report is derived, not stored. Storing it would mean a row
@@ -63,11 +79,12 @@ export const GET = withAuth<{ id: string }>(
       // BigInt does not survive JSON.stringify
       seed: row.seed.toString(),
       mine,
+      basedOn: await lineageOf(parentId),
       critique: { ...report, checks: checks.checks, playable: checks.hard },
     });
   },
   {
-    // Ownership: the row is fetched by `{ id, OR: [own, shared] }` in
+    // Ownership: the row is fetched by `{ id, OR: [own, not private] }` in
     // `openSavedBreak` (lib/app/breaks/saved/data.ts), so the query
     // itself is the authorisation — see RouteOwnership in lib/auth/guards.ts.
     // Not 'resource': that claims a `resource` resolver asked the policy about
@@ -77,7 +94,7 @@ export const GET = withAuth<{ id: string }>(
     ownership: {
       decidedBy: 'nothing',
       because:
-        'The handler decides in the query openSavedBreak runs: readable if the caller owns the row or the row is marked shared; a miss is a 404 either way.',
+        'The handler decides in the query openSavedBreak runs: readable if the caller owns the row or the row is not private; a miss is a 404 either way.',
     },
   }
 );
@@ -93,37 +110,42 @@ export const PATCH = withAuth<{ id: string }>(
        should get the same 404 as one editing a break that does not exist. */
     const existing = await prisma.break.findFirst({
       where: { id, userId: session.user.id },
-      select: { id: true },
+      select: { id: true, slug: true },
     });
     if (!existing) throw new NotFoundError(`Break ${id} not found`);
 
-    const derived = patch.doc ? columnsFromDoc(patch.doc).columns : null;
+    const derived = patch.doc ? (await columnsFromDoc(patch.doc)).columns : null;
 
-    const saved = await prisma.break.update({
-      where: { id },
-      data: {
-        ...(patch.title === undefined ? {} : { title: patch.title }),
-        ...(patch.shared === undefined ? {} : { shared: patch.shared }),
-        // an empty description clears it rather than storing ''
-        ...(patch.description === undefined ? {} : { description: patch.description || null }),
-        ...(patch.links === undefined ? {} : { links: patch.links }),
-        ...(derived && patch.doc ? { doc: patch.doc, ...derived } : {}),
-      },
-      select: {
-        id: true,
-        title: true,
-        style: true,
-        meter: true,
-        bpm: true,
-        swing: true,
-        bars: true,
-        shared: true,
-        level: true,
-        description: true,
-        links: true,
-        updatedAt: true,
-      },
-    });
+    const saved = await withFreshSlug(() =>
+      prisma.break.update({
+        where: { id },
+        data: {
+          ...(patch.title === undefined ? {} : { title: patch.title }),
+          ...(patch.visibility === undefined ? {} : visibilityData(existing, patch.visibility)),
+          // an empty description clears it rather than storing ''
+          ...(patch.description === undefined ? {} : { description: patch.description || null }),
+          ...(patch.links === undefined ? {} : { links: patch.links }),
+          ...(derived && patch.doc ? { doc: patch.doc, ...derived } : {}),
+        },
+        select: {
+          id: true,
+          title: true,
+          style: true,
+          meter: true,
+          bpm: true,
+          swing: true,
+          bars: true,
+          visibility: true,
+          slug: true,
+          publishedAt: true,
+          difficulty: true,
+          level: true,
+          description: true,
+          links: true,
+          updatedAt: true,
+        },
+      })
+    );
 
     log.info('Break updated', { breakId: id, fields: Object.keys(patch) });
     return successResponse({ ...saved, links: readStoredLinks(saved.links) });

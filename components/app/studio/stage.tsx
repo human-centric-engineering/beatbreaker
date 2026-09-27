@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { Stave, type StaveHandle } from '@/components/app/breaks/stave';
+import type { PatternSharing } from '@/components/app/breaks/use-break-console';
 import { StepEditor } from '@/components/app/breaks/step-editor';
 import { PinButton } from '@/components/app/studio/pin-button';
 import { Segmented } from '@/components/app/studio/segmented';
@@ -10,6 +11,7 @@ import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
 import { type SectionLetter } from '@/lib/app/breaks/audio/transport';
+import { publicPath } from '@/lib/app/breaks/community/visibility';
 import { engrave } from '@/lib/app/breaks/engrave';
 import { LAYER_BLURB, LAYER_NAMES } from '@/lib/app/breaks/layers';
 import { parseReferenceLink, type StoredLink } from '@/lib/app/breaks/links';
@@ -42,6 +44,24 @@ function LinkChips({ links }: { links: StoredLink[] }) {
         );
       })}
     </span>
+  );
+}
+
+/**
+ * The credit line on a copy (task 6.3): "Based on _X_ by @_Y_", linking to
+ * the pattern it came from. The server sends it only while that pattern is
+ * published, so there is nothing here to decide.
+ */
+function BasedOn({ credit }: { credit: PatternSharing['basedOn'] }) {
+  if (!credit) return null;
+  return (
+    <p className="title-credit">
+      Based on{' '}
+      <a href={publicPath(credit.slug)} target="_blank" rel="noopener noreferrer">
+        {credit.title}
+      </a>{' '}
+      by @{credit.username}
+    </p>
   );
 }
 
@@ -132,6 +152,7 @@ export function Stage() {
               <PinButton target={c.stagePin} label={c.view.A.name} />
               <LinkChips links={c.doc.details.links} />
             </div>
+            <BasedOn credit={c.doc.sharing.basedOn} />
             <div className="title-sub">
               <span className="chip">{style?.label ?? c.style}</span>
               <span className="chip brass">

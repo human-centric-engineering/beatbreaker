@@ -26,11 +26,17 @@ const doc: unknown = JSON.parse(
 );
 
 describe('createBreakSchema', () => {
-  it('defaults shared to false and trims the title', () => {
+  it('defaults visibility to private and trims the title', () => {
     expect(createBreakSchema.parse({ title: '  Funky  ', doc })).toMatchObject({
       title: 'Funky',
-      shared: false,
+      visibility: 'private',
     });
+  });
+
+  it('will not create a published pattern — publishing has its own route and checks', () => {
+    expect(createBreakSchema.safeParse({ title: 'x', doc, visibility: 'published' }).success).toBe(
+      false
+    );
   });
 
   it('refuses a blank title and a missing document', () => {
@@ -47,7 +53,9 @@ describe('updateBreakSchema', () => {
   });
 
   it('still validates what is present', () => {
-    expect(updateBreakSchema.safeParse({ shared: 'yes' }).success).toBe(false);
+    expect(updateBreakSchema.safeParse({ visibility: 'yes' }).success).toBe(false);
+    // a PATCH cannot skip the publish checks
+    expect(updateBreakSchema.safeParse({ visibility: 'published' }).success).toBe(false);
     expect(updateBreakSchema.safeParse({ title: '' }).success).toBe(false);
     expect(updateBreakSchema.safeParse({ doc: { ver: 3 } }).success).toBe(false);
   });

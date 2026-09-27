@@ -15,7 +15,7 @@
  * FORK NOTE — this file reads `@/lib/app/data-export` for real, with no
  * `vi.mock`, because the collector's behaviour IS what it is testing. A fork of
  * BeatBreaker that adds its own tables to that seam will see this fail on the
- * section list: expect the nine below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
+ * section list: expect the ten below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
  * collector returns every declared section as a key, and a mock cannot tell you
  * that. The `prisma` methods are mocked instead, which is the part this test
  * genuinely does not need to be real.
@@ -30,6 +30,7 @@ const findMany = {
   visits: vi.fn(),
   settings: vi.fn(),
   samples: vi.fn(),
+  profiles: vi.fn(),
   styles: vi.fn(),
   libraries: vi.fn(),
   kits: vi.fn(),
@@ -43,6 +44,7 @@ vi.mock('@/lib/db/client', () => ({
     practiceVisit: { findMany: (...args: unknown[]) => findMany.visits(...args) },
     studioSettings: { findMany: (...args: unknown[]) => findMany.settings(...args) },
     sample: { findMany: (...args: unknown[]) => findMany.samples(...args) },
+    drummerProfile: { findMany: (...args: unknown[]) => findMany.profiles(...args) },
     style: { findMany: (...args: unknown[]) => findMany.styles(...args) },
     patternLibrary: { findMany: (...args: unknown[]) => findMany.libraries(...args) },
     kit: { findMany: (...args: unknown[]) => findMany.kits(...args) },
@@ -74,6 +76,7 @@ describe('collectAppSubjectData', () => {
     // different reason.
     expect(Object.keys(data).sort()).toEqual([
       'breaks',
+      'drummerProfile',
       'kits',
       'libraries',
       'pins',
@@ -96,6 +99,7 @@ describe('collectAppSubjectData', () => {
       findMany.visits,
       findMany.settings,
       findMany.samples,
+      findMany.profiles,
     ]) {
       expect(spy).toHaveBeenCalledWith(expect.objectContaining({ where: { userId: 'user-1' } }));
     }
@@ -203,6 +207,22 @@ describe('collectAppSubjectData', () => {
     const data = await collectAppSubjectData(SUBJECT);
 
     expect(data.studioSettings).toEqual([row]);
+  });
+
+  it('exports the drummer profile as stored — the username, the bio and when the name last changed', async () => {
+    const row = {
+      userId: 'user-1',
+      username: 'ghostnotes',
+      bio: 'Funk, mostly.',
+      usernameChangedAt: new Date('2026-09-01T00:00:00Z'),
+      createdAt: new Date('2026-08-01T00:00:00Z'),
+      updatedAt: new Date('2026-09-01T00:00:00Z'),
+    };
+    findMany.profiles.mockResolvedValue([row]);
+
+    const data = await collectAppSubjectData(SUBJECT);
+
+    expect(data.drummerProfile).toEqual([row]);
   });
 
   it('exports each sample row whole — name, slot, size, length and storage key — not the audio', async () => {

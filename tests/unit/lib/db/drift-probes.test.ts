@@ -373,6 +373,7 @@ describe('shipped lib/app/db-drift.ts scaffold', () => {
         .sort()
     ).toEqual([
       'break',
+      'drummer_profile',
       'kit',
       'pattern_library',
       'pin',

@@ -29,20 +29,42 @@ model Break {
   /// FK to User.id — no @relation (that needs a field ON User). Cascades.
   userId String
 
-  title  String  @db.VarChar(120)
+  title String @db.VarChar(120)
   /// Key into STYLES.
-  style  String  @db.VarChar(40)
+  style String @db.VarChar(40)
   /// Key into METERS.
-  meter  String  @db.VarChar(8)
-  bpm    Int
+  meter String @db.VarChar(8)
+  bpm   Int
   /// Swing slider, 0-100.
-  swing  Int     @default(0)
+  swing Int    @default(0)
   /// The generator seed, so the break can be re-derived rather than trusted.
-  seed   BigInt
+  seed  BigInt
   /// Bars per section — denormalised for the list, also derivable from `doc`.
-  bars   Int     @default(2)
-  /// Visible to anyone with the link.
-  shared Boolean @default(false)
+  bars  Int    @default(2)
+
+  /// Who can open it (Phase 6): "private" (you), "link" (anyone with its
+  /// `/p/` address, never listed) or "published" (in the community library,
+  /// under your username). Replaced the `shared` boolean; `shared = true`
+  /// became "link".
+  visibility  String    @default("private") @db.VarChar(16)
+  /// The public address, `/p/<slug>`: short, random and unguessable, minted
+  /// the first time the pattern leaves "private" and kept after, so a link
+  /// that stops working because it was made private works again if it is
+  /// shared again. Public URLs never carry the cuid.
+  slug        String?   @unique @db.VarChar(16)
+  /// When it was last published. Null unless it is, or was.
+  publishedAt DateTime?
+  /// The pattern this was copied from (Save a copy), for the credit line.
+  /// Nulled, not cascaded, when the parent goes: the copy is its new owner's,
+  /// and someone who asked to be forgotten is not named on it.
+  parentId    String?
+  /// A hash of the notes alone — every lane of both sections, no tempo, name
+  /// or style — derived from `doc`. What the duplicate check at publish
+  /// compares.
+  gridHash    String?   @db.VarChar(64)
+  /// 1 easy · 2 medium · 3 hard, derived from `doc` (`difficultyOf`). The
+  /// community library's filter; the critic has no difficulty of its own.
+  difficulty  Int?
 
   /// The whole break, in the share-code wire format (version 4).
   doc Json
@@ -71,9 +93,51 @@ model Break {
 
   styleVersion StyleVersion? @relation("BreakStyleVersion", fields: [styleVersionId], references: [id], onDelete: SetNull)
 
+  parent   Break?  @relation("BreakParent", fields: [parentId], references: [id], onDelete: SetNull)
+  children Break[] @relation("BreakParent")
+
   @@index([userId, createdAt])
-  @@index([shared, createdAt])
+  @@index([visibility, publishedAt])
+  @@index([visibility, style, meter])
+  @@index([parentId])
   @@map("break")
+}
+
+/// The name your published patterns appear under (D3).
+///
+/// Separate from the account's `name` on purpose: everything public is
+/// attributed to this and never to the account name or email, so nobody
+/// publishes under their real name by accident. Publishing needs one; sharing
+/// by link does not.
+///
+/// `username` is stored lower-case, so uniqueness is case-insensitive. The
+/// rules — length, characters, reserved words and look-alikes — are
+/// `lib/app/breaks/community/username.ts`, the one place they are written.
+///
+/// Personal data: `userId` cascades (hand-written FK, probed by
+/// `lib/app/db-drift.ts`).
+model DrummerProfile {
+  /// FK to User.id — no @relation. Cascades. One profile per person.
+  userId            String    @id
+  username          String    @unique @db.VarChar(24)
+  bio               String?   @db.VarChar(280)
+  /// When the username last changed. A change is allowed once per
+  /// `USERNAME_CHANGE_DAYS`; choosing the first one is not a change.
+  usernameChangedAt DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@map("drummer_profile")
+}
+
+/// A username someone has just given up, held so that nobody else can claim
+/// it while the old `/u/` links still circulate. No user FK: it records a
+/// name, not a person, and outlives the change that released it.
+model ReservedUsername {
+  username  String   @id @db.VarChar(24)
+  heldUntil DateTime
+
+  @@map("reserved_username")
 }
 
 /// A recording of someone playing a break.

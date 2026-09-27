@@ -1,6 +1,7 @@
 import type { Prisma } from '@prisma/client';
 
 import { PUBLIC } from '@/lib/app/breaks/catalogue/data';
+import { openableBy } from '@/lib/app/breaks/community/visibility';
 import type { PinTarget } from '@/lib/validations/pins';
 
 /**
@@ -46,18 +47,15 @@ export type TargetView = TargetBreak | TargetEntry;
 type Tx = Prisma.TransactionClient;
 
 /**
- * Rows whose target the caller may still see. When an owner unshares a
- * pattern, pins and visits on it drop out of every list — and come back if it
+ * Rows whose target the caller may still see. When an owner makes a pattern
+ * private, pins and visits on it drop out of every list — and come back if it
  * is shared again.
  */
 export function visibleTarget(
   userId: string
 ): Prisma.PinWhereInput & Prisma.PracticeVisitWhereInput {
   return {
-    OR: [
-      { breakRef: { OR: [{ userId }, { shared: true }] } },
-      { libraryEntry: { library: PUBLIC } },
-    ],
+    OR: [{ breakRef: openableBy(userId) }, { libraryEntry: { library: PUBLIC } }],
   };
 }
 
@@ -108,7 +106,7 @@ export function toTargetView(row: TargetRow, userId: string): TargetView | null 
 export async function targetVisible(tx: Tx, userId: string, target: PinTarget): Promise<boolean> {
   if ('breakId' in target) {
     const found = await tx.break.findFirst({
-      where: { id: target.breakId, OR: [{ userId }, { shared: true }] },
+      where: { id: target.breakId, ...openableBy(userId) },
       select: { id: true },
     });
     return found !== null;

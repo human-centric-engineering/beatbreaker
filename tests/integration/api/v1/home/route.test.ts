@@ -170,7 +170,7 @@ describe('GET /api/v1/home', () => {
       userId: USER_ID,
       shelf: 'practising',
       OR: [
-        { breakRef: { OR: [{ userId: USER_ID }, { shared: true }] } },
+        { breakRef: { OR: [{ userId: USER_ID }, { visibility: { in: ['link', 'published'] } }] } },
         { libraryEntry: { library: { visibility: 'system' } } },
       ],
     });

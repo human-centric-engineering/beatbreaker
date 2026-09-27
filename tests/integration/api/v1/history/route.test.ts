@@ -262,7 +262,7 @@ describe('GET /api/v1/history', () => {
     expect(args?.where).toEqual({
       userId: USER_ID,
       OR: [
-        { breakRef: { OR: [{ userId: USER_ID }, { shared: true }] } },
+        { breakRef: { OR: [{ userId: USER_ID }, { visibility: { in: ['link', 'published'] } }] } },
         { libraryEntry: { library: { visibility: 'system' } } },
       ],
     });
@@ -353,7 +353,7 @@ describe('POST /api/v1/history', () => {
     expect(res.status).toBe(404);
     expect(vi.mocked(prisma.break.findFirst).mock.calls[0][0]?.where).toEqual({
       id: BREAK_ID,
-      OR: [{ userId: USER_ID }, { shared: true }],
+      OR: [{ userId: USER_ID }, { visibility: { in: ['link', 'published'] } }],
     });
     expect(rows).toEqual([]);
   });

@@ -69,7 +69,10 @@ function listRow(overrides: Record<string, unknown> = {}) {
     bpm: 94,
     swing: 0,
     bars: 2,
-    shared: false,
+    visibility: 'private',
+    slug: null,
+    publishedAt: null,
+    difficulty: 1,
     level: 5,
     description: null,
     links: [],
@@ -246,13 +249,34 @@ describe('POST /api/v1/breaks', () => {
       bpm: 104,
       swing: 12,
       bars: 2,
-      shared: false,
+      visibility: 'private',
+      gridHash: expect.stringMatching(/^[0-9a-f]{64}$/),
     });
+    // a private pattern has no public address
+    expect(data).not.toHaveProperty('slug');
     expect(typeof data.seed).toBe('bigint');
 
     const body = await json<{ data: { critique: { score: number; playable: boolean } } }>(res);
     expect(body.data.critique.score).toBeGreaterThanOrEqual(0);
     expect(typeof body.data.critique.playable).toBe('boolean');
+  });
+
+  it('mints a slug for a pattern created as a link share, and never for a private one', async () => {
+    vi.mocked(prisma.break.create).mockResolvedValue(listRow() as never);
+    await POST(post({ title: 'Shared', doc: wireDoc('funk', '4/4'), visibility: 'link' }));
+    const data = vi.mocked(prisma.break.create).mock.calls[0][0].data;
+    expect(data).toMatchObject({
+      visibility: 'link',
+      slug: expect.stringMatching(/^[0-9a-z]{10}$/),
+    });
+  });
+
+  it('refuses to create a published pattern — publishing has its own checks', async () => {
+    const res = await POST(
+      post({ title: 'x', doc: wireDoc('funk', '4/4'), visibility: 'published' })
+    );
+    expect(res.status).toBe(400);
+    expect(prisma.break.create).not.toHaveBeenCalled();
   });
 
   it('records the style VERSION the pattern came from, not just the style key', async () => {

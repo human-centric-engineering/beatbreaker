@@ -552,3 +552,193 @@ describe('details — description and links (task 4.11)', () => {
     expect(result.current.details).toEqual({ description: 'Next', links: [] });
   });
 });
+
+describe('sharing — who can open it (Phase 6)', () => {
+  const NO_SHARING = { visibility: 'private' as const, slug: null, basedOn: null };
+  const LINK_SHARE = { visibility: 'link' as const, slug: 'kept000001', basedOn: null };
+
+  it('opens with the row’s sharing, not the default', async () => {
+    const { result } = mount({ ...opened(), sharing: LINK_SHARE });
+    await pass(0);
+    expect(result.current.sharing).toEqual(LINK_SHARE);
+  });
+
+  it('defaults to private with no address when the row carries none', async () => {
+    const { result } = mount(opened());
+    await pass(0);
+    expect(result.current.sharing).toEqual(NO_SHARING);
+  });
+
+  it('shares by link: PATCHes the visibility and takes the slug from the answer', async () => {
+    vi.mocked(apiClient.patch).mockResolvedValueOnce({ visibility: 'link', slug: 'freshslug1' });
+    const { result, say } = mount({ ...opened(), sharing: NO_SHARING });
+    await pass(0);
+
+    let ok = false;
+    await act(async () => {
+      ok = await result.current.share('link');
+    });
+
+    expect(ok).toBe(true);
+    expect(vi.mocked(apiClient.patch).mock.calls[0][0]).toBe(`/api/v1/breaks/${ID}`);
+    expect(patchBody(0)).toEqual({ visibility: 'link' });
+    expect(result.current.sharing).toEqual({
+      visibility: 'link',
+      slug: 'freshslug1',
+      basedOn: null,
+    });
+    expect(say).toHaveBeenCalledWith('Shared — anyone with the link can open it');
+  });
+
+  it('stops sharing: PATCHes private and says so', async () => {
+    vi.mocked(apiClient.patch).mockResolvedValueOnce({ visibility: 'private', slug: 'kept000001' });
+    const { result, say } = mount({ ...opened(), sharing: LINK_SHARE });
+    await pass(0);
+
+    await act(async () => {
+      await result.current.share('private');
+    });
+
+    expect(patchBody(0)).toEqual({ visibility: 'private' });
+    expect(result.current.sharing).toEqual({
+      visibility: 'private',
+      slug: 'kept000001',
+      basedOn: null,
+    });
+    expect(say).toHaveBeenCalledWith('Not shared any more');
+  });
+
+  it('does nothing for a scratch pattern — there is no row to share', async () => {
+    const { result } = mount(undefined);
+    await pass(0);
+    let ok = true;
+    await act(async () => {
+      ok = await result.current.share('link');
+    });
+    expect(ok).toBe(false);
+    expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing to PATCH
+  });
+
+  it('does nothing for someone else’s pattern — never PATCHes what is not yours', async () => {
+    const { result } = mount(opened(false));
+    await pass(0);
+    let ok = true;
+    await act(async () => {
+      ok = await result.current.share('link');
+    });
+    expect(ok).toBe(false);
+    expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — theirs, not yours to share
+  });
+
+  it('leaves sharing as it was, and says why, when the server refuses', async () => {
+    vi.mocked(apiClient.patch).mockRejectedValueOnce(network());
+    const { result, say } = mount({ ...opened(), sharing: NO_SHARING });
+    await pass(0);
+
+    let ok = true;
+    await act(async () => {
+      ok = await result.current.share('link');
+    });
+
+    expect(ok).toBe(false);
+    expect(result.current.sharing).toEqual(NO_SHARING);
+    expect(say).toHaveBeenCalledWith('Could not reach the server — sharing not changed', {
+      error: true,
+    });
+  });
+
+  it('resets to private-and-uncredited on detach, along with the details', async () => {
+    const { result } = mount({ ...opened(), sharing: LINK_SHARE });
+    await pass(0);
+    act(() => result.current.detach());
+    expect(result.current.sharing).toEqual(NO_SHARING);
+  });
+
+  it('takes the next pattern’s sharing on attach', async () => {
+    const { result } = mount({ ...opened(), sharing: LINK_SHARE });
+    await pass(0);
+    act(() => result.current.detach());
+
+    const published = { visibility: 'published' as const, slug: 'pub0000001', basedOn: null };
+    act(() =>
+      result.current.attach(
+        'cbrk00000000000000000003',
+        true,
+        { description: '', links: [] },
+        published
+      )
+    );
+    expect(result.current.sharing).toEqual(published);
+  });
+
+  it('credits a copy of someone else’s pattern with what the server sent back', async () => {
+    vi.mocked(apiClient.post).mockResolvedValueOnce({
+      id: 'cbrk00000000000000000002',
+      basedOn: { title: 'The original', username: 'ghostnotes', slug: 'orig000001' },
+    });
+    const { result } = mount(opened(false));
+    await pass(0);
+
+    await act(async () => {
+      await result.current.save();
+    });
+
+    expect(result.current.sharing).toEqual({
+      visibility: 'private',
+      slug: null,
+      basedOn: { title: 'The original', username: 'ghostnotes', slug: 'orig000001' },
+    });
+  });
+
+  it('saves a plain new pattern when the original has gone, rather than failing for good', async () => {
+    // made private or deleted while it was open here: the copy route 404s
+    vi.mocked(apiClient.post)
+      .mockRejectedValueOnce(new APIClientError('Break not found', 'NOT_FOUND', 404))
+      .mockResolvedValueOnce({ id: 'cbrk00000000000000000003' });
+    const { result } = mount(opened(false));
+    await pass(0);
+
+    let ok = false;
+    await act(async () => {
+      ok = await result.current.save();
+    });
+
+    expect(ok).toBe(true);
+    expect(vi.mocked(apiClient.post).mock.calls.map((c) => c[0])).toEqual([
+      `/api/v1/breaks/${ID}/copy`,
+      '/api/v1/breaks',
+    ]);
+    expect(result.current.id).toBe('cbrk00000000000000000003');
+    expect(result.current.mine).toBe(true);
+    // nobody can open the original any more, so nobody is credited
+    expect(result.current.sharing.basedOn).toBeNull();
+  });
+
+  it('does not fall back on any other refusal from the copy route', async () => {
+    vi.mocked(apiClient.post).mockRejectedValueOnce(
+      new APIClientError('Invalid', 'VALIDATION_ERROR', 400)
+    );
+    const { result } = mount(opened(false));
+    await pass(0);
+
+    let ok = true;
+    await act(async () => {
+      ok = await result.current.save();
+    });
+
+    expect(ok).toBe(false);
+    expect(apiClient.post).toHaveBeenCalledTimes(1);
+  });
+
+  it('has no credit for a scratch pattern saved for the first time', async () => {
+    vi.mocked(apiClient.post).mockResolvedValueOnce({ id: 'cbrk00000000000000000002' });
+    const { result } = mount(undefined);
+    await pass(0);
+
+    await act(async () => {
+      await result.current.save();
+    });
+
+    expect(result.current.sharing).toEqual(NO_SHARING);
+  });
+});

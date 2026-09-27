@@ -227,11 +227,13 @@ describe('reserved fork tiers', () => {
         'short answer that looks like a complete one.'
     ).toEqual([
       'model Break',
+      'model DrummerProfile',
       'model Kit',
       'model LibraryEntry',
       'model PatternLibrary',
       'model Pin',
       'model PracticeVisit',
+      'model ReservedUsername',
       'model Sample',
       'model StudioSettings',
       'model Style',

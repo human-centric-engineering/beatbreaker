@@ -173,7 +173,10 @@ beforeEach(() => {
     catalogue: testCatalogue(),
     notice: null,
     dismiss: vi.fn(),
-    doc: { details: { description: '', links: [] } },
+    doc: {
+      details: { description: '', links: [] },
+      sharing: { visibility: 'private', slug: null, basedOn: null },
+    },
     say: noop,
   } as unknown as Studio;
 });

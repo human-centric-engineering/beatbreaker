@@ -37,6 +37,17 @@
  *
  * Full guide: CUSTOMIZATION.md §4 · lib/account-sections/registry.ts
  */
+import { DrummerProfileSection } from '@/components/app/account/drummer-profile-section';
+import { registerAccountSection } from '@/lib/account-sections/registry';
+
 export function initAppAccountSections(): void {
-  // No app account sections by default.
+  /* Settings only: the username is a setting you choose once and rarely
+     change, and /profile is Sunrise's account card, whose name field is the
+     private account name this one exists to keep apart from (D3). */
+  registerAccountSection({
+    id: 'drummer-profile',
+    surfaces: ['settings'],
+    order: 10,
+    Component: DrummerProfileSection,
+  });
 }
