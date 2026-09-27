@@ -44,4 +44,24 @@ export function registerAppRateLimits(): void {
     tier: 'catalogue',
     key: 'ip',
   });
+
+  /* The community library and shared patterns (Phase 6): read without a
+     session by anyone with a link, and by `/explore`. Keyed on IP for the
+     reason above. Tighter than the catalogue — these are database queries per
+     request rather than a cached list — and still well above what a person
+     browsing does. The signed-in writes under this path (copy, report) meet
+     the handler's own caps as well. */
+  registerRateLimitTier(
+    'public',
+    createRateLimiter({
+      interval: SECURITY_CONSTANTS.RATE_LIMIT.DEFAULT_INTERVAL,
+      maxRequests: 120,
+      uniqueTokenPerInterval: SECURITY_CONSTANTS.RATE_LIMIT.MAX_UNIQUE_TOKENS,
+    })
+  );
+  registerRateLimitRule({
+    match: /^\/api\/v1\/public\//,
+    tier: 'public',
+    key: 'ip',
+  });
 }
