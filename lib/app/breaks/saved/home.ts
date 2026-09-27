@@ -53,7 +53,24 @@ export interface HomeView {
   recent: PracticeVisitView[];
   /** How many patterns you have saved — tells a first visit from an empty shelf. */
   savedCount: number;
+  /** Your published patterns, newest first (Phase 6) — what the community sees of you. */
+  published: PublishedItem[];
 }
+
+/** One of your published patterns, as Home lists it. */
+export interface PublishedItem {
+  id: string;
+  slug: string;
+  title: string;
+  style: string;
+  bpm: number;
+  publishedAt: string;
+  /** How many people saved a copy. */
+  saves: number;
+}
+
+/** How many published patterns Home shows. */
+export const HOME_PUBLISHED = 12;
 
 const CARD_SELECT = {
   id: true,
@@ -147,7 +164,7 @@ function toCard(
 }
 
 export async function readHome(userId: string): Promise<HomeView> {
-  const [rows, history, savedCount] = await Promise.all([
+  const [rows, history, savedCount, publishedRows] = await Promise.all([
     prisma.pin.findMany({
       where: { userId, shelf: 'practising', ...visibleTarget(userId) },
       select: CARD_SELECT,
@@ -155,10 +172,40 @@ export async function readHome(userId: string): Promise<HomeView> {
     }),
     listHistory(userId),
     prisma.break.count({ where: { userId } }),
+    prisma.break.findMany({
+      where: { userId, visibility: 'published', slug: { not: null } },
+      select: {
+        id: true,
+        slug: true,
+        title: true,
+        style: true,
+        bpm: true,
+        publishedAt: true,
+        _count: { select: { children: true } },
+      },
+      orderBy: [{ publishedAt: 'desc' }, { id: 'desc' }],
+      take: HOME_PUBLISHED,
+    }),
   ]);
 
   const visits = new Map(history.map((v) => [`${v.target.kind}:${v.target.id}`, v]));
   const practising = rows.flatMap((row) => toCard(row, userId, visits) ?? []);
 
-  return { practising, recent: history.slice(0, HOME_RECENT), savedCount };
+  const published = publishedRows.flatMap((r) =>
+    r.slug && r.publishedAt
+      ? [
+          {
+            id: r.id,
+            slug: r.slug,
+            title: r.title,
+            style: r.style,
+            bpm: r.bpm,
+            publishedAt: r.publishedAt.toISOString(),
+            saves: r._count.children,
+          },
+        ]
+      : []
+  );
+
+  return { practising, recent: history.slice(0, HOME_RECENT), savedCount, published };
 }

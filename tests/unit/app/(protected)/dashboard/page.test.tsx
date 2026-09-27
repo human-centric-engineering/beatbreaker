@@ -86,7 +86,7 @@ const entryCard: HomeCard = {
   thumbnail: null,
 };
 
-const EMPTY: HomeView = { practising: [], recent: [], savedCount: 0 };
+const EMPTY: HomeView = { practising: [], recent: [], savedCount: 0, published: [] };
 
 async function show(home: HomeView) {
   vi.mocked(readHome).mockResolvedValue(home);
@@ -121,6 +121,10 @@ describe('/dashboard — Home', () => {
     expect(
       screen.getByRole('link', { name: 'Browse the famous grooves' }).getAttribute('href')
     ).toBe('/studio?drawer=patterns&tab=libraries');
+    // Phase 6: a first-visit way into the community library too
+    expect(
+      screen.getByRole('link', { name: 'Browse the community library' }).getAttribute('href')
+    ).toBe('/explore');
     expect(screen.queryByRole('heading', { name: 'Practising' })).toBeNull();
   });
 
@@ -132,7 +136,7 @@ describe('/dashboard — Home', () => {
   });
 
   it('draws a Practising card per pin, with its thumbnail, tempo, layer and Continue', async () => {
-    await show({ practising: [mineCard, entryCard], recent: [], savedCount: 1 });
+    await show({ practising: [mineCard, entryCard], recent: [], savedCount: 1, published: [] });
 
     const cards = within(
       screen.getByRole('heading', { name: 'Practising' }).parentElement!
@@ -166,6 +170,7 @@ describe('/dashboard — Home', () => {
     await show({
       practising: [],
       savedCount: 1,
+      published: [],
       recent: [
         {
           id: 'cvis1',
@@ -194,6 +199,69 @@ describe('/dashboard — Home', () => {
     expect(links[1].textContent).toContain('Funky Drummer');
   });
 
+  it('lists Published patterns, each linking to its public page with its save count', async () => {
+    await show({
+      practising: [],
+      recent: [],
+      savedCount: 1,
+      published: [
+        {
+          id: 'cbrk00000000000000000003',
+          slug: 'cold000001',
+          title: 'Cold Carpet',
+          style: 'funk',
+          bpm: 90,
+          publishedAt: '2026-09-20T00:00:00.000Z',
+          saves: 3,
+        },
+        {
+          id: 'cbrk00000000000000000004',
+          slug: 'warm000001',
+          title: 'Warm Floor',
+          style: 'funk',
+          bpm: 100,
+          publishedAt: '2026-09-18T00:00:00.000Z',
+          saves: 0,
+        },
+      ],
+    });
+
+    const published = within(screen.getByRole('heading', { name: 'Published' }).parentElement!);
+    const links = published.getAllByRole('link');
+    expect(links.map((a) => a.getAttribute('href'))).toEqual(['/p/cold000001', '/p/warm000001']);
+    expect(links[0].textContent).toContain('Cold Carpet');
+    expect(links[0].textContent).toContain('3 saves');
+    // no "0 saves" clutter for one nobody has copied yet
+    expect(links[1].textContent).not.toContain('saves');
+    expect(links[1].textContent).not.toContain('save');
+  });
+
+  it('says "1 save", not "1 saves"', async () => {
+    await show({
+      practising: [],
+      recent: [],
+      savedCount: 1,
+      published: [
+        {
+          id: 'cbrk00000000000000000003',
+          slug: 'cold000001',
+          title: 'Cold Carpet',
+          style: 'funk',
+          bpm: 90,
+          publishedAt: '2026-09-20T00:00:00.000Z',
+          saves: 1,
+        },
+      ],
+    });
+    expect(screen.getByText(/1 save\b/)).toBeTruthy();
+    expect(screen.queryByText(/1 saves/)).toBeNull();
+  });
+
+  it('has no Published section at all when nothing is published', async () => {
+    await show({ practising: [mineCard], recent: [], savedCount: 1, published: [] });
+    expect(screen.queryByRole('heading', { name: 'Published' })).toBeNull();
+  });
+
   it('names a style the catalogue no longer holds by its key', async () => {
     await show({
       practising: [
@@ -201,6 +269,7 @@ describe('/dashboard — Home', () => {
       ],
       recent: [],
       savedCount: 1,
+      published: [],
     });
     expect(screen.getByText('gone-style')).toBeTruthy();
   });

@@ -1,6 +1,7 @@
 'use client';
 
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { z } from 'zod';
 
 import { PATTERNS_TABS, type PatternsTab } from '@/components/app/shell/studio-address';
 import { PinButton, SHELF_LABEL } from '@/components/app/studio/pin-button';
@@ -24,7 +25,8 @@ import { type PinTarget, type Shelf } from '@/lib/validations/pins';
  * showing them asks the server for nothing. _All_ is your saved patterns, read
  * with **one** `GET /api/v1/breaks` when it is shown; a search or a filter
  * asks again, once it settles. _Libraries_ is the catalogue already in the
- * page, filtered here.
+ * page, filtered here. _Community_ (Phase 6) is the published library, read
+ * with one `GET /api/v1/public/patterns` when it is shown.
  *
  * Every row opens in place — the provider's `open`, the same path the history
  * takes — so undo and the Back trail survive, and the row for whatever is on
@@ -54,6 +56,7 @@ const TAB_LABEL: Record<Tab, string> = {
   recent: 'Recent',
   all: 'All',
   libraries: 'Libraries',
+  community: 'Community',
 };
 
 /** The most _All_ asks for at once — the list endpoint's own ceiling. */
@@ -473,6 +476,103 @@ function LibrariesList() {
   );
 }
 
+/** What a community card carries that the tab prints — checked, not cast. */
+const communityListSchema = z.array(
+  z.object({
+    id: z.string(),
+    slug: z.string(),
+    title: z.string(),
+    style: z.string(),
+    meter: z.string(),
+    bpm: z.number(),
+    author: z.string().nullable(),
+  })
+);
+type CommunityRow = z.infer<typeof communityListSchema>[number];
+
+/** How many community patterns the tab asks for — the newest, or the most saved. */
+const COMMUNITY_LIMIT = 48;
+
+/**
+ * The community library (Phase 6, task 6.12): published patterns, newest or
+ * most saved, read with one request when the tab is shown or the order
+ * changes. Opening one puts it on the stage in place, as someone else's — Save
+ * keeps a copy, credited to it. `/explore` has the full filters.
+ */
+function CommunityList() {
+  const styleLabel = useStyleLabel();
+  const [sort, setSort] = useState<'newest' | 'saved'>('newest');
+  const [rows, setRows] = useState<CommunityRow[] | null>(null);
+  const [failed, setFailed] = useState(false);
+  const [reload, setReload] = useState(0);
+
+  useEffect(() => {
+    let live = true;
+    apiClient
+      .get('/api/v1/public/patterns', { params: { sort, limit: COMMUNITY_LIMIT } })
+      .then((raw) => {
+        if (!live) return;
+        setRows(communityListSchema.parse(raw));
+        setFailed(false);
+      })
+      .catch((error: unknown) => {
+        if (!live) return;
+        logger.warn('BeatBreaker: the community library could not be read', { error });
+        setFailed(true);
+      });
+    return () => {
+      live = false;
+    };
+  }, [sort, reload]);
+
+  return (
+    <>
+      <div className="btnrow" role="group" aria-label="Order">
+        {(['newest', 'saved'] as const).map((s) => (
+          <button
+            key={s}
+            type="button"
+            className="mini"
+            aria-current={sort === s ? 'true' : undefined}
+            onClick={() => setSort(s)}
+          >
+            {s === 'newest' ? 'Newest' : 'Most saved'}
+          </button>
+        ))}
+      </div>
+      {failed && !rows ? (
+        <div className="hint">
+          The community library could not be read.{' '}
+          <button type="button" className="mini" onClick={() => setReload((n) => n + 1)}>
+            Try again
+          </button>
+        </div>
+      ) : rows === null ? (
+        <div className="empty">Reading the community library…</div>
+      ) : rows.length ? (
+        <div className="list">
+          {rows.map((r) => (
+            <Row
+              key={r.id}
+              target={{ breakId: r.id }}
+              title={r.title}
+              sub={`${r.author ? `@${r.author} · ` : ''}${styleLabel(r.style)}`}
+              right={tempo(r.bpm, r.meter)}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="hint">Nothing published yet. Publish one from Share &amp; export.</div>
+      )}
+      <div className="hint">
+        <a href="/explore" target="_blank" rel="noopener noreferrer">
+          Browse and filter the whole library
+        </a>
+      </div>
+    </>
+  );
+}
+
 export function PatternsPanel() {
   const { pins, history } = useStudio();
   /* The tab you were on, per browser — a convenience, so it is checked on the
@@ -492,7 +592,7 @@ export function PatternsPanel() {
 
   return (
     <>
-      <div className="tabs tabs-5" role="tablist" aria-label="Patterns">
+      <div className="tabs tabs-6" role="tablist" aria-label="Patterns">
         {TABS.map((t) => (
           <button
             key={t}
@@ -523,6 +623,8 @@ export function PatternsPanel() {
           <RecentList />
         ) : tab === 'all' ? (
           <AllList />
+        ) : tab === 'community' ? (
+          <CommunityList />
         ) : (
           <LibrariesList />
         )}

@@ -15,7 +15,14 @@ import { z } from 'zod';
 export const STUDIO_TOOLS = ['gen', 'doctor', 'patterns', 'kit', 'practice', 'export'] as const;
 export type StudioTool = (typeof STUDIO_TOOLS)[number];
 
-export const PATTERNS_TABS = ['practising', 'later', 'recent', 'all', 'libraries'] as const;
+export const PATTERNS_TABS = [
+  'practising',
+  'later',
+  'recent',
+  'all',
+  'libraries',
+  'community',
+] as const;
 export type PatternsTab = (typeof PATTERNS_TABS)[number];
 
 /** A drawer to open when the Studio is up. `tab` means something only for `patterns`. */
