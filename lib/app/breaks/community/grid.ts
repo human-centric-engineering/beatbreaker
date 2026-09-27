@@ -47,6 +47,15 @@ export const HARD_FROM = 10;
 export type Difficulty = 1 | 2 | 3;
 export const DIFFICULTY_LABELS: Record<Difficulty, string> = { 1: 'Easy', 2: 'Medium', 3: 'Hard' };
 
+/**
+ * What a stored `difficulty` says, or null. The column is a plain integer, so
+ * it is read back through this rather than cast: anything but 1, 2 or 3 is no
+ * difficulty at all.
+ */
+export function difficultyLabel(value: unknown): string | null {
+  return value === 1 || value === 2 || value === 3 ? DIFFICULTY_LABELS[value] : null;
+}
+
 /** Hits per second in one section at `bpm` (sixteenths at a quarter of it). */
 function hitsPerSecond(p: Pattern, bpm: number): number {
   const steps = patSteps(p) * p.bars.length;

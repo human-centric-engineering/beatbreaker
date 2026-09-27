@@ -105,20 +105,23 @@ describe('rate-limit auto-wire (lib/app/rate-limit.ts → middleware realm)', ()
       await import('@/lib/security/rate-limit-policy');
     const eff = getEffectiveRateLimitPolicy();
 
-    // Assert — one added rule, and it is the catalogue's
+    // Assert — two added rules: the catalogue's (Phase 2) and the community
+    // library's (Phase 6), each matching its own surface
     const added = eff.filter((rule) => !RATE_LIMIT_POLICY.includes(rule));
-    expect(added).toHaveLength(1);
-    expect(added[0].tier).toBe('catalogue');
+    expect(added.map((r) => r.tier)).toEqual(['catalogue', 'public']);
     expect(
       added[0].match instanceof RegExp && added[0].match.test('/api/v1/catalogue/styles')
     ).toBe(true);
+    expect(added[1].match instanceof RegExp && added[1].match.test('/api/v1/public/patterns')).toBe(
+      true
+    );
 
     // Sunrise's own rules, by identity and in order
     expect(eff.filter((rule) => RATE_LIMIT_POLICY.includes(rule))).toEqual([...RATE_LIMIT_POLICY]);
 
     // The catch-all is still last, so the app rule is actually reachable
     expect(eff[eff.length - 1].key, 'catch-all stays last').toBe('session-user');
-    expect(eff.indexOf(added[0])).toBeLessThan(eff.length - 1);
+    for (const rule of added) expect(eff.indexOf(rule)).toBeLessThan(eff.length - 1);
   });
 
   it('aborts boot when an app rule references an unregistered tier (finding #6 integrity check)', async () => {

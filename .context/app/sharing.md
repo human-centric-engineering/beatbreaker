@@ -3,8 +3,8 @@
 What Phase 6 of [`planning/app-plan.md`](./planning/app-plan.md) builds: a
 pattern anyone can open from a link, a public library of patterns published
 under a username, copies that credit what they came from, and moderation. This
-page grows with each of Phase 6's three PRs; it covers **6-i** — who can open
-a pattern, usernames and copies.
+page grows with each of Phase 6's three PRs: **6-i** — who can open a
+pattern, usernames and copies; **6-ii** — the public pages and API.
 
 ## Anti-patterns first
 
@@ -29,6 +29,12 @@ a pattern, usernames and copies.
   onward would hand a private address to strangers.
 - **Don't write the username rules anywhere but `community/username.ts`.** The
   form and the API both run `usernameSchema`.
+- **Don't read public patterns anywhere but `community/public.ts`.** The API,
+  `/p/`, `/explore`, `/u/` and the sitemap all go through it, and it is the
+  one place that drops `userId` after looking up the username.
+- **Don't put a reference link in an iframe without pressing.** The embeds
+  are click-to-load, `src` is `embedUrl` (built from the id), and
+  `appFrameSrc` lists exactly the three embed origins. No thumbnails.
 
 ## Who can open a pattern
 
@@ -114,6 +120,72 @@ the account card, whose name field is the private name this keeps apart.
 **Erasure.** The profile cascades. Nothing holds an erased user's username
 afterwards; holding it would mean keeping it, which erasure is for not doing.
 
+## The public API
+
+No session needed (D2); rate-limited by IP through the `public` tier
+(`lib/app/rate-limit.ts`, 120/min); ETag and `304` with
+`public, max-age=0, must-revalidate`, so a pattern made private stops being
+served on the next request (`app/api/v1/public/_shared.ts`).
+
+| Route                               | Does                                                                                                                                                                                                                                                                                                                                                                               |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /api/v1/public/patterns`       | Published patterns only. `style`, `meter`, `tempo` (`slow` < 90 · `medium` 90–120 · `fast` > 120), `difficulty` (1–3; an empty value is no filter, as on `/explore`), `sort=newest\|saved`, `limit` ≤ 48, `cursor` (opaque; `meta.nextCursor`). Cards: slug, title, description, style, meter, bpm, level, difficulty, `linkKinds`, `publishedAt`, `author` (a username), `saves`. |
+| `GET /api/v1/public/patterns/:slug` | A `link` or `published` pattern, whole: the card's fields plus `visibility`, `links`, `doc`, `basedOn` and `critique: { score, verdict, playable }`. Private, deleted, never minted and malformed are one 404.                                                                                                                                                                     |
+
+`saves` is the count of copies (`children`), and "most saved" sorts on it —
+no separate table. Cursors are offsets, base64url'd, because a count cannot
+be a keyset. Usernames for a page come from one query (`usernamesOf`), never
+one per card.
+
+## The public pages
+
+All in `app/(public)/`, under the marketing header and footer.
+
+- **`/p/[slug]`** — the title, "by @username" (none for a link share by
+  someone with no username), style, time signature, tempo and difficulty, the
+  credit line, the description; the **player** (`components/app/community/pattern-player.tsx`:
+  play, tempo, layer — the Studio's `Transport` and `BreakAudio` over the
+  default system kit, no editor); the **chart**, engraved on the server
+  (`public-chart.tsx`), so it is in the first paint and in what a link
+  preview reads; the **reference links** (`reference-embeds.tsx`); then, signed
+  in, **Save a copy** (the copy route, then the Studio on the copy) and **Open
+  in the editor** (`pattern-actions.tsx`), or signed out, the sign-up strip. A
+  link share is `noindex, nofollow`. `not-found.tsx` is "This pattern isn't
+  shared any more" for every miss.
+- **`opengraph-image.tsx`** — 1200×630: the title, the byline and the first
+  two bars of A, as a standalone SVG (`community/svg-markup.ts` fills in the
+  colours and faces the stylesheet would, and escapes the text).
+- **`/explore`** — the library, with a plain GET filter form (style, time
+  signature, tempo, difficulty, sort) read through the API's own schema
+  (`readPublicListQuery`, which drops a field that does not parse rather than
+  erroring), cards (`pattern-card.tsx`, link icons only) and _More patterns_.
+- **`/u/[username]`** — the username, the bio and their published patterns. An
+  unknown username is a 404.
+- **Navigation** — Explore is in the public header (`lib/app/public-nav.ts`)
+  and the signed-in one (`lib/app/protected-nav.ts`).
+- **Sitemap** — `/explore`, every published `/p/` and every drummer with
+  something published (`publishedForSitemap`). Never a link share.
+  Regenerated at most hourly (`revalidate`), not frozen at build time.
+- **Signing up from `/p/`** returns to the pattern: the signup form honours
+  `callbackUrl` as the login form does (a platform file, marked FORK).
+
+**Your samples stay private.** A pattern carries no kit (the kit is a setting,
+D19), so the player plays the default system kit. Nothing about publishing a
+pattern reaches anyone's samples (D20).
+
+### For the owner to check in a browser
+
+These are Phase 6's checks that need a browser, which the sessions building
+it cannot drive (the rule from Phase 5):
+
+- A signed-out browser opens a `/p/` link, sees the chart within a second and
+  hears it play (Safari and iOS included).
+- The link pasted into a chat app shows the notation as its preview.
+- With a video and a song link, the network panel shows no request to
+  YouTube, Vimeo or Spotify until a placeholder is pressed, and the embeds
+  then play under the production CSP.
+- `/explore` and `/u/` at 390px and 1440px, light and dark.
+
 ## In the Studio
 
 The **Share with a link** card sits under Details at the top of Share &
@@ -146,4 +218,7 @@ credit line, the copy route); `tests/integration/api/v1/drummer-profile/`;
 `tests/unit/components/app/studio/share-card.test.tsx`,
 `use-pattern-document.test.ts` and `details-form.test.tsx` (Save on someone
 else's pattern posts to the copy route);
-`tests/unit/components/app/account/`.
+`tests/unit/components/app/account/`. 6-ii:
+`tests/integration/api/v1/public/`, `tests/unit/lib/app/breaks/community/`
+(`public.ts`, `svg-markup.ts`), `tests/unit/app/(public)/`,
+`tests/unit/components/app/community/`.

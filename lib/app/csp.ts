@@ -32,5 +32,17 @@
  * Full guide: CUSTOMIZATION.md §4 · .context/security/overview.md
  */
 
-/** Extra `frame-src` origins. Empty = platform default (`'self'` only). */
-export const appFrameSrc: string[] = [];
+/**
+ * Extra `frame-src` origins. Empty = platform default (`'self'` only).
+ *
+ * BeatBreaker (Phase 6, task 6.7): exactly the three embed hosts
+ * `parseReferenceLink` builds an `embedUrl` on — the no-cookie YouTube host,
+ * Vimeo's player and Spotify's embed — for the click-to-load reference links
+ * on a public pattern page. Nothing broader: no `youtube.com`, no wildcard.
+ * The iframe `src` is only ever built from a validated id.
+ */
+export const appFrameSrc: string[] = [
+  'https://www.youtube-nocookie.com',
+  'https://player.vimeo.com',
+  'https://open.spotify.com',
+];

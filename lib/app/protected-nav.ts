@@ -27,7 +27,7 @@
  *
  * Full guide: CUSTOMIZATION.md §4 · lib/protected-nav/types.ts
  */
-import { LayoutDashboard, Music4, Shield } from 'lucide-react';
+import { Compass, LayoutDashboard, Music4, Shield } from 'lucide-react';
 
 import type { ProtectedNavItem } from '@/lib/protected-nav/types';
 
@@ -40,12 +40,13 @@ import type { ProtectedNavItem } from '@/lib/protected-nav/types';
  * and a header that repeats them makes the one thing this app is for harder to
  * see.
  *
- * Explore — the community library — belongs here and is deliberately absent
- * until Phase 6 builds `/explore`. A header link to a route that 404s is worse
+ * Explore — the community library — arrived with Phase 6's `/explore`; it
+ * was kept out until then because a header link to a route that 404s is worse
  * than a header without the link.
  */
 export const protectedNavItems: ProtectedNavItem[] | null = [
   { href: '/dashboard', label: 'Home', icon: LayoutDashboard },
   { href: '/studio', label: 'Studio', icon: Music4 },
+  { href: '/explore', label: 'Explore', icon: Compass },
   { href: '/admin', label: 'Admin', icon: Shield, adminOnly: true },
 ];
