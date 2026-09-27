@@ -18,6 +18,19 @@ release process.
 
 ### Added
 
+- **The community library in public — `GET /api/v1/public/patterns`,
+  `GET /api/v1/public/patterns/:slug`, and the pages `/p/[slug]`, `/explore`
+  and `/u/[username]`.** No session needed; rate-limited per IP through a new
+  `public` tier; ETag and `304`. Only published patterns are listed; a link
+  share is readable by its slug and `noindex`. Nothing public carries a user
+  id, account name or email — authors are usernames. `/p/` engraves the chart
+  on the server, plays it with the Studio's engine on the default kit, has an
+  Open Graph image of the notation, and shows reference links as
+  click-to-load embeds: `lib/app/csp.ts` now allows exactly
+  `www.youtube-nocookie.com`, `player.vimeo.com` and `open.spotify.com` in
+  `frame-src`. The sitemap gains `/explore`, published patterns and drummers;
+  Explore joins both navs. See `.context/app/sharing.md`.
+
 - **Sharing by link, usernames and copies — `Break.visibility`, a
   `DrummerProfile` model, `/api/v1/drummer-profile` and
   `POST /api/v1/breaks/:id/copy`** (migration `sharing`). A saved pattern is
