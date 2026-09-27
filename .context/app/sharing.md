@@ -130,7 +130,9 @@ It reads and writes `useStudio().doc.sharing` / `doc.share()` in
 `use-pattern-document.ts`. `sharing` arrives with the pattern — from
 `/studio/[id]` server-side, or from `GET /api/v1/breaks/:id` when a pattern is
 opened in place — and is reset by `detach`. **Save on someone else's
-pattern goes through the copy route**, so the copy is credited.
+pattern goes through the copy route**, so the copy is credited. If the
+original has gone — deleted or made private while it was open — the copy route
+404s, and Save falls back to a plain new pattern with no credit.
 
 _Copy break code_ and _Copy Studio link_ (the `#b=` link) stay below: they
 carry the notes themselves and need no saved row.
