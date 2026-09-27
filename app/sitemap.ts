@@ -18,6 +18,13 @@ import { logger } from '@/lib/logging';
  * Link shares are never here: they are `noindex`, reachable only by whoever
  * has the link. If the database cannot be read the static pages still go out.
  */
+/*
+ * FORK (BeatBreaker, Phase 6): a sitemap is cached at build time unless told
+ * otherwise, which would freeze it without the patterns published since — or,
+ * in a build with no database, without any. Regenerated at most hourly.
+ */
+export const revalidate = 3600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
