@@ -218,3 +218,22 @@ describe('with no username yet', () => {
     expect(apiClient.post).not.toHaveBeenCalled(); // test-review:accept no_arg_called — the username never saved
   });
 });
+
+describe('when the username cannot be read', () => {
+  it('says so and offers a retry — never "choose a username", which would rename yours', async () => {
+    const user = userEvent.setup();
+    vi.mocked(apiClient.get)
+      .mockRejectedValueOnce(new Error('network'))
+      .mockResolvedValueOnce({ username: 'ghostnotes', bio: '', nextChangeAt: null });
+    await mount();
+
+    expect(await screen.findByText(/Couldn.t check your username/)).toBeInTheDocument();
+    expect(screen.queryByLabelText('Username')).not.toBeInTheDocument();
+    await user.click(screen.getByRole('checkbox'));
+    expect(screen.getByRole('button', { name: 'Publish' })).toBeDisabled();
+
+    await user.click(screen.getByRole('button', { name: 'Try again' }));
+    expect(await screen.findByText('by @ghostnotes')).toBeInTheDocument();
+    expect(apiClient.put).not.toHaveBeenCalled(); // test-review:accept no_arg_called — no username was chosen or changed
+  });
+});
