@@ -115,8 +115,8 @@ model Break {
 /// hand-written (no field on `User`) and probed by `lib/app/db-drift.ts`. The
 /// pattern is a Prisma relation: a report on a deleted pattern goes with it.
 model BreakReport {
-  id      String @id @default(cuid())
-  breakId String
+  id         String  @id @default(cuid())
+  breakId    String
   /// FK to User.id — no @relation. Nulled on erasure.
   reporterId String?
 

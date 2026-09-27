@@ -63,7 +63,7 @@ describe('useStoredSetting', () => {
   });
 
   it('reads an unknown tab as no tab, so the drawer picks one', () => {
-    localStorage.setItem('bb.patternsTab', JSON.stringify('community'));
+    localStorage.setItem('bb.patternsTab', JSON.stringify('explore'));
     const { result } = renderHook(() => useStoredSetting(PATTERNS_TAB));
     expect(result.current[0]).toBeNull();
   });
