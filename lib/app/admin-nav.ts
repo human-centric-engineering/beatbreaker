@@ -13,14 +13,15 @@
  *
  * Full guide + example: CUSTOMIZATION.md §4 · lib/admin-nav/registry.ts
  */
-import { Disc3 } from 'lucide-react';
+import { Disc3, Flag } from 'lucide-react';
 
 import { registerNavSection } from '@/lib/admin-nav/registry';
 
 export function initAppNav(): void {
-  /* One section, one item. The catalogue is the only part of BeatBreaker an
-     operator administers — everything else a user does they do in the Studio,
-     and the platform's own sections cover users, flags and logs.
+  /* One section. The catalogue, and since Phase 6 the moderation queue, are
+     the parts of BeatBreaker an operator administers — everything else a user
+     does they do in the Studio, and the platform's own sections cover users,
+     flags (the publishing switch among them) and logs.
 
      Client-safe on purpose: this file is imported by the sidebar at module
      load, so it may hold a registrar and an icon and nothing else. The page
@@ -33,6 +34,13 @@ export function initAppNav(): void {
         label: 'Catalogue',
         icon: Disc3,
         description: 'Styles, famous breaks and kits — the content the generator works from.',
+      },
+      {
+        href: '/admin/patterns',
+        label: 'Reported patterns',
+        icon: Flag,
+        description:
+          'Reports on shared and published patterns — unpublish, strip links or dismiss.',
       },
     ],
   });
