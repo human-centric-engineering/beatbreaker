@@ -165,7 +165,8 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     seam: 'lib/app/rate-limit.ts',
     risk: 'a stray tier or rule would re-cap every install',
     // FORK (BeatBreaker): re-pointed, not deleted — see the brand row above.
-    // Phase 2 fills this seam with ONE rule, for the public catalogue reads.
+    // Phase 2 filled this seam with one rule, for the public catalogue reads;
+    // Phase 6 adds one for the community library.
     // The pin is now "exactly that rule and nothing else", which is the same
     // guarantee the empty version gave: the risk is a rule nobody decided
     // about, not a rule existing.
@@ -173,13 +174,14 @@ const SEAM_DEFAULTS: SeamDefault[] = [
       registerAppRateLimits();
       const effective = getEffectiveRateLimitPolicy();
       const added = effective.filter((rule) => !RATE_LIMIT_POLICY.includes(rule));
-      expect(added).toHaveLength(1);
-      expect(added[0].match).toEqual(/^\/api\/v1\/catalogue\//);
-      expect(added[0].tier).toBe('catalogue');
-      /* Keyed on IP, not on the session user: the catalogue answers signed-out
-         callers (D2), so session keying would collapse every anonymous reader
-         onto their IP anyway — this says so rather than implying it. */
-      expect(added[0].key).toBe('ip');
+      // Phase 6 adds the second: the community library and shared patterns.
+      expect(added.map((r) => [String(r.match), r.tier, r.key])).toEqual([
+        /* Keyed on IP, not on the session user: both answer signed-out callers
+           (D2), so session keying would collapse every anonymous reader onto
+           their IP anyway — this says so rather than implying it. */
+        [String(/^\/api\/v1\/catalogue\//), 'catalogue', 'ip'],
+        [String(/^\/api\/v1\/public\//), 'public', 'ip'],
+      ]);
       /* And the base policy is still in there, by identity, in order: an app
          rule must ADD to Sunrise's caps, never replace or reorder one. */
       expect(effective.filter((rule) => RATE_LIMIT_POLICY.includes(rule))).toEqual([
@@ -222,8 +224,10 @@ const SEAM_DEFAULTS: SeamDefault[] = [
   {
     seam: 'lib/app/public-nav.ts',
     risk: 'a stray non-null list would silently REPLACE the marketing nav',
+    // FORK (BeatBreaker): re-pointed, not deleted. Phase 6 adds Explore, the
+    // community library, to the header; the footer keeps the platform's.
     assert: () => {
-      expect(publicNavItems).toBeNull();
+      expect(publicNavItems?.map((i) => i.href)).toEqual(['/', '/explore', '/about', '/contact']);
       expect(footerNavItems).toBeNull();
       expect(footerLegalItems).toBeNull();
     },
@@ -235,8 +239,13 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     // The nav a signed-in drummer sees. Pinned by href so that a rename is free
     // and a route quietly disappearing from the header is not.
     assert: () => {
-      // No '/explore' until Phase 6 builds it — see the seam's own note
-      expect(protectedNavItems?.map((i) => i.href)).toEqual(['/dashboard', '/studio', '/admin']);
+      // '/explore' since Phase 6 built it
+      expect(protectedNavItems?.map((i) => i.href)).toEqual([
+        '/dashboard',
+        '/studio',
+        '/explore',
+        '/admin',
+      ]);
       // Profile and Settings live in UserButton; listing them twice was the bug
       expect(protectedNavItems?.some((i) => i.href === '/profile')).toBe(false);
     },
@@ -496,7 +505,15 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     risk: 'a stray origin would widen the iframe policy on every install',
     // These values are spliced straight into a response header, so an
     // accidental default here is a security change, not a cosmetic one.
-    assert: () => expect(appFrameSrc).toEqual([]),
+    // FORK (BeatBreaker): re-pointed, not deleted. Phase 6 (task 6.7) allows
+    // exactly the three embed hosts `parseReferenceLink` builds on — pinned by
+    // value, so anything broader fails here.
+    assert: () =>
+      expect(appFrameSrc).toEqual([
+        'https://www.youtube-nocookie.com',
+        'https://player.vimeo.com',
+        'https://open.spotify.com',
+      ]),
   },
   {
     seam: 'lib/app/ci.ts',

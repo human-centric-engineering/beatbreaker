@@ -24,10 +24,22 @@
  *
  * Full guide: CUSTOMIZATION.md §4 · lib/public-nav/types.ts
  */
+import { Compass, Home, Info, Mail } from 'lucide-react';
+
 import type { PublicNavItem } from '@/lib/public-nav/types';
 
-/** Header nav. `null` = platform default; a non-null array replaces it. */
-export const publicNavItems: PublicNavItem[] | null = null;
+/**
+ * Header nav. `null` = platform default; a non-null array replaces it.
+ *
+ * BeatBreaker (Phase 6): the platform's three plus **Explore**, the community
+ * library, which a signed-out visitor can browse (D2).
+ */
+export const publicNavItems: PublicNavItem[] | null = [
+  { href: '/', label: 'Home', icon: Home },
+  { href: '/explore', label: 'Explore', icon: Compass },
+  { href: '/about', label: 'About', icon: Info },
+  { href: '/contact', label: 'Contact', icon: Mail },
+];
 
 /** Footer link cluster. `null` = platform default; a non-null array replaces it. */
 export const footerNavItems: PublicNavItem[] | null = null;
