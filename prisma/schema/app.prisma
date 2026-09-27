@@ -29,18 +29,18 @@ model Break {
   /// FK to User.id — no @relation (that needs a field ON User). Cascades.
   userId String
 
-  title  String  @db.VarChar(120)
+  title String @db.VarChar(120)
   /// Key into STYLES.
-  style  String  @db.VarChar(40)
+  style String @db.VarChar(40)
   /// Key into METERS.
-  meter  String  @db.VarChar(8)
-  bpm    Int
+  meter String @db.VarChar(8)
+  bpm   Int
   /// Swing slider, 0-100.
-  swing  Int     @default(0)
+  swing Int    @default(0)
   /// The generator seed, so the break can be re-derived rather than trusted.
-  seed   BigInt
+  seed  BigInt
   /// Bars per section — denormalised for the list, also derivable from `doc`.
-  bars   Int     @default(2)
+  bars  Int    @default(2)
 
   /// Who can open it (Phase 6): "private" (you), "link" (anyone with its
   /// `/p/` address, never listed) or "published" (in the community library,
