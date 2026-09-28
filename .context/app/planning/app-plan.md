@@ -10,6 +10,11 @@ the first, native mobile and iPad apps come later — and catalogue content
 (styles, libraries, kits) is data in the database, not TypeScript. That added
 Phase 2 (_The catalogue_) and renumbered everything after it; see D13 and D14.
 
+**Revised 2026-09-28:** four phases added between BeatBuddy and launch —
+7A (published patterns are fixed; variations), 7B (about you: channels,
+purpose, styles, ability), 7C (your speeds and the tables) and 7D (practice
+sessions). Decisions D25–D32.
+
 Companion document: [`site-copy.md`](./site-copy.md) — the pre-written content
 for the public pages, dialogs and empty states.
 
@@ -21,7 +26,8 @@ for the public pages, dialogs and empty states.
 4. [The phases](#4-the-phases) — 0 Groundwork · 1 App shell · 2 The catalogue ·
    3 Front door · 4 Your patterns · 4A Your settings and your sounds ·
    5 Ergonomic review · 6 Sharing and the community library · 7 BeatBuddy ·
-   8 Launch readiness
+   7A Fixed patterns and variations · 7B About you · 7C Your speeds ·
+   7D Practice sessions · 8 Launch readiness
 5. [Ergonomic review — method and first findings](#5-ergonomic-review--method-and-first-findings)
 6. [BeatBuddy — design](#6-beatbuddy--design)
 7. [Data model changes, in one place](#7-data-model-changes-in-one-place)
@@ -119,7 +125,9 @@ product is in plain English.
 | `/privacy`, `/terms`             | `(public)`           | none  | Real documents (Phase 3).                                                                             |
 | `/explore`                       | `(public)`           | none  | Community library: browse, filter, open.                                                              |
 | `/p/[slug]`                      | `(public)`           | none  | One shared or published pattern — chart, play, tempo. Read-only. Signed-in users get **Save a copy**. |
-| `/u/[username]`                  | `(public)`           | none  | A drummer's published patterns (Phase 6).                                                             |
+| `/u/[username]`                  | `(public)`           | none  | A drummer's published patterns (Phase 6); public profile fields, channels and listed speeds (7B, 7C). |
+| `/s/[slug]`                      | `(public)`           | none  | One link-shared practice session — patterns, times, targets, climb. Read-only (Phase 7D).             |
+| `/practice`                      | `(protected)`        | user  | Your practice sessions: list and editor. A session runs in the Studio (Phase 7D).                     |
 | `/dashboard` — labelled **Home** | `(protected)`        | user  | Working on · Recent · Published. Replaces Sunrise's dashboard body (an "edit directly" page per §6).  |
 | `/studio`, `/studio/[id]`        | **`(studio)`** — new | user  | The console. Own full-bleed frame. `/studio` alone opens the last pattern, or a fresh one.            |
 | `/breaks`                        | —                    | —     | Redirect to `/studio`, preserving `#b=` so every share link already in the wild still works.          |
@@ -167,15 +175,15 @@ path. Only `appAuthLandingLabel` changes.
 
 ### Drawers
 
-| Drawer             | Side  | Holds (from today's tabs)                                                                                                    |
-| ------------------ | ----- | ---------------------------------------------------------------------------------------------------------------------------- |
-| **Patterns**       | left  | Working on · Recent · All mine (search, filter) · Famous breaks · Community. _(was Library + "My breaks")_                   |
-| **Generate**       | right | Style, time signature, bars, density, ghosts, swing, hats, feel, lanes, percussion; New A / New B / B from A. Groove critic. |
-| **Edit**           | right | The twelve doctor moves, undo/redo history, tidy. _(was Doctor)_                                                             |
-| **Practise**       | right | Metronome, tempo trainer, ceiling, quick tempo, match-tempo-to-layer, limb mutes, arrangement, (later) takes.                |
-| **Sound**          | right | Kit, voice tuning, your samples, mixer, MIDI out. _(was Kit + Mixer + half of Export)_                                       |
-| **Share & export** | right | Share link, publish, break code in/out, MIDI file, print, import.                                                            |
-| **BeatBuddy**      | right | Chat. See §6.                                                                                                                |
+| Drawer             | Side  | Holds (from today's tabs)                                                                                                       |
+| ------------------ | ----- | ------------------------------------------------------------------------------------------------------------------------------- |
+| **Patterns**       | left  | Working on · Recent · All mine (search, filter) · Famous breaks · Community. _(was Library + "My breaks")_                      |
+| **Generate**       | right | Style, time signature, bars, density, ghosts, swing, hats, feel, lanes, percussion; New A / New B / B from A. Groove critic.    |
+| **Edit**           | right | The twelve doctor moves, undo/redo history, tidy. _(was Doctor)_                                                                |
+| **Practise**       | right | Metronome, tempo trainer, ceiling, quick tempo, match-tempo-to-layer, limb mutes, arrangement, your speeds (7C), (later) takes. |
+| **Sound**          | right | Kit, voice tuning, your samples, mixer, MIDI out. _(was Kit + Mixer + half of Export)_                                          |
+| **Share & export** | right | Share link, publish, break code in/out, MIDI file, print, import.                                                               |
+| **BeatBuddy**      | right | Chat. See §6.                                                                                                                   |
 
 Behaviour, which is the part of the brief that matters most:
 
@@ -280,9 +288,12 @@ developer working with Claude Code. Phases 3 and 5 can overlap their neighbours;
 the rest are sequential because each stands on the one before.
 
 ```
-0 Groundwork ─► 1 App shell ─┬─► 2 Catalogue ─► 4 Your patterns ─► 4A Settings & sounds ─► 6 Sharing ─► 7 BeatBuddy ─► 8 Launch
+0 Groundwork ─► 1 App shell ─┬─► 2 Catalogue ─► 4 Your patterns ─► 4A Settings & sounds ─► 6 Sharing ─► 7 BeatBuddy ─► 7A–7D ─► 8 Launch
                              ├─► 3 Front door  (any time after 1's theme tokens)
                              └─► 5 Ergonomic review (after 1; feeds 4, 4A, 6, 7)
+
+7A Fixed patterns ─► 7C Your speeds ─► 7D Practice sessions
+7B About you  (any time after 6; 7C's tables and 7D's targets read it only for defaults)
 ```
 
 ### Phase 0 — Groundwork · S
@@ -1320,6 +1331,263 @@ client; the daily allowance stops a user at the limit with the friendly message;
 the eval set passes at the agreed threshold; a BeatBuddy outage leaves the rest
 of the Studio fully working.
 
+### Phase 7A — Published patterns are fixed; variations · M
+
+**Goal (D26):** a published pattern never changes once it is out. Anyone who wants it
+different, including its author, saves a **variation**, and the original page
+lists the variations people have published. This matters because Phase 7C's
+speed records, and anyone who practises or learns from a pattern, need the
+notes to stay the same.
+
+1. **Fixed on first publish.** `Break.frozenAt` is set the first time a pattern
+   is published and is never cleared. Unpublishing does not clear it either, so
+   the notes cannot be edited while unpublished and then published again. From
+   then on the document can't change (notes, meter, sections, tempo, style,
+   level). `PATCH` refuses a `doc` with `409 PUBLISHED_FIXED`. The
+   name, description and reference links **stay editable**, because they
+   describe the pattern without changing it, and they still go through Phase
+   6's word check. The migration sets `frozenAt = publishedAt` on every
+   pattern already published. _Changes the published API's behaviour →
+   `CHANGELOG.md`._
+2. **Editing a fixed pattern starts a variation.** In the Studio, the first
+   edit to a fixed pattern (a cell, a doctor move, Generate, a BeatBuddy change)
+   branches rather than writes. The edit goes into an unsaved working copy,
+   and a banner reads "You're making a variation of _X_ — Save to keep it".
+   Undo up to the branch point returns you to the original. Autosave never
+   writes to a fixed row. This is the same working-copy path the Studio already
+   uses for a new, unsaved pattern (D21, D24), so nothing is lost to the Back
+   trail.
+3. **A variation is a credited copy.** Phase 6's copy route stays the only way
+   to make one: `POST /api/v1/breaks/[id]/copy` sets `parentId`. When the parent
+   is published, the result is called a **variation** everywhere (the UI's
+   "Save a copy" becomes "Save as variation"). Copies of link-shared patterns
+   stay plain copies with no credit, as now. A variation is private until its
+   owner shares or publishes it. Publishing one runs Phase 6's duplicate check,
+   so an unchanged variation is refused.
+4. **Variations on the original.** `GET /api/v1/public/patterns/[slug]/variations`
+   (cursor, newest / most saved) lists _published_ children. `/p/[slug]` gains a
+   _Variations_ section, and each variation's page keeps "Variation of _X_ by
+   _Y_" (Phase 6's credit line, renamed). Only direct children are listed. A
+   variation of a variation is listed under its own parent, and the credit
+   line is one hop, as now.
+5. **Your own published patterns in the Studio** open with a small
+   "Published · fixed" label in the header and _Save as variation_ in place of
+   _Save_. Home's _Published_ section shows a variation count per pattern.
+
+**Done when:** a `PATCH` with a `doc` to a published or once-published pattern
+is refused and the stored document is byte-identical afterwards (tested by
+unpublishing, editing and republishing); renaming or relinking a published
+pattern still works; the first edit in the Studio to a fixed pattern leaves it
+untouched and produces an unsaved variation that saves through copy; a
+published variation appears on its parent's page and nowhere else as a
+variation; an unchanged variation cannot be published.
+
+### Phase 7B — About you: channels, purpose, styles, ability · M
+
+**Goal:** a drummer can say who they are on BeatBreaker (what they use it for,
+what they play and how well) and link the channels where people can watch or
+hear them. The app uses what they tell it, and shows only what they choose to
+make public.
+
+1. **New table `DrummerAbout`** keyed by `userId`. It is separate from
+   `DrummerProfile`, because that table requires a username and this doesn't:
+   someone can fill it in on day one without ever publishing. Its fields:
+   - `purposes` — any of `learning` · `teaching` · `designing` (_"Learning to
+     play"_, _"Teaching drums"_, _"Designing and experimenting with beats"_),
+     at least one when set.
+   - `styles` — preferred styles, as up to eight catalogue style keys (Phase 2),
+     so a style added to the catalogue can be chosen without a deploy.
+   - `ability` — one overall level on a five-step scale: _Just starting_ ·
+     _Beginner_ · _Intermediate_ · _Advanced_ · _Professional_ (D27).
+     Optionally one level per preferred style (`styleAbility`), since someone
+     can be advanced at rock and a beginner at samba.
+   - `channels` — up to eight links (D33), each `{ kind, url, drumming }`,
+     where `drumming` marks a channel about drumming. Drumming channels are
+     listed first and carry a small drum mark.
+   - `public` — one switch per field (D28). Channel links are public by
+     default, because showing them is their point; purposes, styles and ability
+     are private until switched on.
+2. **Channel links are validated like reference links (Phase 6 item 5).**
+   Each kind has a host allowlist and a handle or channel id extracted from the
+   URL. The server stores the canonical URL it rebuilds, never the string it was
+   sent, and refuses anything else. First list: YouTube, Instagram, TikTok, X,
+   Facebook, Twitch, SoundCloud, Bandcamp, plus one **personal website** (any
+   `https` URL, shown as its bare host). Links never embed: they are outbound
+   links with `rel="me noopener noreferrer nofollow ugc"` and a platform icon,
+   so they add nothing to `appFrameSrc`. "Bad or misleading link" joins the
+   report reasons for profiles, and an admin can strip a profile's links
+   the same way as a pattern's.
+3. **API.** `GET`/`PUT /api/v1/drummer-about`, plus the public part in
+   `GET /api/v1/public/drummers/[username]`, which returns only the fields
+   switched to public.
+4. **Where it is edited.** An _About you_ section in Settings, through the
+   `account-sections` seam next to _Drummer profile_. After sign-up, Home
+   offers it once as a short three-question card (purpose, styles, ability)
+   that can be skipped and is not shown again.
+5. **Where it shows.** `/u/[username]` gains the public fields and the channel
+   links. Explore cards don't show them.
+6. **What the app does with it.** It uses the private values too, because
+   they are yours:
+   - _Ability_ sets the starting layer and tempo band of a new pattern (as a
+     default in `StudioSettings`, D19 and D21, which the user can still change).
+   - _Styles_ put the matching catalogue styles and famous breaks first.
+   - _Purpose_ sets which Home sections appear first (a teacher sees sessions,
+     7D; a designer sees Generate).
+   - All three are given to BeatBuddy as context through a context contributor,
+     so "make me something to practise" starts from the right level.
+7. **Privacy.** `DrummerAbout` cascades on erasure and is declared in
+   `lib/app/data-export.ts` and `SUBJECT_DATA_SOURCES`. The privacy policy
+   gains a line on the optional profile fields and says that the channel
+   links are public.
+
+**Done when:** each field saves and reads back; a channel URL off its
+platform's allowlist is refused, and a stored URL is always the canonical one;
+`/u/[username]` shows exactly the fields switched on (tested field by field
+with each switch off); a private field never appears in any public response;
+a new pattern takes the ability default; export contains the row and erasure
+removes it.
+
+### Phase 7C — Your speeds and the tables · M
+
+**Goal:** a drummer can record the fastest tempo they can play a pattern
+_well_, at a given layer, with the date and time, and optionally a video
+backing it up. Over time that becomes their progress. On public patterns it
+also becomes a friendly comparison table.
+
+1. **New table `SpeedRecord`.** Each row holds `userId` (cascade), a target
+   (`breakId?` or `libraryEntryId?`, at most one, **SetNull** so that another
+   drummer deleting their pattern doesn't erase your history), `titleSnapshot`,
+   `level`, `bpm`, `gridHash` (Phase 6's hash of the notes at the time),
+   `videoUrl?`, `note?`, `listed Boolean`, and `recordedAt` (the timestamp, set
+   by the server). **Every record is kept.** Your best is the highest `bpm` per
+   (target, level), and the rest are your progress history.
+2. **Recording one.** In the Practise drawer, _Mark my speed_ takes the current
+   tempo and layer, offers the optional video link and note, and saves. The
+   Practise drawer also shows your best and your last few records for the open
+   pattern, as a small progress line per layer. The limits: `bpm` between 40
+   and the meter's ceiling (`maxBpm`), and a per-user daily cap on new records.
+   `POST /api/v1/speed-records`, `GET /api/v1/speed-records?target=…` (yours),
+   `DELETE /api/v1/speed-records/[id]` (yours).
+3. **Video links** use Phase 6's reference-link parser and click-to-load
+   embeds. YouTube and Vimeo get embeds; Instagram, TikTok and X are allowed as
+   outbound links only (D29). A record with a video link gets a **video**
+   badge.
+4. **The tables.** Only on targets everyone can see: published patterns and
+   the famous breaks. `GET /api/v1/public/patterns/[slug]/speeds?level=` and
+   the same for library entries. Each shows one row per drummer (their best),
+   with the username, bpm, date and video badge, and _Video only_ as a filter.
+   It is sorted by bpm and then by earliest date, so whoever got there first
+   ranks higher. A row appears only when the drummer has a username and the
+   record is `listed`. The first time someone records a speed on a public
+   target, they're asked whether to list it, and that answer becomes their
+   default (a `StudioSettings` preference). On a famous break whose notes an
+   admin has since corrected, only records whose `gridHash` matches the
+   current notes are listed (fixed patterns always match, 7A). `/p/[slug]`
+   gains a _Speeds_ section with a layer switcher; `/u/[username]` shows the
+   drummer's listed bests; the Studio shows "you're 3rd of 41 at layer 2".
+5. **Keeping it honest (D25).** Records are self-reported and the page says
+   so. The video badge is the only verification. _Report_ on a table row
+   (reason "Speed doesn't look right") goes to Phase 6's admin queue, which
+   gains **Unlist record**. Unlisting sets `listed = false` without deleting the
+   record, and the drummer is told by email.
+6. **Privacy.** `SpeedRecord` cascades on erasure. It's in the export and in
+   `SUBJECT_DATA_SOURCES`, and the tables are read from live rows, so an erased
+   drummer disappears from every table at once.
+
+**Done when:** a record saves with the server's timestamp and appears in your
+history; a bpm outside the range, or past the cap, is refused; a table lists
+one best per listed drummer with a username, and never an unlisted or
+private-target record; a record on a private pattern is visible only to its
+owner; an unlisted record leaves the table on the next read; deleting
+someone else's pattern leaves your record with its title; erasing a user
+removes them from every table.
+
+### Phase 7D — Practice sessions · L
+
+**Goal:** a drummer builds a timed practice session from patterns in the
+library, then plays it. Each pattern starts below its target speed, climbs to
+the target and holds it, then the session moves on to the next pattern. A
+session can be shared with a link.
+
+1. **New tables.** `PracticeSession` holds `userId` (cascade), `name`,
+   `description?`, `totalMinutes` (5–120), the defaults below, `visibility`
+   (`private` · `link`), `slug?` and `parentId?` (SetNull; a saved copy of
+   someone's session). `PracticeSessionItem` holds `sessionId` (cascade),
+   `position`, a target (`breakId?` or `libraryEntryId?`, SetNull with
+   `titleSnapshot`), `level`, `targetBpm`, `minutes`, `minutesPinned Boolean`,
+   and optional per-item overrides of the defaults. Up to twelve items per
+   session.
+2. **The time split (D31).** `totalMinutes` is split equally between items by
+   default. Changing one item's minutes pins it, and the unpinned items share
+   what's left equally, so the total always holds. Each item gets at least one
+   minute. Adding or removing an item re-splits the unpinned ones. This is a
+   pure function in `lib/app/practice/`, tested with property tests (the total
+   always holds, pinned items never move).
+3. **The target and the start.** Each item's `targetBpm` defaults to your
+   **best** listed-or-not speed at that layer (7C). With no record, it
+   defaults to the pattern's own tempo. You can raise it to a **goal** you're
+   aiming for. The start is `target × (1 − startPct)`, where `startPct` is a
+   session default (20%, range 5–50%) that each item can override.
+4. **The climb (D30).** Each item's time is split into a **climb** and a
+   **hold**. The climb takes the first `climbShare` of the slot (default
+   two-thirds) and ends at the target; the hold plays the rest at the target.
+   The **shape** of the climb is configurable:
+   - _Steady_: linear.
+   - _Gentle start_: ease-in, so more time is spent near the start speed.
+   - _Gentle finish_: ease-out, so more time is spent near the target.
+   - _Steps_: a fixed number of equal steps.
+     The shape can be set per session and overridden per item. Tempo only
+     changes at a cycle boundary (the end of the arrangement, as the existing
+     tempo trainer does), rounded to whole bpm. At each boundary the runner
+     reads `tempoAt(elapsed, item)`, a pure function unit-tested for every
+     shape: it is monotonic, starts at the start tempo, reaches the target at
+     `climbShare`, and stays flat after. The existing **tempo trainer** in
+     Practise stays as it is: it is the quick, one-pattern version of this.
+5. **Running a session** happens in the Studio (`/studio?session=[id]`). The
+   header shows the session name, "pattern 2 of 5", time left in the slot,
+   and the current → target bpm, with _Pause_, _Skip_ and _+1 min_. Between
+   patterns there's a one-bar count-in at the next start tempo (configurable).
+   Timing follows the audio clock, not wall-clock timers, so a backgrounded
+   tab doesn't drift. At the end of each slot there's a one-tap prompt,
+   "Played it well at 112? Record it", which writes a 7C speed record.
+   Each completed run is logged in `PracticeRun` (`userId` cascade,
+   `sessionId?` SetNull, `startedAt`, `endedAt`, plus the per-item tempo
+   reached), and this becomes the session's history on Home. The runner's
+   logic is in `lib/`, not the component, so native clients (D14) run the
+   same session.
+6. **Building one.** There's a _Practice sessions_ page at `/practice`
+   (list and editor), and _Add to a session_ appears on any pattern, famous
+   break or community card and in the Patterns drawer. The Practising shelf
+   (D17) offers "Make a session from this shelf". API:
+   `/api/v1/practice-sessions` (enriched list, create), `…/[id]` (read,
+   update, delete), `…/[id]/items` (reorder and edit in one call, with the
+   split recomputed on the server) and `…/[id]/runs`. Each follows the
+   standard auth and response pattern.
+7. **Sharing (D32).** _Share with a link_ mints a slug and a public page,
+   `/s/[slug]`: the session's patterns, times, targets and climb, with each
+   pattern linking to its `/p/` page. A session can be shared only when
+   **every item is readable by anyone** (published, link-shared, or a famous
+   break). Otherwise the share dialog names the patterns that need sharing
+   first. If an item later goes private, the shared page shows "No longer
+   shared" in its place, and a runner skips it. Signed-in visitors get _Save
+   to my sessions_, a credited copy (`parentId`) whose targets are re-derived
+   from **their own** speeds. Signed-out visitors see the page and the
+   sign-up strip, and running a session needs an account.
+   `GET /api/v1/public/practice-sessions/[slug]` is IP-limited, ETagged and
+   carries no user id, only the owner's username if they have one. This is
+   also where a teacher sends a student their week's practice.
+8. **Privacy.** All three tables cascade on erasure (a copy's `parentId`
+   nulls) and are declared in export and `SUBJECT_DATA_SOURCES`.
+
+**Done when:** a session's items always add up to its total, however the
+minutes are nudged; `tempoAt` passes its shape tests; running a two-pattern
+session plays each pattern from its start tempo, reaches the target at the
+climb share, holds, counts in and moves on; the end-of-slot prompt writes a
+speed record; a session containing a private pattern cannot be shared; a
+shared session opens signed-out with no user id in the response; a saved copy
+takes its targets from the saver's own speeds; erasing a user removes their
+sessions and runs and keeps other people's copies.
+
 ### Phase 8 — Launch readiness · M
 
 **Goal:** it can be put in front of strangers.
@@ -1334,11 +1602,13 @@ of the Studio fully working.
   setup wizard; global monthly budget; BeatBuddy's monthly and per-turn caps;
   cost dashboard checked after a day of real use; retention window for
   conversations set and stated in the privacy policy.
-- **Abuse**: rate-limit rules for publish, report, import and public reads;
+- **Abuse**: rate-limit rules for publish, report, import, speed records,
+  session sharing and public reads;
   signup protections Sunrise already has, switched on; moderation rota of one.
-- **Quality**: end-to-end tests for the six journeys (sign up → first pattern →
+- **Quality**: end-to-end tests for the eight journeys (sign up → first pattern →
   save; reopen on a second device; publish → open signed-out; copy → remix;
-  BeatBuddy edit → undo; export account → delete account); accessibility audit
+  BeatBuddy edit → undo; export account → delete account; edit a published
+  pattern → variation; build a session → run it → record a speed → share it); accessibility audit
   (WCAG 2.2 AA) of the Studio, drawers and public pages; performance budget for
   `/studio` first load (audio packs lazy, engraver off the critical path) and
   `/p/[slug]`; browser matrix — Safari/iOS audio unlock and Web MIDI's absence
@@ -1351,7 +1621,7 @@ of the Studio fully working.
 - **Docs**: `.context/app/` complete; `/docs-audit` clean; README current.
 - Full gate run on the release branch; `npm run test` (whole suite) green.
 
-**Done when:** the six journeys pass in CI against a production-like
+**Done when:** the eight journeys pass in CI against a production-like
 environment; a restore from backup has been done once for real; somebody who is
 not the developer has signed up with a real email address on the production URL
 and published a pattern.
@@ -1601,22 +1871,26 @@ BeatBuddy launches on **OpenAI**, and the provider is expected to change. So:
 All in `prisma/schema/app.prisma`; FKs to `user` hand-written with a drift probe;
 every table declared in `lib/app/data-export.ts`.
 
-| Phase | Change                                                                                                                                                                                                                                                                                                                                   | Erasure                                                  | Export                                          |
-| ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ----------------------------------------------- |
-| 2     | New `Style` — `key`, `ownerId String?` (null = system), `label`, `group`, `hint`, `meter`, `visibility`, `currentVersion Int`; unique `(ownerId, key)`. New `StyleVersion` — `styleId` (cascade), `version Int`, `params Json` (`styleParamsSchema`), `createdById?` (SetNull), `createdAt`; **immutable**, unique `(styleId, version)`. | owner's rows cascade (none yet — seeded rows are system) | new section `styles` (empty until users author) |
-| 2     | New `PatternLibrary` — `key`, `ownerId?`, `title`, `description`, `visibility`, `position`. New `LibraryEntry` — `libraryId` (cascade), `position`, `title`, `artist`, `note`, `bpm`, `styleKey`, `styleVersionId?` (SetNull), `meter`, `doc Json` (wire v4), `links Json`.                                                              | owner's rows cascade                                     | new section `libraries`                         |
-| 2     | New `Kit` — `key`, `ownerId?`, `engine` (`synth`/`pack`/`user`), `label`, `hint`, `group`, `params Json` (voice defaults, master), `samples Json` (slot → files + velocities), `credit`, `visibility`. Audio stays in files / storage, never in the table.                                                                               | owner's rows cascade                                     | new section `kits`                              |
-| 2     | `Break` + `styleVersionId String?` → `StyleVersion` `onDelete: SetNull` (the v4 `doc` carries the snapshot, so losing the link loses provenance only).                                                                                                                                                                                   | as now                                                   | in `breaks`                                     |
-| 4     | `Break` + `level Int`, `description String?`, `links Json` (≤ 4, canonical URLs only). `level` backfilled from `doc.lv`.                                                                                                                                                                                                                 | cascade (as now)                                         | in `breaks` (as now)                            |
-| 4     | New `Pin` — `userId` (cascade), `shelf` (`practising`/`later`), `breakId?` → `Break` (cascade), `libraryEntryId?` → `LibraryEntry` (cascade), `position Int`, `createdAt`; CHECK exactly one target; unique `(userId, breakId)` and `(userId, libraryEntryId)`; the only record of what is pinned (D17).                                 | cascade                                                  | new section `pins`                              |
-| 4     | New `PracticeVisit` — `userId` (cascade), `breakId?` (cascade), `libraryEntryId?` (cascade), `level Int`, `bpm Int`, `visitedAt`; CHECK exactly one target; unique per `(userId, target)`; newest 200 kept per user; the only record of what was opened (D18).                                                                           | cascade                                                  | new section `practiceHistory`                   |
-| 4A    | New `StudioSettings` — `userId @id` (cascade), `prefs Json` (`studioSettingsSchema`), `updatedAt`; one row per user (D19).                                                                                                                                                                                                               | cascade                                                  | new section `studioSettings`                    |
-| 4A    | New `Sample` — `userId` (cascade), `name`, `slot`, `bytes Int`, `durationMs Int`, `storageKey @unique`, `createdAt`; index `(userId)` for the quota sum. User kits are `Kit` rows with `ownerId` and `engine: 'user'`, `samples` naming `Sample` ids. Audio in Sunrise storage under `samples/<userId>/`, never in the table (D20).      | cascade; files removed by an erasure cleanup hook        | new section `samples`; `kits` gains your rows   |
-| 6     | `Break` + `visibility` (`private`/`link`/`published`, replaces `shared`), `slug String? @unique`, `publishedAt`, `parentId String?` → `Break` `onDelete: SetNull`, `gridHash String?`; index `(visibility, publishedAt)`, `(visibility, style, meter)`.                                                                                  | cascade; children keep, parent nulled                    | in `breaks`                                     |
-| 6     | New `DrummerProfile` — `userId @unique`, `username @unique` (stored lower-case), `bio`, `usernameChangedAt`; plus `ReservedUsername` (`username`, `releasedAt`) holding a changed name for 30 days — no user FK, excluded from export with that reason.                                                                                  | cascade                                                  | new section `drummerProfile`                    |
-| 6     | New `BreakReport` — `breakId` (cascade), `reporterId?` (**SetNull** — the report outlives the reporter), `reason`, `note`, `status`, `resolvedById?` (SetNull), timestamps.                                                                                                                                                              | reporter nulled                                          | new section `reportsFiled`                      |
-| 7     | New `BuddyWorkspace` — `userId @unique`, `doc Json`, `rev Int`, `updatedAt`.                                                                                                                                                                                                                                                             | cascade                                                  | new section `buddyWorkspace`                    |
-| —     | `Take` — unchanged and unused until D8 is decided.                                                                                                                                                                                                                                                                                       | cascade (as now)                                         | in `takes` (as now)                             |
+| Phase | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Erasure                                                  | Export                                          |
+| ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ----------------------------------------------- |
+| 2     | New `Style` — `key`, `ownerId String?` (null = system), `label`, `group`, `hint`, `meter`, `visibility`, `currentVersion Int`; unique `(ownerId, key)`. New `StyleVersion` — `styleId` (cascade), `version Int`, `params Json` (`styleParamsSchema`), `createdById?` (SetNull), `createdAt`; **immutable**, unique `(styleId, version)`.                                                                                                                                                           | owner's rows cascade (none yet — seeded rows are system) | new section `styles` (empty until users author) |
+| 2     | New `PatternLibrary` — `key`, `ownerId?`, `title`, `description`, `visibility`, `position`. New `LibraryEntry` — `libraryId` (cascade), `position`, `title`, `artist`, `note`, `bpm`, `styleKey`, `styleVersionId?` (SetNull), `meter`, `doc Json` (wire v4), `links Json`.                                                                                                                                                                                                                        | owner's rows cascade                                     | new section `libraries`                         |
+| 2     | New `Kit` — `key`, `ownerId?`, `engine` (`synth`/`pack`/`user`), `label`, `hint`, `group`, `params Json` (voice defaults, master), `samples Json` (slot → files + velocities), `credit`, `visibility`. Audio stays in files / storage, never in the table.                                                                                                                                                                                                                                         | owner's rows cascade                                     | new section `kits`                              |
+| 2     | `Break` + `styleVersionId String?` → `StyleVersion` `onDelete: SetNull` (the v4 `doc` carries the snapshot, so losing the link loses provenance only).                                                                                                                                                                                                                                                                                                                                             | as now                                                   | in `breaks`                                     |
+| 4     | `Break` + `level Int`, `description String?`, `links Json` (≤ 4, canonical URLs only). `level` backfilled from `doc.lv`.                                                                                                                                                                                                                                                                                                                                                                           | cascade (as now)                                         | in `breaks` (as now)                            |
+| 4     | New `Pin` — `userId` (cascade), `shelf` (`practising`/`later`), `breakId?` → `Break` (cascade), `libraryEntryId?` → `LibraryEntry` (cascade), `position Int`, `createdAt`; CHECK exactly one target; unique `(userId, breakId)` and `(userId, libraryEntryId)`; the only record of what is pinned (D17).                                                                                                                                                                                           | cascade                                                  | new section `pins`                              |
+| 4     | New `PracticeVisit` — `userId` (cascade), `breakId?` (cascade), `libraryEntryId?` (cascade), `level Int`, `bpm Int`, `visitedAt`; CHECK exactly one target; unique per `(userId, target)`; newest 200 kept per user; the only record of what was opened (D18).                                                                                                                                                                                                                                     | cascade                                                  | new section `practiceHistory`                   |
+| 4A    | New `StudioSettings` — `userId @id` (cascade), `prefs Json` (`studioSettingsSchema`), `updatedAt`; one row per user (D19).                                                                                                                                                                                                                                                                                                                                                                         | cascade                                                  | new section `studioSettings`                    |
+| 4A    | New `Sample` — `userId` (cascade), `name`, `slot`, `bytes Int`, `durationMs Int`, `storageKey @unique`, `createdAt`; index `(userId)` for the quota sum. User kits are `Kit` rows with `ownerId` and `engine: 'user'`, `samples` naming `Sample` ids. Audio in Sunrise storage under `samples/<userId>/`, never in the table (D20).                                                                                                                                                                | cascade; files removed by an erasure cleanup hook        | new section `samples`; `kits` gains your rows   |
+| 6     | `Break` + `visibility` (`private`/`link`/`published`, replaces `shared`), `slug String? @unique`, `publishedAt`, `parentId String?` → `Break` `onDelete: SetNull`, `gridHash String?`; index `(visibility, publishedAt)`, `(visibility, style, meter)`.                                                                                                                                                                                                                                            | cascade; children keep, parent nulled                    | in `breaks`                                     |
+| 6     | New `DrummerProfile` — `userId @unique`, `username @unique` (stored lower-case), `bio`, `usernameChangedAt`; plus `ReservedUsername` (`username`, `releasedAt`) holding a changed name for 30 days — no user FK, excluded from export with that reason.                                                                                                                                                                                                                                            | cascade                                                  | new section `drummerProfile`                    |
+| 6     | New `BreakReport` — `breakId` (cascade), `reporterId?` (**SetNull** — the report outlives the reporter), `reason`, `note`, `status`, `resolvedById?` (SetNull), timestamps.                                                                                                                                                                                                                                                                                                                        | reporter nulled                                          | new section `reportsFiled`                      |
+| 7     | New `BuddyWorkspace` — `userId @unique`, `doc Json`, `rev Int`, `updatedAt`.                                                                                                                                                                                                                                                                                                                                                                                                                       | cascade                                                  | new section `buddyWorkspace`                    |
+| 7A    | `Break` + `frozenAt DateTime?` — set on first publish, never cleared; backfilled from `publishedAt`.                                                                                                                                                                                                                                                                                                                                                                                               | —                                                        | column in `breaks`                              |
+| 7B    | New `DrummerAbout` — `userId @id` (cascade), `purposes String[]`, `styles String[]` (catalogue keys, ≤ 8), `ability`, `styleAbility Json`, `channels Json` (≤ 8, canonical URLs), `public Json` (a switch per field), `updatedAt`.                                                                                                                                                                                                                                                                 | cascade                                                  | new section `about`                             |
+| 7C    | New `SpeedRecord` — `userId` (cascade), `breakId?` / `libraryEntryId?` (**SetNull**, CHECK at most one), `titleSnapshot`, `level`, `bpm`, `gridHash`, `videoUrl?`, `note?`, `listed`, `recordedAt`; index `(breakId, level, bpm)`, `(libraryEntryId, level, bpm)`.                                                                                                                                                                                                                                 | cascade                                                  | new section `speeds`                            |
+| 7D    | New `PracticeSession` — `userId` (cascade), `name`, `description?`, `totalMinutes`, `startPct`, `climbShare`, `climbShape`, `visibility` (`private`/`link`), `slug? @unique`, `parentId?` (SetNull). New `PracticeSessionItem` — `sessionId` (cascade), `position`, `breakId?` / `libraryEntryId?` (SetNull), `titleSnapshot`, `level`, `targetBpm`, `minutes`, `minutesPinned`, overrides. New `PracticeRun` — `userId` (cascade), `sessionId?` (SetNull), `startedAt`, `endedAt?`, `items Json`. | cascade; copies keep, `parentId` nulled                  | new section `practice`                          |
+| —     | `Take` — unchanged and unused until D8 is decided.                                                                                                                                                                                                                                                                                                                                                                                                                                                 | cascade (as now)                                         | in `takes` (as now)                             |
 
 BeatBuddy conversations are Sunrise's `AiConversation` / `AiMessage`, which
 already cascade and already export.
@@ -1666,6 +1940,20 @@ already cascade and already export.
 | —   | Usability testing and browser checks             | **Not a gate for Phase 5.** The owner is the only tester. The browser checks carried in from Phases 1 and 4 go on the owner's list in `controls.md`.                                                                                                                                                                                                                        |
 | —   | How Phase 5 ships                                | **Four PRs:** 5-i names and help (5.1–5.5), 5-ii controls (5.6–5.10), 5-iii your patterns and the mixer (5.11–5.13), 5-iv the grid and the inventory (5.14–5.16). Resized from M to L.                                                                                                                                                                                      |
 
+### Decided — 2026-09-28
+
+| #   | Decision                                         | Outcome                                                                                                                                                                                                                             |
+| --- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| —   | Where the new work goes                          | **Between BeatBuddy and launch**, as Phases 7A–7D. BeatBuddy keeps its place.                                                                                                                                                       |
+| D25 | Trusting self-reported speeds                    | **Every listed record shows; a video link earns a badge** and a _Video only_ filter; a doubtful row can be reported and an admin can unlist it. No peer verification at launch.                                                     |
+| D26 | Who can make a variation, and where it shows     | **Anyone, including the author.** A published pattern's notes never change after its first publish (even if unpublished). A variation is a credited copy, and published variations are listed on the original's page.               |
+| D27 | How ability is described                         | **A five-step scale** — Just starting · Beginner · Intermediate · Advanced · Professional — overall, and optionally per preferred style.                                                                                            |
+| D28 | What of "about you" is public                    | **Each field opts in.** Channel links public by default; purpose, styles and ability private until switched on. Private values still personalise the app.                                                                           |
+| D29 | Video links on speed records                     | **Phase 6's parser**: YouTube and Vimeo embed click-to-load; Instagram, TikTok and X are outbound links only, so the CSP does not grow.                                                                                             |
+| D30 | How a session climbs to the target               | **Climb, then hold.** The climb takes a configurable share of the slot (default two-thirds), with a configurable shape — steady, gentle start, gentle finish, steps — per session and per pattern. Tempo moves at cycle boundaries. |
+| D31 | How a session's time is split                    | **Equally by default, adjustable.** Nudging one pattern pins it; the rest re-split so the total holds.                                                                                                                              |
+| D32 | Sharing a session with patterns others can't see | **Not allowed.** A session can be shared only when every pattern in it is published, link-shared or a famous break; the dialog says which to share first.                                                                           |
+
 ### Still open
 
 Recommendation first in each case. None blocks Phases 0–4.
@@ -1680,6 +1968,8 @@ Recommendation first in each case. None blocks Phases 0–4.
 | D12 | More link providers (Apple Music, Bandcamp, SoundCloud, Drumeo…)?       | **Not at launch.** Each is one more entry in the parser, the CSP and the privacy policy; add on demand.                                                                                                                                               | —         |
 | D15 | How a native app signs in                                               | Bearer tokens rather than cookies: better-auth's bearer plugin, or Sunrise's self-service API keys if they fit a per-device login. Until then, keep every route free of cookie-only assumptions (D14).                                                | native    |
 | D16 | Who may create and publish styles, libraries and kits                   | Users create private ones; publishing one follows the pattern rules of Phase 6 (username, moderation, reporting). A published style is used by reference to a version, so its author cannot change patterns that other people made from it.           | §10 item  |
+| D33 | Which channel platforms at launch?                                      | The eight in 7B plus a personal website. Add on demand, like D12.                                                                                                                                                                                     |
+| D34 | Publishing practice sessions to Explore?                                | **Not yet** — link-sharing only. Publishing means moderation and a browse surface of their own; see §10.                                                                                                                                              |
 
 ---
 
@@ -1699,6 +1989,9 @@ Recommendation first in each case. None blocks Phases 0–4.
 | **Autosave vs. undo vs. BeatBuddy edits** — three writers to one document.                                            | One reducer owns the document; BeatBuddy's result and autosave both go through it; `rev` guards stale results; undo is local and unaffected by saves.                                                                                                               |
 | **User-supplied links on public pages** — spam, malicious redirects, tracking embeds.                                 | Host allowlist and id validation, canonical URLs rebuilt server-side, iframe `src` built from the id only, exact-origin CSP, click-to-load, `nofollow ugc`, report reason, admin strip.                                                                             |
 | **Audio on iOS/Safari**, and Web MIDI not existing there.                                                             | Unlock on first gesture wherever it lands; feature-detect MIDI and say so plainly; in the Phase 8 browser matrix.                                                                                                                                                   |
+| **Fixing published patterns surprises their authors**, who could edit them until now.                                 | Say so in the publish dialog and in the Studio's "Published · fixed" label; editing branches into a variation instead of failing, so nothing typed is lost.                                                                                                         |
+| **Speed tables invite padding** — anyone can claim 300 bpm.                                                           | Ceiling per meter, daily cap, video badge and filter, report → unlist, and the page says records are self-reported (D25).                                                                                                                                           |
+| **A session runner drifts** when the tab is in the background or the device sleeps.                                   | Time is read from the audio clock, tempo changes only at cycle boundaries, and `tempoAt` is a pure function of elapsed audio time.                                                                                                                                  |
 
 ---
 
@@ -1721,6 +2014,12 @@ Recommendation first in each case. None blocks Phases 0–4.
   _collections / setlists / lesson plans for teachers_), export and erasure
   sections filled in, and publishing through Phase 6's moderation. Your own
   kits and sample upload came forward into Phase 4A (D20).
+
+- **More around practice** (after 7C, 7D): publishing sessions to Explore
+  (D34); a teacher's classes, where assigned sessions and students' speeds
+  are visible to the teacher (7B's _teaching_ purpose is the start of it);
+  streaks and practice-time totals from `PracticeRun`; badges for
+  milestones.
 
 Deliberately not in this plan: an in-Studio player for a pattern's reference
 video or song (so you can hear the original without leaving the chart — needs
