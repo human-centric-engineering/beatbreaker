@@ -1361,6 +1361,13 @@ belongs to `open_pattern` (7.11), not import.
 | 7.13 | The apply loop: validate → push undo → apply → flash; stale `rev` discarded                                                                                              | Tests: one Undo restores the previous state; a result older than a manual edit is dropped                                                                                                           |
 | 7.14 | The evaluation set (30–50 requests) in Sunrise's dataset evals                                                                                                           | Runs and passes at the threshold agreed then                                                                                                                                                        |
 
+**7.14 paused (2026-09-29).** Sunrise's agent-subject evals run each case as
+one bare chat turn: no starting pattern in the workspace, no reset between
+cases, and graders see the reply and tool names but not the tool results or the
+chart that results. Filed upstream as
+[sunrise#879](https://github.com/human-centric-engineering/sunrise/issues/879);
+7.14 waits for it. The pass threshold is set after the first run.
+
 PRs: **7-i** reading and writing patterns (7.1–7.6) · **7-ii** the loop
 (7.7–7.10) · **7-iii** the tools (7.11) · **7-iv** the drawer (7.12–7.13) ·
 **7-v** the evals (7.14).
