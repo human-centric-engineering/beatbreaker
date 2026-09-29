@@ -67,3 +67,22 @@ export async function writeWorkspace(
   });
   return count === 1 ? { doc, rev: rev + 1 } : null;
 }
+
+/**
+ * Start a turn: put the document the Studio sent into the workspace, whatever
+ * was there. The person's browser is the source of truth at the start of a
+ * turn, so this is the one write that does not name a rev — it creates the row
+ * on a first turn and moves `rev` on by one otherwise, so a tool result from an
+ * earlier turn can never carry the same rev as one from this turn.
+ *
+ * The caller has already held `doc` to `sharePayloadSchema`.
+ */
+export async function openWorkspace(userId: string, doc: SharePayload): Promise<Workspace> {
+  const row = await prisma.buddyWorkspace.upsert({
+    where: { userId },
+    create: { userId, doc },
+    update: { doc, rev: { increment: 1 } },
+    select: { rev: true },
+  });
+  return { doc, rev: row.rev };
+}

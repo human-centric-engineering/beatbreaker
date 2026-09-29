@@ -1,5 +1,6 @@
 import type { Prisma } from '@prisma/client';
 
+import { BEATBUDDY_SLUG } from '@/lib/app/breaks/buddy/agent';
 import { BEATBUDDY_CAPABILITIES } from '@/lib/app/capabilities';
 import { serviceAccountWhere } from '@/lib/auth/account';
 import {
@@ -8,8 +9,6 @@ import {
   buildAgentSnapshot,
 } from '@/lib/orchestration/agents/agent-versioning';
 import type { SeedUnit } from '@/prisma/runner';
-
-export const BEATBUDDY_SLUG = 'beatbuddy';
 
 /** The first draft from the plan (§6). Tuning it is what the evaluation set is for. */
 export const BEATBUDDY_INSTRUCTIONS = `You are BeatBuddy, the assistant inside BeatBreaker, a tool drummers use to learn, practise and write drum patterns. You help by using your tools on the pattern the user has open. You do not describe changes you have not made.

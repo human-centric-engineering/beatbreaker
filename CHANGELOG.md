@@ -18,6 +18,20 @@ release process.
 
 ### Added
 
+- **Talking to BeatBuddy — `POST /api/v1/buddy/stream` and
+  `GET /api/v1/buddy/allowance`.** A turn sends the message, the pattern on
+  screen (`doc`, held to `sharePayloadSchema`), the section showing, and
+  optionally a `conversationId` and photo or PDF attachments; the reply is
+  Sunrise's chat SSE stream. The route pins the `beatbuddy` agent and takes the
+  user from the session — the body names neither — and writes the document to
+  the caller's workspace before the model is called, with
+  `contextType: 'studio'`. A daily allowance of 30 turns (D4, UTC day, counted
+  from the caller's own BeatBuddy messages) refuses the next turn with a 429
+  `BUDDY_ALLOWANCE_SPENT` carrying `{ limit, used, remaining, resetsAt }`,
+  which is also what the allowance endpoint returns. A missing or inactive
+  agent is a 503 `BUDDY_UNAVAILABLE`. Everything that can refuse a turn runs
+  before the workspace is written.
+
 - **BeatBuddy's agent, workspace and first two tools — a `BuddyWorkspace`
   model, seed `app-beatbreaker/003-beatbuddy`, capabilities `get_pattern` and
   `apply_doctor_move`** (migration `buddy_workspace`). The workspace is one row

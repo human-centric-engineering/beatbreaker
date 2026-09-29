@@ -1,10 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 
+import { BEATBUDDY_SLUG } from '@/lib/app/breaks/buddy/agent';
 import { BEATBUDDY_CAPABILITIES } from '@/lib/app/capabilities';
-import unit, {
-  BEATBUDDY_CAPABILITY_ROWS,
-  BEATBUDDY_SLUG,
-} from '@/prisma/seeds/app-beatbreaker/003-beatbuddy';
+import unit, { BEATBUDDY_CAPABILITY_ROWS } from '@/prisma/seeds/app-beatbreaker/003-beatbuddy';
 import type { SeedContext } from '@/prisma/runner';
 
 /**

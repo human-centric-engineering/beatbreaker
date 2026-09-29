@@ -19,7 +19,7 @@ vi.mock('@/lib/db/client', () => ({
 }));
 vi.mock('@/lib/logging', () => ({ logger: { warn: vi.fn(), info: vi.fn(), error: vi.fn() } }));
 
-import { readWorkspace, writeWorkspace } from '@/lib/app/breaks/buddy/workspace';
+import { openWorkspace, readWorkspace, writeWorkspace } from '@/lib/app/breaks/buddy/workspace';
 import { logger } from '@/lib/logging';
 
 const DOC = funkPayload();
@@ -81,5 +81,30 @@ describe('writeWorkspace', () => {
     expect(written).toBeNull();
     expect(fake.rows.get('user-1')).toMatchObject({ doc: DOC, rev: 3 });
     expect(fake.rows.has('user-2')).toBe(false);
+  });
+});
+
+describe('openWorkspace', () => {
+  it("creates a first-timer's workspace at revision 0", async () => {
+    const opened = await openWorkspace('user-2', DOC);
+
+    expect(opened).toEqual({ doc: DOC, rev: 0 });
+    expect(fake.rows.get('user-2')).toMatchObject({ doc: DOC, rev: 0 });
+  });
+
+  it('replaces whatever was there and moves the revision on, so an older rev can no longer write', async () => {
+    const onScreen = { ...DOC, bpm: 132 };
+
+    const opened = await openWorkspace('user-1', onScreen);
+
+    expect(opened).toEqual({ doc: onScreen, rev: 4 });
+    expect(await writeWorkspace('user-1', DOC, 3)).toBeNull();
+    expect(fake.rows.get('user-1')).toMatchObject({ doc: onScreen, rev: 4 });
+  });
+
+  it("leaves another person's workspace alone", async () => {
+    await openWorkspace('user-2', { ...DOC, bpm: 70 });
+
+    expect(fake.rows.get('user-1')).toMatchObject({ doc: DOC, rev: 3 });
   });
 });
