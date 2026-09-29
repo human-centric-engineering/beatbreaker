@@ -75,3 +75,18 @@ describe('Stave playhead', () => {
     expect(() => handle.clear()).not.toThrow();
   });
 });
+
+describe('Stave flash', () => {
+  it('remounts the lit steps when the flash moves on, so the same steps flash again', () => {
+    const eng = engraving();
+    const { container, rerender } = render(<Stave engraving={eng} flash={[0]} flashSeq={1} />);
+    const first = container.querySelector('rect.flash');
+    expect(first).not.toBeNull();
+
+    rerender(<Stave engraving={eng} flash={[0]} flashSeq={1} />);
+    expect(container.querySelector('rect.flash')).toBe(first);
+
+    rerender(<Stave engraving={eng} flash={[0]} flashSeq={2} />);
+    expect(container.querySelector('rect.flash')).not.toBe(first);
+  });
+});

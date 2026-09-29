@@ -282,6 +282,7 @@ export function Stage() {
               label={c.viewMode === 'both' ? letter : undefined}
               playing={c.position?.letter === letter}
               flash={flashSteps[letter]}
+              flashSeq={c.flash?.seq}
             />
           );
         })}
@@ -378,6 +379,7 @@ export function Stage() {
               stored={editingStored}
               cursor={cursor}
               flash={c.flash?.[c.editing]}
+              flashSeq={c.flash?.seq}
               onCycle={(bar, lane, step, back) => c.cycleCell(c.editing, bar, lane, step, back)}
             />
           ) : null}

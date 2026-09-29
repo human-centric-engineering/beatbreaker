@@ -307,4 +307,77 @@ describe('the BeatBuddy drawer', () => {
       '(I opened groove.mid in the Studio: 2 bars of 4/4 at 94 bpm.)\nTidy it'
     );
   });
+
+  it('sends the pattern a link in the message opened, and applies the turn on top of it', async () => {
+    /* As in the Studio: the stage takes the import at once, but `payload`
+       only sees it after React renders — which does not happen between the
+       import and the request. */
+    const apply = fake.studio.applyAssistant.getMockImplementation();
+    fake.studio.applyAssistant.mockImplementationOnce((doc, push) => {
+      const was = fake.studio.payload();
+      const applied = apply!(doc, push);
+      const after = fake.studio.payload;
+      fake.studio.payload = () => was;
+      setTimeout(() => {
+        fake.studio.payload = after;
+      }, 0);
+      return applied;
+    });
+    vi.mocked(apiClient.post).mockResolvedValue({ source: 'beatbreaker', doc: FIRST, notes: [] });
+    // The reply comes back over the network, after that render.
+    vi.mocked(fetch).mockImplementation(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 5));
+      return sse([
+        { type: 'start', conversationId: 'c1' },
+        result(SECOND, 4, 'Tidied'),
+        { type: 'done' },
+      ]);
+    });
+    render(<Harness />);
+
+    await say('Tidy https://beatbreaker.app/studio#b=abc123');
+
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    const body = JSON.parse(vi.mocked(fetch).mock.calls[0][1]?.body as string) as {
+      doc: SharePayload;
+    };
+    expect(body.doc).toEqual(breakPayload(breakDocFromPayload(FIRST)));
+    await waitFor(() => expect(fake.studio.applyAssistant).toHaveBeenCalledWith(SECOND, true));
+    expect(screen.queryByText(/its change was not applied/)).not.toBeInTheDocument();
+  });
+
+  it('flattens a transparent photo onto white before sending it as JPEG', async () => {
+    const calls: string[] = [];
+    const ctx = {
+      set fillStyle(v: string) {
+        calls.push(`fillStyle ${v}`);
+      },
+      fillRect: vi.fn(() => calls.push('fillRect')),
+      drawImage: vi.fn(() => calls.push('drawImage')),
+    };
+    vi.stubGlobal(
+      'createImageBitmap',
+      vi.fn().mockResolvedValue({ width: 100, height: 50, close: vi.fn() })
+    );
+    const getContext = vi
+      .spyOn(HTMLCanvasElement.prototype, 'getContext')
+      .mockReturnValue(ctx as unknown as CanvasRenderingContext2D);
+    const toDataURL = vi
+      .spyOn(HTMLCanvasElement.prototype, 'toDataURL')
+      .mockReturnValue('data:image/jpeg;base64,AAAA');
+    const { container } = render(<Harness />);
+
+    const input = container.querySelector('input[type="file"]');
+    if (!(input instanceof HTMLInputElement)) throw new Error('no file input');
+    await act(async () => {
+      await userEvent
+        .setup()
+        .upload(input, new File([new Uint8Array([1])], 'chart.png', { type: 'image/png' }));
+    });
+
+    await waitFor(() => expect(ctx.drawImage).toHaveBeenCalled());
+    expect(calls).toEqual(['fillStyle #fff', 'fillRect', 'drawImage']);
+    getContext.mockRestore();
+    toDataURL.mockRestore();
+  });
 });

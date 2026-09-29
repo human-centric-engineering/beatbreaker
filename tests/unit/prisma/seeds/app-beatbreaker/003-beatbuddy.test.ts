@@ -2,7 +2,12 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { BEATBUDDY_SLUG } from '@/lib/app/breaks/buddy/agent';
 import { BEATBUDDY_CAPABILITIES } from '@/lib/app/capabilities';
-import unit, { BEATBUDDY_CAPABILITY_ROWS } from '@/prisma/seeds/app-beatbreaker/003-beatbuddy';
+import unit, {
+  BEATBUDDY_CAPABILITY_ROWS,
+  BEATBUDDY_INSTRUCTIONS,
+  INSTRUCTIONS_UPDATE_SUMMARY,
+  SUPERSEDED_BEATBUDDY_INSTRUCTIONS,
+} from '@/prisma/seeds/app-beatbreaker/003-beatbuddy';
 import type { SeedContext } from '@/prisma/runner';
 
 /**
@@ -24,8 +29,20 @@ import type { SeedContext } from '@/prisma/runner';
  * @see prisma/seeds/app-beatbreaker/003-beatbuddy.ts
  */
 
-function makeCtx(opts: { admin?: boolean; versions?: number } = {}) {
-  const agentUpsert = vi.fn().mockResolvedValue({ id: 'agent-1', slug: BEATBUDDY_SLUG });
+function makeCtx(opts: { admin?: boolean; versions?: number; instructions?: string } = {}) {
+  const agentUpsert = vi.fn().mockResolvedValue({
+    id: 'agent-1',
+    slug: BEATBUDDY_SLUG,
+    systemInstructions: opts.instructions ?? BEATBUDDY_INSTRUCTIONS,
+  });
+  const agentUpdate = vi.fn(async (args: { data: { systemInstructions: string } }) => ({
+    id: 'agent-1',
+    slug: BEATBUDDY_SLUG,
+    systemInstructions: args.data.systemInstructions,
+    grantedTags: [{ tagId: 't2' }, { tagId: 't1' }],
+    grantedDocuments: [],
+  }));
+  const lastVersion = vi.fn().mockResolvedValue({ version: 3 });
   const capabilityUpsert = vi.fn(async (args: { where: { slug: string } }) => ({
     id: `cap-${args.where.slug}`,
   }));
@@ -38,14 +55,15 @@ function makeCtx(opts: { admin?: boolean; versions?: number } = {}) {
       user: {
         findFirst: vi.fn().mockResolvedValue(opts.admin === false ? null : { id: 'admin-1' }),
       },
-      aiAgent: { upsert: agentUpsert },
+      aiAgent: { upsert: agentUpsert, update: agentUpdate },
       aiCapability: { upsert: capabilityUpsert },
       aiAgentCapability: { upsert: bindingUpsert },
-      aiAgentVersion: { count: versionCount, create: versionCreate },
+      aiAgentVersion: { count: versionCount, create: versionCreate, findFirst: lastVersion },
+      $transaction: vi.fn(async (fn: (tx: unknown) => Promise<unknown>) => fn(ctx.prisma)),
     },
     logger,
   } as unknown as SeedContext;
-  return { ctx, agentUpsert, capabilityUpsert, bindingUpsert, versionCreate };
+  return { ctx, agentUpsert, agentUpdate, capabilityUpsert, bindingUpsert, versionCreate };
 }
 
 describe('app-beatbreaker/003-beatbuddy seed', () => {
@@ -142,6 +160,49 @@ describe('app-beatbreaker/003-beatbuddy seed', () => {
     const rerun = makeCtx({ versions: 2 });
     await unit.run(rerun.ctx);
     expect(rerun.versionCreate).not.toHaveBeenCalled();
+  });
+
+  it('moves instructions an earlier seed shipped to the current ones, as a new version', async () => {
+    const { ctx, agentUpdate, versionCreate } = makeCtx({
+      versions: 3,
+      instructions: SUPERSEDED_BEATBUDDY_INSTRUCTIONS[0],
+    });
+
+    await unit.run(ctx);
+
+    expect(agentUpdate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { id: 'agent-1' },
+        data: { systemInstructions: BEATBUDDY_INSTRUCTIONS },
+      })
+    );
+    expect(versionCreate).toHaveBeenCalledTimes(1);
+    const data = (versionCreate.mock.calls[0][0] as { data: Record<string, unknown> }).data;
+    expect(data).toMatchObject({
+      agentId: 'agent-1',
+      version: 4,
+      changeSummary: INSTRUCTIONS_UPDATE_SUMMARY,
+      createdBy: 'admin-1',
+    });
+    expect(data.snapshot).toMatchObject({
+      systemInstructions: BEATBUDDY_INSTRUCTIONS,
+      grantedTagIds: ['t1', 't2'],
+    });
+  });
+
+  it('leaves instructions an admin wrote alone, and current ones too', async () => {
+    for (const instructions of ['Our own words for BeatBuddy.', BEATBUDDY_INSTRUCTIONS]) {
+      const { ctx, agentUpdate, versionCreate } = makeCtx({ versions: 3, instructions });
+
+      await unit.run(ctx);
+
+      expect(agentUpdate).not.toHaveBeenCalled();
+      expect(versionCreate).not.toHaveBeenCalled();
+    }
+  });
+
+  it('never lists the current instructions as superseded', () => {
+    expect(SUPERSEDED_BEATBUDDY_INSTRUCTIONS).not.toContain(BEATBUDDY_INSTRUCTIONS);
   });
 
   it('refuses to run before the service account exists', async () => {

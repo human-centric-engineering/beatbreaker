@@ -42,6 +42,10 @@ async function readImage(file: File, type: ImageType): Promise<BuddyFile> {
     canvas.height = Math.round(bitmap.height * scale);
     const ctx = canvas.getContext('2d');
     if (!ctx) throw new Error('no 2d context');
+    // JPEG has no alpha: a transparent background would come out black,
+    // and so would the notes drawn on it.
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
     const url = canvas.toDataURL('image/jpeg', 0.85);
     return { name: file.name, mediaType: 'image/jpeg', data: url.slice(url.indexOf(',') + 1) };

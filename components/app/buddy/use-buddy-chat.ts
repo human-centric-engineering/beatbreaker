@@ -13,7 +13,7 @@ import {
   readToolChange,
 } from '@/lib/app/breaks/buddy/apply';
 import { encodeBytes, findImportLink, importNote } from '@/lib/app/breaks/buddy/composer';
-import { sharePayloadSchema } from '@/lib/app/breaks/schema';
+import { sharePayloadSchema, type SharePayload } from '@/lib/app/breaks/schema';
 import { breakPayload } from '@/lib/app/breaks/share';
 import { logger } from '@/lib/logging';
 import { getUserFacingError } from '@/lib/orchestration/chat/error-messages';
@@ -147,10 +147,14 @@ export function useBuddyChat(studio: Studio): BuddyChat {
 
   useEffect(() => () => abort.current?.abort(), []);
 
-  /** Put an imported document on the stage and say so in the transcript. */
+  /**
+   * Put an imported document on the stage and say so in the transcript.
+   * Returns the pattern as it now stands, because `studio.payload()` will not
+   * see it until React renders.
+   */
   const openImported = useCallback((label: string, doc: z.infer<typeof sharePayloadSchema>) => {
     const s = studioRef.current;
-    const applied = s.applyAssistant(doc, true);
+    const applied = breakPayload(s.applyAssistant(doc, true));
     const note = importNote(label, doc);
     pendingNotes.current.push(note);
     setMessages((prev) => [
@@ -161,12 +165,13 @@ export function useBuddyChat(studio: Studio): BuddyChat {
         text: `Opened ${label}`,
         change: {
           summaries: [note.slice(1, -1)],
-          key: notesKey(breakPayload(applied)),
+          key: notesKey(applied),
           undone: false,
           dropped: 0,
         },
       },
     ]);
+    return applied;
   }, []);
 
   /** A MIDI file, read by the import endpoint — chat attachments cannot carry MIDI. */
@@ -261,12 +266,13 @@ export function useBuddyChat(studio: Studio): BuddyChat {
       /* A link the import endpoint reads goes on the stage first, and
          BeatBuddy is told what arrived. */
       const link = findImportLink(message);
+      let imported: SharePayload | null = null;
       if (link) {
         try {
           const got = importSchema.parse(
             await apiClient.post('/api/v1/breaks/import', { body: { kind: 'text', text: link } })
           );
-          openImported(
+          imported = openImported(
             got.source === 'groove-scribe' ? 'the Groove Scribe link' : 'the BeatBreaker link',
             got.doc
           );
@@ -275,7 +281,9 @@ export function useBuddyChat(studio: Studio): BuddyChat {
         }
       }
 
-      const payload = studioRef.current.payload();
+      // No render has happened since the import, so the studio still holds
+      // the pattern from before it.
+      const payload = imported ?? studioRef.current.payload();
       if (!payload) {
         setMessages((prev) => [
           ...prev,
@@ -296,7 +304,9 @@ export function useBuddyChat(studio: Studio): BuddyChat {
         assistantId: newId(),
         rev: -1,
         baseline: notesKey(payload),
-        payloadAt: studioRef.current.payload,
+        // After an import the stage is about to change under this function;
+        // null makes the first result compare against what is really there.
+        payloadAt: imported ? null : studioRef.current.payload,
         pushed: false,
       };
       setMessages((prev) => [...prev, { id: turn.assistantId, role: 'assistant', text: '' }]);

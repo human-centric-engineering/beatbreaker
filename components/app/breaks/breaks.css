@@ -819,11 +819,24 @@
   animation: bb-flash 1.4s ease-out;
   box-shadow: 0 0 0 2px transparent;
 }
+.bb .cell.flash-odd {
+  animation-name: bb-flash-odd;
+}
 .bb .sheet rect.flash {
   animation: bb-flash-bar 1.4s ease-out forwards;
   opacity: 0;
 }
 @keyframes bb-flash {
+  0%,
+  35% {
+    box-shadow: 0 0 0 3px var(--brass);
+  }
+  100% {
+    box-shadow: 0 0 0 3px transparent;
+  }
+}
+/* bb-flash's twin: switching animation-name restarts the animation. */
+@keyframes bb-flash-odd {
   0%,
   35% {
     box-shadow: 0 0 0 3px var(--brass);

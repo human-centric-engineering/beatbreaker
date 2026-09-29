@@ -34,10 +34,15 @@ interface StaveProps {
   playing?: boolean;
   /** Steps to light, as indices into `engraving.map` — what BeatBuddy just changed. */
   flash?: readonly number[];
+  /** `Flash.seq`: a new value remounts the rects, so the same steps flash again. */
+  flashSeq?: number;
 }
 
 export const Stave = memo(
-  forwardRef<StaveHandle, StaveProps>(function Stave({ engraving, label, playing, flash }, ref) {
+  forwardRef<StaveHandle, StaveProps>(function Stave(
+    { engraving, label, playing, flash, flashSeq },
+    ref
+  ) {
     const head = useRef<SVGRectElement>(null);
 
     useImperativeHandle(ref, () => ({
@@ -90,7 +95,7 @@ export const Stave = memo(
             const a = engraving.map[idx];
             return a ? (
               <rect
-                key={idx}
+                key={`${flashSeq ?? 0}:${idx}`}
                 className="flash"
                 x={a.x}
                 y={a.y}
