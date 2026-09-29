@@ -228,6 +228,7 @@ describe('reserved fork tiers', () => {
     ).toEqual([
       'model Break',
       'model BreakReport',
+      'model BuddyWorkspace',
       'model DrummerProfile',
       'model Kit',
       'model LibraryEntry',

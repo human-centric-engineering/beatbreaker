@@ -14,6 +14,13 @@ import type { SeedContext } from '@/prisma/runner';
  * the definition its class validates against; and the agent gets its `v1`,
  * since this seed runs after Sunrise's own backfill of initial versions.
  *
+ * FORK NOTE — this reads the real `BEATBUDDY_CAPABILITIES` from
+ * `@/lib/app/capabilities` on purpose: the seed rows must match the classes
+ * actually registered, and a mock would let the two drift apart silently. A
+ * fork that adds a BeatBuddy tool to that seam should see the "a seed row for
+ * every registered tool" case fail until it adds the matching row to
+ * `BEATBUDDY_CAPABILITY_ROWS` in the seed — that failure is the point.
+ *
  * @see prisma/seeds/app-beatbreaker/003-beatbuddy.ts
  */
 
