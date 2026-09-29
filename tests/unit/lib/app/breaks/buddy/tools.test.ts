@@ -3,6 +3,13 @@
  * from `CapabilityContext.userId` and never from the arguments, and nothing
  * can publish, share or delete. Checked across the registered set, so a new
  * tool is held to them without anyone remembering to add a test.
+ *
+ * FORK NOTE — this reads the real `BEATBUDDY_CAPABILITIES` from
+ * `@/lib/app/capabilities` on purpose: a mock would hold the guardrails to a
+ * list of its own and let a new tool slip past them. A fork that adds or
+ * removes a BeatBuddy tool in that seam should see "are the twelve in the
+ * plan" fail until it updates the expected slugs here; the guardrail cases
+ * then cover the new tool automatically.
  */
 
 import { describe, expect, it } from 'vitest';
