@@ -6,7 +6,7 @@ import { DOCTOR_MOVES } from '@/lib/app/breaks/doctor';
 
 /**
  * Request schemas for the domain endpoints — generate, doctor, critique,
- * engrave and MIDI.
+ * engrave, MIDI and import.
  *
  * **Why these exist at all.** The generator, the critic and the engraver run in
  * the browser, and the web Studio will keep running them there: a regenerate
@@ -105,8 +105,35 @@ export const midiBreakSchema = z.object({
   bars: z.number().int().min(1).max(64).default(8),
 });
 
+/** A drum pattern's MIDI file is a few kilobytes; this leaves room for a long one. */
+export const MAX_IMPORT_MIDI_BYTES = 128 * 1024;
+/** A BeatBreaker code of two full sections, or a long Groove Scribe link, with room to spare. */
+export const MAX_IMPORT_TEXT = 16 * 1024;
+/** The whole request, checked from `Content-Length` before the body is read. */
+export const MAX_IMPORT_BODY_BYTES = Math.ceil(MAX_IMPORT_MIDI_BYTES / 3) * 4 + 4096;
+
+export const importBreakSchema = z.discriminatedUnion('kind', [
+  z.object({
+    kind: z.literal('midi'),
+    /** The file, base64. JSON rather than multipart, so every client sends one shape. */
+    data: z
+      .string()
+      .min(1)
+      .max(Math.ceil(MAX_IMPORT_MIDI_BYTES / 3) * 4)
+      .regex(/^[A-Za-z0-9+/]+={0,2}$/, 'the file must be base64'),
+    /** The file's name — the title, when the file carries none. */
+    fileName: z.string().max(255).optional(),
+  }),
+  z.object({
+    kind: z.literal('text'),
+    /** A BeatBreaker code, a link carrying one, or a Groove Scribe link. */
+    text: z.string().min(1).max(MAX_IMPORT_TEXT),
+  }),
+]);
+
 export type GenerateBreakInput = z.infer<typeof generateBreakSchema>;
 export type DoctorBreakInput = z.infer<typeof doctorBreakSchema>;
 export type CritiqueBreakInput = z.infer<typeof critiqueBreakSchema>;
 export type EngraveBreakInput = z.infer<typeof engraveBreakSchema>;
 export type MidiBreakInput = z.infer<typeof midiBreakSchema>;
+export type ImportBreakInput = z.infer<typeof importBreakSchema>;
