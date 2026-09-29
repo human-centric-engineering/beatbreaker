@@ -18,6 +18,33 @@ release process.
 
 ### Added
 
+- **Talking to BeatBuddy — `POST /api/v1/buddy/stream` and
+  `GET /api/v1/buddy/allowance`.** A turn sends the message, the pattern on
+  screen (`doc`, held to `sharePayloadSchema`), the section showing, and
+  optionally a `conversationId` and photo or PDF attachments; the reply is
+  Sunrise's chat SSE stream. The route pins the `beatbuddy` agent and takes the
+  user from the session — the body names neither — and writes the document to
+  the caller's workspace before the model is called, with
+  `contextType: 'studio'`. A daily allowance of 30 turns (D4, UTC day, counted
+  from the caller's own BeatBuddy messages) refuses the next turn with a 429
+  `BUDDY_ALLOWANCE_SPENT` carrying `{ limit, used, remaining, resetsAt }`,
+  which is also what the allowance endpoint returns. A missing or inactive
+  agent is a 503 `BUDDY_UNAVAILABLE`. Everything that can refuse a turn runs
+  before the workspace is written.
+
+- **BeatBuddy's agent, workspace and first two tools — a `BuddyWorkspace`
+  model, seed `app-beatbreaker/003-beatbuddy`, capabilities `get_pattern` and
+  `apply_doctor_move`** (migration `buddy_workspace`). The workspace is one row
+  per person holding the pattern BeatBuddy is working on; `userId` cascades
+  (hand-written FK, probed) and the export gains `buddyWorkspace`. A write names
+  the `rev` it read and is refused if the row has moved on, so two tool calls
+  cannot overwrite each other. The agent `beatbuddy` is seeded with no provider
+  or model of its own (it answers on the install's default chat model), public,
+  with image and PDF input and spend caps. Both tools take the user from
+  `CapabilityContext.userId` and nothing from their arguments; the seeded rows
+  read each `functionDefinition` from the capability class. Registered from
+  `lib/app/capabilities.ts`.
+
 - **Importing patterns — `POST /api/v1/breaks/import`.** A MIDI file
   (base64, up to 128 KB), a BeatBreaker code or `#b=` link, or a Groove Scribe
   link goes in. A validated wire document comes out, with `source` and a

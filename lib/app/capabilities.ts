@@ -13,6 +13,18 @@
  *
  * Full guide + example: CUSTOMIZATION.md §4 · .context/orchestration/capabilities.md
  */
+import { ApplyDoctorMoveCapability } from '@/lib/app/breaks/buddy/apply-doctor-move';
+import { GetPatternCapability } from '@/lib/app/breaks/buddy/get-pattern';
+import { registerAppCapability } from '@/lib/orchestration/capabilities/registry';
+
+/**
+ * BeatBuddy's tools (Phase 7). Each needs its active `AiCapability` row and a
+ * binding to the `beatbuddy` agent before a model sees it — both seeded by
+ * `prisma/seeds/app-beatbreaker/003-beatbuddy.ts`, which reads each tool's
+ * `functionDefinition` from these same classes.
+ */
+export const BEATBUDDY_CAPABILITIES = [new GetPatternCapability(), new ApplyDoctorMoveCapability()];
+
 export function initAppCapabilities(): void {
-  // No app capabilities by default.
+  for (const capability of BEATBUDDY_CAPABILITIES) registerAppCapability(capability);
 }

@@ -179,6 +179,15 @@ export function registerAppDriftProbes(): void {
     probe: constraintExists('sample_userId_fkey', 'ON DELETE CASCADE'),
   });
 
+  /* BeatBuddy's workspace (20260929120000_buddy_workspace): the pattern you
+     had open when you last asked BeatBuddy something. */
+  registerAppDriftProbe({
+    name: 'buddy_workspace_userId_fkey (hand-written FK → user)',
+    kind: 'FK constraint',
+    table: 'buddy_workspace',
+    probe: constraintExists('buddy_workspace_userId_fkey', 'ON DELETE CASCADE'),
+  });
+
   /* Your drummer profile (20260927100000_sharing): the username your published
      patterns appear under. The patterns themselves already go with
      break_userId_fkey. */

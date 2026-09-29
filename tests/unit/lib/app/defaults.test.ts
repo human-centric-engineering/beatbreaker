@@ -296,7 +296,8 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     // drum samples. Phase 6 (task 6.2) added DrummerProfile, the username you
     // publish under, and excluded ReservedUsername, a released name with no
     // user id on it. Phase 6-iii (task 6.10) added BreakReport, the reports
-    // you filed — not those about your own patterns.
+    // you filed — not those about your own patterns. Phase 7 (task 7.8) added
+    // BuddyWorkspace, the pattern BeatBuddy last saw.
     assert: async () => {
       __resetAppSubjectSourceRegistryForTests();
       expect(
@@ -306,6 +307,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
       ).toEqual([
         'Break',
         'BreakReport',
+        'BuddyWorkspace',
         'DrummerProfile',
         'Kit',
         'PatternLibrary',
@@ -322,6 +324,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
           .sort()
       ).toEqual([
         'breaks',
+        'buddyWorkspace',
         'drummerProfile',
         'kits',
         'libraries',
@@ -525,9 +528,10 @@ const SEAM_DEFAULTS: SeamDefault[] = [
   {
     seam: 'lib/app/ci.ts',
     risk: 'a stray coverage exclusion would switch the per-file 80% floor OFF for that path on every install, a stray always-run entry would make every scoped run load a test whose file the install may not even have, and a stray ownerless-surface exception would let a route read rows nobody owns without the policy being asked — the first silences a gate, the second breaks the gate that replaced it, the third exempts a file from the authorization seam',
-    // Filled by BeatBreaker: its four whole-tree greps are always-run (Phase 5).
-    // Re-pointed at our entries rather than deleted, so an accidental addition
-    // still fails. Expect this row to conflict on a Sunrise sync; keep ours.
+    // Filled by BeatBreaker: its whole-tree greps are always-run (Phase 5), and
+    // BeatBuddy's allowance counts the owner's own turns outside the access
+    // helpers (Phase 7). Re-pointed at our entries rather than deleted, so an
+    // accidental addition still fails. Expect this row to conflict on a Sunrise sync; keep ours.
     assert: () => {
       expect(appCoverageExclusions).toEqual([]);
       expect(appAlwaysRunTests.map((t) => t.path)).toEqual([
@@ -537,7 +541,9 @@ const SEAM_DEFAULTS: SeamDefault[] = [
         'tests/unit/lib/app/breaks/no-content-imports.test.ts',
         'tests/unit/lib/app/breaks/audio/performance-consistency.test.ts',
       ]);
-      expect(appOwnerlessSurfaceExceptions).toEqual([]);
+      expect(appOwnerlessSurfaceExceptions.map((e) => [e.path, e.disposition])).toEqual([
+        ['lib/app/breaks/buddy/allowance.ts', 'by-design'],
+      ]);
     },
   },
 ];

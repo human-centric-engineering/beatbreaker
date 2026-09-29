@@ -261,4 +261,14 @@ export interface AppOwnerlessSurfaceException {
  * ];
  * ```
  */
-export const appOwnerlessSurfaceExceptions: AppOwnerlessSurfaceException[] = [];
+export const appOwnerlessSurfaceExceptions: AppOwnerlessSurfaceException[] = [
+  {
+    path: 'lib/app/breaks/buddy/allowance.ts',
+    disposition: 'by-design',
+    reason:
+      "counts the signed-in drummer's own BeatBuddy turns for the daily cap (D4), scoped by " +
+      '`conversation.userId` from their session. The access helpers answer what an admin may ' +
+      "see of other people's rows; there is no admin here, only the owner reading a count of " +
+      'their own messages.',
+  },
+];

@@ -375,6 +375,7 @@ describe('shipped lib/app/db-drift.ts scaffold', () => {
       'break',
       'break_report',
       'break_report',
+      'buddy_workspace',
       'drummer_profile',
       'kit',
       'pattern_library',
