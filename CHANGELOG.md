@@ -18,6 +18,18 @@ release process.
 
 ### Added
 
+- **Importing patterns — `POST /api/v1/breaks/import`.** A MIDI file
+  (base64, up to 128 KB), a BeatBreaker code or `#b=` link, or a Groove Scribe
+  link goes in. A validated wire document comes out, with `source` and a
+  sentence in `notes` for anything the reader left out or bent to fit. It is
+  deterministic, and no URL is fetched: any other web address is a 422
+  `IMPORT_UNREADABLE`, and a body whose `Content-Length` is over the cap
+  is a 413 before it is read. It
+  sits on new domain functions in `lib/app/breaks`: `readMidi` (the inverse of
+  `buildMidi`), `readGrooveScribeUrl`, `toText`/`fromText` (the lane-string
+  notation BeatBuddy will read and write) and `tidy` (the "tidy up notes"
+  clean-up). See `.context/app/breaks.md`.
+
 - **Publishing, reports and moderation — `POST /api/v1/breaks/:id/publish`,
   a `BreakReport` model, `POST /api/v1/public/patterns/:slug/report`,
   `/api/v1/admin/patterns` and `/admin/patterns`** (migration
