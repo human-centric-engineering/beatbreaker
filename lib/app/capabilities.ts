@@ -14,7 +14,17 @@
  * Full guide + example: CUSTOMIZATION.md §4 · .context/orchestration/capabilities.md
  */
 import { ApplyDoctorMoveCapability } from '@/lib/app/breaks/buddy/apply-doctor-move';
+import { ExplainDifficultyCapability } from '@/lib/app/breaks/buddy/explain-difficulty';
+import { FindPatternsCapability } from '@/lib/app/breaks/buddy/find-patterns';
+import { GeneratePatternCapability } from '@/lib/app/breaks/buddy/generate-pattern';
 import { GetPatternCapability } from '@/lib/app/breaks/buddy/get-pattern';
+import { ListStylesCapability } from '@/lib/app/breaks/buddy/list-styles';
+import { OpenPatternCapability } from '@/lib/app/breaks/buddy/open-pattern';
+import { SavePatternCapability } from '@/lib/app/breaks/buddy/save-pattern';
+import { SetPlaybackCapability } from '@/lib/app/breaks/buddy/set-playback';
+import { SuggestTitleCapability } from '@/lib/app/breaks/buddy/suggest-title';
+import { TidyPatternCapability } from '@/lib/app/breaks/buddy/tidy-pattern';
+import { WriteBarsCapability } from '@/lib/app/breaks/buddy/write-bars';
 import { registerAppCapability } from '@/lib/orchestration/capabilities/registry';
 
 /**
@@ -23,7 +33,20 @@ import { registerAppCapability } from '@/lib/orchestration/capabilities/registry
  * `prisma/seeds/app-beatbreaker/003-beatbuddy.ts`, which reads each tool's
  * `functionDefinition` from these same classes.
  */
-export const BEATBUDDY_CAPABILITIES = [new GetPatternCapability(), new ApplyDoctorMoveCapability()];
+export const BEATBUDDY_CAPABILITIES = [
+  new GetPatternCapability(),
+  new ListStylesCapability(),
+  new GeneratePatternCapability(),
+  new WriteBarsCapability(),
+  new ApplyDoctorMoveCapability(),
+  new TidyPatternCapability(),
+  new SetPlaybackCapability(),
+  new ExplainDifficultyCapability(),
+  new FindPatternsCapability(),
+  new OpenPatternCapability(),
+  new SavePatternCapability(),
+  new SuggestTitleCapability(),
+];
 
 export function initAppCapabilities(): void {
   for (const capability of BEATBUDDY_CAPABILITIES) registerAppCapability(capability);

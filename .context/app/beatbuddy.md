@@ -2,8 +2,8 @@
 
 The Studio's assistant (Phase 7, app-plan §6). A drummer asks for something in
 words and the chart changes. This page grows as Phase 7 lands. So far it covers
-the loop as built in 7.8–7.9 and what Spike B (7.10) found when the loop met the
-live model.
+the loop as built in 7.8–7.9, what Spike B (7.10) found when the loop met the
+live model, and the twelve tools (7.11).
 
 ## The loop
 
@@ -97,3 +97,56 @@ script was throwaway and is not in the tree.
   rather than patched in the fork.
 - **Speed.** A turn with one tool call took about 3 s end to end, and a turn
   with a retry about 3.5 s.
+
+## The tools
+
+All twelve are `BaseCapability` classes in `lib/app/breaks/buddy/`, registered
+from `BEATBUDDY_CAPABILITIES` in `lib/app/capabilities.ts`. The seed reads each
+tool's `functionDefinition` from its class, so the row and the code cannot
+disagree.
+
+| Tool                 | Changes the workspace | Built on                                                        |
+| -------------------- | --------------------- | --------------------------------------------------------------- |
+| `get_pattern`        | no                    | `toText`, `critique`, `playability`                             |
+| `list_styles`        | no                    | the catalogue (`listStyles`)                                    |
+| `generate_pattern`   | both sections         | `generateGood`, `deriveB` — what the Generate button runs       |
+| `write_bars`         | one section           | `fromText`, `playability`, `tidy`'s physical rules              |
+| `apply_doctor_move`  | A, B or both          | `doctor`                                                        |
+| `tidy_pattern`       | A, B or both          | `tidy`                                                          |
+| `set_playback`       | tempo, swing, layer   | —                                                               |
+| `explain_difficulty` | no                    | `critique`, `playability`, run per bar                          |
+| `find_patterns`      | no                    | own rows by `userId`, `listLibraries`, `listPublished`          |
+| `open_pattern`       | replaces it           | `openSavedBreak`, `openableIdForSlug`, the library picker's way |
+| `save_pattern`       | no (writes a `Break`) | `breakCreateData`, as `POST /api/v1/breaks`                     |
+| `suggest_title`      | no                    | `critique`, `nameBreak`                                         |
+
+- **Every mutating tool goes through `editWorkspace()`** (`edit.ts`): read the
+  workspace, apply the edit, hold the result to `sharePayloadSchema`, write if
+  the rev has not moved. A lost write is made again on the newer pattern, up to
+  `WRITE_ATTEMPTS` (3), which is Spike B's decision. The edit can therefore run
+  more than once, so anything random is drawn before it: `generate_pattern`
+  draws its seed outside. Every mutating tool returns `{ doc, rev, summary,
+changes, sections }`, which is what the drawer applies.
+- **`write_bars` checks each written bar on its own, before anything is
+  written.** It applies the critic's hard rules (kick triples, snare runs, a
+  backbeat, air), plus the three physical rules `tidy()` knows: one cymbal at
+  a time, two hands, no foot chick under an open hat. A refusal names the bar,
+  the beat and the rule. Lanes the writer used join the section first, so a
+  clash on a new lane is seen. `whole: true` replaces the section and may
+  change its meter; the backbeat then moves to where the snare lands in more
+  than half the bars. The rule refuses a whole section with no backbeat at all,
+  which is a genre-level limit to revisit if the evals find a real groove it
+  blocks.
+- **Nothing takes a user from its arguments** (`tools.test.ts` checks every
+  registered tool). `open_pattern` reads through the same query the Studio's
+  `/studio/[id]` uses, so another person's private pattern and an id that was
+  never saved are the same `not_found`. `save_pattern` always saves private. No
+  tool can share, publish or delete.
+- **`set_playback` does not do count-in.** The plan listed it, but count-in is
+  a `StudioSettings` field of the person's, not part of a pattern, and every
+  other tool edits the pattern. The tempo range is the Studio's: 50 to
+  `maxBpm(meter)`.
+- **The instructions changed in the seed only.** The seed's agent `update` branch
+  leaves an admin's edits alone, so the new line about dependent edits reaches a
+  fresh install, not an existing agent row. On an existing install, paste it in
+  from `003-beatbuddy.ts` at `/admin/orchestration/agents`.

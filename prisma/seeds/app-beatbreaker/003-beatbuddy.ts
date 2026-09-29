@@ -13,7 +13,7 @@ import type { SeedUnit } from '@/prisma/runner';
 /** The first draft from the plan (§6). Tuning it is what the evaluation set is for. */
 export const BEATBUDDY_INSTRUCTIONS = `You are BeatBuddy, the assistant inside BeatBreaker, a tool drummers use to learn, practise and write drum patterns. You help by using your tools on the pattern the user has open. You do not describe changes you have not made.
 
-How to work. Start by calling get_pattern unless the user is asking for something brand new. Prefer the most specific tool: a named doctor move over rewriting bars; generate_pattern with a real style over writing from scratch. If the user names a genre, call list_styles and choose the closest key; if nothing is close, say so in one sentence and write it yourself with write_bars, a bar or two at a time. If write_bars refuses a bar, read the reason, fix it, and try again — at most three attempts, then tell the user what would not work.
+How to work. Start by calling get_pattern unless the user is asking for something brand new. Changes that depend on each other go one call at a time: wait for one to finish before making the next, and don't call get_pattern alongside a change — every change already returns the sections it touched. Prefer the most specific tool: a named doctor move over rewriting bars; generate_pattern with a real style over writing from scratch. If the user names a genre, call list_styles and choose the closest key; if nothing is close, say so in one sentence and write it yourself with write_bars, a bar or two at a time. If write_bars refuses a bar, read the reason, fix it, and try again — at most three attempts, then tell the user what would not work.
 
 Be a good teacher's assistant. Change what was asked for and nothing else. Keep patterns playable by one person: two hands, two feet. After a change, say what you did in one or two plain sentences — which section, which bars, what kind of notes — and offer at most one next step. Use drummers' words: "the 'a' of 3", "ghost notes", "open hat", "backbeat". Don't explain notation unless asked.
 
@@ -37,12 +37,80 @@ export const BEATBUDDY_CAPABILITY_ROWS: Record<
     executionHandler: 'GetPatternCapability',
     isIdempotent: true,
   },
+  list_styles: {
+    name: 'BeatBuddy: list the styles',
+    description: 'Lists the styles in the catalogue, so a named genre can be mapped onto a key.',
+    executionHandler: 'ListStylesCapability',
+    isIdempotent: true,
+  },
+  generate_pattern: {
+    name: 'BeatBuddy: generate a pattern',
+    description:
+      "Generates a new A and B section in a catalogue style, replacing the caller's open pattern.",
+    executionHandler: 'GeneratePatternCapability',
+    isIdempotent: false,
+  },
+  write_bars: {
+    name: 'BeatBuddy: write bars',
+    description:
+      "Replaces bars of the caller's open pattern with bars the model wrote in the text notation. Refuses an unplayable bar.",
+    executionHandler: 'WriteBarsCapability',
+    isIdempotent: false,
+  },
   apply_doctor_move: {
     name: 'BeatBuddy: apply a doctor move',
     description:
       "Applies one of the Studio's twelve named edits to section A, B or both of the caller's open pattern.",
     executionHandler: 'ApplyDoctorMoveCapability',
     isIdempotent: false,
+  },
+  tidy_pattern: {
+    name: 'BeatBuddy: tidy the pattern',
+    description:
+      "Deterministic clean-up of the caller's open pattern, every change reported. Never adds a note.",
+    executionHandler: 'TidyPatternCapability',
+    isIdempotent: false,
+  },
+  set_playback: {
+    name: 'BeatBuddy: set tempo, swing or layer',
+    description: "Changes the tempo, swing or layer of the caller's open pattern. Not its notes.",
+    executionHandler: 'SetPlaybackCapability',
+    isIdempotent: false,
+  },
+  explain_difficulty: {
+    name: 'BeatBuddy: explain the difficulty',
+    description:
+      "Explains, bar by bar, what makes the caller's open pattern hard or weak, in the critic's terms.",
+    executionHandler: 'ExplainDifficultyCapability',
+    isIdempotent: true,
+  },
+  find_patterns: {
+    name: 'BeatBuddy: find patterns',
+    description:
+      "Searches the caller's own saved patterns, the famous breaks and the community library.",
+    executionHandler: 'FindPatternsCapability',
+    isIdempotent: true,
+  },
+  open_pattern: {
+    name: 'BeatBuddy: open a pattern',
+    description:
+      'Loads a pattern the caller may open — their own, a famous break, or a shared or published one — into their workspace.',
+    executionHandler: 'OpenPatternCapability',
+    isIdempotent: false,
+  },
+  save_pattern: {
+    name: 'BeatBuddy: save the pattern',
+    description:
+      "Saves the caller's open pattern to their account as a new private pattern. Cannot share or publish.",
+    executionHandler: 'SavePatternCapability',
+    isIdempotent: false,
+  },
+  suggest_title: {
+    name: 'BeatBuddy: material for a title',
+    description:
+      "Facts about the open pattern's rhythm and placeholder names, for the model to suggest titles from.",
+    executionHandler: 'SuggestTitleCapability',
+    isIdempotent: true,
   },
 };
 
