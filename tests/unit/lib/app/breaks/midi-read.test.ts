@@ -20,17 +20,22 @@ import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { testStyle } from '@/tests/helpers/catalogue';
 
-function exported(pat: Pattern, bpm = 100): Uint8Array {
+/**
+ * The export at real dynamics. The hats slider shapes every hi-hat and ride by
+ * where it falls in the beat, with a random wobble on top, and the round trip
+ * has to hold anyway — that is what `cymbalVelocity`'s bands are for.
+ */
+function exported(pat: Pattern, bpm = 100, hats = 100): Uint8Array {
   const file = buildMidi(
     pat.bars.map((_, barIdx) => ({ pattern: pat, barIdx })),
-    { bpm, swing: 0, feel: 0, hats: 0 }
+    { bpm, swing: 0, feel: 0, hats }
   );
   return new Uint8Array(file.bytes);
 }
 
-/** What survives the export: everything but a hi-hat accent, which the hats slider reshapes (see the module doc). */
+/** Everything but percussion, which is compared by instrument (below). */
 function expectedBar(bar: Bar): Bar {
-  const out = { ...bar, h: bar.h.map((v) => (v === 2 ? 1 : v)) };
+  const out = { ...bar };
   for (const L of PERC_LANES) out[L] = [];
   return out;
 }
@@ -50,27 +55,39 @@ function percByInst(pat: {
 }
 
 describe('readMidi — the round trip through buildMidi', () => {
-  it('gives back every famous break note for note, in its own meter and tempo', () => {
-    LIBRARY.forEach((item, index) => {
-      const pat = patternFromLibrary(
-        item,
-        index,
-        STYLES[item.style] ? testStyle(item.style) : undefined
-      );
-      const r = readMidi(exported(pat, item.bpm));
-      if (!r.ok) throw new Error(`${item.title}: ${r.error}`);
-      expect(r.pattern.meter, item.title).toBe(pat.meter);
-      expect(r.pattern.bpm, item.title).toBe(item.bpm);
-      expect(r.pattern.bars, item.title).toHaveLength(pat.bars.length);
-      r.pattern.bars.forEach((bar, bi) => {
-        const want = expectedBar(pat.bars[bi]);
-        for (const L of LANES) {
-          if ((PERC_LANES as string[]).includes(L)) continue;
-          expect(bar[L], `${item.title} bar ${bi + 1} ${L}`).toEqual(want[L]);
-        }
+  it('gives back every famous break note for note — hat accents included — at every dynamics setting', () => {
+    for (const hats of [0, 100, 150]) {
+      LIBRARY.forEach((item, index) => {
+        const pat = patternFromLibrary(
+          item,
+          index,
+          STYLES[item.style] ? testStyle(item.style) : undefined
+        );
+        const r = readMidi(exported(pat, item.bpm, hats));
+        if (!r.ok) throw new Error(`${item.title}: ${r.error}`);
+        expect(r.pattern.meter, item.title).toBe(pat.meter);
+        expect(r.pattern.bpm, item.title).toBe(item.bpm);
+        expect(r.pattern.bars, item.title).toHaveLength(pat.bars.length);
+        r.pattern.bars.forEach((bar, bi) => {
+          const want = expectedBar(pat.bars[bi]);
+          for (const L of LANES) {
+            if ((PERC_LANES as string[]).includes(L)) continue;
+            expect(bar[L], `${item.title} bar ${bi + 1} ${L} at hats ${hats}`).toEqual(want[L]);
+          }
+        });
+        expect(r.pattern.notes, item.title).toEqual([]);
       });
-      expect(r.pattern.notes, item.title).toEqual([]);
-    });
+    }
+  });
+
+  it('gives back a hat accent on every step of the bar, where the shape is quietest', () => {
+    const pat = patternFromLibrary(LIBRARY[0], 0, testStyle(LIBRARY[0].style));
+    // an accent on every step, the "e"s and "a"s the shape pulls down hardest included
+    pat.bars = [{ ...pat.bars[0], h: pat.bars[0].h.map(() => 2), r: pat.bars[0].r.map(() => 0) }];
+    for (let run = 0; run < 20; run++) {
+      const r = readMidi(exported(pat, 100, 150));
+      expect(r.ok && r.pattern.bars[0].h).toEqual(pat.bars[0].h);
+    }
   });
 
   it('gives back percussion parts by instrument', () => {

@@ -1,5 +1,6 @@
 import { type ImportResult, capBars } from '@/lib/app/breaks/import';
 import { PERC_INSTS, PERC_LANES } from '@/lib/app/breaks/lanes';
+import { ACCENT_VELOCITY } from '@/lib/app/breaks/midi';
 import { DEFAULT_METER, METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import type { Bar, LaneKey, PercLaneKey } from '@/lib/app/breaks/types';
@@ -12,20 +13,18 @@ import type { Bar, LaneKey, PercLaneKey } from '@/lib/app/breaks/types';
  * event. Drums are read from channel 10; a file with nothing there is read
  * from every channel, since some exporters put a drum track on channel 1.
  *
- * **Velocity decides accents and ghosts**, with the thresholds below, which is
- * what a file from a DAW or an e-kit means by them. One thing does not survive
- * BeatBreaker's own export: a hi-hat accent, because the export shapes every
- * hat's velocity by where it falls in the beat (the hats slider), and an accent
- * on an off-beat comes out quieter than a plain hat on the beat. Open hats and
- * ride bells are separate notes and come back exactly.
+ * **Velocity decides accents and ghosts** — `ACCENT_VELOCITY`, shared with the
+ * writer, and {@link GHOST_VELOCITY} — which is what a file from a DAW or an
+ * e-kit means by them. BeatBreaker's own export shapes hi-hat and ride
+ * velocities by where they fall in the beat but keeps each in its band
+ * (`cymbalVelocity`), so a hat accent comes back as an accent at any setting of
+ * the hats slider.
  *
  * Everything is bounds-checked; a truncated or hostile file is an error, not
  * an exception. Nothing here allocates in proportion to a number the file
  * claims — only to bytes it actually has.
  */
 
-/** A velocity at or above this is an accent. */
-export const ACCENT_VELOCITY = 110;
 /** A snare velocity below this is a ghost note. */
 export const GHOST_VELOCITY = 45;
 

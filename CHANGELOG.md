@@ -372,6 +372,15 @@ release process.
 
 ### Changed
 
+- **`POST /api/v1/breaks/midi` keeps hat accents distinct, and the ride now
+  shapes as the hats do.** The hats slider still shapes every hi-hat and ride
+  velocity by where it falls in the beat, but the export keeps each in a band.
+  Plain notes stay at or below 105, and hat accents and ride bells at or above
+  112. An off-beat accent is therefore no longer written quieter than a plain
+  hat on the beat, which lost it in a DAW, on an e-kit and in the import. The
+  ride used to shape at 80% of the hats' depth. It now matches them, in
+  playback and in the export. `hatShape` loses its `kind` argument.
+
 - **`Break.shared` is gone; `visibility` replaces it** (migration `sharing`,
   which maps `shared = true` to `link` and gives each such row a slug).
   `POST` and `PATCH /api/v1/breaks` take `visibility: 'private' | 'link'`

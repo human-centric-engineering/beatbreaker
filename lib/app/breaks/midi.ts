@@ -13,7 +13,34 @@ import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
  * quantised would be missing the one thing about it that mattered. The single
  * exception is a hit pushed in front of bar 1, which has nowhere earlier to go
  * and sits on the downbeat.
+ *
+ * **So are the hi-hat and ride dynamics** (the hats slider), and they are
+ * written so a reader can still tell a written accent from a plain note. The
+ * shape makes an accent on the "a" quieter than a plain hat on the beat, which
+ * is right for the ear and wrong for a file: velocity is the only way MIDI says
+ * "accent", so everything that reads the file back — a DAW, an e-kit,
+ * `readMidi` — would lose it. The shaped velocity is therefore kept in a band:
+ * ordinary hats and rides at or below {@link PLAIN_CYMBAL_MAX}, accents and ride
+ * bells at or above {@link ACCENT_VELOCITY}. The shape still moves every note;
+ * it just never moves one across the line.
  */
+
+/** A velocity at or above this is an accent — what this file writes, and what `readMidi` reads. */
+export const ACCENT_VELOCITY = 110;
+/** The loudest a plain (unaccented) hi-hat or ride note is written. */
+export const PLAIN_CYMBAL_MAX = 105;
+/** The quietest a written accent is written, a clear step above the line. */
+const ACCENT_FLOOR = 112;
+
+/**
+ * A shaped hi-hat or ride velocity, in its band.
+ * @param loud  a hat accent or the ride bell — the written "loud" value
+ * @param shape the `hatShape` multiplier for this note
+ */
+export function cymbalVelocity(loud: boolean, shape: number): number {
+  if (loud) return clamp(Math.round(118 * shape), ACCENT_FLOOR, 127);
+  return clamp(Math.round(96 * shape), 1, PLAIN_CYMBAL_MAX);
+}
 
 export const MIDI_MAP: Record<string, number> = {
   k: 36,
@@ -119,20 +146,14 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
       if (bar.h[i]) {
         add(
           bar.h[i] === 3 ? MIDI_MAP.hOpen : MIDI_MAP.h,
-          clamp(Math.round(100 * hatShape(i, bar.h[i], 'h', m, attrs, opts.hats)), 1, 127),
+          cymbalVelocity(bar.h[i] === 2, hatShape(i, bar.h[i], m, attrs, opts.hats)),
           'h'
         );
       }
       if (bar.r[i]) {
         add(
           bar.r[i] === 2 ? MIDI_MAP.rBell : MIDI_MAP.r,
-          clamp(
-            Math.round(
-              (bar.r[i] === 2 ? 112 : 96) * hatShape(i, bar.r[i], 'r', m, attrs, opts.hats)
-            ),
-            1,
-            127
-          ),
+          cymbalVelocity(bar.r[i] === 2, hatShape(i, bar.r[i], m, attrs, opts.hats)),
           'r'
         );
       }

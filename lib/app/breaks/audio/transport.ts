@@ -282,12 +282,12 @@ export class Transport {
       send(sv === 4 ? MIDI_MAP.sCross : MIDI_MAP.s, v, at('s', sv === 1));
     }
     if (bar.h[i]) {
-      const v = 0.86 * hatShape(i, bar.h[i], 'h', m, attrs, snap.hats);
+      const v = 0.86 * hatShape(i, bar.h[i], m, attrs, snap.hats);
       if (g('h')) this.audio.hat(at('h'), v * g('h'), bar.h[i] === 3);
       send(bar.h[i] === 3 ? MIDI_MAP.hOpen : MIDI_MAP.h, v, at('h'));
     }
     if (bar.r[i]) {
-      const v = (bar.r[i] === 2 ? 0.95 : 0.84) * hatShape(i, bar.r[i], 'r', m, attrs, snap.hats);
+      const v = (bar.r[i] === 2 ? 0.95 : 0.84) * hatShape(i, bar.r[i], m, attrs, snap.hats);
       if (g('r')) this.audio.ride(at('r'), v * g('r'), bar.r[i] === 2);
       send(bar.r[i] === 2 ? MIDI_MAP.rBell : MIDI_MAP.r, v, at('r'));
     }

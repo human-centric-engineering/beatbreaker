@@ -59,11 +59,11 @@ argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
 | `engrave.ts`       | Notation as an `SvgNode` tree plus a playhead `map` with one anchor per step. It builds no DOM, so it runs on the server.                                                                                                                                              |
 | `doctor.ts`        | The twelve named edits (`DOCTOR_MOVES`). `entropy` makes a move reproducible when you pass a fixed value.                                                                                                                                                              |
 | `library.ts`       | `LibraryItem` (the shape the seed data is written in) and `patternFromLibrary(item, index, style?)`, which the seed runs to build each entry's stored document. The 47 entries themselves are rows.                                                                    |
-| `feel.ts`          | Swing positions, the per-style off-grid feel, and hi-hat dynamics. These change _when and how hard_ a note sounds, never the pattern.                                                                                                                                  |
+| `feel.ts`          | Swing positions, the per-style off-grid feel, and hi-hat and ride dynamics (`hatShape`, the same shape for both). These change _when and how hard_ a note sounds, never the pattern.                                                                                   |
 | `share.ts`         | `encodeBreak` / `decodeBreak` (base64 share codes), `breakDocFromPayload` (the same conversion for a JSON body) and `breakPayload` (a break as the JSON a save sends).                                                                                                 |
 | `schema.ts`        | Zod schemas for everything from outside: `sharePayloadSchema`, `packedPatternSchema`, `styleAttrsSchema`, `feelSchema`.                                                                                                                                                |
 | `catalogue/*`      | The data layer, the row schemas and the admin write shapes. Server-side. See `catalogue.md`.                                                                                                                                                                           |
-| `midi.ts`          | `buildMidi`: a format-0 Standard MIDI File, GM drum map on channel 10, with swing and feel written into the tick positions.                                                                                                                                            |
+| `midi.ts`          | `buildMidi`: a format-0 Standard MIDI File, GM drum map on channel 10, with swing and feel written into the tick positions, and the hi-hat and ride dynamics written into the velocities in bands, so an accent is always louder than a plain note (`cymbalVelocity`). |
 | `text.ts`          | `toText` / `fromText`: a pattern as one line per lane per bar, in the library's characters plus the percussion lanes. How BeatBuddy reads and writes a pattern. `fromText` is strict and names the bar, lane and step it refuses. See _The text notation_ below.       |
 | `tidy.ts`          | `tidy`: the deterministic clean-up behind "tidy up notes" — six rules, every change reported, never adds a note, idempotent.                                                                                                                                           |
 | `midi-read.ts`     | `readMidi`: the inverse of `buildMidi`. GM map to lanes, quantised to sixteenths, meter and tempo from the file. Bounds-checked; a bad file is an error, not an exception.                                                                                             |
@@ -489,11 +489,12 @@ has a style to start from. Up to sixteen bars are kept (A, then B); a longer
 source is trimmed with a note. A code older than v4 is decoded with the
 catalogue lookup, as `doctor` does.
 
-**A hi-hat accent does not survive BeatBreaker's own export.** `buildMidi`
-shapes every hat's velocity by where it falls in the beat, so an off-beat accent
-can come out quieter than a plain hat on the beat. Open hats and ride bells are
-separate notes and come back exactly. The round-trip test states this rather
-than hiding it.
+**Hat accents survive BeatBreaker's own export**, at any setting of the hats
+slider. The export shapes every hi-hat and ride velocity by where it falls in the
+beat, but keeps each in a band (`cymbalVelocity` in `midi.ts`). Plain notes stay
+at or below 105, and hat accents and ride bells stay at or above 112. The reader's
+accent line (110) is the writer's own `ACCENT_VELOCITY`. The round-trip test runs
+at dynamics 0, 100 and 150 and expects every note back.
 
 Any other web address is a 422 saying what can be read. A body whose
 `Content-Length` is over the cap is a 413 before it is read.

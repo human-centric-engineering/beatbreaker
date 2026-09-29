@@ -83,8 +83,11 @@ export function hatBase(step: number, m: Meter): number {
  * giving machine-even hats, accents and wobble included, for when you want the
  * grid rather than the groove.
  *
- * @param chip  the value written in the pattern: 2 is an accent, 3 an open hat
- * @param kind  `'r'` for the ride, which leans less than the hats do
+ * The ride is shaped exactly as the hats are: the stick on the beat is the
+ * loud one wherever it is playing time.
+ *
+ * @param chip  the value written in the pattern: 2 is an accent (or the ride
+ *              bell), 3 an open hat
  * @param hatsPct the Hi-hat dynamics slider, 0–150
  *
  * Not pure: the last few percent is deliberate wobble, because nobody is a
@@ -94,12 +97,11 @@ export function hatBase(step: number, m: Meter): number {
 export function hatShape(
   step: number,
   chip: number,
-  kind: 'h' | 'r',
   m: Meter,
   style: StyleAttrs | undefined,
   hatsPct: number
 ): number {
-  const depth = (hatsPct / 100) * (style?.hatDepth ?? 1) * (kind === 'r' ? 0.8 : 1);
+  const depth = (hatsPct / 100) * (style?.hatDepth ?? 1);
   let w = 1 - (1 - hatBase(step, m)) * depth;
   if (chip === 2) w *= 1 + 0.09 * Math.min(1, depth); // an accent written into the pattern
   if (chip === 3) w = Math.max(w, 1 - 0.1 * depth); // an open hat is a struck note, not a tick
