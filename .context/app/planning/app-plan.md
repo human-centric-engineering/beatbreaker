@@ -1753,8 +1753,9 @@ one-row-per-user `BuddyWorkspace`. Tools read and write _that_, so the second
 tool call in a turn sees what the first one did, and nothing depends on the
 model carrying a document between calls. Every mutating tool returns the new
 document; the client applies the last one it receives. A `rev` counter lets the
-client discard a result that lost a race with a manual edit. _(Spike B confirms
-this or replaces it with something simpler.)_
+client discard a result that lost a race with a manual edit. _(Spike B confirmed
+this, with one change: calls in the same model response run concurrently, so a
+mutating tool that loses the race re-reads and retries — see `beatbuddy.md`.)_
 
 **Why its own chat component.** The admin `ChatInterface` cannot add the working
 document to its request body, cannot suppress its approval card, and is 1,200
