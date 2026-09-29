@@ -151,13 +151,6 @@ export interface AppAlwaysRunTest {
  * @example
  * ```ts
  * export const appAlwaysRunTests: AppAlwaysRunTest[] = [
-  {
-    path: 'tests/unit/lib/app/breaks/audio/performance-consistency.test.ts',
-    reason:
-      'walks `lib/app`, `components/app` and `app` to hold that only `perform.ts` voices a ' +
-      'note — so the speakers, live MIDI and the MIDI file stay one performance. A new ' +
-      'output that computes its own dynamics imports nothing this test imports.',
-  },
  *   {
  *     path: 'tests/unit/prisma/seeds/framework-boot-order.test.ts',
  *     reason:
@@ -197,6 +190,13 @@ export const appAlwaysRunTests: AppAlwaysRunTest[] = [
       'greps `lib/app/`, `components/app/` and `app/` for imports of `prisma/seeds/app-beatbreaker/data/` and ' +
       'the old compiled-in table names (D13). The file that re-adds such an import is, by ' +
       'definition, not one this test imports.',
+  },
+  {
+    path: 'tests/unit/lib/app/breaks/audio/performance-consistency.test.ts',
+    reason:
+      'walks `lib/app`, `components/app` and `app` to hold that only `perform.ts` voices a ' +
+      'note — so the speakers, live MIDI and the MIDI file stay one performance. A new ' +
+      'output that computes its own dynamics imports nothing this test imports.',
   },
 ];
 
