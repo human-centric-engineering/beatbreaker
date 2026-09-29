@@ -535,6 +535,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
         'tests/unit/components/app/shell/studio-controls.test.ts',
         'tests/unit/lib/app/breaks/browser-keys.test.ts',
         'tests/unit/lib/app/breaks/no-content-imports.test.ts',
+        'tests/unit/lib/app/breaks/audio/performance-consistency.test.ts',
       ]);
       expect(appOwnerlessSurfaceExceptions).toEqual([]);
     },

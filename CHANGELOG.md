@@ -18,6 +18,18 @@ release process.
 
 ### Added
 
+- **Importing patterns — `POST /api/v1/breaks/import`.** A MIDI file
+  (base64, up to 128 KB), a BeatBreaker code or `#b=` link, or a Groove Scribe
+  link goes in. A validated wire document comes out, with `source` and a
+  sentence in `notes` for anything the reader left out or bent to fit. It is
+  deterministic, and no URL is fetched: any other web address is a 422
+  `IMPORT_UNREADABLE`, and a body whose `Content-Length` is over the cap
+  is a 413 before it is read. It
+  sits on new domain functions in `lib/app/breaks`: `readMidi` (the inverse of
+  `buildMidi`), `readGrooveScribeUrl`, `toText`/`fromText` (the lane-string
+  notation BeatBuddy will read and write) and `tidy` (the "tidy up notes"
+  clean-up). See `.context/app/breaks.md`.
+
 - **Publishing, reports and moderation — `POST /api/v1/breaks/:id/publish`,
   a `BreakReport` model, `POST /api/v1/public/patterns/:slug/report`,
   `/api/v1/admin/patterns` and `/admin/patterns`** (migration
@@ -359,6 +371,23 @@ release process.
   populated column, and every pending invitation round-trips as before.
 
 ### Changed
+
+- **The speakers, the live MIDI port and the MIDI file now play one
+  performance.** Every note's velocity and timing come from `performStep` in
+  `lib/app/breaks/perform.ts`, which the transport voices the speakers and the
+  port from and `POST /api/v1/breaks/midi` writes the file from. Before, the
+  file had its own velocity table (a ghost note was 28 in the file but played
+  at 0.5 of full on the speakers). Now every exported velocity is the
+  speakers' level × 127, and the import reads velocities against the same
+  levels. The hats slider still shapes hi-hats and rides by position in the
+  beat, but a plain one stays at or below 0.9 (114) and a written accent or
+  ride bell at or above 0.95 (121), so an off-beat accent is never quieter
+  than a plain hat. That now holds on the speakers and the port as well as the
+  file. The ride shapes exactly as the hats do; it used to shape at 80%. The
+  hi-hat foot chick is sent at 0.4, as it plays, not 0.55. `MIDI_MAP` moves
+  to `perform.ts` and is re-exported from `midi.ts`. `hatShape` loses its
+  `kind` argument. A test plays the transport, the port and the file against
+  each other, and fails if anything outside `perform.ts` voices a note.
 
 - **`Break.shared` is gone; `visibility` replaces it** (migration `sharing`,
   which maps `shared = true` to `link` and gives each such row a slug).

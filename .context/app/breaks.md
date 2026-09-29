@@ -45,33 +45,40 @@ argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
 
 ## Modules
 
-| Module             | What it does                                                                                                                                                                                                                                                           |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `types.ts`         | `Pattern`, `Bar`, `Pins`, `Meter`, `Style`, `StyleAttrs`, `ResolvedStyle`, `Feel`: the shapes everything else agrees on.                                                                                                                                               |
-| `meter.ts`         | The 12 meters. `stepsOf`, `groupsOf` (pulse groups in steps), `isGroupStart`, `pulseInfo`, `countLabelsOf`, and `remapStep`/`remapList`, which carry a style's 4/4 positions into another meter by (pulse, offset).                                                    |
-| `styles.ts`        | `styleIn(style, meter)` — a style carried into a meter it was not written for, by pulse rather than by raw step index. The style **table** is seed data now; see `catalogue.md`.                                                                                       |
-| `lanes.ts`         | Lane keys and order, `LANE_VALUES`, `LANE_DEFS`, percussion instruments (`PERC_INSTS`), the default mix, rosters per style.                                                                                                                                            |
-| `pattern.ts`       | `emptyBar`, `clonePattern`, pins (`pinArray`, `setPin`), `resolveLanes`, `writePerc`, and `parseBar`, which reads the bar-string notation the library is written in.                                                                                                   |
-| `rng.ts`           | `makeRng`, `wpick` (weighted pick), `clamp`.                                                                                                                                                                                                                           |
-| `generate.ts`      | `generatePattern` (one candidate), `deriveB` (the B section from an A), `toRide`, fills, `nameBreak`.                                                                                                                                                                  |
-| `critic.ts`        | `playability` is a pass/fail gate ("can four limbs play this?"). `critique` is a 0–100 opinion. `generateGood` draws 16 candidates and keeps the best, and an unplayable one wins only if nothing passes.                                                              |
-| `layers.ts`        | `reduceBar` / `reducePattern` for L1–L5, `LAYER_NAMES`, and `LAYER_V1_TO_V2` for codes saved before the layers were renumbered.                                                                                                                                        |
-| `engrave.ts`       | Notation as an `SvgNode` tree plus a playhead `map` with one anchor per step. It builds no DOM, so it runs on the server.                                                                                                                                              |
-| `doctor.ts`        | The twelve named edits (`DOCTOR_MOVES`). `entropy` makes a move reproducible when you pass a fixed value.                                                                                                                                                              |
-| `library.ts`       | `LibraryItem` (the shape the seed data is written in) and `patternFromLibrary(item, index, style?)`, which the seed runs to build each entry's stored document. The 47 entries themselves are rows.                                                                    |
-| `feel.ts`          | Swing positions, the per-style off-grid feel, and hi-hat dynamics. These change _when and how hard_ a note sounds, never the pattern.                                                                                                                                  |
-| `share.ts`         | `encodeBreak` / `decodeBreak` (base64 share codes), `breakDocFromPayload` (the same conversion for a JSON body) and `breakPayload` (a break as the JSON a save sends).                                                                                                 |
-| `schema.ts`        | Zod schemas for everything from outside: `sharePayloadSchema`, `packedPatternSchema`, `styleAttrsSchema`, `feelSchema`.                                                                                                                                                |
-| `catalogue/*`      | The data layer, the row schemas and the admin write shapes. Server-side. See `catalogue.md`.                                                                                                                                                                           |
-| `midi.ts`          | `buildMidi`: a format-0 Standard MIDI File, GM drum map on channel 10, with swing and feel written into the tick positions.                                                                                                                                            |
-| `kit.ts`           | The kit vocabulary — slots, voices, knob definitions, `ResolvedKit`, and the synth's own `SYNTH_FALLBACK` / `SAMPLE_STAND_IN`. The kit **table** is rows. Browser-only consumers.                                                                                      |
-| `pending-link.ts`  | Carries a shared link's `#b=` fragment through sign-in (see below).                                                                                                                                                                                                    |
-| `links.ts`         | `parseReferenceLink`: a YouTube, Vimeo or Spotify link, https and exact hosts only, rebuilt as a canonical URL from its id. `readStoredLinks` re-checks a stored list on the way out; `storedLinkSchema` reads one on the client.                                      |
-| `columns.ts`       | `columnsFromDoc`: the `Break` columns read off the document (style, style version, meter, tempo, swing, seed, bars, level), never off the request.                                                                                                                     |
-| `scratch.ts`       | The pattern that has never been saved, kept in `localStorage` (`bb.scratch`) across a reload; read back through `sharePayloadSchema`.                                                                                                                                  |
-| `saved/data.ts`    | `openSavedBreak`: the one "yours or not private" read that `GET /:id`, `/studio/[id]` and the copy route share. Server-side.                                                                                                                                           |
-| `saved/targets.ts` | What a pin and a practice visit point at: `visibleTarget` (the "yours, not private, or in the catalogue" rule), `TARGET_SELECT`, `toTargetView`, `targetVisible`. Server-side; `pins.ts` and `history.ts` share it.                                                    |
-| `audio/*`          | Browser only. `engine.ts` (Web Audio), `transport.ts` (the look-ahead clock, metronome, MIDI out), `packs.ts` / `your-samples.ts` (recorded kits and yours, [`samples.md`](./samples.md)), `encode-wav.ts` (a picked file as a sample), `midi-out.ts` (Web MIDI port). |
+| Module             | What it does                                                                                                                                                                                                                                                                                                          |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `types.ts`         | `Pattern`, `Bar`, `Pins`, `Meter`, `Style`, `StyleAttrs`, `ResolvedStyle`, `Feel`: the shapes everything else agrees on.                                                                                                                                                                                              |
+| `meter.ts`         | The 12 meters. `stepsOf`, `groupsOf` (pulse groups in steps), `isGroupStart`, `pulseInfo`, `countLabelsOf`, and `remapStep`/`remapList`, which carry a style's 4/4 positions into another meter by (pulse, offset).                                                                                                   |
+| `styles.ts`        | `styleIn(style, meter)` — a style carried into a meter it was not written for, by pulse rather than by raw step index. The style **table** is seed data now; see `catalogue.md`.                                                                                                                                      |
+| `lanes.ts`         | Lane keys and order, `LANE_VALUES`, `LANE_DEFS`, percussion instruments (`PERC_INSTS`), the default mix, rosters per style.                                                                                                                                                                                           |
+| `pattern.ts`       | `emptyBar`, `clonePattern`, pins (`pinArray`, `setPin`), `resolveLanes`, `writePerc`, and `parseBar`, which reads the bar-string notation the library is written in.                                                                                                                                                  |
+| `rng.ts`           | `makeRng`, `wpick` (weighted pick), `clamp`.                                                                                                                                                                                                                                                                          |
+| `generate.ts`      | `generatePattern` (one candidate), `deriveB` (the B section from an A), `toRide`, fills, `nameBreak`.                                                                                                                                                                                                                 |
+| `critic.ts`        | `playability` is a pass/fail gate ("can four limbs play this?"). `critique` is a 0–100 opinion. `generateGood` draws 16 candidates and keeps the best, and an unplayable one wins only if nothing passes.                                                                                                             |
+| `layers.ts`        | `reduceBar` / `reducePattern` for L1–L5, `LAYER_NAMES`, and `LAYER_V1_TO_V2` for codes saved before the layers were renumbered.                                                                                                                                                                                       |
+| `engrave.ts`       | Notation as an `SvgNode` tree plus a playhead `map` with one anchor per step. It builds no DOM, so it runs on the server.                                                                                                                                                                                             |
+| `doctor.ts`        | The twelve named edits (`DOCTOR_MOVES`). `entropy` makes a move reproducible when you pass a fixed value.                                                                                                                                                                                                             |
+| `library.ts`       | `LibraryItem` (the shape the seed data is written in) and `patternFromLibrary(item, index, style?)`, which the seed runs to build each entry's stored document. The 47 entries themselves are rows.                                                                                                                   |
+| `feel.ts`          | Swing positions, the per-style off-grid feel, and hi-hat and ride dynamics (`hatShape`, the same shape for both). These change _when and how hard_ a note sounds, never the pattern.                                                                                                                                  |
+| `share.ts`         | `encodeBreak` / `decodeBreak` (base64 share codes), `breakDocFromPayload` (the same conversion for a JSON body) and `breakPayload` (a break as the JSON a save sends).                                                                                                                                                |
+| `schema.ts`        | Zod schemas for everything from outside: `sharePayloadSchema`, `packedPatternSchema`, `styleAttrsSchema`, `feelSchema`.                                                                                                                                                                                               |
+| `catalogue/*`      | The data layer, the row schemas and the admin write shapes. Server-side. See `catalogue.md`.                                                                                                                                                                                                                          |
+| `perform.ts`       | `performStep`: **the one place a written note becomes a sound** — GM note, 0–1 velocity, swing-and-feel offset. The speakers, the live MIDI port and the MIDI file all voice from it. Also `LEVELS`, the cymbal bands, `midiVelocity` and `valueForVelocity` (what `readMidi` reads by). See _One performance_ below. |
+| `midi.ts`          | `buildMidi`: a format-0 Standard MIDI File, GM drum map on channel 10. Every note's velocity and position come from `performStep`, so the file is the performance you hear.                                                                                                                                           |
+| `text.ts`          | `toText` / `fromText`: a pattern as one line per lane per bar, in the library's characters plus the percussion lanes. How BeatBuddy reads and writes a pattern. `fromText` is strict and names the bar, lane and step it refuses. See _The text notation_ below.                                                      |
+| `tidy.ts`          | `tidy`: the deterministic clean-up behind "tidy up notes" — six rules, every change reported, never adds a note, idempotent.                                                                                                                                                                                          |
+| `midi-read.ts`     | `readMidi`: the inverse of `buildMidi`. GM map to lanes, quantised to sixteenths, meter and tempo from the file. Bounds-checked; a bad file is an error, not an exception.                                                                                                                                            |
+| `groove-scribe.ts` | `readGrooveScribeUrl`: a Groove Scribe link read from its query string, nothing fetched. Groove Scribe's own two sites only (`GROOVE_SCRIBE_HOSTS`).                                                                                                                                                                  |
+| `import.ts`        | `ImportedPattern` (what both readers produce) and `importedDoc`, which makes it a document: bars 1–8 are A, 9–16 are B.                                                                                                                                                                                               |
+| `read-import.ts`   | `readImport`: code, `#b=` link, Groove Scribe link or MIDI file in; a `BreakDoc` out. The one entry point behind the import endpoint.                                                                                                                                                                                 |
+| `kit.ts`           | The kit vocabulary — slots, voices, knob definitions, `ResolvedKit`, and the synth's own `SYNTH_FALLBACK` / `SAMPLE_STAND_IN`. The kit **table** is rows. Browser-only consumers.                                                                                                                                     |
+| `pending-link.ts`  | Carries a shared link's `#b=` fragment through sign-in (see below).                                                                                                                                                                                                                                                   |
+| `links.ts`         | `parseReferenceLink`: a YouTube, Vimeo or Spotify link, https and exact hosts only, rebuilt as a canonical URL from its id. `readStoredLinks` re-checks a stored list on the way out; `storedLinkSchema` reads one on the client.                                                                                     |
+| `columns.ts`       | `columnsFromDoc`: the `Break` columns read off the document (style, style version, meter, tempo, swing, seed, bars, level), never off the request.                                                                                                                                                                    |
+| `scratch.ts`       | The pattern that has never been saved, kept in `localStorage` (`bb.scratch`) across a reload; read back through `sharePayloadSchema`.                                                                                                                                                                                 |
+| `saved/data.ts`    | `openSavedBreak`: the one "yours or not private" read that `GET /:id`, `/studio/[id]` and the copy route share. Server-side.                                                                                                                                                                                          |
+| `saved/targets.ts` | What a pin and a practice visit point at: `visibleTarget` (the "yours, not private, or in the catalogue" rule), `TARGET_SELECT`, `toTargetView`, `targetVisible`. Server-side; `pins.ts` and `history.ts` share it.                                                                                                   |
+| `audio/*`          | Browser only. `engine.ts` (Web Audio), `transport.ts` (the look-ahead clock, metronome, MIDI out), `packs.ts` / `your-samples.ts` (recorded kits and yours, [`samples.md`](./samples.md)), `encode-wav.ts` (a picked file as a sample), `midi-out.ts` (Web MIDI port).                                                |
 
 ## The wire format (share code, version 4)
 
@@ -373,7 +380,7 @@ keeps running them in the browser — a regenerate should not wait on the networ
 — but the web app is the first client and not the only one (D14), and a native
 app has nothing but `/api/v1`. **One implementation, many callers.**
 
-All five are `POST`, signed-in, stateless (nothing is written), and under the
+All six are `POST`, signed-in, stateless (nothing is written), and under the
 section cap. All are `decidedBy: 'nothing'` because there is no row and
 therefore no subject to scope to.
 
@@ -384,6 +391,7 @@ therefore no subject to scope to.
 | `POST /api/v1/breaks/critique` | `doc`, `bpm`                                                                      | `{ critique, playability }`                                              |
 | `POST /api/v1/breaks/engrave`  | `doc`, `layer`, `scale`, `perSystem`, `guides`, `sticking`                        | the `Engraving` — nodes, playhead map, dimensions                        |
 | `POST /api/v1/breaks/midi`     | `doc` (a whole `SharePayload`), `feel`, `hats`, `bars`                            | `audio/midi` bytes                                                       |
+| `POST /api/v1/breaks/import`   | `{ kind: 'midi', data, fileName? }` or `{ kind: 'text', text }`                   | `{ source, doc, notes }`; 422 `IMPORT_UNREADABLE` with a sentence        |
 
 Four things worth knowing:
 
@@ -407,6 +415,128 @@ directly** — that is the claim worth making, and a test that only checked for 
 comparison is made at `hats: 0`, because `hatShape` carries a deliberate
 `Math.random()` wobble at anything above it; a second case pins that the wobble
 is still there.
+
+## The text notation (`text.ts`)
+
+How BeatBuddy sees a pattern and writes one. One line per lane per bar, after a
+header line; the count row is for reading and is never parsed.
+
+```
+A · funk · 4/4 · 94 bpm · swing 8
+bar 1   count  1e+a2e+a3e+a4e+a
+        hat    XxxxXxoxXxxxXxox
+        snare  ....S..g.g.gS..g
+        kick   X.X.......X..X..
+```
+
+| Lane    | Label                   | Characters (`.` is a rest)                         |
+| ------- | ----------------------- | -------------------------------------------------- |
+| `k`     | `kick`                  | `X` hit · `A` accent                               |
+| `s`     | `snare`                 | `g` ghost · `s` hit · `S` accent · `c` cross-stick |
+| `h`     | `hat`                   | `x` closed · `X` accent · `o` open                 |
+| `r`     | `ride`                  | `r` ride · `b` bell                                |
+| `c`     | `crash`                 | `C` crash                                          |
+| `t1–t3` | `tom1`, `tom2`, `floor` | `X` hit · `A` accent                               |
+| `hf`    | `foot`                  | `f` chick                                          |
+| `p1–p2` | `perc1`, `perc2`        | `X` hit · `A` accent                               |
+
+`toText(pattern, { section?, bpm?, swing? })` writes the pattern's roster plus
+any lane that has notes anyway. `fromText(text, meter)` reads it back:
+
+- Lines before the first `bar N` are the header and are ignored. Inside a bar,
+  each line is a label and a row. A lane a bar leaves out is empty in that bar.
+- Spaces and `|` inside a row are layout, `-` is a rest, and the lane key or a
+  common alias (`hihat`, `bass`, `floortom`) works as a label.
+- Bars keep the numbers they were written with: replacing bar 3 means writing
+  `bar 3` and nothing else.
+- It is **strict where `parseBar` is lenient**. `parseBar` reads hand-written
+  seed data and skips what it does not know. `fromText` reads what a model
+  wrote, so it refuses a character the lane lacks, a row of the wrong length for
+  the meter, an unknown lane and a repeated bar, naming the bar, lane and step
+  the way a drummer counts it ("the 'e' of 2").
+
+A two-digit beat (10–15, in 12/8 and 15/8 only) shows its last digit in the
+count row, so the row stays one character a step.
+
+## `tidy()` — "tidy up notes"
+
+Six rules, run in this order, each change reported as a sentence: notes in a
+lane the kit does not carry; a hi-hat and ride together (the quieter goes, or on
+a tie the one that is not `voice`); more than two hand notes on one step (the
+quietest go, time-keeping cymbals before drums); a ghost directly beside a snare
+accent; a hi-hat foot chick under an open hat; a pin with no note under it.
+Quantising is left to the importers, since the grid is already sixteenths.
+Tidy never adds a note, and tidying a tidy pattern changes nothing. Anything a
+drummer might disagree with is a doctor move.
+
+The fifth rule is this implementation's reading of the plan's "closed hats
+under an open hat that has not been closed" (§6): the foot closing the hat on
+the same step the stick plays it open.
+
+## Importing (`POST /api/v1/breaks/import`)
+
+Three sources, all deterministic, and **no URL is ever fetched**:
+
+| Source                                   | Read by               | What bends                                                                                                                                                                                                |
+| ---------------------------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| A BeatBreaker code, or a link with `#b=` | `decodeBreak`         | Nothing: it is the wire format.                                                                                                                                                                           |
+| A MIDI file (base64, ≤128 KB)            | `readMidi`            | Quantised to sixteenths. Velocities are read against the levels the speakers play (`valueForVelocity`). Notes with no lane are dropped. Drums come from channel 10, or from every channel if 10 is empty. |
+| A Groove Scribe link (two hosts)         | `readGrooveScribeUrl` | An eighth-note grid is spread out and a 32nd grid thinned. Flams, drags and buzzes read as hits, toms 3 and 4 share the floor tom, and a cowbell takes a percussion slot. Triplets are refused.           |
+
+Whatever bent is reported in `notes`, one sentence each, so neither the user
+nor BeatBuddy is told an import was exact when it was not. An import has no
+style snapshot, so it plays straight. It is filed under `rock` so the doctor
+has a style to start from. Up to sixteen bars are kept (A, then B); a longer
+source is trimmed with a note. A code older than v4 is decoded with the
+catalogue lookup, as `doctor` does.
+
+**A MIDI file BeatBreaker wrote reads back exactly**, hat accents included, at
+any setting of the hats slider, because the reader classifies each velocity
+against the same levels the writer played it at (see _One performance_). The
+round-trip test runs at dynamics 0, 100 and 150.
+
+Any other web address is a 422 saying what can be read. A body whose
+`Content-Length` is over the cap is a 413 before it is read.
+
+## One performance — speakers, live MIDI and the MIDI file
+
+**Everything that plays a pattern voices it through `performStep`
+(`perform.ts`).** For each step it returns the notes to play: the GM note, a 0–1
+velocity and an offset from the grid (swing plus the style's feel). Each output
+uses the result directly:
+
+| Output                       | What it does with a voice                                                      |
+| ---------------------------- | ------------------------------------------------------------------------------ |
+| Speakers (`transport.ts`)    | plays the engine voice for its lane at `velocity × fader`, at `grid + offset`  |
+| Live MIDI (`midi-out.ts`)    | sends `note` at `midiVelocity(velocity)`, at the same moment, before the mixer |
+| MIDI file (`midi.ts`)        | writes `note` at `midiVelocity(velocity)`, at `(step + offset) × 120` ticks    |
+| MIDI import (`midi-read.ts`) | reads a velocity back to the nearest written value (`valueForVelocity`)        |
+
+The speakers are the reference: `LEVELS` is what the kit was tuned to, and MIDI
+is that × 127. **The mixer is the one deliberate difference.** Faders and mutes
+act on the speakers only, because a muted lane is one you are playing yourself
+and the port exists to hand it to a module (D23).
+
+**The hi-hat and ride bands.** The hats slider shapes both cymbals the same way
+(`hatShape`): the stick on the beat is loud, and the "e" and "a" are quieter. That
+makes an accent on the "a" quieter than a plain hat on the beat, which is right
+for the ear and wrong for velocity, the only way MIDI says "accent". So a plain
+hat or ride is held at or below 0.9 (MIDI 114), and a written accent or ride
+bell at or above 0.95 (121). A plain hat on the beat peaks under the ceiling,
+so the band lifts accents and never flattens the groove.
+
+**Adding a subtlety.** Put it in `performStep`. It then reaches the speakers,
+the port, the file and the reader together. Two guards in
+`tests/unit/lib/app/breaks/audio/performance-consistency.test.ts` hold this:
+
+- It plays a pattern with every lane and value through the real `Transport`,
+  with swing, feel and dynamics on. The speaker calls, the port's sends and
+  `buildMidi`'s file must then agree note for note.
+- It fails if `hatShape`, `feelOffset` or `isSwung` is called anywhere under
+  `lib/app`, `components/app` or `app` except `feel.ts` and `perform.ts`, or if
+  a MIDI velocity is converted anywhere but `midiVelocity`.
+
+It is declared in `appAlwaysRunTests`, so scoped runs never skip it.
 
 ## Opening a shared link signed out
 

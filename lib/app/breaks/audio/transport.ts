@@ -1,11 +1,9 @@
 import type { BreakAudio } from '@/lib/app/breaks/audio/engine';
 import type { MidiSink } from '@/lib/app/breaks/audio/midi-out';
-import { feelOf, feelOffset, hatShape, isSwung } from '@/lib/app/breaks/feel';
-import { DEFAULT_PERC, FOOT_LANE, PERC_LANES, TOM_LANES, percInst } from '@/lib/app/breaks/lanes';
 import { M44, groupAt, isGroupStart, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
-import { MIDI_MAP } from '@/lib/app/breaks/midi';
 import { meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
-import type { Bar, LaneKey, Meter, Pattern } from '@/lib/app/breaks/types';
+import { type Voice, performStep } from '@/lib/app/breaks/perform';
+import type { Bar, Meter, Pattern } from '@/lib/app/breaks/types';
 
 /**
  * The clock.
@@ -214,15 +212,6 @@ export class Transport {
     const pos = this.seq[this.seqIndex];
     const livePat = pos ? snap.patterns[pos.letter] : null;
     const cm = meterOfPat(livePat ?? snap.patterns.A);
-    /* The pattern's own snapshot, not a style lookup. This runs on every
-       scheduler tick, so it has to be synchronous — and styles are rows now, so
-       a lookup here would either be async or a cache to keep in step with the
-       server. The snapshot is already in the pattern and is what was played. */
-    const attrs = (livePat ?? snap.patterns.A)?.attrs;
-
-    /* Swing pushes the off-beats late — which off-beats depends on the style. A
-       shuffle swings the 8ths (the "and"), everything else swings the 16ths. */
-    const swung = isSwung(this.step, cm, attrs) ? t + dur * (snap.swing / 100) * 0.66 : t;
 
     if (this.countLeft > 0) {
       const cn = patSteps(snap.patterns.A);
@@ -238,79 +227,24 @@ export class Transport {
 
     const i = this.step;
     const g = (k: string): number => (snap.mute[k] ? 0 : (snap.mix[k] ?? 1));
-
-    /* The style's own feel, on top of swing. The click and the playhead stay on
-       the grid — being able to hear the gap is the whole point. */
-    const feel = feelOf(attrs);
     const m = meterOfPat(livePat);
-    const amt = snap.feel / 100;
     const floor = (this.audio.ctx as AudioContext).currentTime + 0.002;
-    const at = (lane: LaneKey, ghost?: boolean): number => {
-      if (!feel || !amt) return swung;
-      return Math.max(floor, swung + dur * amt * feelOffset(feel, lane, i, ghost));
-    };
 
-    /* Feathering: a jazz kick plays all four quarters, but you are meant to feel
-       them rather than hear them. Written as ordinary quarter notes, played at a
-       third — so the critic reads timekeeping, not syncopation. */
-    /* The port hears the same note at the same velocity as the kit, before the
-       mixer: a muted lane is a lane you are playing yourself, and the whole
-       point of sending it out is that the module plays it instead. */
+    /* Every note is voiced by `performStep` — velocity, swing and feel — and
+       the speakers and the MIDI port play the same voice. So does the file
+       export. Nothing about how a note sounds is decided in this method; add a
+       subtlety to `perform.ts` and all three hear it. The click and the
+       playhead stay on the grid — being able to hear the gap is the point. */
     const out = this.midi;
-    const send = (note: number, vel: number, when: number): void => out?.hit(note, vel, when);
-
-    if (bar.k[i]) {
-      const feather =
-        attrs?.kickFeather && bar.k[i] === 1 && isGroupStart(m, i) ? attrs.kickFeather : 1;
-      const v = (bar.k[i] === 2 ? 1 : 0.9) * feather;
-      if (g('k')) this.audio.kick(at('k'), v * g('k'));
-      send(MIDI_MAP.k, v, at('k'));
+    for (const v of performStep(livePat, bar, i, snap)) {
+      const when = Math.max(floor, t + dur * v.offset);
+      const gain = v.velocity * g(v.lane);
+      if (gain) this.voice(v, when, gain);
+      /* The port hears the same note at the same velocity as the kit, before
+         the mixer: a muted lane is a lane you are playing yourself, and the
+         whole point of sending it out is that the module plays it instead. */
+      out?.hit(v.note, v.velocity, when);
     }
-
-    /* A foot chick is a quiet sound. At 0.62 the sample picker reached for the
-       hardest stomp in the kit and turned it down, which is a duller, thuddier
-       hit than the pedal actually makes at that volume. */
-    if (bar[FOOT_LANE][i]) {
-      if (g(FOOT_LANE)) this.audio.hat(at('h'), 0.4 * g(FOOT_LANE), false, true);
-      send(MIDI_MAP.hf, 0.55, at('h'));
-    }
-
-    if (bar.s[i]) {
-      const sv = bar.s[i];
-      const v = sv === 1 ? 0.5 : sv === 3 ? 1 : sv === 4 ? 0.82 : 0.78;
-      if (g('s')) this.audio.snare(at('s', sv === 1), v * g('s'), sv === 1, sv === 4);
-      send(sv === 4 ? MIDI_MAP.sCross : MIDI_MAP.s, v, at('s', sv === 1));
-    }
-    if (bar.h[i]) {
-      const v = 0.86 * hatShape(i, bar.h[i], 'h', m, attrs, snap.hats);
-      if (g('h')) this.audio.hat(at('h'), v * g('h'), bar.h[i] === 3);
-      send(bar.h[i] === 3 ? MIDI_MAP.hOpen : MIDI_MAP.h, v, at('h'));
-    }
-    if (bar.r[i]) {
-      const v = (bar.r[i] === 2 ? 0.95 : 0.84) * hatShape(i, bar.r[i], 'r', m, attrs, snap.hats);
-      if (g('r')) this.audio.ride(at('r'), v * g('r'), bar.r[i] === 2);
-      send(bar.r[i] === 2 ? MIDI_MAP.rBell : MIDI_MAP.r, v, at('r'));
-    }
-    if (bar.c[i]) {
-      if (g('c')) this.audio.crash(at('c'), 0.9 * g('c'));
-      send(MIDI_MAP.c, 0.9, at('c'));
-    }
-
-    for (const L of TOM_LANES) {
-      if (!bar[L][i]) continue;
-      const v = bar[L][i] === 2 ? 1 : 0.86;
-      if (g(L)) this.audio.tom(at('s'), v * g(L), L);
-      send(MIDI_MAP[L], v, at('s'));
-    }
-    PERC_LANES.forEach((L, li) => {
-      if (!bar[L][i]) return;
-      const inst = livePat.perc?.[L] ?? DEFAULT_PERC[li];
-      const accent = bar[L][i] === 2;
-      const v = accent ? 0.95 : 0.7;
-      if (g(L)) this.audio.perc(at('s'), v * g(L), inst, accent, L);
-      const pi = percInst(inst);
-      send(accent ? pi.hi : pi.midi, v, at('s'));
-    });
 
     if (snap.click && isClickStep(m, i, snap.clickSub)) this.audio.click(t, i === 0);
 
@@ -322,6 +256,32 @@ export class Transport {
       slot: i,
       bar,
     });
+  }
+
+  /** One performed note on the speakers, by the engine voice its lane plays. */
+  private voice(v: Voice, when: number, gain: number): void {
+    const a = this.audio;
+    switch (v.lane) {
+      case 'k':
+        return a.kick(when, gain);
+      case 'hf':
+        return a.hat(when, gain, false, true);
+      case 's':
+        return a.snare(when, gain, v.ghost, v.cross);
+      case 'h':
+        return a.hat(when, gain, v.open);
+      case 'r':
+        return a.ride(when, gain, v.bell);
+      case 'c':
+        return a.crash(when, gain);
+      case 't1':
+      case 't2':
+      case 't3':
+        return a.tom(when, gain, v.lane);
+      case 'p1':
+      case 'p2':
+        return a.perc(when, gain, v.perc?.inst ?? '', v.perc?.accent, v.lane);
+    }
   }
 
   private advance(snap: TransportSnapshot): void {

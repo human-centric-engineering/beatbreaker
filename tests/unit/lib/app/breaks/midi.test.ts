@@ -3,7 +3,7 @@
  * and not others, so the byte-level structure is the contract here.
  */
 
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { generatePattern } from '@/lib/app/breaks/generate';
 import {
@@ -15,6 +15,7 @@ import {
   midiFileName,
 } from '@/lib/app/breaks/midi';
 import { emptyBar } from '@/lib/app/breaks/pattern';
+import { midiVelocity, performStep } from '@/lib/app/breaks/perform';
 import { testStyle } from '@/tests/helpers/catalogue';
 import type { Pattern } from '@/lib/app/breaks/types';
 
@@ -202,5 +203,42 @@ describe('buildMidi', () => {
   it('skips a bar index that does not exist rather than throwing', () => {
     const f = parse(buildMidi([{ pattern: pat, barIdx: 99 }], OPTS).bytes);
     expect(f.notes).toEqual([]);
+  });
+});
+
+describe('the file is the performance', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('writes every voice performStep gives, at its velocity × 127 and its offset', () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0.5); // a fixed wobble, so both sides roll the same
+    const p = generatePattern({
+      style: testStyle('dilla'),
+      seed: 9,
+      bars: 2,
+      density: 70,
+      ghosts: 80,
+    });
+    p.bars[1].h[3] = 2;
+    p.bars[1].r[5] = 2;
+    const opts = { ...OPTS, swing: 30, feel: 100, hats: 120 };
+
+    const expected: Array<{ t: number; note: number; vel: number }> = [];
+    p.bars.forEach((bar, bi) => {
+      for (let i = 0; i < bar.k.length; i++) {
+        for (const v of performStep(p, bar, i, opts)) {
+          expected.push({
+            t: Math.max(0, Math.round((bi * bar.k.length + i + v.offset) * 120)),
+            note: v.note,
+            vel: midiVelocity(v.velocity),
+          });
+        }
+      }
+    });
+    const order = (a: { t: number; note: number }, b: { t: number; note: number }) =>
+      a.t - b.t || a.note - b.note;
+    const written = parse(buildMidi(seqOf(p), opts).bytes).notes;
+    expect([...written].sort(order)).toEqual(expected.sort(order));
   });
 });

@@ -1331,6 +1331,40 @@ client; the daily allowance stops a user at the limit with the friendly message;
 the eval set passes at the agreed threshold; a BeatBuddy outage leaves the rest
 of the Studio fully working.
 
+**Reconciled 2026-09-29.** Spike B was never run, so no model is recorded
+against D5. The dev database has no `AiProvider` row and no default chat model,
+and there is no `OPENAI_API_KEY`. Sunrise gives everything the design assumes:
+`streamChat()` takes `contextType` and `entityContext`, `BaseCapability` is
+there, and `initAppCapabilities()` is still empty. The seed unit is
+`003-beatbuddy.ts`, because `002` is the publishing flag. `parseBar()` has no
+percussion lanes, so `toText()`/`fromText()` define their own notation for them.
+The import endpoint is stateless. A `/p/` link needs a database read, so it
+belongs to `open_pattern` (7.11), not import.
+
+**How it ships: five PRs.** The first needs no model. Spike B is folded into
+7-ii, which is the first PR that needs a provider.
+
+| #    | Task                                                                                                                                                                     | Done when                                                                                                                                                                                           |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 7.1  | `toText()` / `fromText()` — the lane-string notation, every lane including percussion, with the header line                                                              | Tests: every famous break and a generated pattern in every meter round-trip exactly; `fromText` refuses a value the lane lacks or a bar of the wrong length, naming the bar and lane                |
+| 7.2  | `tidy()` — the six rules in §6, each change reported                                                                                                                     | Tests: one per rule; tidying a tidy pattern changes nothing; tidy never adds a note                                                                                                                 |
+| 7.3  | `readMidi()` — the inverse of `buildMidi()`                                                                                                                              | Tests: `buildMidi` → `readMidi` gives back the same notes for every famous break (feel and swing 0); meter from the time signature; SMPTE, an unknown meter and an empty file refused with a reason |
+| 7.4  | `readGrooveScribeUrl()` — the pattern from the URL's query string, nothing fetched                                                                                       | Tests on real Groove Scribe links: 16th and 8th grids, toms, hi-hat foot, 6/8; a triplet grid refused with a reason                                                                                 |
+| 7.5  | `POST /api/v1/breaks/import` — a MIDI file, a BeatBreaker code or `#b=` link, or a Groove Scribe link in; a validated wire document and a report of what was dropped out | Route tests for each source; the result passes `sharePayloadSchema`; over-size bodies refused; any other URL refused without being fetched                                                          |
+| 7.6  | `breaks.md` documents the notation and import; CHANGELOG                                                                                                                 | Docs merged with the code                                                                                                                                                                           |
+| 7.7  | **Owner:** `OPENAI_API_KEY`, the provider row and a default chat model with `vision`; record the model against D5                                                        | The setup wizard shows the provider healthy                                                                                                                                                         |
+| 7.8  | `BuddyWorkspace` table; seed `003-beatbuddy.ts` (agent, `get_pattern`, `apply_doctor_move`); capabilities registered from `lib/app/capabilities.ts`                      | Migration and drift probe; export declared; a second user's workspace is never read (tested)                                                                                                        |
+| 7.9  | `POST /api/v1/buddy/stream` and `GET /api/v1/buddy/allowance` (D4: 30 turns a day)                                                                                       | Route tests: invalid document refused before the model is called; the 31st turn refused with the friendly message                                                                                   |
+| 7.10 | Spike B's question answered: the round trip, and whether a second tool call sees the first one's output. `beatbuddy.md` records it                                       | Checked against the live model and written up                                                                                                                                                       |
+| 7.11 | The other ten tools (§6)                                                                                                                                                 | Tests per tool; none takes a user id from its arguments; `write_bars` refuses an unplayable bar                                                                                                     |
+| 7.12 | The drawer: messages, composer with attach (import for MIDI and links), suggested prompts, change chips, allowance meter                                                 | Component tests; a provider error leaves the Studio working                                                                                                                                         |
+| 7.13 | The apply loop: validate → push undo → apply → flash; stale `rev` discarded                                                                                              | Tests: one Undo restores the previous state; a result older than a manual edit is dropped                                                                                                           |
+| 7.14 | The evaluation set (30–50 requests) in Sunrise's dataset evals                                                                                                           | Runs and passes at the threshold agreed then                                                                                                                                                        |
+
+PRs: **7-i** reading and writing patterns (7.1–7.6) · **7-ii** the loop
+(7.7–7.10) · **7-iii** the tools (7.11) · **7-iv** the drawer (7.12–7.13) ·
+**7-v** the evals (7.14).
+
 ### Phase 7A — Published patterns are fixed; variations · M
 
 **Goal (D26):** a published pattern never changes once it is out. Anyone who wants it
