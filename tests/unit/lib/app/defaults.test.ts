@@ -296,7 +296,8 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     // drum samples. Phase 6 (task 6.2) added DrummerProfile, the username you
     // publish under, and excluded ReservedUsername, a released name with no
     // user id on it. Phase 6-iii (task 6.10) added BreakReport, the reports
-    // you filed — not those about your own patterns.
+    // you filed — not those about your own patterns. Phase 7 (task 7.8) added
+    // BuddyWorkspace, the pattern BeatBuddy last saw.
     assert: async () => {
       __resetAppSubjectSourceRegistryForTests();
       expect(
@@ -306,6 +307,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
       ).toEqual([
         'Break',
         'BreakReport',
+        'BuddyWorkspace',
         'DrummerProfile',
         'Kit',
         'PatternLibrary',
@@ -322,6 +324,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
           .sort()
       ).toEqual([
         'breaks',
+        'buddyWorkspace',
         'drummerProfile',
         'kits',
         'libraries',

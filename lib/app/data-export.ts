@@ -150,6 +150,13 @@ export function initAppSubjectSources(): void {
           'Drum samples you uploaded — the name, kit slot, size, length and storage key of each, not the audio files themselves.',
       },
       {
+        model: 'BuddyWorkspace',
+        section: 'buddyWorkspace',
+        disposition: 'export',
+        description:
+          'The pattern you had open the last time you asked BeatBuddy something, as BeatBuddy last saw or changed it.',
+      },
+      {
         model: 'DrummerProfile',
         section: 'drummerProfile',
         disposition: 'export',
@@ -225,6 +232,7 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
     practiceHistory,
     studioSettings,
     samples,
+    buddyWorkspace,
     drummerProfile,
     reportsFiled,
     styles,
@@ -248,6 +256,8 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
     /* The rows, with the storage key, as takes carry theirs — not the audio,
        which is in storage and is a download of its own, not a JSON field. */
     prisma.sample.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } }),
+    // at most one row, as studioSettings
+    prisma.buddyWorkspace.findMany({ where: { userId } }),
     // at most one row, as studioSettings
     prisma.drummerProfile.findMany({ where: { userId } }),
     /* The reports you filed, not the ones filed about your patterns: those
@@ -294,6 +304,7 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
     practiceHistory,
     studioSettings,
     samples,
+    buddyWorkspace,
     drummerProfile,
     reportsFiled,
     styles,

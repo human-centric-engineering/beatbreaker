@@ -15,7 +15,7 @@
  * FORK NOTE — this file reads `@/lib/app/data-export` for real, with no
  * `vi.mock`, because the collector's behaviour IS what it is testing. A fork of
  * BeatBreaker that adds its own tables to that seam will see this fail on the
- * section list: expect the eleven below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
+ * section list: expect the twelve below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
  * collector returns every declared section as a key, and a mock cannot tell you
  * that. The `prisma` methods are mocked instead, which is the part this test
  * genuinely does not need to be real.
@@ -30,6 +30,7 @@ const findMany = {
   visits: vi.fn(),
   settings: vi.fn(),
   samples: vi.fn(),
+  workspaces: vi.fn(),
   profiles: vi.fn(),
   reports: vi.fn(),
   styles: vi.fn(),
@@ -45,6 +46,7 @@ vi.mock('@/lib/db/client', () => ({
     practiceVisit: { findMany: (...args: unknown[]) => findMany.visits(...args) },
     studioSettings: { findMany: (...args: unknown[]) => findMany.settings(...args) },
     sample: { findMany: (...args: unknown[]) => findMany.samples(...args) },
+    buddyWorkspace: { findMany: (...args: unknown[]) => findMany.workspaces(...args) },
     drummerProfile: { findMany: (...args: unknown[]) => findMany.profiles(...args) },
     breakReport: { findMany: (...args: unknown[]) => findMany.reports(...args) },
     style: { findMany: (...args: unknown[]) => findMany.styles(...args) },
@@ -78,6 +80,7 @@ describe('collectAppSubjectData', () => {
     // different reason.
     expect(Object.keys(data).sort()).toEqual([
       'breaks',
+      'buddyWorkspace',
       'drummerProfile',
       'kits',
       'libraries',
@@ -102,6 +105,7 @@ describe('collectAppSubjectData', () => {
       findMany.visits,
       findMany.settings,
       findMany.samples,
+      findMany.workspaces,
       findMany.profiles,
     ]) {
       expect(spy).toHaveBeenCalledWith(expect.objectContaining({ where: { userId: 'user-1' } }));

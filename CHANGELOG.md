@@ -18,6 +18,19 @@ release process.
 
 ### Added
 
+- **BeatBuddy's agent, workspace and first two tools — a `BuddyWorkspace`
+  model, seed `app-beatbreaker/003-beatbuddy`, capabilities `get_pattern` and
+  `apply_doctor_move`** (migration `buddy_workspace`). The workspace is one row
+  per person holding the pattern BeatBuddy is working on; `userId` cascades
+  (hand-written FK, probed) and the export gains `buddyWorkspace`. A write names
+  the `rev` it read and is refused if the row has moved on, so two tool calls
+  cannot overwrite each other. The agent `beatbuddy` is seeded with no provider
+  or model of its own (it answers on the install's default chat model), public,
+  with image and PDF input and spend caps. Both tools take the user from
+  `CapabilityContext.userId` and nothing from their arguments; the seeded rows
+  read each `functionDefinition` from the capability class. Registered from
+  `lib/app/capabilities.ts`.
+
 - **Importing patterns — `POST /api/v1/breaks/import`.** A MIDI file
   (base64, up to 128 KB), a BeatBreaker code or `#b=` link, or a Groove Scribe
   link goes in. A validated wire document comes out, with `source` and a

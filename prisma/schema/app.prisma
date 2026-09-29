@@ -302,6 +302,29 @@ model StudioSettings {
   @@map("studio_settings")
 }
 
+/// BeatBuddy's copy of the pattern you have open (Phase 7, §6): one row per
+/// person, written at the start of every BeatBuddy turn from the document the
+/// Studio sends.
+///
+/// The pattern being edited lives in the browser and may never have been
+/// saved, but the tools run on the server. So they read and write this row,
+/// which is what lets a second tool call in one turn see what the first did.
+/// `doc` is a wire document held to `sharePayloadSchema`; `rev` goes up by one
+/// on every write, and a write that names a stale `rev` is refused, so two
+/// tool calls cannot silently overwrite each other.
+///
+/// Personal data: `userId` cascades (hand-written FK, probed by
+/// `lib/app/db-drift.ts`).
+model BuddyWorkspace {
+  /// FK to User.id — no @relation. Cascades. The key: one row per person.
+  userId    String   @id
+  doc       Json
+  rev       Int      @default(0)
+  updatedAt DateTime @updatedAt
+
+  @@map("buddy_workspace")
+}
+
 /// One of your own drum samples (D20): a one-shot you uploaded for a kit slot.
 ///
 /// The audio is never in the table. It is in Sunrise storage under
