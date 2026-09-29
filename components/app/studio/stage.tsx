@@ -114,6 +114,23 @@ export function Stage() {
 
   const style = c.catalogue.styles[c.style]?.params;
   const shown: SectionLetter[] = c.viewMode === 'both' ? ['A', 'B'] : [c.viewMode];
+  /* What BeatBuddy just changed, as the chart indexes steps: any lane changed
+     on a step lights that step. */
+  const flashSteps = useMemo(() => {
+    const out: Record<'A' | 'B', number[]> = { A: [], B: [] };
+    if (!c.flash) return out;
+    for (const letter of ['A', 'B'] as const) {
+      const steps = c.patterns[letter]?.bars[0]?.k.length ?? 16;
+      const seen = new Set<number>();
+      for (const key of c.flash[letter]) {
+        const [bar, , step] = key.split(':');
+        seen.add(Number(bar) * steps + Number(step));
+      }
+      out[letter] = [...seen];
+    }
+    return out;
+  }, [c.flash, c.patterns]);
+
   const editingView = c.view[c.editing];
   const editingStored = c.patterns[c.editing];
 
@@ -264,6 +281,7 @@ export function Stage() {
               engraving={eng}
               label={c.viewMode === 'both' ? letter : undefined}
               playing={c.position?.letter === letter}
+              flash={flashSteps[letter]}
             />
           );
         })}
@@ -359,6 +377,7 @@ export function Stage() {
               view={editingView}
               stored={editingStored}
               cursor={cursor}
+              flash={c.flash?.[c.editing]}
               onCycle={(bar, lane, step, back) => c.cycleCell(c.editing, bar, lane, step, back)}
             />
           ) : null}

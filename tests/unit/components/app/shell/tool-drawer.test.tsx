@@ -61,6 +61,7 @@ const TITLES: Record<Tool, string> = {
   kit: 'Sound',
   practice: 'Practise',
   export: 'Share & export',
+  buddy: 'BeatBuddy',
 };
 
 /**

@@ -18,6 +18,15 @@ release process.
 
 ### Added
 
+- **The BeatBuddy drawer** — a seventh Studio tool (`?drawer=buddy`) with the
+  conversation, a composer that takes photos, PDFs and MIDI files (MIDI and
+  BeatBreaker or Groove Scribe links open on the chart through
+  `POST /api/v1/breaks/import`), suggested prompts, and the day's allowance.
+  Each change BeatBuddy makes lands on the chart with the touched cells lit and
+  a chip with Undo. One Undo takes back the whole turn, tempo included. A
+  change that arrives after a manual edit is dropped rather than applied over
+  it. The console gains `applyAssistant()` and `flash`.
+
 - **BeatBuddy's other ten tools — `list_styles`, `generate_pattern`,
   `write_bars`, `tidy_pattern`, `set_playback`, `explain_difficulty`,
   `find_patterns`, `open_pattern`, `save_pattern` and `suggest_title`** (seed

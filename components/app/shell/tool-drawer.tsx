@@ -32,6 +32,7 @@ const TITLES: Record<Tool, string> = {
   kit: 'Sound',
   practice: 'Practise',
   export: 'Share & export',
+  buddy: 'BeatBuddy',
 };
 
 export function ToolDrawer({
@@ -66,6 +67,7 @@ export function ToolDrawer({
         <Dialog.Content
           id="studio-drawer"
           className={wide ? 'studio-drawer' : 'studio-sheet'}
+          data-tool={shown ?? undefined}
           aria-describedby={undefined}
           onInteractOutside={(e) => {
             /* Non-modal: clicking the chart, the transport or another tab must

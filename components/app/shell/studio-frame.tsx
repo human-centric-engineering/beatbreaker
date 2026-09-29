@@ -8,6 +8,8 @@ import { StudioFooter } from '@/components/app/shell/studio-footer';
 import { StudioHeader } from '@/components/app/shell/studio-header';
 import { ToolDrawer } from '@/components/app/shell/tool-drawer';
 import { ToolRail, type Tool } from '@/components/app/shell/tool-rail';
+import { BuddyPanel } from '@/components/app/buddy/buddy-panel';
+import { useBuddyChat } from '@/components/app/buddy/use-buddy-chat';
 import { DoctorPanel } from '@/components/app/studio/panels/doctor-panel';
 import { ExportPanel } from '@/components/app/studio/panels/export-panel';
 import { GeneratePanel } from '@/components/app/studio/panels/generate-panel';
@@ -33,7 +35,10 @@ import '@/components/app/shell/studio.css';
 
 /* A panel may send you to another drawer — Generate names the kit and links to
    Sound, which is where the kit is chosen (E10). */
-const PANELS: Record<Tool, React.ComponentType<{ onOpenTool?: (tool: Tool) => void }>> = {
+const PANELS: Record<
+  Exclude<Tool, 'buddy'>,
+  React.ComponentType<{ onOpenTool?: (tool: Tool) => void }>
+> = {
   gen: GeneratePanel,
   doctor: DoctorPanel,
   patterns: PatternsPanel,
@@ -66,6 +71,9 @@ function useWide(): { wide: boolean; measured: boolean } {
 
 export function StudioFrame() {
   const c = useStudio();
+  /* Held here rather than in the drawer, which unmounts when it closes: the
+     conversation has to survive closing BeatBuddy to look at the chart. */
+  const buddy = useBuddyChat(c);
   const { wide, measured } = useWide();
   const [tool, setTool] = useState<Tool | null>(null);
   const [frame, setFrame] = useState<HTMLDivElement | null>(null);
@@ -165,7 +173,7 @@ export function StudioFrame() {
     return () => document.removeEventListener('keydown', onKey);
   }, [c]);
 
-  const Panel = tool ? PANELS[tool] : null;
+  const Panel = tool && tool !== 'buddy' ? PANELS[tool] : null;
 
   return (
     <div className="bb studio-frame" ref={setFrame}>
@@ -201,7 +209,11 @@ export function StudioFrame() {
           (wide ? railButtons.current[lastTool.current] : toolsButton.current)?.focus()
         }
       >
-        {Panel ? <Panel onOpenTool={open} /> : null}
+        {tool === 'buddy' ? (
+          <BuddyPanel chat={buddy} />
+        ) : Panel ? (
+          <Panel onOpenTool={open} />
+        ) : null}
       </ToolDrawer>
 
       <LeaveDialog />

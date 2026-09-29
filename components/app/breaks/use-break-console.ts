@@ -92,6 +92,47 @@ export function editingSection(
 interface Snapshot {
   A: Pattern | null;
   B: Pattern | null;
+  /**
+   * Tempo, swing, layer and arrangement — carried only by an entry whose
+   * change moved them (one of BeatBuddy's), so one Undo puts those back too.
+   * Every other edit changes notes alone, and an undo of it leaves your tempo
+   * where you have since put it.
+   */
+  playback?: Playback;
+}
+
+interface Playback {
+  bpm: number;
+  baseBpm: number;
+  swing: number;
+  level: number;
+  arrangement: SectionLetter[];
+}
+
+/** Cells that changed in the last change BeatBuddy made, keyed `bar:lane:step`, per section. */
+export interface Flash {
+  A: ReadonlySet<string>;
+  B: ReadonlySet<string>;
+  /** Moves on with every change, so the same cells can flash twice in a row. */
+  seq: number;
+}
+
+/** How long changed cells stay lit. */
+const FLASH_MS = 1600;
+
+/** `bar:lane:step` for every cell that differs between two versions of a section. */
+function changedCells(before: Pattern | null, after: Pattern | null): Set<string> {
+  const out = new Set<string>();
+  if (!after) return out;
+  after.bars.forEach((bar, b) => {
+    for (const lane of LANES) {
+      const row = bar[lane];
+      for (let i = 0; i < row.length; i++) {
+        if ((before?.bars[b]?.[lane]?.[i] ?? 0) !== row[i]) out.add(`${b}:${lane}:${i}`);
+      }
+    }
+  });
+  return out;
 }
 
 const HISTORY_CAP = 40;
@@ -269,6 +310,16 @@ export interface BreakConsole {
    * False when it does not decode.
    */
   loadPayload: (payload: SharePayload, title: string, at?: PracticePlace) => boolean;
+  /**
+   * Put BeatBuddy's document on the stage (7.13), tempo and all. With `push`,
+   * the current state goes on the undo stack first — the first change of a
+   * turn. Later changes in the same turn replace it in place, so one Undo
+   * takes the whole turn back. The payload has already passed
+   * `sharePayloadSchema`. Returns what is now on the stage.
+   */
+  applyAssistant: (payload: SharePayload, push: boolean) => BreakDoc;
+  /** The cells BeatBuddy's last change touched, while they are lit. */
+  flash: Flash | null;
   /**
    * The arrangement as a Standard MIDI File — only the section on show, when
    * one is. Null when there is nothing to play.
@@ -640,36 +691,65 @@ export function useBreakConsole(
 
   /* ---- history -------------------------------------------------------- */
 
-  const pushHistory = useCallback(() => {
-    setHistory((h) => {
-      const next = [
-        ...h,
-        { A: patterns.A && clonePattern(patterns.A), B: patterns.B && clonePattern(patterns.B) },
-      ];
-      return next.length > HISTORY_CAP ? next.slice(next.length - HISTORY_CAP) : next;
-    });
-    setFuture([]);
-  }, [patterns]);
+  const playbackNow = useCallback(
+    (): Playback => ({ bpm, baseBpm, swing, level, arrangement }),
+    [bpm, baseBpm, swing, level, arrangement]
+  );
+
+  const restorePlayback = useCallback((p: Playback) => {
+    setBpmRaw(p.bpm);
+    setBaseBpm(p.baseBpm);
+    setSwing(p.swing);
+    setLevel(p.level);
+    setArrangement(p.arrangement);
+  }, []);
+
+  /** @param withPlayback the change about to be made moves tempo, swing, layer or arrangement too. */
+  const pushHistory = useCallback(
+    (withPlayback = false) => {
+      setHistory((h) => {
+        const next: Snapshot[] = [
+          ...h,
+          {
+            A: patterns.A && clonePattern(patterns.A),
+            B: patterns.B && clonePattern(patterns.B),
+            ...(withPlayback ? { playback: playbackNow() } : {}),
+          },
+        ];
+        return next.length > HISTORY_CAP ? next.slice(next.length - HISTORY_CAP) : next;
+      });
+      setFuture([]);
+    },
+    [patterns, playbackNow]
+  );
 
   const undo = useCallback(() => {
     setHistory((h) => {
       if (!h.length) return h;
       const prev = h[h.length - 1];
-      setFuture((f) => [...f, { A: patterns.A, B: patterns.B }]);
+      setFuture((f) => [
+        ...f,
+        { A: patterns.A, B: patterns.B, ...(prev.playback ? { playback: playbackNow() } : {}) },
+      ]);
       setPatterns({ A: prev.A, B: prev.B });
+      if (prev.playback) restorePlayback(prev.playback);
       return h.slice(0, -1);
     });
-  }, [patterns]);
+  }, [patterns, playbackNow, restorePlayback]);
 
   const redo = useCallback(() => {
     setFuture((f) => {
       if (!f.length) return f;
       const next = f[f.length - 1];
-      setHistory((h) => [...h, { A: patterns.A, B: patterns.B }]);
+      setHistory((h) => [
+        ...h,
+        { A: patterns.A, B: patterns.B, ...(next.playback ? { playback: playbackNow() } : {}) },
+      ]);
       setPatterns({ A: next.A, B: next.B });
+      if (next.playback) restorePlayback(next.playback);
       return f.slice(0, -1);
     });
-  }, [patterns]);
+  }, [patterns, playbackNow, restorePlayback]);
 
   /* ---- generation ----------------------------------------------------- */
 
@@ -1423,6 +1503,43 @@ export function useBreakConsole(
     [pushHistory, baseFor]
   );
 
+  const [flash, setFlash] = useState<Flash | null>(null);
+  const flashTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(
+    () => () => {
+      if (flashTimer.current) clearTimeout(flashTimer.current);
+    },
+    []
+  );
+
+  const applyAssistant = useCallback(
+    (stored: SharePayload, push: boolean): BreakDoc => {
+      const doc = breakDocFromPayload(stored, (key) => catalogue.styles[key]);
+      if (push) pushHistory(true);
+      setFlash((prev) => ({
+        A: changedCells(patterns.A, doc.A),
+        B: changedCells(patterns.B, doc.B),
+        seq: (prev?.seq ?? 0) + 1,
+      }));
+      if (flashTimer.current) clearTimeout(flashTimer.current);
+      flashTimer.current = setTimeout(() => setFlash(null), FLASH_MS);
+
+      setPatterns({ A: doc.A, B: doc.B });
+      setBpmRaw(doc.bpm);
+      setBaseBpm(baseFor(doc.bpm, doc.level));
+      setSwing(doc.swing);
+      setLevel(doc.level);
+      setArrangement(doc.arrangement);
+      setStyleRaw(doc.A.style);
+      setMeterRaw(doc.A.meter);
+      setBarsRaw(doc.A.bars.length);
+      chosen.current = {};
+      setTries(null);
+      return doc;
+    },
+    [catalogue, pushHistory, patterns, baseFor]
+  );
+
   const loadCode = useCallback(
     (code: string): boolean => {
       try {
@@ -1580,6 +1697,8 @@ export function useBreakConsole(
     shareLink,
     loadCode,
     loadPayload,
+    applyAssistant,
+    flash,
     midi,
     midiPort,
     openMidiOut,

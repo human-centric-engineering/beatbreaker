@@ -936,3 +936,81 @@ describe('your settings (D19, D21)', () => {
     );
   });
 });
+
+describe("applying BeatBuddy's changes (7.13)", () => {
+  /** A BeatBuddy document: the code's break, as the wire payload a tool returns. */
+  function buddyPayload(name: string, bpm: number) {
+    const code = codeFor(name, bpm);
+    return sharePayloadSchema.parse(JSON.parse(atob(code)));
+  }
+
+  it('puts the document on the stage, tempo and all, and one Undo restores notes and tempo', async () => {
+    const { result } = await mount();
+    const before = {
+      A: result.current.patterns.A,
+      bpm: result.current.bpm,
+      swing: result.current.swing,
+      level: result.current.level,
+    };
+
+    act(() => {
+      result.current.applyAssistant(buddyPayload('Buddy', 132), true);
+    });
+    expect(result.current.patterns.A?.name).toBe('Buddy');
+    expect(result.current.bpm).toBe(132);
+    expect(result.current.swing).toBe(12);
+    expect(result.current.level).toBe(4);
+    expect(result.current.canUndo).toBe(true);
+
+    act(() => result.current.undo());
+    expect(result.current.patterns.A).toEqual(before.A);
+    expect(result.current.bpm).toBe(before.bpm);
+    expect(result.current.swing).toBe(before.swing);
+    expect(result.current.level).toBe(before.level);
+
+    // and Redo brings BeatBuddy's version back, tempo included
+    act(() => result.current.redo());
+    expect(result.current.patterns.A?.name).toBe('Buddy');
+    expect(result.current.bpm).toBe(132);
+  });
+
+  it('adds no undo step for a later change in the same turn, so one Undo takes the turn back', async () => {
+    const { result } = await mount();
+    const before = result.current.patterns.A;
+
+    act(() => {
+      result.current.applyAssistant(buddyPayload('First', 110), true);
+    });
+    act(() => {
+      result.current.applyAssistant(buddyPayload('Second', 120), false);
+    });
+    expect(result.current.patterns.A?.name).toBe('Second');
+
+    act(() => result.current.undo());
+    expect(result.current.patterns.A).toEqual(before);
+    expect(result.current.canUndo).toBe(false);
+  });
+
+  it('lights the cells that changed, then lets them go', async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    const { result } = await mount();
+    const before = result.current.patterns.A;
+
+    act(() => {
+      result.current.applyAssistant(buddyPayload('Lit', 100), true);
+    });
+    const after = result.current.patterns.A;
+    const lit = result.current.flash?.A ?? new Set<string>();
+    expect(lit.size).toBeGreaterThan(0);
+    for (const key of lit) {
+      const [b, lane, i] = key.split(':');
+      const was = before?.bars[Number(b)]?.[lane as 'k']?.[Number(i)] ?? 0;
+      expect(after?.bars[Number(b)][lane as 'k'][Number(i)]).not.toBe(was);
+    }
+
+    act(() => {
+      vi.advanceTimersByTime(2000);
+    });
+    expect(result.current.flash).toBeNull();
+  });
+});

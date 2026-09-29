@@ -61,6 +61,7 @@ describe('the Studio names', () => {
       'Sound',
       'Practise',
       'Share',
+      'BeatBuddy',
     ]);
   });
 });

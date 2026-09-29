@@ -3,7 +3,7 @@
 The Studio's assistant (Phase 7, app-plan §6). A drummer asks for something in
 words and the chart changes. This page grows as Phase 7 lands. So far it covers
 the loop as built in 7.8–7.9, what Spike B (7.10) found when the loop met the
-live model, and the twelve tools (7.11).
+live model, the twelve tools (7.11), and the drawer and apply loop (7.12–7.13).
 
 ## The loop
 
@@ -150,3 +150,50 @@ changes, sections }`, which is what the drawer applies.
   leaves an admin's edits alone, so the new line about dependent edits reaches a
   fresh install, not an existing agent row. On an existing install, paste it in
   from `003-beatbuddy.ts` at `/admin/orchestration/agents`.
+
+## The drawer and the apply loop
+
+The drawer is `components/app/buddy/buddy-panel.tsx`, the seventh tool on the
+rail (`?drawer=buddy`, 440px wide). The conversation is `useBuddyChat`
+(`use-buddy-chat.ts`), held by `StudioFrame` rather than the drawer, so closing
+the drawer to look at the chart does not lose it.
+
+- **A turn** posts `{ message, doc, section, conversationId?, attachments? }`
+  to `/api/v1/buddy/stream` and reads the SSE through Sunrise's
+  `parseChatStreamEvent`. `content` builds the reply, `status` shows under it,
+  and `error` and `budget_exceeded_per_turn` end the turn with a line in the
+  transcript (`getUserFacingError`). A non-200, including the 429
+  `BUDDY_ALLOWANCE_SPENT`, is shown the same way. Nothing outside the drawer
+  waits on a turn.
+- **Applying** (`lib/app/breaks/buddy/apply.ts`, pure). A tool result counts
+  as a change only if it parses, with its document held to
+  `sharePayloadSchema` again on the client. Of the changes in a frame, the
+  highest rev is applied, and only if it is above every rev seen so far.
+  Before applying, the notes on the stage are compared with the turn's
+  baseline: the pattern sent, then each document applied. If they differ, the
+  drummer edited mid-turn, and the change is dropped and the chip says so.
+  Tempo, swing and layer are left out of the comparison, so practising at 80%
+  while BeatBuddy works is not an edit.
+- **Undo.** `applyAssistant(payload, push)` on the console puts the document
+  on the stage. The first change of a turn pushes an undo entry that also
+  carries tempo, swing, layer and arrangement. Later changes in the same turn
+  replace the stage in place, so one Undo (the chip's, or Ctrl+Z) takes the
+  whole turn back. The chip's Undo is enabled only while the stage still shows
+  that turn's result.
+- **Flash.** The cells a change touched are lit for 1.6s: a ring on the grid
+  and a band on the chart's steps (`flash` on the console, `StepEditor` and
+  `Stave`). Under reduced motion it is a static highlight for the same time.
+- **Attachments.** Photos are downscaled to 1600px JPEG in the browser; PDFs
+  up to 5MB go as they are. A MIDI file goes to `POST /api/v1/breaks/import`
+  when it is attached and opens on the stage at once, with an undo step. So
+  does a BeatBreaker `#b=` or Groove Scribe link in a message, before the
+  message is sent. BeatBuddy is told what arrived in a line put ahead of the
+  next message (`importNote`). A `/p/` link is left to `open_pattern`.
+- **The allowance meter** reads `GET /api/v1/buddy/allowance` when the drawer
+  opens and after every turn, and the composer closes at zero.
+
+Not yet: when `open_pattern` opens one of the caller's saved patterns, the
+Studio treats it as an edit to the pattern already open rather than switching
+to that saved pattern. Saving then saves over the open one, or as new.
+Switching needs the pattern-document hook to take an id from a tool result,
+and is left for when the evals show people asking for it.
