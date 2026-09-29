@@ -1,6 +1,6 @@
 import { type ImportResult, capBars } from '@/lib/app/breaks/import';
 import { PERC_INSTS, PERC_LANES } from '@/lib/app/breaks/lanes';
-import { ACCENT_VELOCITY } from '@/lib/app/breaks/midi';
+import { valueForVelocity } from '@/lib/app/breaks/perform';
 import { DEFAULT_METER, METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import type { Bar, LaneKey, PercLaneKey } from '@/lib/app/breaks/types';
@@ -13,20 +13,18 @@ import type { Bar, LaneKey, PercLaneKey } from '@/lib/app/breaks/types';
  * event. Drums are read from channel 10; a file with nothing there is read
  * from every channel, since some exporters put a drum track on channel 1.
  *
- * **Velocity decides accents and ghosts** — `ACCENT_VELOCITY`, shared with the
- * writer, and {@link GHOST_VELOCITY} — which is what a file from a DAW or an
- * e-kit means by them. BeatBreaker's own export shapes hi-hat and ride
- * velocities by where they fall in the beat but keeps each in its band
- * (`cymbalVelocity`), so a hat accent comes back as an accent at any setting of
- * the hats slider.
+ * **Velocity decides accents and ghosts**, read against the levels the
+ * speakers play (`valueForVelocity` in `perform.ts`): each velocity is the
+ * nearest written value on its lane, and a hi-hat is an accent when it is on
+ * the loud side of the cymbal band. A file BeatBreaker wrote therefore reads
+ * back exactly at any setting of the hats slider, and a file from a DAW or an
+ * e-kit is read on the same scale you hear. Change a level there and this
+ * follows.
  *
  * Everything is bounds-checked; a truncated or hostile file is an error, not
  * an exception. Nothing here allocates in proportion to a number the file
  * claims — only to bytes it actually has.
  */
-
-/** A snare velocity below this is a ghost note. */
-export const GHOST_VELOCITY = 45;
 
 /** GM note → lane and whether the note itself names the value. */
 const GM: Record<number, { lane: LaneKey; value?: number }> = {
@@ -197,11 +195,6 @@ for (const [key, inst] of Object.entries(PERC_INSTS)) {
     PERC_BY_NOTE.set(inst.hi, { inst: key, value: 2 });
 }
 
-function valueFor(lane: LaneKey, velocity: number): number {
-  if (lane === 's') return velocity < GHOST_VELOCITY ? 1 : velocity >= ACCENT_VELOCITY ? 3 : 2;
-  return velocity >= ACCENT_VELOCITY ? 2 : 1;
-}
-
 /** Two notes on one step of one lane: the louder value wins, as the ear would have it. */
 const RANK: Partial<Record<LaneKey, number[]>> = { s: [0, 1, 3, 4, 2], h: [0, 1, 3, 2] };
 function louder(lane: LaneKey, a: number, b: number): number {
@@ -267,7 +260,7 @@ export function readMidi(bytes: Uint8Array): ImportResult {
     const gm = GM[h.note];
     if (gm) {
       lane = gm.lane;
-      value = gm.value ?? valueFor(gm.lane, h.velocity);
+      value = gm.value ?? valueForVelocity(gm.lane, h.velocity);
     } else {
       const p = PERC_BY_NOTE.get(h.note);
       if (p) {
@@ -279,7 +272,7 @@ export function readMidi(bytes: Uint8Array): ImportResult {
         if (slot) {
           lane = slot;
           const inst = PERC_INSTS[p.inst];
-          value = inst.hi !== inst.midi ? p.value : valueFor(slot, h.velocity);
+          value = inst.hi !== inst.midi ? p.value : valueForVelocity(slot, h.velocity);
         }
       }
     }

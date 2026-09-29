@@ -1,3 +1,4 @@
+import { midiVelocity } from '@/lib/app/breaks/perform';
 import { logger } from '@/lib/logging';
 
 /**
@@ -75,7 +76,8 @@ export class MidiOut implements MidiSink {
     const port = this.port;
     const ctx = this.ctx;
     if (!port || !ctx) return;
-    const v = Math.max(1, Math.min(127, Math.round(vel * 127)));
+    // the same conversion the file export writes, so a live note and an exported one match
+    const v = midiVelocity(vel);
     // audio-clock seconds -> performance.now() milliseconds, measured now
     const when = performance.now() + (at - ctx.currentTime) * 1000;
     try {

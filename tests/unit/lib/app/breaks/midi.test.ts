@@ -6,12 +6,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { generatePattern } from '@/lib/app/breaks/generate';
-import { METER_KEYS } from '@/lib/app/breaks/meter';
 import {
-  ACCENT_VELOCITY,
   MIDI_MAP,
-  PLAIN_CYMBAL_MAX,
-  cymbalVelocity,
   type MidiOptions,
   type SequencedBar,
   buildMidi,
@@ -19,6 +15,7 @@ import {
   midiFileName,
 } from '@/lib/app/breaks/midi';
 import { emptyBar } from '@/lib/app/breaks/pattern';
+import { midiVelocity, performStep } from '@/lib/app/breaks/perform';
 import { testStyle } from '@/tests/helpers/catalogue';
 import type { Pattern } from '@/lib/app/breaks/types';
 
@@ -209,84 +206,39 @@ describe('buildMidi', () => {
   });
 });
 
-describe('hi-hat and ride dynamics in the export', () => {
+describe('the file is the performance', () => {
   afterEach(() => {
     vi.restoreAllMocks();
   });
 
-  /** One bar with the cymbal on every step: hat accents on the odd steps, ride bells on the even ones. */
-  function cymbals(meter: string): Pattern {
+  it('writes every voice performStep gives, at its velocity × 127 and its offset', () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0.5); // a fixed wobble, so both sides roll the same
     const p = generatePattern({
-      style: testStyle('funk'),
-      meter,
-      seed: 5,
-      bars: 1,
-      density: 50,
-      ghosts: 0,
+      style: testStyle('dilla'),
+      seed: 9,
+      bars: 2,
+      density: 70,
+      ghosts: 80,
     });
-    const bar = emptyBar(p.bars[0].k.length);
-    bar.h = bar.h.map((_, i) => (i % 2 ? 2 : 1));
-    bar.r = bar.r.map((_, i) => (i % 2 ? 0 : i % 4 ? 1 : 2));
-    return { ...p, bars: [bar] };
-  }
+    p.bars[1].h[3] = 2;
+    p.bars[1].r[5] = 2;
+    const opts = { ...OPTS, swing: 30, feel: 100, hats: 120 };
 
-  const velocities = (p: Pattern, hats: number, note: number) =>
-    parse(buildMidi(seqOf(p), { ...OPTS, hats }).bytes)
-      .notes.filter((n) => n.note === note)
-      .map((n) => n.vel);
-
-  it('keeps every written accent and ride bell above the line, and every plain note below it', () => {
-    for (const meter of METER_KEYS) {
-      const p = cymbals(meter);
-      for (const hats of [0, 50, 100, 150]) {
-        for (let run = 0; run < 5; run++) {
-          const f = parse(buildMidi(seqOf(p), { ...OPTS, hats }).bytes).notes;
-          for (const n of f) {
-            const step = n.t / 120;
-            const loud =
-              (n.note === MIDI_MAP.h && p.bars[0].h[step] === 2) || n.note === MIDI_MAP.rBell;
-            if (n.note !== MIDI_MAP.h && n.note !== MIDI_MAP.r && n.note !== MIDI_MAP.rBell)
-              continue;
-            if (loud)
-              expect(n.vel, `${meter} hats ${hats} step ${step}`).toBeGreaterThanOrEqual(
-                ACCENT_VELOCITY
-              );
-            else
-              expect(n.vel, `${meter} hats ${hats} step ${step}`).toBeLessThanOrEqual(
-                PLAIN_CYMBAL_MAX
-              );
-          }
+    const expected: Array<{ t: number; note: number; vel: number }> = [];
+    p.bars.forEach((bar, bi) => {
+      for (let i = 0; i < bar.k.length; i++) {
+        for (const v of performStep(p, bar, i, opts)) {
+          expected.push({
+            t: Math.max(0, Math.round((bi * bar.k.length + i + v.offset) * 120)),
+            note: v.note,
+            vel: midiVelocity(v.velocity),
+          });
         }
       }
-    }
-  });
-
-  it('still shapes the plain notes by where they fall in the beat', () => {
-    vi.spyOn(Math, 'random').mockReturnValue(0.5); // no wobble: the shape alone
-    const p = cymbals('4/4');
-    p.bars[0].h = p.bars[0].h.map(() => 1);
-    const hats = velocities(p, 100, MIDI_MAP.h);
-    expect(hats[0]).toBeGreaterThan(hats[2]); // beat 1 over its "+"
-    expect(hats[2]).toBeGreaterThan(hats[1]); // the "+" over the "e"
-    expect(new Set(hats).size).toBeGreaterThan(3);
-    // and at 0 the slider gives the machine-even hats it promises
-    expect(new Set(velocities(p, 0, MIDI_MAP.h)).size).toBe(1);
-  });
-
-  it('shapes the ride exactly as it shapes the hats', () => {
-    vi.spyOn(Math, 'random').mockReturnValue(0.5);
-    const p = cymbals('4/4');
-    p.bars[0].h = p.bars[0].h.map(() => 1);
-    p.bars[0].r = p.bars[0].h.slice();
-    for (const hats of [50, 100, 150]) {
-      expect(velocities(p, hats, MIDI_MAP.r)).toEqual(velocities(p, hats, MIDI_MAP.h));
-    }
-  });
-
-  it('keeps the bands at the extremes of the multiplier', () => {
-    expect(cymbalVelocity(true, 0.2)).toBe(112);
-    expect(cymbalVelocity(true, 1.2)).toBe(127);
-    expect(cymbalVelocity(false, 1.2)).toBe(PLAIN_CYMBAL_MAX);
-    expect(cymbalVelocity(false, 0)).toBe(1);
+    });
+    const order = (a: { t: number; note: number }, b: { t: number; note: number }) =>
+      a.t - b.t || a.note - b.note;
+    const written = parse(buildMidi(seqOf(p), opts).bytes).notes;
+    expect([...written].sort(order)).toEqual(expected.sort(order));
   });
 });

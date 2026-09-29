@@ -372,14 +372,22 @@ release process.
 
 ### Changed
 
-- **`POST /api/v1/breaks/midi` keeps hat accents distinct, and the ride now
-  shapes as the hats do.** The hats slider still shapes every hi-hat and ride
-  velocity by where it falls in the beat, but the export keeps each in a band.
-  Plain notes stay at or below 105, and hat accents and ride bells at or above
-  112. An off-beat accent is therefore no longer written quieter than a plain
-  hat on the beat, which lost it in a DAW, on an e-kit and in the import. The
-  ride used to shape at 80% of the hats' depth. It now matches them, in
-  playback and in the export. `hatShape` loses its `kind` argument.
+- **The speakers, the live MIDI port and the MIDI file now play one
+  performance.** Every note's velocity and timing come from `performStep` in
+  `lib/app/breaks/perform.ts`, which the transport voices the speakers and the
+  port from and `POST /api/v1/breaks/midi` writes the file from. Before, the
+  file had its own velocity table (a ghost note was 28 in the file but played
+  at 0.5 of full on the speakers). Now every exported velocity is the
+  speakers' level × 127, and the import reads velocities against the same
+  levels. The hats slider still shapes hi-hats and rides by position in the
+  beat, but a plain one stays at or below 0.9 (114) and a written accent or
+  ride bell at or above 0.95 (121), so an off-beat accent is never quieter
+  than a plain hat. That now holds on the speakers and the port as well as the
+  file. The ride shapes exactly as the hats do; it used to shape at 80%. The
+  hi-hat foot chick is sent at 0.4, as it plays, not 0.55. `MIDI_MAP` moves
+  to `perform.ts` and is re-exported from `midi.ts`. `hatShape` loses its
+  `kind` argument. A test plays the transport, the port and the file against
+  each other, and fails if anything outside `perform.ts` voices a note.
 
 - **`Break.shared` is gone; `visibility` replaces it** (migration `sharing`,
   which maps `shared = true` to `link` and gives each such row a slug).
