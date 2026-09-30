@@ -391,7 +391,7 @@ Validation messages:
 > You can change it, but not more than once a month, and your old one is held
 > for 30 days.
 >
-> **About you** `[ … ]` — _optional, shown on your public page_
+> **Bio** `[ … ]` — _optional, shown on your public page_
 
 _(Domain in the help text is a placeholder — owner to supply.)_
 
