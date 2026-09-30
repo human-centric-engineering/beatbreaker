@@ -3,6 +3,7 @@
 import { countInLabel, useTapTempo } from '@/components/app/shell/studio-transport';
 import { Slider } from '@/components/app/studio/panels/controls';
 import { ShelfList } from '@/components/app/studio/panels/patterns-panel';
+import { SpeedsCard } from '@/components/app/studio/panels/speeds-card';
 import { Segmented } from '@/components/app/studio/segmented';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { TempoControl } from '@/components/app/studio/tempo-control';
@@ -129,6 +130,8 @@ export function PracticePanel() {
           </div>
         </div>
       </div>
+
+      <SpeedsCard />
 
       <div className="card">
         <div className="card-hd">

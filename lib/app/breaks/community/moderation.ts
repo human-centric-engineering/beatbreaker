@@ -1,8 +1,14 @@
 import { createElement } from 'react';
 
 import { NotFoundError } from '@/lib/api/errors';
-import { REPORT_REASONS, REPORT_REASON_LABELS } from '@/lib/app/breaks/community/reports';
+import {
+  REPORT_REASONS,
+  REPORT_REASON_LABELS,
+  SPEED_REPORT_REASONS,
+  SPEED_REPORT_REASON_LABELS,
+} from '@/lib/app/breaks/community/reports';
 import PatternUnpublishedEmail from '@/components/app/emails/pattern-unpublished';
+import SpeedUnlistedEmail from '@/components/app/emails/speed-unlisted';
 import { prisma } from '@/lib/db/client';
 import { sendEmail } from '@/lib/email/send';
 import { logger } from '@/lib/logging';
@@ -152,4 +158,95 @@ export async function moderateProfile(
     }),
   ]);
   return { subjectId, action, reportsClosed: count };
+}
+
+/**
+ * What a moderator can do about a reported speed (Phase 7C). **Server-side
+ * only.** Takes effect on the next public read: the tables are read from live
+ * rows.
+ *
+ * - **unlist** — the record comes off every table (`listed = false`) and is
+ *   kept, in its drummer's history; its open reports are closed as actioned,
+ *   and the drummer is emailed. Nothing lists it again: there is no route that
+ *   sets `listed` on a record that exists.
+ * - **dismiss** — its open reports are closed as dismissed; nothing else moves.
+ */
+export const SPEED_MODERATION_ACTIONS = ['unlist', 'dismiss'] as const;
+export type SpeedModerationAction = (typeof SPEED_MODERATION_ACTIONS)[number];
+
+export async function moderateSpeed(
+  recordId: string,
+  action: SpeedModerationAction,
+  adminId: string,
+  now = new Date()
+): Promise<{ recordId: string; action: SpeedModerationAction; reportsClosed: number }> {
+  const row = await prisma.speedRecord.findUnique({
+    where: { id: recordId },
+    select: {
+      userId: true,
+      listed: true,
+      level: true,
+      bpm: true,
+      titleSnapshot: true,
+      breakRef: { select: { title: true } },
+      libraryEntry: { select: { title: true } },
+      // the oldest open report's reason is the one the drummer is told
+      reports: {
+        where: { status: 'open' },
+        select: { reason: true },
+        orderBy: { createdAt: 'asc' },
+        take: 1,
+      },
+    },
+  });
+  if (!row) throw new NotFoundError(`Speed record ${recordId} not found`);
+
+  const resolved = { resolvedById: adminId, resolvedAt: now };
+
+  if (action === 'dismiss') {
+    const { count } = await prisma.speedReport.updateMany({
+      where: { recordId, status: 'open' },
+      data: { status: 'dismissed', ...resolved },
+    });
+    return { recordId, action, reportsClosed: count };
+  }
+
+  const [, { count }] = await prisma.$transaction([
+    prisma.speedRecord.update({ where: { id: recordId }, data: { listed: false } }),
+    prisma.speedReport.updateMany({
+      where: { recordId, status: 'open' },
+      data: { status: 'actioned', ...resolved },
+    }),
+  ]);
+
+  /* Only when this took it off a table, for the reasons `moderate` gives: a
+     record already unlisted has nothing to tell anyone, and a second
+     moderator acting at once closes nothing and sends nothing. After the
+     write, and logged rather than thrown — the unlisting happened either way. */
+  if (!row.listed || count === 0) return { recordId, action, reportsClosed: count };
+  const drummer = await prisma.user.findUnique({
+    where: { id: row.userId },
+    select: { email: true },
+  });
+  if (drummer?.email) {
+    const title = row.breakRef?.title ?? row.libraryEntry?.title ?? row.titleSnapshot;
+    // the stored reason is read back through the list, never cast
+    const reason = SPEED_REPORT_REASONS.find((r) => r === row.reports[0]?.reason);
+    const label = reason ? SPEED_REPORT_REASON_LABELS[reason] : 'a report';
+    const sent = await sendEmail({
+      to: drummer.email,
+      subject: `Your ${row.bpm} bpm on “${title}” was taken off its table`,
+      react: createElement(SpeedUnlistedEmail, {
+        title,
+        bpm: row.bpm,
+        level: row.level,
+        reason: label.toLowerCase(),
+      }),
+    });
+    if (!sent.success) {
+      logger.warn('Unlist email not sent', { recordId, status: sent.status });
+    }
+  }
+
+  return { recordId, action, reportsClosed: count };
 }

@@ -98,6 +98,15 @@ export default function PrivacyPolicyPage() {
               private unless you switch it on. Channel links go to the other site as plain links,
               and nothing is loaded from it unless a visitor follows one.
             </p>
+            {/* FORK (BeatBreaker, Phase 7C): speed records and their tables. */}
+            <p>
+              When you mark your speed on a pattern, BeatBreaker keeps the tempo, the layer, the
+              date and time, and any video link or note you add. Every speed is kept, so you can see
+              your progress, and only you see them. On a published pattern or a famous break you can
+              choose to put your best on its public table, under your username, with the tempo, the
+              date and your video link; your note is never shown. You can delete a speed, and
+              deleting your account removes you from every table.
+            </p>
             <p>
               A pattern&apos;s video and song links are shown as buttons. Nothing is loaded from
               YouTube, Vimeo or Spotify until a visitor presses one; after that, that service may

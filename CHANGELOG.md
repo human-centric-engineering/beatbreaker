@@ -18,6 +18,27 @@ release process.
 
 ### Added
 
+- **Speed records and the tables (BeatBreaker Phase 7C).** New `SpeedRecord`
+  model (migration `speed_records`; `userId` cascades, both targets —
+  `breakId`, `libraryEntryId`, at most one — nulled, with `titleSnapshot`;
+  export section `speedRecords`). `POST`/`GET /api/v1/speed-records` and
+  `DELETE /api/v1/speed-records/:id`: a record's time is the server's, its
+  tempo runs from 40 to the meter's ceiling, 50 a day, and it stores the
+  target's notes hash. The tables are
+  `GET /api/v1/public/patterns/:slug/speeds` and
+  `GET /api/v1/public/library-entries/:id/speeds` (`level`, `video`, paging):
+  one best per listed drummer with a username, on the target's current notes.
+  `StudioSettings` gains `listSpeeds` (`ask` · `list` · `keep`); the first
+  answer on a public target becomes it.
+
+- **Reporting a speed (BeatBreaker Phase 7C).** New `SpeedReport` model
+  (migration `speed_reports`; the record cascades, reporter and resolver
+  nulled; export section `speedReportsFiled`).
+  `POST /api/v1/public/speeds/:id/report`, `GET /api/v1/admin/speeds` and
+  `POST /api/v1/admin/speeds/:id` (`unlist`, which emails the drummer;
+  `dismiss`). The daily report cap now counts pattern, profile and speed
+  reports together.
+
 - **About you (BeatBreaker Phase 7B).** New `DrummerAbout` model (migration
   `drummer_about`; `userId` cascades, export section `about`): purposes,
   preferred styles (≤ 8 catalogue keys) with an optional ability per style,

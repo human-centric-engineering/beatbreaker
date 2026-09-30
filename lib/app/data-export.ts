@@ -178,6 +178,20 @@ export function initAppSubjectSources(): void {
           "Reports you filed about other drummers' profiles — whose, the reason, your note, and what became of it.",
       },
       {
+        model: 'SpeedRecord',
+        section: 'speedRecords',
+        disposition: 'export',
+        description:
+          'Every speed you recorded — what it was on, the layer, the tempo, when, your video link and note, and whether it was on the public table.',
+      },
+      {
+        model: 'SpeedReport',
+        section: 'speedReportsFiled',
+        disposition: 'export',
+        description:
+          "Reports you filed about other drummers' speeds — which record, the reason, your note, and what became of it.",
+      },
+      {
         model: 'BreakReport',
         section: 'reportsFiled',
         disposition: 'export',
@@ -251,6 +265,8 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
     about,
     reportsFiled,
     profileReports,
+    speedRecords,
+    speedReportsFiled,
     styles,
     libraries,
     kits,
@@ -307,6 +323,24 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
         createdAt: true,
       },
     }),
+    /* Every record, listed or not — the history is yours. A record on
+       someone else's pattern names it by id and by the title it had, as a
+       pin names its target. */
+    prisma.speedRecord.findMany({ where: { userId }, orderBy: { recordedAt: 'asc' } }),
+    // as reportsFiled: the ones you filed, and never who resolved them
+    prisma.speedReport.findMany({
+      where: { reporterId: userId },
+      orderBy: { createdAt: 'asc' },
+      select: {
+        id: true,
+        recordId: true,
+        reason: true,
+        note: true,
+        status: true,
+        resolvedAt: true,
+        createdAt: true,
+      },
+    }),
     /* `ownerId`, not `userId` — the catalogue names its owner differently, and
        that is precisely the column core's own user-id heuristic cannot see. */
     prisma.style.findMany({
@@ -354,6 +388,8 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
     about,
     reportsFiled,
     profileReportsFiled,
+    speedRecords,
+    speedReportsFiled,
     styles,
     libraries,
     kits,

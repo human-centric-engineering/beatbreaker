@@ -9,6 +9,9 @@ import { ReportButton } from '@/components/app/community/report-button';
 import { Button } from '@/components/ui/button';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { usernameOf } from '@/lib/app/breaks/community/profile';
+import { type ListedBest, listedBestsFor } from '@/lib/app/breaks/community/speed-tables';
+import { publicPath } from '@/lib/app/breaks/community/visibility';
+import { layerName } from '@/lib/app/breaks/layers';
 import {
   getPublicDrummer,
   listPublished,
@@ -21,7 +24,8 @@ import { ABILITY_LABELS, PURPOSE_LABELS } from '@/lib/validations/drummer-about'
  * A drummer's public page — `/u/[username]` (Phase 6, task 6.8): the
  * username, what they wrote about themselves, and what they have published.
  * From Phase 7B, also the About-you fields they switched on, their channel
- * links, and a way for a signed-in reader to report the profile.
+ * links, and a way for a signed-in reader to report the profile. From Phase
+ * 7C, their listed bests: the speeds they put on public tables.
  *
  * What is shown about the person is exactly what `getPublicDrummer` returns:
  * never the account name or email (D3), and never a field switched off. Only
@@ -52,10 +56,11 @@ export default async function DrummerPage({ params, searchParams }: Props) {
   const raw = (await searchParams).cursor;
   const cursor = typeof raw === 'string' ? raw : undefined;
 
-  const [{ patterns, nextCursor }, catalogue, session] = await Promise.all([
+  const [{ patterns, nextCursor }, catalogue, session, bests] = await Promise.all([
     listPublished({ username: profile.username, sort: 'newest', limit: 24, cursor }),
     studioCatalogue(),
     getServerSession(),
+    listedBestsFor(profile.username),
   ]);
   const mine = session ? (await usernameOf(session.user.id)) === profile.username : false;
   const styleName = (key: string) => catalogue.styles[key]?.params.label ?? key;
@@ -92,7 +97,47 @@ export default async function DrummerPage({ params, searchParams }: Props) {
           </Link>
         </Button>
       ) : null}
+
+      {bests.length ? <ListedBests bests={bests} /> : null}
     </div>
+  );
+}
+
+/**
+ * The speeds this drummer put on public tables (Phase 7C): their best per
+ * pattern and layer, newest first. Only what the tables list — nothing
+ * unlisted, nothing on a private pattern.
+ */
+function ListedBests({ bests }: { bests: ListedBest[] }) {
+  return (
+    <section aria-labelledby="speeds" className="space-y-3">
+      <h2 id="speeds" className="text-lg font-semibold">
+        Speeds
+      </h2>
+      <ul className="divide-y rounded-lg border">
+        {bests.map((b, i) => (
+          <li key={i} className="flex flex-wrap items-baseline gap-x-4 gap-y-1 p-3">
+            <span className="font-medium">
+              {b.slug ? <Link href={`${publicPath(b.slug)}#speeds`}>{b.title}</Link> : b.title}
+            </span>
+            <span className="text-muted-foreground text-sm">{layerName(b.level)}</span>
+            <span className="font-mono font-semibold">{b.bpm} bpm</span>
+            <span className="text-muted-foreground text-sm">{b.recordedAt.slice(0, 10)}</span>
+            {b.video ? (
+              <a
+                href={b.video.url}
+                target="_blank"
+                rel="noopener noreferrer nofollow ugc"
+                className="rounded border px-1.5 text-xs tracking-wide uppercase"
+              >
+                video
+              </a>
+            ) : null}
+          </li>
+        ))}
+      </ul>
+      <p className="text-muted-foreground text-xs">Speeds are self-reported.</p>
+    </section>
   );
 }
 

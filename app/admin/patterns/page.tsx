@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { ModerationActions } from '@/components/app/admin/patterns/moderation-actions';
 import { ProfileModerationActions } from '@/components/app/admin/patterns/profile-moderation-actions';
+import { SpeedModerationActions } from '@/components/app/admin/patterns/speed-moderation-actions';
 import { publicPath } from '@/lib/app/breaks/community/visibility';
 import {
   moderationQueue,
@@ -11,18 +12,24 @@ import {
   profileQueue,
   REPORT_REASON_LABELS,
   REPORT_REASONS,
+  SPEED_REPORT_REASON_LABELS,
+  SPEED_REPORT_REASONS,
+  speedQueue,
 } from '@/lib/app/breaks/community/reports';
+import { readStoredVideo, VIDEO_PLATFORM_LABELS } from '@/lib/app/breaks/community/video-links';
 import { isFeatureEnabled } from '@/lib/feature-flags';
 import { PUBLISHING_FLAG } from '@/lib/app/breaks/community/publish';
 
 /**
  * The moderation queue — `/admin/patterns` (Phase 6, task 6.11): every shared
  * or published pattern with an open report, oldest first, and what to do
- * about each. From Phase 7B, the reported profiles below them.
+ * about each. From Phase 7B, the reported profiles below them; from Phase 7C,
+ * the reported speeds below those.
  *
- * Rendered on the server from `moderationQueue` and `profileQueue`, the same
- * reads `GET /api/v1/admin/patterns` and `GET /api/v1/admin/drummers` answer
- * with, for the reason the catalogue page
+ * Rendered on the server from `moderationQueue`, `profileQueue` and
+ * `speedQueue`, the same reads `GET /api/v1/admin/patterns`,
+ * `GET /api/v1/admin/drummers` and `GET /api/v1/admin/speeds` answer with,
+ * for the reason the catalogue page
  * gives: it is a query in the same process. Not cached — this is the page a
  * moderator reloads to see their action land.
  *
@@ -31,7 +38,8 @@ import { PUBLISHING_FLAG } from '@/lib/app/breaks/community/publish';
 
 export const metadata: Metadata = {
   title: 'Reports',
-  description: "Reports on shared and published BeatBreaker patterns and on drummers' profiles.",
+  description:
+    "Reports on shared and published BeatBreaker patterns, on drummers' profiles and on speeds.",
 };
 
 function reasonLabel(reason: string): string {
@@ -42,6 +50,11 @@ function reasonLabel(reason: string): string {
 function profileReasonLabel(reason: string): string {
   const known = PROFILE_REPORT_REASONS.find((r) => r === reason);
   return known ? PROFILE_REPORT_REASON_LABELS[known] : reason;
+}
+
+function speedReasonLabel(reason: string): string {
+  const known = SPEED_REPORT_REASONS.find((r) => r === reason);
+  return known ? SPEED_REPORT_REASON_LABELS[known] : reason;
 }
 
 function ReportLines({
@@ -65,9 +78,10 @@ function ReportLines({
 }
 
 export default async function AdminPatternsPage() {
-  const [queue, profiles, publishing] = await Promise.all([
+  const [queue, profiles, speeds, publishing] = await Promise.all([
     moderationQueue(),
     profileQueue(),
+    speedQueue(),
     isFeatureEnabled(PUBLISHING_FLAG),
   ]);
 
@@ -156,6 +170,64 @@ export default async function AdminPatternsPage() {
           </ul>
         ) : (
           <p className="text-muted-foreground">No open reports on profiles.</p>
+        )}
+      </section>
+
+      <section className="space-y-4" aria-labelledby="reported-speeds">
+        <div className="space-y-2">
+          <h2 id="reported-speeds" className="text-xl font-bold">
+            Reported speeds
+          </h2>
+          <p className="text-muted-foreground max-w-2xl text-sm">
+            Unlisting takes a speed off every table and emails the drummer; the record stays in
+            their history. Dismissing closes the reports and changes nothing else.
+          </p>
+        </div>
+        {speeds.length ? (
+          <ul className="space-y-4">
+            {speeds.map((item) => {
+              const video = readStoredVideo(item.videoUrl);
+              return (
+                <li key={item.recordId} className="space-y-3 rounded-lg border p-4">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <div>
+                      <h3 className="font-semibold">
+                        {item.bpm} bpm at layer {item.level} on{' '}
+                        {item.slug ? (
+                          <Link href={publicPath(item.slug)} target="_blank" className="underline">
+                            {item.title}
+                          </Link>
+                        ) : (
+                          item.title
+                        )}
+                      </h3>
+                      <p className="text-muted-foreground text-sm">
+                        {item.drummer.username ? `@${item.drummer.username}` : 'no username'} ·{' '}
+                        {item.drummer.email} · {item.recordedAt.slice(0, 10)} ·{' '}
+                        {item.listed ? 'listed' : 'not listed'}
+                      </p>
+                      {video ? (
+                        <p className="text-sm">
+                          <a
+                            href={video.url}
+                            target="_blank"
+                            rel="noopener noreferrer nofollow ugc"
+                            className="underline"
+                          >
+                            Video on {VIDEO_PLATFORM_LABELS[video.platform]}
+                          </a>
+                        </p>
+                      ) : null}
+                    </div>
+                    <SpeedModerationActions recordId={item.recordId} listed={item.listed} />
+                  </div>
+                  <ReportLines reports={item.reports} label={speedReasonLabel} />
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <p className="text-muted-foreground">No open reports on speeds.</p>
         )}
       </section>
     </div>

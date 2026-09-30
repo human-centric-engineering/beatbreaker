@@ -110,7 +110,8 @@ model Break {
   ownParent     Break?  @relation("BreakOwnParent", fields: [ownParentId], references: [id], onDelete: SetNull)
   ownVariations Break[] @relation("BreakOwnParent")
 
-  reports BreakReport[]
+  reports      BreakReport[]
+  speedRecords SpeedRecord[] @relation("SpeedBreak")
 
   @@index([userId, createdAt])
   @@index([visibility, publishedAt])
@@ -363,6 +364,89 @@ model PracticeVisit {
   @@map("practice_visit")
 }
 
+/// The fastest tempo you can play something _well_, at one layer, when you
+/// said so (Phase 7C). **Every record is kept**: your best is the highest
+/// `bpm` per target and layer, and the rest are your progress.
+///
+/// A record points at **at most one** target — one of your patterns, someone
+/// else's shared one, or a library entry — and outlives it: both targets are
+/// **SetNull**, so another drummer deleting their pattern does not erase your
+/// history, and `titleSnapshot` keeps what it was called. "At most one" is a
+/// hand-written CHECK, probed by `lib/app/db-drift.ts`.
+///
+/// `gridHash` is the target's notes when the record was made (`grid.ts`), so a
+/// table lists only records on the notes it shows now. `listed` is whether it
+/// may appear on a public table; it is only ever true for a record on a
+/// published pattern or a famous break (`lib/app/breaks/saved/speeds.ts`).
+///
+/// Personal data: `userId` cascades (hand-written FK), and an erased drummer
+/// leaves every table on the next read — the tables are read from live rows.
+model SpeedRecord {
+  id     String @id @default(cuid())
+  /// FK to User.id — no @relation. Cascades.
+  userId String
+
+  breakId        String?
+  libraryEntryId String?
+  /// What the target was called when the record was made.
+  titleSnapshot  String  @db.VarChar(160)
+
+  /// The layer (1–5) and the tempo.
+  level    Int
+  bpm      Int
+  /// The target's notes at the time — `Break.gridHash`, or an entry's `sectionHash`.
+  gridHash String  @db.VarChar(64)
+  /// Canonical, as `video-links.ts` rebuilt it.
+  videoUrl String? @db.VarChar(300)
+  note     String? @db.VarChar(280)
+  /// On the public table. False on a private target, whatever was asked.
+  listed   Boolean @default(false)
+
+  /// Set by the server, never taken from the client.
+  recordedAt DateTime @default(now())
+
+  breakRef     Break?        @relation("SpeedBreak", fields: [breakId], references: [id], onDelete: SetNull)
+  libraryEntry LibraryEntry? @relation("SpeedEntry", fields: [libraryEntryId], references: [id], onDelete: SetNull)
+
+  reports SpeedReport[]
+
+  @@index([userId, recordedAt])
+  @@index([breakId, level, listed])
+  @@index([libraryEntryId, level, listed])
+  @@map("speed_record")
+}
+
+/// A report that a listed speed does not look right (Phase 7C) —
+/// `DrummerReport`'s twin for speed records.
+///
+/// The record is a Prisma relation and **cascades**: a report on a deleted
+/// record is about nothing. `reporterId` and `resolvedById` are **nulled**, as
+/// on the other reports, so erasing a reporter or an admin does not take the
+/// moderation record with it. Both are hand-written FKs, probed by
+/// `lib/app/db-drift.ts`.
+model SpeedReport {
+  id           String    @id @default(cuid())
+  recordId     String
+  /// FK to User.id — no @relation. Nulled on erasure.
+  reporterId   String?
+  /// "wrong-speed" | "bad-link" | "other".
+  reason       String    @db.VarChar(24)
+  note         String?   @db.VarChar(500)
+  /// "open" | "dismissed" | "actioned".
+  status       String    @default("open") @db.VarChar(16)
+  /// FK to User.id — no @relation. The admin who resolved it; nulled on erasure.
+  resolvedById String?
+  resolvedAt   DateTime?
+  createdAt    DateTime  @default(now())
+
+  record SpeedRecord @relation(fields: [recordId], references: [id], onDelete: Cascade)
+
+  @@index([status, createdAt])
+  @@index([recordId, status])
+  @@index([reporterId, createdAt])
+  @@map("speed_report")
+}
+
 /// Your Studio settings (D19): how you play, as opposed to what you are
 /// playing. The kit and its tuning, the count-in, the generator's dials, and
 /// the starting values a new pattern opens with. One row per person, so
@@ -609,8 +693,9 @@ model LibraryEntry {
   library      PatternLibrary @relation(fields: [libraryId], references: [id], onDelete: Cascade)
   styleVersion StyleVersion?  @relation("EntryStyleVersion", fields: [styleVersionId], references: [id], onDelete: SetNull)
 
-  pins   Pin[]           @relation("PinEntry")
-  visits PracticeVisit[] @relation("VisitEntry")
+  pins         Pin[]           @relation("PinEntry")
+  visits       PracticeVisit[] @relation("VisitEntry")
+  speedRecords SpeedRecord[]   @relation("SpeedEntry")
 
   @@unique([libraryId, position])
   @@unique([libraryId, seedKey])
