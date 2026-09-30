@@ -26,6 +26,14 @@ vi.mock('@/lib/db/client', () => ({
       update: vi.fn(),
       count: vi.fn(),
     },
+    speedReport: {
+      findFirst: vi.fn(),
+      findMany: vi.fn(),
+      create: vi.fn(),
+      update: vi.fn(),
+      count: vi.fn(),
+    },
+    speedRecord: { findFirst: vi.fn() },
     drummerAbout: { findMany: vi.fn() },
     user: { findMany: vi.fn() },
     drummerProfile: { findMany: vi.fn(), findUnique: vi.fn() },
@@ -38,8 +46,10 @@ import {
   fileReport,
   moderationQueue,
   ownsSlug,
+  fileSpeedReport,
   profileQueue,
   REPORT_DAILY_CAP,
+  speedQueue,
 } from '@/lib/app/breaks/community/reports';
 import { prisma } from '@/lib/db/client';
 
@@ -58,6 +68,7 @@ beforeEach(() => {
   // does not have to know the cap is counted across both tables.
   vi.mocked(prisma.drummerReport.count).mockResolvedValue(0);
   vi.mocked(prisma.breakReport.count).mockResolvedValue(0);
+  vi.mocked(prisma.speedReport.count).mockResolvedValue(0);
 });
 
 describe('fileReport', () => {
@@ -516,5 +527,171 @@ describe('profileQueue', () => {
     vi.mocked(prisma.drummerAbout.findMany).mockResolvedValue([]);
 
     expect(await profileQueue()).toEqual([]);
+  });
+});
+
+describe('fileSpeedReport (7C)', () => {
+  const RECORD_ID = 'cspd00000000000000000001';
+  const DRUMMER_ID = 'cdrum0000000000000000001';
+
+  it('404s a record that is on no table, asking only for listed ones', async () => {
+    vi.mocked(prisma.speedRecord.findFirst).mockResolvedValue(null);
+
+    await expect(
+      fileSpeedReport(REPORTER_ID, RECORD_ID, { reason: 'wrong-speed' }, NOW)
+    ).rejects.toBeInstanceOf(NotFoundError);
+    expect(vi.mocked(prisma.speedRecord.findFirst).mock.calls[0][0]).toMatchObject({
+      where: { id: RECORD_ID, listed: true },
+    });
+    expect(prisma.speedReport.create).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing to report
+  });
+
+  it('refuses your own speed', async () => {
+    vi.mocked(prisma.speedRecord.findFirst).mockResolvedValue({
+      id: RECORD_ID,
+      userId: REPORTER_ID,
+    } as never);
+
+    await expect(
+      fileSpeedReport(REPORTER_ID, RECORD_ID, { reason: 'wrong-speed' }, NOW)
+    ).rejects.toBeInstanceOf(ValidationError);
+  });
+
+  it('updates your open report on the same record rather than adding another', async () => {
+    vi.mocked(prisma.speedRecord.findFirst).mockResolvedValue({
+      id: RECORD_ID,
+      userId: DRUMMER_ID,
+    } as never);
+    vi.mocked(prisma.speedReport.findFirst).mockResolvedValue({ id: 'srpt1' } as never);
+
+    const result = await fileSpeedReport(
+      REPORTER_ID,
+      RECORD_ID,
+      { reason: 'bad-link', note: '  not them  ' },
+      NOW
+    );
+
+    expect(result).toEqual({ id: 'srpt1', status: 'open' });
+    expect(prisma.speedReport.update).toHaveBeenCalledWith({
+      where: { id: 'srpt1' },
+      data: { reason: 'bad-link', note: 'not them' },
+    });
+    expect(prisma.speedReport.create).not.toHaveBeenCalled(); // test-review:accept no_arg_called — updated, not stacked
+  });
+
+  it('refuses with REPORT_LIMIT (429) at the daily cap, counted across every report kind', async () => {
+    vi.mocked(prisma.speedRecord.findFirst).mockResolvedValue({
+      id: RECORD_ID,
+      userId: DRUMMER_ID,
+    } as never);
+    vi.mocked(prisma.speedReport.findFirst).mockResolvedValue(null);
+    // one of each kind short of the cap, together over it
+    vi.mocked(prisma.breakReport.count).mockResolvedValue(REPORT_DAILY_CAP - 2);
+    vi.mocked(prisma.drummerReport.count).mockResolvedValue(1);
+    vi.mocked(prisma.speedReport.count).mockResolvedValue(1);
+
+    await expect(
+      fileSpeedReport(REPORTER_ID, RECORD_ID, { reason: 'wrong-speed' }, NOW)
+    ).rejects.toMatchObject({ code: 'REPORT_LIMIT', status: 429 });
+    expect(prisma.speedReport.create).not.toHaveBeenCalled(); // test-review:accept no_arg_called — refused before any write
+  });
+
+  it('counts speed reports toward the cap for a pattern report too', async () => {
+    vi.mocked(prisma.break.findFirst).mockResolvedValue({
+      id: BREAK_ID,
+      userId: OWNER_ID,
+    } as never);
+    vi.mocked(prisma.breakReport.findFirst).mockResolvedValue(null);
+    vi.mocked(prisma.speedReport.count).mockResolvedValue(REPORT_DAILY_CAP);
+
+    await expect(fileReport(REPORTER_ID, SLUG, { reason: 'spam' }, NOW)).rejects.toMatchObject({
+      code: 'REPORT_LIMIT',
+    });
+  });
+
+  it('creates a report with a null note when none was given', async () => {
+    vi.mocked(prisma.speedRecord.findFirst).mockResolvedValue({
+      id: RECORD_ID,
+      userId: DRUMMER_ID,
+    } as never);
+    vi.mocked(prisma.speedReport.findFirst).mockResolvedValue(null);
+    vi.mocked(prisma.speedReport.create).mockResolvedValue({ id: 'srpt-new' } as never);
+
+    const result = await fileSpeedReport(REPORTER_ID, RECORD_ID, { reason: 'wrong-speed' }, NOW);
+
+    expect(result).toEqual({ id: 'srpt-new', status: 'open' });
+    expect(prisma.speedReport.create).toHaveBeenCalledWith({
+      data: { recordId: RECORD_ID, reporterId: REPORTER_ID, reason: 'wrong-speed', note: null },
+      select: { id: true },
+    });
+  });
+});
+
+describe('speedQueue (7C)', () => {
+  const report = (id: string, recordOverrides: Record<string, unknown> = {}) => ({
+    id,
+    reason: 'wrong-speed',
+    note: null,
+    createdAt: new Date('2026-09-28T00:00:00Z'),
+    reporterId: null,
+    record: {
+      id: 'cspd00000000000000000001',
+      userId: 'cdrum0000000000000000001',
+      titleSnapshot: 'Old name',
+      level: 5,
+      bpm: 180,
+      recordedAt: new Date('2026-09-27T00:00:00Z'),
+      videoUrl: null,
+      listed: true,
+      breakRef: { title: 'Cold Carpet', slug: 'cold000001', visibility: 'published' },
+      libraryEntry: null,
+      ...recordOverrides,
+    },
+  });
+
+  it('groups open reports by record, with the drummer, and never the reporter', async () => {
+    vi.mocked(prisma.speedReport.findMany).mockResolvedValue([
+      report('sr1'),
+      report('sr2'),
+    ] as never);
+    vi.mocked(prisma.user.findMany).mockResolvedValue([
+      { id: 'cdrum0000000000000000001', email: 'drum@example.com' },
+    ] as never);
+    vi.mocked(prisma.drummerProfile.findMany).mockResolvedValue([
+      { userId: 'cdrum0000000000000000001', username: 'fastfeet' },
+    ] as never);
+
+    const queue = await speedQueue();
+
+    expect(queue).toHaveLength(1);
+    expect(queue[0]).toMatchObject({
+      recordId: 'cspd00000000000000000001',
+      title: 'Cold Carpet',
+      slug: 'cold000001',
+      bpm: 180,
+      listed: true,
+      drummer: { username: 'fastfeet', email: 'drum@example.com' },
+    });
+    expect(queue[0].reports.map((r) => r.id)).toEqual(['sr1', 'sr2']);
+    expect(queue[0].reports[0]).toEqual(expect.objectContaining({ reporterGone: true }));
+    expect(queue[0].reports[0]).not.toHaveProperty('reporterId');
+    // one lookup each for users and profiles, whatever the queue's length
+    expect(prisma.user.findMany).toHaveBeenCalledTimes(1);
+    expect(prisma.drummerProfile.findMany).toHaveBeenCalledTimes(1);
+  });
+
+  it('gives no address for a pattern no longer published, and the snapshot title once the target is gone', async () => {
+    vi.mocked(prisma.speedReport.findMany).mockResolvedValue([
+      report('sr1', { breakRef: { title: 'Cold Carpet', slug: 'cold000001', visibility: 'link' } }),
+      report('sr2', { id: 'cspd00000000000000000002', breakRef: null }),
+    ] as never);
+    vi.mocked(prisma.user.findMany).mockResolvedValue([] as never);
+    vi.mocked(prisma.drummerProfile.findMany).mockResolvedValue([] as never);
+
+    const [unpublished, gone] = await speedQueue();
+
+    expect(unpublished.slug).toBeNull();
+    expect(gone.title).toBe('Old name');
+    expect(gone.drummer).toEqual({ username: null, email: '' });
   });
 });

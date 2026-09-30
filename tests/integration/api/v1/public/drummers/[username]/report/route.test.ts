@@ -24,6 +24,7 @@ vi.mock('@/lib/db/client', () => ({
     drummerProfile: { findUnique: vi.fn() },
     drummerReport: { findFirst: vi.fn(), create: vi.fn(), update: vi.fn(), count: vi.fn() },
     breakReport: { count: vi.fn() },
+    speedReport: { count: vi.fn() },
   },
 }));
 
@@ -55,6 +56,7 @@ beforeEach(() => {
   vi.mocked(prisma.drummerReport.findFirst).mockResolvedValue(null);
   vi.mocked(prisma.drummerReport.count).mockResolvedValue(0);
   vi.mocked(prisma.breakReport.count).mockResolvedValue(0);
+  vi.mocked(prisma.speedReport.count).mockResolvedValue(0);
   vi.mocked(prisma.drummerReport.create).mockResolvedValue({ id: 'rpt1' } as never);
   vi.mocked(prisma.drummerReport.update).mockResolvedValue({ id: 'rpt1' } as never);
 });
@@ -118,7 +120,16 @@ it('updates the existing open report rather than filing a second one', async () 
   expect(prisma.drummerReport.create).not.toHaveBeenCalled(); // test-review:accept no_arg_called — the open report is updated, not duplicated
 });
 
-describe('the daily cap, counted over patterns and profiles together', () => {
+describe('the daily cap, counted over patterns, profiles and speeds together', () => {
+  it('counts speed reports too (7C)', async () => {
+    vi.mocked(prisma.breakReport.count).mockResolvedValue(10);
+    vi.mocked(prisma.drummerReport.count).mockResolvedValue(5);
+    vi.mocked(prisma.speedReport.count).mockResolvedValue(5);
+    const res = await POST(post({ reason: 'spam' }), ctx());
+    expect(res.status).toBe(429);
+    expect(prisma.drummerReport.create).not.toHaveBeenCalled(); // test-review:accept no_arg_called — the cap refuses before any write
+  });
+
   it('429s once patterns + profiles reach the cap, and files nothing', async () => {
     vi.mocked(prisma.breakReport.count).mockResolvedValue(15);
     vi.mocked(prisma.drummerReport.count).mockResolvedValue(5);

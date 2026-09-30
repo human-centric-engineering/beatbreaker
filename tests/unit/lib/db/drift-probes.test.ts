@@ -386,6 +386,9 @@ describe('shipped lib/app/db-drift.ts scaffold', () => {
       'pin',
       'practice_visit',
       'sample',
+      'speed_record',
+      'speed_report',
+      'speed_report',
       'studio_settings',
       'style',
       'style_version',
@@ -414,6 +417,8 @@ describe('shipped lib/app/db-drift.ts scaffold', () => {
     ).toEqual([
       ['pin', expect.stringContaining('pin_one_target')],
       ['practice_visit', expect.stringContaining('practice_visit_one_target')],
+      // at most one, not exactly one: a record outlives its target (7C)
+      ['speed_record', expect.stringContaining('speed_record_one_target')],
     ]);
   });
 });

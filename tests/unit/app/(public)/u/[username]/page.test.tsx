@@ -20,6 +20,7 @@ vi.mock('@/lib/app/breaks/community/public', async (importOriginal) => {
 vi.mock('@/lib/app/breaks/catalogue/data', () => ({ studioCatalogue: vi.fn() }));
 vi.mock('@/lib/auth/utils', () => ({ getServerSession: vi.fn() }));
 vi.mock('@/lib/app/breaks/community/profile', () => ({ usernameOf: vi.fn() }));
+vi.mock('@/lib/app/breaks/community/speed-tables', () => ({ listedBestsFor: vi.fn() }));
 vi.mock('next/navigation', () => ({
   notFound: vi.fn(() => {
     throw new Error('NEXT_NOT_FOUND');
@@ -31,6 +32,7 @@ import { getPublicDrummer, listPublished } from '@/lib/app/breaks/community/publ
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { getServerSession } from '@/lib/auth/utils';
 import { usernameOf } from '@/lib/app/breaks/community/profile';
+import { listedBestsFor } from '@/lib/app/breaks/community/speed-tables';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 import { createMockAuthSession } from '@/tests/helpers/auth';
 
@@ -43,6 +45,7 @@ beforeEach(() => {
   vi.mocked(studioCatalogue).mockResolvedValue(testCatalogue());
   vi.mocked(listPublished).mockResolvedValue({ patterns: [], nextCursor: null });
   vi.mocked(getServerSession).mockResolvedValue(null);
+  vi.mocked(listedBestsFor).mockResolvedValue([]);
 });
 
 describe('generateMetadata', () => {
@@ -228,5 +231,57 @@ describe('DrummerPage', () => {
       render(el);
       expect(screen.queryByRole('button', { name: 'Report' })).not.toBeInTheDocument();
     });
+  });
+});
+
+describe('listed bests (7C)', () => {
+  it('shows no Speeds section when the drummer has nothing listed', async () => {
+    vi.mocked(getPublicDrummer).mockResolvedValue({ username: 'ghostnotes', bio: null });
+    render(await DrummerPage({ params: params(), searchParams: searchParams() }));
+    expect(listedBestsFor).toHaveBeenCalledWith('ghostnotes');
+    expect(screen.queryByRole('region', { name: 'Speeds' })).not.toBeInTheDocument();
+  });
+
+  it('lists each best, linking a published pattern to its table and naming a famous break plainly', async () => {
+    vi.mocked(getPublicDrummer).mockResolvedValue({ username: 'ghostnotes', bio: null });
+    vi.mocked(listedBestsFor).mockResolvedValue([
+      {
+        title: 'Cold Carpet',
+        slug: 'cold000001',
+        level: 2,
+        bpm: 118,
+        recordedAt: '2026-09-02T10:00:00.000Z',
+        video: {
+          platform: 'tiktok',
+          url: 'https://www.tiktok.com/@ghostnotes/video/7300000000000000000',
+          embedUrl: null,
+        },
+      },
+      {
+        title: 'Cold Sweat',
+        slug: null,
+        level: 5,
+        bpm: 104,
+        recordedAt: '2026-09-01T10:00:00.000Z',
+        video: null,
+      },
+    ]);
+    render(await DrummerPage({ params: params(), searchParams: searchParams() }));
+
+    const section = screen.getByRole('region', { name: 'Speeds' });
+    expect(section).toHaveTextContent('118 bpm');
+    expect(section).toHaveTextContent('Groove');
+    expect(screen.getByRole('link', { name: 'Cold Carpet' })).toHaveAttribute(
+      'href',
+      '/p/cold000001#speeds'
+    );
+    expect(screen.queryByRole('link', { name: 'Cold Sweat' })).not.toBeInTheDocument();
+    const video = screen.getByRole('link', { name: 'video' });
+    expect(video).toHaveAttribute(
+      'href',
+      'https://www.tiktok.com/@ghostnotes/video/7300000000000000000'
+    );
+    expect(video).toHaveAttribute('rel', 'noopener noreferrer nofollow ugc');
+    expect(section).toHaveTextContent(/self-reported/);
   });
 });

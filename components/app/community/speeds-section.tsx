@@ -78,7 +78,7 @@ export function SpeedsSection({
         })}
         <Link
           href={href({ video: !videoOnly })}
-          aria-pressed={videoOnly}
+          aria-current={videoOnly ? 'true' : undefined}
           className={`rounded-md border border-dashed px-3 py-1 text-sm ${videoOnly ? 'bg-foreground text-background' : ''}`}
           scroll={false}
         >

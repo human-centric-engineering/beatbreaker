@@ -26,6 +26,11 @@ vi.mock('@/lib/app/breaks/community/public', async (importOriginal) => ({
   openableIdForSlug: vi.fn(),
 }));
 vi.mock('@/lib/app/breaks/community/reports', () => ({ ownsSlug: vi.fn() }));
+vi.mock('@/lib/app/breaks/community/profile', () => ({ usernameOf: vi.fn() }));
+vi.mock('@/lib/app/breaks/community/speed-tables', () => ({
+  patternTableTarget: vi.fn(),
+  readSpeedTable: vi.fn(),
+}));
 vi.mock('@/lib/app/breaks/catalogue/data', () => ({ studioCatalogue: vi.fn() }));
 vi.mock('@/lib/auth/utils', () => ({ getServerSession: vi.fn() }));
 vi.mock('next/navigation', () => ({
@@ -50,8 +55,13 @@ vi.mock('@/components/app/community/pattern-actions', () => ({
   ),
 }));
 vi.mock('@/components/app/community/report-button', () => ({
-  ReportButton: ({ slug }: { slug: string }) => (
-    <button type="button" data-testid="report-button" data-slug={slug}>
+  ReportButton: ({ slug, speedId }: { slug?: string; speedId?: string }) => (
+    <button
+      type="button"
+      data-testid={speedId ? 'speed-report-button' : 'report-button'}
+      data-slug={slug}
+      data-speed-id={speedId}
+    >
       Report
     </button>
   ),
@@ -63,7 +73,9 @@ import {
   listVariations,
   openableIdForSlug,
 } from '@/lib/app/breaks/community/public';
+import { usernameOf } from '@/lib/app/breaks/community/profile';
 import { ownsSlug } from '@/lib/app/breaks/community/reports';
+import { patternTableTarget, readSpeedTable } from '@/lib/app/breaks/community/speed-tables';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { getServerSession } from '@/lib/auth/utils';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
@@ -123,6 +135,9 @@ beforeEach(() => {
   vi.clearAllMocks();
   vi.mocked(studioCatalogue).mockResolvedValue(testCatalogue());
   vi.mocked(ownsSlug).mockResolvedValue(false);
+  vi.mocked(usernameOf).mockResolvedValue(null);
+  vi.mocked(patternTableTarget).mockResolvedValue(null);
+  vi.mocked(readSpeedTable).mockResolvedValue({ rows: [], total: 0, nextCursor: null });
 });
 
 describe('generateMetadata', () => {
@@ -328,5 +343,102 @@ describe('variations (7A)', () => {
 
     expect(listVariations).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a link share has no list to read
     expect(screen.queryByRole('region', { name: 'Variations' })).not.toBeInTheDocument();
+  });
+});
+
+describe('speeds (7C)', () => {
+  const TARGET = { target: { breakId: 'cbrk00000000000000000001' }, hash: 'h'.repeat(64) };
+  const row = (id: string, username: string, bpm: number, video = false) => ({
+    id,
+    position: 1,
+    username,
+    bpm,
+    recordedAt: '2026-09-01T10:00:00.000Z',
+    video: video
+      ? {
+          platform: 'youtube' as const,
+          url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+          embedUrl: 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ',
+        }
+      : null,
+  });
+
+  it('reads the table at the full break by default and lists its rows, with the video badge', async () => {
+    vi.mocked(getPublicPattern).mockResolvedValue(pattern({ visibility: 'published' }));
+    vi.mocked(getServerSession).mockResolvedValue(null);
+    vi.mocked(listVariations).mockResolvedValue({ patterns: [], nextCursor: null });
+    vi.mocked(patternTableTarget).mockResolvedValue(TARGET);
+    vi.mocked(readSpeedTable).mockResolvedValue({
+      rows: [row('cspd00000000000000000001', 'fastfeet', 132, true)],
+      total: 1,
+      nextCursor: null,
+    });
+    render(await PublicPatternPage({ params: params() }));
+
+    expect(patternTableTarget).toHaveBeenCalledWith(SLUG);
+    expect(readSpeedTable).toHaveBeenCalledWith(TARGET, { level: 5, video: false, limit: 25 });
+    const section = screen.getByRole('region', { name: 'Speeds' });
+    expect(section).toHaveTextContent('@fastfeet');
+    expect(section).toHaveTextContent('132 bpm');
+    expect(section).toHaveTextContent('video');
+    expect(section).toHaveTextContent(/self-reported/);
+    // signed out: nobody to report as
+    expect(screen.queryByTestId('speed-report-button')).not.toBeInTheDocument();
+  });
+
+  it('reads the layer, the video filter and the page from the address', async () => {
+    vi.mocked(getPublicPattern).mockResolvedValue(pattern({ visibility: 'published' }));
+    vi.mocked(getServerSession).mockResolvedValue(null);
+    vi.mocked(listVariations).mockResolvedValue({ patterns: [], nextCursor: null });
+    vi.mocked(patternTableTarget).mockResolvedValue(TARGET);
+    await PublicPatternPage({
+      params: params(),
+      searchParams: Promise.resolve({ speeds: '2', video: '1', speedsCursor: 'MjU' }),
+    });
+    expect(readSpeedTable).toHaveBeenCalledWith(TARGET, {
+      level: 2,
+      video: true,
+      limit: 25,
+      cursor: 'MjU',
+    });
+  });
+
+  it('falls back to the full break, every row, for a layer that does not read', async () => {
+    vi.mocked(getPublicPattern).mockResolvedValue(pattern({ visibility: 'published' }));
+    vi.mocked(getServerSession).mockResolvedValue(null);
+    vi.mocked(listVariations).mockResolvedValue({ patterns: [], nextCursor: null });
+    vi.mocked(patternTableTarget).mockResolvedValue(TARGET);
+    await PublicPatternPage({ params: params(), searchParams: Promise.resolve({ speeds: '9' }) });
+    expect(readSpeedTable).toHaveBeenCalledWith(TARGET, { level: 5, video: false, limit: 25 });
+  });
+
+  it('has no table for a link share', async () => {
+    vi.mocked(getPublicPattern).mockResolvedValue(pattern({ visibility: 'link' }));
+    vi.mocked(getServerSession).mockResolvedValue(null);
+    render(await PublicPatternPage({ params: params() }));
+    expect(patternTableTarget).not.toHaveBeenCalled(); // test-review:accept no_arg_called — link shares have no table
+    expect(screen.queryByRole('region', { name: 'Speeds' })).not.toBeInTheDocument();
+  });
+
+  it("offers a signed-in reader Report on other drummers' rows and not on their own", async () => {
+    vi.mocked(getPublicPattern).mockResolvedValue(pattern({ visibility: 'published' }));
+    vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+    vi.mocked(openableIdForSlug).mockResolvedValue('cbrk00000000000000000099');
+    vi.mocked(usernameOf).mockResolvedValue('fastfeet');
+    vi.mocked(listVariations).mockResolvedValue({ patterns: [], nextCursor: null });
+    vi.mocked(patternTableTarget).mockResolvedValue(TARGET);
+    vi.mocked(readSpeedTable).mockResolvedValue({
+      rows: [
+        row('cspd00000000000000000001', 'fastfeet', 132),
+        { ...row('cspd00000000000000000002', 'slowhands', 120), position: 2 },
+      ],
+      total: 2,
+      nextCursor: null,
+    });
+    render(await PublicPatternPage({ params: params() }));
+
+    const reports = screen.getAllByTestId('speed-report-button');
+    expect(reports).toHaveLength(1);
+    expect(reports[0]).toHaveAttribute('data-speed-id', 'cspd00000000000000000002');
   });
 });

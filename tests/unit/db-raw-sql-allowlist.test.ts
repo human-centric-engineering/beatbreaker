@@ -106,6 +106,12 @@ const ALLOWLIST: ReadonlyArray<{ file: string; calls: number; why: string }> = [
     why: 'conversation-context vector lookup on the hot path',
   },
   {
+    // FORK (BeatBreaker): the speed tables (Phase 7C).
+    file: 'lib/app/breaks/community/speed-tables.ts',
+    calls: 2,
+    why: 'one best per drummer (`DISTINCT ON`) and each drummer’s place (window functions) on a speed table — Prisma’s `distinct` does the first in memory over every row. Reads `speed_record` joined to `drummer_profile`, both per-user tables with no org column to isolate on; every value is bound, nothing interpolated',
+  },
+  {
     // FORK (BeatBreaker): your own samples (D20).
     file: 'lib/app/breaks/samples/data.ts',
     calls: 1,

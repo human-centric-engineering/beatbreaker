@@ -19,6 +19,8 @@ vi.mock('@/lib/db/client', () => ({
     breakReport: { updateMany: vi.fn() },
     drummerReport: { findFirst: vi.fn(), updateMany: vi.fn() },
     drummerAbout: { updateMany: vi.fn() },
+    speedRecord: { findUnique: vi.fn(), update: vi.fn() },
+    speedReport: { updateMany: vi.fn() },
     user: { findUnique: vi.fn() },
     // the array-of-promises form the source actually calls, not the callback
     // form — cast past the client's overloaded (and much wider) real type
@@ -31,7 +33,7 @@ type FakeTransaction = (ops: Promise<unknown>[]) => Promise<unknown[]>;
 vi.mock('@/lib/email/send', () => ({ sendEmail: vi.fn() }));
 
 import { NotFoundError } from '@/lib/api/errors';
-import { moderate, moderateProfile } from '@/lib/app/breaks/community/moderation';
+import { moderate, moderateProfile, moderateSpeed } from '@/lib/app/breaks/community/moderation';
 import { prisma } from '@/lib/db/client';
 import { sendEmail } from '@/lib/email/send';
 import { mockEmailFailure, mockEmailSuccess } from '@/tests/helpers/email';
@@ -261,5 +263,101 @@ describe('moderateProfile', () => {
         data: { status: 'actioned', resolvedById: ADMIN_ID, resolvedAt: NOW },
       });
     });
+  });
+});
+
+describe('moderateSpeed (7C)', () => {
+  const RECORD_ID = 'cspd00000000000000000001';
+
+  function recordRow(overrides: Record<string, unknown> = {}) {
+    return {
+      userId: OWNER_ID,
+      listed: true,
+      level: 2,
+      bpm: 180,
+      titleSnapshot: 'Old name',
+      breakRef: { title: 'Cold Carpet' },
+      libraryEntry: null,
+      reports: [{ reason: 'wrong-speed' }],
+      ...overrides,
+    };
+  }
+
+  beforeEach(() => {
+    vi.mocked(prisma.speedRecord.findUnique).mockResolvedValue(recordRow() as never);
+    vi.mocked(prisma.speedRecord.update).mockResolvedValue({} as never);
+    vi.mocked(prisma.speedReport.updateMany).mockResolvedValue({ count: 2 });
+  });
+
+  it('404s a record that no longer exists', async () => {
+    vi.mocked(prisma.speedRecord.findUnique).mockResolvedValue(null);
+    await expect(moderateSpeed(RECORD_ID, 'unlist', ADMIN_ID, NOW)).rejects.toBeInstanceOf(
+      NotFoundError
+    );
+  });
+
+  it('dismiss closes the open reports as dismissed and changes nothing else', async () => {
+    const result = await moderateSpeed(RECORD_ID, 'dismiss', ADMIN_ID, NOW);
+
+    expect(result).toEqual({ recordId: RECORD_ID, action: 'dismiss', reportsClosed: 2 });
+    expect(prisma.speedReport.updateMany).toHaveBeenCalledWith({
+      where: { recordId: RECORD_ID, status: 'open' },
+      data: { status: 'dismissed', resolvedById: ADMIN_ID, resolvedAt: NOW },
+    });
+    expect(prisma.speedRecord.update).not.toHaveBeenCalled(); // test-review:accept no_arg_called — dismiss moves nothing
+    expect(sendEmail).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nobody to tell
+  });
+
+  it('unlist takes it off the table, closes the reports as actioned, and emails the drummer the reason', async () => {
+    const result = await moderateSpeed(RECORD_ID, 'unlist', ADMIN_ID, NOW);
+
+    expect(result).toEqual({ recordId: RECORD_ID, action: 'unlist', reportsClosed: 2 });
+    expect(prisma.speedRecord.update).toHaveBeenCalledWith({
+      where: { id: RECORD_ID },
+      data: { listed: false },
+    });
+    expect(prisma.speedReport.updateMany).toHaveBeenCalledWith({
+      where: { recordId: RECORD_ID, status: 'open' },
+      data: { status: 'actioned', resolvedById: ADMIN_ID, resolvedAt: NOW },
+    });
+    expect(sendEmail).toHaveBeenCalledTimes(1);
+    const email = vi.mocked(sendEmail).mock.calls[0][0];
+    expect(email.to).toBe('owner@example.com');
+    expect(email.subject).toBe('Your 180 bpm on “Cold Carpet” was taken off its table');
+    expect(email.react.props).toEqual({
+      title: 'Cold Carpet',
+      bpm: 180,
+      level: 2,
+      reason: "speed doesn't look right",
+    });
+  });
+
+  it('names a record whose pattern has gone by its snapshot title', async () => {
+    vi.mocked(prisma.speedRecord.findUnique).mockResolvedValue(
+      recordRow({ breakRef: null }) as never
+    );
+    await moderateSpeed(RECORD_ID, 'unlist', ADMIN_ID, NOW);
+    expect(vi.mocked(sendEmail).mock.calls[0][0].subject).toContain('“Old name”');
+  });
+
+  it('emails nobody when the record was already off the table, or a second moderator closed nothing', async () => {
+    vi.mocked(prisma.speedRecord.findUnique).mockResolvedValue(
+      recordRow({ listed: false }) as never
+    );
+    await moderateSpeed(RECORD_ID, 'unlist', ADMIN_ID, NOW);
+
+    vi.mocked(prisma.speedRecord.findUnique).mockResolvedValue(recordRow() as never);
+    vi.mocked(prisma.speedReport.updateMany).mockResolvedValue({ count: 0 });
+    await moderateSpeed(RECORD_ID, 'unlist', ADMIN_ID, NOW);
+
+    expect(sendEmail).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing newly unlisted
+  });
+
+  it('still unlists when the email fails, and says so in the log rather than throwing', async () => {
+    mockEmailFailure(vi.mocked(sendEmail));
+    await expect(moderateSpeed(RECORD_ID, 'unlist', ADMIN_ID, NOW)).resolves.toMatchObject({
+      reportsClosed: 2,
+    });
+    expect(prisma.speedRecord.update).toHaveBeenCalled();
   });
 });

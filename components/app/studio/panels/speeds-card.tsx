@@ -306,7 +306,7 @@ function Recent({
   return (
     <div className="field">
       <span className="fieldlab">Latest</span>
-      <ul className="speeds-recent">
+      <ul className="speeds-recent" aria-label="Your latest speeds">
         {records.slice(0, RECENT_SHOWN).map((r) => (
           <li key={r.id}>
             <span>
