@@ -1521,6 +1521,53 @@ with each switch off); a private field never appears in any public response;
 a new pattern takes the ability default; export contains the row and erasure
 removes it.
 
+**Reconciled against the tree (2026-09-30).** Three things the text above
+assumed were not there:
+
+- **Profiles could not be reported.** `BreakReport` is about patterns only, so
+  "joins the report reasons for profiles" had nothing to join. 7B builds it: a
+  `DrummerReport` table shaped like `BreakReport` (reporter and resolver nulled
+  on erasure, the reported profile's owner cascades), a _Report_ button on
+  `/u/[username]`, and profile items in the admin queue with _Strip links_ and
+  _Dismiss_. The personal-website link takes any `https` URL, so this is the
+  link that needs a way to be reported. A profile's reasons are _Spam_,
+  _Offensive username or bio_, _Bad or misleading link_ and _Something else_.
+  Hiding an offensive username or bio is not an action yet (§10).
+- **Home has no Generate or Sessions section to put first.** It has
+  Practising, Recent and Published. Ordering Home by purpose moves to 7D, when
+  Sessions gives it something to order. 7B still stores purpose and gives it
+  to BeatBuddy.
+- **There is no starting layer setting.** A new pattern opens at layer 3,
+  hard-coded in the console. 7B adds `startLevel` beside `startBpm` in
+  `StudioSettings`. Saving a _changed_ ability writes both, and they remain
+  ordinary settings after that: D21 still moves `startBpm` as you set up a new
+  pattern, and changing your ability again resets them. The levels are Just
+  starting → L1 at 70, Beginner → L2 at 80, Intermediate → L3 at 94 (today's
+  defaults), Advanced → L4 at 105, Professional → L5 at 115.
+
+Two calls made in planning it:
+
+- **The Home card's "don't ask again" is on `DrummerAbout`, as `askedAt`.**
+  Skipping writes a row with nothing in it, so the card needs no setting of
+  its own, and an empty row reads the same as no row everywhere else.
+- **BeatBuddy's context is a `studio` context contributor**, keyed by the
+  caller's user id (the stream route passes `contextId`). Saving About you
+  invalidates it, so the next turn sees the change without waiting out the
+  cache.
+
+| #     | Task                                                                                                                                                                                                                    | Done when                                                                                                                                                                                                                                                                  |
+| ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 7B.1  | Channel-link parser `lib/app/breaks/community/channels.ts`: eight platforms and a personal website, exact hosts, handle or id extracted, canonical URL rebuilt; read-back re-parses                                     | Unit tests: each platform's accepted shapes come back canonical; `http`, userinfo, a port, a look-alike host and an off-list host are refused; the website shows as its bare host; a stored entry that no longer parses is dropped on read                                 |
+| 7B.2  | `DrummerAbout` model, migration `drummer_about` (hand-written cascade FK, drift probe); data layer `lib/app/breaks/community/about.ts`; export section `about` and the manifest                                         | Migration applied, drift diff shows only the known unmodelled objects; export contains the row; erasing the user removes it                                                                                                                                                |
+| 7B.3  | `GET`/`PUT /api/v1/drummer-about` and its Zod schema; styles checked against the catalogue on write and on read                                                                                                         | Route tests: each field saves and reads back; an off-list channel is a 400 and nothing lands; the stored channel URL is the canonical one; an unknown style, a ninth style, and an ability for a style not chosen are refused; defaults: channels public, the rest private |
+| 7B.4  | `GET /api/v1/public/drummers/[username]` and `getPublicProfile` with the public fields; `/u/[username]` shows them and the channel links (drumming first, drum mark, icon, `rel="me noopener noreferrer nofollow ugc"`) | Route tests field by field with each switch off; a private field is in no public response; page test for the links' `rel` and order                                                                                                                                        |
+| 7B.5  | `DrummerReport` model, migration `drummer_reports` (drift probes), export section `profileReportsFiled`; `POST /api/v1/public/drummers/[username]/report`; _Report_ on `/u/[username]`                                  | Route tests: your own profile 400, unknown 404, a repeat updates the open report, the daily cap 429; export contains your reports                                                                                                                                          |
+| 7B.6  | Profile reports in the admin queue; `strip-links` and `dismiss` for a profile                                                                                                                                           | Route tests: strip-links empties the channels and closes only the open bad-link reports; dismiss closes them all and changes nothing else; the queue lists profiles beside patterns                                                                                        |
+| 7B.7  | _About you_ in Settings (the `account-sections` seam), with `<FieldHelp>`; Home's three-question card, shown once                                                                                                       | Component tests: each field and switch saves; the card shows on a new account and not after answering or skipping                                                                                                                                                          |
+| 7B.8  | `startLevel` in `StudioSettings`; a changed ability writes `startLevel` and `startBpm`; the console opens a new pattern at `startLevel`; preferred styles first in the style picker and the libraries                   | Tests: saving an ability sets both; saving the same ability again leaves a changed `startBpm` alone; a new pattern opens at the ability's layer and tempo; preferred styles and their famous breaks sort first                                                             |
+| 7B.9  | BeatBuddy's `studio` context contributor, invalidated on save                                                                                                                                                           | Unit tests: purposes, styles and ability appear, private ones included; nothing is said when the row is empty; a save invalidates                                                                                                                                          |
+| 7B.10 | Privacy policy line; `.context/app/about.md`; CHANGELOG                                                                                                                                                                 | Docs merged with the code                                                                                                                                                                                                                                                  |
+
 ### Phase 7C — Your speeds and the tables · M
 
 **Goal:** a drummer can record the fastest tempo they can play a pattern
@@ -1652,6 +1699,9 @@ session can be shared with a link.
    also where a teacher sends a student their week's practice.
 8. **Privacy.** All three tables cascade on erasure (a copy's `parentId`
    nulls) and are declared in export and `SUBJECT_DATA_SOURCES`.
+9. **Home by purpose** (moved from 7B). 7B's _purpose_ decides which Home
+   section comes first: a teacher sees their sessions first, and a learner
+   keeps Practising first.
 
 **Done when:** a session's items always add up to its total, however the
 minutes are nudged; `tempoAt` passes its shape tests; running a two-pattern
@@ -1962,7 +2012,7 @@ every table declared in `lib/app/data-export.ts`.
 | 6     | New `BreakReport` — `breakId` (cascade), `reporterId?` (**SetNull** — the report outlives the reporter), `reason`, `note`, `status`, `resolvedById?` (SetNull), timestamps.                                                                                                                                                                                                                                                                                                                        | reporter nulled                                          | new section `reportsFiled`                      |
 | 7     | New `BuddyWorkspace` — `userId @unique`, `doc Json`, `rev Int`, `updatedAt`.                                                                                                                                                                                                                                                                                                                                                                                                                       | cascade                                                  | new section `buddyWorkspace`                    |
 | 7A    | `Break` + `frozenAt DateTime?` — set on first publish, never cleared; backfilled from `publishedAt`. `ownParentId String?` → `Break` `onDelete: SetNull`: an author's variation of their own fixed pattern.                                                                                                                                                                                                                                                                                        | —                                                        | column in `breaks`                              |
-| 7B    | New `DrummerAbout` — `userId @id` (cascade), `purposes String[]`, `styles String[]` (catalogue keys, ≤ 8), `ability`, `styleAbility Json`, `channels Json` (≤ 8, canonical URLs), `public Json` (a switch per field), `updatedAt`.                                                                                                                                                                                                                                                                 | cascade                                                  | new section `about`                             |
+| 7B    | New `DrummerAbout` — `userId @id` (cascade), `purposes String[]`, `styles String[]` (catalogue keys, ≤ 8), `ability`, `styleAbility Json`, `channels Json` (≤ 8, canonical URLs), `public Json` (a switch per field), `askedAt DateTime?` (the Home card), `updatedAt`. New `DrummerReport` — `subjectId` (cascade), `reporterId?` and `resolvedById?` (SetNull), shaped like `BreakReport`. `StudioSettings.prefs` gains `startLevel`.                                                            | cascade; a report's reporter nulled                      | new sections `about`, `profileReportsFiled`     |
 | 7C    | New `SpeedRecord` — `userId` (cascade), `breakId?` / `libraryEntryId?` (**SetNull**, CHECK at most one), `titleSnapshot`, `level`, `bpm`, `gridHash`, `videoUrl?`, `note?`, `listed`, `recordedAt`; index `(breakId, level, bpm)`, `(libraryEntryId, level, bpm)`.                                                                                                                                                                                                                                 | cascade                                                  | new section `speeds`                            |
 | 7D    | New `PracticeSession` — `userId` (cascade), `name`, `description?`, `totalMinutes`, `startPct`, `climbShare`, `climbShape`, `visibility` (`private`/`link`), `slug? @unique`, `parentId?` (SetNull). New `PracticeSessionItem` — `sessionId` (cascade), `position`, `breakId?` / `libraryEntryId?` (SetNull), `titleSnapshot`, `level`, `targetBpm`, `minutes`, `minutesPinned`, overrides. New `PracticeRun` — `userId` (cascade), `sessionId?` (SetNull), `startedAt`, `endedAt?`, `items Json`. | cascade; copies keep, `parentId` nulled                  | new section `practice`                          |
 | —     | `Take` — unchanged and unused until D8 is decided.                                                                                                                                                                                                                                                                                                                                                                                                                                                 | cascade (as now)                                         | in `takes` (as now)                             |
@@ -2095,6 +2145,8 @@ Recommendation first in each case. None blocks Phases 0–4.
   are visible to the teacher (7B's _teaching_ purpose is the start of it);
   streaks and practice-time totals from `PracticeRun`; badges for
   milestones.
+- **More profile moderation** (after 7B): an admin can strip a reported
+  profile's links, but not yet hide an offensive username or bio.
 
 Deliberately not in this plan: an in-Studio player for a pattern's reference
 video or song (so you can hear the original without leaving the chart — needs
