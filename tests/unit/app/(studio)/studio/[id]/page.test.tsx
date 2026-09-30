@@ -30,6 +30,10 @@ vi.mock('@/lib/app/breaks/saved/settings', () => ({ readStudioSettings: vi.fn() 
 vi.mock('@/lib/app/breaks/samples/kits', () => ({ listYourKits: vi.fn() }));
 // and your samples, whose scope is tested through /api/v1/samples
 vi.mock('@/lib/app/breaks/samples/data', () => ({ listSamples: vi.fn() }));
+/* Your About-you styles (7B), so the Studio's style picker puts yours first;
+   its own field-by-field read and the ordering it drives are tested through
+   /api/v1/drummer-about and lib/app/breaks/catalogue/prefer.test.ts. */
+vi.mock('@/lib/app/breaks/community/about', () => ({ getAbout: vi.fn() }));
 /* The loader is mocked at its own seam; its query, its scope and its touch are
    tested through the API route that shares it. */
 vi.mock('@/lib/app/breaks/saved/data', () => ({ openSavedBreak: vi.fn() }));
@@ -54,6 +58,7 @@ import { listSamples } from '@/lib/app/breaks/samples/data';
 import { listYourKits } from '@/lib/app/breaks/samples/kits';
 import { DEFAULT_STUDIO_SETTINGS } from '@/lib/validations/studio-settings';
 import { lineageOf } from '@/lib/app/breaks/community/sharing';
+import { getAbout } from '@/lib/app/breaks/community/about';
 import { openSavedBreak } from '@/lib/app/breaks/saved/data';
 import { createMockAuthSession } from '@/tests/helpers/auth';
 import { testCatalogue } from '@/tests/helpers/catalogue';
@@ -74,6 +79,17 @@ describe('/studio/[id]', () => {
     vi.mocked(readStudioSettings).mockResolvedValue(SETTINGS);
     vi.mocked(listYourKits).mockResolvedValue(YOUR_KITS);
     vi.mocked(listSamples).mockResolvedValue(YOUR_SAMPLES);
+    // no preferred styles by default — preferStyles is then the identity, so
+    // the `toBe(catalogue)` assertions below keep meaning what they say
+    vi.mocked(getAbout).mockResolvedValue({
+      purposes: [],
+      styles: [],
+      ability: null,
+      styleAbility: {},
+      channels: [],
+      public: { purposes: false, styles: false, ability: false, channels: true },
+      askedAt: null,
+    });
   });
 
   it('sends a signed-out visitor back to the pattern they asked for', async () => {
@@ -153,6 +169,30 @@ describe('/studio/[id]', () => {
       sharing: { visibility: 'link', slug: 'cold000001', basedOn: credit, fixed: false },
     });
     expect(lineageOf).toHaveBeenCalledWith('cbrk00000000000000000009');
+  });
+
+  it('puts your About-you styles first in the catalogue handed to the provider (7B, task 7B.8)', async () => {
+    vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+    const catalogue = testCatalogue();
+    vi.mocked(studioCatalogue).mockResolvedValue(catalogue);
+    vi.mocked(openSavedBreak).mockResolvedValue(opened());
+    vi.mocked(lineageOf).mockResolvedValue(null);
+    vi.mocked(getAbout).mockResolvedValue({
+      purposes: [],
+      styles: ['funk'],
+      ability: null,
+      styleAbility: {},
+      channels: [],
+      public: { purposes: false, styles: false, ability: false, channels: true },
+      askedAt: null,
+    });
+
+    const el = await StudioPatternPage({ params: Promise.resolve({ id: ID }) });
+
+    expect(getAbout).toHaveBeenCalledWith(createMockAuthSession().user.id);
+    // preferStyles builds a new catalogue rather than handing back the same object
+    expect(el.props.catalogue).not.toBe(catalogue);
+    expect(el.props.catalogue.styleGroups[0]).toEqual(['Your styles', ['funk']]);
   });
 
   it('opens a pattern that has been published as fixed (7A, D26)', async () => {

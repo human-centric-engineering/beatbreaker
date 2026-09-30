@@ -35,7 +35,7 @@ describe('DrummerProfileSection', () => {
     expect(getDrummerProfile).toHaveBeenCalledWith('user-1');
     expect(screen.getByText('Drummer profile')).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: /Username/ })).toHaveValue('ghostnotes');
-    expect(screen.getByRole('textbox', { name: /About you/ })).toHaveValue('Funk, mostly.');
+    expect(screen.getByRole('textbox', { name: /Bio/ })).toHaveValue('Funk, mostly.');
     expect(screen.getByRole('button', { name: 'Save profile' })).toBeInTheDocument();
   });
 

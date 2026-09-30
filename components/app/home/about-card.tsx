@@ -81,18 +81,18 @@ export function AboutCard({ styles }: { styles: StyleOption[] }) {
 
         <fieldset className="space-y-1" disabled={busy}>
           <legend className="text-sm font-medium">How well do you play?</legend>
-          <div className="flex flex-wrap gap-2">
-            {ABILITIES.map((a) => (
-              <Button
-                key={a}
-                type="button"
-                size="sm"
-                variant={ability === a ? 'default' : 'outline'}
-                aria-pressed={ability === a}
-                onClick={() => setAbility((was) => (was === a ? '' : a))}
-              >
-                {ABILITY_LABELS[a]}
-              </Button>
+          <div className="flex flex-wrap gap-x-4 gap-y-1">
+            {(['', ...ABILITIES] as const).map((a) => (
+              <label key={a || 'none'} className="flex items-center gap-2 text-sm">
+                <input
+                  type="radio"
+                  name="about-card-ability"
+                  value={a}
+                  checked={ability === a}
+                  onChange={() => setAbility(a)}
+                />
+                {a ? ABILITY_LABELS[a] : 'Not saying'}
+              </label>
             ))}
           </div>
         </fieldset>

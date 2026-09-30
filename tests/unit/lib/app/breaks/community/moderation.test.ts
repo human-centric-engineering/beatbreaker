@@ -17,6 +17,8 @@ vi.mock('@/lib/db/client', () => ({
   prisma: {
     break: { findUnique: vi.fn(), update: vi.fn() },
     breakReport: { updateMany: vi.fn() },
+    drummerReport: { findFirst: vi.fn(), updateMany: vi.fn() },
+    drummerAbout: { updateMany: vi.fn() },
     user: { findUnique: vi.fn() },
     // the array-of-promises form the source actually calls, not the callback
     // form — cast past the client's overloaded (and much wider) real type
@@ -29,7 +31,7 @@ type FakeTransaction = (ops: Promise<unknown>[]) => Promise<unknown[]>;
 vi.mock('@/lib/email/send', () => ({ sendEmail: vi.fn() }));
 
 import { NotFoundError } from '@/lib/api/errors';
-import { moderate } from '@/lib/app/breaks/community/moderation';
+import { moderate, moderateProfile } from '@/lib/app/breaks/community/moderation';
 import { prisma } from '@/lib/db/client';
 import { sendEmail } from '@/lib/email/send';
 import { mockEmailFailure, mockEmailSuccess } from '@/tests/helpers/email';
@@ -37,6 +39,7 @@ import { mockEmailFailure, mockEmailSuccess } from '@/tests/helpers/email';
 const BREAK_ID = 'cbrk00000000000000000001';
 const ADMIN_ID = 'cadmin00000000000000001';
 const OWNER_ID = 'cowner000000000000000001';
+const SUBJECT_ID = 'csubj0000000000000000001';
 const NOW = new Date('2026-09-27T00:00:00Z');
 
 function breakRow(overrides: Record<string, unknown> = {}) {
@@ -212,5 +215,51 @@ describe('unpublish', () => {
 
     const call = vi.mocked(sendEmail).mock.calls[0][0];
     expect((call.react as unknown as { props: { reason: string } }).props.reason).toBe('a report');
+  });
+});
+
+describe('moderateProfile', () => {
+  beforeEach(() => {
+    vi.mocked(prisma.drummerReport.findFirst).mockResolvedValue({ id: 'pr1' } as never);
+    vi.mocked(prisma.drummerReport.updateMany).mockResolvedValue({ count: 2 });
+    vi.mocked(prisma.drummerAbout.updateMany).mockResolvedValue({ count: 1 });
+  });
+
+  it('404s a profile with no reports on it at all', async () => {
+    vi.mocked(prisma.drummerReport.findFirst).mockResolvedValue(null);
+
+    await expect(moderateProfile(SUBJECT_ID, 'dismiss', ADMIN_ID, NOW)).rejects.toBeInstanceOf(
+      NotFoundError
+    );
+    expect(prisma.drummerReport.updateMany).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing to moderate
+  });
+
+  describe('dismiss', () => {
+    it('closes every open report and touches nothing else', async () => {
+      const result = await moderateProfile(SUBJECT_ID, 'dismiss', ADMIN_ID, NOW);
+
+      expect(result).toEqual({ subjectId: SUBJECT_ID, action: 'dismiss', reportsClosed: 2 });
+      expect(prisma.drummerReport.updateMany).toHaveBeenCalledWith({
+        where: { subjectId: SUBJECT_ID, status: 'open' },
+        data: { status: 'dismissed', resolvedById: ADMIN_ID, resolvedAt: NOW },
+      });
+      expect(prisma.drummerAbout.updateMany).not.toHaveBeenCalled(); // test-review:accept no_arg_called — dismiss changes no profile field
+    });
+  });
+
+  describe('strip-links', () => {
+    it('clears the channels and closes only the open bad-link reports', async () => {
+      const result = await moderateProfile(SUBJECT_ID, 'strip-links', ADMIN_ID, NOW);
+
+      expect(result.reportsClosed).toBe(2);
+      expect(prisma.drummerAbout.updateMany).toHaveBeenCalledWith({
+        where: { userId: SUBJECT_ID },
+        data: { channels: [] },
+      });
+      expect(prisma.drummerReport.updateMany).toHaveBeenCalledWith({
+        where: { subjectId: SUBJECT_ID, status: 'open', reason: 'bad-link' },
+        data: { status: 'actioned', resolvedById: ADMIN_ID, resolvedAt: NOW },
+      });
+    });
   });
 });

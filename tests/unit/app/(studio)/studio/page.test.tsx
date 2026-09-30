@@ -35,6 +35,10 @@ vi.mock('@/lib/app/breaks/saved/settings', () => ({ readStudioSettings: vi.fn() 
 vi.mock('@/lib/app/breaks/samples/kits', () => ({ listYourKits: vi.fn() }));
 // and your samples, whose scope is tested through /api/v1/samples
 vi.mock('@/lib/app/breaks/samples/data', () => ({ listSamples: vi.fn() }));
+/* Your About-you styles (7B), so the Studio's style picker puts yours first;
+   its own field-by-field read and the ordering it drives are tested through
+   /api/v1/drummer-about and lib/app/breaks/catalogue/prefer.test.ts. */
+vi.mock('@/lib/app/breaks/community/about', () => ({ getAbout: vi.fn() }));
 
 import StudioPage from '@/app/(studio)/studio/page';
 import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
@@ -47,6 +51,7 @@ import { listPins } from '@/lib/app/breaks/saved/pins';
 import { readStudioSettings } from '@/lib/app/breaks/saved/settings';
 import { listSamples } from '@/lib/app/breaks/samples/data';
 import { listYourKits } from '@/lib/app/breaks/samples/kits';
+import { getAbout } from '@/lib/app/breaks/community/about';
 import { DEFAULT_STUDIO_SETTINGS } from '@/lib/validations/studio-settings';
 import { createMockAuthSession } from '@/tests/helpers/auth';
 import { testCatalogue } from '@/tests/helpers/catalogue';
@@ -72,6 +77,17 @@ describe('/studio', () => {
     vi.mocked(readStudioSettings).mockResolvedValue(SETTINGS);
     vi.mocked(listYourKits).mockResolvedValue(YOUR_KITS);
     vi.mocked(listSamples).mockResolvedValue(YOUR_SAMPLES);
+    // no preferred styles by default — preferStyles is then the identity, so
+    // the `toBe(catalogue)` assertion below keeps meaning what it says
+    vi.mocked(getAbout).mockResolvedValue({
+      purposes: [],
+      styles: [],
+      ability: null,
+      styleAbility: {},
+      channels: [],
+      public: { purposes: false, styles: false, ability: false, channels: true },
+      askedAt: null,
+    });
   });
 
   it('hands a signed-out visitor to the shim that keeps their link', async () => {
@@ -112,6 +128,28 @@ describe('/studio', () => {
     // a plain /studio opens nothing on top of the pattern it arrives to
     expect(el.props.openEntry).toBeUndefined();
     expect(el.props.openDrawer).toBeUndefined();
+  });
+
+  it('puts your About-you styles first in the catalogue handed to the provider (7B, task 7B.8)', async () => {
+    vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+    const catalogue = testCatalogue();
+    vi.mocked(studioCatalogue).mockResolvedValue(catalogue);
+    vi.mocked(getAbout).mockResolvedValue({
+      purposes: [],
+      styles: ['funk'],
+      ability: null,
+      styleAbility: {},
+      channels: [],
+      public: { purposes: false, styles: false, ability: false, channels: true },
+      askedAt: null,
+    });
+
+    const el = await StudioPage(params());
+
+    expect(getAbout).toHaveBeenCalledWith(createMockAuthSession().user.id);
+    // preferStyles builds a new catalogue rather than handing back the same object
+    expect(el.props.catalogue).not.toBe(catalogue);
+    expect(el.props.catalogue.styleGroups[0]).toEqual(['Your styles', ['funk']]);
   });
 
   describe("?drawer= — Home's Browse the famous grooves", () => {

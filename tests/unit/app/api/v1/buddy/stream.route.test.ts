@@ -133,6 +133,7 @@ describe('POST /api/v1/buddy/stream', () => {
       agentSlug: 'beatbuddy',
       userId: USER_ID,
       contextType: 'studio',
+      contextId: 'about',
       entityContext: { workspace: true, section: 'B' },
     });
     expect(sseResponse).toHaveBeenCalledWith('the-event-stream', expect.anything());

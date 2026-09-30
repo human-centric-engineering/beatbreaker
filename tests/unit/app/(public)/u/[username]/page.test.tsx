@@ -1,9 +1,11 @@
 // @vitest-environment happy-dom
 
 /**
- * `/u/[username]` — a drummer's public page (Phase 6, task 6.8). An unknown
- * username 404s; only what `getPublicProfile` returns (username, bio) is
- * shown — never an account name or email (D3).
+ * `/u/[username]` — a drummer's public page (Phase 6, task 6.8; Phase 7B). An
+ * unknown username 404s; only what `getPublicDrummer` returns (username, bio,
+ * and the About-you fields switched on) is shown — never an account name or
+ * email (D3). A signed-in reader who is not the profile's own owner is
+ * offered Report; the owner and a signed-out visitor are not.
  *
  * @see app/(public)/u/[username]/page.tsx
  */
@@ -13,9 +15,11 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/lib/app/breaks/community/public', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/lib/app/breaks/community/public')>();
-  return { ...actual, getPublicProfile: vi.fn(), listPublished: vi.fn() };
+  return { ...actual, getPublicDrummer: vi.fn(), listPublished: vi.fn() };
 });
 vi.mock('@/lib/app/breaks/catalogue/data', () => ({ studioCatalogue: vi.fn() }));
+vi.mock('@/lib/auth/utils', () => ({ getServerSession: vi.fn() }));
+vi.mock('@/lib/app/breaks/community/profile', () => ({ usernameOf: vi.fn() }));
 vi.mock('next/navigation', () => ({
   notFound: vi.fn(() => {
     throw new Error('NEXT_NOT_FOUND');
@@ -23,9 +27,12 @@ vi.mock('next/navigation', () => ({
 }));
 
 import DrummerPage, { generateMetadata } from '@/app/(public)/u/[username]/page';
-import { getPublicProfile, listPublished } from '@/lib/app/breaks/community/public';
+import { getPublicDrummer, listPublished } from '@/lib/app/breaks/community/public';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
+import { getServerSession } from '@/lib/auth/utils';
+import { usernameOf } from '@/lib/app/breaks/community/profile';
 import { testCatalogue } from '@/tests/helpers/catalogue';
+import { createMockAuthSession } from '@/tests/helpers/auth';
 
 const params = (username = 'ghostnotes') => Promise.resolve({ username });
 const searchParams = (raw: Record<string, string | string[] | undefined> = {}) =>
@@ -35,30 +42,31 @@ beforeEach(() => {
   vi.clearAllMocks();
   vi.mocked(studioCatalogue).mockResolvedValue(testCatalogue());
   vi.mocked(listPublished).mockResolvedValue({ patterns: [], nextCursor: null });
+  vi.mocked(getServerSession).mockResolvedValue(null);
 });
 
 describe('generateMetadata', () => {
   it('is "Not found" and noindex for an unknown username', async () => {
-    vi.mocked(getPublicProfile).mockResolvedValue(null);
+    vi.mocked(getPublicDrummer).mockResolvedValue(null);
     const meta = await generateMetadata({ params: params(), searchParams: searchParams() });
     expect(meta.title).toBe('Not found');
     expect(meta.robots).toEqual({ index: false });
   });
 
   it('titles the page @username', async () => {
-    vi.mocked(getPublicProfile).mockResolvedValue({ username: 'ghostnotes', bio: null });
+    vi.mocked(getPublicDrummer).mockResolvedValue({ username: 'ghostnotes', bio: null });
     const meta = await generateMetadata({ params: params(), searchParams: searchParams() });
     expect(meta.title).toBe('@ghostnotes');
   });
 
   it('uses the bio as the description when the drummer has one', async () => {
-    vi.mocked(getPublicProfile).mockResolvedValue({ username: 'ghostnotes', bio: 'Plays funk.' });
+    vi.mocked(getPublicDrummer).mockResolvedValue({ username: 'ghostnotes', bio: 'Plays funk.' });
     const meta = await generateMetadata({ params: params(), searchParams: searchParams() });
     expect(meta.description).toBe('Plays funk.');
   });
 
   it('falls back to a generic description when there is no bio', async () => {
-    vi.mocked(getPublicProfile).mockResolvedValue({ username: 'ghostnotes', bio: null });
+    vi.mocked(getPublicDrummer).mockResolvedValue({ username: 'ghostnotes', bio: null });
     const meta = await generateMetadata({ params: params(), searchParams: searchParams() });
     expect(meta.description).toBe('Drum patterns published by @ghostnotes on BeatBreaker.');
   });
@@ -66,14 +74,14 @@ describe('generateMetadata', () => {
 
 describe('DrummerPage', () => {
   it('is not found for an unknown username', async () => {
-    vi.mocked(getPublicProfile).mockResolvedValue(null);
+    vi.mocked(getPublicDrummer).mockResolvedValue(null);
     await expect(DrummerPage({ params: params(), searchParams: searchParams() })).rejects.toThrow(
       'NEXT_NOT_FOUND'
     );
   });
 
   it('shows the username, the bio, and asks for that user’s own published patterns', async () => {
-    vi.mocked(getPublicProfile).mockResolvedValue({ username: 'ghostnotes', bio: 'Plays funk.' });
+    vi.mocked(getPublicDrummer).mockResolvedValue({ username: 'ghostnotes', bio: 'Plays funk.' });
     const el = await DrummerPage({ params: params(), searchParams: searchParams() });
     render(el);
     expect(screen.getByText('@ghostnotes')).toBeInTheDocument();
@@ -84,20 +92,20 @@ describe('DrummerPage', () => {
   });
 
   it('shows "Nothing published yet" when the drummer has nothing published', async () => {
-    vi.mocked(getPublicProfile).mockResolvedValue({ username: 'ghostnotes', bio: null });
+    vi.mocked(getPublicDrummer).mockResolvedValue({ username: 'ghostnotes', bio: null });
     const el = await DrummerPage({ params: params(), searchParams: searchParams() });
     render(el);
     expect(screen.getByText('Nothing published yet.')).toBeInTheDocument();
   });
 
   it('passes the cursor query param through to listPublished', async () => {
-    vi.mocked(getPublicProfile).mockResolvedValue({ username: 'ghostnotes', bio: null });
+    vi.mocked(getPublicDrummer).mockResolvedValue({ username: 'ghostnotes', bio: null });
     await DrummerPage({ params: params(), searchParams: searchParams({ cursor: 'MjQ' }) });
     expect(listPublished).toHaveBeenCalledWith(expect.objectContaining({ cursor: 'MjQ' }));
   });
 
   it('renders each published pattern with its catalogue style label — falling back to the raw key for a style the catalogue does not carry — and a "More patterns" link when there is a next page', async () => {
-    vi.mocked(getPublicProfile).mockResolvedValue({ username: 'ghostnotes', bio: null });
+    vi.mocked(getPublicDrummer).mockResolvedValue({ username: 'ghostnotes', bio: null });
     const known = {
       id: 'cbrk00000000000000000001',
       slug: 'funkpattern1',
@@ -136,5 +144,89 @@ describe('DrummerPage', () => {
 
     const more = screen.getByRole('link', { name: /more patterns/i });
     expect(more).toHaveAttribute('href', '/u/ghostnotes?cursor=MjQ');
+  });
+
+  describe('the About-you facts (7B)', () => {
+    it('shows nothing extra when getPublicDrummer returns no About-you fields', async () => {
+      vi.mocked(getPublicDrummer).mockResolvedValue({ username: 'ghostnotes', bio: null });
+      const el = await DrummerPage({ params: params(), searchParams: searchParams() });
+      render(el);
+      expect(screen.queryByText('Here for')).not.toBeInTheDocument();
+      expect(screen.queryByText('Plays at')).not.toBeInTheDocument();
+      expect(screen.queryByText('Styles')).not.toBeInTheDocument();
+      expect(screen.queryByLabelText('Channels')).not.toBeInTheDocument();
+    });
+
+    it('shows purposes, ability and styles (with per-style ability) only when present', async () => {
+      vi.mocked(getPublicDrummer).mockResolvedValue({
+        username: 'ghostnotes',
+        bio: null,
+        purposes: ['learning', 'teaching'],
+        ability: 'advanced',
+        styles: ['funk', 'rock'],
+        styleAbility: { funk: 'professional' },
+      });
+      const el = await DrummerPage({ params: params(), searchParams: searchParams() });
+      render(el);
+
+      expect(screen.getByText('Here for')).toBeInTheDocument();
+      expect(screen.getByText('Learning to play · Teaching drums')).toBeInTheDocument();
+      expect(screen.getByText('Plays at')).toBeInTheDocument();
+      expect(screen.getByText('Advanced')).toBeInTheDocument();
+      expect(screen.getByText('Styles')).toBeInTheDocument();
+      // funk has a per-style ability; rock falls back to the catalogue label alone
+      expect(screen.getByText(/Funk 16ths \(professional\)/)).toBeInTheDocument();
+      expect(screen.getByText(/, Rock/)).toBeInTheDocument();
+    });
+
+    it('shows the channel links when present', async () => {
+      vi.mocked(getPublicDrummer).mockResolvedValue({
+        username: 'ghostnotes',
+        bio: null,
+        channels: [
+          {
+            kind: 'youtube',
+            url: 'https://www.youtube.com/@ghostnotes',
+            drumming: true,
+            display: '@ghostnotes',
+          },
+        ],
+      });
+      const el = await DrummerPage({ params: params(), searchParams: searchParams() });
+      render(el);
+      expect(screen.getByRole('link', { name: /YouTube/ })).toHaveAttribute(
+        'href',
+        'https://www.youtube.com/@ghostnotes'
+      );
+    });
+  });
+
+  describe('Report (7B, task 7B.5)', () => {
+    beforeEach(() => {
+      vi.mocked(getPublicDrummer).mockResolvedValue({ username: 'ghostnotes', bio: null });
+    });
+
+    it('is hidden from a signed-out visitor', async () => {
+      vi.mocked(getServerSession).mockResolvedValue(null);
+      const el = await DrummerPage({ params: params(), searchParams: searchParams() });
+      render(el);
+      expect(screen.queryByRole('button', { name: 'Report' })).not.toBeInTheDocument();
+    });
+
+    it('is offered to a signed-in reader who is not the profile’s own owner', async () => {
+      vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+      vi.mocked(usernameOf).mockResolvedValue('someone-else');
+      const el = await DrummerPage({ params: params(), searchParams: searchParams() });
+      render(el);
+      expect(screen.getByRole('button', { name: 'Report' })).toBeInTheDocument();
+    });
+
+    it('is hidden from the profile’s own owner', async () => {
+      vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+      vi.mocked(usernameOf).mockResolvedValue('ghostnotes');
+      const el = await DrummerPage({ params: params(), searchParams: searchParams() });
+      render(el);
+      expect(screen.queryByRole('button', { name: 'Report' })).not.toBeInTheDocument();
+    });
   });
 });

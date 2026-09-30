@@ -119,3 +119,44 @@ describe('once opened', () => {
     expect(await screen.findByRole('alert')).toHaveTextContent('That did not send. Try again.');
   });
 });
+
+describe('the username variant (Phase 7B, task 7B.5) — reporting a profile', () => {
+  const USERNAME = 'ghostnotes';
+
+  it('posts to the drummer’s own report route, not the pattern one', async () => {
+    const user = userEvent.setup();
+    vi.mocked(apiClient.post).mockResolvedValue({ id: 'rpt1', status: 'open' });
+    render(<ReportButton username={USERNAME} />);
+    await user.click(screen.getByRole('button', { name: 'Report' }));
+    await user.click(screen.getByRole('radio', { name: 'Spam' }));
+
+    await user.click(screen.getByRole('button', { name: 'Send report' }));
+
+    expect(apiClient.post).toHaveBeenCalledWith(`/api/v1/public/drummers/${USERNAME}/report`, {
+      body: { reason: 'spam' },
+    });
+  });
+
+  it('offers the four profile reasons, and not the pattern-only "not-theirs" reason', async () => {
+    const user = userEvent.setup();
+    render(<ReportButton username={USERNAME} />);
+    await user.click(screen.getByRole('button', { name: 'Report' }));
+
+    expect(screen.getByRole('radio', { name: 'Spam' })).toBeInTheDocument();
+    expect(screen.getByRole('radio', { name: 'Offensive username or bio' })).toBeInTheDocument();
+    expect(screen.getByRole('radio', { name: 'Bad or misleading link' })).toBeInTheDocument();
+    expect(screen.getByRole('radio', { name: 'Something else' })).toBeInTheDocument();
+    expect(
+      screen.queryByRole('radio', { name: "Someone else's work passed off as theirs" })
+    ).not.toBeInTheDocument();
+    expect(screen.getAllByRole('radio')).toHaveLength(4);
+  });
+
+  it('asks "What is wrong with this profile?"', async () => {
+    const user = userEvent.setup();
+    render(<ReportButton username={USERNAME} />);
+    await user.click(screen.getByRole('button', { name: 'Report' }));
+
+    expect(screen.getByText('What is wrong with this profile?')).toBeInTheDocument();
+  });
+});
