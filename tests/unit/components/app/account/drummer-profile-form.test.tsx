@@ -29,7 +29,7 @@ describe('DrummerProfileForm — no profile yet', () => {
   it('starts empty, and offers to choose a username', () => {
     render(<DrummerProfileForm profile={null} />);
     expect(screen.getByRole('textbox', { name: /Username/ })).toHaveValue('');
-    expect(screen.getByRole('textbox', { name: /About you/ })).toHaveValue('');
+    expect(screen.getByRole('textbox', { name: /Bio/ })).toHaveValue('');
     expect(screen.getByRole('button', { name: 'Choose username' })).toBeInTheDocument();
   });
 });
@@ -44,7 +44,7 @@ describe('DrummerProfileForm — an existing profile', () => {
   it('starts filled in, and offers to save rather than choose', () => {
     render(<DrummerProfileForm profile={profile} />);
     expect(screen.getByRole('textbox', { name: /Username/ })).toHaveValue('ginger_baker');
-    expect(screen.getByRole('textbox', { name: /About you/ })).toHaveValue('Funk drummer');
+    expect(screen.getByRole('textbox', { name: /Bio/ })).toHaveValue('Funk drummer');
     expect(screen.getByRole('button', { name: 'Save profile' })).toBeInTheDocument();
   });
 
@@ -106,7 +106,7 @@ describe('DrummerProfileForm — submitting', () => {
     render(<DrummerProfileForm profile={null} />);
 
     await user.type(screen.getByRole('textbox', { name: /Username/ }), 'Ginger_Baker');
-    await user.type(screen.getByRole('textbox', { name: /About you/ }), 'Funk drummer');
+    await user.type(screen.getByRole('textbox', { name: /Bio/ }), 'Funk drummer');
     await user.click(screen.getByRole('button', { name: 'Choose username' }));
 
     await waitFor(() => expect(apiClient.put).toHaveBeenCalledTimes(1));

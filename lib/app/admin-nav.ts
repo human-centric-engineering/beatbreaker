@@ -37,10 +37,10 @@ export function initAppNav(): void {
       },
       {
         href: '/admin/patterns',
-        label: 'Reported patterns',
+        label: 'Reports',
         icon: Flag,
         description:
-          'Reports on shared and published patterns — unpublish, strip links or dismiss.',
+          "Reports on shared and published patterns and on drummers' profiles — unpublish, strip links or dismiss.",
       },
     ],
   });

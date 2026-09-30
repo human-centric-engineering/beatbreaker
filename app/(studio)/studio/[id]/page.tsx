@@ -11,6 +11,8 @@ import { openSavedBreak } from '@/lib/app/breaks/saved/data';
 import { listHistory } from '@/lib/app/breaks/saved/history';
 import { listPins } from '@/lib/app/breaks/saved/pins';
 import { readStudioSettings } from '@/lib/app/breaks/saved/settings';
+import { preferStyles } from '@/lib/app/breaks/catalogue/prefer';
+import { getAbout } from '@/lib/app/breaks/community/about';
 import { listSamples } from '@/lib/app/breaks/samples/data';
 import { listYourKits } from '@/lib/app/breaks/samples/kits';
 import { getServerSession } from '@/lib/auth/utils';
@@ -42,21 +44,23 @@ export default async function StudioPatternPage({ params }: { params: Promise<{ 
   const parsedId = cuidSchema.safeParse(id);
   if (!parsedId.success) notFound();
 
-  const [opened, catalogue, pins, history, settings, yourKits, yourSamples] = await Promise.all([
-    openSavedBreak(parsedId.data, session.user.id),
-    studioCatalogue(),
-    listPins(session.user.id),
-    listHistory(session.user.id),
-    readStudioSettings(session.user.id),
-    listYourKits(session.user.id),
-    listSamples(session.user.id),
-  ]);
+  const [opened, catalogue, pins, history, settings, about, yourKits, yourSamples] =
+    await Promise.all([
+      openSavedBreak(parsedId.data, session.user.id),
+      studioCatalogue(),
+      listPins(session.user.id),
+      listHistory(session.user.id),
+      readStudioSettings(session.user.id),
+      getAbout(session.user.id),
+      listYourKits(session.user.id),
+      listSamples(session.user.id),
+    ]);
   if (!opened) notFound();
   const basedOn = await lineageOf(opened.row.parentId ?? opened.row.ownParentId);
 
   return (
     <StudioProvider
-      catalogue={catalogue}
+      catalogue={preferStyles(catalogue, about.styles)}
       pins={pins}
       history={history}
       settings={settings}

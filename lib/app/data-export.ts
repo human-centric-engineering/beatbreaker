@@ -164,6 +164,20 @@ export function initAppSubjectSources(): void {
           'The username your published patterns appear under, what you wrote about yourself, and when the username last changed.',
       },
       {
+        model: 'DrummerAbout',
+        section: 'about',
+        disposition: 'export',
+        description:
+          'What you said about yourself — what you use BeatBreaker for, the styles you play and how well, your channel links, and which of these your public profile shows.',
+      },
+      {
+        model: 'DrummerReport',
+        section: 'profileReportsFiled',
+        disposition: 'export',
+        description:
+          "Reports you filed about other drummers' profiles — whose, the reason, your note, and what became of it.",
+      },
+      {
         model: 'BreakReport',
         section: 'reportsFiled',
         disposition: 'export',
@@ -234,7 +248,9 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
     samples,
     buddyWorkspace,
     drummerProfile,
+    about,
     reportsFiled,
+    profileReports,
     styles,
     libraries,
     kits,
@@ -260,6 +276,8 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
     prisma.buddyWorkspace.findMany({ where: { userId } }),
     // at most one row, as studioSettings
     prisma.drummerProfile.findMany({ where: { userId } }),
+    // at most one row, as studioSettings
+    prisma.drummerAbout.findMany({ where: { userId } }),
     /* The reports you filed, not the ones filed about your patterns: those
        are the reporters' data. The admin who resolved one is not named. */
     prisma.breakReport.findMany({
@@ -268,6 +286,20 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
       select: {
         id: true,
         breakId: true,
+        reason: true,
+        note: true,
+        status: true,
+        resolvedAt: true,
+        createdAt: true,
+      },
+    }),
+    // as reportsFiled: the ones you filed, and never who resolved them
+    prisma.drummerReport.findMany({
+      where: { reporterId: userId },
+      orderBy: { createdAt: 'asc' },
+      select: {
+        id: true,
+        subjectId: true,
         reason: true,
         note: true,
         status: true,
@@ -290,6 +322,19 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
     prisma.kit.findMany({ where: { ownerId: userId }, orderBy: { createdAt: 'asc' } }),
   ]);
 
+  /* A reported profile is named by its username, not its owner's user id:
+     that id is somebody else's, and the username is what the reporter saw.
+     A profile whose owner has since dropped their username reads as null. */
+  const subjects = await prisma.drummerProfile.findMany({
+    where: { userId: { in: [...new Set(profileReports.map((r) => r.subjectId))] } },
+    select: { userId: true, username: true },
+  });
+  const usernameOf = new Map(subjects.map((p) => [p.userId, p.username]));
+  const profileReportsFiled = profileReports.map(({ subjectId, ...r }) => ({
+    ...r,
+    username: usernameOf.get(subjectId) ?? null,
+  }));
+
   /* Both keys are returned unconditionally, empty arrays included. A bundle
      short by a section reads exactly like a complete answer, and the subject
      has no way to tell the difference — `rows.length ? rows : undefined` is the
@@ -306,7 +351,9 @@ export async function collectAppSubjectData({ userId }: AppSubjectQuery): Promis
     samples,
     buddyWorkspace,
     drummerProfile,
+    about,
     reportsFiled,
+    profileReportsFiled,
     styles,
     libraries,
     kits,

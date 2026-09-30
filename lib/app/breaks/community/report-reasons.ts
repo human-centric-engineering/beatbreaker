@@ -13,3 +13,19 @@ export const REPORT_REASON_LABELS: Record<ReportReason, string> = {
   'bad-link': 'Bad or misleading link',
   other: 'Something else',
 };
+
+/**
+ * Why a drummer's profile can be reported (Phase 7B, task 7B.5): the pattern
+ * reasons that make sense for a person's page. "Someone else's work" is about
+ * a pattern, so it is not one of them.
+ */
+export const PROFILE_REPORT_REASONS = ['spam', 'offensive', 'bad-link', 'other'] as const;
+export type ProfileReportReason = (typeof PROFILE_REPORT_REASONS)[number];
+
+/** What each profile reason says, on the form and in the queue. */
+export const PROFILE_REPORT_REASON_LABELS: Record<ProfileReportReason, string> = {
+  spam: 'Spam',
+  offensive: 'Offensive username or bio',
+  'bad-link': 'Bad or misleading link',
+  other: 'Something else',
+};

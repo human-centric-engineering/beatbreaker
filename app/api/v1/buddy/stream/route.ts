@@ -29,6 +29,7 @@ import { getRouteLogger } from '@/lib/api/context';
 import { errorResponse } from '@/lib/api/responses';
 import { sseResponse } from '@/lib/api/sse';
 import { validateRequestBody } from '@/lib/api/validation';
+import { BUDDY_CONTEXT } from '@/lib/app/breaks/buddy/about-context';
 import { BEATBUDDY_SLUG } from '@/lib/app/breaks/buddy/agent';
 import { ALLOWANCE_SPENT_MESSAGE, readAllowance } from '@/lib/app/breaks/buddy/allowance';
 import { openWorkspace } from '@/lib/app/breaks/buddy/workspace';
@@ -126,7 +127,8 @@ export const POST = withAuth(
       userId,
       conversationId: body.conversationId,
       attachments: body.attachments,
-      contextType: 'studio',
+      contextType: BUDDY_CONTEXT.type,
+      contextId: BUDDY_CONTEXT.id,
       entityContext: { workspace: true, section: body.section },
       requestId: await getRequestId(),
       visitorId: await getVisitorId(),
