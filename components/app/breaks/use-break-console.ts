@@ -362,6 +362,12 @@ export interface PatternSharing {
   slug: string | null;
   /** The credit line on a copy, while the pattern it came from is published. */
   basedOn: { title: string; username: string; slug: string } | null;
+  /**
+   * Its notes are fixed (D26): it has been published, now or before. An edit
+   * to it is a variation — saved through the copy route, never onto the row.
+   * Left out means not fixed.
+   */
+  fixed?: boolean;
 }
 
 export interface InitialPattern {

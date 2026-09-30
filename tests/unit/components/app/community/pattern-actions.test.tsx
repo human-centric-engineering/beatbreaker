@@ -65,6 +65,17 @@ describe('PatternActions', () => {
     expect(push).not.toHaveBeenCalled();
   });
 
+  it('calls it a variation on a published pattern — the same copy route', async () => {
+    vi.mocked(apiClient.post).mockResolvedValue({ id: NEW_ID });
+    const user = userEvent.setup();
+    render(<PatternActions id={ID} variation />);
+
+    expect(screen.queryByRole('button', { name: /save a copy/i })).toBeNull();
+    await user.click(screen.getByRole('button', { name: 'Save as variation' }));
+    expect(apiClient.post).toHaveBeenCalledWith(`/api/v1/breaks/${ID}/copy`, { body: {} });
+    expect(push).toHaveBeenCalledWith(`/studio/${NEW_ID}`);
+  });
+
   it('opens the ORIGINAL pattern in the editor, not a copy', () => {
     render(<PatternActions id={ID} />);
     expect(screen.getByRole('link', { name: /open in the editor/i })).toHaveAttribute(

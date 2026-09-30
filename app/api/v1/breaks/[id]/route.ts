@@ -7,7 +7,11 @@
  * PATCH  /api/v1/breaks/:id — rename, replace the document, share by link or
  *        make private (`visibility`), describe, set its reference links.
  *        Making a published pattern `link` or `private` unpublishes it;
- *        publishing is `POST /api/v1/breaks/:id/publish`.
+ *        publishing is `POST /api/v1/breaks/:id/publish`. A pattern that has
+ *        ever been published has fixed notes (D26): a `doc` is refused with
+ *        `409 PUBLISHED_FIXED`, and a change is saved as a variation through
+ *        `POST /api/v1/breaks/:id/copy`. Its name, description and links
+ *        stay editable.
  * DELETE /api/v1/breaks/:id
  *
  * A break the caller does not own answers **404, not 403**, and a break that
@@ -26,7 +30,7 @@
  */
 
 import { getRouteLogger } from '@/lib/api/context';
-import { NotFoundError, ValidationError } from '@/lib/api/errors';
+import { APIError, NotFoundError, ValidationError } from '@/lib/api/errors';
 import { successResponse } from '@/lib/api/responses';
 import { validateRequestBody } from '@/lib/api/validation';
 import { withAuth } from '@/lib/auth/guards';
@@ -59,7 +63,7 @@ export const GET = withAuth<{ id: string }>(
     /* The owner's id, the parent's id and the grid hash stay in the house
        (H8): `mine` and `basedOn` are what a reader is owed. */
     const {
-      row: { userId: _owner, parentId, gridHash: _hash, ...row },
+      row: { userId: _owner, parentId, ownParentId, gridHash: _hash, ...row },
       payload,
       links,
       mine,
@@ -81,7 +85,7 @@ export const GET = withAuth<{ id: string }>(
       // BigInt does not survive JSON.stringify
       seed: row.seed.toString(),
       mine,
-      basedOn: await lineageOf(parentId),
+      basedOn: await lineageOf(parentId ?? ownParentId),
       critique: { ...report, checks: checks.checks, playable: checks.hard },
     });
   },
@@ -112,15 +116,36 @@ export const PATCH = withAuth<{ id: string }>(
        should get the same 404 as one editing a break that does not exist. */
     const existing = await prisma.break.findFirst({
       where: { id, userId: session.user.id },
-      select: { id: true, slug: true, visibility: true, title: true, description: true, doc: true },
+      select: {
+        id: true,
+        slug: true,
+        visibility: true,
+        title: true,
+        description: true,
+        doc: true,
+        frozenAt: true,
+      },
     });
     if (!existing) throw new NotFoundError(`Break ${id} not found`);
 
+    /* Fixed notes (D26): once published, always — unpublishing does not undo
+       it, or the notes could be changed while private and published again.
+       Refused before anything is written, so nothing else in the patch lands
+       either. */
+    if (existing.frozenAt && patch.doc !== undefined) {
+      throw new APIError(
+        'This pattern has been published, so its notes are fixed. Save your changes as a variation.',
+        'PUBLISHED_FIXED',
+        409
+      );
+    }
+
     /* A published pattern stays held to what publishing checked. An edit that
        keeps it published and changes what the library shows — the title, the
-       description or the notes — goes through the same word and duplicate
-       checks, and is refused with the same codes; otherwise publishing once
-       and renaming after would put in the library what publishing refuses.
+       description — goes through the same word and duplicate checks, and is
+       refused with the same codes; otherwise publishing once and renaming
+       after would put in the library what publishing refuses. (The notes of
+       a published pattern cannot change at all: refused above.)
        An edit that unpublishes it (`visibility` given) needs no check. */
     const staysPublished = existing.visibility === 'published' && patch.visibility === undefined;
     const showsChange =
@@ -160,6 +185,7 @@ export const PATCH = withAuth<{ id: string }>(
           visibility: true,
           slug: true,
           publishedAt: true,
+          frozenAt: true,
           difficulty: true,
           level: true,
           description: true,

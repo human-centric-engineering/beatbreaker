@@ -102,6 +102,7 @@ describe('/studio/[id]', () => {
         visibility: 'link',
         slug: 'cold000001',
         parentId: 'cbrk00000000000000000009',
+        frozenAt: null,
       },
       payload,
       links: [LINK],
@@ -149,9 +150,22 @@ describe('/studio/[id]', () => {
       payload,
       mine: true,
       details: { description: 'From the lesson', links: [LINK] },
-      sharing: { visibility: 'link', slug: 'cold000001', basedOn: credit },
+      sharing: { visibility: 'link', slug: 'cold000001', basedOn: credit, fixed: false },
     });
     expect(lineageOf).toHaveBeenCalledWith('cbrk00000000000000000009');
+  });
+
+  it('opens a pattern that has been published as fixed (7A, D26)', async () => {
+    vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+    vi.mocked(studioCatalogue).mockResolvedValue(testCatalogue());
+    vi.mocked(lineageOf).mockResolvedValue(null);
+    const base = opened() as unknown as { row: Record<string, unknown> };
+    vi.mocked(openSavedBreak).mockResolvedValue({
+      ...base,
+      row: { ...base.row, frozenAt: new Date('2026-09-20T00:00:00Z') },
+    } as never);
+    const el = await StudioPatternPage({ params: Promise.resolve({ id: ID }) });
+    expect(el.props.initial.sharing.fixed).toBe(true);
   });
 
   it('opens someone else’s shared pattern as not theirs', async () => {

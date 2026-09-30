@@ -28,12 +28,20 @@ import { isFeatureEnabled } from '@/lib/feature-flags';
  * 5. `DUPLICATE` (409) — the notes are the same as another person's published
  *    pattern, or as a section of a famous break: publishing it would credit
  *    it to the wrong person. Your own earlier publication is not a duplicate.
+ *    Nor may a variation be published unchanged: the same notes as the
+ *    pattern it was saved from are refused, whoever that belongs to (7A).
  * 6. `PUBLISH_LIMIT` (429) — more than `PUBLISH_DAILY_CAP` first publications
  *    in 24 hours. Republishing a pattern keeps its first `publishedAt`, so it
  *    neither counts again nor jumps back to the top of Newest.
  *
  * Checks 4 and 5 are `assertPublishable`, which the PATCH route also runs on
- * any edit to a published pattern's title, description or notes.
+ * any edit to a published pattern's title or description. The unchanged-
+ * variation part of 5 runs on the first publish only: a link-shared parent's
+ * notes can still change afterwards, and that must not lock the variation
+ * out of its own renames and republishes.
+ *
+ * The first publish also fixes the notes (`frozenAt`, D26): they never change
+ * again, even after an unpublish. Republishing keeps the first `frozenAt`.
  *
  * The title and description need no HTML sanitising: every surface renders
  * them as text through React, and nothing puts them in markup by hand (the Open
@@ -84,7 +92,16 @@ export interface Published {
  */
 export async function assertPublishable(
   userId: string,
-  content: { title: string; description: string | null; payload: SharePayload }
+  content: {
+    title: string;
+    description: string | null;
+    payload: SharePayload;
+    /**
+     * The pattern this one was saved from, when it is being published for the
+     * first time — an unchanged variation is refused. Left out otherwise.
+     */
+    parentId?: string | null;
+  }
 ): Promise<Awaited<ReturnType<typeof columnsFromDoc>>> {
   if (textIsBlocked(content.title) || (content.description && textIsBlocked(content.description))) {
     refuse(
@@ -113,6 +130,29 @@ export async function assertPublishable(
       409,
       `Those notes are the same as “${copied.title}”, which someone else has already published. Change something first — or, if you built on theirs, save a copy from their page so it is credited.`
     );
+  }
+
+  /* An unchanged variation. The parent's hash is taken from its document, as
+     this one's is, rather than trusted from its column. Whatever the parent's
+     visibility: notes saved unchanged from someone's link share are theirs,
+     not yours, and an unchanged copy of your own adds nothing to the library. */
+  if (content.parentId) {
+    const parent = await prisma.break.findUnique({
+      where: { id: content.parentId },
+      select: { title: true, doc: true },
+    });
+    const parentDoc = parent ? storedPayloadSchema.safeParse(parent.doc) : null;
+    if (
+      parent &&
+      parentDoc?.success &&
+      (await columnsFromDoc(parentDoc.data)).columns.gridHash === columns.gridHash
+    ) {
+      refuse(
+        'DUPLICATE',
+        409,
+        `Those notes are the same as “${parent.title}”, the pattern this was saved from. Change something first.`
+      );
+    }
   }
 
   const famous = await libraryHashes();
@@ -148,6 +188,9 @@ export async function publishBreak(
       doc: true,
       slug: true,
       publishedAt: true,
+      frozenAt: true,
+      parentId: true,
+      ownParentId: true,
     },
   });
   if (!row) throw new NotFoundError(`Break ${breakId} not found`);
@@ -164,6 +207,8 @@ export async function publishBreak(
     title: row.title,
     description: row.description,
     payload: storedPayloadSchema.parse(row.doc),
+    // the unchanged-variation check is for a first publication only
+    parentId: row.publishedAt ? null : (row.parentId ?? row.ownParentId),
   });
 
   /* A pattern published before keeps its first date: republishing it after an
@@ -190,6 +235,8 @@ export async function publishBreak(
         ...visibilityData(row, 'link'),
         visibility: 'published',
         publishedAt: row.publishedAt ?? now,
+        // fixed from the first publish on, and never cleared (D26)
+        frozenAt: row.frozenAt ?? now,
         gridHash: columns.gridHash,
         difficulty: columns.difficulty,
       },

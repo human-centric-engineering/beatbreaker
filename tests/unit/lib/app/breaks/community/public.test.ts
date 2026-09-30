@@ -25,6 +25,7 @@ import {
   getPublicPattern,
   getPublicProfile,
   listPublished,
+  listVariations,
   openableIdForSlug,
   publishedForSitemap,
   readCursor,
@@ -247,6 +248,61 @@ describe('listPublished', () => {
     expect(json).not.toContain(OWNER_2_ID);
     expect(result.patterns[0]).toMatchObject({ id: BREAK_ID, author: 'ghostnotes' });
     expect(result.patterns[1]).toMatchObject({ id: BREAK_2_ID, author: 'sidestick' });
+  });
+});
+
+describe('listVariations (7A)', () => {
+  it('lists the published children of a published pattern, and nothing else', async () => {
+    vi.mocked(prisma.break.findFirst).mockResolvedValue({ id: PARENT_ID } as never);
+    vi.mocked(prisma.break.findMany).mockResolvedValue([cardRow({ slug: 'warm000001' })] as never);
+
+    const result = await listVariations('orig000001', { sort: 'newest', limit: 24 });
+
+    // the original is looked up as published only: a link share has no variations
+    expect(vi.mocked(prisma.break.findFirst).mock.calls[0][0]).toMatchObject({
+      where: { slug: 'orig000001', visibility: 'published' },
+    });
+    const args = vi.mocked(prisma.break.findMany).mock.calls[0][0];
+    // direct children only, and only published ones with an address
+    expect(args?.where).toEqual({
+      visibility: 'published',
+      slug: { not: null },
+      // someone else's variation, or the original author's own
+      OR: [{ parentId: PARENT_ID }, { ownParentId: PARENT_ID }],
+    });
+    expect(result?.patterns.map((p) => p.slug)).toEqual(['warm000001']);
+    expect(result?.nextCursor).toBeNull();
+  });
+
+  it('pages and sorts the way the library does', async () => {
+    vi.mocked(prisma.break.findFirst).mockResolvedValue({ id: PARENT_ID } as never);
+    vi.mocked(prisma.break.findMany).mockResolvedValue([
+      cardRow({ id: BREAK_ID, slug: 'a000000001' }),
+      cardRow({ id: BREAK_2_ID, slug: 'a000000002' }),
+    ] as never);
+
+    const result = await listVariations('orig000001', {
+      sort: 'saved',
+      limit: 1,
+      cursor: writeCursor(3),
+    });
+
+    const args = vi.mocked(prisma.break.findMany).mock.calls[0][0];
+    expect(args?.orderBy).toEqual([
+      { children: { _count: 'desc' } },
+      { publishedAt: 'desc' },
+      { id: 'desc' },
+    ]);
+    expect(args?.skip).toBe(3);
+    expect(args?.take).toBe(2);
+    expect(result?.patterns).toHaveLength(1);
+    expect(readCursor(result?.nextCursor ?? undefined)).toBe(4);
+  });
+
+  it('answers null — and lists nothing — when the address is not a published pattern', async () => {
+    vi.mocked(prisma.break.findFirst).mockResolvedValue(null);
+    expect(await listVariations('link000001', { sort: 'newest', limit: 24 })).toBeNull();
+    expect(prisma.break.findMany).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing to list under a miss
   });
 });
 

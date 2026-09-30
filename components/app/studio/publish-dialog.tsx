@@ -165,7 +165,7 @@ export function PublishDialog({
                 </>
               ) : (
                 <p>
-                  Anyone will be able to find it, play it and save a copy. It will appear as{' '}
+                  Anyone will be able to find it, play it and save a variation. It will appear as{' '}
                   <strong>by @{username ?? '…'}</strong> —{' '}
                   <a href="/settings" target="_blank" rel="noopener noreferrer">
                     change
@@ -174,8 +174,13 @@ export function PublishDialog({
                 </p>
               )}
               <p>
-                You can unpublish it whenever you like; copies people have already saved stay with
-                them.
+                Once it is published its notes are fixed, even if you unpublish it: to change them
+                you save a variation, and this one stays as it is. Its name, description and links
+                can still change.
+              </p>
+              <p>
+                You can unpublish it whenever you like; variations people have already saved stay
+                with them.
               </p>
               <label className="flex items-start gap-2">
                 <input

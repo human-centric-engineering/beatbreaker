@@ -54,10 +54,21 @@ model Break {
   slug        String?   @unique @db.VarChar(16)
   /// When it was last published. Null unless it is, or was.
   publishedAt DateTime?
+  /// When the notes were fixed (Phase 7A, D26): set on the first publish and
+  /// never cleared — not by unpublishing, not by moderation. From then on
+  /// `doc` cannot change; the name, description and links still can. An edit
+  /// to the notes becomes a variation, a credited copy.
+  frozenAt    DateTime?
   /// The pattern this was copied from (Save a copy), for the credit line.
   /// Nulled, not cascaded, when the parent goes: the copy is its new owner's,
   /// and someone who asked to be forgotten is not named on it.
   parentId    String?
+  /// The author's own fixed pattern this is a variation of (Phase 7A, D26).
+  /// Kept apart from `parentId`, which is what "most saved" counts: an author
+  /// saving variations of their own pattern is not other people saving it.
+  /// A variation has one or the other, never both. Nulled when the original
+  /// goes, like `parentId`.
+  ownParentId String?
   /// A hash of the notes alone — every lane of both sections, no tempo, name
   /// or style — derived from `doc`. What the duplicate check at publish
   /// compares.
@@ -96,12 +107,16 @@ model Break {
   parent   Break?  @relation("BreakParent", fields: [parentId], references: [id], onDelete: SetNull)
   children Break[] @relation("BreakParent")
 
+  ownParent     Break?  @relation("BreakOwnParent", fields: [ownParentId], references: [id], onDelete: SetNull)
+  ownVariations Break[] @relation("BreakOwnParent")
+
   reports BreakReport[]
 
   @@index([userId, createdAt])
   @@index([visibility, publishedAt])
   @@index([visibility, style, meter])
   @@index([parentId])
+  @@index([ownParentId])
   @@map("break")
 }
 

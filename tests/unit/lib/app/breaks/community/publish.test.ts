@@ -17,7 +17,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 vi.mock('@/lib/feature-flags', () => ({ isFeatureEnabled: vi.fn() }));
 vi.mock('@/lib/db/client', () => ({
   prisma: {
-    break: { findFirst: vi.fn(), count: vi.fn(), update: vi.fn() },
+    break: { findFirst: vi.fn(), findUnique: vi.fn(), count: vi.fn(), update: vi.fn() },
     libraryEntry: { findMany: vi.fn() },
     drummerProfile: { findUnique: vi.fn() },
   },
@@ -237,6 +237,119 @@ it('republishes a pattern published before without counting it again, and keeps 
   const call = vi.mocked(prisma.break.update).mock.calls[0][0] as { data: Record<string, unknown> };
   // not bumped back to the top of Newest
   expect(call.data.publishedAt).toBe(first);
+});
+
+describe('fixing the notes (7A, D26)', () => {
+  it('fixes them on the first publish', async () => {
+    vi.mocked(prisma.break.findFirst)
+      .mockResolvedValueOnce(row() as never)
+      .mockResolvedValueOnce(null);
+    await publishBreak(USER_ID, BREAK_ID, NOW);
+    const call = vi.mocked(prisma.break.update).mock.calls[0][0] as {
+      data: Record<string, unknown>;
+    };
+    expect(call.data.frozenAt).toBe(NOW);
+  });
+
+  it('keeps the first frozenAt when a pattern is published again', async () => {
+    const first = new Date('2026-09-20T00:00:00Z');
+    vi.mocked(prisma.break.findFirst)
+      .mockResolvedValueOnce(
+        row({ slug: 'kept000001', publishedAt: first, frozenAt: first }) as never
+      )
+      .mockResolvedValueOnce(null);
+    await publishBreak(USER_ID, BREAK_ID, NOW);
+    const call = vi.mocked(prisma.break.update).mock.calls[0][0] as {
+      data: Record<string, unknown>;
+    };
+    expect(call.data.frozenAt).toBe(first);
+  });
+});
+
+describe('an unchanged variation', () => {
+  const PARENT_ID = 'cbrk00000000000000000002';
+
+  it('is refused with DUPLICATE (409), naming the pattern it was saved from', async () => {
+    vi.mocked(prisma.break.findFirst)
+      .mockResolvedValueOnce(row({ parentId: PARENT_ID }) as never)
+      .mockResolvedValueOnce(null); // nobody else's published pattern matches
+    // the parent: the same notes, under its own name, tempo and swing
+    vi.mocked(prisma.break.findUnique).mockResolvedValue({
+      title: 'The original',
+      doc: { ...wireDoc(), bpm: 120, sw: 0 },
+    } as never);
+
+    const error = await publishBreak(USER_ID, BREAK_ID, NOW).catch((e: unknown) => e);
+    expect(error).toBeInstanceOf(APIError);
+    expect(error).toMatchObject({ code: 'DUPLICATE', status: 409 });
+    expect((error as APIError).message).toContain(
+      '“The original”, the pattern this was saved from'
+    );
+    expect(vi.mocked(prisma.break.findUnique).mock.calls[0][0]).toMatchObject({
+      where: { id: PARENT_ID },
+    });
+    expect(prisma.break.update).not.toHaveBeenCalled(); // test-review:accept no_arg_called — refused before any write
+  });
+
+  it('publishes once its notes differ from the parent’s', async () => {
+    vi.mocked(prisma.break.findFirst)
+      .mockResolvedValueOnce(row({ parentId: PARENT_ID }) as never)
+      .mockResolvedValueOnce(null);
+    vi.mocked(prisma.break.findUnique).mockResolvedValue({
+      title: 'The original',
+      doc: wireDoc(3),
+    } as never);
+
+    const result = await publishBreak(USER_ID, BREAK_ID, NOW);
+    expect(result.visibility).toBe('published');
+  });
+
+  it('is refused the same way when it is the author’s own variation (ownParentId)', async () => {
+    vi.mocked(prisma.break.findFirst)
+      .mockResolvedValueOnce(row({ parentId: null, ownParentId: PARENT_ID }) as never)
+      .mockResolvedValueOnce(null);
+    vi.mocked(prisma.break.findUnique).mockResolvedValue({
+      title: 'The original',
+      doc: wireDoc(),
+    } as never);
+
+    await expect(publishBreak(USER_ID, BREAK_ID, NOW)).rejects.toMatchObject({
+      code: 'DUPLICATE',
+      status: 409,
+    });
+    expect(vi.mocked(prisma.break.findUnique).mock.calls[0][0]).toMatchObject({
+      where: { id: PARENT_ID },
+    });
+  });
+
+  it('is checked on the first publish only — a republish is not held to its parent’s notes now', async () => {
+    // a link-shared parent's notes can change later; that must not lock this one out
+    vi.mocked(prisma.break.findFirst)
+      .mockResolvedValueOnce(
+        row({
+          parentId: PARENT_ID,
+          slug: 'kept000001',
+          publishedAt: new Date('2026-09-20T00:00:00Z'),
+        }) as never
+      )
+      .mockResolvedValueOnce(null);
+    vi.mocked(prisma.break.findUnique).mockResolvedValue({
+      title: 'The original',
+      doc: wireDoc(),
+    } as never);
+
+    const result = await publishBreak(USER_ID, BREAK_ID, NOW);
+    expect(result.visibility).toBe('published');
+    expect(prisma.break.findUnique).not.toHaveBeenCalled(); // test-review:accept no_arg_called — no parent comparison on a republish
+  });
+
+  it('asks about no parent when the pattern has none', async () => {
+    vi.mocked(prisma.break.findFirst)
+      .mockResolvedValueOnce(row({ parentId: null }) as never)
+      .mockResolvedValueOnce(null);
+    await publishBreak(USER_ID, BREAK_ID, NOW);
+    expect(prisma.break.findUnique).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing to compare against
+  });
 });
 
 describe('assertPublishable — the checks an edit to a published pattern also runs', () => {

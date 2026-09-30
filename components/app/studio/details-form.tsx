@@ -73,7 +73,8 @@ export function DetailsForm() {
   const c = useStudio();
   const { doc, say, rename, saveAs } = c;
   const name = c.patterns.A?.name ?? '';
-  const editable = !!doc.id && doc.mine;
+  // not while a variation is being made: these are the original's (D26)
+  const editable = !!doc.id && doc.mine && !doc.variationOf;
 
   const {
     register,
@@ -125,7 +126,10 @@ export function DetailsForm() {
     /* The rename waits for the save. Renamed first, the stage's new name
        would reach the form while the save was still out — and a save that
        then failed would leave the name changed and the rest looking saved. */
-    if (!(await doc.saveDetails({ description: next.description, links }))) return;
+    /* The name goes with them: a fixed pattern has no autosave to carry it,
+       and for any other it lands a moment before the autosave would. */
+    const renamed = next.title !== name ? next.title : undefined;
+    if (!(await doc.saveDetails({ description: next.description, links }, renamed))) return;
     // the saved details reset the form; the rename then brings its name level
     if (next.title !== name) rename(next.title);
     say('Details saved');
@@ -141,8 +145,13 @@ export function DetailsForm() {
   const lockedWhy = !doc.id
     ? 'Save the pattern to give it a description and links.'
     : !doc.mine
-      ? 'This pattern is someone else’s. Save a copy to change these — the copy keeps its links.'
-      : null;
+      ? doc.copyKind === 'variation'
+        ? 'This pattern is someone else’s. Save as variation to change these — the variation keeps its links.'
+        : 'This pattern is someone else’s. Save a copy to change these — the copy keeps its links.'
+      : doc.variationOf
+        ? 'You’re making a variation. Save it first — these would change the original.'
+        : null;
+  const copyLabel = doc.copyKind === 'variation' ? 'Save as variation' : 'Save a copy';
 
   return (
     <form className="card" onSubmit={(e) => void handleSubmit(onSubmit)(e)} noValidate>
@@ -155,7 +164,7 @@ export function DetailsForm() {
             Name{' '}
             <StudioHelp title="Name">
               What the pattern is called — on the stage, in Patterns, on Home. Changing it renames
-              this pattern; Save a copy is for keeping both. Default: the name the generator gave
+              this pattern; {copyLabel} is for keeping both. Default: the name the generator gave
               it.
             </StudioHelp>
           </label>
@@ -270,16 +279,19 @@ export function DetailsForm() {
               disabled={isSubmitting}
               onClick={() => void handleSubmit(onSaveCopy)()}
             >
-              Save a copy
+              {copyLabel}
             </button>
           ) : null}
         </div>
         {editable ? (
           <div className="hint">
-            <b>Save a copy</b> keeps this one as it is.{' '}
-            <StudioHelp title="Save a copy">
+            <b>{copyLabel}</b> keeps this one as it is.{' '}
+            <StudioHelp title={copyLabel}>
               Makes a new pattern of yours under the name above, with this one&rsquo;s saved
               description and links. This one stays as it is.
+              {doc.copyKind === 'variation'
+                ? ' This one is published, so its notes are fixed: a variation is how you change them, and it is credited to this one.'
+                : ''}
             </StudioHelp>
           </div>
         ) : null}

@@ -216,6 +216,34 @@ describe('GET /api/v1/breaks/:id', () => {
     });
   });
 
+  it('credits the author’s own variation to its original, and never returns ownParentId (7A)', async () => {
+    const ORIGINAL_ID = 'cbrk00000000000000000009';
+    vi.mocked(prisma.break.findFirst)
+      .mockResolvedValueOnce(row({ parentId: null, ownParentId: ORIGINAL_ID }) as never)
+      .mockResolvedValueOnce({
+        title: 'The original',
+        slug: 'orig000001',
+        userId: USER_ID,
+      } as never);
+    vi.mocked(prisma.drummerProfile.findUnique).mockResolvedValue({
+      username: 'ghostnotes',
+    } as never);
+
+    const res = await GET(new NextRequest(url()), ctx());
+    const { data } = await json<{ data: Record<string, unknown> }>(res);
+    expect(data.basedOn).toEqual({
+      title: 'The original',
+      username: 'ghostnotes',
+      slug: 'orig000001',
+    });
+    expect(vi.mocked(prisma.break.findFirst).mock.calls[1][0]?.where).toEqual({
+      id: ORIGINAL_ID,
+      visibility: 'published',
+    });
+    expect(data).not.toHaveProperty('ownParentId');
+    expect(data).not.toHaveProperty('parentId');
+  });
+
   it('credits nobody when the parent is no longer published', async () => {
     vi.mocked(prisma.break.findFirst)
       .mockResolvedValueOnce(row({ parentId: 'cbrk00000000000000000009' }) as never)
@@ -361,17 +389,19 @@ describe('PATCH /api/v1/breaks/:id', () => {
       expect(prisma.break.update).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a refused edit writes nothing
     });
 
-    it('checks new notes as the notes, and writes the columns the check derived', async () => {
-      published();
-      const doc = wireDoc('6/8');
-      const columns = { meter: '6/8', gridHash: 'e'.repeat(64) };
-      vi.mocked(assertPublishable).mockResolvedValue({ decoded: {}, columns } as never);
-      await PATCH(patch({ doc }), ctx());
-      expect(vi.mocked(assertPublishable).mock.calls[0]?.[1]).toMatchObject({
+    it('does not re-run the unchanged-variation check on a rename — that is for a first publish', async () => {
+      vi.mocked(prisma.break.findFirst).mockResolvedValue({
+        id: BREAK_ID,
+        slug: 'pub0000001',
+        visibility: 'published',
         title: 'Out in the world',
-        payload: doc,
-      });
-      expect(vi.mocked(prisma.break.update).mock.calls[0][0].data).toMatchObject(columns);
+        description: null,
+        doc: wireDoc(),
+        frozenAt: new Date('2026-09-01T00:00:00Z'),
+        parentId: 'cbrk00000000000000000009',
+      } as never);
+      await PATCH(patch({ title: 'Renamed' }), ctx());
+      expect(vi.mocked(assertPublishable).mock.calls[0]?.[1]).not.toHaveProperty('parentId');
     });
 
     it('needs no check to unpublish it, even with other changes in the same edit', async () => {
@@ -385,6 +415,70 @@ describe('PATCH /api/v1/breaks/:id', () => {
       published();
       await PATCH(patch({ links: [] }), ctx());
       expect(assertPublishable).not.toHaveBeenCalled(); // test-review:accept no_arg_called — links are moderated separately
+    });
+  });
+
+  describe('a fixed pattern (7A, D26)', () => {
+    const fixed = (visibility: string) =>
+      vi.mocked(prisma.break.findFirst).mockResolvedValue({
+        id: BREAK_ID,
+        slug: 'pub0000001',
+        visibility,
+        title: 'Out in the world',
+        description: null,
+        doc: wireDoc(),
+        frozenAt: new Date('2026-09-01T00:00:00Z'),
+        parentId: null,
+      } as never);
+
+    it('refuses new notes on a published pattern with 409 PUBLISHED_FIXED, and writes nothing', async () => {
+      fixed('published');
+      const res = await PATCH(patch({ doc: wireDoc('6/8'), title: 'And renamed' }), ctx());
+      expect(res.status).toBe(409);
+      const body = await json<{ error: { code: string; message: string } }>(res);
+      expect(body.error.code).toBe('PUBLISHED_FIXED');
+      expect(body.error.message).toMatch(/variation/);
+      // the rename in the same edit does not land either
+      expect(prisma.break.update).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a refused edit writes nothing
+    });
+
+    it('still refuses new notes once it has been unpublished — fixed is for good', async () => {
+      for (const visibility of ['link', 'private']) {
+        vi.mocked(prisma.break.update).mockClear();
+        fixed(visibility);
+        const res = await PATCH(patch({ doc: wireDoc() }), ctx());
+        expect(res.status).toBe(409);
+        expect(prisma.break.update).not.toHaveBeenCalled(); // test-review:accept no_arg_called — refused while unpublished too
+      }
+    });
+
+    it('refuses the stored notes sent back unchanged — any doc is refused, not only a different one', async () => {
+      fixed('private');
+      const res = await PATCH(patch({ doc: wireDoc() }), ctx());
+      expect(res.status).toBe(409);
+    });
+
+    it('still renames, describes and relinks it', async () => {
+      fixed('published');
+      // the rename is checked as any published rename is; here it passes
+      vi.mocked(assertPublishable).mockResolvedValue({ decoded: {}, columns: {} } as never);
+      const res = await PATCH(
+        patch({ title: 'A better name', description: 'What it is', links: [] }),
+        ctx()
+      );
+      expect(res.status).toBe(200);
+      expect(vi.mocked(prisma.break.update).mock.calls[0][0].data).toEqual({
+        title: 'A better name',
+        description: 'What it is',
+        links: [],
+      });
+    });
+
+    it('can still be unpublished', async () => {
+      fixed('published');
+      const res = await PATCH(patch({ visibility: 'link' }), ctx());
+      expect(res.status).toBe(200);
+      expect(vi.mocked(prisma.break.update).mock.calls[0][0].data).toEqual({ visibility: 'link' });
     });
   });
 

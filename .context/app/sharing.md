@@ -5,19 +5,25 @@ pattern anyone can open from a link, a public library of patterns published
 under a username, copies that credit what they came from, and moderation. This
 page grows with each of Phase 6's three PRs: **6-i** — who can open a
 pattern, usernames and copies; **6-ii** — the public pages and API;
-**6-iii** — publishing, reports and moderation.
+**6-iii** — publishing, reports and moderation. Phase 7A adds **fixed
+patterns and variations** (D26), below.
 
 ## Anti-patterns first
 
 - **Don't put `userId`, an account `name` or an email in anything a
   non-owner reads.** Public work is attributed to the username (D3) and to
-  nothing else. `GET /api/v1/breaks/:id` strips `userId`, `parentId` and
-  `gridHash` (H8); a new read that returns a `Break` row does the same.
+  nothing else. `GET /api/v1/breaks/:id` strips `userId`, `parentId`,
+  `ownParentId` and `gridHash` (H8); a new read that returns a `Break` row does the same.
 - **Don't write `visibility: 'published'` outside `publishBreak`.** The
   create and update schemas accept `private` and `link` only, so a PATCH
   cannot skip the flag, username, word, duplicate and daily-cap checks — and
   a PATCH that edits a pattern already published runs the word and duplicate
   checks again (`assertPublishable`).
+- **Don't write `doc` to a row with `frozenAt` set, or clear `frozenAt`.** A
+  pattern's notes are fixed from its first publish, for good (D26). The PATCH
+  route refuses with `409 PUBLISHED_FIXED`; the Studio never sends one
+  (`snapshot()` in `use-pattern-document.ts` skips a fixed row). A change to
+  the notes is a variation, through the copy route.
 - **Don't name a reporter to anyone.** The queue shows only whether the
   reporter's account still exists; the owner's email says a report was made,
   not by whom.
@@ -74,17 +80,76 @@ pattern owned by the caller, from any pattern they can open (the same
 has them now — someone else's pattern may have been edited before saving —
 and defaults to the stored one; `title` defaults to the original's. The
 description and links come across. A copy of **someone else's** pattern sets
-`parentId`; a copy of your own does not.
+`parentId`. A copy of your own **fixed** pattern (a variation, 7A) sets
+`ownParentId` instead, so it is credited and listed but not counted as a save.
+A copy of your own unfixed pattern sets neither.
 
 `parentId` is a Prisma self-relation, `ON DELETE SET NULL`: deleting the
 original, or erasing its owner, leaves every copy with its new owner and
 removes the credit line rather than naming someone who asked to be forgotten.
 
-**The credit line** — "Based on _X_ by @_Y_" — is `basedOn` on
+**The credit line** — "Variation of _X_ by @_Y_" (it read "Based on" until
+7A) — is `basedOn` on
 `GET /api/v1/breaks/:id` and on the copy's own 201, from `lineageOf`: the
 parent's title, slug and owner's username, only while the parent is
 `published` and its owner has a username. The Studio draws it under the title
-(`BasedOn` in `stage.tsx`).
+(`BasedOn` in `stage.tsx`), and so does `/p/`.
+
+## Fixed patterns and variations (7A, D26)
+
+A published pattern never changes once it is out: speed records (7C), and
+anyone practising or learning from it, need the notes to stay the same.
+
+- **`Break.frozenAt`** is set by `publishBreak` on the first publish and never
+  cleared: not by unpublishing, not by moderation's take-down, not by
+  republishing (which keeps the first one). Migration `fixed_patterns` set it
+  to `publishedAt` on every row published before; `publishedAt` is never
+  cleared either, so that covers rows since unpublished.
+- **What is fixed:** the whole `doc` (notes, meter, sections, tempo, style,
+  layer). `PATCH` with any `doc`, even the stored one, is `409
+PUBLISHED_FIXED` and nothing in that patch lands. **What stays editable:**
+  the title, description and links, which a published pattern still runs
+  through `assertPublishable`.
+- **A variation is a credited copy**, made by `POST /api/v1/breaks/:id/copy`
+  (the only way). It is private until its owner shares or publishes it.
+  "Variation" is the word wherever the source is fixed and yours, or
+  published: _Save as variation_ in the header, Details, the Share card and
+  on `/p/`. A copy of a link share stays a plain _copy_, uncredited.
+- **An author's own variation records `ownParentId`, not `parentId`.** "Most
+  saved" and `saves` count `parentId` children, and an author saving variations
+  of their own pattern is not other people saving it. Otherwise the two are
+  read the same way: the credit line is `lineageOf(parentId ?? ownParentId)`,
+  and the Variations list matches either. A row has one or the other.
+- **An unchanged variation cannot be published.** On a **first** publish,
+  `assertPublishable` takes the row's `parentId ?? ownParentId` and refuses
+  `DUPLICATE` when the notes hash equals the parent's (from the parent's
+  document, whatever its visibility or owner). Not on a republish, nor on a
+  rename through PATCH: a link-shared parent's notes can still change, and
+  that must not lock the variation out of its own edits.
+- **In the Studio** (`use-pattern-document.ts`), `sharing.fixed` comes from
+  `frozenAt` (on `/studio/[id]` and on `GET /api/v1/breaks/:id`). A fixed
+  row is never autosaved. It is compared on its **notes** only (`notesKey`:
+  the document without names, `bpm` or `lv`). Tempo and layer are where you
+  practise it, and they are kept per visit, so moving them is not an edit. An
+  edit to the notes makes the status `scratch` and `variationOf` the
+  pattern's name: the header says _Variation · not saved_ and offers _Save as
+  variation_, the stage shows "You're making a variation of _X_ — Save to
+  keep it", Details is locked (its fields are the original's), and leaving
+  asks first. Undo back to the original clears all of it. Save goes through
+  the copy route, and the stage becomes the new, unfixed pattern at its own
+  address. Save with no edit to the notes (S, ⌘S) does nothing. Renaming a
+  fixed pattern through Details sends `title` with the details, never a
+  document. **Publishing saves the pending edit first**: an edit still in its
+  autosave wait (or on a save still in flight) is sent before the publish,
+  and if it cannot land, nothing is published — otherwise the older notes
+  would be fixed under an edit that looks saved. The header says _Published ·
+  fixed_, or _Fixed_ once unpublished.
+- **On the original's page**, `/p/[slug]` lists its published variations
+  (`VariationsSection`, `?sort=newest|saved`, `?cursor=`), from
+  `listVariations` in `community/public.ts`. It lists direct children only,
+  so a variation of a variation is under its own parent. A link share has no
+  list. **Home › Published** shows a count of published variations beside
+  saves (one `groupBy` on `parentId` and one on `ownParentId` for the section).
 
 ## Usernames
 
@@ -133,10 +198,11 @@ No session needed (D2); rate-limited by IP through the `public` tier
 `public, max-age=0, must-revalidate`, so a pattern made private stops being
 served on the next request (`app/api/v1/public/_shared.ts`).
 
-| Route                               | Does                                                                                                                                                                                                                                                                                                                                                                               |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GET /api/v1/public/patterns`       | Published patterns only. `style`, `meter`, `tempo` (`slow` < 90 · `medium` 90–120 · `fast` > 120), `difficulty` (1–3; an empty value is no filter, as on `/explore`), `sort=newest\|saved`, `limit` ≤ 48, `cursor` (opaque; `meta.nextCursor`). Cards: slug, title, description, style, meter, bpm, level, difficulty, `linkKinds`, `publishedAt`, `author` (a username), `saves`. |
-| `GET /api/v1/public/patterns/:slug` | A `link` or `published` pattern, whole: the card's fields plus `visibility`, `links`, `doc`, `basedOn` and `critique: { score, verdict, playable }`. Private, deleted, never minted and malformed are one 404.                                                                                                                                                                     |
+| Route                                          | Does                                                                                                                                                                                                                                                                                                                                                                               |
+| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /api/v1/public/patterns`                  | Published patterns only. `style`, `meter`, `tempo` (`slow` < 90 · `medium` 90–120 · `fast` > 120), `difficulty` (1–3; an empty value is no filter, as on `/explore`), `sort=newest\|saved`, `limit` ≤ 48, `cursor` (opaque; `meta.nextCursor`). Cards: slug, title, description, style, meter, bpm, level, difficulty, `linkKinds`, `publishedAt`, `author` (a username), `saves`. |
+| `GET /api/v1/public/patterns/:slug`            | A `link` or `published` pattern, whole: the card's fields plus `visibility`, `links`, `doc`, `basedOn` and `critique: { score, verdict, playable }`. Private, deleted, never minted and malformed are one 404.                                                                                                                                                                     |
+| `GET /api/v1/public/patterns/:slug/variations` | 7A. A published pattern's published variations (direct children), as cards. `sort=newest\|saved`, `limit` ≤ 48, `cursor` as above. Anything but a published pattern, a link share included, is the same 404.                                                                                                                                                                       |
 
 `saves` is the count of copies (`children`), and "most saved" sorts on it —
 no separate table. Cursors are offsets, base64url'd, because a count cannot
@@ -199,23 +265,24 @@ I built it from a pattern whose author is credited on it" tick). The one place
 a row becomes `published` (`community/publish.ts`); the create and update
 schemas cannot write it. In order:
 
-| Refusal             | Status | When                                                                                                                                                                                                    |
-| ------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `PUBLISHING_PAUSED` | 403    | The `PATTERN_PUBLISHING` flag is off. A missing flag reads as off (`isFeatureEnabled`), so the switch fails closed; the seed `app-beatbreaker/002-publishing-flag` creates it on.                       |
-| `NOT_FOUND`         | 404    | Not yours, as every write.                                                                                                                                                                              |
-| `USERNAME_REQUIRED` | 409    | No drummer profile (D3).                                                                                                                                                                                |
-| `NOT_ALLOWED`       | 422    | A blocked word in the title or description (`textIsBlocked`).                                                                                                                                           |
-| `DUPLICATE`         | 409    | The notes (`gridHash`, recomputed from the document) match someone else's published pattern, or either section matches a famous break (`sectionHash`). Your own earlier publication is not a duplicate. |
-| `PUBLISH_LIMIT`     | 429    | `PUBLISH_DAILY_CAP` (10) _first_ publications in 24 hours. Republishing keeps the pattern's first `publishedAt`, so it neither counts again nor jumps back to the top of Newest.                        |
+| Refusal             | Status | When                                                                                                                                                                                                                                                                                         |
+| ------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PUBLISHING_PAUSED` | 403    | The `PATTERN_PUBLISHING` flag is off. A missing flag reads as off (`isFeatureEnabled`), so the switch fails closed; the seed `app-beatbreaker/002-publishing-flag` creates it on.                                                                                                            |
+| `NOT_FOUND`         | 404    | Not yours, as every write.                                                                                                                                                                                                                                                                   |
+| `USERNAME_REQUIRED` | 409    | No drummer profile (D3).                                                                                                                                                                                                                                                                     |
+| `NOT_ALLOWED`       | 422    | A blocked word in the title or description (`textIsBlocked`).                                                                                                                                                                                                                                |
+| `DUPLICATE`         | 409    | The notes (`gridHash`, recomputed from the document) match someone else's published pattern, or either section matches a famous break (`sectionHash`), or they are the notes of the pattern it was saved from, an unchanged variation (7A). Your own earlier publication is not a duplicate. |
+| `PUBLISH_LIMIT`     | 429    | `PUBLISH_DAILY_CAP` (10) _first_ publications in 24 hours. Republishing keeps the pattern's first `publishedAt`, so it neither counts again nor jumps back to the top of Newest.                                                                                                             |
 
 On success: a slug if it had none, `visibility: 'published'`, `publishedAt`
-(the first one, if it was published before), and a fresh `gridHash` and
-`difficulty`.
+and `frozenAt` (the first ones, if it was published before), and a fresh
+`gridHash` and `difficulty`.
 
 **Editing a published pattern is held to the same checks.** `NOT_ALLOWED` and
 `DUPLICATE` are `assertPublishable`, which `PATCH /api/v1/breaks/:id` also runs
-when a pattern stays published and its title, description or notes change —
-refusing with the same codes and writing nothing. Unpublishing in the same
+when a pattern stays published and its title or description changes —
+refusing with the same codes and writing nothing. Its notes cannot change at
+all (7A, above). Unpublishing in the same
 edit (`visibility` given) needs no check, and neither do links, which are
 moderated by report. In the Studio a refused autosave shows as the header's
 save error and waits for the next edit. **Unpublishing** is
@@ -272,7 +339,7 @@ signed-in reader who does not own the pattern.
   opens a pattern in place by its id — as someone else's, so Save keeps a
   credited copy.
 - **Home › Published** lists your published patterns (`readHome`), each
-  linking to its public page, with its saves; the first-visit screen gains
+  linking to its public page, with its saves and published variations; the first-visit screen gains
   _Browse the community library_.
 
 ## Erasure
@@ -325,4 +392,10 @@ else's pattern posts to the copy route);
 `moderation.ts`), `tests/integration/api/v1/breaks/[id]/publish*`,
 `tests/integration/api/v1/public/patterns/[slug]/report*`,
 `tests/integration/api/v1/admin/patterns/`, `tests/unit/app/admin/patterns/`,
-the publish dialog, the report button, the Community tab and Home.
+the publish dialog, the report button, the Community tab and Home. 7A:
+`publish.test.ts` (`frozenAt`, the unchanged variation),
+`tests/integration/api/v1/breaks/[id]/` (`PUBLISHED_FIXED`, a variation's
+`parentId`), `public/patterns/[slug]/variations.route.test.ts`,
+`public.test.ts` (`listVariations`), `use-pattern-document.test.ts`,
+`studio-document.test.tsx` and `details-form.test.tsx` (the Studio's
+branching), `fetch-saved-pattern.test.ts`, `/p/` and Home.

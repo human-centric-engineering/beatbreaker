@@ -12,10 +12,20 @@ const copied = z.object({ id: z.string().min(1) });
 
 /**
  * What a signed-in reader can do with a shared pattern (task 6.6): _Save a
- * copy_ — a private pattern of their own, credited to this one — and _Open in
- * the editor_. Report arrives with moderation (6.10).
+ * copy_ — a private pattern of their own — and _Open in the editor_. A
+ * published pattern's copy is a **variation** (7A), credited to it, and the
+ * button says so. Report arrives with moderation (6.10).
  */
-export function PatternActions({ id, children }: { id: string; children?: React.ReactNode }) {
+export function PatternActions({
+  id,
+  variation = false,
+  children,
+}: {
+  id: string;
+  /** The pattern is published, so a copy is a variation of it. */
+  variation?: boolean;
+  children?: React.ReactNode;
+}) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -39,7 +49,7 @@ export function PatternActions({ id, children }: { id: string; children?: React.
   return (
     <div className="flex flex-wrap items-center gap-3">
       <Button type="button" onClick={() => void saveCopy()} disabled={busy}>
-        Save a copy
+        {variation ? 'Save as variation' : 'Save a copy'}
       </Button>
       <Button asChild variant="outline">
         <Link href={`/studio/${id}`}>Open in the editor</Link>

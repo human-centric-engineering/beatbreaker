@@ -201,6 +201,9 @@ export function HomeView({
                   </span>
                   <span className="text-muted-foreground shrink-0 text-xs">
                     {p.saves ? `${p.saves} ${p.saves === 1 ? 'save' : 'saves'} · ` : ''}
+                    {p.variations
+                      ? `${p.variations} ${p.variations === 1 ? 'variation' : 'variations'} · `
+                      : ''}
                     <ClientDate date={p.publishedAt} />
                   </span>
                 </Link>
