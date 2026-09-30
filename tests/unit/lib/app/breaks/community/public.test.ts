@@ -20,10 +20,14 @@ vi.mock('@/lib/db/client', () => ({
   },
 }));
 
+vi.mock('@/lib/app/breaks/community/about', () => ({
+  publicAbout: vi.fn(),
+}));
+
 import {
   TEMPO_BANDS,
+  getPublicDrummer,
   getPublicPattern,
-  getPublicProfile,
   listPublished,
   listVariations,
   openableIdForSlug,
@@ -32,6 +36,7 @@ import {
   writeCursor,
   type PublicListQuery,
 } from '@/lib/app/breaks/community/public';
+import { publicAbout } from '@/lib/app/breaks/community/about';
 import { critique, playability } from '@/lib/app/breaks/critic';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { breakDocFromPayload } from '@/lib/app/breaks/share';
@@ -417,16 +422,48 @@ describe('getPublicPattern', () => {
   });
 });
 
-describe('getPublicProfile', () => {
+describe('getPublicDrummer', () => {
+  beforeEach(() => {
+    vi.mocked(publicAbout).mockResolvedValue({});
+  });
+
   it('lower-cases the username before querying', async () => {
     vi.mocked(prisma.drummerProfile.findUnique).mockResolvedValue({
+      userId: OWNER_ID,
       username: 'ghostnotes',
       bio: null,
     } as never);
-    await getPublicProfile('GhostNotes');
+    await getPublicDrummer('GhostNotes');
     expect(prisma.drummerProfile.findUnique).toHaveBeenCalledWith(
       expect.objectContaining({ where: { username: 'ghostnotes' } })
     );
+  });
+
+  it('returns null without querying the database for a malformed username', async () => {
+    const result = await getPublicDrummer('a');
+    expect(result).toBeNull();
+    expect(prisma.drummerProfile.findUnique).not.toHaveBeenCalled();
+  });
+
+  it('returns null for an unknown username', async () => {
+    vi.mocked(prisma.drummerProfile.findUnique).mockResolvedValue(null);
+    expect(await getPublicDrummer('nosuchdrummer')).toBeNull();
+  });
+
+  it('returns the username and bio plus only the public About-you fields, never a user id', async () => {
+    vi.mocked(prisma.drummerProfile.findUnique).mockResolvedValue({
+      userId: OWNER_ID,
+      username: 'ghostnotes',
+      bio: 'Funk, mostly.',
+    } as never);
+    vi.mocked(publicAbout).mockResolvedValue({ channels: [] });
+
+    const result = await getPublicDrummer('ghostnotes');
+
+    expect(publicAbout).toHaveBeenCalledWith(OWNER_ID);
+    expect(result).toEqual({ username: 'ghostnotes', bio: 'Funk, mostly.', channels: [] });
+    expect(result).not.toHaveProperty('userId');
+    expect(JSON.stringify(result)).not.toContain(OWNER_ID);
   });
 });
 

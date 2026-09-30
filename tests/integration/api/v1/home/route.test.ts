@@ -38,6 +38,7 @@ vi.mock('@/lib/db/client', () => ({
     pin: { findMany: vi.fn() },
     practiceVisit: { findMany: vi.fn() },
     break: { count: vi.fn(), findMany: vi.fn(), groupBy: vi.fn() },
+    drummerAbout: { findUnique: vi.fn() },
   },
 }));
 
@@ -128,6 +129,7 @@ interface Home {
   recent: Array<{ id: string; target: { id: string } }>;
   savedCount: number;
   published: unknown[];
+  askAbout: boolean;
 }
 
 async function home(): Promise<{ status: number; data: Home }> {
@@ -143,6 +145,7 @@ beforeEach(() => {
   vi.mocked(prisma.practiceVisit.findMany).mockResolvedValue([] as never);
   vi.mocked(prisma.break.count).mockResolvedValue(0);
   vi.mocked(prisma.break.findMany).mockResolvedValue([] as never);
+  vi.mocked(prisma.drummerAbout.findUnique).mockResolvedValue(null);
 });
 
 describe('auth', () => {
@@ -159,10 +162,60 @@ describe('GET /api/v1/home', () => {
   it('answers a first visit with nothing in it, from one query per table', async () => {
     const { status, data } = await home();
     expect(status).toBe(200);
-    expect(data).toEqual({ practising: [], recent: [], savedCount: 0, published: [] });
+    expect(data).toEqual({
+      practising: [],
+      recent: [],
+      savedCount: 0,
+      published: [],
+      askAbout: true,
+    });
     expect(prisma.pin.findMany).toHaveBeenCalledTimes(1);
     expect(prisma.practiceVisit.findMany).toHaveBeenCalledTimes(1);
     expect(prisma.break.count).toHaveBeenCalledTimes(1);
+    expect(prisma.drummerAbout.findUnique).toHaveBeenCalledTimes(1);
+  });
+
+  describe('askAbout (Phase 7B)', () => {
+    it('offers the three questions when no row exists yet', async () => {
+      vi.mocked(prisma.drummerAbout.findUnique).mockResolvedValue(null);
+      const { data } = await home();
+      expect(data.askAbout).toBe(true);
+    });
+
+    it('offers the three questions for an empty row with askedAt null', async () => {
+      vi.mocked(prisma.drummerAbout.findUnique).mockResolvedValue({
+        askedAt: null,
+        purposes: [],
+        styles: [],
+        ability: null,
+      } as never);
+      const { data } = await home();
+      expect(data.askAbout).toBe(true);
+    });
+
+    it('stops offering once askedAt is set, even with nothing answered', async () => {
+      vi.mocked(prisma.drummerAbout.findUnique).mockResolvedValue({
+        askedAt: new Date('2026-09-24T10:00:00Z'),
+        purposes: [],
+        styles: [],
+        ability: null,
+      } as never);
+      const { data } = await home();
+      expect(data.askAbout).toBe(false);
+    });
+
+    it.each([
+      ['purposes', { purposes: ['learning'], styles: [], ability: null }],
+      ['styles', { purposes: [], styles: ['funk'], ability: null }],
+      ['ability', { purposes: [], styles: [], ability: 'beginner' }],
+    ])('stops offering once %s is set, even with askedAt null', async (_, fields) => {
+      vi.mocked(prisma.drummerAbout.findUnique).mockResolvedValue({
+        askedAt: null,
+        ...fields,
+      } as never);
+      const { data } = await home();
+      expect(data.askAbout).toBe(false);
+    });
   });
 
   it('reads only the caller’s Practising shelf, visible targets only, in shelf order', async () => {

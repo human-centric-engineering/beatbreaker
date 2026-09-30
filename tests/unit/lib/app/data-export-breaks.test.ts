@@ -15,7 +15,7 @@
  * FORK NOTE — this file reads `@/lib/app/data-export` for real, with no
  * `vi.mock`, because the collector's behaviour IS what it is testing. A fork of
  * BeatBreaker that adds its own tables to that seam will see this fail on the
- * section list: expect the twelve below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
+ * section list: expect the fourteen below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
  * collector returns every declared section as a key, and a mock cannot tell you
  * that. The `prisma` methods are mocked instead, which is the part this test
  * genuinely does not need to be real.
@@ -32,7 +32,9 @@ const findMany = {
   samples: vi.fn(),
   workspaces: vi.fn(),
   profiles: vi.fn(),
+  about: vi.fn(),
   reports: vi.fn(),
+  profileReports: vi.fn(),
   styles: vi.fn(),
   libraries: vi.fn(),
   kits: vi.fn(),
@@ -48,7 +50,9 @@ vi.mock('@/lib/db/client', () => ({
     sample: { findMany: (...args: unknown[]) => findMany.samples(...args) },
     buddyWorkspace: { findMany: (...args: unknown[]) => findMany.workspaces(...args) },
     drummerProfile: { findMany: (...args: unknown[]) => findMany.profiles(...args) },
+    drummerAbout: { findMany: (...args: unknown[]) => findMany.about(...args) },
     breakReport: { findMany: (...args: unknown[]) => findMany.reports(...args) },
+    drummerReport: { findMany: (...args: unknown[]) => findMany.profileReports(...args) },
     style: { findMany: (...args: unknown[]) => findMany.styles(...args) },
     patternLibrary: { findMany: (...args: unknown[]) => findMany.libraries(...args) },
     kit: { findMany: (...args: unknown[]) => findMany.kits(...args) },
@@ -79,6 +83,7 @@ describe('collectAppSubjectData', () => {
     // also catch — but only by accident, since undefined fails that too for a
     // different reason.
     expect(Object.keys(data).sort()).toEqual([
+      'about',
       'breaks',
       'buddyWorkspace',
       'drummerProfile',
@@ -86,6 +91,7 @@ describe('collectAppSubjectData', () => {
       'libraries',
       'pins',
       'practiceHistory',
+      'profileReportsFiled',
       'reportsFiled',
       'samples',
       'studioSettings',
@@ -107,6 +113,7 @@ describe('collectAppSubjectData', () => {
       findMany.samples,
       findMany.workspaces,
       findMany.profiles,
+      findMany.about,
     ]) {
       expect(spy).toHaveBeenCalledWith(expect.objectContaining({ where: { userId: 'user-1' } }));
     }
@@ -119,9 +126,12 @@ describe('collectAppSubjectData', () => {
       expect(spy).toHaveBeenCalledWith(expect.objectContaining({ where: { ownerId: 'user-1' } }));
     }
     /* Reports are scoped by `reporterId`, not `userId` — the reports the
-       subject filed about OTHER people's patterns, never the reports filed
-       about the subject's own. */
+       subject filed about OTHER people's patterns or profiles, never the
+       reports filed about the subject's own. */
     expect(findMany.reports).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { reporterId: 'user-1' } })
+    );
+    expect(findMany.profileReports).toHaveBeenCalledWith(
       expect.objectContaining({ where: { reporterId: 'user-1' } })
     );
   });
@@ -280,5 +290,67 @@ describe('collectAppSubjectData', () => {
     expect(args).not.toHaveProperty('select');
     expect(args.orderBy).toEqual({ createdAt: 'asc' });
     expect(data.samples).toEqual([row]);
+  });
+
+  it('exports the About you row as stored — purposes, styles, ability, channels and the public switches', async () => {
+    const row = {
+      userId: 'user-1',
+      purposes: ['learning'],
+      styles: ['funk'],
+      ability: 'beginner',
+      styleAbility: { funk: 'beginner' },
+      channels: [{ kind: 'youtube', url: 'https://youtube.com/@ghostnotes', drumming: true }],
+      public: { purposes: false, styles: false, ability: false, channels: true },
+      askedAt: new Date('2026-09-29T00:00:00Z'),
+    };
+    findMany.about.mockResolvedValue([row]);
+
+    const data = await collectAppSubjectData(SUBJECT);
+
+    expect(data.about).toEqual([row]);
+  });
+
+  it('names a reported profile by the subject’s username, never their internal id', async () => {
+    const report = {
+      id: 'pr1',
+      subjectId: 'user-2',
+      reason: 'spam',
+      note: 'Looks like an ad',
+      status: 'actioned',
+      resolvedAt: new Date('2026-09-20T00:00:00Z'),
+      createdAt: new Date('2026-09-19T00:00:00Z'),
+    };
+    findMany.profileReports.mockResolvedValue([report]);
+    // First call resolves the subject's OWN profile (empty here); the second
+    // resolves the username of the reported drummer named in `report`.
+    findMany.profiles
+      .mockResolvedValueOnce([])
+      .mockResolvedValueOnce([{ userId: 'user-2', username: 'ghostnotes' }]);
+
+    const data = await collectAppSubjectData(SUBJECT);
+
+    const { subjectId: _subjectId, ...rest } = report;
+    expect(data.profileReportsFiled).toEqual([{ ...rest, username: 'ghostnotes' }]);
+    expect((data.profileReportsFiled as unknown[])[0]).not.toHaveProperty('subjectId');
+  });
+
+  it('reports a subject whose profile is gone as username: null, not by dropping the row', async () => {
+    const report = {
+      id: 'pr1',
+      subjectId: 'user-2',
+      reason: 'other',
+      note: null,
+      status: 'open',
+      resolvedAt: null,
+      createdAt: new Date('2026-09-19T00:00:00Z'),
+    };
+    findMany.profileReports.mockResolvedValue([report]);
+    // Neither the subject's own profile nor the reported drummer's still exists.
+    findMany.profiles.mockResolvedValueOnce([]).mockResolvedValueOnce([]);
+
+    const data = await collectAppSubjectData(SUBJECT);
+
+    const { subjectId: _subjectId, ...rest } = report;
+    expect(data.profileReportsFiled).toEqual([{ ...rest, username: null }]);
   });
 });

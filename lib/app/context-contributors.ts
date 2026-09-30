@@ -13,6 +13,11 @@
  *
  * Full guide + example: CUSTOMIZATION.md §4 · .context/orchestration/chat.md
  */
+
+import { aboutContext, BUDDY_CONTEXT } from '@/lib/app/breaks/buddy/about-context';
+import { registerContextContributor } from '@/lib/orchestration/chat';
 export function initAppContextContributors(): void {
-  // No app context contributors by default.
+  /* BeatBuddy (Phase 7B): what the drummer said about themselves — purposes,
+     styles, ability. Read by the chat handler's user id, never the context id. */
+  registerContextContributor(BUDDY_CONTEXT.type, (_id, { userId }) => aboutContext(userId));
 }

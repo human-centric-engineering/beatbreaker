@@ -18,6 +18,27 @@ release process.
 
 ### Added
 
+- **About you (BeatBreaker Phase 7B).** New `DrummerAbout` model (migration
+  `drummer_about`; `userId` cascades, export section `about`): purposes,
+  preferred styles (≤ 8 catalogue keys) with an optional ability per style,
+  an overall ability on a five-step scale, up to eight channel links
+  (`{ kind, url, drumming }`, the URL rebuilt canonical by the server from an
+  allowlisted platform or one `https` website), and a public switch per field.
+  `GET`/`PUT /api/v1/drummer-about`; `GET /api/v1/public/drummers/:username`
+  returns the username, bio and only the switched-on fields. `StudioSettings`
+  gains `startLevel`, and a changed ability writes `startLevel` and
+  `startBpm`. BeatBuddy's stream now sends `contextId: 'about'` with
+  `contextType: 'studio'`, answered by a `studio` context contributor.
+  Home's `HomeView` gains `askAbout`.
+
+- **Reporting a drummer's profile (BeatBreaker Phase 7B).** New
+  `DrummerReport` model (migration `drummer_reports`; subject cascades,
+  reporter and resolver nulled; export section `profileReportsFiled`).
+  `POST /api/v1/public/drummers/:username/report`,
+  `GET /api/v1/admin/drummers` and `POST /api/v1/admin/drummers/:id`
+  (`strip-links`, `dismiss`). The daily report cap now counts pattern and
+  profile reports together.
+
 - **Published patterns are fixed; variations (BeatBreaker Phase 7A, D26).**
   `Break.frozenAt` (migration `fixed_patterns`, backfilled from
   `publishedAt`) is set on a pattern's first publish and never cleared.

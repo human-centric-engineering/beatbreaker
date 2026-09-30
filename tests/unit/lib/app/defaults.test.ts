@@ -308,7 +308,9 @@ const SEAM_DEFAULTS: SeamDefault[] = [
         'Break',
         'BreakReport',
         'BuddyWorkspace',
+        'DrummerAbout',
         'DrummerProfile',
+        'DrummerReport',
         'Kit',
         'PatternLibrary',
         'Pin',
@@ -323,6 +325,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
           .map((s) => s.section)
           .sort()
       ).toEqual([
+        'about',
         'breaks',
         'buddyWorkspace',
         'drummerProfile',
@@ -330,6 +333,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
         'libraries',
         'pins',
         'practiceHistory',
+        'profileReportsFiled',
         'reportsFiled',
         'samples',
         'studioSettings',
@@ -454,8 +458,9 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     seam: 'lib/app/account-sections.ts',
     risk: 'a stray section would appear on every install\u2019s /profile and /settings',
     // FORK (BeatBreaker): re-pointed, not deleted. Phase 6 adds the Drummer
-    // profile to /settings and nothing to /profile — pinned by id per surface,
-    // so an accidental addition on either still fails.
+    // profile to /settings and nothing to /profile; Phase 7B adds About you
+    // beside it — pinned by id per surface, so an accidental addition on
+    // either still fails.
     assert: () => {
       __resetAccountSectionRegistryForTests();
       // The read triggers the lazy init, so this exercises the REAL seam.
@@ -465,7 +470,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
           getRegisteredAccountSections(surface).map((s) => s.id),
         ])
       );
-      expect(ids).toEqual({ profile: [], settings: ['drummer-profile'] });
+      expect(ids).toEqual({ profile: [], settings: ['drummer-profile', 'about-you'] });
     },
   },
   {

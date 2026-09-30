@@ -89,6 +89,15 @@ export default function PrivacyPolicyPage() {
               you give up is held for 30 days so nobody else can take it while old links still point
               to it.
             </p>
+            {/* FORK (BeatBreaker, Phase 7B): the optional About-you fields. */}
+            <p>
+              In Settings you can also say what you use BeatBreaker for, the styles you play and how
+              well, and link your channels elsewhere. All of it is optional. BeatBreaker uses it to
+              start you in the right place, and gives it to BeatBuddy when you ask it something.
+              Your channel links are public on your page unless you switch them off; the rest is
+              private unless you switch it on. Channel links go to the other site as plain links,
+              and nothing is loaded from it unless a visitor follows one.
+            </p>
             <p>
               A pattern&apos;s video and song links are shown as buttons. Nothing is loaded from
               YouTube, Vimeo or Spotify until a visitor presses one; after that, that service may

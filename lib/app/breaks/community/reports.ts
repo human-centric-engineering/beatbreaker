@@ -1,19 +1,24 @@
 import { APIError, NotFoundError, ValidationError } from '@/lib/api/errors';
-import type { ReportReason } from '@/lib/app/breaks/community/report-reasons';
+import type { ProfileReportReason, ReportReason } from '@/lib/app/breaks/community/report-reasons';
 import { prisma } from '@/lib/db/client';
 
 /**
  * Reporting a shared or published pattern, and the moderation queue that
- * reads the reports (Phase 6, tasks 6.10 and 6.11). **Server-side only.**
+ * reads the reports (Phase 6, tasks 6.10 and 6.11); reporting a drummer's
+ * profile, and its place in the same queue (Phase 7B, tasks 7B.5 and 7B.6).
+ * **Server-side only.**
  */
 
 export {
+  PROFILE_REPORT_REASONS,
+  PROFILE_REPORT_REASON_LABELS,
   REPORT_REASONS,
   REPORT_REASON_LABELS,
+  type ProfileReportReason,
   type ReportReason,
 } from '@/lib/app/breaks/community/report-reasons';
 
-/** Reports one person may file in 24 hours. */
+/** Reports one person may file in 24 hours — patterns and profiles together. */
 export const REPORT_DAILY_CAP = 20;
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -51,19 +56,71 @@ export async function fileReport(
     return { id: existing.id, status: 'open' };
   }
 
-  const recent = await prisma.breakReport.count({
-    where: { reporterId, createdAt: { gte: new Date(now.getTime() - DAY_MS) } },
+  await checkDailyCap(reporterId, now);
+
+  const created = await prisma.breakReport.create({
+    data: { breakId: target.id, reporterId, reason: input.reason, note },
+    select: { id: true },
   });
-  if (recent >= REPORT_DAILY_CAP) {
+  return { id: created.id, status: 'open' };
+}
+
+/**
+ * The daily cap, counted over both kinds of report, so reporting profiles
+ * does not open a second allowance beside patterns'.
+ */
+async function checkDailyCap(reporterId: string, now: Date): Promise<void> {
+  const since = { gte: new Date(now.getTime() - DAY_MS) };
+  const [patterns, profiles] = await Promise.all([
+    prisma.breakReport.count({ where: { reporterId, createdAt: since } }),
+    prisma.drummerReport.count({ where: { reporterId, createdAt: since } }),
+  ]);
+  if (patterns + profiles >= REPORT_DAILY_CAP) {
     throw new APIError(
       "That's a lot of reports in one day — thank you. Try again tomorrow.",
       'REPORT_LIMIT',
       429
     );
   }
+}
 
-  const created = await prisma.breakReport.create({
-    data: { breakId: target.id, reporterId, reason: input.reason, note },
+/**
+ * Report a drummer's profile (Phase 7B, task 7B.5). The same rules as a
+ * pattern: one open report per person per profile, updated rather than
+ * stacked; not your own; the daily cap. An unknown username is a 404.
+ */
+export async function fileProfileReport(
+  reporterId: string,
+  username: string,
+  input: { reason: ProfileReportReason; note?: string },
+  now = new Date()
+): Promise<{ id: string; status: 'open' }> {
+  const target = await prisma.drummerProfile.findUnique({
+    where: { username: username.toLowerCase() },
+    select: { userId: true },
+  });
+  if (!target) throw new NotFoundError('Drummer not found');
+  if (target.userId === reporterId) {
+    throw new ValidationError('You cannot report your own profile', { username: ['yours'] });
+  }
+
+  const note = input.note?.trim() || null;
+  const existing = await prisma.drummerReport.findFirst({
+    where: { subjectId: target.userId, reporterId, status: 'open' },
+    select: { id: true },
+  });
+  if (existing) {
+    await prisma.drummerReport.update({
+      where: { id: existing.id },
+      data: { reason: input.reason, note },
+    });
+    return { id: existing.id, status: 'open' };
+  }
+
+  await checkDailyCap(reporterId, now);
+
+  const created = await prisma.drummerReport.create({
+    data: { subjectId: target.userId, reporterId, reason: input.reason, note },
     select: { id: true },
   });
   return { id: created.id, status: 'open' };
@@ -151,4 +208,79 @@ export async function moderationQueue(): Promise<QueueItem[]> {
 export async function ownsSlug(slug: string, userId: string): Promise<boolean> {
   const row = await prisma.break.findFirst({ where: { slug, userId }, select: { id: true } });
   return row !== null;
+}
+
+/** One drummer in the moderation queue, with the open reports on their profile. */
+export interface ProfileQueueItem {
+  subjectId: string;
+  /** Null once the owner has dropped their username; the reports still stand. */
+  username: string | null;
+  email: string;
+  bio: string | null;
+  /** How many channel links the profile lists — what _Strip links_ would remove. */
+  links: number;
+  reports: QueueItem['reports'];
+}
+
+/**
+ * The profile half of the queue (Phase 7B, task 7B.6): every drummer with an
+ * open report on their profile, oldest report first. Two queries and lookups,
+ * never one per row. The owner's email is here for the reason the pattern
+ * queue gives, and never leaves `/admin`.
+ */
+export async function profileQueue(): Promise<ProfileQueueItem[]> {
+  const reports = await prisma.drummerReport.findMany({
+    where: { status: 'open' },
+    orderBy: { createdAt: 'asc' },
+    take: 500,
+    select: {
+      id: true,
+      subjectId: true,
+      reason: true,
+      note: true,
+      createdAt: true,
+      reporterId: true,
+    },
+  });
+  const subjects = [...new Set(reports.map((r) => r.subjectId))];
+  const [users, profiles, abouts] = await Promise.all([
+    prisma.user.findMany({ where: { id: { in: subjects } }, select: { id: true, email: true } }),
+    prisma.drummerProfile.findMany({
+      where: { userId: { in: subjects } },
+      select: { userId: true, username: true, bio: true },
+    }),
+    prisma.drummerAbout.findMany({
+      where: { userId: { in: subjects } },
+      select: { userId: true, channels: true },
+    }),
+  ]);
+  const email = new Map(users.map((u) => [u.id, u.email]));
+  const profile = new Map(profiles.map((p) => [p.userId, p]));
+  const links = new Map(
+    abouts.map((a) => [a.userId, Array.isArray(a.channels) ? a.channels.length : 0])
+  );
+
+  const bySubject = new Map<string, ProfileQueueItem>();
+  for (const r of reports) {
+    let item = bySubject.get(r.subjectId);
+    if (!item) {
+      item = {
+        subjectId: r.subjectId,
+        username: profile.get(r.subjectId)?.username ?? null,
+        email: email.get(r.subjectId) ?? '',
+        bio: profile.get(r.subjectId)?.bio ?? null,
+        links: links.get(r.subjectId) ?? 0,
+        reports: [],
+      };
+      bySubject.set(r.subjectId, item);
+    }
+    item.reports.push({
+      id: r.id,
+      reason: r.reason,
+      note: r.note,
+      createdAt: r.createdAt.toISOString(),
+      reporterGone: r.reporterId === null,
+    });
+  }
+  return [...bySubject.values()];
 }

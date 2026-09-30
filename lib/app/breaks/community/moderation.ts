@@ -108,3 +108,48 @@ export async function moderate(
 
   return { breakId, title: row.title, action, reportsClosed: count };
 }
+
+/**
+ * What a moderator can do about a reported profile (Phase 7B, task 7B.6).
+ * **Server-side only.** Takes effect on the next public read.
+ *
+ * - **strip-links** — the profile's channel links are removed; everything
+ *   else stays. The open `bad-link` reports are closed as actioned.
+ * - **dismiss** — its open reports are closed as dismissed; nothing else moves.
+ *
+ * Hiding an offensive username or bio is not an action yet (plan §10).
+ */
+export const PROFILE_MODERATION_ACTIONS = ['strip-links', 'dismiss'] as const;
+export type ProfileModerationAction = (typeof PROFILE_MODERATION_ACTIONS)[number];
+
+export async function moderateProfile(
+  subjectId: string,
+  action: ProfileModerationAction,
+  adminId: string,
+  now = new Date()
+): Promise<{ subjectId: string; action: ProfileModerationAction; reportsClosed: number }> {
+  const reported = await prisma.drummerReport.findFirst({
+    where: { subjectId },
+    select: { id: true },
+  });
+  if (!reported) throw new NotFoundError(`No reports on profile ${subjectId}`);
+
+  const resolved = { resolvedById: adminId, resolvedAt: now };
+
+  if (action === 'dismiss') {
+    const { count } = await prisma.drummerReport.updateMany({
+      where: { subjectId, status: 'open' },
+      data: { status: 'dismissed', ...resolved },
+    });
+    return { subjectId, action, reportsClosed: count };
+  }
+
+  const [, { count }] = await prisma.$transaction([
+    prisma.drummerAbout.updateMany({ where: { userId: subjectId }, data: { channels: [] } }),
+    prisma.drummerReport.updateMany({
+      where: { subjectId, status: 'open', reason: 'bad-link' },
+      data: { status: 'actioned', ...resolved },
+    }),
+  ]);
+  return { subjectId, action, reportsClosed: count };
+}

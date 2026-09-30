@@ -86,10 +86,21 @@ const entryCard: HomeCard = {
   thumbnail: null,
 };
 
-const EMPTY: HomeView = { practising: [], recent: [], savedCount: 0, published: [] };
+const EMPTY: HomeView = {
+  practising: [],
+  recent: [],
+  savedCount: 0,
+  published: [],
+  askAbout: false,
+};
 
-async function show(home: HomeView) {
-  vi.mocked(readHome).mockResolvedValue(home);
+/**
+ * `askAbout` defaults to `false` here so the rest of this file's fixtures —
+ * written before Phase 7B added the field — need not each spell it out; a
+ * test about the card itself passes `askAbout: true` explicitly.
+ */
+async function show(home: Omit<HomeView, 'askAbout'> & { askAbout?: boolean }) {
+  vi.mocked(readHome).mockResolvedValue({ askAbout: false, ...home });
   render(await DashboardPage());
 }
 
@@ -296,6 +307,24 @@ describe('/dashboard — Home', () => {
       published: [],
     });
     expect(screen.getByText('gone-style')).toBeTruthy();
+  });
+
+  describe('the About-you card (7B, task 7B.7)', () => {
+    it('is shown above Home when readHome says to ask', async () => {
+      await show({ ...EMPTY, askAbout: true });
+      expect(screen.getByText('Three quick questions')).toBeInTheDocument();
+    });
+
+    it('is not shown once you have answered or skipped it', async () => {
+      await show({ ...EMPTY, askAbout: false });
+      expect(screen.queryByText('Three quick questions')).not.toBeInTheDocument();
+    });
+
+    it('is given the catalogue’s styles, by key and label', async () => {
+      await show({ ...EMPTY, askAbout: true });
+      // the style picker lists the one style listStyles() was mocked with
+      expect(screen.getByText(funk.params.label)).toBeInTheDocument();
+    });
   });
 });
 

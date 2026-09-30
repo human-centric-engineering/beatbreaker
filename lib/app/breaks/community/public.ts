@@ -1,7 +1,9 @@
 import type { Prisma } from '@prisma/client';
 
 import { critique, playability } from '@/lib/app/breaks/critic';
+import { type PublicAbout, publicAbout } from '@/lib/app/breaks/community/about';
 import { lineageOf, type BasedOn } from '@/lib/app/breaks/community/sharing';
+import { usernameProblem } from '@/lib/app/breaks/community/username';
 import { readVisibility, type Visibility } from '@/lib/app/breaks/community/visibility';
 import { readStoredLinks, type StoredLink } from '@/lib/app/breaks/links';
 import { type SharePayload, storedPayloadSchema } from '@/lib/app/breaks/schema';
@@ -284,15 +286,26 @@ export async function getPublicPattern(slug: string): Promise<PublicPattern | nu
   };
 }
 
-/** A drummer's public page: their username and bio, or null if nobody has it. */
-export async function getPublicProfile(
-  username: string
-): Promise<{ username: string; bio: string | null } | null> {
+/** A drummer as anyone may see them: the username, the bio, and the About-you fields they switched on. */
+export interface PublicDrummer extends PublicAbout {
+  username: string;
+  bio: string | null;
+}
+
+/**
+ * A drummer's public page (Phase 6, task 6.8; Phase 7B): their username and
+ * bio, and the public part of About you. Never the user id, which is read here only to
+ * find their About-you row. Null if nobody has the username, or if it is not
+ * the shape a username can be.
+ */
+export async function getPublicDrummer(username: string): Promise<PublicDrummer | null> {
+  if (usernameProblem(username) === 'shape') return null;
   const profile = await prisma.drummerProfile.findUnique({
     where: { username: username.toLowerCase() },
-    select: { username: true, bio: true },
+    select: { userId: true, username: true, bio: true },
   });
-  return profile;
+  if (!profile) return null;
+  return { username: profile.username, bio: profile.bio, ...(await publicAbout(profile.userId)) };
 }
 
 /**

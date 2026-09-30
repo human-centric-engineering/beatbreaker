@@ -19,6 +19,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/lib/app/breaks/community/reports', () => ({
   moderationQueue: vi.fn(),
+  profileQueue: vi.fn(),
   REPORT_REASON_LABELS: {
     spam: 'Spam',
     'not-theirs': "Someone else's work passed off as theirs",
@@ -27,6 +28,13 @@ vi.mock('@/lib/app/breaks/community/reports', () => ({
     other: 'Something else',
   },
   REPORT_REASONS: ['spam', 'not-theirs', 'offensive', 'bad-link', 'other'],
+  PROFILE_REPORT_REASON_LABELS: {
+    spam: 'Spam',
+    offensive: 'Offensive username or bio',
+    'bad-link': 'Bad or misleading link',
+    other: 'Something else',
+  },
+  PROFILE_REPORT_REASONS: ['spam', 'offensive', 'bad-link', 'other'],
 }));
 vi.mock('@/lib/feature-flags', () => ({ isFeatureEnabled: vi.fn() }));
 vi.mock('@/components/app/admin/patterns/moderation-actions', () => ({
@@ -34,9 +42,14 @@ vi.mock('@/components/app/admin/patterns/moderation-actions', () => ({
     <div data-testid="moderation-actions" data-break-id={breakId} data-links={links} />
   ),
 }));
+vi.mock('@/components/app/admin/patterns/profile-moderation-actions', () => ({
+  ProfileModerationActions: ({ subjectId, links }: { subjectId: string; links: number }) => (
+    <div data-testid="profile-moderation-actions" data-subject-id={subjectId} data-links={links} />
+  ),
+}));
 
 import AdminPatternsPage from '@/app/admin/patterns/page';
-import { moderationQueue } from '@/lib/app/breaks/community/reports';
+import { moderationQueue, profileQueue } from '@/lib/app/breaks/community/reports';
 import { isFeatureEnabled } from '@/lib/feature-flags';
 
 function item(overrides: Record<string, unknown> = {}) {
@@ -60,8 +73,29 @@ function item(overrides: Record<string, unknown> = {}) {
   };
 }
 
+function profileItem(overrides: Record<string, unknown> = {}) {
+  return {
+    subjectId: 'cusr0000000000000000001',
+    username: 'ghostnotes',
+    email: 'owner@example.com',
+    bio: null,
+    links: 1,
+    reports: [
+      {
+        id: 'pr1',
+        reason: 'spam',
+        note: null,
+        createdAt: '2026-09-20T00:00:00.000Z',
+        reporterGone: false,
+      },
+    ],
+    ...overrides,
+  };
+}
+
 beforeEach(() => {
   vi.clearAllMocks();
+  vi.mocked(profileQueue).mockResolvedValue([]);
 });
 
 it('says there are no open reports when the queue is empty', async () => {
@@ -72,6 +106,84 @@ it('says there are no open reports when the queue is empty', async () => {
 
   expect(screen.getByText('No open reports.')).toBeInTheDocument();
   expect(screen.queryByTestId('moderation-actions')).not.toBeInTheDocument();
+});
+
+describe('Reported profiles (7B, task 7B.6)', () => {
+  beforeEach(() => {
+    vi.mocked(moderationQueue).mockResolvedValue([]);
+    vi.mocked(isFeatureEnabled).mockResolvedValue(true);
+  });
+
+  it('says there are no open reports on profiles when the queue is empty', async () => {
+    vi.mocked(profileQueue).mockResolvedValue([]);
+
+    render(await AdminPatternsPage());
+
+    expect(screen.getByText('No open reports on profiles.')).toBeInTheDocument();
+    expect(screen.queryByTestId('profile-moderation-actions')).not.toBeInTheDocument();
+  });
+
+  it('lists a reported profile with its labelled reasons', async () => {
+    vi.mocked(profileQueue).mockResolvedValue([
+      profileItem({
+        reports: [
+          {
+            id: 'pr1',
+            reason: 'bad-link',
+            note: 'dead link',
+            createdAt: '2026-09-20T00:00:00.000Z',
+            reporterGone: false,
+          },
+        ],
+      }),
+    ]);
+
+    render(await AdminPatternsPage());
+
+    const meta = within(screen.getByTestId('profile-moderation-actions').parentElement!);
+    expect(meta.getByText('@ghostnotes')).toBeInTheDocument();
+    expect(meta.getByText(/owner@example.com/)).toBeInTheDocument();
+    expect(screen.getByText('Bad or misleading link')).toBeInTheDocument();
+    expect(screen.queryByText('bad-link')).not.toBeInTheDocument();
+    expect(screen.getByText(/dead link/)).toBeInTheDocument();
+    const actions = screen.getByTestId('profile-moderation-actions');
+    expect(actions).toHaveAttribute('data-subject-id', 'cusr0000000000000000001');
+    expect(actions).toHaveAttribute('data-links', '1');
+  });
+
+  it('shows the bio, counts links in the singular and plural, and shows an unknown reason as its code', async () => {
+    vi.mocked(profileQueue).mockResolvedValue([
+      profileItem({
+        bio: 'Funk, mostly.',
+        links: 1,
+        reports: [
+          {
+            id: 'pr1',
+            reason: 'retired-reason',
+            note: null,
+            createdAt: '2026-09-20T00:00:00.000Z',
+            reporterGone: true,
+          },
+        ],
+      }),
+      profileItem({ subjectId: 'cusr0000000000000000002', username: 'rimshot', links: 3 }),
+    ]);
+
+    render(await AdminPatternsPage());
+
+    expect(screen.getByText('Funk, mostly.')).toBeInTheDocument();
+    expect(screen.getByText(/owner@example.com · 1 link$/)).toBeInTheDocument();
+    expect(screen.getByText(/owner@example.com · 3 links$/)).toBeInTheDocument();
+    expect(screen.getByText('retired-reason')).toBeInTheDocument();
+  });
+
+  it('shows "no username" for a subject who has dropped theirs', async () => {
+    vi.mocked(profileQueue).mockResolvedValue([profileItem({ username: null })]);
+
+    render(await AdminPatternsPage());
+
+    expect(screen.getByText('no username')).toBeInTheDocument();
+  });
 });
 
 describe('with an item in the queue', () => {
@@ -88,6 +200,30 @@ describe('with an item in the queue', () => {
     const actions = screen.getByTestId('moderation-actions');
     expect(actions).toHaveAttribute('data-break-id', 'cbrk00000000000000000001');
     expect(actions).toHaveAttribute('data-links', '1');
+  });
+
+  it('counts links in the plural and shows an unknown reason as its code', async () => {
+    vi.mocked(moderationQueue).mockResolvedValue([
+      item({
+        links: 2,
+        reports: [
+          {
+            id: 'r1',
+            reason: 'retired-reason',
+            note: null,
+            createdAt: '2026-09-20T00:00:00.000Z',
+            reporterGone: false,
+          },
+        ],
+      }),
+    ]);
+    vi.mocked(isFeatureEnabled).mockResolvedValue(true);
+
+    render(await AdminPatternsPage());
+
+    const meta = within(screen.getByTestId('moderation-actions').parentElement!);
+    expect(meta.getByText(/2 links/)).toBeInTheDocument();
+    expect(screen.getByText('retired-reason')).toBeInTheDocument();
   });
 
   it('shows "no username" for an owner who has not chosen one', async () => {

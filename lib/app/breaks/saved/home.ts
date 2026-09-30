@@ -55,6 +55,12 @@ export interface HomeView {
   savedCount: number;
   /** Your published patterns, newest first (Phase 6) — what the community sees of you. */
   published: PublishedItem[];
+  /**
+   * Whether to offer the three About-you questions (Phase 7B): until you
+   * answer or skip them, or save About you in Settings, which sends `asked`
+   * as well. A row with purposes, styles or ability set counts as answered.
+   */
+  askAbout: boolean;
 }
 
 /** One of your published patterns, as Home lists it. */
@@ -166,7 +172,7 @@ function toCard(
 }
 
 export async function readHome(userId: string): Promise<HomeView> {
-  const [rows, history, savedCount, publishedRows] = await Promise.all([
+  const [rows, history, savedCount, publishedRows, about] = await Promise.all([
     prisma.pin.findMany({
       where: { userId, shelf: 'practising', ...visibleTarget(userId) },
       select: CARD_SELECT,
@@ -188,7 +194,14 @@ export async function readHome(userId: string): Promise<HomeView> {
       orderBy: [{ publishedAt: 'desc' }, { id: 'desc' }],
       take: HOME_PUBLISHED,
     }),
+    prisma.drummerAbout.findUnique({
+      where: { userId },
+      select: { askedAt: true, purposes: true, styles: true, ability: true },
+    }),
   ]);
+  const askAbout =
+    !about ||
+    (about.askedAt === null && !about.purposes.length && !about.styles.length && !about.ability);
 
   /* Published variations per pattern, for the whole section at once — other
      people's (`parentId`) and your own (`ownParentId`), one grouped query
@@ -237,5 +250,11 @@ export async function readHome(userId: string): Promise<HomeView> {
       : []
   );
 
-  return { practising, recent: history.slice(0, HOME_RECENT), savedCount, published };
+  return {
+    practising,
+    recent: history.slice(0, HOME_RECENT),
+    savedCount,
+    published,
+    askAbout,
+  };
 }

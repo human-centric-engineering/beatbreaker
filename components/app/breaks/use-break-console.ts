@@ -467,7 +467,8 @@ export function useBreakConsole(
 
      A new pattern starts from your starting values (D21), and changing one of
      these while the pattern on the stage is new and unsaved moves them. */
-  const [level, setLevel] = useState(3);
+  // the layer a new pattern opens at; your ability sets it (7B)
+  const [level, setLevel] = useState(settings.startLevel);
   const [viewMode, setViewModeRaw] = useStoredSetting(VIEW);
   /** The section last chosen or edited — what Both edits when nothing is playing. */
   const [touched, setTouched] = useState<SectionLetter>('A');

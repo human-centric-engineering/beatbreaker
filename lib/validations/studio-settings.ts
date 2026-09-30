@@ -164,6 +164,8 @@ export const STUDIO_SETTINGS_FIELDS = {
   startMeter: meterKeySchema,
   startBars: z.number().int().min(1).max(4),
   startBpm: tempoSchema,
+  /** The layer a new pattern opens at (Phase 7B). Your ability sets it; you can still change it. */
+  startLevel: z.number().int().min(1).max(5),
 } as const;
 
 type Fields = typeof STUDIO_SETTINGS_FIELDS;
@@ -193,6 +195,7 @@ export const DEFAULT_STUDIO_SETTINGS: StudioSettings = {
   startMeter: DEFAULT_METER,
   startBars: 2,
   startBpm: 94,
+  startLevel: 3,
 };
 
 /** The settings that name a catalogue row, and which kind of row. */

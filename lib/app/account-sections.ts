@@ -37,6 +37,7 @@
  *
  * Full guide: CUSTOMIZATION.md §4 · lib/account-sections/registry.ts
  */
+import { AboutYouSection } from '@/components/app/account/about-you-section';
 import { DrummerProfileSection } from '@/components/app/account/drummer-profile-section';
 import { registerAccountSection } from '@/lib/account-sections/registry';
 
@@ -49,5 +50,12 @@ export function initAppAccountSections(): void {
     surfaces: ['settings'],
     order: 10,
     Component: DrummerProfileSection,
+  });
+  /* Settings only, beside the profile it fills out (Phase 7B). */
+  registerAccountSection({
+    id: 'about-you',
+    surfaces: ['settings'],
+    order: 20,
+    Component: AboutYouSection,
   });
 }

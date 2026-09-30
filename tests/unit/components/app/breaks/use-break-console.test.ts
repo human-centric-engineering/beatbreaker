@@ -755,6 +755,18 @@ describe('your settings (D19, D21)', () => {
     expect(result.current.patterns.A?.style).toBe('bossa');
   });
 
+  it('opens a fresh console at your starting layer (7B, D27) — set from your ability', async () => {
+    const { result } = await mount(undefined, {
+      settings: { ...DEFAULT_STUDIO_SETTINGS, startLevel: 1 },
+    });
+    expect(result.current.level).toBe(1);
+  });
+
+  it('falls back to the default starting layer when no settings were read', async () => {
+    const { result } = await mount();
+    expect(result.current.level).toBe(DEFAULT_STUDIO_SETTINGS.startLevel);
+  });
+
   it('sends a burst of changes as one PATCH, after the last', async () => {
     const { result } = await mount();
     vi.useFakeTimers();

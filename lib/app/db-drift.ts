@@ -198,6 +198,33 @@ export function registerAppDriftProbes(): void {
     probe: constraintExists('drummer_profile_userId_fkey', 'ON DELETE CASCADE'),
   });
 
+  /* What you say about yourself (20260930120000_drummer_about): purposes,
+     styles, ability and channel links. */
+  registerAppDriftProbe({
+    name: 'drummer_about_userId_fkey (hand-written FK → user)',
+    kind: 'FK constraint',
+    table: 'drummer_about',
+    probe: constraintExists('drummer_about_userId_fkey', 'ON DELETE CASCADE'),
+  });
+
+  /* Reports on profiles (20260930130000_drummer_reports). The subject
+     cascades — a report about an erased profile is about nothing — and the
+     reporter and the admin are nulled, as on break_report. */
+  registerAppDriftProbe({
+    name: 'drummer_report_subjectId_fkey (hand-written FK → user)',
+    kind: 'FK constraint',
+    table: 'drummer_report',
+    probe: constraintExists('drummer_report_subjectId_fkey', 'ON DELETE CASCADE'),
+  });
+  for (const column of ['reporterId', 'resolvedById']) {
+    registerAppDriftProbe({
+      name: `drummer_report_${column}_fkey (hand-written FK → user)`,
+      kind: 'FK constraint',
+      table: 'drummer_report',
+      probe: constraintExists(`drummer_report_${column}_fkey`, 'ON DELETE SET NULL'),
+    });
+  }
+
   /* Reports on public patterns (20260927140000_break_reports). SET NULL, not
      CASCADE, for both: the report is the moderation record about a pattern,
      and erasing the reporter or the admin must not take it with them. */

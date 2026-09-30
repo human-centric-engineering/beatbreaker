@@ -181,6 +181,74 @@ model DrummerProfile {
   @@map("drummer_profile")
 }
 
+/// What a drummer says about themselves (Phase 7B): what they use BeatBreaker
+/// for, what they play and how well, and where people can watch or hear them.
+///
+/// Separate from `DrummerProfile` because that table needs a username and this
+/// does not: someone can fill it in on day one without ever publishing. An
+/// empty row is the same as no row; skipping Home's three questions writes one
+/// with only `askedAt`, so the card is not shown again.
+///
+/// Every value is validated on the way in and re-read on the way out
+/// (`lib/app/breaks/community/about.ts`): `styles` names catalogue rows,
+/// `channels` holds canonical URLs rebuilt by `channels.ts`, and `public`
+/// holds one switch per field. Only the fields switched on leave through a
+/// public response.
+///
+/// Personal data: `userId` cascades (hand-written FK, probed by
+/// `lib/app/db-drift.ts`).
+model DrummerAbout {
+  /// FK to User.id — no @relation. Cascades. One row per person.
+  userId       String    @id
+  /// Any of "learning" | "teaching" | "designing". Empty = not said.
+  purposes     String[]  @default([])
+  /// Catalogue style keys, at most 8.
+  styles       String[]  @default([])
+  /// "just-starting" | "beginner" | "intermediate" | "advanced" | "professional".
+  ability      String?   @db.VarChar(16)
+  /// Style key → ability, for styles in `styles` only.
+  styleAbility Json      @default("{}")
+  /// Up to 8 `{ kind, url, drumming }`, URLs canonical.
+  channels     Json      @default("[]")
+  /// Field → shown on the public profile. Missing = the field's default.
+  public       Json      @default("{}")
+  /// When Home's three questions were answered or skipped.
+  askedAt      DateTime?
+  updatedAt    DateTime  @updatedAt
+
+  @@map("drummer_about")
+}
+
+/// A report that a drummer's public profile is spam, offensive, or links
+/// somewhere it should not (Phase 7B) — `BreakReport`'s twin for profiles.
+///
+/// `subjectId` is the reported profile's owner and **cascades**: the profile
+/// goes when they do, and so does anything said about it. `reporterId` and
+/// `resolvedById` are **nulled**, as on `BreakReport`, so erasing a reporter
+/// or an admin does not take the moderation record with it. All three FKs are
+/// hand-written and probed by `lib/app/db-drift.ts`.
+model DrummerReport {
+  id           String    @id @default(cuid())
+  /// FK to User.id — no @relation. The reported profile's owner. Cascades.
+  subjectId    String
+  /// FK to User.id — no @relation. Nulled on erasure.
+  reporterId   String?
+  /// "spam" | "offensive" | "bad-link" | "other".
+  reason       String    @db.VarChar(24)
+  note         String?   @db.VarChar(500)
+  /// "open" | "dismissed" | "actioned".
+  status       String    @default("open") @db.VarChar(16)
+  /// FK to User.id — no @relation. The admin who resolved it; nulled on erasure.
+  resolvedById String?
+  resolvedAt   DateTime?
+  createdAt    DateTime  @default(now())
+
+  @@index([status, createdAt])
+  @@index([subjectId, status])
+  @@index([reporterId, createdAt])
+  @@map("drummer_report")
+}
+
 /// A username someone has just given up, held so that nobody else can claim
 /// it while the old `/u/` links still circulate. No user FK: it records a
 /// name, not a person, and outlives the change that released it.

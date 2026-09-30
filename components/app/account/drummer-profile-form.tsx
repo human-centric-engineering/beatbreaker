@@ -107,8 +107,8 @@ export function DrummerProfileForm({ profile }: { profile: DrummerProfileView | 
 
       <div className="space-y-2">
         <Label htmlFor="drummer-bio" className="flex items-center gap-1">
-          About you
-          <FieldHelp title="About you">
+          Bio
+          <FieldHelp title="Bio">
             Optional. Shown on your public page, under your username — what you play, what you are
             working on. Up to {BIO_MAX} characters.
           </FieldHelp>

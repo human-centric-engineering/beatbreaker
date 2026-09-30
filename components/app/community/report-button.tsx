@@ -5,20 +5,41 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { APIClientError, apiClient } from '@/lib/api/client';
 import {
+  PROFILE_REPORT_REASON_LABELS,
   REPORT_REASON_LABELS,
-  REPORT_REASONS,
-  type ReportReason,
 } from '@/lib/app/breaks/community/report-reasons';
 
+type Target = { slug: string } | { username: string };
+
+function targetOf(target: Target): {
+  endpoint: string;
+  question: string;
+  labels: Record<string, string>;
+} {
+  if ('slug' in target) {
+    return {
+      endpoint: `/api/v1/public/patterns/${encodeURIComponent(target.slug)}/report`,
+      question: 'What is wrong with this pattern?',
+      labels: REPORT_REASON_LABELS,
+    };
+  }
+  return {
+    endpoint: `/api/v1/public/drummers/${encodeURIComponent(target.username)}/report`,
+    question: 'What is wrong with this profile?',
+    labels: PROFILE_REPORT_REASON_LABELS,
+  };
+}
+
 /**
- * Report a shared or published pattern (Phase 6, task 6.10) — for a
- * signed-in reader who is not its owner. An inline form, not a browser
- * dialog: a reason, an optional note, and a thank-you. The owner never sees
- * who reported it.
+ * Report a shared or published pattern (Phase 6, task 6.10), or a drummer's
+ * public profile (Phase 7B, task 7B.5) — for a signed-in reader who is not
+ * its owner. An inline form, not a browser dialog: a reason, an optional
+ * note, and a thank-you. The owner never sees who reported it.
  */
-export function ReportButton({ slug }: { slug: string }) {
+export function ReportButton(target: Target) {
+  const { endpoint, question, labels } = targetOf(target);
   const [open, setOpen] = useState(false);
-  const [reason, setReason] = useState<ReportReason | null>(null);
+  const [reason, setReason] = useState<string | null>(null);
   const [note, setNote] = useState('');
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -44,7 +65,7 @@ export function ReportButton({ slug }: { slug: string }) {
     setBusy(true);
     setError(null);
     try {
-      await apiClient.post(`/api/v1/public/patterns/${slug}/report`, {
+      await apiClient.post(endpoint, {
         body: { reason, ...(note.trim() ? { note: note.trim() } : {}) },
       });
       setDone(true);
@@ -64,8 +85,8 @@ export function ReportButton({ slug }: { slug: string }) {
       }}
     >
       <fieldset className="space-y-2">
-        <legend className="font-medium">What is wrong with this pattern?</legend>
-        {REPORT_REASONS.map((r) => (
+        <legend className="font-medium">{question}</legend>
+        {Object.entries(labels).map(([r, label]) => (
           <label key={r} className="flex items-center gap-2 text-sm">
             <input
               type="radio"
@@ -74,7 +95,7 @@ export function ReportButton({ slug }: { slug: string }) {
               checked={reason === r}
               onChange={() => setReason(r)}
             />
-            {REPORT_REASON_LABELS[r]}
+            {label}
           </label>
         ))}
       </fieldset>
