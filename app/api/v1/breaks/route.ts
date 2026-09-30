@@ -51,6 +51,7 @@ const LIST_SELECT = {
   visibility: true,
   slug: true,
   publishedAt: true,
+  frozenAt: true,
   difficulty: true,
   level: true,
   description: true,

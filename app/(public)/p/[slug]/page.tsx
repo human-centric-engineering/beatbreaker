@@ -8,14 +8,20 @@ import { PatternPlayer } from '@/components/app/community/pattern-player';
 import { PublicChart } from '@/components/app/community/public-chart';
 import { ReferenceEmbeds } from '@/components/app/community/reference-embeds';
 import { ReportButton } from '@/components/app/community/report-button';
+import { VariationsSection } from '@/components/app/community/variations-section';
 import { Button } from '@/components/ui/button';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { difficultyLabel } from '@/lib/app/breaks/community/grid';
-import { getPublicPattern, openableIdForSlug } from '@/lib/app/breaks/community/public';
+import {
+  getPublicPattern,
+  listVariations,
+  openableIdForSlug,
+} from '@/lib/app/breaks/community/public';
 import { ownsSlug } from '@/lib/app/breaks/community/reports';
 import { publicPath, slugSchema } from '@/lib/app/breaks/community/visibility';
 import { meterOf } from '@/lib/app/breaks/meter';
 import { getServerSession } from '@/lib/auth/utils';
+import { nonEmptyParams, variationsQuerySchema } from '@/lib/validations/public-patterns';
 
 /**
  * One shared or published pattern — `/p/[slug]` (Phase 6, task 6.6). Public:
@@ -31,6 +37,9 @@ import { getServerSession } from '@/lib/auth/utils';
  * link and nobody else, and a search engine is not one of them. Published
  * patterns are indexable and in the sitemap.
  *
+ * A published pattern lists its published variations (7A), and a variation
+ * says what it is a variation of. `?sort=` and `?cursor=` page that list.
+ *
  * Copy is `planning/site-copy.md` §5.
  */
 
@@ -39,7 +48,10 @@ const readPattern = cache(async (raw: string) => {
   return slug.success ? getPublicPattern(slug.data) : null;
 });
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = {
+  params: Promise<{ slug: string }>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -59,12 +71,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function PublicPatternPage({ params }: Props) {
+export default async function PublicPatternPage({ params, searchParams }: Props) {
   const { slug } = await params;
   const pattern = await readPattern(slug);
   if (!pattern) notFound();
 
-  const [session, catalogue] = await Promise.all([getServerSession(), studioCatalogue()]);
+  // a hand-edited sort or cursor that does not read is the first page, newest
+  const parsed = variationsQuerySchema.safeParse(nonEmptyParams((await searchParams) ?? {}));
+  const query = parsed.success ? parsed.data : variationsQuerySchema.parse({});
+  const published = pattern.visibility === 'published';
+
+  const [session, catalogue, variations] = await Promise.all([
+    getServerSession(),
+    studioCatalogue(),
+    published ? listVariations(pattern.slug, query) : null,
+  ]);
   const [id, mine] = session
     ? await Promise.all([openableIdForSlug(pattern.slug), ownsSlug(pattern.slug, session.user.id)])
     : [null, false];
@@ -85,8 +106,9 @@ export default async function PublicPatternPage({ params }: Props) {
         </p>
         {pattern.basedOn ? (
           <p className="text-muted-foreground text-sm italic">
-            Based on <Link href={publicPath(pattern.basedOn.slug)}>“{pattern.basedOn.title}”</Link>{' '}
-            by @{pattern.basedOn.username}
+            Variation of{' '}
+            <Link href={publicPath(pattern.basedOn.slug)}>“{pattern.basedOn.title}”</Link> by @
+            {pattern.basedOn.username}
           </p>
         ) : null}
         {pattern.description ? <p className="whitespace-pre-line">{pattern.description}</p> : null}
@@ -99,14 +121,14 @@ export default async function PublicPatternPage({ params }: Props) {
       <ReferenceEmbeds links={pattern.links} />
 
       {id ? (
-        <PatternActions id={id}>
+        <PatternActions id={id} variation={published}>
           {mine ? null : <ReportButton slug={pattern.slug} />}
         </PatternActions>
       ) : (
         <aside className="bg-muted/50 space-y-3 rounded-lg border p-4">
           <p>
-            You can read and play this pattern here. Create a free account to save a copy, slow it
-            down by layers, and edit it.
+            You can read and play this pattern here. Create a free account to save{' '}
+            {published ? 'a variation' : 'a copy'}, slow it down by layers, and edit it.
           </p>
           <div className="flex flex-wrap gap-3">
             <Button asChild>
@@ -122,6 +144,16 @@ export default async function PublicPatternPage({ params }: Props) {
           </div>
         </aside>
       )}
+
+      {variations ? (
+        <VariationsSection
+          slug={pattern.slug}
+          variations={variations.patterns}
+          nextCursor={variations.nextCursor}
+          sort={query.sort}
+          styleLabel={(key) => catalogue.styles[key]?.params.label ?? key}
+        />
+      ) : null}
     </article>
   );
 }

@@ -48,15 +48,15 @@ function LinkChips({ links }: { links: StoredLink[] }) {
 }
 
 /**
- * The credit line on a copy (task 6.3): "Based on _X_ by @_Y_", linking to
- * the pattern it came from. The server sends it only while that pattern is
- * published, so there is nothing here to decide.
+ * The credit line on a variation (tasks 6.3, 7A): "Variation of _X_ by
+ * @_Y_", linking to the pattern it came from. The server sends it only while
+ * that pattern is published, so there is nothing here to decide.
  */
 function BasedOn({ credit }: { credit: PatternSharing['basedOn'] }) {
   if (!credit) return null;
   return (
     <p className="title-credit">
-      Based on{' '}
+      Variation of{' '}
       <a href={publicPath(credit.slug)} target="_blank" rel="noopener noreferrer">
         {credit.title}
       </a>{' '}
@@ -170,6 +170,14 @@ export function Stage() {
               <LinkChips links={c.doc.details.links} />
             </div>
             <BasedOn credit={c.doc.sharing.basedOn} />
+            {/* A fixed pattern is never edited in place (D26): the edit is a
+                variation until it is saved, and undo back to the original
+                takes the banner away. */}
+            {c.doc.variationOf ? (
+              <p className="title-credit variation-banner" role="status">
+                You&rsquo;re making a variation of <b>{c.doc.variationOf}</b> — Save to keep it
+              </p>
+            ) : null}
             <div className="title-sub">
               <span className="chip">{style?.label ?? c.style}</span>
               <span className="chip brass">

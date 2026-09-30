@@ -90,6 +90,9 @@ const openedSchema = z.object({
     .object({ title: z.string(), username: z.string(), slug: z.string() })
     .nullish()
     .catch(null),
+  /* Unreadable reads as not fixed: the edit is then autosaved and the server
+     refuses it (409 PUBLISHED_FIXED), so the notes still cannot change. */
+  frozenAt: z.string().nullish().catch(null),
 });
 
 /**
@@ -105,7 +108,12 @@ export async function fetchSavedPattern(id: string): Promise<InitialPattern | 'g
       mine: row.mine,
       payload: row.doc,
       details: { description: row.description ?? '', links: row.links },
-      sharing: { visibility: row.visibility, slug: row.slug ?? null, basedOn: row.basedOn ?? null },
+      sharing: {
+        visibility: row.visibility,
+        slug: row.slug ?? null,
+        basedOn: row.basedOn ?? null,
+        fixed: !!row.frozenAt,
+      },
     };
   } catch (error) {
     if (error instanceof APIClientError && error.status === 404) return 'gone';

@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { z } from 'zod';
 
 import type {
@@ -38,6 +38,13 @@ import type { Say } from '@/components/app/studio/use-notice';
  *   and **Save** gives it an id and an address.
  * - **Someone else's shared pattern never autosaves** — there is nothing of
  *   yours to save it into. Save makes it a copy that is yours.
+ * - **Nor does a fixed pattern of yours** (D26 — published, now or before).
+ *   Its notes never change, so an edit to them is a **variation**: the row is
+ *   left as it is, a banner says what is happening, and Save makes the
+ *   variation through the copy route, credited to the original. Undo back to
+ *   where it was and it is the original again. Only the notes count: tempo
+ *   and layer are where you practise it (kept per visit), and the name is
+ *   changed through Details, which renames the row itself.
  * - **Rolling a new pattern, opening a famous break or pasting a code puts a
  *   different pattern on the stage**, so the document is let go first
  *   ({@link PatternDocument.detach}): the pattern you were on gets its last
@@ -80,6 +87,19 @@ export interface PatternDocument {
   id: string | null;
   /** False while it is someone else's shared pattern. */
   mine: boolean;
+  /** Its notes are fixed (D26), so an edit to them makes a variation. */
+  fixed: boolean;
+  /**
+   * What Save makes of an edited pattern that is not a plain saved one of
+   * yours: a `variation` of a fixed pattern of yours or of a published one
+   * (D26), else a `copy`.
+   */
+  copyKind: 'copy' | 'variation';
+  /**
+   * The name of the fixed pattern while the stage holds an unsaved variation
+   * of it — the banner's "You're making a variation of _X_". Null otherwise.
+   */
+  variationOf: string | null;
   status: SaveStatus;
   /**
    * Save now. The first save of a scratch pattern (or a copy of someone
@@ -104,11 +124,13 @@ export interface PatternDocument {
   /** The description and links of the pattern on the stage; empty for scratch. */
   details: PatternDetails;
   /**
-   * Send new details for a saved pattern of yours. What the server kept (its
-   * canonical links), or null — with the toast saying why — when there is no
-   * such pattern or the server refused them.
+   * Send new details for a saved pattern of yours, and its new name if it has
+   * one — sent here rather than left to the autosave, which a fixed pattern
+   * does not have. What the server kept (its canonical links), or null — with
+   * the toast saying why — when there is no such pattern or the server
+   * refused them.
    */
-  saveDetails: (details: PatternDetails) => Promise<PatternDetails | null>;
+  saveDetails: (details: PatternDetails, title?: string) => Promise<PatternDetails | null>;
   /** Who can open it, and whom a copy is credited to (Phase 6). */
   sharing: PatternSharing;
   /**
@@ -150,6 +172,15 @@ const detailsAnswer = z.object({
 
 /** What a create or a copy answers with that this reads — checked, not cast. */
 const created = z.object({ id: z.string().min(1), basedOn: basedOnSchema.nullish() });
+
+/**
+ * What a fixed pattern is compared on: the notes, without the name (the row's
+ * to change), the tempo or the layer (where you practise it, D26).
+ */
+function notesKey(payload: SharePayload): string {
+  const { bpm: _bpm, lv: _lv, ...rest } = payload;
+  return JSON.stringify({ ...rest, A: { ...rest.A, n: '' }, B: { ...rest.B, n: '' } });
+}
 
 /** A title the API will take: it refuses an empty one. */
 function titleFor(title: string): string {
@@ -200,6 +231,9 @@ export function usePatternDocument({
   const [refusedKey, setRefusedKey] = useState<string | null>(null);
   const [details, setDetails] = useState<PatternDetails>(initial?.details ?? NO_DETAILS);
   const [sharing, setSharing] = useState<PatternSharing>(initial?.sharing ?? NO_SHARING);
+  /** A fixed pattern's notes as the stage first had them; null before a baseline. */
+  const [savedNotes, setSavedNotes] = useState<string | null>(null);
+  const fixed = sharing.fixed === true;
   // read by `share`, which says what changed, without re-creating it on every change
   const sharingNow = useRef(sharing);
   useLayoutEffect(() => {
@@ -210,12 +244,12 @@ export function usePatternDocument({
      save fired by a timer or by `detach` sends what was on the stage then —
      not what a closure captured renders ago. */
   const key = payload ? JSON.stringify({ payload, title: titleFor(title) }) : null;
-  const latest = useRef({ payload, title, key, id, mine, savedKey, details });
+  const latest = useRef({ payload, title, key, id, mine, fixed, savedKey, savedNotes, details });
   /* A layout effect, not a plain one: it runs after the commit and before any
      ordinary effect or event, so the autosave and scratch effects below, and a
      `detach` from the next click, all read this render's values. */
   useLayoutEffect(() => {
-    latest.current = { payload, title, key, id, mine, savedKey, details };
+    latest.current = { payload, title, key, id, mine, fixed, savedKey, savedNotes, details };
   });
 
   /* Saves go one after another. Two PATCHes of one pattern in flight at once
@@ -229,8 +263,11 @@ export function usePatternDocument({
      baseline is taken from the first render that has a payload rather than
      from the row. */
   useEffect(() => {
-    if (id && savedKey === null && key !== null) setSavedKey(key);
-  }, [id, savedKey, key]);
+    if (id && savedKey === null && key !== null && payload) {
+      setSavedKey(key);
+      setSavedNotes(notesKey(payload));
+    }
+  }, [id, savedKey, key, payload]);
 
   /**
    * Queue a save of this snapshot. The snapshot is taken by the caller, now —
@@ -290,7 +327,7 @@ export function usePatternDocument({
   /** The stage as it is now, if it is a saved pattern of yours to save. */
   const snapshot = useCallback(() => {
     const now = latest.current;
-    if (!now.id || !now.mine || !now.payload || now.key === null) return null;
+    if (!now.id || !now.mine || now.fixed || !now.payload || now.key === null) return null;
     return { id: now.id, payload: now.payload, title: now.title, key: now.key };
   }, []);
 
@@ -301,13 +338,13 @@ export function usePatternDocument({
 
   /* The autosave. Re-armed on every edit, so it fires once, after the last. */
   useEffect(() => {
-    if (!id || !mine || key === null || savedKey === null || key === savedKey) return;
+    if (!id || !mine || fixed || key === null || savedKey === null || key === savedKey) return;
     if (phase === 'saving' || phase === 'offline') return;
     // refused as it stands: wait for an edit, not a timer
     if (key === refusedKey) return;
     const t = setTimeout(() => void saveNow(), AUTOSAVE_MS);
     return () => clearTimeout(t);
-  }, [id, mine, key, savedKey, phase, refusedKey, saveNow]);
+  }, [id, mine, fixed, key, savedKey, phase, refusedKey, saveNow]);
 
   /* Offline: try again when the browser says it is back, and on a timer in
      case it never says (it often does not). */
@@ -334,8 +371,12 @@ export function usePatternDocument({
     // (the playhead renders at frame rate) would be a storage write per frame
   }, [id, key]);
 
-  const dirty = key !== null && savedKey !== null && key !== savedKey;
-  const needsPrompt = !!id && dirty && (!mine || phase === 'offline' || phase === 'error');
+  const notes = useMemo(() => (payload ? notesKey(payload) : null), [payload]);
+  const dirty = fixed
+    ? notes !== null && savedNotes !== null && notes !== savedNotes
+    : key !== null && savedKey !== null && key !== savedKey;
+  const needsPrompt = !!id && dirty && (!mine || fixed || phase === 'offline' || phase === 'error');
+  const copyKind = fixed && (mine || sharing.visibility === 'published') ? 'variation' : 'copy';
 
   /* Leaving the page with edits the server does not have. An autosave in its
      two-second wait counts: the browser will not wait for it. */
@@ -385,7 +426,8 @@ export function usePatternDocument({
             },
           });
         let answer: unknown;
-        if (now.id && !now.mine) {
+        // a fixed pattern of yours is copied too: that is what makes a variation
+        if (now.id && (!now.mine || now.fixed)) {
           try {
             answer = await apiClient.post(`/api/v1/breaks/${now.id}/copy`, {
               body: { title: name, doc: now.payload },
@@ -404,9 +446,11 @@ export function usePatternDocument({
           say('Saved to your account');
           return true;
         }
+        const madeVariation = !!now.id && now.fixed;
         setId(data.id);
         setMine(true);
         setSharing({ ...NO_SHARING, basedOn: data.basedOn ?? null });
+        setSavedNotes(notesKey(now.payload));
         /* The baseline is what was sent under the name it was sent as. A Save
            As renames the stage once this has succeeded (the provider does
            that), so the document sent still carries the old name inside it,
@@ -418,7 +462,11 @@ export function usePatternDocument({
         showAddress(data.id);
         /* Where it went, not just that it went: a bare "Saved" sent people
            looking for it among the browser-only favourites. */
-        say('Saved to your account — under Patterns › All');
+        say(
+          madeVariation
+            ? 'Saved as a variation — under Patterns › All'
+            : 'Saved to your account — under Patterns › All'
+        );
         return true;
       } catch (error) {
         setPhase(
@@ -441,7 +489,18 @@ export function usePatternDocument({
 
   const save = useCallback(async (): Promise<boolean> => {
     const now = latest.current;
-    if (now.id && now.mine) return saveNow();
+    if (now.id && now.mine && !now.fixed) return saveNow();
+    /* A fixed pattern of yours with no edit to its notes has nothing to save.
+       Without this, S or ⌘S on it made an unchanged variation every time. */
+    if (
+      now.id &&
+      now.mine &&
+      now.fixed &&
+      now.payload &&
+      notesKey(now.payload) === now.savedNotes
+    ) {
+      return true;
+    }
     return create(titleFor(now.title));
   }, [saveNow, create]);
 
@@ -460,6 +519,7 @@ export function usePatternDocument({
       setId(null);
       setMine(true);
       setSavedKey(null);
+      setSavedNotes(null);
       setRefusedKey(null);
       setPhase('idle');
       setDetails(NO_DETAILS);
@@ -478,6 +538,7 @@ export function usePatternDocument({
       setSharing(nextSharing ?? NO_SHARING);
       // null, so the baseline effect takes the pattern as it arrives
       setSavedKey(null);
+      setSavedNotes(null);
       setRefusedKey(null);
       setPhase('idle');
       showAddress(savedId);
@@ -522,12 +583,36 @@ export function usePatternDocument({
   const publish = useCallback(async (): Promise<PublishResult> => {
     const savedId = latest.current.mine ? latest.current.id : null;
     if (!savedId) return { ok: false, code: null, message: 'Save the pattern first.' };
+    /* Publishing fixes the notes the server has, so the server must have the
+       ones on the stage first: an edit still in its autosave wait, or one a
+       save is still carrying, goes now. If it cannot land, nothing is
+       published — otherwise the older notes would be fixed and the edit on
+       the stage would look saved when it never was. */
+    const pending = snapshot();
+    const flushed =
+      pending && pending.key !== latest.current.savedKey
+        ? await patch(pending)
+        : await chain.current.then(
+            () => true,
+            () => true
+          );
+    if (!flushed || latest.current.id !== savedId) {
+      return {
+        ok: false,
+        code: null,
+        message: 'Your last change has not saved yet, so nothing was published. Try again.',
+      };
+    }
+    // what the server now fixes: the stage as it was saved just now
+    const publishedNotes = latest.current.payload ? notesKey(latest.current.payload) : null;
     try {
       const answer = publishedAnswer.parse(
         await apiClient.post(`/api/v1/breaks/${savedId}/publish`, { body: { confirm: true } })
       );
       if (latest.current.id === savedId) {
-        setSharing((was) => ({ ...was, visibility: 'published', slug: answer.slug }));
+        // published is fixed (D26): an edit from here on is a variation
+        setSharing((was) => ({ ...was, visibility: 'published', slug: answer.slug, fixed: true }));
+        if (publishedNotes) setSavedNotes(publishedNotes);
       }
       say('Published to the community library');
       return { ok: true };
@@ -545,16 +630,20 @@ export function usePatternDocument({
       logger.warn('BeatBreaker: publish failed', { error, breakId: savedId });
       return { ok: false, code: null, message: 'That did not publish. Try again.' };
     }
-  }, [say]);
+  }, [say, snapshot, patch]);
 
   const saveDetails = useCallback(
-    async (next: PatternDetails): Promise<PatternDetails | null> => {
+    async (next: PatternDetails, title?: string): Promise<PatternDetails | null> => {
       const savedId = latest.current.mine ? latest.current.id : null;
       if (!savedId) return null;
       try {
         const answer = detailsAnswer.parse(
           await apiClient.patch(`/api/v1/breaks/${savedId}`, {
-            body: { description: next.description, links: next.links },
+            body: {
+              description: next.description,
+              links: next.links,
+              ...(title === undefined ? {} : { title: titleFor(title) }),
+            },
           })
         );
         const kept = { description: answer.description ?? '', links: answer.links };
@@ -577,14 +666,20 @@ export function usePatternDocument({
 
   let status: SaveStatus;
   // a first save on its way says so, and takes Save away until it answers
-  if ((!id || !mine) && phase === 'saving') status = 'saving';
+  if ((!id || !mine || fixed) && phase === 'saving') status = 'saving';
   else if (!id || !mine) status = 'scratch';
+  // a fixed pattern of yours: the row is saved; an edit is a variation not yet saved
+  else if (fixed)
+    status = phase === 'offline' || phase === 'error' ? phase : dirty ? 'scratch' : 'saved';
   else if (phase !== 'idle') status = phase;
   else status = dirty ? 'unsaved' : 'saved';
 
   return {
     id,
     mine,
+    fixed,
+    copyKind,
+    variationOf: id && dirty && copyKind === 'variation' ? titleFor(title) : null,
     status,
     save,
     saveAs,

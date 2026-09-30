@@ -274,6 +274,64 @@ describe('DetailsForm — saving', () => {
     expect(screen.getByRole('textbox', { name: /Description/ })).toHaveValue('Slower');
   });
 
+  describe('a fixed pattern of yours (7A, D26)', () => {
+    const fixed = (): InitialPattern => ({
+      ...saved(true),
+      sharing: { visibility: 'published', slug: 'pub0000001', basedOn: null, fixed: true },
+    });
+
+    function ClearProbe() {
+      const c = useStudio();
+      return (
+        <button type="button" onClick={() => c.clearSection()}>
+          probe: clear
+        </button>
+      );
+    }
+
+    it('renames the row itself — the name goes with the details, never a document', async () => {
+      const user = userEvent.setup();
+      vi.mocked(apiClient.patch).mockResolvedValue({ description: null, links: [] });
+      await mount(fixed());
+
+      const name = screen.getByRole('textbox', { name: /Name/ });
+      await user.clear(name);
+      await user.type(name, 'Cold Carpet II');
+      await user.click(screen.getByRole('button', { name: 'Save details' }));
+
+      expect(await screen.findByRole('heading', { level: 2, name: 'Cold Carpet II' })).toBeTruthy();
+      expect(apiClient.patch).toHaveBeenCalledTimes(1);
+      const [, options] = vi.mocked(apiClient.patch).mock.calls[0];
+      expect(options?.body).toEqual({ description: '', links: [], title: 'Cold Carpet II' });
+      // renaming it is not a variation
+      expect(screen.queryByText(/making a variation of/)).toBeNull();
+    });
+
+    it('offers Save as variation, not Save a copy', async () => {
+      await mount(fixed());
+      expect(screen.getByRole('button', { name: 'Save as variation' })).toBeTruthy();
+      expect(screen.queryByRole('button', { name: 'Save a copy' })).toBeNull();
+    });
+
+    it('locks the details while a variation is being made — they are the original’s', async () => {
+      const user = userEvent.setup();
+      render(
+        <StudioProvider catalogue={testCatalogue()} initial={fixed()}>
+          <Stage />
+          <DetailsForm />
+          <ClearProbe />
+        </StudioProvider>
+      );
+      await screen.findByRole('heading', { level: 2 });
+      await user.click(screen.getByRole('button', { name: 'probe: clear' }));
+
+      expect(
+        await screen.findByText(/Save it first — these would change the original/)
+      ).toBeTruthy();
+      expect(screen.getByRole('textbox', { name: /Description/ })).toBeDisabled();
+    });
+  });
+
   it('keeps what is being typed when the stage is renamed from elsewhere', async () => {
     const user = userEvent.setup();
     await mount(saved(true));

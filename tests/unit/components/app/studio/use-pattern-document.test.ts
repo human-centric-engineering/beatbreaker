@@ -21,7 +21,7 @@ vi.mock('@/lib/api/client', async (importOriginal) => {
   return { ...actual, apiClient: { patch: vi.fn(), post: vi.fn() } };
 });
 
-import type { InitialPattern } from '@/components/app/breaks/use-break-console';
+import type { InitialPattern, PatternSharing } from '@/components/app/breaks/use-break-console';
 import {
   AUTOSAVE_MS,
   RETRY_MS,
@@ -768,7 +768,10 @@ describe('publishing (task 6.9)', () => {
       visibility: 'published',
       slug: 'freshslug1',
       basedOn: null,
+      // published is fixed (D26): an edit from here on is a variation
+      fixed: true,
     });
+    expect(result.current.fixed).toBe(true);
     expect(say).toHaveBeenCalledWith('Published to the community library');
   });
 
@@ -839,5 +842,244 @@ describe('publishing (task 6.9)', () => {
       code: 'NETWORK_ERROR',
       message: 'Could not reach the server — not published.',
     });
+  });
+});
+
+describe('a fixed pattern of yours (7A, D26)', () => {
+  const FIXED: PatternSharing = {
+    visibility: 'published',
+    slug: 'pub0000001',
+    basedOn: null,
+    fixed: true,
+  };
+  const VARIATION_ID = 'cbrk00000000000000000002';
+
+  /** The same pattern with different notes: another seed, as an edit to the grid would give. */
+  function reNoted(bpm = 90): SharePayload {
+    const funk = testStyle('funk');
+    const A = generatePattern({
+      style: funk,
+      meter: '4/4',
+      seed: 7,
+      bars: 2,
+      density: 50,
+      ghosts: 50,
+    });
+    return breakPayload({
+      bpm,
+      swing: 0,
+      level: 5,
+      arrangement: ['A', 'B'],
+      A,
+      B: deriveB(A, funk.params),
+    });
+  }
+
+  function mountFixed(sharing = FIXED) {
+    const m = mount({ ...opened(), sharing });
+    const editNotes = () => m.rerender({ payload: reNoted(), title: 'Cold Carpet' });
+    return { ...m, editNotes };
+  }
+
+  beforeEach(() => {
+    window.history.replaceState(null, '', `/studio/${ID}`);
+    vi.mocked(apiClient.post).mockResolvedValue({
+      id: VARIATION_ID,
+      basedOn: { title: 'Cold Carpet', username: 'ghostnotes', slug: 'pub0000001' },
+    });
+  });
+
+  it('opens as saved and fixed, with variations as what Save makes', async () => {
+    const { result } = mountFixed();
+    await pass(0);
+    expect(result.current).toMatchObject({
+      status: 'saved',
+      fixed: true,
+      copyKind: 'variation',
+      variationOf: null,
+    });
+  });
+
+  it('never autosaves an edit to its notes — it becomes an unsaved variation', async () => {
+    const { result, editNotes } = mountFixed();
+    await pass(0);
+    editNotes();
+    await pass(AUTOSAVE_MS * 3);
+    expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a fixed row is never written
+    expect(result.current.status).toBe('scratch');
+    expect(result.current.variationOf).toBe('Cold Carpet');
+    // leaving would lose it, so it asks
+    expect(result.current.needsPrompt).toBe(true);
+  });
+
+  it('is the original again when the edit is undone — no banner, nothing to save', async () => {
+    const { result, editNotes, rerender } = mountFixed();
+    await pass(0);
+    editNotes();
+    expect(result.current.variationOf).toBe('Cold Carpet');
+    rerender({ payload: payloadAt(90), title: 'Cold Carpet' });
+    expect(result.current).toMatchObject({
+      status: 'saved',
+      variationOf: null,
+      needsPrompt: false,
+    });
+  });
+
+  it('does not count a tempo or layer change as an edit — those are where you practise it', async () => {
+    const { result, edit, rerender } = mountFixed();
+    await pass(0);
+    edit(120);
+    const doc = payloadAt(90);
+    rerender({ payload: { ...doc, bpm: 70, lv: 2 }, title: 'Cold Carpet' });
+    await pass(AUTOSAVE_MS * 3);
+    expect(result.current).toMatchObject({
+      status: 'saved',
+      variationOf: null,
+      needsPrompt: false,
+    });
+    expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing to save, and no row to write
+  });
+
+  it('saves the variation through the copy route, then it is an ordinary pattern of yours', async () => {
+    const { result, editNotes, rerender } = mountFixed();
+    await pass(0);
+    editNotes();
+    await act(async () => {
+      await result.current.save();
+    });
+
+    expect(apiClient.post).toHaveBeenCalledWith(`/api/v1/breaks/${ID}/copy`, {
+      body: { title: 'Cold Carpet', doc: reNoted() },
+    });
+    expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — the original is left as it was
+    expect(result.current).toMatchObject({
+      id: VARIATION_ID,
+      mine: true,
+      fixed: false,
+      status: 'saved',
+      variationOf: null,
+    });
+    expect(result.current.sharing.basedOn).toEqual({
+      title: 'Cold Carpet',
+      username: 'ghostnotes',
+      slug: 'pub0000001',
+    });
+    expect(window.location.pathname).toBe(`/studio/${VARIATION_ID}`);
+
+    // the variation is not fixed: its next edit autosaves onto it
+    rerender({ payload: reNoted(100), title: 'Cold Carpet' });
+    await pass(AUTOSAVE_MS);
+    expect(vi.mocked(apiClient.patch).mock.calls[0][0]).toBe(`/api/v1/breaks/${VARIATION_ID}`);
+  });
+
+  it('does nothing on Save when its notes are unedited — S is not “make a copy”', async () => {
+    const { result } = mountFixed();
+    await pass(0);
+    let ok = false;
+    await act(async () => {
+      ok = await result.current.save();
+    });
+    expect(ok).toBe(true);
+    expect(apiClient.post).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing to save
+    expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — and never onto the row
+    expect(result.current).toMatchObject({ id: ID, status: 'saved' });
+  });
+
+  it('says a variation was saved, and where', async () => {
+    const { result, editNotes, say } = mountFixed();
+    await pass(0);
+    editNotes();
+    await act(async () => {
+      await result.current.save();
+    });
+    expect(say).toHaveBeenCalledWith('Saved as a variation — under Patterns › All');
+  });
+
+  it('is still fixed once unpublished — the Save label says variation all the same', async () => {
+    const { result, editNotes } = mountFixed({ ...FIXED, visibility: 'link' });
+    await pass(0);
+    editNotes();
+    expect(result.current).toMatchObject({ copyKind: 'variation', variationOf: 'Cold Carpet' });
+    await pass(AUTOSAVE_MS * 3);
+    expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — still fixed
+  });
+
+  it('renames the row through Details, with no document — and that is not an edit', async () => {
+    vi.mocked(apiClient.patch).mockResolvedValueOnce({ description: null, links: [] });
+    const { result, rerender } = mountFixed();
+    await pass(0);
+    await act(async () => {
+      await result.current.saveDetails({ description: '', links: [] }, 'Warmer Carpet');
+    });
+    expect(patchBody(0)).toEqual({ description: '', links: [], title: 'Warmer Carpet' });
+
+    // the stage takes the new name; still the original, nothing more to save
+    rerender({ payload: payloadAt(90), title: 'Warmer Carpet' });
+    await pass(AUTOSAVE_MS * 3);
+    expect(apiClient.patch).toHaveBeenCalledTimes(1);
+    expect(result.current).toMatchObject({ status: 'saved', variationOf: null });
+  });
+});
+
+describe('someone else’s pattern, and what Save makes of it (7A)', () => {
+  it('is a variation when it is published, and a plain copy when it is only shared by link', () => {
+    const published = mount({
+      ...opened(false),
+      sharing: { visibility: 'published', slug: 'pub0000001', basedOn: null, fixed: true },
+    });
+    expect(published.result.current.copyKind).toBe('variation');
+
+    const linked = mount({
+      ...opened(false),
+      sharing: { visibility: 'link', slug: 'lnk0000001', basedOn: null },
+    });
+    expect(linked.result.current.copyKind).toBe('copy');
+  });
+});
+
+describe('publishing with an edit not yet saved (7A)', () => {
+  beforeEach(() => window.history.replaceState(null, '', `/studio/${ID}`));
+  const published = { visibility: 'published', slug: 'pub0000001' };
+
+  it('saves the edit first, then publishes — and fixes those notes, not the older ones', async () => {
+    vi.mocked(apiClient.post).mockResolvedValueOnce(published);
+    const { result, edit } = mount(opened());
+    await pass(0);
+    edit(95);
+    // inside the autosave wait: nothing has gone yet
+    expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — still waiting
+
+    let outcome;
+    await act(async () => {
+      outcome = await result.current.publish();
+    });
+
+    expect(outcome).toEqual({ ok: true });
+    expect(patchBody(0)).toEqual({ doc: payloadAt(95), title: 'Cold Carpet' });
+    // the save landed before the publish was asked for
+    expect(vi.mocked(apiClient.patch).mock.invocationCallOrder[0]).toBeLessThan(
+      vi.mocked(apiClient.post).mock.invocationCallOrder[0]
+    );
+    expect(result.current).toMatchObject({ fixed: true, status: 'saved', variationOf: null });
+  });
+
+  it('publishes nothing when the pending edit cannot be saved, and says so', async () => {
+    vi.mocked(apiClient.patch).mockRejectedValueOnce(network());
+    const { result, edit } = mount(opened());
+    await pass(0);
+    edit(95);
+
+    let outcome;
+    await act(async () => {
+      outcome = await result.current.publish();
+    });
+
+    expect(outcome).toEqual({
+      ok: false,
+      code: null,
+      message: 'Your last change has not saved yet, so nothing was published. Try again.',
+    });
+    expect(apiClient.post).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing published over an unsaved edit
+    expect(result.current.fixed).toBe(false);
   });
 });

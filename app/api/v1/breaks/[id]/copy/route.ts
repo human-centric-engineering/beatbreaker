@@ -11,8 +11,12 @@
  * - The description and reference links come with it: a copy keeps what its
  *   pattern said about itself.
  * - A copy of someone else's pattern records it as `parentId`, which is what
- *   the credit line ("Based on _X_ by _Y_") and the library's "most saved"
- *   count read. A copy of your own is just a copy.
+ *   the credit line ("Variation of _X_ by _Y_") and the library's "most
+ *   saved" count read. A copy of your own is just a copy — unless yours is
+ *   fixed (published, now or before): then it is a **variation** (D26), the
+ *   only way to change a fixed pattern's notes, and it records the original
+ *   as `ownParentId`, so it is listed and credited on the original's page
+ *   once published without counting as a save.
  *
  * A pattern the caller cannot open answers 404, as `GET /api/v1/breaks/:id`
  * does — the same `openSavedBreak` read, so the two cannot disagree.
@@ -49,6 +53,8 @@ export const POST = withAuth<{ id: string }>(
     const { row, payload, links, mine } = opened;
 
     const doc = input.doc ?? payload;
+    const parentId = mine ? null : row.id;
+    const ownParentId = mine && row.frozenAt ? row.id : null;
     const { columns } = await columnsFromDoc(doc);
 
     const saved = await prisma.break.create({
@@ -61,7 +67,8 @@ export const POST = withAuth<{ id: string }>(
         ...columns,
         doc,
         visibility: 'private',
-        parentId: mine ? null : row.id,
+        parentId,
+        ownParentId,
       },
       select: {
         id: true,
@@ -77,12 +84,16 @@ export const POST = withAuth<{ id: string }>(
       },
     });
 
-    log.info('Break copied', { breakId: saved.id, fromOwn: mine });
+    log.info('Break copied', {
+      breakId: saved.id,
+      fromOwn: mine,
+      variation: (parentId ?? ownParentId) !== null,
+    });
     return successResponse(
       {
         ...saved,
         links: readStoredLinks(saved.links),
-        basedOn: await lineageOf(mine ? null : row.id),
+        basedOn: await lineageOf(parentId ?? ownParentId),
       },
       undefined,
       { status: 201 }

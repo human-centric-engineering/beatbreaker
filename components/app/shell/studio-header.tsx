@@ -27,16 +27,36 @@ const STATUS_TEXT: Record<SaveStatus, string> = {
  * A saved pattern of yours has no Save button: it autosaves, and a button that
  * does nothing a second later would teach people to press it. It comes back
  * when a save is stuck, as the way to try again now.
+ *
+ * A fixed pattern of yours (D26) says so — "Published · fixed", or "Fixed"
+ * once unpublished — and an edit to it offers _Save as variation_.
  */
 function SaveState() {
   const { doc } = useStudio();
   const stuck = doc.status === 'offline' || doc.status === 'error';
   const showSave = doc.status === 'scratch' || stuck;
-  const label = doc.status === 'scratch' && !doc.mine ? 'Save a copy' : stuck ? 'Retry' : 'Save';
+  const copying = doc.status === 'scratch' && (!doc.mine || doc.fixed);
+  const label = copying
+    ? doc.copyKind === 'variation'
+      ? 'Save as variation'
+      : 'Save a copy'
+    : stuck
+      ? 'Retry'
+      : 'Save';
+  const text =
+    doc.status === 'scratch' && !doc.mine
+      ? 'Someone else’s pattern'
+      : doc.mine && doc.fixed && doc.id && !copying && !stuck && doc.status !== 'saving'
+        ? doc.sharing.visibility === 'published'
+          ? 'Published · fixed'
+          : 'Fixed'
+        : doc.status === 'scratch' && doc.fixed
+          ? 'Variation · not saved'
+          : STATUS_TEXT[doc.status];
   return (
     <>
       <span className="studio-save-state mono" role="status" data-status={doc.status}>
-        {doc.status === 'scratch' && !doc.mine ? 'Someone else’s pattern' : STATUS_TEXT[doc.status]}
+        {text}
       </span>
       {showSave ? (
         <button

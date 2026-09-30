@@ -156,6 +156,91 @@ describe('the header', () => {
   });
 });
 
+describe('a fixed pattern of yours (7A, D26)', () => {
+  function fixedOpen(visibility: 'published' | 'link' = 'published'): InitialPattern {
+    return {
+      ...saved(true),
+      sharing: { visibility, slug: 'pub0000001', basedOn: null, fixed: true },
+    };
+  }
+
+  /** A note edit — the grid cleared — as no keyboard shortcut makes one. */
+  function EditProbe() {
+    const c = useStudio();
+    return (
+      <>
+        <button type="button" onClick={() => c.clearSection()}>
+          probe: clear
+        </button>
+        <button type="button" onClick={() => c.undo()}>
+          probe: undo
+        </button>
+      </>
+    );
+  }
+
+  async function openFixed(visibility: 'published' | 'link' = 'published') {
+    window.history.replaceState(null, '', `/studio/${ID}`);
+    render(
+      <StudioProvider catalogue={catalogue} initial={fixedOpen(visibility)}>
+        <StudioFrame />
+        <EditProbe />
+      </StudioProvider>
+    );
+    await waitFor(() => expect(document.querySelector('.studio-title')?.textContent).not.toBe('…'));
+  }
+
+  it('says it is published and fixed, with no Save button', async () => {
+    await openFixed();
+    await waitFor(() => expect(saveState()).toBe('Published · fixed'));
+    expect(screen.queryByRole('button', { name: /^Save/ })).toBeNull();
+  });
+
+  it('says only “Fixed” once it has been unpublished', async () => {
+    await openFixed('link');
+    await waitFor(() => expect(saveState()).toBe('Fixed'));
+  });
+
+  it('turns an edit into a variation: the banner, the label, and nothing written', async () => {
+    const user = userEvent.setup();
+    await openFixed();
+    await user.click(screen.getByRole('button', { name: 'probe: clear' }));
+
+    expect(await screen.findByText(/making a variation of/)).toHaveTextContent(
+      'You’re making a variation of Cold Carpet — Save to keep it'
+    );
+    expect(saveState()).toBe('Variation · not saved');
+    expect(screen.getByRole('button', { name: 'Save as variation' })).toBeTruthy();
+    expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a fixed row is never written
+  });
+
+  it('is the original again after Undo — no banner, no Save', async () => {
+    const user = userEvent.setup();
+    await openFixed();
+    await user.click(screen.getByRole('button', { name: 'probe: clear' }));
+    await screen.findByText(/making a variation of/);
+    await user.click(screen.getByRole('button', { name: 'probe: undo' }));
+
+    await waitFor(() => expect(screen.queryByText(/making a variation of/)).toBeNull());
+    expect(saveState()).toBe('Published · fixed');
+    expect(screen.queryByRole('button', { name: 'Save as variation' })).toBeNull();
+  });
+
+  it('Save as variation saves it through the copy route and moves to its address', async () => {
+    const user = userEvent.setup();
+    await openFixed();
+    await user.click(screen.getByRole('button', { name: 'probe: clear' }));
+    await user.click(await screen.findByRole('button', { name: 'Save as variation' }));
+
+    await waitFor(() =>
+      expect(vi.mocked(apiClient.post).mock.calls[0]?.[0]).toBe(`/api/v1/breaks/${ID}/copy`)
+    );
+    await waitFor(() => expect(window.location.pathname).toBe('/studio/cbrk00000000000000000002'));
+    expect(screen.queryByText(/making a variation of/)).toBeNull();
+    expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — the original is left alone
+  });
+});
+
 describe('saving', () => {
   it('saves a scratch pattern on S, under its name, and moves to its address', async () => {
     const user = userEvent.setup();

@@ -18,8 +18,11 @@
 import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-vi.mock('@/lib/app/breaks/community/public', () => ({
+vi.mock('@/lib/app/breaks/community/public', async (importOriginal) => ({
+  // the constants the query schema reads are real; the reads are mocked
+  ...(await importOriginal<typeof import('@/lib/app/breaks/community/public')>()),
   getPublicPattern: vi.fn(),
+  listVariations: vi.fn(),
   openableIdForSlug: vi.fn(),
 }));
 vi.mock('@/lib/app/breaks/community/reports', () => ({ ownsSlug: vi.fn() }));
@@ -55,7 +58,11 @@ vi.mock('@/components/app/community/report-button', () => ({
 }));
 
 import PublicPatternPage, { generateMetadata } from '@/app/(public)/p/[slug]/page';
-import { getPublicPattern, openableIdForSlug } from '@/lib/app/breaks/community/public';
+import {
+  getPublicPattern,
+  listVariations,
+  openableIdForSlug,
+} from '@/lib/app/breaks/community/public';
 import { ownsSlug } from '@/lib/app/breaks/community/reports';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { getServerSession } from '@/lib/auth/utils';
@@ -232,8 +239,94 @@ describe('PublicPatternPage', () => {
     vi.mocked(getServerSession).mockResolvedValue(null);
     const el = await PublicPatternPage({ params: params() });
     render(el);
-    expect(screen.getByText(/Based on/)).toBeInTheDocument();
+    expect(screen.getByText(/Variation of/)).toBeInTheDocument();
     expect(screen.getByText(/“The original”/)).toBeInTheDocument();
     expect(screen.getByText(/@ghostnotes/)).toBeInTheDocument();
+  });
+});
+
+describe('variations (7A)', () => {
+  const card = (slug: string, title: string) => ({
+    id: `cbrk0000000000000000${slug.slice(-4)}`,
+    slug,
+    title,
+    description: null,
+    style: 'funk',
+    meter: '4/4',
+    bpm: 96,
+    level: 5,
+    difficulty: 2,
+    linkKinds: [],
+    publishedAt: '2026-02-01T00:00:00.000Z',
+    author: 'ghostnotes',
+    saves: 0,
+  });
+
+  it('lists a published pattern’s published variations, newest first by default', async () => {
+    vi.mocked(getPublicPattern).mockResolvedValue(pattern({ visibility: 'published' }));
+    vi.mocked(getServerSession).mockResolvedValue(null);
+    vi.mocked(listVariations).mockResolvedValue({
+      patterns: [card('warm000001', 'Warm Carpet')],
+      nextCursor: null,
+    });
+    render(await PublicPatternPage({ params: params() }));
+
+    expect(listVariations).toHaveBeenCalledWith(SLUG, { sort: 'newest', limit: 24 });
+    const section = screen.getByRole('region', { name: 'Variations' });
+    expect(section).toHaveTextContent('Warm Carpet');
+    expect(screen.getByRole('link', { name: /Warm Carpet/ })).toHaveAttribute(
+      'href',
+      '/p/warm000001'
+    );
+    expect(screen.queryByRole('link', { name: 'More variations' })).not.toBeInTheDocument();
+  });
+
+  it('reads the sort and cursor from the address, and links the next page', async () => {
+    vi.mocked(getPublicPattern).mockResolvedValue(pattern({ visibility: 'published' }));
+    vi.mocked(getServerSession).mockResolvedValue(null);
+    vi.mocked(listVariations).mockResolvedValue({
+      patterns: [card('warm000001', 'Warm Carpet')],
+      nextCursor: 'MjQ',
+    });
+    render(
+      await PublicPatternPage({
+        params: params(),
+        searchParams: Promise.resolve({ sort: 'saved', cursor: 'MjQ' }),
+      })
+    );
+
+    expect(listVariations).toHaveBeenCalledWith(SLUG, {
+      sort: 'saved',
+      limit: 24,
+      cursor: 'MjQ',
+    });
+    expect(screen.getByRole('link', { name: 'More variations' })).toHaveAttribute(
+      'href',
+      `/p/${SLUG}?sort=saved&cursor=MjQ#variations`
+    );
+  });
+
+  it('falls back to the first page, newest, for a sort that does not read', async () => {
+    vi.mocked(getPublicPattern).mockResolvedValue(pattern({ visibility: 'published' }));
+    vi.mocked(getServerSession).mockResolvedValue(null);
+    vi.mocked(listVariations).mockResolvedValue({ patterns: [], nextCursor: null });
+    render(
+      await PublicPatternPage({
+        params: params(),
+        searchParams: Promise.resolve({ sort: 'loudest' }),
+      })
+    );
+
+    expect(listVariations).toHaveBeenCalledWith(SLUG, { sort: 'newest', limit: 24 });
+    expect(screen.getByText(/Nobody has published a variation/)).toBeInTheDocument();
+  });
+
+  it('has no Variations section on a link share: its copies are not variations', async () => {
+    vi.mocked(getPublicPattern).mockResolvedValue(pattern({ visibility: 'link' }));
+    vi.mocked(getServerSession).mockResolvedValue(null);
+    render(await PublicPatternPage({ params: params() }));
+
+    expect(listVariations).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a link share has no list to read
+    expect(screen.queryByRole('region', { name: 'Variations' })).not.toBeInTheDocument();
   });
 });

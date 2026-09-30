@@ -52,7 +52,7 @@ export default async function StudioPatternPage({ params }: { params: Promise<{ 
     listSamples(session.user.id),
   ]);
   if (!opened) notFound();
-  const basedOn = await lineageOf(opened.row.parentId);
+  const basedOn = await lineageOf(opened.row.parentId ?? opened.row.ownParentId);
 
   return (
     <StudioProvider
@@ -72,6 +72,7 @@ export default async function StudioPatternPage({ params }: { params: Promise<{ 
           visibility: readVisibility(opened.row.visibility),
           slug: opened.row.slug,
           basedOn,
+          fixed: !!opened.row.frozenAt,
         },
       }}
     >

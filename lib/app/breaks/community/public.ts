@@ -155,10 +155,16 @@ export function writeCursor(offset: number): string {
 }
 
 /** Where a published list starts: only published rows with an address. */
-function listWhere(q: PublicListQuery, userId?: string): Prisma.BreakWhereInput {
+function listWhere(
+  q: Partial<PublicListQuery>,
+  userId?: string,
+  parentId?: string
+): Prisma.BreakWhereInput {
   return {
     visibility: 'published',
     slug: { not: null },
+    // a variation by someone else, or by the original's own author
+    ...(parentId ? { OR: [{ parentId }, { ownParentId: parentId }] } : {}),
     ...(q.q ? { title: { contains: q.q, mode: 'insensitive' as const } } : {}),
     ...(q.style ? { style: q.style } : {}),
     ...(q.meter ? { meter: q.meter } : {}),
@@ -172,6 +178,30 @@ const ORDER: Record<PublicSort, Prisma.BreakOrderByWithRelationInput[]> = {
   newest: [{ publishedAt: 'desc' }, { id: 'desc' }],
   saved: [{ children: { _count: 'desc' } }, { publishedAt: 'desc' }, { id: 'desc' }],
 };
+
+/** One page of cards, in order, with the cursor to the next. */
+async function readPage(
+  where: Prisma.BreakWhereInput,
+  q: Pick<PublicListQuery, 'sort' | 'limit' | 'cursor'>
+): Promise<{ patterns: PublicPatternCard[]; nextCursor: string | null }> {
+  const offset = readCursor(q.cursor);
+  const rows = await prisma.break.findMany({
+    where,
+    select: CARD_SELECT,
+    orderBy: ORDER[q.sort],
+    skip: offset,
+    // one extra row says whether there is a next page, without a count
+    take: q.limit + 1,
+  });
+  const hasMore = rows.length > q.limit;
+  const page = hasMore ? rows.slice(0, q.limit) : rows;
+  const authors = await usernamesOf(page.map((r) => r.userId));
+
+  return {
+    patterns: page.map((r) => toCard(r, authors)),
+    nextCursor: hasMore ? writeCursor(offset + q.limit) : null,
+  };
+}
 
 /**
  * A page of the community library. Only `published` patterns — a link share
@@ -191,23 +221,26 @@ export async function listPublished(
     userId = profile.userId;
   }
 
-  const offset = readCursor(q.cursor);
-  const rows = await prisma.break.findMany({
-    where: listWhere(q, userId),
-    select: CARD_SELECT,
-    orderBy: ORDER[q.sort],
-    skip: offset,
-    // one extra row says whether there is a next page, without a count
-    take: q.limit + 1,
-  });
-  const hasMore = rows.length > q.limit;
-  const page = hasMore ? rows.slice(0, q.limit) : rows;
-  const authors = await usernamesOf(page.map((r) => r.userId));
+  return readPage(listWhere(q, userId), q);
+}
 
-  return {
-    patterns: page.map((r) => toCard(r, authors)),
-    nextCursor: hasMore ? writeCursor(offset + q.limit) : null,
-  };
+/**
+ * The published variations of a published pattern (7A) — its direct children
+ * only, so a variation of a variation is listed under its own parent. `null`
+ * when the address is not a published pattern: a link share's copies are
+ * plain copies, not variations (they carry no credit), so it has no list.
+ */
+export async function listVariations(
+  slug: string,
+  q: Pick<PublicListQuery, 'sort' | 'limit' | 'cursor'>
+): Promise<{ patterns: PublicPatternCard[]; nextCursor: string | null } | null> {
+  const parent = await prisma.break.findFirst({
+    where: { slug, visibility: 'published' },
+    select: { id: true },
+  });
+  if (!parent) return null;
+
+  return readPage(listWhere({}, undefined, parent.id), q);
 }
 
 /**
@@ -218,7 +251,14 @@ export async function listPublished(
 export async function getPublicPattern(slug: string): Promise<PublicPattern | null> {
   const row = await prisma.break.findFirst({
     where: { slug, visibility: { in: ['link', 'published'] } },
-    select: { ...CARD_SELECT, visibility: true, doc: true, parentId: true, updatedAt: true },
+    select: {
+      ...CARD_SELECT,
+      visibility: true,
+      doc: true,
+      parentId: true,
+      ownParentId: true,
+      updatedAt: true,
+    },
   });
   if (!row) return null;
 
@@ -228,7 +268,7 @@ export async function getPublicPattern(slug: string): Promise<PublicPattern | nu
   const checks = playability(doc.A, doc.bpm);
   const [authors, basedOn] = await Promise.all([
     usernamesOf([row.userId]),
-    lineageOf(row.parentId),
+    lineageOf(row.parentId ?? row.ownParentId),
   ]);
   const { linkKinds: _kinds, ...card } = toCard(row, authors);
   const visibility = readVisibility(row.visibility);

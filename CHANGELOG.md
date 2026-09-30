@@ -18,6 +18,18 @@ release process.
 
 ### Added
 
+- **Published patterns are fixed; variations (BeatBreaker Phase 7A, D26).**
+  `Break.frozenAt` (migration `fixed_patterns`, backfilled from
+  `publishedAt`) is set on a pattern's first publish and never cleared.
+  `Break.ownParentId` (migration `own_variations`) records the original of an
+  author's variation of their own fixed pattern, apart from `parentId`, so it
+  is credited and listed without counting as a save.
+  `GET /api/v1/public/patterns/:slug/variations` lists a published pattern's
+  published variations (newest or most saved, cursor-paged; 404 for anything
+  but a published pattern). `/p/[slug]` gains a Variations section, and
+  Home's `PublishedItem` gains `variations`. `GET /api/v1/breaks` and
+  `GET`/`PATCH /api/v1/breaks/:id` return `frozenAt`.
+
 - **The BeatBuddy drawer** — a seventh Studio tool (`?drawer=buddy`) with the
   conversation, a composer that takes photos, PDFs and MIDI files (MIDI and
   BeatBreaker or Groove Scribe links open on the chart through
@@ -418,6 +430,17 @@ release process.
   populated column, and every pending invitation round-trips as before.
 
 ### Changed
+
+- **A published pattern's notes are fixed (BeatBreaker Phase 7A, D26).**
+  `PATCH /api/v1/breaks/:id` with a `doc` on a pattern that has ever been
+  published answers `409 PUBLISHED_FIXED` and writes nothing, even after an
+  unpublish. The name, description and links stay editable.
+  `POST /api/v1/breaks/:id/copy` of your own fixed pattern now records
+  `ownParentId`, so it is a variation, credited while the original is
+  published. Publishing a variation for the first time with its parent's notes
+  is refused `409 DUPLICATE`.
+  The credit line reads "Variation of _X_ by @_Y_", and the Studio saves an
+  edit to a fixed pattern as a variation instead of autosaving it.
 
 - **A BeatBuddy tool that loses a write race retries it.** Mutating tools now
   re-read the workspace and apply their edit again, up to three times, before

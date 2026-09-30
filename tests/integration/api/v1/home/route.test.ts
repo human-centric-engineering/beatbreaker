@@ -37,7 +37,7 @@ vi.mock('@/lib/db/client', () => ({
   prisma: {
     pin: { findMany: vi.fn() },
     practiceVisit: { findMany: vi.fn() },
-    break: { count: vi.fn(), findMany: vi.fn() },
+    break: { count: vi.fn(), findMany: vi.fn(), groupBy: vi.fn() },
   },
 }));
 
@@ -371,6 +371,15 @@ describe('GET /api/v1/home', () => {
           _count: { children: 3 },
         },
       ] as never);
+      // two of the three copies are published variations by others, and you
+      // published one of your own (7A)
+      vi.mocked(prisma.break.groupBy)
+        .mockResolvedValueOnce([
+          { parentId: 'cbrk00000000000000000007', _count: { _all: 2 } },
+        ] as never)
+        .mockResolvedValueOnce([
+          { ownParentId: 'cbrk00000000000000000007', _count: { _all: 1 } },
+        ] as never);
 
       const { data } = await home();
 
@@ -383,8 +392,24 @@ describe('GET /api/v1/home', () => {
           bpm: 96,
           publishedAt: '2026-09-20T00:00:00.000Z',
           saves: 3,
+          variations: 3,
         },
       ]);
+      // one query for the section's variation counts, published children only
+      expect(vi.mocked(prisma.break.groupBy).mock.calls[0][0]).toMatchObject({
+        by: ['parentId'],
+        where: {
+          parentId: { in: ['cbrk00000000000000000007'] },
+          visibility: 'published',
+        },
+      });
+      expect(vi.mocked(prisma.break.groupBy).mock.calls[1][0]).toMatchObject({
+        by: ['ownParentId'],
+        where: {
+          ownParentId: { in: ['cbrk00000000000000000007'] },
+          visibility: 'published',
+        },
+      });
       const args = vi.mocked(prisma.break.findMany).mock.calls[0][0];
       // yours, published, with an address — never anyone else's
       expect(args?.where).toEqual({

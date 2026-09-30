@@ -32,6 +32,16 @@ export const publicListQuerySchema = z.object({
 export type PublicListQueryInput = z.infer<typeof publicListQuerySchema>;
 
 /**
+ * `GET /api/v1/public/patterns/:slug/variations` and the Variations section on
+ * `/p/[slug]` (7A): the library's order and paging, no filters.
+ */
+export const variationsQuerySchema = publicListQuerySchema.pick({
+  sort: true,
+  limit: true,
+  cursor: true,
+});
+
+/**
  * Read a search-params-like record through the schema, dropping empty values
  * first — an HTML filter form sends `style=` for "any style". What does not
  * parse falls back to no filter, so a hand-edited URL shows the library

@@ -192,9 +192,61 @@ describe('copying your own pattern', () => {
 
     const data = vi.mocked(prisma.break.create).mock.calls[0][0].data;
     expect(data.parentId).toBeNull();
+    expect(data.ownParentId).toBeNull();
     // lineageOf(null) never queries — one findFirst call only, for the source
     expect(prisma.break.findFirst).toHaveBeenCalledTimes(1);
 
+    const { data: body } = await json<{ data: { basedOn: unknown } }>(res);
+    expect(body.basedOn).toBeNull();
+  });
+});
+
+describe('saving a variation of your own fixed pattern (7A, D26)', () => {
+  it('records it as ownParentId — listed and credited, but not a save', async () => {
+    vi.mocked(prisma.break.findFirst)
+      // the source: yours, and fixed since its first publish
+      .mockResolvedValueOnce(
+        sourceRow({ userId: USER_ID, frozenAt: new Date('2026-09-20T00:00:00Z') }) as never
+      )
+      // lineageOf: the original, still published
+      .mockResolvedValueOnce({
+        title: 'Funky thing',
+        slug: 'pub0000001',
+        userId: USER_ID,
+      } as never);
+    vi.mocked(prisma.drummerProfile.findUnique).mockResolvedValue({
+      username: 'ghostnotes',
+    } as never);
+    vi.mocked(prisma.break.create).mockResolvedValue(createdRow() as never);
+
+    const res = await POST(post({ doc: wireDoc('6/8') }), ctx());
+    expect(res.status).toBe(201);
+    const data = vi.mocked(prisma.break.create).mock.calls[0][0].data;
+    // not parentId: that is what "most saved" counts, and this is not a save
+    expect(data.parentId).toBeNull();
+    expect(data.ownParentId).toBe(BREAK_ID);
+    expect(data.visibility).toBe('private');
+    expect(data.meter).toBe('6/8');
+
+    const { data: body } = await json<{ data: { basedOn: unknown } }>(res);
+    expect(body.basedOn).toEqual({
+      title: 'Funky thing',
+      username: 'ghostnotes',
+      slug: 'pub0000001',
+    });
+  });
+
+  it('records the original even while it is unpublished — it is still fixed', async () => {
+    vi.mocked(prisma.break.findFirst)
+      .mockResolvedValueOnce(
+        sourceRow({ userId: USER_ID, frozenAt: new Date('2026-09-20T00:00:00Z') }) as never
+      )
+      // lineageOf: not published now, so no credit line
+      .mockResolvedValueOnce(null);
+    vi.mocked(prisma.break.create).mockResolvedValue(createdRow() as never);
+
+    const res = await POST(post({}), ctx());
+    expect(vi.mocked(prisma.break.create).mock.calls[0][0].data.ownParentId).toBe(BREAK_ID);
     const { data: body } = await json<{ data: { basedOn: unknown } }>(res);
     expect(body.basedOn).toBeNull();
   });

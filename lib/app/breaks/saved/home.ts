@@ -67,6 +67,8 @@ export interface PublishedItem {
   publishedAt: string;
   /** How many people saved a copy. */
   saves: number;
+  /** How many of those are published variations, listed on its page (7A). */
+  variations: number;
 }
 
 /** How many published patterns Home shows. */
@@ -188,6 +190,33 @@ export async function readHome(userId: string): Promise<HomeView> {
     }),
   ]);
 
+  /* Published variations per pattern, for the whole section at once — other
+     people's (`parentId`) and your own (`ownParentId`), one grouped query
+     each. `_count` above counts every copy by someone else, and cannot count
+     the same relation twice. */
+  const ids = publishedRows.map((r) => r.id);
+  const [byOthers, byYou] = ids.length
+    ? await Promise.all([
+        prisma.break.groupBy({
+          by: ['parentId'],
+          where: { parentId: { in: ids }, visibility: 'published' },
+          _count: { _all: true },
+        }),
+        prisma.break.groupBy({
+          by: ['ownParentId'],
+          where: { ownParentId: { in: ids }, visibility: 'published' },
+          _count: { _all: true },
+        }),
+      ])
+    : [[], []];
+  const variations = new Map<string, number>();
+  for (const [id, n] of [
+    ...byOthers.map((v) => [v.parentId, v._count._all] as const),
+    ...byYou.map((v) => [v.ownParentId, v._count._all] as const),
+  ]) {
+    if (id) variations.set(id, (variations.get(id) ?? 0) + n);
+  }
+
   const visits = new Map(history.map((v) => [`${v.target.kind}:${v.target.id}`, v]));
   const practising = rows.flatMap((row) => toCard(row, userId, visits) ?? []);
 
@@ -202,6 +231,7 @@ export async function readHome(userId: string): Promise<HomeView> {
             bpm: r.bpm,
             publishedAt: r.publishedAt.toISOString(),
             saves: r._count.children,
+            variations: variations.get(r.id) ?? 0,
           },
         ]
       : []

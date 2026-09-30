@@ -213,6 +213,7 @@ describe('/dashboard — Home', () => {
           bpm: 90,
           publishedAt: '2026-09-20T00:00:00.000Z',
           saves: 3,
+          variations: 0,
         },
         {
           id: 'cbrk00000000000000000004',
@@ -222,6 +223,7 @@ describe('/dashboard — Home', () => {
           bpm: 100,
           publishedAt: '2026-09-18T00:00:00.000Z',
           saves: 0,
+          variations: 0,
         },
       ],
     });
@@ -250,11 +252,33 @@ describe('/dashboard — Home', () => {
           bpm: 90,
           publishedAt: '2026-09-20T00:00:00.000Z',
           saves: 1,
+          variations: 0,
         },
       ],
     });
     expect(screen.getByText(/1 save\b/)).toBeTruthy();
     expect(screen.queryByText(/1 saves/)).toBeNull();
+  });
+
+  it('counts published variations beside saves (7A)', async () => {
+    await show({
+      practising: [],
+      recent: [],
+      savedCount: 1,
+      published: [
+        {
+          id: 'cbrk00000000000000000003',
+          slug: 'cold000001',
+          title: 'Cold Carpet',
+          style: 'funk',
+          bpm: 90,
+          publishedAt: '2026-09-20T00:00:00.000Z',
+          saves: 3,
+          variations: 2,
+        },
+      ],
+    });
+    expect(screen.getByText(/3 saves · 2 variations ·/)).toBeTruthy();
   });
 
   it('has no Published section at all when nothing is published', async () => {

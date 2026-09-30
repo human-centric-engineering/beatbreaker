@@ -19,6 +19,7 @@ export function ShareCard() {
   const c = useStudio();
   const { doc, say } = c;
   const { visibility, slug } = doc.sharing;
+  const copyLabel = doc.copyKind === 'variation' ? 'Save as variation' : 'Save a copy';
   const [busy, setBusy] = useState(false);
   const [publishing, setPublishing] = useState(false);
 
@@ -54,11 +55,11 @@ export function ShareCard() {
   } else if (!doc.mine) {
     body = link ? (
       <>
-        <p className="hint">Someone else&apos;s pattern. Save a copy to share one of your own.</p>
+        <p className="hint">Someone else&apos;s pattern. {copyLabel} to share one of your own.</p>
         <LinkRow path={link} onCopy={copyLink} />
       </>
     ) : (
-      <p className="hint">Someone else&apos;s pattern. Save a copy to share one of your own.</p>
+      <p className="hint">Someone else&apos;s pattern. {copyLabel} to share one of your own.</p>
     );
   } else if (visibility === 'private') {
     body = (
