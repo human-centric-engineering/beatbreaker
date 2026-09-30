@@ -257,6 +257,55 @@ describe('POST /api/v1/buddy/stream', () => {
     expect(db.workspace?.rows.size).toBe(0);
   });
 
+  it('passes a real PNG and a real PDF through to the turn', async () => {
+    const png = Buffer.concat([
+      Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
+      Buffer.alloc(32),
+    ]);
+    const pdf = Buffer.from('%PDF-1.4\n%âãÏÓ\n1 0 obj\n<<>>\nendobj\n');
+    const res = await POST(
+      post({
+        message: 'read these',
+        doc: DOC,
+        attachments: [
+          { name: 'chart.png', mediaType: 'image/png', data: png.toString('base64') },
+          { name: 'chart.pdf', mediaType: 'application/pdf', data: pdf.toString('base64') },
+        ],
+      })
+    );
+
+    expect(res.status).toBe(200);
+    expect(streamChat).toHaveBeenCalledWith(
+      expect.objectContaining({
+        attachments: [
+          expect.objectContaining({ mediaType: 'image/png' }),
+          expect.objectContaining({ mediaType: 'application/pdf' }),
+        ],
+      })
+    );
+  });
+
+  it('refuses a file whose bytes are not the PDF it claims to be', async () => {
+    const res = await POST(
+      post({
+        message: 'read this chart',
+        doc: DOC,
+        attachments: [
+          {
+            name: 'chart.pdf',
+            mediaType: 'application/pdf',
+            data: Buffer.from('not a pdf at all').toString('base64'),
+          },
+        ],
+      })
+    );
+
+    expect(res.status).toBe(415);
+    expect((await json(res)).error?.code).toBe('IMAGE_INVALID_TYPE');
+    expect(streamChat).not.toHaveBeenCalled();
+    expect(db.workspace?.rows.size).toBe(0);
+  });
+
   it('applies the per-user chat cap before reading the body', async () => {
     vi.mocked(consumerChatLimiter.check).mockReturnValue({
       success: false,

@@ -57,7 +57,8 @@ export interface HomeView {
   published: PublishedItem[];
   /**
    * Whether to offer the three About-you questions (Phase 7B): until you
-   * answer or skip them, and never once you have said any of it in Settings.
+   * answer or skip them, or save About you in Settings, which sends `asked`
+   * as well. A row with purposes, styles or ability set counts as answered.
    */
   askAbout: boolean;
 }

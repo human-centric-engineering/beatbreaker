@@ -87,7 +87,8 @@ platform's name.
   through the `account-sections` seam, after _Drummer profile_, whose free-text
   field is now labelled _Bio_).
 - **Home** offers purpose, ability and styles once (`askAbout` in
-  `readHome`): until answered or skipped, and never once any is set.
+  `readHome`): until answered or skipped, or until About you is saved in
+  Settings (the form sends `asked: true` too), and never once any is set.
 - **`/u/[username]`** shows the channel links and the switched-on fields, and
   a _Report_ button to signed-in readers who are not the owner.
 - **Ability → a new pattern's start.** `ABILITY_START` maps Just starting to

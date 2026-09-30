@@ -96,6 +96,8 @@ describe('every field is sent in the PUT body', () => {
         styleAbility: { funk: 'professional' },
         channels: [{ url: 'https://www.youtube.com/@ghostnotes', drumming: true }],
         public: { purposes: true, styles: false, ability: false, channels: true },
+        // saving here counts as answering Home's three questions
+        asked: true,
       },
     });
     expect(await screen.findByText('Saved.')).toBeInTheDocument();

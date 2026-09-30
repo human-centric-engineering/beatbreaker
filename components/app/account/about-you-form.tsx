@@ -119,7 +119,8 @@ export function AboutYouForm({ about, styles }: { about: AboutAnswer; styles: St
     try {
       const answer = aboutAnswerSchema.parse(
         await apiClient.put('/api/v1/drummer-about', {
-          body: { ...values, ability: values.ability || null, styleAbility },
+          // `asked`: saving here answers Home's three questions too, so Home stops offering them
+          body: { ...values, ability: values.ability || null, styleAbility, asked: true },
         })
       );
       reset(valuesOf(answer));

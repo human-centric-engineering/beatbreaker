@@ -151,6 +151,32 @@ describe('Reported profiles (7B, task 7B.6)', () => {
     expect(actions).toHaveAttribute('data-links', '1');
   });
 
+  it('shows the bio, counts links in the singular and plural, and shows an unknown reason as its code', async () => {
+    vi.mocked(profileQueue).mockResolvedValue([
+      profileItem({
+        bio: 'Funk, mostly.',
+        links: 1,
+        reports: [
+          {
+            id: 'pr1',
+            reason: 'retired-reason',
+            note: null,
+            createdAt: '2026-09-20T00:00:00.000Z',
+            reporterGone: true,
+          },
+        ],
+      }),
+      profileItem({ subjectId: 'cusr0000000000000000002', username: 'rimshot', links: 3 }),
+    ]);
+
+    render(await AdminPatternsPage());
+
+    expect(screen.getByText('Funk, mostly.')).toBeInTheDocument();
+    expect(screen.getByText(/owner@example.com · 1 link$/)).toBeInTheDocument();
+    expect(screen.getByText(/owner@example.com · 3 links$/)).toBeInTheDocument();
+    expect(screen.getByText('retired-reason')).toBeInTheDocument();
+  });
+
   it('shows "no username" for a subject who has dropped theirs', async () => {
     vi.mocked(profileQueue).mockResolvedValue([profileItem({ username: null })]);
 
@@ -174,6 +200,30 @@ describe('with an item in the queue', () => {
     const actions = screen.getByTestId('moderation-actions');
     expect(actions).toHaveAttribute('data-break-id', 'cbrk00000000000000000001');
     expect(actions).toHaveAttribute('data-links', '1');
+  });
+
+  it('counts links in the plural and shows an unknown reason as its code', async () => {
+    vi.mocked(moderationQueue).mockResolvedValue([
+      item({
+        links: 2,
+        reports: [
+          {
+            id: 'r1',
+            reason: 'retired-reason',
+            note: null,
+            createdAt: '2026-09-20T00:00:00.000Z',
+            reporterGone: false,
+          },
+        ],
+      }),
+    ]);
+    vi.mocked(isFeatureEnabled).mockResolvedValue(true);
+
+    render(await AdminPatternsPage());
+
+    const meta = within(screen.getByTestId('moderation-actions').parentElement!);
+    expect(meta.getByText(/2 links/)).toBeInTheDocument();
+    expect(screen.getByText('retired-reason')).toBeInTheDocument();
   });
 
   it('shows "no username" for an owner who has not chosen one', async () => {
