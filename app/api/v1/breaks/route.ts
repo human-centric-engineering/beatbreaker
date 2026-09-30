@@ -29,14 +29,13 @@ import { successResponse } from '@/lib/api/responses';
 import { validateRequestBody } from '@/lib/api/validation';
 import { withAuth } from '@/lib/auth/guards';
 import { critique, playability } from '@/lib/app/breaks/critic';
-import { columnsFromDoc } from '@/lib/app/breaks/columns';
-import { visibilityData, withFreshSlug } from '@/lib/app/breaks/community/sharing';
+import { withFreshSlug } from '@/lib/app/breaks/community/sharing';
 import { readStoredLinks } from '@/lib/app/breaks/links';
+import { breakCreateData } from '@/lib/app/breaks/saved/create';
 import { prisma } from '@/lib/db/client';
 import {
   bulkCreateBreaksSchema,
   createBreakSchema,
-  type CreateBreakInput,
   listBreaksSchema,
 } from '@/lib/validations/breaks';
 
@@ -75,28 +74,6 @@ const ORDER = {
   created: [{ createdAt: 'desc' }, { id: 'desc' }],
   updated: [{ updatedAt: 'desc' }, { id: 'desc' }],
 } as const;
-
-/**
- * One create's row data — the owner from the session, the columns from the
- * document. `withSlug` adds the visibility, and a fresh slug when it is a
- * link share, each time it is called: a retry after a slug clash must not
- * resend the slug that clashed.
- */
-async function createData(userId: string, input: CreateBreakInput) {
-  const { decoded, columns } = await columnsFromDoc(input.doc);
-  const data = {
-    userId,
-    title: input.title,
-    ...(input.description ? { description: input.description } : {}),
-    links: input.links,
-    ...columns,
-    doc: input.doc,
-  };
-  return {
-    decoded,
-    withSlug: () => ({ ...data, ...visibilityData({ slug: null }, input.visibility) }),
-  };
-}
 
 /* The body is read once to see which form it is, and validated in full by the
    schema for that form. A bulk body is recognised by its `breaks` key alone, so
@@ -169,7 +146,9 @@ export const POST = withAuth(
          are one transaction: a batch that failed halfway would leave the
          caller not knowing which patterns made it, so it is all of them or
          none. */
-      const rows = await Promise.all(breaks.map((input) => createData(session.user.id, input)));
+      const rows = await Promise.all(
+        breaks.map((input) => breakCreateData(session.user.id, input))
+      );
       const saved = await withFreshSlug(() =>
         prisma.$transaction(
           rows.map((row) => prisma.break.create({ data: row.withSlug(), select: LIST_SELECT }))
@@ -193,7 +172,7 @@ export const POST = withAuth(
        either way, so playback does not need it — provenance does: without it
        "which breaks came from version 3 of funk" has no answer, and the
        column's `ON DELETE SET NULL` never has anything to null. */
-    const { decoded, withSlug } = await createData(session.user.id, input);
+    const { decoded, withSlug } = await breakCreateData(session.user.id, input);
     const checks = playability(decoded.A, decoded.bpm);
     const score = critique(decoded.A, decoded.bpm);
 

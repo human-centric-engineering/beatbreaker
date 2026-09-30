@@ -18,6 +18,26 @@ release process.
 
 ### Added
 
+- **The BeatBuddy drawer** — a seventh Studio tool (`?drawer=buddy`) with the
+  conversation, a composer that takes photos, PDFs and MIDI files (MIDI and
+  BeatBreaker or Groove Scribe links open on the chart through
+  `POST /api/v1/breaks/import`), suggested prompts, and the day's allowance.
+  Each change BeatBuddy makes lands on the chart with the touched cells lit and
+  a chip with Undo. One Undo takes back the whole turn, tempo included. A
+  change that arrives after a manual edit is dropped rather than applied over
+  it. The console gains `applyAssistant()` and `flash`.
+
+- **BeatBuddy's other ten tools — `list_styles`, `generate_pattern`,
+  `write_bars`, `tidy_pattern`, `set_playback`, `explain_difficulty`,
+  `find_patterns`, `open_pattern`, `save_pattern` and `suggest_title`** (seed
+  `app-beatbreaker/003-beatbuddy` gains their rows and bindings). Each takes the
+  user from `CapabilityContext.userId` only. `write_bars` reads bars in the text
+  notation and refuses, naming bar, beat and rule, any bar that fails the
+  critic's hard checks, puts a hi-hat and ride together, asks for three hands
+  or closes an open hat with the foot. `open_pattern` reads only what the caller
+  could open in the Studio; `save_pattern` saves a private pattern through the
+  same row builder as `POST /api/v1/breaks`. None can share, publish or delete.
+
 - **Talking to BeatBuddy — `POST /api/v1/buddy/stream` and
   `GET /api/v1/buddy/allowance`.** A turn sends the message, the pattern on
   screen (`doc`, held to `sharePayloadSchema`), the section showing, and
@@ -398,6 +418,11 @@ release process.
   populated column, and every pending invitation round-trips as before.
 
 ### Changed
+
+- **A BeatBuddy tool that loses a write race retries it.** Mutating tools now
+  re-read the workspace and apply their edit again, up to three times, before
+  returning `workspace_changed` (Spike B found a model's parallel calls racing).
+  `apply_doctor_move` included.
 
 - **The speakers, the live MIDI port and the MIDI file now play one
   performance.** Every note's velocity and timing come from `performStep` in

@@ -98,20 +98,26 @@ describe('apply_doctor_move', () => {
     expect(fake.rows.get('user-1')).toMatchObject({ doc: DOC, rev: 2 });
   });
 
-  it('refuses when the workspace changed after it was read, leaving the newer document', async () => {
+  it('makes the move again on the newer document when another write lands first', async () => {
     const newer = { ...DOC, bpm: 120 };
-    /* The read sees rev 2; a manual edit lands before the write. */
+    /* The first read sees rev 2; another tool call's write lands before this
+       one's, so the write from rev 2 loses and the move is made again. */
     const original = fake.findUnique;
+    let reads = 0;
     fake.findUnique = async (q) => {
       const row = await original(q);
-      fake.rows.set('user-1', { userId: 'user-1', doc: newer, rev: 3 });
+      if (reads++ === 0) fake.rows.set('user-1', { userId: 'user-1', doc: newer, rev: 3 });
       return row;
     };
 
     const result = await run({ move: 'ghosts-', section: 'A' });
 
-    expect(result).toMatchObject({ success: false, error: { code: 'workspace_changed' } });
-    expect(fake.rows.get('user-1')).toMatchObject({ doc: newer, rev: 3 });
+    expect(reads).toBe(2);
+    expect(dataOf(result).rev).toBe(4);
+    // the other write's tempo survives, and this move's change is on top of it
+    expect(dataOf(result).doc.bpm).toBe(120);
+    expect(ghosts(dataOf(result).doc, 'A')).toBe(0);
+    expect(fake.rows.get('user-1')?.rev).toBe(4);
   });
 
   it('refuses to doctor a section whose style is no longer in the catalogue', async () => {

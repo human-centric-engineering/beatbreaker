@@ -12,7 +12,15 @@ import { z } from 'zod';
  * the drawer on its usual tab.
  */
 
-export const STUDIO_TOOLS = ['gen', 'doctor', 'patterns', 'kit', 'practice', 'export'] as const;
+export const STUDIO_TOOLS = [
+  'gen',
+  'doctor',
+  'patterns',
+  'kit',
+  'practice',
+  'export',
+  'buddy',
+] as const;
 export type StudioTool = (typeof STUDIO_TOOLS)[number];
 
 export const PATTERNS_TABS = [

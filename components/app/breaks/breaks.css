@@ -813,6 +813,47 @@
 .bb .cell.cursor {
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--brass) 65%, transparent);
 }
+/* What BeatBuddy just changed (7.13): a brass ring that fades, so you can see
+   where the change landed without it staying in the way. */
+.bb .cell.flash {
+  animation: bb-flash 1.4s ease-out;
+  box-shadow: 0 0 0 2px transparent;
+}
+.bb .cell.flash-odd {
+  animation-name: bb-flash-odd;
+}
+.bb .sheet rect.flash {
+  animation: bb-flash-bar 1.4s ease-out forwards;
+  opacity: 0;
+}
+@keyframes bb-flash {
+  0%,
+  35% {
+    box-shadow: 0 0 0 3px var(--brass);
+  }
+  100% {
+    box-shadow: 0 0 0 3px transparent;
+  }
+}
+/* bb-flash's twin: switching animation-name restarts the animation. */
+@keyframes bb-flash-odd {
+  0%,
+  35% {
+    box-shadow: 0 0 0 3px var(--brass);
+  }
+  100% {
+    box-shadow: 0 0 0 3px transparent;
+  }
+}
+@keyframes bb-flash-bar {
+  0%,
+  35% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 .bb .cell.pinned::after {
   content: '';
   position: absolute;
@@ -1517,6 +1558,16 @@
   .bb * {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+  }
+  /* No fade: the highlight simply stays while the change is fresh, and goes
+     when the Studio drops it. */
+  .bb .cell.flash {
+    animation: none !important;
+    box-shadow: 0 0 0 3px var(--brass);
+  }
+  .bb .sheet rect.flash {
+    animation: none !important;
+    opacity: 0.3;
   }
 }
 @media print {

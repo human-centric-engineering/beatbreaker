@@ -6,6 +6,7 @@ folders beside this one; start at [`../substrate.md`](../substrate.md).
 
 | Doc                                                | What it is                                                                                                                                     |
 | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`beatbuddy.md`](./beatbuddy.md)                   | BeatBuddy (Phase 7): the loop, the workspace and its rev, and what Spike B found on the live model.                                            |
 | [`breaks.md`](./breaks.md)                         | The break domain: modules, invariants, the share-code wire format, `/api/v1/breaks`.                                                           |
 | [`catalogue.md`](./catalogue.md)                   | The catalogue: styles, libraries and kits as rows, wire format v4, the read and admin APIs, seeding.                                           |
 | [`patterns.md`](./patterns.md)                     | Your patterns (Phase 4): the pattern as a document, autosave, opening, Details and link chips, and what was left as it is.                     |

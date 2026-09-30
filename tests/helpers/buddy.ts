@@ -139,3 +139,93 @@ export function dataOf<T>(result: CapabilityResult<T>): T {
   }
   return result.data;
 }
+
+/** One saved pattern in a fake `Break` table. */
+export interface BreakRow {
+  id: string;
+  userId: string;
+  title: string;
+  style: string;
+  meter: string;
+  bpm: number;
+  visibility: 'private' | 'link' | 'published';
+  slug: string | null;
+  doc: unknown;
+  updatedAt: Date;
+}
+
+type Where = Record<string, unknown>;
+
+/** Does `row` satisfy a Prisma-style `where` — equality, `in`, `contains`, `not`, `OR`? */
+function matchesWhere(row: Record<string, unknown>, where: Where): boolean {
+  return Object.entries(where).every(([key, cond]) => {
+    if (key === 'OR') return (cond as Where[]).some((w) => matchesWhere(row, w));
+    const value = row[key];
+    if (cond !== null && typeof cond === 'object' && !(cond instanceof Date)) {
+      const c = cond as { in?: unknown[]; contains?: string; not?: unknown };
+      if (c.in) return c.in.includes(value);
+      if (c.contains !== undefined)
+        return String(value).toLowerCase().includes(c.contains.toLowerCase());
+      if ('not' in c) return value !== c.not;
+      return true;
+    }
+    return value === cond;
+  });
+}
+
+function pick(row: Record<string, unknown>, select?: Record<string, unknown>) {
+  if (!select) return { ...row };
+  return Object.fromEntries(Object.keys(select).map((k) => [k, row[k]]));
+}
+
+/**
+ * An in-memory `prisma.break` that applies `where` the way the database
+ * would — owner, visibility, slug, title search — so a test that one user
+ * cannot reach another's private pattern fails if the filter goes.
+ */
+export function fakeBreakTable(rows: BreakRow[] = []) {
+  const table = rows.map((r) => ({ ...r }));
+  let next = table.length;
+  return {
+    rows: table,
+    findMany: async ({
+      where,
+      select,
+      take,
+    }: {
+      where: Where;
+      select?: Record<string, unknown>;
+      take?: number;
+    }) =>
+      table
+        .filter((r) => matchesWhere(r as unknown as Record<string, unknown>, where))
+        .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
+        .slice(0, take ?? table.length)
+        .map((r) => pick(r as unknown as Record<string, unknown>, select)),
+    findFirst: async ({
+      where,
+      select,
+      include,
+    }: {
+      where: Where;
+      select?: Record<string, unknown>;
+      include?: Record<string, unknown>;
+    }) => {
+      const row = table.find((r) => matchesWhere(r as unknown as Record<string, unknown>, where));
+      if (!row) return null;
+      const out = pick(row, select);
+      return include?.takes ? { ...out, takes: [] } : out;
+    },
+    create: async ({
+      data,
+      select,
+    }: {
+      data: Record<string, unknown>;
+      select?: Record<string, unknown>;
+    }) => {
+      const row = { id: `break-${++next}`, updatedAt: new Date(), slug: null, ...data };
+      table.push(row as unknown as BreakRow);
+      return pick(row, select);
+    },
+  };
+}

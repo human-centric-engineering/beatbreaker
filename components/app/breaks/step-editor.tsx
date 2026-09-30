@@ -36,6 +36,13 @@ interface StepEditorProps {
   onCycle: (bar: number, lane: LaneKey, step: number, back: boolean) => void;
   /** Step under the playhead, as `barIdx * steps + slot`. */
   cursor: number | null;
+  /** Cells to light, keyed `bar:lane:step` — what BeatBuddy just changed. */
+  flash?: ReadonlySet<string>;
+  /**
+   * `Flash.seq`. Odd and even changes use twin keyframes, so the same cells
+   * flash again without remounting the buttons (which would drop focus).
+   */
+  flashSeq?: number;
 }
 
 /**
@@ -52,7 +59,7 @@ function soft(lane: LaneKey, v: number): boolean {
   return lane === 's' && v === 1;
 }
 
-export function StepEditor({ view, stored, onCycle, cursor }: StepEditorProps) {
+export function StepEditor({ view, stored, onCycle, cursor, flash, flashSeq }: StepEditorProps) {
   const m = meterOfPat(view);
   const labels = countLabelsOf(m);
   const lanes = activeLanes(view.lanes);
@@ -101,7 +108,11 @@ export function StepEditor({ view, stored, onCycle, cursor }: StepEditorProps) {
                             'cell',
                             isGroupStart(m, i) && 'beat',
                             pinned && 'pinned',
-                            cursor === b * steps + i && 'cursor'
+                            cursor === b * steps + i && 'cursor',
+                            flash?.has(`${b}:${lane}:${i}`) && 'flash',
+                            flash?.has(`${b}:${lane}:${i}`) &&
+                              (flashSeq ?? 0) % 2 === 1 &&
+                              'flash-odd'
                           )}
                           style={v ? { background: fill(lane, v) } : undefined}
                           data-bar={b}

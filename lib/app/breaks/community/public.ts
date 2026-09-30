@@ -36,6 +36,8 @@ export type TempoBand = keyof typeof TEMPO_BANDS;
 export type PublicSort = 'newest' | 'saved';
 
 export interface PublicListQuery {
+  /** Words in the title. */
+  q?: string;
   style?: string;
   meter?: string;
   tempo?: TempoBand;
@@ -157,6 +159,7 @@ function listWhere(q: PublicListQuery, userId?: string): Prisma.BreakWhereInput 
   return {
     visibility: 'published',
     slug: { not: null },
+    ...(q.q ? { title: { contains: q.q, mode: 'insensitive' as const } } : {}),
     ...(q.style ? { style: q.style } : {}),
     ...(q.meter ? { meter: q.meter } : {}),
     ...(q.tempo ? { bpm: TEMPO_BANDS[q.tempo] } : {}),

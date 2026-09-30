@@ -544,6 +544,175 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
   background: var(--faint);
 }
 
+/* ============================================================
+   BEATBUDDY — the conversation drawer (7.12)
+   ============================================================ */
+/* Wider than the other drawers (§2): a conversation needs the line length. */
+.bb .studio-drawer[data-tool='buddy'] {
+  width: 440px;
+}
+/* In the drawer the log scrolls and the composer stays put at the bottom. */
+.bb .studio-drawer[data-tool='buddy'] .studio-drawer-bd {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.bb .studio-drawer[data-tool='buddy'] .buddy {
+  flex: 1;
+  min-height: 0;
+}
+.bb .buddy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.bb .buddy-meter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+.bb .buddy-meter-bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--sunk);
+  overflow: hidden;
+}
+.bb .buddy-meter-bar i {
+  display: block;
+  height: 100%;
+  background: var(--brass);
+}
+.bb .buddy-log {
+  flex: 1;
+  min-height: 120px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.bb .buddy-empty p {
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+.bb .buddy-prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.bb .buddy-msg {
+  max-width: 92%;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--raised);
+}
+.bb .buddy-user {
+  align-self: flex-end;
+  background: var(--sunk);
+}
+.bb .buddy-note {
+  align-self: center;
+  background: transparent;
+  border-style: dashed;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.bb .buddy-text {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.bb .buddy-files,
+.bb .buddy-status,
+.bb .buddy-small,
+.bb .buddy-dropped {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+.bb .buddy-small a {
+  color: inherit;
+  text-decoration: underline;
+}
+.bb .buddy-chip {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin-top: 8px;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid color-mix(in srgb, var(--brass) 45%, var(--line));
+  font-size: 12.5px;
+}
+.bb .buddy-chip ul {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.bb .buddy-chip .mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+}
+.bb .buddy-chip-done {
+  font-size: 12px;
+  color: var(--muted);
+}
+.bb .buddy-error,
+.bb .buddy-spent {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  color: var(--rust);
+}
+.bb .buddy-composer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+.bb .buddy-composer textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 52px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+}
+.bb .buddy-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.bb .buddy-actions .mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.bb .buddy-attached {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.bb .buddy-attached .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .bb .studio-drawer[data-state],
   .bb .studio-sheet[data-state] {

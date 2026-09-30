@@ -1,18 +1,13 @@
 import { z } from 'zod';
 
+import { SECTIONS } from '@/lib/app/breaks/buddy/describe';
 import {
-  SECTIONS,
-  type Section,
-  type SectionView,
-  changedBars,
-  decodeWorkspace,
-  viewSection,
-} from '@/lib/app/breaks/buddy/describe';
-import { readWorkspace, writeWorkspace } from '@/lib/app/breaks/buddy/workspace';
-import { listStyles, styleLookup } from '@/lib/app/breaks/catalogue/data';
+  type EditData,
+  barsSummary,
+  describeEdit,
+  editWorkspace,
+} from '@/lib/app/breaks/buddy/edit';
 import { DOCTOR_MOVES, type DoctorMove, doctor } from '@/lib/app/breaks/doctor';
-import { type SharePayload, sharePayloadSchema } from '@/lib/app/breaks/schema';
-import { breakPayload } from '@/lib/app/breaks/share';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
 import type {
   CapabilityContext,
@@ -25,9 +20,9 @@ import type {
  * B or both, in the caller's own workspace.
  *
  * The same `doctor()` the Studio's Doctor panel runs, against the style's
- * current version, as the panel does. The new document is held to
- * `sharePayloadSchema` before it is written or returned, and is written only
- * if nobody changed the workspace since it was read.
+ * current version, as the panel does. Written through `editWorkspace`, so the
+ * result is held to `sharePayloadSchema` and a write that loses a race with
+ * another tool call is made again on the newer pattern.
  */
 
 const MOVES = DOCTOR_MOVES.map((m) => m.move) as [DoctorMove, ...DoctorMove[]];
@@ -39,26 +34,9 @@ const schema = z.object({
 
 type Args = z.infer<typeof schema>;
 
-export interface SectionChange {
-  section: Section;
-  /** 1-based. Empty when the move found nothing to change. */
-  bars: number[];
-}
-
-export interface ApplyDoctorMoveData {
-  /** The whole new document, for the Studio to apply. */
-  doc: SharePayload;
-  rev: number;
-  /** One sentence for the change chip. */
-  summary: string;
-  changes: SectionChange[];
-  /** The sections the move touched, as they read now. */
-  sections: SectionView[];
-}
-
 const MOVE_LIST = DOCTOR_MOVES.map((m) => `"${m.move}" (${m.label})`).join(', ');
 
-export class ApplyDoctorMoveCapability extends BaseCapability<Args, ApplyDoctorMoveData> {
+export class ApplyDoctorMoveCapability extends BaseCapability<Args, EditData> {
   readonly slug = 'apply_doctor_move';
   readonly processesPii = false;
 
@@ -85,66 +63,39 @@ export class ApplyDoctorMoveCapability extends BaseCapability<Args, ApplyDoctorM
 
   protected readonly schema = schema;
 
-  async execute(
-    args: Args,
-    context: CapabilityContext
-  ): Promise<CapabilityResult<ApplyDoctorMoveData>> {
+  async execute(args: Args, context: CapabilityContext): Promise<CapabilityResult<EditData>> {
     if (!context.userId) return this.error('BeatBuddy needs a signed-in user', 'no_user');
 
-    const workspace = await readWorkspace(context.userId);
-    if (!workspace) {
-      return this.error('No pattern is open in the Studio yet', 'no_workspace');
-    }
-
-    const doc = await decodeWorkspace(workspace.doc);
-    const lookup = styleLookup(await listStyles());
     const targets = args.section === 'both' ? SECTIONS : [args.section];
-
-    const next = { ...doc };
-    const changes: SectionChange[] = [];
-    for (const section of targets) {
-      /* A move writes new notes, so it needs the live style rather than the
-         snapshot the pattern carries — the Studio's rule too. */
-      const style = lookup(doc[section].style);
-      if (!style) {
-        return this.error(
-          `Section ${section}'s style "${doc[section].style}" is no longer in the catalogue, so it can't be doctored`,
-          'style_missing'
-        );
+    const outcome = await editWorkspace(context.userId, (doc, { style }) => {
+      const next = { ...doc };
+      for (const section of targets) {
+        /* A move writes new notes, so it needs the live style rather than the
+           snapshot the pattern carries — the Studio's rule too. */
+        const live = style(doc[section].style);
+        if (!live) {
+          return {
+            ok: false,
+            message: `Section ${section}'s style "${doc[section].style}" is no longer in the catalogue, so it can't be doctored`,
+            code: 'style_missing',
+          };
+        }
+        next[section] = doctor(doc[section], live.params, args.move);
       }
-      next[section] = doctor(doc[section], style.params, args.move);
-      changes.push({ section, bars: changedBars(doc[section], next[section]) });
-    }
+      return { ok: true, doc: next, extra: null };
+    });
+    if (!outcome.ok) return this.error(outcome.message, outcome.code);
 
-    const parsed = sharePayloadSchema.safeParse(breakPayload(next));
-    if (!parsed.success) {
-      return this.error('That move produced a pattern the Studio cannot read', 'invalid_result');
-    }
-
-    const written = await writeWorkspace(context.userId, parsed.data, workspace.rev);
-    if (!written) {
-      return this.error(
-        'The pattern changed while this was running. Call get_pattern and try again',
-        'workspace_changed'
-      );
-    }
-
+    const described = describeEdit(outcome.before, outcome.after, targets);
     return this.success({
-      doc: written.doc,
-      rev: written.rev,
-      summary: summarise(args.move, changes),
-      changes,
-      sections: targets.map((s) => viewSection(next[s], s, next.bpm, next.swing)),
+      doc: outcome.payload,
+      rev: outcome.rev,
+      summary: `${moveLabel(args.move)}: ${barsSummary(described.changes)}`,
+      ...described,
     });
   }
 }
 
-function summarise(move: DoctorMove, changes: SectionChange[]): string {
-  const label = DOCTOR_MOVES.find((m) => m.move === move)?.label ?? move;
-  const parts = changes.map(({ section, bars }) =>
-    bars.length === 0
-      ? `nothing to change in ${section}`
-      : `${section} bar${bars.length > 1 ? 's' : ''} ${bars.join(', ')}`
-  );
-  return `${label}: ${parts.join('; ')}`;
+function moveLabel(move: DoctorMove): string {
+  return DOCTOR_MOVES.find((m) => m.move === move)?.label ?? move;
 }

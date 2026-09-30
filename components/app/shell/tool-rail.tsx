@@ -8,6 +8,7 @@ import {
   Menu as MenuIcon,
   SlidersHorizontal,
   Shuffle,
+  Sparkles,
   Stethoscope,
   Timer,
 } from 'lucide-react';
@@ -35,8 +36,8 @@ export type Tool = StudioTool;
  * for Edit, whose moves are the break doctor's. The ids are the old names,
  * because they are in `?drawer=` links; the labels are what a drummer reads
  * (E13). Share is short for the drawer's title, _Share & export_, which the
- * 72px rail cannot hold. Nothing here borrows the sparkle that would imply a model
- * wrote your break — nothing in this phase does.
+ * 72px rail cannot hold. The sparkle is BeatBuddy's alone: it is the one tool
+ * where a model changes your break, and nothing else borrows the mark.
  */
 export const TOOLS: Array<{ id: Tool; label: string; Icon: ComponentType<{ size?: number }> }> = [
   { id: 'gen', label: 'Generate', Icon: Dices },
@@ -45,6 +46,7 @@ export const TOOLS: Array<{ id: Tool; label: string; Icon: ComponentType<{ size?
   { id: 'kit', label: 'Sound', Icon: SlidersHorizontal },
   { id: 'practice', label: 'Practise', Icon: Timer },
   { id: 'export', label: 'Share', Icon: Download },
+  { id: 'buddy', label: 'BeatBuddy', Icon: Sparkles },
 ];
 
 export function ToolRail({
