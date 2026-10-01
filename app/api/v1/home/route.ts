@@ -1,12 +1,14 @@
 /**
  * Home (task 4.9)
  *
- * GET /api/v1/home — `{ practising, recent, savedCount }`: the Practising
- *     shelf as cards, each with the layer and tempo it opens at, when it was
- *     last opened and a small engraved thumbnail (an SVG node tree, as
+ * GET /api/v1/home — `{ practising, recent, savedCount, published,
+ *     askAbout, sessions, sessionsFirst }`: the Practising shelf as cards,
+ *     each with the layer and tempo it opens at, when it was last opened and
+ *     a small engraved thumbnail (an SVG node tree, as
  *     `POST /api/v1/breaks/engrave` answers); the newest few history items;
- *     and how many patterns you have saved. One request fills Home; there is
- *     no per-card fetch.
+ *     how many patterns you have saved; your first few practice sessions, and
+ *     whether they lead (teaching is among your purposes). One request fills
+ *     Home; there is no per-card fetch.
  *
  * What a card links to is the client's business — the web page builds Studio
  * URLs from the target, a native client (D14) opens its own screen.
@@ -30,6 +32,7 @@ export const GET = withAuth(
       practising: home.practising.length,
       recent: home.recent.length,
       savedCount: home.savedCount,
+      sessions: home.sessions.length,
     });
     return successResponse(home);
   },
@@ -37,7 +40,7 @@ export const GET = withAuth(
     ownership: {
       decidedBy: 'self',
       because:
-        'Reads pins, visits and a break count filtered by `session.user.id`; the queries name no other subject.',
+        'Reads pins, visits, breaks, About you and practice sessions filtered by `session.user.id`; the queries name no other subject.',
     },
   }
 );

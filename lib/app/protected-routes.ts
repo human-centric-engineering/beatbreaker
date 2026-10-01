@@ -22,12 +22,15 @@
  * proxy runtime.
  */
 export const appProtectedRoutes: string[] = [
+  // Practice sessions (Phase 7D). A page of your own with no share link into
+  // it, so the edge redirect loses nothing; a shared session is `/s/[slug]`.
+  '/practice',
   // Deliberately NOT '/studio'. The Studio needs a session, but it gates itself
   // in its page: an edge redirect loses the `#b=` fragment a shared link
   // carries, so a signed-out visitor with a link signed in and landed on a fresh
   // break (H5). '/breaks' is absent for the same reason one step removed — it is
   // an unconditional redirect to /studio, and a redirect only forwards a
   // fragment to a target that has none of its own. Adding either path here would
-  // reintroduce H5 and break no test but the one pinning this array empty — see
+  // reintroduce H5 and break no test but the one pinning this array — see
   // tests/unit/lib/app/defaults.test.ts and app/(studio)/studio/page.tsx.
 ];

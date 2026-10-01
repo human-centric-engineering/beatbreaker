@@ -140,7 +140,7 @@ export default async function PublicPatternPage({ params, searchParams }: Props)
       <ReferenceEmbeds links={pattern.links} />
 
       {id ? (
-        <PatternActions id={id} variation={published}>
+        <PatternActions id={id} title={pattern.title} variation={published}>
           {mine ? null : <ReportButton slug={pattern.slug} />}
         </PatternActions>
       ) : (

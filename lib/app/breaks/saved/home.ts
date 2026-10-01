@@ -4,6 +4,7 @@ import { type Engraving, engrave } from '@/lib/app/breaks/engrave';
 import { FULL_LAYER, reducePattern } from '@/lib/app/breaks/layers';
 import { packedPatternSchema, storedPayloadSchema } from '@/lib/app/breaks/schema';
 import { listHistory, type PracticeVisitView } from '@/lib/app/breaks/saved/history';
+import { listSessions } from '@/lib/app/breaks/saved/sessions';
 import {
   TARGET_SELECT,
   type TargetView,
@@ -13,6 +14,7 @@ import {
 import { patternFromPacked } from '@/lib/app/breaks/share';
 import { logger } from '@/lib/logging';
 import { prisma } from '@/lib/db/client';
+import type { SessionSummary } from '@/lib/validations/practice-sessions';
 
 /**
  * Home (task 4.9): what you are practising, what you opened lately, and
@@ -25,8 +27,8 @@ import { prisma } from '@/lib/db/client';
  * **One read, no per-card fetch.** The Practising shelf comes back with each
  * target's document, and the thumbnails are engraved here from it — the
  * engraver returns a plain node tree, so it runs on the server and the page
- * draws what it is given. Three queries run side by side (shelf, history,
- * saved count); none of them is per row.
+ * draws what it is given. The queries run side by side (shelf, history,
+ * saved count, published, About you, sessions); none of them is per row.
  */
 
 /** How many history items Home lists — the drawer's Recent holds the rest. */
@@ -61,6 +63,13 @@ export interface HomeView {
    * as well. A row with purposes, styles or ability set counts as answered.
    */
   askAbout: boolean;
+  /** Your practice sessions, most recently changed first (Phase 7D) — the first few. */
+  sessions: SessionSummary[];
+  /**
+   * Whether _Your sessions_ comes before Practising: when teaching is among
+   * what you use BeatBreaker for (7B), the sessions you give students lead.
+   */
+  sessionsFirst: boolean;
 }
 
 /** One of your published patterns, as Home lists it. */
@@ -79,6 +88,9 @@ export interface PublishedItem {
 
 /** How many published patterns Home shows. */
 export const HOME_PUBLISHED = 12;
+
+/** How many practice sessions Home shows — `/practice` lists the rest. */
+export const HOME_SESSIONS = 5;
 
 const CARD_SELECT = {
   id: true,
@@ -172,7 +184,7 @@ function toCard(
 }
 
 export async function readHome(userId: string): Promise<HomeView> {
-  const [rows, history, savedCount, publishedRows, about] = await Promise.all([
+  const [rows, history, savedCount, publishedRows, about, sessions] = await Promise.all([
     prisma.pin.findMany({
       where: { userId, shelf: 'practising', ...visibleTarget(userId) },
       select: CARD_SELECT,
@@ -198,6 +210,7 @@ export async function readHome(userId: string): Promise<HomeView> {
       where: { userId },
       select: { askedAt: true, purposes: true, styles: true, ability: true },
     }),
+    listSessions(userId, HOME_SESSIONS),
   ]);
   const askAbout =
     !about ||
@@ -256,5 +269,7 @@ export async function readHome(userId: string): Promise<HomeView> {
     savedCount,
     published,
     askAbout,
+    sessions,
+    sessionsFirst: about?.purposes.includes('teaching') ?? false,
   };
 }

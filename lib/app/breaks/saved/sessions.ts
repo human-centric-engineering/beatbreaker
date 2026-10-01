@@ -293,12 +293,18 @@ function newItemData(input: ItemInput, resolved: Map<string, Resolved>, index: n
   };
 }
 
-/** Your sessions, most recently changed first, each with what its card shows — one query. */
-export async function listSessions(userId: string): Promise<SessionSummary[]> {
+/**
+ * Your sessions, most recently changed first, each with what its card shows —
+ * one query. `limit` is for Home, which shows the first few.
+ */
+export async function listSessions(
+  userId: string,
+  limit: number = SESSIONS_MAX
+): Promise<SessionSummary[]> {
   const rows = await prisma.practiceSession.findMany({
     where: { userId },
     orderBy: [{ updatedAt: 'desc' }, { id: 'desc' }],
-    take: SESSIONS_MAX,
+    take: limit,
     select: {
       id: true,
       name: true,
