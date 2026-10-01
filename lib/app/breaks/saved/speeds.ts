@@ -212,6 +212,49 @@ export async function yourSpeeds(userId: string, target: PinTarget): Promise<You
   };
 }
 
+/** The key {@link yourBests} answers under: the target and the layer. */
+export function bestKey(target: PinTarget, level: number): string {
+  return 'breakId' in target
+    ? `b:${target.breakId}:${level}`
+    : `e:${target.libraryEntryId}:${level}`;
+}
+
+/**
+ * Your best tempo per target and layer, listed or not, for many targets in
+ * one query — what a practice session's targets default to (Phase 7D).
+ * Read by {@link bestKey}; a target and layer with no record is absent.
+ * Your own records only, so it needs no visibility check of its own.
+ */
+export async function yourBests(
+  userId: string,
+  targets: readonly PinTarget[]
+): Promise<Map<string, number>> {
+  const breakIds = [...new Set(targets.flatMap((t) => ('breakId' in t ? [t.breakId] : [])))];
+  const entryIds = [
+    ...new Set(targets.flatMap((t) => ('libraryEntryId' in t ? [t.libraryEntryId] : []))),
+  ];
+  const bests = new Map<string, number>();
+  if (breakIds.length === 0 && entryIds.length === 0) return bests;
+
+  const rows = await prisma.speedRecord.groupBy({
+    by: ['breakId', 'libraryEntryId', 'level'],
+    where: {
+      userId,
+      OR: [{ breakId: { in: breakIds } }, { libraryEntryId: { in: entryIds } }],
+    },
+    _max: { bpm: true },
+  });
+  for (const row of rows) {
+    const bpm = row._max.bpm;
+    if (bpm === null) continue;
+    if (row.breakId) bests.set(bestKey({ breakId: row.breakId }, row.level), bpm);
+    else if (row.libraryEntryId) {
+      bests.set(bestKey({ libraryEntryId: row.libraryEntryId }, row.level), bpm);
+    }
+  }
+  return bests;
+}
+
 /** Delete one of your records. False when there is no such record of yours. */
 export async function deleteSpeed(userId: string, id: string): Promise<boolean> {
   const { count } = await prisma.speedRecord.deleteMany({ where: { id, userId } });

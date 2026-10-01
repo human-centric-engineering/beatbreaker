@@ -15,7 +15,7 @@
  * FORK NOTE — this file reads `@/lib/app/data-export` for real, with no
  * `vi.mock`, because the collector's behaviour IS what it is testing. A fork of
  * BeatBreaker that adds its own tables to that seam will see this fail on the
- * section list: expect the sixteen below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
+ * section list: expect the eighteen below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
  * collector returns every declared section as a key, and a mock cannot tell you
  * that. The `prisma` methods are mocked instead, which is the part this test
  * genuinely does not need to be real.
@@ -37,6 +37,8 @@ const findMany = {
   profileReports: vi.fn(),
   speedRecords: vi.fn(),
   speedReports: vi.fn(),
+  practiceSessions: vi.fn(),
+  practiceRuns: vi.fn(),
   styles: vi.fn(),
   libraries: vi.fn(),
   kits: vi.fn(),
@@ -57,6 +59,8 @@ vi.mock('@/lib/db/client', () => ({
     drummerReport: { findMany: (...args: unknown[]) => findMany.profileReports(...args) },
     speedRecord: { findMany: (...args: unknown[]) => findMany.speedRecords(...args) },
     speedReport: { findMany: (...args: unknown[]) => findMany.speedReports(...args) },
+    practiceSession: { findMany: (...args: unknown[]) => findMany.practiceSessions(...args) },
+    practiceRun: { findMany: (...args: unknown[]) => findMany.practiceRuns(...args) },
     style: { findMany: (...args: unknown[]) => findMany.styles(...args) },
     patternLibrary: { findMany: (...args: unknown[]) => findMany.libraries(...args) },
     kit: { findMany: (...args: unknown[]) => findMany.kits(...args) },
@@ -95,6 +99,8 @@ describe('collectAppSubjectData', () => {
       'libraries',
       'pins',
       'practiceHistory',
+      'practiceRuns',
+      'practiceSessions',
       'profileReportsFiled',
       'reportsFiled',
       'samples',
@@ -121,6 +127,8 @@ describe('collectAppSubjectData', () => {
       findMany.profiles,
       findMany.about,
       findMany.speedRecords,
+      findMany.practiceSessions,
+      findMany.practiceRuns,
     ]) {
       expect(spy).toHaveBeenCalledWith(expect.objectContaining({ where: { userId: 'user-1' } }));
     }
@@ -173,6 +181,37 @@ describe('collectAppSubjectData', () => {
     expect(args).not.toHaveProperty('include');
     expect(args.orderBy).toEqual({ recordedAt: 'asc' });
     expect(data.speedRecords).toEqual([record]);
+  });
+
+  it('exports each session whole with its items in order, and every run (7D)', async () => {
+    /* Whole rows, as the speed records are, with the items inside their
+       session — an item has no owner of its own. An item on someone else's
+       pattern names it by id and the title it had, as a pin does. */
+    const session = {
+      id: 'ps1',
+      userId: 'user-1',
+      name: 'Week 1',
+      totalMinutes: 10,
+      items: [{ id: 'pi1', position: 0, breakId: 'b-theirs', titleSnapshot: 'Cold Carpet' }],
+    };
+    const run = {
+      id: 'pr1',
+      userId: 'user-1',
+      sessionId: null,
+      sessionName: 'Week 1',
+      items: [{ title: 'Cold Carpet', level: 5, targetBpm: 100, reachedBpm: 96, seconds: 300 }],
+    };
+    findMany.practiceSessions.mockResolvedValue([session]);
+    findMany.practiceRuns.mockResolvedValue([run]);
+
+    const data = await collectAppSubjectData(SUBJECT);
+
+    const args = findMany.practiceSessions.mock.calls[0][0] as Record<string, unknown>;
+    expect(args).not.toHaveProperty('select');
+    expect(args.include).toEqual({ items: { orderBy: { position: 'asc' } } });
+    expect(data.practiceSessions).toEqual([session]);
+    // a run whose session was deleted is still the subject's history
+    expect(data.practiceRuns).toEqual([run]);
   });
 
   it('exports the speed reports you filed, selecting no resolvedById (7C)', async () => {

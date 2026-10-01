@@ -110,8 +110,9 @@ model Break {
   ownParent     Break?  @relation("BreakOwnParent", fields: [ownParentId], references: [id], onDelete: SetNull)
   ownVariations Break[] @relation("BreakOwnParent")
 
-  reports      BreakReport[]
-  speedRecords SpeedRecord[] @relation("SpeedBreak")
+  reports       BreakReport[]
+  speedRecords  SpeedRecord[]         @relation("SpeedBreak")
+  practiceItems PracticeSessionItem[] @relation("PracticeItemBreak")
 
   @@index([userId, createdAt])
   @@index([visibility, publishedAt])
@@ -447,6 +448,127 @@ model SpeedReport {
   @@map("speed_report")
 }
 
+/// A practice session (Phase 7D): a timed run through patterns, each
+/// climbing from below its target tempo to the target and holding it (D30),
+/// in a total time shared between them (D31).
+///
+/// `totalMinutes` is what the items' minutes always add up to — the server
+/// re-splits them (`lib/app/practice/split.ts`) on every write. The climb
+/// settings are the session's defaults; an item may override each.
+///
+/// Personal data: `userId` cascades (hand-written FK, probed by
+/// `lib/app/db-drift.ts`). `parentId` is the session this one was saved from
+/// (D32), nulled when that goes: a copy is its saver's.
+model PracticeSession {
+  id     String @id @default(cuid())
+  /// FK to User.id — no @relation. Cascades.
+  userId String
+
+  name         String  @db.VarChar(80)
+  description  String? @db.VarChar(500)
+  /// 5–120. The items' minutes add up to this.
+  totalMinutes Int
+
+  /// How far below its target each pattern starts, in percent (5–50).
+  startPct   Int    @default(20)
+  /// How much of each slot the climb takes, in percent (10–100).
+  climbPct   Int    @default(67)
+  /// "steady" | "gentle-start" | "gentle-finish" | "steps".
+  climbShape String @default("steady") @db.VarChar(16)
+  /// Steps in a "steps" climb (2–8).
+  climbSteps Int    @default(4)
+  /// Bars of count-in before each pattern (0–2).
+  countIn    Int    @default(1)
+
+  /// "private" | "link". Sessions are never published (D34).
+  visibility String  @default("private") @db.VarChar(16)
+  /// The public address, `/s/<slug>`, minted the first time it is shared.
+  slug       String? @unique @db.VarChar(16)
+  parentId   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  parent PracticeSession?      @relation("PracticeSessionParent", fields: [parentId], references: [id], onDelete: SetNull)
+  copies PracticeSession[]     @relation("PracticeSessionParent")
+  items  PracticeSessionItem[]
+  runs   PracticeRun[]
+
+  @@index([userId, updatedAt])
+  @@index([parentId])
+  @@map("practice_session")
+}
+
+/// One pattern in a practice session, at a position, for some minutes.
+///
+/// The target is a pattern or a famous break, **SetNull** with
+/// `titleSnapshot`, as on a speed record: someone deleting their pattern
+/// leaves your session with a gap that says what was there, and the runner
+/// skips it. A CHECK holds it to at most one target.
+///
+/// `goalBpm` null means "my best at this layer" — read from your speed records
+/// when the session is read, so it follows you as you get faster — or the
+/// pattern's own tempo with no record. Set, it is a goal you chose.
+model PracticeSessionItem {
+  id        String @id @default(cuid())
+  sessionId String
+  /// 0-based, dense.
+  position  Int
+
+  breakId        String?
+  libraryEntryId String?
+  titleSnapshot  String  @db.VarChar(160)
+
+  /// The layer (1–5).
+  level         Int
+  goalBpm       Int?
+  minutes       Int
+  /// Set when you changed this item's minutes; the split leaves it alone.
+  minutesPinned Boolean @default(false)
+
+  /// Overrides of the session's climb; null is the session's.
+  startPct   Int?
+  climbPct   Int?
+  climbShape String? @db.VarChar(16)
+  climbSteps Int?
+
+  session      PracticeSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  breakRef     Break?          @relation("PracticeItemBreak", fields: [breakId], references: [id], onDelete: SetNull)
+  libraryEntry LibraryEntry?   @relation("PracticeItemEntry", fields: [libraryEntryId], references: [id], onDelete: SetNull)
+
+  @@unique([sessionId, position])
+  @@index([breakId])
+  @@index([libraryEntryId])
+  @@map("practice_session_item")
+}
+
+/// One run of a practice session, logged when it ends: when, and the tempo
+/// each pattern reached. Your practice history on Home.
+///
+/// `items` is `[{ title, level, targetBpm, reachedBpm, seconds }]` — titles,
+/// not target ids, so a deleted pattern leaves nothing dangling. `sessionId` is
+/// nulled when the session goes, and `sessionName` keeps what it was called.
+///
+/// Personal data: `userId` cascades (hand-written FK, probed by
+/// `lib/app/db-drift.ts`).
+model PracticeRun {
+  id          String   @id @default(cuid())
+  /// FK to User.id — no @relation. Cascades.
+  userId      String
+  sessionId   String?
+  sessionName String   @db.VarChar(80)
+  startedAt   DateTime
+  /// Set by the server when the run is logged.
+  endedAt     DateTime @default(now())
+  items       Json
+
+  session PracticeSession? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+
+  @@index([userId, endedAt])
+  @@index([sessionId, endedAt])
+  @@map("practice_run")
+}
+
 /// Your Studio settings (D19): how you play, as opposed to what you are
 /// playing. The kit and its tuning, the count-in, the generator's dials, and
 /// the starting values a new pattern opens with. One row per person, so
@@ -693,9 +815,10 @@ model LibraryEntry {
   library      PatternLibrary @relation(fields: [libraryId], references: [id], onDelete: Cascade)
   styleVersion StyleVersion?  @relation("EntryStyleVersion", fields: [styleVersionId], references: [id], onDelete: SetNull)
 
-  pins         Pin[]           @relation("PinEntry")
-  visits       PracticeVisit[] @relation("VisitEntry")
-  speedRecords SpeedRecord[]   @relation("SpeedEntry")
+  pins          Pin[]                 @relation("PinEntry")
+  visits        PracticeVisit[]       @relation("VisitEntry")
+  speedRecords  SpeedRecord[]         @relation("SpeedEntry")
+  practiceItems PracticeSessionItem[] @relation("PracticeItemEntry")
 
   @@unique([libraryId, position])
   @@unique([libraryId, seedKey])

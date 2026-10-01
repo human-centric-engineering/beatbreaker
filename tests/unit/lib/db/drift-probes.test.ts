@@ -384,6 +384,8 @@ describe('shipped lib/app/db-drift.ts scaffold', () => {
       'kit',
       'pattern_library',
       'pin',
+      'practice_run',
+      'practice_session',
       'practice_visit',
       'sample',
       'speed_record',
@@ -419,6 +421,8 @@ describe('shipped lib/app/db-drift.ts scaffold', () => {
       ['practice_visit', expect.stringContaining('practice_visit_one_target')],
       // at most one, not exactly one: a record outlives its target (7C)
       ['speed_record', expect.stringContaining('speed_record_one_target')],
+      // at most one, for the same reason: an item keeps its title (7D)
+      ['practice_session_item', expect.stringContaining('practice_session_item_one_target')],
     ]);
   });
 });
