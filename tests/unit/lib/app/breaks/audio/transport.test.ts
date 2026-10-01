@@ -227,7 +227,8 @@ function drive(snap: TransportSnapshot, seconds: number, withFrames = false) {
   const cb = {
     getSnapshot: () => snap,
     onBpm: vi.fn<(bpm: number) => void>(),
-    onLoop: vi.fn<(loops: number) => void>(),
+    onLoop: vi.fn<(loops: number, at: number) => void>(),
+    onDownbeat: vi.fn<(at: number) => void>(),
     onPaint: vi.fn(),
     onStop: vi.fn(),
   };
@@ -282,9 +283,29 @@ describe('Transport — the clock', () => {
   it('loops the arrangement, reports each loop, and ramps the tempo up to the ceiling', () => {
     const snap = snapshot(twoBarPattern(), { ramp: 4, ceiling: 122, click: false });
     const { cb } = drive(snap, 4.5);
-    expect(cb.onLoop).toHaveBeenCalledWith(1);
+    expect(cb.onLoop).toHaveBeenCalledWith(1, expect.any(Number));
     // 120 + 4 would pass the 122 ceiling, so it stops there
     expect(cb.onBpm).toHaveBeenCalledWith(122);
+  });
+
+  it('reports each loop boundary at its audio-clock time, not when it was scheduled', () => {
+    // 120 bpm, two bars of 4/4: a loop is 4s, and the music starts 0.08s after start()
+    const { cb } = drive(snapshot(twoBarPattern(), { click: false }), 8.5);
+    const [first, second] = cb.onLoop.mock.calls;
+    expect(first[0]).toBe(1);
+    expect(first[1]).toBeCloseTo(0.08 + 4, 6);
+    expect(second[1]).toBeCloseTo(0.08 + 8, 6);
+  });
+
+  it('reports the downbeat after the count-in, and at once without one', () => {
+    // one bar of count-in at 120 is 2s
+    const counted = drive(snapshot(twoBarPattern(), { countIn: 1, click: false }), 2.5);
+    expect(counted.cb.onDownbeat).toHaveBeenCalledTimes(1);
+    expect(counted.cb.onDownbeat.mock.calls[0][0]).toBeCloseTo(0.08 + 2, 6);
+
+    const straight = drive(snapshot(twoBarPattern(), { countIn: 0, click: false }), 0.5);
+    expect(straight.cb.onDownbeat).toHaveBeenCalledTimes(1);
+    expect(straight.cb.onDownbeat.mock.calls[0][0]).toBeCloseTo(0.08, 6);
   });
 
   it('leaves the tempo alone at the ceiling', () => {

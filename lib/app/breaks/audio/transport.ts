@@ -76,7 +76,19 @@ export interface TransportCallbacks {
   getSnapshot: () => TransportSnapshot;
   /** The tempo trainer moved the tempo. */
   onBpm: (bpm: number) => void;
-  onLoop: (loops: number) => void;
+  /**
+   * The arrangement came round for the `loops`-th time. `at` is the audio-clock
+   * time the next loop starts — the boundary itself, not when it was
+   * scheduled, which runs ahead of it by the lookahead. A practice session
+   * (7D) measures its slots from these, never from `setTimeout`.
+   */
+  onLoop: (loops: number, at: number) => void;
+  /**
+   * Bar 1 starts, once any count-in is over: the audio-clock time of the
+   * first note. Called on every `start()`, so a session's clock knows where
+   * each slot begins.
+   */
+  onDownbeat?: (at: number) => void;
   onPaint: (ev: PlayEvent, loops: number) => void;
   onStop: () => void;
 }
@@ -137,6 +149,7 @@ export class Transport {
     this.countLeft = snap.countIn * patSteps(snap.patterns.A);
     this.nextTime = ctx.currentTime + 0.08;
     this.playing = true;
+    if (this.countLeft === 0) this.cb.onDownbeat?.(this.nextTime);
 
     this.tick();
     this.paint();
@@ -288,6 +301,7 @@ export class Transport {
     this.nextTime += this.stepDur(snap.bpm);
     if (this.countLeft > 0) {
       this.countLeft--;
+      if (this.countLeft === 0) this.cb.onDownbeat?.(this.nextTime);
       return;
     }
     this.step++;
@@ -299,7 +313,7 @@ export class Transport {
 
     this.seqIndex = 0;
     this.loops++;
-    this.cb.onLoop(this.loops);
+    this.cb.onLoop(this.loops, this.nextTime);
     if (snap.ramp) {
       const next = Math.min(snap.ceiling, snap.bpm + snap.ramp);
       if (next !== snap.bpm) this.cb.onBpm(next);
