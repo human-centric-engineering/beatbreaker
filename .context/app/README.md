@@ -12,6 +12,7 @@ folders beside this one; start at [`../substrate.md`](../substrate.md).
 | [`catalogue.md`](./catalogue.md)                   | The catalogue: styles, libraries and kits as rows, wire format v4, the read and admin APIs, seeding.                                           |
 | [`patterns.md`](./patterns.md)                     | Your patterns (Phase 4): the pattern as a document, autosave, opening, Details and link chips, and what was left as it is.                     |
 | [`samples.md`](./samples.md)                       | Your own samples and kits (Phase 4A): the one WAV format, the limits, private storage, `/api/v1/samples` and `/api/v1/kits`, erasure.          |
+| [`sessions.md`](./sessions.md)                     | Practice sessions (Phase 7D): the time split, the climb, the tables, `/api/v1/practice-sessions`.                                              |
 | [`settings.md`](./settings.md)                     | Where the Studio keeps its settings (Phase 4A): the pattern, your account (`StudioSettings`, `/api/v1/studio-settings`), and the browser keys. |
 | [`sharing.md`](./sharing.md)                       | Sharing (Phase 6): visibility and slugs, copies and their credit line, usernames and `/api/v1/drummer-profile`.                                |
 | [`shell.md`](./shell.md)                           | The Studio shell: the `(studio)` route group, the frame, the drawers, and where a new control goes.                                            |

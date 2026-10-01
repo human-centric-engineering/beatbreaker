@@ -21,6 +21,7 @@ vi.mock('@/lib/db/client', () => ({
       create: vi.fn(),
       findMany: vi.fn(),
       deleteMany: vi.fn(),
+      groupBy: vi.fn(),
     },
     drummerProfile: { findUnique: vi.fn() },
   },
@@ -41,9 +42,11 @@ import { PUBLIC } from '@/lib/app/breaks/catalogue/data';
 import { breakHash, entryHash, placesOn } from '@/lib/app/breaks/community/speed-tables';
 import { openableBy } from '@/lib/app/breaks/community/visibility';
 import {
+  bestKey,
   deleteSpeed,
   recordSpeed,
   SPEED_DAILY_CAP,
+  yourBests,
   yourSpeeds,
 } from '@/lib/app/breaks/saved/speeds';
 import { updateStudioSettings } from '@/lib/app/breaks/saved/settings';
@@ -457,6 +460,71 @@ describe('yourSpeeds', () => {
     const result = await yourSpeeds(USER_ID, { breakId: BREAK_ID });
 
     expect(result?.records.map((r) => r.title)).toEqual(['Live name', 'Gone now']);
+  });
+});
+
+describe('bestKey', () => {
+  it('keys a break target by id and layer', () => {
+    expect(bestKey({ breakId: BREAK_ID }, 3)).toBe(`b:${BREAK_ID}:3`);
+  });
+
+  it('keys a library entry target by id and layer', () => {
+    expect(bestKey({ libraryEntryId: ENTRY_ID }, 2)).toBe(`e:${ENTRY_ID}:2`);
+  });
+
+  it('gives a break and an entry with the same id different keys', () => {
+    expect(bestKey({ breakId: ENTRY_ID }, 1)).not.toBe(bestKey({ libraryEntryId: ENTRY_ID }, 1));
+  });
+});
+
+describe('yourBests', () => {
+  it('makes no query and returns an empty map for no targets', async () => {
+    const result = await yourBests(USER_ID, []);
+
+    expect(result.size).toBe(0);
+    expect(prisma.speedRecord.groupBy).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing to look up
+  });
+
+  it('queries groupBy scoped to the caller, with both id lists deduped', async () => {
+    vi.mocked(prisma.speedRecord.groupBy).mockResolvedValue([]);
+
+    await yourBests(USER_ID, [
+      { breakId: BREAK_ID },
+      { breakId: BREAK_ID }, // duplicate — must not appear twice
+      { libraryEntryId: ENTRY_ID },
+    ]);
+
+    expect(vi.mocked(prisma.speedRecord.groupBy).mock.calls[0][0]).toMatchObject({
+      by: ['breakId', 'libraryEntryId', 'level'],
+      where: {
+        userId: USER_ID,
+        OR: [{ breakId: { in: [BREAK_ID] } }, { libraryEntryId: { in: [ENTRY_ID] } }],
+      },
+      _max: { bpm: true },
+    });
+  });
+
+  it("maps each row to bestKey's key, with the row's own _max.bpm", async () => {
+    vi.mocked(prisma.speedRecord.groupBy).mockResolvedValue([
+      { breakId: BREAK_ID, libraryEntryId: null, level: 3, _max: { bpm: 140 } },
+      { breakId: null, libraryEntryId: ENTRY_ID, level: 2, _max: { bpm: 95 } },
+    ] as never);
+
+    const result = await yourBests(USER_ID, [{ breakId: BREAK_ID }, { libraryEntryId: ENTRY_ID }]);
+
+    expect(result.get(bestKey({ breakId: BREAK_ID }, 3))).toBe(140);
+    expect(result.get(bestKey({ libraryEntryId: ENTRY_ID }, 2))).toBe(95);
+    expect(result.size).toBe(2);
+  });
+
+  it('skips a row whose _max.bpm is null, rather than recording it as a best of null', async () => {
+    vi.mocked(prisma.speedRecord.groupBy).mockResolvedValue([
+      { breakId: BREAK_ID, libraryEntryId: null, level: 3, _max: { bpm: null } },
+    ] as never);
+
+    const result = await yourBests(USER_ID, [{ breakId: BREAK_ID }]);
+
+    expect(result.size).toBe(0);
   });
 });
 

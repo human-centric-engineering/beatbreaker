@@ -255,6 +255,27 @@ export function registerAppDriftProbes(): void {
     });
   }
 
+  /* Practice sessions (20261001120000_practice_sessions): your sessions and
+     your runs go with you, and an item points at at most one target — both
+     are SET NULL, so an item whose pattern was deleted keeps its title. */
+  for (const table of ['practice_session', 'practice_run']) {
+    registerAppDriftProbe({
+      name: `${table}_userId_fkey (hand-written FK → user)`,
+      kind: 'FK constraint',
+      table,
+      probe: constraintExists(`${table}_userId_fkey`, 'ON DELETE CASCADE'),
+    });
+  }
+  registerAppDriftProbe({
+    name: 'practice_session_item_one_target (CHECK: at most one of breakId, libraryEntryId)',
+    kind: 'CHECK constraint',
+    table: 'practice_session_item',
+    probe: constraintExists(
+      'practice_session_item_one_target',
+      'num_nonnulls("breakId", "libraryEntryId") <= 1'
+    ),
+  });
+
   /* Reports on public patterns (20260927140000_break_reports). SET NULL, not
      CASCADE, for both: the report is the moderation record about a pattern,
      and erasing the reporter or the admin must not take it with them. */

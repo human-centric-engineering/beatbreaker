@@ -297,7 +297,8 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     // publish under, and excluded ReservedUsername, a released name with no
     // user id on it. Phase 6-iii (task 6.10) added BreakReport, the reports
     // you filed — not those about your own patterns. Phase 7 (task 7.8) added
-    // BuddyWorkspace, the pattern BeatBuddy last saw.
+    // BuddyWorkspace, the pattern BeatBuddy last saw. Phase 7D (task 7D.2)
+    // added PracticeSession, with its items inside it, and PracticeRun.
     assert: async () => {
       __resetAppSubjectSourceRegistryForTests();
       expect(
@@ -314,6 +315,8 @@ const SEAM_DEFAULTS: SeamDefault[] = [
         'Kit',
         'PatternLibrary',
         'Pin',
+        'PracticeRun',
+        'PracticeSession',
         'PracticeVisit',
         'Sample',
         'SpeedRecord',
@@ -335,6 +338,8 @@ const SEAM_DEFAULTS: SeamDefault[] = [
         'libraries',
         'pins',
         'practiceHistory',
+        'practiceRuns',
+        'practiceSessions',
         'profileReportsFiled',
         'reportsFiled',
         'samples',
@@ -348,7 +353,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
         getAppExcludedSubjectSources()
           .map((s) => s.model)
           .sort()
-      ).toEqual(['LibraryEntry', 'ReservedUsername', 'StyleVersion']);
+      ).toEqual(['LibraryEntry', 'PracticeSessionItem', 'ReservedUsername', 'StyleVersion']);
       // An exclusion without a reason is a table nobody decided about.
       for (const excluded of getAppExcludedSubjectSources()) {
         expect(excluded.reason.length).toBeGreaterThan(20);
