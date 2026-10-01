@@ -14,7 +14,7 @@
  * pattern; unpinning; a failed pin says so.
  */
 
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { act, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -296,5 +296,44 @@ describe('the stage', () => {
     await user.keyboard('n');
 
     await waitFor(() => expect(stageStar().disabled).toBe(true));
+  });
+});
+
+describe('a famous break edited on the stage', () => {
+  let studio: ReturnType<typeof useStudio>;
+  function Grab() {
+    studio = useStudio();
+    return null;
+  }
+
+  async function openEntry() {
+    render(
+      <StudioProvider catalogue={catalogue}>
+        <Grab />
+      </StudioProvider>
+    );
+    await waitFor(() => expect(studio.ready).toBe(true));
+    act(() => studio.loadLibraryEntry(ENTRY.id));
+    await waitFor(() => expect(studio.stagePin).toEqual({ libraryEntryId: ENTRY.id }));
+  }
+
+  it('is not edited as it opens, nor for a change of tempo or layer', async () => {
+    await openEntry();
+    act(() => studio.setBpm(studio.bpm + 10));
+    act(() => studio.setLevel(1));
+
+    expect(studio.entryEdited).toBe(false);
+  });
+
+  it('is edited once a note changes, and not again after undo', async () => {
+    await openEntry();
+
+    act(() => studio.cycleCell('A', 0, 'k', 1, false));
+    await waitFor(() => expect(studio.entryEdited).toBe(true));
+    // still that break — the pin, and what the speeds card is told, are unchanged
+    expect(studio.stagePin).toEqual({ libraryEntryId: ENTRY.id });
+
+    act(() => studio.undo());
+    await waitFor(() => expect(studio.entryEdited).toBe(false));
   });
 });

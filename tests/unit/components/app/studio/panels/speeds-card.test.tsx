@@ -7,7 +7,8 @@
  *
  * `useStudio()` is replaced with a hand-built `Studio` object, as
  * `stage-playhead.test.tsx` does, because the fields `SpeedsCard` reads
- * (`stagePin`, `bpm`, `level`, `doc.variationOf`, `doc.sharing`, `say`) are a
+ * (`stagePin`, `entryEdited`, `bpm`, `level`, `doc.variationOf`, `doc.sharing`,
+ * `say`) are a
  * small slice of a much larger console. `useSpeeds`/`useTableTop` — the real
  * hooks — run underneath, driven by a mocked `apiClient`, so every assertion
  * is on what the card actually requested or sent.
@@ -44,6 +45,7 @@ const say = vi.fn();
 function makeFake(overrides: Partial<Studio> = {}): Studio {
   return {
     stagePin: BREAK_TARGET,
+    entryEdited: false,
     bpm: 94.4,
     level: 2,
     doc: {
@@ -140,6 +142,37 @@ describe('with nothing to record on', () => {
     expect(hint).toBeInTheDocument();
     expect(hint).toHaveTextContent('“Cold Carpet”');
     expect(screen.queryByRole('button', { name: /Mark my speed/ })).not.toBeInTheDocument();
+  });
+});
+
+describe('a famous break edited on the stage', () => {
+  it('disables Mark my speed and says why, still showing the table', async () => {
+    renderCard(
+      { stagePin: ENTRY_TARGET, entryEdited: true },
+      yourSpeeds({ public: true, listSpeeds: 'list' }),
+      [tableRow()]
+    );
+
+    expect(await screen.findByRole('button', { name: 'Mark my speed · 94 bpm' })).toBeDisabled();
+    expect(screen.getByText(/You've changed this famous break's notes/)).toBeInTheDocument();
+    expect(await screen.findByText('@ghostnotes')).toBeInTheDocument();
+  });
+
+  it('takes away a form already open when the notes change, so nothing is posted', async () => {
+    const user = userEvent.setup();
+    const view = renderCard(
+      { stagePin: ENTRY_TARGET },
+      yourSpeeds({ public: true, listSpeeds: 'list' })
+    );
+    await user.click(await screen.findByRole('button', { name: 'Mark my speed · 94 bpm' }));
+    expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+
+    fake = makeFake({ stagePin: ENTRY_TARGET, entryEdited: true });
+    view.rerender(<SpeedsCard />);
+
+    expect(screen.queryByRole('button', { name: 'Save' })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Mark my speed · 94 bpm' })).toBeDisabled();
+    expect(apiClient.post).not.toHaveBeenCalled(); // test-review:accept no_arg_called — the form is gone, nothing to send
   });
 });
 

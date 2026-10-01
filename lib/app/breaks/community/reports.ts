@@ -4,6 +4,7 @@ import type {
   ReportReason,
   SpeedReportReason,
 } from '@/lib/app/breaks/community/report-reasons';
+import { tabledRecord } from '@/lib/app/breaks/community/speed-tables';
 import { prisma } from '@/lib/db/client';
 
 /**
@@ -295,10 +296,12 @@ export async function profileQueue(): Promise<ProfileQueueItem[]> {
 }
 
 /**
- * Report a row on a speed table (Phase 7C). Only a listed record can be
- * reported — one that is on no table is a 404, the same as one that does not
- * exist. The same rules as the other reports: one open report per person per
- * record, updated rather than stacked; not your own; the shared daily cap.
+ * Report a row on a speed table (Phase 7C). Only a record on a table can be
+ * reported — listed, on a pattern that is still public, on the notes it has
+ * now (`tabledRecord`). One that is on no table is a 404, the same as one
+ * that does not exist. The same rules as the other reports: one open report
+ * per person per record, updated rather than stacked; not your own; the
+ * shared daily cap.
  */
 export async function fileSpeedReport(
   reporterId: string,
@@ -306,10 +309,7 @@ export async function fileSpeedReport(
   input: { reason: SpeedReportReason; note?: string },
   now = new Date()
 ): Promise<{ id: string; status: 'open' }> {
-  const target = await prisma.speedRecord.findFirst({
-    where: { id: recordId, listed: true },
-    select: { id: true, userId: true },
-  });
+  const target = await tabledRecord(recordId);
   if (!target) throw new NotFoundError('Speed not found');
   if (target.userId === reporterId) {
     throw new ValidationError('You cannot report your own speed', { id: ['yours'] });

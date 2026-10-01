@@ -9,6 +9,7 @@ import {
 } from '@/lib/app/breaks/community/reports';
 import PatternUnpublishedEmail from '@/components/app/emails/pattern-unpublished';
 import SpeedUnlistedEmail from '@/components/app/emails/speed-unlisted';
+import { tabledRecord } from '@/lib/app/breaks/community/speed-tables';
 import { prisma } from '@/lib/db/client';
 import { sendEmail } from '@/lib/email/send';
 import { logger } from '@/lib/logging';
@@ -184,7 +185,6 @@ export async function moderateSpeed(
     where: { id: recordId },
     select: {
       userId: true,
-      listed: true,
       level: true,
       bpm: true,
       titleSnapshot: true,
@@ -211,6 +211,11 @@ export async function moderateSpeed(
     return { recordId, action, reportsClosed: count };
   }
 
+  /* Read before the unlisting, which takes it off every table: a record whose
+     pattern has since been unpublished, or whose notes have since changed, was
+     on no table, and its drummer is not told otherwise. */
+  const wasOnTable = (await tabledRecord(recordId)) !== null;
+
   const [, { count }] = await prisma.$transaction([
     prisma.speedRecord.update({ where: { id: recordId }, data: { listed: false } }),
     prisma.speedReport.updateMany({
@@ -220,10 +225,10 @@ export async function moderateSpeed(
   ]);
 
   /* Only when this took it off a table, for the reasons `moderate` gives: a
-     record already unlisted has nothing to tell anyone, and a second
+     record on no table has nothing to tell anyone, and a second
      moderator acting at once closes nothing and sends nothing. After the
      write, and logged rather than thrown — the unlisting happened either way. */
-  if (!row.listed || count === 0) return { recordId, action, reportsClosed: count };
+  if (!wasOnTable || count === 0) return { recordId, action, reportsClosed: count };
   const drummer = await prisma.user.findUnique({
     where: { id: row.userId },
     select: { email: true },

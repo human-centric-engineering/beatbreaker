@@ -22,6 +22,8 @@ import { SPEED_NOTE_MAX, type SpeedRecordView } from '@/lib/validations/speeds';
  * A speed is recorded against a pattern with an identity — a saved one, or
  * the famous break it came from — and never against a variation you have not
  * saved yet: a record on a published pattern is always for its fixed notes.
+ * Nor against a famous break whose notes you have changed on the stage: the
+ * record would count on the real break's table, for notes you did not play.
  *
  * The first time you record on a pattern with a public table, it asks
  * whether to list it, and the answer is kept as your default (the server
@@ -119,7 +121,14 @@ export function SpeedsCard() {
               <p className="hint">Choose a username in Settings to appear on this table.</p>
             ) : null}
 
-            {open ? (
+            {c.entryEdited ? (
+              <p className="hint">
+                You&apos;ve changed this famous break&apos;s notes. Undo back to them to mark a
+                speed on it, or save your version to record speeds on that.
+              </p>
+            ) : null}
+
+            {open && !c.entryEdited ? (
               <form
                 className="speeds-form"
                 onSubmit={(e) => {
@@ -226,7 +235,12 @@ export function SpeedsCard() {
               </form>
             ) : (
               <div className="btnrow">
-                <button type="button" className="mini" onClick={() => setOpen(true)}>
+                <button
+                  type="button"
+                  className="mini"
+                  disabled={c.entryEdited}
+                  onClick={() => setOpen(true)}
+                >
                   Mark my speed · {bpm} bpm
                 </button>
               </div>

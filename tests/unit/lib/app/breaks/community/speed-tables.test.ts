@@ -16,7 +16,7 @@ vi.mock('@/lib/db/client', () => ({
     break: { findFirst: vi.fn() },
     libraryEntry: { findFirst: vi.fn() },
     drummerProfile: { findUnique: vi.fn() },
-    speedRecord: { findMany: vi.fn() },
+    speedRecord: { findMany: vi.fn(), findFirst: vi.fn() },
     $queryRaw: vi.fn(),
   },
 }));
@@ -34,6 +34,7 @@ import {
   patternTableTarget,
   placesOn,
   readSpeedTable,
+  tabledRecord,
 } from '@/lib/app/breaks/community/speed-tables';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import {
@@ -387,5 +388,62 @@ describe('listedBests', () => {
     expect(result).toHaveLength(LISTED_BESTS_MAX);
     const times = result.map((r) => new Date(r.recordedAt).getTime());
     expect(times).toEqual([...times].sort((a, b) => b - a));
+  });
+});
+
+describe('tabledRecord', () => {
+  const RECORD_ID = 'cspd00000000000000000001';
+
+  function row(over: Record<string, unknown> = {}) {
+    return {
+      id: RECORD_ID,
+      userId: USER_ID,
+      gridHash: 'current-hash',
+      breakRef: { gridHash: 'current-hash', doc: null },
+      libraryEntry: null,
+      ...over,
+    };
+  }
+
+  it('asks only for a listed record on a published pattern or a public famous break', async () => {
+    vi.mocked(prisma.speedRecord.findFirst).mockResolvedValue(null);
+
+    expect(await tabledRecord(RECORD_ID)).toBeNull();
+    expect(vi.mocked(prisma.speedRecord.findFirst).mock.calls[0][0]?.where).toEqual({
+      id: RECORD_ID,
+      listed: true,
+      OR: [
+        { breakRef: { visibility: 'published', slug: { not: null } } },
+        { libraryEntry: { library: PUBLIC } },
+      ],
+    });
+  });
+
+  it('answers with the record and its drummer while it is on its pattern’s notes', async () => {
+    vi.mocked(prisma.speedRecord.findFirst).mockResolvedValue(row() as never);
+
+    expect(await tabledRecord(RECORD_ID)).toEqual({ id: RECORD_ID, userId: USER_ID });
+  });
+
+  it('is null for a record on a pattern whose notes have changed', async () => {
+    vi.mocked(prisma.speedRecord.findFirst).mockResolvedValue(
+      row({ breakRef: { gridHash: 'new-hash', doc: null } }) as never
+    );
+
+    expect(await tabledRecord(RECORD_ID)).toBeNull();
+  });
+
+  it('checks a famous break against the hash of its notes now', async () => {
+    const doc = entryDoc();
+    const current = await entryHash(doc);
+    vi.mocked(prisma.speedRecord.findFirst).mockResolvedValue(
+      row({ gridHash: current, breakRef: null, libraryEntry: { doc } }) as never
+    );
+    expect(await tabledRecord(RECORD_ID)).toEqual({ id: RECORD_ID, userId: USER_ID });
+
+    vi.mocked(prisma.speedRecord.findFirst).mockResolvedValue(
+      row({ gridHash: 'old-notes', breakRef: null, libraryEntry: { doc } }) as never
+    );
+    expect(await tabledRecord(RECORD_ID)).toBeNull();
   });
 });

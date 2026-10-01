@@ -31,9 +31,12 @@ vi.mock('@/lib/db/client', () => ({
 /** Re-typed to the one overload this file exercises, for call-site convenience. */
 type FakeTransaction = (ops: Promise<unknown>[]) => Promise<unknown[]>;
 vi.mock('@/lib/email/send', () => ({ sendEmail: vi.fn() }));
+// what decides whether a record is on a table has its own tests (speed-tables.test.ts)
+vi.mock('@/lib/app/breaks/community/speed-tables', () => ({ tabledRecord: vi.fn() }));
 
 import { NotFoundError } from '@/lib/api/errors';
 import { moderate, moderateProfile, moderateSpeed } from '@/lib/app/breaks/community/moderation';
+import { tabledRecord } from '@/lib/app/breaks/community/speed-tables';
 import { prisma } from '@/lib/db/client';
 import { sendEmail } from '@/lib/email/send';
 import { mockEmailFailure, mockEmailSuccess } from '@/tests/helpers/email';
@@ -272,7 +275,6 @@ describe('moderateSpeed (7C)', () => {
   function recordRow(overrides: Record<string, unknown> = {}) {
     return {
       userId: OWNER_ID,
-      listed: true,
       level: 2,
       bpm: 180,
       titleSnapshot: 'Old name',
@@ -287,6 +289,7 @@ describe('moderateSpeed (7C)', () => {
     vi.mocked(prisma.speedRecord.findUnique).mockResolvedValue(recordRow() as never);
     vi.mocked(prisma.speedRecord.update).mockResolvedValue({} as never);
     vi.mocked(prisma.speedReport.updateMany).mockResolvedValue({ count: 2 });
+    vi.mocked(tabledRecord).mockResolvedValue({ id: RECORD_ID, userId: OWNER_ID });
   });
 
   it('404s a record that no longer exists', async () => {
@@ -340,13 +343,37 @@ describe('moderateSpeed (7C)', () => {
     expect(vi.mocked(sendEmail).mock.calls[0][0].subject).toContain('“Old name”');
   });
 
-  it('emails nobody when the record was already off the table, or a second moderator closed nothing', async () => {
-    vi.mocked(prisma.speedRecord.findUnique).mockResolvedValue(
-      recordRow({ listed: false }) as never
-    );
+  it('emails nobody when the record was on no table — unlisted, its pattern unpublished, or its notes changed', async () => {
+    vi.mocked(tabledRecord).mockResolvedValue(null);
+    const result = await moderateSpeed(RECORD_ID, 'unlist', ADMIN_ID, NOW);
+
+    // still unlisted, and its reports still closed
+    expect(result.reportsClosed).toBe(2);
+    expect(prisma.speedRecord.update).toHaveBeenCalledWith({
+      where: { id: RECORD_ID },
+      data: { listed: false },
+    });
+    expect(sendEmail).not.toHaveBeenCalled(); // test-review:accept no_arg_called — it was on no table
+  });
+
+  it('asks whether it is on a table before taking it off', async () => {
+    const order: string[] = [];
+    vi.mocked(tabledRecord).mockImplementation(async () => {
+      order.push('check');
+      return { id: RECORD_ID, userId: OWNER_ID };
+    });
+    vi.mocked(prisma.speedRecord.update).mockImplementation((() => {
+      order.push('unlist');
+      return Promise.resolve({});
+    }) as never);
+
     await moderateSpeed(RECORD_ID, 'unlist', ADMIN_ID, NOW);
 
-    vi.mocked(prisma.speedRecord.findUnique).mockResolvedValue(recordRow() as never);
+    expect(tabledRecord).toHaveBeenCalledWith(RECORD_ID);
+    expect(order).toEqual(['check', 'unlist']);
+  });
+
+  it('emails nobody when a second moderator closed nothing', async () => {
     vi.mocked(prisma.speedReport.updateMany).mockResolvedValue({ count: 0 });
     await moderateSpeed(RECORD_ID, 'unlist', ADMIN_ID, NOW);
 

@@ -67,6 +67,40 @@ export async function entryTableTarget(id: string): Promise<TableTarget | null> 
   return row ? { target: { libraryEntryId: row.id }, hash: await entryHash(row.doc) } : null;
 }
 
+/**
+ * A listed record that is still on its target's table: the target is public
+ * — a published pattern, or a famous break in a library everyone can see —
+ * and the record is on the notes it has now. Null for anything else, the
+ * same answer as for a record that does not exist. What a report on a table
+ * row is held to, so nobody can report a speed that is on no table.
+ */
+export async function tabledRecord(id: string): Promise<{ id: string; userId: string } | null> {
+  const row = await prisma.speedRecord.findFirst({
+    where: {
+      id,
+      listed: true,
+      OR: [
+        { breakRef: { visibility: 'published', slug: { not: null } } },
+        { libraryEntry: { library: PUBLIC } },
+      ],
+    },
+    select: {
+      id: true,
+      userId: true,
+      gridHash: true,
+      breakRef: { select: { gridHash: true, doc: true } },
+      libraryEntry: { select: { doc: true } },
+    },
+  });
+  if (!row) return null;
+  const hash = row.breakRef
+    ? await breakHash(row.breakRef)
+    : row.libraryEntry
+      ? await entryHash(row.libraryEntry.doc)
+      : null;
+  return hash === row.gridHash ? { id: row.id, userId: row.userId } : null;
+}
+
 /** One row of a table. */
 export interface SpeedTableRow {
   /** The record's id — what a report names. */

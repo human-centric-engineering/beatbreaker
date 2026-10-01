@@ -33,12 +33,13 @@ vi.mock('@/lib/db/client', () => ({
       update: vi.fn(),
       count: vi.fn(),
     },
-    speedRecord: { findFirst: vi.fn() },
     drummerAbout: { findMany: vi.fn() },
     user: { findMany: vi.fn() },
     drummerProfile: { findMany: vi.fn(), findUnique: vi.fn() },
   },
 }));
+// what decides whether a record is on a table has its own tests (speed-tables.test.ts)
+vi.mock('@/lib/app/breaks/community/speed-tables', () => ({ tabledRecord: vi.fn() }));
 
 import { NotFoundError, ValidationError } from '@/lib/api/errors';
 import {
@@ -51,6 +52,7 @@ import {
   REPORT_DAILY_CAP,
   speedQueue,
 } from '@/lib/app/breaks/community/reports';
+import { tabledRecord } from '@/lib/app/breaks/community/speed-tables';
 import { prisma } from '@/lib/db/client';
 
 const REPORTER_ID = 'cmjbv4i3x00003wsloputgwul';
@@ -534,23 +536,21 @@ describe('fileSpeedReport (7C)', () => {
   const RECORD_ID = 'cspd00000000000000000001';
   const DRUMMER_ID = 'cdrum0000000000000000001';
 
-  it('404s a record that is on no table, asking only for listed ones', async () => {
-    vi.mocked(prisma.speedRecord.findFirst).mockResolvedValue(null);
+  it('404s a record that is on no table', async () => {
+    vi.mocked(tabledRecord).mockResolvedValue(null);
 
     await expect(
       fileSpeedReport(REPORTER_ID, RECORD_ID, { reason: 'wrong-speed' }, NOW)
     ).rejects.toBeInstanceOf(NotFoundError);
-    expect(vi.mocked(prisma.speedRecord.findFirst).mock.calls[0][0]).toMatchObject({
-      where: { id: RECORD_ID, listed: true },
-    });
+    expect(tabledRecord).toHaveBeenCalledWith(RECORD_ID);
     expect(prisma.speedReport.create).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing to report
   });
 
   it('refuses your own speed', async () => {
-    vi.mocked(prisma.speedRecord.findFirst).mockResolvedValue({
+    vi.mocked(tabledRecord).mockResolvedValue({
       id: RECORD_ID,
       userId: REPORTER_ID,
-    } as never);
+    });
 
     await expect(
       fileSpeedReport(REPORTER_ID, RECORD_ID, { reason: 'wrong-speed' }, NOW)
@@ -558,10 +558,10 @@ describe('fileSpeedReport (7C)', () => {
   });
 
   it('updates your open report on the same record rather than adding another', async () => {
-    vi.mocked(prisma.speedRecord.findFirst).mockResolvedValue({
+    vi.mocked(tabledRecord).mockResolvedValue({
       id: RECORD_ID,
       userId: DRUMMER_ID,
-    } as never);
+    });
     vi.mocked(prisma.speedReport.findFirst).mockResolvedValue({ id: 'srpt1' } as never);
 
     const result = await fileSpeedReport(
@@ -580,10 +580,10 @@ describe('fileSpeedReport (7C)', () => {
   });
 
   it('refuses with REPORT_LIMIT (429) at the daily cap, counted across every report kind', async () => {
-    vi.mocked(prisma.speedRecord.findFirst).mockResolvedValue({
+    vi.mocked(tabledRecord).mockResolvedValue({
       id: RECORD_ID,
       userId: DRUMMER_ID,
-    } as never);
+    });
     vi.mocked(prisma.speedReport.findFirst).mockResolvedValue(null);
     // one of each kind short of the cap, together over it
     vi.mocked(prisma.breakReport.count).mockResolvedValue(REPORT_DAILY_CAP - 2);
@@ -610,10 +610,10 @@ describe('fileSpeedReport (7C)', () => {
   });
 
   it('creates a report with a null note when none was given', async () => {
-    vi.mocked(prisma.speedRecord.findFirst).mockResolvedValue({
+    vi.mocked(tabledRecord).mockResolvedValue({
       id: RECORD_ID,
       userId: DRUMMER_ID,
-    } as never);
+    });
     vi.mocked(prisma.speedReport.findFirst).mockResolvedValue(null);
     vi.mocked(prisma.speedReport.create).mockResolvedValue({ id: 'srpt-new' } as never);
 

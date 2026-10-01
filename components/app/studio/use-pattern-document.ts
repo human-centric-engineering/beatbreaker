@@ -177,7 +177,7 @@ const created = z.object({ id: z.string().min(1), basedOn: basedOnSchema.nullish
  * What a fixed pattern is compared on: the notes, without the name (the row's
  * to change), the tempo or the layer (where you practise it, D26).
  */
-function notesKey(payload: SharePayload): string {
+export function notesKey(payload: SharePayload): string {
   const { bpm: _bpm, lv: _lv, ...rest } = payload;
   return JSON.stringify({ ...rest, A: { ...rest.A, n: '' }, B: { ...rest.B, n: '' } });
 }
