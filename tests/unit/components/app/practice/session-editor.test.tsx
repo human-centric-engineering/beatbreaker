@@ -197,6 +197,55 @@ describe('SessionEditor — saving', () => {
     expect(await screen.findByRole('heading', { level: 1, name: 'Ghost notes' })).toBeTruthy();
   });
 
+  it('sends a shorter list before a total cut below the patterns still saved', async () => {
+    // eight patterns in eight minutes; two go, and the total drops to six
+    const eight = Array.from({ length: 8 }, (_, k) => item(k + 1, { minutes: 1 }));
+    const order: string[] = [];
+    vi.mocked(apiClient.put).mockImplementation(async () => {
+      order.push('items');
+      return sessionView({ totalMinutes: 8, items: eight.slice(0, 6) });
+    });
+    vi.mocked(apiClient.patch).mockImplementation(async () => {
+      order.push('fields');
+      return sessionView({ totalMinutes: 6, items: eight.slice(0, 6) });
+    });
+    const user = userEvent.setup();
+    render(<SessionEditor initial={sessionView({ totalMinutes: 8, items: eight })} />);
+
+    await user.click(screen.getByRole('button', { name: 'Remove Pattern 8' }));
+    await user.click(screen.getByRole('button', { name: 'Remove Pattern 7' }));
+    commit(screen.getByLabelText('Total minutes', { selector: 'input' }), '6');
+    await user.click(screen.getByRole('button', { name: 'Save' }));
+
+    expect(await screen.findByText('Saved.')).toBeInTheDocument();
+    expect(order).toEqual(['items', 'fields']);
+  });
+
+  it('sends a bigger total before the list, so pins sized for it are kept', async () => {
+    const order: string[] = [];
+    vi.mocked(apiClient.patch).mockImplementation(async () => {
+      order.push('fields');
+      return sessionView({ totalMinutes: 30 });
+    });
+    vi.mocked(apiClient.put).mockImplementation(async () => {
+      order.push('items');
+      return sessionView({ totalMinutes: 30 });
+    });
+    const user = userEvent.setup();
+    render(<SessionEditor initial={sessionView()} />);
+
+    commit(screen.getByLabelText('Total minutes', { selector: 'input' }), '30');
+    commit(screen.getAllByLabelText('Minutes', { selector: 'input' })[0], '20');
+    await user.click(screen.getByRole('button', { name: 'Save' }));
+
+    expect(await screen.findByText('Saved.')).toBeInTheDocument();
+    expect(order).toEqual(['fields', 'items']);
+    const { items } = vi.mocked(apiClient.put).mock.calls[0][1]?.body as {
+      items: Array<{ minutes: number; minutesPinned: boolean }>;
+    };
+    expect(items[0]).toEqual(expect.objectContaining({ minutes: 20, minutesPinned: true }));
+  });
+
   it('sends a cleared goal as null — your best, else the pattern’s tempo', async () => {
     vi.mocked(apiClient.put).mockResolvedValue(sessionView());
     const user = userEvent.setup();

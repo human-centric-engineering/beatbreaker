@@ -575,6 +575,38 @@ describe('PracticePanel — Practising', () => {
     ).toBeTruthy();
   });
 
+  it("adds a row to a session at the layer it is pinned at, as the shelf's session does", async () => {
+    const BREAK = 'cbrk00000000000000000077';
+    const user = userEvent.setup();
+    vi.mocked(apiClient.get).mockResolvedValue([]);
+    vi.mocked(apiClient.post).mockResolvedValue({});
+    mount({
+      pins: {
+        practising: [
+          {
+            id: 'cpin00000000000000000002',
+            shelf: 'practising',
+            position: 0,
+            target: { kind: 'break', id: BREAK, title: 'Cold Carpet', mine: true, level: 2 },
+          },
+        ],
+        later: [],
+      },
+      panel: <PracticePanel />,
+    });
+
+    await user.click(screen.getByRole('button', { name: 'Add Cold Carpet to a practice session' }));
+    await user.click(
+      await screen.findByRole('menuitem', { name: 'New session with this pattern' })
+    );
+
+    await waitFor(() =>
+      expect(apiClient.post).toHaveBeenCalledWith('/api/v1/practice-sessions', {
+        body: expect.objectContaining({ items: [{ breakId: BREAK, level: 2 }] }),
+      })
+    );
+  });
+
   it('leaves it out when nothing is on it', () => {
     mount({ pins: NONE, panel: <PracticePanel /> });
     expect(screen.queryByRole('heading', { name: 'Practising' })).toBeNull();

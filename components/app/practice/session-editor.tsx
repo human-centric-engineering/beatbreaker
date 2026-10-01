@@ -223,18 +223,24 @@ export function SessionEditor({ initial }: { initial: SessionView }) {
     const base = `/api/v1/practice-sessions/${saved.id}`;
     try {
       let view = saved;
-      if (fieldsDirty) {
-        view = sessionViewSchema.parse(
+      const sendFields = async () =>
+        sessionViewSchema.parse(
           await apiClient.patch(base, {
             body: { ...fields, description: fields.description.trim() || null },
           })
         );
-      }
-      if (itemsDirty) {
-        view = sessionViewSchema.parse(
+      const sendItems = async () =>
+        sessionViewSchema.parse(
           await apiClient.put(`${base}/items`, { body: { items: items.map(keptItem) } })
         );
-      }
+      /* The server checks a new total against the items it holds, and the new
+         list against the total it holds. A total cut below the patterns still
+         saved has to wait for the shorter list; otherwise the total goes first,
+         so pins sized for a bigger total are not squeezed into the old one. */
+      const listFirst = fields.totalMinutes < saved.items.length;
+      if (listFirst && itemsDirty) view = await sendItems();
+      if (fieldsDirty) view = await sendFields();
+      if (!listFirst && itemsDirty) view = await sendItems();
       setSaved(view);
       setFields(fieldsOf(view));
       setItems(view.items);

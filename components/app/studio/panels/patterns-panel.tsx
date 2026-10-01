@@ -91,6 +91,7 @@ function Row({
   sub,
   right,
   hint,
+  level,
   onOpen,
 }: {
   target: PinTarget;
@@ -98,6 +99,8 @@ function Row({
   sub: string;
   right: string;
   hint?: string;
+  /** The layer it is pinned, saved or was left at — what _Add to a session_ adds it at. */
+  level?: number;
   /** Instead of the provider's `open` — the history steps its own way. */
   onOpen?: () => void;
 }) {
@@ -126,6 +129,7 @@ function Row({
         className="item"
         target={target}
         title={title}
+        level={level}
         onResult={(message, error) => c.say(message, { error })}
       />
       <PinButton className="item" target={target} label={title} />
@@ -181,6 +185,7 @@ export function ShelfList({ shelf, empty }: { shelf: Shelf; empty: React.ReactNo
             key={pin.id}
             target={{ breakId: t.id }}
             title={t.title}
+            level={t.level}
             sub={t.level === undefined ? who : `${who} · ${layerName(t.level)}`}
             right={tempo(t.bpm, t.meter)}
           />
@@ -224,6 +229,7 @@ function RecentList() {
                 : 'Shared with you'
           }
           right={`${layerName(item.level)} · ${item.bpm}`}
+          level={item.level}
           // the history opens at the layer and tempo you left it
           onOpen={() => history.open(item)}
         />
@@ -399,6 +405,7 @@ function AllList() {
               target={{ breakId: r.id }}
               title={r.title}
               sub={`${styleLabel(r.style)} · ${layerName(r.level)}`}
+              level={r.level}
               right={tempo(r.bpm, r.meter)}
             />
           ))}
