@@ -18,6 +18,20 @@ release process.
 
 ### Added
 
+- **Practice sessions (BeatBreaker Phase 7D-i).** New `PracticeSession`,
+  `PracticeSessionItem` and `PracticeRun` models (migration
+  `practice_sessions`; `userId` cascades on sessions and runs, items cascade
+  with their session, an item's targets — `breakId`, `libraryEntryId`, at most
+  one — are nulled with `titleSnapshot`, a copy's `parentId` and a run's
+  `sessionId` are nulled; export sections `practiceSessions`, with the items
+  inside, and `practiceRuns`). `GET`/`POST /api/v1/practice-sessions`,
+  `GET`/`PATCH`/`DELETE /api/v1/practice-sessions/:id`,
+  `PUT /api/v1/practice-sessions/:id/items` (the whole list in order) and
+  `GET`/`POST /api/v1/practice-sessions/:id/runs`. The server splits a
+  session's minutes on every write (pinned items keep theirs, at least a
+  minute each); an item with no goal targets your best at its layer, else the
+  pattern's tempo. 100 sessions and 50 runs a day per person.
+
 - **Speed records and the tables (BeatBreaker Phase 7C).** New `SpeedRecord`
   model (migration `speed_records`; `userId` cascades, both targets —
   `breakId`, `libraryEntryId`, at most one — nulled, with `titleSnapshot`;
