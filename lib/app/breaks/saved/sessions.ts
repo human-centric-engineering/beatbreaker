@@ -5,7 +5,13 @@ import { maxBpm } from '@/lib/app/breaks/audio/transport';
 import { PUBLIC } from '@/lib/app/breaks/catalogue/data';
 import { openableBy, readVisibility } from '@/lib/app/breaks/community/visibility';
 import { bestKey, yourBests } from '@/lib/app/breaks/saved/speeds';
-import { type ClimbShape, CLIMB_SHAPES, effectiveClimb, slotPlan } from '@/lib/app/practice/climb';
+import {
+  type ClimbShape,
+  CLIMB_SHAPES,
+  effectiveClimb,
+  PRACTICE_BPM_MIN,
+  slotPlan,
+} from '@/lib/app/practice/climb';
 import { splitMinutes } from '@/lib/app/practice/split';
 import { prisma } from '@/lib/db/client';
 import type { PinTarget } from '@/lib/validations/pins';
@@ -141,7 +147,14 @@ async function toView(row: SessionRow, userId: string): Promise<SessionView> {
       climbSteps: item.climbSteps,
     };
     const bestBpm = target ? (bests.get(bestKey(pinTargetOf(target), item.level)) ?? null) : null;
-    const targetBpm = target ? (item.goalBpm ?? bestBpm ?? target.bpm) : null;
+    // a pattern may be saved at any tempo, but a run logs only what a speed
+    // record allows, so the target is kept inside that range
+    const targetBpm = target
+      ? Math.min(
+          maxBpm(target.meter),
+          Math.max(PRACTICE_BPM_MIN, item.goalBpm ?? bestBpm ?? target.bpm)
+        )
+      : null;
     const plan =
       targetBpm === null
         ? null

@@ -89,16 +89,16 @@ database on 2026-10-01.
 
 All under `withAuth`, scoped to the caller. Someone else's session is a 404.
 
-| Route                                     | Does                                                                                                           |
-| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `GET /api/v1/practice-sessions`           | Your sessions, newest change first, with titles, item count, visibility and when you last ran each. One query. |
-| `POST /api/v1/practice-sessions`          | Create, with or without items. 201.                                                                            |
-| `GET /api/v1/practice-sessions/:id`       | The session and its items, each with `bestBpm`, `targetBpm` (goal, else best, else tempo) and `startBpm`.      |
-| `PATCH /api/v1/practice-sessions/:id`     | Its own fields. A new total re-splits.                                                                         |
-| `DELETE /api/v1/practice-sessions/:id`    | Delete it and its items. Runs stay.                                                                            |
-| `PUT /api/v1/practice-sessions/:id/items` | The whole list in order: kept items by `id`, new ones by target. Reorder, edit, add and remove are one call.   |
-| `GET /api/v1/practice-sessions/:id/runs`  | Your runs of it, newest first, up to 50.                                                                       |
-| `POST /api/v1/practice-sessions/:id/runs` | A finished run, with the slots played. Started in the last day. 201.                                           |
+| Route                                     | Does                                                                                                                                |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /api/v1/practice-sessions`           | Your sessions, newest change first, with titles, item count, visibility and when you last ran each. One query.                      |
+| `POST /api/v1/practice-sessions`          | Create, with or without items. 201.                                                                                                 |
+| `GET /api/v1/practice-sessions/:id`       | The session and its items, each with `bestBpm`, `targetBpm` (goal, else best, else tempo, held to 40–meter ceiling) and `startBpm`. |
+| `PATCH /api/v1/practice-sessions/:id`     | Its own fields. A new total re-splits.                                                                                              |
+| `DELETE /api/v1/practice-sessions/:id`    | Delete it and its items. Runs stay.                                                                                                 |
+| `PUT /api/v1/practice-sessions/:id/items` | The whole list in order: kept items by `id`, new ones by target. Reorder, edit, add and remove are one call.                        |
+| `GET /api/v1/practice-sessions/:id/runs`  | Your runs of it, newest first, up to 50.                                                                                            |
+| `POST /api/v1/practice-sessions/:id/runs` | A finished run, with the slots played. Started in the last day; up to a minute ahead is taken as now. 201.                          |
 
 Request and response shapes are in `lib/validations/practice-sessions.ts`;
 the data layer is `lib/app/breaks/saved/sessions.ts` and `runs.ts`.

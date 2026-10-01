@@ -23,6 +23,8 @@ export const RUN_DAILY_CAP = 50;
 export const RUNS_MAX = 50;
 
 const DAY_MS = 24 * 60 * 60 * 1000;
+/** How far ahead of the server's clock a device's may run before a start is refused. */
+export const CLOCK_SKEW_MS = 60 * 1000;
 
 const storedSlots = z.array(runSlotSchema);
 
@@ -57,8 +59,9 @@ function toView(row: {
 
 /**
  * Log a finished run of one of your sessions. It must have started in the
- * last day and not in the future; past {@link RUN_DAILY_CAP} runs in a day is
- * a 429. Null when the session is not yours.
+ * last day; a start up to {@link CLOCK_SKEW_MS} ahead of the server's clock is
+ * a fast device clock, and is taken as now. Past {@link RUN_DAILY_CAP} runs in
+ * a day is a 429. Null when the session is not yours.
  */
 export async function recordRun(
   userId: string,
@@ -72,12 +75,14 @@ export async function recordRun(
   });
   if (!session) return null;
 
-  const startedAt = new Date(input.startedAt);
-  if (startedAt > now || startedAt.getTime() < now.getTime() - DAY_MS) {
+  const claimed = new Date(input.startedAt).getTime();
+  if (claimed > now.getTime() + CLOCK_SKEW_MS || claimed < now.getTime() - DAY_MS) {
     throw new ValidationError('A run is logged within a day of starting it', {
       startedAt: ['In the last 24 hours'],
     });
   }
+  // never after its own end
+  const startedAt = new Date(Math.min(claimed, now.getTime()));
 
   const today = await prisma.practiceRun.count({
     where: { userId, endedAt: { gte: new Date(now.getTime() - DAY_MS) } },

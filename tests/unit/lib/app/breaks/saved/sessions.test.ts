@@ -60,7 +60,7 @@ import {
   updateSession,
 } from '@/lib/app/breaks/saved/sessions';
 import { prisma } from '@/lib/db/client';
-import type { ItemInput } from '@/lib/validations/practice-sessions';
+import { type ItemInput, runSlotSchema } from '@/lib/validations/practice-sessions';
 
 const USER_ID = 'cuser0000000000000000001';
 const OTHER_ID = 'cuser0000000000000000002';
@@ -179,6 +179,46 @@ describe('toView (via readSession) — target defaults', () => {
 
     expect(result?.items[0].targetBpm).toBe(120); // breakRef.bpm
     expect(result?.items[0].bestBpm).toBeNull();
+  });
+
+  it.each([
+    { meter: '4/4', bpm: 30, expected: 40 },
+    { meter: '4/4', bpm: 350, expected: 190 },
+    { meter: '6/8', bpm: 350, expected: 300 },
+  ])(
+    'holds a $bpm bpm $meter pattern to $expected, a target a run can log',
+    async ({ meter, bpm, expected }) => {
+      const row = itemRow({ goalBpm: null });
+      vi.mocked(prisma.practiceSession.findFirst).mockResolvedValue(
+        sessionRow({ items: [{ ...row, breakRef: { ...row.breakRef, meter, bpm } }] }) as never
+      );
+
+      const result = await readSession(USER_ID, SESSION_ID);
+      const item = result?.items[0];
+      assertDefined(item);
+
+      expect(item.targetBpm).toBe(expected);
+      const logged = runSlotSchema.safeParse({
+        title: item.title,
+        level: item.level,
+        targetBpm: item.targetBpm,
+        reachedBpm: item.startBpm,
+        seconds: 60,
+      });
+      expect(logged.success).toBe(true);
+    }
+  );
+
+  it('holds your best to the meter ceiling too', async () => {
+    vi.mocked(prisma.practiceSession.findFirst).mockResolvedValue(
+      sessionRow({ items: [itemRow({ goalBpm: null })] }) as never
+    );
+    vi.mocked(yourBests).mockResolvedValue(new Map([[bestKey({ breakId: BREAK_ID }, 3), 250]]));
+
+    const result = await readSession(USER_ID, SESSION_ID);
+
+    expect(result?.items[0].targetBpm).toBe(190); // 4/4 ceiling
+    expect(result?.items[0].bestBpm).toBe(250);
   });
 
   it('starts startPct below the target, the session setting by default', async () => {

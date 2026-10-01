@@ -22,7 +22,7 @@ vi.mock('@/lib/db/client', () => ({
 }));
 
 import { APIError, ValidationError } from '@/lib/api/errors';
-import { listRuns, recordRun, RUN_DAILY_CAP } from '@/lib/app/breaks/saved/runs';
+import { CLOCK_SKEW_MS, listRuns, recordRun, RUN_DAILY_CAP } from '@/lib/app/breaks/saved/runs';
 import { prisma } from '@/lib/db/client';
 import type { CreateRunInput } from '@/lib/validations/practice-sessions';
 
@@ -90,14 +90,43 @@ describe('recordRun — startedAt window', () => {
     vi.mocked(prisma.practiceSession.findFirst).mockResolvedValue({ name: 'Warmup' } as never);
   });
 
-  it('refuses a startedAt in the future', async () => {
-    const future = new Date(NOW.getTime() + 60_000).toISOString();
+  it('refuses a startedAt further in the future than a fast clock explains', async () => {
+    const future = new Date(NOW.getTime() + CLOCK_SKEW_MS + 1000).toISOString();
     const error = await recordRun(USER_ID, SESSION_ID, input({ startedAt: future }), NOW).catch(
       (e: unknown) => e
     );
 
     expect(error).toBeInstanceOf(ValidationError);
     expect(prisma.practiceRun.create).not.toHaveBeenCalled(); // test-review:accept no_arg_called — refused before any write
+  });
+
+  it('takes a startedAt a few seconds ahead — a fast device clock — as now', async () => {
+    vi.mocked(prisma.practiceRun.create).mockResolvedValue(runRow() as never);
+    const ahead = new Date(NOW.getTime() + 5000).toISOString();
+
+    await recordRun(USER_ID, SESSION_ID, input({ startedAt: ahead }), NOW);
+
+    const data = vi.mocked(prisma.practiceRun.create).mock.calls[0][0].data;
+    expect(data.startedAt).toEqual(NOW);
+    expect(data.endedAt).toEqual(NOW);
+  });
+
+  it('accepts a startedAt right at the clock-skew allowance, stored as now', async () => {
+    vi.mocked(prisma.practiceRun.create).mockResolvedValue(runRow() as never);
+    const atEdge = new Date(NOW.getTime() + CLOCK_SKEW_MS).toISOString();
+
+    await recordRun(USER_ID, SESSION_ID, input({ startedAt: atEdge }), NOW);
+
+    expect(vi.mocked(prisma.practiceRun.create).mock.calls[0][0].data.startedAt).toEqual(NOW);
+  });
+
+  it('keeps a startedAt in the past as sent', async () => {
+    vi.mocked(prisma.practiceRun.create).mockResolvedValue(runRow() as never);
+    const past = new Date(NOW.getTime() - 30 * 60 * 1000);
+
+    await recordRun(USER_ID, SESSION_ID, input({ startedAt: past.toISOString() }), NOW);
+
+    expect(vi.mocked(prisma.practiceRun.create).mock.calls[0][0].data.startedAt).toEqual(past);
   });
 
   it('refuses a startedAt more than 24 hours ago', async () => {

@@ -30,7 +30,8 @@ release process.
   `GET`/`POST /api/v1/practice-sessions/:id/runs`. The server splits a
   session's minutes on every write (pinned items keep theirs, at least a
   minute each); an item with no goal targets your best at its layer, else the
-  pattern's tempo. 100 sessions and 50 runs a day per person.
+  pattern's tempo, held between 40 bpm and its meter's ceiling. 100 sessions
+  and 50 runs a day per person.
 
 - **Speed records and the tables (BeatBreaker Phase 7C).** New `SpeedRecord`
   model (migration `speed_records`; `userId` cascades, both targets —
