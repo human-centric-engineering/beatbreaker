@@ -5,10 +5,10 @@ drummer puts patterns from the library into a timed session, then plays it.
 Each pattern starts below its target tempo, climbs to the target, holds it,
 and the session moves on. A session can be shared with a link.
 
-7D ships as four PRs. This page covers **7D-i, the sums and the data**: the
-time split, the climb, the three tables and `/api/v1/practice-sessions`.
-Building one in the UI (7D-ii), running one in the Studio (7D-iii) and sharing
-one (7D-iv) add their sections as they land.
+7D ships as four PRs. This page covers **7D-i, the sums and the data** (the
+time split, the climb, the three tables and `/api/v1/practice-sessions`) and
+**7D-ii, building one** (the editor, _Add to a session_ and Home). Running one
+in the Studio (7D-iii) and sharing one (7D-iv) add their sections as they land.
 
 ## Anti-patterns first
 
@@ -31,6 +31,13 @@ one (7D-iv) add their sections as they land.
   rule that opens it (`openableBy`, or `PUBLIC` for a famous break).
 - **Don't change an item's pattern.** An item kept in the list by `id` keeps
   its target. A different pattern is a new item.
+- **Don't send a kept item's pattern back.** The items route takes the whole
+  list. An item already in the session goes back as `keptItem(view)`
+  (`lib/app/practice/items.ts`): its `id` and settings, no `breakId`. The
+  route refuses an id that names a pattern too.
+- **Don't fetch your sessions per row.** _Add to a session_ reads the list
+  when its menu opens, once. A drawer of forty rows asks nothing until one is
+  used.
 - **Don't keep target ids in a run.** `PracticeRun.items` is titles and
   tempos, so a deleted pattern leaves nothing dangling in your history.
 
@@ -102,3 +109,34 @@ All under `withAuth`, scoped to the caller. Someone else's session is a 404.
 
 Request and response shapes are in `lib/validations/practice-sessions.ts`;
 the data layer is `lib/app/breaks/saved/sessions.ts` and `runs.ts`.
+
+## Building one (7D-ii)
+
+| Where                        | What                                                                                                                                                                                                                             |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/practice`                  | Your sessions, from `listSessions()` (one query), and _New session_ (an empty one, 20 minutes, opened in the editor). In `appProtectedRoutes` and the header.                                                                    |
+| `/practice/[id]`             | `SessionEditor`: name, description, total, the climb defaults and count-in, then each pattern's minutes, layer, goal and its own climb. One _Save_: `PATCH` if the session's fields changed, then `PUT …/items` if the list did. |
+| The Studio's Patterns drawer | _Add to a session_ (the list icon) on every `Row`, beside the ★. _Make a session from this shelf_ above Practising and Later.                                                                                                    |
+| `/p/[slug]`                  | _Add to a session_ in `PatternActions`, for a signed-in reader. Adds the pattern itself, not a copy.                                                                                                                             |
+| Home                         | _Your sessions_ (the first five) and _Make a session from this shelf_ on Practising. With `teaching` among your purposes, _Your sessions_ comes first.                                                                           |
+
+**The editor splits as you go.** It runs the same `splitMinutes` and
+`nudgeMinutes` as the server, so what it shows adds up before you save. A
+number field takes effect when you leave it or press Enter, so typing "12"
+never re-splits at "1". Changing an item's minutes pins it; the pin button
+lets it go. The server splits again on save, and its answer replaces the page.
+
+**Start and target are the server's.** They depend on your best at the
+item's layer, which the browser does not have. After an edit to the layer,
+goal or start, the row says _Save to see its new tempos_ rather than show a
+stale number.
+
+**Reordering is by buttons.** Up and down move an item, and the focus follows
+the button you pressed. At the top or bottom that button is disabled, so the
+focus moves to the other one.
+
+**A new session from patterns** (`createSessionWith`,
+`components/app/practice/session-api.ts`) takes the first twelve, five
+minutes each (`defaultTotal`), named after the pattern or the shelf. The
+targets are worked out on the server. A session with twelve patterns, or one
+per minute, is shown in the menu as _Full_.
