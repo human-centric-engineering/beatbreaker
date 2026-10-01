@@ -225,6 +225,36 @@ export function registerAppDriftProbes(): void {
     });
   }
 
+  /* Speed records (20260930140000_speed_records): yours go with you, and a
+     record points at at most one target — both targets are SET NULL, so one
+     whose pattern was deleted points at nothing and is still yours. */
+  registerAppDriftProbe({
+    name: 'speed_record_userId_fkey (hand-written FK → user)',
+    kind: 'FK constraint',
+    table: 'speed_record',
+    probe: constraintExists('speed_record_userId_fkey', 'ON DELETE CASCADE'),
+  });
+  registerAppDriftProbe({
+    name: 'speed_record_one_target (CHECK: at most one of breakId, libraryEntryId)',
+    kind: 'CHECK constraint',
+    table: 'speed_record',
+    probe: constraintExists(
+      'speed_record_one_target',
+      'num_nonnulls("breakId", "libraryEntryId") <= 1'
+    ),
+  });
+
+  /* Reports on speed records (20260930150000_speed_reports): the reporter and
+     the admin are nulled, as on break_report. */
+  for (const column of ['reporterId', 'resolvedById']) {
+    registerAppDriftProbe({
+      name: `speed_report_${column}_fkey (hand-written FK → user)`,
+      kind: 'FK constraint',
+      table: 'speed_report',
+      probe: constraintExists(`speed_report_${column}_fkey`, 'ON DELETE SET NULL'),
+    });
+  }
+
   /* Reports on public patterns (20260927140000_break_reports). SET NULL, not
      CASCADE, for both: the report is the moderation record about a pattern,
      and erasing the reporter or the admin must not take it with them. */

@@ -40,7 +40,7 @@ export function initAppNav(): void {
         label: 'Reports',
         icon: Flag,
         description:
-          "Reports on shared and published patterns and on drummers' profiles — unpublish, strip links or dismiss.",
+          "Reports on shared and published patterns, drummers' profiles and speeds — unpublish, strip links, unlist or dismiss.",
       },
     ],
   });

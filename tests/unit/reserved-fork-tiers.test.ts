@@ -239,6 +239,8 @@ describe('reserved fork tiers', () => {
       'model PracticeVisit',
       'model ReservedUsername',
       'model Sample',
+      'model SpeedRecord',
+      'model SpeedReport',
       'model StudioSettings',
       'model Style',
       'model StyleVersion',

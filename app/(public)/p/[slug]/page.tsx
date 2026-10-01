@@ -8,20 +8,24 @@ import { PatternPlayer } from '@/components/app/community/pattern-player';
 import { PublicChart } from '@/components/app/community/public-chart';
 import { ReferenceEmbeds } from '@/components/app/community/reference-embeds';
 import { ReportButton } from '@/components/app/community/report-button';
+import { SpeedsSection } from '@/components/app/community/speeds-section';
 import { VariationsSection } from '@/components/app/community/variations-section';
 import { Button } from '@/components/ui/button';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { difficultyLabel } from '@/lib/app/breaks/community/grid';
+import { usernameOf } from '@/lib/app/breaks/community/profile';
 import {
   getPublicPattern,
   listVariations,
   openableIdForSlug,
 } from '@/lib/app/breaks/community/public';
 import { ownsSlug } from '@/lib/app/breaks/community/reports';
+import { patternTableTarget, readSpeedTable } from '@/lib/app/breaks/community/speed-tables';
 import { publicPath, slugSchema } from '@/lib/app/breaks/community/visibility';
 import { meterOf } from '@/lib/app/breaks/meter';
 import { getServerSession } from '@/lib/auth/utils';
 import { nonEmptyParams, variationsQuerySchema } from '@/lib/validations/public-patterns';
+import { speedTableQuerySchema } from '@/lib/validations/speeds';
 
 /**
  * One shared or published pattern — `/p/[slug]` (Phase 6, task 6.6). Public:
@@ -39,6 +43,9 @@ import { nonEmptyParams, variationsQuerySchema } from '@/lib/validations/public-
  *
  * A published pattern lists its published variations (7A), and a variation
  * says what it is a variation of. `?sort=` and `?cursor=` page that list.
+ *
+ * A published pattern also has its speed table (7C): `?speeds=` is the layer,
+ * `?video=1` keeps video-backed rows and `?speedsCursor=` pages it.
  *
  * Copy is `planning/site-copy.md` §5.
  */
@@ -77,18 +84,30 @@ export default async function PublicPatternPage({ params, searchParams }: Props)
   if (!pattern) notFound();
 
   // a hand-edited sort or cursor that does not read is the first page, newest
-  const parsed = variationsQuerySchema.safeParse(nonEmptyParams((await searchParams) ?? {}));
+  const search = nonEmptyParams((await searchParams) ?? {});
+  const parsed = variationsQuerySchema.safeParse(search);
   const query = parsed.success ? parsed.data : variationsQuerySchema.parse({});
+  // and a layer that does not read is the full break, every row
+  const speedsParsed = speedTableQuerySchema.safeParse({
+    level: search.speeds,
+    video: search.video,
+    cursor: search.speedsCursor,
+  });
+  const speedsQuery = speedsParsed.success ? speedsParsed.data : speedTableQuerySchema.parse({});
   const published = pattern.visibility === 'published';
 
-  const [session, catalogue, variations] = await Promise.all([
+  const [session, catalogue, variations, speedTarget] = await Promise.all([
     getServerSession(),
     studioCatalogue(),
     published ? listVariations(pattern.slug, query) : null,
+    published ? patternTableTarget(pattern.slug) : null,
   ]);
-  const [id, mine] = session
-    ? await Promise.all([openableIdForSlug(pattern.slug), ownsSlug(pattern.slug, session.user.id)])
-    : [null, false];
+  const [id, mine, viewer, speeds] = await Promise.all([
+    session ? openableIdForSlug(pattern.slug) : null,
+    session ? ownsSlug(pattern.slug, session.user.id) : false,
+    session ? usernameOf(session.user.id) : null,
+    speedTarget ? readSpeedTable(speedTarget, speedsQuery) : null,
+  ]);
   const style = catalogue.styles[pattern.style]?.params.label ?? pattern.style;
 
   return (
@@ -144,6 +163,20 @@ export default async function PublicPatternPage({ params, searchParams }: Props)
           </div>
         </aside>
       )}
+
+      {speeds ? (
+        <SpeedsSection
+          slug={pattern.slug}
+          title={pattern.title}
+          rows={speeds.rows}
+          total={speeds.total}
+          nextCursor={speeds.nextCursor}
+          level={speedsQuery.level}
+          videoOnly={speedsQuery.video}
+          signedIn={!!session}
+          viewer={viewer}
+        />
+      ) : null}
 
       {variations ? (
         <VariationsSection

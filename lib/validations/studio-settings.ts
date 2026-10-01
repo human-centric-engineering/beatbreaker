@@ -166,6 +166,12 @@ export const STUDIO_SETTINGS_FIELDS = {
   startBpm: tempoSchema,
   /** The layer a new pattern opens at (Phase 7B). Your ability sets it; you can still change it. */
   startLevel: z.number().int().min(1).max(5),
+  /**
+   * Whether a speed you record on a published pattern or a famous break goes
+   * on its public table (Phase 7C): `ask` until you first answer, then what
+   * you answered. Only a default — each record can still be kept off.
+   */
+  listSpeeds: z.enum(['ask', 'list', 'keep']),
 } as const;
 
 type Fields = typeof STUDIO_SETTINGS_FIELDS;
@@ -196,6 +202,7 @@ export const DEFAULT_STUDIO_SETTINGS: StudioSettings = {
   startBars: 2,
   startBpm: 94,
   startLevel: 3,
+  listSpeeds: 'ask',
 };
 
 /** The settings that name a catalogue row, and which kind of row. */

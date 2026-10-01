@@ -15,7 +15,7 @@
  * FORK NOTE — this file reads `@/lib/app/data-export` for real, with no
  * `vi.mock`, because the collector's behaviour IS what it is testing. A fork of
  * BeatBreaker that adds its own tables to that seam will see this fail on the
- * section list: expect the fourteen below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
+ * section list: expect the sixteen below plus yours, and pin the new list here. Do not mock the seam to make it pass — the assertion is that the real
  * collector returns every declared section as a key, and a mock cannot tell you
  * that. The `prisma` methods are mocked instead, which is the part this test
  * genuinely does not need to be real.
@@ -35,6 +35,8 @@ const findMany = {
   about: vi.fn(),
   reports: vi.fn(),
   profileReports: vi.fn(),
+  speedRecords: vi.fn(),
+  speedReports: vi.fn(),
   styles: vi.fn(),
   libraries: vi.fn(),
   kits: vi.fn(),
@@ -53,6 +55,8 @@ vi.mock('@/lib/db/client', () => ({
     drummerAbout: { findMany: (...args: unknown[]) => findMany.about(...args) },
     breakReport: { findMany: (...args: unknown[]) => findMany.reports(...args) },
     drummerReport: { findMany: (...args: unknown[]) => findMany.profileReports(...args) },
+    speedRecord: { findMany: (...args: unknown[]) => findMany.speedRecords(...args) },
+    speedReport: { findMany: (...args: unknown[]) => findMany.speedReports(...args) },
     style: { findMany: (...args: unknown[]) => findMany.styles(...args) },
     patternLibrary: { findMany: (...args: unknown[]) => findMany.libraries(...args) },
     kit: { findMany: (...args: unknown[]) => findMany.kits(...args) },
@@ -94,6 +98,8 @@ describe('collectAppSubjectData', () => {
       'profileReportsFiled',
       'reportsFiled',
       'samples',
+      'speedRecords',
+      'speedReportsFiled',
       'studioSettings',
       'styles',
       'takes',
@@ -114,6 +120,7 @@ describe('collectAppSubjectData', () => {
       findMany.workspaces,
       findMany.profiles,
       findMany.about,
+      findMany.speedRecords,
     ]) {
       expect(spy).toHaveBeenCalledWith(expect.objectContaining({ where: { userId: 'user-1' } }));
     }
@@ -134,6 +141,57 @@ describe('collectAppSubjectData', () => {
     expect(findMany.profileReports).toHaveBeenCalledWith(
       expect.objectContaining({ where: { reporterId: 'user-1' } })
     );
+    expect(findMany.speedReports).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { reporterId: 'user-1' } })
+    );
+  });
+
+  it('exports every speed record whole, oldest first, listed or not (7C)', async () => {
+    /* The history is the subject's, including what never went on a table and
+       what a moderator took off one. Whole rows, as the breaks are, so a
+       column added later is in the answer without this file changing. */
+    const record = {
+      id: 's1',
+      userId: 'user-1',
+      breakId: 'b-theirs',
+      libraryEntryId: null,
+      titleSnapshot: 'Cold Carpet',
+      level: 2,
+      bpm: 112,
+      gridHash: 'h'.repeat(64),
+      videoUrl: 'https://vimeo.com/76979871',
+      note: 'Left hand gave out',
+      listed: false,
+      recordedAt: new Date('2026-09-30T12:00:00Z'),
+    };
+    findMany.speedRecords.mockResolvedValue([record]);
+
+    const data = await collectAppSubjectData(SUBJECT);
+
+    const args = findMany.speedRecords.mock.calls[0][0] as Record<string, unknown>;
+    expect(args).not.toHaveProperty('select');
+    expect(args).not.toHaveProperty('include');
+    expect(args.orderBy).toEqual({ recordedAt: 'asc' });
+    expect(data.speedRecords).toEqual([record]);
+  });
+
+  it('exports the speed reports you filed, selecting no resolvedById (7C)', async () => {
+    const report = {
+      id: 'sr1',
+      recordId: 's-theirs',
+      reason: 'wrong-speed',
+      note: null,
+      status: 'open',
+      resolvedAt: null,
+      createdAt: new Date('2026-09-30T12:00:00Z'),
+    };
+    findMany.speedReports.mockResolvedValue([report]);
+
+    const data = await collectAppSubjectData(SUBJECT);
+
+    const args = findMany.speedReports.mock.calls[0][0] as { select: Record<string, unknown> };
+    expect(args.select).not.toHaveProperty('resolvedById');
+    expect(data.speedReportsFiled).toEqual([report]);
   });
 
   it('exports the reports you filed, selecting no resolvedById — the admin who resolved one is never named', async () => {

@@ -35,11 +35,23 @@ vi.mock('@/lib/app/breaks/community/reports', () => ({
     other: 'Something else',
   },
   PROFILE_REPORT_REASONS: ['spam', 'offensive', 'bad-link', 'other'],
+  speedQueue: vi.fn(),
+  SPEED_REPORT_REASON_LABELS: {
+    'wrong-speed': "Speed doesn't look right",
+    'bad-link': 'Bad or misleading link',
+    other: 'Something else',
+  },
+  SPEED_REPORT_REASONS: ['wrong-speed', 'bad-link', 'other'],
 }));
 vi.mock('@/lib/feature-flags', () => ({ isFeatureEnabled: vi.fn() }));
 vi.mock('@/components/app/admin/patterns/moderation-actions', () => ({
   ModerationActions: ({ breakId, links }: { breakId: string; links: number }) => (
     <div data-testid="moderation-actions" data-break-id={breakId} data-links={links} />
+  ),
+}));
+vi.mock('@/components/app/admin/patterns/speed-moderation-actions', () => ({
+  SpeedModerationActions: ({ recordId, listed }: { recordId: string; listed: boolean }) => (
+    <div data-testid="speed-moderation-actions" data-record-id={recordId} data-listed={listed} />
   ),
 }));
 vi.mock('@/components/app/admin/patterns/profile-moderation-actions', () => ({
@@ -49,7 +61,7 @@ vi.mock('@/components/app/admin/patterns/profile-moderation-actions', () => ({
 }));
 
 import AdminPatternsPage from '@/app/admin/patterns/page';
-import { moderationQueue, profileQueue } from '@/lib/app/breaks/community/reports';
+import { moderationQueue, profileQueue, speedQueue } from '@/lib/app/breaks/community/reports';
 import { isFeatureEnabled } from '@/lib/feature-flags';
 
 function item(overrides: Record<string, unknown> = {}) {
@@ -96,6 +108,7 @@ function profileItem(overrides: Record<string, unknown> = {}) {
 beforeEach(() => {
   vi.clearAllMocks();
   vi.mocked(profileQueue).mockResolvedValue([]);
+  vi.mocked(speedQueue).mockResolvedValue([]);
 });
 
 it('says there are no open reports when the queue is empty', async () => {
@@ -298,5 +311,82 @@ describe('the publishing flag banner', () => {
     render(await AdminPatternsPage());
 
     expect(screen.getByText('off')).toBeInTheDocument();
+  });
+});
+
+describe('Reported speeds (7C)', () => {
+  const speed = (overrides: Record<string, unknown> = {}) => ({
+    recordId: 'cspd00000000000000000001',
+    title: 'Cold Sweat',
+    slug: null,
+    level: 5,
+    bpm: 180,
+    recordedAt: '2026-09-20T00:00:00.000Z',
+    videoUrl: null,
+    listed: true,
+    drummer: { username: 'fastfeet', email: 'fast@example.com' },
+    reports: [
+      {
+        id: 'sr1',
+        reason: 'wrong-speed',
+        note: 'Nobody plays that at 180',
+        createdAt: '2026-09-21T00:00:00.000Z',
+        reporterGone: false,
+      },
+    ],
+    ...overrides,
+  });
+
+  it('says there are no open reports on speeds when the queue is empty', async () => {
+    vi.mocked(moderationQueue).mockResolvedValue([]);
+    vi.mocked(isFeatureEnabled).mockResolvedValue(true);
+    render(await AdminPatternsPage());
+    expect(screen.getByText('No open reports on speeds.')).toBeInTheDocument();
+  });
+
+  it('lists a reported speed with its drummer, its labelled reason and its actions', async () => {
+    vi.mocked(moderationQueue).mockResolvedValue([]);
+    vi.mocked(isFeatureEnabled).mockResolvedValue(true);
+    vi.mocked(speedQueue).mockResolvedValue([
+      speed({ videoUrl: 'https://www.tiktok.com/@fastfeet/video/7300000000000000000' }),
+    ]);
+    render(await AdminPatternsPage());
+
+    const section = screen.getByRole('region', { name: 'Reported speeds' });
+    expect(section).toHaveTextContent('180 bpm at layer 5 on Cold Sweat');
+    expect(section).toHaveTextContent('@fastfeet');
+    expect(section).toHaveTextContent('fast@example.com');
+    expect(section).toHaveTextContent('listed');
+    expect(section).toHaveTextContent("Speed doesn't look right");
+    expect(section).toHaveTextContent('Nobody plays that at 180');
+    expect(within(section).getByRole('link', { name: 'Video on TikTok' })).toHaveAttribute(
+      'href',
+      'https://www.tiktok.com/@fastfeet/video/7300000000000000000'
+    );
+    const actions = within(section).getByTestId('speed-moderation-actions');
+    expect(actions).toHaveAttribute('data-record-id', 'cspd00000000000000000001');
+    expect(actions).toHaveAttribute('data-listed', 'true');
+  });
+
+  it('links a speed on a published pattern to its page, and says when it is already off the table', async () => {
+    vi.mocked(moderationQueue).mockResolvedValue([]);
+    vi.mocked(isFeatureEnabled).mockResolvedValue(true);
+    vi.mocked(speedQueue).mockResolvedValue([
+      speed({
+        title: 'Cold Carpet',
+        slug: 'cold000001',
+        listed: false,
+        drummer: { username: null, email: 'x@example.com' },
+      }),
+    ]);
+    render(await AdminPatternsPage());
+
+    const section = screen.getByRole('region', { name: 'Reported speeds' });
+    expect(within(section).getByRole('link', { name: 'Cold Carpet' })).toHaveAttribute(
+      'href',
+      '/p/cold000001'
+    );
+    expect(section).toHaveTextContent('not listed');
+    expect(section).toHaveTextContent('no username');
   });
 });

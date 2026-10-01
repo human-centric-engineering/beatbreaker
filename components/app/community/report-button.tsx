@@ -7,9 +7,10 @@ import { APIClientError, apiClient } from '@/lib/api/client';
 import {
   PROFILE_REPORT_REASON_LABELS,
   REPORT_REASON_LABELS,
+  SPEED_REPORT_REASON_LABELS,
 } from '@/lib/app/breaks/community/report-reasons';
 
-type Target = { slug: string } | { username: string };
+type Target = { slug: string } | { username: string } | { speedId: string };
 
 function targetOf(target: Target): {
   endpoint: string;
@@ -23,6 +24,13 @@ function targetOf(target: Target): {
       labels: REPORT_REASON_LABELS,
     };
   }
+  if ('speedId' in target) {
+    return {
+      endpoint: `/api/v1/public/speeds/${encodeURIComponent(target.speedId)}/report`,
+      question: 'What is wrong with this speed?',
+      labels: SPEED_REPORT_REASON_LABELS,
+    };
+  }
   return {
     endpoint: `/api/v1/public/drummers/${encodeURIComponent(target.username)}/report`,
     question: 'What is wrong with this profile?',
@@ -32,9 +40,10 @@ function targetOf(target: Target): {
 
 /**
  * Report a shared or published pattern (Phase 6, task 6.10), or a drummer's
- * public profile (Phase 7B, task 7B.5) — for a signed-in reader who is not
- * its owner. An inline form, not a browser dialog: a reason, an optional
- * note, and a thank-you. The owner never sees who reported it.
+ * public profile (Phase 7B, task 7B.5), or a row on a speed table (Phase
+ * 7C) — for a signed-in reader who is not its owner. An inline form, not a
+ * browser dialog: a reason, an optional note, and a thank-you. The owner
+ * never sees who reported it.
  */
 export function ReportButton(target: Target) {
   const { endpoint, question, labels } = targetOf(target);

@@ -19,6 +19,7 @@ import {
 } from '@/components/app/breaks/use-break-console';
 import type { StudioDrawer } from '@/components/app/shell/studio-address';
 import {
+  notesKey,
   type PatternDocument,
   usePatternDocument,
 } from '@/components/app/studio/use-pattern-document';
@@ -98,6 +99,13 @@ export interface Studio extends BreakConsole {
    * identity to pin until it is saved.
    */
   stagePin: PinTarget | null;
+  /**
+   * The stage holds a famous break whose notes have been edited since it was
+   * opened — what is playing is no longer the break `stagePin` names, so a
+   * speed marked now would not be a speed on it. Undo back and it is false
+   * again. Always false for anything but a famous break.
+   */
+  entryEdited: boolean;
   /** The practice history (D18): Recent, and Back / Forward through it. */
   history: PracticeHistoryState;
   /**
@@ -226,7 +234,18 @@ export function StudioProvider({
      entry is opened and cleared by anything else that replaces the pattern;
      edits keep it, as they keep a saved pattern's id — it is still that break,
      being practised. */
-  const [entryId, setEntryId] = useState<string | null>(null);
+  const [entry, setEntry] = useState<{ id: string; notes: string | null } | null>(null);
+  const entryId = entry?.id ?? null;
+  /* The entry's notes are taken from the first render after it opens, as a
+     saved pattern's baseline is — the console's encoding of them, so an
+     untouched entry always compares equal. */
+  useEffect(() => {
+    if (entry && entry.notes === null && payload) setEntry({ ...entry, notes: notesKey(payload) });
+  }, [entry, payload]);
+  const entryEdited = useMemo(
+    () => !!entry?.notes && !!payload && notesKey(payload) !== entry.notes,
+    [entry, payload]
+  );
   const stagePin = useMemo<PinTarget | null>(
     () => (doc.id ? { breakId: doc.id } : entryId ? { libraryEntryId: entryId } : null),
     [doc.id, entryId]
@@ -264,14 +283,14 @@ export function StudioProvider({
       newBreak: (which?: Parameters<typeof newBreak>[0]) => {
         if (which === undefined || which === 'both')
           replace(() => {
-            setEntryId(null);
+            setEntry(null);
             newBreak(which);
           });
         else newBreak(which);
       },
       loadLibraryEntry: (id: string) =>
         replace(() => {
-          setEntryId(id);
+          setEntry({ id, notes: null });
           loadLibraryEntry(id);
         }),
       /* This answers "does it read?", not "has it loaded?": a code that
@@ -284,7 +303,7 @@ export function StudioProvider({
         if (!readsAsBreak(code)) return loadCode(code);
         replace(() => {
           if (!loadCode(code)) return;
-          setEntryId(null);
+          setEntry(null);
           say('Break loaded');
         });
         return true;
@@ -318,7 +337,7 @@ export function StudioProvider({
         const id = target.libraryEntryId;
         if (!catalogue.libraries.some((l) => l.entries.some((e) => e.id === id))) return 'gone';
         replaceNow.current(() => {
-          setEntryId(id);
+          setEntry({ id, notes: null });
           loadLibraryEntry(id, at);
         });
         return 'opened';
@@ -331,7 +350,7 @@ export function StudioProvider({
           say('That pattern would not open', { error: true });
           return;
         }
-        setEntryId(null);
+        setEntry(null);
         attach(opened.id, opened.mine, opened.details, opened.sharing);
       });
       return 'opened';
@@ -432,6 +451,7 @@ export function StudioProvider({
       resolveLeave,
       pins,
       stagePin,
+      entryEdited,
       history,
       open,
       openDrawer,
@@ -451,6 +471,7 @@ export function StudioProvider({
       resolveLeave,
       pins,
       stagePin,
+      entryEdited,
       history,
       open,
       openDrawer,

@@ -160,3 +160,41 @@ describe('the username variant (Phase 7B, task 7B.5) — reporting a profile', (
     expect(screen.getByText('What is wrong with this profile?')).toBeInTheDocument();
   });
 });
+
+describe('the speedId variant (Phase 7C) — reporting a row on a speed table', () => {
+  const SPEED_ID = 'cspd00000000000000000001';
+
+  it('asks "What is wrong with this speed?"', async () => {
+    const user = userEvent.setup();
+    render(<ReportButton speedId={SPEED_ID} />);
+    await user.click(screen.getByRole('button', { name: 'Report' }));
+
+    expect(screen.getByText('What is wrong with this speed?')).toBeInTheDocument();
+  });
+
+  it('offers the three speed reasons, and no others', async () => {
+    const user = userEvent.setup();
+    render(<ReportButton speedId={SPEED_ID} />);
+    await user.click(screen.getByRole('button', { name: 'Report' }));
+
+    expect(screen.getByRole('radio', { name: "Speed doesn't look right" })).toBeInTheDocument();
+    expect(screen.getByRole('radio', { name: 'Bad or misleading link' })).toBeInTheDocument();
+    expect(screen.getByRole('radio', { name: 'Something else' })).toBeInTheDocument();
+    expect(screen.getAllByRole('radio')).toHaveLength(3);
+  });
+
+  it('posts to the speed’s own report route, not the pattern or profile one', async () => {
+    const user = userEvent.setup();
+    vi.mocked(apiClient.post).mockResolvedValue({ id: 'rpt1', status: 'open' });
+    render(<ReportButton speedId={SPEED_ID} />);
+    await user.click(screen.getByRole('button', { name: 'Report' }));
+    await user.click(screen.getByRole('radio', { name: "Speed doesn't look right" }));
+
+    await user.click(screen.getByRole('button', { name: 'Send report' }));
+
+    expect(apiClient.post).toHaveBeenCalledWith(`/api/v1/public/speeds/${SPEED_ID}/report`, {
+      body: { reason: 'wrong-speed' },
+    });
+    expect(await screen.findByRole('status')).toHaveTextContent(/Thanks/);
+  });
+});

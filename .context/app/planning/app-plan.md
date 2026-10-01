@@ -1623,6 +1623,66 @@ owner; an unlisted record leaves the table on the next read; deleting
 someone else's pattern leaves your record with its title; erasing a user
 removes them from every table.
 
+**Reconciled against the tree (2026-09-30).** Four things the text above
+assumed were not there:
+
+- **Phase 6's parser has no Instagram, TikTok or X.** `parseReferenceLink`
+  takes YouTube, Vimeo and Spotify. 7C adds a video-link parser beside it:
+  YouTube and Vimeo videos go through `parseReferenceLink` (a song link, on
+  YouTube Music or Spotify, is refused), and Instagram posts and reels,
+  TikTok videos and X posts are parsed the same way (exact hosts, the id
+  extracted, the URL rebuilt) as outbound links only. The embed is the
+  `/p/` page's click-to-load one, and the CSP already allows both origins.
+- **A famous break has no public page.** Its table is at
+  `GET /api/v1/public/library-entries/[id]/speeds` and in the Studio, where
+  the Practise drawer shows the top of the table at the layer you are on, for
+  a published pattern and a famous break alike. `/p/[slug]` has the full
+  table with the layer switcher.
+- **`LibraryEntry` has no `gridHash`.** An entry holds one section (the B
+  section is derived when it opens), so its hash is `sectionHash` of that
+  section, worked out when the table is read. A pattern's is the
+  `Break.gridHash` column, or worked out from `doc` on a row written before
+  Phase 6.
+- **Moderation has no speed records to act on.** 7C adds `SpeedReport`,
+  shaped like `DrummerReport` (the record cascades, the reporter and resolver
+  are nulled on erasure), with reasons _Speed doesn't look right_, _Bad or
+  misleading link_ and _Something else_. It shares the daily report cap, and
+  the admin queue gains _Reported speeds_ with _Unlist_ (which emails the
+  drummer) and _Dismiss_.
+
+Four calls made in planning it:
+
+- **The server hashes the notes it has, not the notes you played.** A record
+  stores the target's stored hash at the time. The Studio doesn't offer _Mark
+  my speed_ while the stage holds a variation in progress (7A), so a record on
+  a published pattern is always for its fixed notes. A famous break you have
+  edited on the stage is still recorded against the break as written, because
+  the record is self-reported either way (D25).
+- **Only a record on a public target can be listed.** A record on your own
+  private pattern, or on a link-shared one, is stored with `listed = false`,
+  so publishing a pattern later never puts records on a table that nobody was
+  asked about.
+- **The listing default is `listSpeeds` in `StudioSettings`**: `ask`, `list`
+  or `keep`. It starts as `ask`. A record sent with `listed` while the setting
+  is `ask` makes that answer the default, on the server, so every client gets
+  the same "asked once" without a second call. With no `listed` in the
+  request, the setting decides (`ask` counts as not listed).
+- **A table is one query.** One best per drummer is `DISTINCT ON` in raw SQL,
+  joined to `drummer_profile` so that only drummers with a username appear,
+  paged by offset like the library. Prisma's `distinct` would read every row
+  into memory.
+
+| #    | Task                                                                                                                                                                                           | Done when                                                                                                                                                                                                                           |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 7C.1 | Video-link parser `lib/app/breaks/community/video-links.ts`: YouTube and Vimeo through `parseReferenceLink`, Instagram, TikTok and X rebuilt as outbound-only                                  | Unit tests: each platform's accepted shapes come back canonical, embeddable or not; a song link, `http`, userinfo, a port, a look-alike host and an off-list host are refused                                                       |
+| 7C.2 | `SpeedRecord` model, migration `speed_records` (hand-written cascade FK, at-most-one-target CHECK, drift probes); data layer `lib/app/breaks/saved/speeds.ts`; export section and the manifest | Migration applied, drift diff shows only the known unmodelled objects; export contains the rows; erasing the user removes them; deleting the target keeps the record and its title                                                  |
+| 7C.3 | `POST`/`GET /api/v1/speed-records`, `DELETE /api/v1/speed-records/[id]`; bpm 40 to the meter's `maxBpm`, the daily cap; `listSpeeds` in `StudioSettings`                                       | Route tests: the server's timestamp; bpm out of range 400; past the cap 429; a target you can't see 404; not listed on a private target; the first answer on a public target becomes the default; only your own are read or deleted |
+| 7C.4 | The tables: `GET /api/v1/public/patterns/[slug]/speeds` and `…/public/library-entries/[id]/speeds` (`level`, `video`, paging), and your place on them in your own `GET`                        | Route tests: one best per listed drummer with a username, highest bpm then earliest; never unlisted, no-username or private-target records; a famous break lists only records on its current notes; 404 for non-public; 304         |
+| 7C.5 | `SpeedReport` model, migration `speed_reports` (drift probes), export section; `POST /api/v1/public/speeds/[id]/report`; _Reported speeds_ in the admin queue with `unlist` and `dismiss`      | Route tests: your own record 400, an unlisted one 404, a repeat updates the open report, the shared daily cap 429; unlist sets `listed = false`, closes the reports and emails the drummer; dismiss changes nothing else            |
+| 7C.6 | The Practise drawer's _Your speeds_: Mark my speed (video link, note, the list-it question once), your best and last few per layer as a progress line, your place and the top of the table     | Component tests: a record saves at the stage's tempo and layer; the question is asked once and not again; not offered mid-variation or on a scratch pattern; the rank line reads the server's answer                                |
+| 7C.7 | `/p/[slug]` _Speeds_ section (layer switcher, _Video only_, report, "self-reported"); `/u/[username]` listed bests                                                                             | Page tests: the section lists what the endpoint lists, with the video badge; the drummer's page shows their listed bests and nothing unlisted                                                                                       |
+| 7C.8 | `.context/app/speeds.md`, the privacy policy line, CHANGELOG                                                                                                                                   | Docs merged with the code                                                                                                                                                                                                           |
+
 ### Phase 7D — Practice sessions · L
 
 **Goal:** a drummer builds a timed practice session from patterns in the

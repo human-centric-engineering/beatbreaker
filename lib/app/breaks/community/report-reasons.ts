@@ -29,3 +29,17 @@ export const PROFILE_REPORT_REASON_LABELS: Record<ProfileReportReason, string> =
   'bad-link': 'Bad or misleading link',
   other: 'Something else',
 };
+
+/**
+ * Why a row on a speed table can be reported (Phase 7C): the speed, the video
+ * link beside it, or something else.
+ */
+export const SPEED_REPORT_REASONS = ['wrong-speed', 'bad-link', 'other'] as const;
+export type SpeedReportReason = (typeof SPEED_REPORT_REASONS)[number];
+
+/** What each speed reason says, on the form and in the queue. */
+export const SPEED_REPORT_REASON_LABELS: Record<SpeedReportReason, string> = {
+  'wrong-speed': "Speed doesn't look right",
+  'bad-link': 'Bad or misleading link',
+  other: 'Something else',
+};

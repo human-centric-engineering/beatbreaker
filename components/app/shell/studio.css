@@ -752,3 +752,80 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
     padding: 0;
   }
 }
+
+/* Your speeds (Phase 7C), in the Practise drawer. */
+.bb .speeds-place,
+.bb .speeds-now {
+  font-size: 13.5px;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+.bb .speeds-form {
+  margin-bottom: 14px;
+}
+.bb .speeds-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+.bb .speeds-progress,
+.bb .speeds-recent,
+.bb .speeds-table {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+.bb .speeds-progress li,
+.bb .speeds-table li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.bb .speeds-recent li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.bb .speeds-layer {
+  min-width: 84px;
+}
+.bb .speeds-line {
+  color: var(--rust);
+  flex: none;
+}
+.bb .speeds-best b,
+.bb .speeds-recent b,
+.bb .speeds-table b {
+  color: var(--ink);
+  font-family: var(--f-mono);
+}
+.bb .speeds-pos {
+  font-family: var(--f-mono);
+  color: var(--muted);
+  min-width: 18px;
+  text-align: right;
+}
+.bb .speeds-who {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bb .speeds-video {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal);
+  text-decoration: underline;
+}
