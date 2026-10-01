@@ -16,7 +16,7 @@
  * @see components/app/home/home-view.tsx
  */
 
-import { render, screen, within } from '@testing-library/react';
+import { cleanup, render, screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/lib/auth/utils', () => ({ getServerSession: vi.fn() }));
@@ -92,15 +92,24 @@ const EMPTY: HomeView = {
   savedCount: 0,
   published: [],
   askAbout: false,
+  sessions: [],
+  sessionsFirst: false,
 };
 
+type Later = 'askAbout' | 'sessions' | 'sessionsFirst';
+
 /**
- * `askAbout` defaults to `false` here so the rest of this file's fixtures —
- * written before Phase 7B added the field — need not each spell it out; a
- * test about the card itself passes `askAbout: true` explicitly.
+ * `askAbout`, `sessions` and `sessionsFirst` default to off and empty here so
+ * the rest of this file's fixtures — written before Phases 7B and 7D added
+ * them — need not each spell them out; a test about them passes them.
  */
-async function show(home: Omit<HomeView, 'askAbout'> & { askAbout?: boolean }) {
-  vi.mocked(readHome).mockResolvedValue({ askAbout: false, ...home });
+async function show(home: Omit<HomeView, Later> & Partial<Pick<HomeView, Later>>) {
+  vi.mocked(readHome).mockResolvedValue({
+    askAbout: false,
+    sessions: [],
+    sessionsFirst: false,
+    ...home,
+  });
   render(await DashboardPage());
 }
 
@@ -150,7 +159,7 @@ describe('/dashboard — Home', () => {
     await show({ practising: [mineCard, entryCard], recent: [], savedCount: 1, published: [] });
 
     const cards = within(
-      screen.getByRole('heading', { name: 'Practising' }).parentElement!
+      screen.getByRole('heading', { name: 'Practising' }).closest('section')!
     ).getAllByRole('listitem');
     expect(cards).toHaveLength(2);
 
@@ -324,6 +333,66 @@ describe('/dashboard — Home', () => {
       await show({ ...EMPTY, askAbout: true });
       // the style picker lists the one style listStyles() was mocked with
       expect(screen.getByText(funk.params.label)).toBeInTheDocument();
+    });
+  });
+
+  describe('Your sessions (7D, task 7D.7)', () => {
+    const warmUp = {
+      id: 'csess0000000000000000001',
+      name: 'Warm-up',
+      description: null,
+      totalMinutes: 20,
+      visibility: 'private' as const,
+      slug: null,
+      updatedAt: '2026-10-01T09:00:00.000Z',
+      itemCount: 4,
+      titles: ['Cold Carpet', 'Funky Drummer', 'Amen', 'Impeach the President'],
+      lastRunAt: null,
+    };
+
+    const sectionHeadings = () =>
+      screen
+        .getAllByRole('heading', { level: 2 })
+        .map((h) => h.textContent)
+        .filter((t) => t === 'Practising' || t === 'Your sessions');
+
+    it("leads a teacher's Home with their sessions", async () => {
+      await show({
+        ...EMPTY,
+        practising: [mineCard],
+        savedCount: 1,
+        sessions: [warmUp],
+        sessionsFirst: true,
+      });
+      expect(sectionHeadings()).toEqual(['Your sessions', 'Practising']);
+    });
+
+    it("leads a learner's Home with Practising", async () => {
+      await show({ ...EMPTY, practising: [mineCard], savedCount: 1, sessions: [warmUp] });
+      expect(sectionHeadings()).toEqual(['Practising', 'Your sessions']);
+    });
+
+    it('lists each session linking to its editor, from what readHome returned', async () => {
+      await show({ ...EMPTY, savedCount: 1, sessions: [warmUp] });
+      const link = screen.getByRole('link', { name: /Warm-up/ });
+      expect(link.getAttribute('href')).toBe(`/practice/${warmUp.id}`);
+      expect(within(link).getByText('Cold Carpet, Funky Drummer, Amen and 1 more')).toBeTruthy();
+      expect(within(link).getByText('Not run yet')).toBeTruthy();
+      expect(readHome).toHaveBeenCalledTimes(1);
+    });
+
+    it('is not a first visit once you have a session', async () => {
+      await show({ ...EMPTY, sessions: [warmUp] });
+      expect(screen.queryByText(/Welcome to BeatBreaker/)).toBeNull();
+      expect(screen.getByRole('heading', { name: 'Your sessions' })).toBeTruthy();
+    });
+
+    it('offers Make a session from this shelf only when the shelf has patterns', async () => {
+      await show({ ...EMPTY, savedCount: 1 });
+      expect(screen.queryByRole('button', { name: /Make a session from this shelf/ })).toBeNull();
+      cleanup();
+      await show({ ...EMPTY, practising: [mineCard], savedCount: 1 });
+      expect(screen.getByRole('button', { name: /Make a session from this shelf/ })).toBeTruthy();
     });
   });
 });

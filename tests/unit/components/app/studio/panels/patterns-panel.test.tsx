@@ -553,12 +553,26 @@ describe('PracticePanel — Practising', () => {
     const card = within(
       screen.getByRole('heading', { name: 'Practising' }).closest('.card') as HTMLElement
     );
-    // the row's own button, not its ★ ("Funky Drummer — on Practising")
+    // the row's own button — not its ★ ("Funky Drummer — on Practising"), its
+    // Add to a session, nor the shelf's Make a session above the rows
     const opener = () =>
-      card.getAllByRole('button').find((b) => !b.classList.contains('pin')) as HTMLElement;
+      card
+        .getAllByRole('button')
+        .find((b) => b.classList.contains('item') && !b.classList.contains('pin')) as HTMLElement;
     await user.click(opener());
 
     await waitFor(() => expect(opener().getAttribute('aria-current')).toBe('true'));
+  });
+
+  it('offers a session made from the shelf, and Add to a session on each row (7D.6)', () => {
+    mount({ pins: onPractising(), panel: <PracticePanel /> });
+    const card = within(
+      screen.getByRole('heading', { name: 'Practising' }).closest('.card') as HTMLElement
+    );
+    expect(card.getByRole('button', { name: 'Make a session from this shelf' })).toBeTruthy();
+    expect(
+      card.getByRole('button', { name: 'Add Funky Drummer to a practice session' })
+    ).toBeTruthy();
   });
 
   it('leaves it out when nothing is on it', () => {

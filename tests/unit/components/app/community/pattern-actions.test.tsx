@@ -34,7 +34,7 @@ describe('PatternActions', () => {
   it('saves a copy via the copy route, then opens the new pattern in the Studio', async () => {
     vi.mocked(apiClient.post).mockResolvedValue({ id: NEW_ID });
     const user = userEvent.setup();
-    render(<PatternActions id={ID} />);
+    render(<PatternActions id={ID} title="Funky Drummer" />);
 
     await user.click(screen.getByRole('button', { name: /save a copy/i }));
 
@@ -46,7 +46,7 @@ describe('PatternActions', () => {
   it('shows a network-specific error and does not navigate when the request cannot reach the server', async () => {
     vi.mocked(apiClient.post).mockRejectedValue(new APIClientError('offline', 'NETWORK_ERROR'));
     const user = userEvent.setup();
-    render(<PatternActions id={ID} />);
+    render(<PatternActions id={ID} title="Funky Drummer" />);
 
     await user.click(screen.getByRole('button', { name: /save a copy/i }));
 
@@ -57,7 +57,7 @@ describe('PatternActions', () => {
   it('shows a generic error for any other failure', async () => {
     vi.mocked(apiClient.post).mockRejectedValue(new APIClientError('nope', 'VALIDATION_ERROR'));
     const user = userEvent.setup();
-    render(<PatternActions id={ID} />);
+    render(<PatternActions id={ID} title="Funky Drummer" />);
 
     await user.click(screen.getByRole('button', { name: /save a copy/i }));
 
@@ -68,7 +68,7 @@ describe('PatternActions', () => {
   it('calls it a variation on a published pattern — the same copy route', async () => {
     vi.mocked(apiClient.post).mockResolvedValue({ id: NEW_ID });
     const user = userEvent.setup();
-    render(<PatternActions id={ID} variation />);
+    render(<PatternActions id={ID} title="Funky Drummer" variation />);
 
     expect(screen.queryByRole('button', { name: /save a copy/i })).toBeNull();
     await user.click(screen.getByRole('button', { name: 'Save as variation' }));
@@ -77,10 +77,17 @@ describe('PatternActions', () => {
   });
 
   it('opens the ORIGINAL pattern in the editor, not a copy', () => {
-    render(<PatternActions id={ID} />);
+    render(<PatternActions id={ID} title="Funky Drummer" />);
     expect(screen.getByRole('link', { name: /open in the editor/i })).toHaveAttribute(
       'href',
       `/studio/${ID}`
     );
+  });
+});
+
+describe('PatternActions — Add to a session (7D.6)', () => {
+  it('offers Add to a session beside Save and Open', () => {
+    render(<PatternActions id={ID} title="Funky Drummer" />);
+    expect(screen.getByRole('button', { name: 'Add to a session' })).toBeInTheDocument();
   });
 });
