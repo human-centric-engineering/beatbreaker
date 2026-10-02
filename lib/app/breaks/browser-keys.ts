@@ -38,6 +38,16 @@ export const SIZE: StoredSetting<number> = {
   fallback: 1,
 };
 
+/** The step grid's zoom (task 5.14), on top of the 24px / 32px cell. */
+export const GRID_SIZE_MIN = 0.75;
+export const GRID_SIZE_MAX = 2;
+
+export const GRID_SIZE: StoredSetting<number> = {
+  key: 'bb.gridSize',
+  schema: z.number().min(GRID_SIZE_MIN).max(GRID_SIZE_MAX),
+  fallback: 1,
+};
+
 export const VIEW: StoredSetting<(typeof VIEW_MODES)[number]> = {
   key: 'bb.view',
   schema: z.enum(VIEW_MODES),
@@ -72,6 +82,7 @@ export const PENDING_LINK = {
 /** Every key above — what the grep test holds the app's `bb.` literals to. */
 export const BROWSER_KEYS = [
   SIZE.key,
+  GRID_SIZE.key,
   VIEW.key,
   PATTERNS_TAB.key,
   SCRATCH.key,

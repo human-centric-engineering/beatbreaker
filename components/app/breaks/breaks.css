@@ -741,9 +741,21 @@
 /* ============================================================
    STEP GRID EDITOR
    ============================================================ */
+/* A cell's size (5.14, E1): 24px with a fine pointer and 32px with a coarse
+   one, the smallest a fingertip lands on reliably, times the grid zoom
+   (`bb.gridSize`). The count row is sized from the same number so the count
+   stays over its cells. */
 .bb .gridwrap {
+  --cell: 24px;
+  --cell-size: calc(var(--cell) * var(--grid-zoom, 1));
   overflow-x: auto;
   padding: 2px 0 6px;
+  position: relative;
+}
+@media (pointer: coarse) {
+  .bb .gridwrap {
+    --cell: 32px;
+  }
 }
 .bb .gridtable {
   display: inline-flex;
@@ -783,9 +795,15 @@
   flex: 0 0 7px;
 }
 .bb .cell {
-  width: 22px;
-  height: 22px;
-  flex: 0 0 22px;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  flex: 0 0 var(--cell-size);
+  /* A drag along a lane paints (5.15), so a horizontal swipe on a cell is not
+     a scroll; the page still scrolls up and down, and the grid by its
+     scrollbar or from the lane names. No callout or selection on a long press. */
+  touch-action: pan-y;
+  -webkit-touch-callout: none;
+  user-select: none;
   border-radius: 4px;
   border: 1px solid var(--line-soft);
   background: var(--sunk);
@@ -881,8 +899,8 @@
   padding-left: 80px;
 }
 .bb .countrow span {
-  width: 22px;
-  flex: 0 0 22px;
+  width: var(--cell-size);
+  flex: 0 0 var(--cell-size);
   text-align: center;
   font-family: var(--f-mono);
   font-size: 10px;
@@ -896,6 +914,48 @@
   width: 7px;
   flex: 0 0 7px;
 }
+/* The value picker (5.15): a long press or a right-click on a cell. */
+.bb .cellpick {
+  position: fixed;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  min-width: 140px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 6px 24px rgb(0 0 0 / 0.18);
+}
+.bb .cellpick button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 4px 8px;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 13px;
+}
+.bb .cellpick button:hover,
+.bb .cellpick button:focus-visible {
+  background: var(--sunk);
+}
+.bb .cellpick button.on {
+  font-weight: 600;
+}
+.bb .cellpick i {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1px solid var(--line-soft);
+  font-family: var(--f-mono);
+  font-size: 9px;
+  font-style: normal;
+}
+
 .bb .gridkey {
   display: flex;
   flex-wrap: wrap;

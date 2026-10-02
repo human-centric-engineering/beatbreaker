@@ -407,6 +407,32 @@ describe('generating and editing', () => {
     expect(result.current.patterns.A?.bars[0].c[0]).toBe(1);
   });
 
+  it('sets cells by value, a drag being one undo step (5.15)', async () => {
+    const { result } = await mount();
+    act(() => result.current.clearSection());
+    const before = result.current.patterns.A;
+
+    act(() => {
+      result.current.setCell('A', 0, 's', 0, 2, 'start');
+      result.current.setCell('A', 0, 's', 1, 2, 'continue');
+      result.current.setCell('A', 0, 's', 2, 2, 'continue');
+      result.current.setCell('A', 0, 's', 3, 2, 'continue');
+    });
+    expect(result.current.patterns.A?.bars[0].s.slice(0, 4)).toEqual([2, 2, 2, 2]);
+
+    act(() => result.current.undo());
+    expect(result.current.patterns.A).toEqual(before);
+  });
+
+  it('pins a note set at a lower layer, as cycling does (5.15)', async () => {
+    const { result } = await mount();
+    act(() => result.current.setLevel(2));
+    act(() => result.current.clearSection());
+    act(() => result.current.setCell('A', 0, 's', 3, 4));
+    expect(result.current.patterns.A?.bars[0].s[3]).toBe(4);
+    expect(result.current.patterns.A?.pins?.[0]?.s?.[3]).toBe(2);
+  });
+
   it('loads a famous break and takes its tempo, unless the tempo is locked', async () => {
     const { result } = await mount();
     /* Entries are loaded by id now, not by index into a compiled-in array. The
