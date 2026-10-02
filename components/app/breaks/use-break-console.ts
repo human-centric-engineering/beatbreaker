@@ -212,6 +212,28 @@ export interface BreakConsole {
   loops: number;
   position: PlayEvent | null;
 
+  /* ---- what a practice session (7D) drives ---------------------------- */
+  /** Start the transport, with the count-in. False when there is no Web Audio. */
+  play: () => boolean;
+  /** Stop the transport, if it is playing. */
+  stopPlaying: () => void;
+  /**
+   * Play at this tempo without changing the pattern's own (as the tempo
+   * trainer does). Held between 40 and the meter's ceiling.
+   */
+  playAt: (bpm: number) => void;
+  /** The audio clock now, in seconds — what a session's Pause and Skip are timed by. */
+  audioNow: () => number;
+  /** Hear each loop boundary and each downbeat, on the audio clock. Null to stop. */
+  setClockListener: (listener: ClockListener | null) => void;
+  /**
+   * While a session runs: the trainer's ramp and _match tempo_ are held off,
+   * so an item's tempo is the tempo you hear. Your settings are not changed —
+   * releasing the hold brings both back as they were.
+   */
+  sessionHold: boolean;
+  setSessionHold: (on: boolean) => void;
+
   kit: string;
   setKit: (k: string) => void;
   /**
@@ -383,6 +405,12 @@ export interface InitialPattern {
 }
 
 /** Where a pattern was left: the layer, and the tempo it was being played at. */
+/** What a practice session listens to from the transport (7D), as audio-clock times. */
+export interface ClockListener {
+  onLoop?: (at: number) => void;
+  onDownbeat?: (at: number) => void;
+}
+
 export interface PracticePlace {
   level: number;
   bpm: number;
@@ -457,6 +485,12 @@ export function useBreakConsole(
     preview,
   } = settings;
   const stageSaved = options.stageSaved;
+
+  /* A practice session holds the ramp and the layer match off while it runs
+     (7D). Kept beside the settings rather than written into them, so a page
+     closed mid-session leaves your settings as they were. */
+  const [sessionHold, setSessionHold] = useState(false);
+  const matchOn = matchTempo && !sessionHold;
 
   /* ---- the pattern's own values ----------------------------------------
      Tempo, swing, layer and arrangement are the open pattern's, and its
@@ -563,12 +597,12 @@ export function useBreakConsole(
     (n: number) => {
       const top = maxBpm(meter);
       const v = clamp(Math.round(n), 50, top);
-      const base = matchTempo ? clamp(Math.round(v / (LAYER_TEMPO[level] ?? 1)), 50, top) : v;
+      const base = matchOn ? clamp(Math.round(v / (LAYER_TEMPO[level] ?? 1)), 50, top) : v;
       setBaseBpm(base);
       setBpmRaw(v);
       return base;
     },
-    [meter, matchTempo, level]
+    [meter, matchOn, level]
   );
 
   const setBpm = useCallback(
@@ -585,10 +619,10 @@ export function useBreakConsole(
      100%" went somewhere the pattern had never been. */
   const quickTempo = useCallback(
     (pct: number) => {
-      const written = matchTempo ? baseBpm * (LAYER_TEMPO[level] ?? 1) : baseBpm;
+      const written = matchOn ? baseBpm * (LAYER_TEMPO[level] ?? 1) : baseBpm;
       setBpmRaw(clamp(Math.round((written * pct) / 100), 50, maxBpm(meter)));
     },
-    [matchTempo, baseBpm, level, meter]
+    [matchOn, baseBpm, level, meter]
   );
 
   /**
@@ -604,16 +638,16 @@ export function useBreakConsole(
    * would move it.
    */
   const baseFor = useCallback(
-    (bpmAt: number, levelAt: number) => (matchTempo ? bpmAt / (LAYER_TEMPO[levelAt] ?? 1) : bpmAt),
-    [matchTempo]
+    (bpmAt: number, levelAt: number) => (matchOn ? bpmAt / (LAYER_TEMPO[levelAt] ?? 1) : bpmAt),
+    [matchOn]
   );
 
   /* The layer moved, or the match was switched on: put the tempo where that
      layer should be practised, measured against the break's own tempo. */
   useEffect(() => {
-    if (!matchTempo) return;
+    if (!matchOn) return;
     setBpmRaw(clamp(Math.round(baseBpm * (LAYER_TEMPO[level] ?? 1)), 50, maxBpm(meter)));
-  }, [matchTempo, level, meter, baseBpm, setBpmRaw]);
+  }, [matchOn, level, meter, baseBpm, setBpmRaw]);
 
   /* ---- derived: the sections as they sound and look ------------------- */
 
@@ -816,7 +850,7 @@ export function useBreakConsole(
       chosen.current = {};
       const top = maxBpm(next.meter);
       const base = locks.bpm ? baseBpm : clamp(settings.startBpm, 50, top);
-      const at = matchTempo ? Math.round(base * (LAYER_TEMPO[level] ?? 1)) : base;
+      const at = matchOn ? Math.round(base * (LAYER_TEMPO[level] ?? 1)) : base;
       const bpmAt = locks.bpm ? clamp(bpm, 50, top) : clamp(at, 50, top);
       setStyleRaw(next.style);
       setMeterRaw(next.meter);
@@ -841,7 +875,7 @@ export function useBreakConsole(
       baseBpm,
       settings,
       locks.bpm,
-      matchTempo,
+      matchOn,
       level,
       applyStyleMix,
     ]
@@ -1072,6 +1106,8 @@ export function useBreakConsole(
 
   const audioRef = useRef<BreakAudio | null>(null);
   const transportRef = useRef<Transport | null>(null);
+  /** A practice session's ear on the clock (7D) — read by the transport's callbacks. */
+  const clockListener = useRef<ClockListener | null>(null);
   const packsRef = useRef<PackSource | null>(null);
   const yoursRef = useRef<YourSampleSource | null>(null);
   const midiRef = useRef<MidiOut | null>(null);
@@ -1135,7 +1171,7 @@ export function useBreakConsole(
       click,
       clickSub,
       countIn,
-      ramp,
+      ramp: sessionHold ? 0 : ramp,
       ceiling,
       mix,
       mute,
@@ -1152,6 +1188,7 @@ export function useBreakConsole(
       clickSub,
       countIn,
       ramp,
+      sessionHold,
       ceiling,
       mix,
       mute,
@@ -1272,7 +1309,11 @@ export function useBreakConsole(
     const t = new Transport(audio, {
       getSnapshot: () => snapshotRef.current,
       onBpm: (n) => setBpmRaw(n),
-      onLoop: (n) => setLoops(n),
+      onLoop: (n, at) => {
+        setLoops(n);
+        clockListener.current?.onLoop?.(at);
+      },
+      onDownbeat: (at) => clockListener.current?.onDownbeat?.(at),
       onPaint: (ev) => setPosition(ev),
       onStop: () => {
         setPlaying(false);
@@ -1328,6 +1369,38 @@ export function useBreakConsole(
     }
     if (t.start()) setPlaying(true);
     else logger.warn('BeatBreaker: no Web Audio in this browser — notation still works');
+  }, []);
+
+  /* ---- what a practice session drives (7D) ----------------------------- */
+
+  const play = useCallback(() => {
+    const t = transportRef.current;
+    if (!t) return false;
+    if (t.playing) return true;
+    if (!t.start()) {
+      logger.warn('BeatBreaker: no Web Audio in this browser — notation still works');
+      return false;
+    }
+    setPlaying(true);
+    return true;
+  }, []);
+
+  const stopPlaying = useCallback(() => {
+    const t = transportRef.current;
+    if (t?.playing) t.stop();
+  }, []);
+
+  /* A practice tempo, as the trainer's ramp sets it: the pattern's own tempo
+     (`baseBpm`) is not moved. Down to 40, the slowest a session plays. */
+  const playAt = useCallback(
+    (n: number) => setBpmRaw(clamp(Math.round(n), 40, maxBpm(meter))),
+    [meter]
+  );
+
+  const audioNow = useCallback(() => audioRef.current?.ctx?.currentTime ?? 0, []);
+
+  const setClockListener = useCallback((listener: ClockListener | null) => {
+    clockListener.current = listener;
   }, []);
 
   // the arrangement or the solo changed while playing — keep going, new sequence
@@ -1644,6 +1717,13 @@ export function useBreakConsole(
     togglePlay,
     loops,
     position,
+    play,
+    stopPlaying,
+    playAt,
+    audioNow,
+    setClockListener,
+    sessionHold,
+    setSessionHold,
     kit,
     setKit,
     sound,

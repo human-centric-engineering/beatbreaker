@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowDown, ArrowUp, Loader2, Pin, PinOff, Trash2, X } from 'lucide-react';
+import { ArrowDown, ArrowUp, Loader2, Pin, PinOff, Play, Trash2, X } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
@@ -279,9 +279,19 @@ export function SessionEditor({ initial }: { initial: SessionView }) {
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-3xl font-bold">{saved.name}</h1>
-        <Button asChild variant="ghost">
-          <Link href="/practice">All sessions</Link>
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button asChild variant="ghost">
+            <Link href="/practice">All sessions</Link>
+          </Button>
+          {saved.items.some((i) => i.target) ? (
+            <Button asChild>
+              <Link href={`/studio?session=${saved.id}`}>
+                <Play className="mr-2 h-4 w-4" aria-hidden />
+                Run it
+              </Link>
+            </Button>
+          ) : null}
+        </div>
       </div>
 
       <section className="space-y-4" aria-labelledby="session-about">

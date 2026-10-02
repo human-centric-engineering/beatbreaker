@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { shortcutFor } from '@/components/app/shell/shortcuts';
 import { ShortcutsSheet } from '@/components/app/shell/shortcuts-sheet';
 import { StudioFooter } from '@/components/app/shell/studio-footer';
+import { SessionBar } from '@/components/app/practice/session-bar';
 import { StudioHeader } from '@/components/app/shell/studio-header';
 import { ToolDrawer } from '@/components/app/shell/tool-drawer';
 import { ToolRail, type Tool } from '@/components/app/shell/tool-rail';
@@ -183,6 +184,8 @@ export function StudioFrame() {
         toolsButtonRef={toolsButton}
         container={frame}
       />
+
+      <SessionBar />
 
       <div className="studio-body">
         <div className="studio-stage">
