@@ -966,7 +966,10 @@ export function useBreakConsole(
       value: number,
       stroke: 'start' | 'continue' = 'start'
     ) => {
-      if (!patterns[letter]) return;
+      const pat = patterns[letter];
+      if (!pat) return;
+      // clearing what is already empty is no edit: no undo step, nothing touched
+      if (!value && !pat.bars[bar]?.[lane]?.[step]) return;
       if (stroke === 'start') pushHistory();
       setTouched(letter);
       /* From the latest state, not this render's: a drag sets cells faster

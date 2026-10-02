@@ -424,6 +424,17 @@ describe('generating and editing', () => {
     expect(result.current.patterns.A).toEqual(before);
   });
 
+  it('adds no undo step for clearing a cell that is already empty (5.15)', async () => {
+    const { result } = await mount();
+    act(() => result.current.clearSection());
+    const before = result.current.patterns;
+    act(() => result.current.setCell('A', 0, 'k', 0, 0));
+    expect(result.current.patterns).toEqual(before);
+    act(() => result.current.undo());
+    // the undo took the clear back, not a dead step
+    expect(result.current.patterns.A?.bars[0].k.some(Boolean)).toBe(true);
+  });
+
   it('pins a note set at a lower layer, as cycling does (5.15)', async () => {
     const { result } = await mount();
     act(() => result.current.setLevel(2));

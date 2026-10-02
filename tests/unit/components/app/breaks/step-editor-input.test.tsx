@@ -49,6 +49,7 @@ function mount(view = emptyPattern(), zoom?: number) {
       cursor={null}
       onCycle={onCycle}
       onSet={onSet}
+      section="A"
       zoom={zoom}
     />
   );
@@ -73,7 +74,7 @@ describe('setting a cell (5.15)', () => {
     mount();
     fireEvent.click(cell('s', 4));
     expect(defaultHit('s')).toBe(2);
-    expect(onSet).toHaveBeenCalledWith(0, 's', 4, 2, 'start');
+    expect(onSet).toHaveBeenCalledWith('A', 0, 's', 4, 2, 'start');
   });
 
   it('a tap on a cell with a note clears it', () => {
@@ -81,7 +82,7 @@ describe('setting a cell (5.15)', () => {
     view.bars[0].k[0] = 1;
     mount(view);
     fireEvent.click(cell('k', 0));
-    expect(onSet).toHaveBeenCalledWith(0, 'k', 0, 0, 'start');
+    expect(onSet).toHaveBeenCalledWith('A', 0, 'k', 0, 0, 'start');
   });
 
   it('a long press opens the picker; choosing cross-stick sets it in one step', () => {
@@ -93,7 +94,7 @@ describe('setting a cell (5.15)', () => {
     });
     fireEvent.pointerUp(cell('s', 6));
     // the click that ends the press is not a tap
-    fireEvent.click(cell('s', 6));
+    fireEvent.click(cell('s', 6), { detail: 1 });
     expect(onSet).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a long press sets nothing until a choice
 
     const menu = screen.getByRole('menu', { name: /Snare, bar 1 step 7/ });
@@ -107,7 +108,7 @@ describe('setting a cell (5.15)', () => {
     fireEvent.click(screen.getByRole('menuitem', { name: /Cross-stick/ }));
 
     expect(onSet).toHaveBeenCalledTimes(1);
-    expect(onSet).toHaveBeenCalledWith(0, 's', 6, 4, 'start');
+    expect(onSet).toHaveBeenCalledWith('A', 0, 's', 6, 4, 'start');
     expect(screen.queryByRole('menu')).toBeNull();
   });
 
@@ -125,12 +126,12 @@ describe('setting a cell (5.15)', () => {
     mount();
     fireEvent.pointerDown(cell('h', 0), { button: 0 });
     fireEvent.pointerUp(cell('h', 0));
-    fireEvent.click(cell('h', 0));
+    fireEvent.click(cell('h', 0), { detail: 1 });
     act(() => {
       vi.advanceTimersByTime(LONG_PRESS_MS * 2);
     });
     expect(screen.queryByRole('menu')).toBeNull();
-    expect(onSet).toHaveBeenCalledWith(0, 'h', 0, defaultHit('h'), 'start');
+    expect(onSet).toHaveBeenCalledWith('A', 0, 'h', 0, defaultHit('h'), 'start');
   });
 
   it('a drag across four cells of a lane sets four with the value it started with, as one stroke', () => {
@@ -146,15 +147,101 @@ describe('setting a cell (5.15)', () => {
     at.mockReturnValue(cell('k', 4));
     fireEvent.pointerMove(cell('k', 4));
     fireEvent.pointerUp(cells[3]);
-    fireEvent.click(cells[3]);
+    fireEvent.click(cells[3], { detail: 1 });
 
     expect(onSet.mock.calls).toEqual([
-      [0, 's', 0, 2, 'start'],
-      [0, 's', 1, 2, 'continue'],
-      [0, 's', 2, 2, 'continue'],
-      [0, 's', 3, 2, 'continue'],
+      ['A', 0, 's', 0, 2, 'start'],
+      ['A', 0, 's', 1, 2, 'continue'],
+      ['A', 0, 's', 2, 2, 'continue'],
+      ['A', 0, 's', 3, 2, 'continue'],
     ]);
     at.mockRestore();
+  });
+
+  it('does not eat the next tap when a mouse drag ended off a cell', () => {
+    mount();
+    const at = vi.spyOn(document, 'elementFromPoint');
+    fireEvent.pointerDown(cell('s', 0), { button: 0 });
+    at.mockReturnValue(cell('s', 1));
+    fireEvent.pointerMove(cell('s', 1));
+    // let go on another cell: the click goes to the row, not a cell
+    fireEvent.pointerUp(cell('s', 1));
+    at.mockRestore();
+    onSet.mockReset();
+
+    fireEvent.pointerDown(cell('k', 5), { button: 0 });
+    fireEvent.pointerUp(cell('k', 5));
+    fireEvent.click(cell('k', 5), { detail: 1 });
+    expect(onSet).toHaveBeenCalledWith('A', 0, 'k', 5, defaultHit('k'), 'start');
+  });
+
+  it('never swallows a click from the keyboard', () => {
+    vi.useFakeTimers();
+    mount();
+    fireEvent.pointerDown(cell('s', 2), { button: 0 });
+    act(() => {
+      vi.advanceTimersByTime(LONG_PRESS_MS);
+    });
+    fireEvent.keyDown(screen.getByRole('menu'), { key: 'Escape' });
+    // Enter on the focused cell: a click with no pointer behind it
+    fireEvent.click(cell('s', 2), { detail: 0 });
+    expect(onSet).toHaveBeenCalledWith('A', 0, 's', 2, defaultHit('s'), 'start');
+  });
+
+  it('a clearing drag skips cells this layer shows as empty', () => {
+    const view = emptyPattern();
+    view.bars[0].s[0] = 2;
+    view.bars[0].s[2] = 2;
+    mount(view);
+    const at = vi.spyOn(document, 'elementFromPoint');
+    fireEvent.pointerDown(cell('s', 0), { button: 0 });
+    for (const i of [1, 2]) {
+      at.mockReturnValue(cell('s', i));
+      fireEvent.pointerMove(cell('s', i));
+    }
+    at.mockRestore();
+    expect(onSet.mock.calls).toEqual([
+      ['A', 0, 's', 0, 0, 'start'],
+      ['A', 0, 's', 2, 0, 'continue'],
+    ]);
+  });
+
+  it('keeps the section a picker or a drag began in, when the grid moves to the other', () => {
+    const view = emptyPattern();
+    const { rerender } = mount(view);
+    fireEvent.contextMenu(cell('s', 3));
+    // the playhead crosses into B under Both
+    rerender(
+      <StepEditor
+        view={view}
+        stored={view}
+        cursor={null}
+        onCycle={onCycle}
+        onSet={onSet}
+        section="B"
+      />
+    );
+    fireEvent.click(screen.getByRole('menuitem', { name: /Accent/ }));
+    expect(onSet).toHaveBeenCalledWith('A', 0, 's', 3, 3, 'start');
+  });
+
+  it('keeps the keyboard where it is in the picker while the grid re-renders', () => {
+    const view = emptyPattern();
+    const { rerender } = mount(view);
+    fireEvent.contextMenu(cell('s', 3));
+    const accent = screen.getByRole('menuitem', { name: /Accent/ });
+    accent.focus();
+    rerender(
+      <StepEditor
+        view={view}
+        stored={view}
+        cursor={5}
+        onCycle={onCycle}
+        onSet={onSet}
+        section="A"
+      />
+    );
+    expect(document.activeElement).toBe(accent);
   });
 
   it('keeps Shift-click stepping back through the values', () => {

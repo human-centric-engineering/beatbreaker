@@ -1,10 +1,11 @@
 'use client';
 
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { LANE_DEFS, LANE_VALUES, activeLanes, laneName } from '@/lib/app/breaks/lanes';
 import { countLabelsOf, isGroupStart } from '@/lib/app/breaks/meter';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
+import type { SectionLetter } from '@/lib/app/breaks/audio/transport';
 import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
 import { cn } from '@/lib/utils';
 
@@ -65,8 +66,15 @@ interface StepEditorProps {
   /** The stored break, for reading pins. */
   stored: Pattern;
   onCycle: (bar: number, lane: LaneKey, step: number, back: boolean) => void;
+  /**
+   * The section the grid is editing. A drag or an open picker keeps the one
+   * it began in, so a playhead crossing into the other section under Both
+   * cannot carry the edit with it.
+   */
+  section: SectionLetter;
   /** Set a cell to a value; a drag's later cells are `continue`, so it is one undo step. */
   onSet: (
+    section: SectionLetter,
     bar: number,
     lane: LaneKey,
     step: number,
@@ -105,23 +113,40 @@ export function StepEditor({
   stored,
   onCycle,
   onSet,
+  section,
   zoom = 1,
   cursor,
   flash,
   flashSeq,
 }: StepEditorProps) {
   const m = meterOfPat(view);
-  const [picker, setPicker] = useState<(CellAt & { x: number; y: number }) | null>(null);
+  const [picker, setPicker] = useState<
+    (CellAt & { x: number; y: number; section: SectionLetter; current: number }) | null
+  >(null);
   /** The press in progress: where it started, what it paints, and its long-press timer. */
   const press = useRef<{
     start: CellAt;
+    section: SectionLetter;
     paint: number;
     timer: ReturnType<typeof setTimeout>;
     dragged: boolean;
     last: string;
   } | null>(null);
-  /** The click that ends a drag or a long press is not a tap. */
-  const swallowClick = useRef(false);
+  /**
+   * The click that ends a drag or a long press is not a tap. Held while the
+   * press lasts and for a moment after it ends, then dropped: the click may
+   * land on the row rather than a cell (a mouse let go on another cell), or
+   * not come at all (a long press on Android), and a flag left set would eat
+   * the next real tap. A click from the keyboard is never swallowed.
+   */
+  const swallow = useRef<'no' | 'held' | number>('no');
+  const swallowing = (e: React.MouseEvent) => {
+    const s = swallow.current;
+    if (e.detail === 0 || s === 'no') return false;
+    swallow.current = 'no';
+    // event times, not the clock: the press's end and this click share a timeline
+    return s === 'held' || e.timeStamp < s;
+  };
   const opener = useRef<HTMLElement | null>(null);
 
   const valueAt = (c: CellAt) => view.bars[c.bar]?.[c.lane]?.[c.step] ?? 0;
@@ -130,7 +155,7 @@ export function StepEditor({
   const openPicker = (c: CellAt, el: HTMLElement) => {
     const r = el.getBoundingClientRect();
     opener.current = el;
-    setPicker({ ...c, x: r.left, y: r.bottom + 4 });
+    setPicker({ ...c, x: r.left, y: r.bottom + 4, section, current: valueAt(c) });
   };
   const closePicker = () => {
     setPicker(null);
@@ -139,9 +164,11 @@ export function StepEditor({
 
   useEffect(() => () => clearTimeout(press.current?.timer), []);
 
-  const endPress = () => {
+  /** The press is over — at `at`, the event's time, when a pointer let go. */
+  const endPress = (at?: number) => {
     if (press.current) clearTimeout(press.current.timer);
     press.current = null;
+    if (swallow.current === 'held') swallow.current = at === undefined ? 'no' : at + 400;
   };
 
   const onPointerDown = (e: React.PointerEvent) => {
@@ -149,15 +176,17 @@ export function StepEditor({
     const c = cellOf(e.target instanceof Element ? e.target : null);
     if (!c) return;
     endPress();
+    swallow.current = 'no';
     const { el, ...at } = c;
     press.current = {
       start: at,
+      section,
       paint: tapValue(at),
       dragged: false,
       last: `${at.bar}:${at.step}`,
       timer: setTimeout(() => {
         press.current = null;
-        swallowClick.current = true;
+        swallow.current = 'held';
         openPicker(at, el);
       }, LONG_PRESS_MS),
     };
@@ -176,10 +205,13 @@ export function StepEditor({
     if (!p.dragged) {
       p.dragged = true;
       clearTimeout(p.timer);
-      swallowClick.current = true;
-      onSet(p.start.bar, p.start.lane, p.start.step, p.paint, 'start');
+      swallow.current = 'held';
+      onSet(p.section, p.start.bar, p.start.lane, p.start.step, p.paint, 'start');
     }
-    onSet(c.bar, c.lane, c.step, p.paint, 'continue');
+    /* A clearing drag leaves alone what this layer does not show: a ghost
+       the layer hides is not one the drummer meant to erase. */
+    if (!p.paint && !valueAt(c)) return;
+    onSet(p.section, c.bar, c.lane, c.step, p.paint, 'continue');
   };
   const labels = countLabelsOf(m);
   const lanes = activeLanes(view.lanes);
@@ -197,8 +229,8 @@ export function StepEditor({
         className="gridtable"
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
-        onPointerUp={endPress}
-        onPointerCancel={endPress}
+        onPointerUp={(e) => endPress(e.timeStamp)}
+        onPointerCancel={(e) => endPress(e.timeStamp)}
       >
         <div className="countrow" aria-hidden="true">
           {barIdx.map((b) => (
@@ -248,13 +280,18 @@ export function StepEditor({
                           data-slot={i}
                           data-on={v}
                           onClick={(e) => {
-                            if (swallowClick.current) {
-                              swallowClick.current = false;
-                              return;
-                            }
+                            if (swallowing(e)) return;
                             // Shift still steps back through the values, as it did
                             if (e.shiftKey) onCycle(b, lane, i, true);
-                            else onSet(b, lane, i, tapValue({ bar: b, lane, step: i }), 'start');
+                            else
+                              onSet(
+                                section,
+                                b,
+                                lane,
+                                i,
+                                tapValue({ bar: b, lane, step: i }),
+                                'start'
+                              );
                           }}
                           onContextMenu={(e) => {
                             e.preventDefault();
@@ -286,9 +323,9 @@ export function StepEditor({
         <CellPicker
           at={picker}
           name={laneName(picker.lane, view.perc)}
-          current={valueAt(picker)}
+          current={picker.current}
           onChoose={(v) => {
-            onSet(picker.bar, picker.lane, picker.step, v, 'start');
+            onSet(picker.section, picker.bar, picker.lane, picker.step, v, 'start');
             closePicker();
           }}
           onClose={closePicker}
@@ -343,14 +380,21 @@ function CellPicker({
   onClose: () => void;
 }) {
   const menu = useRef<HTMLDivElement>(null);
+  /* The latest close, read by the listener: the grid re-renders with the
+     playhead, and an effect keyed on it would refocus the first item each
+     frame, pulling the keyboard back from the value it was moving to. */
+  const close = useRef(onClose);
+  useLayoutEffect(() => {
+    close.current = onClose;
+  });
   useEffect(() => {
     menu.current?.querySelector<HTMLButtonElement>('button')?.focus();
     const away = (e: PointerEvent) => {
-      if (e.target instanceof Node && !menu.current?.contains(e.target)) onClose();
+      if (e.target instanceof Node && !menu.current?.contains(e.target)) close.current();
     };
     document.addEventListener('pointerdown', away);
     return () => document.removeEventListener('pointerdown', away);
-  }, [onClose]);
+  }, []);
 
   const values = ['empty', ...LANE_VALUES[at.lane]];
   return (

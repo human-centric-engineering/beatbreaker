@@ -410,9 +410,8 @@ export function Stage() {
               flash={c.flash?.[c.editing]}
               flashSeq={c.flash?.seq}
               onCycle={(bar, lane, step, back) => c.cycleCell(c.editing, bar, lane, step, back)}
-              onSet={(bar, lane, step, value, stroke) =>
-                c.setCell(c.editing, bar, lane, step, value, stroke)
-              }
+              section={c.editing}
+              onSet={c.setCell}
               zoom={gridSize}
             />
           ) : null}
