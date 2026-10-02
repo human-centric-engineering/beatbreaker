@@ -118,6 +118,7 @@ function play(pat: Pattern, over: Partial<TransportSnapshot>) {
     ceiling: 200,
     mix: {},
     mute: {},
+    laneSolo: {},
     ...over,
   };
   // a structural fake of the engine's public surface — not external data

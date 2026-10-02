@@ -14,6 +14,7 @@ import {
   type TransportSnapshot,
   beatOf,
   isClickStep,
+  laneGain,
   maxBpm,
 } from '@/lib/app/breaks/audio/transport';
 import { METER_KEYS, groupsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
@@ -90,6 +91,7 @@ function snapshot(pat: Pattern, over: Partial<TransportSnapshot> = {}): Transpor
     ceiling: 200,
     mix: {},
     mute: {},
+    laneSolo: {},
     ...over,
   };
 }
@@ -196,6 +198,23 @@ describe('Transport', () => {
         [MIDI_MAP.h, 2],
         [MIDI_MAP.s, 4],
       ]);
+    });
+
+    it('plays only soloed lanes once any is soloed, and sends every lane to the port', () => {
+      const hit = vi.fn<MidiSink['hit']>();
+      const { audio } = playOneBar(pat, { laneSolo: { s: true } }, { hit });
+      expect(audio.snare).toHaveBeenCalledTimes(1);
+      expect(audio.kick).not.toHaveBeenCalled(); // test-review:accept no_arg_called — an unsoloed lane is silent
+      expect(audio.hat).not.toHaveBeenCalled(); // test-review:accept no_arg_called — an unsoloed lane is silent
+      expect(hit.mock.calls.map(([note]) => note).sort()).toEqual(
+        [MIDI_MAP.k, MIDI_MAP.h, MIDI_MAP.s].sort()
+      );
+    });
+
+    it('keeps a soloed lane silent when it is muted too: mute wins', () => {
+      const { audio } = playOneBar(pat, { laneSolo: { s: true }, mute: { s: true } });
+      expect(audio.snare).not.toHaveBeenCalled(); // test-review:accept no_arg_called — mute wins over solo
+      expect(audio.kick).not.toHaveBeenCalled(); // test-review:accept no_arg_called — still soloed out
     });
 
     it('sends a lane whose fader is at zero, at the note’s own velocity', () => {
@@ -436,5 +455,27 @@ describe('Transport — the clock', () => {
     expect(beatOf(patternIn('4/4'), 5)).toBe(2);
     expect(beatOf(patternIn('7/8'), 9)).toBe(3);
     expect(beatOf(null, 15)).toBe(4);
+  });
+});
+
+describe('laneGain (D23)', () => {
+  const mix = { k: 0.8, s: 1.1, h: 0.5 };
+
+  it('is the fader with nothing soloed or muted', () => {
+    expect(laneGain({ mix, mute: {}, laneSolo: {} }, 'k')).toBe(0.8);
+  });
+
+  it('opens only the soloed lane’s gain when the snare is soloed', () => {
+    const snap = { mix, mute: {}, laneSolo: { s: true } };
+    expect(['k', 's', 'h'].map((lane) => laneGain(snap, lane))).toEqual([0, 1.1, 0]);
+  });
+
+  it('restores the mix when every solo is cleared', () => {
+    const snap = { mix, mute: {}, laneSolo: { s: false, k: false } };
+    expect(['k', 's', 'h'].map((lane) => laneGain(snap, lane))).toEqual([0.8, 1.1, 0.5]);
+  });
+
+  it('is silent on a lane soloed and muted', () => {
+    expect(laneGain({ mix, mute: { s: true }, laneSolo: { s: true } }, 's')).toBe(0);
   });
 });

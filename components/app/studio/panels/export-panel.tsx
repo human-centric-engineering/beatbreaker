@@ -154,7 +154,7 @@ export function ExportPanel() {
             </div>
             {c.midiPort ? (
               <div className="hint">
-                Playback is also driving <b>{c.midiPort}</b>, muted lanes too.
+                Playback is also driving <b>{c.midiPort}</b>, muted and soloed-out lanes too.
               </div>
             ) : null}
             {midiOk ? null : (

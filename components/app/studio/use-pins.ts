@@ -28,6 +28,8 @@ export interface PracticeShelvesState {
   shelfOf: (target: PinTarget) => Shelf | null;
   /** Pin to a shelf, move to it, or (null) unpin. False when it did not happen. */
   setPin: (target: PinTarget, shelf: Shelf | null) => Promise<boolean>;
+  /** Read the shelves again — after something on them was deleted, say. */
+  refresh: () => Promise<void>;
 }
 
 const EMPTY: PracticeShelvesView = { practising: [], later: [] };
@@ -54,6 +56,16 @@ export function usePins(initial: PracticeShelvesView | undefined, say: Say): Pra
     [index]
   );
 
+  const refresh = useCallback(async () => {
+    try {
+      setShelves(practiceShelvesSchema.parse(await apiClient.get('/api/v1/pins')));
+    } catch (err) {
+      logger.warn('Pins could not be read back', {
+        error: err instanceof Error ? err.message : err,
+      });
+    }
+  }, []);
+
   const setPin = useCallback(
     async (target: PinTarget, shelf: Shelf | null) => {
       const existing = index.get(keyOf(target));
@@ -74,17 +86,11 @@ export function usePins(initial: PracticeShelvesView | undefined, say: Say): Pra
       /* Read back either way: after a failure the shelves may still have moved
          (another tab, a pin that had already gone), and what is shown should be
          what the server has. */
-      try {
-        setShelves(practiceShelvesSchema.parse(await apiClient.get('/api/v1/pins')));
-      } catch (err) {
-        logger.warn('Pins could not be read back', {
-          error: err instanceof Error ? err.message : err,
-        });
-      }
+      await refresh();
       return ok;
     },
-    [index, say]
+    [index, say, refresh]
   );
 
-  return { shelves, shelfOf, setPin };
+  return { shelves, shelfOf, setPin, refresh };
 }

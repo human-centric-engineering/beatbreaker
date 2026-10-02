@@ -295,6 +295,23 @@ export function DetailsForm() {
             </StudioHelp>
           </div>
         ) : null}
+        {doc.id && doc.mine ? (
+          <div className="btnrow">
+            <button
+              type="button"
+              className="mini"
+              disabled={isSubmitting}
+              onClick={() => doc.id && c.deletePattern(doc.id, name || 'Untitled pattern')}
+            >
+              Delete pattern
+            </button>
+            <StudioHelp title="Delete pattern">
+              Takes this pattern out of your account, your shelves and your history. Its notes stay
+              on the stage, unsaved, and Undo brings it back for a few seconds. Copies other people
+              made of it are theirs and stay.
+            </StudioHelp>
+          </div>
+        ) : null}
       </div>
     </form>
   );

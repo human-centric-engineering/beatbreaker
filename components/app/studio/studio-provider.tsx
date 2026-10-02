@@ -26,6 +26,7 @@ import {
 } from '@/components/app/studio/use-pattern-document';
 import { type PracticeShelvesState, usePins } from '@/components/app/studio/use-pins';
 import { type Notice, type Say, useNotice } from '@/components/app/studio/use-notice';
+import { useDeletePattern, useStageGeneration } from '@/components/app/studio/use-delete-pattern';
 import { type YourSounds, useYourSounds } from '@/components/app/studio/use-your-sounds';
 import {
   fetchSavedPattern,
@@ -121,6 +122,14 @@ export interface Studio extends BreakConsole {
   sounds: YourSounds;
   /** The practice session `?session=` opened, running or ready to (7D); null without one. */
   sessionRun: SessionRun | null;
+  /**
+   * Delete a saved pattern of yours (5.11, D22). It leaves every list at once
+   * and the toast offers Undo for six seconds; the `DELETE` is sent when
+   * the Undo has gone. The pattern on the stage stays there, as unsaved.
+   */
+  deletePattern: (id: string, title: string) => void;
+  /** Patterns deleted from this Studio, or waiting out their Undo: no list shows them. */
+  deleted: ReadonlySet<string>;
 }
 
 const StudioContext = createContext<Studio | null>(null);
@@ -272,6 +281,8 @@ export function StudioProvider({
      is not in it: the answer decides how the document is let go. */
   const [pending, setPending] = useState<(() => void) | null>(null);
 
+  const stage = useStageGeneration();
+
   /** Let the document go and replace it — or ask first, when that would lose edits. */
   const replace = useCallback(
     (go: () => void) => {
@@ -279,10 +290,11 @@ export function StudioProvider({
         setPending(() => go);
         return;
       }
+      stage.bump();
       detach();
       go();
     },
-    [detach, needsPrompt]
+    [detach, needsPrompt, stage]
   );
 
   const replacing = useMemo(
@@ -420,6 +432,14 @@ export function StudioProvider({
     say,
   });
 
+  const { deletePattern, deleted, shownPins, shownHistory } = useDeletePattern({
+    doc,
+    pins,
+    history,
+    stage,
+    say,
+  });
+
   const resolveLeave = useCallback(
     async (choice: 'save' | 'discard' | 'cancel') => {
       const go = pending;
@@ -431,10 +451,11 @@ export function StudioProvider({
          here, and the toast has said why. */
       if (choice === 'save' && !(await doc.save())) return;
       setPending(null);
+      stage.bump();
       detach({ discard: choice === 'discard' });
       go();
     },
-    [pending, doc, detach]
+    [pending, doc, detach, stage]
   );
 
   /* The stage is renamed only once the copy exists. Renamed first, a Save As
@@ -465,14 +486,16 @@ export function StudioProvider({
       saveAs,
       leaving: pending ? { title: patterns.A?.name ?? '' } : null,
       resolveLeave,
-      pins,
+      pins: shownPins,
       stagePin,
       entryEdited,
-      history,
+      history: shownHistory,
       open,
       openDrawer,
       sounds,
       sessionRun,
+      deletePattern,
+      deleted,
     }),
     [
       state,
@@ -486,14 +509,16 @@ export function StudioProvider({
       pending,
       patterns.A?.name,
       resolveLeave,
-      pins,
+      shownPins,
       stagePin,
       entryEdited,
-      history,
+      shownHistory,
       open,
       openDrawer,
       sounds,
       sessionRun,
+      deletePattern,
+      deleted,
     ]
   );
 

@@ -1,5 +1,6 @@
 'use client';
 
+import { Trash2 } from 'lucide-react';
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { z } from 'zod';
 
@@ -81,9 +82,9 @@ function tempo(bpm: number | undefined, meter: string | undefined): string {
 }
 
 /**
- * One row: open on the left, _Add to a session_ and ★ on the right. Buttons
- * side by side rather than one inside the other — a menu button inside a
- * button is not valid HTML.
+ * One row: open on the left, _Add to a session_ and ★ on the right, and
+ * Delete on a saved pattern of yours (5.11). Buttons side by side rather than
+ * one inside the other — a menu button inside a button is not valid HTML.
  */
 function Row({
   target,
@@ -93,6 +94,7 @@ function Row({
   hint,
   level,
   onOpen,
+  mine,
 }: {
   target: PinTarget;
   title: string;
@@ -103,6 +105,8 @@ function Row({
   level?: number;
   /** Instead of the provider's `open` — the history steps its own way. */
   onOpen?: () => void;
+  /** A saved pattern of yours, so it can be deleted. Never a library entry or someone else's. */
+  mine?: boolean;
 }) {
   const c = useStudio();
   const current = sameTarget(c.stagePin, target);
@@ -133,6 +137,17 @@ function Row({
         onResult={(message, error) => c.say(message, { error })}
       />
       <PinButton className="item" target={target} label={title} />
+      {mine && 'breakId' in target ? (
+        <button
+          type="button"
+          className="item del"
+          aria-label={`Delete ${title}`}
+          title={`Delete ${title} — Undo is offered for a few seconds`}
+          onClick={() => c.deletePattern(target.breakId, title)}
+        >
+          <Trash2 className="h-4 w-4" aria-hidden />
+        </button>
+      ) : null}
     </div>
   );
 }
@@ -186,6 +201,7 @@ export function ShelfList({ shelf, empty }: { shelf: Shelf; empty: React.ReactNo
             target={{ breakId: t.id }}
             title={t.title}
             level={t.level}
+            mine={t.mine}
             sub={t.level === undefined ? who : `${who} · ${layerName(t.level)}`}
             right={tempo(t.bpm, t.meter)}
           />
@@ -230,6 +246,7 @@ function RecentList() {
           }
           right={`${layerName(item.level)} · ${item.bpm}`}
           level={item.level}
+          mine={item.target.kind === 'break' && item.target.mine}
           // the history opens at the layer and tempo you left it
           onOpen={() => history.open(item)}
         />
@@ -384,6 +401,8 @@ function AllList() {
   }, [docId, mine, known, filtered]);
 
   const styles = useMemo(() => Object.keys(c.catalogue.styles), [c.catalogue.styles]);
+  const { deleted } = c;
+  const shownRows = useMemo(() => rows?.filter((r) => !deleted.has(r.id)) ?? [], [rows, deleted]);
 
   return (
     <>
@@ -397,9 +416,9 @@ function AllList() {
         </div>
       ) : rows === null ? (
         <div className="empty">Reading your patterns…</div>
-      ) : rows.length ? (
+      ) : shownRows.length ? (
         <div className="list">
-          {rows.map((r) => (
+          {shownRows.map((r) => (
             <Row
               key={r.id}
               target={{ breakId: r.id }}
@@ -407,6 +426,7 @@ function AllList() {
               sub={`${styleLabel(r.style)} · ${layerName(r.level)}`}
               level={r.level}
               right={tempo(r.bpm, r.meter)}
+              mine
             />
           ))}
           {rows.length === ALL_LIMIT ? (

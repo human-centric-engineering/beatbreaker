@@ -129,7 +129,10 @@ const panel = () => within(screen.getByRole('tabpanel'));
 const rows = () =>
   panel()
     .queryAllByRole('button')
-    .filter((b) => b.classList.contains('item') && !b.classList.contains('pin'));
+    .filter(
+      (b) =>
+        b.classList.contains('item') && !b.classList.contains('pin') && !b.classList.contains('del')
+    );
 
 beforeEach(() => {
   localStorage.clear();

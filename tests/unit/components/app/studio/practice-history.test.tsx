@@ -329,7 +329,12 @@ describe('Recent', () => {
     // each row is the open button and its ★ — the ★ is not a row
     const rows = recent
       .getAllByRole('button')
-      .filter((b) => b.classList.contains('item') && !b.classList.contains('pin'));
+      .filter(
+        (b) =>
+          b.classList.contains('item') &&
+          !b.classList.contains('pin') &&
+          !b.classList.contains('del')
+      );
     expect(rows.map((r) => r.textContent)).toEqual([
       'Cold CarpetYour patternFull break · 90',
       `${ENTRY_A.title}${ENTRY_A.artist}Groove · 72`,

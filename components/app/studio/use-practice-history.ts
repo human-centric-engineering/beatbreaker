@@ -64,6 +64,8 @@ export interface PracticeHistoryState {
    * and on the server when the Undo has gone.
    */
   clear: () => void;
+  /** Take a saved pattern out of the list and the trail — it was deleted (5.11). */
+  forget: (breakId: string) => void;
 }
 
 export function keyOf(target: PinTarget): string {
@@ -386,10 +388,23 @@ export function usePracticeHistory({
     };
   }, [commitClear]);
 
+  const forget = useCallback((breakId: string) => {
+    const drop = (list: HistoryItem[]) =>
+      list.filter((i) => !(i.target.kind === 'break' && i.target.id === breakId));
+    setItems(drop);
+    setTrail((t) => {
+      if (!t) return t;
+      const before = t.items
+        .slice(0, t.cursor)
+        .filter((i) => i.target.kind === 'break' && i.target.id === breakId).length;
+      return { items: drop(t.items), cursor: t.cursor - before };
+    });
+  }, []);
+
   const currentId = useMemo(
     () => items.find((i) => itemKey(i) === currentKey)?.id ?? null,
     [items, currentKey]
   );
 
-  return { items, currentId, previous, following, step, open, clear };
+  return { items, currentId, previous, following, step, open, clear, forget };
 }

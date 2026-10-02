@@ -270,6 +270,9 @@ export interface BreakConsole {
   mixTouched: Record<string, boolean>;
   mute: Record<string, boolean>;
   toggleMute: (lane: string) => void;
+  /** Lanes soloed in the mixer (D23): any solo silences the rest; mute still wins. */
+  laneSolo: Record<string, boolean>;
+  toggleSolo: (lane: string) => void;
 
   click: boolean;
   setClick: (b: boolean) => void;
@@ -576,6 +579,7 @@ export function useBreakConsole(
   const [mix, setMix] = useState<Record<string, number>>({ ...DEFAULT_MIX });
   const [mixTouched, setMixTouched] = useState<Record<string, boolean>>({});
   const [mute, setMute] = useState<Record<string, boolean>>({});
+  const [laneSolo, setLaneSolo] = useState<Record<string, boolean>>({});
   const [locks, setLocks] = useState<Record<string, boolean>>({});
 
   const [history, setHistory] = useState<Snapshot[]>([]);
@@ -730,6 +734,10 @@ export function useBreakConsole(
 
   const toggleMute = useCallback((lane: string) => {
     setMute((prev) => ({ ...prev, [lane]: !prev[lane] }));
+  }, []);
+
+  const toggleSolo = useCallback((lane: string) => {
+    setLaneSolo((prev) => ({ ...prev, [lane]: !prev[lane] }));
   }, []);
 
   const toggleLock = useCallback((k: string) => {
@@ -1181,6 +1189,7 @@ export function useBreakConsole(
       ceiling,
       mix,
       mute,
+      laneSolo,
     }),
     [
       view,
@@ -1198,6 +1207,7 @@ export function useBreakConsole(
       ceiling,
       mix,
       mute,
+      laneSolo,
     ]
   );
 
@@ -1756,6 +1766,8 @@ export function useBreakConsole(
     mixTouched,
     mute,
     toggleMute,
+    laneSolo,
+    toggleSolo,
     click,
     setClick,
     clickSub,
