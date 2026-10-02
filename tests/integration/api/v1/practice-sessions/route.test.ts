@@ -81,6 +81,7 @@ const CREATED = {
   climbSteps: CLIMB_DEFAULTS.climbSteps,
   countIn: 1,
   createdAt: '2026-09-30T00:00:00.000Z',
+  copiedFrom: null,
   items: [
     {
       id: 'citem00000000000000000001',

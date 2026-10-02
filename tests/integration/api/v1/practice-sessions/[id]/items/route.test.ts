@@ -58,6 +58,7 @@ const VIEW = {
   climbSteps: 4,
   countIn: 1,
   createdAt: '2026-09-30T00:00:00.000Z',
+  copiedFrom: null,
   items: [
     {
       id: EXISTING_ITEM_ID,
