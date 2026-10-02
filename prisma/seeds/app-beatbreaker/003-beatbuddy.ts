@@ -257,6 +257,8 @@ const unit: SeedUnit = {
       });
     }
 
+    const adminId = admin.id;
+
     /** Change the agent and record it as a new version, in one transaction. */
     async function updateWithVersion(
       data: Prisma.AiAgentUpdateInput,
@@ -283,7 +285,7 @@ const unit: SeedUnit = {
               })
             ),
             changeSummary,
-            createdBy: admin.id,
+            createdBy: adminId,
           },
         });
       });

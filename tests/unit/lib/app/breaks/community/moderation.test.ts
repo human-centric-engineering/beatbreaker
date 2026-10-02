@@ -289,7 +289,12 @@ describe('moderateSpeed (7C)', () => {
     vi.mocked(prisma.speedRecord.findUnique).mockResolvedValue(recordRow() as never);
     vi.mocked(prisma.speedRecord.update).mockResolvedValue({} as never);
     vi.mocked(prisma.speedReport.updateMany).mockResolvedValue({ count: 2 });
-    vi.mocked(tabledRecord).mockResolvedValue({ id: RECORD_ID, userId: OWNER_ID });
+    vi.mocked(tabledRecord).mockResolvedValue({
+      id: RECORD_ID,
+      userId: OWNER_ID,
+      title: 'Funky Drummer',
+      bpm: 112,
+    });
   });
 
   it('404s a record that no longer exists', async () => {
@@ -360,7 +365,7 @@ describe('moderateSpeed (7C)', () => {
     const order: string[] = [];
     vi.mocked(tabledRecord).mockImplementation(async () => {
       order.push('check');
-      return { id: RECORD_ID, userId: OWNER_ID };
+      return { id: RECORD_ID, userId: OWNER_ID, title: 'Funky Drummer', bpm: 112 };
     });
     vi.mocked(prisma.speedRecord.update).mockImplementation((() => {
       order.push('unlist');
