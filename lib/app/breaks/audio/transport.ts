@@ -69,6 +69,19 @@ export interface TransportSnapshot {
 }
 
 /**
+ * The solos that count: those on a lane the pattern plays. A solo left on a
+ * lane the next pattern has not got would otherwise silence every lane, with
+ * no Solo button left on screen to lift it.
+ */
+export function soloInPlay(
+  laneSolo: Record<string, boolean>,
+  lanes: readonly string[]
+): Record<string, boolean> {
+  const have = new Set(lanes);
+  return Object.fromEntries(Object.entries(laneSolo).filter(([k, on]) => on && have.has(k)));
+}
+
+/**
  * How loud a lane plays on the speakers: its fader, or nothing when it is
  * muted or another lane is soloed and it is not (D23). Mute wins over solo,
  * so a lane both soloed and muted is silent. The MIDI port does not ask: it

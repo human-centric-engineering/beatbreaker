@@ -15,6 +15,7 @@ import {
   beatOf,
   isClickStep,
   laneGain,
+  soloInPlay,
   maxBpm,
 } from '@/lib/app/breaks/audio/transport';
 import { METER_KEYS, groupsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
@@ -477,5 +478,20 @@ describe('laneGain (D23)', () => {
 
   it('is silent on a lane soloed and muted', () => {
     expect(laneGain({ mix, mute: { s: true }, laneSolo: { s: true } }, 's')).toBe(0);
+  });
+});
+
+describe('soloInPlay (D23)', () => {
+  it('drops a solo on a lane the pattern does not play, so it cannot silence the kit', () => {
+    const solo = soloInPlay({ p1: true }, ['k', 's', 'h']);
+    expect(solo).toEqual({});
+    expect(laneGain({ mix: {}, mute: {}, laneSolo: solo }, 'k')).toBe(1);
+  });
+
+  it('keeps solos on lanes the pattern plays, and drops ones turned off', () => {
+    expect(soloInPlay({ s: true, h: false, p1: true }, ['k', 's', 'h', 'p1'])).toEqual({
+      s: true,
+      p1: true,
+    });
   });
 });

@@ -114,10 +114,14 @@ export interface PracticeHistoryState {
   forget: (breakId: string) => void;
   /**
    * The stage is letting go of a pattern that was never saved (5.13): put it
-   * on the trail, or bring its entry up to date if it is one already.
+   * on the trail, or bring its entry up to date if it is one already. The id
+   * of a new entry, so a replacement that then fails can take it off again.
    */
-  leave: (left: LeftUnsaved) => void;
-  /** An unsaved entry was saved: it is an ordinary history item now, so its own entry goes. */
+  leave: (left: LeftUnsaved) => string | null;
+  /**
+   * Take an unsaved entry off: it was saved, and is an ordinary history item
+   * now, or the replacement that put it there did not happen.
+   */
   drop: (unsavedId: string) => void;
 }
 
@@ -183,6 +187,7 @@ export function usePracticeHistory({
   initial,
   current,
   unsavedId = null,
+  hidden,
   openItem,
   say,
 }: {
@@ -192,6 +197,12 @@ export function usePracticeHistory({
   current: HistoryCurrent | null;
   /** The unsaved entry the stage holds, when it was put back from the trail (5.13). */
   unsavedId?: string | null;
+  /**
+   * Saved patterns deleted on screen, or waiting out their Undo (5.11): out of
+   * Recent, and out of Back and Forward, so neither can open one the DELETE is
+   * about to take.
+   */
+  hidden?: ReadonlySet<string>;
   /** Put an item on the stage, where it was left. */
   openItem: (item: TrailItem, at: PracticePlace) => Promise<OpenResult>;
   say: Say;
@@ -316,13 +327,22 @@ export function usePracticeHistory({
 
   /* ---- stepping ------------------------------------------------------- */
 
-  const base = useMemo(
-    () =>
-      trail ?? {
-        items,
-        cursor: currentKey === null ? -1 : items.findIndex((i) => itemKey(i) === currentKey),
-      },
-    [trail, items, currentKey]
+  const shown = useCallback(
+    (i: TrailItem) => !(hidden?.size && i.target.kind === 'break' && hidden.has(i.target.id)),
+    [hidden]
+  );
+  const base = useMemo(() => {
+    const all = trail ?? {
+      items,
+      cursor: currentKey === null ? -1 : items.findIndex((i) => itemKey(i) === currentKey),
+    };
+    if (!hidden?.size) return all;
+    const gone = all.items.slice(0, Math.max(all.cursor, 0)).filter((i) => !shown(i)).length;
+    return { items: all.items.filter(shown), cursor: all.cursor - gone };
+  }, [trail, items, currentKey, hidden, shown]);
+  const visibleItems = useMemo(
+    () => (hidden?.size ? items.filter(shown) : items),
+    [items, hidden, shown]
   );
   const previous = base.items[base.cursor + 1] ?? null;
   const following = base.cursor > 0 ? (base.items[base.cursor - 1] ?? null) : null;
@@ -483,7 +503,7 @@ export function usePracticeHistory({
       setTrail((t) => (t ? { ...t, items: update(t.items, item) } : t));
       const pending = stepping.current;
       if (pending) pending.items = update(pending.items, item);
-      return;
+      return null;
     }
 
     unsavedCount.current += 1;
@@ -502,10 +522,19 @@ export function usePracticeHistory({
       pending.items = [item, ...pending.items];
       pending.cursor += 1;
     }
+    return item.id;
   }, []);
 
   const drop = useCallback((id: string) => {
     const keep = (list: TrailItem[]) => list.filter((i) => i.id !== id);
+    const pending = stepping.current;
+    if (pending) {
+      const at = pending.items.findIndex((i) => i.id === id);
+      if (at >= 0) {
+        pending.items = keep(pending.items);
+        if (at < pending.cursor) pending.cursor -= 1;
+      }
+    }
     setItems(keep);
     setTrail((t) => {
       if (!t) return t;
@@ -519,5 +548,16 @@ export function usePracticeHistory({
     [items, currentKey]
   );
 
-  return { items, currentId, previous, following, step, open, clear, forget, leave, drop };
+  return {
+    items: visibleItems,
+    currentId,
+    previous,
+    following,
+    step,
+    open,
+    clear,
+    forget,
+    leave,
+    drop,
+  };
 }

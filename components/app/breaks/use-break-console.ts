@@ -12,6 +12,7 @@ import {
   type SectionLetter,
   type TransportSnapshot,
   maxBpm,
+  soloInPlay,
 } from '@/lib/app/breaks/audio/transport';
 import {
   type Critique,
@@ -24,7 +25,7 @@ import type { Visibility } from '@/lib/app/breaks/community/visibility';
 import { type DoctorMove, doctor } from '@/lib/app/breaks/doctor';
 import { deriveB } from '@/lib/app/breaks/generate';
 import { SIZE, SIZE_MAX, SIZE_MIN, VIEW, type VIEW_MODES } from '@/lib/app/breaks/browser-keys';
-import { DEFAULT_MIX, LANES, PERC_LANES, TOM_LANES } from '@/lib/app/breaks/lanes';
+import { DEFAULT_MIX, LANES, PERC_LANES, TOM_LANES, mixLanes } from '@/lib/app/breaks/lanes';
 
 import { reducePattern } from '@/lib/app/breaks/layers';
 import type { StoredLink } from '@/lib/app/breaks/links';
@@ -1164,6 +1165,12 @@ export function useBreakConsole(
   }, [refreshSamples]);
   useEffect(refreshSamples, [kit, refreshSamples]);
 
+  /* Only a solo on a lane this pattern plays counts (`soloInPlay`). */
+  const soloNow = useMemo(
+    () => soloInPlay(laneSolo, mixLanes(view.A?.lanes, view.B?.lanes)),
+    [laneSolo, view.A?.lanes, view.B?.lanes]
+  );
+
   /**
    * What the transport reads on every scheduled step.
    *
@@ -1189,7 +1196,7 @@ export function useBreakConsole(
       ceiling,
       mix,
       mute,
-      laneSolo,
+      laneSolo: soloNow,
     }),
     [
       view,
@@ -1207,7 +1214,7 @@ export function useBreakConsole(
       ceiling,
       mix,
       mute,
-      laneSolo,
+      soloNow,
     ]
   );
 

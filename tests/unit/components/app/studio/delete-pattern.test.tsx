@@ -80,7 +80,12 @@ function visitOf(id: string, title: string, mine: boolean): HistoryItem {
 function Probe() {
   const c = useStudio();
   return (
-    <div data-testid="probe" data-doc={c.doc.id ?? 'scratch'} data-title={c.patterns.A?.name}>
+    <div
+      data-testid="probe"
+      data-doc={c.doc.id ?? 'scratch'}
+      data-title={c.patterns.A?.name}
+      data-previous={c.history.previous?.target.title ?? ''}
+    >
       <span data-testid="toast">{c.notice?.message}</span>
       {c.notice?.action ? (
         <button type="button" onClick={c.notice.action.run}>
@@ -197,6 +202,27 @@ describe('Delete on a row (5.11)', () => {
       )
     );
     expect(panel().getByText('Cold Carpet')).toBeTruthy();
+  });
+
+  it('takes it out of Back too while the Undo is up, so Back cannot open it', async () => {
+    const WARM: InitialPattern = {
+      id: THEIRS,
+      title: 'Warm Floor',
+      payload: payload(21),
+      mine: true,
+    };
+    mount({
+      initial: WARM,
+      history: [visitOf(THEIRS, 'Warm Floor', true), visitOf(MINE, 'Cold Carpet', true)],
+    });
+    await user.click(screen.getByRole('tab', { name: /^Recent/ }));
+    expect(screen.getByTestId('probe').dataset.previous).toBe('Cold Carpet');
+
+    await user.click(screen.getByRole('button', { name: 'Delete Cold Carpet' }));
+
+    expect(screen.getByTestId('probe').dataset.previous).toBe('');
+    await user.click(screen.getByRole('button', { name: 'Undo' }));
+    expect(screen.getByTestId('probe').dataset.previous).toBe('Cold Carpet');
   });
 
   it('offers no Delete on a library entry or on someone else’s pattern', () => {

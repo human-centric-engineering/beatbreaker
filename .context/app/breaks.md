@@ -296,7 +296,9 @@ it back with its notes, tempo and layer. One already on the trail is brought
 up to date in place rather than added again, so stepping between rolls keeps
 what was done to each. They live in the page only: never sent, forgotten on a
 reload (the last scratch is still kept by `bb.scratch`), at most
-`UNSAVED_CAP` (20). Saving one on the stage drops its entry, and the visit
+`UNSAVED_CAP` (20). A replacement that then fails to load takes the new
+entry off again, since the roll is still on the stage. Saving one on the
+stage drops its entry, and the visit
 that the save records takes its place.
 
 Tests: `tests/integration/api/v1/history/`,
@@ -327,7 +329,9 @@ mounts, so the tab does not move while Recent grows.
   every tab, and in Details for the one on the stage. Library entries and
   other people's patterns have none. The row leaves every list at once and
   the toast offers Undo for `UNDO_MS` (6s). The `DELETE /api/v1/breaks/:id` is
-  sent when that time is up, or on `pagehide` with `keepalive`. Then the
+  sent when that time is up, or on `pagehide` with `keepalive`. Until then
+  the history hides it from Recent and from Back and Forward (`hidden`), so
+  neither can open what the DELETE is about to take. Then the
   history drops it and the shelves are read back (both cascade on the server).
   The pattern on the stage is detached, so its last edit is saved, and it stays
   as scratch. Undo makes it the saved pattern again unless the stage has
@@ -547,7 +551,10 @@ is that × 127. **The mixer is the one deliberate difference.** Faders and mutes
 act on the speakers only, because a muted lane is one you are playing yourself
 and the port exists to hand it to a module (D23). Solo is the same: with any
 lane soloed, only soloed lanes sound on the speakers, and mute still wins
-(`laneGain` in `transport.ts`, task 5.12). The port hears every lane.
+(`laneGain` in `transport.ts`, task 5.12). Only a solo on a lane the pattern
+plays counts (`soloInPlay`), so one left on a lane the next pattern has not
+got cannot silence the kit; the mixer lists every lane A or B plays
+(`mixLanes`). The port hears every lane.
 
 **The hi-hat and ride bands.** The hats slider shapes both cymbals the same way
 (`hatShape`): the stick on the beat is loud, and the "e" and "a" are quieter. That

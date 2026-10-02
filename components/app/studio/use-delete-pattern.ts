@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 
 import type { PatternDocument } from '@/components/app/studio/use-pattern-document';
 import type { PracticeShelvesState } from '@/components/app/studio/use-pins';
@@ -25,7 +25,8 @@ import type { PracticeShelvesView } from '@/lib/validations/pins';
  * pattern again, unless something else has been put on the stage since.
  *
  * The server's pins and visits cascade with the pattern; once it has gone, the
- * shelves are read back and the history drops it locally.
+ * shelves are read back and the history drops it locally. While it waits, the
+ * history hides it from Recent and from Back and Forward (its `hidden`).
  *
  * A hook of its own for the compiler's refs rule, as with the provider's
  * other ref-reading callbacks: what it returns goes into the Studio's context.
@@ -47,8 +48,6 @@ export interface DeletePattern {
   deleted: ReadonlySet<string>;
   /** The shelves without them. */
   shownPins: PracticeShelvesState;
-  /** The history without them. */
-  shownHistory: PracticeHistoryState;
 }
 
 export function useDeletePattern({
@@ -57,22 +56,27 @@ export function useDeletePattern({
   history,
   stage,
   say,
+  hidden: [deleted, setDeleted],
 }: {
+  /** Which patterns are hidden — kept by the provider, since the history reads it too. */
+  hidden: [ReadonlySet<string>, React.Dispatch<React.SetStateAction<ReadonlySet<string>>>];
   doc: PatternDocument;
   pins: PracticeShelvesState;
   history: PracticeHistoryState;
   stage: { read: () => number };
   say: Say;
 }): DeletePattern {
-  const [deleted, setDeleted] = useState<ReadonlySet<string>>(() => new Set());
-  const hide = useCallback((id: string, hidden: boolean) => {
-    setDeleted((was) => {
-      const next = new Set(was);
-      if (hidden) next.add(id);
-      else next.delete(id);
-      return next;
-    });
-  }, []);
+  const hide = useCallback(
+    (id: string, hidden: boolean) => {
+      setDeleted((was) => {
+        const next = new Set(was);
+        if (hidden) next.add(id);
+        else next.delete(id);
+        return next;
+      });
+    },
+    [setDeleted]
+  );
 
   /** The delete the Undo is holding back. */
   const holding = useRef<{
@@ -180,13 +184,5 @@ export function useDeletePattern({
     };
   }, [pins, deleted]);
 
-  const shownHistory = useMemo<PracticeHistoryState>(() => {
-    if (!deleted.size) return history;
-    return {
-      ...history,
-      items: history.items.filter((i) => !(i.target.kind === 'break' && deleted.has(i.target.id))),
-    };
-  }, [history, deleted]);
-
-  return { deletePattern, deleted, shownPins, shownHistory };
+  return { deletePattern, deleted, shownPins };
 }
