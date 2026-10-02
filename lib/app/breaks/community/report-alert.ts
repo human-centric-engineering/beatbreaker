@@ -13,9 +13,16 @@ import { logger } from '@/lib/logging';
  *
  * The queue at `/admin/patterns` holds every open report, but nothing told
  * anyone a new one had arrived, so a moderation rota of one only found out
- * by looking. A new report now emails every human admin, unless the same
- * thing was already reported in the hour before, so a pile-on sends one
- * email rather than twenty.
+ * by looking. A new report now emails every human admin, at most once an
+ * hour per reported thing, so a pile-on sends one email rather than twenty.
+ *
+ * The hour is anchored on the report that last sent an email, not on the
+ * report before this one, so a report every 50 minutes still emails once an
+ * hour rather than once ever. Only open reports count: one an admin has
+ * dismissed or acted on does not hold back the next. Which report sends is
+ * decided by walking the open reports in order (oldest first, id breaking a
+ * tie), so two reports filed in the same instant agree on which of them
+ * emails instead of each deferring to the other.
  *
  * Best-effort: the report is already saved when this runs, and a failure
  * here is logged, never thrown. Who reported it is never in the email.
@@ -28,25 +35,47 @@ export type ReportedThing =
   | { kind: 'profile'; subjectId: string; username: string }
   | { kind: 'speed'; recordId: string; title: string; bpm: number };
 
-/** Another report on the same thing, made in the hour before this one. */
-async function reportedWithinTheHour(
-  thing: ReportedThing,
-  reportId: string,
-  now: Date
-): Promise<boolean> {
-  const where = { id: { not: reportId }, createdAt: { gte: new Date(now.getTime() - HOUR_MS) } };
+type ReportTime = { id: string; createdAt: Date };
+
+/** The thing's open reports, oldest first, id breaking a tie. */
+async function openReports(thing: ReportedThing): Promise<ReportTime[]> {
+  const query = {
+    select: { id: true, createdAt: true },
+    orderBy: [{ createdAt: 'asc' as const }, { id: 'asc' as const }],
+  };
   switch (thing.kind) {
     case 'pattern':
-      return (await prisma.breakReport.count({ where: { ...where, breakId: thing.breakId } })) > 0;
+      return prisma.breakReport.findMany({
+        ...query,
+        where: { breakId: thing.breakId, status: 'open' },
+      });
     case 'profile':
-      return (
-        (await prisma.drummerReport.count({ where: { ...where, subjectId: thing.subjectId } })) > 0
-      );
+      return prisma.drummerReport.findMany({
+        ...query,
+        where: { subjectId: thing.subjectId, status: 'open' },
+      });
     case 'speed':
-      return (
-        (await prisma.speedReport.count({ where: { ...where, recordId: thing.recordId } })) > 0
-      );
+      return prisma.speedReport.findMany({
+        ...query,
+        where: { recordId: thing.recordId, status: 'open' },
+      });
   }
+}
+
+/**
+ * Whether this report is one that emails: walking the open reports, one
+ * emails when no earlier one emailed in the hour before it. A report that is
+ * no longer open (resolved before this ran) sends nothing.
+ */
+export function sendsAlert(reports: readonly ReportTime[], reportId: string): boolean {
+  let lastSent: number | null = null;
+  for (const report of reports) {
+    const at = report.createdAt.getTime();
+    const sends = lastSent === null || at - lastSent >= HOUR_MS;
+    if (sends) lastSent = at;
+    if (report.id === reportId) return sends;
+  }
+  return false;
 }
 
 function describe(thing: ReportedThing): string {
@@ -63,11 +92,10 @@ function describe(thing: ReportedThing): string {
 export async function alertAdminsOfReport(
   thing: ReportedThing,
   reportId: string,
-  reasonLabel: string,
-  now = new Date()
+  reasonLabel: string
 ): Promise<void> {
   try {
-    if (await reportedWithinTheHour(thing, reportId, now)) return;
+    if (!sendsAlert(await openReports(thing), reportId)) return;
 
     const admins = await prisma.user.findMany({
       where: humanAdminWhere,

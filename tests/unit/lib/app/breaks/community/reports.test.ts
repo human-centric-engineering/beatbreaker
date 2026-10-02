@@ -173,8 +173,7 @@ describe('fileReport', () => {
     expect(alertAdminsOfReport).toHaveBeenCalledWith(
       { kind: 'pattern', breakId: BREAK_ID, title: 'Cold Sweat' },
       'rpt-new',
-      'Bad or misleading link',
-      NOW
+      'Bad or misleading link'
     );
   });
 
@@ -413,8 +412,7 @@ describe('fileProfileReport', () => {
     expect(alertAdminsOfReport).toHaveBeenCalledWith(
       { kind: 'profile', subjectId: SUBJECT_ID, username: USERNAME },
       'prpt-new',
-      expect.any(String),
-      NOW
+      expect.any(String)
     );
   });
 
@@ -652,8 +650,7 @@ describe('fileSpeedReport (7C)', () => {
     expect(alertAdminsOfReport).toHaveBeenCalledWith(
       { kind: 'speed', recordId: RECORD_ID, title: 'Funky Drummer', bpm: 112 },
       'srpt-new',
-      expect.any(String),
-      NOW
+      expect.any(String)
     );
   });
 });

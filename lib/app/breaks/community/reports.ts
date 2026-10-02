@@ -78,8 +78,7 @@ export async function fileReport(
   await alertAdminsOfReport(
     { kind: 'pattern', breakId: target.id, title: target.title },
     created.id,
-    REPORT_REASON_LABELS[input.reason],
-    now
+    REPORT_REASON_LABELS[input.reason]
   );
   return { id: created.id, status: 'open' };
 }
@@ -146,8 +145,7 @@ export async function fileProfileReport(
   await alertAdminsOfReport(
     { kind: 'profile', subjectId: target.userId, username: username.toLowerCase() },
     created.id,
-    PROFILE_REPORT_REASON_LABELS[input.reason],
-    now
+    PROFILE_REPORT_REASON_LABELS[input.reason]
   );
   return { id: created.id, status: 'open' };
 }
@@ -353,8 +351,7 @@ export async function fileSpeedReport(
   await alertAdminsOfReport(
     { kind: 'speed', recordId, title: target.title, bpm: target.bpm },
     created.id,
-    SPEED_REPORT_REASON_LABELS[input.reason],
-    now
+    SPEED_REPORT_REASON_LABELS[input.reason]
   );
   return { id: created.id, status: 'open' };
 }
