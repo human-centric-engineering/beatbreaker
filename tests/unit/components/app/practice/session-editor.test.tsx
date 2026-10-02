@@ -301,3 +301,23 @@ describe('SessionEditor — deleting', () => {
     expect(push).toHaveBeenCalledWith('/practice');
   });
 });
+
+describe('SessionEditor — running it (7D-iii)', () => {
+  it('links to the Studio to run the session as saved', () => {
+    render(<SessionEditor initial={sessionView()} />);
+    expect(screen.getByRole('link', { name: 'Run it' }).getAttribute('href')).toBe(
+      `/studio?session=${SESSION_ID}`
+    );
+  });
+
+  it('offers no run when nothing in it can be played', () => {
+    render(
+      <SessionEditor
+        initial={sessionView({
+          items: [item(1, { target: null, targetBpm: null, startBpm: null })],
+        })}
+      />
+    );
+    expect(screen.queryByRole('link', { name: 'Run it' })).toBeNull();
+  });
+});
