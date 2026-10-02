@@ -1987,7 +1987,7 @@ not as described:
   `lib/privacy/erasure-hooks.ts` keeps hooks in a plain module `Map`. So
   deleting an account left its sample files in storage. It is the #462 defect
   in a registry #492 didn't cover. Fixed the same way (`globalThis`) as a fork
-  edit to the core file, to be raised upstream.
+  edit to the core file, raised upstream on sunrise#691.
 - **No hosting has been chosen, and nothing deploys.**
   `docker-compose.prod.yml` (web, migrator, seeder, db, nginx at 10 MB) and
   Sunrise's per-platform guides exist. There is no deploy workflow, no
