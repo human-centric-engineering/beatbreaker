@@ -84,6 +84,7 @@ export function useSessionRun({
   console: c,
   openTarget,
   stageUnrecordable,
+  stageWillPrompt,
   say,
 }: {
   session: SessionView | undefined;
@@ -91,6 +92,11 @@ export function useSessionRun({
   openTarget: (target: PinTarget, at?: PracticePlace) => Promise<OpenResult>;
   /** The stage holds an edited famous break, or a variation not yet saved. */
   stageUnrecordable: boolean;
+  /**
+   * Putting another pattern on the stage would ask "Save your changes?"
+   * first — the swap then waits on the answer, so the slot must too.
+   */
+  stageWillPrompt: boolean;
   say: Say;
 }): SessionRun | null {
   const items = useMemo<RunnerItem[]>(
@@ -117,11 +123,27 @@ export function useSessionRun({
   const onStage = useRef(-1);
   const posted = useRef(false);
   const itemsRef = useRef(items);
+  /** The run as last rendered — for the effects below that act on it, and the unmount. */
+  const runRef = useRef(run);
+  const willPrompt = useRef(stageWillPrompt);
+  /** The open still on its way, so the next slot's waits for it rather than landing under it. */
+  const inFlight = useRef<Promise<unknown>>(Promise.resolve());
   useEffect(() => {
     itemsRef.current = items;
-  }, [items]);
+    runRef.current = run;
+    willPrompt.current = stageWillPrompt;
+  });
 
-  const { play, stopPlaying, playAt, audioNow, setClockListener, setSessionHold, setLevel } = c;
+  const {
+    play,
+    stopPlaying,
+    primeAudio,
+    playAt,
+    audioNow,
+    setClockListener,
+    setSessionHold,
+    setLevel,
+  } = c;
 
   /* The transport's clock, into the runner. */
   useEffect(() => {
@@ -170,15 +192,29 @@ export function useSessionRun({
     const item = itemsRef.current[index];
     const target = targets[index];
     void (async () => {
+      /* An open that is still landing — a slot skipped while its pattern
+         loaded — would put that pattern over this one. Wait for it. */
+      await inFlight.current;
+      if (!live) return;
+      // a resumed slot starts again from its top, with its count-in
+      stopPlaying();
       if (onStage.current !== index) {
-        stopPlaying();
-        const result = target
-          ? await openTarget(target, { level: item.level, bpm: startBpm })
-          : 'gone';
+        const opening = target
+          ? openTarget(target, { level: item.level, bpm: startBpm })
+          : Promise.resolve<OpenResult>('gone');
+        inFlight.current = opening.catch(() => undefined);
+        const result = await opening;
         if (!live) return;
         if (result !== 'opened') {
           say(`“${item.title}” would not open — skipped`, { error: true });
           setRun((s) => (s ? skipRun(s, itemsRef.current, audioNow()) : s));
+          return;
+        }
+        /* The swap is waiting on "Save your changes?": the old pattern is
+           still on the stage, so the slot waits too. */
+        if (willPrompt.current) {
+          setRun((s) => (s ? pauseRun(s, audioNow()) : s));
+          say('Save or discard your changes, then press Resume');
           return;
         }
         onStage.current = index;
@@ -200,6 +236,9 @@ export function useSessionRun({
   useEffect(() => {
     if (readyToPlay < 0) return;
     setReadyToPlay(-1);
+    // paused, skipped or stopped while it loaded: nothing to start
+    const now = runRef.current;
+    if (now?.phase !== 'loading' || now.index !== readyToPlay) return;
     setRun((s) => (s && s.index === readyToPlay ? loaded(s) : s));
     if (!play()) {
       say('No sound in this browser — the session cannot run', { error: true });
@@ -217,41 +256,64 @@ export function useSessionRun({
     }
   }, [transportOn, phase, audioNow]);
 
+  /** Post a finished run once, if it is worth logging. */
+  const post = useCallback(
+    (ended: RunState, options?: { leaving?: boolean }) => {
+      if (!session || posted.current || !worthLogging(ended)) return;
+      posted.current = true;
+      const body = {
+        startedAt: (startedAt.current ?? new Date()).toISOString(),
+        items: ended.played.map(({ title, level, targetBpm, reachedBpm, seconds }) => ({
+          title,
+          level,
+          targetBpm,
+          reachedBpm,
+          seconds,
+        })),
+      };
+      void apiClient
+        .post(`/api/v1/practice-sessions/${session.id}/runs`, {
+          body,
+          // leaving the Studio: the request outlives the page
+          options: options?.leaving ? { keepalive: true } : undefined,
+        })
+        .then(() => {
+          if (!options?.leaving) say('Session logged');
+        })
+        .catch((error: unknown) => {
+          logger.warn('BeatBreaker: a practice run could not be logged', { error });
+          if (!options?.leaving) say('The session could not be logged', { error: true });
+        });
+    },
+    [session, say]
+  );
+
   /* The end, however it came: let go of the transport and the holds, and
      post the run once. */
   useEffect(() => {
-    if (phase !== 'done' || !run || !session) return;
+    if (phase !== 'done' || !run) return;
     stopPlaying();
     setSessionHold(false);
     setClockListener(null);
-    if (posted.current || !worthLogging(run)) return;
-    posted.current = true;
-    const body = {
-      startedAt: (startedAt.current ?? new Date()).toISOString(),
-      items: run.played.map(({ title, level, targetBpm, reachedBpm, seconds }) => ({
-        title,
-        level,
-        targetBpm,
-        reachedBpm,
-        seconds,
-      })),
-    };
-    void apiClient
-      .post(`/api/v1/practice-sessions/${session.id}/runs`, { body })
-      .then(() => say('Session logged'))
-      .catch((error: unknown) => {
-        logger.warn('BeatBreaker: a practice run could not be logged', { error });
-        say('The session could not be logged', { error: true });
-      });
-  }, [phase, run, session, stopPlaying, setSessionHold, setClockListener, say]);
+    post(run);
+  }, [phase, run, stopPlaying, setSessionHold, setClockListener, post]);
 
-  /* Let go of everything if the Studio is left mid-session. */
+  /* Leaving the Studio mid-session ends the run there: let go of the holds,
+     and log what was played. */
+  const postRef = useRef(post);
+  useEffect(() => {
+    postRef.current = post;
+  });
   useEffect(
     () => () => {
       setSessionHold(false);
       setClockListener(null);
+      const left = runRef.current;
+      if (left && left.phase !== 'done') {
+        postRef.current(stopRun(left, itemsRef.current, audioNow()), { leaving: true });
+      }
     },
-    [setSessionHold, setClockListener]
+    [setSessionHold, setClockListener, audioNow]
   );
 
   /* The time shown. */
@@ -264,6 +326,7 @@ export function useSessionRun({
 
   const start = useCallback(() => {
     if (!items.length) return;
+    primeAudio();
     posted.current = false;
     shownFor.current = 0;
     onStage.current = -1;
@@ -271,14 +334,17 @@ export function useSessionRun({
     setPrompt(null);
     setSessionHold(true);
     setRun(startRun(items));
-  }, [items, setSessionHold]);
+  }, [items, setSessionHold, primeAudio]);
 
   const pause = useCallback(() => {
     setRun((s) => (s ? pauseRun(s, audioNow()) : s));
     stopPlaying();
   }, [audioNow, stopPlaying]);
 
-  const resume = useCallback(() => setRun((s) => (s ? resumeRun(s) : s)), []);
+  const resume = useCallback(() => {
+    primeAudio();
+    setRun((s) => (s ? resumeRun(s) : s));
+  }, [primeAudio]);
 
   const skip = useCallback(() => {
     setRun((s) => (s ? skipRun(s, itemsRef.current, audioNow()) : s));

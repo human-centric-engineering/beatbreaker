@@ -383,6 +383,7 @@ export function StudioProvider({
     console: state,
     openTarget,
     stageUnrecordable: entryEdited || !!doc.variationOf,
+    stageWillPrompt: doc.needsPrompt,
     say,
   });
 

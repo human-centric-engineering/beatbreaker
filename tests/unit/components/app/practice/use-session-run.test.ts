@@ -55,6 +55,7 @@ function fakeConsole() {
     stopPlaying: vi.fn(() => {
       c.playing = false;
     }),
+    primeAudio: vi.fn(),
     playAt: vi.fn(),
     audioNow: vi.fn(() => 0),
     setClockListener: vi.fn((l: ClockListener | null) => {
@@ -70,7 +71,9 @@ function fakeConsole() {
   };
 }
 
-function mount(over: { stageUnrecordable?: boolean; session?: typeof session } = {}) {
+function mount(
+  over: { stageUnrecordable?: boolean; stageWillPrompt?: boolean; session?: typeof session } = {}
+) {
   const fake = fakeConsole();
   const openTarget = vi.fn(async () => 'opened' as const);
   const say = vi.fn();
@@ -79,6 +82,7 @@ function mount(over: { stageUnrecordable?: boolean; session?: typeof session } =
     console: fake.asConsole,
     openTarget,
     stageUnrecordable: over.stageUnrecordable ?? false,
+    stageWillPrompt: over.stageWillPrompt ?? false,
     say,
   };
   const hook = renderHook((p: typeof props) => useSessionRun(p), { initialProps: props });
@@ -110,6 +114,7 @@ describe('useSessionRun', () => {
         console: fakeConsole().asConsole,
         openTarget: vi.fn(),
         stageUnrecordable: false,
+        stageWillPrompt: false,
         say: vi.fn(),
       })
     );
@@ -249,5 +254,94 @@ describe('useSessionRun', () => {
       expect(openTarget).toHaveBeenLastCalledWith({ libraryEntryId: ENTRY }, expect.anything())
     );
     expect(say).toHaveBeenCalledWith('“Pattern 1” would not open — skipped', { error: true });
+  });
+
+  describe('review fixes', () => {
+    /** A promise the test settles. */
+    function deferred<T>() {
+      let resolve!: (v: T) => void;
+      const promise = new Promise<T>((r) => (resolve = r));
+      return { promise, resolve };
+    }
+
+    it('wakes the audio inside the Start click, before anything loads', () => {
+      const { c, hook } = mount();
+      act(() => hook.result.current?.start());
+      expect(c.primeAudio).toHaveBeenCalledTimes(1);
+    });
+
+    it('waits, paused, when the swap is held behind "Save your changes?"', async () => {
+      const { c, say, hook } = mount({ stageWillPrompt: true });
+      act(() => hook.result.current?.start());
+      await waitFor(() => expect(hook.result.current?.run?.phase).toBe('paused'));
+      expect(c.play).not.toHaveBeenCalled();
+      expect(say).toHaveBeenCalledWith('Save or discard your changes, then press Resume');
+    });
+
+    it('restarts the transport on Resume even if it was started meanwhile, so the downbeat comes', async () => {
+      const { c, clock, hook } = mount();
+      act(() => hook.result.current?.start());
+      await clockOf(clock, hook);
+      act(() => hook.result.current?.pause());
+      await waitFor(() => expect(hook.result.current?.run?.phase).toBe('paused'));
+      c.playing = true; // Space, while paused
+      c.stopPlaying.mockClear();
+
+      act(() => hook.result.current?.resume());
+      await waitFor(() => expect(c.play).toHaveBeenCalledTimes(2));
+      // stopped first, so play() really starts it, with its count-in and downbeat
+      expect(c.stopPlaying.mock.invocationCallOrder[0]).toBeLessThan(
+        c.play.mock.invocationCallOrder[1]
+      );
+    });
+
+    it('opens the next slot only once a skipped slot’s open has landed', async () => {
+      const { openTarget, hook } = mount();
+      const first = deferred<'opened'>();
+      openTarget.mockImplementationOnce(() => first.promise);
+      act(() => hook.result.current?.start());
+      await waitFor(() => expect(openTarget).toHaveBeenCalledTimes(1));
+
+      act(() => hook.result.current?.skip());
+      await new Promise((r) => setTimeout(r, 20));
+      expect(openTarget).toHaveBeenCalledTimes(1); // still waiting on the first
+
+      await act(async () => first.resolve('opened'));
+      await waitFor(() =>
+        expect(openTarget).toHaveBeenLastCalledWith({ libraryEntryId: ENTRY }, expect.anything())
+      );
+    });
+
+    it('does not start a slot paused while its pattern loaded', async () => {
+      const { c, openTarget, hook } = mount();
+      const first = deferred<'opened'>();
+      openTarget.mockImplementationOnce(() => first.promise);
+      act(() => hook.result.current?.start());
+      await waitFor(() => expect(openTarget).toHaveBeenCalledTimes(1));
+
+      act(() => hook.result.current?.pause());
+      await act(async () => first.resolve('opened'));
+      await new Promise((r) => setTimeout(r, 20));
+      expect(c.play).not.toHaveBeenCalled();
+      expect(hook.result.current?.run?.phase).toBe('paused');
+    });
+
+    it('logs what was played when the Studio is left mid-session', async () => {
+      const { c, clock, hook } = mount();
+      act(() => hook.result.current?.start());
+      const listener = await clockOf(clock, hook);
+      act(() => listener.onDownbeat?.(0));
+      act(() => listener.onLoop?.(61));
+      await waitFor(() => expect(c.play).toHaveBeenCalledTimes(2));
+
+      hook.unmount();
+
+      const runPosts = vi
+        .mocked(apiClient.post)
+        .mock.calls.filter(([url]) => url === `/api/v1/practice-sessions/${SESSION_ID}/runs`);
+      expect(runPosts).toHaveLength(1);
+      expect(runPosts[0][1]).toEqual(expect.objectContaining({ options: { keepalive: true } }));
+      expect(c.setSessionHold).toHaveBeenLastCalledWith(false);
+    });
   });
 });

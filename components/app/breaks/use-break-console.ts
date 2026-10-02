@@ -218,6 +218,12 @@ export interface BreakConsole {
   /** Stop the transport, if it is playing. */
   stopPlaying: () => void;
   /**
+   * Open and wake the audio inside a click. A session starts its transport
+   * later, after its pattern loads, and some browsers (Safari) only let sound
+   * start from a user gesture — so _Start_ and _Resume_ call this first.
+   */
+  primeAudio: () => void;
+  /**
    * Play at this tempo without changing the pattern's own (as the tempo
    * trainer does). Held between 40 and the meter's ceiling.
    */
@@ -1399,6 +1405,11 @@ export function useBreakConsole(
 
   const audioNow = useCallback(() => audioRef.current?.ctx?.currentTime ?? 0, []);
 
+  const primeAudio = useCallback(() => {
+    const audio = audioRef.current;
+    if (audio?.init()) audio.resume();
+  }, []);
+
   const setClockListener = useCallback((listener: ClockListener | null) => {
     clockListener.current = listener;
   }, []);
@@ -1719,6 +1730,7 @@ export function useBreakConsole(
     position,
     play,
     stopPlaying,
+    primeAudio,
     playAt,
     audioNow,
     setClockListener,

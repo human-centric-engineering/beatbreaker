@@ -142,6 +142,12 @@ describe('pause', () => {
     expect(s.bpm).toBe(Math.round(80 + (25 / 30) * 20));
   });
 
+  it('pauses while the pattern is still loading, and waits for Resume', () => {
+    const s = pause(startRun(two), 3);
+    expect(s.phase).toBe('paused');
+    expect(resume(s)).toMatchObject({ phase: 'loading', index: 0 });
+  });
+
   it('pauses in the count-in without starting the clock', () => {
     const s = pause(loaded(startRun(two)), 3);
     expect(s.phase).toBe('paused');

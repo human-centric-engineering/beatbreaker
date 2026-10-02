@@ -171,6 +171,13 @@ starts the same pattern from its top, with the count-in, and the clock carries
 on from what was banked. Stopping the transport any other way (Space, the
 header's Stop) is a pause too.
 
+**Waiting on the stage.** If putting the next pattern on the stage would ask
+"Save your changes?", the run pauses until you answer and press _Resume_. A
+slot skipped while its pattern was still loading is let land before the next
+one opens, so it never covers the next one. _Start_ and _Resume_ wake the audio
+inside the click, which Safari needs before sound can start. Leaving the
+Studio mid-run logs what was played, as _Stop_ would.
+
 **+1 min** lengthens this slot's hold only. The climb keeps its plan, so the
 tempo never steps back.
 

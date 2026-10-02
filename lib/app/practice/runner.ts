@@ -147,12 +147,16 @@ export function boundary(state: RunState, items: readonly RunnerItem[], at: numb
   return bpm === state.bpm ? state : { ...state, bpm };
 }
 
-/** _Pause_ at `at`: what was played is banked, and the clock stops. */
+/**
+ * _Pause_ at `at`: what was played is banked, and the clock stops. Paused while
+ * its pattern is still loading, the slot waits for _Resume_ to start.
+ */
 export function pause(state: RunState, at: number): RunState {
   if (state.phase === 'playing') {
     return { ...state, phase: 'paused', banked: elapsed(state, at), since: null };
   }
-  if (state.phase === 'counting') return { ...state, phase: 'paused' };
+  // still loading or in the count-in: the clock has not started, so nothing to bank
+  if (state.phase === 'counting' || state.phase === 'loading') return { ...state, phase: 'paused' };
   return state;
 }
 
