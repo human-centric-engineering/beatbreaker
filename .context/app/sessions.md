@@ -7,8 +7,9 @@ and the session moves on. A session can be shared with a link.
 
 7D ships as four PRs. This page covers **7D-i, the sums and the data** (the
 time split, the climb, the three tables and `/api/v1/practice-sessions`) and
-**7D-ii, building one** (the editor, _Add to a session_ and Home). Running one
-in the Studio (7D-iii) and sharing one (7D-iv) add their sections as they land.
+**7D-ii, building one** (the editor, _Add to a session_ and Home) and
+**7D-iii, running one** (the runner and the Studio's session bar). Sharing one
+(7D-iv) adds its section when it lands.
 
 ## Anti-patterns first
 
@@ -38,6 +39,12 @@ in the Studio (7D-iii) and sharing one (7D-iv) add their sections as they land.
 - **Don't fetch your sessions per row.** _Add to a session_ reads the list
   when its menu opens, once. A drawer of forty rows asks nothing until one is
   used.
+- **Don't time a session with `setTimeout`.** The runner's clock is the audio
+  clock: the transport's downbeat and loop-boundary times. A timer is used
+  only to refresh the time shown.
+- **Don't switch the trainer off to run a session.** `setSessionHold` holds
+  the ramp and _match tempo_ off beside your settings, not in them. A page
+  closed mid-session leaves your settings as they were.
 - **Don't keep target ids in a run.** `PracticeRun.items` is titles and
   tempos, so a deleted pattern leaves nothing dangling in your history.
 
@@ -140,3 +147,47 @@ focus moves to the other one.
 minutes each (`defaultTotal`), named after the pattern or the shelf. The
 targets are worked out on the server. A session with twelve patterns, or one
 per minute, is shown in the menu as _Full_.
+
+## Running one (7D-iii)
+
+`/studio?session=[id]` runs one of your sessions. The page reads it with
+`readSession()`. Someone else's session, or an id that is not one, is the
+not-found page. Signed out, sign-in comes back to the same address. The
+editor's _Run it_ links there.
+
+| Piece                                        | Does                                                                                                                                                                                                                    |
+| -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Transport` (`lib/app/breaks/audio/`)        | `onLoop(loops, at)` gives each boundary's audio-clock time. `onDownbeat(at)` gives the time bar 1 sounds, after the count-in, on every `start()`.                                                                       |
+| `runner.ts` (`lib/app/practice/`)            | Pure. Fed the downbeat, each boundary, _Pause_, _Skip_, _+1 min_ and _Stop_. Gives the tempo to set and when to move on. A slot ends at the first boundary past its time.                                               |
+| `useSessionRun` (`components/app/practice/`) | Opens each slot's pattern with the provider's `openTarget`, at the item's layer and start tempo. Starts the transport once the stage has rendered it. Plays the tempo the runner gives at each boundary. Posts the run. |
+| `SessionBar`                                 | Above the stage: the name, "Pattern 2 of 5", the time left, the tempo now → the target, and the controls. Draws the runner's state and decides nothing.                                                                 |
+
+**Moving on.** The next pattern is loaded and `start()`ed, so it plays the
+count-in the Studio already has. A slot whose pattern would not open is
+skipped, and the Studio says so.
+
+**Pause.** _Pause_ stops the transport and banks the time played. _Resume_
+starts the same pattern from its top, with the count-in, and the clock carries
+on from what was banked. Stopping the transport any other way (Space, the
+header's Stop) is a pause too.
+
+**+1 min** lengthens this slot's hold only. The climb keeps its plan, so the
+tempo never steps back.
+
+**The ramp and _match tempo_** are held off while the run is going
+(`sessionHold`, in `use-break-console.ts`), so an item's tempo is the tempo you
+hear. Both come back when the run ends or the Studio is left.
+
+**Your own pattern** remembers its layer and tempo as you play it, as it does
+with the tempo trainer. After a session it opens at the layer and tempo the
+session left it at.
+
+**The end-of-slot prompt** ("Played “Cold Carpet” well at 112?") records a 7C
+speed at the tempo reached and the item's layer. Your `listSpeeds` setting
+decides whether it is listed. It is not offered when the stage held a famous
+break you had edited, or a variation you had not saved. A speed there would not
+be a speed on the pattern the session names.
+
+**The run** is posted once, when it ends: the last slot finishing, or _Stop_.
+It holds the slots played. A run stopped before any slot ran its course, or was
+skipped after playing, is not logged.
