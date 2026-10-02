@@ -31,8 +31,10 @@ import { type YourSounds, useYourSounds } from '@/components/app/studio/use-your
 import {
   fetchSavedPattern,
   type HistoryCurrent,
+  isUnsaved,
   type OpenResult,
   type PracticeHistoryState,
+  type TrailItem,
   usePracticeHistory,
 } from '@/components/app/studio/use-practice-history';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
@@ -164,6 +166,20 @@ function useOpenFromList(openTarget: (target: PinTarget) => Promise<OpenResult>,
   );
 }
 
+/**
+ * A function called from an event, whose body is set after each render — how
+ * `replace` reaches the history, which is made after it. A hook of its own for
+ * the compiler's refs rule, as with {@link useOpenFromList}.
+ */
+function useLateCallback(): { call: () => void; set: (fn: () => void) => void } {
+  const body = useRef<(() => void) | null>(null);
+  const call = useCallback(() => body.current?.(), []);
+  const set = useCallback((fn: () => void) => {
+    body.current = fn;
+  }, []);
+  return useMemo(() => ({ call, set }), [call, set]);
+}
+
 export function StudioProvider({
   catalogue,
   initial,
@@ -282,6 +298,11 @@ export function StudioProvider({
   const [pending, setPending] = useState<(() => void) | null>(null);
 
   const stage = useStageGeneration();
+  /* Whatever replaces the stage tells the history first, so an unsaved roll
+     being left goes on the trail (5.13). Set below, once the history exists. */
+  const beforeReplace = useLateCallback();
+  /** The unsaved trail entry the stage holds, when one was put back (5.13). */
+  const [unsavedId, setUnsavedId] = useState<string | null>(null);
 
   /** Let the document go and replace it — or ask first, when that would lose edits. */
   const replace = useCallback(
@@ -291,10 +312,11 @@ export function StudioProvider({
         return;
       }
       stage.bump();
+      beforeReplace.call();
       detach();
       go();
     },
-    [detach, needsPrompt, stage]
+    [detach, needsPrompt, stage, beforeReplace]
   );
 
   const replacing = useMemo(
@@ -378,14 +400,28 @@ export function StudioProvider({
   );
 
   const openItem = useCallback(
-    (item: HistoryItem, at: PracticePlace) =>
-      openTarget(
+    (item: TrailItem, at: PracticePlace): Promise<OpenResult> => {
+      if (isUnsaved(item)) {
+        /* An unsaved roll from the trail (5.13): put back as it was left —
+           its notes, tempo and layer are all in the payload. */
+        replaceNow.current(() => {
+          if (!loadPayload(item.payload, item.name)) {
+            say('That pattern would not open', { error: true });
+            return;
+          }
+          setEntry(null);
+          setUnsavedId(item.id);
+        });
+        return Promise.resolve('opened');
+      }
+      return openTarget(
         item.target.kind === 'entry'
           ? { libraryEntryId: item.target.id }
           : { breakId: item.target.id },
         at
-      ),
-    [openTarget]
+      );
+    },
+    [openTarget, loadPayload, say]
   );
 
   const open = useOpenFromList(openTarget, say);
@@ -428,9 +464,31 @@ export function StudioProvider({
   const history = usePracticeHistory({
     initial: initialHistory,
     current: historyCurrent,
+    unsavedId,
     openItem,
     say,
   });
+
+  /* What the stage is letting go of, told to the history before it goes: a
+     pattern that was never saved goes on the trail. A famous break has its
+     entry and a saved pattern its id, so neither is one. */
+  const { leave: leaveUnsaved, drop: dropUnsaved } = history;
+  const leftName = patterns.A?.name ?? '';
+  useLayoutEffect(() => {
+    beforeReplace.set(() => {
+      if (!doc.id && !entryId && payload) leaveUnsaved({ id: unsavedId, payload, name: leftName });
+      setUnsavedId(null);
+    });
+  });
+
+  /* An unsaved entry that is saved is an ordinary history item from then on:
+     the visit the save records stands in for it. */
+  useEffect(() => {
+    if (doc.id && unsavedId) {
+      dropUnsaved(unsavedId);
+      setUnsavedId(null);
+    }
+  }, [doc.id, unsavedId, dropUnsaved]);
 
   const { deletePattern, deleted, shownPins, shownHistory } = useDeletePattern({
     doc,
@@ -452,10 +510,11 @@ export function StudioProvider({
       if (choice === 'save' && !(await doc.save())) return;
       setPending(null);
       stage.bump();
+      beforeReplace.call();
       detach({ discard: choice === 'discard' });
       go();
     },
-    [pending, doc, detach, stage]
+    [pending, doc, detach, stage, beforeReplace]
   );
 
   /* The stage is renamed only once the copy exists. Renamed first, a Save As

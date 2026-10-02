@@ -6,8 +6,9 @@ import { z } from 'zod';
 import type { InitialPattern, PracticePlace } from '@/components/app/breaks/use-break-console';
 import { APIClientError, apiClient } from '@/lib/api/client';
 import { VISIBILITIES } from '@/lib/app/breaks/community/visibility';
+import { FULL_LAYER } from '@/lib/app/breaks/layers';
 import { storedLinkSchema } from '@/lib/app/breaks/links';
-import { sharePayloadSchema } from '@/lib/app/breaks/schema';
+import { type SharePayload, sharePayloadSchema } from '@/lib/app/breaks/schema';
 import { logger } from '@/lib/logging';
 import { type HistoryItem, practiceVisitViewSchema } from '@/lib/validations/history';
 import type { PinTarget } from '@/lib/validations/pins';
@@ -30,12 +31,57 @@ import { type Say, UNDO_MS } from '@/components/app/studio/use-notice';
  * recent — so stepping works over a *trail*: the list as it stood when you
  * started stepping, and where you are in it. Back twice then Forward once
  * lands on the one you expect. Opening anything some other way ends the trail.
+ *
+ * **Unsaved rolls are on the trail too** (task 5.13, D24). Pressing N, or
+ * opening anything else, while the stage holds a pattern that was never
+ * saved puts that pattern on the list as "Unsaved · 14:02", so Back returns to
+ * it intact: notes, tempo and layer. Rolling one pattern after another is the
+ * workflow, so nothing asks first. These entries live in the page only. They
+ * are never sent, a reload forgets them (the last scratch is still kept by
+ * `bb.scratch`), and saving one makes it an ordinary history item.
  */
 
 /** How long after the layer or tempo last moved the place is recorded. */
 export const RECORD_MS = 2000;
 /** The server keeps 200 (`HISTORY_CAP`); the client never holds more. */
 const CAP = 200;
+/** How many unsaved rolls the trail keeps; the oldest goes first. */
+export const UNSAVED_CAP = 20;
+
+/**
+ * A pattern that was never saved, left for something else (5.13). Shaped like
+ * a history item so the list and the trail treat it as one; its target is
+ * the page's own, never the server's.
+ */
+export interface UnsavedItem {
+  id: string;
+  level: number;
+  bpm: number;
+  target: { kind: 'unsaved'; id: string; title: string };
+  /** The roll's own name, which it is put back on the stage under. */
+  name: string;
+  payload: SharePayload;
+}
+
+/** What the list and the trail hold: the server's visits, and the page's unsaved rolls. */
+export type TrailItem = HistoryItem | UnsavedItem;
+
+export function isUnsaved(item: TrailItem): item is UnsavedItem {
+  return item.target.kind === 'unsaved';
+}
+
+/** "Unsaved · 14:02", at the time it was left. */
+export function unsavedTitle(at: Date): string {
+  const two = (n: number) => String(n).padStart(2, '0');
+  return `Unsaved · ${two(at.getHours())}:${two(at.getMinutes())}`;
+}
+
+/** The unsaved pattern being left: its trail id if it is already on the trail. */
+export interface LeftUnsaved {
+  id: string | null;
+  payload: SharePayload;
+  name: string;
+}
 
 /** What is on the stage now, as far as the history cares. */
 export interface HistoryCurrent {
@@ -48,17 +94,17 @@ export interface HistoryCurrent {
 export type OpenResult = 'opened' | 'gone' | 'failed';
 
 export interface PracticeHistoryState {
-  items: HistoryItem[];
+  items: TrailItem[];
   /** Which item is on the stage, if any. */
   currentId: string | null;
   /** What Back would open, if anything. */
-  previous: HistoryItem | null;
+  previous: TrailItem | null;
   /** What Forward would open, if anything. */
-  following: HistoryItem | null;
+  following: TrailItem | null;
   /** One step back (older) or forward (newer). */
   step: (direction: 'back' | 'forward') => void;
   /** Open an item from the list — which ends any trail. */
-  open: (item: HistoryItem) => void;
+  open: (item: TrailItem) => void;
   /**
    * Forget all of it — at once on screen, with an Undo for {@link UNDO_MS},
    * and on the server when the Undo has gone.
@@ -66,13 +112,20 @@ export interface PracticeHistoryState {
   clear: () => void;
   /** Take a saved pattern out of the list and the trail — it was deleted (5.11). */
   forget: (breakId: string) => void;
+  /**
+   * The stage is letting go of a pattern that was never saved (5.13): put it
+   * on the trail, or bring its entry up to date if it is one already.
+   */
+  leave: (left: LeftUnsaved) => void;
+  /** An unsaved entry was saved: it is an ordinary history item now, so its own entry goes. */
+  drop: (unsavedId: string) => void;
 }
 
 export function keyOf(target: PinTarget): string {
   return 'breakId' in target ? `break:${target.breakId}` : `entry:${target.libraryEntryId}`;
 }
 
-function itemKey(item: HistoryItem): string {
+function itemKey(item: TrailItem): string {
   return `${item.target.kind}:${item.target.id}`;
 }
 
@@ -124,9 +177,12 @@ export async function fetchSavedPattern(id: string): Promise<InitialPattern | 'g
   }
 }
 
+type Trail = { items: TrailItem[]; cursor: number };
+
 export function usePracticeHistory({
   initial,
   current,
+  unsavedId = null,
   openItem,
   say,
 }: {
@@ -134,17 +190,19 @@ export function usePracticeHistory({
   initial: HistoryItem[] | undefined;
   /** What is on the stage, or null for a scratch pattern (or before one loads). */
   current: HistoryCurrent | null;
+  /** The unsaved entry the stage holds, when it was put back from the trail (5.13). */
+  unsavedId?: string | null;
   /** Put an item on the stage, where it was left. */
-  openItem: (item: HistoryItem, at: PracticePlace) => Promise<OpenResult>;
+  openItem: (item: TrailItem, at: PracticePlace) => Promise<OpenResult>;
   say: Say;
 }): PracticeHistoryState {
-  const [items, setItems] = useState<HistoryItem[]>(initial ?? []);
+  const [items, setItems] = useState<TrailItem[]>(initial ?? []);
   /** The list as it stood when stepping started, and where on it you are. */
-  const [trail, setTrail] = useState<{ items: HistoryItem[]; cursor: number } | null>(null);
+  const [trail, setTrail] = useState<Trail | null>(null);
   /** The step on its way — kept until the stage has it, so a cancelled prompt moves nothing. */
-  const stepping = useRef<{ key: string; items: HistoryItem[]; cursor: number } | null>(null);
+  const stepping = useRef<({ key: string } & Trail) | null>(null);
 
-  const currentKey = current ? keyOf(current.target) : null;
+  const currentKey = current ? keyOf(current.target) : unsavedId ? `unsaved:${unsavedId}` : null;
 
   /* ---- recording ------------------------------------------------------ */
 
@@ -156,8 +214,8 @@ export function usePracticeHistory({
    * sent first, the DELETE would take it too.
    */
   const clearing = useRef<{
-    items: HistoryItem[];
-    trail: { items: HistoryItem[]; cursor: number } | null;
+    items: TrailItem[];
+    trail: Trail | null;
     timer: ReturnType<typeof setTimeout>;
     ahead: Promise<unknown>;
     release: () => void;
@@ -170,7 +228,7 @@ export function usePracticeHistory({
             body: { ...place.target, level: place.level, bpm: Math.round(place.bpm) },
           })
         );
-        const onTop = (list: HistoryItem[]) =>
+        const onTop = (list: TrailItem[]) =>
           [visit, ...list.filter((i) => itemKey(i) !== itemKey(visit))].slice(0, CAP);
         /* Answered while a clear is held, it was already on its way when
            Clear was pressed — everything since waits behind the clear. The
@@ -270,7 +328,7 @@ export function usePracticeHistory({
   const following = base.cursor > 0 ? (base.items[base.cursor - 1] ?? null) : null;
 
   const go = useCallback(
-    async (item: HistoryItem, step: { items: HistoryItem[]; cursor: number } | null) => {
+    async (item: TrailItem, step: Trail | null) => {
       stepping.current = step ? { key: itemKey(item), ...step } : null;
       const result = await openItem(item, { level: item.level, bpm: item.bpm });
       if (result === 'opened') return;
@@ -279,7 +337,7 @@ export function usePracticeHistory({
         /* Deleted, or unshared by its owner: it will not open again, so it
            leaves the list (and the trail) rather than being a Back that
            never goes anywhere. */
-        const drop = (list: HistoryItem[]) => list.filter((i) => i.id !== item.id);
+        const drop = (list: TrailItem[]) => list.filter((i) => i.id !== item.id);
         setItems(drop);
         setTrail((t) =>
           t
@@ -308,7 +366,7 @@ export function usePracticeHistory({
   );
 
   const open = useCallback(
-    (item: HistoryItem) => {
+    (item: TrailItem) => {
       if (itemKey(item) === currentKey) return;
       void go(item, null);
     },
@@ -389,7 +447,7 @@ export function usePracticeHistory({
   }, [commitClear]);
 
   const forget = useCallback((breakId: string) => {
-    const drop = (list: HistoryItem[]) =>
+    const drop = (list: TrailItem[]) =>
       list.filter((i) => !(i.target.kind === 'break' && i.target.id === breakId));
     setItems(drop);
     setTrail((t) => {
@@ -401,10 +459,65 @@ export function usePracticeHistory({
     });
   }, []);
 
+  /* ---- unsaved rolls on the trail (5.13) ---------------------------- */
+
+  const unsavedCount = useRef(0);
+  const leave = useCallback((left: LeftUnsaved) => {
+    const update = (list: TrailItem[], item: UnsavedItem) =>
+      list.map((i) => (i.id === item.id ? item : i));
+    const at = new Date();
+    const entry = (id: string): UnsavedItem => ({
+      id,
+      level: left.payload.lv ?? FULL_LAYER,
+      bpm: Math.round(left.payload.bpm),
+      target: { kind: 'unsaved', id, title: unsavedTitle(at) },
+      name: left.name,
+      payload: left.payload,
+    });
+
+    if (left.id) {
+      /* Back on the trail already: it keeps its place, with what was done to
+         it since it was put back. */
+      const item = entry(left.id);
+      setItems((list) => update(list, item));
+      setTrail((t) => (t ? { ...t, items: update(t.items, item) } : t));
+      const pending = stepping.current;
+      if (pending) pending.items = update(pending.items, item);
+      return;
+    }
+
+    unsavedCount.current += 1;
+    const item = entry(`unsaved-${unsavedCount.current}`);
+    const capped = (list: TrailItem[]) => {
+      const unsaved = list.filter(isUnsaved);
+      if (unsaved.length <= UNSAVED_CAP) return list;
+      const oldest = unsaved[unsaved.length - 1];
+      return list.filter((i) => i !== oldest);
+    };
+    setItems((list) => capped([item, ...list]));
+    /* A step from it is on its way: the stage it is leaving is now the newest
+       place on the trail, so the step's place moves down one. */
+    const pending = stepping.current;
+    if (pending) {
+      pending.items = [item, ...pending.items];
+      pending.cursor += 1;
+    }
+  }, []);
+
+  const drop = useCallback((id: string) => {
+    const keep = (list: TrailItem[]) => list.filter((i) => i.id !== id);
+    setItems(keep);
+    setTrail((t) => {
+      if (!t) return t;
+      const at = t.items.findIndex((i) => i.id === id);
+      return { items: keep(t.items), cursor: at >= 0 && at < t.cursor ? t.cursor - 1 : t.cursor };
+    });
+  }, []);
+
   const currentId = useMemo(
     () => items.find((i) => itemKey(i) === currentKey)?.id ?? null,
     [items, currentKey]
   );
 
-  return { items, currentId, previous, following, step, open, clear, forget };
+  return { items, currentId, previous, following, step, open, clear, forget, leave, drop };
 }

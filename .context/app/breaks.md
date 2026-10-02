@@ -286,6 +286,19 @@ autosaves its layer and tempo as you change them, so its document already
 says where you left it. A pattern that has since been deleted or unshared
 (404) is taken out of the list, and the toast says so.
 
+**Unsaved rolls are on the trail too** (task 5.13, D24). Every replacement of
+the stage goes through the provider's `replace`, which first calls the
+history's `leave()`: if the stage holds a pattern that was never saved (no
+`doc.id`, no library entry), it goes on the list as an `UnsavedItem`
+(`target.kind: 'unsaved'`, titled "Unsaved · 14:02", carrying its payload).
+Back, Forward and Recent then treat it as any other item, and opening it puts
+it back with its notes, tempo and layer. One already on the trail is brought
+up to date in place rather than added again, so stepping between rolls keeps
+what was done to each. They live in the page only: never sent, forgotten on a
+reload (the last scratch is still kept by `bb.scratch`), at most
+`UNSAVED_CAP` (20). Saving one on the stage drops its entry, and the visit
+that the save records takes its place.
+
 Tests: `tests/integration/api/v1/history/`,
 `tests/unit/components/app/studio/practice-history.test.tsx`.
 
@@ -296,7 +309,8 @@ tool (it was _Library_), in five tabs: **Practising** · **Later** (the
 shelves) · **Recent** (the history) · **All** (your saved patterns) ·
 **Libraries** (every library in the catalogue). The tab is remembered per
 browser (`bb.patternsTab`); with none stored it opens on Practising if
-anything is on it, else Recent, else Libraries.
+anything is on it, else Recent, else Libraries — decided when the drawer
+mounts, so the tab does not move while Recent grows.
 
 - Shelves and Recent come from the provider — read with the page — so they
   ask the server for nothing. **All** makes one `GET /api/v1/breaks`
@@ -309,10 +323,21 @@ anything is on it, else Recent, else Libraries.
   same fetch-and-attach the history uses — and carries a ★ (`PinButton`).
   The row for whatever is on the stage (`stagePin`) is `aria-current`.
 - **Save** in the header is the one way to keep a pattern.
+- **Delete** (task 5.11, D22) is on the rows of your own saved patterns, in
+  every tab, and in Details for the one on the stage. Library entries and
+  other people's patterns have none. The row leaves every list at once and
+  the toast offers Undo for `UNDO_MS` (6s). The `DELETE /api/v1/breaks/:id` is
+  sent when that time is up, or on `pagehide` with `keepalive`. Then the
+  history drops it and the shelves are read back (both cascade on the server).
+  The pattern on the stage is detached, so its last edit is saved, and it stays
+  as scratch. Undo makes it the saved pattern again unless the stage has
+  moved on. A refused delete puts the row back and says so. The logic is in
+  `use-delete-pattern.ts`.
 - `ShelfList` is exported; the **Practice** drawer shows the Practising shelf
   above the rig when anything is on it.
 
-Tests: `tests/unit/components/app/studio/panels/patterns-panel.test.tsx`.
+Tests: `tests/unit/components/app/studio/panels/patterns-panel.test.tsx`,
+`tests/unit/components/app/studio/delete-pattern.test.tsx`.
 
 ## Browser favourites import (task 4.10) — removed
 
@@ -520,7 +545,9 @@ uses the result directly:
 The speakers are the reference: `LEVELS` is what the kit was tuned to, and MIDI
 is that × 127. **The mixer is the one deliberate difference.** Faders and mutes
 act on the speakers only, because a muted lane is one you are playing yourself
-and the port exists to hand it to a module (D23).
+and the port exists to hand it to a module (D23). Solo is the same: with any
+lane soloed, only soloed lanes sound on the speakers, and mute still wins
+(`laneGain` in `transport.ts`, task 5.12). The port hears every lane.
 
 **The hi-hat and ride bands.** The hats slider shapes both cymbals the same way
 (`hatShape`): the stick on the beat is loud, and the "e" and "a" are quieter. That

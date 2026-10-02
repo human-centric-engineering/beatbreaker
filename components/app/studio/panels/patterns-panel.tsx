@@ -10,6 +10,7 @@ import { PATTERNS_TABS, type PatternsTab } from '@/components/app/shell/studio-a
 import { PinButton, SHELF_LABEL } from '@/components/app/studio/pin-button';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
+import { isUnsaved, type UnsavedItem } from '@/components/app/studio/use-practice-history';
 import { apiClient } from '@/lib/api/client';
 import { PATTERNS_TAB } from '@/lib/app/breaks/browser-keys';
 import { type CatalogueEntry, libraryGroups } from '@/lib/app/breaks/catalogue/types';
@@ -211,6 +212,35 @@ export function ShelfList({ shelf, empty }: { shelf: Shelf; empty: React.ReactNo
   );
 }
 
+/**
+ * An unsaved roll on the trail (5.13): "Unsaved · 14:02" and the name it was
+ * rolled under. Nothing to pin, add or delete — it has no identity until it
+ * is saved, and saving it makes it an ordinary row.
+ */
+function UnsavedRow({ item, onOpen }: { item: UnsavedItem; onOpen: () => void }) {
+  const { history } = useStudio();
+  const current = history.currentId === item.id;
+  return (
+    <div className="pinrow">
+      <button
+        type="button"
+        className="item"
+        title="Never saved — kept here until the page is closed"
+        aria-current={current ? 'true' : undefined}
+        onClick={() => {
+          if (!current) onOpen();
+        }}
+      >
+        <div className="nm">
+          <b>{item.target.title}</b>
+          <span>{item.name}</span>
+        </div>
+        <span className="bpm">{`${layerName(item.level)} · ${item.bpm}`}</span>
+      </button>
+    </div>
+  );
+}
+
 function RecentList() {
   const { history } = useStudio();
   const [all, setAll] = useState(false);
@@ -221,36 +251,40 @@ function RecentList() {
     return (
       <div className="hint">
         What you open shows up here, at the layer and tempo you left it — a famous break, or a
-        pattern once it is saved. <b>Back</b> in the header (<b>Alt+←</b>) takes you to the one
-        before.
+        pattern once it is saved, and a roll you left unsaved, until the page closes. <b>Back</b> in
+        the header (<b>Alt+←</b>) takes you to the one before.
       </div>
     );
   }
   return (
     <div className="list">
-      {shown.map((item) => (
-        <Row
-          key={item.id}
-          target={
-            item.target.kind === 'entry'
-              ? { libraryEntryId: item.target.id }
-              : { breakId: item.target.id }
-          }
-          title={item.target.title}
-          sub={
-            item.target.kind === 'entry'
-              ? item.target.artist
-              : item.target.mine
-                ? 'Your pattern'
-                : 'Shared with you'
-          }
-          right={`${layerName(item.level)} · ${item.bpm}`}
-          level={item.level}
-          mine={item.target.kind === 'break' && item.target.mine}
-          // the history opens at the layer and tempo you left it
-          onOpen={() => history.open(item)}
-        />
-      ))}
+      {shown.map((item) =>
+        isUnsaved(item) ? (
+          <UnsavedRow key={item.id} item={item} onOpen={() => history.open(item)} />
+        ) : (
+          <Row
+            key={item.id}
+            target={
+              item.target.kind === 'entry'
+                ? { libraryEntryId: item.target.id }
+                : { breakId: item.target.id }
+            }
+            title={item.target.title}
+            sub={
+              item.target.kind === 'entry'
+                ? item.target.artist
+                : item.target.mine
+                  ? 'Your pattern'
+                  : 'Shared with you'
+            }
+            right={`${layerName(item.level)} · ${item.bpm}`}
+            level={item.level}
+            mine={item.target.kind === 'break' && item.target.mine}
+            // the history opens at the layer and tempo you left it
+            onOpen={() => history.open(item)}
+          />
+        )
+      )}
       <div className="btnrow">
         {items.length > RECENT_SHOWN ? (
           <button type="button" className="mini" onClick={() => setAll((v) => !v)}>
@@ -623,11 +657,12 @@ export function PatternsPanel() {
   /* The tab you were on, per browser — a convenience, so it is checked on the
      way out of storage and falls back rather than trusting what is there. */
   const [stored, setStored] = useStoredSetting(PATTERNS_TAB);
-  const fallback: Tab = pins.shelves.practising.length
-    ? 'practising'
-    : history.items.length
-      ? 'recent'
-      : 'libraries';
+  /* Chosen when the drawer opens, not on every render: the history can grow
+     while you are in it (an unsaved roll joins Recent the moment you open a
+     famous break, 5.13), and the tab must not move out from under you. */
+  const [fallback] = useState<Tab>(() =>
+    pins.shelves.practising.length ? 'practising' : history.items.length ? 'recent' : 'libraries'
+  );
   const tab: Tab = stored ?? fallback;
 
   const count: Partial<Record<Tab, number>> = {
