@@ -18,6 +18,14 @@
 export const CLIMB_SHAPES = ['steady', 'gentle-start', 'gentle-finish', 'steps'] as const;
 export type ClimbShape = (typeof CLIMB_SHAPES)[number];
 
+/** What each climb shape is called on screen. */
+export const SHAPE_LABEL: Record<ClimbShape, string> = {
+  steady: 'Steady',
+  'gentle-start': 'Gentle start',
+  'gentle-finish': 'Gentle finish',
+  steps: 'Steps',
+};
+
 /** The slowest tempo a session plays, as the slowest a speed record claims. */
 export const PRACTICE_BPM_MIN = 40;
 

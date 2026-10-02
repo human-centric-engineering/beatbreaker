@@ -48,6 +48,7 @@ export function sessionView(over: Partial<SessionView> = {}): SessionView {
     slug: null,
     updatedAt: '2026-10-01T09:00:00.000Z',
     createdAt: '2026-10-01T09:00:00.000Z',
+    copiedFrom: null,
     startPct: 20,
     climbPct: 67,
     climbShape: 'steady',

@@ -8,9 +8,9 @@ import { PatternPlayer } from '@/components/app/community/pattern-player';
 import { PublicChart } from '@/components/app/community/public-chart';
 import { ReferenceEmbeds } from '@/components/app/community/reference-embeds';
 import { ReportButton } from '@/components/app/community/report-button';
+import { SignUpStrip } from '@/components/app/community/sign-up-strip';
 import { SpeedsSection } from '@/components/app/community/speeds-section';
 import { VariationsSection } from '@/components/app/community/variations-section';
-import { Button } from '@/components/ui/button';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { difficultyLabel } from '@/lib/app/breaks/community/grid';
 import { usernameOf } from '@/lib/app/breaks/community/profile';
@@ -144,24 +144,10 @@ export default async function PublicPatternPage({ params, searchParams }: Props)
           {mine ? null : <ReportButton slug={pattern.slug} />}
         </PatternActions>
       ) : (
-        <aside className="bg-muted/50 space-y-3 rounded-lg border p-4">
-          <p>
-            You can read and play this pattern here. Create a free account to save{' '}
-            {published ? 'a variation' : 'a copy'}, slow it down by layers, and edit it.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Button asChild>
-              <Link href={`/signup?callbackUrl=${encodeURIComponent(publicPath(pattern.slug))}`}>
-                Create a free account
-              </Link>
-            </Button>
-            <Button asChild variant="outline">
-              <Link href={`/login?callbackUrl=${encodeURIComponent(publicPath(pattern.slug))}`}>
-                Sign in
-              </Link>
-            </Button>
-          </div>
-        </aside>
+        <SignUpStrip path={publicPath(pattern.slug)}>
+          You can read and play this pattern here. Create a free account to save{' '}
+          {published ? 'a variation' : 'a copy'}, slow it down by layers, and edit it.
+        </SignUpStrip>
       )}
 
       {speeds ? (

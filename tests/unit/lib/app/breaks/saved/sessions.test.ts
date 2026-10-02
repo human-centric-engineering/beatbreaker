@@ -48,7 +48,10 @@ vi.mock('@/lib/app/breaks/saved/speeds', async (importActual) => {
   return { ...actual, yourBests: vi.fn() };
 });
 
+vi.mock('@/lib/app/breaks/community/profile', () => ({ usernameOf: vi.fn() }));
+
 import { APIError, NotFoundError, ValidationError } from '@/lib/api/errors';
+import { usernameOf } from '@/lib/app/breaks/community/profile';
 import { bestKey, yourBests } from '@/lib/app/breaks/saved/speeds';
 import { assertDefined } from '@/tests/helpers/assertions';
 import {
@@ -117,6 +120,7 @@ function sessionRow(over: Record<string, unknown> = {}) {
     createdAt: NOW,
     updatedAt: NOW,
     items: [itemRow()],
+    parent: null,
     ...over,
   };
 }
@@ -324,6 +328,52 @@ describe('toView (via readSession) — target defaults', () => {
     expect(target?.kind).toBe('break');
     expect(target && 'mine' in target ? target.mine : undefined).toBe(false);
     expect(target && 'slug' in target ? target.slug : undefined).toBe('shared01');
+  });
+});
+
+describe('toView (via readSession) — copiedFrom', () => {
+  it('credits the username and the slug, when the parent is still link-shared', async () => {
+    vi.mocked(prisma.practiceSession.findFirst).mockResolvedValue(
+      sessionRow({ parent: { userId: OTHER_ID, visibility: 'link', slug: 'shared01' } }) as never
+    );
+    vi.mocked(usernameOf).mockResolvedValue('ghostnotes');
+
+    const result = await readSession(USER_ID, SESSION_ID);
+
+    expect(result?.copiedFrom).toEqual({ username: 'ghostnotes', slug: 'shared01' });
+  });
+
+  it('credits the username with no slug, when the parent has gone private', async () => {
+    vi.mocked(prisma.practiceSession.findFirst).mockResolvedValue(
+      sessionRow({ parent: { userId: OTHER_ID, visibility: 'private', slug: null } }) as never
+    );
+    vi.mocked(usernameOf).mockResolvedValue('ghostnotes');
+
+    const result = await readSession(USER_ID, SESSION_ID);
+
+    expect(result?.copiedFrom).toEqual({ username: 'ghostnotes', slug: null });
+  });
+
+  it('is null when the parent’s owner has no username', async () => {
+    vi.mocked(prisma.practiceSession.findFirst).mockResolvedValue(
+      sessionRow({ parent: { userId: OTHER_ID, visibility: 'link', slug: 'shared01' } }) as never
+    );
+    vi.mocked(usernameOf).mockResolvedValue(null);
+
+    const result = await readSession(USER_ID, SESSION_ID);
+
+    expect(result?.copiedFrom).toBeNull();
+  });
+
+  it('is null on one of your own, with no parent', async () => {
+    vi.mocked(prisma.practiceSession.findFirst).mockResolvedValue(
+      sessionRow({ parent: null }) as never
+    );
+
+    const result = await readSession(USER_ID, SESSION_ID);
+
+    expect(result?.copiedFrom).toBeNull();
+    expect(usernameOf).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing to look up with no parent
   });
 });
 

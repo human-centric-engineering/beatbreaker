@@ -49,3 +49,8 @@ export const MINUTES_EACH = 5;
 export function defaultTotal(count: number): number {
   return Math.min(SESSION_MINUTES.max, Math.max(SESSION_MINUTES.min, count * MINUTES_EACH));
 }
+
+/** A shared session's public address. The page is `app/(public)/s/[slug]`. */
+export function sharedSessionPath(slug: string): string {
+  return `/s/${slug}`;
+}

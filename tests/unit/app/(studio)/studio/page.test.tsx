@@ -253,6 +253,21 @@ describe('/studio', () => {
       expect(junk.props.loginHref).toBe(`/login?callbackUrl=${encodeURIComponent('/studio')}`);
     });
 
+    it('brings a signed-out reader back to the famous break after signing in', async () => {
+      vi.mocked(getServerSession).mockResolvedValue(null);
+      const el = await StudioPage(query({ entry: ENTRY_ID }));
+      expect(el.type).toBe(SignInToOpen);
+      expect(el.props.loginHref).toBe(
+        `/login?callbackUrl=${encodeURIComponent(`/studio?entry=${ENTRY_ID}`)}`
+      );
+      const both = await StudioPage(query({ session: SESSION_ID, entry: ENTRY_ID }));
+      expect(both.props.loginHref).toBe(
+        `/login?callbackUrl=${encodeURIComponent(`/studio?session=${SESSION_ID}&entry=${ENTRY_ID}`)}`
+      );
+      const junk = await StudioPage(query({ entry: '../admin' }));
+      expect(junk.props.loginHref).toBe(`/login?callbackUrl=${encodeURIComponent('/studio')}`);
+    });
+
     it('reads no session without the parameter', async () => {
       const el = await StudioPage(query({}));
       expect(el.props.session).toBeUndefined();

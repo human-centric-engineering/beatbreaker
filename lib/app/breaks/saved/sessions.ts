@@ -3,6 +3,7 @@ import type { Prisma } from '@prisma/client';
 import { APIError, NotFoundError, ValidationError } from '@/lib/api/errors';
 import { maxBpm } from '@/lib/app/breaks/audio/transport';
 import { PUBLIC } from '@/lib/app/breaks/catalogue/data';
+import { usernameOf } from '@/lib/app/breaks/community/profile';
 import { openableBy, readVisibility } from '@/lib/app/breaks/community/visibility';
 import { bestKey, yourBests } from '@/lib/app/breaks/saved/speeds';
 import {
@@ -39,7 +40,7 @@ import {
 /** Sessions one person may have. */
 export const SESSIONS_MAX = 100;
 
-const ITEM_SELECT = {
+export const ITEM_SELECT = {
   id: true,
   position: true,
   breakId: true,
@@ -75,7 +76,7 @@ const ITEM_SELECT = {
   },
 } as const satisfies Prisma.PracticeSessionItemSelect;
 
-const SESSION_SELECT = {
+export const SESSION_SELECT = {
   id: true,
   name: true,
   description: true,
@@ -90,17 +91,18 @@ const SESSION_SELECT = {
   createdAt: true,
   updatedAt: true,
   items: { orderBy: { position: 'asc' }, select: ITEM_SELECT },
+  parent: { select: { userId: true, visibility: true, slug: true } },
 } as const satisfies Prisma.PracticeSessionSelect;
 
-type ItemRow = Prisma.PracticeSessionItemGetPayload<{ select: typeof ITEM_SELECT }>;
+export type ItemRow = Prisma.PracticeSessionItemGetPayload<{ select: typeof ITEM_SELECT }>;
 type SessionRow = Prisma.PracticeSessionGetPayload<{ select: typeof SESSION_SELECT }>;
 
-function readShape(value: string | null): ClimbShape | null {
+export function readShape(value: string | null): ClimbShape | null {
   return CLIMB_SHAPES.find((s) => s === value) ?? null;
 }
 
 /** An item's pattern, if the caller may still open it — the rule `openableBy` and `PUBLIC` apply. */
-function readableTarget(row: ItemRow, userId: string): SessionItemView['target'] {
+export function readableTarget(row: ItemRow, userId: string): SessionItemView['target'] {
   const b = row.breakRef;
   if (b && (b.userId === userId || readVisibility(b.visibility) !== 'private')) {
     return {
@@ -121,11 +123,32 @@ function readableTarget(row: ItemRow, userId: string): SessionItemView['target']
   return null;
 }
 
-function pinTargetOf(target: NonNullable<SessionItemView['target']>): PinTarget {
+export function pinTargetOf(target: NonNullable<SessionItemView['target']>): PinTarget {
   return target.kind === 'break' ? { breakId: target.id } : { libraryEntryId: target.id };
 }
 
-async function toView(row: SessionRow, userId: string): Promise<SessionView> {
+/**
+ * What a slot climbs to, from the bpm it aims at. A pattern may be saved at
+ * any tempo, but a run logs only what a speed record allows, so the target is
+ * kept inside that range: 40 to the meter's ceiling.
+ */
+export function slotTarget(bpm: number, meter: string): number {
+  return Math.min(maxBpm(meter), Math.max(PRACTICE_BPM_MIN, bpm));
+}
+
+/**
+ * Who a saved copy is credited to (D32): the username of the person whose
+ * shared session it was saved from, and that session's address while it is
+ * still shared. Nothing when they have no username, or the session is gone.
+ */
+async function copiedFrom(parent: SessionRow['parent']): Promise<SessionView['copiedFrom']> {
+  if (!parent) return null;
+  const username = await usernameOf(parent.userId);
+  if (!username) return null;
+  return { username, slug: parent.visibility === 'link' ? parent.slug : null };
+}
+
+export async function toView(row: SessionRow, userId: string): Promise<SessionView> {
   const targets = row.items.map((item) => readableTarget(item, userId));
   const bests = await yourBests(
     userId,
@@ -147,13 +170,8 @@ async function toView(row: SessionRow, userId: string): Promise<SessionView> {
       climbSteps: item.climbSteps,
     };
     const bestBpm = target ? (bests.get(bestKey(pinTargetOf(target), item.level)) ?? null) : null;
-    // a pattern may be saved at any tempo, but a run logs only what a speed
-    // record allows, so the target is kept inside that range
     const targetBpm = target
-      ? Math.min(
-          maxBpm(target.meter),
-          Math.max(PRACTICE_BPM_MIN, item.goalBpm ?? bestBpm ?? target.bpm)
-        )
+      ? slotTarget(item.goalBpm ?? bestBpm ?? target.bpm, target.meter)
       : null;
     const plan =
       targetBpm === null
@@ -187,6 +205,7 @@ async function toView(row: SessionRow, userId: string): Promise<SessionView> {
     slug: row.visibility === 'link' ? row.slug : null,
     createdAt: row.createdAt.toISOString(),
     updatedAt: row.updatedAt.toISOString(),
+    copiedFrom: await copiedFrom(row.parent),
     items,
   };
 }
@@ -256,9 +275,9 @@ function fitsTotal(count: number, totalMinutes: number): void {
 }
 
 /** The stored columns of each item, in order, with the minutes split (D31). */
-type ItemData = Omit<Prisma.PracticeSessionItemCreateManyInput, 'sessionId'>;
+export type ItemData = Omit<Prisma.PracticeSessionItemCreateManyInput, 'sessionId'>;
 
-function withSplit(totalMinutes: number, items: ItemData[]): ItemData[] {
+export function withSplit(totalMinutes: number, items: ItemData[]): ItemData[] {
   const split = splitMinutes(
     totalMinutes,
     items.map((i) => ({ minutes: i.minutes, pinned: i.minutesPinned ?? false }))
@@ -343,6 +362,18 @@ export async function readSession(userId: string, id: string): Promise<SessionVi
   return row ? toView(row, userId) : null;
 }
 
+/** Past {@link SESSIONS_MAX} sessions, another is a 429. */
+export async function assertRoom(userId: string): Promise<void> {
+  const count = await prisma.practiceSession.count({ where: { userId } });
+  if (count >= SESSIONS_MAX) {
+    throw new APIError(
+      `You have ${SESSIONS_MAX} practice sessions. Delete one to make another.`,
+      'SESSION_LIMIT',
+      429
+    );
+  }
+}
+
 /**
  * Make a session, with any items it starts with. Past {@link SESSIONS_MAX}
  * sessions is a 429; a pattern you cannot see is a 404; more patterns than
@@ -355,14 +386,7 @@ export async function createSession(
   const { items, ...fields } = input;
   fitsTotal(items.length, fields.totalMinutes);
 
-  const count = await prisma.practiceSession.count({ where: { userId } });
-  if (count >= SESSIONS_MAX) {
-    throw new APIError(
-      `You have ${SESSIONS_MAX} practice sessions. Delete one to make another.`,
-      'SESSION_LIMIT',
-      429
-    );
-  }
+  await assertRoom(userId);
 
   const resolved = await resolveTargets(
     userId,

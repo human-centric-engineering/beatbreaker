@@ -8,8 +8,8 @@ and the session moves on. A session can be shared with a link.
 7D ships as four PRs. This page covers **7D-i, the sums and the data** (the
 time split, the climb, the three tables and `/api/v1/practice-sessions`) and
 **7D-ii, building one** (the editor, _Add to a session_ and Home) and
-**7D-iii, running one** (the runner and the Studio's session bar). Sharing one
-(7D-iv) adds its section when it lands.
+**7D-iii, running one** (the runner and the Studio's session bar) and
+**7D-iv, sharing one** (the link, `/s/[slug]` and saving a copy).
 
 ## Anti-patterns first
 
@@ -45,6 +45,15 @@ time split, the climb, the three tables and `/api/v1/practice-sessions`) and
 - **Don't switch the trainer off to run a session.** `setSessionHold` holds
   the ramp and _match tempo_ off beside your settings, not in them. A page
   closed mid-session leaves your settings as they were.
+- **Don't share a session someone else could not play.** Sharing checks
+  every item is readable by anyone — a pattern shared by link or published,
+  or a famous break — and refuses, naming the ones that are not. A pattern
+  made private later is `available: false` on the public read, with no title.
+- **Don't put a user id in the public read.** `getPublicSession` reads the
+  owner's id only to look up their username and their bests, and drops it.
+  Item ids and the session's own id stay out too.
+- **Don't carry the owner's goals into a copy.** A saved copy's `goalBpm` is
+  null on every item, so its targets are the saver's best, else the tempo.
 - **Don't keep target ids in a run.** `PracticeRun.items` is titles and
   tempos, so a deleted pattern leaves nothing dangling in your history.
 
@@ -198,3 +207,40 @@ be a speed on the pattern the session names.
 **The run** is posted once, when it ends: the last slot finishing, or _Stop_.
 It holds the slots played. A run stopped before any slot ran its course, or was
 skipped after playing, is not logged.
+
+## Sharing one (7D-iv)
+
+The data layer is `lib/app/breaks/saved/session-sharing.ts`.
+
+| Route                                              | Does                                                                                                                                                                               |
+| -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST /api/v1/practice-sessions/:id/share`         | Share with a link: `{ visibility: 'link', slug }`. The slug is minted once and kept. 409 `ITEMS_NOT_SHARED` with `details.items` (`{ position, title, reason: private \| gone }`). |
+| `DELETE /api/v1/practice-sessions/:id/share`       | Stop sharing. The slug is kept, so sharing again revives the same link.                                                                                                            |
+| `GET /api/v1/public/practice-sessions/:slug`       | No session needed; `public` tier (per IP); ETag and 304. Unshared, deleted and never-minted are one 404.                                                                           |
+| `POST /api/v1/public/practice-sessions/:slug/copy` | Signed in. 201 with the copy as `GET …/:id` reads it. Keeps only the items the saver can open; `parentId` set unless the session is the saver's own; the 100 cap applies.          |
+
+**The public read** gives each item's target as the **owner** sees it: their
+goal, else their best at its layer (listed or not), else the pattern's tempo.
+The share dialog says so before you share. An available item links to its
+`/p/` page, or to `/studio?entry=[id]` for a famous break, which has no public
+page: a signed-out visitor signs in first, and the Studio's sign-in keeps
+`?entry=` so they land on the break. The owner's _Run it_ shows even when every
+item has gone private since: a private pattern is still the owner's to play.
+
+**The credit.** A copy's `copiedFrom` is `{ username, slug }` — the owner's
+username, and the source's slug while it is still shared — read from
+`parentId` when the session is read. Nothing when the owner has no username or
+the source is deleted; `lineageOf` is not used, since it credits published
+patterns only.
+
+**`/s/[slug]`** (`app/(public)/s/[slug]/page.tsx`) is always `noindex`.
+Signed out: the page and the sign-up strip (`components/app/community/sign-up-strip.tsx`,
+shared with `/p/`). The owner: _Edit it_ and _Run it_. Anyone else signed
+in: _Save to my sessions_ and _Run it_ (`shared-session-actions.tsx`), both
+of which copy first — a session runs from your own sessions, with your
+targets.
+
+**The share dialog** (`components/app/practice/share-session.tsx`) sits in the
+editor's header. It is disabled while there are unsaved edits, since the link
+shares what is saved, and on a refusal it lists the patterns to share first,
+with a Studio link for each of your own.

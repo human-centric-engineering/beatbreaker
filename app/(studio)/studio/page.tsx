@@ -62,15 +62,20 @@ export const metadata: Metadata = {
 };
 
 /**
- * Where sign-in comes back to. A session link keeps its `?session=` — it is a
- * query, which the login form carries, unlike a fragment — so a signed-out
- * drummer lands back on the session, not a bare Studio. Only a well-formed id
- * is carried; anything else comes back to `/studio`.
+ * Where sign-in comes back to. A session link keeps its `?session=`, and a
+ * library link its `?entry=` — each is a query, which the login form carries,
+ * unlike a fragment — so a signed-out drummer lands back on the session or the
+ * break, not a bare Studio. Only a well-formed id is carried; anything else is
+ * dropped.
  */
-function loginHref(sessionParam: string | string[] | undefined): string {
-  const id = cuidSchema.safeParse(sessionParam);
-  const back = id.success ? `/studio?session=${id.data}` : '/studio';
-  return `/login?callbackUrl=${encodeURIComponent(back)}`;
+function loginHref(query: { session?: string | string[]; entry?: string | string[] }): string {
+  const back = new URLSearchParams();
+  const session = cuidSchema.safeParse(query.session);
+  if (session.success) back.set('session', session.data);
+  const entry = cuidSchema.safeParse(query.entry);
+  if (entry.success) back.set('entry', entry.data);
+  const qs = back.toString();
+  return `/login?callbackUrl=${encodeURIComponent(qs ? `/studio?${qs}` : '/studio')}`;
 }
 
 export default async function StudioPage({
@@ -85,7 +90,7 @@ export default async function StudioPage({
 }) {
   const session = await getServerSession();
   const query = await searchParams;
-  if (!session) return <SignInToOpen loginHref={loginHref(query.session)} />;
+  if (!session) return <SignInToOpen loginHref={loginHref(query)} />;
 
   const entry = cuidSchema.safeParse(query.entry);
   let practice;

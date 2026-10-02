@@ -107,6 +107,14 @@ export default function PrivacyPolicyPage() {
               date and your video link; your note is never shown. You can delete a speed, and
               deleting your account removes you from every table.
             </p>
+            {/* FORK (BeatBreaker, Phase 7D): practice sessions shared by link. */}
+            <p>
+              Your practice sessions are private until you share one with a link. Anyone with the
+              link sees its patterns, their minutes and its target tempos, including targets taken
+              from your speeds, and can save a copy of their own; it is not listed anywhere and is
+              hidden from search engines. Deleting your account deletes your sessions; copies other
+              people saved stay theirs, without your name.
+            </p>
             <p>
               A pattern&apos;s video and song links are shown as buttons. Nothing is loaded from
               YouTube, Vimeo or Spotify until a visitor presses one; after that, that service may

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 import { NumberField } from '@/components/app/practice/number-field';
+import { ShareSession } from '@/components/app/practice/share-session';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -30,9 +31,10 @@ import {
   CLIMB_SHAPES,
   CLIMB_STEPS_RANGE,
   PRACTICE_BPM_MIN,
+  SHAPE_LABEL,
   START_PCT_RANGE,
 } from '@/lib/app/practice/climb';
-import { keptItem } from '@/lib/app/practice/items';
+import { keptItem, sharedSessionPath } from '@/lib/app/practice/items';
 import { nudgeMinutes, splitMinutes } from '@/lib/app/practice/split';
 import {
   COUNT_IN_RANGE,
@@ -44,14 +46,6 @@ import {
   type SessionView,
   sessionViewSchema,
 } from '@/lib/validations/practice-sessions';
-
-/** What each climb shape is called on screen. */
-export const SHAPE_LABEL: Record<ClimbShape, string> = {
-  steady: 'Steady',
-  'gentle-start': 'Gentle start',
-  'gentle-finish': 'Gentle finish',
-  steps: 'Steps',
-};
 
 const COUNT_IN_LABEL = ['None', 'One bar', 'Two bars'];
 
@@ -278,11 +272,30 @@ export function SessionEditor({ initial }: { initial: SessionView }) {
       }}
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h1 className="text-3xl font-bold">{saved.name}</h1>
+        <div className="space-y-1">
+          <h1 className="text-3xl font-bold">{saved.name}</h1>
+          {saved.copiedFrom ? (
+            <p className="text-muted-foreground text-sm italic">
+              From{' '}
+              {saved.copiedFrom.slug ? (
+                <Link href={sharedSessionPath(saved.copiedFrom.slug)}>
+                  @{saved.copiedFrom.username}&apos;s session
+                </Link>
+              ) : (
+                <>@{saved.copiedFrom.username}&apos;s session</>
+              )}
+            </p>
+          ) : null}
+        </div>
         <div className="flex flex-wrap gap-2">
           <Button asChild variant="ghost">
             <Link href="/practice">All sessions</Link>
           </Button>
+          <ShareSession
+            session={saved}
+            dirty={dirty}
+            onChange={(state) => setSaved((s) => ({ ...s, ...state }))}
+          />
           {saved.items.some((i) => i.target) ? (
             <Button asChild>
               <Link href={`/studio?session=${saved.id}`}>
