@@ -85,9 +85,16 @@ function mount(over: { stageUnrecordable?: boolean; session?: typeof session } =
   return { ...fake, openTarget, say, hook, props };
 }
 
-/** The listener the hook gave the console, once it has one. */
-async function clockOf(clock: () => ClockListener | null): Promise<ClockListener> {
+/**
+ * The listener the hook gave the console, once the slot is in its count-in —
+ * the earliest a real transport could report a downbeat.
+ */
+async function clockOf(
+  clock: () => ClockListener | null,
+  hook?: { result: { current: ReturnType<typeof useSessionRun> } }
+): Promise<ClockListener> {
   await waitFor(() => expect(clock()).not.toBeNull());
+  if (hook) await waitFor(() => expect(hook.result.current?.run?.phase).toBe('counting'));
   return clock()!;
 }
 
@@ -122,7 +129,7 @@ describe('useSessionRun', () => {
     expect(c.playAt).toHaveBeenLastCalledWith(80);
     expect(hook.result.current?.run?.phase).toBe('counting');
 
-    const listener = await clockOf(clock);
+    const listener = await clockOf(clock, hook);
     act(() => listener.onDownbeat?.(10));
     expect(hook.result.current?.run?.phase).toBe('playing');
 
@@ -139,10 +146,21 @@ describe('useSessionRun', () => {
     expect(c.setLevel).toHaveBeenLastCalledWith(3);
   });
 
+  it('takes a downbeat the transport reports from inside start(), with no count-in', async () => {
+    const { c, clock, hook } = mount();
+    c.play.mockImplementation(() => {
+      c.playing = true;
+      clock()?.onDownbeat?.(5); // what Transport.start() does when countIn is 0
+      return true;
+    });
+    act(() => hook.result.current?.start());
+    await waitFor(() => expect(hook.result.current?.run?.phase).toBe('playing'));
+  });
+
   it('offers to record the tempo reached at the item’s layer, and records it there', async () => {
     const { clock, hook } = mount();
     act(() => hook.result.current?.start());
-    const listener = await clockOf(clock);
+    const listener = await clockOf(clock, hook);
     act(() => listener.onDownbeat?.(0));
     act(() => listener.onLoop?.(50));
     act(() => listener.onLoop?.(61));
@@ -162,7 +180,7 @@ describe('useSessionRun', () => {
   it('does not offer it when the stage held an edited famous break or an unsaved variation', async () => {
     const { clock, hook, props } = mount();
     act(() => hook.result.current?.start());
-    const listener = await clockOf(clock);
+    const listener = await clockOf(clock, hook);
     act(() => listener.onDownbeat?.(0));
     hook.rerender({ ...props, stageUnrecordable: true });
     act(() => listener.onLoop?.(61));
@@ -173,7 +191,7 @@ describe('useSessionRun', () => {
   it('posts the run once when it ends, with the slots played, and lets go of the trainer', async () => {
     const { c, clock, hook, props } = mount();
     act(() => hook.result.current?.start());
-    const listener = await clockOf(clock);
+    const listener = await clockOf(clock, hook);
     act(() => listener.onDownbeat?.(0));
     act(() => listener.onLoop?.(61));
     await waitFor(() => expect(c.play).toHaveBeenCalledTimes(2));
@@ -200,7 +218,7 @@ describe('useSessionRun', () => {
   it('does not log a run stopped before its first slot finished', async () => {
     const { c, clock, hook } = mount();
     act(() => hook.result.current?.start());
-    const listener = await clockOf(clock);
+    const listener = await clockOf(clock, hook);
     act(() => listener.onDownbeat?.(0));
     act(() => listener.onLoop?.(20));
     act(() => hook.result.current?.stop());
@@ -211,7 +229,7 @@ describe('useSessionRun', () => {
   it('pauses when the transport is stopped under it, and resumes the same pattern without reopening it', async () => {
     const { c, clock, openTarget, hook, props } = mount();
     act(() => hook.result.current?.start());
-    const listener = await clockOf(clock);
+    const listener = await clockOf(clock, hook);
     act(() => listener.onDownbeat?.(0));
 
     c.playing = false;

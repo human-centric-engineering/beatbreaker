@@ -194,12 +194,14 @@ export function useSessionRun({
   }, [loadingIndex, startBpm, targets, openTarget, stopPlaying, setLevel, playAt, audioNow, say]);
 
   /* After the render that put the pattern on the stage, so the transport
-     reads the new pattern and tempo, not the last one. */
+     reads the new pattern and tempo, not the last one. The slot is marked
+     started before the transport is: with no count-in, `start()` reports the
+     downbeat at once, and the runner only takes one after `loaded`. */
   useEffect(() => {
     if (readyToPlay < 0) return;
     setReadyToPlay(-1);
-    if (play()) setRun((s) => (s && s.index === readyToPlay ? loaded(s) : s));
-    else {
+    setRun((s) => (s && s.index === readyToPlay ? loaded(s) : s));
+    if (!play()) {
       say('No sound in this browser — the session cannot run', { error: true });
       setRun((s) => (s ? stopRun(s, itemsRef.current, audioNow()) : s));
     }
