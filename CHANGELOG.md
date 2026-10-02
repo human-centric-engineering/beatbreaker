@@ -18,6 +18,15 @@ release process.
 
 ### Added
 
+- **Sharing practice sessions (BeatBreaker Phase 7D-iv).**
+  `POST`/`DELETE /api/v1/practice-sessions/:id/share` shares one of your
+  sessions with a link, refused (409 `ITEMS_NOT_SHARED`) while any pattern in
+  it is one others could not open. `GET /api/v1/public/practice-sessions/:slug`
+  reads a shared session with no account, and
+  `POST /api/v1/public/practice-sessions/:slug/copy` saves it as yours. The
+  page is `/s/[slug]`. The session view gains `copiedFrom` (`{ username, slug }`
+  or null).
+
 - **Running practice sessions (BeatBreaker Phase 7D-iii).**
   `/studio?session=[id]` runs one of your sessions in the Studio, with a bar
   above the stage and _Start_, _Pause_, _Skip_, _+1 min_ and _Stop_. At the end
