@@ -18,6 +18,14 @@ release process.
 
 ### Added
 
+- **Building practice sessions (BeatBreaker Phase 7D-ii).** `/practice` lists
+  your sessions and `/practice/[id]` edits one (both behind sign-in, in the
+  header as _Practice_). _Add to a session_ sits beside every pattern in the
+  Studio's Patterns drawer and on `/p/[slug]`; _Make a session from this shelf_
+  sits on Home's Practising heading and above the drawer's shelves.
+  `GET /api/v1/home` gains `sessions` (your first five, as the list reads
+  them) and `sessionsFirst` (true when `teaching` is among your purposes).
+
 - **Practice sessions (BeatBreaker Phase 7D-i).** New `PracticeSession`,
   `PracticeSessionItem` and `PracticeRun` models (migration
   `practice_sessions`; `userId` cascades on sessions and runs, items cascade

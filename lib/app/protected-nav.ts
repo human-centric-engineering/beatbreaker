@@ -27,7 +27,7 @@
  *
  * Full guide: CUSTOMIZATION.md §4 · lib/protected-nav/types.ts
  */
-import { Compass, LayoutDashboard, Music4, Shield } from 'lucide-react';
+import { Compass, LayoutDashboard, ListMusic, Music4, Shield } from 'lucide-react';
 
 import type { ProtectedNavItem } from '@/lib/protected-nav/types';
 
@@ -42,11 +42,13 @@ import type { ProtectedNavItem } from '@/lib/protected-nav/types';
  *
  * Explore — the community library — arrived with Phase 6's `/explore`; it
  * was kept out until then because a header link to a route that 404s is worse
- * than a header without the link.
+ * than a header without the link. Practice — your practice sessions — arrived
+ * with Phase 7D's `/practice`.
  */
 export const protectedNavItems: ProtectedNavItem[] | null = [
   { href: '/dashboard', label: 'Home', icon: LayoutDashboard },
   { href: '/studio', label: 'Studio', icon: Music4 },
+  { href: '/practice', label: 'Practice', icon: ListMusic },
   { href: '/explore', label: 'Explore', icon: Compass },
   { href: '/admin', label: 'Admin', icon: Shield, adminOnly: true },
 ];

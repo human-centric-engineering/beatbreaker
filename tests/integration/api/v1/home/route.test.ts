@@ -23,7 +23,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { GET } from '@/app/api/v1/home/route';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
-import { HOME_RECENT } from '@/lib/app/breaks/saved/home';
+import { HOME_RECENT, HOME_SESSIONS } from '@/lib/app/breaks/saved/home';
 import { breakPayload } from '@/lib/app/breaks/share';
 import { mockAuthenticatedUser } from '@/tests/helpers/auth';
 import { testCatalogue, testStyle } from '@/tests/helpers/catalogue';
@@ -39,6 +39,7 @@ vi.mock('@/lib/db/client', () => ({
     practiceVisit: { findMany: vi.fn() },
     break: { count: vi.fn(), findMany: vi.fn(), groupBy: vi.fn() },
     drummerAbout: { findUnique: vi.fn() },
+    practiceSession: { findMany: vi.fn() },
   },
 }));
 
@@ -130,6 +131,8 @@ interface Home {
   savedCount: number;
   published: unknown[];
   askAbout: boolean;
+  sessions: Array<{ id: string; name: string; titles: string[]; lastRunAt: string | null }>;
+  sessionsFirst: boolean;
 }
 
 async function home(): Promise<{ status: number; data: Home }> {
@@ -146,6 +149,7 @@ beforeEach(() => {
   vi.mocked(prisma.break.count).mockResolvedValue(0);
   vi.mocked(prisma.break.findMany).mockResolvedValue([] as never);
   vi.mocked(prisma.drummerAbout.findUnique).mockResolvedValue(null);
+  vi.mocked(prisma.practiceSession.findMany).mockResolvedValue([] as never);
 });
 
 describe('auth', () => {
@@ -168,11 +172,14 @@ describe('GET /api/v1/home', () => {
       savedCount: 0,
       published: [],
       askAbout: true,
+      sessions: [],
+      sessionsFirst: false,
     });
     expect(prisma.pin.findMany).toHaveBeenCalledTimes(1);
     expect(prisma.practiceVisit.findMany).toHaveBeenCalledTimes(1);
     expect(prisma.break.count).toHaveBeenCalledTimes(1);
     expect(prisma.drummerAbout.findUnique).toHaveBeenCalledTimes(1);
+    expect(prisma.practiceSession.findMany).toHaveBeenCalledTimes(1);
   });
 
   describe('askAbout (Phase 7B)', () => {
@@ -471,6 +478,85 @@ describe('GET /api/v1/home', () => {
         slug: { not: null },
       });
       expect(args?.orderBy).toEqual([{ publishedAt: 'desc' }, { id: 'desc' }]);
+    });
+  });
+
+  describe('Your sessions (Phase 7D)', () => {
+    const sessionRow = (id: string, name: string, endedAt: Date | null) => ({
+      id,
+      name,
+      description: null,
+      totalMinutes: 20,
+      visibility: 'private',
+      slug: null,
+      updatedAt: new Date('2026-10-01T09:00:00Z'),
+      items: [
+        {
+          id: `${id}i`,
+          position: 0,
+          breakId: MINE,
+          libraryEntryId: null,
+          titleSnapshot: 'Old title',
+          level: 5,
+          goalBpm: null,
+          minutes: 20,
+          minutesPinned: false,
+          startPct: null,
+          climbPct: null,
+          climbShape: null,
+          climbSteps: null,
+          breakRef: {
+            id: MINE,
+            userId: USER_ID,
+            title: 'Cold Carpet',
+            meter: '4/4',
+            bpm: 90,
+            visibility: 'private',
+            slug: null,
+          },
+          libraryEntry: null,
+        },
+      ],
+      runs: endedAt ? [{ endedAt }] : [],
+    });
+
+    it('lists your first few sessions, scoped to you, in the same request', async () => {
+      vi.mocked(prisma.practiceSession.findMany).mockResolvedValue([
+        sessionRow('csess1', 'Warm-up', new Date('2026-10-01T10:00:00Z')),
+        sessionRow('csess2', 'Ghost notes', null),
+      ] as never);
+
+      const { data } = await home();
+
+      expect(data.sessions.map((s) => [s.name, s.titles, s.lastRunAt])).toEqual([
+        ['Warm-up', ['Cold Carpet'], '2026-10-01T10:00:00.000Z'],
+        ['Ghost notes', ['Cold Carpet'], null],
+      ]);
+      const [args] = vi.mocked(prisma.practiceSession.findMany).mock.calls[0];
+      expect(args?.where).toEqual({ userId: USER_ID });
+      expect(args?.take).toBe(HOME_SESSIONS);
+    });
+
+    it('leads with sessions when teaching is among your purposes', async () => {
+      vi.mocked(prisma.drummerAbout.findUnique).mockResolvedValue({
+        askedAt: new Date('2026-09-24T10:00:00Z'),
+        purposes: ['learning', 'teaching'],
+        styles: [],
+        ability: null,
+      } as never);
+      const { data } = await home();
+      expect(data.sessionsFirst).toBe(true);
+    });
+
+    it('keeps Practising first for a learner', async () => {
+      vi.mocked(prisma.drummerAbout.findUnique).mockResolvedValue({
+        askedAt: new Date('2026-09-24T10:00:00Z'),
+        purposes: ['learning', 'designing'],
+        styles: [],
+        ability: null,
+      } as never);
+      const { data } = await home();
+      expect(data.sessionsFirst).toBe(false);
     });
   });
 });

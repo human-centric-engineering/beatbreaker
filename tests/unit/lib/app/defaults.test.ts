@@ -243,10 +243,11 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     // The nav a signed-in drummer sees. Pinned by href so that a rename is free
     // and a route quietly disappearing from the header is not.
     assert: () => {
-      // '/explore' since Phase 6 built it
+      // '/explore' since Phase 6 built it; '/practice' since Phase 7D
       expect(protectedNavItems?.map((i) => i.href)).toEqual([
         '/dashboard',
         '/studio',
+        '/practice',
         '/explore',
         '/admin',
       ]);
@@ -399,12 +400,12 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     seam: 'lib/app/protected-routes.ts',
     risk: 'a stray path would put a public route behind auth on every install',
     // FORK (BeatBreaker): re-pointed, not deleted — see the brand row above.
-    // Back to empty on purpose, and this row is what holds it there. /studio
-    // gates itself in its page, and /breaks only redirects to it, because the
-    // edge redirect loses the `#b=` fragment a shared link carries (H5) — so
-    // adding either one here would break every shared link already handed out
-    // without breaking anything else.
-    assert: () => expect(appProtectedRoutes).toEqual([]),
+    // '/practice' (Phase 7D) and nothing else, and this row is what holds it
+    // there. /studio gates itself in its page, and /breaks only redirects to
+    // it, because the edge redirect loses the `#b=` fragment a shared link
+    // carries (H5) — so adding either one here would break every shared link
+    // already handed out without breaking anything else.
+    assert: () => expect(appProtectedRoutes).toEqual(['/practice']),
   },
   {
     seam: 'lib/app/env.ts',

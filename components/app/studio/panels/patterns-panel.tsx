@@ -3,6 +3,8 @@
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { z } from 'zod';
 
+import { AddToSession } from '@/components/app/practice/add-to-session';
+import { SessionFromShelf } from '@/components/app/practice/session-from-shelf';
 import { PATTERNS_TABS, type PatternsTab } from '@/components/app/shell/studio-address';
 import { PinButton, SHELF_LABEL } from '@/components/app/studio/pin-button';
 import { StudioHelp } from '@/components/app/studio/studio-help';
@@ -10,7 +12,7 @@ import { useStudio } from '@/components/app/studio/studio-provider';
 import { apiClient } from '@/lib/api/client';
 import { PATTERNS_TAB } from '@/lib/app/breaks/browser-keys';
 import { type CatalogueEntry, libraryGroups } from '@/lib/app/breaks/catalogue/types';
-import { layerName } from '@/lib/app/breaks/layers';
+import { FULL_LAYER, layerName } from '@/lib/app/breaks/layers';
 import { DEFAULT_METER, METER_KEYS } from '@/lib/app/breaks/meter';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import { logger } from '@/lib/logging';
@@ -79,8 +81,9 @@ function tempo(bpm: number | undefined, meter: string | undefined): string {
 }
 
 /**
- * One row: open on the left, ★ on the right. Two buttons side by side rather
- * than one inside the other — a menu button inside a button is not valid HTML.
+ * One row: open on the left, _Add to a session_ and ★ on the right. Buttons
+ * side by side rather than one inside the other — a menu button inside a
+ * button is not valid HTML.
  */
 function Row({
   target,
@@ -88,6 +91,7 @@ function Row({
   sub,
   right,
   hint,
+  level,
   onOpen,
 }: {
   target: PinTarget;
@@ -95,6 +99,8 @@ function Row({
   sub: string;
   right: string;
   hint?: string;
+  /** The layer it is pinned, saved or was left at — what _Add to a session_ adds it at. */
+  level?: number;
   /** Instead of the provider's `open` — the history steps its own way. */
   onOpen?: () => void;
 }) {
@@ -119,6 +125,13 @@ function Row({
         </div>
         <span className="bpm">{right}</span>
       </button>
+      <AddToSession
+        className="item"
+        target={target}
+        title={title}
+        level={level}
+        onResult={(message, error) => c.say(message, { error })}
+      />
       <PinButton className="item" target={target} label={title} />
     </div>
   );
@@ -144,6 +157,15 @@ export function ShelfList({ shelf, empty }: { shelf: Shelf; empty: React.ReactNo
   if (!list.length) return <div className="hint">{empty}</div>;
   return (
     <div className="list">
+      <SessionFromShelf
+        compact
+        shelf={SHELF_LABEL[shelf]}
+        items={list.map((pin) =>
+          pin.target.kind === 'entry'
+            ? { target: { libraryEntryId: pin.target.id }, level: FULL_LAYER }
+            : { target: { breakId: pin.target.id }, level: pin.target.level ?? FULL_LAYER }
+        )}
+      />
       {list.map((pin) => {
         const t = pin.target;
         if (t.kind === 'entry') {
@@ -163,6 +185,7 @@ export function ShelfList({ shelf, empty }: { shelf: Shelf; empty: React.ReactNo
             key={pin.id}
             target={{ breakId: t.id }}
             title={t.title}
+            level={t.level}
             sub={t.level === undefined ? who : `${who} · ${layerName(t.level)}`}
             right={tempo(t.bpm, t.meter)}
           />
@@ -206,6 +229,7 @@ function RecentList() {
                 : 'Shared with you'
           }
           right={`${layerName(item.level)} · ${item.bpm}`}
+          level={item.level}
           // the history opens at the layer and tempo you left it
           onOpen={() => history.open(item)}
         />
@@ -381,6 +405,7 @@ function AllList() {
               target={{ breakId: r.id }}
               title={r.title}
               sub={`${styleLabel(r.style)} · ${layerName(r.level)}`}
+              level={r.level}
               right={tempo(r.bpm, r.meter)}
             />
           ))}

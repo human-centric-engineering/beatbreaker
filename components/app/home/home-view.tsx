@@ -3,6 +3,8 @@ import { Plus } from 'lucide-react';
 
 import { studioDrawerHref } from '@/components/app/shell/studio-address';
 import { EngravedThumbnail } from '@/components/app/home/engraved-thumbnail';
+import { SessionFromShelf } from '@/components/app/practice/session-from-shelf';
+import { SessionList } from '@/components/app/practice/session-list';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ClientDate } from '@/components/ui/client-date';
@@ -18,7 +20,9 @@ import type { TargetView } from '@/lib/app/breaks/saved/targets';
  * Copy is `site-copy.md` §6. "Browse the famous grooves" opens the Studio on
  * the Patterns drawer's Libraries tab (`?drawer=patterns&tab=libraries`);
  * "Browse the community library" is `/explore`. _Published_ (Phase 6) lists
- * your published patterns, each linking to its public page.
+ * your published patterns, each linking to its public page. _Your sessions_
+ * (Phase 7D) lists your practice sessions; it leads when teaching is among
+ * your purposes, and follows Practising otherwise.
  */
 
 /** Where a target opens: a saved pattern at its address, a library entry through `?entry=`. */
@@ -100,9 +104,9 @@ export function HomeView({
   /** A style key as the picker names it; the key itself for one not in the catalogue. */
   styleLabel: (key: string) => string;
 }) {
-  const { practising, recent, savedCount, published } = home;
+  const { practising, recent, savedCount, published, sessions, sessionsFirst } = home;
 
-  if (practising.length === 0 && recent.length === 0 && savedCount === 0) {
+  if (practising.length === 0 && recent.length === 0 && savedCount === 0 && sessions.length === 0) {
     return (
       <section className="space-y-4" aria-labelledby="home-welcome">
         <h1 id="home-welcome" className="text-3xl font-bold">
@@ -127,6 +131,61 @@ export function HomeView({
     );
   }
 
+  const practisingSection = (
+    <section className="space-y-3" aria-labelledby="home-practising">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h2 id="home-practising" className="text-xl font-semibold">
+          Practising
+        </h2>
+        <SessionFromShelf
+          shelf="Practising"
+          items={practising.map((card) => ({
+            target:
+              card.target.kind === 'break'
+                ? { breakId: card.target.id }
+                : { libraryEntryId: card.target.id },
+            level: card.level,
+          }))}
+        />
+      </div>
+      {practising.length ? (
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {practising.map((card) => (
+            <PractisingCard key={card.pinId} card={card} styleLabel={styleLabel} />
+          ))}
+        </ul>
+      ) : (
+        <p className="text-muted-foreground">
+          Pin the patterns you are practising this week and they will stay at the top.
+        </p>
+      )}
+    </section>
+  );
+
+  const sessionsSection = (
+    <section className="space-y-3" aria-labelledby="home-sessions">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h2 id="home-sessions" className="text-xl font-semibold">
+          Your sessions
+        </h2>
+        <Button asChild variant="ghost" size="sm">
+          <Link href="/practice">All sessions</Link>
+        </Button>
+      </div>
+      {sessions.length ? (
+        <SessionList sessions={sessions} />
+      ) : (
+        <p className="text-muted-foreground">
+          A session runs through patterns for a set time, each climbing to its target tempo.{' '}
+          <Link href="/practice" className="underline">
+            Make one
+          </Link>
+          , or use <strong>Make a session from this shelf</strong>.
+        </p>
+      )}
+    </section>
+  );
+
   return (
     <div className="space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
@@ -134,22 +193,8 @@ export function HomeView({
         <NewPattern />
       </div>
 
-      <section className="space-y-3" aria-labelledby="home-practising">
-        <h2 id="home-practising" className="text-xl font-semibold">
-          Practising
-        </h2>
-        {practising.length ? (
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {practising.map((card) => (
-              <PractisingCard key={card.pinId} card={card} styleLabel={styleLabel} />
-            ))}
-          </ul>
-        ) : (
-          <p className="text-muted-foreground">
-            Pin the patterns you are practising this week and they will stay at the top.
-          </p>
-        )}
-      </section>
+      {sessionsFirst ? sessionsSection : practisingSection}
+      {sessionsFirst ? practisingSection : sessionsSection}
 
       {recent.length ? (
         <section className="space-y-3" aria-labelledby="home-recent">
