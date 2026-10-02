@@ -19,12 +19,15 @@ import type { PublicSessionItem } from '@/lib/validations/practice-sessions';
  * signed-out visitor reads it; running it needs an account.
  *
  * Each pattern links to where it opens — its `/p/` page, or a famous break in
- * the Studio, which opens signed-out. A pattern its owner has made private
- * since is _No longer shared_, with its minutes and nothing else.
+ * the Studio, which asks a signed-out visitor to sign in and then opens it. A
+ * pattern its owner has made private since is _No longer shared_, with its
+ * minutes and nothing else.
  *
- * Signed in, the session's owner gets _Edit_ and _Run it_; anyone else
- * _Save to my sessions_ and _Run it_, both of which make a copy of their own
- * first (its targets their own speeds). Signed out, the sign-up strip.
+ * Signed in, the session's owner gets _Edit_ and _Run it_ — _Run it_ even when
+ * every pattern has gone private since, because a private pattern is still
+ * theirs to play, as it is in the editor. Anyone else gets _Save to my
+ * sessions_ and _Run it_, both of which make a copy of their own first (its
+ * targets their own speeds). Signed out, the sign-up strip.
  *
  * Always `noindex`: a session is shared by link and never listed (D34).
  */
@@ -148,11 +151,9 @@ export default async function SharedSessionPage({ params }: Props) {
           <Button asChild variant="outline">
             <Link href={`/practice/${ownId}`}>Edit it</Link>
           </Button>
-          {runnable ? (
-            <Button asChild>
-              <Link href={`/studio?session=${ownId}`}>Run it</Link>
-            </Button>
-          ) : null}
+          <Button asChild>
+            <Link href={`/studio?session=${ownId}`}>Run it</Link>
+          </Button>
         </div>
       ) : (
         <SharedSessionActions slug={found.slug} runnable={runnable} />

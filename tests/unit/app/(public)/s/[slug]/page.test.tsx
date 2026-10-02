@@ -144,6 +144,20 @@ describe('SharedSessionPage', () => {
     expect(screen.queryByRole('button', { name: 'Save to my sessions' })).not.toBeInTheDocument();
   });
 
+  it('keeps Run it for the owner when every pattern has gone private since', async () => {
+    vi.mocked(getPublicSession).mockResolvedValue(
+      session({ items: [{ available: false, position: 0, minutes: 10 }] })
+    );
+    vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+    vi.mocked(ownSharedSessionId).mockResolvedValue('csess0000000000000000099');
+
+    const el = await SharedSessionPage({ params: params() });
+    render(el);
+
+    const run = screen.getByRole('link', { name: 'Run it' });
+    expect(run).toHaveAttribute('href', '/studio?session=csess0000000000000000099');
+  });
+
   it('offers SharedSessionActions to a signed-in reader who is not the owner', async () => {
     vi.mocked(getPublicSession).mockResolvedValue(session());
     vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());

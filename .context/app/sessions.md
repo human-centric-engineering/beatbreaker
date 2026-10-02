@@ -223,7 +223,9 @@ The data layer is `lib/app/breaks/saved/session-sharing.ts`.
 goal, else their best at its layer (listed or not), else the pattern's tempo.
 The share dialog says so before you share. An available item links to its
 `/p/` page, or to `/studio?entry=[id]` for a famous break, which has no public
-page and opens signed-out.
+page: a signed-out visitor signs in first, and the Studio's sign-in keeps
+`?entry=` so they land on the break. The owner's _Run it_ shows even when every
+item has gone private since: a private pattern is still the owner's to play.
 
 **The credit.** A copy's `copiedFrom` is `{ username, slug }` — the owner's
 username, and the source's slug while it is still shared — read from
