@@ -365,6 +365,7 @@ export function Stage() {
             type="button"
             className="mini"
             title="Add a section"
+            aria-label="Add a section"
             onClick={() => c.setArrangement([...c.arrangement, 'A'])}
           >
             +
@@ -373,6 +374,7 @@ export function Stage() {
             type="button"
             className="mini"
             title="Remove last section"
+            aria-label="Remove last section"
             onClick={() => c.setArrangement(c.arrangement.slice(0, -1))}
             disabled={c.arrangement.length <= 1}
           >
@@ -384,7 +386,7 @@ export function Stage() {
       <div className="card">
         <div className="card-hd">
           <h3>Step editor</h3>
-          <span className="hint">Click a cell to cycle it. Shift-click steps back.</span>
+          <span className="hint">Tap a cell to set or clear it; hold it for every value.</span>
           <div className="spacer" />
           {/* Which section the grid is, said rather than chosen: the choice is
               the one on the chart. With Both it follows the playhead, so it is
@@ -421,7 +423,6 @@ export function Stage() {
               with a dot — instead of being derived back out: a ghost note written at Groove is a
               ghost note Groove keeps.
             </StudioHelp>{' '}
-            Tap to set or clear.{' '}
             <StudioHelp title="Setting a cell">
               A tap gives the lane its usual hit, or clears a cell with a note. Hold a cell (or
               right-click it, or press the context-menu key) for every value it can have — a

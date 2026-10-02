@@ -152,6 +152,11 @@ chose since.
 
 ## Adding a control
 
+Every control is listed in [`controls.md`](./controls.md), with its drawer,
+name, help, shortcut and target, and a test holds the list to the Studio, so
+a new control needs its row there. That page also has the owner's browser
+checklist.
+
 - **To an existing tool** — edit that panel under
   `components/app/studio/panels/`. Nothing else needs to know.
 - **A new tool** — add it to `TOOLS` in `tool-rail.tsx` and to `PANELS` in
@@ -176,6 +181,11 @@ chose since.
   `toggle-and-segmented.test.tsx` presses every toggle in the Studio and fails
   if a name changes. Play is the one face that changes (▶ / ■); its name does
   not.
+- **A cell in the grid** — `StepEditor` takes `onSet(bar, lane, step, value,
+stroke)`, the console's `setCell`. A tap is `defaultHit(lane)` or 0, the
+  picker sets any value, and a drag sends `start` once then `continue`, so
+  it is one undo step. Cell size is `--cell` (24px, or 32px with a coarse
+  pointer) times `--grid-zoom` (`bb.gridSize`).
 - **Tempo** — `<TempoControl>`: − and + step by one and repeat while held, the
   number is typed and clamped to 50 and the meter's ceiling as it is set, and
   `slider` adds the range input. The header and the Practise drawer have the

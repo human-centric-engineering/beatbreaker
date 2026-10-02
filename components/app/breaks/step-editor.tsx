@@ -402,7 +402,7 @@ function CellPicker({
               <span className="tick" aria-hidden="true">
                 ✓
               </span>
-              <span className="sr-only">, current</span>
+              <span className="sr-only"> (current)</span>
             </>
           ) : null}
         </button>

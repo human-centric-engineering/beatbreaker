@@ -292,7 +292,7 @@
   -webkit-appearance: none;
   appearance: none;
   background: none;
-  height: 20px;
+  height: 24px;
   cursor: pointer;
 }
 .bb input[type='range']::-webkit-slider-runnable-track {
