@@ -39,6 +39,14 @@ vi.mock('@/lib/app/breaks/samples/data', () => ({ listSamples: vi.fn() }));
    its own field-by-field read and the ordering it drives are tested through
    /api/v1/drummer-about and lib/app/breaks/catalogue/prefer.test.ts. */
 vi.mock('@/lib/app/breaks/community/about', () => ({ getAbout: vi.fn() }));
+/* A practice session (7D) is read with the page; its scoping is tested through
+   GET /api/v1/practice-sessions/:id, which shares readSession. */
+vi.mock('@/lib/app/breaks/saved/sessions', () => ({ readSession: vi.fn() }));
+vi.mock('next/navigation', () => ({
+  notFound: vi.fn(() => {
+    throw new Error('NEXT_NOT_FOUND');
+  }),
+}));
 
 import StudioPage from '@/app/(studio)/studio/page';
 import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
@@ -52,6 +60,8 @@ import { readStudioSettings } from '@/lib/app/breaks/saved/settings';
 import { listSamples } from '@/lib/app/breaks/samples/data';
 import { listYourKits } from '@/lib/app/breaks/samples/kits';
 import { getAbout } from '@/lib/app/breaks/community/about';
+import { readSession } from '@/lib/app/breaks/saved/sessions';
+import { sessionView } from '@/tests/unit/components/app/practice/fixtures';
 import { DEFAULT_STUDIO_SETTINGS } from '@/lib/validations/studio-settings';
 import { createMockAuthSession } from '@/tests/helpers/auth';
 import { testCatalogue } from '@/tests/helpers/catalogue';
@@ -199,6 +209,54 @@ describe('/studio', () => {
       const el = await StudioPage(params(entry));
       expect(el.type).toBe(StudioProvider);
       expect(el.props.openEntry).toBeUndefined();
+    });
+  });
+
+  describe('?session= — running a practice session (7D)', () => {
+    const SESSION_ID = 'csess0000000000000000001';
+    beforeEach(() => {
+      vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+      vi.mocked(studioCatalogue).mockResolvedValue(testCatalogue());
+    });
+    const query = (q: Record<string, string | string[]>) => ({ searchParams: Promise.resolve(q) });
+
+    it('reads your session with the page and hands it to the provider', async () => {
+      const practice = sessionView();
+      vi.mocked(readSession).mockResolvedValue(practice);
+      const el = await StudioPage(query({ session: SESSION_ID }));
+      expect(readSession).toHaveBeenCalledWith(createMockAuthSession().user.id, SESSION_ID);
+      expect(el.props.session).toBe(practice);
+    });
+
+    it('is the not-found page for a session that is not yours', async () => {
+      vi.mocked(readSession).mockResolvedValue(null);
+      await expect(StudioPage(query({ session: SESSION_ID }))).rejects.toThrow('NEXT_NOT_FOUND');
+    });
+
+    it.each([
+      ['not an id', '../admin'],
+      ['repeated', [SESSION_ID, SESSION_ID]],
+      ['empty', ''],
+    ])('is the not-found page for one that is %s, without asking the database', async (_, id) => {
+      await expect(StudioPage(query({ session: id }))).rejects.toThrow('NEXT_NOT_FOUND');
+      expect(readSession).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a bad id never reaches the database
+    });
+
+    it('brings a signed-out drummer back to the session after signing in', async () => {
+      vi.mocked(getServerSession).mockResolvedValue(null);
+      const el = await StudioPage(query({ session: SESSION_ID }));
+      expect(el.type).toBe(SignInToOpen);
+      expect(el.props.loginHref).toBe(
+        `/login?callbackUrl=${encodeURIComponent(`/studio?session=${SESSION_ID}`)}`
+      );
+      const junk = await StudioPage(query({ session: 'javascript:alert(1)' }));
+      expect(junk.props.loginHref).toBe(`/login?callbackUrl=${encodeURIComponent('/studio')}`);
+    });
+
+    it('reads no session without the parameter', async () => {
+      const el = await StudioPage(query({}));
+      expect(el.props.session).toBeUndefined();
+      expect(readSession).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing asked for
     });
   });
 });

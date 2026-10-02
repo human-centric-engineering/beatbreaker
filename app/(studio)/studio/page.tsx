@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 import { readStudioDrawer } from '@/components/app/shell/studio-address';
 import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
@@ -6,6 +7,7 @@ import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { listHistory } from '@/lib/app/breaks/saved/history';
+import { readSession } from '@/lib/app/breaks/saved/sessions';
 import { listPins } from '@/lib/app/breaks/saved/pins';
 import { readStudioSettings } from '@/lib/app/breaks/saved/settings';
 import { preferStyles } from '@/lib/app/breaks/catalogue/prefer';
@@ -46,6 +48,12 @@ import { cuidSchema } from '@/lib/validations/common';
  * `?drawer=<tool>` (and, for the Patterns drawer, `&tab=<tab>`) opens that
  * drawer once the Studio is up — Home's "Browse the famous grooves". Values
  * that are not a tool or a tab are ignored (`studio-address.ts`).
+ *
+ * `?session=<id>` runs one of your practice sessions (7D): the session is read
+ * here with the page, and the Studio shows its bar above the stage. Unlike
+ * `?entry=`, a session that is not one of yours — or not an id at all — is the
+ * not-found page: there is nothing to run, and a Studio that quietly ignored
+ * the link would look as if the session had nothing in it.
  */
 
 export const metadata: Metadata = {
@@ -53,22 +61,39 @@ export const metadata: Metadata = {
   description: 'Generate a drum break, read it as notation, and practise it against a click.',
 };
 
-const LOGIN_HREF = `/login?callbackUrl=${encodeURIComponent('/studio')}`;
+/**
+ * Where sign-in comes back to. A session link keeps its `?session=` — it is a
+ * query, which the login form carries, unlike a fragment — so a signed-out
+ * drummer lands back on the session, not a bare Studio. Only a well-formed id
+ * is carried; anything else comes back to `/studio`.
+ */
+function loginHref(sessionParam: string | string[] | undefined): string {
+  const id = cuidSchema.safeParse(sessionParam);
+  const back = id.success ? `/studio?session=${id.data}` : '/studio';
+  return `/login?callbackUrl=${encodeURIComponent(back)}`;
+}
 
 export default async function StudioPage({
   searchParams,
 }: {
   searchParams: Promise<{
     entry?: string | string[];
+    session?: string | string[];
     drawer?: string | string[];
     tab?: string | string[];
   }>;
 }) {
   const session = await getServerSession();
-  if (!session) return <SignInToOpen loginHref={LOGIN_HREF} />;
-
   const query = await searchParams;
+  if (!session) return <SignInToOpen loginHref={loginHref(query.session)} />;
+
   const entry = cuidSchema.safeParse(query.entry);
+  let practice;
+  if (query.session !== undefined) {
+    const id = cuidSchema.safeParse(query.session);
+    practice = id.success ? await readSession(session.user.id, id.data) : null;
+    if (!practice) notFound();
+  }
 
   const [catalogue, pins, history, settings, about, yourKits, yourSamples] = await Promise.all([
     studioCatalogue(),
@@ -90,6 +115,7 @@ export default async function StudioPage({
       yourSamples={yourSamples}
       openEntry={entry.success ? entry.data : undefined}
       openDrawer={readStudioDrawer(query)}
+      session={practice}
     >
       <StudioFrame />
     </StudioProvider>

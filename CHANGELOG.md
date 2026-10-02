@@ -18,6 +18,14 @@ release process.
 
 ### Added
 
+- **Running practice sessions (BeatBreaker Phase 7D-iii).**
+  `/studio?session=[id]` runs one of your sessions in the Studio, with a bar
+  above the stage and _Start_, _Pause_, _Skip_, _+1 min_ and _Stop_. At the end
+  of each pattern it offers to record the tempo reached as a speed, and it
+  posts the run when it ends. `Transport`'s `onLoop` callback now receives the
+  boundary's audio-clock time as a second argument, and a new optional
+  `onDownbeat(at)` reports when bar 1 sounds after the count-in.
+
 - **Building practice sessions (BeatBreaker Phase 7D-ii).** `/practice` lists
   your sessions and `/practice/[id]` edits one (both behind sign-in, in the
   header as _Practice_). _Add to a session_ sits beside every pattern in the

@@ -1026,3 +1026,85 @@ describe("applying BeatBuddy's changes (7.13)", () => {
     expect(result.current.flash).toBeNull();
   });
 });
+
+describe('what a practice session drives (7D)', () => {
+  it('holds match tempo off while a session runs, and gives it back as it was', async () => {
+    const options = { settings: { ...DEFAULT_STUDIO_SETTINGS, matchTempo: true } };
+    const { result } = await mount(undefined, options);
+    act(() => result.current.setLevel(5));
+    act(() => result.current.setBpm(100));
+
+    act(() => result.current.setSessionHold(true));
+    act(() => result.current.setLevel(1));
+    // the item's tempo is the tempo you hear: no layer scaling
+    expect(result.current.bpm).toBe(100);
+    act(() => result.current.playAt(84));
+    expect(result.current.bpm).toBe(84);
+    // the setting itself was never touched
+    expect(result.current.matchTempo).toBe(true);
+
+    act(() => result.current.setSessionHold(false));
+    // back on: L1 of a 100 bpm break, as before the session
+    expect(result.current.bpm).toBe(68);
+  });
+
+  it('plays at a session tempo without moving the pattern’s own', async () => {
+    const { result } = await mount();
+    act(() => result.current.setLevel(5));
+    act(() => result.current.setBpm(100));
+    act(() => result.current.playAt(30));
+    expect(result.current.bpm).toBe(40); // the slowest a session plays
+    act(() => result.current.quickTempo(100));
+    expect(result.current.bpm).toBe(100); // 100% finds the pattern's own tempo again
+  });
+
+  it('holds the ramp off while a session runs, and reports boundaries on the audio clock', async () => {
+    const { result } = await mount();
+    act(() => result.current.setBpm(120));
+    act(() => result.current.setRamp(5));
+    act(() => result.current.setCountIn(0));
+    const loops: number[] = [];
+    const downbeats: number[] = [];
+    act(() =>
+      result.current.setClockListener({
+        onLoop: (at) => loops.push(at),
+        onDownbeat: (at) => downbeats.push(at),
+      })
+    );
+    act(() => result.current.setSessionHold(true));
+
+    vi.useFakeTimers();
+    try {
+      act(() => {
+        expect(result.current.play()).toBe(true);
+      });
+      // run the scheduler over a minute of audio clock
+      for (let i = 0; i < 2400; i++) {
+        fakes.ctx.currentTime += 0.025;
+        act(() => {
+          vi.advanceTimersByTime(25);
+        });
+      }
+      expect(downbeats).toHaveLength(1);
+      expect(loops.length).toBeGreaterThan(1);
+      // boundaries are increasing audio-clock times
+      expect(loops).toEqual([...loops].sort((a, b) => a - b));
+      expect(result.current.bpm).toBe(120); // held: no ramp
+      expect(result.current.ramp).toBe(5); // and the trainer setting kept
+
+      act(() => result.current.setSessionHold(false));
+      for (let i = 0; i < 2400; i++) {
+        fakes.ctx.currentTime += 0.025;
+        act(() => {
+          vi.advanceTimersByTime(25);
+        });
+      }
+      expect(result.current.bpm).toBeGreaterThan(120); // the ramp is back
+      act(() => result.current.stopPlaying());
+      expect(result.current.playing).toBe(false);
+    } finally {
+      vi.useRealTimers();
+      fakes.ctx.currentTime = 0;
+    }
+  });
+});

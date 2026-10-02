@@ -218,6 +218,50 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
 }
 
 /* ============================================================
+   PRACTICE SESSION — the bar above the stage (7D)
+   A row of its own only while `?session=` is open: the frame's three rows
+   become four, and the stage keeps the rest.
+   ============================================================ */
+
+.bb.studio-frame:has(> .session-bar) {
+  grid-template-rows: var(--hdr) auto minmax(0, 1fr) auto;
+}
+.bb .session-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  padding: 8px 18px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+  font-size: 14px;
+}
+.bb .session-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  min-width: 0;
+}
+.bb .session-read {
+  display: flex;
+  gap: 12px;
+  font-size: 15px;
+}
+.bb .session-controls,
+.bb .session-prompt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.bb .session-controls {
+  margin-left: auto;
+}
+.bb .session-prompt {
+  flex-basis: 100%;
+}
+
+/* ============================================================
    BODY — stage and tool rail
    ============================================================ */
 
@@ -737,6 +781,7 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
     overflow: visible;
   }
   .bb .studio-header,
+  .bb .session-bar,
   .bb .studio-rail,
   .bb .studio-footer,
   .bb .studio-drawer,

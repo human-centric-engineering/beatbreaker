@@ -17,6 +17,7 @@ import {
   type PracticePlace,
   useBreakConsole,
 } from '@/components/app/breaks/use-break-console';
+import { type SessionRun, useSessionRun } from '@/components/app/practice/use-session-run';
 import type { StudioDrawer } from '@/components/app/shell/studio-address';
 import {
   notesKey,
@@ -40,6 +41,7 @@ import { decodeBreak } from '@/lib/app/breaks/share';
 import type { HistoryItem } from '@/lib/validations/history';
 import type { StudioSettings } from '@/lib/validations/studio-settings';
 import type { PinTarget, PracticeShelvesView } from '@/lib/validations/pins';
+import type { SessionView } from '@/lib/validations/practice-sessions';
 import type { SampleList, YourKitView } from '@/lib/validations/samples';
 
 /**
@@ -117,6 +119,8 @@ export interface Studio extends BreakConsole {
   openDrawer?: StudioDrawer;
   /** Your own samples and kits (D20), for the Kit drawer. */
   sounds: YourSounds;
+  /** The practice session `?session=` opened, running or ready to (7D); null without one. */
+  sessionRun: SessionRun | null;
 }
 
 const StudioContext = createContext<Studio | null>(null);
@@ -161,6 +165,7 @@ export function StudioProvider({
   yourSamples,
   openEntry,
   openDrawer,
+  session,
   children,
 }: {
   /**
@@ -198,6 +203,8 @@ export function StudioProvider({
   openEntry?: string;
   /** A drawer to open once the Studio is up — `/studio?drawer=patterns&tab=libraries`. */
   openDrawer?: StudioDrawer;
+  /** A practice session to run — `/studio?session=<id>`, read server-side (7D). */
+  session?: SessionView;
   children: React.ReactNode;
 }) {
   /* Whether the stage holds a saved pattern, for the console's starting values
@@ -371,6 +378,15 @@ export function StudioProvider({
 
   const open = useOpenFromList(openTarget, say);
 
+  const sessionRun = useSessionRun({
+    session,
+    console: state,
+    openTarget,
+    stageUnrecordable: entryEdited || !!doc.variationOf,
+    stageWillPrompt: doc.needsPrompt,
+    say,
+  });
+
   /* Once, when the console is first ready: the entry the address asked for,
      through the same open a shelf uses, so it lands on the stage as that
      entry — pinnable, and recorded in the history. */
@@ -456,6 +472,7 @@ export function StudioProvider({
       open,
       openDrawer,
       sounds,
+      sessionRun,
     }),
     [
       state,
@@ -476,6 +493,7 @@ export function StudioProvider({
       open,
       openDrawer,
       sounds,
+      sessionRun,
     ]
   );
 
