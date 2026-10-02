@@ -10,6 +10,8 @@ import {
   sessionSummarySchema,
   type SessionView,
   sessionViewSchema,
+  type ShareState,
+  shareStateSchema,
 } from '@/lib/validations/practice-sessions';
 
 /**
@@ -74,4 +76,23 @@ export async function createSessionWith(name: string, items: NewItem[]): Promise
 /** Where a session is edited. */
 export function sessionPath(id: string): string {
   return `/practice/${id}`;
+}
+
+/**
+ * Share one of your sessions with a link, or stop sharing it. A refusal —
+ * a pattern in it others could not open — is an `APIClientError` whose
+ * `details.items` names them (`shareBlockedSchema`).
+ */
+export async function setSessionShared(id: string, shared: boolean): Promise<ShareState> {
+  const path = `${BASE}/${id}/share`;
+  return shareStateSchema.parse(
+    shared ? await apiClient.post(path, { body: {} }) : await apiClient.delete(path)
+  );
+}
+
+/** Save someone's shared session as yours. The copy is private, and its targets are yours. */
+export async function saveSharedSession(slug: string): Promise<SessionView> {
+  return sessionViewSchema.parse(
+    await apiClient.post(`/api/v1/public/practice-sessions/${slug}/copy`, { body: {} })
+  );
 }

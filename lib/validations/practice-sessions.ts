@@ -271,6 +271,11 @@ export const sessionViewSchema = z.object({
   climbSteps: z.number().int(),
   countIn: z.number().int(),
   createdAt: z.string(),
+  /**
+   * A saved copy of someone's shared session: their username, and the
+   * session's address while it is still shared. Null on one of your own.
+   */
+  copiedFrom: z.object({ username: z.string(), slug: z.string().nullable() }).nullable(),
   items: z.array(sessionItemViewSchema),
 });
 
@@ -297,3 +302,79 @@ export const runViewSchema = z.object({
 });
 
 export type RunView = z.infer<typeof runViewSchema>;
+
+/* ---- sharing (D32) -------------------------------------------------- */
+
+/** `POST …/:id/share` and `DELETE …/:id/share`. */
+export const shareStateSchema = z.object({
+  visibility: z.enum(['private', 'link']),
+  /** The `/s/` address while it is shared. */
+  slug: z.string().nullable(),
+});
+
+export type ShareState = z.infer<typeof shareStateSchema>;
+
+/** Why an item stops a session being shared. */
+export const SHARE_BLOCKS = ['private', 'gone'] as const;
+
+/**
+ * A refused share's `details.items`: each pattern that someone without your
+ * account could not open — `private`, yours and not shared; or `gone`,
+ * deleted or made private by its owner.
+ */
+export const shareBlockedSchema = z.array(
+  z.object({
+    position: z.number().int(),
+    title: z.string(),
+    reason: z.enum(SHARE_BLOCKS),
+  })
+);
+
+export type ShareBlocked = z.infer<typeof shareBlockedSchema>;
+
+/** Where a shared session's pattern opens: its `/p/` page, or a famous break in the Studio. */
+const publicItemLinkSchema = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('pattern'), slug: z.string() }),
+  z.object({ kind: z.literal('entry'), id: z.string() }),
+]);
+
+const publicItemSchema = z.discriminatedUnion('available', [
+  z.object({
+    available: z.literal(true),
+    position: z.number().int(),
+    title: z.string(),
+    link: publicItemLinkSchema,
+    level: levelSchema,
+    minutes: z.number().int(),
+    targetBpm: z.number().int(),
+    startBpm: z.number().int(),
+    climbPct: z.number().int(),
+    climbShape: z.enum(CLIMB_SHAPES),
+    climbSteps: z.number().int(),
+  }),
+  /** A pattern its owner has since made private, or deleted: "No longer shared". */
+  z.object({
+    available: z.literal(false),
+    position: z.number().int(),
+    minutes: z.number().int(),
+  }),
+]);
+
+export type PublicSessionItem = z.infer<typeof publicItemSchema>;
+
+/**
+ * `GET /api/v1/public/practice-sessions/:slug` — a shared session, as anyone
+ * reads it. No user id, account name or email: the owner is their username,
+ * or nobody.
+ */
+export const publicSessionSchema = z.object({
+  slug: z.string(),
+  name: z.string(),
+  description: z.string().nullable(),
+  totalMinutes: z.number().int(),
+  countIn: z.number().int(),
+  author: z.string().nullable(),
+  items: z.array(publicItemSchema),
+});
+
+export type PublicSession = z.infer<typeof publicSessionSchema>;
