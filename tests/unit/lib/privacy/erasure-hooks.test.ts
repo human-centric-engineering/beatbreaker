@@ -2,7 +2,7 @@
  * Unit tests for lib/privacy/erasure-hooks.ts
  *
  * Contract under test:
- *   registerErasureCleanupHook(hook) — stores by hook.name in a module-level Map
+ *   registerErasureCleanupHook(hook) — stores by hook.name in a globalThis-backed Map
  *   getErasureCleanupHooks()         — returns [...map.values()] (first-registration order)
  *   __resetErasureCleanupHooksForTests() — clears the map
  *
@@ -165,6 +165,20 @@ describe('erasure-hooks registry', () => {
       // Assert — only the post-reset hook is present (old-hook was cleared)
       expect(hooks).toHaveLength(1);
       expect(hooks[0].name).toBe('new-hook');
+    });
+  });
+
+  describe('across module graphs (FORK, BeatBreaker Phase 8)', () => {
+    it('a hook registered by one copy of the module is seen by a fresh copy, as boot and route graphs need', async () => {
+      // Arrange — register through this copy, the way initApp() does at boot
+      registerErasureCleanupHook({ name: 'boot-registered', cleanupExternal: vi.fn() });
+
+      // Act — load a second, independent copy of the module, as a route's graph would
+      vi.resetModules();
+      const routeGraph = await import('@/lib/privacy/erasure-hooks');
+
+      // Assert — the second copy reads the same registry
+      expect(routeGraph.getErasureCleanupHooks().map((h) => h.name)).toContain('boot-registered');
     });
   });
 });

@@ -16,6 +16,15 @@ import { logger } from '@/lib/logging';
  * on the port.
  */
 
+/**
+ * Whether this browser can open a MIDI port at all (Phase 8, 8.5). Safari and
+ * every iOS browser have no Web MIDI, so the Studio says so on the control
+ * rather than after a press.
+ */
+export function midiOutSupported(): boolean {
+  return typeof navigator !== 'undefined' && typeof navigator.requestMIDIAccess === 'function';
+}
+
 /** What the transport needs from a port. Keeps the clock out of the transport. */
 export interface MidiSink {
   /** `at` is an AudioContext time; `vel` is 0–1. */

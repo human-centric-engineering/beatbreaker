@@ -327,6 +327,15 @@ those about your patterns, and never the admin who resolved one.
 Each takes effect on the next public read: the public layer reads
 `visibility` fresh and its responses must revalidate.
 
+**A new report emails the admins** (Phase 8, 8.4,
+`lib/app/breaks/community/report-alert.ts`). Every human admin
+(`humanAdminWhere`) gets one email naming what was reported (pattern, profile
+or speed) and the reason, with a link to `/admin/patterns`, never who
+reported it. It is held back when the same thing was reported in the hour
+before, so a pile-on sends one email. An update to an open report sends
+nothing. It is best-effort: the report is saved first, and a failure is
+logged and never thrown.
+
 `/admin/patterns` (registered in `lib/app/admin-nav.ts` as _Reported
 patterns_) renders the queue on the server and shows whether publishing is on.
 **Report** on `/p/` is `components/app/community/report-button.tsx`, shown to a

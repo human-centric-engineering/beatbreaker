@@ -8,6 +8,7 @@
 import { NextRequest } from 'next/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { IMPORTS_PER_MINUTE, importLimiter } from '@/lib/app/breaks/import-limit';
 import { patternFromLibrary } from '@/lib/app/breaks/library';
 import { buildMidi } from '@/lib/app/breaks/midi';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
@@ -46,6 +47,8 @@ async function json(res: Response): Promise<Envelope> {
   return (await res.json()) as Envelope;
 }
 
+const USER_ID = mockAuthenticatedUser().user.id;
+
 const FUNKY = patternFromLibrary(LIBRARY[0], 0, testStyle(LIBRARY[0].style));
 
 const fetchSpy = vi.fn();
@@ -54,6 +57,7 @@ beforeEach(() => {
   vi.mocked(auth.api.getSession).mockReset();
   vi.mocked(auth.api.getSession).mockResolvedValue(mockAuthenticatedUser());
   vi.mocked(listStyles).mockResolvedValue([]);
+  importLimiter.reset(USER_ID);
   fetchSpy.mockReset();
   vi.stubGlobal('fetch', fetchSpy);
 });
@@ -161,5 +165,24 @@ describe('POST /api/v1/breaks/import', () => {
     vi.mocked(auth.api.getSession).mockResolvedValue(null);
     const res = await POST(post({ kind: 'text', text: 'x' }));
     expect(res.status).toBe(401);
+  });
+
+  it('allows 30 imports a minute per person and refuses the 31st, before reading it', async () => {
+    const code = encodeBreak({
+      bpm: 94,
+      swing: 0,
+      level: 5,
+      arrangement: ['A'],
+      A: FUNKY,
+      B: FUNKY,
+    });
+    for (let i = 0; i < IMPORTS_PER_MINUTE; i++) {
+      expect((await POST(post({ kind: 'text', text: code }))).status).toBe(200);
+    }
+
+    const res = await POST(post({ kind: 'text', text: code }));
+
+    expect(res.status).toBe(429);
+    expect(listStyles).toHaveBeenCalledTimes(IMPORTS_PER_MINUTE);
   });
 });

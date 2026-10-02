@@ -490,6 +490,11 @@ has a style to start from. Up to sixteen bars are kept (A, then B); a longer
 source is trimmed with a note. A code older than v4 is decoded with the
 catalogue lookup, as `doctor` does.
 
+A body over `MAX_IMPORT_BODY_BYTES` is a 413 from its `Content-Length`, before
+it is read. Imports are capped at 30 a minute per person (`importLimiter` in
+`lib/app/breaks/import-limit.ts`, Phase 8), under the `/api/v1` section cap,
+because reading a MIDI file costs CPU.
+
 **A MIDI file BeatBreaker wrote reads back exactly**, hat accents included, at
 any setting of the hats slider, because the reader classifies each velocity
 against the same levels the writer played it at (see _One performance_). The

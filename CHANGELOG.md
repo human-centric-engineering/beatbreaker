@@ -18,6 +18,15 @@ release process.
 
 ### Added
 
+- **Closing gaps before launch (BeatBreaker Phase 8-i).** A new report of a
+  pattern, profile or speed emails every human admin, at most once an hour per
+  reported thing (`lib/app/breaks/community/report-alert.ts`).
+  `BUDDY_DAILY_TURNS` (default 30) sets BeatBuddy's daily allowance from env.
+  `POST /api/v1/breaks/import` is capped at 30 a minute per person (429), and
+  `POST /api/v1/buddy/stream` refuses a body declared over
+  `MAX_BUDDY_BODY_BYTES` with 413 `FILE_TOO_LARGE` before reading it. _MIDI
+  out_ is disabled, with a reason, in browsers without Web MIDI.
+
 - **Sharing practice sessions (BeatBreaker Phase 7D-iv).**
   `POST`/`DELETE /api/v1/practice-sessions/:id/share` shares one of your
   sessions with a link, refused (409 `ITEMS_NOT_SHARED`) while any pattern in
@@ -513,6 +522,11 @@ release process.
 
 ### Changed
 
+- **BeatBuddy is an `internal` agent (BeatBreaker Phase 8-i).** It was
+  `public`, which let Sunrise's generic `POST /api/v1/chat/stream` reach it
+  without the daily allowance. The `003-beatbuddy` seed creates it `internal`
+  and moves an existing row back on every run, recording a version.
+
 - **A published pattern's notes are fixed (BeatBreaker Phase 7A, D26).**
   `PATCH /api/v1/breaks/:id` with a `doc` on a pattern that has ever been
   published answers `409 PUBLISHED_FIXED` and writes nothing, even after an
@@ -648,6 +662,17 @@ release process.
   still opens.
 
 ### Fixed
+
+- **Erasure cleanup hooks registered at boot now run (BeatBreaker Phase 8-i).**
+  `lib/privacy/erasure-hooks.ts` keeps its registry on `globalThis`. Under Next
+  16 + Turbopack, `instrumentation.ts` (and so `initApp()`) runs in a separate
+  module graph from the routes, so a hook registered there was invisible to
+  `eraseUser`, and a deleted account's uploaded samples stayed in storage. This
+  is the defect sunrise#462 fixed for two other registries.
+- **BeatBuddy's dollar caps see a real cost (BeatBreaker Phase 8-i).**
+  `POST /api/v1/buddy/stream` loads the model registry before each turn, so a
+  turn is no longer priced at $0 in a process where no admin page has loaded
+  it (sunrise#813).
 
 - **`PATCH /api/v1/breaks/:id` now re-derives `styleVersionId` with the
   document.** It re-derived style, meter, tempo and the rest but left the

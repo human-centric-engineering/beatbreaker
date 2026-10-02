@@ -5,8 +5,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { BreakAudio, SourceStack } from '@/lib/app/breaks/audio/engine';
-import { PackSource } from '@/lib/app/breaks/audio/packs';
 import { Transport, type TransportSnapshot, maxBpm } from '@/lib/app/breaks/audio/transport';
 import type { CatalogueKit } from '@/lib/app/breaks/catalogue/types';
 import { percussionSource } from '@/lib/app/breaks/catalogue/types';
@@ -36,6 +34,12 @@ const noop = (): void => {};
  *
  * The AudioContext is made on the first press of Play — a gesture, which is
  * what iOS asks for — and closed when the page is left.
+ *
+ * **The engine is not in the page's first bundle** (Phase 8, 8.5). It and the
+ * kit loader are imported once the page has rendered, so the chart paints
+ * without them and they are there long before anyone presses Play. A press
+ * that beats them is ignored rather than started late outside the gesture,
+ * which iOS would keep silent.
  */
 export function PatternPlayer({
   payload,
@@ -79,24 +83,36 @@ export function PatternPlayer({
   const transportRef = useRef<Transport | null>(null);
 
   useEffect(() => {
-    const audio = new BreakAudio();
-    const packs = new PackSource(noop);
-    audio.samples = new SourceStack([packs]);
-    audio.percussion = percussionSource(kits);
-    const kit = kits[DEFAULT_STUDIO_SETTINGS.kit] ?? Object.values(kits)[0] ?? null;
-    audio.setKit(kit, withTuning(kit, undefined));
-    const t = new Transport(audio, {
-      getSnapshot: () => snapshotRef.current,
-      onBpm: noop,
-      onLoop: noop,
-      onPaint: noop,
-      onStop: () => setPlaying(false),
+    let cancelled = false;
+    let teardown: (() => void) | null = null;
+    void Promise.all([
+      import('@/lib/app/breaks/audio/engine'),
+      import('@/lib/app/breaks/audio/packs'),
+    ]).then(([{ BreakAudio, SourceStack }, { PackSource }]) => {
+      if (cancelled) return;
+      const audio = new BreakAudio();
+      const packs = new PackSource(noop);
+      audio.samples = new SourceStack([packs]);
+      audio.percussion = percussionSource(kits);
+      const kit = kits[DEFAULT_STUDIO_SETTINGS.kit] ?? Object.values(kits)[0] ?? null;
+      audio.setKit(kit, withTuning(kit, undefined));
+      const t = new Transport(audio, {
+        getSnapshot: () => snapshotRef.current,
+        onBpm: noop,
+        onLoop: noop,
+        onPaint: noop,
+        onStop: () => setPlaying(false),
+      });
+      transportRef.current = t;
+      teardown = () => {
+        t.stop();
+        audio.close();
+        transportRef.current = null;
+      };
     });
-    transportRef.current = t;
     return () => {
-      t.stop();
-      audio.close();
-      transportRef.current = null;
+      cancelled = true;
+      teardown?.();
     };
   }, [kits]);
 

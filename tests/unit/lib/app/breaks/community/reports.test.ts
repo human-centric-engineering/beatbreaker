@@ -40,6 +40,8 @@ vi.mock('@/lib/db/client', () => ({
 }));
 // what decides whether a record is on a table has its own tests (speed-tables.test.ts)
 vi.mock('@/lib/app/breaks/community/speed-tables', () => ({ tabledRecord: vi.fn() }));
+// the alert's own rules (the hour, the admins, the email) have their own tests (report-alert.test.ts)
+vi.mock('@/lib/app/breaks/community/report-alert', () => ({ alertAdminsOfReport: vi.fn() }));
 
 import { NotFoundError, ValidationError } from '@/lib/api/errors';
 import {
@@ -52,6 +54,7 @@ import {
   REPORT_DAILY_CAP,
   speedQueue,
 } from '@/lib/app/breaks/community/reports';
+import { alertAdminsOfReport } from '@/lib/app/breaks/community/report-alert';
 import { tabledRecord } from '@/lib/app/breaks/community/speed-tables';
 import { prisma } from '@/lib/db/client';
 
@@ -125,6 +128,7 @@ describe('fileReport', () => {
       data: { reason: 'offensive', note: 'Still bad' },
     });
     expect(prisma.breakReport.create).not.toHaveBeenCalled(); // test-review:accept no_arg_called — an open report is updated, not duplicated
+    expect(alertAdminsOfReport).not.toHaveBeenCalled(); // test-review:accept no_arg_called — an update is not a new report
     // updating an existing open report does not re-check the daily cap
     expect(prisma.breakReport.count).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a stacked report is not a new one
   });
@@ -148,6 +152,7 @@ describe('fileReport', () => {
     vi.mocked(prisma.break.findFirst).mockResolvedValue({
       id: BREAK_ID,
       userId: OWNER_ID,
+      title: 'Cold Sweat',
     } as never);
     vi.mocked(prisma.breakReport.findFirst).mockResolvedValue(null);
     vi.mocked(prisma.breakReport.count).mockResolvedValue(0);
@@ -165,6 +170,12 @@ describe('fileReport', () => {
       data: { breakId: BREAK_ID, reporterId: REPORTER_ID, reason: 'bad-link', note: 'looks off' },
       select: { id: true },
     });
+    expect(alertAdminsOfReport).toHaveBeenCalledWith(
+      { kind: 'pattern', breakId: BREAK_ID, title: 'Cold Sweat' },
+      'rpt-new',
+      'Bad or misleading link',
+      NOW
+    );
   });
 
   it('stores no note at all as null, not an empty string', async () => {
@@ -399,6 +410,12 @@ describe('fileProfileReport', () => {
       },
       select: { id: true },
     });
+    expect(alertAdminsOfReport).toHaveBeenCalledWith(
+      { kind: 'profile', subjectId: SUBJECT_ID, username: USERNAME },
+      'prpt-new',
+      expect.any(String),
+      NOW
+    );
   });
 
   it('stores no note at all as null, not an empty string', async () => {
@@ -550,6 +567,8 @@ describe('fileSpeedReport (7C)', () => {
     vi.mocked(tabledRecord).mockResolvedValue({
       id: RECORD_ID,
       userId: REPORTER_ID,
+      title: 'Funky Drummer',
+      bpm: 112,
     });
 
     await expect(
@@ -561,6 +580,8 @@ describe('fileSpeedReport (7C)', () => {
     vi.mocked(tabledRecord).mockResolvedValue({
       id: RECORD_ID,
       userId: DRUMMER_ID,
+      title: 'Funky Drummer',
+      bpm: 112,
     });
     vi.mocked(prisma.speedReport.findFirst).mockResolvedValue({ id: 'srpt1' } as never);
 
@@ -583,6 +604,8 @@ describe('fileSpeedReport (7C)', () => {
     vi.mocked(tabledRecord).mockResolvedValue({
       id: RECORD_ID,
       userId: DRUMMER_ID,
+      title: 'Funky Drummer',
+      bpm: 112,
     });
     vi.mocked(prisma.speedReport.findFirst).mockResolvedValue(null);
     // one of each kind short of the cap, together over it
@@ -613,6 +636,8 @@ describe('fileSpeedReport (7C)', () => {
     vi.mocked(tabledRecord).mockResolvedValue({
       id: RECORD_ID,
       userId: DRUMMER_ID,
+      title: 'Funky Drummer',
+      bpm: 112,
     });
     vi.mocked(prisma.speedReport.findFirst).mockResolvedValue(null);
     vi.mocked(prisma.speedReport.create).mockResolvedValue({ id: 'srpt-new' } as never);
@@ -624,6 +649,12 @@ describe('fileSpeedReport (7C)', () => {
       data: { recordId: RECORD_ID, reporterId: REPORTER_ID, reason: 'wrong-speed', note: null },
       select: { id: true },
     });
+    expect(alertAdminsOfReport).toHaveBeenCalledWith(
+      { kind: 'speed', recordId: RECORD_ID, title: 'Funky Drummer', bpm: 112 },
+      'srpt-new',
+      expect.any(String),
+      NOW
+    );
   });
 });
 

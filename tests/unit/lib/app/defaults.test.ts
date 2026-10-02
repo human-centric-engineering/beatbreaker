@@ -413,11 +413,13 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     // FORK (BeatBreaker): re-pointed, not deleted. Phase 4A (task 4A.7) adds
     // the sample allowance (D20). Both keys have defaults, so an install that
     // sets neither still boots — which is the risk this row guards — and gets
-    // the decided allowance.
+    // the decided allowance. Phase 8 (8.1) adds BeatBuddy's daily turns (D4),
+    // defaulted the same way.
     assert: () =>
       expect(appEnvSchema.parse({})).toEqual({
         SAMPLES_MAX_COUNT: 150,
         SAMPLES_MAX_BYTES: 50 * 1024 * 1024,
+        BUDDY_DAILY_TURNS: 30,
       }),
   },
   {

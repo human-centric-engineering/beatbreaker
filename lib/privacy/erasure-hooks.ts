@@ -65,7 +65,25 @@ export interface ErasureCleanupHook {
   scrubInTransaction?: (ctx: ErasureTxContext) => Promise<void>;
 }
 
-const hooks = new Map<string, ErasureCleanupHook>();
+/**
+ * The hook registry, backed by `globalThis`.
+ *
+ * FORK (BeatBreaker, Phase 8): Next 16 + Turbopack loads `instrumentation.ts`
+ * in a separate module graph from route handlers, so a plain module-scoped
+ * `Map` is a different object in each graph. Hooks registered at boot through
+ * `initApp()` would then be missing when `eraseUser` runs in a route, with no
+ * error, and the files they exist to delete would stay. This is the same
+ * defect sunrise#462 fixed for the context-contributor and capability
+ * registries (#492), fixed the same way. It is to be raised upstream so this
+ * edit can be dropped on the next sync.
+ */
+const globalForErasureHooks = globalThis as unknown as {
+  sunriseErasureCleanupHooks?: Map<string, ErasureCleanupHook>;
+};
+const hooks = (globalForErasureHooks.sunriseErasureCleanupHooks ??= new Map<
+  string,
+  ErasureCleanupHook
+>());
 
 /**
  * Register an app erasure cleanup hook. Idempotent by `name` — re-registering

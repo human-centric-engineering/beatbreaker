@@ -13,8 +13,9 @@
  * other web address is refused with a sentence saying what can be read (422).
  * A body over the cap is refused from its `Content-Length` before it is read.
  *
- * Authentication: any authenticated user. Stateless. Rate limiting is already
- * done by `proxy.ts`.
+ * Authentication: any authenticated user. Stateless. `proxy.ts` applies the
+ * section cap; {@link importLimiter} adds 30 a minute per person, because a
+ * MIDI file costs CPU to read.
  */
 
 import { getRouteLogger } from '@/lib/api/context';
@@ -25,12 +26,20 @@ import { validateRequestBody } from '@/lib/api/validation';
 import { withAuth } from '@/lib/auth/guards';
 import { listStyles, styleLookup } from '@/lib/app/breaks/catalogue/data';
 import { type ImportInput, readImport } from '@/lib/app/breaks/read-import';
+import { importLimiter } from '@/lib/app/breaks/import-limit';
 import { breakPayload } from '@/lib/app/breaks/share';
+import { createRateLimitResponse } from '@/lib/security/rate-limit';
 import { MAX_IMPORT_BODY_BYTES, importBreakSchema } from '@/lib/validations/break-operations';
 
 export const POST = withAuth(
-  async (request) => {
+  async (request, session) => {
     const log = await getRouteLogger(request);
+
+    const limit = importLimiter.check(session.user.id);
+    if (!limit.success) {
+      log.warn('Import rate limit exceeded');
+      return createRateLimitResponse(limit);
+    }
 
     const tooBig = enforceContentLengthCap(request, {
       maxBytes: MAX_IMPORT_BODY_BYTES,

@@ -1975,11 +1975,19 @@ not as described:
 - **The dollar caps see $0.** This is [sunrise#813](https://github.com/human-centric-engineering/sunrise/issues/813)
   (open), and `beatbuddy.md` records it. The chat path never loads the
   model registry, so `gpt-4.1` is priced at nothing until an admin page
-  loads it. Until #813 is fixed, the app's boot seam (`initApp()` in
-  `lib/app/bootstrap.ts`, which runs in production) calls
-  `hydrateFromDb()`. #813's second half still applies: hydrated rates are
-  the matrix's blended rate (in and out averaged), not exact. That is close
-  enough for a cap and is not an invoice.
+  loads it. Until #813 is fixed, `/buddy/stream` calls `hydrateFromDb()`
+  before each turn. The boot seam can't do it: `instrumentation.ts` runs in
+  a separate module graph from the routes (sunrise#462), so a registry
+  filled at boot is not the one the route reads. #813's second half still
+  applies: hydrated rates are the matrix's blended rate (in and out
+  averaged), not exact. That is close enough for a cap and is not an
+  invoice.
+- **The samples erasure hook never reached `eraseUser`** (found while building
+  8.2). It is registered from `initApp()`, in the instrumentation graph, and
+  `lib/privacy/erasure-hooks.ts` keeps hooks in a plain module `Map`. So
+  deleting an account left its sample files in storage. It is the #462 defect
+  in a registry #492 didn't cover. Fixed the same way (`globalThis`) as a fork
+  edit to the core file, to be raised upstream.
 - **No hosting has been chosen, and nothing deploys.**
   `docker-compose.prod.yml` (web, migrator, seeder, db, nginx at 10 MB) and
   Sunrise's per-platform guides exist. There is no deploy workflow, no
@@ -2100,7 +2108,7 @@ second**, each cut from main once the one before has merged:
 | #   | Task                                                                                                                                                             | Done when                                                                                                                                                          |
 | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 8.1 | BeatBuddy `internal`: the seed creates it so and a seed unit moves an existing row; `BUDDY_DAILY_TURNS` in `lib/app/env.ts` (default 30)                         | Test: `POST /api/v1/chat/stream` with `agentSlug: 'beatbuddy'` is a 404; `/buddy/stream` still answers; the allowance reads the env value                          |
-| 8.2 | `initApp()` hydrates the model registry (#813's stopgap), with a line in `beatbuddy.md` saying when to remove it                                                 | Test: after `initApp()`, a `gpt-4.1` turn is costed above $0; a hydrate failure is logged and boot carries on                                                      |
+| 8.2 | `/buddy/stream` hydrates the model registry before each turn (#813's stopgap); the erasure-hook registry on `globalThis`                                         | Tests: the hydrate runs before `streamChat`; a hook registered by one copy of the module is seen by a fresh copy (fails against the plain `Map`)                   |
 | 8.3 | `/buddy/stream` refuses on Content-Length before reading (25 MB plus the message's room); import's 30/min sub-cap                                                | Route tests: an oversized declared body is a 413 with no parse; the 31st import in a minute is a 429                                                               |
 | 8.4 | A new report emails every `ADMIN` user, at most once an hour per reported thing                                                                                  | Test: a first report sends one email naming what was reported and linking to `/admin/patterns`; a second report within the hour sends none                         |
 | 8.5 | Web MIDI absent: _MIDI out_ is disabled with "Not available in this browser" and a ⓘ naming Chrome and Edge. `/p/`'s player loads the audio engine on first Play | Component tests: no `requestMIDIAccess` → the control is disabled with that text; `/p/`'s first render imports no engine module (the import is mocked and counted) |
