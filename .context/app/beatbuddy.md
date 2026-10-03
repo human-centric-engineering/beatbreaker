@@ -25,6 +25,32 @@ Studio ◄── SSE: content · capability_result(s) { doc, rev, summary, chang
 - **Every mutating tool returns the whole new document and its rev**, plus the
   changed sections as text.
 
+## Guards on the route
+
+Added in Phase 8 (8.1–8.3), before strangers can reach it:
+
+- **The agent is `internal`** (`BEATBUDDY_VISIBILITY` in
+  `lib/app/breaks/buddy/agent.ts`). Sunrise's generic `POST /api/v1/chat/stream`
+  takes any active `public` or `invite_only` agent by slug and does not apply
+  the daily allowance, so BeatBuddy must be neither. `/buddy/stream` calls
+  `streamChat()` directly and never reads visibility. The seed creates the
+  agent `internal` and puts it back to `internal` on every re-run, the one
+  setting it overrides, with a version recording the change.
+  `generic-chat-reach.test.ts` runs the generic route's own query against the
+  seeded visibility.
+- **The daily allowance is env config.** `BUDDY_DAILY_TURNS` (default 30, D4),
+  so it can be tuned from the cost dashboard without a release.
+- **The model registry is loaded before each turn.** `await hydrateFromDb()`
+  runs just before `streamChat()`, at most one query a minute, so the agent's
+  monthly and per-turn caps see a real cost. It has to be on the request path:
+  `instrumentation.ts` runs in a separate module graph, so a boot-time load
+  would fill a registry the route never reads. The rates are the provider
+  matrix's blended rate (#813's second half), which is close enough for a cap.
+  **Remove it when #813 is fixed upstream.**
+- **The body is capped from `Content-Length`** before it is read
+  (`MAX_BUDDY_BODY_BYTES`: the attachments' 25 MB plus 1 MB), a 413
+  `FILE_TOO_LARGE`. Behind nginx it is also bounded at 10 MB.
+
 ## Spike B — what the live model does
 
 **Run on 2026-09-29** with `gpt-4.1` through Sunrise's `streamChat()`, the dev
@@ -93,8 +119,10 @@ script was throwaway and is not in the tree.
   In a fresh process, `gpt-4.1` is unknown and costs nothing, so the agent's
   monthly and per-turn budget caps see no spend until an admin page loads the
   registry. The daily allowance counts turns, not dollars, so it still holds.
-  This is a Sunrise platform gap, and it is to be raised upstream before launch
-  rather than patched in the fork.
+  This is a Sunrise platform gap, raised upstream as
+  [sunrise#813](https://github.com/human-centric-engineering/sunrise/issues/813).
+  Until it is fixed, the stream route loads the registry itself (see _Guards
+  on the route_ below).
 - **Speed.** A turn with one tool call took about 3 s end to end, and a turn
   with a retry about 3.5 s.
 

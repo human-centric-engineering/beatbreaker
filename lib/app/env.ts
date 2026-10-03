@@ -53,4 +53,7 @@ export const appEnvSchema = z.object({
     .min(1)
     .max(5 * 1024 * 1024 * 1024)
     .default(50 * 1024 * 1024),
+  /* BeatBreaker: BeatBuddy's turns per person per UTC day (D4). An env
+     setting so it can be tuned from the cost dashboard without a release. */
+  BUDDY_DAILY_TURNS: z.coerce.number().int().min(1).max(1000).default(30),
 });

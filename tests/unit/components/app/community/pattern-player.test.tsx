@@ -17,7 +17,7 @@
  * @see components/app/community/pattern-player.tsx
  */
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -84,6 +84,13 @@ function payload() {
   });
 }
 
+/** Render, then wait for the engine the player imports after its first render. */
+async function renderReady(kits = testKits()) {
+  const view = render(<PatternPlayer payload={payload()} kits={kits} />);
+  await waitFor(() => expect(fakes.made.audio).toHaveLength(1));
+  return view;
+}
+
 beforeEach(() => {
   fakes.made.audio.length = 0;
   fakes.state.hasAudio = true;
@@ -117,7 +124,7 @@ describe('PatternPlayer', () => {
     expect(window.AudioContext).toBeUndefined();
     fakes.state.hasAudio = false;
     const user = userEvent.setup();
-    render(<PatternPlayer payload={payload()} kits={testKits()} />);
+    await renderReady();
 
     await user.click(screen.getByRole('button', { name: /play/i }));
 
@@ -148,7 +155,7 @@ describe('PatternPlayer', () => {
 
   it('starts the transport on Play, and Stop actually stops it, toggling the button back', async () => {
     const user = userEvent.setup();
-    render(<PatternPlayer payload={payload()} kits={testKits()} />);
+    await renderReady();
 
     await user.click(screen.getByRole('button', { name: /^play$/i }));
 
@@ -166,7 +173,7 @@ describe('PatternPlayer', () => {
 
   it('keeps playing across a tempo change, and a layer change, without restarting the engine', async () => {
     const user = userEvent.setup();
-    render(<PatternPlayer payload={payload()} kits={testKits()} />);
+    await renderReady();
 
     await user.click(screen.getByRole('button', { name: /^play$/i }));
     expect(screen.getByRole('button', { name: /^stop$/i })).toBeInTheDocument();
@@ -183,23 +190,23 @@ describe('PatternPlayer', () => {
     expect(screen.getByRole('button', { name: /^stop$/i })).toBeInTheDocument();
   });
 
-  it('falls back to the first available kit when the default kit is not in the catalogue', () => {
+  it('falls back to the first available kit when the default kit is not in the catalogue', async () => {
     const { studio70: _dropped, ...withoutDefault } = testKits();
     const expectedFallback = Object.values(withoutDefault)[0];
 
-    render(<PatternPlayer payload={payload()} kits={withoutDefault} />);
+    await renderReady(withoutDefault);
 
     expect(fakes.made.audio[0].setKit).toHaveBeenCalledWith(expectedFallback, expect.anything());
   });
 
-  it('sets no kit at all, rather than crashing, when the catalogue has none', () => {
-    render(<PatternPlayer payload={payload()} kits={{}} />);
+  it('sets no kit at all, rather than crashing, when the catalogue has none', async () => {
+    await renderReady({});
 
     expect(fakes.made.audio[0].setKit).toHaveBeenCalledWith(null, expect.anything());
   });
 
-  it('closes the audio engine when the player unmounts', () => {
-    const { unmount } = render(<PatternPlayer payload={payload()} kits={testKits()} />);
+  it('closes the audio engine when the player unmounts', async () => {
+    const { unmount } = await renderReady();
     const engine = fakes.made.audio[0];
     expect(engine.close).not.toHaveBeenCalled();
 

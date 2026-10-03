@@ -186,12 +186,12 @@ describe('ExportPanel', () => {
     expect(screen.queryByText(/⌘P prints/)).toBeNull();
   });
 
-  it('says there is no Web MIDI when the browser has none', async () => {
-    const user = userEvent.setup();
+  it('disables MIDI out and says why when the browser has no Web MIDI, before any press', () => {
     renderPanel();
 
-    await user.click(screen.getByRole('button', { name: 'MIDI out' }));
-    expect(await screen.findByText('This browser has no Web MIDI')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'MIDI out' })).toBeDisabled();
+    expect(screen.getByText(/MIDI out isn.t available in this browser/)).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Download .mid' })).toBeEnabled();
   });
 
   it('opens and closes a MIDI output port when Web MIDI is available', async () => {
@@ -206,6 +206,8 @@ describe('ExportPanel', () => {
     renderPanel();
 
     const midiBtn = screen.getByRole('button', { name: 'MIDI out' });
+    expect(midiBtn).toBeEnabled();
+    expect(screen.queryByText(/isn.t available in this browser/)).toBeNull();
     expect(midiBtn).toHaveAttribute('aria-pressed', 'false');
     await user.click(midiBtn);
 

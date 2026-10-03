@@ -1,5 +1,6 @@
 import { BEATBUDDY_SLUG } from '@/lib/app/breaks/buddy/agent';
 import { prisma } from '@/lib/db/client';
+import { env } from '@/lib/env';
 
 /**
  * BeatBuddy's daily allowance (D4): how many turns a person may take a day.
@@ -14,8 +15,10 @@ import { prisma } from '@/lib/db/client';
  * ("back at midnight UTC") and needs nothing from the browser.
  */
 
-/** D4: 30 turns a day, to be tuned from the cost dashboard. */
-export const BUDDY_DAILY_TURNS = 30;
+/** D4: 30 turns a day by default, tuned from the cost dashboard through env. */
+export function buddyDailyTurns(): number {
+  return env.BUDDY_DAILY_TURNS;
+}
 
 export interface BuddyAllowance {
   limit: number;
@@ -46,13 +49,16 @@ export async function readAllowance(userId: string, now = new Date()): Promise<B
     },
   });
   const resetsAt = new Date(dayStart.getTime() + 24 * 60 * 60 * 1000);
+  const limit = buddyDailyTurns();
   return {
-    limit: BUDDY_DAILY_TURNS,
+    limit,
     used,
-    remaining: Math.max(0, BUDDY_DAILY_TURNS - used),
+    remaining: Math.max(0, limit - used),
     resetsAt: resetsAt.toISOString(),
   };
 }
 
 /** What the drawer shows when the day's turns are gone. */
-export const ALLOWANCE_SPENT_MESSAGE = `That's all ${BUDDY_DAILY_TURNS} of today's BeatBuddy turns. They come back at midnight UTC — everything else in the Studio still works.`;
+export function allowanceSpentMessage(limit: number): string {
+  return `That's all ${limit} of today's BeatBuddy turns. They come back at midnight UTC — everything else in the Studio still works.`;
+}

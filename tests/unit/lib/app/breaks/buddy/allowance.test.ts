@@ -9,6 +9,9 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { buddyTurns, fakeMessageTable, type MessageRow } from '@/tests/helpers/buddy';
 
 const table = vi.hoisted(() => ({ current: null as ReturnType<typeof fakeMessageTable> | null }));
+const appEnv = vi.hoisted(() => ({ BUDDY_DAILY_TURNS: 30 }));
+
+vi.mock('@/lib/env', () => ({ env: appEnv }));
 
 vi.mock('@/lib/db/client', () => ({
   prisma: {
@@ -18,7 +21,7 @@ vi.mock('@/lib/db/client', () => ({
   },
 }));
 
-import { BUDDY_DAILY_TURNS, readAllowance } from '@/lib/app/breaks/buddy/allowance';
+import { allowanceSpentMessage, readAllowance } from '@/lib/app/breaks/buddy/allowance';
 
 const NOW = new Date('2026-09-29T15:30:00Z');
 const TODAY = new Date('2026-09-29T00:00:00Z');
@@ -27,7 +30,10 @@ function withMessages(rows: MessageRow[]) {
   table.current = fakeMessageTable(rows);
 }
 
-beforeEach(() => withMessages([]));
+beforeEach(() => {
+  withMessages([]);
+  appEnv.BUDDY_DAILY_TURNS = 30;
+});
 
 describe('readAllowance', () => {
   it('starts the day with the whole allowance, back at the next UTC midnight', async () => {
@@ -71,11 +77,26 @@ describe('readAllowance', () => {
   });
 
   it('has nothing remaining once the day is spent, and never goes below zero', async () => {
-    withMessages(buddyTurns('user-1', BUDDY_DAILY_TURNS + 2, TODAY));
+    withMessages(buddyTurns('user-1', 32, TODAY));
 
     const a = await readAllowance('user-1', NOW);
 
     expect(a.used).toBe(32);
     expect(a.remaining).toBe(0);
+  });
+
+  it('takes its limit from BUDDY_DAILY_TURNS, so production can tune it without a release', async () => {
+    appEnv.BUDDY_DAILY_TURNS = 5;
+    withMessages(buddyTurns('user-1', 4, TODAY));
+
+    expect(await readAllowance('user-1', NOW)).toMatchObject({ limit: 5, used: 4, remaining: 1 });
+  });
+});
+
+describe('allowanceSpentMessage', () => {
+  it('names the limit it was given', () => {
+    expect(allowanceSpentMessage(12)).toBe(
+      "That's all 12 of today's BeatBuddy turns. They come back at midnight UTC — everything else in the Studio still works."
+    );
   });
 });

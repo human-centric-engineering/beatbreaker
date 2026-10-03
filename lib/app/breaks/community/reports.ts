@@ -1,8 +1,12 @@
 import { APIError, NotFoundError, ValidationError } from '@/lib/api/errors';
-import type {
-  ProfileReportReason,
-  ReportReason,
-  SpeedReportReason,
+import { alertAdminsOfReport } from '@/lib/app/breaks/community/report-alert';
+import {
+  PROFILE_REPORT_REASON_LABELS,
+  REPORT_REASON_LABELS,
+  SPEED_REPORT_REASON_LABELS,
+  type ProfileReportReason,
+  type ReportReason,
+  type SpeedReportReason,
 } from '@/lib/app/breaks/community/report-reasons';
 import { tabledRecord } from '@/lib/app/breaks/community/speed-tables';
 import { prisma } from '@/lib/db/client';
@@ -45,7 +49,7 @@ export async function fileReport(
 ): Promise<{ id: string; status: 'open' }> {
   const target = await prisma.break.findFirst({
     where: { slug, visibility: { in: ['link', 'published'] } },
-    select: { id: true, userId: true },
+    select: { id: true, userId: true, title: true },
   });
   if (!target) throw new NotFoundError('Pattern not found');
   if (target.userId === reporterId) {
@@ -71,6 +75,11 @@ export async function fileReport(
     data: { breakId: target.id, reporterId, reason: input.reason, note },
     select: { id: true },
   });
+  await alertAdminsOfReport(
+    { kind: 'pattern', breakId: target.id, title: target.title },
+    created.id,
+    REPORT_REASON_LABELS[input.reason]
+  );
   return { id: created.id, status: 'open' };
 }
 
@@ -133,6 +142,11 @@ export async function fileProfileReport(
     data: { subjectId: target.userId, reporterId, reason: input.reason, note },
     select: { id: true },
   });
+  await alertAdminsOfReport(
+    { kind: 'profile', subjectId: target.userId, username: username.toLowerCase() },
+    created.id,
+    PROFILE_REPORT_REASON_LABELS[input.reason]
+  );
   return { id: created.id, status: 'open' };
 }
 
@@ -334,6 +348,11 @@ export async function fileSpeedReport(
     data: { recordId, reporterId, reason: input.reason, note },
     select: { id: true },
   });
+  await alertAdminsOfReport(
+    { kind: 'speed', recordId, title: target.title, bpm: target.bpm },
+    created.id,
+    SPEED_REPORT_REASON_LABELS[input.reason]
+  );
   return { id: created.id, status: 'open' };
 }
 

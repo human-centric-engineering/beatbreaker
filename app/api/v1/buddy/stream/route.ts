@@ -26,17 +26,20 @@
  */
 
 import { getRouteLogger } from '@/lib/api/context';
+import { ErrorCodes } from '@/lib/api/errors';
+import { enforceContentLengthCap } from '@/lib/api/multipart-guard';
 import { errorResponse } from '@/lib/api/responses';
 import { sseResponse } from '@/lib/api/sse';
 import { validateRequestBody } from '@/lib/api/validation';
 import { BUDDY_CONTEXT } from '@/lib/app/breaks/buddy/about-context';
 import { BEATBUDDY_SLUG } from '@/lib/app/breaks/buddy/agent';
-import { ALLOWANCE_SPENT_MESSAGE, readAllowance } from '@/lib/app/breaks/buddy/allowance';
+import { allowanceSpentMessage, readAllowance } from '@/lib/app/breaks/buddy/allowance';
 import { openWorkspace } from '@/lib/app/breaks/buddy/workspace';
 import { withAuth } from '@/lib/auth/guards';
 import { prisma } from '@/lib/db/client';
 import { getRequestId, getVisitorId } from '@/lib/logging/context';
 import { streamChat } from '@/lib/orchestration/chat';
+import { hydrateFromDb } from '@/lib/orchestration/llm/model-registry-db-hydrate';
 import {
   agentChatLimiter,
   consumerChatLimiter,
@@ -44,7 +47,11 @@ import {
   imageLimiter,
 } from '@/lib/security/rate-limit';
 import { validateImageMagicBytes, validatePdfMagicBytes } from '@/lib/storage/image';
-import { type BuddyStreamRequest, buddyStreamRequestSchema } from '@/lib/validations/buddy';
+import {
+  type BuddyStreamRequest,
+  MAX_BUDDY_BODY_BYTES,
+  buddyStreamRequestSchema,
+} from '@/lib/validations/buddy';
 
 /**
  * Whether every attachment's bytes are what its media type says. Same checks,
@@ -69,6 +76,13 @@ export const POST = withAuth(
     const userLimit = consumerChatLimiter.check(userId);
     if (!userLimit.success) return createRateLimitResponse(userLimit);
 
+    const tooBig = enforceContentLengthCap(request, {
+      maxBytes: MAX_BUDDY_BODY_BYTES,
+      errorCode: ErrorCodes.FILE_TOO_LARGE,
+      errorMessage: 'That message and its files are too big to send. Try a smaller photo.',
+    });
+    if (tooBig) return tooBig;
+
     const log = await getRouteLogger(request);
     const body = await validateRequestBody(request, buddyStreamRequestSchema);
 
@@ -90,7 +104,7 @@ export const POST = withAuth(
     const allowance = await readAllowance(userId);
     if (allowance.remaining === 0) {
       log.info('BeatBuddy allowance spent', { used: allowance.used, limit: allowance.limit });
-      return errorResponse(ALLOWANCE_SPENT_MESSAGE, {
+      return errorResponse(allowanceSpentMessage(allowance.limit), {
         code: 'BUDDY_ALLOWANCE_SPENT',
         status: 429,
         details: { ...allowance },
@@ -120,6 +134,13 @@ export const POST = withAuth(
       turnsUsed: allowance.used + 1,
       attachments: body.attachments?.length ?? 0,
     });
+
+    // sunrise#813: the chat path never loads the model registry, so the agent's
+    // dollar caps would see every turn as $0. Loading it here keeps it in this
+    // route's module graph (a boot-time load would not reach it). Throttled to
+    // one query a minute, and a failure is logged, never thrown. Remove when
+    // #813 is fixed upstream.
+    await hydrateFromDb();
 
     const events = streamChat({
       message: body.message,

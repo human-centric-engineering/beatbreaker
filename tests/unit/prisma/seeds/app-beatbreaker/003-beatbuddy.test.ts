@@ -7,6 +7,7 @@ import unit, {
   BEATBUDDY_INSTRUCTIONS,
   INSTRUCTIONS_UPDATE_SUMMARY,
   SUPERSEDED_BEATBUDDY_INSTRUCTIONS,
+  VISIBILITY_UPDATE_SUMMARY,
 } from '@/prisma/seeds/app-beatbreaker/003-beatbuddy';
 import type { SeedContext } from '@/prisma/runner';
 
@@ -14,7 +15,7 @@ import type { SeedContext } from '@/prisma/runner';
  * The BeatBuddy seed (Phase 7, task 7.8): the agent, its tools' capability
  * rows, and the bindings.
  *
- * What matters here: the agent is provider-less (D5) and public; a re-run
+ * What matters here: the agent is provider-less (D5) and internal; a re-run
  * changes nothing an admin may have edited; each tool row advertises exactly
  * the definition its class validates against; and the agent gets its `v1`,
  * since this seed runs after Sunrise's own backfill of initial versions.
@@ -29,16 +30,21 @@ import type { SeedContext } from '@/prisma/runner';
  * @see prisma/seeds/app-beatbreaker/003-beatbuddy.ts
  */
 
-function makeCtx(opts: { admin?: boolean; versions?: number; instructions?: string } = {}) {
+function makeCtx(
+  opts: { admin?: boolean; versions?: number; instructions?: string; visibility?: string } = {}
+) {
   const agentUpsert = vi.fn().mockResolvedValue({
     id: 'agent-1',
     slug: BEATBUDDY_SLUG,
     systemInstructions: opts.instructions ?? BEATBUDDY_INSTRUCTIONS,
+    visibility: opts.visibility ?? 'internal',
   });
-  const agentUpdate = vi.fn(async (args: { data: { systemInstructions: string } }) => ({
+  const agentUpdate = vi.fn(async (args: { data: Record<string, unknown> }) => ({
     id: 'agent-1',
     slug: BEATBUDDY_SLUG,
-    systemInstructions: args.data.systemInstructions,
+    systemInstructions: opts.instructions ?? BEATBUDDY_INSTRUCTIONS,
+    visibility: opts.visibility ?? 'internal',
+    ...args.data,
     grantedTags: [{ tagId: 't2' }, { tagId: 't1' }],
     grantedDocuments: [],
   }));
@@ -67,7 +73,7 @@ function makeCtx(opts: { admin?: boolean; versions?: number; instructions?: stri
 }
 
 describe('app-beatbreaker/003-beatbuddy seed', () => {
-  it('creates a public, provider-less agent that takes images and PDFs, with spend caps', async () => {
+  it('creates an internal, provider-less agent that takes images and PDFs, with spend caps', async () => {
     const { ctx, agentUpsert } = makeCtx();
 
     await unit.run(ctx);
@@ -81,7 +87,7 @@ describe('app-beatbreaker/003-beatbuddy seed', () => {
       slug: 'beatbuddy',
       model: '',
       provider: '',
-      visibility: 'public',
+      visibility: 'internal',
       enableImageInput: true,
       enableDocumentInput: true,
       isActive: true,
@@ -199,6 +205,40 @@ describe('app-beatbreaker/003-beatbuddy seed', () => {
       expect(agentUpdate).not.toHaveBeenCalled();
       expect(versionCreate).not.toHaveBeenCalled();
     }
+  });
+
+  it('makes a public BeatBuddy internal, as a new version, so the allowance-free route cannot reach it', async () => {
+    const { ctx, agentUpdate, versionCreate } = makeCtx({ versions: 3, visibility: 'public' });
+
+    await unit.run(ctx);
+
+    expect(agentUpdate).toHaveBeenCalledTimes(1);
+    expect(agentUpdate).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { id: 'agent-1' }, data: { visibility: 'internal' } })
+    );
+    expect(versionCreate).toHaveBeenCalledTimes(1);
+    const data = (versionCreate.mock.calls[0][0] as { data: Record<string, unknown> }).data;
+    expect(data).toMatchObject({ version: 4, changeSummary: VISIBILITY_UPDATE_SUMMARY });
+    expect(data.snapshot).toMatchObject({ visibility: 'internal' });
+  });
+
+  it('makes an invite-only BeatBuddy internal too, since that also opens the route', async () => {
+    const { ctx, agentUpdate } = makeCtx({ versions: 3, visibility: 'invite_only' });
+
+    await unit.run(ctx);
+
+    expect(agentUpdate).toHaveBeenCalledWith(
+      expect.objectContaining({ data: { visibility: 'internal' } })
+    );
+  });
+
+  it('leaves an internal BeatBuddy as it is', async () => {
+    const { ctx, agentUpdate, versionCreate } = makeCtx({ versions: 3, visibility: 'internal' });
+
+    await unit.run(ctx);
+
+    expect(agentUpdate).not.toHaveBeenCalled();
+    expect(versionCreate).not.toHaveBeenCalled();
   });
 
   it('never lists the current instructions as superseded', () => {

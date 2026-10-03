@@ -5,8 +5,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { BreakAudio, SourceStack } from '@/lib/app/breaks/audio/engine';
-import { PackSource } from '@/lib/app/breaks/audio/packs';
 import { Transport, type TransportSnapshot, maxBpm } from '@/lib/app/breaks/audio/transport';
 import type { CatalogueKit } from '@/lib/app/breaks/catalogue/types';
 import { percussionSource } from '@/lib/app/breaks/catalogue/types';
@@ -36,6 +34,14 @@ const noop = (): void => {};
  *
  * The AudioContext is made on the first press of Play — a gesture, which is
  * what iOS asks for — and closed when the page is left.
+ *
+ * **The engine is not in the page's first bundle** (Phase 8, 8.5). It and the
+ * kit loader are imported once the page has rendered, so the chart paints
+ * without them and they are there long before anyone presses Play. A press
+ * that beats them is ignored rather than started late outside the gesture,
+ * which iOS would keep silent. If they fail to load (a tab left open across
+ * a deploy, say), Play says the browser cannot play here, as it does with no
+ * Web Audio, rather than doing nothing.
  */
 export function PatternPlayer({
   payload,
@@ -51,6 +57,7 @@ export function PatternPlayer({
   const [level, setLevel] = useState(doc.level);
   const [playing, setPlaying] = useState(false);
   const [unsupported, setUnsupported] = useState(false);
+  const [engineFailed, setEngineFailed] = useState(false);
 
   const snapshot: TransportSnapshot = useMemo(
     () => ({
@@ -79,30 +86,53 @@ export function PatternPlayer({
   const transportRef = useRef<Transport | null>(null);
 
   useEffect(() => {
-    const audio = new BreakAudio();
-    const packs = new PackSource(noop);
-    audio.samples = new SourceStack([packs]);
-    audio.percussion = percussionSource(kits);
-    const kit = kits[DEFAULT_STUDIO_SETTINGS.kit] ?? Object.values(kits)[0] ?? null;
-    audio.setKit(kit, withTuning(kit, undefined));
-    const t = new Transport(audio, {
-      getSnapshot: () => snapshotRef.current,
-      onBpm: noop,
-      onLoop: noop,
-      onPaint: noop,
-      onStop: () => setPlaying(false),
-    });
-    transportRef.current = t;
+    let cancelled = false;
+    let teardown: (() => void) | null = null;
+    void Promise.all([
+      import('@/lib/app/breaks/audio/engine'),
+      import('@/lib/app/breaks/audio/packs'),
+    ])
+      .then(([{ BreakAudio, SourceStack }, { PackSource }]) => {
+        if (cancelled) return;
+        const audio = new BreakAudio();
+        const packs = new PackSource(noop);
+        audio.samples = new SourceStack([packs]);
+        audio.percussion = percussionSource(kits);
+        const kit = kits[DEFAULT_STUDIO_SETTINGS.kit] ?? Object.values(kits)[0] ?? null;
+        audio.setKit(kit, withTuning(kit, undefined));
+        const t = new Transport(audio, {
+          getSnapshot: () => snapshotRef.current,
+          onBpm: noop,
+          onLoop: noop,
+          onPaint: noop,
+          onStop: () => setPlaying(false),
+        });
+        transportRef.current = t;
+        teardown = () => {
+          t.stop();
+          audio.close();
+          transportRef.current = null;
+        };
+      })
+      .catch((error: unknown) => {
+        if (cancelled) return;
+        setEngineFailed(true);
+        logger.warn('BeatBreaker: the audio engine did not load — the chart still reads', {
+          error: error instanceof Error ? error.message : String(error),
+        });
+      });
     return () => {
-      t.stop();
-      audio.close();
-      transportRef.current = null;
+      cancelled = true;
+      teardown?.();
     };
   }, [kits]);
 
   const toggle = () => {
     const t = transportRef.current;
-    if (!t) return;
+    if (!t) {
+      if (engineFailed) setUnsupported(true);
+      return;
+    }
     if (t.playing) {
       t.stop();
       return;

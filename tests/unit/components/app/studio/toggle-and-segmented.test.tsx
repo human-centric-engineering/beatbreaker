@@ -13,7 +13,7 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { ExportPanel } from '@/components/app/studio/panels/export-panel';
 import { GeneratePanel } from '@/components/app/studio/panels/generate-panel';
@@ -141,8 +141,18 @@ describe('Segmented', () => {
 });
 
 describe('every toggle in the Studio', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
   it('keeps its name when pressed', async () => {
     const user = userEvent.setup();
+    /* A Web MIDI with no outputs: MIDI out is offered (it is disabled where
+       there is none at all) and pressing it finds nothing to open. */
+    vi.stubGlobal('navigator', {
+      ...navigator,
+      requestMIDIAccess: () => Promise.resolve({ outputs: new Map() }),
+    });
     render(
       <StudioProvider catalogue={testCatalogue()}>
         <Stage />
@@ -166,7 +176,7 @@ describe('every toggle in the Studio', () => {
       const text = btn.textContent;
       const was = btn.getAttribute('aria-pressed');
       await user.click(btn);
-      /* MIDI out has no Web MIDI here and stays off; everything else flips. */
+      /* MIDI out finds no outputs here and stays off; everything else flips. */
       if (name !== 'MIDI out') expect(btn.getAttribute('aria-pressed')).not.toBe(was);
       expect(btn.getAttribute('aria-label') ?? btn.textContent).toBe(name);
       expect(btn.textContent).toBe(text);

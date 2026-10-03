@@ -1068,6 +1068,10 @@ before has merged.
 | 5.9  | Feedback (E9): confirmations stay a short toast; errors stay until dismissed; the same message twice restarts the toast. _Clear history_ gets an undo                                                                                                       | Tests: an error is still shown after 5s and goes on dismiss; saying the same thing twice keeps it up for the full time; clearing history and pressing Undo restores it                    |
 | 5.10 | One section choice (E11): A / B / Both, on the chart; the grid and the Doctor follow it (Both → the section under the playhead when playing, else the last one touched). a / b / v unchanged                                                                | Tests: one control; choosing B shows, plays and edits B; with Both, a Doctor move lands on the last section edited                                                                        |
 
+**Not built (found 2026-10-02).** 5-iii and 5-iv were never started, and
+no deferral was recorded. They ship inside Phase 8, after 8-i, under these
+ids, and each is re-reconciled against the tree first.
+
 **5-iii — your patterns and the mixer:**
 
 | #    | Task                                                                                                                                                                                                                                                                  | Done when                                                                                                                                                                                                                                    |
@@ -1908,7 +1912,7 @@ Ships as **four PRs**, each cut from main once the one before has merged:
 | 7D.12 | `/s/[slug]`: items, times, targets and climb, links to `/p/` or the Studio, _Save to my sessions_, _Run it_, the sign-up strip (lifted from `/p/`), `noindex`; the share dialog in the editor                                           | Page tests: signed-out sees the page and the strip; an item gone private shows "No longer shared"; the dialog names the patterns to share first                                                                       |
 | 7D.13 | `.context/app/sessions.md`, the privacy policy line, CHANGELOG                                                                                                                                                                          | Docs merged with the code                                                                                                                                                                                             |
 
-### Phase 8 — Launch readiness · M
+### Phase 8 — Launch readiness · L
 
 **Goal:** it can be put in front of strangers.
 
@@ -1945,6 +1949,207 @@ Ships as **four PRs**, each cut from main once the one before has merged:
 environment; a restore from backup has been done once for real; somebody who is
 not the developer has signed up with a real email address on the production URL
 and published a pattern.
+
+**Reconciled against the tree (2026-10-02).** Resized from M to L. These
+are the things the text above assumed were there, or not there, and were
+not as described:
+
+- **Phase 5 never finished.** 5-iii (5.11–5.13) and 5-iv (5.14–5.16) were
+  planned on 2026-09-26 and never built, and no deferral was recorded. The
+  tree has no Delete on a pattern (E8: the route exists and nothing calls
+  it), no lane solo (the transport's `solo` is A/B), no Back trail for an
+  unsaved roll, cells still 22px with no zoom, click-cycling as the only
+  way to set a value, and no `.context/app/controls.md`. Phase 8 can't skip
+  them: a stranger has to be able to delete a pattern, and `controls.md` is
+  where the owner's browser checklist lives. They ship inside Phase 8 under
+  their Phase 5 ids. Each one is re-reconciled when it starts, because the
+  Studio has moved a lot since 09-26 (7B–7D).
+- **BeatBuddy can be reached without the daily allowance.** The seed makes
+  the agent `visibility: 'public'`, and Sunrise's
+  `POST /api/v1/chat/stream` takes any active `public` or `invite_only`
+  agent by slug. That route applies the agent's rpm and its dollar caps,
+  but not D4's 30 turns. `/api/v1/buddy/stream` calls `streamChat()`
+  directly and never reads `visibility`, so the agent can be `internal`.
+  The seed's update branch writes only `isSystem`, so an existing row
+  needs its own change.
+- **The dollar caps see $0.** This is [sunrise#813](https://github.com/human-centric-engineering/sunrise/issues/813)
+  (open), and `beatbuddy.md` records it. The chat path never loads the
+  model registry, so `gpt-4.1` is priced at nothing until an admin page
+  loads it. Until #813 is fixed, `/buddy/stream` calls `hydrateFromDb()`
+  before each turn. The boot seam can't do it: `instrumentation.ts` runs in
+  a separate module graph from the routes (sunrise#462), so a registry
+  filled at boot is not the one the route reads. #813's second half still
+  applies: hydrated rates are the matrix's blended rate (in and out
+  averaged), not exact. That is close enough for a cap and is not an
+  invoice.
+- **The samples erasure hook never reached `eraseUser`** (found while building
+  8.2). It is registered from `initApp()`, in the instrumentation graph, and
+  `lib/privacy/erasure-hooks.ts` keeps hooks in a plain module `Map`. So
+  deleting an account left its sample files in storage. It is the #462 defect
+  in a registry #492 didn't cover. Fixed the same way (`globalThis`) as a fork
+  edit to the core file, raised upstream on sunrise#691.
+- **No hosting has been chosen, and nothing deploys.**
+  `docker-compose.prod.yml` (web, migrator, seeder, db, nginx at 10 MB) and
+  Sunrise's per-platform guides exist. There is no deploy workflow, no
+  backup script and no cron. The maintenance tick, which enforces
+  BeatBuddy's 90-day `retentionDays` among other things, needs an external
+  cron, and without it the failure is silent.
+- **The "25 MB server cap" isn't one cap.** No global body limit is set.
+  Chat attachments are capped by schema (about 5.6 MB each, 25 MB per
+  message), and the BeatBuddy composer already scales photos down to 1600px
+  JPEG. `/buddy/stream` reads the whole body before it checks the size.
+  Behind nginx that is bounded at 10 MB, but on a host with no proxy cap it
+  is unbounded. Import already has a Content-Length cap.
+- **The privacy policy and terms are still Sunrise placeholders**
+  (`privacy@example.com`, dated 2026-01-19), with BeatBreaker lines added
+  piecemeal. `site-copy.md` §7 lists what they must cover. Its samples line
+  is out of date: samples are uploaded now (D20).
+- **There are no end-to-end tests, no accessibility tooling and no
+  performance budget.** No Playwright, no axe, no bundle analyzer. CI has
+  smoke scripts and a Docker boot that curls `/api/health`, and neither
+  opens an app page. Vitest mocks the database.
+- **The engraver is the chart, so it can't come off the critical path.**
+  `stage.tsx` engraves on the client, and `/p/[slug]` already engraves on
+  the server for first paint. The audio engine is the one thing that can
+  move: `/p/`'s `PatternPlayer` imports engine, packs and transport
+  statically, and they can load on the first Play instead. Kit audio is
+  already fetched on first use.
+- **Analytics and consent exist; app events don't.** Sunrise ships GA4,
+  PostHog and Plausible providers behind one `optional` consent flag, with
+  page views. Nothing in the app calls `@/lib/analytics`.
+- **Moderation has a queue but no alert.** `/admin/patterns` lists reports
+  of patterns, profiles and speeds, and unpublish and unlist email the
+  owner. A new report notifies nobody, so a moderation rota of one only
+  sees it by looking. `PATTERN_PUBLISHING` is site-wide on/off. "Behind a
+  feature flag for invited users" was never built, because `FeatureFlag`
+  has no per-user targeting.
+- **Abuse caps are mostly there already.** Publish (10 a day), report (20),
+  speed records (50), runs (50), sessions (100), sample uploads (60 per 10
+  min), BeatBuddy (10/min, then the agent's 20 rpm, then 20 images/min),
+  and `public` reads (120/min by IP). Import, share, copy and session
+  sharing inherit the `/api/v1` 100/min. Sunrise has no captcha and no
+  disposable-email check. Email verification is on in production by
+  default, and `SIGNUP_MODE=invite_only` closes sign-up.
+- **iOS and Web MIDI.** Audio resumes on every Play, Demo and hit, and a
+  session's Start primes it inside the gesture. Nothing deals with the
+  iPhone's silent switch, which mutes Web Audio. With no Web MIDI, _MIDI
+  out_ is still offered and fails with a toast.
+- **First-run.** `?` already opens the shortcuts sheet (5.4). There is no
+  tour and no help page.
+
+Smaller facts:
+
+- Email is Resend (`RESEND_API_KEY`, `EMAIL_FROM`), and password reset and
+  verification templates exist. `@sentry/nextjs` is installed and inert:
+  there is no DSN, no `instrumentation-client.ts` and no
+  `withSentryConfig`. `/api/health` exists.
+- `BUDDY_DAILY_TURNS = 30` is a constant. D4 says to tune it after a week of
+  real cost, so it becomes `lib/app/env.ts` config.
+- The budget warning SSE event ("This agent has used N% of its $X monthly
+  budget") is dropped by `use-buddy-chat.ts`'s `default:`, so drummers
+  never see it. No change needed.
+- Storage env vars aren't in `lib/env.ts`'s schema. That is Sunrise's, and
+  samples already refuse with 503 when storage can't keep objects private.
+- A browser can now be driven from these sessions (Claude in Chrome), so
+  widths and light/dark can be looked at by Claude. VoiceOver, iOS Safari
+  and the silent switch stay on the owner's list.
+
+Calls made in planning it:
+
+- **Hosting (D35, recommended; the owner confirms, since it's spend):
+  Render** for the web service, managed Postgres with daily backups, and a
+  Cron Job for the maintenance tick. It runs a long-lived Node process, so
+  BeatBuddy's SSE has no function timeout, and a guide is already in the
+  tree. Add **Cloudflare R2** for samples (private by default, no egress
+  fees), **Resend** on the production domain, and **Sentry** for errors.
+  Vercel is ruled out: Blob can't hold private samples, and function
+  duration and the 4.5 MB body cap sit badly with BeatBuddy. Only 8-v
+  depends on this choice.
+- **End-to-end:** Playwright (Chromium in CI, WebKit run locally for the
+  Safari audio path), against `next build` + `next start` with a Postgres
+  service, migrated and seeded, with email verification off. The BeatBuddy
+  journey stubs `/api/v1/buddy/stream` with a recorded SSE turn, so it tests
+  the drawer, the apply loop and Undo, not the model. The model is 7.14's
+  job. `@axe-core/playwright` runs inside the journeys on the Studio, each
+  drawer, `/p/`, `/s/`, `/explore` and `/u/`, and fails on serious or
+  critical. Each one is a new dev dependency.
+- **Performance budget:** first-load JS for `/studio` and `/p/[slug]`, read
+  from the build output by a script in CI. It is set at today's size plus
+  10% once measured, so it catches growth rather than chasing a number
+  picked in advance.
+- **No captcha at launch.** Verification, auth's 5/min per IP and
+  `SIGNUP_MODE` as the switch are enough for an invited first audience.
+  Revisit if junk sign-ups show up.
+- **No per-user publishing flag.** Publishing launches on, and the
+  site-wide flag is the kill switch.
+- **Import gets a sub-cap** of 30 a minute per person, because parsing MIDI
+  costs CPU. Copy and share keep the section cap.
+- **The tour is the app's own, about 100 lines, with no library.** Three
+  steps (play, layers, drawers), shown once, remembered in `localStorage`
+  through the key module. Seeing it again on a new device is acceptable,
+  and it doesn't earn a column.
+- **Help is a public `/help` page,** made from the same shortcuts table as
+  the sheet, plus one line per drawer and the iPhone silent-switch note.
+- **Analytics events go through Sunrise's `trackEvent`,** so they're
+  provider-agnostic and consent-gated. The owner picks the provider
+  (Plausible is the suggestion). "Reopened next day" is `pattern_opened`
+  carrying whole days since the pattern was created, so it's derived in the
+  tool, not stored.
+- **Claude drafts the privacy policy and terms** from what the app actually
+  stores, using the export manifest as the inventory. The owner fills in
+  the entity, region, minimum age and contact, and has them reviewed (D7).
+  Launch waits on that review, not the code.
+
+Ships as **five Phase 8 PRs, with 5-iii and 5-iv between the first and the
+second**, each cut from main once the one before has merged:
+
+**8-i — closing the gaps:**
+
+| #   | Task                                                                                                                                                             | Done when                                                                                                                                                          |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 8.1 | BeatBuddy `internal`: the seed creates it so and a seed unit moves an existing row; `BUDDY_DAILY_TURNS` in `lib/app/env.ts` (default 30)                         | Test: `POST /api/v1/chat/stream` with `agentSlug: 'beatbuddy'` is a 404; `/buddy/stream` still answers; the allowance reads the env value                          |
+| 8.2 | `/buddy/stream` hydrates the model registry before each turn (#813's stopgap); the erasure-hook registry on `globalThis`                                         | Tests: the hydrate runs before `streamChat`; a hook registered by one copy of the module is seen by a fresh copy (fails against the plain `Map`)                   |
+| 8.3 | `/buddy/stream` refuses on Content-Length before reading (25 MB plus the message's room); import's 30/min sub-cap                                                | Route tests: an oversized declared body is a 413 with no parse; the 31st import in a minute is a 429                                                               |
+| 8.4 | A new report emails every `ADMIN` user, at most once an hour per reported thing                                                                                  | Test: a first report sends one email naming what was reported and linking to `/admin/patterns`; a second report within the hour sends none                         |
+| 8.5 | Web MIDI absent: _MIDI out_ is disabled with "Not available in this browser" and a ⓘ naming Chrome and Edge. `/p/`'s player loads the audio engine on first Play | Component tests: no `requestMIDIAccess` → the control is disabled with that text; `/p/`'s first render imports no engine module (the import is mocked and counted) |
+
+**5-iii and 5-iv** as written in Phase 5, re-reconciled first.
+
+**8-ii — first run and help:**
+
+| #   | Task                                                                                                                                                                                                                  | Done when                                                                                                                                                                        |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 8.6 | The tour: three steps anchored to Play, the layer control and the tool rail, with Next, Skip and `Esc`, focus held in the step, shown once (`bb.tourSeen`), and _Show the tour again_ on `/help`                      | Component tests: a first visit shows step 1; Skip or finishing never shows it again; focus returns to where it was; on a phone the steps anchor to the mobile transport and rail |
+| 8.7 | `/help` (public): shortcuts from `shortcuts.ts`, one line per drawer, the iPhone silent-switch note, and the contact route for corrections to the famous breaks (D10); linked from the footer, the sheet and the tour | Page test: every binding in the table is listed; the sheet and `/help` can't drift (both read the one table)                                                                     |
+
+**8-iii — analytics and the policies:**
+
+| #   | Task                                                                                                                                                                                                                                                          | Done when                                                                                                                                                     |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 8.8 | App events through `trackEvent`: `pattern_created`, `pattern_saved`, `pattern_opened` (days since created), `pattern_published`, `pattern_copied`, `buddy_turn`, `buddy_undo`, with no pattern content, title or user id in any property                      | Tests: each fires once at its moment; nothing fires without optional consent; a property scan finds no title, notes or id                                     |
+| 8.9 | `/privacy` and `/terms` rewritten for BeatBreaker per `site-copy.md` §7 (corrected for samples), covering OpenAI, the 90-day conversation window, analytics, R2, and erasure and export; placeholders marked `[OWNER: …]` for entity, region, age and contact | Page tests: no "placeholder" or `example.com` left except the marked owner fields; every `SUBJECT_DATA_SOURCES` and app export section is named in the policy |
+
+**8-iv — the journeys:**
+
+| #    | Task                                                                                                                                                            | Done when                                                                                                                                      |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| 8.10 | Playwright, an `e2e` CI job (build, start, Postgres service, migrate, seed), and the eight journeys                                                             | All eight pass in CI; each fails if its last assertion is removed from the app (checked once by hand per journey)                              |
+| 8.11 | axe inside the journeys; the serious and critical findings fixed                                                                                                | No serious or critical violation on the listed pages; any lesser one is in `controls.md` with an outcome                                       |
+| 8.12 | The performance budget script and its CI step                                                                                                                   | CI fails when either page's first-load JS grows past the budget; the budget and how it was measured are in `shell.md`                          |
+| 8.13 | Claude looks at the Studio, drawers and public pages at 390, 768, 1024 and 1440px, light and dark, in Chrome; what it finds is fixed or listed in `controls.md` | `controls.md` records what was seen, by whom, and when; the owner's list (VoiceOver, iOS Safari, silent switch, MIDI hardware) is what remains |
+
+**8-v — production:**
+
+| #    | Task                                                                                                                                                                                                                                                                                                        | Done when                                                                                                                |
+| ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| 8.14 | `render.yaml` (web, the tick cron, Postgres) per D35; Sentry wired (`instrumentation-client.ts`, `withSentryConfig`, inert without a DSN)                                                                                                                                                                   | The blueprint validates; the build is unchanged with no DSN; with one, a thrown test error reaches Sentry from a preview |
+| 8.15 | `.context/app/operations.md`: the env checklist (every variable production needs and where it comes from), backups and the restore drill, the cron, storage, email, budgets (global, BeatBuddy's, the `budget_exceeded` event subscription to the owner), retention, the moderation rota, the kill switches | Docs merged; `/docs-audit` over `.context/app/` clean; README current                                                    |
+| 8.16 | **Owner:** the Render account and domain; Resend domain verified; R2 bucket and keys; production `OPENAI_API_KEY`, the setup wizard, a global monthly budget; Sentry DSN; the analytics provider; D7's review of 8.9                                                                                        | The setup wizard shows the provider healthy on the production URL; a verification email and a reset email arrive         |
+| 8.17 | **Owner:** a restore from backup into a scratch database, done once for real, and timed                                                                                                                                                                                                                     | Recorded in `operations.md` with the date and how long it took                                                           |
+| 8.18 | The release gate: the full gate run on the release branch and `npm run test` (the whole suite) green; then someone who isn't the developer signs up on the production URL and publishes a pattern                                                                                                           | The phase's done-when                                                                                                    |
+
+7.14 (the evals) is not a launch gate. It still waits on
+[sunrise#879](https://github.com/human-centric-engineering/sunrise/issues/879).
 
 ---
 
@@ -2263,35 +2468,37 @@ already cascade and already export.
 
 ### Decided — 2026-09-28
 
-| #   | Decision                                         | Outcome                                                                                                                                                                                                                             |
-| --- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| —   | Where the new work goes                          | **Between BeatBuddy and launch**, as Phases 7A–7D. BeatBuddy keeps its place.                                                                                                                                                       |
-| D25 | Trusting self-reported speeds                    | **Every listed record shows; a video link earns a badge** and a _Video only_ filter; a doubtful row can be reported and an admin can unlist it. No peer verification at launch.                                                     |
-| D26 | Who can make a variation, and where it shows     | **Anyone, including the author.** A published pattern's notes never change after its first publish (even if unpublished). A variation is a credited copy, and published variations are listed on the original's page.               |
-| D27 | How ability is described                         | **A five-step scale** — Just starting · Beginner · Intermediate · Advanced · Professional — overall, and optionally per preferred style.                                                                                            |
-| D28 | What of "about you" is public                    | **Each field opts in.** Channel links public by default; purpose, styles and ability private until switched on. Private values still personalise the app.                                                                           |
-| D29 | Video links on speed records                     | **Phase 6's parser**: YouTube and Vimeo embed click-to-load; Instagram, TikTok and X are outbound links only, so the CSP does not grow.                                                                                             |
-| D30 | How a session climbs to the target               | **Climb, then hold.** The climb takes a configurable share of the slot (default two-thirds), with a configurable shape — steady, gentle start, gentle finish, steps — per session and per pattern. Tempo moves at cycle boundaries. |
-| D31 | How a session's time is split                    | **Equally by default, adjustable.** Nudging one pattern pins it; the rest re-split so the total holds.                                                                                                                              |
-| D32 | Sharing a session with patterns others can't see | **Not allowed.** A session can be shared only when every pattern in it is published, link-shared or a famous break; the dialog says which to share first.                                                                           |
-| —   | How Phase 7D ships                               | **Four PRs** (decided 2026-10-01): 7D-i the sums and the data (7D.1–7D.4), 7D-ii building one (7D.5–7D.7), 7D-iii running one (7D.8–7D.10), 7D-iv sharing one (7D.11–7D.13).                                                        |
+| #   | Decision                                         | Outcome                                                                                                                                                                                                                                                                                               |
+| --- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| —   | Where the new work goes                          | **Between BeatBuddy and launch**, as Phases 7A–7D. BeatBuddy keeps its place.                                                                                                                                                                                                                         |
+| D25 | Trusting self-reported speeds                    | **Every listed record shows; a video link earns a badge** and a _Video only_ filter; a doubtful row can be reported and an admin can unlist it. No peer verification at launch.                                                                                                                       |
+| D26 | Who can make a variation, and where it shows     | **Anyone, including the author.** A published pattern's notes never change after its first publish (even if unpublished). A variation is a credited copy, and published variations are listed on the original's page.                                                                                 |
+| D27 | How ability is described                         | **A five-step scale** — Just starting · Beginner · Intermediate · Advanced · Professional — overall, and optionally per preferred style.                                                                                                                                                              |
+| D28 | What of "about you" is public                    | **Each field opts in.** Channel links public by default; purpose, styles and ability private until switched on. Private values still personalise the app.                                                                                                                                             |
+| D29 | Video links on speed records                     | **Phase 6's parser**: YouTube and Vimeo embed click-to-load; Instagram, TikTok and X are outbound links only, so the CSP does not grow.                                                                                                                                                               |
+| D30 | How a session climbs to the target               | **Climb, then hold.** The climb takes a configurable share of the slot (default two-thirds), with a configurable shape — steady, gentle start, gentle finish, steps — per session and per pattern. Tempo moves at cycle boundaries.                                                                   |
+| D31 | How a session's time is split                    | **Equally by default, adjustable.** Nudging one pattern pins it; the rest re-split so the total holds.                                                                                                                                                                                                |
+| D32 | Sharing a session with patterns others can't see | **Not allowed.** A session can be shared only when every pattern in it is published, link-shared or a famous break; the dialog says which to share first.                                                                                                                                             |
+| —   | How Phase 7D ships                               | **Four PRs** (decided 2026-10-01): 7D-i the sums and the data (7D.1–7D.4), 7D-ii building one (7D.5–7D.7), 7D-iii running one (7D.8–7D.10), 7D-iv sharing one (7D.11–7D.13).                                                                                                                          |
+| —   | How Phase 8 ships                                | **Five PRs, with Phase 5's unbuilt 5-iii and 5-iv after the first** (decided 2026-10-02): 8-i closing the gaps (8.1–8.5), 5-iii, 5-iv, 8-ii first run and help (8.6–8.7), 8-iii analytics and the policies (8.8–8.9), 8-iv the journeys (8.10–8.13), 8-v production (8.14–8.18). Resized from M to L. |
 
 ### Still open
 
 Recommendation first in each case. None blocks Phases 0–4.
 
-| #   | Decision                                                                | Recommendation                                                                                                                                                                                                                                        | Needed by |
-| --- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| D4  | BeatBuddy's daily allowance                                             | **30 turns/day**, tuned after a week of real cost data.                                                                                                                                                                                               | Phase 7   |
-| D7  | Who reviews Privacy and Terms, and what is the minimum age?             | Owner to arrange. Community features, third-party embeds and model-provider data flows make a real review worth having. 13+ or 16+ depending on the jurisdictions served.                                                                             | launch    |
-| D8  | Takes — build, defer or drop?                                           | **Defer.** Video/audio storage, consent and moderation are a product of their own. Leave the table dormant and documented. (Reference links cover "here is a video of this pattern" without BeatBreaker hosting any video.)                           | —         |
-| D9  | Licence on published patterns                                           | A plain-language grant in the Terms — others may play, copy and build on with credit — rather than a named Creative Commons licence, unless the owner wants patterns reusable outside BeatBreaker.                                                    | Phase 6   |
-| D10 | Famous-breaks library: keep song titles and artist credits as they are? | **Keep**, framed as study versions credited to the drummers, with a contact route for corrections and objections. Short rhythmic figures named for study are normal practice in drum education; still worth one conversation with whoever reviews D7. | launch    |
-| D12 | More link providers (Apple Music, Bandcamp, SoundCloud, Drumeo…)?       | **Not at launch.** Each is one more entry in the parser, the CSP and the privacy policy; add on demand.                                                                                                                                               | —         |
-| D15 | How a native app signs in                                               | Bearer tokens rather than cookies: better-auth's bearer plugin, or Sunrise's self-service API keys if they fit a per-device login. Until then, keep every route free of cookie-only assumptions (D14).                                                | native    |
-| D16 | Who may create and publish styles, libraries and kits                   | Users create private ones; publishing one follows the pattern rules of Phase 6 (username, moderation, reporting). A published style is used by reference to a version, so its author cannot change patterns that other people made from it.           | §10 item  |
-| D33 | Which channel platforms at launch?                                      | The eight in 7B plus a personal website. Add on demand, like D12.                                                                                                                                                                                     |
-| D34 | Publishing practice sessions to Explore?                                | **Not yet** — link-sharing only. Publishing means moderation and a browse surface of their own; see §10.                                                                                                                                              |
+| #   | Decision                                                                | Recommendation                                                                                                                                                                                                                                          | Needed by |
+| --- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| D4  | BeatBuddy's daily allowance                                             | **30 turns/day**, tuned after a week of real cost data.                                                                                                                                                                                                 | Phase 7   |
+| D7  | Who reviews Privacy and Terms, and what is the minimum age?             | Owner to arrange. Community features, third-party embeds and model-provider data flows make a real review worth having. 13+ or 16+ depending on the jurisdictions served.                                                                               | launch    |
+| D8  | Takes — build, defer or drop?                                           | **Defer.** Video/audio storage, consent and moderation are a product of their own. Leave the table dormant and documented. (Reference links cover "here is a video of this pattern" without BeatBreaker hosting any video.)                             | —         |
+| D9  | Licence on published patterns                                           | A plain-language grant in the Terms — others may play, copy and build on with credit — rather than a named Creative Commons licence, unless the owner wants patterns reusable outside BeatBreaker.                                                      | Phase 6   |
+| D10 | Famous-breaks library: keep song titles and artist credits as they are? | **Keep**, framed as study versions credited to the drummers, with a contact route for corrections and objections. Short rhythmic figures named for study are normal practice in drum education; still worth one conversation with whoever reviews D7.   | launch    |
+| D12 | More link providers (Apple Music, Bandcamp, SoundCloud, Drumeo…)?       | **Not at launch.** Each is one more entry in the parser, the CSP and the privacy policy; add on demand.                                                                                                                                                 | —         |
+| D15 | How a native app signs in                                               | Bearer tokens rather than cookies: better-auth's bearer plugin, or Sunrise's self-service API keys if they fit a per-device login. Until then, keep every route free of cookie-only assumptions (D14).                                                  | native    |
+| D16 | Who may create and publish styles, libraries and kits                   | Users create private ones; publishing one follows the pattern rules of Phase 6 (username, moderation, reporting). A published style is used by reference to a version, so its author cannot change patterns that other people made from it.             | §10 item  |
+| D33 | Which channel platforms at launch?                                      | The eight in 7B plus a personal website. Add on demand, like D12.                                                                                                                                                                                       |
+| D34 | Publishing practice sessions to Explore?                                | **Not yet** — link-sharing only. Publishing means moderation and a browse surface of their own; see §10.                                                                                                                                                |
+| D35 | Where production runs                                                   | **Render** (web, managed Postgres with backups, cron for the maintenance tick) + **Cloudflare R2** for samples + **Resend** + **Sentry**. Vercel ruled out: no private Blob, function duration and body caps against BeatBuddy. Owner confirms (spend). | 8-v       |
 
 ---
 

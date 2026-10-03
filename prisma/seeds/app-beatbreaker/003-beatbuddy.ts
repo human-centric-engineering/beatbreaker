@@ -1,6 +1,6 @@
 import type { Prisma } from '@prisma/client';
 
-import { BEATBUDDY_SLUG } from '@/lib/app/breaks/buddy/agent';
+import { BEATBUDDY_SLUG, BEATBUDDY_VISIBILITY } from '@/lib/app/breaks/buddy/agent';
 import { BEATBUDDY_CAPABILITIES } from '@/lib/app/capabilities';
 import { serviceAccountWhere } from '@/lib/auth/account';
 import {
@@ -44,6 +44,9 @@ Limits. You cannot publish, share or delete anything; tell the user where the bu
 
 /** The summary on the version a re-run records when it moves the instructions on. */
 export const INSTRUCTIONS_UPDATE_SUMMARY = 'Seeded instructions updated';
+
+/** The version note when a re-run takes BeatBuddy off `public` (Phase 8, 8.1). */
+export const VISIBILITY_UPDATE_SUMMARY = 'Made internal: reached through the app’s own route only';
 
 /**
  * The admin-facing columns for each tool. What the model reads is the
@@ -147,8 +150,11 @@ export const BEATBUDDY_CAPABILITY_ROWS: Record<
  * is an admin setting rather than a deploy.
  *
  * **Idempotent, and an admin's edits survive a re-run.** The agent's `update`
- * branch writes nothing but `isSystem`, as Sunrise's own agent seeds do. The
- * one exception is instructions still exactly as an earlier seed shipped them
+ * branch writes nothing but `isSystem`, as Sunrise's own agent seeds do. There
+ * are two exceptions. The agent is put back to `internal` whatever it was set
+ * to, because any other visibility lets Sunrise's generic chat route reach it
+ * without the daily allowance ({@link BEATBUDDY_VISIBILITY}). The
+ * other is instructions still exactly as an earlier seed shipped them
  * ({@link SUPERSEDED_BEATBUDDY_INSTRUCTIONS}): nobody chose those, so they move
  * on, with a version recording it. A
  * capability's `update` re-applies only the code-owned fields (#545), so a
@@ -182,8 +188,7 @@ const unit: SeedUnit = {
         provider: '',
         temperature: 0.4,
         maxTokens: 1500,
-        // Consumer-facing: the app's own stream route pins this agent.
-        visibility: 'public',
+        visibility: BEATBUDDY_VISIBILITY,
         enableImageInput: true,
         enableDocumentInput: true,
         // Spend caps (§6 Guardrails). The per-user daily allowance is the
@@ -252,11 +257,17 @@ const unit: SeedUnit = {
       });
     }
 
-    if (SUPERSEDED_BEATBUDDY_INSTRUCTIONS.includes(agent.systemInstructions)) {
+    const adminId = admin.id;
+
+    /** Change the agent and record it as a new version, in one transaction. */
+    async function updateWithVersion(
+      data: Prisma.AiAgentUpdateInput,
+      changeSummary: string
+    ): Promise<void> {
       await prisma.$transaction(async (tx) => {
         const updated = await tx.aiAgent.update({
           where: { id: agent.id },
-          data: { systemInstructions: BEATBUDDY_INSTRUCTIONS },
+          data,
           include: {
             grantedTags: { select: { tagId: true } },
             grantedDocuments: { select: { documentId: true } },
@@ -273,12 +284,26 @@ const unit: SeedUnit = {
                 grantedDocumentIds: grantedDocuments.map((g) => g.documentId),
               })
             ),
-            changeSummary: INSTRUCTIONS_UPDATE_SUMMARY,
-            createdBy: admin.id,
+            changeSummary,
+            createdBy: adminId,
           },
         });
       });
+    }
+
+    if (SUPERSEDED_BEATBUDDY_INSTRUCTIONS.includes(agent.systemInstructions)) {
+      await updateWithVersion(
+        { systemInstructions: BEATBUDDY_INSTRUCTIONS },
+        INSTRUCTIONS_UPDATE_SUMMARY
+      );
       logger.info('  ✓ moved BeatBuddy to the current seeded instructions');
+    }
+
+    // The one setting a re-run overrides: `public` or `invite_only` is never
+    // right for BeatBuddy, because either opens the allowance-free route.
+    if (agent.visibility !== BEATBUDDY_VISIBILITY) {
+      await updateWithVersion({ visibility: BEATBUDDY_VISIBILITY }, VISIBILITY_UPDATE_SUMMARY);
+      logger.info('  ✓ made BeatBuddy internal');
     }
 
     logger.info(`✅ Seeded BeatBuddy with ${BEATBUDDY_CAPABILITIES.length} tools`);

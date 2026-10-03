@@ -112,6 +112,16 @@ prefix before the erasure transaction. It is best-effort by the hook contract:
 a failure is logged by `eraseUser` and does not stop the erasure. (Avatars do
 not take this path; core `eraseUser` removes theirs itself.)
 
+**The registry has to be shared across module graphs** (fixed in Phase 8).
+`instrumentation.ts`, which calls `initApp()`, runs in a separate module graph
+from the routes that call `eraseUser`. With Sunrise's plain module-scoped `Map`,
+the hook was registered where no route could see it, so the samples' files
+outlived the account. `lib/privacy/erasure-hooks.ts` now keeps the registry on
+`globalThis`, as sunrise#462 did for the context-contributor and capability
+registries. This is a fork edit to a core file, raised upstream on
+[sunrise#691](https://github.com/human-centric-engineering/sunrise/issues/691),
+and it can be dropped once Sunrise ships a fix.
+
 The export has a `samples` section (each row: name, slot, size, length and
 storage key, not the audio) and the `kits` section includes your kits.
 

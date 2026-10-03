@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 
 import { DetailsForm } from '@/components/app/studio/details-form';
 import { ShareCard } from '@/components/app/studio/share-card';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
+import { midiOutSupported } from '@/lib/app/breaks/audio/midi-out';
 import { midiFileName } from '@/lib/app/breaks/midi';
 
 /**
@@ -27,6 +28,9 @@ export function ExportPanel() {
   const c = useStudio();
   const { say } = c;
   const [codeIn, setCodeIn] = useState('');
+  // Read on the client only: the server can't know, and assumes it can, so
+  // nothing changes on hydration in the browsers that have it.
+  const midiOk = useSyncExternalStore(noSubscription, midiOutSupported, () => true);
 
   const copy = async (text: string, label: string) => {
     try {
@@ -133,6 +137,7 @@ export function ExportPanel() {
               </button>
               <Toggle
                 pressed={!!c.midiPort}
+                disabled={!midiOk}
                 onPressedChange={(on) => {
                   if (!on) {
                     c.closeMidiOut();
@@ -152,6 +157,16 @@ export function ExportPanel() {
                 Playback is also driving <b>{c.midiPort}</b>, muted lanes too.
               </div>
             ) : null}
+            {midiOk ? null : (
+              <div className="hint">
+                MIDI out isn&apos;t available in this browser.{' '}
+                <StudioHelp title="MIDI out">
+                  Playing out of a MIDI port needs Web MIDI, which Chrome and Edge have and Safari
+                  (and every browser on iPhone and iPad) doesn&apos;t. Download .mid works
+                  everywhere.
+                </StudioHelp>
+              </div>
+            )}
           </div>
 
           <div className="field">
@@ -172,4 +187,9 @@ export function ExportPanel() {
       </div>
     </>
   );
+}
+
+/** Web MIDI's presence doesn't change while the page is open. */
+function noSubscription(): () => void {
+  return () => {};
 }

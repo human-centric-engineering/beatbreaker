@@ -74,7 +74,9 @@ export async function entryTableTarget(id: string): Promise<TableTarget | null> 
  * same answer as for a record that does not exist. What a report on a table
  * row is held to, so nobody can report a speed that is on no table.
  */
-export async function tabledRecord(id: string): Promise<{ id: string; userId: string } | null> {
+export async function tabledRecord(
+  id: string
+): Promise<{ id: string; userId: string; title: string; bpm: number } | null> {
   const row = await prisma.speedRecord.findFirst({
     where: {
       id,
@@ -87,6 +89,8 @@ export async function tabledRecord(id: string): Promise<{ id: string; userId: st
     select: {
       id: true,
       userId: true,
+      titleSnapshot: true,
+      bpm: true,
       gridHash: true,
       breakRef: { select: { gridHash: true, doc: true } },
       libraryEntry: { select: { doc: true } },
@@ -98,7 +102,9 @@ export async function tabledRecord(id: string): Promise<{ id: string; userId: st
     : row.libraryEntry
       ? await entryHash(row.libraryEntry.doc)
       : null;
-  return hash === row.gridHash ? { id: row.id, userId: row.userId } : null;
+  return hash === row.gridHash
+    ? { id: row.id, userId: row.userId, title: row.titleSnapshot, bpm: row.bpm }
+    : null;
 }
 
 /** One row of a table. */

@@ -16,6 +16,7 @@ import { NextRequest } from 'next/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
+import { MAX_BUDDY_BODY_BYTES } from '@/lib/validations/buddy';
 import { mockAuthenticatedUser, mockUnauthenticatedUser } from '@/tests/helpers/auth';
 import {
   buddyTurns,
@@ -49,6 +50,9 @@ vi.mock('@/lib/db/client', () => ({
 }));
 vi.mock('@/lib/auth/config', () => ({ auth: { api: { getSession: vi.fn() } } }));
 vi.mock('@/lib/orchestration/chat', () => ({ streamChat: vi.fn(() => 'the-event-stream') }));
+vi.mock('@/lib/orchestration/llm/model-registry-db-hydrate', () => ({
+  hydrateFromDb: vi.fn(async () => undefined),
+}));
 vi.mock('@/lib/api/sse', () => ({
   sseResponse: vi.fn(() => new Response('data: {}\n\n', { status: 200 })),
 }));
@@ -71,6 +75,7 @@ vi.mock('@/lib/security/rate-limit', () => ({
 import { auth } from '@/lib/auth/config';
 import { sseResponse } from '@/lib/api/sse';
 import { streamChat } from '@/lib/orchestration/chat';
+import { hydrateFromDb } from '@/lib/orchestration/llm/model-registry-db-hydrate';
 import { consumerChatLimiter } from '@/lib/security/rate-limit';
 
 import { POST } from '@/app/api/v1/buddy/stream/route';
@@ -137,6 +142,15 @@ describe('POST /api/v1/buddy/stream', () => {
       entityContext: { workspace: true, section: 'B' },
     });
     expect(sseResponse).toHaveBeenCalledWith('the-event-stream', expect.anything());
+  });
+
+  it('loads the model registry before the turn, so its dollar caps see a real cost (sunrise#813)', async () => {
+    await POST(post({ message: 'add ghost notes to bar 2', doc: DOC }));
+
+    expect(hydrateFromDb).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(hydrateFromDb).mock.invocationCallOrder[0]).toBeLessThan(
+      vi.mocked(streamChat).mock.invocationCallOrder[0]
+    );
   });
 
   it('ignores an agent, a user id or a scope in the body — the client cannot choose what the turn acts on', async () => {
@@ -302,6 +316,24 @@ describe('POST /api/v1/buddy/stream', () => {
 
     expect(res.status).toBe(415);
     expect((await json(res)).error?.code).toBe('IMAGE_INVALID_TYPE');
+    expect(streamChat).not.toHaveBeenCalled();
+    expect(db.workspace?.rows.size).toBe(0);
+  });
+
+  it('refuses a body declared over the cap from its Content-Length, before reading it', async () => {
+    const req = new NextRequest('http://localhost:3000/api/v1/buddy/stream', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': String(MAX_BUDDY_BODY_BYTES + 1),
+      },
+      body: JSON.stringify({ message: 'hi', doc: DOC }),
+    });
+
+    const res = await POST(req);
+
+    expect(res.status).toBe(413);
+    expect((await json(res)).error?.code).toBe('FILE_TOO_LARGE');
     expect(streamChat).not.toHaveBeenCalled();
     expect(db.workspace?.rows.size).toBe(0);
   });
