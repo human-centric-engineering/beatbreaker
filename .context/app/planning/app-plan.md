@@ -27,7 +27,7 @@ for the public pages, dialogs and empty states.
    3 Front door · 4 Your patterns · 4A Your settings and your sounds ·
    5 Ergonomic review · 6 Sharing and the community library · 7 BeatBuddy ·
    7A Fixed patterns and variations · 7B About you · 7C Your speeds ·
-   7D Practice sessions · 8 Launch readiness
+   7D Practice sessions · 8 Launch readiness · 9 The sound
 5. [Ergonomic review — method and first findings](#5-ergonomic-review--method-and-first-findings)
 6. [BeatBuddy — design](#6-beatbuddy--design)
 7. [Data model changes, in one place](#7-data-model-changes-in-one-place)
@@ -294,6 +294,8 @@ the rest are sequential because each stands on the one before.
 
 7A Fixed patterns ─► 7C Your speeds ─► 7D Practice sessions
 7B About you  (any time after 6; 7C's tables and 7D's targets read it only for defaults)
+
+9-i Engine ─► 9-ii Humanise ─► 9-iii Pipeline ─► 9-iv Notation ─► 8-iv ─► 8-v ─► 9-v Pieces ─► 9-vi More sounds
 ```
 
 ### Phase 0 — Groundwork · S
@@ -2276,6 +2278,103 @@ written, with these calls:
 7.14 (the evals) is not a launch gate. It still waits on
 [sunrise#879](https://github.com/human-centric-engineering/sunrise/issues/879).
 
+### Phase 9 — The sound · L
+
+**Goal:** the drums sound like a drummer playing a good kit, and there's a
+lot of good kit to choose from.
+
+The design, the research, the sources and their licences, and the budgets
+are in [`sound-plan.md`](./sound-plan.md). Its §1 is the audit of the sound
+as it is (A1–A12), and the tasks below cite it.
+
+**In short:**
+
+- **Sampler:** round-robins, a better choice of layer, and a channel per lane
+  with pan and a ceiling.
+- **Humanise:** a seeded setting, Off · Subtle · Loose, limb by limb, the
+  same in the speakers and the MIDI.
+- **Samples:** a pipeline that turns freely licensed libraries into
+  level-matched pieces.
+- **Kits:** a kit is a map of pieces, so there are curated combinations and
+  your own builds.
+- **Synth and machines:** synth kits rendered ahead into buffers, and the
+  808/909 finally built.
+
+**Done when:**
+
+- Sixteenth hats at one level never play the same file twice in a row.
+- With Humanise on, the speakers and the MIDI file agree note for note.
+- The picker has at least ten recorded kits and six combinations, each
+  signed off by the owner by ear.
+- Every source in the manifest has a licence copy and a credit.
+- The per-kit budgets hold in CI.
+
+**Ships as six PRs.** Per D36, 9-i to 9-iv come now, before 8-iv and 8-v.
+9-v and 9-vi follow launch.
+
+**9-i — the engine:**
+
+| #   | Task                                                                                                                                                                                                                                                                                                                                                                             | Done when                                                                                                                                                                                                                         |
+| --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 9.1 | **Slot shape and round-robins.** A slot holds `layers: [{ v, files[] }]` (≤ 8 × 6), and the old `{ v[], files[] }` is read as one file per layer. The layer is chosen close / diverse / random, from an injected seeded stream. Gain is dB-linear inside a layer. Each hit varies by ±8 cents and ±0.5 dB. Slots with fewer than 4 layers get a velocity-tracking shelf (A1, A2) | Unit tests: 16 hits at one velocity on a 3-RR layer never repeat a file back to back; a slot in the old shape plays the same file at the same velocity as before; gain is continuous across a layer boundary (no step above 1 dB) |
+| 9.2 | **A channel per lane.** Fader, mute and solo go on a lane `GainNode`, not into velocity. Each lane gets a `StereoPannerNode`, with kit default pans and a drummer / audience switch in the Kit drawer (A3)                                                                                                                                                                       | Test: moving the snare fader changes the lane gain and **not** the layer picked or the synth snare's wire filter; the switch mirrors every pan; `performance-consistency` still green (MIDI never saw the fader)                  |
+| 9.3 | **Master ceiling and chokes.** Headroom −3 dB, then a soft-clip ceiling at −0.3 dBFS after the compressor. Every sounding open hat chokes. Your own samples get the onset trim and `kit.trim` (A6–A8)                                                                                                                                                                            | Tests: the chain ends compressor → ceiling → destination; two open hats and a closed hat ramp both tails; a user sample with 20 ms of leading silence starts at its onset                                                         |
+| 9.4 | **The stale words** (A12): `SYNTH_ONLY` and the tom hint, the README's "not built" list and its baked-kits claim, and the kit count in `catalogue.md`. New `.context/app/sound.md` for the engine as built                                                                                                                                                                       | Docs merged; `/docs-audit` over `.context/app/` clean                                                                                                                                                                             |
+
+**9-ii — humanise:**
+
+| #   | Task                                                                                                                                                                                                                                                                                                         | Done when                                                                                                                                                                                                                                                                                      |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 9.5 | `lib/app/breaks/humanise.ts`, pure (`sound-plan.md` §4): a stream per limb, pink plus differenced white for timing, pink for velocity, clamped. Seeded by the pattern and the take, and continuous across loops                                                                                              | Unit tests: the same seed and take give the same stream; a new take differs; over 10,000 notes σ is within 10% of the target and lag-1 correlation of timing is negative; limbs are independent; no offset beyond ±25 ms; velocity never leaves its value's band; Amount 0 is exactly the grid |
+| 9.6 | `performStep` takes the humaniser and drops the `Math.random` hat wobble (A5). The transport, MIDI out and the MIDI file all pass the same stream. The MIDI export gets **Played / Quantised**                                                                                                               | `performance-consistency` extended: with Humanise on, speakers, port and file agree note for note over two passes; a grep guard keeps `Math.random` out of `perform.ts` and `feel.ts`; Quantised writes today's ticks                                                                          |
+| 9.7 | The setting: `prefs.sound.humanise { mode: off·subtle·loose, amount 0–100, take }` in the studio-settings schema. Kit drawer: the three-way switch, the Amount slider and 🎲 _New take_, each with `<FieldHelp>`. Default Subtle (D38). Runs in practice sessions and `/p/` too; the click stays on the grid | Component tests: the default is Subtle at 35; Off sends 0 to the transport; New take changes `take` and the next pass. Settings route test: an out-of-range amount is a 400. By hand: the owner listens to a funk and a jazz pattern at each setting                                           |
+
+**9-iii — the pipeline and the first new kits:**
+
+| #    | Task                                                                                                                                                                                                                                                                                                                                                                           | Done when                                                                                                                                                                                                             |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 9.8  | `scripts/kits/` (`sound-plan.md` §6): pinned `sources.ts` with sha256 and licence; per-kit recipes; fetch to a gitignored cache, mic mixdown, onset and tail trim, per-role level matching to a `trim`, AAC-LC `.m4a` 96 kbps mono. Licences are copied to `public/kits/LICENSES/`, and credits are generated for `/about` and the README. Needs `ffmpeg` locally, never in CI | A second build from the pinned sources writes byte-identical manifests; `kit-packs.test.ts` extended: every manifest file exists, every source has a licence file and a credit line, every kit is within §9's budgets |
+| 9.9  | **Re-cut the five shipped packs** through the pipeline with the round-robins their sources have. A11's misnamed files are fixed                                                                                                                                                                                                                                                | Same slots as before, at least the same layers, and at least 2 RR on every hat, snare and ride slot; existing pack tests green                                                                                        |
+| 9.10 | **Round one of new kits:** Big Rusty (rock), DRSKit sticks and DRSKit brushes (two kits), Unruly (character), Gogodze Phu II (lo-fi). Loading becomes one RR per layer first, the rest when idle; the decoded cache is an LRU of two kits                                                                                                                                      | Each kit plays every slot it lists (test against the manifest); the first-load bytes per kit ≤ 0.8 MB; by hand: the owner listens to each on a laptop and a phone                                                     |
+
+**9-iv — new notation** (D40). Re-reconciled against the tree when it
+starts: this was sized from the schema and `LANE_VALUES` alone.
+
+| Lane      | New values (after today's)                | MIDI out                                                          |
+| --------- | ----------------------------------------- | ----------------------------------------------------------------- |
+| `s`       | 5 rimshot · 6 flam · 7 drag · 8 buzz roll | rimshot 40; flam, drag and buzz are 38 with grace or repeat notes |
+| `h`       | 4 half-open                               | 46 at a lower velocity (GM has no half-open), noted in `midi.ts`  |
+| `c`       | 2 crash 2 · 3 china · 4 splash            | 57 · 52 · 55                                                      |
+| `t1`–`t3` | 3 flam                                    | the tom's note with a grace                                       |
+
+| #    | Task                                                                                                                                                                                                                                                                                                                                                                                  | Done when                                                                                                                                                                                                          |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 9.11 | **The values and wire v5.** `LANE_VALUES`, step values 0–8 (the schema's row and the bar regex), wire version 5 with v4 and v2 still decoding. Also `LEVELS`, the click-cycle order and `controls.md`. The difficulty layers reduce each articulation to its plain value below L4. Text and GrooveScribe import and export carry what they can and say what they drop                 | Tests: every value round-trips through the code, the document and the API; a v4 code decodes to identical bytes; the 9.11 values are refused by a v4 decoder test fixture; the layer reduction is pinned per value |
+| 9.12 | **Playing them.** New kit slots `sRim`, `hHalf`, `c2`, `cChina`, `cSplash`, each with a synth voice so every kit plays it. `performStep` expands flam (a grace about 25 ms ahead at about 35%, on the other hand), drag (two graces) and buzz (soft repeats across the step). The expansion is shared by the speakers, MIDI out and the file. MIDI import maps 40, 52, 55 and 57 back | `performance-consistency` over every new value; MIDI write and read round-trip each one; Humanise (9-ii) treats a grace as its own limb's note                                                                     |
+| 9.13 | **Engraving them:** rimshot notehead, the half-open hat's circle-with-line, china and splash on their own staff positions, grace notes for flam and drag, `z` on the stem for buzz. A notation key on `/help`                                                                                                                                                                         | Golden SVG per articulation; every existing golden unchanged                                                                                                                                                       |
+| 9.14 | **The rest of the app knows them.** The critic counts a flam or drag as both hands. The generator can write them, weighted by new style params defaulting to 0 so seeds don't move. `tidy`, `doctor`, BeatBuddy's tool schema and its instructions                                                                                                                                    | Critic tests (a flam against a hat on the same hand is unplayable); the generator's golden bytes unchanged at the defaults; a BeatBuddy tool call with each new value validates and applies                        |
+| 9.15 | **Their sounds:** pieces for the new slots in the round-one kits (Big Rusty's rimshot, half-open and china; DRSKit's semi-open and second crash), with Salamander's splash and china pulled forward from 9-vi                                                                                                                                                                         | Every recorded kit plays every new slot from a sample or its synth voice; by hand: the owner listens to each articulation in two kits                                                                              |
+
+**9-v — pieces and building your own:**
+
+| #    | Task                                                                                                                                                                                                                                                                          | Done when                                                                                                                                                                                            |
+| ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 9.16 | **Pieces.** A `KitPiece` catalogue table (system, public, no `User` FK), seeded from the manifest; `GET /api/v1/catalogue/pieces`. A kit slot can hold `{ piece }`, and `PackSource` resolves by the piece's folder (A9). System recorded kits are re-expressed as piece maps | Route tests (public, cached, system only); a kit with pieces from two sources plays both; each re-expressed kit picks the same file as before for the same hit                                       |
+| 9.17 | **Your kits hold pieces.** `PATCH /api/v1/kits/:id` accepts `{ piece }` or `{ sample }` per slot, plus `level`, `tune` (±1200 cents), `decay` (0.2–1) and `pan`. The engine applies them                                                                                      | Route tests: a piece key that doesn't exist is a 400; someone else's sample is still a 404; tune and decay out of range are 400s. Engine tests: tune sets `detune`, decay shortens the gain envelope |
+| 9.18 | **Build a kit** in the Kit drawer: _Make my own from this kit_; a per-slot picker grouped by source, with a tap to hear it; the four knobs with `<FieldHelp>`; _Reset to kit_. Phone width first                                                                              | Component tests: copying a kit makes one of your kits with the same pieces; choosing a piece auditions it; the 21st kit shows `KIT_LIMIT`. Claude checks it at 390 and 1440px in Chrome              |
+| 9.19 | **Combinations:** six curated system kits (`sound-plan.md` §7) and their default pans. The styles' default kits are re-pointed where one fits                                                                                                                                 | Seed tests: every piece referenced exists; **owner sign-off by ear on each kit**, recorded in `sound.md`                                                                                             |
+
+**9-vi — more sounds, synth rendered ahead, the machines:**
+
+| #    | Task                                                                                                                                                                                 | Done when                                                                                                                                                                                            |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 9.20 | **Round two of sources:** Frankensnare, CrocellKit, Salamander, SM Drums and the Open Source Drumkit (D37). Percussion: FreePats World Percussion, body_percussion claps, Dim Cabasa | As 9.10; the perc lanes play round-robins                                                                                                                                                            |
+| 9.21 | **Synth kits rendered ahead:** each voice at 5 velocities × 3 variations through `OfflineAudioContext` on kit pick, played by the sampler; a knob re-renders one voice, debounced    | Tests: a synth hit creates one source node; a knob change re-renders only that voice; the old render plays until the new one is ready. By hand: the five synth kits sound the same or better (owner) |
+| 9.22 | **The machines:** 808 and 909 voice models (`sound-plan.md` §8), rendered ahead; the `drift` engine wired to them; 606 and Linn-style kits from the same voices                      | The picker no longer shows "not ported yet"; `setKit` takes them; the owner A/B-listens to a reference                                                                                               |
+
+**Not in Phase 9:** cymbal chokes (grabs), crash 2 as a separate lane
+rather than a value, and rolls longer than one step. See `sound-plan.md` §10.
+
 ---
 
 ## 5. Ergonomic review — method and first findings
@@ -2606,6 +2705,17 @@ already cascade and already export.
 | D32 | Sharing a session with patterns others can't see | **Not allowed.** A session can be shared only when every pattern in it is published, link-shared or a famous break; the dialog says which to share first.                                                                                                                                             |
 | —   | How Phase 7D ships                               | **Four PRs** (decided 2026-10-01): 7D-i the sums and the data (7D.1–7D.4), 7D-ii building one (7D.5–7D.7), 7D-iii running one (7D.8–7D.10), 7D-iv sharing one (7D.11–7D.13).                                                                                                                          |
 | —   | How Phase 8 ships                                | **Five PRs, with Phase 5's unbuilt 5-iii and 5-iv after the first** (decided 2026-10-02): 8-i closing the gaps (8.1–8.5), 5-iii, 5-iv, 8-ii first run and help (8.6–8.7), 8-iii analytics and the policies (8.8–8.9), 8-iv the journeys (8.10–8.13), 8-v production (8.14–8.18). Resized from M to L. |
+
+### Decided — 2026-10-03
+
+| #   | Decision                             | Outcome                                                                                                                                                                                                                                                                                          |
+| --- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| D36 | Where Phase 9 goes                   | **Now, before 8-iv and 8-v:** 9-i engine, 9-ii humanise, 9-iii pipeline, 9-iv new notation. 9-v (pieces, building your own) and 9-vi (more sources, synth rendered ahead, machines) come after launch.                                                                                           |
+| D37 | SM Drums and the Open Source Drumkit | **Use both.** Each is an explicit grant from its makers but not a standard licence. The permission posts are kept in `public/kits/LICENSES/` and the authors credited; either drops out cleanly as a piece if D7's reviewer objects.                                                             |
+| D38 | Humanise                             | **A setting of yours** (`prefs.sound`, synced), **default Subtle**, Off one tap away. Not stored in the pattern, so a shared pattern plays with the listener's setting.                                                                                                                          |
+| D39 | The mixer fader and timbre           | **The fader is level only** (9.2). A mix set low sounds quieter rather than softer-played.                                                                                                                                                                                                       |
+| D40 | New articulations in the pattern     | **In Phase 9, as 9-iv:** rimshot, flam, drag and buzz on the snare; half-open hat; crash 2, china and splash on the crash lane; tom flams. Wire version 5. Cymbal grabs, a separate second crash lane and multi-step rolls stay out.                                                             |
+| D41 | Where the kit audio lives            | **In the repo under `public/kits` for now**, within 45 MB, served with immutable caching. **It moves to an S3-compatible bucket (R2, per D35) later**; `PackSource` builds every URL from one `BASE`, so the move is that base as an env setting, an upload, and the bucket's origin in the CSP. |
 
 ### Still open
 
