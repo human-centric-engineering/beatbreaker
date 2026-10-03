@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { readStudioDrawer } from '@/components/app/shell/studio-address';
 import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
 import { StudioFrame } from '@/components/app/shell/studio-frame';
+import { StudioTour } from '@/components/app/shell/studio-tour';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { listHistory } from '@/lib/app/breaks/saved/history';
@@ -123,6 +124,7 @@ export default async function StudioPage({
       session={practice}
     >
       <StudioFrame />
+      <StudioTour />
     </StudioProvider>
   );
 }

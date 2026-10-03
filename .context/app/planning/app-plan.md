@@ -2168,6 +2168,35 @@ second**, each cut from main once the one before has merged:
 | 8.6 | The tour: three steps anchored to Play, the layer control and the tool rail, with Next, Skip and `Esc`, focus held in the step, shown once (`bb.tourSeen`), and _Show the tour again_ on `/help`                      | Component tests: a first visit shows step 1; Skip or finishing never shows it again; focus returns to where it was; on a phone the steps anchor to the mobile transport and rail |
 | 8.7 | `/help` (public): shortcuts from `shortcuts.ts`, one line per drawer, the iPhone silent-switch note, and the contact route for corrections to the famous breaks (D10); linked from the footer, the sheet and the tour | Page test: every binding in the table is listed; the sheet and `/help` can't drift (both read the one table)                                                                     |
 
+**8-ii reconciled and built, 2026-10-03 (branch `phase-8-ii`).** It stays as
+written, with these calls:
+
+- **The tour is mounted by the Studio pages, beside `StudioFrame`, not
+  inside it.** Fourteen test files mount the frame from a clean browser,
+  and every one of them would have met the tour.
+- **Anchors are selectors, one per width.** Play is the header transport's
+  Play when wide and the footer's when narrow. The tools are the rail when
+  wide and the header's Tools button when narrow. The layers are the stage's
+  _Difficulty layer_ group at both widths. With a control missing, the
+  tour doesn't open.
+- **`bb.tourSeen` is read directly, not through `useStoredSetting`,** whose
+  first value is the fallback. Storage that can't be read counts as seen, so
+  a browser that can't remember never shows the tour on every visit.
+- **The drawers' titles moved to `drawer-guide.ts`**, a plain module, so the
+  server page and the drawer read the same titles. `/help` lists them by
+  their drawer titles (_Share & export_), not the rail's short labels.
+- **The sheet and `/help` draw one `ShortcutsTable`.**
+- **Help is in the public footer** with the platform's three links. The
+  Studio's own footer keeps _Shortcuts ?_, and the sheet links to `/help`.
+- **Found building it:** focusing Next from a passive effect didn't stick.
+  It landed inside the Studio's next commit, and React put focus back where
+  that commit found it. It focuses in a layout effect now. The unpositioned
+  card is see-through rather than `visibility: hidden`, so it can take focus.
+- **Not unit-tested:** that focus goes back to where it was. happy-dom
+  reports `<body>` as focused while the Studio first draws. It is on the
+  owner's browser checklist, with the tour's placement at 390 and 1440px.
+  Claude in Chrome wasn't connected in this session.
+
 **8-iii — analytics and the policies:**
 
 | #   | Task                                                                                                                                                                                                                                                          | Done when                                                                                                                                                     |

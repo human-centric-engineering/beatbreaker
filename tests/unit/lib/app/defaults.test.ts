@@ -229,10 +229,11 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     seam: 'lib/app/public-nav.ts',
     risk: 'a stray non-null list would silently REPLACE the marketing nav',
     // FORK (BeatBreaker): re-pointed, not deleted. Phase 6 adds Explore, the
-    // community library, to the header; the footer keeps the platform's.
+    // community library, to the header. Phase 8 (8.7) adds Help to the
+    // footer, with the platform's three.
     assert: () => {
       expect(publicNavItems?.map((i) => i.href)).toEqual(['/', '/explore', '/about', '/contact']);
-      expect(footerNavItems).toBeNull();
+      expect(footerNavItems?.map((i) => i.href)).toEqual(['/', '/about', '/help', '/contact']);
       expect(footerLegalItems).toBeNull();
     },
   },

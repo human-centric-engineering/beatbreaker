@@ -4,6 +4,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { X } from 'lucide-react';
 import { type PointerEvent as ReactPointerEvent, useEffect, useRef, useState } from 'react';
 
+import { DRAWERS } from '@/components/app/shell/drawer-guide';
 import { TOOLS, type Tool } from '@/components/app/shell/tool-rail';
 
 /**
@@ -24,16 +25,6 @@ import { TOOLS, type Tool } from '@/components/app/shell/tool-rail';
 /** Sheet snap points, as fractions of the viewport height. */
 const SNAPS = [0.55, 0.92] as const;
 const SHEET_MAX = SNAPS[SNAPS.length - 1];
-
-const TITLES: Record<Tool, string> = {
-  gen: 'Generate',
-  doctor: 'Edit',
-  patterns: 'Patterns',
-  kit: 'Sound',
-  practice: 'Practise',
-  export: 'Share & export',
-  buddy: 'BeatBuddy',
-};
 
 export function ToolDrawer({
   tool,
@@ -97,7 +88,7 @@ export function ToolDrawer({
 function Head({ tool, onClose }: { tool: Tool | null; onClose: () => void }) {
   return (
     <div className="studio-drawer-hd">
-      <Dialog.Title className="studio-drawer-title">{tool ? TITLES[tool] : ''}</Dialog.Title>
+      <Dialog.Title className="studio-drawer-title">{tool ? DRAWERS[tool].title : ''}</Dialog.Title>
       <button type="button" className="studio-close" onClick={onClose} aria-label="Close">
         <X size={16} />
       </button>

@@ -48,6 +48,10 @@ browser only carries a fragment across to a target that has none of its own.
 | `studio-frame.tsx`     | Puts it together; owns which tool is open and the key handler        |
 | `shortcuts.ts`         | Every keyboard shortcut, in one table the handler and `?` sheet read |
 | `shortcuts-sheet.tsx`  | The `?` sheet                                                        |
+| `shortcuts-table.tsx`  | The shortcuts as a table, drawn by the sheet and by `/help`          |
+| `drawer-guide.ts`      | Each drawer's title and its one line on `/help`                      |
+| `studio-tour.tsx`      | The first-run tour; mounted by the Studio pages beside the frame     |
+| `use-wide.ts`          | The 1024px media query, for the frame and the tour                   |
 | `studio-header.tsx`    | Mark, pattern name, transport, tools menu, `HeaderActions`           |
 | `studio-footer.tsx`    | Read-out and lamps wide; the whole transport on a phone              |
 | `studio-transport.tsx` | Both transports and the lamps                                        |
@@ -122,6 +126,29 @@ provider as `settings`; what stays in the browser is read through
 `useStoredSetting` and listed in `lib/app/breaks/browser-keys.ts`. Where each
 value lives, and why, is in [`settings.md`](./settings.md). A new control that
 remembers something starts there.
+
+## First run and help
+
+The tour (`studio-tour.tsx`, task 8.6) opens once per browser, the first time
+the Studio has a break on it, and points at Play, the layer control and the
+tools. Each step finds its control by a selector, one per width, because the
+transport and the tools are drawn in different places on a phone. If a
+control is missing, the tour does not open. It is remembered as `bb.tourSeen`
+(`lib/app/breaks/tour-seen.ts`). That is read directly, not through
+`useStoredSetting`, whose first value is always the fallback. The Studio
+pages mount it beside `StudioFrame`, not inside it, so the frame's own tests
+start without a tour in the way. While it is up, the frame's key handler
+ignores keys (`[data-studio-tour]`).
+
+It focuses Next in a layout effect. A focus made from a passive effect landed
+inside the Studio's next commit, and React put focus back where that commit
+found it.
+
+`/help` (`app/(public)/help/page.tsx`, task 8.7) is public. It draws the
+shortcuts with the same `ShortcutsTable` as the `?` sheet, and the drawers
+from `drawer-guide.ts`, which the drawer's title also reads. A new key or a
+renamed drawer reaches the page with no edit there. The public footer, the
+sheet and the tour's last step link to it.
 
 ## Opening on a drawer
 

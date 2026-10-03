@@ -18,6 +18,14 @@ release process.
 
 ### Added
 
+- **First run and help (BeatBreaker Phase 8-ii).** A three-step tour of the
+  Studio (Play, the layers, the tools), shown once per browser and remembered
+  as `bb.tourSeen` (`TOUR_SEEN` in `lib/app/breaks/browser-keys.ts`). A public
+  `/help` page lists the shortcuts from the table the key handler reads, one
+  line per drawer (`components/app/shell/drawer-guide.ts`), the iPhone
+  silent-switch note and the corrections route for the famous breaks. It is
+  linked from the public footer, the `?` sheet and the tour.
+
 - **The grid and the inventory (BeatBreaker Phase 5-iv).** Grid cells are 24px
   with a fine pointer and 32px with a coarse one, times a Grid zoom kept as
   `bb.gridSize` (`GRID_SIZE` in `lib/app/breaks/browser-keys.ts`). A tap sets

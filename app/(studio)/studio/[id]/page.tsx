@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
 import { StudioFrame } from '@/components/app/shell/studio-frame';
+import { StudioTour } from '@/components/app/shell/studio-tour';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
 import { lineageOf } from '@/lib/app/breaks/community/sharing';
@@ -81,6 +82,7 @@ export default async function StudioPatternPage({ params }: { params: Promise<{ 
       }}
     >
       <StudioFrame />
+      <StudioTour />
     </StudioProvider>
   );
 }

@@ -42,7 +42,14 @@ export const publicNavItems: PublicNavItem[] | null = [
 ];
 
 /** Footer link cluster. `null` = platform default; a non-null array replaces it. */
-export const footerNavItems: PublicNavItem[] | null = null;
+/* The platform's three, plus Help (task 8.7) — read before signing up, so it
+   sits with About rather than in the app. */
+export const footerNavItems: PublicNavItem[] | null = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/help', label: 'Help' },
+  { href: '/contact', label: 'Contact' },
+];
 
 /** Footer legal cluster. `null` = platform default; a non-null array replaces it.
  * The Cookie Preferences control renders regardless. */
