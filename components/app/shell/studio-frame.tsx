@@ -9,6 +9,7 @@ import { SessionBar } from '@/components/app/practice/session-bar';
 import { StudioHeader } from '@/components/app/shell/studio-header';
 import { ToolDrawer } from '@/components/app/shell/tool-drawer';
 import { ToolRail, type Tool } from '@/components/app/shell/tool-rail';
+import { useWide } from '@/components/app/shell/use-wide';
 import { BuddyPanel } from '@/components/app/buddy/buddy-panel';
 import { useBuddyChat } from '@/components/app/buddy/use-buddy-chat';
 import { DoctorPanel } from '@/components/app/studio/panels/doctor-panel';
@@ -47,28 +48,6 @@ const PANELS: Record<
   practice: PracticePanel,
   export: ExportPanel,
 };
-
-/** Matches the 1024px breakpoint in studio.css — a drawer above it, a sheet below. */
-const WIDE = '(min-width: 1024px)';
-
-function useWide(): { wide: boolean; measured: boolean } {
-  /* Starts true so the server and the first client render agree; the CSS has
-     already laid the frame out for the real width either way, so this only ever
-     decides which of the two components mounts once a tool is opened.
-     `measured` says the media query has been read — until then `wide` is a
-     guess, and a drawer opened on it would be the wrong component on a phone. */
-  const [wide, setWide] = useState(true);
-  const [measured, setMeasured] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia(WIDE);
-    const on = () => setWide(mq.matches);
-    on();
-    setMeasured(true);
-    mq.addEventListener('change', on);
-    return () => mq.removeEventListener('change', on);
-  }, []);
-  return { wide, measured };
-}
 
 export function StudioFrame() {
   const c = useStudio();
@@ -139,13 +118,13 @@ export function StudioFrame() {
          letter the moment you paste a break code. */
       if (el?.closest('input, textarea, select, [contenteditable="true"]')) return;
 
-      /* Nothing reaches the Studio behind a modal — the shortcuts sheet or the
-         unsaved-changes prompt — or from inside an ⓘ popover, where you are
-         reading, not playing. The drawers are dialogs too, but non-modal, and
-         the keys are meant to work while one is open. */
+      /* Nothing reaches the Studio behind a modal — the shortcuts sheet, the
+         unsaved-changes prompt or the first-run tour — or from inside an ⓘ
+         popover, where you are reading, not playing. The drawers are dialogs
+         too, but non-modal, and the keys are meant to work while one is open. */
       if (
         sheetOpen.current ||
-        document.querySelector('[role="alertdialog"]') ||
+        document.querySelector('[role="alertdialog"], [data-studio-tour]') ||
         el?.closest('[data-radix-popper-content-wrapper]')
       ) {
         return;

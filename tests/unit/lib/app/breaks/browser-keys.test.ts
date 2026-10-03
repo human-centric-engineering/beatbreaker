@@ -77,6 +77,7 @@ describe('the browser keys', () => {
       'bb.pendingLink',
       'bb.scratch',
       'bb.size',
+      'bb.tourSeen',
       'bb.view',
     ]);
   });

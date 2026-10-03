@@ -11,6 +11,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/lib/auth/utils', () => ({ getServerSession: vi.fn() }));
 vi.mock('@/components/app/shell/studio-frame', () => ({ StudioFrame: () => null }));
+vi.mock('@/components/app/shell/studio-tour', () => ({ StudioTour: () => null }));
 /* The catalogue is three database queries. Mocked because this file is about
    the gate and the nesting, not about what is in the catalogue — but mocked at
    the data layer rather than at Prisma, so the page's own call still has to be
@@ -48,6 +49,7 @@ vi.mock('next/navigation', () => ({
 import StudioPatternPage from '@/app/(studio)/studio/[id]/page';
 import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
 import { StudioFrame } from '@/components/app/shell/studio-frame';
+import { StudioTour } from '@/components/app/shell/studio-tour';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { getServerSession } from '@/lib/auth/utils';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
@@ -138,7 +140,11 @@ describe('/studio/[id]', () => {
     const el = await StudioPatternPage({ params: Promise.resolve({ id: ID }) });
 
     expect(el.type).toBe(StudioProvider);
-    expect(el.props.children.type).toBe(StudioFrame);
+    // the frame, then the first-run tour beside it (8.6), which reads the same provider
+    expect(el.props.children.map((c: { type: unknown }) => c.type)).toEqual([
+      StudioFrame,
+      StudioTour,
+    ]);
     /* The catalogue is loaded here, server-side, and handed down — not fetched
        by the client. The provider has no fallback, so a page that forgot this
        would render nothing at all; asserting identity is what says the page is

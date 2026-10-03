@@ -244,6 +244,19 @@ The suggestions are starter prompts, such as _Write me a new funk groove_,
 _Make this a bossa nova_, _Tidy this up_, _Take the ghost notes out of bar 2_
 and _Why is this hard to play?_.
 
+## The first-run tour
+
+Shown once per browser, the first time the Studio has a break on it
+(`studio-tour.tsx`, task 8.6). Three steps: Play, the layers, the tools.
+Escape is Skip. `/help` has _Show the tour again_.
+
+| role   | name           | where                            | help                       | shortcut | target     |
+| ------ | -------------- | -------------------------------- | -------------------------- | -------- | ---------- |
+| button | `Next`         | tour card, when the tour is up   | the step's own line        | —        | about 30px |
+| button | `Done`         | tour card, when on its last step | —                          | —        | about 30px |
+| button | `Skip`         | tour card, when the tour is up   | —                          | Escape   | about 30px |
+| link   | `More in Help` | tour card, when on its last step | opens `/help` in a new tab | —        | about 30px |
+
 ## The owner's browser checklist
 
 These are not tested here. Claude can look at widths and light/dark with Claude
@@ -266,6 +279,17 @@ And the ones 5-iii and 5-iv add:
 - [ ] Delete, then Undo, on a phone: the row comes back and nothing was sent.
 - [ ] Solo a lane while playing: only it sounds; Mute on it silences it.
 - [ ] Roll, N, N, then Back twice: the first roll, with its tempo and layer.
+
+And the ones 8-ii adds:
+
+- [ ] The tour on a first visit (clear `bb.tourSeen`), at 390 and 1440px:
+      each card sits beside its control without covering it, and the ring
+      is round the control.
+- [ ] Focus is on Next when the tour opens, stays in the card on Tab, and
+      goes back to where it was when the tour closes. (A unit test can't
+      show this: happy-dom loses track of focus while the Studio first
+      draws.)
+- [ ] VoiceOver reads the tour card's step title and line.
 
 The five tasks in `planning/app-plan.md` §5 (Method) are the walk to do once
 these are ticked.

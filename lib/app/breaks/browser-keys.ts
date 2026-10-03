@@ -62,6 +62,18 @@ export const PATTERNS_TAB: StoredSetting<(typeof PATTERNS_TABS)[number] | null> 
 };
 
 /**
+ * The first-run tour (task 8.6) has been seen, or skipped, in this browser. A
+ * new device shows it again, which is fine: it is three steps, and it does not
+ * earn a column. Read once when the Studio is up, not through the hook, whose
+ * first value is the fallback (`lib/app/breaks/tour-seen.ts`).
+ */
+export const TOUR_SEEN: StoredSetting<boolean> = {
+  key: 'bb.tourSeen',
+  schema: z.boolean(),
+  fallback: false,
+};
+
+/**
  * The two short-lived hand-offs. Each is read once, by its own module
  * (`scratch.ts`, `pending-link.ts`), not through the hook; they are listed here
  * so the whole of what the browser holds is in one place.
@@ -85,6 +97,7 @@ export const BROWSER_KEYS = [
   GRID_SIZE.key,
   VIEW.key,
   PATTERNS_TAB.key,
+  TOUR_SEEN.key,
   SCRATCH.key,
   PENDING_LINK.key,
 ] as const;
