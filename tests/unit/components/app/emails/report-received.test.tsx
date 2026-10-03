@@ -20,23 +20,24 @@ const props = {
   queueUrl: 'https://beatbreaker.app/admin/patterns',
 };
 
-/** The rendered text, without React's `<!-- -->` separators between text segments. */
-async function text(element: React.ReactElement): Promise<string> {
-  return (await render(element)).replace(/<!--\s*-->/g, '');
+/** The rendered email as a document, so its text reads without React's `<!-- -->` separators. */
+async function rendered(element: React.ReactElement): Promise<Document> {
+  return new DOMParser().parseFromString(await render(element), 'text/html');
 }
 
 describe('ReportReceivedEmail', () => {
   it('names the kind of thing, which one and why, and links to the queue', async () => {
-    const html = await text(<ReportReceivedEmail {...props} />);
-    expect(html).toContain('A pattern was reported');
-    expect(html).toContain('Cold Sweat');
-    expect(html).toContain('reported as: spam');
-    expect(html).toContain('href="https://beatbreaker.app/admin/patterns"');
+    const doc = await rendered(<ReportReceivedEmail {...props} />);
+    const text = doc.body.textContent;
+    expect(text).toContain('A pattern was reported');
+    expect(text).toContain('Cold Sweat');
+    expect(text).toContain('reported as: spam');
+    expect(doc.querySelector('a[href="https://beatbreaker.app/admin/patterns"]')).not.toBeNull();
   });
 
   it('says further reports within the hour send nothing, and names no reporter', async () => {
-    const html = await text(<ReportReceivedEmail {...props} kind="speed" />);
-    expect(html).toMatch(/same speed within the hour won(&#x27;|')t send/);
-    expect(html).not.toMatch(/reported by|reporter/i);
+    const text = (await rendered(<ReportReceivedEmail {...props} kind="speed" />)).body.textContent;
+    expect(text).toMatch(/same speed within the hour won['’]t send/);
+    expect(text).not.toMatch(/reported by|reporter/i);
   });
 });
