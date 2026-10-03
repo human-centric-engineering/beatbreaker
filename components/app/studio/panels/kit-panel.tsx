@@ -118,6 +118,28 @@ export function KitPanel() {
             hint="Roll this off to get the dusty, sampled-off-vinyl sound."
           />
 
+          <div className="field">
+            <span className="fieldlab">
+              Heard from{' '}
+              <StudioHelp title="Heard from">
+                Where the drums sit left to right. <b>The stool</b> is the kit as you hear it
+                sitting at it: hi-hat and crash on your left, ride and floor tom on your right.{' '}
+                <b>Out front</b> mirrors it, the way most records are mixed. The spread is narrow
+                either way, and it is the same for every kit.
+              </StudioHelp>
+            </span>
+            <Segmented
+              label="Heard from"
+              small
+              options={[
+                { value: 'drummer', face: 'The stool' },
+                { value: 'audience', face: 'Out front' },
+              ]}
+              value={c.panView}
+              onChange={c.setPanView}
+            />
+          </div>
+
           <div className="btnrow">
             <button
               type="button"

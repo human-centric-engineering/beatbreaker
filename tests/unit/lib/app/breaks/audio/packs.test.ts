@@ -19,7 +19,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { BreakAudio } from '@/lib/app/breaks/audio/engine';
-import { onsetOf, PackSource } from '@/lib/app/breaks/audio/packs';
+import { layerFor, onsetOf, PackSource, pickTake } from '@/lib/app/breaks/audio/packs';
+import { makeRng } from '@/lib/app/breaks/rng';
 import type { KitSamples, ResolvedKit } from '@/lib/app/breaks/kit';
 import { testKit } from '@/tests/helpers/catalogue';
 import { FakeAudioBuffer, FakeAudioContext } from '@/tests/helpers/fake-audio-context';
@@ -44,6 +45,10 @@ beforeEach(() => {
   ctx = new DecodingContext();
   engine = new BreakAudio();
   engine.ctx = ctx as unknown as AudioContext;
+  /* The sampler draws its round-robin choice and its per-hit pitch and level
+     wobble from the engine's seeded stream, not Math.random (Phase 9). Held at
+     its midpoint, every wobble is exactly 1. */
+  engine.rand = () => 0.5;
   fetchMock = vi.fn(async () => ({ arrayBuffer: async () => new ArrayBuffer(8) }));
   vi.stubGlobal('fetch', fetchMock);
   // every jitter formula in the engine is `1 + (Math.random() - 0.5) * k`,
@@ -436,5 +441,162 @@ describe('percHit()', () => {
     expect(second[2]).toBeCloseTo(0.4, 9); // 0.8 * 0.5
     expect(second[4]).toBeCloseTo(1.2, 9); // 1.2 * jitter(1)
     expect(second[6]).toBeCloseTo(4.5, 9); // (1.5 - 1) * 9
+  });
+});
+
+/* ---------------------------------------------------------------------- */
+/* Phase 9: round-robins, the layer choice, the shelf, the wobble          */
+/* ---------------------------------------------------------------------- */
+
+describe('pickTake()', () => {
+  it('never plays the same take twice running when there is another', () => {
+    const rand = makeRng(7);
+    let last: number | undefined;
+    for (let n = 0; n < 200; n++) {
+      const i = pickTake(3, last, rand);
+      expect(i).not.toBe(last);
+      expect(i).toBeGreaterThanOrEqual(0);
+      expect(i).toBeLessThan(3);
+      last = i;
+    }
+  });
+
+  it('alternates strictly between two takes', () => {
+    const rand = makeRng(3);
+    const seq = [pickTake(2, 0, rand), pickTake(2, 1, rand), pickTake(2, 0, rand)];
+    expect(seq).toEqual([1, 0, 1]);
+  });
+
+  it('reaches every take of a layer, not just two of them', () => {
+    const rand = makeRng(11);
+    const seen = new Set<number>();
+    let last: number | undefined;
+    for (let n = 0; n < 60; n++) seen.add((last = pickTake(4, last, rand)));
+    expect(seen).toEqual(new Set([0, 1, 2, 3]));
+  });
+
+  it('plays the only take of a one-take layer every time', () => {
+    expect(pickTake(1, 0, () => 0.99)).toBe(0);
+  });
+});
+
+describe('layerFor()', () => {
+  const layers = [0.3, 0.6, 1].map((v) => ({ v, takes: [] }));
+
+  it('takes the softest layer at least as loud as the note', () => {
+    expect(layerFor(layers, 0.2).v).toBe(0.3);
+    expect(layerFor(layers, 0.3).v).toBe(0.3);
+    expect(layerFor(layers, 0.31).v).toBe(0.6);
+  });
+
+  it('takes the loudest when the note is louder than any layer', () => {
+    expect(layerFor([{ v: 0.5, takes: [] }], 0.9).v).toBe(0.5);
+  });
+});
+
+describe('hit() with round-robins', () => {
+  /** A context whose every decode is a buffer of its own, so takes can be told apart. */
+  function distinctBuffers(): void {
+    ctx.decodeAudioData.mockImplementation(
+      async () => new FakeAudioBuffer(1, 4410, 44100) as unknown as AudioBuffer
+    );
+  }
+
+  it('loads every take of every layer, and a run of sixteenths never repeats one back to back', async () => {
+    distinctBuffers();
+    engine.rand = makeRng(99);
+    const slots = {
+      h: { layers: [{ v: 1, files: ['h-a.m4a', 'h-b.m4a', 'h-c.m4a'] }] },
+    };
+    engine.kit = packKit({ slots });
+    const source = new PackSource();
+    await source.load(engine, 'muldjord', slots);
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+
+    const playBuf = vi.spyOn(engine, 'playBuf');
+    for (let i = 0; i < 16; i++) expect(source.hit(engine, i * 0.1, 'h', 0.86)).toBe(true);
+    const bufs = playBuf.mock.calls.map((c) => c[1]);
+    for (let i = 1; i < bufs.length; i++) expect(bufs[i]).not.toBe(bufs[i - 1]);
+    expect(new Set(bufs).size).toBe(3);
+  });
+
+  it('plays a slot in the old one-file-per-layer shape exactly as before', async () => {
+    distinctBuffers();
+    const slots = { s: { v: [0.3, 1], files: ['s-0.mp3', 's-1.mp3'] } };
+    engine.kit = packKit({ slots });
+    const source = new PackSource();
+    await source.load(engine, 'muldjord', slots);
+    const playBuf = vi.spyOn(engine, 'playBuf');
+
+    source.hit(engine, 0, 's', 0.25);
+    source.hit(engine, 0.1, 's', 0.25);
+    source.hit(engine, 0.2, 's', 0.9);
+    const [soft1, soft2, loud] = playBuf.mock.calls.map((c) => c[1]);
+    expect(soft1).toBe(soft2); // one take: the same recording every time, as it always was
+    expect(loud).not.toBe(soft1);
+    expect(fetchMock.mock.calls.map((c) => c[0])).toEqual([
+      '/kits/muldjord/s-0.mp3',
+      '/kits/muldjord/s-1.mp3',
+    ]);
+  });
+
+  it('drops a take that will not decode and keeps the rest of its layer', async () => {
+    let n = 0;
+    ctx.decodeAudioData.mockImplementation(async () => {
+      if (n++ === 0) throw new Error('bad file');
+      return new FakeAudioBuffer(1, 4410, 44100) as unknown as AudioBuffer;
+    });
+    const slots = { k: { layers: [{ v: 1, files: ['bad.m4a', 'good.m4a'] }] } };
+    engine.kit = packKit({ slots });
+    const source = new PackSource();
+    await source.load(engine, 'muldjord', slots);
+    expect(source.count('muldjord')).toBe(1);
+    expect(source.hit(engine, 0, 'k', 1)).toBe(true);
+  });
+
+  it('darkens a note played under its layer when the slot has fewer than four layers', async () => {
+    const slots = { s: { v: [1], files: ['s.mp3'] } };
+    engine.kit = packKit({ slots });
+    const source = new PackSource();
+    await source.load(engine, 'muldjord', slots);
+    const playBuf = vi.spyOn(engine, 'playBuf');
+
+    source.hit(engine, 0, 's', 0.5); // half the layer's level: −6 dB, so a −3 dB shelf
+    expect(playBuf.mock.calls[0][6]).toBeCloseTo(10 * Math.log10(0.5), 9);
+    source.hit(engine, 0.1, 's', 1); // at the layer's own level: no shelf
+    expect(playBuf.mock.calls[1][6]).toBeUndefined();
+    source.hit(engine, 0.2, 's', 0.1); // far under: the shelf stops at −6 dB
+    expect(playBuf.mock.calls[2][6]).toBe(-6);
+  });
+
+  it('leaves the top end alone on a slot with four layers or more', async () => {
+    const slots = { s: { layers: [0.25, 0.5, 0.75, 1].map((v) => ({ v, files: [`s${v}.m4a`] })) } };
+    engine.kit = packKit({ slots });
+    const source = new PackSource();
+    await source.load(engine, 'muldjord', slots);
+    const playBuf = vi.spyOn(engine, 'playBuf');
+    source.hit(engine, 0, 's', 0.6);
+    expect(playBuf.mock.calls[0][6]).toBeUndefined();
+  });
+
+  it('varies each hit by no more than ±8 cents and ±0.5 dB', async () => {
+    const slots = { h: { v: [1], files: ['h.mp3'] } };
+    engine.kit = packKit({ slots }, { trim: 1 });
+    const source = new PackSource();
+    await source.load(engine, 'muldjord', slots);
+    const playBuf = vi.spyOn(engine, 'playBuf');
+    for (const edge of [0, 0.999999]) {
+      engine.rand = () => edge;
+      source.hit(engine, 0, 'h', 1);
+    }
+    const level = engine.kit.h.level ?? 1;
+    const rate = engine.kit.h.rate ?? 1;
+    for (const call of playBuf.mock.calls) {
+      const dB = 20 * Math.log10(call[2] / level);
+      const cents = 1200 * Math.log2((call[4] as number) / rate);
+      expect(Math.abs(dB)).toBeLessThanOrEqual(0.5 + 1e-6);
+      expect(Math.abs(cents)).toBeLessThanOrEqual(8 + 1e-3);
+      expect(Math.abs(cents)).toBeGreaterThan(7); // and does use the range
+    }
   });
 });

@@ -71,6 +71,9 @@ function fakeAudio() {
     crash: vi.fn(),
     tom: vi.fn(),
     perc: vi.fn(),
+    /* The lane channel: records the fader level each note played at, then
+       plays the voice, as the engine does. */
+    playIn: vi.fn((_lane: string, _level: number, _t: number, play: () => void) => play()),
   };
   // a structural fake of the engine's public surface — not external data
   return { audio, ctx, engine: audio as unknown as BreakAudio };

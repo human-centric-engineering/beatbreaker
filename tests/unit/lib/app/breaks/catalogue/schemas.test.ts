@@ -138,6 +138,38 @@ describe('kitParamsSchema', () => {
       kitSamplesSchema.safeParse({ slots: { k: { v: null, files: ['k-0.mp3'] } } }).success
     ).toBe(true);
   });
+
+  describe('a slot with round-robins (Phase 9)', () => {
+    const layered = (layers: unknown) => kitSamplesSchema.safeParse({ slots: { h: { layers } } });
+
+    it('takes velocity layers each holding several takes', () => {
+      expect(
+        layered([
+          { v: 0.4, files: ['h-0a.m4a', 'h-0b.m4a'] },
+          { v: 1, files: ['h-1a.m4a', 'h-1b.m4a', 'h-1c.m4a'] },
+        ]).success
+      ).toBe(true);
+    });
+
+    it('holds a take to the same plain file name as the flat shape', () => {
+      expect(layered([{ v: 1, files: ['../h.m4a'] }]).success).toBe(false);
+    });
+
+    it('refuses more than six takes in a layer, more than eight layers, or none', () => {
+      const files = (n: number) => Array.from({ length: n }, (_, i) => `h${i}.m4a`);
+      expect(layered([{ v: 1, files: files(6) }]).success).toBe(true);
+      expect(layered([{ v: 1, files: files(7) }]).success).toBe(false);
+      expect(layered(Array.from({ length: 9 }, () => ({ v: 1, files: ['h.m4a'] }))).success).toBe(
+        false
+      );
+      expect(layered([]).success).toBe(false);
+      expect(layered([{ v: 1, files: [] }]).success).toBe(false);
+    });
+
+    it('holds a layer’s velocity to 0–1', () => {
+      expect(layered([{ v: 1.2, files: ['h.m4a'] }]).success).toBe(false);
+    });
+  });
 });
 
 describe('libraryEntrySchema', () => {

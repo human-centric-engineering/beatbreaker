@@ -33,6 +33,14 @@ describe('DEFAULT_STUDIO_SETTINGS', () => {
   });
 });
 
+describe('panView (Phase 9)', () => {
+  it('starts from the stool, and takes only the two sides', () => {
+    expect(DEFAULT_STUDIO_SETTINGS.panView).toBe('drummer');
+    expect(STUDIO_SETTINGS_FIELDS.panView.safeParse('audience').success).toBe(true);
+    expect(STUDIO_SETTINGS_FIELDS.panView.safeParse('left').success).toBe(false);
+  });
+});
+
 describe('TUNING_RANGES', () => {
   it('spans every engine a mixable voice can run on', () => {
     // the snare: hertz on the synthesiser, 0–1 on a drum machine, speed on a sampled kit

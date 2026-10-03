@@ -89,6 +89,6 @@ describe('percussionSource', () => {
       a: withPerc('virtuosity', { tamb: { v: null, files: ['a.mp3'] } }),
       b: withPerc('muldjord', { tamb: { v: null, files: ['b.mp3'] } }),
     };
-    expect(percussionSource(kits)?.slots.tamb.files).toEqual(['a.mp3']);
+    expect(percussionSource(kits)?.slots.tamb).toEqual({ v: null, files: ['a.mp3'] });
   });
 });

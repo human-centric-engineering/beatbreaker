@@ -2,6 +2,7 @@ import type { Prisma } from '@prisma/client';
 
 import { APIError, ValidationError } from '@/lib/api/errors';
 import { kitParamsSchema, kitSamplesSchema } from '@/lib/app/breaks/catalogue/schemas';
+import { slotFiles } from '@/lib/app/breaks/kit';
 import {
   MAX_YOUR_KITS,
   YOUR_KIT_KEY_PREFIX,
@@ -53,7 +54,8 @@ function slotIds(samples: unknown): Record<string, string> {
   if (!parsed.success) return {};
   const out: Record<string, string> = {};
   for (const [slot, spec] of Object.entries(parsed.data.slots ?? {})) {
-    if (spec.files[0]) out[slot] = spec.files[0];
+    const first = slotFiles(spec)[0];
+    if (first) out[slot] = first;
   }
   return out;
 }

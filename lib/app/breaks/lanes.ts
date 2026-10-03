@@ -84,6 +84,38 @@ export const DEFAULT_MIX: Record<LaneKey, number> = {
   p2: 0.85,
 };
 
+/** Whose side the kit is heard from: sitting at it, or out front. */
+export const PAN_VIEWS = ['drummer', 'audience'] as const;
+export type PanView = (typeof PAN_VIEWS)[number];
+
+/**
+ * Where each lane sits, as a right-handed drummer hears the kit from the
+ * stool: −1 is hard left, 1 hard right. Hats and the crash on the left, the
+ * ride and the floor tom on the right, the toms stepping across in between.
+ *
+ * Deliberately narrow — nothing past ±0.4 — because the kit is one instrument
+ * and a practice tool, not a mix with a stereo picture to sell.
+ */
+export const DEFAULT_PAN: Record<LaneKey, number> = {
+  k: 0,
+  s: -0.08,
+  h: -0.3,
+  hf: -0.3,
+  r: 0.35,
+  c: -0.38,
+  t1: -0.15,
+  t2: 0.1,
+  t3: 0.32,
+  p1: 0.25,
+  p2: -0.25,
+};
+
+/** A lane's pan from the given side. An audience hears the kit mirrored. */
+export function panFor(lane: string, view: PanView): number {
+  const p = DEFAULT_PAN[lane as LaneKey] ?? 0;
+  return view === 'audience' ? -p : p;
+}
+
 /**
  * Every value each lane can hold, in the order clicking a cell gets you there.
  *

@@ -110,6 +110,23 @@ describe('KitPanel', () => {
     expect(kitCard().getByText('9.0k')).toBeTruthy();
   });
 
+  it('hears the kit from the stool until you pick out front, and remembers the choice (Phase 9)', async () => {
+    const user = userEvent.setup();
+    renderPanel();
+    const side = within(kitCard().getByRole('radiogroup', { name: 'Heard from' }));
+    expect(side.getByRole('radio', { name: 'The stool' }).getAttribute('aria-checked')).toBe(
+      'true'
+    );
+
+    await user.click(side.getByRole('radio', { name: 'Out front' }));
+    expect(side.getByRole('radio', { name: 'Out front' }).getAttribute('aria-checked')).toBe(
+      'true'
+    );
+    expect(side.getByRole('radio', { name: 'The stool' }).getAttribute('aria-checked')).toBe(
+      'false'
+    );
+  });
+
   it('says there is no Web Audio when auditioning the kit in a browser without it', async () => {
     const user = userEvent.setup();
     renderPanel();
@@ -152,15 +169,15 @@ describe('KitPanel', () => {
     // and committing a knob drag (pointer up) plays it back too
     fireEvent.pointerUp(voiceCard().getByLabelText('Size'));
 
-    // toms and percussion are synthesised on every kit, so they get the
+    // toms and percussion always show the synthesiser's knobs, so they get the
     // "aux" hint rather than the engine's own — even on a synthesised kit
     await user.click(seg.getByRole('radio', { name: 'Toms' }));
     expect(voiceCard().getByLabelText('Floor')).toBeTruthy();
-    expect(await voiceHelp()).toMatch(/Toms and percussion are synthesised on every kit/);
+    expect(await voiceHelp()).toMatch(/These knobs tune the synthesised toms and percussion/);
 
     await user.click(seg.getByRole('radio', { name: 'Perc' }));
     expect(voiceCard().getByLabelText('Pitch')).toBeTruthy();
-    expect(await voiceHelp()).toMatch(/Toms and percussion are synthesised on every kit/);
+    expect(await voiceHelp()).toMatch(/These knobs tune the synthesised toms and percussion/);
 
     // the snare's "Hear it" plays a ghost variant, with no second hit
     await user.click(seg.getByRole('radio', { name: 'Snare' }));

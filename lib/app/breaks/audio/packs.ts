@@ -1,5 +1,5 @@
 import type { BreakAudio, SampleSource } from '@/lib/app/breaks/audio/engine';
-import { type KitSampleSlot, SLOT_BY_ID } from '@/lib/app/breaks/kit';
+import { type KitSampleSlot, SLOT_BY_ID, slotLayers } from '@/lib/app/breaks/kit';
 import { clamp } from '@/lib/app/breaks/rng';
 
 /**
@@ -13,15 +13,61 @@ import { clamp } from '@/lib/app/breaks/rng';
  * Lanes with several velocity layers pick the sample recorded nearest how hard
  * the note is and use gain for the remainder — which is why a layer that fails
  * to decode is dropped rather than fatal. One layer short is still a kit.
+ *
+ * A layer can hold several round-robins: the same stroke recorded more than
+ * once (Phase 9). {@link pickTake} chooses among them so a run of sixteenths
+ * is not one sample played sixteen times.
  */
 
-/** One decoded sample, with the offset playback should start at. */
-interface Layer {
+/** One decoded recording, with the offset playback should start at. */
+export interface Take {
   buf: AudioBuffer;
-  /** The velocity this layer was recorded at, 0–1. */
-  v: number;
   /** Seconds of encoder padding to skip. See {@link onsetOf}. */
   off: number;
+}
+
+/** One velocity layer: its round-robins, at the velocity they were recorded at. */
+export interface Layer {
+  /** The velocity this layer was recorded at, 0–1. */
+  v: number;
+  takes: Take[];
+}
+
+/** A different stick, a hair off the same spot: up to this many cents either way. */
+const DETUNE_CENTS = 8;
+/** And up to this much louder or softer, in dB. */
+const WOBBLE_DB = 0.5;
+/**
+ * Below this many layers, a note between two of them is darkened as well as
+ * turned down. With three recordings a soft hit is the medium layer, quieter,
+ * and still as bright as the medium layer — which is not how a drum gets
+ * softer. A shelf on the top end makes up the difference.
+ */
+const SHELF_BELOW_LAYERS = 4;
+
+/**
+ * The layer recorded nearest a velocity: the softest one at least as loud, or
+ * the loudest there is.
+ */
+export function layerFor(layers: Layer[], vel: number): Layer {
+  for (const layer of layers) if (layer.v >= vel) return layer;
+  return layers[layers.length - 1];
+}
+
+/**
+ * Which round-robin plays: never the one that played last on this slot when
+ * there is another, and otherwise any of the rest, by the seeded stream.
+ *
+ * DrumGizmo's selection weighs closeness, diversity and chance; with velocity
+ * already chosen by {@link layerFor}, what is left is the last two. Avoiding
+ * only the most recent take is what removes the machine gun — with two takes
+ * that is strict alternation, with three or more it is still unpredictable.
+ */
+export function pickTake(count: number, last: number | undefined, rand: () => number): number {
+  if (count <= 1) return 0;
+  if (last === undefined || last < 0 || last >= count) return Math.floor(rand() * count);
+  const i = Math.floor(rand() * (count - 1));
+  return i >= last ? i + 1 : i;
 }
 
 /**
@@ -50,6 +96,8 @@ const BASE = '/kits';
 export class PackSource implements SampleSource {
   private readonly loaded = new Map<string, Record<string, Layer[]>>();
   private readonly loading = new Set<string>();
+  /** The take each slot (or percussion stroke) played last, so the next one differs. */
+  private readonly lastTake = new Map<string, number>();
 
   /** Recorded percussion, shared across every kit. */
   private perc: Record<string, Layer[]> = {};
@@ -75,6 +123,13 @@ export class PackSource implements SampleSource {
     return p ? Object.keys(p).filter((k) => p[k].length).length : 0;
   }
 
+  /** A take from `layer`, not the one this key played last. */
+  private take(engine: BreakAudio, key: string, layer: Layer): Take {
+    const i = pickTake(layer.takes.length, this.lastTake.get(key), engine.rand);
+    this.lastTake.set(key, i);
+    return layer.takes[i];
+  }
+
   refresh(engine: BreakAudio): void {
     const kit = engine.kit;
     if (kit?.engine === 'pack' && kit.pack) void this.load(engine, kit.pack, kit.samples.slots);
@@ -82,27 +137,26 @@ export class PackSource implements SampleSource {
     void this.loadPerc(engine);
   }
 
-  private async decode(
-    engine: BreakAudio,
-    pack: string,
-    files: string[],
-    vs: number[] | null
-  ): Promise<Layer[]> {
+  private async decode(engine: BreakAudio, pack: string, spec: KitSampleSlot): Promise<Layer[]> {
     const ctx = engine.ctx;
     if (!ctx) return [];
+    const one = async (file: string): Promise<Take | null> => {
+      try {
+        const res = await fetch(`${BASE}/${pack}/${file}`, { redirect: 'error' });
+        const buf = await ctx.decodeAudioData(await res.arrayBuffer());
+        return { buf, off: onsetOf(buf) };
+      } catch {
+        // a take that will not decode is one fewer take; a layer with none is one fewer layer
+        return null;
+      }
+    };
     const out = await Promise.all(
-      files.map(async (file, i): Promise<Layer | null> => {
-        try {
-          const res = await fetch(`${BASE}/${pack}/${file}`, { redirect: 'error' });
-          const buf = await ctx.decodeAudioData(await res.arrayBuffer());
-          return { buf, v: vs?.[i] ?? 1, off: onsetOf(buf) };
-        } catch {
-          // a layer that will not decode is just one fewer layer
-          return null;
-        }
+      slotLayers(spec).map(async (layer): Promise<Layer> => {
+        const takes = await Promise.all(layer.files.map(one));
+        return { v: layer.v, takes: takes.filter((x): x is Take => x !== null) };
       })
     );
-    return out.filter((x): x is Layer => x !== null);
+    return out.filter((layer) => layer.takes.length > 0);
   }
 
   /**
@@ -126,7 +180,7 @@ export class PackSource implements SampleSource {
       const slots: Record<string, Layer[]> = {};
       await Promise.all(
         Object.entries(slotSpecs).map(async ([slot, spec]) => {
-          slots[slot] = await this.decode(engine, pack, spec.files, spec.v);
+          slots[slot] = await this.decode(engine, pack, spec);
         })
       );
       this.loaded.set(pack, slots);
@@ -154,7 +208,7 @@ export class PackSource implements SampleSource {
     const out: Record<string, Layer[]> = {};
     await Promise.all(
       Object.entries(source.slots).map(async ([inst, spec]) => {
-        out[inst] = await this.decode(engine, source.pack, spec.files, spec.v);
+        out[inst] = await this.decode(engine, source.pack, spec);
       })
     );
     this.perc = out;
@@ -175,7 +229,8 @@ export class PackSource implements SampleSource {
     if (!this.usePercSamples) return false;
     const list = this.perc[inst];
     if (!list?.length) return false;
-    const rec = list[accent && list.length > 1 ? 1 : 0];
+    const stroke = accent && list.length > 1 ? 1 : 0;
+    const rec = this.take(engine, `perc:${inst}:${stroke}`, list[stroke]);
     const P = engine.P('p');
     const bright = P.tone ?? 1;
     engine.playBuf(
@@ -183,7 +238,7 @@ export class PackSource implements SampleSource {
       rec.buf,
       vel * (P.level ?? 1),
       'p',
-      (P.tune ?? 1) * (1 + (Math.random() - 0.5) * 0.012),
+      (P.tune ?? 1) * (1 + (engine.rand() - 0.5) * 0.012),
       rec.off,
       (bright - 1) * 9
     );
@@ -213,19 +268,21 @@ export class PackSource implements SampleSource {
     if (!list?.length) return false;
 
     // the layer recorded nearest this velocity, then gain for the difference
-    let pick = list[list.length - 1];
-    for (const layer of list) {
-      if (layer.v >= vel) {
-        pick = layer;
-        break;
-      }
-    }
+    const layer = layerFor(list, vel);
+    const take = this.take(engine, slotId, layer);
+    const under = clamp(vel / (layer.v || 1), 0.25, 1.8);
 
     const P = engine.sound?.[slot.voice] ?? kit[slot.voice as 'k'];
-    const gain = clamp(vel / (pick.v || 1), 0.25, 1.8) * (P.level ?? 1) * (kit.trim ?? 1) * soften;
-    const rate = (P.rate ?? 1) * (1 + (Math.random() - 0.5) * 0.008);
+    const wobble = 10 ** (((engine.rand() * 2 - 1) * WOBBLE_DB) / 20);
+    const gain = under * (P.level ?? 1) * (kit.trim ?? 1) * soften * wobble;
+    const rate = (P.rate ?? 1) * 2 ** (((engine.rand() * 2 - 1) * DETUNE_CENTS) / 1200);
+    // half a dB of darkness per dB the layer is turned down, to −6 dB at most
+    const shelf =
+      list.length < SHELF_BELOW_LAYERS && under < 1
+        ? Math.max(-6, 10 * Math.log10(under))
+        : undefined;
 
-    const played = engine.playBuf(t, pick.buf, gain, slot.voice, rate, pick.off);
+    const played = engine.playBuf(t, take.buf, gain, slot.voice, rate, take.off, shelf);
     if (slotId === 'hOpen') engine.noteHatTail(played);
     return true;
   }

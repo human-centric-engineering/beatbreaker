@@ -32,25 +32,27 @@ while the groove leans off it.
   tempo percentages, per-lane mutes for playing a limb yourself, and a mixer
   whose faders start where the style puts them.
 - **Kits** — four playback engines behind one path. Five synthesised kits (a
-  graph per hit, so every knob is live) and five recorded kits are playing; the
-  TR-808 / TR-909 voice models and your own one-shots are declared but not
-  wired up yet, and the kit picker says so rather than quietly substituting
-  something else.
+  graph per hit, so every knob is live), five recorded kits, and kits of your
+  own built from samples you upload. Recorded slots can carry round-robins, so
+  a run of sixteenths is not one sample repeated; every lane has its own
+  channel and pan, and the master has a ceiling. The TR-808 / TR-909 voice
+  models are declared but not wired up yet, and the kit picker says so rather
+  than quietly substituting something else.
 - **Export** — a break code and a share link that carry both sections, and GM
   drum-map MIDI with swing, feel and ghost velocities written into the tick
   positions.
 
 ## Tech Stack
 
-| Layer          | Technology                                           |
-| -------------- | ---------------------------------------------------- |
-| Framework      | Next.js 16 (App Router) + TypeScript                 |
-| Database       | PostgreSQL + Prisma 7                                |
-| Authentication | better-auth                                          |
-| Styling        | Tailwind CSS 4 + shadcn/ui                           |
-| Audio          | Web Audio API (`OfflineAudioContext` for baked kits) |
-| Validation     | Zod throughout                                       |
-| Deployment     | Docker-ready                                         |
+| Layer          | Technology                           |
+| -------------- | ------------------------------------ |
+| Framework      | Next.js 16 (App Router) + TypeScript |
+| Database       | PostgreSQL + Prisma 7                |
+| Authentication | better-auth                          |
+| Styling        | Tailwind CSS 4 + shadcn/ui           |
+| Audio          | Web Audio API                        |
+| Validation     | Zod throughout                       |
+| Deployment     | Docker-ready                         |
 
 Sunrise's AI agent orchestration layer comes along with the fork. BeatBreaker
 uses a model in three places only — turning a sentence into a grid patch, naming
@@ -135,15 +137,12 @@ are fetched from `upstream` and are not pushed to this repo's origin.
 The port is honest about its edges — a kit or a control that is not there says
 so, rather than falling through to something that sounds nearly right.
 
-- **TR-808 / TR-909 voice models** and **your own one-shots** — the two kit
-  engines still to wire up. Both are listed in the kit picker, disabled.
-- **Per-voice kit tuning** — the kit parameter tables and their knob definitions
-  are ported; the panel that exposes them is not, so kits play at their shipped
-  values.
-- **Web MIDI out**, **recording a take against the click**, **play-along
-  scoring from the mic**, and **PDF export**.
+- **TR-808 / TR-909 voice models** — the one kit engine still to wire up
+  (Phase 9). Both kits are listed in the kit picker, disabled.
+- **Recording a take against the click**, **play-along scoring from the mic**,
+  and **PDF export**.
 
-The first two of those last four are what turn it from a practice tool into a
+The first two of those are what turn it from a practice tool into a
 product: film yourself against the click, the take is stored with the break
 code, and the feed becomes drummers answering each other's breaks. The `Take`
 model is already in the schema for it.

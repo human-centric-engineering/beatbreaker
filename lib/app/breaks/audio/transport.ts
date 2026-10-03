@@ -281,8 +281,11 @@ export class Transport {
     const out = this.midi;
     for (const v of performStep(livePat, bar, i, snap)) {
       const when = Math.max(floor, t + dur * v.offset);
-      const gain = v.velocity * laneGain(snap, v.lane);
-      if (gain) this.voice(v, when, gain);
+      /* The fader is the lane channel's level, not part of the velocity
+         (D39): the voice plays what the pattern wrote, and the channel makes
+         it quieter. A silent lane skips the voice rather than playing it at 0. */
+      const level = laneGain(snap, v.lane);
+      if (level) this.audio.playIn(v.lane, level, when, () => this.voice(v, when, v.velocity));
       /* The port hears the same note at the same velocity as the kit, before
          the mixer: a muted lane (or one a solo silences) is a lane you are playing
          yourself, and the
@@ -302,29 +305,29 @@ export class Transport {
     });
   }
 
-  /** One performed note on the speakers, by the engine voice its lane plays. */
-  private voice(v: Voice, when: number, gain: number): void {
+  /** One performed note on the speakers, by the engine voice its lane plays, at its own velocity. */
+  private voice(v: Voice, when: number, vel: number): void {
     const a = this.audio;
     switch (v.lane) {
       case 'k':
-        return a.kick(when, gain);
+        return a.kick(when, vel);
       case 'hf':
-        return a.hat(when, gain, false, true);
+        return a.hat(when, vel, false, true);
       case 's':
-        return a.snare(when, gain, v.ghost, v.cross);
+        return a.snare(when, vel, v.ghost, v.cross);
       case 'h':
-        return a.hat(when, gain, v.open);
+        return a.hat(when, vel, v.open);
       case 'r':
-        return a.ride(when, gain, v.bell);
+        return a.ride(when, vel, v.bell);
       case 'c':
-        return a.crash(when, gain);
+        return a.crash(when, vel);
       case 't1':
       case 't2':
       case 't3':
-        return a.tom(when, gain, v.lane);
+        return a.tom(when, vel, v.lane);
       case 'p1':
       case 'p2':
-        return a.perc(when, gain, v.perc?.inst ?? '', v.perc?.accent, v.lane);
+        return a.perc(when, vel, v.perc?.inst ?? '', v.perc?.accent, v.lane);
     }
   }
 

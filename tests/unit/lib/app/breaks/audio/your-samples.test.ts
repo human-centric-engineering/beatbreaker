@@ -52,6 +52,8 @@ function kitWith(slots: Record<string, string>): ResolvedKit {
 
 function initEngine(kit: ResolvedKit | null): { audio: BreakAudio; ctx: DecodingContext } {
   const audio = new BreakAudio();
+  // the sampler's own seeded stream, held at its midpoint: no pitch or level wobble
+  audio.rand = () => 0.5;
   audio.setKit(kit, null);
   const ctx = audio.init() as unknown as DecodingContext;
   return { audio, ctx };
@@ -230,6 +232,34 @@ describe('hit()', () => {
     expect(voice).toBe('k');
     expect(rate).toBeCloseTo(kit.k.rate, 9);
     expect(gain).toBeCloseTo(0.8 * kit.k.level, 9);
+  });
+
+  it('starts at the attack, not at the silence a decoder put in front of it (Phase 9)', async () => {
+    const kit = kitWith({ k: KICK });
+    const { audio, ctx } = initEngine(kit);
+    ctx.decodeAudioData.mockImplementationOnce(async () => {
+      const buf = new FakeAudioBuffer(1, 4410, 44100);
+      buf.getChannelData(0)[882] = 1; // 20 ms of silence, then the hit
+      return buf as unknown as AudioBuffer;
+    });
+    const source = new YourSampleSource();
+    await source.load(audio, kit);
+    const playBuf = vi.spyOn(audio, 'playBuf');
+
+    source.hit(audio, 0, 'k', 1);
+    // the attack less the millisecond the packs keep in front of it
+    expect(playBuf.mock.calls[0][5]).toBeCloseTo(0.019, 6);
+  });
+
+  it('applies the kit’s trim, as the recorded kits do (Phase 9)', async () => {
+    const kit = { ...kitWith({ k: KICK }), trim: 0.5 };
+    const { audio } = initEngine(kit);
+    const source = new YourSampleSource();
+    await source.load(audio, kit);
+    const playBuf = vi.spyOn(audio, 'playBuf');
+
+    source.hit(audio, 0, 'k', 0.8);
+    expect(playBuf.mock.calls[0][2]).toBeCloseTo(0.8 * kit.k.level * 0.5, 9);
   });
 
   it('does not play once the engine has moved to a kit that is not yours', async () => {

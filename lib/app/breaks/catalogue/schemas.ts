@@ -187,23 +187,35 @@ export const kitParamsSchema = z.object({
   p: voiceParams,
 });
 
-/** One slot's recordings: the files, and the velocity each was recorded at. */
-const kitSampleSlot = z.object({
+/* A file name, not a path: the URL is built as `/kits/<pack>/<file>`, and a
+   `..` or a leading slash here would climb out of that folder. The kit rows
+   are seeded today and admin-written tomorrow, which is exactly when a path
+   traversal stops being hypothetical. */
+const sampleFile = z
+  .string()
+  .max(64)
+  .regex(/^[A-Za-z0-9._-]+$/, 'a sample is a plain file name');
+
+/** One slot's recordings, one file per layer: the files, and the velocity each was recorded at. */
+const kitSampleSlotFlat = z.object({
   v: z.array(z.number().min(0).max(1)).max(8).nullable(),
-  /* A file name, not a path: the URL is built as `/kits/<pack>/<file>`, and a
-     `..` or a leading slash here would climb out of that folder. The kit rows
-     are seeded today and admin-written tomorrow, which is exactly when a path
-     traversal stops being hypothetical. */
-  files: z
+  files: z.array(sampleFile).min(1).max(8),
+});
+
+/** One slot's recordings as velocity layers, each with its round-robins (Phase 9). */
+const kitSampleSlotLayered = z.object({
+  layers: z
     .array(
-      z
-        .string()
-        .max(64)
-        .regex(/^[A-Za-z0-9._-]+$/, 'a sample is a plain file name')
+      z.object({
+        v: z.number().min(0).max(1),
+        files: z.array(sampleFile).min(1).max(6),
+      })
     )
     .min(1)
     .max(8),
 });
+
+const kitSampleSlot = z.union([kitSampleSlotFlat, kitSampleSlotLayered]);
 
 export const kitSamplesSchema = z.object({
   sampleRate: z.number().int().min(8000).max(192000).optional(),

@@ -92,5 +92,5 @@ export const VOICE_HINTS: Record<string, string> = {
     'Cymbals are built from an inharmonic partial cluster plus a stick attack, not from filtered noise — Size shifts the whole cluster, Bright moves the filter it speaks through. An open hat is choked the moment the next hat lands, same as closing the pedal.',
   pack: 'A recording has no filter cutoff to offer, so what is left is how fast it plays back and how loud. Room is still per-lane, because the reverb send sits after every engine.',
   user: 'Your own recordings: speed, level and how much room they are sent to. Everything else was decided when the file was made.',
-  aux: 'Toms and percussion are synthesised on every kit — no pack ships tom samples and neither machine has a cowbell worth having — so these are hertz and seconds whichever engine the rest of the kit is running.',
+  aux: 'These knobs tune the synthesised toms and percussion, in hertz and seconds, whichever engine the rest of the kit runs. Where a kit has its own tom recordings (the jazz and brush kits), or the percussion is recorded, only Room acts on those; a lane with no recording plays the synthesised voice these knobs shape.',
 };
