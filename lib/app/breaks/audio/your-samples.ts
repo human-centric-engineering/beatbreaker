@@ -1,5 +1,6 @@
 import type { BreakAudio, SampleSource } from '@/lib/app/breaks/audio/engine';
-import { type ResolvedKit, SLOT_BY_ID } from '@/lib/app/breaks/kit';
+import { onsetOf, type Take } from '@/lib/app/breaks/audio/packs';
+import { type ResolvedKit, SLOT_BY_ID, slotFiles } from '@/lib/app/breaks/kit';
 import { sampleAudioUrl } from '@/lib/app/breaks/samples/limits';
 import { logger } from '@/lib/logging';
 
@@ -37,7 +38,7 @@ class HttpError extends Error {
  * sample would not load rather than that it is still loading.
  */
 export class YourSampleSource implements SampleSource {
-  private readonly buffers = new Map<string, AudioBuffer>();
+  private readonly buffers = new Map<string, Take>();
   private readonly loading = new Set<string>();
   /** Ids waiting out a retry delay, with how many retries they have had. */
   private readonly retrying = new Map<string, number>();
@@ -54,7 +55,7 @@ export class YourSampleSource implements SampleSource {
   private static ids(kit: ResolvedKit | null | undefined): Array<[string, string]> {
     if (kit?.engine !== 'user') return [];
     return Object.entries(kit.samples.slots ?? {})
-      .map(([slot, spec]): [string, string] => [slot, spec.files[0] ?? ''])
+      .map(([slot, spec]): [string, string] => [slot, slotFiles(spec)[0] ?? ''])
       .filter(([, id]) => id !== '');
   }
 
@@ -116,7 +117,10 @@ export class YourSampleSource implements SampleSource {
       return;
     }
     try {
-      this.buffers.set(id, await ctx.decodeAudioData(data));
+      /* The upload trimmed the silence in front of the recording, but the
+         browser's decoder can put its own back. Find the attack, as the packs do. */
+      const buf = await ctx.decodeAudioData(data);
+      this.buffers.set(id, { buf, off: onsetOf(buf) });
     } catch (error) {
       this.giveUp(id, error);
     } finally {
@@ -148,22 +152,24 @@ export class YourSampleSource implements SampleSource {
     if (!slot) return false;
 
     const bufferFor = (id: string | undefined) => {
-      const sampleId = id ? kit.samples.slots?.[id]?.files[0] : undefined;
+      const spec = id ? kit.samples.slots?.[id] : undefined;
+      const sampleId = spec ? slotFiles(spec)[0] : undefined;
       return sampleId ? this.buffers.get(sampleId) : undefined;
     };
 
-    let buf = bufferFor(slotId);
+    let take = bufferFor(slotId);
     let soften = 1;
-    if (!buf && slot.fall) {
-      buf = bufferFor(slot.fall);
+    if (!take && slot.fall) {
+      take = bufferFor(slot.fall);
       // no ghost sample in the kit: the hit, played quieter
-      if (buf && slotId === 'sGhost') soften = 0.62;
+      if (take && slotId === 'sGhost') soften = 0.62;
     }
-    if (!buf) return false;
+    if (!take) return false;
 
     const P = engine.sound?.[slot.voice] ?? kit[slot.voice as 'k'];
-    const rate = (P.rate ?? 1) * (1 + (Math.random() - 0.5) * 0.01);
-    const played = engine.playBuf(t, buf, vel * (P.level ?? 1) * soften, slot.voice, rate);
+    const rate = (P.rate ?? 1) * (1 + (engine.rand() - 0.5) * 0.01);
+    const gain = vel * (P.level ?? 1) * (kit.trim ?? 1) * soften;
+    const played = engine.playBuf(t, take.buf, gain, slot.voice, rate, take.off);
     if (slotId === 'hOpen') engine.noteHatTail(played);
     return true;
   }

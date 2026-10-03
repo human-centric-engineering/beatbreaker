@@ -9,7 +9,7 @@ import {
   USER_PARAM_DEFS,
   VOICE_KEYS,
 } from '@/lib/app/breaks/kit';
-import { PERC_KEYS } from '@/lib/app/breaks/lanes';
+import { PAN_VIEWS, PERC_KEYS } from '@/lib/app/breaks/lanes';
 import { DEFAULT_METER, METERS } from '@/lib/app/breaks/meter';
 
 /**
@@ -134,6 +134,8 @@ export const STUDIO_SETTINGS_FIELDS = {
   sound: tuningSchema,
   /** Sampled percussion on kits that ship it, rather than synthesised. */
   percSamples: z.boolean(),
+  /** Whose side the kit is heard from: from the stool, or mirrored as an audience hears it (Phase 9). */
+  panView: z.enum(PAN_VIEWS),
   /** Bars of count-in before playback: 0, 1 or 2. */
   countIn: z.number().int().min(0).max(2),
   /** Where the tempo ramp stops. */
@@ -184,6 +186,7 @@ export const DEFAULT_STUDIO_SETTINGS: StudioSettings = {
   userKit: 'studio70',
   sound: {},
   percSamples: true,
+  panView: 'drummer',
   countIn: 1,
   ceiling: 130,
   matchTempo: false,

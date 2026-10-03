@@ -31,6 +31,9 @@ const fakes = vi.hoisted(() => {
     ctx: typeof ctx | null = null;
     samples: unknown = null;
     setKit = vi.fn();
+    setPanView = vi.fn();
+    // the lane channel (Phase 9): plays the voice, as the engine does
+    playIn = vi.fn((_lane: string, _level: number, _t: number, play: () => void) => play());
     resume = vi.fn();
     hit = vi.fn();
     demo = vi.fn(() => true);
@@ -604,6 +607,17 @@ describe('the kit', () => {
     } finally {
       catalogue.kits.liveroom = gone;
     }
+  });
+
+  it('pans the engine from the stool at start, and out front once that is chosen (Phase 9)', async () => {
+    const { result } = await mount();
+    const audio = fakes.made.audio.at(-1)!;
+    expect(result.current.panView).toBe('drummer');
+    expect(audio.setPanView).toHaveBeenCalledWith('drummer');
+
+    act(() => result.current.setPanView('audience'));
+    expect(result.current.panView).toBe('audience');
+    expect(audio.setPanView).toHaveBeenLastCalledWith('audience');
   });
 
   it('hands a sampled kit to the engine, initialising audio to decode into', async () => {

@@ -164,6 +164,11 @@ export class FakeWaveShaperNode extends FakeAudioNode {
   }
 }
 
+export class FakeStereoPannerNode extends FakeAudioNode {
+  readonly kind = 'panner';
+  readonly pan = new FakeAudioParam(0);
+}
+
 export class FakeConvolverNode extends FakeAudioNode {
   readonly kind = 'convolver';
   buffer: FakeAudioBuffer | null = null;
@@ -279,6 +284,10 @@ export class FakeAudioContext {
 
   createConvolver(): FakeConvolverNode {
     return this.track(new FakeConvolverNode());
+  }
+
+  createStereoPanner(): FakeStereoPannerNode {
+    return this.track(new FakeStereoPannerNode());
   }
 
   createBuffer(numberOfChannels: number, length: number, sampleRate: number): FakeAudioBuffer {

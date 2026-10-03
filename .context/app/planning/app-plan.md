@@ -2321,6 +2321,31 @@ as it is (A1–A12), and the tasks below cite it.
 | 9.3 | **Master ceiling and chokes.** Headroom −3 dB, then a soft-clip ceiling at −0.3 dBFS after the compressor. Every sounding open hat chokes. Your own samples get the onset trim and `kit.trim` (A6–A8)                                                                                                                                                                            | Tests: the chain ends compressor → ceiling → destination; two open hats and a closed hat ramp both tails; a user sample with 20 ms of leading silence starts at its onset                                                         |
 | 9.4 | **The stale words** (A12): `SYNTH_ONLY` and the tom hint, the README's "not built" list and its baked-kits claim, and the kit count in `catalogue.md`. New `.context/app/sound.md` for the engine as built                                                                                                                                                                       | Docs merged; `/docs-audit` over `.context/app/` clean                                                                                                                                                                             |
 
+**9-i reconciled and built, 2026-10-03 (branch `phase-9-i`).** It stays as
+written, with these calls:
+
+- **Gain inside a layer keeps today's `vel / v` curve.** It can't be made
+  continuous across layers without each layer's measured loudness. The 9-iii
+  pipeline records that, so 9.1's "no step above 1 dB" moves to 9.9. The
+  wobble is symmetric in dB and cents (±0.5 dB, ±8 cents), not ±5.9% linear,
+  which is −0.53 dB down.
+- **One default pan spread, not per-kit pans.** `DEFAULT_PAN` in `lanes.ts`,
+  from the stool (`panView: 'drummer'`), mirrored for _Out front_. Per-kit
+  pans come with pieces in 9-v.
+- **The seed keeps writing the flat slot shape.** Both shapes parse, and
+  `slotLayers()` reads either. The pipeline writes layers in 9-iii.
+- **The sampler's stream is `engine.rand`,** seeded (`reseed()`). 9-ii feeds
+  it from the humaniser. The synth voices' own `Math.random` timbre wobble
+  stays: it never reaches the MIDI, and those voices are rendered ahead in
+  9-vi.
+- **Found building it:** a `WaveShaperNode` holds its last value beyond ±1,
+  so a curve drawn over ±1 can't reach −0.3 dBFS from a signal over full
+  scale; it stops at 0.915. The ceiling takes the signal in at ½ and draws
+  its curve over ±2.
+- **The room send follows the fader.** Each lane channel carries the fader
+  to the convolver too, so a lane turned down is quieter in the reverb, as it
+  was when the fader scaled the velocity.
+
 **9-ii — humanise:**
 
 | #   | Task                                                                                                                                                                                                                                                                                                         | Done when                                                                                                                                                                                                                                                                                      |

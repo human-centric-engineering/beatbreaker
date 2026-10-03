@@ -43,9 +43,43 @@ export type VoiceParams = Record<string, number>;
  * `public/kits/manifest.json` carried before Phase 2; it is now the `samples`
  * column on a `Kit` row, and the audio files stay where they were.
  */
-export interface KitSampleSlot {
+export type KitSampleSlot = KitSampleSlotFlat | KitSampleSlotLayered;
+
+/** One file per velocity layer: the shape every kit shipped in before Phase 9. */
+export interface KitSampleSlotFlat {
   v: number[] | null;
   files: string[];
+}
+
+/**
+ * Velocity layers with round-robins (Phase 9): several recordings of the same
+ * stroke at the same strength, so a run of sixteenths is not one sample
+ * played sixteen times.
+ */
+export interface KitSampleSlotLayered {
+  layers: KitSampleLayer[];
+}
+
+export interface KitSampleLayer {
+  /** The velocity this layer was recorded at, 0–1. */
+  v: number;
+  /** Its round-robins: one file at least. */
+  files: string[];
+}
+
+/**
+ * Either shape as layers, softest first. A flat slot is one file per layer,
+ * at the velocity it names or full when it names none — so a kit seeded
+ * before Phase 9, and every kit of yours, reads exactly as it did.
+ */
+export function slotLayers(spec: KitSampleSlot): KitSampleLayer[] {
+  if ('layers' in spec) return spec.layers;
+  return spec.files.map((file, i) => ({ v: spec.v?.[i] ?? 1, files: [file] }));
+}
+
+/** Every file a slot names, in layer order. */
+export function slotFiles(spec: KitSampleSlot): string[] {
+  return slotLayers(spec).flatMap((layer) => layer.files);
 }
 
 /**
@@ -297,9 +331,12 @@ export const VOICE_LABEL: Record<string, string> = {
 };
 
 /**
- * Toms and percussion are synthesised on every kit — no pack ships tom samples
- * and neither machine has a cowbell worth having — so their knobs are Hz and
- * seconds whichever engine the rest of the kit is running.
+ * The two voices whose knobs are always the synthesiser's, Hz and seconds,
+ * whichever engine the rest of the kit runs. Not because every kit
+ * synthesises them: the jazz and brush kits ship tom recordings, and the
+ * percussion set is recorded. But a kit missing a tom, and every timbale,
+ * still falls through to the synthesised voice, so the knobs that tune it
+ * stay. On a kit whose toms are recordings, only Room acts on them.
  */
 export const SYNTH_ONLY: Record<string, boolean> = { t: true, p: true };
 

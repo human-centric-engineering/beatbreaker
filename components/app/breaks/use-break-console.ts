@@ -25,7 +25,14 @@ import type { Visibility } from '@/lib/app/breaks/community/visibility';
 import { type DoctorMove, doctor } from '@/lib/app/breaks/doctor';
 import { deriveB } from '@/lib/app/breaks/generate';
 import { SIZE, SIZE_MAX, SIZE_MIN, VIEW, type VIEW_MODES } from '@/lib/app/breaks/browser-keys';
-import { DEFAULT_MIX, LANES, PERC_LANES, TOM_LANES, mixLanes } from '@/lib/app/breaks/lanes';
+import {
+  DEFAULT_MIX,
+  LANES,
+  PERC_LANES,
+  type PanView,
+  TOM_LANES,
+  mixLanes,
+} from '@/lib/app/breaks/lanes';
 
 import { reducePattern } from '@/lib/app/breaks/layers';
 import type { StoredLink } from '@/lib/app/breaks/links';
@@ -263,6 +270,9 @@ export interface BreakConsole {
   /** Play the synthesised percussion voices instead of the recordings. */
   percSamples: boolean;
   setPercSamples: (b: boolean) => void;
+  /** Whose side the kit is panned from. */
+  panView: PanView;
+  setPanView: (v: PanView) => void;
   /** How many percussion instruments have recordings in memory. */
   percCount: number;
   mix: Record<string, number>;
@@ -495,6 +505,7 @@ export function useBreakConsole(
     userKit,
     sound: tuning,
     percSamples,
+    panView,
     countIn,
     ceiling,
     matchTempo,
@@ -1341,6 +1352,14 @@ export function useBreakConsole(
     [update]
   );
 
+  const setPanView = useCallback(
+    (v: PanView) => {
+      update({ panView: v });
+      audioRef.current?.setPanView(v);
+    },
+    [update]
+  );
+
   /* The AudioContext is built once, in an effect with no state in its deps.
      These refs are how that effect reads the current kit and preferences
      without being torn down and rebuilt every time one of them changes. */
@@ -1348,12 +1367,14 @@ export function useBreakConsole(
   const kitRowRef = useRef(kitRow);
   const percussionRef = useRef(percussion);
   const percSamplesRef = useRef(percSamples);
+  const panViewRef = useRef(panView);
   useEffect(() => {
     soundRef.current = sound;
     kitRowRef.current = kitRow;
     percussionRef.current = percussion;
     percSamplesRef.current = percSamples;
-  }, [sound, kitRow, percussion, percSamples]);
+    panViewRef.current = panView;
+  }, [sound, kitRow, percussion, percSamples, panView]);
 
   /* The AudioContext and the clock are created together, in an effect rather
      than during render: an AudioContext is a real resource, and constructing one
@@ -1372,6 +1393,7 @@ export function useBreakConsole(
     packsRef.current = packs;
     yoursRef.current = yours;
     audio.samples = new SourceStack([packs, yours]);
+    audio.setPanView(panViewRef.current);
     audioRef.current = audio;
     const midi = new MidiOut();
     midiRef.current = midi;
@@ -1812,6 +1834,8 @@ export function useBreakConsole(
     kitFailed: samples.kitFailed,
     percSamples,
     setPercSamples,
+    panView,
+    setPanView,
     percCount: samples.percCount,
     mix,
     setLaneMix,

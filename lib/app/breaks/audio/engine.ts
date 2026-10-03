@@ -9,6 +9,8 @@ import {
   type VoiceParams,
   kitEngine,
 } from '@/lib/app/breaks/kit';
+import { type PanView, panFor } from '@/lib/app/breaks/lanes';
+import { type Rng, makeRng } from '@/lib/app/breaks/rng';
 
 /**
  * The drum synth, and the one chain every kit plays through.
@@ -101,6 +103,52 @@ function clamp(v: number, a: number, b: number): number {
   return Math.max(a, Math.min(b, v));
 }
 
+/** −0.3 dBFS: the loudest sample the master lets through. */
+export const CEILING = 0.966;
+/** Where the ceiling starts to bend. Below it the signal passes untouched. */
+const KNEE = 0.7;
+/**
+ * How far over full scale the ceiling still bends rather than clamps. A
+ * `WaveShaperNode` reads its curve over −1…1 and holds the end value past it,
+ * so the signal goes in at 1/{@link OVER} and the curve is drawn over
+ * ±{@link OVER}: up to 6 dB over full scale is rounded off, not cut.
+ */
+export const OVER = 2;
+
+/**
+ * The master ceiling's curve: straight up to {@link KNEE}, then a tanh bend
+ * that reaches {@link CEILING} and never passes it. The glue compressor ahead
+ * of it has a fixed lookahead and automatic makeup gain, so a dense bar can
+ * still put a transient over full scale; this is what stops that clipping.
+ *
+ * Index `i` is the input `x·OVER`, for the input scaled down by {@link OVER}.
+ * Odd length, like {@link driveCurve}, so silence stays silence.
+ */
+export function ceilingCurve(): Float32Array<ArrayBuffer> {
+  const n = 2049;
+  const c = new Float32Array(new ArrayBuffer(n * Float32Array.BYTES_PER_ELEMENT));
+  const room = CEILING - KNEE;
+  for (let i = 0; i < n; i++) {
+    const x = ((i / (n - 1)) * 2 - 1) * OVER;
+    const a = Math.abs(x);
+    const y = a <= KNEE ? a : KNEE + room * Math.tanh((a - KNEE) / room);
+    c[i] = Math.sign(x) * y;
+  }
+  return c;
+}
+
+/**
+ * One lane's channel: its fader and pan on the way to the bus, and the same
+ * fader on its way to the room, so a lane pulled down is quieter in the
+ * reverb too rather than leaving its echo at full.
+ */
+interface Channel {
+  fader: GainNode;
+  pan: StereoPannerNode | null;
+  room: GainNode;
+  level: number;
+}
+
 export class BreakAudio {
   ctx: AudioContext | null = null;
   bus: GainNode | null = null;
@@ -110,8 +158,15 @@ export class BreakAudio {
   private comp: DynamicsCompressorNode | null = null;
   private convolver: ConvolverNode | null = null;
   private wet: GainNode | null = null;
+  private ceilingIn: GainNode | null = null;
+  private ceiling: WaveShaperNode | null = null;
   private noise: AudioBuffer | null = null;
-  private hatTail: PlayedBuffer | null = null;
+  /** Every open hat still ringing, so a closing one chokes them all. */
+  private hatTails: PlayedBuffer[] = [];
+  private channels = new Map<string, Channel>();
+  /** The lane the voice being played belongs to, while it is played. */
+  private route: string | null = null;
+  private panView: PanView = 'drummer';
   private irRoom = -1;
   private driveAt = -1;
 
@@ -138,6 +193,18 @@ export class BreakAudio {
   /** The user's tuning — a saved override of the kit's own numbers. */
   sound: Record<string, VoiceParams> | null = null;
   samples: SampleSource | null = null;
+
+  /**
+   * The stream the sample sources draw from: which round-robin plays, and the
+   * small pitch and level difference on every hit. Seeded, not `Math.random`,
+   * so the same performance can be played twice (Phase 9). {@link reseed}
+   * starts it again.
+   */
+  rand: Rng = makeRng(0x5eed);
+
+  reseed(seed: number): void {
+    this.rand = makeRng(seed);
+  }
 
   init(): AudioContext | null {
     if (this.ctx) return this.ctx;
@@ -172,9 +239,16 @@ export class BreakAudio {
     this.comp.release.value = 0.2;
     this.master = ctx.createGain();
     this.master.gain.value = 0.82;
+    this.ceilingIn = ctx.createGain();
+    this.ceilingIn.gain.value = 1 / OVER;
+    this.ceiling = ctx.createWaveShaper();
+    this.ceiling.curve = ceilingCurve();
+    this.ceiling.oversample = '2x';
     this.lp.connect(this.comp);
     this.comp.connect(this.master);
-    this.master.connect(ctx.destination);
+    this.master.connect(this.ceilingIn);
+    this.ceilingIn.connect(this.ceiling);
+    this.ceiling.connect(ctx.destination);
     this.setDrive(1);
 
     // reverb send — the convolver feeds the bus, the bus never feeds it back
@@ -217,8 +291,12 @@ export class BreakAudio {
     this.comp = null;
     this.convolver = null;
     this.wet = null;
+    this.ceilingIn = null;
+    this.ceiling = null;
     this.noise = null;
-    this.hatTail = null;
+    this.hatTails = [];
+    this.channels = new Map();
+    this.route = null;
     this.irRoom = -1;
     this.driveAt = -1;
     this.ready = false;
@@ -356,16 +434,87 @@ export class BreakAudio {
     return g;
   }
 
-  /** Into the bus, and into the room by however much this lane sends. */
+  /**
+   * Into the bus, and into the room by however much this lane sends. While a
+   * performed note is playing ({@link playIn}), both go through its lane's
+   * channel; an audition from the Kit drawer goes straight to the bus.
+   */
   send(node: AudioNode, voice: string, extra?: number): void {
     const ctx = this.ctx as AudioContext;
-    node.connect(this.bus as GainNode);
+    const ch = this.route ? this.channel(this.route) : null;
+    node.connect(ch ? ch.fader : (this.bus as GainNode));
     const amt = this.roomOf(voice) * (extra ?? 1);
     if (amt > 0.005 && this.convolver) {
       const s = ctx.createGain();
       s.gain.value = amt;
       node.connect(s);
-      s.connect(this.convolver);
+      s.connect(ch ? ch.room : this.convolver);
+    }
+  }
+
+  /* ---- lanes ---- */
+
+  /** A lane's channel, built the first time the lane plays. */
+  private channel(lane: string): Channel | null {
+    const have = this.channels.get(lane);
+    if (have) return have;
+    const ctx = this.ctx;
+    if (!ctx || !this.bus || !this.convolver) return null;
+
+    const fader = ctx.createGain();
+    const room = ctx.createGain();
+    room.connect(this.convolver);
+    // a browser without StereoPannerNode still plays, centred
+    let pan: StereoPannerNode | null = null;
+    if (typeof ctx.createStereoPanner === 'function') {
+      pan = ctx.createStereoPanner();
+      pan.pan.value = panFor(lane, this.panView);
+      fader.connect(pan);
+      pan.connect(this.bus);
+    } else {
+      fader.connect(this.bus);
+    }
+    const ch: Channel = { fader, pan, room, level: 1 };
+    this.channels.set(lane, ch);
+    return ch;
+  }
+
+  /**
+   * Play one performed note through its lane's channel, at the fader's level.
+   *
+   * The fader is a level and nothing else (D39). It used to be multiplied into
+   * the velocity, so pulling the snare down picked a softer sample and closed
+   * the synth snare's wires: a quiet snare became a ghost note. Now it is the
+   * channel's gain, set at the moment the note plays, and the voice hears the
+   * velocity the pattern wrote.
+   */
+  playIn(lane: string, level: number, t: number, play: () => void): void {
+    const ch = this.channel(lane);
+    if (ch && ch.level !== level) {
+      ch.fader.gain.setValueAtTime(level, t);
+      ch.room.gain.setValueAtTime(level, t);
+      ch.level = level;
+    }
+    this.route = lane;
+    try {
+      play();
+    } finally {
+      this.route = null;
+    }
+  }
+
+  /**
+   * Whose side the kit is heard from. `drummer` puts the hats on your left as
+   * you sit at the kit; `audience` mirrors it, the way most records are mixed.
+   */
+  setPanView(view: PanView): void {
+    this.panView = view;
+    const ctx = this.ctx;
+    for (const [lane, ch] of this.channels) {
+      if (!ch.pan) continue;
+      const to = panFor(lane, view);
+      if (ctx) ch.pan.pan.setTargetAtTime(to, ctx.currentTime, 0.02);
+      else ch.pan.pan.value = to;
     }
   }
 
@@ -423,10 +572,15 @@ export class BreakAudio {
     return g;
   }
 
-  /** A closing hi-hat stops the open one, because that is what the foot does. */
+  /**
+   * A closing hi-hat stops the open one, because that is what the foot does.
+   * `hat()` calls this before every hit, an open one included, so at most one
+   * tail is ever still ringing here.
+   */
   chokeHats(t: number): void {
-    if (this.hatTail && this.hatTail.end > t) {
-      const g = this.hatTail.g.gain;
+    for (const tail of this.hatTails) {
+      if (tail.end <= t) continue;
+      const g = tail.g.gain;
       try {
         if (g.cancelAndHoldAtTime) g.cancelAndHoldAtTime(t);
         else g.cancelScheduledValues(t);
@@ -435,11 +589,11 @@ export class BreakAudio {
         /* the tail had already finished */
       }
     }
-    this.hatTail = null;
+    this.hatTails = [];
   }
 
   noteHatTail(played: PlayedBuffer): void {
-    this.hatTail = played;
+    this.hatTails.push(played);
   }
 
   /* ---- sample playback: every sampled engine lands here ---- */
@@ -681,7 +835,7 @@ export class BreakAudio {
       o.start(t);
       o.stop(t + 0.09);
     }
-    if (open) this.hatTail = { g, end: t + dec };
+    if (open) this.noteHatTail({ g, end: t + dec });
   }
 
   ride(t: number, vel: number, bell?: boolean): void {

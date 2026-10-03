@@ -21,6 +21,9 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
   BreakAudio,
+  CEILING,
+  ceilingCurve,
+  OVER,
   driveCurve,
   SourceStack,
   type SampleSource,
@@ -42,6 +45,7 @@ import {
   FakeDynamicsCompressorNode,
   FakeGainNode,
   FakeOscillatorNode,
+  FakeStereoPannerNode,
   FakeWaveShaperNode,
 } from '@/tests/helpers/fake-audio-context';
 
@@ -251,7 +255,7 @@ describe('init()', () => {
     expect(bus.kind).toBe('gain');
     expect(bus.gain.value).toBeCloseTo(0.9, 9);
 
-    // bus -> drive (waveshaper) -> lowpass -> compressor -> master -> destination
+    // bus -> drive -> lowpass -> compressor -> master -> 1/OVER -> ceiling -> destination
     const shaper = bus.outputs[0] as FakeWaveShaperNode;
     expect(shaper.kind).toBe('waveshaper');
     expect(shaper.oversample).toBe('2x');
@@ -267,7 +271,12 @@ describe('init()', () => {
     const master = comp.outputs[0] as FakeGainNode;
     expect(master.kind).toBe('gain');
     expect(master.gain.value).toBeCloseTo(0.82, 9);
-    expect(master.outputs).toContain(ctx.destination);
+    const ceilingIn = master.outputs[0] as FakeGainNode;
+    expect(ceilingIn.gain.value).toBeCloseTo(1 / OVER, 9);
+    const ceiling = ceilingIn.outputs[0] as FakeWaveShaperNode;
+    expect(ceiling.kind).toBe('waveshaper');
+    expect(ceiling.outputs).toEqual([ctx.destination]);
+    expect(master.outputs).not.toContain(ctx.destination);
 
     // the applied kit's own lowpass, via setTargetAtTime rather than a hard-set
     const m = STUDIO70.master;
@@ -1275,5 +1284,147 @@ describe('playBuf()', () => {
     const closedEnvelope = (played.g as unknown as FakeGainNode).gain.events;
     expect(closedEnvelope.some((e) => e.type === 'cancelAndHoldAtTime')).toBe(true);
     void closedNodes;
+  });
+});
+
+/* ---------------------------------------------------------------------- */
+/* Phase 9: the ceiling, the lane channels, every open hat choked          */
+/* ---------------------------------------------------------------------- */
+
+describe('ceilingCurve()', () => {
+  const curve = ceilingCurve();
+  /** The curve's output for a signal of `x` at the master, before the 1/OVER in front of it. */
+  const at = (x: number) => curve[Math.round(((x / OVER + 1) / 2) * (curve.length - 1))];
+
+  it('never lets a sample past −0.3 dBFS, however hard it is driven', () => {
+    const peak = Math.max(...Array.from(curve, Math.abs));
+    expect(peak).toBeLessThanOrEqual(CEILING);
+    expect(peak).toBeGreaterThan(CEILING - 0.01); // and does reach it, rather than squashing early
+  });
+
+  it('rounds off a signal at full scale rather than letting it through', () => {
+    expect(at(1)).toBeLessThan(CEILING);
+    expect(at(1)).toBeGreaterThan(0.9);
+  });
+
+  it('passes anything below the knee untouched, so normal playing is not coloured', () => {
+    for (const x of [-0.6, -0.25, 0, 0.25, 0.5, 0.69]) expect(at(x)).toBeCloseTo(x, 2);
+  });
+
+  it('maps silence to silence and is symmetric, so it adds no DC', () => {
+    expect(curve[(curve.length - 1) / 2]).toBe(0);
+    expect(at(0.9)).toBeCloseTo(-at(-0.9), 9);
+  });
+
+  it('only ever bends down, never back up, as the input rises', () => {
+    for (let i = 1; i < curve.length; i++) expect(curve[i]).toBeGreaterThanOrEqual(curve[i - 1]);
+  });
+});
+
+describe('lane channels (playIn)', () => {
+  /** The channel fader a performed kick on `lane` was routed into. */
+  function faderFor(audio: BreakAudio, ctx: FakeAudioContext, lane: string): FakeGainNode {
+    const nodes = recordNodes(ctx, () => audio.playIn(lane, 1, 0, () => audio.kick(0, 1)));
+    const envelope = pick<FakeOscillatorNode>(nodes, 'oscillator')[0].outputs[0];
+    return envelope.outputs[0] as FakeGainNode;
+  }
+
+  it('routes a performed note through its lane: fader, then pan, then the bus', () => {
+    const { audio, ctx } = initEngine();
+    const fader = faderFor(audio, ctx, 'k');
+    const panner = fader.outputs[0] as FakeStereoPannerNode;
+    expect(panner.kind).toBe('panner');
+    expect(panner.outputs).toEqual([audio.bus]);
+  });
+
+  it('builds a lane channel once and reuses it', () => {
+    const { audio, ctx } = initEngine();
+    expect(faderFor(audio, ctx, 's')).toBe(faderFor(audio, ctx, 's'));
+    expect(faderFor(audio, ctx, 's')).not.toBe(faderFor(audio, ctx, 'k'));
+  });
+
+  it('sets the fader as the channel level at the note, and leaves the velocity alone', () => {
+    const { audio, ctx } = initEngine();
+    const kick = vi.spyOn(audio, 'kick');
+    audio.playIn('k', 0.4, 2, () => audio.kick(2, 0.9));
+    expect(kick).toHaveBeenCalledWith(2, 0.9);
+    const fader = faderFor(audio, ctx, 'k');
+    expect(fader.gain.events).toContainEqual({ type: 'setValueAtTime', value: 0.4, time: 2 });
+  });
+
+  it('turns the lane down in the room too, so a quiet lane has a quiet echo', () => {
+    const { audio, ctx } = initEngine(LIVEROOM); // a kit whose voices send to the room
+    const convolver = pick<FakeConvolverNode>(ctx.nodes, 'convolver')[0];
+    audio.playIn('s', 0.3, 0, () => audio.snare(0, 1));
+    // the only gain feeding the convolver is the lane's room input: each hit's send feeds that
+    const roomIn = ctx.nodes.find(
+      (n) => (n as FakeGainNode).kind === 'gain' && n.outputs.includes(convolver)
+    ) as FakeGainNode;
+    expect(roomIn).toBeDefined();
+    expect(roomIn.gain.value).toBeCloseTo(0.3, 9);
+  });
+
+  it('does not touch the fader again while the level stays the same', () => {
+    const { audio, ctx } = initEngine();
+    audio.playIn('k', 0.5, 0, () => audio.kick(0, 1));
+    audio.playIn('k', 0.5, 0.1, () => audio.kick(0.1, 1));
+    const fader = faderFor(audio, ctx, 'k');
+    expect(fader.gain.events.filter((e) => e.type === 'setValueAtTime')).toHaveLength(2);
+    // 0.5 once, then 1 for faderFor()'s own kick
+  });
+
+  it('pans from the stool by default, and mirrors for an audience', () => {
+    const { audio, ctx } = initEngine();
+    const hats = faderFor(audio, ctx, 'h').outputs[0] as FakeStereoPannerNode;
+    const ride = faderFor(audio, ctx, 'r').outputs[0] as FakeStereoPannerNode;
+    expect(hats.pan.value).toBeLessThan(0);
+    expect(ride.pan.value).toBeGreaterThan(0);
+
+    const hatsFromStool = hats.pan.value;
+    audio.setPanView('audience');
+    expect(hats.pan.value).toBeCloseTo(-hatsFromStool, 9);
+  });
+
+  it('sends an audition from the Kit drawer straight to the bus, centred', () => {
+    const { audio, ctx } = initEngine();
+    const nodes = recordNodes(ctx, () => audio.kick(0, 1));
+    const env = pick<FakeOscillatorNode>(nodes, 'oscillator')[0].outputs[0];
+    expect(env.outputs).toContain(audio.bus);
+    expect(pick(ctx.nodes, 'panner')).toHaveLength(0);
+  });
+
+  it('still plays, unpanned, where the browser has no StereoPannerNode', () => {
+    const { audio, ctx } = initEngine();
+    (ctx as unknown as { createStereoPanner?: unknown }).createStereoPanner = undefined;
+    const fader = faderFor(audio, ctx, 'k');
+    expect(fader.outputs).toEqual([audio.bus]);
+  });
+});
+
+describe('chokeHats() with several open hats ringing', () => {
+  it('chokes every open hat still sounding, not just the last', () => {
+    const { audio, ctx } = initEngine();
+    const buf = ctx.createBuffer(1, 44100, 44100);
+    const first = audio.playBuf(0, buf as unknown as AudioBuffer, 1, 'h', 1, 0);
+    const second = audio.playBuf(0.1, buf as unknown as AudioBuffer, 1, 'h', 1, 0);
+    audio.noteHatTail(first);
+    audio.noteHatTail(second);
+
+    audio.hat(0.2, 1);
+
+    for (const tail of [first, second]) {
+      const evs = (tail.g as unknown as FakeGainNode).gain.events;
+      expect(evs.some((e) => e.type === 'cancelAndHoldAtTime' && e.time === 0.2)).toBe(true);
+    }
+  });
+});
+
+describe('the seeded stream', () => {
+  it('gives the same draws after the same reseed', () => {
+    const audio = newEngine();
+    audio.reseed(42);
+    const a = [audio.rand(), audio.rand(), audio.rand()];
+    audio.reseed(42);
+    expect([audio.rand(), audio.rand(), audio.rand()]).toEqual(a);
   });
 });

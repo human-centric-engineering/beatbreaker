@@ -192,6 +192,38 @@ describe('GET /api/v1/catalogue/kits', () => {
     expect(kits[0].samples?.k.urls).toEqual([`/kits/${withSamples.pack as string}/k-0.mp3`]);
   });
 
+  it('serves every take of a layered slot, and the first of each layer where the old shape went', async () => {
+    const layered = {
+      ...testKit('muldjord'),
+      samples: {
+        slots: {
+          h: {
+            layers: [
+              { v: 0.4, files: ['h-0a.m4a', 'h-0b.m4a'] },
+              { v: 1, files: ['h-1a.m4a'] },
+            ],
+          },
+        },
+      },
+    };
+    vi.mocked(listKits).mockResolvedValue([layered]);
+
+    const { data } = await body(await KITS(get('kits')));
+    type Slot = {
+      velocities: number[] | null;
+      urls: string[];
+      layers: Array<{ velocity: number; urls: string[] }>;
+    };
+    const h = (data as Array<{ samples: Record<string, Slot> }>)[0].samples.h;
+    const at = (f: string) => `/kits/${layered.pack as string}/${f}`;
+    expect(h.layers).toEqual([
+      { velocity: 0.4, urls: [at('h-0a.m4a'), at('h-0b.m4a')] },
+      { velocity: 1, urls: [at('h-1a.m4a')] },
+    ]);
+    expect(h.velocities).toEqual([0.4, 1]);
+    expect(h.urls).toEqual([at('h-0a.m4a'), at('h-1a.m4a')]);
+  });
+
   it('leaves samples null for a kit that synthesises its voices', async () => {
     const { data } = await body(await KITS(get('kits')));
     const kits = data as Array<{ samples: unknown; engine: string }>;

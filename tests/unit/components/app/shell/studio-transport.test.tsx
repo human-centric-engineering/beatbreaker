@@ -39,6 +39,9 @@ const fakes = vi.hoisted(() => {
     ctx: typeof ctx | null = null;
     samples: unknown = null;
     setKit = vi.fn();
+    setPanView = vi.fn();
+    // the lane channel (Phase 9): plays the voice, as the engine does
+    playIn = vi.fn((_lane: string, _level: number, _t: number, play: () => void) => play());
     resume = vi.fn();
     hit = vi.fn();
     demo = vi.fn(() => true);

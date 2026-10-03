@@ -82,6 +82,8 @@ function everything(meter: string): Pattern {
 function play(pat: Pattern, over: Partial<TransportSnapshot>) {
   const ctx = { currentTime: 0 };
   const heard: Heard[] = [];
+  /** The fader level each lane's notes went through its channel at. */
+  const levels: Array<{ lane: string; level: number }> = [];
   const hear = (when: number, vel: number) => heard.push({ when, vel });
   const audio = {
     ctx,
@@ -95,6 +97,10 @@ function play(pat: Pattern, over: Partial<TransportSnapshot>) {
     crash: vi.fn(hear),
     tom: vi.fn(hear),
     perc: vi.fn(hear),
+    playIn: (lane: string, level: number, _t: number, voice: () => void) => {
+      levels.push({ lane, level });
+      voice();
+    },
   };
   const sent: Sent[] = [];
   const midi: MidiSink = {
@@ -142,6 +148,7 @@ function play(pat: Pattern, over: Partial<TransportSnapshot>) {
   return {
     heard: heard.filter((h) => inBar(h.when)),
     sent: sent.filter((s) => inBar(s.when)),
+    levels,
     dur,
   };
 }
@@ -192,11 +199,18 @@ describe('speakers, live MIDI and the MIDI file play one performance', () => {
 
   it('lets the mixer act on the speakers only, as D23 decided', () => {
     const pat = everything('4/4');
-    const { heard, sent } = play(pat, { mute: { s: true }, mix: { h: 0.5 } });
+    const { heard, sent, levels } = play(pat, { mute: { s: true }, mix: { h: 0.5 } });
     const snareSends = sent.filter((s) => s.note === 38 || s.note === 37);
     expect(snareSends.length).toBeGreaterThan(0);
-    // muted on the speakers, still sent; and a half fader halves only what is heard
+    // muted on the speakers, still sent
     expect(heard.length).toBe(sent.length - snareSends.length);
+    /* A half fader is the hat channel's level (D39), not half the velocity:
+       every note the kit plays has the velocity the port was sent. */
+    expect(levels.filter((l) => l.lane === 'h').every((l) => l.level === 0.5)).toBe(true);
+    expect(levels.some((l) => l.lane === 'h')).toBe(true);
+    const sentVels = sent.filter((s) => s.note !== 38 && s.note !== 37).map((s) => s.vel);
+    const byValue = (a: number, b: number) => a - b;
+    expect(heard.map((h) => h.vel).sort(byValue)).toEqual(sentVels.sort(byValue));
   });
 });
 
