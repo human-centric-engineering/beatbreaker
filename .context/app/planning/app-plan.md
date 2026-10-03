@@ -2354,6 +2354,42 @@ written, with these calls:
 | 9.6 | `performStep` takes the humaniser and drops the `Math.random` hat wobble (A5). The transport, MIDI out and the MIDI file all pass the same stream. The MIDI export gets **Played / Quantised**                                                                                                               | `performance-consistency` extended: with Humanise on, speakers, port and file agree note for note over two passes; a grep guard keeps `Math.random` out of `perform.ts` and `feel.ts`; Quantised writes today's ticks                                                                          |
 | 9.7 | The setting: `prefs.sound.humanise { mode: off·subtle·loose, amount 0–100, take }` in the studio-settings schema. Kit drawer: the three-way switch, the Amount slider and 🎲 _New take_, each with `<FieldHelp>`. Default Subtle (D38). Runs in practice sessions and `/p/` too; the click stays on the grid | Component tests: the default is Subtle at 35; Off sends 0 to the transport; New take changes `take` and the next pass. Settings route test: an out-of-range amount is a 400. By hand: the owner listens to a funk and a jazz pattern at each setting                                           |
 
+**9-ii reconciled, 2026-10-03 (branch `phase-9-ii`).** It ships as one PR,
+as written, with these calls:
+
+- **The setting is its own field, `humanise`, not `prefs.sound.humanise`.**
+  The settings are flat fields, and `sound` is already the tuning map
+  (kit → voice → parameter), whose schema refuses anything else.
+- **Off is Amount 0.** Picking Subtle or Loose sets the Amount to 35 or 75,
+  and the slider moves it from there. The slider is disabled while Off.
+- **The seed is the notes, not the id or the code.** It is a hash of both
+  sections' bars and the take. The code carries the tempo, swing and layer,
+  so moving the tempo would re-roll the performance, and `/p/` and the API
+  have no id to hash. Hashing the notes gives the Studio, `/p/` and the API
+  the same performance from one function. A new seed (a new take, or an
+  edit to the notes) takes effect from the next pass, never mid-pass.
+- **The negative lag-1 correlation is of the intervals, not the offsets.**
+  That is what Porcaro's −0.48 measures. The pink term makes the offsets
+  themselves positively correlated note to note; the differenced white term
+  makes the intervals between them negative. The two terms are scaled so
+  their sum has σ exactly σ_t, rather than the 1.05 × σ_t that `0.7 + 0.7`
+  gives.
+- **The crash is the right hand,** with the hat and ride. §4 left it out.
+- **A value's band is the midpoints to its neighbours in `LEVELS`,** inset
+  by one MIDI step, so `valueForVelocity` reads every humanised note back as
+  written. The hats and ride keep the `cymbal()` bands. A cross-stick is a
+  note of its own and has no band beyond 1–127.
+- **The stream advances at every Amount,** so moving the slider mid-pass is
+  a change of size, not a jump to another performance.
+- **The sampler is reseeded from the same seed** at Play and at each new
+  seed, so round-robins replay too.
+- **`/p/` plays Subtle, take 0.** It plays the default kit and has no
+  listener settings to read (D19); D38's "the listener's setting" comes when
+  `/p/` reads them.
+- **Played / Quantised is a browser setting** (`bb.midiTiming`, default
+  Played) beside Download .mid. The API takes an optional
+  `humanise: { amount, take }`; without it the file is Quantised, as today.
+
 **9-iii — the pipeline and the first new kits:**
 
 | #    | Task                                                                                                                                                                                                                                                                                                                                                                           | Done when                                                                                                                                                                                                             |
