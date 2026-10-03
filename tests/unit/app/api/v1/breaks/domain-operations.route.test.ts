@@ -26,6 +26,7 @@ import { doctor } from '@/lib/app/breaks/doctor';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { engrave } from '@/lib/app/breaks/engrave';
 import { reducePattern } from '@/lib/app/breaks/layers';
+import { humaniseSeed } from '@/lib/app/breaks/humanise';
 import { buildMidi } from '@/lib/app/breaks/midi';
 import { resolveLanes } from '@/lib/app/breaks/pattern';
 import { encodeBreak, packPattern, patternFromPacked } from '@/lib/app/breaks/share';
@@ -319,57 +320,65 @@ describe('POST /api/v1/breaks/midi', () => {
     return JSON.parse(atob(code)) as Record<string, unknown>;
   };
 
-  /**
-   * Byte-identity is asserted at `hats: 0`, and that is not dodging the
-   * question — it is the only tempo at which the question has an answer.
-   *
-   * `hatShape` ends in a deliberate wobble (`Math.random()`), because nobody is
-   * a sequencer. It scales with the hi-hat dynamics slider, so at 0 it is gone
-   * along with the accents and the shape: that is the documented machine-even
-   * path, and it is deterministic. Asserting equality at 100 would be asserting
-   * that two dice rolls match.
-   *
-   * The case below this one covers the other half — that the wobble is real.
-   */
-  it('produces the same bytes as calling buildMidi directly (machine-even)', async () => {
-    const doc = payload();
-    const res = await MIDI(post('midi', { doc, bars: 4, hats: 0 }));
-    expect(res.status).toBe(200);
-    expect(res.headers.get('Content-Type')).toBe('audio/midi');
-
-    const bytes = new Uint8Array(await res.arrayBuffer());
-
-    /* The same sequence the route builds: the arrangement, repeated until the
-       requested bar count is filled. */
+  /** The four bars the route writes by default from `payload()`, as `buildMidi` takes them. */
+  const directSeq = () => {
     const a = directPattern(53);
     const b = deriveB(a, FUNK.params);
-    const expected = buildMidi(
-      [
+    return {
+      a,
+      b,
+      seq: [
         { pattern: a, barIdx: 0 },
         { pattern: a, barIdx: 1 },
         { pattern: b, barIdx: 0 },
         { pattern: b, barIdx: 1 },
       ],
-      { bpm: 96, swing: 20, feel: 100, hats: 0 }
-    );
+    };
+  };
+
+  /**
+   * Byte-identity at full hi-hat dynamics. Until Phase 9 `hatShape` ended in a
+   * `Math.random()` wobble and only `hats: 0` had an answer; that variation is
+   * Humanise's now, seeded, so every export is reproducible.
+   */
+  it('produces the same bytes as calling buildMidi directly', async () => {
+    const doc = payload();
+    const res = await MIDI(post('midi', { doc, bars: 4, hats: 100 }));
+    expect(res.status).toBe(200);
+    expect(res.headers.get('Content-Type')).toBe('audio/midi');
+
+    const bytes = new Uint8Array(await res.arrayBuffer());
+    const expected = buildMidi(directSeq().seq, { bpm: 96, swing: 20, feel: 100, hats: 100 });
     expect([...bytes]).toEqual(expected.bytes);
-    expect(bytes.length).toBe(expected.bytes.length);
   });
 
-  it('keeps the hi-hat wobble when the dynamics are on, so two exports differ', async () => {
-    /* The inverse of the case above, and the reason it had to say
-       "machine-even". If this ever starts passing as equal, the wobble has
-       been optimised away and every exported hi-hat is identical — which is
-       the thing `hatShape` exists to avoid. */
+  it('writes Humanise from the notes and the take, as the Studio plays it', async () => {
     const doc = payload();
-    const first = new Uint8Array(
-      await (await MIDI(post('midi', { doc, hats: 100 }))).arrayBuffer()
-    );
-    const second = new Uint8Array(
-      await (await MIDI(post('midi', { doc, hats: 100 }))).arrayBuffer()
-    );
-    expect(first.length).toBe(second.length);
-    expect([...first]).not.toEqual([...second]);
+    const file = async (body: Record<string, unknown>) => [
+      ...new Uint8Array(await (await MIDI(post('midi', { doc, bars: 4, ...body }))).arrayBuffer()),
+    ];
+
+    const take3 = await file({ humanise: { amount: 75, take: 3 } });
+    const { a, b, seq } = directSeq();
+    const expected = buildMidi(seq, {
+      bpm: 96,
+      swing: 20,
+      feel: 100,
+      hats: 100,
+      humanise: { amount: 75, seed: humaniseSeed([a, b], 3) },
+    });
+    expect(take3).toEqual(expected.bytes);
+    // the same take again is the same file; another take, or none, is not
+    expect(await file({ humanise: { amount: 75, take: 3 } })).toEqual(take3);
+    expect(await file({ humanise: { amount: 75, take: 4 } })).not.toEqual(take3);
+    expect(await file({})).not.toEqual(take3);
+    // Amount 0 is the quantised file
+    expect(await file({ humanise: { amount: 0, take: 3 } })).toEqual(await file({}));
+  });
+
+  it('refuses an Amount over 100', async () => {
+    const res = await MIDI(post('midi', { doc: payload(), humanise: { amount: 101 } }));
+    expect(res.status).toBe(400);
   });
 
   it('answers with a file rather than an envelope, and says not to cache it', async () => {

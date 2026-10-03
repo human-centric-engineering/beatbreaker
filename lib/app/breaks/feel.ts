@@ -54,7 +54,7 @@ export function feelOf(style: StyleAttrs | undefined): Feel | null {
  * and the "a" — the other hand, or the same hand on the way back up — are
  * quieter again. Beat 1 gets a shade more than the other three, because that is
  * where a player leans. These are the multipliers, before the pattern's own
- * accents and before the wobble.
+ * accents.
  */
 export const HAT_SHAPE = [
   1.0, 0.56, 0.78, 0.6, 0.93, 0.55, 0.76, 0.58, 0.96, 0.56, 0.78, 0.6, 0.93, 0.55, 0.76, 0.58,
@@ -80,8 +80,8 @@ export function hatBase(step: number, m: Meter): number {
  *
  * A style can lean harder or softer on the shape — Dilla's hats are
  * deliberately flat, Afrobeat's are not — and `hatsPct` scales the lot, with 0
- * giving machine-even hats, accents and wobble included, for when you want the
- * grid rather than the groove.
+ * giving machine-even hats, accents included, for when you want the grid
+ * rather than the groove.
  *
  * The ride is shaped exactly as the hats are: the stick on the beat is the
  * loud one wherever it is playing time.
@@ -90,9 +90,8 @@ export function hatBase(step: number, m: Meter): number {
  *              bell), 3 an open hat
  * @param hatsPct the Hi-hat dynamics slider, 0–150
  *
- * Not pure: the last few percent is deliberate wobble, because nobody is a
- * sequencer — until you ask for one, at which point `hatsPct` is 0 and the
- * wobble goes with it.
+ * Pure. The hit-to-hit wobble it used to add from `Math.random` is Humanise's
+ * now (`humanise.ts`), seeded, so the speakers and the MIDI file agree on it.
  */
 export function hatShape(
   step: number,
@@ -105,8 +104,7 @@ export function hatShape(
   let w = 1 - (1 - hatBase(step, m)) * depth;
   if (chip === 2) w *= 1 + 0.09 * Math.min(1, depth); // an accent written into the pattern
   if (chip === 3) w = Math.max(w, 1 - 0.1 * depth); // an open hat is a struck note, not a tick
-  const wobble = 0.03 * Math.min(1, depth); // nobody is a sequencer — until you ask for one
-  return Math.min(1.15, w) * (1 - wobble + Math.random() * wobble * 2);
+  return Math.min(1.15, w);
 }
 
 /** Which note value the swing slider moves for this style. */

@@ -36,6 +36,13 @@ import {
 
 import { reducePattern } from '@/lib/app/breaks/layers';
 import type { StoredLink } from '@/lib/app/breaks/links';
+import {
+  HUMANISE_AMOUNT,
+  type HumaniseMode,
+  type HumaniseSetting,
+  humaniseAmount,
+  humaniseSeed,
+} from '@/lib/app/breaks/humanise';
 import { buildMidi, type MidiFile } from '@/lib/app/breaks/midi';
 import { takePendingLink } from '@/lib/app/breaks/pending-link';
 import {
@@ -273,6 +280,13 @@ export interface BreakConsole {
   /** Whose side the kit is panned from. */
   panView: PanView;
   setPanView: (v: PanView) => void;
+  /** Humanise (Phase 9): Off, Subtle or Loose, its Amount and its take. */
+  humanise: HumaniseSetting;
+  /** Off, Subtle or Loose. Subtle and Loose set the Amount to theirs. */
+  setHumaniseMode: (mode: HumaniseMode) => void;
+  setHumaniseAmount: (amount: number) => void;
+  /** 🎲 Roll another performance, heard from the next pass. */
+  newTake: () => void;
   /** How many percussion instruments have recordings in memory. */
   percCount: number;
   mix: Record<string, number>;
@@ -377,9 +391,10 @@ export interface BreakConsole {
   flash: Flash | null;
   /**
    * The arrangement as a Standard MIDI File — only the section on show, when
-   * one is. Null when there is nothing to play.
+   * one is. _Played_ (the default) writes it humanised as you hear it;
+   * _Quantised_ writes it without Humanise. Null when there is nothing to play.
    */
-  midi: () => MidiFile | null;
+  midi: (played?: boolean) => MidiFile | null;
   /** Plays a bar of the current kit. False when there is no Web Audio. */
   auditionKit: () => boolean;
   /** The MIDI port playback is also driving, if you have opened one. */
@@ -506,6 +521,7 @@ export function useBreakConsole(
     sound: tuning,
     percSamples,
     panView,
+    humanise,
     countIn,
     ceiling,
     matchTempo,
@@ -1228,6 +1244,16 @@ export function useBreakConsole(
     [laneSolo, view.A?.lanes, view.B?.lanes]
   );
 
+  /* Humanise's seed is the full sections' notes and your take — not the
+     layer on show, so changing layer or tempo does not re-roll it. */
+  const humanisePlay = useMemo(
+    () => ({
+      amount: humaniseAmount(humanise),
+      seed: humaniseSeed([patterns.A, patterns.B], humanise.take),
+    }),
+    [humanise, patterns.A, patterns.B]
+  );
+
   /**
    * What the transport reads on every scheduled step.
    *
@@ -1246,6 +1272,7 @@ export function useBreakConsole(
       swing,
       feel,
       hats,
+      humanise: humanisePlay,
       click,
       clickSub,
       countIn,
@@ -1263,6 +1290,7 @@ export function useBreakConsole(
       swing,
       feel,
       hats,
+      humanisePlay,
       click,
       clickSub,
       countIn,
@@ -1359,6 +1387,26 @@ export function useBreakConsole(
     },
     [update]
   );
+
+  const setHumaniseMode = useCallback(
+    (mode: HumaniseMode) => {
+      update(({ humanise: h }) => ({
+        humanise: { ...h, mode, amount: mode === 'off' ? h.amount : HUMANISE_AMOUNT[mode] },
+      }));
+    },
+    [update]
+  );
+
+  const setHumaniseAmount = useCallback(
+    (amount: number) => {
+      update(({ humanise: h }) => ({ humanise: { ...h, amount } }));
+    },
+    [update]
+  );
+
+  const newTake = useCallback(() => {
+    update(({ humanise: h }) => ({ humanise: { ...h, take: (h.take + 1) % 0x7fffffff } }));
+  }, [update]);
 
   /* The AudioContext is built once, in an effect with no state in its deps.
      These refs are how that effect reads the current kit and preferences
@@ -1751,17 +1799,26 @@ export function useBreakConsole(
     [catalogue, putDoc]
   );
 
-  const midi = useCallback((): MidiFile | null => {
-    const solo = viewMode === 'both' ? null : viewMode;
-    const seq = arrangement
-      .filter((L) => !solo || L === solo)
-      .flatMap((L) => {
-        const pat = view[L];
-        return pat ? pat.bars.map((_, i) => ({ pattern: pat, barIdx: i })) : [];
+  const midi = useCallback(
+    (played = true): MidiFile | null => {
+      const solo = viewMode === 'both' ? null : viewMode;
+      const seq = arrangement
+        .filter((L) => !solo || L === solo)
+        .flatMap((L) => {
+          const pat = view[L];
+          return pat ? pat.bars.map((_, i) => ({ pattern: pat, barIdx: i })) : [];
+        });
+      if (!seq.length) return null;
+      return buildMidi(seq, {
+        bpm,
+        swing,
+        feel,
+        hats,
+        ...(played ? { humanise: humanisePlay } : {}),
       });
-    if (!seq.length) return null;
-    return buildMidi(seq, { bpm, swing, feel, hats });
-  }, [arrangement, view, viewMode, bpm, swing, feel, hats]);
+    },
+    [arrangement, view, viewMode, bpm, swing, feel, hats, humanisePlay]
+  );
 
   const rename = useCallback((name: string) => {
     /* The name is not the music, so it is not an undo step: undoing a note
@@ -1836,6 +1893,10 @@ export function useBreakConsole(
     setPercSamples,
     panView,
     setPanView,
+    humanise,
+    setHumaniseMode,
+    setHumaniseAmount,
+    newTake,
     percCount: samples.percCount,
     mix,
     setLaneMix,

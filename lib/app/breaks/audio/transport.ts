@@ -1,5 +1,6 @@
 import type { BreakAudio } from '@/lib/app/breaks/audio/engine';
 import type { MidiSink } from '@/lib/app/breaks/audio/midi-out';
+import { Humaniser } from '@/lib/app/breaks/humanise';
 import { M44, groupAt, isGroupStart, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
 import { meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
 import { type Voice, performStep } from '@/lib/app/breaks/perform';
@@ -14,9 +15,10 @@ import type { Bar, Meter, Pattern } from '@/lib/app/breaks/types';
  * queue for each step; the UI drains that queue on its own animation frame, so
  * a dropped frame moves the playhead late without moving the music.
  *
- * Swing and the style's feel are applied here, to the *scheduled time only*.
- * The metronome and the playhead deliberately stay on the grid: being able to
- * hear the gap between the click and the kit is the thing you are learning.
+ * Swing, the style's feel and Humanise are applied here, to the *scheduled
+ * time only*. The metronome and the playhead deliberately stay on the grid:
+ * being able to hear the gap between the click and the kit is the thing you
+ * are learning.
  */
 
 export type SectionLetter = 'A' | 'B';
@@ -54,6 +56,12 @@ export interface TransportSnapshot {
   feel: number;
   /** Hi-hat dynamics, 0–150. */
   hats: number;
+  /**
+   * Humanise (Phase 9): how much, 0–100 (0 when it is Off), and the seed of
+   * the performance (`humaniseSeed`). The Amount is read on every step; a new
+   * seed is taken up at the start of the next pass.
+   */
+  humanise: { amount: number; seed: number };
   click: boolean;
   /** 4 clicks the pulse (quarters, or dotted quarters in compound time); 8 clicks every eighth. See {@link isClickStep}. */
   clickSub: number;
@@ -151,6 +159,8 @@ export class Transport {
   private seq: SeqEntry[] = [];
   private raf: number | null = null;
   private loops = 0;
+  /** This performance's humaniser: made at Play, and again when a pass starts on a new seed. */
+  private human = new Humaniser(0);
 
   playing = false;
 
@@ -173,6 +183,7 @@ export class Transport {
 
     const snap = this.cb.getSnapshot();
     this.buildSeq(snap);
+    this.perform(snap.humanise.seed);
     this.step = 0;
     this.seqIndex = 0;
     this.queue = [];
@@ -219,6 +230,16 @@ export class Transport {
       if (pat) pat.bars.forEach((_, bi) => this.seq.push({ letter, barIdx: bi, secIdx: -1 }));
     }
     if (!this.seq.length) this.seq.push({ letter: 'A', barIdx: 0, secIdx: 0 });
+  }
+
+  /**
+   * Start the performance a seed names: the humaniser from its first note,
+   * and the sampler's round-robins and wobble from the same seed, so pressing
+   * Play again replays both.
+   */
+  private perform(seed: number): void {
+    this.human = new Humaniser(seed);
+    this.audio.reseed(seed);
   }
 
   /** The arrangement changed under a running transport — keep playing, new sequence. */
@@ -273,13 +294,20 @@ export class Transport {
     const m = meterOfPat(livePat);
     const floor = (this.audio.ctx as AudioContext).currentTime + 0.002;
 
-    /* Every note is voiced by `performStep` — velocity, swing and feel — and
+    /* Every note is voiced by `performStep` — velocity, swing, feel and
+       humanise — and
        the speakers and the MIDI port play the same voice. So does the file
        export. Nothing about how a note sounds is decided in this method; add a
        subtlety to `perform.ts` and all three hear it. The click and the
        playhead stay on the grid — being able to hear the gap is the point. */
     const out = this.midi;
-    for (const v of performStep(livePat, bar, i, snap)) {
+    const voices = performStep(livePat, bar, i, {
+      swing: snap.swing,
+      feel: snap.feel,
+      hats: snap.hats,
+      humanise: { stream: this.human, amount: snap.humanise.amount, bpm: snap.bpm },
+    });
+    for (const v of voices) {
       const when = Math.max(floor, t + dur * v.offset);
       /* The fader is the lane channel's level, not part of the velocity
          (D39): the voice plays what the pattern wrote, and the channel makes
@@ -347,6 +375,8 @@ export class Transport {
 
     this.seqIndex = 0;
     this.loops++;
+    // a new take, or an edit to the notes, is heard from the top of a pass, never mid-pass
+    if (snap.humanise.seed !== this.human.seed) this.perform(snap.humanise.seed);
     this.cb.onLoop(this.loops, this.nextTime);
     if (snap.ramp) {
       const next = Math.min(snap.ceiling, snap.bpm + snap.ramp);

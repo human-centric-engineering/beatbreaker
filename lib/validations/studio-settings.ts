@@ -9,6 +9,7 @@ import {
   USER_PARAM_DEFS,
   VOICE_KEYS,
 } from '@/lib/app/breaks/kit';
+import { HUMANISE_MODES } from '@/lib/app/breaks/humanise';
 import { PAN_VIEWS, PERC_KEYS } from '@/lib/app/breaks/lanes';
 import { DEFAULT_METER, METERS } from '@/lib/app/breaks/meter';
 
@@ -136,6 +137,18 @@ export const STUDIO_SETTINGS_FIELDS = {
   percSamples: z.boolean(),
   /** Whose side the kit is heard from: from the stool, or mirrored as an audience hears it (Phase 9). */
   panView: z.enum(PAN_VIEWS),
+  /**
+   * Humanise (Phase 9, D38): Off, Subtle or Loose, the Amount (0–100) the
+   * position set or the slider moved, and the take 🎲 _New take_ counts up.
+   * Yours, not the pattern's, so a shared pattern plays with the listener's.
+   */
+  humanise: z
+    .object({
+      mode: z.enum(HUMANISE_MODES),
+      amount: z.number().int().min(0).max(100),
+      take: z.number().int().min(0).max(0x7fffffff),
+    })
+    .strict(),
   /** Bars of count-in before playback: 0, 1 or 2. */
   countIn: z.number().int().min(0).max(2),
   /** Where the tempo ramp stops. */
@@ -187,6 +200,7 @@ export const DEFAULT_STUDIO_SETTINGS: StudioSettings = {
   sound: {},
   percSamples: true,
   panView: 'drummer',
+  humanise: { mode: 'subtle', amount: 35, take: 0 },
   countIn: 1,
   ceiling: 130,
   matchTempo: false,

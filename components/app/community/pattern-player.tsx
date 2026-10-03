@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Transport, type TransportSnapshot, maxBpm } from '@/lib/app/breaks/audio/transport';
 import type { CatalogueKit } from '@/lib/app/breaks/catalogue/types';
 import { percussionSource } from '@/lib/app/breaks/catalogue/types';
+import { humaniseAmount, humaniseSeed } from '@/lib/app/breaks/humanise';
 import { withTuning } from '@/lib/app/breaks/kit';
 import { DEFAULT_MIX } from '@/lib/app/breaks/lanes';
 import { LAYER_NAMES, reducePattern } from '@/lib/app/breaks/layers';
@@ -30,7 +31,8 @@ const noop = (): void => {};
  * The pattern's document carries no kit (the kit is a setting, D19), so it
  * plays the default system kit, as a new account's Studio does. **Your own
  * samples are never involved**: nothing about publishing a pattern reaches
- * them (D20).
+ * them (D20). It plays Humanise at its default, Subtle, on the first take, so
+ * it is the performance a new account's Studio plays of the same notes.
  *
  * The AudioContext is made on the first press of Play — a gesture, which is
  * what iOS asks for — and closed when the page is left.
@@ -59,6 +61,14 @@ export function PatternPlayer({
   const [unsupported, setUnsupported] = useState(false);
   const [engineFailed, setEngineFailed] = useState(false);
 
+  const humanise = useMemo(
+    () => ({
+      amount: humaniseAmount(DEFAULT_STUDIO_SETTINGS.humanise),
+      seed: humaniseSeed([doc.A, doc.B], DEFAULT_STUDIO_SETTINGS.humanise.take),
+    }),
+    [doc]
+  );
+
   const snapshot: TransportSnapshot = useMemo(
     () => ({
       patterns: { A: reducePattern(doc.A, level), B: reducePattern(doc.B, level) },
@@ -68,6 +78,7 @@ export function PatternPlayer({
       swing: doc.swing,
       feel: DEFAULT_STUDIO_SETTINGS.feel,
       hats: DEFAULT_STUDIO_SETTINGS.hats,
+      humanise,
       click: false,
       clickSub: 4,
       countIn: 0,
@@ -77,7 +88,7 @@ export function PatternPlayer({
       mute: {},
       laneSolo: {},
     }),
-    [doc, level, bpm, ceiling]
+    [doc, level, bpm, ceiling, humanise]
   );
   const snapshotRef = useRef(snapshot);
   useEffect(() => {

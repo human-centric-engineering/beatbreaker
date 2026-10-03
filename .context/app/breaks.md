@@ -419,7 +419,7 @@ therefore no subject to scope to.
 | `POST /api/v1/breaks/doctor`   | `styleKey`, `styleVersion?`, `doc`, `move`, `entropy?`                            | `{ doc, critique, playability }`                                         |
 | `POST /api/v1/breaks/critique` | `doc`, `bpm`                                                                      | `{ critique, playability }`                                              |
 | `POST /api/v1/breaks/engrave`  | `doc`, `layer`, `scale`, `perSystem`, `guides`, `sticking`                        | the `Engraving` — nodes, playhead map, dimensions                        |
-| `POST /api/v1/breaks/midi`     | `doc` (a whole `SharePayload`), `feel`, `hats`, `bars`                            | `audio/midi` bytes                                                       |
+| `POST /api/v1/breaks/midi`     | `doc` (a whole `SharePayload`), `feel`, `hats`, `bars`, `humanise?`               | `audio/midi` bytes                                                       |
 | `POST /api/v1/breaks/import`   | `{ kind: 'midi', data, fileName? }` or `{ kind: 'text', text }`                   | `{ source, doc, notes }`; 422 `IMPORT_UNREADABLE` with a sentence        |
 
 Four things worth knowing:
@@ -441,9 +441,10 @@ Tests: `tests/unit/app/api/v1/breaks/domain-operations.route.test.ts`. Every one
 asserts the route's output is **byte-identical to calling the function
 directly** — that is the claim worth making, and a test that only checked for a
 200 would pass on the day the server and the browser diverge. The MIDI
-comparison is made at `hats: 0`, because `hatShape` carries a deliberate
-`Math.random()` wobble at anything above it; a second case pins that the wobble
-is still there.
+comparison is made at full hi-hat dynamics: the variation that used to be a
+`Math.random()` wobble in `hatShape` is Humanise's now, seeded from the notes
+and the take, so a second case holds that the same take is the same file and
+another take is not.
 
 ## The text notation (`text.ts`)
 

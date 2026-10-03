@@ -61,6 +61,15 @@ export const PATTERNS_TAB: StoredSetting<(typeof PATTERNS_TABS)[number] | null> 
   fallback: null,
 };
 
+/** How Download .mid writes the timing: humanised as you hear it, or without Humanise (Phase 9). */
+export const MIDI_TIMINGS = ['played', 'quantised'] as const;
+
+export const MIDI_TIMING: StoredSetting<(typeof MIDI_TIMINGS)[number]> = {
+  key: 'bb.midiTiming',
+  schema: z.enum(MIDI_TIMINGS),
+  fallback: 'played',
+};
+
 /**
  * The first-run tour (task 8.6) has been seen, or skipped, in this browser. A
  * new device shows it again, which is fine: it is three steps, and it does not
@@ -97,6 +106,7 @@ export const BROWSER_KEYS = [
   GRID_SIZE.key,
   VIEW.key,
   PATTERNS_TAB.key,
+  MIDI_TIMING.key,
   TOUR_SEEN.key,
   SCRATCH.key,
   PENDING_LINK.key,

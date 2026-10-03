@@ -35,12 +35,15 @@ while the groove leans off it.
   graph per hit, so every knob is live), five recorded kits, and kits of your
   own built from samples you upload. Recorded slots can carry round-robins, so
   a run of sixteenths is not one sample repeated; every lane has its own
-  channel and pan, and the master has a ceiling. The TR-808 / TR-909 voice
+  channel and pan, and the master has a ceiling. _Humanise_ (Off · Subtle ·
+  Loose) moves each hit a few milliseconds and a little in level, limb by
+  limb, from a seed, so pressing Play twice gives the same performance and the
+  MIDI agrees with the speakers. The TR-808 / TR-909 voice
   models are declared but not wired up yet, and the kit picker says so rather
   than quietly substituting something else.
 - **Export** — a break code and a share link that carry both sections, and GM
   drum-map MIDI with swing, feel and ghost velocities written into the tick
-  positions.
+  positions, played (humanised as you hear it) or quantised.
 
 ## Tech Stack
 

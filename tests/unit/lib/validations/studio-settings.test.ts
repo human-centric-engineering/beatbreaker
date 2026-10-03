@@ -33,6 +33,22 @@ describe('DEFAULT_STUDIO_SETTINGS', () => {
   });
 });
 
+describe('humanise (Phase 9, D38)', () => {
+  it('starts at Subtle, 35, on the first take', () => {
+    expect(DEFAULT_STUDIO_SETTINGS.humanise).toEqual({ mode: 'subtle', amount: 35, take: 0 });
+  });
+
+  it('holds the Amount to 0–100 in whole numbers, and refuses anything else in it', () => {
+    const h = STUDIO_SETTINGS_FIELDS.humanise;
+    expect(h.safeParse({ mode: 'loose', amount: 100, take: 3 }).success).toBe(true);
+    expect(h.safeParse({ mode: 'off', amount: 0, take: 0 }).success).toBe(true);
+    expect(h.safeParse({ mode: 'loose', amount: 101, take: 0 }).success).toBe(false);
+    expect(h.safeParse({ mode: 'loose', amount: 35.5, take: 0 }).success).toBe(false);
+    expect(h.safeParse({ mode: 'loose', amount: 35, take: -1 }).success).toBe(false);
+    expect(h.safeParse({ mode: 'loose', amount: 35, take: 0, seed: 4 }).success).toBe(false);
+  });
+});
+
 describe('panView (Phase 9)', () => {
   it('starts from the stool, and takes only the two sides', () => {
     expect(DEFAULT_STUDIO_SETTINGS.panView).toBe('drummer');

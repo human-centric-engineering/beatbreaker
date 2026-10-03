@@ -164,6 +164,11 @@ bar 1_, _Reverse the beats_ and _Flatten to L2_.
 | radio    | `<The stool\|Out front>`                             | Sound, whose side the kit is panned from | ⓘ _Heard from_ | —        | `Segmented` |
 | button   | `About Heard from`                                   | Sound                                    | ⓘ              | —        | 24px        |
 | button   | `▸ Play the kit`                                     | Sound                                    | —              | —        | `.mini`     |
+| radio    | `<Off\|Subtle\|Loose>`                               | Sound, Humanise                          | ⓘ _Humanise_   | —        | `Segmented` |
+| button   | `About Humanise`                                     | Sound                                    | ⓘ              | —        | 24px        |
+| slider   | `Amount`                                             | Sound, Humanise, hidden while Off        | ⓘ _Humanise_   | —        | 24px        |
+| button   | `🎲 New take`                                        | Sound, Humanise                          | ⓘ _New take_   | —        | `.mini`     |
+| button   | `About New take`                                     | Sound                                    | ⓘ              | —        | 24px        |
 | radio    | `<Kick\|Snare\|Hi-hat\|Ride\|Crash\|Toms\|Perc>`     | Sound, which voice to tune               | ⓘ _Voice_      | —        | `Segmented` |
 | slider   | `<Size\|Bright\|Drive\|Room\|Top end\|Closed\|Open>` | Sound, the voice's settings              | ⓘ _Voice_      | —        | 24px        |
 | button   | `About Voice`                                        | Sound                                    | ⓘ              | —        | 24px        |
@@ -203,34 +208,35 @@ voice. A kit of your own adds the per-slot controls in `your-sounds.tsx`
 
 ## Share
 
-| role    | name                    | where                                              | help                | shortcut | target  |
-| ------- | ----------------------- | -------------------------------------------------- | ------------------- | -------- | ------- |
-| textbox | `Name`                  | Share, Details                                     | ⓘ _Name_            | —        | 36px    |
-| textbox | `Description`           | Share, Details                                     | ⓘ _Description_     | —        | 36px    |
-| textbox | `Link <n>`              | Share, Details, one per link, when there are links | ⓘ _Reference links_ | —        | 36px    |
-| button  | `Remove link <n>`       | Share, Details, one per link, when there are links | —                   | —        | `.mini` |
-| button  | `Add a link`            | Share, Details                                     | ⓘ _Reference links_ | —        | `.mini` |
-| button  | `Save details`          | Share, Details                                     | —                   | —        | `.mini` |
-| button  | `Save a copy`           | Share, Details                                     | ⓘ _Save a copy_     | —        | `.mini` |
-| button  | `Delete pattern`        | Share, Details, on a saved pattern of yours        | ⓘ _Delete pattern_  | —        | `.mini` |
-| button  | `About Name`            | Share                                              | ⓘ                   | —        | 24px    |
-| button  | `About Description`     | Share                                              | ⓘ                   | —        | 24px    |
-| button  | `About Reference links` | Share                                              | ⓘ                   | —        | 24px    |
-| button  | `About Save a copy`     | Share                                              | ⓘ                   | —        | 24px    |
-| button  | `About Delete pattern`  | Share                                              | ⓘ                   | —        | 24px    |
-| button  | `Share with a link`     | Share, sharing                                     | —                   | —        | `.mini` |
-| button  | `Publish…`              | Share, sharing                                     | the publish dialog  | —        | `.mini` |
-| button  | `Copy Studio link`      | Share                                              | —                   | —        | `.mini` |
-| button  | `Copy break code`       | Share                                              | ⓘ _Break code_      | —        | `.mini` |
-| textbox | `Load a break code`     | Share                                              | ⓘ _Break code_      | —        | 36px    |
-| button  | `Load it`               | Share                                              | —                   | —        | `.mini` |
-| button  | `About Break code`      | Share                                              | ⓘ                   | —        | 24px    |
-| button  | `Download .mid`         | Share                                              | ⓘ _MIDI_            | —        | `.mini` |
-| button  | `About MIDI`            | Share                                              | ⓘ                   | —        | 24px    |
-| button  | `MIDI out`              | Share                                              | ⓘ _MIDI out_        | —        | `.mini` |
-| button  | `About MIDI out`        | Share, when the browser has no Web MIDI            | ⓘ                   | —        | 24px    |
-| button  | `Print chart`           | Share                                              | ⓘ _Print_           | ⌘P       | `.mini` |
-| button  | `About Print`           | Share                                              | ⓘ                   | —        | 24px    |
+| role    | name                    | where                                              | help                | shortcut | target      |
+| ------- | ----------------------- | -------------------------------------------------- | ------------------- | -------- | ----------- |
+| textbox | `Name`                  | Share, Details                                     | ⓘ _Name_            | —        | 36px        |
+| textbox | `Description`           | Share, Details                                     | ⓘ _Description_     | —        | 36px        |
+| textbox | `Link <n>`              | Share, Details, one per link, when there are links | ⓘ _Reference links_ | —        | 36px        |
+| button  | `Remove link <n>`       | Share, Details, one per link, when there are links | —                   | —        | `.mini`     |
+| button  | `Add a link`            | Share, Details                                     | ⓘ _Reference links_ | —        | `.mini`     |
+| button  | `Save details`          | Share, Details                                     | —                   | —        | `.mini`     |
+| button  | `Save a copy`           | Share, Details                                     | ⓘ _Save a copy_     | —        | `.mini`     |
+| button  | `Delete pattern`        | Share, Details, on a saved pattern of yours        | ⓘ _Delete pattern_  | —        | `.mini`     |
+| button  | `About Name`            | Share                                              | ⓘ                   | —        | 24px        |
+| button  | `About Description`     | Share                                              | ⓘ                   | —        | 24px        |
+| button  | `About Reference links` | Share                                              | ⓘ                   | —        | 24px        |
+| button  | `About Save a copy`     | Share                                              | ⓘ                   | —        | 24px        |
+| button  | `About Delete pattern`  | Share                                              | ⓘ                   | —        | 24px        |
+| button  | `Share with a link`     | Share, sharing                                     | —                   | —        | `.mini`     |
+| button  | `Publish…`              | Share, sharing                                     | the publish dialog  | —        | `.mini`     |
+| button  | `Copy Studio link`      | Share                                              | —                   | —        | `.mini`     |
+| button  | `Copy break code`       | Share                                              | ⓘ _Break code_      | —        | `.mini`     |
+| textbox | `Load a break code`     | Share                                              | ⓘ _Break code_      | —        | 36px        |
+| button  | `Load it`               | Share                                              | —                   | —        | `.mini`     |
+| button  | `About Break code`      | Share                                              | ⓘ                   | —        | 24px        |
+| button  | `Download .mid`         | Share                                              | ⓘ _MIDI_            | —        | `.mini`     |
+| radio   | `<Played\|Quantised>`   | Share, how Download .mid writes the timing         | ⓘ _MIDI_            | —        | `Segmented` |
+| button  | `About MIDI`            | Share                                              | ⓘ                   | —        | 24px        |
+| button  | `MIDI out`              | Share                                              | ⓘ _MIDI out_        | —        | `.mini`     |
+| button  | `About MIDI out`        | Share, when the browser has no Web MIDI            | ⓘ                   | —        | 24px        |
+| button  | `Print chart`           | Share                                              | ⓘ _Print_           | ⌘P       | `.mini`     |
+| button  | `About Print`           | Share                                              | ⓘ                   | —        | 24px        |
 
 ## BeatBuddy
 

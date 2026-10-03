@@ -28,6 +28,7 @@ const lazy = vi.hoisted(() => {
     close = vi.fn();
     init = vi.fn(() => null);
     resume = vi.fn();
+    reseed = vi.fn();
     constructor() {
       made.push(this);
     }

@@ -103,6 +103,17 @@ export const midiBreakSchema = z.object({
   hats: z.number().min(0).max(150).default(100),
   /** How many bars of the arrangement to write. */
   bars: z.number().int().min(1).max(64).default(8),
+  /**
+   * Humanise (Phase 9): the Amount (0–100) and the take, as the Studio plays
+   * them. Left out, the file is _Quantised_ — swing and feel, no Humanise.
+   */
+  humanise: z
+    .object({
+      amount: z.number().int().min(0).max(100),
+      take: z.number().int().min(0).max(0x7fffffff).default(0),
+    })
+    .strict()
+    .optional(),
 });
 
 /** A drum pattern's MIDI file is a few kilobytes; this leaves room for a long one. */
