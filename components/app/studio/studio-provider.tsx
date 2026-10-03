@@ -40,6 +40,7 @@ import {
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import { FULL_LAYER } from '@/lib/app/breaks/layers';
 import { withYourKits } from '@/lib/app/breaks/samples/your-kit';
+import { daysSince, useAppEvents } from '@/lib/app/breaks/events';
 import { decodeBreak } from '@/lib/app/breaks/share';
 import type { HistoryItem } from '@/lib/validations/history';
 import type { StudioSettings } from '@/lib/validations/studio-settings';
@@ -267,6 +268,18 @@ export function StudioProvider({
   });
   const pins = usePins(initialPins, say);
 
+  /* A saved pattern of yours put on the stage (8.8): by its address here, and
+     from inside the Studio in `openTarget`. Once per mount — the initial
+     pattern does not change. */
+  const track = useAppEvents();
+  const openedCounted = useRef(false);
+  useEffect(() => {
+    if (openedCounted.current) return;
+    openedCounted.current = true;
+    const days = initial?.mine && initial.createdAt ? daysSince(initial.createdAt) : null;
+    if (days !== null) track('pattern_opened', { days_since_created: days });
+  }, [initial, track]);
+
   /* The library entry on the stage, if that is where it came from. Set when an
      entry is opened and cleared by anything else that replaces the pattern;
      edits keep it, as they keep a saved pattern's id — it is still that break,
@@ -398,10 +411,12 @@ export function StudioProvider({
         }
         setEntry(null);
         attach(opened.id, opened.mine, opened.details, opened.sharing);
+        const days = opened.mine && opened.createdAt ? daysSince(opened.createdAt) : null;
+        if (days !== null) track('pattern_opened', { days_since_created: days });
       });
       return 'opened';
     },
-    [catalogue, loadLibraryEntry, loadPayload, attach, say]
+    [catalogue, loadLibraryEntry, loadPayload, attach, say, track]
   );
 
   const openItem = useCallback(

@@ -8,6 +8,7 @@ import { z } from 'zod';
 import { AddToSession } from '@/components/app/practice/add-to-session';
 import { Button } from '@/components/ui/button';
 import { APIClientError, apiClient } from '@/lib/api/client';
+import { useAppEvents } from '@/lib/app/breaks/events';
 
 const copied = z.object({ id: z.string().min(1) });
 
@@ -35,12 +36,14 @@ export function PatternActions({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [note, setNote] = useState<string | null>(null);
+  const track = useAppEvents();
 
   const saveCopy = async () => {
     setBusy(true);
     setError(null);
     try {
       const data = copied.parse(await apiClient.post(`/api/v1/breaks/${id}/copy`, { body: {} }));
+      track('pattern_copied', { kind: variation ? 'variation' : 'copy', from: 'shared_page' });
       router.push(`/studio/${data.id}`);
     } catch (e) {
       setError(

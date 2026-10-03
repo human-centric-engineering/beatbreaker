@@ -6,6 +6,7 @@ folders beside this one; start at [`../substrate.md`](../substrate.md).
 
 | Doc                                                | What it is                                                                                                                                     |
 | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`analytics.md`](./analytics.md)                   | Analytics and the policies (Phase 8): the app's events and where they fire, consent, and how `/privacy` and `/terms` read the export manifest. |
 | [`about.md`](./about.md)                           | About you (Phase 7B): the fields, channel links, what is public, profile reports, and what the app does with it.                               |
 | [`beatbuddy.md`](./beatbuddy.md)                   | BeatBuddy (Phase 7): the loop, the workspace and its rev, and what Spike B found on the live model.                                            |
 | [`breaks.md`](./breaks.md)                         | The break domain: modules, invariants, the share-code wire format, `/api/v1/breaks`.                                                           |

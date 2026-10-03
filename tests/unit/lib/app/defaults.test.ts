@@ -472,7 +472,8 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     risk: 'a stray section would appear on every install\u2019s /profile and /settings',
     // FORK (BeatBreaker): re-pointed, not deleted. Phase 6 adds the Drummer
     // profile to /settings and nothing to /profile; Phase 7B adds About you
-    // beside it — pinned by id per surface, so an accidental addition on
+    // beside it, and 8.9 Your data (the download the policy promises) —
+    // pinned by id per surface, so an accidental addition on
     // either still fails.
     assert: () => {
       __resetAccountSectionRegistryForTests();
@@ -483,7 +484,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
           getRegisteredAccountSections(surface).map((s) => s.id),
         ])
       );
-      expect(ids).toEqual({ profile: [], settings: ['drummer-profile', 'about-you'] });
+      expect(ids).toEqual({ profile: [], settings: ['drummer-profile', 'about-you', 'your-data'] });
     },
   },
   {

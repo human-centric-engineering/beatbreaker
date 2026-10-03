@@ -152,6 +152,8 @@ const openedSchema = z.object({
   /* Unreadable reads as not fixed: the edit is then autosaved and the server
      refuses it (409 PUBLISHED_FIXED), so the notes still cannot change. */
   frozenAt: z.string().nullish().catch(null),
+  // only counted with (8.8), so a date that will not read costs nothing
+  createdAt: z.string().optional().catch(undefined),
 });
 
 /**
@@ -173,6 +175,7 @@ export async function fetchSavedPattern(id: string): Promise<InitialPattern | 'g
         basedOn: row.basedOn ?? null,
         fixed: !!row.frozenAt,
       },
+      ...(row.createdAt ? { createdAt: row.createdAt } : {}),
     };
   } catch (error) {
     if (error instanceof APIClientError && error.status === 404) return 'gone';

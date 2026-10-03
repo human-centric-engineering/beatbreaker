@@ -23,6 +23,7 @@ import type { Studio } from '@/components/app/studio/studio-provider';
 import { apiClient } from '@/lib/api/client';
 import type { SharePayload } from '@/lib/app/breaks/schema';
 import { type BreakDoc, breakDocFromPayload, breakPayload } from '@/lib/app/breaks/share';
+import { expectNoContent, recordEvents } from '@/tests/helpers/analytics';
 import { funkPayload } from '@/tests/helpers/buddy';
 
 const START = funkPayload(1);
@@ -379,5 +380,79 @@ describe('the BeatBuddy drawer', () => {
     expect(calls).toEqual(['fillStyle #fff', 'fillRect', 'drawImage']);
     getContext.mockRestore();
     toDataURL.mockRestore();
+  });
+});
+
+describe('analytics events (task 8.8)', () => {
+  it('counts an answered turn that changed the chart, and its Undo', async () => {
+    const rec = recordEvents();
+    vi.mocked(fetch).mockResolvedValue(
+      sse([
+        { type: 'start', conversationId: 'c1' },
+        result(FIRST, 4, 'Strip ghosts: A bars 1, 2'),
+        { type: 'content', delta: 'Took the ghosts out of A.' },
+        { type: 'done' },
+      ])
+    );
+    render(<Harness />, { wrapper: rec.wrapper });
+
+    await say('Strip the ghosts');
+    await screen.findByText('Took the ghosts out of A.');
+    await waitFor(() => expect(rec.names()).toEqual(['buddy_turn']));
+    expect(rec.tracked[0].props).toEqual({ changed: true });
+
+    await userEvent.setup().click(screen.getByRole('button', { name: /undo/i }));
+    expect(rec.names()).toEqual(['buddy_turn', 'buddy_undo']);
+    expectNoContent(rec.tracked, ['Strip the ghosts', 'Took the ghosts', 'c1']);
+  });
+
+  it('counts a turn that only talked as unchanged', async () => {
+    const rec = recordEvents();
+    vi.mocked(fetch).mockResolvedValue(
+      sse([{ type: 'content', delta: 'It already swings.' }, { type: 'done' }])
+    );
+    render(<Harness />, { wrapper: rec.wrapper });
+
+    await say('Does it swing?');
+    await screen.findByText('It already swings.');
+    await waitFor(() =>
+      expect(rec.tracked).toEqual([{ event: 'buddy_turn', props: { changed: false } }])
+    );
+  });
+
+  it('counts no turn the server refused', async () => {
+    const rec = recordEvents();
+    vi.mocked(fetch).mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          success: false,
+          error: { code: 'BUDDY_ALLOWANCE_SPENT', message: 'That is all of today.' },
+        }),
+        { status: 429 }
+      )
+    );
+    render(<Harness />, { wrapper: rec.wrapper });
+
+    await say('One more');
+    await screen.findByText('That is all of today.');
+    expect(rec.names()).toEqual([]);
+  });
+
+  it('does not count undoing an imported file as undoing BeatBuddy', async () => {
+    const rec = recordEvents();
+    vi.mocked(apiClient.post).mockResolvedValue({ source: 'midi', doc: FIRST, notes: [] });
+    const { container } = render(<Harness />, { wrapper: rec.wrapper });
+    const input = container.querySelector('input[type="file"]');
+    if (!(input instanceof HTMLInputElement)) throw new Error('no file input');
+    await act(async () => {
+      await userEvent
+        .setup()
+        .upload(input, new File([new Uint8Array([0x4d, 0x54, 0x68, 0x64])], 'groove.mid'));
+    });
+    await screen.findByText('Opened groove.mid');
+
+    await userEvent.setup().click(screen.getByRole('button', { name: /undo/i }));
+    expect(fake.studio.undo).toHaveBeenCalledTimes(1);
+    expect(rec.names()).toEqual([]);
   });
 });

@@ -39,6 +39,7 @@
  */
 import { AboutYouSection } from '@/components/app/account/about-you-section';
 import { DrummerProfileSection } from '@/components/app/account/drummer-profile-section';
+import { YourDataSection } from '@/components/app/account/your-data-section';
 import { registerAccountSection } from '@/lib/account-sections/registry';
 
 export function initAppAccountSections(): void {
@@ -57,5 +58,12 @@ export function initAppAccountSections(): void {
     surfaces: ['settings'],
     order: 20,
     Component: AboutYouSection,
+  });
+  /* Settings only: the download the privacy policy promises (8.9). */
+  registerAccountSection({
+    id: 'your-data',
+    surfaces: ['settings'],
+    order: 30,
+    Component: YourDataSection,
   });
 }

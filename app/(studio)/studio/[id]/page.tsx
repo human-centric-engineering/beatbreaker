@@ -79,6 +79,7 @@ export default async function StudioPatternPage({ params }: { params: Promise<{ 
           basedOn,
           fixed: !!opened.row.frozenAt,
         },
+        createdAt: opened.row.createdAt.toISOString(),
       }}
     >
       <StudioFrame />

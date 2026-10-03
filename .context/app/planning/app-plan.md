@@ -2210,6 +2210,50 @@ written, with these calls:
 | 8.8 | App events through `trackEvent`: `pattern_created`, `pattern_saved`, `pattern_opened` (days since created), `pattern_published`, `pattern_copied`, `buddy_turn`, `buddy_undo`, with no pattern content, title or user id in any property                      | Tests: each fires once at its moment; nothing fires without optional consent; a property scan finds no title, notes or id                                     |
 | 8.9 | `/privacy` and `/terms` rewritten for BeatBreaker per `site-copy.md` §7 (corrected for samples), covering OpenAI, the 90-day conversation window, analytics, R2, and erasure and export; placeholders marked `[OWNER: …]` for entity, region, age and contact | Page tests: no "placeholder" or `example.com` left except the marked owner fields; every `SUBJECT_DATA_SOURCES` and app export section is named in the policy |
 
+**8-iii reconciled and built, 2026-10-03 (branch `phase-8-iii`).** It stays as
+written, with these calls:
+
+- **There is no `trackEvent` in Sunrise.** The consent-gated path is
+  `AnalyticsContext.track`. The app's events go through `useAppEvents()`
+  (`lib/app/breaks/events.ts`), which is a no-op outside a provider, so the
+  Studio's test files didn't need one. It **holds** an event sent with
+  consent before the client is ready, because the provider's `track` drops
+  it, and that is when `pattern_opened` fires on a page load.
+- **What each event means** is in `analytics.md`. `pattern_saved` is once per
+  opening, not once per autosave. The edits that follow a first save in the
+  same opening count as `pattern_created`. `pattern_opened` counts only your
+  own patterns, by address or from inside the Studio, and `createdAt` now
+  reaches the client for it. `buddy_turn` carries `changed`, which is the
+  undo rate's denominator. Undoing an imported file isn't `buddy_undo`.
+- **Properties are typed as numbers, booleans and closed word sets,** so no
+  free string can be passed. The property scan is `expectNoContent()` in
+  `tests/helpers/analytics.tsx`, run by each event test.
+- **Found reconciling it: the analytics provider choice is a privacy
+  choice.** Sunrise's `UserIdentifier` sends the account id through
+  `identify()`, and page views carry `/studio/<id>` and `/p/<slug>`.
+  Plausible ignores `identify` and GA4 and PostHog don't. The policy is
+  written for Plausible, with an `[OWNER: …]` field that says so. This
+  strengthens the case for Plausible in 8.16.
+- **Found reconciling it: nothing on screen reached the export.**
+  `GET /api/v1/users/me/export` existed, and the policy, `site-copy.md` and
+  8.10's "export account" journey all assumed a button. _Settings → Your
+  data_ is that button, added through the `account-sections` seam with no
+  core edit.
+- **The policies are fork components in `components/app/legal/`.** The two
+  Sunrise page files keep only the metadata and the shell. _Everything in
+  your download_ is rendered from `SUBJECT_DATA_SOURCES` and the app's
+  declared sources with their own descriptions, so the done-when ("every
+  section is named") holds structurally, and the page test checks it.
+- **Owner fields** (`<OwnerField>`, shown as `[OWNER: …]`): the entity and
+  address, the minimum age, the privacy and terms contacts, the hosting
+  region, the analytics provider and whether it identifies people, the
+  backup retention, the transfer mechanism, the data protection authority,
+  the liability wording and the governing law. OpenAI's API data terms were
+  read from its "Your data" page on 2026-10-03, not from memory.
+- **Not built:** hiding a reported profile isn't a moderation action (§10),
+  so the terms only promise what the tools do: unpublishing, removing
+  links, and unlisting speeds.
+
 **8-iv — the journeys:**
 
 | #    | Task                                                                                                                                                            | Done when                                                                                                                                      |

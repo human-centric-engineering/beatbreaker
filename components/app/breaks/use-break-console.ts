@@ -425,6 +425,8 @@ export interface InitialPattern {
   details?: PatternDetails;
   /** Who can open it (Phase 6) — private and uncredited when left out. */
   sharing?: PatternSharing;
+  /** When the row was made (ISO), for `pattern_opened`'s day count (8.8). */
+  createdAt?: string;
 }
 
 /** Where a pattern was left: the layer, and the tempo it was being played at. */
