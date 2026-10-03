@@ -75,6 +75,7 @@ export function PatternPlayer({
       ceiling,
       mix: { ...DEFAULT_MIX },
       mute: {},
+      laneSolo: {},
     }),
     [doc, level, bpm, ceiling]
   );

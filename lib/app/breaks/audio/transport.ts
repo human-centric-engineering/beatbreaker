@@ -64,6 +64,37 @@ export interface TransportSnapshot {
   ceiling: number;
   mix: Record<string, number>;
   mute: Record<string, boolean>;
+  /** Lanes soloed in the mixer (D23). Any solo silences every lane not soloed. */
+  laneSolo: Record<string, boolean>;
+}
+
+/**
+ * The solos that count: those on a lane the pattern plays. A solo left on a
+ * lane the next pattern has not got would otherwise silence every lane, with
+ * no Solo button left on screen to lift it.
+ */
+export function soloInPlay(
+  laneSolo: Record<string, boolean>,
+  lanes: readonly string[]
+): Record<string, boolean> {
+  const have = new Set(lanes);
+  return Object.fromEntries(Object.entries(laneSolo).filter(([k, on]) => on && have.has(k)));
+}
+
+/**
+ * How loud a lane plays on the speakers: its fader, or nothing when it is
+ * muted or another lane is soloed and it is not (D23). Mute wins over solo,
+ * so a lane both soloed and muted is silent. The MIDI port does not ask: it
+ * hears every lane, as it does with mute.
+ */
+export function laneGain(
+  snap: Pick<TransportSnapshot, 'mix' | 'mute' | 'laneSolo'>,
+  lane: string
+): number {
+  if (snap.mute[lane]) return 0;
+  const soloing = Object.values(snap.laneSolo).some(Boolean);
+  if (soloing && !snap.laneSolo[lane]) return 0;
+  return snap.mix[lane] ?? 1;
 }
 
 interface SeqEntry {
@@ -239,7 +270,6 @@ export class Transport {
     if (!bar) return;
 
     const i = this.step;
-    const g = (k: string): number => (snap.mute[k] ? 0 : (snap.mix[k] ?? 1));
     const m = meterOfPat(livePat);
     const floor = (this.audio.ctx as AudioContext).currentTime + 0.002;
 
@@ -251,10 +281,11 @@ export class Transport {
     const out = this.midi;
     for (const v of performStep(livePat, bar, i, snap)) {
       const when = Math.max(floor, t + dur * v.offset);
-      const gain = v.velocity * g(v.lane);
+      const gain = v.velocity * laneGain(snap, v.lane);
       if (gain) this.voice(v, when, gain);
       /* The port hears the same note at the same velocity as the kit, before
-         the mixer: a muted lane is a lane you are playing yourself, and the
+         the mixer: a muted lane (or one a solo silences) is a lane you are playing
+         yourself, and the
          whole point of sending it out is that the module plays it instead. */
       out?.hit(v.note, v.velocity, when);
     }

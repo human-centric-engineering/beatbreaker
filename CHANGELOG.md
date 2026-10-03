@@ -18,6 +18,14 @@ release process.
 
 ### Added
 
+- **Your patterns and the mixer (BeatBreaker Phase 5-iii).** Delete, with an
+  Undo, on your own patterns in the Studio's Patterns drawer and in Details;
+  the `DELETE /api/v1/breaks/:id` is sent when the Undo has gone. A Solo beside
+  each Mute. `TransportSnapshot` gains a required `laneSolo` record, and
+  `laneGain(snap, lane)` (`lib/app/breaks/audio/transport.ts`) is the
+  speakers' gain rule: mute wins, then solo, then the fader. Unsaved rolls go
+  on the Back trail as "Unsaved · hh:mm" entries in the page.
+
 - **Closing gaps before launch (BeatBreaker Phase 8-i).** A new report of a
   pattern, profile or speed emails every human admin, at most once an hour per
   reported thing (`lib/app/breaks/community/report-alert.ts`).

@@ -9,7 +9,7 @@ import { StudioHelp } from '@/components/app/studio/studio-help';
 import { TempoControl } from '@/components/app/studio/tempo-control';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
-import { LANE_DEFS, activeLanes, laneName } from '@/lib/app/breaks/lanes';
+import { LANE_DEFS, laneName, mixLanes } from '@/lib/app/breaks/lanes';
 
 export function PracticePanel() {
   const c = useStudio();
@@ -17,7 +17,7 @@ export function PracticePanel() {
   /* The console guarded on a pattern existing before it drew anything; a panel
      is mounted on its own, so the mixer asks for itself. No pattern means no
      lanes to fade, not an empty Practice panel. */
-  const lanes = c.view.A ? activeLanes(c.view.A.lanes) : [];
+  const lanes = c.view.A ? mixLanes(c.view.A.lanes, c.view.B?.lanes) : [];
 
   return (
     <>
@@ -137,9 +137,10 @@ export function PracticePanel() {
         <div className="card-hd">
           <h3>Mixer</h3>
           <StudioHelp title="Mixer">
-            Mute a limb to play it yourself. Faders start where the style puts them — a few styles
-            push a lane down because something else is the music and that lane was sitting on it.
-            Move one and it is yours until you hit <b>Back to the style</b>.
+            Mute a limb to play it yourself, or Solo one to hear it alone — with any lane soloed,
+            only soloed lanes sound, and Mute still wins. Faders start where the style puts them — a
+            few styles push a lane down because something else is the music and that lane was
+            sitting on it. Move one and it is yours until you hit <b>Back to the style</b>.
           </StudioHelp>
           <div className="spacer" />
           {Object.keys(c.mixTouched).length ? (
@@ -170,6 +171,14 @@ export function PracticePanel() {
                 label={`Mute ${laneName(lane, c.view.A?.perc)}`}
               >
                 Mute
+              </Toggle>
+              <Toggle
+                className="mini mixmute"
+                pressed={!!c.laneSolo[lane]}
+                onPressedChange={() => c.toggleSolo(lane)}
+                label={`Solo ${laneName(lane, c.view.A?.perc)}`}
+              >
+                Solo
               </Toggle>
             </div>
           ))}

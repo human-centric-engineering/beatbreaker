@@ -1417,11 +1417,11 @@
 .bb .mixrow input[type='range'] {
   width: 92px;
 }
-/* one fixed width so the mute column is a column, and the label does not
-   shuffle sideways when "Mute" becomes "Muted" */
+/* one fixed width so Mute and Solo are columns, and a narrow drawer still
+   fits the name, the fader and both of them on one row */
 .bb .mixrow .mixmute {
   flex: 0 0 auto;
-  width: 72px;
+  width: 52px;
   text-align: center;
 }
 

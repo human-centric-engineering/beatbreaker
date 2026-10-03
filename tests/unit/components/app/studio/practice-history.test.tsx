@@ -91,7 +91,12 @@ const recorded = () =>
 function Probe() {
   const c = useStudio();
   return (
-    <div data-testid="probe" data-level={c.level} data-bpm={c.bpm}>
+    <div
+      data-testid="probe"
+      data-level={c.level}
+      data-bpm={c.bpm}
+      data-notes={JSON.stringify(c.patterns.A?.bars ?? null)}
+    >
       {c.notice?.message}
     </div>
   );
@@ -329,7 +334,12 @@ describe('Recent', () => {
     // each row is the open button and its ★ — the ★ is not a row
     const rows = recent
       .getAllByRole('button')
-      .filter((b) => b.classList.contains('item') && !b.classList.contains('pin'));
+      .filter(
+        (b) =>
+          b.classList.contains('item') &&
+          !b.classList.contains('pin') &&
+          !b.classList.contains('del')
+      );
     expect(rows.map((r) => r.textContent)).toEqual([
       'Cold CarpetYour patternFull break · 90',
       `${ENTRY_A.title}${ENTRY_A.artist}Groove · 72`,
@@ -340,6 +350,100 @@ describe('Recent', () => {
 
     await waitFor(() => expect(title()).toBe(ENTRY_A.title));
     expect(place()).toEqual({ level: 2, bpm: 72 });
+  });
+});
+
+describe('the Back trail holds unsaved rolls (5.13, D24)', () => {
+  // the header's Back: a drawer can have a button whose name starts with "Back" too
+  const headerBack = () => document.querySelector<HTMLButtonElement>('.studio-back')!;
+  const stage = () => {
+    const el = screen.getByTestId('probe');
+    return { title: title(), notes: el.dataset.notes, ...place() };
+  };
+
+  it('roll, N, N, Back, Back → the first roll, intact; Forward returns', async () => {
+    const user = userEvent.setup();
+    await open({});
+    await user.keyboard('2');
+    await waitFor(() => expect(place().level).toBe(2));
+    const first = stage();
+
+    await user.keyboard('n');
+    await waitFor(() => expect(stage().notes).not.toBe(first.notes));
+    const second = stage();
+    await user.keyboard('n');
+    await waitFor(() => expect(stage().notes).not.toBe(second.notes));
+
+    expect(headerBack().getAttribute('aria-label')).toMatch(/^Back to Unsaved · \d\d:\d\d$/);
+    await user.click(headerBack());
+    await waitFor(() => expect(stage()).toEqual(second));
+    await user.click(headerBack());
+    await waitFor(() => expect(stage()).toEqual(first));
+    expect(first.level).toBe(2);
+
+    await user.keyboard('{Alt>}{ArrowRight}{/Alt}');
+    await waitFor(() => expect(stage()).toEqual(second));
+    // all in the page: nothing about an unsaved roll goes to the server
+    expect(recorded()).toEqual([]);
+  });
+
+  it('puts an unsaved roll on the trail when a famous break is opened, and Back returns to it', async () => {
+    const user = userEvent.setup();
+    await open({});
+    const roll = stage();
+    await openLibrary(user);
+
+    await user.click(screen.getByRole('button', { name: new RegExp(`^${ENTRY_A.title}`) }));
+    await waitFor(() => expect(title()).toBe(ENTRY_A.title));
+
+    await user.click(headerBack());
+    await waitFor(() => expect(stage()).toEqual(roll));
+  });
+
+  it('shows a trail entry in Recent as "Unsaved · hh:mm", and saving it makes it an ordinary item', async () => {
+    const user = userEvent.setup();
+    const SAVED = 'cbrk00000000000000000009';
+    const post = vi.mocked(apiClient.post).getMockImplementation()!;
+    vi.mocked(apiClient.post).mockImplementation(((
+      url: string,
+      options?: { body?: Record<string, unknown> }
+    ) => {
+      if (url === '/api/v1/history' && options?.body?.breakId === SAVED) {
+        return Promise.resolve(
+          visit({ kind: 'break', id: SAVED, title: String(title()), mine: true }, 5, 90)
+        );
+      }
+      return post(url, options);
+    }) as never);
+    await open({});
+    const first = stage();
+    await user.keyboard('n');
+    await waitFor(() => expect(stage().notes).not.toBe(first.notes));
+    await user.click(headerBack());
+    await waitFor(() => expect(stage()).toEqual(first));
+
+    await openPatterns(user, 'Recent');
+    const items = () =>
+      within(screen.getByRole('tabpanel'))
+        .getAllByRole('button')
+        .filter((b) => b.querySelector('.nm'));
+    // both rolls are on the trail, the one on the stage marked
+    expect(items().map((b) => b.querySelector('b')?.textContent)).toEqual([
+      expect.stringMatching(/^Unsaved · \d\d:\d\d$/),
+      expect.stringMatching(/^Unsaved · \d\d:\d\d$/),
+    ]);
+    expect(items()[1].getAttribute('aria-current')).toBe('true');
+
+    await user.keyboard('s');
+
+    await waitFor(() => expect(window.location.pathname).toBe(`/studio/${SAVED}`));
+    await waitFor(() =>
+      expect(items().map((b) => b.querySelector('b')?.textContent)).toEqual([
+        first.title,
+        expect.stringMatching(/^Unsaved · /),
+      ])
+    );
+    expect(items()[0].textContent).toContain('Your pattern');
   });
 });
 

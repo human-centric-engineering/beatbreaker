@@ -1080,6 +1080,28 @@ ids, and each is re-reconciled against the tree first.
 | 5.12 | Solo (E17, D23): a Solo beside each Mute. If any lane is soloed only soloed lanes sound; mute still wins on a soloed lane. MIDI out is unaffected, as for mute. Kept in the same place mute is                                                                        | Engine tests: solo snare → only the snare's gain is open; solo + mute on one lane is silent; the port still receives every lane; clearing all solos restores the mix                                                                         |
 | 5.13 | The Back trail holds unsaved rolls (E20, D24): pressing N, or opening something else, puts the roll you were on onto the trail, so ← Back returns to it intact (notes, tempo, layer). In the page, no reload; a trail entry shows as "Unsaved · 14:02"                | Tests: roll, N, N, Back, Back → the first roll's notes; Forward returns; saving a trail entry turns it into a normal history item                                                                                                            |
 
+**5-iii reconciled and built, 2026-10-02 (branch `phase-5-iii`).** It stays as
+written, with these calls:
+
+- **Delete on the open pattern is in Details**, beside _Save a copy_. The
+  header has no room for it, and Details is where the row's own name and
+  links already live. The rows' Delete is a bin icon named "Delete _title_".
+  It is on every tab's row for a saved pattern of yours, including Practising,
+  Later and Recent, since the same pattern can be on all three.
+- **The toast reads "Deleted “_title_”" with Undo**, and Undo says "“_title_”
+  is back". The delete waits in the browser rather than on a server-side soft
+  delete, as Clear history does: nothing to clean up, and the route is
+  unchanged.
+- **Solo has its own record, `laneSolo`**, not a reuse of `solo`, which is
+  the A/B section choice.
+- **Unsaved trail entries are also in Recent.** They are the same list as
+  Back, so leaving them out would make Recent and Back disagree. They have no
+  ★, _Add to a session_ or Delete, since there is nothing to name until the
+  roll is saved.
+- **Found building it:** the Patterns drawer chose its fallback tab on every
+  render. The first unsaved roll on Recent moved the tab mid-click, so the
+  fallback is now chosen when the drawer mounts.
+
 **5-iv — the grid and the inventory:**
 
 | #    | Task                                                                                                                                                                                                                                     | Done when                                                                                                                                                                                     |

@@ -26,12 +26,15 @@ import {
 } from '@/components/app/studio/use-pattern-document';
 import { type PracticeShelvesState, usePins } from '@/components/app/studio/use-pins';
 import { type Notice, type Say, useNotice } from '@/components/app/studio/use-notice';
+import { useDeletePattern, useStageGeneration } from '@/components/app/studio/use-delete-pattern';
 import { type YourSounds, useYourSounds } from '@/components/app/studio/use-your-sounds';
 import {
   fetchSavedPattern,
   type HistoryCurrent,
+  isUnsaved,
   type OpenResult,
   type PracticeHistoryState,
+  type TrailItem,
   usePracticeHistory,
 } from '@/components/app/studio/use-practice-history';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
@@ -121,6 +124,14 @@ export interface Studio extends BreakConsole {
   sounds: YourSounds;
   /** The practice session `?session=` opened, running or ready to (7D); null without one. */
   sessionRun: SessionRun | null;
+  /**
+   * Delete a saved pattern of yours (5.11, D22). It leaves every list at once
+   * and the toast offers Undo for six seconds; the `DELETE` is sent when
+   * the Undo has gone. The pattern on the stage stays there, as unsaved.
+   */
+  deletePattern: (id: string, title: string) => void;
+  /** Patterns deleted from this Studio, or waiting out their Undo: no list shows them. */
+  deleted: ReadonlySet<string>;
 }
 
 const StudioContext = createContext<Studio | null>(null);
@@ -153,6 +164,25 @@ function useOpenFromList(openTarget: (target: PinTarget) => Promise<OpenResult>,
     },
     [openTarget, say]
   );
+}
+
+/** What a replacement runs: false when the new pattern did not load after all. */
+type Go = () => boolean | void;
+/** Undo what letting the stage go told the history, when the replacement failed. */
+type Undo = () => void;
+
+/**
+ * A function called from an event, whose body is set after each render — how
+ * `replace` reaches the history, which is made after it. A hook of its own for
+ * the compiler's refs rule, as with {@link useOpenFromList}.
+ */
+function useLateCallback(): { call: () => Undo; set: (fn: () => Undo) => void } {
+  const body = useRef<(() => Undo) | null>(null);
+  const call = useCallback((): Undo => body.current?.() ?? (() => {}), []);
+  const set = useCallback((fn: () => Undo) => {
+    body.current = fn;
+  }, []);
+  return useMemo(() => ({ call, set }), [call, set]);
 }
 
 export function StudioProvider({
@@ -270,19 +300,28 @@ export function StudioProvider({
   /* The replacement waiting on the prompt, if there is one. Kept as a thunk so
      "Don't save" and "Save" run exactly what was asked for, later. The detach
      is not in it: the answer decides how the document is let go. */
-  const [pending, setPending] = useState<(() => void) | null>(null);
+  const [pending, setPending] = useState<Go | null>(null);
+
+  const stage = useStageGeneration();
+  /* Whatever replaces the stage tells the history first, so an unsaved roll
+     being left goes on the trail (5.13). Set below, once the history exists. */
+  const beforeReplace = useLateCallback();
+  /** The unsaved trail entry the stage holds, when one was put back (5.13). */
+  const [unsavedId, setUnsavedId] = useState<string | null>(null);
 
   /** Let the document go and replace it — or ask first, when that would lose edits. */
   const replace = useCallback(
-    (go: () => void) => {
+    (go: Go) => {
       if (needsPrompt) {
         setPending(() => go);
         return;
       }
+      stage.bump();
+      const undo = beforeReplace.call();
       detach();
-      go();
+      if (go() === false) undo();
     },
-    [detach, needsPrompt]
+    [detach, needsPrompt, stage, beforeReplace]
   );
 
   const replacing = useMemo(
@@ -309,7 +348,7 @@ export function StudioProvider({
            anything is let go — and before anyone is asked about letting go. */
         if (!readsAsBreak(code)) return loadCode(code);
         replace(() => {
-          if (!loadCode(code)) return;
+          if (!loadCode(code)) return false;
           setEntry(null);
           say('Break loaded');
         });
@@ -355,7 +394,7 @@ export function StudioProvider({
       replaceNow.current(() => {
         if (!loadPayload(opened.payload, opened.title, opened.mine ? undefined : at)) {
           say('That pattern would not open', { error: true });
-          return;
+          return false;
         }
         setEntry(null);
         attach(opened.id, opened.mine, opened.details, opened.sharing);
@@ -366,14 +405,28 @@ export function StudioProvider({
   );
 
   const openItem = useCallback(
-    (item: HistoryItem, at: PracticePlace) =>
-      openTarget(
+    (item: TrailItem, at: PracticePlace): Promise<OpenResult> => {
+      if (isUnsaved(item)) {
+        /* An unsaved roll from the trail (5.13): put back as it was left —
+           its notes, tempo and layer are all in the payload. */
+        replaceNow.current(() => {
+          if (!loadPayload(item.payload, item.name)) {
+            say('That pattern would not open', { error: true });
+            return false;
+          }
+          setEntry(null);
+          setUnsavedId(item.id);
+        });
+        return Promise.resolve('opened');
+      }
+      return openTarget(
         item.target.kind === 'entry'
           ? { libraryEntryId: item.target.id }
           : { breakId: item.target.id },
         at
-      ),
-    [openTarget]
+      );
+    },
+    [openTarget, loadPayload, say]
   );
 
   const open = useOpenFromList(openTarget, say);
@@ -413,11 +466,53 @@ export function StudioProvider({
     () => (ready && stagePin ? { target: stagePin, level, bpm } : null),
     [ready, stagePin, level, bpm]
   );
+  /* Patterns deleted here or waiting on their Undo (5.11), hidden by every list. */
+  const deletedState = useState<ReadonlySet<string>>(() => new Set());
   const history = usePracticeHistory({
     initial: initialHistory,
     current: historyCurrent,
+    unsavedId,
+    hidden: deletedState[0],
     openItem,
     say,
+  });
+
+  /* What the stage is letting go of, told to the history before it goes: a
+     pattern that was never saved goes on the trail. A famous break has its
+     entry and a saved pattern its id, so neither is one. */
+  const { leave: leaveUnsaved, drop: dropUnsaved } = history;
+  const leftName = patterns.A?.name ?? '';
+  useLayoutEffect(() => {
+    beforeReplace.set(() => {
+      const was = unsavedId;
+      const added =
+        !doc.id && !entryId && payload ? leaveUnsaved({ id: was, payload, name: leftName }) : null;
+      setUnsavedId(null);
+      /* The new pattern did not load, so the roll is still on the stage: off
+         the trail again if it was new there, and still its entry if not. */
+      return () => {
+        if (added) dropUnsaved(added);
+        setUnsavedId(was);
+      };
+    });
+  });
+
+  /* An unsaved entry that is saved is an ordinary history item from then on:
+     the visit the save records stands in for it. */
+  useEffect(() => {
+    if (doc.id && unsavedId) {
+      dropUnsaved(unsavedId);
+      setUnsavedId(null);
+    }
+  }, [doc.id, unsavedId, dropUnsaved]);
+
+  const { deletePattern, deleted, shownPins } = useDeletePattern({
+    doc,
+    pins,
+    history,
+    stage,
+    say,
+    hidden: deletedState,
   });
 
   const resolveLeave = useCallback(
@@ -431,10 +526,12 @@ export function StudioProvider({
          here, and the toast has said why. */
       if (choice === 'save' && !(await doc.save())) return;
       setPending(null);
+      stage.bump();
+      const undo = beforeReplace.call();
       detach({ discard: choice === 'discard' });
-      go();
+      if (go() === false) undo();
     },
-    [pending, doc, detach]
+    [pending, doc, detach, stage, beforeReplace]
   );
 
   /* The stage is renamed only once the copy exists. Renamed first, a Save As
@@ -465,7 +562,7 @@ export function StudioProvider({
       saveAs,
       leaving: pending ? { title: patterns.A?.name ?? '' } : null,
       resolveLeave,
-      pins,
+      pins: shownPins,
       stagePin,
       entryEdited,
       history,
@@ -473,6 +570,8 @@ export function StudioProvider({
       openDrawer,
       sounds,
       sessionRun,
+      deletePattern,
+      deleted,
     }),
     [
       state,
@@ -486,7 +585,7 @@ export function StudioProvider({
       pending,
       patterns.A?.name,
       resolveLeave,
-      pins,
+      shownPins,
       stagePin,
       entryEdited,
       history,
@@ -494,6 +593,8 @@ export function StudioProvider({
       openDrawer,
       sounds,
       sessionRun,
+      deletePattern,
+      deleted,
     ]
   );
 

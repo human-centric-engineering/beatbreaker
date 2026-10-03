@@ -235,6 +235,15 @@ export function activeLanes(lanes: LaneKey[] | undefined): LaneKey[] {
 }
 
 /**
+ * Every lane either section plays, in lane order — what the mixer shows, so a
+ * lane only B uses can still be faded, muted or soloed.
+ */
+export function mixLanes(...lanes: (LaneKey[] | undefined)[]): LaneKey[] {
+  const have = new Set(lanes.flatMap((l) => activeLanes(l)));
+  return LANE_ORDER.filter((k) => have.has(k));
+}
+
+/**
  * The lanes a style ships with. Everything not listed is off until you turn it
  * on.
  *
