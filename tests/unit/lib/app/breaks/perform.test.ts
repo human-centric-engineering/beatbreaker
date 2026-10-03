@@ -18,6 +18,7 @@ import {
   LEVELS,
   MIDI_MAP,
   PLAIN_CYMBAL_MAX,
+  type PerformOptions,
   midiVelocity,
   performStep,
   valueForVelocity,
@@ -41,7 +42,7 @@ function patternWith(meter: string, fill: (bar: Bar) => void, style = 'funk'): P
   return { ...p, bars: [bar] };
 }
 
-const voicesOf = (p: Pattern, opts = FLAT) =>
+const voicesOf = (p: Pattern, opts: PerformOptions = FLAT) =>
   p.bars[0].k.map((_, i) => performStep(p, p.bars[0], i, opts));
 
 afterEach(() => {
