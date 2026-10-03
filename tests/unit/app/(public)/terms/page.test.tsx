@@ -22,7 +22,7 @@ function page() {
 it('has no placeholder text or example.com outside the owner’s fields', () => {
   const text = page();
   expect(text).not.toMatch(/placeholder/i);
-  expect(text).not.toMatch(/example\.com/i);
+  expect(text.toLowerCase()).not.toContain('example.com');
   expect(text).not.toMatch(/If applicable|Payment Terms/);
   const all = ownerFields().join(' ');
   for (const fact of ['legal entity', 'minimum age', 'contact']) expect(all).toContain(fact);
