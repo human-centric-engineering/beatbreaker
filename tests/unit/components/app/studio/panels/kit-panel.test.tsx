@@ -127,6 +127,41 @@ describe('KitPanel', () => {
     );
   });
 
+  describe('Humanise (Phase 9)', () => {
+    const card = () => within(screen.getByRole('heading', { name: 'Humanise' }).closest('.card')!);
+    const checked = (name: string) =>
+      card().getByRole('radio', { name }).getAttribute('aria-checked') === 'true';
+
+    it('starts at Subtle, 35', async () => {
+      renderPanel();
+      await screen.findByLabelText('Kit');
+      expect(checked('Subtle')).toBe(true);
+      expect(card().getByLabelText<HTMLInputElement>('Amount').value).toBe('35');
+      expect(card().getByRole('button', { name: 'About Humanise' })).toBeTruthy();
+      expect(card().getByRole('button', { name: 'About New take' })).toBeTruthy();
+    });
+
+    it('moves the Amount with the switch, hides it while Off, and has no take to roll then', async () => {
+      const user = userEvent.setup();
+      renderPanel();
+      await screen.findByLabelText('Kit');
+      await user.click(card().getByRole('radio', { name: 'Loose' }));
+      expect(card().getByLabelText<HTMLInputElement>('Amount').value).toBe('75');
+
+      await user.click(card().getByRole('radio', { name: 'Off' }));
+      expect(card().queryByLabelText('Amount')).toBeNull();
+      expect(card().getByRole('button', { name: '🎲 New take' })).toBeDisabled();
+    });
+
+    it('rolls a new take, and says when it will be heard', async () => {
+      const user = userEvent.setup();
+      renderPanel();
+      await screen.findByLabelText('Kit');
+      await user.click(card().getByRole('button', { name: '🎲 New take' }));
+      expect(await screen.findByText('New take — from the next pass')).toBeTruthy();
+    });
+  });
+
   it('says there is no Web Audio when auditioning the kit in a browser without it', async () => {
     const user = userEvent.setup();
     renderPanel();

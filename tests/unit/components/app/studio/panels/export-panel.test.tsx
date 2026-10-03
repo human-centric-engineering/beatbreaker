@@ -14,7 +14,7 @@
  * one line of text.
  */
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -143,9 +143,6 @@ describe('ExportPanel', () => {
       return 'blob:midi';
     });
     const revoked = vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => {});
-    /* The hats are humanised with Math.random, so two exports of one pattern
-       differ by a velocity here and there; held still, they are the same file. */
-    const random = vi.spyOn(Math, 'random').mockReturnValue(0.5);
     const clicked: HTMLAnchorElement[] = [];
     const click = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(function (
       this: HTMLAnchorElement
@@ -172,7 +169,37 @@ describe('ExportPanel', () => {
     created.mockRestore();
     revoked.mockRestore();
     click.mockRestore();
-    random.mockRestore();
+  });
+
+  it('writes the file Played until you pick Quantised, and remembers the pick', async () => {
+    const user = userEvent.setup();
+    const blobs: Blob[] = [];
+    const created = vi.spyOn(URL, 'createObjectURL').mockImplementation((b) => {
+      blobs.push(b as Blob);
+      return 'blob:midi';
+    });
+    const revoked = vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => {});
+    const click = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
+    renderPanel();
+    await waitFor(() => expect(studio?.patterns.A).toBeTruthy());
+    const timing = within(screen.getByRole('radiogroup', { name: 'MIDI timing' }));
+    expect(timing.getByRole('radio', { name: 'Played' })).toHaveAttribute('aria-checked', 'true');
+
+    await user.click(screen.getByRole('button', { name: 'Download .mid' }));
+    await user.click(timing.getByRole('radio', { name: 'Quantised' }));
+    await user.click(screen.getByRole('button', { name: 'Download .mid' }));
+
+    const files = await Promise.all(
+      blobs.map(async (b) => [...new Uint8Array(await b.arrayBuffer())])
+    );
+    expect(files[0]).toEqual(studio!.midi(true)!.bytes);
+    expect(files[1]).toEqual(studio!.midi(false)!.bytes);
+    expect(files[0]).not.toEqual(files[1]); // Humanise is on by default, so they differ
+    expect(localStorage.getItem('bb.midiTiming')).toBe('"quantised"');
+
+    created.mockRestore();
+    revoked.mockRestore();
+    click.mockRestore();
   });
 
   it('prints from a button, not a hint', async () => {

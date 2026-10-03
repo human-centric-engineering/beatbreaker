@@ -2361,7 +2361,7 @@ as written, with these calls:
   The settings are flat fields, and `sound` is already the tuning map
   (kit → voice → parameter), whose schema refuses anything else.
 - **Off is Amount 0.** Picking Subtle or Loose sets the Amount to 35 or 75,
-  and the slider moves it from there. The slider is disabled while Off.
+  and the slider moves it from there.
 - **The seed is the notes, not the id or the code.** It is a hash of both
   sections' bars and the take. The code carries the tempo, swing and layer,
   so moving the tempo would re-roll the performance, and `/p/` and the API
@@ -2389,6 +2389,13 @@ as written, with these calls:
 - **Played / Quantised is a browser setting** (`bb.midiTiming`, default
   Played) beside Download .mid. The API takes an optional
   `humanise: { amount, take }`; without it the file is Quantised, as today.
+
+**9-ii built, 2026-10-03.** As reconciled. One change on the way: the
+Amount slider is hidden while Off rather than disabled (the drawer's `Slider`
+has no disabled state), and its help sits in the Humanise card's ⓘ. Measured
+over 10,000 notes at Amount 100, hands σ is 9.9 ms and the interval
+correlation is about −0.58 (Porcaro: −0.48). The owner's listen to a funk and
+a jazz pattern at each setting is still to do.
 
 **9-iii — the pipeline and the first new kits:**
 

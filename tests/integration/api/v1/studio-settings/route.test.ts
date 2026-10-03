@@ -308,6 +308,16 @@ describe('PATCH', () => {
       'sound.studio70.master.drive',
     ],
     [
+      'a Humanise Amount over 100',
+      { humanise: { mode: 'subtle', amount: 101, take: 0 } },
+      'humanise.amount',
+    ],
+    [
+      'a Humanise position that is not one',
+      { humanise: { mode: 'wild', amount: 35, take: 0 } },
+      'humanise.mode',
+    ],
+    [
       'a voice that does not exist',
       { sound: { studio70: { z: { tune: 1 } } } },
       'sound.studio70.z',

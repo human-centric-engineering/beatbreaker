@@ -18,6 +18,16 @@ release process.
 
 ### Added
 
+- **Humanise (BeatBreaker Phase 9-ii).** `lib/app/breaks/humanise.ts` gives
+  each limb a seeded stream of small timing and velocity differences, which
+  `performStep` applies through a new `PerformOptions.humanise`. A new studio
+  setting, `humanise { mode, amount, take }`, defaults to Subtle (35).
+  `TransportSnapshot` gains `humanise: { amount, seed }`, `MidiOptions` gains
+  an optional `humanise`, and `POST /api/v1/breaks/midi` takes an optional
+  `humanise: { amount, take }`. Without it the file is quantised, as before.
+  Download .mid has a Played / Quantised switch (`bb.midiTiming`).
+  `hatShape` no longer adds a `Math.random` wobble.
+
 - **First run and help (BeatBreaker Phase 8-ii).** A three-step tour of the
   Studio (Play, the layers, the tools), shown once per browser and remembered
   as `bb.tourSeen` (`TOUR_SEEN` in `lib/app/breaks/browser-keys.ts`). A public

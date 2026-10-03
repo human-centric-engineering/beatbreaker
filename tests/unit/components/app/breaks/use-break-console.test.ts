@@ -35,6 +35,7 @@ const fakes = vi.hoisted(() => {
     // the lane channel (Phase 9): plays the voice, as the engine does
     playIn = vi.fn((_lane: string, _level: number, _t: number, play: () => void) => play());
     resume = vi.fn();
+    reseed = vi.fn();
     hit = vi.fn();
     demo = vi.fn(() => true);
     click = vi.fn();
@@ -618,6 +619,78 @@ describe('the kit', () => {
     act(() => result.current.setPanView('audience'));
     expect(result.current.panView).toBe('audience');
     expect(audio.setPanView).toHaveBeenLastCalledWith('audience');
+  });
+
+  describe('Humanise (Phase 9)', () => {
+    /** Two seconds of the transport: when each kick, snare and hat was played. */
+    const hear = (result: Awaited<ReturnType<typeof mount>>['result']): number[] => {
+      const audio = fakes.made.audio.at(-1)!;
+      for (const f of [audio.kick, audio.snare, audio.hat]) f.mockClear();
+      fakes.ctx.currentTime = 0;
+      vi.useFakeTimers();
+      try {
+        act(() => {
+          result.current.play();
+        });
+        for (let i = 0; i < 80; i++) {
+          fakes.ctx.currentTime += 0.025;
+          act(() => {
+            vi.advanceTimersByTime(25);
+          });
+        }
+        act(() => result.current.stopPlaying());
+      } finally {
+        vi.useRealTimers();
+        fakes.ctx.currentTime = 0;
+      }
+      return [audio.kick, audio.snare, audio.hat].flatMap((f) =>
+        f.mock.calls.map((c: unknown[]) => c[0] as number)
+      );
+    };
+
+    it('starts at Subtle, 35', async () => {
+      const { result } = await mount();
+      expect(result.current.humanise).toEqual({ mode: 'subtle', amount: 35, take: 0 });
+    });
+
+    it('sets the Amount from the switch, and keeps it while Off', async () => {
+      const { result } = await mount();
+      act(() => result.current.setHumaniseMode('loose'));
+      expect(result.current.humanise.amount).toBe(75);
+      act(() => result.current.setHumaniseAmount(60));
+      act(() => result.current.setHumaniseMode('off'));
+      expect(result.current.humanise).toMatchObject({ mode: 'off', amount: 60 });
+    });
+
+    it('plays a new take as another performance, and Off as none at all', async () => {
+      const { result } = await mount();
+      act(() => result.current.setCountIn(0));
+      const audio = fakes.made.audio.at(-1)!;
+      const first = hear(result);
+      expect(first.length).toBeGreaterThan(8);
+      const seed = audio.reseed.mock.calls.at(-1)?.[0];
+      expect(hear(result)).toEqual(first); // the same performance from Play
+
+      act(() => result.current.newTake());
+      expect(result.current.humanise.take).toBe(1);
+      const second = hear(result);
+      expect(audio.reseed.mock.calls.at(-1)?.[0]).not.toBe(seed);
+      expect(second).not.toEqual(first);
+
+      // Off sends Amount 0: every take is the same notes, where the feel puts them
+      act(() => result.current.setHumaniseMode('off'));
+      const off = hear(result);
+      act(() => result.current.newTake());
+      expect(hear(result)).toEqual(off);
+      expect(off).not.toEqual(second);
+    });
+
+    it('writes the file Played or Quantised, and Off makes them the same', async () => {
+      const { result } = await mount();
+      expect(result.current.midi(true)!.bytes).not.toEqual(result.current.midi(false)!.bytes);
+      act(() => result.current.setHumaniseMode('off'));
+      expect(result.current.midi(true)!.bytes).toEqual(result.current.midi(false)!.bytes);
+    });
   });
 
   it('hands a sampled kit to the engine, initialising audio to decode into', async () => {

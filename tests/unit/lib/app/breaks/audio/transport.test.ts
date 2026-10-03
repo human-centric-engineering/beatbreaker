@@ -71,6 +71,7 @@ function fakeAudio() {
     crash: vi.fn(),
     tom: vi.fn(),
     perc: vi.fn(),
+    reseed: vi.fn<(seed: number) => void>(),
     /* The lane channel: records the fader level each note played at, then
        plays the voice, as the engine does. */
     playIn: vi.fn((_lane: string, _level: number, _t: number, play: () => void) => play()),
@@ -88,6 +89,7 @@ function snapshot(pat: Pattern, over: Partial<TransportSnapshot> = {}): Transpor
     swing: 0,
     feel: 0,
     hats: 100,
+    humanise: { amount: 0, seed: 1 },
     click: true,
     clickSub: 4,
     countIn: 0,
@@ -453,6 +455,57 @@ describe('Transport — the clock', () => {
     t.stop();
     t.resync(); // a no-op once stopped
     expect(t.playing).toBe(false);
+  });
+
+  describe('Humanise', () => {
+    const hats = () => {
+      const p = patternIn('4/4');
+      p.bars[0].h = p.bars[0].h.map(() => 1);
+      return p;
+    };
+    /** The hat times of a run, as offsets from the step each was written on. */
+    const nudges = (audio: ReturnType<typeof fakeAudio>['audio'], from = 0) =>
+      audio.hat.mock.calls
+        .map(([when]) => (when as number) - 0.08)
+        .map((t, n) => Math.round((t - (from + n) * 0.125) * 1e9) / 1e9);
+
+    it('replays the same performance from Play, and reseeds the sampler from the same seed', () => {
+      const snap = snapshot(hats(), { click: false, humanise: { amount: 100, seed: 7 } });
+      const one = drive(snap, 1.9);
+      const two = drive(snap, 1.9);
+      expect(one.audio.reseed).toHaveBeenCalledWith(7);
+      expect(nudges(one.audio)).toEqual(nudges(two.audio));
+      expect(nudges(one.audio).some((x) => x !== 0)).toBe(true);
+    });
+
+    it('takes up a new seed at the top of the next pass, not mid-pass', () => {
+      const snap = snapshot(hats(), { click: false, humanise: { amount: 100, seed: 7 } });
+      const run = drive(snap, 0);
+      while (run.ctx.currentTime < 1) run.step(0.02);
+      snap.humanise = { amount: 100, seed: 8 }; // 🎲 New take, halfway through the bar
+      while (run.ctx.currentTime < 3.9) run.step(0.02);
+
+      const seven = drive(
+        snapshot(hats(), { click: false, humanise: { amount: 100, seed: 7 } }),
+        1.9
+      );
+      const eight = drive(
+        snapshot(hats(), { click: false, humanise: { amount: 100, seed: 8 } }),
+        1.9
+      );
+      const heard = nudges(run.audio);
+      expect(heard.slice(0, 16)).toEqual(nudges(seven.audio).slice(0, 16));
+      expect(heard.slice(16, 32)).toEqual(nudges(eight.audio).slice(0, 16));
+      expect(run.audio.reseed.mock.calls).toEqual([[7], [8]]);
+    });
+
+    it('plays the grid at Amount 0', () => {
+      const { audio } = drive(
+        snapshot(hats(), { click: false, humanise: { amount: 0, seed: 7 } }),
+        1.9
+      );
+      expect(nudges(audio).every((x) => x === 0)).toBe(true);
+    });
   });
 
   it('knows which beat a step falls on', () => {

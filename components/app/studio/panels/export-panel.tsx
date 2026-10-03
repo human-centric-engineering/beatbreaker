@@ -3,12 +3,15 @@
 import { useState, useSyncExternalStore } from 'react';
 
 import { DetailsForm } from '@/components/app/studio/details-form';
+import { Segmented } from '@/components/app/studio/segmented';
 import { ShareCard } from '@/components/app/studio/share-card';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
 import { midiOutSupported } from '@/lib/app/breaks/audio/midi-out';
+import { MIDI_TIMING } from '@/lib/app/breaks/browser-keys';
 import { midiFileName } from '@/lib/app/breaks/midi';
+import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 
 /**
  * Hand a file to the browser to save. An object URL rather than a data URL,
@@ -31,6 +34,7 @@ export function ExportPanel() {
   // Read on the client only: the server can't know, and assumes it can, so
   // nothing changes on hydration in the browsers that have it.
   const midiOk = useSyncExternalStore(noSubscription, midiOutSupported, () => true);
+  const [midiTiming, setMidiTiming] = useStoredSetting(MIDI_TIMING);
 
   const copy = async (text: string, label: string) => {
     try {
@@ -107,7 +111,9 @@ export function ExportPanel() {
               <StudioHelp title="MIDI">
                 GM drum map, one bar per bar, velocity-mapped ghosts. Swing and the style&apos;s
                 off-grid feel are written into the tick positions, so the export drags where the
-                playback drags. With one section on show, only that section is written.
+                playback drags. <b>Played</b> writes Humanise in too, as the first pass you hear;{' '}
+                <b>Quantised</b> leaves it out, for a DAW that will add its own. With one section on
+                show, only that section is written.
                 {c.midiPort ? (
                   <>
                     {' '}
@@ -123,7 +129,7 @@ export function ExportPanel() {
                 type="button"
                 className="mini"
                 onClick={() => {
-                  const file = c.midi();
+                  const file = c.midi(midiTiming === 'played');
                   if (!file) {
                     say('There is nothing in the arrangement to write', { error: true });
                     return;
@@ -135,6 +141,16 @@ export function ExportPanel() {
               >
                 Download .mid
               </button>
+              <Segmented
+                label="MIDI timing"
+                small
+                options={[
+                  { value: 'played', face: 'Played' },
+                  { value: 'quantised', face: 'Quantised' },
+                ]}
+                value={midiTiming}
+                onChange={setMidiTiming}
+              />
               <Toggle
                 pressed={!!c.midiPort}
                 disabled={!midiOk}

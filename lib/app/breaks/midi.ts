@@ -1,3 +1,4 @@
+import { Humaniser } from '@/lib/app/breaks/humanise';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import { MIDI_MAP, midiVelocity, performStep } from '@/lib/app/breaks/perform';
 import type { Pattern } from '@/lib/app/breaks/types';
@@ -9,8 +10,10 @@ import type { Pattern } from '@/lib/app/breaks/types';
  * velocity and offset come from `performStep` — the same call the transport
  * voices the speakers and the live MIDI port from — so the swing, the style's
  * off-grid feel, the hi-hat and ride dynamics and their accent bands, the kick
- * feathering: all of it is in the file because all of it is in the playback,
- * and nothing is decided here. A Dilla break exported quantised would be
+ * feathering, Humanise: all of it is in the file because all of it is in the
+ * playback, and nothing is decided here. Humanise makes its own humaniser from
+ * the seed the transport was given, so the file is the first pass you heard,
+ * and as many passes after it as it has bars for. A Dilla break exported quantised would be
  * missing the one thing about it that mattered. The single exception is a hit
  * pushed in front of bar 1, which has nowhere earlier to go and sits on the
  * downbeat.
@@ -53,6 +56,11 @@ export interface MidiOptions {
   feel: number;
   /** Hi-hat dynamics slider, 0–150. */
   hats: number;
+  /**
+   * Humanise, as the transport plays it: Amount 0–100 and the performance's
+   * seed. Absent is _Quantised_ — the swing and feel without it.
+   */
+  humanise?: { amount: number; seed: number };
 }
 
 export interface MidiFile {
@@ -65,6 +73,13 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
   const ST = PPQ / 4; // one grid step is a sixteenth, in every meter
   const events: MidiEvent[] = [];
   let tick = 0;
+  const human = opts.humanise
+    ? {
+        stream: new Humaniser(opts.humanise.seed),
+        amount: opts.humanise.amount,
+        bpm: opts.bpm,
+      }
+    : null;
 
   for (const pos of seq) {
     const pat = pos.pattern;
@@ -73,7 +88,13 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
 
     const nSteps = bar.k.length;
     for (let i = 0; i < nSteps; i++) {
-      for (const voice of performStep(pat, bar, i, opts)) {
+      const voices = performStep(pat, bar, i, {
+        swing: opts.swing,
+        feel: opts.feel,
+        hats: opts.hats,
+        humanise: human,
+      });
+      for (const voice of voices) {
         /* A hit pushed in front of bar 1 has nowhere earlier to go, so it lands
            on the downbeat rather than at a negative tick. */
         const on = Math.max(0, Math.round(tick + (i + voice.offset) * ST));

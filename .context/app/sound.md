@@ -13,10 +13,16 @@ as built, and grows with each Phase 9 PR.
   the synth snare, closes the wires, so a quiet snare turns into a ghost note.
   `Transport.schedule` hands the voice `v.velocity` and the level to
   `BreakAudio.playIn`, never their product.
-- **Do not use `Math.random` in a sample source.** Which round-robin plays,
-  and the pitch and level wobble on each hit, come from `engine.rand`, a
-  seeded stream (`reseed()` restarts it). 9-ii's humaniser feeds it so a
-  performance can be played twice the same.
+- **Do not use `Math.random` in a sample source, `perform.ts` or `feel.ts`.**
+  Which round-robin plays, and the pitch and level wobble on each hit, come
+  from `engine.rand`, a seeded stream. When and how hard each note is played
+  comes from the `Humaniser`. The transport seeds both from one seed at Play,
+  so a performance can be played twice the same, and the speakers, the MIDI
+  port and the file agree on it. A grep in `performance-consistency.test.ts`
+  keeps `Math.random` out of `perform.ts` and `feel.ts`.
+- **Do not make a `Humaniser` per note or per bar.** Its streams count notes
+  per limb from Play. Make one per performance (Play, a file) and draw from it
+  in `performStep`'s order.
 - **Do not read `spec.files` or `spec.v` off a kit slot.** A slot is either
   shape (below). Read it through `slotLayers()` or `slotFiles()` in
   `lib/app/breaks/kit.ts`.
@@ -27,6 +33,8 @@ as built, and grows with each Phase 9 PR.
 ## The path of one note
 
 ```
+Humaniser (humanise.ts) ── ms, gain ──┐
+                                      ▼
 performStep (perform.ts)  ── velocity, offset ──►  Transport.schedule
    │                                                   │ laneGain(): the fader, mute, solo
    │                                                   ▼
@@ -41,6 +49,49 @@ MIDI port and file        voice (kick/snare/hat/…)  →  SampleSource.hit, els
 
 bus → drive → top end (lowpass) → glue compressor → master → ½ → ceiling → out
 ```
+
+## Humanise
+
+`lib/app/breaks/humanise.ts`, pure. The model and its sources are in
+[`sound-plan.md` §4](./planning/sound-plan.md#4-humanise). In short:
+
+- **A stream per limb.** The right foot plays `k`, the left foot `hf`, the
+  right hand `h`, `r` and `c`, and the left hand `s`, the toms and the perc
+  lanes. Hands and feet drift separately, and two hands on one step spread.
+- **Timing** is pink noise plus differenced white noise, scaled so σ is 10 ms
+  for hands and 8 ms for feet at Amount 100, and clamped at ±25 ms. The
+  intervals between one limb's notes correlate at about −0.58 note to note,
+  so each corrects the one before.
+- **Velocity** is multiplied by `1 + σ_v·pink`: σ_v is 12% for cymbals and
+  perc and 6% for drums at 100. `performStep` clamps the result inside the
+  written value's band. That is the midpoints to the neighbouring `LEVELS`,
+  less a MIDI step, or `cymbal()`'s bands for the hats and ride. So
+  `valueForVelocity` reads every note back as written.
+- **Seeded by the notes.** `humaniseSeed([A, B], take)` hashes both full
+  sections' bars and the take. Tempo, swing, layer and name don't enter it.
+  The Studio, `/p/` and `POST /api/v1/breaks/midi` all get the same
+  performance from it.
+- **Amount 0 is the grid.** `performStep` returns exactly what it does
+  without a humaniser. The streams still advance, so moving the slider changes
+  the size of the differences, not which ones they are.
+
+**The setting** is `StudioSettings.humanise { mode, amount, take }`. The
+default is Subtle at 35 (D38). In the Kit drawer it is a Humanise card: Off ·
+Subtle · Loose, the Amount (hidden while Off), and 🎲 _New take_. Subtle and
+Loose set the Amount to 35 and 75. The console turns it into the snapshot's
+`humanise: { amount, seed }`.
+
+**The transport** makes its `Humaniser` and reseeds `engine.rand` at Play. At
+the top of each pass it does both again if the seed has changed (a new take,
+or an edit to the notes), so a pass never changes performance halfway.
+
+**The file** makes its own `Humaniser` from the same seed, so it is the first
+pass you hear, and the passes after it for as many bars as it writes. _Played_
+or _Quantised_ beside Download .mid is `bb.midiTiming`. The API takes an
+optional `humanise: { amount, take }`. Without it the file is Quantised,
+which is the swing and feel without Humanise.
+
+`/p/` plays Subtle, take 0. It has no listener settings to read.
 
 ## Lane channels
 
@@ -121,10 +172,13 @@ Your own samples (`your-samples.ts`) now get the onset trim (`onsetOf`) and
 
 ## Tests
 
-| File                                                              | Holds                                                                                                 |
-| ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `tests/unit/lib/app/breaks/audio/packs.test.ts`                   | Round-robins never repeat back to back; the flat shape plays as before; the shelf; the wobble bounds  |
-| `tests/unit/lib/app/breaks/audio/engine.test.ts`                  | The master chain to the ceiling; the ceiling curve; lane channels, pans, room; choking every open hat |
-| `tests/unit/lib/app/breaks/audio/performance-consistency.test.ts` | Speakers, port and file agree; the fader reaches the channel and never the velocity                   |
-| `tests/unit/lib/app/breaks/audio/your-samples.test.ts`            | Onset trim and `kit.trim` on your samples                                                             |
-| `tests/unit/lib/app/breaks/catalogue/schemas.test.ts`             | The layered slot's bounds                                                                             |
+| File                                                              | Holds                                                                                                                                                               |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tests/unit/lib/app/breaks/audio/packs.test.ts`                   | Round-robins never repeat back to back; the flat shape plays as before; the shelf; the wobble bounds                                                                |
+| `tests/unit/lib/app/breaks/audio/engine.test.ts`                  | The master chain to the ceiling; the ceiling curve; lane channels, pans, room; choking every open hat                                                               |
+| `tests/unit/lib/app/breaks/audio/performance-consistency.test.ts` | Speakers, port and file agree, Humanise on over two passes too; the fader reaches the channel and never the velocity; no `Math.random` in `perform.ts` or `feel.ts` |
+| `tests/unit/lib/app/breaks/humanise.test.ts`                      | The seed; replay; σ within 10% over 10,000 notes; negative interval correlation; independent limbs; the ±25 ms clamp; Amount 0                                      |
+| `tests/unit/lib/app/breaks/perform.test.ts`                       | Amount 0 is the grid; every humanised note reads back as its value; ms to steps at the tempo                                                                        |
+| `tests/unit/lib/app/breaks/audio/transport.test.ts`               | Play replays the performance; a new seed is taken up at the top of the next pass                                                                                    |
+| `tests/unit/lib/app/breaks/audio/your-samples.test.ts`            | Onset trim and `kit.trim` on your samples                                                                                                                           |
+| `tests/unit/lib/app/breaks/catalogue/schemas.test.ts`             | The layered slot's bounds                                                                                                                                           |

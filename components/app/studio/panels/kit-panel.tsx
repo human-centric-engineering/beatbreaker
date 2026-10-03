@@ -10,6 +10,7 @@ import {
 import { Segmented } from '@/components/app/studio/segmented';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
+import { HUMANISE_MODES, type HumaniseMode } from '@/lib/app/breaks/humanise';
 import {
   MASTER_PARAM_DEFS,
   SYNTH_ONLY,
@@ -20,6 +21,12 @@ import {
   kitIsPlayable,
   paramDefs,
 } from '@/lib/app/breaks/kit';
+
+const HUMANISE_FACE: Record<HumaniseMode, string> = {
+  off: 'Off',
+  subtle: 'Subtle',
+  loose: 'Loose',
+};
 
 /** The master chain's ranges, shared with the settings schema so a saved override is one these sliders can show. */
 const MASTER = Object.fromEntries(MASTER_PARAM_DEFS.map((d) => [d.key, d]));
@@ -150,6 +157,62 @@ export function KitPanel() {
             >
               ▸ Play the kit
             </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="card">
+        <div className="card-hd">
+          <h3>Humanise</h3>
+          <StudioHelp title="Humanise">
+            Small differences in when each hit lands and how hard, as a drummer plays: each limb
+            drifts on its own, a ghost stays a ghost and an accent stays an accent. It sits on top
+            of the style&apos;s feel, and the click stays on the grid. The MIDI port and the
+            downloaded file play the same performance as the speakers. <b>Amount</b>: Subtle is 35,
+            about 3.5 ms either way — felt more than heard. At 100 the hands vary by about 10 ms and
+            the feet by 8. Turn it off if you are checking your own timing against the playback.
+          </StudioHelp>
+        </div>
+        <div className="card-bd">
+          <Segmented
+            label="Humanise"
+            small
+            options={HUMANISE_MODES.map((m) => ({ value: m, face: HUMANISE_FACE[m] }))}
+            value={c.humanise.mode}
+            onChange={c.setHumaniseMode}
+          />
+          {c.humanise.mode === 'off' ? null : (
+            <Slider
+              label="Amount"
+              value={c.humanise.amount}
+              onChange={c.setHumaniseAmount}
+              min={0}
+              max={100}
+              hint="Subtle is 35, Loose 75. Nothing moves more than 25 ms."
+            />
+          )}
+          <div className="field">
+            <span className="fieldlab">
+              Take{' '}
+              <StudioHelp title="New take">
+                The same pattern always plays the same performance from Play, so you can learn it. A
+                new take rolls another one, heard from the top of the next pass. Editing the notes
+                rolls one too.
+              </StudioHelp>
+            </span>
+            <div className="btnrow">
+              <button
+                type="button"
+                className="mini"
+                disabled={c.humanise.mode === 'off'}
+                onClick={() => {
+                  c.newTake();
+                  say('New take — from the next pass');
+                }}
+              >
+                🎲 New take
+              </button>
+            </div>
           </div>
         </div>
       </div>

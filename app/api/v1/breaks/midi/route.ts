@@ -10,7 +10,9 @@
  * which is what `validateRequestBody` throwing gives us.
  *
  * Swing and the style's off-grid feel are written into the tick positions, so
- * the export drags where the playback drags.
+ * the export drags where the playback drags. With `humanise`, so is Humanise,
+ * seeded from the break's notes and the take — the same performance the
+ * Studio plays at that Amount and take.
  *
  * Authentication: any authenticated user. Stateless. Rate limiting is already
  * done by `proxy.ts`.
@@ -19,6 +21,7 @@
 import { getRouteLogger } from '@/lib/api/context';
 import { validateRequestBody } from '@/lib/api/validation';
 import { withAuth } from '@/lib/auth/guards';
+import { humaniseSeed } from '@/lib/app/breaks/humanise';
 import { breakDocFromPayload } from '@/lib/app/breaks/share';
 import { type SequencedBar, buildMidi } from '@/lib/app/breaks/midi';
 import { midiBreakSchema } from '@/lib/validations/break-operations';
@@ -47,6 +50,14 @@ export const POST = withAuth(
       swing: doc.swing,
       feel: input.feel,
       hats: input.hats,
+      ...(input.humanise
+        ? {
+            humanise: {
+              amount: input.humanise.amount,
+              seed: humaniseSeed([doc.A, doc.B], input.humanise.take),
+            },
+          }
+        : {}),
     });
 
     log.info('Break exported as MIDI', { bars: seq.length, bytes: file.bytes.length });

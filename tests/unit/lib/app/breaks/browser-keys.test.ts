@@ -73,6 +73,7 @@ describe('the browser keys', () => {
     expect(new Set(BROWSER_KEYS).size).toBe(BROWSER_KEYS.length);
     expect(spelled).toEqual([
       'bb.gridSize',
+      'bb.midiTiming',
       'bb.patternsTab',
       'bb.pendingLink',
       'bb.scratch',

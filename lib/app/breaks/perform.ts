@@ -1,4 +1,5 @@
 import { feelOf, feelOffset, hatShape, isSwung } from '@/lib/app/breaks/feel';
+import type { Humaniser } from '@/lib/app/breaks/humanise';
 import { DEFAULT_PERC, FOOT_LANE, PERC_LANES, TOM_LANES, percInst } from '@/lib/app/breaks/lanes';
 import { isGroupStart } from '@/lib/app/breaks/meter';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
@@ -72,8 +73,9 @@ export const LEVELS: Record<LaneKey, number[]> = {
  * MIDI can. So a shaped plain note is held at or below {@link PLAIN_CYMBAL_MAX}
  * and a written accent (or ride bell) at or above {@link ACCENT_CYMBAL_MIN}.
  * The shape still moves every note; it never moves one across the line. A
- * plain hat on the beat peaks at 0.86 × 1.03 wobble, under the ceiling, so the
- * band only ever lifts accents — it never flattens the groove.
+ * plain hat on the beat peaks at 0.86, under the ceiling, so the band only ever
+ * lifts accents — it never flattens the groove. Humanise is held to the same
+ * bands.
  */
 export const PLAIN_CYMBAL_MAX = 0.9;
 export const ACCENT_CYMBAL_MIN = 0.95;
@@ -85,6 +87,16 @@ export interface PerformOptions {
   feel: number;
   /** Hi-hat and ride dynamics slider, 0–150. */
   hats: number;
+  /** Humanise (Phase 9). Absent, or at Amount 0, every note is where the feel puts it. */
+  humanise?: HumanisePlay | null;
+}
+
+/** A humaniser, how much of it to apply, and the tempo its milliseconds are converted to steps at. */
+export interface HumanisePlay {
+  stream: Humaniser;
+  /** 0–100. */
+  amount: number;
+  bpm: number;
 }
 
 export interface Voice {
@@ -93,7 +105,7 @@ export interface Voice {
   note: number;
   /** 0–1: the speakers' gain before the mixer, and the MIDI velocity ÷ 127. */
   velocity: number;
-  /** Swing plus feel, in grid steps. Negative is early. */
+  /** Swing plus feel plus humanise, in grid steps. Negative is early. */
   offset: number;
   /** Flags the engine picks its sample or synth voice by. */
   ghost?: boolean;
@@ -113,13 +125,45 @@ function cymbal(loud: boolean, v: number): number {
   return loud ? clamp(v, ACCENT_CYMBAL_MIN, 1) : clamp(v, 0, PLAIN_CYMBAL_MAX);
 }
 
+/** One MIDI velocity step, the margin a band keeps from the line between two values. */
+const MIDI_STEP = 1 / 127;
+
+type Band = readonly [number, number];
+
+const CYMBAL_PLAIN: Band = [MIDI_STEP, PLAIN_CYMBAL_MAX];
+const CYMBAL_ACCENT: Band = [ACCENT_CYMBAL_MIN, 1];
+const ANY: Band = [MIDI_STEP, 1];
+
+/**
+ * The velocities a written value may be humanised across: up to the midpoint
+ * with each neighbouring level, less a MIDI step, so {@link valueForVelocity}
+ * still reads the note as the value it was written as. A ghost stays a ghost
+ * and an accent stays above a plain hit. The snare's cross-stick is a note of
+ * its own, so it is not one of the snare's neighbours and has no band.
+ */
+function bandOf(lane: LaneKey, value: number): Band {
+  if (lane === 's' && value === 4) return ANY;
+  const levels = LEVELS[lane];
+  const own = levels[value];
+  let lo = MIDI_STEP;
+  let hi = 1;
+  levels.forEach((level, i) => {
+    if (i === 0 || i === value || (lane === 's' && i === 4)) return;
+    if (level < own) lo = Math.max(lo, (level + own) / 2 + MIDI_STEP);
+    else hi = Math.min(hi, (level + own) / 2 - MIDI_STEP);
+  });
+  return [lo, hi];
+}
+
 /**
  * Every note on step `i` of `bar`, voiced. `pat` supplies the meter, the style
  * snapshot (feel, swing unit, kick feathering, hat depth) and the percussion
  * slots.
  *
- * Not pure, deliberately: the hi-hat and ride shaping carries a small random
- * wobble unless the hats slider is at 0 (`hatShape`).
+ * With `opts.humanise`, each note draws its nudge from the stream, in the order
+ * the notes are listed here — so two callers that make a humaniser from one
+ * seed and voice the same steps in the same order hear the same performance.
+ * Without it, the same arguments always give the same voices.
  */
 export function performStep(pat: Pattern, bar: Bar, i: number, opts: PerformOptions): Voice[] {
   const m = meterOfPat(pat);
@@ -133,6 +177,12 @@ export function performStep(pat: Pattern, bar: Bar, i: number, opts: PerformOpti
     swing + (feel && amt ? amt * feelOffset(feel, lane, i, ghost) : 0);
 
   const out: Voice[] = [];
+  /** Each voice's band, by index, for humanise to stay inside. */
+  const bands: Band[] = [];
+  const add = (voice: Voice, band: Band): void => {
+    out.push(voice);
+    bands.push(band);
+  };
 
   if (bar.k[i]) {
     /* Feathering: a jazz kick plays all four quarters, but you are meant to feel
@@ -140,76 +190,111 @@ export function performStep(pat: Pattern, bar: Bar, i: number, opts: PerformOpti
        — so the critic reads timekeeping, not syncopation. */
     const feather =
       attrs?.kickFeather && bar.k[i] === 1 && isGroupStart(m, i) ? attrs.kickFeather : 1;
-    out.push({
-      lane: 'k',
-      note: MIDI_MAP.k,
-      velocity: LEVELS.k[bar.k[i]] * feather,
-      offset: offset('k'),
-    });
+    add(
+      {
+        lane: 'k',
+        note: MIDI_MAP.k,
+        velocity: LEVELS.k[bar.k[i]] * feather,
+        offset: offset('k'),
+      },
+      bandOf('k', bar.k[i])
+    );
   }
   if (bar[FOOT_LANE][i]) {
-    out.push({
-      lane: FOOT_LANE,
-      note: MIDI_MAP.hf,
-      velocity: LEVELS.hf[1],
-      offset: offset('h'),
-      pedal: true,
-    });
+    add(
+      {
+        lane: FOOT_LANE,
+        note: MIDI_MAP.hf,
+        velocity: LEVELS.hf[1],
+        offset: offset('h'),
+        pedal: true,
+      },
+      bandOf(FOOT_LANE, 1)
+    );
   }
   if (bar.s[i]) {
     const sv = bar.s[i];
     const ghost = sv === 1;
-    out.push({
-      lane: 's',
-      note: sv === 4 ? MIDI_MAP.sCross : MIDI_MAP.s,
-      velocity: LEVELS.s[sv],
-      offset: offset('s', ghost),
-      ghost,
-      cross: sv === 4,
-    });
+    add(
+      {
+        lane: 's',
+        note: sv === 4 ? MIDI_MAP.sCross : MIDI_MAP.s,
+        velocity: LEVELS.s[sv],
+        offset: offset('s', ghost),
+        ghost,
+        cross: sv === 4,
+      },
+      bandOf('s', sv)
+    );
   }
   if (bar.h[i]) {
     const hv = bar.h[i];
-    out.push({
-      lane: 'h',
-      note: hv === 3 ? MIDI_MAP.hOpen : MIDI_MAP.h,
-      velocity: cymbal(hv === 2, LEVELS.h[hv] * hatShape(i, hv, m, attrs, opts.hats)),
-      offset: offset('h'),
-      open: hv === 3,
-    });
+    add(
+      {
+        lane: 'h',
+        note: hv === 3 ? MIDI_MAP.hOpen : MIDI_MAP.h,
+        velocity: cymbal(hv === 2, LEVELS.h[hv] * hatShape(i, hv, m, attrs, opts.hats)),
+        offset: offset('h'),
+        open: hv === 3,
+      },
+      hv === 2 ? CYMBAL_ACCENT : CYMBAL_PLAIN
+    );
   }
   if (bar.r[i]) {
     const rv = bar.r[i];
-    out.push({
-      lane: 'r',
-      note: rv === 2 ? MIDI_MAP.rBell : MIDI_MAP.r,
-      velocity: cymbal(rv === 2, LEVELS.r[rv] * hatShape(i, rv, m, attrs, opts.hats)),
-      offset: offset('r'),
-      bell: rv === 2,
-    });
+    add(
+      {
+        lane: 'r',
+        note: rv === 2 ? MIDI_MAP.rBell : MIDI_MAP.r,
+        velocity: cymbal(rv === 2, LEVELS.r[rv] * hatShape(i, rv, m, attrs, opts.hats)),
+        offset: offset('r'),
+        bell: rv === 2,
+      },
+      rv === 2 ? CYMBAL_ACCENT : CYMBAL_PLAIN
+    );
   }
   if (bar.c[i])
-    out.push({ lane: 'c', note: MIDI_MAP.c, velocity: LEVELS.c[1], offset: offset('c') });
+    add({ lane: 'c', note: MIDI_MAP.c, velocity: LEVELS.c[1], offset: offset('c') }, ANY);
 
   for (const L of TOM_LANES) {
     if (bar[L][i])
-      out.push({ lane: L, note: MIDI_MAP[L], velocity: LEVELS[L][bar[L][i]], offset: offset('s') });
+      add(
+        { lane: L, note: MIDI_MAP[L], velocity: LEVELS[L][bar[L][i]], offset: offset('s') },
+        bandOf(L, bar[L][i])
+      );
   }
   PERC_LANES.forEach((L, li) => {
     if (!bar[L][i]) return;
     const inst = pat.perc?.[L] ?? DEFAULT_PERC[li];
     const accent = bar[L][i] === 2;
     const pi = percInst(inst);
-    out.push({
-      lane: L,
-      note: accent ? pi.hi : pi.midi,
-      velocity: LEVELS[L][bar[L][i]],
-      offset: offset('s'),
-      perc: { inst, accent },
-    });
+    add(
+      {
+        lane: L,
+        note: accent ? pi.hi : pi.midi,
+        velocity: LEVELS[L][bar[L][i]],
+        offset: offset('s'),
+        perc: { inst, accent },
+      },
+      bandOf(L, bar[L][i])
+    );
   });
 
-  return out;
+  const h = opts.humanise;
+  if (!h) return out;
+  /* A sixteenth is 15000 / bpm ms. Every note draws, whatever the Amount, so
+     the stream stays in step with the notes. */
+  const stepsPerMs = h.bpm / 15000;
+  return out.map((voice, n) => {
+    const nudge = h.stream.next(voice.lane, h.amount);
+    if (nudge.ms === 0 && nudge.gain === 1) return voice;
+    const [lo, hi] = bands[n];
+    return {
+      ...voice,
+      velocity: clamp(voice.velocity * nudge.gain, lo, hi),
+      offset: voice.offset + nudge.ms * stepsPerMs,
+    };
+  });
 }
 
 /**

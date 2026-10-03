@@ -212,7 +212,6 @@ describe('the file is the performance', () => {
   });
 
   it('writes every voice performStep gives, at its velocity × 127 and its offset', () => {
-    vi.spyOn(Math, 'random').mockReturnValue(0.5); // a fixed wobble, so both sides roll the same
     const p = generatePattern({
       style: testStyle('dilla'),
       seed: 9,
@@ -227,7 +226,11 @@ describe('the file is the performance', () => {
     const expected: Array<{ t: number; note: number; vel: number }> = [];
     p.bars.forEach((bar, bi) => {
       for (let i = 0; i < bar.k.length; i++) {
-        for (const v of performStep(p, bar, i, opts)) {
+        for (const v of performStep(p, bar, i, {
+          swing: opts.swing,
+          feel: opts.feel,
+          hats: opts.hats,
+        })) {
           expected.push({
             t: Math.max(0, Math.round((bi * bar.k.length + i + v.offset) * 120)),
             note: v.note,

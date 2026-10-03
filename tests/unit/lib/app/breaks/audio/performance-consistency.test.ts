@@ -3,7 +3,8 @@
  * one performance.** This is the guard that keeps them so.
  *
  * A pattern with every lane and every value is played through the real
- * `Transport` — swing on, a style feel on, the hats slider up — with the engine
+ * `Transport` — swing on, a style feel on, the hats slider up, Humanise on
+ * over two passes — with the engine
  * and the MIDI port faked so every call is captured. The same pattern is
  * exported with `buildMidi`. Then:
  *
@@ -79,7 +80,7 @@ function everything(meter: string): Pattern {
   };
 }
 
-function play(pat: Pattern, over: Partial<TransportSnapshot>) {
+function play(pat: Pattern, over: Partial<TransportSnapshot>, passes = 1) {
   const ctx = { currentTime: 0 };
   const heard: Heard[] = [];
   /** The fader level each lane's notes went through its channel at. */
@@ -97,6 +98,7 @@ function play(pat: Pattern, over: Partial<TransportSnapshot>) {
     crash: vi.fn(hear),
     tom: vi.fn(hear),
     perc: vi.fn(hear),
+    reseed: vi.fn(),
     playIn: (lane: string, level: number, _t: number, voice: () => void) => {
       levels.push({ lane, level });
       voice();
@@ -117,6 +119,7 @@ function play(pat: Pattern, over: Partial<TransportSnapshot>) {
     swing: 0,
     feel: 0,
     hats: 100,
+    humanise: { amount: 0, seed: 1 },
     click: false,
     clickSub: 4,
     countIn: 0,
@@ -138,7 +141,7 @@ function play(pat: Pattern, over: Partial<TransportSnapshot>) {
   t.midi = midi;
   t.start();
   const dur = 60 / snap.bpm / 4;
-  const steps = stepsOf(meterOf(pat.meter));
+  const steps = stepsOf(meterOf(pat.meter)) * passes;
   while (ctx.currentTime + 0.13 < START + steps * dur - dur / 2) {
     ctx.currentTime += 0.02;
     vi.advanceTimersByTime(25);
@@ -153,10 +156,8 @@ function play(pat: Pattern, over: Partial<TransportSnapshot>) {
   };
 }
 
-/** A fixed wobble, so the two runs of the hats slider's randomness roll the same. */
 beforeEach(() => {
   vi.useFakeTimers();
-  vi.spyOn(Math, 'random').mockReturnValue(0.37);
 });
 afterEach(() => {
   vi.useRealTimers();
@@ -169,13 +170,15 @@ const byTime = <T extends Heard>(a: T, b: T) => a.when - b.when || a.vel - b.vel
 describe('speakers, live MIDI and the MIDI file play one performance', () => {
   for (const meter of ['4/4', '6/8', '7/8']) {
     for (const over of [
-      { swing: 0, feel: 0, hats: 0 },
-      { swing: 35, feel: 100, hats: 120 },
+      { swing: 0, feel: 0, hats: 0, humanise: { amount: 0, seed: 1 } },
+      { swing: 35, feel: 100, hats: 120, humanise: { amount: 0, seed: 1 } },
+      { swing: 35, feel: 100, hats: 120, humanise: { amount: 75, seed: 0xbeef } },
     ]) {
-      it(`agree note for note in ${meter} at swing ${over.swing}, feel ${over.feel}, hats ${over.hats}`, () => {
+      const passes = over.humanise.amount ? 2 : 1;
+      it(`agree note for note in ${meter} at swing ${over.swing}, feel ${over.feel}, hats ${over.hats}, humanise ${over.humanise.amount} over ${passes} pass(es)`, () => {
         const pat = everything(meter);
-        const { heard, sent, dur } = play(pat, over);
-        expect(sent.length).toBeGreaterThan(20);
+        const { heard, sent, dur } = play(pat, over, passes);
+        expect(sent.length).toBeGreaterThan(20 * passes);
 
         // 1. the speakers and the port: same moments, same velocities
         expect(heard.map((h) => ({ when: round(h.when), vel: round(h.vel) })).sort(byTime)).toEqual(
@@ -183,7 +186,10 @@ describe('speakers, live MIDI and the MIDI file play one performance', () => {
         );
 
         // 2. the port and the file: same notes, velocities and positions
-        const file = buildMidi([{ pattern: pat, barIdx: 0 }], { bpm: 120, ...over });
+        const file = buildMidi(
+          Array.from({ length: passes }, () => ({ pattern: pat, barIdx: 0 })),
+          { bpm: 120, ...over }
+        );
         const written = parseNoteOns(file.bytes);
         const fromPort = sent.map((s) => ({
           t: Math.max(0, Math.round(((s.when - START) / dur) * PPQ_STEP)),
@@ -193,6 +199,16 @@ describe('speakers, live MIDI and the MIDI file play one performance', () => {
         const order = (a: { t: number; note: number }, b: { t: number; note: number }) =>
           a.t - b.t || a.note - b.note;
         expect(fromPort.sort(order)).toEqual(written.sort(order));
+
+        if (passes > 1) {
+          // Humanise really moved them: the second pass is not the first again
+          const perPass = stepsOf(meterOf(pat.meter)) * dur;
+          const sorted = [...sent].sort(byTime);
+          const half = sorted.length / 2;
+          const first = sorted.slice(0, half).map((s) => round(s.when - START));
+          const second = sorted.slice(half).map((s) => round(s.when - START - perPass));
+          expect(second).not.toEqual(first);
+        }
       });
     }
   }
@@ -277,6 +293,12 @@ describe('nothing voices a note outside perform.ts', () => {
 
     const offenders = files.filter((f) => !ALLOWED.has(f) && PRIMITIVE.test(read(f)));
     expect(offenders).toEqual([]);
+  });
+
+  it('keeps Math.random out of the performance: Humanise is the only variation, and it is seeded', () => {
+    for (const file of ['lib/app/breaks/perform.ts', 'lib/app/breaks/feel.ts']) {
+      expect(read(file), file).not.toMatch(/Math\.random/);
+    }
   });
 
   it('converts a velocity for MIDI in one place', () => {

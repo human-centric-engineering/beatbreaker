@@ -33,6 +33,7 @@ const fakes = vi.hoisted(() => {
     // the lane channel (Phase 9): plays the voice, as the engine does
     playIn = vi.fn((_lane: string, _level: number, _t: number, play: () => void) => play());
     resume = vi.fn();
+    reseed = vi.fn();
     close = vi.fn();
     click = vi.fn();
     kick = vi.fn();

@@ -2,13 +2,14 @@
  * `performStep` — the one place a written note becomes a sound. Everything that
  * plays a pattern (speakers, live MIDI, the MIDI file) voices from it, so these
  * are the rules all three follow: the accent bands, the shaping, the ride
- * shaped as the hats are, feathering, swing and feel, and the inverse the MIDI
- * reader uses.
+ * shaped as the hats are, feathering, swing and feel, Humanise, and the
+ * inverse the MIDI reader uses.
  */
 
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { generatePattern } from '@/lib/app/breaks/generate';
+import { Humaniser } from '@/lib/app/breaks/humanise';
 import { LANES } from '@/lib/app/breaks/lanes';
 import { METER_KEYS } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
@@ -86,7 +87,6 @@ describe('the hi-hat and ride bands', () => {
 
 describe('the shaping', () => {
   it('shapes plain hats by where they fall in the beat, and is machine-even at 0', () => {
-    vi.spyOn(Math, 'random').mockReturnValue(0.5); // no wobble: the shape alone
     const p = patternWith('4/4', (bar) => {
       bar.h = bar.h.map(() => 1);
     });
@@ -97,7 +97,6 @@ describe('the shaping', () => {
   });
 
   it('shapes the ride exactly as it shapes the hats', () => {
-    vi.spyOn(Math, 'random').mockReturnValue(0.5);
     for (const meter of ['4/4', '6/8', '7/8']) {
       const p = patternWith(meter, (bar) => {
         bar.h = bar.h.map(() => 1);
@@ -175,6 +174,64 @@ describe('notes and flags', () => {
     expect(all.find((v) => v.bell)?.note).toBe(MIDI_MAP.rBell);
     expect(all.find((v) => v.pedal)?.velocity).toBe(LEVELS.hf[1]);
     expect(all.find((v) => v.perc)?.perc?.accent).toBe(true);
+  });
+});
+
+describe('humanise', () => {
+  /** Every lane, every value, over a 4/4 bar. */
+  const everyValue = () =>
+    patternWith('4/4', (bar) => {
+      bar.k = bar.k.map((_, i) => (i % 4 === 0 ? 1 + (i % 8 ? 1 : 0) : 0));
+      bar.s = bar.s.map((_, i) => [0, 1, 2, 3, 4][i % 5]);
+      bar.h = bar.h.map((_, i) => 1 + (i % 3));
+      bar.r = bar.r.map((_, i) => (i % 2 ? 1 + ((i >> 1) % 2) : 0));
+      bar.c[0] = 1;
+      bar.hf = bar.hf.map((_, i) => (i % 4 === 2 ? 1 : 0));
+      for (const t of ['t1', 't2', 't3'] as const) bar[t] = bar[t].map((_, i) => (i % 2) + 1);
+      bar.p1 = bar.p1.map((_, i) => (i % 2) + 1);
+      bar.p2 = bar.p2.map((_, i) => ((i + 1) % 2) + 1);
+    });
+
+  it('is exactly the grid at Amount 0', () => {
+    const p = everyValue();
+    const humanise = { stream: new Humaniser(9), amount: 0, bpm: 100 };
+    expect(voicesOf(p, { ...FLAT, humanise })).toEqual(voicesOf(p));
+  });
+
+  it('never moves a note out of its value: a ghost stays a ghost, an accent an accent', () => {
+    const p = everyValue();
+    const bar = p.bars[0];
+    const humanise = { stream: new Humaniser(10), amount: 100, bpm: 100 };
+    let moved = 0;
+    for (let pass = 0; pass < 200; pass++) {
+      voicesOf(p, { ...FLAT, humanise }).forEach((voices, i) => {
+        const grid = performStep(p, bar, i, FLAT);
+        voices.forEach((v, n) => {
+          if (v.velocity !== grid[n].velocity) moved++;
+          const where = `pass ${pass} step ${i} ${v.lane}`;
+          if (v.lane === 's' && v.cross) return; // a note of its own
+          const written = v.lane === 'h' && bar.h[i] === 3 ? 1 : bar[v.lane][i];
+          expect(valueForVelocity(v.lane, midiVelocity(v.velocity)), where).toBe(
+            v.lane === 'h' || v.lane === 'r' ? (written === 2 ? 2 : 1) : written
+          );
+        });
+      });
+    }
+    expect(moved).toBeGreaterThan(1000); // it did vary them
+  });
+
+  it('turns milliseconds into steps at the tempo', () => {
+    const p = patternWith('4/4', (bar) => {
+      bar.k[0] = 1;
+    });
+    const at = (bpm: number) =>
+      performStep(p, p.bars[0], 0, {
+        ...FLAT,
+        humanise: { stream: new Humaniser(3), amount: 100, bpm },
+      })[0].offset;
+    const ms = new Humaniser(3).next('k', 100).ms;
+    expect(at(120)).toBeCloseTo(ms / 125, 10); // a sixteenth at 120 is 125 ms
+    expect(at(60)).toBeCloseTo(ms / 250, 10);
   });
 });
 
