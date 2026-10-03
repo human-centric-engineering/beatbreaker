@@ -11,10 +11,12 @@ import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
 import { type SectionLetter } from '@/lib/app/breaks/audio/transport';
+import { GRID_SIZE, GRID_SIZE_MAX, GRID_SIZE_MIN } from '@/lib/app/breaks/browser-keys';
 import { publicPath } from '@/lib/app/breaks/community/visibility';
 import { engrave } from '@/lib/app/breaks/engrave';
 import { LAYER_BLURB, LAYER_NAMES } from '@/lib/app/breaks/layers';
 import { parseReferenceLink, type StoredLink } from '@/lib/app/breaks/links';
+import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 
 /**
  * The pattern's reference links as chips beside its title (task 4.11): ▶ Video
@@ -74,6 +76,7 @@ function BasedOn({ credit }: { credit: PatternSharing['basedOn'] }) {
  */
 export function Stage() {
   const c = useStudio();
+  const [gridSize, setGridSize] = useStoredSetting(GRID_SIZE);
   const staveA = useRef<StaveHandle>(null);
   const staveB = useRef<StaveHandle>(null);
   const [showEditor, setShowEditor] = useState(true);
@@ -277,6 +280,22 @@ export function Stage() {
               aria-label="Chart size"
             />
           </div>
+          {/* The grid's own zoom (5.14), beside the chart's: the chart is for
+              reading and the grid for tapping, and they want different sizes. */}
+          <div className="sizer">
+            <span className="eyebrow" aria-hidden="true">
+              Grid
+            </span>
+            <input
+              type="range"
+              min={GRID_SIZE_MIN * 100}
+              max={GRID_SIZE_MAX * 100}
+              step={5}
+              value={Math.round(gridSize * 100)}
+              onChange={(e) => setGridSize(Number(e.target.value) / 100)}
+              aria-label="Grid size"
+            />
+          </div>
         </div>
 
         {shown.map((letter) => {
@@ -346,6 +365,7 @@ export function Stage() {
             type="button"
             className="mini"
             title="Add a section"
+            aria-label="Add a section"
             onClick={() => c.setArrangement([...c.arrangement, 'A'])}
           >
             +
@@ -354,6 +374,7 @@ export function Stage() {
             type="button"
             className="mini"
             title="Remove last section"
+            aria-label="Remove last section"
             onClick={() => c.setArrangement(c.arrangement.slice(0, -1))}
             disabled={c.arrangement.length <= 1}
           >
@@ -365,7 +386,7 @@ export function Stage() {
       <div className="card">
         <div className="card-hd">
           <h3>Step editor</h3>
-          <span className="hint">Click a cell to cycle it. Shift-click steps back.</span>
+          <span className="hint">Tap a cell to set or clear it; hold it for every value.</span>
           <div className="spacer" />
           {/* Which section the grid is, said rather than chosen: the choice is
               the one on the chart. With Both it follows the playhead, so it is
@@ -389,6 +410,9 @@ export function Stage() {
               flash={c.flash?.[c.editing]}
               flashSeq={c.flash?.seq}
               onCycle={(bar, lane, step, back) => c.cycleCell(c.editing, bar, lane, step, back)}
+              section={c.editing}
+              onSet={c.setCell}
+              zoom={gridSize}
             />
           ) : null}
           <div className="hint" style={{ marginTop: 10 }}>
@@ -397,6 +421,13 @@ export function Stage() {
               What you see is what you hear. A note added at a lower layer is pinned there — marked
               with a dot — instead of being derived back out: a ghost note written at Groove is a
               ghost note Groove keeps.
+            </StudioHelp>{' '}
+            <StudioHelp title="Setting a cell">
+              A tap gives the lane its usual hit, or clears a cell with a note. Hold a cell (or
+              right-click it, or press the context-menu key) for every value it can have — a
+              cross-stick, an open hat. Drag along a lane to paint the value the first cell took;
+              Undo takes the whole drag back. Shift-click steps back through the values. Grid,
+              beside the chart&rsquo;s Size, makes the cells bigger.
             </StudioHelp>
           </div>
         </div>

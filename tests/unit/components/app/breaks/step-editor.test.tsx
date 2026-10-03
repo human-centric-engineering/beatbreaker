@@ -31,6 +31,8 @@ function mount(flashSeq: number) {
       stored={pattern}
       cursor={null}
       onCycle={vi.fn()}
+      onSet={vi.fn()}
+      section="A"
       flash={new Set(['0:k:0'])}
       flashSeq={flashSeq}
     />

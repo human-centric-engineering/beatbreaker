@@ -18,6 +18,14 @@ release process.
 
 ### Added
 
+- **The grid and the inventory (BeatBreaker Phase 5-iv).** Grid cells are 24px
+  with a fine pointer and 32px with a coarse one, times a Grid zoom kept as
+  `bb.gridSize` (`GRID_SIZE` in `lib/app/breaks/browser-keys.ts`). A tap sets
+  a lane's usual hit or clears the cell, a long press or right-click opens a
+  value picker, and a drag along a lane paints, as one undo step (the
+  console's `setCell`). `.context/app/controls.md` lists every Studio control
+  and is held to the Studio by a test.
+
 - **Your patterns and the mixer (BeatBreaker Phase 5-iii).** Delete, with an
   Undo, on your own patterns in the Studio's Patterns drawer and in Details;
   the `DELETE /api/v1/breaks/:id` is sent when the Undo has gone. A Solo beside

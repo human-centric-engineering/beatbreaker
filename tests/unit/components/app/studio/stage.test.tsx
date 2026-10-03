@@ -228,15 +228,15 @@ describe('Stage', () => {
     const arrCount = () => document.querySelectorAll('.arr button').length;
     const start = arrCount();
 
-    await user.click(screen.getByRole('button', { name: '+' }));
+    await user.click(screen.getByRole('button', { name: 'Add a section' }));
     expect(arrCount()).toBe(start + 1);
 
     // reduce all the way down to one section
     for (let i = arrCount(); i > 1; i--) {
-      await user.click(screen.getByRole('button', { name: '−' }));
+      await user.click(screen.getByRole('button', { name: 'Remove last section' }));
     }
     expect(arrCount()).toBe(1);
-    expect(screen.getByRole('button', { name: '−' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Remove last section' })).toBeDisabled();
   });
 
   it('flips an arrangement letter from A to B and back to A', async () => {

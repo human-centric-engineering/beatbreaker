@@ -5,6 +5,7 @@ make is in your account, you can find it again, and you pick up where you left
 off. This page is the Studio side — the pattern as a document, and where each
 piece of Phase 4 lives. The endpoints, their parameters and the tables are in
 [`breaks.md`](./breaks.md); this page links to them rather than repeating them.
+Every control in the Studio, Delete included, is in [`controls.md`](./controls.md).
 
 ## Anti-patterns first
 

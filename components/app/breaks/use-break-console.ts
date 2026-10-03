@@ -315,6 +315,19 @@ export interface BreakConsole {
     back: boolean
   ) => void;
   /**
+   * Set one cell to a value (task 5.15): a tap, a choice in the value picker,
+   * or one cell of a drag. A drag is one stroke, so one undo step: its first
+   * cell is `start` (the default) and the rest `continue`, which do not push.
+   */
+  setCell: (
+    letter: SectionLetter,
+    bar: number,
+    lane: LaneKey,
+    step: number,
+    value: number,
+    stroke?: 'start' | 'continue'
+  ) => void;
+  /**
    * Open a library entry. With `at`, on that layer and at that tempo — where
    * it was left, when the practice history (D18) brings you back to it.
    */
@@ -940,6 +953,37 @@ export function useBreakConsole(
       next.bars[bar][lane][step] = v;
       if (v) setPin(next, bar, lane, step, level);
       setPatterns((prev) => ({ ...prev, [letter]: next }));
+    },
+    [patterns, level, pushHistory]
+  );
+
+  const setCell = useCallback(
+    (
+      letter: SectionLetter,
+      bar: number,
+      lane: LaneKey,
+      step: number,
+      value: number,
+      stroke: 'start' | 'continue' = 'start'
+    ) => {
+      const pat = patterns[letter];
+      if (!pat) return;
+      // clearing what is already empty is no edit: no undo step, nothing touched
+      if (!value && !pat.bars[bar]?.[lane]?.[step]) return;
+      if (stroke === 'start') pushHistory();
+      setTouched(letter);
+      /* From the latest state, not this render's: a drag sets cells faster
+         than the Studio re-renders, and each must land on the one before. */
+      setPatterns((prev) => {
+        const pat = prev[letter];
+        /* An equal value is still written when it is a note: it may be one
+           the layer reduces out, and setting it here is what pins it. */
+        if (!pat || (!value && !pat.bars[bar]?.[lane]?.[step])) return prev;
+        const next = clonePattern(pat);
+        next.bars[bar][lane][step] = value;
+        if (value) setPin(next, bar, lane, step, level);
+        return { ...prev, [letter]: next };
+      });
     },
     [patterns, level, pushHistory]
   );
@@ -1803,6 +1847,7 @@ export function useBreakConsole(
     buildBFromA,
     applyDoctor,
     cycleCell,
+    setCell,
     loadLibraryEntry,
     undo,
     redo,
