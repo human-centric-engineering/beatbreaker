@@ -14,6 +14,7 @@ import {
 } from '@/lib/app/breaks/buddy/apply';
 import { encodeBytes, findImportLink, importNote } from '@/lib/app/breaks/buddy/composer';
 import { sharePayloadSchema, type SharePayload } from '@/lib/app/breaks/schema';
+import { useAppEvents } from '@/lib/app/breaks/events';
 import { breakPayload } from '@/lib/app/breaks/share';
 import { logger } from '@/lib/logging';
 import { getUserFacingError } from '@/lib/orchestration/chat/error-messages';
@@ -119,6 +120,7 @@ export interface BuddyChat {
 export function useBuddyChat(studio: Studio): BuddyChat {
   /* The stream outlives renders; it reads the Studio through a ref so every
      frame sees the stage as it is now, not as it was when the turn began. */
+  const track = useAppEvents();
   const studioRef = useRef(studio);
   useEffect(() => {
     studioRef.current = studio;
@@ -314,6 +316,7 @@ export function useBuddyChat(studio: Studio): BuddyChat {
       const fail = (error: string) => patch(turn.assistantId, (m) => ({ ...m, error }));
       const controller = new AbortController();
       abort.current = controller;
+      let answered = false;
 
       try {
         const res = await fetch('/api/v1/buddy/stream', {
@@ -339,6 +342,7 @@ export function useBuddyChat(studio: Studio): BuddyChat {
           return;
         }
 
+        answered = true;
         const reader = res.body.getReader();
         const decoder = new TextDecoder();
         let buffer = '';
@@ -397,13 +401,15 @@ export function useBuddyChat(studio: Studio): BuddyChat {
           fail("BeatBuddy couldn't answer just now. Everything else in the Studio still works.");
         }
       } finally {
+        // a turn the server took, stopped or not; whether the chart moved is the undo rate's base
+        if (answered) track('buddy_turn', { changed: turn.pushed });
         abort.current = null;
         setBusy(false);
         setStatus(null);
         void refreshAllowance();
       }
     },
-    [busy, openImported, applyChanges, patch, refreshAllowance]
+    [busy, openImported, applyChanges, patch, refreshAllowance, track]
   );
 
   const stop = useCallback(() => abort.current?.abort(), []);
@@ -424,8 +430,10 @@ export function useBuddyChat(studio: Studio): BuddyChat {
       if (!canUndo(m)) return;
       studio.undo();
       patch(m.id, (x) => (x.change ? { ...x, change: { ...x.change, undone: true } } : x));
+      // an imported file's chip undoes too, but that change was not BeatBuddy's
+      if (m.role === 'assistant') track('buddy_undo', {});
     },
-    [canUndo, studio, patch]
+    [canUndo, studio, patch, track]
   );
 
   return {

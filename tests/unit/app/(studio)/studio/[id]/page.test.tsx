@@ -121,6 +121,7 @@ describe('/studio/[id]', () => {
         slug: 'cold000001',
         parentId: 'cbrk00000000000000000009',
         frozenAt: null,
+        createdAt: new Date('2026-09-01T10:00:00Z'),
       },
       payload,
       links: [LINK],
@@ -173,6 +174,8 @@ describe('/studio/[id]', () => {
       mine: true,
       details: { description: 'From the lesson', links: [LINK] },
       sharing: { visibility: 'link', slug: 'cold000001', basedOn: credit, fixed: false },
+      // for pattern_opened's day count (8.8), as the client can read it
+      createdAt: '2026-09-01T10:00:00.000Z',
     });
     expect(lineageOf).toHaveBeenCalledWith('cbrk00000000000000000009');
   });

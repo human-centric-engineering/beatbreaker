@@ -14,6 +14,7 @@
  */
 
 import { act, renderHook } from '@testing-library/react';
+import type { ReactNode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/lib/api/client', async (importOriginal) => {
@@ -32,6 +33,7 @@ import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import type { SharePayload } from '@/lib/app/breaks/schema';
 import { readScratch } from '@/lib/app/breaks/scratch';
 import { breakPayload } from '@/lib/app/breaks/share';
+import { expectNoContent, recordEvents } from '@/tests/helpers/analytics';
 import { testStyle } from '@/tests/helpers/catalogue';
 
 const ID = 'cbrk00000000000000000001';
@@ -65,11 +67,13 @@ type Props = { payload: SharePayload | null; title: string };
 
 function mount(
   initial?: InitialPattern,
-  first: Props = { payload: payloadAt(90), title: 'Cold Carpet' }
+  first: Props = { payload: payloadAt(90), title: 'Cold Carpet' },
+  wrapper?: ({ children }: { children: ReactNode }) => ReactNode
 ) {
   const say = vi.fn();
   const hook = renderHook((p: Props) => usePatternDocument({ ...p, initial, say }), {
     initialProps: first,
+    wrapper,
   });
   const edit = (bpm: number, title = 'Cold Carpet') =>
     hook.rerender({ payload: payloadAt(bpm), title });
@@ -1081,5 +1085,245 @@ describe('publishing with an edit not yet saved (7A)', () => {
     });
     expect(apiClient.post).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing published over an unsaved edit
     expect(result.current.fixed).toBe(false);
+  });
+});
+
+describe('analytics events (task 8.8)', () => {
+  const NEW_ID = 'cbrk00000000000000000002';
+
+  it('counts a first save as pattern_created, and the edits that follow it in that opening as nothing more', async () => {
+    const rec = recordEvents();
+    const { result, edit } = mount(
+      undefined,
+      { payload: payloadAt(90), title: 'First one' },
+      rec.wrapper
+    );
+    await pass(0);
+    await act(async () => {
+      await result.current.save();
+    });
+    edit(95, 'First one');
+    await pass(AUTOSAVE_MS);
+    expect(apiClient.patch).toHaveBeenCalledTimes(1);
+    expect(rec.tracked).toEqual([{ event: 'pattern_created', props: {} }]);
+  });
+
+  it('counts edits to a saved pattern once per opening, not once per autosave', async () => {
+    const rec = recordEvents();
+    const { result, edit } = mount(opened(), undefined, rec.wrapper);
+    await pass(0);
+    edit(91);
+    await pass(AUTOSAVE_MS);
+    edit(92);
+    await pass(AUTOSAVE_MS);
+    edit(93);
+    await pass(AUTOSAVE_MS);
+    expect(apiClient.patch).toHaveBeenCalledTimes(3);
+    expect(rec.names()).toEqual(['pattern_saved']);
+
+    // opened again: a new opening, counted again
+    act(() => result.current.attach(ID, true));
+    edit(90);
+    await pass(0);
+    edit(94);
+    await pass(AUTOSAVE_MS);
+    expect(rec.names()).toEqual(['pattern_saved', 'pattern_saved']);
+  });
+
+  it('does not count a save the server refused', async () => {
+    const rec = recordEvents();
+    vi.mocked(apiClient.patch).mockRejectedValue(
+      new APIClientError('Bad', 'VALIDATION_ERROR', 400)
+    );
+    const { edit } = mount(opened(), undefined, rec.wrapper);
+    await pass(0);
+    edit(91);
+    await pass(AUTOSAVE_MS);
+    expect(rec.names()).toEqual([]);
+  });
+
+  it('counts the last save of a pattern being left, made after the stage moved on', async () => {
+    const rec = recordEvents();
+    const { result, edit } = mount(opened(), undefined, rec.wrapper);
+    await pass(0);
+    edit(91);
+    act(() => result.current.detach());
+    await pass(0);
+    expect(apiClient.patch).toHaveBeenCalledTimes(1);
+    expect(rec.names()).toEqual(['pattern_saved']);
+  });
+
+  it('does not count the last save of a pattern being left again when its opening already counted', async () => {
+    const rec = recordEvents();
+    const { result, edit } = mount(opened(), undefined, rec.wrapper);
+    await pass(0);
+    edit(91);
+    await pass(AUTOSAVE_MS);
+    expect(rec.names()).toEqual(['pattern_saved']);
+
+    // one more edit, then left before its autosave: saved at once, same opening
+    edit(92);
+    act(() => result.current.detach());
+    await pass(0);
+    expect(apiClient.patch).toHaveBeenCalledTimes(2);
+    expect(rec.names()).toEqual(['pattern_saved']);
+  });
+
+  it('counts a variation as a variation when the stage moves on before the copy answers', async () => {
+    const rec = recordEvents();
+    const PUBLISHED: PatternSharing = {
+      visibility: 'published',
+      slug: 'pub0000001',
+      basedOn: null,
+      fixed: true,
+    };
+    let answer!: (v: unknown) => void;
+    vi.mocked(apiClient.post).mockImplementationOnce(
+      () => new Promise((resolve) => (answer = resolve))
+    );
+    const { result, rerender } = mount(
+      { ...opened(false), sharing: PUBLISHED },
+      undefined,
+      rec.wrapper
+    );
+    await pass(0);
+    const funk = testStyle('funk');
+    const A = generatePattern({
+      style: funk,
+      meter: '4/4',
+      seed: 7,
+      bars: 2,
+      density: 50,
+      ghosts: 50,
+    });
+    rerender({
+      payload: breakPayload({
+        bpm: 90,
+        swing: 0,
+        level: 5,
+        arrangement: ['A', 'B'],
+        A,
+        B: deriveB(A, funk.params),
+      }),
+      title: 'Cold Carpet',
+    });
+    let saving!: Promise<boolean>;
+    act(() => {
+      saving = result.current.save();
+    });
+    // another pattern goes on the stage, private, before the copy answers
+    act(() => result.current.detach());
+    answer({ id: NEW_ID, basedOn: null });
+    await act(async () => {
+      await saving;
+    });
+    expect(rec.tracked).toEqual([
+      { event: 'pattern_copied', props: { kind: 'variation', from: 'studio' } },
+    ]);
+  });
+
+  it('counts Save on someone else’s pattern as pattern_copied (a copy, from the Studio)', async () => {
+    const rec = recordEvents();
+    const { result, edit } = mount(opened(false), undefined, rec.wrapper);
+    await pass(0);
+    edit(91);
+    await act(async () => {
+      await result.current.save();
+    });
+    expect(rec.tracked).toEqual([
+      { event: 'pattern_copied', props: { kind: 'copy', from: 'studio' } },
+    ]);
+  });
+
+  it('counts Save on an edited published pattern as a variation', async () => {
+    const rec = recordEvents();
+    const FIXED: PatternSharing = {
+      visibility: 'published',
+      slug: 'pub0000001',
+      basedOn: null,
+      fixed: true,
+    };
+    vi.mocked(apiClient.post).mockResolvedValue({ id: NEW_ID, basedOn: null });
+    const { result, rerender } = mount({ ...opened(), sharing: FIXED }, undefined, rec.wrapper);
+    await pass(0);
+    // other notes, the same tempo: an edit to a fixed pattern
+    const funk = testStyle('funk');
+    const A = generatePattern({
+      style: funk,
+      meter: '4/4',
+      seed: 7,
+      bars: 2,
+      density: 50,
+      ghosts: 50,
+    });
+    rerender({
+      payload: breakPayload({
+        bpm: 90,
+        swing: 0,
+        level: 5,
+        arrangement: ['A', 'B'],
+        A,
+        B: deriveB(A, funk.params),
+      }),
+      title: 'Cold Carpet',
+    });
+    await act(async () => {
+      await result.current.save();
+    });
+    expect(rec.tracked).toEqual([
+      { event: 'pattern_copied', props: { kind: 'variation', from: 'studio' } },
+    ]);
+  });
+
+  it('counts a plain new pattern, not a copy, when the original has gone', async () => {
+    const rec = recordEvents();
+    vi.mocked(apiClient.post)
+      .mockRejectedValueOnce(new APIClientError('Not found', 'NOT_FOUND', 404))
+      .mockResolvedValueOnce({ id: NEW_ID });
+    const { result, edit } = mount(opened(false), undefined, rec.wrapper);
+    await pass(0);
+    edit(91);
+    await act(async () => {
+      await result.current.save();
+    });
+    expect(rec.names()).toEqual(['pattern_created']);
+  });
+
+  it('counts a publish once it is published, and not a refused one', async () => {
+    const rec = recordEvents();
+    vi.mocked(apiClient.post)
+      .mockRejectedValueOnce(new APIClientError('Pick a username', 'USERNAME_REQUIRED', 409))
+      .mockResolvedValueOnce({ visibility: 'published', slug: 'freshslug1' });
+    const { result } = mount(opened(), undefined, rec.wrapper);
+    await pass(0);
+    await act(async () => {
+      await result.current.publish();
+    });
+    expect(rec.names()).toEqual([]);
+    await act(async () => {
+      await result.current.publish();
+    });
+    expect(rec.names()).toEqual(['pattern_published']);
+  });
+
+  it('sends no title, notes or id in any of them', async () => {
+    const rec = recordEvents();
+    vi.mocked(apiClient.post)
+      .mockResolvedValueOnce({ id: NEW_ID })
+      .mockResolvedValueOnce({ visibility: 'published', slug: 'freshslug1' });
+    const { result, edit } = mount(opened(false), undefined, rec.wrapper);
+    await pass(0);
+    edit(91);
+    await act(async () => {
+      await result.current.save();
+    });
+    edit(92);
+    await pass(AUTOSAVE_MS);
+    await act(async () => {
+      await result.current.publish();
+    });
+    // the edit after the copy is part of making it, so not pattern_saved
+    expect(rec.names()).toEqual(['pattern_copied', 'pattern_published']);
+    expectNoContent(rec.tracked, [ID, NEW_ID, 'Cold Carpet', 'freshslug1']);
   });
 });

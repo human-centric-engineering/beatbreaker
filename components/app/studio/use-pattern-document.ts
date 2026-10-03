@@ -10,6 +10,7 @@ import type {
 } from '@/components/app/breaks/use-break-console';
 import { APIClientError, apiClient } from '@/lib/api/client';
 import { VISIBILITIES } from '@/lib/app/breaks/community/visibility';
+import { useAppEvents } from '@/lib/app/breaks/events';
 import { storedLinkSchema } from '@/lib/app/breaks/links';
 import type { SharePayload } from '@/lib/app/breaks/schema';
 import { clearScratch, writeScratch } from '@/lib/app/breaks/scratch';
@@ -234,6 +235,7 @@ export function usePatternDocument({
   /** A fixed pattern's notes as the stage first had them; null before a baseline. */
   const [savedNotes, setSavedNotes] = useState<string | null>(null);
   const fixed = sharing.fixed === true;
+  const track = useAppEvents();
   // read by `share`, which says what changed, without re-creating it on every change
   const sharingNow = useRef(sharing);
   useLayoutEffect(() => {
@@ -251,6 +253,15 @@ export function usePatternDocument({
   useLayoutEffect(() => {
     latest.current = { payload, title, key, id, mine, fixed, savedKey, savedNotes, details };
   });
+
+  /* Which pattern is on the stage, as a count of detaches. A first save that
+     answers after the stage has moved on created its row — the pattern that
+     was saved is saved — but must not bind the new pattern to that row, or
+     its autosave would write the new pattern over the one just saved. */
+  const generation = useRef(0);
+  /* The opening whose edits have been counted as saved (8.8): `pattern_saved`
+     is once per opening, not once per autosave. */
+  const savedCounted = useRef(-1);
 
   /* Saves go one after another. Two PATCHes of one pattern in flight at once
      can land in either order, and the older landing second would overwrite
@@ -276,7 +287,7 @@ export function usePatternDocument({
    * the status is applied only if its pattern is still the one on the stage.
    */
   const patch = useCallback(
-    (snap: { id: string; payload: SharePayload; title: string; key: string }) => {
+    (snap: { id: string; payload: SharePayload; title: string; key: string; opening: number }) => {
       const current = () => latest.current.id === snap.id;
       const run = async (): Promise<boolean> => {
         if (current()) setPhase('saving');
@@ -284,6 +295,10 @@ export function usePatternDocument({
           await apiClient.patch(`/api/v1/breaks/${snap.id}`, {
             body: { doc: snap.payload, title: titleFor(snap.title) },
           });
+          if (savedCounted.current !== snap.opening) {
+            savedCounted.current = snap.opening;
+            track('pattern_saved', {});
+          }
           if (current()) {
             setSavedKey(snap.key);
             setRefusedKey(null);
@@ -321,14 +336,20 @@ export function usePatternDocument({
       chain.current = next;
       return next;
     },
-    [say]
+    [say, track]
   );
 
   /** The stage as it is now, if it is a saved pattern of yours to save. */
   const snapshot = useCallback(() => {
     const now = latest.current;
     if (!now.id || !now.mine || now.fixed || !now.payload || now.key === null) return null;
-    return { id: now.id, payload: now.payload, title: now.title, key: now.key };
+    return {
+      id: now.id,
+      payload: now.payload,
+      title: now.title,
+      key: now.key,
+      opening: generation.current,
+    };
   }, []);
 
   const saveNow = useCallback(() => {
@@ -391,18 +412,18 @@ export function usePatternDocument({
      second Save that the pattern already exists, so a double click, S pressed
      twice or a held Cmd+S would each POST — and each POST is another row. */
   const creating = useRef(false);
-  /* Which pattern is on the stage, as a count of detaches. A first save that
-     answers after the stage has moved on created its row — the pattern that
-     was saved is saved — but must not bind the new pattern to that row, or
-     its autosave would write the new pattern over the one just saved. */
-  const generation = useRef(0);
-
   const create = useCallback(
     async (name: string): Promise<boolean> => {
       const now = latest.current;
       if (!now.payload || now.key === null || creating.current) return false;
       creating.current = true;
       const sentFor = generation.current;
+      /* Read now, not when the answer comes: by then another pattern may be
+         on the stage, and its sharing is not this one's. */
+      const kind =
+        now.fixed && (now.mine || sharingNow.current.visibility === 'published')
+          ? 'variation'
+          : 'copy';
       setPhase('saving');
       try {
         /* Someone else's pattern is saved through the copy route, so the
@@ -426,12 +447,14 @@ export function usePatternDocument({
             },
           });
         let answer: unknown;
+        let copied = false;
         // a fixed pattern of yours is copied too: that is what makes a variation
         if (now.id && (!now.mine || now.fixed)) {
           try {
             answer = await apiClient.post(`/api/v1/breaks/${now.id}/copy`, {
               body: { title: name, doc: now.payload },
             });
+            copied = true;
           } catch (error) {
             if (!(error instanceof APIClientError && error.status === 404)) throw error;
             answer = await plain();
@@ -440,6 +463,11 @@ export function usePatternDocument({
           answer = await plain();
         }
         const data = created.parse(answer);
+        if (copied) {
+          track('pattern_copied', { kind, from: 'studio' });
+        } else {
+          track('pattern_created', {});
+        }
         if (generation.current !== sentFor) {
           // the stage moved on while this was out: saved, but not what is shown now
           setPhase('idle');
@@ -457,6 +485,8 @@ export function usePatternDocument({
            and one autosave follows to put the new one there too. */
         setSavedKey(JSON.stringify({ payload: now.payload, title: name }));
         setPhase('idle');
+        // a new pattern is counted as created, not saved: its first autosave is not an edit
+        savedCounted.current = generation.current;
         const store = storage();
         if (store) clearScratch(store);
         showAddress(data.id);
@@ -484,7 +514,7 @@ export function usePatternDocument({
         creating.current = false;
       }
     },
-    [say]
+    [say, track]
   );
 
   const save = useCallback(async (): Promise<boolean> => {
@@ -508,13 +538,16 @@ export function usePatternDocument({
 
   const detach = useCallback(
     (options?: { discard?: boolean }) => {
-      generation.current += 1;
       /* The last edit to the pattern being left goes now, not after a wait the
        new pattern would cancel. Queued behind any save already in flight, and
        its outcome is logged rather than shown: it belongs to a pattern that is
        no longer on the stage. Not when the prompt was answered Don't save:
        that answer is a promise that the edits go nowhere. */
       const snap = snapshot();
+      /* After the snapshot, so it carries the opening it was made in: taken
+         under the next one's number, its save would count `pattern_saved` for
+         an opening that has not saved anything. */
+      generation.current += 1;
       if (!options?.discard && snap && snap.key !== latest.current.savedKey) void patch(snap);
       setId(null);
       setMine(true);
@@ -614,6 +647,7 @@ export function usePatternDocument({
         setSharing((was) => ({ ...was, visibility: 'published', slug: answer.slug, fixed: true }));
         if (publishedNotes) setSavedNotes(publishedNotes);
       }
+      track('pattern_published', {});
       say('Published to the community library');
       return { ok: true };
     } catch (error) {
@@ -630,7 +664,7 @@ export function usePatternDocument({
       logger.warn('BeatBreaker: publish failed', { error, breakId: savedId });
       return { ok: false, code: null, message: 'That did not publish. Try again.' };
     }
-  }, [say, snapshot, patch]);
+  }, [say, snapshot, patch, track]);
 
   const saveDetails = useCallback(
     async (next: PatternDetails, title?: string): Promise<PatternDetails | null> => {

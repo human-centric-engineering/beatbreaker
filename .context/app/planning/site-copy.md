@@ -436,7 +436,7 @@ When a photo was read with low confidence:
 
 ## 7. Legal pages — `/privacy`, `/terms`
 
-**Not pre-written here on purpose.** The shipped pages are Sunrise placeholders
+**Written in 8.9** — `components/app/legal/`, with `[OWNER: …]` fields for the facts below. **Not pre-written here on purpose.** The shipped pages are Sunrise placeholders
 that say so. Real ones depend on facts only the owner has (the legal entity's
 registered details, hosting region, the model provider and its data terms, the
 minimum age, the governing law) and should be reviewed by someone qualified.
@@ -456,8 +456,9 @@ Phase 3 drafts them; what they must cover, in plain English:
   launch — update this page whenever that changes) to be answered; what that
   provider may and may not do with them, stated from their current API terms
   rather than from memory; how long conversations are kept.
-- Audio samples you load as a custom kit stay in your browser and are never
-  uploaded _(true today — re-check if that changes)_.
+- Audio samples you upload for your own kit are stored privately (Cloudflare
+  R2 at launch) and are in the export and deleted with the account _(corrected
+  in 8.9: samples are uploaded since D20)_.
 - Your rights: download everything (Settings → Account → Export), delete your
   account and everything with it, including published patterns.
 - Cookies: what the consent banner already controls.

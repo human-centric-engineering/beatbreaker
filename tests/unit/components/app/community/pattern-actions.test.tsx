@@ -21,6 +21,7 @@ vi.mock('next/navigation', () => ({ useRouter: () => ({ push }) }));
 
 import { PatternActions } from '@/components/app/community/pattern-actions';
 import { APIClientError, apiClient } from '@/lib/api/client';
+import { expectNoContent, recordEvents } from '@/tests/helpers/analytics';
 
 const ID = 'cbrk00000000000000000001';
 const NEW_ID = 'cbrk00000000000000000099';
@@ -89,5 +90,46 @@ describe('PatternActions — Add to a session (7D.6)', () => {
   it('offers Add to a session beside Save and Open', () => {
     render(<PatternActions id={ID} title="Funky Drummer" />);
     expect(screen.getByRole('button', { name: 'Add to a session' })).toBeInTheDocument();
+  });
+});
+
+describe('pattern_copied (task 8.8)', () => {
+  it('counts a copy once it is made, from the shared page, with no title or id', async () => {
+    vi.mocked(apiClient.post).mockResolvedValue({ id: NEW_ID });
+    const rec = recordEvents();
+    const user = userEvent.setup();
+    render(<PatternActions id={ID} title="Funky Drummer" />, { wrapper: rec.wrapper });
+
+    await user.click(screen.getByRole('button', { name: /save a copy/i }));
+
+    expect(rec.tracked).toEqual([
+      { event: 'pattern_copied', props: { kind: 'copy', from: 'shared_page' } },
+    ]);
+    expectNoContent(rec.tracked, [ID, NEW_ID, 'Funky Drummer']);
+  });
+
+  it('counts a published pattern’s copy as a variation', async () => {
+    vi.mocked(apiClient.post).mockResolvedValue({ id: NEW_ID });
+    const rec = recordEvents();
+    const user = userEvent.setup();
+    render(<PatternActions id={ID} title="Funky Drummer" variation />, { wrapper: rec.wrapper });
+
+    await user.click(screen.getByRole('button', { name: /save as variation/i }));
+
+    expect(rec.tracked).toEqual([
+      { event: 'pattern_copied', props: { kind: 'variation', from: 'shared_page' } },
+    ]);
+  });
+
+  it('counts nothing when the copy failed', async () => {
+    vi.mocked(apiClient.post).mockRejectedValue(new APIClientError('offline', 'NETWORK_ERROR'));
+    const rec = recordEvents();
+    const user = userEvent.setup();
+    render(<PatternActions id={ID} title="Funky Drummer" />, { wrapper: rec.wrapper });
+
+    await user.click(screen.getByRole('button', { name: /save a copy/i }));
+
+    await screen.findByRole('alert');
+    expect(rec.names()).toEqual([]);
   });
 });
