@@ -2196,6 +2196,12 @@ written, with these calls:
   reports `<body>` as focused while the Studio first draws. It is on the
   owner's browser checklist, with the tour's placement at 390 and 1440px.
   Claude in Chrome wasn't connected in this session.
+- **Found in review:** reading `window.localStorage` itself throws where a
+  browser blocks site data. The tour read it outside its own try/catch, so
+  those browsers lost the whole Studio, and Skip couldn't close the tour. The
+  `tour-seen.ts` helpers read it inside their try/catch now. The tour also
+  takes Escape at the window, before a drawer opened by `?drawer=` can see it
+  and close too.
 
 **8-iii — analytics and the policies:**
 

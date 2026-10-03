@@ -121,7 +121,7 @@ export function StudioTour() {
   useEffect(() => {
     if (decided.current || !drawn || !measured) return;
     decided.current = true;
-    if (tourSeen(window.localStorage)) return;
+    if (tourSeen()) return;
     if (!TOUR_STEPS.every((s) => tourAnchor(s, wide))) return;
     returnTo.current =
       document.activeElement instanceof HTMLElement ? document.activeElement : null;
@@ -161,21 +161,24 @@ export function StudioTour() {
   }, [step]);
 
   const close = useCallback(() => {
-    markTourSeen(window.localStorage);
+    markTourSeen();
     setStep(null);
     const back = returnTo.current;
     if (back?.isConnected) back.focus();
   }, []);
 
   /* Escape is Skip, and focus stays in the card: Tab from the last control
-     comes round to the first, and Shift+Tab the other way. On the document,
-     so Escape works wherever focus has got to. */
+     comes round to the first, and Shift+Tab the other way. On the window, in
+     the capture phase, so the tour has Escape before anything else: a drawer
+     open under it (a `?drawer=` link) listens on the document, and would
+     close as well. */
   const open = step !== null;
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.preventDefault();
+        e.stopPropagation();
         close();
         return;
       }
@@ -193,8 +196,8 @@ export function StudioTour() {
         first.focus();
       }
     };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
+    window.addEventListener('keydown', onKey, true);
+    return () => window.removeEventListener('keydown', onKey, true);
   }, [open, close]);
 
   if (step === null || !current) return null;

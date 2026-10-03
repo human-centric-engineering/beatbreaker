@@ -38,18 +38,18 @@ const refusing: TourStore = {
 
 describe('tour-seen', () => {
   it('is not seen in a browser that has never had it', () => {
-    expect(tourSeen(memoryStore())).toBe(false);
+    expect(tourSeen(() => memoryStore())).toBe(false);
   });
 
   it('is seen once marked, under its listed key, and not seen once forgotten', () => {
     const store = memoryStore();
-    markTourSeen(store);
+    markTourSeen(() => store);
     expect(store.data.get(TOUR_SEEN.key)).toBe('true');
-    expect(tourSeen(store)).toBe(true);
+    expect(tourSeen(() => store)).toBe(true);
 
-    forgetTour(store);
+    forgetTour(() => store);
     expect(store.data.has(TOUR_SEEN.key)).toBe(false);
-    expect(tourSeen(store)).toBe(false);
+    expect(tourSeen(() => store)).toBe(false);
   });
 
   it.each([
@@ -60,12 +60,21 @@ describe('tour-seen', () => {
   ])('reads %s as not seen', (_, raw) => {
     const store = memoryStore();
     store.data.set(TOUR_SEEN.key, raw);
-    expect(tourSeen(store)).toBe(false);
+    expect(tourSeen(() => store)).toBe(false);
+  });
+
+  it('reads a browser that blocks storage as seen, and never throws, even getting the store', () => {
+    const blocked = () => {
+      throw new Error('SecurityError: The operation is insecure.');
+    };
+    expect(tourSeen(blocked)).toBe(true);
+    expect(() => markTourSeen(blocked)).not.toThrow();
+    expect(() => forgetTour(blocked)).not.toThrow();
   });
 
   it('reads storage it cannot read as seen, and writing to it does not throw', () => {
-    expect(tourSeen(refusing)).toBe(true);
-    expect(() => markTourSeen(refusing)).not.toThrow();
-    expect(() => forgetTour(refusing)).not.toThrow();
+    expect(tourSeen(() => refusing)).toBe(true);
+    expect(() => markTourSeen(() => refusing)).not.toThrow();
+    expect(() => forgetTour(() => refusing)).not.toThrow();
   });
 });

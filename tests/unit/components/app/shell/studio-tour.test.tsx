@@ -181,6 +181,45 @@ describe('the first-run tour', () => {
     await waitFor(() => expect(layer()).toBe(before === 3 ? 2 : 3));
   });
 
+  /* Where a browser blocks site data, reading `window.localStorage` throws.
+     The tour has to treat that as seen and leave the Studio standing. */
+  it('leaves the Studio up, with no tour, in a browser that blocks storage', async () => {
+    const blocked = vi.spyOn(window, 'localStorage', 'get').mockImplementation(() => {
+      throw new DOMException('The operation is insecure.', 'SecurityError');
+    });
+    try {
+      render(
+        <StudioProvider catalogue={testCatalogue()}>
+          <StudioTour />
+          <p>Studio</p>
+        </StudioProvider>
+      );
+      /* The provider's own reads are not the tour's; what is held is that the
+         tour neither throws nor opens once a break is drawn. */
+      await waitFor(() => expect(blocked).toHaveBeenCalled());
+      expect(screen.getByText('Studio')).toBeInTheDocument();
+      expect(screen.queryByRole('dialog')).toBeNull();
+    } finally {
+      blocked.mockRestore();
+    }
+  });
+
+  it('takes Escape for itself, leaving a drawer that was open under it', async () => {
+    const user = userEvent.setup();
+    render(
+      <StudioProvider catalogue={testCatalogue()} openDrawer={{ tool: 'gen' }}>
+        <StudioFrame />
+        <StudioTour />
+      </StudioProvider>
+    );
+    await tour();
+    expect(screen.getByRole('dialog', { name: 'Generate' })).toBeInTheDocument();
+
+    await user.keyboard('{Escape}');
+    expect(screen.queryByRole('dialog', { name: 'Play' })).toBeNull();
+    expect(screen.getByRole('dialog', { name: 'Generate' })).toBeInTheDocument();
+  });
+
   it('does not open in a browser that has seen it', async () => {
     localStorage.setItem(TOUR_SEEN.key, 'true');
     mount();
