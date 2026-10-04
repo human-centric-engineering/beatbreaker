@@ -1,4 +1,4 @@
-import { FOOT_LANE, LANES, TOM_LANES } from '@/lib/app/breaks/lanes';
+import { FOOT_LANE, HALF_OPEN, LANES, TOM_LANES, gracesOf, handsOf } from '@/lib/app/breaks/lanes';
 import { STEPS, isGroupStart } from '@/lib/app/breaks/meter';
 import { generatePattern, type GenerateOptions } from '@/lib/app/breaks/generate';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
@@ -36,6 +36,7 @@ export function playability(pat: Pattern, bpm: number): Playability {
   let noBackbeat = false;
   let doubleStrain = 0;
   let airless = false;
+  let graceClash = false;
 
   const nSteps = pat.bars[0] ? pat.bars[0].k.length : STEPS;
   const airFloor = Math.max(3, Math.round(nSteps / 4));
@@ -46,6 +47,7 @@ export function playability(pat: Pattern, bpm: number): Playability {
       if (i < nSteps - 2 && b.k[i] && b.k[i + 1] && b.k[i + 2]) kickRun = true;
       if (i < nSteps - 3 && b.s[i] && b.s[i + 1] && b.s[i + 2] && b.s[i + 3]) snareRun = true;
       if (i < nSteps - 1 && b.k[i] && b.k[i + 1]) doubleStrain++;
+      if (graceTooMany(b, i)) graceClash = true;
     }
 
     /* A tom carrying the fill is still a backbeat arriving, and in jazz the 2
@@ -77,11 +79,31 @@ export function playability(pat: Pattern, bpm: number): Playability {
     { ok: !airless, label: 'At least a quarter of every bar is air' },
     { ok: !fastDoubles, label: `Kick doubles are sane for ${Math.round(bpm)} BPM` },
   ];
+  /* Only shown where it can fail: every pattern written before 9-iv passes it,
+     and a list that grows a line nobody can trip is noise. */
+  if (graceClash) checks.push({ ok: false, label: GRACE_CHECK });
 
   return {
     checks,
-    hard: !(rideClash || kickRun || snareRun || noBackbeat || airless),
+    hard: !(rideClash || kickRun || snareRun || noBackbeat || airless || graceClash),
   };
+}
+
+export const GRACE_CHECK =
+  'A flam or drag takes both hands — nothing else in the hands on that step';
+
+/** The lanes played with a stick. */
+const HAND_LANES: LaneKey[] = LANES.filter((L) => L !== 'k' && L !== FOOT_LANE);
+
+/**
+ * A flam or drag is two hands — the grace is the other one — so on its step
+ * there is no hand left for a hi-hat, a ride, a crash or another drum.
+ */
+function graceTooMany(b: Bar, i: number): boolean {
+  if (!HAND_LANES.some((L) => gracesOf(L, b[L][i]))) return false;
+  let hands = 0;
+  for (const L of HAND_LANES) hands += handsOf(L, b[L][i]);
+  return hands > 2;
 }
 
 /** "Did a backbeat arrive at this step?", for whichever lane carries the pulse. */
@@ -147,7 +169,7 @@ export function critique(pat: Pattern, _bpm?: number): Critique {
       if (b.s[i] === 1) ghosts++;
       if (b.s[i] >= 2) accents++;
       if (b.h[i] || b.r[i]) cym++;
-      if (b.h[i] === 3 || b.r[i] === 2) opens++;
+      if (b.h[i] === 3 || b.h[i] === HALF_OPEN || b.r[i] === 2) opens++;
       if (!b.k[i] && !b.s[i]) air++;
     }
   }

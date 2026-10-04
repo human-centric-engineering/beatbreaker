@@ -2644,6 +2644,111 @@ starts: this was sized from the schema and `LANE_VALUES` alone.
 | 9.14 | **The rest of the app knows them.** The critic counts a flam or drag as both hands. The generator can write them, weighted by new style params defaulting to 0 so seeds don't move. `tidy`, `doctor`, BeatBuddy's tool schema and its instructions                                                                                                                                    | Critic tests (a flam against a hat on the same hand is unplayable); the generator's golden bytes unchanged at the defaults; a BeatBuddy tool call with each new value validates and applies                        |
 | 9.15 | **Their sounds:** pieces for the new slots in the round-one kits (Big Rusty's rimshot, half-open and china; DRSKit's semi-open and second crash), with Salamander's splash and china pulled forward from 9-vi                                                                                                                                                                         | Every recorded kit plays every new slot from a sample or its synth voice; by hand: the owner listens to each articulation in two kits                                                                              |
 
+**9-iv reconciled, 2026-10-04 (branch `phase-9-iv`).** Read against
+`lanes.ts`, `schema.ts`, `share.ts`, `perform.ts`, `layers.ts`, `midi.ts`,
+`midi-read.ts`, `engrave.ts`, `text.ts`, `groove-scribe.ts`, `critic.ts`,
+`generate.ts`, `tidy.ts`, `doctor.ts`, `humanise.ts`, the engine, the
+transport, both sample sources, the step editor and BeatBuddy's tools.
+
+**It ships as two PRs, as 9-iii did.** 9-iv-a is the code, 9.11 to 9.14:
+every new value written, stored, played, sent, engraved and checked, with
+a synth voice for each new slot. 9-iv-b is 9.15, the pieces. It fetches a
+new source (Salamander) and re-cuts the packs, so it is reconciled against
+the sources when it starts, as 9-iii-b was. Until it lands, every kit plays
+the new slots on their synth voices, which 9.15's done-when already allows.
+
+| Lane      | Value       | Text | MIDI out                    | Read back as                             | Engraved                                 | Below L4 |
+| --------- | ----------- | ---- | --------------------------- | ---------------------------------------- | ---------------------------------------- | -------- |
+| `s`       | 5 rimshot   | `r`  | 40                          | 40                                       | the oval with a slash through it         | 3 accent |
+| `s`       | 6 flam      | `f`  | 38, a grace on the right    | a soft 38 just ahead of a louder one     | one slashed grace note                   | 2 hit    |
+| `s`       | 7 drag      | `d`  | 38, two graces on the right | two soft 38s just ahead                  | two beamed grace notes                   | 2 hit    |
+| `s`       | 8 buzz      | `z`  | 38, three soft repeats      | two or more soft 38s inside the step     | `z` across the stem                      | 2 hit    |
+| `h`       | 4 half-open | `h`  | 46, below the open band     | 46 under the line between the two        | the open ring with a slash               | 1 closed |
+| `c`       | 2 crash 2   | `2`  | 57                          | 57                                       | the crash with a small 2 beside it       | 1 crash  |
+| `c`       | 3 china     | `N`  | 52                          | 52                                       | an X on the second ledger line (step 12) | 1 crash  |
+| `c`       | 4 splash    | `S`  | 55                          | 55                                       | an X on the first ledger line (step 10)  | 1 crash  |
+| `t1`–`t3` | 3 flam      | `F`  | the tom, a grace            | a soft tom note just ahead of a loud one | one slashed grace note                   | 1 hit    |
+
+The calls:
+
+- **Wire v5 holds old versions to their own ranges.** A payload that says
+  `ver` 4 or lower may only carry the values v4 had; one that carries a
+  rimshot must say 5. That is "the 9.11 values are refused by a v4
+  decoder". The encoder always writes 5, so a v4 code re-encodes to the same
+  bars under a new version number. A stored row is still repaired, not
+  refused, and its clamp follows `LANE_VALUES`.
+- **The grace is timed from the note, not the grid.** A flam's grace sits
+  `min(25 ms, 0.3 step)` ahead of its own note, so at 400 bpm it still
+  quantises to the same sixteenth when a file is read back. A drag's two
+  graces are two thirds of that apart. A grace plays at 35% of its note,
+  never above 60% of it. `PerformOptions` gains `bpm`, because a gap in
+  milliseconds needs a tempo even when Humanise is off.
+- **A grace draws Humanise from the other hand.** It takes its own
+  nudge from the right hand's stream (the snare and the toms are the left
+  hand), but its timing stays within a third of the gap either side of
+  where the flam puts it, so a loose take never plays the grace after the
+  note. Buzz repeats are the same hand bouncing, so they draw nothing and
+  follow their note. A pattern with no grace draws exactly what it drew
+  before, so every existing performance is unchanged.
+- **A buzz is three repeats** at a quarter, a half and three quarters of a
+  step, at 45%, 35% and 25% of the note.
+- **The half-open hat is sent at half the open hat's velocity**, inside a
+  band of its own below 0.45, because GM has no note for it. Open hats get a
+  floor at 0.47, which is where `hatShape` already bottoms out at the
+  extreme sliders, so nothing that plays today moves. The engine plays
+  `hHalf` at twice the velocity it is sent, so in the speakers it is as loud
+  as it was written. A half-open hat rings until the next hat chokes it, as
+  an open one does.
+- **A note's MIDI note-off never runs past the next note-on of the same
+  note.** A grace 25 ms ahead of its note would otherwise still be sounding
+  when the note starts.
+- **Reading MIDI note 40 as a rimshot changes an import.** GM calls 40
+  "electric snare", and it read as a plain snare before. The plan's map
+  stands, and the import's notes say nothing new: a file from a kit that
+  sends 40 for the rim is now right.
+- **The new slots have no `fall`**, so a kit without a sample for one plays
+  its synth voice: a rimshot (the snare with a rim crack and more ring), a
+  half-open hat (between the closed and open decays), and crash 2, china and
+  splash off the crash voice (smaller and higher; trashy and mid-heavy;
+  small and short). A pack kit falls back on the sample stand-in numbers, as
+  it does for every slot while it decodes.
+- **The layers keep a pinned articulation.** Below L4 an unpinned rimshot,
+  flam, drag, buzz, half-open hat or cymbal variant becomes its plain value.
+  A note you wrote while looking at L2 is pinned there and keeps what you
+  chose, as a ghost does.
+- **"May I write over this" now means any value from 3 up.** `snareKept`
+  protected the accent and the cross-stick; it also protects the four new
+  snare values, so a variation never writes a kick under a flam.
+- **The critic adds one hard check: _A flam or drag takes both hands_.**
+  A flam, drag or tom flam on a step with a hi-hat, ride, crash or a second
+  drum is unplayable. It only fires on the new values, so no seed moves.
+  `tidy` counts a flam or drag as two hands, drops a ghost beside a rimshot
+  or flam as beside an accent, and drops a foot chick under a half-open hat.
+  The doctor's moves already test the exact values they move, and need no
+  change.
+- **The generator writes them from five new style params:** `rimshot`,
+  `flam`, `drag`, `buzz` and `halfOpen`, each a probability from 0 to 1. A
+  pass after everything else turns some backbeats into rimshots, snare
+  accents off the backbeat into flams, plain hits off it into drags or
+  buzzes, and open hats into half-open ones. It never puts a flam or
+  drag under a cymbal. It draws from its own stream, and only when a param
+  is set, so at the defaults the generator does not even make it. No seeded
+  style sets one.
+- **Goldens are committed before the change.** Nothing pins the engraver's
+  output or the generator's bytes yet. So the first commit after this one
+  writes the engraving of every library break and a generated break for every
+  style, and the packed bytes of those generated breaks, using the code as
+  it is. The rest of the branch has to leave them alone.
+- **GrooveScribe import reads its flam, drag and buzz** (`f`, `d`, `b`) as
+  the new values. Before, it flattened them to plain hits and said so. It
+  has no rimshot or half-open to read. Text carries every value. There is no
+  GrooveScribe export.
+- **The shift-click cycle is every value in order.** The picker is the way
+  in; `LANE_STATES` in `use-break-console` is derived from `LANE_VALUES`
+  rather than kept as a second copy.
+- **The notation key on `/help`** is engraved by the engraver itself, one
+  bar per lane family. A picture in the help could drift from the chart.
+
 **9-v — pieces and building your own:**
 
 | #    | Task                                                                                                                                                                                                                                                                          | Done when                                                                                                                                                                                            |

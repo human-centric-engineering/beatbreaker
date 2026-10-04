@@ -1,4 +1,4 @@
-import { PERC_LANES, TOM_LANES } from '@/lib/app/breaks/lanes';
+import { PERC_LANES, TOM_LANES, plainValue } from '@/lib/app/breaks/lanes';
 import { M44, groupsOf, isGroupStart } from '@/lib/app/breaks/meter';
 import { cloneBar, clonePattern, meterOfPat } from '@/lib/app/breaks/pattern';
 import type { Bar, LaneKey, Meter, Pattern } from '@/lib/app/breaks/types';
@@ -38,7 +38,7 @@ export const LAYER_BLURB: Record<number, string> = {
   1: 'kick on the beat, backbeat, 8th hats',
   2: 'the kick starts moving, still on 8ths',
   3: 'hats subdivide to 16ths, open hats appear — no ghosts yet',
-  4: 'ghost notes, half of them',
+  4: 'ghost notes, half of them, and the flams, rimshots and other articulations',
   5: "every ghost, the kick's 16ths, ride bell and doubles",
 };
 
@@ -47,6 +47,9 @@ export const LAYER_BLURB: Record<number, string> = {
  * is now 4, and the full break moved from 4 to 5.
  */
 export const LAYER_V1_TO_V2: Record<number, number> = { 1: 1, 2: 2, 3: 4, 4: 5 };
+
+/** The lanes with values {@link plainValue} reduces. */
+const ARTICULATED: LaneKey[] = ['s', 'h', 'c', ...TOM_LANES];
 
 export function reduceBar(
   bar: Bar,
@@ -72,6 +75,13 @@ export function reduceBar(
 
   let ghostKeep = 0;
   for (let i = 0; i < n; i++) {
+    /* Articulations arrive with the ghosts, at L4: below it a rimshot is an
+       accent, a flam a hit, a half-open hat a closed one, every cymbal on the
+       crash lane the crash. One you pinned keeps what you chose. */
+    if (level <= 3) {
+      for (const L of ARTICULATED) if (b[L][i] && !keep(L, i)) b[L][i] = plainValue(L, b[L][i]);
+    }
+
     // snare: ghosts are the whole of layer 4, so nothing below it has them
     if (b.s[i] === 1 && !keep('s', i)) {
       if (level <= 3) b.s[i] = 0;

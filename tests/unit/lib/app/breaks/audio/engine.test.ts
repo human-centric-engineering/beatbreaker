@@ -1215,8 +1215,8 @@ describe('hit()', () => {
     audio.hit('p', 'cowbell');
 
     expect(kick).toHaveBeenCalledTimes(1);
-    expect(snare).toHaveBeenCalledWith(expect.any(Number), expect.any(Number), true, false);
-    expect(hat).toHaveBeenCalledWith(expect.any(Number), expect.any(Number), true, false);
+    expect(snare).toHaveBeenCalledWith(expect.any(Number), expect.any(Number), true, false, false);
+    expect(hat).toHaveBeenCalledWith(expect.any(Number), expect.any(Number), true, false, false);
     expect(ride).toHaveBeenCalledWith(expect.any(Number), expect.any(Number), true);
     expect(crash).toHaveBeenCalledTimes(1);
     expect(tom).toHaveBeenCalledWith(expect.any(Number), expect.any(Number), 't1');
@@ -1426,5 +1426,94 @@ describe('the seeded stream', () => {
     const a = [audio.rand(), audio.rand(), audio.rand()];
     audio.reseed(42);
     expect([audio.rand(), audio.rand(), audio.rand()]).toEqual(a);
+  });
+});
+
+/* ---------------------------------------------------------------------- */
+/* 9-iv: the new slots and their synthesised voices                       */
+/* ---------------------------------------------------------------------- */
+
+describe('the 9-iv slots', () => {
+  it.each([
+    ['a rimshot', 'sRim', (a: BreakAudio) => a.snare(0.2, 0.9, false, false, true)],
+    ['crash 2', 'c2', (a: BreakAudio) => a.crash(0.2, 0.9, 'c2')],
+    ['a china', 'cChina', (a: BreakAudio) => a.crash(0.2, 0.9, 'cChina')],
+    ['a splash', 'cSplash', (a: BreakAudio) => a.crash(0.2, 0.9, 'cSplash')],
+  ])('plays %s from its own slot when the kit has one', (_, slot, play) => {
+    const { audio, ctx } = initEngine();
+    const hit = vi.fn(() => true);
+    audio.samples = { hit };
+    const nodes = recordNodes(ctx, () => play(audio));
+    expect(hit).toHaveBeenCalledWith(audio, 0.2, slot, 0.9);
+    expect(nodes).toHaveLength(0);
+  });
+
+  it('plays a half-open hat from its slot at the strength it was written, not as sent', () => {
+    const { audio } = initEngine();
+    const hit = vi.fn(() => true);
+    audio.samples = { hit };
+    audio.hat(0.2, 0.4, true, false, true);
+    // sent at half its strength so a MIDI reader can tell it from an open hat
+    expect(hit).toHaveBeenCalledWith(audio, 0.2, 'hHalf', 0.8);
+  });
+
+  it('synthesises a rimshot as the snare with a rim crack on top, when no kit has one', () => {
+    const { audio, ctx } = initEngine();
+    audio.samples = { hit: vi.fn(() => false) };
+    const nodes = recordNodes(ctx, () => audio.snare(0.2, 1, false, false, true));
+    // the six membrane partials, and two rim partials over them
+    expect(pick<FakeOscillatorNode>(nodes, 'oscillator')).toHaveLength(8);
+    const crack = pick<FakeBiquadFilterNode>(nodes, 'biquad').find(
+      (b) => b.type === 'highpass' && b.frequency.value === 3200
+    );
+    expect(crack).toBeDefined();
+  });
+
+  it('synthesises a half-open hat between closed and open, and lets the next hat choke it', () => {
+    const { audio, ctx } = initEngine();
+    const P = STUDIO70.h;
+    const nodes = recordNodes(ctx, () => audio.hat(0, 0.4, true, false, true));
+    const osc = pick<FakeOscillatorNode>(nodes, 'oscillator')[0];
+    const dec = (P.decay + P.open) * 0.45;
+    expect(osc.stoppedAt).toBeCloseTo(dec + 0.08, 9);
+    expect(dec).toBeGreaterThan(P.decay);
+    expect(dec).toBeLessThan(P.open);
+
+    const envelope = (osc.outputs[0] as FakeBiquadFilterNode).outputs[0] as FakeBiquadFilterNode;
+    const gain = envelope.outputs[0] as FakeGainNode;
+    const before = gain.gain.events.length;
+    audio.hat(0.05, 1);
+    expect(gain.gain.events.length).toBe(before + 2);
+  });
+
+  it('makes crash 2 and the splash smaller than the crash, and the china its own trashy voice', () => {
+    const { audio, ctx } = initEngine();
+    const P = STUDIO70.c;
+    const lowpass = (nodes: unknown[]) =>
+      pick<FakeBiquadFilterNode>(nodes as never, 'biquad').find((b) => b.type === 'lowpass');
+    const ring = (cymbal?: 'c2' | 'cSplash') => {
+      const lp = lowpass(recordNodes(ctx, () => audio.crash(0, 1, cymbal)));
+      return (lp?.frequency.events[1] as { time: number }).time;
+    };
+    expect(ring()).toBeCloseTo(P.decay, 9);
+    expect(ring('c2')).toBeLessThan(P.decay);
+    expect(ring('cSplash')).toBeLessThan(ring('c2'));
+
+    const china = recordNodes(ctx, () => audio.crash(0, 1, 'cChina'));
+    expect(lowpass(china)).toBeUndefined();
+    expect(pick<FakeOscillatorNode>(china, 'oscillator')).toHaveLength(RATIOS.length);
+  });
+
+  it('previews each new variant from hit()', () => {
+    const audio = newEngine();
+    const snare = vi.spyOn(audio, 'snare');
+    const hat = vi.spyOn(audio, 'hat');
+    const crash = vi.spyOn(audio, 'crash');
+    audio.hit('s', 'rim');
+    audio.hit('h', 'half');
+    audio.hit('c', 'cChina');
+    expect(snare).toHaveBeenCalledWith(expect.any(Number), expect.any(Number), false, false, true);
+    expect(hat).toHaveBeenCalledWith(expect.any(Number), expect.any(Number), false, false, true);
+    expect(crash).toHaveBeenCalledWith(expect.any(Number), expect.any(Number), 'cChina');
   });
 });

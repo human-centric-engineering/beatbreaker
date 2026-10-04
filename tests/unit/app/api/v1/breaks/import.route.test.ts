@@ -108,7 +108,7 @@ describe('POST /api/v1/breaks/import', () => {
     }
   });
 
-  it('reads a Groove Scribe link without fetching it, and passes on what it left out', async () => {
+  it('reads a Groove Scribe link without fetching it, flams and all', async () => {
     const link =
       'https://www.mikeslessons.com/groove/?TimeSig=4/4&Div=16&Title=Flam%20groove&Tempo=88' +
       '&H=|x-x-x-x-x-x-x-x-|&S=|----f-------O---|&K=|o-------o-------|';
@@ -117,7 +117,9 @@ describe('POST /api/v1/breaks/import', () => {
     const { data } = await json(res);
     expect(data?.source).toBe('groove-scribe');
     expect(sharePayloadSchema.parse(data?.doc)).toMatchObject({ bpm: 88, A: { n: 'Flam groove' } });
-    expect(data?.notes).toEqual(['The flams on the snare were read as plain hits.']);
+    // a flam is BeatBreaker's own since 9-iv, so nothing was left out
+    expect(sharePayloadSchema.parse(data?.doc).A.b[0].split('|')[1]).toMatch(/^0000600000003000/);
+    expect(data?.notes).toEqual([]);
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 

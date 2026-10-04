@@ -1,4 +1,4 @@
-import { FOOT_LANE, LANES } from '@/lib/app/breaks/lanes';
+import { FLAM, FOOT_LANE, HALF_OPEN, LANES, RIMSHOT, handsOf } from '@/lib/app/breaks/lanes';
 import { meterOfPat, clonePattern } from '@/lib/app/breaks/pattern';
 import { describeStep } from '@/lib/app/breaks/text';
 import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
@@ -61,9 +61,10 @@ function loudness(lane: LaneKey, v: number): number {
   if (!v) return -1;
   switch (lane) {
     case 's':
-      return v === 1 ? 0 : v === 3 ? 2 : 1; // ghost · hit/cross-stick · accent
+      // ghost · hit, cross-stick, drag, buzz · accent, rimshot, flam
+      return v === 1 ? 0 : v === 3 || v === RIMSHOT || v === FLAM ? 2 : 1;
     case 'h':
-      return v === 2 ? 2 : 1; // accent · closed/open
+      return v === 2 ? 2 : 1; // accent · closed/open/half-open
     case 'c':
       return 2;
     default:
@@ -75,10 +76,10 @@ function loudness(lane: LaneKey, v: number): number {
 const DROP_ORDER: LaneKey[] = ['h', 'r', 'p2', 'p1', 't1', 't2', 't3', 's', 'c'];
 
 const VALUE_NAME: Partial<Record<LaneKey, string[]>> = {
-  s: ['', 'ghost', 'snare', 'snare accent', 'cross-stick'],
-  h: ['', 'closed hat', 'hat accent', 'open hat'],
+  s: ['', 'ghost', 'snare', 'snare accent', 'cross-stick', 'rimshot', 'flam', 'drag', 'buzz roll'],
+  h: ['', 'closed hat', 'hat accent', 'open hat', 'half-open hat'],
   r: ['', 'ride', 'ride bell'],
-  c: ['', 'crash'],
+  c: ['', 'crash', 'crash 2', 'china', 'splash'],
   k: ['', 'kick', 'kick accent'],
   hf: ['', 'hat foot'],
 };
@@ -131,29 +132,34 @@ export function tidy(input: Pattern): TidyResult {
         drop('ride-clash', bi, loser, i, 'one cymbal at a time');
       }
 
-      // 3. three or more hands
+      /* 3. three or more hands. A flam or drag is two on its own — the grace
+         is the other hand — so beside one there is room for nothing else. */
       const hands = HAND_LANES.filter((L) => bar[L][i]);
-      if (hands.length > 2) {
+      let count = hands.reduce((n, L) => n + handsOf(L, bar[L][i]), 0);
+      if (count > 2) {
         const order = hands.sort(
           (a, b) =>
             loudness(a, bar[a][i]) - loudness(b, bar[b][i]) ||
             DROP_ORDER.indexOf(a) - DROP_ORDER.indexOf(b)
         );
-        for (const L of order.slice(0, hands.length - 2))
+        for (const L of order) {
+          if (count <= 2) break;
+          count -= handsOf(L, bar[L][i]);
           drop('hands', bi, L, i, 'there are only two hands');
+        }
       }
     }
 
     // 4. a ghost directly beside an accent (the snare is the only lane with ghosts)
     for (let i = 0; i < n; i++) {
       if (bar.s[i] !== 1) continue;
-      if (bar.s[i - 1] === 3 || bar.s[i + 1] === 3)
+      if (loudness('s', bar.s[i - 1]) === 2 || loudness('s', bar.s[i + 1]) === 2)
         drop('ghost-accent', bi, 's', i, 'a ghost right beside an accent is lost under it');
     }
 
     // 5. a foot chick closing an open hat on the same step
     for (let i = 0; i < n; i++) {
-      if (bar.h[i] === 3 && bar[FOOT_LANE][i])
+      if ((bar.h[i] === 3 || bar.h[i] === HALF_OPEN) && bar[FOOT_LANE][i])
         drop('open-hat-foot', bi, FOOT_LANE, i, 'the foot would close the open hat');
     }
   });

@@ -407,8 +407,9 @@ describe('generating and editing', () => {
 
     act(() => result.current.cycleCell('A', 0, 's', 3, true));
     expect(result.current.patterns.A?.bars[0].s[3]).toBe(0);
+    // stepping back from empty lands on the lane's last value: the crash lane's splash (9-iv)
     act(() => result.current.cycleCell('A', 0, 'c', 0, true));
-    expect(result.current.patterns.A?.bars[0].c[0]).toBe(1);
+    expect(result.current.patterns.A?.bars[0].c[0]).toBe(4);
   });
 
   it('sets cells by value, a drag being one undo step (5.15)', async () => {

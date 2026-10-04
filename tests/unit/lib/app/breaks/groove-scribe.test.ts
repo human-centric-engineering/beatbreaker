@@ -46,12 +46,11 @@ describe('readGrooveScribeUrl', () => {
     expect(p.bars[0].r.slice(5, 7)).toEqual([1, 2]);
     expect(p.bars[0].p1[7]).toBe(1);
     expect(p.perc).toEqual({ p1: 'cowbell' });
-    expect(p.bars[0].s.slice(0, 7)).toEqual([2, 3, 1, 4, 2, 2, 2]);
+    // hit, accent, ghost, cross-stick, then the flam, drag and buzz as themselves (9-iv)
+    expect(p.bars[0].s.slice(0, 7)).toEqual([2, 3, 1, 4, 6, 7, 8]);
     expect(p.bars[0].k.slice(0, 3)).toEqual([1, 0, 1]);
     expect(p.bars[0].hf.slice(0, 3)).toEqual([0, 1, 1]);
-    expect(p.notes).toEqual([
-      'The flams and drags and buzz strokes on the snare were read as plain hits.',
-    ]);
+    expect(p.notes).toEqual([]);
   });
 
   it('puts T1 and T2 on the high and mid toms and T4 on the floor tom', () => {

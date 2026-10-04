@@ -9,6 +9,13 @@ import type { LaneKey, Pattern, PercLaneKey, Pins, ResolvedStyle } from '@/lib/a
  * Share codes: a whole break — both sections, the tempo, the swing and the
  * style — as one base64 string you can paste to anyone.
  *
+ * **Version 5** (9-iv) adds the articulations — rimshot, flam, drag and buzz
+ * on the snare, the half-open hat, crash 2, china and splash, the tom flam —
+ * as step values 5–8 on the lanes that have them. Nothing else moved, so a v4
+ * code decodes to exactly the bars it always did, and re-encodes to the same
+ * bars under version 5. A code is held to its own version's values (see
+ * `sharePayloadSchema`).
+ *
  * **Version 4** makes a pattern stand on its own. It adds the style version the
  * pattern came from (`sv`) and a snapshot of the five style attributes playback,
  * the critic and the MIDI export read (`sa`). Before it, all three of those
@@ -26,7 +33,7 @@ import type { LaneKey, Pattern, PercLaneKey, Pins, ResolvedStyle } from '@/lib/a
  * something has actually checked.
  */
 
-export const SHARE_VERSION = 4;
+export const SHARE_VERSION = 5;
 
 /**
  * How a code older than v4 gets its snapshot back.

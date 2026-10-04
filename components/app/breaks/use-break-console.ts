@@ -28,6 +28,7 @@ import { SIZE, SIZE_MAX, SIZE_MIN, VIEW, type VIEW_MODES } from '@/lib/app/break
 import {
   DEFAULT_MIX,
   LANES,
+  LANE_VALUES,
   PERC_LANES,
   type PanView,
   TOM_LANES,
@@ -1958,17 +1959,7 @@ export function useBreakConsole(
   };
 }
 
-/** How many values each lane cycles through, including empty. */
-const LANE_STATES: Record<string, number> = {
-  k: 3,
-  s: 5,
-  h: 4,
-  r: 3,
-  c: 2,
-  t1: 3,
-  t2: 3,
-  t3: 3,
-  hf: 2,
-  p1: 3,
-  p2: 3,
-};
+/** How many values each lane cycles through, including empty: every value it has. */
+const LANE_STATES: Record<string, number> = Object.fromEntries(
+  Object.entries(LANE_VALUES).map(([lane, values]) => [lane, values.length + 1])
+);

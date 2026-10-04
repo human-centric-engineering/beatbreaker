@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="408" height="175">
+  <line x1="5" x2="392" y1="106" y2="106" stroke="var(--ink)" stroke-width="1.1"/>
+  <line x1="5" x2="392" y1="96" y2="96" stroke="var(--ink)" stroke-width="1.1"/>
+  <line x1="5" x2="392" y1="86" y2="86" stroke="var(--ink)" stroke-width="1.1"/>
+  <line x1="5" x2="392" y1="76" y2="76" stroke="var(--ink)" stroke-width="1.1"/>
+  <line x1="5" x2="392" y1="66" y2="66" stroke="var(--ink)" stroke-width="1.1"/>
+  <rect x="13" y="76" width="3.4" height="20" fill="var(--ink)"/>
+  <rect x="20" y="76" width="3.4" height="20" fill="var(--ink)"/>
+  <text x="40" y="84.8" fill="var(--ink)" text-anchor="middle" font-size="23.5px" font-weight="700" font-family="var(--f-body)">4</text>
+  <text x="40" y="104.8" fill="var(--ink)" text-anchor="middle" font-size="23.5px" font-weight="700" font-family="var(--f-body)">4</text>
+  <line x1="56" x2="56" y1="106" y2="66" stroke="var(--ink)" stroke-width="1.2"/>
+  <line x1="388.5" x2="388.5" y1="106" y2="66" stroke="var(--ink)" stroke-width="1.2"/>
+  <rect x="390" y="66" width="3.4" height="40" fill="var(--ink)"/>
+  <text x="5" y="9" fill="var(--faint)" font-size="9px" font-family="var(--f-mono)">bar 1</text>
+  <g transform="translate(98,76)" fill="var(--ink)" stroke="var(--ink)">
+    <path d="M -0.25,-1.35 L 0.42,-0.45 L -0.2,0.15 L 0.5,1.1 L -0.05,0.75 C -0.6,0.55 -0.45,1.25 0.1,1.5" transform="scale(7.800000000000001)" fill="none" stroke="var(--ink)" stroke-width="0.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <line x1="156.7" x2="156.7" y1="61" y2="33" stroke="var(--ink)" stroke-width="1.25" stroke-linecap="butt"/>
+  <line x1="144.9" y1="55.4" x2="156.1" y2="66.6" stroke="var(--ink)" opacity="1" stroke-width="1.5"/>
+  <line x1="144.9" y1="66.6" x2="156.1" y2="55.4" stroke="var(--ink)" opacity="1" stroke-width="1.5"/>
+  <circle cx="150.5" cy="61" r="5.8" fill="none" stroke="var(--ink)" stroke-width="1.15"/>
+  <line x1="147.02" y1="67.96" x2="153.98" y2="54.04" stroke="var(--ink)" stroke-width="1.15"/>
+  <g transform="translate(266,76)" fill="var(--ink)" stroke="var(--ink)">
+    <path d="M -0.25,-1.35 L 0.42,-0.45 L -0.2,0.15 L 0.5,1.1 L -0.05,0.75 C -0.6,0.55 -0.45,1.25 0.1,1.5" transform="scale(7.800000000000001)" fill="none" stroke="var(--ink)" stroke-width="0.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(350,76)" fill="var(--ink)" stroke="var(--ink)">
+    <path d="M -0.25,-1.35 L 0.42,-0.45 L -0.2,0.15 L 0.5,1.1 L -0.05,0.75 C -0.6,0.55 -0.45,1.25 0.1,1.5" transform="scale(7.800000000000001)" fill="none" stroke="var(--ink)" stroke-width="0.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <line x1="60.3" x2="60.3" y1="101" y2="129" stroke="var(--ink)" stroke-width="1.25" stroke-linecap="butt"/>
+  <ellipse cx="66.5" cy="101" rx="6.800000000000001" ry="5" fill="var(--ink)" opacity="1" transform="rotate(-17 66.5 101)"/>
+  <g transform="translate(182,96)" fill="var(--ink)" stroke="var(--ink)">
+    <path d="M -0.25,-1.35 L 0.42,-0.45 L -0.2,0.15 L 0.5,1.1 L -0.05,0.75 C -0.6,0.55 -0.45,1.25 0.1,1.5" transform="scale(7.800000000000001)" fill="none" stroke="var(--ink)" stroke-width="0.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <line x1="228.3" x2="228.3" y1="101" y2="129" stroke="var(--ink)" stroke-width="1.25" stroke-linecap="butt"/>
+  <ellipse cx="234.5" cy="101" rx="6.800000000000001" ry="5" fill="var(--ink)" opacity="1" transform="rotate(-17 234.5 101)"/>
+  <line x1="312.3" x2="312.3" y1="81" y2="129" stroke="var(--ink)" stroke-width="1.25" stroke-linecap="butt"/>
+  <ellipse cx="318.5" cy="81" rx="6.800000000000001" ry="5" fill="var(--ink)" opacity="1" transform="rotate(-17 318.5 81)"/>
+  <text x="66.5" y="157" fill="var(--faint)" text-anchor="middle" font-size="7.6px" font-family="var(--f-mono)">●</text>
+  <text x="150.5" y="157" fill="var(--faint)" text-anchor="middle" font-size="7.6px" font-family="var(--f-mono)">R</text>
+  <text x="234.5" y="157" fill="var(--faint)" text-anchor="middle" font-size="7.6px" font-family="var(--f-mono)">●</text>
+  <text x="318.5" y="157" fill="var(--faint)" text-anchor="middle" font-size="7.6px" font-family="var(--f-mono)">L</text>
+</svg>

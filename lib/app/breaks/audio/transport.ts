@@ -306,9 +306,22 @@ export class Transport {
       feel: snap.feel,
       hats: snap.hats,
       humanise: { stream: this.human, amount: snap.humanise.amount, bpm: snap.bpm },
+      bpm: snap.bpm,
     });
-    for (const v of voices) {
-      const when = Math.max(floor, t + dur * v.offset);
+    const whens = voices.map((v) => Math.max(floor, t + dur * v.offset));
+    /* When each note's key is struck again: a flam's grace and its stroke, a
+       buzz's repeats, are the same note a few milliseconds apart, and the port
+       must release one before the next. An ornament is held no further than
+       the end of the step, where the next step's note on that drum may be. */
+    const until = voices.map((v, n) => {
+      let next = v.ornament ? t + dur : Infinity;
+      voices.forEach((w, m) => {
+        if (w.note === v.note && whens[m] > whens[n]) next = Math.min(next, whens[m]);
+      });
+      return Number.isFinite(next) ? next : undefined;
+    });
+    voices.forEach((v, n) => {
+      const when = whens[n];
       /* The fader is the lane channel's level, not part of the velocity
          (D39): the voice plays what the pattern wrote, and the channel makes
          it quieter. A silent lane skips the voice rather than playing it at 0. */
@@ -318,8 +331,8 @@ export class Transport {
          the mixer: a muted lane (or one a solo silences) is a lane you are playing
          yourself, and the
          whole point of sending it out is that the module plays it instead. */
-      out?.hit(v.note, v.velocity, when);
-    }
+      out?.hit(v.note, v.velocity, when, until[n]);
+    });
 
     if (snap.click && isClickStep(m, i, snap.clickSub)) this.audio.click(t, i === 0);
 
@@ -342,13 +355,13 @@ export class Transport {
       case 'hf':
         return a.hat(when, vel, false, true);
       case 's':
-        return a.snare(when, vel, v.ghost, v.cross);
+        return a.snare(when, vel, v.ghost, v.cross, v.rim);
       case 'h':
-        return a.hat(when, vel, v.open);
+        return a.hat(when, vel, v.open, false, v.half);
       case 'r':
         return a.ride(when, vel, v.bell);
       case 'c':
-        return a.crash(when, vel);
+        return a.crash(when, vel, v.cymbal);
       case 't1':
       case 't2':
       case 't3':

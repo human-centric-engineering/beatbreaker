@@ -241,7 +241,9 @@ describe('valueForVelocity — the reader’s inverse', () => {
     for (const lane of LANES) {
       if (lane === 'h' || lane === 'r') continue;
       LEVELS[lane].forEach((level, value) => {
-        if (value === 0 || (lane === 's' && value === 4)) return;
+        // a cross-stick, rimshot, flam, drag or buzz, a cymbal variant or a tom flam is read by its note
+        if (value === 0 || (lane === 's' && value >= 4) || (lane === 'c' && value >= 2)) return;
+        if ((lane === 't1' || lane === 't2' || lane === 't3') && value === 3) return;
         expect(valueForVelocity(lane, midiVelocity(level)), `${lane} ${value}`).toBe(value);
       });
     }

@@ -308,11 +308,20 @@ export const SLOTS: Slot[] = [
   { id: 's', voice: 's', label: 'Snare' },
   { id: 'sGhost', voice: 's', label: 'Ghost snare', opt: true, fall: 's' },
   { id: 'sCross', voice: 's', label: 'Cross-stick', opt: true, fall: 's' },
+  /* 9-iv's slots have no `fall` on purpose: a kit without a recording of one
+     plays its synthesised voice, which is at least the right sound. Falling
+     back on the snare or the crash would play a rimshot as a hit and a china
+     as the crash — the articulation gone, with nothing to say so. */
+  { id: 'sRim', voice: 's', label: 'Rimshot', opt: true },
   { id: 'h', voice: 'h', label: 'Closed hat' },
   { id: 'hOpen', voice: 'h', label: 'Open hat', fall: 'h' },
+  { id: 'hHalf', voice: 'h', label: 'Half-open hat', opt: true },
   { id: 'r', voice: 'r', label: 'Ride' },
   { id: 'rBell', voice: 'r', label: 'Ride bell', opt: true, fall: 'r' },
   { id: 'c', voice: 'c', label: 'Crash' },
+  { id: 'c2', voice: 'c', label: 'Crash 2', opt: true },
+  { id: 'cChina', voice: 'c', label: 'China', opt: true },
+  { id: 'cSplash', voice: 'c', label: 'Splash', opt: true },
   { id: 'hFoot', voice: 'h', label: 'Hi-hat foot', opt: true, fall: 'h' },
   { id: 't1', voice: 't', label: 'High tom', opt: true },
   { id: 't2', voice: 't', label: 'Mid tom', opt: true },

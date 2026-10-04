@@ -283,6 +283,18 @@ export interface Style extends StyleAttrs {
   /** `'comp'` ends a phrase by saying slightly more, rather than with a fill. */
   fill?: 'comp';
   fillComps?: number;
+  /**
+   * The articulations (9-iv), each the probability, 0–1, that the generator
+   * writes one where it may: a backbeat as a `rimshot`; a fill accent as a
+   * `flam`; the ghost just before a backbeat as a `drag`; a fill hit as a
+   * `buzz`; an open hat as `halfOpen`. Absent is 0, and at 0 the generator
+   * writes exactly what it did before they existed.
+   */
+  rimshot?: number;
+  flam?: number;
+  drag?: number;
+  buzz?: number;
+  halfOpen?: number;
 }
 
 /**

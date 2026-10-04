@@ -1,6 +1,17 @@
 import { type ImportResult, capBars } from '@/lib/app/breaks/import';
-import { PERC_INSTS, PERC_LANES } from '@/lib/app/breaks/lanes';
-import { valueForVelocity } from '@/lib/app/breaks/perform';
+import {
+  BUZZ,
+  CHINA,
+  CRASH_2,
+  DRAG,
+  FLAM,
+  PERC_INSTS,
+  PERC_LANES,
+  RIMSHOT,
+  SPLASH,
+  TOM_FLAM,
+} from '@/lib/app/breaks/lanes';
+import { GRACE_MAX, openHatValue, valueForVelocity } from '@/lib/app/breaks/perform';
 import { DEFAULT_METER, METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import type { Bar, LaneKey, PercLaneKey } from '@/lib/app/breaks/types';
@@ -21,6 +32,13 @@ import type { Bar, LaneKey, PercLaneKey } from '@/lib/app/breaks/types';
  * e-kit is read on the same scale you hear. Change a level there and this
  * follows.
  *
+ * **Flams, drags and buzzes are read from their shape** (9-iv), before
+ * anything is quantised: a soft snare or tom note a little ahead of a louder
+ * one on the same drum is its grace — one makes a flam, two a drag — and two
+ * or more soft snare notes inside the step after a louder one are a buzz.
+ * Those soft notes are then part of their note, not notes of their own. GM
+ * has no half-open hat; the open hat's 46 under the open band is one.
+ *
  * Everything is bounds-checked; a truncated or hostile file is an error, not
  * an exception. Nothing here allocates in proportion to a number the file
  * claims — only to bytes it actually has.
@@ -32,17 +50,19 @@ const GM: Record<number, { lane: LaneKey; value?: number }> = {
   36: { lane: 'k' },
   37: { lane: 's', value: 4 }, // side stick
   38: { lane: 's' },
-  40: { lane: 's' }, // electric snare
+  /* GM's "electric snare", and what kits send for a rimshot. It read as a
+     plain snare until 9-iv gave the rimshot a value. */
+  40: { lane: 's', value: RIMSHOT },
   42: { lane: 'h' },
   44: { lane: 'hf', value: 1 },
-  46: { lane: 'h', value: 3 },
+  46: { lane: 'h', value: 3 }, // or a half-open hat, by velocity: see `openHatValue`
   51: { lane: 'r', value: 1 },
   59: { lane: 'r', value: 1 }, // ride 2
   53: { lane: 'r', value: 2 },
   49: { lane: 'c', value: 1 },
-  57: { lane: 'c', value: 1 }, // crash 2
-  52: { lane: 'c', value: 1 }, // china
-  55: { lane: 'c', value: 1 }, // splash
+  57: { lane: 'c', value: CRASH_2 },
+  52: { lane: 'c', value: CHINA },
+  55: { lane: 'c', value: SPLASH },
   48: { lane: 't1' },
   50: { lane: 't1' },
   45: { lane: 't2' },
@@ -195,8 +215,105 @@ for (const [key, inst] of Object.entries(PERC_INSTS)) {
     PERC_BY_NOTE.set(inst.hi, { inst: key, value: 2 });
 }
 
-/** Two notes on one step of one lane: the louder value wins, as the ear would have it. */
-const RANK: Partial<Record<LaneKey, number[]>> = { s: [0, 1, 3, 4, 2], h: [0, 1, 3, 2] };
+/**
+ * Two notes on one step of one lane: the louder value wins, as the ear would
+ * have it. Ranks by value: on the snare a ghost, cross-stick, hit, buzz,
+ * accent, rimshot, flam, drag; on the hat closed, half-open, open, accent.
+ */
+const RANK: Partial<Record<LaneKey, number[]>> = {
+  s: [0, 1, 3, 5, 2, 6, 7, 8, 4],
+  h: [0, 1, 4, 3, 2],
+};
+
+/** How far ahead of its note a grace may be, in steps — the furthest `performStep` puts one, and a little. */
+const GRACE_WINDOW = 0.4;
+/** How far after its note a buzz's repeats may run, in steps: inside the step, short of the next one. */
+const BUZZ_WINDOW = 0.85;
+/** The widest gap between one repeat of a buzz and the next, in steps. `performStep` writes a quarter. */
+const BUZZ_GAP = 0.3;
+/** How many notes either side a grace is looked for among. */
+const SEARCH = 8;
+/** How soft a note must be beside a louder one to be its grace or repeat: GRACE_MAX, and MIDI's rounding. */
+const SOFT = GRACE_MAX + 0.05;
+
+interface Ornaments {
+  /** Notes that are another note's grace or repeat, and not notes of their own. */
+  part: Set<NoteOn>;
+  /** The value each ornamented note is read as. */
+  value: Map<NoteOn, number>;
+}
+
+/**
+ * Find the flams, drags and buzzes: the shapes `performStep` writes, read off
+ * the unquantised ticks. Only the drums that have them (the snare's 38, the
+ * toms), and only between notes of the same drum.
+ */
+function readOrnaments(hits: NoteOn[], stepTicks: number): Ornaments {
+  const part = new Set<NoteOn>();
+  const value = new Map<NoteOn, number>();
+  for (const lane of ['s', 't1', 't2', 't3'] as const) {
+    const list = hits
+      .filter((h) => GM[h.note]?.lane === lane && GM[h.note]?.value === undefined)
+      .sort((a, b) => a.tick - b.tick);
+    const soft = (x: NoteOn, n: NoteOn): boolean => x.velocity <= n.velocity * SOFT;
+
+    /* Buzzes first: a roll is dense, each repeat close behind the last, so a
+       drag's graces after an earlier hit are not one — and the last repeat of
+       a buzz just ahead of the next hit is not that hit's grace. */
+    if (lane === 's') {
+      list.forEach((note, k) => {
+        if (part.has(note)) return;
+        const rs: NoteOn[] = [];
+        let prev = note;
+        for (let j = k + 1; j < list.length && rs.length < 3; j++) {
+          const x = list[j];
+          if (x.tick - note.tick >= BUZZ_WINDOW * stepTicks) break;
+          // strictly after: a drag on the downbeat has its graces on the note's own tick
+          if (x.tick === note.tick) break;
+          if (x.tick - prev.tick > BUZZ_GAP * stepTicks) break;
+          if (!soft(x, note)) break;
+          rs.push(x);
+          prev = x;
+        }
+        if (rs.length < 2) return;
+        rs.forEach((r) => part.add(r));
+        value.set(note, BUZZ);
+      });
+    }
+
+    const graces = new Map<NoteOn, NoteOn[]>();
+    list.forEach((x, k) => {
+      if (part.has(x)) return;
+      /* At or after it: a flam on the first beat of a file has its grace
+         pulled onto the downbeat, as `buildMidi` writes it. The search looks
+         at no more than SEARCH notes either side — a grace is a few
+         milliseconds from its note — so a file of thousands of notes on one
+         tick costs thousands of steps, not millions. */
+      let ahead: NoteOn | undefined;
+      for (let j = k - 1, n = 0; j >= 0 && n < SEARCH && list[j].tick === x.tick; j--, n++) {
+        if (!part.has(list[j]) && soft(x, list[j])) {
+          ahead = list[j];
+          break;
+        }
+      }
+      for (let j = k + 1, n = 0; !ahead && j < list.length && n < SEARCH; j++, n++) {
+        const c = list[j];
+        if (c.tick - x.tick > GRACE_WINDOW * stepTicks) break;
+        if (!part.has(c) && soft(x, c)) ahead = c;
+      }
+      if (!ahead) return;
+      const gs = graces.get(ahead);
+      if (gs) gs.push(x);
+      else graces.set(ahead, [x]);
+    });
+    for (const [note, gs] of graces) {
+      if (part.has(note)) continue;
+      gs.forEach((g) => part.add(g));
+      value.set(note, lane === 's' ? (gs.length > 1 ? DRAG : FLAM) : TOM_FLAM);
+    }
+  }
+  return { part, value };
+}
 function louder(lane: LaneKey, a: number, b: number): number {
   const rank = RANK[lane];
   if (!rank) return Math.max(a, b);
@@ -234,7 +351,11 @@ export function readMidi(bytes: Uint8Array): ImportResult {
 
   const steps = stepsOf(meterOf(meter));
   const stepTicks = parsed.division / 4;
-  const lastStep = Math.max(...hits.map((h) => Math.round(h.tick / stepTicks)));
+  const ornaments = readOrnaments(hits, stepTicks);
+  // a buzz's repeats run past its step, and must not add a bar of their own
+  const lastStep = Math.max(
+    ...hits.filter((h) => !ornaments.part.has(h)).map((h) => Math.round(h.tick / stepTicks))
+  );
   /* Bounded by the notes the file really has, so a note at tick 2^28 costs one
      empty bar per sixteen, not a claimed length — and capBars trims it after. */
   const barCount = Math.min(Math.floor(lastStep / steps) + 1, 64);
@@ -246,6 +367,7 @@ export function readMidi(bytes: Uint8Array): ImportResult {
   let beyond = 0;
 
   for (const h of [...hits].sort((a, b) => a.tick - b.tick || a.note - b.note)) {
+    if (ornaments.part.has(h)) continue;
     const at = Math.round(h.tick / stepTicks);
     if (Math.abs(h.tick - at * stepTicks) > stepTicks / 4) moved++;
     const bi = Math.floor(at / steps);
@@ -260,7 +382,11 @@ export function readMidi(bytes: Uint8Array): ImportResult {
     const gm = GM[h.note];
     if (gm) {
       lane = gm.lane;
-      value = gm.value ?? valueForVelocity(gm.lane, h.velocity);
+      value =
+        ornaments.value.get(h) ??
+        (h.note === 46
+          ? openHatValue(h.velocity)
+          : (gm.value ?? valueForVelocity(gm.lane, h.velocity)));
     } else {
       const p = PERC_BY_NOTE.get(h.note);
       if (p) {

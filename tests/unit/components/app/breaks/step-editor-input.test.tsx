@@ -104,6 +104,10 @@ describe('setting a cell (5.15)', () => {
       'Hit',
       'Accent',
       'Cross-stick',
+      'Rimshot',
+      'Flam',
+      'Drag',
+      'Buzz',
     ]);
     fireEvent.click(screen.getByRole('menuitem', { name: /Cross-stick/ }));
 

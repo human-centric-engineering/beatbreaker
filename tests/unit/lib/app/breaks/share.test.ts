@@ -88,7 +88,7 @@ describe('encodeBreak / decodeBreak', () => {
   });
 
   it('writes the current version', () => {
-    expect(SHARE_VERSION).toBe(4);
+    expect(SHARE_VERSION).toBe(5);
     const raw: unknown = JSON.parse(atob(encodeBreak(docFor('funk'))));
     expect(sharePayloadSchema.parse(raw).ver).toBe(SHARE_VERSION);
   });
@@ -311,8 +311,18 @@ describe('storedPayloadSchema', () => {
   });
 
   it('clamps each lane to its own range and zeroes anything that is not a digit', () => {
-    // crash (lane 5) of 3 → 1; a letter in the kick → 0; a snare 9 → 4
+    // a v3 row: crash (lane 5) of 3 → 1; a letter in the kick → 0; a snare 9 → 4
     expect(stored({ b: ['1x00|9000|0|0|3000'] }).b).toEqual(['1000|4000|0|0|1000']);
+  });
+
+  it('clamps a v5 row to the ranges v5 has', () => {
+    const A = storedPayloadSchema.parse({
+      ver: 5,
+      A: { b: ['1x00|9000|0|0|7000'] },
+      B: { b: ['0'] },
+    }).A;
+    // crash 7 → 4 (splash); snare 9 → 8 (buzz)
+    expect(A.b).toEqual(['1000|8000|0|0|4000']);
   });
 
   it('trims extra lanes and over-long rows', () => {

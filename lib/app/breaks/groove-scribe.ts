@@ -1,4 +1,5 @@
 import { type ImportResult, MAX_IMPORT_BARS } from '@/lib/app/breaks/import';
+import { BUZZ, DRAG, FLAM } from '@/lib/app/breaks/lanes';
 import { METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import type { Bar, LaneKey, PercLaneKey } from '@/lib/app/breaks/types';
@@ -14,6 +15,10 @@ import type { Bar, LaneKey, PercLaneKey } from '@/lib/app/breaks/types';
  * `getGrooveDataFromUrlString` does: keys are case-insensitive, `|` and a few
  * other layout characters are ignored, and a line written at a coarser or finer
  * grid than `Div` is stretched or thinned by a whole factor.
+ *
+ * Its snare flams, drags and buzzes (`f`, `d`, `b`) read as BeatBreaker's own
+ * (9-iv); before, they flattened to plain hits. It has no rimshot or half-open
+ * hat to read.
  *
  * BeatBreaker's grid is sixteenths, so an eighth-note groove is spread out and
  * a 32nd-note one thinned — the notes between sixteenths are reported, not
@@ -51,9 +56,9 @@ const SNARE: Record<string, Hit> = {
   O: [['s', 3]],
   g: [['s', 1]],
   x: [['s', 4]],
-  f: [['s', 2]], // flam
-  d: [['s', 2]], // drag
-  b: [['s', 2]], // buzz
+  f: [['s', FLAM]],
+  d: [['s', DRAG]],
+  b: [['s', BUZZ]],
 };
 const KICK: Record<string, Hit> = {
   o: [['k', 1]],
@@ -69,9 +74,6 @@ const TOM = (lane: LaneKey): Record<string, Hit> => ({
   O: [[lane, 2]],
   X: [[lane, 2]],
 });
-
-/** Snare articulations BeatBreaker has no value for, which read as plain hits. */
-const FLATTENED: Record<string, string> = { f: 'flams', d: 'drags', b: 'buzz strokes' };
 
 /** Groove Scribe's own query reader: first match, key compared without case, value as written. */
 function queryValue(search: string, key: string): string | undefined {
@@ -190,7 +192,6 @@ export function readGrooveScribeUrl(input: string): ImportResult {
   }
   let between = 0;
   let unknown = 0;
-  const flattened = new Set<string>();
   const tomSources = new Set<string>();
 
   for (const [key, map] of lines) {
@@ -213,7 +214,6 @@ export function readGrooveScribeUrl(input: string): ImportResult {
         between++;
         return;
       }
-      if (key === 'S' && FLATTENED[ch]) flattened.add(FLATTENED[ch]);
       if (key === 'T3' || key === 'T4') tomSources.add(key);
       for (const [lane, value] of hit) {
         if (lane === 'p1') perc.p1 = 'cowbell';
@@ -226,8 +226,6 @@ export function readGrooveScribeUrl(input: string): ImportResult {
     notes.push(
       `${between} ${between === 1 ? 'note' : 'notes'} between sixteenths ${between === 1 ? 'was' : 'were'} left out.`
     );
-  if (flattened.size)
-    notes.push(`The ${[...flattened].join(' and ')} on the snare were read as plain hits.`);
   if (tomSources.size > 1) notes.push('Toms 3 and 4 were both read onto the floor tom.');
   if (unknown)
     notes.push(

@@ -31,7 +31,7 @@ import { METER_KEYS } from '@/lib/app/breaks/meter';
 const styleKey = z.string().max(40);
 
 const laneKey = z.enum(LANES as [string, ...string[]]);
-const laneRow = z.array(z.number().int().min(0).max(4));
+const laneRow = z.array(z.number().int().min(0).max(8));
 
 /** One bar: a lane-keyed map of step values. Absent lanes are filled in on load. */
 const barSchema = z.record(laneKey, laneRow);
@@ -131,13 +131,15 @@ const MAX_BAR_STRING = LANES.length * (MAX_ROW + 1);
 /**
  * One bar of a share code: every lane's row, in `LANES` order, joined by `|`.
  * Each step is a digit no higher than that lane has values for — a crash is
- * 0 or 1, a snare 0–4 (see `LANE_VALUES`). This is the one place untrusted
- * step values enter, so it is where they are held to the lane's own range.
+ * 0–4, a snare 0–8 (see `LANE_VALUES`). This is the one place untrusted step
+ * values enter, so it is where they are held to the lane's own range. Which
+ * values a code may carry also depends on its version: see
+ * {@link sharePayloadSchema}.
  */
 const packedBar = z
   .string()
   .max(MAX_BAR_STRING)
-  .regex(/^[0-4|]*$/, 'a bar is step values 0-4 separated by |')
+  .regex(/^[0-8|]*$/, 'a bar is step values 0-8 separated by |')
   .refine((b) => {
     const rows = b.split('|');
     return rows.length <= LANES.length && rows.every((r) => r.length <= MAX_ROW);
@@ -152,7 +154,41 @@ const packedBar = z
     'a step value that lane does not have'
   );
 
+/**
+ * The highest value each lane had before wire version 5 — the snare's
+ * cross-stick, the hi-hat's open, one crash. Fixed, not derived: it is what a
+ * v4 code could say, and that does not change when the lanes grow again.
+ */
+export const V4_LANE_MAX: Record<LaneKey, number> = {
+  k: 2,
+  s: 4,
+  h: 3,
+  r: 2,
+  c: 1,
+  t1: 2,
+  t2: 2,
+  t3: 2,
+  hf: 1,
+  p1: 2,
+  p2: 2,
+};
+
+/** The first lane-and-value in a packed bar that a v4 code could not carry, or null. */
+function pastV4(bar: string): string | null {
+  const rows = bar.split('|');
+  for (let i = 0; i < rows.length; i++) {
+    const lane = LANES[i];
+    if (!lane) continue;
+    for (const ch of rows[i]) if (Number(ch) > V4_LANE_MAX[lane]) return `${lane} ${ch}`;
+  }
+  return null;
+}
+
 /* ---- the wire format ------------------------------------------------
+   Version 5 adds the articulations: rimshot, flam, drag and buzz on the
+   snare, the half-open hat, crash 2, china and splash, and the tom flam. The
+   shape is the same; only the digits a bar may hold grew.
+
    Version 3 adds the meter, the lane roster and what is in each percussion
    slot. A version 2 code still decodes: no meter means 4/4, no roster means
    the five lanes everyone had, and the rows it does not carry come back empty.
@@ -218,18 +254,44 @@ export const packedPatternSchema = z.object({
   b: z.array(packedBar).min(1).max(8),
 });
 
-export const sharePayloadSchema = z.object({
-  ver: z.number().int().min(1).max(4),
-  bpm: z.number().min(20).max(400).default(94),
-  sw: z.number().min(0).max(100).default(0),
-  lv: z.number().int().min(1).max(5).optional(),
-  arr: z
-    .array(z.enum(['A', 'B']))
-    .max(16)
-    .optional(),
-  A: packedPatternSchema,
-  B: packedPatternSchema,
-});
+/**
+ * A whole break on the wire.
+ *
+ * **A code is held to its own version's values.** One that says `ver` 4 or
+ * lower may only carry what v4 could, so a rimshot under a v4 header is
+ * refused rather than read: the version is the writer's claim about what it
+ * meant, and a v4 writer never meant a 5. That is also what an older decoder
+ * does with a v5 code — it refuses the version outright — so neither side
+ * ever plays a value it does not know as something else.
+ */
+export const sharePayloadSchema = z
+  .object({
+    ver: z.number().int().min(1).max(5),
+    bpm: z.number().min(20).max(400).default(94),
+    sw: z.number().min(0).max(100).default(0),
+    lv: z.number().int().min(1).max(5).optional(),
+    arr: z
+      .array(z.enum(['A', 'B']))
+      .max(16)
+      .optional(),
+    A: packedPatternSchema,
+    B: packedPatternSchema,
+  })
+  .superRefine((payload, ctx) => {
+    if (payload.ver >= 5) return;
+    for (const section of ['A', 'B'] as const) {
+      payload[section].b.forEach((bar, i) => {
+        const past = pastV4(bar);
+        if (past) {
+          ctx.addIssue({
+            code: 'custom',
+            path: [section, 'b', i],
+            message: `a version ${payload.ver} code cannot carry ${past}; that value needs version 5`,
+          });
+        }
+      });
+    }
+  });
 
 export type PackedPattern = z.infer<typeof packedPatternSchema>;
 export type SharePayload = z.infer<typeof sharePayloadSchema>;
@@ -249,14 +311,19 @@ function isObject(v: unknown): v is Record<string, unknown> {
   return typeof v === 'object' && v !== null && !Array.isArray(v);
 }
 
-/** One bar string, each lane's steps clamped into that lane's range and length. */
-function repairBar(bar: unknown): unknown {
+/**
+ * One bar string, each lane's steps clamped into that lane's range and length
+ * — the range of the row's own version, so a v4 row is repaired into
+ * something v4 could say rather than into a value its version refuses.
+ */
+function repairBar(bar: unknown, v5: boolean): unknown {
   if (typeof bar !== 'string') return bar;
   return bar
     .split('|')
     .slice(0, LANES.length)
     .map((row, i) => {
-      const max = LANE_VALUES[LANES[i]]?.length ?? 0;
+      const lane = LANES[i];
+      const max = lane ? (v5 ? LANE_VALUES[lane].length : V4_LANE_MAX[lane]) : 0;
       let out = '';
       for (const ch of row.slice(0, MAX_ROW)) {
         const n = /^[0-9]$/.test(ch) ? Number(ch) : 0;
@@ -267,10 +334,10 @@ function repairBar(bar: unknown): unknown {
     .join('|');
 }
 
-function repairPacked(p: unknown): unknown {
+function repairPacked(p: unknown, v5: boolean): unknown {
   if (!isObject(p)) return p;
   const out: Record<string, unknown> = { ...p };
-  if (Array.isArray(p.b)) out.b = p.b.map(repairBar);
+  if (Array.isArray(p.b)) out.b = p.b.map((bar) => repairBar(bar, v5));
   if (typeof p.sd === 'number' && Number.isInteger(p.sd)) out.sd = p.sd >>> 0;
   if (Array.isArray(p.bb)) {
     out.bb = p.bb
@@ -311,5 +378,6 @@ function repairPacked(p: unknown): unknown {
  */
 export const storedPayloadSchema = z.preprocess((raw) => {
   if (!isObject(raw)) return raw;
-  return { ...raw, A: repairPacked(raw.A), B: repairPacked(raw.B) };
+  const v5 = typeof raw.ver === 'number' && raw.ver >= 5;
+  return { ...raw, A: repairPacked(raw.A, v5), B: repairPacked(raw.B, v5) };
 }, sharePayloadSchema);

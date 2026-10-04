@@ -27,8 +27,13 @@ export function midiOutSupported(): boolean {
 
 /** What the transport needs from a port. Keeps the clock out of the transport. */
 export interface MidiSink {
-  /** `at` is an AudioContext time; `vel` is 0–1. */
-  hit(note: number, vel: number, at: number): void;
+  /**
+   * `at` is an AudioContext time; `vel` is 0–1. `until`, also an AudioContext
+   * time, is when the next note-on of the same note is due, if the caller
+   * knows: the note-off goes out before it, so a flam's grace never releases
+   * the stroke it leads into.
+   */
+  hit(note: number, vel: number, at: number, until?: number): void;
 }
 
 /** GM percussion lives on channel 10, which is index 9. */
@@ -81,7 +86,7 @@ export class MidiOut implements MidiSink {
    */
   ctx: AudioContext | null = null;
 
-  hit(note: number, vel: number, at: number): void {
+  hit(note: number, vel: number, at: number, until?: number): void {
     const port = this.port;
     const ctx = this.ctx;
     if (!port || !ctx) return;
@@ -91,7 +96,9 @@ export class MidiOut implements MidiSink {
     const when = performance.now() + (at - ctx.currentTime) * 1000;
     try {
       port.send([0x90 | CHANNEL, note, v], when);
-      port.send([0x80 | CHANNEL, note, 0], when + GATE_MS);
+      // a millisecond short of the next note-on of the same note, where one is close
+      const gate = until === undefined ? GATE_MS : Math.min(GATE_MS, (until - at) * 1000 - 1);
+      port.send([0x80 | CHANNEL, note, 0], when + Math.max(0, gate));
     } catch (error) {
       logger.warn('BeatBreaker: MIDI send failed', { error });
       this.port = null;

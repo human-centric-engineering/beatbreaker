@@ -135,6 +135,11 @@ export const styleParamsSchema = styleAttrsSchema.extend({
   displace: z.number().min(0).max(1).optional(),
   fill: z.literal('comp').optional(),
   fillComps: z.number().int().min(0).max(16).optional(),
+  rimshot: z.number().min(0).max(1).optional(),
+  flam: z.number().min(0).max(1).optional(),
+  drag: z.number().min(0).max(1).optional(),
+  buzz: z.number().min(0).max(1).optional(),
+  halfOpen: z.number().min(0).max(1).optional(),
 
   feel: feelSchema.optional(),
 });
