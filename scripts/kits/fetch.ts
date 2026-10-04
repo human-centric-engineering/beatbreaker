@@ -7,8 +7,8 @@
  */
 
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 
 import { z } from 'zod';
 
@@ -29,6 +29,30 @@ function cacheDir(source: GitSource): string {
   return join(CACHE, `${source.repo.replace('/', '__')}@${source.commit}`);
 }
 
+/**
+ * `path` under `dir`, refusing anything that resolves outside it. The path
+ * comes from a tree fetched over the network, so a `..` in it must not reach
+ * the rest of the disk.
+ */
+export function inCache(dir: string, path: string): string {
+  const full = resolve(dir, path);
+  const rel = relative(dir, full);
+  if (!rel || rel === '..' || rel.startsWith(`..${sep}`) || isAbsolute(rel)) {
+    throw new Error(`${path}: outside the cache`);
+  }
+  return full;
+}
+
+/** The file's bytes, or null if it is not there yet. Read, not stat-then-read. */
+function readCached(file: string): Buffer | null {
+  try {
+    return readFileSync(file);
+  } catch (err) {
+    if (err instanceof Error && 'code' in err && err.code === 'ENOENT') return null;
+    throw err;
+  }
+}
+
 function headers(): Record<string, string> {
   const token = process.env.GITHUB_TOKEN;
   return token ? { Authorization: `Bearer ${token}` } : {};
@@ -37,16 +61,18 @@ function headers(): Record<string, string> {
 /** The pinned commit's file list: path → blob hash. Fetched once, then cached. */
 export async function treeOf(source: GitSource): Promise<Map<string, string>> {
   const file = join(cacheDir(source), 'tree.json');
-  if (!existsSync(file)) {
+  let raw = readCached(file)?.toString('utf8');
+  if (raw === undefined) {
     const url = `https://api.github.com/repos/${source.repo}/git/trees/${source.commit}?recursive=1`;
     const res = await fetch(url, { headers: headers() });
     if (!res.ok) throw new Error(`${url}: ${res.status} ${res.statusText}`);
     const body = treeResponseSchema.parse(await res.json());
     if (!body.tree || body.truncated) throw new Error(`${source.repo}: tree missing or truncated`);
+    raw = JSON.stringify(body.tree);
     mkdirSync(dirname(file), { recursive: true });
-    writeFileSync(file, JSON.stringify(body.tree));
+    writeFileSync(file, raw);
   }
-  const tree = treeSchema.parse(JSON.parse(readFileSync(file, 'utf8')));
+  const tree = treeSchema.parse(JSON.parse(raw));
   return new Map(tree.filter((e) => e.type === 'blob').map((e) => [e.path, e.sha]));
 }
 
@@ -70,8 +96,9 @@ export async function fetchFile(
 ): Promise<string> {
   const want = tree.get(path);
   if (!want) throw new Error(`${source.repo}@${source.commit}: no ${path}`);
-  const local = join(cacheDir(source), 'files', path);
-  if (existsSync(local) && gitBlobSha(readFileSync(local)) === want) return local;
+  const local = inCache(join(cacheDir(source), 'files'), path);
+  const cached = readCached(local);
+  if (cached && gitBlobSha(cached) === want) return local;
 
   const url = `https://raw.githubusercontent.com/${source.repo}/${source.commit}/${path
     .split('/')

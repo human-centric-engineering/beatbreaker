@@ -4,9 +4,11 @@
  * git's own — a wrong one would reject every file, or worse, accept any.
  */
 
+import { join } from 'node:path';
+
 import { describe, expect, it } from 'vitest';
 
-import { gitBlobSha, mapLimit, sha256 } from '@/scripts/kits/fetch';
+import { gitBlobSha, inCache, mapLimit, sha256 } from '@/scripts/kits/fetch';
 
 describe('gitBlobSha()', () => {
   it('is the hash git gives the same bytes', () => {
@@ -22,6 +24,26 @@ describe('sha256()', () => {
     expect(sha256(Buffer.from('abc'))).toBe(
       'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'
     );
+  });
+});
+
+describe('inCache()', () => {
+  const dir = join('/tmp', 'cache', 'files');
+
+  it('places a tree path under the cache directory', () => {
+    expect(inCache(dir, 'Kits/808/kick.wav')).toBe(join(dir, 'Kits', '808', 'kick.wav'));
+    // a `..` that stays inside is still inside
+    expect(inCache(dir, 'a/../b.wav')).toBe(join(dir, 'b.wav'));
+  });
+
+  it('refuses a path that climbs out of it', () => {
+    expect(() => inCache(dir, '../escape.wav')).toThrow('outside the cache');
+    expect(() => inCache(dir, 'a/../../../etc/passwd')).toThrow('outside the cache');
+  });
+
+  it('refuses an absolute path, and the directory itself', () => {
+    expect(() => inCache(dir, '/etc/passwd')).toThrow('outside the cache');
+    expect(() => inCache(dir, '.')).toThrow('outside the cache');
   });
 });
 
