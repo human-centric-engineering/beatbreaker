@@ -34,24 +34,30 @@ const picks: Array<{ at: string; pick: Pick }> = RECIPES.flatMap((r) => [
 ]);
 
 describe('the recipes', () => {
-  it('build ten packs, each named once', () => {
+  it('build twelve kits and six snares, each pack named once', () => {
     const packs = RECIPES.map((r) => r.pack);
     expect(new Set(packs).size).toBe(packs.length);
-    expect(packs).toHaveLength(10);
+    expect(packs.filter((p) => !p.startsWith('frankensnare-'))).toHaveLength(12);
+    expect(packs.filter((p) => p.startsWith('frankensnare-'))).toHaveLength(6);
   });
 
-  it('each build a pack the manifest has and a kit row plays', () => {
+  it('each build a pack the manifest has, and a kit row plays every one but the piece libraries', () => {
     const rowPacks = Object.values(KITS).flatMap((k) =>
       k.engine === 'pack' && k.pack ? [k.pack] : []
     );
     for (const { pack, pieces } of RECIPES) {
-      expect(rowPacks, pack).toContain(pack);
+      // Frankensnare's snares are pieces for building a kit: no row plays them whole
+      if (!pack.startsWith('frankensnare-')) expect(rowPacks, pack).toContain(pack);
       // every slot a recipe makes is in the manifest the seed reads
       const made = pieces.flatMap((p) => Object.keys(p.slots)).sort();
       expect(Object.keys(manifest[pack]?.slots ?? {}).sort(), pack).toEqual(made);
     }
     // and no kit row plays a pack nothing builds
-    expect([...new Set(rowPacks)].sort()).toEqual(RECIPES.map((r) => r.pack).sort());
+    expect([...new Set(rowPacks)].sort()).toEqual(
+      RECIPES.map((r) => r.pack)
+        .filter((p) => !p.startsWith('frankensnare-'))
+        .sort()
+    );
   });
 
   it('fill only slots the sampler knows, each once per pack', () => {

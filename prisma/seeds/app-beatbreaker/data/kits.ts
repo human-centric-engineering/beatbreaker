@@ -1,7 +1,7 @@
 /**
  * The kit table — seed data.
  *
- * 17 kits across three engines, each a plain parameter object plus an engine
+ * 19 kits across three engines, each a plain parameter object plus an engine
  * name, so a kit is a row rather than a branch in playback and a user's tuning
  * is a saved override of these numbers.
  *
@@ -186,7 +186,7 @@ export const KITS: Record<string, Kit> = {
     trim: 1,
     hint: 'A real kit recorded live-club style — the one acoustic set here with its own toms, a hi-hat played with the foot, a cross-stick, and a ride worth riding on. The jazz styles switch to it on their own, because a swing ride on a synthesised cymbal never quite arrives. Made for the jazz styles, but it will play anything. The tom, foot-hat and percussion knobs are for the synthesised voices; on this kit those lanes are recordings, so only Room does anything to them.',
     credit:
-      'Virtuosity Drums by Versilian Studios and Karoryfer Samples · CC0 1.0 (public domain). Percussion from the same library; woodblock and handclaps from the Versilian Community Sample Library · CC0 1.0. Mid ribbon mic, mono, trimmed and re-encoded for the web.',
+      'Virtuosity Drums by Versilian Studios and Karoryfer Samples · CC0 1.0 (public domain). Percussion from the same library; woodblock and group handclaps from the Versilian Community Sample Library, tambourine from Frankensnare and a single handclap from Body Percussion by Karoryfer Samples, shaker and muted bongo from FreePats World Percussion · all CC0 1.0. Mid ribbon mic, mono, trimmed and re-encoded for the web.',
     master: { lp: 18000, drive: 1.06, room: 0.16 },
     k: { rate: 1, level: 0.95, room: 0.03 },
     s: { rate: 1, level: 0.95, room: 0.14 },
@@ -305,5 +305,41 @@ export const KITS: Record<string, Kit> = {
     c: { rate: 1, level: 0.8, room: 0.16 },
     t: { tune: 84, decay: 0.48, tone: 0.3, room: 0.12 },
     p: { tune: 0.96, level: 0.9, tone: 0.9, room: 0.12 },
+  },
+
+  smdrums: {
+    label: 'SM Drums',
+    engine: 'pack',
+    pack: 'smdrums',
+    trim: 1,
+    hint: 'A 1960s Ludwig in Oyster Blue Pearl, with a 1965 snare left ringing. Round, warm and a little loose: the funk and soul kit. Heard through its own stereo mix rather than close mics.',
+    credit:
+      'SM Drums by Scott McLean, Tod Stillwell and Suleiman Ali · free for any use, by their grant. Splash from Salamander Drumkit by Alexander Holm · public domain. Mixed to mono, trimmed and re-encoded for the web.',
+    master: { lp: 17000, drive: 1.1, room: 0.12 },
+    k: { rate: 1, level: 0.95, room: 0.03 },
+    s: { rate: 1, level: 0.95, room: 0.12 },
+    h: { rate: 1, level: 0.9, room: 0.07 },
+    r: { rate: 1, level: 0.88, room: 0.14 },
+    c: { rate: 1, level: 0.86, room: 0.18 },
+    t: { tune: 90, decay: 0.54, tone: 0.38, room: 0.14 },
+    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.12 },
+  },
+
+  osdk: {
+    label: 'Open Source kit',
+    engine: 'pack',
+    pack: 'osdk',
+    trim: 1,
+    hint: 'A full acoustic kit recorded in fine detail, with a lot of dynamic range: soft strokes are really soft. It has no fully open hat, so its open hat is a half-open one, and its half-open is half-closed. One crash; the china and splash are Salamander’s.',
+    credit:
+      'The Open Source Drumkit by Real Music Media · public domain, by its makers’ grant. China and splash from Salamander Drumkit by Alexander Holm · public domain. Top and under mics mixed to mono, trimmed and re-encoded for the web.',
+    master: { lp: 18000, drive: 1.06, room: 0.12 },
+    k: { rate: 1, level: 0.95, room: 0.03 },
+    s: { rate: 1, level: 0.95, room: 0.12 },
+    h: { rate: 1, level: 0.9, room: 0.07 },
+    r: { rate: 1, level: 0.88, room: 0.14 },
+    c: { rate: 1, level: 0.86, room: 0.18 },
+    t: { tune: 90, decay: 0.54, tone: 0.38, room: 0.14 },
+    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.12 },
   },
 };

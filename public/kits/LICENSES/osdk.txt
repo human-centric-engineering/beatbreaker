@@ -1,0 +1,7 @@
+The Open Source Drumkit — Real Music Media
+https://github.com/crabacus/the-open-source-drumkit
+Licence: public-domain, granted by its makers at https://www.kvraudio.com/forum/viewtopic.php?t=277132, read on 2026-10-04:
+
+  "The samples and the mappings are completely in the public domain. REPEAT: The samples and the mappings are completely in the public domain."
+
+crabacus/the-open-source-drumkit@c58808b2ff5a6cd77c2f47cf45f1a892ce6a1e2c has no licence file; the grant above is the whole of it.

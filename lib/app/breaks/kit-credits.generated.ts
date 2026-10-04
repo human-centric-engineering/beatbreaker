@@ -107,5 +107,50 @@ export const KIT_CREDITS: KitCredit[] = [
     "licence": "Public domain",
     "licenceUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
     "usedFor": "Splash, china and second crash for the kits without them"
+  },
+  {
+    "id": "frankensnare",
+    "title": "Frankensnare",
+    "author": "Karoryfer Samples",
+    "url": "https://github.com/sfzinstruments/karoryfer.frankensnare",
+    "licence": "CC0 1.0",
+    "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "usedFor": "Snares for building your own kit; the tambourine"
+  },
+  {
+    "id": "smdrums",
+    "title": "SM Drums",
+    "author": "Scott McLean, Tod Stillwell and Suleiman Ali",
+    "url": "https://smmdrums.wordpress.com/",
+    "licence": "Free use, by grant",
+    "licenceUrl": "https://www.kvraudio.com/forum/viewtopic.php?t=433571",
+    "usedFor": "SM Drums kit"
+  },
+  {
+    "id": "osdk",
+    "title": "The Open Source Drumkit",
+    "author": "Real Music Media",
+    "url": "https://github.com/crabacus/the-open-source-drumkit",
+    "licence": "Public domain",
+    "licenceUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "usedFor": "Open Source kit"
+  },
+  {
+    "id": "worldperc",
+    "title": "World Percussion",
+    "author": "FreePats (Xavimart, Gonzalo and Roberto)",
+    "url": "https://freepats.zenvoid.org/Percussion/world-and-rare-percussion.html",
+    "licence": "CC0 1.0",
+    "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "usedFor": "Shaker, cascara"
+  },
+  {
+    "id": "bodyperc",
+    "title": "Body Percussion",
+    "author": "Karoryfer Samples (D. Smolken)",
+    "url": "https://github.com/sfzinstruments/body_percussion",
+    "licence": "CC0 1.0",
+    "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "usedFor": "Handclap"
   }
 ];

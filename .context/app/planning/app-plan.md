@@ -3122,6 +3122,45 @@ The calls:
   hat, the six Frankensnare snares in the builder, and the new tambourine,
   shaker and clap.
 
+**9-vi-a built, 2026-10-04.** As reconciled, with these findings:
+
+- **Frankensnare is six packs, not one.** A pack is one slot map, and all
+  six snares fill `s`, so each is a pack of its own, `frankensnare-<drum>`,
+  with one piece. No kit row names them. `kit-packs.test.ts` holds them to
+  the slots they have, and to a kit's budgets.
+- **Its snares are mixed as Big Rusty's is: top first, bottom under it.**
+  The source's own default puts the bottom over the top in most programs and
+  the other way round in some, so it is not followed.
+- **SM Drums measures its first four round-robins only.** Each stroke is a
+  large stereo WAV in a folder per round-robin, and three takes are kept.
+- **The two grants are their licence copies.** A source with a `grant` and
+  no licence file writes the quote and where it was read. Salamander's copy
+  now says "granted by its makers", as both new ones do.
+- **No shipped kit file changed** except the percussion the reconcile
+  swapped: the tambourine, shaker, clap stroke and cascara stroke. Muldjord
+  and Brush gained their cymbals as new files, and their trims did not move.
+- **Two builds of the eleven packs write the same bytes.** The first
+  fetched about 2 GB.
+
+| Pack             | Files | Download | First play | Late    | Decoded |
+| ---------------- | ----- | -------- | ---------- | ------- | ------- |
+| smdrums          | 110   | 1.83 MB  | 0.62 MB    | 0.31 MB | 24.6 MB |
+| osdk             | 106   | 1.47 MB  | 0.50 MB    | 0.22 MB | 19.5 MB |
+| muldjord         | 83    | 1.68 MB  | 0.63 MB    | 0.20 MB | 22.9 MB |
+| brush            | 99    | 1.88 MB  | 0.65 MB    | 0.25 MB | 25.5 MB |
+| frankensnare-13b | 26    | 0.34 MB  | 0.11 MB    | 0.08 MB | 4.5 MB  |
+| frankensnare-14a | 30    | 0.48 MB  | 0.14 MB    | 0.10 MB | 6.3 MB  |
+| frankensnare-14p | 24    | 0.30 MB  | 0.11 MB    | —       | 3.9 MB  |
+| frankensnare-14s | 24    | 0.34 MB  | 0.12 MB    | —       | 4.5 MB  |
+| frankensnare-10  | 23    | 0.30 MB  | 0.12 MB    | —       | 3.9 MB  |
+| frankensnare-20m | 24    | 0.32 MB  | 0.12 MB    | —       | 4.3 MB  |
+
+`public/kits` is 21.57 MB across eighteen packs. The seed has 19 kits and
+101 pieces. **Still to do by hand:** the owner listens, in this order: SM
+Drums' and the Open Source Drumkit's snares against Big Rusty's, the Open
+Source Drumkit's half-open hat as its open hat, the six Frankensnare snares in
+the builder, then the new tambourine, shaker and clap.
+
 **9.19 (9-vi-c):**
 
 - **A combination is a system kit row whose slots are pieces,** in a
