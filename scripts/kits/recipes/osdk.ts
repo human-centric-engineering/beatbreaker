@@ -44,7 +44,8 @@ export const osdk: Recipe = {
       role: 'snare',
       slots: {
         s: os('snare/snare-{mic}*', 4, 3, SNARE, undefined, SNARE_ONLY),
-        sGhost: os('snare/snare-{mic}*', 2, 3, SNARE, [14, 30], SNARE_ONLY),
+        // its soft strokes are few, so the range reaches lower than other kits' to give each layer takes
+        sGhost: os('snare/snare-{mic}*', 2, 3, SNARE, [12, 40], SNARE_ONLY),
         sCross: os('sidestick/sidestick*', 3, 2, undefined, undefined, /alt/),
         sRim: os('rimshot/rimshot*', 3, 2, undefined, undefined, /alt/),
       },

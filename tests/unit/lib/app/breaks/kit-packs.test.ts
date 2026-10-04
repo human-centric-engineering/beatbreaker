@@ -152,6 +152,14 @@ describe('shipped sample packs', () => {
     }
   });
 
+  it('gives every ghost snare at least two takes a layer: a run of ghosts is the commonest repeat', () => {
+    for (const [pack, entry] of Object.entries(manifest)) {
+      if (ONE_SHOT_PACKS.has(pack) || !entry.slots.sGhost) continue;
+      for (const layer of slotLayers(entry.slots.sGhost))
+        expect(layer.files.length, `${pack}/sGhost`).toBeGreaterThanOrEqual(2);
+    }
+  });
+
   it('gives every hat, snare and ride at least two takes a layer, so a run of them is not one sample', () => {
     for (const [pack, entry] of Object.entries(manifest)) {
       if (ONE_SHOT_PACKS.has(pack)) continue;

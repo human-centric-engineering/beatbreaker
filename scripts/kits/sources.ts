@@ -33,10 +33,11 @@ export const LICENCES: Record<LicenceId, { name: string; url: string }> = {
     url: 'https://creativecommons.org/publicdomain/mark/1.0/',
   },
   // free use for anything, granted in the authors' own words; not a standard
-  // licence (D37), so its link is the grant itself
+  // licence (D37), so there is no licence page to link: each source's credit
+  // links its own `grant.at` instead (`credits.ts`)
   permission: {
     name: 'Free use, by grant',
-    url: 'https://www.kvraudio.com/forum/viewtopic.php?t=433571',
+    url: '',
   },
 };
 
@@ -140,7 +141,7 @@ export const SOURCES = {
     licence: 'CC0-1.0',
     licenceFile: 'LICENSE',
     checked: '2026-10-03',
-    usedFor: 'Woodblock, handclaps, tambourine',
+    usedFor: 'Woodblock, group handclaps',
   },
   swirly: {
     kind: 'git',

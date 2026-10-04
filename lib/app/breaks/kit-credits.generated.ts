@@ -32,7 +32,7 @@ export const KIT_CREDITS: KitCredit[] = [
     "url": "https://github.com/sgossner/VCSL",
     "licence": "CC0 1.0",
     "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "usedFor": "Woodblock, handclaps, tambourine"
+    "usedFor": "Woodblock, group handclaps"
   },
   {
     "id": "swirly",

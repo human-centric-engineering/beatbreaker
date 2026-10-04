@@ -3141,11 +3141,19 @@ The calls:
   and Brush gained their cymbals as new files, and their trims did not move.
 - **Two builds of the eleven packs write the same bytes.** The first
   fetched about 2 GB.
+- **The Open Source kit's ghost reaches lower** (12–40 dB under its loudest
+  hit, where other kits' stop at 30). It has few soft strokes, and its soft
+  layer had one take, so a run of ghosts repeated one sample. Every ghost now
+  has at least two takes a layer, and a test holds that (`/code-review`).
+- **A grant links itself.** The `permission` licence has no licence page, so
+  a source under it is credited with a link to its own grant, not to SM
+  Drums' (`licenceOf` in `credits.ts`). VCSL is no longer credited with the
+  tambourine (`/code-review`).
 
 | Pack             | Files | Download | First play | Late    | Decoded |
 | ---------------- | ----- | -------- | ---------- | ------- | ------- |
 | smdrums          | 110   | 1.83 MB  | 0.62 MB    | 0.31 MB | 24.6 MB |
-| osdk             | 106   | 1.47 MB  | 0.50 MB    | 0.22 MB | 19.5 MB |
+| osdk             | 107   | 1.48 MB  | 0.50 MB    | 0.22 MB | 19.6 MB |
 | muldjord         | 83    | 1.68 MB  | 0.63 MB    | 0.20 MB | 22.9 MB |
 | brush            | 99    | 1.88 MB  | 0.65 MB    | 0.25 MB | 25.5 MB |
 | frankensnare-13b | 26    | 0.34 MB  | 0.11 MB    | 0.08 MB | 4.5 MB  |
