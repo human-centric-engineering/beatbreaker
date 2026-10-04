@@ -249,7 +249,7 @@ For each slot the build:
    A tar source (Salamander's `.tar.bz2`) has no index to read a member by,
    so once its archive passes its pin it is unpacked whole, links refused, and
    every file's sha256 kept in `tree.json`; a file that no longer matches is
-   unpacked again (`tar.ts`).
+   extracted again on its own and renamed into place (`tar.ts`).
 3. **Mixes** the mics to mono by weight. A DrumGizmo stroke is one WAV with
    every mic in it: a pick's `channels` name the mics, the instrument's own
    `<Inst>.xml` says which channel each is (never by position), and ffmpeg's

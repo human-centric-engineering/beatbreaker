@@ -4,7 +4,8 @@
  * its pin it is unpacked whole by the system `tar`, and every file is hashed
  * into `tree.json`, path → sha256, as a git source keeps its tree. A file is
  * served from the cache only while it still matches that hash; one that does
- * not is unpacked again, from the archive, checked against its pin first.
+ * not is extracted again, alone, from the archive, checked against its pin
+ * first.
  *
  * Only regular files are kept. A link in the archive is refused, because a
  * file read through it could be anywhere on the disk. `tar` itself refuses
@@ -21,7 +22,7 @@ import {
   rmSync,
   writeFileSync,
 } from 'node:fs';
-import { join, relative, sep } from 'node:path';
+import { dirname, join, relative, sep } from 'node:path';
 
 import { z } from 'zod';
 
@@ -63,20 +64,62 @@ async function unpack(source: TarSource): Promise<Map<string, string>> {
 }
 
 const treeSchema = z.record(z.string(), z.string().regex(/^[0-9a-f]{64}$/));
-const trees = new Map<string, Map<string, string>>();
+/** One tree per archive, shared by every caller, so concurrent ones unpack it once. */
+const trees = new Map<string, Promise<Map<string, string>>>();
+/** The repairs of each archive's cache, run one after another. */
+const repairs = new Map<string, Promise<unknown>>();
 
 /** The archive's file list, path → sha256: from `tree.json`, or by unpacking it. */
-export async function tarTree(source: TarSource): Promise<Map<string, string>> {
+export function tarTree(source: TarSource): Promise<Map<string, string>> {
   const dir = archiveCacheDir(source);
   let tree = trees.get(dir);
-  if (tree) return tree;
-  const raw = readCached(join(dir, 'tree.json'))?.toString('utf8');
-  tree =
-    raw !== undefined
-      ? new Map(Object.entries(treeSchema.parse(JSON.parse(raw))))
-      : await unpack(source);
-  trees.set(dir, tree);
+  if (!tree) {
+    const raw = readCached(join(dir, 'tree.json'))?.toString('utf8');
+    tree =
+      raw !== undefined
+        ? Promise.resolve(new Map(Object.entries(treeSchema.parse(JSON.parse(raw)))))
+        : unpack(source);
+    // a failed unpack is not remembered, so the next call tries again
+    tree.catch(() => trees.delete(dir));
+    trees.set(dir, tree);
+  }
   return tree;
+}
+
+/**
+ * Put one file back from the archive: extracted alone into a scratch
+ * directory, checked against its hash, and renamed into place. The rest of
+ * `files/` is left where it is, so a decode already reading another file is
+ * never pulled out from under. Repairs queue behind each other, each one
+ * decompressing the archive, and one that finds its file already put back by
+ * an earlier one does nothing.
+ */
+function repair(source: TarSource, path: string, want: string, local: string): Promise<void> {
+  const dir = archiveCacheDir(source);
+  const run = async (): Promise<void> => {
+    const cached = readCached(local);
+    if (cached && sha256(cached) === want) return;
+    const archive = await archiveOf(source);
+    const part = join(dir, 'repair.part');
+    rmSync(part, { recursive: true, force: true });
+    mkdirSync(part, { recursive: true });
+    try {
+      execFileSync('tar', ['-xf', archive, '-C', part, '--no-same-owner', path], {
+        stdio: 'inherit',
+      });
+      const got = inCache(part, path);
+      if (!lstatSync(got).isFile() || sha256(readFileSync(got)) !== want) {
+        throw new Error(`${source.archive}: ${path} is not what was unpacked before`);
+      }
+      mkdirSync(dirname(local), { recursive: true });
+      renameSync(got, local);
+    } finally {
+      rmSync(part, { recursive: true, force: true });
+    }
+  };
+  const next = (repairs.get(dir) ?? Promise.resolve()).catch(() => undefined).then(run);
+  repairs.set(dir, next);
+  return next;
 }
 
 /** One file of the archive, as a path in the cache, matching its hash in the tree. */
@@ -87,10 +130,7 @@ export async function tarFile(source: TarSource, path: string): Promise<string> 
   const cached = readCached(local);
   if (cached && sha256(cached) === want) return local;
 
-  // changed or gone since it was unpacked: unpack again, and it must match now
-  const tree = await unpack(source);
-  trees.set(archiveCacheDir(source), tree);
-  if (tree.get(path) !== want)
-    throw new Error(`${source.archive}: ${path} is not what was unpacked before`);
+  // changed or gone since it was unpacked: put it back from the archive
+  await repair(source, path, want, local);
   return local;
 }

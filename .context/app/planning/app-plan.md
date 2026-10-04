@@ -2823,6 +2823,11 @@ The calls:
   level, as its left crash already was.
 - **Two full builds write the same bytes:** the manifest, the lock and every
   file. The second, with the sources cached, took about four minutes.
+- **A stale file is put back alone.** A cached Salamander file that no longer
+  matches its hash is extracted again by itself and renamed into place;
+  repairs queue, and the first unpack is shared. Before, each of the build's
+  eight concurrent decodes unpacked the whole archive again and swapped
+  `files/` under the others (`/code-review`).
 
 | Pack      | Files | Download | First play | Late    | Decoded |
 | --------- | ----- | -------- | ---------- | ------- | ------- |

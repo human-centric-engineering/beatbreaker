@@ -9,7 +9,7 @@
 
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, rmSync, statSync, symlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { afterAll, describe, expect, it, vi } from 'vitest';
@@ -87,11 +87,36 @@ describe('tarTree() and tarFile()', () => {
     expect(readFileSync(await fresh.tarFile(source, 'REAMDE')).equals(readme)).toBe(true);
   });
 
-  it('unpacks again a cached file that no longer matches its hash', async () => {
+  it('extracts again a cached file that no longer matches its hash', async () => {
     const source = cached('third.tar');
     const local = await tarFile(source, 'REAMDE');
     writeFileSync(local, 'tampered');
     expect(readFileSync(await tarFile(source, 'REAMDE')).equals(readme)).toBe(true);
+  });
+
+  it('repairs a stale file once for many callers, and leaves the other files in place', async () => {
+    const source = cached('seventh.tar');
+    const other = await tarFile(source, 'OH/splash1_OH_F_1.wav');
+    const before = statSync(other).ino;
+    writeFileSync(await tarFile(source, 'REAMDE'), 'tampered');
+
+    // eight at once, as the build's decodes are
+    const got = await Promise.all(
+      Array.from({ length: 8 }, (_, i) =>
+        tarFile(source, i % 2 ? 'REAMDE' : 'OH/splash1_OH_F_1.wav')
+      )
+    );
+    for (const [i, local] of got.entries()) {
+      expect(readFileSync(local).equals(i % 2 ? readme : wav)).toBe(true);
+    }
+    // the file a decode might be reading was never replaced
+    expect(statSync(other).ino).toBe(before);
+  });
+
+  it('unpacks the archive once for callers that ask for its tree together', async () => {
+    const source = cached('eighth.tar');
+    const [a, b] = await Promise.all([tarTree(source), tarTree(source)]);
+    expect(a).toBe(b);
   });
 
   it('needs the archive, and its pin, to replace a file that changed', async () => {
