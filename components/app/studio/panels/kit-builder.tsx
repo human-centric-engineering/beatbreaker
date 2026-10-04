@@ -106,16 +106,19 @@ function BuildRow({
   /** Play a piece from its own file, with these settings; else the kit's own voice for the row. */
   const hear = (p: PieceView | undefined, s: { level: number; tune: number; decay: number }) => {
     const preview = p ? previewOf(p, row) : null;
-    if (!preview) {
+    // a sample of yours plays from its own file too, so a knob is heard before the kit has it
+    const sample = !preview && now.entry && 'sampleId' in now.entry ? now.entry : undefined;
+    if (!preview && !sample) {
       c.audition(voice, voice === 't' || voice === 'c' ? row.slots[0] : undefined);
       return;
     }
-    const gain = clamp(0.95 / Math.max(preview.velocity, 0.01), 0.25, 1.8) * preview.trim * s.level;
-    void c
-      .previewSample(preview.url, voice, { gain, tune: s.tune, decay: s.decay })
-      .then((played) => {
-        if (!played) say(`Could not play ${p?.label ?? row.label}`, { error: true });
-      });
+    const url = preview?.url ?? sample?.audioUrl ?? '';
+    const gain = preview
+      ? clamp(0.95 / Math.max(preview.velocity, 0.01), 0.25, 1.8) * preview.trim * s.level
+      : s.level;
+    void c.previewSample(url, voice, { gain, tune: s.tune, decay: s.decay }).then((played) => {
+      if (!played) say(`Could not play ${p?.label ?? sample?.name ?? row.label}`, { error: true });
+    });
   };
 
   const choose = (key: string) => {

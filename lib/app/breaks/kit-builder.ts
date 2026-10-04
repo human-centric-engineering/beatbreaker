@@ -66,7 +66,10 @@ export const pieceViewSchema = z.object({
   role: z.string(),
   source: z.string(),
   credit: z.string().nullable(),
-  slots: z.record(z.string(), pieceSlotSchema),
+  // a piece with nothing to play would empty the row it was chosen for
+  slots: z
+    .record(z.string(), pieceSlotSchema)
+    .refine((slots) => Object.keys(slots).length > 0, 'a piece fills at least one slot'),
 });
 export type PieceView = z.infer<typeof pieceViewSchema>;
 

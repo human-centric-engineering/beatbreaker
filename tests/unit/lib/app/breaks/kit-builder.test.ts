@@ -12,6 +12,7 @@ import {
   type PieceView,
   fillRow,
   pieceGroups,
+  pieceViewSchema,
   previewOf,
   rowNow,
   rowPan,
@@ -150,5 +151,12 @@ describe('previewOf', () => {
     expect(previewOf(piece('bigrusty-t1', 'tom', ['t1']), row('t3'))).toMatchObject({
       url: '/kits/x/1-a.m4a',
     });
+  });
+});
+
+describe('pieceViewSchema', () => {
+  it('refuses a piece with no slots, which would empty the row it was chosen for', () => {
+    expect(pieceViewSchema.safeParse(piece('empty', 'kick', [])).success).toBe(false);
+    expect(pieceViewSchema.safeParse(piece('drs-k', 'kick', ['k'])).success).toBe(true);
   });
 });

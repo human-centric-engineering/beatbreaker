@@ -433,4 +433,38 @@ describe('the builder, on a kit of yours', () => {
 
     expect(sent.some((s) => s.method === 'PATCH')).toBe(false);
   });
+
+  it('hears a sample of yours from its own file when a knob is let go, at the new setting', async () => {
+    yourKit = {
+      ...YOUR_KIT,
+      slots: {
+        k: { sampleId: 'csmp1', name: 'kick.wav', audioUrl: '/api/v1/samples/csmp1/audio' },
+      },
+    };
+    const user = userEvent.setup();
+    render(
+      <StudioProvider
+        catalogue={testCatalogue()}
+        yourKits={[yourKit]}
+        yourSamples={NO_SAMPLES}
+        settings={undefined}
+      >
+        <KitPanel />
+        <ToastProbe />
+      </StudioProvider>
+    );
+    await user.selectOptions(kitPicker(), 'yours-a');
+    const kickRow = rowPicker('Kick').closest('.build-row') as HTMLElement;
+    await user.click(within(kickRow).getByRole('button', { name: 'Adjust' }));
+
+    const level = within(kickRow).getByLabelText<HTMLInputElement>('Level');
+    fireEvent.change(level, { target: { value: '30' } });
+    fireEvent.keyUp(level);
+
+    expect(preview).toHaveBeenCalledWith('/api/v1/samples/csmp1/audio', 'k', {
+      gain: 0.3,
+      tune: 0,
+      decay: 1,
+    });
+  });
 });
