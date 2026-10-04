@@ -44,6 +44,7 @@ interface Heard {
 }
 interface Sent extends Heard {
   note: number;
+  until?: number;
 }
 
 /** Every lane and every value it has, somewhere in the bar, over a generated groove — 9-iv's too. */
@@ -116,8 +117,8 @@ function play(pat: Pattern, over: Partial<TransportSnapshot>, passes = 1) {
   };
   const sent: Sent[] = [];
   const midi: MidiSink = {
-    hit: (note, vel, when) => {
-      sent.push({ note, vel, when });
+    hit: (note, vel, when, until) => {
+      sent.push({ note, vel, when, until });
     },
   };
 
@@ -222,6 +223,17 @@ describe('speakers, live MIDI and the MIDI file play one performance', () => {
       });
     }
   }
+
+  it('tells the port when each key is struck again, so a grace never releases its stroke', () => {
+    const { sent } = play(everything('4/4'), {});
+    const snares = sent.filter((s) => s.note === 38).sort(byTime);
+    // every snare note before another, within a step, is released before it
+    for (let k = 0; k + 1 < snares.length; k++) {
+      const [a, b] = [snares[k], snares[k + 1]];
+      if (b.when - a.when < 0.04) expect(a.until).toBeLessThanOrEqual(b.when + 1e-9);
+    }
+    expect(snares.some((s) => s.until !== undefined)).toBe(true);
+  });
 
   it('lets the mixer act on the speakers only, as D23 decided', () => {
     const pat = everything('4/4');

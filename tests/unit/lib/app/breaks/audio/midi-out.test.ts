@@ -106,6 +106,21 @@ describe('MidiOut.hit', () => {
     expect(p.send).toHaveBeenNthCalledWith(2, [0x89, 38, 0], 1290);
   });
 
+  it('releases a note before the next strike of the same key, as a flam’s grace before its stroke', async () => {
+    const p = port();
+    const out = await connected(p);
+    out.ctx = { currentTime: 10 } as AudioContext;
+    vi.spyOn(performance, 'now').mockReturnValue(1000);
+
+    // a grace 25 ms ahead of its stroke: off a millisecond before the stroke, not 40 ms after the grace
+    out.hit(38, 0.3, 10.25, 10.275);
+    expect(p.send.mock.calls[1][0]).toEqual([0x89, 38, 0]);
+    expect(p.send.mock.calls[1][1]).toBeCloseTo(1274, 6);
+    // a strike further off than the gate keeps the gate
+    out.hit(38, 0.3, 10.5, 11);
+    expect(p.send.mock.calls[3][1]).toBeCloseTo(1540, 6);
+  });
+
   it('sends nothing with no port or no audio clock', async () => {
     const p = port();
     const out = await connected(p);

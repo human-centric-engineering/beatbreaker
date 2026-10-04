@@ -231,6 +231,8 @@ const GRACE_WINDOW = 0.4;
 const BUZZ_WINDOW = 0.85;
 /** The widest gap between one repeat of a buzz and the next, in steps. `performStep` writes a quarter. */
 const BUZZ_GAP = 0.3;
+/** How many notes either side a grace is looked for among. */
+const SEARCH = 8;
 /** How soft a note must be beside a louder one to be its grace or repeat: GRACE_MAX, and MIDI's rounding. */
 const SOFT = GRACE_MAX + 0.05;
 
@@ -283,16 +285,26 @@ function readOrnaments(hits: NoteOn[], stepTicks: number): Ornaments {
     list.forEach((x, k) => {
       if (part.has(x)) return;
       /* At or after it: a flam on the first beat of a file has its grace
-         pulled onto the downbeat, as `buildMidi` writes it. */
-      const ahead = list.find(
-        (n, j) =>
-          j !== k &&
-          !part.has(n) &&
-          n.tick >= x.tick &&
-          n.tick - x.tick <= GRACE_WINDOW * stepTicks &&
-          soft(x, n)
-      );
-      if (ahead) graces.set(ahead, [...(graces.get(ahead) ?? []), x]);
+         pulled onto the downbeat, as `buildMidi` writes it. The search looks
+         at no more than SEARCH notes either side — a grace is a few
+         milliseconds from its note — so a file of thousands of notes on one
+         tick costs thousands of steps, not millions. */
+      let ahead: NoteOn | undefined;
+      for (let j = k - 1, n = 0; j >= 0 && n < SEARCH && list[j].tick === x.tick; j--, n++) {
+        if (!part.has(list[j]) && soft(x, list[j])) {
+          ahead = list[j];
+          break;
+        }
+      }
+      for (let j = k + 1, n = 0; !ahead && j < list.length && n < SEARCH; j++, n++) {
+        const c = list[j];
+        if (c.tick - x.tick > GRACE_WINDOW * stepTicks) break;
+        if (!part.has(c) && soft(x, c)) ahead = c;
+      }
+      if (!ahead) return;
+      const gs = graces.get(ahead);
+      if (gs) gs.push(x);
+      else graces.set(ahead, [x]);
     });
     for (const [note, gs] of graces) {
       if (part.has(note)) continue;

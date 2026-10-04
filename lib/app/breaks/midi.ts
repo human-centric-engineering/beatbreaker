@@ -103,10 +103,20 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
         humanise: human,
         bpm: opts.bpm,
       });
+      /* A grace pushed in front of bar 1 takes its note with it: the flam
+         moves later as a whole, so the grace still comes first. Collapsed onto
+         one tick, grace and stroke would be two note-ons of one key at once. */
+      const early = new Map<number, number>();
+      for (const voice of voices) {
+        if (voice.ornament !== 'grace') continue;
+        const raw = Math.round(tick + (i + voice.offset) * ST);
+        if (raw < 0) early.set(voice.note, Math.max(early.get(voice.note) ?? 0, -raw));
+      }
       for (const voice of voices) {
         /* A hit pushed in front of bar 1 has nowhere earlier to go, so it lands
            on the downbeat rather than at a negative tick. */
-        const on = Math.max(0, Math.round(tick + (i + voice.offset) * ST));
+        const shift = early.get(voice.note) ?? 0;
+        const on = Math.max(0, Math.round(tick + (i + voice.offset) * ST) + shift);
         ons.push({ t: on, n: voice.note, v: midiVelocity(voice.velocity) });
       }
     }
@@ -120,7 +130,8 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
   const prev = new Map<number, (typeof ons)[number]>();
   for (const on of [...ons].sort((a, b) => a.t - b.t)) {
     const before = prev.get(on.n);
-    if (before) offs.set(before, Math.min(before.t + 60, on.t));
+    // on the same tick, a note-off at that tick would sort before its own note-on
+    if (before && on.t > before.t) offs.set(before, Math.min(before.t + 60, on.t));
     prev.set(on.n, on);
   }
   // in the order they were played, so notes on one tick keep their order

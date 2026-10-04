@@ -358,6 +358,41 @@ describe('MIDI write and read round-trip each value (9.12)', () => {
     expect(read.pattern.bars[0].s.slice(3, 5)).toEqual([1, 3]);
   });
 
+  it('moves a flam on the first beat of a file later as a whole, so its grace still leads', () => {
+    const file = buildMidi([{ pattern: pattern([barWith('s', 6, 0)]), barIdx: 0 }], settings[0]);
+    const events = noteEvents(file.bytes).filter((e) => e.note === 38);
+    expect(events.map((e) => e.on)).toEqual([true, false, true, false]);
+    expect(events[0].t).toBe(0);
+    expect(events[2].t).toBeGreaterThan(0);
+  });
+
+  it('reads a hostile file of thousands of snare notes on one tick in linear time', () => {
+    // 40 000 note-ons on 38 at tick 0, running status: about 120 KB, under the import's cap
+    const N = 40_000;
+    const track = [0, 0x99, 38, 100];
+    for (let k = 1; k < N; k++) track.push(0, 38, k % 2 ? 20 : 100);
+    track.push(0, 0xff, 0x2f, 0);
+    const len = track.length;
+    const bytes = new Uint8Array([
+      ...[0x4d, 0x54, 0x68, 0x64, 0, 0, 0, 6, 0, 0, 0, 1, 1, 0xe0],
+      ...[
+        0x4d,
+        0x54,
+        0x72,
+        0x6b,
+        (len >> 24) & 255,
+        (len >> 16) & 255,
+        (len >> 8) & 255,
+        len & 255,
+      ],
+      ...track,
+    ]);
+    const started = performance.now();
+    const read = readMidi(bytes);
+    expect(read.ok).toBe(true);
+    expect(performance.now() - started).toBeLessThan(1500);
+  });
+
   it('ends a grace before its note starts', () => {
     const file = buildMidi([{ pattern: pattern([barWith('s', 6)]), barIdx: 0 }], settings[0]);
     const events = noteEvents(file.bytes).filter((e) => e.note === 38);

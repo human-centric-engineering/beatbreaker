@@ -68,6 +68,11 @@ bus → drive → top end (lowpass) → glue compressor → master → ½ → ce
   drag's second a third of that gap ahead); a buzz is three repeats a quarter
   step apart. The ornaments come after every note of the step, so a step
   without one draws from Humanise exactly as before.
+- **No note-off runs past the next strike of its key.** A grace and its
+  stroke are one MIDI note a few milliseconds apart, so the transport tells
+  the live port when each key is struck again (`MidiSink.hit`'s `until`) and
+  `buildMidi` ends each note at the next note-on of it. A flam whose grace
+  would fall before bar 1 moves later as a whole in the file.
 - **A grace is the other hand's note.** It draws its nudge from that hand's
   stream (`Humaniser.next(lane, amount, limb)`), with its timing held within a
   quarter of the gap, so it never lands after its note.
