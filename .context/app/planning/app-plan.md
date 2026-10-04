@@ -2309,8 +2309,8 @@ as it is (A1–A12), and the tasks below cite it.
 - Every source in the manifest has a licence copy and a credit.
 - The per-kit budgets hold in CI.
 
-**Ships as six PRs.** Per D36, 9-i to 9-iv come now, before 8-iv and 8-v.
-9-v and 9-vi follow launch.
+**Ships as six PRs.** Per D36, 9-i to 9-iv came before 8-iv and 8-v. Per
+D42, 9-v and 9-vi come next, before them too.
 
 **9-i — the engine:**
 
@@ -2850,6 +2850,88 @@ Salamander's splash and china against each kit's crash first.
 | 9.18 | **Build a kit** in the Kit drawer: _Make my own from this kit_; a per-slot picker grouped by source, with a tap to hear it; the four knobs with `<FieldHelp>`; _Reset to kit_. Phone width first                                                                              | Component tests: copying a kit makes one of your kits with the same pieces; choosing a piece auditions it; the 21st kit shows `KIT_LIMIT`. Claude checks it at 390 and 1440px in Chrome              |
 | 9.19 | **Combinations:** six curated system kits (`sound-plan.md` §7) and their default pans. The styles' default kits are re-pointed where one fits                                                                                                                                 | Seed tests: every piece referenced exists; **owner sign-off by ear on each kit**, recorded in `sound.md`                                                                                             |
 
+**9-v reconciled, 2026-10-04 (branch `phase-9-v`).** Read against the tree
+at `5fa7b033`. These are the things the tasks above assumed, and how they are
+in the tree:
+
+- **It ships as two PRs, as 9-iv did.** 9-v-a is 9.16 and 9.17: pieces, the
+  catalogue, the slot shapes, the routes and the engine. 9-v-b is 9.18, the
+  builder in the Kit drawer.
+- **9.19 moves to 9-vi, after 9.20.** Half of `sound-plan.md` §7's
+  combinations are built from SM Drums, CrocellKit and Frankensnare, which
+  arrive in 9.20. They are curated once, from every source.
+- **The pipeline already has pieces, without names.** A recipe's `Piece` is
+  `{ role, slots, matchOn?, level? }`: one instrument from one source and the
+  slots it fills, level-matched as one. It gains a `key` and a `label`. A
+  piece used by several packs (Salamander's splash, china and crash) is one
+  exported constant, so it has one key.
+- **A piece keeps its pack's folder.** Files are written per pack, and a
+  shared piece is copied into each pack that uses it, byte for byte, at the
+  same trim. A piece's folder is the first pack in `RECIPES` that has it, and
+  a test holds every other copy to the same files and trim. No file moves and
+  no audio changes, so no build is needed. Dropping the copies is a later
+  saving, not this PR's.
+- **The same source is not always the same piece.** Gogodze's cymbals are
+  Big Rusty's on the close mic alone, grouped as one crash piece, so their
+  trim differs from Big Rusty's own (`cChina` 2.158 against 1.474). That is
+  a different piece with its own key, not a copy.
+- **The seeder derives the pieces from `RECIPES` and the manifest.** It
+  reads which slots each piece fills from the recipes and their layers and
+  trim from the manifest. Nothing new is generated. The percussion
+  (`virtuosity`'s `perc`) is not pieces: it plays from `percussionSource` as
+  now.
+- **`KitPiece`:** `key`, `label`, `role`, `source`, `folder`, `slots` (the
+  layered spec of each slot it fills), `credit`, `position`. A catalogue
+  table with no `User` FK, so there is no erasure or export change.
+  `GET /api/v1/catalogue/pieces` serves it the way `/catalogue/kits` does:
+  memoised, with an ETag.
+- **A kit slot gains two shapes:** `{ piece, from? }` and `{ sample }`.
+  `from` names the piece's slot to play, so any tom piece fills any tom
+  slot. Both shapes also carry `level` (0–2), `tune` (±1200 cents) and
+  `decay` (0.2–1). The flat and layered shapes still parse.
+- **The server resolves a piece map before the client sees it.**
+  `studioCatalogue()` and `/catalogue/kits` turn `{ piece }` into the layered
+  slot it names, plus the piece's `folder`. `PackSource` builds each URL from
+  the slot's folder, falling back to the kit's `pack`. Its decoded cache is
+  keyed by kit, not pack, because one kit now draws from many folders (A9).
+- **System recorded kits become piece maps** in the seed. Each resolves to
+  its own pack's files and trims, so it plays the same file at the same gain
+  for the same hit as before. A test compares the two for every recorded
+  kit and slot.
+- **Pan is per lane, not per slot.** The engine pans a lane's channel, and a
+  rimshot panned away from its snare is not a sound anyone wants. A kit
+  carries `pan: { <lane>: −1…1 }`, and it overrides `DEFAULT_PAN` for that
+  lane, mirrored by `panView` as before.
+- **Your kit's settings live on the kit.** `yourKitToCatalogue` today
+  spreads the constant `YOUR_KIT_PARAMS` and never reads the row's
+  `params`. Level, tune, decay and pan are in `samples`, so they are read
+  with the slots. The per-voice Rate, Level and Room in your Studio settings
+  stay: they are how you hear any kit, and they multiply with the kit's own.
+- **Your kits play pieces through `PackSource`, and samples through
+  `YourSampleSource`.** Today `PackSource` takes only `engine: 'pack'`.
+  It takes any kit whose slot resolved to a folder, so a kit of yours that
+  mixes pieces and samples plays each from its own source.
+- **`PATCH /api/v1/kits/:id` keeps a bare sample id.** Today a slot's value
+  is a sample cuid or `null`. It also takes `{ piece, from? }` and
+  `{ sample }`, each with the three settings, and `pan`. Someone else's
+  sample stays a **400** naming the slot, as it is today; the 404 is for
+  someone else's kit. A piece key that doesn't exist is a 400 too.
+- **_Make my own from this kit_ is `POST /api/v1/kits { from }`.** It copies
+  a recorded kit's piece map, or one of your kits, under `KIT_LIMIT` (20).
+  A synthesised kit or a machine has no pieces, so it doesn't offer it.
+- **Tune is the source's `detune`, and decay is a new envelope in
+  `playBuf`.** `playBuf` sets only `playbackRate` and plays the whole buffer.
+  Decay below 1 holds the hit, then fades it out by `decay` × its length,
+  and stops the source there.
+- **The builder works by row, not by slot.** A row is a piece's role in the
+  kit: Kick, Snare (with its ghost, cross-stick and rimshot), Hats, Ride,
+  Crash (with crash 2 and china), Splash and the three toms. Choosing a
+  piece fills every slot of the row that the piece has. The rest fall back
+  or play the synthesised voice, as a pack does. The knobs on a row write
+  each of its slots, and Pan writes the row's lane.
+- **The admin kit `PATCH` takes the new shapes too.** It shares
+  `kitSamplesSchema`, so nothing extra is needed.
+
 **9-vi — more sounds, synth rendered ahead, the machines:**
 
 | #    | Task                                                                                                                                                                                 | Done when                                                                                                                                                                                            |
@@ -3202,6 +3284,12 @@ already cascade and already export.
 | D39 | The mixer fader and timbre           | **The fader is level only** (9.2). A mix set low sounds quieter rather than softer-played.                                                                                                                                                                                                       |
 | D40 | New articulations in the pattern     | **In Phase 9, as 9-iv:** rimshot, flam, drag and buzz on the snare; half-open hat; crash 2, china and splash on the crash lane; tom flams. Wire version 5. Cymbal grabs, a separate second crash lane and multi-step rolls stay out.                                                             |
 | D41 | Where the kit audio lives            | **In the repo under `public/kits` for now**, within 45 MB, served with immutable caching. **It moves to an S3-compatible bucket (R2, per D35) later**; `PackSource` builds every URL from one `BASE`, so the move is that base as an env setting, an upload, and the bucket's origin in the CSP. |
+
+### Decided — 2026-10-04
+
+| #   | Decision              | Outcome                                                                                                                                  |
+| --- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| D42 | Where 9-v and 9-vi go | **Now, before 8-iv and 8-v.** Revises D36: the owner chose to finish Phase 9 before the end-to-end tests. Launch moves back by both PRs. |
 
 ### Still open
 
