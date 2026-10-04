@@ -2810,6 +2810,32 @@ The calls:
   numbers), Big Rusty's sizzle crash as a second crash, and the synthesised
   rimshot under DRS and Gogodze.
 
+**9-iv-b built, 2026-10-04.** As reconciled, with these findings:
+
+- **The archive matched archive.org's md5,** and its sha256 (`34e746ec…`)
+  is the pin. It unpacks to 545 files, every one a regular file.
+- **Not one shipped file changed.** The new slots join existing pieces or
+  come as pieces of their own, and no piece's trim or bake moved, so the 62
+  new files are the whole of the audio diff.
+- **Salamander's normalised samples need a trim of 0.2** (−14 dB) to sit as
+  a splash, and 0.69 as a china. Big Rusty's own china and sizzle crash play
+  at its crash's trim. DRS brushes' right crash is baked ×13.45 to reach its
+  level, as its left crash already was.
+- **Two full builds write the same bytes:** the manifest, the lock and every
+  file. The second, with the sources cached, took about four minutes.
+
+| Pack      | Files | Download | First play | Late    | Decoded |
+| --------- | ----- | -------- | ---------- | ------- | ------- |
+| bigrusty  | 110   | 2.16 MB  | 0.70 MB    | 0.41 MB | 29.4 MB |
+| drs       | 104   | 1.89 MB  | 0.62 MB    | 0.34 MB | 25.6 MB |
+| drs-brush | 97    | 1.55 MB  | 0.50 MB    | 0.32 MB | 20.8 MB |
+| unruly    | 110   | 2.12 MB  | 0.67 MB    | 0.41 MB | 28.8 MB |
+| gogodze   | 104   | 2.14 MB  | 0.71 MB    | 0.34 MB | 29.0 MB |
+
+`public/kits` is 15.77 MB across ten packs. **Still to do by hand:** the
+owner listens to each articulation in two kits, as 9.15's done-when asks:
+Salamander's splash and china against each kit's crash first.
+
 **9-v — pieces and building your own:**
 
 | #    | Task                                                                                                                                                                                                                                                                          | Done when                                                                                                                                                                                            |

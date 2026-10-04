@@ -2,10 +2,16 @@
  * Unruly: Karoryfer's Unruly Drums, where every drum has snare wires on it,
  * the 20" kick included. It has no toms: like the source's own keymap, the
  * 13", 14" and 22" snares are played as toms, wires off. The kick is the
- * clean one; the source also has it with the wires buzzing.
+ * clean one; the source also has it with the wires buzzing. Its one crash is
+ * a 16"; the second crash, the china and the splash are Salamander's.
  */
 
 import type { Pick, Recipe } from '@/scripts/kits/recipe';
+import {
+  salamanderChina,
+  salamanderCrash,
+  salamanderSplash,
+} from '@/scripts/kits/recipes/salamander';
 
 const un = (
   path: string,
@@ -43,6 +49,7 @@ export const unruly: Recipe = {
         // too few centre strokes lie 14 dB down for two layers of three; from 10 dB, enough do
         sGhost: un(s14('center'), SNARE, 2, 3, [10, 30]),
         sCross: un(s14('sstick'), SNARE, 3, 2),
+        sRim: un(s14('rimshot'), SNARE, 3, 2),
       },
     },
     {
@@ -51,6 +58,8 @@ export const unruly: Recipe = {
         h: un('h14/{mic}/rr*/hh_tight_tip_vl*_rr*', HAT, 4, 3),
         hOpen: un('h14/{mic}/rr*/hh_open_tip_vl*_rr*', HAT, 3, 2),
         hFoot: un('h14/{mic}/rr*/hh_footchik_vl*_rr*', HAT, 2, 3),
+        // the third of the source's six openings: tight, closed, quarter, half, loose, open
+        hHalf: un('h14/{mic}/rr*/hh_half_tip_vl*_rr*', HAT, 2, 2),
       },
     },
     {
@@ -61,6 +70,9 @@ export const unruly: Recipe = {
       },
     },
     { role: 'crash', slots: { c: un('c16/{mic}/rr*/cr_edge_vl*_rr*', CYMBAL, 2, 2) } },
+    salamanderCrash,
+    salamanderChina,
+    salamanderSplash,
     { role: 'tom', slots: { t1: un('s13/{mic}/rr*/s13_tom_clean_vl*_rr*', TOM, 3, 2) } },
     { role: 'tom', slots: { t2: un('s14/{mic}/rr*/s14_tom_clean_vl*_rr*', TOM, 3, 2) } },
     { role: 'tom', slots: { t3: un('s22/{mic}/rr*/s22_tom_clean_vl*_rr*', TOM, 3, 2) } },

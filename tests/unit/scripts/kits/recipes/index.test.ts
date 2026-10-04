@@ -80,21 +80,48 @@ describe('the recipes', () => {
 
   it('give every piece a role with a level and a tail cap', () => {
     for (const { pack, pieces } of RECIPES) {
-      for (const { role } of pieces) {
+      for (const { role, level } of pieces) {
         expect(ROLE_TARGET_DB[role], `${pack} ${role}`).toBeLessThanOrEqual(0);
         expect(ROLE_TAIL_CAP[role], `${pack} ${role}`).toBeGreaterThan(0);
+        // a nudge against the role, not a role of its own
+        if (level !== undefined) expect(Math.abs(level), `${pack} ${role}`).toBeLessThanOrEqual(6);
       }
+    }
+  });
+
+  it('give the round-one kits a recording of every 9-iv articulation their sources allow', () => {
+    const made = (pack: string): string[] =>
+      (RECIPES.find((r) => r.pack === pack)?.pieces ?? []).flatMap((p) => Object.keys(p.slots));
+    const ARTICULATIONS = ['sRim', 'hHalf', 'c2', 'cChina', 'cSplash'];
+    // DRSKit and Gogodze have no rimshot, and nothing else's is their snare
+    const want: Record<string, string[]> = {
+      bigrusty: ARTICULATIONS,
+      unruly: ARTICULATIONS,
+      gogodze: ARTICULATIONS.filter((s) => s !== 'sRim'),
+      drs: ARTICULATIONS.filter((s) => s !== 'sRim'),
+      'drs-brush': ARTICULATIONS.filter((s) => s !== 'sRim'),
+    };
+    for (const [pack, slots] of Object.entries(want)) {
+      expect(
+        made(pack)
+          .filter((s) => SLOT_BY_ID[s]?.late)
+          .sort(),
+        pack
+      ).toEqual([...slots].sort());
     }
   });
 });
 
 describe('pinOf()', () => {
-  it('names a git source by its commit and a zip source by its sha256', () => {
+  it('names a git source by its commit and an archive by its sha256', () => {
     expect(pinOf(SOURCES.unruly)).toBe(
       'sfzinstruments/karoryfer.unruly-drums@9bf75c2a1392f190cd1c264645653629f0b3a097'
     );
     expect(pinOf(SOURCES.drskit)).toBe(
       'https://drumgizmo.org/kits/DRSKit/DRSKit2_1.zip (sha256 529f2dcad836593167d0cab218f125f591cd71199748fa681e05e3866667f090)'
+    );
+    expect(pinOf(SOURCES.salamander)).toBe(
+      'https://archive.org/download/SalamanderDrumkit/salamanderDrumkit.tar.bz2 (sha256 34e746ec1721bb530b1caf5b17443ae3cde45a2cce1a80e2637e4c11d6f1e3f5)'
     );
   });
 });

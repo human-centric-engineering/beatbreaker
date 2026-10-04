@@ -4,9 +4,10 @@
  * A git source is pinned to a commit. The build fetches only the files a
  * recipe names, from that commit, and checks each against its blob hash in
  * the commit's tree, so a file that changed upstream cannot slip in under the
- * same path. A zip source is pinned by the archive's sha256: it is downloaded
- * once, checked, and read member by member (`zip.ts`). The sha256 of every
- * file used is written to `build.lock.json`.
+ * same path. An archive source is pinned by the archive's sha256: it is
+ * downloaded once, checked, and read member by member (`zip.ts`) or unpacked
+ * whole (`tar.ts`). The sha256 of every file used is written to the build
+ * lock.
  *
  * The licence of each was checked against the source's own licence file on
  * the date given; the build copies that file to `public/kits/LICENSES/`. The
@@ -15,7 +16,7 @@
  * `.context/app/planning/sound-plan.md` §5.
  */
 
-export type LicenceId = 'CC0-1.0' | 'CC-BY-4.0';
+export type LicenceId = 'CC0-1.0' | 'CC-BY-4.0' | 'public-domain';
 
 export const LICENCES: Record<LicenceId, { name: string; url: string }> = {
   'CC0-1.0': {
@@ -26,7 +27,22 @@ export const LICENCES: Record<LicenceId, { name: string; url: string }> = {
     name: 'CC BY 4.0',
     url: 'https://creativecommons.org/licenses/by/4.0/',
   },
+  // dedicated by its author in their own words rather than a licence
+  'public-domain': {
+    name: 'Public domain',
+    url: 'https://creativecommons.org/publicdomain/mark/1.0/',
+  },
 };
+
+/**
+ * The author's grant, where it is published apart from the source and the
+ * licence file inside it is older than the grant: quoted, with where it was
+ * read. The licence copy prints it above that file.
+ */
+export interface Grant {
+  quote: string;
+  at: string;
+}
 
 export interface GitSource {
   kind: 'git';
@@ -74,7 +90,16 @@ export interface ZipSource {
   notice?: string;
 }
 
-export type Source = GitSource | ZipSource;
+/**
+ * One compressed tarball on its publisher's server. It cannot be read member
+ * by member, so it is unpacked whole once it passes its pin (`tar.ts`).
+ */
+export interface TarSource extends Omit<ZipSource, 'kind'> {
+  kind: 'tar';
+  grant?: Grant;
+}
+
+export type Source = GitSource | ZipSource | TarSource;
 
 /** Where a source is pinned, as the licence copies and the build's errors say it. */
 export function pinOf(source: Source): string {
@@ -198,6 +223,26 @@ export const SOURCES = {
     checked: '2026-10-04',
     usedFor: 'DRS kit, DRS brushes',
     notice: 'Drum samples provided by DrumGizmo.org.',
+  },
+  salamander: {
+    kind: 'tar',
+    archive: 'https://archive.org/download/SalamanderDrumkit/salamanderDrumkit.tar.bz2',
+    bytes: 387_611_727,
+    // checked against the md5 archive.org publishes, af8e2067668a7f438e7d981877fb771f, on 2026-10-04
+    sha256: '34e746ec1721bb530b1caf5b17443ae3cde45a2cce1a80e2637e4c11d6f1e3f5',
+    title: 'Salamander Drumkit',
+    author: 'Alexander Holm',
+    url: 'https://rytmenpinne.wordpress.com/sounds-and-such/salamander-drumkit/',
+    licence: 'public-domain',
+    // the archive's README says CC BY-SA 3.0, from 2012; the author made it
+    // public domain in 2022, on their own page
+    licenceFile: 'REAMDE',
+    grant: {
+      quote: "As of 4.3.2022, this is now public domain! Have fun with it, it's yours and noones!",
+      at: 'https://rytmenpinne.wordpress.com/sounds-and-such/salamander-drumkit/',
+    },
+    checked: '2026-10-04',
+    usedFor: 'Splash, china and second crash for the kits without them',
   },
 } as const satisfies Record<string, Source>;
 
