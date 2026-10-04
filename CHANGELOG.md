@@ -28,7 +28,8 @@ release process.
   and never runs in CI. The five recorded kits are re-cut through it, with
   2–3 round-robins on every hat, snare and ride (Dusty sampler and Trap stay
   one-shots); Muldjord gains its toms. A layered kit slot takes an optional
-  `trim`, applied by the sampler, and the five pack kits' `trim` is 1.
+  `trim`, applied by the sampler and served per slot by
+  `GET /api/v1/catalogue/kits`; the five pack kits' `trim` is 1.
   `PackSource` plays a kit from one take per layer and decodes the rest when
   idle, and keeps two kits decoded (`DECODED_KITS`).
 

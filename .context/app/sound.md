@@ -151,7 +151,8 @@ to the bus, centred.
   kits store. `slotLayers()` reads it as one take per layer, so it plays
   exactly as before.
 - **The layered shape** is what the 9-iii pipeline writes.
-- **`GET /api/v1/catalogue/kits`** serves `layers` with every take's URL, and
+- **`GET /api/v1/catalogue/kits`** serves `layers` with every take's URL,
+  each slot's `trim` (1 where it has none), and
   keeps `velocities` and `urls` (the first take of each layer) for clients
   written before.
 

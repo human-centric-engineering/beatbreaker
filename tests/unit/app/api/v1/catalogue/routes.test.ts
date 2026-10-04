@@ -224,6 +224,24 @@ describe('GET /api/v1/catalogue/kits', () => {
     expect(h.urls).toEqual([at('h-0a.m4a'), at('h-1a.m4a')]);
   });
 
+  it("serves each slot's level trim, and 1 for a slot that has none", async () => {
+    const trimmed = {
+      ...testKit('muldjord'),
+      samples: {
+        slots: {
+          s: { layers: [{ v: 1, files: ['s-0-0.m4a'] }], trim: 0.83 },
+          k: { v: [1], files: ['k-0.mp3'] },
+        },
+      },
+    };
+    vi.mocked(listKits).mockResolvedValue([trimmed]);
+
+    const { data } = await body(await KITS(get('kits')));
+    const slots = (data as Array<{ samples: Record<string, { trim: number }> }>)[0].samples;
+    expect(slots.s.trim).toBe(0.83);
+    expect(slots.k.trim).toBe(1);
+  });
+
   it('leaves samples null for a kit that synthesises its voices', async () => {
     const { data } = await body(await KITS(get('kits')));
     const kits = data as Array<{ samples: unknown; engine: string }>;

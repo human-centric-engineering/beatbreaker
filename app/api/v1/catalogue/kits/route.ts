@@ -14,7 +14,7 @@
 import { catalogueResponse } from '@/app/api/v1/catalogue/_shared';
 import { getRouteLogger } from '@/lib/api/context';
 import { listKits } from '@/lib/app/breaks/catalogue/data';
-import { type KitSampleSlot, slotLayers } from '@/lib/app/breaks/kit';
+import { type KitSampleSlot, slotLayers, slotTrim } from '@/lib/app/breaks/kit';
 
 /** Where the recorded kits are served from. */
 const BASE = '/kits';
@@ -23,12 +23,14 @@ const BASE = '/kits';
  * A slot as a client reads it. `layers` is every velocity layer with all its
  * round-robins (Phase 9). `velocities` and `urls` are the shape this route
  * served before round-robins — one file per layer, the first of each — kept
- * so a client written against it still plays.
+ * so a client written against it still plays. `trim` is the slot's level, a
+ * gain to multiply in beside the kit's own `trim` (1 where a slot has none).
  */
 interface SlotOut {
   velocities: number[] | null;
   urls: string[];
   layers: Array<{ velocity: number; urls: string[] }>;
+  trim: number;
 }
 
 function withUrls(
@@ -46,6 +48,7 @@ function withUrls(
           velocities: 'layers' in spec ? layers.map((l) => l.v) : spec.v,
           urls: layers.map((l) => url(l.files[0])),
           layers: layers.map((l) => ({ velocity: l.v, urls: l.files.map(url) })),
+          trim: slotTrim(spec),
         },
       ];
     })
