@@ -59,6 +59,7 @@ import {
   README_START,
 } from '@/scripts/kits/credits';
 import { pinOf, SOURCES, type SourceId } from '@/scripts/kits/sources';
+import { tarFile, tarTree } from '@/scripts/kits/tar';
 import { zipFile, zipTree } from '@/scripts/kits/zip';
 
 const ROOT = process.cwd();
@@ -141,7 +142,12 @@ class Builder {
     let tree = this.trees.get(id);
     if (!tree) {
       const source = SOURCES[id];
-      tree = source.kind === 'zip' ? await zipTree(source) : await treeOf(source);
+      tree =
+        source.kind === 'zip'
+          ? await zipTree(source)
+          : source.kind === 'tar'
+            ? await tarTree(source)
+            : await treeOf(source);
       this.trees.set(id, tree);
     }
     return tree;
@@ -153,7 +159,9 @@ class Builder {
     const local =
       source.kind === 'zip'
         ? await zipFile(source, path)
-        : await fetchFile(source, await this.tree(id), path);
+        : source.kind === 'tar'
+          ? await tarFile(source, path)
+          : await fetchFile(source, await this.tree(id), path);
     let files = this.used.get(id);
     if (!files) this.used.set(id, (files = new Map<string, string>()));
     files.set(path, sha256(readFileSync(local)));
@@ -249,7 +257,9 @@ class Builder {
       const reference = piece.matchOn
         ? await this.choose('matchOn', piece.matchOn, piece.role)
         : choices[0];
-      const needed = amp(REFERENCE_DB + ROLE_TARGET_DB[piece.role] - reference.topDb);
+      const needed = amp(
+        REFERENCE_DB + ROLE_TARGET_DB[piece.role] + (piece.level ?? 0) - reference.topDb
+      );
       const split = splitGain(needed, Math.max(...choices.map((c) => c.peak)));
       const trim = round(split.trim, 3);
       const bake = round(split.bake, 3);
@@ -301,7 +311,7 @@ class Builder {
         ...Object.fromEntries(files),
       });
       out[id] =
-        source.kind === 'zip'
+        source.kind !== 'git'
           ? {
               archive: source.archive,
               sha256: source.sha256,
@@ -323,10 +333,23 @@ class Builder {
     for (const id of ids) {
       const source = SOURCES[id];
       const text = readFileSync(await this.file(id, source.licenceFile), 'utf8');
+      const from =
+        source.kind === 'git'
+          ? `${pinOf(source)}/${source.licenceFile}`
+          : `${source.licenceFile} in ${pinOf(source)}`;
+      const grant = 'grant' in source ? source.grant : undefined;
       const head = [
         `${source.title} — ${source.author}`,
         `${source.url}`,
-        `Licence: ${source.licence}, read from ${source.kind === 'git' ? `${pinOf(source)}/${source.licenceFile}` : `${source.licenceFile} in ${pinOf(source)}`} on ${source.checked}.`,
+        ...(grant
+          ? [
+              `Licence: ${source.licence}, granted by the author at ${grant.at}, read on ${source.checked}:`,
+              '',
+              `  "${grant.quote}"`,
+              '',
+              `Below is ${from}, which is older than that grant and no longer its licence.`,
+            ]
+          : [`Licence: ${source.licence}, read from ${from} on ${source.checked}.`]),
         '',
         '---',
         '',

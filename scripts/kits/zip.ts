@@ -9,27 +9,14 @@
  * refuses the rest: no zip64, no encryption, members stored or deflated.
  */
 
-import { createHash } from 'node:crypto';
-import {
-  closeSync,
-  createReadStream,
-  createWriteStream,
-  mkdirSync,
-  openSync,
-  readSync,
-  renameSync,
-  statSync,
-  writeFileSync,
-} from 'node:fs';
-import { basename, dirname, join } from 'node:path';
-import { Readable } from 'node:stream';
-import { pipeline } from 'node:stream/promises';
-import type { ReadableStream as WebReadableStream } from 'node:stream/web';
+import { closeSync, mkdirSync, openSync, readSync, writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
 import { crc32, inflateRawSync } from 'node:zlib';
 
 import { z } from 'zod';
 
-import { CACHE, inCache, readCached } from '@/scripts/kits/fetch';
+import { archiveCacheDir as cacheDir, archiveOf } from '@/scripts/kits/archive';
+import { inCache, readCached } from '@/scripts/kits/fetch';
 import type { ZipSource } from '@/scripts/kits/sources';
 
 export interface Member {
@@ -106,56 +93,6 @@ export function extract(read: ReadAt, name: string, m: Member): Buffer {
     throw new Error(`${name}: does not match its CRC32 and length in the archive`);
   }
   return out;
-}
-
-function archivePath(source: ZipSource): string {
-  return join(CACHE, 'archives', basename(new URL(source.archive).pathname));
-}
-
-function cacheDir(source: ZipSource): string {
-  return join(CACHE, `${basename(new URL(source.archive).pathname)}@${source.sha256.slice(0, 16)}`);
-}
-
-async function download(source: ZipSource, file: string): Promise<void> {
-  console.log(`  downloading ${source.archive} (${(source.bytes / 1e9).toFixed(1)} GB, once)`);
-  const res = await fetch(source.archive);
-  if (!res.ok || !res.body) throw new Error(`${source.archive}: ${res.status} ${res.statusText}`);
-  mkdirSync(dirname(file), { recursive: true });
-  const part = `${file}.part`;
-  await pipeline(Readable.fromWeb(res.body as WebReadableStream), createWriteStream(part));
-  renameSync(part, file);
-}
-
-async function sha256Of(file: string): Promise<string> {
-  const hash = createHash('sha256');
-  await pipeline(createReadStream(file), hash);
-  return hash.digest('hex');
-}
-
-const verified = new Set<string>();
-
-/** The archive, downloaded if it is not cached, and checked against its pin once a build. */
-async function archiveOf(source: ZipSource): Promise<string> {
-  const file = archivePath(source);
-  if (verified.has(file)) return file;
-  let size: number | undefined;
-  try {
-    size = statSync(file).size;
-  } catch {
-    await download(source, file);
-    size = statSync(file).size;
-  }
-  if (size !== source.bytes) {
-    throw new Error(
-      `${file}: ${size} bytes, sources.ts pins ${source.bytes}; delete it to re-fetch`
-    );
-  }
-  const got = await sha256Of(file);
-  if (got !== source.sha256) {
-    throw new Error(`${source.archive}: sha256 ${got}, sources.ts pins ${source.sha256}`);
-  }
-  verified.add(file);
-  return file;
 }
 
 function reader(file: string): { read: ReadAt; close: () => void } {

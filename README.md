@@ -159,17 +159,18 @@ when samples are embedded in a distributed page.
 
 <!-- kit-credits:start -->
 
-| Source                                                                                                                      | Licence                                                       | Used for                                 |
-| --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | ---------------------------------------- |
-| [Virtuosity Drums](https://github.com/sfzinstruments/virtuosity_drums) — Versilian Studios & Karoryfer Samples              | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | Jazz kit, recorded percussion            |
-| [Versilian Community Sample Library](https://github.com/sgossner/VCSL) — Versilian Studios                                  | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | Woodblock, handclaps, tambourine         |
-| [Swirly Drums](https://github.com/sfzinstruments/karoryfer.swirly-drums) — Karoryfer Samples                                | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | Brush kit                                |
-| [MuldjordKit](https://github.com/freepats/muldjordkit) — Lars Muldjord, FreePats stereo version                             | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)     | Muldjord kit                             |
-| [Soulful Vintage, Hard Trap](https://github.com/Boochi44/free-drum-samples) — Boochi44, from Michael Fischer's TR-808 set   | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | Dusty sampler, Trap kit                  |
-| [Big Rusty Drums](https://github.com/sfzinstruments/karoryfer.big-rusty-drums) — Karoryfer Samples                          | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | Big Rusty kit; the Gogodze kit’s cymbals |
-| [Unruly Drums](https://github.com/sfzinstruments/karoryfer.unruly-drums) — Karoryfer Samples                                | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | Unruly kit                               |
-| [Gogodze Phu Vol II](https://github.com/sfzinstruments/karoryfer.gogodze-phu-vol-ii) — Karoryfer Lecolds                    | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | Gogodze kit                              |
-| [DRSKit](https://drumgizmo.org/wiki/doku.php?id=kits:drskit) — Lars and Deva Muldjord, DrumGizmo, on a kit lent by DRSDrums | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)     | DRS kit, DRS brushes                     |
+| Source                                                                                                                      | Licence                                                             | Used for                                                 |
+| --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | -------------------------------------------------------- |
+| [Virtuosity Drums](https://github.com/sfzinstruments/virtuosity_drums) — Versilian Studios & Karoryfer Samples              | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)       | Jazz kit, recorded percussion                            |
+| [Versilian Community Sample Library](https://github.com/sgossner/VCSL) — Versilian Studios                                  | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)       | Woodblock, handclaps, tambourine                         |
+| [Swirly Drums](https://github.com/sfzinstruments/karoryfer.swirly-drums) — Karoryfer Samples                                | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)       | Brush kit                                                |
+| [MuldjordKit](https://github.com/freepats/muldjordkit) — Lars Muldjord, FreePats stereo version                             | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)           | Muldjord kit                                             |
+| [Soulful Vintage, Hard Trap](https://github.com/Boochi44/free-drum-samples) — Boochi44, from Michael Fischer's TR-808 set   | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)       | Dusty sampler, Trap kit                                  |
+| [Big Rusty Drums](https://github.com/sfzinstruments/karoryfer.big-rusty-drums) — Karoryfer Samples                          | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)       | Big Rusty kit; the Gogodze kit’s cymbals                 |
+| [Unruly Drums](https://github.com/sfzinstruments/karoryfer.unruly-drums) — Karoryfer Samples                                | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)       | Unruly kit                                               |
+| [Gogodze Phu Vol II](https://github.com/sfzinstruments/karoryfer.gogodze-phu-vol-ii) — Karoryfer Lecolds                    | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)       | Gogodze kit                                              |
+| [DRSKit](https://drumgizmo.org/wiki/doku.php?id=kits:drskit) — Lars and Deva Muldjord, DrumGizmo, on a kit lent by DRSDrums | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)           | DRS kit, DRS brushes                                     |
+| [Salamander Drumkit](https://rytmenpinne.wordpress.com/sounds-and-such/salamander-drumkit/) — Alexander Holm                | [Public domain](https://creativecommons.org/publicdomain/mark/1.0/) | Splash, china and second crash for the kits without them |
 
 **Drum samples provided by DrumGizmo.org.**
 

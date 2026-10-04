@@ -18,6 +18,16 @@ release process.
 
 ### Added
 
+- **Recorded articulations for the round-one kits (BeatBreaker Phase
+  9-iv-b).** Big Rusty, DRS kit, DRS brushes, Unruly and Gogodze gain
+  recordings of the rimshot, half-open hat, second crash, china and splash
+  where their sources have them, and Salamander Drumkit's splash, china and
+  20" crash (public domain) where they do not. The pipeline gains a `tar`
+  source kind, unpacked whole once its archive passes its sha256 pin; a
+  source's `grant`, for a licence the author changed outside the archive;
+  and a piece's `level`. A kit slot marked `late` decodes in the idle pass
+  only, so a kit's first play costs what it did.
+
 - **New articulations (BeatBreaker Phase 9-iv-a).** The snare gains rimshot,
   flam, drag and buzz (step values 5–8), the hi-hat a half-open value, the
   crash lane crash 2, china and splash, and each tom a flam. They are written,

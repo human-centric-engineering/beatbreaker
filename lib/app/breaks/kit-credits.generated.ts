@@ -98,5 +98,14 @@ export const KIT_CREDITS: KitCredit[] = [
     "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
     "usedFor": "DRS kit, DRS brushes",
     "notice": "Drum samples provided by DrumGizmo.org."
+  },
+  {
+    "id": "salamander",
+    "title": "Salamander Drumkit",
+    "author": "Alexander Holm",
+    "url": "https://rytmenpinne.wordpress.com/sounds-and-such/salamander-drumkit/",
+    "licence": "Public domain",
+    "licenceUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "usedFor": "Splash, china and second crash for the kits without them"
   }
 ];

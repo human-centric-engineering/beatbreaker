@@ -187,7 +187,7 @@ describe('the build lock', () => {
     for (const [id, used] of Object.entries(lock.sources)) {
       const source = SOURCES[id as keyof typeof SOURCES];
       expect(source, id).toBeDefined();
-      if (source.kind === 'zip') {
+      if (source.kind !== 'git') {
         expect(used, id).toMatchObject({ archive: source.archive, sha256: source.sha256 });
       } else {
         expect(used, id).toMatchObject({ repo: source.repo, commit: source.commit });
@@ -199,6 +199,17 @@ describe('the build lock', () => {
 
 describe('licences and credits', () => {
   const used = Object.keys(lock.sources);
+
+  it('quotes the grant above a licence file the author has since replaced', () => {
+    for (const id of used) {
+      const source = SOURCES[id as keyof typeof SOURCES];
+      if (!('grant' in source)) continue;
+      const text = readFileSync(join(ROOT, 'LICENSES', `${id}.txt`), 'utf8');
+      const [head] = text.split('\n---\n');
+      expect(head, id).toContain(source.grant.quote);
+      expect(head, id).toContain(source.grant.at);
+    }
+  });
 
   it("ships each source's own licence file", () => {
     expect(used.length).toBeGreaterThan(0);
@@ -240,9 +251,10 @@ describe('budgets (sound-plan.md §9)', () => {
   );
 
   it.each(Object.keys(manifest))('%s can play after 0.8 MB: one take of each layer', (pack) => {
-    const first = Object.values(manifest[pack].slots).flatMap((spec) =>
-      slotLayers(spec).map((l) => l.files[0])
-    );
+    // an articulation (`late`) decodes in the idle pass, with the other takes
+    const first = Object.entries(manifest[pack].slots)
+      .filter(([slot]) => !SLOT_BY_ID[slot]?.late)
+      .flatMap(([, spec]) => slotLayers(spec).map((l) => l.files[0]));
     expect(bytesOf(pack, first)).toBeLessThanOrEqual(BUDGET.firstLoad);
   });
 

@@ -224,7 +224,7 @@ export const KITS: Record<string, Kit> = {
     trim: 1,
     hint: 'A 1980s Polish kit with a damped 24" kick and a wooden snare, played hard. The rock kit: thick, a bit rough, and with a big wash of cymbal over it.',
     credit:
-      'Big Rusty Drums by Karoryfer Samples · CC0 1.0 (public domain). Close mics and overheads mixed to mono, trimmed and re-encoded for the web.',
+      'Big Rusty Drums by Karoryfer Samples · CC0 1.0 (public domain). Splash from Salamander Drumkit by Alexander Holm · public domain. Close mics and overheads mixed to mono, trimmed and re-encoded for the web.',
     master: { lp: 18000, drive: 1.08, room: 0.12 },
     k: { rate: 1, level: 0.95, room: 0.03 },
     s: { rate: 1, level: 0.95, room: 0.12 },
@@ -242,7 +242,7 @@ export const KITS: Record<string, Kit> = {
     trim: 1,
     hint: 'A studio kit recorded on thirteen mics by the DrumGizmo team: even, clear and well behaved, with a Paiste ride and crash. The one to reach for when you want a kit that sounds like a record.',
     credit:
-      'DRSKit by Lars and Deva Muldjord (DrumGizmo), on a kit lent by DRSDrums · CC BY 4.0. Drum samples provided by DrumGizmo.org. Close mics, overheads and room mixed to mono, trimmed and re-encoded for the web.',
+      'DRSKit by Lars and Deva Muldjord (DrumGizmo), on a kit lent by DRSDrums · CC BY 4.0. Drum samples provided by DrumGizmo.org. China and splash from Salamander Drumkit by Alexander Holm · public domain. Close mics, overheads and room mixed to mono, trimmed and re-encoded for the web.',
     master: { lp: 18000, drive: 1.04, room: 0.1 },
     k: { rate: 1, level: 0.95, room: 0.03 },
     s: { rate: 1, level: 0.95, room: 0.1 },
@@ -258,9 +258,9 @@ export const KITS: Record<string, Kit> = {
     engine: 'pack',
     pack: 'drs-brush',
     trim: 1,
-    hint: 'The DRS kit played with brushes. The snare, hats, ride, crash and toms are brushed; the kick, the cross-stick and the foot hat are the same as with sticks, because a brush player plays those the same way. There is no ride bell with a brush, so the bell plays the ride.',
+    hint: 'The DRS kit played with brushes. The snare, hats, ride, crash and toms are brushed; the kick, the cross-stick and the foot hat are the same as with sticks, because a brush player plays those the same way. There is no ride bell with a brush, so the bell plays the ride. The half-open hat is the stick kit’s too.',
     credit:
-      'DRSKit by Lars and Deva Muldjord (DrumGizmo), on a kit lent by DRSDrums · CC BY 4.0. Drum samples provided by DrumGizmo.org. Close mics, overheads and room mixed to mono, trimmed and re-encoded for the web.',
+      'DRSKit by Lars and Deva Muldjord (DrumGizmo), on a kit lent by DRSDrums · CC BY 4.0. Drum samples provided by DrumGizmo.org. China and splash from Salamander Drumkit by Alexander Holm · public domain. Close mics, overheads and room mixed to mono, trimmed and re-encoded for the web.',
     master: { lp: 17000, drive: 1.02, room: 0.18 },
     k: { rate: 1, level: 0.95, room: 0.04 },
     s: { rate: 1, level: 1.0, room: 0.16 },
@@ -278,7 +278,7 @@ export const KITS: Record<string, Kit> = {
     trim: 1,
     hint: 'Every drum on this kit has snare wires on it, the kick included, so everything rattles a little. It has no toms: like the kit it was recorded from, its three snares, wires off, play the toms. Garage, lo-fi, and anything that should sound less tidy.',
     credit:
-      'Unruly Drums by Karoryfer Samples · CC0 1.0 (public domain). Close mics and overheads mixed to mono, trimmed and re-encoded for the web.',
+      'Unruly Drums by Karoryfer Samples · CC0 1.0 (public domain). Second crash, china and splash from Salamander Drumkit by Alexander Holm · public domain. Close mics and overheads mixed to mono, trimmed and re-encoded for the web.',
     master: { lp: 17000, drive: 1.12, room: 0.12 },
     k: { rate: 1, level: 0.95, room: 0.03 },
     s: { rate: 1, level: 0.95, room: 0.12 },
@@ -294,9 +294,9 @@ export const KITS: Record<string, Kit> = {
     engine: 'pack',
     pack: 'gogodze',
     trim: 1,
-    hint: 'A damped kit heard mostly through a deliberately lo-fi mic, with one by the window: boxy, warm and a little distant. Made for boom bap. The kit has no cymbals, so its ride and crash are Big Rusty’s, close-miked and dry.',
+    hint: 'A damped kit heard mostly through a deliberately lo-fi mic, with one by the window: boxy, warm and a little distant. Made for boom bap. The kit has no cymbals, so its ride, crashes and china are Big Rusty’s, close-miked and dry.',
     credit:
-      'Gogodze Phu Vol II by Karoryfer Lecolds · CC0 1.0 (public domain). Ride and crash from Big Rusty Drums by Karoryfer Samples · CC0 1.0. Mixed to mono, trimmed and re-encoded for the web.',
+      'Gogodze Phu Vol II by Karoryfer Lecolds · CC0 1.0 (public domain). Ride, crashes and china from Big Rusty Drums by Karoryfer Samples · CC0 1.0; splash from Salamander Drumkit by Alexander Holm · public domain. Mixed to mono, trimmed and re-encoded for the web.',
     master: { lp: 12000, drive: 1.2, room: 0.1 },
     k: { rate: 1, level: 1.0, room: 0.02 },
     s: { rate: 1, level: 0.95, room: 0.1 },

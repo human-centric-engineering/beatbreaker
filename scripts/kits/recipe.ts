@@ -82,6 +82,12 @@ export interface Piece {
    * than turned up with the brushes.
    */
   matchOn?: Pick;
+  /**
+   * Where it sits against its role's level, in dB. A splash shares the
+   * crash's role and is smaller than it. For a source whose every sample was
+   * normalised, this is the only level the piece has.
+   */
+  level?: number;
 }
 
 /**

@@ -33,6 +33,9 @@ as built, and grows with each Phase 9 PR.
 - **Do not add a source without reading its licence file.** Pin the commit,
   name the file, record the date you read it (`sources.ts`). Share-alike, GPL
   and "royalty-free but not redistributable" are out (`sound-plan.md` §5).
+  Where the author has since changed the licence outside the source, as
+  Salamander's did (CC BY-SA in the archive, public domain on their page in
+  2022), quote the new grant and where it is in the source's `grant`.
 - **Do not normalise a sample.** A layer's level against its neighbours is the
   dynamics. Level matching is a slot's `trim`, applied at play time.
 - **Do not connect a voice to `bus` directly.** Go through `send()`, which
@@ -81,8 +84,11 @@ bus → drive → top end (lowpass) → glue compressor → master → ½ → ce
   Open hats keep a floor (`OPEN_HAT_MIN`), so the two never meet on note 46.
 - **Five slots joined the kit:** `sRim`, `hHalf`, `c2`, `cChina` and
   `cSplash`. None has a `fall`: a kit without a recording plays the
-  synthesised voice, which keeps the articulation audible. 9-iv-b gives the
-  round-one kits recordings of them.
+  synthesised voice, which keeps the articulation audible. 9-iv-b gave the
+  round-one kits recordings of them: every one each kit's own source has,
+  and Salamander's splash, china and 20" crash where it has none. DRSKit and
+  Gogodze have no rimshot, so theirs is the synthesised voice. The five
+  earlier packs have none yet.
 
 ## Humanise
 
@@ -205,7 +211,10 @@ Percussion strokes take round-robins the same way, by instrument and stroke.
 - **Two passes.** `load()` decodes the first take of each layer that decodes,
   and the kit plays from those. The remaining takes decode when the page is
   idle (`requestIdleCallback`, or 200 ms where Safari has none) and join their
-  layers.
+  layers. A `late` slot (the five 9-iv articulations) decodes only in that
+  idle pass, so the first play costs what it did before them; until it lands,
+  its synthesised voice plays it. The first-load budget counts the slots that
+  are not `late`.
 - **Two kits decoded.** The one playing and the one before it
   (`DECODED_KITS`). Picking a third lets go of the oldest; picking a kit that
   was let go decodes it again, and the synth covers the first bar.
@@ -215,9 +224,11 @@ Percussion strokes take round-robins the same way, by instrument and stroke.
 ### The pipeline (`scripts/kits/`)
 
 ```
-sources.ts   pinned libraries: a git repo at a commit, or a zip archive by its
-             sha256; licence file, date read, credit
-zip.ts       a zip source: downloaded once, members read via the central directory
+sources.ts   pinned libraries: a git repo at a commit, or a zip or tar archive
+             by its sha256; licence file, date read, credit
+archive.ts   an archive source: downloaded once, checked against its pin
+zip.ts       a zip source: members read via the central directory
+tar.ts       a tar source: unpacked whole by the system tar, files hashed
 drumgizmo.ts which channel of a DrumGizmo stroke is which mic
 recipes/     per pack: which strokes make which slot, mics and weights,
              how many layers and takes
@@ -235,6 +246,10 @@ For each slot the build:
    and checked against its CRC32 (`zip.ts`). DRSKit's archive is 2.8 GB. The
    archive's directory and the members already extracted are kept in the
    cache, so a build that needs nothing new from it neither reads nor hashes it.
+   A tar source (Salamander's `.tar.bz2`) has no index to read a member by,
+   so once its archive passes its pin it is unpacked whole, links refused, and
+   every file's sha256 kept in `tree.json`; a file that no longer matches is
+   extracted again on its own and renamed into place (`tar.ts`).
 3. **Mixes** the mics to mono by weight. A DrumGizmo stroke is one WAV with
    every mic in it: a pick's `channels` name the mics, the instrument's own
    `<Inst>.xml` says which channel each is (never by position), and ffmpeg's
@@ -252,7 +267,9 @@ For each slot the build:
    which is measured and never shipped: a brush kit's borrowed stick foot hat
    keeps the stick kit's level. What the trim's ceiling of 4 cannot reach is
    baked into every sample of the piece alike, up to −1 dBFS (`splitGain`), so
-   a quietly recorded piece still gets there.
+   a quietly recorded piece still gets there. A piece's `level` moves its
+   target by a few dB: Salamander normalised every sample, so its splash
+   (−4 dB) and china (+1 dB) have no level of their own against the crash.
 
 Then it writes the manifest (which the catalogue seed reads), the lock (every
 source file's and output's sha256, each output's bytes and seconds), each
