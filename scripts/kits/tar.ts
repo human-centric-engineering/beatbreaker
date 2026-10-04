@@ -14,8 +14,12 @@
 
 import { execFileSync } from 'node:child_process';
 import {
+  closeSync,
+  constants,
+  fstatSync,
   lstatSync,
   mkdirSync,
+  openSync,
   readdirSync,
   readFileSync,
   renameSync,
@@ -29,6 +33,21 @@ import { z } from 'zod';
 import { archiveCacheDir, archiveOf } from '@/scripts/kits/archive';
 import { inCache, readCached, sha256 } from '@/scripts/kits/fetch';
 import type { TarSource } from '@/scripts/kits/sources';
+
+/**
+ * A regular file's bytes, read through one descriptor that refuses a link:
+ * what is checked is what is read, with no window between the two for the
+ * path to be swapped.
+ */
+function readRegular(file: string): Buffer {
+  const fd = openSync(file, constants.O_RDONLY | constants.O_NOFOLLOW);
+  try {
+    if (!fstatSync(fd).isFile()) throw new Error(`${file}: not a regular file`);
+    return readFileSync(fd);
+  } finally {
+    closeSync(fd);
+  }
+}
 
 /** Every regular file under `dir`, by its path from `dir` with `/` separators. */
 function walk(dir: string, root = dir): string[] {
@@ -56,7 +75,7 @@ async function unpack(source: TarSource): Promise<Map<string, string>> {
   mkdirSync(part, { recursive: true });
   console.log(`  unpacking ${source.archive}`);
   execFileSync('tar', ['-xf', archive, '-C', part, '--no-same-owner'], { stdio: 'inherit' });
-  const tree = new Map(walk(part).map((p) => [p, sha256(readFileSync(join(part, p)))]));
+  const tree = new Map(walk(part).map((p) => [p, sha256(readRegular(join(part, p)))]));
   rmSync(join(dir, 'files'), { recursive: true, force: true });
   renameSync(part, join(dir, 'files'));
   writeFileSync(join(dir, 'tree.json'), JSON.stringify(Object.fromEntries(tree)));
@@ -107,12 +126,14 @@ function repair(source: TarSource, path: string, want: string, local: string): P
       execFileSync('tar', ['-xf', archive, '-C', part, '--no-same-owner', path], {
         stdio: 'inherit',
       });
-      const got = inCache(part, path);
-      if (!lstatSync(got).isFile() || sha256(readFileSync(got)) !== want) {
+      const bytes = readRegular(inCache(part, path));
+      if (sha256(bytes) !== want) {
         throw new Error(`${source.archive}: ${path} is not what was unpacked before`);
       }
+      // the bytes just checked, written beside the file and renamed over it
       mkdirSync(dirname(local), { recursive: true });
-      renameSync(got, local);
+      writeFileSync(`${local}.part`, bytes);
+      renameSync(`${local}.part`, local);
     } finally {
       rmSync(part, { recursive: true, force: true });
     }
