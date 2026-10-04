@@ -4,9 +4,11 @@ import {
   styleGroupsOf,
   toKits,
   toLibrary,
+  toPieces,
   toStyle,
   toStyles,
 } from '@/lib/app/breaks/catalogue/rows';
+import type { CataloguePiece } from '@/lib/app/breaks/catalogue/pieces';
 import type {
   CatalogueKit,
   CatalogueLibrary,
@@ -235,9 +237,40 @@ export function styleLookup(
   return (key) => byKey.get(key);
 }
 
+/* ---- pieces (9-v) ---------------------------------------------------- */
+
+const readPieces = memoised('pieces', async (): Promise<CataloguePiece[]> => {
+  const rows = await prisma.kitPiece.findMany({
+    select: {
+      key: true,
+      label: true,
+      role: true,
+      source: true,
+      folder: true,
+      slots: true,
+      credit: true,
+    },
+    orderBy: { position: 'asc' },
+  });
+  const { rows: pieces, problems } = toPieces(rows);
+  report(problems);
+  return pieces;
+});
+
+/** Every piece, in build order: what a kit slot may name. */
+export async function listPieces(): Promise<CataloguePiece[]> {
+  return readPieces();
+}
+
+/** The pieces by key, for resolving a kit's slots. */
+export async function pieceMap(): Promise<Map<string, CataloguePiece>> {
+  return new Map((await readPieces()).map((p) => [p.key, p]));
+}
+
 /* ---- kits ----------------------------------------------------------- */
 
 const readKits = memoised('kits', async (): Promise<CatalogueKit[]> => {
+  const pieces = await pieceMap();
   const rows = await prisma.kit.findMany({
     where: PUBLIC,
     select: {
@@ -252,7 +285,7 @@ const readKits = memoised('kits', async (): Promise<CatalogueKit[]> => {
     },
     orderBy: { position: 'asc' },
   });
-  const { rows: kits, problems } = toKits(rows);
+  const { rows: kits, problems } = toKits(rows, pieces);
   report(problems);
   return kits;
 });

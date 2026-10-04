@@ -304,8 +304,9 @@ describe('DELETE /api/v1/samples/:id', () => {
     expect((await json(res)).data.usage.count).toBe(1);
     expect(db.samples.map((s) => s.id)).toEqual([snare.id]);
     expect(files.has(kick.storageKey)).toBe(false);
+    // the slot that kept its sample is written back in the shape 9-v stores
     expect(db.kits.find((k) => k.id === kit.id)?.samples).toEqual({
-      slots: { s: { v: null, files: [snare.id] } },
+      slots: { s: { sample: snare.id } },
     });
   });
 

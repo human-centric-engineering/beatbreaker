@@ -40,4 +40,11 @@ describe('panFor (Phase 9)', () => {
     expect(panFor('k', 'drummer')).toBe(0);
     expect(Math.abs(panFor('nope', 'audience'))).toBe(0);
   });
+
+  it("takes a kit's own pan for a lane it names, mirrored the same way, and the default for the rest (9-v)", () => {
+    const pans = { h: 0.7 };
+    expect(panFor('h', 'drummer', pans)).toBe(0.7);
+    expect(panFor('h', 'audience', pans)).toBe(-0.7);
+    expect(panFor('r', 'drummer', pans)).toBe(DEFAULT_PAN.r);
+  });
 });

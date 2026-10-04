@@ -45,9 +45,14 @@ export const gogodze: Recipe = {
         hHalf: gz('hh', 2, 2),
       },
     },
-    { role: 'ride', slots: { r: bigRustyCymbals.r, rBell: bigRustyCymbals.rBell } },
+    {
+      role: 'ride',
+      label: 'Big Rusty ride, close mic',
+      slots: { r: bigRustyCymbals.r, rBell: bigRustyCymbals.rBell },
+    },
     {
       role: 'crash',
+      label: 'Big Rusty crashes and china, close mic',
       slots: { c: bigRustyCymbals.c, c2: bigRustyCymbals.c2, cChina: bigRustyCymbals.cChina },
     },
     salamanderSplash,

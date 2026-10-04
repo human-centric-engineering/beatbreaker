@@ -51,10 +51,14 @@ export class YourSampleSource implements SampleSource {
     this.onChange = onChange;
   }
 
-  /** The sample id in each filled slot of `kit`. */
+  /**
+   * The sample id in each slot of `kit` that holds one of yours. A slot
+   * holding a piece (9-v) names its folder and is the pack source's.
+   */
   private static ids(kit: ResolvedKit | null | undefined): Array<[string, string]> {
     if (kit?.engine !== 'user') return [];
     return Object.entries(kit.samples.slots ?? {})
+      .filter(([, spec]) => !spec.folder)
       .map(([slot, spec]): [string, string] => [slot, slotFiles(spec)[0] ?? ''])
       .filter(([, id]) => id !== '');
   }
@@ -151,25 +155,44 @@ export class YourSampleSource implements SampleSource {
     const slot = SLOT_BY_ID[slotId];
     if (!slot) return false;
 
+    const specs = kit.samples.slots ?? {};
+    // a piece's slot, or one that would fall back on a piece, is the pack source's (9-v)
+    const piece = (id: string): boolean => !!specs[id]?.folder;
+    if (piece(slotId) || (!specs[slotId] && slot.fall && piece(slot.fall))) return false;
+
     const bufferFor = (id: string | undefined) => {
-      const spec = id ? kit.samples.slots?.[id] : undefined;
+      const spec = id ? specs[id] : undefined;
       const sampleId = spec ? slotFiles(spec)[0] : undefined;
       return sampleId ? this.buffers.get(sampleId) : undefined;
     };
 
     let take = bufferFor(slotId);
+    let from = slotId;
     let soften = 1;
     if (!take && slot.fall) {
       take = bufferFor(slot.fall);
+      from = slot.fall;
       // no ghost sample in the kit: the hit, played quieter
       if (take && slotId === 'sGhost') soften = 0.62;
     }
     if (!take) return false;
 
     const P = engine.sound?.[slot.voice] ?? kit[slot.voice as 'k'];
-    const rate = (P.rate ?? 1) * (1 + (engine.rand() - 0.5) * 0.01);
-    const gain = vel * (P.level ?? 1) * (kit.trim ?? 1) * soften;
-    const played = engine.playBuf(t, take.buf, gain, slot.voice, rate, take.off);
+    // the slot's own Level, Tune and Decay (9-v)
+    const spec = specs[from];
+    const rate =
+      (P.rate ?? 1) * 2 ** ((spec?.tune ?? 0) / 1200) * (1 + (engine.rand() - 0.5) * 0.01);
+    const gain = vel * (P.level ?? 1) * (spec?.level ?? 1) * (kit.trim ?? 1) * soften;
+    const played = engine.playBuf(
+      t,
+      take.buf,
+      gain,
+      slot.voice,
+      rate,
+      take.off,
+      undefined,
+      spec?.decay
+    );
     if (slotId === 'hOpen' || slotId === 'hHalf') engine.noteHatTail(played);
     return true;
   }

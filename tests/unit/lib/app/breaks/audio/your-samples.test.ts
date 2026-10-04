@@ -303,3 +303,49 @@ describe('hit()', () => {
     expect(source.hit(audio, 0, 'not-a-slot', 1)).toBe(false);
   });
 });
+
+describe('a kit of yours with pieces in it (9-v)', () => {
+  /** Your kick sample, with Level, Tune and Decay, and a snare piece from the DRS pack. */
+  function mixed(): ResolvedKit {
+    return yourKitToCatalogue({
+      id: 'ckit00000000000000000001',
+      key: 'yours-a',
+      label: 'Mine',
+      slots: {
+        k: { sampleId: KICK, name: 'k.wav', audioUrl: '', level: 0.5, tune: 1200, decay: 0.6 },
+        s: {
+          piece: 'drs-s',
+          label: 'DRS kit · Snare',
+          spec: { layers: [{ v: 1, files: ['s-0-0.m4a'] }], folder: 'drs' },
+        },
+      },
+    });
+  }
+
+  it('fetches only your samples, and leaves the piece and a ghost falling back on it to the packs', async () => {
+    const kit = mixed();
+    const { audio } = initEngine(kit);
+    const source = new YourSampleSource();
+    await source.load(audio, kit);
+
+    expect(fetchMock.mock.calls.map((c) => c[0])).toEqual([`/api/v1/samples/${KICK}/audio`]);
+    expect(source.count(kit)).toBe(1);
+    expect(source.hit(audio, 0, 's', 1)).toBe(false);
+    expect(source.hit(audio, 0, 'sGhost', 0.3)).toBe(false);
+  });
+
+  it("plays your sample at its slot's Level and Tune, and hands its Decay to playBuf", async () => {
+    const kit = mixed();
+    const { audio } = initEngine(kit);
+    const source = new YourSampleSource();
+    await source.load(audio, kit);
+    const playBuf = vi.spyOn(audio, 'playBuf');
+
+    expect(source.hit(audio, 0, 'k', 0.8)).toBe(true);
+    const [, , gain, , rate, , , decay] = playBuf.mock.calls[0];
+    expect(gain).toBeCloseTo(0.8 * kit.k.level * 0.5, 9);
+    // an octave up is twice the rate
+    expect(rate).toBeCloseTo(kit.k.rate * 2, 9);
+    expect(decay).toBe(0.6);
+  });
+});

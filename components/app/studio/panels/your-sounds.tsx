@@ -131,7 +131,13 @@ export function SampleSlots({ kit }: { kit: YourKitView }) {
                 {slot.opt ? <span className="opt">optional</span> : null}
               </b>
               <span className="fn mono">
-                {busy === slot.id ? 'Uploading…' : (filled?.name ?? '—')}
+                {busy === slot.id
+                  ? 'Uploading…'
+                  : filled
+                    ? 'sampleId' in filled
+                      ? filled.name
+                      : filled.label
+                    : '—'}
               </span>
               <label className="mini">
                 {filled ? 'Replace' : 'Load'}

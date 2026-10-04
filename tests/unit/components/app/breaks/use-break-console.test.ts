@@ -57,7 +57,8 @@ const fakes = vi.hoisted(() => {
   }
   class FakePacks {
     usePercSamples = true;
-    count = vi.fn(() => 5);
+    // five slots of a recorded kit; a kit of yours here holds samples only (no pieces)
+    count = vi.fn((kit?: { engine?: string } | null) => (kit?.engine === 'pack' ? 5 : 0));
     percCount = vi.fn(() => 9);
   }
   class FakeYours {

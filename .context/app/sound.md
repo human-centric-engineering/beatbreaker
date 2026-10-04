@@ -38,6 +38,12 @@ as built, and grows with each Phase 9 PR.
   2022), quote the new grant and where it is in the source's `grant`.
 - **Do not normalise a sample.** A layer's level against its neighbours is the
   dynamics. Level matching is a slot's `trim`, applied at play time.
+- **Do not build a sample URL from the kit's `pack`.** Since 9-v a slot may
+  come from any pack (its piece's `folder`). Use the slot's `folder`, falling
+  back to the pack, as `PackSource` and `slotsWithUrls` do.
+- **Do not cache decoded samples by kit key alone.** A kit of yours keeps
+  its key when you change a slot's piece. `decodeKey()` adds the files the
+  kit names.
 - **Do not connect a voice to `bus` directly.** Go through `send()`, which
   routes into the lane's channel while a performed note plays and to the bus
   for an audition.
@@ -187,6 +193,44 @@ to the bus, centred.
   keeps `velocities` and `urls` (the first take of each layer) for clients
   written before.
 
+### Pieces (9-v)
+
+A **piece** is one instrument from one source and the slots it fills: Big
+Rusty's snare is `s`, `sGhost`, `sCross` and `sRim`. They are the `KitPiece`
+catalogue table, served by `GET /api/v1/catalogue/pieces`.
+
+- **Where they come from.** `scripts/kits/pieces.ts` derives them from the
+  recipes and the manifest; the seed writes them. Nothing new is generated,
+  and no audio moved.
+  - A piece's key is its recipe's `key`, or `<pack>-<first slot>`
+    (`bigrusty-s`).
+  - A piece lent to several packs (Salamander's splash, china and crash) is
+    one piece. Its `folder` is the first pack in `RECIPES` that has it.
+    `derivePieces` throws if another pack's copy differs.
+  - Gogodze's cymbals are Big Rusty's on the close mic, at another trim, so
+    they are pieces of their own (`gogodze-r`, `gogodze-c`).
+- **A kit slot may name a piece:** `{ piece, from?, level?, tune?, decay? }`.
+  `from` plays another of the piece's slots (any tom piece as any tom). A kit
+  of yours may also hold `{ sample }`.
+- **The catalogue resolves them** (`resolveKitSamples` in
+  `catalogue/pieces.ts`) before anything plays. A resolved slot is the
+  layered shape plus the piece's `folder` and the slot's settings. A slot
+  naming a piece that is gone is left out and logged.
+- **The recorded kits are piece maps** in the seed, each slot naming the
+  piece its own recipe fills it with. They play the same files at the same
+  trims (`tests/unit/scripts/kits/pieces.test.ts` checks every slot of every
+  kit, by sha256 where a lent piece lives in another folder).
+- **A slot's settings** (9.17):
+  - **Level** multiplies the gain (0–2).
+  - **Tune** is cents on the rate (±1200). It is pitch and speed together,
+    as a tuned drum is.
+  - **Decay** (0.2–1) shortens the gain envelope in `playBuf`: hold for half
+    of `decay` × the length, fade out by the end of it, and stop there.
+- **A kit's pans** are `samples.pan: { <lane>: −1…1 }`, as the drummer hears
+  them. They override `DEFAULT_PAN` per lane and are mirrored by `panView`. Pan
+  is per lane, not per slot: a rimshot panned away from its snare is not a
+  sound anyone wants.
+
 ### Choosing what plays (`packs.ts`)
 
 1. **Layer.** `layerFor()` takes the softest layer at least as loud as the
@@ -215,6 +259,12 @@ Percussion strokes take round-robins the same way, by instrument and stroke.
   idle pass, so the first play costs what it did before them; until it lands,
   its synthesised voice plays it. The first-load budget counts the slots that
   are not `late`.
+- **Per kit, from each slot's folder.** A slot fetches from
+  `/kits/<folder>/`, its piece's, else the kit's pack. The decoded cache is
+  keyed by `decodeKey(kit)`: the kit's key and the files it names. A kit of
+  yours that mixes pieces and samples has its pieces decoded here and its
+  samples by `YourSampleSource`. Each source leaves the other's slots alone,
+  including a slot that would fall back on one of them.
 - **Two kits decoded.** The one playing and the one before it
   (`DECODED_KITS`). Picking a third lets go of the oldest; picking a kit that
   was let go decodes it again, and the synth covers the first bar.
@@ -285,13 +335,16 @@ the container's metadata is stripped. The lock records `ffmpeg -version`.
 ### Your own samples
 
 Your own samples (`your-samples.ts`) now get the onset trim (`onsetOf`) and
-`kit.trim`, like the packs.
+`kit.trim`, like the packs, and each slot's Level, Tune and Decay (9-v). A
+slot with a `folder` is a piece, and is the packs'.
 
 ## Tests
 
 | File                                                              | Holds                                                                                                                                                               |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tests/unit/lib/app/breaks/audio/packs.test.ts`                   | Round-robins never repeat back to back; the flat shape plays as before; the shelf; the wobble bounds                                                                |
+| `tests/unit/lib/app/breaks/audio/packs.test.ts`                   | Round-robins never repeat back to back; the flat shape plays as before; the shelf; the wobble bounds; a kit from two folders; Level, Tune, Decay; mixed kits        |
+| `tests/unit/scripts/kits/pieces.test.ts`                          | Each piece once; a lent piece one key; every recorded kit as pieces plays the same files at the same trims                                                          |
+| `tests/unit/lib/app/breaks/catalogue/pieces.test.ts`              | Resolving a piece, `from`, a sample of yours, a piece that is gone                                                                                                  |
 | `tests/unit/lib/app/breaks/audio/engine.test.ts`                  | The master chain to the ceiling; the ceiling curve; lane channels, pans, room; choking every open hat; the 9-iv slots and their synthesised voices                  |
 | `tests/unit/lib/app/breaks/articulations.test.ts`                 | 9-iv end to end: the wire, the layers, graces and Humanise, MIDI write and read for every value, the critic, `tidy`, the generator, the notation key                |
 | `tests/unit/lib/app/breaks/goldens.test.ts`                       | The engraver, the generator and the MIDI export, pinned as they were before 9-iv; a golden SVG per articulation                                                     |

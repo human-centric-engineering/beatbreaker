@@ -1,5 +1,11 @@
 import type { BreakAudio, SampleSource } from '@/lib/app/breaks/audio/engine';
-import { type KitSampleSlot, SLOT_BY_ID, slotLayers, slotTrim } from '@/lib/app/breaks/kit';
+import {
+  type KitSampleSlot,
+  type ResolvedKit,
+  SLOT_BY_ID,
+  slotLayers,
+  slotTrim,
+} from '@/lib/app/breaks/kit';
 import { clamp } from '@/lib/app/breaks/rng';
 
 /**
@@ -105,12 +111,75 @@ const BASE = '/kits';
 /** How many kits stay decoded at once: the current one and the one before. */
 export const DECODED_KITS = 2;
 
+/**
+ * Whether a kit's slot plays from the packs. Every slot of a recorded kit
+ * does. A kit of yours (9-v) mixes pieces, which name their folder, and your
+ * own samples, which do not and are `YourSampleSource`'s.
+ */
+export function playsFromPacks(kit: ResolvedKit, spec: KitSampleSlot): boolean {
+  if (spec.folder) return true;
+  return kit.engine === 'pack' && !!kit.pack;
+}
+
+/** The slots of `kit` that play from the packs; empty for a synthesised kit. */
+function packSlots(kit: ResolvedKit | null | undefined): Record<string, KitSampleSlot> {
+  if (!kit || (kit.engine !== 'pack' && kit.engine !== 'user')) return {};
+  return Object.fromEntries(
+    Object.entries(kit.samples.slots ?? {}).filter(([, spec]) => playsFromPacks(kit, spec))
+  );
+}
+
+/**
+ * Each kit's decode key, worked out once per catalogue entry rather than per
+ * note. Keyed on the kit, not its slot map: two kits may share one map and
+ * still read it from different packs.
+ */
+const decodeKeys = new WeakMap<ResolvedKit, string>();
+
+/**
+ * What a kit's decoded samples are cached under: its key and which files its
+ * slots name. A kit of yours keeps its key when you change a slot's piece,
+ * and the decode it had is then the wrong one. The slots' Level, Tune and
+ * Decay are applied per hit and are not part of it.
+ */
+export function decodeKey(kit: ResolvedKit): string {
+  const have = decodeKeys.get(kit);
+  if (have !== undefined) return have;
+  const files = JSON.stringify(
+    Object.entries(packSlots(kit)).map(([slot, spec]) => [
+      slot,
+      spec.folder ?? kit.pack,
+      slotLayers(spec),
+    ])
+  );
+  // djb2: short, and it only has to tell this kit's versions apart
+  let h = 5381;
+  for (let i = 0; i < files.length; i++) h = ((h << 5) + h + files.charCodeAt(i)) | 0;
+  const key = `${kit.key}#${(h >>> 0).toString(36)}`;
+  decodeKeys.set(kit, key);
+  return key;
+}
+
+/** A file still to decode, and the folder it is in. */
+interface Pending {
+  layer: Layer;
+  files: string[];
+  folder: string;
+}
+
 /** Run `fn` when the page is idle — Safari has no `requestIdleCallback`. */
 function whenIdle(fn: () => void): void {
   if (typeof requestIdleCallback === 'function') requestIdleCallback(fn, { timeout: 2000 });
   else setTimeout(fn, 200);
 }
 
+/**
+ * The recorded kits' samples, decoded per kit.
+ *
+ * Keyed by **kit**, not pack. A recorded kit was one folder; since pieces
+ * (9-v) a kit draws each slot from its piece's folder, so two kits sharing a
+ * folder may share no slots, and a kit of yours has no pack at all.
+ */
 export class PackSource implements SampleSource {
   private readonly loaded = new Map<string, Record<string, Layer[]>>();
   private readonly loading = new Set<string>();
@@ -131,8 +200,8 @@ export class PackSource implements SampleSource {
   }
 
   /** Whether this kit's samples are in memory yet. */
-  isReady(pack: string): boolean {
-    return this.loaded.has(pack);
+  isReady(kit: ResolvedKit | null | undefined): boolean {
+    return !!kit && this.loaded.has(decodeKey(kit));
   }
 
   /**
@@ -160,9 +229,9 @@ export class PackSource implements SampleSource {
     }
   }
 
-  /** How many slots of a pack decoded, for the kit panel's status line. */
-  count(pack: string): number {
-    const p = this.loaded.get(pack);
+  /** How many of a kit's slots decoded, for the kit panel's status line. */
+  count(kit: ResolvedKit | null | undefined): number {
+    const p = kit ? this.loaded.get(decodeKey(kit)) : undefined;
     return p ? Object.keys(p).filter((k) => p[k].length).length : 0;
   }
 
@@ -175,20 +244,20 @@ export class PackSource implements SampleSource {
 
   refresh(engine: BreakAudio): void {
     const kit = engine.kit;
-    if (kit?.engine === 'pack' && kit.pack) {
-      this.touch(kit.pack);
-      void this.load(engine, kit.pack, kit.samples.slots);
+    if (kit && Object.keys(packSlots(kit)).length) {
+      this.touch(decodeKey(kit));
+      void this.load(engine, kit);
     }
     // percussion is shared, so it loads whichever kit is selected
     void this.loadPerc(engine);
   }
 
   /** One file, decoded and its onset found — or null, which is one fewer take. */
-  private async decodeFile(engine: BreakAudio, pack: string, file: string): Promise<Take | null> {
+  private async decodeFile(engine: BreakAudio, folder: string, file: string): Promise<Take | null> {
     const ctx = engine.ctx;
     if (!ctx) return null;
     try {
-      const res = await fetch(`${BASE}/${pack}/${file}`, { redirect: 'error' });
+      const res = await fetch(`${BASE}/${folder}/${file}`, { redirect: 'error' });
       const buf = await ctx.decodeAudioData(await res.arrayBuffer());
       return { buf, off: onsetOf(buf) };
     } catch {
@@ -204,9 +273,9 @@ export class PackSource implements SampleSource {
    */
   private async decode(
     engine: BreakAudio,
-    pack: string,
+    folder: string,
     spec: KitSampleSlot,
-    rest: Array<{ layer: Layer; files: string[] }>
+    rest: Pending[]
   ): Promise<Layer[]> {
     const out = await Promise.all(
       slotLayers(spec).map(async (layer): Promise<Layer> => {
@@ -214,10 +283,10 @@ export class PackSource implements SampleSource {
         let i = 0;
         let take: Take | null = null;
         while (!take && i < layer.files.length)
-          take = await this.decodeFile(engine, pack, layer.files[i++]);
+          take = await this.decodeFile(engine, folder, layer.files[i++]);
         const decoded: Layer = { v: layer.v, takes: take ? [take] : [] };
         const others = layer.files.slice(i);
-        if (take && others.length) rest.push({ layer: decoded, files: others });
+        if (take && others.length) rest.push({ layer: decoded, files: others, folder });
         return decoded;
       })
     );
@@ -226,32 +295,32 @@ export class PackSource implements SampleSource {
 
   /**
    * The second pass: the remaining round-robins, appended to their layers as
-   * they decode, then the `late` slots whole. Skipped if the pack was let go
+   * they decode, then the `late` slots whole. Skipped if the kit was let go
    * in the meantime.
    */
   private async decodeRest(
     engine: BreakAudio,
-    pack: string,
+    key: string,
     slots: Record<string, Layer[]>,
-    rest: Array<{ layer: Layer; files: string[] }>,
-    late: Array<[string, KitSampleSlot]> = []
+    rest: Pending[],
+    late: Array<[string, KitSampleSlot, string]> = []
   ): Promise<void> {
-    const live = (): boolean => slots === this.loaded.get(pack) || slots === this.perc;
-    const more = async (list: Array<{ layer: Layer; files: string[] }>): Promise<void> => {
+    const live = (): boolean => slots === this.loaded.get(key) || slots === this.perc;
+    const more = async (list: Pending[]): Promise<void> => {
       await Promise.all(
-        list.map(async ({ layer, files }) => {
+        list.map(async ({ layer, files, folder }) => {
           if (!live()) return;
-          const takes = await Promise.all(files.map((f) => this.decodeFile(engine, pack, f)));
+          const takes = await Promise.all(files.map((f) => this.decodeFile(engine, folder, f)));
           for (const take of takes) if (take) layer.takes.push(take);
         })
       );
     };
     await more(rest);
     await Promise.all(
-      late.map(async ([slot, spec]) => {
+      late.map(async ([slot, spec, folder]) => {
         if (!live()) return;
-        const takes: Array<{ layer: Layer; files: string[] }> = [];
-        const layers = await this.decode(engine, pack, spec, takes);
+        const takes: Pending[] = [];
+        const layers = await this.decode(engine, folder, spec, takes);
         if (!live()) return;
         slots[slot] = layers;
         await more(takes);
@@ -261,44 +330,48 @@ export class PackSource implements SampleSource {
   }
 
   /**
-   * Decode one pack's slots.
+   * Decode the slots of `kit` that play from the packs.
    *
    * The slot map used to be fetched from `/kits/manifest.json`; it is the
    * `samples` column on the kit's catalogue row now, and arrives with the kit.
    * One fewer round trip, and — more to the point — one fewer way for the row
    * and the file that describes it to disagree.
+   *
+   * Each slot's files are in its own `folder` where it names one (a piece,
+   * 9-v), else in the kit's pack.
    */
-  async load(
-    engine: BreakAudio,
-    pack: string,
-    slotSpecs: Record<string, KitSampleSlot> | undefined
-  ): Promise<void> {
-    if (this.loaded.has(pack) || this.loading.has(pack)) return;
-    if (!slotSpecs || !engine.ctx) return;
+  async load(engine: BreakAudio, kit: ResolvedKit): Promise<void> {
+    const slotSpecs = packSlots(kit);
+    if (!Object.keys(slotSpecs).length) return;
+    const key = decodeKey(kit);
+    const folder = kit.pack ?? '';
+    if (this.loaded.has(key) || this.loading.has(key)) return;
+    if (!engine.ctx) return;
 
-    this.loading.add(pack);
+    this.loading.add(key);
     try {
       const slots: Record<string, Layer[]> = {};
-      const rest: Array<{ layer: Layer; files: string[] }> = [];
-      const late: Array<[string, KitSampleSlot]> = [];
+      const rest: Pending[] = [];
+      const late: Array<[string, KitSampleSlot, string]> = [];
       await Promise.all(
         Object.entries(slotSpecs).map(async ([slot, spec]) => {
-          if (SLOT_BY_ID[slot]?.late) late.push([slot, spec]);
-          else slots[slot] = await this.decode(engine, pack, spec, rest);
+          const dir = spec.folder ?? folder;
+          if (SLOT_BY_ID[slot]?.late) late.push([slot, spec, dir]);
+          else slots[slot] = await this.decode(engine, dir, spec, rest);
         })
       );
-      this.loaded.set(pack, slots);
+      this.loaded.set(key, slots);
       // most recent only if it is still the kit playing; either way the
       // playing kit stays decoded
-      const playing = engine.kit?.engine === 'pack' ? engine.kit.pack : undefined;
-      if (pack === playing) this.touch(pack);
+      const playing = engine.kit ? decodeKey(engine.kit) : undefined;
+      if (key === playing) this.touch(key);
       else this.evict(playing);
       this.onChange?.();
       if (rest.length || late.length) {
-        whenIdle(() => void this.decodeRest(engine, pack, slots, rest, late));
+        whenIdle(() => void this.decodeRest(engine, key, slots, rest, late));
       }
     } finally {
-      this.loading.delete(pack);
+      this.loading.delete(key);
     }
   }
 
@@ -318,7 +391,7 @@ export class PackSource implements SampleSource {
 
     this.percLoaded = true;
     const out: Record<string, Layer[]> = {};
-    const rest: Array<{ layer: Layer; files: string[] }> = [];
+    const rest: Pending[] = [];
     await Promise.all(
       Object.entries(source.slots).map(async ([inst, spec]) => {
         out[inst] = await this.decode(engine, source.pack, spec, rest);
@@ -361,22 +434,28 @@ export class PackSource implements SampleSource {
 
   hit(engine: BreakAudio, t: number, slotId: string, vel: number): boolean {
     const kit = engine.kit;
-    if (kit?.engine !== 'pack' || !kit.pack) return false;
+    if (!kit) return false;
     const slot = SLOT_BY_ID[slotId];
     if (!slot) return false;
+    const specs = kit.samples.slots ?? {};
+    /* A slot of yours holding one of your samples is `YourSampleSource`'s,
+       and so is a slot that would fall back on one. Without this a ghost
+       sample of yours would be passed over for your snare piece, played soft. */
+    const mine = (id: string): boolean => !!specs[id] && !playsFromPacks(kit, specs[id]);
+    if (mine(slotId) || (!specs[slotId] && slot.fall && mine(slot.fall))) return false;
 
-    const pack = this.loaded.get(kit.pack);
-    if (!pack) {
+    const decoded = this.loaded.get(decodeKey(kit));
+    if (!decoded) {
       // not decoded yet — the synthesised voice covers for it this bar
-      void this.load(engine, kit.pack, kit.samples.slots);
+      void this.load(engine, kit);
       return false;
     }
 
-    let list = pack[slotId];
+    let list = decoded[slotId];
     let from = slotId;
     let soften = 1;
     if (!list?.length && slot.fall) {
-      list = pack[slot.fall];
+      list = decoded[slot.fall];
       from = slot.fall;
       // no rest strokes in this kit: the hit, played quieter
       if (list?.length && slotId === 'sGhost') soften = 0.6;
@@ -389,17 +468,29 @@ export class PackSource implements SampleSource {
     const under = clamp(vel / (layer.v || 1), 0.25, 1.8);
 
     const P = engine.sound?.[slot.voice] ?? kit[slot.voice as 'k'];
+    const spec = specs[from];
     const wobble = 10 ** (((engine.rand() * 2 - 1) * WOBBLE_DB) / 20);
-    const trim = (kit.trim ?? 1) * slotTrim(kit.samples.slots?.[from]);
-    const gain = under * (P.level ?? 1) * trim * soften * wobble;
-    const rate = (P.rate ?? 1) * 2 ** (((engine.rand() * 2 - 1) * DETUNE_CENTS) / 1200);
+    const trim = (kit.trim ?? 1) * slotTrim(spec);
+    // the kit's own Level for the slot (9-v), on top of the voice's
+    const gain = under * (P.level ?? 1) * (spec?.level ?? 1) * trim * soften * wobble;
+    const cents = (spec?.tune ?? 0) + (engine.rand() * 2 - 1) * DETUNE_CENTS;
+    const rate = (P.rate ?? 1) * 2 ** (cents / 1200);
     // half a dB of darkness per dB the layer is turned down, to −6 dB at most
     const shelf =
       list.length < SHELF_BELOW_LAYERS && under < 1
         ? Math.max(-6, 10 * Math.log10(under))
         : undefined;
 
-    const played = engine.playBuf(t, take.buf, gain, slot.voice, rate, take.off, shelf);
+    const played = engine.playBuf(
+      t,
+      take.buf,
+      gain,
+      slot.voice,
+      rate,
+      take.off,
+      shelf,
+      spec?.decay
+    );
     if (slotId === 'hOpen' || slotId === 'hHalf') engine.noteHatTail(played);
     return true;
   }

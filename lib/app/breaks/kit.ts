@@ -45,10 +45,25 @@ export type VoiceParams = Record<string, number>;
  */
 export type KitSampleSlot = KitSampleSlotFlat | KitSampleSlotLayered;
 
+/**
+ * How a kit plays one of its slots (Phase 9-v): your kit's Level, Tune and
+ * Decay for it. Absent is as recorded.
+ */
+export interface KitSlotSettings {
+  /** Gain, 0–2. */
+  level?: number;
+  /** Cents, ±1200. */
+  tune?: number;
+  /** How much of the recording rings before it is faded out, 0.2–1. */
+  decay?: number;
+}
+
 /** One file per velocity layer: the shape every kit shipped in before Phase 9. */
-export interface KitSampleSlotFlat {
+export interface KitSampleSlotFlat extends KitSlotSettings {
   v: number[] | null;
   files: string[];
+  /** The folder under `/kits/` its files are in, where it is not the kit's `pack`. */
+  folder?: string;
 }
 
 /**
@@ -56,8 +71,13 @@ export interface KitSampleSlotFlat {
  * stroke at the same strength, so a run of sixteenths is not one sample
  * played sixteen times.
  */
-export interface KitSampleSlotLayered {
+export interface KitSampleSlotLayered extends KitSlotSettings {
   layers: KitSampleLayer[];
+  /**
+   * The folder under `/kits/` its files are in, where it is not the kit's
+   * `pack`: a slot resolved from a piece, which may be any pack's (A9).
+   */
+  folder?: string;
   /**
    * Gain that brings this slot's piece to its role's level (Phase 9's
    * pipeline measures it), so a snare from one source sits where another
@@ -106,6 +126,33 @@ export interface KitSamples {
   sampleRate?: number;
   slots?: Record<string, KitSampleSlot>;
   perc?: Record<string, KitSampleSlot>;
+  /** Lane → pan, −1 to 1, as the drummer hears it. A lane not named takes `DEFAULT_PAN`. */
+  pan?: Partial<Record<string, number>>;
+}
+
+/**
+ * A slot as a kit row stores it (Phase 9-v). Besides the recordings
+ * themselves, a slot may name a piece from the `KitPiece` catalogue, or one
+ * of your samples. The catalogue resolves both before playback sees the kit,
+ * so a {@link ResolvedKit} only ever holds a {@link KitSampleSlot}.
+ */
+export type KitStoredSlot = KitSampleSlot | KitPieceSlot | KitYourSampleSlot;
+
+/** A piece's recordings of one slot. */
+export interface KitPieceSlot extends KitSlotSettings {
+  piece: string;
+  /** Which of the piece's slots to play, where it is not this one: a high tom as a floor tom. */
+  from?: string;
+}
+
+/** One of your samples. */
+export interface KitYourSampleSlot extends KitSlotSettings {
+  sample: string;
+}
+
+/** A kit's `samples` column, before its pieces are resolved. */
+export interface KitStoredSamples extends Omit<KitSamples, 'slots'> {
+  slots?: Record<string, KitStoredSlot>;
 }
 
 export interface Kit {

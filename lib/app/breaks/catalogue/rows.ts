@@ -1,6 +1,10 @@
+import { z } from 'zod';
+
+import { type CataloguePiece, resolveKitSamples } from '@/lib/app/breaks/catalogue/pieces';
 import {
   kitEngineSchema,
   kitParamsSchema,
+  kitSampleSlotSchema,
   kitSamplesSchema,
   styleParamsSchema,
 } from '@/lib/app/breaks/catalogue/schemas';
@@ -47,6 +51,16 @@ export interface KitRow {
   samples: unknown;
 }
 
+export interface PieceRow {
+  key: string;
+  label: string;
+  role: string;
+  source: string;
+  folder: string;
+  slots: unknown;
+  credit: string | null;
+}
+
 export interface LibraryRow {
   key: string;
   title: string;
@@ -67,7 +81,7 @@ export interface LibraryRow {
 
 /** What a row was rejected for, so the caller can log something useful. */
 export interface RowProblem {
-  what: 'style' | 'kit' | 'entry';
+  what: 'style' | 'kit' | 'entry' | 'piece';
   key: string;
   reason: string;
 }
@@ -106,11 +120,24 @@ export function toStyles(rows: StyleRow[]): Converted<CatalogueStyle> {
   return partition(rows.map((r) => toStyle(r)));
 }
 
-export function toKit(row: KitRow): CatalogueKit | RowProblem {
+/**
+ * A kit row, its pieces resolved (9-v). A slot naming a piece that is not in
+ * `pieces` is left out rather than costing the kit: the kit falls back or
+ * synthesises that slot, and `onMissing` hears about it so it can be logged.
+ */
+export function toKit(
+  row: KitRow,
+  pieces: ReadonlyMap<string, CataloguePiece> = new Map(),
+  onMissing?: (problem: RowProblem) => void
+): CatalogueKit | RowProblem {
   const params = kitParamsSchema.safeParse(row.params);
   if (!params.success) return { what: 'kit', key: row.key, reason: issue(params.error) };
-  const samples = kitSamplesSchema.safeParse(row.samples ?? {});
-  if (!samples.success) return { what: 'kit', key: row.key, reason: issue(samples.error) };
+  const stored = kitSamplesSchema.safeParse(row.samples ?? {});
+  if (!stored.success) return { what: 'kit', key: row.key, reason: issue(stored.error) };
+  const samples = resolveKitSamples(stored.data, pieces);
+  for (const slot of samples.missing) {
+    onMissing?.({ what: 'kit', key: row.key, reason: `slots.${slot}: no such piece` });
+  }
 
   /* `engine` is a column rather than a database enum, so a value outside the
      four is possible — a hand-written row, or a fork that added an engine and
@@ -125,14 +152,39 @@ export function toKit(row: KitRow): CatalogueKit | RowProblem {
     group: row.group,
     engine: engine.success ? engine.data : 'synth',
     credit: row.credit ?? undefined,
-    samples: samples.data,
+    samples: samples.samples,
     ...params.data,
   };
   return kit;
 }
 
-export function toKits(rows: KitRow[]): Converted<CatalogueKit> {
-  return partition(rows.map(toKit));
+export function toKits(
+  rows: KitRow[],
+  pieces: ReadonlyMap<string, CataloguePiece> = new Map()
+): Converted<CatalogueKit> {
+  const missing: RowProblem[] = [];
+  const out = partition(rows.map((row) => toKit(row, pieces, (p) => missing.push(p))));
+  return { rows: out.rows, problems: [...out.problems, ...missing] };
+}
+
+const pieceSlotsSchema = z.record(z.string().max(24), kitSampleSlotSchema);
+
+export function toPiece(row: PieceRow): CataloguePiece | RowProblem {
+  const slots = pieceSlotsSchema.safeParse(row.slots);
+  if (!slots.success) return { what: 'piece', key: row.key, reason: issue(slots.error) };
+  return {
+    key: row.key,
+    label: row.label,
+    role: row.role,
+    source: row.source,
+    folder: row.folder,
+    slots: slots.data,
+    ...(row.credit ? { credit: row.credit } : {}),
+  };
+}
+
+export function toPieces(rows: PieceRow[]): Converted<CataloguePiece> {
+  return partition(rows.map(toPiece));
 }
 
 export function toLibrary(row: LibraryRow): { library: CatalogueLibrary; problems: RowProblem[] } {

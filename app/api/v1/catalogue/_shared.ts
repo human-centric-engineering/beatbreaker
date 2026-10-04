@@ -1,5 +1,6 @@
 import { checkConditional, computeETag } from '@/lib/api/etag';
 import { successResponse } from '@/lib/api/responses';
+import { type KitSampleSlot, slotLayers, slotTrim } from '@/lib/app/breaks/kit';
 
 /**
  * What every catalogue read has in common.
@@ -47,4 +48,57 @@ export function catalogueResponse<T>(request: Request, data: T): Response {
   return successResponse(data, undefined, {
     headers: { ETag: etag, 'Cache-Control': CATALOGUE_CACHE_CONTROL },
   });
+}
+
+/** Where the recorded kits are served from. */
+const BASE = '/kits';
+
+/**
+ * A slot as a client reads it. `layers` is every velocity layer with all its
+ * round-robins (Phase 9). `velocities` and `urls` are the shape the kits route
+ * served before round-robins — one file per layer, the first of each — kept
+ * so a client written against it still plays. `trim` is the slot's level, a
+ * gain to multiply in beside the kit's own `trim` (1 where a slot has none).
+ * `level`, `tune` and `decay` are a kit's own settings for it (9-v), where it
+ * has any.
+ */
+export interface SlotOut {
+  velocities: number[] | null;
+  urls: string[];
+  layers: Array<{ velocity: number; urls: string[] }>;
+  trim: number;
+  level?: number;
+  tune?: number;
+  decay?: number;
+}
+
+/**
+ * Slots with their recordings' URLs. The files live under
+ * `/kits/<folder>/<file>`, and only the server decides what that path is, so
+ * a client gets URLs it can fetch and nothing to assemble. A slot resolved
+ * from a piece names its own folder (9-v); any other is in `folder`, the
+ * kit's pack. A slot with neither is left out: it has no files to point at.
+ */
+export function slotsWithUrls(
+  folder: string | undefined,
+  slots: Record<string, KitSampleSlot> | undefined
+): Record<string, SlotOut> | undefined {
+  if (!slots) return undefined;
+  const out: Record<string, SlotOut> = {};
+  for (const [slot, spec] of Object.entries(slots)) {
+    const dir = spec.folder ?? folder;
+    if (!dir) continue;
+    const url = (file: string) => `${BASE}/${dir}/${file}`;
+    const layers = slotLayers(spec);
+    out[slot] = {
+      velocities: 'layers' in spec ? layers.map((l) => l.v) : spec.v,
+      urls: layers.map((l) => url(l.files[0])),
+      layers: layers.map((l) => ({ velocity: l.v, urls: l.files.map(url) })),
+      trim: slotTrim(spec),
+      ...(spec.level !== undefined ? { level: spec.level } : {}),
+      ...(spec.tune !== undefined ? { tune: spec.tune } : {}),
+      ...(spec.decay !== undefined ? { decay: spec.decay } : {}),
+    };
+  }
+  return Object.keys(out).length ? out : undefined;
 }

@@ -22,11 +22,12 @@ vi.mock('@/lib/logging', () => ({
   logger: { warn: vi.fn(), info: vi.fn(), error: vi.fn(), debug: vi.fn() },
 }));
 
+const SAMPLE_ID = 'csmp00000000000000000001';
 const KIT: YourKitView = {
   id: 'ckit00000000000000000001',
   key: 'yours-a',
   label: 'Garage kit',
-  slots: { k: { sampleId: 'csmp00000000000000000001', name: 'kick.wav', audioUrl: '' } },
+  slots: { k: { sampleId: SAMPLE_ID, name: 'kick.wav', audioUrl: '' } },
 };
 const SAMPLES: SampleList = {
   samples: [
@@ -159,7 +160,7 @@ describe('the kit calls, when they fail', () => {
     ],
     [
       'deleteSample',
-      (h: ReturnType<typeof useYourSounds>) => h.deleteSample(KIT.slots.k.sampleId),
+      (h: ReturnType<typeof useYourSounds>) => h.deleteSample(SAMPLE_ID),
       'Too many kits',
     ],
   ])('%s says the server’s reason and changes nothing', async (_name, call, message) => {
@@ -234,7 +235,7 @@ describe('the kit calls, when they work', () => {
       json({
         success: true,
         data: {
-          id: KIT.slots.k.sampleId,
+          id: SAMPLE_ID,
           deleted: true,
           usage: { ...SAMPLES.usage, count: 0, bytes: 0 },
         },
@@ -243,7 +244,7 @@ describe('the kit calls, when they work', () => {
     const { result } = mount({ kits: [KIT], samples: SAMPLES });
 
     await act(async () => {
-      expect(await result.current.deleteSample(KIT.slots.k.sampleId)).toBe(true);
+      expect(await result.current.deleteSample(SAMPLE_ID)).toBe(true);
     });
 
     expect(result.current.kits[0].slots).toEqual({});

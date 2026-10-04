@@ -25,6 +25,7 @@ vi.mock('@/lib/app/breaks/catalogue/data', () => ({
   listStyles: vi.fn(),
   getStyle: vi.fn(),
   listKits: vi.fn(),
+  listPieces: vi.fn(),
   listLibraries: vi.fn(),
   getLibrary: vi.fn(),
 }));
@@ -35,19 +36,33 @@ import { GET as LIBRARIES } from '@/app/api/v1/catalogue/libraries/route';
 import { GET as LIBRARY } from '@/app/api/v1/catalogue/libraries/[key]/route';
 import { GET as KITS } from '@/app/api/v1/catalogue/kits/route';
 import { GET as METERS } from '@/app/api/v1/catalogue/meters/route';
+import { GET as PIECES } from '@/app/api/v1/catalogue/pieces/route';
 import {
   getLibrary,
   getStyle,
   listKits,
   listLibraries,
+  listPieces,
   listStyles,
 } from '@/lib/app/breaks/catalogue/data';
+import type { CataloguePiece } from '@/lib/app/breaks/catalogue/pieces';
 import { METER_KEYS } from '@/lib/app/breaks/meter';
 import { testKit, testLibrary, testStyle } from '@/tests/helpers/catalogue';
 
 const FUNK = testStyle('funk');
 const STUDIO70 = testKit('studio70');
 const LIB = testLibrary();
+const SPLASH: CataloguePiece = {
+  key: 'salamander-splash',
+  label: 'Salamander splash, Paiste 8"',
+  role: 'crash',
+  source: 'salamander',
+  folder: 'bigrusty',
+  slots: {
+    cSplash: { layers: [{ v: 1, files: ['cSplash-0-0.m4a', 'cSplash-0-1.m4a'] }], trim: 0.2 },
+  },
+  credit: 'Salamander Drumkit by Alexander Holm · public domain',
+};
 
 function get(path: string, headers?: Record<string, string>): Request {
   return new Request(`http://localhost:3000/api/v1/catalogue/${path}`, { headers });
@@ -61,6 +76,7 @@ beforeEach(() => {
   vi.mocked(listStyles).mockResolvedValue([FUNK]);
   vi.mocked(getStyle).mockResolvedValue(FUNK);
   vi.mocked(listKits).mockResolvedValue([STUDIO70]);
+  vi.mocked(listPieces).mockResolvedValue([SPLASH]);
   vi.mocked(listLibraries).mockResolvedValue([LIB]);
   vi.mocked(getLibrary).mockResolvedValue(LIB);
 });
@@ -72,6 +88,7 @@ const ENDPOINTS: Array<[string, (req: Request, ctx?: never) => Promise<Response>
   ['libraries', (req) => LIBRARIES(req)],
   ['libraries/[key]', (req) => LIBRARY(req, { params: Promise.resolve({ key: 'famous-breaks' }) })],
   ['kits', (req) => KITS(req)],
+  ['pieces', (req) => PIECES(req)],
   ['meters', (req) => METERS(req)],
 ];
 
@@ -247,6 +264,108 @@ describe('GET /api/v1/catalogue/kits', () => {
     const kits = data as Array<{ samples: unknown; engine: string }>;
     expect(kits[0].engine).toBe('synth');
     expect(kits[0].samples).toBeNull();
+  });
+});
+
+describe('GET /api/v1/catalogue/kits: a kit made of pieces (9-v)', () => {
+  it('points each slot into its own piece’s folder, so one kit draws from two sources', async () => {
+    vi.mocked(listKits).mockResolvedValue([
+      {
+        ...testKit('drs'),
+        samples: {
+          slots: {
+            s: { layers: [{ v: 1, files: ['s-0-0.m4a'] }], trim: 1.6, folder: 'drs' },
+            cSplash: {
+              layers: [{ v: 1, files: ['cSplash-0-0.m4a'] }],
+              trim: 0.2,
+              folder: 'bigrusty',
+            },
+          },
+          pan: { c: -0.3 },
+        },
+      },
+    ]);
+    const res = await KITS(get('kits'));
+    const [kit] = (await body(res)).data as Array<{
+      samples: Record<string, { urls: string[] }>;
+      pan: Record<string, number> | null;
+    }>;
+    expect(kit.samples.s.urls).toEqual(['/kits/drs/s-0-0.m4a']);
+    expect(kit.samples.cSplash.urls).toEqual(['/kits/bigrusty/cSplash-0-0.m4a']);
+    expect(kit.pan).toEqual({ c: -0.3 });
+  });
+});
+
+describe('GET /api/v1/catalogue/pieces', () => {
+  it('serves each piece with its role, source, credit and the URLs of every take', async () => {
+    const res = await PIECES(get('pieces'));
+    expect(res.status).toBe(200);
+    expect((await body(res)).data).toEqual([
+      {
+        key: 'salamander-splash',
+        label: 'Salamander splash, Paiste 8"',
+        role: 'crash',
+        source: 'salamander',
+        credit: 'Salamander Drumkit by Alexander Holm · public domain',
+        slots: {
+          cSplash: {
+            velocities: [1],
+            urls: ['/kits/bigrusty/cSplash-0-0.m4a'],
+            layers: [
+              {
+                velocity: 1,
+                urls: ['/kits/bigrusty/cSplash-0-0.m4a', '/kits/bigrusty/cSplash-0-1.m4a'],
+              },
+            ],
+            trim: 0.2,
+          },
+        },
+      },
+    ]);
+  });
+});
+
+describe('the slot URLs, at their edges (9-v)', () => {
+  it("serves a slot's own Level, Tune and Decay, and leaves out a slot with no folder to point into", async () => {
+    vi.mocked(listKits).mockResolvedValue([
+      {
+        ...testKit('studio70'),
+        engine: 'user',
+        samples: {
+          slots: {
+            s: {
+              layers: [{ v: 1, files: ['s.m4a'] }],
+              folder: 'drs',
+              level: 1.2,
+              tune: -50,
+              decay: 0.4,
+            },
+            // one of your samples: no folder and no pack, so no URL of its own here
+            k: { v: null, files: ['csmp00000000000000000001'] },
+          },
+        },
+      },
+    ]);
+    const [kit] = (await body(await KITS(get('kits')))).data as Array<{
+      samples: Record<string, { urls: string[]; level?: number; tune?: number; decay?: number }>;
+    }>;
+    expect(Object.keys(kit.samples)).toEqual(['s']);
+    expect(kit.samples.s).toMatchObject({
+      urls: ['/kits/drs/s.m4a'],
+      level: 1.2,
+      tune: -50,
+      decay: 0.4,
+    });
+  });
+
+  it('serves a piece with no credit as null, and one whose slots name no files as no slots', async () => {
+    vi.mocked(listPieces).mockResolvedValue([{ ...SPLASH, credit: undefined, slots: {} }]);
+    const [piece] = (await body(await PIECES(get('pieces')))).data as Array<{
+      credit: string | null;
+      slots: object;
+    }>;
+    expect(piece.credit).toBeNull();
+    expect(piece.slots).toEqual({});
   });
 });
 

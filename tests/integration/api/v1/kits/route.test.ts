@@ -22,8 +22,11 @@ import {
   fakePrisma,
   resetYourSoundsDb,
   seedKit,
+  seedPiece,
   seedSample,
 } from '@/tests/helpers/your-sounds-db';
+import { invalidateCatalogue } from '@/lib/app/breaks/catalogue/data';
+import { KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
 
 vi.mock('@/lib/auth/config', () => ({ auth: { api: { getSession: vi.fn() } } }));
 vi.mock('@/lib/db/client', async () => ({
@@ -68,6 +71,7 @@ async function json<T>(
 beforeEach(() => {
   vi.clearAllMocks();
   resetYourSoundsDb();
+  invalidateCatalogue();
   vi.mocked(auth.api.getSession).mockResolvedValue(mockAuthenticatedUser());
 });
 
@@ -247,5 +251,234 @@ describe('your kits', () => {
   it('refuses a patch that changes nothing', async () => {
     const kit = seedKit(USER_ID);
     expect((await patch(kit.id, {})).status).toBe(400);
+  });
+});
+
+/* ---- pieces in your kits (9-v) ------------------------------------- */
+
+interface PieceSlot {
+  piece: string;
+  from?: string;
+  label: string;
+  spec: { layers: Array<{ v: number; files: string[] }>; trim?: number; folder?: string };
+  level?: number;
+  tune?: number;
+  decay?: number;
+}
+
+interface KitWithPieces {
+  id: string;
+  key: string;
+  label: string;
+  slots: Record<string, PieceSlot | { sampleId: string; name: string }>;
+  pan?: Record<string, number>;
+  params?: { master: { lp?: number } };
+}
+
+describe('pieces in your kits (9-v)', () => {
+  it('fills a slot with a piece and its settings, and reads it back resolved to its folder', async () => {
+    seedPiece('bigrusty-s', ['s', 'sRim']);
+    const kit = seedKit(USER_ID);
+
+    const res = await patch(kit.id, {
+      slots: { s: { piece: 'bigrusty-s', level: 1.2, tune: -300, decay: 0.5 } },
+      pan: { s: -0.2 },
+    });
+    expect(res.status).toBe(200);
+    const { data } = await json<KitWithPieces>(res);
+    expect(data.slots.s).toMatchObject({
+      piece: 'bigrusty-s',
+      label: 'bigrusty · s',
+      level: 1.2,
+      tune: -300,
+      decay: 0.5,
+      spec: {
+        folder: 'bigrusty',
+        trim: 1.5,
+        layers: [{ v: 1, files: ['s-0-0.m4a', 's-0-1.m4a'] }],
+      },
+    });
+    expect(data.pan).toEqual({ s: -0.2 });
+
+    // what was stored is the reference, not a copy of the recordings
+    expect(db.kits[0].samples).toEqual({
+      slots: { s: { piece: 'bigrusty-s', level: 1.2, tune: -300, decay: 0.5 } },
+      pan: { s: -0.2 },
+    });
+  });
+
+  it('plays another slot of a piece where `from` names it: a rimshot piece slot as the snare', async () => {
+    seedPiece('bigrusty-s', ['s', 'sRim']);
+    const kit = seedKit(USER_ID);
+
+    const { data } = await json<KitWithPieces>(
+      await patch(kit.id, { slots: { s: { piece: 'bigrusty-s', from: 'sRim' } } })
+    );
+    const slot = data.slots.s as PieceSlot;
+    expect(slot.from).toBe('sRim');
+    expect(slot.spec.layers[0].files).toEqual(['sRim-0-0.m4a', 'sRim-0-1.m4a']);
+  });
+
+  it('400s a piece that does not exist, and a slot the piece does not fill, and writes nothing', async () => {
+    seedPiece('bigrusty-s', ['s']);
+    const kit = seedKit(USER_ID);
+    const before = structuredClone(db.kits[0].samples);
+
+    const res = await patch(kit.id, {
+      slots: { k: { piece: 'nothing-k' }, s: { piece: 'bigrusty-s', from: 'sRim' } },
+    });
+    expect(res.status).toBe(400);
+    const body = await json<unknown>(res);
+    expect(JSON.stringify(body.error?.details)).toContain('slots.k.piece');
+    expect(JSON.stringify(body.error?.details)).toContain('slots.s.from');
+    expect(db.kits[0].samples).toEqual(before);
+  });
+
+  it('still 400s someone else’s sample in `{ sample }`, naming the slot (the 404 is for their kit)', async () => {
+    const theirs = seedSample(OTHER_ID);
+    const kit = seedKit(USER_ID);
+
+    const res = await patch(kit.id, { slots: { k: { sample: theirs.id } } });
+    expect(res.status).toBe(400);
+    expect(JSON.stringify((await json<unknown>(res)).error?.details)).toContain('slots.k');
+  });
+
+  it.each([
+    ['tune above an octave', { piece: 'bigrusty-s', tune: 1201 }],
+    ['tune below an octave', { piece: 'bigrusty-s', tune: -1201 }],
+    ['decay under 0.2', { piece: 'bigrusty-s', decay: 0.1 }],
+    ['decay over 1', { piece: 'bigrusty-s', decay: 1.1 }],
+    ['level over 2', { piece: 'bigrusty-s', level: 2.5 }],
+  ])('400s %s', async (_what, slot) => {
+    seedPiece('bigrusty-s', ['s']);
+    const kit = seedKit(USER_ID);
+    expect((await patch(kit.id, { slots: { s: slot } })).status).toBe(400);
+  });
+
+  it('400s a pan past ±1, and puts a lane back to its default with null', async () => {
+    const kit = seedKit(USER_ID);
+    expect((await patch(kit.id, { pan: { h: 1.5 } })).status).toBe(400);
+
+    await patch(kit.id, { pan: { h: -0.5, r: 0.5 } });
+    const { data } = await json<KitWithPieces>(await patch(kit.id, { pan: { h: null } }));
+    expect(data.pan).toEqual({ r: 0.5 });
+  });
+
+  it('keeps a sample of yours beside a piece, and takes the bare id it always took', async () => {
+    seedPiece('bigrusty-s', ['s']);
+    const kick = seedSample(USER_ID);
+    const kit = seedKit(USER_ID);
+
+    const { data } = await json<KitWithPieces>(
+      await patch(kit.id, { slots: { k: kick.id, s: { piece: 'bigrusty-s' } } })
+    );
+    expect(data.slots.k).toMatchObject({ sampleId: kick.id });
+    expect(data.slots.s).toMatchObject({ piece: 'bigrusty-s' });
+  });
+
+  it('shows a slot naming a piece the catalogue no longer has as empty', async () => {
+    const kit = seedKit(USER_ID, {}, { samples: { slots: { s: { piece: 'gone-s' } } } });
+    const { data } = await json<KitWithPieces>(await read(kit.id));
+    expect(data.slots).toEqual({});
+  });
+});
+
+describe('make my own from this kit (9-v)', () => {
+  /** Big Rusty's numbers, as its row holds them. */
+  function testKitParams(): Record<string, unknown> {
+    const {
+      label: _label,
+      hint: _hint,
+      engine: _engine,
+      credit: _credit,
+      ...params
+    } = KITS.bigrusty;
+    return params;
+  }
+
+  function recordedKit(): void {
+    seedPiece('bigrusty-k', ['k']);
+    seedPiece('bigrusty-s', ['s', 'sRim']);
+    seedKit(
+      OTHER_ID,
+      {},
+      {
+        ownerId: null,
+        key: 'bigrusty',
+        engine: 'pack',
+        label: 'Big Rusty',
+        visibility: 'system',
+        params: {
+          ...testKitParams(),
+          pack: 'bigrusty',
+          master: { lp: 9000, drive: 1.5, room: 0.1 },
+        },
+        samples: {
+          slots: {
+            k: { piece: 'bigrusty-k' },
+            s: { piece: 'bigrusty-s' },
+            sRim: { piece: 'bigrusty-s' },
+          },
+        },
+      }
+    );
+  }
+
+  it('copies a recorded kit into one of yours: the same pieces, its numbers, and no pack', async () => {
+    recordedKit();
+
+    const res = await create({ from: 'bigrusty' });
+    expect(res.status).toBe(201);
+    const { data } = await json<KitWithPieces>(res);
+    expect(data.label).toBe('My Big Rusty');
+    expect(
+      Object.fromEntries(
+        Object.entries(data.slots).map(([k, v]) => [k, 'piece' in v ? v.piece : null])
+      )
+    ).toEqual({
+      k: 'bigrusty-k',
+      s: 'bigrusty-s',
+      sRim: 'bigrusty-s',
+    });
+    expect(data.params?.master.lp).toBe(9000);
+
+    const mine = db.kits.find((k) => k.id === data.id);
+    expect(mine).toMatchObject({ ownerId: USER_ID, engine: 'user', visibility: 'private' });
+    expect((mine?.params as { pack?: string }).pack).toBeUndefined();
+  });
+
+  it('copies one of your own kits, samples and pans too, under the name you give it', async () => {
+    const kick = seedSample(USER_ID);
+    const kit = seedKit(USER_ID, { k: kick.id }, { label: 'Garage' });
+    await patch(kit.id, { pan: { k: 0.1 } });
+
+    const { data } = await json<KitWithPieces>(await create({ from: kit.key, label: 'Garage 2' }));
+    expect(data.label).toBe('Garage 2');
+    expect(data.slots.k).toMatchObject({ sampleId: kick.id });
+    expect(data.pan).toEqual({ k: 0.1 });
+  });
+
+  it('400s a synthesised kit, someone else’s kit, and a key that names nothing, naming `from`', async () => {
+    seedKit(
+      OTHER_ID,
+      {},
+      { ownerId: null, key: 'studio70', engine: 'synth', visibility: 'system' }
+    );
+    const theirs = seedKit(OTHER_ID);
+
+    for (const from of ['studio70', theirs.key, 'no-such-kit']) {
+      const res = await create({ from });
+      expect(res.status, from).toBe(400);
+      expect(JSON.stringify((await json<unknown>(res)).error?.details), from).toContain('from');
+    }
+    expect(db.kits.filter((k) => k.ownerId === USER_ID)).toHaveLength(0);
+  });
+
+  it(`still refuses a copy past ${MAX_YOUR_KITS}`, async () => {
+    recordedKit();
+    for (let i = 0; i < MAX_YOUR_KITS; i++) seedKit(USER_ID);
+    const res = await create({ from: 'bigrusty' });
+    expect(res.status).toBe(409);
+    expect((await json<unknown>(res)).error?.code).toBe('KIT_LIMIT');
   });
 });

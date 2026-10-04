@@ -38,6 +38,7 @@ that keeps the golden-byte assertions meaningful.
 | `PatternLibrary` | `pattern_library` | A named, ordered list. One system row today: `famous-breaks`.                                        |
 | `LibraryEntry`   | `library_entry`   | `seedKey`, `group`, `title`, `artist`, `note`, `bpm`, `styleKey`, `meter`, `doc Json`, `links Json`. |
 | `Kit`            | `kit`             | `engine`, `label`, `hint`, `group`, `credit`, `params Json`, `samples Json`.                         |
+| `KitPiece`       | `kit_piece`       | `key`, `label`, `role`, `source`, `folder`, `slots Json`, `credit`. 9-v; see `sound.md`.             |
 
 Every row carries `ownerId String?` (null = a system row) and a `visibility`
 that is `system` on all of them today. Both columns exist now rather than later
@@ -192,6 +193,7 @@ has signed in (D14). Rate limiting is the `catalogue` tier registered in
 | `GET …/libraries`              | the libraries, with entry counts and headings                  |
 | `GET …/libraries/[key]`        | one library, **every entry's document included**               |
 | `GET …/kits`                   | the kits, with sample URLs built server-side                   |
+| `GET …/pieces`                 | the pieces a kit may be built from, with their URLs (9-v)      |
 | `GET …/meters`                 | meters, lanes, percussion, slots, voices — read-only constants |
 
 Every one answers a matching `If-None-Match` with `304`, and sends
@@ -272,8 +274,12 @@ breaks in one library, and 17 kits. Its data lives beside it under `data/`, and
   `patternFromLibrary` + `packPattern`, with the style's snapshot baked in. A
   client shows an entry without the bar-string parser, and retuning a style later
   does not change how Funky Drummer plays.
-- A kit's `samples` comes from `public/kits/manifest.json`. The audio files stay
-  where they are; the row is the copy every client reads.
+- The pieces are derived from the kit recipes and `public/kits/manifest.json`
+  (`scripts/kits/pieces.ts`), upserted by key; a piece no recipe builds is
+  deleted. A recorded kit's `samples` is a map of them, slot → `{ piece }`,
+  which the data layer resolves on read. The shared percussion stays as the
+  manifest has it. The audio files stay where they are.
+- `hashInputs` also names the recipes and `scripts/kits/pieces.ts`.
 - Library entries are **matched by `seedKey`**, a slug of the title
   (`seedKeyOf`), not by position. A pin holds an entry's id, so keyed by slot,
   inserting a break mid-list would have handed every later row, and every pin

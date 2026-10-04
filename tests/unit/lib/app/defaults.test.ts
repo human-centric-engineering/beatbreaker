@@ -301,6 +301,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     // you filed — not those about your own patterns. Phase 7 (task 7.8) added
     // BuddyWorkspace, the pattern BeatBuddy last saw. Phase 7D (task 7D.2)
     // added PracticeSession, with its items inside it, and PracticeRun.
+    // Phase 9-v (task 9.16) excluded KitPiece, catalogue data with no owner.
     assert: async () => {
       __resetAppSubjectSourceRegistryForTests();
       expect(
@@ -355,7 +356,13 @@ const SEAM_DEFAULTS: SeamDefault[] = [
         getAppExcludedSubjectSources()
           .map((s) => s.model)
           .sort()
-      ).toEqual(['LibraryEntry', 'PracticeSessionItem', 'ReservedUsername', 'StyleVersion']);
+      ).toEqual([
+        'KitPiece',
+        'LibraryEntry',
+        'PracticeSessionItem',
+        'ReservedUsername',
+        'StyleVersion',
+      ]);
       // An exclusion without a reason is a table nobody decided about.
       for (const excluded of getAppExcludedSubjectSources()) {
         expect(excluded.reason.length).toBeGreaterThan(20);

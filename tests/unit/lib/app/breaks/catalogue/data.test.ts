@@ -22,6 +22,7 @@ vi.mock('@/lib/db/client', () => ({
        expressible and this is what replaces reading the whole history. */
     styleVersion: { findMany: vi.fn() },
     kit: { findMany: vi.fn() },
+    kitPiece: { findMany: vi.fn() },
     patternLibrary: { findMany: vi.fn() },
   },
 }));
@@ -38,6 +39,7 @@ import {
   invalidateCatalogue,
   listKits,
   listLibraries,
+  listPieces,
   listStyles,
   studioCatalogue,
   styleLookup,
@@ -112,6 +114,10 @@ beforeEach(() => {
   vi.mocked(prisma.style.findFirst).mockReset();
   vi.mocked(prisma.styleVersion.findMany).mockReset();
   vi.mocked(prisma.kit.findMany).mockReset();
+  // no pieces unless a test seeds some: every kit here holds its own recordings
+  vi.mocked(prisma.kitPiece.findMany)
+    .mockReset()
+    .mockResolvedValue([] as never);
   vi.mocked(prisma.patternLibrary.findMany).mockReset();
   vi.mocked(logger.warn).mockReset();
 });
@@ -286,6 +292,69 @@ describe('your own kits', () => {
   });
 });
 
+describe('pieces (9-v)', () => {
+  const piece = {
+    key: 'bigrusty-s',
+    label: 'Big Rusty · Snare',
+    role: 'snare',
+    source: 'bigrusty',
+    folder: 'bigrusty',
+    slots: {
+      s: { layers: [{ v: 1, files: ['s-0-0.m4a', 's-0-1.m4a'] }], trim: 1.2 },
+      sRim: { layers: [{ v: 1, files: ['sRim-0-0.m4a'] }], trim: 1.2 },
+    },
+    credit: 'Big Rusty Drums by Karoryfer Samples · CC0 1.0',
+  };
+
+  it('resolves a kit slot naming a piece to its recordings and folder', async () => {
+    vi.mocked(prisma.kitPiece.findMany).mockResolvedValue([piece] as never);
+    vi.mocked(prisma.kit.findMany).mockResolvedValue([
+      {
+        ...kitRow('bigrusty'),
+        samples: { slots: { s: { piece: 'bigrusty-s' }, sRim: { piece: 'bigrusty-s' } } },
+      },
+    ] as never);
+
+    const [kit] = await listKits();
+
+    expect(kit.samples.slots?.s).toEqual({ ...piece.slots.s, folder: 'bigrusty' });
+    expect(kit.samples.slots?.sRim).toEqual({ ...piece.slots.sRim, folder: 'bigrusty' });
+    expect((await listPieces()).map((p) => p.key)).toEqual(['bigrusty-s']);
+    // pieces are read once, for the kits and the list both
+    expect(prisma.kitPiece.findMany).toHaveBeenCalledTimes(1);
+  });
+
+  it('leaves out a slot naming a piece that is not there, logs it, and keeps the kit', async () => {
+    vi.mocked(prisma.kit.findMany).mockResolvedValue([
+      {
+        ...kitRow('bigrusty'),
+        samples: { slots: { s: { piece: 'gone-s' }, k: { v: null, files: ['k.m4a'] } } },
+      },
+    ] as never);
+
+    const [kit] = await listKits();
+
+    expect(Object.keys(kit.samples.slots ?? {})).toEqual(['k']);
+    expect(logger.warn).toHaveBeenCalledWith(
+      expect.stringContaining('did not validate'),
+      expect.objectContaining({ what: 'kit', key: 'bigrusty', reason: 'slots.s: no such piece' })
+    );
+  });
+
+  it('drops a piece whose slots do not read, and logs it', async () => {
+    vi.mocked(prisma.kitPiece.findMany).mockResolvedValue([
+      piece,
+      { ...piece, key: 'broken-s', slots: { s: { layers: [] } } },
+    ] as never);
+
+    expect((await listPieces()).map((p) => p.key)).toEqual(['bigrusty-s']);
+    expect(logger.warn).toHaveBeenCalledWith(
+      expect.stringContaining('did not validate'),
+      expect.objectContaining({ what: 'piece', key: 'broken-s' })
+    );
+  });
+});
+
 describe('a row that fails validation', () => {
   it('is dropped from the list and logged, not thrown — the picker keeps the other rows', async () => {
     vi.mocked(prisma.style.findMany).mockResolvedValue([
@@ -444,6 +513,8 @@ describe('studioCatalogue', () => {
 
     expect(prisma.style.findMany).toHaveBeenCalledTimes(1);
     expect(prisma.kit.findMany).toHaveBeenCalledTimes(1);
+    // the pieces a kit names are resolved from one read of the table, not one per slot
+    expect(prisma.kitPiece.findMany).toHaveBeenCalledTimes(1);
     expect(prisma.patternLibrary.findMany).toHaveBeenCalledTimes(1);
     expect(catalogue.styles.funk).toBeDefined();
     expect(catalogue.kits.studio70).toBeDefined();

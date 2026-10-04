@@ -25,6 +25,8 @@ const sal = (stroke: string, rr: number, tail?: number): Pick => ({
 /** Paiste 8" splash, its harder strokes. */
 export const salamanderSplash: Piece = {
   role: 'crash',
+  key: 'salamander-splash',
+  label: 'Salamander splash, Paiste 8"',
   level: -4,
   slots: { cSplash: sal('splash1_OH_F', 2, 2.5) },
 };
@@ -32,6 +34,8 @@ export const salamanderSplash: Piece = {
 /** Paiste 18" Innovations china. */
 export const salamanderChina: Piece = {
   role: 'crash',
+  key: 'salamander-china',
+  label: 'Salamander china, Paiste 18"',
   level: 1,
   slots: { cChina: sal('china2_OH_FF', 2) },
 };
@@ -39,5 +43,7 @@ export const salamanderChina: Piece = {
 /** Paiste 20" Rude thin crash: bigger and darker than a kit's own 16" or 17". */
 export const salamanderCrash: Piece = {
   role: 'crash',
+  key: 'salamander-crash',
+  label: 'Salamander crash, Paiste 20"',
   slots: { c2: sal('crash2_OH_FF', 2) },
 };

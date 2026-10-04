@@ -96,10 +96,12 @@ function table(name: string, defaults: Record<string, unknown> = {}) {
       update: Record<string, unknown>;
     }) => {
       /* The composite `libraryId_position` key arrives nested, the way Prisma
-         takes it. Flattening it here is what lets the same `matches` run for
+         takes it; a single unique column (`kitPiece`'s `key`) arrives flat.
+         Flattening the first here is what lets the same `matches` run for
          both key shapes. */
-      const flat = Object.values(where).reduce<Record<string, unknown>>(
-        (acc, v) => (typeof v === 'object' && v !== null ? { ...acc, ...v } : acc),
+      const flat = Object.entries(where).reduce<Record<string, unknown>>(
+        (acc, [k, v]) =>
+          typeof v === 'object' && v !== null ? { ...acc, ...v } : { ...acc, [k]: v },
         {}
       );
       const row = rows.find((r) => matches(r, flat));
@@ -163,6 +165,7 @@ function fakePrisma() {
     patternLibrary: table('pattern_library', { ownerId: null }),
     libraryEntry: table('library_entry'),
     kit: table('kit', { ownerId: null }),
+    kitPiece: table('kit_piece'),
   };
 }
 
@@ -373,14 +376,25 @@ describe('the catalogue seed', () => {
     expect(prisma.style.rows.filter((r) => r.group === 'Other')).toEqual([]);
   });
 
-  it('reads each pack kit’s slot map out of the manifest', async () => {
+  it('writes each pack kit as a map of the pieces its recipe fills it with (9-v)', async () => {
     const prisma = fakePrisma();
     await seed(prisma);
 
-    const pack = prisma.kit.rows.find((r) => r.engine === 'pack');
-    expect(pack, 'the seed data ships at least one recorded kit').toBeTruthy();
-    const samples = pack?.samples as { slots?: Record<string, unknown> };
-    expect(Object.keys(samples.slots ?? {}).length).toBeGreaterThan(0);
+    const bigrusty = prisma.kit.rows.find((r) => r.key === 'bigrusty');
+    expect(bigrusty, 'the seed data ships Big Rusty').toBeTruthy();
+    const samples = bigrusty?.samples as { slots?: Record<string, unknown> };
+    expect(samples.slots?.s).toEqual({ piece: 'bigrusty-s' });
+    expect(samples.slots?.cSplash).toEqual({ piece: 'salamander-splash' });
+
+    // every slot of every recorded kit names a piece the seed wrote
+    const keys = new Set(prisma.kitPiece.rows.map((r) => r.key));
+    for (const kit of prisma.kit.rows.filter((r) => r.engine === 'pack')) {
+      const slots = (kit.samples as { slots?: Record<string, { piece?: string }> }).slots ?? {};
+      expect(Object.keys(slots).length, String(kit.key)).toBeGreaterThan(0);
+      for (const [slot, spec] of Object.entries(slots)) {
+        expect(keys.has(spec.piece ?? ''), `${String(kit.key)}.${slot}`).toBe(true);
+      }
+    }
 
     /* Exactly one kit carries the shared percussion set. `percussionSource`
        finds it by looking rather than by a hard-coded key, so a seed that
@@ -389,6 +403,24 @@ describe('the catalogue seed', () => {
       (r) => Object.keys((r.samples as { perc?: object }).perc ?? {}).length > 0
     );
     expect(withPerc).toHaveLength(1);
+  });
+
+  it('writes each piece once, with its folder, slots and credit, and drops one no recipe builds', async () => {
+    const prisma = fakePrisma();
+    await prisma.kitPiece.create({ data: { key: 'gone-s', label: 'Gone', slots: {} } });
+    await seed(prisma);
+
+    const splash = prisma.kitPiece.rows.filter((r) => r.key === 'salamander-splash');
+    expect(splash).toHaveLength(1);
+    expect(splash[0]).toMatchObject({ role: 'crash', source: 'salamander', folder: 'bigrusty' });
+    expect(String(splash[0].credit)).toMatch(/^Salamander Drumkit by /);
+    expect(Object.keys(splash[0].slots as object)).toEqual(['cSplash']);
+    expect(prisma.kitPiece.rows.some((r) => r.key === 'gone-s')).toBe(false);
+
+    // and again: upserted by key, not added
+    const count = prisma.kitPiece.rows.length;
+    await seed(prisma);
+    expect(prisma.kitPiece.rows).toHaveLength(count);
   });
 
   it('declares the data files as hash inputs, so editing one re-runs it', () => {
@@ -401,6 +433,11 @@ describe('the catalogue seed', () => {
         'data/library.ts',
         'data/kits.ts',
         '../../../public/kits/manifest.json',
+        // the pieces' inputs (9-v): recipes, derivation and each piece's credit
+        '../../../scripts/kits/pieces.ts',
+        '../../../scripts/kits/recipes/salamander.ts',
+        '../../../lib/app/breaks/kit-credits.generated.ts',
+        '../../../scripts/kits/sources.ts',
       ])
     );
   });

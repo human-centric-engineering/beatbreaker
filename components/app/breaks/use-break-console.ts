@@ -1224,10 +1224,10 @@ export function useBreakConsole(
     const yours = yoursRef.current;
     if (!packs || !yours) return;
     const row = catalogue.kits[kitRef.current];
-    const pack = row?.pack;
     const user = kitEngine(row) === 'user';
     setSamples({
-      kitSlots: user ? yours.count(row) : pack ? packs.count(pack) : 0,
+      // a kit of yours may hold pieces as well as samples (9-v)
+      kitSlots: (user ? yours.count(row) : 0) + packs.count(row),
       kitFailed: user ? yours.failedCount(row) : 0,
       percCount: packs.percCount(),
     });
