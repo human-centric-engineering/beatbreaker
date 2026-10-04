@@ -2749,6 +2749,67 @@ The calls:
 - **The notation key on `/help`** is engraved by the engraver itself, one
   bar per lane family. A picture in the help could drift from the chart.
 
+**9-iv-b reconciled, 2026-10-04 (branch `phase-9-iv-b`).** Each source was
+read at its pin, and Salamander at archive.org. It ships as one PR: 9.15's
+recordings for the five round-one packs, a `tar` source for Salamander, and
+the loading change that keeps them off the first play.
+
+| Slot      | Big Rusty                      | DRS kit                | DRS brushes                   | Unruly                 | Gogodze                   |
+| --------- | ------------------------------ | ---------------------- | ----------------------------- | ---------------------- | ------------------------- |
+| `sRim`    | `snare_14/rimshot`             | synth                  | synth                         | `s14_rimshot`          | synth                     |
+| `hHalf`   | `hihat_14/ho` (the half-open)  | `Hihat_semi_open`      | the stick kit's, at its level | `hh_half_tip`          | `hh` (the half-open)      |
+| `c2`      | `crash_sizzle_17` (17" sizzle) | `Crash_right_shank`    | `Crash_right_whisker`         | Salamander's 20" crash | Big Rusty's sizzle, close |
+| `cChina`  | `china_18`                     | Salamander's 18" china | Salamander's                  | Salamander's           | Big Rusty's china, close  |
+| `cSplash` | Salamander's 8" splash         | Salamander's           | Salamander's                  | Salamander's           | Salamander's              |
+
+The calls:
+
+- **9.15 is the round-one packs only.** The five 9-iii-a packs keep their
+  synthesised articulations. Muldjord has a china and a second crash, and
+  Swirly a half-open hat, china and splash, but Virtuosity is already at 0.77
+  MB of its 0.8 MB first load and 28.9 MB of its 32 MB decoded. Vintage and
+  Trap are sampler kits, which a recorded china does not suit. They are 9.20's.
+- **The articulations load late.** Their first takes would put Big Rusty,
+  Unruly and Gogodze over the 0.8 MB first load. A slot marked `late` in
+  `SLOTS` decodes whole in the idle pass, with the other takes; until then
+  its synthesised voice plays it, which 9.15's done-when already allows. The
+  first-load budget counts the slots that are not `late`; the download and
+  decoded budgets count everything.
+- **A rimshot is never borrowed.** DRSKit's `Snare_rim` is a cross-stick, and
+  Gogodze has centre, edge and side-stick. Another kit's rimshot is another
+  snare, so theirs stay the synthesised voice, as the plan's "a sample or its
+  synth voice" allows. Cymbals are borrowed, as Gogodze's ride already is.
+- **Salamander is the archive.org tarball,** the one the author's page links:
+  `salamanderDrumkit.tar.bz2`, 387 611 727 bytes, matching archive.org's md5
+  (`af8e2067…`), pinned by its sha256 (`34e746ec…`). No mirror in git is the
+  author's. A **`tar` source kind** joins `git` and `zip`: a compressed
+  tarball has no index, so once it passes its pin the system `tar` unpacks it
+  whole into the cache, links refused, and every file's sha256 goes into
+  `tree.json`. Download and pin checking move out of `zip.ts` into
+  `archive.ts`, which both use.
+- **Salamander's licence is its author's grant, quoted.** The archive's
+  `REAMDE` says CC BY-SA 3.0 (2012), which our rules forbid. The author's
+  page says "As of 4.3.2022, this is now public domain!" `sources.ts` gains a
+  `public-domain` licence and a source's `grant`: the quote and its URL. The
+  licence copy prints the grant, then the archive's file, marked as older.
+- **Salamander normalised every sample,** so loudness cannot choose its
+  layers or set its level. Its picks are one layer of its hardest strokes by
+  name (`FF`, `F`), and a piece gains `level`, dB against its role's target:
+  the splash −4, the china +1. The source's own program puts its china 9 dB
+  over its crash and its splash 2 dB over; that is louder than a backing kit
+  wants.
+- **Big Rusty's second crash and china are in its crash piece,** so they
+  keep their recorded level against the crash; DRS's right crash the same.
+  Gogodze borrows both from Big Rusty's close mic, as it does the crash.
+- **DRS brushes' half-open hat is the stick kit's,** matched on the stick
+  closed hat, as its foot hat is: DRSKit has no brushed half-open.
+- **Takes:** rimshot 3 × 2, half-open 2 × 2, second crash 2 × 1 (1 × 2 from
+  Salamander), china and splash 1 × 2. Cymbals are the large files.
+- **To check by ear, first:** Salamander's splash and china against each
+  kit's own crash (the `level`s are a guess from one listen's worth of
+  numbers), Big Rusty's sizzle crash as a second crash, and the synthesised
+  rimshot under DRS and Gogodze.
+
 **9-v — pieces and building your own:**
 
 | #    | Task                                                                                                                                                                                                                                                                          | Done when                                                                                                                                                                                            |
