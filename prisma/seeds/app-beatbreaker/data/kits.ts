@@ -1,7 +1,7 @@
 /**
  * The kit table — seed data.
  *
- * 12 kits across three engines, each a plain parameter object plus an engine
+ * 17 kits across three engines, each a plain parameter object plus an engine
  * name, so a kit is a row rather than a branch in playback and a user's tuning
  * is a saved override of these numbers.
  *
@@ -214,5 +214,96 @@ export const KITS: Record<string, Kit> = {
     c: { rate: 1, level: 0.88, room: 0.24 },
     t: { tune: 88, decay: 0.5, tone: 0.34, room: 0.18 },
     p: { tune: 1.0, level: 0.9, tone: 0.94, room: 0.16 },
+  },
+
+  bigrusty: {
+    label: 'Big Rusty',
+    engine: 'pack',
+    pack: 'bigrusty',
+    // each slot carries its own level (Phase 9 pipeline); see scripts/kits/build.ts
+    trim: 1,
+    hint: 'A 1980s Polish kit with a damped 24" kick and a wooden snare, played hard. The rock kit: thick, a bit rough, and with a big wash of cymbal over it.',
+    credit:
+      'Big Rusty Drums by Karoryfer Samples · CC0 1.0 (public domain). Close mics and overheads mixed to mono, trimmed and re-encoded for the web.',
+    master: { lp: 18000, drive: 1.08, room: 0.12 },
+    k: { rate: 1, level: 0.95, room: 0.03 },
+    s: { rate: 1, level: 0.95, room: 0.12 },
+    h: { rate: 1, level: 0.9, room: 0.07 },
+    r: { rate: 1, level: 0.88, room: 0.14 },
+    c: { rate: 1, level: 0.86, room: 0.18 },
+    t: { tune: 90, decay: 0.54, tone: 0.38, room: 0.14 },
+    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.12 },
+  },
+
+  drs: {
+    label: 'DRS kit',
+    engine: 'pack',
+    pack: 'drs',
+    trim: 1,
+    hint: 'A studio kit recorded on thirteen mics by the DrumGizmo team: even, clear and well behaved, with a Paiste ride and crash. The one to reach for when you want a kit that sounds like a record.',
+    credit:
+      'DRSKit by Lars and Deva Muldjord (DrumGizmo), on a kit lent by DRSDrums · CC BY 4.0. Drum samples provided by DrumGizmo.org. Close mics, overheads and room mixed to mono, trimmed and re-encoded for the web.',
+    master: { lp: 18000, drive: 1.04, room: 0.1 },
+    k: { rate: 1, level: 0.95, room: 0.03 },
+    s: { rate: 1, level: 0.95, room: 0.1 },
+    h: { rate: 1, level: 0.9, room: 0.06 },
+    r: { rate: 1, level: 0.88, room: 0.12 },
+    c: { rate: 1, level: 0.86, room: 0.16 },
+    t: { tune: 90, decay: 0.54, tone: 0.38, room: 0.14 },
+    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.12 },
+  },
+
+  drsBrush: {
+    label: 'DRS brushes',
+    engine: 'pack',
+    pack: 'drs-brush',
+    trim: 1,
+    hint: 'The DRS kit played with brushes. The snare, hats, ride, crash and toms are brushed; the kick, the cross-stick and the foot hat are the same as with sticks, because a brush player plays those the same way. There is no ride bell with a brush, so the bell plays the ride.',
+    credit:
+      'DRSKit by Lars and Deva Muldjord (DrumGizmo), on a kit lent by DRSDrums · CC BY 4.0. Drum samples provided by DrumGizmo.org. Close mics, overheads and room mixed to mono, trimmed and re-encoded for the web.',
+    master: { lp: 17000, drive: 1.02, room: 0.18 },
+    k: { rate: 1, level: 0.95, room: 0.04 },
+    s: { rate: 1, level: 1.0, room: 0.16 },
+    h: { rate: 1, level: 0.95, room: 0.1 },
+    r: { rate: 1, level: 0.92, room: 0.18 },
+    c: { rate: 1, level: 0.88, room: 0.22 },
+    t: { tune: 88, decay: 0.5, tone: 0.34, room: 0.18 },
+    p: { tune: 1.0, level: 0.9, tone: 0.94, room: 0.16 },
+  },
+
+  unruly: {
+    label: 'Unruly',
+    engine: 'pack',
+    pack: 'unruly',
+    trim: 1,
+    hint: 'Every drum on this kit has snare wires on it, the kick included, so everything rattles a little. It has no toms: like the kit it was recorded from, its three snares, wires off, play the toms. Garage, lo-fi, and anything that should sound less tidy.',
+    credit:
+      'Unruly Drums by Karoryfer Samples · CC0 1.0 (public domain). Close mics and overheads mixed to mono, trimmed and re-encoded for the web.',
+    master: { lp: 17000, drive: 1.12, room: 0.12 },
+    k: { rate: 1, level: 0.95, room: 0.03 },
+    s: { rate: 1, level: 0.95, room: 0.12 },
+    h: { rate: 1, level: 0.9, room: 0.07 },
+    r: { rate: 1, level: 0.88, room: 0.14 },
+    c: { rate: 1, level: 0.86, room: 0.18 },
+    t: { tune: 90, decay: 0.54, tone: 0.38, room: 0.14 },
+    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.12 },
+  },
+
+  gogodze: {
+    label: 'Gogodze',
+    engine: 'pack',
+    pack: 'gogodze',
+    trim: 1,
+    hint: 'A damped kit heard mostly through a deliberately lo-fi mic, with one by the window: boxy, warm and a little distant. Made for boom bap. The kit has no cymbals, so its ride and crash are Big Rusty’s, close-miked and dry.',
+    credit:
+      'Gogodze Phu Vol II by Karoryfer Lecolds · CC0 1.0 (public domain). Ride and crash from Big Rusty Drums by Karoryfer Samples · CC0 1.0. Mixed to mono, trimmed and re-encoded for the web.',
+    master: { lp: 12000, drive: 1.2, room: 0.1 },
+    k: { rate: 1, level: 1.0, room: 0.02 },
+    s: { rate: 1, level: 0.95, room: 0.1 },
+    h: { rate: 1, level: 0.88, room: 0.06 },
+    r: { rate: 1, level: 0.8, room: 0.12 },
+    c: { rate: 1, level: 0.8, room: 0.16 },
+    t: { tune: 84, decay: 0.48, tone: 0.3, room: 0.12 },
+    p: { tune: 0.96, level: 0.9, tone: 0.9, room: 0.12 },
   },
 };

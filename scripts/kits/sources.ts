@@ -4,7 +4,9 @@
  * A git source is pinned to a commit. The build fetches only the files a
  * recipe names, from that commit, and checks each against its blob hash in
  * the commit's tree, so a file that changed upstream cannot slip in under the
- * same path. The sha256 of every file used is written to `build.lock.json`.
+ * same path. A zip source is pinned by the archive's sha256: it is downloaded
+ * once, checked, and read member by member (`zip.ts`). The sha256 of every
+ * file used is written to `build.lock.json`.
  *
  * The licence of each was checked against the source's own licence file on
  * the date given; the build copies that file to `public/kits/LICENSES/`. The
@@ -48,7 +50,38 @@ export interface GitSource {
   notice?: string;
 }
 
-export type Source = GitSource;
+/**
+ * One archive on its publisher's server, for a library that is not in git.
+ * The members a recipe names are read from the local copy, so the archive is
+ * fetched once however many recipes use it.
+ */
+export interface ZipSource {
+  kind: 'zip';
+  /** Where the archive is downloaded from. */
+  archive: string;
+  /** Its length, checked before it is hashed. */
+  bytes: number;
+  /** Its sha256: the pin. */
+  sha256: string;
+  title: string;
+  author: string;
+  url: string;
+  licence: LicenceId;
+  /** The member that grants the licence. */
+  licenceFile: string;
+  checked: string;
+  usedFor: string;
+  notice?: string;
+}
+
+export type Source = GitSource | ZipSource;
+
+/** Where a source is pinned, as the licence copies and the build's errors say it. */
+export function pinOf(source: Source): string {
+  return source.kind === 'git'
+    ? `${source.repo}@${source.commit}`
+    : `${source.archive} (sha256 ${source.sha256})`;
+}
 
 export const SOURCES = {
   virtuosity: {
@@ -112,6 +145,59 @@ export const SOURCES = {
     licenceFile: 'README.md',
     checked: '2026-10-03',
     usedFor: 'Dusty sampler, Trap kit',
+  },
+  bigrusty: {
+    kind: 'git',
+    repo: 'sfzinstruments/karoryfer.big-rusty-drums',
+    commit: 'f07ce00df34a46b6b08375be56fe116cf15782bc',
+    title: 'Big Rusty Drums',
+    author: 'Karoryfer Samples',
+    url: 'https://github.com/sfzinstruments/karoryfer.big-rusty-drums',
+    licence: 'CC0-1.0',
+    licenceFile: 'LICENSE',
+    checked: '2026-10-04',
+    usedFor: 'Big Rusty kit; the Gogodze kit’s cymbals',
+  },
+  unruly: {
+    kind: 'git',
+    repo: 'sfzinstruments/karoryfer.unruly-drums',
+    commit: '9bf75c2a1392f190cd1c264645653629f0b3a097',
+    title: 'Unruly Drums',
+    author: 'Karoryfer Samples',
+    url: 'https://github.com/sfzinstruments/karoryfer.unruly-drums',
+    licence: 'CC0-1.0',
+    licenceFile: 'LICENSE',
+    checked: '2026-10-04',
+    usedFor: 'Unruly kit',
+  },
+  gogodze: {
+    kind: 'git',
+    repo: 'sfzinstruments/karoryfer.gogodze-phu-vol-ii',
+    commit: '69a0274cdc39c99c3098cde1bc3789690de86d62',
+    title: 'Gogodze Phu Vol II',
+    author: 'Karoryfer Lecolds',
+    url: 'https://github.com/sfzinstruments/karoryfer.gogodze-phu-vol-ii',
+    licence: 'CC0-1.0',
+    licenceFile: 'LICENSE',
+    checked: '2026-10-04',
+    usedFor: 'Gogodze kit',
+  },
+  drskit: {
+    kind: 'zip',
+    // v2.1; the git mirror of DRSKit is v1.0, which DrumGizmo replaced
+    archive: 'https://drumgizmo.org/kits/DRSKit/DRSKit2_1.zip',
+    bytes: 2_803_397_710,
+    // checked against the md5 DrumGizmo publishes, 8c4d4b61ad9d354b3b845edd5da9c133, on 2026-10-04
+    sha256: '529f2dcad836593167d0cab218f125f591cd71199748fa681e05e3866667f090',
+    title: 'DRSKit',
+    author: 'Lars and Deva Muldjord, DrumGizmo, on a kit lent by DRSDrums',
+    url: 'https://drumgizmo.org/wiki/doku.php?id=kits:drskit',
+    licence: 'CC-BY-4.0',
+    // the archive has no licence file; the grant is a line of its README
+    licenceFile: 'DRSKit/README.md',
+    checked: '2026-10-04',
+    usedFor: 'DRS kit, DRS brushes',
+    notice: 'Drum samples provided by DrumGizmo.org.',
   },
 } as const satisfies Record<string, Source>;
 

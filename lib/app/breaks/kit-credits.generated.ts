@@ -61,5 +61,42 @@ export const KIT_CREDITS: KitCredit[] = [
     "licence": "CC0 1.0",
     "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
     "usedFor": "Dusty sampler, Trap kit"
+  },
+  {
+    "id": "bigrusty",
+    "title": "Big Rusty Drums",
+    "author": "Karoryfer Samples",
+    "url": "https://github.com/sfzinstruments/karoryfer.big-rusty-drums",
+    "licence": "CC0 1.0",
+    "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "usedFor": "Big Rusty kit; the Gogodze kit’s cymbals"
+  },
+  {
+    "id": "unruly",
+    "title": "Unruly Drums",
+    "author": "Karoryfer Samples",
+    "url": "https://github.com/sfzinstruments/karoryfer.unruly-drums",
+    "licence": "CC0 1.0",
+    "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "usedFor": "Unruly kit"
+  },
+  {
+    "id": "gogodze",
+    "title": "Gogodze Phu Vol II",
+    "author": "Karoryfer Lecolds",
+    "url": "https://github.com/sfzinstruments/karoryfer.gogodze-phu-vol-ii",
+    "licence": "CC0 1.0",
+    "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "usedFor": "Gogodze kit"
+  },
+  {
+    "id": "drskit",
+    "title": "DRSKit",
+    "author": "Lars and Deva Muldjord, DrumGizmo, on a kit lent by DRSDrums",
+    "url": "https://drumgizmo.org/wiki/doku.php?id=kits:drskit",
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "usedFor": "DRS kit, DRS brushes",
+    "notice": "Drum samples provided by DrumGizmo.org."
   }
 ];

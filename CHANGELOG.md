@@ -18,6 +18,13 @@ release process.
 
 ### Added
 
+- **Five new recorded kits (BeatBreaker Phase 9-iii-b).** Big Rusty, DRS
+  kit, DRS brushes, Unruly and Gogodze, built by `npm run kits:build` from
+  Karoryfer's Big Rusty, Unruly and Gogodze Phu Vol II (CC0) and DrumGizmo's
+  DRSKit 2.1 (CC BY 4.0). The pipeline gains a `zip` source kind, pinned by
+  the archive's sha256 and read member by member, and a pick's `channels`
+  for libraries that keep every mic in one file.
+
 - **The kit pipeline (BeatBreaker Phase 9-iii-a).** `npm run kits:build`
   (`scripts/kits/`) builds the recorded kits from pinned, licence-checked
   sources: it mixes, trims, measures and level-matches every stroke, chooses

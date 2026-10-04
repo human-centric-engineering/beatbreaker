@@ -49,6 +49,12 @@ export interface Pick {
   pattern: string;
   /** Each mic's weight in the mono mix. A pattern without `{mic}` has `{ '': 1 }`. */
   mics: Record<string, number>;
+  /**
+   * For a source that keeps every mic in one file (DrumGizmo): each mic's
+   * channel, by its name in the instrument file, and its weight. `mics` is
+   * then `{ '': 1 }`.
+   */
+  channels?: Record<string, number>;
   /** How many velocity layers to keep. */
   layers: number;
   /** How many takes to keep in each. */
@@ -69,6 +75,13 @@ export interface Piece {
   role: Role;
   /** Slot id → its recordings. The first slot is the one the level is matched on. */
   slots: Record<string, Pick>;
+  /**
+   * Match the level on this instead of the first slot: measured, never
+   * shipped. A brush kit that borrows the stick kit's foot hat gives it the
+   * stick kit's closed hat here, so the foot sits as it does there rather
+   * than turned up with the brushes.
+   */
+  matchOn?: Pick;
 }
 
 /**

@@ -190,7 +190,10 @@ Percussion strokes take round-robins the same way, by instrument and stroke.
 ### The pipeline (`scripts/kits/`)
 
 ```
-sources.ts   pinned libraries: repo, commit, licence file, date read, credit
+sources.ts   pinned libraries: a git repo at a commit, or a zip archive by its
+             sha256; licence file, date read, credit
+zip.ts       a zip source: downloaded once, members read via the central directory
+drumgizmo.ts which channel of a DrumGizmo stroke is which mic
 recipes/     per pack: which strokes make which slot, mics and weights,
              how many layers and takes
 build.ts     npm run kits:build [pack…]
@@ -200,9 +203,17 @@ For each slot the build:
 
 1. **Finds the candidates** (`pattern.ts`): a path pattern with `*` for what
    varies between strokes and `{mic}` for what varies between mics.
-2. **Fetches** each file from the pinned commit into `.kit-sources/`
-   (gitignored) and checks it against its git blob hash (`fetch.ts`).
-3. **Mixes** the mics to mono by weight, **trims** from the onset (−50 dBFS,
+2. **Fetches** each file into `.kit-sources/` (gitignored). A git source's
+   file comes from the pinned commit and is checked against its blob hash
+   (`fetch.ts`). A zip source's archive is downloaded once, checked against
+   its sha256 and length, and each member is inflated from the local copy
+   and checked against its CRC32 (`zip.ts`). DRSKit's archive is 2.8 GB. The
+   archive's directory and the members already extracted are kept in the
+   cache, so a build that needs nothing new from it neither reads nor hashes it.
+3. **Mixes** the mics to mono by weight. A DrumGizmo stroke is one WAV with
+   every mic in it: a pick's `channels` name the mics, the instrument's own
+   `<Inst>.xml` says which channel each is (never by position), and ffmpeg's
+   `pan` filter mixes them (`drumgizmo.ts`). Then it **trims** from the onset (−50 dBFS,
    less 0.5 ms) to 60 dB under the peak or the role's cap, with a 30 ms fade,
    and **measures** K-weighted RMS over 150 ms (`dsp.ts`).
 4. **Chooses** the layers evenly in dB across the recipe's range and the takes
@@ -212,7 +223,11 @@ For each slot the build:
    `<slot>-<layer>-<take>.m4a`.
 6. **Matches the level.** A piece's `trim` brings its loudest layer to
    `REFERENCE_DB` plus its role's target (`ROLE_TARGET_DB`), and every slot of
-   the piece gets it.
+   the piece gets it. A piece with `matchOn` is matched on that pick instead,
+   which is measured and never shipped: a brush kit's borrowed stick foot hat
+   keeps the stick kit's level. What the trim's ceiling of 4 cannot reach is
+   baked into every sample of the piece alike, up to −1 dBFS (`splitGain`), so
+   a quietly recorded piece still gets there.
 
 Then it writes the manifest (which the catalogue seed reads), the lock (every
 source file's and output's sha256, each output's bytes and seconds), each

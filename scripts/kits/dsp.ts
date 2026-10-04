@@ -134,4 +134,23 @@ export function loudness(hit: Float32Array): number {
   return db(Math.sqrt(sum / n));
 }
 
+/** The most a slot's `trim` may be: the kit slot schema's ceiling. */
+export const TRIM_CEILING = 4;
+
+/** How loud a sample may be made at build time: a decibel of headroom for the encoder. */
+export const BAKE_PEAK = amp(-1);
+
+/**
+ * Split the gain a piece needs between its `trim` and the samples themselves.
+ * The trim takes what it can, up to {@link TRIM_CEILING}; the rest is baked
+ * into every sample of the piece alike, so a layer's level against the next is
+ * untouched, and only so far that the loudest of them peaks at {@link BAKE_PEAK}.
+ * A quietly recorded piece (DRSKit's brushes) still reaches its role's level.
+ */
+export function splitGain(needed: number, peak: number): { trim: number; bake: number } {
+  const trim = Math.min(TRIM_CEILING, needed);
+  const bake = Math.max(1, Math.min(needed / trim, peak > 0 ? BAKE_PEAK / peak : 1));
+  return { trim, bake };
+}
+
 export { amp, db };
