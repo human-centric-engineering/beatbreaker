@@ -131,13 +131,22 @@ function patched(kit: YourKitView, body: Record<string, unknown>): YourKitView {
 }
 
 let yourKit: YourKitView;
+/** Set when the pieces route should fail. */
+let piecesDown: boolean;
 
 async function route(url: string, init: RequestInit = {}): Promise<Response> {
   const method = init.method ?? 'GET';
   const body = typeof init.body === 'string' ? JSON.parse(init.body) : undefined;
   sent.push({ method, url, body });
 
-  if (method === 'GET' && url === '/api/v1/catalogue/pieces') return ok(PIECES);
+  if (method === 'GET' && url === '/api/v1/catalogue/pieces') {
+    if (piecesDown) {
+      return new Response(JSON.stringify({ success: false, error: { message: 'down' } }), {
+        status: 503,
+      });
+    }
+    return ok(PIECES);
+  }
   if (method === 'POST' && url === '/api/v1/kits') {
     if (createAnswer) {
       return new Response(JSON.stringify(createAnswer.body), { status: createAnswer.status });
@@ -193,6 +202,7 @@ beforeEach(() => {
   localStorage.clear();
   sent = [];
   createAnswer = null;
+  piecesDown = false;
   yourKit = YOUR_KIT;
   vi.stubGlobal('fetch', vi.fn(route));
   vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => setTimeout(() => cb(0), 0));
@@ -351,5 +361,76 @@ describe('the builder, on a kit of yours', () => {
         pan: { h: -0.29, hf: -0.29 },
       })
     );
+  });
+
+  it('hears the row’s piece on ▸ at the row’s settings, and says so when it will not play', async () => {
+    preview.mockResolvedValue(false);
+    const user = userEvent.setup();
+    renderDrawer();
+    await user.selectOptions(kitPicker(), 'yours-a');
+    await waitFor(() => expect(within(rowPicker('Snare')).getAllByRole('group')).toHaveLength(2));
+
+    await user.click(screen.getByRole('button', { name: 'Hear the snare' }));
+
+    expect(preview).toHaveBeenCalledWith('/kits/muldjord/s-0.8.m4a', 's', {
+      gain: expect.closeTo((0.95 / 0.8) * 1.1, 6),
+      tune: -300,
+      decay: 1,
+    });
+    await waitFor(() =>
+      expect(screen.getByRole('status').textContent).toBe('Could not play Muldjord kit · Snare')
+    );
+  });
+
+  it('plays the kit’s own voice on ▸ for a row with no piece, and offers it no settings', async () => {
+    const user = userEvent.setup();
+    renderDrawer();
+    await user.selectOptions(kitPicker(), 'yours-a');
+    const rideRow = rowPicker('Ride').closest('.build-row') as HTMLElement;
+
+    await user.click(screen.getByRole('button', { name: 'Hear the ride' }));
+    expect(preview).not.toHaveBeenCalled();
+
+    await user.click(within(rideRow).getByRole('button', { name: 'Adjust' }));
+    expect(within(rideRow).queryByLabelText('Level')).toBeNull();
+    expect(within(rideRow).getByText(/Nothing in this row yet/)).toBeTruthy();
+    expect(within(rideRow).getByRole('button', { name: 'Reset to kit' })).toBeDisabled();
+  });
+
+  it('gives the splash no Pan of its own: it pans with the crash', async () => {
+    const user = userEvent.setup();
+    renderDrawer();
+    await user.selectOptions(kitPicker(), 'yours-a');
+    const splashRow = rowPicker('Splash').closest('.build-row') as HTMLElement;
+
+    await user.click(within(splashRow).getByRole('button', { name: 'Adjust' }));
+
+    expect(within(splashRow).queryByLabelText('Pan')).toBeNull();
+    expect(within(splashRow).getByText('The splash pans with the crash.')).toBeTruthy();
+  });
+
+  it('says the pieces did not load, and still shows what the kit holds', async () => {
+    piecesDown = true;
+    const user = userEvent.setup();
+    renderDrawer();
+    await user.selectOptions(kitPicker(), 'yours-a');
+
+    expect(await screen.findByText(/The pieces did not load/)).toBeTruthy();
+    // the kit's own piece stays in the picker, named from the kit
+    expect(rowPicker('Snare').value).toBe('muldjord-s');
+    expect(within(rowPicker('Snare')).queryAllByRole('group')).toHaveLength(0);
+  });
+
+  it('does not write anything when a knob is let go without moving', async () => {
+    const user = userEvent.setup();
+    renderDrawer();
+    await user.selectOptions(kitPicker(), 'yours-a');
+    const snareRow = rowPicker('Snare').closest('.build-row') as HTMLElement;
+    await user.click(within(snareRow).getByRole('button', { name: 'Adjust' }));
+
+    fireEvent.keyUp(within(snareRow).getByLabelText<HTMLInputElement>('Tune'));
+    fireEvent.pointerUp(within(snareRow).getByLabelText<HTMLInputElement>('Pan'));
+
+    expect(sent.some((s) => s.method === 'PATCH')).toBe(false);
   });
 });
