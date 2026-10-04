@@ -301,6 +301,12 @@ export interface Slot {
   opt?: boolean;
   /** What to play instead when it does not. */
   fall?: string;
+  /**
+   * Decoded with the second, idle pass rather than before the kit can play.
+   * An articulation is rarer than the hit it decorates, and until it lands
+   * its synthesised voice plays it.
+   */
+  late?: boolean;
 }
 
 export const SLOTS: Slot[] = [
@@ -311,17 +317,18 @@ export const SLOTS: Slot[] = [
   /* 9-iv's slots have no `fall` on purpose: a kit without a recording of one
      plays its synthesised voice, which is at least the right sound. Falling
      back on the snare or the crash would play a rimshot as a hit and a china
-     as the crash — the articulation gone, with nothing to say so. */
-  { id: 'sRim', voice: 's', label: 'Rimshot', opt: true },
+     as the crash — the articulation gone, with nothing to say so. They load
+     late, so a kit's first play costs what it did before them. */
+  { id: 'sRim', voice: 's', label: 'Rimshot', opt: true, late: true },
   { id: 'h', voice: 'h', label: 'Closed hat' },
   { id: 'hOpen', voice: 'h', label: 'Open hat', fall: 'h' },
-  { id: 'hHalf', voice: 'h', label: 'Half-open hat', opt: true },
+  { id: 'hHalf', voice: 'h', label: 'Half-open hat', opt: true, late: true },
   { id: 'r', voice: 'r', label: 'Ride' },
   { id: 'rBell', voice: 'r', label: 'Ride bell', opt: true, fall: 'r' },
   { id: 'c', voice: 'c', label: 'Crash' },
-  { id: 'c2', voice: 'c', label: 'Crash 2', opt: true },
-  { id: 'cChina', voice: 'c', label: 'China', opt: true },
-  { id: 'cSplash', voice: 'c', label: 'Splash', opt: true },
+  { id: 'c2', voice: 'c', label: 'Crash 2', opt: true, late: true },
+  { id: 'cChina', voice: 'c', label: 'China', opt: true, late: true },
+  { id: 'cSplash', voice: 'c', label: 'Splash', opt: true, late: true },
   { id: 'hFoot', voice: 'h', label: 'Hi-hat foot', opt: true, fall: 'h' },
   { id: 't1', voice: 't', label: 'High tom', opt: true },
   { id: 't2', voice: 't', label: 'Mid tom', opt: true },

@@ -21,7 +21,9 @@ import { clamp } from '@/lib/app/breaks/rng';
  * **Two passes.** A kit decodes the first round-robin of every layer, and
  * plays from that; the rest decode when the page is idle and join their
  * layers as they land. A kit with three takes a layer is about a third of the
- * bytes before it can play. **Two kits stay decoded** — the one playing and
+ * bytes before it can play. A `late` slot — a rimshot, a half-open hat, the
+ * second crash, china and splash — waits for the idle pass entirely, and its
+ * synthesised voice plays it until it lands. **Two kits stay decoded** — the one playing and
  * the one before it, so switching back is instant — and the oldest beyond
  * that is let go, because iOS Safari kills a page for decoded-audio memory.
  */
@@ -224,19 +226,35 @@ export class PackSource implements SampleSource {
 
   /**
    * The second pass: the remaining round-robins, appended to their layers as
-   * they decode. Skipped if the pack was let go in the meantime.
+   * they decode, then the `late` slots whole. Skipped if the pack was let go
+   * in the meantime.
    */
   private async decodeRest(
     engine: BreakAudio,
     pack: string,
     slots: Record<string, Layer[]>,
-    rest: Array<{ layer: Layer; files: string[] }>
+    rest: Array<{ layer: Layer; files: string[] }>,
+    late: Array<[string, KitSampleSlot]> = []
   ): Promise<void> {
+    const live = (): boolean => slots === this.loaded.get(pack) || slots === this.perc;
+    const more = async (list: Array<{ layer: Layer; files: string[] }>): Promise<void> => {
+      await Promise.all(
+        list.map(async ({ layer, files }) => {
+          if (!live()) return;
+          const takes = await Promise.all(files.map((f) => this.decodeFile(engine, pack, f)));
+          for (const take of takes) if (take) layer.takes.push(take);
+        })
+      );
+    };
+    await more(rest);
     await Promise.all(
-      rest.map(async ({ layer, files }) => {
-        if (slots !== this.loaded.get(pack) && slots !== this.perc) return;
-        const takes = await Promise.all(files.map((f) => this.decodeFile(engine, pack, f)));
-        for (const take of takes) if (take) layer.takes.push(take);
+      late.map(async ([slot, spec]) => {
+        if (!live()) return;
+        const takes: Array<{ layer: Layer; files: string[] }> = [];
+        const layers = await this.decode(engine, pack, spec, takes);
+        if (!live()) return;
+        slots[slot] = layers;
+        await more(takes);
       })
     );
     this.onChange?.();
@@ -262,9 +280,11 @@ export class PackSource implements SampleSource {
     try {
       const slots: Record<string, Layer[]> = {};
       const rest: Array<{ layer: Layer; files: string[] }> = [];
+      const late: Array<[string, KitSampleSlot]> = [];
       await Promise.all(
         Object.entries(slotSpecs).map(async ([slot, spec]) => {
-          slots[slot] = await this.decode(engine, pack, spec, rest);
+          if (SLOT_BY_ID[slot]?.late) late.push([slot, spec]);
+          else slots[slot] = await this.decode(engine, pack, spec, rest);
         })
       );
       this.loaded.set(pack, slots);
@@ -274,7 +294,9 @@ export class PackSource implements SampleSource {
       if (pack === playing) this.touch(pack);
       else this.evict(playing);
       this.onChange?.();
-      if (rest.length) whenIdle(() => void this.decodeRest(engine, pack, slots, rest));
+      if (rest.length || late.length) {
+        whenIdle(() => void this.decodeRest(engine, pack, slots, rest, late));
+      }
     } finally {
       this.loading.delete(pack);
     }

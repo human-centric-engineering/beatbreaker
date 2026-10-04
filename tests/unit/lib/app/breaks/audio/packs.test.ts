@@ -584,6 +584,70 @@ describe('hit() with round-robins', () => {
     }
   });
 
+  it('leaves an articulation to the idle pass, its synth voice playing until it lands', async () => {
+    vi.useFakeTimers();
+    try {
+      distinctBuffers();
+      const slots = {
+        s: { layers: [{ v: 1, files: ['s-0-0.m4a', 's-0-1.m4a'] }] },
+        sRim: { layers: [{ v: 1, files: ['sRim-0-0.m4a', 'sRim-0-1.m4a'] }] },
+        cChina: { layers: [{ v: 1, files: ['cChina-0-0.m4a'] }] },
+      };
+      engine.kit = packKit({ slots });
+      const source = new PackSource();
+      await source.load(engine, 'muldjord', slots);
+
+      // the kit plays after the snare's first take alone
+      expect(fetchMock.mock.calls.map((c) => c[0])).toEqual(['/kits/muldjord/s-0-0.m4a']);
+      expect(source.hit(engine, 0, 's', 1)).toBe(true);
+      expect(source.hit(engine, 0, 'sRim', 1)).toBe(false);
+      expect(source.hit(engine, 0, 'cChina', 1)).toBe(false);
+
+      await vi.runAllTimersAsync();
+      expect(fetchMock.mock.calls.map((c) => c[0]).sort()).toEqual(
+        [
+          '/kits/muldjord/s-0-0.m4a',
+          '/kits/muldjord/s-0-1.m4a',
+          '/kits/muldjord/sRim-0-0.m4a',
+          '/kits/muldjord/sRim-0-1.m4a',
+          '/kits/muldjord/cChina-0-0.m4a',
+        ].sort()
+      );
+      const playBuf = vi.spyOn(engine, 'playBuf');
+      expect(source.hit(engine, 1, 'sRim', 1)).toBe(true);
+      expect(source.hit(engine, 1.1, 'sRim', 1)).toBe(true);
+      // both of its takes joined the layer
+      expect(playBuf.mock.calls[0][1]).not.toBe(playBuf.mock.calls[1][1]);
+      expect(source.hit(engine, 1.2, 'cChina', 1)).toBe(true);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('does not decode a late slot for a pack let go before the idle pass', async () => {
+    vi.useFakeTimers();
+    try {
+      const slots = {
+        s: { layers: [{ v: 1, files: ['s-0-0.m4a'] }] },
+        hHalf: { layers: [{ v: 1, files: ['hHalf-0-0.m4a'] }] },
+      };
+      engine.kit = packKit({ slots });
+      const source = new PackSource();
+      await source.load(engine, 'muldjord', slots);
+      // two other kits load and play, and push this one out
+      for (const pack of ['a', 'b']) {
+        engine.kit = packKit({ slots: { s: slots.s } }, { pack });
+        await source.load(engine, pack, { s: slots.s });
+      }
+      expect(source.isReady('muldjord')).toBe(false);
+
+      await vi.runAllTimersAsync();
+      expect(fetchMock.mock.calls.map((c) => c[0])).not.toContain('/kits/muldjord/hHalf-0-0.m4a');
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it('loads every take of every layer, and a run of sixteenths never repeats one back to back', async () => {
     distinctBuffers();
     engine.rand = makeRng(99);
