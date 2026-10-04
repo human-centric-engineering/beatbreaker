@@ -725,6 +725,34 @@
 .bb .slot.filled .fn {
   color: var(--teal);
 }
+/* The kit builder's rows (9.18): a picker, ▸ and Adjust, then the knobs. */
+.bb .build-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.bb .build-row {
+  padding: 8px 9px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+}
+.bb .build-row.filled {
+  border-color: var(--line);
+}
+.bb .build-row .pick {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 6px;
+  align-items: center;
+}
+.bb .build-row .pick .mini {
+  min-height: 38px;
+  min-width: 44px;
+}
+.bb .build-row .knobs {
+  padding-top: 10px;
+}
 .bb .posread {
   font-family: var(--f-mono);
   font-size: 12px;

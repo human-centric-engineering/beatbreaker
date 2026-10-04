@@ -1318,6 +1318,66 @@ describe('playBuf()', () => {
   });
 });
 
+describe('preview() (9.18)', () => {
+  /** A context that decodes every file to one second, and a fetch that counts what it was asked for. */
+  function previewEngine(answer: () => Response = () => new Response(new ArrayBuffer(8))) {
+    const { audio, ctx } = initEngine();
+    const decodeAudioData = vi.fn(async () => ctx.createBuffer(1, 44100, 44100));
+    Object.assign(ctx, { decodeAudioData });
+    const fetched: string[] = [];
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (url: string) => {
+        fetched.push(url);
+        return answer();
+      })
+    );
+    return { audio, ctx, decodeAudioData, fetched };
+  }
+
+  it('plays the file at its gain, tuned in cents on the rate, with its decay', async () => {
+    const { audio, ctx } = previewEngine();
+    ctx.currentTime = 2;
+    const before = ctx.nodes.length;
+
+    expect(
+      await audio.preview('/kits/drs/s-1.m4a', 's', { gain: 0.7, tune: -1200, decay: 0.5 })
+    ).toBe(true);
+
+    const src = pick<FakeAudioBufferSourceNode>(ctx.nodes.slice(before), 'bufferSource')[0];
+    // an octave down is half the rate
+    expect(src.playbackRate.value).toBeCloseTo(0.5, 9);
+    expect(src.startedAt).toBeCloseTo(2.02, 9);
+    const g = src.outputs[0] as FakeGainNode;
+    expect(g.gain.events[0]).toMatchObject({ type: 'setValueAtTime', value: 0.7, time: 2.02 });
+    // a 1 s file at half rate is 2 s long; Decay 0.5 fades it out by 1 s
+    expect(g.gain.events[2]).toMatchObject({
+      type: 'exponentialRampToValueAtTime',
+      time: 3.02,
+    });
+    vi.unstubAllGlobals();
+  });
+
+  it('fetches and decodes a file once, however often it is heard', async () => {
+    const { audio, decodeAudioData, fetched } = previewEngine();
+    await audio.preview('/kits/drs/k-1.m4a', 'k', { gain: 1 });
+    await audio.preview('/kits/drs/k-1.m4a', 'k', { gain: 1 });
+    expect(fetched).toEqual(['/kits/drs/k-1.m4a']);
+    expect(decodeAudioData).toHaveBeenCalledTimes(1);
+    vi.unstubAllGlobals();
+  });
+
+  it('is false for a file that would not load, and tries it again next time', async () => {
+    const { audio, ctx, fetched } = previewEngine(() => new Response(null, { status: 404 }));
+    const before = ctx.nodes.length;
+    expect(await audio.preview('/kits/drs/gone.m4a', 'k', { gain: 1 })).toBe(false);
+    expect(pick(ctx.nodes.slice(before), 'bufferSource')).toHaveLength(0);
+    await audio.preview('/kits/drs/gone.m4a', 'k', { gain: 1 });
+    expect(fetched).toHaveLength(2);
+    vi.unstubAllGlobals();
+  });
+});
+
 /* ---------------------------------------------------------------------- */
 /* Phase 9: the ceiling, the lane channels, every open hat choked          */
 /* ---------------------------------------------------------------------- */

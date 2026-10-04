@@ -186,6 +186,30 @@ engine's `SourceStack` beside the packs. It fetches each sample id's audio once,
 decodes it, and keeps the buffer by id; a slot with nothing in it, or a sample
 that would not load, falls through to the synthesised voice.
 
+### Building a kit (9.18)
+
+_Build your kit_ is a card in the Sound drawer on any kit of yours
+(`panels/kit-builder.tsx`); the rows and what they send are
+`lib/app/breaks/kit-builder.ts`.
+
+- **One row per role:** Kick, Snare, Hats, Ride, Crash, Splash and the three
+  toms (`BUILDER_ROWS`). A row's picker offers the pieces of its role,
+  grouped by source, fetched from `/api/v1/catalogue/pieces` when the card
+  first shows.
+- **Choosing a piece** plays it and fills each of the row's slots it has,
+  emptying the rest (`fillRow`). A piece with none of them fills the row's
+  first slot with `from`. _None — synthesised_ empties the row.
+- **▸ plays the piece's own file**, its loudest take, through
+  `BreakAudio.preview()`: the kit's `PackSource` only decodes a piece once the
+  kit holds it. A row holding a sample of yours plays the kit's voice.
+- **_Adjust_ opens Level, Tune, Decay and Pan.** The first three go to every
+  filled slot of the row when the drag ends; Pan goes to the row's lanes
+  (Hats to `h` and `hf`; Splash has none, it pans with the crash).
+  _Reset to kit_ takes the row back to the recording's own.
+- **_Make my own from this kit_** (a recorded kit) and **_Copy this kit_**
+  (one of yours) are `POST /api/v1/kits { from }`, beside _New kit of your
+  own_, and pick the copy. The 21st is the server's `KIT_LIMIT` sentence.
+
 ## Tests
 
 | File                                                           | What it holds                                                                                                     |
@@ -197,4 +221,6 @@ that would not load, falls through to the synthesised voice.
 | `tests/integration/api/v1/kits/route.test.ts`                  | slots, someone else's sample refused, someone else's kit 404, the kit limit; pieces, settings, pans, copies (9-v) |
 | `tests/unit/lib/app/sample-erasure.test.ts`                    | the hook is registered and deletes the prefix                                                                     |
 | `tests/unit/components/app/studio/panels/your-sounds.test.tsx` | an mp3 goes up as WAV, a refusal is shown, usage after an upload and a delete                                     |
+| `tests/unit/components/app/studio/panels/kit-builder.test.tsx` | a copy has the kit's pieces; choosing a piece auditions it; `KIT_LIMIT`; knobs, Reset, pan (9.18)                 |
+| `tests/unit/lib/app/breaks/kit-builder.test.ts`                | the rows against the slot roster; `fillRow`, `rowSettings`, `previewOf`                                           |
 | `tests/helpers/your-sounds-db.ts`                              | the in-memory `sample`/`kit` table the route tests run the data layers over                                       |

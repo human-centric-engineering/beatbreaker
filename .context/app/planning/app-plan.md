@@ -2955,6 +2955,54 @@ in the tree:
   that would fall back on one: without that, a ghost sample of yours was
   passed over for your snare piece played soft.
 
+**9-v-b reconciled, 2026-10-04 (branch `phase-9-v-b`).** Read against the
+tree at `7b1e815c`. 9.18 needs no route or schema change; 9-v-a built them.
+
+- **The rows are fixed in code** (`lib/app/breaks/kit-builder.ts`), each a
+  role, its slots and its lane: Kick; Snare (`s`, `sGhost`, `sCross`,
+  `sRim`); Hats (`h`, `hOpen`, `hHalf`, `hFoot`); Ride (`r`, `rBell`); Crash
+  (`c`, `c2`, `cChina`); Splash (`cSplash`); High, Mid and Floor tom. A row
+  offers the pieces of its role, grouped by source under the source's title
+  from `KIT_CREDITS`.
+- **Choosing a piece fills each of the row's slots that it has, and empties
+  the rest.** A piece with none of the row's slots (a tom piece on another
+  tom, a crash as the splash) fills the row's first slot with
+  `from` its first. _None_ empties the row, and it plays synthesised.
+- **A tap to hear it is the piece's own file, not the kit.** The kit's
+  `PackSource` decodes a new piece only after the `PATCH` answers. So
+  choosing a piece, and ▸ on a row, play its loudest take through a
+  `preview()` on the engine: fetched and decoded once, at the slot's trim and
+  the row's settings, straight to the bus as any audition is.
+- **The knobs are Level, Tune, Decay and Pan**, written when a drag ends.
+  Level, Tune and Decay go to every filled slot of the row, a sample of
+  yours as much as a piece; Pan goes to the row's lane (Hats to `h` and
+  `hf`). Splash shares the crash's lane, so it has no Pan of its own.
+- **_Reset to kit_ is per row: the knobs back to the recording's own.** A
+  kit of yours does not record what it was copied from, so there is nothing
+  to put a piece back to; recording that is a schema change this PR does not
+  need. Reset empties the row's three settings and its pan.
+- **_Make my own from this kit_ is on a recorded kit, and _Copy this kit_
+  on one of yours**, beside _New kit of your own_. The copy is picked once
+  it is in the catalogue, as a new kit is. The 21st is the server's
+  `KIT_LIMIT` sentence in the toast.
+- **The pieces are fetched when the builder first shows**, from
+  `/api/v1/catalogue/pieces`, read through a schema. The Studio pages do not
+  carry them, so a page that never opens the builder never reads them.
+
+**9-v-b built, 2026-10-04.** As reconciled, with these findings:
+
+- **Not checked in a browser.** The done-when's look at 390 and 1440px in
+  Chrome was not done: the owner works in Arc, where the browser extension
+  does not run. The component tests stand in for it; the owner looks at it
+  by hand.
+- **A sample of yours is heard from its own file too.** A knob let go on a
+  row holding one of your samples played the kit's copy, which does not
+  have the new setting until the `PATCH` answers (`/code-review`).
+- **A piece with no slots is refused when the list is read.** Chosen, it
+  would have emptied its row while the toast said it was in.
+- **The preview's fetch refuses a redirect,** as the packs' and your
+  samples' do (`outbound-fetch-redirects.test.ts`).
+
 **9-vi — more sounds, synth rendered ahead, the machines:**
 
 | #    | Task                                                                                                                                                                                 | Done when                                                                                                                                                                                            |

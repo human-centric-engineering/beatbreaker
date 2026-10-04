@@ -1,6 +1,7 @@
 'use client';
 
 import { Slider, VOICE_HINTS } from '@/components/app/studio/panels/controls';
+import { KitBuilder } from '@/components/app/studio/panels/kit-builder';
 import {
   SampleSlots,
   YourKitControls,
@@ -160,6 +161,8 @@ export function KitPanel() {
           </div>
         </div>
       </div>
+
+      {yourKit ? <KitBuilder kit={yourKit} /> : null}
 
       <div className="card">
         <div className="card-hd">
