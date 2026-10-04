@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
+import { NotationKey } from '@/components/app/help/notation-key';
 import { ShowTourAgain } from '@/components/app/help/show-tour-again';
 import { DRAWERS } from '@/components/app/shell/drawer-guide';
 import { STUDIO_TOOLS } from '@/components/app/shell/studio-address';
@@ -17,7 +18,7 @@ import { ShortcutsTable } from '@/components/app/shell/shortcuts-table';
 export const metadata: Metadata = {
   title: 'Help',
   description:
-    'Keyboard shortcuts, what each Studio drawer is for, and what to do when the Studio is silent on an iPhone.',
+    'How to read the chart, keyboard shortcuts, what each Studio drawer is for, and what to do when the Studio is silent on an iPhone.',
   alternates: { canonical: '/help' },
 };
 
@@ -45,6 +46,18 @@ export default function HelpPage() {
             </div>
           ))}
         </dl>
+      </section>
+
+      <section aria-labelledby="help-notation" className="space-y-3">
+        <h2 id="help-notation" className="text-xl font-semibold">
+          Reading the chart
+        </h2>
+        <p className="text-muted-foreground text-sm">
+          Every note the chart can write, in the order the step editor lists them. A ghost note is
+          in brackets, an accent has a wedge over it, and a flam or a drag is the small notes just
+          before it — the other hand.
+        </p>
+        <NotationKey />
       </section>
 
       <section aria-labelledby="help-shortcuts" className="space-y-3">

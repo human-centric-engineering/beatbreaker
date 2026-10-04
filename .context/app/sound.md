@@ -59,6 +59,26 @@ MIDI port and file        voice (kick/snare/hat/…)  →  SampleSource.hit, els
 bus → drive → top end (lowpass) → glue compressor → master → ½ → ceiling → out
 ```
 
+### Articulations (9-iv)
+
+- **A flam, drag or buzz is several voices from one note.** `performStep`
+  returns the note and then its ornaments, flagged `ornament: 'grace' |
+'buzz'` and `ghost`, so the engine plays them as soft strokes of the same
+  drum. A grace is `min(25 ms, 0.3 step)` ahead of its note at 35% of it (a
+  drag's second a third of that gap ahead); a buzz is three repeats a quarter
+  step apart. The ornaments come after every note of the step, so a step
+  without one draws from Humanise exactly as before.
+- **A grace is the other hand's note.** It draws its nudge from that hand's
+  stream (`Humaniser.next(lane, amount, limb)`), with its timing held within a
+  quarter of the gap, so it never lands after its note.
+- **The half-open hat is sent at half strength** (`HALF_OPEN_SCALE`) because
+  GM has no note for it; `hat(…, half)` plays it at twice what it is sent.
+  Open hats keep a floor (`OPEN_HAT_MIN`), so the two never meet on note 46.
+- **Five slots joined the kit:** `sRim`, `hHalf`, `c2`, `cChina` and
+  `cSplash`. None has a `fall`: a kit without a recording plays the
+  synthesised voice, which keeps the articulation audible. 9-iv-b gives the
+  round-one kits recordings of them.
+
 ## Humanise
 
 `lib/app/breaks/humanise.ts`, pure. The model and its sources are in
@@ -250,7 +270,9 @@ Your own samples (`your-samples.ts`) now get the onset trim (`onsetOf`) and
 | File                                                              | Holds                                                                                                                                                               |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `tests/unit/lib/app/breaks/audio/packs.test.ts`                   | Round-robins never repeat back to back; the flat shape plays as before; the shelf; the wobble bounds                                                                |
-| `tests/unit/lib/app/breaks/audio/engine.test.ts`                  | The master chain to the ceiling; the ceiling curve; lane channels, pans, room; choking every open hat                                                               |
+| `tests/unit/lib/app/breaks/audio/engine.test.ts`                  | The master chain to the ceiling; the ceiling curve; lane channels, pans, room; choking every open hat; the 9-iv slots and their synthesised voices                  |
+| `tests/unit/lib/app/breaks/articulations.test.ts`                 | 9-iv end to end: the wire, the layers, graces and Humanise, MIDI write and read for every value, the critic, `tidy`, the generator, the notation key                |
+| `tests/unit/lib/app/breaks/goldens.test.ts`                       | The engraver, the generator and the MIDI export, pinned as they were before 9-iv; a golden SVG per articulation                                                     |
 | `tests/unit/lib/app/breaks/audio/performance-consistency.test.ts` | Speakers, port and file agree, Humanise on over two passes too; the fader reaches the channel and never the velocity; no `Math.random` in `perform.ts` or `feel.ts` |
 | `tests/unit/lib/app/breaks/humanise.test.ts`                      | The seed; replay; σ within 10% over 10,000 notes; negative interval correlation; independent limbs; the ±25 ms clamp; Amount 0                                      |
 | `tests/unit/lib/app/breaks/perform.test.ts`                       | Amount 0 is the grid; every humanised note reads back as its value; ms to steps at the tempo                                                                        |

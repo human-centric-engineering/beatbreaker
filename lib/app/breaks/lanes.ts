@@ -57,16 +57,73 @@ export function percInst(key: string | undefined): PercInst {
 
 /**
  * Snare values: 1 ghost · 2 hit · 3 accent · 4 **cross-stick** — the stick laid
- * across the head with its shoulder struck on the rim.
+ * across the head with its shoulder struck on the rim — then, from wire
+ * version 5 (9-iv), 5 **rimshot**, 6 **flam**, 7 **drag** and 8 **buzz**.
  *
- * A cross-stick is a different sound rather than a louder or softer one, which
- * is why it is its own value and not a velocity. Everything asking "is there a
- * real note here" tests `>= 2`, so a cross-stick counts as a backbeat;
- * everything asking "may I write over this" has to test this instead of
- * `=== 3`, or the variation pass writes over the clave a style is playing.
+ * A cross-stick or a rimshot is a different sound rather than a louder or
+ * softer one, which is why each is its own value and not a velocity; a flam,
+ * drag or buzz is a hit with grace notes or repeats around it, which
+ * `performStep` expands. Everything asking "is there a real note here" tests
+ * `>= 2`, so all of them count as a backbeat; everything asking "may I write
+ * over this" has to test this instead of `=== 3`, or the variation pass writes
+ * over the clave a style is playing, or under a flam somebody wrote.
  */
 export function snareKept(v: number): boolean {
-  return v === 3 || v === 4;
+  return v >= 3;
+}
+
+/** The articulations 9-iv added, by lane, so nothing has to spell the digits. */
+export const RIMSHOT = 5;
+export const FLAM = 6;
+export const DRAG = 7;
+export const BUZZ = 8;
+/** On the hi-hat. */
+export const HALF_OPEN = 4;
+/** On the crash lane: a second crash, a china and a splash. */
+export const CRASH_2 = 2;
+export const CHINA = 3;
+export const SPLASH = 4;
+/** On a tom. */
+export const TOM_FLAM = 3;
+
+/**
+ * How many grace notes a value is played with: a flam has one, a drag two.
+ * The grace is on the other hand, so a step carrying one takes both hands.
+ */
+export function gracesOf(lane: LaneKey, v: number): number {
+  if (lane === 's') return v === FLAM ? 1 : v === DRAG ? 2 : 0;
+  if (lane === 't1' || lane === 't2' || lane === 't3') return v === TOM_FLAM ? 1 : 0;
+  return 0;
+}
+
+/** How many hands a note takes: two for a flam or a drag, otherwise one. */
+export function handsOf(lane: LaneKey, v: number): number {
+  if (!v) return 0;
+  return gracesOf(lane, v) ? 2 : 1;
+}
+
+/**
+ * The value an articulation is written as when it is not wanted: what the
+ * difficulty layers below L4 show in its place, the "plain" stroke under the
+ * ornament. A rimshot is an accent played on the rim; a flam, drag or buzz is
+ * a hit; a half-open hat is a closed one; every cymbal on the crash lane is
+ * the crash. Values from before 9-iv are their own plain value.
+ */
+export function plainValue(lane: LaneKey, v: number): number {
+  switch (lane) {
+    case 's':
+      return v === RIMSHOT ? 3 : v >= FLAM ? 2 : v;
+    case 'h':
+      return v === HALF_OPEN ? 1 : v;
+    case 'c':
+      return v ? 1 : 0;
+    case 't1':
+    case 't2':
+    case 't3':
+      return v === TOM_FLAM ? 1 : v;
+    default:
+      return v;
+  }
 }
 
 /** Where a lane sits before a style says otherwise. */
@@ -125,13 +182,13 @@ export function panFor(lane: string, view: PanView): number {
  */
 export const LANE_VALUES: Record<LaneKey, string[]> = {
   k: ['hit', 'accent'],
-  s: ['ghost', 'hit', 'accent', 'cross-stick'],
-  h: ['closed', 'accent', 'open'],
+  s: ['ghost', 'hit', 'accent', 'cross-stick', 'rimshot', 'flam', 'drag', 'buzz'],
+  h: ['closed', 'accent', 'open', 'half-open'],
   r: ['ride', 'bell'],
-  c: ['crash'],
-  t1: ['hit', 'accent'],
-  t2: ['hit', 'accent'],
-  t3: ['hit', 'accent'],
+  c: ['crash', 'crash 2', 'china', 'splash'],
+  t1: ['hit', 'accent', 'flam'],
+  t2: ['hit', 'accent', 'flam'],
+  t3: ['hit', 'accent', 'flam'],
   hf: ['chick'],
   p1: ['hit', 'accent'],
   p2: ['hit', 'accent'],
@@ -159,8 +216,8 @@ export const LANE_DEFS: Record<LaneKey, LaneDef> = {
   c: {
     name: 'Crash',
     color: 'var(--plum)',
-    states: 2,
-    glyph: ['', 'C'],
+    states: 5,
+    glyph: ['', 'C', '2', 'N', 'S'],
     staff: 11,
     ledger: true,
     midi: 49,
@@ -178,8 +235,8 @@ export const LANE_DEFS: Record<LaneKey, LaneDef> = {
   h: {
     name: 'Hi-hat',
     color: 'var(--teal)',
-    states: 4,
-    glyph: ['', 'x', '>', 'o'],
+    states: 5,
+    glyph: ['', 'x', '>', 'o', 'ø'],
     staff: 9,
     midi: 42,
     head: 'x',
@@ -187,8 +244,8 @@ export const LANE_DEFS: Record<LaneKey, LaneDef> = {
   t1: {
     name: 'High tom',
     color: 'var(--ok)',
-    states: 3,
-    glyph: ['', '1', '>'],
+    states: 4,
+    glyph: ['', '1', '>', 'f'],
     staff: 7,
     midi: 48,
     head: 'oval',
@@ -197,8 +254,8 @@ export const LANE_DEFS: Record<LaneKey, LaneDef> = {
   t2: {
     name: 'Mid tom',
     color: 'var(--ok)',
-    states: 3,
-    glyph: ['', '2', '>'],
+    states: 4,
+    glyph: ['', '2', '>', 'f'],
     staff: 6,
     midi: 45,
     head: 'oval',
@@ -207,8 +264,8 @@ export const LANE_DEFS: Record<LaneKey, LaneDef> = {
   s: {
     name: 'Snare',
     color: 'var(--rust)',
-    states: 5,
-    glyph: ['', 'g', 'o', '>', 'x'],
+    states: 9,
+    glyph: ['', 'g', 'o', '>', 'x', 'r', 'f', 'd', 'z'],
     staff: 5,
     midi: 38,
     head: 'oval',
@@ -216,8 +273,8 @@ export const LANE_DEFS: Record<LaneKey, LaneDef> = {
   t3: {
     name: 'Floor tom',
     color: 'var(--ok)',
-    states: 3,
-    glyph: ['', '3', '>'],
+    states: 4,
+    glyph: ['', '3', '>', 'f'],
     staff: 3,
     midi: 43,
     head: 'oval',

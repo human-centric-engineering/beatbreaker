@@ -69,6 +69,13 @@ export function limbOf(lane: LaneKey): Limb {
   return LIMB[lane];
 }
 
+/** The hand that is not this one — where a flam's grace comes from. A foot is its own. */
+export function otherHand(limb: Limb): Limb {
+  if (limb === 'leftHand') return 'rightHand';
+  if (limb === 'rightHand') return 'leftHand';
+  return limb;
+}
+
 /** σ_t at Amount 100, in ms: hands a little looser than feet. */
 const SIGMA_MS: Record<Limb, number> = {
   rightFoot: 8,
@@ -169,9 +176,13 @@ export class Humaniser {
 
   constructor(readonly seed: number) {}
 
-  /** The next note on `lane`'s limb, at `amount` (0–100). Amount 0 is exactly the grid. */
-  next(lane: LaneKey, amount: number): Nudge {
-    const limb = limbOf(lane);
+  /**
+   * The next note on `lane`'s limb, at `amount` (0–100). Amount 0 is exactly
+   * the grid. `limb` names another limb for a note on that lane played by it —
+   * a flam's grace, which is the other hand's: it draws from that limb's
+   * stream, and keeps the lane's velocity spread.
+   */
+  next(lane: LaneKey, amount: number, limb: Limb = limbOf(lane)): Nudge {
     let stream = this.limbs.get(limb);
     if (!stream) {
       stream = new LimbStream(mix(this.seed, LIMB_SALT[limb]));

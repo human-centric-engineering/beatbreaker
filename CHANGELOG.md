@@ -18,6 +18,19 @@ release process.
 
 ### Added
 
+- **New articulations (BeatBreaker Phase 9-iv-a).** The snare gains rimshot,
+  flam, drag and buzz (step values 5–8), the hi-hat a half-open value, the
+  crash lane crash 2, china and splash, and each tom a flam. They are written,
+  stored, played, sent over MIDI, read back from MIDI, engraved and checked
+  everywhere a note is; `/help` gains an engraved notation key. **The share
+  code / `Break.doc` wire format moves to version 5**: a v4 code still
+  decodes to the same bars, and a payload that says `ver` 4 or lower is held
+  to v4's values. Five kit slots join the kit (`sRim`, `hHalf`, `c2`,
+  `cChina`, `cSplash`), each with a synthesised voice; five optional style
+  params (`rimshot`, `flam`, `drag`, `buzz`, `halfOpen`) let the generator
+  write them, and change nothing at 0. MIDI note 40 now imports as a rimshot
+  rather than a plain snare.
+
 - **Five new recorded kits (BeatBreaker Phase 9-iii-b).** Big Rusty, DRS
   kit, DRS brushes, Unruly and Gogodze, built by `npm run kits:build` from
   Karoryfer's Big Rusty, Unruly and Gogodze Phu Vol II (CC0) and DrumGizmo's

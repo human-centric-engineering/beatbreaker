@@ -61,31 +61,36 @@ const LABEL_ALIASES: Record<string, LaneKey> = {
  * The character for each step value, lane by lane. Index 0 is the rest. The
  * same letters `parseBar` reads, with the percussion lanes added in the toms'
  * letters, since they have the same two values.
+ *
+ * 9-iv's articulations: on the snare `r` rimshot, `f` flam, `d` drag, `z`
+ * buzz (the `z` a buzz is written with on the stem); on the hat `h`
+ * half-open; on the crash lane `2` crash 2, `N` china, `S` splash; on a tom
+ * `F` flam.
  */
-const CHARS: Record<LaneKey, string[]> = {
+export const CHARS: Record<LaneKey, string[]> = {
   k: ['.', 'X', 'A'],
-  s: ['.', 'g', 's', 'S', 'c'],
-  h: ['.', 'x', 'X', 'o'],
+  s: ['.', 'g', 's', 'S', 'c', 'r', 'f', 'd', 'z'],
+  h: ['.', 'x', 'X', 'o', 'h'],
   r: ['.', 'r', 'b'],
-  c: ['.', 'C'],
-  t1: ['.', 'X', 'A'],
-  t2: ['.', 'X', 'A'],
-  t3: ['.', 'X', 'A'],
+  c: ['.', 'C', '2', 'N', 'S'],
+  t1: ['.', 'X', 'A', 'F'],
+  t2: ['.', 'X', 'A', 'F'],
+  t3: ['.', 'X', 'A', 'F'],
   hf: ['.', 'f'],
   p1: ['.', 'X', 'A'],
   p2: ['.', 'X', 'A'],
 };
 
 /** What each character means, for the error that names what a lane takes. */
-const MEANINGS: Record<LaneKey, string[]> = {
+export const MEANINGS: Record<LaneKey, string[]> = {
   k: ['rest', 'hit', 'accent'],
-  s: ['rest', 'ghost', 'hit', 'accent', 'cross-stick'],
-  h: ['rest', 'closed', 'accent', 'open'],
+  s: ['rest', 'ghost', 'hit', 'accent', 'cross-stick', 'rimshot', 'flam', 'drag', 'buzz'],
+  h: ['rest', 'closed', 'accent', 'open', 'half-open'],
   r: ['rest', 'ride', 'bell'],
-  c: ['rest', 'crash'],
-  t1: ['rest', 'hit', 'accent'],
-  t2: ['rest', 'hit', 'accent'],
-  t3: ['rest', 'hit', 'accent'],
+  c: ['rest', 'crash', 'crash 2', 'china', 'splash'],
+  t1: ['rest', 'hit', 'accent', 'flam'],
+  t2: ['rest', 'hit', 'accent', 'flam'],
+  t3: ['rest', 'hit', 'accent', 'flam'],
   hf: ['rest', 'chick'],
   p1: ['rest', 'hit', 'accent'],
   p2: ['rest', 'hit', 'accent'],
@@ -184,6 +189,20 @@ function laneOf(label: string): LaneKey | undefined {
 
 function takes(L: LaneKey): string {
   return CHARS[L].map((ch, v) => `${ch} ${MEANINGS[L][v]}`).join(', ');
+}
+
+/**
+ * Every lane's characters, as one line for a model's tool description:
+ * `snare g ghost, s hit, …`. Built from the table the reader reads, so the
+ * description cannot promise a character `fromText` refuses.
+ */
+export function notationKey(): string {
+  return LANE_ORDER.map(
+    (L) =>
+      `${TEXT_LANE_LABELS[L]} ${CHARS[L].slice(1)
+        .map((ch, v) => `${ch} ${MEANINGS[L][v + 1]}`)
+        .join(', ')}`
+  ).join('; ');
 }
 
 /**

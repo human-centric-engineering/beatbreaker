@@ -19,10 +19,19 @@ argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
   use (`pattern.lanes` says which it does). Turning a lane on never reshapes a
   bar.
 - **Lane values are small integers**, legal range per lane in `LANE_VALUES`
-  (`lanes.ts`): kick 0–2, snare 0–4 (ghost, hit, accent, cross-stick), hat 0–3
-  (closed, accent, open), ride 0–2, crash 0–1, toms 0–2, foot 0–1, percussion
-  0–2. Untrusted values are checked against those ranges in one place, the
-  packed-bar schema in `schema.ts`.
+  (`lanes.ts`): kick 0–2, snare 0–8 (ghost, hit, accent, cross-stick, then
+  9-iv's rimshot, flam, drag, buzz), hat 0–4 (closed, accent, open,
+  half-open), ride 0–2, crash 0–4 (crash, crash 2, china, splash), toms 0–3
+  (hit, accent, flam), foot 0–1, percussion 0–2. Untrusted values are checked
+  against those ranges in one place, the packed-bar schema in `schema.ts`.
+- **An articulation is a value, not a flag.** A flam, drag or buzz is one
+  step value that `performStep` expands into its note plus grace notes or
+  repeats; the speakers, the MIDI port and the file all get the expansion from
+  there. Use the named constants (`RIMSHOT`, `FLAM`, `HALF_OPEN`, `CHINA`, …)
+  and the helpers beside them (`gracesOf`, `handsOf`, `plainValue`) rather than
+  digits. A flam or drag is **two hands** (`handsOf`); the critic and `tidy`
+  both count it so. Anything asking "may I write over this note" tests
+  `snareKept` (any snare value from 3 up).
 - **Seeded, never `Math.random()`.** `makeRng(seed)` is xorshift32 (13, 17, 5)
   and its sequence is pinned in `tests/unit/lib/app/breaks/rng.test.ts`. The same
   seed and options always produce the same break, everywhere. **Changing the RNG
@@ -80,7 +89,7 @@ argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
 | `saved/targets.ts` | What a pin and a practice visit point at: `visibleTarget` (the "yours, not private, or in the catalogue" rule), `TARGET_SELECT`, `toTargetView`, `targetVisible`. Server-side; `pins.ts` and `history.ts` share it.                                                                                                   |
 | `audio/*`          | Browser only. `engine.ts` (Web Audio), `transport.ts` (the look-ahead clock, metronome, MIDI out), `packs.ts` / `your-samples.ts` (recorded kits and yours, [`samples.md`](./samples.md)), `encode-wav.ts` (a picked file as a sample), `midi-out.ts` (Web MIDI port).                                                |
 
-## The wire format (share code, version 4)
+## The wire format (share code, version 5)
 
 A break travels as a `BreakDoc` (`{ bpm, swing, level, arrangement, A, B }`)
 packed into a `SharePayload`. As a share code or a `#b=` link, the payload is
@@ -89,7 +98,7 @@ itself. All three are checked by the same schema.
 
 ```jsonc
 {
-  "ver": 4,            // 1–4 accepted; encode writes 4
+  "ver": 5,            // 1–5 accepted; encode writes 5
   "bpm": 94,           // 20–400
   "sw": 0,             // swing, 0–100
   "lv": 5,             // layer 1–5 (v1 numbers are remapped)
@@ -114,6 +123,13 @@ itself. All three are checked by the same schema.
   "B": { … }
 }
 ```
+
+**Version 5 (9-iv) adds the articulations** as step values 5–8 on the lanes
+that have them; nothing else changed. **A payload is held to its own
+version's values:** one that says `ver` 4 or lower may carry only what v4
+could (`V4_LANE_MAX`), so a rimshot under a v4 header is a 400, and a stored
+v4 row is repaired into v4's ranges, not v5's. A v4 code decodes to the bars
+it always held and re-encodes to the same bars as v5.
 
 **Version 4 is what makes a pattern stand on its own.** `sa` is a snapshot of
 the five style attributes playback, the critic and the MIDI export read, so a
@@ -459,16 +475,16 @@ bar 1   count  1e+a2e+a3e+a4e+a
         kick   X.X.......X..X..
 ```
 
-| Lane    | Label                   | Characters (`.` is a rest)                         |
-| ------- | ----------------------- | -------------------------------------------------- |
-| `k`     | `kick`                  | `X` hit · `A` accent                               |
-| `s`     | `snare`                 | `g` ghost · `s` hit · `S` accent · `c` cross-stick |
-| `h`     | `hat`                   | `x` closed · `X` accent · `o` open                 |
-| `r`     | `ride`                  | `r` ride · `b` bell                                |
-| `c`     | `crash`                 | `C` crash                                          |
-| `t1–t3` | `tom1`, `tom2`, `floor` | `X` hit · `A` accent                               |
-| `hf`    | `foot`                  | `f` chick                                          |
-| `p1–p2` | `perc1`, `perc2`        | `X` hit · `A` accent                               |
+| Lane    | Label                   | Characters (`.` is a rest)                                                                        |
+| ------- | ----------------------- | ------------------------------------------------------------------------------------------------- |
+| `k`     | `kick`                  | `X` hit · `A` accent                                                                              |
+| `s`     | `snare`                 | `g` ghost · `s` hit · `S` accent · `c` cross-stick · `r` rimshot · `f` flam · `d` drag · `z` buzz |
+| `h`     | `hat`                   | `x` closed · `X` accent · `o` open · `h` half-open                                                |
+| `r`     | `ride`                  | `r` ride · `b` bell                                                                               |
+| `c`     | `crash`                 | `C` crash · `2` crash 2 · `N` china · `S` splash                                                  |
+| `t1–t3` | `tom1`, `tom2`, `floor` | `X` hit · `A` accent · `F` flam                                                                   |
+| `hf`    | `foot`                  | `f` chick                                                                                         |
+| `p1–p2` | `perc1`, `perc2`        | `X` hit · `A` accent                                                                              |
 
 `toText(pattern, { section?, bpm?, swing? })` writes the pattern's roster plus
 any lane that has notes anyway. `fromText(text, meter)` reads it back:
@@ -507,11 +523,11 @@ the same step the stick plays it open.
 
 Three sources, all deterministic, and **no URL is ever fetched**:
 
-| Source                                   | Read by               | What bends                                                                                                                                                                                                |
-| ---------------------------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| A BeatBreaker code, or a link with `#b=` | `decodeBreak`         | Nothing: it is the wire format.                                                                                                                                                                           |
-| A MIDI file (base64, ≤128 KB)            | `readMidi`            | Quantised to sixteenths. Velocities are read against the levels the speakers play (`valueForVelocity`). Notes with no lane are dropped. Drums come from channel 10, or from every channel if 10 is empty. |
-| A Groove Scribe link (two hosts)         | `readGrooveScribeUrl` | An eighth-note grid is spread out and a 32nd grid thinned. Flams, drags and buzzes read as hits, toms 3 and 4 share the floor tom, and a cowbell takes a percussion slot. Triplets are refused.           |
+| Source                                   | Read by               | What bends                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| ---------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| A BeatBreaker code, or a link with `#b=` | `decodeBreak`         | Nothing: it is the wire format.                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| A MIDI file (base64, ≤128 KB)            | `readMidi`            | Quantised to sixteenths. Velocities are read against the levels the speakers play (`valueForVelocity`). A soft note just ahead of a louder one on the same drum is its grace (a flam, or two for a drag); two or more soft snare notes close behind a louder one are a buzz. 40 is a rimshot, 57, 52 and 55 crash 2, china and splash, and 46 under the open band a half-open hat. Notes with no lane are dropped. Drums come from channel 10, or from every channel if 10 is empty. |
+| A Groove Scribe link (two hosts)         | `readGrooveScribeUrl` | An eighth-note grid is spread out and a 32nd grid thinned. Its flams, drags and buzzes read as BeatBreaker's own, toms 3 and 4 share the floor tom, and a cowbell takes a percussion slot. Triplets are refused.                                                                                                                                                                                                                                                                     |
 
 Whatever bent is reported in `notes`, one sentence each, so neither the user
 nor BeatBuddy is told an import was exact when it was not. An import has no

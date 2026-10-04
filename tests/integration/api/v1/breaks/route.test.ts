@@ -261,6 +261,30 @@ describe('POST /api/v1/breaks', () => {
     expect(typeof body.data.critique.playable).toBe('boolean');
   });
 
+  it('stores every 9-iv articulation as written, and refuses one under a v4 header (9.11)', async () => {
+    vi.mocked(prisma.break.create).mockResolvedValue(listRow() as never);
+    const doc = wireDoc();
+    const A = doc.A as { b: string[] };
+    // snare: rimshot, flam, drag, buzz · hat: half-open · crash: crash 2, china, splash · a tom flam
+    const bar = A.b[0].split('|');
+    bar[1] = `5678${bar[1].slice(4)}`;
+    bar[2] = `4${bar[2].slice(1)}`;
+    bar[4] = `234${bar[4].slice(3)}`;
+    bar[6] = `3${bar[6].slice(1)}`;
+    A.b[0] = bar.join('|');
+    expect(doc.ver).toBe(5);
+
+    const res = await POST(post({ title: 'Every articulation', doc }));
+    expect(res.status).toBe(201);
+    const stored = vi.mocked(prisma.break.create).mock.calls[0][0].data.doc as typeof doc;
+    expect((stored.A as { b: string[] }).b[0]).toBe(A.b[0]);
+
+    vi.mocked(prisma.break.create).mockClear();
+    const refused = await POST(post({ title: 'Old header', doc: { ...doc, ver: 4 } }));
+    expect(refused.status).toBe(400);
+    expect(prisma.break.create).not.toHaveBeenCalled();
+  });
+
   it('mints a slug for a pattern created as a link share, and never for a private one', async () => {
     vi.mocked(prisma.break.create).mockResolvedValue(listRow() as never);
     await POST(post({ title: 'Shared', doc: wireDoc('funk', '4/4'), visibility: 'link' }));

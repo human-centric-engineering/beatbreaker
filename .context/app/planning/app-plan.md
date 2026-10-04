@@ -2657,17 +2657,17 @@ new source (Salamander) and re-cuts the packs, so it is reconciled against
 the sources when it starts, as 9-iii-b was. Until it lands, every kit plays
 the new slots on their synth voices, which 9.15's done-when already allows.
 
-| Lane      | Value       | Text | MIDI out                    | Read back as                             | Engraved                                    | Below L4 |
-| --------- | ----------- | ---- | --------------------------- | ---------------------------------------- | ------------------------------------------- | -------- |
-| `s`       | 5 rimshot   | `r`  | 40                          | 40                                       | the oval with a slash through it            | 3 accent |
-| `s`       | 6 flam      | `f`  | 38, a grace on the right    | a soft 38 just ahead of a louder one     | one slashed grace note                      | 2 hit    |
-| `s`       | 7 drag      | `d`  | 38, two graces on the right | two soft 38s just ahead                  | two beamed grace notes                      | 2 hit    |
-| `s`       | 8 buzz      | `z`  | 38, three soft repeats      | two or more soft 38s inside the step     | `z` across the stem                         | 2 hit    |
-| `h`       | 4 half-open | `h`  | 46, below the open band     | 46 under the line between the two        | the open ring with a slash                  | 1 closed |
-| `c`       | 2 crash 2   | `2`  | 57                          | 57                                       | the crash with a small 2 beside it          | 1 crash  |
-| `c`       | 3 china     | `N`  | 52                          | 52                                       | an X above the second ledger line (step 12) | 1 crash  |
-| `c`       | 4 splash    | `S`  | 55                          | 55                                       | an X on the first ledger line (step 10)     | 1 crash  |
-| `t1`–`t3` | 3 flam      | `F`  | the tom, a grace            | a soft tom note just ahead of a loud one | one slashed grace note                      | 1 hit    |
+| Lane      | Value       | Text | MIDI out                    | Read back as                             | Engraved                                 | Below L4 |
+| --------- | ----------- | ---- | --------------------------- | ---------------------------------------- | ---------------------------------------- | -------- |
+| `s`       | 5 rimshot   | `r`  | 40                          | 40                                       | the oval with a slash through it         | 3 accent |
+| `s`       | 6 flam      | `f`  | 38, a grace on the right    | a soft 38 just ahead of a louder one     | one slashed grace note                   | 2 hit    |
+| `s`       | 7 drag      | `d`  | 38, two graces on the right | two soft 38s just ahead                  | two beamed grace notes                   | 2 hit    |
+| `s`       | 8 buzz      | `z`  | 38, three soft repeats      | two or more soft 38s inside the step     | `z` across the stem                      | 2 hit    |
+| `h`       | 4 half-open | `h`  | 46, below the open band     | 46 under the line between the two        | the open ring with a slash               | 1 closed |
+| `c`       | 2 crash 2   | `2`  | 57                          | 57                                       | the crash with a small 2 beside it       | 1 crash  |
+| `c`       | 3 china     | `N`  | 52                          | 52                                       | an X on the second ledger line (step 12) | 1 crash  |
+| `c`       | 4 splash    | `S`  | 55                          | 55                                       | an X on the first ledger line (step 10)  | 1 crash  |
+| `t1`–`t3` | 3 flam      | `F`  | the tom, a grace            | a soft tom note just ahead of a loud one | one slashed grace note                   | 1 hit    |
 
 The calls:
 
@@ -2728,9 +2728,9 @@ The calls:
   change.
 - **The generator writes them from five new style params:** `rimshot`,
   `flam`, `drag`, `buzz` and `halfOpen`, each a probability from 0 to 1. A
-  pass after everything else turns some backbeats into rimshots, fill
-  accents into flams, the ghost before a backbeat into a drag, fill hits
-  into buzzes and open hats into half-open ones. It never puts a flam or
+  pass after everything else turns some backbeats into rimshots, snare
+  accents off the backbeat into flams, plain hits off it into drags or
+  buzzes, and open hats into half-open ones. It never puts a flam or
   drag under a cymbal. It draws from its own stream, and only when a param
   is set, so at the defaults the generator does not even make it. No seeded
   style sets one.

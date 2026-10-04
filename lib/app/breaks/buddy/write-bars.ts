@@ -5,7 +5,7 @@ import { playability } from '@/lib/app/breaks/critic';
 import { DEFAULT_PERC, LANES, PERC_LANES } from '@/lib/app/breaks/lanes';
 import { METER_KEYS, meterOf, remapList } from '@/lib/app/breaks/meter';
 import { clonePattern } from '@/lib/app/breaks/pattern';
-import { type TextBar, fromText } from '@/lib/app/breaks/text';
+import { type TextBar, fromText, notationKey } from '@/lib/app/breaks/text';
 import { type TidyRule, tidy } from '@/lib/app/breaks/tidy';
 import type { Bar, Pattern } from '@/lib/app/breaks/types';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
@@ -183,7 +183,7 @@ export class WriteBarsCapability extends BaseCapability<Args, EditData> {
 
   readonly functionDefinition: CapabilityFunctionDefinition = {
     name: 'write_bars',
-    description: `Write bars yourself, in the same text notation get_pattern returns, replacing bars of section A or B. Use it for a genre no style covers, for transcribing notation from an image, or for a specific change no doctor move makes. Start each bar with "bar N", then one line per lane: a lane name and one character per 16th step (a bar of 4/4 is 16 steps; spaces and | are ignored, "." is a rest). Lanes and their characters: crash C; ride r ride, b bell; hat x closed, X accent, o open; tom1/tom2/floor X hit, A accent; snare g ghost, s hit, S accent, c cross-stick; kick X hit, A accent; foot f hi-hat foot chick; perc1/perc2 X hit, A open. A lane you leave out is empty in that bar. By default each bar replaces that bar number (or adds it if it is one past the end). With whole: true the bars become the whole section and meter may change. Every bar is checked before anything is written: no hi-hat and ride together, at most two hands on one step, no triple 16ths on the kick, no four 16ths running on the snare, a backbeat in every bar, and a quarter of each bar left as air. A refused bar comes back with the reason; fix it and try again.`,
+    description: `Write bars yourself, in the same text notation get_pattern returns, replacing bars of section A or B. Use it for a genre no style covers, for transcribing notation from an image, or for a specific change no doctor move makes. Start each bar with "bar N", then one line per lane: a lane name and one character per 16th step (a bar of 4/4 is 16 steps; spaces and | are ignored, "." is a rest). Lanes and their characters: ${notationKey()}. Flams, drags, buzzes, rimshots, the half-open hat and the crash lane's other cymbals are for when the user asks for them or the notation shows them. A lane you leave out is empty in that bar. By default each bar replaces that bar number (or adds it if it is one past the end). With whole: true the bars become the whole section and meter may change. Every bar is checked before anything is written: no hi-hat and ride together, at most two hands on one step (a flam or drag is both hands), no triple 16ths on the kick, no four 16ths running on the snare, a backbeat in every bar, and a quarter of each bar left as air. A refused bar comes back with the reason; fix it and try again.`,
     parameters: {
       type: 'object',
       properties: {

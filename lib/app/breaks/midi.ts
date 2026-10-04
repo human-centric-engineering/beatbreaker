@@ -20,6 +20,13 @@ import type { Pattern } from '@/lib/app/breaks/types';
  *
  * The mixer is not in the file, as it is not on the live port: faders and mutes
  * are the speakers' business (D23).
+ *
+ * **What GM cannot say is said around it** (9-iv). A rimshot is 40, crash 2,
+ * china and splash 57, 52 and 55. A flam is the snare's 38 with a soft grace
+ * just ahead of it, a drag two graces, a buzz three soft repeats inside the
+ * step — the notes `performStep` plays, so `readMidi` reads them back from
+ * their shape. GM has no half-open hat: it is the open hat's 46, sent under the
+ * open band (`HALF_OPEN_MAX` in `perform.ts`), and read back by velocity.
  */
 
 export { MIDI_MAP };
@@ -72,6 +79,7 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
   const PPQ = 480;
   const ST = PPQ / 4; // one grid step is a sixteenth, in every meter
   const events: MidiEvent[] = [];
+  const ons: Array<{ t: number; n: number; v: number }> = [];
   let tick = 0;
   const human = opts.humanise
     ? {
@@ -93,16 +101,32 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
         feel: opts.feel,
         hats: opts.hats,
         humanise: human,
+        bpm: opts.bpm,
       });
       for (const voice of voices) {
         /* A hit pushed in front of bar 1 has nowhere earlier to go, so it lands
            on the downbeat rather than at a negative tick. */
         const on = Math.max(0, Math.round(tick + (i + voice.offset) * ST));
-        events.push({ t: on, type: 0x99, n: voice.note, v: midiVelocity(voice.velocity) });
-        events.push({ t: on + 60, type: 0x89, n: voice.note, v: 0 });
+        ons.push({ t: on, n: voice.note, v: midiVelocity(voice.velocity) });
       }
     }
     tick += nSteps * ST;
+  }
+
+  /* Each note sounds for 60 ticks, or until the next note-on of the same
+     note: a flam's grace 25 ms ahead of its note would otherwise still be
+     held when the note starts, and a buzz's repeats are closer than that. */
+  const offs = new Map<(typeof ons)[number], number>();
+  const prev = new Map<number, (typeof ons)[number]>();
+  for (const on of [...ons].sort((a, b) => a.t - b.t)) {
+    const before = prev.get(on.n);
+    if (before) offs.set(before, Math.min(before.t + 60, on.t));
+    prev.set(on.n, on);
+  }
+  // in the order they were played, so notes on one tick keep their order
+  for (const on of ons) {
+    events.push({ t: on.t, type: 0x99, n: on.n, v: on.v });
+    events.push({ t: offs.get(on) ?? on.t + 60, type: 0x89, n: on.n, v: 0 });
   }
 
   // note-offs sort before note-ons at the same tick, so a repeated note retriggers

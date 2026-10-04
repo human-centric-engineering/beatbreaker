@@ -170,7 +170,7 @@ export class YourSampleSource implements SampleSource {
     const rate = (P.rate ?? 1) * (1 + (engine.rand() - 0.5) * 0.01);
     const gain = vel * (P.level ?? 1) * (kit.trim ?? 1) * soften;
     const played = engine.playBuf(t, take.buf, gain, slot.voice, rate, take.off);
-    if (slotId === 'hOpen') engine.noteHatTail(played);
+    if (slotId === 'hOpen' || slotId === 'hHalf') engine.noteHatTail(played);
     return true;
   }
 }

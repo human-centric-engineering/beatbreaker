@@ -23,7 +23,8 @@ import { reducePattern } from '@/lib/app/breaks/layers';
 import { patternFromLibrary } from '@/lib/app/breaks/library';
 import { buildMidi } from '@/lib/app/breaks/midi';
 import { packPattern } from '@/lib/app/breaks/share';
-import type { Pattern } from '@/lib/app/breaks/types';
+import { emptyBar } from '@/lib/app/breaks/pattern';
+import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { TEST_STYLE_KEYS, testStyle, testStyles } from '@/tests/helpers/catalogue';
@@ -119,6 +120,58 @@ describe('the goldens written before 9-iv', () => {
     );
     await expect(`${JSON.stringify(all, null, 1)}\n`).toMatchFileSnapshot(
       `${DIR}/midi/library.json`
+    );
+  });
+});
+
+/* ---- 9-iv's articulations ---------------------------------------------
+   One bar each, the articulation on beat 2 with a plain kick and hat around it
+   for scale, as SVG: small enough to read, and the thing to look at when one
+   moves. */
+
+const ARTICULATIONS: Array<{ name: string; lane: LaneKey; value: number }> = [
+  { name: 'snare-rimshot', lane: 's', value: 5 },
+  { name: 'snare-flam', lane: 's', value: 6 },
+  { name: 'snare-drag', lane: 's', value: 7 },
+  { name: 'snare-buzz', lane: 's', value: 8 },
+  { name: 'hat-half-open', lane: 'h', value: 4 },
+  { name: 'crash-2', lane: 'c', value: 2 },
+  { name: 'china', lane: 'c', value: 3 },
+  { name: 'splash', lane: 'c', value: 4 },
+  { name: 'tom-flam', lane: 't2', value: 3 },
+];
+
+function oneBar(lane: LaneKey, value: number): Pattern {
+  const bar = emptyBar(16);
+  bar.k[0] = 1;
+  bar.k[8] = 1;
+  if (lane !== 'h') for (const i of [0, 2, 8, 10, 12, 14]) bar.h[i] = 1;
+  bar[lane][4] = value;
+  if (lane !== 's') bar.s[12] = 2;
+  return {
+    name: 'articulation',
+    style: 'rock',
+    styleVersionId: null,
+    attrs: {},
+    meter: '4/4',
+    seed: 1,
+    voice: 'hat',
+    lanes: ['k', 's', 'h', 'c', 't1', 't2', 't3'],
+    perc: {},
+    backbeats: [4, 12],
+    bbLane: 's',
+    hasRide: false,
+    hasHat: false,
+    pins: null,
+    bars: [bar],
+  };
+}
+
+describe('the articulations 9-iv added', () => {
+  it.each(ARTICULATIONS)('engraves the $name', async ({ name, lane, value }) => {
+    const e = engrave(oneBar(lane, value), null, { scale: 1, perSystem: 1, sticking: true });
+    await expect(toSvg(e.nodes, e.width, e.height)).toMatchFileSnapshot(
+      `${DIR}/engrave/articulations/${name}.svg`
     );
   });
 });

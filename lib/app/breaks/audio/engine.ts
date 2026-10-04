@@ -10,6 +10,7 @@ import {
   kitEngine,
 } from '@/lib/app/breaks/kit';
 import { type PanView, panFor } from '@/lib/app/breaks/lanes';
+import { HALF_OPEN_SCALE } from '@/lib/app/breaks/perform';
 import { type Rng, makeRng } from '@/lib/app/breaks/rng';
 
 /**
@@ -98,6 +99,13 @@ export function driveCurve(amount: number): Float32Array<ArrayBuffer> {
   }
   return c;
 }
+
+/** How each of the crash lane's other cymbals is made from the crash voice's knobs. */
+const CYMBAL_SHAPE: Record<'c2' | 'cChina' | 'cSplash', { size: number; ring: number }> = {
+  c2: { size: 1.16, ring: 0.82 },
+  cChina: { size: 1.05, ring: 0.62 },
+  cSplash: { size: 1.55, ring: 0.36 },
+};
 
 function clamp(v: number, a: number, b: number): number {
   return Math.max(a, Math.min(b, v));
@@ -678,10 +686,41 @@ export class BreakAudio {
     }
   }
 
-  snare(t: number, vel: number, ghost?: boolean, cross?: boolean): void {
-    if (this.sampleHit(t, cross ? 'sCross' : ghost ? 'sGhost' : 's', vel)) return;
+  snare(t: number, vel: number, ghost?: boolean, cross?: boolean, rim?: boolean): void {
+    if (this.sampleHit(t, rim ? 'sRim' : cross ? 'sCross' : ghost ? 'sGhost' : 's', vel)) return;
     const ctx = this.ctx as AudioContext;
     const P = this.P('s');
+
+    /* Rimshot: the stick hits the head and the rim together. It is the snare,
+       louder and with more ring, and a hard, bright crack from the rim on top —
+       not the cross-stick's wood, and not a louder hit. */
+    if (rim) {
+      this.snare(t, vel * 0.92);
+      for (const [mult, peak] of [
+        [4.1, 0.34],
+        [6.3, 0.16],
+      ]) {
+        const o = ctx.createOscillator();
+        o.type = 'triangle';
+        o.frequency.value = P.tune * mult * (1 + (Math.random() - 0.5) * 0.02);
+        const g = this.mkEnv(t, vel * peak, 0.0004, P.decay * 0.9);
+        o.connect(g);
+        this.send(g, 's');
+        o.start(t);
+        o.stop(t + P.decay + 0.1);
+      }
+      const n = this.noiseSrc();
+      const hp = ctx.createBiquadFilter();
+      hp.type = 'highpass';
+      hp.frequency.value = 3200;
+      n.connect(hp);
+      const gn = this.mkEnv(t, vel * 0.42, 0.0003, 0.016);
+      hp.connect(gn);
+      this.send(gn, 's', 0.5);
+      n.start(t);
+      n.stop(t + 0.06);
+      return;
+    }
 
     /* Cross-stick: the stick lying across the head, its shoulder struck on the
        rim. What you hear is the rim's woodblock-ish pitch and the shell under
@@ -800,8 +839,17 @@ export class BreakAudio {
    * shorter, duller, with the pedal's own thump under it. It chokes an open
    * hat, because that is literally what the foot is doing.
    */
-  hat(t: number, vel: number, open?: boolean, pedal?: boolean): void {
+  hat(t: number, vel: number, open?: boolean, pedal?: boolean, half?: boolean): void {
     this.chokeHats(t);
+    /* A half-open hat is sent quieter than it was written, because GM has no
+       note for it and velocity is how a MIDI reader tells it from an open one
+       (`HALF_OPEN_SCALE` in `perform.ts`). Here it is played as written. */
+    if (half) {
+      const at = Math.min(1, vel / HALF_OPEN_SCALE);
+      if (this.sampleHit(t, 'hHalf', at)) return;
+      this.halfHat(t, at);
+      return;
+    }
     if (this.sampleHit(t, pedal ? 'hFoot' : open ? 'hOpen' : 'h', vel)) return;
     const ctx = this.ctx as AudioContext;
     const P = this.P('h');
@@ -836,6 +884,29 @@ export class BreakAudio {
       o.stop(t + 0.09);
     }
     if (open) this.noteHatTail({ g, end: t + dec });
+  }
+
+  /**
+   * The cymbals pressed a little apart: a sizzle between the closed and open
+   * sounds, more of the noise and less of the metal, ringing until the next
+   * hat chokes it as an open one does.
+   */
+  private halfHat(t: number, vel: number): void {
+    const P = this.P('h');
+    const dec = (P.decay + P.open) * 0.45;
+    const v = vel * (0.94 + Math.random() * 0.12);
+    const g = this.metal(t, {
+      base: 208 * P.tune,
+      hp: P.tone * 0.96,
+      bp: 9200,
+      q: 0.8,
+      peak: v * 0.5,
+      decay: dec,
+      attack: 0.0006,
+      voice: 'h',
+      noise: { amt: 0.46, hp: P.tone * 1.05, decay: dec * 0.9 },
+    });
+    this.noteHatTail({ g, end: t + dec });
   }
 
   ride(t: number, vel: number, bell?: boolean): void {
@@ -882,10 +953,23 @@ export class BreakAudio {
     }
   }
 
-  crash(t: number, vel: number): void {
-    if (this.sampleHit(t, 'c', vel)) return;
+  /**
+   * The crash lane's cymbals. A second crash is the first one smaller and a
+   * little higher; a splash is small and short; a china is trashy — the wash
+   * pushed into the mids, a fast bloom and a shorter, uneven ring.
+   */
+  crash(t: number, vel: number, cymbal?: 'c2' | 'cChina' | 'cSplash'): void {
+    if (this.sampleHit(t, cymbal ?? 'c', vel)) return;
     const ctx = this.ctx as AudioContext;
-    const P = this.P('c');
+    const base = this.P('c');
+    const shape = cymbal ? CYMBAL_SHAPE[cymbal] : null;
+    const P = shape
+      ? { ...base, tune: base.tune * shape.size, decay: base.decay * shape.ring }
+      : base;
+    if (cymbal === 'cChina') {
+      this.china(t, vel, P);
+      return;
+    }
 
     // wash whose top end closes as it decays, the way a real cymbal damps
     const n = this.noiseSrc();
@@ -912,6 +996,32 @@ export class BreakAudio {
       peak: vel * 0.11,
       decay: P.decay * 0.85,
       attack: 0.004,
+      voice: 'c',
+    });
+  }
+
+  private china(t: number, vel: number, P: VoiceParams): void {
+    const ctx = this.ctx as AudioContext;
+    const n = this.noiseSrc();
+    const bp = ctx.createBiquadFilter();
+    bp.type = 'bandpass';
+    bp.frequency.value = P.tone * 1.1;
+    bp.Q.value = 0.7;
+    n.connect(bp);
+    const g = this.mkEnv(t, vel * 0.3, 0.002, P.decay);
+    bp.connect(g);
+    this.send(g, 'c');
+    n.start(t);
+    n.stop(t + P.decay + 0.2);
+
+    this.metal(t, {
+      base: 236 * P.tune,
+      hp: P.tone * 0.7,
+      bp: P.tone * 1.3,
+      q: 1.6,
+      peak: vel * 0.16,
+      decay: P.decay * 0.7,
+      attack: 0.002,
       voice: 'c',
     });
   }
@@ -1179,10 +1289,17 @@ export class BreakAudio {
     const t = ctx.currentTime + 0.02;
     const v = vel ?? 0.95;
     if (voice === 'k') this.kick(t, v);
-    else if (voice === 's') this.snare(t, v, variant === 'ghost', variant === 'cross');
-    else if (voice === 'h') this.hat(t, v, variant === 'open', variant === 'pedal');
+    else if (voice === 's')
+      this.snare(t, v, variant === 'ghost', variant === 'cross', variant === 'rim');
+    else if (voice === 'h')
+      this.hat(t, v, variant === 'open', variant === 'pedal', variant === 'half');
     else if (voice === 'r') this.ride(t, v, variant === 'bell');
-    else if (voice === 'c') this.crash(t, v);
+    else if (voice === 'c')
+      this.crash(
+        t,
+        v,
+        variant === 'c2' || variant === 'cChina' || variant === 'cSplash' ? variant : undefined
+      );
     else if (voice === 't') this.tom(t, v, variant ?? 't2');
     else if (voice === 'p') this.perc(t, v, variant ?? 'tamb', false);
   }

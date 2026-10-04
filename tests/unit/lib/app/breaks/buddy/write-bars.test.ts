@@ -136,6 +136,58 @@ describe('write_bars', () => {
     unchanged();
   });
 
+  it.each([
+    { what: 'a rimshot backbeat', lane: 'snare', row: '....r.......S...', key: 's', value: 5 },
+    {
+      what: 'a flam with the hand off the hat',
+      lane: 'snare',
+      row: '....S.......S..f',
+      key: 's',
+      value: 6,
+    },
+    {
+      what: 'a drag with the hand off the hat',
+      lane: 'snare',
+      row: '....S.......S..d',
+      key: 's',
+      value: 7,
+    },
+    { what: 'a buzz roll', lane: 'snare', row: '....S.....z.S...', key: 's', value: 8 },
+    { what: 'a half-open hat', lane: 'hat', row: 'x.x.x.h.x.x.x.x.', key: 'h', value: 4 },
+    { what: 'a second crash', lane: 'crash', row: '2...............', key: 'c', value: 2 },
+    { what: 'a china', lane: 'crash', row: 'N...............', key: 'c', value: 3 },
+    { what: 'a splash', lane: 'crash', row: 'S...............', key: 'c', value: 4 },
+    { what: 'a tom flam', lane: 'floor', row: '...............F', key: 't3', value: 3 },
+  ])('writes $what (9.14)', async ({ lane, row, key, value }) => {
+    const lines: Record<string, string> = {
+      hat: 'x.x.x.x.x.x.x...',
+      snare: '....S.......S...',
+      kick: 'X.......X.......',
+    };
+    lines[lane] = row;
+    const text = `bar 2\n${Object.entries(lines)
+      .map(([l, r]) => `${l} ${r}`)
+      .join('\n')}`;
+    const result = await run({ section: 'A', text });
+    expect(result.success, JSON.stringify(result.error)).toBe(true);
+
+    const bar = decoded(dataOf(result).doc).A.bars[1] as unknown as Record<string, number[]>;
+    expect(bar[key]).toContain(value);
+  });
+
+  it('refuses a flam under a hi-hat: a flam is both hands (9.14)', async () => {
+    const result = await run({
+      section: 'A',
+      text: `bar 1
+        hat    x.x.x.x.x.x.x.x.
+        snare  ....f.......S...
+        kick   X.......X.......`,
+    });
+    expect(result).toMatchObject({ success: false, error: { code: 'unplayable' } });
+    expect(result.error?.message).toContain('there are only two hands');
+    unchanged();
+  });
+
   it('refuses a bar with no backbeat', async () => {
     const result = await run({
       section: 'A',

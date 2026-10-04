@@ -1,4 +1,17 @@
-import { FOOT_LANE, LANE_DEFS, activeLanes, laneName, percInst } from '@/lib/app/breaks/lanes';
+import {
+  BUZZ,
+  CHINA,
+  CRASH_2,
+  FOOT_LANE,
+  HALF_OPEN,
+  LANE_DEFS,
+  RIMSHOT,
+  SPLASH,
+  activeLanes,
+  gracesOf,
+  laneName,
+  percInst,
+} from '@/lib/app/breaks/lanes';
 import { countLabelsOf, groupsOf, isGroupStart, stepsOf } from '@/lib/app/breaks/meter';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import type { Bar, Group, LaneKey, Meter, Pattern } from '@/lib/app/breaks/types';
@@ -40,6 +53,12 @@ export interface EngraveOptions {
   guides?: boolean;
   /** Print the sticking / limb row below the staff. */
   sticking?: boolean;
+  /**
+   * Draw rests. Default true; the notation key on `/help` turns them off,
+   * because it is a list of noteheads, not a part, and a voice with nothing
+   * in it would draw a rest through every note of the other.
+   */
+  rests?: boolean;
 }
 
 export interface Engraving {
@@ -83,10 +102,33 @@ interface Head {
   type: 'oval' | 'x' | 'bell' | 'mark-o';
   ghost?: boolean;
   accent?: boolean;
-  /** `'o'` circles the head — an open hi-hat. */
-  mark?: string | null;
+  /** `'o'` circles the head — an open hi-hat; `'half'` circles it and slashes the ring. */
+  mark?: 'o' | 'half' | null;
+  /** Ledger lines from the first above the staff up to the head. */
   ledger?: boolean;
+  /** A slash through the head: a rimshot. */
+  slash?: boolean;
+  /** Grace notes ahead of the head: one for a flam, two for a drag. */
+  graces?: number;
+  /** A `z` across the stem: a buzz roll. */
+  buzz?: boolean;
+  /** A small figure beside the head: the `2` of a second crash. */
+  label?: string;
 }
+
+/**
+ * Where the crash lane's cymbals sit (9-iv). The crash is the space above the
+ * first ledger line, as it always was; a splash sits on that line, a china in
+ * the space above the second. A second crash shares the crash's position and
+ * says so with a small 2, because a fourth cymbal position is a fourth thing
+ * to read on a line that is already the busiest on the chart.
+ */
+const CRASH_HEAD: Record<number, Pick<Head, 'step' | 'label'>> = {
+  1: { step: 11 },
+  [CRASH_2]: { step: 11, label: '2' },
+  [CHINA]: { step: 12 },
+  [SPLASH]: { step: 10 },
+};
 
 export function engrave(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptions): Engraving {
   const { scale } = opts;
@@ -332,6 +374,12 @@ export function engrave(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOpt
           let lab = '';
           if (bar.h[i] || bar.r[i] || bar.c[i]) lab = 'R';
           if (bar.s[i] || tomLanes.some((L) => !!bar[L][i])) lab = lab ? 'R L' : 'L';
+          // a flam's grace is the right hand, a drag's two of them
+          const graces = Math.max(
+            gracesOf('s', bar.s[i]),
+            ...tomLanes.map((L) => gracesOf(L, bar[L][i]))
+          );
+          if (graces && lab === 'L') lab = `${'r'.repeat(graces)}L`;
           if (bar.k[i]) lab = lab ? `${lab.replace('R L', 'RL')} ●` : '●';
           if (bar[FOOT_LANE][i]) lab = lab ? `${lab}◦` : '◦';
           if (!lab) continue;
@@ -448,22 +496,39 @@ function drawVoice(ctx: VoiceCtx): void {
           step: 9,
           type: 'x',
           accent: bar.h[i] === 2,
-          mark: bar.h[i] === 3 ? 'o' : null,
+          mark: bar.h[i] === 3 ? 'o' : bar.h[i] === HALF_OPEN ? 'half' : null,
         });
       if (bar.r[i])
         list.push({ step: 8, type: bar.r[i] === 2 ? 'bell' : 'x', accent: bar.r[i] === 2 });
-      if (bar.c[i]) list.push({ step: 11, type: 'x', accent: true, ledger: true });
+      if (bar.c[i]) {
+        const at = CRASH_HEAD[bar.c[i]] ?? CRASH_HEAD[1];
+        list.push({ ...at, type: 'x', accent: true, ledger: true });
+      }
     } else {
-      if (bar.s[i]) {
+      const sv = bar.s[i];
+      if (sv) {
         list.push(
-          bar.s[i] === 4
+          sv === 4
             ? { step: 5, type: 'x' } // cross-stick: an X on the snare line
-            : { step: 5, type: 'oval', ghost: bar.s[i] === 1, accent: bar.s[i] === 3 }
+            : {
+                step: 5,
+                type: 'oval',
+                ghost: sv === 1,
+                accent: sv === 3,
+                slash: sv === RIMSHOT,
+                graces: gracesOf('s', sv),
+                buzz: sv === BUZZ,
+              }
         );
       }
       for (const L of toms) {
         if (bar[L][i])
-          list.push({ step: LANE_DEFS[L].staff ?? 0, type: 'oval', accent: bar[L][i] === 2 });
+          list.push({
+            step: LANE_DEFS[L].staff ?? 0,
+            type: 'oval',
+            accent: bar[L][i] === 2,
+            graces: gracesOf(L, bar[L][i]),
+          });
       }
       if (bar.k[i]) list.push({ step: 1, type: 'oval', accent: bar.k[i] === 2 });
       // the hi-hat foot is written below the staff, in the voice with the other foot
@@ -523,10 +588,11 @@ function drawVoice(ctx: VoiceCtx): void {
 
     // rests before the first note of the pulse
     if (!slots.length) {
+      if (ctx.opts.rests === false) continue;
       drawRest(out, xs(gStart + (gSize - 1) / 2), up ? y(6) : y(2), SP, scale, gSize, ink);
       continue;
     }
-    if (slots[0] > gStart) {
+    if (slots[0] > gStart && ctx.opts.rests !== false) {
       drawRestRun(
         out,
         xs,
@@ -560,6 +626,8 @@ function drawVoice(ctx: VoiceCtx): void {
         'stroke-width': 1.25 * scale,
         'stroke-linecap': 'butt',
       });
+      // a buzz roll: a `z` across the stem, halfway along it
+      if (heads[s].some((h) => h.buzz)) drawBuzz(out, stemX, (from + beamY) / 2, SP, ink);
     }
 
     // beams
@@ -614,17 +682,19 @@ function drawVoice(ctx: VoiceCtx): void {
       const x = xs(s);
       for (const h of heads[s]) {
         if (h.ledger) {
-          out.add('line', {
-            x1: x - 1.15 * SP,
-            x2: x + 1.15 * SP,
-            y1: y(10),
-            y2: y(10),
-            stroke: ink,
-            'stroke-width': Math.max(1.1, scale),
-          });
+          for (let l = 10; l <= h.step; l += 2) {
+            out.add('line', {
+              x1: x - 1.15 * SP,
+              x2: x + 1.15 * SP,
+              y1: y(l),
+              y2: y(l),
+              stroke: ink,
+              'stroke-width': Math.max(1.1, scale),
+            });
+          }
         }
         drawHead(out, x, y(h.step), SP, scale, h, ink, 1);
-        if (h.mark === 'o') {
+        if (h.mark === 'o' || h.mark === 'half') {
           out.add('circle', {
             cx: x,
             cy: y(h.step),
@@ -633,6 +703,37 @@ function drawVoice(ctx: VoiceCtx): void {
             stroke: ink,
             'stroke-width': OPEN_RING_W * scale,
           });
+        }
+        /* Half-open: the open ring with a slash across it, the way a
+           half-closed hat is written. The slash is steeper than the X's
+           strokes and runs past the ring, so it reads as a mark on the
+           ring rather than as a third stroke of the notehead. */
+        if (h.mark === 'half') {
+          const r = OPEN_RING_R * SP * 1.2;
+          out.add('line', {
+            x1: x - r * 0.5,
+            y1: y(h.step) + r,
+            x2: x + r * 0.5,
+            y2: y(h.step) - r,
+            stroke: ink,
+            'stroke-width': OPEN_RING_W * scale,
+          });
+        }
+        if (h.graces) drawGraces(out, x, y(h.step), SP, scale, h.graces, ink);
+        if (h.label) {
+          out.add(
+            'text',
+            {
+              x: x - 1.25 * SP,
+              y: y(h.step) - 0.35 * SP,
+              fill: ink,
+              'text-anchor': 'middle',
+              'font-size': `${1.05 * SP}px`,
+              'font-weight': '700',
+              'font-family': 'var(--f-body)',
+            },
+            h.label
+          );
         }
         if (h.accent) {
           const ay = up ? beamY - 1.05 * SP : y(0) + 3.4 * SP;
@@ -680,6 +781,20 @@ function drawHead(
       opacity,
       transform: `rotate(-17 ${x} ${yy})`,
     });
+    /* Rimshot: a slash through the head, lower left to upper right — the
+       stick across head and rim at once. Longer than the head is wide, so
+       it reads at chart size. */
+    if (h.slash) {
+      out.add('line', {
+        x1: x - 1.05 * SP,
+        y1: yy + 0.7 * SP,
+        x2: x + 1.05 * SP,
+        y2: yy - 0.7 * SP,
+        stroke: color,
+        opacity,
+        'stroke-width': 1.6 * scale,
+      });
+    }
     if (h.ghost) {
       // the brackets a ghost note is written in
       ['(', ')'].forEach((ch, i) => {
@@ -738,6 +853,86 @@ function drawHead(
       'stroke-width': w,
     });
   }
+}
+
+/**
+ * Grace notes ahead of a head: small noteheads, stems up whichever voice
+ * they are in, as graces are written. One is a flam, slashed through the stem
+ * (an acciaccatura); two are a drag, beamed as thirty-seconds.
+ */
+function drawGraces(
+  out: AnySink,
+  x: number,
+  yy: number,
+  SP: number,
+  scale: number,
+  count: number,
+  color: string
+): void {
+  const rx = 0.42 * SP;
+  const ry = 0.31 * SP;
+  const top = yy - 2.3 * SP;
+  const xs = count === 1 ? [x - 1.7 * SP] : [x - 2.55 * SP, x - 1.65 * SP];
+  for (const gx of xs) {
+    out.add('ellipse', {
+      cx: gx,
+      cy: yy,
+      rx,
+      ry,
+      fill: color,
+      transform: `rotate(-17 ${gx} ${yy})`,
+    });
+    out.add('line', {
+      x1: gx + rx * 0.9,
+      x2: gx + rx * 0.9,
+      y1: yy,
+      y2: top,
+      stroke: color,
+      'stroke-width': 0.9 * scale,
+    });
+  }
+  if (count === 1) {
+    const sx = xs[0] + rx * 0.9;
+    out.add('line', {
+      x1: sx - 0.5 * SP,
+      y1: top + 1.1 * SP,
+      x2: sx + 0.5 * SP,
+      y2: top + 0.3 * SP,
+      stroke: color,
+      'stroke-width': 0.9 * scale,
+    });
+    out.add('path', {
+      d: `M ${sx} ${top} q ${0.55 * SP} ${0.35 * SP} ${0.35 * SP} ${1.1 * SP}`,
+      fill: 'none',
+      stroke: color,
+      'stroke-width': 0.9 * scale,
+    });
+    return;
+  }
+  const x1 = xs[0] + rx * 0.9;
+  const x2 = xs[1] + rx * 0.9;
+  for (const dy of [0, 0.42 * SP]) {
+    out.add('rect', {
+      x: x1 - 0.45 * scale,
+      y: top + dy,
+      width: x2 - x1 + 0.9 * scale,
+      height: 0.22 * SP,
+      fill: color,
+    });
+  }
+}
+
+/** A buzz roll's `z`, drawn across the stem. */
+function drawBuzz(out: AnySink, x: number, yy: number, SP: number, color: string): void {
+  const w = 0.42 * SP;
+  const h = 0.36 * SP;
+  out.add('path', {
+    d: `M ${x - w} ${yy - h} L ${x + w} ${yy - h} L ${x - w} ${yy + h} L ${x + w} ${yy + h}`,
+    fill: 'none',
+    stroke: color,
+    'stroke-width': 0.16 * SP,
+    'stroke-linejoin': 'round',
+  });
 }
 
 function drawAccent(

@@ -1,5 +1,10 @@
 import {
+  BUZZ,
+  DRAG,
+  FLAM,
   FOOT_LANE,
+  HALF_OPEN,
+  RIMSHOT,
   TOM_LANES,
   bbLaneOf,
   bbValue,
@@ -547,6 +552,59 @@ export function generatePattern(opts: GenerateOptions): Pattern {
   writePerc(pat, style, rng);
   if (pat.voice === 'ride') toRide(pat, rng);
   pat.name = nameBreak(rng);
+  articulate(pat, style);
+  return pat;
+}
+
+/**
+ * The articulations (9-iv), written last, from the style's five params.
+ *
+ * Some backbeats become rimshots and some open hats half-open ones; off the
+ * backbeat, a snare accent may become a flam and a plain hit a drag or a buzz.
+ * A flam or drag takes both hands, so the hand leaves the cymbal on that step,
+ * as it does in a fill — otherwise the critic would rightly call it
+ * unplayable.
+ *
+ * It draws from a stream of its own, and only runs when a param is set: the
+ * main stream never sees it, so a style that sets none generates exactly the
+ * bytes it did before, and setting one changes where the articulations go and
+ * nothing else.
+ */
+export function articulate(pat: Pattern, style: Style): Pattern {
+  const rim = style.rimshot ?? 0;
+  const flam = style.flam ?? 0;
+  const drag = style.drag ?? 0;
+  const buzz = style.buzz ?? 0;
+  const half = style.halfOpen ?? 0;
+  if (!(rim || flam || drag || buzz || half)) return pat;
+
+  const rng = makeRng((pat.seed ^ 0x2545f491) >>> 0);
+  const freeHands = (b: Bar, i: number): void => {
+    b.h[i] = 0;
+    b.r[i] = 0;
+    b.c[i] = 0;
+    for (const L of TOM_LANES) b[L][i] = 0;
+  };
+  for (const b of pat.bars) {
+    for (let i = 0; i < b.s.length; i++) {
+      if (b.h[i] === 3 && rng() < half) b.h[i] = HALF_OPEN;
+      const sv = b.s[i];
+      if (pat.bbLane === 's' && pat.backbeats.includes(i)) {
+        if ((sv === 2 || sv === 3) && rng() < rim) b.s[i] = RIMSHOT;
+      } else if (sv === 3) {
+        if (rng() < flam) {
+          b.s[i] = FLAM;
+          freeHands(b, i);
+        }
+      } else if (sv === 2) {
+        const roll = rng();
+        if (roll < drag) {
+          b.s[i] = DRAG;
+          freeHands(b, i);
+        } else if (roll < drag + buzz) b.s[i] = BUZZ;
+      }
+    }
+  }
   return pat;
 }
 

@@ -378,7 +378,7 @@ export class PackSource implements SampleSource {
         : undefined;
 
     const played = engine.playBuf(t, take.buf, gain, slot.voice, rate, take.off, shelf);
-    if (slotId === 'hOpen') engine.noteHatTail(played);
+    if (slotId === 'hOpen' || slotId === 'hHalf') engine.noteHatTail(played);
     return true;
   }
 }

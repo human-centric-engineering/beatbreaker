@@ -46,7 +46,7 @@ interface Sent extends Heard {
   note: number;
 }
 
-/** Every lane and every value it has, somewhere in the bar, over a generated groove. */
+/** Every lane and every value it has, somewhere in the bar, over a generated groove — 9-iv's too. */
 function everything(meter: string): Pattern {
   const p = generatePattern({
     style: testStyle('dilla'),
@@ -73,6 +73,16 @@ function everything(meter: string): Pattern {
   bar.t3[n - 2] = 1;
   bar.p1[3] = 1;
   bar.p2[n - 1] = 2;
+  // 9-iv: rimshot, buzz, flam and drag; half-open; crash 2, china, splash; a tom flam
+  bar.s[3] = 5;
+  bar.s[5] = 8;
+  bar.s[9] = 6;
+  bar.s[11] = 7;
+  bar.h[1] = 4;
+  bar.c[2] = 2;
+  bar.c[6] = 3;
+  bar.c[10] = 4;
+  bar.t3[n - 6] = 3;
   return {
     ...p,
     lanes: ['k', 's', 'h', 'r', 'c', 't1', 't2', 't3', 'hf', 'p1', 'p2'],
@@ -216,7 +226,8 @@ describe('speakers, live MIDI and the MIDI file play one performance', () => {
   it('lets the mixer act on the speakers only, as D23 decided', () => {
     const pat = everything('4/4');
     const { heard, sent, levels } = play(pat, { mute: { s: true }, mix: { h: 0.5 } });
-    const snareSends = sent.filter((s) => s.note === 38 || s.note === 37);
+    const SNARE_NOTES = [37, 38, 40]; // cross-stick, snare (and its graces and repeats), rimshot
+    const snareSends = sent.filter((s) => SNARE_NOTES.includes(s.note));
     expect(snareSends.length).toBeGreaterThan(0);
     // muted on the speakers, still sent
     expect(heard.length).toBe(sent.length - snareSends.length);
@@ -224,7 +235,7 @@ describe('speakers, live MIDI and the MIDI file play one performance', () => {
        every note the kit plays has the velocity the port was sent. */
     expect(levels.filter((l) => l.lane === 'h').every((l) => l.level === 0.5)).toBe(true);
     expect(levels.some((l) => l.lane === 'h')).toBe(true);
-    const sentVels = sent.filter((s) => s.note !== 38 && s.note !== 37).map((s) => s.vel);
+    const sentVels = sent.filter((s) => !SNARE_NOTES.includes(s.note)).map((s) => s.vel);
     const byValue = (a: number, b: number) => a - b;
     expect(heard.map((h) => h.vel).sort(byValue)).toEqual(sentVels.sort(byValue));
   });

@@ -306,6 +306,7 @@ export class Transport {
       feel: snap.feel,
       hats: snap.hats,
       humanise: { stream: this.human, amount: snap.humanise.amount, bpm: snap.bpm },
+      bpm: snap.bpm,
     });
     for (const v of voices) {
       const when = Math.max(floor, t + dur * v.offset);
@@ -342,13 +343,13 @@ export class Transport {
       case 'hf':
         return a.hat(when, vel, false, true);
       case 's':
-        return a.snare(when, vel, v.ghost, v.cross);
+        return a.snare(when, vel, v.ghost, v.cross, v.rim);
       case 'h':
-        return a.hat(when, vel, v.open);
+        return a.hat(when, vel, v.open, false, v.half);
       case 'r':
         return a.ride(when, vel, v.bell);
       case 'c':
-        return a.crash(when, vel);
+        return a.crash(when, vel, v.cymbal);
       case 't1':
       case 't2':
       case 't3':

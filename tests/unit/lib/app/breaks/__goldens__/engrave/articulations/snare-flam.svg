@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="408" height="175">
+  <line x1="5" x2="392" y1="106" y2="106" stroke="var(--ink)" stroke-width="1.1"/>
+  <line x1="5" x2="392" y1="96" y2="96" stroke="var(--ink)" stroke-width="1.1"/>
+  <line x1="5" x2="392" y1="86" y2="86" stroke="var(--ink)" stroke-width="1.1"/>
+  <line x1="5" x2="392" y1="76" y2="76" stroke="var(--ink)" stroke-width="1.1"/>
+  <line x1="5" x2="392" y1="66" y2="66" stroke="var(--ink)" stroke-width="1.1"/>
+  <rect x="13" y="76" width="3.4" height="20" fill="var(--ink)"/>
+  <rect x="20" y="76" width="3.4" height="20" fill="var(--ink)"/>
+  <text x="40" y="84.8" fill="var(--ink)" text-anchor="middle" font-size="23.5px" font-weight="700" font-family="var(--f-body)">4</text>
+  <text x="40" y="104.8" fill="var(--ink)" text-anchor="middle" font-size="23.5px" font-weight="700" font-family="var(--f-body)">4</text>
+  <line x1="56" x2="56" y1="106" y2="66" stroke="var(--ink)" stroke-width="1.2"/>
+  <line x1="388.5" x2="388.5" y1="106" y2="66" stroke="var(--ink)" stroke-width="1.2"/>
+  <rect x="390" y="66" width="3.4" height="40" fill="var(--ink)"/>
+  <text x="5" y="9" fill="var(--faint)" font-size="9px" font-family="var(--f-mono)">bar 1</text>
+  <line x1="72.7" x2="72.7" y1="61" y2="33" stroke="var(--ink)" stroke-width="1.25" stroke-linecap="butt"/>
+  <line x1="114.7" x2="114.7" y1="61" y2="33" stroke="var(--ink)" stroke-width="1.25" stroke-linecap="butt"/>
+  <rect x="72.08" y="33" width="43.24" height="4.4" fill="var(--ink)"/>
+  <line x1="60.9" y1="55.4" x2="72.1" y2="66.6" stroke="var(--ink)" opacity="1" stroke-width="1.5"/>
+  <line x1="60.9" y1="66.6" x2="72.1" y2="55.4" stroke="var(--ink)" opacity="1" stroke-width="1.5"/>
+  <line x1="102.9" y1="55.4" x2="114.1" y2="66.6" stroke="var(--ink)" opacity="1" stroke-width="1.5"/>
+  <line x1="102.9" y1="66.6" x2="114.1" y2="55.4" stroke="var(--ink)" opacity="1" stroke-width="1.5"/>
+  <g transform="translate(182,76)" fill="var(--ink)" stroke="var(--ink)">
+    <path d="M -0.25,-1.35 L 0.42,-0.45 L -0.2,0.15 L 0.5,1.1 L -0.05,0.75 C -0.6,0.55 -0.45,1.25 0.1,1.5" transform="scale(7.800000000000001)" fill="none" stroke="var(--ink)" stroke-width="0.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <line x1="240.7" x2="240.7" y1="61" y2="33" stroke="var(--ink)" stroke-width="1.25" stroke-linecap="butt"/>
+  <line x1="282.7" x2="282.7" y1="61" y2="33" stroke="var(--ink)" stroke-width="1.25" stroke-linecap="butt"/>
+  <rect x="240.07999999999998" y="33" width="43.24" height="4.4" fill="var(--ink)"/>
+  <line x1="228.9" y1="55.4" x2="240.1" y2="66.6" stroke="var(--ink)" opacity="1" stroke-width="1.5"/>
+  <line x1="228.9" y1="66.6" x2="240.1" y2="55.4" stroke="var(--ink)" opacity="1" stroke-width="1.5"/>
+  <line x1="270.9" y1="55.4" x2="282.1" y2="66.6" stroke="var(--ink)" opacity="1" stroke-width="1.5"/>
+  <line x1="270.9" y1="66.6" x2="282.1" y2="55.4" stroke="var(--ink)" opacity="1" stroke-width="1.5"/>
+  <line x1="324.7" x2="324.7" y1="61" y2="33" stroke="var(--ink)" stroke-width="1.25" stroke-linecap="butt"/>
+  <line x1="366.7" x2="366.7" y1="61" y2="33" stroke="var(--ink)" stroke-width="1.25" stroke-linecap="butt"/>
+  <rect x="324.08" y="33" width="43.24" height="4.4" fill="var(--ink)"/>
+  <line x1="312.9" y1="55.4" x2="324.1" y2="66.6" stroke="var(--ink)" opacity="1" stroke-width="1.5"/>
+  <line x1="312.9" y1="66.6" x2="324.1" y2="55.4" stroke="var(--ink)" opacity="1" stroke-width="1.5"/>
+  <line x1="354.9" y1="55.4" x2="366.1" y2="66.6" stroke="var(--ink)" opacity="1" stroke-width="1.5"/>
+  <line x1="354.9" y1="66.6" x2="366.1" y2="55.4" stroke="var(--ink)" opacity="1" stroke-width="1.5"/>
+  <line x1="60.3" x2="60.3" y1="101" y2="129" stroke="var(--ink)" stroke-width="1.25" stroke-linecap="butt"/>
+  <ellipse cx="66.5" cy="101" rx="6.800000000000001" ry="5" fill="var(--ink)" opacity="1" transform="rotate(-17 66.5 101)"/>
+  <line x1="144.3" x2="144.3" y1="81" y2="129" stroke="var(--ink)" stroke-width="1.25" stroke-linecap="butt"/>
+  <ellipse cx="150.5" cy="81" rx="6.800000000000001" ry="5" fill="var(--ink)" opacity="1" transform="rotate(-17 150.5 81)"/>
+  <ellipse cx="133.5" cy="81" rx="4.2" ry="3.1" fill="var(--ink)" transform="rotate(-17 133.5 81)"/>
+  <line x1="137.28" x2="137.28" y1="81" y2="58" stroke="var(--ink)" stroke-width="0.9"/>
+  <line x1="132.28" y1="69" x2="142.28" y2="61" stroke="var(--ink)" stroke-width="0.9"/>
+  <path d="M 137.28 58 q 5.5 3.5 3.5 11" fill="none" stroke="var(--ink)" stroke-width="0.9"/>
+  <line x1="228.3" x2="228.3" y1="101" y2="129" stroke="var(--ink)" stroke-width="1.25" stroke-linecap="butt"/>
+  <ellipse cx="234.5" cy="101" rx="6.800000000000001" ry="5" fill="var(--ink)" opacity="1" transform="rotate(-17 234.5 101)"/>
+  <g transform="translate(350,96)" fill="var(--ink)" stroke="var(--ink)">
+    <path d="M -0.25,-1.35 L 0.42,-0.45 L -0.2,0.15 L 0.5,1.1 L -0.05,0.75 C -0.6,0.55 -0.45,1.25 0.1,1.5" transform="scale(7.800000000000001)" fill="none" stroke="var(--ink)" stroke-width="0.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="66.5" y="157" fill="var(--faint)" text-anchor="middle" font-size="7.6px" font-family="var(--f-mono)">R ●</text>
+  <text x="108.5" y="157" fill="var(--faint)" text-anchor="middle" font-size="7.6px" font-family="var(--f-mono)">R</text>
+  <text x="150.5" y="157" fill="var(--faint)" text-anchor="middle" font-size="7.6px" font-family="var(--f-mono)">rL</text>
+  <text x="234.5" y="157" fill="var(--faint)" text-anchor="middle" font-size="7.6px" font-family="var(--f-mono)">R ●</text>
+  <text x="276.5" y="157" fill="var(--faint)" text-anchor="middle" font-size="7.6px" font-family="var(--f-mono)">R</text>
+  <text x="318.5" y="157" fill="var(--faint)" text-anchor="middle" font-size="7.6px" font-family="var(--f-mono)">R</text>
+  <text x="360.5" y="157" fill="var(--faint)" text-anchor="middle" font-size="7.6px" font-family="var(--f-mono)">R</text>
+</svg>

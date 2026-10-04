@@ -236,14 +236,15 @@ export function writePerc(pat: Pattern, style: Style, rng?: Rng): void {
 export interface BarSpec {
   /** `X` hit · `A` accent */
   k?: string;
-  /** `g` ghost · `s` hit · `S` accent · `c` cross-stick */
+  /** `g` ghost · `s` hit · `S` accent · `c` cross-stick · `r` rimshot · `f` flam · `d` drag · `z` buzz */
   s?: string;
-  /** `x` closed · `X` accent · `o` open */
+  /** `x` closed · `X` accent · `o` open · `h` half-open */
   h?: string;
   /** `r` ride · `b` bell */
   r?: string;
-  /** `C` crash */
+  /** `C` crash · `2` crash 2 · `N` china · `S` splash */
   c?: string;
+  /** `X` hit · `A` accent · `F` flam, on each tom */
   t1?: string;
   t2?: string;
   t3?: string;
@@ -273,13 +274,13 @@ export function parseBar(spec: BarSpec, n?: number): Bar {
   };
 
   put('k', spec.k, { X: 1, A: 2 });
-  put('s', spec.s, { g: 1, s: 2, S: 3, c: 4 });
-  put('h', spec.h, { x: 1, X: 2, o: 3 });
+  put('s', spec.s, { g: 1, s: 2, S: 3, c: 4, r: 5, f: 6, d: 7, z: 8 });
+  put('h', spec.h, { x: 1, X: 2, o: 3, h: 4 });
   put('r', spec.r, { r: 1, b: 2 });
-  put('c', spec.c, { C: 1 });
-  put('t1', spec.t1, { X: 1, A: 2 });
-  put('t2', spec.t2, { X: 1, A: 2 });
-  put('t3', spec.t3, { X: 1, A: 2 });
+  put('c', spec.c, { C: 1, '2': 2, N: 3, S: 4 });
+  put('t1', spec.t1, { X: 1, A: 2, F: 3 });
+  put('t2', spec.t2, { X: 1, A: 2, F: 3 });
+  put('t3', spec.t3, { X: 1, A: 2, F: 3 });
   put('hf', spec.hf, { f: 1 });
   return b;
 }
