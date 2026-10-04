@@ -325,6 +325,50 @@ describe('GET /api/v1/catalogue/pieces', () => {
   });
 });
 
+describe('the slot URLs, at their edges (9-v)', () => {
+  it("serves a slot's own Level, Tune and Decay, and leaves out a slot with no folder to point into", async () => {
+    vi.mocked(listKits).mockResolvedValue([
+      {
+        ...testKit('studio70'),
+        engine: 'user',
+        samples: {
+          slots: {
+            s: {
+              layers: [{ v: 1, files: ['s.m4a'] }],
+              folder: 'drs',
+              level: 1.2,
+              tune: -50,
+              decay: 0.4,
+            },
+            // one of your samples: no folder and no pack, so no URL of its own here
+            k: { v: null, files: ['csmp00000000000000000001'] },
+          },
+        },
+      },
+    ]);
+    const [kit] = (await body(await KITS(get('kits')))).data as Array<{
+      samples: Record<string, { urls: string[]; level?: number; tune?: number; decay?: number }>;
+    }>;
+    expect(Object.keys(kit.samples)).toEqual(['s']);
+    expect(kit.samples.s).toMatchObject({
+      urls: ['/kits/drs/s.m4a'],
+      level: 1.2,
+      tune: -50,
+      decay: 0.4,
+    });
+  });
+
+  it('serves a piece with no credit as null, and one whose slots name no files as no slots', async () => {
+    vi.mocked(listPieces).mockResolvedValue([{ ...SPLASH, credit: undefined, slots: {} }]);
+    const [piece] = (await body(await PIECES(get('pieces')))).data as Array<{
+      credit: string | null;
+      slots: object;
+    }>;
+    expect(piece.credit).toBeNull();
+    expect(piece.slots).toEqual({});
+  });
+});
+
 describe('GET /api/v1/catalogue/meters', () => {
   it('serves the structural constants a client would otherwise reimplement', async () => {
     const { data } = await body(await METERS(get('meters')));
