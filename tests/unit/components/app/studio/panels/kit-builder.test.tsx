@@ -179,10 +179,13 @@ function renderDrawer() {
 }
 
 const kitPicker = () =>
-  within(screen.getByRole('heading', { name: 'Kit' }).closest('.card')!).getByLabelText('Kit');
+  within(
+    screen.getByRole('heading', { name: 'Kit' }).closest('.card')!
+  ).getByLabelText<HTMLSelectElement>('Kit');
 
 const builder = () => screen.getByRole('heading', { name: 'Build your kit' }).closest('.card')!;
-const rowPicker = (label: string) => within(builder() as HTMLElement).getByLabelText(label);
+const rowPicker = (label: string) =>
+  within(builder() as HTMLElement).getByLabelText<HTMLSelectElement>(label);
 
 let preview: ReturnType<typeof vi.spyOn>;
 
@@ -304,7 +307,7 @@ describe('the builder, on a kit of yours', () => {
     const snareRow = rowPicker('Snare').closest('.build-row') as HTMLElement;
 
     await user.click(within(snareRow).getByRole('button', { name: 'Adjust' }));
-    const level = within(snareRow).getByLabelText('Level');
+    const level = within(snareRow).getByLabelText<HTMLInputElement>('Level');
     // a drag is changes, then the pointer or key going up
     fireEvent.change(level, { target: { value: '99' } });
     fireEvent.keyUp(level);
@@ -337,7 +340,7 @@ describe('the builder, on a kit of yours', () => {
     const hatsRow = rowPicker('Hats').closest('.build-row') as HTMLElement;
 
     await user.click(within(hatsRow).getByRole('button', { name: 'Adjust' }));
-    const pan = within(hatsRow).getByLabelText('Pan');
+    const pan = within(hatsRow).getByLabelText<HTMLInputElement>('Pan');
     // the default is −30 from the stool
     expect(pan.value).toBe('-30');
     fireEvent.change(pan, { target: { value: '-29' } });
