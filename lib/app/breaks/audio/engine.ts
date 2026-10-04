@@ -1324,7 +1324,7 @@ export class BreakAudio {
     this.resume();
     let pending = this.previews.get(url);
     if (!pending) {
-      pending = fetch(url)
+      pending = fetch(url, { redirect: 'error' })
         .then((res) => {
           if (!res.ok) throw new Error(`${res.status}`);
           return res.arrayBuffer();
