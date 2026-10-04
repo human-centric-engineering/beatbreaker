@@ -198,7 +198,9 @@ export function useYourSounds(
         setKits((prev) =>
           prev.map((k) => ({
             ...k,
-            slots: Object.fromEntries(Object.entries(k.slots).filter(([, s]) => s.sampleId !== id)),
+            slots: Object.fromEntries(
+              Object.entries(k.slots).filter(([, s]) => !('sampleId' in s) || s.sampleId !== id)
+            ),
           }))
         );
         return true;

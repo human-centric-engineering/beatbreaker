@@ -31,8 +31,10 @@ vi.mock('@/lib/app/breaks/audio/packs', () => {
   class FakePackSource {
     usePercSamples = true;
     constructor(_onChange?: () => void) {}
-    count(_pack: string): number {
-      return 3;
+    /* Three slots of a recorded kit; none of a kit of yours, which holds no
+       pieces here, so its count is all `YourSampleSource`'s. */
+    count(kit: { engine?: string } | null | undefined): number {
+      return kit?.engine === 'pack' ? 3 : 0;
     }
     percCount(): number {
       return 2;

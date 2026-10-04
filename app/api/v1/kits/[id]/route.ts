@@ -1,10 +1,14 @@
 /**
  * Your kits — one kit (D20)
  *
- * GET    /api/v1/kits/:id — the kit, each filled slot with its sample.
- * PATCH  /api/v1/kits/:id — `{ label?, slots? }`: rename it, and set any slot
- *        to one of your samples by id, or `null` to empty it. Slots not named
- *        are left alone. A sample that is not yours is a 400 naming the slot.
+ * GET    /api/v1/kits/:id — the kit, each filled slot with its sample or piece.
+ * PATCH  /api/v1/kits/:id — `{ label?, slots?, pan? }`: rename it; set any
+ *        slot to one of your samples (`{ sample }`, or its bare id) or a piece
+ *        (`{ piece, from? }`), each with `level`, `tune` and `decay`, or
+ *        `null` to empty it; set a lane's pan, or `null` for its default.
+ *        Slots and lanes not named are left alone. A sample that is not
+ *        yours, a piece that does not exist, or a slot the piece does not
+ *        fill, is a 400 naming the slot; Tune or Decay out of range is a 400.
  * DELETE /api/v1/kits/:id — the kit goes; the samples in it stay.
  *
  * Someone else's kit, and a system kit, answer 404 — the same as a kit that

@@ -1,13 +1,18 @@
+import { readdirSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
+import { z } from 'zod';
+
 import {
   kitParamsSchema,
+  kitSampleSlotSchema,
   kitSamplesSchema,
   styleParamsSchema,
 } from '@/lib/app/breaks/catalogue/schemas';
 import { kitEngine } from '@/lib/app/breaks/kit';
+import { KIT_CREDITS } from '@/lib/app/breaks/kit-credits.generated';
 import { patternFromLibrary } from '@/lib/app/breaks/library';
 import { packPattern } from '@/lib/app/breaks/share';
 import type { ResolvedStyle } from '@/lib/app/breaks/types';
@@ -15,9 +20,11 @@ import { KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES, STYLE_GROUPS } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import type { SeedContext, SeedUnit } from '@/prisma/runner';
+import { type Manifest, derivePieces, packPieceMap } from '@/scripts/kits/pieces';
+import { RECIPES } from '@/scripts/kits/recipes';
 
 /**
- * The catalogue: 37 styles, 47 famous breaks and 12 kits.
+ * The catalogue: 37 styles, 47 famous breaks, 17 kits and the pieces they are made of.
  *
  * This is where content became data (D13). The three tables it fills used to be
  * three TypeScript constants compiled into the app; the constants are still the
@@ -268,8 +275,46 @@ async function seedLibrary(
   logger.info(`🥁 Famous breaks: ${LIBRARY.length} entries${count ? ` (${count} removed)` : ''}`);
 }
 
-async function seedKits({ prisma, logger }: SeedContext): Promise<void> {
-  const manifest = kitManifestSchema(await readFile(MANIFEST, 'utf8'));
+/**
+ * The pieces (Phase 9-v): every instrument the recipes build, from the
+ * recipes and the manifest (`scripts/kits/pieces.ts`). Upserted by key; a
+ * piece no recipe builds any more goes, and a kit slot naming it reads as
+ * empty.
+ */
+async function seedPieces({ prisma, logger }: SeedContext, manifest: Manifest): Promise<void> {
+  const packLabels: Record<string, string> = {};
+  for (const kit of Object.values(KITS)) if (kit.pack) packLabels[kit.pack] ??= kit.label;
+  const pieces = derivePieces(RECIPES, manifest, packLabels);
+  const credits = new Map(
+    KIT_CREDITS.map((c) => [c.id, `${c.title} by ${c.author} · ${c.licence}`])
+  );
+
+  for (const [position, piece] of pieces.entries()) {
+    const fields = {
+      label: piece.label,
+      role: piece.role,
+      source: piece.source,
+      folder: piece.folder,
+      slots: pieceSlotsSchema.parse(piece.slots),
+      credit: credits.get(piece.source) ?? null,
+      position,
+    };
+    await prisma.kitPiece.upsert({
+      where: { key: piece.key },
+      update: fields,
+      create: { key: piece.key, ...fields },
+    });
+  }
+  const gone = await prisma.kitPiece.deleteMany({
+    where: { key: { notIn: pieces.map((p) => p.key) } },
+  });
+  logger.info(
+    `🥁 Pieces: ${pieces.length} in place${gone.count ? ` (${gone.count} removed)` : ''}`
+  );
+}
+
+async function seedKits({ prisma, logger }: SeedContext, manifest: Manifest): Promise<void> {
+  const recipes = new Map(RECIPES.map((r) => [r.pack, r]));
   let position = 0;
 
   for (const [key, kit] of Object.entries(KITS)) {
@@ -278,11 +323,28 @@ async function seedKits({ prisma, logger }: SeedContext): Promise<void> {
     const { label, hint, engine: _engine, credit, ...params } = kit;
     const parsed = kitParamsSchema.parse(params);
 
-    /* A pack kit's slot map comes from the manifest, keyed by the pack folder.
-       That file stays where it is — it is what the extraction script writes —
-       and the row is the copy every client reads, so nobody fetches a second
-       JSON file to find out what a kit is made of. */
-    const samples = kitSamplesSchema.parse(parsed.pack ? (manifest[parsed.pack] ?? {}) : {});
+    /* A pack kit is a map of pieces (9-v): each slot names the piece that
+       fills it in the kit's own recipe, and the catalogue resolves it to that
+       piece's recordings when it reads the row. A piece's copy of a slot is
+       the pack's own (`derivePieces` checks it), so the kit plays what it
+       played when the row held the manifest's slots. The shared percussion
+       stays as the manifest has it: it is not pieces. */
+    const pack = parsed.pack ? manifest[parsed.pack] : undefined;
+    const recipe = parsed.pack ? recipes.get(parsed.pack) : undefined;
+    const samples = kitSamplesSchema.parse(
+      pack && recipe
+        ? {
+            sampleRate: pack.sampleRate,
+            slots: Object.fromEntries(
+              Object.entries(packPieceMap(recipe, manifest)).map(([slot, piece]) => [
+                slot,
+                { piece },
+              ])
+            ),
+            ...(pack.perc ? { perc: pack.perc } : {}),
+          }
+        : (pack ?? {})
+    );
 
     const fields = {
       engine: kitEngine(kit),
@@ -326,13 +388,21 @@ const LIBRARY_DESCRIPTION =
   'The main groove off each record, a bar or two of it, in the meter it was played in. ' +
   'Practice approximations — the thing you would be taught, not a transcription of a particular take.';
 
-/** The manifest as JSON, with nothing assumed about it beyond being an object. */
-function kitManifestSchema(text: string): Record<string, unknown> {
-  const raw: unknown = JSON.parse(text);
-  if (typeof raw !== 'object' || raw === null || Array.isArray(raw)) {
-    throw new Error('public/kits/manifest.json is not an object');
-  }
-  return raw as Record<string, unknown>;
+/** The manifest: each pack's slots, read through the slot schema. */
+const manifestSchema = z.record(
+  z.string(),
+  z.object({
+    sampleRate: z.number().int().optional(),
+    slots: z.record(z.string(), kitSampleSlotSchema),
+    perc: z.record(z.string(), kitSampleSlotSchema).optional(),
+  })
+);
+
+/** A piece's slots, read through the same schema a kit's are. */
+const pieceSlotsSchema = z.record(z.string(), kitSampleSlotSchema);
+
+async function readManifest(): Promise<Manifest> {
+  return manifestSchema.parse(JSON.parse(await readFile(MANIFEST, 'utf8')));
 }
 
 /**
@@ -369,12 +439,18 @@ const unit: SeedUnit = {
     'data/library.ts',
     'data/kits.ts',
     '../../../public/kits/manifest.json',
+    '../../../scripts/kits/pieces.ts',
+    ...readdirSync(join(here, '..', '..', '..', 'scripts', 'kits', 'recipes'))
+      .sort()
+      .map((file) => `../../../scripts/kits/recipes/${file}`),
   ],
   async run(ctx) {
     ctx.logger.info('🥁 Seeding the BeatBreaker catalogue...');
     const styles = await seedStyles(ctx);
     await seedLibrary(ctx, styles);
-    await seedKits(ctx);
+    const manifest = await readManifest();
+    await seedPieces(ctx, manifest);
+    await seedKits(ctx, manifest);
     ctx.logger.info('✅ Catalogue seeded');
   },
 };

@@ -3,9 +3,12 @@
  *
  * GET  /api/v1/kits — your own kits, oldest first, each filled slot with the
  *      sample in it and its audio URL: `{ kits }`.
- * POST /api/v1/kits — `{ label? }`: a new, empty kit. 201 with the kit. Its
- *      key is minted here, under a prefix no system kit may use, and is what
- *      the `kit` setting stores when you pick it. 409 `KIT_LIMIT` at 20 kits.
+ * POST /api/v1/kits — `{ label?, from? }`: a new kit, empty or a copy of
+ *      `from` (9-v): a recorded kit's pieces and numbers, or one of your kits.
+ *      201 with the kit. Its key is minted here, under a prefix no system kit
+ *      may use, and is what the `kit` setting stores when you pick it. 409
+ *      `KIT_LIMIT` at 20 kits; 400 naming `from` for a synthesised kit, a
+ *      machine, or a key you cannot see.
  *
  * Not the catalogue. `/api/v1/catalogue/kits` is public, cached for everyone
  * and limited by IP; a kit of yours there would be served to the next caller.
@@ -42,9 +45,9 @@ export const GET = withAuth(
 export const POST = withAuth(
   async (request, session) => {
     const log = await getRouteLogger(request);
-    const { label } = await validateRequestBody(request, createYourKitSchema);
-    const kit = await createYourKit(session.user.id, label);
-    log.info('Kit created', { kitId: kit.id });
+    const body = await validateRequestBody(request, createYourKitSchema);
+    const kit = await createYourKit(session.user.id, body);
+    log.info('Kit created', { kitId: kit.id, from: body.from ?? null });
     return successResponse(kit, undefined, { status: 201 });
   },
   {

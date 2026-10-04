@@ -827,6 +827,39 @@ model LibraryEntry {
   @@map("library_entry")
 }
 
+/// One instrument from one source, and the slots it fills (Phase 9-v): Big
+/// Rusty's snare with its ghost, cross-stick and rimshot. A kit's slot may
+/// name one, so a kit can be built from several sources.
+///
+/// Catalogue data, seeded from the kit build's recipes and manifest
+/// (`scripts/kits/pieces.ts`). No `User` FK, so nothing to erase or export.
+/// The audio is in `public/kits/<folder>/`, never in the row.
+model KitPiece {
+  id String @id @default(cuid())
+
+  /// `bigrusty-s`, `salamander-splash`. What a kit slot names.
+  key    String  @unique @db.VarChar(40)
+  label  String  @db.VarChar(80)
+  /// "kick" | "snare" | "tom" | "hat" | "ride" | "crash" — what the builder offers it for.
+  role   String  @db.VarChar(16)
+  /// The library it was recorded from: a source id in `scripts/kits/sources.ts`.
+  source String  @db.VarChar(40)
+  /// The folder under `public/kits/` its files are in.
+  folder String  @db.VarChar(40)
+  /// Slot → its layers, round-robins and trim, as a kit row's `samples.slots` holds them.
+  slots  Json
+  /// Attribution, from the source.
+  credit String? @db.Text
+
+  position Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([position])
+  @@map("kit_piece")
+}
+
 /// A kit: the knobs a playback engine reads, and where its samples are.
 ///
 /// The audio never lives in the row. System kits are files under

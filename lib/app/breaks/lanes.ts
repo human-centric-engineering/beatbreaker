@@ -167,9 +167,17 @@ export const DEFAULT_PAN: Record<LaneKey, number> = {
   p2: -0.25,
 };
 
-/** A lane's pan from the given side. An audience hears the kit mirrored. */
-export function panFor(lane: string, view: PanView): number {
-  const p = DEFAULT_PAN[lane as LaneKey] ?? 0;
+/**
+ * A lane's pan from the given side. An audience hears the kit mirrored.
+ * `pans` is a kit's own (9-v), as the drummer hears it; a lane it does not
+ * name takes {@link DEFAULT_PAN}.
+ */
+export function panFor(
+  lane: string,
+  view: PanView,
+  pans?: Partial<Record<string, number>>
+): number {
+  const p = pans?.[lane] ?? DEFAULT_PAN[lane as LaneKey] ?? 0;
   return view === 'audience' ? -p : p;
 }
 

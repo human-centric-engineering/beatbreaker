@@ -316,6 +316,8 @@ export class BreakAudio {
   setKit(kit: ResolvedKit | null, sound: Record<string, VoiceParams> | null): void {
     this.kit = kit;
     this.sound = sound;
+    // a kit of yours may pan its lanes its own way (9-v)
+    this.applyPans();
     if (this.ctx) {
       this.applyKit();
       this.samples?.refresh?.(this);
@@ -476,7 +478,7 @@ export class BreakAudio {
     let pan: StereoPannerNode | null = null;
     if (typeof ctx.createStereoPanner === 'function') {
       pan = ctx.createStereoPanner();
-      pan.pan.value = panFor(lane, this.panView);
+      pan.pan.value = panFor(lane, this.panView, this.kit?.samples.pan);
       fader.connect(pan);
       pan.connect(this.bus);
     } else {
@@ -517,10 +519,15 @@ export class BreakAudio {
    */
   setPanView(view: PanView): void {
     this.panView = view;
+    this.applyPans();
+  }
+
+  /** Move every lane built so far to its pan: the kit's own, from the side it is heard. */
+  private applyPans(): void {
     const ctx = this.ctx;
     for (const [lane, ch] of this.channels) {
       if (!ch.pan) continue;
-      const to = panFor(lane, view);
+      const to = panFor(lane, this.panView, this.kit?.samples.pan);
       if (ctx) ch.pan.pan.setTargetAtTime(to, ctx.currentTime, 0.02);
       else ch.pan.pan.value = to;
     }
@@ -606,6 +613,14 @@ export class BreakAudio {
 
   /* ---- sample playback: every sampled engine lands here ---- */
 
+  /**
+   * Play one recording through the voice's lane.
+   *
+   * `decay` (9-v) is how much of it rings, 0.2–1: below 1 the hit holds for
+   * the first half of that, fades to silence by the end of it, and stops
+   * there. It shortens the gain envelope and nothing else — the pitch and the
+   * attack are the recording's.
+   */
   playBuf(
     t: number,
     buf: AudioBuffer,
@@ -613,7 +628,8 @@ export class BreakAudio {
     voice: string,
     rate?: number,
     offset?: number,
-    shelf?: number
+    shelf?: number,
+    decay?: number
   ): PlayedBuffer {
     const ctx = this.ctx as AudioContext;
     const src = ctx.createBufferSource();
@@ -636,7 +652,13 @@ export class BreakAudio {
     this.send(g, voice);
 
     const from = offset ?? 0;
-    const len = (buf.duration - from) / (rate ?? 1);
+    const full = (buf.duration - from) / (rate ?? 1);
+    const short = decay !== undefined && decay < 1;
+    const len = short ? full * clamp(decay, 0.2, 1) : full;
+    if (short) {
+      g.gain.setValueAtTime(Math.max(0.0001, gain), t + len / 2);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + len);
+    }
     src.start(t, from);
     src.stop(t + len + 0.02);
     return { g, end: t + len };

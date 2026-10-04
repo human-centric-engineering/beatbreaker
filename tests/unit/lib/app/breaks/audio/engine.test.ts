@@ -1273,6 +1273,37 @@ describe('playBuf()', () => {
     expect(shelf.gain.value).toBeCloseTo(6, 9);
   });
 
+  it('shortens the gain envelope by Decay (9-v): holds, fades out by decay × the length, and stops there', () => {
+    const { audio, ctx } = initEngine();
+    const buf = ctx.createBuffer(1, 44100, 44100); // exactly 1s
+    const nodes = recordNodes(ctx, () =>
+      audio.playBuf(0.5, buf as unknown as AudioBuffer, 0.8, 'c', 1, 0, undefined, 0.4)
+    );
+    const src = pick<FakeAudioBufferSourceNode>(nodes, 'bufferSource')[0];
+    const g = src.outputs[0] as FakeGainNode;
+
+    // the attack is the recording's: full gain at the hit, held for half the shortened length
+    expect(g.gain.events).toEqual([
+      { type: 'setValueAtTime', value: 0.8, time: 0.5 },
+      { type: 'setValueAtTime', value: 0.8, time: 0.7 },
+      { type: 'exponentialRampToValueAtTime', value: 0.0001, time: 0.9 },
+    ]);
+    expect(src.stoppedAt).toBeCloseTo(0.92, 9);
+    // the pitch is untouched: Decay is not a time-stretch
+    expect(src.playbackRate.value).toBe(1);
+  });
+
+  it('plays the whole recording at Decay 1, the way it always has', () => {
+    const { audio, ctx } = initEngine();
+    const buf = ctx.createBuffer(1, 44100, 44100);
+    const nodes = recordNodes(ctx, () =>
+      audio.playBuf(0, buf as unknown as AudioBuffer, 0.8, 'c', 1, 0, undefined, 1)
+    );
+    const src = pick<FakeAudioBufferSourceNode>(nodes, 'bufferSource')[0];
+    expect((src.outputs[0] as FakeGainNode).gain.events).toHaveLength(1);
+    expect(src.stoppedAt).toBeCloseTo(1.02, 9);
+  });
+
   it('returns the played gain node and its end time, for choking later', () => {
     const { audio, ctx } = initEngine();
     const buf = ctx.createBuffer(1, 44100, 44100); // exactly 1s
@@ -1383,6 +1414,29 @@ describe('lane channels (playIn)', () => {
     const hatsFromStool = hats.pan.value;
     audio.setPanView('audience');
     expect(hats.pan.value).toBeCloseTo(-hatsFromStool, 9);
+  });
+
+  it('pans a lane where the kit says (9-v), mirrored for an audience, and back to the default on another kit', () => {
+    const { audio, ctx } = initEngine();
+    const hats = faderFor(audio, ctx, 'h').outputs[0] as FakeStereoPannerNode;
+    const fromStool = hats.pan.value;
+
+    audio.setKit({ ...testKit('muldjord'), samples: { pan: { h: 0.6 } } }, null);
+    expect(hats.pan.events.at(-1)).toMatchObject({ type: 'setTargetAtTime', value: 0.6 });
+
+    audio.setPanView('audience');
+    expect(hats.pan.events.at(-1)).toMatchObject({ type: 'setTargetAtTime', value: -0.6 });
+
+    audio.setPanView('drummer');
+    audio.setKit(testKit('muldjord'), null);
+    expect(hats.pan.events.at(-1)).toMatchObject({ value: fromStool });
+  });
+
+  it('builds a lane first played on a kit with its own pan already there', () => {
+    const { audio, ctx } = initEngine();
+    audio.setKit({ ...testKit('muldjord'), samples: { pan: { r: -0.5 } } }, null);
+    const ride = faderFor(audio, ctx, 'r').outputs[0] as FakeStereoPannerNode;
+    expect(ride.pan.value).toBe(-0.5);
   });
 
   it('sends an audition from the Kit drawer straight to the bus, centred', () => {

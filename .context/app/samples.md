@@ -134,13 +134,15 @@ storage key, not the audio) and the `kits` section includes your kits.
 | `DELETE /api/v1/samples/:id`    | Empties the slots holding it, removes the row, then the file. `{ id, deleted, usage }` |
 | `GET /api/v1/samples/:id/audio` | The WAV, owner only, `Cache-Control: private, max-age=31536000, immutable`             |
 | `GET /api/v1/kits`              | Your kits, each filled slot with its sample's name and audio URL                       |
-| `POST /api/v1/kits`             | `{ label? }`: a new, empty kit. 201                                                    |
+| `POST /api/v1/kits`             | `{ label?, from? }`: a new kit, empty or a copy of `from` (9-v). 201                   |
 | `GET /api/v1/kits/:id`          | One kit of yours                                                                       |
-| `PATCH /api/v1/kits/:id`        | `{ label?, slots? }`: each slot given names one of your samples, or `null` to empty it |
+| `PATCH /api/v1/kits/:id`        | `{ label?, slots?, pan? }`: each slot a sample of yours or a piece, or `null` (9-v)    |
 | `DELETE /api/v1/kits/:id`       | The kit goes; its samples stay                                                         |
 
-Someone else's sample or kit, and a system kit, answer **404** everywhere. The
-upload's refusals each carry their own code and a sentence for the person:
+Someone else's sample or kit, and a system kit, answer **404** on their own
+routes. Named in a slot of your kit, someone else's sample is a **400** naming
+the slot, as are a piece that does not exist and a slot the piece does not
+fill. The upload's refusals each carry their own code and a sentence for the person:
 `SAMPLE_TOO_LARGE` (413), `SAMPLE_NOT_WAV` (400, `details.reason` is one of
 `not-wav`, `truncated`, `not-pcm`, `not-mono`, `wrong-rate`, `wrong-depth`,
 `no-data`), `SAMPLE_TOO_LONG` (400), `SAMPLE_LIMIT_COUNT` / `SAMPLE_LIMIT_BYTES`
@@ -149,6 +151,26 @@ upload's refusals each carry their own code and a sentence for the person:
 
 The settings route accepts your kit keys for `kit` and `userKit`; a kit of yours
 that you delete makes those read as their defaults ([`settings.md`](./settings.md)).
+
+### Pieces in your kits (9-v)
+
+A slot of your kit holds one of your samples or a piece from the catalogue
+([`sound.md`](./sound.md#pieces-9-v)), each with `level` (0–2), `tune`
+(±1200 cents) and `decay` (0.2–1). The kit has `pan`, lane → −1…1.
+
+- **Stored as references:** `{ sample }` or `{ piece, from? }`, never the
+  recordings. A slot stored the old way, `{ v: null, files: [id] }`, reads as
+  that sample, and a bare sample id in a `PATCH` still means `{ sample }`.
+- **Read resolved:** a piece slot in the view carries the piece's `label` and
+  its recordings (`spec`, with their folder), so the Studio plays it without
+  the piece catalogue. A piece the catalogue no longer has reads as empty.
+- **A copy** (`POST { from }`) takes a recorded kit's pieces and its numbers
+  (master chain and voices, without the pack), or one of your kits whole:
+  samples, pieces and pans. It is named "My <kit>" unless you name it. A
+  synthesised kit or a machine has no pieces, so it is a 400 naming `from`.
+- **Your kit plays its own numbers.** The view carries the row's `params`,
+  which is what a copy keeps; a kit made empty has the ones every new kit
+  starts with.
 
 ## In the Studio
 
@@ -166,13 +188,13 @@ that would not load, falls through to the synthesised voice.
 
 ## Tests
 
-| File                                                           | What it holds                                                                 |
-| -------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `tests/unit/lib/app/breaks/samples/wav.test.ts`                | the reader's refusals, one per way to be wrong; the writer round-trips        |
-| `tests/unit/lib/app/breaks/audio/encode-wav.test.ts`           | mono 16-bit 44.1 kHz out, silence gone, the length and size refusals          |
-| `tests/unit/lib/app/breaks/audio/your-samples.test.ts`         | which URLs are fetched, once; a failed sample is an empty slot; fallbacks     |
-| `tests/integration/api/v1/samples/route.test.ts`               | every refusal, the 150th/151st, 50 MB, no row on a failed write, 404s, 503s   |
-| `tests/integration/api/v1/kits/route.test.ts`                  | slots, someone else's sample refused, someone else's kit 404, the kit limit   |
-| `tests/unit/lib/app/sample-erasure.test.ts`                    | the hook is registered and deletes the prefix                                 |
-| `tests/unit/components/app/studio/panels/your-sounds.test.tsx` | an mp3 goes up as WAV, a refusal is shown, usage after an upload and a delete |
-| `tests/helpers/your-sounds-db.ts`                              | the in-memory `sample`/`kit` table the route tests run the data layers over   |
+| File                                                           | What it holds                                                                                                     |
+| -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `tests/unit/lib/app/breaks/samples/wav.test.ts`                | the reader's refusals, one per way to be wrong; the writer round-trips                                            |
+| `tests/unit/lib/app/breaks/audio/encode-wav.test.ts`           | mono 16-bit 44.1 kHz out, silence gone, the length and size refusals                                              |
+| `tests/unit/lib/app/breaks/audio/your-samples.test.ts`         | which URLs are fetched, once; a failed sample is an empty slot; fallbacks                                         |
+| `tests/integration/api/v1/samples/route.test.ts`               | every refusal, the 150th/151st, 50 MB, no row on a failed write, 404s, 503s                                       |
+| `tests/integration/api/v1/kits/route.test.ts`                  | slots, someone else's sample refused, someone else's kit 404, the kit limit; pieces, settings, pans, copies (9-v) |
+| `tests/unit/lib/app/sample-erasure.test.ts`                    | the hook is registered and deletes the prefix                                                                     |
+| `tests/unit/components/app/studio/panels/your-sounds.test.tsx` | an mp3 goes up as WAV, a refusal is shown, usage after an upload and a delete                                     |
+| `tests/helpers/your-sounds-db.ts`                              | the in-memory `sample`/`kit` table the route tests run the data layers over                                       |

@@ -44,7 +44,23 @@ export interface KitRecord {
   createdAt: Date;
 }
 
-export const db = { samples: [] as SampleRecord[], kits: [] as KitRecord[] };
+/** A catalogue piece (9-v): what a kit slot of yours may name besides a sample. */
+export interface PieceRecord {
+  key: string;
+  label: string;
+  role: string;
+  source: string;
+  folder: string;
+  slots: unknown;
+  credit: string | null;
+  position: number;
+}
+
+export const db = {
+  samples: [] as SampleRecord[],
+  kits: [] as KitRecord[],
+  pieces: [] as PieceRecord[],
+};
 
 let seq = 0;
 /** A CUID-shaped id, distinct per call, so the routes' id schema accepts it. */
@@ -56,6 +72,10 @@ export function nextId(): string {
 export function resetYourSoundsDb(): void {
   db.samples = [];
   db.kits = [];
+  /* The pieces are read through the catalogue's memo. A test that seeds some
+     calls `invalidateCatalogue()` too: importing the catalogue here would
+     import the database this module stands in for. */
+  db.pieces = [];
 }
 
 function pick<T extends object>(row: T, select?: Record<string, boolean>): Partial<T> {
@@ -72,7 +92,9 @@ type Where = Record<string, unknown>;
 function matches(row: object, where: Where = {}): boolean {
   const r = row as Record<string, unknown>;
   for (const [k, cond] of Object.entries(where)) {
-    if (cond && typeof cond === 'object' && 'in' in cond) {
+    if (k === 'OR') {
+      if (!(cond as Where[]).some((part) => matches(row, part))) return false;
+    } else if (cond && typeof cond === 'object' && 'in' in cond) {
       if (!(cond as { in: unknown[] }).in.includes(r[k])) return false;
     } else if (cond && typeof cond === 'object') {
       throw new Error(`your-sounds-db: unsupported where on ${k}: ${JSON.stringify(cond)}`);
@@ -158,6 +180,11 @@ export const fakePrisma = {
       return { count: before - db.kits.length };
     }),
   },
+  kitPiece: {
+    findMany: vi.fn(async ({ select }: Args) =>
+      [...db.pieces].sort((a, b) => a.position - b.position).map((p) => pick(p, select))
+    ),
+  },
   $executeRaw: vi.fn(async () => 1),
   $transaction: vi.fn(async (fn: (tx: unknown) => Promise<unknown>) => fn(fakePrisma)),
 };
@@ -206,5 +233,32 @@ export function seedKit(
     ...over,
   };
   db.kits.push(row);
+  return row;
+}
+
+/** A catalogue piece filling `slots`, each one layer of two takes. */
+export function seedPiece(
+  key: string,
+  slots: string[],
+  over: Partial<PieceRecord> = {}
+): PieceRecord {
+  const folder = over.folder ?? key.split('-')[0];
+  const row: PieceRecord = {
+    key,
+    label: `${folder} · ${slots[0]}`,
+    role: 'snare',
+    source: folder,
+    folder,
+    slots: Object.fromEntries(
+      slots.map((slot) => [
+        slot,
+        { layers: [{ v: 1, files: [`${slot}-0-0.m4a`, `${slot}-0-1.m4a`] }], trim: 1.5 },
+      ])
+    ),
+    credit: null,
+    position: db.pieces.length,
+    ...over,
+  };
+  db.pieces.push(row);
   return row;
 }

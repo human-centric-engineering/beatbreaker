@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest';
 import { kitIsPlayable } from '@/lib/app/breaks/kit';
 import { withYourKits, yourKitToCatalogue } from '@/lib/app/breaks/samples/your-kit';
 import { kitParamsSchema } from '@/lib/app/breaks/catalogue/schemas';
-import { testCatalogue } from '@/tests/helpers/catalogue';
+import { testCatalogue, testKit } from '@/tests/helpers/catalogue';
 import type { YourKitView } from '@/lib/validations/samples';
 
 const MINE: YourKitView = {
@@ -29,6 +29,42 @@ describe('yourKitToCatalogue', () => {
     expect(kit.samples.slots).toEqual({ k: { v: null, files: ['csmp00000000000000000001'] } });
     // the numbers a kit row may hold
     expect(kitParamsSchema.safeParse(kit).success).toBe(true);
+  });
+
+  it('plays a piece from its folder, with each slot’s settings and the kit’s pans and numbers (9-v)', () => {
+    const copied = testKit('bigrusty');
+    const kit = yourKitToCatalogue({
+      ...MINE,
+      slots: {
+        k: { ...MINE.slots.k, level: 0.8 },
+        s: {
+          piece: 'bigrusty-s',
+          label: 'Big Rusty · Snare',
+          spec: { layers: [{ v: 1, files: ['s-0-0.m4a'] }], trim: 1.6, folder: 'bigrusty' },
+          tune: -100,
+          decay: 0.5,
+        },
+      },
+      pan: { s: 0.2 },
+      params: { ...copied, pack: undefined },
+    });
+
+    expect(kit.samples).toEqual({
+      slots: {
+        k: { v: null, files: ['csmp00000000000000000001'], level: 0.8 },
+        s: {
+          layers: [{ v: 1, files: ['s-0-0.m4a'] }],
+          trim: 1.6,
+          folder: 'bigrusty',
+          tune: -100,
+          decay: 0.5,
+        },
+      },
+      pan: { s: 0.2 },
+    });
+    // a copy of Big Rusty keeps Big Rusty's master chain, and stays your kit
+    expect(kit.master).toEqual(copied.master);
+    expect(kit).toMatchObject({ engine: 'user', key: 'yours-abc' });
   });
 });
 

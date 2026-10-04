@@ -115,7 +115,7 @@ describe('refresh()', () => {
     source.refresh(engine);
 
     // the slot map came from the kit row, not from a fetched manifest
-    expect(loadSpy).toHaveBeenCalledWith(engine, 'muldjord', slots);
+    expect(loadSpy).toHaveBeenCalledWith(engine, engine.kit);
   });
 
   it('does nothing for a kit whose engine is not pack', () => {
@@ -136,7 +136,7 @@ describe('refresh()', () => {
     await Promise.resolve();
     await Promise.resolve();
 
-    expect(source.isReady('muldjord')).toBe(false);
+    expect(source.isReady(engine.kit)).toBe(false);
     expect(fetchMock).not.toHaveBeenCalled();
   });
 });
@@ -150,10 +150,10 @@ describe('load()', () => {
     const slots = { s: { v: null, files: ['s.mp3'] } };
     const source = new PackSource();
 
-    await source.load(engine, 'muldjord', slots);
+    await source.load(engine, packKit({ slots }));
     expect(fetchMock).toHaveBeenCalledTimes(1);
 
-    await source.load(engine, 'muldjord', slots);
+    await source.load(engine, packKit({ slots }));
     expect(fetchMock).toHaveBeenCalledTimes(1); // no second round of fetches
   });
 
@@ -161,8 +161,8 @@ describe('load()', () => {
     const slots = { s: { v: null, files: ['s.mp3'] } };
     const source = new PackSource();
 
-    const first = source.load(engine, 'muldjord', slots);
-    const second = source.load(engine, 'muldjord', slots); // fired before `first` settles
+    const first = source.load(engine, packKit({ slots }));
+    const second = source.load(engine, packKit({ slots })); // fired before `first` settles
     await Promise.all([first, second]);
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -182,7 +182,7 @@ describe('hit()', () => {
 
     // the synthesised voice covers for this bar while the pack decodes
     expect(source.hit(engine, 0, 's', 1)).toBe(false);
-    expect(loadSpy).toHaveBeenCalledWith(engine, 'muldjord', slots);
+    expect(loadSpy).toHaveBeenCalledWith(engine, engine.kit);
   });
 
   it('returns false outright for a kit that is not a pack kit at all', () => {
@@ -195,7 +195,7 @@ describe('hit()', () => {
     const slots = { s: { v: null, files: ['s.mp3'] } }; // no sGhost recording
     engine.kit = packKit({ slots });
     const source = new PackSource();
-    await source.load(engine, 'muldjord', slots);
+    await source.load(engine, packKit({ slots }));
     const playBuf = vi.spyOn(engine, 'playBuf');
 
     expect(source.hit(engine, 0.1, 's', 0.8)).toBe(true);
@@ -252,7 +252,7 @@ describe('loadPerc()', () => {
 describe('count()', () => {
   it('returns 0 for a pack that has not decoded, or even started to', () => {
     const source = new PackSource();
-    expect(source.count('muldjord')).toBe(0);
+    expect(source.count(packKit({ slots: { s: { v: null, files: ['s.mp3'] } } }))).toBe(0);
   });
 
   it('counts only the slots that ended up with at least one decoded layer', async () => {
@@ -272,9 +272,9 @@ describe('count()', () => {
     engine.kit = packKit({ slots });
     const source = new PackSource();
 
-    await source.load(engine, 'muldjord', slots);
+    await source.load(engine, packKit({ slots }));
 
-    expect(source.count('muldjord')).toBe(1); // sGhost decoded to zero layers
+    expect(source.count(packKit({ slots }))).toBe(1); // sGhost decoded to zero layers
   });
 });
 
@@ -287,7 +287,7 @@ describe('hit() — additional branches', () => {
     const slots = { s: { v: null, files: ['s.mp3'] } };
     engine.kit = packKit({ slots });
     const source = new PackSource();
-    await source.load(engine, 'muldjord', slots);
+    await source.load(engine, packKit({ slots }));
 
     expect(source.hit(engine, 0, 'bogus-slot', 1)).toBe(false);
   });
@@ -296,7 +296,7 @@ describe('hit() — additional branches', () => {
     const slots = { k: { v: null, files: ['k.mp3'] } }; // no 's' and no sGhost either
     engine.kit = packKit({ slots });
     const source = new PackSource();
-    await source.load(engine, 'muldjord', slots);
+    await source.load(engine, packKit({ slots }));
 
     expect(source.hit(engine, 0, 'sGhost', 1)).toBe(false);
   });
@@ -305,7 +305,7 @@ describe('hit() — additional branches', () => {
     const slots = { h: { v: null, files: ['h.mp3'] } }; // no hOpen recording of its own
     engine.kit = packKit({ slots });
     const source = new PackSource();
-    await source.load(engine, 'muldjord', slots);
+    await source.load(engine, packKit({ slots }));
     const playBuf = vi.spyOn(engine, 'playBuf');
     const noteHatTail = vi.spyOn(engine, 'noteHatTail');
 
@@ -328,7 +328,7 @@ describe('hit() — additional branches', () => {
     const slots = { s: { v: [0], files: ['s-soft.mp3'] } };
     engine.kit = packKit({ slots });
     const source = new PackSource();
-    await source.load(engine, 'muldjord', slots);
+    await source.load(engine, packKit({ slots }));
     const playBuf = vi.spyOn(engine, 'playBuf');
 
     // a naive `vel / pick.v` would divide by zero here; `pick.v || 1` treats
@@ -343,7 +343,7 @@ describe('hit() — additional branches', () => {
     const slots = { s: { v: null, files: ['s.mp3'] } };
     engine.kit = packKit({ slots }, { trim: undefined, s: { room: 0.1 } });
     const source = new PackSource();
-    await source.load(engine, 'muldjord', slots);
+    await source.load(engine, packKit({ slots }));
     const playBuf = vi.spyOn(engine, 'playBuf');
 
     expect(source.hit(engine, 0, 's', 0.6)).toBe(true);
@@ -458,20 +458,24 @@ describe('the decoded cache', () => {
   it(`keeps ${DECODED_KITS} kits decoded and lets go of the one used longest ago`, async () => {
     const source = new PackSource();
     const slots = { k: { v: null, files: ['k.m4a'] } };
-    for (const pack of ['a', 'b']) await source.load(engine, pack, slots);
+    for (const pack of ['a', 'b']) await source.load(engine, packKit({ slots }, { pack }));
     // back to `a`, then a third: `b` is the oldest now, and goes
     engine.kit = packKit({ slots }, { pack: 'a' });
     source.refresh(engine);
-    await source.load(engine, 'c', slots);
+    await source.load(engine, packKit({ slots }, { pack: 'c' }));
 
-    expect(['a', 'b', 'c'].map((p) => source.isReady(p))).toEqual([true, false, true]);
+    expect(['a', 'b', 'c'].map((p) => source.isReady(packKit({ slots }, { pack: p })))).toEqual([
+      true,
+      false,
+      true,
+    ]);
   });
 
   it('never lets go of the kit playing when kits picked and left finish loading late', async () => {
     const source = new PackSource();
     const slots = { k: { v: null, files: ['k.m4a'] } };
     engine.kit = packKit({ slots }, { pack: 'a' });
-    await source.load(engine, 'a', slots);
+    await source.load(engine, packKit({ slots }, { pack: 'a' }));
 
     // B and C are picked and left before either decodes; the drummer is back on A
     let release: () => void = () => {};
@@ -480,25 +484,25 @@ describe('the decoded cache', () => {
       await gate;
       return new FakeAudioBuffer(1, 4410, 44100) as unknown as AudioBuffer;
     });
-    const b = source.load(engine, 'b', slots);
-    const c = source.load(engine, 'c', slots);
+    const b = source.load(engine, packKit({ slots }, { pack: 'b' }));
+    const c = source.load(engine, packKit({ slots }, { pack: 'c' }));
     source.refresh(engine); // A again
     release();
     await Promise.all([b, c]);
 
-    expect(source.isReady('a')).toBe(true);
+    expect(source.isReady(packKit({ slots }, { pack: 'a' }))).toBe(true);
     expect(source.hit(engine, 0, 'k', 1)).toBe(true);
   });
 
   it('decodes a kit again when it is picked after being let go', async () => {
     const source = new PackSource();
     const slots = { k: { v: null, files: ['k.m4a'] } };
-    for (const pack of ['a', 'b', 'c']) await source.load(engine, pack, slots);
-    expect(source.isReady('a')).toBe(false);
+    for (const pack of ['a', 'b', 'c']) await source.load(engine, packKit({ slots }, { pack }));
+    expect(source.isReady(packKit({ slots }, { pack: 'a' }))).toBe(false);
 
     engine.kit = packKit({ slots }, { pack: 'a' });
     expect(source.hit(engine, 0, 'k', 1)).toBe(false); // the synth covers this bar
-    await vi.waitFor(() => expect(source.isReady('a')).toBe(true));
+    await vi.waitFor(() => expect(source.isReady(packKit({ slots }, { pack: 'a' }))).toBe(true));
   });
 });
 
@@ -566,7 +570,7 @@ describe('hit() with round-robins', () => {
       };
       engine.kit = packKit({ slots });
       const source = new PackSource(onChange);
-      await source.load(engine, 'muldjord', slots);
+      await source.load(engine, packKit({ slots }));
 
       // the kit plays already, from one take
       expect(fetchMock.mock.calls.map((c) => c[0])).toEqual(['/kits/muldjord/h-a.m4a']);
@@ -595,7 +599,7 @@ describe('hit() with round-robins', () => {
       };
       engine.kit = packKit({ slots });
       const source = new PackSource();
-      await source.load(engine, 'muldjord', slots);
+      await source.load(engine, packKit({ slots }));
 
       // the kit plays after the snare's first take alone
       expect(fetchMock.mock.calls.map((c) => c[0])).toEqual(['/kits/muldjord/s-0-0.m4a']);
@@ -633,13 +637,13 @@ describe('hit() with round-robins', () => {
       };
       engine.kit = packKit({ slots });
       const source = new PackSource();
-      await source.load(engine, 'muldjord', slots);
+      await source.load(engine, packKit({ slots }));
       // two other kits load and play, and push this one out
       for (const pack of ['a', 'b']) {
         engine.kit = packKit({ slots: { s: slots.s } }, { pack });
-        await source.load(engine, pack, { s: slots.s });
+        await source.load(engine, packKit({ slots: { s: slots.s } }, { pack }));
       }
-      expect(source.isReady('muldjord')).toBe(false);
+      expect(source.isReady(packKit({ slots }))).toBe(false);
 
       await vi.runAllTimersAsync();
       expect(fetchMock.mock.calls.map((c) => c[0])).not.toContain('/kits/muldjord/hHalf-0-0.m4a');
@@ -656,7 +660,7 @@ describe('hit() with round-robins', () => {
     };
     engine.kit = packKit({ slots });
     const source = new PackSource();
-    await source.load(engine, 'muldjord', slots);
+    await source.load(engine, packKit({ slots }));
     await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(3));
     await vi.waitFor(() => expect(ctx.decodeAudioData).toHaveBeenCalledTimes(3));
 
@@ -672,7 +676,7 @@ describe('hit() with round-robins', () => {
     const slots = { s: { v: [0.3, 1], files: ['s-0.mp3', 's-1.mp3'] } };
     engine.kit = packKit({ slots });
     const source = new PackSource();
-    await source.load(engine, 'muldjord', slots);
+    await source.load(engine, packKit({ slots }));
     const playBuf = vi.spyOn(engine, 'playBuf');
 
     source.hit(engine, 0, 's', 0.25);
@@ -696,9 +700,9 @@ describe('hit() with round-robins', () => {
     const slots = { k: { layers: [{ v: 1, files: ['bad.m4a', 'good.m4a'] }] } };
     engine.kit = packKit({ slots });
     const source = new PackSource();
-    await source.load(engine, 'muldjord', slots);
+    await source.load(engine, packKit({ slots }));
     // the first pass moves on to the next take rather than losing the layer
-    expect(source.count('muldjord')).toBe(1);
+    expect(source.count(packKit({ slots }))).toBe(1);
     expect(source.hit(engine, 0, 'k', 1)).toBe(true);
   });
 
@@ -710,7 +714,7 @@ describe('hit() with round-robins', () => {
     engine.kit = packKit({ slots }, { trim: 1 });
     engine.sound = { s: { level: 1 }, h: { level: 1 } };
     const source = new PackSource();
-    await source.load(engine, 'muldjord', slots);
+    await source.load(engine, packKit({ slots }));
     const playBuf = vi.spyOn(engine, 'playBuf');
 
     source.hit(engine, 0, 's', 1);
@@ -722,7 +726,7 @@ describe('hit() with round-robins', () => {
     const slots = { s: { v: [1], files: ['s.mp3'] } };
     engine.kit = packKit({ slots });
     const source = new PackSource();
-    await source.load(engine, 'muldjord', slots);
+    await source.load(engine, packKit({ slots }));
     const playBuf = vi.spyOn(engine, 'playBuf');
 
     source.hit(engine, 0, 's', 0.5); // half the layer's level: −6 dB, so a −3 dB shelf
@@ -737,7 +741,7 @@ describe('hit() with round-robins', () => {
     const slots = { s: { layers: [0.25, 0.5, 0.75, 1].map((v) => ({ v, files: [`s${v}.m4a`] })) } };
     engine.kit = packKit({ slots });
     const source = new PackSource();
-    await source.load(engine, 'muldjord', slots);
+    await source.load(engine, packKit({ slots }));
     const playBuf = vi.spyOn(engine, 'playBuf');
     source.hit(engine, 0, 's', 0.6);
     expect(playBuf.mock.calls[0][6]).toBeUndefined();
@@ -747,7 +751,7 @@ describe('hit() with round-robins', () => {
     const slots = { h: { v: [1], files: ['h.mp3'] } };
     engine.kit = packKit({ slots }, { trim: 1 });
     const source = new PackSource();
-    await source.load(engine, 'muldjord', slots);
+    await source.load(engine, packKit({ slots }));
     const playBuf = vi.spyOn(engine, 'playBuf');
     for (const edge of [0, 0.999999]) {
       engine.rand = () => edge;
@@ -762,5 +766,126 @@ describe('hit() with round-robins', () => {
       expect(Math.abs(cents)).toBeLessThanOrEqual(8 + 1e-3);
       expect(Math.abs(cents)).toBeGreaterThan(7); // and does use the range
     }
+  });
+});
+
+/* ---------------------------------------------------------------------- */
+/* Phase 9-v: pieces — a kit from many folders, and a slot's own settings */
+/* ---------------------------------------------------------------------- */
+
+describe('a kit made of pieces (9-v)', () => {
+  /** A kit of yours: a snare piece from one pack, a splash from another, and a kick sample of yours. */
+  function mixedKit(over: Partial<KitSamples> = {}): ResolvedKit {
+    return {
+      ...testKit('muldjord'),
+      key: 'yours-mixed',
+      engine: 'user',
+      pack: undefined,
+      samples: {
+        slots: {
+          k: { v: null, files: ['csmp00000000000000000001'] },
+          s: { layers: [{ v: 1, files: ['s-0-0.m4a'] }], folder: 'drs', trim: 1.5 },
+          cSplash: { layers: [{ v: 1, files: ['cSplash-0-0.m4a'] }], folder: 'bigrusty' },
+        },
+        ...over,
+      },
+    };
+  }
+
+  it('fetches each piece from its own folder, and never a sample of yours', async () => {
+    engine.kit = mixedKit();
+    const source = new PackSource();
+    await source.load(engine, engine.kit);
+
+    const urls = fetchMock.mock.calls.map((c) => c[0] as string);
+    // cSplash is a late slot; its folder shows once the idle pass runs
+    expect(urls).toEqual(['/kits/drs/s-0-0.m4a']);
+    expect(source.hit(engine, 0, 's', 1)).toBe(true);
+    expect(source.count(engine.kit)).toBe(1);
+  });
+
+  it('plays the kit both ways: a piece of one source and a piece of another', async () => {
+    vi.useFakeTimers();
+    try {
+      engine.kit = mixedKit();
+      const source = new PackSource();
+      await source.load(engine, engine.kit);
+      await vi.runAllTimersAsync();
+
+      expect(fetchMock.mock.calls.map((c) => c[0])).toEqual([
+        '/kits/drs/s-0-0.m4a',
+        '/kits/bigrusty/cSplash-0-0.m4a',
+      ]);
+      expect(source.hit(engine, 0, 's', 1)).toBe(true);
+      expect(source.hit(engine, 0, 'cSplash', 1)).toBe(true);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('leaves a slot holding your sample to the sample source, and a ghost that would fall back on it', async () => {
+    engine.kit = mixedKit({
+      slots: {
+        s: { v: null, files: ['csmp00000000000000000002'] },
+        k: { layers: [{ v: 1, files: ['k-0-0.m4a'] }], folder: 'drs' },
+      },
+    });
+    const source = new PackSource();
+    await source.load(engine, engine.kit);
+
+    expect(source.hit(engine, 0, 's', 1)).toBe(false);
+    expect(source.hit(engine, 0, 'sGhost', 0.3)).toBe(false);
+    expect(source.hit(engine, 0, 'k', 1)).toBe(true);
+    expect(fetchMock.mock.calls.map((c) => c[0])).toEqual(['/kits/drs/k-0-0.m4a']);
+  });
+
+  it("applies the slot's Level and Tune on top of the voice's, and hands its Decay to playBuf", async () => {
+    const at = (level?: number, tune?: number, decay?: number): ResolvedKit =>
+      packKit({
+        slots: { s: { layers: [{ v: 1, files: ['s.m4a'] }], level, tune, decay } },
+      });
+    const source = new PackSource();
+    const playBuf = vi.spyOn(engine, 'playBuf');
+
+    engine.kit = at();
+    await source.load(engine, engine.kit);
+    source.hit(engine, 0, 's', 1);
+    const [, , plainGain, , plainRate, , , plainDecay] = playBuf.mock.calls[0];
+
+    engine.kit = at(1.5, -1200, 0.4);
+    await source.load(engine, engine.kit);
+    source.hit(engine, 0, 's', 1);
+    const [, , gain, , rate, , , decay] = playBuf.mock.calls[1];
+
+    expect(plainDecay).toBeUndefined();
+    expect(gain).toBeCloseTo(plainGain * 1.5, 9);
+    // an octave down is half the rate
+    expect(rate).toBeCloseTo((plainRate as number) / 2, 9);
+    expect(decay).toBe(0.4);
+  });
+
+  it('decodes again when a slot of your kit names another piece, though the kit keeps its key', async () => {
+    const source = new PackSource();
+    engine.kit = mixedKit();
+    await source.load(engine, engine.kit);
+    expect(source.isReady(engine.kit)).toBe(true);
+
+    const changed = mixedKit({
+      slots: { s: { layers: [{ v: 1, files: ['s-0-0.m4a'] }], folder: 'unruly' } },
+    });
+    expect(changed.key).toBe(engine.kit.key);
+    expect(source.isReady(changed)).toBe(false);
+    // a change to how it plays is not a change to what it decodes
+    expect(
+      source.isReady(
+        mixedKit({
+          slots: {
+            k: { v: null, files: ['csmp00000000000000000001'] },
+            s: { layers: [{ v: 1, files: ['s-0-0.m4a'] }], folder: 'drs', trim: 1.5, tune: 200 },
+            cSplash: { layers: [{ v: 1, files: ['cSplash-0-0.m4a'] }], folder: 'bigrusty' },
+          },
+        })
+      )
+    ).toBe(true);
   });
 });

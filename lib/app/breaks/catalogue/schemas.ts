@@ -191,6 +191,7 @@ export const kitParamsSchema = z.object({
   t: voiceParams,
   p: voiceParams,
 });
+export type KitParams = z.infer<typeof kitParamsSchema>;
 
 /* A file name, not a path: the URL is built as `/kits/<pack>/<file>`, and a
    `..` or a leading slash here would climb out of that folder. The kit rows
@@ -201,14 +202,32 @@ const sampleFile = z
   .max(64)
   .regex(/^[A-Za-z0-9._-]+$/, 'a sample is a plain file name');
 
+/**
+ * Your Level, Tune and Decay for a slot (Phase 9-v). Tune is cents, an octave
+ * either way; Decay is how much of the recording rings before it is faded,
+ * and stops short of nothing so a slot never goes silent.
+ */
+export const kitSlotSettingsSchema = z.object({
+  level: z.number().min(0).max(2).optional(),
+  tune: z.number().int().min(-1200).max(1200).optional(),
+  decay: z.number().min(0.2).max(1).optional(),
+});
+
+/* A folder under `/kits/`, the same rule as a pack's name: no `..`, no slash. */
+const folderName = z
+  .string()
+  .max(40)
+  .regex(/^[a-z0-9-]+$/, 'a folder is a pack name');
+
 /** One slot's recordings, one file per layer: the files, and the velocity each was recorded at. */
-const kitSampleSlotFlat = z.object({
+const kitSampleSlotFlat = kitSlotSettingsSchema.extend({
   v: z.array(z.number().min(0).max(1)).max(8).nullable(),
   files: z.array(sampleFile).min(1).max(8),
+  folder: folderName.optional(),
 });
 
 /** One slot's recordings as velocity layers, each with its round-robins (Phase 9). */
-const kitSampleSlotLayered = z.object({
+const kitSampleSlotLayered = kitSlotSettingsSchema.extend({
   layers: z
     .array(
       z.object({
@@ -219,14 +238,47 @@ const kitSampleSlotLayered = z.object({
     .min(1)
     .max(8),
   trim: z.number().min(0).max(4).optional(),
+  folder: folderName.optional(),
 });
 
-const kitSampleSlot = z.union([kitSampleSlotFlat, kitSampleSlotLayered]);
+export const kitSampleSlotSchema = z.union([kitSampleSlotFlat, kitSampleSlotLayered]);
+
+/** A piece's key in the `KitPiece` catalogue: `bigrusty-s`, `salamander-splash`. */
+export const pieceKeySchema = z
+  .string()
+  .max(40)
+  .regex(/^[a-z0-9][a-zA-Z0-9-]*$/, 'a piece key is a pack or source and a name');
+
+/** A slot that names a piece, and which of its slots to play where that is another (9-v). */
+export const kitPieceSlotSchema = kitSlotSettingsSchema.extend({
+  piece: pieceKeySchema,
+  from: z.string().max(24).optional(),
+});
+
+/** A slot that names one of your samples by id (9-v). */
+export const kitYourSampleSlotSchema = kitSlotSettingsSchema.extend({
+  sample: z.string().min(1).max(40),
+});
+
+/**
+ * A slot as a kit row stores it: its recordings, or a piece, or one of your
+ * samples. The catalogue resolves the last two before playback sees them.
+ */
+export const kitStoredSlotSchema = z.union([
+  kitSampleSlotFlat,
+  kitSampleSlotLayered,
+  kitPieceSlotSchema,
+  kitYourSampleSlotSchema,
+]);
+
+/** Lane → pan, −1 (left, from the stool) to 1. */
+export const kitPanSchema = z.partialRecord(z.enum(LANES), z.number().min(-1).max(1));
 
 export const kitSamplesSchema = z.object({
   sampleRate: z.number().int().min(8000).max(192000).optional(),
-  slots: z.record(z.string().max(24), kitSampleSlot).optional(),
-  perc: z.record(z.string().max(24), kitSampleSlot).optional(),
+  slots: z.record(z.string().max(24), kitStoredSlotSchema).optional(),
+  perc: z.record(z.string().max(24), kitSampleSlotSchema).optional(),
+  pan: kitPanSchema.optional(),
 });
 
 /* ---- library entries ------------------------------------------------ */

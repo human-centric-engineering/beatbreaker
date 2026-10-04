@@ -18,6 +18,19 @@ release process.
 
 ### Added
 
+- **Pieces, and kits of yours built from them (BeatBreaker Phase 9-v-a).**
+  A new `KitPiece` catalogue table holds each instrument the kit build makes
+  (one source, the slots it fills), derived from the recipes and the
+  manifest and served by `GET /api/v1/catalogue/pieces`. A kit slot may name
+  a piece (`{ piece, from? }`) or one of your samples (`{ sample }`), each
+  with `level`, `tune` and `decay`, and a kit may pan its own lanes
+  (`samples.pan`). The recorded kits are re-expressed as piece maps and play
+  the same files. `PATCH /api/v1/kits/:id` takes pieces, settings and `pan`
+  (a bare sample id still works), and `POST /api/v1/kits` takes `from` to
+  copy a recorded kit or one of yours. **`PackSource`'s `load`, `isReady` and
+  `count` take the kit, not a pack name**: a kit draws each slot from its
+  piece's folder, and its decode is cached by what it names.
+
 - **Recorded articulations for the round-one kits (BeatBreaker Phase
   9-iv-b).** Big Rusty, DRS kit, DRS brushes, Unruly and Gogodze gain
   recordings of the rimshot, half-open hat, second crash, china and splash

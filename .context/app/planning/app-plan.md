@@ -2932,6 +2932,29 @@ in the tree:
 - **The admin kit `PATCH` takes the new shapes too.** It shares
   `kitSamplesSchema`, so nothing extra is needed.
 
+**9-v-a built, 2026-10-04.** As reconciled, with these findings:
+
+- **79 pieces.** Salamander's three are one each, though five packs ship
+  copies. Gogodze's borrowed Big Rusty cymbals are labelled as Big Rusty's.
+- **Every recorded kit, as pieces, plays the same files at the same trims.**
+  `pieces.test.ts` checks every slot of all ten, and where a lent piece
+  resolves to another pack's folder, that the file has the same sha256.
+- **The decoded cache is keyed by what a kit names, not its key alone.** A
+  kit of yours keeps its key when a slot's piece changes, and would have
+  kept playing the old piece. `decodeKey()` hashes the folders and files.
+  The first version memoised that per slot map, and two kits sharing one map
+  shared a key; it is per kit now.
+- **`PackSource`'s `load`, `isReady` and `count` take the kit.** Passing a
+  pack name stopped meaning anything once a kit spans folders.
+- **A copy keeps its kit's numbers.** The recorded kits' master chains differ
+  a good deal (the Dusty sampler is low-passed at 9 kHz and driven at 1.5),
+  so a copy that took a new kit's numbers would not sound like what was
+  copied. A kit of yours now plays its own row's `params`; before, it always
+  read the constant `YOUR_KIT_PARAMS`.
+- **Each sample source leaves the other's slots alone**, including a slot
+  that would fall back on one: without that, a ghost sample of yours was
+  passed over for your snare piece played soft.
+
 **9-vi — more sounds, synth rendered ahead, the machines:**
 
 | #    | Task                                                                                                                                                                                 | Done when                                                                                                                                                                                            |

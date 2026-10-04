@@ -73,6 +73,15 @@ export interface Pick {
 /** One instrument from one source, and the slots it fills. */
 export interface Piece {
   role: Role;
+  /**
+   * Its key in the `KitPiece` catalogue. Absent is `<pack>-<first slot>`
+   * (`bigrusty-s`), which is all a piece built for one pack needs. A piece
+   * lent to several packs names its own, so it is one piece wherever it is
+   * copied (`scripts/kits/pieces.ts`).
+   */
+  key?: string;
+  /** What the kit builder calls it. Absent is the pack's kit and the first slot's name. */
+  label?: string;
   /** Slot id → its recordings. The first slot is the one the level is matched on. */
   slots: Record<string, Pick>;
   /**
