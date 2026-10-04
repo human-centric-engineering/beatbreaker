@@ -53,9 +53,23 @@ export function ffmpegVersion(): string | null {
   return res.stdout.toString().split('\n')[0].trim();
 }
 
-/** Any file ffmpeg reads, as mono Float32 at {@link RATE}. Several channels are averaged. */
-export async function decode(path: string): Promise<Float32Array> {
-  const raw = await run(['-i', path, '-ac', '1', '-ar', String(RATE), '-f', 'f32le', 'pipe:1']);
+/**
+ * Any file ffmpeg reads, as mono Float32 at {@link RATE}. Several channels are
+ * averaged, unless `filter` mixes them (a `pan` filter from `drumgizmo.ts`).
+ */
+export async function decode(path: string, filter?: string): Promise<Float32Array> {
+  const raw = await run([
+    '-i',
+    path,
+    ...(filter ? ['-af', filter] : []),
+    '-ac',
+    '1',
+    '-ar',
+    String(RATE),
+    '-f',
+    'f32le',
+    'pipe:1',
+  ]);
   const copy = new Uint8Array(raw.byteLength);
   copy.set(raw);
   return new Float32Array(copy.buffer);

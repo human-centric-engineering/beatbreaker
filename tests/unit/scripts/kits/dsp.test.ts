@@ -8,7 +8,19 @@
 
 import { describe, expect, it } from 'vitest';
 
-import { FADE_S, kWeight, loudness, mix, onsetIndex, RATE, trimHit } from '@/scripts/kits/dsp';
+import {
+  amp,
+  BAKE_PEAK,
+  FADE_S,
+  kWeight,
+  loudness,
+  mix,
+  onsetIndex,
+  RATE,
+  splitGain,
+  TRIM_CEILING,
+  trimHit,
+} from '@/scripts/kits/dsp';
 
 /** `pre` seconds of silence, then a decaying sine at `level` that lasts `len` seconds. */
 function hit(pre: number, len: number, level = 0.5, freq = 1000, decayS = 0.2): Float32Array {
@@ -108,5 +120,31 @@ describe('loudness()', () => {
 
   it('is -Infinity for nothing at all', () => {
     expect(loudness(new Float32Array(0))).toBe(-Infinity);
+  });
+});
+
+describe('splitGain()', () => {
+  it('leaves a piece that needs no more than the ceiling to its trim alone', () => {
+    expect(splitGain(1.8, 0.5)).toEqual({ trim: 1.8, bake: 1 });
+    // turning down is the trim's too: nothing is ever baked quieter
+    expect(splitGain(0.4, 0.9)).toEqual({ trim: 0.4, bake: 1 });
+  });
+
+  it('bakes what the trim cannot reach into the samples', () => {
+    // 24 dB of gain on a quiet brush: the trim's 12, and the samples the rest
+    const { trim, bake } = splitGain(amp(24), 0.01);
+    expect(trim).toBe(TRIM_CEILING);
+    expect(20 * Math.log10(trim * bake)).toBeCloseTo(24, 6);
+  });
+
+  it('bakes no further than a decibel under full scale, however much is needed', () => {
+    const peak = 0.2;
+    const { trim, bake } = splitGain(100, peak);
+    expect(trim).toBe(TRIM_CEILING);
+    expect(peak * bake).toBeCloseTo(BAKE_PEAK, 9);
+  });
+
+  it('bakes nothing when the samples are already at the peak', () => {
+    expect(splitGain(10, 0.95)).toEqual({ trim: TRIM_CEILING, bake: 1 });
   });
 });

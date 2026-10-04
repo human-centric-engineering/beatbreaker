@@ -29,7 +29,17 @@ import { join } from 'node:path';
 
 import { z } from 'zod';
 
-import { amp, loudness, mix, RATE, trimHit } from '@/scripts/kits/dsp';
+import { channelsOf, instrumentOf, panFilter } from '@/scripts/kits/drumgizmo';
+import {
+  amp,
+  loudness,
+  mix,
+  peakOf,
+  RATE,
+  splitGain,
+  TRIM_CEILING,
+  trimHit,
+} from '@/scripts/kits/dsp';
 import { decode, encode, ffmpegVersion } from '@/scripts/kits/ffmpeg';
 import { fetchFile, mapLimit, sha256, treeOf } from '@/scripts/kits/fetch';
 import { candidates } from '@/scripts/kits/pattern';
@@ -48,7 +58,8 @@ import {
   README_END,
   README_START,
 } from '@/scripts/kits/credits';
-import { SOURCES, type SourceId } from '@/scripts/kits/sources';
+import { pinOf, SOURCES, type SourceId } from '@/scripts/kits/sources';
+import { zipFile, zipTree } from '@/scripts/kits/zip';
 
 const ROOT = process.cwd();
 const KITS = join(ROOT, 'public/kits');
@@ -64,6 +75,18 @@ const LOCK = join(ROOT, 'scripts/kits/build-lock.generated.json');
  */
 const REFERENCE_DB = -15.2;
 
+/** One slot's chosen takes, layer by layer, before they are encoded. */
+interface Choice {
+  slotId: string;
+  /** Each layer's takes, softest layer first. */
+  pcm: Float32Array[][];
+  vs: number[];
+  /** The loudest layer's level, which the piece's trim is matched on. */
+  topDb: number;
+  /** The loudest sample among all the takes. */
+  peak: number;
+}
+
 interface SlotOut {
   layers: Array<{ v: number; files: string[] }>;
   trim?: number;
@@ -76,13 +99,16 @@ const packLockSchema = z.object({
   ),
 });
 
+/** Each source file used, path → sha256, under the pin it was fetched at. */
+const sourceLockSchema = z.union([
+  z.object({ repo: z.string(), commit: z.string(), files: z.record(z.string(), z.string()) }),
+  z.object({ archive: z.string(), sha256: z.string(), files: z.record(z.string(), z.string()) }),
+]);
+
 /** The build lock, as this script writes it; read back through the schema. */
 const lockSchema = z.object({
   ffmpeg: z.string(),
-  sources: z.record(
-    z.string(),
-    z.object({ repo: z.string(), commit: z.string(), files: z.record(z.string(), z.string()) })
-  ),
+  sources: z.record(z.string(), sourceLockSchema),
   packs: z.record(z.string(), packLockSchema),
 });
 
@@ -114,7 +140,8 @@ class Builder {
   private async tree(id: SourceId): Promise<Map<string, string>> {
     let tree = this.trees.get(id);
     if (!tree) {
-      tree = await treeOf(SOURCES[id]);
+      const source = SOURCES[id];
+      tree = source.kind === 'zip' ? await zipTree(source) : await treeOf(source);
       this.trees.set(id, tree);
     }
     return tree;
@@ -122,11 +149,23 @@ class Builder {
 
   /** Fetch and remember a source file, returning its local path. */
   private async file(id: SourceId, path: string): Promise<string> {
-    const local = await fetchFile(SOURCES[id], await this.tree(id), path);
+    const source = SOURCES[id];
+    const local =
+      source.kind === 'zip'
+        ? await zipFile(source, path)
+        : await fetchFile(source, await this.tree(id), path);
     let files = this.used.get(id);
     if (!files) this.used.set(id, (files = new Map<string, string>()));
     files.set(path, sha256(readFileSync(local)));
     return local;
+  }
+
+  /** The `pan` filter that mixes a DrumGizmo stroke's mics, from its instrument file. */
+  private async channelFilter(pick: Pick, path: string): Promise<string | undefined> {
+    if (!pick.channels) return undefined;
+    const { xml, file } = instrumentOf(path);
+    const text = readFileSync(await this.file(pick.source, xml), 'utf8');
+    return panFilter(pick.channels, channelsOf(text, file));
   }
 
   /** Every candidate stroke of a pick: mixed, trimmed and measured. */
@@ -137,7 +176,10 @@ class Builder {
     const hits = await mapLimit(found, 8, async (c) => {
       const inputs = await Promise.all(
         c.files.map(async (f) => ({
-          pcm: await decode(await this.file(pick.source, f.path)),
+          pcm: await decode(
+            await this.file(pick.source, f.path),
+            await this.channelFilter(pick, f.path)
+          ),
           weight: f.weight,
         }))
       );
@@ -147,39 +189,48 @@ class Builder {
     return new Map(hits);
   }
 
-  /** Choose, encode and describe one slot. Returns the slot and its loudest layer's level. */
-  async slot(
-    pack: string,
-    slotId: string,
-    pick: Pick,
-    role: Role,
-    lock: PackLock
-  ): Promise<{ slot: SlotOut; topDb: number }> {
+  /** Measure a slot's candidates and choose its layers and takes. */
+  async choose(slotId: string, pick: Pick, role: Role): Promise<Choice> {
     const measured = await this.measure(pick, role);
     const list: Measured[] = [...measured].map(([id, m]) => ({ id, db: m.db }));
     const chosen = chooseLayers(list, pick.layers, pick.rr, pick.range);
-    if (!chosen.length) throw new Error(`${pack}/${slotId}: no layers chosen`);
-    const vs = layerVelocities(chosen);
+    if (!chosen.length) throw new Error(`${slotId}: no layers chosen`);
+    const pcm = chosen.map((layer) =>
+      layer.ids.map((id) => {
+        const hit = measured.get(id)?.pcm;
+        if (!hit) throw new Error(`${slotId}: lost ${id}`);
+        return hit;
+      })
+    );
+    return {
+      slotId,
+      pcm,
+      vs: layerVelocities(chosen),
+      topDb: chosen[chosen.length - 1].db,
+      peak: Math.max(...pcm.flat().map(peakOf)),
+    };
+  }
+
+  /** Encode a chosen slot, every sample turned up by `bake`, and describe it. */
+  async write(pack: string, choice: Choice, bake: number, lock: PackLock): Promise<SlotOut> {
     const layers: SlotOut['layers'] = [];
-    for (const [li, layer] of chosen.entries()) {
+    for (const [li, takes] of choice.pcm.entries()) {
       const files: string[] = [];
-      for (const [ri, id] of layer.ids.entries()) {
-        const name = `${slotId}-${li}-${ri}.m4a`;
-        const pcm = measured.get(id)?.pcm;
-        if (!pcm) throw new Error(`${pack}/${slotId}: lost ${id}`);
+      for (const [ri, hit] of takes.entries()) {
+        const name = `${choice.slotId}-${li}-${ri}.m4a`;
         const out = join(KITS, pack, name);
-        await encode(pcm, out);
+        await encode(bake === 1 ? hit : hit.map((x) => x * bake), out);
         const bytes = readFileSync(out);
         lock.files[name] = {
           sha256: sha256(bytes),
           bytes: bytes.length,
-          seconds: round(pcm.length / RATE, 3),
+          seconds: round(hit.length / RATE, 3),
         };
         files.push(name);
       }
-      layers.push({ v: vs[li], files });
+      layers.push({ v: choice.vs[li], files });
     }
-    return { slot: { layers }, topDb: chosen[chosen.length - 1].db };
+    return { layers };
   }
 
   async pack(recipe: Recipe): Promise<{ entry: Record<string, unknown>; lock: PackLock }> {
@@ -190,14 +241,28 @@ class Builder {
 
     const slots: Record<string, SlotOut> = {};
     for (const piece of recipe.pieces) {
-      let trim: number | undefined;
+      const choices: Choice[] = [];
       for (const [slotId, pick] of Object.entries(piece.slots)) {
-        const { slot, topDb } = await this.slot(recipe.pack, slotId, pick, piece.role, lock);
-        // matched on the piece's first slot, and the same for all of its slots
-        trim ??= round(Math.min(4, amp(REFERENCE_DB + ROLE_TARGET_DB[piece.role] - topDb)), 3);
-        slots[slotId] = { ...slot, trim };
+        choices.push(await this.choose(slotId, pick, piece.role));
+      }
+      // matched on the piece's first slot, or its matchOn, and the same for all of its slots
+      const reference = piece.matchOn
+        ? await this.choose('matchOn', piece.matchOn, piece.role)
+        : choices[0];
+      const needed = amp(REFERENCE_DB + ROLE_TARGET_DB[piece.role] - reference.topDb);
+      const split = splitGain(needed, Math.max(...choices.map((c) => c.peak)));
+      const trim = round(split.trim, 3);
+      const bake = round(split.bake, 3);
+      for (const choice of choices) {
+        const slot = await this.write(recipe.pack, choice, bake, lock);
+        slots[choice.slotId] = { ...slot, trim };
         console.log(
-          `  ${recipe.pack}/${slotId}: ${slot.layers.map((l) => l.files.length).join('·')} takes, trim ${trim}`
+          `  ${recipe.pack}/${choice.slotId}: ${slot.layers.map((l) => l.files.length).join('·')} takes, trim ${trim}${bake > 1 ? `, baked ×${bake}` : ''}`
+        );
+      }
+      if (needed > trim * bake * 1.01) {
+        console.warn(
+          `  ${recipe.pack}: ${piece.role} is ${round(20 * Math.log10(needed / (trim * bake)), 1)} dB under its level; its peak allows no more`
         );
       }
     }
@@ -206,16 +271,18 @@ class Builder {
     if (recipe.perc) {
       perc = {};
       for (const [inst, { stroke, accent }] of Object.entries(recipe.perc)) {
-        const a = await this.slot(recipe.pack, `perc-${inst}-a`, stroke, 'perc', lock);
-        const b = await this.slot(recipe.pack, `perc-${inst}-b`, accent, 'perc', lock);
+        const a = await this.choose(`perc-${inst}-a`, stroke, 'perc');
+        const b = await this.choose(`perc-${inst}-b`, accent, 'perc');
+        const aOut = await this.write(recipe.pack, a, 1, lock);
+        const bOut = await this.write(recipe.pack, b, 1, lock);
         // two strokes, not two strengths: percHit reads the first layer and
         // the second, and never their velocities
         perc[inst] = {
           layers: [
-            { v: 1, files: a.slot.layers.flatMap((l) => l.files) },
-            { v: 1, files: b.slot.layers.flatMap((l) => l.files) },
+            { v: 1, files: aOut.layers.flatMap((l) => l.files) },
+            { v: 1, files: bOut.layers.flatMap((l) => l.files) },
           ],
-          trim: round(Math.min(4, amp(REFERENCE_DB + ROLE_TARGET_DB.perc - a.topDb)), 3),
+          trim: round(Math.min(TRIM_CEILING, amp(REFERENCE_DB + ROLE_TARGET_DB.perc - a.topDb)), 3),
         };
       }
     }
@@ -227,12 +294,24 @@ class Builder {
     const out: Lock['sources'] = { ...previous };
     for (const [id, files] of this.used) {
       const source = SOURCES[id];
-      const prior = previous[id]?.commit === source.commit ? previous[id].files : {};
-      out[id] = {
-        repo: source.repo,
-        commit: source.commit,
-        files: { ...prior, ...Object.fromEntries(files) },
-      };
+      const before = previous[id];
+      const kept = (same: boolean): Record<string, string> => ({
+        // files fetched at an older pin are dropped, not carried
+        ...(same && before ? before.files : {}),
+        ...Object.fromEntries(files),
+      });
+      out[id] =
+        source.kind === 'zip'
+          ? {
+              archive: source.archive,
+              sha256: source.sha256,
+              files: kept(!!before && 'sha256' in before && before.sha256 === source.sha256),
+            }
+          : {
+              repo: source.repo,
+              commit: source.commit,
+              files: kept(!!before && 'commit' in before && before.commit === source.commit),
+            };
     }
     return out;
   }
@@ -247,7 +326,7 @@ class Builder {
       const head = [
         `${source.title} — ${source.author}`,
         `${source.url}`,
-        `Licence: ${source.licence}, read from ${source.repo}@${source.commit}/${source.licenceFile} on ${source.checked}.`,
+        `Licence: ${source.licence}, read from ${source.kind === 'git' ? `${pinOf(source)}/${source.licenceFile}` : `${source.licenceFile} in ${pinOf(source)}`} on ${source.checked}.`,
         '',
         '---',
         '',

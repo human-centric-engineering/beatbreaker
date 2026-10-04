@@ -37,7 +37,11 @@ interface Entry {
 
 interface Lock {
   ffmpeg: string;
-  sources: Record<string, { repo: string; commit: string; files: Record<string, string> }>;
+  sources: Record<
+    string,
+    | { repo: string; commit: string; files: Record<string, string> }
+    | { archive: string; sha256: string; files: Record<string, string> }
+  >;
   packs: Record<
     string,
     { files: Record<string, { sha256: string; bytes: number; seconds: number }> }
@@ -179,11 +183,15 @@ describe('the build lock', () => {
     }
   });
 
-  it('pins every source it used to the commit sources.ts names', () => {
+  it('pins every source it used where sources.ts pins it', () => {
     for (const [id, used] of Object.entries(lock.sources)) {
       const source = SOURCES[id as keyof typeof SOURCES];
       expect(source, id).toBeDefined();
-      expect(used.commit).toBe(source.commit);
+      if (source.kind === 'zip') {
+        expect(used, id).toMatchObject({ archive: source.archive, sha256: source.sha256 });
+      } else {
+        expect(used, id).toMatchObject({ repo: source.repo, commit: source.commit });
+      }
       expect(Object.keys(used.files).length, id).toBeGreaterThan(0);
     }
   });

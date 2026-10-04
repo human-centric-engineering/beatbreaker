@@ -2587,6 +2587,41 @@ The calls:
   a slot's strokes on the mics the recipe names, because selection measures
   every candidate.
 
+**9-iii-b built, 2026-10-04.** As reconciled, with these findings:
+
+- **The archive matched DrumGizmo's md5,** and its sha256
+  (`529f2dca…`) is the pin in `sources.ts`. ffmpeg's `pan` filter reads the
+  13-channel float WAVs as they are, with no channel layout.
+- **DRSKit's brushes were recorded far quieter than its sticks.** At the
+  trim's ceiling of 4, the brushed hats, ride and crash sat 15, 18 and 23 dB
+  under their roles' levels. So the build now **bakes what the trim cannot
+  reach into the samples** (`splitGain` in `dsp.ts`): the same gain on every
+  sample of the piece, so the layers keep their spacing, and never past
+  −1 dBFS. The trim's 0–4 range in the schema is unchanged. Every slot of
+  every pack now reaches its level. Brush's mid tom, 0.9 dB short before,
+  gains it, which re-encodes its six files.
+- **A piece can be matched on a pick it does not ship (`matchOn`).** DRS
+  brushes borrows the stick kit's cross-stick and foot hat. Matched with the
+  brushes, they were turned up with them, 12 and 30 dB too loud; matched on
+  the stick kit's snare and closed hat, they play exactly as in DRS kit.
+- **Two ranges widened:** DRS brushes' closed hat to 24 dB, and Unruly's
+  ghost from 10 dB down. Each left a layer with one take before.
+- **Two full builds write the same bytes,** all 808 files, the lock and the
+  credits.
+
+| Pack      | Files | Download | First play | Decoded |
+| --------- | ----- | -------- | ---------- | ------- |
+| bigrusty  | 94    | 1.76 MB  | 0.70 MB    | 23.7 MB |
+| drs       | 94    | 1.56 MB  | 0.62 MB    | 20.9 MB |
+| drs-brush | 87    | 1.23 MB  | 0.50 MB    | 16.3 MB |
+| unruly    | 94    | 1.72 MB  | 0.67 MB    | 23.2 MB |
+| gogodze   | 94    | 1.80 MB  | 0.71 MB    | 24.4 MB |
+
+`public/kits` is 13.96 MB across ten packs. **Still to do by hand:** the
+owner listens to each new kit on a laptop and a phone: DRS's `Snare_rim` as
+a cross-stick, Big Rusty's snare blend, Gogodze's borrowed cymbals, and DRS
+brushes' turned-up cymbals for noise.
+
 **9-iv — new notation** (D40). Re-reconciled against the tree when it
 starts: this was sized from the schema and `LANE_VALUES` alone.
 

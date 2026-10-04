@@ -44,7 +44,7 @@ export function inCache(dir: string, path: string): string {
 }
 
 /** The file's bytes, or null if it is not there yet. Read, not stat-then-read. */
-function readCached(file: string): Buffer | null {
+export function readCached(file: string): Buffer | null {
   try {
     return readFileSync(file);
   } catch (err) {

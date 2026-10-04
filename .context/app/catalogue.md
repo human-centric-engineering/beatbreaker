@@ -261,7 +261,7 @@ one twice.
 ## Seeding
 
 `prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 37 styles, 47 famous
-breaks in one library, and 12 kits. Its data lives beside it under `data/`, and
+breaks in one library, and 17 kits. Its data lives beside it under `data/`, and
 **only that seed imports it**.
 
 - Upserts by key, so **re-seeding is a no-op**. (The runner also skips a unit
