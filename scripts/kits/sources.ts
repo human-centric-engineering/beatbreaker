@@ -16,7 +16,7 @@
  * `.context/app/planning/sound-plan.md` §5.
  */
 
-export type LicenceId = 'CC0-1.0' | 'CC-BY-4.0' | 'public-domain';
+export type LicenceId = 'CC0-1.0' | 'CC-BY-4.0' | 'public-domain' | 'permission';
 
 export const LICENCES: Record<LicenceId, { name: string; url: string }> = {
   'CC0-1.0': {
@@ -32,12 +32,20 @@ export const LICENCES: Record<LicenceId, { name: string; url: string }> = {
     name: 'Public domain',
     url: 'https://creativecommons.org/publicdomain/mark/1.0/',
   },
+  // free use for anything, granted in the authors' own words; not a standard
+  // licence (D37), so there is no licence page to link: each source's credit
+  // links its own `grant.at` instead (`credits.ts`)
+  permission: {
+    name: 'Free use, by grant',
+    url: '',
+  },
 };
 
 /**
- * The author's grant, where it is published apart from the source and the
- * licence file inside it is older than the grant: quoted, with where it was
- * read. The licence copy prints it above that file.
+ * The author's grant, where it is published apart from the source: quoted,
+ * with where it was read. The licence copy prints it above the source's
+ * licence file, which is older than the grant, or alone where the source has
+ * no licence file at all.
  */
 export interface Grant {
   quote: string;
@@ -56,8 +64,10 @@ export interface GitSource {
   /** Where a person goes to find it. */
   url: string;
   licence: LicenceId;
-  /** The file in the repository that grants the licence. */
-  licenceFile: string;
+  /** The file in the repository that grants the licence. Absent only beside a `grant`. */
+  licenceFile?: string;
+  /** Where the licence is the author's words rather than a file (D37). */
+  grant?: Grant;
   /** When `licenceFile` was read and found to say `licence`. */
   checked: string;
   /** What the credits say it is used for. */
@@ -131,7 +141,7 @@ export const SOURCES = {
     licence: 'CC0-1.0',
     licenceFile: 'LICENSE',
     checked: '2026-10-03',
-    usedFor: 'Woodblock, handclaps, tambourine',
+    usedFor: 'Woodblock, group handclaps',
   },
   swirly: {
     kind: 'git',
@@ -243,6 +253,78 @@ export const SOURCES = {
     },
     checked: '2026-10-04',
     usedFor: 'Splash, china and second crash for the kits without them',
+  },
+  frankensnare: {
+    kind: 'git',
+    repo: 'sfzinstruments/karoryfer.frankensnare',
+    commit: '9151c2d79fcbb73c65d63f78918d4ba7abc91a81',
+    title: 'Frankensnare',
+    author: 'Karoryfer Samples',
+    url: 'https://github.com/sfzinstruments/karoryfer.frankensnare',
+    licence: 'CC0-1.0',
+    licenceFile: 'license',
+    checked: '2026-10-04',
+    usedFor: 'Snares for building your own kit; the tambourine',
+  },
+  smdrums: {
+    kind: 'git',
+    // the Sforzando set, mirrored in git; the authors publish it on Google Drive
+    repo: 'sfzinstruments/SMDrums',
+    commit: '32cfbff5df7f33226dfd64d021a58beed8c71ba6',
+    title: 'SM Drums',
+    author: 'Scott McLean, Tod Stillwell and Suleiman Ali',
+    url: 'https://smmdrums.wordpress.com/',
+    licence: 'permission',
+    // neither the site nor the mirror has a licence file; the grant is the team's post
+    grant: {
+      quote:
+        'ALL of the content on this website is for FREE royalty free use by anyone for anything',
+      at: 'https://www.kvraudio.com/forum/viewtopic.php?t=433571',
+    },
+    checked: '2026-10-04',
+    usedFor: 'SM Drums kit',
+  },
+  osdk: {
+    kind: 'git',
+    repo: 'crabacus/the-open-source-drumkit',
+    commit: 'c58808b2ff5a6cd77c2f47cf45f1a892ce6a1e2c',
+    title: 'The Open Source Drumkit',
+    author: 'Real Music Media',
+    url: 'https://github.com/crabacus/the-open-source-drumkit',
+    licence: 'public-domain',
+    // the repository has no licence file; the grant is the maker's post
+    grant: {
+      quote:
+        'The samples and the mappings are completely in the public domain. REPEAT: The samples and the mappings are completely in the public domain.',
+      at: 'https://www.kvraudio.com/forum/viewtopic.php?t=277132',
+    },
+    checked: '2026-10-04',
+    usedFor: 'Open Source kit',
+  },
+  worldperc: {
+    kind: 'git',
+    // the release is a 7z of the same files; the blob hashes match
+    repo: 'freepats/world-percussion',
+    commit: 'e54eb2912a0d6d4444ab205d52f778e27da0fc96',
+    title: 'World Percussion',
+    author: 'FreePats (Xavimart, Gonzalo and Roberto)',
+    url: 'https://freepats.zenvoid.org/Percussion/world-and-rare-percussion.html',
+    licence: 'CC0-1.0',
+    licenceFile: 'LICENSE.txt',
+    checked: '2026-10-04',
+    usedFor: 'Shaker, cascara',
+  },
+  bodyperc: {
+    kind: 'git',
+    repo: 'sfzinstruments/body_percussion',
+    commit: '4ac9d8966679c648b62fa10a188179e186b97f24',
+    title: 'Body Percussion',
+    author: 'Karoryfer Samples (D. Smolken)',
+    url: 'https://github.com/sfzinstruments/body_percussion',
+    licence: 'CC0-1.0',
+    licenceFile: 'LICENSE',
+    checked: '2026-10-04',
+    usedFor: 'Handclap',
   },
 } as const satisfies Record<string, Source>;
 

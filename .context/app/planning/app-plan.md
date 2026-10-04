@@ -2309,7 +2309,7 @@ as it is (A1–A12), and the tasks below cite it.
 - Every source in the manifest has a licence copy and a credit.
 - The per-kit budgets hold in CI.
 
-**Ships as six PRs.** Per D36, 9-i to 9-iv came before 8-iv and 8-v. Per
+**Ships as thirteen PRs** (six were planned; 9-iii to 9-v went as two each, and 9-vi goes as five). Per D36, 9-i to 9-iv came before 8-iv and 8-v. Per
 D42, 9-v and 9-vi come next, before them too.
 
 **9-i — the engine:**
@@ -3010,6 +3010,210 @@ tree at `7b1e815c`. 9.18 needs no route or schema change; 9-v-a built them.
 | 9.20 | **Round two of sources:** Frankensnare, CrocellKit, Salamander, SM Drums and the Open Source Drumkit (D37). Percussion: FreePats World Percussion, body_percussion claps, Dim Cabasa | As 9.10; the perc lanes play round-robins                                                                                                                                                            |
 | 9.21 | **Synth kits rendered ahead:** each voice at 5 velocities × 3 variations through `OfflineAudioContext` on kit pick, played by the sampler; a knob re-renders one voice, debounced    | Tests: a synth hit creates one source node; a knob change re-renders only that voice; the old render plays until the new one is ready. By hand: the five synth kits sound the same or better (owner) |
 | 9.22 | **The machines:** 808 and 909 voice models (`sound-plan.md` §8), rendered ahead; the `drift` engine wired to them; 606 and Linn-style kits from the same voices                      | The picker no longer shows "not ported yet"; `setKit` takes them; the owner A/B-listens to a reference                                                                                               |
+
+**9-vi reconciled, 2026-10-04 (branch `phase-9-vi`).** Read against the tree
+at `013162ad`, with each 9.20 source read where it is published, at its
+current commit or on its server.
+
+**It ships as five PRs:**
+
+- **9-vi-a: 9.20 from git.** Frankensnare, SM Drums, the Open Source
+  Drumkit and the percussion, plus the articulations 9-iv-b left for 9.20.
+  Every one of these is a git source, so the fetcher is unchanged.
+- **9-vi-b: 9.20's CrocellKit.** It is 5.65 GB and zip64, which `zip.ts`
+  refuses, so it needs a reader change of its own.
+- **9-vi-c: 9.19, the combinations.** It comes after both, because they are
+  built from their pieces.
+- **9-vi-d: 9.21, synth kits rendered ahead.**
+- **9-vi-e: 9.22, the machines.** They are rendered by 9-vi-d's renderer.
+
+**9.20's sources, as read:**
+
+| Source              | Pin                                                                           | Licence                                                                                  | Mix                                       | Becomes                                  |
+| ------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------- | ---------------------------------------- |
+| Frankensnare        | `sfzinstruments/karoryfer.frankensnare` @ `9151c2d7`                          | CC0 (`license`)                                                                          | top 0.6, bottom 1, oh 1 (its own default) | pack `frankensnare`: pieces only, no kit |
+| SM Drums            | `sfzinstruments/SMDrums` @ `32cfbff5`: the Sforzando 1.2 set, stereo mixes    | the team's grant on KVR (t=433571); no licence file                                      | the stereo mix, to mono                   | kit `smdrums`                            |
+| Open Source Drumkit | `crabacus/the-open-source-drumkit` @ `c58808b2`                               | public domain, by Real Music Media's post on KVR (t=277132, read at the Wayback Machine) | snare and toms: top and under files mixed | kit `osdk`                               |
+| CrocellKit 1.1      | `drumgizmo.org/kits/CrocellKit/CrocellKit1_1.zip`, 5 646 502 341 bytes, zip64 | CC BY 4.0 (`CrocellKit/README.md`); DrumGizmo's line                                     | close channel, OH L/R/C, a little Amb     | kit `crocell` (9-vi-b)                   |
+| World Percussion    | `freepats/world-percussion` @ `e54eb291`                                      | CC0 (`LICENSE.txt`)                                                                      | one mic                                   | the shaker; the cascara                  |
+| body_percussion     | `sfzinstruments/body_percussion` @ `4ac9d896`                                 | CC0 (`LICENSE`)                                                                          | one stereo pair                           | the clap's stroke                        |
+
+The calls:
+
+- **Pinned to git mirrors where one exists.** SM Drums is published on
+  Google Drive, where a file can vanish (one already has) and no hash is
+  given. `sfzinstruments/SMDrums` is the same Sforzando set, in git, with no
+  LFS. World Percussion's release is a 7z, which `bsdtar` cannot unpack, and
+  its git repo holds the same files (the blob hashes match).
+- **Two grants, not licences (D37).** `sources.ts` gains a `permission`
+  licence id, "free use, by the author's grant", for SM Drums. The Open
+  Source Drumkit is `public-domain`. Neither repo has a licence file, so each
+  licence copy is the quoted grant and where it was read, as Salamander's
+  is. SM Drums' grant was posted by the site's team, not by Scott McLean. If
+  D7's reviewer objects to either, it drops out alone.
+- **Dim Cabasa is left out.** Its LICENSE is CC BY 4.0, but its program's
+  header points to the BY-SA page. There is no cabasa lane, and World
+  Percussion's egg shaker, which is CC0, is the better shaker.
+- **Salamander stays a lender, not a kit.** It was recorded on overheads
+  only and every sample was normalised, so its drums have no dynamics to
+  keep. Its cymbals are already lent (9-iv-b).
+- **FreePats' synth percussion is not used.** It is one take per sound, and
+  9.22 builds the machines in-house.
+- **Frankensnare is a pack with no kit row: a piece library.** It ships six
+  snares as pieces for the builder and the combinations:
+  - the 13×9 birch, the guide's "fat pink little piglet", with its rimshots
+  - the 14×8 aluminium, with its rimshots
+  - the 14×6.5 Pearl maple, "middle-of-the-road"
+  - the 14×8 birch tuned low
+  - the 10" popcorn snare
+  - the 20×12 "808, thumpy" one
+
+  Each gets a hit, a ghost (its low layers; there is no ghost articulation)
+  and its sidestick. The pack is held to a kit's budgets. `derivePieces`
+  already reads a pack with no kit.
+
+- **No Frankensnare snare is 13" except the fat one.** §7's "Frankensnare
+  13"" for Funk & soul is the 13×9.
+- **The kits' slots:**
+
+  | Slot                 | SM Drums                           | Open Source Drumkit                     | CrocellKit (9-vi-b)                       |
+  | -------------------- | ---------------------------------- | --------------------------------------- | ----------------------------------------- |
+  | `k`                  | `Kik_Stereo`                       | `kick` (22 layers)                      | `KDrumL`                                  |
+  | `s` · `sGhost`       | `Snare65_Reg_Stereo`, low range    | `snare-top` + `snare-bottom`, low range | `Snare` · `SnareRest`                     |
+  | `sCross`             | `SideStick_Stereo`                 | `sidestick`                             | `SnareRim`, if it is a cross-stick by ear |
+  | `sRim`               | `RimShot_Stereo`                   | `rimshot`                               | `SnareRimShot`                            |
+  | `h` · `hHalf`        | `01 Hat Tight 1` · `02 Hat, Loose` | `chh` · `hchh` (half-closed)            | `HihatClosed` · `HihatSemiOpen`           |
+  | `hOpen` · `hFoot`    | `03 Hat, Open` · `05 Hat, Foot`    | `hohh` (its most open) · `fhh`          | `HihatOpen` · `HihatPedal`                |
+  | `r` · `rBell`        | `Ride 20` · `Ride 20 Bell`         | `ride-mid-out` · `ride-bell`            | `RideR` · `RideRBell`                     |
+  | `c` · `c2`           | `Crash 16` · `Crash 17`            | `crash` · none                          | `CrashL` · `CrashR`                       |
+  | `cChina` · `cSplash` | `China Cymbal` · Salamander's      | Salamander's · Salamander's             | `ChinaL` · `SplashL`                      |
+  | `t1`–`t3`            | `Tom1`, `Tom2`, `Tom4`             | small, medium, large, top + under       | `Tom1`, `Tom2`, `FTom1`                   |
+
+- **The Open Source Drumkit has no open hat.** Its half-open is its `hOpen`
+  and its half-closed is its `hHalf`, and its hint says so. Its gong is not a
+  slot. It is 96 kHz; the build resamples, as it does every source.
+- **The percussion stays in the virtuosity pack's `perc`**, and changes
+  instrument by instrument:
+  - **Tambourine:** Frankensnare's, 5 layers × 5 takes, against VCSL's one
+    take.
+  - **Shaker:** World Percussion's egg shaker. The stroke is its `soft`
+    takes and the accent its `slow`, 14 each.
+  - **Clap:** body_percussion's hand clap for the stroke (one person, 10
+    takes), and VCSL's group clap stays the accent.
+  - **Cascara:** World Percussion's muted bongo. It is closer than the open
+    high bongo, and still a stand-in.
+  - **The rest are unchanged.** World Percussion's congas and claves are
+    VCSL's own.
+
+  The perc lanes already play round-robins (9-iii-a). The done-when's test
+  holds every instrument to at least two takes.
+
+- **The articulations 9-iv-b left for 9.20:** Muldjord's china and second
+  crash, and Swirly's half-open, china and splash for Brush. They come in if
+  the packs stay inside their budgets. Virtuosity stays out, at 0.77 of 0.8
+  MB. Vintage and Trap keep their synthesised voices.
+- **CrocellKit (9-vi-b) needs zip64.** The archive's central directory is
+  read by range already; the reader learns the zip64 end record and the
+  extra field. Its 15 channels are found by name from each instrument's XML,
+  as DRSKit's are. Its second china and splash become pieces for the
+  builder.
+- **To check by ear, first:** SM Drums' and the Open Source Drumkit's snares
+  against Big Rusty's, the Open Source Drumkit's half-open hat as an open
+  hat, the six Frankensnare snares in the builder, and the new tambourine,
+  shaker and clap.
+
+**9-vi-a built, 2026-10-04.** As reconciled, with these findings:
+
+- **Frankensnare is six packs, not one.** A pack is one slot map, and all
+  six snares fill `s`, so each is a pack of its own, `frankensnare-<drum>`,
+  with one piece. No kit row names them. `kit-packs.test.ts` holds them to
+  the slots they have, and to a kit's budgets.
+- **Its snares are mixed as Big Rusty's is: top first, bottom under it.**
+  The source's own default puts the bottom over the top in most programs and
+  the other way round in some, so it is not followed.
+- **SM Drums measures its first four round-robins only.** Each stroke is a
+  large stereo WAV in a folder per round-robin, and three takes are kept.
+- **The two grants are their licence copies.** A source with a `grant` and
+  no licence file writes the quote and where it was read. Salamander's copy
+  now says "granted by its makers", as both new ones do.
+- **No shipped kit file changed** except the percussion the reconcile
+  swapped: the tambourine, shaker, clap stroke and cascara stroke. Muldjord
+  and Brush gained their cymbals as new files, and their trims did not move.
+- **Two builds of the eleven packs write the same bytes.** The first
+  fetched about 2 GB.
+- **The Open Source kit's ghost reaches lower** (12–40 dB under its loudest
+  hit, where other kits' stop at 30). It has few soft strokes, and its soft
+  layer had one take, so a run of ghosts repeated one sample. Every ghost now
+  has at least two takes a layer, and a test holds that (`/code-review`).
+- **A grant links itself.** The `permission` licence has no licence page, so
+  a source under it is credited with a link to its own grant, not to SM
+  Drums' (`licenceOf` in `credits.ts`). VCSL is no longer credited with the
+  tambourine (`/code-review`).
+
+| Pack             | Files | Download | First play | Late    | Decoded |
+| ---------------- | ----- | -------- | ---------- | ------- | ------- |
+| smdrums          | 110   | 1.83 MB  | 0.62 MB    | 0.31 MB | 24.6 MB |
+| osdk             | 107   | 1.48 MB  | 0.50 MB    | 0.22 MB | 19.6 MB |
+| muldjord         | 83    | 1.68 MB  | 0.63 MB    | 0.20 MB | 22.9 MB |
+| brush            | 99    | 1.88 MB  | 0.65 MB    | 0.25 MB | 25.5 MB |
+| frankensnare-13b | 26    | 0.34 MB  | 0.11 MB    | 0.08 MB | 4.5 MB  |
+| frankensnare-14a | 30    | 0.48 MB  | 0.14 MB    | 0.10 MB | 6.3 MB  |
+| frankensnare-14p | 24    | 0.30 MB  | 0.11 MB    | —       | 3.9 MB  |
+| frankensnare-14s | 24    | 0.34 MB  | 0.12 MB    | —       | 4.5 MB  |
+| frankensnare-10  | 23    | 0.30 MB  | 0.12 MB    | —       | 3.9 MB  |
+| frankensnare-20m | 24    | 0.32 MB  | 0.12 MB    | —       | 4.3 MB  |
+
+`public/kits` is 21.57 MB across eighteen packs. The seed has 19 kits and
+101 pieces. **Still to do by hand:** the owner listens, in this order: SM
+Drums' and the Open Source Drumkit's snares against Big Rusty's, the Open
+Source Drumkit's half-open hat as its open hat, the six Frankensnare snares in
+the builder, then the new tambourine, shaker and clap.
+
+**9.19 (9-vi-c):**
+
+- **A combination is a system kit row whose slots are pieces,** in a
+  `Combinations` group, as §7's table has it. No piece is new.
+- **Boom bap's "snare + clap" is one piece.** A slot holds one piece, and
+  layering two is not in the model. So Boom bap takes Frankensnare's 20×12
+  "808" snare, and the clap stays on a perc lane.
+- **Each style's default kit is re-pointed only after the owner has signed
+  off the combination it moves to.** Sign-off is recorded in `sound.md`.
+
+**9.21 (9-vi-d):**
+
+- **The synth voices draw into a destination they are given.** Today each
+  voice builds its graph on `this.ctx` and ends in `send()`. It will build on
+  a context and an output it is handed, so one piece of code plays live and
+  renders into an `OfflineAudioContext`.
+- **Each variation is seeded.** A render's `Math.random` (the noise, the
+  jitter) is a seeded stream, plus ±1.5% pitch and ±5% decay.
+- **The renders are a `SampleSource`, `SynthSource`.** Its layers sit at 5
+  velocities, and `hit` picks the nearest layer and never the same take
+  twice, as `PackSource` does. A ghost, a rimshot and the rest are rendered
+  as their own slots.
+- **What gets rendered:** the kit lanes of the five synthesised kits.
+  Percussion and the synth stand-ins inside recorded kits stay live. They
+  are rare, and a recorded perc plays first anyway.
+- **One room send per hit.** Inside a voice, the beater and the stick send
+  less to the room than the drum does (×0.4, ×0.5). A render is one buffer,
+  so it sends the voice's amount. The owner's listen is the check.
+- **A knob re-renders that voice only, debounced 150 ms.** The old render
+  plays until the new one is ready, and the live graph plays before any
+  render exists.
+
+**9.22 (9-vi-e):**
+
+- **The voice models are in `lib/app/breaks/audio/machines.ts`**, as §8 has
+  them. They take the machine's 0..1 knobs (`DRIFT_PARAM_DEFS`) and are
+  rendered by 9.21's renderer. `drift` joins `IMPLEMENTED_ENGINES`, and the
+  "not ported yet" text leaves the kit panel.
+- **`DRIFT_MAP` gains the articulations.** The 808's rim shot plays as
+  `sCross`, and the clap and cowbell are kept for later. A slot no machine
+  has falls back the way a pack does.
+- **606 and Linn-style kits are seed rows** with `machine: '606' | 'linn'`,
+  from the same voices with their own tables.
+- **The owner A/B-listens against a recording of each real machine.** That
+  recording is played on the owner's side and is never shipped.
 
 **Not in Phase 9:** cymbal chokes (grabs), crash 2 as a separate lane
 rather than a value, and rolls longer than one step. See `sound-plan.md` §10.

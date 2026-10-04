@@ -34,10 +34,19 @@ export const brush: Recipe = {
         h: sw('hat_closed/hh_closed_vl*_rr*', 4, 3),
         hOpen: sw('hat_open/hh_open_vl*_rr*', 3, 2),
         hFoot: sw('hat_foot/hh_foot_vl*_rr*', 2, 3),
+        hHalf: sw('hat_half/hh_half_vl*_rr*', 2, 2),
       },
     },
     { role: 'ride', slots: { r: sw('ride/ride_vl*_rr*', 3, 3) } },
-    { role: 'crash', slots: { c: sw('crash/crash_vl*_rr*', 2, 2) } },
+    {
+      role: 'crash',
+      // Swirly's own china and splash, played with the brushes too (9-vi)
+      slots: {
+        c: sw('crash/crash_vl*_rr*', 2, 2),
+        cChina: sw('china/china_vl*_rr*', 1, 2),
+        cSplash: sw('splash/splash_vl*_rr*', 1, 2),
+      },
+    },
     { role: 'tom', slots: { t1: sw('tom_mhi/tom_mhi_vl*_rr*', 3, 2) } },
     { role: 'tom', slots: { t2: sw('tom_mlow/tom_mlow_vl*_rr*', 3, 2) } },
     { role: 'tom', slots: { t3: sw('tom_floor/tom_floor_vl*_rr*', 3, 2) } },

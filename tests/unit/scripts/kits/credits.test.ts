@@ -10,6 +10,7 @@ import {
   MODIFIED,
   README_END,
   README_START,
+  licenceOf,
   renderCreditsModule,
   renderReadmeCredits,
 } from '@/scripts/kits/credits';
@@ -54,5 +55,20 @@ describe('renderCreditsModule()', () => {
         notice: 'Drum samples provided by DrumGizmo.org.',
       }),
     ]);
+  });
+});
+
+describe('licenceOf()', () => {
+  it('links a standard licence to its own page', () => {
+    expect(licenceOf('muldjord')).toEqual(LICENCES['CC-BY-4.0']);
+  });
+
+  it("links a grant that is no standard licence to that source's own grant, not another's", () => {
+    // `permission` has no licence page; SM Drums' credit is its makers' post
+    expect(licenceOf('smdrums')).toEqual({
+      name: LICENCES.permission.name,
+      url: SOURCES.smdrums.grant.at,
+    });
+    expect(renderReadmeCredits(['smdrums'])).toContain(`(${SOURCES.smdrums.grant.at})`);
   });
 });

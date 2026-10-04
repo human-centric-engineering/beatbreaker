@@ -68,6 +68,13 @@ const BUDGET = {
   all: 45 * MB,
 };
 
+/** Packs a kit row plays whole; the rest are pieces for building a kit (Frankensnare's snares). */
+const KIT_PACKS = new Set(
+  Object.values(KITS)
+    .filter((k) => k.engine === 'pack')
+    .map((k) => k.pack)
+);
+
 const packDirs = readdirSync(ROOT).filter(
   (f) => f !== 'LICENSES' && statSync(join(ROOT, f)).isDirectory()
 );
@@ -145,10 +152,20 @@ describe('shipped sample packs', () => {
     }
   });
 
+  it('gives every ghost snare at least two takes a layer: a run of ghosts is the commonest repeat', () => {
+    for (const [pack, entry] of Object.entries(manifest)) {
+      if (ONE_SHOT_PACKS.has(pack) || !entry.slots.sGhost) continue;
+      for (const layer of slotLayers(entry.slots.sGhost))
+        expect(layer.files.length, `${pack}/sGhost`).toBeGreaterThanOrEqual(2);
+    }
+  });
+
   it('gives every hat, snare and ride at least two takes a layer, so a run of them is not one sample', () => {
     for (const [pack, entry] of Object.entries(manifest)) {
       if (ONE_SHOT_PACKS.has(pack)) continue;
-      for (const slot of ['h', 's', 'r']) {
+      // a piece-only pack is one instrument; it is held to the slots it has
+      const slots = KIT_PACKS.has(pack) ? ['h', 's', 'r'] : Object.keys(entry.slots);
+      for (const slot of slots.filter((id) => ['h', 's', 'r'].includes(id))) {
         const spec = entry.slots[slot];
         expect(spec, `${pack}/${slot}`).toBeDefined();
         for (const layer of slotLayers(spec))
@@ -163,6 +180,23 @@ describe('shipped sample packs', () => {
     expect(withPerc.length).toBe(1);
     const [, entry] = withPerc[0];
     expect(Object.keys(entry.perc ?? {}).length).toBeGreaterThanOrEqual(9);
+  });
+
+  it('plays round-robins on every percussion stroke, so a run of them is not one sample', () => {
+    const [, entry] = Object.entries(manifest).filter(([, e]) => e.perc)[0];
+    for (const [inst, spec] of Object.entries(entry.perc ?? {})) {
+      const [stroke, accent] = slotLayers(spec);
+      expect(stroke.files.length, `${inst} stroke`).toBeGreaterThanOrEqual(2);
+      expect(accent.files.length, `${inst} accent`).toBeGreaterThanOrEqual(2);
+    }
+  });
+
+  it('has a kit for every pack but the piece libraries', () => {
+    const pieceOnly = Object.keys(manifest).filter((pack) => !KIT_PACKS.has(pack));
+    expect(
+      pieceOnly.every((pack) => pack.startsWith('frankensnare-')),
+      pieceOnly.join()
+    ).toBe(true);
   });
 });
 

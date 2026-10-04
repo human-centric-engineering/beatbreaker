@@ -332,27 +332,28 @@ class Builder {
     mkdirSync(dir, { recursive: true });
     for (const id of ids) {
       const source = SOURCES[id];
-      const text = readFileSync(await this.file(id, source.licenceFile), 'utf8');
-      const from =
-        source.kind === 'git'
-          ? `${pinOf(source)}/${source.licenceFile}`
-          : `${source.licenceFile} in ${pinOf(source)}`;
+      const file = 'licenceFile' in source ? source.licenceFile : undefined;
       const grant = 'grant' in source ? source.grant : undefined;
+      if (!file && !grant) throw new Error(`${id}: no licence file and no grant`);
+      const text = file ? readFileSync(await this.file(id, file), 'utf8') : '';
+      const from =
+        source.kind === 'git' ? `${pinOf(source)}/${file}` : `${file} in ${pinOf(source)}`;
       const head = [
         `${source.title} — ${source.author}`,
         `${source.url}`,
         ...(grant
           ? [
-              `Licence: ${source.licence}, granted by the author at ${grant.at}, read on ${source.checked}:`,
+              `Licence: ${source.licence}, granted by its makers at ${grant.at}, read on ${source.checked}:`,
               '',
               `  "${grant.quote}"`,
               '',
-              `Below is ${from}, which is older than that grant and no longer its licence.`,
+              file
+                ? `Below is ${from}, which is older than that grant and no longer its licence.`
+                : `${pinOf(source)} has no licence file; the grant above is the whole of it.`,
             ]
           : [`Licence: ${source.licence}, read from ${from} on ${source.checked}.`]),
         '',
-        '---',
-        '',
+        ...(file ? ['---', ''] : []),
       ].join('\n');
       writeFileSync(join(dir, `${id}.txt`), head + text);
     }

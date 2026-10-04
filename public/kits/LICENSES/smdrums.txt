@@ -1,0 +1,7 @@
+SM Drums — Scott McLean, Tod Stillwell and Suleiman Ali
+https://smmdrums.wordpress.com/
+Licence: permission, granted by its makers at https://www.kvraudio.com/forum/viewtopic.php?t=433571, read on 2026-10-04:
+
+  "ALL of the content on this website is for FREE royalty free use by anyone for anything"
+
+sfzinstruments/SMDrums@32cfbff5df7f33226dfd64d021a58beed8c71ba6 has no licence file; the grant above is the whole of it.

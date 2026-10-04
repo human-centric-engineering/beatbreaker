@@ -49,7 +49,16 @@ export const muldjord: Recipe = {
         rBell: m('RideLBell', 'RideLBell', 1, 3),
       },
     },
-    { role: 'crash', slots: { c: m('CrashL', 'CrashL', 2, 2) } },
+    {
+      role: 'crash',
+      // the right crash and the china join the crash piece, so they keep
+      // their recorded level against it (9-vi)
+      slots: {
+        c: m('CrashL', 'CrashL', 2, 2),
+        c2: m('CrashR', 'CrashR', 2, 1),
+        cChina: m('China', 'China', 1, 2),
+      },
+    },
     // in the source all along, and never cut until now
     { role: 'tom', slots: { t1: m('Tom1', 'Tom1', 3, 2) } },
     { role: 'tom', slots: { t2: m('Tom2', 'Tom2', 3, 2) } },

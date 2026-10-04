@@ -35,7 +35,9 @@ as built, and grows with each Phase 9 PR.
   and "royalty-free but not redistributable" are out (`sound-plan.md` §5).
   Where the author has since changed the licence outside the source, as
   Salamander's did (CC BY-SA in the archive, public domain on their page in
-  2022), quote the new grant and where it is in the source's `grant`.
+  2022), quote the new grant and where it is in the source's `grant`. A
+  source with no licence file at all (SM Drums, the Open Source Drumkit:
+  D37) has only its `grant`, and its licence copy is the quote.
 - **Do not normalise a sample.** A layer's level against its neighbours is the
   dynamics. Level matching is a slot's `trim`, applied at play time.
 - **Do not build a sample URL from the kit's `pack`.** Since 9-v a slot may
@@ -93,8 +95,10 @@ bus → drive → top end (lowpass) → glue compressor → master → ½ → ce
   synthesised voice, which keeps the articulation audible. 9-iv-b gave the
   round-one kits recordings of them: every one each kit's own source has,
   and Salamander's splash, china and 20" crash where it has none. DRSKit and
-  Gogodze have no rimshot, so theirs is the synthesised voice. The five
-  earlier packs have none yet.
+  Gogodze have no rimshot, so theirs is the synthesised voice. 9-vi-a gave
+  Muldjord its own second crash and china, and Brush Swirly's half-open,
+  china and splash. Virtuosity, Dusty sampler and Trap have none: Virtuosity
+  is at its first-load budget, and the other two are one-shot kits.
 
 ## Humanise
 
@@ -209,6 +213,10 @@ catalogue table, served by `GET /api/v1/catalogue/pieces`.
     `derivePieces` throws if another pack's copy differs.
   - Gogodze's cymbals are Big Rusty's on the close mic, at another trim, so
     they are pieces of their own (`gogodze-r`, `gogodze-c`).
+  - **A pack may be pieces only.** Frankensnare's six snares (9-vi) each
+    have a pack, `frankensnare-<drum>`, because a pack is one slot map and
+    all six fill `s`. No kit row names them; the builder and the
+    combinations do.
 - **A kit slot may name a piece:** `{ piece, from?, level?, tune?, decay? }`.
   `from` plays another of the piece's slots (any tom piece as any tom). A kit
   of yours may also hold `{ sample }`.
@@ -354,5 +362,5 @@ slot with a `folder` is a piece, and is the packs'.
 | `tests/unit/lib/app/breaks/audio/transport.test.ts`               | Play replays the performance; a new seed is taken up at the top of the next pass                                                                                    |
 | `tests/unit/lib/app/breaks/audio/your-samples.test.ts`            | Onset trim and `kit.trim` on your samples                                                                                                                           |
 | `tests/unit/lib/app/breaks/catalogue/schemas.test.ts`             | The layered slot's bounds                                                                                                                                           |
-| `tests/unit/lib/app/breaks/kit-packs.test.ts`                     | Files match the manifest and the lock; every source has its licence and credit; ≥2 takes on hats, snares and rides; the §9 budgets                                  |
+| `tests/unit/lib/app/breaks/kit-packs.test.ts`                     | Files match the manifest and the lock; every source has its licence and credit; ≥2 takes on hats, snares and rides, and on every percussion stroke; the §9 budgets  |
 | `tests/unit/scripts/kits/*.test.ts`                               | Onset, tail and fade; K-weighting and loudness; choosing layers and takes; path patterns                                                                            |

@@ -1,6 +1,7 @@
 /**
  * Virtuosity: Virtuosity Drums on its mid ribbon mic, and the shared
- * percussion set, from Virtuosity's percussion and VCSL.
+ * percussion set, from Virtuosity's percussion and VCSL, with the
+ * tambourine, shaker, clap and cascara from the round-two sources (9-vi).
  *
  * The cymbals and kick have named round-robins; the snare and toms are
  * single strokes in fine velocity steps, so neighbouring strokes serve as
@@ -33,6 +34,23 @@ const perc = (folder: string, name: string, rr: number, range?: [number, number]
   layers: 1,
   rr,
   ...(range ? { range } : {}),
+});
+
+/** A percussion stroke from one of the round-two sources (9-vi), on its one mic. */
+const other = (
+  source: 'frankensnare' | 'worldperc' | 'bodyperc',
+  pattern: string,
+  rr: number,
+  range?: [number, number],
+  exclude?: RegExp
+): Pick => ({
+  source,
+  pattern,
+  mics: { '': 1 },
+  layers: 1,
+  rr,
+  ...(range ? { range } : {}),
+  ...(exclude ? { exclude } : {}),
 });
 
 const vcsl = (folder: string, name: string, rr: number, range?: [number, number]): Pick => ({
@@ -88,12 +106,17 @@ export const virtuosity: Recipe = {
       stroke: perc('agogo', 'Agogo_Low_v*_rr*', 3),
       accent: perc('agogo', 'Agogo_High_v*_rr*', 3),
     },
-    // no recording of a cascara in any source; the high bongo is the nearest
+    // no recording of a cascara in any source: World Percussion's muted bongo
+    // is the nearest stroke, and the open high bongo its accent
     cascara: {
-      stroke: perc('bongoh', 'BongoH_Hit1_v*_rr*', 3, SOFT),
+      stroke: other('worldperc', 'samples/Bongos/2_*.flac', 3, undefined, /2_(?!08|18|19)/),
       accent: perc('bongoh', 'BongoH_Hit1_v*_rr*', 3),
     },
-    clap: { stroke: vcsl('Claps', 'SoloClap_vl*', 2), accent: vcsl('Claps', 'Clap_rr*', 3) },
+    // one person clapping, and the accent a room of them
+    clap: {
+      stroke: other('bodyperc', 'Samples/body/handclap_vl*_rr*.wav', 3),
+      accent: vcsl('Claps', 'Clap_rr*', 3),
+    },
     clave: {
       stroke: perc('claves', 'Claves1_Hit_v*_rr*', 3, SOFT),
       accent: perc('claves', 'Claves1_Hit_v*_rr*', 3),
@@ -107,13 +130,15 @@ export const virtuosity: Recipe = {
       stroke: perc('cowbell', 'Cowbell1_Normal_v*_rr*', 3, SOFT),
       accent: perc('cowbell', 'Cowbell1_Normal_v*_rr*', 3),
     },
+    // an egg shaker: its soft strokes, and its slow full shakes as the accent
     shaker: {
-      stroke: perc('shaker', 'LShaker_Shake1D_rr*', 3),
-      accent: perc('shaker', 'LShaker_Shake1U_rr*', 3),
+      stroke: other('worldperc', 'samples/EggShaker/soft_*.wav', 3),
+      accent: other('worldperc', 'samples/EggShaker/slow_*.wav', 3),
     },
+    // Frankensnare's: five dynamics with five takes each, where VCSL's had one take
     tamb: {
-      stroke: vcsl('Tambourine 1', 'Tamb1_Hit_v*_rr*', 1, SOFT),
-      accent: vcsl('Tambourine 1', 'Tamb1_Hit_v*_rr*', 1),
+      stroke: other('frankensnare', 'Samples/xtra_tamb/tamb_vl*_rr*.flac', 3, SOFT),
+      accent: other('frankensnare', 'Samples/xtra_tamb/tamb_vl*_rr*.flac', 3),
     },
     wood: {
       stroke: vcsl('Woodblock', 'wood_click_pp_rr*', 2),

@@ -3,7 +3,7 @@
  * app can render. Pure — `build.ts` writes what these return.
  */
 
-import { LICENCES, SOURCES, type SourceId } from '@/scripts/kits/sources';
+import { LICENCES, type LicenceId, SOURCES, type SourceId } from '@/scripts/kits/sources';
 
 export const README_START = '<!-- kit-credits:start -->';
 export const README_END = '<!-- kit-credits:end -->';
@@ -11,11 +11,25 @@ export const README_END = '<!-- kit-credits:end -->';
 /** What every shipped sample has had done to it, which CC BY asks to be said. */
 export const MODIFIED = 'trimmed, mixed to mono, level-matched and re-encoded as AAC';
 
+/**
+ * A source's licence, as the credits name and link it. A grant that is not a
+ * standard licence has no licence page, so it links the grant itself, where
+ * that source's makers posted it.
+ */
+export function licenceOf(id: SourceId): { name: string; url: string } {
+  const source = SOURCES[id];
+  const licence: LicenceId = source.licence;
+  const { name, url } = LICENCES[licence];
+  if (url) return { name, url };
+  if (!('grant' in source) || !source.grant) throw new Error(`${id}: ${licence} needs a grant`);
+  return { name, url: source.grant.at };
+}
+
 /** The README's credits table and notices, between its markers. */
 export function renderReadmeCredits(ids: SourceId[]): string {
   const rows = ids.map((id) => {
     const s = SOURCES[id];
-    const lic = LICENCES[s.licence];
+    const lic = licenceOf(id);
     return `| [${s.title}](${s.url}) — ${s.author} | [${lic.name}](${lic.url}) | ${s.usedFor} |`;
   });
   const notices = [
@@ -40,7 +54,7 @@ export function renderReadmeCredits(ids: SourceId[]): string {
 export function renderCreditsModule(ids: SourceId[]): string {
   const entries = ids.map((id) => {
     const s = SOURCES[id];
-    const lic = LICENCES[s.licence];
+    const lic = licenceOf(id);
     return {
       id,
       title: s.title,
