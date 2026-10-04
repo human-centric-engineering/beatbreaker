@@ -11,6 +11,7 @@ import {
   humaniseAmount,
   humaniseSeed,
   limbOf,
+  otherHand,
 } from '@/lib/app/breaks/humanise';
 import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
 import { generatePattern } from '@/lib/app/breaks/generate';
@@ -149,5 +150,23 @@ describe('the setting', () => {
   it('asks for nothing while Off, whatever the Amount says', () => {
     expect(humaniseAmount({ mode: 'off', amount: 75, take: 0 })).toBe(0);
     expect(humaniseAmount({ mode: 'loose', amount: 75, take: 0 })).toBe(75);
+  });
+});
+
+describe('another limb’s note (9-iv)', () => {
+  it('names the other hand for a hand, and a foot as its own', () => {
+    expect(otherHand('leftHand')).toBe('rightHand');
+    expect(otherHand('rightHand')).toBe('leftHand');
+    expect(otherHand('leftFoot')).toBe('leftFoot');
+    expect(otherHand(limbOf('k'))).toBe('rightFoot');
+  });
+
+  it('draws a note played by another limb from that limb’s stream', () => {
+    const a = new Humaniser(12);
+    const b = new Humaniser(12);
+    // the right hand's timing; the gain keeps the snare's own velocity spread
+    expect(a.next('s', 60, 'rightHand').ms).toBe(b.next('h', 60).ms);
+    // and the snare's own hand was not touched
+    expect(a.next('s', 60)).toEqual(new Humaniser(12).next('s', 60));
   });
 });
