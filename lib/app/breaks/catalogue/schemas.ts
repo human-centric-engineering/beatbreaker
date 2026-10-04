@@ -200,7 +200,9 @@ export type KitParams = z.infer<typeof kitParamsSchema>;
 const sampleFile = z
   .string()
   .max(64)
-  .regex(/^[A-Za-z0-9._-]+$/, 'a sample is a plain file name');
+  .regex(/^[A-Za-z0-9._-]+$/, 'a sample is a plain file name')
+  // `.` and `..` pass the character rule and name a folder, not a file
+  .refine((name) => !/^\.+$/.test(name), 'a sample is a plain file name');
 
 /**
  * Your Level, Tune and Decay for a slot (Phase 9-v). Tune is cents, an octave
@@ -255,9 +257,14 @@ export const kitPieceSlotSchema = kitSlotSettingsSchema.extend({
   from: z.string().max(24).optional(),
 });
 
-/** A slot that names one of your samples by id (9-v). */
+/**
+ * A slot that names one of your samples by id (9-v). The id becomes a file
+ * name in the resolved slot, so it is held to the same rule as one: a system
+ * kit edited through the admin catalogue must not be able to point outside
+ * its folder with `..`.
+ */
 export const kitYourSampleSlotSchema = kitSlotSettingsSchema.extend({
-  sample: z.string().min(1).max(40),
+  sample: sampleFile,
 });
 
 /**

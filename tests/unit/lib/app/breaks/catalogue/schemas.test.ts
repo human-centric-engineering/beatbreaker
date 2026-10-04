@@ -129,13 +129,22 @@ describe('kitParamsSchema', () => {
   it('refuses a sample file name that could climb out of its folder', () => {
     /* The URL is built as `/kits/<pack>/<file>`. A `..` or a leading slash here
        would reach outside the pack, and kit rows are admin-writable. */
-    for (const file of ['../../etc/passwd', '/etc/passwd', 'a/b.mp3', 'k-0.mp3;rm']) {
+    for (const file of ['../../etc/passwd', '/etc/passwd', 'a/b.mp3', 'k-0.mp3;rm', '..', '.']) {
       expect(kitSamplesSchema.safeParse({ slots: { k: { v: null, files: [file] } } }).success).toBe(
         false
       );
     }
     expect(
       kitSamplesSchema.safeParse({ slots: { k: { v: null, files: ['k-0.mp3'] } } }).success
+    ).toBe(true);
+  });
+
+  it('holds a `{ sample }` slot (9-v) to the same rule, since its id becomes the file name', () => {
+    for (const sample of ['../../etc/passwd', '/etc/passwd', 'a/b', '..']) {
+      expect(kitSamplesSchema.safeParse({ slots: { k: { sample } } }).success, sample).toBe(false);
+    }
+    expect(
+      kitSamplesSchema.safeParse({ slots: { k: { sample: 'csmp00000000000000000001' } } }).success
     ).toBe(true);
   });
 

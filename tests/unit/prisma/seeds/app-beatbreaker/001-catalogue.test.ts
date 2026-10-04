@@ -433,6 +433,11 @@ describe('the catalogue seed', () => {
         'data/library.ts',
         'data/kits.ts',
         '../../../public/kits/manifest.json',
+        // the pieces' inputs (9-v): recipes, derivation and each piece's credit
+        '../../../scripts/kits/pieces.ts',
+        '../../../scripts/kits/recipes/salamander.ts',
+        '../../../lib/app/breaks/kit-credits.generated.ts',
+        '../../../scripts/kits/sources.ts',
       ])
     );
   });

@@ -440,6 +440,9 @@ const unit: SeedUnit = {
     'data/kits.ts',
     '../../../public/kits/manifest.json',
     '../../../scripts/kits/pieces.ts',
+    // each piece's credit (`seedPieces`), so a corrected credit re-runs the unit
+    '../../../lib/app/breaks/kit-credits.generated.ts',
+    '../../../scripts/kits/sources.ts',
     ...readdirSync(join(here, '..', '..', '..', 'scripts', 'kits', 'recipes'))
       .sort()
       .map((file) => `../../../scripts/kits/recipes/${file}`),
