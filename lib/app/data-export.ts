@@ -257,6 +257,11 @@ export function initAppSubjectSources(): void {
         model: 'PracticeSessionItem',
         reason: 'Exported inside its PracticeSession, in order; an item has no owner of its own.',
       },
+      {
+        model: 'KitPiece',
+        reason:
+          'Catalogue data: one recorded instrument from a sample library, seeded from the kit build. It has no owner and records nothing about anyone; a kit of yours that names a piece is exported with the kit.',
+      },
     ],
   });
 }

@@ -233,6 +233,7 @@ describe('reserved fork tiers', () => {
       'model DrummerProfile',
       'model DrummerReport',
       'model Kit',
+      'model KitPiece',
       'model LibraryEntry',
       'model PatternLibrary',
       'model Pin',
