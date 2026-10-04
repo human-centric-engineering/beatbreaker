@@ -403,6 +403,15 @@ export interface BreakConsole {
   openMidiOut: () => Promise<string>;
   closeMidiOut: () => void;
   audition: (voice: string, variant?: string) => void;
+  /**
+   * Play one recording on its own, through the master: a piece in the kit
+   * builder before it is in the kit (9.18). False when it could not play.
+   */
+  previewSample: (
+    url: string,
+    voice: string,
+    opts: { gain: number; tune?: number; decay?: number }
+  ) => Promise<boolean>;
 }
 
 /**
@@ -1557,6 +1566,12 @@ export function useBreakConsole(
     audioRef.current?.hit(voice, variant);
   }, []);
 
+  const previewSample = useCallback(
+    (url: string, voice: string, opts: { gain: number; tune?: number; decay?: number }) =>
+      audioRef.current?.preview(url, voice, opts) ?? Promise.resolve(false),
+    []
+  );
+
   /** A bar of the whole kit — the only honest way to compare two of them. */
   const auditionKit = useCallback(() => audioRef.current?.demo() ?? false, []);
 
@@ -1955,6 +1970,7 @@ export function useBreakConsole(
     openMidiOut,
     closeMidiOut,
     audition,
+    previewSample,
     auditionKit,
   };
 }

@@ -12,6 +12,7 @@ import {
   type SampleView,
   sampleCreatedSchema,
   sampleUsageSchema,
+  type YourKitSlotInput,
   type YourKitView,
   yourKitViewSchema,
 } from '@/lib/validations/samples';
@@ -38,6 +39,23 @@ export interface YourSounds {
   usage: SampleUsage;
   /** A new, empty kit of yours; `null` if it could not be made (the toast says why). */
   createKit: (label?: string) => Promise<YourKitView | null>;
+  /**
+   * A new kit of yours copied from `from` (9-v): a recorded kit's pieces, or a
+   * kit of yours whole. `null` if it could not be made (the toast says why —
+   * the 21st is `KIT_LIMIT`).
+   */
+  copyKit: (from: string) => Promise<YourKitView | null>;
+  /**
+   * Change slots and pans of a kit of yours, as `PATCH /api/v1/kits/:id`
+   * takes them. False if it was refused (the toast says why).
+   */
+  changeKit: (
+    id: string,
+    change: {
+      slots?: Record<string, YourKitSlotInput | null>;
+      pan?: Partial<Record<string, number | null>>;
+    }
+  ) => Promise<boolean>;
   renameKit: (id: string, label: string) => Promise<boolean>;
   deleteKit: (id: string) => Promise<boolean>;
   /** Encode `file`, upload it and put it in the slot. `''` when it worked, else the sentence to show. */
@@ -138,6 +156,31 @@ export function useYourSounds(
     [say]
   );
 
+  const copyKit = useCallback(
+    async (from: string) => {
+      try {
+        const kit = yourKitViewSchema.parse(
+          await apiClient.post('/api/v1/kits', { body: { from } })
+        );
+        setKits((prev) => [...prev, kit]);
+        return kit;
+      } catch (error) {
+        say(messageOf(error, 'Could not copy the kit — try again'), { error: true });
+        return null;
+      }
+    },
+    [say]
+  );
+
+  const changeKit = useCallback<YourSounds['changeKit']>(
+    async (id, change) => {
+      const err = await patchKit(id, change);
+      if (err) say(err, { error: true });
+      return !err;
+    },
+    [patchKit, say]
+  );
+
   const renameKit = useCallback(
     async (id: string, label: string) => {
       const err = await patchKit(id, { label });
@@ -219,6 +262,8 @@ export function useYourSounds(
     samples,
     usage,
     createKit,
+    copyKit,
+    changeKit,
     renameKit,
     deleteKit,
     uploadToSlot,

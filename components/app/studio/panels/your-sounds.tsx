@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
-import { SLOTS, SLOT_BY_ID } from '@/lib/app/breaks/kit';
+import { SLOTS, SLOT_BY_ID, kitEngine } from '@/lib/app/breaks/kit';
 import { MAX_SAMPLE_SECONDS, mb } from '@/lib/app/breaks/samples/limits';
 import { DEFAULT_STUDIO_SETTINGS } from '@/lib/validations/studio-settings';
 import type { YourKitView } from '@/lib/validations/samples';
@@ -63,6 +63,23 @@ export function YourKitControls() {
         >
           New kit of your own
         </button>
+        {/* A recorded kit is pieces, so it can be the start of yours; a
+            synthesised kit or a machine has none to copy. */}
+        {mine || kitEngine(kits[c.kit]) === 'pack' ? (
+          <button
+            type="button"
+            className="mini"
+            onClick={() => {
+              void sounds.copyKit(c.kit).then((kit) => {
+                if (!kit) return;
+                setPick(kit.key);
+                say(`${kit.label} — yours to change, row by row`);
+              });
+            }}
+          >
+            {mine ? 'Copy this kit' : 'Make my own from this kit'}
+          </button>
+        ) : null}
         {mine ? (
           <button
             type="button"

@@ -177,6 +177,8 @@ export class BreakAudio {
   private panView: PanView = 'drummer';
   private irRoom = -1;
   private driveAt = -1;
+  /** Recordings heard on their own, by URL, each fetched and decoded once ({@link preview}). */
+  private previews = new Map<string, Promise<AudioBuffer | null>>();
 
   ready = false;
   /**
@@ -307,6 +309,7 @@ export class BreakAudio {
     this.route = null;
     this.irRoom = -1;
     this.driveAt = -1;
+    this.previews.clear();
     this.ready = false;
     /* Already-closed contexts throw rather than no-op, and a close that races a
        navigation is not worth an unhandled rejection in the console. */
@@ -1301,6 +1304,53 @@ export class BreakAudio {
     g2.connect(this.bus);
     n.start(t);
     n.stop(t + 0.03);
+  }
+
+  /**
+   * One recording, heard on its own: a piece in the kit builder, before it is
+   * in the kit (9.18). The kit's sources decode a piece only once the kit
+   * holds it, so this fetches and decodes the file itself, once per URL. It
+   * goes straight to the bus, as any audition does. `tune` is cents and
+   * `decay` is {@link playBuf}'s. False when there is no Web Audio or the
+   * file would not load; a file that would not load is tried again next time.
+   */
+  async preview(
+    url: string,
+    voice: string,
+    { gain, tune, decay }: { gain: number; tune?: number; decay?: number }
+  ): Promise<boolean> {
+    const ctx = this.init();
+    if (!ctx) return false;
+    this.resume();
+    let pending = this.previews.get(url);
+    if (!pending) {
+      pending = fetch(url)
+        .then((res) => {
+          if (!res.ok) throw new Error(`${res.status}`);
+          return res.arrayBuffer();
+        })
+        .then((bytes) => ctx.decodeAudioData(bytes))
+        .catch(() => null);
+      this.previews.set(url, pending);
+    }
+    const buf = await pending;
+    if (!buf) {
+      this.previews.delete(url);
+      return false;
+    }
+    // closed while it loaded: the buffer belongs to a graph that is gone
+    if (this.ctx !== ctx) return false;
+    this.playBuf(
+      ctx.currentTime + 0.02,
+      buf,
+      gain,
+      voice,
+      2 ** ((tune ?? 0) / 1200),
+      undefined,
+      undefined,
+      decay
+    );
+    return true;
   }
 
   /** One-shot preview, for the kit panel and the step editor. */

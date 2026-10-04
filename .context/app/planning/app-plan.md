@@ -2966,7 +2966,7 @@ tree at `7b1e815c`. 9.18 needs no route or schema change; 9-v-a built them.
   from `KIT_CREDITS`.
 - **Choosing a piece fills each of the row's slots that it has, and empties
   the rest.** A piece with none of the row's slots (a tom piece on another
-  tom, Salamander's crash as the crash) fills the row's first slot with
+  tom, a crash as the splash) fills the row's first slot with
   `from` its first. _None_ empties the row, and it plays synthesised.
 - **A tap to hear it is the piece's own file, not the kit.** The kit's
   `PackSource` decodes a new piece only after the `PATCH` answers. So

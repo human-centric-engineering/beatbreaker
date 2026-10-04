@@ -157,31 +157,38 @@ bar 1_, _Reverse the beats_ and _Flatten to L2_.
 
 ## Sound
 
-| role     | name                                                 | where                                    | help           | shortcut | target      |
-| -------- | ---------------------------------------------------- | ---------------------------------------- | -------------- | -------- | ----------- |
-| combobox | `Kit`                                                | Sound                                    | ⓘ _Kits_       | —        | 36px select |
-| button   | `About Kits`                                         | Sound                                    | ⓘ              | —        | 24px        |
-| radio    | `<The stool\|Out front>`                             | Sound, whose side the kit is panned from | ⓘ _Heard from_ | —        | `Segmented` |
-| button   | `About Heard from`                                   | Sound                                    | ⓘ              | —        | 24px        |
-| button   | `▸ Play the kit`                                     | Sound                                    | —              | —        | `.mini`     |
-| radio    | `<Off\|Subtle\|Loose>`                               | Sound, Humanise                          | ⓘ _Humanise_   | —        | `Segmented` |
-| button   | `About Humanise`                                     | Sound                                    | ⓘ              | —        | 24px        |
-| slider   | `Amount`                                             | Sound, Humanise, hidden while Off        | ⓘ _Humanise_   | —        | 24px        |
-| button   | `🎲 New take`                                        | Sound, Humanise                          | ⓘ _New take_   | —        | `.mini`     |
-| button   | `About New take`                                     | Sound                                    | ⓘ              | —        | 24px        |
-| radio    | `<Kick\|Snare\|Hi-hat\|Ride\|Crash\|Toms\|Perc>`     | Sound, which voice to tune               | ⓘ _Voice_      | —        | `Segmented` |
-| slider   | `<Size\|Bright\|Drive\|Room\|Top end\|Closed\|Open>` | Sound, the voice's settings              | ⓘ _Voice_      | —        | 24px        |
-| button   | `About Voice`                                        | Sound                                    | ⓘ              | —        | 24px        |
-| button   | `▸ Hear it`                                          | Sound                                    | —              | —        | `.mini`     |
-| button   | `Reset this voice`                                   | Sound                                    | —              | —        | `.mini`     |
-| button   | `Reset whole kit`                                    | Sound                                    | —              | —        | `.mini`     |
-| button   | `New kit of your own`                                | Sound, Your sounds                       | —              | —        | `.mini`     |
+| role     | name                                                                     | where                                         | help               | shortcut | target         |
+| -------- | ------------------------------------------------------------------------ | --------------------------------------------- | ------------------ | -------- | -------------- |
+| combobox | `Kit`                                                                    | Sound                                         | ⓘ _Kits_           | —        | 36px select    |
+| button   | `About Kits`                                                             | Sound                                         | ⓘ                  | —        | 24px           |
+| radio    | `<The stool\|Out front>`                                                 | Sound, whose side the kit is panned from      | ⓘ _Heard from_     | —        | `Segmented`    |
+| button   | `About Heard from`                                                       | Sound                                         | ⓘ                  | —        | 24px           |
+| button   | `▸ Play the kit`                                                         | Sound                                         | —                  | —        | `.mini`        |
+| radio    | `<Off\|Subtle\|Loose>`                                                   | Sound, Humanise                               | ⓘ _Humanise_       | —        | `Segmented`    |
+| button   | `About Humanise`                                                         | Sound                                         | ⓘ                  | —        | 24px           |
+| slider   | `Amount`                                                                 | Sound, Humanise, hidden while Off             | ⓘ _Humanise_       | —        | 24px           |
+| button   | `🎲 New take`                                                            | Sound, Humanise                               | ⓘ _New take_       | —        | `.mini`        |
+| button   | `About New take`                                                         | Sound                                         | ⓘ                  | —        | 24px           |
+| radio    | `<Kick\|Snare\|Hi-hat\|Ride\|Crash\|Toms\|Perc>`                         | Sound, which voice to tune                    | ⓘ _Voice_          | —        | `Segmented`    |
+| slider   | `<Size\|Bright\|Drive\|Room\|Top end\|Closed\|Open>`                     | Sound, the voice's settings                   | ⓘ _Voice_          | —        | 24px           |
+| button   | `About Voice`                                                            | Sound                                         | ⓘ                  | —        | 24px           |
+| button   | `▸ Hear it`                                                              | Sound                                         | —                  | —        | `.mini`        |
+| button   | `Reset this voice`                                                       | Sound                                         | —                  | —        | `.mini`        |
+| button   | `Reset whole kit`                                                        | Sound                                         | —                  | —        | `.mini`        |
+| button   | `New kit of your own`                                                    | Sound, Your sounds                            | —                  | —        | `.mini`        |
+| button   | `<Make my own from this kit\|Copy this kit>`                             | Sound, when on a recorded kit or one of yours | —                  | —        | `.mini`        |
+| select   | `<Kick\|Snare\|Hats\|Ride\|Crash\|Splash\|High tom\|Mid tom\|Floor tom>` | Sound, Build your kit, when on one of yours   | ⓘ _Build your kit_ | —        | 38px           |
+| button   | `Hear the <row>`                                                         | Sound, Build your kit, when on yours          | —                  | —        | `.mini`, 44×38 |
+| button   | `Adjust`                                                                 | Sound, Build your kit, when on yours          | —                  | —        | `.mini`, 44×38 |
+| slider   | `<Level\|Tune\|Decay\|Pan>`                                              | Sound, a row's knobs, when open               | ⓘ each             | —        | 24px           |
+| button   | `Reset to kit`                                                           | Sound, a row's knobs, when open               | —                  | —        | `.mini`        |
 
 A voice's settings are named for what they shape. Today they are _Size_,
 _Bright_, _Drive_, _Room_, _Top end_, _Closed_ and _Open_, depending on the
 voice. A kit of your own adds the per-slot controls in `your-sounds.tsx`
 (upload, rename, delete), which need an account's samples and are tested in
-`your-sounds.test.tsx`.
+`your-sounds.test.tsx`, and the builder's rows (9.18, `kit-builder.tsx`),
+tested in `kit-builder.test.tsx`.
 
 ## Practise
 
