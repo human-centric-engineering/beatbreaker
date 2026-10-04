@@ -2505,6 +2505,88 @@ The calls:
 virtuosity pack. **Still to do by hand:** the owner listens to each re-cut
 kit on a laptop and a phone, the untraced slots above first.
 
+**9-iii-b reconciled, 2026-10-04 (branch `phase-9-iii-b`).** Each source was
+read at its pinned commit or, for DRSKit, at its server. It ships as one
+PR: five new packs and the pipeline changes DRSKit needs.
+
+| Kit         | Pack        | Source, pinned                                                        | Licence   | Mics in the mix                                                   |
+| ----------- | ----------- | --------------------------------------------------------------------- | --------- | ----------------------------------------------------------------- |
+| Big Rusty   | `bigrusty`  | `sfzinstruments/karoryfer.big-rusty-drums` @ `f07ce00d`               | CC0       | close and overhead; the source's default blend                    |
+| DRS kit     | `drs`       | `drumgizmo.org/kits/DRSKit/DRSKit2_1.zip` (v2.1, 2 803 397 710 bytes) | CC BY 4.0 | close channel, OH L/R, a little ambience                          |
+| DRS brushes | `drs-brush` | the same archive                                                      | CC BY 4.0 | as DRS kit                                                        |
+| Unruly      | `unruly`    | `sfzinstruments/karoryfer.unruly-drums` @ `9bf75c2a`                  | CC0       | close and overhead                                                |
+| Gogodze     | `gogodze`   | `sfzinstruments/karoryfer.gogodze-phu-vol-ii` @ `69a0274c`            | CC0       | `retro` first, as the source's own "13 mix"; some `wndw` and `oh` |
+
+The calls:
+
+- **DRSKit is v2.1 from DrumGizmo's server, not the git mirror.**
+  `sfzinstruments/DrumGizmo.DRSKit` would fit the fetcher as it is (one mono
+  FLAC per mic), but it is v1.0, which DrumGizmo replaced because of its
+  velocity problems, and its README asks people not to contact the authors.
+- **A second source kind: `zip`.** It is pinned by the archive's sha256 and
+  its byte length. The first build downloads the archive once (2.8 GB) into
+  `.kit-sources/`, checks it against the md5 DrumGizmo publishes
+  (`8c4d4b61ad9d354b3b845edd5da9c133`), and refuses to run until `sources.ts`
+  holds the sha256 it computed. Members are then read from the local archive
+  through its central directory and `zlib.inflateRaw`. That is a small reader
+  of our own: `fflate` and `jszip` hold the whole archive in memory. A member's
+  CRC32 is checked as it is inflated. The lock records a zip source as
+  `{ url, sha256, files }` beside the git sources' `{ repo, commit, files }`.
+- **DrumGizmo files hold every mic, so a pick can name channels.** Each
+  stroke is one WAV with 13 interleaved float channels. A pick's `channels`
+  (the instrument XML's `channel` name → weight) replaces `mics`, and
+  `decode` keeps the channels and mixes the named ones. Channels are found
+  by name from `<Inst>/<Inst>.xml`, never by position: the WAV order differs
+  from the order the wiki lists. A pattern is `DRSKit/Snare/samples/*-Snare.wav`.
+- **DRSKit's licence file is `DRSKit/README.md` in the archive.** It has no
+  LICENSE; the README's grant is copied, as boochi44's is. Its credit carries
+  DrumGizmo's line, which MuldjordKit already prints once.
+- **The two DRS kits are two packs.** A kit is a pack, and a pack is one
+  slot map. The kick, cross-stick and foot hat are cut twice, which costs
+  less than 0.2 MB.
+- **The slots each source fills:**
+
+  | Slot      | Big Rusty             | DRS kit              | DRS brushes                                              | Unruly                              | Gogodze          |
+  | --------- | --------------------- | -------------------- | -------------------------------------------------------- | ----------------------------------- | ---------------- |
+  | `k`       | `kick_24` (damped)    | `Kdrum_with_contact` | `Kdrum_with_contact`                                     | `k20` `kick_clean`                  | `ks`             |
+  | `s`       | `snare_14/center`     | `Snare`              | `Snare_whisker`                                          | `s14_center`                        | `sc`             |
+  | `sGhost`  | `center`, low range   | `Snare_rest`         | `Snare_whisker`, low range                               | `s14_center`, low range             | `sc`, low range  |
+  | `sCross`  | `sidestick`           | `Snare_rim`          | `Snare_rim` (a stick, as DrumGizmo's own brush kit does) | `s14_sstick`                        | `ss`             |
+  | `h`       | `hihat_14/tc` (tight) | `Hihat_closed_shank` | `Hihat_closed_whisker`                                   | `hh_tight_tip`                      | `ht` (tight)     |
+  | `hOpen`   | `hihat_14/open`       | `Hihat_open`         | `Hihat_open_whisker`                                     | `hh_open_tip`                       | `ho`             |
+  | `hFoot`   | `hihat_14/chik`       | `Hihat_foot`         | `Hihat_foot`                                             | `hh_footchik`                       | `hf`             |
+  | `r`       | `ride_22/rd`          | `Ride_tip`           | `Ride_whisker`                                           | `r20` `ride_bow`                    | Big Rusty's      |
+  | `rBell`   | `ride_22/bl`          | `Ride_shank_bell`    | —                                                        | `ride_bell`                         | Big Rusty's      |
+  | `c`       | `crash_17/cr`         | `Crash_left_shank`   | `Crash_left_whisker`                                     | `c16` `cr_edge`                     | Big Rusty's      |
+  | `t1`–`t3` | toms 14, 15, 18       | `Tom1`–`Tom3`        | `Tom1`–`Tom3_whisker`                                    | the 13", 14" and 22" snares as toms | `th`, `tm`, `tl` |
+
+- **Gogodze has no cymbals, so its ride, bell and crash are Big Rusty's.**
+  A missing slot falls back to the synthesised voice, and a synth cymbal over
+  recorded drums is the wrong sound for the kit meant to be boom bap. Both
+  are Karoryfer and CC0, and the fetch is already cached for Big Rusty. They
+  are mixed from the close mic alone, drier, to sit with Gogodze's retro mic.
+  The owner may prefer Unruly's ride; it is one line of the recipe.
+- **Unruly's toms are snares.** The kit has no toms; its own keymap plays
+  the 13", 14" and 22" snares with their wires off as toms, and so does
+  ours. The kit's hint says so.
+- **DRS brushes has no brush kick and no brush bell.** The kick is the stick
+  kit's, as DrumGizmo's `whiskers_only` kit does. `rBell` is left out and
+  falls back to the ride. Its ghost snare is `Snare_whisker`'s soft strokes,
+  not `Snare_circle_whisker`: that is a 3.5-second sweep, not a stroke.
+- **Layers and takes as the re-cut packs have them:** kick and snare 4 × 3,
+  ghost 2 × 3, cross-stick 3 × 2, closed hat 4 × 3, open hat 3 × 2, foot
+  2 × 3, ride 3 × 3, bell 1 × 3, crash 2 × 2, toms 3 × 2. Where a source has
+  fewer takes than that, the neighbouring strokes serve, as for Virtuosity.
+- **Seed rows** for the five kits go in `data/kits.ts`, each with a hint and
+  its credit. No style's default kit moves; that is 9.19's.
+- **To check by ear, first:** whether DRS's `Snare_rim` is a cross-stick
+  (its length and its lack of snare wires say it is), Big Rusty's snare
+  bottom-heavy default blend, and Gogodze's borrowed cymbals.
+- **What it fetches:** the DRSKit archive (2.8 GB, once), and about 100 MB
+  from Big Rusty, 150 MB from Unruly and 250 MB from Gogodze. That is all of
+  a slot's strokes on the mics the recipe names, because selection measures
+  every candidate.
+
 **9-iv — new notation** (D40). Re-reconciled against the tree when it
 starts: this was sized from the schema and `LANE_VALUES` alone.
 
