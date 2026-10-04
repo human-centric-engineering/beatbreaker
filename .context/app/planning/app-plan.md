@@ -2989,6 +2989,20 @@ tree at `7b1e815c`. 9.18 needs no route or schema change; 9-v-a built them.
   `/api/v1/catalogue/pieces`, read through a schema. The Studio pages do not
   carry them, so a page that never opens the builder never reads them.
 
+**9-v-b built, 2026-10-04.** As reconciled, with these findings:
+
+- **Not checked in a browser.** The done-when's look at 390 and 1440px in
+  Chrome was not done: the owner works in Arc, where the browser extension
+  does not run. The component tests stand in for it; the owner looks at it
+  by hand.
+- **A sample of yours is heard from its own file too.** A knob let go on a
+  row holding one of your samples played the kit's copy, which does not
+  have the new setting until the `PATCH` answers (`/code-review`).
+- **A piece with no slots is refused when the list is read.** Chosen, it
+  would have emptied its row while the toast said it was in.
+- **The preview's fetch refuses a redirect,** as the packs' and your
+  samples' do (`outbound-fetch-redirects.test.ts`).
+
 **9-vi — more sounds, synth rendered ahead, the machines:**
 
 | #    | Task                                                                                                                                                                                 | Done when                                                                                                                                                                                            |
