@@ -156,7 +156,13 @@ describe('GET /api/v1/breaks/:id', () => {
   });
 
   it('still opens a row saved before the share-code schema was tightened, repairing it', async () => {
-    const legacy = wireDoc() as { A: Record<string, unknown>; B: Record<string, unknown> };
+    const legacy = wireDoc() as {
+      ver: number;
+      A: Record<string, unknown>;
+      B: Record<string, unknown>;
+    };
+    // saved under v4, whose crash had one value — v5's crash 3 is a china
+    legacy.ver = 4;
     // what the looser schema let a hand-written body store: a crash of 3, a
     // stray letter, an unknown instrument key and a negative seed
     legacy.A.b = ['1x00100010001000|0000100000001000|2222222222222222|0|3000'];
