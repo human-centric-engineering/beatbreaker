@@ -18,6 +18,20 @@ release process.
 
 ### Added
 
+- **The kit pipeline (BeatBreaker Phase 9-iii-a).** `npm run kits:build`
+  (`scripts/kits/`) builds the recorded kits from pinned, licence-checked
+  sources: it mixes, trims, measures and level-matches every stroke, chooses
+  velocity layers and round-robins by loudness, and writes AAC `.m4a` files,
+  `public/kits/manifest.json`, `scripts/kits/build-lock.generated.json`,
+  `public/kits/LICENSES/` and the credits
+  (`lib/app/breaks/kit-credits.generated.ts`, the README). It needs ffmpeg
+  and never runs in CI. The five recorded kits are re-cut through it, with
+  2–3 round-robins on every hat, snare and ride (Dusty sampler and Trap stay
+  one-shots); Muldjord gains its toms. A layered kit slot takes an optional
+  `trim`, applied by the sampler, and the five pack kits' `trim` is 1.
+  `PackSource` plays a kit from one take per layer and decodes the rest when
+  idle, and keeps two kits decoded (`DECODED_KITS`).
+
 - **Humanise (BeatBreaker Phase 9-ii).** `lib/app/breaks/humanise.ts` gives
   each limb a seeded stream of small timing and velocity differences, which
   `performStep` applies through a new `PerformOptions.humanise`. A new studio

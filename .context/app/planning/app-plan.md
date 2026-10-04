@@ -2444,7 +2444,8 @@ The calls:
 - **Dusty sampler and Trap stay one-shots.** Boochi44 recorded each sound
   once, so they are exempt from "2 RR on every hat, snare and ride". The
   sampler's ±8 cents and ±0.5 dB per hit is their variation. The re-cut
-  takes the same source files as today, matched by their audio.
+  takes the same source files as today, matched by their audio. _(Built:
+  only partly possible — see below.)_
 - **Muldjord gains its toms.** `Tom1`–`Tom3` are in the source and were never
   cut. Every other pack keeps its slots.
 - **The percussion is re-cut too.** It lives in the virtuosity pack, from
@@ -2463,6 +2464,44 @@ The calls:
   container's metadata and uses `-fflags +bitexact`, and records `ffmpeg
 -version` in the lock. A different encoder build can change the bytes; it
   cannot change the slots.
+
+**9-iii-a built, 2026-10-04.** As reconciled, with these findings:
+
+- **Every shipped file was traced to its source by its audio** before the
+  re-cut, by correlating it against the library. Most slots matched at
+  0.85–1.0, which fixed each recipe's articulation and mic. Virtuosity uses
+  the mid mic, Swirly the top snare mic, and Brush's kick is Swirly's marching
+  kick on its beater mic.
+- **What could not be traced was re-cut from the file the kit's description
+  names.** That is Dusty sampler's and Trap's snares, hats and cymbals, which
+  the prototype had processed; their kicks and Dusty's ghost snare match
+  exactly. The snares are the kit's snare with its clap on top. Both kits'
+  middle toms were copies of another tom, and are real ones now (Virtuosity's
+  low tom half-open, Swirly's `tom_mlow`). No source has a cascara, so it is
+  Virtuosity's high bongo.
+- **The level reference is where the old kits played.** Their snares, times
+  their `kit.trim`, measured −16.8 to −13.5 dB; `REFERENCE_DB` is the median,
+  −15.2. Brush's toms are recorded quietly and reach the trim's ceiling of 4.
+- **Virtuosity's cymbals and kick have four velocity steps spread wider than
+  14 dB,** so their range is 24 dB.
+- **ffmpeg runs through async `spawn`.** Under `spawnSync` (Node 24, macOS 13)
+  about one call in a few hundred never returned, past its own timeout, after
+  ffmpeg had exited.
+- **Two full builds write the same bytes:** the manifest, the lock, the
+  credits and all 339 files. Each build takes about 50 s with the sources
+  cached; the first fetches about 400 MB.
+
+| Pack       | Files | Download | First play | Decoded |
+| ---------- | ----- | -------- | ---------- | ------- |
+| muldjord   | 79    | 1.48 MB  | 0.63 MB    | 20.1 MB |
+| vintage    | 7     | 0.06 MB  | 0.06 MB    | 0.7 MB  |
+| trap       | 7     | 0.12 MB  | 0.12 MB    | 1.6 MB  |
+| virtuosity | 102   | 2.12 MB  | 0.77 MB    | 28.9 MB |
+| brush      | 91    | 1.63 MB  | 0.65 MB    | 22.0 MB |
+
+`public/kits` is 5.9 MB (1.3 MB before), plus 0.49 MB of percussion in the
+virtuosity pack. **Still to do by hand:** the owner listens to each re-cut
+kit on a laptop and a phone, the untraced slots above first.
 
 **9-iv — new notation** (D40). Re-reconciled against the tree when it
 starts: this was sized from the schema and `LANE_VALUES` alone.

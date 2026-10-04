@@ -213,6 +213,7 @@ const kitSampleSlotLayered = z.object({
     )
     .min(1)
     .max(8),
+  trim: z.number().min(0).max(4).optional(),
 });
 
 const kitSampleSlot = z.union([kitSampleSlotFlat, kitSampleSlotLayered]);

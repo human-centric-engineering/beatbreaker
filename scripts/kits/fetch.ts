@@ -1,0 +1,102 @@
+/**
+ * Fetching a source's files at its pinned commit, into a local cache.
+ *
+ * The cache is `.kit-sources/` at the repo root, gitignored. A file is fetched
+ * once and checked against its git blob hash in the pinned commit's tree, so
+ * neither a moved branch nor a corrupted download gets into a kit.
+ */
+
+import { createHash } from 'node:crypto';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+
+import type { GitSource } from '@/scripts/kits/sources';
+
+export const CACHE = join(process.cwd(), '.kit-sources');
+
+interface TreeEntry {
+  path: string;
+  type: string;
+  sha: string;
+  size?: number;
+}
+
+function cacheDir(source: GitSource): string {
+  return join(CACHE, `${source.repo.replace('/', '__')}@${source.commit}`);
+}
+
+function headers(): Record<string, string> {
+  const token = process.env.GITHUB_TOKEN;
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
+/** The pinned commit's file list: path → blob hash. Fetched once, then cached. */
+export async function treeOf(source: GitSource): Promise<Map<string, string>> {
+  const file = join(cacheDir(source), 'tree.json');
+  if (!existsSync(file)) {
+    const url = `https://api.github.com/repos/${source.repo}/git/trees/${source.commit}?recursive=1`;
+    const res = await fetch(url, { headers: headers() });
+    if (!res.ok) throw new Error(`${url}: ${res.status} ${res.statusText}`);
+    const body = (await res.json()) as { tree?: TreeEntry[]; truncated?: boolean };
+    if (!body.tree || body.truncated) throw new Error(`${source.repo}: tree missing or truncated`);
+    mkdirSync(dirname(file), { recursive: true });
+    writeFileSync(file, JSON.stringify(body.tree));
+  }
+  const tree = JSON.parse(readFileSync(file, 'utf8')) as TreeEntry[];
+  return new Map(tree.filter((e) => e.type === 'blob').map((e) => [e.path, e.sha]));
+}
+
+/** Git's own content hash: sha1 of `blob <length>\0` and the bytes. */
+export function gitBlobSha(bytes: Buffer): string {
+  return createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
+}
+
+export function sha256(bytes: Buffer): string {
+  return createHash('sha256').update(bytes).digest('hex');
+}
+
+/**
+ * One file at the pinned commit, as a path in the cache. Throws if it is not
+ * in the commit, or if what arrives is not what the commit holds.
+ */
+export async function fetchFile(
+  source: GitSource,
+  tree: Map<string, string>,
+  path: string
+): Promise<string> {
+  const want = tree.get(path);
+  if (!want) throw new Error(`${source.repo}@${source.commit}: no ${path}`);
+  const local = join(cacheDir(source), 'files', path);
+  if (existsSync(local) && gitBlobSha(readFileSync(local)) === want) return local;
+
+  const url = `https://raw.githubusercontent.com/${source.repo}/${source.commit}/${path
+    .split('/')
+    .map(encodeURIComponent)
+    .join('/')}`;
+  const res = await fetch(url, { headers: headers() });
+  if (!res.ok) throw new Error(`${url}: ${res.status} ${res.statusText}`);
+  const bytes = Buffer.from(await res.arrayBuffer());
+  const got = gitBlobSha(bytes);
+  if (got !== want) throw new Error(`${source.repo}/${path}: blob ${got}, the commit has ${want}`);
+  mkdirSync(dirname(local), { recursive: true });
+  writeFileSync(local, bytes);
+  return local;
+}
+
+/** Run `fn` over `items`, `limit` at a time, keeping their order in the result. */
+export async function mapLimit<T, R>(
+  items: readonly T[],
+  limit: number,
+  fn: (item: T) => Promise<R>
+): Promise<R[]> {
+  const out = new Array<R>(items.length);
+  let next = 0;
+  const worker = async (): Promise<void> => {
+    while (next < items.length) {
+      const i = next++;
+      out[i] = await fn(items[i]);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
+  return out;
+}

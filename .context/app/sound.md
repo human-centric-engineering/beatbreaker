@@ -26,6 +26,15 @@ as built, and grows with each Phase 9 PR.
 - **Do not read `spec.files` or `spec.v` off a kit slot.** A slot is either
   shape (below). Read it through `slotLayers()` or `slotFiles()` in
   `lib/app/breaks/kit.ts`.
+- **Do not edit `public/kits/` by hand.** Every file there, the manifest and
+  `scripts/kits/build-lock.generated.json` come from `npm run kits:build`.
+  Change a recipe or `sources.ts` and build again; `kit-packs.test.ts` checks
+  the files against the lock.
+- **Do not add a source without reading its licence file.** Pin the commit,
+  name the file, record the date you read it (`sources.ts`). Share-alike, GPL
+  and "royalty-free but not redistributable" are out (`sound-plan.md` §5).
+- **Do not normalise a sample.** A layer's level against its neighbours is the
+  dynamics. Level matching is a slot's `trim`, applied at play time.
 - **Do not connect a voice to `bus` directly.** Go through `send()`, which
   routes into the lane's channel while a performed note plays and to the bus
   for an audition.
@@ -155,15 +164,64 @@ to the bus, centred.
    but never a repeat.
 3. **Level.**
    - The gain is `vel / layer.v`, clamped 0.25–1.8, times the voice's level,
-     `kit.trim`, and a wobble of up to ±0.5 dB.
-   - The curve is today's. Making it exact needs each layer's measured
-     loudness, which the 9-iii pipeline records.
+     `kit.trim`, the slot's `trim`, and a wobble of up to ±0.5 dB.
+   - Since 9-iii a layer's `v` is its measured loudness as an amplitude, so
+     `vel / v` lands a note at the level its velocity asks for.
 4. **Pitch.** The rate is the voice's, times a detune of up to ±8 cents.
 5. **Top end.** A slot with fewer than 4 layers is darkened when a note plays
    under its layer. A high shelf at 3 kHz cuts by half the dB the gain was cut
    by, down to −6 dB at most.
 
 Percussion strokes take round-robins the same way, by instrument and stroke.
+
+### Loading (`packs.ts`)
+
+- **Two passes.** `load()` decodes the first take of each layer that decodes,
+  and the kit plays from those. The remaining takes decode when the page is
+  idle (`requestIdleCallback`, or 200 ms where Safari has none) and join their
+  layers.
+- **Two kits decoded.** The one playing and the one before it
+  (`DECODED_KITS`). Picking a third lets go of the oldest; picking a kit that
+  was let go decodes it again, and the synth covers the first bar.
+- **A slot's `trim`** multiplies its gain, with `kit.trim`. A fallback (a
+  ghost from the snare) plays at the slot it fell back to's trim.
+
+### The pipeline (`scripts/kits/`)
+
+```
+sources.ts   pinned libraries: repo, commit, licence file, date read, credit
+recipes/     per pack: which strokes make which slot, mics and weights,
+             how many layers and takes
+build.ts     npm run kits:build [pack…]
+```
+
+For each slot the build:
+
+1. **Finds the candidates** (`pattern.ts`): a path pattern with `*` for what
+   varies between strokes and `{mic}` for what varies between mics.
+2. **Fetches** each file from the pinned commit into `.kit-sources/`
+   (gitignored) and checks it against its git blob hash (`fetch.ts`).
+3. **Mixes** the mics to mono by weight, **trims** from the onset (−50 dBFS,
+   less 0.5 ms) to 60 dB under the peak or the role's cap, with a 30 ms fade,
+   and **measures** K-weighted RMS over 150 ms (`dsp.ts`).
+4. **Chooses** the layers evenly in dB across the recipe's range and the takes
+   nearest each (`select.ts`). A layer's `v` is its loudness against the
+   loudest layer, as amplitude.
+5. **Encodes** AAC-LC `.m4a`, mono, 96 kbps (`ffmpeg.ts`), as
+   `<slot>-<layer>-<take>.m4a`.
+6. **Matches the level.** A piece's `trim` brings its loudest layer to
+   `REFERENCE_DB` plus its role's target (`ROLE_TARGET_DB`), and every slot of
+   the piece gets it.
+
+Then it writes the manifest (which the catalogue seed reads), the lock (every
+source file's and output's sha256, each output's bytes and seconds), each
+source's licence file into `public/kits/LICENSES/`, and the credits:
+`lib/app/breaks/kit-credits.generated.ts` and the README's block. Run
+`npm run format` after, for the README. Then `npm run db:seed`, so the kit
+rows carry the new manifest.
+
+**Same sources, same ffmpeg, same bytes.** Nothing written carries a time and
+the container's metadata is stripped. The lock records `ffmpeg -version`.
 
 ### Your own samples
 
@@ -182,3 +240,5 @@ Your own samples (`your-samples.ts`) now get the onset trim (`onsetOf`) and
 | `tests/unit/lib/app/breaks/audio/transport.test.ts`               | Play replays the performance; a new seed is taken up at the top of the next pass                                                                                    |
 | `tests/unit/lib/app/breaks/audio/your-samples.test.ts`            | Onset trim and `kit.trim` on your samples                                                                                                                           |
 | `tests/unit/lib/app/breaks/catalogue/schemas.test.ts`             | The layered slot's bounds                                                                                                                                           |
+| `tests/unit/lib/app/breaks/kit-packs.test.ts`                     | Files match the manifest and the lock; every source has its licence and credit; ≥2 takes on hats, snares and rides; the §9 budgets                                  |
+| `tests/unit/scripts/kits/*.test.ts`                               | Onset, tail and fade; K-weighting and loudness; choosing layers and takes; path patterns                                                                            |
