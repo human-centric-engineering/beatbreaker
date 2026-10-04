@@ -213,3 +213,6 @@ public/uploads/
 
 # Sentry Config File
 .env.sentry-build-plugin
+
+# Phase 9 kit pipeline: sources fetched by scripts/kits/build.ts
+/.kit-sources/

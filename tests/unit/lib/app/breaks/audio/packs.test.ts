@@ -19,7 +19,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { BreakAudio } from '@/lib/app/breaks/audio/engine';
-import { layerFor, onsetOf, PackSource, pickTake } from '@/lib/app/breaks/audio/packs';
+import {
+  DECODED_KITS,
+  layerFor,
+  onsetOf,
+  PackSource,
+  pickTake,
+} from '@/lib/app/breaks/audio/packs';
 import { makeRng } from '@/lib/app/breaks/rng';
 import type { KitSamples, ResolvedKit } from '@/lib/app/breaks/kit';
 import { testKit } from '@/tests/helpers/catalogue';
@@ -329,8 +335,8 @@ describe('hit() — additional branches', () => {
     // a v:0 layer as reference velocity 1 rather than "infinitely loud"
     expect(source.hit(engine, 0, 's', 0.5)).toBe(true);
     const gain = playBuf.mock.calls[0][2];
-    // clamp(0.5 / 1, .25, 1.8) * level(0.95) * trim(1.42) * soften(1)
-    expect(gain).toBeCloseTo(0.6745, 9);
+    // clamp(0.5 / 1, .25, 1.8) * level(0.95) * kit trim(1) * slot trim(1) * soften(1)
+    expect(gain).toBeCloseTo(0.475, 9);
   });
 
   it('falls back to neutral level, trim and rate when the kit or voice does not set them', async () => {
@@ -448,6 +454,54 @@ describe('percHit()', () => {
 /* Phase 9: round-robins, the layer choice, the shelf, the wobble          */
 /* ---------------------------------------------------------------------- */
 
+describe('the decoded cache', () => {
+  it(`keeps ${DECODED_KITS} kits decoded and lets go of the one used longest ago`, async () => {
+    const source = new PackSource();
+    const slots = { k: { v: null, files: ['k.m4a'] } };
+    for (const pack of ['a', 'b']) await source.load(engine, pack, slots);
+    // back to `a`, then a third: `b` is the oldest now, and goes
+    engine.kit = packKit({ slots }, { pack: 'a' });
+    source.refresh(engine);
+    await source.load(engine, 'c', slots);
+
+    expect(['a', 'b', 'c'].map((p) => source.isReady(p))).toEqual([true, false, true]);
+  });
+
+  it('never lets go of the kit playing when kits picked and left finish loading late', async () => {
+    const source = new PackSource();
+    const slots = { k: { v: null, files: ['k.m4a'] } };
+    engine.kit = packKit({ slots }, { pack: 'a' });
+    await source.load(engine, 'a', slots);
+
+    // B and C are picked and left before either decodes; the drummer is back on A
+    let release: () => void = () => {};
+    const gate = new Promise<void>((r) => (release = r));
+    ctx.decodeAudioData.mockImplementation(async () => {
+      await gate;
+      return new FakeAudioBuffer(1, 4410, 44100) as unknown as AudioBuffer;
+    });
+    const b = source.load(engine, 'b', slots);
+    const c = source.load(engine, 'c', slots);
+    source.refresh(engine); // A again
+    release();
+    await Promise.all([b, c]);
+
+    expect(source.isReady('a')).toBe(true);
+    expect(source.hit(engine, 0, 'k', 1)).toBe(true);
+  });
+
+  it('decodes a kit again when it is picked after being let go', async () => {
+    const source = new PackSource();
+    const slots = { k: { v: null, files: ['k.m4a'] } };
+    for (const pack of ['a', 'b', 'c']) await source.load(engine, pack, slots);
+    expect(source.isReady('a')).toBe(false);
+
+    engine.kit = packKit({ slots }, { pack: 'a' });
+    expect(source.hit(engine, 0, 'k', 1)).toBe(false); // the synth covers this bar
+    await vi.waitFor(() => expect(source.isReady('a')).toBe(true));
+  });
+});
+
 describe('pickTake()', () => {
   it('never plays the same take twice running when there is another', () => {
     const rand = makeRng(7);
@@ -502,6 +556,34 @@ describe('hit() with round-robins', () => {
     );
   }
 
+  it('plays from the first take of each layer, then loads the rest when idle', async () => {
+    vi.useFakeTimers();
+    try {
+      distinctBuffers();
+      const onChange = vi.fn();
+      const slots = {
+        h: { layers: [{ v: 1, files: ['h-a.m4a', 'h-b.m4a', 'h-c.m4a'] }] },
+      };
+      engine.kit = packKit({ slots });
+      const source = new PackSource(onChange);
+      await source.load(engine, 'muldjord', slots);
+
+      // the kit plays already, from one take
+      expect(fetchMock.mock.calls.map((c) => c[0])).toEqual(['/kits/muldjord/h-a.m4a']);
+      expect(source.hit(engine, 0, 'h', 0.86)).toBe(true);
+
+      await vi.runAllTimersAsync();
+      expect(fetchMock.mock.calls.map((c) => c[0])).toEqual([
+        '/kits/muldjord/h-a.m4a',
+        '/kits/muldjord/h-b.m4a',
+        '/kits/muldjord/h-c.m4a',
+      ]);
+      expect(onChange).toHaveBeenCalledTimes(2); // playable, then complete
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it('loads every take of every layer, and a run of sixteenths never repeats one back to back', async () => {
     distinctBuffers();
     engine.rand = makeRng(99);
@@ -511,7 +593,8 @@ describe('hit() with round-robins', () => {
     engine.kit = packKit({ slots });
     const source = new PackSource();
     await source.load(engine, 'muldjord', slots);
-    expect(fetchMock).toHaveBeenCalledTimes(3);
+    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(3));
+    await vi.waitFor(() => expect(ctx.decodeAudioData).toHaveBeenCalledTimes(3));
 
     const playBuf = vi.spyOn(engine, 'playBuf');
     for (let i = 0; i < 16; i++) expect(source.hit(engine, i * 0.1, 'h', 0.86)).toBe(true);
@@ -550,8 +633,25 @@ describe('hit() with round-robins', () => {
     engine.kit = packKit({ slots });
     const source = new PackSource();
     await source.load(engine, 'muldjord', slots);
+    // the first pass moves on to the next take rather than losing the layer
     expect(source.count('muldjord')).toBe(1);
     expect(source.hit(engine, 0, 'k', 1)).toBe(true);
+  });
+
+  it("multiplies the slot's trim into the gain, and a fallback plays at its own slot's trim", async () => {
+    const slots = {
+      s: { layers: [{ v: 1, files: ['s.m4a'] }], trim: 0.5 },
+      h: { layers: [{ v: 1, files: ['h.m4a'] }], trim: 2 },
+    };
+    engine.kit = packKit({ slots }, { trim: 1 });
+    engine.sound = { s: { level: 1 }, h: { level: 1 } };
+    const source = new PackSource();
+    await source.load(engine, 'muldjord', slots);
+    const playBuf = vi.spyOn(engine, 'playBuf');
+
+    source.hit(engine, 0, 's', 1);
+    source.hit(engine, 0, 'hOpen', 1); // no open hat here: the closed one, at the hat's trim
+    expect(playBuf.mock.calls.map((c) => c[2])).toEqual([0.5, 2]);
   });
 
   it('darkens a note played under its layer when the slot has fewer than four layers', async () => {

@@ -169,6 +169,23 @@ describe('kitParamsSchema', () => {
     it('holds a layer’s velocity to 0–1', () => {
       expect(layered([{ v: 1.2, files: ['h.m4a'] }]).success).toBe(false);
     });
+
+    it('keeps a slot’s trim, held to 0–4, and leaves it optional', () => {
+      const withTrim = (trim: unknown) =>
+        kitSamplesSchema.safeParse({
+          slots: { h: { layers: [{ v: 1, files: ['h.m4a'] }], trim } },
+        });
+      const kept = withTrim(0.8);
+      // a trim the schema stripped would play every slot at 1, silently
+      expect(kept.success && kept.data.slots?.h).toEqual({
+        layers: [{ v: 1, files: ['h.m4a'] }],
+        trim: 0.8,
+      });
+      expect(withTrim(4).success).toBe(true);
+      expect(withTrim(4.1).success).toBe(false);
+      expect(withTrim(-0.1).success).toBe(false);
+      expect(layered([{ v: 1, files: ['h.m4a'] }]).success).toBe(true);
+    });
   });
 });
 

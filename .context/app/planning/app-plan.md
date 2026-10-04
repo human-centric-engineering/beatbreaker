@@ -2405,6 +2405,106 @@ a jazz pattern at each setting is still to do.
 | 9.9  | **Re-cut the five shipped packs** through the pipeline with the round-robins their sources have. A11's misnamed files are fixed                                                                                                                                                                                                                                                | Same slots as before, at least the same layers, and at least 2 RR on every hat, snare and ride slot; existing pack tests green                                                                                        |
 | 9.10 | **Round one of new kits:** Big Rusty (rock), DRSKit sticks and DRSKit brushes (two kits), Unruly (character), Gogodze Phu II (lo-fi). Loading becomes one RR per layer first, the rest when idle; the decoded cache is an LRU of two kits                                                                                                                                      | Each kit plays every slot it lists (test against the manifest); the first-load bytes per kit ≤ 0.8 MB; by hand: the owner listens to each on a laptop and a phone                                                     |
 
+**9-iii reconciled, 2026-10-03 (branch `phase-9-iii`).** The sources were
+read where they are published, not from memory. It ships as **two PRs**:
+
+- **9-iii-a: 9.8, 9.9, and 9.10's loading.** The pipeline, the five re-cut
+  packs, and the loading change: one round-robin per layer first, the rest
+  when idle, and a decoded cache of two kits. The loading moves here because
+  the re-cut is what first grows the bytes.
+- **9-iii-b: 9.10's five new kits.** Their recipes are the larger design
+  job. DRSKit is one 2.8 GB archive. Each kit waits on the owner's ear.
+
+The calls:
+
+- **Git sources are fetched file by file at a pinned commit.** Big Rusty is
+  706 MB of FLAC, and Virtuosity and Swirly are 1.5 and 1.8 GB. All of them
+  keep each sample as its own blob in git, so the build fetches only the files
+  a recipe names. A git source's pin is a commit. Each file is checked against
+  its blob hash in that commit's tree, and its sha256 goes into the build
+  lock. An archive source (DRSKit, in 9-iii-b) is pinned by the archive's
+  sha256.
+- **Layers and round-robins are chosen by measured loudness, not by the
+  source's names.** A recipe names candidate hits by a path pattern with a
+  `{mic}` token and the mics' weights. The build mixes each hit and measures
+  it, then picks layers evenly spaced in dB and the round-robins nearest each.
+  The naming schemes all differ: Karoryfer uses `vl`/`rr`; Virtuosity's
+  snares are thirty numbered strokes with no `rr`; MuldjordKit and DrumGizmo
+  number their samples. Loudness reads every one of them the same way, with
+  no SFZ or XML parser to keep. Where a source has no round-robins, its
+  neighbouring strokes within a layer serve as them.
+- **A layer's `v` is its loudness relative to the slot's loudest layer, as
+  amplitude.** The sampler's `vel / v` already assumes this.
+- **Level matching writes a `trim` per slot.** A layered slot gains an
+  optional `trim` (0–4, in the schema), and `hit()` applies it. It is
+  measured once per piece (a snare's `s`, a hat's `h`) and written to all of
+  that piece's slots, so a ghost stays quieter than a hit. The roles' targets
+  are §6's. The absolute reference is set where the old kits played (the old
+  file × the old `kit.trim`), so a re-cut kit's `kit.trim` becomes 1.
+- **Dusty sampler and Trap stay one-shots.** Boochi44 recorded each sound
+  once, so they are exempt from "2 RR on every hat, snare and ride". The
+  sampler's ±8 cents and ±0.5 dB per hit is their variation. The re-cut
+  takes the same source files as today, matched by their audio. _(Built:
+  only partly possible — see below.)_
+- **Muldjord gains its toms.** `Tom1`–`Tom3` are in the source and were never
+  cut. Every other pack keeps its slots.
+- **The percussion is re-cut too.** It lives in the virtuosity pack, from
+  Virtuosity and VCSL. Each instrument keeps its two strokes, normal and
+  accent, as two layers with round-robins.
+- **File names are `<slot>-<layer>-<rr>.m4a`.** The packs stay in
+  `public/kits/<pack>/`, and pieces come in 9-v. The build writes
+  `manifest.json` (what the seed reads, as now) and `scripts/kits/build.lock.json`.
+  The lock holds every source file's sha256, and every output file's sha256,
+  bytes and duration. The budget tests read the lock.
+- **Credits are generated into the README and a data module.** `/about` is
+  still Sunrise's page (Phase 3's front door is not built), so it renders
+  them when that page is replaced. The Kit panel's credit lines and
+  `public/kits/LICENSES/` carry the attribution meanwhile.
+- **"Byte-identical" is for the same ffmpeg.** The build strips the
+  container's metadata and uses `-fflags +bitexact`, and records `ffmpeg
+-version` in the lock. A different encoder build can change the bytes; it
+  cannot change the slots.
+
+**9-iii-a built, 2026-10-04.** As reconciled, with these findings:
+
+- **Every shipped file was traced to its source by its audio** before the
+  re-cut, by correlating it against the library. Most slots matched at
+  0.85–1.0, which fixed each recipe's articulation and mic. Virtuosity uses
+  the mid mic, Swirly the top snare mic, and Brush's kick is Swirly's marching
+  kick on its beater mic.
+- **What could not be traced was re-cut from the file the kit's description
+  names.** That is Dusty sampler's and Trap's snares, hats and cymbals, which
+  the prototype had processed; their kicks and Dusty's ghost snare match
+  exactly. The snares are the kit's snare with its clap on top. Both kits'
+  middle toms were copies of another tom, and are real ones now (Virtuosity's
+  low tom half-open, Swirly's `tom_mlow`). No source has a cascara, so it is
+  Virtuosity's high bongo.
+- **The level reference is where the old kits played.** Their snares, times
+  their `kit.trim`, measured −16.8 to −13.5 dB; `REFERENCE_DB` is the median,
+  −15.2. Brush's toms are recorded quietly and reach the trim's ceiling of 4.
+- **Virtuosity's cymbals and kick have four velocity steps spread wider than
+  14 dB,** so their range is 24 dB.
+- **ffmpeg runs through async `spawn`**, so decodes run in parallel and a
+  stalled call is killed by its timer. A build stalled for about 15 minutes
+  inside `spawnSync` while it was still in use. The cause was the Mac
+  idle-sleeping, not Node: the power log shows the sleeps, and tests froze for
+  the same ~1,000 s then. Run a full build under `caffeinate -i`.
+- **Two full builds write the same bytes:** the manifest, the lock, the
+  credits and all 339 files. Each build takes about 50 s with the sources
+  cached; the first fetches about 400 MB.
+
+| Pack       | Files | Download | First play | Decoded |
+| ---------- | ----- | -------- | ---------- | ------- |
+| muldjord   | 79    | 1.48 MB  | 0.63 MB    | 20.1 MB |
+| vintage    | 7     | 0.06 MB  | 0.06 MB    | 0.7 MB  |
+| trap       | 7     | 0.12 MB  | 0.12 MB    | 1.6 MB  |
+| virtuosity | 102   | 2.12 MB  | 0.77 MB    | 28.9 MB |
+| brush      | 91    | 1.63 MB  | 0.65 MB    | 22.0 MB |
+
+`public/kits` is 5.9 MB (1.3 MB before), plus 0.49 MB of percussion in the
+virtuosity pack. **Still to do by hand:** the owner listens to each re-cut
+kit on a laptop and a phone, the untraced slots above first.
+
 **9-iv — new notation** (D40). Re-reconciled against the tree when it
 starts: this was sized from the schema and `LANE_VALUES` alone.
 

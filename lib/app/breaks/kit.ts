@@ -58,6 +58,13 @@ export interface KitSampleSlotFlat {
  */
 export interface KitSampleSlotLayered {
   layers: KitSampleLayer[];
+  /**
+   * Gain that brings this slot's piece to its role's level (Phase 9's
+   * pipeline measures it), so a snare from one source sits where another
+   * did. Every slot of one piece carries the same trim — a ghost stays
+   * quieter than a hit. Absent is 1.
+   */
+  trim?: number;
 }
 
 export interface KitSampleLayer {
@@ -75,6 +82,11 @@ export interface KitSampleLayer {
 export function slotLayers(spec: KitSampleSlot): KitSampleLayer[] {
   if ('layers' in spec) return spec.layers;
   return spec.files.map((file, i) => ({ v: spec.v?.[i] ?? 1, files: [file] }));
+}
+
+/** A slot's level trim: 1 for the flat shape, which predates it. */
+export function slotTrim(spec: KitSampleSlot | undefined): number {
+  return spec && 'layers' in spec ? (spec.trim ?? 1) : 1;
 }
 
 /** Every file a slot names, in layer order. */

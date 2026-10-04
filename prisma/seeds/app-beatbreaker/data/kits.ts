@@ -129,7 +129,8 @@ export const KITS: Record<string, Kit> = {
     label: 'Muldjord kit',
     engine: 'pack',
     pack: 'muldjord',
-    trim: 1.42,
+    // each slot carries its own level now (Phase 9 pipeline); see scripts/kits/build.ts
+    trim: 1,
     hint: 'A real kit, recorded properly: two kick mics, a snare with its own rest strokes, hats, ride, ride bell and crash. Three velocity layers on the lanes that need them.',
     credit:
       'MuldjordKit by Lars Muldjord · CC BY 4.0 · Hydrogen conversion by FreePats (freepats.zenvoid.org)',
@@ -146,7 +147,8 @@ export const KITS: Record<string, Kit> = {
     label: 'Dusty sampler',
     engine: 'pack',
     pack: 'vintage',
-    trim: 1.34,
+    // each slot carries its own level now (Phase 9 pipeline); see scripts/kits/build.ts
+    trim: 1,
     hint: 'Down-sampled and bit-crushed hits — SP-1200 territory. Dark kick, snare layered with a clap, one 808 cymbal doing both ride and crash. Made for the boom-bap and Dilla styles.',
     credit: 'Soulful Vintage kit by Boochi44 · CC0 1.0 (public domain)',
     master: { lp: 9000, drive: 1.5, room: 0.14 },
@@ -162,7 +164,8 @@ export const KITS: Record<string, Kit> = {
     label: 'Trap kit',
     engine: 'pack',
     pack: 'trap',
-    trim: 0.87,
+    // each slot carries its own level now (Phase 9 pipeline); see scripts/kits/build.ts
+    trim: 1,
     hint: 'Long distorted 808 kick, snare with a clap on top, tight hats. Not a break-practice kit — it is here because the same grid drives it.',
     credit: 'Hard Trap kit by Boochi44 · CC0 1.0 (public domain)',
     master: { lp: 18000, drive: 1.1, room: 0.04 },
@@ -179,7 +182,8 @@ export const KITS: Record<string, Kit> = {
     label: 'Jazz kit (Virtuosity)',
     engine: 'pack',
     pack: 'virtuosity',
-    trim: 1.15,
+    // each slot carries its own level now (Phase 9 pipeline); see scripts/kits/build.ts
+    trim: 1,
     hint: 'A real kit recorded live-club style — the one acoustic set here with its own toms, a hi-hat played with the foot, a cross-stick, and a ride worth riding on. The jazz styles switch to it on their own, because a swing ride on a synthesised cymbal never quite arrives. Made for the jazz styles, but it will play anything. The tom, foot-hat and percussion knobs are for the synthesised voices; on this kit those lanes are recordings, so only Room does anything to them.',
     credit:
       'Virtuosity Drums by Versilian Studios and Karoryfer Samples · CC0 1.0 (public domain). Percussion from the same library; woodblock and handclaps from the Versilian Community Sample Library · CC0 1.0. Mid ribbon mic, mono, trimmed and re-encoded for the web.',
@@ -197,7 +201,8 @@ export const KITS: Record<string, Kit> = {
     label: 'Brush kit',
     engine: 'pack',
     pack: 'brush',
-    trim: 1.1,
+    // each slot carries its own level now (Phase 9 pipeline); see scripts/kits/build.ts
+    trim: 1,
     hint: 'Wire brushes, not sticks — the snare becomes a soft slap with no crack in it, and the cymbals are played light. Made for the ballad. The continuous swirl a brush player keeps going with the left hand is not here: a swirl is not a step, and this page only has steps.',
     credit:
       'Swirly Drums by Karoryfer Samples · CC0 1.0 (public domain). Top snare mic, mono, trimmed and re-encoded for the web.',
