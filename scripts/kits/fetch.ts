@@ -10,16 +10,20 @@ import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
+import { z } from 'zod';
+
 import type { GitSource } from '@/scripts/kits/sources';
 
 export const CACHE = join(process.cwd(), '.kit-sources');
 
-interface TreeEntry {
-  path: string;
-  type: string;
-  sha: string;
-  size?: number;
-}
+const treeEntrySchema = z.object({ path: z.string(), type: z.string(), sha: z.string() });
+const treeSchema = z.array(treeEntrySchema);
+
+/** What GitHub's git trees API answers; checked, not trusted. */
+const treeResponseSchema = z.object({
+  tree: treeSchema.optional(),
+  truncated: z.boolean().optional(),
+});
 
 function cacheDir(source: GitSource): string {
   return join(CACHE, `${source.repo.replace('/', '__')}@${source.commit}`);
@@ -37,12 +41,12 @@ export async function treeOf(source: GitSource): Promise<Map<string, string>> {
     const url = `https://api.github.com/repos/${source.repo}/git/trees/${source.commit}?recursive=1`;
     const res = await fetch(url, { headers: headers() });
     if (!res.ok) throw new Error(`${url}: ${res.status} ${res.statusText}`);
-    const body = (await res.json()) as { tree?: TreeEntry[]; truncated?: boolean };
+    const body = treeResponseSchema.parse(await res.json());
     if (!body.tree || body.truncated) throw new Error(`${source.repo}: tree missing or truncated`);
     mkdirSync(dirname(file), { recursive: true });
     writeFileSync(file, JSON.stringify(body.tree));
   }
-  const tree = JSON.parse(readFileSync(file, 'utf8')) as TreeEntry[];
+  const tree = treeSchema.parse(JSON.parse(readFileSync(file, 'utf8')));
   return new Map(tree.filter((e) => e.type === 'blob').map((e) => [e.path, e.sha]));
 }
 

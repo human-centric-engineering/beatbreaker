@@ -218,7 +218,8 @@ Then it writes the manifest (which the catalogue seed reads), the lock (every
 source file's and output's sha256, each output's bytes and seconds), each
 source's licence file into `public/kits/LICENSES/`, and the credits:
 `lib/app/breaks/kit-credits.generated.ts` and the README's block. Run
-`npm run format` after, for the README. Then `npm run db:seed`, so the kit
+`npm run format` after, for the README. On a Mac, run the build under
+`caffeinate -i`: an idle sleep freezes it mid-encode. Then `npm run db:seed`, so the kit
 rows carry the new manifest.
 
 **Same sources, same ffmpeg, same bytes.** Nothing written carries a time and

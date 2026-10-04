@@ -2484,9 +2484,11 @@ The calls:
   −15.2. Brush's toms are recorded quietly and reach the trim's ceiling of 4.
 - **Virtuosity's cymbals and kick have four velocity steps spread wider than
   14 dB,** so their range is 24 dB.
-- **ffmpeg runs through async `spawn`.** Under `spawnSync` (Node 24, macOS 13)
-  about one call in a few hundred never returned, past its own timeout, after
-  ffmpeg had exited.
+- **ffmpeg runs through async `spawn`**, so decodes run in parallel and a
+  stalled call is killed by its timer. A build stalled for about 15 minutes
+  inside `spawnSync` while it was still in use. The cause was the Mac
+  idle-sleeping, not Node: the power log shows the sleeps, and tests froze for
+  the same ~1,000 s then. Run a full build under `caffeinate -i`.
 - **Two full builds write the same bytes:** the manifest, the lock, the
   credits and all 339 files. Each build takes about 50 s with the sources
   cached; the first fetches about 400 MB.

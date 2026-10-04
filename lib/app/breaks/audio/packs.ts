@@ -143,10 +143,18 @@ export class PackSource implements SampleSource {
     if (!slots) return;
     this.loaded.delete(pack);
     this.loaded.set(pack, slots);
-    while (this.loaded.size > DECODED_KITS) {
-      const oldest = this.loaded.keys().next().value;
-      if (oldest === undefined) break;
-      this.loaded.delete(oldest);
+    this.evict(pack);
+  }
+
+  /**
+   * Let go of the oldest packs beyond {@link DECODED_KITS}, never `keep` —
+   * the kit that is playing. A load that finishes after the drummer has
+   * moved on must not push out the kit they moved on to.
+   */
+  private evict(keep: string | undefined): void {
+    for (const pack of [...this.loaded.keys()]) {
+      if (this.loaded.size <= DECODED_KITS) return;
+      if (pack !== keep) this.loaded.delete(pack);
     }
   }
 
@@ -260,7 +268,11 @@ export class PackSource implements SampleSource {
         })
       );
       this.loaded.set(pack, slots);
-      this.touch(pack);
+      // most recent only if it is still the kit playing; either way the
+      // playing kit stays decoded
+      const playing = engine.kit?.engine === 'pack' ? engine.kit.pack : undefined;
+      if (pack === playing) this.touch(pack);
+      else this.evict(playing);
       this.onChange?.();
       if (rest.length) whenIdle(() => void this.decodeRest(engine, pack, slots, rest));
     } finally {

@@ -16,9 +16,10 @@ const TIMEOUT_MS = 60_000;
 /**
  * Run ffmpeg, with no stdin, and collect what it writes.
  *
- * Asynchronously, on purpose. Through `spawnSync`, about one call in a few
- * hundred never returned — ffmpeg had exited, and `spawnSync` ignored its own
- * timeout (Node 24 on macOS 13). `spawn` sees the exit every time.
+ * Asynchronously, so the build decodes several files at once and a call that
+ * stalls is killed by its timer rather than holding the build. A Mac that
+ * idle-sleeps mid-build freezes everything for as long as it sleeps — keep it
+ * awake for a full build: `caffeinate -i npm run kits:build`.
  */
 function run(args: string[]): Promise<Buffer> {
   return new Promise((resolve, reject) => {

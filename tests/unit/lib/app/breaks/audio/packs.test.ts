@@ -467,6 +467,29 @@ describe('the decoded cache', () => {
     expect(['a', 'b', 'c'].map((p) => source.isReady(p))).toEqual([true, false, true]);
   });
 
+  it('never lets go of the kit playing when kits picked and left finish loading late', async () => {
+    const source = new PackSource();
+    const slots = { k: { v: null, files: ['k.m4a'] } };
+    engine.kit = packKit({ slots }, { pack: 'a' });
+    await source.load(engine, 'a', slots);
+
+    // B and C are picked and left before either decodes; the drummer is back on A
+    let release: () => void = () => {};
+    const gate = new Promise<void>((r) => (release = r));
+    ctx.decodeAudioData.mockImplementation(async () => {
+      await gate;
+      return new FakeAudioBuffer(1, 4410, 44100) as unknown as AudioBuffer;
+    });
+    const b = source.load(engine, 'b', slots);
+    const c = source.load(engine, 'c', slots);
+    source.refresh(engine); // A again
+    release();
+    await Promise.all([b, c]);
+
+    expect(source.isReady('a')).toBe(true);
+    expect(source.hit(engine, 0, 'k', 1)).toBe(true);
+  });
+
   it('decodes a kit again when it is picked after being let go', async () => {
     const source = new PackSource();
     const slots = { k: { v: null, files: ['k.m4a'] } };

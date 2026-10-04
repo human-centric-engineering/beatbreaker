@@ -27,6 +27,8 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
+import { z } from 'zod';
+
 import { amp, loudness, mix, RATE, trimHit } from '@/scripts/kits/dsp';
 import { decode, encode, ffmpegVersion } from '@/scripts/kits/ffmpeg';
 import { fetchFile, mapLimit, sha256, treeOf } from '@/scripts/kits/fetch';
@@ -67,15 +69,28 @@ interface SlotOut {
   trim?: number;
 }
 
-interface PackLock {
-  files: Record<string, { sha256: string; bytes: number; seconds: number }>;
-}
+const packLockSchema = z.object({
+  files: z.record(
+    z.string(),
+    z.object({ sha256: z.string(), bytes: z.number(), seconds: z.number() })
+  ),
+});
 
-interface Lock {
-  ffmpeg: string;
-  sources: Record<string, { repo: string; commit: string; files: Record<string, string> }>;
-  packs: Record<string, PackLock>;
-}
+/** The build lock, as this script writes it; read back through the schema. */
+const lockSchema = z.object({
+  ffmpeg: z.string(),
+  sources: z.record(
+    z.string(),
+    z.object({ repo: z.string(), commit: z.string(), files: z.record(z.string(), z.string()) })
+  ),
+  packs: z.record(z.string(), packLockSchema),
+});
+
+/** The manifest: one entry per pack, each rewritten whole by the pack it names. */
+const manifestSchema = z.record(z.string(), z.unknown());
+
+type PackLock = z.infer<typeof packLockSchema>;
+type Lock = z.infer<typeof lockSchema>;
 
 const round = (x: number, places: number): number => Math.round(x * 10 ** places) / 10 ** places;
 
@@ -242,8 +257,8 @@ class Builder {
   }
 }
 
-function readJson<T>(path: string, fallback: T): T {
-  return existsSync(path) ? (JSON.parse(readFileSync(path, 'utf8')) as T) : fallback;
+function readJson<T>(path: string, schema: z.ZodType<T>, fallback: T): T {
+  return existsSync(path) ? schema.parse(JSON.parse(readFileSync(path, 'utf8'))) : fallback;
 }
 
 async function main(): Promise<void> {
@@ -262,8 +277,8 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  const manifest = readJson<Record<string, unknown>>(MANIFEST, {});
-  const lock = readJson<Lock>(LOCK, { ffmpeg, sources: {}, packs: {} });
+  const manifest = readJson(MANIFEST, manifestSchema, {});
+  const lock = readJson(LOCK, lockSchema, { ffmpeg, sources: {}, packs: {} });
   const builder = new Builder();
 
   for (const recipe of recipes) {
