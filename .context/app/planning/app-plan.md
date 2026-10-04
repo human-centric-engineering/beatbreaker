@@ -2608,6 +2608,10 @@ The calls:
   ghost from 10 dB down. Each left a layer with one take before.
 - **Two full builds write the same bytes,** all 808 files, the lock and the
   credits.
+- **A build reads the archive only to extract something new.** Its
+  directory and extracted members are cached, as a git source's tree is;
+  before, every build, of any pack, hashed all 2.8 GB to copy DRSKit's
+  licence, and fetched the archive first on a fresh checkout (`/code-review`).
 
 | Pack      | Files | Download | First play | Decoded |
 | --------- | ----- | -------- | ---------- | ------- |

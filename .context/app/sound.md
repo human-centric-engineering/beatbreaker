@@ -207,7 +207,9 @@ For each slot the build:
    file comes from the pinned commit and is checked against its blob hash
    (`fetch.ts`). A zip source's archive is downloaded once, checked against
    its sha256 and length, and each member is inflated from the local copy
-   and checked against its CRC32 (`zip.ts`). DRSKit's archive is 2.8 GB.
+   and checked against its CRC32 (`zip.ts`). DRSKit's archive is 2.8 GB. The
+   archive's directory and the members already extracted are kept in the
+   cache, so a build that needs nothing new from it neither reads nor hashes it.
 3. **Mixes** the mics to mono by weight. A DrumGizmo stroke is one WAV with
    every mic in it: a pick's `channels` name the mics, the instrument's own
    `<Inst>.xml` says which channel each is (never by position), and ffmpeg's

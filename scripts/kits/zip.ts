@@ -1,7 +1,8 @@
 /**
  * Reading a zip source: the archive downloaded once into the cache, checked
  * against its pin, and its members read from the local copy through the
- * central directory.
+ * central directory. Members once extracted are served from the cache, so the
+ * archive is only needed, and hashed, when a member has to be extracted.
  *
  * Our own small reader, because the zip libraries to hand hold the whole
  * archive in memory and DRSKit's is 2.8 GB. It reads what DRSKit needs and
@@ -25,6 +26,8 @@ import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import type { ReadableStream as WebReadableStream } from 'node:stream/web';
 import { crc32, inflateRawSync } from 'node:zlib';
+
+import { z } from 'zod';
 
 import { CACHE, inCache, readCached } from '@/scripts/kits/fetch';
 import type { ZipSource } from '@/scripts/kits/sources';
@@ -172,21 +175,44 @@ function reader(file: string): { read: ReadAt; close: () => void } {
   };
 }
 
+const memberSchema = z.object({
+  method: z.number(),
+  crc: z.number(),
+  compressed: z.number(),
+  size: z.number(),
+  offset: z.number(),
+});
+const directorySchema = z.record(z.string(), memberSchema);
+
 const directories = new Map<string, Map<string, Member>>();
 
+/**
+ * The archive's central directory. Read from the archive once it has passed
+ * its pin, then kept as `directory.json` beside the extracted members, as a
+ * git source keeps its `tree.json`. A build that needs only members already
+ * extracted then reads neither the archive nor its 2.8 GB of hash.
+ */
 async function directoryOf(source: ZipSource): Promise<Map<string, Member>> {
-  const file = await archiveOf(source);
-  let dir = directories.get(file);
-  if (!dir) {
-    const r = reader(file);
+  const dir = cacheDir(source);
+  let members = directories.get(dir);
+  if (members) return members;
+
+  const file = join(dir, 'directory.json');
+  const raw = readCached(file)?.toString('utf8');
+  if (raw !== undefined) {
+    members = new Map(Object.entries(directorySchema.parse(JSON.parse(raw))));
+  } else {
+    const r = reader(await archiveOf(source));
     try {
-      dir = readDirectory(r.read, source.bytes);
+      members = readDirectory(r.read, source.bytes);
     } finally {
       r.close();
     }
-    directories.set(file, dir);
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(file, JSON.stringify(Object.fromEntries(members)));
   }
-  return dir;
+  directories.set(dir, members);
+  return members;
 }
 
 /** The archive's file list: path → CRC32, as a git tree is path → blob hash. */
@@ -195,7 +221,11 @@ export async function zipTree(source: ZipSource): Promise<Map<string, string>> {
   return new Map([...dir].map(([name, m]) => [name, m.crc.toString(16)]));
 }
 
-/** One member, as a path in the cache, extracted the first time it is asked for. */
+/**
+ * One member, as a path in the cache. A member already extracted, and still
+ * matching its CRC32 and length, is served without the archive; one that is
+ * not is extracted from the archive, which is checked against its pin first.
+ */
 export async function zipFile(source: ZipSource, path: string): Promise<string> {
   const m = (await directoryOf(source)).get(path);
   if (!m) throw new Error(`${source.archive}: no ${path}`);
@@ -203,7 +233,7 @@ export async function zipFile(source: ZipSource, path: string): Promise<string> 
   const cached = readCached(local);
   if (cached && cached.length === m.size && crc32(cached) >>> 0 === m.crc) return local;
 
-  const r = reader(archivePath(source));
+  const r = reader(await archiveOf(source));
   try {
     const bytes = extract(r.read, path, m);
     mkdirSync(dirname(local), { recursive: true });

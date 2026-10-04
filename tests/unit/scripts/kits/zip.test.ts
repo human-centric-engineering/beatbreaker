@@ -9,11 +9,24 @@
  * a second zip implementation to agree with the first.
  */
 
+import { createHash } from 'node:crypto';
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { crc32, deflateRawSync } from 'node:zlib';
 
-import { describe, expect, it } from 'vitest';
+import { afterAll, describe, expect, it, vi } from 'vitest';
 
-import { extract, readDirectory, type ReadAt } from '@/scripts/kits/zip';
+import type { ZipSource } from '@/scripts/kits/sources';
+import { extract, readDirectory, type ReadAt, zipFile, zipTree } from '@/scripts/kits/zip';
+
+// the cache, in a directory of the test's own rather than the repo's .kit-sources/
+const { cache } = vi.hoisted(() => ({
+  cache: `${process.env.TMPDIR ?? '/tmp'}/kits-zip-test-${process.pid}`,
+}));
+vi.mock('@/scripts/kits/fetch', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/scripts/kits/fetch')>()),
+  CACHE: cache,
+}));
 
 interface Entry {
   name: string;
@@ -162,5 +175,71 @@ describe('extract()', () => {
   it('refuses a compression method it does not read', () => {
     const name = 'DRSKit/Snare/Snare.xml';
     expect(() => extract(read, name, { ...get(name), method: 14 })).toThrow('method 14');
+  });
+});
+
+describe('zipTree() and zipFile(), against a cached archive', () => {
+  afterAll(() => rmSync(cache, { recursive: true, force: true }));
+
+  /** An archive in the cache, as a download would leave it, and a source pinned to it. */
+  function cached(name: string, entries: Entry[], pin?: string): ZipSource {
+    const zip = zipOf(entries);
+    mkdirSync(join(cache, 'archives'), { recursive: true });
+    writeFileSync(join(cache, 'archives', name), zip);
+    return {
+      kind: 'zip',
+      archive: `https://example.test/kits/${name}`,
+      bytes: zip.length,
+      sha256: pin ?? createHash('sha256').update(zip).digest('hex'),
+      title: 'Test kit',
+      author: 'Nobody',
+      url: 'https://example.test/',
+      licence: 'CC0-1.0',
+      licenceFile: 'Kit/README.md',
+      checked: '2026-10-04',
+      usedFor: 'tests',
+    };
+  }
+
+  const entries: Entry[] = [
+    { name: 'Kit/README.md', data: xml, method: 0 },
+    { name: 'Kit/Snare/samples/1-Snare.wav', data: wav },
+  ];
+
+  it('lists the members and extracts one into the cache, byte for byte', async () => {
+    const source = cached('first.zip', entries);
+    const tree = await zipTree(source);
+    expect([...tree.keys()]).toEqual(['Kit/README.md', 'Kit/Snare/samples/1-Snare.wav']);
+    const local = await zipFile(source, 'Kit/Snare/samples/1-Snare.wav');
+    expect(local.startsWith(join(cache, '/'))).toBe(true);
+    expect(readFileSync(local).equals(wav)).toBe(true);
+  });
+
+  it('serves members already extracted without reading or hashing the archive', async () => {
+    const source = cached('second.zip', entries);
+    await zipFile(source, 'Kit/README.md');
+    // the archive replaced by something that fails its pin on any read: a
+    // build that touched it would throw, so one that succeeds never did
+    writeFileSync(join(cache, 'archives', 'second.zip'), 'not the archive');
+    vi.resetModules();
+    const fresh = await import('@/scripts/kits/zip');
+    expect((await fresh.zipTree(source)).size).toBe(2);
+    expect(readFileSync(await fresh.zipFile(source, 'Kit/README.md')).equals(xml)).toBe(true);
+    // a member never extracted does need the archive, and is refused by its pin
+    await expect(fresh.zipFile(source, 'Kit/Snare/samples/1-Snare.wav')).rejects.toThrow(
+      `sources.ts pins ${source.bytes}`
+    );
+  });
+
+  it('refuses an archive that is not the one pinned, before reading anything out of it', async () => {
+    const source = cached('third.zip', entries, 'f'.repeat(64));
+    await expect(zipTree(source)).rejects.toThrow(`sha256`);
+  });
+
+  it('refuses a member the archive does not have', async () => {
+    const source = cached('first.zip', entries);
+    await expect(zipFile(source, 'Kit/Ride/samples/1-Ride.wav')).rejects.toThrow(
+      'no Kit/Ride/samples/1-Ride.wav'
+    );
   });
 });
