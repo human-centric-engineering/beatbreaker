@@ -8,6 +8,9 @@ import {
   TOM_LANES,
   bbLaneOf,
   bbValue,
+  handLanes,
+  handsAt,
+  handsOf,
   laneRoster,
   percRoster,
   snareKept,
@@ -553,7 +556,67 @@ export function generatePattern(opts: GenerateOptions): Pattern {
   if (pat.voice === 'ride') toRide(pat, rng);
   pat.name = nameBreak(rng);
   articulate(pat, style);
+  fitHands(pat);
   return pat;
+}
+
+/** Which hand note goes first when a step asks for more than two: the time-keeping cymbals, then the quietest. */
+const FIT_ORDER: LaneKey[] = ['h', 'r', 't1', 't2', 't3', 's', 'p2', 'p1', 'c'];
+
+/** How loud a hand note is, for choosing what goes: 0 a ghost, 1 a hit, 2 an accent or a crash. */
+function weightOf(lane: LaneKey, v: number): number {
+  if (lane === 'c') return 2;
+  if (lane === 's') return v === 1 ? 0 : v === 3 || v === RIMSHOT || v === FLAM ? 2 : 1;
+  return v === 2 ? 2 : 1;
+}
+
+/**
+ * Two hands, written last so nothing after it can undo it.
+ *
+ * A style layers its parts — hats, a backbeat, a ghost conversation, a bell or
+ * a clave — and on some steps they add up to more than a drummer has hands for.
+ * A player at the kit makes the same two calls every time, and so does this:
+ *
+ * - **a tom fill lifts the hand off the hats or the ride**: on a step with a
+ *   tom, beside another tom, the time-keeping cymbal goes;
+ * - **the bell keeps the time**: on a step that still needs three hands, the
+ *   hand hats go first — the cowbell, cascara or block a Latin style writes is
+ *   the right hand's time there — then the ride, then the quietest of what is
+ *   left, the style's percussion figure outlasting a plain snare note. The
+ *   backbeat never goes.
+ *
+ * Only the drummer's hands count: a tambourine or a shaker is a percussionist's
+ * part (see `handLanes`). Nothing is added, and fitting a fitted pattern
+ * changes nothing.
+ */
+export function fitHands(pat: Pattern): void {
+  const lanes = handLanes(pat.perc);
+  const tom = (b: Bar, j: number) => TOM_LANES.some((L) => !!b[L][j]);
+  for (const b of pat.bars) {
+    for (let i = 0; i < b.k.length; i++) {
+      if (tom(b, i) && (tom(b, i - 1) || tom(b, i + 1))) {
+        b.h[i] = 0;
+        b.r[i] = 0;
+      }
+      let count = handsAt(b, i, lanes);
+      if (count <= 2) continue;
+      // the backbeat is what the bar is about: it is never the note that goes
+      const backbeat = pat.backbeats.includes(i) ? pat.bbLane : null;
+      const order = lanes
+        .filter((L) => b[L][i] && L !== backbeat)
+        .sort(
+          (x, y) =>
+            Number(y === 'h' || y === 'r') - Number(x === 'h' || x === 'r') ||
+            weightOf(x, b[x][i]) - weightOf(y, b[y][i]) ||
+            FIT_ORDER.indexOf(x) - FIT_ORDER.indexOf(y)
+        );
+      for (const L of order) {
+        if (count <= 2) break;
+        count -= handsOf(L, b[L][i]);
+        b[L][i] = 0;
+      }
+    }
+  }
 }
 
 /**
@@ -663,6 +726,7 @@ export function deriveB(patA: Pattern, style0: Style): Pattern {
   });
 
   toRide(p, rng);
+  fitHands(p);
   p.name = patA.name;
   return p;
 }

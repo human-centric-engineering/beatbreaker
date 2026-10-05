@@ -1,4 +1,12 @@
-import { FLAM, FOOT_LANE, HALF_OPEN, LANES, RIMSHOT, handsOf } from '@/lib/app/breaks/lanes';
+import {
+  FLAM,
+  FOOT_LANE,
+  HALF_OPEN,
+  LANES,
+  RIMSHOT,
+  handLanes,
+  handsOf,
+} from '@/lib/app/breaks/lanes';
 import { meterOfPat, clonePattern } from '@/lib/app/breaks/pattern';
 import { describeStep } from '@/lib/app/breaks/text';
 import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
@@ -19,6 +27,8 @@ import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
  * 3. **hands** — more than two hand notes on one step. Two hands is physics.
  *    The quietest go first; on a tie the time-keeping cymbal goes before a
  *    drum, because the backbeat and the crash are what the bar is about.
+ *    Percussion counts only when it is on the kit (`handLanes`): a tambourine
+ *    or a shaker is a percussionist's part, and takes nobody's hand.
  * 4. **ghost-accent** — a ghost note directly beside an accent on the same
  *    drum, which no one plays and no one hears.
  * 5. **open-hat-foot** — a hi-hat foot chick on the same step as an open hat:
@@ -49,9 +59,6 @@ export interface TidyResult {
   pattern: Pattern;
   changes: TidyChange[];
 }
-
-/** Lanes played with a stick. The feet — kick and hi-hat foot — are the other two limbs. */
-const HAND_LANES: LaneKey[] = LANES.filter((L) => L !== 'k' && L !== FOOT_LANE);
 
 /**
  * How loud a step value is, lane by lane — what "the quieter note" compares.
@@ -134,7 +141,7 @@ export function tidy(input: Pattern): TidyResult {
 
       /* 3. three or more hands. A flam or drag is two on its own — the grace
          is the other hand — so beside one there is room for nothing else. */
-      const hands = HAND_LANES.filter((L) => bar[L][i]);
+      const hands = handLanes(pat.perc).filter((L) => bar[L][i]);
       let count = hands.reduce((n, L) => n + handsOf(L, bar[L][i]), 0);
       if (count > 2) {
         const order = hands.sort(

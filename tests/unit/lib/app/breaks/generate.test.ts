@@ -13,8 +13,8 @@ import { describe, expect, it } from 'vitest';
 
 import { CANDIDATES, critique, generateGood, playability } from '@/lib/app/breaks/critic';
 import { engrave } from '@/lib/app/breaks/engrave';
-import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
-import { LANES } from '@/lib/app/breaks/lanes';
+import { deriveB, fitHands, generatePattern } from '@/lib/app/breaks/generate';
+import { LANES, handLanes, handsAt } from '@/lib/app/breaks/lanes';
 import { METER_KEYS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { TEST_STYLE_KEYS, testStyles } from '@/tests/helpers/catalogue';
 import type { Pattern } from '@/lib/app/breaks/types';
@@ -186,5 +186,84 @@ describe('engrave', () => {
     const pat = gen('funk', '4/4', 1, 1);
     const { map } = engrave(pat, null, { scale: 1, perSystem: 1 });
     for (let i = 1; i < map.length; i++) expect(map[i].x).toBeGreaterThan(map[i - 1].x);
+  });
+});
+
+describe('two hands', () => {
+  const tom = (b: Pattern['bars'][number], j: number) => !!(b.t1[j] || b.t2[j] || b.t3[j]);
+
+  it('never writes a step that needs more than two hands on the kit, in any style or meter', () => {
+    for (const { style, meter } of COMBOS) {
+      for (const seed of [1, 2, 3]) {
+        const a = generatePattern({
+          style: STYLES[style],
+          seed,
+          bars: 4,
+          density: 80,
+          ghosts: 80,
+          meter,
+        });
+        for (const p of [a, deriveB(a, STYLES[style].params)]) {
+          const lanes = handLanes(p.perc);
+          p.bars.forEach((b) => {
+            for (let i = 0; i < b.k.length; i++)
+              expect(handsAt(b, i, lanes)).toBeLessThanOrEqual(2);
+          });
+        }
+      }
+    }
+  });
+
+  it('lifts the hats and ride off through a tom fill', () => {
+    for (const style of TEST_STYLE_KEYS) {
+      const p = generatePattern({
+        style: STYLES[style],
+        seed: 7,
+        bars: 4,
+        density: 60,
+        ghosts: 50,
+      });
+      p.bars.forEach((b) => {
+        for (let i = 0; i < b.k.length; i++) {
+          if (tom(b, i) && (tom(b, i - 1) || tom(b, i + 1))) {
+            expect(b.h[i]).toBe(0);
+            expect(b.r[i]).toBe(0);
+          }
+        }
+      });
+    }
+  });
+
+  it('drops the hand hats where a cowbell on the kit keeps the time, and keeps the backbeat', () => {
+    const p = generatePattern({ style: STYLES.mambo, seed: 3, bars: 2, density: 60, ghosts: 50 });
+    const bell = (['p1', 'p2'] as const).find((L) => p.perc[L] === 'cowbell')!;
+    expect(bell).toBeDefined();
+    p.bars.forEach((b) => {
+      for (let i = 0; i < b.k.length; i++) if (b[bell][i] && b.s[i]) expect(b.h[i]).toBe(0);
+      for (const x of p.backbeats) if (x < b.k.length) expect(b[p.bbLane][x]).toBeGreaterThan(0);
+    });
+  });
+
+  it('fitting a fitted pattern changes nothing, and never adds a note', () => {
+    const p = generatePattern({ style: STYLES.songo, seed: 11, bars: 4, density: 70, ghosts: 70 });
+    const before = JSON.stringify(p.bars);
+    fitHands(p);
+    expect(JSON.stringify(p.bars)).toBe(before);
+
+    const crowded = generatePattern({
+      style: STYLES.funk,
+      seed: 5,
+      bars: 1,
+      density: 50,
+      ghosts: 50,
+    });
+    crowded.bars[0].t2[4] = 1;
+    crowded.bars[0].t1[4] = 1;
+    const notes = (q: Pattern) =>
+      q.bars.flatMap((b) => LANES.flatMap((L) => b[L])).filter(Boolean).length;
+    const was = notes(crowded);
+    fitHands(crowded);
+    expect(notes(crowded)).toBeLessThan(was);
+    expect(handsAt(crowded.bars[0], 4, handLanes(crowded.perc))).toBeLessThanOrEqual(2);
   });
 });
