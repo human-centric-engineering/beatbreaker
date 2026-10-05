@@ -11,6 +11,7 @@ import type { BreakAudio } from '@/lib/app/breaks/audio/engine';
 import type { MidiSink } from '@/lib/app/breaks/audio/midi-out';
 import {
   Transport,
+  type ScheduledStep,
   type TransportSnapshot,
   beatOf,
   isClickStep,
@@ -549,5 +550,199 @@ describe('soloInPlay (D23)', () => {
       s: true,
       p1: true,
     });
+  });
+});
+
+describe('onStep (the 3D drummer handoff)', () => {
+  it('is called once per count-in step, with no notes and no bar, but the right meter and slot', () => {
+    const pat = patternIn('3/4');
+    const onStep = vi.fn();
+    const snap = snapshot(pat, { countIn: 1, click: false });
+    const f = fakeAudio();
+    const t = new Transport(f.engine, {
+      getSnapshot: () => snap,
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onStep,
+    });
+    t.start();
+    // 3/4 at 120bpm: a bar is 1.5s; drive through the whole count-in bar
+    while (f.ctx.currentTime < 1.6) {
+      f.ctx.currentTime += 0.02;
+      vi.advanceTimersByTime(25);
+    }
+    t.stop();
+
+    const countSteps = (onStep.mock.calls.map(([step]) => step) as ScheduledStep[]).filter(
+      (s) => s.count
+    );
+    expect(countSteps.length).toBe(stepsOf(meterOf('3/4')));
+    for (const s of countSteps) {
+      expect(s.notes).toEqual([]);
+      expect(s.bar).toBeNull();
+      expect(s.next).toBeNull();
+      expect(s.meter).toEqual(meterOf('3/4'));
+    }
+    // the count-in steps are numbered along the grid, one per slot, in order
+    expect(countSteps.map((s) => s.slot)).toEqual(
+      Array.from({ length: stepsOf(meterOf('3/4')) }, (_, i) => i)
+    );
+  });
+
+  it('reports every note’s `when` exactly as what the lane channel (playIn) received, for a real bar', () => {
+    const pat = patternIn('4/4');
+    const bar = pat.bars[0];
+    bar.k[0] = 1;
+    bar.s[4] = 2;
+    bar.h[2] = 1;
+    const onStep = vi.fn();
+    const snap = snapshot(pat, { click: false });
+    const f = fakeAudio();
+    const t = new Transport(f.engine, {
+      getSnapshot: () => snap,
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onStep,
+    });
+    t.start();
+    const dur = 60 / snap.bpm / 4;
+    const steps = stepsOf(meterOf('4/4'));
+    while (f.ctx.currentTime + 0.13 < 0.08 + steps * dur - dur / 2) {
+      f.ctx.currentTime += 0.02;
+      vi.advanceTimersByTime(25);
+    }
+    t.stop();
+
+    const playInWhens = f.audio.playIn.mock.calls.map(([lane, , when]) => ({ lane, when }));
+    const real = onStep.mock.calls.map(([step]) => step as ScheduledStep).filter((s) => !s.count);
+    const reportedNotes = real.flatMap((s) =>
+      s.notes.map((n) => ({ lane: n.voice.lane, when: n.when }))
+    );
+
+    // every note playIn actually played shows up in onStep's notes at the same lane and time
+    for (const played of playInWhens) {
+      expect(reportedNotes.some((n) => n.lane === played.lane && n.when === played.when)).toBe(
+        true
+      );
+    }
+    // and onStep reports exactly the three written notes (kick, snare, hat), nothing invented
+    expect(reportedNotes.map((n) => n.lane).sort()).toEqual(['h', 'k', 's']);
+  });
+
+  it('reports the real grid: bar, slot and meter on each step, and null on count-in', () => {
+    const pat = patternIn('4/4');
+    const onStep = vi.fn();
+    const snap = snapshot(pat, { click: false });
+    const f = fakeAudio();
+    const t = new Transport(f.engine, {
+      getSnapshot: () => snap,
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onStep,
+    });
+    t.start();
+    while (f.ctx.currentTime < 0.5) {
+      f.ctx.currentTime += 0.02;
+      vi.advanceTimersByTime(25);
+    }
+    t.stop();
+    const first = onStep.mock.calls[0][0] as ScheduledStep;
+    expect(first.count).toBeUndefined();
+    expect(first.bar).toBe(pat.bars[0]);
+    expect(first.slot).toBe(0);
+    expect(first.meter).toEqual(meterOf('4/4'));
+  });
+
+  it('hands over `next` as the bar the arrangement plays after this one, wrapping at the end', () => {
+    const pat = twoBarPattern(); // two bars of 4/4, arrangement ['A']
+    const onStep = vi.fn();
+    const snap = snapshot(pat, { click: false });
+    const f = fakeAudio();
+    const t = new Transport(f.engine, {
+      getSnapshot: () => snap,
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onStep,
+    });
+    t.start();
+    // 120bpm, 4/4: one bar is 2s. Drive through the start of bar 1's last step and
+    // into bar 2 (the wrap back to bar 1) so both boundary cases are observed.
+    while (f.ctx.currentTime < 4.3) {
+      f.ctx.currentTime += 0.02;
+      vi.advanceTimersByTime(25);
+    }
+    t.stop();
+
+    const real = onStep.mock.calls.map(([step]) => step as ScheduledStep).filter((s) => !s.count);
+    const firstBarStep = real.find((s) => s.bar === pat.bars[0] && s.slot === 0);
+    const secondBarStep = real.find((s) => s.bar === pat.bars[1] && s.slot === 0);
+    const lastStepOfSecondBar = real.find((s) => s.bar === pat.bars[1] && s.slot === 15);
+
+    expect(firstBarStep?.next).toBe(pat.bars[1]); // bar 1 looks ahead to bar 2
+    expect(secondBarStep?.next).toBe(pat.bars[0]); // bar 2 looks ahead to the wrap back to bar 1
+    expect(lastStepOfSecondBar?.next).toBe(pat.bars[0]); // still bar 1, at the very end of the loop
+  });
+
+  it('leaves out a muted lane’s notes, as the speakers do: that lane is yours to play', () => {
+    const pat = patternIn('4/4');
+    pat.bars[0].k[0] = 1;
+    pat.bars[0].s[0] = 1;
+    const onStep = vi.fn();
+    const snap = snapshot(pat, { click: false, mute: { k: true } });
+    const f = fakeAudio();
+    const t = new Transport(f.engine, {
+      getSnapshot: () => snap,
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onStep,
+    });
+    t.start();
+    while (f.ctx.currentTime < 0.3) {
+      f.ctx.currentTime += 0.02;
+      vi.advanceTimersByTime(25);
+    }
+    t.stop();
+
+    expect(f.audio.playIn.mock.calls.map(([lane]) => lane)).toEqual(['s']); // the kick is muted
+    const real = onStep.mock.calls.map(([step]) => step as ScheduledStep).filter((s) => !s.count);
+    const firstStep = real.find((s) => s.slot === 0);
+    expect(firstStep?.notes.map((n) => n.voice.lane)).toEqual(['s']);
+  });
+
+  it('leaves out the lanes a solo silences', () => {
+    const pat = patternIn('4/4');
+    pat.bars[0].k[0] = 1;
+    pat.bars[0].s[0] = 1;
+    const onStep = vi.fn();
+    const snap = snapshot(pat, { click: false, laneSolo: { k: true } });
+    const f = fakeAudio();
+    const t = new Transport(f.engine, {
+      getSnapshot: () => snap,
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onStep,
+    });
+    t.start();
+    while (f.ctx.currentTime < 0.3) {
+      f.ctx.currentTime += 0.02;
+      vi.advanceTimersByTime(25);
+    }
+    t.stop();
+
+    const real = onStep.mock.calls.map(([step]) => step as ScheduledStep).filter((s) => !s.count);
+    const firstStep = real.find((s) => s.slot === 0);
+    expect(firstStep?.notes.map((n) => n.voice.lane)).toEqual(['k']);
   });
 });

@@ -1676,3 +1676,48 @@
     background: #fff;
   }
 }
+
+/* The drummer view (experiment): the 3D kit in the chart's place. The box
+   is a fixed share of the viewport so orbiting never reflows the page. */
+.bb .drummer-stage {
+  position: relative;
+  height: clamp(320px, 62vh, 760px);
+  background: #121318;
+  overflow: hidden;
+}
+.bb .drummer-canvas {
+  position: absolute;
+  inset: 0;
+  cursor: grab;
+}
+.bb .drummer-canvas:active {
+  cursor: grabbing;
+}
+.bb .drummer-note {
+  padding: 24px;
+}
+.bb .drummer-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.55);
+  color: #f2efe8;
+  font-size: 13px;
+  pointer-events: none;
+}
+/* The chart kept for the page while the drummer is on screen. */
+.bb .drummer-print {
+  display: none;
+}
+@media print {
+  .bb .drummer {
+    display: none !important;
+  }
+  .bb .drummer-print {
+    display: block;
+  }
+}

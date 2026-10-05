@@ -70,6 +70,24 @@ export const MIDI_TIMING: StoredSetting<(typeof MIDI_TIMINGS)[number]> = {
   fallback: 'played',
 };
 
+/** What the stage shows: the chart, or the 3D drummer playing it (experiment). */
+export const STAGE_VIEWS = ['chart', 'drummer'] as const;
+
+export const STAGE_VIEW: StoredSetting<(typeof STAGE_VIEWS)[number]> = {
+  key: 'bb.stageView',
+  schema: z.enum(STAGE_VIEWS),
+  fallback: 'chart',
+};
+
+/** Which way round the 3D drummer's kit is set up: the lead hand on the hats. */
+export const DRUMMER_HANDS = ['right', 'left'] as const;
+
+export const DRUMMER_HAND: StoredSetting<(typeof DRUMMER_HANDS)[number]> = {
+  key: 'bb.drummerHand',
+  schema: z.enum(DRUMMER_HANDS),
+  fallback: 'right',
+};
+
 /**
  * The first-run tour (task 8.6) has been seen, or skipped, in this browser. A
  * new device shows it again, which is fine: it is three steps, and it does not
@@ -107,6 +125,8 @@ export const BROWSER_KEYS = [
   VIEW.key,
   PATTERNS_TAB.key,
   MIDI_TIMING.key,
+  STAGE_VIEW.key,
+  DRUMMER_HAND.key,
   TOUR_SEEN.key,
   SCRATCH.key,
   PENDING_LINK.key,

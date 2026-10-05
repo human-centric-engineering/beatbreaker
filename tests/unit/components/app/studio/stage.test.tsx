@@ -301,6 +301,7 @@ describe('Stage', () => {
     await screen.findAllByRole('img', { name: /Drum notation/ });
     /* No second picker on the grid: the chart's is the only one. */
     expect(screen.getAllByRole('radiogroup').map((g) => g.getAttribute('aria-label'))).toEqual([
+      'Show',
       'Section',
       'Difficulty layer',
     ]);

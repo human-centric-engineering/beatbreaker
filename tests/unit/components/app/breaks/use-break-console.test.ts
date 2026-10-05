@@ -25,7 +25,11 @@ import { withYourKits } from '@/lib/app/breaks/samples/your-kit';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 
 const fakes = vi.hoisted(() => {
-  const ctx = { currentTime: 0 };
+  // `outputLatency`/`baseLatency` are optional: most tests never set them,
+  // and `audioLatency()` must read that absence as 0, not as `undefined`.
+  const ctx: { currentTime: number; outputLatency?: number; baseLatency?: number } = {
+    currentTime: 0,
+  };
   const state = { hasAudio: true, midiError: '', midiName: 'IAC Bus 1' };
   class FakeAudio {
     ctx: typeof ctx | null = null;
@@ -129,6 +133,7 @@ import {
   useBreakConsole,
 } from '@/components/app/breaks/use-break-console';
 import { AUTOSAVE_MS } from '@/components/app/studio/use-pattern-document';
+import type { ScheduledStep } from '@/lib/app/breaks/audio/transport';
 import { apiClient } from '@/lib/api/client';
 import { DEFAULT_STUDIO_SETTINGS } from '@/lib/validations/studio-settings';
 
@@ -1232,5 +1237,106 @@ describe('what a practice session drives (7D)', () => {
       vi.useRealTimers();
       fakes.ctx.currentTime = 0;
     }
+  });
+});
+
+describe('the 3D drummer feed (subscribeSteps, audioLatency)', () => {
+  /** Runs the scheduler for `ms` of (fake) audio-clock and wall-clock time. */
+  const runScheduler = (ms: number) => {
+    const ticks = Math.round(ms / 25);
+    for (let i = 0; i < ticks; i++) {
+      fakes.ctx.currentTime += 0.025;
+      act(() => {
+        vi.advanceTimersByTime(25);
+      });
+    }
+  };
+
+  it('fans every scheduled step out to each subscribed listener, with identical steps', async () => {
+    const { result } = await mount();
+    const seenA: ScheduledStep[] = [];
+    const seenB: ScheduledStep[] = [];
+    const unsubA = result.current.subscribeSteps((s) => seenA.push(s));
+    result.current.subscribeSteps((s) => seenB.push(s));
+
+    fakes.ctx.currentTime = 0;
+    vi.useFakeTimers();
+    try {
+      act(() => {
+        result.current.play();
+      });
+      runScheduler(2000);
+      act(() => result.current.stopPlaying());
+    } finally {
+      vi.useRealTimers();
+      fakes.ctx.currentTime = 0;
+    }
+
+    expect(seenA.length).toBeGreaterThan(0);
+    // both listeners heard the exact same sequence — the fan-out is not
+    // dropping or reordering anything between subscribers
+    expect(seenB).toEqual(seenA);
+    // and what is handed over is a real scheduled step, not a bare marker
+    expect(seenA[0]).toMatchObject({ t: expect.any(Number), slot: expect.any(Number) });
+
+    unsubA();
+  });
+
+  it('stops delivering to a listener once it has unsubscribed, while others keep hearing steps', async () => {
+    const { result } = await mount();
+    const seenA: ScheduledStep[] = [];
+    const seenB: ScheduledStep[] = [];
+    const unsubA = result.current.subscribeSteps((s) => seenA.push(s));
+    result.current.subscribeSteps((s) => seenB.push(s));
+
+    fakes.ctx.currentTime = 0;
+    vi.useFakeTimers();
+    let seenBeforeUnsub = 0;
+    try {
+      act(() => {
+        result.current.play();
+      });
+      runScheduler(500);
+      seenBeforeUnsub = seenA.length;
+      expect(seenBeforeUnsub).toBeGreaterThan(0);
+
+      act(() => unsubA());
+      runScheduler(2000);
+      act(() => result.current.stopPlaying());
+    } finally {
+      vi.useRealTimers();
+      fakes.ctx.currentTime = 0;
+    }
+
+    expect(seenA.length).toBe(seenBeforeUnsub); // nothing arrived after unsubscribing
+    expect(seenB.length).toBeGreaterThan(seenBeforeUnsub); // the other listener kept going
+  });
+
+  it('reports 0 latency before any AudioContext exists', async () => {
+    const { result } = await mount();
+    expect(fakes.made.audio.at(-1)?.ctx).toBeNull();
+    expect(result.current.audioLatency()).toBe(0);
+  });
+
+  it("sums the context's output and base latency once there is a context", async () => {
+    const { result } = await mount();
+    act(() => result.current.togglePlay()); // starts the transport, which inits the ctx
+    fakes.ctx.outputLatency = 0.01;
+    fakes.ctx.baseLatency = 0.005;
+
+    expect(result.current.audioLatency()).toBeCloseTo(0.015, 6);
+  });
+
+  it('clamps latency to [0, 0.5], in both directions', async () => {
+    const { result } = await mount();
+    act(() => result.current.togglePlay());
+
+    fakes.ctx.outputLatency = 2;
+    fakes.ctx.baseLatency = 1;
+    expect(result.current.audioLatency()).toBe(0.5);
+
+    fakes.ctx.outputLatency = -5;
+    fakes.ctx.baseLatency = -5;
+    expect(result.current.audioLatency()).toBe(0);
   });
 });
