@@ -66,8 +66,11 @@ describe('Stage — Show: Chart vs Drummer 3D', () => {
     expect(show.getByRole('radio', { name: 'Drummer 3D' })).toHaveAttribute('aria-checked', 'true');
     expect(await screen.findByTestId('drummer-view-stub')).toBeInTheDocument();
 
-    // the chart itself, its legend and its own toolbar are gone
-    expect(screen.queryAllByRole('img', { name: /Drum notation/ }).length).toBe(0);
+    // the chart's legend and its own toolbar are gone; the staves stay only
+    // in the print copy (hidden on screen by breaks.css), so Print chart works
+    const notation = screen.queryAllByRole('img', { name: /Drum notation/ });
+    expect(notation.length).toBeGreaterThan(0);
+    for (const stave of notation) expect(stave.closest('.drummer-print')).not.toBeNull();
     expect(document.querySelector('.legend')).toBeNull();
     expect(screen.queryByRole('button', { name: 'Counting guide' })).not.toBeInTheDocument();
   });
@@ -111,6 +114,6 @@ describe('Stage — Show: Chart vs Drummer 3D', () => {
 
     renderStage();
     expect(await screen.findByTestId('drummer-view-stub')).toBeInTheDocument();
-    expect(screen.queryAllByRole('img', { name: /Drum notation/ }).length).toBe(0);
+    expect(screen.queryByRole('button', { name: 'Counting guide' })).not.toBeInTheDocument();
   });
 });

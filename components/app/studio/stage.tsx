@@ -144,6 +144,25 @@ export function Stage() {
       ? c.position.barIdx * (engravings[c.editing]?.steps ?? 16) + c.position.slot
       : null;
 
+  /** The chart's staves. `live` ones follow the playhead; the drummer view's
+      print copy does not, so it costs nothing while the drummer plays. */
+  const staves = (live: boolean) =>
+    shown.map((letter) => {
+      const eng = engravings[letter];
+      if (!eng) return null;
+      return (
+        <Stave
+          key={letter}
+          ref={live ? (letter === 'A' ? staveA : staveB) : undefined}
+          engraving={eng}
+          label={c.viewMode === 'both' ? letter : undefined}
+          playing={live && c.position?.letter === letter}
+          flash={live ? flashSteps[letter] : undefined}
+          flashSeq={live ? c.flash?.seq : undefined}
+        />
+      );
+    });
+
   if (c.noCatalogue) {
     /* Not a loading state and not a crash: the styles come from the database
        now, and an install with none has nothing to write a break from. Saying
@@ -248,7 +267,12 @@ export function Stage() {
         </div>
 
         {stageView === 'drummer' ? (
-          <DrummerView />
+          <>
+            <DrummerView />
+            {/* Print chart and ⌘P still print the chart: the staves are kept,
+                still and unseen, for the page alone. */}
+            <div className="drummer-print">{staves(false)}</div>
+          </>
         ) : (
           <>
             <div className="chart-tools">
@@ -320,21 +344,7 @@ export function Stage() {
               </div>
             </div>
 
-            {shown.map((letter) => {
-              const eng = engravings[letter];
-              if (!eng) return null;
-              return (
-                <Stave
-                  key={letter}
-                  ref={letter === 'A' ? staveA : staveB}
-                  engraving={eng}
-                  label={c.viewMode === 'both' ? letter : undefined}
-                  playing={c.position?.letter === letter}
-                  flash={flashSteps[letter]}
-                  flashSeq={c.flash?.seq}
-                />
-              );
-            })}
+            {staves(true)}
 
             <div className="legend">
               <span>

@@ -7,7 +7,7 @@ value the Studio remembers lives in exactly one of three places:
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
 | **The pattern** (`Break.doc`)                  | tempo, swing, layer, arrangement, and each section's style, meter, lanes and notes                                 | It is part of the pattern. Opening the pattern restores it.                 |
 | **Your account** (`StudioSettings`)            | the kit and its tuning, how you practise, the generator's dials, and the starting values for a new pattern (below) | It is about how you play, so it follows you to every device you sign in on. |
-| **This browser** (`localStorage`, `bb.*` keys) | chart size, view mode, the Patterns drawer's last tab, and two short-lived hand-offs                               | It depends on the screen, or only has to last a few minutes.                |
+| **This browser** (`localStorage`, `bb.*` keys) | chart and grid size, view mode, the stage view, the Patterns drawer's last tab, and two short-lived hand-offs      | It depends on the screen, or only has to last a few minutes.                |
 
 Nothing is stored twice. In particular the console no longer keeps its own copy
 of the open pattern's tempo, style, meter, bars, swing, layer or arrangement in
@@ -107,19 +107,24 @@ is saved (`stageSaved`) at the moment of the change.
 Every key the Studio writes is listed, with the schema it is read back through,
 in `lib/app/breaks/browser-keys.ts`:
 
-| Key              | What                                                            | Schema / default                           | Read by                                     |
-| ---------------- | --------------------------------------------------------------- | ------------------------------------------ | ------------------------------------------- |
-| `bb.size`        | Chart zoom                                                      | number 0.7–1.7 / `1`                       | the console, via `useStoredSetting`         |
-| `bb.view`        | Which layers the chart shows                                    | `A`, `B` or `both` / `both`                | the console, via `useStoredSetting`         |
-| `bb.patternsTab` | The Patterns drawer's last tab (also written by a `?tab=` link) | one of `PATTERNS_TABS`, or `null` / `null` | the Patterns drawer, via `useStoredSetting` |
-| `bb.scratch`     | The pattern on the stage that has never been saved              | `{ payload, at }`, payload a share payload | `lib/app/breaks/scratch.ts`                 |
-| `bb.pendingLink` | A `#b=` link held across sign-in, for an hour (H5)              | `{ hash, at }`                             | `lib/app/breaks/pending-link.ts`            |
+| Key              | What                                                                   | Schema / default                           | Read by                                     |
+| ---------------- | ---------------------------------------------------------------------- | ------------------------------------------ | ------------------------------------------- |
+| `bb.size`        | Chart zoom                                                             | number 0.7–1.7 / `1`                       | the console, via `useStoredSetting`         |
+| `bb.gridSize`    | The step grid's zoom                                                   | number 0.75–2 / `1`                        | the stage, via `useStoredSetting`           |
+| `bb.view`        | Which layers the chart shows                                           | `A`, `B` or `both` / `both`                | the console, via `useStoredSetting`         |
+| `bb.midiTiming`  | How Download .mid writes the timing                                    | `played` or `quantised` / `played`         | the Export panel, via `useStoredSetting`    |
+| `bb.stageView`   | What the stage shows: the chart, or the 3D drummer (experiment)        | `chart` or `drummer` / `chart`             | the stage, via `useStoredSetting`           |
+| `bb.drummerHand` | Which way round the 3D drummer's kit is set up (lead hand on the hats) | `right` or `left` / `right`                | the drummer view, via `useStoredSetting`    |
+| `bb.tourSeen`    | The first-run tour has been seen or skipped                            | boolean / `false`                          | `lib/app/breaks/tour-seen.ts`               |
+| `bb.patternsTab` | The Patterns drawer's last tab (also written by a `?tab=` link)        | one of `PATTERNS_TABS`, or `null` / `null` | the Patterns drawer, via `useStoredSetting` |
+| `bb.scratch`     | The pattern on the stage that has never been saved                     | `{ payload, at }`, payload a share payload | `lib/app/breaks/scratch.ts`                 |
+| `bb.pendingLink` | A `#b=` link held across sign-in, for an hour (H5)                     | `{ hash, at }`                             | `lib/app/breaks/pending-link.ts`            |
 
 `useStoredSetting(setting)` (`lib/app/breaks/use-stored-setting.ts`) wraps
 Sunrise's `useLocalStorage`, which is left untouched. It takes a setting from
 the key module, not a bare key, and anything that fails the schema (bad JSON,
 the wrong type, out of range) reads as the fallback. The two hand-offs are read
-once by their own modules, through the same schemas.
+once by their own modules, through the same schemas, and so is `bb.tourSeen`.
 
 **Adding a browser key:** add it to the key module with a schema and fallback,
 and read it with `useStoredSetting`. First ask whether it is really about this

@@ -691,9 +691,10 @@ describe('onStep (the 3D drummer handoff)', () => {
     expect(lastStepOfSecondBar?.next).toBe(pat.bars[0]); // still bar 1, at the very end of the loop
   });
 
-  it('still reports a note’s `when` even when its lane is muted (so a silent kit still animates)', () => {
+  it('leaves out a muted lane’s notes, as the speakers do: that lane is yours to play', () => {
     const pat = patternIn('4/4');
     pat.bars[0].k[0] = 1;
+    pat.bars[0].s[0] = 1;
     const onStep = vi.fn();
     const snap = snapshot(pat, { click: false, mute: { k: true } });
     const f = fakeAudio();
@@ -712,7 +713,34 @@ describe('onStep (the 3D drummer handoff)', () => {
     }
     t.stop();
 
-    expect(f.audio.playIn).not.toHaveBeenCalled(); // test-review:accept no_arg_called — the lane is muted
+    expect(f.audio.playIn.mock.calls.map(([lane]) => lane)).toEqual(['s']); // the kick is muted
+    const real = onStep.mock.calls.map(([step]) => step as ScheduledStep).filter((s) => !s.count);
+    const firstStep = real.find((s) => s.slot === 0);
+    expect(firstStep?.notes.map((n) => n.voice.lane)).toEqual(['s']);
+  });
+
+  it('leaves out the lanes a solo silences', () => {
+    const pat = patternIn('4/4');
+    pat.bars[0].k[0] = 1;
+    pat.bars[0].s[0] = 1;
+    const onStep = vi.fn();
+    const snap = snapshot(pat, { click: false, laneSolo: { k: true } });
+    const f = fakeAudio();
+    const t = new Transport(f.engine, {
+      getSnapshot: () => snap,
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onStep,
+    });
+    t.start();
+    while (f.ctx.currentTime < 0.3) {
+      f.ctx.currentTime += 0.02;
+      vi.advanceTimersByTime(25);
+    }
+    t.stop();
+
     const real = onStep.mock.calls.map(([step]) => step as ScheduledStep).filter((s) => !s.count);
     const firstStep = real.find((s) => s.slot === 0);
     expect(firstStep?.notes.map((n) => n.voice.lane)).toEqual(['k']);

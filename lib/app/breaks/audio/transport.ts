@@ -380,7 +380,11 @@ export class Transport {
         meter: m,
         bar,
         next: (after && snap.patterns[after.letter]?.bars[after.barIdx]) ?? null,
-        notes: voices.map((voice, n) => ({ voice, when: whens[n] })),
+        /* What the speakers were handed: a muted lane (or one a solo
+           silences) is one you are playing yourself, so the drummer leaves it. */
+        notes: voices.flatMap((voice, n) =>
+          laneGain(snap, voice.lane) ? [{ voice, when: whens[n] }] : []
+        ),
       });
     }
 
