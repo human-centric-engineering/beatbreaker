@@ -40,7 +40,7 @@ export interface StrokeProfile {
 /** A hand, in metres the tip lifts. */
 export const HAND: StrokeProfile = {
   height: (s) => 0.012 + 0.36 * Math.pow(s, 1.6),
-  rest: 0.07,
+  rest: 0.05,
   rebound: 0.75,
   speed: 1.5,
   fall: 0.04,
@@ -61,19 +61,6 @@ export const KICK: StrokeProfile = {
   rise: 0.05,
   risePerUnit: 0.06,
   stop: 0.15,
-};
-
-/** The hat foot's chick: 0 is the pedal down, 1 the toe right up. */
-export const CHICK: StrokeProfile = {
-  height: (s) => 0.4 + 0.5 * s,
-  rest: 0,
-  rebound: 0.3,
-  speed: 5,
-  fall: 0.04,
-  fallPerUnit: 0.05,
-  rise: 0.05,
-  risePerUnit: 0.05,
-  stop: 0.1,
 };
 
 export interface StrokeState {

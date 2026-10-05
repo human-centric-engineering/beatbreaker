@@ -377,3 +377,66 @@ describe('StrokeTimeline', () => {
     expect(tl.clock).toBeNull();
   });
 });
+
+describe('StrokeTimeline — sticking across the bar line', () => {
+  /** Every step of `b`, from `t0`, every lit lane sounding on the grid. */
+  function play(tl: StrokeTimeline, b: Bar, next: Bar | null, t0: number, dur: number) {
+    for (let i = 0; i < N; i++) {
+      const lanes = (Object.keys(b) as LaneKey[]).filter((l) => b[l][i]);
+      tl.ingest({
+        t: t0 + i * dur,
+        dur,
+        slot: i,
+        meter: M44,
+        bar: b,
+        next,
+        notes: lanes.map((l) => ({ voice: voice(l), when: t0 + i * dur })),
+      });
+    }
+  }
+
+  it('forecasts the next bar with the same hands it is then played with', () => {
+    const dur = 0.1;
+    const fill = bar({ s: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2] });
+    const crash = bar({ c: [1], r: [0, 0, 1, 0, 1, 0, 1, 0] });
+    const tl = new StrokeTimeline();
+    play(tl, fill, crash, 0, dur);
+    const forecast = tl.all().filter((h) => h.time >= N * dur - 1e-9 && !h.sure);
+    play(tl, crash, null, N * dur, dur);
+    const played = tl.all().filter((h) => h.sure && h.time >= N * dur - 1e-9);
+    expect(forecast.length).toBeGreaterThan(0);
+    for (const f of forecast) {
+      const p = played.find((h) => Math.abs(h.time - f.time) < 1e-9 && h.lane === f.lane);
+      expect(p?.limb).toBe(f.limb);
+    }
+  });
+});
+
+describe('StrokeTimeline — percussion the drummer plays, and the part he does not', () => {
+  function percStep(note: number): ScheduledStep {
+    const b = bar({ p1: [1], s: [0, 0, 2] });
+    return {
+      t: 0,
+      dur: 0.1,
+      slot: 0,
+      meter: M44,
+      bar: b,
+      next: null,
+      notes: [{ voice: { ...voice('p1'), note }, when: 0 }],
+    };
+  }
+
+  it('leaves a tambourine to the percussionist: no stroke, no piece on the kit', () => {
+    const tl = new StrokeTimeline();
+    tl.ingest(percStep(54)); // tambourine
+    expect(tl.all().filter((h) => h.lane === 'p1')).toEqual([]);
+    expect(tl.percussion.has('perc1')).toBe(false);
+  });
+
+  it('plays a cowbell on the kit', () => {
+    const tl = new StrokeTimeline();
+    tl.ingest(percStep(56)); // cowbell
+    expect(tl.all().filter((h) => h.lane === 'p1').length).toBe(1);
+    expect(tl.percussion.has('perc1')).toBe(true);
+  });
+});

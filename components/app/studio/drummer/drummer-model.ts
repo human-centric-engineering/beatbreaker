@@ -159,25 +159,39 @@ interface LegRig {
   knee: THREE.Mesh;
   shin: THREE.Mesh;
   ankle: THREE.Mesh;
+  /** Heel to ball, and the toe box: the shoe bends at the ball as the heel comes up. */
   shoe: THREE.Group;
+  toes: THREE.Group;
+}
+
+/** A piece of shoe `length` long from its origin forward, sole underneath. */
+function shoePiece(m: Materials, length: number, back: number, height: number): THREE.Group {
+  const g = new THREE.Group();
+  const upper = new THREE.Mesh(
+    new RoundedBoxGeometry(0.1, height, length + back, 3, Math.min(0.03, height / 2.2)),
+    m.shoe
+  );
+  upper.position.set(0, height / 2 - 0.008, (length - back) / 2);
+  upper.castShadow = true;
+  g.add(upper);
+  const sole = new THREE.Mesh(
+    new RoundedBoxGeometry(0.104, 0.02, length + back + 0.005, 2, 0.008),
+    m.sole
+  );
+  sole.position.set(0, -0.01, (length - back) / 2);
+  g.add(sole);
+  return g;
 }
 
 function buildLeg(m: Materials): LegRig {
-  const shoe = new THREE.Group();
-  const upper = new THREE.Mesh(new RoundedBoxGeometry(0.1, 0.075, 0.28, 3, 0.03), m.shoe);
-  upper.position.set(0, 0.03, 0.105);
-  upper.castShadow = true;
-  shoe.add(upper);
-  const sole = new THREE.Mesh(new RoundedBoxGeometry(0.104, 0.02, 0.285, 2, 0.008), m.sole);
-  sole.position.set(0, -0.006, 0.105);
-  shoe.add(sole);
   return {
     hip: ball(0.08, m.jeans),
     thigh: segment(0.058, 0.078, m.jeans),
     knee: ball(0.06, m.jeans),
     shin: segment(0.045, 0.056, m.jeans),
     ankle: ball(0.045, m.jeans),
-    shoe,
+    shoe: shoePiece(m, BODY.foot, 0.045, 0.075),
+    toes: shoePiece(m, 0.08, 0.01, 0.05),
   };
 }
 
@@ -189,12 +203,26 @@ function poseLeg(rig: LegRig, l: LegPose): void {
   rig.knee.position.copy(l.knee);
   place(rig.shin, l.knee, l.ankle);
   rig.ankle.position.copy(l.ankle);
-  // the shoe runs heel to toe, its sole on the board
-  const fwd = new THREE.Vector3().subVectors(l.toe, l.heel).normalize();
-  const side = new THREE.Vector3().crossVectors(UP, fwd).normalize();
-  const up = new THREE.Vector3().crossVectors(fwd, side).normalize();
-  rig.shoe.position.copy(l.heel).addScaledVector(fwd, -0.04);
-  rig.shoe.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(side, up, fwd));
+  // the shoe runs heel to ball, and the toe box on from the ball, each sole on its line
+  const side = new THREE.Vector3().crossVectors(UP, new THREE.Vector3().subVectors(l.ball, l.heel));
+  alongFoot(rig.shoe, l.heel, l.ball, side);
+  alongFoot(rig.toes, l.ball, l.toe, side);
+}
+
+function alongFoot(
+  piece: THREE.Object3D,
+  from: THREE.Vector3,
+  to: THREE.Vector3,
+  side: THREE.Vector3
+): void {
+  const fwd = new THREE.Vector3().subVectors(to, from).normalize();
+  const s = side
+    .clone()
+    .sub(fwd.clone().multiplyScalar(side.dot(fwd)))
+    .normalize();
+  const up = new THREE.Vector3().crossVectors(fwd, s).normalize();
+  piece.position.copy(from);
+  piece.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(s, up, fwd));
 }
 
 function buildHead(m: Materials): THREE.Group {
@@ -290,7 +318,8 @@ export function buildDrummer(m: Materials): DrummerModel {
     );
   }
   const legs: Record<Foot, LegRig> = { kickFoot: buildLeg(m), hatFoot: buildLeg(m) };
-  for (const l of Object.values(legs)) root.add(l.hip, l.thigh, l.knee, l.shin, l.ankle, l.shoe);
+  for (const l of Object.values(legs))
+    root.add(l.hip, l.thigh, l.knee, l.shin, l.ankle, l.shoe, l.toes);
 
   const pelvisAt = vec(BODY.pelvis);
   return {
@@ -302,7 +331,7 @@ export function buildDrummer(m: Materials): DrummerModel {
       head.rotation.set(
         pose.lean * 0.55 - pose.nod,
         pose.headYaw - pose.yaw,
-        -pose.roll * 0.5,
+        -pose.roll * 0.5 + pose.headTilt,
         'YXZ'
       );
       poseArm(arms.lead, pose.arms.lead);

@@ -120,7 +120,7 @@ describe('strikeTarget', () => {
       expect(tip[0]).toBeCloseTo(cx, 9);
       expect(tip[1]).toBeCloseTo(cy + 0.002 + BEAD, 9);
       expect(tip[2]).toBeCloseTo(cz + r * 0.18, 9);
-      expect(pitch).toBeCloseTo(0.24, 9);
+      expect(pitch).toBeCloseTo(0.32, 9);
     });
 
     it('rim contact: out at the rim, almost flat', () => {

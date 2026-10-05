@@ -284,7 +284,7 @@ export function strikeTarget(id: PieceId, contact: Contact = 'centre'): { tip: V
     default: {
       if (contact === 'cross') return { tip: onPiece(p, [r * 0.3, 0.035, -r * 0.15]), pitch: 0.1 };
       if (contact === 'rim') return { tip: onPiece(p, [0, 0.012 + BEAD, r * 0.94]), pitch: 0.3 };
-      return { tip: onPiece(p, [0, 0.002 + BEAD, r * 0.18]), pitch: 0.24 };
+      return { tip: onPiece(p, [0, 0.002 + BEAD, r * 0.18]), pitch: 0.32 };
     }
   }
 }

@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 
 import type { Hit } from '@/lib/app/breaks/drummer/timeline';
 import {
-  CHICK,
   HAND,
   KICK,
   hatOpenAt,
@@ -167,10 +166,9 @@ describe('strokeAt', () => {
     expect(strokeAt(hits, 0.4, HAND).since).toBeCloseTo(0.4, 9);
   });
 
-  it('works the same way for the kick and chick profiles (0 at the hit, non-degenerate otherwise)', () => {
+  it('works the same way for the kick profile (0 at the hit, non-degenerate otherwise)', () => {
     const hits = [hit(0, 1), hit(1, 1)];
     expect(strokeAt(hits, 0, KICK).lift).toBe(0);
-    expect(strokeAt(hits, 0, CHICK).lift).toBe(0);
     expect(strokeAt(hits, 0.5, KICK).lift).toBeGreaterThan(0);
   });
 });
