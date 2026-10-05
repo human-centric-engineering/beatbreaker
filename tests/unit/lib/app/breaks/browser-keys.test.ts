@@ -72,12 +72,14 @@ describe('the browser keys', () => {
     expect([...BROWSER_KEYS].sort()).toEqual(spelled);
     expect(new Set(BROWSER_KEYS).size).toBe(BROWSER_KEYS.length);
     expect(spelled).toEqual([
+      'bb.drummerHand',
       'bb.gridSize',
       'bb.midiTiming',
       'bb.patternsTab',
       'bb.pendingLink',
       'bb.scratch',
       'bb.size',
+      'bb.stageView',
       'bb.tourSeen',
       'bb.view',
     ]);

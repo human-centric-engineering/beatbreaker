@@ -105,6 +105,29 @@ export function laneGain(
   return snap.mix[lane] ?? 1;
 }
 
+/**
+ * One step as the transport scheduled it, note by note — for anything that
+ * draws the kit being played rather than the chart being read (the 3D
+ * drummer). The notes are the voices the speakers were handed, at the times
+ * they were handed them, so a drawing that follows these lands where the
+ * sound does: swung, felt and humanised. `bar` and `next` are the grid this
+ * step sits in and the bar the arrangement plays after it, which is how a
+ * listener sees past the lookahead to plan its next stroke.
+ */
+export interface ScheduledStep {
+  /** Audio-clock time of the step, on the grid. */
+  t: number;
+  /** Seconds per step (a sixteenth) at the tempo it was scheduled at. */
+  dur: number;
+  slot: number;
+  /** A count-in step: no notes and no bar, just the pulse. */
+  count?: boolean;
+  meter: Meter;
+  bar: Bar | null;
+  next: Bar | null;
+  notes: { voice: Voice; when: number }[];
+}
+
 interface SeqEntry {
   letter: SectionLetter;
   barIdx: number;
@@ -129,6 +152,8 @@ export interface TransportCallbacks {
    */
   onDownbeat?: (at: number) => void;
   onPaint: (ev: PlayEvent, loops: number) => void;
+  /** Every step, as it is scheduled — a lookahead ahead of the audio clock. */
+  onStep?: (step: ScheduledStep) => void;
   onStop: () => void;
 }
 
@@ -283,6 +308,16 @@ export class Transport {
       const i = (snap.countIn * cn - this.countLeft) % cn;
       if (isGroupStart(cm, i)) this.audio.click(t, i === 0);
       this.queue.push({ t, count: true, slot: i, meter: cm });
+      this.cb.onStep?.({
+        t,
+        dur,
+        slot: i,
+        count: true,
+        meter: cm,
+        bar: null,
+        next: null,
+        notes: [],
+      });
       return;
     }
 
@@ -335,6 +370,19 @@ export class Transport {
     });
 
     if (snap.click && isClickStep(m, i, snap.clickSub)) this.audio.click(t, i === 0);
+
+    if (this.cb.onStep) {
+      const after = this.seq[(this.seqIndex + 1) % this.seq.length];
+      this.cb.onStep({
+        t,
+        dur,
+        slot: i,
+        meter: m,
+        bar,
+        next: (after && snap.patterns[after.letter]?.bars[after.barIdx]) ?? null,
+        notes: voices.map((voice, n) => ({ voice, when: whens[n] })),
+      });
+    }
 
     this.queue.push({
       t,

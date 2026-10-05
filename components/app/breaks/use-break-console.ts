@@ -9,6 +9,7 @@ import { YourSampleSource } from '@/lib/app/breaks/audio/your-samples';
 import {
   Transport,
   type PlayEvent,
+  type ScheduledStep,
   type SectionLetter,
   type TransportSnapshot,
   maxBpm,
@@ -246,8 +247,20 @@ export interface BreakConsole {
   playAt: (bpm: number) => void;
   /** The audio clock now, in seconds — what a session's Pause and Skip are timed by. */
   audioNow: () => number;
+  /**
+   * How far behind the audio clock the speakers are, in seconds: a note
+   * scheduled for `t` is heard at `audioNow() === t + audioLatency()`. What
+   * a drawing of the kit being played waits, to strike when you hear it.
+   */
+  audioLatency: () => number;
   /** Hear each loop boundary and each downbeat, on the audio clock. Null to stop. */
   setClockListener: (listener: ClockListener | null) => void;
+  /**
+   * Hear every step as the transport schedules it, note by note (the 3D
+   * drummer). Returns the unsubscribe. Called from the scheduler, outside
+   * React: a listener keeps what it hears in a ref, never in state.
+   */
+  subscribeSteps: (listener: (step: ScheduledStep) => void) => () => void;
   /**
    * While a session runs: the trainer's ramp and _match tempo_ are held off,
    * so an item's tempo is the tempo you hear. Your settings are not changed —
@@ -1206,6 +1219,7 @@ export function useBreakConsole(
   const transportRef = useRef<Transport | null>(null);
   /** A practice session's ear on the clock (7D) — read by the transport's callbacks. */
   const clockListener = useRef<ClockListener | null>(null);
+  const stepListeners = useRef(new Set<(step: ScheduledStep) => void>());
   const packsRef = useRef<PackSource | null>(null);
   const yoursRef = useRef<YourSampleSource | null>(null);
   const midiRef = useRef<MidiOut | null>(null);
@@ -1464,6 +1478,7 @@ export function useBreakConsole(
       },
       onDownbeat: (at) => clockListener.current?.onDownbeat?.(at),
       onPaint: (ev) => setPosition(ev),
+      onStep: (step) => stepListeners.current.forEach((listener) => listener(step)),
       onStop: () => {
         setPlaying(false);
         setPosition(null);
@@ -1548,6 +1563,13 @@ export function useBreakConsole(
 
   const audioNow = useCallback(() => audioRef.current?.ctx?.currentTime ?? 0, []);
 
+  const audioLatency = useCallback(() => {
+    const ctx = audioRef.current?.ctx;
+    if (!ctx) return 0;
+    const latency = (ctx.outputLatency || 0) + (ctx.baseLatency || 0);
+    return Number.isFinite(latency) ? Math.min(Math.max(latency, 0), 0.5) : 0;
+  }, []);
+
   const primeAudio = useCallback(() => {
     const audio = audioRef.current;
     if (audio?.init()) audio.resume();
@@ -1555,6 +1577,14 @@ export function useBreakConsole(
 
   const setClockListener = useCallback((listener: ClockListener | null) => {
     clockListener.current = listener;
+  }, []);
+
+  const subscribeSteps = useCallback((listener: (step: ScheduledStep) => void) => {
+    const listeners = stepListeners.current;
+    listeners.add(listener);
+    return () => {
+      listeners.delete(listener);
+    };
   }, []);
 
   // the arrangement or the solo changed while playing — keep going, new sequence
@@ -1891,7 +1921,9 @@ export function useBreakConsole(
     primeAudio,
     playAt,
     audioNow,
+    audioLatency,
     setClockListener,
+    subscribeSteps,
     sessionHold,
     setSessionHold,
     kit,

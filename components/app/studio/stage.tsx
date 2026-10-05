@@ -5,13 +5,14 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Stave, type StaveHandle } from '@/components/app/breaks/stave';
 import type { PatternSharing } from '@/components/app/breaks/use-break-console';
 import { StepEditor } from '@/components/app/breaks/step-editor';
+import { DrummerView } from '@/components/app/studio/drummer/drummer-view';
 import { PinButton } from '@/components/app/studio/pin-button';
 import { Segmented } from '@/components/app/studio/segmented';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
 import { type SectionLetter } from '@/lib/app/breaks/audio/transport';
-import { GRID_SIZE, GRID_SIZE_MAX, GRID_SIZE_MIN } from '@/lib/app/breaks/browser-keys';
+import { GRID_SIZE, GRID_SIZE_MAX, GRID_SIZE_MIN, STAGE_VIEW } from '@/lib/app/breaks/browser-keys';
 import { publicPath } from '@/lib/app/breaks/community/visibility';
 import { engrave } from '@/lib/app/breaks/engrave';
 import { LAYER_BLURB, LAYER_NAMES } from '@/lib/app/breaks/layers';
@@ -77,6 +78,7 @@ function BasedOn({ credit }: { credit: PatternSharing['basedOn'] }) {
 export function Stage() {
   const c = useStudio();
   const [gridSize, setGridSize] = useStoredSetting(GRID_SIZE);
+  const [stageView, setStageView] = useStoredSetting(STAGE_VIEW);
   const staveA = useRef<StaveHandle>(null);
   const staveB = useRef<StaveHandle>(null);
   const [showEditor, setShowEditor] = useState(true);
@@ -194,6 +196,22 @@ export function Stage() {
             </div>
           </div>
 
+          {/* The chart, or the drummer playing it (experiment). The section,
+              the layer and the arrangement below drive both. */}
+          <Segmented
+            label="Show"
+            options={[
+              { value: 'chart' as const, face: 'Chart' },
+              {
+                value: 'drummer' as const,
+                face: 'Drummer 3D',
+                title: 'Watch a drummer play the break, in 3D',
+              },
+            ]}
+            value={stageView}
+            onChange={setStageView}
+          />
+
           {/* The one section choice (E11): the chart shows it, the transport
               plays it, and the grid and the Doctor below work on it. */}
           <Segmented
@@ -229,117 +247,123 @@ export function Stage() {
           />
         </div>
 
-        <div className="chart-tools">
-          <span className="eyebrow">Chart</span>
-          <div className="btnrow">
-            <Toggle
-              pressed={c.guides}
-              onPressedChange={c.setGuides}
-              keyshortcuts="G"
-              title="Number the beats and the &ldquo;and&rdquo;s under the staff"
-            >
-              Counting guide
-            </Toggle>
-            <Toggle
-              pressed={c.sticking}
-              onPressedChange={c.setSticking}
-              title="Print the suggested hand and foot under each note"
-            >
-              Sticking
-            </Toggle>
-            <Toggle
-              pressed={c.preview}
-              onPressedChange={c.setPreview}
-              disabled={!c.next}
-              title={
-                c.next
-                  ? `Show what ${LAYER_NAMES[c.level + 1]} adds, in faint ink`
-                  : 'Full break is the whole break — there is nothing above it'
-              }
-            >
-              Preview next layer
-            </Toggle>
-          </div>
+        {stageView === 'drummer' ? (
+          <DrummerView />
+        ) : (
+          <>
+            <div className="chart-tools">
+              <span className="eyebrow">Chart</span>
+              <div className="btnrow">
+                <Toggle
+                  pressed={c.guides}
+                  onPressedChange={c.setGuides}
+                  keyshortcuts="G"
+                  title="Number the beats and the &ldquo;and&rdquo;s under the staff"
+                >
+                  Counting guide
+                </Toggle>
+                <Toggle
+                  pressed={c.sticking}
+                  onPressedChange={c.setSticking}
+                  title="Print the suggested hand and foot under each note"
+                >
+                  Sticking
+                </Toggle>
+                <Toggle
+                  pressed={c.preview}
+                  onPressedChange={c.setPreview}
+                  disabled={!c.next}
+                  title={
+                    c.next
+                      ? `Show what ${LAYER_NAMES[c.level + 1]} adds, in faint ink`
+                      : 'Full break is the whole break — there is nothing above it'
+                  }
+                >
+                  Preview next layer
+                </Toggle>
+              </div>
 
-          {/* A plain div, not a <label>: wrapping the input would name it
-              "Size" from the visible text while the aria-label named it
-              "Chart size", which is two different names for one control.
-              The word stays on screen and the control keeps the longer
-              name, because "Size" on its own means nothing read aloud. */}
-          <div className="sizer">
-            <span className="eyebrow" aria-hidden="true">
-              Size
-            </span>
-            <input
-              type="range"
-              min={70}
-              max={170}
-              step={5}
-              value={Math.round(c.size * 100)}
-              onChange={(e) => c.setSize(Number(e.target.value) / 100)}
-              aria-label="Chart size"
-            />
-          </div>
-          {/* The grid's own zoom (5.14), beside the chart's: the chart is for
-              reading and the grid for tapping, and they want different sizes. */}
-          <div className="sizer">
-            <span className="eyebrow" aria-hidden="true">
-              Grid
-            </span>
-            <input
-              type="range"
-              min={GRID_SIZE_MIN * 100}
-              max={GRID_SIZE_MAX * 100}
-              step={5}
-              value={Math.round(gridSize * 100)}
-              onChange={(e) => setGridSize(Number(e.target.value) / 100)}
-              aria-label="Grid size"
-            />
-          </div>
-        </div>
+              {/* A plain div, not a <label>: wrapping the input would name it
+                  "Size" from the visible text while the aria-label named it
+                  "Chart size", which is two different names for one control.
+                  The word stays on screen and the control keeps the longer
+                  name, because "Size" on its own means nothing read aloud. */}
+              <div className="sizer">
+                <span className="eyebrow" aria-hidden="true">
+                  Size
+                </span>
+                <input
+                  type="range"
+                  min={70}
+                  max={170}
+                  step={5}
+                  value={Math.round(c.size * 100)}
+                  onChange={(e) => c.setSize(Number(e.target.value) / 100)}
+                  aria-label="Chart size"
+                />
+              </div>
+              {/* The grid's own zoom (5.14), beside the chart's: the chart is for
+                  reading and the grid for tapping, and they want different sizes. */}
+              <div className="sizer">
+                <span className="eyebrow" aria-hidden="true">
+                  Grid
+                </span>
+                <input
+                  type="range"
+                  min={GRID_SIZE_MIN * 100}
+                  max={GRID_SIZE_MAX * 100}
+                  step={5}
+                  value={Math.round(gridSize * 100)}
+                  onChange={(e) => setGridSize(Number(e.target.value) / 100)}
+                  aria-label="Grid size"
+                />
+              </div>
+            </div>
 
-        {shown.map((letter) => {
-          const eng = engravings[letter];
-          if (!eng) return null;
-          return (
-            <Stave
-              key={letter}
-              ref={letter === 'A' ? staveA : staveB}
-              engraving={eng}
-              label={c.viewMode === 'both' ? letter : undefined}
-              playing={c.position?.letter === letter}
-              flash={flashSteps[letter]}
-              flashSeq={c.flash?.seq}
-            />
-          );
-        })}
+            {shown.map((letter) => {
+              const eng = engravings[letter];
+              if (!eng) return null;
+              return (
+                <Stave
+                  key={letter}
+                  ref={letter === 'A' ? staveA : staveB}
+                  engraving={eng}
+                  label={c.viewMode === 'both' ? letter : undefined}
+                  playing={c.position?.letter === letter}
+                  flash={flashSteps[letter]}
+                  flashSeq={c.flash?.seq}
+                />
+              );
+            })}
 
-        <div className="legend">
-          <span>
-            <i style={{ background: 'var(--steel)' }} />
-            Kick
-          </span>
-          <span>
-            <i style={{ background: 'var(--rust)' }} />
-            Snare
-          </span>
-          <span>
-            <i style={{ background: 'color-mix(in srgb,var(--rust) 40%, transparent)' }} />
-            Ghost
-          </span>
-          <span>
-            <i style={{ background: 'var(--teal)' }} />
-            Hi-hat
-          </span>
-          <span>
-            <i style={{ background: 'var(--brass)' }} />
-            Ride
-          </span>
-          <span>
-            <i style={{ background: 'var(--plum)' }} />
-            Crash
-          </span>
-        </div>
+            <div className="legend">
+              <span>
+                <i style={{ background: 'var(--steel)' }} />
+                Kick
+              </span>
+              <span>
+                <i style={{ background: 'var(--rust)' }} />
+                Snare
+              </span>
+              <span>
+                <i style={{ background: 'color-mix(in srgb,var(--rust) 40%, transparent)' }} />
+                Ghost
+              </span>
+              <span>
+                <i style={{ background: 'var(--teal)' }} />
+                Hi-hat
+              </span>
+              <span>
+                <i style={{ background: 'var(--brass)' }} />
+                Ride
+              </span>
+              <span>
+                <i style={{ background: 'var(--plum)' }} />
+                Crash
+              </span>
+            </div>
+          </>
+        )}
 
         <div className="chart-ft">
           <span className="eyebrow">Arrangement</span>
