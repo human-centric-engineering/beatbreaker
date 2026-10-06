@@ -607,6 +607,27 @@ function looseness(st: StrokeState): number {
   return rest + (LOOSE_REBOUND - rest) * Math.exp(-st.since / settle);
 }
 
+/** A stroke this soft or softer is the fingers' alone, and one this hard or harder none of it. */
+const FINGERS_ALL = 0.15;
+const FINGERS_NONE = 0.4;
+/** How much of a finger stroke's angle is the stick turning in the fingers: the hand all but still. */
+const LOOSE_FINGERS = 0.9;
+/** The tip height the back fingers are fully open at: a full stroke's, and a finger stroke's inch. */
+const GIVE_FULL = 0.15;
+const GIVE_FINGERS = 0.035;
+
+/**
+ * How much of the stroke coming (or, with none coming, the one just played)
+ * is the fingers', 0–1. A ghost note is played from an inch, and that inch is
+ * the back fingers flicking the stick down onto the head while the hand stays
+ * where it is; a backbeat is the wrist's.
+ */
+function fingerShare(st: StrokeState): number {
+  const h = st.next ?? st.prev;
+  if (!h || h.piece === 'sticks') return 0;
+  return 1 - smoothstep(FINGERS_ALL, FINGERS_NONE, h.strength);
+}
+
 /** The tip height a stroke reaches its full lean at, metres. */
 const LEAN_FULL = 0.2;
 
@@ -671,7 +692,8 @@ function arm(
   // the wrist leads the next throw, not the rebound — off the head the stick bounces in the
   // fingers and the hand waits (see `looseness`) — and its lead fades out at the head, so
   // the stick still meets it where it is aimed
-  const loose = counting ? 0 : looseness(st);
+  const fingers = counting ? 0 : fingerShare(st);
+  const loose = counting ? 0 : Math.max(looseness(st), LOOSE_FINGERS * fingers);
   const rest = piece === 'ride' ? LOOSE_RIDE : LOOSE_REST;
   const caught = counting ? 1 : Math.max(0, 1 - (loose - rest) / (LOOSE_REBOUND - rest)) ** 2;
   const early = Math.min(cap, sign * time.ahead * time.height + arc + time.air);
@@ -766,9 +788,13 @@ function arm(
   }
   const tip = grip.clone().addScaledVector(stick, TIP_REACH);
 
-  const squeeze = st.prev ? st.prev.strength * Math.exp(-st.since * 22) : 0;
-  // and the fingers open to let it turn
-  const give = Math.min(1, lift / 0.15) + 1.6 * tw.amount;
+  // the back fingers close on the stick at the head — hard for a loud note, and hard
+  // too for a ghost, which they threw — and open to let it turn as it rises: all
+  // the way over a finger stroke's inch
+  const thrown = Math.max(st.prev?.strength ?? 0, 0.8 * fingers);
+  const squeeze = st.prev ? thrown * Math.exp(-st.since * 22) : 0;
+  const giveAt = GIVE_FULL + (GIVE_FINGERS - GIVE_FULL) * fingers;
+  const give = Math.min(1, lift / giveAt) + 1.6 * tw.amount;
   return {
     shoulder,
     elbow: joint,
@@ -932,10 +958,11 @@ function smootherstep(a: number, b: number, x: number): number {
  * Where a hand is between strokes: the piece it is coming from, the piece it
  * is going to, and how far along it is (0–1).
  *
- * A hand that has the time leaves early and takes a move as long as the
- * distance asks for, easing out and in (no sudden start or stop), to arrive a
- * moment before the stick comes down; one without the time leaves on the
- * rebound. With nothing to play it settles into a rest — the sticks in a
+ * A hand sets off for its next note as soon as the stick leaves the head —
+ * it knows what is coming — and takes a move as long as the distance asks
+ * for, easing out and in (no sudden start or stop), so it is there a moment
+ * before the stick comes down rather than snatching across at the last
+ * moment. With nothing to play it settles into a rest — the sticks in a
  * loose V over the snare — and comes out of it in time for the first note.
  */
 interface HandPath {
@@ -957,12 +984,8 @@ function moveTime(a: Target, b: Target): number {
 /** How far back a lead hand's time-keeping is remembered, seconds. */
 const HOME_MEMORY = 4;
 const isHome = (h: Hit) => h.piece === 'snare' || h.piece === 'hat' || h.piece === 'ride';
-/** A reach away from the snare, which a drummer starts early: the toms and the cymbals. */
-const isReach = (h: Hit) =>
-  h.piece === 'tom1' ||
-  h.piece === 'tom2' ||
-  h.piece === 'floor' ||
-  PIECES[h.piece].kind === 'cymbal';
+/** How long after a note the hand sets off for the next: as the stick leaves the head, seconds. */
+const LEAVE = 0.015;
 /**
  * The longest an anticipated move is spread over, in multiples of its
  * relaxed time: with a long gap the hand gets there and waits, rather than
@@ -1006,7 +1029,7 @@ function path(
       const home = homeOf(hits, lastAtOrBefore(hits, prev.time), hand, hatGap);
       const out = moveTime(from, home);
       const back = moveTime(home, to);
-      const leave = prev.time + Math.min(0.12, gap * 0.15);
+      const leave = prev.time + Math.min(LEAVE, gap * 0.1);
       if (leave + out + back + 0.15 < end) {
         if (now < leave + out) {
           return { from, to: home, travel: smootherstep(leave, leave + out, now) };
@@ -1016,19 +1039,16 @@ function path(
     }
     const dist = from.tip.distanceTo(to.tip);
     if (dist < 1e-4) return { from, to, travel: 1 };
-    // off the snare to a tom or a cymbal, the hand sees it coming: it heads
-    // there as the stick leaves the head, not at the last moment
-    if (prev.piece === 'snare' && isReach(next)) {
-      const start = prev.time + Math.min(0.015, gap * 0.1);
-      const span = Math.min(end - start, ANTICIPATE_MAX * moveTime(from, to));
-      return { from, to, travel: smootherstep(start, start + span, now) };
-    }
+    // the hand knows where it is going next: it heads there as the stick leaves the
+    // head, not once the bounce is done, taking as long as the move asks for — up to
+    // twice that, so a long gap is a calm move and a wait, not a drift across it all
+    const start = prev.time + Math.min(LEAVE, gap * 0.1);
+    const span = Math.min(end - start, ANTICIPATE_MAX * moveTime(from, to));
     // a small adjustment — the next note on the same piece landing a little
-    // elsewhere — is made over the whole stroke, not snapped in at the end
+    // elsewhere — is made over the whole stroke
     const small = dist < SMALL_MOVE ? 1 - dist / SMALL_MOVE : 0;
-    const quick = Math.max(prev.time + Math.min(0.015, gap * 0.1), end - moveTime(from, to));
-    const start = quick + (prev.time + Math.min(0.015, gap * 0.1) - quick) * small;
-    return { from, to, travel: smootherstep(start, end, now) };
+    const stop = start + span + (end - start - span) * small;
+    return { from, to, travel: smootherstep(start, stop, now) };
   }
   if (next) {
     const to = targetOf(next, hand, hatGap);
@@ -1040,7 +1060,7 @@ function path(
     // off a tom or a crash, home first; then, with still nothing to play, the rest
     if (!isHome(prev)) {
       const home = homeOf(hits, lastAtOrBefore(hits, prev.time), hand, hatGap);
-      const leave = prev.time + 0.12;
+      const leave = prev.time + LEAVE;
       const out = moveTime(from, home);
       if (now < leave + out) {
         return { from, to: home, travel: smootherstep(leave, leave + out, now) };

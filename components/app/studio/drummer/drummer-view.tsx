@@ -116,12 +116,13 @@ export function DrummerView() {
         <StudioHelp title="The drummer">
           Drag to turn round the kit, scroll or pinch to zoom in (toward the pointer), and
           right-drag or two-finger drag to slide. The drummer plays exactly what you hear — swing,
-          feel and Humanise included — and chooses its own sticking: cymbals on the lead hand, fills
-          alternating, a flam&rsquo;s grace on the other hand. Ghost notes are played from an inch,
-          accents from high up. Grip sets how the sticks are held: matched, or military
-          (traditional) — palm up, the stick in the web of the thumb, played by turning the forearm
-          — in the hand away from the hats or in both. It is an experiment: a jointed figure, not a
-          recording of a real player.
+          feel and Humanise included — and chooses its own sticking: cymbals on the lead hand, quick
+          sixteenths on the hats hand to hand, fills alternating with a double where that keeps the
+          arms from crossing, a flam&rsquo;s grace on the other hand. Ghost notes are played from an
+          inch, mostly with the fingers; accents from high up. Grip sets how the sticks are held:
+          matched, or military (traditional) — palm up, the stick in the web of the thumb, played by
+          turning the forearm — in the hand away from the hats or in both. It is an experiment: a
+          jointed figure, not a recording of a real player.
         </StudioHelp>
       </div>
       <div className="drummer-stage">

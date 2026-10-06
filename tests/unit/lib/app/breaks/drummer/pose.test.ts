@@ -408,6 +408,20 @@ describe('poseAt — the hands', () => {
     return fore.angleTo(knuckles);
   }
 
+  it('sets off for the next piece as the stick leaves the head, not once the bounce is done', () => {
+    // the hats, then the ride a long way across and well over a second later
+    const tl = notes([
+      { step: 0, lane: 'h' },
+      { step: 12, lane: 'r' },
+    ]);
+    expect(tl.all().map((h) => h.limb)).toEqual(['lead', 'lead']);
+    const x = (t: number) => poseAt(tl, t, 1).arms.lead.wrist.x;
+    const across = x(12 * DUR) - x(0);
+    expect(across).toBeGreaterThan(0.3);
+    // a third of the way through the gap it is well on its way, easing out of the hats
+    expect((x(4 * DUR) - x(0)) / across).toBeGreaterThan(0.1);
+  });
+
   it('plays the snare with the elbow hanging by the ribs and the wrist in line', () => {
     const tl = notes([{ step: 4, lane: 's', value: 2 }]);
     const a = poseAt(tl, 4 * DUR, 1).arms.other;
@@ -614,6 +628,61 @@ describe('poseAt — the stroke bounces in the fingers', () => {
     const a = poseAt(tl, 4 * 0.125, 1).arms.other;
     const fore = a.wrist.clone().sub(a.elbow).normalize();
     expect(fore.angleTo(new Vector3(0, 0, 1).applyQuaternion(a.hand))).toBeLessThan(0.2);
+  });
+});
+
+describe('poseAt — ghost notes are the fingers’', () => {
+  /** Lone snare notes a beat apart for the other hand, of the given value: 1 a ghost, 2 a hit. */
+  function snares(value: number): StrokeTimeline {
+    const b = bar();
+    for (const i of [0, 4, 8, 12]) b.s[i] = value;
+    const tl = new StrokeTimeline();
+    for (let i = 0; i < N; i++) {
+      tl.ingest({
+        t: i * DUR,
+        dur: DUR,
+        slot: i,
+        meter: M44,
+        bar: b,
+        next: null,
+        notes: b.s[i] ? [{ voice: voice('s'), when: i * DUR }] : [],
+      });
+    }
+    return tl;
+  }
+
+  /** Over the stroke into the note at step 8: how far the hand pitches, the stick turns in it, and the back fingers move. */
+  function stroke(tl: StrokeTimeline) {
+    const pitch = (v: Vector3) => Math.asin(v.y);
+    const hand: number[] = [];
+    const inFingers: number[] = [];
+    const curl: number[] = [];
+    for (let t = 6 * DUR; t <= 8 * DUR + 1e-9; t += 0.004) {
+      const a = poseAt(tl, t, 1).arms.other;
+      const knuckles = pitch(new Vector3(0, 0, 1).applyQuaternion(a.hand));
+      hand.push(knuckles);
+      inFingers.push(pitch(a.stick) - knuckles);
+      curl.push(a.curl);
+    }
+    const range = (xs: number[]) => Math.max(...xs) - Math.min(...xs);
+    return { hand: range(hand), inFingers: range(inFingers), curl: range(curl) };
+  }
+
+  it('keeps the hand all but still for a ghost, the stick turning in the fingers', () => {
+    const ghost = stroke(snares(1));
+    expect(ghost.inFingers).toBeGreaterThan(0.08);
+    expect(ghost.hand).toBeLessThan(ghost.inFingers / 4);
+  });
+
+  it('flicks the back fingers through a ghost as far as through a full stroke', () => {
+    expect(stroke(snares(1)).curl).toBeGreaterThan(0.3);
+    expect(stroke(snares(1)).curl).toBeGreaterThan(stroke(snares(2)).curl * 0.8);
+  });
+
+  it('still plays a backbeat with the wrist as much as the fingers', () => {
+    const hit = stroke(snares(2));
+    expect(hit.hand).toBeGreaterThan(hit.inFingers / 2);
+    expect(hit.hand).toBeGreaterThan(stroke(snares(1)).hand * 5);
   });
 });
 
@@ -1100,7 +1169,9 @@ describe('poseAt — military grip', () => {
     b.s[4] = 2;
     b.s[12] = 2;
     b.t2[14] = 1;
+    // the floor tom under a ride note: the other hand's, out at full stretch
     b.t3[15] = 1;
+    b.r[15] = 1;
     return played(b);
   }
 

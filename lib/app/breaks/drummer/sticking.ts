@@ -21,7 +21,8 @@ import type { Bar, LaneKey } from '@/lib/app/breaks/types';
  * Which notes the hands play comes first: cymbals before drums (crash, then
  * ride, then hat), then the snare, then the other drums left to right; two
  * hands play at most two of them. Which hand takes which is then the cheapest
- * of the ways to share them out, counting:
+ * way through the whole bar — not step by step, so a step can cost a little
+ * more to save more later — counting:
  *
  * - **travel** — how far each hand has to go from the piece it last played:
  *   dear for a hand that played on the step before, cheap for one that has
@@ -34,13 +35,22 @@ import type { Bar, LaneKey } from '@/lib/app/breaks/types';
  *   on the snare); more than that tangles the arms, and is all but ruled out;
  * - **habit** — the lead hand keeps time on cymbals, and the other hand lives
  *   on the snare;
- * - **alternation** — through a fill, a lone drum goes to the hand that did
- *   not play the drum on the step before.
+ * - **sticking** — through a fill, a lone drum goes to the hand that did not
+ *   play the drum on the step before, unless a double (a paradiddle's RLRR)
+ *   keeps the arms from crossing; three in a row, hardly ever;
+ * - **tangle** — through a fill, the hands left crossed on two drums: the
+ *   hand going the way the fill goes leads it, right going right and left
+ *   coming back.
+ *
+ * A fast run of hats goes hand to hand, R L R L on the steps, and whatever
+ * else lands on a step — the backbeat, a ghost, the crash — is played by the
+ * hand whose go it is, the hats left out there: R L R L, R on the snare, L R L.
  *
  * Two things a drummer drops rather than contort for: percussion on a step
  * where the lead hand is keeping time on the hats or ride (the hand stays on
  * its cymbal), and the hats under a tom fill on the lead side (the fill lifts
- * the lead hand off them; a lone tom under the hats splits the hands instead). Both still sound; they are just not mimed.
+ * the lead hand off them; a lone tom under the hats splits the hands
+ * instead). Both still sound; they are just not mimed.
  *
  * A piece out at the edge (the block beside the hats) is only ever its own
  * side's: the other hand cannot reach it. A grace note is the hand that is not
@@ -80,8 +90,16 @@ const HABIT_SNARE = 0.4;
 /** How many steps without a time-keeping cymbal before the hands are in a fill. */
 const FILL_AFTER = 2;
 
-/** How much a lone drum leans to the hand that did not just play a drum. */
-const ALTERNATE = 0.85;
+/**
+ * Through a fill, what a lone drum costs on the hand that played the drum
+ * before it: a double is a little dearer than alternating, three in a row a
+ * lot dearer. Cheap enough that a double — a paradiddle's — wins when
+ * alternating would leave the arms crossed.
+ */
+const DOUBLE = 0.85;
+const TRIPLE = 2.5;
+/** What a metre of the lead hand left of the other costs, both on drums, through a fill. */
+const TANGLE = 4;
 
 function other(hand: Hand): Hand {
   return hand === 'lead' ? 'other' : 'lead';
@@ -101,16 +119,21 @@ function apart(a: PieceId, b: PieceId): number {
   return Math.hypot(ax - bx, ay - by, az - bz);
 }
 
+/** Whether `hand` can get to `lane` at all: a piece out at the edge is only its own side's. */
+function reaches(hand: Hand, lane: LaneKey): boolean {
+  const x = xOf(lane);
+  return Math.abs(x) <= FAR || x > 0 === (hand === 'lead');
+}
+
 /** What it costs `hand` to play `lane` from where it is. */
 function costOf(
   hand: Hand,
   lane: LaneKey,
   at: HandsAt,
-  lastDrumHand: Hand | undefined,
   idle: Readonly<Record<Hand, number>>
 ): number {
+  if (!reaches(hand, lane)) return Infinity;
   const x = xOf(lane);
-  if (Math.abs(x) > FAR && x > 0 !== (hand === 'lead')) return Infinity;
   const cymbal = CYMBALS.includes(lane);
   // a hand still coming off the step before has no time to go far; one that has
   // been free a while has had time to get back where it wants to be
@@ -129,7 +152,6 @@ function costOf(
   if (hand === 'lead' && (lane === 'h' || lane === 'r')) cost -= HABIT_TIME;
   else if (hand === 'lead' && cymbal) cost -= 0.15;
   if (hand === 'other' && lane === 's') cost -= HABIT_SNARE;
-  if (lastDrumHand && DRUMS.includes(lane) && hand !== lastDrumHand) cost -= ALTERNATE;
   return cost;
 }
 
@@ -140,18 +162,43 @@ function crossing(leadX: number, otherX: number): number {
   return 0.5 * cross + (cross > CROSS_OK ? 3 : 0);
 }
 
-export function assignStep(
-  bar: Bar,
-  i: number,
-  prev: StepHands | null,
-  at: HandsAt = HAND_REST,
-  keeping = false,
-  idle: Readonly<Record<Hand, number>> = idleAfter(prev)
-): StepHands {
-  const out: StepHands = {};
-  if (bar.k[i]) out.k = 'kickFoot';
-  if (bar.hf[i]) out.hf = 'hatFoot';
+const DRUM_PIECES = new Set(DRUMS.map((lane) => LANE_PIECE[lane]));
 
+/**
+ * Through a fill, what it costs to leave the hands crossed on the drums: the
+ * lead hand on a drum left of the one the other hand is on, both of them
+ * there now or a step ago. Crossed on a cymbal and a drum is how time is kept
+ * (the stick on the hats rides above the one on the snare); crossed on two
+ * drums the arms are at one height and in each other's way.
+ */
+function tangle(at: HandsAt, idle: Readonly<Record<Hand, number>>): number {
+  if (idle.lead > 1 || idle.other > 1) return 0;
+  if (!DRUM_PIECES.has(at.lead) || !DRUM_PIECES.has(at.other)) return 0;
+  return TANGLE * Math.max(0, centreOf(at.other)[0] - centreOf(at.lead)[0]);
+}
+
+/** The hand that played a run of lone drums in a row, and how many. */
+interface Run {
+  hand: Hand;
+  length: number;
+}
+
+/** Where the hands are going into a step, and what they have just been doing. */
+interface HandsState {
+  at: HandsAt;
+  /** Steps each hand has been free. */
+  idle: Record<Hand, number>;
+  /** Steps since a time-keeping cymbal: past FILL_AFTER, the hands are in a fill. */
+  since: number;
+  run?: Run;
+}
+
+/**
+ * The notes of a step the hands play, in the order they are handed out:
+ * cymbals before drums, the snare first of those, then left to right — and
+ * at most two.
+ */
+function handNotes(bar: Bar, i: number): LaneKey[] {
   let cymbals = CYMBALS.filter((lane) => !!bar[lane][i]);
   const keepsTime = cymbals.includes('h') || cymbals.includes('r');
   const drums = DRUMS.filter((lane) => !!bar[lane][i])
@@ -173,34 +220,117 @@ export function assignStep(
   ) {
     cymbals = [];
   }
-  const notes = [...cymbals, ...drums].slice(0, 2);
-  // a lone drum alternates only in a fill: in a groove the lead hand is keeping
-  // time, and the other hand plays the snare's doubles and ghosts itself
-  const lastDrumHand = prev && !keeping ? lastDrum(prev) : undefined;
-  const cost = (hand: Hand, lane: LaneKey, alternate: boolean) =>
-    costOf(hand, lane, at, alternate ? lastDrumHand : undefined, idle);
+  return [...cymbals, ...drums].slice(0, 2);
+}
 
-  if (notes.length === 1) {
-    const [lane] = notes;
-    // alternation only counts here: a lone drum with both hands free is a fill
-    const lead = cost('lead', lane, true);
-    const oth = cost('other', lane, true);
-    out[lane] = lead <= oth ? 'lead' : 'other';
-  } else if (notes.length === 2) {
-    const [a, b] = notes;
-    const straight = cost('lead', a, false) + cost('other', b, false) + crossing(xOf(a), xOf(b));
-    const swapped = cost('other', a, false) + cost('lead', b, false) + crossing(xOf(b), xOf(a));
-    out[a] = straight <= swapped ? 'lead' : 'other';
-    out[b] = other(out[a]);
-  }
+/**
+ * Hand to hand, one hand plays the step: whatever is not the hats if there is
+ * anything — the backbeat, a ghost, the crash — and the hats otherwise.
+ */
+function turnNote(bar: Bar, i: number): LaneKey | undefined {
+  const cymbals = CYMBALS.filter((lane) => lane !== 'h' && !!bar[lane][i]);
+  const drums = DRUMS.filter((lane) => !!bar[lane][i]).sort((a, b) =>
+    a === 's' ? -1 : b === 's' ? 1 : xOf(a) - xOf(b)
+  );
+  return [...cymbals, ...drums, ...(bar.h[i] ? (['h'] as const) : [])][0];
+}
 
-  const busy = new Set(notes.map((lane) => out[lane]));
+/** The feet, and the grace hand for whatever the hands were given. */
+function finish(bar: Bar, i: number, hands: StepHands): StepHands {
+  const out: StepHands = {};
+  if (bar.k[i]) out.k = 'kickFoot';
+  if (bar.hf[i]) out.hf = 'hatFoot';
+  Object.assign(out, hands);
+  const busy = new Set(Object.values(hands));
   for (const lane of DRUMS) {
     const hand = out[lane];
     if (hand !== 'lead' && hand !== 'other') continue;
     if (gracesOf(lane, bar[lane][i]) && !busy.has(other(hand))) out.grace = other(hand);
   }
   return out;
+}
+
+/** The ways a step's notes can be shared between the hands; `turn` says hand to hand, and whose go it is. */
+function choices(bar: Bar, i: number, turn?: Hand): StepHands[] {
+  const lane = turn && turnNote(bar, i);
+  // (a piece out at the edge stays its own side's, whoever's go it is)
+  if (turn && (!lane || reaches(turn, lane))) return [finish(bar, i, lane ? { [lane]: turn } : {})];
+  const notes = handNotes(bar, i);
+  if (notes.length === 1) {
+    const [lane] = notes;
+    return [finish(bar, i, { [lane]: 'lead' }), finish(bar, i, { [lane]: 'other' })];
+  }
+  if (notes.length === 2) {
+    const [a, b] = notes;
+    return [
+      finish(bar, i, { [a]: 'lead', [b]: 'other' }),
+      finish(bar, i, { [a]: 'other', [b]: 'lead' }),
+    ];
+  }
+  return [finish(bar, i, {})];
+}
+
+/** The lanes the hands play in a step, and with which hand. */
+function handed(step: StepHands): [LaneKey, Hand][] {
+  return [...CYMBALS, ...DRUMS].flatMap((lane) => {
+    const hand = step[lane];
+    return hand === 'lead' || hand === 'other' ? [[lane, hand] as [LaneKey, Hand]] : [];
+  });
+}
+
+/**
+ * What a way of playing a step costs from where the hands are: each note's
+ * own cost, two notes at once crossing the arms, and — through a fill — a
+ * lone drum on the hand that just played one, and the hands left crossed on
+ * the drums.
+ */
+function stepCost(step: StepHands, state: HandsState): number {
+  const notes = handed(step);
+  let cost = 0;
+  for (const [lane, hand] of notes) cost += costOf(hand, lane, state.at, state.idle);
+  if (notes.length === 2) {
+    const leadLane = notes.find(([, hand]) => hand === 'lead')![0];
+    const otherLane = notes.find(([, hand]) => hand === 'other')![0];
+    cost += crossing(xOf(leadLane), xOf(otherLane));
+  }
+  // in a groove the lead hand is keeping time, and the other hand plays the snare's
+  // doubles and ghosts itself: the sticking only counts through a fill
+  if (state.since < FILL_AFTER) return cost;
+  if (notes.length === 1 && DRUMS.includes(notes[0][0]) && state.run?.hand === notes[0][1])
+    cost += state.run.length >= 2 ? TRIPLE : DOUBLE;
+  const next = advance(step, state);
+  return cost + tangle(next.at, next.idle);
+}
+
+/** Where the hands are after a step: on what they just played, or where they were. */
+function after(step: StepHands, at: HandsAt): HandsAt {
+  const next = { ...at };
+  for (const [lane, hand] of handed(step)) next[hand] = LANE_PIECE[lane];
+  return next;
+}
+
+/** Whether the lead hand kept time on a step: a hat or ride under it. */
+function keptTime(step: StepHands | null): boolean {
+  return !!step && (!!step.h || !!step.r);
+}
+
+/** The state the hands are in once a step has been played. */
+function advance(step: StepHands, state: HandsState): HandsState {
+  const played = new Set(Object.values(step));
+  const idle = { ...state.idle };
+  for (const hand of ['lead', 'other'] as const) idle[hand] = played.has(hand) ? 0 : idle[hand] + 1;
+  const drum = lastDrum(step);
+  const run = !drum
+    ? undefined
+    : state.run?.hand === drum
+      ? { hand: drum, length: state.run.length + 1 }
+      : { hand: drum, length: 1 };
+  return {
+    at: after(step, state.at),
+    idle,
+    since: keptTime(step) ? 0 : state.since + 1,
+    run,
+  };
 }
 
 /** How many steps each hand has been free, knowing only the step before. */
@@ -217,21 +347,82 @@ function lastDrum(step: StepHands): Hand | undefined {
   return undefined;
 }
 
-/** Where the hands are after a step: on what they just played, or where they were. */
-function after(step: StepHands, at: HandsAt): HandsAt {
-  const next = { ...at };
-  for (const lane of [...CYMBALS, ...DRUMS]) {
-    const hand = step[lane];
-    if (hand === 'lead' || hand === 'other') next[hand] = LANE_PIECE[lane];
+/**
+ * One step on its own: the cheapest way to play it from where the hands are,
+ * knowing only the step before — no looking ahead. `assignBar` weighs a whole
+ * bar at once, so a step there can cost a little more to save more later.
+ */
+export function assignStep(
+  bar: Bar,
+  i: number,
+  prev: StepHands | null,
+  at: HandsAt = HAND_REST,
+  keeping = false,
+  idle: Readonly<Record<Hand, number>> = idleAfter(prev)
+): StepHands {
+  const drum = prev ? lastDrum(prev) : undefined;
+  const state: HandsState = {
+    at,
+    idle: { ...idle },
+    since: keeping ? 0 : FILL_AFTER,
+    run: drum ? { hand: drum, length: 1 } : undefined,
+  };
+  let best: StepHands = {};
+  let least = Infinity;
+  for (const step of choices(bar, i)) {
+    const cost = stepCost(step, state);
+    if (cost < least) [best, least] = [step, cost];
   }
-  return next;
+  return best;
 }
 
-/** Whether the lead hand kept time on a step: a hat or ride under it. */
-function keptTime(step: StepHands | null): boolean {
-  return !!step && (!!step.h || !!step.r);
+/** The fewest hat steps in a row that go hand to hand. */
+const HAND_TO_HAND_RUN = 4;
+
+/**
+ * Whose go it is on each step a fast run of hats goes hand to hand: the lead
+ * hand on the even steps, the other on the odd, whatever lands there. A step
+ * with no hats between two with them (the backbeat written without its hat)
+ * stays in the run.
+ */
+function handToHand(bar: Bar, fast: boolean): (Hand | undefined)[] {
+  const n = bar.k.length;
+  const turns: (Hand | undefined)[] = Array<Hand | undefined>(n).fill(undefined);
+  if (!fast) return turns;
+  const hat = (i: number) => i >= 0 && i < n && !!bar.h[i];
+  const inRun = (i: number) => hat(i) || (hat(i - 1) && hat(i + 1) && !!turnNote(bar, i));
+  for (let i = 0; i < n;) {
+    if (!inRun(i)) {
+      i++;
+      continue;
+    }
+    let j = i;
+    while (j < n && inRun(j)) j++;
+    if (j - i >= HAND_TO_HAND_RUN)
+      for (let k = i; k < j; k++) turns[k] = k % 2 === 0 ? 'lead' : 'other';
+    i = j;
+  }
+  return turns;
 }
 
+function stateKey(s: HandsState): string {
+  const run = s.run ? `${s.run.hand}${Math.min(s.run.length, 2)}` : '-';
+  return [
+    s.at.lead,
+    s.at.other,
+    Math.min(s.idle.lead, TRAVEL.length),
+    Math.min(s.idle.other, TRAVEL.length),
+    Math.min(s.since, FILL_AFTER),
+    run,
+  ].join('|');
+}
+
+/**
+ * The cheapest way through a whole bar: every way of sharing out each step,
+ * kept per state the hands could be in after it, and the best of them at the
+ * end. Weighing the bar at once is what lets a fill play a double — or a
+ * paradiddle — to keep the arms from crossing a step or two later.
+ */
 function assign(
   bar: Bar,
   prev: StepHands | null,
@@ -239,31 +430,36 @@ function assign(
   kept: number,
   fast: boolean
 ): StepHands[] {
-  const out: StepHands[] = [];
-  let at = from;
-  // steps since a time-keeping cymbal: past FILL_AFTER, the hands are in a fill
-  let since = kept;
-  const idle = idleAfter(prev);
+  const turns = handToHand(bar, fast);
+  const drum = prev ? lastDrum(prev) : undefined;
+  let paths = new Map<string, { state: HandsState; cost: number; steps: StepHands[] }>();
+  const start: HandsState = {
+    at: from,
+    idle: idleAfter(prev),
+    since: kept,
+    run: drum ? { hand: drum, length: 1 } : undefined,
+  };
+  paths.set(stateKey(start), { state: start, cost: 0, steps: [] });
   for (let i = 0; i < bar.k.length; i++) {
-    const before = i ? out[i - 1] : prev;
-    const step = assignStep(bar, i, before, at, since < FILL_AFTER, { ...idle });
-    // hats too fast for one hand go hand to hand, when the other hand is free for it
-    if (
-      fast &&
-      step.h === 'lead' &&
-      before?.h === 'lead' &&
-      !Object.values(step).includes('other')
-    ) {
-      step.h = 'other';
+    const options = choices(bar, i, turns[i]);
+    const next = new Map<string, { state: HandsState; cost: number; steps: StepHands[] }>();
+    for (const { state, cost, steps } of paths.values()) {
+      for (const step of options) {
+        const total = cost + stepCost(step, state);
+        if (total === Infinity) continue;
+        const then = advance(step, state);
+        const key = stateKey(then);
+        const seen = next.get(key);
+        if (!seen || total < seen.cost)
+          next.set(key, { state: then, cost: total, steps: [...steps, step] });
+      }
     }
-    out.push(step);
-    at = after(step, at);
-    since = keptTime(step) ? 0 : since + 1;
-    const played = new Set(Object.values(step));
-    for (const hand of ['lead', 'other'] as const)
-      idle[hand] = played.has(hand) ? 0 : idle[hand] + 1;
+    paths = next;
   }
-  return out;
+  let best: StepHands[] = [];
+  let least = Infinity;
+  for (const { cost, steps } of paths.values()) if (cost < least) [best, least] = [steps, cost];
+  return best;
 }
 
 /** Steps since the last time-keeping cymbal at the end of a bar. */
@@ -288,8 +484,8 @@ const followings = [
  * it to one bar of memory: the forecast of the next bar and the bar itself,
  * when it comes, see the same pair and agree.
  *
- * `fast` is the tempo's say: sixteenths quicker than one hand plays
- * comfortably (see `FAST_STEP`), where a run of hats goes hand to hand.
+ * `fast` is the tempo's say: steps quick enough (see `FAST_STEP`) that a
+ * run of hats in them goes hand to hand.
  */
 export function assignBar(bar: Bar, before?: Bar | null, fast = false): StepHands[] {
   const k = fast ? 1 : 0;
@@ -312,5 +508,8 @@ export function assignBar(bar: Bar, before?: Bar | null, fast = false): StepHand
   return out;
 }
 
-/** The longest a step can be, seconds, and still be too fast for one hand on the hats: 8.5 a second. */
-export const FAST_STEP = 1 / 8.5;
+/**
+ * The longest a step can be, seconds, for a run of hats in it to go hand to
+ * hand: six a second, sixteenths from 90 bpm. Slower, one hand plays them.
+ */
+export const FAST_STEP = 1 / 6;
