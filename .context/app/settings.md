@@ -115,6 +115,7 @@ in `lib/app/breaks/browser-keys.ts`:
 | `bb.midiTiming`  | How Download .mid writes the timing                                    | `played` or `quantised` / `played`         | the Export panel, via `useStoredSetting`    |
 | `bb.stageView`   | What the stage shows: the chart, or the 3D drummer (experiment)        | `chart` or `drummer` / `chart`             | the stage, via `useStoredSetting`           |
 | `bb.drummerHand` | Which way round the 3D drummer's kit is set up (lead hand on the hats) | `right` or `left` / `right`                | the drummer view, via `useStoredSetting`    |
+| `bb.drummerGrip` | Which of the 3D drummer's hands hold a military (traditional) grip     | `none`, `other` or `both` / `none`         | the drummer view, via `useStoredSetting`    |
 | `bb.tourSeen`    | The first-run tour has been seen or skipped                            | boolean / `false`                          | `lib/app/breaks/tour-seen.ts`               |
 | `bb.patternsTab` | The Patterns drawer's last tab (also written by a `?tab=` link)        | one of `PATTERNS_TABS`, or `null` / `null` | the Patterns drawer, via `useStoredSetting` |
 | `bb.scratch`     | The pattern on the stage that has never been saved                     | `{ payload, at }`, payload a share payload | `lib/app/breaks/scratch.ts`                 |

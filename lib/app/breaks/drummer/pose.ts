@@ -68,6 +68,27 @@ export interface ArmPose {
   lift: number;
   /** 0–1: the back fingers wrapped, tightening on contact and giving as the stick rises. */
   curl: number;
+  /** How this hand holds its stick (see `Grip`). */
+  held: Grip;
+}
+
+/**
+ * How a hand holds its stick. Matched: palm down-ish, the stick pinched
+ * between thumb and finger. Military (traditional): palm up, the stick in the
+ * web of the thumb and across the ring finger, played by turning the forearm
+ * like a doorknob — usually the hand away from the hats, now and then both.
+ */
+export type Grip = 'matched' | 'military';
+export type Grips = Record<Hand, Grip>;
+
+export const MATCHED_GRIPS: Grips = { lead: 'matched', other: 'matched' };
+
+/** Which hands hold military: neither, the one away from the hats, or both. */
+export function gripsFor(military: 'none' | 'other' | 'both'): Grips {
+  return {
+    lead: military === 'both' ? 'military' : 'matched',
+    other: military === 'none' ? 'matched' : 'military',
+  };
 }
 
 export interface LegPose {
@@ -147,6 +168,8 @@ interface Target {
   lean: number;
   /** How far the back of the hand rolls out from flat, radians (see `ROLL`). */
   roll: number;
+  /** A count-in click: the sticks held crossed, where they are aimed. */
+  count?: boolean;
 }
 
 /**
@@ -215,6 +238,7 @@ function countTarget(hand: Hand): Target {
     pitch,
     lean: 0,
     roll: ROLL_REST,
+    count: true,
   };
 }
 
@@ -273,6 +297,121 @@ function handFrame(hand: Hand, stick: Vector3, roll: number): Quaternion {
   fwd.sub(back.clone().multiplyScalar(fwd.dot(back))).normalize();
   const x = new Vector3().crossVectors(back, fwd);
   return new Quaternion().setFromRotationMatrix(new Matrix4().makeBasis(x, back, fwd));
+}
+
+/**
+ * Military grip: where the fulcrum sits in the hand's frame, for the lead hand
+ * (the other mirrors `x`) — in the web between thumb and first finger, just
+ * under the palm, the butt showing out of the back of the web.
+ */
+const GRIP_MILITARY = new Vector3(0.04, -0.022, 0.06);
+/**
+ * And the stick's line in the hand, butt to tip, for the lead hand (the other
+ * mirrors `x`): out of the web across the palm toward the little finger, a
+ * little under it — over the ring finger, under the first two. The web holds
+ * it at this angle, so where the hand goes the stick's line follows.
+ */
+const STICK_MILITARY = new Vector3(-0.68, -0.18, 0.71).normalize();
+/** How far the back of the hand rolls out from facing up, radians: past thumb-up, the palm turned up toward the body. */
+const ROLL_MILITARY = 2.2;
+/**
+ * How much of a military stroke's wrist share is the forearm turning about
+ * its own length, 0–1; the rest is the wrist bending, as in matched grip.
+ */
+const TURN_MILITARY = 0.75;
+/** How much of the forearm's sideways carry the stick keeps as it rises, 0–1: the web gives the rest. */
+const SWEEP_MILITARY = 0.3;
+/** How many times the hand is turned to point its forearm and stick where the arm's solve says (see `militaryHold`). */
+const HOLD_PASSES = 4;
+/** How far a military shoulder can come forward for a reach, metres, and the slack a reach is given. */
+const SHOULDER_REACH = 0.06;
+const REACH_SPARE = 0.004;
+
+const Z = new Vector3(0, 0, 1);
+
+/** A hand pointing along `fwd`, the back of it rolled out from facing up by `roll`. */
+function frameAlong(hand: Hand, fwd: Vector3, roll: number): Quaternion {
+  const outward = hand === 'lead' ? 1 : -1;
+  const up = UP.clone()
+    .sub(fwd.clone().multiplyScalar(fwd.dot(UP)))
+    .normalize();
+  const side = new Vector3().crossVectors(fwd, up).normalize().multiplyScalar(outward);
+  const back = up
+    .clone()
+    .multiplyScalar(Math.cos(roll))
+    .addScaledVector(side, Math.sin(roll))
+    .normalize();
+  const x = new Vector3().crossVectors(back, fwd);
+  return new Quaternion().setFromRotationMatrix(new Matrix4().makeBasis(x, back, fwd));
+}
+
+function stickMilitary(hand: Hand): Vector3 {
+  const s = STICK_MILITARY.clone();
+  if (hand === 'other') s.x = -s.x;
+  return s;
+}
+
+/** A military hand holding a stick that runs along `stick`, palm up. */
+function militaryFrame(hand: Hand, stick: Vector3): Quaternion {
+  return frameAlong(hand, stick, ROLL_MILITARY).multiply(
+    new Quaternion().setFromUnitVectors(stickMilitary(hand), Z)
+  );
+}
+
+/**
+ * Where a military hand holds its stick for the tip to be at `tip`: in line
+ * with its forearm, palm up, the stick's line set by the web. Held like that,
+ * forearm, hand and stick are one rigid piece from the elbow to the tip, so
+ * the arm is solved as two bones — the upper arm, and that — and the hand
+ * turned until the piece points where the solve says. The stick comes in at
+ * whatever angle that gives it, across the body and down, rather than the
+ * wrist bending to whatever angle the stick was aimed.
+ */
+function militaryHold(
+  hand: Hand,
+  tip: Vector3,
+  gripLocal: Vector3,
+  root: Vector3,
+  pole: Vector3
+): Hold {
+  const inHand = stickMilitary(hand);
+  // the elbow to the tip, in the hand's frame, with the forearm along `fore`
+  const pieceFor = (fore: Vector3) =>
+    fore.clone().multiplyScalar(BODY.forearm).add(gripLocal).addScaledVector(inHand, TIP_REACH);
+  let piece = pieceFor(Z);
+  // the fulcrum is nearer the wrist than in a matched grip, so the reach is shorter: at full
+  // stretch the shoulder comes forward to make it up, and the wrist gives, bending the hand
+  // toward the stick's line — each only as far as the reach needs
+  const longest = pieceFor(inHand).length();
+  const short = root.distanceTo(tip) - BODY.upperArm - longest + REACH_SPARE;
+  const shoulder =
+    short > 0
+      ? root
+          .clone()
+          .addScaledVector(tip.clone().sub(root).normalize(), Math.min(SHOULDER_REACH, short))
+      : root;
+  const need = shoulder.distanceTo(tip) - BODY.upperArm + REACH_SPARE;
+  if (piece.length() < need) {
+    let lo = 0;
+    let hi = 1;
+    for (let i = 0; i < 12; i++) {
+      const mid = (lo + hi) / 2;
+      if (pieceFor(Z.clone().lerp(inHand, mid).normalize()).length() < need) lo = mid;
+      else hi = mid;
+    }
+    piece = pieceFor(Z.clone().lerp(inHand, hi).normalize());
+  }
+  const { joint, end } = solveTwoBone(shoulder, tip, BODY.upperArm, piece.length(), pole);
+  const want = end.sub(joint).normalize();
+  // the hand's roll is set from the vertical, so turning it is not quite a rotation: a few goes
+  const fore = want.clone();
+  let q0 = frameAlong(hand, fore, ROLL_MILITARY);
+  for (let i = 0; i < HOLD_PASSES; i++) {
+    const got = piece.clone().applyQuaternion(q0).normalize();
+    fore.applyQuaternion(new Quaternion().setFromUnitVectors(got, want)).normalize();
+    q0 = frameAlong(hand, fore, ROLL_MILITARY);
+  }
+  return { d0: inHand.applyQuaternion(q0), q0, shoulder };
 }
 
 /** When the body reads where the hands are going, seconds from now. */
@@ -468,6 +607,25 @@ function looseness(st: StrokeState): number {
   return rest + (LOOSE_REBOUND - rest) * Math.exp(-st.since / settle);
 }
 
+/** A stroke this soft or softer is the fingers' alone, and one this hard or harder none of it. */
+const FINGERS_ALL = 0.15;
+const FINGERS_NONE = 0.4;
+/** How much of a finger stroke's angle is the stick turning in the fingers: the hand all but still. */
+const LOOSE_FINGERS = 0.9;
+/** The tip height the back fingers are fully open at: a full stroke's, and a finger stroke's inch. */
+const GIVE_FULL = 0.15;
+const GIVE_FINGERS = 0.035;
+
+/**
+ * How much of a stroke is the fingers', 0–1. A ghost note is played from an
+ * inch, and that inch is the back fingers flicking the stick down onto the
+ * head while the hand stays where it is; a backbeat is the wrist's.
+ */
+function fingerShare(h: Hit | undefined): number {
+  if (!h || h.piece === 'sticks') return 0;
+  return 1 - smoothstep(FINGERS_ALL, FINGERS_NONE, h.strength);
+}
+
 /** The tip height a stroke reaches its full lean at, metres. */
 const LEAN_FULL = 0.2;
 
@@ -500,15 +658,22 @@ function alignHand(q: Quaternion, forearm: Vector3, k: number): Quaternion {
  * while the hand hardly moves — and the wrist takes it back as the hand comes
  * up to catch the stick and throw the next one (see `looseness`). Only a big
  * stroke brings the forearm in, and then not far.
+ *
+ * In a military grip the wrist's share is mostly the forearm turning about its
+ * own length instead — the palm-up hand rocking like a doorknob — so the stick
+ * comes up in an arc that swings out as well as up, and the fingers take the
+ * rest in the web of the thumb.
  */
 function arm(
   hand: Hand,
   st: StrokeState,
   p: HandPath,
-  shoulder: Vector3,
+  root: Vector3,
   time: TimeKeeping,
+  held: Grip,
   cap = Infinity
 ): ArmPose {
+  const military = held === 'military';
   const { from, to, travel } = p;
   const tip0 = from.tip.clone().lerp(to.tip, travel);
   const pitch = from.pitch + (to.pitch - from.pitch) * travel;
@@ -525,19 +690,39 @@ function arm(
   // the wrist leads the next throw, not the rebound — off the head the stick bounces in the
   // fingers and the hand waits (see `looseness`) — and its lead fades out at the head, so
   // the stick still meets it where it is aimed
-  const loose = counting ? 0 : looseness(st);
+  // the stroke coming, or with none coming the one just played
+  const fingers = counting ? 0 : fingerShare(st.next ?? st.prev);
+  const loose = counting ? 0 : Math.max(looseness(st), LOOSE_FINGERS * fingers);
   const rest = piece === 'ride' ? LOOSE_RIDE : LOOSE_REST;
   const caught = counting ? 1 : Math.max(0, 1 - (loose - rest) / (LOOSE_REBOUND - rest)) ** 2;
   const early = Math.min(cap, sign * time.ahead * time.height + arc + time.air);
   const ahead = lift + (early - lift) * caught * Math.min(1, Math.abs(lift) / WRIST_FADE);
   const roll = from.roll + (to.roll - from.roll) * travel;
 
+  // elbows hang by the ribs, a little out and behind the hands; counting, the
+  // elbow swings out as the arm comes up
+  const out = hand === 'lead' ? 1 : -1;
+  const flare = counting ? COUNT_ELBOW * COUNT_ARM * ahead : 0;
+  const pole = new Vector3(out * (0.35 + time.sway + flare), -1, 0.45);
+
   // the stick as it meets the piece, and the hand holding it there
-  const d0 = aim(hand, tip0, pitch);
-  const gripLocal = GRIP_IN_HAND.clone();
+  const gripLocal = (military ? GRIP_MILITARY : GRIP_IN_HAND).clone();
   if (hand === 'other') gripLocal.x = -gripLocal.x;
+  const aimed = aim(hand, tip0, pitch);
+  // counting, the sticks are held crossed where they are aimed. A military hand plays
+  // from its own hold instead, so it eases from one to the other as it moves into or out
+  // of the count, rather than snapping when the click passes
+  const crossed = {
+    d0: aimed,
+    q0: military ? militaryFrame(hand, aimed) : handFrame(hand, aimed, roll),
+    shoulder: root,
+  };
+  const playing = military ? 1 - countShare(p) : 0;
+  const { d0, q0, shoulder } =
+    playing <= 0
+      ? crossed
+      : blendHold(crossed, militaryHold(hand, tip0, gripLocal, root, pole), playing);
   const grip0 = tip0.clone().addScaledVector(d0, -TIP_REACH);
-  const q0 = handFrame(hand, d0, roll);
   const wrist0 = grip0.clone().sub(gripLocal.clone().applyQuaternion(q0));
 
   // the forearm comes up a little for the big strokes, a touch back toward the body; keeping
@@ -559,19 +744,25 @@ function arm(
     Math.max(-0.97, Math.min(0.97, (lift - armLift) / (TIP_REACH + wristArm * (1 - loose))))
   );
   const axis = new Vector3().crossVectors(d0, UP).normalize();
-  const turn = new Quaternion().setFromAxisAngle(axis, theta * (1 - loose));
+  const turn = military
+    ? forearmTurn(
+        d0,
+        axis,
+        wrist0,
+        solveTwoBone(shoulder, wrist0, BODY.upperArm, BODY.forearm, pole).joint,
+        theta * (1 - loose)
+      )
+    : new Quaternion().setFromAxisAngle(axis, theta * (1 - loose));
   const grip = wrist0.clone().add(grip0.clone().sub(wrist0).applyQuaternion(turn)).add(raise);
   // the stroke leans a little to one side as it rises, and comes back down along the same
   // line: nothing at the head, the whole lean at the top of a full stroke
   const sway = new Quaternion().setFromAxisAngle(UP, lean * Math.min(1, lift / LEAN_FULL));
-  const stick = d0.clone().applyAxisAngle(axis, theta).applyQuaternion(sway);
+  // the hand's share, then the fingers' on top of it: straight up from wherever the hand left it
+  const stick = military
+    ? inWeb(d0, d0.clone().applyQuaternion(turn), grip, tip0.y + lift).applyQuaternion(sway)
+    : d0.clone().applyAxisAngle(axis, theta).applyQuaternion(sway);
   const q = sway.clone().multiply(turn).multiply(q0);
 
-  // elbows hang by the ribs, a little out and behind the hands
-  const out = hand === 'lead' ? 1 : -1;
-  // counting, the elbow swings out as the arm comes up
-  const flare = counting ? COUNT_ELBOW * armLift : 0;
-  const pole = new Vector3(out * (0.35 + time.sway + flare), -1, 0.45);
   const reachFor = (frame: Quaternion) => {
     const wrist = grip.clone().sub(gripLocal.clone().applyQuaternion(frame));
     return { wrist, ...solveTwoBone(shoulder, wrist, BODY.upperArm, BODY.forearm, pole) };
@@ -581,17 +772,29 @@ function arm(
   // fulcrum (the stick stays put), and solve again
   const first = reachFor(q);
   const forearm = first.end.clone().sub(first.joint).normalize();
-  const aligned = alignHand(q, forearm, FOLLOW_FOREARM);
+  // (a military hand is already in line with it: it turns about it)
+  const aligned = military ? q : alignHand(q, forearm, FOLLOW_FOREARM);
   const { wrist: wristWanted, joint, end } = reachFor(aligned);
   // out of reach, the hand stays on the arm and the stick goes with it
   grip.add(end.clone().sub(wristWanted));
   // a twirl spins the stick end over end round the fingers, about the line across the knuckles
-  if (tw.spin) stick.applyAxisAngle(new Vector3(1, 0, 0).applyQuaternion(aligned), tw.spin);
+  if (tw.spin) {
+    const across = new Vector3(1, 0, 0).applyQuaternion(aligned);
+    // a military stick lies across the palm, not square to the knuckles: spin it about the
+    // line across them made square to the stick, so it still turns end over end
+    if (military) across.addScaledVector(stick, -across.dot(stick)).normalize();
+    stick.applyAxisAngle(across, tw.spin);
+  }
   const tip = grip.clone().addScaledVector(stick, TIP_REACH);
 
-  const squeeze = st.prev ? st.prev.strength * Math.exp(-st.since * 22) : 0;
-  // and the fingers open to let it turn
-  const give = Math.min(1, lift / 0.15) + 1.6 * tw.amount;
+  // the back fingers close on the stick at the head — hard for a loud note, and hard
+  // too for a ghost, which they threw — and open to let it turn as it rises: all
+  // the way over a finger stroke's inch. The squeeze is the note just played's,
+  // whatever comes next: a ghost before the backbeat is still the fingers'
+  const thrown = Math.max(st.prev?.strength ?? 0, 0.8 * (counting ? 0 : fingerShare(st.prev)));
+  const squeeze = st.prev ? thrown * Math.exp(-st.since * 22) : 0;
+  const giveAt = GIVE_FULL + (GIVE_FINGERS - GIVE_FULL) * fingers;
+  const give = Math.min(1, lift / giveAt) + 1.6 * tw.amount;
   return {
     shoulder,
     elbow: joint,
@@ -602,7 +805,78 @@ function arm(
     tip,
     lift,
     curl: Math.min(1, Math.max(0, 0.62 + 0.3 * squeeze - 0.22 * give)),
+    held,
   };
+}
+
+/** How much of the way a hand is at a count click: 1 there, 0 at a note or the rest, between as it moves. */
+function countShare(p: HandPath): number {
+  const at = (t: Target) => (t.count ? 1 : 0);
+  return at(p.from) + (at(p.to) - at(p.from)) * p.travel;
+}
+
+interface Hold {
+  d0: Vector3;
+  q0: Quaternion;
+  shoulder: Vector3;
+}
+
+/** Part of the way from one way of holding the stick to another: `k` 0 is `a`, 1 is `b`. */
+function blendHold(a: Hold, b: Hold, k: number): Hold {
+  if (k >= 1) return b;
+  return {
+    d0: a.d0.clone().lerp(b.d0, k).normalize(),
+    q0: a.q0.clone().slerp(b.q0, k),
+    shoulder: a.shoulder.clone().lerp(b.shoulder, k),
+  };
+}
+
+/**
+ * A military stroke's wrist share, `angle` radians of tip-up as matched grip
+ * would turn it about `axis`: mostly the forearm turning about its own length
+ * (`elbow` to `wrist`, before the stroke), by however far that has to turn
+ * for the stick to rise as steeply.
+ */
+function forearmTurn(
+  d0: Vector3,
+  axis: Vector3,
+  wrist: Vector3,
+  elbow: Vector3,
+  angle: number
+): Quaternion {
+  const fore = wrist.clone().sub(elbow).normalize();
+  // either way along the forearm is the same line: take the way a positive turn raises the tip
+  if (new Vector3().crossVectors(fore, d0).y < 0) fore.negate();
+  const a = axis.clone().lerp(fore, TURN_MILITARY).normalize();
+  // the stick's height after `t` about `a` (Rodrigues): C + (A − C) cos t + B sin t
+  const C = a.y * a.dot(d0);
+  const A = d0.y - C;
+  const B = new Vector3().crossVectors(a, d0).y;
+  const want = d0.y * Math.cos(angle) + new Vector3().crossVectors(axis, d0).y * Math.sin(angle);
+  const R = Math.hypot(A, B);
+  if (R < 1e-6) return new Quaternion();
+  const t = Math.atan2(B, A) - Math.acos(Math.max(-1, Math.min(1, (want - C) / R)));
+  return new Quaternion().setFromAxisAngle(a, t);
+}
+
+/**
+ * The stick from the web of the thumb, where it pivots loosely: the forearm's
+ * turn carries it along `inHand`, out to the side as well as up, and the web
+ * lets it come back toward the line it was aimed along (`d0`) — so the tip
+ * goes up in a gentle arc, not a sweep — and up or down as far as it takes for
+ * the tip to be at height `y`: the fingers' share of the stroke, and whatever
+ * the forearm's turn left over.
+ */
+function inWeb(d0: Vector3, inHand: Vector3, grip: Vector3, y: number): Vector3 {
+  const flat = new Vector3(d0.x, 0, d0.z)
+    .normalize()
+    .lerp(new Vector3(inHand.x, 0, inHand.z).normalize(), SWEEP_MILITARY);
+  if (flat.lengthSq() < 1e-8) return inHand;
+  const rise = Math.max(-0.97, Math.min(0.97, (y - grip.y) / TIP_REACH));
+  return flat
+    .normalize()
+    .multiplyScalar(Math.sqrt(1 - rise * rise))
+    .setY(rise);
 }
 
 function dir(a: V3): Vector3 {
@@ -684,10 +958,11 @@ function smootherstep(a: number, b: number, x: number): number {
  * Where a hand is between strokes: the piece it is coming from, the piece it
  * is going to, and how far along it is (0–1).
  *
- * A hand that has the time leaves early and takes a move as long as the
- * distance asks for, easing out and in (no sudden start or stop), to arrive a
- * moment before the stick comes down; one without the time leaves on the
- * rebound. With nothing to play it settles into a rest — the sticks in a
+ * A hand sets off for its next note as soon as the stick leaves the head —
+ * it knows what is coming — and takes a move as long as the distance asks
+ * for, easing out and in (no sudden start or stop), so it is there a moment
+ * before the stick comes down rather than snatching across at the last
+ * moment. With nothing to play it settles into a rest — the sticks in a
  * loose V over the snare — and comes out of it in time for the first note.
  */
 interface HandPath {
@@ -709,12 +984,8 @@ function moveTime(a: Target, b: Target): number {
 /** How far back a lead hand's time-keeping is remembered, seconds. */
 const HOME_MEMORY = 4;
 const isHome = (h: Hit) => h.piece === 'snare' || h.piece === 'hat' || h.piece === 'ride';
-/** A reach away from the snare, which a drummer starts early: the toms and the cymbals. */
-const isReach = (h: Hit) =>
-  h.piece === 'tom1' ||
-  h.piece === 'tom2' ||
-  h.piece === 'floor' ||
-  PIECES[h.piece].kind === 'cymbal';
+/** How long after a note the hand sets off for the next: as the stick leaves the head, seconds. */
+const LEAVE = 0.015;
 /**
  * The longest an anticipated move is spread over, in multiples of its
  * relaxed time: with a long gap the hand gets there and waits, rather than
@@ -758,7 +1029,7 @@ function path(
       const home = homeOf(hits, lastAtOrBefore(hits, prev.time), hand, hatGap);
       const out = moveTime(from, home);
       const back = moveTime(home, to);
-      const leave = prev.time + Math.min(0.12, gap * 0.15);
+      const leave = prev.time + Math.min(LEAVE, gap * 0.1);
       if (leave + out + back + 0.15 < end) {
         if (now < leave + out) {
           return { from, to: home, travel: smootherstep(leave, leave + out, now) };
@@ -768,19 +1039,16 @@ function path(
     }
     const dist = from.tip.distanceTo(to.tip);
     if (dist < 1e-4) return { from, to, travel: 1 };
-    // off the snare to a tom or a cymbal, the hand sees it coming: it heads
-    // there as the stick leaves the head, not at the last moment
-    if (prev.piece === 'snare' && isReach(next)) {
-      const start = prev.time + Math.min(0.015, gap * 0.1);
-      const span = Math.min(end - start, ANTICIPATE_MAX * moveTime(from, to));
-      return { from, to, travel: smootherstep(start, start + span, now) };
-    }
+    // the hand knows where it is going next: it heads there as the stick leaves the
+    // head, not once the bounce is done, taking as long as the move asks for — up to
+    // twice that, so a long gap is a calm move and a wait, not a drift across it all
+    const start = prev.time + Math.min(LEAVE, gap * 0.1);
+    const span = Math.min(end - start, ANTICIPATE_MAX * moveTime(from, to));
     // a small adjustment — the next note on the same piece landing a little
-    // elsewhere — is made over the whole stroke, not snapped in at the end
+    // elsewhere — is made over the whole stroke
     const small = dist < SMALL_MOVE ? 1 - dist / SMALL_MOVE : 0;
-    const quick = Math.max(prev.time + Math.min(0.015, gap * 0.1), end - moveTime(from, to));
-    const start = quick + (prev.time + Math.min(0.015, gap * 0.1) - quick) * small;
-    return { from, to, travel: smootherstep(start, end, now) };
+    const stop = start + span + (end - start - span) * small;
+    return { from, to, travel: smootherstep(start, stop, now) };
   }
   if (next) {
     const to = targetOf(next, hand, hatGap);
@@ -792,7 +1060,7 @@ function path(
     // off a tom or a crash, home first; then, with still nothing to play, the rest
     if (!isHome(prev)) {
       const home = homeOf(hits, lastAtOrBefore(hits, prev.time), hand, hatGap);
-      const leave = prev.time + 0.12;
+      const leave = prev.time + LEAVE;
       const out = moveTime(from, home);
       if (now < leave + out) {
         return { from, to: home, travel: smootherstep(leave, leave + out, now) };
@@ -862,8 +1130,14 @@ export const BEATER_CONTACT = -0.21;
  *
  * `groove` is how much the body moves with the music, 0–1 — the caller eases
  * it in at Play and out at Stop, so the drummer does not freeze mid-sway.
+ * `grips` is how each hand holds its stick.
  */
-export function poseAt(timeline: StrokeTimeline, now: number, groove: number): Pose {
+export function poseAt(
+  timeline: StrokeTimeline,
+  now: number,
+  groove: number,
+  grips: Grips = MATCHED_GRIPS
+): Pose {
   const all = timeline.all();
   const hatHits = all.filter((h) => h.piece === 'hat');
   const open = hatOpenAt(hatHits, now);
@@ -969,9 +1243,9 @@ export function poseAt(timeline: StrokeTimeline, now: number, groove: number): P
       .add(pelvis);
   };
 
-  const leadArm = arm('lead', strokes.lead, paths.lead, shoulderOf('lead'), time.lead);
+  const leadArm = arm('lead', strokes.lead, paths.lead, shoulderOf('lead'), time.lead, grips.lead);
   const otherArm = underLead(leadArm, (cap) =>
-    arm('other', strokes.other, paths.other, shoulderOf('other'), time.other, cap)
+    arm('other', strokes.other, paths.other, shoulderOf('other'), time.other, grips.other, cap)
   );
 
   const kickHits = timeline.forLimb('kickFoot');

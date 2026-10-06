@@ -243,11 +243,12 @@ describe('reach overrides alternation', () => {
       (typeof lanes)[number],
       number[]
     >;
-    // step 0: snare on the other hand (its side); step 1: the block, which alternation would give the lead
+    // step 0: snare; step 1: the block, out past the other hand's side. Whichever hand
+    // takes the snare, the block is the other hand's — the lead takes the snare to free it
     bar.s[0] = 2;
     bar.p2[1] = 1;
     const steps = assignBar(bar);
-    expect(steps[0].s).toBe('other');
+    expect(steps[0].s).toBe('lead');
     expect(steps[1].p2).toBe('other');
   });
 });
@@ -334,12 +335,112 @@ describe('assignBar — sixteenth hats too fast for one hand', () => {
     assignBar(hats).forEach((s) => expect(s.h).toBe('lead'));
   });
 
-  it('goes hand to hand when they are fast, the snare still the other hand’s', () => {
+  it('goes hand to hand when they are fast, the snare on whichever hand’s go it is', () => {
+    // R L R L, then R on the snare and L R L on the hats again
     const steps = assignBar(hats, null, true);
-    expect(steps[0].h).toBe('lead');
-    expect(steps[1].h).toBe('other');
-    expect(steps[2].h).toBe('lead');
-    expect(steps[4].h).toBe('lead');
-    expect(steps[4].s).toBe('other');
+    expect(steps.slice(0, 8).map((s) => s.h ?? (s.s && `s:${s.s}`))).toEqual([
+      'lead',
+      'other',
+      'lead',
+      'other',
+      's:lead',
+      'other',
+      'lead',
+      'other',
+    ]);
+  });
+
+  it('keeps going hand to hand through a backbeat written without its hat', () => {
+    const b = bar({
+      h: [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1],
+      s: [0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0],
+    });
+    const steps = assignBar(b, null, true);
+    expect(steps[4].s).toBe('lead');
+    expect(steps[12].s).toBe('lead');
+    expect(steps[5].h).toBe('other');
+  });
+
+  it('plays a ghost on an off step with the hand whose go it is, the hat dropped there', () => {
+    const b = bar({
+      h: Array<number>(N).fill(1),
+      s: [0, 0, 0, 0, 2, 0, 0, 1, 0, 0, 0, 0, 2, 0, 0, 0],
+    });
+    const steps = assignBar(b, null, true);
+    expect(steps[7].s).toBe('other');
+    expect(steps[7].h).toBeUndefined();
+  });
+});
+
+describe('assignBar — fills keep the arms uncrossed', () => {
+  /** A groove to come out of: the hands on the hats and the snare. */
+  const groove = bar({
+    h: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+    s: [0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0],
+  });
+  const DRUM_X: Partial<Record<LaneKey, number>> = { s: -0.07, t1: -0.12, t2: 0.18, t3: 0.45 };
+
+  /**
+   * Every step where the lead hand is on a drum well left of the other hand's
+   * (the high tom, a touch left of the snare and above it, is not a crossing).
+   */
+  function crossings(steps: StepHands[]): number[] {
+    const out: number[] = [];
+    const at: Partial<Record<'lead' | 'other', number>> = {};
+    steps.forEach((step, i) => {
+      for (const [lane, x] of Object.entries(DRUM_X) as [LaneKey, number][]) {
+        const hand = step[lane];
+        if (hand === 'lead' || hand === 'other') at[hand] = x;
+      }
+      if (at.lead !== undefined && at.other !== undefined && at.other > at.lead + 0.1) out.push(i);
+      // a hand with nothing on this step is free to move: forget where it was
+      for (const hand of ['lead', 'other'] as const)
+        if (!Object.values(step).includes(hand)) delete at[hand];
+    });
+    return out;
+  }
+
+  it('leads a fill round the toms with the lead hand going right, and the other coming back', () => {
+    const up = bar({
+      s: [2, 2, 2, 2],
+      t1: [0, 0, 0, 0, 1, 1, 1, 1],
+      t2: [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+      t3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+    });
+    const down = bar({
+      t3: [1, 1, 1, 1],
+      t2: [0, 0, 0, 0, 1, 1, 1, 1],
+      t1: [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+      s: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2],
+    });
+    for (const fill of [up, down]) expect(crossings(assignBar(fill, groove))).toEqual([]);
+    expect(assignBar(up, groove)[12].t3).toBe('lead');
+    expect(assignBar(down, groove)[4].t2).toBe('other');
+  });
+
+  it('plays a double where alternating would cross the arms, rather than cross them', () => {
+    // threes round the toms: R L R would leave the other hand to reach the next tom first
+    const threes = bar({
+      t1: [1, 1, 1],
+      t2: [0, 0, 0, 1, 1, 1],
+      t3: [0, 0, 0, 0, 0, 0, 1, 1, 1],
+    });
+    const steps = assignBar(threes, groove);
+    expect(crossings(steps)).toEqual([]);
+    const hands = steps.slice(0, 9).map((s) => s.t1 ?? s.t2 ?? s.t3);
+    const doubles = hands.filter((h, i) => i > 0 && h === hands[i - 1]).length;
+    expect(doubles).toBeGreaterThan(0);
+    // and never three in a row
+    hands.forEach((h, i) => {
+      if (i > 1) expect(h === hands[i - 1] && h === hands[i - 2]).toBe(false);
+    });
+  });
+
+  it('still alternates a fill that has no reason not to', () => {
+    const snare = bar({ s: [2, 2, 2, 2, 2, 2, 2, 2] });
+    const hands = assignBar(snare, groove)
+      .slice(0, 8)
+      .map((s) => s.s);
+    for (let i = 3; i < 8; i++) expect(hands[i]).not.toBe(hands[i - 1]);
   });
 });

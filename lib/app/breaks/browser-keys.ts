@@ -88,6 +88,15 @@ export const DRUMMER_HAND: StoredSetting<(typeof DRUMMER_HANDS)[number]> = {
   fallback: 'right',
 };
 
+/** Which of the 3D drummer's hands hold the stick in a military (traditional) grip. */
+export const DRUMMER_GRIPS = ['none', 'other', 'both'] as const;
+
+export const DRUMMER_GRIP: StoredSetting<(typeof DRUMMER_GRIPS)[number]> = {
+  key: 'bb.drummerGrip',
+  schema: z.enum(DRUMMER_GRIPS),
+  fallback: 'none',
+};
+
 /**
  * The first-run tour (task 8.6) has been seen, or skipped, in this browser. A
  * new device shows it again, which is fine: it is three steps, and it does not
@@ -127,6 +136,7 @@ export const BROWSER_KEYS = [
   MIDI_TIMING.key,
   STAGE_VIEW.key,
   DRUMMER_HAND.key,
+  DRUMMER_GRIP.key,
   TOUR_SEEN.key,
   SCRATCH.key,
   PENDING_LINK.key,

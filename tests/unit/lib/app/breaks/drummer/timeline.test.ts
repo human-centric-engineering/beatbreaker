@@ -176,6 +176,22 @@ describe('scheduledHits', () => {
     });
   });
 
+  it('takes sixteenth hats hand to hand from 90 bpm itself, and with one hand below it', () => {
+    const hats = bar({ h: Array<number>(N).fill(1) });
+    const limbAt = (bpm: number) =>
+      scheduledHits({
+        t: 0,
+        dur: 60 / bpm / 4,
+        slot: 1,
+        meter: M44,
+        bar: hats,
+        next: null,
+        notes: [{ voice: voice('h'), when: 0 }],
+      })[0]?.limb;
+    expect(limbAt(90)).toBe('other');
+    expect(limbAt(89)).toBe('lead');
+  });
+
   it('plays a flam’s grace on the other hand from the note, at the grace strength, not the note’s', () => {
     const b = hitAt(2, { s: FLAM }); // snare alone -> 'other'; a flam also sets hands.grace = 'lead'
     const step: ScheduledStep = {
