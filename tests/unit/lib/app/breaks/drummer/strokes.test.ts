@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 
 import type { Hit } from '@/lib/app/breaks/drummer/timeline';
 import {
-  CHICK,
   HAND,
   KICK,
   hatOpenAt,
@@ -107,8 +106,10 @@ describe('strokeAt', () => {
 
   it('on a downstroke (accent -> ghost), holds the rebound to at most the next note’s height plus `stop`', () => {
     const hits = [hit(0, 1), hit(2, 0.1)]; // a big gap: nothing here caps the rebound by speed
-    const target = HAND.height(0.1);
-    const freeRebound = HAND.height(1) * HAND.rebound;
+    // each note's height carries its own small variation (`reach`)
+    const reach = (h: Hit) => HAND.reach?.(h) ?? 1;
+    const target = HAND.height(0.1) * reach(hits[1]);
+    const freeRebound = HAND.height(1) * reach(hits[0]) * HAND.rebound;
     // sanity: an unclamped rebound really would overshoot target + stop
     expect(freeRebound).toBeGreaterThan(target + HAND.stop);
 
@@ -120,6 +121,16 @@ describe('strokeAt', () => {
     expect(peakLift).toBeLessThanOrEqual(target + HAND.stop + 1e-9);
     expect(peakLift).toBeLessThan(freeRebound); // proves the clamp actually engaged
     expect(peakLift).toBeCloseTo(bounce, 6);
+  });
+
+  it('on an upstroke, waits low and lifts for the accent only just before throwing it', () => {
+    const hits = [hit(0, 0.1, { piece: 'snare' }), hit(1, 1, { piece: 'snare' })];
+    const target = HAND.height(1) * (HAND.reach?.(hits[1]) ?? 1);
+    // halfway through the gap the stick is still near the ghost note's height
+    expect(strokeAt(hits, 0.5, HAND).lift).toBeLessThan(target * 0.25);
+    // and at full height by the time it is thrown
+    const fall = HAND.fall + HAND.fallPerUnit * target;
+    expect(strokeAt(hits, 1 - fall, HAND).lift).toBeCloseTo(target, 6);
   });
 
   it('caps a fast note’s height to what the time available allows, however loud it is written', () => {
@@ -167,10 +178,9 @@ describe('strokeAt', () => {
     expect(strokeAt(hits, 0.4, HAND).since).toBeCloseTo(0.4, 9);
   });
 
-  it('works the same way for the kick and chick profiles (0 at the hit, non-degenerate otherwise)', () => {
+  it('works the same way for the kick profile (0 at the hit, non-degenerate otherwise)', () => {
     const hits = [hit(0, 1), hit(1, 1)];
     expect(strokeAt(hits, 0, KICK).lift).toBe(0);
-    expect(strokeAt(hits, 0, CHICK).lift).toBe(0);
     expect(strokeAt(hits, 0.5, KICK).lift).toBeGreaterThan(0);
   });
 });
@@ -207,5 +217,38 @@ describe('hatOpenAt', () => {
     expect(stillOpen).toBe(1);
     expect(justBeforeClose).toBeLessThan(1);
     expect(atClose).toBe(0);
+  });
+});
+
+describe('HAND — cymbals are played from low', () => {
+  const on = (piece: Hit['piece']): Hit => ({ ...hit(1, 0.95), piece });
+
+  it('lifts a crash about half as high as a drum of the same strength, and a ride as high', () => {
+    const drum = strokeAt([on('tom1')], 0.5, HAND).lift;
+    const crash = strokeAt([on('crash')], 0.5, HAND).lift;
+    const ride = strokeAt([on('ride')], 0.5, HAND).lift;
+    expect(crash).toBeCloseTo(drum * 0.5, 6);
+    expect(ride).toBeCloseTo(drum, 6);
+  });
+});
+
+describe('HAND — the ride bell', () => {
+  it('is played from about the height of the bow beside it, though it is louder', () => {
+    const bow = strokeAt([hit(1, 0.42, { piece: 'ride' })], 0.5, HAND).lift;
+    const bell = strokeAt([hit(1, 0.7, { piece: 'ride', contact: 'bell' })], 0.5, HAND).lift;
+    expect(bell).toBeGreaterThan(bow);
+    expect(bell).toBeLessThan(bow * 1.7);
+  });
+});
+
+describe('HAND — no two strokes quite the same', () => {
+  it('varies a note’s height a little, the same every time for the same note', () => {
+    const heights = Array.from({ length: 24 }, (_, i) => HAND.reach!(hit(i * 0.25, 0.4)));
+    expect(new Set(heights.map((h) => h.toFixed(4))).size).toBeGreaterThan(12);
+    for (const h of heights) {
+      expect(h).toBeGreaterThan(0.8);
+      expect(h).toBeLessThan(1.2);
+    }
+    expect(HAND.reach!(hit(3, 0.4))).toBe(HAND.reach!(hit(3, 0.4)));
   });
 });

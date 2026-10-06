@@ -1,4 +1,4 @@
-import type { LaneKey, PercLaneKey, PercSpec, Style } from '@/lib/app/breaks/types';
+import type { Bar, LaneKey, PercLaneKey, PercSpec, Style } from '@/lib/app/breaks/types';
 
 /**
  * The lane roster — what a kit is, what a style brings, and how each lane is
@@ -30,6 +30,13 @@ export interface PercInst {
   hi: number;
   /** The notehead the engraver draws. */
   head: 'x' | 'tri' | 'oval';
+  /**
+   * Whether a kit drummer plays it, mounted on the kit — a cowbell off the
+   * kick, a block or claves off the hat stand, cascara on a shell. Without it
+   * the part is a percussionist's (a tambourine, a shaker, congas, a clap): it
+   * sounds with the break, but it does not take one of the drummer's hands.
+   */
+  kit?: boolean;
 }
 
 /**
@@ -41,13 +48,13 @@ export const PERC_INSTS: Record<string, PercInst> = {
   tamb: { label: 'Tambourine', midi: 54, hi: 54, head: 'x' },
   shaker: { label: 'Shaker', midi: 82, hi: 82, head: 'x' },
   clave: { label: 'Claves', midi: 75, hi: 75, head: 'tri' },
-  cowbell: { label: 'Cowbell', midi: 56, hi: 56, head: 'tri' },
-  wood: { label: 'Woodblock', midi: 77, hi: 76, head: 'tri' },
+  cowbell: { label: 'Cowbell', midi: 56, hi: 56, head: 'tri', kit: true },
+  wood: { label: 'Woodblock', midi: 77, hi: 76, head: 'tri', kit: true },
   conga: { label: 'Congas', midi: 64, hi: 63, head: 'oval' },
-  timbale: { label: 'Timbales', midi: 66, hi: 65, head: 'oval' },
-  cascara: { label: 'Cascara', midi: 70, hi: 70, head: 'x' },
+  timbale: { label: 'Timbales', midi: 66, hi: 65, head: 'oval', kit: true },
+  cascara: { label: 'Cascara', midi: 70, hi: 70, head: 'x', kit: true },
   clap: { label: 'Handclap', midi: 39, hi: 39, head: 'x' },
-  agogo: { label: 'Agogo', midi: 68, hi: 67, head: 'tri' },
+  agogo: { label: 'Agogo', midi: 68, hi: 67, head: 'tri', kit: true },
 };
 export const PERC_KEYS = Object.keys(PERC_INSTS);
 
@@ -100,6 +107,26 @@ export function gracesOf(lane: LaneKey, v: number): number {
 export function handsOf(lane: LaneKey, v: number): number {
   if (!v) return 0;
   return gracesOf(lane, v) ? 2 : 1;
+}
+
+/** The lanes always played with a stick: the cymbals, the snare and the toms. */
+const STICK_LANES: LaneKey[] = ['h', 'r', 'c', 's', ...TOM_LANES];
+
+/**
+ * The lanes the drummer's two hands play, given what is in the percussion
+ * slots: the kit's, and a percussion slot only when its instrument is on the
+ * kit ({@link PercInst.kit}). A slot nobody has filled is the tambourine it
+ * would sound as.
+ */
+export function handLanes(perc?: Partial<Record<PercLaneKey, string>>): LaneKey[] {
+  return [...STICK_LANES, ...PERC_LANES.filter((L) => percInst(perc?.[L]).kit)];
+}
+
+/** How many hands a step of a bar takes, over `lanes` (see {@link handLanes}). */
+export function handsAt(bar: Bar, i: number, lanes: readonly LaneKey[]): number {
+  let n = 0;
+  for (const L of lanes) n += handsOf(L, bar[L][i] ?? 0);
+  return n;
 }
 
 /**

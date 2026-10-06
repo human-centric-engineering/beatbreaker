@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  AIM_FROM,
   BELL,
+  BELL_SHORT,
   BODY,
   LANE_PIECE,
   type PieceId,
@@ -120,7 +122,7 @@ describe('strikeTarget', () => {
       expect(tip[0]).toBeCloseTo(cx, 9);
       expect(tip[1]).toBeCloseTo(cy + 0.002 + BEAD, 9);
       expect(tip[2]).toBeCloseTo(cz + r * 0.18, 9);
-      expect(pitch).toBeCloseTo(0.24, 9);
+      expect(pitch).toBeCloseTo(0.32, 9);
     });
 
     it('rim contact: out at the rim, almost flat', () => {
@@ -148,27 +150,75 @@ describe('strikeTarget', () => {
     const ride = PIECES.ride;
     const r = ride.radius;
 
-    it('bell contact is the dome, steeper pitch', () => {
+    it('aims a bell note at the dome from the hand, landing on the bow just short of it', () => {
       const { tip, pitch } = strikeTarget('ride', 'bell');
-      const expected = onPiece(ride, [0, cymbalY(0.03, r) + BEAD, 0.03]);
-      expect(tip[0]).toBeCloseTo(expected[0], 9);
-      expect(tip[1]).toBeCloseTo(expected[1], 9);
-      expect(tip[2]).toBeCloseTo(expected[2], 9);
-      expect(pitch).toBeCloseTo(0.35, 9);
-    });
-
-    it('non-bell contact is toward the edge, flatter', () => {
-      const { tip, pitch } = strikeTarget('ride', 'centre');
-      const rho = r * 0.74;
+      const rho = BELL.radius + BELL_SHORT;
+      const [dx, dz] = [ride.centre[0] - AIM_FROM.lead[0], ride.centre[2] - AIM_FROM.lead[2]];
+      const a = Math.atan2(-dx, -dz);
       const expected = onPiece(ride, [
-        -0.05,
+        rho * Math.sin(a),
         cymbalY(rho, r) + BEAD,
-        Math.sqrt(rho * rho - 0.0025),
+        rho * Math.cos(a),
       ]);
       expect(tip[0]).toBeCloseTo(expected[0], 9);
       expect(tip[1]).toBeCloseTo(expected[1], 9);
       expect(tip[2]).toBeCloseTo(expected[2], 9);
-      expect(pitch).toBeCloseTo(0.12, 9);
+      expect(pitch).toBeCloseTo(0.18, 9);
+    });
+
+    it('plays the ride on the outer bow, and a crash at its edge', () => {
+      const bow = (id: 'ride' | 'crash', share: number) => {
+        const p = PIECES[id];
+        const rho = p.radius * share;
+        return onPiece(p, [-0.05, cymbalY(rho, p.radius) + BEAD, Math.sqrt(rho * rho - 0.0025)]);
+      };
+      const ride = strikeTarget('ride', 'centre');
+      bow('ride', 0.78).forEach((x, i) => expect(ride.tip[i]).toBeCloseTo(x, 9));
+      expect(ride.pitch).toBeCloseTo(0.12, 9);
+      const crash = strikeTarget('crash', 'centre');
+      bow('crash', 0.92).forEach((x, i) => expect(crash.tip[i]).toBeCloseTo(x, 9));
+    });
+
+    it('scatters a bell note round the bow beside the dome, never onto it', () => {
+      const ride0 = PIECES.ride.centre;
+      for (const sc of [
+        [1, 1],
+        [-1, -1],
+        [1, -1],
+        [-1, 1],
+      ] as const) {
+        const a = strikeTarget('ride', 'bell', sc).tip;
+        const b = strikeTarget('ride', 'bell').tip;
+        expect(Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2])).toBeGreaterThan(0.005);
+        // in the cymbal's plane: well off the dome, on the bow close beside it
+        const out = Math.hypot(a[0] - ride0[0], a[2] - ride0[2]);
+        expect(out).toBeGreaterThan(BELL.radius + 0.02);
+        expect(out).toBeLessThan(BELL.radius + BELL_SHORT * 1.4);
+      }
+    });
+
+    it('sweeps a ride stroke further side to side than in and out', () => {
+      const mark = strikeTarget('ride', 'centre').tip;
+      const side = strikeTarget('ride', 'centre', [1, 0]).tip;
+      const deep = strikeTarget('ride', 'centre', [0, 1]).tip;
+      const dist = (a: readonly number[]) =>
+        Math.hypot(a[0] - mark[0], a[1] - mark[1], a[2] - mark[2]);
+      expect(dist(side)).toBeGreaterThan(0.05);
+      expect(dist(side)).toBeGreaterThan(dist(deep) * 1.5);
+    });
+
+    it('moves a crash stroke off its mark by the scatter, staying on the bronze', () => {
+      const mark = strikeTarget('crash', 'centre').tip;
+      const off = strikeTarget('crash', 'centre', [1, -1]).tip;
+      const d = Math.hypot(mark[0] - off[0], mark[1] - off[1], mark[2] - off[2]);
+      expect(d).toBeGreaterThan(0.03);
+      expect(d).toBeLessThan(0.06);
+    });
+
+    it('keeps the hand’s move between bow and bell short', () => {
+      const a = strikeTarget('ride', 'centre').tip;
+      const b = strikeTarget('ride', 'bell').tip;
+      expect(Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2])).toBeLessThan(0.15);
     });
 
     it('bell and non-bell contacts land at different pitches on the same piece', () => {
@@ -180,10 +230,11 @@ describe('strikeTarget', () => {
     const hat = PIECES.hat;
     const r = hat.radius;
 
-    it('plays closer to centre, lower pitch, for a closed/plain contact', () => {
+    it('plays on the outer bow, steeper pitch, for a closed/plain contact', () => {
       const { tip, pitch } = strikeTarget('hat', 'centre');
-      const rho = r * 0.55;
-      const expected = onPiece(hat, [0.55 * rho, cymbalY(rho, r) + BEAD, 0.83 * rho]);
+      const rho = r * 0.72;
+      const [x, z] = [0.55 * rho, 0.83 * rho];
+      const expected = onPiece(hat, [x, cymbalY(Math.hypot(x, z), r) + BEAD, z]);
       expect(tip[0]).toBeCloseTo(expected[0], 9);
       expect(tip[1]).toBeCloseTo(expected[1], 9);
       expect(tip[2]).toBeCloseTo(expected[2], 9);
@@ -193,7 +244,8 @@ describe('strikeTarget', () => {
     it('plays out at the edge, flatter pitch, for an edge contact (open/accent)', () => {
       const { tip, pitch } = strikeTarget('hat', 'edge');
       const rho = r * 0.97;
-      const expected = onPiece(hat, [0.55 * rho, cymbalY(rho, r) + BEAD, 0.83 * rho]);
+      const [x, z] = [0.55 * rho, 0.83 * rho];
+      const expected = onPiece(hat, [x, cymbalY(Math.hypot(x, z), r) + BEAD, z]);
       expect(tip[0]).toBeCloseTo(expected[0], 9);
       expect(tip[1]).toBeCloseTo(expected[1], 9);
       expect(tip[2]).toBeCloseTo(expected[2], 9);

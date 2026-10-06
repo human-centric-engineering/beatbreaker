@@ -167,3 +167,26 @@ describe('tidy', () => {
     expect(changed).toBeGreaterThan(pats.length);
   });
 });
+
+describe('tidy — percussion and the two hands', () => {
+  /** Hat, snare and a percussion note on step 4, with `inst` in the first slot. */
+  function withPerc(inst: string): Pattern {
+    const p = patternOf([{ h: 'x.x.x.x.x.x.x.x.', s: '....s.......s...' }], {
+      lanes: ['k', 's', 'h', 'r', 'c', 'p1'],
+      perc: { p1: inst },
+    });
+    p.bars[0].p1[4] = 1;
+    return p;
+  }
+
+  it('leaves a tambourine beside hat and snare: it is the percussionist’s, not a third hand', () => {
+    const { pattern, changes } = tidy(withPerc('tamb'));
+    expect(changes.filter((c) => c.rule === 'hands')).toEqual([]);
+    expect(pattern.bars[0].p1[4]).toBe(1);
+  });
+
+  it('takes a note off a step where a cowbell on the kit makes three hands', () => {
+    const { changes } = tidy(withPerc('cowbell'));
+    expect(changes.filter((c) => c.rule === 'hands')).toHaveLength(1);
+  });
+});

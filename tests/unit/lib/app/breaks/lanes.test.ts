@@ -7,7 +7,16 @@
 
 import { describe, expect, it } from 'vitest';
 
-import { activeLanes, DEFAULT_PAN, LANES, mixLanes, panFor } from '@/lib/app/breaks/lanes';
+import {
+  activeLanes,
+  DEFAULT_PAN,
+  LANES,
+  mixLanes,
+  panFor,
+  handLanes,
+  handsAt,
+} from '@/lib/app/breaks/lanes';
+import { parseBar } from '@/lib/app/breaks/pattern';
 
 describe('mixLanes', () => {
   it('is every lane A or B plays, once each, in lane order', () => {
@@ -46,5 +55,29 @@ describe('panFor (Phase 9)', () => {
     expect(panFor('h', 'drummer', pans)).toBe(0.7);
     expect(panFor('h', 'audience', pans)).toBe(-0.7);
     expect(panFor('r', 'drummer', pans)).toBe(DEFAULT_PAN.r);
+  });
+});
+
+describe('handLanes — what the drummer’s two hands play', () => {
+  it('is the kit, plus a percussion slot only when its instrument is mounted on the kit', () => {
+    expect(handLanes({ p1: 'cowbell', p2: 'shaker' })).toEqual([
+      'h',
+      'r',
+      'c',
+      's',
+      't1',
+      't2',
+      't3',
+      'p1',
+    ]);
+    expect(handLanes({ p1: 'tamb', p2: 'clave' })).not.toContain('p1');
+    expect(handLanes({ p1: 'tamb', p2: 'clave' })).not.toContain('p2');
+    // an empty slot is the tambourine it sounds as
+    expect(handLanes({})).not.toContain('p1');
+  });
+
+  it('counts a flam as two hands', () => {
+    const b = parseBar({ s: 'f', h: 'x' });
+    expect(handsAt(b, 0, handLanes())).toBe(3);
   });
 });

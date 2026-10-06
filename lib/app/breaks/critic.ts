@@ -1,4 +1,13 @@
-import { FOOT_LANE, HALF_OPEN, LANES, TOM_LANES, gracesOf, handsOf } from '@/lib/app/breaks/lanes';
+import {
+  FOOT_LANE,
+  HALF_OPEN,
+  LANES,
+  TOM_LANES,
+  gracesOf,
+  handLanes,
+  handsAt,
+  handsOf,
+} from '@/lib/app/breaks/lanes';
 import { STEPS, isGroupStart } from '@/lib/app/breaks/meter';
 import { generatePattern, type GenerateOptions } from '@/lib/app/breaks/generate';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
@@ -37,6 +46,8 @@ export function playability(pat: Pattern, bpm: number): Playability {
   let doubleStrain = 0;
   let airless = false;
   let graceClash = false;
+  let threeHands = false;
+  const hands = handLanes(pat.perc);
 
   const nSteps = pat.bars[0] ? pat.bars[0].k.length : STEPS;
   const airFloor = Math.max(3, Math.round(nSteps / 4));
@@ -47,7 +58,10 @@ export function playability(pat: Pattern, bpm: number): Playability {
       if (i < nSteps - 2 && b.k[i] && b.k[i + 1] && b.k[i + 2]) kickRun = true;
       if (i < nSteps - 3 && b.s[i] && b.s[i + 1] && b.s[i + 2] && b.s[i + 3]) snareRun = true;
       if (i < nSteps - 1 && b.k[i] && b.k[i + 1]) doubleStrain++;
+      // a flam's step is the grace check's to report, not this one's twice over —
+      // that step only, so a three-hand step elsewhere is still named
       if (graceTooMany(b, i)) graceClash = true;
+      else if (handsAt(b, i, hands) > 2) threeHands = true;
     }
 
     /* A tom carrying the fill is still a backbeat arriving, and in jazz the 2
@@ -82,12 +96,20 @@ export function playability(pat: Pattern, bpm: number): Playability {
   /* Only shown where it can fail: every pattern written before 9-iv passes it,
      and a list that grows a line nobody can trip is noise. */
   if (graceClash) checks.push({ ok: false, label: GRACE_CHECK });
+  if (threeHands) checks.push({ ok: false, label: HANDS_CHECK });
 
   return {
     checks,
-    hard: !(rideClash || kickRun || snareRun || noBackbeat || airless || graceClash),
+    hard: !(rideClash || kickRun || snareRun || noBackbeat || airless || graceClash || threeHands),
   };
 }
+
+/**
+ * Only shown where it fails, like the grace check: what the drummer's two hands
+ * play on one step — the kit, and percussion only when it is mounted on the
+ * kit (`handLanes`). A tambourine or a shaker is someone else's.
+ */
+export const HANDS_CHECK = 'Two hands — never three things for the sticks at once';
 
 export const GRACE_CHECK =
   'A flam or drag takes both hands — nothing else in the hands on that step';

@@ -16,7 +16,7 @@
 import * as THREE from 'three';
 import { describe, expect, it } from 'vitest';
 
-import { buildDrummer } from '@/components/app/studio/drummer/drummer-model';
+import { BEAD_RADIUS, buildDrummer } from '@/components/app/studio/drummer/drummer-model';
 import { makeMaterials } from '@/components/app/studio/drummer/parts';
 import { poseAt } from '@/lib/app/breaks/drummer/pose';
 import { StrokeTimeline } from '@/lib/app/breaks/drummer/timeline';
@@ -37,12 +37,12 @@ function closestTo(candidates: THREE.Object3D[], target: THREE.Vector3): THREE.O
   return best;
 }
 
-/** Every bead mesh (the stick tip) — identified by its unique radius, 0.0065. */
+/** Every bead mesh (the stick tip) — identified by its unique radius, `BEAD_RADIUS`. */
 function beadMeshes(root: THREE.Object3D): THREE.Mesh[] {
   const out: THREE.Mesh[] = [];
   root.traverse((o) => {
     if (o instanceof THREE.Mesh && o.geometry instanceof THREE.SphereGeometry) {
-      if (Math.abs(o.geometry.parameters.radius - 0.0065) < 1e-9) out.push(o);
+      if (Math.abs(o.geometry.parameters.radius - BEAD_RADIUS) < 1e-9) out.push(o);
     }
   });
   return out;
@@ -111,7 +111,7 @@ describe('buildDrummer', () => {
     );
   });
 
-  it('curls the back fingers with pose.arms.<hand>.curl, but holds the fixed first finger at full curl always', () => {
+  it('balances the stick on the middle finger, the first finger mostly closed, the back fingers following the curl', () => {
     const { root, update } = buildDrummer(makeMaterials());
     const timeline = new StrokeTimeline();
 
@@ -121,14 +121,18 @@ describe('buildDrummer', () => {
     const hands = handGroups(root);
     const leadIdle = closestTo(hands, idle.arms.lead.wrist) as THREE.Group;
 
-    const fixedJoint = leadIdle.children[1] as THREE.Group; // finger 0: `fixed: true`
-    const flexJoint = leadIdle.children[2] as THREE.Group; // finger 1: `fixed: false`
+    const first = leadIdle.children[1] as THREE.Group; // hold 0.7
+    const middle = leadIdle.children[2] as THREE.Group; // hold 1: the fulcrum
+    const ring = leadIdle.children[3] as THREE.Group; // hold 0: follows the curl
 
-    const FIXED_BEND_0 = 0.95; // bend[0] for the fixed finger — never scaled by curl
-    const FLEX_BEND_0 = 1.45; // bend[0] for a non-fixed finger — scaled by curl
+    const FIRST_BEND_0 = 0.95;
+    const MIDDLE_BEND_0 = 1.15;
+    const RING_BEND_0 = 1.45;
+    const firstAt = (curl: number) => FIRST_BEND_0 * (0.7 + 0.3 * curl);
 
-    expect(fixedJoint.rotation.x).toBeCloseTo(FIXED_BEND_0 * 1, 6);
-    expect(flexJoint.rotation.x).toBeCloseTo(FLEX_BEND_0 * idle.arms.lead.curl, 6);
+    expect(middle.rotation.x).toBeCloseTo(MIDDLE_BEND_0, 6);
+    expect(first.rotation.x).toBeCloseTo(firstAt(idle.arms.lead.curl), 6);
+    expect(ring.rotation.x).toBeCloseTo(RING_BEND_0 * idle.arms.lead.curl, 6);
 
     // a fresh lead-hand hit: the squeeze term should move curl away from idle
     timeline.ingest(stepWithHit({ lane: 'c', value: 1, at: 0 }));
@@ -136,9 +140,99 @@ describe('buildDrummer', () => {
     update(struck);
 
     expect(struck.arms.lead.curl).not.toBeCloseTo(idle.arms.lead.curl, 6);
-    // the fixed finger's joint rotation never moved off full curl
-    expect(fixedJoint.rotation.x).toBeCloseTo(FIXED_BEND_0 * 1, 6);
-    // the flexing finger tracked the new curl value exactly
-    expect(flexJoint.rotation.x).toBeCloseTo(FLEX_BEND_0 * struck.arms.lead.curl, 6);
+    // the middle finger never lets go of the stick
+    expect(middle.rotation.x).toBeCloseTo(MIDDLE_BEND_0, 6);
+    // the first finger gives a little, the back fingers the whole of it
+    expect(first.rotation.x).toBeCloseTo(firstAt(struck.arms.lead.curl), 6);
+    expect(ring.rotation.x).toBeCloseTo(RING_BEND_0 * struck.arms.lead.curl, 6);
+  });
+});
+
+describe('buildDrummer() — a glance at the camera', () => {
+  /** The two eyes: the only spheres of radius 0.011. Their parent is the head. */
+  function eyes(root: THREE.Object3D): THREE.Mesh[] {
+    const out: THREE.Mesh[] = [];
+    root.traverse((o) => {
+      if (o instanceof THREE.Mesh && o.geometry instanceof THREE.SphereGeometry) {
+        if (Math.abs(o.geometry.parameters.radius - 0.011) < 1e-9) out.push(o);
+      }
+    });
+    return out;
+  }
+
+  const facing = (head: THREE.Object3D) =>
+    new THREE.Vector3(0, 0, -1).applyQuaternion(head.getWorldQuaternion(new THREE.Quaternion()));
+
+  it('turns the head to the camera as the glance comes in, wherever the camera is', () => {
+    const { root, update } = buildDrummer(makeMaterials());
+    const head = eyes(root)[0].parent!;
+    const pose = poseAt(new StrokeTimeline(), 0, 0);
+    const camera = new THREE.Vector3(1.6, 1.5, -2.2);
+    const toCamera = () =>
+      camera
+        .clone()
+        .sub(head.getWorldPosition(new THREE.Vector3()))
+        .normalize()
+        .angleTo(facing(head));
+
+    update({ ...pose, glance: { ...pose.glance, look: 0 } }, camera);
+    root.updateMatrixWorld(true);
+    const away = toCamera();
+    update({ ...pose, glance: { ...pose.glance, look: 1 } }, camera);
+    root.updateMatrixWorld(true);
+    const at = toCamera();
+    expect(at).toBeLessThan(away - 0.3);
+    expect(at).toBeLessThan(0.2);
+  });
+
+  it('does not look round at a camera behind it', () => {
+    const { root, update } = buildDrummer(makeMaterials());
+    const head = eyes(root)[0].parent!;
+    const pose = poseAt(new StrokeTimeline(), 0, 0);
+    update({ ...pose, glance: { ...pose.glance, look: 0 } });
+    root.updateMatrixWorld(true);
+    const ahead = facing(head);
+    update({ ...pose, glance: { ...pose.glance, look: 1 } }, new THREE.Vector3(0, 1.6, 2.5));
+    root.updateMatrixWorld(true);
+    expect(facing(head).angleTo(ahead)).toBeLessThan(0.05);
+  });
+
+  it('shuts one eye for a wink, and only that one', () => {
+    const { root, update } = buildDrummer(makeMaterials());
+    const pose = poseAt(new StrokeTimeline(), 0, 0);
+    update(
+      { ...pose, blink: 0, glance: { look: 1, nod: 0, tilt: 0, wink: 1, eye: 1, brows: 0 } },
+      new THREE.Vector3(0, 1.5, -2.5)
+    );
+    const [a, b] = eyes(root)
+      .map((e) => e.scale.y)
+      .sort((x, y) => x - y);
+    expect(a).toBeLessThan(0.2);
+    expect(b).toBe(1);
+  });
+
+  it('shuts both eyes for a blink', () => {
+    const { root, update } = buildDrummer(makeMaterials());
+    const pose = poseAt(new StrokeTimeline(), 0, 0);
+    update({ ...pose, blink: 1, glance: { ...pose.glance, wink: 0 } });
+    for (const e of eyes(root)) expect(e.scale.y).toBeLessThan(0.2);
+    update({ ...pose, blink: 0, glance: { ...pose.glance, wink: 0 } });
+    for (const e of eyes(root)) expect(e.scale.y).toBe(1);
+  });
+
+  it('raises both eyebrows for a hello', () => {
+    const { root, update } = buildDrummer(makeMaterials());
+    const pose = poseAt(new StrokeTimeline(), 0, 0);
+    // the brows: the head's only boxes
+    const brows = () =>
+      eyes(root)[0].parent!.children.filter(
+        (o): o is THREE.Mesh => o instanceof THREE.Mesh && o.geometry instanceof THREE.BoxGeometry
+      );
+    update({ ...pose, glance: { ...pose.glance, brows: 0, wink: 0 } });
+    const down = brows().map((b) => b.position.y);
+    update({ ...pose, glance: { ...pose.glance, brows: 1, wink: 0 } });
+    const up = brows().map((b) => b.position.y);
+    expect(down).toHaveLength(2);
+    up.forEach((y, i) => expect(y - down[i]).toBeGreaterThan(0.005));
   });
 });

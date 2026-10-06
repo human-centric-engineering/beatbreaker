@@ -47,17 +47,32 @@ describe('assignStep — feet', () => {
   });
 });
 
-describe('assignStep — cymbal priority (crash > ride > hat)', () => {
+describe('assignStep — cymbals', () => {
   it('gives the lead hand a lone cymbal, whichever one it is', () => {
     expect(assignStep(bar({ c: [1] }), 0, null).c).toBe('lead');
     expect(assignStep(bar({ r: [1] }), 0, null).r).toBe('lead');
     expect(assignStep(bar({ h: [1] }), 0, null).h).toBe('lead');
   });
 
-  it('gives crash the lead hand and ride the other hand, when both sound together', () => {
+  it('splits crash and ride by side when both sound together, rather than crossing the arms', () => {
+    // crash on the left (x = -0.4), ride on the right (x = 0.6)
     const out = assignStep(bar({ c: [1], r: [1] }), 0, null);
-    expect(out.c).toBe('lead');
-    expect(out.r).toBe('other');
+    expect(out.c).toBe('other');
+    expect(out.r).toBe('lead');
+  });
+
+  it('keeps the lead hand crossed over on the hats with the other on the snare', () => {
+    const out = assignStep(bar({ h: [1], s: [2] }), 0, null);
+    expect(out.h).toBe('lead');
+    expect(out.s).toBe('other');
+  });
+
+  it('takes a crash straight after a ride note with the other hand, not the one just off the ride', () => {
+    const b = bar({ r: [1, 0, 1, 0, 1, 0], s: [0, 0, 0, 0, 2, 0], c: [0, 0, 0, 0, 0, 1] });
+    const steps = assignBar(b);
+    expect(steps[4].r).toBe('lead');
+    expect(steps[4].s).toBe('other');
+    expect(steps[5].c).toBe('other');
   });
 
   it('gives ride the lead hand and hat the other hand, when both sound together (no crash)', () => {
@@ -68,13 +83,13 @@ describe('assignStep — cymbal priority (crash > ride > hat)', () => {
 
   it('leaves the third cymbal unplayed when crash, ride and hat all land on the same step', () => {
     const out = assignStep(bar({ c: [1], r: [1], h: [1] }), 0, null);
-    expect(out.c).toBe('lead');
-    expect(out.r).toBe('other');
+    expect(out.c).toBe('other');
+    expect(out.r).toBe('lead');
     expect(out.h).toBeUndefined();
   });
 });
 
-describe('assignStep — two drums: leftmost x goes to the other hand', () => {
+describe('assignStep — two drums', () => {
   it('sends the leftmost drum (lower x) to the other hand and the rightmost to the lead', () => {
     // snare x = -0.07 (left of centre), tom2 x = 0.18 (right of centre)
     const out = assignStep(bar({ s: [2], t2: [1] }), 0, null);
@@ -82,11 +97,19 @@ describe('assignStep — two drums: leftmost x goes to the other hand', () => {
     expect(out.t2).toBe('lead');
   });
 
-  it('orders purely by x, regardless of which lane is named first', () => {
-    // tom1 x = -0.12 (further left than snare's -0.07)
+  it('keeps the other hand on the snare when the second drum is the tom just beside it', () => {
+    // tom1 x = -0.12 is a touch left of the snare's -0.07: the lead hand reaches it over the snare
     const out = assignStep(bar({ s: [2], t1: [1] }), 0, null);
-    expect(out.t1).toBe('other');
-    expect(out.s).toBe('lead');
+    expect(out.s).toBe('other');
+    expect(out.t1).toBe('lead');
+  });
+
+  it('alternates a tom fill hand to hand, the other hand reaching the floor tom', () => {
+    const b = bar({ t2: [1, 1, 0, 0], t3: [0, 0, 1, 1] });
+    const hands = assignBar(b)
+      .slice(0, 4)
+      .map((s) => s.t2 ?? s.t3);
+    for (let i = 1; i < 4; i++) expect(hands[i]).not.toBe(hands[i - 1]);
   });
 });
 
@@ -115,11 +138,16 @@ describe('assignStep — one drum, both hands free', () => {
   });
 
   it('ignores a cymbal hand in the previous step — only a DRUM hand counts for alternation', () => {
-    // previous step played only a cymbal; lastDrum() should find nothing there
-    const prevCymbalOnly: StepHands = { h: 'lead' };
-    // falls back to tom2's own side (x > 0.1 => lead)
-    const out = assignStep(hitAt(5, { t2: 1 }), 5, prevCymbalOnly);
-    expect(out.t2).toBe('lead');
+    // the other hand just played the hat: were that counted as its last drum, the
+    // snare would alternate to the lead; instead it stays on the hand already there
+    const prevCymbalOnly: StepHands = { h: 'other' };
+    const out = assignStep(hitAt(5, { s: 2 }), 5, prevCymbalOnly);
+    expect(out.s).toBe('other');
+  });
+
+  it('gives a drum to the free hand rather than the one just off a stroke across the kit', () => {
+    const out = assignStep(hitAt(5, { t2: 1 }), 5, { h: 'lead' });
+    expect(out.t2).toBe('other');
   });
 });
 
@@ -221,5 +249,97 @@ describe('reach overrides alternation', () => {
     const steps = assignBar(bar);
     expect(steps[0].s).toBe('other');
     expect(steps[1].p2).toBe('other');
+  });
+});
+
+describe('assignBar — from the bar before', () => {
+  it('starts a bar with the hands where the bar before left them', () => {
+    // a ride pattern, then a bar that opens on a lone tom: the lead hand is
+    // over on the ride, so the floor tom beside it is its own
+    const ride = bar({ r: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0] });
+    const tom = bar({ t3: [1] });
+    expect(assignBar(tom, ride)[0].t3).toBe('lead');
+  });
+
+  it('gives the crash after a fill to the hand that did not play its last note', () => {
+    const fill = bar({ s: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2] });
+    const last = assignBar(fill)[15].s;
+    const crash = bar({ c: [1] });
+    expect(assignBar(crash, fill)[0].c).not.toBe(last);
+  });
+
+  it('is deterministic per pair of bars, and caches it', () => {
+    const a = bar({ s: [2, 2] });
+    const b = bar({ c: [1] });
+    expect(assignBar(b, a)).toBe(assignBar(b, a));
+    expect(assignBar(b, a)).toEqual(assignBar(bar({ c: [1] }), bar({ s: [2, 2] })));
+  });
+});
+
+describe('assignBar — the hands keep their jobs', () => {
+  it('keeps a groove with ghost notes right hand on the hats, left on the snare, bar after bar', () => {
+    // 8th hats; backbeats; ghosts on the "a" of 1, the "e" of 3 and a double before 4
+    const b = bar({
+      h: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+      s: [0, 0, 0, 1, 2, 0, 0, 0, 0, 1, 0, 1, 2, 0, 0, 1],
+    });
+    for (const steps of [assignBar(b), assignBar(b, b)]) {
+      steps.forEach((s) => {
+        if (s.h) expect(s.h).toBe('lead');
+        if (s.s) expect(s.s).toBe('other');
+      });
+    }
+  });
+
+  it('goes back to its job after a fill that ended with the hands swapped', () => {
+    const fill = bar({ t3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1] });
+    const groove = bar({ h: [1, 0, 1, 0, 1, 0, 1, 0], s: [0, 0, 0, 0, 2, 0, 0, 0] });
+    const steps = assignBar(groove, fill);
+    expect(steps[2].h).toBe('lead');
+    expect(steps[4].s).toBe('other');
+  });
+
+  it('leaves percussion unplayed rather than take the lead hand off the hats', () => {
+    const out = assignStep(bar({ h: [1], p1: [1] }), 0, null);
+    expect(out.h).toBe('lead');
+    expect(out.p1).toBeUndefined();
+  });
+
+  it('plays percussion when no cymbal is keeping time', () => {
+    const out = assignStep(bar({ p1: [1], s: [2] }), 0, null);
+    expect(out.p1).toBe('lead');
+    expect(out.s).toBe('other');
+  });
+
+  it('lifts off the hats through a tom fill on the lead side, rather than swap hands', () => {
+    const out = assignStep(bar({ h: [1, 1], t3: [1, 1] }), 0, null);
+    expect(out.h).toBeUndefined();
+    expect(out.t3).toBe('lead');
+  });
+
+  it('splits the hands for a lone floor tom under the hats, rather than drop either', () => {
+    const out = assignStep(bar({ h: [1], t3: [1] }), 0, null);
+    expect(out.t3).toBe('lead');
+    expect(out.h).toBe('other');
+  });
+});
+
+describe('assignBar — sixteenth hats too fast for one hand', () => {
+  const hats = bar({
+    h: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    s: [0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0],
+  });
+
+  it('plays them with one hand at an easy tempo', () => {
+    assignBar(hats).forEach((s) => expect(s.h).toBe('lead'));
+  });
+
+  it('goes hand to hand when they are fast, the snare still the other hand’s', () => {
+    const steps = assignBar(hats, null, true);
+    expect(steps[0].h).toBe('lead');
+    expect(steps[1].h).toBe('other');
+    expect(steps[2].h).toBe('lead');
+    expect(steps[4].h).toBe('lead');
+    expect(steps[4].s).toBe('other');
   });
 });

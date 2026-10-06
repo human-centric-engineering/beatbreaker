@@ -1,6 +1,6 @@
 import { LANES, bbValue, snareKept } from '@/lib/app/breaks/lanes';
 import { M44, groupsOf, remapList } from '@/lib/app/breaks/meter';
-import { applyCompFill, applyFill } from '@/lib/app/breaks/generate';
+import { applyCompFill, applyFill, fitHands } from '@/lib/app/breaks/generate';
 import { reduceBar } from '@/lib/app/breaks/layers';
 import { clonePattern, meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
 import { makeRng, wpick } from '@/lib/app/breaks/rng';
@@ -201,6 +201,12 @@ export function doctor(
 
   // swapping cymbals changes what the section *is*
   if (move === 'swap') pat.voice = pat.voice === 'hat' ? 'ride' : 'hat';
+
+  /* A move writes notes without asking what the hands already have — a ghost
+     on a step with the hats and a cowbell, a crash on one with the hats and a
+     snare — so the result is fitted to two hands, as a generated pattern is.
+     Fitting only removes, and never the backbeat. */
+  fitHands(pat);
 
   return pat;
 }

@@ -11,7 +11,7 @@
 import { z } from 'zod';
 import { describe, expect, it } from 'vitest';
 
-import { GRACE_CHECK, playability } from '@/lib/app/breaks/critic';
+import { GRACE_CHECK, HANDS_CHECK, playability } from '@/lib/app/breaks/critic';
 import { articulate, generatePattern } from '@/lib/app/breaks/generate';
 import { Humaniser } from '@/lib/app/breaks/humanise';
 import { LANES, LANE_VALUES, TOM_LANES, plainValue } from '@/lib/app/breaks/lanes';
@@ -535,5 +535,46 @@ describe('the notation key on /help (9.13)', () => {
     for (const row of notationKey()) {
       expect(row.engraving.label).toContain(row.names.join(', '));
     }
+  });
+});
+
+describe('the two-hands check', () => {
+  /** Hat, snare backbeat and a percussion note together on step 4. */
+  function crowded(inst: string): Pattern {
+    const bar = barWith('s', 2);
+    for (let i = 0; i < 16; i += 2) bar.h[i] = 1;
+    bar.s[12] = 2;
+    bar.p1[4] = 1;
+    return pattern([bar], { perc: { p1: inst, p2: 'shaker' } });
+  }
+
+  it('calls three things for the sticks at once unplayable, when the third is on the kit', () => {
+    const check = playability(crowded('cowbell'), 100);
+    expect(check.hard).toBe(false);
+    expect(check.checks.find((c) => c.label === HANDS_CHECK)?.ok).toBe(false);
+  });
+
+  it('leaves a percussionist’s part alone: a tambourine is nobody’s third hand', () => {
+    const check = playability(crowded('tamb'), 100);
+    expect(check.checks.some((c) => c.label === HANDS_CHECK)).toBe(false);
+  });
+
+  it('still names a three-hand step that is not the flam’s', () => {
+    const bar = barWith('s', 6);
+    for (let i = 0; i < 16; i += 2) bar.h[i] = 1;
+    // a separate step with the hats, a snare and a tom, no flam anywhere near it
+    bar.s[8] = 2;
+    bar.t1[8] = 1;
+    const labels = playability(pattern([bar]), 100).checks.map((c) => c.label);
+    expect(labels).toContain(GRACE_CHECK);
+    expect(labels).toContain(HANDS_CHECK);
+  });
+
+  it('lets the grace check speak for a flam, rather than report it twice', () => {
+    const bar = barWith('s', 6);
+    for (let i = 0; i < 16; i += 2) bar.h[i] = 1;
+    const labels = playability(pattern([bar]), 100).checks.map((c) => c.label);
+    expect(labels).toContain(GRACE_CHECK);
+    expect(labels).not.toContain(HANDS_CHECK);
   });
 });

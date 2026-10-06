@@ -1,4 +1,5 @@
 import type { Hit } from '@/lib/app/breaks/drummer/timeline';
+import { makeRng } from '@/lib/app/breaks/rng';
 
 /**
  * How a stick (or a beater) moves between two strokes (experiment: the
@@ -21,6 +22,12 @@ import type { Hit } from '@/lib/app/breaks/drummer/timeline';
 export interface StrokeProfile {
   /** Height (in the profile's units) a stroke of this strength is played from. */
   height: (strength: number) => number;
+  /**
+   * How much of that height a stroke on this piece takes, around 1. A crash is
+   * hit hard but from low — a glancing blow across the edge, not a stick
+   * raised overhead — and a ride is played close.
+   */
+  reach?: (hit: Hit) => number;
   /** Where the stick waits with nothing coming. */
   rest: number;
   /** Fraction of a stroke's height the rebound returns on its own. */
@@ -35,12 +42,54 @@ export interface StrokeProfile {
   risePerUnit: number;
   /** How far above the next stroke's height a rebound is let go before it is stopped. */
   stop: number;
+  /**
+   * When the stick is lifted for the next stroke: `prep + prepPerUnit × height`
+   * seconds before it is thrown. Until then it waits at the rebound's height
+   * (or lower), so an upstroke comes late, not across the whole gap. Without
+   * it the stick moves to the next height over all the time there is.
+   */
+  prep?: number;
+  prepPerUnit?: number;
 }
+
+/** A seed from a note's grid time, the same for its forecast and its scheduled stroke. */
+export function seedOf(h: Hit): number {
+  // murmur3's finaliser: neighbouring milliseconds land on unrelated seeds
+  let x = Math.round(h.step * 1000) >>> 0;
+  x = Math.imul(x ^ (x >>> 16), 0x85ebca6b);
+  x = Math.imul(x ^ (x >>> 13), 0xc2b2ae35);
+  return (x ^ (x >>> 16)) >>> 0;
+}
+
+/** A seeded noise value in -1..1 at a time, smooth across `period`. */
+export function drift(now: number, period: number, salt: number): number {
+  const k = Math.floor(now / period);
+  const at = (i: number) => makeRng(((i * 2654435761) ^ salt) >>> 0)() * 2 - 1;
+  return at(k) + (at(k + 1) - at(k)) * smoothstep(0, 1, now / period - k);
+}
+
+/** How much one hand stroke's height varies from the next, either way. */
+const STROKE_JITTER = 0.12;
+
+/** A note's own small difference in height, seeded from it: no two strokes quite the same. */
+function jitterOf(h: Hit): number {
+  return 1 + STROKE_JITTER * (makeRng(seedOf(h) ^ 0x2c1b3c6d)() * 2 - 1);
+}
+
+/**
+ * How high a hand stroke is played on each cymbal, as a share of its strength's
+ * height. The ride is played from full height: the stick bounces off it and
+ * comes up like it does off the hats.
+ */
+const CYMBAL_REACH: Partial<Record<Hit['piece'], number>> = { crash: 0.5 };
+/** The ride's bell: louder, but played from about the height of the bow beside it. */
+const BELL_REACH = 0.7;
 
 /** A hand, in metres the tip lifts. */
 export const HAND: StrokeProfile = {
-  height: (s) => 0.012 + 0.36 * Math.pow(s, 1.6),
-  rest: 0.07,
+  height: (s) => 0.012 + 0.3 * Math.pow(s, 1.6),
+  reach: (h) => (h.contact === 'bell' ? BELL_REACH : (CYMBAL_REACH[h.piece] ?? 1)) * jitterOf(h),
+  rest: 0.05,
   rebound: 0.75,
   speed: 1.5,
   fall: 0.04,
@@ -48,6 +97,8 @@ export const HAND: StrokeProfile = {
   rise: 0.06,
   risePerUnit: 0.25,
   stop: 0.04,
+  prep: 0.07,
+  prepPerUnit: 0.5,
 };
 
 /** A foot: 0 is the beater on the head, 1 the beater fully back. */
@@ -61,19 +112,6 @@ export const KICK: StrokeProfile = {
   rise: 0.05,
   risePerUnit: 0.06,
   stop: 0.15,
-};
-
-/** The hat foot's chick: 0 is the pedal down, 1 the toe right up. */
-export const CHICK: StrokeProfile = {
-  height: (s) => 0.4 + 0.5 * s,
-  rest: 0,
-  rebound: 0.3,
-  speed: 5,
-  fall: 0.04,
-  fallPerUnit: 0.05,
-  rise: 0.05,
-  risePerUnit: 0.05,
-  stop: 0.1,
 };
 
 export interface StrokeState {
@@ -131,9 +169,10 @@ export function strokeAt(hits: readonly Hit[], now: number, p: StrokeProfile): S
   const gap = prev && next ? next.time - prev.time : Infinity;
   // the highest a stick can get and back in the time there is
   const cap = Number.isFinite(gap) ? p.speed * gap * 0.5 : Infinity;
-  const target = next ? Math.min(p.height(next.strength), cap) : p.rest;
+  const heightOf = (h: Hit) => p.height(h.strength) * (p.reach?.(h) ?? 1);
+  const target = next ? Math.min(heightOf(next), cap) : p.rest;
   // a downstroke: a loud note going to a soft one is stopped low on the rebound, not let fly
-  const free = prev ? Math.min(p.height(prev.strength) * p.rebound, cap) : target;
+  const free = prev ? Math.min(heightOf(prev) * p.rebound, cap) : target;
   const bounce = next ? Math.min(free, target + p.stop) : free;
 
   let fall = next ? p.fall + p.fallPerUnit * target : 0;
@@ -154,7 +193,19 @@ export function strokeAt(hits: readonly Hit[], now: number, p: StrokeProfile): S
     const v = clamp01((now - (next.time - fall)) / fall);
     lift = target * (1 - v * v);
   } else if (prev && next) {
-    lift = peak + (target - peak) * smoothstep(prev.time + rise, next.time - fall, now);
+    const lo = prev.time + rise;
+    const hi = next.time - fall;
+    if (p.prep === undefined) {
+      lift = peak + (target - peak) * smoothstep(lo, hi, now);
+    } else {
+      // wait no higher than the next stroke wants, then lift for it just before the throw
+      const up = Math.min(hi - lo, p.prep + (p.prepPerUnit ?? 0) * target);
+      const hold = Math.min(peak, target);
+      lift =
+        now < hi - up
+          ? peak + (hold - peak) * smoothstep(lo, hi - up, now)
+          : hold + (target - hold) * smoothstep(hi - up, hi, now);
+    }
   } else if (prev) {
     // nothing coming: settle from the rebound to where the stick waits
     lift = p.rest + (peak - p.rest) * Math.exp(-(since - rise) * 3);

@@ -85,7 +85,7 @@ export function makeMaterials(): Materials {
     shirt: new THREE.MeshStandardMaterial({ color: '#2c4f6b', roughness: 0.85 }),
     jeans: new THREE.MeshStandardMaterial({ color: '#2a2f3a', roughness: 0.9 }),
     shoe: new THREE.MeshStandardMaterial({ color: '#202124', roughness: 0.7 }),
-    sole: new THREE.MeshStandardMaterial({ color: '#e9e6e0', roughness: 0.8 }),
+    sole: new THREE.MeshStandardMaterial({ color: '#2a2622', roughness: 0.9 }),
     hair: new THREE.MeshStandardMaterial({ color: '#2a1c14', roughness: 0.9 }),
     eye: new THREE.MeshStandardMaterial({ color: '#141414', roughness: 0.2 }),
     rug: new THREE.MeshStandardMaterial({ color: '#3a2f2a', roughness: 1 }),

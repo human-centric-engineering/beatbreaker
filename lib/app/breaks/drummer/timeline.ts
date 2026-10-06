@@ -6,8 +6,8 @@ import {
   LANE_PIECE,
   type PieceId,
 } from '@/lib/app/breaks/drummer/kit-layout';
-import { type StepHands, assignBar } from '@/lib/app/breaks/drummer/sticking';
-import { CHINA, HALF_OPEN, RIMSHOT } from '@/lib/app/breaks/lanes';
+import { FAST_STEP, type StepHands, assignBar } from '@/lib/app/breaks/drummer/sticking';
+import { CHINA, HALF_OPEN, PERC_INSTS, RIMSHOT } from '@/lib/app/breaks/lanes';
 import { isGroupStart } from '@/lib/app/breaks/meter';
 import { LEVELS, type Voice } from '@/lib/app/breaks/perform';
 import type { Bar, LaneKey, Meter } from '@/lib/app/breaks/types';
@@ -61,7 +61,7 @@ const BASE: Record<LaneKey, number[]> = {
   s: [0, 0.1, 0.55, 0.95, 0.22, 1, 0.6, 0.55, 0.32],
   // closed · accent · open · half-open
   h: [0, 0.38, 0.8, 0.55, 0.45],
-  r: [0, 0.42, 0.7],
+  r: [0, 0.5, 0.75],
   c: [0, 0.95, 0.95, 1, 0.75],
   t1: [0, 0.6, 0.95, 0.65],
   t2: [0, 0.6, 0.95, 0.65],
@@ -104,8 +104,16 @@ function otherHand(limb: Limb | undefined): Hand {
 const LANES_PLAYED: LaneKey[] = ['k', 'hf', 's', 'h', 'r', 'c', 't1', 't2', 't3', 'p1', 'p2'];
 
 /** The strokes a step of the grid takes, at its grid time: no swing, no feel, no ornaments. */
-export function gridHits(bar: Bar, i: number, time: number): Hit[] {
-  const hands: StepHands = assignBar(bar)[i] ?? {};
+export function gridHits(
+  bar: Bar,
+  i: number,
+  time: number,
+  before?: Bar | null,
+  aux: readonly LaneKey[] = [],
+  fast = false
+): Hit[] {
+  bar = barWithout(bar, aux);
+  const hands: StepHands = assignBar(bar, before && barWithout(before, aux), fast)[i] ?? {};
   const out: Hit[] = [];
   for (const lane of LANES_PLAYED) {
     const value = bar[lane][i];
@@ -127,12 +135,19 @@ export function gridHits(bar: Bar, i: number, time: number): Hit[] {
 }
 
 /** The strokes a scheduled step takes: every voice the speakers were given, on the limb that plays it. */
-export function scheduledHits(step: ScheduledStep): Hit[] {
+export function scheduledHits(
+  step: ScheduledStep,
+  before?: Bar | null,
+  aux: readonly LaneKey[] = []
+): Hit[] {
   const { bar, slot, t } = step;
   if (step.count || !bar) return countHits(step);
-  const hands: StepHands = assignBar(bar)[slot] ?? {};
+  const fast = step.dur < FAST_STEP;
+  const hands: StepHands =
+    assignBar(barWithout(bar, aux), before && barWithout(before, aux), fast)[slot] ?? {};
   const out: Hit[] = [];
   for (const { voice, when } of step.notes) {
+    if (aux.includes(voice.lane)) continue;
     const hit = voiceHit(voice, when, bar[voice.lane][slot] ?? 0, hands, t);
     if (hit) out.push(hit);
   }
@@ -151,7 +166,10 @@ function voiceHit(
   let limb: Limb | undefined = main;
   let strength = strengthOf(lane, value, voice.velocity);
   if (voice.ornament === 'grace') {
-    limb = hands.grace ?? otherHand(main);
+    const spare = otherHand(main);
+    // a hand busy on the same step (the lead on a cymbal) does not leave it for a grace
+    const busy = Object.entries(hands).some(([k, h]) => k !== 'grace' && h === spare);
+    limb = hands.grace ?? (busy ? undefined : spare);
     strength = GRACE_STRENGTH;
   } else if (voice.ornament === 'buzz') {
     strength = BUZZ_STRENGTH;
@@ -170,7 +188,16 @@ function voiceHit(
   };
 }
 
-/** Counting the band in: the sticks clicked together on each pulse. */
+/** How hard each hand plays the count: the lead clicks, the other holds its stick to be clicked. */
+// a big stroke: the count is a signal to the band, played to be seen from the back of the room.
+// The other hand comes up to meet each click, a smaller move
+const COUNT_STRENGTH = { lead: 0.9, other: 0.45 } as const;
+
+/**
+ * Counting the band in: the sticks crossed in front of the chest, the lead
+ * stick clicking down on the other on each pulse and the other coming up to
+ * meet it (`pose.ts` plays the other hand's stroke upside down).
+ */
 function countHits(step: ScheduledStep): Hit[] {
   if (!isGroupStart(step.meter, step.slot)) return [];
   return (['lead', 'other'] as const).map((limb) => ({
@@ -180,15 +207,55 @@ function countHits(step: ScheduledStep): Hit[] {
     lane: 's' as const,
     piece: 'sticks' as const,
     contact: 'centre' as const,
-    strength: 0.3,
+    strength: COUNT_STRENGTH[limb],
     sure: true,
   }));
+}
+
+/** A percussion note's instrument, by the note it sounds as. */
+const INST_BY_NOTE = new Map<number, string>();
+for (const [key, inst] of Object.entries(PERC_INSTS)) {
+  INST_BY_NOTE.set(inst.midi, key);
+  INST_BY_NOTE.set(inst.hi, key);
+}
+
+const without = new WeakMap<Bar, Map<string, Bar>>();
+
+/** `bar` with `lanes` emptied, the same object every time for the same pair. */
+export function barWithout(bar: Bar, lanes: readonly LaneKey[]): Bar {
+  if (!lanes.length) return bar;
+  const key = [...lanes].sort().join();
+  let byKey = without.get(bar);
+  if (!byKey) without.set(bar, (byKey = new Map<string, Bar>()));
+  let out = byKey.get(key);
+  if (!out) {
+    out = { ...bar };
+    for (const lane of lanes) out[lane] = bar[lane].map(() => 0);
+    byKey.set(key, out);
+  }
+  return out;
 }
 
 /** How far the forecast reads ahead, in steps. Two bars of 4/4. */
 const FORECAST_STEPS = 32;
 /** How long a scheduled stroke is kept once it has sounded. */
 const KEEP_S = 3;
+
+/** The first step of a bar: when it sounds, and whether the pattern changes on it. */
+export interface Downbeat {
+  time: number;
+  change: boolean;
+}
+
+/** Two bars with the same notes in every lane. */
+function sameBar(a: Bar, b: Bar): boolean {
+  if (a === b) return true;
+  return (Object.keys(a) as LaneKey[]).every((k) => {
+    const x = a[k];
+    const y = b[k];
+    return !!y && x.length === y.length && x.every((v, i) => v === y[i]);
+  });
+}
 
 /** What the body sways to: the latest step, and the meter it was in. */
 export interface Clock {
@@ -203,6 +270,14 @@ export class StrokeTimeline {
   private ahead: Hit[] = [];
   private lastStep = -Infinity;
   private merged: Hit[] | null = null;
+  /** The bar of the last step heard, its slot, and the bar heard before the current one. */
+  private heard: { bar: Bar | null; slot: number } = { bar: null, slot: -1 };
+  private before: Bar | null = null;
+  /** Percussion lanes a percussionist plays, learnt from what they sound as. */
+  private aux: LaneKey[] = [];
+  /** The ones heard lately, and the next one coming, if it is known. */
+  private ones: Downbeat[] = [];
+  private nextOne: Downbeat | null = null;
   clock: Clock | null = null;
   /**
    * The percussion pieces any bar heard so far has called for. A cowbell
@@ -215,16 +290,74 @@ export class StrokeTimeline {
   ingest(step: ScheduledStep): void {
     this.clock = { t: step.t, dur: step.dur, slot: step.slot, meter: step.meter };
     this.lastStep = step.t;
-    this.sure.push(...scheduledHits(step));
+    // a new bar has begun when the slot comes round (a one-bar loop is its own bar before)
+    if (step.slot <= this.heard.slot || step.bar !== this.heard.bar) {
+      this.before = step.slot === 0 ? this.heard.bar : null;
+    }
+    this.heard = { bar: step.bar, slot: step.slot };
+    this.noteDownbeats(step);
+    this.learnPercussion(step);
+    this.sure.push(...scheduledHits(step, this.before, this.aux));
     const cutoff = step.t - KEEP_S;
     if (this.sure.length && this.sure[0].time < cutoff) {
       this.sure = this.sure.filter((h) => h.time >= cutoff);
     }
-    this.ahead = step.count || !step.bar ? [] : forecast(step);
+    this.ahead = step.count
+      ? countAhead(step, this.aux)
+      : step.bar
+        ? forecast(step, this.before, this.aux)
+        : [];
     this.merged = null;
     for (const bar of [step.bar, step.next]) {
-      if (bar?.p1.some(Boolean)) this.percussion.add('perc1');
-      if (bar?.p2.some(Boolean)) this.percussion.add('perc2');
+      if (bar?.p1.some(Boolean) && !this.aux.includes('p1')) this.percussion.add('perc1');
+      if (bar?.p2.some(Boolean) && !this.aux.includes('p2')) this.percussion.add('perc2');
+    }
+  }
+
+  /**
+   * Keep the ones: each bar's first step as it is heard — a change if it is not
+   * the bar before it again — and the next, read a bar ahead so the body can
+   * gather for it. Counting in, the band comes in on the next one.
+   */
+  private noteDownbeats(step: ScheduledStep): void {
+    const n = step.bar ? step.bar.k.length : step.meter.num * step.meter.sub;
+    if (step.bar && step.slot === 0) {
+      const last = this.ones[this.ones.length - 1];
+      if (!last || Math.abs(last.time - step.t) > 1e-6) {
+        this.ones.push({ time: step.t, change: !this.before || !sameBar(this.before, step.bar) });
+      }
+      const cutoff = step.t - KEEP_S;
+      if (this.ones[0].time < cutoff) this.ones = this.ones.filter((d) => d.time >= cutoff);
+    }
+    const time = step.t + (n - step.slot) * step.dur;
+    if (step.count) {
+      // the band comes in when the count runs out, if it says when
+      const at = step.countLeft === undefined ? time : step.t + step.countLeft * step.dur;
+      this.nextOne = { time: at, change: true };
+    } else if (step.bar && step.next)
+      this.nextOne = { time, change: !sameBar(step.bar, step.next) };
+    else this.nextOne = null;
+  }
+
+  /** The ones heard lately and the next one coming, in time order. */
+  downbeats(): Downbeat[] {
+    const next = this.nextOne;
+    const last = this.ones[this.ones.length - 1];
+    return next && (!last || next.time > last.time + 1e-6) ? [...this.ones, next] : this.ones;
+  }
+
+  /** Which percussion lanes are the drummer's, from the instrument each one sounds as. */
+  private learnPercussion(step: ScheduledStep): void {
+    for (const { voice } of step.notes) {
+      if (voice.lane !== 'p1' && voice.lane !== 'p2') continue;
+      const inst = INST_BY_NOTE.get(voice.note);
+      // an instrument it cannot name stays the drummer's, as the kit always had it
+      const theirs = !!inst && !PERC_INSTS[inst].kit;
+      const listed = this.aux.includes(voice.lane);
+      if (theirs && !listed) {
+        this.aux = [...this.aux, voice.lane];
+        this.percussion.delete(voice.lane === 'p1' ? 'perc1' : 'perc2');
+      } else if (!theirs && listed) this.aux = this.aux.filter((l) => l !== voice.lane);
     }
   }
 
@@ -234,6 +367,11 @@ export class StrokeTimeline {
     this.lastStep = -Infinity;
     this.merged = null;
     this.clock = null;
+    this.heard = { bar: null, slot: -1 };
+    this.before = null;
+    this.aux = [];
+    this.ones = [];
+    this.nextOne = null;
   }
 
   /** Every stroke known, scheduled and forecast, in time order. */
@@ -253,18 +391,45 @@ export class StrokeTimeline {
   }
 }
 
-function forecast(step: ScheduledStep): Hit[] {
+/**
+ * The clicks still to come in a count, and then the bar the band comes in on,
+ * a bar ahead. Without them a slow count is only known a lookahead at a time,
+ * and the hands settle back to the snare between clicks; without the bar after
+ * it, the hands would be told where the first note is only as it is scheduled,
+ * and jump from the count to the kit. A step that does not say how long the
+ * count has left is taken to go on.
+ */
+function countAhead(step: ScheduledStep, aux: readonly LaneKey[]): Hit[] {
+  const n = step.meter.num * step.meter.sub;
+  const left = step.countLeft ?? Infinity;
+  const fast = step.dur < FAST_STEP;
+  const out: Hit[] = [];
+  for (let k = 1; k <= FORECAST_STEPS; k++) {
+    const t = step.t + k * step.dur;
+    if (k < left) {
+      if (k > n) break;
+      const hits = countHits({ ...step, t, slot: (step.slot + k) % n });
+      out.push(...hits.map((h) => ({ ...h, sure: false })));
+    } else if (step.next && k - left < step.next.k.length) {
+      out.push(...gridHits(step.next, k - left, t, null, aux, fast));
+    } else break;
+  }
+  return out;
+}
+
+function forecast(step: ScheduledStep, before: Bar | null, aux: readonly LaneKey[]): Hit[] {
   const out: Hit[] = [];
   const { bar, next, slot, t, dur } = step;
   if (!bar) return out;
+  const fast = dur < FAST_STEP;
   const n = bar.k.length;
   let k = 1;
   for (let i = slot + 1; i < n && k <= FORECAST_STEPS; i++, k++)
-    out.push(...gridHits(bar, i, t + k * dur));
+    out.push(...gridHits(bar, i, t + k * dur, before, aux, fast));
   if (next) {
     const m = next.k.length;
     for (let i = 0; i < m && k <= FORECAST_STEPS; i++, k++)
-      out.push(...gridHits(next, i, t + k * dur));
+      out.push(...gridHits(next, i, t + k * dur, bar, aux, fast));
   }
   return out;
 }

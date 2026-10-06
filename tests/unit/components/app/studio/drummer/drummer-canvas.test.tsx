@@ -110,6 +110,24 @@ describe('DrummerCanvas', () => {
     expect(stage.flyTo).toHaveBeenCalledWith('hands');
   });
 
+  it('flies back to the same view when only viewSeq is bumped (Re-centre)', () => {
+    const { subscribeSteps } = listeners();
+    const props = {
+      lefty: false,
+      view: 'front' as const,
+      playing: false,
+      subscribeSteps,
+      audioNow: stableAudioNow,
+      audioLatency: stableAudioLatency,
+    };
+    const { rerender } = render(<DrummerCanvas {...props} viewSeq={0} />);
+    const stage = fakes.instances[0];
+    const before = stage.flyTo.mock.calls.length;
+    rerender(<DrummerCanvas {...props} viewSeq={1} />);
+    expect(stage.flyTo.mock.calls.length).toBe(before + 1);
+    expect(stage.flyTo).toHaveBeenLastCalledWith('front');
+  });
+
   it('subscribes to steps and feeds the stage ingest, then unsubscribes and disposes on unmount', () => {
     const { subs, subscribeSteps } = listeners();
     const { unmount } = render(

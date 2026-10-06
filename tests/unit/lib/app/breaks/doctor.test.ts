@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest';
 
 import { DOCTOR_MOVES, type DoctorMove, doctor } from '@/lib/app/breaks/doctor';
 import { generatePattern } from '@/lib/app/breaks/generate';
-import { LANES } from '@/lib/app/breaks/lanes';
+import { LANES, handLanes, handsAt } from '@/lib/app/breaks/lanes';
 import { patternFromLibrary } from '@/lib/app/breaks/library';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { testStyle } from '@/tests/helpers/catalogue';
@@ -190,5 +190,40 @@ describe('doctor', () => {
     const out = doctor(funk, funkStyle, 'nonsense' as DoctorMove, 1);
     expect(out).toEqual(funk);
     expect(out).not.toBe(funk);
+  });
+});
+
+describe('doctor — two hands', () => {
+  /** A funk groove with a cowbell (on the kit) doubling the hats on every 8th. */
+  function cowbellGroove(): [Pattern, Style] {
+    const [, pat, style] = generated('funk', 'funk', {
+      meter: '4/4',
+      seed: 21,
+      bars: 2,
+      density: 50,
+      ghosts: 50,
+    });
+    pat.perc = { ...pat.perc, p1: 'cowbell' };
+    for (const b of pat.bars) for (let i = 0; i < b.k.length; i += 2) b.p1[i] = 1;
+    return [pat, style];
+  }
+
+  it.each(MOVES)('never leaves three things for the sticks after %s', (move) => {
+    const [pat, style] = cowbellGroove();
+    const out = doctor(pat, style, move, 1);
+    const lanes = handLanes(out.perc);
+    for (const b of out.bars)
+      for (let i = 0; i < b.k.length; i++) expect(handsAt(b, i, lanes)).toBeLessThanOrEqual(2);
+  });
+
+  it('keeps the crash it was asked for, and the backbeat, letting the hats go', () => {
+    const [pat, style] = cowbellGroove();
+    pat.bars[0].h[0] = 1;
+    pat.bars[0].p1[0] = 1;
+    const out = doctor(pat, style, 'crash', 1);
+    expect(out.bars[0].c[0]).toBe(1);
+    expect(out.bars[0].h[0]).toBe(0);
+    for (const s of out.backbeats)
+      expect(out.bars[0][out.bbLane][s]).toBe(pat.bars[0][pat.bbLane][s]);
   });
 });
