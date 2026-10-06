@@ -632,10 +632,10 @@ describe('poseAt — the stroke bounces in the fingers', () => {
 });
 
 describe('poseAt — ghost notes are the fingers’', () => {
-  /** Lone snare notes a beat apart for the other hand, of the given value: 1 a ghost, 2 a hit. */
-  function snares(value: number): StrokeTimeline {
+  /** Lone snare notes a beat apart for the other hand, of the given value (1 a ghost, 2 a hit), or one per beat. */
+  function snares(value: number | number[]): StrokeTimeline {
     const b = bar();
-    for (const i of [0, 4, 8, 12]) b.s[i] = value;
+    [0, 4, 8, 12].forEach((i, k) => (b.s[i] = typeof value === 'number' ? value : value[k]));
     const tl = new StrokeTimeline();
     for (let i = 0; i < N; i++) {
       tl.ingest({
@@ -677,6 +677,15 @@ describe('poseAt — ghost notes are the fingers’', () => {
   it('flicks the back fingers through a ghost as far as through a full stroke', () => {
     expect(stroke(snares(1)).curl).toBeGreaterThan(0.3);
     expect(stroke(snares(1)).curl).toBeGreaterThan(stroke(snares(2)).curl * 0.8);
+  });
+
+  it('closes the back fingers on a ghost as hard when a backbeat comes next as when another ghost does', () => {
+    // just off the head after the ghost on beat 2: the squeeze is the ghost's, not the next note's
+    const curlAfterGhost = (tl: StrokeTimeline) => poseAt(tl, 4 * DUR + 0.01, 1).arms.other.curl;
+    const beforeHit = curlAfterGhost(snares([1, 1, 2, 1]));
+    const beforeGhost = curlAfterGhost(snares(1));
+    expect(beforeHit).toBeGreaterThan(0.75);
+    expect(beforeHit).toBeGreaterThan(beforeGhost - 0.05);
   });
 
   it('still plays a backbeat with the wrist as much as the fingers', () => {

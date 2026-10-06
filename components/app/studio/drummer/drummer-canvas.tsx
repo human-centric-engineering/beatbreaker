@@ -51,7 +51,10 @@ export default function DrummerCanvas({
      are `useCallback`s): a new one rebuilds the whole scene. */
   useEffect(() => {
     const el = host.current;
+    // the host div is always mounted before this runs; the guard is for the type
+    /* v8 ignore start */
     if (!el) return;
+    /* v8 ignore stop */
     const s = new DrummerStage(el, { now: audioNow, latency: audioLatency });
     s.setLefty(latest.current.lefty);
     s.setGrips(latest.current.grips);

@@ -71,6 +71,7 @@ vi.mock('three', async (importOriginal) => {
 });
 
 import { DrummerStage, type StageClock } from '@/components/app/studio/drummer/drummer-stage';
+import { cameraFor } from '@/lib/app/breaks/drummer/camera';
 
 /** `requestAnimationFrame`/`cancelAnimationFrame`, controlled by hand. */
 function stubRaf() {
@@ -223,6 +224,57 @@ describe('DrummerStage', () => {
     expect(host.contains(canvas)).toBe(false);
     expect(rafCtl.caf).toHaveBeenCalledWith(rafCtl.raf.mock.results[0]?.value);
     expect(fakes.renderers[0].dispose).toHaveBeenCalled();
+  });
+
+  it('caps the pixel ratio, and takes a missing one as 1', () => {
+    vi.stubGlobal('devicePixelRatio', 3);
+    new DrummerStage(host, clock);
+    expect(fakes.renderers[0].setPixelRatio).toHaveBeenCalledWith(1.75);
+
+    vi.stubGlobal('devicePixelRatio', 0);
+    new DrummerStage(host, clock);
+    expect(fakes.renderers[1].setPixelRatio).toHaveBeenCalledWith(1);
+  });
+
+  it('refits the renderer to the host when the host is resized', () => {
+    new DrummerStage(host, clock);
+    Object.defineProperty(host, 'clientWidth', { value: 640, configurable: true });
+    Object.defineProperty(host, 'clientHeight', { value: 360, configurable: true });
+
+    FakeResizeObserver.instances[0].cb();
+
+    expect(fakes.renderers[0].setSize).toHaveBeenLastCalledWith(640, 360, false);
+  });
+
+  it('flies the camera to a view over most of a second, and stops there', () => {
+    const stage = new DrummerStage(host, clock);
+    rafCtl.runNextFrame(0);
+    const camera = () => fakes.renderers[0].render.mock.lastCall?.[1] as THREE.PerspectiveCamera;
+    const shot = new THREE.Vector3(...cameraFor('above', false).position);
+
+    stage.flyTo('above');
+    rafCtl.runNextFrame(100);
+    const partWay = camera().position.distanceTo(shot);
+    expect(partWay).toBeGreaterThan(0.05);
+
+    for (let ms = 200; ms <= 1200; ms += 100) rafCtl.runNextFrame(ms);
+    expect(camera().position.distanceTo(shot)).toBeLessThan(0.05);
+  });
+
+  it('gives up the flight the moment the viewer grabs the camera', () => {
+    const stage = new DrummerStage(host, clock);
+    rafCtl.runNextFrame(0);
+    const camera = () => fakes.renderers[0].render.mock.lastCall?.[1] as THREE.PerspectiveCamera;
+
+    stage.flyTo('above');
+    rafCtl.runNextFrame(100);
+    const grabbed = camera().position.clone();
+    fakes.renderers[0].domElement.dispatchEvent(
+      new PointerEvent('pointerdown', { pointerId: 1, button: 0, pointerType: 'mouse' })
+    );
+    for (let ms = 200; ms <= 1200; ms += 100) rafCtl.runNextFrame(ms);
+
+    expect(camera().position.distanceTo(grabbed)).toBeLessThan(0.05);
   });
 
   it('observes the host for resize and disconnects on dispose', () => {

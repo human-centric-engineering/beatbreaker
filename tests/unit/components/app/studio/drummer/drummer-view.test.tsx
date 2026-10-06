@@ -27,9 +27,17 @@ vi.mock('@/components/app/studio/studio-provider', async (importOriginal) => {
 });
 
 let capturedCanvasProps: Record<string, unknown> | null = null;
+let capturedDynamic: {
+  loader: () => Promise<unknown>;
+  options: { ssr?: boolean; loading?: () => React.ReactNode };
+} | null = null;
 
 vi.mock('next/dynamic', () => ({
-  default: (_loader: () => Promise<unknown>) => {
+  default: (
+    loader: () => Promise<unknown>,
+    options: { ssr?: boolean; loading?: () => React.ReactNode }
+  ) => {
+    capturedDynamic = { loader, options };
     return (props: Record<string, unknown>) => {
       capturedCanvasProps = props;
       return (
@@ -76,6 +84,28 @@ async function loadDrummerView() {
   const mod = await import('@/components/app/studio/drummer/drummer-view');
   return mod.DrummerView;
 }
+
+describe('DrummerView, loading the canvas', () => {
+  it('loads the canvas on the client only, saying so while it does', async () => {
+    stubWebGL(true);
+    await loadDrummerView();
+    expect(capturedDynamic?.options.ssr).toBe(false);
+
+    render(<>{capturedDynamic?.options.loading?.()}</>);
+    expect(screen.getByText('Setting up the kit…')).toBeInTheDocument();
+
+    const mod = await capturedDynamic?.loader();
+    expect(mod).toHaveProperty('default', expect.any(Function));
+  });
+
+  it('renders the canvas, not the no-WebGL message, on the server', async () => {
+    const { renderToString } = await import('react-dom/server');
+    const DrummerView = await loadDrummerView();
+    const html = renderToString(<DrummerView />);
+    expect(html).toContain('drummer-canvas-stub');
+    expect(html).not.toMatch(/can.t draw 3D/);
+  });
+});
 
 describe('DrummerView, with WebGL available', () => {
   it('renders the canvas with the default hand, camera view and playing state', async () => {

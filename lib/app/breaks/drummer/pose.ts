@@ -617,13 +617,11 @@ const GIVE_FULL = 0.15;
 const GIVE_FINGERS = 0.035;
 
 /**
- * How much of the stroke coming (or, with none coming, the one just played)
- * is the fingers', 0–1. A ghost note is played from an inch, and that inch is
- * the back fingers flicking the stick down onto the head while the hand stays
- * where it is; a backbeat is the wrist's.
+ * How much of a stroke is the fingers', 0–1. A ghost note is played from an
+ * inch, and that inch is the back fingers flicking the stick down onto the
+ * head while the hand stays where it is; a backbeat is the wrist's.
  */
-function fingerShare(st: StrokeState): number {
-  const h = st.next ?? st.prev;
+function fingerShare(h: Hit | undefined): number {
   if (!h || h.piece === 'sticks') return 0;
   return 1 - smoothstep(FINGERS_ALL, FINGERS_NONE, h.strength);
 }
@@ -692,7 +690,8 @@ function arm(
   // the wrist leads the next throw, not the rebound — off the head the stick bounces in the
   // fingers and the hand waits (see `looseness`) — and its lead fades out at the head, so
   // the stick still meets it where it is aimed
-  const fingers = counting ? 0 : fingerShare(st);
+  // the stroke coming, or with none coming the one just played
+  const fingers = counting ? 0 : fingerShare(st.next ?? st.prev);
   const loose = counting ? 0 : Math.max(looseness(st), LOOSE_FINGERS * fingers);
   const rest = piece === 'ride' ? LOOSE_RIDE : LOOSE_REST;
   const caught = counting ? 1 : Math.max(0, 1 - (loose - rest) / (LOOSE_REBOUND - rest)) ** 2;
@@ -790,8 +789,9 @@ function arm(
 
   // the back fingers close on the stick at the head — hard for a loud note, and hard
   // too for a ghost, which they threw — and open to let it turn as it rises: all
-  // the way over a finger stroke's inch
-  const thrown = Math.max(st.prev?.strength ?? 0, 0.8 * fingers);
+  // the way over a finger stroke's inch. The squeeze is the note just played's,
+  // whatever comes next: a ghost before the backbeat is still the fingers'
+  const thrown = Math.max(st.prev?.strength ?? 0, 0.8 * (counting ? 0 : fingerShare(st.prev)));
   const squeeze = st.prev ? thrown * Math.exp(-st.since * 22) : 0;
   const giveAt = GIVE_FULL + (GIVE_FINGERS - GIVE_FULL) * fingers;
   const give = Math.min(1, lift / giveAt) + 1.6 * tw.amount;

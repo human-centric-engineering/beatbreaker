@@ -511,5 +511,7 @@ export function assignBar(bar: Bar, before?: Bar | null, fast = false): StepHand
 /**
  * The longest a step can be, seconds, for a run of hats in it to go hand to
  * hand: six a second, sixteenths from 90 bpm. Slower, one hand plays them.
+ * A hair over a sixth, so 90 bpm itself — whose step comes out at a sixth,
+ * give or take the last bit of a float — counts as fast.
  */
-export const FAST_STEP = 1 / 6;
+export const FAST_STEP = 1 / 6 + 1e-6;
