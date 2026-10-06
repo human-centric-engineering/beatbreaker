@@ -1227,3 +1227,106 @@ describe('poseAt — military grip', () => {
     }
   });
 });
+
+describe('poseAt — military grip through the count-in and a twirl', () => {
+  const MILITARY = gripsFor('both');
+  const dur = 0.125;
+
+  /** A count, then a bar of hats with a backbeat, fed a step at a time as the transport would. */
+  function countThenPlay(): { at: (t: number) => StrokeTimeline } {
+    const first = bar();
+    for (let i = 0; i < N; i += 2) first.h[i] = 1;
+    first.s[4] = 2;
+    const steps: ScheduledStep[] = [];
+    for (let i = 0; i < N; i++)
+      steps.push({
+        t: i * dur,
+        dur,
+        slot: i,
+        count: true,
+        countLeft: N - i,
+        meter: M44,
+        bar: null,
+        next: first,
+        notes: [],
+      });
+    for (let i = 0; i < N; i++) {
+      const lanes = (['h', 's'] as const).filter((l) => first[l][i]);
+      steps.push({
+        ...stepFor(i, first, 'h'),
+        t: (N + i) * dur,
+        dur,
+        notes: lanes.map((l) => ({ voice: voice(l), when: (N + i) * dur })),
+      });
+    }
+    const tl = new StrokeTimeline();
+    let fed = 0;
+    return {
+      at: (t) => {
+        for (; fed < steps.length && steps[fed].t <= t + 0.12; fed++) tl.ingest(steps[fed]);
+        return tl;
+      },
+    };
+  }
+
+  /** The most any joint of either arm moves in one 60th of a second, from `from` to `to` seconds. */
+  function worstStep(grips: typeof MILITARY, from: number, to: number): number {
+    const run = countThenPlay();
+    let worst = 0;
+    let last: Vector3[] | null = null;
+    for (let t = from; t < to; t += 1 / 60) {
+      const pose = poseAt(run.at(t), t, 1, grips);
+      const joints = (['lead', 'other'] as const).flatMap((h) => {
+        const a = pose.arms[h];
+        return [a.shoulder, a.elbow, a.wrist, a.grip];
+      });
+      if (last)
+        for (let k = 0; k < joints.length; k++)
+          worst = Math.max(worst, joints[k].distanceTo(last[k]));
+      last = joints.map((j) => j.clone());
+    }
+    return worst;
+  }
+
+  it('eases out of the count into the first notes: no joint jumps as the last click passes', () => {
+    // the arms play the click itself from the shoulder, so a joint can travel a few
+    // centimetres a frame through it — as far as a matched hand's, and no further
+    const from = (N - 7) * dur;
+    const to = (N + 2) * dur;
+    const military = worstStep(MILITARY, from, to);
+    const matched = worstStep(MATCHED_GRIPS, from, to);
+    expect(military).toBeLessThan(matched + 0.02);
+  });
+
+  it('goes from the rest into the count no more abruptly than a matched hand', () => {
+    // the first click sounds as Play is pressed, so either grip has to get there at once;
+    // the military hand must not add a jump of its own to that
+    const military = worstStep(MILITARY, 0, 4 * dur);
+    const matched = worstStep(MATCHED_GRIPS, 0, 4 * dur);
+    expect(military).toBeLessThan(matched + 0.03);
+  });
+
+  it('twirls a military stick end over end round the fingers, not round a cone', () => {
+    const idle = new StrokeTimeline();
+    /** The stick's direction in the hand's own frame. */
+    const inHand = (t: number, hand: Hand) => {
+      const a = poseAt(idle, t, 0, MILITARY).arms[hand];
+      return a.stick.clone().applyQuaternion(a.hand.clone().invert());
+    };
+    let checked = 0;
+    for (let t = 0; t < 400 && checked < 3; t += 1 / 30) {
+      const tw = twirlAt(t, 0);
+      for (const hand of ['lead', 'other'] as const) {
+        // fully up, at the start of a turn: half a turn later the stick points back the way it came
+        if (tw[hand].amount < 0.999 || tw[hand].spin % (2 * Math.PI) > 0.2) continue;
+        let half = t;
+        while (twirlAt(half, 0)[hand].spin < tw[hand].spin + Math.PI) half += 1 / 240;
+        if (twirlAt(half, 0)[hand].amount < 0.999) continue;
+        expect(inHand(t, hand).dot(inHand(half, hand))).toBeLessThan(-0.9);
+        checked++;
+        t += 3;
+      }
+    }
+    expect(checked).toBeGreaterThan(0);
+  });
+});

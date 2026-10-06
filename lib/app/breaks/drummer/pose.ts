@@ -168,6 +168,8 @@ interface Target {
   lean: number;
   /** How far the back of the hand rolls out from flat, radians (see `ROLL`). */
   roll: number;
+  /** A count-in click: the sticks held crossed, where they are aimed. */
+  count?: boolean;
 }
 
 /**
@@ -236,6 +238,7 @@ function countTarget(hand: Hand): Target {
     pitch,
     lean: 0,
     roll: ROLL_REST,
+    count: true,
   };
 }
 
@@ -370,7 +373,7 @@ function militaryHold(
   gripLocal: Vector3,
   root: Vector3,
   pole: Vector3
-): { d0: Vector3; q0: Quaternion; shoulder: Vector3 } {
+): Hold {
   const inHand = stickMilitary(hand);
   // the elbow to the tip, in the hand's frame, with the forearm along `fore`
   const pieceFor = (fore: Vector3) =>
@@ -685,15 +688,19 @@ function arm(
   const gripLocal = (military ? GRIP_MILITARY : GRIP_IN_HAND).clone();
   if (hand === 'other') gripLocal.x = -gripLocal.x;
   const aimed = aim(hand, tip0, pitch);
-  // counting, the sticks are held crossed where they are aimed
+  // counting, the sticks are held crossed where they are aimed. A military hand plays
+  // from its own hold instead, so it eases from one to the other as it moves into or out
+  // of the count, rather than snapping when the click passes
+  const crossed = {
+    d0: aimed,
+    q0: military ? militaryFrame(hand, aimed) : handFrame(hand, aimed, roll),
+    shoulder: root,
+  };
+  const playing = military ? 1 - countShare(p) : 0;
   const { d0, q0, shoulder } =
-    military && !counting
-      ? militaryHold(hand, tip0, gripLocal, root, pole)
-      : {
-          d0: aimed,
-          q0: military ? militaryFrame(hand, aimed) : handFrame(hand, aimed, roll),
-          shoulder: root,
-        };
+    playing <= 0
+      ? crossed
+      : blendHold(crossed, militaryHold(hand, tip0, gripLocal, root, pole), playing);
   const grip0 = tip0.clone().addScaledVector(d0, -TIP_REACH);
   const wrist0 = grip0.clone().sub(gripLocal.clone().applyQuaternion(q0));
 
@@ -750,7 +757,13 @@ function arm(
   // out of reach, the hand stays on the arm and the stick goes with it
   grip.add(end.clone().sub(wristWanted));
   // a twirl spins the stick end over end round the fingers, about the line across the knuckles
-  if (tw.spin) stick.applyAxisAngle(new Vector3(1, 0, 0).applyQuaternion(aligned), tw.spin);
+  if (tw.spin) {
+    const across = new Vector3(1, 0, 0).applyQuaternion(aligned);
+    // a military stick lies across the palm, not square to the knuckles: spin it about the
+    // line across them made square to the stick, so it still turns end over end
+    if (military) across.addScaledVector(stick, -across.dot(stick)).normalize();
+    stick.applyAxisAngle(across, tw.spin);
+  }
   const tip = grip.clone().addScaledVector(stick, TIP_REACH);
 
   const squeeze = st.prev ? st.prev.strength * Math.exp(-st.since * 22) : 0;
@@ -767,6 +780,28 @@ function arm(
     lift,
     curl: Math.min(1, Math.max(0, 0.62 + 0.3 * squeeze - 0.22 * give)),
     held,
+  };
+}
+
+/** How much of the way a hand is at a count click: 1 there, 0 at a note or the rest, between as it moves. */
+function countShare(p: HandPath): number {
+  const at = (t: Target) => (t.count ? 1 : 0);
+  return at(p.from) + (at(p.to) - at(p.from)) * p.travel;
+}
+
+interface Hold {
+  d0: Vector3;
+  q0: Quaternion;
+  shoulder: Vector3;
+}
+
+/** Part of the way from one way of holding the stick to another: `k` 0 is `a`, 1 is `b`. */
+function blendHold(a: Hold, b: Hold, k: number): Hold {
+  if (k >= 1) return b;
+  return {
+    d0: a.d0.clone().lerp(b.d0, k).normalize(),
+    q0: a.q0.clone().slerp(b.q0, k),
+    shoulder: a.shoulder.clone().lerp(b.shoulder, k),
   };
 }
 
