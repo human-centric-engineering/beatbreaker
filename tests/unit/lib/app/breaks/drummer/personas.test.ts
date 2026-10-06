@@ -41,12 +41,12 @@ describe('PERSONAS', () => {
     expect(o.hat ?? o.shades ?? o.headband ?? o.earrings ?? o.chain ?? o.lipstick).toBeUndefined();
   });
 
-  it('casts a robot, plated whole, and a beast with a bandolier', () => {
+  it('casts a robot, plated whole, and a horned, shaggy beast', () => {
     const robot = PERSONAS.find((p) => p.kind === 'robot')!;
     expect(robot.cyborg).toBe('full');
     expect(robot.metal).toMatch(/^#[0-9a-f]{6}$/i);
     const beast = PERSONAS.find((p) => p.kind === 'beast')!;
-    expect(beast).toMatchObject({ hairStyle: 'mane', bandolier: true });
+    expect(beast).toMatchObject({ hairStyle: 'shag', horns: true, beard: 'none' });
   });
 
   it('puts every hat on somebody', () => {

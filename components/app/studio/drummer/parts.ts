@@ -135,7 +135,7 @@ function furTexture(): THREE.Texture | null {
 }
 
 /** A coat of fur: matt, shaggy to the touch of the light, soft at the edges. */
-function furMaterial(color: string): THREE.MeshPhysicalMaterial {
+export function furMaterial(color: string): THREE.MeshPhysicalMaterial {
   const fur = furTexture();
   return new THREE.MeshPhysicalMaterial({
     // the coat's hairs average a little under white: lift the colour back to what was asked

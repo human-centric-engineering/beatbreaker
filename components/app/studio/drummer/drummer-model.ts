@@ -3,6 +3,7 @@ import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeom
 
 import {
   ball,
+  furMaterial,
   limb,
   loft,
   type Materials,
@@ -721,25 +722,43 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       party.position.set(0, 0.02, 0.07);
       return [hairCap(m), party];
     }
-    case 'mane': {
-      // shaggy all round: long down the back and the sides, tufts standing out everywhere but the face
-      const back = mesh(new THREE.CapsuleGeometry(0.11, 0.22, 6, 18), m.hair);
-      back.scale.set(1.05, 1, 0.6);
-      back.position.set(0, 0.04, 0.06);
-      const out: THREE.Object3D[] = [cover(0.112, 0.6, m.hair), back];
-      for (const side of [-1, 1]) {
-        const lock = mesh(new THREE.CapsuleGeometry(0.04, 0.16, 4, 12), m.hair);
-        lock.position.set(side * 0.085, 0.03, 0.0);
-        out.push(lock);
+    case 'shag': {
+      // a wild crest bursting up and out of the crown, and fluffy tufts over the cheeks
+      const out: THREE.Object3D[] = [cover(0.112, 0.52, m.hair)];
+      const crest: [number, number][] = [
+        [0, 0],
+        [0.45, 0],
+        [0.45, 1.25],
+        [0.45, 2.5],
+        [0.45, 3.75],
+        [0.45, 5],
+        [0.8, 0.6],
+        [0.8, 1.9],
+        [0.8, 3.2],
+        [0.8, 4.5],
+        [0.8, 5.7],
+      ];
+      for (const [el, ph] of crest) {
+        const d = new THREE.Vector3(
+          Math.sin(el) * Math.sin(ph),
+          Math.cos(el),
+          Math.sin(el) * Math.cos(ph)
+        );
+        const tuft = spike(d, 0.03, 0.08, m.hair);
+        tuft.geometry.dispose();
+        tuft.geometry = new THREE.CapsuleGeometry(0.03, 0.06 - 0.02 * el, 4, 10);
+        out.push(tuft);
       }
-      // thick hanks falling from the crown round the sides and the back, splayed a little
-      for (let i = 0; i < 16; i++) {
-        const ph = -2.1 + (i / 15) * 4.2;
-        const len = 0.13 + 0.04 * Math.sin(i * 1.7);
-        const hank = mesh(new THREE.CapsuleGeometry(0.03, len, 4, 10), m.hair);
-        hank.position.set(0.1 * Math.sin(ph), 0.16 - len / 2, 0.1 * Math.cos(ph) + 0.01);
-        hank.rotation.set(-0.22 * Math.cos(ph), 0, 0.22 * Math.sin(ph));
-        out.push(hank);
+      for (const side of [-1, 1]) {
+        for (const [y, z, tilt] of [
+          [0.07, -0.03, 0.9],
+          [0.035, -0.015, 1.15],
+        ]) {
+          const cheek = mesh(new THREE.CapsuleGeometry(0.022, 0.035, 4, 10), m.hair);
+          cheek.position.set(side * 0.085, y, z);
+          cheek.rotation.z = side * tilt;
+          out.push(cheek);
+        }
       }
       return out;
     }
@@ -1274,6 +1293,7 @@ function buildHead(m: Materials, who: Persona): HeadRig {
   for (const o of [...hairFor(who.hairStyle, m), ...beardFor(who.beard, m)]) head.add(o);
   for (const o of accessoriesFor(who, m)) head.add(o);
   if (who.cyborg === 'arm') for (const o of facePlate(m)) head.add(o);
+  if (who.kind === 'beast') for (const o of beastHead(m, who)) head.add(o);
   const robot = who.kind === 'robot';
   for (const side of [-1, 1] as const) {
     if (!robot) {
@@ -1335,27 +1355,44 @@ function midriff(shape: Shape, female: boolean, m: Materials): THREE.Object3D[] 
   });
 }
 
-/** A strap from one shoulder across the chest to the other hip, hung with pouches. */
-function bandolier(shape: Shape, female: boolean, m: Materials): THREE.Group {
-  const rings = trunk(shape, female, 0.2, 0.5);
-  const r = rings.reduce((a, b) => (Math.abs(b.y - 0.36) < Math.abs(a.y - 0.36) ? b : a));
-  const [w, d] = [r.w * 1.1, r.d * 1.18];
-  const strap = new THREE.Group();
-  strap.position.set(0, 0.36, r.z ?? 0);
-  strap.rotation.z = 0.6;
-  const band = mesh(new THREE.TorusGeometry(1, 0.07, 6, 48), m.accent);
-  band.rotation.x = Math.PI / 2;
-  band.scale.set(w, d, 0.24);
-  strap.add(band);
-  // pouches across the front
-  for (let k = -2; k <= 2; k++) {
-    const a = -Math.PI / 2 + k * 0.32;
-    const pouch = mesh(new RoundedBoxGeometry(0.03, 0.04, 0.022, 2, 0.004), m.chrome);
-    pouch.position.set(w * Math.cos(a) * 1.04, 0, d * Math.sin(a) * 1.04);
-    pouch.rotation.y = -(a + Math.PI / 2);
-    strap.add(pouch);
+/** A beast's paler fur: the belly, the muzzle. */
+const paler = (who: Persona) =>
+  `#${new THREE.Color(who.skin).lerp(new THREE.Color('#f0d4ff'), 0.6).getHexString()}`;
+
+/** A beast's paler belly: an oval of lighter fur down the front of the trunk. */
+function bellyPatch(shape: Shape, female: boolean, who: Persona): THREE.Mesh {
+  const rings = trunk(shape, female, 0.1, 0.45);
+  const r = rings.reduce((a, b) => (Math.abs(b.y - 0.3) < Math.abs(a.y - 0.3) ? b : a));
+  const patch = mesh(new THREE.SphereGeometry(0.1, 28, 20), furMaterial(paler(who)));
+  patch.scale.set(r.w / 0.15, 1.7, 0.5);
+  patch.position.set(0, 0.3, (r.z ?? 0) - r.d + 0.012);
+  return patch;
+}
+
+/** A beast's face and head: a paler muzzle under the nose, round furry ears, and horns if it has them. */
+function beastHead(m: Materials, who: Persona): THREE.Object3D[] {
+  const muzzle = ball(0.045, furMaterial(paler(who)), 20);
+  muzzle.scale.set(1.25, 0.85, 0.8);
+  muzzle.position.set(0, 0.062, -0.074);
+  const out: THREE.Object3D[] = [muzzle];
+  for (const side of [-1, 1]) {
+    const ear = ball(0.034, m.hair, 16);
+    ear.scale.set(0.45, 1, 0.9);
+    ear.position.set(side * 0.115, 0.175, 0.02);
+    ear.rotation.z = side * -0.5;
+    out.push(ear);
   }
-  return strap;
+  if (who.horns) {
+    const ivory = new THREE.MeshStandardMaterial({ color: '#efe3c8', roughness: 0.45 });
+    for (const side of [-1, 1]) {
+      // out to the sides of the crest, curving up
+      const horn = mesh(new THREE.ConeGeometry(0.022, 0.1, 14), ivory);
+      horn.position.set(side * 0.075, 0.235, -0.06);
+      horn.rotation.set(-0.35, 0, side * -0.4);
+      out.push(horn);
+    }
+  }
+  return out;
 }
 
 /**
@@ -1373,7 +1410,7 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
   torso.add(loft(trunk(shape, female, -1, BELT + 0.01), m.jeans));
   torso.add(loft(trunk(shape, female, 0.1, 1, 0.004), m.shirt));
   if (who.kind === 'robot') for (const o of midriff(shape, female, m)) torso.add(o);
-  if (who.bandolier) torso.add(bandolier(shape, female, m));
+  if (who.kind === 'beast') torso.add(bellyPatch(shape, female, who));
   if (who.chain) {
     const chain = new THREE.Mesh(new THREE.TorusGeometry(0.075 * shape.neck, 0.005, 6, 32), m.gold);
     // lying round the neck, dropping down the chest in front

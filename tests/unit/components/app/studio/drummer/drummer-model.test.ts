@@ -470,18 +470,34 @@ describe('buildDrummer — a robot and a beast', () => {
     ).toBe(5);
   });
 
-  it('furs a beast all over, with a dark nose and a bandolier of pouches', () => {
+  it('furs a beast all over, with a paler belly and muzzle, round ears, horns and a dark nose', () => {
     const { m, root } = built(beast);
     for (const mat of [m.skin, m.shirt, m.jeans, m.shoe, m.hair]) {
       expect(mat.roughness).toBe(1);
       expect(mat).toBeInstanceOf(THREE.MeshPhysicalMaterial);
     }
-    // the strap's pouches
-    expect(count(root, (o) => o.material === m.chrome)).toBe(5);
-    const plain = built(PERSONAS[0]);
-    expect(count(plain.root, (o) => o.material === plain.m.chrome)).toBe(0);
-    // nose: tip and wings, dark
+    // the belly and the muzzle: fur, paler than the coat
+    const coat = new THREE.Color(beast.skin);
+    const paler: THREE.Mesh[] = [];
+    root.traverse((o) => {
+      if (
+        o instanceof THREE.Mesh &&
+        o.material instanceof THREE.MeshPhysicalMaterial &&
+        o.material.roughness === 1 &&
+        o.material.color.getHSL({ h: 0, s: 0, l: 0 }).l > coat.getHSL({ h: 0, s: 0, l: 0 }).l + 0.1
+      )
+        paler.push(o);
+    });
+    expect(paler).toHaveLength(2);
     const head = root.getObjectByName('eye')!.parent!;
+    // two horns, standing up out of the crest
+    const horns = head.children.filter(
+      (o): o is THREE.Mesh => o instanceof THREE.Mesh && o.geometry instanceof THREE.ConeGeometry
+    );
+    expect(horns).toHaveLength(2);
+    for (const h of horns) expect(h.position.y).toBeGreaterThan(0.2);
+    expect(horns[0].position.x).toBeCloseTo(-horns[1].position.x, 6);
+    // nose: tip and wings, dark
     expect(
       head.children.filter(
         (o) =>
@@ -490,5 +506,13 @@ describe('buildDrummer — a robot and a beast', () => {
           o.geometry instanceof THREE.SphereGeometry
       ).length
     ).toBe(3);
+    // nobody else has horns
+    const plain = built(PERSONAS[0]);
+    const plainHead = plain.root.getObjectByName('eye')!.parent!;
+    expect(
+      plainHead.children.filter(
+        (o) => o instanceof THREE.Mesh && o.geometry instanceof THREE.ConeGeometry
+      )
+    ).toHaveLength(0);
   });
 });

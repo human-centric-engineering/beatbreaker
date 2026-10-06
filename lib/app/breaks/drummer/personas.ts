@@ -27,7 +27,7 @@ export type HairStyle =
   | 'ponytail'
   | 'bob'
   | 'mullet'
-  | 'mane';
+  | 'shag';
 
 export type Beard = 'none' | 'stubble' | 'full' | 'goatee' | 'handlebar' | 'viking';
 
@@ -77,8 +77,8 @@ export interface Persona {
   /** The colour of a whole cyborg's plating; gunmetal unless given. */
   metal?: string;
   kind?: Kind;
-  /** A strap across the chest, hung with pouches. */
-  bandolier?: boolean;
+  /** A pair of small horns, standing up out of the hair. */
+  horns?: boolean;
 }
 
 /** Skin, lightest to deepest. */
@@ -678,22 +678,24 @@ export const PERSONAS: readonly Persona[] = [
     accent: '#ffc53d',
   },
   {
-    // a huge, shaggy creature, furred head to foot, a bandolier across the chest
+    // a big, friendly monster of a drummer: violet fur, a lavender belly and muzzle, a wild
+    // crest, round ears, two little horns, and a sweatband for the long sets
     id: 'bigfuzz',
     name: 'Big Fuzz',
     kind: 'beast',
     figure: 'male',
     build: 'heavy',
-    skin: '#6e4c2f',
-    hair: '#6e4c2f',
-    hairStyle: 'mane',
-    beard: 'full',
+    skin: '#6a4bb0',
+    hair: '#6a4bb0',
+    hairStyle: 'shag',
+    beard: 'none',
     top: 'bare',
-    shirt: '#6e4c2f',
-    trousers: '#634329',
-    shoes: '#4a321f',
-    accent: '#3a2a1c',
-    bandolier: true,
+    shirt: '#6a4bb0',
+    trousers: '#5a3e9a',
+    shoes: '#46307a',
+    accent: '#ff8a1f',
+    headband: true,
+    horns: true,
   },
 ];
 
