@@ -559,6 +559,17 @@ describe('the two-hands check', () => {
     expect(check.checks.some((c) => c.label === HANDS_CHECK)).toBe(false);
   });
 
+  it('still names a three-hand step that is not the flam’s', () => {
+    const bar = barWith('s', 6);
+    for (let i = 0; i < 16; i += 2) bar.h[i] = 1;
+    // a separate step with the hats, a snare and a tom, no flam anywhere near it
+    bar.s[8] = 2;
+    bar.t1[8] = 1;
+    const labels = playability(pattern([bar]), 100).checks.map((c) => c.label);
+    expect(labels).toContain(GRACE_CHECK);
+    expect(labels).toContain(HANDS_CHECK);
+  });
+
   it('lets the grace check speak for a flam, rather than report it twice', () => {
     const bar = barWith('s', 6);
     for (let i = 0; i < 16; i += 2) bar.h[i] = 1;

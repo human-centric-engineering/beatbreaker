@@ -58,8 +58,10 @@ export function playability(pat: Pattern, bpm: number): Playability {
       if (i < nSteps - 2 && b.k[i] && b.k[i + 1] && b.k[i + 2]) kickRun = true;
       if (i < nSteps - 3 && b.s[i] && b.s[i + 1] && b.s[i + 2] && b.s[i + 3]) snareRun = true;
       if (i < nSteps - 1 && b.k[i] && b.k[i + 1]) doubleStrain++;
+      // a flam's step is the grace check's to report, not this one's twice over —
+      // that step only, so a three-hand step elsewhere is still named
       if (graceTooMany(b, i)) graceClash = true;
-      if (handsAt(b, i, hands) > 2) threeHands = true;
+      else if (handsAt(b, i, hands) > 2) threeHands = true;
     }
 
     /* A tom carrying the fill is still a backbeat arriving, and in jazz the 2
@@ -94,8 +96,7 @@ export function playability(pat: Pattern, bpm: number): Playability {
   /* Only shown where it can fail: every pattern written before 9-iv passes it,
      and a list that grows a line nobody can trip is noise. */
   if (graceClash) checks.push({ ok: false, label: GRACE_CHECK });
-  // a flam's step is the grace check's to report, not this one's twice over
-  if (threeHands && !graceClash) checks.push({ ok: false, label: HANDS_CHECK });
+  if (threeHands) checks.push({ ok: false, label: HANDS_CHECK });
 
   return {
     checks,

@@ -303,7 +303,7 @@ export class StrokeTimeline {
       this.sure = this.sure.filter((h) => h.time >= cutoff);
     }
     this.ahead = step.count
-      ? countAhead(step)
+      ? countAhead(step, this.aux)
       : step.bar
         ? forecast(step, this.before, this.aux)
         : [];
@@ -330,8 +330,12 @@ export class StrokeTimeline {
       if (this.ones[0].time < cutoff) this.ones = this.ones.filter((d) => d.time >= cutoff);
     }
     const time = step.t + (n - step.slot) * step.dur;
-    if (step.count) this.nextOne = { time, change: true };
-    else if (step.bar && step.next) this.nextOne = { time, change: !sameBar(step.bar, step.next) };
+    if (step.count) {
+      // the band comes in when the count runs out, if it says when
+      const at = step.countLeft === undefined ? time : step.t + step.countLeft * step.dur;
+      this.nextOne = { time: at, change: true };
+    } else if (step.bar && step.next)
+      this.nextOne = { time, change: !sameBar(step.bar, step.next) };
     else this.nextOne = null;
   }
 
@@ -388,19 +392,27 @@ export class StrokeTimeline {
 }
 
 /**
- * The clicks still to come in a count, a bar ahead. The transport does not say
- * how long the count is, so this assumes it goes on; when the music starts,
- * its first step's forecast replaces these. Without them a slow count is only
- * known a lookahead at a time, and the hands settle back to the snare between
- * clicks.
+ * The clicks still to come in a count, and then the bar the band comes in on,
+ * a bar ahead. Without them a slow count is only known a lookahead at a time,
+ * and the hands settle back to the snare between clicks; without the bar after
+ * it, the hands would be told where the first note is only as it is scheduled,
+ * and jump from the count to the kit. A step that does not say how long the
+ * count has left is taken to go on.
  */
-function countAhead(step: ScheduledStep): Hit[] {
+function countAhead(step: ScheduledStep, aux: readonly LaneKey[]): Hit[] {
   const n = step.meter.num * step.meter.sub;
+  const left = step.countLeft ?? Infinity;
+  const fast = step.dur < FAST_STEP;
   const out: Hit[] = [];
-  for (let k = 1; k <= n; k++) {
+  for (let k = 1; k <= FORECAST_STEPS; k++) {
     const t = step.t + k * step.dur;
-    const hits = countHits({ ...step, t, slot: (step.slot + k) % n });
-    out.push(...hits.map((h) => ({ ...h, sure: false })));
+    if (k < left) {
+      if (k > n) break;
+      const hits = countHits({ ...step, t, slot: (step.slot + k) % n });
+      out.push(...hits.map((h) => ({ ...h, sure: false })));
+    } else if (step.next && k - left < step.next.k.length) {
+      out.push(...gridHits(step.next, k - left, t, null, aux, fast));
+    } else break;
   }
   return out;
 }

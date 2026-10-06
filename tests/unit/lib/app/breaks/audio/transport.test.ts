@@ -582,9 +582,14 @@ describe('onStep (the 3D drummer handoff)', () => {
     for (const s of countSteps) {
       expect(s.notes).toEqual([]);
       expect(s.bar).toBeNull();
-      expect(s.next).toBeNull();
+      // the bar the band comes in on
+      expect(s.next).toBe(pat.bars[0]);
       expect(s.meter).toEqual(meterOf('3/4'));
     }
+    // and how much of the count is left, counting down to the last step
+    expect(countSteps.map((s) => s.countLeft)).toEqual(
+      Array.from({ length: stepsOf(meterOf('3/4')) }, (_, i) => stepsOf(meterOf('3/4')) - i)
+    );
     // the count-in steps are numbered along the grid, one per slot, in order
     expect(countSteps.map((s) => s.slot)).toEqual(
       Array.from({ length: stepsOf(meterOf('3/4')) }, (_, i) => i)

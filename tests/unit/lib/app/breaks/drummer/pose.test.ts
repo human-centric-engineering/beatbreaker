@@ -712,6 +712,55 @@ describe('poseAt — counting in', () => {
     expect(Math.abs(bend(top) - bend(click))).toBeLessThan(0.15);
   });
 
+  it('goes from the count to the first note without a jump', () => {
+    const first = bar();
+    for (let i = 0; i < N; i += 2) first.h[i] = 1;
+    first.s[4] = 2;
+    const dur = 0.125;
+    /** The count and the first bar, each step handed over a moment before it sounds. */
+    const play = (sayLeft: boolean) => {
+      const steps: ScheduledStep[] = [];
+      for (let i = 0; i < N; i++)
+        steps.push({
+          t: i * dur,
+          dur,
+          slot: i,
+          count: true,
+          countLeft: sayLeft ? N - i : undefined,
+          meter: M44,
+          bar: null,
+          next: sayLeft ? first : null,
+          notes: [],
+        });
+      for (let i = 0; i < N; i++)
+        steps.push({
+          ...stepFor(i, first, 'h'),
+          t: (N + i) * dur,
+          dur,
+          notes: first.h[i] ? [{ voice: voice('h'), when: (N + i) * dur }] : [],
+        });
+      const tl = new StrokeTimeline();
+      let fed = 0;
+      let worst = 0;
+      let last: Vector3 | null = null;
+      // a frame every 60th of a second across the end of the count
+      for (let t = (N - 4) * dur; t < (N + 2) * dur; t += 1 / 60) {
+        for (; fed < steps.length && steps[fed].t <= t + 0.12; fed++) tl.ingest(steps[fed]);
+        const tip = poseAt(tl, t, 1).arms.lead.tip;
+        if (last) worst = Math.max(worst, tip.distanceTo(last));
+        last = tip.clone();
+      }
+      return worst;
+    };
+    // knowing where the count ends, the hand moves there in time: no frame faster
+    // than a quick hand (8 cm a frame is under 5 m/s)
+    const known = play(true);
+    expect(known).toBeLessThan(0.08);
+    // not knowing (as before), it is told only as the first note is scheduled, and
+    // jumps half a metre in a frame
+    expect(play(false)).toBeGreaterThan(known * 5);
+  });
+
   it('clicks with the lead stick coming down and the other coming up to meet it', () => {
     const tl = countIn();
     const click = poseAt(tl, 8 * 0.125, 1).arms;

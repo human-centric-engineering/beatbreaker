@@ -120,8 +120,13 @@ export interface ScheduledStep {
   /** Seconds per step (a sixteenth) at the tempo it was scheduled at. */
   dur: number;
   slot: number;
-  /** A count-in step: no notes and no bar, just the pulse. */
+  /**
+   * A count-in step: no notes and no bar, just the pulse. Its `next` is the
+   * bar the band comes in on.
+   */
   count?: boolean;
+  /** On a count-in step, the steps of the count still to come, this one included. */
+  countLeft?: number;
   meter: Meter;
   bar: Bar | null;
   next: Bar | null;
@@ -313,9 +318,11 @@ export class Transport {
         dur,
         slot: i,
         count: true,
+        countLeft: this.countLeft,
         meter: cm,
         bar: null,
-        next: null,
+        // what the band comes in on, so the drummer can be ready for it
+        next: (livePat && pos && livePat.bars[pos.barIdx]) ?? null,
         notes: [],
       });
       return;

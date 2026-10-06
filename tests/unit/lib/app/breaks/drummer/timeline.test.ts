@@ -507,3 +507,29 @@ describe('StrokeTimeline — the ones', () => {
     expect(tl.downbeats()).toEqual([]);
   });
 });
+
+describe('StrokeTimeline — out of the count', () => {
+  it('reads the bar the band comes in on, once the count says how long it has left', () => {
+    const first = hitAt(0, { h: 1, k: 1 });
+    const tl = new StrokeTimeline();
+    // the fourth-last step of a count
+    tl.ingest({
+      t: 0,
+      dur: 0.1,
+      slot: 12,
+      count: true,
+      countLeft: 4,
+      meter: M44,
+      bar: null,
+      next: first,
+      notes: [],
+    });
+    const all = tl.all();
+    // no click forecast past the end of the count…
+    expect(all.filter((h) => h.piece === 'sticks').every((h) => h.time < 0.4 - 1e-9)).toBe(true);
+    // …and the first bar's notes where the count ends
+    const hat = all.find((h) => h.piece === 'hat');
+    expect(hat?.time).toBeCloseTo(0.4, 9);
+    expect(tl.downbeats()).toEqual([{ time: expect.closeTo(0.4, 9), change: true }]);
+  });
+});
