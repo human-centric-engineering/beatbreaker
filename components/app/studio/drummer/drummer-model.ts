@@ -3,7 +3,7 @@ import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeom
 
 import { ball, type Materials, place, segment } from '@/components/app/studio/drummer/parts';
 import { BODY, type Foot, type Hand, STICK, type V3 } from '@/lib/app/breaks/drummer/kit-layout';
-import type { ArmPose, LegPose, Pose } from '@/lib/app/breaks/drummer/pose';
+import type { ArmPose, Grip, LegPose, Pose } from '@/lib/app/breaks/drummer/pose';
 
 /**
  * The drummer, built from primitives (experiment: the drummer view).
@@ -14,7 +14,9 @@ import type { ArmPose, LegPose, Pose } from '@/lib/app/breaks/drummer/pose';
  * way to the screen. The hands are articulated to the finger joint: the
  * stick balances on the middle finger under the thumb, the first finger wraps
  * beside it, and the back two close on each stroke and give as the stick
- * comes up.
+ * comes up. In a military grip the stick sits in the web of the thumb instead:
+ * the thumb lies over it, the first two fingers rest on top, and the ring
+ * finger is curled underneath with the little finger tucked in behind.
  */
 
 export interface DrummerModel {
@@ -45,22 +47,25 @@ function phalanx(length: number, radius: number, m: THREE.Material): THREE.Group
   return g;
 }
 
-interface Finger {
-  joints: THREE.Group[];
+interface FingerGrip {
   /** How far each joint bends at full curl, radians. */
   bend: [number, number, number];
   /**
-   * How much of the curl the finger holds whatever the stroke, 0–1: the middle
-   * finger is the fulcrum the stick balances on and never lets go; the first
-   * finger wraps beside it, mostly closed; the back two open and close with
-   * the stroke.
+   * How much of the curl the finger holds whatever the stroke, 0–1: in matched
+   * grip the middle finger is the fulcrum the stick balances on and never lets
+   * go; the first finger wraps beside it, mostly closed; the back two open and
+   * close with the stroke.
    */
   hold: number;
 }
 
 interface HandRig {
   group: THREE.Group;
-  fingers: Finger[];
+  /** Each finger's joints, knuckle out. */
+  fingers: THREE.Group[][];
+  thumb: THREE.Group;
+  /** Which side of `x` the thumb is on. */
+  side: 1 | -1;
 }
 
 const FINGERS: { x: number; lengths: [number, number, number]; r: number }[] = [
@@ -70,13 +75,31 @@ const FINGERS: { x: number; lengths: [number, number, number]; r: number }[] = [
   { x: -0.028, lengths: [0.036, 0.022, 0.018], r: 0.0082 },
 ];
 
-/** First, middle, ring, little: how each finger bends, and how much of it it holds. */
-const FINGER_GRIP: Pick<Finger, 'bend' | 'hold'>[] = [
-  { bend: [0.95, 1.35, 0.85], hold: 0.7 },
-  { bend: [1.15, 1.45, 0.9], hold: 1 },
-  { bend: [1.45, 1.55, 1.0], hold: 0 },
-  { bend: [1.45, 1.55, 1.0], hold: 0 },
-];
+/** First, middle, ring, little: how each finger bends, and how much of it it holds, per grip. */
+const FINGER_GRIP: Record<Grip, FingerGrip[]> = {
+  matched: [
+    { bend: [0.95, 1.35, 0.85], hold: 0.7 },
+    { bend: [1.15, 1.45, 0.9], hold: 1 },
+    { bend: [1.45, 1.55, 1.0], hold: 0 },
+    { bend: [1.45, 1.55, 1.0], hold: 0 },
+  ],
+  // the first two lie over the stick, pressing it down into the stroke; the ring
+  // finger is curled under it and carries it, the little finger tucked in behind
+  military: [
+    { bend: [0.7, 0.95, 0.6], hold: 0.6 },
+    { bend: [0.85, 1.1, 0.7], hold: 0.5 },
+    { bend: [1.0, 1.6, 1.1], hold: 1 },
+    { bend: [1.35, 1.6, 1.1], hold: 1 },
+  ],
+};
+
+/** Where the thumb's base turns, per grip (`y` and `z` mirrored for the other hand). */
+const THUMB: Record<Grip, [number, number, number]> = {
+  // along the stick on top of the fulcrum
+  matched: [0.38, -0.55, 0.5],
+  // over the stick where it leaves the web, pointing along it toward the first finger
+  military: [0.1, 0.2, 0.95],
+};
 
 /**
  * A hand in the frame the pose solves (`z` to the knuckles, `y` out of the
@@ -89,7 +112,7 @@ function buildHand(thumb: 1 | -1, m: Materials): HandRig {
   palm.castShadow = true;
   group.add(palm);
 
-  const fingers: Finger[] = FINGERS.map((f, n) => {
+  const fingers = FINGERS.map((f) => {
     const joints: THREE.Group[] = [];
     let parent: THREE.Object3D = group;
     f.lengths.forEach((len, k) => {
@@ -105,13 +128,12 @@ function buildHand(thumb: 1 | -1, m: Materials): HandRig {
       joints.push(joint);
       parent = joint;
     });
-    return { joints, ...FINGER_GRIP[n] };
+    return joints;
   });
 
-  // the thumb lies along the stick on top of the fulcrum
   const thumbBase = new THREE.Group();
   thumbBase.position.set(thumb * 0.038, -0.012, 0.022);
-  thumbBase.rotation.set(0.38, -thumb * 0.55, thumb * 0.5, 'YXZ');
+  turnThumb(thumbBase, thumb, 'matched');
   const t1 = phalanx(0.042, 0.0115, m.skin);
   thumbBase.add(t1);
   const t2 = new THREE.Group();
@@ -121,7 +143,12 @@ function buildHand(thumb: 1 | -1, m: Materials): HandRig {
   t1.add(t2);
   group.add(thumbBase);
 
-  return { group, fingers };
+  return { group, fingers, thumb: thumbBase, side: thumb };
+}
+
+function turnThumb(base: THREE.Group, side: 1 | -1, held: Grip): void {
+  const [x, y, z] = THUMB[held];
+  base.rotation.set(x, side * y, side * z, 'YXZ');
 }
 
 interface ArmRig {
@@ -188,10 +215,13 @@ function poseArm(rig: ArmRig, a: ArmPose): void {
   rig.wrist.position.copy(a.wrist);
   rig.hand.group.position.copy(a.wrist);
   rig.hand.group.quaternion.copy(a.hand);
-  for (const f of rig.hand.fingers) {
+  const grips = FINGER_GRIP[a.held];
+  rig.hand.fingers.forEach((joints, n) => {
+    const f = grips[n];
     const c = f.hold + (1 - f.hold) * a.curl;
-    f.joints.forEach((j, k) => (j.rotation.x = f.bend[k] * c));
-  }
+    joints.forEach((j, k) => (j.rotation.x = f.bend[k] * c));
+  });
+  turnThumb(rig.hand.thumb, rig.hand.side, a.held);
   const butt = a.grip.clone().addScaledVector(a.stick, -STICK.grip);
   place(rig.stick, butt, a.tip);
   rig.bead.position.copy(a.tip);

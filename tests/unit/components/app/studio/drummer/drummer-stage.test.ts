@@ -187,6 +187,32 @@ describe('DrummerStage', () => {
     expect(rig.scale.x).toBe(1);
   });
 
+  it('draws the hands in the grip it is set to, from the next frame', () => {
+    const stage = new DrummerStage(host, clock);
+    rafCtl.runNextFrame(16);
+    const scene = fakes.renderers[0].render.mock.calls[0]?.[0] as THREE.Scene;
+    const drummer = scene.getObjectByName('drummer')!;
+    // the two hands: the root's groups with a palm and five digits; the other hand is on the left
+    const hands = drummer.children.filter(
+      (o): o is THREE.Group =>
+        o instanceof THREE.Group &&
+        o.children.length === 6 &&
+        (o.children[0] as THREE.Mesh).geometry?.type === 'RoundedBoxGeometry'
+    );
+    expect(hands).toHaveLength(2);
+    const other = () => hands.reduce((a, b) => (a.position.x < b.position.x ? a : b));
+    const backY = () => new THREE.Vector3(0, 1, 0).applyQuaternion(other().quaternion).y;
+    expect(backY()).toBeGreaterThan(0); // matched: the back of the hand up
+
+    stage.setGrips({ lead: 'matched', other: 'military' });
+    rafCtl.runNextFrame(32);
+    expect(backY()).toBeLessThan(0); // military: palm up
+
+    stage.setGrips({ lead: 'matched', other: 'matched' });
+    rafCtl.runNextFrame(48);
+    expect(backY()).toBeGreaterThan(0);
+  });
+
   it('removes the canvas from the host and cancels the frame on dispose', () => {
     const stage = new DrummerStage(host, clock);
     const canvas = fakes.renderers[0].domElement;

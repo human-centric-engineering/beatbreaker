@@ -7,7 +7,7 @@ import { buildKit } from '@/components/app/studio/drummer/kit-model';
 import { disposeTree, makeMaterials } from '@/components/app/studio/drummer/parts';
 import type { ScheduledStep } from '@/lib/app/breaks/audio/transport';
 import { type CameraView, cameraFor } from '@/lib/app/breaks/drummer/camera';
-import { poseAt } from '@/lib/app/breaks/drummer/pose';
+import { type Grips, MATCHED_GRIPS, poseAt } from '@/lib/app/breaks/drummer/pose';
 import { StrokeTimeline } from '@/lib/app/breaks/drummer/timeline';
 
 /**
@@ -45,6 +45,7 @@ export class DrummerStage {
   private groove = 0;
   private playing = false;
   private lefty = false;
+  private grips: Grips = MATCHED_GRIPS;
   private view: CameraView = 'front';
   private flight: {
     from: THREE.Vector3;
@@ -174,6 +175,11 @@ export class DrummerStage {
     this.flyTo(this.view);
   }
 
+  /** How each hand holds its stick, from the next frame. */
+  setGrips(grips: Grips): void {
+    this.grips = grips;
+  }
+
   flyTo(view: CameraView): void {
     this.view = view;
     const shot = cameraFor(view, this.lefty);
@@ -192,7 +198,7 @@ export class DrummerStage {
     this.last = ms;
     this.groove += ((this.playing ? 1 : 0) - this.groove) * Math.min(1, dt * 2.5);
     const now = this.playing ? this.clock.now() - this.clock.latency() : ms / 1000;
-    const pose = poseAt(this.timeline, now, this.groove);
+    const pose = poseAt(this.timeline, now, this.groove, this.grips);
     this.kit.update(pose, this.timeline.percussion);
     this.drummer.update(pose, this.camera.position);
 

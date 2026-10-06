@@ -1,10 +1,12 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 import { DrummerStage } from '@/components/app/studio/drummer/drummer-stage';
 import type { ScheduledStep } from '@/lib/app/breaks/audio/transport';
 import type { CameraView } from '@/lib/app/breaks/drummer/camera';
+import type { DRUMMER_GRIPS } from '@/lib/app/breaks/browser-keys';
+import { gripsFor } from '@/lib/app/breaks/drummer/pose';
 
 /**
  * The box the 3D drummer is drawn in (experiment). Loaded only in the
@@ -15,6 +17,8 @@ import type { CameraView } from '@/lib/app/breaks/drummer/camera';
 
 export interface DrummerCanvasProps {
   lefty: boolean;
+  /** Which hands hold the stick in a military grip. */
+  military: (typeof DRUMMER_GRIPS)[number];
   view: CameraView;
   /** Bumped to fly back to `view` when it has not changed — the camera was dragged away. */
   viewSeq: number;
@@ -26,6 +30,7 @@ export interface DrummerCanvasProps {
 
 export default function DrummerCanvas({
   lefty,
+  military,
   view,
   viewSeq,
   playing,
@@ -35,10 +40,11 @@ export default function DrummerCanvas({
 }: DrummerCanvasProps) {
   const host = useRef<HTMLDivElement>(null);
   const stage = useRef<DrummerStage | null>(null);
+  const grips = useMemo(() => gripsFor(military), [military]);
   // what a stage made after the first mount must start from
-  const latest = useRef({ lefty, playing, view });
+  const latest = useRef({ lefty, grips, playing, view });
   useEffect(() => {
-    latest.current = { lefty, playing, view };
+    latest.current = { lefty, grips, playing, view };
   });
 
   /* One stage per mount. The three callbacks must be stable (the console's
@@ -48,6 +54,7 @@ export default function DrummerCanvas({
     if (!el) return;
     const s = new DrummerStage(el, { now: audioNow, latency: audioLatency });
     s.setLefty(latest.current.lefty);
+    s.setGrips(latest.current.grips);
     s.setPlaying(latest.current.playing);
     s.flyTo(latest.current.view);
     stage.current = s;
@@ -66,6 +73,10 @@ export default function DrummerCanvas({
   useEffect(() => {
     stage.current?.setLefty(lefty);
   }, [lefty]);
+
+  useEffect(() => {
+    stage.current?.setGrips(grips);
+  }, [grips]);
 
   useEffect(() => {
     stage.current?.flyTo(view);

@@ -21,6 +21,8 @@ import {
   STICK_CLEAR,
   overLead,
   barCueAt,
+  gripsFor,
+  MATCHED_GRIPS,
   poseAt,
   scatterOf,
   twirlAt,
@@ -1059,5 +1061,169 @@ describe('barCueAt — the hands come up for a new bar', () => {
     const at = poseAt(tl, crash.time, 1).arms[hand].tip;
     const want = new Vector3(...strikeTarget('crash', crash.contact, scatterOf(crash, hand)).tip);
     expect(at.distanceTo(want)).toBeLessThan(0.001);
+  });
+});
+
+describe('gripsFor — which hands hold military', () => {
+  it('maps the setting to each hand: neither, the one away from the hats, or both', () => {
+    expect(gripsFor('none')).toEqual(MATCHED_GRIPS);
+    expect(gripsFor('other')).toEqual({ lead: 'matched', other: 'military' });
+    expect(gripsFor('both')).toEqual({ lead: 'military', other: 'military' });
+  });
+});
+
+describe('poseAt — military grip', () => {
+  const MILITARY = gripsFor('both');
+
+  /** Every step of `b` ingested into a fresh timeline. */
+  function played(b: Bar): StrokeTimeline {
+    const tl = new StrokeTimeline();
+    for (let i = 0; i < N; i++) {
+      const lanes = (Object.keys(b) as LaneKey[]).filter((l) => b[l][i]);
+      tl.ingest({
+        t: i * DUR,
+        dur: DUR,
+        slot: i,
+        meter: M44,
+        bar: b,
+        next: null,
+        notes: lanes.map((l) => ({ voice: voice(l), when: i * DUR })),
+      });
+    }
+    return tl;
+  }
+
+  /** A backbeat on the snare over eighths on the hats, and a fill down the toms to the floor. */
+  function groove(): StrokeTimeline {
+    const b = bar();
+    for (let i = 0; i < N; i += 2) b.h[i] = 1;
+    b.s[4] = 2;
+    b.s[12] = 2;
+    b.t2[14] = 1;
+    b.t3[15] = 1;
+    return played(b);
+  }
+
+  type Arm = ReturnType<typeof poseAt>['arms']['lead'];
+  const knuckles = (a: Arm) => new Vector3(0, 0, 1).applyQuaternion(a.hand);
+  const backOf = (a: Arm) => new Vector3(0, 1, 0).applyQuaternion(a.hand);
+  const forearm = (a: Arm) => a.wrist.clone().sub(a.elbow).normalize();
+  /** The thumb's side of the hand: `x` on the lead hand, `-x` on the other. */
+  const thumbOf = (a: Arm, hand: Hand) =>
+    new Vector3(hand === 'lead' ? 1 : -1, 0, 0).applyQuaternion(a.hand);
+
+  it('places the tip exactly on strikeTarget at the instant of every kind of stroke, both hands military', () => {
+    const tl = played(buildBar());
+    let checked = 0;
+    for (const h of tl.all()) {
+      if (h.limb !== 'lead' && h.limb !== 'other') continue;
+      const pose = poseAt(tl, h.time, 1, MILITARY);
+      const [x, y, z] = strikeTarget(h.piece, h.contact, scatterOf(h, h.limb)).tip;
+      const want = new Vector3(x, h.piece === 'hat' ? y + pose.hatGap - HAT_CLOSED_GAP : y, z);
+      expect(pose.arms[h.limb].tip.distanceTo(want)).toBeLessThan(0.001);
+      checked++;
+    }
+    expect(checked).toBeGreaterThan(10);
+  });
+
+  it('keeps the arm in one piece at every stroke, the floor tom at full stretch included', () => {
+    const tl = groove();
+    const floor = tl.all().find((h) => h.piece === 'floor')!;
+    expect(floor.limb).toBe('other');
+    for (const h of tl.all()) {
+      if (h.limb !== 'lead' && h.limb !== 'other') continue;
+      const arm = poseAt(tl, h.time, 1, MILITARY).arms[h.limb];
+      expect(arm.shoulder.distanceTo(arm.elbow)).toBeCloseTo(BODY.upperArm, 6);
+      expect(arm.elbow.distanceTo(arm.wrist)).toBeCloseTo(BODY.forearm, 6);
+    }
+    // the hold is shorter than a matched one, so the shoulder comes forward for the
+    // floor tom — but only a little, and only for the reach
+    const at = (grips: typeof MILITARY, time: number) => poseAt(tl, time, 1, grips).arms.other;
+    expect(
+      at(MILITARY, floor.time).shoulder.distanceTo(at(MATCHED_GRIPS, floor.time).shoulder)
+    ).toBeLessThan(0.061);
+    const snare = tl.all().find((h) => h.piece === 'snare')!;
+    expect(
+      at(MILITARY, snare.time).shoulder.distanceTo(at(MATCHED_GRIPS, snare.time).shoulder)
+    ).toBeLessThan(1e-9);
+  });
+
+  it('holds the stick palm up, thumb on top, the hand in line with the forearm', () => {
+    const tl = groove();
+    const snare = tl.all().find((h) => h.piece === 'snare')!;
+    const military = poseAt(tl, snare.time, 1, MILITARY).arms.other;
+    const matched = poseAt(tl, snare.time, 1).arms.other;
+    // the back of a matched hand faces up; a military one's faces down and out
+    expect(backOf(matched).y).toBeGreaterThan(0.5);
+    expect(backOf(military).y).toBeLessThan(-0.3);
+    expect(backOf(military).x).toBeLessThan(-0.5); // out to the left, for the left hand
+    expect(thumbOf(military, 'other').y).toBeGreaterThan(0.5);
+    expect(forearm(military).angleTo(knuckles(military))).toBeLessThan(0.1);
+    // the stick comes in across the body and down from the web of the thumb
+    expect(military.stick.x).toBeGreaterThan(0.3);
+    expect(military.stick.y).toBeLessThan(-0.3);
+  });
+
+  it('strokes by turning the forearm, not bending the wrist', () => {
+    const tl = groove();
+    const snare = tl.all().find((h) => h.piece === 'snare')!;
+    const hit = poseAt(tl, snare.time, 1, MILITARY).arms.other;
+    const up = poseAt(tl, snare.time - 0.07, 1, MILITARY).arms.other;
+    expect(up.tip.y - hit.tip.y).toBeGreaterThan(0.15);
+    // the back of the hand turns from facing out toward facing down, a doorknob's turn
+    expect(backOf(up).angleTo(backOf(hit))).toBeGreaterThan(0.4);
+    expect(backOf(up).y).toBeLessThan(backOf(hit).y);
+    // and the wrist stays straight through it
+    for (const a of [hit, up]) expect(forearm(a).angleTo(knuckles(a))).toBeLessThan(0.15);
+  });
+
+  it('changes only the hands asked for', () => {
+    const tl = groove();
+    const now = tl.all().find((h) => h.piece === 'snare')!.time;
+    const matched = poseAt(tl, now, 1);
+    const other = poseAt(tl, now, 1, gripsFor('other'));
+    expect(other.arms.lead.hand.equals(matched.arms.lead.hand)).toBe(true);
+    expect(other.arms.lead.tip.distanceTo(matched.arms.lead.tip)).toBeLessThan(1e-12);
+    expect(other.arms.other.hand.angleTo(matched.arms.other.hand)).toBeGreaterThan(1);
+    expect(matched.arms.lead.held).toBe('matched');
+    expect(other.arms.other.held).toBe('military');
+  });
+
+  it('holds the lead hand military on the hats too, still on its mark', () => {
+    const tl = groove();
+    const hat = tl.all().find((h) => h.piece === 'hat' && h.limb === 'lead')!;
+    const pose = poseAt(tl, hat.time, 1, MILITARY);
+    const a = pose.arms.lead;
+    expect(backOf(a).y).toBeLessThan(-0.3);
+    expect(backOf(a).x).toBeGreaterThan(0.5); // out to the right, for the right hand
+    const [x, y, z] = strikeTarget('hat', hat.contact, scatterOf(hat, 'lead')).tip;
+    expect(a.tip.distanceTo(new Vector3(x, y + pose.hatGap - HAT_CLOSED_GAP, z))).toBeLessThan(
+      0.001
+    );
+  });
+
+  it('still counts in with the sticks crossed where they are aimed, the tips on their marks', () => {
+    const tl = new StrokeTimeline();
+    for (let i = 0; i < N; i++) {
+      tl.ingest({
+        t: i * 0.125,
+        dur: 0.125,
+        slot: i,
+        count: true,
+        meter: M44,
+        bar: null,
+        next: null,
+        notes: [],
+      });
+    }
+    const now = 4 * 0.125;
+    const matched = poseAt(tl, now, 1);
+    const military = poseAt(tl, now, 1, MILITARY);
+    for (const hand of ['lead', 'other'] as const) {
+      // the same sticks, the same X — only the hands holding them differ
+      expect(military.arms[hand].tip.distanceTo(matched.arms[hand].tip)).toBeLessThan(0.001);
+      expect(military.arms[hand].stick.angleTo(matched.arms[hand].stick)).toBeLessThan(0.01);
+      expect(backOf(military.arms[hand]).y).toBeLessThan(0);
+    }
   });
 });

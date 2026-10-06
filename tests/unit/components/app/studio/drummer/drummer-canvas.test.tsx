@@ -20,6 +20,7 @@ const fakes = vi.hoisted(() => {
   const instances: {
     host: HTMLElement;
     setLefty: ReturnType<typeof vi.fn>;
+    setGrips: ReturnType<typeof vi.fn>;
     setPlaying: ReturnType<typeof vi.fn>;
     flyTo: ReturnType<typeof vi.fn>;
     ingest: (step: ScheduledStep) => void;
@@ -28,6 +29,7 @@ const fakes = vi.hoisted(() => {
 
   class FakeDrummerStage {
     setLefty = vi.fn();
+    setGrips = vi.fn();
     setPlaying = vi.fn();
     flyTo = vi.fn();
     ingest = vi.fn();
@@ -75,6 +77,7 @@ describe('DrummerCanvas', () => {
     const { container } = render(
       <DrummerCanvas
         lefty={false}
+        military="none"
         view="front"
         viewSeq={0}
         playing={false}
@@ -95,6 +98,7 @@ describe('DrummerCanvas', () => {
     render(
       <DrummerCanvas
         lefty={true}
+        military="none"
         view="hands"
         viewSeq={0}
         playing={true}
@@ -106,6 +110,7 @@ describe('DrummerCanvas', () => {
 
     const stage = fakes.instances[0];
     expect(stage.setLefty).toHaveBeenCalledWith(true);
+    expect(stage.setGrips).toHaveBeenCalledWith({ lead: 'matched', other: 'matched' });
     expect(stage.setPlaying).toHaveBeenCalledWith(true);
     expect(stage.flyTo).toHaveBeenCalledWith('hands');
   });
@@ -114,6 +119,7 @@ describe('DrummerCanvas', () => {
     const { subscribeSteps } = listeners();
     const props = {
       lefty: false,
+      military: 'none' as const,
       view: 'front' as const,
       playing: false,
       subscribeSteps,
@@ -133,6 +139,7 @@ describe('DrummerCanvas', () => {
     const { unmount } = render(
       <DrummerCanvas
         lefty={false}
+        military="none"
         view="front"
         viewSeq={0}
         playing={false}
@@ -161,6 +168,7 @@ describe('DrummerCanvas', () => {
     const { rerender } = render(
       <DrummerCanvas
         lefty={false}
+        military="none"
         view="front"
         viewSeq={0}
         playing={false}
@@ -175,6 +183,7 @@ describe('DrummerCanvas', () => {
     rerender(
       <DrummerCanvas
         lefty={false}
+        military="none"
         view="front"
         viewSeq={0}
         playing={true}
@@ -193,6 +202,7 @@ describe('DrummerCanvas', () => {
     const { rerender } = render(
       <DrummerCanvas
         lefty={false}
+        military="none"
         view="front"
         viewSeq={0}
         playing={false}
@@ -207,6 +217,7 @@ describe('DrummerCanvas', () => {
     rerender(
       <DrummerCanvas
         lefty={true}
+        military="none"
         view="front"
         viewSeq={0}
         playing={false}
@@ -219,11 +230,40 @@ describe('DrummerCanvas', () => {
     expect(stage.setLefty).toHaveBeenCalledWith(true);
   });
 
+  it('forwards a grip change to setGrips as each hand’s grip, and not again for the same setting', () => {
+    const { subscribeSteps } = listeners();
+    const props = {
+      lefty: false,
+      view: 'front' as const,
+      viewSeq: 0,
+      playing: false,
+      subscribeSteps,
+      audioNow: stableAudioNow,
+      audioLatency: stableAudioLatency,
+    };
+    const { rerender } = render(<DrummerCanvas {...props} military="none" />);
+    const stage = fakes.instances[0];
+    stage.setGrips.mockClear();
+
+    rerender(<DrummerCanvas {...props} military="other" />);
+    expect(stage.setGrips).toHaveBeenLastCalledWith({ lead: 'matched', other: 'military' });
+
+    rerender(<DrummerCanvas {...props} military="both" />);
+    expect(stage.setGrips).toHaveBeenLastCalledWith({ lead: 'military', other: 'military' });
+
+    // a re-render with the same setting is not a new grip
+    const calls = stage.setGrips.mock.calls.length;
+    rerender(<DrummerCanvas {...props} military="both" playing />);
+    expect(stage.setGrips.mock.calls.length).toBe(calls);
+    expect(fakes.instances.length).toBe(1);
+  });
+
   it('flies to a new view when the view prop changes', () => {
     const { subscribeSteps } = listeners();
     const { rerender } = render(
       <DrummerCanvas
         lefty={false}
+        military="none"
         view="front"
         viewSeq={0}
         playing={false}
@@ -238,6 +278,7 @@ describe('DrummerCanvas', () => {
     rerender(
       <DrummerCanvas
         lefty={false}
+        military="none"
         view="seat"
         viewSeq={0}
         playing={false}
@@ -255,6 +296,7 @@ describe('DrummerCanvas', () => {
     const { rerender } = render(
       <DrummerCanvas
         lefty={false}
+        military="none"
         view="front"
         viewSeq={0}
         playing={false}
@@ -269,6 +311,7 @@ describe('DrummerCanvas', () => {
     rerender(
       <DrummerCanvas
         lefty={false}
+        military="none"
         view="front"
         viewSeq={1}
         playing={false}
@@ -286,6 +329,7 @@ describe('DrummerCanvas', () => {
     const { rerender } = render(
       <DrummerCanvas
         lefty={false}
+        military="none"
         view="front"
         viewSeq={0}
         playing={false}
@@ -298,6 +342,7 @@ describe('DrummerCanvas', () => {
     rerender(
       <DrummerCanvas
         lefty={true}
+        military="none"
         view="side"
         viewSeq={2}
         playing={true}

@@ -36,6 +36,7 @@ vi.mock('next/dynamic', () => ({
         <div
           data-testid="drummer-canvas-stub"
           data-lefty={String(props.lefty)}
+          data-military={String(props.military)}
           data-view={String(props.view)}
           data-view-seq={String(props.viewSeq)}
           data-playing={String(props.playing)}
@@ -84,6 +85,7 @@ describe('DrummerView, with WebGL available', () => {
 
     const canvas = await screen.findByTestId('drummer-canvas-stub');
     expect(canvas).toHaveAttribute('data-lefty', 'false'); // default hand: right
+    expect(canvas).toHaveAttribute('data-military', 'none'); // default grip: matched
     expect(canvas).toHaveAttribute('data-view', 'front');
     expect(canvas).toHaveAttribute('data-view-seq', '0');
     expect(canvas).toHaveAttribute('data-playing', 'false');
@@ -122,6 +124,42 @@ describe('DrummerView, with WebGL available', () => {
     render(<DrummerView />);
 
     expect(await screen.findByTestId('drummer-canvas-stub')).toHaveAttribute('data-lefty', 'true');
+  });
+
+  it('switches to a military grip, persists it, and passes it to the canvas', async () => {
+    stubWebGL(true);
+    const DrummerView = await loadDrummerView();
+    const user = userEvent.setup();
+    render(<DrummerView />);
+
+    const grip = within(screen.getByRole('radiogroup', { name: 'Grip' }));
+    await user.click(grip.getByRole('radio', { name: 'Military (left)' }));
+    expect(await screen.findByTestId('drummer-canvas-stub')).toHaveAttribute(
+      'data-military',
+      'other'
+    );
+    expect(JSON.parse(localStorage.getItem('bb.drummerGrip') ?? 'null')).toBe('other');
+
+    await user.click(grip.getByRole('radio', { name: 'Military (both)' }));
+    expect(await screen.findByTestId('drummer-canvas-stub')).toHaveAttribute(
+      'data-military',
+      'both'
+    );
+  });
+
+  it('names the off hand by the kit: the right hand on a left-handed kit', async () => {
+    stubWebGL(true);
+    localStorage.setItem('bb.drummerHand', JSON.stringify('left'));
+    localStorage.setItem('bb.drummerGrip', JSON.stringify('other'));
+    const DrummerView = await loadDrummerView();
+    render(<DrummerView />);
+
+    const grip = within(screen.getByRole('radiogroup', { name: 'Grip' }));
+    expect(grip.getByRole('radio', { name: 'Military (right)' })).toBeChecked();
+    expect(await screen.findByTestId('drummer-canvas-stub')).toHaveAttribute(
+      'data-military',
+      'other'
+    );
   });
 
   it('changes the camera view and bumps viewSeq each time it is chosen', async () => {
