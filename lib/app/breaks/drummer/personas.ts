@@ -26,7 +26,8 @@ export type HairStyle =
   | 'quiff'
   | 'ponytail'
   | 'bob'
-  | 'mullet';
+  | 'mullet'
+  | 'mane';
 
 export type Beard = 'none' | 'stubble' | 'full' | 'goatee' | 'handlebar' | 'viking';
 
@@ -35,6 +36,20 @@ export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana';
 
 /** What's on top: a T-shirt, a vest that leaves the arms bare, or nothing at all. */
 export type Top = 'tee' | 'vest' | 'bare';
+
+/**
+ * How much of a player is machine: the lead arm and that side of the face, with
+ * an eye that glows, or all of them — metal from head to foot, eyes and joints
+ * lit in their loud colour. Still the same skeleton: it never moves a joint.
+ */
+export type Cyborg = 'arm' | 'full';
+
+/**
+ * What a player is: a person (the default); a robot — a whole cyborg with no
+ * person left, plated to the floor, a machine's face; or a beast, furred from
+ * head to foot.
+ */
+export type Kind = 'human' | 'robot' | 'beast';
 
 export interface Persona {
   id: string;
@@ -58,6 +73,12 @@ export interface Persona {
   chain?: boolean;
   lipstick?: boolean;
   hat?: Hat;
+  cyborg?: Cyborg;
+  /** The colour of a whole cyborg's plating; gunmetal unless given. */
+  metal?: string;
+  kind?: Kind;
+  /** A strap across the chest, hung with pouches. */
+  bandolier?: boolean;
 }
 
 /** Skin, lightest to deepest. */
@@ -604,6 +625,75 @@ export const PERSONAS: readonly Persona[] = [
     shoes: '#111111',
     accent: '#e0b24a',
     chain: true,
+  },
+  {
+    id: 'unit808',
+    name: 'Unit 808',
+    figure: 'male',
+    build: 'muscular',
+    skin: SKIN.fair,
+    hair: '#2a2d33',
+    hairStyle: 'bald',
+    beard: 'none',
+    top: 'vest',
+    shirt: '#15171b',
+    trousers: '#2a2d33',
+    shoes: '#0d0e10',
+    accent: '#12b8ff',
+    cyborg: 'full',
+  },
+  {
+    id: 'rivet',
+    name: 'Rivet',
+    figure: 'female',
+    build: 'slim',
+    skin: SKIN.tan,
+    hair: '#d9dbe3',
+    hairStyle: 'bob',
+    beard: 'none',
+    top: 'vest',
+    shirt: '#3b1420',
+    trousers: '#1c1c22',
+    shoes: '#111111',
+    accent: '#ff3340',
+    cyborg: 'arm',
+  },
+  {
+    // a gold robot, polished, with glowing eyes and a ribbed midriff
+    id: 'brassbot',
+    name: 'Brass Bot',
+    kind: 'robot',
+    cyborg: 'full',
+    metal: '#d6a63c',
+    figure: 'male',
+    build: 'slim',
+    skin: '#d6a63c',
+    hair: '#d6a63c',
+    hairStyle: 'bald',
+    beard: 'none',
+    top: 'bare',
+    shirt: '#d6a63c',
+    trousers: '#d6a63c',
+    shoes: '#d6a63c',
+    accent: '#ffc53d',
+  },
+  {
+    // a huge, shaggy creature, furred head to foot, a bandolier across the chest
+    id: 'bigfuzz',
+    name: 'Big Fuzz',
+    kind: 'beast',
+    figure: 'male',
+    build: 'heavy',
+    skin: '#6e4c2f',
+    hair: '#6e4c2f',
+    hairStyle: 'mane',
+    beard: 'full',
+    top: 'bare',
+    shirt: '#6e4c2f',
+    trousers: '#634329',
+    shoes: '#4a321f',
+    accent: '#3a2a1c',
+    bandolier: true,
   },
 ];
 

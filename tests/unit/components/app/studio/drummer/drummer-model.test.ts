@@ -150,14 +150,13 @@ describe('buildDrummer', () => {
 });
 
 describe('buildDrummer() — a glance at the camera', () => {
-  /** The two eyes: the only spheres of radius 0.011. Their parent is the head. */
-  function eyes(root: THREE.Object3D): THREE.Mesh[] {
-    const out: THREE.Mesh[] = [];
+  /** The two eyes, each with its lid. Their parent is the head. */
+  function eyes(root: THREE.Object3D): THREE.Object3D[] {
+    const out: THREE.Object3D[] = [];
     root.traverse((o) => {
-      if (o instanceof THREE.Mesh && o.geometry instanceof THREE.SphereGeometry) {
-        if (Math.abs(o.geometry.parameters.radius - 0.011) < 1e-9) out.push(o);
-      }
+      if (o.name === 'eye') out.push(o);
     });
+    expect(out).toHaveLength(2);
     return out;
   }
 
@@ -224,11 +223,7 @@ describe('buildDrummer() — a glance at the camera', () => {
   it('raises both eyebrows for a hello', () => {
     const { root, update } = buildDrummer(makeMaterials());
     const pose = poseAt(new StrokeTimeline(), 0, 0);
-    // the brows: the head's only boxes
-    const brows = () =>
-      eyes(root)[0].parent!.children.filter(
-        (o): o is THREE.Mesh => o instanceof THREE.Mesh && o.geometry instanceof THREE.BoxGeometry
-      );
+    const brows = () => eyes(root)[0].parent!.children.filter((o) => o.name === 'brow');
     update({ ...pose, glance: { ...pose.glance, brows: 0, wink: 0 } });
     const down = brows().map((b) => b.position.y);
     update({ ...pose, glance: { ...pose.glance, brows: 1, wink: 0 } });
@@ -245,13 +240,11 @@ describe('buildDrummer() — who is playing', () => {
     return poseAt(timeline, 0.02, 1);
   };
 
-  /** Root-level cylinders (limb segments) in material `mat`, widest end first. */
+  /** Root-level shaped limbs (and sleeves) in material `mat`. */
   const segmentsIn = (root: THREE.Object3D, mat: THREE.Material) =>
     root.children.filter(
       (o): o is THREE.Mesh =>
-        o instanceof THREE.Mesh &&
-        o.material === mat &&
-        o.geometry instanceof THREE.CylinderGeometry
+        o instanceof THREE.Mesh && o.material === mat && o.geometry instanceof THREE.LatheGeometry
     );
 
   it.each(PERSONAS.map((p) => [p.name, p] as const))(
@@ -276,8 +269,8 @@ describe('buildDrummer() — who is playing', () => {
       const m = makeMaterials(who);
       const { root } = buildDrummer(m, who);
       return Math.max(
-        ...segmentsIn(root, m.jeans).map(
-          (o) => (o.geometry as THREE.CylinderGeometry).parameters.radiusBottom
+        ...segmentsIn(root, m.jeans).flatMap((o) =>
+          (o.geometry as THREE.LatheGeometry).parameters.points.map((p) => p.x)
         )
       );
     };
@@ -317,9 +310,185 @@ describe('buildDrummer() — who is playing', () => {
       shades: true,
       earrings: true,
     };
-    // afro 1; a viking beard 4 (jaw, chin, moustache, braid); shades 3; earrings 2
-    expect(headMeshes(dressed) - headMeshes(bald)).toBe(10);
+    // afro 1; a viking beard 1 (grown out of the face, moustache and all); shades 3; earrings 2
+    expect(headMeshes(dressed) - headMeshes(bald)).toBe(7);
     // a top hat: brim, crown and band
     expect(headMeshes({ ...bald, hat: 'tophat' as const }) - headMeshes(bald)).toBe(3);
+  });
+});
+
+describe('buildDrummer — facial hair', () => {
+  /**
+   * Every point of the beard with hair on it, in the head's frame, for a bald player
+   * with `beard` (a grown beard's colour alpha is how much hair there is: the bare
+   * edge round it is tucked under the skin).
+   */
+  const beardPoints = (beard: Persona['beard']) => {
+    const who = { ...PERSONAS[0], hairStyle: 'bald' as const, beard };
+    const { root } = buildDrummer(makeMaterials(who), who);
+    const out: THREE.Vector3[] = [];
+    root.traverse((o) => {
+      if (!(o instanceof THREE.Mesh) || o.name !== 'beard') return;
+      const geo = o.geometry as THREE.BufferGeometry;
+      const p = geo.getAttribute('position');
+      const hair = geo.getAttribute('color');
+      for (const i of new Set(geo.getIndex()?.array ?? [])) {
+        if (hair.getW(i) > 0.05) out.push(new THREE.Vector3().fromBufferAttribute(p, i));
+      }
+    });
+    return out;
+  };
+
+  it('grows a full beard below the eyes, clear of the lips, and hanging under the chin', () => {
+    const pts = beardPoints('full');
+    expect(pts.length).toBeGreaterThan(500);
+    // nothing up by the eyes (they sit at 0.115, 0.032 either side): only the sideburns,
+    // out by the ears, come that high
+    const face = pts.filter((p) => Math.abs(p.x) < 0.05 && p.z < -0.05);
+    expect(Math.max(...face.map((p) => p.y))).toBeLessThan(0.085);
+    // the mouth bare: no hair in front of the lower lip (the moustache may overhang the upper)
+    const overLips = pts.filter(
+      (p) => Math.abs(p.x) < 0.01 && p.y > 0.038 && p.y < 0.049 && p.z < -0.085
+    );
+    expect(overLips).toHaveLength(0);
+    // below the chin, where a beardless jaw stops
+    expect(Math.min(...pts.map((p) => p.y))).toBeLessThan(-0.03);
+  });
+
+  it('hangs a viking beard well below a full one, and keeps stubble to the skin', () => {
+    const low = (pts: THREE.Vector3[]) => Math.min(...pts.map((p) => p.y));
+    expect(low(beardPoints('viking'))).toBeLessThan(low(beardPoints('full')) - 0.06);
+    // stubble is a shade on the jaw, nothing hanging off it
+    expect(low(beardPoints('stubble'))).toBeGreaterThan(low(beardPoints('full')) + 0.02);
+  });
+});
+
+describe('buildDrummer — cyborgs', () => {
+  /** How many meshes under `root` wear each of `mats`. */
+  const wearing = (who: Persona, pick: (m: ReturnType<typeof makeMaterials>) => THREE.Material) => {
+    const m = makeMaterials(who);
+    const { root } = buildDrummer(m, who);
+    let n = 0;
+    root.traverse((o) => {
+      if (o instanceof THREE.Mesh && o.material === pick(m)) n++;
+    });
+    return n;
+  };
+  const unit = PERSONAS.find((p) => p.cyborg === 'full')!;
+  const rivet = PERSONAS.find((p) => p.cyborg === 'arm')!;
+
+  it('casts an all-machine player and a half-machine one', () => {
+    expect(unit).toBeDefined();
+    expect(rivet).toBeDefined();
+  });
+
+  it('lights one eye and the lead elbow and wrist on a half cyborg; both of each on a whole one', () => {
+    // an eye's iris, an elbow and a wrist per machine side
+    expect(wearing(rivet, (m) => m.glow)).toBe(3);
+    expect(wearing(unit, (m) => m.glow)).toBe(6);
+    // and nobody else glows
+    expect(wearing(PERSONAS[0], (m) => m.glow)).toBe(0);
+  });
+
+  it('builds a half cyborg’s lead arm and hand in metal, and plates that side of the face', () => {
+    const m = makeMaterials(rivet);
+    const { root } = buildDrummer(m, rivet);
+    // the lead arm's shoulder, upper arm, forearm, palm and finger joints
+    let metal = 0;
+    let plate = 0;
+    root.traverse((o) => {
+      if (!(o instanceof THREE.Mesh)) return;
+      if (o.material === m.metal) metal++;
+      if (o.name === 'plate') plate++;
+    });
+    expect(metal).toBeGreaterThan(10);
+    expect(plate).toBe(1);
+    // the other arm is still skin: only the lead side has gone over to metal
+    const plain = { ...rivet, cyborg: undefined };
+    expect(wearing(plain, (x) => x.skin)).toBeGreaterThan(wearing(rivet, (x) => x.skin));
+  });
+});
+
+describe('buildDrummer — a robot and a beast', () => {
+  const robot = PERSONAS.find((p) => p.kind === 'robot')!;
+  const beast = PERSONAS.find((p) => p.kind === 'beast')!;
+  const built = (who: Persona) => {
+    const m = makeMaterials(who);
+    return { m, ...buildDrummer(m, who) };
+  };
+  const count = (root: THREE.Object3D, keep: (o: THREE.Mesh) => boolean) => {
+    let n = 0;
+    root.traverse((o) => {
+      if (o instanceof THREE.Mesh && keep(o)) n++;
+    });
+    return n;
+  };
+
+  it('plates a robot to the floor in its own metal, its eyes and joints lit', () => {
+    const { m, root } = built(robot);
+    for (const mat of [m.skin, m.shirt, m.jeans, m.shoe]) {
+      expect(mat.metalness).toBeGreaterThan(0.5);
+      expect(`#${mat.color.getHexString()}`).toBe(robot.metal);
+    }
+    expect(count(root, (o) => o.material === m.glow)).toBe(6);
+  });
+
+  it('gives a robot a machine face — no ears or brows to see, rings round the eyes — and a ribbed midriff', () => {
+    const { m, root } = built(robot);
+    const head = root.getObjectByName('eye')!.parent!;
+    expect(head.children.filter((o) => o.name === 'brow').every((b) => !b.visible)).toBe(true);
+    // the eye rings, on the face
+    expect(
+      head.children.filter(
+        (o) =>
+          o instanceof THREE.Mesh &&
+          o.geometry instanceof THREE.TorusGeometry &&
+          o.material === m.metal
+      )
+    ).toHaveLength(2);
+    // a person's head has its ears; a robot's has none
+    const ears = (who: Persona) => {
+      const b = built(who);
+      const h = b.root.getObjectByName('eye')!.parent!;
+      return h.children.filter(
+        (o) =>
+          o instanceof THREE.Mesh &&
+          o.material === b.m.skin &&
+          o.geometry instanceof THREE.SphereGeometry &&
+          Math.abs(o.geometry.parameters.radius - 0.026) < 1e-9
+      ).length;
+    };
+    expect(ears(PERSONAS[0])).toBe(2);
+    expect(ears(robot)).toBe(0);
+    // five dark ribs round the waist
+    expect(
+      count(
+        root,
+        (o) =>
+          o.material === m.black && o.geometry instanceof THREE.TorusGeometry && o.scale.z < 0.2
+      )
+    ).toBe(5);
+  });
+
+  it('furs a beast all over, with a dark nose and a bandolier of pouches', () => {
+    const { m, root } = built(beast);
+    for (const mat of [m.skin, m.shirt, m.jeans, m.shoe, m.hair]) {
+      expect(mat.roughness).toBe(1);
+      expect(mat).toBeInstanceOf(THREE.MeshPhysicalMaterial);
+    }
+    // the strap's pouches
+    expect(count(root, (o) => o.material === m.chrome)).toBe(5);
+    const plain = built(PERSONAS[0]);
+    expect(count(plain.root, (o) => o.material === plain.m.chrome)).toBe(0);
+    // nose: tip and wings, dark
+    const head = root.getObjectByName('eye')!.parent!;
+    expect(
+      head.children.filter(
+        (o) =>
+          o instanceof THREE.Mesh &&
+          o.material === m.black &&
+          o.geometry instanceof THREE.SphereGeometry
+      ).length
+    ).toBe(3);
   });
 });

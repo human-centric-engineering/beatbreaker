@@ -1421,3 +1421,55 @@ describe('poseAt — military grip through the count-in and a twirl', () => {
     expect(checked).toBeGreaterThan(0);
   });
 });
+
+describe('poseAt — a long gap on the snare', () => {
+  /**
+   * A backbeat, two bars with none, and the backbeat back, at 120 bpm: each step
+   * ingested a moment before it sounds, as playback does, so the next snare
+   * comes into view mid-gap and the last one is forgotten before it.
+   */
+  it('never jerks the idle elbow as a note comes into view or is forgotten', () => {
+    const step = 0.125;
+    const make = (snare: boolean): Bar => {
+      const b = bar();
+      for (let i = 0; i < N; i += 2) b.h[i] = 1;
+      if (snare) {
+        b.s[4] = 2;
+        b.s[12] = 2;
+      }
+      return b;
+    };
+    const bars = [make(true), make(true), make(false), make(false), make(true)];
+    const tl = new StrokeTimeline();
+    let fed = 0;
+    const feed = (now: number) => {
+      for (; fed < bars.length * N && fed * step <= now + 0.1; fed++) {
+        const b = bars[Math.floor(fed / N)];
+        const i = fed % N;
+        tl.ingest({
+          t: fed * step,
+          dur: step,
+          slot: i,
+          meter: M44,
+          bar: b,
+          next: bars[Math.floor(fed / N) + 1] ?? null,
+          notes: (['h', 's'] as const)
+            .filter((l) => b[l][i])
+            .map((l) => ({ voice: voice(l), when: fed * step })),
+        });
+      }
+    };
+    const dt = 1 / 60;
+    let last: Vector3 | null = null;
+    let fastest = 0;
+    // from the last backbeat before the gap to just before the first after it
+    for (let t = 1.5 + dt; t < 4 * N * step + 0.4; t += dt) {
+      feed(t);
+      const elbow = poseAt(tl, t, 1).arms.other.elbow;
+      if (last) fastest = Math.max(fastest, elbow.distanceTo(last) / dt);
+      last = elbow;
+    }
+    // a frame's jump of a few centimetres reads as a snatch; easing about is well under this
+    expect(fastest).toBeLessThan(0.6);
+  });
+});

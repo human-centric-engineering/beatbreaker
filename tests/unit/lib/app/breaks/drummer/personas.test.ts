@@ -19,7 +19,7 @@ describe('PERSONAS', () => {
       new Set(['slim', 'average', 'heavy', 'muscular'])
     );
     expect(new Set(PERSONAS.map((p) => p.skin)).size).toBeGreaterThanOrEqual(6);
-    expect(new Set(PERSONAS.map((p) => p.hairStyle)).size).toBe(13);
+    expect(new Set(PERSONAS.map((p) => p.hairStyle)).size).toBe(14);
     expect(PERSONAS.filter((p) => p.beard !== 'none').length).toBeGreaterThanOrEqual(5);
   });
 
@@ -39,6 +39,14 @@ describe('PERSONAS', () => {
     });
     const o = PERSONAS[0];
     expect(o.hat ?? o.shades ?? o.headband ?? o.earrings ?? o.chain ?? o.lipstick).toBeUndefined();
+  });
+
+  it('casts a robot, plated whole, and a beast with a bandolier', () => {
+    const robot = PERSONAS.find((p) => p.kind === 'robot')!;
+    expect(robot.cyborg).toBe('full');
+    expect(robot.metal).toMatch(/^#[0-9a-f]{6}$/i);
+    const beast = PERSONAS.find((p) => p.kind === 'beast')!;
+    expect(beast).toMatchObject({ hairStyle: 'mane', bandolier: true });
   });
 
   it('puts every hat on somebody', () => {

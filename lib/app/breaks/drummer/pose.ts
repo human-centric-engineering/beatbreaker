@@ -1029,6 +1029,14 @@ function path(
     // off a tom or a crash with time to spare, the hand goes home before the next note;
     // counting in, it stays up between the clicks
     const counting = prev.piece === 'sticks' && next.piece === 'sticks';
+    // a gap long enough to settle in: the hand goes into the rest just as it does with
+    // nothing coming, and comes out of it just as it does from the rest — so a note
+    // coming into view, or the last one being forgotten, never moves it
+    const wake = end - moveTime(rest, to) - 0.1;
+    if (!counting && prev.time + SETTLE_AFTER < wake) {
+      const waiting = along(settling(prev, hits, hand, Math.min(now, wake), hatGap));
+      return { from: waiting, to, travel: smootherstep(wake, end, now) };
+    }
     if (!isHome(prev) && !counting) {
       const home = homeOf(hits, lastAtOrBefore(hits, prev.time), hand, hatGap);
       const out = moveTime(from, home);
@@ -1059,22 +1067,39 @@ function path(
     const end = next.time - 0.03;
     return { from: rest, to, travel: smootherstep(end - moveTime(rest, to) - 0.1, end, now) };
   }
-  if (prev) {
-    let from = targetOf(prev, hand, hatGap);
-    // off a tom or a crash, home first; then, with still nothing to play, the rest
-    if (!isHome(prev)) {
-      const home = homeOf(hits, lastAtOrBefore(hits, prev.time), hand, hatGap);
-      const leave = prev.time + LEAVE;
-      const out = moveTime(from, home);
-      if (now < leave + out) {
-        return { from, to: home, travel: smootherstep(leave, leave + out, now) };
-      }
-      from = home;
-    }
-    const start = prev.time + SETTLE_AFTER;
-    return { from, to: rest, travel: smootherstep(start, start + moveTime(from, rest) + 0.3, now) };
-  }
+  if (prev) return settling(prev, hits, hand, now, hatGap);
   return { from: rest, to: rest, travel: 0 };
+}
+
+/**
+ * A hand with nothing coming, `prev` its last note: off a tom or a crash, home
+ * first; then, with still nothing to play, into the rest.
+ */
+function settling(prev: Hit, hits: readonly Hit[], hand: Hand, now: number, hatGap: number) {
+  const rest = restTarget(hand);
+  let from = targetOf(prev, hand, hatGap);
+  if (!isHome(prev)) {
+    const home = homeOf(hits, lastAtOrBefore(hits, prev.time), hand, hatGap);
+    const leave = prev.time + LEAVE;
+    const out = moveTime(from, home);
+    if (now < leave + out) {
+      return { from, to: home, travel: smootherstep(leave, leave + out, now) };
+    }
+    from = home;
+  }
+  const start = prev.time + SETTLE_AFTER;
+  return { from, to: rest, travel: smootherstep(start, start + moveTime(from, rest) + 0.3, now) };
+}
+
+/** Where along a path a hand is, as a target of its own. */
+function along(p: HandPath): Target {
+  const { from, to, travel: k } = p;
+  return {
+    tip: from.tip.clone().lerp(to.tip, k),
+    pitch: from.pitch + (to.pitch - from.pitch) * k,
+    lean: from.lean + (to.lean - from.lean) * k,
+    roll: from.roll + (to.roll - from.roll) * k,
+  };
 }
 
 /** How far apart the two sticks' centre lines must stay where they cross: a stick's thickness and a little air. */

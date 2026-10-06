@@ -25,12 +25,18 @@ export interface Materials {
   sole: THREE.MeshStandardMaterial;
   hair: THREE.MeshStandardMaterial;
   eye: THREE.MeshStandardMaterial;
+  /** The whites of the eyes. */
+  sclera: THREE.MeshStandardMaterial;
   /** The persona's loud colour: a headband, a mohawk's tips. */
   accent: THREE.MeshStandardMaterial;
   /** Jewellery: earrings, a chain. */
   gold: THREE.MeshStandardMaterial;
   lens: THREE.MeshStandardMaterial;
   lips: THREE.MeshStandardMaterial;
+  /** A cyborg's metal, where skin would be. */
+  metal: THREE.MeshStandardMaterial;
+  /** A cyborg's lights: eyes and joints, in the loud colour. */
+  glow: THREE.MeshStandardMaterial;
   rug: THREE.MeshStandardMaterial;
   floor: THREE.MeshStandardMaterial;
 }
@@ -64,9 +70,102 @@ function lathingTexture(): THREE.Texture | null {
   return tex;
 }
 
+/**
+ * Skin: soft rather than plastic — a little sheen, warm, at the edges where
+ * light passes through it, the way it does on a cheek or a knuckle.
+ */
+function skinMaterial(color: string): THREE.MeshPhysicalMaterial {
+  return new THREE.MeshPhysicalMaterial({
+    color,
+    roughness: 0.52,
+    sheen: 0.22,
+    sheenRoughness: 0.6,
+    sheenColor: new THREE.Color('#ff9a7a'),
+  });
+}
+
+/** A cyborg's plating: brushed gunmetal unless they say otherwise, with a lacquer the lights run along. */
+function metalMaterial(color = '#9aa3ad'): THREE.MeshPhysicalMaterial {
+  return new THREE.MeshPhysicalMaterial({
+    color,
+    metalness: 0.85,
+    roughness: 0.32,
+    clearcoat: 0.5,
+    clearcoatRoughness: 0.2,
+  });
+}
+
+/**
+ * Fur, drawn once onto a canvas: thousands of short hairs, light and dark,
+ * lying mostly one way. Skipped where there is no canvas (the tests run in Node).
+ */
+function furTexture(): THREE.Texture | null {
+  if (typeof document === 'undefined') return null;
+  const size = 256;
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  ctx.fillStyle = '#9a9a9a';
+  ctx.fillRect(0, 0, size, size);
+  // seeded, so every beast's coat is the same coat
+  let seed = 0x2f6b;
+  const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+  ctx.lineCap = 'round';
+  for (let i = 0; i < 3200; i++) {
+    const x = rnd() * size;
+    const y = rnd() * size;
+    const len = 5 + rnd() * 12;
+    const a = Math.PI / 2 + (rnd() - 0.5) * 0.7;
+    const shade = 60 + Math.round(rnd() * 150);
+    ctx.strokeStyle = `rgb(${shade},${shade},${shade})`;
+    ctx.lineWidth = 1 + rnd() * 1.2;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + Math.cos(a) * len, y + Math.sin(a) * len);
+    ctx.stroke();
+  }
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(3, 3);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
+/** A coat of fur: matt, shaggy to the touch of the light, soft at the edges. */
+function furMaterial(color: string): THREE.MeshPhysicalMaterial {
+  const fur = furTexture();
+  return new THREE.MeshPhysicalMaterial({
+    // the coat's hairs average a little under white: lift the colour back to what was asked
+    color: new THREE.Color(color).multiplyScalar(fur ? 1.3 : 1),
+    roughness: 1,
+    map: fur,
+    bumpMap: fur,
+    bumpScale: 2.5,
+    sheen: 0.45,
+    sheenRoughness: 0.9,
+    sheenColor: new THREE.Color(color).lerp(new THREE.Color('#ffffff'), 0.2),
+  });
+}
+
+/** Cloth: matt, with a pale sheen where the weave catches light at a glancing angle. */
+function cloth(color: string, roughness: number): THREE.MeshPhysicalMaterial {
+  return new THREE.MeshPhysicalMaterial({
+    color,
+    roughness,
+    sheen: 0.5,
+    sheenRoughness: 0.7,
+    sheenColor: new THREE.Color(color).lerp(new THREE.Color('#ffffff'), 0.4),
+  });
+}
+
 /** The kit's materials, and the drummer's in the colours of whoever is playing. */
 export function makeMaterials(who: Persona = PERSONAS[0]): Materials {
   const lathing = lathingTexture();
+  const robot = who.kind === 'robot';
+  const beast = who.kind === 'beast';
   return {
     shell: new THREE.MeshPhysicalMaterial({
       color: '#7a1f1a',
@@ -90,21 +189,57 @@ export function makeMaterials(who: Persona = PERSONAS[0]): Materials {
     }),
     wood: new THREE.MeshStandardMaterial({ color: '#c8a273', roughness: 0.55 }),
     felt: new THREE.MeshStandardMaterial({ color: '#efece6', roughness: 0.95 }),
-    skin: new THREE.MeshStandardMaterial({ color: who.skin, roughness: 0.62 }),
+    // all machine, the skin is metal; a beast is fur all over
+    skin:
+      who.cyborg === 'full'
+        ? metalMaterial(who.metal)
+        : beast
+          ? furMaterial(who.skin)
+          : skinMaterial(who.skin),
     // bare-chested, the shirt is skin
-    shirt: new THREE.MeshStandardMaterial({
-      color: who.top === 'bare' ? who.skin : who.shirt,
-      roughness: who.top === 'bare' ? 0.62 : 0.85,
-    }),
-    jeans: new THREE.MeshStandardMaterial({ color: who.trousers, roughness: 0.9 }),
-    shoe: new THREE.MeshStandardMaterial({ color: who.shoes, roughness: 0.7 }),
+    shirt:
+      who.top === 'bare'
+        ? who.cyborg === 'full'
+          ? metalMaterial(who.metal)
+          : beast
+            ? furMaterial(who.skin)
+            : skinMaterial(who.skin)
+        : cloth(who.shirt, 0.85),
+    // a robot is plated to the floor, a beast furred to it
+    jeans: robot
+      ? metalMaterial(who.metal)
+      : beast
+        ? furMaterial(who.trousers)
+        : cloth(who.trousers, 0.9),
+    shoe: robot
+      ? metalMaterial(who.metal)
+      : beast
+        ? furMaterial(who.shoes)
+        : new THREE.MeshStandardMaterial({ color: who.shoes, roughness: 0.7 }),
     sole: new THREE.MeshStandardMaterial({ color: '#2a2622', roughness: 0.9 }),
-    hair: new THREE.MeshStandardMaterial({ color: who.hair, roughness: 0.9 }),
+    hair: beast
+      ? furMaterial(who.hair)
+      : new THREE.MeshPhysicalMaterial({
+          color: who.hair,
+          roughness: 0.7,
+          sheen: 0.6,
+          sheenRoughness: 0.5,
+          sheenColor: new THREE.Color(who.hair).lerp(new THREE.Color('#ffffff'), 0.35),
+        }),
     eye: new THREE.MeshStandardMaterial({ color: '#141414', roughness: 0.2 }),
+    sclera: new THREE.MeshStandardMaterial({ color: '#efe9e1', roughness: 0.3 }),
     accent: new THREE.MeshStandardMaterial({ color: who.accent, roughness: 0.6 }),
     gold: new THREE.MeshStandardMaterial({ color: '#e0b24a', metalness: 1, roughness: 0.25 }),
     lens: new THREE.MeshStandardMaterial({ color: '#0a0a0c', metalness: 0.6, roughness: 0.08 }),
     lips: new THREE.MeshStandardMaterial({ color: '#b3122e', roughness: 0.35 }),
+    metal: metalMaterial(who.metal),
+    // lit from inside: no colour of its own for the room's light to wash out
+    glow: new THREE.MeshStandardMaterial({
+      color: '#000000',
+      emissive: who.accent,
+      emissiveIntensity: 1.6,
+      roughness: 0.3,
+    }),
     rug: new THREE.MeshStandardMaterial({ color: '#3a2f2a', roughness: 1 }),
     floor: new THREE.MeshStandardMaterial({ color: '#1d1f24', roughness: 0.85 }),
   };
@@ -124,6 +259,97 @@ export function segment(
   radial = 14
 ): THREE.Mesh {
   const mesh = new THREE.Mesh(new THREE.CylinderGeometry(rTop, rBottom, 1, radial, 1, true), mat);
+  mesh.castShadow = true;
+  return mesh;
+}
+
+/**
+ * A limb shaped along its length: a lathe of `profile` — `[radius, y]` from
+ * one joint (`y` −0.5) to the next (+0.5), radius in metres — stretched and
+ * turned by {@link place} like a {@link segment}. A muscle is thicker where
+ * it bellies and thins to the tendon; the joints' spheres cover the ends.
+ */
+export function limb(profile: [number, number][], mat: THREE.Material, radial = 18): THREE.Mesh {
+  const mesh = new THREE.Mesh(
+    new THREE.LatheGeometry(
+      profile.map(([r, y]) => new THREE.Vector2(r, y)),
+      radial
+    ),
+    mat
+  );
+  mesh.castShadow = true;
+  return mesh;
+}
+
+/** One cross-section of a {@link loft}: at height `y`, `w` across and `d` deep (half-widths), set back `z`. */
+export interface Ring {
+  y: number;
+  w: number;
+  d: number;
+  z?: number;
+}
+
+/**
+ * A body built up through cross-sections, bottom to top, each a rounded
+ * rectangle (a superellipse — squarer than an ellipse, the way a ribcage or
+ * a pelvis is) and closed at both ends. Smooth all the way round: the seam
+ * shares its vertices.
+ */
+export function loft(
+  rings: Ring[],
+  mat: THREE.Material,
+  around = 36,
+  squareness = 2.6
+): THREE.Mesh {
+  const pos: number[] = [];
+  const uv: number[] = [];
+  const index: number[] = [];
+  const e = 2 / squareness;
+  for (const r of rings) {
+    for (let i = 0; i < around; i++) {
+      const a = (i / around) * Math.PI * 2;
+      const c = Math.cos(a);
+      const sn = Math.sin(a);
+      uv.push(i / around, rings.indexOf(r) / (rings.length - 1));
+      pos.push(
+        r.w * Math.sign(c) * Math.abs(c) ** e,
+        r.y,
+        (r.z ?? 0) + r.d * Math.sign(sn) * Math.abs(sn) ** e
+      );
+    }
+  }
+  for (let k = 0; k < rings.length - 1; k++) {
+    for (let i = 0; i < around; i++) {
+      const a = k * around + i;
+      const b = k * around + ((i + 1) % around);
+      const c = a + around;
+      const d = b + around;
+      index.push(a, c, b, b, c, d);
+    }
+  }
+  // close each end on its centre
+  const ends: [number, Ring, boolean][] = [
+    [0, rings[0], false],
+    [(rings.length - 1) * around, rings[rings.length - 1], true],
+  ];
+  for (const [base, r, top] of ends) {
+    const centre = pos.length / 3;
+    pos.push(0, r.y, r.z ?? 0);
+    uv.push(0.5, top ? 1 : 0);
+    for (let i = 0; i < around; i++) {
+      const a = base + i;
+      const b = base + ((i + 1) % around);
+      if (top) index.push(a, b, centre);
+      else index.push(b, a, centre);
+    }
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  // for a texture that wraps it, fur say: round it, and up it
+  geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  geo.setIndex(index);
+  geo.computeVertexNormals();
+  const mesh = new THREE.Mesh(geo, mat);
   mesh.castShadow = true;
   return mesh;
 }
@@ -166,6 +392,7 @@ export function rod(
 export function disposeMaterials(m: Materials): void {
   for (const mat of Object.values(m) as THREE.Material[]) {
     if (mat instanceof THREE.MeshStandardMaterial) {
+      mat.map?.dispose();
       mat.roughnessMap?.dispose();
       mat.bumpMap?.dispose();
     }
@@ -188,6 +415,7 @@ export function disposeTree(root: THREE.Object3D): void {
   });
   mats.forEach((m) => {
     if (m instanceof THREE.MeshStandardMaterial) {
+      m.map?.dispose();
       m.roughnessMap?.dispose();
       m.bumpMap?.dispose();
     }

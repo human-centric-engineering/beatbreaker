@@ -220,13 +220,21 @@ describe('hatOpenAt', () => {
   });
 });
 
+/** How high the stick comes up for a lone note: the top of its lift, just as it is thrown. */
+function thrownFrom(h: Hit): number {
+  let top = 0;
+  for (let t = h.time - 0.5; t < h.time; t += 1e-4)
+    top = Math.max(top, strokeAt([h], t, HAND).lift);
+  return top;
+}
+
 describe('HAND — cymbals are played from low', () => {
   const on = (piece: Hit['piece']): Hit => ({ ...hit(1, 0.95), piece });
 
   it('lifts a crash about half as high as a drum of the same strength, and a ride as high', () => {
-    const drum = strokeAt([on('tom1')], 0.5, HAND).lift;
-    const crash = strokeAt([on('crash')], 0.5, HAND).lift;
-    const ride = strokeAt([on('ride')], 0.5, HAND).lift;
+    const drum = thrownFrom(on('tom1'));
+    const crash = thrownFrom(on('crash'));
+    const ride = thrownFrom(on('ride'));
     expect(crash).toBeCloseTo(drum * 0.5, 6);
     expect(ride).toBeCloseTo(drum, 6);
   });
@@ -234,8 +242,8 @@ describe('HAND — cymbals are played from low', () => {
 
 describe('HAND — the ride bell', () => {
   it('is played from about the height of the bow beside it, though it is louder', () => {
-    const bow = strokeAt([hit(1, 0.42, { piece: 'ride' })], 0.5, HAND).lift;
-    const bell = strokeAt([hit(1, 0.7, { piece: 'ride', contact: 'bell' })], 0.5, HAND).lift;
+    const bow = thrownFrom(hit(1, 0.42, { piece: 'ride' }));
+    const bell = thrownFrom(hit(1, 0.7, { piece: 'ride', contact: 'bell' }));
     expect(bell).toBeGreaterThan(bow);
     expect(bell).toBeLessThan(bow * 1.7);
   });

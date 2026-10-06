@@ -13,7 +13,10 @@ import { describe, expect, it, vi } from 'vitest';
 
 import {
   ball,
+  disposeMaterials,
   disposeTree,
+  limb,
+  loft,
   makeMaterials,
   place,
   rod,
@@ -256,5 +259,63 @@ describe('disposeTree', () => {
   it('does nothing to an empty tree', () => {
     const root = new THREE.Group();
     expect(() => disposeTree(root)).not.toThrow();
+  });
+});
+
+describe('limb', () => {
+  it('lathes the profile, joint to joint, and spans two joints like a segment', () => {
+    const mat = new THREE.MeshStandardMaterial();
+    const m = limb(
+      [
+        [0.04, -0.5],
+        [0.05, 0],
+        [0.03, 0.5],
+      ],
+      mat
+    );
+    expect(m.geometry).toBeInstanceOf(THREE.LatheGeometry);
+    expect(m.castShadow).toBe(true);
+    place(m, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0.3, 0));
+    m.updateMatrixWorld(true);
+    const box = new THREE.Box3().setFromObject(m);
+    // as long as the joints are apart, as thick as the profile's belly
+    expect(box.max.y - box.min.y).toBeCloseTo(0.3, 6);
+    // (to within the facets of 18 sides)
+    expect(box.max.x).toBeGreaterThan(0.049);
+    expect(box.max.x).toBeLessThanOrEqual(0.05);
+  });
+});
+
+describe('loft', () => {
+  it('runs through each cross-section at its height, width and depth, closed at both ends', () => {
+    const mat = new THREE.MeshStandardMaterial();
+    const m = loft(
+      [
+        { y: 0, w: 0.1, d: 0.05 },
+        { y: 0.2, w: 0.2, d: 0.1, z: 0.03 },
+        { y: 0.4, w: 0.05, d: 0.04 },
+      ],
+      mat,
+      24
+    );
+    const box = new THREE.Box3().setFromObject(m);
+    expect(box.min.y).toBeCloseTo(0, 6);
+    expect(box.max.y).toBeCloseTo(0.4, 6);
+    expect(box.max.x).toBeCloseTo(0.2, 6);
+    expect(box.max.z).toBeCloseTo(0.13, 6);
+    // 3 rings of 24, plus the two end centres; every edge shared, so no seam
+    const pos = m.geometry.getAttribute('position');
+    expect(pos.count).toBe(3 * 24 + 2);
+    expect(m.geometry.getIndex()!.count).toBe((2 * 24 * 2 + 2 * 24) * 3);
+    expect(m.geometry.getAttribute('normal')).toBeDefined();
+  });
+});
+
+describe('disposeMaterials', () => {
+  it('frees every material in the set, worn or not', () => {
+    const m = makeMaterials();
+    const spies = Object.values(m).map((mat) => vi.spyOn(mat as THREE.Material, 'dispose'));
+    disposeMaterials(m);
+    for (const s of spies) expect(s).toHaveBeenCalled();
   });
 });
