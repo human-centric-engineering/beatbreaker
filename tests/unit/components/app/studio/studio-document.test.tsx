@@ -466,7 +466,10 @@ describe('what the load buttons say', () => {
     await open(saved(false));
     await user.keyboard(']');
     await user.click(screen.getByRole('button', { name: 'Share' }));
-    await user.type(screen.getByPlaceholderText('Paste a BeatBreaker code here…'), CODE);
+    // pasted, as a person does: typed a key at a time, a 1,000-character code
+    // takes most of the test's time limit
+    await user.click(screen.getByPlaceholderText('Paste a BeatBreaker code here…'));
+    await user.paste(CODE);
     await user.click(screen.getByRole('button', { name: 'Load it' }));
 
     await screen.findByRole('alertdialog');
@@ -482,7 +485,10 @@ describe('what the load buttons say', () => {
     await open(saved(false));
     await user.keyboard(']');
     await user.click(screen.getByRole('button', { name: 'Share' }));
-    await user.type(screen.getByPlaceholderText('Paste a BeatBreaker code here…'), CODE);
+    // pasted, as a person does: typed a key at a time, a 1,000-character code
+    // takes most of the test's time limit
+    await user.click(screen.getByPlaceholderText('Paste a BeatBreaker code here…'));
+    await user.paste(CODE);
     await user.click(screen.getByRole('button', { name: 'Load it' }));
     await screen.findByRole('alertdialog');
     await user.click(screen.getByRole('button', { name: 'Don’t save' }));
