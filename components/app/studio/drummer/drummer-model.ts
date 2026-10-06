@@ -12,14 +12,21 @@ import type { ArmPose, LegPose, Pose } from '@/lib/app/breaks/drummer/pose';
  * between two joints the pose has solved, so what you see is exactly what the
  * stroke planner and the IK decided — nothing is blended or retargeted on the
  * way to the screen. The hands are articulated to the finger joint: the
- * thumb and first finger pinch the stick at its fulcrum, the back three wrap
- * it, close on each stroke and give as the stick comes up.
+ * stick balances on the middle finger under the thumb, the first finger wraps
+ * beside it, and the back two close on each stroke and give as the stick
+ * comes up.
  */
 
 export interface DrummerModel {
   root: THREE.Group;
-  update: (pose: Pose) => void;
+  /** Pose the figure; `camera` (world space) is where a glance looks. */
+  update: (pose: Pose, camera?: THREE.Vector3) => void;
 }
+
+/** How far the head turns to meet the camera, radians: past this, it is behind the drummer. */
+const LOOK_YAW = 1.1;
+const LOOK_BEHIND = 1.6;
+const LOOK_PITCH = 0.45;
 
 const vec = (a: V3) => new THREE.Vector3(a[0], a[1], a[2]);
 
@@ -42,8 +49,13 @@ interface Finger {
   joints: THREE.Group[];
   /** How far each joint bends at full curl, radians. */
   bend: [number, number, number];
-  /** The first finger hooks round the stick and holds; the others follow the curl. */
-  fixed: boolean;
+  /**
+   * How much of the curl the finger holds whatever the stroke, 0–1: the middle
+   * finger is the fulcrum the stick balances on and never lets go; the first
+   * finger wraps beside it, mostly closed; the back two open and close with
+   * the stroke.
+   */
+  hold: number;
 }
 
 interface HandRig {
@@ -56,6 +68,14 @@ const FINGERS: { x: number; lengths: [number, number, number]; r: number }[] = [
   { x: 0.011, lengths: [0.05, 0.03, 0.023], r: 0.0098 },
   { x: -0.009, lengths: [0.046, 0.028, 0.021], r: 0.0092 },
   { x: -0.028, lengths: [0.036, 0.022, 0.018], r: 0.0082 },
+];
+
+/** First, middle, ring, little: how each finger bends, and how much of it it holds. */
+const FINGER_GRIP: Pick<Finger, 'bend' | 'hold'>[] = [
+  { bend: [0.95, 1.35, 0.85], hold: 0.7 },
+  { bend: [1.15, 1.45, 0.9], hold: 1 },
+  { bend: [1.45, 1.55, 1.0], hold: 0 },
+  { bend: [1.45, 1.55, 1.0], hold: 0 },
 ];
 
 /**
@@ -85,9 +105,7 @@ function buildHand(thumb: 1 | -1, m: Materials): HandRig {
       joints.push(joint);
       parent = joint;
     });
-    return n === 0
-      ? { joints, bend: [0.95, 1.35, 0.85], fixed: true }
-      : { joints, bend: [1.45, 1.55, 1.0], fixed: false };
+    return { joints, ...FINGER_GRIP[n] };
   });
 
   // the thumb lies along the stick on top of the fulcrum
@@ -118,8 +136,34 @@ interface ArmRig {
   bead: THREE.Mesh;
 }
 
+/** The bead at the stick's tip, metres: a 5B's, a touch big so it reads at a distance. */
+export const BEAD_RADIUS = 0.0085;
+
+/**
+ * A stick's profile, butt (`y` −0.5) to tip (+0.5) of a unit length that
+ * `place` stretches to the stick: full width for most of its length, then the
+ * taper to the shoulder under the bead. A 5B is 15 mm across; this is a little
+ * heavier than that so the sticks carry their weight on screen.
+ */
+const STICK_PROFILE: [number, number][] = [
+  [0, -0.5],
+  [0.0086, -0.5],
+  [0.009, -0.47],
+  [0.009, 0.18],
+  [0.0068, 0.36],
+  [0.0045, 0.47],
+  [0.004, 0.5],
+];
+
+function stickGeometry(): THREE.BufferGeometry {
+  return new THREE.LatheGeometry(
+    STICK_PROFILE.map(([r, y]) => new THREE.Vector2(r, y)),
+    16
+  );
+}
+
 function buildArm(hand: Hand, m: Materials): ArmRig {
-  const stick = new THREE.Mesh(new THREE.CylinderGeometry(0.0052, 0.0075, 1, 12), m.wood);
+  const stick = new THREE.Mesh(stickGeometry(), m.wood);
   stick.castShadow = true;
   return {
     shoulder: ball(0.056, m.shirt),
@@ -130,7 +174,7 @@ function buildArm(hand: Hand, m: Materials): ArmRig {
     wrist: ball(0.028, m.skin),
     hand: buildHand(hand === 'lead' ? 1 : -1, m),
     stick,
-    bead: ball(0.0065, m.wood, 10),
+    bead: ball(BEAD_RADIUS, m.wood, 12),
   };
 }
 
@@ -145,7 +189,7 @@ function poseArm(rig: ArmRig, a: ArmPose): void {
   rig.hand.group.position.copy(a.wrist);
   rig.hand.group.quaternion.copy(a.hand);
   for (const f of rig.hand.fingers) {
-    const c = f.fixed ? 1 : a.curl;
+    const c = f.hold + (1 - f.hold) * a.curl;
     f.joints.forEach((j, k) => (j.rotation.x = f.bend[k] * c));
   }
   const butt = a.grip.clone().addScaledVector(a.stick, -STICK.grip);
@@ -164,8 +208,53 @@ interface LegRig {
   toes: THREE.Group;
 }
 
+/** The outline of a shoe's sole, in the piece's frame: `x` across, forward along `z`. */
+interface SoleOutline {
+  /** Width at the back and the front end. */
+  back: number;
+  front: number;
+  /** How round each end is: the radius of its corners. */
+  backRound: number;
+  frontRound: number;
+}
+
+/**
+ * A sole the shape of the shoe above it — narrow at the heel, widest at the
+ * ball, round at the toe — and never wider than the upper, so it reads as the
+ * underside of a shoe rather than a plate under it.
+ */
+function soleGeometry(length: number, back: number, o: SoleOutline): THREE.ExtrudeGeometry {
+  const [hb, hf] = [o.back / 2, o.front / 2];
+  const [z0, z1] = [-back, length];
+  const shape = new THREE.Shape();
+  shape.moveTo(0, z0);
+  shape.quadraticCurveTo(hb, z0, hb, z0 + o.backRound);
+  shape.lineTo(hf, z1 - o.frontRound);
+  shape.quadraticCurveTo(hf, z1, 0, z1);
+  shape.quadraticCurveTo(-hf, z1, -hf, z1 - o.frontRound);
+  shape.lineTo(-hb, z0 + o.backRound);
+  shape.quadraticCurveTo(-hb, z0, 0, z0);
+  const geo = new THREE.ExtrudeGeometry(shape, {
+    depth: 0.014,
+    bevelEnabled: true,
+    bevelThickness: 0.003,
+    bevelSize: 0.003,
+    bevelSegments: 2,
+    curveSegments: 8,
+  });
+  // the outline's y runs forward, and the sole hangs down from the upper
+  geo.rotateX(Math.PI / 2);
+  return geo;
+}
+
 /** A piece of shoe `length` long from its origin forward, sole underneath. */
-function shoePiece(m: Materials, length: number, back: number, height: number): THREE.Group {
+function shoePiece(
+  m: Materials,
+  length: number,
+  back: number,
+  height: number,
+  outline: SoleOutline
+): THREE.Group {
   const g = new THREE.Group();
   const upper = new THREE.Mesh(
     new RoundedBoxGeometry(0.1, height, length + back, 3, Math.min(0.03, height / 2.2)),
@@ -174,11 +263,8 @@ function shoePiece(m: Materials, length: number, back: number, height: number): 
   upper.position.set(0, height / 2 - 0.008, (length - back) / 2);
   upper.castShadow = true;
   g.add(upper);
-  const sole = new THREE.Mesh(
-    new RoundedBoxGeometry(0.104, 0.02, length + back + 0.005, 2, 0.008),
-    m.sole
-  );
-  sole.position.set(0, -0.01, (length - back) / 2);
+  const sole = new THREE.Mesh(soleGeometry(length, back, outline), m.sole);
+  sole.position.y = -0.003;
   g.add(sole);
   return g;
 }
@@ -190,8 +276,19 @@ function buildLeg(m: Materials): LegRig {
     knee: ball(0.06, m.jeans),
     shin: segment(0.045, 0.056, m.jeans),
     ankle: ball(0.045, m.jeans),
-    shoe: shoePiece(m, BODY.foot, 0.045, 0.075),
-    toes: shoePiece(m, 0.08, 0.01, 0.05),
+    // heel to ball: a rounded heel, widening to the ball where the toe box takes over
+    shoe: shoePiece(m, BODY.foot, 0.045, 0.075, {
+      back: 0.074,
+      front: 0.092,
+      backRound: 0.03,
+      frontRound: 0.004,
+    }),
+    toes: shoePiece(m, 0.08, 0.01, 0.05, {
+      back: 0.092,
+      front: 0.07,
+      backRound: 0.004,
+      frontRound: 0.04,
+    }),
   };
 }
 
@@ -225,8 +322,24 @@ function alongFoot(
   piece.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(s, up, fwd));
 }
 
-function buildHead(m: Materials): THREE.Group {
+interface HeadRig {
+  head: THREE.Group;
+  eyes: Record<1 | -1, THREE.Mesh>;
+  brows: Record<1 | -1, THREE.Mesh>;
+}
+
+/** How far the brows go up for a hello, metres. */
+const BROW_RAISE = 0.009;
+const BROW_Y = 0.138;
+
+function buildHead(m: Materials): HeadRig {
   const head = new THREE.Group();
+  const eyes: Record<1 | -1, THREE.Mesh> = {
+    1: ball(0.011, m.eye, 10),
+    [-1]: ball(0.011, m.eye, 10),
+  };
+  const brow = () => new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.006, 0.01), m.hair);
+  const brows: Record<1 | -1, THREE.Mesh> = { 1: brow(), [-1]: brow() };
   const skull = ball(0.1, m.skin, 28);
   skull.scale.set(0.84, 1.12, 0.98);
   skull.position.y = 0.1;
@@ -240,16 +353,16 @@ function buildHead(m: Materials): THREE.Group {
   hair.rotation.x = 0.35;
   hair.castShadow = true;
   head.add(hair);
-  for (const side of [-1, 1]) {
+  for (const side of [-1, 1] as const) {
     const ear = ball(0.022, m.skin, 10);
     ear.scale.set(0.5, 1, 0.8);
     ear.position.set(side * 0.088, 0.1, 0.01);
     head.add(ear);
-    const eye = ball(0.011, m.eye, 10);
+    const eye = eyes[side];
     eye.position.set(side * 0.032, 0.115, -0.088);
     head.add(eye);
-    const brow = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.006, 0.01), m.hair);
-    brow.position.set(side * 0.033, 0.138, -0.09);
+    const brow = brows[side];
+    brow.position.set(side * 0.033, BROW_Y, -0.09);
     head.add(brow);
   }
   const nose = new THREE.Mesh(new THREE.ConeGeometry(0.014, 0.035, 10), m.skin);
@@ -267,7 +380,7 @@ function buildHead(m: Materials): THREE.Group {
     cup.castShadow = true;
     head.add(cup);
   }
-  return head;
+  return { head, eyes, brows };
 }
 
 export function buildDrummer(m: Materials): DrummerModel {
@@ -298,7 +411,7 @@ export function buildDrummer(m: Materials): DrummerModel {
   const neck = segment(0.043, 0.05, m.skin);
   place(neck, new THREE.Vector3(0, 0.58, 0.02), new THREE.Vector3(0, 0.69, 0.01));
   torso.add(neck);
-  const head = buildHead(m);
+  const { head, eyes, brows } = buildHead(m);
   head.position.set(0, 0.665, 0.0);
   torso.add(head);
   root.add(torso);
@@ -324,16 +437,36 @@ export function buildDrummer(m: Materials): DrummerModel {
   const pelvisAt = vec(BODY.pelvis);
   return {
     root,
-    update(pose: Pose) {
+    update(pose: Pose, camera?: THREE.Vector3) {
       torso.position.copy(pelvisAt).add(new THREE.Vector3(0, pose.bob, 0));
       torso.rotation.set(-pose.lean, pose.yaw, pose.roll, 'YXZ');
       // the head stays level-ish as the torso leans: it looks at the kit, not the floor
-      head.rotation.set(
-        pose.lean * 0.55 - pose.nod,
-        pose.headYaw - pose.yaw,
-        -pose.roll * 0.5 + pose.headTilt,
-        'YXZ'
-      );
+      let pitch = pose.lean * 0.55 - pose.nod;
+      let yaw = pose.headYaw - pose.yaw;
+      const g = pose.glance;
+      if (camera && g.look > 0) {
+        // where the camera is from the head, in the torso's frame (mirrored with the kit for a lefty)
+        torso.updateMatrixWorld(true);
+        const d = torso.worldToLocal(camera.clone()).sub(head.position);
+        const toYaw = Math.atan2(-d.x, -d.z);
+        const toPitch = Math.atan2(d.y, Math.hypot(d.x, d.z));
+        // a camera behind the drummer is not looked round at
+        const look =
+          g.look * (1 - THREE.MathUtils.smoothstep(Math.abs(toYaw), LOOK_YAW, LOOK_BEHIND));
+        const clampYaw = Math.max(-LOOK_YAW, Math.min(LOOK_YAW, toYaw));
+        const clampPitch = Math.max(-LOOK_PITCH, Math.min(LOOK_PITCH, toPitch));
+        yaw += (clampYaw - yaw) * look;
+        pitch += (clampPitch - pitch) * look;
+      }
+      head.rotation.set(pitch - g.nod, yaw, -pose.roll * 0.5 + pose.headTilt + g.tilt, 'YXZ');
+      for (const side of [1, -1] as const) {
+        // a blink shuts both eyes, a wink the one
+        const shut = Math.max(pose.blink, g.eye === side ? g.wink : 0);
+        eyes[side].scale.y = 1 - 0.9 * shut;
+        // a hello lifts both brows; a wink pulls its own down a touch
+        brows[side].position.y =
+          BROW_Y + BROW_RAISE * g.brows - (g.eye === side ? 0.003 * g.wink : 0);
+      }
       poseArm(arms.lead, pose.arms.lead);
       poseArm(arms.other, pose.arms.other);
       poseLeg(legs.kickFoot, pose.legs.kickFoot);

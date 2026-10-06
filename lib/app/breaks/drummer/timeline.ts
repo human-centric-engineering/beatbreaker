@@ -61,7 +61,7 @@ const BASE: Record<LaneKey, number[]> = {
   s: [0, 0.1, 0.55, 0.95, 0.22, 1, 0.6, 0.55, 0.32],
   // closed · accent · open · half-open
   h: [0, 0.38, 0.8, 0.55, 0.45],
-  r: [0, 0.42, 0.7],
+  r: [0, 0.5, 0.75],
   c: [0, 0.95, 0.95, 1, 0.75],
   t1: [0, 0.6, 0.95, 0.65],
   t2: [0, 0.6, 0.95, 0.65],
@@ -188,7 +188,16 @@ function voiceHit(
   };
 }
 
-/** Counting the band in: the sticks clicked together on each pulse. */
+/** How hard each hand plays the count: the lead clicks, the other holds its stick to be clicked. */
+// a big stroke: the count is a signal to the band, played to be seen from the back of the room.
+// The other hand comes up to meet each click, a smaller move
+const COUNT_STRENGTH = { lead: 0.9, other: 0.45 } as const;
+
+/**
+ * Counting the band in: the sticks crossed in front of the chest, the lead
+ * stick clicking down on the other on each pulse and the other coming up to
+ * meet it (`pose.ts` plays the other hand's stroke upside down).
+ */
 function countHits(step: ScheduledStep): Hit[] {
   if (!isGroupStart(step.meter, step.slot)) return [];
   return (['lead', 'other'] as const).map((limb) => ({
@@ -198,7 +207,7 @@ function countHits(step: ScheduledStep): Hit[] {
     lane: 's' as const,
     piece: 'sticks' as const,
     contact: 'centre' as const,
-    strength: 0.3,
+    strength: COUNT_STRENGTH[limb],
     sure: true,
   }));
 }
@@ -232,6 +241,22 @@ const FORECAST_STEPS = 32;
 /** How long a scheduled stroke is kept once it has sounded. */
 const KEEP_S = 3;
 
+/** The first step of a bar: when it sounds, and whether the pattern changes on it. */
+export interface Downbeat {
+  time: number;
+  change: boolean;
+}
+
+/** Two bars with the same notes in every lane. */
+function sameBar(a: Bar, b: Bar): boolean {
+  if (a === b) return true;
+  return (Object.keys(a) as LaneKey[]).every((k) => {
+    const x = a[k];
+    const y = b[k];
+    return !!y && x.length === y.length && x.every((v, i) => v === y[i]);
+  });
+}
+
 /** What the body sways to: the latest step, and the meter it was in. */
 export interface Clock {
   t: number;
@@ -250,6 +275,9 @@ export class StrokeTimeline {
   private before: Bar | null = null;
   /** Percussion lanes a percussionist plays, learnt from what they sound as. */
   private aux: LaneKey[] = [];
+  /** The ones heard lately, and the next one coming, if it is known. */
+  private ones: Downbeat[] = [];
+  private nextOne: Downbeat | null = null;
   clock: Clock | null = null;
   /**
    * The percussion pieces any bar heard so far has called for. A cowbell
@@ -267,18 +295,51 @@ export class StrokeTimeline {
       this.before = step.slot === 0 ? this.heard.bar : null;
     }
     this.heard = { bar: step.bar, slot: step.slot };
+    this.noteDownbeats(step);
     this.learnPercussion(step);
     this.sure.push(...scheduledHits(step, this.before, this.aux));
     const cutoff = step.t - KEEP_S;
     if (this.sure.length && this.sure[0].time < cutoff) {
       this.sure = this.sure.filter((h) => h.time >= cutoff);
     }
-    this.ahead = step.count || !step.bar ? [] : forecast(step, this.before, this.aux);
+    this.ahead = step.count
+      ? countAhead(step)
+      : step.bar
+        ? forecast(step, this.before, this.aux)
+        : [];
     this.merged = null;
     for (const bar of [step.bar, step.next]) {
       if (bar?.p1.some(Boolean) && !this.aux.includes('p1')) this.percussion.add('perc1');
       if (bar?.p2.some(Boolean) && !this.aux.includes('p2')) this.percussion.add('perc2');
     }
+  }
+
+  /**
+   * Keep the ones: each bar's first step as it is heard — a change if it is not
+   * the bar before it again — and the next, read a bar ahead so the body can
+   * gather for it. Counting in, the band comes in on the next one.
+   */
+  private noteDownbeats(step: ScheduledStep): void {
+    const n = step.bar ? step.bar.k.length : step.meter.num * step.meter.sub;
+    if (step.bar && step.slot === 0) {
+      const last = this.ones[this.ones.length - 1];
+      if (!last || Math.abs(last.time - step.t) > 1e-6) {
+        this.ones.push({ time: step.t, change: !this.before || !sameBar(this.before, step.bar) });
+      }
+      const cutoff = step.t - KEEP_S;
+      if (this.ones[0].time < cutoff) this.ones = this.ones.filter((d) => d.time >= cutoff);
+    }
+    const time = step.t + (n - step.slot) * step.dur;
+    if (step.count) this.nextOne = { time, change: true };
+    else if (step.bar && step.next) this.nextOne = { time, change: !sameBar(step.bar, step.next) };
+    else this.nextOne = null;
+  }
+
+  /** The ones heard lately and the next one coming, in time order. */
+  downbeats(): Downbeat[] {
+    const next = this.nextOne;
+    const last = this.ones[this.ones.length - 1];
+    return next && (!last || next.time > last.time + 1e-6) ? [...this.ones, next] : this.ones;
   }
 
   /** Which percussion lanes are the drummer's, from the instrument each one sounds as. */
@@ -305,6 +366,8 @@ export class StrokeTimeline {
     this.heard = { bar: null, slot: -1 };
     this.before = null;
     this.aux = [];
+    this.ones = [];
+    this.nextOne = null;
   }
 
   /** Every stroke known, scheduled and forecast, in time order. */
@@ -322,6 +385,24 @@ export class StrokeTimeline {
   forLimb(limb: Limb): Hit[] {
     return this.all().filter((h) => h.limb === limb);
   }
+}
+
+/**
+ * The clicks still to come in a count, a bar ahead. The transport does not say
+ * how long the count is, so this assumes it goes on; when the music starts,
+ * its first step's forecast replaces these. Without them a slow count is only
+ * known a lookahead at a time, and the hands settle back to the snare between
+ * clicks.
+ */
+function countAhead(step: ScheduledStep): Hit[] {
+  const n = step.meter.num * step.meter.sub;
+  const out: Hit[] = [];
+  for (let k = 1; k <= n; k++) {
+    const t = step.t + k * step.dur;
+    const hits = countHits({ ...step, t, slot: (step.slot + k) % n });
+    out.push(...hits.map((h) => ({ ...h, sure: false })));
+  }
+  return out;
 }
 
 function forecast(step: ScheduledStep, before: Bar | null, aux: readonly LaneKey[]): Hit[] {

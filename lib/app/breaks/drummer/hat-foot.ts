@@ -1,5 +1,5 @@
-import { type FootStance, seedOf } from '@/lib/app/breaks/drummer/kick-foot';
-import { lastAtOrBefore, smoothstep } from '@/lib/app/breaks/drummer/strokes';
+import type { FootStance } from '@/lib/app/breaks/drummer/kick-foot';
+import { lastAtOrBefore, seedOf, smoothstep } from '@/lib/app/breaks/drummer/strokes';
 import type { Hit } from '@/lib/app/breaks/drummer/timeline';
 import { makeRng } from '@/lib/app/breaks/rng';
 

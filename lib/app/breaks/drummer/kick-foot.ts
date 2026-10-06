@@ -1,5 +1,5 @@
 import { makeRng } from '@/lib/app/breaks/rng';
-import { lastAtOrBefore, smoothstep } from '@/lib/app/breaks/drummer/strokes';
+import { lastAtOrBefore, seedOf, smoothstep } from '@/lib/app/breaks/drummer/strokes';
 import type { Hit } from '@/lib/app/breaks/drummer/timeline';
 
 /**
@@ -77,15 +77,6 @@ const SHAPES: Record<KickTechnique, FootStance[]> = {
   swivel: [s(0.66, 0.34, -0.22, 0.3), s(0.68, 0.4, 0.28, 0.2)],
   heelBallToe: [s(0.7, -0.28, 0, 0), s(0.7, 0.2, 0, 0.1), s(0.87, 0.55, 0.04, 0.1)],
 };
-
-/** A seed from a note's grid time, the same for its forecast and its scheduled stroke. */
-export function seedOf(h: Hit): number {
-  // murmur3's finaliser: neighbouring milliseconds land on unrelated seeds
-  let x = Math.round(h.step * 1000) >>> 0;
-  x = Math.imul(x ^ (x >>> 16), 0x85ebca6b);
-  x = Math.imul(x ^ (x >>> 13), 0xc2b2ae35);
-  return (x ^ (x >>> 16)) >>> 0;
-}
 
 function jitter(stance: FootStance, h: Hit): FootStance {
   const rng = makeRng(seedOf(h) ^ 0x5bd1e995);

@@ -248,6 +248,27 @@ export function onPiece(p: Piece, local: V3): V3 {
 /** How far above the surface the tip's centre is when it touches: the bead's radius. */
 const BEAD = 0.006;
 
+/** How far a note can land from its mark, metres either way in the piece's plane. */
+const SCATTER: Partial<Record<PieceKind, number>> = {
+  drum: 0.028,
+  cymbal: 0.035,
+  hat: 0.02,
+  perc: 0.008,
+};
+
+/**
+ * How far out a cymbal is struck, as a share of its radius: the ride on the
+ * outer bow, the crash at the edge, and no stroke past `limit`.
+ */
+export const CYMBAL_MARK = { ride: 0.78, crash: 0.92, limit: 0.97 } as const;
+/** How far a ride stroke can sweep to either side of its mark, metres. */
+export const RIDE_SWEEP = 0.07;
+/**
+ * How far out from the bell a bell note's tip lands, metres: aimed at it, on
+ * the bow beside it — nobody plays in the middle of the dome.
+ */
+export const BELL_SHORT = 0.04;
+
 /**
  * Where the tip lands, and how steeply the stick comes down onto it.
  *
@@ -255,36 +276,63 @@ const BEAD = 0.006;
  * the stick flatter; a bell is the dome; an open or accented hat is the edge
  * of the top cymbal with the shoulder of the stick; a cross-stick lays the
  * stick across the rim with its far end raised off the head.
+ *
+ * `scatter` (each -1..1) moves the mark in the piece's plane: no drummer lands
+ * on the same spot twice. A rim shot and a cross-stick are placed by the rim
+ * and do not move.
  */
-export function strikeTarget(id: PieceId, contact: Contact = 'centre'): { tip: V3; pitch: number } {
+export function strikeTarget(
+  id: PieceId,
+  contact: Contact = 'centre',
+  scatter: readonly number[] = [0, 0]
+): { tip: V3; pitch: number } {
   const p = PIECES[id];
   const r = p.radius;
+  const s = SCATTER[p.kind] ?? 0;
+  const [sx, sz] = [scatter[0] * s, scatter[1] * s];
   switch (p.kind) {
     case 'cymbal': {
-      if (contact === 'bell')
-        return { tip: onPiece(p, [0, cymbalY(0.03, r) + BEAD, 0.03]), pitch: 0.35 };
-      const rho = r * 0.74;
-      return {
-        tip: onPiece(p, [-0.05, cymbalY(rho, r) + BEAD, Math.sqrt(rho * rho - 0.0025)]),
-        pitch: 0.12,
-      };
+      /* The bell is played by aiming at it, not on it: the tip lands on the bow
+         just short of the dome, on the line from the hand to the bell, with
+         the stick only a little steeper than on the bow — it never touches
+         the dome itself. */
+      if (contact === 'bell') {
+        const [dx, dz] = [p.centre[0] - AIM_FROM.lead[0], p.centre[2] - AIM_FROM.lead[2]];
+        const a = Math.atan2(-dx, -dz) + 0.15 * scatter[0];
+        const rho = BELL.radius + BELL_SHORT * (1 + 0.3 * scatter[1]);
+        const tip = onPiece(p, [rho * Math.sin(a), cymbalY(rho, r) + BEAD, rho * Math.cos(a)]);
+        return { tip, pitch: 0.18 };
+      }
+      // the ride is played on the bow, out toward the edge; a crash right at its edge
+      const rho0 = r * (id === 'ride' ? CYMBAL_MARK.ride : CYMBAL_MARK.crash);
+      // the ride is swept across, so it moves further side to side than it does in and out
+      let x = -0.05 + (id === 'ride' ? scatter[0] * RIDE_SWEEP : sx);
+      let z = Math.sqrt(rho0 * rho0 - 0.0025) + sz;
+      // scatter moves the stick about, never off the bronze
+      const k = Math.min(1, (r * CYMBAL_MARK.limit) / Math.hypot(x, z));
+      x *= k;
+      z *= k;
+      return { tip: onPiece(p, [x, cymbalY(Math.hypot(x, z), r) + BEAD, z]), pitch: 0.12 };
     }
     case 'hat': {
-      const rho = contact === 'edge' ? r * 0.97 : r * 0.55;
+      // a closed note on the outer bow, well off the bell; an open one at the very edge
+      const rho = (contact === 'edge' ? r * 0.97 : r * 0.72) + (contact === 'edge' ? 0 : sz);
       const [dx, dz] = [0.55, 0.83];
+      // along the edge for an open note, in and out across the bow for a closed one
+      const [x, z] = [dx * rho - dz * sx, dz * rho + dx * sx];
       return {
-        tip: onPiece(p, [dx * rho, cymbalY(rho, r) + BEAD, dz * rho]),
+        tip: onPiece(p, [x, cymbalY(Math.hypot(x, z), r) + BEAD, z]),
         pitch: contact === 'edge' ? 0.06 : 0.2,
       };
     }
     case 'perc':
-      return { tip: onPiece(p, [0, 0.035 + BEAD, 0.01]), pitch: 0.25 };
+      return { tip: onPiece(p, [sx, 0.035 + BEAD, 0.01 + sz]), pitch: 0.25 };
     case 'air':
       return { tip: p.centre, pitch: -0.3 };
     default: {
       if (contact === 'cross') return { tip: onPiece(p, [r * 0.3, 0.035, -r * 0.15]), pitch: 0.1 };
       if (contact === 'rim') return { tip: onPiece(p, [0, 0.012 + BEAD, r * 0.94]), pitch: 0.3 };
-      return { tip: onPiece(p, [0, 0.002 + BEAD, r * 0.18]), pitch: 0.32 };
+      return { tip: onPiece(p, [sx, 0.002 + BEAD, r * 0.18 + sz]), pitch: 0.32 };
     }
   }
 }

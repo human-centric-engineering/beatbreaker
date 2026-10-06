@@ -128,3 +128,116 @@ describe('expressionAt — smoothness', () => {
     }
   });
 });
+
+describe('expressionAt — the one', () => {
+  it('gathers up just before a changing one, and drops into it after', () => {
+    const ones = [{ time: 10, change: true }];
+    const before = expressionAt([], 9.95, ones);
+    const after = expressionAt([], 10 + 0.14, ones);
+    // up, back, a breath in
+    expect(before.dip).toBeGreaterThan(0.005);
+    expect(before.nod).toBeLessThan(-0.02);
+    expect(before.shrug).toBeGreaterThan(0.005);
+    // and let go: down, forward, the head into it
+    expect(after.dip).toBeLessThan(-0.008);
+    expect(after.nod).toBeGreaterThan(0.06);
+    expect(after.shrug).toBeLessThan(0);
+    // long after, nothing
+    expect(expressionAt([], 11.5, ones).dip).toBeCloseTo(0, 6);
+  });
+
+  it('marks only some ones where the pattern carries on, each by its own amount', () => {
+    const sizes = Array.from({ length: 40 }, (_, i) => {
+      const ones = [{ time: 5 + i * 2, change: false }];
+      return -expressionAt([], ones[0].time + 0.14, ones).dip;
+    });
+    const marked = sizes.filter((s) => s > 1e-4);
+    expect(marked.length).toBeGreaterThan(8);
+    expect(marked.length).toBeLessThan(32);
+    expect(new Set(marked.map((s) => s.toFixed(5))).size).toBe(marked.length);
+  });
+
+  it('marks every one the pattern changes on, and well beyond any that carries on', () => {
+    const drop = (change: boolean, i: number) => {
+      const ones = [{ time: 5 + i * 2, change }];
+      return -expressionAt([], ones[0].time + 0.14, ones).dip;
+    };
+    const changed = Array.from({ length: 20 }, (_, i) => drop(true, i));
+    const same = Array.from({ length: 40 }, (_, i) => drop(false, i));
+    expect(Math.min(...changed)).toBeGreaterThan(0.008);
+    expect(Math.min(...changed)).toBeGreaterThan(Math.max(...same) * 1.4);
+  });
+});
+
+describe('expressionAt — a glance at the camera', () => {
+  const sample = (hits: Hit[], from: number, to: number) => {
+    const out = [];
+    for (let t = from; t < to; t += 0.05) out.push(expressionAt(hits, t).glance);
+    return out;
+  };
+
+  it('looks now and then — a second at a time, not most of the time', () => {
+    const g = sample([], 0, 300);
+    const looking = g.filter((x) => x.look > 0.9).length / g.length;
+    expect(looking).toBeGreaterThan(0.01);
+    expect(looking).toBeLessThan(0.12);
+  });
+
+  it('turns smoothly to the camera and back: never snaps', () => {
+    const g = sample([], 0, 300);
+    for (let i = 1; i < g.length; i++)
+      expect(Math.abs(g[i].look - g[i - 1].look)).toBeLessThan(0.35);
+  });
+
+  it('throws in a nod, a tilt, a hello with the brows or a wink — sometimes together, a wink least', () => {
+    const g = sample([], 0, 1200);
+    const nods = g.filter((x) => x.nod > 0.1).length;
+    const tilts = g.filter((x) => Math.abs(x.tilt) > 0.1).length;
+    const winks = g.filter((x) => x.wink > 0.8).length;
+    const hellos = g.filter((x) => x.brows > 0.9).length;
+    expect(nods).toBeGreaterThan(0);
+    expect(tilts).toBeGreaterThan(0);
+    expect(hellos).toBeGreaterThan(0);
+    expect(winks).toBeGreaterThan(0);
+    expect(winks).toBeLessThan(tilts);
+    // gestures combine: a tilt with a wink, the brows with a tilt
+    expect(g.some((x) => x.wink > 0.5 && Math.abs(x.tilt) > 0.05)).toBe(true);
+    expect(g.some((x) => x.brows > 0.5 && Math.abs(x.tilt) > 0.05)).toBe(true);
+  });
+
+  it('lasts a different time each look, up to two seconds', () => {
+    const lengths: number[] = [];
+    let run = 0;
+    for (const x of sample([], 0, 1200)) {
+      if (x.look > 0) run += 0.05;
+      else if (run) {
+        lengths.push(run);
+        run = 0;
+      }
+    }
+    expect(lengths.length).toBeGreaterThan(10);
+    expect(Math.max(...lengths)).toBeLessThanOrEqual(2.05);
+    expect(Math.max(...lengths) - Math.min(...lengths)).toBeGreaterThan(0.8);
+  });
+
+  it('never looks up in the middle of a fill', () => {
+    // a solid fill on the toms from start to end
+    const fill: Hit[] = [];
+    for (let t = 0; t < 120; t += DUR)
+      fill.push(hit(t, 'tom1', fill.length % 2 ? 'lead' : 'other'));
+    expect(sample(fill, 1, 119).every((x) => x.look === 0)).toBe(true);
+  });
+});
+
+describe('expressionAt — blinking', () => {
+  it('blinks every few seconds, quickly', () => {
+    const shut: boolean[] = [];
+    for (let t = 0; t < 120; t += 0.02) shut.push(expressionAt([], t).blink > 0.8);
+    const blinks = shut.filter((x, i) => x && !shut[i - 1]).length;
+    // somewhere between one every eight seconds and one a second
+    expect(blinks).toBeGreaterThan(15);
+    expect(blinks).toBeLessThan(120);
+    // and they are quick: shut a small share of the time
+    expect(shut.filter(Boolean).length / shut.length).toBeLessThan(0.05);
+  });
+});
