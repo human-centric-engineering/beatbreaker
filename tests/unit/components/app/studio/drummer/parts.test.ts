@@ -19,6 +19,7 @@ import {
   rod,
   segment,
 } from '@/components/app/studio/drummer/parts';
+import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
 
 /** The world-space point a mesh's local point maps to, via its full matrix. */
 function worldPoint(mesh: THREE.Object3D, local: THREE.Vector3): THREE.Vector3 {
@@ -59,6 +60,20 @@ describe('makeMaterials', () => {
     const m = makeMaterials();
     expect(m.bronze.roughnessMap).toBeNull();
     expect(m.bronze.bumpMap).toBeNull();
+  });
+
+  it("dresses the drummer in the player's colours, and a bare chest in their skin", () => {
+    const nia = PERSONAS.find((p) => p.id === 'nia')!;
+    const m = makeMaterials(nia);
+    expect(m.skin.color.getHexString()).toBe(nia.skin.slice(1));
+    expect(m.shirt.color.getHexString()).toBe(nia.shirt.slice(1));
+    expect(m.hair.color.getHexString()).toBe(nia.hair.slice(1));
+    expect(m.jeans.color.getHexString()).toBe(nia.trousers.slice(1));
+    expect(m.accent.color.getHexString()).toBe(nia.accent.slice(1));
+
+    const bare = PERSONAS.find((p) => p.top === 'bare' && p.shirt !== p.skin);
+    const shirtless = { ...(bare ?? PERSONAS[0]), top: 'bare' as const, shirt: '#00ff00' };
+    expect(makeMaterials(shirtless).shirt.color.getHexString()).toBe(shirtless.skin.slice(1));
   });
 
   it('gives each call its own material instances', () => {

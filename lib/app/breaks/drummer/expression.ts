@@ -1,4 +1,10 @@
-import { drift, lastAtOrBefore, seedOf, smoothstep } from '@/lib/app/breaks/drummer/strokes';
+import {
+  crashOn,
+  drift,
+  lastAtOrBefore,
+  seedOf,
+  smoothstep,
+} from '@/lib/app/breaks/drummer/strokes';
 import type { Downbeat, Hit } from '@/lib/app/breaks/drummer/timeline';
 import { makeRng } from '@/lib/app/breaks/rng';
 
@@ -77,8 +83,20 @@ const LANDING_PEAK = 0.17;
 const MOOD_PERIOD = 3.2;
 /** How often a bar's one is marked when the pattern carries on (it always is when it changes). */
 const ONE_CHANCE = 0.45;
-/** The let-go after a one: when it is deepest, seconds. */
-const RELEASE_PEAK = 0.14;
+/**
+ * The breath in before a one: it starts this long before, seconds (rolled
+ * between these — about a beat), and is full this long before it lands, so
+ * the body is already gathered and waiting as the one comes.
+ */
+const GATHER_LEAD = [0.4, 0.7] as const;
+const GATHER_FULL = 0.12;
+/**
+ * The let-go into a one: it starts this long before the one and is deepest
+ * this long after it starts, seconds — so the head comes down on the one,
+ * not after it.
+ */
+const RELEASE_LEAD = 0.09;
+const RELEASE_PEAK = 0.1;
 /** A glance can come once in each of these windows, seconds, and does in this share of them. */
 const GLANCE_WINDOW = 11;
 const GLANCE_CHANCE = 0.4;
@@ -134,25 +152,41 @@ function landingOf(hits: readonly Hit[], i: number): number {
 }
 
 /**
+ * How big the body's gesture into a one is, rolled between these: only a
+ * one that brings in a crash gets the whole body; in the run of the groove,
+ * new pattern or not, it is a small thing.
+ */
+const ONE_SIZE = [0.1, 0.2] as const;
+const ONE_SIZE_CHANGE = [0.3, 0.45] as const;
+const ONE_SIZE_CRASH = [0.8, 1.2] as const;
+
+/**
  * How the body meets the ones around `now`: `gather` (0–1-ish) rising into
  * each, `release` after it, each scaled by that bar's rolled size.
  */
-function onesAt(downbeats: readonly Downbeat[], now: number): { gather: number; release: number } {
+function onesAt(
+  downbeats: readonly Downbeat[],
+  hits: readonly Hit[],
+  now: number
+): { gather: number; release: number } {
   let gather = 0;
   let release = 0;
   for (const d of downbeats) {
-    if (d.time < now - 0.9 || d.time > now + 0.6) continue;
+    if (d.time < now - 0.9 || d.time > now + GATHER_LEAD[1]) continue;
     const rng = makeRng((Math.round(d.time * 1000) ^ 0x6a09e667) >>> 0);
     const roll = rng();
-    if (!d.change && roll >= ONE_CHANCE) continue;
-    // a bar like the last is only touched on; a new pattern is met with the whole body
-    const size = d.change ? 0.8 + 0.4 * rng() : 0.2 + 0.3 * rng();
-    // the breath in: as long as a quick beat or two before it, cut off as the one lands
-    const lead = 0.18 + 0.22 * rng();
-    const up = smoothstep(d.time - lead, d.time - 0.03, now);
-    gather += size * up * (1 - smoothstep(d.time - 0.03, d.time + 0.05, now));
-    if (now > d.time) {
-      const u = (now - d.time) / RELEASE_PEAK;
+    const crash = crashOn(hits, d.time);
+    if (!crash && !d.change && roll >= ONE_CHANCE) continue;
+    // a bar like the last is only touched on, a new one a little more; a crash with the whole body
+    const [lo, hi] = crash ? ONE_SIZE_CRASH : d.change ? ONE_SIZE_CHANGE : ONE_SIZE;
+    const size = lo + (hi - lo) * rng();
+    // the breath in: from about a beat before, held through the last moment, cut off as the one lands
+    const lead = GATHER_LEAD[0] + (GATHER_LEAD[1] - GATHER_LEAD[0]) * rng();
+    const up = smoothstep(d.time - lead, d.time - GATHER_FULL, now);
+    // handing over to the let-go as it starts
+    gather += size * up * (1 - smoothstep(d.time - RELEASE_LEAD, d.time + 0.03, now));
+    if (now > d.time - RELEASE_LEAD) {
+      const u = (now - d.time + RELEASE_LEAD) / RELEASE_PEAK;
       release += size * u * u * Math.exp(2 * (1 - u));
     }
   }
@@ -271,7 +305,7 @@ export function expressionAt(
   const mood = drift(now, MOOD_PERIOD, 0x7f4a7c15);
   const lean = drift(now, MOOD_PERIOD * 1.7, 0x2545f491);
   // a crash landing on the one already throws the body: the one's own let-go gives way to it
-  const one = onesAt(downbeats, now);
+  const one = onesAt(downbeats, hits, now);
   const gather = one.gather;
   const release = one.release * (1 - 0.5 * Math.min(1, landing));
   return {

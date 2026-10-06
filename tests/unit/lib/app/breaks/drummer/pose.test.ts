@@ -1097,13 +1097,23 @@ describe('barCueAt — the hands come up for a new bar', () => {
       barCueAt(ones(10 + i * 2), [], 10 + i * 2 - 0.05)
     );
     for (const p of peaks) {
-      expect(p).toBeGreaterThan(0.06);
-      expect(p).toBeLessThan(0.25);
+      // a touch: in the run of the groove the cue is small
+      expect(p).toBeGreaterThan(0.03);
+      expect(p).toBeLessThan(0.11);
     }
     expect(new Set(peaks.map((p) => p.toFixed(4))).size).toBe(peaks.length);
-    // nothing a beat before, nothing once the one has landed
-    expect(barCueAt(ones(10), [], 9.2)).toBe(0);
+    // nothing over a beat before, nothing once the one has landed
+    expect(barCueAt(ones(10), [], 8.95)).toBe(0);
     expect(barCueAt(ones(10), [], 10.2)).toBe(0);
+  });
+
+  it('gives the cue ahead of the one: well up half a beat before, all the way up just before', () => {
+    for (let i = 0; i < 20; i++) {
+      const one = 10 + i * 2;
+      const full = barCueAt(ones(one), [], one - 0.05);
+      expect(barCueAt(ones(one), [], one - 0.3)).toBeGreaterThan(full * 0.5);
+      expect(barCueAt(ones(one), [], one - 0.12)).toBeCloseTo(full, 6);
+    }
   });
 
   it('comes up more when the pattern changes on the one', () => {
@@ -1111,7 +1121,8 @@ describe('barCueAt — the hands come up for a new bar', () => {
       const one = 10 + i * 2;
       const same = barCueAt([{ time: one, change: false }], [], one - 0.05);
       const change = barCueAt([{ time: one, change: true }], [], one - 0.05);
-      expect(change).toBeGreaterThan(0.24);
+      expect(change).toBeGreaterThan(0.09);
+      expect(change).toBeLessThan(0.19);
       expect(change).toBeGreaterThan(same);
     }
   });

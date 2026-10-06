@@ -18,6 +18,7 @@ import { describe, expect, it } from 'vitest';
 
 import { BEAD_RADIUS, buildDrummer } from '@/components/app/studio/drummer/drummer-model';
 import { makeMaterials } from '@/components/app/studio/drummer/parts';
+import { type Persona, PERSONAS } from '@/lib/app/breaks/drummer/personas';
 import { poseAt } from '@/lib/app/breaks/drummer/pose';
 import { StrokeTimeline } from '@/lib/app/breaks/drummer/timeline';
 import { stepWithHit } from '@/tests/helpers/drummer-fixtures';
@@ -234,5 +235,91 @@ describe('buildDrummer() — a glance at the camera', () => {
     const up = brows().map((b) => b.position.y);
     expect(down).toHaveLength(2);
     up.forEach((y, i) => expect(y - down[i]).toBeGreaterThan(0.005));
+  });
+});
+
+describe('buildDrummer() — who is playing', () => {
+  const posed = () => {
+    const timeline = new StrokeTimeline();
+    timeline.ingest(stepWithHit({ lane: 'c', value: 1, at: 0 }));
+    return poseAt(timeline, 0.02, 1);
+  };
+
+  /** Root-level cylinders (limb segments) in material `mat`, widest end first. */
+  const segmentsIn = (root: THREE.Object3D, mat: THREE.Material) =>
+    root.children.filter(
+      (o): o is THREE.Mesh =>
+        o instanceof THREE.Mesh &&
+        o.material === mat &&
+        o.geometry instanceof THREE.CylinderGeometry
+    );
+
+  it.each(PERSONAS.map((p) => [p.name, p] as const))(
+    '%s plays from the same joints: the sticks land on the pose',
+    (_name, who: Persona) => {
+      const m = makeMaterials(who);
+      const { root, update } = buildDrummer(m, who);
+      const pose = posed();
+      update(pose);
+      const beads = beadMeshes(root);
+      expect(beads.length).toBe(2);
+      for (const tip of [pose.arms.lead.tip, pose.arms.other.tip]) {
+        const bead = closestTo(beads, tip);
+        expect(bead.getWorldPosition(new THREE.Vector3()).distanceTo(tip)).toBeLessThan(1e-9);
+      }
+      expect(handGroups(root).length).toBe(2);
+    }
+  );
+
+  it('a heavy build has thicker legs than a slim one', () => {
+    const widest = (who: Persona) => {
+      const m = makeMaterials(who);
+      const { root } = buildDrummer(m, who);
+      return Math.max(
+        ...segmentsIn(root, m.jeans).map(
+          (o) => (o.geometry as THREE.CylinderGeometry).parameters.radiusBottom
+        )
+      );
+    };
+    const heavy = PERSONAS.find((p) => p.build === 'heavy')!;
+    const slim = PERSONAS.find((p) => p.build === 'slim')!;
+    expect(widest(heavy)).toBeGreaterThan(widest(slim) * 1.4);
+  });
+
+  it('a T-shirt has sleeves; a vest leaves the arms bare', () => {
+    const sleeves = (who: Persona) => {
+      const m = makeMaterials(who);
+      const { root } = buildDrummer(m, who);
+      return segmentsIn(root, m.shirt);
+    };
+    const tee = PERSONAS.find((p) => p.top === 'tee')!;
+    const vest = PERSONAS.find((p) => p.top === 'vest')!;
+    expect(sleeves(tee).length).toBe(2);
+    expect(sleeves(tee).every((o) => o.visible)).toBe(true);
+    expect(sleeves(vest).every((o) => !o.visible)).toBe(true);
+  });
+
+  it('dresses the head for the player: a bald head carries less than an afro and a beard', () => {
+    const headMeshes = (who: Persona) => {
+      const { root } = buildDrummer(makeMaterials(who), who);
+      let n = 0;
+      root.traverse((o) => {
+        if (o instanceof THREE.Mesh) n++;
+      });
+      return n;
+    };
+    const base = PERSONAS[0];
+    const bald = { ...base, hairStyle: 'bald' as const, beard: 'none' as const };
+    const dressed = {
+      ...base,
+      hairStyle: 'afro' as const,
+      beard: 'viking' as const,
+      shades: true,
+      earrings: true,
+    };
+    // afro 1; a viking beard 4 (jaw, chin, moustache, braid); shades 3; earrings 2
+    expect(headMeshes(dressed) - headMeshes(bald)).toBe(10);
+    // a top hat: brim, crown and band
+    expect(headMeshes({ ...bald, hat: 'tophat' as const }) - headMeshes(bald)).toBe(3);
   });
 });

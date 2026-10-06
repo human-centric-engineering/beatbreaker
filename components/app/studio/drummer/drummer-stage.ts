@@ -2,11 +2,17 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 
-import { buildDrummer } from '@/components/app/studio/drummer/drummer-model';
+import { buildDrummer, type DrummerModel } from '@/components/app/studio/drummer/drummer-model';
 import { buildKit } from '@/components/app/studio/drummer/kit-model';
-import { disposeTree, makeMaterials } from '@/components/app/studio/drummer/parts';
+import {
+  disposeMaterials,
+  disposeTree,
+  makeMaterials,
+  type Materials,
+} from '@/components/app/studio/drummer/parts';
 import type { ScheduledStep } from '@/lib/app/breaks/audio/transport';
 import { type CameraView, cameraFor } from '@/lib/app/breaks/drummer/camera';
+import { type Persona, pickPersona } from '@/lib/app/breaks/drummer/personas';
 import { type Grips, MATCHED_GRIPS, poseAt } from '@/lib/app/breaks/drummer/pose';
 import { StrokeTimeline } from '@/lib/app/breaks/drummer/timeline';
 
@@ -18,6 +24,9 @@ import { StrokeTimeline } from '@/lib/app/breaks/drummer/timeline';
  * the head when the speakers sound it rather than when it was scheduled.
  * Stopped, the drummer idles on the page's own clock: breathing, sticks
  * resting over the hats and the snare.
+ *
+ * A new stage seats a player at random, unless one is given; another can
+ * take their place at any time without stopping the music.
  */
 
 export interface StageClock {
@@ -37,7 +46,11 @@ export class DrummerStage {
   private readonly controls: OrbitControls;
   private readonly rig = new THREE.Group();
   private readonly kit;
-  private readonly drummer;
+  private readonly kitMaterials: Materials;
+  private drummer: DrummerModel;
+  /** The drummer's own materials, made in their colours and freed with them. */
+  private dress: Materials;
+  private who: Persona;
   private readonly env: THREE.Texture;
   private readonly resize: ResizeObserver | null;
   private raf = 0;
@@ -57,8 +70,10 @@ export class DrummerStage {
 
   constructor(
     private readonly host: HTMLElement,
-    private readonly clock: StageClock
+    private readonly clock: StageClock,
+    persona: Persona = pickPersona()
   ) {
+    this.who = persona;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
     this.renderer.shadowMap.enabled = true;
@@ -95,9 +110,10 @@ export class DrummerStage {
     this.scene.background = new THREE.Color(BACKDROP);
     this.scene.fog = new THREE.Fog(BACKDROP, 7, 16);
 
-    const materials = makeMaterials();
-    this.kit = buildKit(materials);
-    this.drummer = buildDrummer(materials);
+    this.kitMaterials = makeMaterials();
+    this.kit = buildKit(this.kitMaterials);
+    this.dress = makeMaterials(persona);
+    this.drummer = buildDrummer(this.dress, persona);
     this.rig.add(this.kit.root, this.drummer.root);
     this.scene.add(this.rig);
     this.addLights();
@@ -180,6 +196,22 @@ export class DrummerStage {
     this.grips = grips;
   }
 
+  get persona(): Persona {
+    return this.who;
+  }
+
+  /** Seat someone else at the kit, mid-groove if need be: the timeline and camera carry on. */
+  setPersona(who: Persona): void {
+    if (who === this.who) return;
+    this.who = who;
+    this.rig.remove(this.drummer.root);
+    disposeTree(this.drummer.root);
+    disposeMaterials(this.dress);
+    this.dress = makeMaterials(who);
+    this.drummer = buildDrummer(this.dress, who);
+    this.rig.add(this.drummer.root);
+  }
+
   flyTo(view: CameraView): void {
     this.view = view;
     const shot = cameraFor(view, this.lefty);
@@ -220,6 +252,8 @@ export class DrummerStage {
     this.controls.removeEventListener('start', this.cancelFlight);
     this.controls.dispose();
     disposeTree(this.scene);
+    disposeMaterials(this.kitMaterials);
+    disposeMaterials(this.dress);
     this.env.dispose();
     this.renderer.dispose();
     this.renderer.domElement.remove();

@@ -138,6 +138,18 @@ export function smoothstep(a: number, b: number, x: number): number {
 }
 
 /** The last stroke at or before `now`, by binary search over a time-ordered list. */
+/**
+ * Does a hand bring a crash in at `time`? Forecast strokes sit on the grid and
+ * scheduled ones a few milliseconds off it, so near enough counts.
+ */
+export function crashOn(hits: readonly Hit[], time: number): boolean {
+  for (let i = lastAtOrBefore(hits, time + 0.04); i >= 0 && hits[i].time >= time - 0.04; i--) {
+    const h = hits[i];
+    if (h.piece === 'crash' && (h.limb === 'lead' || h.limb === 'other')) return true;
+  }
+  return false;
+}
+
 export function lastAtOrBefore(hits: readonly Hit[], now: number): number {
   let lo = 0;
   let hi = hits.length - 1;

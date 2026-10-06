@@ -27,6 +27,7 @@ import {
   type StrokeState,
   hatOpenAt,
   drift,
+  crashOn,
   lastAtOrBefore,
   seedOf,
   smoothstep,
@@ -440,12 +441,17 @@ interface TimeKeeping {
  * How much taller the strokes into a new bar grow, as a share: rolled between
  * these for each bar — a touch when the pattern carries on, more when it changes.
  */
-const BAR_CUE = [0.08, 0.22] as const;
-const BAR_CUE_CHANGE = [0.25, 0.45] as const;
+const BAR_CUE = [0.04, 0.1] as const;
+const BAR_CUE_CHANGE = [0.1, 0.18] as const;
 /** And for the hand bringing a crash in on the one. */
 const BAR_CUE_CRASH = [0.6, 1.1] as const;
-/** How long before the one the hands start to come up, seconds: rolled between these. */
-const BAR_CUE_LEAD = [0.3, 0.6] as const;
+/**
+ * How long before the one the hands start to come up, seconds (rolled between
+ * these), and how long before it they are all the way up: the cue is given
+ * ahead of the one, not on it.
+ */
+const BAR_CUE_LEAD = [0.55, 0.95] as const;
+const BAR_CUE_FULL = 0.12;
 
 /**
  * How much taller a hand's strokes are at `now` as a new bar comes: a share
@@ -461,11 +467,9 @@ export function barCueAt(ones: readonly Downbeat[], hits: readonly Hit[], now: n
     if (d.time < now - 0.2 || d.time > now + BAR_CUE_LEAD[1]) continue;
     const rng = makeRng((Math.round(d.time * 1000) ^ 0x1f83d9ab) >>> 0);
     const lead = BAR_CUE_LEAD[0] + (BAR_CUE_LEAD[1] - BAR_CUE_LEAD[0]) * rng();
-    const at = lastAtOrBefore(hits, d.time + 0.01);
-    const crash = at >= 0 && hits[at].piece === 'crash' && Math.abs(hits[at].time - d.time) < 0.03;
-    const [lo, hi] = crash ? BAR_CUE_CRASH : d.change ? BAR_CUE_CHANGE : BAR_CUE;
+    const [lo, hi] = crashOn(hits, d.time) ? BAR_CUE_CRASH : d.change ? BAR_CUE_CHANGE : BAR_CUE;
     const size = lo + (hi - lo) * rng();
-    const up = smoothstep(d.time - lead, d.time - 0.05, now);
+    const up = smoothstep(d.time - lead, d.time - BAR_CUE_FULL, now);
     cue = Math.max(cue, size * up * (1 - smoothstep(d.time, d.time + 0.15, now)));
   }
   return cue;

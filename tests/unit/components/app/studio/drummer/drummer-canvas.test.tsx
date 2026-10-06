@@ -15,12 +15,15 @@ import { render } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { ScheduledStep } from '@/lib/app/breaks/audio/transport';
+import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
 
 const fakes = vi.hoisted(() => {
   const instances: {
     host: HTMLElement;
+    persona: { name: string };
     setLefty: ReturnType<typeof vi.fn>;
     setGrips: ReturnType<typeof vi.fn>;
+    setPersona: ReturnType<typeof vi.fn>;
     setPlaying: ReturnType<typeof vi.fn>;
     flyTo: ReturnType<typeof vi.fn>;
     ingest: (step: ScheduledStep) => void;
@@ -30,13 +33,15 @@ const fakes = vi.hoisted(() => {
   class FakeDrummerStage {
     setLefty = vi.fn();
     setGrips = vi.fn();
+    setPersona = vi.fn();
     setPlaying = vi.fn();
     flyTo = vi.fn();
     ingest = vi.fn();
     dispose = vi.fn();
     constructor(
       public host: HTMLElement,
-      public clock: unknown
+      public clock: unknown,
+      public persona: { name: string }
     ) {
       instances.push(this);
     }
@@ -354,5 +359,82 @@ describe('DrummerCanvas', () => {
 
     expect(subscribeSteps).toHaveBeenCalledTimes(1);
     expect(fakes.instances.length).toBe(1);
+  });
+});
+
+describe('DrummerCanvas — who is playing', () => {
+  it('seats a player from the cast, names them, and keeps them when the scene is rebuilt', () => {
+    const a = listeners();
+    const props = {
+      lefty: false,
+      military: 'none' as const,
+      view: 'front' as const,
+      viewSeq: 0,
+      playing: false,
+      audioNow: stableAudioNow,
+      audioLatency: stableAudioLatency,
+    };
+    const { rerender, container } = render(
+      <DrummerCanvas {...props} subscribeSteps={a.subscribeSteps} />
+    );
+    const first = fakes.instances[0].persona;
+    expect(PERSONAS).toContain(first);
+    expect(container.querySelector('.drummer-name')?.textContent).toBe(`On the kit: ${first.name}`);
+    expect(container.querySelector('.drummer-canvas')?.getAttribute('aria-label')).toContain(
+      first.name
+    );
+
+    // a new subscription rebuilds the stage: the same player sits back down
+    const b = listeners();
+    rerender(<DrummerCanvas {...props} subscribeSteps={b.subscribeSteps} />);
+    expect(fakes.instances.length).toBe(2);
+    expect(fakes.instances[1].persona).toBe(first);
+  });
+
+  it('seats somebody new when the view opens again', () => {
+    const { subscribeSteps } = listeners();
+    const props = {
+      lefty: false,
+      military: 'none' as const,
+      view: 'front' as const,
+      viewSeq: 0,
+      playing: false,
+      subscribeSteps,
+      audioNow: stableAudioNow,
+      audioLatency: stableAudioLatency,
+    };
+    const one = render(<DrummerCanvas {...props} />);
+    one.unmount();
+    render(<DrummerCanvas {...props} />);
+    expect(fakes.instances[1].persona).not.toBe(fakes.instances[0].persona);
+  });
+
+  it('seats someone else on Shuffle, in the same stage, and names them', () => {
+    const { subscribeSteps } = listeners();
+    const props = {
+      lefty: false,
+      military: 'none' as const,
+      view: 'front' as const,
+      viewSeq: 0,
+      playing: true,
+      subscribeSteps,
+      audioNow: stableAudioNow,
+      audioLatency: stableAudioLatency,
+    };
+    const { rerender, container } = render(<DrummerCanvas {...props} shuffleSeq={0} />);
+    const stage = fakes.instances[0];
+    const first = stage.persona;
+
+    rerender(<DrummerCanvas {...props} shuffleSeq={1} />);
+    expect(fakes.instances).toHaveLength(1);
+    const next = stage.setPersona.mock.lastCall?.[0] as { name: string };
+    expect(next).not.toBe(first);
+    expect(PERSONAS).toContain(next);
+    expect(container.querySelector('.drummer-name')?.textContent).toBe(`On the kit: ${next.name}`);
+
+    // an unrelated re-render does not shuffle again
+    const calls = stage.setPersona.mock.calls.length;
+    rerender(<DrummerCanvas {...props} shuffleSeq={1} playing={false} />);
+    expect(stage.setPersona.mock.calls.length).toBe(calls);
   });
 });

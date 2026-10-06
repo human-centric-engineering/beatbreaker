@@ -227,6 +227,22 @@ describe('DrummerView, with WebGL available', () => {
     expect(await screen.findByTestId('drummer-canvas-stub')).toHaveAttribute('data-view-seq', '2');
   });
 
+  it('bumps shuffleSeq on Shuffle drummer, and nothing else', async () => {
+    stubWebGL(true);
+    const DrummerView = await loadDrummerView();
+    const user = userEvent.setup();
+    render(<DrummerView />);
+    await screen.findByTestId('drummer-canvas-stub');
+    expect(capturedCanvasProps?.shuffleSeq).toBe(0);
+
+    await user.click(screen.getByRole('button', { name: 'Shuffle drummer' }));
+    expect(capturedCanvasProps?.shuffleSeq).toBe(1);
+    expect(capturedCanvasProps?.viewSeq).toBe(0);
+
+    await user.click(screen.getByRole('button', { name: 'Shuffle drummer' }));
+    expect(capturedCanvasProps?.shuffleSeq).toBe(2);
+  });
+
   it('forwards the studio subscribeSteps/audioNow/audioLatency through to the canvas', async () => {
     stubWebGL(true);
     const DrummerView = await loadDrummerView();

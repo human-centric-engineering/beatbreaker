@@ -130,42 +130,79 @@ describe('expressionAt — smoothness', () => {
 });
 
 describe('expressionAt — the one', () => {
-  it('gathers up just before a changing one, and drops into it after', () => {
+  it('gathers up before a one that brings in a crash, and drops into it', () => {
     const ones = [{ time: 10, change: true }];
-    const before = expressionAt([], 9.95, ones);
-    const after = expressionAt([], 10 + 0.14, ones);
+    const hits = [hit(10, 'crash')];
+    const before = expressionAt(hits, 9.89, ones);
+    const on = expressionAt(hits, 10.01, ones);
     // up, back, a breath in
-    expect(before.dip).toBeGreaterThan(0.005);
-    expect(before.nod).toBeLessThan(-0.02);
-    expect(before.shrug).toBeGreaterThan(0.005);
+    expect(before.dip).toBeGreaterThan(0.008);
+    expect(before.nod).toBeLessThan(-0.04);
+    expect(before.shrug).toBeGreaterThan(0.008);
     // and let go: down, forward, the head into it
-    expect(after.dip).toBeLessThan(-0.008);
-    expect(after.nod).toBeGreaterThan(0.06);
-    expect(after.shrug).toBeLessThan(0);
+    expect(on.dip).toBeLessThan(-0.009);
+    expect(on.nod).toBeGreaterThan(0.07);
+    expect(on.shrug).toBeLessThan(0);
     // long after, nothing
     expect(expressionAt([], 11.5, ones).dip).toBeCloseTo(0, 6);
+  });
+
+  it('brings the head down on the one, not after it', () => {
+    for (let i = 0; i < 20; i++) {
+      const one = 10 + i * 2;
+      const ones = [{ time: one, change: true }];
+      let deepest = -Infinity;
+      let when = 0;
+      for (let t = one - 0.3; t < one + 0.4; t += 0.005) {
+        const nod = expressionAt([], t, ones).nod;
+        if (nod > deepest) [deepest, when] = [nod, t];
+      }
+      expect(when - one).toBeGreaterThan(-0.02);
+      expect(when - one).toBeLessThan(0.05);
+    }
+  });
+
+  it('is already gathering a good way before the one, and fully gathered just ahead of it', () => {
+    for (let i = 0; i < 20; i++) {
+      const one = 10 + i * 2;
+      const ones = [{ time: one, change: true }];
+      const full = expressionAt([], one - 0.11, ones).dip;
+      expect(full).toBeGreaterThan(0);
+      // half a beat at 100 bpm out, well under way
+      expect(expressionAt([], one - 0.3, ones).dip).toBeGreaterThan(full * 0.25);
+      // over a sixteenth out, all the way there: the one is waited for, not caught up with
+      expect(expressionAt([], one - 0.12, ones).dip).toBeCloseTo(full, 6);
+      // and not a bar early
+      expect(expressionAt([], one - 0.75, ones).dip).toBeCloseTo(0, 6);
+    }
   });
 
   it('marks only some ones where the pattern carries on, each by its own amount', () => {
     const sizes = Array.from({ length: 40 }, (_, i) => {
       const ones = [{ time: 5 + i * 2, change: false }];
-      return -expressionAt([], ones[0].time + 0.14, ones).dip;
+      return -expressionAt([], ones[0].time + 0.01, ones).dip;
     });
     const marked = sizes.filter((s) => s > 1e-4);
     expect(marked.length).toBeGreaterThan(8);
     expect(marked.length).toBeLessThan(32);
-    expect(new Set(marked.map((s) => s.toFixed(5))).size).toBe(marked.length);
+    expect(new Set(marked.map((s) => s.toFixed(8))).size).toBe(marked.length);
   });
 
-  it('marks every one the pattern changes on, and well beyond any that carries on', () => {
-    const drop = (change: boolean, i: number) => {
+  it("keeps the groove's ones subtle, a new pattern a little more, and a crash with the whole body", () => {
+    const drop = (change: boolean, crash: boolean, i: number) => {
       const ones = [{ time: 5 + i * 2, change }];
-      return -expressionAt([], ones[0].time + 0.14, ones).dip;
+      const hits = crash ? [hit(ones[0].time, 'crash')] : [];
+      return -expressionAt(hits, ones[0].time + 0.01, ones).dip;
     };
-    const changed = Array.from({ length: 20 }, (_, i) => drop(true, i));
-    const same = Array.from({ length: 40 }, (_, i) => drop(false, i));
-    expect(Math.min(...changed)).toBeGreaterThan(0.008);
-    expect(Math.min(...changed)).toBeGreaterThan(Math.max(...same) * 1.4);
+    const same = Array.from({ length: 40 }, (_, i) => drop(false, false, i));
+    const changed = Array.from({ length: 20 }, (_, i) => drop(true, false, i));
+    const crashed = Array.from({ length: 20 }, (_, i) => drop(false, true, i));
+    // every change is marked, and above any repeat; every crash well above any change
+    expect(Math.min(...changed)).toBeGreaterThan(Math.max(...same));
+    expect(Math.min(...crashed)).toBeGreaterThan(0.01);
+    expect(Math.min(...crashed)).toBeGreaterThan(Math.max(...changed) * 1.5);
+    // in the run of the groove, small
+    expect(Math.max(...same)).toBeLessThan(0.004);
   });
 });
 
