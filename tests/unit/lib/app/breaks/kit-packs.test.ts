@@ -25,6 +25,7 @@ import { describe, expect, it } from 'vitest';
 import { KIT_CREDITS } from '@/lib/app/breaks/kit-credits.generated';
 import { type KitSampleSlot, SLOT_BY_ID, slotFiles, slotLayers } from '@/lib/app/breaks/kit';
 import { KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
+import { PIECE_LIBRARIES } from '@/scripts/kits/recipes';
 import { SOURCES } from '@/scripts/kits/sources';
 
 const ROOT = join(process.cwd(), 'public/kits');
@@ -197,7 +198,7 @@ describe('shipped sample packs', () => {
   it('has a kit for every pack but the piece libraries', () => {
     const pieceOnly = Object.keys(manifest).filter((pack) => !KIT_PACKS.has(pack));
     expect(
-      pieceOnly.every((pack) => pack.startsWith('frankensnare-') || pack === 'crocell-right'),
+      pieceOnly.every((pack) => PIECE_LIBRARIES.has(pack)),
       pieceOnly.join()
     ).toBe(true);
   });

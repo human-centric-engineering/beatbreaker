@@ -88,6 +88,9 @@ interface Choice {
   peak: number;
 }
 
+/** A pick's candidate strokes, by id: each mixed and trimmed, and its loudness. */
+type Measurements = Map<string, { pcm: Float32Array; db: number }>;
+
 interface SlotOut {
   layers: Array<{ v: number; files: string[] }>;
   trim?: number;
@@ -137,6 +140,7 @@ function stable(value: unknown): unknown {
 class Builder {
   private readonly used = new Map<SourceId, Map<string, string>>();
   private readonly trees = new Map<SourceId, Map<string, string>>();
+  private readonly measured = new Map<Pick, Map<Role, Promise<Measurements>>>();
 
   private async tree(id: SourceId): Promise<Map<string, string>> {
     let tree = this.trees.get(id);
@@ -176,8 +180,21 @@ class Builder {
     return panFilter(pick.channels, channelsOf(text, file));
   }
 
-  /** Every candidate stroke of a pick: mixed, trimmed and measured. */
-  async measure(pick: Pick, role: Role): Promise<Map<string, { pcm: Float32Array; db: number }>> {
+  /**
+   * Every candidate stroke of a pick: mixed, trimmed and measured. Once a
+   * pack per pick and role, so a pick that is both a slot and another
+   * piece's `matchOn` (Crocell's crash) is decoded once. Kept for one pack
+   * only, so a full build does not hold every pack's audio at once.
+   */
+  measure(pick: Pick, role: Role): Promise<Measurements> {
+    let byRole = this.measured.get(pick);
+    if (!byRole) this.measured.set(pick, (byRole = new Map<Role, Promise<Measurements>>()));
+    let hits = byRole.get(role);
+    if (!hits) byRole.set(role, (hits = this.measureNow(pick, role)));
+    return hits;
+  }
+
+  private async measureNow(pick: Pick, role: Role): Promise<Measurements> {
     const tree = await this.tree(pick.source);
     const found = candidates([...tree.keys()], pick.pattern, pick.mics, pick.exclude);
     if (!found.length) throw new Error(`${pick.source}: nothing matches ${pick.pattern}`);
@@ -242,6 +259,7 @@ class Builder {
   }
 
   async pack(recipe: Recipe): Promise<{ entry: Record<string, unknown>; lock: PackLock }> {
+    this.measured.clear();
     const dir = join(KITS, recipe.pack);
     rmSync(dir, { recursive: true, force: true });
     mkdirSync(dir, { recursive: true });

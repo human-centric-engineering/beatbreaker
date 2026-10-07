@@ -13,19 +13,13 @@
  * Its archive is 5.6 GB and zip64 (`zip.ts`).
  */
 
-import type { Pick, Recipe } from '@/scripts/kits/recipe';
+import { drumgizmoPicks } from '@/scripts/kits/drumgizmo';
+import type { Recipe } from '@/scripts/kits/recipe';
 
 const OH = { OHLeft: 0.3, OHRight: 0.3, OHCenter: 0.3 };
 const AMB = { AmbLeft: 0.1, AmbRight: 0.1 };
 
-const cr = (inst: string, channels: Record<string, number>, layers: number, rr: number): Pick => ({
-  source: 'crocell',
-  pattern: `CrocellKit/${inst}/samples/*-${inst}.wav`,
-  mics: { '': 1 },
-  channels: { ...OH, ...AMB, ...channels },
-  layers,
-  rr,
-});
+const cr = drumgizmoPicks('crocell', 'CrocellKit', { ...OH, ...AMB });
 
 const KICK = { KDrumInside: 1, KDrumOutside: 0.6 };
 const SNARE = { SnareTop: 1, SnareBottom: 0.35 };
@@ -33,6 +27,9 @@ const HAT = { Hihat: 1 };
 const RIDE = { Ride: 1 };
 // the crashes, china and splash have no close mic of their own; the overheads are theirs
 const CYMBAL = { OHLeft: 0.6, OHRight: 0.6, OHCenter: 0.6 };
+
+// the kit's crash, and what its right-hand china and splash are matched on
+const crash = cr('CrashL', CYMBAL, 2, 2);
 
 export const crocell: Recipe = {
   pack: 'crocell',
@@ -65,7 +62,7 @@ export const crocell: Recipe = {
       role: 'crash',
       // one piece, so the second crash, the china and the splash keep their level against the first
       slots: {
-        c: cr('CrashL', CYMBAL, 2, 2),
+        c: crash,
         c2: cr('CrashR', CYMBAL, 2, 1),
         cChina: cr('ChinaL', CYMBAL, 1, 2),
         cSplash: cr('SplashL', CYMBAL, 1, 2),
@@ -85,13 +82,13 @@ export const crocellRight: Recipe = {
       role: 'crash',
       label: 'Crocell kit · China, right',
       slots: { cChina: cr('ChinaR', CYMBAL, 1, 2) },
-      matchOn: cr('CrashL', CYMBAL, 2, 2),
+      matchOn: crash,
     },
     {
       role: 'crash',
       label: 'Crocell kit · Splash, right',
       slots: { cSplash: cr('SplashR', CYMBAL, 1, 2) },
-      matchOn: cr('CrashL', CYMBAL, 2, 2),
+      matchOn: crash,
     },
   ],
 };

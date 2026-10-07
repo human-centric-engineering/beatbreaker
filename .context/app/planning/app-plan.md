@@ -3190,6 +3190,14 @@ the builder, then the new tambourine, shaker and clap.
   at the ceiling and the rest is baked in (×1.08 to ×1.58); none falls short
   of its level.
 - **Two builds write the same bytes.**
+- **From `/code-review`:** the zip64 tests now cover the archive's own
+  shape (only the offsets marked). A plain archive whose last entry happens
+  to end in the locator's signature is still read as plain, and a locator
+  that counts more than one disk is refused. The DrumGizmo pick helper is
+  shared (`drumgizmoPicks`), and the DRS picks it builds are unchanged. The
+  piece libraries are one list (`PIECE_LIBRARIES`). The build measures a
+  pick once a pack, so Crocell's crash, which is also its `matchOn`, is
+  decoded once. The lock was the same after it.
 
 | Pack          | Files | Download | First play | Late    | Decoded |
 | ------------- | ----- | -------- | ---------- | ------- | ------- |

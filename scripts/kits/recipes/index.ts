@@ -16,6 +16,17 @@ import { smdrums } from '@/scripts/kits/recipes/smdrums';
 import { unruly } from '@/scripts/kits/recipes/unruly';
 import { virtuosity } from '@/scripts/kits/recipes/virtuosity';
 
+/**
+ * The piece libraries: packs no kit row plays whole, whose pieces are for
+ * building your own kit and the combinations. Frankensnare's snares, and
+ * CrocellKit's right-hand china and splash.
+ */
+const PIECE_LIBRARY_RECIPES: Recipe[] = [...frankensnare, crocellRight];
+
+export const PIECE_LIBRARIES: ReadonlySet<string> = new Set(
+  PIECE_LIBRARY_RECIPES.map((r) => r.pack)
+);
+
 export const RECIPES: Recipe[] = [
   muldjord,
   vintage,
@@ -31,6 +42,5 @@ export const RECIPES: Recipe[] = [
   osdk,
   crocell,
   // pieces only: no kit row names these packs
-  ...frankensnare,
-  crocellRight,
+  ...PIECE_LIBRARY_RECIPES,
 ];

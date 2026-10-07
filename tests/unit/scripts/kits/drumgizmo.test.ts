@@ -8,7 +8,8 @@
 
 import { describe, expect, it } from 'vitest';
 
-import { channelsOf, instrumentOf, panFilter } from '@/scripts/kits/drumgizmo';
+import { channelsOf, drumgizmoPicks, instrumentOf, panFilter } from '@/scripts/kits/drumgizmo';
+import { candidates } from '@/scripts/kits/pattern';
 
 /** As DRSKit 2.1's `Snare/Snare.xml` writes them, attributes and all, for two strokes. */
 const SNARE_XML = `<?xml version='1.0' encoding='UTF-8'?>
@@ -83,5 +84,34 @@ describe('panFilter()', () => {
 
   it('refuses an empty mix', () => {
     expect(() => panFilter({}, ch)).toThrow('no channels');
+  });
+});
+
+describe('drumgizmoPicks()', () => {
+  const cr = drumgizmoPicks('crocell', 'CrocellKit', { OHLeft: 0.3, AmbLeft: 0.1 });
+
+  it("finds an instrument's strokes, and only its own, under the kit's folder", () => {
+    const pick = cr('Snare', { SnareTop: 1 }, 4, 3);
+    const paths = [
+      'CrocellKit/Snare/Snare.xml',
+      'CrocellKit/Snare/samples/1-Snare.wav',
+      'CrocellKit/Snare/samples/12-Snare.wav',
+      'CrocellKit/SnareRim/samples/1-SnareRim.wav',
+    ];
+    expect(candidates(paths, pick.pattern, pick.mics).map((c) => c.id)).toEqual([
+      'CrocellKit/Snare/samples/1-Snare.wav',
+      'CrocellKit/Snare/samples/12-Snare.wav',
+    ]);
+    // a DrumGizmo stroke is one file: its mics are channels, not files
+    expect(pick).toMatchObject({ source: 'crocell', mics: { '': 1 }, layers: 4, rr: 3 });
+  });
+
+  it("mixes the kit's shared mics under the instrument's own, which win where both name one", () => {
+    expect(cr('ChinaL', { OHLeft: 0.6 }, 1, 2).channels).toEqual({ OHLeft: 0.6, AmbLeft: 0.1 });
+  });
+
+  it('carries a range only when one is given', () => {
+    expect(cr('Snare', {}, 2, 3, [14, 30]).range).toEqual([14, 30]);
+    expect('range' in cr('Snare', {}, 2, 3)).toBe(false);
   });
 });

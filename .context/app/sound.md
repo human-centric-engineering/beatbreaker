@@ -289,7 +289,7 @@ sources.ts   pinned libraries: a git repo at a commit, or a zip or tar archive
 archive.ts   an archive source: downloaded once, checked against its pin
 zip.ts       a zip source: members read via the central directory, zip64 too
 tar.ts       a tar source: unpacked whole by the system tar, files hashed
-drumgizmo.ts which channel of a DrumGizmo stroke is which mic
+drumgizmo.ts which channel of a DrumGizmo stroke is which mic; a kit's pick helper
 recipes/     per pack: which strokes make which slot, mics and weights,
              how many layers and takes
 build.ts     npm run kits:build [pack…]

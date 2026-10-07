@@ -14,7 +14,7 @@ import { describe, expect, it } from 'vitest';
 import { SLOT_BY_ID } from '@/lib/app/breaks/kit';
 import { KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
 import { type Pick, ROLE_TAIL_CAP, ROLE_TARGET_DB } from '@/scripts/kits/recipe';
-import { RECIPES } from '@/scripts/kits/recipes';
+import { PIECE_LIBRARIES, RECIPES } from '@/scripts/kits/recipes';
 import { pinOf, SOURCES } from '@/scripts/kits/sources';
 
 const manifest = JSON.parse(
@@ -33,12 +33,7 @@ const picks: Array<{ at: string; pick: Pick }> = RECIPES.flatMap((r) => [
   ]),
 ]);
 
-/**
- * The piece libraries: packs no kit row plays whole. Frankensnare's six
- * snares, and CrocellKit's right-hand china and splash.
- */
-const pieceLibrary = (pack: string): boolean =>
-  pack.startsWith('frankensnare-') || pack === 'crocell-right';
+const pieceLibrary = (pack: string): boolean => PIECE_LIBRARIES.has(pack);
 
 describe('the recipes', () => {
   it('build thirteen kits, six snares and a china and splash, each pack named once', () => {
@@ -46,7 +41,9 @@ describe('the recipes', () => {
     expect(new Set(packs).size).toBe(packs.length);
     expect(packs.filter((p) => !pieceLibrary(p))).toHaveLength(13);
     expect(packs.filter((p) => p.startsWith('frankensnare-'))).toHaveLength(6);
-    expect(packs).toContain('crocell-right');
+    expect([...PIECE_LIBRARIES].sort()).toEqual(
+      [...packs.filter((p) => p.startsWith('frankensnare-')), 'crocell-right'].sort()
+    );
   });
 
   it('each build a pack the manifest has, and a kit row plays every one but the piece libraries', () => {

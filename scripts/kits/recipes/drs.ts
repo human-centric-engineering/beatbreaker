@@ -13,27 +13,14 @@
  * the brushes kit's half-open hat is the stick kit's, as its foot hat is.
  */
 
-import type { Pick, Recipe } from '@/scripts/kits/recipe';
+import { drumgizmoPicks } from '@/scripts/kits/drumgizmo';
+import type { Recipe } from '@/scripts/kits/recipe';
 import { salamanderChina, salamanderSplash } from '@/scripts/kits/recipes/salamander';
 
 const OH = { OHL: 0.4, OHR: 0.4 };
 const AMB = { AmbL: 0.15, AmbR: 0.15 };
 
-const drs = (
-  inst: string,
-  channels: Record<string, number>,
-  layers: number,
-  rr: number,
-  range?: [number, number]
-): Pick => ({
-  source: 'drskit',
-  pattern: `DRSKit/${inst}/samples/*-${inst}.wav`,
-  mics: { '': 1 },
-  channels: { ...OH, ...AMB, ...channels },
-  layers,
-  rr,
-  ...(range ? { range } : {}),
-});
+const drs = drumgizmoPicks('drskit', 'DRSKit', { ...OH, ...AMB });
 
 const KICK = { Kdrum_back: 1, Kdrum_front: 0.6 };
 const SNARE = { Snare_top: 1, Snare_bottom: 0.35 };

@@ -53,12 +53,28 @@ function u64(buf: Buffer, at: number): number {
 }
 
 /**
+ * The zip64 end record the locator points to, or undefined if these 20 bytes
+ * are not a locator that points at one. In an archive that is not zip64 they
+ * are the tail of the last central entry, which could start with the
+ * locator's signature by chance, so a pointer that lands nowhere is not an
+ * error here.
+ */
+function zip64End(read: ReadAt, locator: Buffer, size: number): Buffer | undefined {
+  if (locator.readUInt32LE(0) !== LOCATOR64) return undefined;
+  const offset = locator.readBigUInt64LE(8);
+  if (offset + 56n > BigInt(size)) return undefined;
+  const end = read(Number(offset), 56);
+  return end.readUInt32LE(0) === EOCD64 ? end : undefined;
+}
+
+/**
  * Where the central directory is and how many entries it holds. A zip64
  * archive says so with a locator just before the end record, which points to
  * a zip64 end record holding the 64-bit values (APPNOTE 4.3.14, 4.3.15).
  */
 function centralOf(
   read: ReadAt,
+  size: number,
   tail: Buffer,
   tailStart: number,
   at: number
@@ -66,23 +82,21 @@ function centralOf(
   const count = tail.readUInt16LE(at + 10);
   const cdSize = tail.readUInt32LE(at + 12);
   const cdOffset = tail.readUInt32LE(at + 16);
+  const marked = count === 0xffff || cdSize === MAX32 || cdOffset === MAX32;
 
+  // the locator's 20 bytes are in the tail already, unless a long comment pushed them out
   const loc = tailStart + at - 20;
-  const locator = loc >= 0 ? read(loc, 20) : undefined;
-  if (!locator || locator.readUInt32LE(0) !== LOCATOR64) {
-    if (count === 0xffff || cdSize === MAX32 || cdOffset === MAX32) {
-      throw new Error('zip64 markers in the end record, but no zip64 locator before it');
-    }
+  const locator = at >= 20 ? tail.subarray(at - 20, at) : loc >= 0 ? read(loc, 20) : undefined;
+  const end = locator && zip64End(read, locator, size);
+  if (!locator || !end) {
+    if (marked) throw new Error('zip64 markers in the end record, but no zip64 end record');
     if (tail.readUInt16LE(at + 4) !== 0 || tail.readUInt16LE(at + 6) !== 0) {
       throw new Error('archives split across disks are not read here');
     }
     return { count, cdSize, cdOffset };
   }
-  const end = read(u64(locator, 8), 56);
-  if (end.readUInt32LE(0) !== EOCD64) {
-    throw new Error('the zip64 locator points at no zip64 end record');
-  }
-  if (end.readUInt32LE(16) !== 0 || end.readUInt32LE(20) !== 0) {
+  // the locator's total number of disks, and the end record's own disk numbers
+  if (locator.readUInt32LE(16) !== 1 || end.readUInt32LE(16) !== 0 || end.readUInt32LE(20) !== 0) {
     throw new Error('archives split across disks are not read here');
   }
   return { count: u64(end, 32), cdSize: u64(end, 40), cdOffset: u64(end, 48) };
@@ -125,7 +139,7 @@ export function readDirectory(read: ReadAt, size: number): Map<string, Member> {
     }
   }
   if (at < 0) throw new Error('not a zip: no end of central directory');
-  const { count, cdSize, cdOffset } = centralOf(read, tail, start, at);
+  const { count, cdSize, cdOffset } = centralOf(read, size, tail, start, at);
 
   const cd = read(cdOffset, cdSize);
   const out = new Map<string, Member>();
