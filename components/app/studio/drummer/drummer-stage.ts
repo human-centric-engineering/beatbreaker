@@ -13,7 +13,7 @@ import {
 } from '@/components/app/studio/drummer/parts';
 import type { ScheduledStep } from '@/lib/app/breaks/audio/transport';
 import { type CameraView, cameraFor } from '@/lib/app/breaks/drummer/camera';
-import { type Persona, pickPersona } from '@/lib/app/breaks/drummer/personas';
+import { type Persona, otherThan } from '@/lib/app/breaks/drummer/personas';
 import { type Grips, MATCHED_GRIPS, poseAt } from '@/lib/app/breaks/drummer/pose';
 import { StrokeTimeline } from '@/lib/app/breaks/drummer/timeline';
 
@@ -72,7 +72,7 @@ export class DrummerStage {
   constructor(
     private readonly host: HTMLElement,
     private readonly clock: StageClock,
-    persona: Persona = pickPersona()
+    persona: Persona = otherThan(undefined)
   ) {
     this.who = persona;
     this.renderer = new THREE.WebGLRenderer({ antialias: true });

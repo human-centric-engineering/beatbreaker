@@ -826,20 +826,33 @@ export const PERSONAS: readonly Persona[] = [
   },
 ];
 
-let lastPicked: string | undefined;
+/** Who sat at the kit last in this tab, once the view has shown them. */
+let seated: string | undefined;
 
 /**
- * A player for a new drummer session. The first in a tab is The Original;
- * after that at random — never the one who played last, so opening the view
- * again or shuffling shows somebody new.
+ * Note who is at the kit, once they are on screen (from an effect, not while
+ * rendering): the next time the view opens, somebody else sits in.
  */
-export function pickPersona(random: () => number = Math.random): Persona {
-  if (lastPicked === undefined) {
-    lastPicked = PERSONAS[0].id;
-    return PERSONAS[0];
-  }
-  const pool = PERSONAS.filter((p) => p.id !== lastPicked);
-  const persona = pool[Math.min(pool.length - 1, Math.floor(random() * pool.length))];
-  lastPicked = persona.id;
-  return persona;
+export function noteSeated(id: string): void {
+  seated = id;
+}
+
+/**
+ * Anyone but the player `id`, at random: what Shuffle seats. Pure but for
+ * `random`, so it is safe to call while rendering — a render that runs twice
+ * picks twice, and whichever is kept is still somebody new.
+ */
+export function otherThan(id: string | undefined, random: () => number = Math.random): Persona {
+  const pool = PERSONAS.filter((p) => p.id !== id);
+  return pool[Math.min(pool.length - 1, Math.floor(random() * pool.length))];
+}
+
+/**
+ * Who sits in as the drummer view opens: The Original the first time in a
+ * tab, and after that anyone but whoever sat last — so opening the view again
+ * shows somebody new. It only reads who sat last (see `noteSeated`): safe to
+ * call while rendering.
+ */
+export function openingPersona(random: () => number = Math.random): Persona {
+  return seated === undefined ? PERSONAS[0] : otherThan(seated, random);
 }

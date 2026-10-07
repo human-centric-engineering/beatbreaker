@@ -12,6 +12,7 @@
  */
 
 import { render } from '@testing-library/react';
+import { StrictMode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { ScheduledStep } from '@/lib/app/breaks/audio/transport';
@@ -436,5 +437,44 @@ describe('DrummerCanvas — who is playing', () => {
     const calls = stage.setPersona.mock.calls.length;
     rerender(<DrummerCanvas {...props} shuffleSeq={1} playing={false} />);
     expect(stage.setPersona.mock.calls.length).toBe(calls);
+  });
+
+  it('seats somebody new on the first Shuffle in a tab under Strict Mode, which renders twice', async () => {
+    // a fresh tab: nobody has sat at the kit yet
+    vi.resetModules();
+    const { default: FreshCanvas } = await import('@/components/app/studio/drummer/drummer-canvas');
+    const { subscribeSteps } = listeners();
+    const props = {
+      lefty: false,
+      military: 'none' as const,
+      view: 'front' as const,
+      viewSeq: 0,
+      playing: false,
+      subscribeSteps,
+      audioNow: stableAudioNow,
+      audioLatency: stableAudioLatency,
+    };
+    const named = (c: HTMLElement) => c.querySelector('.drummer-name')?.textContent;
+    const { rerender, container } = render(
+      <StrictMode>
+        <FreshCanvas {...props} shuffleSeq={0} />
+      </StrictMode>
+    );
+    expect(named(container)).toBe('On the kit: The Original');
+    // the first of whoever is left: The Original again, unless Shuffle knows it is on screen
+    const random = vi.spyOn(Math, 'random').mockReturnValue(0);
+    try {
+      for (let seq = 1; seq <= 5; seq++) {
+        const before = named(container);
+        rerender(
+          <StrictMode>
+            <FreshCanvas {...props} shuffleSeq={seq} />
+          </StrictMode>
+        );
+        expect(named(container)).not.toBe(before);
+      }
+    } finally {
+      random.mockRestore();
+    }
   });
 });

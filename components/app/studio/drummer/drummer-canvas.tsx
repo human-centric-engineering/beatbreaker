@@ -6,7 +6,7 @@ import { DrummerStage } from '@/components/app/studio/drummer/drummer-stage';
 import type { ScheduledStep } from '@/lib/app/breaks/audio/transport';
 import type { CameraView } from '@/lib/app/breaks/drummer/camera';
 import type { DRUMMER_GRIPS } from '@/lib/app/breaks/browser-keys';
-import { pickPersona } from '@/lib/app/breaks/drummer/personas';
+import { noteSeated, openingPersona, otherThan } from '@/lib/app/breaks/drummer/personas';
 import { gripsFor } from '@/lib/app/breaks/drummer/pose';
 
 /**
@@ -47,13 +47,18 @@ export default function DrummerCanvas({
 }: DrummerCanvasProps) {
   const host = useRef<HTMLDivElement>(null);
   const stage = useRef<DrummerStage | null>(null);
-  // picked once per mount and on each Shuffle: a scene rebuilt meanwhile keeps its player
-  const [persona, setPersona] = useState(() => pickPersona());
+  // picked once per mount and on each Shuffle: a scene rebuilt meanwhile keeps its player.
+  // The picks only read who sat last, and who is seated is noted once they are on screen,
+  // so a render run twice (Strict Mode) cannot leave Shuffle skipping the wrong player
+  const [persona, setPersona] = useState(() => openingPersona());
   const [shuffled, setShuffled] = useState(shuffleSeq);
   if (shuffled !== shuffleSeq) {
     setShuffled(shuffleSeq);
-    setPersona(pickPersona());
+    setPersona(otherThan(persona.id));
   }
+  useEffect(() => {
+    noteSeated(persona.id);
+  }, [persona]);
   const grips = useMemo(() => gripsFor(military), [military]);
   // what a stage made after the first mount must start from
   const latest = useRef({ lefty, grips, playing, view, persona });

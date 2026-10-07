@@ -5,7 +5,7 @@
 
 import { describe, expect, it, vi } from 'vitest';
 
-import { PERSONAS, pickPersona } from '@/lib/app/breaks/drummer/personas';
+import { PERSONAS, otherThan } from '@/lib/app/breaks/drummer/personas';
 
 describe('PERSONAS', () => {
   it('gives every player their own id and name', () => {
@@ -94,33 +94,33 @@ describe('PERSONAS', () => {
   });
 });
 
-describe('pickPersona', () => {
-  it('seats The Original first in a tab, then somebody else', async () => {
+describe('openingPersona, otherThan and noteSeated', () => {
+  it('seats The Original first in a tab, then somebody other than whoever sat last', async () => {
     vi.resetModules();
     const fresh = await import('@/lib/app/breaks/drummer/personas');
-    expect(fresh.pickPersona(() => 0.5).id).toBe('original');
-    expect(fresh.pickPersona(() => 0).id).not.toBe('original');
+    expect(fresh.openingPersona(() => 0.5).id).toBe('original');
+    // only reading: asked again before anyone is seated, still The Original
+    expect(fresh.openingPersona(() => 0).id).toBe('original');
+    fresh.noteSeated('original');
+    for (const r of [0, 0.5, 0.999]) expect(fresh.openingPersona(() => r).id).not.toBe('original');
+    fresh.noteSeated('roxy');
+    expect(fresh.openingPersona(() => 0).id).toBe('original');
   });
 
-  it('picks from the roster by the random number it is given', () => {
-    const p = pickPersona(() => 0.999);
-    expect(PERSONAS).toContain(p);
-  });
-
-  it('never seats the same player twice running', () => {
-    const first = pickPersona(() => 0);
-    const second = pickPersona(() => 0);
-    expect(second.id).not.toBe(first.id);
-    // and the third may be the first again: only the last one is skipped
-    expect(pickPersona(() => 0).id).toBe(first.id);
-  });
-
-  it('can seat every player', () => {
+  it('never picks the player it is told to skip, and may pick anyone else', () => {
     const seen = new Set<string>();
     for (let i = 0; i < PERSONAS.length * 4; i++) {
       const r = (i % PERSONAS.length) / PERSONAS.length;
-      seen.add(pickPersona(() => r).id);
+      const p = otherThan('original', () => r);
+      expect(p.id).not.toBe('original');
+      seen.add(p.id);
     }
-    expect(seen.size).toBe(PERSONAS.length);
+    expect(seen.size).toBe(PERSONAS.length - 1);
+    // with nobody to skip, anyone
+    expect(otherThan(undefined, () => 0).id).toBe(PERSONAS[0].id);
+  });
+
+  it('picks the same player for the same random number: calling it twice changes nothing', () => {
+    expect(otherThan('vex', () => 0.42)).toBe(otherThan('vex', () => 0.42));
   });
 });

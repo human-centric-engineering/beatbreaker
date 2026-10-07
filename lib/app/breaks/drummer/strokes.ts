@@ -155,7 +155,6 @@ const WAKE = 0.3;
  */
 const LONG_GAP = [0.9, 1.2] as const;
 
-/** The last stroke at or before `now`, by binary search over a time-ordered list. */
 /**
  * Does a hand bring a crash in at `time`? Forecast strokes sit on the grid and
  * scheduled ones a few milliseconds off it, so near enough counts.
@@ -168,6 +167,7 @@ export function crashOn(hits: readonly Hit[], time: number): boolean {
   return false;
 }
 
+/** The last stroke at or before `now`, by binary search over a time-ordered list. */
 export function lastAtOrBefore(hits: readonly Hit[], now: number): number {
   let lo = 0;
   let hi = hits.length - 1;
