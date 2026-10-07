@@ -253,42 +253,46 @@ export const HOOP = { out: 0.004, rise: 0.004, tube: 0.0065 } as const;
 
 /**
  * A cross-stick on the snare: the stick laid across the head, not swung at
- * it. It is held near the butt, the butt under the palm, and the hand rests
- * on the near side of the head; the shaft lies from it over the far hoop, the
- * last of it past the hoop — so lifting the far end with the fingers and
- * letting it fall clicks the shaft on the hoop.
+ * it. The hand lies flat in the middle of the head, its fingers pointing
+ * across the drum to the far side from it (a right-hander's left hand points
+ * to the right) and the stick under them, along the first finger, its butt
+ * back under the heel of the hand — the thumb beside it on the drummer's side,
+ * so thumb and first finger can pick it up between them. The shaft lies from
+ * the hand over the hoop on that side, the last of it past the hoop: lifting
+ * that end and letting it fall clicks the shaft on the hoop.
  *
- * `reach` is from the fulcrum to the tip, held like that; `over`, how much of
- * the stick runs on past the hoop; `off`, how far its line passes the middle
- * of the head, out to the hand's side; `grip`, how high the stick lies off the
- * head under the hand, and `rest` how high its line is over the hoop's top
- * where it lies on it (the shaft's radius there), metres.
+ * `reach` is from the fulcrum (under the first finger's knuckle, the middle
+ * of the head) to the tip; `over`, how much of the stick runs on past the
+ * hoop; `turn`, how far its line turns away from the drummer off straight
+ * across, radians; `grip`, how high the stick lies off the head under the
+ * hand, and `rest` how high its line is over the hoop's top where it lies on
+ * it (the shaft's radius there), metres.
  */
 export const CROSS_STICK = {
-  reach: 0.35,
+  reach: 0.24,
   over: 0.06,
-  off: 0.03,
+  turn: 0.65,
   grip: 0.0125,
   rest: 0.007,
 } as const;
 
+/** Which way a hand's cross-stick runs, seen from above (world `x`, `z`, unit length). */
+export function crossLine(hand: Hand): [number, number] {
+  const out = hand === 'lead' ? 1 : -1;
+  // across to the other side, and turned a little away from the drummer
+  return [-out * Math.cos(CROSS_STICK.turn), -Math.sin(CROSS_STICK.turn)];
+}
+
 /**
  * Where a hand's stick lies for a cross-stick (see {@link CROSS_STICK}): the
- * fulcrum, where it lies on the far hoop, and its tip, past the hoop. Seen
- * from above, its line runs from where the hand aims from (`AIM_FROM`), so a
- * stick aimed at the tip comes in along it.
+ * fulcrum, where it lies on the hoop, and its tip, past the hoop. Seen from
+ * above, its line runs across the middle of the head (`crossLine`).
  */
 export function crossStick(hand: Hand): { grip: V3; rim: V3; tip: V3 } {
   const p = PIECES.snare;
-  const [fx, , fz] = AIM_FROM[hand];
   const [cx, , cz] = p.centre;
-  // across the head from the hand, passing the middle out to the hand's side
-  const [ax, az] = [cx - fx, cz - fz];
-  const along = Math.hypot(ax, az);
-  const out = hand === 'lead' ? 1 : -1;
-  // square to the line, toward the hand's own side (+x for the lead hand)
-  const [px, pz] = [(-az / along) * out, (ax / along) * out];
-  const line = hoopLine(hand, [cx + px * CROSS_STICK.off, cz + pz * CROSS_STICK.off]);
+  const [dx, dz] = crossLine(hand);
+  const line = hoopLine(hand, [cx, cz], [cx - dx, cz - dz]);
   const back = CROSS_STICK.reach - CROSS_STICK.over;
   const rest = HOOP.rise + HOOP.tube + CROSS_STICK.rest;
   // the stick rises a little from under the hand to the hoop, and on past it
@@ -301,18 +305,19 @@ export function crossStick(hand: Hand): { grip: V3; rim: V3; tip: V3 } {
 }
 
 /**
- * A line across the snare seen from above, from where `hand` aims from
- * (`AIM_FROM`) through `through` (world `x`, `z`): how far along it the hoop is
- * crossed, coming in and going out, and a point `k` along it at height `y`
- * off the head.
+ * A line across the snare seen from above, from `from` (world `x`, `z`: by
+ * default where `hand` aims from, `AIM_FROM`) through `through`: how far along
+ * it the hoop is crossed, coming in and going out, and a point `k` along it at
+ * height `y` off the head.
  */
 function hoopLine(
   hand: Hand,
-  through: readonly [number, number]
+  through: readonly [number, number],
+  from: readonly [number, number] = [AIM_FROM[hand][0], AIM_FROM[hand][2]]
 ): { near: number; far: number; at: (k: number, y: number) => V3 } {
   const p = PIECES.snare;
   const r = p.radius + HOOP.out;
-  const [fx, , fz] = AIM_FROM[hand];
+  const [fx, fz] = from;
   const [cx, , cz] = p.centre;
   const [qx, qz] = [through[0] - fx, through[1] - fz];
   const len = Math.hypot(qx, qz);

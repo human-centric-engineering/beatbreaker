@@ -10,7 +10,9 @@ import {
   PIECES,
   CROSS_STICK,
   HOOP,
+  crossLine,
   RIM_SHOT,
+  STICK,
   crossStick,
   rimShot,
   cymbalY,
@@ -329,7 +331,8 @@ describe('crossStick', () => {
     describe(`the ${hand} hand`, () => {
       const { grip, rim, tip } = crossStick(hand);
 
-      it('lies the stick straight: fulcrum, hoop and tip on one line, held near the butt', () => {
+      it('lies the stick straight: fulcrum, hoop and tip on one line, its butt back under the hand', () => {
+        expect(STICK.length - CROSS_STICK.reach).toBeGreaterThan(STICK.length / 3);
         expect(dist(grip, rim) + dist(rim, tip)).toBeCloseTo(dist(grip, tip), 9);
         // (measured along the level: the stick's slight rise adds a twentieth of a millimetre)
         expect(dist(grip, tip)).toBeCloseTo(CROSS_STICK.reach, 3);
@@ -343,21 +346,25 @@ describe('crossStick', () => {
         expect(onHead(tip).rho).toBeGreaterThan(snare.radius + HOOP.out + 0.04);
       });
 
-      it('has the hand down on the near half of the head, the stick just off it under the palm', () => {
+      it('has the hand in the middle of the head, the stick just off it under the fingers', () => {
         const at = onHead(grip);
         expect(at.h).toBeCloseTo(CROSS_STICK.grip, 3);
-        expect(at.rho).toBeLessThan(snare.radius - 0.03);
-        // nearer the drummer than the middle of the head
-        expect(grip[2]).toBeGreaterThan(c[2] + 0.05);
+        expect(at.rho).toBeLessThan(0.01);
         // and rising a little from there to the hoop
         expect(rim[1]).toBeGreaterThan(grip[1]);
       });
 
-      it('runs the stick, seen from above, from where the hand aims from', () => {
-        const [fx, , fz] = AIM_FROM[hand];
-        const toTip = Math.atan2(tip[0] - fx, tip[2] - fz);
-        const toGrip = Math.atan2(grip[0] - fx, grip[2] - fz);
-        expect(Math.abs(toTip - toGrip)).toBeLessThan(0.02);
+      it('runs the stick across the drum to the far side from the hand, turned a little away from the drummer', () => {
+        const out = hand === 'lead' ? 1 : -1;
+        // a right-hander's left hand points to the right
+        expect(out * (tip[0] - grip[0])).toBeLessThan(-0.15);
+        expect(tip[2]).toBeLessThan(grip[2]);
+        const [dx, dz] = crossLine(hand);
+        const plan = Math.hypot(tip[0] - grip[0], tip[2] - grip[2]);
+        expect((tip[0] - grip[0]) / plan).toBeCloseTo(dx, 2);
+        expect((tip[2] - grip[2]) / plan).toBeCloseTo(dz, 2);
+        // more across than away
+        expect(Math.abs(dx)).toBeGreaterThan(Math.abs(dz));
       });
     });
   }

@@ -189,6 +189,95 @@ export function furMaterial(color: string): THREE.MeshPhysicalMaterial {
   });
 }
 
+/**
+ * Hair, drawn once onto a canvas: thousands of long fine strands running up
+ * and down it (along `v`, which runs root to tip on the hair's geometry),
+ * light and dark, wandering a little, with darker partings between clumps.
+ * Skipped where there is no canvas (the tests run in Node).
+ */
+function hairTexture(): THREE.Texture | null {
+  if (typeof document === 'undefined') return null;
+  const size = 512;
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  ctx.fillStyle = '#8c8c8c';
+  ctx.fillRect(0, 0, size, size);
+  // seeded, so the same hair every time
+  let seed = 0x51ed;
+  const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+  ctx.lineCap = 'round';
+  // the partings between clumps first, darker, so the strands lie over them
+  for (let i = 0; i < 70; i++) {
+    const x = rnd() * size;
+    ctx.strokeStyle = `rgba(30,30,30,${0.25 + rnd() * 0.3})`;
+    ctx.lineWidth = 2 + rnd() * 4;
+    ctx.beginPath();
+    ctx.moveTo(x, -10);
+    ctx.bezierCurveTo(
+      x + (rnd() - 0.5) * 30,
+      size / 3,
+      x + (rnd() - 0.5) * 30,
+      size / 1.5,
+      x,
+      size + 10
+    );
+    ctx.stroke();
+  }
+  for (let i = 0; i < 5200; i++) {
+    const x = rnd() * size;
+    const y = rnd() * size;
+    const len = 40 + rnd() * 180;
+    const bend = (rnd() - 0.5) * 10;
+    const shade = 45 + Math.round(rnd() * 190);
+    ctx.strokeStyle = `rgba(${shade},${shade},${shade},${0.5 + rnd() * 0.5})`;
+    ctx.lineWidth = 0.5 + rnd() * 1.1;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.quadraticCurveTo(x + bend, y + len / 2, x + bend * 0.4, y + len);
+    ctx.stroke();
+    // wrapped, so the strands run on across the seam
+    if (y + len > size) {
+      ctx.beginPath();
+      ctx.moveTo(x, y - size);
+      ctx.quadraticCurveTo(x + bend, y - size + len / 2, x + bend * 0.4, y - size + len);
+      ctx.stroke();
+    }
+  }
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(4, 1);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 4;
+  return tex;
+}
+
+/**
+ * Hair: strands drawn into it, and the long, stretched highlight hair has —
+ * a band of light across the strands, not a spot — from shading it
+ * anisotropically along them, with a soft sheen at the edges.
+ */
+export function hairMaterial(color: string): THREE.MeshPhysicalMaterial {
+  const strands = hairTexture();
+  return new THREE.MeshPhysicalMaterial({
+    // the strands average a little under white: lift the colour back to what was asked
+    color: new THREE.Color(color).multiplyScalar(strands ? 1.25 : 1),
+    roughness: 0.5,
+    map: strands,
+    bumpMap: strands,
+    bumpScale: 1.2,
+    // the highlight runs across the strands, which run along `v`
+    anisotropy: 0.75,
+    anisotropyRotation: Math.PI / 2,
+    sheen: 0.5,
+    sheenRoughness: 0.45,
+    sheenColor: new THREE.Color(color).lerp(new THREE.Color('#ffffff'), 0.35),
+  });
+}
+
 /** Cloth: matt, with a pale sheen where the weave catches light at a glancing angle. */
 function cloth(color: string, roughness: number): THREE.MeshPhysicalMaterial {
   return new THREE.MeshPhysicalMaterial({
@@ -250,15 +339,7 @@ export function makeMaterials(who: Persona = PERSONAS[0]): Materials {
         ? furMaterial(who.shoes)
         : new THREE.MeshStandardMaterial({ color: who.shoes, roughness: 0.7 }),
     sole: new THREE.MeshStandardMaterial({ color: '#2a2622', roughness: 0.9 }),
-    hair: beast
-      ? furMaterial(who.hair)
-      : new THREE.MeshPhysicalMaterial({
-          color: who.hair,
-          roughness: 0.7,
-          sheen: 0.6,
-          sheenRoughness: 0.5,
-          sheenColor: new THREE.Color(who.hair).lerp(new THREE.Color('#ffffff'), 0.35),
-        }),
+    hair: beast ? furMaterial(who.hair) : hairMaterial(who.hair),
     eye: new THREE.MeshStandardMaterial({ color: '#141414', roughness: 0.2 }),
     sclera: new THREE.MeshStandardMaterial({ color: '#efe9e1', roughness: 0.3 }),
     accent: new THREE.MeshStandardMaterial({ color: who.accent, roughness: 0.6 }),

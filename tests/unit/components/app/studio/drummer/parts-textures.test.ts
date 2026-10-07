@@ -15,18 +15,19 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { disposeMaterials, makeMaterials, styleKit } from '@/components/app/studio/drummer/parts';
 import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
 
-/** What a 2D context was asked to draw: rects, arcs and strokes, by count. */
+/** What a 2D context was asked to draw: rects, arcs, lines, curves and strokes, by count. */
 interface Drawn {
   rects: number;
   arcs: number;
   lines: number;
+  curves: number;
   strokes: number;
 }
 
 let drawn: Drawn;
 
 beforeEach(() => {
-  drawn = { rects: 0, arcs: 0, lines: 0, strokes: 0 };
+  drawn = { rects: 0, arcs: 0, lines: 0, curves: 0, strokes: 0 };
   const context = {
     fillStyle: '',
     strokeStyle: '',
@@ -37,6 +38,8 @@ beforeEach(() => {
     arc: () => void drawn.arcs++,
     moveTo: () => undefined,
     lineTo: () => void drawn.lines++,
+    quadraticCurveTo: () => void drawn.curves++,
+    bezierCurveTo: () => void drawn.curves++,
     stroke: () => void drawn.strokes++,
   };
   vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(
@@ -108,6 +111,24 @@ describe('canvas textures', () => {
     // the coat's hairs average under white: the colour is lifted to make up for it
     expect(m.skin.color.getHSL({ h: 0, s: 0, l: 0 }).l).toBeGreaterThan(
       new THREE.Color(beast.skin).getHSL({ h: 0, s: 0, l: 0 }).l
+    );
+  });
+
+  it('draws hair as long strands running root to tip, with its highlight stretched across them', () => {
+    const who = { ...byId('original'), hair: '#5a3a22' };
+    const before = drawn.curves;
+    const m = makeMaterials(who);
+    const hair = m.hair as THREE.MeshPhysicalMaterial;
+    expect(hair.map).toBeInstanceOf(THREE.CanvasTexture);
+    expect(hair.bumpMap).toBe(hair.map);
+    expect(hair.map!.colorSpace).toBe(THREE.SRGBColorSpace);
+    expect(drawn.curves - before).toBeGreaterThan(5000);
+    // the highlight runs across the strands, which run along v
+    expect(hair.anisotropy).toBeGreaterThan(0.5);
+    expect(hair.anisotropyRotation).toBeCloseTo(Math.PI / 2, 9);
+    // lifted to make up for the strands averaging under white
+    expect(hair.color.getHSL({ h: 0, s: 0, l: 0 }).l).toBeGreaterThan(
+      new THREE.Color(who.hair).getHSL({ h: 0, s: 0, l: 0 }).l
     );
   });
 
