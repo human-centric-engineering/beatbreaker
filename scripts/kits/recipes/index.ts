@@ -6,6 +6,7 @@ import type { Recipe } from '@/scripts/kits/recipe';
 import { bigrusty } from '@/scripts/kits/recipes/bigrusty';
 import { trap, vintage } from '@/scripts/kits/recipes/boochi';
 import { brush } from '@/scripts/kits/recipes/brush';
+import { crocell, crocellRight } from '@/scripts/kits/recipes/crocell';
 import { drsBrushes, drsSticks } from '@/scripts/kits/recipes/drs';
 import { frankensnare } from '@/scripts/kits/recipes/frankensnare';
 import { gogodze } from '@/scripts/kits/recipes/gogodze';
@@ -28,6 +29,8 @@ export const RECIPES: Recipe[] = [
   gogodze,
   smdrums,
   osdk,
+  crocell,
   // pieces only: no kit row names these packs
   ...frankensnare,
+  crocellRight,
 ];

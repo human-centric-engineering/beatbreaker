@@ -33,12 +33,20 @@ const picks: Array<{ at: string; pick: Pick }> = RECIPES.flatMap((r) => [
   ]),
 ]);
 
+/**
+ * The piece libraries: packs no kit row plays whole. Frankensnare's six
+ * snares, and CrocellKit's right-hand china and splash.
+ */
+const pieceLibrary = (pack: string): boolean =>
+  pack.startsWith('frankensnare-') || pack === 'crocell-right';
+
 describe('the recipes', () => {
-  it('build twelve kits and six snares, each pack named once', () => {
+  it('build thirteen kits, six snares and a china and splash, each pack named once', () => {
     const packs = RECIPES.map((r) => r.pack);
     expect(new Set(packs).size).toBe(packs.length);
-    expect(packs.filter((p) => !p.startsWith('frankensnare-'))).toHaveLength(12);
+    expect(packs.filter((p) => !pieceLibrary(p))).toHaveLength(13);
     expect(packs.filter((p) => p.startsWith('frankensnare-'))).toHaveLength(6);
+    expect(packs).toContain('crocell-right');
   });
 
   it('each build a pack the manifest has, and a kit row plays every one but the piece libraries', () => {
@@ -46,8 +54,8 @@ describe('the recipes', () => {
       k.engine === 'pack' && k.pack ? [k.pack] : []
     );
     for (const { pack, pieces } of RECIPES) {
-      // Frankensnare's snares are pieces for building a kit: no row plays them whole
-      if (!pack.startsWith('frankensnare-')) expect(rowPacks, pack).toContain(pack);
+      // the piece libraries are for building a kit: no row plays them whole
+      if (!pieceLibrary(pack)) expect(rowPacks, pack).toContain(pack);
       // every slot a recipe makes is in the manifest the seed reads
       const made = pieces.flatMap((p) => Object.keys(p.slots)).sort();
       expect(Object.keys(manifest[pack]?.slots ?? {}).sort(), pack).toEqual(made);
@@ -55,7 +63,7 @@ describe('the recipes', () => {
     // and no kit row plays a pack nothing builds
     expect([...new Set(rowPacks)].sort()).toEqual(
       RECIPES.map((r) => r.pack)
-        .filter((p) => !p.startsWith('frankensnare-'))
+        .filter((p) => !pieceLibrary(p))
         .sort()
     );
   });
@@ -95,7 +103,7 @@ describe('the recipes', () => {
     }
   });
 
-  it('give the round-one kits a recording of every 9-iv articulation their sources allow', () => {
+  it('give the round-one kits and CrocellKit a recording of every 9-iv articulation their sources allow', () => {
     const made = (pack: string): string[] =>
       (RECIPES.find((r) => r.pack === pack)?.pieces ?? []).flatMap((p) => Object.keys(p.slots));
     const ARTICULATIONS = ['sRim', 'hHalf', 'c2', 'cChina', 'cSplash'];
@@ -106,6 +114,8 @@ describe('the recipes', () => {
       gogodze: ARTICULATIONS.filter((s) => s !== 'sRim'),
       drs: ARTICULATIONS.filter((s) => s !== 'sRim'),
       'drs-brush': ARTICULATIONS.filter((s) => s !== 'sRim'),
+      // every one from its own recording, Salamander's lending none
+      crocell: ARTICULATIONS,
     };
     for (const [pack, slots] of Object.entries(want)) {
       expect(

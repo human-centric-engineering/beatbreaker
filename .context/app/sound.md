@@ -98,7 +98,8 @@ bus → drive → top end (lowpass) → glue compressor → master → ½ → ce
   Gogodze have no rimshot, so theirs is the synthesised voice. 9-vi-a gave
   Muldjord its own second crash and china, and Brush Swirly's half-open,
   china and splash. Virtuosity, Dusty sampler and Trap have none: Virtuosity
-  is at its first-load budget, and the other two are one-shot kits.
+  is at its first-load budget, and the other two are one-shot kits. The
+  Crocell kit (9-vi-b) has all five from its own recording.
 
 ## Humanise
 
@@ -216,7 +217,8 @@ catalogue table, served by `GET /api/v1/catalogue/pieces`.
   - **A pack may be pieces only.** Frankensnare's six snares (9-vi) each
     have a pack, `frankensnare-<drum>`, because a pack is one slot map and
     all six fill `s`. No kit row names them; the builder and the
-    combinations do.
+    combinations do. CrocellKit's right-hand china and splash (9-vi-b) are
+    one more, `crocell-right`, matched on the Crocell kit's crash.
 - **A kit slot may name a piece:** `{ piece, from?, level?, tune?, decay? }`.
   `from` plays another of the piece's slots (any tom piece as any tom). A kit
   of yours may also hold `{ sample }`.
@@ -285,7 +287,7 @@ Percussion strokes take round-robins the same way, by instrument and stroke.
 sources.ts   pinned libraries: a git repo at a commit, or a zip or tar archive
              by its sha256; licence file, date read, credit
 archive.ts   an archive source: downloaded once, checked against its pin
-zip.ts       a zip source: members read via the central directory
+zip.ts       a zip source: members read via the central directory, zip64 too
 tar.ts       a tar source: unpacked whole by the system tar, files hashed
 drumgizmo.ts which channel of a DrumGizmo stroke is which mic
 recipes/     per pack: which strokes make which slot, mics and weights,
@@ -301,7 +303,9 @@ For each slot the build:
    file comes from the pinned commit and is checked against its blob hash
    (`fetch.ts`). A zip source's archive is downloaded once, checked against
    its sha256 and length, and each member is inflated from the local copy
-   and checked against its CRC32 (`zip.ts`). DRSKit's archive is 2.8 GB. The
+   and checked against its CRC32 (`zip.ts`). DRSKit's archive is 2.8 GB;
+   CrocellKit's is 5.6 GB and zip64, whose directory offset and member
+   offsets are in the zip64 end record and extra fields. The
    archive's directory and the members already extracted are kept in the
    cache, so a build that needs nothing new from it neither reads nor hashes it.
    A tar source (Salamander's `.tar.bz2`) has no index to read a member by,

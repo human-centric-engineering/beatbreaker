@@ -3169,6 +3169,38 @@ Drums' and the Open Source Drumkit's snares against Big Rusty's, the Open
 Source Drumkit's half-open hat as its open hat, the six Frankensnare snares in
 the builder, then the new tambourine, shaker and clap.
 
+**9-vi-b built, 2026-10-07.** As reconciled, with these findings:
+
+- **The archive is zip64 only where it has to be.** Its end record marks
+  just the central directory's offset; the 885 entries and the directory's
+  size still fit. Members past 4 GB mark their offset and carry it in the
+  zip64 extra field. `zip.ts` reads both, and still refuses an archive split
+  across disks. Its tests write zip64 archives by hand from APPNOTE.
+- **Pinned by sha256, checked against DrumGizmo's md5** (`fa2be0f8…`), as
+  DRSKit was. The download is 5 646 502 341 bytes.
+- **Its mix is the close mic, all three overheads at 0.3, and the room at
+  0.1.** The cymbals have no close mic, so they are the overheads at 0.6.
+  It is a double-kick kit; the kit plays `KDrumL`.
+- **The right-hand china and splash are a pack of their own,
+  `crocell-right`**, with no kit row, as Frankensnare's snares are. They are
+  matched on the kit's left crash, so they sit where its china and splash do.
+- **Every 9-iv articulation is its own recording.** Nothing is lent from
+  Salamander.
+- **The snare, hats and ride are quiet against the kick.** Their trims are
+  at the ceiling and the rest is baked in (×1.08 to ×1.58); none falls short
+  of its level.
+- **Two builds write the same bytes.**
+
+| Pack          | Files | Download | First play | Late    | Decoded |
+| ------------- | ----- | -------- | ---------- | ------- | ------- |
+| crocell       | 110   | 1.96 MB  | 0.63 MB    | 0.25 MB | 26.6 MB |
+| crocell-right | 4     | 0.15 MB  | —          | 0.07 MB | 2.1 MB  |
+
+`public/kits` is 23.68 MB across twenty packs. The seed has 20 kits. **Still
+to do by hand:** the owner listens to the Crocell kit against the DRS kit,
+and to `SnareRim` as its cross-stick. If it is a rim click and not a
+cross-stick, `sCross` drops and the kit falls back to its synthesised voice.
+
 **9.19 (9-vi-c):**
 
 - **A combination is a system kit row whose slots are pieces,** in a

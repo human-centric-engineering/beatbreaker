@@ -4343,6 +4343,441 @@
       }
     }
   },
+  "crocell": {
+    "sampleRate": 44100,
+    "slots": {
+      "c": {
+        "layers": [
+          {
+            "files": [
+              "c-0-0.m4a",
+              "c-0-1.m4a"
+            ],
+            "v": 0.23
+          },
+          {
+            "files": [
+              "c-1-0.m4a",
+              "c-1-1.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 2.239
+      },
+      "c2": {
+        "layers": [
+          {
+            "files": [
+              "c2-0-0.m4a"
+            ],
+            "v": 0.25
+          },
+          {
+            "files": [
+              "c2-1-0.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 2.239
+      },
+      "cChina": {
+        "layers": [
+          {
+            "files": [
+              "cChina-0-0.m4a",
+              "cChina-0-1.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 2.239
+      },
+      "cSplash": {
+        "layers": [
+          {
+            "files": [
+              "cSplash-0-0.m4a",
+              "cSplash-0-1.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 2.239
+      },
+      "h": {
+        "layers": [
+          {
+            "files": [
+              "h-0-0.m4a",
+              "h-0-1.m4a",
+              "h-0-2.m4a"
+            ],
+            "v": 0.26
+          },
+          {
+            "files": [
+              "h-1-0.m4a",
+              "h-1-1.m4a",
+              "h-1-2.m4a"
+            ],
+            "v": 0.36
+          },
+          {
+            "files": [
+              "h-2-0.m4a",
+              "h-2-1.m4a",
+              "h-2-2.m4a"
+            ],
+            "v": 0.65
+          },
+          {
+            "files": [
+              "h-3-0.m4a",
+              "h-3-1.m4a",
+              "h-3-2.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 4
+      },
+      "hFoot": {
+        "layers": [
+          {
+            "files": [
+              "hFoot-0-0.m4a",
+              "hFoot-0-1.m4a",
+              "hFoot-0-2.m4a"
+            ],
+            "v": 0.55
+          },
+          {
+            "files": [
+              "hFoot-1-0.m4a",
+              "hFoot-1-1.m4a",
+              "hFoot-1-2.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 4
+      },
+      "hHalf": {
+        "layers": [
+          {
+            "files": [
+              "hHalf-0-0.m4a",
+              "hHalf-0-1.m4a"
+            ],
+            "v": 0.25
+          },
+          {
+            "files": [
+              "hHalf-1-0.m4a",
+              "hHalf-1-1.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 4
+      },
+      "hOpen": {
+        "layers": [
+          {
+            "files": [
+              "hOpen-0-0.m4a",
+              "hOpen-0-1.m4a"
+            ],
+            "v": 0.3
+          },
+          {
+            "files": [
+              "hOpen-1-0.m4a",
+              "hOpen-1-1.m4a"
+            ],
+            "v": 0.57
+          },
+          {
+            "files": [
+              "hOpen-2-0.m4a",
+              "hOpen-2-1.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 4
+      },
+      "k": {
+        "layers": [
+          {
+            "files": [
+              "k-0-0.m4a",
+              "k-0-1.m4a",
+              "k-0-2.m4a"
+            ],
+            "v": 0.29
+          },
+          {
+            "files": [
+              "k-1-0.m4a",
+              "k-1-1.m4a",
+              "k-1-2.m4a"
+            ],
+            "v": 0.43
+          },
+          {
+            "files": [
+              "k-2-0.m4a",
+              "k-2-1.m4a",
+              "k-2-2.m4a"
+            ],
+            "v": 0.67
+          },
+          {
+            "files": [
+              "k-3-0.m4a",
+              "k-3-1.m4a",
+              "k-3-2.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 3.843
+      },
+      "r": {
+        "layers": [
+          {
+            "files": [
+              "r-0-0.m4a",
+              "r-0-1.m4a",
+              "r-0-2.m4a"
+            ],
+            "v": 0.29
+          },
+          {
+            "files": [
+              "r-1-0.m4a",
+              "r-1-1.m4a",
+              "r-1-2.m4a"
+            ],
+            "v": 0.6
+          },
+          {
+            "files": [
+              "r-2-0.m4a",
+              "r-2-1.m4a",
+              "r-2-2.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 4
+      },
+      "rBell": {
+        "layers": [
+          {
+            "files": [
+              "rBell-0-0.m4a",
+              "rBell-0-1.m4a",
+              "rBell-0-2.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 4
+      },
+      "s": {
+        "layers": [
+          {
+            "files": [
+              "s-0-0.m4a",
+              "s-0-1.m4a",
+              "s-0-2.m4a"
+            ],
+            "v": 0.21
+          },
+          {
+            "files": [
+              "s-1-0.m4a",
+              "s-1-1.m4a",
+              "s-1-2.m4a"
+            ],
+            "v": 0.34
+          },
+          {
+            "files": [
+              "s-2-0.m4a",
+              "s-2-1.m4a",
+              "s-2-2.m4a"
+            ],
+            "v": 0.59
+          },
+          {
+            "files": [
+              "s-3-0.m4a",
+              "s-3-1.m4a",
+              "s-3-2.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 4
+      },
+      "sCross": {
+        "layers": [
+          {
+            "files": [
+              "sCross-0-0.m4a",
+              "sCross-0-1.m4a"
+            ],
+            "v": 0.27
+          },
+          {
+            "files": [
+              "sCross-1-0.m4a",
+              "sCross-1-1.m4a"
+            ],
+            "v": 0.52
+          },
+          {
+            "files": [
+              "sCross-2-0.m4a",
+              "sCross-2-1.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 4
+      },
+      "sGhost": {
+        "layers": [
+          {
+            "files": [
+              "sGhost-0-0.m4a",
+              "sGhost-0-1.m4a",
+              "sGhost-0-2.m4a"
+            ],
+            "v": 0.37
+          },
+          {
+            "files": [
+              "sGhost-1-0.m4a",
+              "sGhost-1-1.m4a",
+              "sGhost-1-2.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 4
+      },
+      "sRim": {
+        "layers": [
+          {
+            "files": [
+              "sRim-0-0.m4a",
+              "sRim-0-1.m4a"
+            ],
+            "v": 0.43
+          },
+          {
+            "files": [
+              "sRim-1-0.m4a",
+              "sRim-1-1.m4a"
+            ],
+            "v": 0.58
+          },
+          {
+            "files": [
+              "sRim-2-0.m4a",
+              "sRim-2-1.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 4
+      },
+      "t1": {
+        "layers": [
+          {
+            "files": [
+              "t1-0-0.m4a",
+              "t1-0-1.m4a"
+            ],
+            "v": 0.23
+          },
+          {
+            "files": [
+              "t1-1-0.m4a",
+              "t1-1-1.m4a"
+            ],
+            "v": 0.47
+          },
+          {
+            "files": [
+              "t1-2-0.m4a",
+              "t1-2-1.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 1.322
+      },
+      "t2": {
+        "layers": [
+          {
+            "files": [
+              "t2-0-0.m4a",
+              "t2-0-1.m4a"
+            ],
+            "v": 0.24
+          },
+          {
+            "files": [
+              "t2-1-0.m4a",
+              "t2-1-1.m4a"
+            ],
+            "v": 0.44
+          },
+          {
+            "files": [
+              "t2-2-0.m4a",
+              "t2-2-1.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 1.976
+      },
+      "t3": {
+        "layers": [
+          {
+            "files": [
+              "t3-0-0.m4a",
+              "t3-0-1.m4a"
+            ],
+            "v": 0.29
+          },
+          {
+            "files": [
+              "t3-1-0.m4a",
+              "t3-1-1.m4a"
+            ],
+            "v": 0.51
+          },
+          {
+            "files": [
+              "t3-2-0.m4a",
+              "t3-2-1.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 3.958
+      }
+    }
+  },
   "frankensnare-13b": {
     "sampleRate": 44100,
     "slots": {
@@ -4916,6 +5351,35 @@
           }
         ],
         "trim": 1.633
+      }
+    }
+  },
+  "crocell-right": {
+    "sampleRate": 44100,
+    "slots": {
+      "cChina": {
+        "layers": [
+          {
+            "files": [
+              "cChina-0-0.m4a",
+              "cChina-0-1.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 2.239
+      },
+      "cSplash": {
+        "layers": [
+          {
+            "files": [
+              "cSplash-0-0.m4a",
+              "cSplash-0-1.m4a"
+            ],
+            "v": 1
+          }
+        ],
+        "trim": 2.239
       }
     }
   }

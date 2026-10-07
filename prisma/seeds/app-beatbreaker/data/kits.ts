@@ -1,7 +1,7 @@
 /**
  * The kit table — seed data.
  *
- * 19 kits across three engines, each a plain parameter object plus an engine
+ * 20 kits across three engines, each a plain parameter object plus an engine
  * name, so a kit is a row rather than a branch in playback and a user's tuning
  * is a saved override of these numbers.
  *
@@ -339,6 +339,24 @@ export const KITS: Record<string, Kit> = {
     h: { rate: 1, level: 0.9, room: 0.07 },
     r: { rate: 1, level: 0.88, room: 0.14 },
     c: { rate: 1, level: 0.86, room: 0.18 },
+    t: { tune: 90, decay: 0.54, tone: 0.38, room: 0.14 },
+    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.12 },
+  },
+
+  crocell: {
+    label: 'Crocell kit',
+    engine: 'pack',
+    pack: 'crocell',
+    trim: 1,
+    hint: 'A metal band’s kit, sampled in the studio where they had just made their album: a punchy kick, a tight, cracking snare and big cymbals, two of each. Fifteen mics, mixed close with the overheads and a little room.',
+    credit:
+      'CrocellKit by Lars Muldjord (DrumGizmo), on the kit of the band Crocell, mic’d by JBOSound · CC BY 4.0. Drum samples provided by DrumGizmo.org. Close mics, overheads and room mixed to mono, trimmed and re-encoded for the web.',
+    master: { lp: 18000, drive: 1.06, room: 0.1 },
+    k: { rate: 1, level: 0.95, room: 0.03 },
+    s: { rate: 1, level: 0.95, room: 0.1 },
+    h: { rate: 1, level: 0.9, room: 0.06 },
+    r: { rate: 1, level: 0.88, room: 0.12 },
+    c: { rate: 1, level: 0.86, room: 0.16 },
     t: { tune: 90, decay: 0.54, tone: 0.38, room: 0.14 },
     p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.12 },
   },

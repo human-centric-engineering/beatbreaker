@@ -68,7 +68,10 @@ const BUDGET = {
   all: 45 * MB,
 };
 
-/** Packs a kit row plays whole; the rest are pieces for building a kit (Frankensnare's snares). */
+/**
+ * Packs a kit row plays whole; the rest are pieces for building a kit
+ * (Frankensnare's snares, CrocellKit's right-hand china and splash).
+ */
 const KIT_PACKS = new Set(
   Object.values(KITS)
     .filter((k) => k.engine === 'pack')
@@ -194,7 +197,7 @@ describe('shipped sample packs', () => {
   it('has a kit for every pack but the piece libraries', () => {
     const pieceOnly = Object.keys(manifest).filter((pack) => !KIT_PACKS.has(pack));
     expect(
-      pieceOnly.every((pack) => pack.startsWith('frankensnare-')),
+      pieceOnly.every((pack) => pack.startsWith('frankensnare-') || pack === 'crocell-right'),
       pieceOnly.join()
     ).toBe(true);
   });
