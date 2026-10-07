@@ -387,11 +387,11 @@ export class Transport {
         meter: m,
         bar,
         next: (after && snap.patterns[after.letter]?.bars[after.barIdx]) ?? null,
-        /* What the speakers were handed: a muted lane (or one a solo
-           silences) is one you are playing yourself, so the drummer leaves it. */
-        notes: voices.flatMap((voice, n) =>
-          laneGain(snap, voice.lane) ? [{ voice, when: whens[n] }] : []
-        ),
+        /* Every voice, before the mixer, as the MIDI port hears it: the
+           drummer plays the whole pattern whatever is muted or soloed, since
+           it plans its limbs from `bar` and `next`, which the mixer never
+           touches — a lane left out is an arm wound up for a hit that never comes. */
+        notes: voices.map((voice, n) => ({ voice, when: whens[n] })),
       });
     }
 

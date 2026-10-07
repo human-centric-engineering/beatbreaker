@@ -696,7 +696,7 @@ describe('onStep (the 3D drummer handoff)', () => {
     expect(lastStepOfSecondBar?.next).toBe(pat.bars[0]); // still bar 1, at the very end of the loop
   });
 
-  it('leaves out a muted lane’s notes, as the speakers do: that lane is yours to play', () => {
+  it('still hands the drummer a muted lane’s notes: the speakers skip it, the drummer plays on', () => {
     const pat = patternIn('4/4');
     pat.bars[0].k[0] = 1;
     pat.bars[0].s[0] = 1;
@@ -721,10 +721,10 @@ describe('onStep (the 3D drummer handoff)', () => {
     expect(f.audio.playIn.mock.calls.map(([lane]) => lane)).toEqual(['s']); // the kick is muted
     const real = onStep.mock.calls.map(([step]) => step as ScheduledStep).filter((s) => !s.count);
     const firstStep = real.find((s) => s.slot === 0);
-    expect(firstStep?.notes.map((n) => n.voice.lane)).toEqual(['s']);
+    expect(firstStep?.notes.map((n) => n.voice.lane).sort()).toEqual(['k', 's']);
   });
 
-  it('leaves out the lanes a solo silences', () => {
+  it('still hands the drummer the lanes a solo silences', () => {
     const pat = patternIn('4/4');
     pat.bars[0].k[0] = 1;
     pat.bars[0].s[0] = 1;
@@ -746,8 +746,9 @@ describe('onStep (the 3D drummer handoff)', () => {
     }
     t.stop();
 
+    expect(f.audio.playIn.mock.calls.map(([lane]) => lane)).toEqual(['k']); // the solo silences the snare
     const real = onStep.mock.calls.map(([step]) => step as ScheduledStep).filter((s) => !s.count);
     const firstStep = real.find((s) => s.slot === 0);
-    expect(firstStep?.notes.map((n) => n.voice.lane)).toEqual(['k']);
+    expect(firstStep?.notes.map((n) => n.voice.lane).sort()).toEqual(['k', 's']);
   });
 });
