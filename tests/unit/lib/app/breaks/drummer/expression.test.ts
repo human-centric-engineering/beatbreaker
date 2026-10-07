@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { expressionAt } from '@/lib/app/breaks/drummer/expression';
+import { type Expression, expressionAt } from '@/lib/app/breaks/drummer/expression';
 import type { Hit } from '@/lib/app/breaks/drummer/timeline';
 
 const DUR = 0.11;
@@ -276,5 +276,145 @@ describe('expressionAt — blinking', () => {
     expect(blinks).toBeLessThan(120);
     // and they are quick: shut a small share of the time
     expect(shut.filter(Boolean).length / shut.length).toBeLessThan(0.05);
+  });
+});
+
+describe('expressionAt — a smile', () => {
+  const STEP = 0.05;
+  const sample = (hits: Hit[], from: number, to: number) => {
+    const out: number[] = [];
+    for (let t = from; t < to; t += STEP) out.push(expressionAt(hits, t).smile);
+    return out;
+  };
+  /** Each smile's length, seconds: a run of frames with any of it showing. */
+  const runs = (s: number[]) => {
+    const out: number[] = [];
+    let run = 0;
+    for (const x of [...s, 0]) {
+      if (x > 0) run += STEP;
+      else if (run) {
+        out.push(run);
+        run = 0;
+      }
+    }
+    return out;
+  };
+
+  it('smiles now and then — but not often: a few a minute at most, and a small share of the time', () => {
+    const s = sample([], 0, 1200);
+    const smiles = runs(s).length;
+    // twenty minutes: somewhere between one every two minutes and two a minute
+    expect(smiles).toBeGreaterThan(10);
+    expect(smiles).toBeLessThan(40);
+    expect(s.filter((x) => x > 0.5).length / s.length).toBeLessThan(0.06);
+  });
+
+  it('holds a smile a second or two, each a different length, and never past three', () => {
+    const lengths = runs(sample([], 0, 1200));
+    expect(Math.min(...lengths)).toBeGreaterThan(0.5);
+    expect(Math.max(...lengths)).toBeLessThanOrEqual(3);
+    expect(Math.max(...lengths) - Math.min(...lengths)).toBeGreaterThan(0.6);
+  });
+
+  it('breaks into a smile and out of it smoothly, reaching a full one', () => {
+    const s = sample([], 0, 1200);
+    expect(Math.max(...s)).toBeGreaterThan(0.95);
+    for (let i = 1; i < s.length; i++) expect(Math.abs(s[i] - s[i - 1])).toBeLessThan(0.3);
+  });
+
+  it('sometimes grins with a look at the camera, and sometimes smiles without one', () => {
+    const ex: Expression[] = [];
+    for (let t = 0; t < 1200; t += STEP) ex.push(expressionAt([], t));
+    expect(ex.some((x) => x.smile > 0.8 && x.glance.look > 0.8)).toBe(true);
+    expect(ex.some((x) => x.smile > 0.8 && x.glance.look === 0)).toBe(true);
+    // most looks are not grins
+    const looks = ex.filter((x) => x.glance.look > 0.9);
+    expect(looks.filter((x) => x.smile > 0.5).length / looks.length).toBeLessThan(0.5);
+  });
+
+  it('never smiles in the middle of a fill', () => {
+    const fill: Hit[] = [];
+    for (let t = 0; t < 300; t += DUR)
+      fill.push(hit(t, 'tom1', fill.length % 2 ? 'lead' : 'other'));
+    expect(sample(fill, 1, 299).every((x) => x === 0)).toBe(true);
+  });
+});
+
+describe('expressionAt — a sway with the beat', () => {
+  /** Bars of four half-second beats, the first one at 1 s. */
+  const BEAT = 0.5;
+  const BAR = 4 * BEAT;
+  const ones = Array.from({ length: 200 }, (_, i) => ({ time: 1 + i * BAR, change: false }));
+  const at = (t: number, hits: Hit[] = []) => expressionAt(hits, t, ones, BEAT);
+  /** The tilt the sway adds: the same moment's tilt, less what it is without a beat to sway to. */
+  const swayTilt = (t: number) => at(t).tilt - expressionAt([], t, ones).tilt;
+  /** Each bar's sway, sampled at its beats and halfway between them. */
+  const bars = ones.slice(0, -1).map(({ time }) => ({
+    time,
+    onBeats: [1, 2, 3].map((b) => at(time + b * BEAT).sway),
+    offBeats: [1.5, 2.5].map((b) => at(time + b * BEAT).sway),
+    firstHalf: Math.max(...[0.5, 1, 1.5].map((b) => Math.abs(at(time + b * BEAT).sway))),
+    tilt: Math.max(...[2, 3].map((b) => Math.abs(swayTilt(time + b * BEAT)))),
+  }));
+  const swaying = bars.filter((b) => Math.abs(b.onBeats[2]) > 0.05);
+
+  it('never sways without a beat to sway to', () => {
+    for (let t = 0; t < 60; t += 0.05) expect(expressionAt([], t, ones).sway).toBe(0);
+  });
+
+  it('sways through some bars — not many', () => {
+    const share = swaying.length / bars.length;
+    expect(share).toBeGreaterThan(0.05);
+    expect(share).toBeLessThan(0.2);
+  });
+
+  it('sometimes for the whole bar, sometimes only its second half', () => {
+    const whole = swaying.filter((b) => b.firstHalf > 0.05);
+    const half = swaying.filter((b) => b.firstHalf < 1e-6);
+    expect(whole.length).toBeGreaterThan(0);
+    expect(half.length).toBeGreaterThan(0);
+    expect(whole.length + half.length).toBe(swaying.length);
+  });
+
+  it('is at a side on each beat, the other side on the next, and in the middle between', () => {
+    for (const b of swaying) {
+      const [, two, three] = b.onBeats;
+      expect(Math.abs(two)).toBeGreaterThan(0.12);
+      expect(Math.abs(three)).toBeGreaterThan(0.12);
+      expect(Math.sign(two)).toBe(-Math.sign(three));
+      for (const off of b.offBeats) expect(Math.abs(off)).toBeLessThan(1e-6);
+    }
+    // and which way it goes first is rolled
+    expect(new Set(swaying.map((b) => Math.sign(b.onBeats[2]))).size).toBe(2);
+  });
+
+  it('sometimes tilts the head with it, sometimes not', () => {
+    expect(swaying.some((b) => b.tilt > 0.05)).toBe(true);
+    expect(swaying.some((b) => b.tilt < 1e-6)).toBe(true);
+    // and never tilts in a bar it does not sway
+    for (const b of bars.filter((x) => !swaying.includes(x))) expect(b.tilt).toBeLessThan(1e-6);
+  });
+
+  it('eases in and out, and is back in the middle by the and of the last beat', () => {
+    let last = at(0).sway;
+    for (let t = 0; t < 200; t += 0.01) {
+      const s = at(t).sway;
+      expect(Math.abs(s - last)).toBeLessThan(0.04);
+      last = s;
+    }
+    for (const { time } of ones) expect(Math.abs(at(time + 3.5 * BEAT).sway)).toBeLessThan(1e-6);
+    // a whole bar's sway is at a side on the one itself, eased into over the half beat before
+    const whole = swaying.filter((b) => b.firstHalf > 0.05);
+    for (const b of whole) {
+      expect(Math.abs(at(b.time).sway)).toBeGreaterThan(0.12);
+      expect(Math.abs(at(b.time - BEAT / 2).sway)).toBeLessThan(1e-6);
+    }
+  });
+
+  it('gives way to a fill: the head goes round the toms instead', () => {
+    const fill: Hit[] = [];
+    for (let t = 0; t < 400; t += DUR)
+      fill.push(hit(t, 'tom1', fill.length % 2 ? 'lead' : 'other'));
+    for (const b of swaying) expect(Math.abs(at(b.time + 3 * BEAT, fill).sway)).toBeLessThan(1e-6);
   });
 });

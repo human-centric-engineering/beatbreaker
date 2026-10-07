@@ -51,6 +51,23 @@ export type Cyborg = 'arm' | 'full';
  */
 export type Kind = 'human' | 'robot' | 'beast';
 
+/** A kit's shells: gloss lacquer, a metal-flake sparkle, a satin stain, or bare polished metal. */
+export type Finish = 'gloss' | 'sparkle' | 'satin' | 'metal';
+
+/** The hoops, lugs and stands: chrome, blacked out, or gold. */
+export type Hardware = 'chrome' | 'black' | 'gold';
+
+/** The kit a player brings: its shells and hardware, and the mat it stands on. */
+export interface KitStyle {
+  /** Colours, as CSS hex. */
+  shell: string;
+  finish: Finish;
+  hardware: Hardware;
+  rug: string;
+  /** A band round the mat's edge; the mat's own colour unless given. */
+  trim?: string;
+}
+
 export interface Persona {
   id: string;
   name: string;
@@ -79,6 +96,8 @@ export interface Persona {
   kind?: Kind;
   /** A pair of small horns, standing up out of the hair. */
   horns?: boolean;
+  /** The kit they play, in their colours. */
+  kit: KitStyle;
 }
 
 /** Skin, lightest to deepest. */
@@ -108,6 +127,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#2a2f3a',
     shoes: '#202124',
     accent: '#2c4f6b',
+    kit: { shell: '#7a1f1a', finish: 'gloss', hardware: 'chrome', rug: '#3a2f2a' },
   },
   {
     id: 'roxy',
@@ -123,6 +143,13 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#1a1a1a',
     shoes: '#0d0d0d',
     accent: '#ff2f8e',
+    kit: {
+      shell: '#ff2f8e',
+      finish: 'sparkle',
+      hardware: 'black',
+      rug: '#111111',
+      trim: '#ff2f8e',
+    },
     earrings: true,
     lipstick: true,
     chain: true,
@@ -141,6 +168,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#23262c',
     shoes: '#3a2414',
     accent: '#c4692b',
+    kit: { shell: '#6b4423', finish: 'satin', hardware: 'black', rug: '#2e2a26', trim: '#c4692b' },
   },
   {
     id: 'marcus',
@@ -156,6 +184,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#7a1f1a',
     shoes: '#f2f2f2',
     accent: '#f2c230',
+    kit: { shell: '#0e0e10', finish: 'gloss', hardware: 'gold', rug: '#7a1f1a', trim: '#f2c230' },
     shades: true,
     chain: true,
   },
@@ -173,6 +202,13 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#22305a',
     shoes: '#f4f1ea',
     accent: '#e8432f',
+    kit: {
+      shell: '#f2a71b',
+      finish: 'sparkle',
+      hardware: 'chrome',
+      rug: '#22305a',
+      trim: '#e8432f',
+    },
     headband: true,
     earrings: true,
     lipstick: true,
@@ -191,6 +227,13 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#111111',
     shoes: '#111111',
     accent: '#36e0ff',
+    kit: {
+      shell: '#36e0ff',
+      finish: 'sparkle',
+      hardware: 'black',
+      rug: '#111111',
+      trim: '#e8432f',
+    },
     earrings: true,
   },
   {
@@ -207,6 +250,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#2b2a28',
     shoes: '#5a3a22',
     accent: '#5c7a3a',
+    kit: { shell: '#5c7a3a', finish: 'satin', hardware: 'chrome', rug: '#2b2a28' },
   },
   {
     id: 'lola',
@@ -222,6 +266,13 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#1b1b1b',
     shoes: '#9b2fff',
     accent: '#f4d03f',
+    kit: {
+      shell: '#9b2fff',
+      finish: 'sparkle',
+      hardware: 'chrome',
+      rug: '#1b1b1b',
+      trim: '#f4d03f',
+    },
     shades: true,
     lipstick: true,
   },
@@ -239,6 +290,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#3a4a6a',
     shoes: '#3a2414',
     accent: '#f4f1ea',
+    kit: { shell: '#b8352a', finish: 'gloss', hardware: 'chrome', rug: '#3a4a6a', trim: '#f4f1ea' },
     headband: true,
   },
   {
@@ -255,6 +307,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#e1c16e',
     shoes: '#24170f',
     accent: '#e8432f',
+    kit: { shell: '#2f8f46', finish: 'gloss', hardware: 'gold', rug: '#24170f', trim: '#e8432f' },
     shades: true,
   },
   {
@@ -271,6 +324,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#0b0b0b',
     shoes: '#7a1f1a',
     accent: '#c40000',
+    kit: { shell: '#0b0b0b', finish: 'gloss', hardware: 'black', rug: '#3a0606', trim: '#c40000' },
     earrings: true,
     chain: true,
     lipstick: true,
@@ -289,6 +343,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#2a2f3a',
     shoes: '#111111',
     accent: '#d9dde2',
+    kit: { shell: '#3a3d42', finish: 'satin', hardware: 'black', rug: '#1e1e1e', trim: '#d9dde2' },
     shades: true,
     earrings: true,
   },
@@ -306,6 +361,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#2a2f3a',
     shoes: '#f4f1ea',
     accent: '#f2c230',
+    kit: { shell: '#e86a9a', finish: 'gloss', hardware: 'chrome', rug: '#6b2a8f', trim: '#f2c230' },
     earrings: true,
     lipstick: true,
   },
@@ -323,6 +379,13 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#d9dde2',
     shoes: '#d9dde2',
     accent: '#36e0ff',
+    kit: {
+      shell: '#d9dde2',
+      finish: 'sparkle',
+      hardware: 'chrome',
+      rug: '#1a1a2e',
+      trim: '#36e0ff',
+    },
     shades: true,
     lipstick: true,
   },
@@ -340,6 +403,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#34507a',
     shoes: '#6b4226',
     accent: '#8a5a2b',
+    kit: { shell: '#8a5a2b', finish: 'satin', hardware: 'chrome', rug: '#5a3a22', trim: '#c9a24a' },
     hat: 'cowboy',
   },
   {
@@ -356,6 +420,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#111111',
     shoes: '#c40000',
     accent: '#c9a24a',
+    kit: { shell: '#5b1f7a', finish: 'gloss', hardware: 'gold', rug: '#111111', trim: '#c9a24a' },
     hat: 'tophat',
     earrings: true,
     chain: true,
@@ -375,6 +440,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#111111',
     shoes: '#c40000',
     accent: '#c40000',
+    kit: { shell: '#f4f1ea', finish: 'gloss', hardware: 'chrome', rug: '#111111', trim: '#c40000' },
   },
   {
     id: 'brandy',
@@ -390,6 +456,13 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#2a2f3a',
     shoes: '#1d1d1d',
     accent: '#f2c230',
+    kit: {
+      shell: '#b8321e',
+      finish: 'sparkle',
+      hardware: 'black',
+      rug: '#1d1d1d',
+      trim: '#f2c230',
+    },
     hat: 'bandana',
     earrings: true,
     lipstick: true,
@@ -408,6 +481,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#2a2f3a',
     shoes: '#111111',
     accent: '#e8432f',
+    kit: { shell: '#3a3a3a', finish: 'satin', hardware: 'black', rug: '#2a2f3a', trim: '#e8432f' },
     hat: 'beanie',
   },
   {
@@ -424,6 +498,13 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#1b1b1b',
     shoes: '#f4f1ea',
     accent: '#2fbf71',
+    kit: {
+      shell: '#1f7a8c',
+      finish: 'sparkle',
+      hardware: 'chrome',
+      rug: '#1b1b1b',
+      trim: '#2fbf71',
+    },
     earrings: true,
   },
   {
@@ -440,6 +521,13 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#34507a',
     shoes: '#f4f1ea',
     accent: '#4a6fa5',
+    kit: {
+      shell: '#4a6fa5',
+      finish: 'sparkle',
+      hardware: 'chrome',
+      rug: '#1f2a40',
+      trim: '#f4f1ea',
+    },
     shades: true,
   },
   {
@@ -456,6 +544,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#22305a',
     shoes: '#f4f1ea',
     accent: '#c40000',
+    kit: { shell: '#f2c230', finish: 'gloss', hardware: 'chrome', rug: '#22305a', trim: '#c40000' },
     hat: 'cap',
     chain: true,
   },
@@ -473,6 +562,13 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#111111',
     shoes: '#ff7a00',
     accent: '#36e0ff',
+    kit: {
+      shell: '#ff7a00',
+      finish: 'sparkle',
+      hardware: 'chrome',
+      rug: '#111111',
+      trim: '#36e0ff',
+    },
     hat: 'bandana',
     shades: true,
   },
@@ -490,6 +586,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#1b1b1b',
     shoes: '#c9a24a',
     accent: '#c9a24a',
+    kit: { shell: '#c40000', finish: 'gloss', hardware: 'gold', rug: '#1b1b1b', trim: '#c9a24a' },
     earrings: true,
     lipstick: true,
   },
@@ -507,6 +604,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#3a3a3a',
     shoes: '#3a2414',
     accent: '#c40000',
+    kit: { shell: '#22305a', finish: 'gloss', hardware: 'chrome', rug: '#3a3a3a', trim: '#c40000' },
     hat: 'beanie',
   },
   {
@@ -523,6 +621,13 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#7a1f1a',
     shoes: '#111111',
     accent: '#39d353',
+    kit: {
+      shell: '#39d353',
+      finish: 'sparkle',
+      hardware: 'black',
+      rug: '#111111',
+      trim: '#39d353',
+    },
     earrings: true,
     chain: true,
   },
@@ -540,6 +645,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#3a3a4a',
     shoes: '#f4f1ea',
     accent: '#e86a9a',
+    kit: { shell: '#b39ddb', finish: 'gloss', hardware: 'chrome', rug: '#3a3a4a', trim: '#e86a9a' },
     shades: true,
     earrings: true,
     lipstick: true,
@@ -558,6 +664,13 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#111111',
     shoes: '#f4f1ea',
     accent: '#d81b60',
+    kit: {
+      shell: '#d81b60',
+      finish: 'sparkle',
+      hardware: 'chrome',
+      rug: '#111111',
+      trim: '#f4f1ea',
+    },
     chain: true,
   },
   {
@@ -574,6 +687,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#111111',
     shoes: '#e0b24a',
     accent: '#e0b24a',
+    kit: { shell: '#e0b24a', finish: 'sparkle', hardware: 'gold', rug: '#111111', trim: '#c0c4cc' },
     earrings: true,
     lipstick: true,
   },
@@ -591,6 +705,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#1b1b1b',
     shoes: '#111111',
     accent: '#6a1b2a',
+    kit: { shell: '#6a1b2a', finish: 'gloss', hardware: 'gold', rug: '#1b1b1b', trim: '#c9a24a' },
     hat: 'tophat',
   },
   {
@@ -607,6 +722,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#f4f1ea',
     shoes: '#36a3ff',
     accent: '#ff2f8e',
+    kit: { shell: '#36a3ff', finish: 'gloss', hardware: 'chrome', rug: '#e9e4d8', trim: '#ff2f8e' },
     hat: 'cap',
     lipstick: true,
   },
@@ -624,6 +740,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#3a3a3a',
     shoes: '#111111',
     accent: '#e0b24a',
+    kit: { shell: '#55595f', finish: 'metal', hardware: 'black', rug: '#1a1a1a', trim: '#e0b24a' },
     chain: true,
   },
   {
@@ -640,6 +757,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#2a2d33',
     shoes: '#0d0e10',
     accent: '#12b8ff',
+    kit: { shell: '#2a2d33', finish: 'metal', hardware: 'black', rug: '#0d0e10', trim: '#12b8ff' },
     cyborg: 'full',
   },
   {
@@ -656,6 +774,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#1c1c22',
     shoes: '#111111',
     accent: '#ff3340',
+    kit: { shell: '#3b1420', finish: 'gloss', hardware: 'black', rug: '#1c1c22', trim: '#ff3340' },
     cyborg: 'arm',
   },
   {
@@ -676,6 +795,7 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#d6a63c',
     shoes: '#d6a63c',
     accent: '#ffc53d',
+    kit: { shell: '#d6a63c', finish: 'metal', hardware: 'gold', rug: '#1a1508', trim: '#ffc53d' },
   },
   {
     // a big, friendly monster of a drummer: violet fur, a lavender belly and muzzle, a wild
@@ -694,6 +814,13 @@ export const PERSONAS: readonly Persona[] = [
     trousers: '#5a3e9a',
     shoes: '#46307a',
     accent: '#ff8a1f',
+    kit: {
+      shell: '#ff8a1f',
+      finish: 'sparkle',
+      hardware: 'chrome',
+      rug: '#46307a',
+      trim: '#6a4bb0',
+    },
     headband: true,
     horns: true,
   },

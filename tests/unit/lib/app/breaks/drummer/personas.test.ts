@@ -49,6 +49,25 @@ describe('PERSONAS', () => {
     expect(beast).toMatchObject({ hairStyle: 'shag', horns: true, beard: 'none' });
   });
 
+  it("keeps the original drummer's kit: red gloss shells, chrome, a plain brown mat", () => {
+    expect(PERSONAS[0].kit).toEqual({
+      shell: '#7a1f1a',
+      finish: 'gloss',
+      hardware: 'chrome',
+      rug: '#3a2f2a',
+    });
+  });
+
+  it('brings every finish and every kind of hardware to the stage', () => {
+    expect(new Set(PERSONAS.map((p) => p.kit.finish))).toEqual(
+      new Set(['gloss', 'sparkle', 'satin', 'metal'])
+    );
+    expect(new Set(PERSONAS.map((p) => p.kit.hardware))).toEqual(
+      new Set(['chrome', 'black', 'gold'])
+    );
+    expect(new Set(PERSONAS.map((p) => p.kit.shell)).size).toBeGreaterThanOrEqual(20);
+  });
+
   it('puts every hat on somebody', () => {
     expect(new Set(PERSONAS.map((p) => p.hat).filter(Boolean))).toEqual(
       new Set(['beanie', 'cap', 'cowboy', 'tophat', 'bandana'])
@@ -57,7 +76,18 @@ describe('PERSONAS', () => {
 
   it('writes every colour as a CSS hex', () => {
     for (const p of PERSONAS) {
-      for (const c of [p.skin, p.hair, p.shirt, p.trousers, p.shoes, p.accent]) {
+      const { kit } = p;
+      for (const c of [
+        p.skin,
+        p.hair,
+        p.shirt,
+        p.trousers,
+        p.shoes,
+        p.accent,
+        kit.shell,
+        kit.rug,
+        kit.trim ?? kit.rug,
+      ]) {
         expect(c, `${p.id}: ${c}`).toMatch(/^#[0-9a-f]{6}$/i);
       }
     }

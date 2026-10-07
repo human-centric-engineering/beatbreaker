@@ -9,6 +9,7 @@ import {
   disposeTree,
   makeMaterials,
   type Materials,
+  styleKit,
 } from '@/components/app/studio/drummer/parts';
 import type { ScheduledStep } from '@/lib/app/breaks/audio/transport';
 import { type CameraView, cameraFor } from '@/lib/app/breaks/drummer/camera';
@@ -110,7 +111,7 @@ export class DrummerStage {
     this.scene.background = new THREE.Color(BACKDROP);
     this.scene.fog = new THREE.Fog(BACKDROP, 7, 16);
 
-    this.kitMaterials = makeMaterials();
+    this.kitMaterials = makeMaterials(persona);
     this.kit = buildKit(this.kitMaterials);
     this.dress = makeMaterials(persona);
     this.drummer = buildDrummer(this.dress, persona);
@@ -200,7 +201,10 @@ export class DrummerStage {
     return this.who;
   }
 
-  /** Seat someone else at the kit, mid-groove if need be: the timeline and camera carry on. */
+  /**
+   * Seat someone else at the kit, mid-groove if need be, and repaint it in
+   * their colours: the kit, the timeline and the camera carry on.
+   */
   setPersona(who: Persona): void {
     if (who === this.who) return;
     this.who = who;
@@ -210,6 +214,8 @@ export class DrummerStage {
     this.dress = makeMaterials(who);
     this.drummer = buildDrummer(this.dress, who);
     this.rig.add(this.drummer.root);
+    // the same kit, repainted in theirs
+    styleKit(this.kitMaterials, who);
   }
 
   flyTo(view: CameraView): void {

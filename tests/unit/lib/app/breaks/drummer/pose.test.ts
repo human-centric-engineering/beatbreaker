@@ -12,6 +12,9 @@ import {
   KICK_PEDAL,
   type Hand,
   type PieceId,
+  STICK,
+  crossStick,
+  rimShot,
   strikeTarget,
 } from '@/lib/app/breaks/drummer/kit-layout';
 import {
@@ -21,6 +24,7 @@ import {
   STICK_CLEAR,
   overLead,
   barCueAt,
+  crossLiftAt,
   gripsFor,
   MATCHED_GRIPS,
   poseAt,
@@ -144,7 +148,14 @@ describe('poseAt — reachability', () => {
       const mark = strikeTarget(piece, contact).tip;
       expect(Math.hypot(...mark.map((x, k) => x - targetTip[k]))).toBeLessThan(0.06);
 
-      const [ex, ty, ez] = targetTip;
+      // a cross-stick is laid across the head, and a rimshot comes in low over the hoop:
+      // neither is aimed at a mark on the head
+      const [ex, ty, ez] =
+        contact === 'cross'
+          ? crossStick(hand).tip
+          : contact === 'rim'
+            ? rimShot(hand).tip
+            : targetTip;
       const ey = piece === 'hat' ? ty + (pose.hatGap - HAT_CLOSED_GAP) : ty;
 
       const got = pose.arms[hand].tip;
@@ -1209,7 +1220,12 @@ describe('poseAt — military grip', () => {
     for (const h of tl.all()) {
       if (h.limb !== 'lead' && h.limb !== 'other') continue;
       const pose = poseAt(tl, h.time, 1, MILITARY);
-      const [x, y, z] = strikeTarget(h.piece, h.contact, scatterOf(h, h.limb)).tip;
+      const [x, y, z] =
+        h.contact === 'cross'
+          ? crossStick(h.limb).tip
+          : h.contact === 'rim'
+            ? rimShot(h.limb).tip
+            : strikeTarget(h.piece, h.contact, scatterOf(h, h.limb)).tip;
       const want = new Vector3(x, h.piece === 'hat' ? y + pose.hatGap - HAT_CLOSED_GAP : y, z);
       expect(pose.arms[h.limb].tip.distanceTo(want)).toBeLessThan(0.001);
       checked++;
@@ -1471,5 +1487,238 @@ describe('poseAt — a long gap on the snare', () => {
     }
     // a frame's jump of a few centimetres reads as a snatch; easing about is well under this
     expect(fastest).toBeLessThan(0.6);
+  });
+});
+
+describe('poseAt — a cross-stick', () => {
+  const STEP = 0.125;
+  const CROSS = 4;
+
+  /**
+   * The bars played: a timeline fed each step a moment before it sounds, as
+   * playback feeds it, and the other arm's pose at any time from it (time only
+   * goes forward — the timeline keeps a few seconds of what it has heard).
+   */
+  function played(bars: Bar[]) {
+    const tl = new StrokeTimeline();
+    let fed = 0;
+    return (now: number, grips?: ReturnType<typeof gripsFor>) => {
+      for (; fed < bars.length * N && fed * STEP <= now + 0.13; fed++) {
+        const b = bars[Math.floor(fed / N)];
+        const i = fed % N;
+        const lanes = (Object.keys(b) as LaneKey[]).filter((l) => b[l][i]);
+        tl.ingest({
+          t: fed * STEP,
+          dur: STEP,
+          slot: i,
+          meter: M44,
+          bar: b,
+          next: bars[Math.floor(fed / N) + 1] ?? null,
+          notes: lanes.map((l) => ({ voice: voice(l), when: fed * STEP })),
+        });
+      }
+      return poseAt(tl, now, 1, grips).arms.other;
+    };
+  }
+
+  /** Eighths on the hats; the backbeat, or cross-sticks on 2, the and of 3, and 4. */
+  const hats = (snare: Record<number, number>) => {
+    const b = bar();
+    for (let i = 0; i < N; i += 2) b.h[i] = 1;
+    for (const [i, v] of Object.entries(snare)) b.s[+i] = v;
+    return b;
+  };
+  const backbeat = hats({ 4: 2, 12: 2 });
+  const crosses = hats({ 4: CROSS, 10: CROSS, 12: CROSS });
+  /** A cross-stick's time in the middle bar, from its step. */
+  const at = (i: number) => (N + i) * STEP;
+  const song = () => played([backbeat, crosses, backbeat]);
+  const { grip, rim, tip } = crossStick('other');
+
+  it('lays the stick across the head onto the far hoop as each one sounds', () => {
+    const play = song();
+    for (const i of [4, 10, 12]) {
+      const arm = play(at(i));
+      expect(arm.tip.distanceTo(new Vector3(...tip))).toBeLessThan(0.001);
+      expect(arm.grip.distanceTo(new Vector3(...grip))).toBeLessThan(0.001);
+      // the shaft is down on the hoop: the hoop's point is on the stick's line
+      const r = new Vector3(...rim).sub(arm.tip);
+      expect(r.clone().cross(arm.stick).length()).toBeLessThan(0.001);
+      expect(arm.cross).toBe(1);
+    }
+  });
+
+  it('keeps the hand still while the fingers lift the far end and let it fall onto the hoop', () => {
+    const one = at(10);
+    const play = song();
+    const sample: [number, ReturnType<typeof play>][] = [];
+    for (let t = one - 0.2; t <= one + 1e-9; t += 0.005) sample.push([t, play(t)]);
+    const still = sample[sample.length - 1][1];
+    let highest = 0;
+    let when = 0;
+    for (const [t, arm] of sample) {
+      // the hand has not moved: the stick turns in the fingers (the wrist only turns
+      // a touch about the fulcrum as the body sways with the groove)
+      expect(arm.grip.distanceTo(still.grip), `grip at ${t}`).toBeLessThan(0.001);
+      expect(arm.wrist.distanceTo(still.wrist), `wrist at ${t}`).toBeLessThan(0.006);
+      if (arm.tip.y - still.tip.y > highest) [highest, when] = [arm.tip.y - still.tip.y, t];
+    }
+    // up a good few centimetres, highest just before the note, and dropped from there
+    expect(highest).toBeGreaterThan(0.04);
+    expect(one - when).toBeGreaterThan(0.02);
+    expect(one - when).toBeLessThan(0.06);
+  });
+
+  it('leaves the stick lying on the hoop between them, not hovering over it', () => {
+    // half way from the one on step 4 to the one on step 10
+    const arm = song()((at(4) + at(10)) / 2);
+    expect(arm.tip.distanceTo(new Vector3(...tip))).toBeLessThan(0.003);
+  });
+
+  it('lifts a louder cross-stick higher', () => {
+    const lift = (strength: number) => {
+      const next: Hit = {
+        time: 1,
+        step: 1,
+        limb: 'other',
+        lane: 's',
+        piece: 'snare',
+        contact: 'cross',
+        strength,
+        sure: true,
+      };
+      const st = { prev: undefined, next, lift: 0, travel: 0, since: Infinity };
+      return Math.max(...[0.9, 0.93, 0.95, 0.97].map((t) => crossLiftAt(st, t)));
+    };
+    expect(lift(0.9)).toBeGreaterThan(lift(0.2) + 0.03);
+    // and nothing for a note that is not a cross-stick
+    const st = { prev: undefined, next: undefined, lift: 0, travel: 0, since: Infinity };
+    expect(crossLiftAt(st, 0.9)).toBe(0);
+  });
+
+  it('turns a military hand over for it, and back for the backbeat', () => {
+    const MILITARY = gripsFor('both');
+    const play = song();
+    const crossing = play(at(10), MILITARY);
+    expect(crossing.held).toBe('matched');
+    expect(crossing.tip.distanceTo(new Vector3(...tip))).toBeLessThan(0.001);
+    expect(play(2 * N * STEP + 4 * STEP, MILITARY).held).toBe('military');
+  });
+
+  it('goes in and out of the cross-stick no faster than it plays the backbeat, in either grip', () => {
+    const fastest = (bars: Bar[], grips?: ReturnType<typeof gripsFor>) => {
+      const play = played(bars);
+      const dt = 1 / 120;
+      let last: Vector3 | null = null;
+      let top = 0;
+      for (let t = 0.5; t < 3 * N * STEP - 0.1; t += dt) {
+        const wrist = play(t, grips).wrist;
+        if (last) top = Math.max(top, wrist.distanceTo(last) / dt);
+        last = wrist.clone();
+      }
+      return top;
+    };
+    for (const grips of [undefined, gripsFor('both')]) {
+      const plain = fastest([backbeat, backbeat, backbeat], grips);
+      expect(fastest([backbeat, crosses, backbeat], grips)).toBeLessThan(plain * 1.1);
+    }
+  });
+});
+
+describe('poseAt — a rimshot', () => {
+  const STEP = 0.125;
+
+  /** A timeline fed each step a moment before it sounds; the other arm at any time (forward only). */
+  function played(bars: Bar[]) {
+    const tl = new StrokeTimeline();
+    let fed = 0;
+    return (now: number, grips?: ReturnType<typeof gripsFor>) => {
+      for (; fed < bars.length * N && fed * STEP <= now + 0.13; fed++) {
+        const b = bars[Math.floor(fed / N)];
+        const i = fed % N;
+        const lanes = (Object.keys(b) as LaneKey[]).filter((l) => b[l][i]);
+        tl.ingest({
+          t: fed * STEP,
+          dur: STEP,
+          slot: i,
+          meter: M44,
+          bar: b,
+          next: bars[Math.floor(fed / N) + 1] ?? null,
+          notes: lanes.map((l) => ({ voice: voice(l), when: fed * STEP })),
+        });
+      }
+      return poseAt(tl, now, 1, grips).arms.other;
+    };
+  }
+  const hats = (snare: Record<number, number>) => {
+    const b = bar();
+    for (let i = 0; i < N; i += 2) b.h[i] = 1;
+    for (const [i, v] of Object.entries(snare)) b.s[+i] = v;
+    return b;
+  };
+  const backbeat = hats({ 4: 2, 12: 2 });
+  // the backbeat as rimshots, a ghost between
+  const rims = hats({ 4: RIMSHOT, 7: 1, 12: RIMSHOT });
+  const note = (N + 12) * STEP;
+  const { tip, rim } = rimShot('other');
+  const grips = [undefined, gripsFor('both')] as const;
+
+  /** How high the stick's line is over the hoop's contact point, metres (undefined if it is not over it). */
+  const overHoop = (arm: ReturnType<ReturnType<typeof played>>) => {
+    const butt = arm.tip.clone().addScaledVector(arm.stick, -STICK.length);
+    const d = arm.tip.clone().sub(butt);
+    const run = Math.hypot(d.x, d.z);
+    const k = ((rim[0] - butt.x) * d.x + (rim[2] - butt.z) * d.z) / (run * run);
+    const aside = Math.abs((rim[0] - butt.x) * d.z - (rim[2] - butt.z) * d.x) / run;
+    return k > 0 && k < 1 && aside < 0.02 ? butt.y + d.y * k - rim[1] : undefined;
+  };
+
+  it('meets head and hoop at once: the bead on the head, the shaft on the near hoop', () => {
+    for (const g of grips) {
+      const arm = played([backbeat, rims])(note, g);
+      expect(arm.tip.distanceTo(new Vector3(...tip))).toBeLessThan(0.001);
+      expect(overHoop(arm)).toBeCloseTo(0, 3);
+    }
+  });
+
+  it('comes down onto the hoop from above, never through it', () => {
+    for (const g of grips) {
+      const play = played([backbeat, rims]);
+      let lowest = Infinity;
+      for (let t = note - 0.25; t <= note + 1e-9; t += 0.005) {
+        const h = overHoop(play(t, g));
+        if (h !== undefined) lowest = Math.min(lowest, h);
+      }
+      expect(lowest).toBeGreaterThan(-0.001);
+    }
+  });
+
+  it('is a full stroke: the stick comes from higher than for the backbeat', () => {
+    const peak = (bars: Bar[]) => {
+      const play = played(bars);
+      let top = 0;
+      for (let t = note - 0.3; t < note; t += 0.005) top = Math.max(top, play(t).lift);
+      return top;
+    };
+    expect(peak([backbeat, rims])).toBeGreaterThan(peak([backbeat, backbeat]));
+  });
+
+  it('goes in and out of rimshots no faster than it plays the backbeat, in either grip', () => {
+    const fastest = (bars: Bar[], g?: ReturnType<typeof gripsFor>) => {
+      const play = played(bars);
+      let last: Vector3 | null = null;
+      let top = 0;
+      for (let t = 0.5; t < 3 * N * STEP - 0.1; t += 1 / 120) {
+        const wrist = play(t, g).wrist;
+        if (last) top = Math.max(top, wrist.distanceTo(last) * 120);
+        last = wrist.clone();
+      }
+      return top;
+    };
+    for (const g of grips) {
+      expect(fastest([backbeat, rims, backbeat], g)).toBeLessThan(
+        fastest([backbeat, backbeat, backbeat], g) * 1.1
+      );
+    }
   });
 });

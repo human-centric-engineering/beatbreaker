@@ -53,7 +53,9 @@ import type { Bar, LaneKey } from '@/lib/app/breaks/types';
  * instead). Both still sound; they are just not mimed.
  *
  * A piece out at the edge (the block beside the hats) is only ever its own
- * side's: the other hand cannot reach it. A grace note is the hand that is not
+ * side's: the other hand cannot reach it. A cross-stick is always the other
+ * hand's: it is played with that hand resting on the snare, which the lead
+ * hand, over on the hats or the ride, cannot do. A grace note is the hand that is not
  * playing the note it decorates, when that hand is free.
  *
  * It reads a bar from where the bar before it left the hands (or from rest),
@@ -250,24 +252,27 @@ function finish(bar: Bar, i: number, hands: StepHands): StepHands {
   return out;
 }
 
+/** The snare's cross-stick value. */
+const CROSS_STICK = 4;
+
 /** The ways a step's notes can be shared between the hands; `turn` says hand to hand, and whose go it is. */
 function choices(bar: Bar, i: number, turn?: Hand): StepHands[] {
   const lane = turn && turnNote(bar, i);
-  // (a piece out at the edge stays its own side's, whoever's go it is)
-  if (turn && (!lane || reaches(turn, lane))) return [finish(bar, i, lane ? { [lane]: turn } : {})];
+  // (a piece out at the edge stays its own side's, whoever's go it is; so does a cross-stick)
+  const cross = bar.s[i] === CROSS_STICK;
+  if (turn && (!lane || (reaches(turn, lane) && !(cross && lane === 's' && turn === 'lead'))))
+    return [finish(bar, i, lane ? { [lane]: turn } : {})];
   const notes = handNotes(bar, i);
+  const ways: StepHands[] = [];
   if (notes.length === 1) {
     const [lane] = notes;
-    return [finish(bar, i, { [lane]: 'lead' }), finish(bar, i, { [lane]: 'other' })];
-  }
-  if (notes.length === 2) {
+    ways.push({ [lane]: 'lead' }, { [lane]: 'other' });
+  } else if (notes.length === 2) {
     const [a, b] = notes;
-    return [
-      finish(bar, i, { [a]: 'lead', [b]: 'other' }),
-      finish(bar, i, { [a]: 'other', [b]: 'lead' }),
-    ];
-  }
-  return [finish(bar, i, {})];
+    ways.push({ [a]: 'lead', [b]: 'other' }, { [a]: 'other', [b]: 'lead' });
+  } else ways.push({});
+  const allowed = cross ? ways.filter((w) => w.s !== 'lead') : ways;
+  return (allowed.length ? allowed : ways).map((w) => finish(bar, i, w));
 }
 
 /** The lanes the hands play in a step, and with which hand. */

@@ -21,6 +21,7 @@ import {
   place,
   rod,
   segment,
+  styleKit,
 } from '@/components/app/studio/drummer/parts';
 import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
 
@@ -50,6 +51,7 @@ describe('makeMaterials', () => {
       'hair',
       'eye',
       'rug',
+      'trim',
       'floor',
     ] as const) {
       expect(m[key]).toBeInstanceOf(THREE.MeshStandardMaterial);
@@ -84,6 +86,76 @@ describe('makeMaterials', () => {
     const b = makeMaterials();
     expect(a.shell).not.toBe(b.shell);
     expect(a.chrome).not.toBe(b.chrome);
+  });
+});
+
+describe('styleKit', () => {
+  const byId = (id: string) => PERSONAS.find((p) => p.id === id)!;
+
+  it("paints the kit in the player's: shells, hardware, the mat and its trim", () => {
+    const vex = byId('vex');
+    const m = makeMaterials(vex);
+    expect(m.shell.color.getHexString()).toBe(vex.kit.shell.slice(1));
+    expect(m.rug.color.getHexString()).toBe(vex.kit.rug.slice(1));
+    expect(m.trim.color.getHexString()).toBe(vex.kit.trim!.slice(1));
+    // blacked-out hardware: dark, and duller than chrome
+    expect(m.chrome.color.getHSL({ h: 0, s: 0, l: 0 }).l).toBeLessThan(0.1);
+    expect(m.chrome.roughness).toBeGreaterThan(0.3);
+  });
+
+  it("keeps the original drummer's kit exactly as it was", () => {
+    const m = makeMaterials(PERSONAS[0]);
+    expect(m.shell.color.getHexString()).toBe('7a1f1a');
+    expect(m.shell).toMatchObject({
+      metalness: 0.35,
+      roughness: 0.32,
+      clearcoat: 1,
+      clearcoatRoughness: 0.08,
+    });
+    expect(m.chrome.color.getHexString()).toBe('d9dde2');
+    expect(m.chrome).toMatchObject({ metalness: 1, roughness: 0.16 });
+    expect(m.rug.color.getHexString()).toBe('3a2f2a');
+    // no trim: the band is the mat's own colour
+    expect(m.trim.color.getHexString()).toBe('3a2f2a');
+  });
+
+  it('gives each finish its own surface', () => {
+    const finish = (id: string) => {
+      const s = makeMaterials(byId(id)).shell;
+      return { metalness: s.metalness, roughness: s.roughness, clearcoat: s.clearcoat };
+    };
+    const satin = finish('raj');
+    const metal = finish('brassbot');
+    const sparkle = finish('roxy');
+    // satin is matt and unmetallic; bare metal is all metal; sparkle sits between, under lacquer
+    expect(satin.metalness).toBe(0);
+    expect(satin.roughness).toBeGreaterThan(finish('original').roughness);
+    expect(metal.metalness).toBe(1);
+    expect(sparkle.metalness).toBeGreaterThan(satin.metalness);
+    expect(sparkle.metalness).toBeLessThan(metal.metalness);
+    expect(sparkle.clearcoat).toBe(1);
+  });
+
+  it('repaints a kit in place for the next player, gold hardware and all', () => {
+    const m = makeMaterials(PERSONAS[0]);
+    const { shell, chrome, rug, trim } = m;
+    const duchess = byId('duchess');
+    styleKit(m, duchess);
+    expect(m.shell).toBe(shell);
+    expect(m.chrome).toBe(chrome);
+    expect(m.rug).toBe(rug);
+    expect(m.trim).toBe(trim);
+    expect(shell.color.getHexString()).toBe(duchess.kit.shell.slice(1));
+    expect(chrome.color.getHexString()).toBe('e0b24a');
+    expect(rug.color.getHexString()).toBe(duchess.kit.rug.slice(1));
+    expect(trim.color.getHexString()).toBe(duchess.kit.trim!.slice(1));
+  });
+
+  it('flags the shell for a new shader when it is repainted', () => {
+    const m = makeMaterials(PERSONAS[0]);
+    const version = m.shell.version;
+    styleKit(m, byId('roxy'));
+    expect(m.shell.version).toBeGreaterThan(version);
   });
 });
 
@@ -308,6 +380,22 @@ describe('loft', () => {
     expect(pos.count).toBe(3 * 24 + 2);
     expect(m.geometry.getIndex()!.count).toBe((2 * 24 * 2 + 2 * 24) * 3);
     expect(m.geometry.getAttribute('normal')).toBeDefined();
+  });
+
+  it('closes each end facing out of it, so an end in view is lit, not dark', () => {
+    const m = loft(
+      [
+        { y: 0, w: 0.1, d: 0.1 },
+        { y: 0.2, w: 0.1, d: 0.1 },
+      ],
+      new THREE.MeshStandardMaterial(),
+      16
+    );
+    const normal = m.geometry.getAttribute('normal');
+    // the two end centres are the last two vertices: bottom, then top
+    const n = normal.count;
+    expect(normal.getY(n - 2)).toBeLessThan(-0.9);
+    expect(normal.getY(n - 1)).toBeGreaterThan(0.9);
   });
 });
 

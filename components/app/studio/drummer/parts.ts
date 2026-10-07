@@ -1,6 +1,11 @@
 import * as THREE from 'three';
 
-import { PERSONAS, type Persona } from '@/lib/app/breaks/drummer/personas';
+import {
+  type Finish,
+  type Hardware,
+  PERSONAS,
+  type Persona,
+} from '@/lib/app/breaks/drummer/personas';
 
 /**
  * Shared bits for building the drummer scene out of primitives
@@ -13,6 +18,7 @@ import { PERSONAS, type Persona } from '@/lib/app/breaks/drummer/personas';
 export interface Materials {
   shell: THREE.MeshPhysicalMaterial;
   head: THREE.MeshStandardMaterial;
+  /** The kit's hardware: chrome, unless the player's kit is blacked out or gold. */
   chrome: THREE.MeshStandardMaterial;
   black: THREE.MeshStandardMaterial;
   bronze: THREE.MeshStandardMaterial;
@@ -38,6 +44,8 @@ export interface Materials {
   /** A cyborg's lights: eyes and joints, in the loud colour. */
   glow: THREE.MeshStandardMaterial;
   rug: THREE.MeshStandardMaterial;
+  /** The band round the mat's edge. */
+  trim: THREE.MeshStandardMaterial;
   floor: THREE.MeshStandardMaterial;
 }
 
@@ -66,6 +74,37 @@ function lathingTexture(): THREE.Texture | null {
     ctx.stroke();
   }
   const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.NoColorSpace;
+  return tex;
+}
+
+/**
+ * Metal flake for a sparkle finish, drawn once onto a canvas: a fine scatter
+ * of specks, each catching the light at its own angle under the lacquer.
+ * Skipped where there is no canvas (the tests run in Node).
+ */
+function flakeTexture(): THREE.Texture | null {
+  if (typeof document === 'undefined') return null;
+  const size = 256;
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  ctx.fillStyle = '#a0a0a0';
+  ctx.fillRect(0, 0, size, size);
+  // seeded, so every sparkle kit glitters the same way
+  let seed = 0x51ab;
+  const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+  for (let i = 0; i < 2600; i++) {
+    const shade = Math.round(rnd() * 255);
+    ctx.fillStyle = `rgb(${shade},${shade},${shade})`;
+    ctx.fillRect(Math.floor(rnd() * size), Math.floor(rnd() * size), 1.5, 1.5);
+  }
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(6, 1);
   tex.colorSpace = THREE.NoColorSpace;
   return tex;
 }
@@ -166,17 +205,11 @@ export function makeMaterials(who: Persona = PERSONAS[0]): Materials {
   const lathing = lathingTexture();
   const robot = who.kind === 'robot';
   const beast = who.kind === 'beast';
-  return {
-    shell: new THREE.MeshPhysicalMaterial({
-      color: '#7a1f1a',
-      metalness: 0.35,
-      roughness: 0.32,
-      clearcoat: 1,
-      clearcoatRoughness: 0.08,
-      side: THREE.DoubleSide,
-    }),
+  const m: Materials = {
+    // the shells, hardware and mat are painted in the player's kit by `styleKit`, below
+    shell: new THREE.MeshPhysicalMaterial({ side: THREE.DoubleSide }),
     head: new THREE.MeshStandardMaterial({ color: '#ece6d6', roughness: 0.75 }),
-    chrome: new THREE.MeshStandardMaterial({ color: '#d9dde2', metalness: 1, roughness: 0.16 }),
+    chrome: new THREE.MeshStandardMaterial(),
     black: new THREE.MeshStandardMaterial({ color: '#17181b', roughness: 0.6 }),
     bronze: new THREE.MeshStandardMaterial({
       color: '#c99a4a',
@@ -240,9 +273,52 @@ export function makeMaterials(who: Persona = PERSONAS[0]): Materials {
       emissiveIntensity: 1.6,
       roughness: 0.3,
     }),
-    rug: new THREE.MeshStandardMaterial({ color: '#3a2f2a', roughness: 1 }),
+    rug: new THREE.MeshStandardMaterial({ roughness: 1 }),
+    trim: new THREE.MeshStandardMaterial({ roughness: 1 }),
     floor: new THREE.MeshStandardMaterial({ color: '#1d1f24', roughness: 0.85 }),
   };
+  styleKit(m, who);
+  return m;
+}
+
+const FINISH: Record<
+  Finish,
+  { metalness: number; roughness: number; clearcoat: number; clearcoatRoughness: number }
+> = {
+  gloss: { metalness: 0.35, roughness: 0.32, clearcoat: 1, clearcoatRoughness: 0.08 },
+  sparkle: { metalness: 0.7, roughness: 0.4, clearcoat: 1, clearcoatRoughness: 0.04 },
+  satin: { metalness: 0, roughness: 0.55, clearcoat: 0.25, clearcoatRoughness: 0.45 },
+  metal: { metalness: 1, roughness: 0.2, clearcoat: 0.6, clearcoatRoughness: 0.12 },
+};
+
+const HARDWARE: Record<Hardware, { color: string; metalness: number; roughness: number }> = {
+  chrome: { color: '#d9dde2', metalness: 1, roughness: 0.16 },
+  black: { color: '#2a2b30', metalness: 0.9, roughness: 0.38 },
+  gold: { color: '#e0b24a', metalness: 1, roughness: 0.22 },
+};
+
+/**
+ * Paint the kit's shells, hardware and mat in a player's kit — in place, so a
+ * new player can sit down at the same kit without it being rebuilt.
+ */
+export function styleKit(m: Materials, who: Persona): void {
+  const { kit } = who;
+  m.shell.color.set(kit.shell);
+  Object.assign(m.shell, FINISH[kit.finish]);
+  const old = m.shell.bumpMap;
+  const flakes = kit.finish === 'sparkle' ? (old ?? flakeTexture()) : null;
+  if (old && old !== flakes) old.dispose();
+  m.shell.bumpMap = flakes;
+  m.shell.roughnessMap = flakes;
+  m.shell.bumpScale = 0.4;
+  // a map coming or going changes the shader
+  m.shell.needsUpdate = true;
+  const hw = HARDWARE[kit.hardware];
+  m.chrome.color.set(hw.color);
+  m.chrome.metalness = hw.metalness;
+  m.chrome.roughness = hw.roughness;
+  m.rug.color.set(kit.rug);
+  m.trim.color.set(kit.trim ?? kit.rug);
 }
 
 const Y = new THREE.Vector3(0, 1, 0);
@@ -339,8 +415,9 @@ export function loft(
     for (let i = 0; i < around; i++) {
       const a = base + i;
       const b = base + ((i + 1) % around);
-      if (top) index.push(a, b, centre);
-      else index.push(b, a, centre);
+      // wound to face out of the end
+      if (top) index.push(b, a, centre);
+      else index.push(a, b, centre);
     }
   }
   const geo = new THREE.BufferGeometry();

@@ -444,3 +444,41 @@ describe('assignBar — fills keep the arms uncrossed', () => {
     for (let i = 3; i < 8; i++) expect(hands[i]).not.toBe(hands[i - 1]);
   });
 });
+
+describe('assignBar — a cross-stick is the other hand’s', () => {
+  const CROSS = 4;
+
+  it('gives it to the other hand where alternating would have given it to the lead', () => {
+    // a rimshot on the other hand, then straight away a cross-stick: alternating says lead
+    const b = bar({
+      h: [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      s: [0, 0, 0, 0, 0, 0, RIMSHOT, CROSS, 0, 0, 0, 0, 0, 0, 0, 0],
+    });
+    expect(assignBar(b)[7].s).toBe('other');
+    // the same with a plain note is still alternated
+    const plain = bar({ ...b, s: b.s.map((v) => (v === CROSS ? 2 : v)) });
+    expect(assignBar(plain)[7].s).toBe('lead');
+  });
+
+  it('keeps it on the other hand when fast hats go hand to hand and it is the lead’s go', () => {
+    const b = bar({
+      h: Array<number>(N).fill(1),
+      s: [0, 0, 0, 0, CROSS, 0, 0, 0, 0, 0, 0, 0, CROSS, 0, 0, 0],
+    });
+    const steps = assignBar(b, null, true);
+    expect(steps[4].s).toBe('other');
+    expect(steps[12].s).toBe('other');
+    // and the lead hand keeps the hats going over it
+    expect(steps[4].h).toBe('lead');
+  });
+
+  it('plays every cross-stick in a groove with the other hand', () => {
+    const b = bar({
+      h: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+      s: [0, 0, 0, CROSS, 0, 0, CROSS, 0, 0, 0, CROSS, 0, 0, CROSS, 0, 0],
+    });
+    assignBar(b).forEach((step, i) => {
+      if (b.s[i]) expect(step.s).toBe('other');
+    });
+  });
+});

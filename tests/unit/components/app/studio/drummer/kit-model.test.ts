@@ -56,6 +56,22 @@ describe('buildKit', () => {
     expect(root).toBeInstanceOf(THREE.Group);
   });
 
+  it('lays the mat with a band of trim round its edge', () => {
+    const m = makeMaterials();
+    const { root } = buildKit(m);
+    const rug = root.children.find((o) => o instanceof THREE.Mesh && o.material === m.rug);
+    const trim = root.children.find((o) => o instanceof THREE.Mesh && o.material === m.trim);
+    expect(rug).toBeInstanceOf(THREE.Mesh);
+    expect(trim).toBeInstanceOf(THREE.Mesh);
+    const disc = (rug as THREE.Mesh<THREE.CircleGeometry>).geometry.parameters;
+    const band = (trim as THREE.Mesh<THREE.RingGeometry>).geometry.parameters;
+    // the band starts where the mat ends, flat on the floor at the same spot
+    expect(band.innerRadius).toBe(disc.radius);
+    expect(band.outerRadius).toBeGreaterThan(disc.radius);
+    expect(trim!.position.toArray()).toEqual(rug!.position.toArray());
+    expect(trim!.rotation.x).toBe(rug!.rotation.x);
+  });
+
   it('idles with the cymbals still and the hat closed', () => {
     const { root, update } = buildKit(makeMaterials());
     const crash = onlyGroupChildAt(root, PIECES.crash.centre);

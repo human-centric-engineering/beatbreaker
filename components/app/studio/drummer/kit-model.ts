@@ -5,6 +5,7 @@ import {
   BOARD_LENGTH,
   BELL,
   HAT_PEDAL,
+  HOOP,
   KICK_PEDAL,
   type Piece,
   type PieceId,
@@ -56,8 +57,8 @@ function drum(p: Piece, m: Materials, lugs: number, hoop: THREE.Material = m.chr
   reso.position.y = -p.depth;
   g.add(reso);
 
-  for (const y of [0.004, -p.depth - 0.004]) {
-    const ring = new THREE.Mesh(new THREE.TorusGeometry(r + 0.004, 0.0065, 8, 64), hoop);
+  for (const y of [HOOP.rise, -p.depth - HOOP.rise]) {
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(r + HOOP.out, HOOP.tube, 8, 64), hoop);
     ring.rotation.x = Math.PI / 2;
     ring.position.y = y;
     ring.castShadow = true;
@@ -337,11 +338,14 @@ export function buildKit(m: Materials): KitModel {
   seat.receiveShadow = true;
   root.add(seat);
   root.add(stand(new THREE.Vector3(0, 0.47, 0.26), m, 0.26));
-  const rug = new THREE.Mesh(new THREE.CircleGeometry(1.35, 64), m.rug);
-  rug.rotation.x = -Math.PI / 2;
-  rug.position.set(0, 0.002, -0.25);
-  rug.receiveShadow = true;
-  root.add(rug);
+  const rug = new THREE.Mesh(new THREE.CircleGeometry(1.27, 64), m.rug);
+  const trim = new THREE.Mesh(new THREE.RingGeometry(1.27, 1.35, 64), m.trim);
+  for (const o of [rug, trim]) {
+    o.rotation.x = -Math.PI / 2;
+    o.position.set(0, 0.002, -0.25);
+    o.receiveShadow = true;
+    root.add(o);
+  }
 
   root.traverse((o) => {
     if (o instanceof THREE.Mesh) o.receiveShadow = true;

@@ -222,17 +222,32 @@ describe('DrummerStage', () => {
     expect(scene.getObjectByName('drummer')).toBe(drummers[0]);
   });
 
+  it("paints the kit in the player's colours, and repaints the same kit for the next one", () => {
+    const [first, second] = PERSONAS;
+    const stage = new DrummerStage(host, clock, first);
+    rafCtl.runNextFrame(16);
+    const scene = fakes.renderers[0].render.mock.calls[0]?.[0] as THREE.Scene;
+    const kit = scene.getObjectByName('kit')!;
+    // the mat: the widest disc in the kit
+    const rug = kit.children.find(
+      (o): o is THREE.Mesh => o instanceof THREE.Mesh && o.geometry instanceof THREE.CircleGeometry
+    )!;
+    const paint = () => (rug.material as THREE.MeshStandardMaterial).color.getHexString();
+    expect(paint()).toBe(first.kit.rug.slice(1));
+
+    stage.setPersona(second);
+    expect(scene.getObjectByName('kit')).toBe(kit);
+    expect(paint()).toBe(second.kit.rug.slice(1));
+  });
+
   it('draws the hands in the grip it is set to, from the next frame', () => {
     const stage = new DrummerStage(host, clock);
     rafCtl.runNextFrame(16);
     const scene = fakes.renderers[0].render.mock.calls[0]?.[0] as THREE.Scene;
     const drummer = scene.getObjectByName('drummer')!;
-    // the two hands: the root's groups with a palm and five digits; the other hand is on the left
+    // the two hands; the other hand is on the left
     const hands = drummer.children.filter(
-      (o): o is THREE.Group =>
-        o instanceof THREE.Group &&
-        o.children.length === 6 &&
-        (o.children[0] as THREE.Mesh).geometry?.type === 'RoundedBoxGeometry'
+      (o): o is THREE.Group => o instanceof THREE.Group && o.name === 'hand'
     );
     expect(hands).toHaveLength(2);
     const other = () => hands.reduce((a, b) => (a.position.x < b.position.x ? a : b));

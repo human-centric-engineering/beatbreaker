@@ -174,6 +174,16 @@ const SLEEVE: [number, number][] = [
   [0.059, 0.1],
   [0.062, 0.5],
 ];
+/** The deltoid, from over the shoulder joint down the outside of the arm: a rounded cap, then the taper. */
+const DELTOID: [number, number][] = [
+  [0, -0.5],
+  [0.03, -0.45],
+  [0.046, -0.33],
+  [0.054, -0.15],
+  [0.052, 0.1],
+  [0.045, 0.32],
+  [0.04, 0.5],
+];
 /** Hip to knee: heavy at the top, narrowing to the knee. */
 const THIGH: [number, number][] = [
   [0.082, -0.5],
@@ -200,18 +210,70 @@ const NECK: [number, number][] = [
 ];
 
 /** A phalanx: a short cylinder from its joint along `+z`, with a knuckle at the far end. */
-function phalanx(length: number, radius: number, m: THREE.Material): THREE.Group {
+function phalanx(
+  length: number,
+  radius: number,
+  m: THREE.Material,
+  nail?: THREE.Material
+): THREE.Group {
   const g = new THREE.Group();
-  const geo = new THREE.CylinderGeometry(radius * 0.9, radius, length, 10);
+  // rounded at both ends, so each knuckle is the two bones meeting, not a seam
+  const geo = new THREE.CapsuleGeometry(radius, length, 4, 12);
   geo.rotateX(Math.PI / 2);
   geo.translate(0, 0, length / 2);
-  const mesh = new THREE.Mesh(geo, m);
-  mesh.castShadow = true;
-  g.add(mesh);
-  const tip = ball(radius * 0.92, m, 10);
+  // a little flatter across the palm side than round
+  geo.scale(1, 0.88, 1);
+  const bone = new THREE.Mesh(geo, m);
+  bone.castShadow = true;
+  g.add(bone);
+  const tip = ball(radius * 0.97, m, 12);
+  tip.scale.set(1, 0.88, 1);
   tip.position.z = length;
   g.add(tip);
+  if (nail) {
+    // on the back of the last bone, toward its tip
+    const n = ball(radius * 0.78, nail, 12);
+    n.scale.set(1, 0.32, 1.25);
+    n.position.set(0, radius * 0.72, length * 0.72);
+    g.add(n);
+  }
   return g;
+}
+
+/**
+ * Wrist to knuckles, as cross-sections forward along `z`: `[forward, half-width,
+ * half-thickness, raised]`. Narrow at the heel of the hand, widest across the
+ * knuckles, thinning to them; the back of the hand is `+y`.
+ */
+const PALM: [number, number, number, number][] = [
+  [-0.004, 0.025, 0.013, 0],
+  [0.006, 0.031, 0.017, 0],
+  [0.025, 0.037, 0.019, -0.001],
+  [0.05, 0.042, 0.019, -0.001],
+  [0.075, 0.044, 0.016, 0],
+  [0.094, 0.043, 0.013, 0],
+  [0.104, 0.036, 0.009, 0],
+];
+
+/**
+ * A shape built forward along `z` through cross-sections `[forward, half-width,
+ * half-height, raised]`: a {@link loft} laid on its side.
+ */
+function forwardLoft(
+  sections: [number, number, number, number][],
+  mat: THREE.Material,
+  squareness = 2.4
+): THREE.Mesh {
+  const o = loft(
+    sections.map(([y, w, d, z]) => ({ y, w, d, z })),
+    mat,
+    28,
+    squareness
+  );
+  // the loft's up becomes forward and its depth up; flipping x keeps it inside out the right way
+  o.geometry.applyMatrix4(new THREE.Matrix4().set(-1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1));
+  o.geometry.computeVertexNormals();
+  return o;
 }
 
 interface FingerGrip {
@@ -260,6 +322,20 @@ const FINGER_GRIP: Record<Grip, FingerGrip[]> = {
   ],
 };
 
+/**
+ * A cross-stick's fingers, first to little: laid loosely over the stick toward
+ * the head rather than wrapped round it, and curling in a little more as they
+ * lift its far end (by up to `CROSS_LIFT_CURL`, at `CROSS_LIFT_FULL` metres).
+ */
+const FINGER_CROSS: [number, number, number][] = [
+  [0.02, 0.06, 0.05],
+  [0, 0.04, 0.04],
+  [0.02, 0.06, 0.05],
+  [0.05, 0.08, 0.06],
+];
+const CROSS_LIFT_CURL = 0.5;
+const CROSS_LIFT_FULL = 0.1;
+
 /** Where the thumb's base turns, per grip (`y` and `z` mirrored for the other hand). */
 const THUMB: Record<Grip, [number, number, number]> = {
   // along the stick on top of the fulcrum
@@ -272,12 +348,10 @@ const THUMB: Record<Grip, [number, number, number]> = {
  * A hand in the frame the pose solves (`z` to the knuckles, `y` out of the
  * back of the hand); `thumb` is which side of `x` the thumb is on.
  */
-function buildHand(thumb: 1 | -1, skin: THREE.Material): HandRig {
+function buildHand(thumb: 1 | -1, skin: THREE.Material, nail?: THREE.Material): HandRig {
   const group = new THREE.Group();
-  const palm = new THREE.Mesh(new RoundedBoxGeometry(0.085, 0.03, 0.098, 2, 0.012), skin);
-  palm.position.set(0, 0, 0.05);
-  palm.castShadow = true;
-  group.add(palm);
+  group.name = 'hand';
+  group.add(forwardLoft(PALM, skin));
 
   const fingers = FINGERS.map((f) => {
     const joints: THREE.Group[] = [];
@@ -290,7 +364,8 @@ function buildHand(thumb: 1 | -1, skin: THREE.Material): HandRig {
       } else {
         joint.position.z = f.lengths[k - 1];
       }
-      joint.add(phalanx(len, f.r, skin));
+      // tapering to the tip, the last bone wearing the nail
+      joint.add(phalanx(len, f.r * (1 - 0.07 * k), skin, k === 2 ? nail : undefined));
       parent.add(joint);
       joints.push(joint);
       parent = joint;
@@ -299,22 +374,31 @@ function buildHand(thumb: 1 | -1, skin: THREE.Material): HandRig {
   });
 
   const thumbBase = new THREE.Group();
-  thumbBase.position.set(thumb * 0.038, -0.012, 0.022);
+  // its base inside the heel of the hand, as a thumb's is
+  thumbBase.position.set(thumb * 0.03, -0.01, 0.026);
   turnThumb(thumbBase, thumb, 'matched');
   const t1 = phalanx(0.042, 0.0115, skin);
   thumbBase.add(t1);
   const t2 = new THREE.Group();
   t2.position.z = 0.042;
   t2.rotation.x = 0.25;
-  t2.add(phalanx(0.032, 0.0105, skin));
+  t2.add(phalanx(0.032, 0.0105, skin, nail));
   t1.add(t2);
   group.add(thumbBase);
+  // the pad of the thumb's muscle, under the palm on its side
+  const pad = ball(0.02, skin, 16);
+  pad.scale.set(1, 0.72, 1.5);
+  pad.position.set(thumb * 0.024, -0.009, 0.034);
+  group.add(pad);
 
   return { group, fingers, thumb: thumbBase, side: thumb };
 }
 
-function turnThumb(base: THREE.Group, side: 1 | -1, held: Grip): void {
-  const [x, y, z] = THUMB[held];
+/** A thumb set down for a cross-stick: out along the stick and level with the hand, not round it. */
+const THUMB_CROSS: [number, number, number] = [-0.1, -0.45, 0.5];
+
+function turnThumb(base: THREE.Group, side: 1 | -1, held: Grip, cross = 0): void {
+  const [x, y, z] = THUMB[held].map((a, k) => a + (THUMB_CROSS[k] - a) * cross);
   base.rotation.set(x, side * y, side * z, 'YXZ');
 }
 
@@ -363,45 +447,68 @@ function buildArm(hand: Hand, m: Materials, who: Persona): ArmRig {
   // a vest leaves the arms bare to the shoulder
   const sleeved = who.top === 'tee';
   const sleeve = limb(girth(SLEEVE, g), m.shirt);
+  sleeve.name = 'sleeve';
   sleeve.visible = sleeved;
   // a cyborg's arm is metal, its elbow and wrist lit
   const machine = who.cyborg === 'full' || (who.cyborg === 'arm' && hand === 'lead');
   const skin = machine ? m.metal : m.skin;
   const joint = machine ? m.glow : skin;
-  // the deltoid, capping the shoulder: rounder sideways than up
-  const shoulder = ball(0.054 * g, sleeved ? m.shirt : skin, 22);
-  shoulder.scale.set(1.05, 0.88, 1);
+  // the deltoid: capping the shoulder and tapering down the outside of the arm
+  const shoulder = limb(girth(DELTOID, g), sleeved ? m.shirt : skin, 22);
+  shoulder.name = 'deltoid';
+  // a machine has no nails
+  const nail = machine
+    ? undefined
+    : new THREE.MeshStandardMaterial({
+        color: m.skin.color.clone().lerp(new THREE.Color('#fff2ee'), 0.45),
+        roughness: 0.3,
+      });
   return {
     shoulder,
     sleeve,
     upper: limb(girth(UPPER_ARM, g), skin),
     elbow: ball(0.0355 * g * (machine ? 0.92 : 1), joint, 18),
     forearm: limb(girth(FOREARM, g, Math.sqrt(g)), skin),
-    wrist: ball(0.025 * Math.sqrt(g) * (machine ? 0.92 : 1), joint, 14),
-    hand: buildHand(hand === 'lead' ? 1 : -1, skin),
+    wrist: ball(0.025 * Math.sqrt(g) * (machine ? 0.92 : 1), joint, 16),
+    hand: buildHand(hand === 'lead' ? 1 : -1, skin, nail),
     stick,
     bead: ball(BEAD_RADIUS, m.wood, 12),
   };
 }
 
 function poseArm(rig: ArmRig, a: ArmPose): void {
-  rig.shoulder.position.copy(a.shoulder);
+  // from just over the joint, down the arm
+  const down = new THREE.Vector3().subVectors(a.elbow, a.shoulder);
+  place(
+    rig.shoulder,
+    a.shoulder.clone().addScaledVector(down, -0.13),
+    a.shoulder.clone().addScaledVector(down, 0.42)
+  );
   const sleeveEnd = a.shoulder.clone().lerp(a.elbow, 0.45);
   place(rig.sleeve, a.shoulder, sleeveEnd);
   place(rig.upper, a.shoulder, a.elbow);
   rig.elbow.position.copy(a.elbow);
   place(rig.forearm, a.elbow, a.wrist);
+  // a wrist is wider than it is deep, and turns with the hand
   rig.wrist.position.copy(a.wrist);
+  rig.wrist.quaternion.copy(a.hand);
+  rig.wrist.scale.set(1.08, 0.74, 1);
   rig.hand.group.position.copy(a.wrist);
   rig.hand.group.quaternion.copy(a.hand);
   const grips = FINGER_GRIP[a.held];
+  const lifting = 1 + CROSS_LIFT_CURL * Math.min(1, a.lift / CROSS_LIFT_FULL);
   rig.hand.fingers.forEach((joints, n) => {
     const f = grips[n];
     const c = f.hold + (1 - f.hold) * a.curl;
-    joints.forEach((j, k) => (j.rotation.x = f.bend[k] * c));
+    // set down for a cross-stick, the fingers open out over the stick
+    joints.forEach(
+      (j, k) =>
+        (j.rotation.x = f.bend[k] * c + (FINGER_CROSS[n][k] * lifting - f.bend[k] * c) * a.cross)
+    );
   });
-  turnThumb(rig.hand.thumb, rig.hand.side, a.held);
-  const butt = a.grip.clone().addScaledVector(a.stick, -STICK.grip);
+  turnThumb(rig.hand.thumb, rig.hand.side, a.held, a.cross);
+  // back from the bead: held near the butt for a cross-stick, the fulcrum is not always the same way up it
+  const butt = a.tip.clone().addScaledVector(a.stick, -STICK.length);
   place(rig.stick, butt, a.tip);
   rig.bead.position.copy(a.tip);
 }
@@ -456,22 +563,66 @@ function soleGeometry(length: number, back: number, o: SoleOutline): THREE.Extru
   return geo;
 }
 
+/**
+ * A trainer, heel to ball, as cross-sections forward from the heel (`[forward,
+ * half-width, half-height, raised]`): a rounded heel counter, the collar
+ * standing highest round the ankle, the laces sloping down over the instep.
+ */
+const HEEL_UPPER: [number, number, number, number][] = [
+  [-0.05, 0.012, 0.012, 0.035],
+  [-0.044, 0.028, 0.031, 0.037],
+  [-0.03, 0.037, 0.04, 0.041],
+  [0.0, 0.041, 0.044, 0.042],
+  [0.05, 0.044, 0.04, 0.038],
+  [0.11, 0.047, 0.032, 0.031],
+  [0.17, 0.048, 0.027, 0.026],
+];
+/** And ball to toe: the toe box lowering and narrowing to a rounded point. */
+const TOE_UPPER: [number, number, number, number][] = [
+  [-0.012, 0.048, 0.027, 0.026],
+  [0.025, 0.047, 0.025, 0.024],
+  [0.055, 0.042, 0.021, 0.021],
+  [0.074, 0.033, 0.017, 0.018],
+  [0.084, 0.022, 0.012, 0.016],
+  [0.089, 0.01, 0.006, 0.015],
+];
+
+/** Laces across the instep, lying on the top of `upper`. */
+function lacesOver(upper: [number, number, number, number][], mat: THREE.Material): THREE.Mesh[] {
+  // the upper's top and half-width at `f` forward, between its cross-sections
+  const at = (f: number): [number, number] => {
+    for (let i = 1; i < upper.length; i++) {
+      const [f1, w1, h1, r1] = upper[i];
+      const [f0, w0, h0, r0] = upper[i - 1];
+      if (f <= f1) {
+        const k = (f - f0) / (f1 - f0);
+        return [r0 + h0 + (r1 + h1 - r0 - h0) * k, w0 + (w1 - w0) * k];
+      }
+    }
+    const [, w, h, r] = upper[upper.length - 1];
+    return [r + h, w];
+  };
+  return [0.055, 0.08, 0.105, 0.13].map((f) => {
+    const [top, w] = at(f);
+    const lace = mesh(new THREE.CapsuleGeometry(0.0028, w * 0.75, 3, 6), mat);
+    lace.rotation.z = Math.PI / 2;
+    lace.position.set(0, top + 0.0008, f);
+    return lace;
+  });
+}
+
 /** A piece of shoe `length` long from its origin forward, sole underneath. */
 function shoePiece(
   m: Materials,
   length: number,
   back: number,
-  height: number,
-  outline: SoleOutline
+  upper: [number, number, number, number][],
+  outline: SoleOutline,
+  laces?: THREE.Material
 ): THREE.Group {
   const g = new THREE.Group();
-  const upper = new THREE.Mesh(
-    new RoundedBoxGeometry(0.1, height, length + back, 3, Math.min(0.03, height / 2.2)),
-    m.shoe
-  );
-  upper.position.set(0, height / 2 - 0.008, (length - back) / 2);
-  upper.castShadow = true;
-  g.add(upper);
+  g.add(forwardLoft(upper, m.shoe, 2.2));
+  if (laces) for (const lace of lacesOver(upper, laces)) g.add(lace);
   const sole = new THREE.Mesh(soleGeometry(length, back, outline), m.sole);
   sole.position.y = -0.003;
   g.add(sole);
@@ -479,6 +630,12 @@ function shoePiece(
 }
 
 function buildLeg(m: Materials, g: number): LegRig {
+  // laces that show against the shoe: light on a dark one, dark on a light one
+  const light = m.shoe.color.getHSL({ h: 0, s: 0, l: 0 }).l > 0.6;
+  const laces = new THREE.MeshStandardMaterial({
+    color: m.shoe.color.clone().lerp(new THREE.Color(light ? '#3a3a3a' : '#f2f0ea'), 0.7),
+    roughness: 0.8,
+  });
   return {
     hip: ball(0.08 * g, m.jeans, 20),
     thigh: limb(girth(THIGH, g), m.jeans),
@@ -486,13 +643,15 @@ function buildLeg(m: Materials, g: number): LegRig {
     shin: limb(girth(SHIN, g, Math.sqrt(g)), m.jeans),
     ankle: ball(0.037 * Math.sqrt(g), m.jeans, 14),
     // heel to ball: a rounded heel, widening to the ball where the toe box takes over
-    shoe: shoePiece(m, BODY.foot, 0.045, 0.075, {
-      back: 0.074,
-      front: 0.092,
-      backRound: 0.03,
-      frontRound: 0.004,
-    }),
-    toes: shoePiece(m, 0.08, 0.01, 0.05, {
+    shoe: shoePiece(
+      m,
+      BODY.foot,
+      0.045,
+      HEEL_UPPER,
+      { back: 0.074, front: 0.092, backRound: 0.03, frontRound: 0.004 },
+      laces
+    ),
+    toes: shoePiece(m, 0.08, 0.01, TOE_UPPER, {
       back: 0.092,
       front: 0.07,
       backRound: 0.004,
@@ -536,7 +695,13 @@ interface HeadRig {
   /** Each eye with its lid: a blink squashes the lot. */
   eyes: Record<1 | -1, THREE.Object3D>;
   brows: Record<1 | -1, THREE.Mesh>;
+  /** Draw the mouth `smile` (0–1) of the way into a smile. */
+  smile: (smile: number) => void;
 }
+
+/** How far a smile lifts the corners of the mouth, radians, and parts the lips, metres. */
+const SMILE_LIFT = 0.42;
+const SMILE_PART = 0.0055;
 
 /** How far the brows go up for a hello, metres. */
 const BROW_RAISE = 0.009;
@@ -1224,8 +1389,40 @@ function buildEye(m: Materials, lit = false): THREE.Group {
   return eye;
 }
 
-/** What stands off the face: the nose and the lips (head frame, `-z` forward). */
-function buildFace(m: Materials, who: Persona): THREE.Object3D[] {
+/**
+ * A lip: two halves hinged at the middle, so a smile can lift each corner
+ * — the lip bends up into a curve rather than the whole of it moving.
+ */
+function lip(
+  y: number,
+  z: number,
+  half: number,
+  r: number,
+  depth: number,
+  mat: THREE.Material
+): { group: THREE.Group; halves: Record<1 | -1, THREE.Group> } {
+  const group = new THREE.Group();
+  group.name = 'lip';
+  group.position.set(0, y, z);
+  const hinge = (side: 1 | -1) => {
+    const g = new THREE.Group();
+    const b = bar(new THREE.Vector3(0, 0, 0), new THREE.Vector3(side * half, 0, 0), r, mat);
+    b.scale.z = depth;
+    g.add(b);
+    group.add(g);
+    return g;
+  };
+  return { group, halves: { 1: hinge(1), [-1]: hinge(-1) } };
+}
+
+/**
+ * What stands off the face: the nose and the lips (head frame, `-z` forward),
+ * and how to draw the mouth into a smile.
+ */
+function buildFace(
+  m: Materials,
+  who: Persona
+): { parts: THREE.Object3D[]; smile: (smile: number) => void } {
   const out: THREE.Object3D[] = [];
   const at = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
   if (who.kind === 'robot') {
@@ -1237,7 +1434,19 @@ function buildFace(m: Materials, who: Persona): THREE.Object3D[] {
     }
     const slot = mesh(new RoundedBoxGeometry(0.03, 0.007, 0.01, 2, 0.003), m.black);
     slot.position.set(0, 0.05, -0.096);
-    return [...out, slot];
+    // a machine's smile: the slot widens and lights up
+    const lit = mesh(new RoundedBoxGeometry(0.026, 0.003, 0.004, 2, 0.0012), m.glow);
+    lit.position.set(0, 0.05, -0.1);
+    lit.name = 'teeth';
+    lit.visible = false;
+    return {
+      parts: [...out, slot, lit],
+      smile: (smile) => {
+        slot.scale.x = 1 + 0.25 * smile;
+        lit.visible = smile > 0.05;
+        lit.scale.set(Math.max(0.05, smile), 1, 1);
+      },
+    };
   }
   // a beast's nose is leathery and dark, and so are its lips
   const nose = who.kind === 'beast' ? m.black : m.skin;
@@ -1262,12 +1471,30 @@ function buildFace(m: Materials, who: Persona): THREE.Object3D[] {
           color: m.skin.color.clone().lerp(new THREE.Color('#9c4a44'), 0.35).multiplyScalar(0.88),
           roughness: 0.45,
         });
-  const upper = bar(at(-0.015, 0.0545, -0.094), at(0.015, 0.0545, -0.094), 0.0058, mouth);
-  upper.scale.z = 0.7;
-  const lower = bar(at(-0.011, 0.0445, -0.092), at(0.011, 0.0445, -0.092), 0.0072, mouth);
-  lower.scale.z = 0.75;
-  out.push(upper, lower);
-  return out;
+  const upper = lip(0.0545, -0.094, 0.015, 0.0058, 0.7, mouth);
+  const lower = lip(0.0445, -0.092, 0.011, 0.0072, 0.75, mouth);
+  // the teeth, behind the lips: only seen as a smile parts them
+  const teeth = mesh(new RoundedBoxGeometry(0.024, 0.006, 0.004, 2, 0.0015), m.sclera);
+  teeth.position.set(0, 0.0505, -0.093);
+  teeth.name = 'teeth';
+  teeth.visible = false;
+  out.push(upper.group, lower.group, teeth);
+  return {
+    parts: out,
+    smile: (smile) => {
+      for (const side of [1, -1] as const) {
+        // the corners up — the lower lip's more, so it curves round under the upper
+        upper.halves[side].rotation.z = side * SMILE_LIFT * 0.8 * smile;
+        lower.halves[side].rotation.z = side * SMILE_LIFT * smile;
+      }
+      // wider, and parted over the teeth
+      upper.group.scale.x = 1 + 0.12 * smile;
+      lower.group.scale.x = 1 + 0.2 * smile;
+      upper.group.position.y = 0.0545 + 0.25 * SMILE_PART * smile;
+      lower.group.position.y = 0.0445 - SMILE_PART * smile;
+      teeth.visible = smile > 0.05;
+    },
+  };
 }
 
 function buildHead(m: Materials, who: Persona): HeadRig {
@@ -1289,7 +1516,8 @@ function buildHead(m: Materials, who: Persona): HeadRig {
   skull.scale.set(...SKULL_SCALE);
   skull.position.y = SKULL_Y;
   head.add(skull);
-  for (const o of buildFace(m, who)) head.add(o);
+  const face = buildFace(m, who);
+  for (const o of face.parts) head.add(o);
   for (const o of [...hairFor(who.hairStyle, m), ...beardFor(who.beard, m)]) head.add(o);
   for (const o of accessoriesFor(who, m)) head.add(o);
   if (who.cyborg === 'arm') for (const o of facePlate(m)) head.add(o);
@@ -1324,7 +1552,7 @@ function buildHead(m: Materials, who: Persona): HeadRig {
   }
   // a smaller head on a woman
   if (who.figure === 'female') head.scale.setScalar(0.95);
-  return { head, eyes, brows };
+  return { head, eyes, brows, smile: face.smile };
 }
 
 /** A ring round the trunk at height `y`, a little proud of it: `tube` thick, as a share of its width. */
@@ -1421,7 +1649,7 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
   const neck = limb(girth(NECK, shape.neck), m.skin);
   place(neck, new THREE.Vector3(0, 0.575, 0.02), new THREE.Vector3(0, 0.69, 0.01));
   torso.add(neck);
-  const { head, eyes, brows } = buildHead(m, who);
+  const { head, eyes, brows, smile } = buildHead(m, who);
   head.position.set(0, 0.665, 0.0);
   torso.add(head);
   root.add(torso);
@@ -1478,11 +1706,13 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
       for (const side of [1, -1] as const) {
         // a blink shuts both eyes, a wink the one
         const shut = Math.max(pose.blink, g.eye === side ? g.wink : 0);
-        eyes[side].scale.y = 1 - 0.9 * shut;
+        // and a smile reaches the eyes, narrowing them a little
+        eyes[side].scale.y = (1 - 0.9 * shut) * (1 - 0.18 * pose.smile);
         // a hello lifts both brows; a wink pulls its own down a touch
         brows[side].position.y =
           BROW_Y + BROW_RAISE * g.brows - (g.eye === side ? 0.003 * g.wink : 0);
       }
+      smile(pose.smile);
       poseArm(arms.lead, pose.arms.lead);
       poseArm(arms.other, pose.arms.other);
       poseLeg(legs.kickFoot, pose.legs.kickFoot);

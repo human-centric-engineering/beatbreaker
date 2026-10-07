@@ -8,6 +8,11 @@ import {
   LANE_PIECE,
   type PieceId,
   PIECES,
+  CROSS_STICK,
+  HOOP,
+  RIM_SHOT,
+  crossStick,
+  rimShot,
   cymbalY,
   onPiece,
   strikeTarget,
@@ -305,4 +310,101 @@ describe('BODY', () => {
     expect(BODY.upperArm).toBeGreaterThan(0);
     expect(BODY.forearm).toBeGreaterThan(0);
   });
+});
+
+describe('crossStick', () => {
+  const snare = PIECES.snare;
+  const c = snare.centre;
+  const up = onPiece(snare, [0, 1, 0]).map((x, k) => x - c[k]);
+  /** A point's height off the head, and how far out from its middle it is, in the head's plane. */
+  const onHead = (pt: readonly number[]) => {
+    const d = pt.map((x, k) => x - c[k]);
+    const h = d.reduce((sum, x, k) => sum + x * up[k], 0);
+    return { h, rho: Math.hypot(...d.map((x, k) => x - up[k] * h)) };
+  };
+  const dist = (a: readonly number[], b: readonly number[]) =>
+    Math.hypot(...a.map((x, k) => x - b[k]));
+
+  for (const hand of ['other', 'lead'] as const) {
+    describe(`the ${hand} hand`, () => {
+      const { grip, rim, tip } = crossStick(hand);
+
+      it('lies the stick straight: fulcrum, hoop and tip on one line, held near the butt', () => {
+        expect(dist(grip, rim) + dist(rim, tip)).toBeCloseTo(dist(grip, tip), 9);
+        // (measured along the level: the stick's slight rise adds a twentieth of a millimetre)
+        expect(dist(grip, tip)).toBeCloseTo(CROSS_STICK.reach, 3);
+        expect(dist(rim, tip)).toBeCloseTo(CROSS_STICK.over, 3);
+      });
+
+      it('rests the shaft on top of the far hoop, the tip just past it', () => {
+        const at = onHead(rim);
+        expect(at.rho).toBeCloseTo(snare.radius + HOOP.out, 3);
+        expect(at.h).toBeCloseTo(HOOP.rise + HOOP.tube + CROSS_STICK.rest, 3);
+        expect(onHead(tip).rho).toBeGreaterThan(snare.radius + HOOP.out + 0.04);
+      });
+
+      it('has the hand down on the near half of the head, the stick just off it under the palm', () => {
+        const at = onHead(grip);
+        expect(at.h).toBeCloseTo(CROSS_STICK.grip, 3);
+        expect(at.rho).toBeLessThan(snare.radius - 0.03);
+        // nearer the drummer than the middle of the head
+        expect(grip[2]).toBeGreaterThan(c[2] + 0.05);
+        // and rising a little from there to the hoop
+        expect(rim[1]).toBeGreaterThan(grip[1]);
+      });
+
+      it('runs the stick, seen from above, from where the hand aims from', () => {
+        const [fx, , fz] = AIM_FROM[hand];
+        const toTip = Math.atan2(tip[0] - fx, tip[2] - fz);
+        const toGrip = Math.atan2(grip[0] - fx, grip[2] - fz);
+        expect(Math.abs(toTip - toGrip)).toBeLessThan(0.02);
+      });
+    });
+  }
+});
+
+describe('rimShot', () => {
+  const snare = PIECES.snare;
+  const c = snare.centre;
+  const up = onPiece(snare, [0, 1, 0]).map((x, k) => x - c[k]);
+  const onHead = (pt: readonly number[]) => {
+    const d = pt.map((x, k) => x - c[k]);
+    const h = d.reduce((sum, x, k) => sum + x * up[k], 0);
+    return { h, rho: Math.hypot(...d.map((x, k) => x - up[k] * h)) };
+  };
+
+  for (const hand of ['other', 'lead'] as const) {
+    describe(`the ${hand} hand`, () => {
+      const { tip, rim, pitch } = rimShot(hand);
+
+      it('lands the bead on the head, near the middle', () => {
+        const at = onHead(tip);
+        expect(at.h).toBeCloseTo(0.006, 4);
+        expect(at.rho).toBeLessThan(0.06);
+      });
+
+      it('lays the shaft on the near hoop at the same instant', () => {
+        const at = onHead(rim);
+        expect(at.rho).toBeCloseTo(snare.radius + HOOP.out, 3);
+        expect(at.h).toBeCloseTo(HOOP.rise + HOOP.tube + RIM_SHOT.shaft, 3);
+        // the hoop on the drummer's side
+        expect(rim[2]).toBeGreaterThan(c[2] + 0.1);
+        // and the pitch is the line from one to the other
+        const run = Math.hypot(tip[0] - rim[0], tip[2] - rim[2]);
+        expect(Math.atan2(rim[1] - tip[1], run)).toBeCloseTo(pitch, 9);
+      });
+
+      it('comes in far flatter than a stroke on the head', () => {
+        expect(Math.abs(pitch)).toBeLessThan(0.1);
+        expect(strikeTarget('snare').pitch).toBeGreaterThan(0.25);
+      });
+
+      it('comes in, seen from above, from where the hand aims from', () => {
+        const [fx, , fz] = AIM_FROM[hand];
+        const toTip = Math.atan2(tip[0] - fx, tip[2] - fz);
+        const toRim = Math.atan2(rim[0] - fx, rim[2] - fz);
+        expect(Math.abs(toTip - toRim)).toBeLessThan(0.02);
+      });
+    });
+  }
 });
