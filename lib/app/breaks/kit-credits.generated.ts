@@ -100,6 +100,16 @@ export const KIT_CREDITS: KitCredit[] = [
     "notice": "Drum samples provided by DrumGizmo.org."
   },
   {
+    "id": "crocell",
+    "title": "CrocellKit",
+    "author": "Lars Muldjord, DrumGizmo, on the kit of the band Crocell, mic’d by JBOSound",
+    "url": "https://drumgizmo.org/wiki/doku.php?id=kits:crocellkit",
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "usedFor": "Crocell kit; a second china and splash for building your own",
+    "notice": "Drum samples provided by DrumGizmo.org."
+  },
+  {
     "id": "salamander",
     "title": "Salamander Drumkit",
     "author": "Alexander Holm",

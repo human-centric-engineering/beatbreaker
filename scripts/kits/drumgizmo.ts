@@ -9,6 +9,9 @@
  * them differently from the list its wiki gives. Pure.
  */
 
+import type { Pick } from '@/scripts/kits/recipe';
+import type { SourceId } from '@/scripts/kits/sources';
+
 /** The instrument file that describes a stroke, and the stroke's path as that file names it. */
 export function instrumentOf(path: string): { xml: string; file: string } {
   const m = /^(.*\/)?([^/]+)\/samples\/([^/]+)$/.exec(path);
@@ -47,4 +50,32 @@ export function panFilter(weights: Record<string, number>, channels: Map<string,
   });
   if (!terms.length) throw new Error('no channels to mix');
   return `pan=mono|c0=${terms.join('+')}`;
+}
+
+/**
+ * A recipe's pick helper for one DrumGizmo kit: `inst` is the instrument's
+ * folder under `root`, and every pick mixes the kit's `shared` mics (its
+ * overheads and room) under the instrument's own `channels`, which win where
+ * they name the same mic.
+ */
+export function drumgizmoPicks(
+  source: SourceId,
+  root: string,
+  shared: Record<string, number>
+): (
+  inst: string,
+  channels: Record<string, number>,
+  layers: number,
+  rr: number,
+  range?: [number, number]
+) => Pick {
+  return (inst, channels, layers, rr, range) => ({
+    source,
+    pattern: `${root}/${inst}/samples/*-${inst}.wav`,
+    mics: { '': 1 },
+    channels: { ...shared, ...channels },
+    layers,
+    rr,
+    ...(range ? { range } : {}),
+  });
 }

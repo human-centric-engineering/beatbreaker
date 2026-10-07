@@ -234,6 +234,23 @@ export const SOURCES = {
     usedFor: 'DRS kit, DRS brushes',
     notice: 'Drum samples provided by DrumGizmo.org.',
   },
+  crocell: {
+    kind: 'zip',
+    // zip64: past 4 GB, its offsets are in the zip64 records (`zip.ts`)
+    archive: 'https://drumgizmo.org/kits/CrocellKit/CrocellKit1_1.zip',
+    bytes: 5_646_502_341,
+    // checked against the md5 DrumGizmo publishes, fa2be0f847bcd8ddef3830c1523690d3, on 2026-10-07
+    sha256: '341d1f23e5867fd9d465bbcf3e4cd2f805bb7d7c4f519ba9ec73daae8161d5c6',
+    title: 'CrocellKit',
+    author: 'Lars Muldjord, DrumGizmo, on the kit of the band Crocell, mic’d by JBOSound',
+    url: 'https://drumgizmo.org/wiki/doku.php?id=kits:crocellkit',
+    licence: 'CC-BY-4.0',
+    // the archive has no licence file; the grant is a line of its README
+    licenceFile: 'CrocellKit/README.md',
+    checked: '2026-10-07',
+    usedFor: 'Crocell kit; a second china and splash for building your own',
+    notice: 'Drum samples provided by DrumGizmo.org.',
+  },
   salamander: {
     kind: 'tar',
     archive: 'https://archive.org/download/SalamanderDrumkit/salamanderDrumkit.tar.bz2',

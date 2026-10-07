@@ -24,7 +24,7 @@ import { type Manifest, derivePieces, packPieceMap } from '@/scripts/kits/pieces
 import { RECIPES } from '@/scripts/kits/recipes';
 
 /**
- * The catalogue: 37 styles, 47 famous breaks, 19 kits and the pieces they are made of.
+ * The catalogue: 37 styles, 47 famous breaks, 20 kits and the pieces they are made of.
  *
  * This is where content became data (D13). The three tables it fills used to be
  * three TypeScript constants compiled into the app; the constants are still the

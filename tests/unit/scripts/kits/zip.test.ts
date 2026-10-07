@@ -5,8 +5,11 @@
  * the directory says.
  *
  * The archives here are written by hand, field by field, from the zip
- * specification (APPNOTE 4.3.7, 4.3.12, 4.3.16), so the test does not lean on
- * a second zip implementation to agree with the first.
+ * specification (APPNOTE 4.3.7, 4.3.12, 4.3.14–4.3.16, 4.5.3), so the test
+ * does not lean on a second zip implementation to agree with the first.
+ * CrocellKit is 5.6 GB, so its archive is zip64: an archive here can be
+ * written that way too, with every 32-bit field marked and its value in the
+ * zip64 records.
  */
 
 import { createHash } from 'node:crypto';
@@ -35,8 +38,23 @@ interface Entry {
   flags?: number;
 }
 
-/** A zip archive of `entries`, with an optional archive comment after the end record. */
-function zipOf(entries: Entry[], comment = ''): Buffer {
+/** An 8-byte little-endian field. */
+function u64(n: number): Buffer {
+  const b = Buffer.alloc(8);
+  b.writeBigUInt64LE(BigInt(n));
+  return b;
+}
+
+/**
+ * A zip archive of `entries`, with an optional archive comment after the end
+ * record. With `zip64: 'all'`, every size, offset and count is marked
+ * 0xffffffff (or 0xffff) and written in the zip64 extra fields and end record
+ * instead. With `'offset'`, only the offsets are, as in CrocellKit's archive:
+ * each extra field then holds the one offset, and the end record marks only
+ * the central directory's.
+ */
+function zipOf(entries: Entry[], comment = '', zip64: false | 'all' | 'offset' = false): Buffer {
+  const all = zip64 === 'all';
   const locals: Buffer[] = [];
   const centrals: Buffer[] = [];
   let offset = 0;
@@ -56,30 +74,56 @@ function zipOf(entries: Entry[], comment = ''): Buffer {
     local.writeUInt16LE(nameBuf.length, 26);
     locals.push(local, nameBuf, body);
 
+    // a zip64 extra field: the marked ones of uncompressed size, compressed size and
+    // offset, in that order, behind an unrelated field the reader has to step over
+    const wide = all ? [u64(data.length), u64(body.length), u64(offset)] : [u64(offset)];
+    const extra = zip64
+      ? Buffer.concat([
+          Buffer.from([0x55, 0x54, 4, 0, 1, 2, 3, 4]),
+          Buffer.from([1, 0, wide.length * 8, 0]),
+          ...wide,
+        ])
+      : Buffer.alloc(0);
     const central = Buffer.alloc(46);
     central.writeUInt32LE(0x02014b50, 0);
-    central.writeUInt16LE(20, 4);
-    central.writeUInt16LE(20, 6);
+    central.writeUInt16LE(zip64 ? 45 : 20, 4);
+    central.writeUInt16LE(zip64 ? 45 : 20, 6);
     central.writeUInt16LE(flags, 8);
     central.writeUInt16LE(method, 10);
     central.writeUInt32LE(crc, 16);
-    central.writeUInt32LE(body.length, 20);
-    central.writeUInt32LE(data.length, 24);
+    central.writeUInt32LE(all ? 0xffffffff : body.length, 20);
+    central.writeUInt32LE(all ? 0xffffffff : data.length, 24);
     central.writeUInt16LE(nameBuf.length, 28);
-    central.writeUInt32LE(offset, 42);
-    centrals.push(central, nameBuf);
+    central.writeUInt16LE(extra.length, 30);
+    central.writeUInt32LE(zip64 ? 0xffffffff : offset, 42);
+    centrals.push(central, nameBuf, extra);
 
     offset += 30 + nameBuf.length + body.length;
   }
   const cd = Buffer.concat(centrals);
   const end = Buffer.alloc(22);
   end.writeUInt32LE(0x06054b50, 0);
-  end.writeUInt16LE(entries.length, 8);
-  end.writeUInt16LE(entries.length, 10);
-  end.writeUInt32LE(cd.length, 12);
-  end.writeUInt32LE(offset, 16);
+  end.writeUInt16LE(all ? 0xffff : entries.length, 8);
+  end.writeUInt16LE(all ? 0xffff : entries.length, 10);
+  end.writeUInt32LE(all ? 0xffffffff : cd.length, 12);
+  end.writeUInt32LE(zip64 ? 0xffffffff : offset, 16);
   end.writeUInt16LE(Buffer.byteLength(comment), 20);
-  return Buffer.concat([...locals, cd, end, Buffer.from(comment)]);
+  if (!zip64) return Buffer.concat([...locals, cd, end, Buffer.from(comment)]);
+
+  const end64 = Buffer.alloc(56);
+  end64.writeUInt32LE(0x06064b50, 0);
+  u64(44).copy(end64, 4);
+  end64.writeUInt16LE(45, 12);
+  end64.writeUInt16LE(45, 14);
+  u64(entries.length).copy(end64, 24);
+  u64(entries.length).copy(end64, 32);
+  u64(cd.length).copy(end64, 40);
+  u64(offset).copy(end64, 48);
+  const locator = Buffer.alloc(20);
+  locator.writeUInt32LE(0x07064b50, 0);
+  u64(offset + cd.length).copy(locator, 8);
+  locator.writeUInt32LE(1, 16);
+  return Buffer.concat([...locals, cd, end64, locator, end, Buffer.from(comment)]);
 }
 
 const readerOf =
@@ -122,11 +166,131 @@ describe('readDirectory()', () => {
     expect(() => readDirectory(readerOf(junk), junk.length)).toThrow('not a zip');
   });
 
-  it('refuses a zip64 archive rather than misreading its offsets', () => {
+  it('reads a zip64 archive: the count and offsets from its end record, each member from its extra field', () => {
+    const entries: Entry[] = [
+      { name: 'CrocellKit/Snare/Snare.xml', data: xml, method: 0 },
+      { name: 'CrocellKit/Snare/samples/1-Snare.wav', data: wav },
+    ];
+    const plain = readDirectory(readerOf(zipOf(entries)), zipOf(entries).length);
+    const zip = zipOf(entries, 'zip64', 'all');
+    const wide = readDirectory(readerOf(zip), zip.length);
+
+    // the same members, at the same offsets, as the archive written without zip64
+    expect(wide).toEqual(plain);
+    expect(wide.get('CrocellKit/Snare/samples/1-Snare.wav')).toMatchObject({
+      size: wav.length,
+      offset: 30 + Buffer.byteLength('CrocellKit/Snare/Snare.xml') + xml.length,
+    });
+    // and nothing in it is the 0xffffffff marker
+    for (const m of wide.values()) {
+      expect([m.size, m.compressed, m.offset]).not.toContain(0xffffffff);
+    }
+  });
+
+  it('extracts a member of a zip64 archive byte for byte', () => {
+    const name = 'CrocellKit/Snare/samples/1-Snare.wav';
+    const zip = zipOf(
+      [
+        { name: 'CrocellKit/README.md', data: xml },
+        { name, data: wav },
+      ],
+      '',
+      'all'
+    );
+    const m = readDirectory(readerOf(zip), zip.length).get(name);
+    if (!m) throw new Error(`no ${name}`);
+    expect(extract(readerOf(zip), name, m).equals(wav)).toBe(true);
+  });
+
+  it('reads an archive marked as CrocellKit is: only the offsets, each extra field holding the one', () => {
+    const entries: Entry[] = [
+      { name: 'CrocellKit/Snare/Snare.xml', data: xml, method: 0 },
+      { name: 'CrocellKit/Snare/samples/1-Snare.wav', data: wav },
+    ];
+    const zip = zipOf(entries, '', 'offset');
+    // the end record keeps its count and size, and marks only the directory's offset
+    expect(zip.readUInt16LE(zip.length - 22 + 10)).toBe(2);
+    expect(zip.readUInt32LE(zip.length - 22 + 16)).toBe(0xffffffff);
+    const read = readDirectory(readerOf(zip), zip.length);
+    expect(read).toEqual(readDirectory(readerOf(zipOf(entries)), zipOf(entries).length));
+    const name = 'CrocellKit/Snare/samples/1-Snare.wav';
+    const m = read.get(name);
+    if (!m) throw new Error(`no ${name}`);
+    expect(extract(readerOf(zip), name, m).equals(wav)).toBe(true);
+  });
+
+  it('reads an offset past 4 GB from an extra field that holds only the offset', () => {
+    const zip = zipOf([{ name: 'a.wav', data: wav }], '', 'offset');
+    // the zip64 extra field's one value, after its id and length, moved 5 GB on
+    const field = zip.indexOf(Buffer.from([1, 0, 8, 0])) + 4;
+    zip.writeBigUInt64LE(5_000_000_000n, field);
+    expect(readDirectory(readerOf(zip), zip.length).get('a.wav')).toMatchObject({
+      offset: 5_000_000_000,
+      size: wav.length,
+    });
+  });
+
+  it('reads offsets past 4 GB, as a 5.6 GB archive has, without losing bits', () => {
+    const zip = zipOf([{ name: 'a.wav', data: wav }], '', 'all');
+    // the zip64 extra field's offset, after its id, length and two sizes, moved 5 GB on
+    const field = zip.indexOf(Buffer.from([1, 0, 24, 0])) + 4 + 16;
+    zip.writeBigUInt64LE(5_000_000_000n, field);
+    expect(readDirectory(readerOf(zip), zip.length).get('a.wav')?.offset).toBe(5_000_000_000);
+  });
+
+  it('refuses zip64 markers with no zip64 locator, rather than misreading its offsets', () => {
     const zip = zipOf([{ name: 'a.txt', data: xml }]);
     // the end record's central-directory offset, set to zip64's marker
     zip.writeUInt32LE(0xffffffff, zip.length - 22 + 16);
-    expect(() => readDirectory(readerOf(zip), zip.length)).toThrow('zip64');
+    expect(() => readDirectory(readerOf(zip), zip.length)).toThrow(
+      'zip64 markers in the end record, but no zip64 end record'
+    );
+  });
+
+  it('refuses zip64 markers whose locator points at no zip64 end record', () => {
+    const zip = zipOf([{ name: 'a.txt', data: xml }], '', 'all');
+    // the locator's offset, pointed at the first local header instead
+    zip.writeBigUInt64LE(0n, zip.length - 22 - 20 + 8);
+    expect(() => readDirectory(readerOf(zip), zip.length)).toThrow('no zip64 end record');
+  });
+
+  it('reads a plain archive whose last entry happens to end in the locator signature', () => {
+    // the 20 bytes before the end record are the last central entry's name (ASCII,
+    // since names are written as UTF-8):
+    // the locator's signature, then an offset that points past the archive
+    const tailName = Buffer.concat([
+      Buffer.from('PK\x06\x07', 'latin1'),
+      Buffer.alloc(4),
+      Buffer.from([0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0, 0]),
+      Buffer.from([1, 0, 0, 0]),
+    ]).toString('latin1');
+    const zip = zipOf([{ name: tailName, data: xml, method: 0 }]);
+    expect(zip.subarray(zip.length - 42, zip.length - 38).readUInt32LE(0)).toBe(0x07064b50);
+    expect([...readDirectory(readerOf(zip), zip.length).keys()]).toHaveLength(1);
+  });
+
+  it('refuses a zip64 archive whose locator counts more than one disk', () => {
+    const zip = zipOf([{ name: 'a.txt', data: xml }], '', 'all');
+    // the locator's "total number of disks"
+    zip.writeUInt32LE(2, zip.length - 22 - 20 + 16);
+    expect(() => readDirectory(readerOf(zip), zip.length)).toThrow('split across disks');
+  });
+
+  it('refuses a member marked zip64 with no zip64 extra field', () => {
+    const zip = zipOf([{ name: 'a.txt', data: xml }], '', 'all');
+    // the zip64 extra field's id, renamed to one the reader does not know
+    const id = zip.indexOf(Buffer.from([1, 0, 24, 0]));
+    zip.writeUInt16LE(0x9999, id);
+    expect(() => readDirectory(readerOf(zip), zip.length)).toThrow(
+      'a.txt: zip64 markers but no zip64 extra field'
+    );
+  });
+
+  it('refuses an archive split across disks', () => {
+    const zip = zipOf([{ name: 'a.txt', data: xml }]);
+    // the end record's "number of this disk"
+    zip.writeUInt16LE(1, zip.length - 22 + 4);
+    expect(() => readDirectory(readerOf(zip), zip.length)).toThrow('split across disks');
   });
 
   it('refuses an encrypted member', () => {
