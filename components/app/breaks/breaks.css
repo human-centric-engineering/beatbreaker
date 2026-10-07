@@ -1696,6 +1696,16 @@
 .bb .drummer-note {
   padding: 24px;
 }
+.bb .drummer-name {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.72);
+  pointer-events: none;
+}
 .bb .drummer-cue {
   position: absolute;
   left: 50%;

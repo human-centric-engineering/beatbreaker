@@ -13,12 +13,17 @@ import { describe, expect, it, vi } from 'vitest';
 
 import {
   ball,
+  disposeMaterials,
   disposeTree,
+  limb,
+  loft,
   makeMaterials,
   place,
   rod,
   segment,
+  styleKit,
 } from '@/components/app/studio/drummer/parts';
+import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
 
 /** The world-space point a mesh's local point maps to, via its full matrix. */
 function worldPoint(mesh: THREE.Object3D, local: THREE.Vector3): THREE.Vector3 {
@@ -46,6 +51,7 @@ describe('makeMaterials', () => {
       'hair',
       'eye',
       'rug',
+      'trim',
       'floor',
     ] as const) {
       expect(m[key]).toBeInstanceOf(THREE.MeshStandardMaterial);
@@ -61,11 +67,95 @@ describe('makeMaterials', () => {
     expect(m.bronze.bumpMap).toBeNull();
   });
 
+  it("dresses the drummer in the player's colours, and a bare chest in their skin", () => {
+    const nia = PERSONAS.find((p) => p.id === 'nia')!;
+    const m = makeMaterials(nia);
+    expect(m.skin.color.getHexString()).toBe(nia.skin.slice(1));
+    expect(m.shirt.color.getHexString()).toBe(nia.shirt.slice(1));
+    expect(m.hair.color.getHexString()).toBe(nia.hair.slice(1));
+    expect(m.jeans.color.getHexString()).toBe(nia.trousers.slice(1));
+    expect(m.accent.color.getHexString()).toBe(nia.accent.slice(1));
+
+    const bare = PERSONAS.find((p) => p.top === 'bare' && p.shirt !== p.skin);
+    const shirtless = { ...(bare ?? PERSONAS[0]), top: 'bare' as const, shirt: '#00ff00' };
+    expect(makeMaterials(shirtless).shirt.color.getHexString()).toBe(shirtless.skin.slice(1));
+  });
+
   it('gives each call its own material instances', () => {
     const a = makeMaterials();
     const b = makeMaterials();
     expect(a.shell).not.toBe(b.shell);
     expect(a.chrome).not.toBe(b.chrome);
+  });
+});
+
+describe('styleKit', () => {
+  const byId = (id: string) => PERSONAS.find((p) => p.id === id)!;
+
+  it("paints the kit in the player's: shells, hardware, the mat and its trim", () => {
+    const vex = byId('vex');
+    const m = makeMaterials(vex);
+    expect(m.shell.color.getHexString()).toBe(vex.kit.shell.slice(1));
+    expect(m.rug.color.getHexString()).toBe(vex.kit.rug.slice(1));
+    expect(m.trim.color.getHexString()).toBe(vex.kit.trim!.slice(1));
+    // blacked-out hardware: dark, and duller than chrome
+    expect(m.chrome.color.getHSL({ h: 0, s: 0, l: 0 }).l).toBeLessThan(0.1);
+    expect(m.chrome.roughness).toBeGreaterThan(0.3);
+  });
+
+  it("keeps the original drummer's kit exactly as it was", () => {
+    const m = makeMaterials(PERSONAS[0]);
+    expect(m.shell.color.getHexString()).toBe('7a1f1a');
+    expect(m.shell).toMatchObject({
+      metalness: 0.35,
+      roughness: 0.32,
+      clearcoat: 1,
+      clearcoatRoughness: 0.08,
+    });
+    expect(m.chrome.color.getHexString()).toBe('d9dde2');
+    expect(m.chrome).toMatchObject({ metalness: 1, roughness: 0.16 });
+    expect(m.rug.color.getHexString()).toBe('3a2f2a');
+    // no trim: the band is the mat's own colour
+    expect(m.trim.color.getHexString()).toBe('3a2f2a');
+  });
+
+  it('gives each finish its own surface', () => {
+    const finish = (id: string) => {
+      const s = makeMaterials(byId(id)).shell;
+      return { metalness: s.metalness, roughness: s.roughness, clearcoat: s.clearcoat };
+    };
+    const satin = finish('raj');
+    const metal = finish('brassbot');
+    const sparkle = finish('roxy');
+    // satin is matt and unmetallic; bare metal is all metal; sparkle sits between, under lacquer
+    expect(satin.metalness).toBe(0);
+    expect(satin.roughness).toBeGreaterThan(finish('original').roughness);
+    expect(metal.metalness).toBe(1);
+    expect(sparkle.metalness).toBeGreaterThan(satin.metalness);
+    expect(sparkle.metalness).toBeLessThan(metal.metalness);
+    expect(sparkle.clearcoat).toBe(1);
+  });
+
+  it('repaints a kit in place for the next player, gold hardware and all', () => {
+    const m = makeMaterials(PERSONAS[0]);
+    const { shell, chrome, rug, trim } = m;
+    const duchess = byId('duchess');
+    styleKit(m, duchess);
+    expect(m.shell).toBe(shell);
+    expect(m.chrome).toBe(chrome);
+    expect(m.rug).toBe(rug);
+    expect(m.trim).toBe(trim);
+    expect(shell.color.getHexString()).toBe(duchess.kit.shell.slice(1));
+    expect(chrome.color.getHexString()).toBe('e0b24a');
+    expect(rug.color.getHexString()).toBe(duchess.kit.rug.slice(1));
+    expect(trim.color.getHexString()).toBe(duchess.kit.trim!.slice(1));
+  });
+
+  it('flags the shell for a new shader when it is repainted', () => {
+    const m = makeMaterials(PERSONAS[0]);
+    const version = m.shell.version;
+    styleKit(m, byId('roxy'));
+    expect(m.shell.version).toBeGreaterThan(version);
   });
 });
 
@@ -241,5 +331,79 @@ describe('disposeTree', () => {
   it('does nothing to an empty tree', () => {
     const root = new THREE.Group();
     expect(() => disposeTree(root)).not.toThrow();
+  });
+});
+
+describe('limb', () => {
+  it('lathes the profile, joint to joint, and spans two joints like a segment', () => {
+    const mat = new THREE.MeshStandardMaterial();
+    const m = limb(
+      [
+        [0.04, -0.5],
+        [0.05, 0],
+        [0.03, 0.5],
+      ],
+      mat
+    );
+    expect(m.geometry).toBeInstanceOf(THREE.LatheGeometry);
+    expect(m.castShadow).toBe(true);
+    place(m, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0.3, 0));
+    m.updateMatrixWorld(true);
+    const box = new THREE.Box3().setFromObject(m);
+    // as long as the joints are apart, as thick as the profile's belly
+    expect(box.max.y - box.min.y).toBeCloseTo(0.3, 6);
+    // (to within the facets of 18 sides)
+    expect(box.max.x).toBeGreaterThan(0.049);
+    expect(box.max.x).toBeLessThanOrEqual(0.05);
+  });
+});
+
+describe('loft', () => {
+  it('runs through each cross-section at its height, width and depth, closed at both ends', () => {
+    const mat = new THREE.MeshStandardMaterial();
+    const m = loft(
+      [
+        { y: 0, w: 0.1, d: 0.05 },
+        { y: 0.2, w: 0.2, d: 0.1, z: 0.03 },
+        { y: 0.4, w: 0.05, d: 0.04 },
+      ],
+      mat,
+      24
+    );
+    const box = new THREE.Box3().setFromObject(m);
+    expect(box.min.y).toBeCloseTo(0, 6);
+    expect(box.max.y).toBeCloseTo(0.4, 6);
+    expect(box.max.x).toBeCloseTo(0.2, 6);
+    expect(box.max.z).toBeCloseTo(0.13, 6);
+    // 3 rings of 24, plus the two end centres; every edge shared, so no seam
+    const pos = m.geometry.getAttribute('position');
+    expect(pos.count).toBe(3 * 24 + 2);
+    expect(m.geometry.getIndex()!.count).toBe((2 * 24 * 2 + 2 * 24) * 3);
+    expect(m.geometry.getAttribute('normal')).toBeDefined();
+  });
+
+  it('closes each end facing out of it, so an end in view is lit, not dark', () => {
+    const m = loft(
+      [
+        { y: 0, w: 0.1, d: 0.1 },
+        { y: 0.2, w: 0.1, d: 0.1 },
+      ],
+      new THREE.MeshStandardMaterial(),
+      16
+    );
+    const normal = m.geometry.getAttribute('normal');
+    // the two end centres are the last two vertices: bottom, then top
+    const n = normal.count;
+    expect(normal.getY(n - 2)).toBeLessThan(-0.9);
+    expect(normal.getY(n - 1)).toBeGreaterThan(0.9);
+  });
+});
+
+describe('disposeMaterials', () => {
+  it('frees every material in the set, worn or not', () => {
+    const m = makeMaterials();
+    const spies = Object.values(m).map((mat) => vi.spyOn(mat as THREE.Material, 'dispose'));
+    disposeMaterials(m);
+    for (const s of spies) expect(s).toHaveBeenCalled();
   });
 });

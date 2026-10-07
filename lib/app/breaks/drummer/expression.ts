@@ -1,4 +1,10 @@
-import { drift, lastAtOrBefore, seedOf, smoothstep } from '@/lib/app/breaks/drummer/strokes';
+import {
+  crashOn,
+  drift,
+  lastAtOrBefore,
+  seedOf,
+  smoothstep,
+} from '@/lib/app/breaks/drummer/strokes';
 import type { Downbeat, Hit } from '@/lib/app/breaks/drummer/timeline';
 import { makeRng } from '@/lib/app/breaks/rng';
 
@@ -26,6 +32,13 @@ import { makeRng } from '@/lib/app/breaks/rng';
  *   up to two seconds: just a look, or with any of a nod, a tilt of the head,
  *   the eyebrows up in a hello, or (now and then) a wink. And a blink every
  *   few seconds, playing or not.
+ * - **a sway** — some bars, not many, the head turns side to side with the
+ *   beat, arriving at a side on each one: the whole bar, or only its second
+ *   half; with a tilt of the head into each side, or not. Never through a fill:
+ *   the head is following the sticks then.
+ * - **a smile** — once in a while, never mid-fill: a second or two of it on
+ *   its own, or a grin with a look at the camera. Rare enough to mean
+ *   something: about one a minute, on average.
  *
  * Pure: a function of the strokes and the time.
  */
@@ -48,6 +61,10 @@ export interface Expression {
   glance: Glance;
   /** 0–1: how shut both eyes are, for a blink. */
   blink: number;
+  /** 0–1: how far into a smile. */
+  smile: number;
+  /** The head turned side to side with the beat, radians (`tilt` carries any tilt with it). */
+  sway: number;
 }
 
 /** A look out at the camera. */
@@ -77,8 +94,20 @@ const LANDING_PEAK = 0.17;
 const MOOD_PERIOD = 3.2;
 /** How often a bar's one is marked when the pattern carries on (it always is when it changes). */
 const ONE_CHANCE = 0.45;
-/** The let-go after a one: when it is deepest, seconds. */
-const RELEASE_PEAK = 0.14;
+/**
+ * The breath in before a one: it starts this long before, seconds (rolled
+ * between these — about a beat), and is full this long before it lands, so
+ * the body is already gathered and waiting as the one comes.
+ */
+const GATHER_LEAD = [0.4, 0.7] as const;
+const GATHER_FULL = 0.12;
+/**
+ * The let-go into a one: it starts this long before the one and is deepest
+ * this long after it starts, seconds — so the head comes down on the one,
+ * not after it.
+ */
+const RELEASE_LEAD = 0.09;
+const RELEASE_PEAK = 0.1;
 /** A glance can come once in each of these windows, seconds, and does in this share of them. */
 const GLANCE_WINDOW = 11;
 const GLANCE_CHANCE = 0.4;
@@ -89,6 +118,24 @@ const GLANCE_LONGEST = 2;
 const BLINK_WINDOW = 3.5;
 const BLINK_CHANCE = 0.8;
 const BLINK = 0.15;
+/** A smile can come once in each of these windows, seconds, and does in this share of them. */
+const SMILE_WINDOW = 20;
+const SMILE_CHANCE = 0.3;
+/** How long a smile lasts, seconds: rolled between these. */
+const SMILE_SHORTEST = 1.2;
+const SMILE_LONGEST = 2.6;
+/** The share of bars the head sways through. */
+const SWAY_CHANCE = 0.12;
+/** Of those, the share that sway only through the second half of the bar, and that tilt as well. */
+const SWAY_HALF = 0.4;
+const SWAY_TILT = 0.5;
+/** How far the head turns each way, radians (rolled between these), and how far it tilts. */
+const SWAY_TURN = [0.14, 0.22] as const;
+const SWAY_LEAN = 0.075;
+/** The share of glances at the camera that come with a grin. */
+const GLANCE_GRIN = 0.25;
+/** The shortest glance that grins, seconds. */
+const GRIN_SHORTEST = 1.2;
 
 const isHand = (h: Hit) => h.limb === 'lead' || h.limb === 'other';
 const isDrum = (h: Hit) => h.piece !== 'hat' && h.piece !== 'ride' && h.piece !== 'crash';
@@ -134,25 +181,41 @@ function landingOf(hits: readonly Hit[], i: number): number {
 }
 
 /**
+ * How big the body's gesture into a one is, rolled between these: only a
+ * one that brings in a crash gets the whole body; in the run of the groove,
+ * new pattern or not, it is a small thing.
+ */
+const ONE_SIZE = [0.1, 0.2] as const;
+const ONE_SIZE_CHANGE = [0.3, 0.45] as const;
+const ONE_SIZE_CRASH = [0.8, 1.2] as const;
+
+/**
  * How the body meets the ones around `now`: `gather` (0–1-ish) rising into
  * each, `release` after it, each scaled by that bar's rolled size.
  */
-function onesAt(downbeats: readonly Downbeat[], now: number): { gather: number; release: number } {
+function onesAt(
+  downbeats: readonly Downbeat[],
+  hits: readonly Hit[],
+  now: number
+): { gather: number; release: number } {
   let gather = 0;
   let release = 0;
   for (const d of downbeats) {
-    if (d.time < now - 0.9 || d.time > now + 0.6) continue;
+    if (d.time < now - 0.9 || d.time > now + GATHER_LEAD[1]) continue;
     const rng = makeRng((Math.round(d.time * 1000) ^ 0x6a09e667) >>> 0);
     const roll = rng();
-    if (!d.change && roll >= ONE_CHANCE) continue;
-    // a bar like the last is only touched on; a new pattern is met with the whole body
-    const size = d.change ? 0.8 + 0.4 * rng() : 0.2 + 0.3 * rng();
-    // the breath in: as long as a quick beat or two before it, cut off as the one lands
-    const lead = 0.18 + 0.22 * rng();
-    const up = smoothstep(d.time - lead, d.time - 0.03, now);
-    gather += size * up * (1 - smoothstep(d.time - 0.03, d.time + 0.05, now));
-    if (now > d.time) {
-      const u = (now - d.time) / RELEASE_PEAK;
+    const crash = crashOn(hits, d.time);
+    if (!crash && !d.change && roll >= ONE_CHANCE) continue;
+    // a bar like the last is only touched on, a new one a little more; a crash with the whole body
+    const [lo, hi] = crash ? ONE_SIZE_CRASH : d.change ? ONE_SIZE_CHANGE : ONE_SIZE;
+    const size = lo + (hi - lo) * rng();
+    // the breath in: from about a beat before, held through the last moment, cut off as the one lands
+    const lead = GATHER_LEAD[0] + (GATHER_LEAD[1] - GATHER_LEAD[0]) * rng();
+    const up = smoothstep(d.time - lead, d.time - GATHER_FULL, now);
+    // handing over to the let-go as it starts
+    gather += size * up * (1 - smoothstep(d.time - RELEASE_LEAD, d.time + 0.03, now));
+    if (now > d.time - RELEASE_LEAD) {
+      const u = (now - d.time + RELEASE_LEAD) / RELEASE_PEAK;
       release += size * u * u * Math.exp(2 * (1 - u));
     }
   }
@@ -163,7 +226,7 @@ function onesAt(downbeats: readonly Downbeat[], now: number): { gather: number; 
  * The glance at `now`, if one is playing. One can come in each window, at a
  * seeded moment, unless the hands are busy then: nobody looks up mid-fill.
  */
-function glanceAt(hits: readonly Hit[], now: number): Glance {
+function glanceAt(hits: readonly Hit[], now: number): { glance: Glance; grin: number } {
   const k = Math.floor(now / GLANCE_WINDOW);
   for (const w of [k, k - 1]) {
     const rng = makeRng(((w * 2654435761) ^ 0x9e3779b9) >>> 0);
@@ -172,13 +235,16 @@ function glanceAt(hits: readonly Hit[], now: number): Glance {
     const length = GLANCE_SHORTEST + (GLANCE_LONGEST - GLANCE_SHORTEST) * rng();
     const end = start + length;
     if (now < start || now > end) continue;
-    if (busyness(hits, start, lastAtOrBefore(hits, start)) > 0.35) return NO_GLANCE;
+    if (busyness(hits, start, lastAtOrBefore(hits, start)) > 0.35) return NOTHING;
     // each gesture comes or not on its own, so they combine: a tilt with a wink, a nod with the brows
     const nods = rng() < 0.35;
     const tilts = rng() < 0.4;
     const winks = rng() < 0.15;
     const hello = rng() < 0.3;
     const eye = rng() < 0.5 ? 1 : -1;
+    // rolled last, so the gestures each glance had before there were smiles are kept
+    // and a grin only with a look long enough to hold one: a quick one is a twitch
+    const grins = rng() < GLANCE_GRIN && length >= GRIN_SHORTEST;
     const look = smoothstep(start, start + 0.25, now) * (1 - smoothstep(end - 0.35, end, now));
     const beat = (at: number, width: number) =>
       now > at && now < at + width ? Math.sin((Math.PI * (now - at)) / width) : 0;
@@ -189,15 +255,82 @@ function glanceAt(hits: readonly Hit[], now: number): Glance {
         (1 - smoothstep(start + up, start + up + 0.2, now))
       : 0;
     return {
-      look,
-      nod: nods ? 0.12 * beat(start + 0.3, 0.4) : 0,
-      tilt: tilts ? 0.13 * eye * look : 0,
-      wink: winks ? beat(start + 0.35, 0.24) : 0,
-      eye,
-      brows,
+      glance: {
+        look,
+        nod: nods ? 0.12 * beat(start + 0.3, 0.4) : 0,
+        tilt: tilts ? 0.13 * eye * look : 0,
+        wink: winks ? beat(start + 0.35, 0.24) : 0,
+        eye,
+        brows,
+      },
+      // the grin comes as the eyes meet the camera, and goes as they leave it
+      grin: grins
+        ? smoothstep(start + 0.15, start + 0.45, now) * (1 - smoothstep(end - 0.4, end, now))
+        : 0,
     };
   }
-  return NO_GLANCE;
+  return NOTHING;
+}
+
+const NOTHING = { glance: NO_GLANCE, grin: 0 };
+
+/**
+ * The head's sway at `now`: a turn and a tilt, radians. Each bar rolls whether
+ * it sways, from its one or from halfway, which way first, how far, and
+ * whether the head tilts too. The head is at a side on each beat of it, the
+ * other side on the next: it eases out over the half beat before the first,
+ * and is back in the middle by the `and` of the last, ready for the next one.
+ */
+function swayAt(
+  downbeats: readonly Downbeat[],
+  now: number,
+  beat: number
+): { turn: number; tilt: number } {
+  if (!(beat > 0)) return NO_SWAY;
+  for (let i = 0; i < downbeats.length; i++) {
+    const d = downbeats[i];
+    // the easing out starts half a beat before the bar: no bar after `now` can sway yet
+    if (d.time - beat / 2 > now) break;
+    // the bar runs to the next one, or as long as the bar before it did
+    const end = downbeats[i + 1]?.time ?? (i > 0 ? 2 * d.time - downbeats[i - 1].time : NaN);
+    if (!(now < end - beat / 2)) continue;
+    const rng = makeRng((Math.round(d.time * 1000) ^ 0x510e527f) >>> 0);
+    if (rng() >= SWAY_CHANCE) continue;
+    const half = rng() < SWAY_HALF;
+    const tilts = rng() < SWAY_TILT;
+    const way = rng() < 0.5 ? 1 : -1;
+    const turn = SWAY_TURN[0] + (SWAY_TURN[1] - SWAY_TURN[0]) * rng();
+    // from the beat nearest halfway, so the second half's sway lands on its beats too
+    const start = half ? d.time + Math.round((end - d.time) / 2 / beat) * beat : d.time;
+    // a side and back, at least
+    if (end - start < 2 * beat || now < start - beat / 2) continue;
+    const on =
+      smoothstep(start - beat / 2, start, now) * (1 - smoothstep(end - beat, end - beat / 2, now));
+    // at a side on each beat, in the middle on each and
+    const side = way * Math.cos((Math.PI * (now - start)) / beat) * on;
+    return { turn: turn * side, tilt: tilts ? SWAY_LEAN * side : 0 };
+  }
+  return NO_SWAY;
+}
+
+const NO_SWAY = { turn: 0, tilt: 0 };
+
+/**
+ * A smile on its own at `now`, 0–1: once in a while, at a seeded moment,
+ * easing on and off — unless the hands are busy then: a fill is concentration.
+ */
+function smileAt(hits: readonly Hit[], now: number): number {
+  const k = Math.floor(now / SMILE_WINDOW);
+  for (const w of [k, k - 1]) {
+    const rng = makeRng(((w * 2246822519) ^ 0x165667b1) >>> 0);
+    if (rng() >= SMILE_CHANCE) continue;
+    const start = w * SMILE_WINDOW + rng() * (SMILE_WINDOW - 1);
+    const end = start + SMILE_SHORTEST + (SMILE_LONGEST - SMILE_SHORTEST) * rng();
+    if (now < start || now > end) continue;
+    if (busyness(hits, start, lastAtOrBefore(hits, start)) > 0.35) return 0;
+    return smoothstep(start, start + 0.35, now) * (1 - smoothstep(end - 0.45, end, now));
+  }
+  return 0;
 }
 
 /**
@@ -220,10 +353,15 @@ function blinkAt(now: number): number {
   return shut;
 }
 
+/**
+ * `beat` is how long a beat lasts, seconds: without it (or before the music
+ * has a clock) the head does not sway.
+ */
 export function expressionAt(
   hits: readonly Hit[],
   now: number,
-  downbeats: readonly Downbeat[] = []
+  downbeats: readonly Downbeat[] = [],
+  beat = 0
 ): Expression {
   const last = lastAtOrBefore(hits, now);
 
@@ -267,22 +405,29 @@ export function expressionAt(
     0.7 * busyness(hits, now + 0.25, hits.length - 1)
   );
   const passage = smoothstep(0.3, 1, busy);
+  // a fill takes the head off the sway and round the toms with the sticks
+  const sway = swayAt(downbeats, now, beat);
+  const swayTurn = sway.turn * (1 - passage);
+  const swayTilt = sway.tilt * (1 - passage);
 
   const mood = drift(now, MOOD_PERIOD, 0x7f4a7c15);
   const lean = drift(now, MOOD_PERIOD * 1.7, 0x2545f491);
   // a crash landing on the one already throws the body: the one's own let-go gives way to it
-  const one = onesAt(downbeats, now);
+  const one = onesAt(downbeats, hits, now);
   const gather = one.gather;
   const release = one.release * (1 - 0.5 * Math.min(1, landing));
+  const { glance, grin } = glanceAt(hits, now);
   return {
     nod: 0.2 * landing + 0.05 * passage - 0.07 * gather + 0.11 * release,
-    tilt: 0.09 * sided + 0.06 * passage * lean + 0.035 * mood,
+    tilt: 0.09 * sided + 0.06 * passage * lean + 0.035 * mood + swayTilt,
     dip: -0.012 * landing + 0.012 * gather - 0.016 * release,
     lean: 0.025 * landing + 0.03 * passage - 0.02 * gather + 0.03 * release,
     focus: passage,
     nodScale: 1 + 0.25 * mood,
     shrug: 0.012 * gather - 0.008 * release,
-    glance: glanceAt(hits, now),
+    glance,
     blink: blinkAt(now),
+    smile: Math.max(grin, smileAt(hits, now)),
+    sway: swayTurn,
   };
 }

@@ -72,6 +72,7 @@ vi.mock('three', async (importOriginal) => {
 
 import { DrummerStage, type StageClock } from '@/components/app/studio/drummer/drummer-stage';
 import { cameraFor } from '@/lib/app/breaks/drummer/camera';
+import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
 
 /** `requestAnimationFrame`/`cancelAnimationFrame`, controlled by hand. */
 function stubRaf() {
@@ -188,17 +189,65 @@ describe('DrummerStage', () => {
     expect(rig.scale.x).toBe(1);
   });
 
+  it('seats the player it is given, and swaps them mid-groove without touching the kit or the timeline', () => {
+    const [first, second] = PERSONAS;
+    const stage = new DrummerStage(host, clock, first);
+    expect(stage.persona).toBe(first);
+    stage.ingest(stepWithHit({ lane: 'c', value: 1, at: 0 }));
+    rafCtl.runNextFrame(16);
+    const scene = fakes.renderers[0].render.mock.calls[0]?.[0] as THREE.Scene;
+    const kit = scene.getObjectByName('kit');
+    const oldDrummer = scene.getObjectByName('drummer')!;
+    const disposed = vi.fn();
+    oldDrummer.traverse((o) => {
+      if (o instanceof THREE.Mesh)
+        (o.geometry as THREE.BufferGeometry).addEventListener('dispose', disposed);
+    });
+
+    stage.setPersona(second);
+    expect(stage.persona).toBe(second);
+    const drummers: THREE.Object3D[] = [];
+    scene.traverse((o) => {
+      if (o.name === 'drummer') drummers.push(o);
+    });
+    // one drummer on the stool, the new one; the old one's geometry freed
+    expect(drummers).toHaveLength(1);
+    expect(drummers[0]).not.toBe(oldDrummer);
+    expect(disposed).toHaveBeenCalled();
+    expect(scene.getObjectByName('kit')).toBe(kit);
+    expect(stage.timeline.clock).not.toBeNull();
+
+    // the same player again is no change
+    stage.setPersona(second);
+    expect(scene.getObjectByName('drummer')).toBe(drummers[0]);
+  });
+
+  it("paints the kit in the player's colours, and repaints the same kit for the next one", () => {
+    const [first, second] = PERSONAS;
+    const stage = new DrummerStage(host, clock, first);
+    rafCtl.runNextFrame(16);
+    const scene = fakes.renderers[0].render.mock.calls[0]?.[0] as THREE.Scene;
+    const kit = scene.getObjectByName('kit')!;
+    // the mat: the widest disc in the kit
+    const rug = kit.children.find(
+      (o): o is THREE.Mesh => o instanceof THREE.Mesh && o.geometry instanceof THREE.CircleGeometry
+    )!;
+    const paint = () => (rug.material as THREE.MeshStandardMaterial).color.getHexString();
+    expect(paint()).toBe(first.kit.rug.slice(1));
+
+    stage.setPersona(second);
+    expect(scene.getObjectByName('kit')).toBe(kit);
+    expect(paint()).toBe(second.kit.rug.slice(1));
+  });
+
   it('draws the hands in the grip it is set to, from the next frame', () => {
     const stage = new DrummerStage(host, clock);
     rafCtl.runNextFrame(16);
     const scene = fakes.renderers[0].render.mock.calls[0]?.[0] as THREE.Scene;
     const drummer = scene.getObjectByName('drummer')!;
-    // the two hands: the root's groups with a palm and five digits; the other hand is on the left
+    // the two hands; the other hand is on the left
     const hands = drummer.children.filter(
-      (o): o is THREE.Group =>
-        o instanceof THREE.Group &&
-        o.children.length === 6 &&
-        (o.children[0] as THREE.Mesh).geometry?.type === 'RoundedBoxGeometry'
+      (o): o is THREE.Group => o instanceof THREE.Group && o.name === 'hand'
     );
     expect(hands).toHaveLength(2);
     const other = () => hands.reduce((a, b) => (a.position.x < b.position.x ? a : b));

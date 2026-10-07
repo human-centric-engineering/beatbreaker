@@ -12,9 +12,12 @@ import {
   KICK_PEDAL,
   type PieceId,
   PIECES,
+  CROSS_STICK,
   STICK,
   TIP_REACH,
+  crossStick,
   onPiece,
+  rimShot,
   type V3,
   strikeTarget,
 } from '@/lib/app/breaks/drummer/kit-layout';
@@ -27,6 +30,7 @@ import {
   type StrokeState,
   hatOpenAt,
   drift,
+  crashOn,
   lastAtOrBefore,
   seedOf,
   smoothstep,
@@ -63,6 +67,7 @@ export interface ArmPose {
   grip: Vector3;
   /** Unit vector, butt to tip. */
   stick: Vector3;
+  /** The bead: the stick runs back `STICK.length` from here to the butt, whichever way it is held. */
   tip: Vector3;
   /** How high the tip is above where it lands, metres. */
   lift: number;
@@ -70,6 +75,8 @@ export interface ArmPose {
   curl: number;
   /** How this hand holds its stick (see `Grip`). */
   held: Grip;
+  /** 0–1: how far the hand is set down on the snare for a cross-stick, its fingers laid over the stick. */
+  cross: number;
 }
 
 /**
@@ -121,6 +128,8 @@ export interface Pose {
   glance: Glance;
   /** 0–1: both eyes shut for a blink. */
   blink: number;
+  /** 0–1: a smile, now and then. */
+  smile: number;
   arms: Record<Hand, ArmPose>;
   legs: Record<Foot, LegPose>;
   /** The kick beater, radians back from the head. */
@@ -170,6 +179,10 @@ interface Target {
   roll: number;
   /** A count-in click: the sticks held crossed, where they are aimed. */
   count?: boolean;
+  /** 1 for a cross-stick: the hand rests on the head and the fingers play it (see `crossTarget`). */
+  cross?: number;
+  /** 1 for a rimshot: the stick comes in at the angle it is aimed, whatever the grip (see `rimTarget`). */
+  level?: number;
 }
 
 /**
@@ -189,6 +202,8 @@ const STROKE_LEAN = 0.12;
 function targetOf(hit: Hit | undefined, hand: Hand, hatGap: number): Target {
   const piece: PieceId = hit?.piece ?? HAND_REST[hand];
   if (piece === 'sticks') return countTarget(hand);
+  if (piece === 'snare' && hit?.contact === 'cross') return crossTarget(hand);
+  if (piece === 'snare' && hit?.contact === 'rim') return rimTarget(hand);
   const scatter = hit ? scatterOf(hit, hand) : undefined;
   const { tip, pitch } = strikeTarget(piece, hit?.contact, scatter);
   const out = v(tip);
@@ -242,6 +257,34 @@ function countTarget(hand: Hand): Target {
   };
 }
 
+/** A hand resting on the head for a cross-stick: the palm a little over toward the little finger. */
+const ROLL_CROSS = 0.0;
+
+/**
+ * A cross-stick: the stick laid across the snare from the hand resting on the
+ * near side of the head, over the far hoop (see `crossStick`). The target is
+ * where the tip lies with the stick down on the hoop; the note is the fingers
+ * lifting the far end off it and letting it fall (see `crossLiftAt`).
+ */
+function crossTarget(hand: Hand): Target {
+  const { grip, tip } = crossStick(hand);
+  const d = v(tip).sub(v(grip)).normalize();
+  // a little up from the hand to the hoop: a pitch below level
+  return { tip: v(tip), pitch: -Math.asin(d.y), lean: 0, roll: ROLL_CROSS, cross: 1 };
+}
+
+/**
+ * A rimshot: the stick comes down low, so the bead meets the head as the
+ * shaft meets the near hoop (see `rimShot`). It is a full stroke otherwise —
+ * a rimshot is the loudest note on the snare — straight down, no lean. A
+ * military hand drops its wrist to bring the stick down that low, rather than
+ * letting its forearm set the angle as it does for any other note.
+ */
+function rimTarget(hand: Hand): Target {
+  const { tip, pitch } = rimShot(hand);
+  return { tip: v(tip), pitch, lean: 0, roll: ROLL_DRUM, level: 1 };
+}
+
 /**
  * Where a hand rests with nothing to play: the sticks in a loose V over the
  * near half of the snare, low, the hands relaxed.
@@ -273,6 +316,12 @@ function aim(hand: Hand, tip: Vector3, pitch: number): Vector3 {
  * under them.
  */
 const GRIP_IN_HAND = new Vector3(0.023, -0.026, 0.12);
+/**
+ * Where the stick lies in a hand set down for a cross-stick: under the web of
+ * the thumb, out beside the palm rather than under it, so the palm can rest
+ * on the head next to the stick.
+ */
+const GRIP_CROSS = new Vector3(0.05, -0.013, 0.085);
 /**
  * How far the hand's long axis turns out from the stick. The stick runs across
  * the palm from the fulcrum to the heel of the hand, so the back fingers wrap
@@ -434,18 +483,25 @@ interface TimeKeeping {
   ahead: number;
   /** A stick trick while waiting for Play. */
   twirl: Twirl;
+  /** The fingers' lift of a cross-stick, metres at the tip (see `crossLiftAt`). */
+  cross: number;
 }
 
 /**
  * How much taller the strokes into a new bar grow, as a share: rolled between
  * these for each bar — a touch when the pattern carries on, more when it changes.
  */
-const BAR_CUE = [0.08, 0.22] as const;
-const BAR_CUE_CHANGE = [0.25, 0.45] as const;
+const BAR_CUE = [0.04, 0.1] as const;
+const BAR_CUE_CHANGE = [0.1, 0.18] as const;
 /** And for the hand bringing a crash in on the one. */
 const BAR_CUE_CRASH = [0.6, 1.1] as const;
-/** How long before the one the hands start to come up, seconds: rolled between these. */
-const BAR_CUE_LEAD = [0.3, 0.6] as const;
+/**
+ * How long before the one the hands start to come up, seconds (rolled between
+ * these), and how long before it they are all the way up: the cue is given
+ * ahead of the one, not on it.
+ */
+const BAR_CUE_LEAD = [0.55, 0.95] as const;
+const BAR_CUE_FULL = 0.12;
 
 /**
  * How much taller a hand's strokes are at `now` as a new bar comes: a share
@@ -461,11 +517,9 @@ export function barCueAt(ones: readonly Downbeat[], hits: readonly Hit[], now: n
     if (d.time < now - 0.2 || d.time > now + BAR_CUE_LEAD[1]) continue;
     const rng = makeRng((Math.round(d.time * 1000) ^ 0x1f83d9ab) >>> 0);
     const lead = BAR_CUE_LEAD[0] + (BAR_CUE_LEAD[1] - BAR_CUE_LEAD[0]) * rng();
-    const at = lastAtOrBefore(hits, d.time + 0.01);
-    const crash = at >= 0 && hits[at].piece === 'crash' && Math.abs(hits[at].time - d.time) < 0.03;
-    const [lo, hi] = crash ? BAR_CUE_CRASH : d.change ? BAR_CUE_CHANGE : BAR_CUE;
+    const [lo, hi] = crashOn(hits, d.time) ? BAR_CUE_CRASH : d.change ? BAR_CUE_CHANGE : BAR_CUE;
     const size = lo + (hi - lo) * rng();
-    const up = smoothstep(d.time - lead, d.time - 0.05, now);
+    const up = smoothstep(d.time - lead, d.time - BAR_CUE_FULL, now);
     cue = Math.max(cue, size * up * (1 - smoothstep(d.time, d.time + 0.15, now)));
   }
   return cue;
@@ -663,6 +717,11 @@ function alignHand(q: Quaternion, forearm: Vector3, k: number): Quaternion {
  * own length instead — the palm-up hand rocking like a doorknob — so the stick
  * comes up in an arc that swings out as well as up, and the fingers take the
  * rest in the web of the thumb.
+ *
+ * A cross-stick is played with the hand still: it rests on the head, and the
+ * fingers alone lift the stick's far end off the hoop and let it fall (see
+ * `crossLiftAt`). A military hand turns over to play it, as a drummer playing
+ * traditional grip does, and back as it leaves.
  */
 function arm(
   hand: Hand,
@@ -675,6 +734,10 @@ function arm(
 ): ArmPose {
   const military = held === 'military';
   const { from, to, travel } = p;
+  // how far the hand is set for a cross-stick: the stroke is the fingers', the hand at rest,
+  // and the stick held down near its butt, so the fulcrum is further from the tip
+  const crossed = crossShare(p);
+  const reach = TIP_REACH + (CROSS_STICK.reach - TIP_REACH) * crossed;
   const tip0 = from.tip.clone().lerp(to.tip, travel);
   const pitch = from.pitch + (to.pitch - from.pitch) * travel;
   const lean = from.lean + (to.lean - from.lean) * travel;
@@ -686,17 +749,20 @@ function arm(
   const piece = (st.next ?? st.prev)?.piece;
   const counting = piece === 'sticks';
   const sign = counting && hand === 'other' ? -1 : 1;
-  const lift = Math.min(cap, sign * st.lift * time.height + arc + time.air);
+  const swung = sign * st.lift * time.height + arc + time.air;
+  const lift = Math.min(cap, swung + (time.cross - swung) * crossed);
   // the wrist leads the next throw, not the rebound — off the head the stick bounces in the
   // fingers and the hand waits (see `looseness`) — and its lead fades out at the head, so
   // the stick still meets it where it is aimed
   // the stroke coming, or with none coming the one just played
   const fingers = counting ? 0 : fingerShare(st.next ?? st.prev);
-  const loose = counting ? 0 : Math.max(looseness(st), LOOSE_FINGERS * fingers);
+  const loose0 = counting ? 0 : Math.max(looseness(st), LOOSE_FINGERS * fingers);
+  const loose = loose0 + (1 - loose0) * crossed;
   const rest = piece === 'ride' ? LOOSE_RIDE : LOOSE_REST;
   const caught = counting ? 1 : Math.max(0, 1 - (loose - rest) / (LOOSE_REBOUND - rest)) ** 2;
   const early = Math.min(cap, sign * time.ahead * time.height + arc + time.air);
-  const ahead = lift + (early - lift) * caught * Math.min(1, Math.abs(lift) / WRIST_FADE);
+  const ahead =
+    lift + (early - lift) * caught * Math.min(1, Math.abs(lift) / WRIST_FADE) * (1 - crossed);
   const roll = from.roll + (to.roll - from.roll) * travel;
 
   // elbows hang by the ribs, a little out and behind the hands; counting, the
@@ -706,32 +772,50 @@ function arm(
   const pole = new Vector3(out * (0.35 + time.sway + flare), -1, 0.45);
 
   // the stick as it meets the piece, and the hand holding it there
-  const gripLocal = (military ? GRIP_MILITARY : GRIP_IN_HAND).clone();
+  const gripLocal = (military ? GRIP_MILITARY : GRIP_IN_HAND).clone().lerp(GRIP_CROSS, crossed);
   if (hand === 'other') gripLocal.x = -gripLocal.x;
   const aimed = aim(hand, tip0, pitch);
   // counting, the sticks are held crossed where they are aimed. A military hand plays
   // from its own hold instead, so it eases from one to the other as it moves into or out
   // of the count, rather than snapping when the click passes
-  const crossed = {
+  // ...and a military hand turns over, matched, for a cross-stick
+  const held0 = {
     d0: aimed,
-    q0: military ? militaryFrame(hand, aimed) : handFrame(hand, aimed, roll),
+    q0: military && crossed === 0 ? militaryFrame(hand, aimed) : handFrame(hand, aimed, roll),
     shoulder: root,
   };
-  const playing = military ? 1 - countShare(p) : 0;
-  const { d0, q0, shoulder } =
+  // (and holds it at the angle it is aimed, for a rimshot)
+  const level = share(p, 'level');
+  const playing = military ? (1 - countShare(p)) * (1 - crossed) * (1 - level) : 0;
+  const hold =
     playing <= 0
-      ? crossed
-      : blendHold(crossed, militaryHold(hand, tip0, gripLocal, root, pole), playing);
-  const grip0 = tip0.clone().addScaledVector(d0, -TIP_REACH);
+      ? held0
+      : blendHold(held0, militaryHold(hand, tip0, gripLocal, root, pole), playing);
+  const { d0, q0 } = hold;
+  const grip0 = tip0.clone().addScaledVector(d0, -reach);
   const wrist0 = grip0.clone().sub(gripLocal.clone().applyQuaternion(q0));
+  // a military hand brought that low reaches further: the shoulder comes forward for it,
+  // as its own hold does, only as far as the reach needs
+  const short = hold.shoulder.distanceTo(wrist0) - BODY.upperArm - BODY.forearm + REACH_SPARE;
+  const shoulder =
+    military && level > 0 && short > 0
+      ? hold.shoulder
+          .clone()
+          .addScaledVector(
+            wrist0.clone().sub(hold.shoulder).normalize(),
+            level * Math.min(SHOULDER_REACH, short)
+          )
+      : hold.shoulder;
 
   // the forearm comes up a little for the big strokes, a touch back toward the body; keeping
   // time on the hats or the ride, the hand rides up and down with every stroke. All of it
   // a moment ahead of the stick: the wrist starts the stroke and the tip follows
   const carry = piece === 'hat' ? CARRY * ahead : piece === 'ride' ? CARRY_RIDE * ahead : 0;
-  const armLift = counting
-    ? COUNT_ARM * ahead
-    : ARM_SHARE * Math.max(0, ahead - ARM_FROM) + carry + WRIST_RISE * caught * ahead;
+  const armLift =
+    (counting
+      ? COUNT_ARM * ahead
+      : ARM_SHARE * Math.max(0, ahead - ARM_FROM) + carry + WRIST_RISE * caught * ahead) *
+    (1 - crossed);
   const back = new Vector3(-d0.x, 0, -d0.z).normalize();
   const raise = new Vector3().addScaledVector(UP, armLift).addScaledVector(back, armLift * 0.25);
   // a trick: the hand comes up and out in front, to be seen
@@ -741,9 +825,10 @@ function arm(
   // the rest is the stick turning up: part in the fingers, part at the wrist
   const wristArm = grip0.distanceTo(wrist0);
   const theta = Math.asin(
-    Math.max(-0.97, Math.min(0.97, (lift - armLift) / (TIP_REACH + wristArm * (1 - loose))))
+    Math.max(-0.97, Math.min(0.97, (lift - armLift) / (reach + wristArm * (1 - loose))))
   );
   const axis = new Vector3().crossVectors(d0, UP).normalize();
+  const matchedTurn = new Quaternion().setFromAxisAngle(axis, theta * (1 - loose));
   const turn = military
     ? forearmTurn(
         d0,
@@ -751,16 +836,21 @@ function arm(
         wrist0,
         solveTwoBone(shoulder, wrist0, BODY.upperArm, BODY.forearm, pole).joint,
         theta * (1 - loose)
-      )
-    : new Quaternion().setFromAxisAngle(axis, theta * (1 - loose));
+      ).slerp(matchedTurn, crossed)
+    : matchedTurn;
   const grip = wrist0.clone().add(grip0.clone().sub(wrist0).applyQuaternion(turn)).add(raise);
   // the stroke leans a little to one side as it rises, and comes back down along the same
   // line: nothing at the head, the whole lean at the top of a full stroke
   const sway = new Quaternion().setFromAxisAngle(UP, lean * Math.min(1, lift / LEAN_FULL));
   // the hand's share, then the fingers' on top of it: straight up from wherever the hand left it
-  const stick = military
-    ? inWeb(d0, d0.clone().applyQuaternion(turn), grip, tip0.y + lift).applyQuaternion(sway)
-    : d0.clone().applyAxisAngle(axis, theta).applyQuaternion(sway);
+  const fingered = d0.clone().applyAxisAngle(axis, theta);
+  const stick = (
+    military
+      ? inWeb(d0, d0.clone().applyQuaternion(turn), grip, tip0.y + lift)
+          .lerp(fingered, crossed)
+          .normalize()
+      : fingered
+  ).applyQuaternion(sway);
   const q = sway.clone().multiply(turn).multiply(q0);
 
   const reachFor = (frame: Quaternion) => {
@@ -772,8 +862,8 @@ function arm(
   // fulcrum (the stick stays put), and solve again
   const first = reachFor(q);
   const forearm = first.end.clone().sub(first.joint).normalize();
-  // (a military hand is already in line with it: it turns about it)
-  const aligned = military ? q : alignHand(q, forearm, FOLLOW_FOREARM);
+  // (a military hand is already in line with it: it turns about it — unless turned over)
+  const aligned = alignHand(q, forearm, FOLLOW_FOREARM * (military ? crossed : 1));
   const { wrist: wristWanted, joint, end } = reachFor(aligned);
   // out of reach, the hand stays on the arm and the stick goes with it
   grip.add(end.clone().sub(wristWanted));
@@ -785,7 +875,7 @@ function arm(
     if (military) across.addScaledVector(stick, -across.dot(stick)).normalize();
     stick.applyAxisAngle(across, tw.spin);
   }
-  const tip = grip.clone().addScaledVector(stick, TIP_REACH);
+  const tip = grip.clone().addScaledVector(stick, reach);
 
   // the back fingers close on the stick at the head — hard for a loud note, and hard
   // too for a ghost, which they threw — and open to let it turn as it rises: all
@@ -805,7 +895,9 @@ function arm(
     tip,
     lift,
     curl: Math.min(1, Math.max(0, 0.62 + 0.3 * squeeze - 0.22 * give)),
-    held,
+    // turned over for a cross-stick, the hand holds it as a matched hand does
+    held: crossed > 0.5 ? 'matched' : held,
+    cross: crossed,
   };
 }
 
@@ -1025,6 +1117,14 @@ function path(
     // off a tom or a crash with time to spare, the hand goes home before the next note;
     // counting in, it stays up between the clicks
     const counting = prev.piece === 'sticks' && next.piece === 'sticks';
+    // a gap long enough to settle in: the hand goes into the rest just as it does with
+    // nothing coming, and comes out of it just as it does from the rest — so a note
+    // coming into view, or the last one being forgotten, never moves it
+    const wake = end - moveTime(rest, to) - 0.1;
+    if (!counting && prev.time + SETTLE_AFTER < wake) {
+      const waiting = along(settling(prev, hits, hand, Math.min(now, wake), hatGap));
+      return { from: waiting, to, travel: smootherstep(wake, end, now) };
+    }
     if (!isHome(prev) && !counting) {
       const home = homeOf(hits, lastAtOrBefore(hits, prev.time), hand, hatGap);
       const out = moveTime(from, home);
@@ -1055,22 +1155,75 @@ function path(
     const end = next.time - 0.03;
     return { from: rest, to, travel: smootherstep(end - moveTime(rest, to) - 0.1, end, now) };
   }
-  if (prev) {
-    let from = targetOf(prev, hand, hatGap);
-    // off a tom or a crash, home first; then, with still nothing to play, the rest
-    if (!isHome(prev)) {
-      const home = homeOf(hits, lastAtOrBefore(hits, prev.time), hand, hatGap);
-      const leave = prev.time + LEAVE;
-      const out = moveTime(from, home);
-      if (now < leave + out) {
-        return { from, to: home, travel: smootherstep(leave, leave + out, now) };
-      }
-      from = home;
-    }
-    const start = prev.time + SETTLE_AFTER;
-    return { from, to: rest, travel: smootherstep(start, start + moveTime(from, rest) + 0.3, now) };
-  }
+  if (prev) return settling(prev, hits, hand, now, hatGap);
   return { from: rest, to: rest, travel: 0 };
+}
+
+/**
+ * A hand with nothing coming, `prev` its last note: off a tom or a crash, home
+ * first; then, with still nothing to play, into the rest.
+ */
+function settling(prev: Hit, hits: readonly Hit[], hand: Hand, now: number, hatGap: number) {
+  const rest = restTarget(hand);
+  let from = targetOf(prev, hand, hatGap);
+  if (!isHome(prev)) {
+    const home = homeOf(hits, lastAtOrBefore(hits, prev.time), hand, hatGap);
+    const leave = prev.time + LEAVE;
+    const out = moveTime(from, home);
+    if (now < leave + out) {
+      return { from, to: home, travel: smootherstep(leave, leave + out, now) };
+    }
+    from = home;
+  }
+  const start = prev.time + SETTLE_AFTER;
+  return { from, to: rest, travel: smootherstep(start, start + moveTime(from, rest) + 0.3, now) };
+}
+
+/** Where along a path a hand is, as a target of its own. */
+function along(p: HandPath): Target {
+  const { from, to, travel: k } = p;
+  return {
+    tip: from.tip.clone().lerp(to.tip, k),
+    pitch: from.pitch + (to.pitch - from.pitch) * k,
+    lean: from.lean + (to.lean - from.lean) * k,
+    roll: from.roll + (to.roll - from.roll) * k,
+    cross: crossShare(p),
+    level: share(p, 'level'),
+  };
+}
+
+/** How far a hand is at targets with `key` set: 1 there, 0 at the others, between as it moves. */
+function share(p: HandPath, key: 'cross' | 'level'): number {
+  return (p.from[key] ?? 0) * (1 - p.travel) + (p.to[key] ?? 0) * p.travel;
+}
+
+/** How far a hand is set for a cross-stick, 0–1: 1 there, 0 at any other note, between as it moves. */
+function crossShare(p: HandPath): number {
+  return share(p, 'cross');
+}
+
+/** How high the fingers lift a cross-stick's far end, metres at the tip: for the softest note, and the loudest. */
+const CROSS_HEIGHT = [0.05, 0.12] as const;
+/** How long the lift takes at most, and the fall onto the hoop once it is let go, seconds. */
+const CROSS_RISE = 0.14;
+const CROSS_FALL = 0.035;
+
+/**
+ * How high a cross-stick's tip is off where it lies, metres: down on the hoop
+ * between notes, lifted by the fingers just before the next — higher for a
+ * louder one — and let go to fall onto the hoop as it sounds.
+ */
+export function crossLiftAt(st: StrokeState, now: number): number {
+  const next = st.next;
+  if (!next || next.contact !== 'cross') return 0;
+  const gap = st.prev ? next.time - st.prev.time : Infinity;
+  const rise = Math.max(0.02, Math.min(CROSS_RISE, 0.7 * gap - CROSS_FALL));
+  const height = CROSS_HEIGHT[0] + (CROSS_HEIGHT[1] - CROSS_HEIGHT[0]) * next.strength;
+  const until = next.time - now;
+  if (until > CROSS_FALL) return height * smoothstep(-(CROSS_FALL + rise), -CROSS_FALL, -until);
+  // let go: it falls, quicker as it goes
+  const u = 1 - Math.max(0, until) / CROSS_FALL;
+  return height * (1 - u * u);
 }
 
 /** How far apart the two sticks' centre lines must stay where they cross: a stick's thickness and a little air. */
@@ -1081,8 +1234,8 @@ export const STICK_CLEAR = 0.02;
  * two cross, seen from above (negative: below). Undefined if they do not cross.
  */
 export function overLead(lead: ArmPose, other: ArmPose): number | undefined {
-  const a = lead.grip.clone().addScaledVector(lead.stick, -STICK.grip);
-  const b = other.grip.clone().addScaledVector(other.stick, -STICK.grip);
+  const a = lead.tip.clone().addScaledVector(lead.stick, -STICK.length);
+  const b = other.tip.clone().addScaledVector(other.stick, -STICK.length);
   const r = lead.tip.clone().sub(a);
   const u = other.tip.clone().sub(b);
   const den = r.x * u.z - r.z * u.x;
@@ -1188,7 +1341,10 @@ export function poseAt(
     effort += Math.max(0, big - 0.18) / EFFORT_WINDOW.length;
   }
 
-  const ex = expressionAt(all, now, timeline.downbeats());
+  const clock = timeline.clock;
+  // a beat as `beatPhase` counts one, seconds
+  const beat = clock ? clock.dur * (clock.meter.group[0] ?? 1) * clock.meter.sub : 0;
+  const ex = expressionAt(all, now, timeline.downbeats(), beat);
   const bob = -0.012 * groove * pulse + 0.004 * breath + 0.05 * effort + groove * ex.dip;
   const lean = 0.08 + Math.max(0, reach - 0.3) * 0.35 + 0.025 * groove * pulse + groove * ex.lean;
   const roll = Math.max(-0.05, Math.min(0.05, -0.25 * (lt.y - ot.y)));
@@ -1196,7 +1352,7 @@ export function poseAt(
   // the head looks ahead at the kit; through a fill it follows the sticks round it
   const ahead = yaw * 0.6 + Math.max(-0.25, Math.min(0.25, -0.3 * (lt.x + 0.1)));
   const sticks = Math.max(-0.4, Math.min(0.4, -0.7 * ((lt.x + ot.x) / 2 + 0.05)));
-  const headYaw = ahead + (sticks - ahead) * 0.6 * groove * ex.focus;
+  const headYaw = ahead + (sticks - ahead) * 0.6 * groove * ex.focus + groove * ex.sway;
   const headTilt = groove * ex.tilt;
 
   const torso = new Euler(-lean, yaw, roll, 'YXZ');
@@ -1229,6 +1385,7 @@ export function poseAt(
       sway: groove * ex.nodScale * 0.1 * (0.5 - settle),
       ahead: strokeAt(hits, now + WRIST_LEAD, HAND).lift,
       twirl: twirls[hand],
+      cross: crossLiftAt(st, now),
     };
   };
   const time = { lead: timeOf('lead'), other: timeOf('other') };
@@ -1270,6 +1427,7 @@ export function poseAt(
     // playing or waiting for Play: a look at the camera is for either
     glance: ex.glance,
     blink: ex.blink,
+    smile: ex.smile,
     arms: {
       lead: leadArm,
       other: otherArm,

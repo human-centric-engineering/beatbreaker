@@ -127,6 +127,11 @@ export interface StrokeState {
   since: number;
 }
 
+/** Settling from the rebound's `peak` toward where the stick rests, `after` seconds into it. */
+function settled(p: StrokeProfile, peak: number, after: number): number {
+  return p.rest + (peak - p.rest) * Math.exp(-after * 3);
+}
+
 function clamp01(x: number): number {
   return x < 0 ? 0 : x > 1 ? 1 : x;
 }
@@ -135,6 +140,31 @@ export function smoothstep(a: number, b: number, x: number): number {
   if (b <= a) return x >= b ? 1 : 0;
   const u = clamp01((x - a) / (b - a));
   return u * u * (3 - 2 * u);
+}
+
+/**
+ * How long before the throw a waiting stick (or beater) comes up from where it
+ * rests to the next stroke's height, seconds.
+ */
+const WAKE = 0.3;
+/**
+ * A gap this long, seconds, is waited out at rest: the stick settles as it does
+ * with nothing coming and wakes for the next stroke. Shorter, it waits at the
+ * next stroke's height; between, a mix. Past this, the next stroke may come into
+ * view mid-gap or the last one drop out of memory, and both curves must agree.
+ */
+const LONG_GAP = [0.9, 1.2] as const;
+
+/**
+ * Does a hand bring a crash in at `time`? Forecast strokes sit on the grid and
+ * scheduled ones a few milliseconds off it, so near enough counts.
+ */
+export function crashOn(hits: readonly Hit[], time: number): boolean {
+  for (let i = lastAtOrBefore(hits, time + 0.04); i >= 0 && hits[i].time >= time - 0.04; i--) {
+    const h = hits[i];
+    if (h.piece === 'crash' && (h.limb === 'lead' || h.limb === 'other')) return true;
+  }
+  return false;
 }
 
 /** The last stroke at or before `now`, by binary search over a time-ordered list. */
@@ -195,22 +225,29 @@ export function strokeAt(hits: readonly Hit[], now: number, p: StrokeProfile): S
   } else if (prev && next) {
     const lo = prev.time + rise;
     const hi = next.time - fall;
+    let wait: number;
     if (p.prep === undefined) {
-      lift = peak + (target - peak) * smoothstep(lo, hi, now);
+      wait = peak + (target - peak) * smoothstep(lo, hi, now);
     } else {
       // wait no higher than the next stroke wants, then lift for it just before the throw
       const up = Math.min(hi - lo, p.prep + (p.prepPerUnit ?? 0) * target);
       const hold = Math.min(peak, target);
-      lift =
+      wait =
         now < hi - up
           ? peak + (hold - peak) * smoothstep(lo, hi - up, now)
           : hold + (target - hold) * smoothstep(hi - up, hi, now);
     }
+    // a long gap is waited out at rest, as if nothing were coming, then the stick wakes
+    const long = smoothstep(LONG_GAP[0], LONG_GAP[1], gap);
+    const idle = settled(p, peak, since - rise);
+    const woken = idle + (target - idle) * smoothstep(hi - WAKE, hi, now);
+    lift = wait + (woken - wait) * long;
   } else if (prev) {
     // nothing coming: settle from the rebound to where the stick waits
-    lift = p.rest + (peak - p.rest) * Math.exp(-(since - rise) * 3);
+    lift = settled(p, peak, since - rise);
   } else {
-    lift = target;
+    // nothing played yet (or long enough ago to be forgotten): up from rest for the first
+    lift = p.rest + (target - p.rest) * smoothstep(next.time - fall - WAKE, next.time - fall, now);
   }
 
   let travel = 1;

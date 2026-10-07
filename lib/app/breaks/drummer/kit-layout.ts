@@ -245,6 +245,117 @@ export function onPiece(p: Piece, local: V3): V3 {
   return [p.centre[0] + x1, p.centre[1] + y2, p.centre[2] + z2];
 }
 
+/**
+ * A drum's hoops, as the scene draws them: a ring this much wider than the
+ * head and this far above it, of this thickness (the radius of its tube).
+ */
+export const HOOP = { out: 0.004, rise: 0.004, tube: 0.0065 } as const;
+
+/**
+ * A cross-stick on the snare: the stick laid across the head, not swung at
+ * it. It is held near the butt, the butt under the palm, and the hand rests
+ * on the near side of the head; the shaft lies from it over the far hoop, the
+ * last of it past the hoop — so lifting the far end with the fingers and
+ * letting it fall clicks the shaft on the hoop.
+ *
+ * `reach` is from the fulcrum to the tip, held like that; `over`, how much of
+ * the stick runs on past the hoop; `off`, how far its line passes the middle
+ * of the head, out to the hand's side; `grip`, how high the stick lies off the
+ * head under the hand, and `rest` how high its line is over the hoop's top
+ * where it lies on it (the shaft's radius there), metres.
+ */
+export const CROSS_STICK = {
+  reach: 0.35,
+  over: 0.06,
+  off: 0.03,
+  grip: 0.0125,
+  rest: 0.007,
+} as const;
+
+/**
+ * Where a hand's stick lies for a cross-stick (see {@link CROSS_STICK}): the
+ * fulcrum, where it lies on the far hoop, and its tip, past the hoop. Seen
+ * from above, its line runs from where the hand aims from (`AIM_FROM`), so a
+ * stick aimed at the tip comes in along it.
+ */
+export function crossStick(hand: Hand): { grip: V3; rim: V3; tip: V3 } {
+  const p = PIECES.snare;
+  const [fx, , fz] = AIM_FROM[hand];
+  const [cx, , cz] = p.centre;
+  // across the head from the hand, passing the middle out to the hand's side
+  const [ax, az] = [cx - fx, cz - fz];
+  const along = Math.hypot(ax, az);
+  const out = hand === 'lead' ? 1 : -1;
+  // square to the line, toward the hand's own side (+x for the lead hand)
+  const [px, pz] = [(-az / along) * out, (ax / along) * out];
+  const line = hoopLine(hand, [cx + px * CROSS_STICK.off, cz + pz * CROSS_STICK.off]);
+  const back = CROSS_STICK.reach - CROSS_STICK.over;
+  const rest = HOOP.rise + HOOP.tube + CROSS_STICK.rest;
+  // the stick rises a little from under the hand to the hoop, and on past it
+  const tipY = rest + ((rest - CROSS_STICK.grip) * CROSS_STICK.over) / back;
+  return {
+    grip: line.at(line.far - back, CROSS_STICK.grip),
+    rim: line.at(line.far, rest),
+    tip: line.at(line.far + CROSS_STICK.over, tipY),
+  };
+}
+
+/**
+ * A line across the snare seen from above, from where `hand` aims from
+ * (`AIM_FROM`) through `through` (world `x`, `z`): how far along it the hoop is
+ * crossed, coming in and going out, and a point `k` along it at height `y`
+ * off the head.
+ */
+function hoopLine(
+  hand: Hand,
+  through: readonly [number, number]
+): { near: number; far: number; at: (k: number, y: number) => V3 } {
+  const p = PIECES.snare;
+  const r = p.radius + HOOP.out;
+  const [fx, , fz] = AIM_FROM[hand];
+  const [cx, , cz] = p.centre;
+  const [qx, qz] = [through[0] - fx, through[1] - fz];
+  const len = Math.hypot(qx, qz);
+  const [dx, dz] = [qx / len, qz / len];
+  const [wx, wz] = [fx - cx, fz - cz];
+  const wd = wx * dx + wz * dz;
+  const root = Math.sqrt(wd * wd - (wx * wx + wz * wz - r * r));
+  return {
+    near: -wd - root,
+    far: -wd + root,
+    at: (k, y) => onPiece(p, [fx + dx * k - cx, y, fz + dz * k - cz]),
+  };
+}
+
+/**
+ * A rimshot on the snare: the bead on the head and the shaft on the near hoop
+ * at the same instant, the stick coming in low enough for both. `land` is
+ * where on the head the bead lands (`x`, `z` from the middle, in the head's
+ * plane: a little short of it, toward the drummer — which keeps a military
+ * hand, its fingers under the stick, out past the hoop rather than down into
+ * the drum), and `shaft` the stick's radius where it crosses the hoop, metres.
+ */
+export const RIM_SHOT = { land: [0, 0.04], shaft: 0.009 } as const;
+
+/**
+ * Where a hand's stick is for a rimshot (see {@link RIM_SHOT}): its tip on the
+ * head, where its shaft lies on the near hoop, and the pitch that makes both
+ * meet at once. Seen from above, the stick comes in from where the hand aims
+ * from, as any stroke does.
+ */
+export function rimShot(hand: Hand): { tip: V3; rim: V3; pitch: number } {
+  const p = PIECES.snare;
+  const [lx, lz] = RIM_SHOT.land;
+  // where the bead lands, as the line through it sees it (the head's tilt moves it a hair)
+  const [tx, , tz] = onPiece(p, [lx, 0, lz]);
+  const line = hoopLine(hand, [tx, tz]);
+  const reach = Math.hypot(tx - AIM_FROM[hand][0], tz - AIM_FROM[hand][2]);
+  const tip = line.at(reach, BEAD);
+  const rim = line.at(line.near, HOOP.rise + HOOP.tube + RIM_SHOT.shaft);
+  const [dx, dy, dz] = [tip[0] - rim[0], tip[1] - rim[1], tip[2] - rim[2]];
+  return { tip, rim, pitch: Math.atan2(-dy, Math.hypot(dx, dz)) };
+}
+
 /** How far above the surface the tip's centre is when it touches: the bead's radius. */
 const BEAD = 0.006;
 

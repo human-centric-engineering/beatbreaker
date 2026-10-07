@@ -47,6 +47,7 @@ export function DrummerView() {
   const offHand = hand === 'right' ? 'left' : 'right';
   const [view, setView] = useState<CameraView>('front');
   const [viewSeq, setViewSeq] = useState(0);
+  const [shuffleSeq, setShuffleSeq] = useState(0);
   // asked once, on the client; the server renders the placeholder
   const webgl = useSyncExternalStore(noSubscribe, hasWebGL, () => true);
 
@@ -113,6 +114,14 @@ export function DrummerView() {
         >
           Re-centre
         </button>
+        <button
+          type="button"
+          className="mini"
+          title="Seat a different drummer at the kit"
+          onClick={() => setShuffleSeq((n) => n + 1)}
+        >
+          Shuffle drummer
+        </button>
         <StudioHelp title="The drummer">
           Drag to turn round the kit, scroll or pinch to zoom in (toward the pointer), and
           right-drag or two-finger drag to slide. The drummer plays exactly what you hear — swing,
@@ -121,8 +130,9 @@ export function DrummerView() {
           arms from crossing, a flam&rsquo;s grace on the other hand. Ghost notes are played from an
           inch, mostly with the fingers; accents from high up. Grip sets how the sticks are held:
           matched, or military (traditional) — palm up, the stick in the web of the thumb, played by
-          turning the forearm — in the hand away from the hats or in both. It is an experiment: a
-          jointed figure, not a recording of a real player.
+          turning the forearm — in the hand away from the hats or in both. A different player sits
+          in each time you open the view, and Shuffle drummer seats someone else. It is an
+          experiment: a jointed figure, not a recording of a real player.
         </StudioHelp>
       </div>
       <div className="drummer-stage">
@@ -132,6 +142,7 @@ export function DrummerView() {
             military={military}
             view={view}
             viewSeq={viewSeq}
+            shuffleSeq={shuffleSeq}
             playing={c.playing}
             subscribeSteps={c.subscribeSteps}
             audioNow={c.audioNow}
