@@ -18,20 +18,13 @@ import type { Pick, Recipe } from '@/scripts/kits/recipe';
 const OH = { OHLeft: 0.3, OHRight: 0.3, OHCenter: 0.3 };
 const AMB = { AmbLeft: 0.1, AmbRight: 0.1 };
 
-const cr = (
-  inst: string,
-  channels: Record<string, number>,
-  layers: number,
-  rr: number,
-  range?: [number, number]
-): Pick => ({
+const cr = (inst: string, channels: Record<string, number>, layers: number, rr: number): Pick => ({
   source: 'crocell',
   pattern: `CrocellKit/${inst}/samples/*-${inst}.wav`,
   mics: { '': 1 },
   channels: { ...OH, ...AMB, ...channels },
   layers,
   rr,
-  ...(range ? { range } : {}),
 });
 
 const KICK = { KDrumInside: 1, KDrumOutside: 0.6 };
