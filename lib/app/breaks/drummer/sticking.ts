@@ -67,6 +67,11 @@ import type { Bar, LaneKey } from '@/lib/app/breaks/types';
  * up a long run or when two land at once. A grace note is the hand that is not
  * playing the note it decorates, when that hand is free.
  *
+ * On a double pedal (a pattern from a double-kick style) the kick is two
+ * feet's: a run of kicks goes right foot, left foot, the left foot taking
+ * every other one — unless it is on the hat pedal for a chick on that step,
+ * when the right foot plays it. A lone kick is the right foot's.
+ *
  * It reads a bar from where the bar before it left the hands (or from rest),
  * so the same pair of bars always comes out the same — which is what lets the
  * planner forecast a bar it has not heard yet and agree with itself when it
@@ -517,6 +522,26 @@ function keptAtEnd(steps: StepHands[]): number {
 
 const cache = new WeakMap<Bar, StepHands[]>();
 const following = new WeakMap<Bar, WeakMap<Bar, StepHands[]>>();
+const doubled = new WeakMap<StepHands[], StepHands[]>();
+
+/**
+ * On a double pedal, the kicks shared between the feet: through a run the left
+ * foot takes every other one, counting on from a run the bar before ended
+ * with, and leaves one on a step it plays a chick on to the right.
+ */
+function withDoublePedal(steps: StepHands[], bar: Bar, before?: Bar | null): StepHands[] {
+  let run = 0;
+  if (before) for (let j = before.k.length - 1; j >= 0 && before.k[j]; j--) run++;
+  return steps.map((step, i) => {
+    if (!bar.k[i]) {
+      run = 0;
+      return step;
+    }
+    const left = run % 2 === 1 && !bar.hf[i];
+    run++;
+    return left ? { ...step, k: 'hatFoot' } : step;
+  });
+}
 
 /**
  * Every step of a bar, assigned once and remembered for as long as the bar
@@ -528,8 +553,16 @@ const following = new WeakMap<Bar, WeakMap<Bar, StepHands[]>>();
  * it to one bar of memory: the forecast of the next bar and the bar itself,
  * when it comes, see the same pair and agree. The tempo has no say: a
  * pattern slowed down to be learned is played the way it is at speed.
+ *
+ * With `doubleKick`, the kicks are shared between the feet on a double pedal.
  */
-export function assignBar(bar: Bar, before?: Bar | null): StepHands[] {
+export function assignBar(bar: Bar, before?: Bar | null, doubleKick = false): StepHands[] {
+  if (doubleKick) {
+    const hands = assignBar(bar, before);
+    let out = doubled.get(hands);
+    if (!out) doubled.set(hands, (out = withDoublePedal(hands, bar, before)));
+    return out;
+  }
   if (before) {
     let byBefore = following.get(bar);
     if (!byBefore) following.set(bar, (byBefore = new WeakMap()));

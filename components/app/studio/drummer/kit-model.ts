@@ -4,6 +4,7 @@ import { ball, kickLogoTexture, type Materials, rod } from '@/components/app/stu
 import {
   BOARD_LENGTH,
   BELL,
+  DOUBLE_PEDAL,
   HAT_PEDAL,
   HOOP,
   KICK_PEDAL,
@@ -24,8 +25,8 @@ import { HAT_CLOSED_GAP, type Pose } from '@/lib/app/breaks/drummer/pose';
 
 export interface KitModel {
   root: THREE.Group;
-  /** `percussion`: which percussion pieces to put up. */
-  update: (pose: Pose, percussion: ReadonlySet<PieceId>) => void;
+  /** `percussion`: which percussion pieces to put up; `doublePedal`: whether to put the second kick pedal in. */
+  update: (pose: Pose, percussion: ReadonlySet<PieceId>, doublePedal?: boolean) => void;
 }
 
 const vec = (a: V3) => new THREE.Vector3(a[0], a[1], a[2]);
@@ -246,6 +247,43 @@ export function buildKit(m: Materials): KitModel {
   beater.add(felt);
   root.add(beater);
 
+  /* ---- double pedal: the left foot's board, a drive shaft from its toe to a
+          second beater beside the first. Only in for a double-kick pattern. */
+  const double = new THREE.Group();
+  const dp = vec(DOUBLE_PEDAL.heel);
+  const dTurn = Math.atan2(-DOUBLE_PEDAL.toward[0], -DOUBLE_PEDAL.toward[2]);
+  const dToe = dp.clone().addScaledVector(vec(DOUBLE_PEDAL.toward).normalize(), BOARD_LENGTH);
+  const dPlate = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.012, 0.36), m.black);
+  dPlate.position.copy(dp.clone().lerp(dToe, 0.55)).setY(0.006);
+  dPlate.rotation.y = dTurn;
+  double.add(dPlate);
+  const doubleBoard = new THREE.Group();
+  doubleBoard.position.copy(dp);
+  doubleBoard.rotation.order = 'YXZ';
+  doubleBoard.rotation.y = dTurn;
+  const db = new THREE.Mesh(new THREE.BoxGeometry(0.085, 0.012, BOARD_LENGTH), m.chrome);
+  db.position.z = -BOARD_LENGTH / 2;
+  db.castShadow = true;
+  doubleBoard.add(db);
+  double.add(doubleBoard);
+  // the shaft's bearing at the board's toe, and the shaft across to the second beater
+  const dAxle = vec(DOUBLE_PEDAL.axle);
+  const bearing = new THREE.Vector3(dToe.x, dAxle.y - 0.02, dToe.z - 0.04);
+  double.add(rod(new THREE.Vector3(bearing.x, 0.01, bearing.z), bearing, 0.008, m.chrome));
+  double.add(rod(bearing, new THREE.Vector3(dAxle.x - 0.02, dAxle.y, dAxle.z), 0.006, m.chrome));
+  const beater2 = new THREE.Group();
+  beater2.position.copy(dAxle);
+  const shaft2 = new THREE.Mesh(shaft.geometry, m.chrome);
+  shaft2.position.y = KICK_PEDAL.beater / 2;
+  beater2.add(shaft2);
+  const felt2 = new THREE.Mesh(felt.geometry, m.felt);
+  felt2.rotation.z = Math.PI / 2;
+  felt2.position.y = KICK_PEDAL.beater;
+  felt2.castShadow = true;
+  beater2.add(felt2);
+  double.add(beater2);
+  root.add(double);
+
   /* ---- hats ---------------------------------------------------------- */
   const hat = PIECES.hat;
   const hatCentre = vec(hat.centre);
@@ -363,9 +401,12 @@ export function buildKit(m: Materials): KitModel {
 
   return {
     root,
-    update(pose: Pose, percussion: ReadonlySet<PieceId>) {
+    update(pose: Pose, percussion: ReadonlySet<PieceId>, doublePedal = false) {
       for (const o of perc1) o.visible = percussion.has('perc1');
       for (const o of perc2) o.visible = percussion.has('perc2');
+      double.visible = doublePedal;
+      doubleBoard.rotation.x = pose.double.board;
+      beater2.rotation.x = pose.double.beater;
       kickBoard.rotation.x = pose.legs.kickFoot.board;
       hatBoard.rotation.x = pose.legs.hatFoot.board;
       beater.rotation.x = pose.beater;

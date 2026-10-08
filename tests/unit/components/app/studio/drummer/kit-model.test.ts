@@ -95,26 +95,42 @@ describe('buildKit().update — percussion visibility', () => {
     const defaultVisible = snapshot();
     expect(defaultVisible.every(Boolean)).toBe(true); // nothing hidden before any update()
 
-    update(pose, new Set());
+    // (the double pedal in, so only the percussion comes and goes)
+    update(pose, new Set(), true);
     const withNone = snapshot();
     // exactly the percussion pieces (cowbell+rod, block+rod = 4 objects) went invisible
     const hiddenIdx = withNone.reduce<number[]>((acc, v, i) => (v ? acc : [...acc, i]), []);
     expect(hiddenIdx.length).toBe(4);
 
-    update(pose, new Set(['perc1']));
+    update(pose, new Set(['perc1']), true);
     const withPerc1 = snapshot();
     const stillHidden = hiddenIdx.filter((i) => !withPerc1[i]);
     // half of the originally-hidden set (perc1's cowbell + its support rod) came back
     expect(stillHidden.length).toBe(2);
 
-    update(pose, new Set(['perc1', 'perc2']));
+    update(pose, new Set(['perc1', 'perc2']), true);
     const withBoth = snapshot();
     expect(hiddenIdx.every((i) => withBoth[i])).toBe(true);
 
     // and it's reversible: dropping both hides all four again
-    update(pose, new Set());
+    update(pose, new Set(), true);
     const backToNone = snapshot();
     expect(hiddenIdx.every((i) => !backToNone[i])).toBe(true);
+  });
+
+  it('puts the double pedal in only for a pattern played on one', () => {
+    const { root, update } = buildKit(makeMaterials());
+    const pose = idlePose();
+    const hidden = () => {
+      let n = 0;
+      root.traverse((o) => void (o.visible || n++));
+      return n;
+    };
+    update(pose, new Set(['perc1', 'perc2']), true);
+    expect(hidden()).toBe(0);
+    // one group: the second board, its plate, the drive shaft and the second beater
+    update(pose, new Set(['perc1', 'perc2']));
+    expect(hidden()).toBe(1);
   });
 });
 

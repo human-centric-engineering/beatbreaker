@@ -133,6 +133,8 @@ export interface ScheduledStep {
   bar: Bar | null;
   next: Bar | null;
   notes: { voice: Voice; when: number }[];
+  /** The pattern playing is played on a double pedal (its style's `doubleKick`). */
+  doubleKick?: boolean;
 }
 
 interface SeqEntry {
@@ -326,6 +328,7 @@ export class Transport {
         // what the band comes in on, so the drummer can be ready for it
         next: (livePat && pos && livePat.bars[pos.barIdx]) ?? null,
         notes: [],
+        doubleKick: !!livePat?.attrs?.doubleKick,
       });
       return;
     }
@@ -394,6 +397,7 @@ export class Transport {
            it plans its limbs from `bar` and `next`, which the mixer never
            touches — a lane left out is an arm wound up for a hit that never comes. */
         notes: voices.map((voice, n) => ({ voice, when: whens[n] })),
+        doubleKick: !!livePat.attrs?.doubleKick,
       });
     }
 

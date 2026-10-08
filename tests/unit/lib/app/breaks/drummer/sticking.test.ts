@@ -553,3 +553,61 @@ describe('assignBar — cross-sticks', () => {
     expect(toms.join()).not.toContain('other,other');
   });
 });
+
+describe('assignBar — a double pedal', () => {
+  const feet = (steps: StepHands[]) => steps.map((s) => s.k ?? '-');
+
+  it('shares a run of kicks between the feet, right foot first', () => {
+    const b = bar({ k: [1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0] });
+    expect(feet(assignBar(b, null, true))).toEqual([
+      'kickFoot',
+      'hatFoot',
+      'kickFoot',
+      'hatFoot',
+      '-',
+      '-',
+      'kickFoot',
+      'hatFoot',
+      '-',
+      '-',
+      'kickFoot',
+      '-',
+      '-',
+      '-',
+      '-',
+      '-',
+    ]);
+  });
+
+  it('leaves every kick on the right foot without one', () => {
+    const b = bar({ k: Array<number>(N).fill(1) });
+    expect(feet(assignBar(b)).every((f) => f === 'kickFoot')).toBe(true);
+  });
+
+  it('gives a kick on a step the left foot plays a chick on to the right foot', () => {
+    const b = bar({ k: [1, 1, 1, 1], hf: [0, 1, 0, 0] });
+    expect(feet(assignBar(b, null, true)).slice(0, 4)).toEqual([
+      'kickFoot',
+      'kickFoot',
+      'kickFoot',
+      'hatFoot',
+    ]);
+  });
+
+  it('carries a run on from the bar before', () => {
+    const before = bar({ k: [...Array<number>(15).fill(0), 1] });
+    const b = bar({ k: [1, 1, 1] });
+    expect(feet(assignBar(b, before, true)).slice(0, 3)).toEqual([
+      'hatFoot',
+      'kickFoot',
+      'hatFoot',
+    ]);
+  });
+
+  it('leaves the hands as they were', () => {
+    const b = bar({ k: Array<number>(N).fill(1), h: Array<number>(N).fill(1) });
+    const single = assignBar(b);
+    const double = assignBar(b, null, true);
+    expect(double.map((s) => s.h)).toEqual(single.map((s) => s.h));
+  });
+});

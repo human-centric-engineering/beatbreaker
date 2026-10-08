@@ -150,6 +150,18 @@ export const HAT_PEDAL = {
   toward: [-0.23, 0, -0.97] as V3,
 } as const;
 
+/**
+ * A double pedal's second board, the left foot's, between the hat pedal and
+ * the kick's, and the second beater it drives, through a shaft from its toe,
+ * on the kick pedal's frame beside the first.
+ */
+export const DOUBLE_PEDAL = {
+  heel: [-0.13, 0.025, -0.14] as V3,
+  toward: [0.06, 0, -1] as V3,
+  /** The second beater's axle. */
+  axle: [-0.01, 0.11, -0.49] as V3,
+} as const;
+
 /** The pedal board, heel plate to toe. */
 export const BOARD_LENGTH = 0.28;
 

@@ -7,6 +7,7 @@ import {
   BODY,
   type Foot,
   HAND_REST,
+  DOUBLE_PEDAL,
   HAT_PEDAL,
   type Hand,
   KICK_PEDAL,
@@ -145,6 +146,8 @@ export interface Pose {
   legs: Record<Foot, LegPose>;
   /** The kick beater, radians back from the head. */
   beater: number;
+  /** A double pedal's second board and beater, as `board` and `beater` are the first's. */
+  double: { board: number; beater: number };
   /** Space between the hat cymbals, metres. */
   hatGap: number;
   /** The last stroke on each piece, for cymbals to swing and heads to give. */
@@ -1051,8 +1054,12 @@ const TOES = 0.07;
  * the foot's own frame, so a steep foot carries the shin forward over it, and
  * the knee is solved from the hip to that.
  */
-function leg(foot: Foot, board: number, stance: FootStance): LegPose {
-  const pedal = foot === 'kickFoot' ? KICK_PEDAL : HAT_PEDAL;
+function leg(
+  foot: Foot,
+  board: number,
+  stance: FootStance,
+  pedal: { heel: V3; toward: V3 } = foot === 'kickFoot' ? KICK_PEDAL : HAT_PEDAL
+): LegPose {
   const plate = v(pedal.heel);
   const toward = dir(pedal.toward);
   const along = toward.clone().multiplyScalar(Math.cos(board)).addScaledVector(UP, Math.sin(board));
@@ -1095,6 +1102,53 @@ function leg(foot: Foot, board: number, stance: FootStance): LegPose {
   const pole = new Vector3(out * (0.25 - 1.2 * stance.swivel), 0.6, -1);
   const { joint } = solveTwoBone(hip, ankle, BODY.thigh, BODY.shin, pole);
   return { hip, knee: joint, ankle, heel, ball, toe, board };
+}
+
+/**
+ * How near a stroke on the double pedal (seconds) the left foot is all the way
+ * over on it, and how far before it is all the way back on the hats.
+ */
+const ON_DOUBLE = 0.35;
+const OFF_DOUBLE = 0.75;
+/** The hat pedal's board with no foot on it: sprung up (a drop clutch keeps the hats shut). */
+const HAT_BOARD_UP = 0.4;
+/** How high the foot lifts crossing between the pedals, metres. */
+const CROSS_LIFT = 0.06;
+
+/** 0 on the hat pedal, 1 on the double pedal: how far over the left foot is, from its strokes there. */
+function onDoublePedal(kicks: readonly Hit[], now: number): number {
+  let near = Infinity;
+  for (const h of kicks) near = Math.min(near, Math.abs(h.time - now));
+  return 1 - smootherstep(ON_DOUBLE, OFF_DOUBLE, near);
+}
+
+/**
+ * The left leg part way from the hat pedal (`hat`) to the double pedal
+ * (`double`): the foot lifted over between them, and the knee solved again
+ * from the hip to where the ankle has got to. The hat pedal's board is where
+ * it is left — sprung up once the foot is off it.
+ */
+function acrossPedals(hat: LegPose, double: LegPose, w: number): LegPose {
+  if (w <= 0) return hat;
+  const lift = new Vector3(0, CROSS_LIFT * Math.sin(Math.PI * w), 0);
+  const at = (a: Vector3, b: Vector3) => a.clone().lerp(b, w).add(lift);
+  const ankle = at(hat.ankle, double.ankle);
+  const { joint } = solveTwoBone(
+    hat.hip,
+    ankle,
+    BODY.thigh,
+    BODY.shin,
+    new Vector3(-0.25, 0.6, -1)
+  );
+  return {
+    hip: hat.hip,
+    knee: joint,
+    ankle,
+    heel: at(hat.heel, double.heel),
+    ball: at(hat.ball, double.ball),
+    toe: at(hat.toe, double.toe),
+    board: hat.board + (HAT_BOARD_UP - hat.board) * w,
+  };
 }
 
 /** How long a relaxed hand takes to cross the kit: a base, and seconds per metre. */
@@ -1377,8 +1431,19 @@ export function poseAt(
   const hatHits = all.filter((h) => h.piece === 'hat');
   const open = hatOpenAt(hatHits, now);
   const phase = beatPhase(timeline.clock, now);
-  const hatFoot = hatFootAt(timeline.forLimb('hatFoot'), now, phase, groove, open);
-  const hatLift = Math.max(open, hatFoot.lift);
+  // the left foot: chicks on the hat pedal, and on a double pedal every other kick
+  const leftFoot = timeline.forLimb('hatFoot');
+  const leftKicks = leftFoot.filter((h) => h.piece === 'kick');
+  const across = onDoublePedal(leftKicks, now);
+  const hatFoot = hatFootAt(
+    leftKicks.length ? leftFoot.filter((h) => h.piece === 'hat') : leftFoot,
+    now,
+    phase,
+    groove,
+    open
+  );
+  // a foot over on the double pedal is not rocking the hats
+  const hatLift = Math.max(open, hatFoot.lift * (1 - across));
   const hatGap = HAT_CLOSED_GAP + 0.024 * hatLift;
 
   const leadHits = timeline.forLimb('lead');
@@ -1502,6 +1567,8 @@ export function poseAt(
   const kickHits = timeline.forLimb('kickFoot');
   const kick = strokeAt(kickHits, now, KICK);
   const stance = kickStanceAt(kickHits, now);
+  const leftKick = strokeAt(leftKicks, now, KICK);
+  const leftStance = kickStanceAt(leftKicks, now);
 
   const hits: Partial<Record<PieceId, PieceHit>> = {};
   for (let i = all.length - 1; i >= 0; i--) {
@@ -1516,7 +1583,16 @@ export function poseAt(
       // the leg lifts into the stroke: the heel rises with the beater
       pitch: stance.pitch + stance.drive * kick.lift,
     }),
-    hatFoot: leg('hatFoot', 0.08 + 0.3 * hatLift, hatFoot.stance),
+    hatFoot: acrossPedals(
+      leg('hatFoot', 0.08 + 0.3 * hatLift, hatFoot.stance),
+      leg(
+        'hatFoot',
+        0.1 + 0.32 * leftKick.lift,
+        { ...leftStance, pitch: leftStance.pitch + leftStance.drive * leftKick.lift },
+        DOUBLE_PEDAL
+      ),
+      across
+    ),
   };
 
   // a look down at a foot: the head turned to it and dropped to see it, from where the eyes are
@@ -1555,6 +1631,7 @@ export function poseAt(
     },
     legs,
     beater: BEATER_CONTACT + 0.95 * kick.lift,
+    double: { board: 0.1 + 0.32 * leftKick.lift, beater: BEATER_CONTACT + 0.95 * leftKick.lift },
     hatGap,
     hits,
   };

@@ -103,16 +103,20 @@ function otherHand(limb: Limb | undefined): Hand {
 
 const LANES_PLAYED: LaneKey[] = ['k', 'hf', 's', 'h', 'r', 'c', 't1', 't2', 't3', 'p1', 'p2'];
 
-/** The strokes a step of the grid takes, at its grid time: no swing, no feel, no ornaments. */
+/**
+ * The strokes a step of the grid takes, at its grid time: no swing, no feel, no
+ * ornaments. `doubleKick`: the kicks are shared between the feet on a double pedal.
+ */
 export function gridHits(
   bar: Bar,
   i: number,
   time: number,
   before?: Bar | null,
-  aux: readonly LaneKey[] = []
+  aux: readonly LaneKey[] = [],
+  doubleKick = false
 ): Hit[] {
   bar = barWithout(bar, aux);
-  const hands: StepHands = assignBar(bar, before && barWithout(before, aux))[i] ?? {};
+  const hands: StepHands = assignBar(bar, before && barWithout(before, aux), doubleKick)[i] ?? {};
   const out: Hit[] = [];
   for (const lane of LANES_PLAYED) {
     const value = bar[lane][i];
@@ -142,7 +146,8 @@ export function scheduledHits(
   const { bar, slot, t } = step;
   if (step.count || !bar) return countHits(step);
   const hands: StepHands =
-    assignBar(barWithout(bar, aux), before && barWithout(before, aux))[slot] ?? {};
+    assignBar(barWithout(bar, aux), before && barWithout(before, aux), !!step.doubleKick)[slot] ??
+    {};
   const out: Hit[] = [];
   for (const { voice, when } of step.notes) {
     if (aux.includes(voice.lane)) continue;
@@ -283,6 +288,11 @@ export class StrokeTimeline {
    * pattern first uses it, and stays for the session.
    */
   readonly percussion = new Set<PieceId>();
+  /**
+   * Whether any pattern heard so far is played on a double pedal: the second
+   * pedal goes on the kit when one first is, and stays for the session.
+   */
+  doublePedal = false;
 
   /** One scheduled step: its notes are now certain, and the grid after it is re-read. */
   ingest(step: ScheduledStep): void {
@@ -293,6 +303,7 @@ export class StrokeTimeline {
       this.before = step.slot === 0 ? this.heard.bar : null;
     }
     this.heard = { bar: step.bar, slot: step.slot };
+    if (step.doubleKick) this.doublePedal = true;
     this.noteDownbeats(step);
     this.learnPercussion(step);
     this.sure.push(...scheduledHits(step, this.before, this.aux));
@@ -408,7 +419,7 @@ function countAhead(step: ScheduledStep, aux: readonly LaneKey[]): Hit[] {
       const hits = countHits({ ...step, t, slot: (step.slot + k) % n });
       out.push(...hits.map((h) => ({ ...h, sure: false })));
     } else if (step.next && k - left < step.next.k.length) {
-      out.push(...gridHits(step.next, k - left, t, null, aux));
+      out.push(...gridHits(step.next, k - left, t, null, aux, !!step.doubleKick));
     } else break;
   }
   return out;
@@ -421,11 +432,13 @@ function forecast(step: ScheduledStep, before: Bar | null, aux: readonly LaneKey
   const n = bar.k.length;
   let k = 1;
   for (let i = slot + 1; i < n && k <= FORECAST_STEPS; i++, k++)
-    out.push(...gridHits(bar, i, t + k * dur, before, aux));
+    out.push(...gridHits(bar, i, t + k * dur, before, aux, !!step.doubleKick));
   if (next) {
     const m = next.k.length;
+    // (the next bar is read as this one is played: a section of another pattern is
+    // corrected as it is scheduled)
     for (let i = 0; i < m && k <= FORECAST_STEPS; i++, k++)
-      out.push(...gridHits(next, i, t + k * dur, bar, aux));
+      out.push(...gridHits(next, i, t + k * dur, bar, aux, !!step.doubleKick));
   }
   return out;
 }
