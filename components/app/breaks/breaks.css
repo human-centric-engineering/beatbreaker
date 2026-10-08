@@ -1719,6 +1719,120 @@
   font-size: 13px;
   pointer-events: none;
 }
+/* The chart in the drummer view's top corner: the section on one line,
+   scrolling under the playhead, with its letter and the beat of the bar.
+   Not on a phone, where the corner is most of the kit — nor its toggle. */
+.bb .drummer-chart,
+.bb .drummer-chart-toggle {
+  display: none;
+}
+@media (min-width: 640px) {
+  .bb .drummer-chart-toggle {
+    display: inline-block;
+  }
+  .bb .drummer-chart {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: min(40%, 420px);
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--paper) 94%, transparent);
+    box-shadow: var(--shadow-lift);
+    overflow: hidden;
+    pointer-events: none;
+  }
+}
+/* A bigger screen gives the music more of it: more of the line ahead in view. */
+@media (min-width: 1024px) {
+  .bb .drummer-chart {
+    width: min(50%, 720px);
+  }
+}
+@media (min-width: 1440px) {
+  .bb .drummer-chart {
+    width: min(52%, 900px);
+  }
+}
+.bb .drummer-chart-hd {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px 2px;
+}
+.bb .drummer-chart-letter {
+  min-width: 22px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--f-mono);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+.bb .drummer-chart-count {
+  display: flex;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.bb .drummer-chart-count li {
+  width: 20px;
+  border-radius: 4px;
+  font-family: var(--f-mono);
+  font-size: 13px;
+  line-height: 20px;
+  text-align: center;
+  color: var(--faint);
+}
+.bb .drummer-chart-count li.now {
+  background: var(--brass);
+  color: #fff;
+}
+.bb .drummer-chart-count li.one {
+  background: var(--rust);
+}
+.bb .drummer-chart-window {
+  overflow: hidden;
+}
+.bb .drummer-chart-strip {
+  position: relative;
+  width: max-content;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bb .drummer-chart-strip {
+    transition: none;
+  }
+}
+/* The first bars of the section that comes next, after the end of this one. */
+.bb .drummer-chart-next {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  border-left: 2px dashed color-mix(in srgb, var(--brass) 60%, transparent);
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+}
+.bb .drummer-chart-next span {
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+.bb .drummer-chart-strip .stave {
+  overflow: visible;
+}
+.bb .drummer-chart-strip .sheet {
+  margin: 0;
+}
 /* The chart kept for the page while the drummer is on screen. */
 .bb .drummer-print {
   display: none;

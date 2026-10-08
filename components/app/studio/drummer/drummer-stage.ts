@@ -38,6 +38,12 @@ export interface StageClock {
 }
 
 const BACKDROP = '#121318';
+/**
+ * How far the drummer moves left, as a share of the box's width, when the
+ * chart is up in the top-right corner: out from under it, toward the middle
+ * of what is left.
+ */
+const ASIDE = 0.16;
 
 export class DrummerStage {
   readonly timeline = new StrokeTimeline();
@@ -61,6 +67,9 @@ export class DrummerStage {
   private lefty = false;
   private grips: Grips = MATCHED_GRIPS;
   private view: CameraView = 'front';
+  /** Where the picture is slid to now, and where it is going: a share of the width. */
+  private aside = 0;
+  private asideTo = 0;
   private flight: {
     from: THREE.Vector3;
     to: THREE.Vector3;
@@ -167,8 +176,26 @@ export class DrummerStage {
     this.renderer.domElement.style.width = '100%';
     this.renderer.domElement.style.height = '100%';
     this.camera.aspect = w / h;
-    this.camera.updateProjectionMatrix();
+    this.frameAside();
   };
+
+  /**
+   * Slide the picture sideways without turning the camera: the view is cut
+   * from a frame shifted right, so the kit sits left of centre and orbiting
+   * still turns round it.
+   */
+  private frameAside(): void {
+    const w = Math.max(1, this.host.clientWidth);
+    const h = Math.max(1, this.host.clientHeight);
+    if (Math.abs(this.aside) < 1e-4) this.camera.clearViewOffset();
+    else this.camera.setViewOffset(w, h, this.aside * w, 0, w, h);
+    this.camera.updateProjectionMatrix();
+  }
+
+  /** Move the drummer left, out from under the chart in the corner, or back to the middle. */
+  setAside(aside: boolean): void {
+    this.asideTo = aside ? ASIDE : 0;
+  }
 
   private cancelFlight = (): void => {
     this.flight = null;
@@ -239,6 +266,12 @@ export class DrummerStage {
     const pose = poseAt(this.timeline, now, this.groove, this.grips);
     this.kit.update(pose, this.timeline.percussion);
     this.drummer.update(pose, this.camera.position, dt);
+
+    if (this.aside !== this.asideTo) {
+      const gap = this.asideTo - this.aside;
+      this.aside = Math.abs(gap) < 1e-4 ? this.asideTo : this.aside + gap * Math.min(1, dt * 4);
+      this.frameAside();
+    }
 
     const f = this.flight;
     if (f) {

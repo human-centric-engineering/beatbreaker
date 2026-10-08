@@ -325,19 +325,15 @@ describe('assignBar — the hands keep their jobs', () => {
   });
 });
 
-describe('assignBar — sixteenth hats too fast for one hand', () => {
+describe('assignBar — sixteenth hats hand to hand', () => {
   const hats = bar({
     h: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     s: [0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0],
   });
 
-  it('plays them with one hand at an easy tempo', () => {
-    assignBar(hats).forEach((s) => expect(s.h).toBe('lead'));
-  });
-
-  it('goes hand to hand when they are fast, the snare on whichever hand’s go it is', () => {
+  it('goes hand to hand, the snare on whichever hand’s go it is', () => {
     // R L R L, then R on the snare and L R L on the hats again
-    const steps = assignBar(hats, null, true);
+    const steps = assignBar(hats);
     expect(steps.slice(0, 8).map((s) => s.h ?? (s.s && `s:${s.s}`))).toEqual([
       'lead',
       'other',
@@ -355,7 +351,7 @@ describe('assignBar — sixteenth hats too fast for one hand', () => {
       h: [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1],
       s: [0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0],
     });
-    const steps = assignBar(b, null, true);
+    const steps = assignBar(b);
     expect(steps[4].s).toBe('lead');
     expect(steps[12].s).toBe('lead');
     expect(steps[5].h).toBe('other');
@@ -366,7 +362,7 @@ describe('assignBar — sixteenth hats too fast for one hand', () => {
       h: Array<number>(N).fill(1),
       s: [0, 0, 0, 0, 2, 0, 0, 1, 0, 0, 0, 0, 2, 0, 0, 0],
     });
-    const steps = assignBar(b, null, true);
+    const steps = assignBar(b);
     expect(steps[7].s).toBe('other');
     expect(steps[7].h).toBeUndefined();
   });
@@ -460,12 +456,12 @@ describe('assignBar — a cross-stick is the other hand’s', () => {
     expect(assignBar(plain)[7].s).toBe('lead');
   });
 
-  it('keeps it on the other hand when fast hats go hand to hand and it is the lead’s go', () => {
+  it('keeps it on the other hand when hats go hand to hand and it is the lead’s go', () => {
     const b = bar({
       h: Array<number>(N).fill(1),
       s: [0, 0, 0, 0, CROSS, 0, 0, 0, 0, 0, 0, 0, CROSS, 0, 0, 0],
     });
-    const steps = assignBar(b, null, true);
+    const steps = assignBar(b);
     expect(steps[4].s).toBe('other');
     expect(steps[12].s).toBe('other');
     // and the lead hand keeps the hats going over it
@@ -497,11 +493,9 @@ describe('assignBar — cross-sticks', () => {
   it('never gives a cross-stick to the lead hand — not even on a step with a crash and the hats', () => {
     const b = groove();
     b.c[4] = 1;
-    for (const fast of [false, true]) {
-      const steps = assignBar(b, null, fast);
-      expect(steps[4].s).toBe('other');
-      expect(steps[12].s).toBe('other');
-    }
+    const steps = assignBar(b);
+    expect(steps[4].s).toBe('other');
+    expect(steps[12].s).toBe('other');
   });
 
   it('drops a note only the other hand could reach on a cross-stick step, rather than the bar', () => {
@@ -509,19 +503,17 @@ describe('assignBar — cross-sticks', () => {
     const b = groove({ p2: Array<number>(N).fill(0) });
     b.h[4] = 0;
     b.p2[4] = 1;
-    for (const fast of [false, true]) {
-      const steps = assignBar(b, null, fast);
-      expect(steps).toHaveLength(N);
-      expect(steps[4].s).toBe('other');
-      expect(steps[4].p2).toBeUndefined();
-      // and the rest of the bar is still played
-      expect(steps[2].h).toBe('lead');
-      expect(steps[12].s).toBe('other');
-    }
+    const steps = assignBar(b);
+    expect(steps).toHaveLength(N);
+    expect(steps[4].s).toBe('other');
+    expect(steps[4].p2).toBeUndefined();
+    // and the rest of the bar is still played
+    expect(steps[2].h).toBe('lead');
+    expect(steps[12].s).toBe('other');
   });
 
   it('keeps the hats on the lead hand however fast, the other hand down on the snare', () => {
-    const steps = assignBar(groove({}, true), null, true);
+    const steps = assignBar(groove({}, true));
     for (const [i, step] of steps.entries()) {
       if (step.h) expect(step.h, `step ${i}`).toBe('lead');
       for (const [lane, hand] of Object.entries(step))
@@ -534,7 +526,7 @@ describe('assignBar — cross-sticks', () => {
     const b = groove();
     for (let i = 8; i < N; i++) b.h[i] = 0;
     for (const i of [8, 9, 10, 11, 13, 14, 15]) b[i < 11 ? 't1' : 't2'][i] = 1;
-    const steps = assignBar(b, null, true);
+    const steps = assignBar(b);
     const toms = steps.flatMap((step) => [step.t1, step.t2].filter(Boolean));
     const lead = toms.filter((h) => h === 'lead').length;
     expect(lead / toms.length).toBeGreaterThanOrEqual(0.6);

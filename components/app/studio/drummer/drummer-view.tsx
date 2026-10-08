@@ -3,10 +3,12 @@
 import dynamic from 'next/dynamic';
 import { useState, useSyncExternalStore } from 'react';
 
+import { DrummerChart } from '@/components/app/studio/drummer/drummer-chart';
 import { Segmented } from '@/components/app/studio/segmented';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
-import { DRUMMER_GRIP, DRUMMER_HAND } from '@/lib/app/breaks/browser-keys';
+import { Toggle } from '@/components/app/studio/toggle';
+import { DRUMMER_CHART, DRUMMER_GRIP, DRUMMER_HAND } from '@/lib/app/breaks/browser-keys';
 import { CAMERA_LABELS, CAMERA_VIEWS, type CameraView } from '@/lib/app/breaks/drummer/camera';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 
@@ -33,6 +35,20 @@ function hasWebGL(): boolean {
 
 const noSubscribe = () => () => {};
 
+/** Where the stylesheet starts showing the corner chart: a phone gets neither it nor the drummer moved aside. */
+const CHART_WIDE = '(min-width: 640px)';
+
+function subscribeWide(change: () => void): () => void {
+  if (typeof window.matchMedia !== 'function') return () => {};
+  const query = window.matchMedia(CHART_WIDE);
+  query.addEventListener('change', change);
+  return () => query.removeEventListener('change', change);
+}
+
+function isWide(): boolean {
+  return typeof window.matchMedia === 'function' && window.matchMedia(CHART_WIDE).matches;
+}
+
 /**
  * The stage's other face (experiment): a drummer at a kit, in 3D, playing
  * what the transport plays as it plays it. Turn round them, zoom in on the
@@ -43,6 +59,7 @@ export function DrummerView() {
   const c = useStudio();
   const [hand, setHand] = useStoredSetting(DRUMMER_HAND);
   const [military, setMilitary] = useStoredSetting(DRUMMER_GRIP);
+  const [chart, setChart] = useStoredSetting(DRUMMER_CHART);
   // the hand away from the hats: the left on a right-handed kit
   const offHand = hand === 'right' ? 'left' : 'right';
   const [view, setView] = useState<CameraView>('front');
@@ -50,6 +67,7 @@ export function DrummerView() {
   const [shuffleSeq, setShuffleSeq] = useState(0);
   // asked once, on the client; the server renders the placeholder
   const webgl = useSyncExternalStore(noSubscribe, hasWebGL, () => true);
+  const wide = useSyncExternalStore(subscribeWide, isWide, () => false);
 
   return (
     <div className="drummer">
@@ -122,6 +140,14 @@ export function DrummerView() {
         >
           Shuffle drummer
         </button>
+        <Toggle
+          className="mini drummer-chart-toggle"
+          pressed={chart}
+          onPressedChange={setChart}
+          title="Show the chart scrolling with the drummer, with the section and the beat of the bar"
+        >
+          Chart
+        </Toggle>
         <StudioHelp title="The drummer">
           Drag to turn round the kit, scroll or pinch to zoom in (toward the pointer), and
           right-drag or two-finger drag to slide. The drummer plays exactly what you hear — swing,
@@ -130,9 +156,11 @@ export function DrummerView() {
           arms from crossing, a flam&rsquo;s grace on the other hand. Ghost notes are played from an
           inch, mostly with the fingers; accents from high up. Grip sets how the sticks are held:
           matched, or military (traditional) — palm up, the stick in the web of the thumb, played by
-          turning the forearm — in the hand away from the hats or in both. A different player sits
-          in each time you open the view, and Shuffle drummer seats someone else. It is an
-          experiment: a jointed figure, not a recording of a real player.
+          turning the forearm — in the hand away from the hats or in both. Chart puts the music in
+          the top corner, scrolling as it is played and on into the start of the next section, with
+          the section and the beat of the bar (not on a phone, where the corner is most of the kit).
+          A different player sits in each time you open the view, and Shuffle drummer seats someone
+          else. It is an experiment: a jointed figure, not a recording of a real player.
         </StudioHelp>
       </div>
       <div className="drummer-stage">
@@ -143,6 +171,7 @@ export function DrummerView() {
             view={view}
             viewSeq={viewSeq}
             shuffleSeq={shuffleSeq}
+            aside={chart && wide}
             playing={c.playing}
             subscribeSteps={c.subscribeSteps}
             audioNow={c.audioNow}
@@ -154,6 +183,7 @@ export function DrummerView() {
             can&rsquo;t be shown. The chart still plays.
           </p>
         )}
+        {chart ? <DrummerChart /> : null}
         {!c.playing ? <p className="drummer-cue">Press Play and the drummer plays along.</p> : null}
       </div>
     </div>

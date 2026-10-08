@@ -28,6 +28,8 @@ export interface DrummerCanvasProps {
   viewSeq: number;
   /** Bumped to seat a different drummer at the kit. */
   shuffleSeq?: number;
+  /** The chart is up in the corner: move the drummer left, out from under it. */
+  aside?: boolean;
   playing: boolean;
   subscribeSteps: (listener: (step: ScheduledStep) => void) => () => void;
   audioNow: () => number;
@@ -40,6 +42,7 @@ export default function DrummerCanvas({
   view,
   viewSeq,
   shuffleSeq = 0,
+  aside = false,
   playing,
   subscribeSteps,
   audioNow,
@@ -61,9 +64,9 @@ export default function DrummerCanvas({
   }, [persona]);
   const grips = useMemo(() => gripsFor(military), [military]);
   // what a stage made after the first mount must start from
-  const latest = useRef({ lefty, grips, playing, view, persona });
+  const latest = useRef({ lefty, grips, playing, view, persona, aside });
   useEffect(() => {
-    latest.current = { lefty, grips, playing, view, persona };
+    latest.current = { lefty, grips, playing, view, persona, aside };
   });
 
   /* One stage per mount. The three callbacks must be stable (the console's
@@ -83,6 +86,7 @@ export default function DrummerCanvas({
     s.setGrips(latest.current.grips);
     s.setPlaying(latest.current.playing);
     s.flyTo(latest.current.view);
+    s.setAside(latest.current.aside);
     stage.current = s;
     const unsubscribe = subscribeSteps(s.ingest);
     return () => {
@@ -111,6 +115,10 @@ export default function DrummerCanvas({
   useEffect(() => {
     stage.current?.flyTo(view);
   }, [view, viewSeq]);
+
+  useEffect(() => {
+    stage.current?.setAside(aside);
+  }, [aside]);
 
   return (
     <>

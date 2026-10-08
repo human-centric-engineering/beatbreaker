@@ -97,6 +97,13 @@ export const DRUMMER_GRIP: StoredSetting<(typeof DRUMMER_GRIPS)[number]> = {
   fallback: 'none',
 };
 
+/** The scrolling chart and beat count in the corner of the 3D drummer view. */
+export const DRUMMER_CHART: StoredSetting<boolean> = {
+  key: 'bb.drummerChart',
+  schema: z.boolean(),
+  fallback: true,
+};
+
 /**
  * The first-run tour (task 8.6) has been seen, or skipped, in this browser. A
  * new device shows it again, which is fine: it is three steps, and it does not
@@ -137,6 +144,7 @@ export const BROWSER_KEYS = [
   STAGE_VIEW.key,
   DRUMMER_HAND.key,
   DRUMMER_GRIP.key,
+  DRUMMER_CHART.key,
   TOUR_SEEN.key,
   SCRATCH.key,
   PENDING_LINK.key,

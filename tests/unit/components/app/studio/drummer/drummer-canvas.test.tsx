@@ -27,6 +27,7 @@ const fakes = vi.hoisted(() => {
     setPersona: ReturnType<typeof vi.fn>;
     setPlaying: ReturnType<typeof vi.fn>;
     flyTo: ReturnType<typeof vi.fn>;
+    setAside: ReturnType<typeof vi.fn>;
     ingest: (step: ScheduledStep) => void;
     dispose: ReturnType<typeof vi.fn>;
   }[] = [];
@@ -37,6 +38,7 @@ const fakes = vi.hoisted(() => {
     setPersona = vi.fn();
     setPlaying = vi.fn();
     flyTo = vi.fn();
+    setAside = vi.fn();
     ingest = vi.fn();
     dispose = vi.fn();
     constructor(
@@ -234,6 +236,27 @@ describe('DrummerCanvas', () => {
     );
 
     expect(stage.setLefty).toHaveBeenCalledWith(true);
+  });
+
+  it('moves the drummer aside for the chart from the start, and back when it goes', () => {
+    const { subscribeSteps } = listeners();
+    const props = {
+      lefty: false,
+      military: 'none' as const,
+      view: 'front' as const,
+      viewSeq: 0,
+      playing: false,
+      subscribeSteps,
+      audioNow: stableAudioNow,
+      audioLatency: stableAudioLatency,
+    };
+    const { rerender } = render(<DrummerCanvas {...props} aside />);
+    const stage = fakes.instances[0];
+    expect(stage.setAside).toHaveBeenLastCalledWith(true);
+
+    rerender(<DrummerCanvas {...props} aside={false} />);
+    expect(stage.setAside).toHaveBeenLastCalledWith(false);
+    expect(fakes.instances.length).toBe(1);
   });
 
   it('forwards a grip change to setGrips as each hand’s grip, and not again for the same setting', () => {

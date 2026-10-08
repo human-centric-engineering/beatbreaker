@@ -18,6 +18,8 @@ import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { Studio } from '@/components/app/studio/studio-provider';
+import { generatePattern } from '@/lib/app/breaks/generate';
+import { testStyle } from '@/tests/helpers/catalogue';
 
 let fakeStudio: Studio;
 
@@ -62,6 +64,12 @@ beforeEach(() => {
     subscribeSteps: vi.fn(() => vi.fn()),
     audioNow: vi.fn(() => 0),
     audioLatency: vi.fn(() => 0),
+    // no pattern: the corner chart is mounted but draws nothing (drummer-chart.test.tsx draws it)
+    view: { A: null, B: null },
+    viewMode: 'A',
+    arrangement: ['A'],
+    position: null,
+    bpm: 100,
   } as unknown as Studio;
 });
 
@@ -209,6 +217,32 @@ describe('DrummerView, with WebGL available', () => {
     canvas = await screen.findByTestId('drummer-canvas-stub');
     expect(canvas).toHaveAttribute('data-view', 'hands');
     expect(canvas).toHaveAttribute('data-view-seq', '2');
+  });
+
+  it('shows the corner chart by default, and turns it off and remembers that', async () => {
+    stubWebGL(true);
+    const funk = testStyle('funk');
+    const A = generatePattern({
+      style: funk,
+      meter: '4/4',
+      seed: 7,
+      bars: 1,
+      density: 50,
+      ghosts: 50,
+    });
+    fakeStudio = { ...fakeStudio, view: { A, B: null } };
+    const DrummerView = await loadDrummerView();
+    const user = userEvent.setup();
+    const { container } = render(<DrummerView />);
+
+    const toggle = screen.getByRole('button', { name: 'Chart' });
+    expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    expect(container.querySelector('.drummer-chart')).not.toBeNull();
+
+    await user.click(toggle);
+    expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    expect(container.querySelector('.drummer-chart')).toBeNull();
+    expect(JSON.parse(localStorage.getItem('bb.drummerChart') ?? 'null')).toBe(false);
   });
 
   it('bumps viewSeq on Re-centre without changing the view', async () => {
