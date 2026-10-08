@@ -42,9 +42,11 @@ import type { Bar, LaneKey } from '@/lib/app/breaks/types';
  *   hand going the way the fill goes leads it, right going right and left
  *   coming back.
  *
- * A fast run of hats goes hand to hand, R L R L on the steps, and whatever
- * else lands on a step — the backbeat, a ghost, the crash — is played by the
- * hand whose go it is, the hats left out there: R L R L, R on the snare, L R L.
+ * A run of sixteenth hats goes hand to hand, R L R L on the steps, and
+ * whatever else lands on a step — the backbeat, a ghost, the crash — is played
+ * by the hand whose go it is, the hats left out there: R L R L, R on the
+ * snare, L R L. At every tempo: slowing a pattern down to learn it should not
+ * change how it is played.
  *
  * Two things a drummer drops rather than contort for: percussion on a step
  * where the lead hand is keeping time on the hats or ride (the hand stays on
@@ -418,17 +420,19 @@ export function assignStep(
 const HAND_TO_HAND_RUN = 4;
 
 /**
- * Whose go it is on each step a fast run of hats goes hand to hand: the lead
- * hand on the even steps, the other on the odd, whatever lands there. A step
- * with no hats between two with them (the backbeat written without its hat)
- * stays in the run.
+ * Whose go it is on each step a run of hats goes hand to hand: the lead hand
+ * on the even steps, the other on the odd, whatever lands there. A step with
+ * no hats between two with them (the backbeat written without its hat) stays
+ * in the run when the hats either side are sixteenths — eighth hats with
+ * ghosts between them are a groove, the lead hand on the hats.
  */
-function handToHand(bar: Bar, fast: boolean): (Hand | undefined)[] {
+function handToHand(bar: Bar, together: boolean): (Hand | undefined)[] {
   const n = bar.k.length;
   const turns: (Hand | undefined)[] = Array<Hand | undefined>(n).fill(undefined);
-  if (!fast) return turns;
+  if (!together) return turns;
   const hat = (i: number) => i >= 0 && i < n && !!bar.h[i];
-  const inRun = (i: number) => hat(i) || (hat(i - 1) && hat(i + 1) && !!turnNote(bar, i));
+  const inRun = (i: number) =>
+    hat(i) || (hat(i - 1) && hat(i + 1) && (hat(i - 2) || hat(i + 2)) && !!turnNote(bar, i));
   for (let i = 0; i < n;) {
     if (!inRun(i)) {
       i++;
@@ -461,16 +465,10 @@ function stateKey(s: HandsState): string {
  * end. Weighing the bar at once is what lets a fill play a double — or a
  * paradiddle — to keep the arms from crossing a step or two later.
  */
-function assign(
-  bar: Bar,
-  prev: StepHands | null,
-  from: HandsAt,
-  kept: number,
-  fast: boolean
-): StepHands[] {
+function assign(bar: Bar, prev: StepHands | null, from: HandsAt, kept: number): StepHands[] {
   // the other hand set down on the snare for the cross-sticks does not come up for the hats
   const stay = crossBar(bar);
-  const turns = handToHand(bar, fast && !stay);
+  const turns = handToHand(bar, !stay);
   const drum = prev ? lastDrum(prev) : undefined;
   let paths = new Map<string, { state: HandsState; cost: number; steps: StepHands[] }>();
   const start: HandsState = {
@@ -509,11 +507,8 @@ function keptAtEnd(steps: StepHands[]): number {
   return steps.length;
 }
 
-const caches = [new WeakMap<Bar, StepHands[]>(), new WeakMap<Bar, StepHands[]>()];
-const followings = [
-  new WeakMap<Bar, WeakMap<Bar, StepHands[]>>(),
-  new WeakMap<Bar, WeakMap<Bar, StepHands[]>>(),
-];
+const cache = new WeakMap<Bar, StepHands[]>();
+const following = new WeakMap<Bar, WeakMap<Bar, StepHands[]>>();
 
 /**
  * Every step of a bar, assigned once and remembered for as long as the bar
@@ -523,36 +518,25 @@ const followings = [
  * where that bar left them — so a fill that ends on the lead hand leaves the
  * other one to take the crash. `before` itself is read from rest, which keeps
  * it to one bar of memory: the forecast of the next bar and the bar itself,
- * when it comes, see the same pair and agree.
- *
- * `fast` is the tempo's say: steps quick enough (see `FAST_STEP`) that a
- * run of hats in them goes hand to hand.
+ * when it comes, see the same pair and agree. The tempo has no say: a
+ * pattern slowed down to be learned is played the way it is at speed.
  */
-export function assignBar(bar: Bar, before?: Bar | null, fast = false): StepHands[] {
-  const k = fast ? 1 : 0;
+export function assignBar(bar: Bar, before?: Bar | null): StepHands[] {
   if (before) {
-    let byBefore = followings[k].get(bar);
-    if (!byBefore) followings[k].set(bar, (byBefore = new WeakMap()));
+    let byBefore = following.get(bar);
+    if (!byBefore) following.set(bar, (byBefore = new WeakMap()));
     const hit = byBefore.get(before);
     if (hit) return hit;
-    const lead = assignBar(before, null, fast);
+    const lead = assignBar(before, null);
     let at: HandsAt = HAND_REST;
     for (const step of lead) at = after(step, at);
-    const out = assign(bar, lead[lead.length - 1] ?? null, at, keptAtEnd(lead), fast);
+    const out = assign(bar, lead[lead.length - 1] ?? null, at, keptAtEnd(lead));
     byBefore.set(before, out);
     return out;
   }
-  const hit = caches[k].get(bar);
+  const hit = cache.get(bar);
   if (hit) return hit;
-  const out = assign(bar, null, HAND_REST, FILL_AFTER, fast);
-  caches[k].set(bar, out);
+  const out = assign(bar, null, HAND_REST, FILL_AFTER);
+  cache.set(bar, out);
   return out;
 }
-
-/**
- * The longest a step can be, seconds, for a run of hats in it to go hand to
- * hand: six a second, sixteenths from 90 bpm. Slower, one hand plays them.
- * A hair over a sixth, so 90 bpm itself — whose step comes out at a sixth,
- * give or take the last bit of a float — counts as fast.
- */
-export const FAST_STEP = 1 / 6 + 1e-6;

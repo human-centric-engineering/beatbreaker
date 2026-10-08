@@ -176,7 +176,7 @@ describe('scheduledHits', () => {
     });
   });
 
-  it('takes sixteenth hats hand to hand from 90 bpm itself, and with one hand below it', () => {
+  it('takes sixteenth hats hand to hand at every tempo, slow or fast', () => {
     const hats = bar({ h: Array<number>(N).fill(1) });
     const limbAt = (bpm: number) =>
       scheduledHits({
@@ -188,8 +188,7 @@ describe('scheduledHits', () => {
         next: null,
         notes: [{ voice: voice('h'), when: 0 }],
       })[0]?.limb;
-    expect(limbAt(90)).toBe('other');
-    expect(limbAt(89)).toBe('lead');
+    for (const bpm of [40, 89, 90, 180]) expect(limbAt(bpm), `${bpm} bpm`).toBe('other');
   });
 
   it('plays a flam’s grace on the other hand from the note, at the grace strength, not the note’s', () => {

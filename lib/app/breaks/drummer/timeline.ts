@@ -6,7 +6,7 @@ import {
   LANE_PIECE,
   type PieceId,
 } from '@/lib/app/breaks/drummer/kit-layout';
-import { FAST_STEP, type StepHands, assignBar } from '@/lib/app/breaks/drummer/sticking';
+import { type StepHands, assignBar } from '@/lib/app/breaks/drummer/sticking';
 import { CHINA, HALF_OPEN, PERC_INSTS, RIMSHOT } from '@/lib/app/breaks/lanes';
 import { isGroupStart } from '@/lib/app/breaks/meter';
 import { LEVELS, type Voice } from '@/lib/app/breaks/perform';
@@ -109,11 +109,10 @@ export function gridHits(
   i: number,
   time: number,
   before?: Bar | null,
-  aux: readonly LaneKey[] = [],
-  fast = false
+  aux: readonly LaneKey[] = []
 ): Hit[] {
   bar = barWithout(bar, aux);
-  const hands: StepHands = assignBar(bar, before && barWithout(before, aux), fast)[i] ?? {};
+  const hands: StepHands = assignBar(bar, before && barWithout(before, aux))[i] ?? {};
   const out: Hit[] = [];
   for (const lane of LANES_PLAYED) {
     const value = bar[lane][i];
@@ -142,9 +141,8 @@ export function scheduledHits(
 ): Hit[] {
   const { bar, slot, t } = step;
   if (step.count || !bar) return countHits(step);
-  const fast = step.dur < FAST_STEP;
   const hands: StepHands =
-    assignBar(barWithout(bar, aux), before && barWithout(before, aux), fast)[slot] ?? {};
+    assignBar(barWithout(bar, aux), before && barWithout(before, aux))[slot] ?? {};
   const out: Hit[] = [];
   for (const { voice, when } of step.notes) {
     if (aux.includes(voice.lane)) continue;
@@ -402,7 +400,6 @@ export class StrokeTimeline {
 function countAhead(step: ScheduledStep, aux: readonly LaneKey[]): Hit[] {
   const n = step.meter.num * step.meter.sub;
   const left = step.countLeft ?? Infinity;
-  const fast = step.dur < FAST_STEP;
   const out: Hit[] = [];
   for (let k = 1; k <= FORECAST_STEPS; k++) {
     const t = step.t + k * step.dur;
@@ -411,7 +408,7 @@ function countAhead(step: ScheduledStep, aux: readonly LaneKey[]): Hit[] {
       const hits = countHits({ ...step, t, slot: (step.slot + k) % n });
       out.push(...hits.map((h) => ({ ...h, sure: false })));
     } else if (step.next && k - left < step.next.k.length) {
-      out.push(...gridHits(step.next, k - left, t, null, aux, fast));
+      out.push(...gridHits(step.next, k - left, t, null, aux));
     } else break;
   }
   return out;
@@ -421,15 +418,14 @@ function forecast(step: ScheduledStep, before: Bar | null, aux: readonly LaneKey
   const out: Hit[] = [];
   const { bar, next, slot, t, dur } = step;
   if (!bar) return out;
-  const fast = dur < FAST_STEP;
   const n = bar.k.length;
   let k = 1;
   for (let i = slot + 1; i < n && k <= FORECAST_STEPS; i++, k++)
-    out.push(...gridHits(bar, i, t + k * dur, before, aux, fast));
+    out.push(...gridHits(bar, i, t + k * dur, before, aux));
   if (next) {
     const m = next.k.length;
     for (let i = 0; i < m && k <= FORECAST_STEPS; i++, k++)
-      out.push(...gridHits(next, i, t + k * dur, bar, aux, fast));
+      out.push(...gridHits(next, i, t + k * dur, bar, aux));
   }
   return out;
 }

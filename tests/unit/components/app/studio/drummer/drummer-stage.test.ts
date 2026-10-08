@@ -310,6 +310,41 @@ describe('DrummerStage', () => {
     expect(camera().position.distanceTo(shot)).toBeLessThan(0.05);
   });
 
+  it('slides the drummer left for the chart, over a moment, and back to the middle', () => {
+    Object.defineProperty(host, 'clientWidth', { value: 1000, configurable: true });
+    Object.defineProperty(host, 'clientHeight', { value: 500, configurable: true });
+    const stage = new DrummerStage(host, clock);
+    // (a first frame at 0 ms would leave the next one with no time gone by)
+    rafCtl.runNextFrame(16);
+    const camera = () => fakes.renderers[0].render.mock.lastCall?.[1] as THREE.PerspectiveCamera;
+    expect(camera().view?.enabled ?? false).toBe(false);
+
+    stage.setAside(true);
+    rafCtl.runNextFrame(100);
+    const partWay = camera().view?.offsetX ?? 0;
+    expect(partWay).toBeGreaterThan(0);
+    for (let ms = 200; ms <= 4000; ms += 100) rafCtl.runNextFrame(ms);
+    // the frame cut from further right: the kit sits left of centre
+    const aside = camera().view?.offsetX ?? 0;
+    expect(aside).toBeGreaterThan(partWay);
+    expect(aside).toBeCloseTo(160, 0);
+    expect(camera().view?.fullWidth).toBe(1000);
+
+    stage.setAside(false);
+    for (let ms = 4100; ms <= 8000; ms += 100) rafCtl.runNextFrame(ms);
+    expect(camera().view?.enabled ?? false).toBe(false);
+  });
+
+  it('puts the drummer aside at once when asked to snap, as a new stage is', () => {
+    Object.defineProperty(host, 'clientWidth', { value: 1000, configurable: true });
+    Object.defineProperty(host, 'clientHeight', { value: 500, configurable: true });
+    const stage = new DrummerStage(host, clock);
+    stage.setAside(true, true);
+    rafCtl.runNextFrame(16);
+    const camera = () => fakes.renderers[0].render.mock.lastCall?.[1] as THREE.PerspectiveCamera;
+    expect(camera().view?.offsetX).toBeCloseTo(160, 5);
+  });
+
   it('gives up the flight the moment the viewer grabs the camera', () => {
     const stage = new DrummerStage(host, clock);
     rafCtl.runNextFrame(0);
