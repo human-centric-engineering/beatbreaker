@@ -357,14 +357,33 @@ describe('assignBar — sixteenth hats hand to hand', () => {
     expect(steps[5].h).toBe('other');
   });
 
-  it('plays a ghost on an off step with the hand whose go it is, the hat dropped there', () => {
+  it('plays a ghost on an off step with the other hand, the lead hand keeping the hat there', () => {
     const b = bar({
       h: Array<number>(N).fill(1),
       s: [0, 0, 0, 0, 2, 0, 0, 1, 0, 0, 0, 0, 2, 0, 0, 0],
     });
     const steps = assignBar(b);
     expect(steps[7].s).toBe('other');
-    expect(steps[7].h).toBeUndefined();
+    expect(steps[7].h).toBe('lead');
+    // and the run carries on hand to hand round it
+    expect(steps[6].h).toBe('lead');
+    expect(steps[8].h).toBe('lead');
+    expect(steps[9].h).toBe('other');
+  });
+
+  it('plays a ghost on the lead’s go with the other hand, the lead hand staying on the hat', () => {
+    const b = bar({
+      h: Array<number>(N).fill(1),
+      s: [0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 1, 0, 2, 0, 0, 0],
+    });
+    const steps = assignBar(b);
+    for (const i of [6, 10]) {
+      expect(steps[i].s).toBe('other');
+      expect(steps[i].h).toBe('lead');
+    }
+    // every hat but the backbeats' is played
+    const dropped = steps.flatMap((s, i) => (s.h ? [] : [i]));
+    expect(dropped).toEqual([4, 12]);
   });
 });
 
