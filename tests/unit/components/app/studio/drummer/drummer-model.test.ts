@@ -20,6 +20,7 @@ import { BEAD_RADIUS, buildDrummer } from '@/components/app/studio/drummer/drumm
 import { makeMaterials } from '@/components/app/studio/drummer/parts';
 import { HOOP, PIECES, onPiece } from '@/lib/app/breaks/drummer/kit-layout';
 import { type Persona, PERSONAS } from '@/lib/app/breaks/drummer/personas';
+import { expressionAt } from '@/lib/app/breaks/drummer/expression';
 import { gripsFor, poseAt } from '@/lib/app/breaks/drummer/pose';
 import { StrokeTimeline } from '@/lib/app/breaks/drummer/timeline';
 import { stepWithHit } from '@/tests/helpers/drummer-fixtures';
@@ -333,6 +334,20 @@ describe('buildDrummer() — hair that swishes', () => {
     expect(swung[swung.length - 1]).toBeLessThan(0.05);
   });
 
+  it('does not whip the hair out when the head jumps — a seek or a restart is a cut, not a toss', () => {
+    const p = who('long');
+    const { root, update } = buildDrummer(makeMaterials(p), p);
+    const pose = poseAt(new StrokeTimeline(), 0, 0);
+    update(pose, undefined, 1 / 60);
+    // half a turn of the head in one frame, then held there
+    let most = 0;
+    for (let f = 0; f < 30; f++) {
+      update({ ...pose, headYaw: pose.headYaw + 0.5 }, undefined, 1 / 60);
+      most = Math.max(most, ...swings(root).map((o) => Math.abs(o.rotation.y)));
+    }
+    expect(most).toBeLessThan(0.05);
+  });
+
   it('leaves it hanging through a gentle move: a groove’s nod is not a toss of the head', () => {
     expect(Math.max(...turnHead('long', 0.5))).toBe(0);
   });
@@ -372,6 +387,33 @@ describe('buildDrummer() — a glance at the camera', () => {
     const at = toCamera();
     expect(at).toBeLessThan(away - 0.3);
     expect(at).toBeLessThan(0.2);
+  });
+
+  it('looks down at the foot it glances at, not past it at the floor', () => {
+    const tl = new StrokeTimeline();
+    for (const which of ['kickFoot', 'hatFoot'] as const) {
+      let t = 0;
+      for (; t < 600; t += 0.05) {
+        const e = expressionAt([], t);
+        if (e.foot.look === 1 && e.foot.which === which) break;
+      }
+      const pose = poseAt(tl, t, 0);
+      const { root, update } = buildDrummer(makeMaterials());
+      update(pose);
+      root.updateMatrixWorld(true);
+      const head = eyes(root)[0].parent!;
+      // from between the eyes
+      const from = new THREE.Vector3();
+      for (const e of eyes(root))
+        from.add(e.getWorldPosition(new THREE.Vector3()).multiplyScalar(0.5));
+      const toFoot = pose.legs[which].ball.clone().sub(from).normalize();
+      // within the reach of the neck: it drops the head so far and no further
+      const f = facing(head);
+      // turned to it...
+      expect(Math.atan2(-f.x, -f.z), which).toBeCloseTo(Math.atan2(-toFoot.x, -toFoot.z), 1);
+      // ...and dropped to it, as far as the neck goes (0.85 rad): the eyes do the rest
+      expect(Math.asin(f.y), which).toBeCloseTo(Math.max(Math.asin(toFoot.y), -0.85), 1);
+    }
   });
 
   it('does not look round at a camera behind it', () => {

@@ -1426,7 +1426,9 @@ export function poseAt(
   const clock = timeline.clock;
   // a beat as `beatPhase` counts one, seconds
   const beat = clock ? clock.dur * (clock.meter.group[0] ?? 1) * clock.meter.sub : 0;
-  const ex = expressionAt(all, now, timeline.downbeats(), beat, clock?.meter.group.length ?? 0);
+  // each pulse of the bar as the meter groups it, seconds
+  const pulses = clock ? clock.meter.group.map((g) => g * clock.meter.sub * clock.dur) : [];
+  const ex = expressionAt(all, now, timeline.downbeats(), beat, pulses);
   const bob = -0.012 * groove * pulse + 0.004 * breath + 0.05 * effort + groove * ex.dip;
   // a hand set down in the middle of the snare for a cross-stick takes the body forward over it
   const crossing = Math.max(crossShare(paths.lead), crossShare(paths.other));
@@ -1525,8 +1527,10 @@ export function poseAt(
     const eyes = pelvis.clone().add(new Vector3(0, EYE_HEIGHT, 0));
     const d = legs[foot.which].ball.clone().sub(eyes);
     const toYaw = Math.atan2(-d.x, -d.z);
-    // the head's pitch is the torso's lean less the nod (see the model): a nod that far down
-    const toNod = Math.min(FOOT_DOWN, Math.atan2(-d.y, Math.hypot(d.x, d.z))) + 0.55 * lean;
+    // the head sits on a torso leant forward by `lean` and pitches up by 0.55 of it less the
+    // nod (see the model), so it looks down by 0.45 of the lean plus the nod: that far down, less
+    // what the lean already gives
+    const toNod = Math.min(FOOT_DOWN, Math.atan2(-d.y, Math.hypot(d.x, d.z))) - 0.45 * lean;
     lookYaw += (toYaw - headYaw) * foot.look;
     lookNod += (toNod - nod) * foot.look;
   }

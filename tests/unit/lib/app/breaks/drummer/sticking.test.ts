@@ -504,6 +504,22 @@ describe('assignBar — cross-sticks', () => {
     }
   });
 
+  it('drops a note only the other hand could reach on a cross-stick step, rather than the bar', () => {
+    // the block out past the hats, alone with a cross-stick on its step
+    const b = groove({ p2: Array<number>(N).fill(0) });
+    b.h[4] = 0;
+    b.p2[4] = 1;
+    for (const fast of [false, true]) {
+      const steps = assignBar(b, null, fast);
+      expect(steps).toHaveLength(N);
+      expect(steps[4].s).toBe('other');
+      expect(steps[4].p2).toBeUndefined();
+      // and the rest of the bar is still played
+      expect(steps[2].h).toBe('lead');
+      expect(steps[12].s).toBe('other');
+    }
+  });
+
   it('keeps the hats on the lead hand however fast, the other hand down on the snare', () => {
     const steps = assignBar(groove({}, true), null, true);
     for (const [i, step] of steps.entries()) {

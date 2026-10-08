@@ -438,46 +438,82 @@ function word(n: number, at: number, now: number, beat: number): Speak {
 }
 
 /**
- * The count at `now`: every click of a count-in, numbered back from the bar
- * the band comes in on; and, in the bars that roll for it, each beat of the
- * groove — unless the hands are busy then.
+ * Where each pulse of a bar starts, seconds into it: the meter's grouping
+ * (`pulses`, each pulse's length) stretched to a bar `len` long.
+ */
+function pulseStarts(pulses: readonly number[], len: number): number[] {
+  const bar = pulses.reduce((sum, p) => sum + p, 0);
+  let at = 0;
+  return pulses.map((p) => {
+    const start = at;
+    at += (p * len) / bar;
+    return start;
+  });
+}
+
+/** Whether a bar starting at `time` counts along — and, with `two`, the bar after it too. */
+function countsFrom(time: number, two: boolean): boolean {
+  // hashed, and to the hundredth: bars a fixed time apart would otherwise roll alike and
+  // count in clumps, and a bar's time worked out from the next one's must roll the same
+  const rng = makeRng((Math.imul(Math.round(time * 100), 2654435761) ^ 0x2f5b4ad7) >>> 0);
+  return rng() < COUNT_CHANCE && (!two || rng() < COUNT_TWO);
+}
+
+/**
+ * The count at `now`: every click of a count-in, numbered by where it falls
+ * in the bar before the one the band comes in on; and, in the bars that roll
+ * for it, each pulse of the groove — unless the hands are busy then. Pulses
+ * are the meter's own (`pulses`, each one's length): 7/8 grouped 2+2+3 counts
+ * three, the third one longer.
  */
 function countAt(
   hits: readonly Hit[],
   downbeats: readonly Downbeat[],
   now: number,
-  beat: number,
-  pulses: number
+  pulses: readonly number[]
 ): Speak {
-  if (!(beat > 0) || !(pulses > 0)) return QUIET;
-  // counting in: the lead stick's clicks, each numbered by how many beats it is before the one
+  const bar = pulses.reduce((sum, p) => sum + p, 0);
+  if (!(bar > 0)) return QUIET;
+  // the pulse nearest `into` seconds into a bar `len` long, coming round to the first at its end
+  const nearest = (into: number, len: number) => {
+    const starts = pulseStarts(pulses, len);
+    let n = 0;
+    let gap = len - into;
+    starts.forEach((start, k) => {
+      if (Math.abs(start - into) < gap) [n, gap] = [k, Math.abs(start - into)];
+    });
+    return n;
+  };
+  // counting in: the lead stick's clicks, the count-in's bars the meter's own
   for (let i = lastAtOrBefore(hits, now + WORD_LEAD); i >= 0; i--) {
     const h = hits[i];
     if (now - h.time > WORD) break;
     if (h.piece !== 'sticks' || h.limb !== 'lead') continue;
     const one = downbeats.find((d) => d.time > h.time + 1e-3);
     if (!one) continue;
-    const before = Math.max(1, Math.round((one.time - h.time) / beat));
-    return word(pulses - ((before - 1) % pulses), h.time, now, beat);
+    const into = (bar - ((one.time - h.time) % bar)) % bar;
+    const n = nearest(into, bar);
+    return word(n + 1, h.time, now, pulses[n]);
   }
   // along with the groove: a bar that rolls for it counts itself, and maybe the next
   for (let i = downbeats.length - 1; i >= 0; i--) {
     const d = downbeats[i];
     if (d.time - WORD_LEAD > now) continue;
-    const end = downbeats[i + 1]?.time ?? d.time + pulses * beat;
+    const end = downbeats[i + 1]?.time ?? d.time + bar;
     if (now >= end) break;
-    const counts = (b: Downbeat | undefined, two: boolean) => {
-      if (!b) return false;
-      // hashed: bars a fixed time apart would otherwise roll alike, and count in clumps
-      const rng = makeRng((Math.imul(Math.round(b.time * 1000), 2654435761) ^ 0x2f5b4ad7) >>> 0);
-      return rng() < COUNT_CHANCE && (!two || rng() < COUNT_TWO);
-    };
-    if (!counts(d, false) && !counts(downbeats[i - 1], true)) return QUIET;
-    const n = Math.max(1, Math.round((end - d.time) / beat));
-    const k = Math.min(n - 1, Math.max(0, Math.floor((now - d.time + WORD_LEAD) / beat)));
-    const at = d.time + k * beat;
+    const len = end - d.time;
+    // the bar before, as heard — or, at a slow tempo, worked back from this one's length
+    // once the timeline has let it go
+    const before = downbeats[i - 1]?.time ?? d.time - len;
+    if (!countsFrom(d.time, false) && !countsFrom(before, true)) return QUIET;
+    const starts = pulseStarts(pulses, len);
+    let k = 0;
+    starts.forEach((start, j) => {
+      if (d.time + start - WORD_LEAD <= now) k = j;
+    });
+    const at = d.time + starts[k];
     if (busyness(hits, at, lastAtOrBefore(hits, at)) > 0.35) return QUIET;
-    return word(k + 1, at, now, beat);
+    return word(k + 1, at, now, (pulses[k] * len) / bar);
   }
   return QUIET;
 }
@@ -487,23 +523,22 @@ function countAt(
  * random — snapped to quickly, held, eased back from. Not mid-fill.
  */
 function wanderAt(hits: readonly Hit[], now: number): { yaw: number; pitch: number } {
-  const k = Math.floor(now / WANDER_WINDOW);
-  for (const w of [k, k - 1]) {
-    const rng = makeRng(((w * 2654435789) ^ 0x4cf5ad43) >>> 0);
-    if (rng() >= WANDER_CHANCE) continue;
-    const start = w * WANDER_WINDOW + 1 + rng() * (WANDER_WINDOW - 3);
-    const end = start + WANDER_SHORTEST + (WANDER_LONGEST - WANDER_SHORTEST) * rng();
-    // anywhere from well round to one side to the other, from the floor to the ceiling,
-    // but somewhere: a look a few degrees off the kit is not a look away
-    let yaw = (2 * rng() - 1) * 1.05;
-    const pitch = -0.3 + 0.75 * rng();
-    if (Math.abs(yaw) < 0.4 && Math.abs(pitch) < 0.25) yaw = Math.sign(yaw || 1) * 0.4;
-    if (now < start || now > end) continue;
-    if (busyness(hits, start, lastAtOrBefore(hits, start)) > 0.35) return NO_WANDER;
-    const on = smoothstep(start, start + 0.2, now) * (1 - smoothstep(end - 0.4, end, now));
-    return { yaw: yaw * on, pitch: pitch * on };
-  }
-  return NO_WANDER;
+  const at = nowAndThen(
+    now,
+    0x4cf5ad43,
+    WANDER_WINDOW,
+    WANDER_CHANCE,
+    [WANDER_SHORTEST, WANDER_LONGEST],
+    0.2,
+    hits
+  );
+  if (!at) return NO_WANDER;
+  // anywhere from well round to one side to the other, from the floor to the ceiling,
+  // but somewhere: a look a few degrees off the kit is not a look away
+  let yaw = (2 * at.rng() - 1) * 1.05;
+  const pitch = -0.3 + 0.75 * at.rng();
+  if (Math.abs(yaw) < 0.4 && Math.abs(pitch) < 0.25) yaw = Math.sign(yaw || 1) * 0.4;
+  return { yaw: yaw * at.on, pitch: pitch * at.on };
 }
 
 const NO_WANDER = { yaw: 0, pitch: 0 };
@@ -513,7 +548,8 @@ const NO_WANDER = { yaw: 0, pitch: 0 };
  * `chance`, at a seeded moment, lasting between `shortest` and `longest` —
  * how far into it `now` is (0–1, easing on over `ease` and off over twice
  * that), and the rest of its roll for whatever else it decides. Not mid-fill
- * if `hits` are given.
+ * if `hits` are given: none starts in one, and one under way when a fill comes
+ * gives way to it, easing off as the hands get busy.
  */
 function nowAndThen(
   now: number,
@@ -531,11 +567,17 @@ function nowAndThen(
     const start = w * window + 0.5 + rng() * (window - longest - 0.5);
     const end = start + shortest + (longest - shortest) * rng();
     if (now < start || now > end) continue;
-    if (hits && busyness(hits, start, lastAtOrBefore(hits, start)) > 0.35) return null;
-    return {
-      on: smoothstep(start, start + ease, now) * (1 - smoothstep(end - 2 * ease, end, now)),
-      rng,
-    };
+    let on = smoothstep(start, start + ease, now) * (1 - smoothstep(end - 2 * ease, end, now));
+    if (hits) {
+      if (busyness(hits, start, lastAtOrBefore(hits, start)) > 0.35) return null;
+      // busy now, or about to be: the fill takes the head back to the kit
+      const busy = Math.max(
+        busyness(hits, now, lastAtOrBefore(hits, now)),
+        0.7 * busyness(hits, now + 0.25, hits.length - 1)
+      );
+      on *= 1 - smoothstep(0.25, 0.45, busy);
+    }
+    return { on, rng };
   }
   return null;
 }
@@ -589,8 +631,9 @@ function browAt(now: number): Expression['brow'] {
 const NO_BROW: Expression['brow'] = { raise: 0, side: 1 };
 
 /**
- * `beat` is how long a beat lasts, seconds, and `pulses` how many there are in
- * a bar: without them (or before the music has a clock) the head does not
+ * `beat` is how long a beat lasts, seconds, and `pulses` each pulse of a bar,
+ * its length in seconds (the meter's grouping: 7/8 as 2+2+3 is three, the last
+ * longer): without them (or before the music has a clock) the head does not
  * sway and the drummer does not count.
  */
 export function expressionAt(
@@ -598,7 +641,7 @@ export function expressionAt(
   now: number,
   downbeats: readonly Downbeat[] = [],
   beat = 0,
-  pulses = 0
+  pulses: readonly number[] = []
 ): Expression {
   const last = lastAtOrBefore(hits, now);
 
@@ -672,7 +715,7 @@ export function expressionAt(
     blink: blinkAt(now),
     smile: Math.max(grin, smileAt(hits, now)),
     sway: swayTurn,
-    speak: countAt(hits, downbeats, now, beat, pulses),
+    speak: countAt(hits, downbeats, now, pulses),
     wander,
     foot,
     cock: cockAt(now),

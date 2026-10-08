@@ -189,14 +189,32 @@ export function furMaterial(color: string): THREE.MeshPhysicalMaterial {
   });
 }
 
+/** The strands drawn for the hair, kept: they are the same for everyone, and costly to draw. */
+let hairStrands: HTMLCanvasElement | null = null;
+
 /**
  * Hair, drawn once onto a canvas: thousands of long fine strands running up
  * and down it (along `v`, which runs root to tip on the hair's geometry),
  * light and dark, wandering a little, with darker partings between clumps.
+ * Drawn the first time it is wanted and kept, each texture made from it after
+ * that (a new player seated, the kit's own set of materials) sharing it.
  * Skipped where there is no canvas (the tests run in Node).
  */
 function hairTexture(): THREE.Texture | null {
   if (typeof document === 'undefined') return null;
+  const canvas = hairStrands ?? drawHair();
+  if (!canvas) return null;
+  hairStrands = canvas;
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(4, 1);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 4;
+  return tex;
+}
+
+function drawHair(): HTMLCanvasElement | null {
   const size = 512;
   const canvas = document.createElement('canvas');
   canvas.width = size;
@@ -246,13 +264,7 @@ function hairTexture(): THREE.Texture | null {
       ctx.stroke();
     }
   }
-  const tex = new THREE.CanvasTexture(canvas);
-  tex.wrapS = THREE.RepeatWrapping;
-  tex.wrapT = THREE.RepeatWrapping;
-  tex.repeat.set(4, 1);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  tex.anisotropy = 4;
-  return tex;
+  return canvas;
 }
 
 /**

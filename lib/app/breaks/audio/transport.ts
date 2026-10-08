@@ -108,9 +108,11 @@ export function laneGain(
 /**
  * One step as the transport scheduled it, note by note — for anything that
  * draws the kit being played rather than the chart being read (the 3D
- * drummer). The notes are the voices the speakers were handed, at the times
- * they were handed them, so a drawing that follows these lands where the
- * sound does: swung, felt and humanised. `bar` and `next` are the grid this
+ * drummer). The notes are every voice the step plays, at the times the speakers
+ * were handed them — before the mixer, as the MIDI port hears them, so a lane
+ * muted or soloed out is still there: a drummer plays the whole pattern. A
+ * drawing that follows these lands where the sound does: swung, felt and
+ * humanised. `bar` and `next` are the grid this
  * step sits in and the bar the arrangement plays after it, which is how a
  * listener sees past the lookahead to plan its next stroke.
  */

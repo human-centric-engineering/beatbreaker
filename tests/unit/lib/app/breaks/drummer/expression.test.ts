@@ -422,9 +422,10 @@ describe('expressionAt — a sway with the beat', () => {
 describe('expressionAt — counting along', () => {
   /** Bars of four half-second beats, the first one at 1 s. */
   const BEAT = 0.5;
+  const FOUR = [BEAT, BEAT, BEAT, BEAT];
   const BAR = 4 * BEAT;
   const ones = Array.from({ length: 400 }, (_, i) => ({ time: 1 + i * BAR, change: false }));
-  const speak = (t: number, hits: Hit[] = []) => expressionAt(hits, t, ones, BEAT, 4).speak;
+  const speak = (t: number, hits: Hit[] = []) => expressionAt(hits, t, ones, BEAT, FOUR).speak;
   /** Whether a bar mouths its beats: open just after each of them. */
   const counted = (one: number) =>
     [0, 1, 2, 3].every((b) => speak(one + b * BEAT + 0.05).open > 0.1);
@@ -432,7 +433,7 @@ describe('expressionAt — counting along', () => {
   it('mouths every click of a count-in, numbered back from the bar the band comes in on', () => {
     const clicks = [0, 0.5, 1, 1.5].flatMap((t) => [hit(t, 'sticks'), hit(t, 'sticks', 'other')]);
     const band = [{ time: 2, change: true }];
-    const at = (t: number) => expressionAt(clicks, t, band, BEAT, 4).speak;
+    const at = (t: number) => expressionAt(clicks, t, band, BEAT, FOUR).speak;
     const words = [0, 0.5, 1, 1.5].map((t) => at(t + 0.05));
     for (const w of words) expect(w.open).toBeGreaterThan(0.2);
     // one and two rounded, three wide, four rounded again
@@ -468,6 +469,42 @@ describe('expressionAt — counting along', () => {
     expect(speak(one + 2 * BEAT + 0.05).round).toBeLessThan(0);
     expect(speak(one + BEAT + 0.05).round).toBeGreaterThan(0);
     for (const b of [0, 1, 2]) expect(speak(one + (b + 0.7) * BEAT).open).toBe(0);
+  });
+
+  it('counts an odd meter by its own pulses: 7/8 as 2+2+3 is one, two, three, the last longer', () => {
+    const EIGHTH = 0.25;
+    const SEVEN = [2 * EIGHTH, 2 * EIGHTH, 3 * EIGHTH];
+    const BAR7 = 7 * EIGHTH;
+    // the count-in: a click on each pulse, the band in on the next one
+    const clicks = [0, 0.5, 1].flatMap((t) => [hit(t, 'sticks'), hit(t, 'sticks', 'other')]);
+    const band = [{ time: BAR7, change: true }];
+    const said = [0, 0.5, 1].map((t) => expressionAt(clicks, t + 0.05, band, 0.5, SEVEN).speak);
+    for (const w of said) expect(w.open).toBeGreaterThan(0.2);
+    // one, two rounded; three wide
+    expect(said.map((w) => Math.sign(w.round))).toEqual([1, 1, -1]);
+    // in the groove: three numbers a bar, never a fourth where no pulse starts
+    const bars = Array.from({ length: 300 }, (_, i) => ({ time: 1 + i * BAR7, change: false }));
+    const at = (t: number) => expressionAt([], t, bars, 0.5, SEVEN).speak;
+    const counted = bars.slice(0, -1).filter(({ time }) => at(time + 0.05).open > 0.1);
+    expect(counted.length).toBeGreaterThan(30);
+    for (const { time } of counted) {
+      expect(at(time + 1 + 0.05).round).toBeLessThan(0);
+      expect(at(time + 1.5 + 0.05).open).toBe(0);
+    }
+  });
+
+  it('counts a second bar at a slow tempo, after the timeline has let the first one go', () => {
+    // 4/4 at about 67 bpm: a bar of 3.6 s, longer than the 3 s of downbeats kept
+    const SLOW = 0.9;
+    const bars = Array.from({ length: 300 }, (_, i) => ({ time: 1 + i * 4 * SLOW, change: false }));
+    const slow = [SLOW, SLOW, SLOW, SLOW];
+    for (let i = 1; i < bars.length - 1; i++) {
+      const t = bars[i].time + 0.05;
+      const all = expressionAt([], t, bars, SLOW, slow).speak.open > 0;
+      // only this bar and the next one known, as the timeline has it
+      const kept = expressionAt([], t, bars.slice(i, i + 2), SLOW, slow).speak.open > 0;
+      expect(kept, `bar ${i}`).toBe(all);
+    }
   });
 
   it('never counts without a beat to count, or in the middle of a fill', () => {
@@ -536,6 +573,26 @@ describe('expressionAt — a look at a foot, a cock of the head, one eyebrow', (
     for (const e of x) {
       if (e.glance.look === 1) expect(e.foot.look).toBe(0);
       if (e.foot.look === 1) expect(Math.hypot(e.wander.yaw, e.wander.pitch)).toBe(0);
+    }
+  });
+
+  it('gives up a look away or at a foot when a fill comes in the middle of it', () => {
+    for (const which of ['foot', 'wander'] as const) {
+      const size = (e: Expression) =>
+        which === 'foot' ? e.foot.look : Math.hypot(e.wander.yaw, e.wander.pitch);
+      // a long one, well under way and with a good while still to go
+      let t0 = 0;
+      for (; t0 < 1200; t0 += 0.05)
+        if (size(expressionAt([], t0)) > 0.3 && size(expressionAt([], t0 + 0.9)) > 0.3) break;
+      expect(t0, which).toBeLessThan(1200);
+      // a fill on the toms coming in a moment later
+      const fill: Hit[] = [];
+      for (let t = t0 + 0.2; t < t0 + 3; t += DUR)
+        fill.push(hit(t, 'tom1', fill.length % 2 ? 'lead' : 'other'));
+      // under way as the fill starts...
+      expect(size(expressionAt(fill, t0)), which).toBeGreaterThan(0.2);
+      // ...and given up to it
+      expect(size(expressionAt(fill, t0 + 0.9)), which).toBe(0);
     }
   });
 

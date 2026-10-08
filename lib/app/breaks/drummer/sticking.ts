@@ -218,12 +218,14 @@ interface HandsState {
  */
 function handNotes(bar: Bar, i: number): LaneKey[] {
   let cymbals = CYMBALS.filter((lane) => !!bar[lane][i]);
-  // a cross-stick always gets a hand: with whichever one other note comes first
+  // a cross-stick always gets a hand, the other one: with it, whichever other note comes
+  // first that the lead hand can reach — one out at the other hand's edge is dropped
   if (bar.s[i] === CROSS_STICK) {
     const rest = DRUMS.filter((lane) => lane !== 's' && !!bar[lane][i]).sort(
       (a, b) => xOf(a) - xOf(b)
     );
-    return [...[...cymbals, ...rest].slice(0, 1), 's'];
+    const lead = [...cymbals, ...rest].find((lane) => reaches('lead', lane));
+    return lead ? [lead, 's'] : ['s'];
   }
   const keepsTime = cymbals.includes('h') || cymbals.includes('r');
   const drums = DRUMS.filter((lane) => !!bar[lane][i])

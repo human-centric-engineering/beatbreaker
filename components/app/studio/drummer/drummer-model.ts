@@ -883,17 +883,25 @@ function lockGeometry(
   return geo;
 }
 
-/** Locks of hair, one mesh: each lock a list of points (head frame), root to tip. */
+/**
+ * Locks of hair, one mesh: each lock a list of points (head frame), root to
+ * tip. Should they ever not merge, each is its own mesh rather than any lost.
+ */
 function locks(
   paths: THREE.Vector3[][],
   root: number,
   tip: number,
   mat: THREE.Material
-): THREE.Mesh {
+): THREE.Object3D {
   const parts = paths.map((pts) => lockGeometry(pts, root, tip));
-  const geo = mergeGeometries(parts) ?? parts[0];
-  for (const g of parts) if (g !== geo) g.dispose();
-  return mesh(geo, mat);
+  const merged = mergeGeometries(parts);
+  if (!merged) {
+    const group = new THREE.Group();
+    for (const g of parts) group.add(mesh(g, mat));
+    return group;
+  }
+  for (const g of parts) g.dispose();
+  return mesh(merged, mat);
 }
 
 /** A point on the skull's surface (pushed out by `out`), toward `around` (0 the back, + to the lead side) and `up` (radians). */
@@ -1922,6 +1930,12 @@ const SWISH_SPRING = 190;
 const SWISH_DAMP = 9;
 /** The furthest the hair swings from where it hangs, radians, and the step it is worked out in, seconds. */
 const SWISH_MOST = 0.7;
+/**
+ * The fastest the hair swings, radians a second; and the head's turn, radians
+ * a second, past which it is not moving but cut to somewhere new.
+ */
+const SWISH_FASTEST = 8;
+const SWISH_CUT = 15;
 const SWISH_STEP = 1 / 240;
 
 /**
@@ -1959,13 +1973,21 @@ function swishOf(head: THREE.Object3D, torso: THREE.Object3D): (dt: number) => v
     if (s > 1e-6) turn.set(step.x, step.y, step.z).multiplyScalar(a / s / dt);
     else turn.set(0, 0, 0);
     was.copy(q);
+    // faster than any neck turns: not a toss of the head but a cut — a seek, a restart, a jump
+    // to another section — which the hair, like the head, is simply there for
+    if (turn.length() > SWISH_CUT) {
+      turned.set(0, 0, 0);
+      return;
+    }
     const strong = THREE.MathUtils.smoothstep(
       Math.max(turn.length(), turned.length()),
       SWISH_FROM,
       SWISH_FULL
     );
     // left behind as the head changes how it turns
-    speed.addScaledVector(turn.clone().sub(turned), -SWISH_GAIN * strong);
+    speed
+      .addScaledVector(turn.clone().sub(turned), -SWISH_GAIN * strong)
+      .clampLength(0, SWISH_FASTEST);
     turned.copy(turn);
     for (let t = 0; t < dt; t += SWISH_STEP) {
       const h = Math.min(SWISH_STEP, dt - t);
