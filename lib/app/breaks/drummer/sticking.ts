@@ -54,8 +54,13 @@ import type { Bar, LaneKey } from '@/lib/app/breaks/types';
  *
  * A piece out at the edge (the block beside the hats) is only ever its own
  * side's: the other hand cannot reach it. A cross-stick is always the other
- * hand's: it is played with that hand resting on the snare, which the lead
- * hand, over on the hats or the ride, cannot do. A grace note is the hand that is not
+ * hand's, never the lead's: it is played with that hand resting on the snare,
+ * which the lead hand, over on the hats or the ride, cannot do — and it always
+ * gets that hand, a cymbal dropped from the step rather than the cross-stick.
+ * Through a bar with cross-sticks in it the other hand stays down on the
+ * snare: the lead hand keeps the hats to itself however fast they are, and
+ * takes the toms, the other hand coming off the snare for one only to break
+ * up a long run or when two land at once. A grace note is the hand that is not
  * playing the note it decorates, when that hand is free.
  *
  * It reads a bar from where the bar before it left the hands (or from rest),
@@ -102,6 +107,12 @@ const DOUBLE = 0.85;
 const TRIPLE = 2.5;
 /** What a metre of the lead hand left of the other costs, both on drums, through a fill. */
 const TANGLE = 4;
+/**
+ * Through a bar with cross-sticks in it, what it costs the other hand to come
+ * off the snare for anything else: dearer than the lead hand playing a drum
+ * twice running, cheaper than it playing one three times running.
+ */
+const STAY_ON_SNARE = 2;
 
 function other(hand: Hand): Hand {
   return hand === 'lead' ? 'other' : 'lead';
@@ -132,9 +143,12 @@ function costOf(
   hand: Hand,
   lane: LaneKey,
   at: HandsAt,
-  idle: Readonly<Record<Hand, number>>
+  idle: Readonly<Record<Hand, number>>,
+  stay = false
 ): number {
   if (!reaches(hand, lane)) return Infinity;
+  // set down on the snare for the cross-sticks, the other hand stays there
+  const off = stay && hand === 'other' && lane !== 's' ? STAY_ON_SNARE : 0;
   const x = xOf(lane);
   const cymbal = CYMBALS.includes(lane);
   // a hand still coming off the step before has no time to go far; one that has
@@ -154,7 +168,7 @@ function costOf(
   if (hand === 'lead' && (lane === 'h' || lane === 'r')) cost -= HABIT_TIME;
   else if (hand === 'lead' && cymbal) cost -= 0.15;
   if (hand === 'other' && lane === 's') cost -= HABIT_SNARE;
-  return cost;
+  return cost + off;
 }
 
 /** What it costs to have the lead hand at `leadX` and the other at `otherX` at once. */
@@ -193,6 +207,8 @@ interface HandsState {
   /** Steps since a time-keeping cymbal: past FILL_AFTER, the hands are in a fill. */
   since: number;
   run?: Run;
+  /** A bar with cross-sticks in it: the other hand stays down on the snare. */
+  stay?: boolean;
 }
 
 /**
@@ -202,6 +218,15 @@ interface HandsState {
  */
 function handNotes(bar: Bar, i: number): LaneKey[] {
   let cymbals = CYMBALS.filter((lane) => !!bar[lane][i]);
+  // a cross-stick always gets a hand, the other one: with it, whichever other note comes
+  // first that the lead hand can reach — one out at the other hand's edge is dropped
+  if (bar.s[i] === CROSS_STICK) {
+    const rest = DRUMS.filter((lane) => lane !== 's' && !!bar[lane][i]).sort(
+      (a, b) => xOf(a) - xOf(b)
+    );
+    const lead = [...cymbals, ...rest].find((lane) => reaches('lead', lane));
+    return lead ? [lead, 's'] : ['s'];
+  }
   const keepsTime = cymbals.includes('h') || cymbals.includes('r');
   const drums = DRUMS.filter((lane) => !!bar[lane][i])
     // percussion on the kit is played when it does not take the time-keeping hand off its cymbal
@@ -255,6 +280,11 @@ function finish(bar: Bar, i: number, hands: StepHands): StepHands {
 /** The snare's cross-stick value. */
 const CROSS_STICK = 4;
 
+/** Whether a bar has cross-sticks in it. */
+function crossBar(bar: Bar): boolean {
+  return bar.s.some((v) => v === CROSS_STICK);
+}
+
 /** The ways a step's notes can be shared between the hands; `turn` says hand to hand, and whose go it is. */
 function choices(bar: Bar, i: number, turn?: Hand): StepHands[] {
   const lane = turn && turnNote(bar, i);
@@ -271,8 +301,9 @@ function choices(bar: Bar, i: number, turn?: Hand): StepHands[] {
     const [a, b] = notes;
     ways.push({ [a]: 'lead', [b]: 'other' }, { [a]: 'other', [b]: 'lead' });
   } else ways.push({});
+  // never the lead hand's, whatever else that costs
   const allowed = cross ? ways.filter((w) => w.s !== 'lead') : ways;
-  return (allowed.length ? allowed : ways).map((w) => finish(bar, i, w));
+  return allowed.map((w) => finish(bar, i, w));
 }
 
 /** The lanes the hands play in a step, and with which hand. */
@@ -292,7 +323,7 @@ function handed(step: StepHands): [LaneKey, Hand][] {
 function stepCost(step: StepHands, state: HandsState): number {
   const notes = handed(step);
   let cost = 0;
-  for (const [lane, hand] of notes) cost += costOf(hand, lane, state.at, state.idle);
+  for (const [lane, hand] of notes) cost += costOf(hand, lane, state.at, state.idle, state.stay);
   if (notes.length === 2) {
     const leadLane = notes.find(([, hand]) => hand === 'lead')![0];
     const otherLane = notes.find(([, hand]) => hand === 'other')![0];
@@ -335,6 +366,7 @@ function advance(step: StepHands, state: HandsState): HandsState {
     idle,
     since: keptTime(step) ? 0 : state.since + 1,
     run,
+    stay: state.stay,
   };
 }
 
@@ -371,6 +403,7 @@ export function assignStep(
     idle: { ...idle },
     since: keeping ? 0 : FILL_AFTER,
     run: drum ? { hand: drum, length: 1 } : undefined,
+    stay: crossBar(bar),
   };
   let best: StepHands = {};
   let least = Infinity;
@@ -435,7 +468,9 @@ function assign(
   kept: number,
   fast: boolean
 ): StepHands[] {
-  const turns = handToHand(bar, fast);
+  // the other hand set down on the snare for the cross-sticks does not come up for the hats
+  const stay = crossBar(bar);
+  const turns = handToHand(bar, fast && !stay);
   const drum = prev ? lastDrum(prev) : undefined;
   let paths = new Map<string, { state: HandsState; cost: number; steps: StepHands[] }>();
   const start: HandsState = {
@@ -443,6 +478,7 @@ function assign(
     idle: idleAfter(prev),
     since: kept,
     run: drum ? { hand: drum, length: 1 } : undefined,
+    stay,
   };
   paths.set(stateKey(start), { state: start, cost: 0, steps: [] });
   for (let i = 0; i < bar.k.length; i++) {

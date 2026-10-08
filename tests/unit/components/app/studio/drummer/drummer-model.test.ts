@@ -20,6 +20,7 @@ import { BEAD_RADIUS, buildDrummer } from '@/components/app/studio/drummer/drumm
 import { makeMaterials } from '@/components/app/studio/drummer/parts';
 import { HOOP, PIECES, onPiece } from '@/lib/app/breaks/drummer/kit-layout';
 import { type Persona, PERSONAS } from '@/lib/app/breaks/drummer/personas';
+import { expressionAt } from '@/lib/app/breaks/drummer/expression';
 import { gripsFor, poseAt } from '@/lib/app/breaks/drummer/pose';
 import { StrokeTimeline } from '@/lib/app/breaks/drummer/timeline';
 import { stepWithHit } from '@/tests/helpers/drummer-fixtures';
@@ -216,6 +217,142 @@ describe('buildDrummer() — a smile', () => {
   });
 });
 
+describe('buildDrummer() — counting along', () => {
+  const named = (root: THREE.Object3D, name: string) => {
+    const out: THREE.Object3D[] = [];
+    root.traverse((o) => {
+      if (o.name === name) out.push(o);
+    });
+    return out;
+  };
+
+  it('opens the mouth on a word, rounds or spreads it with the vowel, and shuts it after', () => {
+    const { root, update } = buildDrummer(makeMaterials());
+    const pose = poseAt(new StrokeTimeline(), 0, 0);
+    const [upper, lower] = [...named(root, 'lip')].sort((a, b) => b.position.y - a.position.y);
+    const [inside] = named(root, 'mouth');
+
+    update({ ...pose, smile: 0, speak: { open: 0, round: 0 } });
+    const gap = upper.position.y - lower.position.y;
+    const wide = lower.scale.x;
+    expect(inside.visible).toBe(false);
+
+    update({ ...pose, smile: 0, speak: { open: 1, round: 0 } });
+    expect(upper.position.y - lower.position.y).toBeGreaterThan(gap + 0.008);
+    expect(inside.visible).toBe(true);
+
+    // "two": pursed, the lips drawn in; "three": drawn wide
+    update({ ...pose, smile: 0, speak: { open: 0.3, round: 1 } });
+    expect(lower.scale.x).toBeLessThan(wide * 0.7);
+    update({ ...pose, smile: 0, speak: { open: 0.35, round: -1 } });
+    expect(lower.scale.x).toBeGreaterThan(wide);
+
+    update({ ...pose, smile: 0, speak: { open: 0, round: 0 } });
+    expect(upper.position.y - lower.position.y).toBeCloseTo(gap, 9);
+    expect(lower.scale.x).toBeCloseTo(wide, 9);
+    expect(inside.visible).toBe(false);
+  });
+});
+
+describe('buildDrummer() — one eyebrow', () => {
+  it('raises the one brow and leaves the other where it was', () => {
+    const { root, update } = buildDrummer(makeMaterials());
+    const pose = poseAt(new StrokeTimeline(), 0, 0);
+    const brows: THREE.Object3D[] = [];
+    root.traverse((o) => {
+      if (o.name === 'brow') brows.push(o);
+    });
+    const [lead, other] = [...brows].sort((a, b) => b.position.x - a.position.x);
+    update({ ...pose, brow: { raise: 0, side: 1 } });
+    const [a, b] = [lead.position.y, other.position.y];
+    update({ ...pose, brow: { raise: 1, side: 1 } });
+    expect(lead.position.y).toBeGreaterThan(a + 0.008);
+    expect(other.position.y).toBe(b);
+  });
+});
+
+describe('buildDrummer() — hair that swishes', () => {
+  const swings = (root: THREE.Object3D) => {
+    const out: THREE.Object3D[] = [];
+    root.traverse((o) => {
+      if (o.name === 'hair-swing') out.push(o);
+    });
+    return out;
+  };
+  const who = (hairStyle: Persona['hairStyle']): Persona => ({ ...PERSONAS[0], hairStyle });
+  /** A second of frames at 60 a second, the head turned `rate` radians a second for the first quarter of it. */
+  const turnHead = (style: Persona['hairStyle'], rate: number) => {
+    const p = who(style);
+    const { root, update } = buildDrummer(makeMaterials(p), p);
+    const pose = poseAt(new StrokeTimeline(), 0, 0);
+    const swung: number[] = [];
+    for (let f = 0; f <= 60; f++) {
+      const yaw = (rate * Math.min(f, 15)) / 60;
+      update({ ...pose, headYaw: pose.headYaw + yaw }, undefined, 1 / 60);
+      swung.push(Math.max(...swings(root).map((o) => Math.abs(o.rotation.y))));
+    }
+    return swung;
+  };
+
+  it('hangs long and big hair to swing, and leaves short hair alone', () => {
+    for (const style of [
+      'long',
+      'afro',
+      'dreads',
+      'ponytail',
+      'pigtails',
+      'mullet',
+      'shag',
+    ] as const) {
+      const p = who(style);
+      expect(swings(buildDrummer(makeMaterials(p), p).root).length, style).toBeGreaterThan(0);
+    }
+    for (const style of ['bald', 'crop', 'bun', 'quiff', 'spikes', 'mohawk'] as const) {
+      const p = who(style);
+      expect(swings(buildDrummer(makeMaterials(p), p).root), style).toHaveLength(0);
+    }
+  });
+
+  it('grows long hair as many locks, each tapering root to tip, not one block', () => {
+    const p = who('long');
+    const [hangs] = swings(buildDrummer(makeMaterials(p), p).root);
+    const geo = hangs.children
+      .filter((o): o is THREE.Mesh => o instanceof THREE.Mesh)
+      .map((o) => o.geometry)
+      .find((g) => !(g instanceof THREE.CapsuleGeometry))!;
+    // 34 locks of 13 rings of 7
+    expect(geo.getAttribute('position').count).toBe(34 * 13 * 7);
+    // the strands run along v, root (0) to tip (1)
+    const v = geo.getAttribute('uv');
+    expect(v.getY(0)).toBe(0);
+    expect(v.getY(13 * 7 - 1)).toBe(1);
+  });
+
+  it('swishes long hair on a strong turn of the head, and lets it settle', () => {
+    const swung = turnHead('long', 4);
+    expect(Math.max(...swung)).toBeGreaterThan(0.15);
+    expect(swung[swung.length - 1]).toBeLessThan(0.05);
+  });
+
+  it('does not whip the hair out when the head jumps — a seek or a restart is a cut, not a toss', () => {
+    const p = who('long');
+    const { root, update } = buildDrummer(makeMaterials(p), p);
+    const pose = poseAt(new StrokeTimeline(), 0, 0);
+    update(pose, undefined, 1 / 60);
+    // half a turn of the head in one frame, then held there
+    let most = 0;
+    for (let f = 0; f < 30; f++) {
+      update({ ...pose, headYaw: pose.headYaw + 0.5 }, undefined, 1 / 60);
+      most = Math.max(most, ...swings(root).map((o) => Math.abs(o.rotation.y)));
+    }
+    expect(most).toBeLessThan(0.05);
+  });
+
+  it('leaves it hanging through a gentle move: a groove’s nod is not a toss of the head', () => {
+    expect(Math.max(...turnHead('long', 0.5))).toBe(0);
+  });
+});
+
 describe('buildDrummer() — a glance at the camera', () => {
   /** The two eyes, each with its lid. Their parent is the head. */
   function eyes(root: THREE.Object3D): THREE.Object3D[] {
@@ -250,6 +387,33 @@ describe('buildDrummer() — a glance at the camera', () => {
     const at = toCamera();
     expect(at).toBeLessThan(away - 0.3);
     expect(at).toBeLessThan(0.2);
+  });
+
+  it('looks down at the foot it glances at, not past it at the floor', () => {
+    const tl = new StrokeTimeline();
+    for (const which of ['kickFoot', 'hatFoot'] as const) {
+      let t = 0;
+      for (; t < 600; t += 0.05) {
+        const e = expressionAt([], t);
+        if (e.foot.look === 1 && e.foot.which === which) break;
+      }
+      const pose = poseAt(tl, t, 0);
+      const { root, update } = buildDrummer(makeMaterials());
+      update(pose);
+      root.updateMatrixWorld(true);
+      const head = eyes(root)[0].parent!;
+      // from between the eyes
+      const from = new THREE.Vector3();
+      for (const e of eyes(root))
+        from.add(e.getWorldPosition(new THREE.Vector3()).multiplyScalar(0.5));
+      const toFoot = pose.legs[which].ball.clone().sub(from).normalize();
+      // within the reach of the neck: it drops the head so far and no further
+      const f = facing(head);
+      // turned to it...
+      expect(Math.atan2(-f.x, -f.z), which).toBeCloseTo(Math.atan2(-toFoot.x, -toFoot.z), 1);
+      // ...and dropped to it, as far as the neck goes (0.85 rad): the eyes do the rest
+      expect(Math.asin(f.y), which).toBeCloseTo(Math.max(Math.asin(toFoot.y), -0.85), 1);
+    }
   });
 
   it('does not look round at a camera behind it', () => {
@@ -582,7 +746,8 @@ describe('buildDrummer — a robot and a beast', () => {
         (o) =>
           o instanceof THREE.Mesh &&
           o.material === m.black &&
-          o.geometry instanceof THREE.SphereGeometry
+          o.geometry instanceof THREE.SphereGeometry &&
+          o.name !== 'mouth'
       ).length
     ).toBe(3);
     // nobody else has horns
@@ -641,10 +806,10 @@ describe('buildDrummer() — a cross-stick', () => {
   const up = new THREE.Vector3(...onPiece(snare, [0, 1, 0])).sub(centre).normalize();
 
   /** The other hand's lowest point under each of its parts, metres off the snare head. */
-  function heights(grips?: ReturnType<typeof gripsFor>) {
+  function heights(grips?: ReturnType<typeof gripsFor>, t = 0.5) {
     const tl = new StrokeTimeline();
     tl.ingest(stepWithHit({ lane: 's', value: 4, at: 0.5, slot: 4 }));
-    const pose = poseAt(tl, 0.5, 1, grips);
+    const pose = poseAt(tl, t, 1, grips);
     const { root, update } = buildDrummer(makeMaterials());
     update(pose);
     root.updateMatrixWorld(true);
@@ -666,15 +831,128 @@ describe('buildDrummer() — a cross-stick', () => {
     });
   }
 
+  /**
+   * The other hand set down for a cross-stick, `t` seconds in: where its first
+   * finger's end and its thumb's end are from the stick — how far off its
+   * surface (the shaft is about 7 mm round), and how far over to the
+   * drummer's side of it (negative: the far side) — where its knuckles are
+   * from the middle of the head, and which way its fingers point.
+   */
+  function crossHand(t: number) {
+    const tl = new StrokeTimeline();
+    tl.ingest(stepWithHit({ lane: 's', value: 4, at: 0.5, slot: 4 }));
+    const pose = poseAt(tl, t, 1);
+    const { root, update } = buildDrummer(makeMaterials());
+    update(pose);
+    root.updateMatrixWorld(true);
+    const a = pose.arms.other;
+    const hand = root.children.find(
+      (o) => o.name === 'hand' && o.position.distanceTo(a.wrist) < 1e-9
+    )!;
+    const off = (p: THREE.Vector3) => {
+      const rel = p.clone().sub(a.grip);
+      return rel.addScaledVector(a.stick, -rel.dot(a.stick));
+    };
+    // the drummer's side of the stick, level
+    const near = new THREE.Vector3(0, 0, 1).addScaledVector(a.stick, -a.stick.z).normalize();
+    const end = (o: THREE.Object3D) => {
+      const out: THREE.Vector3[] = [];
+      o.traverse((m) => {
+        if (!(m instanceof THREE.Mesh)) return;
+        const pos = m.geometry.attributes.position;
+        for (let i = 0; i < pos.count; i++)
+          out.push(new THREE.Vector3().fromBufferAttribute(pos, i).applyMatrix4(m.matrixWorld));
+      });
+      return {
+        gap: Math.min(...out.map((p) => off(p).length())) - 0.0072,
+        side: out.reduce((sum, p) => sum + off(p).dot(near), 0) / out.length,
+      };
+    };
+    // the first finger: knuckle, middle joint, end joint, each the last child of the one before
+    const first = hand.children.filter((c) => c instanceof THREE.Group && c.position.z > 0.09)[0];
+    let tip: THREE.Object3D = first;
+    for (let k = 0; k < 2; k++) tip = tip.children[tip.children.length - 1];
+    // the thumb's base sits in at the heel of the hand; its end joint hangs off the first bone
+    const thumb = hand.children.find(
+      (c) => c instanceof THREE.Group && Math.abs(c.position.z - 0.026) < 1e-9
+    )!;
+    const thumbEnd = thumb.children[0].children.find((c) => c instanceof THREE.Group)!;
+    const knuckle = first.getWorldPosition(new THREE.Vector3());
+    const snare = new THREE.Vector3(...PIECES.snare.centre);
+    const head = new THREE.Vector3(...onPiece(PIECES.snare, [0, 1, 0])).sub(snare).normalize();
+    const facing = hand.getWorldQuaternion(new THREE.Quaternion());
+    const thumbFrom = thumb.getWorldPosition(new THREE.Vector3());
+    const thumbTo = new THREE.Vector3(0, 0, 0.032).applyMatrix4(thumbEnd.matrixWorld);
+    return {
+      // which way the thumb runs, base to end, along the fingers' line (1: with them)
+      thumbAlong: thumbTo
+        .sub(thumbFrom)
+        .normalize()
+        .dot(new THREE.Vector3(0, 0, 1).applyQuaternion(facing)),
+      // which way its nail faces: up (1) or down into the head (-1)
+      nailUp: new THREE.Vector3(0, 1, 0).applyQuaternion(
+        thumbEnd.getWorldQuaternion(new THREE.Quaternion())
+      ).y,
+      thumbBend: thumbEnd.rotation.x,
+      finger: end(tip),
+      thumb: end(thumbEnd),
+      fromMiddle: Math.hypot(knuckle.x - snare.x, knuckle.z - snare.z),
+      // how high the first finger's knuckle is off the head
+      knuckleUp: knuckle.clone().sub(snare).dot(head),
+      along: new THREE.Vector3(0, 0, 1)
+        .applyQuaternion(hand.getWorldQuaternion(new THREE.Quaternion()))
+        .dot(a.stick),
+    };
+  }
+
+  it('rests the hand in the middle of the head, arched up to the knuckles, its fingers along the stick', () => {
+    for (const t of [0.53, 0.9]) {
+      const h = crossHand(t);
+      expect(h.fromMiddle).toBeLessThan(0.03);
+      // along it, tipped up from the heel to the knuckles, not pressed flat
+      expect(h.along).toBeGreaterThan(0.9);
+      expect(h.along).toBeLessThan(0.97);
+      expect(h.knuckleUp).toBeGreaterThan(0.045);
+    }
+  });
+
+  it('lays the thumb along the side of the hand, nail up, bent at the end — not stuck out across it', () => {
+    for (const t of [0.53, 0.9]) {
+      const h = crossHand(t);
+      expect(h.thumbAlong).toBeGreaterThan(0.7);
+      expect(h.nailUp).toBeGreaterThan(0.5);
+      expect(h.thumbBend).toBeGreaterThan(0.2);
+    }
+  });
+
+  it('has thumb and first finger ready to pick the stick up between them, and lets go for a moment after each', () => {
+    for (const t of [0.45, 0.9]) {
+      const { finger, thumb } = crossHand(t);
+      // the thumb's end against the drummer's side of the stick
+      expect(thumb.side).toBeGreaterThan(0.005);
+      expect(Math.abs(thumb.gap)).toBeLessThan(0.003);
+      // the first finger's end hooked down the far side
+      expect(finger.side).toBeLessThan(-0.005);
+      expect(Math.abs(finger.gap)).toBeLessThan(0.002);
+    }
+    // just played: the thumb eased off it, still on the drummer's side
+    const { thumb } = crossHand(0.53);
+    expect(thumb.side).toBeGreaterThan(0.005);
+    expect(thumb.gap).toBeGreaterThan(crossHand(0.9).thumb.gap + 0.0015);
+  });
+
   it('rests the hand on the head — palm, fingers and thumb down on it, none of it through it', () => {
     for (const grips of [undefined, gripsFor('both')]) {
       const parts = heights(grips);
       for (const h of parts) expect(h).toBeGreaterThan(-0.002);
       // the palm itself (the first part) lies on the head, not over it
       expect(parts[0]).toBeLessThan(0.006);
-      // and every finger is down near it, laid out over the stick
-      expect(Math.max(...parts)).toBeLessThan(0.015);
+      // and every finger is down near it: on the head, or the first on the stick
+      expect(Math.max(...parts)).toBeLessThan(0.025);
     }
+    // and ready round the stick between them, still down on it, not through it
+    for (const t of [0.45, 0.9])
+      for (const h of heights(undefined, t)) expect(h).toBeGreaterThan(-0.002);
   });
 });
 

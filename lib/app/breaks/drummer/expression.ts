@@ -39,6 +39,17 @@ import { makeRng } from '@/lib/app/breaks/rng';
  * - **a smile** — once in a while, never mid-fill: a second or two of it on
  *   its own, or a grin with a look at the camera. Rare enough to mean
  *   something: about one a minute, on average.
+ * - **counting** — the count-in mouthed on every click, as it is played; and
+ *   regularly, never into a fill, a bar or two of the beats mouthed along
+ *   with the groove. The mouth only: there is no voice.
+ * - **a look away** — now and then, never mid-fill, the head snaps round to
+ *   somewhere nobody is (up at the lights, off to one side, down at the
+ *   floor), holds a moment and comes back.
+ * - **a look at a foot** — now and then, never mid-fill, down at the kick
+ *   foot or the hat foot for a moment.
+ * - **a cock of the head** — every so often the head tips over to one side
+ *   for a second or two and back, playing or not.
+ * - **one eyebrow** — once in a while, one brow up on its own.
  *
  * Pure: a function of the strokes and the time.
  */
@@ -65,7 +76,25 @@ export interface Expression {
   smile: number;
   /** The head turned side to side with the beat, radians (`tilt` carries any tilt with it). */
   sway: number;
+  /** The mouth shaping a counted number. */
+  speak: Speak;
+  /** A look away at nothing in particular: the head turned, radians, and raised (up is positive). */
+  wander: { yaw: number; pitch: number };
+  /** A look down at one foot: 0–1 of the way there, and which. */
+  foot: { look: number; which: 'kickFoot' | 'hatFoot' };
+  /** The head tipped over to one side, radians, on its own: not part of the groove. */
+  cock: number;
+  /** One eyebrow up, 0–1, and which (1 the lead side). */
+  brow: { raise: number; side: 1 | -1 };
 }
+
+/** The mouth shaping a word: how far open, 0–1, and how rounded (1, pursed) or spread (-1, wide). */
+export interface Speak {
+  open: number;
+  round: number;
+}
+
+const QUIET: Speak = { open: 0, round: 0 };
 
 /** A look out at the camera. */
 export interface Glance {
@@ -136,6 +165,50 @@ const SWAY_LEAN = 0.075;
 const GLANCE_GRIN = 0.25;
 /** The shortest glance that grins, seconds. */
 const GRIN_SHORTEST = 1.2;
+/** The share of bars that start a count along with the groove, and of those, the share that count two. */
+const COUNT_CHANCE = 0.25;
+const COUNT_TWO = 0.5;
+/** How long a counted number is on the lips at most, seconds, and how early the mouth starts to shape it. */
+const WORD = 0.26;
+const WORD_LEAD = 0.04;
+/**
+ * The mouth for each number, `[open, round]`: "one" and "four" round and open,
+ * "two" pursed, "three" and "six" wide, "five" and "nine" open on the vowel.
+ */
+const WORDS: [number, number][] = [
+  [0.55, 0.8],
+  [0.3, 1],
+  [0.35, -0.7],
+  [0.55, 0.7],
+  [0.75, -0.3],
+  [0.3, -0.7],
+  [0.45, -0.4],
+  [0.5, -0.6],
+  [0.65, -0.2],
+];
+/** A look away can come once in each of these windows, seconds, and does in this share of them. */
+const WANDER_WINDOW = 13;
+const WANDER_CHANCE = 0.3;
+/** How long a look away lasts, seconds: rolled between these. */
+const WANDER_SHORTEST = 0.7;
+const WANDER_LONGEST = 1.8;
+/** A look at a foot can come once in each of these windows, seconds, does in this share, and lasts between these. */
+const FOOT_WINDOW = 15;
+const FOOT_CHANCE = 0.35;
+const FOOT_SHORTEST = 0.8;
+const FOOT_LONGEST = 1.6;
+/** A cock of the head can come once in each of these windows, seconds, does in this share, and lasts between these. */
+const COCK_WINDOW = 7;
+const COCK_CHANCE = 0.45;
+const COCK_SHORTEST = 0.9;
+const COCK_LONGEST = 2.4;
+/** How far the head tips for one, radians: rolled between these. */
+const COCK_ANGLE = [0.1, 0.24] as const;
+/** One eyebrow can go up once in each of these windows, seconds, does in this share, and stays up between these. */
+const BROW_WINDOW = 10;
+const BROW_CHANCE = 0.3;
+const BROW_SHORTEST = 0.5;
+const BROW_LONGEST = 1.3;
 
 const isHand = (h: Hit) => h.limb === 'lead' || h.limb === 'other';
 const isDrum = (h: Hit) => h.piece !== 'hat' && h.piece !== 'ride' && h.piece !== 'crash';
@@ -353,15 +426,222 @@ function blinkAt(now: number): number {
   return shut;
 }
 
+/** The mouth for number `n` (counting from 1) said at `at`, as it stands at `now`. */
+function word(n: number, at: number, now: number, beat: number): Speak {
+  const len = Math.min(WORD, 0.75 * beat);
+  const u = (now - at + WORD_LEAD) / (len + WORD_LEAD);
+  if (u <= 0 || u >= 1) return QUIET;
+  const [open, round] = WORDS[(n - 1) % WORDS.length];
+  // quick to open on the word, slower to close after it
+  const k = Math.sin(Math.PI * Math.sqrt(u));
+  return { open: open * k, round: round * k };
+}
+
 /**
- * `beat` is how long a beat lasts, seconds: without it (or before the music
- * has a clock) the head does not sway.
+ * Where each pulse of a bar starts, seconds into it: the meter's grouping
+ * (`pulses`, each pulse's length) stretched to a bar `len` long.
+ */
+function pulseStarts(pulses: readonly number[], len: number): number[] {
+  const bar = pulses.reduce((sum, p) => sum + p, 0);
+  let at = 0;
+  return pulses.map((p) => {
+    const start = at;
+    at += (p * len) / bar;
+    return start;
+  });
+}
+
+/** Whether a bar starting at `time` counts along — and, with `two`, the bar after it too. */
+function countsFrom(time: number, two: boolean): boolean {
+  // hashed, and to the hundredth: bars a fixed time apart would otherwise roll alike and
+  // count in clumps, and a bar's time worked out from the next one's must roll the same
+  const rng = makeRng((Math.imul(Math.round(time * 100), 2654435761) ^ 0x2f5b4ad7) >>> 0);
+  return rng() < COUNT_CHANCE && (!two || rng() < COUNT_TWO);
+}
+
+/**
+ * The count at `now`: every click of a count-in, numbered by where it falls
+ * in the bar before the one the band comes in on; and, in the bars that roll
+ * for it, each pulse of the groove — unless the hands are busy then. Pulses
+ * are the meter's own (`pulses`, each one's length): 7/8 grouped 2+2+3 counts
+ * three, the third one longer.
+ */
+function countAt(
+  hits: readonly Hit[],
+  downbeats: readonly Downbeat[],
+  now: number,
+  pulses: readonly number[]
+): Speak {
+  const bar = pulses.reduce((sum, p) => sum + p, 0);
+  if (!(bar > 0)) return QUIET;
+  // the pulse nearest `into` seconds into a bar `len` long, coming round to the first at its end
+  const nearest = (into: number, len: number) => {
+    const starts = pulseStarts(pulses, len);
+    let n = 0;
+    let gap = len - into;
+    starts.forEach((start, k) => {
+      if (Math.abs(start - into) < gap) [n, gap] = [k, Math.abs(start - into)];
+    });
+    return n;
+  };
+  // counting in: the lead stick's clicks, the count-in's bars the meter's own
+  for (let i = lastAtOrBefore(hits, now + WORD_LEAD); i >= 0; i--) {
+    const h = hits[i];
+    if (now - h.time > WORD) break;
+    if (h.piece !== 'sticks' || h.limb !== 'lead') continue;
+    const one = downbeats.find((d) => d.time > h.time + 1e-3);
+    if (!one) continue;
+    const into = (bar - ((one.time - h.time) % bar)) % bar;
+    const n = nearest(into, bar);
+    return word(n + 1, h.time, now, pulses[n]);
+  }
+  // along with the groove: a bar that rolls for it counts itself, and maybe the next
+  for (let i = downbeats.length - 1; i >= 0; i--) {
+    const d = downbeats[i];
+    if (d.time - WORD_LEAD > now) continue;
+    const end = downbeats[i + 1]?.time ?? d.time + bar;
+    if (now >= end) break;
+    const len = end - d.time;
+    // the bar before, as heard — or, at a slow tempo, worked back from this one's length
+    // once the timeline has let it go
+    const before = downbeats[i - 1]?.time ?? d.time - len;
+    if (!countsFrom(d.time, false) && !countsFrom(before, true)) return QUIET;
+    const starts = pulseStarts(pulses, len);
+    let k = 0;
+    starts.forEach((start, j) => {
+      if (d.time + start - WORD_LEAD <= now) k = j;
+    });
+    const at = d.time + starts[k];
+    if (busyness(hits, at, lastAtOrBefore(hits, at)) > 0.35) return QUIET;
+    return word(k + 1, at, now, (pulses[k] * len) / bar);
+  }
+  return QUIET;
+}
+
+/**
+ * A look away at `now`: once in a while, at a seeded moment, somewhere
+ * random — snapped to quickly, held, eased back from. Not mid-fill.
+ */
+function wanderAt(hits: readonly Hit[], now: number): { yaw: number; pitch: number } {
+  const at = nowAndThen(
+    now,
+    0x4cf5ad43,
+    WANDER_WINDOW,
+    WANDER_CHANCE,
+    [WANDER_SHORTEST, WANDER_LONGEST],
+    0.2,
+    hits
+  );
+  if (!at) return NO_WANDER;
+  // anywhere from well round to one side to the other, from the floor to the ceiling,
+  // but somewhere: a look a few degrees off the kit is not a look away
+  let yaw = (2 * at.rng() - 1) * 1.05;
+  const pitch = -0.3 + 0.75 * at.rng();
+  if (Math.abs(yaw) < 0.4 && Math.abs(pitch) < 0.25) yaw = Math.sign(yaw || 1) * 0.4;
+  return { yaw: yaw * at.on, pitch: pitch * at.on };
+}
+
+const NO_WANDER = { yaw: 0, pitch: 0 };
+
+/**
+ * Something that happens once in a while: in each `window` seconds, with
+ * `chance`, at a seeded moment, lasting between `shortest` and `longest` —
+ * how far into it `now` is (0–1, easing on over `ease` and off over twice
+ * that), and the rest of its roll for whatever else it decides. Not mid-fill
+ * if `hits` are given: none starts in one, and one under way when a fill comes
+ * gives way to it, easing off as the hands get busy.
+ */
+function nowAndThen(
+  now: number,
+  salt: number,
+  window: number,
+  chance: number,
+  [shortest, longest]: readonly [number, number],
+  ease: number,
+  hits?: readonly Hit[]
+): { on: number; rng: () => number } | null {
+  const k = Math.floor(now / window);
+  for (const w of [k, k - 1]) {
+    const rng = makeRng(((w * 2654435761) ^ salt) >>> 0);
+    if (rng() >= chance) continue;
+    const start = w * window + 0.5 + rng() * (window - longest - 0.5);
+    const end = start + shortest + (longest - shortest) * rng();
+    if (now < start || now > end) continue;
+    let on = smoothstep(start, start + ease, now) * (1 - smoothstep(end - 2 * ease, end, now));
+    if (hits) {
+      if (busyness(hits, start, lastAtOrBefore(hits, start)) > 0.35) return null;
+      // busy now, or about to be: the fill takes the head back to the kit
+      const busy = Math.max(
+        busyness(hits, now, lastAtOrBefore(hits, now)),
+        0.7 * busyness(hits, now + 0.25, hits.length - 1)
+      );
+      on *= 1 - smoothstep(0.25, 0.45, busy);
+    }
+    return { on, rng };
+  }
+  return null;
+}
+
+/** A look down at a foot at `now`: the kick foot or the hat foot, rolled. */
+function footAt(hits: readonly Hit[], now: number): Expression['foot'] {
+  const at = nowAndThen(
+    now,
+    0x7a3c91e5,
+    FOOT_WINDOW,
+    FOOT_CHANCE,
+    [FOOT_SHORTEST, FOOT_LONGEST],
+    0.25,
+    hits
+  );
+  if (!at) return NO_FOOT;
+  return { look: at.on, which: at.rng() < 0.5 ? 'kickFoot' : 'hatFoot' };
+}
+
+const NO_FOOT: Expression['foot'] = { look: 0, which: 'kickFoot' };
+
+/** The head cocked over to one side at `now`, radians: either way, by a rolled amount. */
+function cockAt(now: number): number {
+  const at = nowAndThen(
+    now,
+    0x3d4b8f21,
+    COCK_WINDOW,
+    COCK_CHANCE,
+    [COCK_SHORTEST, COCK_LONGEST],
+    0.3
+  );
+  if (!at) return 0;
+  const way = at.rng() < 0.5 ? 1 : -1;
+  return way * (COCK_ANGLE[0] + (COCK_ANGLE[1] - COCK_ANGLE[0]) * at.rng()) * at.on;
+}
+
+/** One eyebrow up at `now`: either one. */
+function browAt(now: number): Expression['brow'] {
+  const at = nowAndThen(
+    now,
+    0x5be0cd19,
+    BROW_WINDOW,
+    BROW_CHANCE,
+    [BROW_SHORTEST, BROW_LONGEST],
+    0.12
+  );
+  if (!at) return NO_BROW;
+  return { raise: at.on, side: at.rng() < 0.5 ? 1 : -1 };
+}
+
+const NO_BROW: Expression['brow'] = { raise: 0, side: 1 };
+
+/**
+ * `beat` is how long a beat lasts, seconds, and `pulses` each pulse of a bar,
+ * its length in seconds (the meter's grouping: 7/8 as 2+2+3 is three, the last
+ * longer): without them (or before the music has a clock) the head does not
+ * sway and the drummer does not count.
  */
 export function expressionAt(
   hits: readonly Hit[],
   now: number,
   downbeats: readonly Downbeat[] = [],
-  beat = 0
+  beat = 0,
+  pulses: readonly number[] = []
 ): Expression {
   const last = lastAtOrBefore(hits, now);
 
@@ -417,6 +697,12 @@ export function expressionAt(
   const gather = one.gather;
   const release = one.release * (1 - 0.5 * Math.min(1, landing));
   const { glance, grin } = glanceAt(hits, now);
+  // a look at the camera wins over a look at a foot, and both over a look at nothing
+  const down = footAt(hits, now);
+  const foot = { look: down.look * (1 - glance.look), which: down.which };
+  const free = (1 - glance.look) * (1 - foot.look);
+  const away = wanderAt(hits, now);
+  const wander = { yaw: away.yaw * free, pitch: away.pitch * free };
   return {
     nod: 0.2 * landing + 0.05 * passage - 0.07 * gather + 0.11 * release,
     tilt: 0.09 * sided + 0.06 * passage * lean + 0.035 * mood + swayTilt,
@@ -429,5 +715,10 @@ export function expressionAt(
     blink: blinkAt(now),
     smile: Math.max(grin, smileAt(hits, now)),
     sway: swayTurn,
+    speak: countAt(hits, downbeats, now, pulses),
+    wander,
+    foot,
+    cock: cockAt(now),
+    brow: browAt(now),
   };
 }

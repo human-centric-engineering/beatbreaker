@@ -238,7 +238,7 @@ export class DrummerStage {
     const now = this.playing ? this.clock.now() - this.clock.latency() : ms / 1000;
     const pose = poseAt(this.timeline, now, this.groove, this.grips);
     this.kit.update(pose, this.timeline.percussion);
-    this.drummer.update(pose, this.camera.position);
+    this.drummer.update(pose, this.camera.position, dt);
 
     const f = this.flight;
     if (f) {

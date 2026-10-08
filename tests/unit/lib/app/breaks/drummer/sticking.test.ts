@@ -482,3 +482,63 @@ describe('assignBar — a cross-stick is the other hand’s', () => {
     });
   });
 });
+
+describe('assignBar — cross-sticks', () => {
+  const CROSS = 4;
+  /** Eighth hats, cross-sticks on 2 and 4, and whatever else `more` adds. */
+  const groove = (more: Partial<Record<LaneKey, number[]>> = {}, sixteenths = false) => {
+    const b = bar(more);
+    for (let i = 0; i < N; i += sixteenths ? 1 : 2) b.h[i] = 1;
+    b.s[4] = CROSS;
+    b.s[12] = CROSS;
+    return b;
+  };
+
+  it('never gives a cross-stick to the lead hand — not even on a step with a crash and the hats', () => {
+    const b = groove();
+    b.c[4] = 1;
+    for (const fast of [false, true]) {
+      const steps = assignBar(b, null, fast);
+      expect(steps[4].s).toBe('other');
+      expect(steps[12].s).toBe('other');
+    }
+  });
+
+  it('drops a note only the other hand could reach on a cross-stick step, rather than the bar', () => {
+    // the block out past the hats, alone with a cross-stick on its step
+    const b = groove({ p2: Array<number>(N).fill(0) });
+    b.h[4] = 0;
+    b.p2[4] = 1;
+    for (const fast of [false, true]) {
+      const steps = assignBar(b, null, fast);
+      expect(steps).toHaveLength(N);
+      expect(steps[4].s).toBe('other');
+      expect(steps[4].p2).toBeUndefined();
+      // and the rest of the bar is still played
+      expect(steps[2].h).toBe('lead');
+      expect(steps[12].s).toBe('other');
+    }
+  });
+
+  it('keeps the hats on the lead hand however fast, the other hand down on the snare', () => {
+    const steps = assignBar(groove({}, true), null, true);
+    for (const [i, step] of steps.entries()) {
+      if (step.h) expect(step.h, `step ${i}`).toBe('lead');
+      for (const [lane, hand] of Object.entries(step))
+        if (hand === 'other') expect(lane, `step ${i}`).toBe('s');
+    }
+  });
+
+  it('plays the toms with the lead hand, the other coming off the snare only to break up a long run', () => {
+    // the last half bar: a run of toms, no hats over it
+    const b = groove();
+    for (let i = 8; i < N; i++) b.h[i] = 0;
+    for (const i of [8, 9, 10, 11, 13, 14, 15]) b[i < 11 ? 't1' : 't2'][i] = 1;
+    const steps = assignBar(b, null, true);
+    const toms = steps.flatMap((step) => [step.t1, step.t2].filter(Boolean));
+    const lead = toms.filter((h) => h === 'lead').length;
+    expect(lead / toms.length).toBeGreaterThanOrEqual(0.6);
+    // and never three in a row on the other hand
+    expect(toms.join()).not.toContain('other,other');
+  });
+});

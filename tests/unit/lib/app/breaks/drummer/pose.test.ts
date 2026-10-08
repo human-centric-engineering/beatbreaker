@@ -1548,21 +1548,26 @@ describe('poseAt — a cross-stick', () => {
     }
   });
 
-  it('keeps the hand still while the fingers lift the far end and let it fall onto the hoop', () => {
+  it('lifts the stick from its butt before the note, the hand rising with it, and drops it on the note', () => {
     const one = at(10);
     const play = song();
     const sample: [number, ReturnType<typeof play>][] = [];
-    for (let t = one - 0.2; t <= one + 1e-9; t += 0.005) sample.push([t, play(t)]);
+    for (let t = one - 0.3; t <= one + 1e-9; t += 0.005) sample.push([t, play(t)]);
     const still = sample[sample.length - 1][1];
+    const buttOf = (arm: ReturnType<typeof play>) =>
+      arm.tip.clone().addScaledVector(arm.stick, -STICK.length);
     let highest = 0;
     let when = 0;
     for (const [t, arm] of sample) {
-      // the hand has not moved: the stick turns in the fingers (the wrist only turns
-      // a touch about the fulcrum as the body sways with the groove)
-      expect(arm.grip.distanceTo(still.grip), `grip at ${t}`).toBeLessThan(0.001);
-      expect(arm.wrist.distanceTo(still.wrist), `wrist at ${t}`).toBeLessThan(0.006);
+      // the butt stays down under the heel of the hand: the stick turns about it
+      expect(buttOf(arm).distanceTo(buttOf(still)), `butt at ${t}`).toBeLessThan(0.003);
       if (arm.tip.y - still.tip.y > highest) [highest, when] = [arm.tip.y - still.tip.y, t];
     }
+    // the hand comes up with it, not left on the head while the stick seesaws in it
+    const top = sample.find(([t]) => t === when)![1];
+    expect(top.grip.y - still.grip.y).toBeGreaterThan(0.01);
+    // already on its way up well before the note
+    expect(sample.find(([t]) => t >= one - 0.2)![1].tip.y - still.tip.y).toBeGreaterThan(0.01);
     // up a good few centimetres, highest just before the note, and dropped from there
     expect(highest).toBeGreaterThan(0.04);
     expect(one - when).toBeGreaterThan(0.02);

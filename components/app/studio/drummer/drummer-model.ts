@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
 import {
   ball,
@@ -13,6 +14,7 @@ import {
 import { BODY, type Foot, type Hand, STICK, type V3 } from '@/lib/app/breaks/drummer/kit-layout';
 import type { Beard, Build, HairStyle, Hat, Persona } from '@/lib/app/breaks/drummer/personas';
 import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
+import type { Speak } from '@/lib/app/breaks/drummer/expression';
 import type { ArmPose, Grip, LegPose, Pose } from '@/lib/app/breaks/drummer/pose';
 import { makeRng } from '@/lib/app/breaks/rng';
 
@@ -36,8 +38,11 @@ import { makeRng } from '@/lib/app/breaks/rng';
 
 export interface DrummerModel {
   root: THREE.Group;
-  /** Pose the figure; `camera` (world space) is where a glance looks. */
-  update: (pose: Pose, camera?: THREE.Vector3) => void;
+  /**
+   * Pose the figure; `camera` (world space) is where a glance looks, and `dt`
+   * the seconds since the last frame, which the hair swings over (0: it holds).
+   */
+  update: (pose: Pose, camera?: THREE.Vector3, dt?: number) => void;
 }
 
 /** How far the head turns to meet the camera, radians: past this, it is behind the drummer. */
@@ -293,6 +298,8 @@ interface HandRig {
   /** Each finger's joints, knuckle out. */
   fingers: THREE.Group[][];
   thumb: THREE.Group;
+  /** The thumb's end joint. */
+  thumbTip: THREE.Group;
   /** Which side of `x` the thumb is on. */
   side: 1 | -1;
 }
@@ -323,17 +330,30 @@ const FINGER_GRIP: Record<Grip, FingerGrip[]> = {
 };
 
 /**
- * A cross-stick's fingers, first to little: laid loosely over the stick toward
- * the head rather than wrapped round it, and curling in a little more as they
- * lift its far end (by up to `CROSS_LIFT_CURL`, at `CROSS_LIFT_FULL` metres).
+ * A cross-stick's fingers, first to little: relaxed, the hand arched over the
+ * stick, each curving gently from the knuckle back down — the first onto the
+ * stick, the rest to the head beside it — and curling in a little more as they
+ * lift it (by up to `CROSS_LIFT_CURL` radians a joint, at `CROSS_LIFT_FULL` metres).
+ * Closer together than a hand spread to play (`CROSS_SPLAY` of the spread).
  */
 const FINGER_CROSS: [number, number, number][] = [
-  [0.02, 0.06, 0.05],
-  [0, 0.04, 0.04],
-  [0.02, 0.06, 0.05],
-  [0.05, 0.08, 0.06],
+  [0.4, 0.56, 0.32],
+  [0.48, 0.67, 0.38],
+  [0.48, 0.67, 0.38],
+  [0.5, 0.7, 0.4],
 ];
-const CROSS_LIFT_CURL = 0.5;
+const CROSS_LIFT_CURL = 0.15;
+const CROSS_SPLAY = 0.6;
+/**
+ * The first finger ready to pick a cross-stick up (`ArmPose.ready`): curving
+ * down over the stick, which runs under it, and curled a little more so its end
+ * hooks down the far side — the thumb against the near side, the stick between them.
+ * `splay` turns the finger toward the thumb's side, radians; `bend` is each
+ * joint's, knuckle out. Fitted round the stick where it lies, clear of the head.
+ */
+const CROSS_HOOK: { splay: number; bend: [number, number, number] }[] = [
+  { splay: 0, bend: [0.4, 0.7, 0.3] },
+];
 const CROSS_LIFT_FULL = 0.1;
 
 /** Where the thumb's base turns, per grip (`y` and `z` mirrored for the other hand). */
@@ -381,7 +401,7 @@ function buildHand(thumb: 1 | -1, skin: THREE.Material, nail?: THREE.Material): 
   thumbBase.add(t1);
   const t2 = new THREE.Group();
   t2.position.z = 0.042;
-  t2.rotation.x = 0.25;
+  t2.rotation.x = THUMB_TIP;
   t2.add(phalanx(0.032, 0.0105, skin, nail));
   t1.add(t2);
   group.add(thumbBase);
@@ -391,14 +411,33 @@ function buildHand(thumb: 1 | -1, skin: THREE.Material, nail?: THREE.Material): 
   pad.position.set(thumb * 0.024, -0.009, 0.034);
   group.add(pad);
 
-  return { group, fingers, thumb: thumbBase, side: thumb };
+  return { group, fingers, thumb: thumbBase, thumbTip: t2, side: thumb };
 }
 
-/** A thumb set down for a cross-stick: out along the stick and level with the hand, not round it. */
-const THUMB_CROSS: [number, number, number] = [-0.1, -0.45, 0.5];
+/**
+ * A thumb set down for a cross-stick: forward along the side of the hand on
+ * the drummer's side of the stick (which runs under the first finger), its
+ * nail up and out, bent well over at the end — a few millimetres off the stick,
+ * relaxed, just after one is played.
+ */
+const THUMB_CROSS: [number, number, number] = [0.2, 0.8, -0.65];
+/**
+ * And ready to pick it up (`ArmPose.ready`): turned in a touch, so the end of
+ * the thumb rests against the stick's near side — the first finger
+ * hooked round the far side, the stick between them. Fitted where the stick
+ * lies: the thumb within 30° of the fingers' line, clear of the head.
+ * `THUMB_BEND` is the end joint's bend, relaxed and ready.
+ */
+const THUMB_PINCH: [number, number, number] = [0.1, 0.45, -0.45];
+const THUMB_BEND = [0.85, 0.7] as const;
+/** The thumb's end joint, holding a stick to play it. */
+const THUMB_TIP = 0.25;
 
-function turnThumb(base: THREE.Group, side: 1 | -1, held: Grip, cross = 0): void {
-  const [x, y, z] = THUMB[held].map((a, k) => a + (THUMB_CROSS[k] - a) * cross);
+function turnThumb(base: THREE.Group, side: 1 | -1, held: Grip, cross = 0, ready = 0): void {
+  const [x, y, z] = THUMB[held].map((a, k) => {
+    const set = THUMB_CROSS[k] + (THUMB_PINCH[k] - THUMB_CROSS[k]) * ready;
+    return a + (set - a) * cross;
+  });
   base.rotation.set(x, side * y, side * z, 'YXZ');
 }
 
@@ -496,18 +535,29 @@ function poseArm(rig: ArmRig, a: ArmPose): void {
   rig.hand.group.position.copy(a.wrist);
   rig.hand.group.quaternion.copy(a.hand);
   const grips = FINGER_GRIP[a.held];
-  const lifting = 1 + CROSS_LIFT_CURL * Math.min(1, a.lift / CROSS_LIFT_FULL);
+  const lifting = CROSS_LIFT_CURL * Math.min(1, a.lift / CROSS_LIFT_FULL);
   rig.hand.fingers.forEach((joints, n) => {
     const f = grips[n];
     const c = f.hold + (1 - f.hold) * a.curl;
-    // set down for a cross-stick, the fingers open out over the stick
-    joints.forEach(
-      (j, k) =>
-        (j.rotation.x = f.bend[k] * c + (FINGER_CROSS[n][k] * lifting - f.bend[k] * c) * a.cross)
-    );
+    // set down for a cross-stick, the fingers lie out along the stick — and the first one
+    // hooked round it, ready to lift it, but for a moment flat after each one
+    const hook = CROSS_HOOK[n];
+    const ready = hook ? a.ready : 0;
+    joints.forEach((j, k) => {
+      const laid = FINGER_CROSS[n][k] + lifting;
+      const set = laid + ((hook?.bend[k] ?? laid) - laid) * ready;
+      j.rotation.x = f.bend[k] * c + (set - f.bend[k] * c) * a.cross;
+    });
+    // a little splay from the middle, and in toward the stick when hooked round it
+    joints[0].rotation.y =
+      -FINGERS[n].x * rig.hand.side * 1.2 * (1 - (1 - CROSS_SPLAY) * a.cross) +
+      (hook?.splay ?? 0) * rig.hand.side * ready * a.cross;
   });
-  turnThumb(rig.hand.thumb, rig.hand.side, a.held, a.cross);
-  // back from the bead: held near the butt for a cross-stick, the fulcrum is not always the same way up it
+  // the thumb helps pick it up: against the stick's near side, the first finger hooked round the far
+  turnThumb(rig.hand.thumb, rig.hand.side, a.held, a.cross, a.ready);
+  const tipBend = THUMB_BEND[0] + (THUMB_BEND[1] - THUMB_BEND[0]) * a.ready;
+  rig.hand.thumbTip.rotation.x = THUMB_TIP + (tipBend - THUMB_TIP) * a.cross;
+  // back from the bead: held up from the butt for a cross-stick, the fulcrum is not always the same way up it
   const butt = a.tip.clone().addScaledVector(a.stick, -STICK.length);
   place(rig.stick, butt, a.tip);
   rig.bead.position.copy(a.tip);
@@ -695,13 +745,17 @@ interface HeadRig {
   /** Each eye with its lid: a blink squashes the lot. */
   eyes: Record<1 | -1, THREE.Object3D>;
   brows: Record<1 | -1, THREE.Mesh>;
-  /** Draw the mouth `smile` (0–1) of the way into a smile. */
-  smile: (smile: number) => void;
+  /** Draw the mouth `smile` (0–1) of the way into a smile, shaping any word it is saying. */
+  mouth: (smile: number, speak: Speak) => void;
 }
 
 /** How far a smile lifts the corners of the mouth, radians, and parts the lips, metres. */
 const SMILE_LIFT = 0.42;
 const SMILE_PART = 0.0055;
+/** How far a word drops the lower lip and lifts the upper, metres, and how much a rounded one purses the lips. */
+const WORD_DROP = 0.0095;
+const WORD_LIFT = 0.0018;
+const WORD_PURSE = 0.35;
 
 /** How far the brows go up for a hello, metres. */
 const BROW_RAISE = 0.009;
@@ -780,6 +834,198 @@ function cover(r: number, reach: number, mat: THREE.Material): THREE.Mesh {
 /** Short hair. */
 const hairCap = (m: Materials) => cover(0.107, 0.55, m.hair);
 
+/**
+ * A lock of hair: a tube along a smooth curve through `points` (head frame),
+ * `root` thick where it leaves the head and tapering to `tip` at its end.
+ * Its texture runs root to tip along `v`, which is the way the strands
+ * drawn on the hair material lie.
+ */
+function lockGeometry(
+  points: THREE.Vector3[],
+  root: number,
+  tip: number,
+  around = 6,
+  along = 12
+): THREE.BufferGeometry {
+  const curve = new THREE.CatmullRomCurve3(points);
+  const frames = curve.computeFrenetFrames(along, false);
+  const pos: number[] = [];
+  const uv: number[] = [];
+  const index: number[] = [];
+  const p = new THREE.Vector3();
+  for (let k = 0; k <= along; k++) {
+    const t = k / along;
+    curve.getPointAt(t, p);
+    // full most of the way, thinning toward the end
+    const r = root + (tip - root) * t ** 1.6;
+    for (let i = 0; i <= around; i++) {
+      const a = (i / around) * Math.PI * 2;
+      const n = frames.normals[k]
+        .clone()
+        .multiplyScalar(Math.cos(a))
+        .addScaledVector(frames.binormals[k], Math.sin(a));
+      pos.push(p.x + n.x * r, p.y + n.y * r, p.z + n.z * r);
+      uv.push(i / around, t);
+    }
+  }
+  for (let k = 0; k < along; k++) {
+    for (let i = 0; i < around; i++) {
+      const a = k * (around + 1) + i;
+      const b = a + around + 1;
+      index.push(a, b, a + 1, a + 1, b, b + 1);
+    }
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  geo.setIndex(index);
+  geo.computeVertexNormals();
+  return geo;
+}
+
+/**
+ * Locks of hair, one mesh: each lock a list of points (head frame), root to
+ * tip. Should they ever not merge, each is its own mesh rather than any lost.
+ */
+function locks(
+  paths: THREE.Vector3[][],
+  root: number,
+  tip: number,
+  mat: THREE.Material
+): THREE.Object3D {
+  const parts = paths.map((pts) => lockGeometry(pts, root, tip));
+  const merged = mergeGeometries(parts);
+  if (!merged) {
+    const group = new THREE.Group();
+    for (const g of parts) group.add(mesh(g, mat));
+    return group;
+  }
+  for (const g of parts) g.dispose();
+  return mesh(merged, mat);
+}
+
+/** A point on the skull's surface (pushed out by `out`), toward `around` (0 the back, + to the lead side) and `up` (radians). */
+function onScalp(around: number, up: number, out = 1): THREE.Vector3 {
+  const [sx, sy, sz] = SKULL_SCALE;
+  return new THREE.Vector3(
+    SKULL_R * sx * out * Math.cos(up) * Math.sin(around),
+    SKULL_Y + SKULL_R * sy * out * Math.sin(up),
+    SKULL_R * sz * out * Math.cos(up) * Math.cos(around)
+  );
+}
+
+/**
+ * A bunch of locks gathered at `from` (head frame) — a ponytail, a pigtail —
+ * and running through `through` to the end, `count` of them, each spread out
+ * up to `width` from the middle line and wandering a little, seeded.
+ */
+function bunch(
+  from: V3,
+  through: V3[],
+  count: number,
+  width: number,
+  seed: number
+): THREE.Vector3[][] {
+  const rnd = makeRng(seed);
+  return Array.from({ length: count }, () => {
+    const a = rnd() * Math.PI * 2;
+    const r = width * Math.sqrt(rnd());
+    const [dx, dz] = [Math.cos(a) * r, Math.sin(a) * r];
+    // tight at the tie, fanning out toward the end, a few shorter than the rest
+    const short = 1 - 0.25 * rnd() * rnd();
+    const pts = [vec(from)];
+    through.forEach((p, k) => {
+      const fan = (k + 1) / through.length;
+      const at = vec(p).lerp(vec(from), (1 - short) * fan);
+      pts.push(
+        at.add(new THREE.Vector3(dx * (0.5 + fan), (rnd() - 0.5) * 0.006, dz * (0.5 + fan)))
+      );
+    });
+    return pts;
+  });
+}
+
+/**
+ * Tight curls over a ball of hair: its surface pushed in and out by a few
+ * waves at angles to each other, coarse and fine, so its outline is a mass of
+ * bumps rather than a smooth dome.
+ */
+function curls(geo: THREE.BufferGeometry): THREE.BufferGeometry {
+  const p = geo.getAttribute('position');
+  const v = new THREE.Vector3();
+  const n = new THREE.Vector3();
+  for (let i = 0; i < p.count; i++) {
+    v.fromBufferAttribute(p, i);
+    n.copy(v).normalize();
+    const coarse = Math.abs(
+      Math.sin(23 * n.x + 1.3) * Math.sin(19 * n.y + 0.7) * Math.sin(29 * n.z + 2.1)
+    );
+    const fine = Math.abs(
+      Math.sin(53 * n.x + 0.4) * Math.sin(47 * n.y + 1.1) * Math.sin(61 * n.z + 0.9)
+    );
+    v.multiplyScalar(0.97 + 0.07 * coarse + 0.035 * fine);
+    p.setXYZ(i, v.x, v.y, v.z);
+  }
+  geo.computeVertexNormals();
+  return geo;
+}
+
+/**
+ * Long hair falling from the crown: `count` locks rooted round the back and
+ * sides of the scalp, `spread` radians either way of the back, out over the
+ * skull and down to `to` (head-frame height), each a little wavy and its own
+ * length, seeded so the same player has the same hair.
+ */
+function fall(
+  count: number,
+  spread: number,
+  to: number,
+  seed: number,
+  out = 1.12
+): THREE.Vector3[][] {
+  const rnd = makeRng(seed);
+  const paths: THREE.Vector3[][] = [];
+  for (let i = 0; i < count; i++) {
+    const around = -spread + (2 * spread * (i + 0.5)) / count + (rnd() - 0.5) * 0.08;
+    // the sides hang clear of the face: they fall from further back and lower down
+    const side = Math.abs(Math.sin(around));
+    const root = onScalp(around, 0.95 - 0.35 * side + (rnd() - 0.5) * 0.15, 1.02);
+    const over = onScalp(around, 0.1, out + 0.05 * rnd());
+    const end = to - 0.05 * rnd();
+    const wave = (rnd() - 0.5) * 0.02;
+    const hang = (y: number, push: number) => {
+      const p = onScalp(around, 0, out + push);
+      // hanging straight down from the widest of the head, a little in behind the jaw
+      return new THREE.Vector3(p.x * (1 - 0.15 * side), y, p.z + 0.012 * (1 - side));
+    };
+    const mid = hang(SKULL_Y - 0.08, 0.02);
+    mid.x += wave;
+    const low = hang((SKULL_Y - 0.08 + end) / 2, 0.04);
+    low.x -= wave;
+    paths.push([root, over, mid, low, hang(end, 0.06)]);
+  }
+  return paths;
+}
+
+/** What hangs off the head and swings as it moves (see `swishOf`): found by name. */
+const SWING = 'hair-swing';
+
+/**
+ * Hair that swings: `pieces` (head frame) hung from `pivot`, swinging `give`
+ * times as far as the swish says — a ponytail further than a mass of curls.
+ */
+function swinging(pivot: V3, give: number, pieces: THREE.Object3D[]): THREE.Group {
+  const g = new THREE.Group();
+  g.name = SWING;
+  g.position.set(...pivot);
+  g.userData.give = give;
+  for (const p of pieces) {
+    p.position.sub(g.position);
+    g.add(p);
+  }
+  return g;
+}
+
 /** A hairstyle, in the head's frame: the face looks down `-z`. */
 function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
   switch (style) {
@@ -819,22 +1065,20 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       return out;
     }
     case 'afro': {
-      const fro = mesh(new THREE.SphereGeometry(0.14, 28, 20), m.hair);
+      const fro = mesh(curls(new THREE.SphereGeometry(0.14, 72, 54)), m.hair);
       fro.scale.set(1.12, 1, 1);
       fro.position.set(0, 0.19, 0.05);
-      return [fro];
+      // big hair: it shifts on the head rather than swinging out from it
+      return [swinging([0, 0.1, 0.03], 0.35, [fro])];
     }
     case 'long': {
-      const back = mesh(new THREE.CapsuleGeometry(0.09, 0.22, 6, 18), m.hair);
-      back.scale.set(1, 1, 0.55);
+      // a mass behind, so the locks over it never show the neck through them
+      const back = mesh(new THREE.CapsuleGeometry(0.08, 0.2, 6, 18), m.hair);
+      back.scale.set(1, 1, 0.5);
       back.position.set(0, 0.03, 0.05);
-      const out: THREE.Object3D[] = [hairCap(m), back];
-      for (const side of [-1, 1]) {
-        const lock = mesh(new THREE.CapsuleGeometry(0.03, 0.15, 4, 10), m.hair);
-        lock.position.set(side * 0.08, 0.04, -0.005);
-        out.push(lock);
-      }
-      return out;
+      const hangs = locks(fall(34, 1.85, -0.16, 0x1f2e3d), 0.014, 0.004, m.hair);
+      // all of it from the crown
+      return [hairCap(m), swinging([0, 0.16, 0.03], 1, [back, hangs])];
     }
     case 'bun': {
       const bun = ball(0.048, m.hair, 16);
@@ -846,10 +1090,23 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       for (const side of [-1, 1]) {
         const tie = ball(0.018, m.accent, 10);
         tie.position.set(side * 0.09, 0.16, 0.04);
-        const tail = mesh(new THREE.CapsuleGeometry(0.028, 0.12, 4, 10), m.hair);
-        tail.position.set(side * 0.13, 0.1, 0.05);
-        tail.rotation.z = side * 0.6;
-        out.push(tie, tail);
+        const tail = locks(
+          bunch(
+            [side * 0.09, 0.16, 0.04],
+            [
+              [side * 0.125, 0.13, 0.05],
+              [side * 0.16, 0.07, 0.055],
+              [side * 0.185, 0, 0.05],
+            ],
+            9,
+            0.014,
+            side > 0 ? 0x2a3b : 0x3b4c
+          ),
+          0.008,
+          0.003,
+          m.hair
+        );
+        out.push(tie, swinging([side * 0.09, 0.16, 0.04], 1.3, [tail]));
       }
       return out;
     }
@@ -864,10 +1121,24 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
     case 'ponytail': {
       const tie = ball(0.016, m.accent, 10);
       tie.position.set(0, 0.17, 0.1);
-      const tail = mesh(new THREE.CapsuleGeometry(0.03, 0.16, 4, 10), m.hair);
-      tail.position.set(0, 0.07, 0.135);
-      tail.rotation.x = -0.35;
-      return [hairCap(m), tie, tail];
+      const tail = locks(
+        bunch(
+          [0, 0.17, 0.1],
+          [
+            [0, 0.15, 0.14],
+            [0, 0.09, 0.165],
+            [0, 0.02, 0.165],
+            [0, -0.04, 0.15],
+          ],
+          12,
+          0.016,
+          0x4d5e
+        ),
+        0.009,
+        0.003,
+        m.hair
+      );
+      return [hairCap(m), tie, swinging([0, 0.17, 0.1], 1.3, [tail])];
     }
     case 'bob': {
       // round the back and the sides to the jaw, open over the face
@@ -885,11 +1156,13 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       const party = mesh(new THREE.CapsuleGeometry(0.065, 0.1, 6, 14), m.hair);
       party.scale.set(1.1, 1, 0.5);
       party.position.set(0, 0.02, 0.07);
-      return [hairCap(m), party];
+      const lengths = locks(fall(16, 0.95, -0.1, 0x5f6e, 1.04), 0.013, 0.004, m.hair);
+      return [hairCap(m), swinging([0, 0.09, 0.07], 0.9, [party, lengths])];
     }
     case 'shag': {
       // a wild crest bursting up and out of the crown, and fluffy tufts over the cheeks
       const out: THREE.Object3D[] = [cover(0.112, 0.52, m.hair)];
+      const tufts: THREE.Object3D[] = [];
       const crest: [number, number][] = [
         [0, 0],
         [0.45, 0],
@@ -912,8 +1185,10 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
         const tuft = spike(d, 0.03, 0.08, m.hair);
         tuft.geometry.dispose();
         tuft.geometry = new THREE.CapsuleGeometry(0.03, 0.06 - 0.02 * el, 4, 10);
-        out.push(tuft);
+        tufts.push(tuft);
       }
+      // the crest tosses about the middle of the head; the tufts over the cheeks stay put
+      out.push(swinging([0, SKULL_Y, 0], 0.4, tufts));
       for (const side of [-1, 1]) {
         for (const [y, z, tilt] of [
           [0.07, -0.03, 0.9],
@@ -928,18 +1203,22 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       return out;
     }
     case 'dreads': {
-      const out: THREE.Object3D[] = [hairCap(m)];
-      // round the sides and back, none over the face
-      for (let i = 0; i < 15; i++) {
-        const ph = -1.9 + (i / 14) * 3.8;
-        const len = 0.2 + 0.05 * Math.sin(i * 2.3);
-        const lock = mesh(new THREE.CylinderGeometry(0.012, 0.01, len, 6), m.hair);
-        lock.position.set(0.095 * Math.sin(ph), 0.15 - len / 2, 0.1 * Math.cos(ph));
-        // the ends hang out from the head
-        lock.rotation.set(-0.12 * Math.cos(ph), 0, 0.12 * Math.sin(ph));
-        out.push(lock);
+      // round the sides and back, none over the face: thick ropes, each its own length,
+      // the ends hanging out from the head
+      const rnd = makeRng(0x6a7b);
+      const ropes: THREE.Vector3[][] = [];
+      for (let i = 0; i < 22; i++) {
+        const around = -1.9 + (i / 21) * 3.8 + (rnd() - 0.5) * 0.1;
+        const end = -0.06 - 0.06 * rnd();
+        const root = onScalp(around, 0.75 + (rnd() - 0.5) * 0.3, 1.02);
+        const over = onScalp(around, 0.15, 1.1);
+        const low = onScalp(around, 0, 1.22);
+        low.y = end;
+        const mid = over.clone().lerp(low, 0.5);
+        mid.x += (rnd() - 0.5) * 0.015;
+        ropes.push([root, over, mid, low]);
       }
-      return out;
+      return [hairCap(m), swinging([0, 0.15, 0.02], 1, [locks(ropes, 0.012, 0.008, m.hair)])];
     }
   }
 }
@@ -1422,7 +1701,7 @@ function lip(
 function buildFace(
   m: Materials,
   who: Persona
-): { parts: THREE.Object3D[]; smile: (smile: number) => void } {
+): { parts: THREE.Object3D[]; mouth: (smile: number, speak: Speak) => void } {
   const out: THREE.Object3D[] = [];
   const at = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
   if (who.kind === 'robot') {
@@ -1441,8 +1720,10 @@ function buildFace(
     lit.visible = false;
     return {
       parts: [...out, slot, lit],
-      smile: (smile) => {
-        slot.scale.x = 1 + 0.25 * smile;
+      mouth: (smile, speak) => {
+        // a word opens the slot, and narrows or widens it with the vowel
+        slot.scale.x = (1 + 0.25 * smile) * (1 - 0.3 * speak.round);
+        slot.scale.y = 1 + 1.6 * speak.open;
         lit.visible = smile > 0.05;
         lit.scale.set(Math.max(0.05, smile), 1, 1);
       },
@@ -1478,21 +1759,38 @@ function buildFace(
   teeth.position.set(0, 0.0505, -0.093);
   teeth.name = 'teeth';
   teeth.visible = false;
-  out.push(upper.group, lower.group, teeth);
+  // the dark of the open mouth, behind the lips and the teeth: only seen as a word parts them
+  const inside = ball(0.012, m.black, 12);
+  // just proud of the face there, just behind the teeth
+  inside.scale.set(1, 0.2, 0.25);
+  inside.position.set(0, 0.0495, -0.0915);
+  inside.name = 'mouth';
+  inside.visible = false;
+  out.push(upper.group, lower.group, teeth, inside);
   return {
     parts: out,
-    smile: (smile) => {
+    mouth: (smile, speak) => {
+      // a rounded vowel purses the lips in and forward; a spread one draws them wide
+      const purse = Math.max(0, speak.round);
+      const spread = Math.max(0, -speak.round);
       for (const side of [1, -1] as const) {
         // the corners up — the lower lip's more, so it curves round under the upper
         upper.halves[side].rotation.z = side * SMILE_LIFT * 0.8 * smile;
         lower.halves[side].rotation.z = side * SMILE_LIFT * smile;
       }
       // wider, and parted over the teeth
-      upper.group.scale.x = 1 + 0.12 * smile;
-      lower.group.scale.x = 1 + 0.2 * smile;
-      upper.group.position.y = 0.0545 + 0.25 * SMILE_PART * smile;
-      lower.group.position.y = 0.0445 - SMILE_PART * smile;
-      teeth.visible = smile > 0.05;
+      const across = (1 - WORD_PURSE * purse) * (1 + 0.12 * spread);
+      upper.group.scale.x = (1 + 0.12 * smile) * across;
+      lower.group.scale.x = (1 + 0.2 * smile) * across;
+      upper.group.position.y = 0.0545 + 0.25 * SMILE_PART * smile + WORD_LIFT * speak.open;
+      lower.group.position.y = 0.0445 - SMILE_PART * smile - WORD_DROP * speak.open;
+      upper.group.position.z = -0.094 - 0.003 * purse;
+      lower.group.position.z = -0.092 - 0.003 * purse;
+      teeth.visible = smile > 0.05 || (speak.open > 0.15 && speak.round < 0.3);
+      // the gap between them, as wide as the lips are and as tall as they are apart
+      inside.visible = speak.open > 0.05;
+      inside.scale.set(across * (1 + 0.15 * smile), 0.2 + 1.1 * speak.open, 0.25);
+      inside.position.y = 0.0495 - 0.5 * (WORD_DROP - WORD_LIFT) * speak.open;
     },
   };
 }
@@ -1552,7 +1850,7 @@ function buildHead(m: Materials, who: Persona): HeadRig {
   }
   // a smaller head on a woman
   if (who.figure === 'female') head.scale.setScalar(0.95);
-  return { head, eyes, brows, smile: face.smile };
+  return { head, eyes, brows, mouth: face.mouth };
 }
 
 /** A ring round the trunk at height `y`, a little proud of it: `tube` thick, as a share of its width. */
@@ -1623,6 +1921,86 @@ function beastHead(m: Materials, who: Persona): THREE.Object3D[] {
   return out;
 }
 
+/** The head's turn, radians a second, under which the hair stays put, and over which it swings in full. */
+const SWISH_FROM = 0.8;
+const SWISH_FULL = 2;
+/** How hard the hair is thrown by a change in the head's turn, its spring (per second squared) and its damping. */
+const SWISH_GAIN = 2;
+const SWISH_SPRING = 190;
+const SWISH_DAMP = 9;
+/** The furthest the hair swings from where it hangs, radians, and the step it is worked out in, seconds. */
+const SWISH_MOST = 0.7;
+/**
+ * The fastest the hair swings, radians a second; and the head's turn, radians
+ * a second, past which it is not moving but cut to somewhere new.
+ */
+const SWISH_FASTEST = 8;
+const SWISH_CUT = 15;
+const SWISH_STEP = 1 / 240;
+
+/**
+ * Long or big hair swishing as the head moves: a spring that lags each change
+ * in how fast the head turns, so it is left behind as the head throws and
+ * carries on past as it stops. Only a strong move throws it — the nod of a
+ * groove is under `SWISH_FROM` and leaves it where it hangs. Nothing to swing
+ * (short hair, or none), nothing done.
+ */
+function swishOf(head: THREE.Object3D, torso: THREE.Object3D): (dt: number) => void {
+  const swings: THREE.Object3D[] = [];
+  head.traverse((o) => {
+    if (o.name === SWING) swings.push(o);
+  });
+  if (!swings.length) return () => {};
+  const angle = new THREE.Vector3();
+  const speed = new THREE.Vector3();
+  const turn = new THREE.Vector3();
+  const turned = new THREE.Vector3();
+  const q = new THREE.Quaternion();
+  const step = new THREE.Quaternion();
+  let was: THREE.Quaternion | null = null;
+  return (dt) => {
+    // the head in the drummer's frame: torso and head together
+    q.multiplyQuaternions(torso.quaternion, head.quaternion);
+    if (!was || !(dt > 0)) {
+      was = q.clone();
+      return;
+    }
+    // how fast it is turning now, about axes in the head's own frame (the short way round)
+    step.copy(was).invert().multiply(q);
+    if (step.w < 0) step.set(-step.x, -step.y, -step.z, -step.w);
+    const a = 2 * Math.acos(Math.min(1, step.w));
+    const s = Math.sqrt(Math.max(0, 1 - step.w * step.w));
+    if (s > 1e-6) turn.set(step.x, step.y, step.z).multiplyScalar(a / s / dt);
+    else turn.set(0, 0, 0);
+    was.copy(q);
+    // faster than any neck turns: not a toss of the head but a cut — a seek, a restart, a jump
+    // to another section — which the hair, like the head, is simply there for
+    if (turn.length() > SWISH_CUT) {
+      turned.set(0, 0, 0);
+      return;
+    }
+    const strong = THREE.MathUtils.smoothstep(
+      Math.max(turn.length(), turned.length()),
+      SWISH_FROM,
+      SWISH_FULL
+    );
+    // left behind as the head changes how it turns
+    speed
+      .addScaledVector(turn.clone().sub(turned), -SWISH_GAIN * strong)
+      .clampLength(0, SWISH_FASTEST);
+    turned.copy(turn);
+    for (let t = 0; t < dt; t += SWISH_STEP) {
+      const h = Math.min(SWISH_STEP, dt - t);
+      speed.addScaledVector(angle, -SWISH_SPRING * h).multiplyScalar(1 - SWISH_DAMP * h);
+      angle.addScaledVector(speed, h).clampScalar(-SWISH_MOST, SWISH_MOST);
+    }
+    for (const o of swings) {
+      const give = typeof o.userData.give === 'number' ? o.userData.give : 1;
+      o.rotation.set(angle.x * give, angle.y * give, angle.z * give);
+    }
+  };
+}
+
 /**
  * Build the drummer: `m` is coloured for `who` (`makeMaterials(who)`), and
  * `who` sets the build, the hair, the beard and what they wear.
@@ -1649,10 +2027,11 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
   const neck = limb(girth(NECK, shape.neck), m.skin);
   place(neck, new THREE.Vector3(0, 0.575, 0.02), new THREE.Vector3(0, 0.69, 0.01));
   torso.add(neck);
-  const { head, eyes, brows, smile } = buildHead(m, who);
+  const { head, eyes, brows, mouth } = buildHead(m, who);
   head.position.set(0, 0.665, 0.0);
   torso.add(head);
   root.add(torso);
+  const swish = swishOf(head, torso);
 
   const arms: Record<Hand, ArmRig> = {
     lead: buildArm('lead', m, who),
@@ -1681,7 +2060,7 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
   const pelvisAt = vec(BODY.pelvis);
   return {
     root,
-    update(pose: Pose, camera?: THREE.Vector3) {
+    update(pose: Pose, camera?: THREE.Vector3, dt = 0) {
       torso.position.copy(pelvisAt).add(new THREE.Vector3(0, pose.bob, 0));
       torso.rotation.set(-pose.lean, pose.yaw, pose.roll, 'YXZ');
       // the head stays level-ish as the torso leans: it looks at the kit, not the floor
@@ -1708,11 +2087,17 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
         const shut = Math.max(pose.blink, g.eye === side ? g.wink : 0);
         // and a smile reaches the eyes, narrowing them a little
         eyes[side].scale.y = (1 - 0.9 * shut) * (1 - 0.18 * pose.smile);
-        // a hello lifts both brows; a wink pulls its own down a touch
+        // a hello lifts both brows; a wink pulls its own down a touch; and now and then one goes
+        // up on its own, arching at the outer end
+        const one = pose.brow.side === side ? pose.brow.raise : 0;
         brows[side].position.y =
-          BROW_Y + BROW_RAISE * g.brows - (g.eye === side ? 0.003 * g.wink : 0);
+          BROW_Y +
+          BROW_RAISE * Math.max(g.brows, 1.3 * one) -
+          (g.eye === side ? 0.003 * g.wink : 0);
+        brows[side].rotation.z = Math.PI / 2 + side * (0.12 - 0.2 * one);
       }
-      smile(pose.smile);
+      mouth(pose.smile, pose.speak);
+      swish(dt);
       poseArm(arms.lead, pose.arms.lead);
       poseArm(arms.other, pose.arms.other);
       poseLeg(legs.kickFoot, pose.legs.kickFoot);

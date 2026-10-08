@@ -580,7 +580,8 @@ lane soloed, only soloed lanes sound on the speakers, and mute still wins
 (`laneGain` in `transport.ts`, task 5.12). Only a solo on a lane the pattern
 plays counts (`soloInPlay`), so one left on a lane the next pattern has not
 got cannot silence the kit; the mixer lists every lane A or B plays
-(`mixLanes`). The port hears every lane.
+(`mixLanes`). The port hears every lane, and so does the 3D drummer: it plays
+the whole pattern whatever is muted or soloed (`onStep` hands it every voice).
 
 **The hi-hat and ride bands.** The hats slider shapes both cymbals the same way
 (`hatShape`): the stick on the beat is loud, and the "e" and "a" are quieter. That

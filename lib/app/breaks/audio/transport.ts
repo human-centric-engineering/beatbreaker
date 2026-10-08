@@ -108,9 +108,11 @@ export function laneGain(
 /**
  * One step as the transport scheduled it, note by note — for anything that
  * draws the kit being played rather than the chart being read (the 3D
- * drummer). The notes are the voices the speakers were handed, at the times
- * they were handed them, so a drawing that follows these lands where the
- * sound does: swung, felt and humanised. `bar` and `next` are the grid this
+ * drummer). The notes are every voice the step plays, at the times the speakers
+ * were handed them — before the mixer, as the MIDI port hears them, so a lane
+ * muted or soloed out is still there: a drummer plays the whole pattern. A
+ * drawing that follows these lands where the sound does: swung, felt and
+ * humanised. `bar` and `next` are the grid this
  * step sits in and the bar the arrangement plays after it, which is how a
  * listener sees past the lookahead to plan its next stroke.
  */
@@ -387,11 +389,11 @@ export class Transport {
         meter: m,
         bar,
         next: (after && snap.patterns[after.letter]?.bars[after.barIdx]) ?? null,
-        /* What the speakers were handed: a muted lane (or one a solo
-           silences) is one you are playing yourself, so the drummer leaves it. */
-        notes: voices.flatMap((voice, n) =>
-          laneGain(snap, voice.lane) ? [{ voice, when: whens[n] }] : []
-        ),
+        /* Every voice, before the mixer, as the MIDI port hears it: the
+           drummer plays the whole pattern whatever is muted or soloed, since
+           it plans its limbs from `bar` and `next`, which the mixer never
+           touches — a lane left out is an arm wound up for a hit that never comes. */
+        notes: voices.map((voice, n) => ({ voice, when: whens[n] })),
       });
     }
 
