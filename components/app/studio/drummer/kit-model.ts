@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-import { ball, type Materials, rod } from '@/components/app/studio/drummer/parts';
+import { ball, kickLogoTexture, type Materials, rod } from '@/components/app/studio/drummer/parts';
 import {
   BOARD_LENGTH,
   BELL,
@@ -185,7 +185,17 @@ export function buildKit(m: Materials): KitModel {
   const kickBody = drum({ ...kick, centre: [0, 0, 0] }, m, 10, m.wood);
   kickBody.rotation.x = Math.PI / 2;
   kickBody.position.z = kick.depth / 2;
-  // a white batter head facing the drummer, a black reso with a port out front
+  // a white batter head facing the drummer, a black reso out front with the name round it
+  const logo = kickLogoTexture();
+  if (logo) {
+    const front = new THREE.Mesh(
+      new THREE.CircleGeometry(kick.radius * 0.99, 64),
+      new THREE.MeshStandardMaterial({ map: logo, roughness: 0.6 })
+    );
+    front.rotation.x = Math.PI / 2;
+    front.position.y = -kick.depth - 0.001;
+    kickBody.add(front);
+  }
   kickGroup.add(kickBody);
   for (const side of [-1, 1]) {
     const spur = rod(
