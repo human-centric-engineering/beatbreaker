@@ -15,7 +15,51 @@ import {
 } from '@/lib/app/breaks/drummer/corner-chart';
 import { type Engraving, engrave } from '@/lib/app/breaks/engrave';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
+import type { Pattern } from '@/lib/app/breaks/types';
 import { cn } from '@/lib/utils';
+
+/**
+ * The section the chart shows and the one after it: the one playing, or the
+ * first to play while stopped or counting in. A section with no pattern is
+ * `undefined`, and the chart draws nothing for it.
+ */
+export function useChartSections() {
+  const c = useStudio();
+  const pos = c.position;
+  const has = (l: SectionLetter) => !!c.view[l];
+  const eligible = (l: SectionLetter) => (c.viewMode === 'both' || l === c.viewMode) && has(l);
+  const first = firstSection(c.arrangement, c.viewMode, has);
+  const letter: SectionLetter = (!pos?.count && pos?.letter) || first;
+  const secIdx = pos && !pos.count ? pos.secIdx : c.arrangement.findIndex(eligible);
+  const nextLetter = nextSection(c.arrangement, c.viewMode, secIdx, letter, has);
+  return { letter, nextLetter, current: c.view[letter], following: c.view[nextLetter] };
+}
+
+/** Lines drawn, by the section and the one after it (or none). */
+const drawn = new WeakMap<Pattern, WeakMap<Pattern, Engraving>>();
+const drawnAlone = new WeakMap<Pattern, Engraving>();
+
+/**
+ * The section's line with the start of the next on it, drawn once for as long
+ * as the patterns live: an arrangement going A B A B redraws neither at each
+ * change of section, on the very step the playhead lands on.
+ */
+function lineOf(current: Pattern, following: Pattern | null): Engraving {
+  let byNext = following ? drawn.get(current) : undefined;
+  if (following && !byNext) drawn.set(current, (byNext = new WeakMap()));
+  const hit = following ? byNext?.get(following) : drawnAlone.get(current);
+  if (hit) return hit;
+  const pat = withPreview(current, following);
+  const out = engrave(pat, null, {
+    scale: CHART_SCALE,
+    perSystem: Math.max(1, pat.bars.length),
+    guides: false,
+    sticking: false,
+  });
+  if (following) byNext?.set(following, out);
+  else drawnAlone.set(current, out);
+  return out;
+}
 
 /** Where the strip was left: by which engraving, at which step, and where the step after it was on screen. */
 interface Placed {
@@ -46,14 +90,7 @@ interface Placed {
 export function DrummerChart() {
   const c = useStudio();
   const pos = c.position;
-  const has = (l: SectionLetter) => !!c.view[l];
-  const eligible = (l: SectionLetter) => (c.viewMode === 'both' || l === c.viewMode) && has(l);
-  const first = firstSection(c.arrangement, c.viewMode, has);
-  const letter: SectionLetter = (!pos?.count && pos?.letter) || first;
-  const secIdx = pos && !pos.count ? pos.secIdx : c.arrangement.findIndex(eligible);
-  const nextLetter = nextSection(c.arrangement, c.viewMode, secIdx, letter, has);
-  const current = c.view[letter];
-  const following = c.view[nextLetter];
+  const { letter, nextLetter, current, following } = useChartSections();
 
   const windowRef = useRef<HTMLDivElement>(null);
   const strip = useRef<HTMLDivElement>(null);
@@ -71,19 +108,21 @@ export function DrummerChart() {
     return () => watch.disconnect();
   }, [shown]);
 
-  const engraving = useMemo(() => {
-    if (!current) return null;
-    const pat = withPreview(current, following);
-    return engrave(pat, null, {
-      scale: CHART_SCALE,
-      perSystem: Math.max(1, pat.bars.length),
-      guides: false,
-      sticking: false,
-    });
-  }, [current, following]);
+  const engraving = useMemo(
+    () => (current ? lineOf(current, following) : null),
+    [current, following]
+  );
 
+  // a bar index past the section's end (a bar cut while it plays, before the
+  // transport catches up) would land in the preview: no playhead until it does
   const index =
-    engraving && pos && !pos.count && pos.letter === letter && pos.barIdx != null
+    current &&
+    engraving &&
+    pos &&
+    !pos.count &&
+    pos.letter === letter &&
+    pos.barIdx != null &&
+    pos.barIdx < current.bars.length
       ? pos.barIdx * engraving.steps + pos.slot
       : null;
 
@@ -110,6 +149,9 @@ export function DrummerChart() {
       };
       return;
     }
+    // not laid out yet: a page turned against no width would put the playhead
+    // at the left edge, and the line would carry on from there once it is
+    if (!room) return;
     const x = centreOf(anchor);
     const was = placed.current;
     let shift = was.shift;

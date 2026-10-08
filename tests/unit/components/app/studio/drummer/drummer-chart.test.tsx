@@ -184,6 +184,24 @@ describe('DrummerChart', () => {
     expect(p.next).toBe('Next: A');
   });
 
+  it('puts no playhead in the preview for a bar the section no longer has', () => {
+    // A has two bars; bar 2 is a bar cut while it played, before the transport caught up
+    fake = studio({ t: 0, letter: 'A', barIdx: 2, secIdx: 0, slot: 0 });
+    const { container } = render(<DrummerChart />);
+    expect(parts(container).playhead?.getAttribute('width')).toBe('0');
+  });
+
+  it('turns no page until the window has a width to turn it against', () => {
+    vi.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(0);
+    fake = studio(null);
+    const { container, rerender } = render(<DrummerChart />);
+    const { map } = stripOf(A, B);
+    const far = map.findIndex((a) => centre(a) > ROOM * TURN_AT);
+    playThrough(rerender, 'A', 0, far + 1);
+    // with no width every step would be past the turn point: the line stays at its start
+    expect(parts(container).shift).toBe(0);
+  });
+
   it('previews the section itself when it is played on its own', () => {
     fake = studio({ t: 0, letter: 'A', barIdx: 0, secIdx: 0, slot: 0 }, 'A', ['A', 'B']);
     const { container } = render(<DrummerChart />);

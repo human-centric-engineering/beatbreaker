@@ -86,7 +86,8 @@ export default function DrummerCanvas({
     s.setGrips(latest.current.grips);
     s.setPlaying(latest.current.playing);
     s.flyTo(latest.current.view);
-    s.setAside(latest.current.aside);
+    // a new stage starts where the old one was, not sliding over from the middle
+    s.setAside(latest.current.aside, true);
     stage.current = s;
     const unsubscribe = subscribeSteps(s.ingest);
     return () => {

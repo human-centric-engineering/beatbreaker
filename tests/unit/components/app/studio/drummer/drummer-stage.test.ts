@@ -335,6 +335,16 @@ describe('DrummerStage', () => {
     expect(camera().view?.enabled ?? false).toBe(false);
   });
 
+  it('puts the drummer aside at once when asked to snap, as a new stage is', () => {
+    Object.defineProperty(host, 'clientWidth', { value: 1000, configurable: true });
+    Object.defineProperty(host, 'clientHeight', { value: 500, configurable: true });
+    const stage = new DrummerStage(host, clock);
+    stage.setAside(true, true);
+    rafCtl.runNextFrame(16);
+    const camera = () => fakes.renderers[0].render.mock.lastCall?.[1] as THREE.PerspectiveCamera;
+    expect(camera().view?.offsetX).toBeCloseTo(160, 5);
+  });
+
   it('gives up the flight the moment the viewer grabs the camera', () => {
     const stage = new DrummerStage(host, clock);
     rafCtl.runNextFrame(0);

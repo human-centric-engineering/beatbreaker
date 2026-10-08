@@ -252,6 +252,8 @@ describe('DrummerCanvas', () => {
     };
     const { rerender } = render(<DrummerCanvas {...props} aside />);
     const stage = fakes.instances[0];
+    // straight there on a new stage, not sliding over from the middle
+    expect(stage.setAside).toHaveBeenCalledWith(true, true);
     expect(stage.setAside).toHaveBeenLastCalledWith(true);
 
     rerender(<DrummerCanvas {...props} aside={false} />);

@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useState, useSyncExternalStore } from 'react';
 
-import { DrummerChart } from '@/components/app/studio/drummer/drummer-chart';
+import { DrummerChart, useChartSections } from '@/components/app/studio/drummer/drummer-chart';
 import { Segmented } from '@/components/app/studio/segmented';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
@@ -68,6 +68,10 @@ export function DrummerView() {
   // asked once, on the client; the server renders the placeholder
   const webgl = useSyncExternalStore(noSubscribe, hasWebGL, () => true);
   const wide = useSyncExternalStore(subscribeWide, isWide, () => false);
+  // only where the stylesheet would show it, and only with a section to draw:
+  // hidden, it would still lay out the line and follow every step
+  const section = useChartSections().current;
+  const chartShown = chart && wide && !!section;
 
   return (
     <div className="drummer">
@@ -171,7 +175,7 @@ export function DrummerView() {
             view={view}
             viewSeq={viewSeq}
             shuffleSeq={shuffleSeq}
-            aside={chart && wide}
+            aside={chartShown}
             playing={c.playing}
             subscribeSteps={c.subscribeSteps}
             audioNow={c.audioNow}
@@ -183,7 +187,7 @@ export function DrummerView() {
             can&rsquo;t be shown. The chart still plays.
           </p>
         )}
-        {chart ? <DrummerChart /> : null}
+        {chartShown ? <DrummerChart /> : null}
         {!c.playing ? <p className="drummer-cue">Press Play and the drummer plays along.</p> : null}
       </div>
     </div>

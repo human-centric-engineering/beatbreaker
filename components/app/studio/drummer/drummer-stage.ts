@@ -192,9 +192,15 @@ export class DrummerStage {
     this.camera.updateProjectionMatrix();
   }
 
-  /** Move the drummer left, out from under the chart in the corner, or back to the middle. */
-  setAside(aside: boolean): void {
+  /**
+   * Move the drummer left, out from under the chart in the corner, or back to
+   * the middle: a slide, or — `snap`, for a stage just built — straight there.
+   */
+  setAside(aside: boolean, snap = false): void {
     this.asideTo = aside ? ASIDE : 0;
+    if (!snap) return;
+    this.aside = this.asideTo;
+    this.frameAside();
   }
 
   private cancelFlight = (): void => {

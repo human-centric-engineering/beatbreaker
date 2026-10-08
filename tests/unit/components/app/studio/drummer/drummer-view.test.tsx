@@ -245,6 +245,59 @@ describe('DrummerView, with WebGL available', () => {
     expect(JSON.parse(localStorage.getItem('bb.drummerChart') ?? 'null')).toBe(false);
   });
 
+  /** The window as wide as `px`, as the chart's media query reads it. */
+  function stubWidth(px: number) {
+    vi.stubGlobal(
+      'matchMedia',
+      vi.fn((query: string) => ({
+        matches: px >= Number(/min-width:\s*(\d+)px/.exec(query)?.[1] ?? 0),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+      }))
+    );
+  }
+
+  const oneBar = () =>
+    generatePattern({
+      style: testStyle('funk'),
+      meter: '4/4',
+      seed: 7,
+      bars: 1,
+      density: 50,
+      ghosts: 50,
+    });
+
+  it('moves the drummer aside for the chart on a wide screen', async () => {
+    stubWebGL(true);
+    stubWidth(1200);
+    fakeStudio = { ...fakeStudio, view: { A: oneBar(), B: null } };
+    const DrummerView = await loadDrummerView();
+    const { container } = render(<DrummerView />);
+    expect(container.querySelector('.drummer-chart')).not.toBeNull();
+    expect(capturedCanvasProps?.aside).toBe(true);
+    vi.unstubAllGlobals();
+  });
+
+  it('neither mounts the chart nor moves the drummer on a phone, where the chart is hidden', async () => {
+    stubWebGL(true);
+    stubWidth(400);
+    fakeStudio = { ...fakeStudio, view: { A: oneBar(), B: null } };
+    const DrummerView = await loadDrummerView();
+    const { container } = render(<DrummerView />);
+    expect(container.querySelector('.drummer-chart')).toBeNull();
+    expect(capturedCanvasProps?.aside).toBe(false);
+    vi.unstubAllGlobals();
+  });
+
+  it('leaves the drummer in the middle when there is no section for the chart to draw', async () => {
+    stubWebGL(true);
+    stubWidth(1200);
+    const DrummerView = await loadDrummerView();
+    render(<DrummerView />);
+    expect(capturedCanvasProps?.aside).toBe(false);
+    vi.unstubAllGlobals();
+  });
+
   it('bumps viewSeq on Re-centre without changing the view', async () => {
     stubWebGL(true);
     const DrummerView = await loadDrummerView();
