@@ -48,6 +48,8 @@ export function playability(pat: Pattern, bpm: number): Playability {
   let graceClash = false;
   let threeHands = false;
   const hands = handLanes(pat.perc);
+  // on a double pedal a run of kicks is two feet's: no run is too long, and the kick is not the air
+  const doubleKick = !!pat.attrs?.doubleKick;
 
   const nSteps = pat.bars[0] ? pat.bars[0].k.length : STEPS;
   const airFloor = Math.max(3, Math.round(nSteps / 4));
@@ -73,15 +75,20 @@ export function playability(pat: Pattern, bpm: number): Playability {
     if (!ok) noBackbeat = true;
 
     let empties = 0;
-    for (let i = 0; i < nSteps; i++) if (!b.k[i] && !b.s[i]) empties++;
+    for (let i = 0; i < nSteps; i++) if ((doubleKick || !b.k[i]) && !b.s[i]) empties++;
     if (empties < airFloor) airless = true;
   }
 
-  const fastDoubles = doubleStrain > 0 && bpm > 132 && doubleStrain > pat.bars.length;
+  if (doubleKick) kickRun = false;
+  const fastDoubles =
+    !doubleKick && doubleStrain > 0 && bpm > 132 && doubleStrain > pat.bars.length;
 
   const checks: Check[] = [
     { ok: !rideClash, label: 'One cymbal at a time — no ride under a hi-hat' },
-    { ok: !kickRun, label: 'No triple 16ths on the kick' },
+    {
+      ok: !kickRun,
+      label: doubleKick ? 'Kick runs go to the double pedal' : 'No triple 16ths on the kick',
+    },
     { ok: !snareRun, label: 'Snare never runs four 16ths without a break' },
     {
       ok: !noBackbeat,
@@ -90,7 +97,12 @@ export function playability(pat: Pattern, bpm: number): Playability {
           ? 'Every bar marks 2 and 4 with the foot'
           : 'Every bar has a findable backbeat',
     },
-    { ok: !airless, label: 'At least a quarter of every bar is air' },
+    {
+      ok: !airless,
+      label: doubleKick
+        ? 'At least a quarter of every bar is air above the kick'
+        : 'At least a quarter of every bar is air',
+    },
     { ok: !fastDoubles, label: `Kick doubles are sane for ${Math.round(bpm)} BPM` },
   ];
   /* Only shown where it can fail: every pattern written before 9-iv passes it,

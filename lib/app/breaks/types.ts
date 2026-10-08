@@ -197,9 +197,10 @@ export interface PercSpec {
 /**
  * The part of a style that travels with a pattern.
  *
- * Five fields, and the list is not arbitrary — it is exactly what the transport
+ * Six fields, and the list is not arbitrary — it is exactly what the transport
  * (`isSwung`, `hatShape`, `feelOffset`), the critic (`kickFeather`,
- * `targetDensity`) and the MIDI export read off a style once a pattern exists.
+ * `targetDensity`, `doubleKick`), the 3D drummer (`doubleKick`) and the MIDI
+ * export read off a style once a pattern exists.
  * Everything else a style says is an instruction to the *generator*, and is
  * spent the moment the notes are written.
  *
@@ -227,6 +228,12 @@ export interface StyleAttrs {
   targetDensity?: number;
   /** How hard this style leans on the hi-hat dynamic shape. */
   hatDepth?: number;
+  /**
+   * Played with a double pedal: a run of 16ths on the kick goes right foot,
+   * left foot, so the generator does not thin it, the critic does not call it
+   * unplayable, and the 3D drummer plays it on two pedals.
+   */
+  doubleKick?: boolean;
 }
 
 export interface Style extends StyleAttrs {

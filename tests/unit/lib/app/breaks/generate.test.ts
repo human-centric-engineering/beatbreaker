@@ -50,10 +50,10 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 37 styles in 12 meters — the numbers the site copy quotes', () => {
-    expect(TEST_STYLE_KEYS).toHaveLength(37);
+  it('is 39 styles in 12 meters — the numbers the site copy quotes', () => {
+    expect(TEST_STYLE_KEYS).toHaveLength(39);
     expect(METER_KEYS).toHaveLength(12);
-    expect(COMBOS).toHaveLength(444);
+    expect(COMBOS).toHaveLength(468);
   });
 });
 
@@ -265,5 +265,52 @@ describe('two hands', () => {
     fitHands(crowded);
     expect(notes(crowded)).toBeLessThan(was);
     expect(handsAt(crowded.bars[0], 4, handLanes(crowded.perc))).toBeLessThanOrEqual(2);
+  });
+});
+
+describe('double kick', () => {
+  /** The longest run of kicks in a row, anywhere in the pattern. */
+  const longestRun = (pat: Pattern) =>
+    Math.max(
+      ...pat.bars.map((b) => {
+        let best = 0;
+        let run = 0;
+        for (const v of b.k) best = Math.max(best, (run = v ? run + 1 : 0));
+        return best;
+      })
+    );
+
+  it('carries the double pedal with the pattern from every double-kick style, and no other', () => {
+    for (const key of TEST_STYLE_KEYS) {
+      const pat = gen(key, '4/4');
+      expect(!!pat.attrs.doubleKick).toBe(!!STYLES[key].params.doubleKick);
+    }
+    expect(['metal', 'doublekick', 'gallop'].every((k) => STYLES[k].params.doubleKick)).toBe(true);
+  });
+
+  it('writes runs of 16ths on the kick that a single-pedal style never would', () => {
+    expect(longestRun(gen('doublekick', '4/4', 7, 4))).toBeGreaterThanOrEqual(8);
+    expect(longestRun(gen('rock', '4/4', 7, 4))).toBeLessThanOrEqual(2);
+  });
+
+  it('passes the playability check on a double pedal, and fails the same notes without one', () => {
+    const pat = gen('doublekick', '4/4', 7, 4);
+    const ok = playability(pat, 150);
+    expect(ok.hard).toBe(true);
+    expect(ok.checks[1]).toEqual({ ok: true, label: 'Kick runs go to the double pedal' });
+    // not too fast for the doubles, either: that is what the second pedal is for
+    expect(ok.checks[5].ok).toBe(true);
+
+    const single = playability({ ...pat, attrs: { ...pat.attrs, doubleKick: false } }, 150);
+    expect(single.hard).toBe(false);
+    expect(single.checks[1]).toEqual({ ok: false, label: 'No triple 16ths on the kick' });
+    expect(single.checks[4].ok).toBe(false);
+    expect(single.checks[5].ok).toBe(false);
+  });
+
+  it('keeps the gallop a gallop: an 8th and two 16ths, beat after beat', () => {
+    const pat = gen('gallop', '4/4', 7, 4);
+    const cells = pat.bars.flatMap((b) => [0, 4, 8, 12].map((s) => b.k.slice(s, s + 4).join('')));
+    expect(cells.filter((c) => c === '1011').length).toBeGreaterThan(cells.length / 2);
   });
 });

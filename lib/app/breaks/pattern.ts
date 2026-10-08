@@ -300,5 +300,6 @@ export function styleAttrs(style: StyleAttrs | undefined): StyleAttrs {
   if (style.kickFeather != null) out.kickFeather = style.kickFeather;
   if (style.targetDensity != null) out.targetDensity = style.targetDensity;
   if (style.hatDepth != null) out.hatDepth = style.hatDepth;
+  if (style.doubleKick) out.doubleKick = true;
   return out;
 }

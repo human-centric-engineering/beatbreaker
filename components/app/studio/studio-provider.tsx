@@ -204,7 +204,7 @@ export function StudioProvider({
    *
    * Required, with no fallback to a compiled-in default. A default would be a
    * second copy of the content, which is the thing Phase 2 got rid of — and a
-   * Studio that quietly renders 37 styles that are not the ones in the database
+   * Studio that quietly renders 39 styles that are not the ones in the database
    * is worse than one that will not render at all.
    */
   catalogue: StudioCatalogue;

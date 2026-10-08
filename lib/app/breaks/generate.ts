@@ -87,7 +87,9 @@ function genKickBeat(
     return [cell, w * Math.pow(1 + density, notes - 1)];
   });
   let cell = wpick(rng, bent);
-  if (hasBackbeat && cell[0] === '1' && rng() > 0.34) cell = `0${cell.slice(1)}`;
+  // (on a double pedal the kick runs on under the backbeat)
+  if (hasBackbeat && !style.doubleKick && cell[0] === '1' && rng() > 0.34)
+    cell = `0${cell.slice(1)}`;
   return cell;
 }
 
@@ -125,6 +127,8 @@ function applyKickRules(bar: Bar, style: Style): Bar {
      test in tests/unit/lib/app/breaks/catalogue/schemas.test.ts.) */
   for (const i of banned) if (i < n) bar.k[i] = 0;
   for (const i of forced) if (i < n) bar.k[i] = 1;
+  // on a double pedal a run of kicks is two feet's, and stays
+  if (style.doubleKick) return bar;
   // never more than two 16ths of kick in a row — drop whichever the style did not ask for
   for (let i = 0; i < n - 2; i++) {
     if (bar.k[i] && bar.k[i + 1] && bar.k[i + 2]) {
