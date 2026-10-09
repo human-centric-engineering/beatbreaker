@@ -20,6 +20,7 @@ import { GeneratePanel } from '@/components/app/studio/panels/generate-panel';
 import { Stage } from '@/components/app/studio/stage';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { testCatalogue } from '@/tests/helpers/catalogue';
+import { pickStyle } from '@/tests/helpers/style-picker';
 
 const renderPanel = () =>
   render(
@@ -56,7 +57,7 @@ describe('GeneratePanel', () => {
     // funk has no `feel`
     expect(screen.queryByLabelText('Off-grid feel')).toBeNull();
 
-    await userEvent.setup().selectOptions(screen.getByLabelText('Style'), 'reggae');
+    await pickStyle(userEvent.setup(), 'reggae');
 
     // reggae has a feel, and feel ships at 100 (not straight), so the shaped
     // read-out — not the straight-line one — is what should be on screen
@@ -78,7 +79,7 @@ describe('GeneratePanel', () => {
     expect(screen.getByText(/^Kick, snare, hats, ride and crash\./)).toBeTruthy();
 
     // gospel ships with toms AND a percussion slot (tambourine)
-    await userEvent.setup().selectOptions(screen.getByLabelText('Style'), 'gospel');
+    await pickStyle(userEvent.setup(), 'gospel');
     expect(
       screen.getByText(/^On top of the kit: High tom, Mid tom, Floor tom, Tambourine\./)
     ).toBeTruthy();

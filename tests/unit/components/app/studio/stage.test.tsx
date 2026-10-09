@@ -22,6 +22,7 @@ import { GeneratePanel } from '@/components/app/studio/panels/generate-panel';
 import { Stage } from '@/components/app/studio/stage';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { testCatalogue } from '@/tests/helpers/catalogue';
+import { pickStyle } from '@/tests/helpers/style-picker';
 
 /** A's and B's bars at the layer on show, and the section the grid is editing. */
 let studio: ReturnType<typeof useStudio> | null = null;
@@ -286,7 +287,7 @@ describe('Stage', () => {
     await user.click(screen.getByRole('radio', { name: '1' }));
     expect(document.querySelector('.chip.brass')?.textContent).toBe('1 bar');
 
-    await user.selectOptions(screen.getByLabelText('Style'), 'reggae');
+    await pickStyle(user, 'reggae');
     expect(document.querySelector('.chip.teal')?.textContent).toBe('One drop');
   });
 

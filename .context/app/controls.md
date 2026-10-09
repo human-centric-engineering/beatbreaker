@@ -95,25 +95,26 @@ new control). Give it a `<StudioHelp>` if it needs more than its name, and
 
 ## Generate
 
-| role     | name                 | where                               | help              | shortcut | target      |
-| -------- | -------------------- | ----------------------------------- | ----------------- | -------- | ----------- |
-| combobox | `Style`              | Generate                            | the style's blurb | —        | 36px select |
-| combobox | `Time signature`     | Generate                            | —                 | —        | 36px select |
-| radio    | `<1\|2\|3\|4>`       | Generate, bars                      | —                 | —        | `Segmented` |
-| slider   | `Kick density`       | Generate                            | —                 | —        | 24px        |
-| slider   | `Ghost notes`        | Generate                            | —                 | —        | 24px        |
-| slider   | `Hi-hat dynamics`    | Generate                            | —                 | —        | 24px        |
-| slider   | `Swing (16ths)`      | Generate                            | —                 | —        | 24px        |
-| button   | `Lock <what>`        | Generate (Kick, Snare, Hats, Tempo) | —                 | —        | `.mini`     |
-| button   | `New A only`         | Generate                            | —                 | —        | `.mini`     |
-| button   | `New B only`         | Generate                            | —                 | —        | `.mini`     |
-| button   | `Build B from A`     | Generate                            | —                 | —        | `.mini`     |
-| radio    | `The style's`        | Generate, kit lanes                 | ⓘ _Kit lanes_     | —        | `Segmented` |
-| radio    | `My own`             | Generate, kit lanes                 | ⓘ _Kit lanes_     | —        | `Segmented` |
-| checkbox | `Toms`               | Generate, kit lanes (My own)        | —                 | —        | 24px        |
-| combobox | `Perc <n>`           | Generate, kit lanes (My own)        | —                 | —        | 36px select |
-| button   | `About Kit lanes`    | Generate                            | ⓘ                 | —        | 24px        |
-| button   | `Change it in Sound` | Generate, under the style's kit     | —                 | —        | 24px link   |
+| role     | name                 | where                                                            | help              | shortcut        | target      |
+| -------- | -------------------- | ---------------------------------------------------------------- | ----------------- | --------------- | ----------- |
+| button   | `Style <style>`      | Generate, opens the style picker                                 | the style's blurb | —               | 62px sleeve |
+| combobox | `Search the styles`  | Style picker, when open; ↑ ↓ move through the cards, Enter picks | —                 | ↑ ↓, Enter, Esc | 44px        |
+| combobox | `Time signature`     | Generate                                                         | —                 | —               | 36px select |
+| radio    | `<1\|2\|3\|4>`       | Generate, bars                                                   | —                 | —               | `Segmented` |
+| slider   | `Kick density`       | Generate                                                         | —                 | —               | 24px        |
+| slider   | `Ghost notes`        | Generate                                                         | —                 | —               | 24px        |
+| slider   | `Hi-hat dynamics`    | Generate                                                         | —                 | —               | 24px        |
+| slider   | `Swing (16ths)`      | Generate                                                         | —                 | —               | 24px        |
+| button   | `Lock <what>`        | Generate (Kick, Snare, Hats, Tempo)                              | —                 | —               | `.mini`     |
+| button   | `New A only`         | Generate                                                         | —                 | —               | `.mini`     |
+| button   | `New B only`         | Generate                                                         | —                 | —               | `.mini`     |
+| button   | `Build B from A`     | Generate                                                         | —                 | —               | `.mini`     |
+| radio    | `The style's`        | Generate, kit lanes                                              | ⓘ _Kit lanes_     | —               | `Segmented` |
+| radio    | `My own`             | Generate, kit lanes                                              | ⓘ _Kit lanes_     | —               | `Segmented` |
+| checkbox | `Toms`               | Generate, kit lanes (My own)                                     | —                 | —               | 24px        |
+| combobox | `Perc <n>`           | Generate, kit lanes (My own)                                     | —                 | —               | 36px select |
+| button   | `About Kit lanes`    | Generate                                                         | ⓘ                 | —               | 24px        |
+| button   | `Change it in Sound` | Generate, under the style's kit                                  | —                 | —               | 24px link   |
 
 ## Edit
 
@@ -307,6 +308,19 @@ And the ones 8-ii adds:
       show this: happy-dom loses track of focus while the Studio first
       draws.)
 - [ ] VoiceOver reads the tour card's step title and line.
+
+And the ones the style picker adds:
+
+- [ ] The sleeve in the Generate panel at 390 and 1440px, light and dark: the
+      record peeks out of the sleeve and slides further on hover, and the
+      sleeve wears the style's group colour.
+- [ ] The crate at 390px (full screen, the group dividers a strip that
+      scrolls sideways) and at 1440px (centred, the dividers a column): the
+      style on the stage is in view on opening, tagged _On the stage_.
+- [ ] Typing in the search narrows the cards as you type, ↑ ↓ move the
+      highlight (the highlighted card slides its record out) and Enter picks;
+      Esc closes and focus goes back to the sleeve.
+- [ ] VoiceOver in the crate: each card is announced as you arrow onto it.
 
 The five tasks in `planning/app-plan.md` §5 (Method) are the walk to do once
 these are ticked.

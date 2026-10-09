@@ -265,6 +265,27 @@ describe('Studio shortcuts', () => {
     expect(bpm()).toBe(tempo);
   });
 
+  it('sends no key to the Studio behind the open style picker, from any control in it', async () => {
+    const user = userEvent.setup();
+    await mount();
+    await user.click(
+      within(screen.getByRole('navigation', { name: 'Tools' })).getByRole('button', {
+        name: 'Generate',
+      })
+    );
+    await user.click(screen.getByRole('button', { name: /^Style / }));
+    const close = await screen.findByRole('button', { name: 'Close' });
+    const tempo = bpm();
+    // from the close button, not the search: a field takes every key anyway
+    fireEvent.keyDown(close, { key: ']' });
+    expect(bpm()).toBe(tempo);
+
+    await user.keyboard('{Escape}');
+    expect(screen.queryByRole('listbox')).toBeNull();
+    fireEvent.keyDown(document.body, { key: ']' });
+    expect(bpm()).toBe(tempo + 2);
+  });
+
   it('sends no key to the Studio from inside an ⓘ popover', async () => {
     const user = userEvent.setup();
     await mount();
