@@ -7,7 +7,10 @@ import {
   BODY,
   type Foot,
   HAND_REST,
+  DOUBLE_PEDAL,
   HAT_PEDAL,
+  HAT_PEDAL_BESIDE_DOUBLE,
+  hatShift,
   type Hand,
   KICK_PEDAL,
   type PieceId,
@@ -145,6 +148,8 @@ export interface Pose {
   legs: Record<Foot, LegPose>;
   /** The kick beater, radians back from the head. */
   beater: number;
+  /** A double pedal's second board and beater, as `board` and `beater` are the first's. */
+  double: { board: number; beater: number };
   /** Space between the hat cymbals, metres. */
   hatGap: number;
   /** The last stroke on each piece, for cymbals to swing and heads to give. */
@@ -214,7 +219,13 @@ const FOOT_DOWN = 0.85;
 /** How far a note's stroke can lean off straight up, radians either way. */
 const STROKE_LEAN = 0.12;
 
-function targetOf(hit: Hit | undefined, hand: Hand, hatGap: number): Target {
+/** Where the hi-hat is, for the hands: its gap, and how far it has moved for a double pedal. */
+interface HatAt {
+  gap: number;
+  shift: V3;
+}
+
+function targetOf(hit: Hit | undefined, hand: Hand, hat: HatAt): Target {
   const piece: PieceId = hit?.piece ?? HAND_REST[hand];
   if (piece === 'sticks') return countTarget(hand);
   if (piece === 'snare' && hit?.contact === 'cross') return crossTarget(hand);
@@ -222,8 +233,8 @@ function targetOf(hit: Hit | undefined, hand: Hand, hatGap: number): Target {
   const scatter = hit ? scatterOf(hit, hand) : undefined;
   const { tip, pitch } = strikeTarget(piece, hit?.contact, scatter);
   const out = v(tip);
-  // the top hat cymbal rides up as the pedal opens
-  if (piece === 'hat') out.y += hatGap - HAT_CLOSED_GAP;
+  // the top hat cymbal rides up as the pedal opens, and the hi-hat may have moved over
+  if (piece === 'hat') out.add(v(hat.shift)).setY(out.y + hat.gap - HAT_CLOSED_GAP);
   // a note landing to one side was thrown from that side: the lean follows the scatter
   return {
     tip: out,
@@ -1051,8 +1062,13 @@ const TOES = 0.07;
  * the foot's own frame, so a steep foot carries the shin forward over it, and
  * the knee is solved from the hip to that.
  */
-function leg(foot: Foot, board: number, stance: FootStance): LegPose {
-  const pedal = foot === 'kickFoot' ? KICK_PEDAL : HAT_PEDAL;
+function leg(
+  foot: Foot,
+  board: number,
+  stance: FootStance,
+  pedal: { heel: V3; toward: V3 } = foot === 'kickFoot' ? KICK_PEDAL : HAT_PEDAL,
+  splay = 0
+): LegPose {
   const plate = v(pedal.heel);
   const toward = dir(pedal.toward);
   const along = toward.clone().multiplyScalar(Math.cos(board)).addScaledVector(UP, Math.sin(board));
@@ -1091,10 +1107,63 @@ function leg(foot: Foot, board: number, stance: FootStance): LegPose {
   const ankle = heel.clone().addScaledVector(footUp, BODY.ankle).addScaledVector(length, 0.035);
 
   const hip = mirrorSide(BODY.hip, foot);
-  // a heel swung out turns the knee in
-  const pole = new Vector3(out * (0.25 - 1.2 * stance.swivel), 0.6, -1);
+  // a heel swung out turns the knee in; `splay` holds it out, past the snare
+  const pole = new Vector3(out * (0.25 + splay - 1.2 * stance.swivel), 0.6, -1);
   const { joint } = solveTwoBone(hip, ankle, BODY.thigh, BODY.shin, pole);
   return { hip, knee: joint, ankle, heel, ball, toe, board };
+}
+
+/**
+ * How near a stroke on the double pedal (seconds) the left foot is all the way
+ * over on it, and how far before it is all the way back on the hats.
+ */
+const ON_DOUBLE = 0.35;
+const OFF_DOUBLE = 0.75;
+/** The hat pedal's board with no foot on it: sprung up (a drop clutch keeps the hats shut). */
+const HAT_BOARD_UP = 0.4;
+/**
+ * How far the left knee is held out on the double pedal, on top of the usual
+ * (a share of the knee's bend, as `leg`'s pole has it): the snare sits between
+ * the knees, and a knee let fall in toward the kick would come up through it.
+ */
+const DOUBLE_SPLAY = 0.5;
+/** How high the foot lifts crossing between the pedals, metres. */
+const CROSS_LIFT = 0.06;
+
+/** 0 on the hat pedal, 1 on the double pedal: how far over the left foot is, from its strokes there. */
+function onDoublePedal(kicks: readonly Hit[], now: number): number {
+  let near = Infinity;
+  for (const h of kicks) near = Math.min(near, Math.abs(h.time - now));
+  return 1 - smootherstep(ON_DOUBLE, OFF_DOUBLE, near);
+}
+
+/**
+ * The left leg part way from the hat pedal (`hat`) to the double pedal
+ * (`double`): the foot lifted over between them, and the knee solved again
+ * from the hip to where the ankle has got to. The hat pedal's board is where
+ * it is left — sprung up once the foot is off it.
+ */
+function acrossPedals(hat: LegPose, double: LegPose, w: number): LegPose {
+  if (w <= 0) return hat;
+  const lift = new Vector3(0, CROSS_LIFT * Math.sin(Math.PI * w), 0);
+  const at = (a: Vector3, b: Vector3) => a.clone().lerp(b, w).add(lift);
+  const ankle = at(hat.ankle, double.ankle);
+  const { joint } = solveTwoBone(
+    hat.hip,
+    ankle,
+    BODY.thigh,
+    BODY.shin,
+    new Vector3(-(0.25 + DOUBLE_SPLAY), 0.6, -1)
+  );
+  return {
+    hip: hat.hip,
+    knee: joint,
+    ankle,
+    heel: at(hat.heel, double.heel),
+    ball: at(hat.ball, double.ball),
+    toe: at(hat.toe, double.toe),
+    board: hat.board + (HAT_BOARD_UP - hat.board) * w,
+  };
 }
 
 /** How long a relaxed hand takes to cross the kit: a base, and seconds per metre. */
@@ -1151,14 +1220,14 @@ const ANTICIPATE_MAX = 2;
  * hand, and for the lead hand whichever it was keeping time on last — the
  * hats or the ride.
  */
-function homeOf(hits: readonly Hit[], i: number, hand: Hand, hatGap: number): Target {
+function homeOf(hits: readonly Hit[], i: number, hand: Hand, hat: HatAt): Target {
   if (hand === 'lead') {
     for (let j = i; j >= 0 && hits[i].time - hits[j].time < HOME_MEMORY; j--) {
       const h = hits[j];
-      if (h.piece === 'hat' || h.piece === 'ride') return targetOf(h, hand, hatGap);
+      if (h.piece === 'hat' || h.piece === 'ride') return targetOf(h, hand, hat);
     }
   }
-  return targetOf(undefined, hand, hatGap);
+  return targetOf(undefined, hand, hat);
 }
 
 function path(
@@ -1166,13 +1235,13 @@ function path(
   hits: readonly Hit[],
   hand: Hand,
   now: number,
-  hatGap: number
+  hat: HatAt
 ): HandPath {
   const { prev, next } = st;
   const rest = restTarget(hand);
   if (prev && next) {
-    const from = targetOf(prev, hand, hatGap);
-    const to = targetOf(next, hand, hatGap);
+    const from = targetOf(prev, hand, hat);
+    const to = targetOf(next, hand, hat);
     const gap = next.time - prev.time;
     const end = next.time - Math.min(0.03, gap * 0.2);
     // off a tom or a crash with time to spare, the hand goes home before the next note;
@@ -1183,11 +1252,11 @@ function path(
     // coming into view, or the last one being forgotten, never moves it
     const wake = end - moveTime(rest, to) - 0.1;
     if (!counting && prev.time + SETTLE_AFTER < wake) {
-      const waiting = along(settling(prev, hits, hand, Math.min(now, wake), hatGap));
+      const waiting = along(settling(prev, hits, hand, Math.min(now, wake), hat));
       return { from: waiting, to, travel: smootherstep(wake, end, now) };
     }
     if (!isHome(prev) && !counting) {
-      const home = homeOf(hits, lastAtOrBefore(hits, prev.time), hand, hatGap);
+      const home = homeOf(hits, lastAtOrBefore(hits, prev.time), hand, hat);
       const out = moveTime(from, home);
       const back = moveTime(home, to);
       const leave = prev.time + Math.min(LEAVE, gap * 0.1);
@@ -1212,11 +1281,11 @@ function path(
     return { from, to, travel: smootherstep(start, stop, now) };
   }
   if (next) {
-    const to = targetOf(next, hand, hatGap);
+    const to = targetOf(next, hand, hat);
     const end = next.time - 0.03;
     return { from: rest, to, travel: smootherstep(end - moveTime(rest, to) - 0.1, end, now) };
   }
-  if (prev) return settling(prev, hits, hand, now, hatGap);
+  if (prev) return settling(prev, hits, hand, now, hat);
   return { from: rest, to: rest, travel: 0 };
 }
 
@@ -1224,11 +1293,11 @@ function path(
  * A hand with nothing coming, `prev` its last note: off a tom or a crash, home
  * first; then, with still nothing to play, into the rest.
  */
-function settling(prev: Hit, hits: readonly Hit[], hand: Hand, now: number, hatGap: number) {
+function settling(prev: Hit, hits: readonly Hit[], hand: Hand, now: number, hat: HatAt) {
   const rest = restTarget(hand);
-  let from = targetOf(prev, hand, hatGap);
+  let from = targetOf(prev, hand, hat);
   if (!isHome(prev)) {
-    const home = homeOf(hits, lastAtOrBefore(hits, prev.time), hand, hatGap);
+    const home = homeOf(hits, lastAtOrBefore(hits, prev.time), hand, hat);
     const leave = prev.time + LEAVE;
     const out = moveTime(from, home);
     if (now < leave + out) {
@@ -1377,9 +1446,21 @@ export function poseAt(
   const hatHits = all.filter((h) => h.piece === 'hat');
   const open = hatOpenAt(hatHits, now);
   const phase = beatPhase(timeline.clock, now);
-  const hatFoot = hatFootAt(timeline.forLimb('hatFoot'), now, phase, groove, open);
-  const hatLift = Math.max(open, hatFoot.lift);
+  // the left foot: chicks on the hat pedal, and on a double pedal every other kick
+  const leftFoot = timeline.forLimb('hatFoot');
+  const leftKicks = leftFoot.filter((h) => h.piece === 'kick');
+  const across = onDoublePedal(leftKicks, now);
+  const hatFoot = hatFootAt(
+    leftKicks.length ? leftFoot.filter((h) => h.piece === 'hat') : leftFoot,
+    now,
+    phase,
+    groove,
+    open
+  );
+  // a foot over on the double pedal is not rocking the hats
+  const hatLift = Math.max(open, hatFoot.lift * (1 - across));
   const hatGap = HAT_CLOSED_GAP + 0.024 * hatLift;
+  const hatAt: HatAt = { gap: hatGap, shift: hatShift(timeline.doublePedal) };
 
   const leadHits = timeline.forLimb('lead');
   const otherHits = timeline.forLimb('other');
@@ -1388,8 +1469,8 @@ export function poseAt(
     other: strokeAt(otherHits, now, HAND),
   };
   const paths = {
-    lead: path(strokes.lead, leadHits, 'lead', now, hatGap),
-    other: path(strokes.other, otherHits, 'other', now, hatGap),
+    lead: path(strokes.lead, leadHits, 'lead', now, hatAt),
+    other: path(strokes.other, otherHits, 'other', now, hatAt),
   };
 
   // the torso turns toward where the hands are going and leans in to reach
@@ -1403,7 +1484,7 @@ export function poseAt(
       ['lead', leadHits, lt],
       ['other', otherHits, ot],
     ] as const) {
-      const p = path(strokeAt(hits, at, HAND), hits, hand, at, hatGap);
+      const p = path(strokeAt(hits, at, HAND), hits, hand, at, hatAt);
       sum.addScaledVector(p.from.tip.clone().lerp(p.to.tip, p.travel), 1 / LOOK_AHEAD.length);
     }
   }
@@ -1502,6 +1583,8 @@ export function poseAt(
   const kickHits = timeline.forLimb('kickFoot');
   const kick = strokeAt(kickHits, now, KICK);
   const stance = kickStanceAt(kickHits, now);
+  const leftKick = strokeAt(leftKicks, now, KICK);
+  const leftStance = kickStanceAt(leftKicks, now);
 
   const hits: Partial<Record<PieceId, PieceHit>> = {};
   for (let i = all.length - 1; i >= 0; i--) {
@@ -1516,7 +1599,23 @@ export function poseAt(
       // the leg lifts into the stroke: the heel rises with the beater
       pitch: stance.pitch + stance.drive * kick.lift,
     }),
-    hatFoot: leg('hatFoot', 0.08 + 0.3 * hatLift, hatFoot.stance),
+    hatFoot: acrossPedals(
+      leg(
+        'hatFoot',
+        0.08 + 0.3 * hatLift,
+        hatFoot.stance,
+        // a double pedal's board is where the hat pedal was, and the hat pedal out past it
+        timeline.doublePedal ? HAT_PEDAL_BESIDE_DOUBLE : HAT_PEDAL
+      ),
+      leg(
+        'hatFoot',
+        0.1 + 0.32 * leftKick.lift,
+        { ...leftStance, pitch: leftStance.pitch + leftStance.drive * leftKick.lift },
+        DOUBLE_PEDAL,
+        DOUBLE_SPLAY
+      ),
+      across
+    ),
   };
 
   // a look down at a foot: the head turned to it and dropped to see it, from where the eyes are
@@ -1555,6 +1654,7 @@ export function poseAt(
     },
     legs,
     beater: BEATER_CONTACT + 0.95 * kick.lift,
+    double: { board: 0.1 + 0.32 * leftKick.lift, beater: BEATER_CONTACT + 0.95 * leftKick.lift },
     hatGap,
     hits,
   };

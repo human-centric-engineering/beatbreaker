@@ -1340,3 +1340,76 @@ describe('the 3D drummer feed (subscribeSteps, audioLatency)', () => {
     expect(result.current.audioLatency()).toBe(0);
   });
 });
+
+describe('swing set by the style', () => {
+  const inRange = (v: number, [lo, hi]: [number, number]) => v >= lo && v <= hi;
+  const range = (key: string): [number, number] => {
+    const r = STYLES[key].swingRange;
+    if (!r) throw new Error(`${key} has no swing range`);
+    return r;
+  };
+
+  it('sets the swing in the style’s range, afresh on each New, until you move it', async () => {
+    const { result } = await mount();
+    act(() => result.current.setStyle('rockabilly'));
+    expect(inRange(result.current.swing, range('rockabilly'))).toBe(true);
+    expect(result.current.swingYours).toBe(false);
+
+    const rolled = new Set<number>();
+    for (let i = 0; i < 12; i++) {
+      act(() => result.current.newBreak('both'));
+      expect(inRange(result.current.swing, range('rockabilly'))).toBe(true);
+      rolled.add(result.current.swing);
+    }
+    expect(rolled.size).toBeGreaterThan(1);
+
+    // yours, from the slider: New keeps it
+    act(() => result.current.setSwing(33));
+    expect(result.current.swingYours).toBe(true);
+    act(() => result.current.newBreak('both'));
+    expect(result.current.swing).toBe(33);
+
+    // picking a style hands it back
+    act(() => result.current.setStyle('rocknroll'));
+    expect(result.current.swingYours).toBe(false);
+    expect(inRange(result.current.swing, range('rocknroll'))).toBe(true);
+  });
+
+  it('swings nothing over a compound meter the style was not written in', async () => {
+    const { result } = await mount();
+    act(() => result.current.setStyle('rockabilly'));
+    act(() => result.current.setMeter('12/8'));
+    act(() => result.current.newBreak('both'));
+    expect(result.current.meter).toBe('12/8');
+    expect(result.current.swing).toBe(0);
+  });
+
+  it('leaves an open saved pattern’s swing alone when a style is picked for the next New', async () => {
+    const payload = sharePayloadSchema.parse(JSON.parse(atob(codeFor('Saved', 90))));
+    const { result } = await mount(
+      { id: 'cbrk00000000000000000001', title: 'Saved', payload, mine: true },
+      { stageSaved: () => true }
+    );
+    expect(result.current.swing).toBe(12);
+    act(() => result.current.setStyle('rockabilly'));
+    expect(result.current.swing).toBe(12);
+    // the next New is written in that style, at its swing
+    act(() => result.current.newBreak('both'));
+    expect(inRange(result.current.swing, range('rockabilly'))).toBe(true);
+  });
+
+  it('brings back with an Undo whose swing it was, as well as the swing', async () => {
+    const { result } = await mount();
+    act(() => result.current.setSwing(33));
+    const payload = sharePayloadSchema.parse(JSON.parse(atob(codeFor('Buddy', 120))));
+    act(() => {
+      result.current.applyAssistant(payload, true);
+    });
+    expect(result.current.swing).toBe(12);
+    expect(result.current.swingYours).toBe(false);
+
+    act(() => result.current.undo());
+    expect(result.current.swing).toBe(33);
+    expect(result.current.swingYours).toBe(true);
+  });
+});

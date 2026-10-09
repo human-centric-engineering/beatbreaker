@@ -79,6 +79,69 @@ function lathingTexture(): THREE.Texture | null {
 }
 
 /**
+ * The kick's front head: black, with the name running round it in a ring
+ * between two brass lines — "BEAT" in cream and "BREAKER" in brass, as the
+ * wordmark sets it, twice round. Drawn once onto a canvas; skipped where
+ * there is no canvas (the tests run in Node).
+ */
+export function kickLogoTexture(): THREE.Texture | null {
+  if (typeof document === 'undefined') return null;
+  const size = 1024;
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  const c = size / 2;
+  const cream = '#ece6d6';
+  const brass = '#dba644';
+  ctx.fillStyle = '#17181b';
+  ctx.fillRect(0, 0, size, size);
+  ctx.strokeStyle = brass;
+  ctx.lineWidth = 8;
+  for (const r of [470, 330]) {
+    ctx.beginPath();
+    ctx.arc(c, c, r, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+  ctx.font = '700 92px system-ui, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  const glyphs: { ch: string; colour: string }[] = [];
+  for (let i = 0; i < 2; i++)
+    for (const [word, colour] of [
+      ['BEAT', cream],
+      ['BREAKER', brass],
+      ['•', cream],
+    ] as const)
+      for (const ch of word === '•' ? ` ${word} ` : word) glyphs.push({ ch, colour });
+  // the letters' own widths as angles round the ring, and what is left over shared between them
+  const R = 400;
+  const turns = glyphs.map((g) => ctx.measureText(g.ch).width / R);
+  const gap = Math.max(0, (Math.PI * 2 - turns.reduce((a, b) => a + b, 0)) / glyphs.length);
+  // the first name centred at the top
+  const name = 'BEATBREAKER'.length;
+  const span = turns.slice(0, name).reduce((a, b) => a + b, 0) + gap * (name - 1);
+  let at = -Math.PI / 2 - span / 2;
+  glyphs.forEach((g, i) => {
+    const a = at + turns[i] / 2;
+    ctx.save();
+    ctx.translate(c + R * Math.cos(a), c + R * Math.sin(a));
+    ctx.rotate(a + Math.PI / 2);
+    ctx.fillStyle = g.colour;
+    ctx.fillText(g.ch, 0, 0);
+    ctx.restore();
+    at += turns[i] + gap;
+  });
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  // the head is laid face out with its canvas upside down: turn it the right way up
+  tex.center.set(0.5, 0.5);
+  tex.rotation = Math.PI;
+  return tex;
+}
+
+/**
  * Metal flake for a sparkle finish, drawn once onto a canvas: a fine scatter
  * of specks, each catching the light at its own angle under the lacquer.
  * Skipped where there is no canvas (the tests run in Node).

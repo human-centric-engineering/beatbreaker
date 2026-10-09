@@ -9,7 +9,7 @@ stop. British spelling, matching the rest of the repo (_practise_ is the verb,
 _practice_ the noun). No "unlock", "supercharge", "revolutionise", "AI-powered",
 "seamless", no exclamation marks, no emoji. BeatBuddy gets one short section on
 the home page and is described by what it does, not by what it is built from.
-Every number quoted below (37 styles, 12 time signatures, 47 grooves, five
+Every number quoted below (62 styles, 12 time signatures, 47 grooves, five
 layers, twelve doctor moves) is read from the code today — if one changes,
 change the copy or derive it at build time from `STYLE_KEYS.length` and friends.
 
@@ -63,7 +63,7 @@ read-only pattern is better still if Phase 6's public pattern view exists by the
 
 > ### Write
 >
-> Pick from 37 styles — funk, boom bap, bossa, bebop, reggae, songo, second line
+> Pick from 62 styles — funk, boom bap, bossa, bebop, reggae, songo, second line
 > — in 12 time signatures. Press **New** until you hear something you like, then
 > edit it on the grid. Ask for a busier kick, more space, or a fill in the last
 > bar.

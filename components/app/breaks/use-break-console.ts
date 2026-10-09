@@ -65,7 +65,7 @@ import {
   encodeBreak,
   patternFromPacked,
 } from '@/lib/app/breaks/share';
-import { styleIn } from '@/lib/app/breaks/styles';
+import { styleIn, swingFor } from '@/lib/app/breaks/styles';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import { percussionSource } from '@/lib/app/breaks/catalogue/types';
@@ -122,6 +122,8 @@ interface Playback {
   bpm: number;
   baseBpm: number;
   swing: number;
+  /** Whether that swing was set by hand rather than by the style. */
+  swingYours: boolean;
   level: number;
   arrangement: SectionLetter[];
 }
@@ -206,6 +208,8 @@ export interface BreakConsole {
   setGhosts: (n: number) => void;
   swing: number;
   setSwing: (n: number) => void;
+  /** Whether you set the swing yourself (New keeps it) rather than the style. */
+  swingYours: boolean;
   hats: number;
   setHats: (n: number) => void;
   feel: number;
@@ -592,7 +596,35 @@ export function useBreakConsole(
   const [style, setStyleRaw] = useState(settings.startStyle);
   const [meter, setMeterRaw] = useState(settings.startMeter);
   const [bars, setBarsRaw] = useState(settings.startBars);
-  const [swing, setSwing] = useState(8);
+  /* The style sets the swing — somewhere in its range, freshly on each New —
+     until you move the slider yourself, which holds your value until you
+     pick a style. Starts in the middle of the style's range, not at a random
+     point in it, so the server and the browser render the same slider. */
+  const [swing, setSwingRaw] = useState(() =>
+    swingFor(catalogue.styles[settings.startStyle]?.params, settings.startMeter, () => 0.5)
+  );
+  // a ref for the callbacks to read, and state for the slider to say whose it is
+  const swingHeld = useRef(false);
+  const [swingYours, setSwingYours] = useState(false);
+  const holdSwing = useCallback((held: boolean) => {
+    swingHeld.current = held;
+    setSwingYours(held);
+  }, []);
+  const setSwing = useCallback(
+    (n: number) => {
+      holdSwing(true);
+      setSwingRaw(n);
+    },
+    [holdSwing]
+  );
+  /** Hand the swing back to the style, as a pattern opening or a style picked does. */
+  const swingFromStyle = useCallback(
+    (key: string, meterKey: string) => {
+      holdSwing(false);
+      setSwingRaw(swingFor(catalogue.styles[key]?.params, meterKey));
+    },
+    [catalogue.styles, holdSwing]
+  );
   const [bpm, setBpmRaw] = useState(() =>
     clamp(settings.startBpm, 50, maxBpm(settings.startMeter))
   );
@@ -813,17 +845,22 @@ export function useBreakConsole(
   /* ---- history -------------------------------------------------------- */
 
   const playbackNow = useCallback(
-    (): Playback => ({ bpm, baseBpm, swing, level, arrangement }),
-    [bpm, baseBpm, swing, level, arrangement]
+    (): Playback => ({ bpm, baseBpm, swing, swingYours, level, arrangement }),
+    [bpm, baseBpm, swing, swingYours, level, arrangement]
   );
 
-  const restorePlayback = useCallback((p: Playback) => {
-    setBpmRaw(p.bpm);
-    setBaseBpm(p.baseBpm);
-    setSwing(p.swing);
-    setLevel(p.level);
-    setArrangement(p.arrangement);
-  }, []);
+  const restorePlayback = useCallback(
+    (p: Playback) => {
+      setBpmRaw(p.bpm);
+      setBaseBpm(p.baseBpm);
+      setSwingRaw(p.swing);
+      // whose the swing was comes back with it, or the next New would keep or drop the wrong one
+      holdSwing(p.swingYours);
+      setLevel(p.level);
+      setArrangement(p.arrangement);
+    },
+    [holdSwing]
+  );
 
   /** @param withPlayback the change about to be made moves tempo, swing, layer or arrangement too. */
   const pushHistory = useCallback(
@@ -937,6 +974,9 @@ export function useBreakConsole(
       setBarsRaw(next.bars);
       setBaseBpm(base);
       setBpmRaw(bpmAt);
+      // a fresh swing in the style's range, unless you have set your own
+      if (!swingHeld.current)
+        setSwingRaw(swingFor(catalogue.styles[next.style]?.params, next.meter));
       if (next.style !== style) {
         setMixTouched((touched) => {
           applyStyleMix(next.style, touched);
@@ -958,6 +998,7 @@ export function useBreakConsole(
       matchOn,
       level,
       applyStyleMix,
+      catalogue.styles,
     ]
   );
 
@@ -1178,12 +1219,27 @@ export function useBreakConsole(
       const wantKit = named && kitIsPlayable(named) ? named.key : userKit;
       if (wantKit !== kit && kitIsPlayable(catalogue.kits[wantKit])) update({ kit: wantKit });
       if (st && !locks.bpm) setBpm(Math.round((st.bpm[0] + st.bpm[1]) / 2));
+      /* On a new pattern the style is the one on the stage, so its swing goes on
+         the slider. On a saved one it is only what the next New is written in:
+         the saved pattern keeps its swing, and that New rolls the style's. */
+      if (settingUpNew()) swingFromStyle(s, nextMeter);
       setMixTouched((touched) => {
         applyStyleMix(s, touched);
         return touched;
       });
     },
-    [catalogue, userMeter, userKit, kit, settingUpNew, update, locks.bpm, setBpm, applyStyleMix]
+    [
+      catalogue,
+      userMeter,
+      userKit,
+      kit,
+      settingUpNew,
+      update,
+      locks.bpm,
+      setBpm,
+      swingFromStyle,
+      applyStyleMix,
+    ]
   );
 
   const setMeter = useCallback(
@@ -1612,7 +1668,8 @@ export function useBreakConsole(
     setPatterns({ A: doc.A, B: doc.B });
     setBpmRaw(doc.bpm);
     setBaseBpm(baseFor(doc.bpm, doc.level));
-    setSwing(doc.swing);
+    setSwingRaw(doc.swing);
+    holdSwing(false);
     setLevel(doc.level);
     setArrangement(doc.arrangement);
     setStyleRaw(doc.A.style);
@@ -1719,6 +1776,7 @@ export function useBreakConsole(
     );
     setPatterns({ A: made.pattern, B: deriveB(made.pattern, styleRow.params) });
     setTries({ tries: made.tries, rejected: made.rejected });
+    setSwingRaw(swingFor(styleRow.params, meter));
     applyStyleMix(style, {});
     setReady(true);
     // deliberately once, on mount: this is the break you arrive to
@@ -1761,7 +1819,8 @@ export function useBreakConsole(
       setPatterns({ A: doc.A, B: doc.B });
       setBpmRaw(doc.bpm);
       setBaseBpm(baseFor(doc.bpm, doc.level));
-      setSwing(doc.swing);
+      setSwingRaw(doc.swing);
+      holdSwing(false);
       setLevel(doc.level);
       setArrangement(doc.arrangement);
       setStyleRaw(doc.A.style);
@@ -1770,7 +1829,7 @@ export function useBreakConsole(
       chosen.current = {};
       setTries(null);
     },
-    [pushHistory, baseFor]
+    [pushHistory, baseFor, holdSwing]
   );
 
   const [flash, setFlash] = useState<Flash | null>(null);
@@ -1797,7 +1856,8 @@ export function useBreakConsole(
       setPatterns({ A: doc.A, B: doc.B });
       setBpmRaw(doc.bpm);
       setBaseBpm(baseFor(doc.bpm, doc.level));
-      setSwing(doc.swing);
+      setSwingRaw(doc.swing);
+      holdSwing(false);
       setLevel(doc.level);
       setArrangement(doc.arrangement);
       setStyleRaw(doc.A.style);
@@ -1807,7 +1867,7 @@ export function useBreakConsole(
       setTries(null);
       return doc;
     },
-    [catalogue, pushHistory, patterns, baseFor]
+    [catalogue, pushHistory, patterns, baseFor, holdSwing]
   );
 
   const loadCode = useCallback(
@@ -1900,6 +1960,7 @@ export function useBreakConsole(
     setGhosts,
     swing,
     setSwing,
+    swingYours,
     hats,
     setHats,
     feel,

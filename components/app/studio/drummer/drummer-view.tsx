@@ -157,14 +157,17 @@ export function DrummerView() {
           right-drag or two-finger drag to slide. The drummer plays exactly what you hear — swing,
           feel and Humanise included — and chooses its own sticking: cymbals on the lead hand, quick
           sixteenths on the hats hand to hand, fills alternating with a double where that keeps the
-          arms from crossing, a flam&rsquo;s grace on the other hand. Ghost notes are played from an
-          inch, mostly with the fingers; accents from high up. Grip sets how the sticks are held:
-          matched, or military (traditional) — palm up, the stick in the web of the thumb, played by
-          turning the forearm — in the hand away from the hats or in both. Chart puts the music in
-          the top corner, scrolling as it is played and on into the start of the next section, with
-          the section and the beat of the bar (not on a phone, where the corner is most of the kit).
-          A different player sits in each time you open the view, and Shuffle drummer seats someone
-          else. It is an experiment: a jointed figure, not a recording of a real player.
+          arms from crossing, a flam&rsquo;s grace on the other hand. While a double-kick pattern
+          plays (Gallop, Thrash, Double kick, Groove metal) a second pedal goes in, the hi-hat moves
+          over to make room for it, and the left foot leaves the hats to play every other kick of a
+          run. Ghost notes are played from an inch, mostly with the fingers; accents from high up.
+          Grip sets how the sticks are held: matched, or military (traditional) — palm up, the stick
+          in the web of the thumb, played by turning the forearm — in the hand away from the hats or
+          in both. Chart puts the music in the top corner, scrolling as it is played and on into the
+          start of the next section, with the section and the beat of the bar (not on a phone, where
+          the corner is most of the kit). A different player sits in each time you open the view,
+          and Shuffle drummer seats someone else. It is an experiment: a jointed figure, not a
+          recording of a real player.
         </StudioHelp>
       </div>
       <div className="drummer-stage">

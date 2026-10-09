@@ -1,5 +1,6 @@
 import {
   BUZZ,
+  CHINA,
   DRAG,
   FLAM,
   FOOT_LANE,
@@ -37,6 +38,7 @@ import { clamp, makeRng, wpick, type Rng } from '@/lib/app/breaks/rng';
 import { styleIn } from '@/lib/app/breaks/styles';
 import type {
   Bar,
+  Figure,
   LaneKey,
   Meter,
   Pattern,
@@ -87,7 +89,9 @@ function genKickBeat(
     return [cell, w * Math.pow(1 + density, notes - 1)];
   });
   let cell = wpick(rng, bent);
-  if (hasBackbeat && cell[0] === '1' && rng() > 0.34) cell = `0${cell.slice(1)}`;
+  // (on a double pedal the kick runs on under the backbeat)
+  if (hasBackbeat && !style.doubleKick && cell[0] === '1' && rng() > 0.34)
+    cell = `0${cell.slice(1)}`;
   return cell;
 }
 
@@ -125,6 +129,8 @@ function applyKickRules(bar: Bar, style: Style): Bar {
      test in tests/unit/lib/app/breaks/catalogue/schemas.test.ts.) */
   for (const i of banned) if (i < n) bar.k[i] = 0;
   for (const i of forced) if (i < n) bar.k[i] = 1;
+  // on a double pedal a run of kicks is two feet's, and stays
+  if (style.doubleKick) return bar;
   // never more than two 16ths of kick in a row — drop whichever the style did not ask for
   for (let i = 0; i < n - 2; i++) {
     if (bar.k[i] && bar.k[i + 1] && bar.k[i + 2]) {
@@ -451,6 +457,199 @@ export function applyCompFill(rng: Rng, bar: Bar, style: Style, m: Meter): Bar {
   return b;
 }
 
+/* ---- written-out bars ------------------------------------------------ */
+
+/** The lanes a fill's hands take over in its span: whatever they were playing stops. */
+const FILL_HAND_LANES: LaneKey[] = ['s', 'h', 'r', 'c', ...TOM_LANES];
+
+/** A figure's row as step values, or null if it is not as long as the bar. */
+function figureRow(row: string, n: number): number[] | null {
+  if (row.length !== n) return null;
+  return [...row].map((ch) => (ch === '.' ? 0 : Number(ch)));
+}
+
+/** Whether every row of a figure fits a bar of `n` steps. */
+function figureFits(f: Figure, n: number): boolean {
+  return Object.values(f).every((row) => !row || row.length === n);
+}
+
+/**
+ * A style's figures that fit this bar, their weights bent toward the density
+ * setting the way kick cells are: more kicks for a busier setting.
+ */
+function figuresFor(style: Style, n: number, density: number): Array<[Figure, number]> {
+  return (style.figures ?? [])
+    .filter(([f]) => figureFits(f, n))
+    .map(([f, w]): [Figure, number] => {
+      const kicks = [...(f.k ?? '')].filter((ch) => ch !== '.' && ch !== '0').length;
+      return [f, w * Math.pow(1 + density, kicks / 4 - 2)];
+    });
+}
+
+/** A bar written straight from a figure; lanes it does not name stay empty. */
+function figureBar(f: Figure, n: number): Bar {
+  const bar = emptyBar(n);
+  for (const [lane, row] of Object.entries(f) as Array<[LaneKey, string | undefined]>) {
+    const vals = row ? figureRow(row, n) : null;
+    if (vals) bar[lane] = vals;
+  }
+  return bar;
+}
+
+/** Whether the kick is a run all the way through — nothing to vary without breaking it. */
+function kickRuns(b: Bar): boolean {
+  return b.k.every((v) => v > 0);
+}
+
+/**
+ * A figure bar moved a little: what a drummer changes from one pass of a riff
+ * to the next. Not the general variation pass, which would nudge a run of
+ * kicks apart and turn a half-open wash back into closed hats: here the kick
+ * picks up or drops an off-beat note (the riff's push), a closed hat opens on
+ * an "and", or a cymbal accent lands on one — a china if the style plays
+ * chinas, otherwise a crash.
+ */
+function varyFigureBar(rng: Rng, bar: Bar, style: Style, m: Meter): Bar {
+  const b = cloneBar(bar);
+  const n = b.k.length;
+  const backbeats = style.backbeats ?? [];
+  const roll = rng();
+  const opensAt = inMeter([14, 6, 10, 2], m).filter(
+    (i) => i < n && b.h[i] === 1 && b.h[i - 1] !== 3 && b.h[i + 1] !== 3
+  );
+  if (roll < 0.45 && !kickRuns(b)) {
+    // the kick follows the riff: an 8th or a 16th off the beat comes or goes
+    const cands = inMeter(VARY_KICK, m).filter(
+      (i) => i < n && !backbeats.includes(i) && !snareKept(b.s[i])
+    );
+    if (cands.length) {
+      const i = cands[Math.floor(rng() * cands.length)];
+      b.k[i] = b.k[i] ? 0 : 1;
+    }
+  } else if (roll < 0.7 && opensAt.length) {
+    // the hats open on an "and", most often the one before the bar line
+    b.h[opensAt[Math.floor(rng() * rng() * opensAt.length)]] = 3;
+  } else {
+    // a cymbal accent on an off-beat 8th, the hand leaving its ostinato for it
+    const china = (style.figures ?? []).some(([f]) => f.c?.includes(String(CHINA)));
+    const cands = inMeter([14, 6, 10], m).filter((i) => i < n && !b.c[i]);
+    if (cands.length) {
+      const i = cands[Math.floor(rng() * rng() * cands.length)];
+      b.c[i] = china && rng() < 0.55 ? CHINA : 1;
+      b.h[i] = 0;
+      b.r[i] = 0;
+      if (!b.k[i]) b.k[i] = 1;
+    }
+  }
+  return b;
+}
+
+/**
+ * A written fill over the end of a bar: the hands' lanes in its span are
+ * cleared and played as written; the kick is replaced only if the fill says
+ * what it plays, and otherwise carries on under it.
+ */
+export function applyFigureFill(bar: Bar, fill: Figure): Bar {
+  const b = cloneBar(bar);
+  const n = b.k.length;
+  const len = Math.max(0, ...Object.values(fill).map((row) => row?.length ?? 0));
+  if (!len || len > n) return b;
+  const at = n - len;
+  for (const L of FILL_HAND_LANES) for (let i = at; i < n; i++) b[L][i] = 0;
+  if (fill.k) for (let i = at; i < n; i++) b.k[i] = 0;
+  for (const [lane, row] of Object.entries(fill) as Array<[LaneKey, string | undefined]>) {
+    if (!row) continue;
+    const from = n - row.length;
+    [...row].forEach((ch, j) => {
+      if (ch !== '.') b[lane][from + j] = Number(ch);
+    });
+  }
+  return b;
+}
+
+/**
+ * The bars of a phrase from a style's written-out figures: one for the groove
+ * and, in a phrase of four bars or more, often a second for the second half —
+ * the riff changes, the drummer goes to half-time or opens the kick up — each
+ * pass a little different from the last, a crash where each half starts and a
+ * written fill to end on. Null when no figure fits the bar, and the style
+ * falls back on its kick cells.
+ *
+ * The backbeats come back with the bars, read off the figures rather than the
+ * style: a half-time bar has its backbeat on 3 and a skank beat on every "and",
+ * and a phrase's backbeats are the steps where every figure in it puts one.
+ */
+function figurePhrase(
+  rng: Rng,
+  style: Style,
+  opts: GenerateOptions,
+  m: Meter,
+  lanes: LaneKey[]
+): { bars: Bar[]; backbeats: number[] } | null {
+  const n = stepsOf(m);
+  const density = (opts.density - 50) / 90;
+  const table = figuresFor(style, n, density);
+  if (!table.length) return null;
+  const a = wpick(rng, table);
+  const others = table.filter(([f]) => f !== a);
+  const b = others.length ? wpick(rng, others) : a;
+  const half = opts.bars >= 4 && rng() < 0.5 ? opts.bars / 2 : opts.bars;
+  const gOpts: GenBarOpts = {
+    density: opts.density,
+    ghosts: opts.ghosts,
+    backbeats: style.backbeats ?? [],
+    meter: m,
+  };
+  const coreA = ghostPass(rng, figureBar(a, n), style, gOpts, m, n);
+  const coreB = ghostPass(rng, figureBar(b, n), style, gOpts, m, n);
+  /* On the snare a backbeat is any struck note both figures put there. On the
+     hat foot it is the style's own backbeats where both figures chick: a foot
+     playing every beat does not make 1 and 3 backbeats. */
+  const bbLane = bbLaneOf(style);
+  const struck = (bar: Bar, i: number) => (bbLane === 's' ? bar.s[i] >= 2 : bar[bbLane][i] > 0);
+  const backbeats: number[] = [];
+  for (let i = 0; i < n; i++) {
+    if (bbLane !== 's' && !(style.backbeats ?? []).includes(i)) continue;
+    if (struck(coreA, i) && struck(coreB, i)) backbeats.push(i);
+  }
+
+  const bars: Bar[] = [];
+  for (let i = 0; i < opts.bars; i++) {
+    const core = i < half ? coreA : coreB;
+    const start = i === 0 || i === half;
+    let bar = start || rng() < 0.5 ? cloneBar(core) : varyFigureBar(rng, core, style, m);
+    // each half of the phrase starts on a crash, with the kick under it
+    if (start && !bar.c[0]) {
+      bar.c[0] = 1;
+      bar.h[0] = 0;
+      bar.r[0] = 0;
+      bar.k[0] = bar.k[0] || 1;
+    }
+    bar = applyStyleRules(bar, style);
+    bars.push(bar);
+  }
+
+  const last = bars.length - 1;
+  /* A jazz phrase ends by saying more as often as on a written fill: half
+     the time the comps thicken instead (and the draw for that is made only
+     for those styles, so every other style's stream is untouched). */
+  const comp = style.fill === 'comp';
+  if (opts.bars > 1 && rng() < (comp ? 0.7 : 0.8)) {
+    const fills = (style.fills ?? []).filter(([f]) =>
+      Object.values(f).every((row) => !row || row.length <= n)
+    );
+    bars[last] = applyStyleRules(
+      fills.length && !(comp && rng() < 0.5)
+        ? applyFigureFill(bars[last], wpick(rng, fills))
+        : comp
+          ? applyCompFill(rng, bars[last], style, m)
+          : applyFill(rng, bars[last], m, lanes),
+      style
+    );
+  }
+  return { bars, backbeats };
+}
+
 export interface GenerateOptions {
   /**
    * The style to write in, already resolved from the catalogue.
@@ -473,17 +672,20 @@ export interface GenerateOptions {
   perc?: Partial<Record<PercLaneKey, string>>;
 }
 
-export function generatePattern(opts: GenerateOptions): Pattern {
-  const meterKey = opts.meter ?? DEFAULT_METER;
-  const m = meterOf(meterKey);
-  const style = styleIn(opts.style.params, meterKey);
-  const lanes = opts.lanes ?? laneRoster(style);
-  const perc = opts.perc ?? percRoster(style);
-  const rng = makeRng(opts.seed);
-  const backbeats = (style.backbeats ?? []).slice();
+/**
+ * The bars of a phrase built a kick cell at a time: a core bar, passes of it
+ * a little varied, the Amen move late in the phrase and a closing fill.
+ */
+function cellPhrase(
+  rng: Rng,
+  style: Style,
+  opts: GenerateOptions,
+  m: Meter,
+  lanes: LaneKey[],
+  backbeats: number[]
+): Bar[] {
   const groups = groupsOf(m);
   const lastGroup = groups[groups.length - 1];
-
   const core = genBar(rng, style, {
     density: opts.density,
     ghosts: opts.ghosts,
@@ -528,6 +730,20 @@ export function generatePattern(opts: GenerateOptions): Pattern {
       bars[last] = filled;
     }
   }
+
+  return bars;
+}
+
+export function generatePattern(opts: GenerateOptions): Pattern {
+  const meterKey = opts.meter ?? DEFAULT_METER;
+  const m = meterOf(meterKey);
+  const style = styleIn(opts.style.params, meterKey);
+  const lanes = opts.lanes ?? laneRoster(style);
+  const perc = opts.perc ?? percRoster(style);
+  const rng = makeRng(opts.seed);
+  const written = style.figures ? figurePhrase(rng, style, opts, m, lanes) : null;
+  const backbeats = written?.backbeats ?? (style.backbeats ?? []).slice();
+  const bars: Bar[] = written?.bars ?? cellPhrase(rng, style, opts, m, lanes, backbeats);
 
   const pat: Pattern = {
     name: '',

@@ -12,7 +12,12 @@
 import * as THREE from 'three';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { disposeMaterials, makeMaterials, styleKit } from '@/components/app/studio/drummer/parts';
+import {
+  disposeMaterials,
+  kickLogoTexture,
+  makeMaterials,
+  styleKit,
+} from '@/components/app/studio/drummer/parts';
 import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
 
 /** What a 2D context was asked to draw: rects, arcs, lines, curves and strokes, by count. */
@@ -22,12 +27,14 @@ interface Drawn {
   lines: number;
   curves: number;
   strokes: number;
+  /** Each character written, with the colour it was written in. */
+  text: { ch: string; colour: string }[];
 }
 
 let drawn: Drawn;
 
 beforeEach(() => {
-  drawn = { rects: 0, arcs: 0, lines: 0, curves: 0, strokes: 0 };
+  drawn = { rects: 0, arcs: 0, lines: 0, curves: 0, strokes: 0, text: [] };
   const context = {
     fillStyle: '',
     strokeStyle: '',
@@ -41,6 +48,17 @@ beforeEach(() => {
     quadraticCurveTo: () => void drawn.curves++,
     bezierCurveTo: () => void drawn.curves++,
     stroke: () => void drawn.strokes++,
+    font: '',
+    textAlign: 'start',
+    textBaseline: 'alphabetic',
+    save: () => undefined,
+    restore: () => undefined,
+    translate: () => undefined,
+    rotate: () => undefined,
+    measureText: (t: string) => ({ width: 50 * t.length }),
+    fillText(ch: string) {
+      drawn.text.push({ ch, colour: this.fillStyle });
+    },
   };
   vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(
     context as unknown as CanvasRenderingContext2D
@@ -157,10 +175,23 @@ describe('canvas textures', () => {
     for (const f of freed) expect(f).toHaveBeenCalled();
   });
 
+  it('writes the name twice round the kick’s front head, BEAT in cream and BREAKER in brass', () => {
+    const tex = kickLogoTexture();
+    expect(tex).toBeInstanceOf(THREE.CanvasTexture);
+    // the two brass rings the name runs between
+    expect(drawn.arcs).toBe(2);
+    const written = drawn.text.map((t) => t.ch).join('');
+    expect(written).toBe('BEATBREAKER • BEATBREAKER • ');
+    const colourOf = (ch: string) => drawn.text.find((t) => t.ch === ch)!.colour;
+    expect(colourOf('T')).toBe('#ece6d6');
+    expect(colourOf('K')).toBe('#dba644');
+  });
+
   it('draws nothing, and falls back to no texture, where the canvas gives no context', () => {
     vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
     const m = makeMaterials(byId('roxy'));
     expect(m.bronze.bumpMap).toBeNull();
     expect(m.shell.bumpMap).toBeNull();
+    expect(kickLogoTexture()).toBeNull();
   });
 });

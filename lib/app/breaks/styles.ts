@@ -1,4 +1,11 @@
-import { DEFAULT_METER, groupsOf, meterOf, remapList, remapWeights } from '@/lib/app/breaks/meter';
+import {
+  DEFAULT_METER,
+  groupsOf,
+  meterOf,
+  pulseInfo,
+  remapList,
+  remapWeights,
+} from '@/lib/app/breaks/meter';
 import type { PercSpec, Style } from '@/lib/app/breaks/types';
 
 /**
@@ -11,6 +18,31 @@ import type { PercSpec, Style } from '@/lib/app/breaks/types';
  * style is written in 4/4 (bar the seven that name their own `meter`), and
  * something has to decide what "the backbeat" means in 3/4.
  */
+
+/** Whether a meter's pulse is three 8ths: its triplets are written in, not swung. */
+function compound(meterKey: string | undefined): boolean {
+  return pulseInfo(meterOf(meterKey ?? DEFAULT_METER))?.steps === 6;
+}
+
+/**
+ * The swing to set the slider to for a style in `meterKey`: somewhere in its
+ * range if it has one, otherwise its one value — and none at all for a style
+ * written in simple time carried into a compound meter, whose triplets are
+ * already the meter's. `random` is a parameter so a test can pin it; the
+ * Studio passes nothing and gets a fresh value each time.
+ */
+export function swingFor(
+  st: Style | undefined,
+  meterKey?: string,
+  random: () => number = Math.random
+): number {
+  if (!st) return 0;
+  if (meterKey && compound(meterKey) && !compound(st.meter)) return 0;
+  const range = st.swingRange;
+  if (!range) return st.swing;
+  const [lo, hi] = range;
+  return Math.round(lo + random() * (hi - lo));
+}
 
 /**
  * The style as it applies in a meter it was not written for.
@@ -41,6 +73,11 @@ export function styleIn(st: Style, meterKey: string): Style {
   if (cached) return cached;
 
   const out: Style = { ...st };
+  /* Written-out bars are written for their own meter's length, and there is
+     no carrying a gallop into 7/8 by pulse: in another meter the style falls
+     back on its kick cells. */
+  delete out.figures;
+  delete out.fills;
   const stepLists = [
     'backbeats',
     'forceKick',

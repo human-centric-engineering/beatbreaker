@@ -150,6 +150,40 @@ export const HAT_PEDAL = {
   toward: [-0.23, 0, -0.97] as V3,
 } as const;
 
+/**
+ * A double pedal's second board, the left foot's, beside the kick's, and the
+ * second beater it drives, through a shaft from its toe, on the kick pedal's
+ * frame beside the first. The snare is between the knees, so the left knee is
+ * held out over this board (see `pose.ts`) rather than let fall in toward the
+ * kick, where it would come up through the drum.
+ */
+export const DOUBLE_PEDAL = {
+  heel: [-0.25, 0.025, -0.1] as V3,
+  toward: [0.12, 0, -1] as V3,
+  /** The second beater's axle. */
+  axle: [-0.01, 0.11, -0.49] as V3,
+} as const;
+
+/**
+ * How far the whole hi-hat — cymbals, stand and pedal — moves out to the left
+ * to make room for a double pedal's second board: the pedal stays under the
+ * cymbals, and the hand goes a little further for them.
+ */
+export const HAT_SHIFT_DOUBLE: V3 = [-0.09, 0, 0];
+
+const shifted = (a: V3, by: V3): V3 => [a[0] + by[0], a[1] + by[1], a[2] + by[2]];
+
+/** The hat pedal with a double pedal in: where it was, moved with the rest of the hi-hat. */
+export const HAT_PEDAL_BESIDE_DOUBLE = {
+  heel: shifted(HAT_PEDAL.heel, HAT_SHIFT_DOUBLE),
+  toward: HAT_PEDAL.toward,
+} as const;
+
+/** Where the hi-hat is, as an offset from where {@link PIECES} has it: moved over for a double pedal, or not. */
+export function hatShift(doublePedal: boolean): V3 {
+  return doublePedal ? HAT_SHIFT_DOUBLE : [0, 0, 0];
+}
+
 /** The pedal board, heel plate to toe. */
 export const BOARD_LENGTH = 0.28;
 

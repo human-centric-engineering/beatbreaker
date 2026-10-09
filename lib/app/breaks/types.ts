@@ -152,6 +152,18 @@ export type Weighted<T> = [T, number];
 export type KickCell = string;
 
 /**
+ * A bar, or the end of one, written out: per lane, a row of step values (the
+ * lane's own, as on {@link Bar}), `.` for none — `k: '1.1.1.1.1.1.1.1.'`.
+ *
+ * A style whose idiom is a handful of known beats rather than tendencies
+ * (metal: a gallop, a skank beat, a half-time with the kick running under it)
+ * lists them as figures, and the generator picks among them rather than
+ * building a beat a kick cell at a time. As a fill, the rows are the last
+ * steps of the bar, right-aligned to its end.
+ */
+export type Figure = Partial<Record<LaneKey, string>>;
+
+/**
  * How far off the grid one lane sits, as a fraction of a 16th. Positive is
  * late. A pair alternates by step parity, which is how hats lean one way on the
  * beats and the other way between them.
@@ -197,9 +209,10 @@ export interface PercSpec {
 /**
  * The part of a style that travels with a pattern.
  *
- * Five fields, and the list is not arbitrary — it is exactly what the transport
+ * Six fields, and the list is not arbitrary — it is exactly what the transport
  * (`isSwung`, `hatShape`, `feelOffset`), the critic (`kickFeather`,
- * `targetDensity`) and the MIDI export read off a style once a pattern exists.
+ * `targetDensity`, `doubleKick`), the 3D drummer (`doubleKick`) and the MIDI
+ * export read off a style once a pattern exists.
  * Everything else a style says is an instruction to the *generator*, and is
  * spent the moment the notes are written.
  *
@@ -227,6 +240,12 @@ export interface StyleAttrs {
   targetDensity?: number;
   /** How hard this style leans on the hi-hat dynamic shape. */
   hatDepth?: number;
+  /**
+   * Played with a double pedal: a run of 16ths on the kick goes right foot,
+   * left foot, so the generator does not thin it, the critic does not call it
+   * unplayable, and the 3D drummer plays it on two pedals.
+   */
+  doubleKick?: boolean;
 }
 
 export interface Style extends StyleAttrs {
@@ -242,7 +261,14 @@ export interface Style extends StyleAttrs {
   hats: number;
   /** `[min, max]` tempo range the style is written for. */
   bpm: [number, number];
+  /** The swing the slider is set to for this style, as the slider reads it. */
   swing: number;
+  /**
+   * `[min, max]`: where it has one, picking the style and each New press set
+   * the slider somewhere in here instead of to {@link swing} — a shuffle is
+   * not always the same shuffle. Not on a style whose triplets are its meter.
+   */
+  swingRange?: [number, number];
   ghostBias: number;
   /** Where ghosts want to land, as step → weight. */
   ghostWeights?: Record<number, number>;
@@ -280,6 +306,15 @@ export interface Style extends StyleAttrs {
   linear?: boolean;
   /** Probability the backbeat is displaced late in the phrase. */
   displace?: number;
+  /**
+   * Whole bars written out (see {@link Figure}), weighted. Where a style has
+   * them, and the bar is as long as their rows, the generator picks one for
+   * the groove and another for a second half of the phrase, rather than
+   * writing kick cells and an ostinato; the cells still serve any other meter.
+   */
+  figures?: Array<Weighted<Figure>>;
+  /** Fills written out, right-aligned to the bar's end, weighted; in place of the generic shapes. */
+  fills?: Array<Weighted<Figure>>;
   /** `'comp'` ends a phrase by saying slightly more, rather than with a fill. */
   fill?: 'comp';
   fillComps?: number;

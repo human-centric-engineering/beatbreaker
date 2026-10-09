@@ -41,7 +41,7 @@ describe('toStyle', () => {
       currentVersion: 2,
       versions: [
         { id: 'v1', version: 1, params: FUNK_PARAMS },
-        { id: 'v2', version: 2, params: { ...FUNK_PARAMS, swing: 40 } },
+        { id: 'v2', version: 2, params: { ...FUNK_PARAMS, swing: 12 } },
       ],
     });
 
@@ -56,7 +56,7 @@ describe('toStyle', () => {
       currentVersion: 2,
       versions: [
         { id: 'v1', version: 1, params: FUNK_PARAMS },
-        { id: 'v2', version: 2, params: { ...FUNK_PARAMS, swing: 40 } },
+        { id: 'v2', version: 2, params: { ...FUNK_PARAMS, swing: 12 } },
       ],
     });
 

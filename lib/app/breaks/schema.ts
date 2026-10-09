@@ -77,7 +77,7 @@ export const feelSchema = z.object({
 
 /**
  * The style facts a pattern carries with it — see `StyleAttrs` in `types.ts`
- * for why these five and no others.
+ * for why these six and no others.
  */
 /*
  * No `.default({})` on this schema, and that is load-bearing rather than a
@@ -99,6 +99,8 @@ export const styleAttrsSchema = z.object({
   /** Notes per bar the style aims at. The busiest style in the table is 14. */
   targetDensity: z.number().min(0).max(64).optional(),
   hatDepth: z.number().min(0).max(3).optional(),
+  /** Played with a double pedal: kick runs are two feet's, not one's. */
+  doubleKick: z.boolean().optional(),
 });
 
 export const patternSchema = z.object({

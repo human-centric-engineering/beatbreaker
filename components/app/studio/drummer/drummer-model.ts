@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
-import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { mergeGeometries, mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
 import {
   ball,
@@ -775,30 +775,34 @@ const bell = (t: number) => Math.exp(-t * t);
  * radius, in direction `(x, y, z)` (unit length; the face looks down `-z`):
  * sockets for the eyes, the brow over them, cheekbones, the jaw's angle, the
  * mouth carried forward and a chin. One smooth surface — the face is shaped,
- * not stuck on.
+ * not stuck on. A woman's (`soft`) has a lighter brow, higher, fuller
+ * cheekbones, a gentler jaw and a smaller, narrower chin.
  */
-function relief(x: number, y: number, z: number): number {
+function relief(x: number, y: number, z: number, soft = false): number {
   const front = Math.max(0, -z);
   const ax = Math.abs(x);
   return (
     -0.075 * bell((ax - 0.38) / 0.15) * bell((y - 0.13) / 0.13) * front ** 2 +
-    0.022 * bell(ax / 0.55) * bell((y - 0.27) / 0.07) * front +
-    0.04 * bell((ax - 0.5) / 0.15) * bell((y + 0.06) / 0.14) * front +
-    0.05 * bell((ax - 0.72) / 0.2) * bell((y + 0.55) / 0.2) +
+    (soft ? 0.012 : 0.022) * bell(ax / 0.55) * bell((y - 0.27) / 0.07) * front +
+    (soft ? 0.05 : 0.04) *
+      bell((ax - 0.5) / 0.15) *
+      bell((y + (soft ? 0.03 : 0.06)) / 0.14) *
+      front +
+    (soft ? 0.022 : 0.05) * bell((ax - 0.72) / 0.2) * bell((y + 0.55) / 0.2) +
     0.045 * bell(x / 0.38) * bell((y + 0.42) / 0.2) * front +
-    0.13 * bell(x / 0.3) * bell((y + 0.8) / 0.13) * front
+    (soft ? 0.085 : 0.13) * bell(x / (soft ? 0.24 : 0.3)) * bell((y + 0.8) / 0.13) * front
   );
 }
 
-/** Push a sphere of radius {@link SKULL_R}, centred on the origin, out into the head's shape. */
-function sculpt(geo: THREE.BufferGeometry): THREE.BufferGeometry {
+/** Push a sphere of radius {@link SKULL_R}, centred on the origin, out into the head's shape (a woman's if `soft`). */
+function sculpt(geo: THREE.BufferGeometry, soft = false): THREE.BufferGeometry {
   const p = geo.getAttribute('position');
   const v = new THREE.Vector3();
   const n = new THREE.Vector3();
   for (let i = 0; i < p.count; i++) {
     v.fromBufferAttribute(p, i);
     n.copy(v).normalize();
-    v.multiplyScalar(1 + relief(n.x, n.y, n.z));
+    v.multiplyScalar(1 + relief(n.x, n.y, n.z, soft));
     p.setXYZ(i, v.x, v.y, v.z);
   }
   geo.computeVertexNormals();
@@ -1111,11 +1115,21 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       return out;
     }
     case 'quiff': {
-      // swept up and forward off the brow
-      const quiff = mesh(new THREE.CapsuleGeometry(0.042, 0.1, 6, 14), m.hair);
-      quiff.scale.set(1.35, 1, 1);
-      quiff.position.set(0, 0.2, -0.075);
-      quiff.rotation.x = -1.25;
+      /* Grown out of the scalp as a beard is, rather than built of locks: one
+         mass rising steeply off the hairline into a roll over the brow and
+         lying back flatter over the crown, fullest in the middle and lower
+         toward the temples. Thin locks each caught the light on every side and
+         read grey, and laid over the top they met at the crown in a point. */
+      const quiff = grow(
+        {
+          mask: (d) =>
+            ramp(0.45, 0.6, d.y) * ramp(0.72, 0.5, Math.abs(d.x)) * ramp(0.55, 0.25, d.z),
+          depth: (d) => 0.01 + 0.032 * ramp(0.25, -0.55, d.z) * ramp(0.6, 0.15, Math.abs(d.x)),
+          tuck: 0.002,
+        },
+        m.hair
+      );
+      quiff.name = 'quiff';
       return [hairCap(m), quiff];
     }
     case 'ponytail': {
@@ -1291,9 +1305,9 @@ function chinPatch(d: THREE.Vector3): number {
   return ramp(0.5, 0.38, a) * ramp(-0.34, -0.4, d.y) * ramp(-0.97, -0.88, d.y) * lipsBare(d);
 }
 
-/** Grow `g` out of the face, in the head's frame. */
-function grow(g: Growth, mat: THREE.Material): THREE.Mesh {
-  const geo = sculpt(new THREE.SphereGeometry(SKULL_R, 96, 72));
+/** Grow `g` out of the face, in the head's frame (a woman's if `soft`). */
+function grow(g: Growth, mat: THREE.Material, soft = false): THREE.Mesh {
+  const geo = sculpt(new THREE.SphereGeometry(SKULL_R, 96, 72), soft);
   const [sx, sy, sz] = SKULL_SCALE;
   geo.scale(sx, sy, sz);
   geo.translate(0, SKULL_Y, 0);
@@ -1538,7 +1552,7 @@ const LIT_EYE: V3 = [0.032, 0.115, -0.086];
  * over the temple, grown out of the skull as a beard is but cut sharp at the
  * edge, open round the eye, and a ring round that eye where it meets the plate.
  */
-function facePlate(m: Materials): THREE.Object3D[] {
+function facePlate(m: Materials, soft: boolean): THREE.Object3D[] {
   const eye = new THREE.Vector3(...LIT_EYE);
   const plate = grow(
     {
@@ -1555,13 +1569,100 @@ function facePlate(m: Materials): THREE.Object3D[] {
       depth: () => 0.003,
       tuck: 0.0008,
     },
-    m.metal
+    m.metal,
+    soft
   );
   plate.name = 'plate';
   const ring = mesh(new THREE.TorusGeometry(0.0175, 0.0026, 10, 28), m.metal);
   ring.position.set(eye.x, eye.y, eye.z - 0.007);
   ring.rotation.y = -0.25;
   return [plate, ring];
+}
+
+/**
+ * Part of a hat turned on a lathe from `profile` (radius, height; anticlockwise,
+ * so it faces out), round `turn` radians either side of the back (+z), then
+ * each point moved by `shape` — a brim's curl, a crown's crease — and smoothed
+ * over the seam.
+ */
+function turned(
+  profile: [number, number][],
+  shape: (v: THREE.Vector3) => void,
+  turn = Math.PI
+): THREE.BufferGeometry {
+  const lathe = new THREE.LatheGeometry(
+    profile.map(([r, y]) => new THREE.Vector2(r, y)),
+    48,
+    -turn,
+    2 * turn
+  );
+  lathe.deleteAttribute('uv');
+  lathe.deleteAttribute('normal');
+  const geo = mergeVertices(lathe);
+  const p = geo.getAttribute('position');
+  const v = new THREE.Vector3();
+  for (let i = 0; i < p.count; i++) {
+    shape(v.fromBufferAttribute(p, i));
+    p.setXYZ(i, v.x, v.y, v.z);
+  }
+  geo.computeVertexNormals();
+  return geo;
+}
+
+/** A brim's cross-section: flat from `inner` out to `outer`, `thick` deep, rolled round at the edge. */
+function brimProfile(inner: number, outer: number, thick: number): [number, number][] {
+  const flat = (k: number) => inner + ((outer - inner - thick / 2) * k) / 8;
+  const out: [number, number][] = [];
+  for (let k = 0; k <= 8; k++) out.push([flat(k), 0]);
+  for (let k = 1; k < 8; k++) {
+    const a = -Math.PI / 2 + (Math.PI * k) / 8;
+    out.push([
+      outer - thick / 2 + (thick / 2) * Math.cos(a),
+      thick / 2 + (thick / 2) * Math.sin(a),
+    ]);
+  }
+  for (let k = 8; k >= 0; k--) out.push([flat(k), thick]);
+  return out;
+}
+
+/** How far out along a brim a point is, 0 at `inner` to 1 at `outer`, and how much it is to the side rather than front or back. */
+function brimAt(v: THREE.Vector3, inner: number, outer: number): { out: number; side: number } {
+  const r = Math.hypot(v.x, v.z);
+  return {
+    out: Math.min(1, Math.max(0, (r - inner) / (outer - inner))),
+    side: r > 0 ? (v.x / r) ** 2 : 0,
+  };
+}
+
+/** Each of a hat's parts sat `y` up the head, tipped back by `tilt`. */
+function worn(parts: THREE.Mesh[], y: number, tilt: number): THREE.Mesh[] {
+  for (const o of parts) {
+    o.position.set(0, y, 0.005);
+    o.rotation.x = tilt;
+  }
+  return parts;
+}
+
+/**
+ * A baseball cap's peak, lying out along +z from the band: a slice of a
+ * brim, tapered to a point at each end, its inner edge the band's curve, and
+ * arched across so the sides droop.
+ */
+function peakGeometry(): THREE.BufferGeometry {
+  const inner = 0.1;
+  const turn = 1.0;
+  return turned(
+    brimProfile(inner, 0.165, 0.005),
+    (v) => {
+      const a = Math.atan2(v.x, v.z);
+      const u = a / turn;
+      const r = inner + (Math.hypot(v.x, v.z) - inner) * Math.sqrt(Math.max(0, 1 - u * u));
+      v.x = r * Math.sin(a);
+      v.z = r * Math.cos(a) * 1.13;
+      v.y -= 1.4 * v.x * v.x;
+    },
+    turn
+  );
 }
 
 function hatFor(hat: Hat, m: Materials): THREE.Object3D[] {
@@ -1572,28 +1673,84 @@ function hatFor(hat: Hat, m: Materials): THREE.Object3D[] {
       return [cover(0.114, 0.52, m.accent), pom];
     }
     case 'cap': {
-      // on backwards, the peak over the nape
-      const peak = mesh(new RoundedBoxGeometry(0.13, 0.008, 0.09, 2, 0.003), m.accent);
-      peak.position.set(0, 0.17, 0.13);
-      peak.rotation.x = 0.2;
-      return [cover(0.112, 0.46, m.accent), peak];
+      // on backwards: the peak comes off the band at the nape, drooping a little
+      const button = ball(0.009, m.accent, 10);
+      button.scale.y = 0.45;
+      button.position.set(0, 0.229, 0.054);
+      button.rotation.x = 0.35;
+      const peak = mesh(peakGeometry(), m.accent);
+      peak.position.set(0, 0.124, 0.015);
+      peak.rotation.x = 0.3;
+      return [cover(0.112, 0.46, m.accent), button, peak];
     }
     case 'cowboy': {
-      const brim = mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.008, 32), m.accent);
-      brim.scale.set(1, 1, 0.85);
-      brim.position.y = 0.2;
-      const crown = mesh(new THREE.CylinderGeometry(0.07, 0.09, 0.11, 24), m.accent);
-      crown.position.y = 0.26;
-      return [brim, crown];
+      // the brim's sides rolled up, dipping front and back; the crown pinched at
+      // the front and creased down the middle
+      const brim = turned(brimProfile(0.088, 0.19, 0.006), (v) => {
+        const { out, side } = brimAt(v, 0.088, 0.19);
+        v.y += 0.05 * out * out * side - 0.012 * out * (1 - side);
+        v.z *= 1.1;
+      });
+      const crown = turned(
+        [
+          [0.094, 0],
+          [0.092, 0.04],
+          [0.088, 0.08],
+          [0.084, 0.104],
+          [0.076, 0.117],
+          [0.05, 0.123],
+          [0.025, 0.125],
+          [0, 0.125],
+        ],
+        (v) => {
+          v.y -= 0.032 * bell(v.x / 0.03) * ramp(0.06, 0.12, v.y);
+          if (v.z < 0) v.x *= 1 - 0.22 * ramp(0.03, 0.12, v.y) * ramp(0, -0.09, v.z);
+          v.z *= 1.1;
+        }
+      );
+      const band = turned(
+        [
+          [0.0955, 0.004],
+          [0.0935, 0.024],
+        ],
+        (v) => {
+          v.z *= 1.1;
+        }
+      );
+      return worn([mesh(brim, m.accent), mesh(crown, m.accent), mesh(band, m.black)], 0.165, 0.1);
     }
     case 'tophat': {
-      const brim = mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.01, 32), m.black);
-      brim.position.y = 0.205;
-      const crown = mesh(new THREE.CylinderGeometry(0.085, 0.08, 0.2, 28), m.black);
-      crown.position.y = 0.31;
-      const band = mesh(new THREE.CylinderGeometry(0.087, 0.086, 0.03, 28), m.accent);
-      band.position.y = 0.225;
-      return [brim, crown, band];
+      // a crown waisted a little and flaring to the top; the brim's sides curled up
+      const brim = turned(brimProfile(0.08, 0.13, 0.006), (v) => {
+        const { out, side } = brimAt(v, 0.08, 0.13);
+        v.y += 0.024 * out * out * side - 0.006 * out * (1 - side);
+        v.z *= 1.08;
+      });
+      const crown = turned(
+        [
+          [0.084, 0],
+          [0.081, 0.05],
+          [0.08, 0.1],
+          [0.083, 0.16],
+          [0.086, 0.188],
+          [0.084, 0.192],
+          [0.06, 0.193],
+          [0, 0.193],
+        ],
+        (v) => {
+          v.z *= 1.08;
+        }
+      );
+      const band = turned(
+        [
+          [0.0862, 0.005],
+          [0.0838, 0.034],
+        ],
+        (v) => {
+          v.z *= 1.08;
+        }
+      );
+      return worn([mesh(brim, m.black), mesh(crown, m.black), mesh(band, m.accent)], 0.18, 0.06);
     }
     case 'bandana': {
       const knot = ball(0.024, m.accent, 10);
@@ -1651,12 +1808,16 @@ function bar(a: THREE.Vector3, b: THREE.Vector3, r: number, mat: THREE.Material)
   return o;
 }
 
-/** An eye: the white, the iris on it, and the upper lid hooding it. A cyborg's is dark, lit from inside. */
-function buildEye(m: Materials, lit = false): THREE.Group {
+/**
+ * An eye: the white, the iris on it, and the upper lid hooding it. A cyborg's
+ * is dark, lit from inside. A woman's has a larger iris and a dark lash line
+ * along the lid's edge.
+ */
+function buildEye(m: Materials, lit = false, female = false): THREE.Group {
   const eye = new THREE.Group();
   eye.name = 'eye';
   eye.add(ball(0.0145, lit ? m.black : m.sclera, 14));
-  const iris = ball(lit ? 0.0095 : 0.0088, lit ? m.glow : m.eye, 12);
+  const iris = ball(lit ? 0.0095 : female ? 0.0094 : 0.0088, lit ? m.glow : m.eye, 12);
   iris.position.set(0, -0.0008, -0.0115);
   eye.add(iris);
   const lid = mesh(
@@ -1665,6 +1826,16 @@ function buildEye(m: Materials, lit = false): THREE.Group {
   );
   lid.rotation.x = -0.45;
   eye.add(lid);
+  if (female && !lit) {
+    // round the front of the lid's edge, tilted with it: half a ring, laid flat and turned forward
+    const lashes = new THREE.Group();
+    lashes.rotation.x = -0.45;
+    const line = mesh(new THREE.TorusGeometry(0.0159, 0.0012, 6, 20, Math.PI), m.black);
+    line.rotation.x = -Math.PI / 2;
+    line.position.y = 0.0015;
+    lashes.add(line);
+    eye.add(lashes);
+  }
   return eye;
 }
 
@@ -1731,17 +1902,21 @@ function buildFace(
   }
   // a beast's nose is leathery and dark, and so are its lips
   const nose = who.kind === 'beast' ? m.black : m.skin;
+  // a woman's nose is smaller and finer, its tip a touch upturned; her lips fuller
+  const female = who.figure === 'female' && (who.kind ?? 'human') === 'human';
   for (const side of [-1, 1]) {
     // the wings of the nose
-    const wing = ball(0.0092, nose, 10);
-    wing.position.set(side * 0.0125, 0.08, -0.103);
+    const wing = ball(female ? 0.0072 : 0.0092, nose, 10);
+    wing.position.set(side * (female ? 0.0105 : 0.0125), 0.08, female ? -0.101 : -0.103);
     out.push(wing);
   }
   // the bridge, from between the eyes down and out to the tip
-  const bridge = bar(at(0, 0.114, -0.096), at(0, 0.086, -0.112), 0.0098, m.skin);
-  const tip = ball(who.kind === 'beast' ? 0.018 : 0.0142, nose, 14);
+  const bridge = female
+    ? bar(at(0, 0.114, -0.096), at(0, 0.088, -0.109), 0.0072, m.skin)
+    : bar(at(0, 0.114, -0.096), at(0, 0.086, -0.112), 0.0098, m.skin);
+  const tip = ball(who.kind === 'beast' ? 0.018 : female ? 0.0112 : 0.0142, nose, 14);
   tip.scale.set(1.05, 0.85, 1);
-  tip.position.set(0, 0.083, -0.11);
+  tip.position.set(0, female ? 0.085 : 0.083, female ? -0.108 : -0.11);
   out.push(bridge, tip);
   // the lips: the upper a touch fuller at the sides, the lower fuller in the middle
   const mouth = who.lipstick
@@ -1752,8 +1927,8 @@ function buildFace(
           color: m.skin.color.clone().lerp(new THREE.Color('#9c4a44'), 0.35).multiplyScalar(0.88),
           roughness: 0.45,
         });
-  const upper = lip(0.0545, -0.094, 0.015, 0.0058, 0.7, mouth);
-  const lower = lip(0.0445, -0.092, 0.011, 0.0072, 0.75, mouth);
+  const upper = lip(0.0545, -0.094, 0.015, female ? 0.0068 : 0.0058, 0.7, mouth);
+  const lower = lip(0.0445, -0.092, female ? 0.0115 : 0.011, female ? 0.0086 : 0.0072, 0.75, mouth);
   // the teeth, behind the lips: only seen as a smile parts them
   const teeth = mesh(new RoundedBoxGeometry(0.024, 0.006, 0.004, 2, 0.0015), m.sclera);
   teeth.position.set(0, 0.0505, -0.093);
@@ -1798,19 +1973,32 @@ function buildFace(
 function buildHead(m: Materials, who: Persona): HeadRig {
   const head = new THREE.Group();
   // a cyborg's lead side is machine: the eye on it lights up (both of them, all machine)
+  const female = who.figure === 'female' && (who.kind ?? 'human') === 'human';
   const eyes: Record<1 | -1, THREE.Object3D> = {
-    1: buildEye(m, !!who.cyborg),
-    [-1]: buildEye(m, who.cyborg === 'full'),
+    1: buildEye(m, !!who.cyborg, female),
+    [-1]: buildEye(m, who.cyborg === 'full', female),
   };
+  // a woman's brows are finer and arched: the bow is along the geometry's x, which the
+  // brow's quarter turn makes up
+  const arch = new THREE.QuadraticBezierCurve3(
+    new THREE.Vector3(0, -0.013, 0),
+    new THREE.Vector3(0.007, 0, 0),
+    new THREE.Vector3(0, 0.013, 0)
+  );
   const brow = (side: 1 | -1) => {
-    const b = mesh(new THREE.CapsuleGeometry(0.0038, 0.022, 4, 8), m.hair);
+    const b = mesh(
+      female
+        ? new THREE.TubeGeometry(arch, 12, 0.0024, 6)
+        : new THREE.CapsuleGeometry(0.0038, 0.022, 4, 8),
+      m.hair
+    );
     b.rotation.z = Math.PI / 2 + side * 0.12;
     b.scale.z = 0.7;
     b.name = 'brow';
     return b;
   };
   const brows: Record<1 | -1, THREE.Mesh> = { 1: brow(1), [-1]: brow(-1) };
-  const skull = mesh(sculpt(new THREE.SphereGeometry(SKULL_R, 56, 42)), m.skin);
+  const skull = mesh(sculpt(new THREE.SphereGeometry(SKULL_R, 56, 42), female), m.skin);
   skull.scale.set(...SKULL_SCALE);
   skull.position.y = SKULL_Y;
   head.add(skull);
@@ -1818,7 +2006,7 @@ function buildHead(m: Materials, who: Persona): HeadRig {
   for (const o of face.parts) head.add(o);
   for (const o of [...hairFor(who.hairStyle, m), ...beardFor(who.beard, m)]) head.add(o);
   for (const o of accessoriesFor(who, m)) head.add(o);
-  if (who.cyborg === 'arm') for (const o of facePlate(m)) head.add(o);
+  if (who.cyborg === 'arm') for (const o of facePlate(m, female)) head.add(o);
   if (who.kind === 'beast') for (const o of beastHead(m, who)) head.add(o);
   const robot = who.kind === 'robot';
   for (const side of [-1, 1] as const) {

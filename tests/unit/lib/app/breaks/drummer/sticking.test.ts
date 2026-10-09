@@ -357,14 +357,33 @@ describe('assignBar — sixteenth hats hand to hand', () => {
     expect(steps[5].h).toBe('other');
   });
 
-  it('plays a ghost on an off step with the hand whose go it is, the hat dropped there', () => {
+  it('plays a ghost on an off step with the other hand, the lead hand keeping the hat there', () => {
     const b = bar({
       h: Array<number>(N).fill(1),
       s: [0, 0, 0, 0, 2, 0, 0, 1, 0, 0, 0, 0, 2, 0, 0, 0],
     });
     const steps = assignBar(b);
     expect(steps[7].s).toBe('other');
-    expect(steps[7].h).toBeUndefined();
+    expect(steps[7].h).toBe('lead');
+    // and the run carries on hand to hand round it
+    expect(steps[6].h).toBe('lead');
+    expect(steps[8].h).toBe('lead');
+    expect(steps[9].h).toBe('other');
+  });
+
+  it('plays a ghost on the lead’s go with the other hand, the lead hand staying on the hat', () => {
+    const b = bar({
+      h: Array<number>(N).fill(1),
+      s: [0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 1, 0, 2, 0, 0, 0],
+    });
+    const steps = assignBar(b);
+    for (const i of [6, 10]) {
+      expect(steps[i].s).toBe('other');
+      expect(steps[i].h).toBe('lead');
+    }
+    // every hat but the backbeats' is played
+    const dropped = steps.flatMap((s, i) => (s.h ? [] : [i]));
+    expect(dropped).toEqual([4, 12]);
   });
 });
 
@@ -532,5 +551,63 @@ describe('assignBar — cross-sticks', () => {
     expect(lead / toms.length).toBeGreaterThanOrEqual(0.6);
     // and never three in a row on the other hand
     expect(toms.join()).not.toContain('other,other');
+  });
+});
+
+describe('assignBar — a double pedal', () => {
+  const feet = (steps: StepHands[]) => steps.map((s) => s.k ?? '-');
+
+  it('shares a run of kicks between the feet, right foot first', () => {
+    const b = bar({ k: [1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0] });
+    expect(feet(assignBar(b, null, true))).toEqual([
+      'kickFoot',
+      'hatFoot',
+      'kickFoot',
+      'hatFoot',
+      '-',
+      '-',
+      'kickFoot',
+      'hatFoot',
+      '-',
+      '-',
+      'kickFoot',
+      '-',
+      '-',
+      '-',
+      '-',
+      '-',
+    ]);
+  });
+
+  it('leaves every kick on the right foot without one', () => {
+    const b = bar({ k: Array<number>(N).fill(1) });
+    expect(feet(assignBar(b)).every((f) => f === 'kickFoot')).toBe(true);
+  });
+
+  it('gives a kick on a step the left foot plays a chick on to the right foot', () => {
+    const b = bar({ k: [1, 1, 1, 1], hf: [0, 1, 0, 0] });
+    expect(feet(assignBar(b, null, true)).slice(0, 4)).toEqual([
+      'kickFoot',
+      'kickFoot',
+      'kickFoot',
+      'hatFoot',
+    ]);
+  });
+
+  it('carries a run on from the bar before', () => {
+    const before = bar({ k: [...Array<number>(15).fill(0), 1] });
+    const b = bar({ k: [1, 1, 1] });
+    expect(feet(assignBar(b, before, true)).slice(0, 3)).toEqual([
+      'hatFoot',
+      'kickFoot',
+      'hatFoot',
+    ]);
+  });
+
+  it('leaves the hands as they were', () => {
+    const b = bar({ k: Array<number>(N).fill(1), h: Array<number>(N).fill(1) });
+    const single = assignBar(b);
+    const double = assignBar(b, null, true);
+    expect(double.map((s) => s.h)).toEqual(single.map((s) => s.h));
   });
 });

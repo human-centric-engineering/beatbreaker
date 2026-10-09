@@ -9,6 +9,12 @@ import {
   BODY,
   BOARD_LENGTH,
   type Contact,
+  DOUBLE_PEDAL,
+  HAT_PEDAL,
+  HAT_PEDAL_BESIDE_DOUBLE,
+  HAT_SHIFT_DOUBLE,
+  HOOP,
+  PIECES,
   KICK_PEDAL,
   type Hand,
   type PieceId,
@@ -339,6 +345,142 @@ describe('poseAt — the kick foot', () => {
       expect(Math.abs(offsets[0] - offsets[1])).toBeGreaterThan(0.04);
     }
     expect(found).toBe(true);
+  });
+});
+
+describe('poseAt — a double pedal', () => {
+  /** Two passes of a bar, every step ingested, on a double pedal or not. */
+  function timeline(b: Bar, doubleKick: boolean): StrokeTimeline {
+    const tl = new StrokeTimeline();
+    for (let pass = 0; pass < 2; pass++)
+      for (let i = 0; i < N; i++) {
+        const t = (pass * N + i) * DUR;
+        tl.ingest({
+          t,
+          dur: DUR,
+          slot: i,
+          meter: M44,
+          bar: b,
+          next: b,
+          notes: (['k', 'hf'] as const).flatMap((lane) =>
+            b[lane][i] ? [{ voice: voice(lane), when: t }] : []
+          ),
+          doubleKick,
+        });
+      }
+    return tl;
+  }
+
+  /** How far the left foot's ball is from where it sits on a pedal's board. */
+  const offPedal = (ball: Vector3, pedal: { heel: readonly number[] }) =>
+    Math.hypot(ball.x - pedal.heel[0], ball.z - (pedal.heel[2] - 0.6 * BOARD_LENGTH));
+
+  it('plays every other kick of a run with the left foot, over on the second pedal', () => {
+    const b = bar();
+    b.k.fill(1);
+    const tl = timeline(b, true);
+    expect(tl.doublePedal).toBe(true);
+    const left = tl.forLimb('hatFoot').filter((h) => h.piece === 'kick');
+    const right = tl.forLimb('kickFoot');
+    expect(left.length).toBeGreaterThan(0);
+    expect(Math.abs(left.length - right.length)).toBeLessThanOrEqual(1);
+    const pose = poseAt(tl, N * DUR + 3 * DUR, 1);
+    const l = pose.legs.hatFoot;
+    expect(offPedal(l.ball, DOUBLE_PEDAL)).toBeLessThan(offPedal(l.ball, HAT_PEDAL));
+    // in one piece on the second pedal, too
+    expect(l.heel.distanceTo(l.ball)).toBeCloseTo(BODY.foot, 6);
+    expect(l.hip.distanceTo(l.knee)).toBeCloseTo(BODY.thigh, 6);
+    expect(l.knee.distanceTo(l.ankle)).toBeCloseTo(BODY.shin, 6);
+  });
+
+  it('brings the second beater down onto the head on each left-foot kick', () => {
+    const b = bar();
+    b.k.fill(1);
+    const tl = timeline(b, true);
+    const left = tl.forLimb('hatFoot').filter((h) => h.piece === 'kick');
+    const at = left[Math.floor(left.length / 2)].time;
+    expect(poseAt(tl, at, 1).double.beater).toBeCloseTo(BEATER_CONTACT, 2);
+    expect(poseAt(tl, at + DUR, 1).double.beater).toBeGreaterThan(BEATER_CONTACT + 0.05);
+  });
+
+  it('keeps the left foot on the hats, and the kick on one foot, without a double pedal', () => {
+    const b = bar();
+    b.k.fill(1);
+    const tl = timeline(b, false);
+    expect(tl.doublePedal).toBe(false);
+    expect(tl.forLimb('hatFoot')).toHaveLength(0);
+    const l = poseAt(tl, N * DUR + 3 * DUR, 1).legs.hatFoot;
+    expect(offPedal(l.ball, HAT_PEDAL)).toBeLessThan(offPedal(l.ball, DOUBLE_PEDAL));
+  });
+
+  it('goes back to the hats for the chicks, between runs on the double pedal', () => {
+    // a run of kicks in the first beat, chicks on the hat foot through the second half
+    const b = bar();
+    for (const i of [0, 1, 2, 3]) b.k[i] = 1;
+    for (const i of [8, 10, 12, 14]) b.hf[i] = 1;
+    const tl = timeline(b, true);
+    const onKicks = poseAt(tl, N * DUR + 2 * DUR, 1).legs.hatFoot;
+    const onHats = poseAt(tl, N * DUR + 11 * DUR, 1).legs.hatFoot;
+    expect(offPedal(onKicks.ball, DOUBLE_PEDAL)).toBeLessThan(
+      offPedal(onKicks.ball, HAT_PEDAL_BESIDE_DOUBLE)
+    );
+    // the hat pedal is out past the second board, with a double pedal in
+    expect(offPedal(onHats.ball, HAT_PEDAL_BESIDE_DOUBLE)).toBeLessThan(
+      offPedal(onHats.ball, DOUBLE_PEDAL)
+    );
+    expect(offPedal(onHats.ball, HAT_PEDAL_BESIDE_DOUBLE)).toBeLessThan(
+      offPedal(onHats.ball, HAT_PEDAL)
+    );
+  });
+
+  it('has the double pedal in only while a double-kick pattern plays, and not once it stops', () => {
+    const b = bar();
+    b.k.fill(1);
+    const tl = timeline(b, true);
+    expect(tl.doublePedal).toBe(true);
+    // a pattern on one pedal comes in: the standard kit is back with it
+    tl.ingest({ t: 2 * N * DUR, dur: DUR, slot: 0, meter: M44, bar: bar(), next: null, notes: [] });
+    expect(tl.doublePedal).toBe(false);
+    // and stopping puts it back too
+    const again = timeline(b, true);
+    again.reset();
+    expect(again.doublePedal).toBe(false);
+  });
+
+  it('plays the hats where they have moved to, with the double pedal in', () => {
+    const b = bar();
+    b.h[0] = 1;
+    const tipOnHat = (doubleKick: boolean) => {
+      const tl = new StrokeTimeline();
+      for (let i = 0; i < N; i++)
+        tl.ingest({
+          t: i * DUR,
+          dur: DUR,
+          slot: i,
+          meter: M44,
+          bar: b,
+          next: b,
+          notes: b.h[i] ? [{ voice: voice('h'), when: i * DUR }] : [],
+          doubleKick,
+        });
+      return poseAt(tl, 0, 1).arms.lead.tip;
+    };
+    const moved = tipOnHat(true).x - tipOnHat(false).x;
+    expect(moved).toBeCloseTo(HAT_SHIFT_DOUBLE[0], 2);
+  });
+
+  it('keeps the left knee out past the snare, playing the double pedal and crossing to it', () => {
+    const b = bar();
+    for (const i of [0, 1, 2, 3, 4, 5, 6, 7]) b.k[i] = 1;
+    for (const i of [10, 12, 14]) b.hf[i] = 1;
+    const tl = timeline(b, true);
+    const sn = PIECES.snare;
+    // the knee is a ball about 5 cm round: clear of the hoop by that much
+    const clear = sn.radius + HOOP.out + 0.05;
+    for (let k = 0; k < N * 4; k++) {
+      const { knee } = poseAt(tl, N * DUR + (k * DUR) / 4, 1).legs.hatFoot;
+      expect(Math.hypot(knee.x - sn.centre[0], knee.z - sn.centre[2])).toBeGreaterThan(clear);
+    }
   });
 });
 

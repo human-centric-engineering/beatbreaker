@@ -1,9 +1,10 @@
 import * as THREE from 'three';
 
-import { ball, type Materials, rod } from '@/components/app/studio/drummer/parts';
+import { ball, kickLogoTexture, type Materials, rod } from '@/components/app/studio/drummer/parts';
 import {
   BOARD_LENGTH,
   BELL,
+  DOUBLE_PEDAL,
   HAT_PEDAL,
   HOOP,
   KICK_PEDAL,
@@ -11,6 +12,7 @@ import {
   type PieceId,
   PIECES,
   type V3,
+  hatShift,
   cymbalY,
 } from '@/lib/app/breaks/drummer/kit-layout';
 import { HAT_CLOSED_GAP, type Pose } from '@/lib/app/breaks/drummer/pose';
@@ -24,8 +26,8 @@ import { HAT_CLOSED_GAP, type Pose } from '@/lib/app/breaks/drummer/pose';
 
 export interface KitModel {
   root: THREE.Group;
-  /** `percussion`: which percussion pieces to put up. */
-  update: (pose: Pose, percussion: ReadonlySet<PieceId>) => void;
+  /** `percussion`: which percussion pieces to put up; `doublePedal`: whether to put the second kick pedal in. */
+  update: (pose: Pose, percussion: ReadonlySet<PieceId>, doublePedal?: boolean) => void;
 }
 
 const vec = (a: V3) => new THREE.Vector3(a[0], a[1], a[2]);
@@ -97,13 +99,13 @@ function cymbal(radius: number, m: Materials): THREE.Mesh {
 }
 
 /** A tripod stand from the floor up to `top`, legs splayed. */
-function stand(top: THREE.Vector3, m: Materials, spread = 0.22): THREE.Group {
+function stand(top: THREE.Vector3, m: Materials, spread = 0.22, turn = 0.5): THREE.Group {
   const g = new THREE.Group();
   const base = new THREE.Vector3(top.x, 0.32, top.z);
   g.add(rod(base, top, 0.009, m.chrome));
   g.add(rod(new THREE.Vector3(top.x, 0, top.z), base, 0.013, m.chrome));
   for (let i = 0; i < 3; i++) {
-    const a = (i / 3) * Math.PI * 2 + 0.5;
+    const a = (i / 3) * Math.PI * 2 + turn;
     const foot = new THREE.Vector3(
       top.x + Math.cos(a) * spread,
       0.01,
@@ -185,7 +187,17 @@ export function buildKit(m: Materials): KitModel {
   const kickBody = drum({ ...kick, centre: [0, 0, 0] }, m, 10, m.wood);
   kickBody.rotation.x = Math.PI / 2;
   kickBody.position.z = kick.depth / 2;
-  // a white batter head facing the drummer, a black reso with a port out front
+  // a white batter head facing the drummer, a black reso out front with the name round it
+  const logo = kickLogoTexture();
+  if (logo) {
+    const front = new THREE.Mesh(
+      new THREE.CircleGeometry(kick.radius * 0.99, 64),
+      new THREE.MeshStandardMaterial({ map: logo, roughness: 0.6 })
+    );
+    front.rotation.x = Math.PI / 2;
+    front.position.y = -kick.depth - 0.001;
+    kickBody.add(front);
+  }
   kickGroup.add(kickBody);
   for (const side of [-1, 1]) {
     const spur = rod(
@@ -236,10 +248,53 @@ export function buildKit(m: Materials): KitModel {
   beater.add(felt);
   root.add(beater);
 
-  /* ---- hats ---------------------------------------------------------- */
+  /* ---- double pedal: the left foot's board, a drive shaft from its toe to a
+          second beater beside the first. Only in for a double-kick pattern. */
+  const double = new THREE.Group();
+  const dp = vec(DOUBLE_PEDAL.heel);
+  const dTurn = Math.atan2(-DOUBLE_PEDAL.toward[0], -DOUBLE_PEDAL.toward[2]);
+  const dToe = dp.clone().addScaledVector(vec(DOUBLE_PEDAL.toward).normalize(), BOARD_LENGTH);
+  const dPlate = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.012, 0.36), m.black);
+  dPlate.position.copy(dp.clone().lerp(dToe, 0.55)).setY(0.006);
+  dPlate.rotation.y = dTurn;
+  double.add(dPlate);
+  const doubleBoard = new THREE.Group();
+  doubleBoard.position.copy(dp);
+  doubleBoard.rotation.order = 'YXZ';
+  doubleBoard.rotation.y = dTurn;
+  const db = new THREE.Mesh(new THREE.BoxGeometry(0.085, 0.012, BOARD_LENGTH), m.chrome);
+  db.position.z = -BOARD_LENGTH / 2;
+  db.castShadow = true;
+  doubleBoard.add(db);
+  double.add(doubleBoard);
+  // the shaft's bearing at the board's toe, and the shaft across to the second beater
+  const dAxle = vec(DOUBLE_PEDAL.axle);
+  const bearing = new THREE.Vector3(dToe.x, dAxle.y - 0.02, dToe.z - 0.04);
+  double.add(rod(new THREE.Vector3(bearing.x, 0.01, bearing.z), bearing, 0.008, m.chrome));
+  double.add(rod(bearing, new THREE.Vector3(dAxle.x - 0.02, dAxle.y, dAxle.z), 0.006, m.chrome));
+  const beater2 = new THREE.Group();
+  beater2.position.copy(dAxle);
+  const shaft2 = new THREE.Mesh(shaft.geometry, m.chrome);
+  shaft2.position.y = KICK_PEDAL.beater / 2;
+  beater2.add(shaft2);
+  const felt2 = new THREE.Mesh(felt.geometry, m.felt);
+  felt2.rotation.z = Math.PI / 2;
+  felt2.position.y = KICK_PEDAL.beater;
+  felt2.castShadow = true;
+  beater2.add(felt2);
+  double.add(beater2);
+  root.add(double);
+
+  /* ---- hats: cymbals, stand and pedal in one group, which moves over to the
+          left as a whole to make room for a double pedal's second board ---- */
+  const hiHat = new THREE.Group();
   const hat = PIECES.hat;
   const hatCentre = vec(hat.centre);
-  root.add(stand(new THREE.Vector3(hatCentre.x, hatCentre.y - 0.03, hatCentre.z), m, 0.2));
+  const hatStandTop = new THREE.Vector3(hatCentre.x, hatCentre.y - 0.03, hatCentre.z);
+  // the stand, and with a double pedal in the same stand turned: one leg back beside the pedal, one by the drive shaft
+  const hatStand = stand(hatStandTop, m, 0.2);
+  const hatStandBesideDouble = stand(hatStandTop, m, 0.2, 1.7);
+  hiHat.add(hatStand, hatStandBesideDouble);
   const hatRod = rod(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0.2, 0), 0.004, m.chrome);
   const hatTop = new THREE.Group();
   const hatTopTilt = frame(hat);
@@ -249,14 +304,14 @@ export function buildKit(m: Materials): KitModel {
   hatTop.add(hatTopTilt);
   hatTop.add(hatRod);
   hatTop.position.copy(hatCentre);
-  root.add(hatTop);
+  hiHat.add(hatTop);
   const bottom = frame(hat);
   const bottomCym = cymbal(hat.radius, m);
   bottomCym.rotation.x = Math.PI; // the bottom cymbal faces up into the top one
   // edge to edge with the top one: each bow falls 7.5% of the radius
   bottomCym.position.y = -2 * 0.075 * hat.radius - HAT_CLOSED_GAP;
   bottom.add(bottomCym);
-  root.add(bottom);
+  hiHat.add(bottom);
   // hat pedal
   const hp = vec(HAT_PEDAL.heel);
   const hatBoard = new THREE.Group();
@@ -267,9 +322,9 @@ export function buildKit(m: Materials): KitModel {
   hb.position.z = -BOARD_LENGTH / 2;
   hb.castShadow = true;
   hatBoard.add(hb);
-  root.add(hatBoard);
+  hiHat.add(hatBoard);
   const pedalTop = hp.clone().addScaledVector(vec(HAT_PEDAL.toward).normalize(), BOARD_LENGTH);
-  root.add(
+  hiHat.add(
     rod(
       new THREE.Vector3(pedalTop.x, 0.01, pedalTop.z),
       new THREE.Vector3(hatCentre.x, 0.05, hatCentre.z),
@@ -277,6 +332,7 @@ export function buildKit(m: Materials): KitModel {
       m.chrome
     )
   );
+  root.add(hiHat);
 
   /* ---- cymbals ------------------------------------------------------- */
   const swing: Partial<Record<PieceId, [number, number, number]>> = {
@@ -353,9 +409,15 @@ export function buildKit(m: Materials): KitModel {
 
   return {
     root,
-    update(pose: Pose, percussion: ReadonlySet<PieceId>) {
+    update(pose: Pose, percussion: ReadonlySet<PieceId>, doublePedal = false) {
       for (const o of perc1) o.visible = percussion.has('perc1');
       for (const o of perc2) o.visible = percussion.has('perc2');
+      double.visible = doublePedal;
+      hiHat.position.copy(vec(hatShift(doublePedal)));
+      hatStand.visible = !doublePedal;
+      hatStandBesideDouble.visible = doublePedal;
+      doubleBoard.rotation.x = pose.double.board;
+      beater2.rotation.x = pose.double.beater;
       kickBoard.rotation.x = pose.legs.kickFoot.board;
       hatBoard.rotation.x = pose.legs.hatFoot.board;
       beater.rotation.x = pose.beater;

@@ -214,6 +214,11 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
             value={c.swing}
             onChange={c.setSwing}
             suffix="%"
+            hint={
+              c.swingYours
+                ? 'Yours: a new pattern keeps it. Pick a style to hand it back.'
+                : 'Set by the style: each new pattern picks a fresh swing in its range.'
+            }
           />
           <Slider
             label="Hi-hat dynamics"
