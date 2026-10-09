@@ -33,6 +33,9 @@ function Probe() {
   return (
     <>
       <output data-testid="probe">{`${c.bpm}|${c.meter}|${c.level}`}</output>
+      <button type="button" onClick={() => c.setMeter('12/8')}>
+        12/8
+      </button>
       {[1, 5].map((n) => (
         <button key={n} type="button" onClick={() => c.setLevel(n)}>
           {`layer ${n}`}
@@ -60,6 +63,18 @@ async function mount(children: React.ReactNode = <TempoControl slider />) {
 const field = () => screen.getByRole<HTMLInputElement>('textbox', { name: 'Tempo in bpm' });
 
 describe('TempoControl', () => {
+  it('quotes the dotted quarter in 12/8, and nothing beside the bpm in 4/4', async () => {
+    await mount();
+    expect(probe().meter).toBe('4/4');
+    expect(document.querySelector('.tempo-pulse')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: '12/8' }));
+    const { bpm } = probe();
+    // the bpm counts quarters; a dotted quarter is half as long again
+    expect(document.querySelector('.tempo-pulse')?.textContent).toBe(
+      `\u2669. = ${Math.round((bpm * 2) / 3)}`
+    );
+  });
+
   it('takes a typed tempo on Enter, and clamps 300 to the meter’s ceiling', async () => {
     const user = userEvent.setup();
     await mount();

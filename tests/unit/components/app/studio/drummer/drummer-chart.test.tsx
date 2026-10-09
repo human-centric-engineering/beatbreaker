@@ -234,6 +234,17 @@ describe('DrummerChart', () => {
     expect(p.lit).toEqual(['3']);
   });
 
+  it('numbers the pulses of a compound bar and dots the eighths between them', () => {
+    const funk = testStyle('funk');
+    A = generatePattern({ style: funk, meter: '12/8', seed: 7, bars: 1, density: 50, ghosts: 50 });
+    // slot 16 of 12/8 is the ninth eighth: the last of pulse 3
+    fake = studio({ t: 0, letter: 'A', barIdx: 0, secIdx: 0, slot: 16 }, 'A', ['A']);
+    const { container } = render(<DrummerChart />);
+    const p = parts(container);
+    expect(p.beats.map((li) => li.textContent).join(' ')).toBe('1 · · 2 · · 3 · · 4 · ·');
+    expect(p.beats.indexOf(container.querySelector('.drummer-chart-count li.now')!)).toBe(8);
+  });
+
   it('draws nothing without a pattern', () => {
     fake = {
       view: { A: null, B: null },

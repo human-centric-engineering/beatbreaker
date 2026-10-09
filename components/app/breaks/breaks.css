@@ -281,6 +281,12 @@
   letter-spacing: 0.12em;
   color: var(--faint);
 }
+.bb .tempo-pulse {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  white-space: nowrap;
+  color: var(--faint);
+}
 /* In the header the number is the transport's headline, as the read-out was. */
 .bb .bpmbox .tempo-num {
   font-family: var(--f-display);
@@ -1793,6 +1799,14 @@
 }
 .bb .drummer-chart-count li.one {
   background: var(--rust);
+}
+/* the eighths inside a compound pulse: there, but not counted aloud */
+.bb .drummer-chart-count li.off {
+  width: 12px;
+}
+.bb .drummer-chart-count li.off.now {
+  background: none;
+  color: var(--brass);
 }
 .bb .drummer-chart-window {
   overflow: hidden;
