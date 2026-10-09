@@ -371,6 +371,17 @@ export interface Style extends StyleAttrs {
    */
   fillOrder?: LaneKey[];
   /**
+   * Whether each half of the phrase is marked on its 1 with a crash, and a
+   * kick under it. Both default to true. Tony Allen leaves the 1 to the
+   * figure: snare there as often as kick, and almost never a crash.
+   */
+  phraseMark?: { crash?: boolean; kick?: boolean };
+  /**
+   * Probability, 0–1, that the phrase ends on a fill (0.8, or 0.7 for a comp
+   * ending, by default). Tony Allen: "I play like a machine or a loop."
+   */
+  fillChance?: number;
+  /**
    * Accent cycles that run across the bar line ({@link CrossRhythm}): a
    * dotted-quarter rimshot every six sixteenths is three against four for
    * three bars; every fourteen eighths is 7/4 over 4/4. A one-bar figure

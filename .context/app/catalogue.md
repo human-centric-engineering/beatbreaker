@@ -157,6 +157,13 @@ few words of `feel`, a `weight`, and `params`: any style field except
     turn (bar 1, bar 2, bar 1…), for a groove whose second bar answers its
     first (I Feel Fine, Birthday). Its kicks are weighed per bar, and one-bar
     figures draw exactly as before.
+- **Two params for a drummer who does not mark the phrase:**
+  - `phraseMark: { crash?, kick? }`: whether each half of the phrase starts on
+    a crash with a kick under it. Both default to true; Tony Allen sets both
+    false and leaves the 1 to the figure.
+  - `fillChance`: how often the phrase ends on a fill (0.8, or 0.7 for a comp
+    ending, by default). The draw is made either way, so other styles' output
+    is unchanged.
 - **A song that changes meter is split by section** (Lucy's 3/4 verse and 4/4
   chorus are two songs). A pattern has one meter, and a per-bar meter list
   would be a wire-format change.
@@ -343,7 +350,7 @@ one twice.
 
 ## Seeding
 
-`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 67 styles (62 genres and 5 drummers), 47 famous
+`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 68 styles (62 genres and 6 drummers), 47 famous
 breaks in one library, and 22 kits. Its data lives beside it under `data/`, and
 **only that seed imports it**.
 

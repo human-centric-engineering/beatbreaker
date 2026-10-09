@@ -6961,6 +6961,1229 @@ export const STYLES: Record<string, Style> = {
       },
     ],
   },
+  tonyallen: {
+    label: 'Tony Allen',
+    drummer: true,
+    hint: 'Fela Kuti\'s drummer, who made Afrobeat: four limbs playing like four drummers. The hi-hat foot chicks every "and", the hand plays one-and-a on the hat around the snare, the kick comes in pairs and rarely marks the 1, and the snare pops in clusters with no fixed backbeat. Hardly a fill ("I play like a machine or a loop"). Each New plays a style inspired by one of thirty-four songs: Zombie, Water No Get Enemy, Expensive Shit, Lady, Gentleman, and his own later records. Built on the five patterns he demonstrated himself; the song grooves are variations of them, not transcriptions.',
+    toms: true,
+    kit: 'studio70',
+    hats: 16,
+    bpm: [84, 136],
+    swingUnit: 16,
+    swing: 15,
+    swingRange: [9, 21],
+    ghostBias: 0,
+    opens: 0,
+    backbeats: [6, 14],
+    foot: [2, 6, 10, 14],
+    targetDensity: 9,
+    hatDepth: 0.6,
+    rimshot: 0,
+    midFills: 0,
+    // the 1 is left to the figure, and a fill ends the phrase a fifth of the time
+    phraseMark: { crash: false, kick: false },
+    fillChance: 0.2,
+    // relaxed, a touch behind
+    feel: { label: 'Relaxed', s: 0.05, sGhost: 0.03, h: [0, 0.03], hf: 0.02, jitter: 0.02 },
+    kick1: [
+      ['1100', 3],
+      ['0001', 1.5],
+      ['0011', 1.2],
+    ],
+    kick: [
+      ['1100', 2],
+      ['0000', 1.5],
+      ['0011', 1],
+      ['0010', 0.8],
+    ],
+    /* His five patterns, from his own demonstration in the Birth of Afrobeat
+       footage, transcribed by Sébastien Poitevin; the first agrees with Joe
+       Ospalla's transcription. See planning/drumming-research.md, section I. */
+    figures: [
+      // his first pattern
+      [
+        {
+          h: '1.1.1.111.111.11',
+          hf: '..1...1...1...1.',
+          k: '11......11......',
+          s: '...2.12.....122.',
+        },
+        2,
+      ],
+      // snare on one
+      [
+        {
+          h: '1.1.1.111.111.11',
+          hf: '..1...1...1...1.',
+          k: '...1..1.......1.',
+          s: '21...2..21...2..',
+        },
+        1.4,
+      ],
+      // floating
+      [
+        {
+          h: '1.1.141.1.1.1.11',
+          hf: '..1...1...1...1.',
+          k: '...11......11...',
+          s: '21.....2.21.....',
+        },
+        1.4,
+      ],
+      // double kicks
+      [
+        {
+          h: '1.1.111.14111.1.',
+          hf: '..1...1...1...1.',
+          k: '11..1...11......',
+          s: '..12..2.....12.2',
+        },
+        1.2,
+      ],
+      // the buzz
+      [
+        {
+          h: '1.1.141.1.111.11',
+          hf: '..1...1...1...1.',
+          k: '11......11......',
+          s: '...2..22....8..2',
+        },
+        1.0,
+      ],
+    ],
+    fills: [
+      // short pickups, a 16th or two on the snare
+      [{ s: '.22' }, 1.2],
+      [{ s: '2.12' }, 1.0],
+      // a buzz into the next bar
+      [{ s: '8..2' }, 0.8],
+      // the toms like congas
+      [{ t2: '.1.', t3: '1.1' }, 0.8],
+    ],
+    songs: [
+      {
+        key: 'jeun-ko-ku',
+        title: 'Jeun Ko Ku (Chop and Quench)',
+        feel: 'the early, James Brown-flavoured Afrobeat: his first pattern with a firmer 2 and 4',
+        weight: 0.8,
+        params: {
+          bpm: [120, 128],
+          swingUnit: 16,
+          swing: 6,
+          swingRange: [0, 12],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '....2..1....2.1.',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              1.0,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'black-mans-cry',
+        title: "Black Man's Cry",
+        feel: 'live in 1971, his first pattern, a floor tom answering like a conga',
+        weight: 0.7,
+        params: {
+          bpm: [116, 124],
+          swingUnit: 16,
+          swing: 12,
+          swingRange: [6, 18],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+                t3: '......1.......1.',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              1.0,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'buy-africa',
+        title: 'Buy Africa',
+        feel: 'slow and roomy, floating',
+        weight: 0.6,
+        params: {
+          bpm: [84, 90],
+          swingUnit: 16,
+          swing: 15,
+          swingRange: [9, 21],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.141.1.1.1.11',
+                hf: '..1...1...1...1.',
+                k: '...11......11...',
+                s: '21.....2.21.....',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '...1..1.......1.',
+                s: '21...2..21...2..',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'why-black-man-dey-suffer',
+        title: 'Why Black Man Dey Suffer',
+        feel: 'snare on one, the kick never there',
+        weight: 0.7,
+        params: {
+          bpm: [90, 96],
+          swingUnit: 16,
+          swing: 15,
+          swingRange: [9, 21],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '...1..1.......1.',
+                s: '21...2..21...2..',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.141.1.1.1.11',
+                hf: '..1...1...1...1.',
+                k: '...11......11...',
+                s: '21.....2.21.....',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'open-and-close',
+        title: 'Open & Close',
+        feel: 'his first pattern under the dance the song is named for',
+        weight: 0.7,
+        params: {
+          bpm: [102, 110],
+          swingUnit: 16,
+          swing: 12,
+          swingRange: [6, 18],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.141.1.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2..22....8..2',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'lady',
+        title: 'Lady',
+        feel: 'double kicks, played softly',
+        weight: 0.9,
+        params: {
+          bpm: [104, 110],
+          swingUnit: 16,
+          swing: 15,
+          swingRange: [9, 21],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.111.14111.1.',
+                hf: '..1...1...1...1.',
+                k: '11..1...11......',
+                s: '..12..2.....12.2',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'shakara',
+        title: 'Shakara',
+        feel: 'snare on one, the hat foot on every "and"',
+        weight: 0.8,
+        params: {
+          bpm: [116, 124],
+          swingUnit: 16,
+          swing: 12,
+          swingRange: [6, 18],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '...1..1.......1.',
+                s: '21...2..21...2..',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'roforofo-fight',
+        title: 'Roforofo Fight',
+        feel: 'his first pattern with a kick pickup on the "and" of 4',
+        weight: 0.8,
+        params: {
+          bpm: [120, 128],
+          swingUnit: 16,
+          swing: 9,
+          swingRange: [3, 15],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11....1.',
+                s: '...2.12.....122.',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.111.14111.1.',
+                hf: '..1...1...1...1.',
+                k: '11..1...11......',
+                s: '..12..2.....12.2',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'go-slow',
+        title: 'Go Slow',
+        feel: 'the heavy traffic feel: floating, half-open hats',
+        weight: 0.7,
+        params: {
+          bpm: [92, 98],
+          swingUnit: 16,
+          swing: 18,
+          swingRange: [12, 24],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.141.1.1.1411',
+                hf: '..1...1...1...1.',
+                k: '...11......11...',
+                s: '21.....2.21.....',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.141.1.1.1.11',
+                hf: '..1...1...1...1.',
+                k: '...11......11...',
+                s: '21.....2.21.....',
+              },
+              1.0,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'alu-jon-jonki-jon',
+        title: 'Alu Jon Jonki Jon',
+        feel: 'his first pattern with the toms talking like congas',
+        weight: 0.6,
+        params: {
+          bpm: [108, 116],
+          swingUnit: 16,
+          swing: 12,
+          swingRange: [6, 18],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+                t2: '.....1........1.',
+                t3: '.......1...1....',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              1.0,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'gentleman',
+        title: 'Gentleman',
+        feel: 'slow and floating, the drums coming in sparse under the saxophone',
+        weight: 0.9,
+        params: {
+          bpm: [84, 90],
+          swingUnit: 16,
+          swing: 21,
+          swingRange: [15, 27],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.141.1.1.1.11',
+                hf: '..1...1...1...1.',
+                k: '...11......11...',
+                s: '21.....2.21.....',
+              },
+              2,
+            ],
+            // sparer
+            [
+              {
+                h: '1.1.141.1.1.1.11',
+                hf: '..1...1...1...1.',
+                k: '...11......11...',
+                s: '.......2.2......',
+              },
+              1.0,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'expensive-shit',
+        title: 'Expensive Shit',
+        feel: 'two bars: his first pattern, then the kick and snare answering it',
+        weight: 1.0,
+        params: {
+          bpm: [121, 129],
+          swingUnit: 16,
+          swing: 12,
+          swingRange: [6, 18],
+          kit: 'studio70',
+          figures: [
+            // two bars
+            [
+              {
+                h: '1.1.1.111.111.111.1.1.111.111.11',
+                hf: '..1...1...1...1...1...1...1...1.',
+                k: '11......11......11......11.1..1.',
+                s: '...2.12.....122....2.22..1..2.2.',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'he-miss-road',
+        title: 'He Miss Road',
+        feel: 'snare on one',
+        weight: 0.6,
+        params: {
+          bpm: [96, 102],
+          swingUnit: 16,
+          swing: 15,
+          swingRange: [9, 21],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '...1..1.......1.',
+                s: '21...2..21...2..',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.111.14111.1.',
+                hf: '..1...1...1...1.',
+                k: '11..1...11......',
+                s: '..12..2.....12.2',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'water-no-get-enemy',
+        title: 'Water No Get Enemy',
+        feel: 'the liquid shuffle: 8ths on the hat, the kick in pairs',
+        weight: 1.1,
+        params: {
+          bpm: [88, 96],
+          swingUnit: 16,
+          swing: 36,
+          swingRange: [30, 42],
+          kit: 'studio70',
+          figures: [
+            // from a human transcription
+            [
+              {
+                h: '1.1.1.1.1.1.1.1.',
+                hf: '..1...1...1...1.',
+                k: '11..11..11.1..1.',
+                s: '...2...2.....2..',
+              },
+              2,
+            ],
+            // the intro, the foot on the beat
+            [{ hf: '1...1...1...1...', k: '11..11..11.1..1.', s: '...2...2.....2..' }, 0.5],
+          ],
+        },
+      },
+      {
+        key: 'upside-down',
+        title: 'Upside Down',
+        feel: 'snare on one',
+        weight: 0.6,
+        params: {
+          bpm: [114, 122],
+          swingUnit: 16,
+          swing: 12,
+          swingRange: [6, 18],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '...1..1.......1.',
+                s: '21...2..21...2..',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.141.1.1.1.11',
+                hf: '..1...1...1...1.',
+                k: '...11......11...',
+                s: '21.....2.21.....',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'yellow-fever',
+        title: 'Yellow Fever',
+        feel: 'the buzz on 4',
+        weight: 0.8,
+        params: {
+          bpm: [100, 108],
+          swingUnit: 16,
+          swing: 15,
+          swingRange: [9, 21],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.141.1.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2..22....8..2',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'mr-follow-follow',
+        title: 'Mr Follow Follow',
+        feel: 'floating',
+        weight: 0.6,
+        params: {
+          bpm: [88, 94],
+          swingUnit: 16,
+          swing: 18,
+          swingRange: [12, 24],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.141.1.1.1.11',
+                hf: '..1...1...1...1.',
+                k: '...11......11...',
+                s: '21.....2.21.....',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.141.1.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2..22....8..2',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'ikoyi-blindness',
+        title: 'Ikoyi Blindness',
+        feel: 'a firm kick on 1 and 3, soft ones just after 2 and 4',
+        weight: 0.6,
+        params: {
+          bpm: [119, 127],
+          swingUnit: 16,
+          swing: 12,
+          swingRange: [6, 18],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '2....1..2....1..',
+                s: '...2.12.....122.',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'zombie',
+        title: 'Zombie',
+        feel: 'fast, two bars, the second ending in a mock military march',
+        weight: 1.2,
+        params: {
+          bpm: [128, 136],
+          swingUnit: 16,
+          swing: 9,
+          swingRange: [3, 15],
+          kit: 'studio70',
+          figures: [
+            // two bars
+            [
+              {
+                h: '1.1.1.111.111.111.1.1.111.111.11',
+                hf: '..1...1...1...1...1...1...1...1.',
+                k: '11......11......11......1..1....',
+                s: '...2.12.....122....2.22.....3.33',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              1.0,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'sorrow-tears-and-blood',
+        title: 'Sorrow Tears and Blood',
+        feel: 'his first pattern',
+        weight: 0.7,
+        params: {
+          bpm: [98, 104],
+          swingUnit: 16,
+          swing: 15,
+          swingRange: [9, 21],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.111.14111.1.',
+                hf: '..1...1...1...1.',
+                k: '11..1...11......',
+                s: '..12..2.....12.2',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'no-agreement',
+        title: 'No Agreement',
+        feel: 'his first pattern, the variations sparse and never where you expect',
+        weight: 0.7,
+        params: {
+          bpm: [96, 104],
+          swingUnit: 16,
+          swing: 15,
+          swingRange: [9, 21],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '...1..1.......1.',
+                s: '21...2..21...2..',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'opposite-people',
+        title: 'Opposite People',
+        feel: 'double kicks',
+        weight: 0.6,
+        params: {
+          bpm: [114, 122],
+          swingUnit: 16,
+          swing: 12,
+          swingRange: [6, 18],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.111.14111.1.',
+                hf: '..1...1...1...1.',
+                k: '11..1...11......',
+                s: '..12..2.....12.2',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'fear-not-for-man',
+        title: 'Fear Not for Man',
+        feel: 'the buzz',
+        weight: 0.6,
+        params: {
+          bpm: [100, 106],
+          swingUnit: 16,
+          swing: 15,
+          swingRange: [9, 21],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.141.1.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2..22....8..2',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.141.1.1.1.11',
+                hf: '..1...1...1...1.',
+                k: '...11......11...',
+                s: '21.....2.21.....',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'african-message',
+        title: 'African Message',
+        feel: "his own band, 1979: floating kicks under his first pattern's snare",
+        weight: 0.6,
+        params: {
+          bpm: [114, 122],
+          swingUnit: 16,
+          swing: 15,
+          swingRange: [9, 21],
+          kit: 'studio70',
+          figures: [
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '...11......11...',
+                s: '...2.12.....122.',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.141.1.1.1.11',
+                hf: '..1...1...1...1.',
+                k: '...11......11...',
+                s: '21.....2.21.....',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'nepa',
+        title: 'N.E.P.A.',
+        feel: 'the electro-boogie of 1985: straighter, every 16th on the hat',
+        weight: 0.6,
+        params: {
+          bpm: [104, 112],
+          swingUnit: 16,
+          swing: 6,
+          swingRange: [0, 12],
+          kit: 'machine',
+          figures: [
+            [
+              {
+                h: '1111211111112111',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              0.6,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'asiko',
+        title: 'Asiko (In a Hurry)',
+        feel: 'Black Voices, 1999: dub, the drums skittering',
+        weight: 0.6,
+        params: {
+          bpm: [116, 124],
+          swingUnit: 16,
+          swing: 12,
+          swingRange: [6, 18],
+          kit: 'raregroove',
+          figures: [
+            // sparse
+            [
+              {
+                h: '1.1.141.1.1.1.11',
+                hf: '..1...1...1...1.',
+                k: '...11......11...',
+                s: '2......1.2......',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.141.1.1.1.11',
+                hf: '..1...1...1...1.',
+                k: '...11......11...',
+                s: '21.....2.21.....',
+              },
+              1.0,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'home-cooking',
+        title: 'Home Cooking',
+        feel: 'snare on one, with hip-hop around it',
+        weight: 0.5,
+        params: {
+          bpm: [114, 122],
+          swingUnit: 16,
+          swing: 12,
+          swingRange: [6, 18],
+          kit: 'raregroove',
+          figures: [
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '...1..1.......1.',
+                s: '21...2..21...2..',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'secret-agent',
+        title: 'Secret Agent',
+        feel: 'double kicks',
+        weight: 0.5,
+        params: {
+          bpm: [116, 124],
+          swingUnit: 16,
+          swing: 12,
+          swingRange: [6, 18],
+          figures: [
+            [
+              {
+                h: '1.1.111.14111.1.',
+                hf: '..1...1...1...1.',
+                k: '11..1...11......',
+                s: '..12..2.....12.2',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.141.1.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2..22....8..2',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'moody-boy',
+        title: 'Moody Boy',
+        feel: 'The Source, 2017: a big band around snare on one',
+        weight: 0.6,
+        params: {
+          bpm: [116, 124],
+          swingUnit: 16,
+          swing: 18,
+          swingRange: [12, 24],
+          kit: 'liveroom',
+          figures: [
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '...1..1.......1.',
+                s: '21...2..21...2..',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              1.0,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'moanin',
+        title: "Moanin'",
+        feel: 'the Art Blakey tribute: a shuffle on the hat, kick on 1 and its "e"',
+        weight: 0.7,
+        params: {
+          bpm: [92, 98],
+          swingUnit: 8,
+          swing: 84,
+          swingRange: [78, 90],
+          kit: 'virtuosity',
+          figures: [
+            [
+              {
+                h: '1.111.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11..............',
+                s: '.......2......2.',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.111.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '.......2......2.',
+              },
+              1.0,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'night-in-tunisia',
+        title: 'A Night in Tunisia',
+        feel: 'Blakey\'s floor-tom ostinato, the foot on every "and"',
+        weight: 0.6,
+        params: {
+          bpm: [94, 100],
+          swingUnit: 16,
+          swing: 12,
+          swingRange: [6, 18],
+          kit: 'virtuosity',
+          figures: [
+            [
+              {
+                h: '1...1...1...1...',
+                hf: '..1...1...1...1.',
+                k: '1.......1.......',
+                t3: '1..1..1.1..1..1.',
+              },
+              2,
+            ],
+            [
+              {
+                hf: '..1...1...1...1.',
+                k: '1.......1.......',
+                s: '............2...',
+                t3: '1..1..1.1..1..1.',
+              },
+              1.0,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'kingdom-of-doom',
+        title: 'Kingdom of Doom',
+        feel: 'The Good, the Bad & the Queen: restrained, floating, the snare on the rim',
+        weight: 0.6,
+        params: {
+          bpm: [130, 138],
+          swingUnit: 16,
+          swing: 12,
+          swingRange: [6, 18],
+          kit: 'liveroom',
+          figures: [
+            [
+              {
+                h: '1.1.141.1.1.1.11',
+                hf: '..1...1...1...1.',
+                k: '...11......11...',
+                s: '44.....4.44.....',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.141.1.1.1.11',
+                hf: '..1...1...1...1.',
+                k: '...11......11...',
+                s: '21.....2.21.....',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'go-back',
+        title: 'Go Back',
+        feel: 'Film of Life, 2014: slow and floating',
+        weight: 0.5,
+        params: {
+          bpm: [80, 84],
+          swingUnit: 16,
+          swing: 18,
+          swingRange: [12, 24],
+          figures: [
+            [
+              {
+                h: '1.1.141.1.1.1.11',
+                hf: '..1...1...1...1.',
+                k: '...11......11...',
+                s: '21.....2.21.....',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '...1..1.......1.',
+                s: '21...2..21...2..',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'locked-and-loaded',
+        title: 'Locked & Loaded',
+        feel: "with Jeff Mills, 2018: his first pattern on a drum machine's sounds",
+        weight: 0.5,
+        params: {
+          bpm: [122, 128],
+          swingUnit: 16,
+          swing: 9,
+          swingRange: [3, 15],
+          kit: 'tr909',
+          figures: [
+            [
+              {
+                h: '1.1.1.111.111.11',
+                hf: '..1...1...1...1.',
+                k: '11......11......',
+                s: '...2.12.....122.',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.111.14111.1.',
+                hf: '..1...1...1...1.',
+                k: '11..1...11......',
+                s: '..12..2.....12.2',
+              },
+              1.0,
+            ],
+          ],
+        },
+      },
+    ],
+  },
 };
 
 /**
@@ -7003,4 +8226,5 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
   ['Rock drummers', ['mitchell', 'bonham', 'ringo']],
   ['Funk drummers', ['stubblefield']],
   ['Jazz drummers', ['tonywilliams']],
+  ['Afrobeat drummers', ['tonyallen']],
 ];

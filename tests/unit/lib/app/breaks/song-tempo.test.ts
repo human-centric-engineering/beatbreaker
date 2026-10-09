@@ -63,7 +63,14 @@ describe('a song’s tempo', () => {
   });
 
   it('never asks any drummer’s song for a run faster than ten notes a second', () => {
-    for (const key of ['mitchell', 'bonham', 'ringo', 'stubblefield', 'tonywilliams']) {
+    for (const key of [
+      'mitchell',
+      'bonham',
+      'ringo',
+      'stubblefield',
+      'tonywilliams',
+      'tonyallen',
+    ]) {
       const st = testStyle(key).params;
       for (const song of st.songs ?? []) {
         const merged = withSong(st, song.key);

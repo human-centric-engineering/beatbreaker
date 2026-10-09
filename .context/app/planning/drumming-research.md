@@ -1050,6 +1050,61 @@ Personnel checks:
 - Tempo drift and crescendo shapes.
 - Stop-time bars with no backbeat. The critic rejects them.
 
+## I. Tony Allen (2026-10-10)
+
+**The source is Allen himself.** He played five "major patterns of Afrobeat"
+on camera for the _Birth of Afrobeat_ documentary. Sébastien Poitevin
+transcribed all five (bestmusicsheet.com), and Joe Ospalla's PDF of the first
+agrees almost note for note. They are the style's base figures. The song
+grooves are variations of those families, not transcriptions, except Water No
+Get Enemy, which follows a human Songsterr tab (489456). Almost every other
+Songsterr tab for Fela is AI-generated, and those read as generic rock beats.
+Tempos come from songbpm.com and Todd Bishop, some flagged as doubtful.
+
+**What the five patterns share:**
+
+- The hi-hat foot chicks every "and".
+- The hand plays "1 & a" on the hat, with an occasional half-open stroke.
+- The kick comes in pairs (1 + 1e, 3 + 3e).
+- The snare comes in clusters with no fixed backbeat.
+- In two of the five, beat 1 is snare, not kick.
+
+**In his own words:**
+
+- "I'd never play one, one."
+- "My hi-hat does not stay closed."
+- "I play like a machine or a loop."
+
+Fills are rare, short, and never where you expect them (Bishop).
+
+The fourth pattern ("double kicks") is thinned by a kick and a ghost. As
+played (k `11..11..11..1...`, s `..12..12....12.2`) it leaves three of sixteen
+steps free of kick and snare, and the critic asks for four.
+
+**Model changes:**
+
+| Gap                                                                                                        | Change                                      |
+| ---------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| Every phrase half started on a crash with a kick under it; he leaves the 1 to the pattern, often the snare | `phraseMark: { crash: false, kick: false }` |
+| The phrase-end fill fired 80% of the time                                                                  | `fillChance` (his: 0.2), and `midFills: 0`  |
+
+**Still not modelled:**
+
+- A hi-hat foot splash. The `hf` lane only chicks; a splash value would be a
+  wire-format change. His demonstrations notate chicks.
+- Structured four- or eight-bar variation (AAAB).
+- Soft kicks.
+- More than two percussion parts. The band's shekere, clips and congas are
+  not the drummer's, so the style carries none.
+- Rubato intros and stop-time.
+
+**The generic `afrobeat` genre style contradicts these transcriptions** (left
+as it is; changing it moves its golden):
+
+- It puts open hand hats on every "and", where Allen's foot chicks.
+- Its kick cells have no 1 + 1e double.
+- It has a fixed backbeat on 6 and 12.
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

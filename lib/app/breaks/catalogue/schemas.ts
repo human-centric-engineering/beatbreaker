@@ -168,6 +168,8 @@ const styleFields = styleAttrsSchema.extend({
   fillsGrow: z.boolean().optional(),
   build: z.boolean().optional(),
   swingCurve: z.boolean().optional(),
+  phraseMark: z.object({ crash: z.boolean().optional(), kick: z.boolean().optional() }).optional(),
+  fillChance: z.number().min(0).max(1).optional(),
   fillOrder: z
     .array(z.enum(['t1', 't2', 't3']))
     .min(1)

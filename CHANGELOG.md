@@ -665,6 +665,12 @@ release process.
   kits: `sixties` (ringing toms, washy half-open hats) and `teatowel` (the
   damped 1968–69 sound).
 
+- **Tony Allen, an unmarked 1, and a fill chance.** A sixth drummer,
+  `tonyallen`, built on the five Afrobeat patterns he demonstrated himself,
+  with 34 songs. `phraseMark` lets a style leave the 1 of each phrase half to
+  its figure (no crash, no kick under it), and `fillChance` sets how often a
+  phrase ends on a fill.
+
 ### Changed
 
 - **BeatBuddy is an `internal` agent (BeatBreaker Phase 8-i).** It was

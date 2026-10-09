@@ -771,11 +771,14 @@ function figurePhrase(
     const start = i === 0 || i === half;
     let bar = start || rng() < 0.5 ? cloneBar(core) : varyFigureBar(rng, core, style, m);
     // each half of the phrase starts on a crash, with the kick under it
-    if (start && !bar.c[0]) {
+    /* ...unless the style leaves its 1 to the figure (Tony Allen: snare on 1
+       as often as kick, and hardly ever a crash). */
+    const mark = style.phraseMark ?? {};
+    if (start && mark.crash !== false && !bar.c[0]) {
       bar.c[0] = 1;
       bar.h[0] = 0;
       bar.r[0] = 0;
-      bar.k[0] = bar.k[0] || 1;
+      if (mark.kick !== false) bar.k[0] = bar.k[0] || 1;
     }
     bar = applyStyleRules(bar, style);
     bars.push(bar);
@@ -806,7 +809,8 @@ function figurePhrase(
             : applyFill(rng, bar, m, lanes, style.fillOrder),
         style
       );
-  if (opts.bars > 1 && rng() < (comp ? 0.7 : 0.8)) bars[last] = fillFrom(lastTable)(bars[last]);
+  if (opts.bars > 1 && rng() < (style.fillChance ?? (comp ? 0.7 : 0.8)))
+    bars[last] = fillFrom(lastTable)(bars[last]);
   const filled = addMidFills(rng, bars, style, fillFrom(midTable), half);
   addAnticipations(
     rng,
@@ -904,7 +908,8 @@ function cellPhrase(
       return filled;
     };
     // a jazz phrase punctuates its ending less often than a backbeat groove fills it
-    if (rng() < (style.fill === 'comp' ? 0.45 : 0.7)) bars[last] = fill(bars[last]);
+    if (rng() < (style.fillChance ?? (style.fill === 'comp' ? 0.45 : 0.7)))
+      bars[last] = fill(bars[last]);
     addMidFills(rng, bars, style, fill);
   }
 
