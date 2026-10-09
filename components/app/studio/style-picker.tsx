@@ -261,7 +261,7 @@ function Crate({
             aria-controls={`${uid}-list`}
             aria-activedescendant={activeKey ? optionId(activeKey) : undefined}
             aria-label={`Search the ${section.label.toLowerCase()}`}
-            placeholder={`Search ${total} ${section.noun}s — shuffle, 12/8, brushes, Bonham…`}
+            placeholder={`Search ${total} ${section.noun}s — ${section.searchHint}…`}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={onKeyDown}

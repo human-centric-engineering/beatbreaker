@@ -460,6 +460,26 @@ describe('fills inside the phrase (midFills)', () => {
     }
   });
 
+  it('fills the bar leading into the second half of a six-bar phrase, never its crash bar', () => {
+    const seen = new Set<string>();
+    for (let seed = 1; seed <= 200; seed++) {
+      const pat = generatePattern({
+        style: withFills({ midFills: 1 }),
+        seed,
+        bars: 6,
+        density: 50,
+        ghosts: 0,
+      });
+      const inside = [0, 1, 2, 3, 4].map((i) => filled(pat.bars[i]));
+      // split 3 + 3: the bar before the crash on bar 4; unsplit: pairs from the end
+      const split = [false, false, true, false, false];
+      const whole = [false, true, false, true, false];
+      expect([split, whole]).toContainEqual(inside);
+      seen.add(JSON.stringify(inside));
+    }
+    expect(seen.size).toBe(2);
+  });
+
   it('fills only the last bar without it, and leaves the stream as it was at 0', () => {
     for (let seed = 1; seed <= 10; seed++) {
       const opts = { seed, bars: 8, density: 50, ghosts: 50 };
@@ -505,6 +525,23 @@ describe('fills inside the phrase (midFills)', () => {
     // Mitchell at a half, Bonham at a quarter, of 180 bars that could be filled
     expect(count('mitchell')).toBeGreaterThan(count('bonham'));
     expect(count('bonham')).toBeGreaterThan(20);
+  });
+});
+
+describe('Clyde Stubblefield', () => {
+  it('plays Cold Sweat as written, with no kick on 1', () => {
+    let open = 0;
+    for (let seed = 1; seed <= 60; seed++) {
+      const pat = generatePattern({
+        style: STYLES.stubblefield,
+        seed,
+        bars: 4,
+        density: 50,
+        ghosts: 50,
+      });
+      open += pat.bars.filter((b) => !b.k[0]).length;
+    }
+    expect(open).toBeGreaterThan(0);
   });
 });
 

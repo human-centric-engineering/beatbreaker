@@ -1,4 +1,5 @@
 import { METERS, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
+import { YOUR_STYLES_GROUP } from '@/lib/app/breaks/catalogue/prefer';
 import type { CatalogueKit, CatalogueStyle } from '@/lib/app/breaks/catalogue/types';
 import type { Style } from '@/lib/app/breaks/types';
 
@@ -30,6 +31,8 @@ export interface PickerSection {
   label: string;
   /** One of them, for counts and the search placeholder: "style". */
   noun: string;
+  /** Example searches for the placeholder, things this tab's entries match. */
+  searchHint: string;
   groups: Array<[string, PickerEntry[]]>;
 }
 
@@ -61,6 +64,7 @@ export function styleSection(
     id: 'styles',
     label: 'Styles',
     noun: 'style',
+    searchHint: 'shuffle, 12/8, brushes, clave',
     groups: entryGroups(styles, styleGroups, kits, false),
   };
 }
@@ -76,7 +80,15 @@ export function drummerSection(
   kits: Record<string, CatalogueKit>
 ): PickerSection | null {
   const groups = entryGroups(styles, styleGroups, kits, true);
-  return groups.length ? { id: 'drummers', label: 'Drummers', noun: 'drummer', groups } : null;
+  return groups.length
+    ? {
+        id: 'drummers',
+        label: 'Drummers',
+        noun: 'drummer',
+        searchHint: 'Bonham, Miles, funk',
+        groups,
+      }
+    : null;
 }
 
 /** Every section the picker shows, in tab order. */
@@ -89,6 +101,16 @@ export function pickerSections(
   return [styleSection(styles, styleGroups, kits), ...(drummers ? [drummers] : [])];
 }
 
+/** A `STYLE_GROUPS` heading that files drummers: "Rock drummers", "Jazz drummers". */
+const DRUMMER_GROUP = /\bdrummers$/i;
+
+/** The style-worded headings a drummer can land under, as the Drummers tab says them. */
+const DRUMMER_HEADINGS: Record<string, string> = {
+  [YOUR_STYLES_GROUP]: 'Your drummers',
+  // the seed's heading for a style left out of STYLE_GROUPS
+  Other: 'Other drummers',
+};
+
 /** The entries in each group, the drummers or everything else; an emptied group is left out. */
 function entryGroups(
   styles: Record<string, CatalogueStyle>,
@@ -97,11 +119,14 @@ function entryGroups(
   drummers: boolean
 ): Array<[string, PickerEntry[]]> {
   const groups: Array<[string, PickerEntry[]]> = [];
-  for (const [group, keys] of styleGroups) {
+  for (const [heading, keys] of styleGroups) {
+    const group = drummers ? (DRUMMER_HEADINGS[heading] ?? heading) : heading;
     const entries: PickerEntry[] = [];
     for (const key of keys) {
       const row = styles[key];
-      if ((row?.params.drummer ?? false) !== drummers) continue;
+      // a row that did not load is a drummer by the group it was filed in
+      const isDrummer = row ? (row.params.drummer ?? false) : DRUMMER_GROUP.test(heading);
+      if (isDrummer !== drummers) continue;
       if (!row) {
         // grouped but not loaded: still there to pick, under its key, as the old list had it
         entries.push({ key, label: key, group, blurb: '', meta: [], haystack: key.toLowerCase() });

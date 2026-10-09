@@ -460,13 +460,29 @@ export function applyCompFill(rng: Rng, bar: Bar, style: Style, m: Meter): Bar {
 /**
  * The fills a busy drummer puts inside the phrase ({@link Style.midFills}):
  * each bar that ends a pair, bar the last, may be filled the way the phrase
- * ends. Drawn after everything else, and only for a style that has them, so
- * every other style's stream is untouched.
+ * ends. Pairs are counted back from the end of each half (`half` is the bar
+ * the second half starts on), so the bar leading into the second half's crash
+ * is the one filled, never the crash bar itself. Drawn after everything else,
+ * and only for a style that has them, so every other style's stream is
+ * untouched.
  */
-function addMidFills(rng: Rng, bars: Bar[], style: Style, fill: (bar: Bar) => Bar): void {
+function addMidFills(
+  rng: Rng,
+  bars: Bar[],
+  style: Style,
+  fill: (bar: Bar) => Bar,
+  half = bars.length
+): void {
   const p = style.midFills ?? 0;
   if (!p) return;
-  for (let i = 1; i < bars.length - 1; i += 2) {
+  const ends: number[] = [];
+  for (const [start, end] of [
+    [0, half],
+    [half, bars.length],
+  ]) {
+    for (let i = end - 1; i > start; i -= 2) if (i < bars.length - 1) ends.push(i);
+  }
+  for (const i of ends.sort((x, y) => x - y)) {
     if (rng() < p) bars[i] = fill(bars[i]);
   }
 }
@@ -661,7 +677,7 @@ function figurePhrase(
       style
     );
   if (opts.bars > 1 && rng() < (comp ? 0.7 : 0.8)) bars[last] = fill(bars[last]);
-  addMidFills(rng, bars, style, fill);
+  addMidFills(rng, bars, style, fill, half);
   return { bars, backbeats };
 }
 

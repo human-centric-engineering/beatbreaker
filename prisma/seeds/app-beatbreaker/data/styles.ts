@@ -3293,7 +3293,7 @@ export const STYLES: Record<string, Style> = {
     opens: 2,
     backbeats: [4, 12],
     targetDensity: 8,
-    forceKick: [0],
+    // no forced kick on 1: Cold Sweat never has one there
     kick1: [
       ['1010', 3],
       ['1000', 2],

@@ -113,7 +113,27 @@ describe('drummerSection', () => {
       [['Your styles', ['funk', 'bonham']], ...cat.styleGroups],
       cat.kits
     );
-    expect(moved?.groups[0]).toEqual(['Your styles', [expect.objectContaining({ key: 'bonham' })]]);
+    expect(moved?.groups[0]).toEqual([
+      'Your drummers',
+      [expect.objectContaining({ key: 'bonham' })],
+    ]);
+  });
+
+  it("calls a drummer filed under the seed's catch-all group Other drummers", () => {
+    const other = drummerSection(cat.styles, [['Other', ['funk', 'mitchell']]], cat.kits);
+    expect(other?.groups.map(([g]) => g)).toEqual(['Other drummers']);
+    expect(styleSection(cat.styles, [['Other', ['funk', 'mitchell']]], cat.kits).groups).toEqual([
+      ['Other', [expect.objectContaining({ key: 'funk' })]],
+    ]);
+  });
+
+  it('files a drummer whose row did not load by its group, not under Styles', () => {
+    const groups: Array<[string, string[]]> = [
+      ['Funk', ['funk']],
+      ['Rock drummers', ['ghostdrummer']],
+    ];
+    expect(keysOf(drummerSection(cat.styles, groups, cat.kits)!)).toEqual(['ghostdrummer']);
+    expect(keysOf(styleSection(cat.styles, groups, cat.kits))).toEqual(['funk']);
   });
 
   it('is null when the catalogue has no drummers, and the picker shows Styles alone', () => {

@@ -10,7 +10,7 @@ import { StylePicker } from '@/components/app/studio/style-picker';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
-import { pickerSections as sectionsOf } from '@/lib/app/breaks/catalogue/picker';
+import { pickerSections } from '@/lib/app/breaks/catalogue/picker';
 import { HAT_SHAPE } from '@/lib/app/breaks/feel';
 import { BASE_LANES, PERC_INSTS, PERC_KEYS, PERC_LANES, laneName } from '@/lib/app/breaks/lanes';
 import { METERS, METER_KEYS, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
@@ -21,8 +21,8 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
   const c = useStudio();
   const { styles, styleGroups, kits } = c.catalogue;
 
-  const pickerSections = useMemo(
-    () => sectionsOf(styles, styleGroups, kits),
+  const sections = useMemo(
+    () => pickerSections(styles, styleGroups, kits),
     [styles, styleGroups, kits]
   );
   const styleRow = styles[c.style];
@@ -92,7 +92,7 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
             <StylePicker
               id="bb-style"
               labelId="bb-style-label"
-              sections={pickerSections}
+              sections={sections}
               value={c.style}
               onPick={(_section, key) => c.setStyle(key)}
             />
