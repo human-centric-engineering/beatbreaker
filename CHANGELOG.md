@@ -18,6 +18,21 @@ release process.
 
 ### Added
 
+- **Written-out styles, swing ranges, and jazz, blues and rock widened.**
+  A style's params may now carry `figures` (whole bars written out, per lane,
+  weighted) and `fills` (written to the end of a bar), which the generator
+  picks among and varies pass by pass in place of its kick cells, and a
+  `swingRange` (`[min, max]`), which the Studio sets the swing slider within
+  when the style is picked and on each New press, until the slider is moved
+  by hand. `POST /api/v1/admin/catalogue/styles/:key/versions` accepts all
+  three. The seeded catalogue grows from 37 styles to 62: rock and the jazz
+  styles are written out, and metal grows to six written-out styles, New
+  Orleans two-beat, swing era, hard bop, 60s post-bop, modal, broken time,
+  brushes, jazz samba, soul jazz, five blues styles and six rock styles join
+  them. `generateGood` now keeps any
+  playable candidate within `NEAR_BEST` of the top score, chosen from the
+  seed, rather than always the single best.
+
 - **Pieces, and kits of yours built from them (BeatBreaker Phase 9-v-a).**
   A new `KitPiece` catalogue table holds each instrument the kit build makes
   (one source, the slots it fills), derived from the recipes and the

@@ -19,7 +19,7 @@ import { type KitSampleSlot, slotLayers, slotTrim } from '@/lib/app/breaks/kit';
 /**
  * `public` rather than `private`, which is the platform default.
  *
- * Nothing here is about a person: the same 48 styles go to everyone signed in
+ * Nothing here is about a person: the same 62 styles go to everyone signed in
  * or out, so a CDN or a company proxy holding one copy for everybody is the
  * right outcome rather than a leak. `must-revalidate` with `max-age=0` keeps
  * the ETag in charge — a cache may store it, but it asks before serving it, so

@@ -1,7 +1,7 @@
 /**
  * The style table — seed data.
  *
- * 48 grooves, each a set of tendencies or a handful of written-out bars, so the
+ * 62 grooves, each a set of tendencies or a handful of written-out bars, so the
  * generator can write a different break in the same idiom every time.
  *
  * **Content, not code** (D13). This file is the source the `001-catalogue` seed
@@ -29,6 +29,7 @@ export const STYLES: Record<string, Style> = {
     hats: 16,
     bpm: [88, 106],
     swing: 8,
+    swingRange: [4, 14],
     ghostBias: 1.0,
     opens: 2,
     backbeats: [4, 12],
@@ -57,6 +58,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [80, 96],
     swing: 16,
+    swingRange: [10, 26],
     ghostBias: 0.45,
     opens: 1,
     backbeats: [4, 12],
@@ -82,6 +84,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [128, 172],
     swing: 0,
+    swingRange: [0, 6],
     ghostBias: 0.6,
     opens: 1,
     backbeats: [4, 12],
@@ -105,6 +108,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [68, 88],
     swing: 8,
+    swingRange: [4, 16],
     ghostBias: 0.3,
     opens: 1,
     backbeats: [8],
@@ -140,6 +144,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [60, 80],
     swing: 4,
+    swingRange: [0, 10],
     ghostBias: 0.25,
     opens: 2,
     backbeats: [8],
@@ -169,6 +174,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [68, 90],
     swing: 4,
+    swingRange: [0, 10],
     ghostBias: 0.35,
     opens: 1,
     backbeats: [8],
@@ -192,6 +198,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [112, 134],
     swing: 0,
+    swingRange: [0, 6],
     ghostBias: 0.3,
     opens: 1,
     backbeats: [4, 12],
@@ -228,6 +235,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [78, 108],
     swing: 85,
+    swingRange: [75, 100],
     swingUnit: 8,
     ghostBias: 0.5,
     opens: 1,
@@ -251,6 +259,7 @@ export const STYLES: Record<string, Style> = {
     hats: 16,
     bpm: [128, 140],
     swing: 26,
+    swingRange: [20, 34],
     ghostBias: 0.55,
     opens: 2,
     backbeats: [4, 12],
@@ -280,6 +289,7 @@ export const STYLES: Record<string, Style> = {
     hats: 16,
     bpm: [92, 112],
     swing: 6,
+    swingRange: [2, 10],
     ghostBias: 1.1,
     opens: 1,
     backbeats: [4, 12],
@@ -311,6 +321,7 @@ export const STYLES: Record<string, Style> = {
     hats: 16,
     bpm: [100, 118],
     swing: 14,
+    swingRange: [8, 20],
     ghostBias: 1.35,
     opens: 3,
     backbeats: [6, 12],
@@ -353,6 +364,7 @@ export const STYLES: Record<string, Style> = {
     hats: 16,
     bpm: [84, 96],
     swing: 5,
+    swingRange: [0, 12],
     ghostBias: 0.7,
     opens: 1,
     backbeats: [4, 12],
@@ -396,6 +408,7 @@ export const STYLES: Record<string, Style> = {
     hats: 16,
     bpm: [86, 104],
     swing: 22,
+    swingRange: [16, 30],
     ghostBias: 1.2,
     opens: 2,
     backbeats: [4, 12],
@@ -424,6 +437,7 @@ export const STYLES: Record<string, Style> = {
     hats: 16,
     bpm: [110, 128],
     swing: 0,
+    swingRange: [0, 6],
     ghostBias: 0.22,
     opens: 4,
     backbeats: [4, 12],
@@ -443,6 +457,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [86, 104],
     swing: 12,
+    swingRange: [8, 18],
     ghostBias: 0.8,
     opens: 1,
     backbeats: [4, 12],
@@ -478,6 +493,7 @@ export const STYLES: Record<string, Style> = {
     hats: 16,
     bpm: [72, 92],
     swing: 18,
+    swingRange: [12, 26],
     ghostBias: 1.25,
     opens: 1,
     backbeats: [4, 12],
@@ -551,6 +567,7 @@ export const STYLES: Record<string, Style> = {
     hats: 16,
     bpm: [76, 104],
     swing: 10,
+    swingRange: [6, 16],
     ghostBias: 1.3,
     opens: 2,
     backbeats: [4, 12],
@@ -587,6 +604,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [84, 102],
     swing: 6,
+    swingRange: [2, 12],
     ghostBias: 0.45,
     opens: 1,
     backbeats: [4, 12],
@@ -636,6 +654,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [100, 144],
     swing: 0,
+    swingRange: [0, 6],
     ghostBias: 0.2,
     opens: 1,
     backbeats: [4, 12],
@@ -704,6 +723,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [92, 140],
     swing: 0,
+    swingRange: [0, 8],
     ghostBias: 0.12,
     opens: 1,
     backbeats: [4, 12],
@@ -767,6 +787,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [90, 120],
     swing: 4,
+    swingRange: [0, 10],
     ghostBias: 0.4, // the figures write their own ghosts; this adds a few round them
     opens: 2,
     backbeats: [4, 12],
@@ -824,6 +845,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [60, 84],
     swing: 0,
+    swingRange: [0, 8],
     ghostBias: 0.2,
     opens: 1,
     backbeats: [4, 12],
@@ -980,6 +1002,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [140, 184],
     swing: 25,
+    swingRange: [15, 45],
     swingUnit: 8,
     ghostBias: 0.15,
     opens: 0,
@@ -1031,6 +1054,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [150, 200],
     swing: 70,
+    swingRange: [60, 90],
     swingUnit: 8,
     ghostBias: 0.2,
     opens: 0,
@@ -1363,6 +1387,322 @@ export const STYLES: Record<string, Style> = {
       [{ c: '1...1...', s: '3...3...', k: '1...1...' }, 1],
     ],
   },
+  /* ---- blues and blues rock --------------------------------------------
+     Shuffles three ways — a Texas shuffle leaning on the skip note, a boogie,
+     a half-time shuffle with one backbeat on 3 — the slow 12/8 blues, and the
+     straight-8 blues rock of Cream and Free. Written out as figures, like rock.
+     ------------------------------------------------------------------- */
+  slowblues: {
+    label: 'Slow blues (12/8)',
+    hint: 'The slow 12/8 blues: every triplet on the hats or the ride, a heavy 2 and 4, the kick on 1 and on the last triplet before 3, ghosts on the triplets between. Fills are triplets down the kit, or a stop for the guitar. 12/8, so the triplets are the meter and Swing stays at zero; the tempo counts quarter notes, so the beat you feel is two thirds of it.',
+    toms: true,
+    kit: 'studio70',
+    meter: '12/8',
+    hats: 8,
+    bpm: [68, 105],
+    swing: 0,
+    ghostBias: 0.3,
+    opens: 0,
+    backbeats: [6, 18],
+    targetDensity: 6,
+    hatDepth: 0.85,
+    rimshot: 0.3,
+    forceKick: [0],
+    hat: { steps: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22], accents: [0, 6, 12, 18] },
+    ghostWeights: { 4: 0.3, 10: 0.35, 16: 0.3, 22: 0.35 },
+    kick1: [['1000', 8]],
+    kick: [
+      ['0000', 2.4],
+      ['1000', 1.6],
+      ['0001', 1.0],
+    ],
+    figures: [
+      // triplets on the hats, the kick on 1 and leading into 3
+      [
+        {
+          h: '1.1.1.1.1.1.1.1.1.1.1.1.',
+          s: '......3...........3.....',
+          k: '1.........1.1...........',
+        },
+        2,
+      ],
+      // the ride, the kick picking up the last triplets
+      [
+        {
+          r: '1.1.1.1.1.1.1.1.1.1.1.1.',
+          s: '......3...........3.....',
+          k: '1...1.....1.1.....1...1.',
+        },
+        1.5,
+      ],
+      // ghosts on the triplets between
+      [
+        {
+          h: '1.1.1.1.1.1.1.1.1.1.1.1.',
+          s: '..1...3.1.....1...3...1.',
+          k: '1...........1...........',
+        },
+        1.2,
+      ],
+      // the hat opening on the last triplet, into the one
+      [
+        {
+          h: '1.1.1.1.1.1.1.1.1.1.1.3.',
+          s: '......3...........3.....',
+          k: '1.........1.1...........',
+        },
+        1.0,
+      ],
+      // every beat leaned on
+      [
+        {
+          h: '2.1.1.2.1.1.2.1.1.2.1.1.',
+          s: '......3...........3.....',
+          k: '1...........1.....1.....',
+        },
+        1.0,
+      ],
+    ],
+    fills: [
+      // a triplet on the snare on 4
+      [{ s: '2.2.3.' }, 1.5],
+      // a whole bar of triplets down the kit
+      [
+        {
+          s: '2.2.2.2.2.2.............',
+          t1: '............2.2.2.......',
+          t3: '..................2.2.2.',
+        },
+        0.8,
+      ],
+      // triplets from the snare to the floor tom over 3 and 4
+      [{ s: '2.2.2.......', t1: '......2.2...', t3: '..........2.' }, 1.5],
+      // a stop on 4 for the guitar
+      [{ c: '1.....', s: '3.....', k: '1.....' }, 0.6],
+    ],
+  },
+  texasshuffle: {
+    label: 'Texas shuffle',
+    hint: 'Chris Layton behind Stevie Ray Vaughan: a hard shuffle on the ride, the kick on every beat, a fat 2 and 4, and the "rub": ghosts on the skip note of the shuffle. Or both hands shuffling — the double shuffle. Swung 8ths, pushed past a triplet; the swing changes a little each time you press New.',
+    toms: true,
+    kit: 'smdrums',
+    hats: 8,
+    bpm: [108, 132],
+    swing: 92,
+    swingRange: [84, 100],
+    swingUnit: 8,
+    ghostBias: 0.3,
+    opens: 0,
+    backbeats: [4, 12],
+    foot: [4, 12],
+    targetDensity: 9,
+    rimshot: 0.4,
+    forceKick: [0],
+    kick1: [['1000', 8]],
+    kick: [
+      ['1000', 3],
+      ['0000', 1],
+    ],
+    figures: [
+      // the ride shuffling, the kick on every beat
+      [
+        {
+          r: '1.1.1.1.1.1.1.1.',
+          s: '....3.......3...',
+          k: '1...1...1...1...',
+          hf: '....1.......1...',
+        },
+        2,
+      ],
+      // the rub: ghosts on the skip notes
+      [
+        {
+          r: '1.1.1.1.1.1.1.1.',
+          s: '..1.3.1...1.3.1.',
+          k: '1...1...1...1...',
+          hf: '....1.......1...',
+        },
+        1.5,
+      ],
+      // the double shuffle: both hands
+      [{ h: '1.1.1.1.1.1.1.1.', s: '1.1.3.1.1.1.3.1.', k: '1...1...1...1...' }, 1.5],
+      // the bell on the skip notes
+      [
+        {
+          r: '1.2.1.2.1.2.1.2.',
+          s: '....3.......3...',
+          k: '1...1...1...1...',
+          hf: '....1.......1...',
+        },
+        1.0,
+      ],
+      // hats, the kick on 1 and 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.......' }, 1.0],
+    ],
+    fills: [
+      // a shuffle on the snare into the crash
+      [{ s: '2.2.2.3.' }, 2],
+      // hits with the band on 3 and 4
+      [{ c: '1...1...', s: '3...3...', k: '1...1...' }, 1.0],
+      // snare, floor tom, snare, snare
+      [{ s: '2.23', t3: '.2..' }, 1.2],
+    ],
+  },
+  bluesrock: {
+    label: 'Blues rock',
+    hint: 'Cream, Free, early Zeppelin: straight 8ths, a heavy 2 and 4, the kick pushing the "and" of 2. The ride for the chorus, a crash wash, and Ginger Baker\'s tom beat in place of a backbeat.',
+    toms: true,
+    kit: 'bigrusty',
+    hats: 8,
+    bpm: [96, 140],
+    swing: 0,
+    swingRange: [0, 10],
+    ghostBias: 0.2,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 9,
+    rimshot: 0.5,
+    forceKick: [0],
+    kick1: [
+      ['1000', 6],
+      ['1010', 1.2],
+    ],
+    kick: [
+      ['0010', 1.8],
+      ['1000', 1.6],
+      ['0000', 1],
+    ],
+    figures: [
+      // 8ths on the hats, the kick on 1, the "and" of 2 and 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.....1.1.......' }, 2],
+      // the ride, the kick pushing the "and" of 4
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.....1.1.....1.' }, 1.5],
+      // Ginger Baker's tom beat in place of a backbeat
+      [{ t1: '....2.......2...', t3: '2.......2.......', k: '1.......1.......' }, 0.8],
+      // a crash on every beat for the chorus
+      [{ c: '1...1...1...1...', s: '....3.......3...', k: '1.1.....1.1.....' }, 1.0],
+      // the hats opening on the "and" of 4
+      [{ h: '1.1.1.1.1.1.1.3.', s: '....3.......3...', k: '1.......1.1.....' }, 1.2],
+    ],
+    fills: [
+      // round the toms in 16ths over 3 and 4
+      [{ s: '22......', t1: '..22....', t2: '....22..', t3: '......22' }, 2],
+      // three on the snare, one on the floor tom
+      [{ s: '222.', t3: '...2' }, 1.5],
+      // snare and floor tom together in 8ths
+      [{ s: '3.3.3.3.', t3: '2.2.2.2.' }, 1.2],
+    ],
+  },
+  boogie: {
+    label: 'Boogie shuffle',
+    hint: 'La Grange and the John Lee Hooker groove under it: a swung boogie with the kick on every beat, 2 and 4 on the snare, sometimes just the hats and a rim click, and the hats opening over the backbeat when it drives. Swung 8ths; the swing changes a little each press.',
+    toms: true,
+    kit: 'smdrums',
+    hats: 8,
+    bpm: [148, 172],
+    swing: 80,
+    swingRange: [68, 92],
+    swingUnit: 8,
+    ghostBias: 0.25,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 9,
+    forceKick: [0],
+    kick1: [['1000', 8]],
+    kick: [
+      ['1000', 3],
+      ['1010', 1],
+    ],
+    figures: [
+      // the hats and a rim click, the kick on 1 and 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....4.......4...', k: '1.......1.......' }, 1.0],
+      // the full shuffle: kick on every beat
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1...1...1...1...' }, 2],
+      // driving: the hats open over 2 and 4
+      [{ h: '1.1.3.1.1.1.3.1.', s: '....3.......3...', k: '1.1.1...1.1.1...' }, 1.5],
+      // the ride, kick on every beat
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1...1...1...1...' }, 1.0],
+    ],
+    fills: [
+      // a shuffle on the snare
+      [{ s: '2.2.2.3.' }, 2],
+      // the snare on 4, a crash pushed onto its "and"
+      [{ c: '..1.', s: '3...', k: '..1.' }, 1.0],
+      // snare and floor tom, turn about
+      [{ s: '2...2...', t3: '..2...2.' }, 1.0],
+    ],
+  },
+  halftimeshuffle: {
+    label: 'Half-time shuffle',
+    hint: "The groove under Fool in the Rain and Rosanna, and Purdie's before them: triplets with the middle one left out on the hats, ghosts in the gaps, and one backbeat, on 3. Bonham plays it with no ghosts at all. 12/8, so the triplets are the meter and Swing stays at zero.",
+    toms: true,
+    kit: 'drs',
+    meter: '12/8',
+    hats: 8,
+    bpm: [112, 142],
+    swing: 0,
+    ghostBias: 0.9,
+    opens: 0,
+    backbeats: [12],
+    targetDensity: 9,
+    hatDepth: 0.95,
+    hat: { steps: [0, 4, 6, 10, 12, 16, 18, 22], accents: [0, 6, 12, 18] },
+    snareGhosts: [2, 8, 14, 20],
+    ghostWeights: { 4: 0.3, 10: 0.3, 16: 0.3, 22: 0.3 },
+    forceKick: [0],
+    kick1: [['1000', 9]],
+    kick: [
+      ['0000', 3],
+      ['1000', 1],
+      ['0010', 0.9],
+    ],
+    figures: [
+      // Purdie: ghosts in the gaps, the kick on 1 and the last triplet of 2
+      [
+        {
+          h: '1...1.1...1.1...1.1...1.',
+          s: '..1.....1...3.1.....1...',
+          k: '1.........1.............',
+        },
+        2,
+      ],
+      // Porcaro: the kick on the last triplets of 1 and of 4
+      [
+        {
+          h: '1...1.1...1.1...1.1...1.',
+          s: '..1.....1...3.1.....1...',
+          k: '1...1.......1.........1.',
+        },
+        1.5,
+      ],
+      // Bonham: no ghosts, the kick doubled
+      [
+        {
+          h: '1...1.1...1.1...1.1...1.',
+          s: '............3...........',
+          k: '1...1.........1.........',
+        },
+        1.5,
+      ],
+      // the ride instead of the hats
+      [
+        {
+          r: '1...1.1...1.1...1.1...1.',
+          s: '..1.....1...3.1.....1...',
+          k: '1.........1.............',
+        },
+        1.0,
+      ],
+    ],
+    fills: [
+      // triplets from the snare to the floor tom over 3 and 4
+      [{ s: '2.2.2.......', t1: '......2.2...', t3: '..........2.' }, 1.5],
+      // a triplet on the snare on 4
+      [{ s: '1.1.3.' }, 1.2],
+      // the rack tom and the floor on 4
+      [{ t1: '2.2...', t3: '....2.' }, 1.0],
+    ],
+  },
   /* ---- country ------------------------------------------------------ */
   country: {
     label: 'Country',
@@ -1371,6 +1711,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [96, 132],
     swing: 0,
+    swingRange: [0, 10],
     ghostBias: 0.35,
     opens: 1,
     backbeats: [4, 12],
@@ -1440,6 +1781,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [92, 116],
     swing: 0,
+    swingRange: [0, 6],
     ghostBias: 0.5,
     opens: 1,
     backbeats: [0, 4, 6, 10, 12],
@@ -1501,6 +1843,7 @@ export const STYLES: Record<string, Style> = {
     hats: 16,
     bpm: [96, 116],
     swing: 6,
+    swingRange: [2, 10],
     ghostBias: 1.1,
     opens: 2,
     backbeats: [6, 12],
@@ -1533,6 +1876,7 @@ export const STYLES: Record<string, Style> = {
     hats: 16,
     bpm: [96, 116],
     swing: 0,
+    swingRange: [0, 8],
     ghostBias: 0.7,
     opens: 1,
     backbeats: [4, 12],
@@ -1561,6 +1905,7 @@ export const STYLES: Record<string, Style> = {
     hats: 16,
     bpm: [124, 146],
     swing: 0,
+    swingRange: [0, 6],
     ghostBias: 0.15,
     opens: 0,
     backbeats: [0, 3, 7, 10, 12],
@@ -1613,6 +1958,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     bpm: [88, 100],
     swing: 0,
+    swingRange: [0, 6],
     ghostBias: 0.1,
     opens: 1,
     backbeats: [3, 6, 11, 14],
@@ -1637,6 +1983,113 @@ export const STYLES: Record<string, Style> = {
      as ordinary quarter notes and marked `kickFeather`, because feathering is a
      dynamic rather than a rhythm.
      --------------------------------------------------------------------- */
+
+  neworleans: {
+    label: 'New Orleans two-beat',
+    hint: 'Baby Dodds and the parade bands: the kick on 1 and 3, the snare steady on the beat with press rolls buzzing on 2 and 4, rim clicks and a choked cymbal for colour. Swung 8ths; the swing changes a little each time you press New.',
+    toms: true,
+    kit: 'virtuosity',
+    hats: 8,
+    bpm: [140, 190],
+    swing: 70,
+    swingRange: [55, 85],
+    swingUnit: 8,
+    ghostBias: 0.35,
+    opens: 0,
+    backbeats: [4, 12],
+    foot: [4, 12],
+    targetDensity: 9,
+    flam: 0.15,
+    forceKick: [0],
+    kick1: [['1000', 8]],
+    kick: [
+      ['1000', 3],
+      ['0000', 1.2],
+    ],
+    figures: [
+      // two-beat: kick on 1 and 3, press rolls on 2 and 4
+      [{ s: '2...8...2...8...', k: '1.......1.......', hf: '....1.......1...' }, 2.5],
+      // four-beat: the kick on every beat
+      [{ s: '2...8...2...8...', k: '1...1...1...1...', hf: '....1.......1...' }, 1.5],
+      // rim clicks in swung 8ths, the backbeat on the head
+      [{ s: '4.4.3.4.4.4.3.4.', k: '1.......1.......', hf: '....1.......1...' }, 1.2],
+      // a choked cymbal over the backbeat
+      [{ c: '....1.......1...', s: '2.2.3...2.2.3...', k: '1.......1.......' }, 1.0],
+      // swung 8ths on the snare, rolls on 2 and 4
+      [{ s: '1.1.8.1.1.1.8.1.', k: '1.......1.......', hf: '....1.......1...' }, 1.0],
+    ],
+    fills: [
+      // flam, tap, flam, tap over 3 and 4
+      [{ s: '6.2.6.2.' }, 1.5],
+      // swung 8ths into a press roll
+      [{ s: '2.2.8.8.' }, 1.5],
+      // dotted 8ths on the snare across 3 and 4
+      [{ s: '3..3..3.' }, 1.0],
+      // a roll on 4 and a kick on its "and"
+      [{ s: '8...', k: '..1.' }, 1.0],
+    ],
+  },
+  swingera: {
+    label: 'Swing era (big band)',
+    hint: 'Jo Jones and Gene Krupa: time on the hi-hats, half open and closing on 2 and 4 — the "tsss-chick" — over a kick feathering all four beats. Or the ride, the Basie shuffle, Krupa on the floor tom. Fills are big-band setups: the snare, then the kick and a crash with the horns.',
+    toms: true,
+    kit: 'virtuosity',
+    hats: 8,
+    bpm: [130, 190],
+    swing: 85,
+    swingRange: [70, 98],
+    swingUnit: 8,
+    ghostBias: 0.6,
+    ghostHit: 0.3,
+    opens: 0,
+    backbeats: [4, 12],
+    backbeatLane: 'hf',
+    targetDensity: 5,
+    hatDepth: 0.85,
+    kickFeather: 0.34,
+    forceKick: [0, 4, 8, 12],
+    ghostWeights: { 6: 0.3, 14: 0.3, 2: 0.18, 10: 0.18 },
+    kick1: [['1000', 9]],
+    kick: [['1000', 9]],
+    figures: [
+      // Jo Jones: the hats half open on 1 and 3, closed on the rest
+      [{ h: '4...1.1.4...1.1.', k: '1...1...1...1...', hf: '....1.......1...' }, 2.5],
+      // the ride: 1, 2 and its "and", 3, 4 and its "and"
+      [{ r: '1...1.1.1...1.1.', k: '1...1...1...1...', hf: '....1.......1...' }, 2],
+      // the Basie shuffle: 8ths on the hats, 2 and 4 on the snare
+      [
+        {
+          h: '1.1.1.1.1.1.1.1.',
+          s: '....2.......2...',
+          k: '1...1...1...1...',
+          hf: '....1.......1...',
+        },
+        1.4,
+      ],
+      // Krupa on the floor tom
+      [{ t3: '2...1.1.2...1.1.', k: '1...1...1...1...', hf: '....1.......1...' }, 1.0],
+      // an ensemble hit on the "and" of 2
+      [
+        {
+          c: '......1.........',
+          h: '4...1...4...1.1.',
+          k: '1...1.2.1...1...',
+          hf: '....1.......1...',
+        },
+        0.8,
+      ],
+    ],
+    fills: [
+      // a big-band setup: snare on 4, kick and crash on its "and"
+      [{ c: '..1.', s: '2...', k: '..2.' }, 2],
+      // Krupa: 8ths round the toms over 3 and 4
+      [{ t1: '2.2.....', t2: '....1...', t3: '......2.' }, 1.5],
+      // dotted 8ths on the snare, the band hitting with them
+      [{ s: '3..3..3.', k: '1..1..1.' }, 1.0],
+      // a press roll on 4 into the next chorus
+      [{ s: '2...2.8.' }, 1.0],
+    ],
+  },
   swing: {
     label: 'Jazz — medium swing',
     /* Written in 12/8 rather than 4/4-with-swing, for the same reason as the Purdie
@@ -1645,13 +2098,14 @@ export const STYLES: Record<string, Style> = {
        half of jazz comping lives. In 12/8 every partial is a real position, the
        Swing slider goes to zero because the triplets are the meter, and the ride
        lands exactly where a drummer puts it instead of two thirds of the way there. */
-    hint: 'The ride is the whole thing: 1, 2, the last triplet of 2, 3, 4, the last triplet of 4. Written in 12/8, so picking it moves the time signature — leave Swing at zero, the triplets are the meter. Hi-hat foot on 2 and 4, snare comping across the triplets, kick feathering all four beats at about a third of the volume. It sounds like itself on the Jazz kit; on a synthesised cymbal it never quite will.',
+    hint: 'The ride is the whole thing: 1, 2, the last triplet of 2, 3, 4, the last triplet of 4. Hi-hat foot on 2 and 4, the kick feathering all four, and the left hand comping: the Charleston, the reverse Charleston, a bomb on the last triplet of 4, a two-feel with a cross-stick for the head. Written in 12/8, so the triplets are the meter and Swing stays at zero.',
+    toms: true,
     kit: 'virtuosity',
     meter: '12/8',
     hats: 8,
-    bpm: [180, 248],
+    bpm: [180, 270],
     swing: 0,
-    ghostBias: 1.7,
+    ghostBias: 1.4,
     opens: 0,
     fill: 'comp',
     backbeats: [6, 18],
@@ -1683,67 +2137,525 @@ export const STYLES: Record<string, Style> = {
       ['0000', 9],
       ['0010', 0.5],
     ],
+    figures: [
+      // time: the ride, the foot on 2 and 4, the kick feathering four
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          k: '1.....1.....1.....1.....',
+          hf: '......1...........1.....',
+        },
+        2,
+      ],
+      // ghosts on the middle triplet of 2 and of 4
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          s: '........1...........1...',
+          k: '1.....1.....1.....1.....',
+          hf: '......1...........1.....',
+        },
+        1.4,
+      ],
+      // the Charleston: 1 and the "and" of 2
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          s: '2.........2.............',
+          k: '1.....1.....1.....1.....',
+          hf: '......1...........1.....',
+        },
+        1.2,
+      ],
+      // the reverse Charleston: the "and" of 1, and 3
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          s: '....2.......2...........',
+          k: '1.....1.....1.....1.....',
+          hf: '......1...........1.....',
+        },
+        1.2,
+      ],
+      // skip-note comps on the "and" of 2 and of 4
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          s: '..........1...........2.',
+          k: '1.....1.....1.....1.....',
+          hf: '......1...........1.....',
+        },
+        1.0,
+      ],
+      // a bomb on the last triplet of 4, setting up the next bar
+      [
+        {
+          r: '1.....1...1.1.....1.....',
+          s: '..................1.....',
+          k: '1.....1.....1.....1...2.',
+          hf: '......1...........1.....',
+        },
+        0.8,
+      ],
+      // two-feel for the head: kick on 1 and 3, cross-stick on 4
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          s: '..................4.....',
+          k: '1...........1...........',
+          hf: '......1...........1.....',
+        },
+        1.2,
+      ],
+      // a lead-in on the last triplets of 4
+      [
+        {
+          r: '1.....1...1.1.....1.....',
+          s: '....................2...',
+          k: '1.....1.....1.....1...2.',
+          hf: '......1...........1.....',
+        },
+        0.8,
+      ],
+    ],
+    fills: [
+      // triplets from the snare round the toms over 3 and 4
+      [{ s: '2.2.2.......', t1: '......2.....', t2: '........2...', t3: '..........2.' }, 2],
+      // snare, snare, kick in triplets
+      [{ s: '2.2...2.2...', k: '....1.....1.' }, 1.5],
+      // klook-mop: a rimshot on the last triplet of 4
+      [{ s: '1.1.5.' }, 1.0],
+      // a stream of triplets on the snare, getting louder
+      [{ s: '1.1.1.1.2.2.' }, 1.0],
+    ],
   },
   bebop: {
-    label: 'Jazz — up-tempo',
-    hint: 'Fast enough that the feathering stops and the kick is free to drop bombs, and the comping thins right out. Also 12/8 — the triplets are written in. The very fastest bebop is past what this page can clock; this is the top of the useful range.',
+    label: 'Bebop (up-tempo)',
+    hint: 'Kenny Clarke and Max Roach: the time moves to the ride, the hat foot keeps 2 and 4, and the kick stops feathering and drops bombs, sometimes after a rimshot ("klook-mop"). Written two jazz bars to each bar here, so the tempo reads half the real one (140 is 280) and the swing is on the 16ths: fast bebop swings lightly, nearly straight at the top.',
+    toms: true,
+    kit: 'virtuosity',
+    hats: 8,
+    bpm: [110, 160],
+    swing: 22,
+    swingRange: [12, 30],
+    ghostBias: 1.0,
+    ghostHit: 0.6,
+    opens: 0,
+    fill: 'comp',
+    backbeats: [2, 6, 10, 14],
+    backbeatLane: 'hf',
+    targetDensity: 3,
+    hatDepth: 0.85,
+    ride: { steps: [0, 2, 3, 4, 6, 7, 8, 10, 11, 12, 14, 15] },
+    ghostWeights: { 1: 0.3, 5: 0.3, 9: 0.3, 13: 0.3, 3: 0.2, 7: 0.22, 11: 0.2, 15: 0.22 },
+    kick1: [
+      ['0000', 9],
+      ['0010', 1.0],
+    ],
+    kick: [
+      ['0000', 9],
+      ['0010', 1.0],
+      ['0001', 0.6],
+    ],
+    figures: [
+      // spang-a-lang on the ride, the foot on 2 and 4
+      [{ r: '1.111.111.111.11', hf: '..1...1...1...1.' }, 2],
+      // quarters on the ride, as it gets too fast to skip
+      [{ r: '1.1.1.1.1.1.1.1.', hf: '..1...1...1...1.' }, 1.2],
+      // a bomb on the "and" of 2, the snare on 4
+      [
+        {
+          r: '1.111.111.111.11',
+          s: '......2.........',
+          k: '...2............',
+          hf: '..1...1...1...1.',
+        },
+        1.2,
+      ],
+      // klook-mop: a rimshot on the "and" of 2, a bomb on 3
+      [
+        {
+          r: '1.111.111.111.11',
+          s: '...5............',
+          k: '....2...........',
+          hf: '..1...1...1...1.',
+        },
+        1.0,
+      ],
+      // off-beat chatter on the snare
+      [{ r: '1.111.111.111.11', s: '.1...1.2...1....', hf: '..1...1...1...1.' }, 1.0],
+      // setting up a band hit: snare, then a bomb on the last "and"
+      [
+        {
+          r: '1.111.111.111...',
+          s: '.............2..',
+          k: '...............2',
+          hf: '..1...1...1...1.',
+        },
+        0.8,
+      ],
+      // Roach: a motif on the toms, answered on the snare
+      [
+        {
+          r: '1.1.1.1.1.1.1.1.',
+          s: '.........2......',
+          t1: '.2.2............',
+          t3: '.............2.2',
+          hf: '..1...1...1...1.',
+        },
+        0.6,
+      ],
+    ],
+    fills: [
+      // 8ths round the kit
+      [{ s: '22......', t1: '...2....', t3: '.....22.' }, 2],
+      // a Roach motif: stated, answered
+      [{ s: '....2...', t1: '2.2.....', t3: '......22' }, 1.5],
+      // snare and kick trading 8ths, to open a chorus of fours
+      [{ s: '2.2.2.2.', k: '.1.1.1.1' }, 1.2],
+      // klook-mop to end the phrase
+      [{ s: '1.5.', k: '...2' }, 1.0],
+    ],
+  },
+  hardbop: {
+    label: 'Hard bop',
+    hint: 'Art Blakey: the hi-hat foot loud on 2 and 4, comping kept to the right places, the "Moanin\'" shuffle with the snare ghosting the triplets round a backbeat, and a press roll to launch the next chorus. Written in 12/8, so the triplets are the meter and Swing stays at zero.',
+    toms: true,
     kit: 'virtuosity',
     meter: '12/8',
     hats: 8,
-    bpm: [238, 292],
+    bpm: [195, 300],
     swing: 0,
-    ghostBias: 1.5,
+    ghostBias: 1.0,
     opens: 0,
     fill: 'comp',
     backbeats: [6, 18],
     backbeatLane: 'hf',
-    targetDensity: 2,
-    hatDepth: 0.85,
+    targetDensity: 6,
+    hatDepth: 0.9,
     ride: { steps: [0, 6, 10, 12, 18, 22] },
-    ghostHit: 0.62,
-    ghostWeights: { 4: 0.34, 16: 0.34, 10: 0.2, 22: 0.2, 8: 0.18, 20: 0.18, 2: 0.1, 14: 0.1 },
-    kick1: [
-      ['0000', 11],
-      ['0010', 1.0],
+    forceKick: [0, 6, 12, 18],
+    kickFeather: 0.3,
+    ghostHit: 0.4,
+    ghostWeights: { 4: 0.36, 16: 0.36, 10: 0.2, 22: 0.24, 8: 0.2, 20: 0.2 },
+    kick1: [['0000', 9]],
+    kick: [['0000', 9]],
+    figures: [
+      // time: ride, a loud foot on 2 and 4, a feathered kick
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          k: '1.....1.....1.....1.....',
+          hf: '......1...........1.....',
+        },
+        1.5,
+      ],
+      // the "Moanin'" shuffle: ghosts on the triplets, 2 and 4 on the snare
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          s: '....1.3...1.....1.3...1.',
+          k: '1.....1.....1.....1.....',
+          hf: '......1...........1.....',
+        },
+        2,
+      ],
+      // a lighter shuffle
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          s: '......3...1.......3...1.',
+          k: '1.....1.....1.....1.....',
+          hf: '......1...........1.....',
+        },
+        1.2,
+      ],
+      // sparse: a bomb on 1, a comp on the last triplet of 4
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          s: '......................2.',
+          k: '2.....1.....1.....1.....',
+          hf: '......1...........1.....',
+        },
+        0.8,
+      ],
+      // a press roll on 4, swelling into the next bar
+      [
+        {
+          r: '1.....1...1.1...........',
+          s: '..................1.8.8.',
+          k: '1.....1.....1.....1.....',
+          hf: '......1...........1.....',
+        },
+        0.8,
+      ],
     ],
-    kick: [
-      ['0000', 10],
-      ['0010', 1.0],
-      ['0001', 0.6],
+    fills: [
+      // triplets down from the rack tom to the floor
+      [{ t1: '2.2.2.......', t3: '......2.2.2.' }, 2],
+      // a press roll on 4
+      [{ s: '8.8.8.' }, 1.2],
+      // shout hits on the Charleston, crash and kick together
+      [{ c: '1.........1.', s: '2.........2.', k: '2.........2.' }, 1.0],
+      // snare, snare, kick in triplets
+      [{ s: '2.2...2.2...', k: '....1.....1.' }, 1.0],
     ],
   },
-  jazzballad: {
-    label: 'Jazz ballad',
-    hint: 'Slow, deep, almost nothing happening — whole bars where the ride and the foot are all there is. 12/8, so the triplets are the meter. Play it with brushes: the ride figure becomes a swirl in the left hand and taps in the right, which this page can draw but not make.',
-    kit: 'brush',
+  postbop: {
+    label: '60s post-bop',
+    hint: 'Tony Williams with Miles: the hi-hat foot on every beat, a ride so fast and light it nearly straightens, rimshot stabs, bombs and broken time. Written two jazz bars to each bar, so the tempo reads half the real one (150 is 300) and the swing is on the 16ths.',
+    toms: true,
+    kit: 'virtuosity',
+    hats: 8,
+    bpm: [100, 160],
+    swing: 18,
+    swingRange: [8, 28],
+    ghostBias: 1.0,
+    ghostHit: 0.55,
+    opens: 0,
+    fill: 'comp',
+    backbeats: [2, 6, 10, 14],
+    backbeatLane: 'hf',
+    targetDensity: 4,
+    hatDepth: 0.85,
+    ride: { steps: [0, 2, 3, 4, 6, 7, 8, 10, 11, 12, 14, 15] },
+    ghostWeights: { 1: 0.3, 5: 0.3, 9: 0.3, 13: 0.3, 3: 0.22, 7: 0.22, 11: 0.22, 15: 0.22 },
+    kick1: [
+      ['0000', 8],
+      ['0010', 1.2],
+    ],
+    kick: [
+      ['0000', 8],
+      ['0010', 1.2],
+      ['0100', 0.6],
+    ],
+    figures: [
+      // the ride, and the foot on every beat
+      [{ r: '1.111.111.111.11', hf: '1.1.1.1.1.1.1.1.' }, 2],
+      // straight 8ths on the ride at the top of the tempo
+      [{ r: '1111111111111111', hf: '1.1.1.1.1.1.1.1.' }, 0.8],
+      // rimshot stabs and a bomb
+      [
+        {
+          r: '1.111.111.111.11',
+          s: '...5.......5....',
+          k: '.....2..........',
+          hf: '1.1.1.1.1.1.1.1.',
+        },
+        1.2,
+      ],
+      // broken time: the ride in pieces
+      [
+        {
+          r: '1...11..1.1...1.',
+          s: '..1...1....1....',
+          k: '.2..............',
+          hf: '1.1.1.1.1.1.1.1.',
+        },
+        1.0,
+      ],
+      // crash and kick in bursts, then the time again
+      [
+        {
+          c: '1..1..1.........',
+          r: '........1.111.11',
+          k: '2..2..2.........',
+          hf: '1.1.1.1.1.1.1.1.',
+        },
+        0.6,
+      ],
+    ],
+    fills: [
+      // singles between the snare and the floor tom
+      [{ s: '2.2.2.2.', t3: '.2.2.2.2' }, 1.5],
+      // crash and kick together, three times
+      [{ c: '1..1..1.', k: '2..2..2.' }, 1.0],
+      // a rimshot, and a bomb after it
+      [{ s: '.5..', k: '...2' }, 1.0],
+      // two and two on the toms
+      [{ t1: '22..', t2: '..22' }, 1.0],
+    ],
+  },
+  modal: {
+    label: 'Modal (Elvin Jones)',
+    hint: 'Coltrane-era Elvin: everything on the triplets, the left hand rolling the middle triplet under the ride, the kick on the structural notes, accents that land on 2 or 4 and phrases across the bar line — half-note triplets on the cymbals, quarter-note triplets round the toms. Written in 12/8, so the triplets are the meter.',
+    toms: true,
+    kit: 'virtuosity',
     meter: '12/8',
     hats: 8,
-    bpm: [84, 117],
+    bpm: [180, 300],
     swing: 0,
     ghostBias: 1.6,
     opens: 0,
     fill: 'comp',
-    fillComps: 1,
     backbeats: [6, 18],
     backbeatLane: 'hf',
-    targetDensity: 3,
-    hatDepth: 0.8,
+    targetDensity: 7,
+    hatDepth: 0.9,
     ride: { steps: [0, 6, 10, 12, 18, 22] },
-    forceKick: [0, 6, 12, 18],
-    kickFeather: 0.26,
-    ghostHit: 0.3,
-    ghostWeights: { 4: 0.26, 16: 0.26, 10: 0.16, 22: 0.16, 8: 0.12, 20: 0.12 },
-    kick1: [['0000', 9]],
-    kick: [['0000', 9]],
+    ghostHit: 0.5,
+    ghostWeights: { 2: 0.36, 8: 0.32, 14: 0.36, 20: 0.32, 4: 0.3, 16: 0.3, 10: 0.2, 22: 0.2 },
+    kick1: [
+      ['1000', 6],
+      ['0000', 2],
+    ],
+    kick: [
+      ['0000', 4],
+      ['1000', 2],
+      ['0010', 1],
+    ],
+    figures: [
+      // the left hand rolling triplets under the ride
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          s: '..1.1.....1...1.1.....1.',
+          k: '1...........1...........',
+          hf: '......1...........1.....',
+        },
+        2,
+      ],
+      // a chain of middle triplets, the kick answering at the end
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          s: '..1.....1.....1.....1...',
+          k: '1.....................2.',
+          hf: '......1...........1.....',
+        },
+        1.5,
+      ],
+      // half-note triplets on the cymbal and kick, across the beat
+      [
+        {
+          c: '1.......1.......1.......',
+          k: '1.......1.......1.......',
+          hf: '......1...........1.....',
+        },
+        0.8,
+      ],
+      // quarter-note triplets round the toms
+      [
+        {
+          t1: '1...1...1...............',
+          t3: '............1...1...1...',
+          k: '1...........1...........',
+          hf: '......1...........1.....',
+        },
+        0.8,
+      ],
+      // the hat foot on the triplets instead of 2 and 4
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          s: '........1...........1...',
+          k: '1...........1...........',
+          hf: '....1.....1.....1.....1.',
+        },
+        0.6,
+      ],
+      // a slow ostinato: every 8th on the ride
+      [
+        {
+          r: '1.1.1.1.1.1.1.1.1.1.1.1.',
+          s: '........1...........1...',
+          k: '1...........1.......2...',
+          hf: '......1...........1.....',
+        },
+        1.0,
+      ],
+    ],
+    fills: [
+      // snare, snare, kick round the kit for a whole bar
+      [
+        {
+          s: '..2.2.....2.2...........',
+          t1: '..............2.2.......',
+          t3: '....................2.2.',
+          k: '1.....1...........1.....',
+        },
+        1.2,
+      ],
+      // a stream of triplets, the crash and kick a triplet early
+      [
+        {
+          c: '......................1.',
+          s: '1.1.1.1.1.1.1.1.1.1.....',
+          k: '......................2.',
+        },
+        1.0,
+      ],
+      // triplets from the rack tom down to the floor
+      [{ t1: '2.2.2.......', t2: '......2.2...', t3: '..........2.' }, 1.5],
+    ],
+  },
+  ecm: {
+    label: 'Broken time (ECM)',
+    hint: 'Jack DeJohnette and Paul Motian: the time is implied rather than stated. The ride comes in pieces, the hat foot turns up where it likes, a tom or a snare note drops in, a cymbal washes over the bar line. Sparse on purpose; the Ghost notes slider adds more.',
+    toms: true,
+    kit: 'virtuosity',
+    hats: 8,
+    bpm: [90, 170],
+    swing: 70,
+    swingRange: [50, 85],
+    swingUnit: 8,
+    ghostBias: 0.9,
+    ghostHit: 0.5,
+    opens: 0,
+    fill: 'comp',
+    backbeats: [4, 12],
+    backbeatLane: 'hf',
+    targetDensity: 4,
+    ride: { steps: [0, 6, 12] },
+    ghostWeights: { 2: 0.24, 6: 0.24, 10: 0.24, 14: 0.24, 5: 0.12, 9: 0.12 },
+    kick1: [
+      ['0000', 6],
+      ['1000', 2],
+    ],
+    kick: [
+      ['0000', 8],
+      ['0010', 1],
+    ],
+    figures: [
+      // the ride in pieces, a floor tom at the end
+      [
+        {
+          r: '1.....1.....1...',
+          s: '.....1..........',
+          t3: '..............2.',
+          hf: '..........1.....',
+        },
+        1.5,
+      ],
+      // the foot on 2, a snare note on the "and" of 3
+      [{ r: '1...1.....1...1.', s: '..........1.....', hf: '....1...........' }, 1.5],
+      // a low kick on 1, the ride starting late
+      [{ r: '..1...1.1.....1.', s: '.......1....1...', k: '2...............' }, 1.0],
+      // a rack tom answering the ride
+      [{ r: '1.......1.1.....', t2: '......2.........', hf: '....1.......1...' }, 1.0],
+      // a cymbal wash over the bar line, then time
+      [{ c: '1...............', r: '........1...1.1.', hf: '............1...' }, 0.7],
+    ],
+    fills: [
+      // the rack tom, then the floor
+      [{ t1: '2...', t3: '..2.' }, 1.0],
+      // two soft snare notes and a floor tom
+      [{ s: '1.1.', t2: '...2' }, 1.0],
+      // a cymbal and kick on the "and" of 4
+      [{ c: '..1.', k: '..1.' }, 0.8],
+    ],
   },
   jazzwaltz: {
     label: 'Jazz waltz',
-    hint: 'Written in 3/4 and it needs to stay there — picking this style moves the time signature for you. Ride on 1, 2, the "and" of 2, 3, the "and" of 3; hi-hat foot on 2 and 3, not on 2 and 4, because there is no 4. Swing sits at 96 rather than 100: this one is notated straight and swung by feel, so the slider is doing the work the meter does in the other jazz styles. Drag it to 100 for a dead-on triplet, or pick 9/8 if you would rather see the triplets written out.',
+    hint: 'Written in 3/4 and it needs to stay there — picking this style moves the time signature for you. The ride on 1, 2, the "and" of 2 and 3; the hi-hat foot on 2 and 3, because there is no 4. Comps on the "and" of 1 and of 3, kick-snare-snare across the bar, and now and then a hemiola: crashes every dotted quarter, two against the three. Swung 8ths; the swing changes a little each press.',
+    toms: true,
     kit: 'virtuosity',
     meter: '3/4',
     hats: 8,
-    bpm: [120, 180],
-    swing: 96,
+    bpm: [120, 190],
+    swing: 90,
+    swingRange: [72, 100],
     swingUnit: 8,
     ghostBias: 1.1,
     opens: 0,
@@ -1763,8 +2675,357 @@ export const STYLES: Record<string, Style> = {
       ['0010', 0.9],
       ['0001', 0.7],
     ],
+    figures: [
+      // the ride on 1, 2, the "and" of 2 and 3; the foot on 2 and 3
+      [{ r: '1...1.1.1...', k: '1...........', hf: '....1...1...' }, 2],
+      // the ride on the "and" of 3 as well
+      [{ r: '1...1.1.1.1.', k: '1...........', hf: '....1...1...' }, 1.5],
+      // comps on the "and" of 1 and of 3
+      [{ r: '1...1.1.1...', s: '..1.......1.', k: '1...........', hf: '....1...1...' }, 1.2],
+      // kick on 2 and 3, the snare on their "and"s
+      [{ r: '1...1...1...', s: '......1...1.', k: '1...1...1...', hf: '....1...1...' }, 1.0],
+      // a hemiola: crash and kick every dotted quarter
+      [{ c: '1.....1.....', k: '1.....1.....', hf: '....1...1...' }, 0.8],
+    ],
+    fills: [
+      // snare, rack tom, floor tom
+      [{ s: '2.2.....', t1: '....2...', t3: '......2.' }, 1.5],
+      // a comp, a comp and a louder one
+      [{ s: '1.1.2.' }, 1.0],
+      // two on the rack tom, two on the floor
+      [{ t1: '2.2.....', t3: '....2.2.' }, 1.0],
+    ],
   },
-
+  jazzballad: {
+    label: 'Jazz ballad',
+    hint: 'Slow, deep, almost nothing happening. On brushes: the right hand taps the ride rhythm on the snare or plays the ride, the foot keeps 2 and 4, the kick barely there on 1 and 3, an accented slap now and then. The sweep the left hand keeps going is the one thing this page cannot play. 12/8, so the triplets are the meter.',
+    kit: 'brush',
+    meter: '12/8',
+    hats: 8,
+    bpm: [84, 117],
+    swing: 0,
+    ghostBias: 1.2,
+    opens: 0,
+    fill: 'comp',
+    fillComps: 1,
+    backbeats: [6, 18],
+    backbeatLane: 'hf',
+    targetDensity: 3,
+    hatDepth: 0.8,
+    ride: { steps: [0, 6, 10, 12, 18, 22] },
+    forceKick: [0, 12],
+    kickFeather: 0.26,
+    ghostHit: 0.3,
+    ghostWeights: { 4: 0.26, 16: 0.26, 10: 0.16, 22: 0.16, 8: 0.12, 20: 0.12 },
+    kick1: [['1000', 9]],
+    kick: [['0000', 9]],
+    figures: [
+      // the ride brushed, the foot on 2 and 4
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          k: '1...........1...........',
+          hf: '......1...........1.....',
+        },
+        2,
+      ],
+      // brush taps on the snare in the ride rhythm
+      [
+        {
+          s: '1.....1...1.1.....1...1.',
+          k: '1...........1...........',
+          hf: '......1...........1.....',
+        },
+        1.6,
+      ],
+      // half time: the ride on 1 and 3 only
+      [
+        {
+          r: '1...........1...........',
+          k: '1.......................',
+          hf: '......1...........1.....',
+        },
+        1.0,
+      ],
+      // taps, and a slap on the last triplet of 2
+      [
+        {
+          s: '1.....1...3.1.....1...1.',
+          k: '1...........1...........',
+          hf: '......1...........1.....',
+        },
+        0.8,
+      ],
+    ],
+    fills: [
+      // two soft taps into the bar line
+      [{ s: '..1.1.' }, 1.0],
+      // taps getting louder over 3 and 4
+      [{ s: '......1.1.2.' }, 1.0],
+      // a touch of cymbal on the last triplet
+      [{ c: '....1.', k: '....1.' }, 0.8],
+    ],
+  },
+  brushes: {
+    label: 'Brushes — medium swing',
+    hint: 'A trio on brushes: the right hand taps the ride rhythm on the snare, the foot keeps 2 and 4, the kick feathers four, and the comps are slaps — the Charleston, the last triplet of 2. Played on the DRS kit with brushes; the sweep under it is the one thing this page cannot play. 12/8, so the triplets are the meter.',
+    toms: true,
+    kit: 'drsBrush',
+    meter: '12/8',
+    hats: 8,
+    bpm: [165, 255],
+    swing: 0,
+    ghostBias: 1.0,
+    opens: 0,
+    fill: 'comp',
+    backbeats: [6, 18],
+    backbeatLane: 'hf',
+    targetDensity: 5,
+    hatDepth: 0.85,
+    ride: { steps: [0, 6, 10, 12, 18, 22] },
+    forceKick: [0, 6, 12, 18],
+    kickFeather: 0.3,
+    ghostHit: 0.5,
+    ghostWeights: { 4: 0.34, 16: 0.34, 8: 0.2, 20: 0.2 },
+    kick1: [['0000', 9]],
+    kick: [['0000', 9]],
+    figures: [
+      // taps on the snare in the ride rhythm
+      [
+        {
+          s: '1.....1...1.1.....1...1.',
+          k: '1.....1.....1.....1.....',
+          hf: '......1...........1.....',
+        },
+        2,
+      ],
+      // taps, and a slap on the last triplet of 2
+      [
+        {
+          s: '1.....1...3.1.....1...1.',
+          k: '1.....1.....1.....1.....',
+          hf: '......1...........1.....',
+        },
+        1.2,
+      ],
+      // the ride brushed instead
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          k: '1.....1.....1.....1.....',
+          hf: '......1...........1.....',
+        },
+        1.2,
+      ],
+      // a Charleston slap on 1
+      [
+        {
+          s: '3.....1...1.1.....1...1.',
+          k: '1.....1.....1.....1.....',
+          hf: '......1...........1.....',
+        },
+        0.8,
+      ],
+    ],
+    fills: [
+      // taps building to a slap on 4
+      [{ s: '1.1.1.1.2.3.' }, 1.2],
+      // a slap on 4 and on its last triplet
+      [{ s: '2...3.' }, 1.0],
+      // brushes round the toms
+      [{ s: '2.2.........', t1: '....2.2.....', t3: '........2.2.' }, 1.0],
+    ],
+  },
+  jazzsamba: {
+    label: 'Jazz samba',
+    hint: 'Samba as a jazz group plays it: the kick as the surdo, straight 8ths on the ride, the hat foot on the "and"s, a cross-stick clave. One bar here is two bars of 2/4, the same way the clave styles are written, so the tempo reads half the real one.',
+    toms: true,
+    kit: 'drs',
+    hats: 16,
+    bpm: [96, 124],
+    swing: 0,
+    swingRange: [0, 6],
+    ghostBias: 0.4,
+    opens: 0,
+    backbeats: [0, 6, 12],
+    foot: [2, 6, 10, 14],
+    targetDensity: 12,
+    crossStick: true,
+    kick1: [['1001', 9]],
+    kick: [['1001', 9]],
+    figures: [
+      // the surdo in the kick, ride 8ths, a cross-stick clave
+      [
+        {
+          r: '1.1.1.1.1.1.1.1.',
+          s: '4.....4.....4...',
+          k: '1..11..11..11..1',
+          hf: '..1...1...1...1.',
+        },
+        2,
+      ],
+      // the bell on the last 16th of each beat
+      [
+        {
+          r: '1..21..21..21..2',
+          s: '4.....4.....4...',
+          k: '1..11..11..11..1',
+          hf: '..1...1...1...1.',
+        },
+        1.5,
+      ],
+      // partido alto on the cross-stick
+      [
+        {
+          r: '1.1.1.1.1.1.1.1.',
+          s: '4..4..4...4.4...',
+          k: '1..11..11..11..1',
+          hf: '..1...1...1...1.',
+        },
+        1,
+      ],
+      // a two-feel: the kick on 1 and 3
+      [
+        {
+          r: '1.1.1.1.1.1.1.1.',
+          s: '4.....4.....4...',
+          k: '1.......1.......',
+          hf: '..1...1...1...1.',
+        },
+        0.8,
+      ],
+    ],
+    fills: [
+      // two and two on the snare, a 16th late, two on the floor tom, the surdo thinned to the beat
+      [{ s: '.22.22..', t3: '......22', k: '1...1...' }, 1.5],
+      // two on the rack tom, two on the floor
+      [{ t1: '22..', t3: '..22' }, 1.2],
+      // snare 8ths over the surdo
+      [{ s: '2.2.2.2.', k: '1...1...' }, 1.0],
+    ],
+  },
+  souljazz: {
+    label: 'Soul jazz',
+    hint: 'Idris Muhammad and Bernard Purdie on the organ-trio records: a backbeat with ghosts round it, a kick that sits in the cracks, 16ths on the hats, and the New Orleans second line under it now and then.',
+    toms: true,
+    kit: 'smdrums',
+    hats: 8,
+    bpm: [85, 120],
+    swing: 10,
+    swingRange: [4, 16],
+    ghostBias: 0.45,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 11,
+    rimshot: 0.2,
+    forceKick: [0],
+    kick1: [
+      ['1000', 4],
+      ['1001', 2],
+    ],
+    kick: [
+      ['0010', 1.6],
+      ['0000', 1.2],
+      ['1001', 1],
+    ],
+    figures: [
+      // 8ths on the hats, a ghost after 2, the kick on the "and" of 2 and of 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.1.....3...', k: '1.....1...1.....' }, 2],
+      // 16ths on the hats, ghosts round the backbeat
+      [{ h: '1111111111111111', s: '.1..3..1.1..3..1', k: '1.....1...1.....' }, 1.5],
+      // Idris's second line: the snare leads, the foot on the 'and's
+      [{ s: '3..1..1.3.1.1..1', k: '1.......1.....1.' }, 1.0],
+      // the hats opening on the "and" of 2 and of 4
+      [{ h: '1.1.1.3.1.1.1.3.', s: '....3.....1.3...', k: '1.1.....1.1.....' }, 1.2],
+      // the ride, the kick on the "a" of 2
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....3..1....3...', k: '1......1.1......' }, 1.0],
+    ],
+    fills: [
+      // snare, rack tom, floor tom, snare
+      [{ s: '3..3', t1: '.2..', t3: '..2.' }, 1.5],
+      // round the toms in 16ths
+      [{ s: '22......', t1: '..22....', t2: '....22..', t3: '......22' }, 1.2],
+      // the hats open on 4, a snare pickup into the one
+      [{ h: '3...', s: '3.13' }, 1.0],
+    ],
+  },
+  fusion: {
+    label: 'Jazz fusion',
+    mix: { r: 0.8 }, // the ride never stops, so it cannot sit on top
+    /* Electric Miles and after: straight sixteenths, not swing, so this one stays in
+       4/4. What makes it jazz rather than funk is where the snare goes and a ride
+       that never stops; the figures add Cobham's 16ths and double kick, Gadd's
+       linear and march grooves, and a ride phrased in threes over the four. */
+    hint: 'Electric Miles, Billy Cobham, Steve Gadd: straight 16ths, a ride or hats that never stop, a kick full of holes, bursts of double kick, linear patterns where no two limbs play together, and a march groove on the snare. Busy on purpose.',
+    kit: 'virtuosity',
+    toms: true,
+    hats: 16,
+    bpm: [96, 132],
+    swing: 0,
+    swingRange: [0, 6],
+    ghostBias: 0.8,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 14,
+    hatDepth: 0.75,
+    ride: { steps: [0, 2, 4, 6, 8, 10, 12, 14], bell: [0, 8] },
+    ghostHit: 0.42,
+    ghostWeights: {
+      3: 0.4,
+      7: 0.44,
+      11: 0.4,
+      15: 0.44,
+      2: 0.24,
+      6: 0.26,
+      10: 0.24,
+      14: 0.26,
+      1: 0.16,
+      5: 0.18,
+      9: 0.16,
+      13: 0.18,
+    },
+    feel: {
+      label: 'Pushed',
+      k: -0.02,
+      s: -0.015,
+      sGhost: -0.01,
+      h: [-0.015, -0.005],
+      r: [-0.015, -0.005],
+      c: -0.02,
+      jitter: 0.02,
+    },
+    kick1: [
+      ['1000', 3.4],
+      ['1001', 1.8],
+      ['1010', 1.4],
+    ],
+    kick: [
+      ['0010', 1.6],
+      ['0001', 1.4],
+      ['0000', 1.2],
+      ['0110', 0.6],
+    ],
+    figures: [
+      // the ride in 8ths, the bell on 1 and 3, ghosts round the backbeat
+      [{ r: '2.1.1.1.2.1.1.1.', s: '....3..1....3..1', k: '1..1......1.....' }, 1.5],
+      // Cobham: 16ths on the hats, a burst of double kick
+      [{ h: '1111111111111111', s: '....3.......3...', k: '1.11....1.11..1.' }, 1.5],
+      // linear: no two limbs at once
+      [{ h: '1...1...1...1...', s: '..2...1...2...1.', k: '.1...1...1...1..' }, 1.5],
+      // a Gadd-style march on the snare
+      [{ h: '1.1.1.1.1.1.1.1.', s: '.1.13.1..1..3.1.', k: '1.......1.......' }, 1.2],
+      // the bell in threes across the four
+      [{ r: '2.12..2.121.2.1.', s: '....3.......3...', k: '1..1..1...1..1..' }, 1.0],
+    ],
+    fills: [
+      // snare to the toms in 16ths
+      [{ s: '22......', t1: '..2.2...', t2: '...2....', t3: '.....222' }, 1.5],
+      // crash and kick on 4, the kick again on its "a"
+      [{ c: '1...', s: '3...', k: '1..1' }, 1.0],
+      // linear round the kit: snare, kick, floor tom
+      [{ s: '2..2..2.', t3: '..2..2..', k: '.1..1..1' }, 1.2],
+    ],
+  },
   takefive: {
     label: 'Jazz 5/4 (Take Five)',
     mix: { r: 0.85 }, // a bell on every group start is plenty
@@ -1808,65 +3069,6 @@ export const STYLES: Record<string, Style> = {
       ['0010', 1.0],
     ],
   },
-  fusion: {
-    label: 'Jazz fusion',
-    mix: { r: 0.8 }, // the ride never stops, so it cannot sit on top
-    /* Electric Miles: Tony Williams and Jack DeJohnette are playing straight sixteenths,
-       not swing, so this one stays in 4/4. What makes it jazz rather than funk is where
-       the snare goes — not a backbeat on 2 and 4 but accents wherever the phrase wants
-       them — and a ride that never stops. */
-    hint: 'Electric Miles — Tony Williams, DeJohnette, Al Foster. Straight sixteenths rather than swing, a ride that never stops, a kick full of holes, and a snare that accents wherever the phrase wants rather than sitting on 2 and 4. Busy on purpose: this is the one jazz style with no backbeat and no feathering.',
-    kit: 'virtuosity',
-    hats: 16,
-    bpm: [96, 132],
-    swing: 0,
-    ghostBias: 1.35,
-    opens: 1,
-    backbeats: [4, 12],
-    targetDensity: 14,
-    hatDepth: 0.75,
-    ride: { steps: [0, 2, 4, 6, 8, 10, 12, 14], bell: [0, 8] },
-    ghostHit: 0.42,
-    ghostWeights: {
-      3: 0.4,
-      7: 0.44,
-      11: 0.4,
-      15: 0.44,
-      2: 0.24,
-      6: 0.26,
-      10: 0.24,
-      14: 0.26,
-      1: 0.16,
-      5: 0.18,
-      9: 0.16,
-      13: 0.18,
-    },
-    feel: {
-      label: 'Pushed',
-      k: -0.02,
-      s: -0.015,
-      sGhost: -0.01,
-      h: [-0.015, -0.005],
-      r: [-0.015, -0.005],
-      c: -0.02,
-      jitter: 0.02,
-    },
-    kick1: [
-      ['1000', 3.4],
-      ['1001', 1.8],
-      ['1010', 1.4],
-      ['0010', 1.0],
-    ],
-    kick: [
-      ['0010', 1.9],
-      ['0001', 1.7],
-      ['0000', 1.3],
-      ['1001', 1.1],
-      ['1000', 1.0],
-      ['0011', 0.9],
-      ['0110', 0.6],
-    ],
-  },
 
   /* ---- more funk ----------------------------------------------------- */
   nolafunk: {
@@ -1877,6 +3079,7 @@ export const STYLES: Record<string, Style> = {
     hats: 16,
     bpm: [88, 104],
     swing: 18,
+    swingRange: [12, 26],
     ghostBias: 1.25,
     opens: 2,
     backbeats: [4, 12],
@@ -1938,13 +3141,15 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
     'Soul, gospel, disco',
     ['motown', 'stax', 'soul', 'neosoul', 'gospel', 'disco', 'shuffle', 'purdie'],
   ],
-  ['Jazz', ['swing', 'bebop', 'jazzballad', 'jazzwaltz', 'takefive', 'fusion']],
+  ['Early jazz and swing', ['neworleans', 'swingera']],
+  ['Jazz', ['swing', 'bebop', 'hardbop', 'postbop', 'modal', 'ecm', 'jazzwaltz', 'takefive']],
+  ['Jazz ballads and brushes', ['jazzballad', 'brushes']],
+  ['Latin jazz', ['bossa', 'jazzsamba', 'afrocuban']],
+  ['Jazz funk and fusion', ['souljazz', 'fusion']],
+  ['Blues and blues rock', ['slowblues', 'texasshuffle', 'bluesrock', 'boogie', 'halftimeshuffle']],
   ['Rock', ['rock', 'hardrock', 'funkrock', 'powerballad', 'slowrock']],
   ['Rock and roll, country', ['rocknroll', 'rockabilly', 'country']],
   ['Metal', ['metal', 'gallop', 'thrash', 'doublekick', 'groove', 'doom']],
   ['Jamaica', ['reggae', 'dub']],
-  [
-    'Afro-Latin',
-    ['afrobeat', 'son', 'rumba', 'mambo', 'songo', 'samba', 'bossa', 'afrocuban', 'reggaeton'],
-  ],
+  ['Afro-Latin', ['afrobeat', 'son', 'rumba', 'mambo', 'songo', 'samba', 'reggaeton']],
 ];

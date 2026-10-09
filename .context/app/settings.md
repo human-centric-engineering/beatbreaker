@@ -102,6 +102,17 @@ pattern never moves them, so _New pattern_ opens the way you last set one up,
 whatever you have opened since. The provider tells the console whether the stage
 is saved (`stageSaved`) at the moment of the change.
 
+### Swing is the style's until you move it
+
+Swing has no starting value. Picking a style sets the slider to the style's
+swing — somewhere in its `swingRange` where it has one (`swingFor` in
+`lib/app/breaks/styles.ts`) — and each _New pattern_ picks afresh in that range.
+Moving the slider yourself holds your value through later New presses (the
+console's `swingYours`, and the slider's hint says so) until you pick a style,
+which hands it back. Opening a pattern puts its own swing on the slider and
+hands the next New back to the style. A style whose triplets are written into
+its meter (the 12/8 jazz and blues) has no range, and sits at zero.
+
 ## This browser: the key module
 
 Every key the Studio writes is listed, with the schema it is read back through,

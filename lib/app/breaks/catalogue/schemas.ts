@@ -53,10 +53,8 @@ const figureSchema = z
   .partialRecord(z.enum(LANES as [LaneKey, ...LaneKey[]]), z.string().regex(/^[0-8.]{1,32}$/))
   .refine(
     (f) =>
-      Object.entries(f).every(([lane, row]) =>
-        [...(row ?? '')].every(
-          (ch) => ch === '.' || Number(ch) <= (LANE_VALUES[lane as LaneKey]?.length ?? 0)
-        )
+      LANES.every((lane) =>
+        [...(f[lane] ?? '')].every((ch) => ch === '.' || Number(ch) <= LANE_VALUES[lane].length)
       ),
     'a step value that lane does not have'
   )
@@ -99,76 +97,85 @@ export const percSpecSchema = z.object({
  * a field the schema does not know is stripped, so the generator would silently
  * stop reading it.
  */
-export const styleParamsSchema = styleAttrsSchema.extend({
-  label: z.string().min(1).max(80),
-  hint: z.string().max(800),
+export const styleParamsSchema = styleAttrsSchema
+  .extend({
+    label: z.string().min(1).max(80),
+    hint: z.string().max(800),
 
-  /** Where the faders start. A fader is a gain, so 0–2 rather than 0–1. */
-  mix: z.partialRecord(laneKey, z.number().min(0).max(2)).optional(),
+    /** Where the faders start. A fader is a gain, so 0–2 rather than 0–1. */
+    mix: z.partialRecord(laneKey, z.number().min(0).max(2)).optional(),
 
-  /** The cymbal ostinato's subdivision: 8ths or 16ths, and nothing else. */
-  hats: z.union([z.literal(8), z.literal(16)]),
-  /** `[min, max]` — the same 30–300 the tempo control allows. */
-  bpm: z
-    .tuple([z.number().min(30).max(300), z.number().min(30).max(300)])
-    .refine(([lo, hi]) => lo <= hi, 'the low end of a tempo range comes first'),
-  /** The style's own swing, as the slider reads it. */
-  swing: z.number().min(0).max(100),
+    /** The cymbal ostinato's subdivision: 8ths or 16ths, and nothing else. */
+    hats: z.union([z.literal(8), z.literal(16)]),
+    /** `[min, max]` — the same 30–300 the tempo control allows. */
+    bpm: z
+      .tuple([z.number().min(30).max(300), z.number().min(30).max(300)])
+      .refine(([lo, hi]) => lo <= hi, 'the low end of a tempo range comes first'),
+    /** The style's own swing, as the slider reads it. */
+    swing: z.number().min(0).max(100),
+    swingRange: z
+      .tuple([z.number().min(0).max(100), z.number().min(0).max(100)])
+      .refine(([lo, hi]) => lo <= hi, 'the low end of a swing range comes first')
+      .optional(),
 
-  ghostBias: z.number().min(0).max(4),
-  /** Step → weight. Keys are step indices, so they arrive as numeric strings. */
-  ghostWeights: z.record(z.coerce.number().int().min(0).max(63), weight).optional(),
-  ghostHit: z.number().min(0).max(1).optional(),
-  snareGhosts: stepList.optional(),
+    ghostBias: z.number().min(0).max(4),
+    /** Step → weight. Keys are step indices, so they arrive as numeric strings. */
+    ghostWeights: z.record(z.coerce.number().int().min(0).max(63), weight).optional(),
+    ghostHit: z.number().min(0).max(1).optional(),
+    snareGhosts: stepList.optional(),
 
-  opens: z.number().int().min(0).max(32),
-  openSlots: stepList.optional(),
-  backbeats: stepList.optional(),
-  backbeatLane: laneKey.optional(),
+    opens: z.number().int().min(0).max(32),
+    openSlots: stepList.optional(),
+    backbeats: stepList.optional(),
+    backbeatLane: laneKey.optional(),
 
-  kick1: kickCells,
-  kick: kickCells,
-  noKick: stepList.optional(),
-  forceKick: stepList.optional(),
+    kick1: kickCells,
+    kick: kickCells,
+    noKick: stepList.optional(),
+    forceKick: stepList.optional(),
 
-  toms: z.boolean().optional(),
-  foot: stepList.optional(),
-  perc: z.array(percSpecSchema).max(2).optional(),
+    toms: z.boolean().optional(),
+    foot: stepList.optional(),
+    perc: z.array(percSpecSchema).max(2).optional(),
 
-  meter: z
-    .string()
-    .refine((s) => METER_KEYS.includes(s), 'unknown meter')
-    .optional(),
-  /** A kit the style asks for. Not checked against the kit table: a style may
+    meter: z
+      .string()
+      .refine((s) => METER_KEYS.includes(s), 'unknown meter')
+      .optional(),
+    /** A kit the style asks for. Not checked against the kit table: a style may
       legitimately name a kit this installation does not have, and the picker
       falls back rather than the style failing to load. */
-  kit: z.string().max(40).optional(),
+    kit: z.string().max(40).optional(),
 
-  ride: z.object({ steps: stepList.optional(), bell: stepList.optional() }).optional(),
-  hat: z
-    .object({
-      steps: stepList.optional(),
-      accents: stepList.optional(),
-      opens: stepList.optional(),
-    })
-    .optional(),
+    ride: z.object({ steps: stepList.optional(), bell: stepList.optional() }).optional(),
+    hat: z
+      .object({
+        steps: stepList.optional(),
+        accents: stepList.optional(),
+        opens: stepList.optional(),
+      })
+      .optional(),
 
-  crossStick: z.boolean().optional(),
-  clave: z.boolean().optional(),
-  linear: z.boolean().optional(),
-  displace: z.number().min(0).max(1).optional(),
-  figures: figures.optional(),
-  fills: figures.optional(),
-  fill: z.literal('comp').optional(),
-  fillComps: z.number().int().min(0).max(16).optional(),
-  rimshot: z.number().min(0).max(1).optional(),
-  flam: z.number().min(0).max(1).optional(),
-  drag: z.number().min(0).max(1).optional(),
-  buzz: z.number().min(0).max(1).optional(),
-  halfOpen: z.number().min(0).max(1).optional(),
+    crossStick: z.boolean().optional(),
+    clave: z.boolean().optional(),
+    linear: z.boolean().optional(),
+    displace: z.number().min(0).max(1).optional(),
+    figures: figures.optional(),
+    fills: figures.optional(),
+    fill: z.literal('comp').optional(),
+    fillComps: z.number().int().min(0).max(16).optional(),
+    rimshot: z.number().min(0).max(1).optional(),
+    flam: z.number().min(0).max(1).optional(),
+    drag: z.number().min(0).max(1).optional(),
+    buzz: z.number().min(0).max(1).optional(),
+    halfOpen: z.number().min(0).max(1).optional(),
 
-  feel: feelSchema.optional(),
-});
+    feel: feelSchema.optional(),
+  })
+  .refine((p) => !p.swingRange || (p.swingRange[0] <= p.swing && p.swing <= p.swingRange[1]), {
+    message: 'a style’s own swing sits inside its swing range',
+    path: ['swingRange'],
+  });
 
 export type StyleParams = z.infer<typeof styleParamsSchema>;
 

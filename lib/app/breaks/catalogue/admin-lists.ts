@@ -44,7 +44,7 @@ export async function adminStyles(): Promise<AdminStyleRow[]> {
       currentVersion: true,
       updatedAt: true,
       /* The count comes back with the row rather than from a query per style.
-         48 styles is exactly the size where an N+1 is invisible in development
+         62 styles is exactly the size where an N+1 is invisible in development
          and obvious in production. */
       _count: { select: { versions: true } },
     },

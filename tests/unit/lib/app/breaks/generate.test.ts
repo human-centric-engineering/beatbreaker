@@ -51,10 +51,10 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 48 styles in 12 meters — the numbers the site copy quotes', () => {
-    expect(TEST_STYLE_KEYS).toHaveLength(48);
+  it('is 62 styles in 12 meters — the numbers the site copy quotes', () => {
+    expect(TEST_STYLE_KEYS).toHaveLength(62);
     expect(METER_KEYS).toHaveLength(12);
-    expect(COMBOS).toHaveLength(576);
+    expect(COMBOS).toHaveLength(744);
   });
 });
 
@@ -430,19 +430,18 @@ describe('written-out bars (figures)', () => {
   });
 });
 
-describe('the rock styles', () => {
-  const ROCK = [
-    'rock',
-    'hardrock',
-    'funkrock',
-    'powerballad',
-    'slowrock',
-    'rocknroll',
-    'rockabilly',
-  ];
+describe('the rock, jazz and blues styles', () => {
+  // every style written out as figures, bar metal, which has its own tests above
+  const METAL = ['metal', 'gallop', 'thrash', 'doublekick', 'groove', 'doom'];
+  const ROCK = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.figures && !METAL.includes(k));
+
+  it('covers the rock, jazz and blues groups', () => {
+    for (const k of ['rock', 'rockabilly', 'bebop', 'modal', 'brushes', 'slowblues', 'boogie'])
+      expect(ROCK).toContain(k);
+  });
   const row = (v: number[]) => v.map((x) => (x ? String(x) : '.')).join('');
 
-  it('writes every rock style out as figures and fills that play, in its own meter', () => {
+  it('writes every one out as figures and fills that play, in its own meter', () => {
     for (const key of ROCK) {
       const params = STYLES[key].params;
       const n = stepsOf(meterOf(params.meter ?? '4/4'));
@@ -451,7 +450,7 @@ describe('the rock styles', () => {
       for (const [f] of params.figures ?? []) {
         for (const r of Object.values(f)) expect(r?.length).toBe(n);
       }
-      // nobody in rock plays a china
+      // nobody outside metal plays a china
       for (const [f] of [...(params.figures ?? []), ...(params.fills ?? [])])
         expect(f.c ?? '').not.toMatch(/3/);
       for (let seed = 1; seed <= 40; seed++) {
@@ -467,6 +466,20 @@ describe('the rock styles', () => {
         expect({ key, seed, hard: playability(pat, bpm).hard }).toEqual({ key, seed, hard: true });
         for (const b of pat.bars) expect(b.c.includes(3)).toBe(false);
       }
+    }
+  });
+
+  it('keeps a jazz backbeat on 2 and 4 when the hat foot plays every beat', () => {
+    // post-bop's foot chicks on all four; its backbeats are still the style's own
+    for (let seed = 1; seed <= 10; seed++) {
+      const pat = generatePattern({
+        style: STYLES.postbop,
+        seed,
+        bars: 4,
+        density: 50,
+        ghosts: 50,
+      });
+      for (const b of pat.backbeats) expect(STYLES.postbop.params.backbeats).toContain(b);
     }
   });
 
@@ -500,5 +513,22 @@ describe('the figure schema', () => {
     expect(parse([[{ s: '....3...', k: '1111' }, 1]])).toBe(false);
     expect(parse([[{ c: '5...' }, 1]])).toBe(false);
     expect(parse([[{ k: 'x.x.' }, 1]])).toBe(false);
+  });
+});
+
+describe('the swing range schema', () => {
+  const parse = (extra: Partial<Style>) =>
+    styleParamsSchema.safeParse({ ...STYLES.rock.params, ...extra }).success;
+
+  it('takes a range, low end first, with the style’s own swing inside it', () => {
+    expect(parse({ swing: 70, swingRange: [60, 80] })).toBe(true);
+    expect(parse({ swing: 60, swingRange: [60, 60] })).toBe(true);
+    expect(parse({ swing: 10, swingRange: undefined })).toBe(true);
+  });
+
+  it('refuses a range high end first, or one the style’s own swing is outside', () => {
+    expect(parse({ swing: 70, swingRange: [80, 60] })).toBe(false);
+    expect(parse({ swing: 40, swingRange: [60, 80] })).toBe(false);
+    expect(parse({ swing: 90, swingRange: [60, 80] })).toBe(false);
   });
 });

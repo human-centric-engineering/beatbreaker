@@ -261,7 +261,14 @@ export interface Style extends StyleAttrs {
   hats: number;
   /** `[min, max]` tempo range the style is written for. */
   bpm: [number, number];
+  /** The swing the slider is set to for this style, as the slider reads it. */
   swing: number;
+  /**
+   * `[min, max]`: where it has one, picking the style and each New press set
+   * the slider somewhere in here instead of to {@link swing} — a shuffle is
+   * not always the same shuffle. Not on a style whose triplets are its meter.
+   */
+  swingRange?: [number, number];
   ghostBias: number;
   /** Where ghosts want to land, as step → weight. */
   ghostWeights?: Record<number, number>;

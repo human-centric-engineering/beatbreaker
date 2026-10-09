@@ -514,7 +514,7 @@ function varyFigureBar(rng: Rng, bar: Bar, style: Style, m: Meter): Bar {
   const n = b.k.length;
   const backbeats = style.backbeats ?? [];
   const roll = rng();
-  const opensAt = [14, 6, 10, 2].filter(
+  const opensAt = inMeter([14, 6, 10, 2], m).filter(
     (i) => i < n && b.h[i] === 1 && b.h[i - 1] !== 3 && b.h[i + 1] !== 3
   );
   if (roll < 0.45 && !kickRuns(b)) {
@@ -532,7 +532,7 @@ function varyFigureBar(rng: Rng, bar: Bar, style: Style, m: Meter): Bar {
   } else {
     // a cymbal accent on an off-beat 8th, the hand leaving its ostinato for it
     const china = (style.figures ?? []).some(([f]) => f.c?.includes(String(CHINA)));
-    const cands = [14, 6, 10].filter((i) => i < n && !b.c[i]);
+    const cands = inMeter([14, 6, 10], m).filter((i) => i < n && !b.c[i]);
     if (cands.length) {
       const i = cands[Math.floor(rng() * rng() * cands.length)];
       b.c[i] = china && rng() < 0.55 ? CHINA : 1;
@@ -602,8 +602,16 @@ function figurePhrase(
   };
   const coreA = ghostPass(rng, figureBar(a, n), style, gOpts, m, n);
   const coreB = ghostPass(rng, figureBar(b, n), style, gOpts, m, n);
+  /* On the snare a backbeat is any struck note both figures put there. On the
+     hat foot it is the style's own backbeats where both figures chick: a foot
+     playing every beat does not make 1 and 3 backbeats. */
+  const bbLane = bbLaneOf(style);
+  const struck = (bar: Bar, i: number) => (bbLane === 's' ? bar.s[i] >= 2 : bar[bbLane][i] > 0);
   const backbeats: number[] = [];
-  for (let i = 0; i < n; i++) if (coreA.s[i] >= 2 && coreB.s[i] >= 2) backbeats.push(i);
+  for (let i = 0; i < n; i++) {
+    if (bbLane !== 's' && !(style.backbeats ?? []).includes(i)) continue;
+    if (struck(coreA, i) && struck(coreB, i)) backbeats.push(i);
+  }
 
   const bars: Bar[] = [];
   for (let i = 0; i < opts.bars; i++) {
@@ -622,14 +630,20 @@ function figurePhrase(
   }
 
   const last = bars.length - 1;
-  if (opts.bars > 1 && rng() < 0.8) {
+  /* A jazz phrase ends by saying more as often as on a written fill: half
+     the time the comps thicken instead (and the draw for that is made only
+     for those styles, so every other style's stream is untouched). */
+  const comp = style.fill === 'comp';
+  if (opts.bars > 1 && rng() < (comp ? 0.7 : 0.8)) {
     const fills = (style.fills ?? []).filter(([f]) =>
       Object.values(f).every((row) => !row || row.length <= n)
     );
     bars[last] = applyStyleRules(
-      fills.length
+      fills.length && !(comp && rng() < 0.5)
         ? applyFigureFill(bars[last], wpick(rng, fills))
-        : applyFill(rng, bars[last], m, lanes),
+        : comp
+          ? applyCompFill(rng, bars[last], style, m)
+          : applyFill(rng, bars[last], m, lanes),
       style
     );
   }
