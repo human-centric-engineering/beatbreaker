@@ -101,6 +101,8 @@ export const styleAttrsSchema = z.object({
   hatDepth: z.number().min(0).max(3).optional(),
   /** Played with a double pedal: kick runs are two feet's, not one's. */
   doubleKick: z.boolean().optional(),
+  /** Sixteenth hats in the lead hand alone, not hand to hand. */
+  oneHandHats: z.boolean().optional(),
 });
 
 export const patternSchema = z.object({
@@ -108,6 +110,7 @@ export const patternSchema = z.object({
   style: styleKey,
   styleVersionId: z.string().max(40).nullable(),
   attrs: styleAttrsSchema.default({}),
+  song: z.string().max(40).optional(),
   meter: z.string().refine((s) => METER_KEYS.includes(s), 'unknown meter'),
   seed: z.number().int().min(0).max(0xffffffff),
   voice: z.enum(['hat', 'ride']),
@@ -206,6 +209,11 @@ export const packedPatternSchema = z.object({
   sv: z.string().max(40).optional(),
   /** the style snapshot — v4. Absent in a v3 code; see `unpack`. */
   sa: styleAttrsSchema.optional(),
+  /**
+   * the style's song that wrote it — optional and additive, so no new version:
+   * a code without one is a pattern without one, and an older reader drops it.
+   */
+  sg: z.string().max(40).optional(),
   /** voice */
   v: z.enum(['hat', 'ride']).default('hat'),
   /** seed */

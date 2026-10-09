@@ -114,6 +114,8 @@ export function swingUnitOf(style: StyleAttrs | undefined): number {
 
 /** Whether this step is one the swing slider pushes late. */
 export function isSwung(step: number, m: Meter, style: StyleAttrs | undefined): boolean {
+  // sextuplets are triplets already: there is nothing left for the slider to swing
+  if (m.sub === 6) return false;
   if (swingUnitOf(style) === 8 && m.sub === 4) return step % 4 === 2;
   return step % 2 === 1;
 }

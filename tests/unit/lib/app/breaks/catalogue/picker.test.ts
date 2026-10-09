@@ -101,10 +101,30 @@ describe('drummerSection', () => {
     for (const key of keysOf(drummers!)) expect(keysOf(section)).not.toContain(key);
   });
 
-  it('gives a drummer the same card a style gets', () => {
+  it("names both of a drummer's 4/4 grids on his card, sextuplets and sixteenths", () => {
+    const bonzo = drummers?.groups.flatMap(([, es]) => es).find((e) => e.key === 'bonham');
+    expect(bonzo?.label).toBe('John Bonham');
+    expect(bonzo?.meta).toEqual([
+      '4/4 sextuplets, 4/4',
+      '70–178 bpm',
+      '11 songs',
+      'straight to swung',
+      cat.kits.bigrusty.label,
+    ]);
+  });
+
+  it("gives a drummer with songs every meter and tempo his songs play in, and finds him by a song's title", () => {
     const mitch = drummers?.groups.flatMap(([, es]) => es).find((e) => e.key === 'mitchell');
     expect(mitch?.label).toBe('Mitch Mitchell');
-    expect(mitch?.meta).toEqual(['4/4', '70–150 bpm', 'shuffle 0–20%', cat.kits.smdrums.label]);
+    expect(mitch?.meta).toEqual([
+      '4/4, 9/8, 12/8',
+      '56–225 bpm',
+      '45 songs',
+      'straight to swung',
+      cat.kits.smdrums.label,
+    ]);
+    const found = searchSection(drummers!, 'manic depression');
+    expect(found.groups.flatMap(([, es]) => es.map((e) => e.key))).toEqual(['mitchell']);
   });
 
   it('follows a drummer moved into Your styles, as a drummer', () => {

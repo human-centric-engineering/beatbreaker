@@ -45,6 +45,22 @@ export function swingFor(
 }
 
 /**
+ * The swing a drummer plays at a tempo, for a style with
+ * {@link Style.swingCurve}, as the slider reads it for swung eighths.
+ *
+ * Friberg and Sundström (Music Perception 19/3, 2002) measured jazz ride
+ * cymbals, Tony Williams's among them: the short note of the swung pair stays
+ * near 100 ms whatever the tempo, so the ratio is about 1:1 from 300 up, 2:1
+ * (a triplet) around 200, and wider below — which the slider stops at, 100
+ * being the triplet. So 360 is 0, 270 about 30, 240 60, and 200 or slower 100.
+ */
+export function swingAtTempo(bpm: number): number {
+  const beatMs = 60000 / Math.max(1, bpm);
+  const ratio = Math.min(3.5, Math.max(1, (beatMs - 100) / 100));
+  return Math.round(Math.min(100, (300 * (ratio - 1)) / (ratio + 1)));
+}
+
+/**
  * The style as it applies in a meter it was not written for.
  *
  * Positions travel as **(pulse, offset)** rather than by raw step index, so

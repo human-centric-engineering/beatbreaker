@@ -20,6 +20,7 @@ import {
   DEFAULT_METER,
   M44,
   groupsOf,
+  isEighths,
   isGroupStart,
   meterOf,
   remapList,
@@ -32,9 +33,11 @@ import {
   emptyBar,
   meterOfPat,
   styleAttrs,
+  markFill,
   writePerc,
 } from '@/lib/app/breaks/pattern';
 import { clamp, makeRng, wpick, type Rng } from '@/lib/app/breaks/rng';
+import { pickSong, songMeter, songOf, withSong } from '@/lib/app/breaks/songs';
 import { styleIn } from '@/lib/app/breaks/styles';
 import type {
   Bar,
@@ -67,6 +70,10 @@ import type {
  * truncated.
  */
 function cellStep(j: number, size: number, sub: number): number {
+  // sextuplets: the "e" and the "a" go to the triplet partials either side of the "and"
+  if (sub === 6 && size === 6) return [0, 2, 3, 4][j] ?? 0;
+  // eighths: a pulse of two steps, the beat and its "and"; the "e" joins the beat, the "a" the "and"
+  if (sub === 2 && size === 2) return j < 2 ? 0 : 1;
   if (sub !== 2) return size === 4 ? j : Math.min(size - 1, Math.round((j * size) / 4));
   /* Eighth-note denominators: the slots are the notated beats of the pulse, and
      the cell's fourth character folds onto the last of them rather than falling
@@ -305,7 +312,7 @@ export function varyBar(rng: Rng, bar: Bar, amount: number, style: Style, m: Met
       for (let i = 0; i < steps; i++) if (b.k[i] && i > 0 && canTake(i)) ks.push(i);
       if (ks.length) {
         const i = ks[Math.floor(rng() * ks.length)];
-        const nudge = m.sub === 2 ? 2 : 1;
+        const nudge = m.sub === 2 && !isEighths(m) ? 2 : 1;
         const j = clamp(i + (rng() < 0.5 ? -nudge : nudge), 1, steps - 1);
         if (!b.k[j] && !snareKept(b.s[j]) && canPut(j)) {
           b.k[i] = 0;
@@ -376,7 +383,7 @@ export function applyFill(rng: Rng, bar: Bar, m: Meter, lanes: LaneKey[]): Bar {
      triplet partials in compound. A fill written on the sixteenths of a 12/8
      bar is a fill in the wrong subdivision. */
   const pos: number[] = [];
-  for (let o = 0; o < size; o += m.sub === 2 ? 2 : 1) pos.push(o);
+  for (let o = 0; o < size; o += m.sub === 2 && !isEighths(m) ? 2 : 1) pos.push(o);
   const P = (k: number): number => pos[clamp(k, 0, pos.length - 1)];
   const set = (lane: LaneKey, off: number, v: number): void => {
     const i = at + off;
@@ -472,9 +479,10 @@ function addMidFills(
   style: Style,
   fill: (bar: Bar) => Bar,
   half = bars.length
-): void {
+): number[] {
   const p = style.midFills ?? 0;
-  if (!p) return;
+  const filled: number[] = [];
+  if (!p) return filled;
   const ends: number[] = [];
   for (const [start, end] of [
     [0, half],
@@ -483,8 +491,92 @@ function addMidFills(
     for (let i = end - 1; i > start; i -= 2) if (i < bars.length - 1) ends.push(i);
   }
   for (const i of ends.sort((x, y) => x - y)) {
-    if (rng() < p) bars[i] = fill(bars[i]);
+    if (rng() < p) {
+      bars[i] = fill(bars[i]);
+      filled.push(i);
+    }
   }
+  return filled;
+}
+
+/**
+ * Crash and kick an 8th early ({@link Style.anticipate}): on the "and" of 4
+ * of bar `i`, tied over, so the next bar has no 1 — no crash, no kick, and
+ * the cymbal hand left ringing rather than starting its ostinato on top. Only
+ * between two bars of the phrase, never from the last bar into the first:
+ * the first bar of a break you start playing has to have its 1. Nor over a
+ * backbeat on either of the last two steps, which is the groove, not a fill.
+ */
+function addAnticipations(
+  rng: Rng,
+  bars: Bar[],
+  style: Style,
+  backbeats: number[],
+  at: number[]
+): void {
+  const p = style.anticipate ?? 0;
+  if (!p) return;
+  for (const i of [...new Set(at)].sort((x, y) => x - y)) {
+    if (i < 0 || i >= bars.length - 1 || rng() >= p) continue;
+    const b = cloneBar(bars[i]);
+    const next = cloneBar(bars[i + 1]);
+    const a = b.k.length - 2;
+    // a groove with its backbeat on the "and" or the "a" of 4 keeps it
+    if (backbeats.includes(a) || backbeats.includes(a + 1)) continue;
+    for (const L of FILL_HAND_LANES) {
+      b[L][a] = 0;
+      b[L][a + 1] = 0;
+    }
+    b.k[a + 1] = 0;
+    b.c[a] = 1;
+    b.k[a] = 1;
+    next.c[0] = 0;
+    next.k[0] = 0;
+    next.h[0] = 0;
+    next.r[0] = 0;
+    bars[i] = b;
+    bars[i + 1] = next;
+  }
+}
+
+/**
+ * A cross-rhythm over the end of the phrase ({@link Style.crossRhythms}): an
+ * accent every `every` steps, counted on from the first bar it covers and over
+ * the bar lines, so a dotted quarter goes three against four for three bars.
+ * A crash takes the cymbal hand off its ostinato for that step. Drawn only for
+ * a style that sets `crossRhythm`.
+ */
+function addCrossRhythm(rng: Rng, bars: Bar[], style: Style): void {
+  const p = style.crossRhythm ?? 0;
+  const table = style.crossRhythms ?? [];
+  if (!p || !table.length || rng() >= p) return;
+  const cr = wpick(rng, table);
+  const from = Math.max(0, bars.length - (cr.bars ?? bars.length));
+  const n = bars[0].k.length;
+  for (let t = 0; t < (bars.length - from) * n; t += cr.every) {
+    const bar = bars[from + Math.floor(t / n)];
+    const i = t % n;
+    for (const [lane, v] of Object.entries(cr.lanes) as Array<[LaneKey, number]>) {
+      bar[lane][i] = v;
+      if (lane === 'c' && v) {
+        bar.h[i] = 0;
+        bar.r[i] = 0;
+      }
+    }
+  }
+}
+
+/** How many steps a written figure covers: its longest row. */
+function figureLength(f: Figure): number {
+  return Math.max(0, ...Object.values(f).map((row) => row?.length ?? 0));
+}
+
+/** How many notes a written figure plays, across its lanes. */
+function figureNotes(f: Figure): number {
+  return Object.values(f).reduce(
+    (sum, row) => sum + [...(row ?? '')].filter((ch) => ch !== '.').length,
+    0
+  );
 }
 
 /* ---- written-out bars ------------------------------------------------ */
@@ -585,6 +677,7 @@ export function applyFigureFill(bar: Bar, fill: Figure): Bar {
   const len = Math.max(0, ...Object.values(fill).map((row) => row?.length ?? 0));
   if (!len || len > n) return b;
   const at = n - len;
+  markFill(b, at);
   for (const L of FILL_HAND_LANES) for (let i = at; i < n; i++) b[L][i] = 0;
   if (fill.k) for (let i = at; i < n; i++) b.k[i] = 0;
   for (const [lane, row] of Object.entries(fill) as Array<[LaneKey, string | undefined]>) {
@@ -620,10 +713,12 @@ function figurePhrase(
   const density = (opts.density - 50) / 90;
   const table = figuresFor(style, n, density);
   if (!table.length) return null;
-  const a = wpick(rng, table);
+  let a = wpick(rng, table);
   const others = table.filter(([f]) => f !== a);
-  const b = others.length ? wpick(rng, others) : a;
-  const half = opts.bars >= 4 && rng() < 0.5 ? opts.bars / 2 : opts.bars;
+  let b = others.length ? wpick(rng, others) : a;
+  // a build: the busier figure second, and always a second half to put it in
+  if (style.build && figureNotes(b) < figureNotes(a)) [a, b] = [b, a];
+  const half = opts.bars >= 4 && (rng() < 0.5 || !!style.build) ? opts.bars / 2 : opts.bars;
   const gOpts: GenBarOpts = {
     density: opts.density,
     ghosts: opts.ghosts,
@@ -664,20 +759,36 @@ function figurePhrase(
      the time the comps thicken instead (and the draw for that is made only
      for those styles, so every other style's stream is untouched). */
   const comp = style.fill === 'comp';
-  const fills = (style.fills ?? []).filter(([f]) =>
-    Object.values(f).every((row) => !row || row.length <= n)
+  const fills = (style.fills ?? []).filter(([f]) => figureLength(f) <= n);
+  /* Fills that grow: half a bar or less inside the phrase, the long ones
+     favoured at its end. The tables only reweight, so the draws are the
+     same in number as without. */
+  const short = fills.filter(([f]) => figureLength(f) <= n / 2);
+  const midTable = style.fillsGrow && short.length ? short : fills;
+  const lastTable = style.fillsGrow
+    ? fills.map(([f, w]): [Figure, number] => [f, w * (0.5 + (2 * figureLength(f)) / n)])
+    : fills;
+  const fillFrom =
+    (table: Array<[Figure, number]>) =>
+    (bar: Bar): Bar =>
+      applyStyleRules(
+        table.length && !(comp && rng() < 0.5)
+          ? applyFigureFill(bar, wpick(rng, table))
+          : comp
+            ? applyCompFill(rng, bar, style, m)
+            : applyFill(rng, bar, m, lanes),
+        style
+      );
+  if (opts.bars > 1 && rng() < (comp ? 0.7 : 0.8)) bars[last] = fillFrom(lastTable)(bars[last]);
+  const filled = addMidFills(rng, bars, style, fillFrom(midTable), half);
+  addAnticipations(
+    rng,
+    bars,
+    style,
+    backbeats,
+    half < bars.length ? [...filled, half - 1] : filled
   );
-  const fill = (bar: Bar): Bar =>
-    applyStyleRules(
-      fills.length && !(comp && rng() < 0.5)
-        ? applyFigureFill(bar, wpick(rng, fills))
-        : comp
-          ? applyCompFill(rng, bar, style, m)
-          : applyFill(rng, bar, m, lanes),
-      style
-    );
-  if (opts.bars > 1 && rng() < (comp ? 0.7 : 0.8)) bars[last] = fill(bars[last]);
-  addMidFills(rng, bars, style, fill, half);
+  addCrossRhythm(rng, bars, style);
   return { bars, backbeats };
 }
 
@@ -698,6 +809,12 @@ export interface GenerateOptions {
   /** Ghost notes, 0–100. */
   ghosts: number;
   meter?: string;
+  /**
+   * Which of the style's songs to write, by key — the Studio picks one first,
+   * because the song decides the meter, tempo and kit it sets up. Without one,
+   * a style that has songs picks among those in the meter, from the seed.
+   */
+  song?: string;
   voice?: 'hat' | 'ride';
   lanes?: LaneKey[];
   perc?: Partial<Record<PercLaneKey, string>>;
@@ -767,10 +884,20 @@ function cellPhrase(
   return bars;
 }
 
+/* Salts the song draw off the seed on a stream of its own, so the generator's
+   stream, and with it every style without songs, is untouched by it. */
+const SONG_SALT = 0x5f356495;
+
 export function generatePattern(opts: GenerateOptions): Pattern {
-  const meterKey = opts.meter ?? DEFAULT_METER;
+  const params = opts.style.params;
+  const named = songOf(params, opts.song);
+  const meterKey = opts.meter ?? (named ? songMeter(params, named) : DEFAULT_METER);
+  const song =
+    named ??
+    (params.songs ? pickSong(params, makeRng((opts.seed ^ SONG_SALT) >>> 0), meterKey) : undefined);
+  const base = withSong(params, song?.key);
   const m = meterOf(meterKey);
-  const style = styleIn(opts.style.params, meterKey);
+  const style = styleIn(base, meterKey);
   const lanes = opts.lanes ?? laneRoster(style);
   const perc = opts.perc ?? percRoster(style);
   const rng = makeRng(opts.seed);
@@ -787,7 +914,9 @@ export function generatePattern(opts: GenerateOptions): Pattern {
        attrs is a step position. Taking it off `style` would work today and
        silently start carrying remapped values the day one of them becomes
        positional. */
-    attrs: styleAttrs(opts.style.params),
+    attrs: styleAttrs(base),
+    // only where there is one, so a pattern without stays the shape it was
+    ...(song ? { song: song.key } : {}),
     meter: meterKey,
     voice: style.ride ? 'ride' : (opts.voice ?? 'hat'),
     lanes: lanes.slice(),
@@ -956,7 +1085,7 @@ export function deriveB(patA: Pattern, style0: Style): Pattern {
   const rng = makeRng((patA.seed ^ 0x9e3779b9) >>> 0);
   const p = clonePattern(patA);
   const m = meterOfPat(p);
-  const style = styleIn(style0, p.meter);
+  const style = styleIn(withSong(style0, patA.song), p.meter);
   p.seed = (patA.seed ^ 0x9e3779b9) >>> 0;
 
   p.bars = p.bars.map((b, i) => {

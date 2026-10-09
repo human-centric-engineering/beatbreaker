@@ -1,5 +1,6 @@
 import { METERS, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
 import { YOUR_STYLES_GROUP } from '@/lib/app/breaks/catalogue/prefer';
+import { withSong } from '@/lib/app/breaks/songs';
 import type { CatalogueKit, CatalogueStyle } from '@/lib/app/breaks/catalogue/types';
 import type { Style } from '@/lib/app/breaks/types';
 
@@ -52,6 +53,29 @@ export function feelLabel(st: Style): string {
     return lo === hi ? `${kind} ${lo}%` : `${kind} ${lo}–${hi}%`;
   }
   return st.swing > 0 ? `${kind} ${st.swing}%` : 'straight';
+}
+
+function meterLabel(st: Style): string {
+  return METERS[st.meter ?? '4/4']?.label ?? st.meter ?? '4/4';
+}
+
+/**
+ * The card's facts for a style with songs: every meter its songs are in, the
+ * tempo from its slowest song to its fastest, how many songs, and the feel
+ * when they all share one.
+ */
+function songsMeta(st: Style): string[] {
+  const songs = (st.songs ?? []).map((sg) => withSong(st, sg.key));
+  const meters = [...new Set(songs.map(meterLabel))];
+  const lo = Math.min(...songs.map((sg) => sg.bpm[0]));
+  const hi = Math.max(...songs.map((sg) => sg.bpm[1]));
+  const feels = [...new Set(songs.map(feelLabel))];
+  return [
+    meters.join(', '),
+    `${lo}–${hi} bpm`,
+    `${songs.length} songs`,
+    feels.length === 1 ? feels[0] : 'straight to swung',
+  ];
 }
 
 /** The styles, as the picker's first section, in the catalogue's own groups and order. */
@@ -133,17 +157,19 @@ function entryGroups(
         continue;
       }
       const st = row.params;
-      const meter = METERS[st.meter ?? '4/4']?.label ?? st.meter ?? '4/4';
       const kit = st.kit ? kits[st.kit]?.label : undefined;
-      const meta = [meter, `${st.bpm[0]}–${st.bpm[1]} bpm`, feelLabel(st)];
+      const meta = st.songs
+        ? songsMeta(st)
+        : [meterLabel(st), `${st.bpm[0]}–${st.bpm[1]} bpm`, feelLabel(st)];
       if (kit) meta.push(kit);
+      const songs = (st.songs ?? []).map((sg) => sg.title);
       entries.push({
         key,
         label: st.label,
         group,
         blurb: firstSentence(st.hint),
         meta,
-        haystack: [st.label, key, group, st.hint, ...meta].join(' ').toLowerCase(),
+        haystack: [st.label, key, group, st.hint, ...meta, ...songs].join(' ').toLowerCase(),
       });
     }
     if (entries.length) groups.push([group, entries]);

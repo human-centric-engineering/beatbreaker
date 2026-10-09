@@ -48,7 +48,9 @@ import type { Bar, LaneKey } from '@/lib/app/breaks/types';
  * snare, L R L. A ghost under the hats is the exception: the other hand plays
  * it whoever's go it is, and the lead hand stays on the hats, so none of them
  * is dropped. At every tempo: slowing a pattern down to learn it should not
- * change how it is played.
+ * change how it is played. A style that says otherwise (`oneHandHats`:
+ * Stubblefield, whose Funky Drummer is sixteenths in the right hand alone)
+ * keeps the hats in the lead hand and the other hand on the snare.
  *
  * Two things a drummer drops rather than contort for: percussion on a step
  * where the lead hand is keeping time on the hats or ride (the hand stays on
@@ -478,10 +480,16 @@ function stateKey(s: HandsState): string {
  * end. Weighing the bar at once is what lets a fill play a double — or a
  * paradiddle — to keep the arms from crossing a step or two later.
  */
-function assign(bar: Bar, prev: StepHands | null, from: HandsAt, kept: number): StepHands[] {
+function assign(
+  bar: Bar,
+  prev: StepHands | null,
+  from: HandsAt,
+  kept: number,
+  oneHand: boolean
+): StepHands[] {
   // the other hand set down on the snare for the cross-sticks does not come up for the hats
   const stay = crossBar(bar);
-  const turns = handToHand(bar, !stay);
+  const turns = handToHand(bar, !stay && !oneHand);
   const drum = prev ? lastDrum(prev) : undefined;
   let paths = new Map<string, { state: HandsState; cost: number; steps: StepHands[] }>();
   const start: HandsState = {
@@ -520,8 +528,15 @@ function keptAtEnd(steps: StepHands[]): number {
   return steps.length;
 }
 
-const cache = new WeakMap<Bar, StepHands[]>();
-const following = new WeakMap<Bar, WeakMap<Bar, StepHands[]>>();
+/** Per hat sticking: hand to hand (`false`) or the lead hand alone (`true`). */
+const caches = {
+  false: new WeakMap<Bar, StepHands[]>(),
+  true: new WeakMap<Bar, StepHands[]>(),
+};
+const followings = {
+  false: new WeakMap<Bar, WeakMap<Bar, StepHands[]>>(),
+  true: new WeakMap<Bar, WeakMap<Bar, StepHands[]>>(),
+};
 const doubled = new WeakMap<StepHands[], StepHands[]>();
 
 /**
@@ -555,29 +570,37 @@ function withDoublePedal(steps: StepHands[], bar: Bar, before?: Bar | null): Ste
  * pattern slowed down to be learned is played the way it is at speed.
  *
  * With `doubleKick`, the kicks are shared between the feet on a double pedal.
+ * With `oneHandHats`, a run of sixteenth hats stays in the lead hand.
  */
-export function assignBar(bar: Bar, before?: Bar | null, doubleKick = false): StepHands[] {
+export function assignBar(
+  bar: Bar,
+  before?: Bar | null,
+  doubleKick = false,
+  oneHandHats = false
+): StepHands[] {
   if (doubleKick) {
-    const hands = assignBar(bar, before);
+    const hands = assignBar(bar, before, false, oneHandHats);
     let out = doubled.get(hands);
     if (!out) doubled.set(hands, (out = withDoublePedal(hands, bar, before)));
     return out;
   }
   if (before) {
+    const following = followings[`${oneHandHats}`];
     let byBefore = following.get(bar);
     if (!byBefore) following.set(bar, (byBefore = new WeakMap()));
     const hit = byBefore.get(before);
     if (hit) return hit;
-    const lead = assignBar(before, null);
+    const lead = assignBar(before, null, false, oneHandHats);
     let at: HandsAt = HAND_REST;
     for (const step of lead) at = after(step, at);
-    const out = assign(bar, lead[lead.length - 1] ?? null, at, keptAtEnd(lead));
+    const out = assign(bar, lead[lead.length - 1] ?? null, at, keptAtEnd(lead), oneHandHats);
     byBefore.set(before, out);
     return out;
   }
+  const cache = caches[`${oneHandHats}`];
   const hit = cache.get(bar);
   if (hit) return hit;
-  const out = assign(bar, null, HAND_REST, FILL_AFTER);
+  const out = assign(bar, null, HAND_REST, FILL_AFTER, oneHandHats);
   cache.set(bar, out);
   return out;
 }

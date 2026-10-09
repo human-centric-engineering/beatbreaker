@@ -26,8 +26,17 @@ import { HAT_CLOSED_GAP, type Pose } from '@/lib/app/breaks/drummer/pose';
 
 export interface KitModel {
   root: THREE.Group;
-  /** `percussion`: which percussion pieces to put up; `doublePedal`: whether to put the second kick pedal in. */
-  update: (pose: Pose, percussion: ReadonlySet<PieceId>, doublePedal?: boolean) => void;
+  /**
+   * `percussion`: which percussion pieces to put up; `percInst`: what each
+   * sounds as, so a cowbell looks like one in either slot; `doublePedal`:
+   * whether to put the second kick pedal in.
+   */
+  update: (
+    pose: Pose,
+    percussion: ReadonlySet<PieceId>,
+    doublePedal?: boolean,
+    percInst?: ReadonlyMap<PieceId, string>
+  ) => void;
 }
 
 const vec = (a: V3) => new THREE.Vector3(a[0], a[1], a[2]);
@@ -361,23 +370,33 @@ export function buildKit(m: Materials): KitModel {
     root.add(rod(under, vec(p.centre).add(new THREE.Vector3(0, -0.01, 0)), 0.007, m.chrome));
   }
 
-  /* ---- percussion: a cowbell off the kick, a block off the hat stand -- */
-  const cowbell = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.048, 0.13, 4, 1), m.black);
-  cowbell.rotation.set(Math.PI / 2 - 0.2, Math.PI / 4, 0);
+  /* ---- percussion: a cowbell off the kick, a block off the hat stand --
+     Each mount holds either, and shows the one its slot sounds as: a bell
+     for a cowbell or an agogô, a block for anything else. */
+  const bellAt = (c: V3, dz: number) => {
+    const bell = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.048, 0.13, 4, 1), m.black);
+    bell.rotation.set(Math.PI / 2 - 0.2, Math.PI / 4, 0);
+    bell.position.set(c[0], c[1], c[2] + dz);
+    bell.castShadow = true;
+    return bell;
+  };
+  const blockAt = (c: V3) => {
+    const block = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.05, 0.06), m.wood);
+    block.position.set(c[0], c[1], c[2]);
+    block.rotation.x = 0.2;
+    block.castShadow = true;
+    return block;
+  };
   const pc1 = PIECES.perc1;
-  cowbell.position.set(pc1.centre[0], pc1.centre[1], pc1.centre[2] - 0.03);
-  cowbell.castShadow = true;
+  const bell1 = bellAt(pc1.centre, -0.03);
+  const block1 = blockAt(pc1.centre);
   const perc1 = [
-    cowbell,
     rod(vec(pc1.centre).add(new THREE.Vector3(0, -0.02, -0.08)), kickTop, 0.007, m.chrome),
   ];
-  const block = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.05, 0.06), m.wood);
   const pc2 = PIECES.perc2;
-  block.position.set(pc2.centre[0], pc2.centre[1], pc2.centre[2]);
-  block.rotation.x = 0.2;
-  block.castShadow = true;
+  const bell2 = bellAt(pc2.centre, 0);
+  const block2 = blockAt(pc2.centre);
   const perc2 = [
-    block,
     rod(
       vec(pc2.centre).add(new THREE.Vector3(0, -0.03, 0)),
       new THREE.Vector3(hatCentre.x - 0.02, 0.6, hatCentre.z),
@@ -385,7 +404,10 @@ export function buildKit(m: Materials): KitModel {
       m.chrome
     ),
   ];
-  root.add(...perc1, ...perc2);
+  root.add(...perc1, ...perc2, bell1, block1, bell2, block2);
+  const BELLS = new Set(['cowbell', 'agogo']);
+  /** Bell or block on a mount: what it sounds as, else what that mount has always held. */
+  const isBell = (inst: string | undefined, usual: boolean) => (inst ? BELLS.has(inst) : usual);
 
   /* ---- throne and rug ------------------------------------------------ */
   const seat = new THREE.Mesh(new THREE.CylinderGeometry(0.19, 0.17, 0.08, 32), m.black);
@@ -409,9 +431,17 @@ export function buildKit(m: Materials): KitModel {
 
   return {
     root,
-    update(pose: Pose, percussion: ReadonlySet<PieceId>, doublePedal = false) {
-      for (const o of perc1) o.visible = percussion.has('perc1');
-      for (const o of perc2) o.visible = percussion.has('perc2');
+    update(pose: Pose, percussion: ReadonlySet<PieceId>, doublePedal = false, percInst) {
+      const up1 = percussion.has('perc1');
+      const up2 = percussion.has('perc2');
+      const bellOn1 = isBell(percInst?.get('perc1'), true);
+      const bellOn2 = isBell(percInst?.get('perc2'), false);
+      for (const o of perc1) o.visible = up1;
+      for (const o of perc2) o.visible = up2;
+      bell1.visible = up1 && bellOn1;
+      block1.visible = up1 && !bellOn1;
+      bell2.visible = up2 && bellOn2;
+      block2.visible = up2 && !bellOn2;
       double.visible = doublePedal;
       hiHat.position.copy(vec(hatShift(doublePedal)));
       hatStand.visible = !doublePedal;

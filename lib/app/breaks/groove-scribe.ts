@@ -22,8 +22,9 @@ import type { Bar, LaneKey, PercLaneKey } from '@/lib/app/breaks/types';
  *
  * BeatBreaker's grid is sixteenths, so an eighth-note groove is spread out and
  * a 32nd-note one thinned — the notes between sixteenths are reported, not
- * guessed at. Triplet grids (`Div` 12, 24, 48) have no sixteenth equivalent and
- * are refused with a reason.
+ * guessed at. A triplet grid (`Div` 12, 24, 48) in 4/4 reads into sextuplet
+ * 4/4 (`4/4-6`), six steps to the beat; in any other time signature it has no
+ * grid here and is refused with a reason.
  */
 
 /** Where Groove Scribe is hosted. Any other host is not a Groove Scribe link. */
@@ -148,19 +149,23 @@ export function readGrooveScribeUrl(input: string): ImportResult {
   const div = parseInt(queryValue(search, 'Div') ?? '16', 10);
   if (!Number.isFinite(div) || div <= 0)
     return { ok: false, error: 'that Groove Scribe link has no note grid (Div)' };
-  if (div % 12 === 0) {
+  /* Triplets in 4/4 are what sextuplet 4/4 is for; elsewhere there is no
+     triplet grid to put them on. */
+  const triplets = div % 12 === 0;
+  if (triplets && timeSig !== '4/4') {
     return {
       ok: false,
-      error: 'that groove is written in triplets, which the sixteenth-note grid cannot hold',
+      error: `that groove is written in triplets, which BeatBreaker only has in 4/4`,
     };
   }
+  const meter = triplets ? '4/4-6' : timeSig;
 
-  const steps = stepsOf(meterOf(timeSig));
+  const steps = stepsOf(meterOf(meter));
   const perMeasure = (div / den) * num;
   if (!Number.isInteger(perMeasure) || (steps % perMeasure !== 0 && perMeasure % steps !== 0)) {
     return {
       ok: false,
-      error: `a grid of ${div} notes per whole note does not line up with sixteenths`,
+      error: `a grid of ${div} notes per whole note does not line up with ${triplets ? 'sextuplets' : 'sixteenths'}`,
     };
   }
 
@@ -224,8 +229,9 @@ export function readGrooveScribeUrl(input: string): ImportResult {
 
   if (between)
     notes.push(
-      `${between} ${between === 1 ? 'note' : 'notes'} between sixteenths ${between === 1 ? 'was' : 'were'} left out.`
+      `${between} ${between === 1 ? 'note' : 'notes'} between ${triplets ? 'sextuplets' : 'sixteenths'} ${between === 1 ? 'was' : 'were'} left out.`
     );
+  if (triplets) notes.push('Read in triplets, as 4/4 sextuplets: six steps to the beat.');
   if (tomSources.size > 1) notes.push('Toms 3 and 4 were both read onto the floor tom.');
   if (unknown)
     notes.push(
@@ -236,13 +242,15 @@ export function readGrooveScribeUrl(input: string): ImportResult {
   const bpm =
     Number.isFinite(tempoRaw) && tempoRaw >= 20 && tempoRaw <= 400 ? tempoRaw : DEFAULT_TEMPO;
   const swingRaw = parseInt(queryValue(search, 'swing') ?? '0', 10);
-  const swing = Number.isFinite(swingRaw) && swingRaw >= 0 && swingRaw <= 100 ? swingRaw : 0;
+  // the triplets are written in: nothing is left to swing
+  const swing =
+    !triplets && Number.isFinite(swingRaw) && swingRaw >= 0 && swingRaw <= 100 ? swingRaw : 0;
 
   return {
     ok: true,
     pattern: {
       name: (decode(queryValue(search, 'title')) ?? '').trim().slice(0, 120),
-      meter: timeSig,
+      meter,
       bpm,
       swing,
       bars,

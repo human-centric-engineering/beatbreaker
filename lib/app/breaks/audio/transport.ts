@@ -1,7 +1,15 @@
 import type { BreakAudio } from '@/lib/app/breaks/audio/engine';
 import type { MidiSink } from '@/lib/app/breaks/audio/midi-out';
 import { Humaniser } from '@/lib/app/breaks/humanise';
-import { M44, groupAt, isGroupStart, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
+import {
+  M44,
+  groupAt,
+  isGroupStart,
+  isEighths,
+  meterOf,
+  pulseInfo,
+  stepSeconds,
+} from '@/lib/app/breaks/meter';
 import { meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
 import { type Voice, performStep } from '@/lib/app/breaks/perform';
 import type { Bar, Meter, Pattern } from '@/lib/app/breaks/types';
@@ -135,6 +143,8 @@ export interface ScheduledStep {
   notes: { voice: Voice; when: number }[];
   /** The pattern playing is played on a double pedal (its style's `doubleKick`). */
   doubleKick?: boolean;
+  /** The pattern playing keeps sixteenth hats in one hand (its style's `oneHandHats`). */
+  oneHandHats?: boolean;
 }
 
 interface SeqEntry {
@@ -176,10 +186,15 @@ const TICK_MS = 25;
  * dotted quarter — six of those sixteenths — so the clock has to run half again
  * as fast to put the music at the same speed. Swing at a quarter of 160 is 240
  * on this slider, which is why the ceiling moves with the meter rather than
- * being one number for everything.
+ * being one number for everything. A meter written in eighths has half as many
+ * steps to the beat again, which is how fast swing (Tony Williams at 360) is
+ * counted at its real tempo.
  */
 export function maxBpm(meterKey: string): number {
-  const pi = pulseInfo(meterOf(meterKey));
+  const m = meterOf(meterKey);
+  // eighth-note steps: fast swing, at the tempo it is counted in
+  if (isEighths(m)) return 380;
+  const pi = pulseInfo(m);
   return pi?.steps === 6 ? 300 : 190;
 }
 
@@ -286,8 +301,10 @@ export class Transport {
     if (wasIndex !== this.seqIndex) this.step = Math.min(this.step, this.barSteps(snap) - 1);
   }
 
-  private stepDur(bpm: number): number {
-    return 60 / bpm / 4;
+  /** How long a step of the pattern playing lasts: a sixteenth, or a sextuplet in 4/4-6. */
+  private stepDur(snap: TransportSnapshot): number {
+    const pos = this.seq[this.seqIndex];
+    return stepSeconds(meterOfPat((pos && snap.patterns[pos.letter]) || snap.patterns.A), snap.bpm);
   }
 
   private barSteps(snap: TransportSnapshot): number {
@@ -307,7 +324,7 @@ export class Transport {
   };
 
   private schedule(t: number, snap: TransportSnapshot): void {
-    const dur = this.stepDur(snap.bpm);
+    const dur = this.stepDur(snap);
     const pos = this.seq[this.seqIndex];
     const livePat = pos ? snap.patterns[pos.letter] : null;
     const cm = meterOfPat(livePat ?? snap.patterns.A);
@@ -329,6 +346,7 @@ export class Transport {
         next: (livePat && pos && livePat.bars[pos.barIdx]) ?? null,
         notes: [],
         doubleKick: !!livePat?.attrs?.doubleKick,
+        oneHandHats: !!livePat?.attrs?.oneHandHats,
       });
       return;
     }
@@ -398,6 +416,7 @@ export class Transport {
            touches — a lane left out is an arm wound up for a hit that never comes. */
         notes: voices.map((voice, n) => ({ voice, when: whens[n] })),
         doubleKick: !!livePat.attrs?.doubleKick,
+        oneHandHats: !!livePat.attrs?.oneHandHats,
       });
     }
 
@@ -438,7 +457,7 @@ export class Transport {
   }
 
   private advance(snap: TransportSnapshot): void {
-    this.nextTime += this.stepDur(snap.bpm);
+    this.nextTime += this.stepDur(snap);
     if (this.countLeft > 0) {
       this.countLeft--;
       if (this.countLeft === 0) this.cb.onDownbeat?.(this.nextTime);

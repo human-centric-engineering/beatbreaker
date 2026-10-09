@@ -14,7 +14,7 @@ import {
   gracesOf,
   percInst,
 } from '@/lib/app/breaks/lanes';
-import { isGroupStart } from '@/lib/app/breaks/meter';
+import { isGroupStart, stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import { clamp } from '@/lib/app/breaks/rng';
 import type { Bar, LaneKey, Pattern } from '@/lib/app/breaks/types';
@@ -260,11 +260,17 @@ export function performStep(pat: Pattern, bar: Bar, i: number, opts: PerformOpti
   const attrs = pat.attrs;
   const feel = feelOf(attrs);
   const amt = opts.feel / 100;
-  const swing = isSwung(i, m, attrs) ? (opts.swing / 100) * 0.66 : 0;
+  /* Swing is two thirds of a sixteenth at 100. Where a step is an eighth (fast
+     swing written in eighths) the same distance is a third of a step, so 100
+     is still a triplet: it scales with steps to the quarter, as feel does. */
+  const swing = isSwung(i, m, attrs) ? ((opts.swing / 100) * 0.66 * stepsPerQuarter(m)) / 4 : 0;
   /* The style's own feel, on top of swing. Each lane leans its own way, and a
-     ghost note can lean differently from a hit on the same drum. */
+     ghost note can lean differently from a hit on the same drum. A feel is
+     written in sixteenths; where a step is a sextuplet, there are more steps
+     to the same distance. */
+  const spq = stepsPerQuarter(m);
   const offset = (lane: LaneKey, ghost?: boolean): number =>
-    swing + (feel && amt ? amt * feelOffset(feel, lane, i, ghost) : 0);
+    swing + (feel && amt ? (amt * feelOffset(feel, lane, i, ghost) * spq) / 4 : 0);
 
   const out: Voice[] = [];
   /** Each voice's band, by index, for humanise to stay inside. */
@@ -390,9 +396,9 @@ export function performStep(pat: Pattern, bar: Bar, i: number, opts: PerformOpti
   });
 
   const h = opts.humanise;
-  /* A sixteenth is 15000 / bpm ms. Every note draws, whatever the Amount, so
-     the stream stays in step with the notes. */
-  const stepsPerMs = (opts.bpm ?? h?.bpm ?? 100) / 15000;
+  /* A sixteenth is 15000 / bpm ms (a sextuplet two thirds of that). Every note
+     draws, whatever the Amount, so the stream stays in step with the notes. */
+  const stepsPerMs = ((opts.bpm ?? h?.bpm ?? 100) * spq) / 60000;
   const played = h
     ? out.map((voice, n) => {
         const nudge = h.stream.next(voice.lane, h.amount);

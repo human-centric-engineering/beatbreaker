@@ -4,6 +4,7 @@ import { applyCompFill, applyFill, fitHands } from '@/lib/app/breaks/generate';
 import { reduceBar } from '@/lib/app/breaks/layers';
 import { clonePattern, meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
 import { makeRng, wpick } from '@/lib/app/breaks/rng';
+import { withSong } from '@/lib/app/breaks/songs';
 import { styleIn } from '@/lib/app/breaks/styles';
 import type { Meter, Pattern, Style } from '@/lib/app/breaks/types';
 
@@ -73,7 +74,7 @@ export function doctor(
 ): Pattern {
   const pat = clonePattern(input);
   const rng = makeRng((pat.seed + entropy) >>> 0);
-  const style = styleIn(style0, pat.meter);
+  const style = styleIn(withSong(style0, pat.song), pat.meter);
   const m = meterOfPat(pat);
   const steps = patSteps(pat);
   const groups = groupsOf(m);

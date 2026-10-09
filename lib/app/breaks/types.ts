@@ -2,10 +2,12 @@
  * The pattern model — the one shape every other module in `lib/app/breaks`
  * agrees on.
  *
- * A bar is one array per lane, as long as the meter says. **One step is always
- * a sixteenth note**, whatever the meter, which is what lets the transport, the
- * swing and the MIDI export stay ignorant of which meter is running. What a
- * meter decides is how many steps a bar holds and how they group.
+ * A bar is one array per lane, as long as the meter says. **One step is a
+ * sixteenth note** in every meter but sextuplet 4/4 (`4/4-6`), where it is a
+ * sixteenth-note triplet, six to the beat. Whatever turns steps into time —
+ * the transport, the performance's offsets, the MIDI export — asks the meter
+ * (`stepsPerQuarter`) rather than assuming four. What a meter decides is how
+ * many steps a bar holds and how they group.
  *
  * Lane values are deliberately small integers rather than a union type: the
  * generator, the critic and the layer reducer all do arithmetic on them
@@ -84,6 +86,12 @@ export interface Pattern {
    * takes it as an argument; playing, scoring and exporting one do not.
    */
   attrs: StyleAttrs;
+  /**
+   * Which of the style's {@link Style.songs} wrote it, by key. Absent for a
+   * style without songs. Deriving a B or doctoring the pattern lays the same
+   * song over the style again; the stage names it.
+   */
+  song?: string;
   /** Key into `METERS`. */
   meter: string;
   /** Seed the generator ran from — what makes a break reproducible. */
@@ -122,7 +130,7 @@ export interface Meter {
   num: number;
   /** Note value of the beat: 4 = quarter, 8 = eighth. */
   den: number;
-  /** Grid steps per notated beat — 4 in simple time, 2 in compound. */
+  /** Grid steps per notated beat — 4 in simple time, 2 in compound, 6 in sextuplet 4/4. */
   sub: number;
   /**
    * Pulse grouping in notated beats. 6/8 is `[3, 3]` — two dotted-quarter
@@ -209,9 +217,9 @@ export interface PercSpec {
 /**
  * The part of a style that travels with a pattern.
  *
- * Six fields, and the list is not arbitrary — it is exactly what the transport
+ * Seven fields, and the list is not arbitrary — it is exactly what the transport
  * (`isSwung`, `hatShape`, `feelOffset`), the critic (`kickFeather`,
- * `targetDensity`, `doubleKick`), the 3D drummer (`doubleKick`) and the MIDI
+ * `targetDensity`, `doubleKick`), the 3D drummer (`doubleKick`, `oneHandHats`) and the MIDI
  * export read off a style once a pattern exists.
  * Everything else a style says is an instruction to the *generator*, and is
  * spent the moment the notes are written.
@@ -246,6 +254,12 @@ export interface StyleAttrs {
    * unplayable, and the 3D drummer plays it on two pedals.
    */
   doubleKick?: boolean;
+  /**
+   * Sixteenths on the hats played with the lead hand alone, the other hand
+   * left on the snare: Stubblefield's Funky Drummer. Without it the 3D
+   * drummer plays a run of sixteenth hats hand to hand.
+   */
+  oneHandHats?: boolean;
 }
 
 export interface Style extends StyleAttrs {
@@ -325,10 +339,52 @@ export interface Style extends StyleAttrs {
    */
   midFills?: number;
   /**
+   * Probability, 0–1, that the crash a bar would land on its 1 comes an 8th
+   * early instead: crash and kick on the "and" of 4, tied over the bar line,
+   * and nothing on the 1. Tried after each fill inside the phrase and where
+   * the second half starts. Absent is 0, and at 0 nothing is drawn for it.
+   */
+  anticipate?: number;
+  /**
+   * Fills grow through the phrase: inside it the generator picks among the
+   * fills no longer than half a bar, and at its end leans to the longest.
+   * Mitchell's fills get longer and wilder as a song goes on.
+   */
+  fillsGrow?: boolean;
+  /**
+   * The second half of the phrase says more than the first: of the two
+   * figures drawn, the busier one goes second, and a phrase of four bars or
+   * more is always split in two. A verse that builds into the chorus.
+   */
+  build?: boolean;
+  /**
+   * The swing follows the tempo, as a jazz drummer's does: about even at 300,
+   * a triplet at 200 and below (`swingAtTempo`). The Studio derives the slider
+   * from the tempo until you set it yourself. `swing` and `swingRange` still
+   * say where it starts.
+   */
+  swingCurve?: boolean;
+  /**
+   * Accent cycles that run across the bar line ({@link CrossRhythm}): a
+   * dotted-quarter rimshot every six sixteenths is three against four for
+   * three bars; every fourteen eighths is 7/4 over 4/4. A one-bar figure
+   * cannot hold either.
+   */
+  crossRhythms?: Array<Weighted<CrossRhythm>>;
+  /** Probability, 0–1, that a phrase carries one of {@link crossRhythms}. Absent is 0. */
+  crossRhythm?: number;
+  /**
    * A famous drummer's playing rather than a genre: the style picker files it
    * under Drummers instead of Styles. Picking one is picking a style.
    */
   drummer?: boolean;
+  /**
+   * The songs a style plays, where one meter, one tempo and one feel cannot
+   * hold it: a drummer who played a 3/4 jazz waltz, a slow 12/8 blues and a
+   * brushed swing in the same band. Each New picks one (see `songs.ts`), and
+   * the song's params are laid over the style's for that pattern.
+   */
+  songs?: StyleSong[];
   /**
    * The articulations (9-iv), each the probability, 0–1, that the generator
    * writes one where it may: a backbeat as a `rimshot`; a fill accent as a
@@ -341,6 +397,41 @@ export interface Style extends StyleAttrs {
   drag?: number;
   buzz?: number;
   halfOpen?: number;
+}
+
+/**
+ * An accent repeating every `every` steps, counted from the start of the bars
+ * it covers and carried straight over their bar lines: what each lane plays on
+ * it, in the lane's own values. `bars` is how many bars at the end of the
+ * phrase it covers; absent, all of them.
+ */
+export interface CrossRhythm {
+  every: number;
+  lanes: Partial<Record<LaneKey, number>>;
+  bars?: number;
+}
+
+/**
+ * What a song may change about its style: anything the generator, the transport
+ * or the controls read, bar the style's name and description, the drummer flag
+ * and the song list itself.
+ */
+export type StyleSongParams = Partial<Omit<Style, 'label' | 'hint' | 'drummer' | 'songs'>>;
+
+/**
+ * One song in a style's {@link Style.songs}: its own meter, tempo, swing, kit,
+ * grooves and fills, laid over the style's.
+ */
+export interface StyleSong {
+  /** Recorded on a pattern as {@link Pattern.song}, so a slug that stays put. */
+  key: string;
+  /** 'Manic Depression'. */
+  title: string;
+  /** What it is, in a few words, for the stage: 'a fast jazz waltz in 3/4'. */
+  feel: string;
+  /** How often New picks it, against the style's other songs. */
+  weight: number;
+  params: StyleSongParams;
 }
 
 /**

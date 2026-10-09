@@ -65,11 +65,12 @@ import {
   encodeBreak,
   patternFromPacked,
 } from '@/lib/app/breaks/share';
-import { styleIn, swingFor } from '@/lib/app/breaks/styles';
+import { pickSong, songMeter, songTempo, withSong } from '@/lib/app/breaks/songs';
+import { styleIn, swingAtTempo, swingFor } from '@/lib/app/breaks/styles';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import { percussionSource } from '@/lib/app/breaks/catalogue/types';
-import type { LaneKey, Pattern, ResolvedStyle } from '@/lib/app/breaks/types';
+import type { LaneKey, Pattern, ResolvedStyle, Style } from '@/lib/app/breaks/types';
 import { type VoiceParams, kitEngine, kitIsPlayable, withTuning } from '@/lib/app/breaks/kit';
 import { useStudioSettings } from '@/components/app/breaks/use-studio-settings';
 import { logger } from '@/lib/logging';
@@ -499,6 +500,8 @@ interface Setup {
   meter: string;
   bars: number;
   bpm: number;
+  /** Which of the style's songs, where it has them. */
+  song?: string;
 }
 
 /**
@@ -600,7 +603,7 @@ export function useBreakConsole(
      until you move the slider yourself, which holds your value until you
      pick a style. Starts in the middle of the style's range, not at a random
      point in it, so the server and the browser render the same slider. */
-  const [swing, setSwingRaw] = useState(() =>
+  const [swingSet, setSwingRaw] = useState(() =>
     swingFor(catalogue.styles[settings.startStyle]?.params, settings.startMeter, () => 0.5)
   );
   // a ref for the callbacks to read, and state for the slider to say whose it is
@@ -628,6 +631,13 @@ export function useBreakConsole(
   const [bpm, setBpmRaw] = useState(() =>
     clamp(settings.startBpm, 50, maxBpm(settings.startMeter))
   );
+  /* A style whose swing follows the tempo (Tony Williams: near even at 300,
+     a triplet by 200 and below) has it derived here rather than stored, so
+     every tempo change — a layer, a ramp, the slider — moves it, until you set
+     the swing yourself. Read off the pattern on the stage, with its song. */
+  const stageParams = patterns.A ? catalogue.styles[patterns.A.style]?.params : undefined;
+  const swingCurved = !!(stageParams && withSong(stageParams, patterns.A?.song).swingCurve);
+  const swing = swingCurved && !swingYours ? swingAtTempo(bpm) : swingSet;
   /** The tempo the break is written at — the 100% the layer match works from. */
   const [baseBpm, setBaseBpm] = useState(bpm);
   const [arrangement, setArrangement] = useState<SectionLetter[]>(['A', 'A', 'A', 'B']);
@@ -820,6 +830,22 @@ export function useBreakConsole(
     [catalogue.styles]
   );
 
+  /**
+   * Switch to the kit a style (or a style with its song laid over it) asks
+   * for, and back to yours when it asks for none: picking the waltz once must
+   * not leave every style after it on brushes, and neither must one song.
+   */
+  const followKit = useCallback(
+    (st: Style | undefined) => {
+      /* `named.key` rather than `st.kit`: the same string, read off the row
+         that was actually found, so there is nothing to assert non-null. */
+      const named = st?.kit ? catalogue.kits[st.kit] : undefined;
+      const wantKit = named && kitIsPlayable(named) ? named.key : userKit;
+      if (wantKit !== kit && kitIsPlayable(catalogue.kits[wantKit])) update({ kit: wantKit });
+    },
+    [catalogue.kits, userKit, kit, update]
+  );
+
   const setLaneMix = useCallback((lane: string, v: number) => {
     setMix((prev) => ({ ...prev, [lane]: v }));
     setMixTouched((prev) => ({ ...prev, [lane]: true }));
@@ -915,7 +941,7 @@ export function useBreakConsole(
     (which: SectionLetter | 'both', setup: Setup) => {
       const row = catalogue.styles[setup.style] ?? styleRow;
       if (!row) return null;
-      const st = styleIn(row.params, setup.meter);
+      const st = styleIn(withSong(row.params, setup.song), setup.meter);
       const roster = resolveLanes(st, lanesMode === 'custom' ? customLanes : null);
       const made = generateGood(
         {
@@ -927,6 +953,7 @@ export function useBreakConsole(
           seed: Math.floor(Math.random() * 0xffffffff),
           lanes: roster.lanes,
           perc: roster.perc,
+          song: setup.song,
         },
         setup.bpm
       );
@@ -955,18 +982,32 @@ export function useBreakConsole(
     (which: SectionLetter | 'both' = 'both') => {
       pushHistory();
       if (which !== 'both') {
-        generate(which, { style, meter, bars, bpm });
+        // a new A or B is the same song as the pattern it belongs to
+        const stage = patterns[which] ?? patterns.A;
+        const song = stage?.style === style ? stage.song : undefined;
+        generate(which, { style, meter, bars, bpm, song });
         return;
       }
+      const styleKey = chosen.current.style ?? settings.startStyle;
+      /* A style with songs plays one of them, and the song sets the meter and
+         the tempo: Manic Depression is a fast 9/8, Little Wing a slow 4/4.
+         Those win over your starting values here, because a song at
+         somebody else's tempo and meter is not that song. A locked tempo
+         stays locked. */
+      const params = catalogue.styles[styleKey]?.params;
+      const song = params ? pickSong(params, Math.random) : undefined;
       const next = {
-        style: chosen.current.style ?? settings.startStyle,
-        meter: chosen.current.meter ?? settings.startMeter,
+        style: styleKey,
+        meter:
+          params && song ? songMeter(params, song) : (chosen.current.meter ?? settings.startMeter),
         bars: chosen.current.bars ?? settings.startBars,
+        song: song?.key,
       };
       // used up: the pattern they were picked for is this one
       chosen.current = {};
       const top = maxBpm(next.meter);
-      const base = locks.bpm ? baseBpm : clamp(settings.startBpm, 50, top);
+      const start = params && song ? songTempo(params, song, Math.random) : settings.startBpm;
+      const base = locks.bpm ? baseBpm : clamp(start, 50, top);
       const at = matchOn ? Math.round(base * (LAYER_TEMPO[level] ?? 1)) : base;
       const bpmAt = locks.bpm ? clamp(bpm, 50, top) : clamp(at, 50, top);
       setStyleRaw(next.style);
@@ -974,9 +1015,10 @@ export function useBreakConsole(
       setBarsRaw(next.bars);
       setBaseBpm(base);
       setBpmRaw(bpmAt);
-      // a fresh swing in the style's range, unless you have set your own
-      if (!swingHeld.current)
-        setSwingRaw(swingFor(catalogue.styles[next.style]?.params, next.meter));
+      // a fresh swing in the style's (or the song's) range, unless you have set your own
+      const merged = params ? withSong(params, song?.key) : undefined;
+      if (!swingHeld.current) setSwingRaw(swingFor(merged, next.meter));
+      if (params?.songs) followKit(merged);
       if (next.style !== style) {
         setMixTouched((touched) => {
           applyStyleMix(next.style, touched);
@@ -999,6 +1041,8 @@ export function useBreakConsole(
       level,
       applyStyleMix,
       catalogue.styles,
+      patterns,
+      followKit,
     ]
   );
 
@@ -1213,11 +1257,7 @@ export function useBreakConsole(
         update({ startStyle: s, startMeter: nextMeter });
         chosen.current = { bars: chosen.current.bars };
       } else chosen.current = { ...chosen.current, style: s, meter: nextMeter };
-      /* `named.key` rather than `st.kit`: the same string, read off the row
-         that was actually found, so there is nothing to assert non-null. */
-      const named = st?.kit ? catalogue.kits[st.kit] : undefined;
-      const wantKit = named && kitIsPlayable(named) ? named.key : userKit;
-      if (wantKit !== kit && kitIsPlayable(catalogue.kits[wantKit])) update({ kit: wantKit });
+      followKit(st);
       if (st && !locks.bpm) setBpm(Math.round((st.bpm[0] + st.bpm[1]) / 2));
       /* On a new pattern the style is the one on the stage, so its swing goes on
          the slider. On a saved one it is only what the next New is written in:
@@ -1231,8 +1271,7 @@ export function useBreakConsole(
     [
       catalogue,
       userMeter,
-      userKit,
-      kit,
+      followKit,
       settingUpNew,
       update,
       locks.bpm,
@@ -1759,24 +1798,40 @@ export function useBreakConsole(
       setNoCatalogue(true);
       return;
     }
-    const st = styleIn(styleRow.params, meter);
+    /* The break you arrive to plays one of the style's songs too, at the
+       song's meter and tempo, as New would. */
+    const song = pickSong(styleRow.params, Math.random);
+    const merged = withSong(styleRow.params, song?.key);
+    const atMeter = song ? songMeter(styleRow.params, song) : meter;
+    const atBpm =
+      song && !locks.bpm
+        ? clamp(songTempo(styleRow.params, song, Math.random), 50, maxBpm(atMeter))
+        : bpm;
+    if (song) {
+      setMeterRaw(atMeter);
+      setBpmRaw(atBpm);
+      setBaseBpm(atBpm);
+      followKit(merged);
+    }
+    const st = styleIn(merged, atMeter);
     const roster = resolveLanes(st, lanesMode === 'custom' ? customLanes : null);
     const made = generateGood(
       {
         style: styleRow,
-        meter,
+        meter: atMeter,
         bars,
         density,
         ghosts,
         seed: Math.floor(Math.random() * 0xffffffff),
         lanes: roster.lanes,
         perc: roster.perc,
+        song: song?.key,
       },
-      bpm
+      atBpm
     );
     setPatterns({ A: made.pattern, B: deriveB(made.pattern, styleRow.params) });
     setTries({ tries: made.tries, rejected: made.rejected });
-    setSwingRaw(swingFor(styleRow.params, meter));
+    setSwingRaw(swingFor(merged, atMeter));
     applyStyleMix(style, {});
     setReady(true);
     // deliberately once, on mount: this is the break you arrive to

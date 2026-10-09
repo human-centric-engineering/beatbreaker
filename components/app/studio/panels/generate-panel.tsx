@@ -15,6 +15,7 @@ import { HAT_SHAPE } from '@/lib/app/breaks/feel';
 import { BASE_LANES, PERC_INSTS, PERC_KEYS, PERC_LANES, laneName } from '@/lib/app/breaks/lanes';
 import { METERS, METER_KEYS, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
 import { type CustomLanes, resolveLanes } from '@/lib/app/breaks/pattern';
+import { songOf } from '@/lib/app/breaks/songs';
 import { styleIn } from '@/lib/app/breaks/styles';
 
 export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => void }) {
@@ -27,6 +28,8 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
   );
   const styleRow = styles[c.style];
   const style = styleRow?.params;
+  // the song on the stage, if it is this style's
+  const nowSong = c.view.A?.style === c.style ? songOf(style, c.view.A.song) : undefined;
   const meter = meterOf(c.meter);
   const pulse = pulseInfo(meter);
 
@@ -48,7 +51,7 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
     const f = style?.feel;
     if (!f) return '';
     if (c.feel === 0) return 'straight — every hit lands on the grid';
-    // one grid step is a sixteenth, in every meter
+    // a feel is written in sixteenths, whatever the meter's step is
     const step = 60 / c.bpm / 4;
     const ms = (v: number | [number, number] | undefined): string => {
       const n = Array.isArray(v) ? v[1] : (v ?? 0);
@@ -97,6 +100,17 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
               onPick={(_section, key) => c.setStyle(key)}
             />
             <div className="hint blurb">{style?.hint}</div>
+            {style?.songs ? (
+              <div className="hint songs">
+                {nowSong ? (
+                  <>
+                    Playing style inspired by <b>{nowSong.title}</b> — {nowSong.feel}.{' '}
+                  </>
+                ) : null}
+                Each New plays one of {style.songs.length} songs, at its own tempo and in its own
+                time: {style.songs.map((sg) => sg.title).join(', ')}.
+              </div>
+            ) : null}
           </div>
 
           {/* The kit is chosen in one place, Sound (E10). Here it is only named,

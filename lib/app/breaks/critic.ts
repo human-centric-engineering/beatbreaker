@@ -8,7 +8,7 @@ import {
   handsAt,
   handsOf,
 } from '@/lib/app/breaks/lanes';
-import { STEPS, isGroupStart } from '@/lib/app/breaks/meter';
+import { STEPS, isGroupStart, stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { generatePattern, type GenerateOptions } from '@/lib/app/breaks/generate';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import { clamp, makeRng } from '@/lib/app/breaks/rng';
@@ -52,7 +52,12 @@ export function playability(pat: Pattern, bpm: number): Playability {
   const doubleKick = !!pat.attrs?.doubleKick;
 
   const nSteps = pat.bars[0] ? pat.bars[0].k.length : STEPS;
-  const airFloor = Math.max(3, Math.round(nSteps / 4));
+  /* A quarter of the bar, and never less than three sixteenths' worth: in a
+     bar of eighths (4/4-8) that is two steps, not three of eight. */
+  const airFloor = Math.max(
+    Math.round((3 * stepsPerQuarter(meterOfPat(pat))) / 4),
+    Math.round(nSteps / 4)
+  );
 
   for (const b of pat.bars) {
     for (let i = 0; i < nSteps; i++) {
@@ -80,8 +85,11 @@ export function playability(pat: Pattern, bpm: number): Playability {
   }
 
   if (doubleKick) kickRun = false;
+  /* The tempo a double is played at, in sixteenths: a sextuplet double is half
+     again as quick as a sixteenth one at the same quarter. */
+  const doubleBpm = (bpm * stepsPerQuarter(meterOfPat(pat))) / 4;
   const fastDoubles =
-    !doubleKick && doubleStrain > 0 && bpm > 132 && doubleStrain > pat.bars.length;
+    !doubleKick && doubleStrain > 0 && doubleBpm > 132 && doubleStrain > pat.bars.length;
 
   const checks: Check[] = [
     { ok: !rideClash, label: 'One cymbal at a time — no ride under a hi-hat' },

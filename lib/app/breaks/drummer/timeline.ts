@@ -106,6 +106,7 @@ const LANES_PLAYED: LaneKey[] = ['k', 'hf', 's', 'h', 'r', 'c', 't1', 't2', 't3'
 /**
  * The strokes a step of the grid takes, at its grid time: no swing, no feel, no
  * ornaments. `doubleKick`: the kicks are shared between the feet on a double pedal.
+ * `oneHandHats`: a run of sixteenth hats stays in the lead hand.
  */
 export function gridHits(
   bar: Bar,
@@ -113,10 +114,12 @@ export function gridHits(
   time: number,
   before?: Bar | null,
   aux: readonly LaneKey[] = [],
-  doubleKick = false
+  doubleKick = false,
+  oneHandHats = false
 ): Hit[] {
   bar = barWithout(bar, aux);
-  const hands: StepHands = assignBar(bar, before && barWithout(before, aux), doubleKick)[i] ?? {};
+  const hands: StepHands =
+    assignBar(bar, before && barWithout(before, aux), doubleKick, oneHandHats)[i] ?? {};
   const out: Hit[] = [];
   for (const lane of LANES_PLAYED) {
     const value = bar[lane][i];
@@ -146,8 +149,12 @@ export function scheduledHits(
   const { bar, slot, t } = step;
   if (step.count || !bar) return countHits(step);
   const hands: StepHands =
-    assignBar(barWithout(bar, aux), before && barWithout(before, aux), !!step.doubleKick)[slot] ??
-    {};
+    assignBar(
+      barWithout(bar, aux),
+      before && barWithout(before, aux),
+      !!step.doubleKick,
+      !!step.oneHandHats
+    )[slot] ?? {};
   const out: Hit[] = [];
   for (const { voice, when } of step.notes) {
     if (aux.includes(voice.lane)) continue;
@@ -213,6 +220,11 @@ function countHits(step: ScheduledStep): Hit[] {
     strength: COUNT_STRENGTH[limb],
     sure: true,
   }));
+}
+
+/** Record what a percussion lane on the kit sounds as, on its piece. */
+function percInstOf(map: Map<PieceId, string>, lane: LaneKey, inst: string): void {
+  map.set(lane === 'p1' ? 'perc1' : 'perc2', inst);
 }
 
 /** A percussion note's instrument, by the note it sounds as. */
@@ -289,6 +301,12 @@ export class StrokeTimeline {
    */
   readonly percussion = new Set<PieceId>();
   /**
+   * What each percussion piece on the kit sounds as, once heard — so a cowbell
+   * in the second slot is a cowbell on the kit, not the block that slot
+   * usually holds. Kept for the session, like the pieces themselves.
+   */
+  readonly percInst = new Map<PieceId, string>();
+  /**
    * Whether the pattern playing is played on a double pedal: the second pedal
    * is on the kit, and the hi-hat moved over for it, only while one is. A
    * pattern that is not, or stopping, puts the standard kit back.
@@ -364,6 +382,7 @@ export class StrokeTimeline {
       // an instrument it cannot name stays the drummer's, as the kit always had it
       const theirs = !!inst && !PERC_INSTS[inst].kit;
       const listed = this.aux.includes(voice.lane);
+      if (inst && !theirs) percInstOf(this.percInst, voice.lane, inst);
       if (theirs && !listed) {
         this.aux = [...this.aux, voice.lane];
         this.percussion.delete(voice.lane === 'p1' ? 'perc1' : 'perc2');
@@ -421,7 +440,9 @@ function countAhead(step: ScheduledStep, aux: readonly LaneKey[]): Hit[] {
       const hits = countHits({ ...step, t, slot: (step.slot + k) % n });
       out.push(...hits.map((h) => ({ ...h, sure: false })));
     } else if (step.next && k - left < step.next.k.length) {
-      out.push(...gridHits(step.next, k - left, t, null, aux, !!step.doubleKick));
+      out.push(
+        ...gridHits(step.next, k - left, t, null, aux, !!step.doubleKick, !!step.oneHandHats)
+      );
     } else break;
   }
   return out;
@@ -434,13 +455,13 @@ function forecast(step: ScheduledStep, before: Bar | null, aux: readonly LaneKey
   const n = bar.k.length;
   let k = 1;
   for (let i = slot + 1; i < n && k <= FORECAST_STEPS; i++, k++)
-    out.push(...gridHits(bar, i, t + k * dur, before, aux, !!step.doubleKick));
+    out.push(...gridHits(bar, i, t + k * dur, before, aux, !!step.doubleKick, !!step.oneHandHats));
   if (next) {
     const m = next.k.length;
     // (the next bar is read as this one is played: a section of another pattern is
     // corrected as it is scheduled)
     for (let i = 0; i < m && k <= FORECAST_STEPS; i++, k++)
-      out.push(...gridHits(next, i, t + k * dur, bar, aux, !!step.doubleKick));
+      out.push(...gridHits(next, i, t + k * dur, bar, aux, !!step.doubleKick, !!step.oneHandHats));
   }
   return out;
 }

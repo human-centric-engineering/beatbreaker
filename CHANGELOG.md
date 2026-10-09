@@ -627,6 +627,36 @@ release process.
   invitation metadata every session flow writes the same rows plus one
   populated column, and every pending invitation round-trips as before.
 
+- **Sextuplet 4/4, one-handed hats, and percussion that follows its
+  instrument.** A new meter, `4/4-6`, is 4/4 in sixteenth-note triplets, six
+  steps to the beat. It is accepted wherever a meter is (patterns, share codes,
+  the admin catalogue API) and lets a Bonham triplet be written as real
+  sextuplets. A step is no longer always a sixteenth: whatever turns steps
+  into time asks the meter, through `stepsPerQuarter(m)` and `stepSeconds(m, bpm)`
+  in `lib/app/breaks/meter.ts`. That covers the transport, the performance's
+  feel, humanise and grace offsets, the MIDI export (80 ticks a sextuplet) and
+  the community density score. A Groove Scribe link written in triplets in
+  4/4 now imports into `4/4-6` instead of being refused. A style's params may
+  carry `oneHandHats`, which travels with the pattern (`sa`) and keeps
+  sixteenth hats in the 3D drummer's lead hand rather than hand to hand
+  (Stubblefield). The 3D kit's percussion mounts show the instrument each
+  slot sounds as, and a kit-mounted cowbell or block stops where a written
+  fill starts.
+
+- **Songs, 4/4 in eighths, and the style params famous drummers needed.** A
+  style may list `songs`: each one lays its own meter, tempo, swing, kit,
+  grooves and fills over the style (`lib/app/breaks/songs.ts`). New picks
+  one, the Studio sets the controls to it, and the stage reads "Playing style
+  inspired by …". A pattern records its song as `song` (`sg` on the wire,
+  optional and additive, so no new wire version). Mitch Mitchell plays 45,
+  Tony Williams 32. A new meter, `4/4-8`, is 4/4 in eighth-note steps, two to
+  the quarter, so fast swing plays at its real tempo, up to 380 (`maxBpm`).
+  Style params may now set `anticipate` (crash and kick on the "and" of 4,
+  tied over), `fillsGrow`, `build`, `swingCurve` (swing that follows the tempo,
+  `swingAtTempo`, after Friberg and Sundström's ride-cymbal measurements) and
+  `crossRhythms` / `crossRhythm` (accent cycles that run across the bar line).
+  A style's tempo range may now reach 400.
+
 ### Changed
 
 - **BeatBuddy is an `internal` agent (BeatBreaker Phase 8-i).** It was

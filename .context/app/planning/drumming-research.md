@@ -685,6 +685,128 @@ s:  '....3..1....3.1.'
 k:  '1.....1.1.......'
 ```
 
+### C2. His songs, one by one (2026-10-09)
+
+A single 4/4 groove at one tempo could not hold him, so the `mitchell` style
+plays **songs** (`Style.songs`, `lib/app/breaks/songs.ts`): each New picks one
+and its meter, tempo, swing and kit come with it. The table is what they were
+built from. Tempos are from songbpm.com (algorithmic, so sometimes half or
+double; the doubtful ones are marked) and Bonedo's Hey Joe lesson. No free
+transcription of his parts exists (the Hal Leonard drum books are paywalled),
+so every bar in the seed is a reconstruction from descriptions and listening.
+
+| Song                                 | Meter                   | Tempo (quarter)                                    | Feel                                     | Time on                        | Confidence                             |
+| ------------------------------------ | ----------------------- | -------------------------------------------------- | ---------------------------------------- | ------------------------------ | -------------------------------------- |
+| Fire                                 | 4/4                     | 153                                                | straight boogaloo; "wasp's nest" snare   | hats, floor tom in the chorus  | high (tempo)                           |
+| Purple Haze                          | 4/4                     | 108                                                | mostly straight                          | crash-ride / hats              | medium                                 |
+| Foxey Lady                           | 4/4                     | 98 (not ~110)                                      | straight, kick doubles the riff          | hats, crash on stabs           | medium                                 |
+| Hey Joe                              | 4/4                     | 83                                                 | 16th swing ~58–60%                       | hats → crash-ride as it builds | medium-high                            |
+| Little Wing                          | 4/4                     | 71                                                 | light 16th swing; sparse, erupting fills | hats, ride in solo             | medium                                 |
+| The Wind Cries Mary                  | 4/4                     | 80                                                 | near straight, sparse, snare rolls       | hats                           | medium (sticks vs brushes unconfirmed) |
+| Manic Depression                     | 9/8                     | ~150 per dotted quarter (225 as the Studio counts) | jazz waltz, triplets in the meter        | ride, foot on 2 and 3          | high (meter), medium (tempo)           |
+| Voodoo Child (Slight Return)         | 4/4                     | 88 felt (176 detected)                             | heavy, 16th lean                         | crash-ride, ride               | medium                                 |
+| Voodoo Chile (the jam)               | 12/8                    | ~55 per dotted quarter                             | slow blues, press rolls                  | ride                           | low (tempo)                            |
+| Red House                            | 12/8                    | ~60–65 per dotted quarter                          | spare slow blues                         | hats, ride in solo             | low (tempo)                            |
+| Up from the Skies                    | swung 4/4, written 12/8 | ~130–150                                           | easy triplet jazz feel                   | **brushes**, foot on 2 and 4   | high (brushes, feel)                   |
+| If 6 Was 9                           | 4/4                     | ~56–66 (doubtful)                                  | slow, loose, swung; free-time outro      | jazzy ride                     | low                                    |
+| Castles Made of Sand                 | 4/4                     | 94                                                 | light swing, snare pick-ups              | hats                           | medium                                 |
+| Spanish Castle Magic                 | 4/4                     | 98                                                 | heavy, slight swing                      | ride and crash                 | medium                                 |
+| Third Stone from the Sun             | 4/4                     | doubtful (tape speed)                              | swing ride ~65%, Elvin                   | ride, foot on 2 and 4          | high (feel), low (tempo)               |
+| Crosstown Traffic                    | 4/4                     | 113 (not ~130)                                     | chunky, straight                         | hats                           | medium                                 |
+| Stone Free                           | 4/4                     | 133                                                | straight, loping                         | hats, ride in chorus           | medium                                 |
+| I Don't Live Today                   | 4/4                     | ~120–125 (estimate)                                | tribal                                   | **toms** carry the time        | low                                    |
+| 1983… (A Merman I Should Turn to Be) | 4/4                     | ~69                                                | marching snare, bolero crescendo         | snare                          | low                                    |
+| All Along the Watchtower             | 4/4                     | 113                                                | straight; heavy tom fills                | hats                           | medium                                 |
+
+What the grid cannot hold: his sextuplets (16th-note triplets) in a 4/4 bar are
+folded onto 16ths in threes; 32nd-note spurts are left out; tape-phased and
+backwards drums (Bold as Love, Are You Experienced) are not attempted.
+
+Sources: songbpm.com/@jimi-hendrix; bonedo.de (Hey Joe lesson); Wikipedia
+(Manic Depression, Up from the Skies, I Don't Live Today, Third Stone from the
+Sun); PopMatters "Mitch Mitchell: the perfect engine"; Far Out "Mitch
+Mitchell's five essential drum tracks"; Louder "Mitch Mitchell's 6 greatest
+moments"; notsomoderndrummer.com "The legacy of Mitch Mitchell"; DalSpace thesis
+on his timing (92852ba2).
+
+### C2b. Twenty-five more songs (2026-10-09, second pass)
+
+Most of these come from community drum transcriptions on Songsterr: the raw
+track data, quantised to 16ths. They are a big step up from reconstruction
+but still not authoritative. Excluded because Buddy Miles plays drums:
+Message to Love and Izabella (Fillmore), Machine Gun, Who Knows, Power to
+Love, Changes, and probably the studio Room Full of Mirrors. AI-generated tabs
+(Remember, You Got Me Floatin', She's So Fine) were not used.
+
+| Song                              | Meter       | Tempo        | What it adds                                   | Source          |
+| --------------------------------- | ----------- | ------------ | ---------------------------------------------- | --------------- |
+| Little Miss Lover                 | 4/4         | 100          | the funk break, 16th kicks under a crash-ride  | s9369 (high)    |
+| Gypsy Eyes                        | 4/4         | 116–120      | toms in place of the snare; floor tom on beats | s9274           |
+| Long Hot Summer Night             | 4/4         | 85           | soul, busy 16th kick                           | s22566          |
+| Come On (Let the Good Times Roll) | 4/4         | 142–150      | R&B rock on the ride bell                      | s557185         |
+| House Burning Down                | 4/4         | 124          | snare-led verse; four on the snare             | s408964         |
+| Love or Confusion                 | 4/4         | 110–112      | snare on every "and" over four on the floor    | s5951860        |
+| Highway Chile                     | 4/4 shuffle | 136          | the hard shuffle                               | s22557          |
+| Ain't No Telling                  | 4/4         | 140          | sloshy hats; quarter-snare chorus              | s8755           |
+| Wait Until Tomorrow               | 4/4         | 112          | slight swing, cross-stick backbeat             | s9123           |
+| Can You See Me                    | 4/4         | 132          | drums in unison with the riff                  | s9248           |
+| Little Miss Strange               | 4/4         | 142          | pushed kick accents on the "and"s              | s22565          |
+| Have You Ever Been                | 4/4         | 73           | slow Curtis Mayfield soul                      | s22555 (5 bars) |
+| Are You Experienced?              | 4/4         | 82           | march snare over a near-silent kit             | s22539          |
+| Laughing Sam's Dice               | 4/4         | 142–150      | half time, crash on every beat                 | s1537495        |
+| Bold as Love (coda)               | 4/4         | 66–72        | ride and 16th kick build                       | s22542          |
+| Catfish Blues                     | 12/8        | ~105 quarter | rolling-kick slow blues                        | s72228          |
+| Straight Ahead                    | 4/4         | 108          | hat foot in 8ths                               | s1288107        |
+| In from the Storm                 | 4/4         | 140→160      | accelerating; off-beat snare drive             | s1408222        |
+| Freedom                           | 4/4         | 112          | syncopated funk rock                           | s9283           |
+| Dolly Dagger                      | 4/4         | 120          | open-close hat funk                            | s22549          |
+| Ezy Ryder                         | 4/4         | 120–124      | ride-bell intro, driving 8ths                  | s9423 (thin)    |
+| Angel                             | 4/4         | 68           | ballad, a whole-bar snare build                | s22538          |
+| Hear My Train A Comin'            | 4/4         | 72           | slow 16th blues rock                           | s22554          |
+| Midnight                          | 4/4         | 80           | jazz funk, ride on the beat                    | s72224          |
+| Lover Man                         | 4/4         | 100          | crash-ride blues rock, live                    | s22569          |
+
+### C3. How he played: what the generator now encodes
+
+The main source is Cook, _He's Got Great Feel, But What Do You Mean?_ (MA
+thesis, Dalhousie 2013), which transcribes Purple Haze, Fire, Crosstown Traffic
+and Lover Man. Also Bonedo's Mitchell solo workshop and Hey Joe transcription,
+MusicRadar (Kramer; Mitchell's 1990 book), and Modern Drummer's 2009 tribute.
+
+- **A hybrid beat that mutates every bar**, grounded by the backbeat and the 1:
+  the figure/variation model already does this.
+- **Fills grow through a song**: `fillsGrow`. Half-bar fills or shorter inside
+  the phrase, the longest favoured at its end.
+- **The busier groove second**: `build` (verse into chorus; the ride held back
+  for the lift).
+- **Crash and kick on the "and" of 4, tied over**: `anticipate`. This is
+  Fire's recurring accent, and Kramer's "no way he's going to land on 1".
+- **Fill vocabulary** (in the base style, so every song without its own fills
+  has it):
+  - the sextuplet cycle floor-snare-snare-rack-floor-floor, folded onto 16ths
+  - Elvin's hand-hand-foot triplets
+  - the four-stroke ruff
+  - a nine-note phrase with an odd-placed crash
+  - a paradiddle with tom accents over a samba kick
+  - a press roll held like a note
+- **Grooves from Cook**:
+  - Purple Haze's verse: no ostinato, flammed backbeats.
+  - Fire's chorus: quarter-note hats, a crash on the "and" of 4.
+  - Fire's bridge: ride near the bell.
+  - Fire's machine-gun 16ths from beat 3.
+  - Crosstown's dotted-8th cross-rhythm, and its flam set-up.
+  - Lover Man's loose hats, closed only on the backbeat.
+  - Hey Joe's displaced backbeat.
+- **Loose time**: a light feel table (snare a hair late, a steady wobble).
+  No source measures his microtiming; this is a choice, not a finding.
+
+Not represented: true sextuplets and 32nds in a 4/4 bar (the step is a 16th
+everywhere, so they are folded onto 16ths), the kick landing late inside the
+ruff, cymbal swells and mallet rolls, tempo drift, continuous crescendos,
+backwards and flanged drums. Fire's stop bar (a flam on 1, then only the hat
+foot on 2 and 4) was left out because the critic rightly rejects a bar with no
+backbeat.
+
 ## D. Next drummers for the catalogue
 
 - **John Bonham**: half-time shuffle (Fool in the Rain); the 16th-triplet
@@ -707,6 +829,178 @@ k:  '1.....1.1.......'
 - **Keith Moon**: little steady hat, continuous tom rolls, crash washes, double
   kick; the drums as a lead instrument.
 - **Bernard Purdie**: the half-time shuffle (B5) and his ghost-note pocket.
+
+## E. Clyde Stubblefield (James Brown, 1965–70) — his records (2026-10-09)
+
+The `stubblefield` style plays **songs** the way `mitchell` does (C2): each New
+picks one of his records and its tempo, hat subdivision and swing come with it.
+
+**Which records are his.** Some of the funk records most often credited to him
+are not his. "Get Up (I Feel Like Being a) Sex Machine" and "Super Bad" are
+Jabo Starks. The 1969 single of "Give It Up or Turnit a Loose" is Nate Jones;
+the _Sex Machine_ version, the one remixed on _In the Jungle Groove_, is
+Clyde's. "Papa's Got a Brand New Bag" (1965) predates him. The catalogue only
+uses records Wikipedia's personnel lists credit to him.
+
+**How he played.** Light: Bonedo's Cold Sweat lesson says he "played the drums
+very softly, not really striking them hard". His ghosts are felt more than
+heard. Funky Drummer's hats are "a challenging single-handed 16th-note hi-hat
+pattern" (The Current), so the right hand stays on the hats and the left plays
+every snare note. The style sets `oneHandHats`, which keeps the 3D drummer
+from playing his sixteenths hand to hand (`drummer/sticking.ts`). He hardly
+fills: "You don't have to do no soloing, brother, just keep what you got."
+
+**Grids.** The first four are from Goodhertz's Funklet (Jack Stratton's
+transcriptions): two bars at five velocity levels, with the open hats marked.
+They are mapped as snare 4→accent, 3→hit, 2/1→ghost; kick 4→accent, else hit;
+hats closed, with the opens marked. Each bar of a two-bar groove is its own
+figure, because the generator plays one figure for a phrase's first half and
+often another for its second; it cannot alternate them bar by bar. Where the
+critic's air rule (a quarter of the bar free of kick and snare) failed a real
+bar, the softest Funklet ghosts are left out (I Got the Feelin' bar 2: the
+two lone ghosts, keeping the threes; Mother Popcorn bar 2: the three softest).
+
+| Song                                       | Year | Tempo (quarter)              | Hats                                | What defines it                                                     | Source of the bars               |
+| ------------------------------------------ | ---- | ---------------------------- | ----------------------------------- | ------------------------------------------------------------------- | -------------------------------- |
+| Funky Drummer                              | 1969 | 101 (Funklet); 96 (songbpm)  | 16ths, one hand, opens just after 2 | snare `....3..1.1.23..2`, kick `1.1.......1..1..`                   | Funklet                          |
+| Cold Sweat                                 | 1967 | 112 (Funklet); 120 (songbpm) | 8ths, open on the "and"s of 1 and 3 | bar 1 backbeat on the "and" of 4; bar 2 no kick on 1                | Funklet; PAS, Bonedo, Wikipedia  |
+| I Got the Feelin'                          | 1967 | 128 (Funklet); 129 (songbpm) | 8ths                                | bar 1 backbeat on the "and"s of 2 and 4; bar 2 threes on the snare  | Funklet; Goodhertz notes         |
+| Mother Popcorn                             | 1969 | 117 (Funklet and songbpm)    | quarters                            | backbeat on 2 and the "and" of 4; bar 2 kick on every "and"         | Funklet; drumstinytranscriptions |
+| Say It Loud – I'm Black and I'm Proud      | 1968 | 108–115 (databases disagree) | 8ths (assumed)                      | —                                                                   | **reconstruction**               |
+| Give It Up or Turnit a Loose (Sex Machine) | 1970 | 111 (songbpm)                | 8ths (assumed)                      | the "clap your hands, stomp your feet" break, drums under the voice | **reconstruction**               |
+| Get Up, Get into It, Get Involved          | 1970 | 109 (songbpm)                | 16ths (assumed)                     | —                                                                   | **reconstruction**               |
+
+Left out: "There Was a Time" (songbpm's 139 may be double), "Ain't It Funky
+Now" (no tempo found), "Let a Man Come In and Do the Popcorn" and "Lowdown
+Popcorn" (drummer not confirmed).
+
+Sources: goodhertz.com/funklet (funky-drummer, cold-sweat, i-got-the-feelin,
+mother-popcorn); Wikipedia (Clyde Stubblefield, Funky Drummer, Cold Sweat,
+Mother Popcorn, I Got the Feelin', Say It Loud, Give It Up or Turnit a Loose,
+Get Up Get into It Get Involved); songbpm.com/@james-brown; pas.org "Groove of
+the Month: Cold Sweat"; bonedo.de Cold Sweat lesson;
+yujidrums.hatenablog.com (Mother Popcorn); thecurrent.org "Pride and pain: the
+story of the Funky Drummer"; funkydrummer.com School of Funk lesson 10.
+
+## F. John Bonham (Led Zeppelin) — his records (2026-10-09)
+
+The `bonham` style plays **songs** (C2). Three of them are in **sextuplet 4/4**
+(`4/4-6`, added for him): 24 steps a bar, six to the beat. A straight eighth
+is every third step, an eighth-note triplet every second, and a Bonham triplet
+three real sextuplets rather than sixteenths in threes. Straight sixteenths do
+not fit there, so a song whose groove needs them (Immigrant Song, Levee) stays
+in 4/4 and folds its triplet fills onto sixteenths.
+
+**Techniques and how they are modelled.**
+
+- **The Bonham triplet.** Sextuplets grouped hand, hand, foot, moved round
+  the kit (MusicRadar, Drumeo). Written as `4/4-6` fills: `s 22.22.`,
+  `t1 ......22`, `t3 .........22.`, `k ..1..1..1..1`.
+- **Good Times Bad Times kick triplets.** Played on one pedal: "fast triplets
+  on a single bass drum" (Wikipedia). Each beat is the hand, then two kicks on
+  the next two sextuplets (MusicRadar: "the illusion of the bass drum doing
+  more than it actually is"). The hats are in the left foot under a cowbell
+  ride (Drumeo).
+  - The critic scores a sextuplet double as half again as quick as a sixteenth
+    one (`doubleBpm = bpm × stepsPerQuarter / 4`). At 93 its advisory
+    kick-doubles line fails, honestly: it is that hard.
+- **Cowbell.** A cowbell was already in the percussion pack (recorded), and
+  already on the 3D kit off the kick, put up only for a pattern that plays one
+  (like the double pedal). Two things are new:
+  - Each percussion mount now shows the instrument its slot sounds as, so a
+    cowbell in slot 2 is a bell there, not a block.
+  - A kit-mounted instrument (cowbell, block) stops where a written fill
+    starts (`markFill`), because the fill needs that hand.
+- **Half-time shuffle (Fool in the Rain).**
+  - In `4/4-6`, so its tempo reads as the quarter (about 131) and not 12/8's
+    dotted quarter.
+  - The hats are on triplet partials 1 and 3, opening on the shuffled "and" of
+    1; the backbeat is on 3, with sparse ghosts on the middle partials
+    (MusicRadar, Drumeo).
+- **Behind the beat** (Levee, Kashmir). A style `feel` with the snare
+  0.06–0.07 of a sixteenth late.
+  - Levee's Binson echo is production, not playing ("He wasn't playing that",
+    Andy Johns), and is not modelled.
+- **Immigrant Song.** Single paradiddles split between kick (right) and snare
+  (left), dropping left strokes (drummercafe). Its gaps are banned to the kick
+  (`noKick`), so a varied bar keeps its air.
+
+| Song                    | Tempo   | Grid                 | Source of the bars                                     | Confidence |
+| ----------------------- | ------- | -------------------- | ------------------------------------------------------ | ---------- |
+| Good Times Bad Times    | 90–96   | 4/4-6                | Drumeo, MusicRadar descriptions                        | medium     |
+| Fool in the Rain        | 126–134 | 4/4-6, backbeat on 3 | MusicRadar, Drumeo; kick reconstructed                 | medium     |
+| Rock and Roll           | 166–174 | 4/4-6                | tempo sure; groove and ending reconstructed            | low–medium |
+| Immigrant Song          | 110–114 | 4/4                  | drummercafe (paradiddle)                               | medium     |
+| When the Levee Breaks   | 70–74   | 4/4                  | Drumeo (ghosts, soft kick); kick cluster reconstructed | medium     |
+| Kashmir                 | 78–82   | 4/4                  | reconstruction                                         | low        |
+| Black Dog               | 78–84   | 4/4                  | bonedo (8ths, bell in v2, the descending fill)         | low–medium |
+| Trampled Under Foot     | 108–114 | 4/4                  | Drumeo ("loose hi-hats and doubles")                   | low        |
+| Achilles Last Stand     | 142–150 | 4/4                  | reconstruction (the gallop)                            | low        |
+| Communication Breakdown | 170–178 | 4/4                  | reconstruction                                         | low        |
+| Whole Lotta Love        | 88–92   | 4/4                  | tempo (Wikipedia: 92); reconstruction                  | low        |
+
+Left out:
+
+- **The Crunge.** Its 9/8 is 4/4 plus an eighth, not three dotted quarters.
+- **The Ocean.** A 4/4 bar then a 7/8 bar; a pattern has one meter.
+- **Four Sticks.** Alternates 5/8 and 6/8.
+- **Since I've Been Loving You.** No trustworthy tempo.
+- **D'yer Mak'er.** No groove found.
+- **Moby Dick.** A solo, partly with the hands.
+
+Sources:
+
+- songbpm.com/@led-zeppelin
+- Wikipedia (each song)
+- drumeo.com (GTBT, Levee, Fool in the Rain, Bonham licks, The Crunge)
+- musicradar.com ("best John Bonham beats and fills"; "five song intros")
+- bonedo.de (John Bonham workshop)
+- drummercafe.com (Immigrant Song)
+- onlinedrummer.com (Fool in the Rain)
+- loudersound.com (Moby Dick)
+- faroutmagazine.co.uk (D'yer Mak'er)
+
+## G. Tony Williams (2026-10-09)
+
+Sources: Goodman, _Tony Williams' drumset ideology to 1969_ (PhD, Sydney
+2011, read in full); Friberg and Sundström, swing ratios of jazz ride
+cymbals (_Music Perception_ 19/3, 2002; Tony's 1964 concert among them);
+Todd Bishop's measured tempos and transcriptions (cruiseshipdrummer.com:
+Seven Steps, Cantaloupe Island, the Sorcerer notes); brettworks on Cantaloupe
+Island; Modern Drummer's 1983 "Studies in Style" (preview only). Paywalled or
+not found: the 1984 and 1989 MD interviews, John Riley's books, Keith Waters's
+book beyond its abstract.
+
+**What the model could not do, and now does:**
+
+| Gap                                                                                                                                  | Change                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| Up-tempo swing at 270–372 bpm; 4/4 stopped at 190, so the old style wrote two bars per bar at half tempo                             | `4/4-8`, 4/4 in eighth steps, `maxBpm` 380; engraved as 4/4; swing scaled so 100 is still a triplet |
+| Swing ratio falls with tempo (about 1:1 above 270, 2:1 near 200, wider below), so one swing number is wrong somewhere                | `swingCurve`: `swingAtTempo` derives the slider from the tempo, from a short note of about 100 ms   |
+| Three against four and 7/4 over 4/4 run over several bars (So What, Joshua; the Tokyo So What, 2:13–2:37)                            | `crossRhythms`: accent cycles counted across the bar line                                           |
+| The hat foot: little or none in 1964–65 ("my time is on the cymbal and in my head"), all four beats as the main pulse only from 1968 | Data: the Miles-era fast tunes mostly leave `hf` out; the old "foot on every beat" claim was wrong  |
+| "On top of the beat" (Miles)                                                                                                         | A slight negative feel on ride and foot                                                             |
+
+**Still not modelled:**
+
+- Metric modulation and tempo drift (Footprints 166 → 221; No Blues 180 → 324 → 92 → 208).
+- Polytempo (14 quarters in the time of 17).
+- Tuplet fills (quintuplets, septuplets, quarter-note triplets).
+- Crescendo shapes (only three velocity tiers exist).
+- A hat-foot splash, and buzzes and dead strokes on toms.
+- Brush sweeps.
+- Per-bar meter changes (Love Song's 5/4 against 3/4).
+
+The 32 songs and where each one's data comes from:
+
+- **Measured tempos** (Bishop): Seven Steps, So What, Walkin', Agitation,
+  Madness, Pee Wee, Masqualero, Prince of Darkness, Limbo.
+- **Grooves from transcriptions:** Cantaloupe Island (Bishop's
+  transcription), Fred (a Songsterr tab).
+- **Reconstructed:** everything else.
+
+Not Tony: Bitches Brew, _The Prisoner_, and the LA tracks of _Seven Steps to
+Heaven_. No 5/4 or 7/4 Tony track could be verified, so none is labelled one.
 
 ## Sources
 

@@ -387,6 +387,35 @@ describe('assignBar — sixteenth hats hand to hand', () => {
   });
 });
 
+describe('assignBar — sixteenth hats in one hand (oneHandHats)', () => {
+  // Funky Drummer: the hats opening after 2, ghosts and accents round the backbeat
+  const funky = bar({
+    h: [1, 1, 1, 1, 1, 3, 1, 3, 1, 1, 1, 1, 1, 3, 1, 1],
+    s: [0, 0, 0, 0, 3, 0, 0, 1, 0, 1, 0, 2, 3, 0, 0, 2],
+    k: [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
+  });
+
+  it('keeps every hat in the lead hand and every snare note in the other', () => {
+    const steps = assignBar(funky, null, false, true);
+    expect(steps.map((s) => s.h)).toEqual(Array<string>(N).fill('lead'));
+    const snares = steps.flatMap((s, i) => (funky.s[i] ? [s.s] : []));
+    expect(snares).toEqual(Array<string>(snares.length).fill('other'));
+  });
+
+  it('is a different assignment from hand to hand, cached apart from it', () => {
+    const two = assignBar(funky);
+    const one = assignBar(funky, null, false, true);
+    expect(two.some((s) => s.h === 'other')).toBe(true);
+    expect(assignBar(funky, null, false, true)).toBe(one);
+    expect(assignBar(funky)).toBe(two);
+  });
+
+  it('keeps one hand from the bar before too', () => {
+    const steps = assignBar(funky, funky, false, true);
+    expect(steps.every((s) => s.h === 'lead')).toBe(true);
+  });
+});
+
 describe('assignBar — fills keep the arms uncrossed', () => {
   /** A groove to come out of: the hands on the hats and the snare. */
   const groove = bar({

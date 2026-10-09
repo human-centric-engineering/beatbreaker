@@ -28,6 +28,7 @@ import {
   HAT_PEDAL_BESIDE_DOUBLE,
   HAT_SHIFT_DOUBLE,
   PIECES,
+  type PieceId,
   type V3,
 } from '@/lib/app/breaks/drummer/kit-layout';
 import { poseAt } from '@/lib/app/breaks/drummer/pose';
@@ -138,13 +139,53 @@ describe('buildKit().update — percussion visibility', () => {
       root.traverse((o) => void (o.visible || n++));
       return n;
     };
-    // with it in: the hat stand where it stands without one (stand and pull rod, one group) is out
+    /* with it in: the hat stand where it stands without one (stand and pull rod, one group)
+       is out — and on each percussion mount the piece it is not holding (a block under the
+       cowbell, a bell under the block), always two */
     update(pose, new Set(['perc1', 'perc2']), true);
-    expect(hidden()).toBe(1);
+    expect(hidden()).toBe(1 + 2);
     /* without it: the double pedal (the second board, its plate, the drive shaft and the
        second beater, one group) and the hat stand turned to make room for it */
     update(pose, new Set(['perc1', 'perc2']));
-    expect(hidden()).toBe(2);
+    expect(hidden()).toBe(2 + 2);
+  });
+
+  it('shows on each mount the instrument its slot sounds as: a bell for a cowbell, a block otherwise', () => {
+    const { root, update } = buildKit(makeMaterials());
+    const pose = idlePose();
+    /** Visible meshes by geometry: the bell is a four-sided cylinder, the block a box. */
+    const shown = () => {
+      const out = { bell: 0, block: 0 };
+      root.traverse((o) => {
+        if (!(o instanceof THREE.Mesh) || !o.visible) return;
+        if (o.geometry instanceof THREE.BoxGeometry && o.geometry.parameters.width === 0.15)
+          out.block++;
+        if (
+          o.geometry instanceof THREE.CylinderGeometry &&
+          o.geometry.parameters.radialSegments === 4
+        )
+          out.bell++;
+      });
+      return out;
+    };
+    const both = new Set<PieceId>(['perc1', 'perc2']);
+    // nothing heard yet: each mount holds what it always has
+    update(pose, both);
+    expect(shown()).toEqual({ bell: 1, block: 1 });
+    // a cowbell in the second slot (Afrobeat's) is a cowbell there too
+    update(pose, both, false, new Map<PieceId, string>([['perc2', 'cowbell']]));
+    expect(shown()).toEqual({ bell: 2, block: 0 });
+    // and a woodblock in the first is a block there
+    update(
+      pose,
+      both,
+      false,
+      new Map<PieceId, string>([
+        ['perc1', 'wood'],
+        ['perc2', 'wood'],
+      ])
+    );
+    expect(shown()).toEqual({ bell: 0, block: 2 });
   });
 
   it('moves the whole hi-hat over for the double pedal, the pedal still under the cymbals', () => {

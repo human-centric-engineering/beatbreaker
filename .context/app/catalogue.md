@@ -108,6 +108,56 @@ Picking one is `setStyle`, like any style.
 - **Adding one** is a style in `data/styles.ts` with `drummer: true`, listed in
   a `… drummers` group of `STYLE_GROUPS`.
 
+### A style with songs
+
+One meter, one tempo range and one feel cannot hold a drummer like Mitchell,
+who played a 9/8 jazz waltz, a 12/8 slow blues and a brushed swing in the
+same band. So a style may list `songs`. Each song has a `key`, a `title`, a
+few words of `feel`, a `weight`, and `params`: any style field except
+`label`, `hint`, `drummer` and `songs`. The helpers are in
+`lib/app/breaks/songs.ts`.
+
+- **New picks a song** (`pickSong`). The song's meter, a tempo in its range
+  and its swing go on the controls, and the Studio switches to its kit. A
+  locked tempo stays locked. The song's params win over your starting
+  values, because a song at somebody else's tempo is not that song.
+- **The pattern records it** as `song`, and on the wire as `sg`. The field is
+  optional and additive, so there is no new wire version: an older reader
+  drops it. A B or a Doctor move lays the same song over the style again
+  (`withSong`).
+- **The stage names it** ("Playing style inspired by Manic Depression — a fast jazz waltz in
+  9/8…"). The Style panel lists the songs a New can pick. A song's title
+  finds its drummer in the picker search. The picker card shows every meter
+  and the full tempo span.
+- **Without a song named**, `generatePattern` picks one from the seed among
+  the songs in the meter it was given. That draw uses a salted stream of its
+  own, so the goldens of every style without songs do not move.
+- **Three generator params a song or style may set** (all off by default, and
+  nothing is drawn for them when off, so other styles' output is unchanged):
+  - `anticipate`: the probability that a crash lands an 8th early, with the
+    kick on the "and" of 4 tied over and no 1. It is never used from the last
+    bar into the first, nor over a backbeat on the last two steps.
+  - `fillsGrow`: half-bar fills inside the phrase, long ones favoured at its
+    end.
+  - `build`: a phrase of four bars or more always splits in two, with the
+    busier figure second.
+  - `swingCurve`: the swing follows the tempo (`swingAtTempo` in `styles.ts`):
+    about even at 300 and up, a triplet at 200 and below. The Studio derives
+    the slider from the tempo, including layer and ramp tempos, until you set
+    it yourself. Turn it on only for swing songs, or a straight song gets
+    swung.
+  - `crossRhythms` and `crossRhythm`: accent cycles counted across the bar
+    line over the end of the phrase. For example `{ every: 3, lanes: { s: 5 } }`
+    in eighths gives dotted-quarter rimshots, and `every: 14` gives 7/4 over
+    4/4.
+- **A song cannot unset a field, only set one.** The seed drops `undefined`,
+  so a field on the base style (a written `ride`, `fill: 'comp'`, a foot
+  backbeat) reaches every song. Keep the base neutral and let each song turn
+  such things on. That is why Tony Williams's base has none of them.
+- **One schema rule spans two fields.** A song that names its own `swing` and
+  no `swingRange` drops the style's range. The schema checks each song's
+  swing against the range it actually ends up with.
+
 ## Wire format v4 — a pattern stands on its own
 
 A pattern now carries two things it did not:

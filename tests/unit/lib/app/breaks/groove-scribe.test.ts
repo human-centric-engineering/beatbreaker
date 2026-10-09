@@ -101,8 +101,25 @@ describe('readGrooveScribeUrl', () => {
     expect(read('Div=16&swing=30&K=|o---------------|').swing).toBe(30);
   });
 
-  it('refuses triplets, meters BeatBreaker lacks, and anything that is not Groove Scribe', () => {
-    expect(readGrooveScribeUrl(`${GS}?Div=12&H=|xxxxxxxxxxxx|`)).toMatchObject({
+  it('reads triplets in 4/4 as sextuplet 4/4, unswung', () => {
+    // eighth-note triplets: every other sextuplet
+    const p = read('TimeSig=4/4&Div=12&swing=40&H=|xxxxxxxxxxxx|&K=|o-----o-----|');
+    expect(p.meter).toBe('4/4-6');
+    expect(p.swing).toBe(0);
+    expect(p.bars[0].h).toHaveLength(24);
+    expect(p.bars[0].h.flatMap((v, i) => (v ? [i] : []))).toEqual([
+      0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22,
+    ]);
+    expect(p.bars[0].k.flatMap((v, i) => (v ? [i] : []))).toEqual([0, 12]);
+    // and sixteenth-note triplets one to a step: a Bonham triplet on the last beat
+    const q = read('TimeSig=4/4&Div=24&K=|--------------------o--o|&T1=|------------------o--o--|');
+    expect(q.bars[0].k.flatMap((v, i) => (v ? [i] : []))).toEqual([20, 23]);
+    expect(q.bars[0].t1.flatMap((v, i) => (v ? [i] : []))).toEqual([18, 21]);
+    expect(q.notes).toContain('Read in triplets, as 4/4 sextuplets: six steps to the beat.');
+  });
+
+  it('refuses triplets outside 4/4, meters BeatBreaker lacks, and anything that is not Groove Scribe', () => {
+    expect(readGrooveScribeUrl(`${GS}?TimeSig=3/4&Div=12&H=|xxxxxxxxx|`)).toMatchObject({
       ok: false,
       error: expect.stringContaining('triplets'),
     });
