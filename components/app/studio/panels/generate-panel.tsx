@@ -1,12 +1,16 @@
 'use client';
 
+import { useMemo } from 'react';
+
 import type { Tool } from '@/components/app/shell/tool-rail';
 import { Slider } from '@/components/app/studio/panels/controls';
 import { ScoreCard } from '@/components/app/studio/panels/score-card';
 import { Segmented } from '@/components/app/studio/segmented';
+import { StylePicker } from '@/components/app/studio/style-picker';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
+import { styleSection } from '@/lib/app/breaks/catalogue/picker';
 import { HAT_SHAPE } from '@/lib/app/breaks/feel';
 import { BASE_LANES, PERC_INSTS, PERC_KEYS, PERC_LANES, laneName } from '@/lib/app/breaks/lanes';
 import { METERS, METER_KEYS, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
@@ -17,6 +21,10 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
   const c = useStudio();
   const { styles, styleGroups, kits } = c.catalogue;
 
+  const pickerSections = useMemo(
+    () => [styleSection(styles, styleGroups, kits)],
+    [styles, styleGroups, kits]
+  );
   const styleRow = styles[c.style];
   const style = styleRow?.params;
   const meter = meterOf(c.meter);
@@ -78,18 +86,16 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
         </div>
         <div className="card-bd">
           <div className="field">
-            <label htmlFor="bb-style">Style</label>
-            <select id="bb-style" value={c.style} onChange={(e) => c.setStyle(e.target.value)}>
-              {styleGroups.map(([group, keys]) => (
-                <optgroup key={group} label={group}>
-                  {keys.map((k) => (
-                    <option key={k} value={k}>
-                      {styles[k]?.params.label ?? k}
-                    </option>
-                  ))}
-                </optgroup>
-              ))}
-            </select>
+            <span className="fieldlab" id="bb-style-label">
+              Style
+            </span>
+            <StylePicker
+              id="bb-style"
+              labelId="bb-style-label"
+              sections={pickerSections}
+              value={c.style}
+              onPick={(_section, key) => c.setStyle(key)}
+            />
             <div className="hint blurb">{style?.hint}</div>
           </div>
 

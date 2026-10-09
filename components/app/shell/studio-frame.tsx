@@ -119,12 +119,13 @@ export function StudioFrame() {
       if (el?.closest('input, textarea, select, [contenteditable="true"]')) return;
 
       /* Nothing reaches the Studio behind a modal — the shortcuts sheet, the
-         unsaved-changes prompt or the first-run tour — or from inside an ⓘ
-         popover, where you are reading, not playing. The drawers are dialogs
-         too, but non-modal, and the keys are meant to work while one is open. */
+         unsaved-changes prompt, the first-run tour or the style picker — or
+         from inside an ⓘ popover, where you are reading, not playing. The
+         drawers are dialogs too, but non-modal, and the keys are meant to work
+         while one is open. */
       if (
         sheetOpen.current ||
-        document.querySelector('[role="alertdialog"], [data-studio-tour]') ||
+        document.querySelector('[role="alertdialog"], [data-studio-tour], [data-studio-modal]') ||
         el?.closest('[data-radix-popper-content-wrapper]')
       ) {
         return;
