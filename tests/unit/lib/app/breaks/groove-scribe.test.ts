@@ -123,9 +123,9 @@ describe('readGrooveScribeUrl', () => {
       ok: false,
       error: expect.stringContaining('triplets'),
     });
-    expect(readGrooveScribeUrl(`${GS}?TimeSig=11/8&Div=16`)).toMatchObject({
+    expect(readGrooveScribeUrl(`${GS}?TimeSig=13/8&Div=16`)).toMatchObject({
       ok: false,
-      error: expect.stringContaining('11/8'),
+      error: expect.stringContaining('13/8'),
     });
     expect(readGrooveScribeUrl('https://example.com/groove/?H=|x|')).toEqual({
       ok: false,

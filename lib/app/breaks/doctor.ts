@@ -157,7 +157,7 @@ export function doctor(
           const nb =
             style.fill === 'comp'
               ? applyCompFill(rng, b, style, m)
-              : applyFill(rng, b, m, pat.lanes);
+              : applyFill(rng, b, m, pat.lanes, style.fillOrder);
           // a clave is the identity of the groove, not decoration a fill may write over
           if (style.clave) {
             /* Bounded by the bar: a backbeat past its end would extend the

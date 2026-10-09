@@ -1,7 +1,7 @@
 /**
  * The kit table — seed data.
  *
- * 20 kits across three engines, each a plain parameter object plus an engine
+ * 22 kits across three engines, each a plain parameter object plus an engine
  * name, so a kit is a row rather than a branch in playback and a user's tuning
  * is a saved override of these numbers.
  *
@@ -64,6 +64,30 @@ export const KITS: Record<string, Kit> = {
     c: { tune: 0.95, decay: 3.4, tone: 2900, room: 0.58 },
     t: { tune: 94, decay: 0.66, tone: 0.44, room: 0.42 },
     p: { tune: 1.04, level: 0.9, tone: 1.1, room: 0.34 },
+  },
+  sixties: {
+    label: "Sixties pop ('63–'66)",
+    hint: 'A small Ludwig kit with thin heads: ringing toms, a bright snare, and hi-hats played half open so they wash rather than tick. The early Beatles records.',
+    master: { lp: 12500, drive: 1.3, room: 0.3 },
+    k: { tune: 58, decay: 0.34, tone: 0.36, room: 0.14 },
+    s: { tune: 210, decay: 0.22, tone: 0.66, room: 0.32 },
+    h: { tune: 0.94, decay: 0.07, open: 0.62, tone: 7000, room: 0.24 },
+    r: { tune: 0.96, decay: 1.9, tone: 3000, room: 0.34 },
+    c: { tune: 0.9, decay: 2.6, tone: 2600, room: 0.44 },
+    t: { tune: 104, decay: 0.72, tone: 0.48, room: 0.34 },
+    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.26 },
+  },
+  teatowel: {
+    label: "Tea towels ('68–'69)",
+    hint: 'Towels over the toms and the snare, no front head on the kick, tuned low: short, dark and punchy, no ring and no room. The White Album and Abbey Road.',
+    master: { lp: 11000, drive: 1.35, room: 0.06 },
+    k: { tune: 46, decay: 0.24, tone: 0.24, room: 0.0 },
+    s: { tune: 168, decay: 0.1, tone: 0.34, room: 0.04 },
+    h: { tune: 0.9, decay: 0.04, open: 0.28, tone: 6400, room: 0.04 },
+    r: { tune: 0.88, decay: 1.3, tone: 2700, room: 0.08 },
+    c: { tune: 0.86, decay: 1.8, tone: 2300, room: 0.12 },
+    t: { tune: 78, decay: 0.26, tone: 0.22, room: 0.04 },
+    p: { tune: 0.96, level: 0.88, tone: 0.92, room: 0.06 },
   },
   machine: {
     label: 'Machine',

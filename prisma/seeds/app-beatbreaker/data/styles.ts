@@ -6000,6 +6000,967 @@ export const STYLES: Record<string, Style> = {
       },
     ],
   },
+  ringo: {
+    label: 'Ringo Starr',
+    drummer: true,
+    hint: 'The Beatles: a left-hander on a right-handed kit, so his fills come off the floor tom and start late, and a feel just behind the beat. Washy half-open hats in 1963–64, the crash-ride from 1965, tea towels over the drums by 1968, and parts so made for the song you can name it from the drums alone. Each New plays a style inspired by one of forty-four of his songs, in its own time: She Loves You, Ticket to Ride, Rain, Tomorrow Never Knows, A Day in the Life, Come Together, The End. Songs that change meter are split by section. Most grooves follow human drum transcriptions; approximations, not the records.',
+    toms: true,
+    kit: 'sixties',
+    hats: 8,
+    bpm: [70, 190],
+    swing: 0,
+    ghostBias: 0.3,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 8,
+    halfOpen: 0.6,
+    rimshot: 0.2,
+    midFills: 0.35,
+    anticipate: 0.2,
+    // a left-hander leading from the floor tom (AP, 2024: "I can only come from the floor tom around")
+    fillOrder: ['t3', 't1', 't2'],
+    // just behind the beat, the band moving as one with no click
+    feel: { label: 'Behind', s: 0.06, sGhost: 0.04, h: [0, 0.03], jitter: 0.03 },
+    forceKick: [0],
+    kick1: [
+      ['1000', 3],
+      ['1010', 2],
+      ['1001', 1],
+    ],
+    kick: [
+      ['1010', 1.5],
+      ['0010', 1.5],
+      ['1000', 1.2],
+      ['0000', 1],
+    ],
+    figures: [
+      [{ h: '4.4.4.4.4.4.4.4.', k: '1.....1.1.......', s: '....2.......2...' }, 2],
+      [{ h: '1.1.1.1.1.1.1.1.', k: '1.......1.1...1.', s: '....2.......2...' }, 1.4],
+      [{ c: '1.1.1.1.1.1.1.1.', k: '1.......1.......', s: '....2.......2...' }, 1.0],
+      [{ t3: '1.1.1.1.1.1.1.1.', k: '1.......1.......', s: '....2.......2...' }, 0.8],
+    ],
+    fills: [
+      // Drumeo's Ringo formula: two 16ths, a rest, then a run, into the tom
+      [{ s: '22.22...', t1: '.....11.', t3: '.......2' }, 1.4],
+      // floor tom, then snare: he comes off the floor
+      [{ t3: '22..', s: '..22' }, 1.2],
+      // skipping a drum, in threes
+      [{ t3: '2.2..2', s: '.2..2.' }, 1.0],
+      // flams into the crash
+      [{ s: '6.6.', t3: '...2' }, 1.0],
+      // a short one that starts late
+      [{ s: '22.22' }, 1.0],
+    ],
+    /* His songs. Grooves follow one transcriber's human Songsterr drum tabs
+       (ids in planning/drumming-research.md, section H), tempos from the tabs
+       and Wikipedia; the rest are reconstructions. */
+    songs: [
+      {
+        key: 'love-me-do',
+        title: 'Love Me Do',
+        feel: 'the 1962 single, Ringo on it: a light swing, the hat half open on 2 and 4',
+        weight: 0.7,
+        params: {
+          bpm: [136, 146],
+          swingUnit: 8,
+          swing: 60,
+          swingRange: [36, 78],
+          figures: [[{ h: '....4.......4...', k: '1.....1.1.......', s: '....2.......2...' }, 2]],
+        },
+      },
+      {
+        key: 'please-please-me',
+        title: 'Please Please Me',
+        feel: 'the ride in 8ths, the snare picking up the "and" of 2, stops where only the ride goes on',
+        weight: 0.8,
+        params: {
+          bpm: [132, 142],
+          swing: 0,
+          figures: [
+            [{ r: '1.1.1.1.1.1.1.1.', k: '1.......1.......', s: '....2.2.....2...' }, 2],
+            // the stop bars
+            [{ r: '1.....1...1.1.1.', k: '1.....1.........', s: '...22.......2.2.' }, 0.8],
+          ],
+          fills: [
+            // a whole bar of 8ths, the floor tom under the snare
+            [{ s: '..2.2.2.2.22.22.', t3: '..1.1.1.1.......' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'she-loves-you',
+        title: 'She Loves You',
+        feel: 'a floor-tom tumble, the floor tom driving the verse, washy hats in the chorus',
+        weight: 1.2,
+        params: {
+          bpm: [146, 156],
+          swing: 0,
+          flam: 0.4,
+          figures: [
+            // the verse, on the floor tom
+            [{ t3: '1.1.1.1.1.1.1.1.', k: '1.......1.......', s: '....2.......2...' }, 1.6],
+            // the chorus
+            [{ h: '4.4.4.4.4.4.4.4.', k: '1.....1.1.......', s: '....2.......2...' }, 1.4],
+          ],
+          fills: [
+            // the floor-tom tumble
+            [{ t3: '22.22.2.' }, 1.2],
+            [{ s: '6...6.6.' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'i-want-to-hold-your-hand',
+        title: 'I Want to Hold Your Hand',
+        feel: 'washy 8ths, the crash landing on the "and" of 4 in the stops',
+        weight: 1.0,
+        params: {
+          bpm: [130, 138],
+          swing: 0,
+          anticipate: 0.6,
+          figures: [
+            [{ h: '4.4.4.4.4.4.4.4.', k: '1.....1.1.......', s: '....2.......2...' }, 2],
+            // the stop: the crash a beat early
+            [
+              {
+                h: '....4.4.4.......',
+                k: '1.......1.....1.',
+                s: '....2.....2.2...',
+                c: '..............1.',
+              },
+              0.7,
+            ],
+          ],
+          fills: [
+            // a bar end of 8ths, everything together
+            [{ h: '4.4.4.4.', k: '1.1.1.1.', s: '2.2.2.2.' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'all-my-loving',
+        title: 'All My Loving',
+        feel: 'a fast shuffle on washy hats, rimshots on 2, its "and" and 4',
+        weight: 0.9,
+        params: {
+          bpm: [150, 160],
+          swingUnit: 8,
+          swing: 100,
+          swingRange: [90, 100],
+          halfOpen: 0.7,
+          figures: [
+            [{ h: '4.4.4.4.4.4.4.4.', k: '1.......1.......', s: '....5.5.....5...' }, 2],
+            // the bridge, every beat
+            [{ h: '4.4.4.4.4.4.4.4.', k: '1...1...1...1...', s: '5...5...5...5...' }, 0.7],
+          ],
+        },
+      },
+      {
+        key: 'cant-buy-me-love',
+        title: "Can't Buy Me Love",
+        feel: 'a fast shuffle, the floor tom carrying the intro',
+        weight: 0.8,
+        params: {
+          bpm: [166, 176],
+          swingUnit: 8,
+          swing: 90,
+          swingRange: [82, 100],
+          figures: [
+            [{ h: '4.4.4.4.4.4.4.4.', k: '1.......1.......', s: '....2.......2...' }, 2],
+            // the floor-tom shuffle
+            [{ t3: '1...1.1.1...1.1.', k: '1...1...1...1...', s: '....2.......2...' }, 0.7],
+          ],
+        },
+      },
+      {
+        key: 'a-hard-days-night',
+        title: "A Hard Day's Night",
+        feel: 'washy 8ths, the kick pushing the "and" of 3 and of 4',
+        weight: 1.0,
+        params: {
+          bpm: [134, 142],
+          swing: 0,
+          figures: [[{ h: '4.4.4.4.4.4.4.4.', k: '1.......1.1...1.', s: '....2.......2...' }, 2]],
+        },
+      },
+      {
+        key: 'eight-days-a-week',
+        title: 'Eight Days a Week',
+        feel: 'washy quarter-note hats, a light swing',
+        weight: 0.7,
+        params: {
+          bpm: [134, 142],
+          swingUnit: 8,
+          swing: 60,
+          swingRange: [36, 78],
+          figures: [[{ h: '4...4...4...4...', k: '1.......1.......', s: '....2.......2...' }, 2]],
+        },
+      },
+      {
+        key: 'ticket-to-ride',
+        title: 'Ticket to Ride',
+        feel: 'the broken beat: no cymbal, a flam and the high tom where the backbeat should be',
+        weight: 1.2,
+        params: {
+          bpm: [120, 126],
+          swing: 0,
+          ghostBias: 0.1,
+          feel: { label: 'Elastic', s: 0.1, t1: 0.12, jitter: 0.03 },
+          figures: [
+            // the verse
+            [{ k: '1.....1.1.......', s: '....2.....6.....', t1: '............3...' }, 2],
+            // the chorus
+            [{ k: '1.......1.1.....', s: '....2.......6...', t1: '..............3.' }, 1.2],
+            // the bridge, a plain beat
+            [{ h: '1.1.1.1.1.1.1.1.', k: '1.......1.......', s: '....2.......2...' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'i-feel-fine',
+        title: 'I Feel Fine',
+        feel: 'two bars: a Latin-ish ride and high tom, then the cross-stick answer',
+        weight: 0.8,
+        params: {
+          bpm: [176, 186],
+          swingUnit: 8,
+          swing: 72,
+          swingRange: [48, 90],
+          figures: [
+            // two bars, the second answering the first
+            [
+              {
+                r: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                k: '1.......1.....1.1.......1.1.....',
+                t1: '....1.1.........................',
+                s: '............4.......4.......4...',
+              },
+              2,
+            ],
+            // the late verses, cross-stick
+            [{ h: '4.4.4.4.4.4.4.4.', k: '1.....1.1.......', s: '....4.......4...' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'help',
+        title: 'Help!',
+        feel: 'the crash-ride in 8ths, the foot on the beat',
+        weight: 0.9,
+        params: {
+          bpm: [180, 190],
+          swing: 0,
+          figures: [
+            [
+              {
+                c: '1.1.1.1.1.1.1.1.',
+                hf: '1...1...1...1...',
+                k: '1.......1.......',
+                s: '....2.......2...',
+              },
+              2,
+            ],
+            // the verse, on the hats
+            [{ h: '1.1.1.1.1.1.1.1.', k: '1.......1.......', s: '....2.......2...' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'day-tripper',
+        title: 'Day Tripper',
+        feel: 'a driving rock beat, the bridge building on quarter notes',
+        weight: 0.8,
+        params: {
+          bpm: [134, 142],
+          swing: 0,
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', k: '1.1.....1.1.....', s: '....2.......2...' }, 2],
+            // the build
+            [{ h: '1.1.1.1.1.1.1.1.', k: '1...1...1...1...', s: '2...2...2...2...' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'drive-my-car',
+        title: 'Drive My Car',
+        feel: 'a solid rock beat with a cowbell overdubbed',
+        weight: 0.7,
+        params: {
+          bpm: [118, 126],
+          swing: 0,
+          perc: [{ inst: 'cowbell', every: 4 }],
+          figures: [[{ h: '1.1.1.1.1.1.1.1.', k: '1.......1.1...1.', s: '....2.......2...' }, 2]],
+        },
+      },
+      {
+        key: 'in-my-life',
+        title: 'In My Life',
+        feel: 'one hat stroke a bar, the kick and snare saying almost everything',
+        weight: 0.8,
+        params: {
+          bpm: [100, 106],
+          swing: 0,
+          ghostBias: 0.2,
+          figures: [
+            [{ h: '..........4.....', k: '1.....1.......1.', s: '....2.......2...' }, 2],
+            // the middle eight, on the bell
+            [{ r: '2...2...2...2...', k: '1.....1.......1.', s: '....2.......2...' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'rain',
+        title: 'Rain',
+        feel: 'his favourite: loose, a fill every other bar, the snare running into the high tom',
+        weight: 1.2,
+        params: {
+          bpm: [108, 116],
+          swingUnit: 16,
+          swing: 12,
+          swingRange: [6, 18],
+          midFills: 0.6,
+          fillsGrow: true,
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', k: '1.......1.1...1.', s: '....2.......2...' }, 2],
+            [
+              {
+                c: '1...............',
+                h: '..1.1.1.1.1.1.1.',
+                k: '1.......1.1...1.',
+                s: '....2.......2...',
+              },
+              1.0,
+            ],
+          ],
+          fills: [
+            // snare 16ths into the high tom, a gap in them
+            [{ s: '2.22.22.', t1: '.....111' }, 1.4],
+            [{ s: '22.22...', t1: '.....1.1' }, 1.2],
+            // the break that starts on the hi-hat
+            [
+              {
+                h: '1.1.1.1.4..4..4.',
+                hf: '.........1..1..1',
+                s: '....2....22.22..',
+                k: '1...............',
+              },
+              0.6,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'tomorrow-never-knows',
+        title: 'Tomorrow Never Knows',
+        feel: 'a one-bar loop, compressed: no snare on 4, the high tom where it would be',
+        weight: 1.0,
+        params: {
+          bpm: [122, 130],
+          swing: 0,
+          kit: 'teatowel',
+          midFills: 0,
+          ghostBias: 0,
+          perc: [{ inst: 'tamb', every: 2 }],
+          figures: [
+            [
+              {
+                c: '1.1.1.1.1.1.1.1.',
+                k: '1.....1.1.......',
+                s: '....5...........',
+                t1: '..........11....',
+              },
+              2,
+            ],
+          ],
+          fills: [[{ t1: '11..' }, 1.0]],
+        },
+      },
+      {
+        key: 'taxman',
+        title: 'Taxman',
+        feel: 'the kick on the "a" of 2, a cowbell, the chorus on the crash-ride',
+        weight: 0.8,
+        params: {
+          bpm: [130, 138],
+          swing: 0,
+          perc: [{ inst: 'cowbell', every: 4 }],
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', k: '1......11.1.....', s: '....2.......2...' }, 2],
+            // the chorus
+            [{ c: '1.1.1.1.1.1.1.1.', k: '1.......1.1.....', s: '....2.......2...' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'a-day-in-the-life',
+        title: 'A Day in the Life',
+        feel: 'slack, towel-damped toms, long silences, fills in triplets running from the floor tom',
+        weight: 1.2,
+        params: {
+          meter: '4/4-6',
+          backbeats: [6, 18],
+          bpm: [76, 84],
+          swing: 0,
+          kit: 'teatowel',
+          midFills: 0.5,
+          fillsGrow: true,
+          ghostBias: 0,
+          figures: [
+            // time, almost nothing
+            [
+              {
+                c: '1.......................',
+                k: '1.......................',
+                s: '......2...........2.....',
+              },
+              2,
+            ],
+            [
+              {
+                t3: '1.....1.....1.....1.....',
+                k: '1...........1...........',
+                s: '......2...........2.....',
+              },
+              1.0,
+            ],
+          ],
+          fills: [
+            // triplets, floor tom then snare
+            [{ t3: '111...111...', s: '...222...222' }, 1.4],
+            [{ t3: '11.11.', t1: '..1..1' }, 1.0],
+            [{ t3: '111.11', k: '...1..' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'penny-lane',
+        title: 'Penny Lane',
+        feel: 'hats on 2 and 4 only, the kick bouncing under them',
+        weight: 0.7,
+        params: {
+          bpm: [110, 116],
+          swing: 0,
+          figures: [
+            [{ h: '....1.......1...', k: '1.......1.1...1.', s: '....2.......2...' }, 2],
+            // the last verses, ride quarters
+            [{ r: '1...1...1...1...', k: '1.......1.1...1.', s: '....2.......2...' }, 0.7],
+          ],
+        },
+      },
+      {
+        key: 'lucy-verse',
+        title: 'Lucy in the Sky with Diamonds (verse)',
+        feel: 'the verses in 3/4: the ride on the beat, the kick on 1',
+        weight: 0.6,
+        params: {
+          meter: '3/4',
+          backbeats: [4, 8],
+          bpm: [122, 130],
+          swing: 0,
+          ghostBias: 0,
+          figures: [
+            [{ k: '1...........', r: '1...1...1...' }, 2],
+            [{ k: '1...........', r: '1...1...1...', s: '........2...' }, 1.0],
+          ],
+          fills: [[{ s: '2.22', t3: '....' }, 1.0]],
+        },
+      },
+      {
+        key: 'lucy-chorus',
+        title: 'Lucy in the Sky with Diamonds (chorus)',
+        feel: 'the chorus in 4/4: the ride in 8ths, the foot on 2 and 4',
+        weight: 0.6,
+        params: {
+          bpm: [122, 130],
+          swing: 0,
+          figures: [
+            [
+              {
+                r: '1.1.1.1.1.1.1.1.',
+                hf: '....1.......1...',
+                k: '1.......1.1...1.',
+                s: '....2.......2...',
+              },
+              2,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'getting-better',
+        title: 'Getting Better',
+        feel: 'four on the floor, the snare only on 2, an open hat on the "and" of 3',
+        weight: 0.7,
+        params: {
+          bpm: [116, 122],
+          swing: 0,
+          figures: [
+            // the verse
+            [{ k: '1...1...1...1...', s: '....2...........', h: '..........3.....' }, 2],
+            // the chorus
+            [{ h: '1...1...1...1...', k: '1...1...1...1...', s: '....2.......2...' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'sgt-pepper',
+        title: "Sgt. Pepper's Lonely Hearts Club Band",
+        feel: 'the kick in 8ths under washy hats, rimshots on 2 and 4',
+        weight: 0.8,
+        params: {
+          bpm: [96, 106],
+          swing: 0,
+          figures: [
+            [{ h: '4.4.4.4.4.4.4.4.', k: '1.1.1.1.1.1.1.1.', s: '....5.......5...' }, 2],
+            // the intro, on the floor tom
+            [{ t3: '1.1.1.1.1.1.1.1.', k: '1.......1.......', s: '....5.......5...' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'with-a-little-help',
+        title: 'With a Little Help from My Friends',
+        feel: 'his own vocal: a light swing, tambourine and cowbell overdubbed',
+        weight: 0.9,
+        params: {
+          bpm: [108, 116],
+          swingUnit: 8,
+          swing: 72,
+          swingRange: [48, 90],
+          perc: [
+            { inst: 'tamb', every: 2, from: 0 },
+            { inst: 'cowbell', every: 4 },
+          ],
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', k: '1.......1.1.....', s: '....2.......2...' }, 2],
+            // the chorus
+            [{ h: '1...1...1...1...', k: '1.......1.1.....', s: '....2.......2...' }, 0.8],
+          ],
+          fills: [
+            [{ s: '22.22...', t1: '.....11.', t3: '.......2' }, 1.2],
+            [{ t3: '22..', s: '..22' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'good-morning',
+        title: 'Good Morning Good Morning (5/4)',
+        feel: 'the verse bars in 5/4, the kick and snare on every beat',
+        weight: 0.5,
+        params: {
+          meter: '5/4',
+          backbeats: [4, 12],
+          bpm: [116, 122],
+          swing: 0,
+          ghostBias: 0,
+          figures: [
+            [
+              { h: '1.1.1.1.1.1.1.1.1.1.', k: '1...1...1...1...1...', s: '2...2...2...2...2...' },
+              2,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'all-you-need-is-love',
+        title: 'All You Need Is Love (7/4)',
+        feel: 'the verse in 7/4, the snare on every beat',
+        weight: 0.6,
+        params: {
+          meter: '7/4',
+          backbeats: [4, 12],
+          bpm: [94, 100],
+          swing: 0,
+          ghostBias: 0,
+          figures: [
+            [
+              {
+                h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                s: '2...2...2...2...2...2...2...',
+                k: '1.......1.......1...........',
+              },
+              2,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'i-am-the-walrus',
+        title: 'I Am the Walrus',
+        feel: 'a plain beat that turns into quarter notes on kick and snare',
+        weight: 0.8,
+        params: {
+          bpm: [78, 86],
+          swing: 0,
+          kit: 'teatowel',
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', k: '1.......1.1...1.', s: '....2.......2...' }, 2],
+            [{ h: '1.1.1.1.1.1.1.1.', k: '1...1...1...1...', s: '2...2...2...2...' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'lady-madonna',
+        title: 'Lady Madonna',
+        feel: 'on brushes, a shuffle under the piano',
+        weight: 0.8,
+        params: {
+          bpm: [106, 112],
+          swingUnit: 8,
+          swing: 84,
+          swingRange: [60, 100],
+          kit: 'brush',
+          rimshot: 0,
+          buzz: 0,
+          figures: [
+            [{ k: '1.1.....1.1.....', s: '....2.......2...' }, 2],
+            // the sax section, on the hats
+            [{ h: '1.1.3.1.1.1.3.1.', k: '1.1.....1.1.....', s: '....2.......2...' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'hey-jude',
+        title: 'Hey Jude',
+        feel: 'the ride in 8ths, tambourine, big tom fills into the coda',
+        weight: 1.0,
+        params: {
+          bpm: [72, 76],
+          swing: 0,
+          kit: 'teatowel',
+          midFills: 0.3,
+          fillsGrow: true,
+          perc: [{ inst: 'tamb', every: 2 }],
+          figures: [
+            [{ r: '1.1.1.1.1.1.1.1.', k: '1.......1.......', s: '....2.......2...' }, 2],
+            // the coda
+            [{ r: '1.1.1.1.1.1.1.1.', k: '1.1.....1.......', s: '....2.......2...' }, 1.0],
+          ],
+          fills: [
+            // round the toms
+            [{ t1: '22......', t2: '..22....', t3: '....2222' }, 1.2],
+            // floor tom, then snare
+            [{ t3: '22..', s: '..22' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'revolution',
+        title: 'Revolution',
+        feel: 'the single: a driving beat, the snare double-tracked',
+        weight: 0.7,
+        params: {
+          bpm: [118, 124],
+          swing: 0,
+          kit: 'teatowel',
+          figures: [[{ h: '1.1.1.1.1.1.1.1.', k: '1.1...1.1.1...1.', s: '....3.......3...' }, 2]],
+        },
+      },
+      {
+        key: 'helter-skelter',
+        title: 'Helter Skelter',
+        feel: 'the crash-ride in 8ths, four on the floor; blisters on his fingers',
+        weight: 0.8,
+        params: {
+          bpm: [160, 172],
+          swing: 0,
+          kit: 'teatowel',
+          figures: [
+            [{ c: '2.2.2.2.2.2.2.2.', k: '1...1...1...1...', s: '....2.......2...' }, 2],
+            [{ c: '2.2.2.2.2.2.2.2.', k: '1...1...1...1...', s: '..1.2.....1.2...' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'while-my-guitar',
+        title: 'While My Guitar Gently Weeps',
+        feel: 'half time: the snare only on 3',
+        weight: 0.8,
+        params: {
+          bpm: [112, 120],
+          swing: 0,
+          kit: 'teatowel',
+          backbeats: [8],
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', k: '1...1...........', s: '........2.......' }, 2],
+            // the verse, the foot only
+            [{ hf: '............1...', k: '1...1...........', s: '........2.......' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'birthday',
+        title: 'Birthday',
+        feel: 'two bars: the kick in 8ths with the snare on the beat, then a rock beat',
+        weight: 0.8,
+        params: {
+          bpm: [136, 142],
+          swing: 0,
+          kit: 'teatowel',
+          figures: [
+            // two bars
+            [
+              {
+                h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                k: '1.1.1.1.1.1.1.1.1.......1.1.....',
+                s: '2...2...2...2.......2.......2...',
+              },
+              2,
+            ],
+            // the drum break, on the floor tom
+            [{ t3: '1.1.1.1.1.1.1.1.', k: '1...1...1...1...', s: '2...2...2...2...' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'yer-blues',
+        title: 'Yer Blues',
+        feel: 'a slow 12/8 blues on the ride',
+        weight: 0.6,
+        params: {
+          meter: '12/8',
+          backbeats: [6, 18],
+          bpm: [78, 88],
+          swing: 0,
+          kit: 'teatowel',
+          ghostWeights: { 4: 0.3, 10: 0.35, 16: 0.3, 22: 0.35 },
+          figures: [
+            [
+              {
+                r: '1.1.1.1.1.1.1.1.1.1.1.1.',
+                hf: '......1...........1.....',
+                k: '1.........1.1...........',
+                s: '......2...........2.....',
+              },
+              2,
+            ],
+          ],
+          fills: [
+            [{ s: '2.2.3.' }, 1.2],
+            [{ t3: '2.2...', s: '....2.' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'come-together',
+        title: 'Come Together',
+        feel: 'the floor tom in 8ths, kick and mid tom on the beat, the "shoot" lick down the toms in triplets',
+        weight: 1.2,
+        params: {
+          meter: '4/4-6',
+          backbeats: [6, 18],
+          bpm: [80, 86],
+          swing: 0,
+          kit: 'teatowel',
+          ghostBias: 0,
+          midFills: 0.3,
+          figures: [
+            // the verse
+            [
+              {
+                t3: '1..1..1..1..1..1..1..1..',
+                t2: '1.....1.....1.....1.....',
+                k: '1.....1.....1.....1.....',
+              },
+              2,
+            ],
+            // the chorus, on the crash-ride
+            [
+              {
+                c: '1..1..1..1..1..1..1..1..',
+                k: '1..1........1...........',
+                s: '......2...........2.....',
+              },
+              1.0,
+            ],
+          ],
+          fills: [
+            // the "shoot" lick: sextuplets falling from the high tom to the floor
+            [{ t1: '1111.1......', t2: '....1..1....', t3: '......1.1...' }, 1.4],
+            [{ t3: '11.11.', t2: '..1..1' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'something',
+        title: 'Something',
+        feel: 'a ballad: rimshots on 2 and 4, fills that start late',
+        weight: 0.8,
+        params: {
+          bpm: [64, 70],
+          swing: 0,
+          kit: 'teatowel',
+          rimshot: 0.8,
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', k: '1.......1.......', s: '....5.......5...' }, 2],
+            [{ r: '1.1.1.1.1.1.1.1.', k: '1.......1.1.....', s: '....5.......5...' }, 1.0],
+          ],
+          fills: [
+            [{ s: '2.22.22.', t1: '.....11.', t3: '.......2' }, 1.2],
+            [{ t3: '22..', s: '..22' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'here-comes-the-sun',
+        title: 'Here Comes the Sun',
+        feel: 'the verse: a bright 4/4 with the kick skipping ahead',
+        weight: 0.9,
+        params: {
+          bpm: [126, 132],
+          swing: 0,
+          kit: 'teatowel',
+          figures: [[{ h: '1.1.1.1.1.1.1.1.', k: '1.....1...1...1.', s: '....2.......2...' }, 2]],
+        },
+      },
+      {
+        key: 'here-comes-the-sun-bridge',
+        title: 'Here Comes the Sun (bridge, 11/8)',
+        feel: 'the bridge in 11/8: three, three, three and two',
+        weight: 0.5,
+        params: {
+          meter: '11/8',
+          backbeats: [6, 18],
+          bpm: [126, 132],
+          swing: 0,
+          kit: 'teatowel',
+          ghostBias: 0,
+          figures: [
+            [
+              {
+                h: '1.1.1.1.1.1.1.1.1.1.1.',
+                k: '1...........1.........',
+                s: '......2...........2...',
+              },
+              2,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'octopuss-garden',
+        title: "Octopus's Garden",
+        feel: 'his own song: a lilting 16th swing, the bridge underwater on the floor tom',
+        weight: 0.8,
+        params: {
+          bpm: [88, 96],
+          swingUnit: 16,
+          swing: 30,
+          swingRange: [18, 36],
+          kit: 'teatowel',
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', k: '1.......1.......', s: '....2.......2...' }, 2],
+            [{ h: '1.1.1.1.1.1.1.1.', k: '1.......1.1...1.', s: '....2..2.2..2...' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'oh-darling',
+        title: 'Oh! Darling',
+        feel: 'a 12/8 doo-wop ballad, the hats filling the triplets',
+        weight: 0.6,
+        params: {
+          meter: '12/8',
+          backbeats: [6, 18],
+          bpm: [84, 92],
+          swing: 0,
+          kit: 'teatowel',
+          ghostWeights: { 4: 0.3, 10: 0.35, 16: 0.3, 22: 0.35 },
+          figures: [
+            [
+              {
+                h: '4.1.1.1.1.1.4.1.1.1.1.1.',
+                k: '1.........1.1.........1.',
+                s: '......2...........2.....',
+              },
+              2,
+            ],
+          ],
+          fills: [[{ s: '2.2.3.' }, 1.2]],
+        },
+      },
+      {
+        key: 'i-want-you',
+        title: "I Want You (She's So Heavy)",
+        feel: 'the riff in 6/8, heavy, the ride and the foot',
+        weight: 0.6,
+        params: {
+          meter: '6/8',
+          backbeats: [6],
+          bpm: [76, 86],
+          swing: 0,
+          kit: 'teatowel',
+          figures: [
+            [{ r: '1.1.1.1.1.1.', hf: '......1.....', k: '1...........', s: '......2.....' }, 2],
+          ],
+        },
+      },
+      {
+        key: 'the-end',
+        title: 'The End',
+        feel: 'his only Beatles solo: the kick in 8ths under tom 16ths',
+        weight: 0.8,
+        params: {
+          bpm: [118, 126],
+          swing: 0,
+          kit: 'teatowel',
+          ghostBias: 0,
+          figures: [
+            // the solo
+            [
+              {
+                k: '1.1.1.1.1.1.1.1.',
+                t1: '1.....1.........',
+                t2: '.1.11..1.11.....',
+                t3: '............11.1',
+                s: '....2.......2...',
+              },
+              1.4,
+            ],
+            [
+              {
+                k: '1.1.1.1.1.1.1.1.',
+                t3: '1.......11.11...',
+                t2: '.............1.1',
+                s: '....2.......2...',
+              },
+              1.0,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'get-back',
+        title: 'Get Back',
+        feel: 'a train beat: the snare in 16ths, ghosts between the backbeats',
+        weight: 1.0,
+        params: {
+          bpm: [120, 128],
+          swing: 0,
+          kit: 'teatowel',
+          ghostBias: 0,
+          figures: [
+            [{ k: '1...1...1...1...', s: '2.112.112.112.11', h: '................' }, 2],
+            // the chorus, on the floor tom
+            [{ t3: '1.1.1.1.1.1.1.1.', k: '1...1...1...1...', s: '....2.......2...' }, 1.0],
+          ],
+          fills: [[{ s: '2...', t3: '..2.' }, 1.2]],
+        },
+      },
+      {
+        key: 'dont-let-me-down',
+        title: "Don't Let Me Down",
+        feel: 'the snare picking up the "and" of 2, the chorus a crash swell',
+        weight: 0.7,
+        params: {
+          bpm: [76, 82],
+          swing: 0,
+          kit: 'teatowel',
+          figures: [[{ h: '1.1.1.1.1.1.1.1.', k: '1.......1.1...1.', s: '....2.2.....2...' }, 2]],
+        },
+      },
+    ],
+  },
 };
 
 /**
@@ -6039,7 +7000,7 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
   ['Metal', ['metal', 'gallop', 'thrash', 'doublekick', 'groove', 'doom']],
   ['Jamaica', ['reggae', 'dub']],
   ['Afro-Latin', ['afrobeat', 'son', 'rumba', 'mambo', 'songo', 'samba', 'reggaeton']],
-  ['Rock drummers', ['mitchell', 'bonham']],
+  ['Rock drummers', ['mitchell', 'bonham', 'ringo']],
   ['Funk drummers', ['stubblefield']],
   ['Jazz drummers', ['tonywilliams']],
 ];

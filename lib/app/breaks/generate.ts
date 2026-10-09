@@ -371,7 +371,13 @@ export function varyBar(rng: Rng, bar: Bar, amount: number, style: Style, m: Met
  * The four shapes are written as offsets from its start so a 6/8 fill fills six
  * steps rather than the four a 4/4 bar happens to have.
  */
-export function applyFill(rng: Rng, bar: Bar, m: Meter, lanes: LaneKey[]): Bar {
+export function applyFill(
+  rng: Rng,
+  bar: Bar,
+  m: Meter,
+  lanes: LaneKey[],
+  order: LaneKey[] = TOM_LANES
+): Bar {
   const b = cloneBar(bar);
   const n = b.k.length;
   const g = groupsOf(m);
@@ -417,8 +423,10 @@ export function applyFill(rng: Rng, bar: Bar, m: Meter, lanes: LaneKey[]): Bar {
     set('s', P(L - 1), 3);
   }
 
-  // With toms in the kit the tail of the fill comes off the snare and goes round them.
-  const toms = TOM_LANES.filter((lane) => lanes.includes(lane));
+  /* With toms in the kit the tail of the fill comes off the snare and goes
+     round them: high to floor, or in the style's own order (a left-hander on
+     a right-handed kit comes off the floor tom first). */
+  const toms = order.filter((lane) => TOM_LANES.includes(lane) && lanes.includes(lane));
   if (toms.length && rng() < 0.72) {
     const moved: number[] = [];
     for (let o = Math.max(1, size - toms.length - 1); o < size; o++) {
@@ -592,7 +600,10 @@ function figureRow(row: string, n: number): number[] | null {
 
 /** Whether every row of a figure fits a bar of `n` steps. */
 function figureFits(f: Figure, n: number): boolean {
-  return Object.values(f).every((row) => !row || row.length === n);
+  const len = figureLength(f);
+  return (
+    (len === n || len === 2 * n) && Object.values(f).every((row) => !row || row.length === len)
+  );
 }
 
 /**
@@ -603,12 +614,26 @@ function figuresFor(style: Style, n: number, density: number): Array<[Figure, nu
   return (style.figures ?? [])
     .filter(([f]) => figureFits(f, n))
     .map(([f, w]): [Figure, number] => {
-      const kicks = [...(f.k ?? '')].filter((ch) => ch !== '.' && ch !== '0').length;
+      // kicks a bar, so a two-bar figure is weighed like a one-bar one
+      const kicks =
+        [...(f.k ?? '')].filter((ch) => ch !== '.' && ch !== '0').length / (figureLength(f) / n);
       return [f, w * Math.pow(1 + density, kicks / 4 - 2)];
     });
 }
 
 /** A bar written straight from a figure; lanes it does not name stay empty. */
+/**
+ * The bars a figure writes: one, or two for a figure twice as long as the bar
+ * — a groove whose second bar answers its first (I Feel Fine, Birthday), which
+ * the phrase then plays in turn.
+ */
+function figureBars(f: Figure, n: number): Bar[] {
+  if (figureLength(f) !== 2 * n) return [figureBar(f, n)];
+  const half = (from: number): Figure =>
+    Object.fromEntries(Object.entries(f).map(([lane, row]) => [lane, row?.slice(from, from + n)]));
+  return [figureBar(half(0), n), figureBar(half(n), n)];
+}
+
 function figureBar(f: Figure, n: number): Bar {
   const bar = emptyBar(n);
   for (const [lane, row] of Object.entries(f) as Array<[LaneKey, string | undefined]>) {
@@ -725,8 +750,8 @@ function figurePhrase(
     backbeats: style.backbeats ?? [],
     meter: m,
   };
-  const coreA = ghostPass(rng, figureBar(a, n), style, gOpts, m, n);
-  const coreB = ghostPass(rng, figureBar(b, n), style, gOpts, m, n);
+  const coresA = figureBars(a, n).map((bar) => ghostPass(rng, bar, style, gOpts, m, n));
+  const coresB = figureBars(b, n).map((bar) => ghostPass(rng, bar, style, gOpts, m, n));
   /* On the snare a backbeat is any struck note both figures put there. On the
      hat foot it is the style's own backbeats where both figures chick: a foot
      playing every beat does not make 1 and 3 backbeats. */
@@ -735,12 +760,14 @@ function figurePhrase(
   const backbeats: number[] = [];
   for (let i = 0; i < n; i++) {
     if (bbLane !== 's' && !(style.backbeats ?? []).includes(i)) continue;
-    if (struck(coreA, i) && struck(coreB, i)) backbeats.push(i);
+    if ([...coresA, ...coresB].every((core) => struck(core, i))) backbeats.push(i);
   }
 
   const bars: Bar[] = [];
   for (let i = 0; i < opts.bars; i++) {
-    const core = i < half ? coreA : coreB;
+    // a two-bar figure plays its bars in turn, from the start of its half
+    const cores = i < half ? coresA : coresB;
+    const core = cores[(i < half ? i : i - half) % cores.length];
     const start = i === 0 || i === half;
     let bar = start || rng() < 0.5 ? cloneBar(core) : varyFigureBar(rng, core, style, m);
     // each half of the phrase starts on a crash, with the kick under it
@@ -776,7 +803,7 @@ function figurePhrase(
           ? applyFigureFill(bar, wpick(rng, table))
           : comp
             ? applyCompFill(rng, bar, style, m)
-            : applyFill(rng, bar, m, lanes),
+            : applyFill(rng, bar, m, lanes, style.fillOrder),
         style
       );
   if (opts.bars > 1 && rng() < (comp ? 0.7 : 0.8)) bars[last] = fillFrom(lastTable)(bars[last]);
@@ -866,7 +893,7 @@ function cellPhrase(
       const filled =
         style.fill === 'comp'
           ? applyStyleRules(applyCompFill(rng, bar, style, m), style)
-          : applyStyleRules(applyFill(rng, bar, m, lanes), style);
+          : applyStyleRules(applyFill(rng, bar, m, lanes, style.fillOrder), style);
       // A clave is the identity of the groove, not decoration a fill may write over.
       if (style.clave) {
         const n = filled.s.length;

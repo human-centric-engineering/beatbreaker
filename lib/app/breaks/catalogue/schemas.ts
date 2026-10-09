@@ -168,6 +168,11 @@ const styleFields = styleAttrsSchema.extend({
   fillsGrow: z.boolean().optional(),
   build: z.boolean().optional(),
   swingCurve: z.boolean().optional(),
+  fillOrder: z
+    .array(z.enum(['t1', 't2', 't3']))
+    .min(1)
+    .max(3)
+    .optional(),
   crossRhythms: z
     .array(
       z.tuple([

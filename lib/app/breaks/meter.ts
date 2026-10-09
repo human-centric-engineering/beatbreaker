@@ -92,6 +92,14 @@ export const METERS: Record<string, Meter> = {
     group: [3, 3, 3],
     hint: 'Compound three. Three dotted-quarter pulses, counted 1-2-3 4-5-6 7-8-9.',
   },
+  '11/8': {
+    label: '11/8',
+    num: 11,
+    den: 8,
+    sub: 2,
+    group: [3, 3, 3, 2],
+    hint: 'Three pulses of three and one of two, counted 1-2-3 1-2-3 1-2-3 1-2. Here Comes the Sun goes there in its bridge.',
+  },
   '12/8': {
     label: '12/8',
     num: 12,

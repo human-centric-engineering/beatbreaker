@@ -365,6 +365,12 @@ export interface Style extends StyleAttrs {
    */
   swingCurve?: boolean;
   /**
+   * The order a generated fill goes round the toms, high to floor by default.
+   * A left-hander on a right-handed kit (Ringo) leads from the floor tom:
+   * `['t3', 't1', 't2']`. Written fills say their own order.
+   */
+  fillOrder?: LaneKey[];
+  /**
    * Accent cycles that run across the bar line ({@link CrossRhythm}): a
    * dotted-quarter rimshot every six sixteenths is three against four for
    * three bars; every fourteen eighths is 7/4 over 4/4. A one-bar figure

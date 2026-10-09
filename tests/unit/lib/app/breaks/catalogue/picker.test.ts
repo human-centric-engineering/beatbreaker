@@ -92,7 +92,13 @@ describe('drummerSection', () => {
   it('holds the drummers, in their own groups, and nothing the Styles tab shows', () => {
     expect(drummers).not.toBeNull();
     expect(drummers?.id).toBe('drummers');
-    expect(keysOf(drummers!)).toEqual(['mitchell', 'bonham', 'stubblefield', 'tonywilliams']);
+    expect(keysOf(drummers!)).toEqual([
+      'mitchell',
+      'bonham',
+      'ringo',
+      'stubblefield',
+      'tonywilliams',
+    ]);
     expect(drummers?.groups.map(([g]) => g)).toEqual([
       'Rock drummers',
       'Funk drummers',

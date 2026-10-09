@@ -657,6 +657,14 @@ release process.
   `crossRhythms` / `crossRhythm` (accent cycles that run across the bar line).
   A style's tempo range may now reach 400.
 
+- **Ringo Starr, two-bar figures, lefty fills, 11/8 and two era kits.** A
+  fifth drummer, `ringo`, with 44 songs (most from human drum transcriptions;
+  songs that change meter are split by section). A figure may now be two bars
+  long, played in turn. `fillOrder` sets the tom order of generated fills (a
+  left-hander comes off the floor tom). A new meter, `11/8` (3+3+3+2). Two
+  kits: `sixties` (ringing toms, washy half-open hats) and `teatowel` (the
+  damped 1968–69 sound).
+
 ### Changed
 
 - **BeatBuddy is an `internal` agent (BeatBreaker Phase 8-i).** It was

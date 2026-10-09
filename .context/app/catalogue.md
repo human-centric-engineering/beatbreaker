@@ -150,6 +150,16 @@ few words of `feel`, a `weight`, and `params`: any style field except
     line over the end of the phrase. For example `{ every: 3, lanes: { s: 5 } }`
     in eighths gives dotted-quarter rimshots, and `every: 14` gives 7/4 over
     4/4.
+- **Two more generator params:**
+  - `fillOrder`: the order a generated fill goes round the toms, high to
+    floor by default. Ringo leads from the floor tom (`['t3', 't1', 't2']`).
+  - A figure may be **two bars long**: rows twice the bar's length, played in
+    turn (bar 1, bar 2, bar 1…), for a groove whose second bar answers its
+    first (I Feel Fine, Birthday). Its kicks are weighed per bar, and one-bar
+    figures draw exactly as before.
+- **A song that changes meter is split by section** (Lucy's 3/4 verse and 4/4
+  chorus are two songs). A pattern has one meter, and a per-bar meter list
+  would be a wire-format change.
 - **A song cannot unset a field, only set one.** The seed drops `undefined`,
   so a field on the base style (a written `ride`, `fill: 'comp'`, a foot
   backbeat) reaches every song. Keep the base neutral and let each song turn
@@ -333,8 +343,8 @@ one twice.
 
 ## Seeding
 
-`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 66 styles (62 genres and 4 drummers), 47 famous
-breaks in one library, and 17 kits. Its data lives beside it under `data/`, and
+`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 67 styles (62 genres and 5 drummers), 47 famous
+breaks in one library, and 22 kits. Its data lives beside it under `data/`, and
 **only that seed imports it**.
 
 - Upserts by key, so **re-seeding is a no-op**. (The runner also skips a unit

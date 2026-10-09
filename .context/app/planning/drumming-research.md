@@ -1002,6 +1002,54 @@ The 32 songs and where each one's data comes from:
 Not Tony: Bitches Brew, _The Prisoner_, and the LA tracks of _Seven Steps to
 Heaven_. No 5/4 or 7/4 Tony track could be verified, so none is labelled one.
 
+## H. Ringo Starr (2026-10-10)
+
+The grooves come from 52 Songsterr drum tabs, all marked human-made, by one
+transcriber who labels each track with the player and the kit (Premier →
+Downbeat → Super Classic → Hollywood Maple). Songsterr's default track
+sometimes points at a percussion overdub, so the drum track was chosen by
+hand. A few tabs list tempos in double or half time; flagged in the seed.
+
+Personnel checks:
+
+- Ringo plays on the 4 Sep 1962 single of Love Me Do; Andy White plays on
+  the LP remake.
+- Paul plays drums on Back in the USSR, Dear Prudence and The Ballad of John
+  and Yoko, so those are out.
+- Lady Madonna is brushes.
+
+**Technique:**
+
+- **A left-hander on a right-handed kit.** "If I'm leading, I can only come
+  from the floor tom around" (AP, 2024). Fills go floor → snare, skip a drum,
+  start late or on the hi-hat (Rain).
+- **Drumeo's fill shape:** two 16ths, a rest, four or five 16ths.
+- **The washy half-open hat of 1963–64** (Weinberg: "that sizzle, that
+  swish"). The crash-ride takes over from 1965.
+- **A feel just behind the beat**, the band drifting together with no click.
+- **The sound by era:** ringing thin-headed toms early on; for A Day in the
+  Life, slack towel-damped toms with the bottom heads off; from 1968, tea
+  towels over everything.
+
+**Model changes:**
+
+| Gap                                                                    | Change                                         |
+| ---------------------------------------------------------------------- | ---------------------------------------------- |
+| Generated fills ran high tom → floor                                   | `fillOrder`                                    |
+| Grooves two bars long (I Feel Fine, Birthday)                          | figures twice the bar's length, played in turn |
+| Here Comes the Sun's bridge in 11/8                                    | meter `11/8` (3+3+3+2)                         |
+| The 1963–66 kit and the 1968–69 tea-towel sound                        | kits `sixties` and `teatowel`                  |
+| Triplet fills inside straight songs (Come Together, A Day in the Life) | those songs are written in `4/4-6`             |
+
+**Still not modelled:**
+
+- Meter changes within a pattern (Lucy, Good Morning, Happiness Is a Warm
+  Gun). These songs are split into sections instead.
+- Backwards cymbals.
+- Double-tracked drums.
+- Tempo drift and crescendo shapes.
+- Stop-time bars with no backbeat. The critic rejects them.
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

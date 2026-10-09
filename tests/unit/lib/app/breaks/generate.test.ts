@@ -52,14 +52,20 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 62 styles and 4 drummers in 14 meters — the numbers the site copy quotes', () => {
+  it('is 62 styles and 5 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
     expect(TEST_STYLE_KEYS.length - drummers.length).toBe(62);
-    expect(drummers).toEqual(['mitchell', 'bonham', 'stubblefield', 'tonywilliams']);
-    // 12 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
-    expect(METER_KEYS).toHaveLength(14);
-    expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(12);
-    expect(COMBOS).toHaveLength(924);
+    expect([...drummers].sort()).toEqual([
+      'bonham',
+      'mitchell',
+      'ringo',
+      'stubblefield',
+      'tonywilliams',
+    ]);
+    // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
+    expect(METER_KEYS).toHaveLength(15);
+    expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
+    expect(COMBOS).toHaveLength(1005);
   });
 });
 
@@ -587,12 +593,13 @@ describe('the rock, jazz and blues styles', () => {
       for (const { song, merged } of runs) {
         const meter = merged.meter;
         const n = stepsOf(meterOf(meter ?? '4/4'));
-        for (const [f] of [...(merged.figures ?? []), ...(merged.fills ?? [])]) {
+        for (const [f] of [...(merged.figures ?? []), ...(merged.fills ?? [])])
           expect(f.c ?? '').not.toMatch(/3/);
+        for (const [f] of merged.fills ?? [])
           for (const r of Object.values(f)) expect(r?.length ?? 0).toBeLessThanOrEqual(n);
-        }
+        // a figure is a bar, or two bars that play in turn
         for (const [f] of merged.figures ?? [])
-          for (const r of Object.values(f)) expect(r?.length).toBe(n);
+          for (const r of Object.values(f)) expect([n, 2 * n]).toContain(r?.length);
         const bpm = (merged.bpm[0] + merged.bpm[1]) / 2;
         let soft = 0;
         for (let seed = 1; seed <= 40; seed++) {
