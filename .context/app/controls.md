@@ -99,6 +99,8 @@ new control). Give it a `<StudioHelp>` if it needs more than its name, and
 | -------- | -------------------- | ---------------------------------------------------------------- | ----------------- | --------------- | ----------- |
 | button   | `Style <style>`      | Generate, opens the style picker                                 | the style's blurb | —               | 62px sleeve |
 | combobox | `Search the styles`  | Style picker, when open; ↑ ↓ move through the cards, Enter picks | —                 | ↑ ↓, Enter, Esc | 44px        |
+| tab      | `Styles <n>`         | Style picker, when open                                          | —                 | —               | 44px        |
+| tab      | `Drummers <n>`       | Style picker, when open; its search is `Search the drummers`     | —                 | —               | 44px        |
 | combobox | `Time signature`     | Generate                                                         | —                 | —               | 36px select |
 | radio    | `<1\|2\|3\|4>`       | Generate, bars                                                   | —                 | —               | `Segmented` |
 | slider   | `Kick density`       | Generate                                                         | —                 | —               | 24px        |
@@ -321,6 +323,9 @@ And the ones the style picker adds:
       highlight (the highlighted card slides its record out) and Enter picks;
       Esc closes and focus goes back to the sleeve.
 - [ ] VoiceOver in the crate: each card is announced as you arrow onto it.
+- [ ] The Drummers tab: it sits after Styles with a count of 4. Picking Mitch
+      Mitchell closes the crate and the sleeve shows his name. Opening the
+      crate again lands on Drummers with him tagged _On the stage_.
 
 The five tasks in `planning/app-plan.md` §5 (Method) are the walk to do once
 these are ticked.

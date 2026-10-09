@@ -457,6 +457,20 @@ export function applyCompFill(rng: Rng, bar: Bar, style: Style, m: Meter): Bar {
   return b;
 }
 
+/**
+ * The fills a busy drummer puts inside the phrase ({@link Style.midFills}):
+ * each bar that ends a pair, bar the last, may be filled the way the phrase
+ * ends. Drawn after everything else, and only for a style that has them, so
+ * every other style's stream is untouched.
+ */
+function addMidFills(rng: Rng, bars: Bar[], style: Style, fill: (bar: Bar) => Bar): void {
+  const p = style.midFills ?? 0;
+  if (!p) return;
+  for (let i = 1; i < bars.length - 1; i += 2) {
+    if (rng() < p) bars[i] = fill(bars[i]);
+  }
+}
+
 /* ---- written-out bars ------------------------------------------------ */
 
 /** The lanes a fill's hands take over in its span: whatever they were playing stops. */
@@ -634,19 +648,20 @@ function figurePhrase(
      the time the comps thicken instead (and the draw for that is made only
      for those styles, so every other style's stream is untouched). */
   const comp = style.fill === 'comp';
-  if (opts.bars > 1 && rng() < (comp ? 0.7 : 0.8)) {
-    const fills = (style.fills ?? []).filter(([f]) =>
-      Object.values(f).every((row) => !row || row.length <= n)
-    );
-    bars[last] = applyStyleRules(
+  const fills = (style.fills ?? []).filter(([f]) =>
+    Object.values(f).every((row) => !row || row.length <= n)
+  );
+  const fill = (bar: Bar): Bar =>
+    applyStyleRules(
       fills.length && !(comp && rng() < 0.5)
-        ? applyFigureFill(bars[last], wpick(rng, fills))
+        ? applyFigureFill(bar, wpick(rng, fills))
         : comp
-          ? applyCompFill(rng, bars[last], style, m)
-          : applyFill(rng, bars[last], m, lanes),
+          ? applyCompFill(rng, bar, style, m)
+          : applyFill(rng, bar, m, lanes),
       style
     );
-  }
+  if (opts.bars > 1 && rng() < (comp ? 0.7 : 0.8)) bars[last] = fill(bars[last]);
+  addMidFills(rng, bars, style, fill);
   return { bars, backbeats };
 }
 
@@ -714,12 +729,11 @@ function cellPhrase(
         b.s[s - 1] = v;
       }
     }
-    // a jazz phrase punctuates its ending less often than a backbeat groove fills it
-    if (rng() < (style.fill === 'comp' ? 0.45 : 0.7)) {
+    const fill = (bar: Bar): Bar => {
       const filled =
         style.fill === 'comp'
-          ? applyStyleRules(applyCompFill(rng, bars[last], style, m), style)
-          : applyStyleRules(applyFill(rng, bars[last], m, lanes), style);
+          ? applyStyleRules(applyCompFill(rng, bar, style, m), style)
+          : applyStyleRules(applyFill(rng, bar, m, lanes), style);
       // A clave is the identity of the groove, not decoration a fill may write over.
       if (style.clave) {
         const n = filled.s.length;
@@ -727,8 +741,11 @@ function cellPhrase(
           if (x >= lastGroup.start && x < n) filled.s[x] = bbValue('s', style);
         }
       }
-      bars[last] = filled;
-    }
+      return filled;
+    };
+    // a jazz phrase punctuates its ending less often than a backbeat groove fills it
+    if (rng() < (style.fill === 'comp' ? 0.45 : 0.7)) bars[last] = fill(bars[last]);
+    addMidFills(rng, bars, style, fill);
   }
 
   return bars;

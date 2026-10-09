@@ -10,7 +10,7 @@ import { StylePicker } from '@/components/app/studio/style-picker';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
-import { styleSection } from '@/lib/app/breaks/catalogue/picker';
+import { pickerSections as sectionsOf } from '@/lib/app/breaks/catalogue/picker';
 import { HAT_SHAPE } from '@/lib/app/breaks/feel';
 import { BASE_LANES, PERC_INSTS, PERC_KEYS, PERC_LANES, laneName } from '@/lib/app/breaks/lanes';
 import { METERS, METER_KEYS, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
@@ -22,7 +22,7 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
   const { styles, styleGroups, kits } = c.catalogue;
 
   const pickerSections = useMemo(
-    () => [styleSection(styles, styleGroups, kits)],
+    () => sectionsOf(styles, styleGroups, kits),
     [styles, styleGroups, kits]
   );
   const styleRow = styles[c.style];

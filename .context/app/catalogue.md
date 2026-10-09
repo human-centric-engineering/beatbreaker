@@ -87,6 +87,27 @@ in June after its style was retuned.
 The seed follows the same rule. Re-running it with changed parameters adds a
 version rather than overwriting one; re-running it unchanged is a no-op.
 
+## A drummer is a style
+
+The style picker has a second tab, **Drummers**: Mitch Mitchell, John Bonham,
+Clyde Stubblefield and Tony Williams. Each is an ordinary `Style` row whose
+params say `drummer: true`. The picker files those under Drummers and leaves
+them out of Styles (`drummerSection` in `lib/app/breaks/catalogue/picker.ts`).
+Picking one is `setStyle`, like any style.
+
+- **No new table.** A drummer has the same versions, admin and wire format as
+  any style. A saved break records `mitchell` as its style key.
+- **Their playing is ordinary style params:**
+  - their song grooves are `figures`;
+  - their fills are `fills`, in threes where that is their habit;
+  - `kit` gives their sound;
+  - `midFills` sets how often they fill inside the phrase, as well as at its
+    end.
+- **Approximate grooves.** Every song groove is an approximation, not a
+  transcription. The source is `planning/drumming-research.md`, §C and §D.
+- **Adding one** is a style in `data/styles.ts` with `drummer: true`, listed in
+  a `… drummers` group of `STYLE_GROUPS`.
+
 ## Wire format v4 — a pattern stands on its own
 
 A pattern now carries two things it did not:

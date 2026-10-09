@@ -7,8 +7,9 @@ import type { Style } from '@/lib/app/breaks/types';
  *
  * The picker itself (`components/app/studio/style-picker.tsx`) knows nothing
  * about styles: it shows sections of grouped entries. Styles are the first
- * section; a later one can sit beside them without the picker changing. Pure,
- * so the search is tested without a browser.
+ * section and the famous drummers the second — a drummer is a style marked as
+ * one, so picking either is picking a style. Pure, so the search is tested
+ * without a browser.
  */
 
 export interface PickerEntry {
@@ -56,11 +57,51 @@ export function styleSection(
   styleGroups: Array<[string, string[]]>,
   kits: Record<string, CatalogueKit>
 ): PickerSection {
+  return {
+    id: 'styles',
+    label: 'Styles',
+    noun: 'style',
+    groups: entryGroups(styles, styleGroups, kits, false),
+  };
+}
+
+/**
+ * The famous drummers, as the picker's second section: the styles marked
+ * {@link Style.drummer}, which the Styles tab leaves out. Null when the
+ * catalogue has none, so the picker shows no tab for them.
+ */
+export function drummerSection(
+  styles: Record<string, CatalogueStyle>,
+  styleGroups: Array<[string, string[]]>,
+  kits: Record<string, CatalogueKit>
+): PickerSection | null {
+  const groups = entryGroups(styles, styleGroups, kits, true);
+  return groups.length ? { id: 'drummers', label: 'Drummers', noun: 'drummer', groups } : null;
+}
+
+/** Every section the picker shows, in tab order. */
+export function pickerSections(
+  styles: Record<string, CatalogueStyle>,
+  styleGroups: Array<[string, string[]]>,
+  kits: Record<string, CatalogueKit>
+): PickerSection[] {
+  const drummers = drummerSection(styles, styleGroups, kits);
+  return [styleSection(styles, styleGroups, kits), ...(drummers ? [drummers] : [])];
+}
+
+/** The entries in each group, the drummers or everything else; an emptied group is left out. */
+function entryGroups(
+  styles: Record<string, CatalogueStyle>,
+  styleGroups: Array<[string, string[]]>,
+  kits: Record<string, CatalogueKit>,
+  drummers: boolean
+): Array<[string, PickerEntry[]]> {
   const groups: Array<[string, PickerEntry[]]> = [];
   for (const [group, keys] of styleGroups) {
     const entries: PickerEntry[] = [];
     for (const key of keys) {
       const row = styles[key];
+      if ((row?.params.drummer ?? false) !== drummers) continue;
       if (!row) {
         // grouped but not loaded: still there to pick, under its key, as the old list had it
         entries.push({ key, label: key, group, blurb: '', meta: [], haystack: key.toLowerCase() });
@@ -82,7 +123,7 @@ export function styleSection(
     }
     if (entries.length) groups.push([group, entries]);
   }
-  return { id: 'styles', label: 'Styles', noun: 'style', groups };
+  return groups;
 }
 
 /** How many entries a section holds. */

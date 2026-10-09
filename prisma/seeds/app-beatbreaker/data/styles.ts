@@ -1,8 +1,10 @@
 /**
  * The style table — seed data.
  *
- * 62 grooves, each a set of tendencies or a handful of written-out bars, so the
- * generator can write a different break in the same idiom every time.
+ * 62 grooves and 4 famous drummers, each a set of tendencies or a handful of
+ * written-out bars, so the generator can write a different break in the same
+ * idiom every time. A drummer is a style marked `drummer: true`, which the
+ * picker files under Drummers.
  *
  * **Content, not code** (D13). This file is the source the `001-catalogue` seed
  * unit reads, and nothing else imports it — the generator takes a resolved
@@ -3113,6 +3115,296 @@ export const STYLES: Record<string, Style> = {
       ['0100', 0.6],
     ],
   },
+
+  /* ---- the drummers ------------------------------------------------- */
+  /*
+   * A famous drummer's playing, as a style: his bars, his fills, his kit and
+   * how often he fills (`midFills`). `drummer: true` files them under
+   * Drummers in the picker. Every song groove here is an approximation from
+   * descriptions and listening, not a transcription — see
+   * `.context/app/planning/drumming-research.md`, sections C and D.
+   */
+  mitchell: {
+    label: 'Mitch Mitchell',
+    drummer: true,
+    hint: 'The Jimi Hendrix Experience: a jazz drummer in a rock band. A busy snare that answers the guitar, jazz ride time inside rock songs, the kick following the riff, and fills two or three times as often as most, many of them in threes. The grooves are approximations of Fire, Purple Haze, Foxy Lady, Spanish Castle Magic, Crosstown Traffic, Voodoo Child, Hey Joe and the rest.',
+    toms: true,
+    kit: 'smdrums',
+    hats: 8,
+    bpm: [70, 150],
+    swing: 0,
+    swingRange: [0, 20],
+    swingUnit: 8,
+    ghostBias: 0.6,
+    ghostWeights: { 3: 0.3, 7: 0.4, 11: 0.3, 15: 0.4 },
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 10,
+    rimshot: 0.3,
+    buzz: 0.3,
+    midFills: 0.5,
+    forceKick: [0],
+    kick1: [
+      ['1010', 3],
+      ['1000', 3],
+      ['1001', 1],
+    ],
+    kick: [
+      ['1010', 1.5],
+      ['0010', 1.5],
+      ['1000', 1.2],
+      ['0000', 1],
+    ],
+    figures: [
+      // Fire: a fast boogaloo, the snare chattering after 2 and 4
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3..1....3.1.', k: '1.1.....1.1.....' }, 2],
+      // Purple Haze: the ride, the kick under the riff
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.....1.1.....1.' }, 1.6],
+      // Purple Haze, busier on the hats
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3..1..1.3...', k: '1.....1.1.....1.' }, 1.2],
+      // Foxy Lady: the hats opening on the last "and"
+      [{ h: '1.1.1.1.1.1.1.3.', s: '....3.......3...', k: '1.....1...1.....' }, 1.4],
+      // Third Stone from the Sun: jazz ride time, the foot on 2 and 4
+      [
+        {
+          r: '1...1.1.1...1.1.',
+          hf: '....1.......1...',
+          s: '......1.......1.',
+          k: '1.......1.......',
+        },
+        0.6,
+      ],
+      // Spanish Castle Magic: heavy, on the ride
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....3..1.1..3...', k: '1.1.....1.....1.' }, 1.2],
+      // Crosstown Traffic: snare pickups into the one
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3.11', k: '1.1...1.1.1.....' }, 1.0],
+      // Voodoo Child (Slight Return), the busy verse
+      [{ h: '1.1.1.1.1.1.1.3.', s: '....3..1.1..3.1.', k: '1.....1...1.....' }, 1.2],
+      // Hey Joe
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3..1....3.1.', k: '1.....1.1.......' }, 1.0],
+      // If 6 Was 9: slow, a jazzy ride
+      [{ r: '1...1.1.1...1.1.', s: '....3.......3...', k: '1.......1.1.....' }, 0.8],
+      // Fire's chorus: on the floor tom
+      [{ t3: '2.2.....2.2.....', s: '....3.......3...', k: '1.......1.......' }, 0.6],
+      // a crash on the riff's accents, the ride between them
+      [
+        {
+          c: '1.......1.......',
+          r: '..1.1.1...1.1.1.',
+          s: '....3.......3...',
+          k: '1.....1.1.......',
+        },
+        0.8,
+      ],
+    ],
+    fills: [
+      // threes: snare, snare, kick, from the "and" of 3
+      [{ s: '22.22.', k: '..1..1' }, 1.2],
+      // threes round the toms, the kick ending it
+      [
+        {
+          s: '2..2..2..2..',
+          t1: '.2..2.......',
+          t2: '..2..2.2....',
+          t3: '........2.2.',
+          k: '...........1',
+        },
+        1.0,
+      ],
+      // threes: rack tom, floor tom, kick
+      [{ t1: '2..2..2.', t3: '.2..2..2', k: '..1..1..' }, 0.8],
+      // a press roll on 4, into the crash
+      [{ s: '8.8.' }, 0.8],
+      // the wasp's nest: a flurry on the snare
+      [{ s: '3.21.2.3' }, 1.2],
+      // snare, snare, rack tom, floor tom
+      [{ s: '22..', t1: '..2.', t3: '...2' }, 1.2],
+      // crash and kick together on the riff's accents, either side of the 4
+      [{ c: '1.....1.', k: '1.....1.', s: '....3...' }, 1.0],
+    ],
+  },
+  bonham: {
+    label: 'John Bonham',
+    drummer: true,
+    hint: 'Led Zeppelin: a huge kick, often doubled, the hats in 8ths and a backbeat like a door slamming. Fills in threes, hands and feet (the Bonham triplet), and round the toms. The grooves are approximations of Rock and Roll, When the Levee Breaks, Immigrant Song, Good Times Bad Times and Kashmir.',
+    toms: true,
+    kit: 'bigrusty',
+    hats: 8,
+    bpm: [72, 150],
+    swing: 0,
+    swingRange: [0, 8],
+    ghostBias: 0.15,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 9,
+    hatDepth: 0.6,
+    rimshot: 0.6,
+    midFills: 0.25,
+    forceKick: [0],
+    kick1: [
+      ['1010', 4],
+      ['1000', 3],
+      ['1001', 1.5],
+    ],
+    kick: [
+      ['1010', 1.5],
+      ['0011', 1.2],
+      ['1000', 1.2],
+      ['0000', 1],
+    ],
+    figures: [
+      // Rock and Roll: the kick doubled on 1 and 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.1.....1.1.....' }, 2],
+      // When the Levee Breaks: one backbeat, on 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '........3.......', k: '1.....1.........' }, 1.0],
+      // Immigrant Song: the gallop
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.11.1..1.11.1..' }, 1.0],
+      // Good Times Bad Times, lightened: the doubled kick
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1......11.1.....' }, 1.2],
+      // Kashmir: the kick doubled on 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......11......' }, 1.0],
+      // the ride bell for the big chorus
+      [{ r: '2.2.2.2.2.2.2.2.', s: '....3.......3...', k: '1.1.....1.1.....' }, 0.8],
+    ],
+    fills: [
+      // the Bonham triplet: rack tom, floor tom, kick, round and round
+      [{ t1: '2..2..2..2..', t3: '.2..2..2..2.', k: '..1..1..1..1' }, 1.6],
+      // the same, on the snare, over the last two beats
+      [{ s: '2..2..', t3: '.2..2.', k: '..1..1' }, 1.2],
+      // round the toms in 16ths
+      [{ s: '33......', t1: '..22....', t2: '....22..', t3: '......22' }, 1.2],
+      // snare and floor tom together in 8ths
+      [{ s: '3.3.3.3.', t3: '2.2.2.2.' }, 1.0],
+    ],
+  },
+  stubblefield: {
+    label: 'Clyde Stubblefield',
+    drummer: true,
+    hint: "James Brown's drummer: ghost notes so quiet they are felt, a kick that never sits where you expect, and a backbeat that moves. Hardly a fill: the groove is the point. The grooves are approximations of Funky Drummer and Cold Sweat, and of the displaced backbeats around them.",
+    kit: 'smdrums',
+    mix: { h: 0.72 },
+    hats: 16,
+    bpm: [88, 108],
+    swing: 8,
+    swingRange: [4, 14],
+    ghostBias: 0.4,
+    // round the backbeats, never between the ghosts Funky Drummer already has
+    ghostWeights: { 2: 0.25, 6: 0.3, 15: 0.3 },
+    opens: 2,
+    backbeats: [4, 12],
+    targetDensity: 8,
+    forceKick: [0],
+    kick1: [
+      ['1010', 3],
+      ['1000', 2],
+    ],
+    kick: [
+      ['0010', 2],
+      ['0001', 1.6],
+      ['0000', 1],
+    ],
+    figures: [
+      // Funky Drummer: the hard note is the ghost on the "a" of 3
+      [{ h: '1111113111111131', s: '....3..1.1.13..1', k: '1.1.......1..1..' }, 2],
+      // Cold Sweat: the kick twice a bar and never on 1
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '..1.....1.......' }, 1.0],
+      // the backbeat moved off 4 onto its "and"
+      [{ h: '1111111111111111', s: '....3..1.1....3.', k: '1.1...1...1.....' }, 1.2],
+      // 16th kicks under the ghosts
+      [{ h: '1111111111111111', s: '....3..1.1..3...', k: '1..1..1...1..1..' }, 1.2],
+      // ghosts all round the backbeat
+      [{ h: '1111111111111111', s: '.1..3..1.1..3..1', k: '1.1.......1.....' }, 1.4],
+    ],
+    fills: [
+      // the backbeat, a ghost and an accent on the "a"
+      [{ s: '3.13' }, 1.5],
+      // the snare on 4, the hats opening after it, a kick on the "a"
+      [{ h: '..3.', s: '3...', k: '...1' }, 1.2],
+      // a run of ghosts into an accent
+      [{ s: '3.1.3.11' }, 1.0],
+    ],
+  },
+  tonywilliams: {
+    label: 'Tony Williams',
+    drummer: true,
+    hint: 'With Miles in the 1960s: the hi-hat foot on every beat, a ride so fast and light it nearly straightens, rimshot stabs, bombs, loud toms and broken time, the drums talking with the soloist. Written two jazz bars to each bar, so the tempo reads half the real one (180 is 360).',
+    toms: true,
+    kit: 'virtuosity',
+    hats: 8,
+    bpm: [100, 180],
+    swing: 14,
+    swingRange: [0, 24],
+    ghostBias: 1.0,
+    ghostHit: 0.6,
+    opens: 0,
+    fill: 'comp',
+    fillComps: 3,
+    backbeats: [2, 6, 10, 14],
+    backbeatLane: 'hf',
+    targetDensity: 5,
+    hatDepth: 0.85,
+    rimshot: 0.4,
+    midFills: 0.35,
+    ride: { steps: [0, 2, 3, 4, 6, 7, 8, 10, 11, 12, 14, 15] },
+    ghostWeights: { 1: 0.3, 5: 0.3, 9: 0.3, 13: 0.3, 3: 0.25, 7: 0.25, 11: 0.25, 15: 0.25 },
+    kick1: [
+      ['0000', 8],
+      ['0010', 1.2],
+    ],
+    kick: [
+      ['0000', 8],
+      ['0010', 1.2],
+      ['0100', 0.6],
+    ],
+    figures: [
+      // the time: the ride, the foot on every beat
+      [{ r: '1.111.111.111.11', hf: '1.1.1.1.1.1.1.1.' }, 1.6],
+      // straight 8ths on the ride, at the top of the tempo
+      [{ r: '1111111111111111', hf: '1.1.1.1.1.1.1.1.' }, 1.0],
+      // rimshot stabs and a bomb
+      [
+        {
+          r: '1.111.111.111.11',
+          s: '...5.......5....',
+          k: '.....2..........',
+          hf: '1.1.1.1.1.1.1.1.',
+        },
+        1.4,
+      ],
+      // broken time: the ride in pieces, the snare and kick filling the gaps
+      [
+        {
+          r: '1...1.1.....1...',
+          s: '..1....1..1.....',
+          k: '.2..........2...',
+          hf: '1.1.1.1.1.1.1.1.',
+        },
+        1.2,
+      ],
+      // crash and kick in bursts, then the time again
+      [
+        {
+          c: '1..1..1.........',
+          r: '........1.111.11',
+          k: '2..2..2.........',
+          hf: '1.1.1.1.1.1.1.1.',
+        },
+        0.8,
+      ],
+      // a loud floor tom where a snare comp would go
+      [{ r: '1.111.111.111.11', t3: '.......2.......2', hf: '1.1.1.1.1.1.1.1.' }, 0.8],
+    ],
+    fills: [
+      // singles between the snare and the floor tom, two and one
+      [{ s: '22.2.22.', t3: '..2.2..2' }, 1.5],
+      // crash and kick together, three times
+      [{ c: '1..1..1.', k: '2..2..2.' }, 1.2],
+      // rimshots, a bomb between them
+      [{ s: '5..5', k: '.2..' }, 1.0],
+      // two and two on the toms
+      [{ t1: '22..', t3: '..22' }, 1.0],
+    ],
+  },
 };
 
 /**
@@ -3152,4 +3444,7 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
   ['Metal', ['metal', 'gallop', 'thrash', 'doublekick', 'groove', 'doom']],
   ['Jamaica', ['reggae', 'dub']],
   ['Afro-Latin', ['afrobeat', 'son', 'rumba', 'mambo', 'songo', 'samba', 'reggaeton']],
+  ['Rock drummers', ['mitchell', 'bonham']],
+  ['Funk drummers', ['stubblefield']],
+  ['Jazz drummers', ['tonywilliams']],
 ];

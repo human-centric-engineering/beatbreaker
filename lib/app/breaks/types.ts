@@ -319,6 +319,17 @@ export interface Style extends StyleAttrs {
   fill?: 'comp';
   fillComps?: number;
   /**
+   * Probability, 0–1, that a bar ending a pair of bars inside the phrase is
+   * filled too, not only the last one: a drummer who fills two or three times
+   * as often as most. Absent is 0, and at 0 the generator draws nothing for it.
+   */
+  midFills?: number;
+  /**
+   * A famous drummer's playing rather than a genre: the style picker files it
+   * under Drummers instead of Styles. Picking one is picking a style.
+   */
+  drummer?: boolean;
+  /**
    * The articulations (9-iv), each the probability, 0–1, that the generator
    * writes one where it may: a backbeat as a `rimshot`; a fill accent as a
    * `flam`; the ghost just before a backbeat as a `drag`; a fill hit as a

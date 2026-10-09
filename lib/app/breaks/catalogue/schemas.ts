@@ -164,6 +164,8 @@ export const styleParamsSchema = styleAttrsSchema
     fills: figures.optional(),
     fill: z.literal('comp').optional(),
     fillComps: z.number().int().min(0).max(16).optional(),
+    midFills: z.number().min(0).max(1).optional(),
+    drummer: z.boolean().optional(),
     rimshot: z.number().min(0).max(1).optional(),
     flam: z.number().min(0).max(1).optional(),
     drag: z.number().min(0).max(1).optional(),

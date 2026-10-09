@@ -51,10 +51,12 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 62 styles in 12 meters — the numbers the site copy quotes', () => {
-    expect(TEST_STYLE_KEYS).toHaveLength(62);
+  it('is 62 styles and 4 drummers in 12 meters — the numbers the site copy quotes', () => {
+    const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
+    expect(TEST_STYLE_KEYS.length - drummers.length).toBe(62);
+    expect(drummers).toEqual(['mitchell', 'bonham', 'stubblefield', 'tonywilliams']);
     expect(METER_KEYS).toHaveLength(12);
-    expect(COMBOS).toHaveLength(744);
+    expect(COMBOS).toHaveLength(792);
   });
 });
 
@@ -427,6 +429,82 @@ describe('written-out bars (figures)', () => {
         shapes.add(`${row(b.c)}|${row(b.r)}|${row(b.h)}|${row(b.s)}|${row(b.k)}`);
     }
     expect(shapes.size).toBeGreaterThan(10);
+  });
+});
+
+describe('fills inside the phrase (midFills)', () => {
+  const row = (v: number[]) => v.map((x) => (x ? String(x) : '.')).join('');
+  const fill: Figure = { t1: '2..2..2.', t3: '.2..2..2', k: '..1..1..' };
+  const withFills = (extra: Partial<Style>): ResolvedStyle => ({
+    ...STYLES.rock,
+    params: {
+      ...STYLES.rock.params,
+      figures: [[{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.......' }, 1]],
+      fills: [[fill, 1]],
+      ...extra,
+    },
+  });
+  const filled = (b: { t3: number[] }) => row(b.t3.slice(8)) === '.2..2..2';
+
+  it('fills every bar that ends a pair when it is 1, and never the bars that start one', () => {
+    for (let seed = 1; seed <= 10; seed++) {
+      const pat = generatePattern({
+        style: withFills({ midFills: 1 }),
+        seed,
+        bars: 8,
+        density: 50,
+        ghosts: 0,
+      });
+      expect([1, 3, 5].map((i) => filled(pat.bars[i]))).toEqual([true, true, true]);
+      expect([0, 2, 4, 6].map((i) => filled(pat.bars[i]))).toEqual([false, false, false, false]);
+    }
+  });
+
+  it('fills only the last bar without it, and leaves the stream as it was at 0', () => {
+    for (let seed = 1; seed <= 10; seed++) {
+      const opts = { seed, bars: 8, density: 50, ghosts: 50 };
+      const none = generatePattern({ style: withFills({}), ...opts });
+      expect(none.bars.slice(0, 7).some(filled)).toBe(false);
+      expect(generatePattern({ style: withFills({ midFills: 0 }), ...opts })).toEqual(none);
+    }
+  });
+
+  it('fills inside the phrase on the kick-cell path too, leaving the first bar alone', () => {
+    const cells = (midFills?: number): ResolvedStyle => ({
+      ...STYLES.funk,
+      params: { ...STYLES.funk.params, midFills },
+    });
+    let changed = 0;
+    for (let seed = 1; seed <= 10; seed++) {
+      const opts = { seed, bars: 4, density: 50, ghosts: 0 };
+      const plain = generatePattern({ style: cells(), ...opts });
+      const busy = generatePattern({ style: cells(1), ...opts });
+      expect(busy.bars[0]).toEqual(plain.bars[0]);
+      if (JSON.stringify(busy.bars[1]) !== JSON.stringify(plain.bars[1])) changed++;
+    }
+    expect(changed).toBeGreaterThan(5);
+  });
+
+  it('makes the drummers who fill more fill more', () => {
+    const count = (key: string) => {
+      let n = 0;
+      for (let seed = 1; seed <= 60; seed++) {
+        const pat = generatePattern({ style: STYLES[key], seed, bars: 8, density: 50, ghosts: 0 });
+        const plain = generatePattern({
+          style: { ...STYLES[key], params: { ...STYLES[key].params, midFills: undefined } },
+          seed,
+          bars: 8,
+          density: 50,
+          ghosts: 0,
+        });
+        for (const i of [1, 3, 5])
+          if (JSON.stringify(pat.bars[i]) !== JSON.stringify(plain.bars[i])) n++;
+      }
+      return n;
+    };
+    // Mitchell at a half, Bonham at a quarter, of 180 bars that could be filled
+    expect(count('mitchell')).toBeGreaterThan(count('bonham'));
+    expect(count('bonham')).toBeGreaterThan(20);
   });
 });
 
