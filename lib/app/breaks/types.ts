@@ -152,6 +152,18 @@ export type Weighted<T> = [T, number];
 export type KickCell = string;
 
 /**
+ * A bar, or the end of one, written out: per lane, a row of step values (the
+ * lane's own, as on {@link Bar}), `.` for none — `k: '1.1.1.1.1.1.1.1.'`.
+ *
+ * A style whose idiom is a handful of known beats rather than tendencies
+ * (metal: a gallop, a skank beat, a half-time with the kick running under it)
+ * lists them as figures, and the generator picks among them rather than
+ * building a beat a kick cell at a time. As a fill, the rows are the last
+ * steps of the bar, right-aligned to its end.
+ */
+export type Figure = Partial<Record<LaneKey, string>>;
+
+/**
  * How far off the grid one lane sits, as a fraction of a 16th. Positive is
  * late. A pair alternates by step parity, which is how hats lean one way on the
  * beats and the other way between them.
@@ -287,6 +299,15 @@ export interface Style extends StyleAttrs {
   linear?: boolean;
   /** Probability the backbeat is displaced late in the phrase. */
   displace?: number;
+  /**
+   * Whole bars written out (see {@link Figure}), weighted. Where a style has
+   * them, and the bar is as long as their rows, the generator picks one for
+   * the groove and another for a second half of the phrase, rather than
+   * writing kick cells and an ostinato; the cells still serve any other meter.
+   */
+  figures?: Array<Weighted<Figure>>;
+  /** Fills written out, right-aligned to the bar's end, weighted; in place of the generic shapes. */
+  fills?: Array<Weighted<Figure>>;
   /** `'comp'` ends a phrase by saying slightly more, rather than with a fill. */
   fill?: 'comp';
   fillComps?: number;

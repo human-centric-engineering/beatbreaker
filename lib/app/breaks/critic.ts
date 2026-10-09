@@ -11,7 +11,7 @@ import {
 import { STEPS, isGroupStart } from '@/lib/app/breaks/meter';
 import { generatePattern, type GenerateOptions } from '@/lib/app/breaks/generate';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
-import { clamp } from '@/lib/app/breaks/rng';
+import { clamp, makeRng } from '@/lib/app/breaks/rng';
 import type { Bar, LaneKey, Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -320,16 +320,27 @@ export interface GeneratedBreak {
 }
 
 /**
- * Rejection sampling: generate, filter, keep the best.
+ * How far under the best candidate's score another may be and still be the
+ * one kept. Keeping only the very best made every press of New land on the
+ * same shape: the score has a taste — it likes the kick a little off the
+ * beat, and the density the style aims at — and the same few candidates win
+ * it every time. Anything this close is as good a break, so one of them is
+ * picked.
+ */
+export const NEAR_BEST = 10;
+
+/**
+ * Rejection sampling: generate, filter, keep one of the best.
  *
  * An unplayable candidate can only win if nothing else survives the filter,
  * which is what the 45-point penalty buys — it is large enough that no playable
  * candidate ever loses to an unplayable one, and small enough that the least-bad
- * unplayable candidate still wins when they all fail.
+ * unplayable candidate still wins when they all fail. Among what is left, any
+ * candidate within {@link NEAR_BEST} of the top score may be the one kept,
+ * chosen from the seed, so the same seed still gives the same break.
  */
 export function generateGood(opts: GenerateOptions, bpm: number): GeneratedBreak {
-  let best: Pattern | null = null;
-  let bestScore = -1;
+  const drawn: Array<{ pattern: Pattern; eff: number; hard: boolean }> = [];
   let rejected = 0;
 
   for (let n = 0; n < CANDIDATES; n++) {
@@ -337,16 +348,18 @@ export function generateGood(opts: GenerateOptions, bpm: number): GeneratedBreak
     const checks = playability(p, bpm);
     const c = critique(p, bpm);
     if (!checks.hard) rejected++;
-    const eff = checks.hard ? c.score : c.score - 45;
-    if (eff > bestScore) {
-      bestScore = eff;
-      best = p;
-    }
+    drawn.push({ pattern: p, eff: checks.hard ? c.score : c.score - 45, hard: checks.hard });
   }
 
-  /* CANDIDATES is a positive constant, so the loop always runs and `best` is
+  // only the playable ones, if any are
+  const eligible = drawn.some((d) => d.hard) ? drawn.filter((d) => d.hard) : drawn;
+  const top = Math.max(...eligible.map((d) => d.eff));
+  const near = eligible.filter((d) => d.eff >= top - NEAR_BEST);
+  const pick = near[Math.floor(makeRng((opts.seed ^ 0x6a09e667) >>> 0)() * near.length)];
+
+  /* CANDIDATES is a positive constant, so the loop always runs and `pick` is
      always set — but the compiler cannot see that, and an exception here would
      be far easier to diagnose than a null reaching the engraver. */
-  if (!best) throw new Error('generateGood produced no candidate');
-  return { pattern: best, tries: CANDIDATES, rejected };
+  if (!pick) throw new Error('generateGood produced no candidate');
+  return { pattern: pick.pattern, tries: CANDIDATES, rejected };
 }

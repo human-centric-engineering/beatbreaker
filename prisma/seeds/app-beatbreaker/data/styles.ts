@@ -1,7 +1,7 @@
 /**
  * The style table — seed data.
  *
- * 37 grooves, each a set of tendencies rather than a fixed pattern, so the
+ * 48 grooves, each a set of tendencies or a handful of written-out bars, so the
  * generator can write a different break in the same idiom every time.
  *
  * **Content, not code** (D13). This file is the source the `001-catalogue` seed
@@ -614,10 +614,24 @@ export const STYLES: Record<string, Style> = {
     ],
   },
 
-  /* ---- rock and country -------------------------------------------- */
+  /* ---- rock ------------------------------------------------------------
+     Rock, like metal, is a handful of known beats more than a set of
+     tendencies, so these write theirs out as figures (see the metal note
+     below for the notation) and the generator picks among them, a second for
+     half the phrase, varying each pass: the kick picks up a push, the hats
+     open on an "and", a crash lands ahead of the bar. The kick cells still
+     serve any meter the figures are not written for.
+
+     From the records: Phil Rudd's 8ths on dirty hats with the kick on 1 and 3
+     (Back in Black), Bonham's kick on the last 16th of a beat, Chad Smith's
+     ghosts round a 2-and-4, Earl Palmer's straight 8ths and the snare-led
+     backbeat of Rock Around the Clock, the rockabilly snare shuffling in
+     swung 8ths with the kick on 1, 3 and the "and" of 3, and the 12/8 slow
+     rock of the doo-wop and blues ballads: triplets on the hats, 2 and 4.
+     ------------------------------------------------------------------- */
   rock: {
     label: 'Rock',
-    hint: 'Straight 8ths, snare on 2 and 4, kick on 1 and somewhere near 3. No swing, few ghosts, nothing behind the beat.',
+    hint: 'Straight 8ths, snare on 2 and 4, a kick that lands on 1 and somewhere round 3: the and of 2, the and of 3, a 16th before. The hats open into the next bar, the chorus goes to the ride, a fill goes round the toms. No swing, few ghosts, nothing behind the beat.',
     toms: true,
     hats: 8,
     bpm: [100, 144],
@@ -627,6 +641,7 @@ export const STYLES: Record<string, Style> = {
     backbeats: [4, 12],
     targetDensity: 9,
     hatDepth: 0.8,
+    rimshot: 0.3,
     forceKick: [0],
     kick1: [
       ['1000', 7],
@@ -640,76 +655,505 @@ export const STYLES: Record<string, Style> = {
       ['0001', 0.9],
       ['1001', 0.5],
     ],
+    figures: [
+      // the plainest beat there is: kick on 1 and 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.......' }, 1.6],
+      // a push on the "and" of 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.1.....' }, 2.4],
+      // kick on the "and" of 2 leading into 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.....1.1.......' }, 2.2],
+      // the "and" of 4 pushing into the next bar
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.....1.' }, 1.4],
+      // a 16th before 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1......11.......' }, 1.2],
+      // two on the 1 and one on the "and" of 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.1.......1.....' }, 1.2],
+      // the hats open on the "and" of 4, into the one
+      [{ h: '1.1.1.1.1.1.1.3.', s: '....3.......3...', k: '1.......1.1.....' }, 1.5],
+      // quarter-note hats, every one leaned on
+      [{ h: '2...2...2...2...', s: '....3.......3...', k: '1.....1.1.......' }, 1.0],
+      // the ride for a chorus
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.....1.1.1.....' }, 1.2],
+      // eighths on the floor tom instead of the hats
+      [{ t3: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.1.....' }, 0.8],
+      // four on the floor under the backbeat
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1...1...1...1...' }, 0.7],
+    ],
+    fills: [
+      // three 16ths on the snare and the floor tom into the one
+      [{ s: '222.', t3: '...2' }, 2],
+      // round the toms in 16ths over 3 and 4
+      [{ s: '22......', t1: '..22....', t2: '....22..', t3: '......22' }, 2],
+      // snare 8ths over 3 and 4, getting louder
+      [{ s: '2.2.3.3.' }, 1.4],
+      // snare and floor tom together on 4 and its "and"
+      [{ s: '3.3.', t3: '2.2.' }, 1.2],
+      // snare, tom, kick, snare
+      [{ s: '2..3', t1: '.2..', k: '..1.' }, 1.1],
+      // flams on 3 and 4 and the "and" of 4
+      [{ s: '6...6.6.' }, 0.8],
+      // a stop: everyone hits 4, then nothing
+      [{ c: '1...', s: '3...', k: '1...' }, 0.6],
+    ],
   },
-  metal: {
-    label: 'Metal',
-    mix: { h: 0.85 }, // dense 8ths at speed add up
-    hint: 'Fast, flat and dense — 8ths on the ride or a china, kick doubles under everything, ghosts off. Played on a double pedal: the doubles are right foot, left foot.',
+  hardrock: {
+    label: 'Hard rock',
+    hint: 'AC/DC, Zeppelin, Van Halen: the same 8ths, hit harder. Hats left a little open so they wash, rimshots on 2 and 4, a crash on every 8th for the chorus, the kick pushing a 16th ahead of 3. Fills are hands and feet, or the snare and floor tom together.',
     toms: true,
+    kit: 'bigrusty',
     hats: 8,
-    bpm: [140, 184],
+    bpm: [92, 140],
     swing: 0,
     ghostBias: 0.12,
     opens: 1,
     backbeats: [4, 12],
-    targetDensity: 13,
-    hatDepth: 0.45,
-    doubleKick: true,
+    targetDensity: 9,
+    hatDepth: 0.6,
+    rimshot: 0.7,
+    forceKick: [0],
+    kick1: [
+      ['1000', 6],
+      ['1010', 1.5],
+      ['1001', 1.2],
+    ],
+    kick: [
+      ['1000', 1.8],
+      ['0000', 1.2],
+      ['1010', 1.2],
+      ['0001', 1.0],
+      ['0010', 1.0],
+    ],
+    figures: [
+      // dirty hats: half-open 8ths, kick on 1 and 3
+      [{ h: '4.4.4.4.4.4.4.4.', s: '....3.......3...', k: '1.......1.......' }, 2],
+      // closed 8ths, the kick on 1, 3 and the "and" of 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.1.....' }, 2],
+      // a crash on every 8th for the chorus
+      [{ c: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.....1.1.......' }, 1.4],
+      // the kick on the last 16th of 2: a Bonham push
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1......1..1.....' }, 1.5],
+      // the bell on the beat, the kick doubled on 1 and 3
+      [{ r: '2...2...2...2...', s: '....3.......3...', k: '1.1.....1.1.....' }, 1.0],
+      // eighths on the floor tom
+      [{ t3: '2.2.2.2.2.2.2.2.', s: '....3.......3...', k: '1.......1.......' }, 0.8],
+      // the hats open on the "and" of 2 and of 4
+      [{ h: '1.1.1.3.1.1.1.3.', s: '....3.......3...', k: '1.....1.1.......' }, 1.2],
+      // half-time: the snare on 3, the hats half-open
+      [{ h: '4.4.4.4.4.4.4.4.', s: '........3.......', k: '1.....1...1.....' }, 0.8],
+      // the ride, the kick pushing the "and" of 4
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.1...1.' }, 1.0],
+    ],
+    fills: [
+      // round the toms in 16ths
+      [{ s: '32......', t1: '..22....', t2: '....22..', t3: '......22' }, 2],
+      // hands, hands, feet in threes across the beat
+      [{ s: '2..2..2.', t3: '.2..2..2', k: '..1..1..' }, 1.5],
+      // snare and floor tom together in 8ths
+      [{ s: '3.3.3.3.', t3: '2.2.2.2.' }, 1.4],
+      // three on the snare, one on the floor tom
+      [{ s: '223.', t3: '...2' }, 1.5],
+      // a stop: crash, kick and snare on 4, then nothing till the one
+      [{ c: '1...', s: '3...', k: '1...' }, 0.7],
+      // flam, flam, floor tom
+      [{ s: '6.6.', t3: '...2' }, 0.8],
+    ],
+  },
+  funkrock: {
+    label: 'Funk rock',
+    mix: { h: 0.75 },
+    hint: 'Chili Peppers, Faith No More, Living Colour: a rock backbeat with the ghosts and the syncopated kick of funk round it. The kick on the "a" of 1 or the "e" of 3, the hats opening on the "and" of 2 and 4, and now and then 16ths on the hats with one hand.',
+    toms: true,
+    kit: 'drs',
+    hats: 8,
+    bpm: [90, 120],
+    swing: 4,
+    ghostBias: 0.4, // the figures write their own ghosts; this adds a few round them
+    opens: 2,
+    backbeats: [4, 12],
+    targetDensity: 12,
+    rimshot: 0.35,
+    forceKick: [0],
+    kick1: [
+      ['1010', 3],
+      ['1001', 2.5],
+      ['1000', 2],
+      ['1011', 1],
+    ],
+    kick: [
+      ['0010', 1.8],
+      ['0001', 1.6],
+      ['1001', 1.2],
+      ['0110', 0.8],
+      ['0000', 0.8],
+      ['0011', 0.6],
+    ],
+    figures: [
+      // ghosts round a 2-and-4, the kick syncopated
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3..1.1..3..1', k: '1.1.......1..1..' }, 2],
+      // the kick on the "a" of 1 and the "and" of 2
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.1..1..3.1.', k: '1..1..1...1.....' }, 2],
+      // hats opening on the "and" of 2 and 4
+      [{ h: '1.1.1.3.1.1.1.3.', s: '....3.....1.3...', k: '1.....1...11....' }, 1.6],
+      // one-handed 16ths on the hats, accents on the beat
+      [{ h: '2111211121112111', s: '....3.......3...', k: '1.1....1..1.....' }, 1.4],
+      // the kick on the "e" of 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3..1....3.1.', k: '1.....1..1....1.' }, 1.2],
+      // the bell for a chorus, the kick doubled
+      [{ r: '2.2.2.2.2.2.2.2.', s: '....3.......3...', k: '1.11..1...1.....' }, 1.0],
+      // an accent off the beat, on the "a" of 2
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3..3.1..3...', k: '1.1.......1.....' }, 0.8],
+    ],
+    fills: [
+      // snare, ghost, tom, floor tom
+      [{ s: '31..', t1: '..2.', t3: '...2' }, 1.6],
+      // round the toms with the kick in the gaps
+      [{ s: '3.......', t1: '.22.....', k: '...1....', t2: '....22..', t3: '......22' }, 1.4],
+      // the hats open over the backbeat on 4, a snare pickup into the one
+      [{ h: '3...', s: '3.13', k: '1...' }, 1.2],
+      // flam on 4, two on the floor tom
+      [{ s: '6...', t3: '..22' }, 1.0],
+      // snare accents across 3 and 4, ghosts between
+      [{ s: '3.13.13.' }, 1.0],
+    ],
+  },
+  powerballad: {
+    label: 'Power ballad',
+    hint: 'Slow, big and patient: a kick on 1 and the "and" of 2, a snare backbeat that rings out, cross-stick for the quiet verse and the ride for the chorus. At this tempo a fill is 16ths down the toms with room in them.',
+    toms: true,
+    kit: 'liveroom',
+    hats: 8,
+    bpm: [60, 84],
+    swing: 0,
+    ghostBias: 0.2,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 8,
+    hatDepth: 0.85,
+    rimshot: 0.5,
+    forceKick: [0],
+    kick1: [
+      ['1000', 6],
+      ['1010', 1.4],
+    ],
+    kick: [
+      ['0000', 1.8],
+      ['0010', 1.6],
+      ['1000', 1.4],
+      ['0001', 0.8],
+    ],
+    figures: [
+      // kick on 1 and 3, a big 2 and 4
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.......' }, 2],
+      // the kick on 1, the "and" of 2 and 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.....1.1.......' }, 2.2],
+      // a 16th after 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1..1....' }, 1.2],
+      // quarter-note hats for the verse
+      [{ h: '1...1...1...1...', s: '....3.......3...', k: '1.......1.1.....' }, 1.0],
+      // cross-stick for the quiet verse
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....4.......4...', k: '1.......1.1.....' }, 1.0],
+      // the ride for the chorus, the kick pushing the "and" of 4
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.....1.1.....1.' }, 1.2],
+      // half-open hats washing under the big chorus
+      [{ h: '4.4.4.4.4.4.4.4.', s: '....3.......3...', k: '1.....1.1.......' }, 0.8],
+    ],
+    fills: [
+      // down the toms in 16ths over 3 and 4
+      [{ s: '22......', t1: '..22....', t2: '....22..', t3: '......22' }, 2.5],
+      // snare, snare, tom, floor tom
+      [{ s: '22..', t1: '..2.', t3: '...2' }, 1.5],
+      // snare 8ths, louder each time
+      [{ s: '2.2.3.3.' }, 1.0],
+      // flams down the toms
+      [{ t1: '3.......', t2: '..3.....', t3: '....3.3.' }, 0.8],
+      // one long build on the floor tom, the snare to finish
+      [{ t3: '2.2.22..', s: '......33' }, 0.8],
+    ],
+  },
+  slowrock: {
+    label: 'Slow rock (12/8)',
+    hint: 'The doo-wop and blues ballad in 12/8 — picking it moves the time signature for you. Triplets on the hats or the ride, snare on 2 and 4, the kick on 1 and 3 and sometimes on the last triplet before them. The tempo counts quarter notes, so the beat you feel is two thirds of the readout.',
+    toms: true,
+    kit: 'studio70',
+    meter: '12/8',
+    hats: 8,
+    bpm: [72, 100],
+    swing: 0,
+    ghostBias: 0.3,
+    opens: 0,
+    backbeats: [6, 18],
+    targetDensity: 6,
+    hatDepth: 0.85,
+    forceKick: [0],
+    hat: { steps: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22], accents: [0, 6, 12, 18] },
+    ghostWeights: { 4: 0.3, 10: 0.35, 16: 0.3, 22: 0.35 },
+    kick1: [
+      ['1000', 7],
+      ['1001', 1.2],
+    ],
+    kick: [
+      ['0000', 2.4],
+      ['1000', 1.6],
+      ['0001', 1.0],
+    ],
+    figures: [
+      // triplets on the hats, kick on 1 and 3
+      [
+        {
+          h: '2.1.1.2.1.1.2.1.1.2.1.1.',
+          s: '......3...........3.....',
+          k: '1...........1...........',
+        },
+        2,
+      ],
+      // the kick on the last triplet of 2, into 3
+      [
+        {
+          h: '2.1.1.2.1.1.2.1.1.2.1.1.',
+          s: '......3...........3.....',
+          k: '1.........1.1...........',
+        },
+        2,
+      ],
+      // the kick on the last triplet of 1 and of 3
+      [
+        {
+          h: '2.1.1.2.1.1.2.1.1.2.1.1.',
+          s: '......3...........3.....',
+          k: '1...1.......1...1.......',
+        },
+        1.2,
+      ],
+      // the ride in triplets
+      [
+        {
+          r: '1.1.1.1.1.1.1.1.1.1.1.1.',
+          s: '......3...........3.....',
+          k: '1.........1.1...........',
+        },
+        1.2,
+      ],
+      // the bell on each beat over ride triplets
+      [
+        {
+          r: '2.1.1.2.1.1.2.1.1.2.1.1.',
+          s: '......3...........3.....',
+          k: '1...........1...1.......',
+        },
+        1.0,
+      ],
+      // a ghost on the last triplet of 2 and of 4
+      [
+        {
+          h: '2.1.1.2.1.1.2.1.1.2.1.1.',
+          s: '......3...1.......3...1.',
+          k: '1...........1...........',
+        },
+        1.0,
+      ],
+      // quarter-note kick, doo-wop style
+      [
+        {
+          h: '2.1.1.2.1.1.2.1.1.2.1.1.',
+          s: '......3...........3.....',
+          k: '1.....1.....1.....1.....',
+        },
+        0.6,
+      ],
+    ],
+    fills: [
+      // a triplet on the snare on 4
+      [{ s: '2.2.3.' }, 1.5],
+      // triplets down the toms over 3 and 4
+      [{ s: '2.2.........', t1: '....2.2.....', t2: '........2...', t3: '..........2.' }, 2],
+      // sextuplets: snare, tom, floor tom
+      [{ s: '22....', t1: '..22..', t3: '....22' }, 1.5],
+      // stabs on 3 and 4
+      [{ c: '1.....1.....', s: '3.....3.....', k: '1.....1.....' }, 0.6],
+    ],
+  },
+  rocknroll: {
+    label: 'Rock and roll',
+    hint: 'The 1950s: Earl Palmer behind Little Richard, the snare playing 8ths with 2 and 4 cracked on top, or 8ths on the ride over a kick on 1 and 3. The left foot keeps 2 and 4 on the hats. A touch of swing in the 8ths; push the Swing slider for a shuffle.',
+    toms: true,
+    kit: 'smdrums',
+    hats: 8,
+    bpm: [140, 184],
+    swing: 25,
+    swingUnit: 8,
+    ghostBias: 0.15,
+    opens: 0,
+    backbeats: [4, 12],
+    foot: [4, 12],
+    targetDensity: 9,
+    forceKick: [0],
+    kick1: [['1000', 8]],
+    kick: [
+      ['1000', 2.4],
+      ['0000', 1.4],
+      ['0010', 0.6],
+    ],
+    figures: [
+      // the snare in 8ths, 2 and 4 cracked: Rock Around the Clock
+      [{ s: '2.2.3.2.2.2.3.2.', k: '1.......1.......', hf: '....1.......1...' }, 2],
+      // ride 8ths, kick on 1 and 3
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.......' }, 2],
+      // straight 8ths on the hats, a light kick on every beat
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1...1...1...1...' }, 1.5],
+      // the ride, the kick on the "and" of 2
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.....1.1.......' }, 1.2],
+      // the snare in 8ths with the ride on the beat
+      [
+        {
+          r: '1...1...1...1...',
+          s: '2.2.3.2.2.2.3.2.',
+          k: '1.......1.......',
+          hf: '....1.......1...',
+        },
+        1.0,
+      ],
+    ],
+    fills: [
+      // snare 8ths over 3 and 4
+      [{ s: '2.2.2.3.' }, 2],
+      // dotted 8ths on the snare across 3 and 4
+      [{ s: '3..3..3.' }, 1.0],
+      // snare and floor tom, turn about
+      [{ s: '2...2...', t3: '..2...2.' }, 1.2],
+      // a stop on 4, the band answers
+      [{ c: '1...', s: '3...', k: '1...' }, 0.8],
+    ],
+  },
+  rockabilly: {
+    label: 'Rockabilly',
+    hint: 'Sun Records to the Stray Cats: a small kit, swung 8ths, the snare shuffling under a slapped 2 and 4, the kick on 1, 3 and the "and" of 3. The left foot keeps 2 and 4 on the hats. Fills are runs of 8ths on the snare, and a crash pushed ahead of the bar.',
+    kit: 'smdrums',
+    hats: 8,
+    bpm: [150, 200],
+    swing: 70,
+    swingUnit: 8,
+    ghostBias: 0.2,
+    opens: 0,
+    backbeats: [4, 12],
+    foot: [4, 12],
+    targetDensity: 11,
+    forceKick: [0],
+    kick1: [['1000', 8]],
+    kick: [
+      ['1000', 2.4],
+      ['1010', 1.2],
+      ['0000', 0.8],
+    ],
+    figures: [
+      // the snare shuffling in swung 8ths, 2 and 4 slapped
+      [{ s: '1.1.3.1.1.1.3.1.', k: '1.......1.......', hf: '....1.......1...' }, 2.5],
+      // the snare shuffle, kick on 1, 3 and the "and" of 3
+      [{ s: '1.1.3.1.1.1.3.1.', k: '1.......1.1.....', hf: '....1.......1...' }, 1.8],
+      // swung hats, kick on 1, 3 and the "and" of 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.1.....' }, 2],
+      // the ride swung, the kick on 1 and 3
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.......' }, 1.2],
+      // quarters on the ride over the snare shuffle
+      [{ r: '1...1...1...1...', s: '1.1.3.1.1.1.3.1.', k: '1.......1.......' }, 1.0],
+    ],
+    fills: [
+      // a run of 8ths on the snare: the machine gun
+      [{ s: '2.2.2.3.' }, 2],
+      // the snare, then a crash pushed onto the "and" of 4
+      [{ s: '2.2.3...', c: '......1.', k: '......1.' }, 1.2],
+      // a stop on 4, the slap bass answers
+      [{ s: '3...', k: '1...' }, 0.8],
+      // a whole bar of snare, building to the turn
+      [{ s: '2.1.3.1.3.2.3.3.', k: '1.......1.......' }, 0.6],
+    ],
+  },
+
+  /* ---- metal ----------------------------------------------------------
+     Metal is a handful of known beats more than a set of tendencies — a
+     gallop, a skank beat, a half-time with the kick running under it — so
+     these styles write theirs out as figures (`k` kick · `s` snare 2 hit,
+     3 accent · `h` hat 1 closed, 3 open, 4 half-open · `r` ride 1, 2 bell ·
+     `c` 1 crash, 3 china · toms 2 accent, 3 flam; `.` is a rest) and the
+     generator picks among them, a second for half the phrase, and varies each
+     pass the way a riff changes: the kick picks up a push, a china lands on
+     an "and". Fills are written out too, right-aligned to the bar's end.
+
+     Who plays what, from the records: with the kick on a double pedal the
+     left foot has left the hats, so the hands ride a crash, a china, the ride
+     or its bell, or hats left half-open — the wash under most of Motörhead and
+     thrash. Closed 8ths on the hats are the single-pedal verse. Nicko
+     McBrain plays Maiden's gallop on one pedal; it is written here for two,
+     which is how most drummers play it at speed.
+     ------------------------------------------------------------------- */
+  metal: {
+    label: 'Heavy metal',
+    mix: { h: 0.85 },
+    hint: 'Priest, Maiden, Saxon, early Metallica: half-open 8ths or a crash on every beat, snare cracking on 2 and 4, a kick that locks to the riff — chugs, a pushed "and", a pair of 16ths. One pedal, the left foot on the hats.',
+    toms: true,
+    kit: 'crocell',
+    hats: 8,
+    bpm: [112, 168],
+    swing: 0,
+    ghostBias: 0.06,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 9,
+    hatDepth: 0.4,
+    forceKick: [0],
     kick1: [
       ['1010', 3],
       ['1000', 2.4],
-      ['1100', 2.0],
-      ['1011', 1.0],
+      ['1100', 1.6],
     ],
     kick: [
       ['1010', 2.2],
-      ['0011', 1.5],
-      ['1100', 1.3],
+      ['0011', 1.4],
+      ['1100', 1.2],
       ['0010', 1.2],
       ['1000', 1.1],
-      ['0110', 0.8],
-      ['1001', 0.7],
     ],
-  },
-  doublekick: {
-    label: 'Double kick',
-    mix: { h: 0.8 },
-    hint: 'A wall of 16ths on the kick, right foot and left on a double pedal, under 8ths on the hats and a snare on 2 and 4 that the kick runs straight through. Start it slow: even feet matter more than speed.',
-    toms: true,
-    hats: 8,
-    bpm: [96, 160],
-    swing: 0,
-    ghostBias: 0.05,
-    opens: 0,
-    backbeats: [4, 12],
-    targetDensity: 18,
-    hatDepth: 0.35,
-    doubleKick: true,
-    forceKick: [0],
-    kick1: [
-      ['1111', 6],
-      ['1110', 1],
+    figures: [
+      // the NWOBHM drive: half-open 8ths, the kick on the riff
+      [{ h: '4.4.4.4.4.4.4.4.', s: '....3.......3...', k: '1.1...1.1.1...1.' }, 3],
+      // a crash on every beat over 8ths on the kick: Breaking the Law
+      [{ c: '1...1...1...1...', s: '....3.......3...', k: '1.1.1.1.1.1.1.1.' }, 2],
+      // the bell over a chugging kick: Seek & Destroy, Enter Sandman
+      [{ r: '2.1.2.1.2.1.2.1.', s: '....3.......3...', k: '1.....11..1...1.' }, 2.5],
+      // pairs of 16ths on the kick, doubling the riff
+      [{ h: '4.4.4.4.4.4.4.4.', s: '....3.......3...', k: '11....1.11..1...' }, 2],
+      // closed 8ths for the verse, the kick pushing the "and" of 3
+      [{ h: '1.1.1.1.1.1.1.3.', s: '....3.......3...', k: '1.....1...1..1..' }, 1.5],
+      // half-time: the snare on 3, ride 8ths over it
+      [{ r: '1.1.1.1.1.1.1.1.', s: '........3.......', k: '1..1..1...1..1..' }, 1.4],
+      // stabs with the band: crash and kick on the hits, air between
+      [{ c: '1.....1.....1...', s: '....3.......3...', k: '1.....1.....1...' }, 0.8],
     ],
-    kick: [
-      ['1111', 5],
-      ['1110', 1],
-      ['1011', 0.8],
+    fills: [
+      // 16ths down the toms over the last two beats
+      [{ s: '33......', t1: '..22....', t2: '....22..', t3: '......22' }, 3],
+      // hands, hands, feet, feet: R L K K
+      [{ s: '22......', t2: '....2...', t3: '.....2..', k: '..11..11' }, 2],
+      // a stop: crash, kick and snare together, and nothing
+      [{ c: '1..1..1.', s: '3..3..3.', k: '1..1..1.' }, 1.4],
+      // snare, snare, floor tom, snare into the one
+      [{ s: '22.3', t3: '..2.', k: '1...' }, 1.5],
     ],
   },
   gallop: {
     label: 'Gallop',
     mix: { h: 0.85 },
-    hint: 'An 8th and two 16ths on the kick, beat after beat — the galloping horse under a lot of heavy metal. On a double pedal the two 16ths are right foot, left foot; snare on 2 and 4, 8ths above.',
+    hint: 'An 8th and two 16ths on the kick, beat after beat — Run to the Hills, The Trooper. A crash or the ride on every beat, snare on 2 and 4, and the gallop turned round (two 16ths and an 8th) or dropped under the snare for a bar. On a double pedal the two 16ths are right foot, left foot.',
     toms: true,
+    kit: 'crocell',
+    doubleKick: true,
     hats: 8,
-    bpm: [130, 184],
+    bpm: [140, 190],
     swing: 0,
-    ghostBias: 0.05,
+    ghostBias: 0.04,
     opens: 1,
     backbeats: [4, 12],
     targetDensity: 14,
     hatDepth: 0.4,
-    doubleKick: true,
     forceKick: [0],
     kick1: [
       ['1011', 6],
@@ -720,7 +1164,206 @@ export const STYLES: Record<string, Style> = {
       ['0011', 0.8],
       ['1010', 0.6],
     ],
+    figures: [
+      [{ c: '1...1...1...1...', s: '....3.......3...', k: '1.111.111.111.11' }, 4],
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.111.111.111.11' }, 3],
+      [{ c: '1...1...1...1...', s: '....3.......3...', k: '11.111.111.111.1' }, 2],
+      [{ c: '1...1...1...1...', s: '....3.......3...', k: '1.11..111.11..11' }, 2],
+      [{ h: '4.4.4.4.4.4.4.4.', s: '....3.......3...', k: '1.111.111.111.11' }, 2],
+      [{ r: '2...2...2...2...', s: '....3.......3...', k: '1.111.111.111.11' }, 1.5],
+    ],
+    fills: [
+      [{ t1: '2.22....', t2: '....2.22', k: '1...1...' }, 3],
+      [{ s: '33......', t1: '..22....', t2: '....22..', t3: '......22' }, 2],
+      [{ s: '22.3', t3: '..2.', k: '1111' }, 1.5],
+      [{ c: '1..1..1.', s: '3..3..3.', k: '1..1..1.' }, 1],
+    ],
   },
+  thrash: {
+    label: 'Thrash',
+    mix: { h: 0.85 },
+    hint: 'Slayer, early Metallica, Anthrax, Exodus. The skank beat — kick on the beat, snare on every "and" — under a crash, the ride or half-open hats; the 2-and-4 thrash drive with 8ths on the kick; Motörhead\'s 16ths under a wash of hat; a d-beat; a half-time breakdown on the china. On a double pedal.',
+    toms: true,
+    kit: 'crocell',
+    doubleKick: true,
+    hats: 8,
+    bpm: [160, 230],
+    swing: 0,
+    ghostBias: 0,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 10,
+    hatDepth: 0.3,
+    forceKick: [0],
+    kick1: [
+      ['1010', 4],
+      ['1111', 1.2],
+    ],
+    kick: [
+      ['1010', 4],
+      ['1000', 1.5],
+      ['1111', 1],
+    ],
+    figures: [
+      [{ c: '1...1...1...1...', s: '..3...3...3...3.', k: '1...1...1...1...' }, 3],
+      [{ r: '1.1.1.1.1.1.1.1.', s: '..3...3...3...3.', k: '1...1...1...1...' }, 2],
+      [{ h: '4.4.4.4.4.4.4.4.', s: '..3...3...3...3.', k: '1...1...1...1...' }, 1.5],
+      [{ c: '1...1...1...1...', s: '..3...3...3...3.', k: '1.1.1.1.1.1.1.1.' }, 1.5],
+      [{ h: '4.4.4.4.4.4.4.4.', s: '....3.......3...', k: '1.1.1.1.1.1.1.1.' }, 2],
+      [{ h: '4.4.4.4.4.4.4.4.', s: '....3.......3...', k: '1111111111111111' }, 1.2],
+      [{ h: '4.4.4.4.4.4.4.4.', s: '....3.......3...', k: '1..1.1..1..1.1..' }, 1.4],
+      [{ c: '1.1.1.1.1.1.1.1.', s: '.2.2.2.2.2.2.2.2', k: '1.1.1.1.1.1.1.1.' }, 0.6],
+      [{ c: '3...3...3...3...', s: '........3.......', k: '1..1..1...1.1...' }, 1],
+    ],
+    fills: [
+      [{ s: '22.3', t3: '..2.', k: '1111' }, 2.5],
+      [{ s: '33......', t1: '..22....', t2: '....22..', t3: '......22' }, 2],
+      [{ s: '22......', t2: '....2...', t3: '.....2..', k: '..11..11' }, 2],
+      [{ c: '1..1..1.', s: '3..3..3.', k: '1..1..1.' }, 1.5],
+    ],
+  },
+  doublekick: {
+    label: 'Double kick',
+    mix: { h: 0.8 },
+    hint: 'A wall of 16ths on the kick, right foot and left, under a crash on every beat (Painkiller), the ride, the bell, a china, or hats left half-open; the snare on 2 and 4 or half-time on 3. The runs break up too: bursts of four, the machine-gun stops of One, a bomb blast. Start it slow: even feet matter more than speed.',
+    toms: true,
+    kit: 'crocell',
+    doubleKick: true,
+    hats: 8,
+    bpm: [100, 180],
+    swing: 0,
+    ghostBias: 0,
+    opens: 0,
+    backbeats: [4, 12],
+    targetDensity: 18,
+    hatDepth: 0.35,
+    forceKick: [0],
+    kick1: [
+      ['1111', 6],
+      ['1110', 1],
+    ],
+    kick: [
+      ['1111', 5],
+      ['1110', 1],
+      ['1011', 0.8],
+    ],
+    figures: [
+      [{ c: '1...1...1...1...', s: '....3.......3...', k: '1111111111111111' }, 3],
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1111111111111111' }, 2.5],
+      [{ c: '3...3...3...3...', s: '........3.......', k: '1111111111111111' }, 2.5],
+      [{ r: '2.2.2.2.2.2.2.2.', s: '....3.......3...', k: '1111111111111111' }, 1.5],
+      [{ h: '4.4.4.4.4.4.4.4.', s: '....3.......3...', k: '1111111111111111' }, 1.5],
+      [{ c: '1.......1.......', s: '....3.......3...', k: '1111..111111..11' }, 2],
+      [{ c: '1...1...1...1...', s: '....3.......3...', k: '1111....1111....' }, 1.5],
+      [{ c: '1.1.1.1.1.1.1.1.', s: '.2.2.2.2.2.2.2.2', k: '1111111111111111' }, 0.6],
+    ],
+    fills: [
+      [{ s: '33......', t1: '..22....', t2: '....22..', t3: '......22' }, 3],
+      [
+        {
+          s: '22..........',
+          t1: '..22........',
+          t2: '......22....',
+          t3: '........22..',
+          k: '....11....11',
+        },
+        2,
+      ],
+      [{ s: '22.3', t3: '..2.' }, 1.5],
+      [{ c: '1..1..1.', s: '3..3..3.', k: '1..1..1.' }, 1],
+    ],
+  },
+  groove: {
+    label: 'Groove metal',
+    mix: { h: 0.85 },
+    hint: 'Pantera, Sepultura, Lamb of God, Gojira: mid-tempo, and the kick doubles the riff — pairs and runs of 16ths with holes where the guitar stops — under the ride bell or a china, half-time as often as not. A floor-tom groove for the tribal verse. On a double pedal.',
+    toms: true,
+    kit: 'crocell',
+    doubleKick: true,
+    hats: 8,
+    bpm: [92, 140],
+    swing: 0,
+    ghostBias: 0.06,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 13,
+    hatDepth: 0.4,
+    forceKick: [0],
+    kick1: [
+      ['1100', 3],
+      ['1011', 2],
+      ['1001', 1],
+    ],
+    kick: [
+      ['1100', 2],
+      ['0111', 1.5],
+      ['1011', 1.5],
+      ['0010', 1],
+      ['1000', 1],
+    ],
+    figures: [
+      [{ r: '2.2.2.2.2.2.2.2.', s: '....3.......3...', k: '11..11.111..1.11' }, 3],
+      [{ r: '2...2...2...2...', s: '....3.......3...', k: '1.11..1.1.11.1..' }, 2.5],
+      [
+        {
+          c: '3.3.3.3.3.3.3.3.',
+          s: '........3.......',
+          t3: '...............2',
+          k: '1..1..1.11..1...',
+        },
+        2,
+      ],
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.11.....1.1....' }, 1.5],
+      [{ r: '1...1...1...1...', s: '........3.......', k: '1..1..1..1..1..1' }, 1.5],
+      [{ s: '....3.......3...', t3: '2.1.2.1.2.1.2.1.', k: '1..1..1...1..1..' }, 1],
+    ],
+    fills: [
+      [{ s: '22......', t2: '....2...', t3: '.....2..', k: '..11..11' }, 2.5],
+      [{ s: '2..2..2.', t2: '.2..2..2', k: '..1..1..' }, 2],
+      [{ c: '3..3..1.', s: '3..3..3.', k: '1..1..1.' }, 2],
+      [{ s: '33......', t1: '..22....', t2: '....22..', t3: '......22' }, 1.5],
+    ],
+  },
+  doom: {
+    label: 'Doom',
+    mix: { h: 0.9 },
+    hint: 'Black Sabbath and everything after: slow, half-time as often as not, the hats left half-open into a wash or a crash ridden on every beat. Bill Ward came from big band — he answers the riff with the toms and big flams rather than keeping strict time. One pedal; a thick, old kit.',
+    toms: true,
+    kit: 'bigrusty',
+    hats: 8,
+    bpm: [56, 96],
+    swing: 0,
+    ghostBias: 0.15,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 5,
+    hatDepth: 0.5,
+    forceKick: [0],
+    kick1: [
+      ['1000', 5],
+      ['1001', 1.4],
+    ],
+    kick: [
+      ['0000', 1.6],
+      ['1000', 1.8],
+      ['0010', 1.2],
+      ['0001', 0.9],
+    ],
+    figures: [
+      [{ c: '1...1...1...1...', s: '........3.......', k: '1.....1...1.....' }, 3],
+      [{ h: '4.4.4.4.4.4.4.4.', s: '....3.......3...', k: '1.....1.1.......' }, 2.5],
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1..1....1.1.....' }, 2],
+      [{ c: '1...1...1.....1.', s: '....3.......3...', k: '1...1...1.....1.' }, 1.5],
+      [{ h: '3...3...3...3...', s: '........3.......', k: '1.......1.1.....' }, 1.5],
+    ],
+    fills: [
+      [{ t1: '3.......', t2: '....3...', t3: '..2...22', k: '1...1...' }, 3],
+      [{ s: '33......', t1: '..22....', t2: '....22..', t3: '......22' }, 2],
+      [{ s: '2..2..2.', t1: '.2..2...', t3: '..2..2.2' }, 1.5],
+      [{ c: '1...1...', s: '3...3...', k: '1...1...' }, 1],
+    ],
+  },
+  /* ---- country ------------------------------------------------------ */
   country: {
     label: 'Country',
     hint: 'Boom-chick: kick on 1 and 3, snare on 2 and 4, straight 8ths above. Play the snare with brushes and it is a ballad; play the 16ths and it is a train beat, which this grid will not write for you.',
@@ -1296,8 +1939,9 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
     ['motown', 'stax', 'soul', 'neosoul', 'gospel', 'disco', 'shuffle', 'purdie'],
   ],
   ['Jazz', ['swing', 'bebop', 'jazzballad', 'jazzwaltz', 'takefive', 'fusion']],
-  ['Rock and country', ['rock', 'country']],
-  ['Metal', ['metal', 'doublekick', 'gallop']],
+  ['Rock', ['rock', 'hardrock', 'funkrock', 'powerballad', 'slowrock']],
+  ['Rock and roll, country', ['rocknroll', 'rockabilly', 'country']],
+  ['Metal', ['metal', 'gallop', 'thrash', 'doublekick', 'groove', 'doom']],
   ['Jamaica', ['reggae', 'dub']],
   [
     'Afro-Latin',

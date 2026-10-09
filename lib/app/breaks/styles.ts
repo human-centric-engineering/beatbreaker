@@ -41,6 +41,11 @@ export function styleIn(st: Style, meterKey: string): Style {
   if (cached) return cached;
 
   const out: Style = { ...st };
+  /* Written-out bars are written for their own meter's length, and there is
+     no carrying a gallop into 7/8 by pulse: in another meter the style falls
+     back on its kick cells. */
+  delete out.figures;
+  delete out.fills;
   const stepLists = [
     'backbeats',
     'forceKick',

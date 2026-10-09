@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { LANES, PERC_KEYS } from '@/lib/app/breaks/lanes';
+import { LANES, LANE_VALUES, PERC_KEYS } from '@/lib/app/breaks/lanes';
 import type { LaneKey } from '@/lib/app/breaks/types';
 import { METER_KEYS } from '@/lib/app/breaks/meter';
 import { feelSchema, styleAttrsSchema } from '@/lib/app/breaks/schema';
@@ -44,6 +44,30 @@ const kickCells = z
   .array(z.tuple([kickCell, weight]))
   .min(1)
   .max(64);
+
+/* A written-out bar's rows: lane → step values, `.` for none, each no higher
+   than the lane has values for — the same bound the wire format holds a bar
+   to — no longer than the longest meter, and all one length: a row a step
+   short would leave the generator skipping the figure without a word. */
+const figureSchema = z
+  .partialRecord(z.enum(LANES as [LaneKey, ...LaneKey[]]), z.string().regex(/^[0-8.]{1,32}$/))
+  .refine(
+    (f) =>
+      Object.entries(f).every(([lane, row]) =>
+        [...(row ?? '')].every(
+          (ch) => ch === '.' || Number(ch) <= (LANE_VALUES[lane as LaneKey]?.length ?? 0)
+        )
+      ),
+    'a step value that lane does not have'
+  )
+  .refine(
+    (f) => new Set(Object.values(f).map((row) => row?.length)).size <= 1,
+    'every row of a figure is as long as the others'
+  );
+const figures = z
+  .array(z.tuple([figureSchema, weight]))
+  .min(1)
+  .max(32);
 
 /* Cast to the lane union, not to `[string, ...]`: the wider cast infers a
    plain `string` and `StyleParams` then stops being assignable to `Style`. */
@@ -133,6 +157,8 @@ export const styleParamsSchema = styleAttrsSchema.extend({
   clave: z.boolean().optional(),
   linear: z.boolean().optional(),
   displace: z.number().min(0).max(1).optional(),
+  figures: figures.optional(),
+  fills: figures.optional(),
   fill: z.literal('comp').optional(),
   fillComps: z.number().int().min(0).max(16).optional(),
   rimshot: z.number().min(0).max(1).optional(),

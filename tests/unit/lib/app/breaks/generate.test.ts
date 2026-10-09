@@ -14,10 +14,11 @@ import { describe, expect, it } from 'vitest';
 import { CANDIDATES, critique, generateGood, playability } from '@/lib/app/breaks/critic';
 import { engrave } from '@/lib/app/breaks/engrave';
 import { deriveB, fitHands, generatePattern } from '@/lib/app/breaks/generate';
-import { LANES, handLanes, handsAt } from '@/lib/app/breaks/lanes';
+import { LANES, LANE_VALUES, handLanes, handsAt } from '@/lib/app/breaks/lanes';
 import { METER_KEYS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { TEST_STYLE_KEYS, testStyles } from '@/tests/helpers/catalogue';
-import type { Pattern } from '@/lib/app/breaks/types';
+import type { Figure, Pattern, ResolvedStyle, Style } from '@/lib/app/breaks/types';
+import { styleParamsSchema } from '@/lib/app/breaks/catalogue/schemas';
 import type { SvgNode } from '@/lib/app/breaks/engrave';
 
 /* The same style table the generator used to import, resolved once — the
@@ -50,10 +51,10 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 39 styles in 12 meters — the numbers the site copy quotes', () => {
-    expect(TEST_STYLE_KEYS).toHaveLength(39);
+  it('is 48 styles in 12 meters — the numbers the site copy quotes', () => {
+    expect(TEST_STYLE_KEYS).toHaveLength(48);
     expect(METER_KEYS).toHaveLength(12);
-    expect(COMBOS).toHaveLength(468);
+    expect(COMBOS).toHaveLength(576);
   });
 });
 
@@ -68,19 +69,8 @@ describe('generatePattern', () => {
   });
 
   it('writes only legal values into every lane', () => {
-    const max: Record<string, number> = {
-      k: 2,
-      s: 4,
-      h: 3,
-      r: 2,
-      c: 1,
-      t1: 2,
-      t2: 2,
-      t3: 2,
-      hf: 1,
-      p1: 2,
-      p2: 2,
-    };
+    // the lane's own values (a style that writes its bars out can ask for a half-open hat or a china)
+    const max = Object.fromEntries(LANES.map((L) => [L, LANE_VALUES[L].length]));
     for (const { style, meter } of COMBOS) {
       for (const bar of gen(style, meter, 777, 4).bars) {
         for (const L of LANES) {
@@ -285,7 +275,11 @@ describe('double kick', () => {
       const pat = gen(key, '4/4');
       expect(!!pat.attrs.doubleKick).toBe(!!STYLES[key].params.doubleKick);
     }
-    expect(['metal', 'doublekick', 'gallop'].every((k) => STYLES[k].params.doubleKick)).toBe(true);
+    expect(
+      ['gallop', 'thrash', 'doublekick', 'groove'].every((k) => STYLES[k].params.doubleKick)
+    ).toBe(true);
+    // heavy metal and doom are one pedal, the left foot on the hats
+    expect(['metal', 'doom'].some((k) => STYLES[k].params.doubleKick)).toBe(false);
   });
 
   it('writes runs of 16ths on the kick that a single-pedal style never would', () => {
@@ -312,5 +306,199 @@ describe('double kick', () => {
     const pat = gen('gallop', '4/4', 7, 4);
     const cells = pat.bars.flatMap((b) => [0, 4, 8, 12].map((s) => b.k.slice(s, s + 4).join('')));
     expect(cells.filter((c) => c === '1011').length).toBeGreaterThan(cells.length / 2);
+  });
+});
+
+describe('written-out bars (figures)', () => {
+  const row = (v: number[]) => v.map((x) => (x ? String(x) : '.')).join('');
+  /** A style with one figure, or two, and nothing else to choose from. */
+  function figureStyle(
+    figures: Array<[Figure, number]>,
+    extra: Partial<Style> = {}
+  ): ResolvedStyle {
+    const base = STYLES.rock;
+    return {
+      ...base,
+      // rock writes its own fills; a test figure ends on the generic ones unless it says otherwise
+      params: { ...base.params, figures, fills: undefined, ...extra },
+    };
+  }
+
+  it('plays the figure as written, with a crash on the one', () => {
+    const fig: Figure = { h: '4.4.4.4.4.4.4.4.', s: '....3.......3...', k: '1.1...1.1.1...1.' };
+    const st = figureStyle([[fig, 1]]);
+    const pat = generatePattern({ style: st, seed: 3, bars: 1, density: 50, ghosts: 0 });
+    const b = pat.bars[0];
+    expect(row(b.s)).toBe('....3.......3...');
+    expect(row(b.k)).toBe('1.1...1.1.1...1.');
+    // the hand leaves the hats for the crash on the one
+    expect(b.c[0]).toBe(1);
+    expect(row(b.h)).toBe('..4.4.4.4.4.4.4.');
+    expect(pat.backbeats).toEqual([4, 12]);
+  });
+
+  it('reads the backbeat off the figures: half-time on 3, a skank on every "and"', () => {
+    const half = figureStyle([
+      [{ c: '3...3...3...3...', s: '........3.......', k: '1111111111111111' }, 1],
+    ]);
+    expect(
+      generatePattern({ style: half, seed: 1, bars: 2, density: 50, ghosts: 0 }).backbeats
+    ).toEqual([8]);
+    const skank = figureStyle([
+      [{ c: '1...1...1...1...', s: '..3...3...3...3.', k: '1...1...1...1...' }, 1],
+    ]);
+    const pat = generatePattern({ style: skank, seed: 1, bars: 2, density: 50, ghosts: 0 });
+    expect(pat.backbeats).toEqual([2, 6, 10, 14]);
+    expect(playability(pat, 200).checks[3].ok).toBe(true);
+  });
+
+  it('ends a phrase on a written fill, right-aligned to the bar, the kick running on under it', () => {
+    const fill: Figure = { s: '33......', t1: '..22....', t2: '....22..', t3: '......22' };
+    const st = figureStyle(
+      [[{ c: '1...1...1...1...', s: '....3.......3...', k: '1111111111111111' }, 1]],
+      { fills: [[fill, 1]], doubleKick: true }
+    );
+    // some seed fills the phrase: a fill goes in four times in five
+    const filled = [1, 2, 3, 4, 5, 6]
+      .map((seed) => generatePattern({ style: st, seed, bars: 2, density: 50, ghosts: 0 }).bars[1])
+      .find((b) => b.t3[15]);
+    expect(filled).toBeDefined();
+    const b = filled!;
+    expect(row(b.s.slice(8))).toBe('33......');
+    expect(row(b.t1.slice(8))).toBe('..22....');
+    expect(row(b.t3.slice(8))).toBe('......22');
+    // the crash stops for the fill; the feet do not
+    expect(row(b.c.slice(8))).toBe('........');
+    expect(row(b.k)).toBe('1111111111111111');
+  });
+
+  it('falls back on the kick cells in a meter the figures are not written for', () => {
+    const st = figureStyle([
+      [{ c: '1...1...1...1...', s: '....3.......3...', k: '1111111111111111' }, 1],
+    ]);
+    const pat = generatePattern({
+      style: st,
+      meter: '7/8',
+      seed: 4,
+      bars: 2,
+      density: 50,
+      ghosts: 0,
+    });
+    expectBarsFit(pat, 2);
+    expect(pat.bars[0].c.some((v, i) => v && i > 0)).toBe(false);
+  });
+
+  it('writes every metal style out as figures, playable and with nothing closed on the hats over a kick run', () => {
+    for (const key of ['metal', 'gallop', 'thrash', 'doublekick', 'groove', 'doom']) {
+      const params = STYLES[key].params;
+      expect(params.figures?.length).toBeGreaterThan(3);
+      expect(params.kit).toBeTruthy();
+      for (const [f] of [...(params.figures ?? []), ...(params.fills ?? [])]) {
+        const rows = Object.values(f);
+        // a figure's rows all one length; a whole-bar figure is the bar
+        expect(new Set(rows.map((r) => r?.length)).size).toBe(1);
+      }
+      for (const [f] of params.figures ?? []) {
+        expect(f.k?.length).toBe(16);
+        /* With the left foot gone to the second pedal, the hats are either a
+           wash left half-open or not played: a closed 8th is a single-pedal
+           verse. */
+        if (params.doubleKick && /111/.test(f.k ?? '')) expect(f.h ?? '').not.toMatch(/1/);
+      }
+      for (let seed = 1; seed <= 40; seed++) {
+        const pat = generatePattern({ style: STYLES[key], seed, bars: 4, density: 50, ghosts: 50 });
+        const bpm = (params.bpm[0] + params.bpm[1]) / 2;
+        expect(playability(pat, bpm).hard).toBe(true);
+      }
+    }
+  });
+
+  it('gives a metal phrase more than one beat in it', () => {
+    const shapes = new Set<string>();
+    for (let seed = 1; seed <= 30; seed++) {
+      const pat = generatePattern({
+        style: STYLES.doublekick,
+        seed,
+        bars: 4,
+        density: 50,
+        ghosts: 0,
+      });
+      for (const b of pat.bars)
+        shapes.add(`${row(b.c)}|${row(b.r)}|${row(b.h)}|${row(b.s)}|${row(b.k)}`);
+    }
+    expect(shapes.size).toBeGreaterThan(10);
+  });
+});
+
+describe('the rock styles', () => {
+  const ROCK = [
+    'rock',
+    'hardrock',
+    'funkrock',
+    'powerballad',
+    'slowrock',
+    'rocknroll',
+    'rockabilly',
+  ];
+  const row = (v: number[]) => v.map((x) => (x ? String(x) : '.')).join('');
+
+  it('writes every rock style out as figures and fills that play, in its own meter', () => {
+    for (const key of ROCK) {
+      const params = STYLES[key].params;
+      const n = stepsOf(meterOf(params.meter ?? '4/4'));
+      expect(params.figures?.length).toBeGreaterThan(3);
+      expect(params.fills?.length).toBeGreaterThan(2);
+      for (const [f] of params.figures ?? []) {
+        for (const r of Object.values(f)) expect(r?.length).toBe(n);
+      }
+      // nobody in rock plays a china
+      for (const [f] of [...(params.figures ?? []), ...(params.fills ?? [])])
+        expect(f.c ?? '').not.toMatch(/3/);
+      for (let seed = 1; seed <= 40; seed++) {
+        const pat = generatePattern({
+          style: STYLES[key],
+          meter: params.meter,
+          seed,
+          bars: 4,
+          density: 50,
+          ghosts: 50,
+        });
+        const bpm = (params.bpm[0] + params.bpm[1]) / 2;
+        expect({ key, seed, hard: playability(pat, bpm).hard }).toEqual({ key, seed, hard: true });
+        for (const b of pat.bars) expect(b.c.includes(3)).toBe(false);
+      }
+    }
+  });
+
+  it('gives a different break on each press of New', () => {
+    for (const key of ROCK) {
+      const params = STYLES[key].params;
+      const breaks = new Set<string>();
+      for (let seed = 1; seed <= 12; seed++) {
+        const { pattern } = generateGood(
+          { style: STYLES[key], meter: params.meter, seed, bars: 4, density: 50, ghosts: 50 },
+          (params.bpm[0] + params.bpm[1]) / 2
+        );
+        breaks.add(
+          pattern.bars.map((b) => `${row(b.h)}|${row(b.r)}|${row(b.s)}|${row(b.k)}`).join('/')
+        );
+      }
+      expect({ key, distinct: breaks.size >= 10 }).toEqual({ key, distinct: true });
+    }
+  });
+});
+
+describe('the figure schema', () => {
+  const parse = (figures: unknown) =>
+    styleParamsSchema.safeParse({ ...STYLES.rock.params, figures }).success;
+
+  it('takes a figure in the lanes’ own values', () => {
+    expect(parse([[{ c: '3...', h: '4.4.', k: '1111' }, 1]])).toBe(true);
+  });
+
+  it('refuses rows of different lengths, values a lane does not have, and anything but digits and rests', () => {
+    expect(parse([[{ s: '....3...', k: '1111' }, 1]])).toBe(false);
+    expect(parse([[{ c: '5...' }, 1]])).toBe(false);
+    expect(parse([[{ k: 'x.x.' }, 1]])).toBe(false);
   });
 });
