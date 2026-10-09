@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
-import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { mergeGeometries, mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
 import {
   ball,
@@ -1115,11 +1115,21 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       return out;
     }
     case 'quiff': {
-      // swept up and forward off the brow
-      const quiff = mesh(new THREE.CapsuleGeometry(0.042, 0.1, 6, 14), m.hair);
-      quiff.scale.set(1.35, 1, 1);
-      quiff.position.set(0, 0.2, -0.075);
-      quiff.rotation.x = -1.25;
+      /* Grown out of the scalp as a beard is, rather than built of locks: one
+         mass rising steeply off the hairline into a roll over the brow and
+         lying back flatter over the crown, fullest in the middle and lower
+         toward the temples. Thin locks each caught the light on every side and
+         read grey, and laid over the top they met at the crown in a point. */
+      const quiff = grow(
+        {
+          mask: (d) =>
+            ramp(0.45, 0.6, d.y) * ramp(0.72, 0.5, Math.abs(d.x)) * ramp(0.55, 0.25, d.z),
+          depth: (d) => 0.01 + 0.032 * ramp(0.25, -0.55, d.z) * ramp(0.6, 0.15, Math.abs(d.x)),
+          tuck: 0.002,
+        },
+        m.hair
+      );
+      quiff.name = 'quiff';
       return [hairCap(m), quiff];
     }
     case 'ponytail': {
@@ -1569,6 +1579,92 @@ function facePlate(m: Materials, soft: boolean): THREE.Object3D[] {
   return [plate, ring];
 }
 
+/**
+ * Part of a hat turned on a lathe from `profile` (radius, height; anticlockwise,
+ * so it faces out), round `turn` radians either side of the back (+z), then
+ * each point moved by `shape` — a brim's curl, a crown's crease — and smoothed
+ * over the seam.
+ */
+function turned(
+  profile: [number, number][],
+  shape: (v: THREE.Vector3) => void,
+  turn = Math.PI
+): THREE.BufferGeometry {
+  const lathe = new THREE.LatheGeometry(
+    profile.map(([r, y]) => new THREE.Vector2(r, y)),
+    48,
+    -turn,
+    2 * turn
+  );
+  lathe.deleteAttribute('uv');
+  lathe.deleteAttribute('normal');
+  const geo = mergeVertices(lathe);
+  const p = geo.getAttribute('position');
+  const v = new THREE.Vector3();
+  for (let i = 0; i < p.count; i++) {
+    shape(v.fromBufferAttribute(p, i));
+    p.setXYZ(i, v.x, v.y, v.z);
+  }
+  geo.computeVertexNormals();
+  return geo;
+}
+
+/** A brim's cross-section: flat from `inner` out to `outer`, `thick` deep, rolled round at the edge. */
+function brimProfile(inner: number, outer: number, thick: number): [number, number][] {
+  const flat = (k: number) => inner + ((outer - inner - thick / 2) * k) / 8;
+  const out: [number, number][] = [];
+  for (let k = 0; k <= 8; k++) out.push([flat(k), 0]);
+  for (let k = 1; k < 8; k++) {
+    const a = -Math.PI / 2 + (Math.PI * k) / 8;
+    out.push([
+      outer - thick / 2 + (thick / 2) * Math.cos(a),
+      thick / 2 + (thick / 2) * Math.sin(a),
+    ]);
+  }
+  for (let k = 8; k >= 0; k--) out.push([flat(k), thick]);
+  return out;
+}
+
+/** How far out along a brim a point is, 0 at `inner` to 1 at `outer`, and how much it is to the side rather than front or back. */
+function brimAt(v: THREE.Vector3, inner: number, outer: number): { out: number; side: number } {
+  const r = Math.hypot(v.x, v.z);
+  return {
+    out: Math.min(1, Math.max(0, (r - inner) / (outer - inner))),
+    side: r > 0 ? (v.x / r) ** 2 : 0,
+  };
+}
+
+/** Each of a hat's parts sat `y` up the head, tipped back by `tilt`. */
+function worn(parts: THREE.Mesh[], y: number, tilt: number): THREE.Mesh[] {
+  for (const o of parts) {
+    o.position.set(0, y, 0.005);
+    o.rotation.x = tilt;
+  }
+  return parts;
+}
+
+/**
+ * A baseball cap's peak, lying out along +z from the band: a slice of a
+ * brim, tapered to a point at each end, its inner edge the band's curve, and
+ * arched across so the sides droop.
+ */
+function peakGeometry(): THREE.BufferGeometry {
+  const inner = 0.1;
+  const turn = 1.0;
+  return turned(
+    brimProfile(inner, 0.165, 0.005),
+    (v) => {
+      const a = Math.atan2(v.x, v.z);
+      const u = a / turn;
+      const r = inner + (Math.hypot(v.x, v.z) - inner) * Math.sqrt(Math.max(0, 1 - u * u));
+      v.x = r * Math.sin(a);
+      v.z = r * Math.cos(a) * 1.13;
+      v.y -= 1.4 * v.x * v.x;
+    },
+    turn
+  );
+}
+
 function hatFor(hat: Hat, m: Materials): THREE.Object3D[] {
   switch (hat) {
     case 'beanie': {
@@ -1577,28 +1673,84 @@ function hatFor(hat: Hat, m: Materials): THREE.Object3D[] {
       return [cover(0.114, 0.52, m.accent), pom];
     }
     case 'cap': {
-      // on backwards, the peak over the nape
-      const peak = mesh(new RoundedBoxGeometry(0.13, 0.008, 0.09, 2, 0.003), m.accent);
-      peak.position.set(0, 0.17, 0.13);
-      peak.rotation.x = 0.2;
-      return [cover(0.112, 0.46, m.accent), peak];
+      // on backwards: the peak comes off the band at the nape, drooping a little
+      const button = ball(0.009, m.accent, 10);
+      button.scale.y = 0.45;
+      button.position.set(0, 0.229, 0.054);
+      button.rotation.x = 0.35;
+      const peak = mesh(peakGeometry(), m.accent);
+      peak.position.set(0, 0.124, 0.015);
+      peak.rotation.x = 0.3;
+      return [cover(0.112, 0.46, m.accent), button, peak];
     }
     case 'cowboy': {
-      const brim = mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.008, 32), m.accent);
-      brim.scale.set(1, 1, 0.85);
-      brim.position.y = 0.2;
-      const crown = mesh(new THREE.CylinderGeometry(0.07, 0.09, 0.11, 24), m.accent);
-      crown.position.y = 0.26;
-      return [brim, crown];
+      // the brim's sides rolled up, dipping front and back; the crown pinched at
+      // the front and creased down the middle
+      const brim = turned(brimProfile(0.088, 0.19, 0.006), (v) => {
+        const { out, side } = brimAt(v, 0.088, 0.19);
+        v.y += 0.05 * out * out * side - 0.012 * out * (1 - side);
+        v.z *= 1.1;
+      });
+      const crown = turned(
+        [
+          [0.094, 0],
+          [0.092, 0.04],
+          [0.088, 0.08],
+          [0.084, 0.104],
+          [0.076, 0.117],
+          [0.05, 0.123],
+          [0.025, 0.125],
+          [0, 0.125],
+        ],
+        (v) => {
+          v.y -= 0.032 * bell(v.x / 0.03) * ramp(0.06, 0.12, v.y);
+          if (v.z < 0) v.x *= 1 - 0.22 * ramp(0.03, 0.12, v.y) * ramp(0, -0.09, v.z);
+          v.z *= 1.1;
+        }
+      );
+      const band = turned(
+        [
+          [0.0955, 0.004],
+          [0.0935, 0.024],
+        ],
+        (v) => {
+          v.z *= 1.1;
+        }
+      );
+      return worn([mesh(brim, m.accent), mesh(crown, m.accent), mesh(band, m.black)], 0.165, 0.1);
     }
     case 'tophat': {
-      const brim = mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.01, 32), m.black);
-      brim.position.y = 0.205;
-      const crown = mesh(new THREE.CylinderGeometry(0.085, 0.08, 0.2, 28), m.black);
-      crown.position.y = 0.31;
-      const band = mesh(new THREE.CylinderGeometry(0.087, 0.086, 0.03, 28), m.accent);
-      band.position.y = 0.225;
-      return [brim, crown, band];
+      // a crown waisted a little and flaring to the top; the brim's sides curled up
+      const brim = turned(brimProfile(0.08, 0.13, 0.006), (v) => {
+        const { out, side } = brimAt(v, 0.08, 0.13);
+        v.y += 0.024 * out * out * side - 0.006 * out * (1 - side);
+        v.z *= 1.08;
+      });
+      const crown = turned(
+        [
+          [0.084, 0],
+          [0.081, 0.05],
+          [0.08, 0.1],
+          [0.083, 0.16],
+          [0.086, 0.188],
+          [0.084, 0.192],
+          [0.06, 0.193],
+          [0, 0.193],
+        ],
+        (v) => {
+          v.z *= 1.08;
+        }
+      );
+      const band = turned(
+        [
+          [0.0862, 0.005],
+          [0.0838, 0.034],
+        ],
+        (v) => {
+          v.z *= 1.08;
+        }
+      );
+      return worn([mesh(brim, m.black), mesh(crown, m.black), mesh(band, m.accent)], 0.18, 0.06);
     }
     case 'bandana': {
       const knot = ball(0.024, m.accent, 10);

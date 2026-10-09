@@ -22,7 +22,14 @@ import { describe, expect, it } from 'vitest';
 
 import { buildKit } from '@/components/app/studio/drummer/kit-model';
 import { makeMaterials } from '@/components/app/studio/drummer/parts';
-import { PIECES, type V3 } from '@/lib/app/breaks/drummer/kit-layout';
+import {
+  DOUBLE_PEDAL,
+  HAT_PEDAL,
+  HAT_PEDAL_BESIDE_DOUBLE,
+  HAT_SHIFT_DOUBLE,
+  PIECES,
+  type V3,
+} from '@/lib/app/breaks/drummer/kit-layout';
 import { poseAt } from '@/lib/app/breaks/drummer/pose';
 import { StrokeTimeline } from '@/lib/app/breaks/drummer/timeline';
 import { stepWithHit } from '@/tests/helpers/drummer-fixtures';
@@ -95,11 +102,16 @@ describe('buildKit().update — percussion visibility', () => {
     const defaultVisible = snapshot();
     expect(defaultVisible.every(Boolean)).toBe(true); // nothing hidden before any update()
 
-    // (the double pedal in, so only the percussion comes and goes)
+    // (the double pedal in throughout, so only the percussion comes and goes)
+    update(pose, new Set(['perc1', 'perc2']), true);
+    const withAll = snapshot();
     update(pose, new Set(), true);
     const withNone = snapshot();
     // exactly the percussion pieces (cowbell+rod, block+rod = 4 objects) went invisible
-    const hiddenIdx = withNone.reduce<number[]>((acc, v, i) => (v ? acc : [...acc, i]), []);
+    const hiddenIdx = withNone.reduce<number[]>(
+      (acc, v, i) => (v || !withAll[i] ? acc : [...acc, i]),
+      []
+    );
     expect(hiddenIdx.length).toBe(4);
 
     update(pose, new Set(['perc1']), true);
@@ -126,11 +138,53 @@ describe('buildKit().update — percussion visibility', () => {
       root.traverse((o) => void (o.visible || n++));
       return n;
     };
+    // with it in: the hat stand where it stands without one (stand and pull rod, one group) is out
     update(pose, new Set(['perc1', 'perc2']), true);
-    expect(hidden()).toBe(0);
-    // one group: the second board, its plate, the drive shaft and the second beater
-    update(pose, new Set(['perc1', 'perc2']));
     expect(hidden()).toBe(1);
+    /* without it: the double pedal (the second board, its plate, the drive shaft and the
+       second beater, one group) and the hat stand turned to make room for it */
+    update(pose, new Set(['perc1', 'perc2']));
+    expect(hidden()).toBe(2);
+  });
+
+  it('moves the whole hi-hat over for the double pedal, the pedal still under the cymbals', () => {
+    const { root, update } = buildKit(makeMaterials());
+    const pose = idlePose();
+    /** Where, in the kit, the thing first placed at `at` in the hi-hat now is. */
+    const placedAt = (at: V3) => {
+      let found: THREE.Object3D | null = null;
+      root.traverse((o) => {
+        if (
+          !found &&
+          o.parent?.parent === root &&
+          o.position.distanceTo(new THREE.Vector3(...at)) < 1e-6
+        )
+          found = o;
+      });
+      expect(found).not.toBeNull();
+      const o = found as unknown as THREE.Object3D;
+      root.updateMatrixWorld(true);
+      return o.getWorldPosition(new THREE.Vector3());
+    };
+    update(pose, new Set());
+    const board = placedAt(HAT_PEDAL.heel);
+    const cymbal = placedAt(PIECES.hat.centre);
+    expect(board.x).toBeCloseTo(HAT_PEDAL.heel[0], 6);
+    expect(cymbal.x).toBeCloseTo(PIECES.hat.centre[0], 6);
+
+    update(pose, new Set(), true);
+    const board2 = placedAt(HAT_PEDAL.heel);
+    const cymbal2 = placedAt(PIECES.hat.centre);
+    // the pedal and the cymbals move together, so the pedal is still under them
+    expect(board2.x - board.x).toBeCloseTo(HAT_SHIFT_DOUBLE[0], 6);
+    expect(cymbal2.x - cymbal.x).toBeCloseTo(HAT_SHIFT_DOUBLE[0], 6);
+    expect(board2.x).toBeCloseTo(HAT_PEDAL_BESIDE_DOUBLE.heel[0], 6);
+    // out past the second board, on the left
+    expect(HAT_PEDAL_BESIDE_DOUBLE.heel[0]).toBeLessThan(DOUBLE_PEDAL.heel[0] - 0.12);
+
+    // and back, for a pattern on one pedal
+    update(pose, new Set());
+    expect(placedAt(PIECES.hat.centre).x).toBeCloseTo(PIECES.hat.centre[0], 6);
   });
 });
 
@@ -184,7 +238,7 @@ describe('buildKit().update — top hat gap', () => {
     const { root, update } = buildKit(makeMaterials());
     const hatCentre = new THREE.Vector3(...PIECES.hat.centre);
 
-    // two root-level groups sit exactly on the hat's centre: the top cymbal's
+    // two groups in the hi-hat sit exactly on the hat's centre: the top cymbal's
     // carrier (moved by `update()`) and the bottom cymbal's frame (fixed).
     // Rather than guess which is which by structure, tell them apart by the
     // one real difference between them: only one of them actually moves.
@@ -192,7 +246,7 @@ describe('buildKit().update — top hat gap', () => {
     root.traverse((o) => {
       if (
         o instanceof THREE.Group &&
-        o.parent === root &&
+        o.parent?.parent === root &&
         o.position.distanceTo(hatCentre) < 1e-6
       ) {
         candidates.push(o);

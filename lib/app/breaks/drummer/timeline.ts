@@ -289,8 +289,9 @@ export class StrokeTimeline {
    */
   readonly percussion = new Set<PieceId>();
   /**
-   * Whether any pattern heard so far is played on a double pedal: the second
-   * pedal goes on the kit when one first is, and stays for the session.
+   * Whether the pattern playing is played on a double pedal: the second pedal
+   * is on the kit, and the hi-hat moved over for it, only while one is. A
+   * pattern that is not, or stopping, puts the standard kit back.
    */
   doublePedal = false;
 
@@ -303,7 +304,7 @@ export class StrokeTimeline {
       this.before = step.slot === 0 ? this.heard.bar : null;
     }
     this.heard = { bar: step.bar, slot: step.slot };
-    if (step.doubleKick) this.doublePedal = true;
+    this.doublePedal = !!step.doubleKick;
     this.noteDownbeats(step);
     this.learnPercussion(step);
     this.sure.push(...scheduledHits(step, this.before, this.aux));
@@ -381,6 +382,7 @@ export class StrokeTimeline {
     this.aux = [];
     this.ones = [];
     this.nextOne = null;
+    this.doublePedal = false;
   }
 
   /** Every stroke known, scheduled and forecast, in time order. */
