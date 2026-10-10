@@ -60,6 +60,15 @@ export type CymbalVoice = 'hat' | 'ride';
  */
 export type Pins = Array<Partial<Record<LaneKey, number[]>> | undefined>;
 
+/**
+ * Per-bar written sticking (Phase 10, D44): one character a step — `R` the
+ * lead hand, `L` the other, `.` nothing written — or null for a bar with
+ * none. Lower case (`r`, `l`) is the same hand with its grace notes on that
+ * hand too: the single dragadiddle's drag is a diddle, not a drag from the
+ * other hand. Without a letter a step is the drummer's to choose.
+ */
+export type Sticking = Array<string | null>;
+
 export interface Pattern {
   name: string;
   /** Key of the `Style` row it was generated from. */
@@ -120,6 +129,12 @@ export interface Pattern {
   hasRide: boolean;
   hasHat: boolean;
   pins: Pins | null;
+  /**
+   * The hands written under the notes, a rudiment's R L R R. Absent on a
+   * pattern nobody wrote them for, which is almost all of them: the chart
+   * then prints its own guess and the drummer chooses.
+   */
+  sticking?: Sticking | null;
   bars: Bar[];
 }
 

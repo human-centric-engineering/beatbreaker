@@ -357,7 +357,8 @@ export interface BreakConsole {
    */
   regenerate: () => boolean;
   buildBFromA: () => void;
-  applyDoctor: (move: DoctorMove) => void;
+  /** False, and nothing done, when the section's style is not in the catalogue. */
+  applyDoctor: (move: DoctorMove) => boolean;
   cycleCell: (
     letter: SectionLetter,
     bar: number,
@@ -818,7 +819,6 @@ export function useBreakConsole(
     () => catalogue.styles[style] ?? Object.values(catalogue.styles)[0],
     [catalogue.styles, style]
   );
-  const styleParams = styleRow?.params;
 
   const report = useMemo(() => (view.A ? critique(view.A, bpm) : null), [view.A, bpm]);
   const checks = useMemo(() => (view.A ? playability(view.A, bpm) : null), [view.A, bpm]);
@@ -1095,25 +1095,31 @@ export function useBreakConsole(
   }, [patterns, editing, catalogue.styles, pushHistory, generate, bpm]);
 
   const buildBFromA = useCallback(() => {
-    if (!patterns.A || !styleParams) return;
+    // in A's own style, as the doctor is: never one the picker fell back to
+    const params = patterns.A && catalogue.styles[patterns.A.style]?.params;
+    if (!patterns.A || !params) return;
     pushHistory();
-    setPatterns((prev) => (prev.A ? { ...prev, B: deriveB(prev.A, styleParams) } : prev));
-  }, [patterns.A, styleParams, pushHistory]);
+    setPatterns((prev) => (prev.A ? { ...prev, B: deriveB(prev.A, params) } : prev));
+  }, [patterns.A, catalogue.styles, pushHistory]);
 
   /* ---- editing -------------------------------------------------------- */
 
   const applyDoctor = useCallback(
-    (move: DoctorMove) => {
+    (move: DoctorMove): boolean => {
       const pat = patterns[editing];
       /* A doctor's move writes new notes, so it needs the live style rather
-         than the snapshot the pattern carries. A pattern whose style is gone
-         can be played, scored and exported; it cannot be doctored, and the
-         panel's buttons are what say so. */
-      if (!pat || !styleParams) return;
+         than the snapshot the pattern carries — the section's own, as
+         Regenerate does, not whichever the picker fell back to. A pattern
+         whose style is gone (or never was one: a rudiment, D45) can be
+         played, scored and exported; it cannot be doctored, and the panel
+         says so. */
+      const params = pat && catalogue.styles[pat.style]?.params;
+      if (!pat || !params) return false;
       pushHistory();
-      setPatterns((prev) => ({ ...prev, [editing]: doctor(pat, styleParams, move) }));
+      setPatterns((prev) => ({ ...prev, [editing]: doctor(pat, params, move) }));
+      return true;
     },
-    [patterns, editing, styleParams, pushHistory]
+    [patterns, editing, catalogue.styles, pushHistory]
   );
 
   /**
@@ -1185,6 +1191,7 @@ export function useBreakConsole(
     const next = clonePattern(pat);
     for (const bar of next.bars) for (const lane of LANES) bar[lane].fill(0);
     next.pins = null;
+    delete next.sticking;
     setPatterns((prev) => ({ ...prev, [editing]: next }));
   }, [patterns, editing, pushHistory]);
 

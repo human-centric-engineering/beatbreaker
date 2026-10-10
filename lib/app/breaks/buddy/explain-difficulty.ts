@@ -59,7 +59,12 @@ export interface ExplainDifficultyData {
 function readBar(pat: Pattern, index: number, bpm: number): BarReading {
   const bar = pat.bars[index];
   const m = meterOfPat(pat);
-  const alone: Pattern = { ...pat, bars: [bar], pins: null };
+  const alone: Pattern = {
+    ...pat,
+    bars: [bar],
+    pins: null,
+    sticking: pat.sticking ? [pat.sticking[index] ?? null] : null,
+  };
   const doubles: string[] = [];
   for (let i = 0; i < bar.k.length - 1; i++) {
     if (bar.k[i] && bar.k[i + 1]) doubles.push(`kick ${describeStep(m, i)}`);

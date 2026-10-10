@@ -50,7 +50,17 @@ export function DoctorPanel() {
           </div>
           <div className="btnrow">
             {DOCTOR_MOVES.map(({ move, label }) => (
-              <button key={move} type="button" className="mini" onClick={() => c.applyDoctor(move)}>
+              <button
+                key={move}
+                type="button"
+                className="mini"
+                onClick={() => {
+                  if (!c.applyDoctor(move))
+                    say(
+                      `Section ${c.editing}'s style is not in the catalogue, so the doctor cannot work on it`
+                    );
+                }}
+              >
                 {label}
               </button>
             ))}

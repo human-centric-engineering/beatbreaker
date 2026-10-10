@@ -398,9 +398,32 @@ describe('generating and editing', () => {
     const before = result.current.patterns;
     act(() => result.current.setViewMode('B'));
     expect(result.current.editing).toBe('B');
-    act(() => result.current.applyDoctor('ghosts-'));
+    act(() => {
+      result.current.applyDoctor('ghosts-');
+    });
     expect(result.current.patterns.A).toBe(before.A);
     expect(result.current.patterns.B?.bars.every((b) => !b.s.includes(1))).toBe(true);
+  });
+
+  /* A pattern whose style is not in the catalogue — gone, or a rudiment that
+     never had one (D45) — is not doctored in whatever the picker fell back to. */
+  it('leaves a section alone, and says so, when its style is not in the catalogue', async () => {
+    const A = {
+      ...generatePattern({ style: catalogue.styles.funk, meter: '4/4', seed: 5, bars: 1 }),
+      style: 'rudiment',
+    };
+    const payload = sharePayloadSchema.parse(
+      JSON.parse(atob(encodeBreak({ bpm: 90, swing: 0, level: 5, arrangement: ['A'], A, B: A })))
+    );
+    const { result } = await mount({ id: 'p1', title: 'Rudiment', payload, mine: true });
+    const before = result.current.patterns;
+    let done = true;
+    act(() => {
+      done = result.current.applyDoctor('ghosts-');
+    });
+    expect(done).toBe(false);
+    act(() => result.current.buildBFromA());
+    expect(result.current.patterns).toBe(before);
   });
 
   it('with Both, edits the section under the playhead while it plays', () => {
@@ -430,7 +453,9 @@ describe('generating and editing', () => {
 
     /* …so a Doctor move lands on A and leaves B alone. */
     const before = result.current.patterns;
-    act(() => result.current.applyDoctor('ghosts-'));
+    act(() => {
+      result.current.applyDoctor('ghosts-');
+    });
     expect(result.current.patterns.B).toBe(before.B);
     expect(result.current.patterns.A).not.toBe(before.A);
 

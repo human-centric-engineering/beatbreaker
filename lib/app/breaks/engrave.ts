@@ -13,7 +13,7 @@ import {
   percInst,
 } from '@/lib/app/breaks/lanes';
 import { countLabelsOf, groupsOf, isEighths, isGroupStart, stepsOf } from '@/lib/app/breaks/meter';
-import { meterOfPat } from '@/lib/app/breaks/pattern';
+import { meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
 import type { Bar, Group, LaneKey, Meter, Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -51,7 +51,11 @@ export interface EngraveOptions {
   perSystem: number;
   /** Print the `1 e + a` counting row above each bar. */
   guides?: boolean;
-  /** Print the sticking / limb row below the staff. */
+  /**
+   * Print the sticking / limb row below the staff. A pattern with written
+   * sticking (a rudiment) prints its row whatever this says: the hands are
+   * what it is teaching.
+   */
   sticking?: boolean;
   /**
    * Draw rests. Default true; the notation key on `/help` turns them off,
@@ -161,6 +165,9 @@ function asSixteenths(p: Pattern): Pattern {
     meter: '4/4',
     backbeats: p.backbeats.map((x) => x * 2),
     bars: p.bars.map(bar),
+    sticking: p.sticking
+      ? p.sticking.map((row) => (row ? `${row.split('').join('.')}.` : row))
+      : null,
     pins: p.pins
       ? p.pins.map((b) => {
           if (!b) return b;
@@ -200,7 +207,8 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
   const percH = percLanes.length * percRowH;
   const upper = 6.6 * SP; // beams and accents live up here
   const hasFoot = lanes.includes(FOOT_LANE);
-  const lower = (opts.sticking ? 5.9 * SP : 4.5 * SP) + (hasFoot ? 0.6 * SP : 0);
+  const showSticking = !!opts.sticking || !!pat.sticking?.some(Boolean);
+  const lower = (showSticking ? 5.9 * SP : 4.5 * SP) + (hasFoot ? 0.6 * SP : 0);
   const sysH = guideH + percH + upper + 4 * SP + lower;
 
   const systems = Math.ceil(pat.bars.length / perSystem);
@@ -414,17 +422,26 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
       drawVoice({ ...voice, up: false, beamY: y(0) + 2.3 * SP });
 
       // sticking / limb row
-      if (opts.sticking) {
+      if (showSticking) {
         for (let i = 0; i < nSteps; i++) {
           let lab = '';
-          if (bar.h[i] || bar.r[i] || bar.c[i]) lab = 'R';
-          if (bar.s[i] || tomLanes.some((L) => !!bar[L][i])) lab = lab ? 'R L' : 'L';
+          const drum = !!bar.s[i] || tomLanes.some((L) => !!bar[L][i]);
           // a flam's grace is the right hand, a drag's two of them
           const graces = Math.max(
             gracesOf('s', bar.s[i]),
             ...tomLanes.map((L) => gracesOf(L, bar[L][i]))
           );
-          if (graces && lab === 'L') lab = `${'r'.repeat(graces)}L`;
+          const hand = stickingAt(pat.sticking, barIndex, i);
+          if (hand && (drum || bar.h[i] || bar.r[i] || bar.c[i])) {
+            // the hand written, its graces on the other hand unless written lower case
+            const main = hand.toUpperCase();
+            const grace = hand === main ? (main === 'R' ? 'l' : 'r') : hand;
+            lab = `${grace.repeat(graces)}${main}`;
+          } else {
+            if (bar.h[i] || bar.r[i] || bar.c[i]) lab = 'R';
+            if (drum) lab = lab ? 'R L' : 'L';
+            if (graces && lab === 'L') lab = `${'r'.repeat(graces)}L`;
+          }
           if (bar.k[i]) lab = lab ? `${lab.replace('R L', 'RL')} ●` : '●';
           if (bar[FOOT_LANE][i]) lab = lab ? `${lab}◦` : '◦';
           if (!lab) continue;

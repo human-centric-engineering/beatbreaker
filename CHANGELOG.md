@@ -18,6 +18,16 @@ release process.
 
 ### Added
 
+- **Written sticking on a pattern (BeatBreaker Phase 10-a).** A pattern may
+  carry `sticking`, one R/L string per bar, packed in a share code or a
+  `Break.doc` as an optional `sk` beside `pn`. It is additive on wire version
+  5: an older reader drops it, and `sharePayloadSchema` refuses a row that is
+  not `.RLrl`. The chart prints written sticking under the notes, the 3D
+  drummer plays each written step with that hand (`assignBar` takes the rows
+  as a fifth argument), and `playability` does not fail a written run of
+  snare notes. The doctor and "build B from A" now work only in the section's
+  own style, not whichever style the picker fell back to.
+
 - **Written-out styles, swing ranges, and jazz, blues and rock widened.**
   A style's params may now carry `figures` (whole bars written out, per lane,
   weighted) and `fills` (written to the end of a bar), which the generator

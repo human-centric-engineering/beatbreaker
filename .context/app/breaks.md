@@ -126,6 +126,7 @@ itself. All three are checked by the same schema.
     "bl": "s",         // backbeat lane
     "hr": 0, "hh": 0,  // style writes its own ride / hat pattern
     "pn": [0, { "s": "0020…" }],   // pins per bar: layer digits 0–5, or 0
+    "sk": ["RLRRLRLL…", 0],        // written sticking per bar, or 0 — optional (Phase 10)
     "b": ["1000100010001000|0000100000001000|…"]   // 1–8 bars
   },
   "B": { … }
@@ -138,6 +139,19 @@ version's values:** one that says `ver` 4 or lower may carry only what v4
 could (`V4_LANE_MAX`), so a rimshot under a v4 header is a 400, and a stored
 v4 row is repaired into v4's ranges, not v5's. A v4 code decodes to the bars
 it always held and re-encodes to the same bars as v5.
+
+**`sk` is written sticking (Phase 10, D44)**, one character a step: `R` the
+lead hand, `L` the other, `.` nothing written, and `r`/`l` for a hand whose
+grace notes are on the same stick (the single dragadiddle). It is optional and
+additive, like `sg`, so it did not take a new version. An older reader strips
+it and the drummer chooses the hands. A row is held to its bar on the way in:
+padded or cut to the bar's length, and a row past the last bar is dropped.
+Anything but those five characters is a 400, and a stored row is repaired to
+`.` instead. Only rudiments carry it today. On a pattern it is
+`Pattern.sticking`: the chart prints it whatever the sticking toggle says, the
+3D drummer plays each written step with its hand, and the critic does not call
+a written run of snare notes unplayable. Clearing a section or BeatBuddy
+writing a bar takes the sticking with the notes.
 
 **Version 4 is what makes a pattern stand on its own.** `sa` is a snapshot of
 the five style attributes playback, the critic and the MIDI export read, so a

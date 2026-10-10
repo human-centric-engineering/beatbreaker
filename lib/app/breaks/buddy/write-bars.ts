@@ -4,7 +4,7 @@ import { type EditData, describeEdit, editWorkspace } from '@/lib/app/breaks/bud
 import { playability } from '@/lib/app/breaks/critic';
 import { DEFAULT_PERC, LANES, PERC_LANES } from '@/lib/app/breaks/lanes';
 import { METER_KEYS, meterOf, remapList } from '@/lib/app/breaks/meter';
-import { clonePattern } from '@/lib/app/breaks/pattern';
+import { clonePattern, tidySticking } from '@/lib/app/breaks/pattern';
 import { type TextBar, fromText, notationKey } from '@/lib/app/breaks/text';
 import { type TidyRule, tidy } from '@/lib/app/breaks/tidy';
 import type { Bar, Pattern } from '@/lib/app/breaks/types';
@@ -59,7 +59,7 @@ const MAX_PROBLEMS = 6;
 function problemsOf(pat: Pattern, written: TextBar[], bpm: number): string[] {
   const problems: string[] = [];
   for (const { number, bar } of written) {
-    const alone: Pattern = { ...pat, bars: [bar], pins: null };
+    const alone: Pattern = { ...pat, bars: [bar], pins: null, sticking: null };
     /* tidy() on the bar alone reports its bar as 1; the writer called it N.
        Its ride-clash note names the beat, so it stands in for the critic's. */
     for (const change of tidy(alone).changes) {
@@ -142,6 +142,7 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
     next.bars = [...read.bars].sort((a, b) => a.number - b.number).map((b) => b.bar);
     next.meter = meterKey;
     next.pins = null;
+    next.sticking = null;
     const found = backbeatsOf(next.bars);
     next.backbeats = found.length
       ? found
@@ -151,7 +152,10 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
       next.bars[number - 1] = bar;
       // a pin records the layer a note was placed at; these notes are new
       if (next.pins?.[number - 1]) next.pins[number - 1] = undefined;
+      // and the hands written for the old ones are not theirs
+      if (next.sticking?.[number - 1]) next.sticking[number - 1] = null;
     }
+    next.sticking = tidySticking(next.sticking);
   }
 
   /* A lane the writer used is a lane the chart must show, or the notes would

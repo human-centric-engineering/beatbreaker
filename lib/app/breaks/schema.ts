@@ -118,6 +118,9 @@ export const styleAttrsSchema = z.object({
     .optional(),
 });
 
+/** A row of written sticking: a hand or `.` a step (D44). */
+const STICKING_ROW = /^[.RLrl]*$/;
+
 export const patternSchema = z.object({
   name: z.string().max(120),
   style: styleKey,
@@ -137,6 +140,7 @@ export const patternSchema = z.object({
   hasRide: z.boolean(),
   hasHat: z.boolean(),
   pins: z.array(z.record(laneKey, z.array(z.number().int().min(0).max(5))).nullable()).nullable(),
+  sticking: z.array(z.string().max(32).regex(STICKING_ROW).nullable()).max(8).nullable().optional(),
   bars: z.array(barSchema).min(1).max(8),
 });
 
@@ -273,6 +277,15 @@ export const packedPatternSchema = z.object({
         .max(8),
     ])
     .optional(),
+  /**
+   * Written sticking, per bar: a hand or `.` a step, or `0` for a bar with
+   * none (D44). Optional and additive, as `sg` is, so no new version: an
+   * older reader drops it and the drummer chooses the hands, as it always did.
+   */
+  sk: z
+    .array(z.union([z.literal(0), z.string().max(MAX_ROW).regex(STICKING_ROW)]))
+    .max(8)
+    .optional(),
   /** bars, each one every lane's row joined by `|` */
   b: z.array(packedBar).min(1).max(8),
 });
@@ -389,6 +402,13 @@ function repairPacked(p: unknown, v5: boolean): unknown {
       }
       return o;
     });
+  }
+  if (Array.isArray(p.sk)) {
+    out.sk = p.sk
+      .slice(0, 8)
+      .map((row) =>
+        typeof row === 'string' ? row.slice(0, MAX_ROW).replace(/[^.RLrl]/g, '.') : 0
+      );
   }
   return out;
 }

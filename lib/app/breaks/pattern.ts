@@ -18,6 +18,7 @@ import type {
   Pattern,
   PercLaneKey,
   Pins,
+  Sticking,
   Style,
   StyleAttrs,
 } from '@/lib/app/breaks/types';
@@ -91,6 +92,7 @@ export function clonePattern(p: Pattern): Pattern {
     hasRide: !!p.hasRide,
     hasHat: !!p.hasHat,
     pins: clonePins(p.pins),
+    ...(p.sticking ? { sticking: p.sticking.slice() } : {}),
     backbeats: p.backbeats.slice(),
     bars: p.bars.map(cloneBar),
   };
@@ -150,6 +152,42 @@ export function clonePins(pins: Pins | null): Pins | null {
     }
     return o;
   });
+}
+
+/* ---- sticking ------------------------------------------------------
+   The hands written under the notes (D44). A bar's row is a string, so a
+   copy of the array is a copy of the sticking: nothing edits a row in place.
+   -------------------------------------------------------------------- */
+
+/** A written hand: `R` lead, `L` other; lower case keeps the graces on that hand. */
+export type WrittenHand = 'R' | 'L' | 'r' | 'l';
+
+/** The hand written at a step of a bar, or null where nothing is. */
+export function stickingAt(
+  sticking: Sticking | null | undefined,
+  bi: number,
+  i: number
+): WrittenHand | null {
+  const ch = sticking?.[bi]?.[i];
+  return ch === 'R' || ch === 'L' || ch === 'r' || ch === 'l' ? ch : null;
+}
+
+/**
+ * A sticking row as a bar of `n` steps reads it: cut or padded with `.`, and
+ * anything that is not a hand read as no hand. Null when it writes none.
+ */
+export function stickingRow(row: string | null | undefined, n: number): string | null {
+  if (!row) return null;
+  const out = row
+    .slice(0, n)
+    .replace(/[^RLrl]/g, '.')
+    .padEnd(n, '.');
+  return /[RLrl]/.test(out) ? out : null;
+}
+
+/** Sticking with no bar left that writes anything is no sticking at all. */
+export function tidySticking(sticking: Sticking | null | undefined): Sticking | null {
+  return sticking?.some(Boolean) ? sticking : null;
 }
 
 /* ---- roster --------------------------------------------------------- */
