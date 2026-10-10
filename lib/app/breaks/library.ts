@@ -33,6 +33,9 @@ import type { Bar, CymbalVoice, LaneKey, Pattern, ResolvedStyle } from '@/lib/ap
  */
 export const RUDIMENT_STYLE = 'rudiment';
 
+/** The rudiments' library key: shown in Generate rather than among the libraries. */
+export const RUDIMENTS_LIBRARY = 'rudiments';
+
 /** What a style key reads as where the catalogue has no row for it: the key, or "Rudiment". */
 export function unlistedStyleLabel(key: string): string {
   return key === RUDIMENT_STYLE ? 'Rudiment' : key;

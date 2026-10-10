@@ -34,7 +34,7 @@ import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { breakPayload } from '@/lib/app/breaks/share';
 import type { HistoryItem } from '@/lib/validations/history';
 import type { PracticeShelvesView } from '@/lib/validations/pins';
-import { testCatalogue, testStyle } from '@/tests/helpers/catalogue';
+import { testCatalogue, testRudiments, testStyle } from '@/tests/helpers/catalogue';
 import { pickOption } from '@/tests/helpers/select-menu';
 
 const catalogue = testCatalogue();
@@ -107,14 +107,16 @@ function mount({
   pins,
   history,
   panel = <PatternsPanel />,
+  cat = catalogue,
 }: {
   initial?: InitialPattern;
   pins?: PracticeShelvesView;
   history?: HistoryItem[];
   panel?: React.ReactNode;
+  cat?: typeof catalogue;
 }) {
   return render(
-    <StudioProvider catalogue={catalogue} initial={initial} pins={pins} history={history}>
+    <StudioProvider catalogue={cat} initial={initial} pins={pins} history={history}>
       {panel}
       <ToastProbe />
     </StudioProvider>
@@ -421,6 +423,15 @@ describe('PatternsPanel — Libraries', () => {
       ENTRIES.filter((e) => e.meter === '12/8' && e.styleKey === ENTRY.styleKey).length
     );
     expect(apiClient.get).not.toHaveBeenCalled(); // test-review:accept no_arg_called — the libraries are in the page
+  });
+
+  it('leaves the rudiments to Generate', () => {
+    mount({
+      pins: NONE,
+      cat: { ...catalogue, libraries: [...catalogue.libraries, testRudiments()] },
+    });
+    expect(rows()).toHaveLength(ENTRIES.length);
+    expect(screen.queryByText('Single Paradiddle')).toBeNull();
   });
 
   it('says when nothing matches', async () => {

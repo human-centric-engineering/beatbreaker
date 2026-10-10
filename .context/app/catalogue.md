@@ -392,7 +392,9 @@ libraries — 47 famous breaks (`data/library.ts`) and 40 rudiments
   makes B a copy of A, and Regenerate and the doctor refuse it.
   `unlistedStyleLabel` shows the key as "Rudiment" in the drawer, the picker
   and the stage. The rolls are written open (diddles as 16ths), because there
-  is no 32nd-note meter.
+  is no 32nd-note meter. **They are shown in Generate, not the Libraries
+  tab:** `RudimentsCard` lists the library keyed `RUDIMENTS_LIBRARY` on its
+  shelves, and the Patterns drawer's Libraries tab leaves it out.
 - Library entries are **converted to wire-v4 documents at seed time** by
   `patternFromLibrary` + `packPattern`, with the style's snapshot baked in. A
   client shows an entry without the bar-string parser, and retuning a style later

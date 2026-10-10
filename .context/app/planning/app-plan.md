@@ -3348,6 +3348,18 @@ went up as one PR: the model alone has nothing to look at. Findings:
   picker and the stage.
 - **Flams play near an accent (0.9) and drags just above a tap (0.82).** That
   is how the rudiments want them, so no accented flam value was needed.
+- **The owner moved them to Generate** after a first look: in the Libraries
+  tab, below 47 breaks, they were hard to find. They are a card of their own
+  there, a folding shelf each, and the Libraries tab leaves them out.
+- **The sticks crossed on the snare.** Each note landed at a seeded point
+  within 2.8 cm of the centre whichever hand played it, so hand to hand the
+  right tip often landed left of the left one. Each hand now keeps to its own
+  side of a drum (`HAND_SIDE`, 2.6 cm), the scatter halved inside it: a V.
+- **The ride arm was hoisted.** The elbow swung up to give the stick all of
+  the ride's aimed pitch, as it does for a crash. The ride now takes 35% of it
+  from the elbow (`RIDE_SWING`) and the rest from the wrist: the shoulder at
+  58° at most, from 66°. Lower than that and the stick stops rebounding up
+  off the bow, which a test holds.
 - **No browser check** (the owner is on Arc). The hook test opens a rudiment
   from the catalogue, and the seed test reads all forty back.
 

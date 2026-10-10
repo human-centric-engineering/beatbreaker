@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import type { Tool } from '@/components/app/shell/tool-rail';
 import { Slider } from '@/components/app/studio/panels/controls';
+import { RudimentsCard } from '@/components/app/studio/panels/rudiments-card';
 import { ScoreCard } from '@/components/app/studio/panels/score-card';
 import { Segmented } from '@/components/app/studio/segmented';
 import { StylePicker } from '@/components/app/studio/style-picker';
@@ -317,6 +318,8 @@ export function GeneratePanel({
           </div>
         </div>
       </div>
+
+      <RudimentsCard onClose={onClose} />
 
       <ScoreCard />
     </>

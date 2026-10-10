@@ -19,7 +19,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { GeneratePanel } from '@/components/app/studio/panels/generate-panel';
 import { Stage } from '@/components/app/studio/stage';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
-import { testCatalogue } from '@/tests/helpers/catalogue';
+import { testCatalogue, testRudiments } from '@/tests/helpers/catalogue';
 import { pickStyle } from '@/tests/helpers/style-picker';
 import { openMenu, pickOption } from '@/tests/helpers/select-menu';
 
@@ -216,5 +216,41 @@ describe('GeneratePanel', () => {
     // the break on the stage is a new one, in the style just picked
     expect(screen.getByTestId('on-stage')).toHaveTextContent('reggae');
     expect(onClose).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('GeneratePanel — the rudiments', () => {
+  function OnStage() {
+    const c = useStudio();
+    return <div data-testid="on-stage">{c.view.A?.name}</div>;
+  }
+
+  it('lists the forty on their shelves, and opens one on the stage and closes', async () => {
+    const user = userEvent.setup();
+    const onClose = vi.fn();
+    const base = testCatalogue();
+    render(
+      <StudioProvider catalogue={{ ...base, libraries: [...base.libraries, testRudiments()] }}>
+        <GeneratePanel onClose={onClose} />
+        <OnStage />
+      </StudioProvider>
+    );
+    const card = (await screen.findByRole('heading', { name: 'Rudiments' })).closest('.card');
+    expect(card).not.toBeNull();
+    const shelves = card!.querySelectorAll('details.rudiment-shelf');
+    expect(shelves).toHaveLength(6);
+
+    await user.click(within(card as HTMLElement).getByText(/Diddle rudiments/));
+    await user.click(
+      within(card as HTMLElement).getByRole('button', { name: /Single Paradiddle PAS #16/ })
+    );
+    expect(screen.getByTestId('on-stage')).toHaveTextContent('Single Paradiddle');
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('shows no card without the library', async () => {
+    renderPanel();
+    await screen.findByRole('heading', { name: 'Style and shape' });
+    expect(screen.queryByRole('heading', { name: 'Rudiments' })).toBeNull();
   });
 });

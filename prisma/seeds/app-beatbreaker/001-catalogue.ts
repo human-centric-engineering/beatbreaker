@@ -13,7 +13,7 @@ import {
 } from '@/lib/app/breaks/catalogue/schemas';
 import { KIT_GROUP_LABELS, kitEngine } from '@/lib/app/breaks/kit';
 import { KIT_CREDITS } from '@/lib/app/breaks/kit-credits.generated';
-import { type LibraryItem, patternFromLibrary } from '@/lib/app/breaks/library';
+import { type LibraryItem, RUDIMENTS_LIBRARY, patternFromLibrary } from '@/lib/app/breaks/library';
 import { packPattern } from '@/lib/app/breaks/share';
 import type { ResolvedStyle } from '@/lib/app/breaks/types';
 import { KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
@@ -395,7 +395,7 @@ const LIBRARIES: SeededLibrary[] = [
     items: LIBRARY,
   },
   {
-    key: 'rudiments',
+    key: RUDIMENTS_LIBRARY,
     title: 'Rudiments',
     description:
       'The forty International Drum Rudiments, on the snare with the sticking written under every note. ' +

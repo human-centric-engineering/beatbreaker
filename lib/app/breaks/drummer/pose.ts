@@ -192,6 +192,11 @@ interface Target {
   /** A cymbal or the hats: the stick must come down onto its bow at the pitch it is aimed. */
   cymbal?: boolean;
   /**
+   * How much of the aimed pitch the elbow swings up to give it, where that is
+   * not a cymbal's all of it (see `pitchShare`): the ride's.
+   */
+  swing?: number;
+  /**
    * How far this note's stroke leans off the stick's straight-up plane,
    * radians about the vertical at the fulcrum: the stick goes up a little to
    * one side and comes down along the same line onto the note.
@@ -238,7 +243,7 @@ function targetOf(hit: Hit | undefined, hand: Hand, hat: HatAt): Target {
   if (piece === 'snare' && hit?.contact === 'cross') return crossTarget(hand);
   if (piece === 'snare' && hit?.contact === 'rim') return rimTarget(hand);
   const scatter = hit ? scatterOf(hit, hand) : undefined;
-  const { tip, pitch } = strikeTarget(piece, hit?.contact, scatter);
+  const { tip, pitch } = strikeTarget(piece, hit?.contact, scatter, hit ? hand : undefined);
   const out = v(tip);
   // the top hat cymbal rides up as the pedal opens, and the hi-hat may have moved over
   if (piece === 'hat') out.add(v(hat.shift)).setY(out.y + hat.gap - HAT_CLOSED_GAP);
@@ -247,6 +252,7 @@ function targetOf(hit: Hit | undefined, hand: Hand, hat: HatAt): Target {
     tip: out,
     pitch,
     cymbal: PIECES[piece].kind === 'cymbal' || PIECES[piece].kind === 'hat',
+    ...(piece === 'ride' ? { swing: RIDE_SWING } : {}),
     lean: scatter ? STROKE_LEAN * (0.6 * scatter[0] + 0.4 * scatter[2]) : 0,
     roll: hit ? (ROLL[piece] ?? ROLL_DRUM) : ROLL_REST,
   };
@@ -844,10 +850,18 @@ function gripRoll(style: GripStyle, american: number): number {
  * about for nothing.
  */
 function pitchShare(p: HandPath): number {
-  const at = (t: Target) => (t.cymbal ? 1 : PITCH_DRUM);
+  const at = (t: Target) => t.swing ?? (t.cymbal ? 1 : PITCH_DRUM);
   return at(p.from) + (at(p.to) - at(p.from)) * p.travel;
 }
 const PITCH_DRUM = 0;
+/**
+ * The ride's share: under half. A drummer keeping time on the ride does it
+ * with the arm hanging relaxed from the shoulder, the elbow down by the side
+ * and the wrist and fingers doing the work; the elbow is not hoisted out to
+ * level the stick, as it is for a crash. Enough of it still comes from the
+ * elbow that the stick comes down onto the bow rather than up under it.
+ */
+const RIDE_SWING = 0.35;
 
 /** How much more a matched forearm turns toward thumb-up for a cymbal than American grip's hand rolls for it. */
 const CYMBAL_TURN = 2.5;

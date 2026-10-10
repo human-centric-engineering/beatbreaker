@@ -33,8 +33,10 @@ release process.
   Drum Rudiments on six shelves, each on the snare alone with its sticking
   written, seeded from `data/rudiments.ts`. `LibraryItem` gains `lanes`,
   `fixed` (every note pinned at layer 1) and a per-bar `hands` row, and the
-  catalogue seed writes every library in its `LIBRARIES` list. Rudiments are
-  practice-session targets like any other library entry.
+  catalogue seed writes every library in its `LIBRARIES` list. The Studio
+  shows them in the Generate drawer, on folding shelves, not in the
+  Libraries tab. Rudiments are practice-session targets like any other
+  library entry.
 
 - **Written-out styles, swing ranges, and jazz, blues and rock widened.**
   A style's params may now carry `figures` (whole bars written out, per lane,
