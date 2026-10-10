@@ -51,6 +51,7 @@ export function ToolDrawer({
   const [lastTool, setLastTool] = useState<Tool | null>(tool);
   if (tool !== null && tool !== lastTool) setLastTool(tool);
   const shown = tool ?? lastTool;
+  const closedByPress = useRef(false);
 
   return (
     <Dialog.Root open={tool !== null} onOpenChange={(open) => !open && onClose()} modal={false}>
@@ -60,14 +61,25 @@ export function ToolDrawer({
           className={wide ? 'studio-drawer' : 'studio-sheet'}
           data-tool={shown ?? undefined}
           aria-describedby={undefined}
-          onInteractOutside={(e) => {
-            /* Non-modal: clicking the chart, the transport or another tab must
-               not dismiss what you are working in. */
+          onPointerDownOutside={(e) => {
+            /* Non-modal, mostly: the transport, the header and the rail's tabs
+               (which toggle drawers themselves) leave what you are working in
+               open, and so does a list a dropdown in the drawer opened outside
+               it. A press on the main screen, the chart, puts it away. */
+            const at = e.detail.originalEvent.target;
+            if (at instanceof Element && at.closest('.studio-stage')) {
+              closedByPress.current = true;
+              return;
+            }
             e.preventDefault();
           }}
+          onFocusOutside={(e) => e.preventDefault()}
           onCloseAutoFocus={(e) => {
             e.preventDefault();
-            onReturnFocus();
+            /* Closed by a press on the chart, focus stays where you pressed
+               rather than jumping back to the rail. */
+            if (closedByPress.current) closedByPress.current = false;
+            else onReturnFocus();
           }}
         >
           {wide ? (

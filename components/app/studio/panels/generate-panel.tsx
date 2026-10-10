@@ -32,15 +32,17 @@ export function GeneratePanel({
      is written once the pick has landed: on a new pattern the style is held as
      a setting, and a New in the same tick would still read the old one. */
   const [picked, setPicked] = useState<string | null>(null);
-  const { newBreak } = c;
+  const { newBreak, restartFromTop } = c;
   useEffect(() => {
     if (!picked) return;
     // the pick and the style land in one render: anything else is a pick that did not take
     setPicked(null);
     if (c.style !== picked) return;
+    // playing, it goes back to the top and counts in to the new groove
+    restartFromTop();
     newBreak('both');
     onClose?.();
-  }, [picked, c.style, newBreak, onClose]);
+  }, [picked, c.style, newBreak, restartFromTop, onClose]);
   const { styles, styleGroups, kits } = c.catalogue;
 
   const sections = useMemo(

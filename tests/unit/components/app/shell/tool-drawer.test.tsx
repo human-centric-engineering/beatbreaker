@@ -6,15 +6,16 @@
  * The Studio's tool container: a Radix `Dialog` in non-modal mode that renders
  * either the wide right-hand `DrawerBody` or the hand-rolled two-snap
  * `SheetBody`. Non-modal is the whole point (`.context/app/shell.md`): the
- * chart stays live, so a click outside must not close it, and closing must
- * hand focus back to whatever opened the drawer rather than wherever Radix's
- * default autofocus would put it.
+ * transport and the rail stay live, so a press on them must not close it; a
+ * press on the chart puts it away. Closing by its own means hands focus back
+ * to whatever opened the drawer rather than wherever Radix's default
+ * autofocus would put it.
  *
  * What's pinned here is the behaviour Spike A actually found bugs in
  * (`.context/app/spike-drawers.md`):
  *
- * - non-modal `onInteractOutside` is prevented (finding: drawer stays open
- *   when the chart is clicked)
+ * - non-modal: an outside press is prevented, bar one on the chart (`.studio-stage`),
+ *   which closes it
  * - `onCloseAutoFocus` is prevented and `onReturnFocus` fires instead (finding:
  *   focus returns to the rail button that opened it)
  * - the sheet's pointer capture only engages after 4px of movement (finding 3:
@@ -111,6 +112,9 @@ function renderWithOutsideControl(tool: Tool | null = 'gen') {
   render(
     <>
       <button type="button">Outside chart control</button>
+      <div className="studio-stage">
+        <button type="button">A cell on the chart</button>
+      </div>
       <ToolDrawer tool={tool} wide onClose={onClose} onReturnFocus={onReturnFocus} container={null}>
         <button type="button">Panel action</button>
       </ToolDrawer>
@@ -213,17 +217,28 @@ describe('ToolDrawer', () => {
   });
 
   describe('non-modal behaviour', () => {
-    it('does not close when a click lands outside the drawer — the chart must stay reachable while a tool is open', async () => {
+    it('does not close when a press lands outside the drawer but off the chart — the transport and the rail stay reachable while a tool is open', async () => {
+      const user = userEvent.setup();
       const { onClose } = renderWithOutsideControl('gen');
       // Radix's outside-pointerdown listener attaches via a 0ms timeout after mount.
       await new Promise((resolve) => setTimeout(resolve, 10));
 
-      fireEvent.pointerDown(screen.getByRole('button', { name: 'Outside chart control' }), {
-        bubbles: true,
-      });
+      // a real press: a bare synthetic pointerdown never reaches Radix's listener here
+      await user.click(screen.getByRole('button', { name: 'Outside chart control' }));
 
       expect(onClose).not.toHaveBeenCalled();
       expect(screen.getByRole('dialog')).toBeInTheDocument();
+    });
+
+    it('closes on a press on the main screen, the chart, and leaves focus where it was pressed', async () => {
+      const user = userEvent.setup();
+      const { onClose, onReturnFocus } = renderWithOutsideControl('gen');
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      await user.click(screen.getByRole('button', { name: 'A cell on the chart' }));
+
+      expect(onClose).toHaveBeenCalledTimes(1);
+      expect(onReturnFocus).not.toHaveBeenCalled();
     });
 
     it("still closes on Escape — Radix's own dismiss path, which is the only way `onOpenChange` (and so `onClose`) fires other than the close button", async () => {

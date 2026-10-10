@@ -225,7 +225,12 @@ export class Transport {
     private readonly cb: TransportCallbacks
   ) {}
 
-  start(): boolean {
+  /**
+   * Play from the top of the arrangement, after the count-in: the setting's,
+   * or `countIn` bars where the caller asks for its own (a restart counts in
+   * even when the setting is None).
+   */
+  start(opts: { countIn?: number } = {}): boolean {
     const ctx = this.audio.init();
     if (!ctx) return false;
     this.audio.resume();
@@ -237,7 +242,7 @@ export class Transport {
     this.seqIndex = 0;
     this.queue = [];
     this.loops = 0;
-    this.countLeft = snap.countIn * patSteps(snap.patterns.A);
+    this.countLeft = (opts.countIn ?? snap.countIn) * patSteps(snap.patterns.A);
     this.nextTime = ctx.currentTime + 0.08;
     this.playing = true;
     if (this.countLeft === 0) this.cb.onDownbeat?.(this.nextTime);

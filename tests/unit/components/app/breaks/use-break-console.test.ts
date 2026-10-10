@@ -806,6 +806,32 @@ describe('playing', () => {
     expect(result.current.position).toBeNull();
   });
 
+  it('goes back to the top and counts in again when the next break replaces a playing one', async () => {
+    const { result } = await mount();
+    // no count-in of your own: the restart counts in a bar anyway
+    act(() => result.current.setCountIn(0));
+    act(() => result.current.togglePlay());
+    const audio = fakes.made.audio.at(-1)!;
+    expect(audio.resume).toHaveBeenCalledTimes(1);
+    const clicks = audio.click.mock.calls.length;
+
+    act(() => result.current.restartFromTop());
+    act(() => result.current.newBreak());
+    expect(result.current.playing).toBe(true);
+    expect(audio.resume).toHaveBeenCalledTimes(2);
+    expect(audio.click.mock.calls.length).toBeGreaterThan(clicks);
+  });
+
+  it('leaves a stopped break stopped, and asks nothing of a later one', async () => {
+    const { result } = await mount();
+    act(() => result.current.restartFromTop());
+    act(() => result.current.newBreak());
+    expect(result.current.playing).toBe(false);
+    act(() => result.current.togglePlay());
+    act(() => result.current.newBreak());
+    expect(fakes.made.audio.at(-1)!.resume).toHaveBeenCalledTimes(1);
+  });
+
   it('stays usable without Web Audio', async () => {
     fakes.state.hasAudio = false;
     const { result } = await mount();

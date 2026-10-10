@@ -691,7 +691,10 @@ release process.
   sampled kits under one heading, **Sampled Recordings**, and kits are named
   for their sound (`Sixties Ludwig`, `Damped and dead`, `Bright and tight`,
   `Small and dry`). Picking a style writes a new break in it and closes the
-  drawer. Edit gains **Regenerate**: a new take of the section, in its own
+  drawer; if the break was playing, it goes back to the top and counts in
+  (a bar at least) to the new one (`restartFromTop`, and
+  `Transport.start({ countIn })`). A press on the chart closes an open
+  drawer; the transport and the rail still leave it open. Edit gains **Regenerate**: a new take of the section, in its own
   style, song, meter and length, never the same notes again.
 
 - **The drummers play sampled kits only.** `sixties` is now SM Drums' 1960s

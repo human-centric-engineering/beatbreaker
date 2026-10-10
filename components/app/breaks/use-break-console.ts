@@ -349,6 +349,8 @@ export interface BreakConsole {
   setSize: (n: number) => void;
 
   newBreak: (which?: SectionLetter | 'both') => void;
+  /** If playing: start again from the top, with a count-in, once the next break is on the stage. */
+  restartFromTop: () => void;
   /**
    * A different take of the section being edited, in its own style and song.
    * False, and nothing written, when that style is no longer in the catalogue.
@@ -1469,8 +1471,19 @@ export function useBreakConsole(
   );
 
   const snapshotRef = useRef(snapshot);
+  /* A restart waiting for the pattern it is for (see `restartFromTop`): the A
+     it was asked over, so it fires once a different one is on the stage. */
+  const restartOver = useRef<Pattern | null | undefined>(undefined);
   useEffect(() => {
     snapshotRef.current = snapshot;
+    /* Here, once the transport can see the new pattern, and not when it was
+       asked for: started then, it would count into the old one. */
+    const t = transportRef.current;
+    if (restartOver.current === undefined || snapshot.patterns.A === restartOver.current) return;
+    restartOver.current = undefined;
+    if (!t?.playing) return;
+    t.stop();
+    if (t.start({ countIn: Math.max(1, snapshot.countIn) })) setPlaying(true);
   }, [snapshot]);
 
   /* ---- the kit, and your tuning of it --------------------------------- */
@@ -1694,6 +1707,16 @@ export function useBreakConsole(
     const t = transportRef.current;
     if (t?.playing) t.stop();
   }, []);
+
+  /**
+   * When the break on the stage changes next, and only if it is playing: go
+   * back to the top and count in again (a bar at least), rather than carry on
+   * mid-bar in somebody else's groove. Picking a style asks for this.
+   */
+  const restartFromTop = useCallback(() => {
+    if (!transportRef.current?.playing) return;
+    restartOver.current = patterns.A;
+  }, [patterns.A]);
 
   /* A practice tempo, as the trainer's ramp sets it: the pattern's own tempo
      (`baseBpm`) is not moved. Down to 40, the slowest a session plays. */
@@ -2143,6 +2166,7 @@ export function useBreakConsole(
     size,
     setSize,
     newBreak,
+    restartFromTop,
     regenerate,
     buildBFromA,
     applyDoctor,
