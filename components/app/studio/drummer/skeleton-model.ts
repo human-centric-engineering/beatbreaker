@@ -158,9 +158,32 @@ function thumbEnd(cmc: number, mcp: number, ip: number): [number, number] {
  * an end-joint bend of `tip`: flexed at the CMC and the MCP, the IP a little
  * more than the MCP, each inside its range (`ROM.thumbMcp`, `ROM.thumbIp`) —
  * the nearest it can get where the dressed thumb asks more than a thumb has.
- * Found by a few Gauss–Newton steps from a half-bent thumb.
+ * Found by a few Gauss–Newton steps from a half-bent thumb, and kept: the
+ * grip's thumb sits at one bend nearly all the time.
  */
-export function fitThumb(tip: number): { cmc: number; mcp: number; ip: number } {
+export function fitThumb(tip: number): ThumbFit {
+  const key = Math.round(tip * 1e4);
+  const known = FITS.get(key);
+  if (known) return known;
+  const fit = solveThumb(key / 1e4);
+  if (FITS.size >= FITS_KEPT) FITS.clear();
+  FITS.set(key, fit);
+  return fit;
+}
+
+interface ThumbFit {
+  cmc: number;
+  mcp: number;
+  ip: number;
+}
+
+/** A thumb made wholly into a shape needs no fit: its angles are the shape's. */
+const STRAIGHT_THUMB: ThumbFit = { cmc: 0, mcp: 0, ip: 0 };
+/** Fits already found, by the end-joint bend to a ten-thousandth of a radian; and how many are kept. */
+const FITS = new Map<number, ThumbFit>();
+const FITS_KEPT = 256;
+
+function solveThumb(tip: number): ThumbFit {
   const want: [number, number] = [
     -DRESSED_THUMB[1] * Math.sin(tip),
     DRESSED_THUMB[0] + DRESSED_THUMB[1] * Math.cos(tip),
@@ -383,9 +406,9 @@ function poseArm(
   bendFingers(rig.hand.fingers, set);
   rig.hand.thumb.rotation.set(...set.thumb, 'YXZ');
   // holding a stick, the thumb's tip goes where the grip was fitted; made into a shape, the
-  // shape's own angles
-  const fit = fitThumb(set.thumbTip);
+  // shape's own angles. The fit is to the grip alone, so the shape is mixed in once
   const k = set.shaped;
+  const fit = k >= 1 ? STRAIGHT_THUMB : fitThumb(set.thumbHeld);
   rig.hand.thumbJoints[0].rotation.x = fit.cmc * (1 - k);
   rig.hand.thumbJoints[1].rotation.x = fit.mcp + (set.thumbMcp - fit.mcp) * k;
   rig.hand.thumbJoints[2].rotation.x = fit.ip + (set.thumbTip - fit.ip) * k;

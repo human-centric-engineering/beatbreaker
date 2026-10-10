@@ -18,7 +18,7 @@ import {
   showOverlaps,
 } from '@/lib/app/breaks/drummer/gesture';
 import type { Hand } from '@/lib/app/breaks/drummer/kit-layout';
-import { poseAt, twirlAt } from '@/lib/app/breaks/drummer/pose';
+import { gripsFor, poseAt, twirlAt } from '@/lib/app/breaks/drummer/pose';
 import { StrokeTimeline } from '@/lib/app/breaks/drummer/timeline';
 import { stepWithHit } from '@/tests/helpers/drummer-fixtures';
 
@@ -69,6 +69,15 @@ describe('showAt', () => {
     const hits = busy.all().filter((h) => h.limb === 'lead' || h.limb === 'other');
     expect(hits.length).toBeGreaterThan(0);
     expect(showAt(s.start + 2, 0, hits)).toBeNull();
+  });
+
+  it('leaves the stick twirls be for a show a note keeps off', () => {
+    const s = ALL[0];
+    const busy = new StrokeTimeline();
+    busy.ingest(stepWithHit({ lane: 's', value: 1, at: s.start + 2 }));
+    const hits = busy.all().filter((h) => h.limb === 'lead' || h.limb === 'other');
+    expect(showOverlaps(s.start + 1, s.start + 2)).toBe(true);
+    expect(showOverlaps(s.start + 1, s.start + 2, hits)).toBe(false);
   });
 
   it('keeps the stick twirls out of its way', () => {
@@ -160,6 +169,42 @@ describe('the show, read through the anatomy', () => {
       }
     });
   }
+
+  it('hands the stick back as Play cuts a show short, smoothly, not leaving it in the wrong hand', () => {
+    for (const show of ALL) {
+      const at = show.start + (BEATS.gesture[0] + BEATS.gesture[1]) / 2;
+      let was = poseAt(idle, at, 0, undefined, AUDIENCE);
+      // the groove coming in over a few frames, with the show at its middle
+      for (let g = 0.002; g <= 0.2; g += 0.002) {
+        const pose = poseAt(idle, at, g, undefined, AUDIENCE);
+        for (const hand of ['lead', 'other'] as const) {
+          expect(
+            pose.arms[hand].tip.distanceTo(was.arms[hand].tip),
+            `${hand} at groove ${g}`
+          ).toBeLessThan(0.03);
+        }
+        was = pose;
+      }
+      // and once it is in, the show is put away: every stick back in its own hand, no shape left
+      expect(showAt(at, 0.15)).toBeNull();
+      const after = poseAt(idle, at, 0.15, undefined, AUDIENCE);
+      for (const hand of ['lead', 'other'] as const) {
+        expect(after.arms[hand].shape).toBeUndefined();
+        expect(after.arms[hand].grip.distanceTo(after.arms[hand].wrist)).toBeLessThan(0.15);
+      }
+    }
+  });
+
+  it('holds the pass in matched grip, whatever grip the hands play in, and goes back to it after', () => {
+    for (const show of ALL) {
+      const mid = poseAt(idle, show.start + 3, 0, gripsFor('both'), AUDIENCE);
+      expect(mid.arms.lead.held).toBe('matched');
+      expect(mid.arms.other.held).toBe('matched');
+      const before = poseAt(idle, show.start - 0.5, 0, gripsFor('both'), AUDIENCE);
+      expect(before.arms.lead.held).toBe('military');
+      expect(before.arms.other.held).toBe('military');
+    }
+  });
 
   it('waves with the hand up by the head, and holds a thumbs-up out in front, fist closed', () => {
     for (const show of ALL) {

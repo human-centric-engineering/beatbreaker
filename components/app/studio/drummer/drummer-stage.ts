@@ -56,8 +56,7 @@ export class DrummerStage {
   private readonly kit;
   private readonly kitMaterials: Materials;
   private drummer: DrummerModel;
-  /** The drummer's own materials, made in their colours and freed with them. */
-  /** Frees what was made for whoever is seated. */
+  /** Frees the materials made for whoever is seated. */
   private undress: () => void;
   private who: Persona;
   private readonly env: THREE.Texture;

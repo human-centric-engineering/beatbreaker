@@ -87,6 +87,17 @@ describe('the bones', () => {
     expect(jaw.min.y).toBeLessThan(-0.06);
   });
 
+  it('meshes the skull once, and gives each skeleton its own copy to free', () => {
+    const a = cranium();
+    const b = cranium();
+    expect(a).not.toBe(b);
+    expect(b.getAttribute('position').array).toEqual(a.getAttribute('position').array);
+    // freeing one leaves the next one whole
+    a.dispose();
+    expect(cranium().getAttribute('position').count).toBe(b.getAttribute('position').count);
+    expect(mandible()).not.toBe(mandible());
+  });
+
   it('makes the lumbar vertebrae bigger than the thoracic, and those than the cervical', () => {
     const width = (g: THREE.BufferGeometry) => box(g).max.z - box(g).min.z;
     expect(width(vertebra('lumbar', 1, 0.028))).toBeGreaterThan(

@@ -612,7 +612,7 @@ export function twirlAt(
       const end = spinEnd + TWIRL_DOWN;
       if (now < from || now > end) continue;
       // a show passing a stick between the hands has them both
-      if (showOverlaps(from - TWIRL_UP, end + TWIRL_UP)) continue;
+      if (showOverlaps(from - TWIRL_UP, end + TWIRL_UP, hits)) continue;
       const near = lastAtOrBefore(hits, end + TWIRL_CLEAR);
       if (near >= 0 && hits[near].time >= start - TWIRL_CLEAR) continue;
       const amount =
@@ -1523,11 +1523,9 @@ export function poseAt(
   const rock = Math.cos(2 * Math.PI * (beatPhase(timeline.clock, now, 2) - SHOULDER_LAG / 2));
   const ones = timeline.downbeats();
   const barCue = (hand: Hand) => barCueAt(ones, hand === 'lead' ? leadHits : otherHits, now);
-  const twirls = twirlAt(
-    now,
-    groove,
-    all.filter((h) => h.limb === 'lead' || h.limb === 'other')
-  );
+  // the hands' notes, which the tricks and the shows keep clear of
+  const handHits = all.filter((h) => h.limb === 'lead' || h.limb === 'other');
+  const twirls = twirlAt(now, groove, handHits);
   const timeOf = (hand: Hand): TimeKeeping => {
     const st = strokes[hand];
     const hits = hand === 'lead' ? leadHits : otherHits;
@@ -1563,7 +1561,6 @@ export function poseAt(
   );
   // waiting, now and then a stick is passed between the hands and the free one waves or
   // gives a thumbs-up, looking out at whoever is watching
-  const handHits = all.filter((h) => h.limb === 'lead' || h.limb === 'other');
   const playingShow = showAt(now, groove, handHits);
   const show = playingShow
     ? showPose(

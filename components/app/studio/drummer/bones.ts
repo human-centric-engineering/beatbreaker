@@ -687,6 +687,22 @@ export function sternum(length: number): THREE.BufferGeometry {
  * ridge over the orbits, the cheekbones and the arches back from them, the
  * nasal bones, the maxilla with the upper teeth, and the mastoids behind the ears.
  */
+/**
+ * The surfaces meshed from a signed distance, kept once made: meshing a skull
+ * is a few hundred thousand distance sums, too much to redo each time the
+ * skeleton sits down. Each caller gets its own copy, which its scene frees.
+ */
+const SURFACES = new Map<string, THREE.BufferGeometry>();
+
+function once(name: string, make: () => THREE.BufferGeometry): THREE.BufferGeometry {
+  let made = SURFACES.get(name);
+  if (!made) {
+    made = make();
+    SURFACES.set(name, made);
+  }
+  return made.clone();
+}
+
 /** A signed distance: negative inside, metres. */
 type Sdf = (x: number, y: number, z: number) => number;
 
@@ -769,6 +785,10 @@ function surface(
  * with the orbits, the nasal aperture and the temporal hollows carved into it.
  */
 export function cranium(): THREE.BufferGeometry {
+  return once('cranium', craniumSurface);
+}
+
+function craniumSurface(): THREE.BufferGeometry {
   const parts: Sdf[] = [
     ellipsoid([0, 0.072, -0.004], [0.071, 0.073, 0.094]),
     ellipsoid([0, 0.032, 0.044], [0.06, 0.046, 0.05]),
@@ -839,6 +859,10 @@ export function teeth(w: number, d: number, dir: 1 | -1): THREE.BufferGeometry {
  * carrying the lower teeth. One surface, like the skull's.
  */
 export function mandible(): THREE.BufferGeometry {
+  return once('mandible', mandibleSurface);
+}
+
+function mandibleSurface(): THREE.BufferGeometry {
   const parts: Sdf[] = [];
   const arch: [number, number, number][] = [
     [0.046, -0.058, 0.004],

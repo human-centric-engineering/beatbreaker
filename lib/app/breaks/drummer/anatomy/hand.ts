@@ -153,6 +153,8 @@ export interface HandSet {
   thumb: [number, number, number];
   /** The thumb's end joint's bend, radians. */
   thumbTip: number;
+  /** And as the grip alone has it, before any shape: what a thumb is fitted to the grip by. */
+  thumbHeld: number;
   /**
    * How far the hand is into a {@link HandShape}, 0–1, and the shape's bend
    * at the thumb's MCP — which a figure with a thumb metacarpal of its own
@@ -259,6 +261,7 @@ export function handSetOf(a: ArmPose, side: 1 | -1): HandSet {
     fingers,
     thumb: thumbTurn(side, a.held, a.cross, a.ready),
     thumbTip: THUMB_TIP + (tipBend - THUMB_TIP) * a.cross,
+    thumbHeld: THUMB_TIP + (tipBend - THUMB_TIP) * a.cross,
     shaped: 0,
     thumbMcp: 0,
   };
@@ -288,6 +291,7 @@ function toward(held: HandSet, kind: HandShape, k: number, side: 1 | -1): HandSe
       number,
     ],
     thumbTip: mix(held.thumbTip, shape.thumbTip),
+    thumbHeld: held.thumbHeld,
     // shaped on top of however shaped it already was
     shaped: 1 - (1 - held.shaped) * (1 - k),
     thumbMcp: mix(held.thumbMcp, shape.thumbMcp),

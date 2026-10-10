@@ -1,12 +1,11 @@
-import * as THREE from 'three';
-
 import { buildDrummer, type DrummerModel } from '@/components/app/studio/drummer/drummer-model';
-import { disposeMaterials, makeMaterials } from '@/components/app/studio/drummer/parts';
+import {
+  disposeMaterials,
+  makeMaterials,
+  woodMaterial,
+} from '@/components/app/studio/drummer/parts';
 import { buildSkeleton } from '@/components/app/studio/drummer/skeleton-model';
 import type { Persona } from '@/lib/app/breaks/drummer/personas';
-
-/** The sticks' wood, as `makeMaterials` paints it. */
-const WOOD = '#c8a273';
 
 /** Whoever sits at the kit, and how to let go of what was made for them. */
 export interface Figure {
@@ -22,7 +21,7 @@ export interface Figure {
  */
 export function buildFigure(who: Persona): Figure {
   if (who.kind === 'skeleton') {
-    const wood = new THREE.MeshStandardMaterial({ color: WOOD, roughness: 0.55 });
+    const wood = woodMaterial();
     return { model: buildSkeleton(wood, who), dispose: () => wood.dispose() };
   }
   const dress = makeMaterials(who);

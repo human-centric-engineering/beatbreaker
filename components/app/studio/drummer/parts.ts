@@ -364,6 +364,11 @@ function cloth(color: string, roughness: number): THREE.MeshPhysicalMaterial {
   });
 }
 
+/** The sticks' wood. */
+export function woodMaterial(): THREE.MeshStandardMaterial {
+  return new THREE.MeshStandardMaterial({ color: '#c8a273', roughness: 0.55 });
+}
+
 /** The kit's materials, and the drummer's in the colours of whoever is playing. */
 export function makeMaterials(who: Persona = PERSONAS[0]): Materials {
   const lathing = lathingTexture();
@@ -384,7 +389,7 @@ export function makeMaterials(who: Persona = PERSONAS[0]): Materials {
       bumpMap: lathing,
       bumpScale: 0.6,
     }),
-    wood: new THREE.MeshStandardMaterial({ color: '#c8a273', roughness: 0.55 }),
+    wood: woodMaterial(),
     felt: new THREE.MeshStandardMaterial({ color: '#efece6', roughness: 0.95 }),
     // all machine, the skin is metal; a beast is fur all over
     skin:

@@ -164,6 +164,15 @@ describe('SHAPES', () => {
     full.fingers.forEach((f, n) => expect(f.bend).toEqual(SHAPES.thumbsUp.bend[n]));
     // the thumb's turn mirrored for the hand whose thumb is on the left
     expect(full.thumb[1]).toBeCloseTo(-SHAPES.thumbsUp.thumb[1], 9);
+    // and the grip's own thumb bend kept apart from the shape's, for a thumb fitted to the grip
+    expect(full.thumbTip).toBeCloseTo(SHAPES.thumbsUp.thumbTip, 9);
+    expect(full.thumbHeld).toBe(plain.thumbTip);
+    const half = handSetOf(
+      { ...handAt('matched', 0.6, 0, 1, 0), shape: { kind: 'thumbsUp', amount: 0.5 } },
+      1
+    );
+    expect(half.thumbHeld).toBe(plain.thumbTip);
+    expect(half.shaped).toBeCloseTo(0.5, 9);
   });
 });
 

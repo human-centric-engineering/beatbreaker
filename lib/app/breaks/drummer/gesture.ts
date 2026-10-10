@@ -59,13 +59,23 @@ function showIn(window: number): Show | null {
   };
 }
 
-/** Whether a show's span reaches into `from`–`to` (seconds), so a stick twirl can stay out of its way. */
-export function showOverlaps(from: number, to: number): boolean {
+/** Whether a show is kept off by a note near it: the hands are needed for playing. */
+function crowded(show: Show, hits: readonly Hit[]): boolean {
+  const near = lastAtOrBefore(hits, show.start + SHOW_LENGTH + SHOW_CLEAR);
+  return near >= 0 && hits[near].time >= show.start - SHOW_CLEAR;
+}
+
+/**
+ * Whether a show that will play reaches into `from`–`to` (seconds), so a
+ * stick twirl can stay out of its way — and only one that will: a show kept
+ * off by a note near it leaves the twirls be.
+ */
+export function showOverlaps(from: number, to: number, hits: readonly Hit[] = []): boolean {
   const first = Math.floor(from / SHOW_WINDOW);
   const last = Math.floor(to / SHOW_WINDOW);
   for (let w = first - 1; w <= last; w++) {
     const s = showIn(w);
-    if (s && s.start < to && s.start + SHOW_LENGTH > from) return true;
+    if (s && s.start < to && s.start + SHOW_LENGTH > from && !crowded(s, hits)) return true;
   }
   return false;
 }
@@ -87,9 +97,7 @@ export function showAt(
     const show = showIn(k);
     if (!show) continue;
     const t = now - show.start;
-    if (t < 0 || t > SHOW_LENGTH) continue;
-    const near = lastAtOrBefore(hits, show.start + SHOW_LENGTH + SHOW_CLEAR);
-    if (near >= 0 && hits[near].time >= show.start - SHOW_CLEAR) continue;
+    if (t < 0 || t > SHOW_LENGTH || crowded(show, hits)) continue;
     return { show, t, fade };
   }
   return null;
@@ -124,11 +132,13 @@ function gesturing(t: number): number {
   return ss(BEATS.away, t) * (1 - ss(BEATS.back, t));
 }
 
-/** Whether the keeping hand has the giver's stick (between the pass and the take). */
-function kept(t: number): boolean {
-  const pass = (BEATS.pass[0] + BEATS.pass[1]) / 2;
-  const take = (BEATS.take[0] + BEATS.take[1]) / 2;
-  return t > pass && t < take;
+/**
+ * How much the keeping hand has the giver's stick, 0–1: over the pass it goes
+ * from one hand to the other, while both hands are at the meeting holding it
+ * together, and back over the take.
+ */
+function kept(t: number): number {
+  return ss(BEATS.pass, t) * (1 - ss(BEATS.take, t));
 }
 
 /** The wave: swings a second, the swing's half-width, radians, and the wrist's. */
@@ -359,20 +369,28 @@ export interface ShowPose {
   wink: number;
 }
 
-/** Put an arm where a hand is placed, holding a stick at `stick`: the elbow solved, the stick kept on the hand. */
+/**
+ * Put an arm where a hand is placed, holding a stick at `stick` (`holds` of
+ * it, 0–1: as much of the stick as this hand has goes with it): the elbow
+ * solved. `out` is how far the hand is out of its rest into the show: past
+ * half way it holds as the show does, in matched grip, whatever grip it
+ * plays in — as a military hand turns over to matched for a cross-stick.
+ */
 function armAt(
   base: ArmPose,
   p: Placed,
   stick: { tip: Vector3; dir: Vector3 },
-  holds: boolean,
+  holds: number,
+  out: number,
   shape: ArmPose['shape']
 ): ArmPose {
   const { joint, end } = solveTwoBone(base.shoulder, p.wrist, BODY.upperArm, BODY.forearm, p.pole);
   // out of reach, the hand stays on the arm, and a stick it holds goes with it
   const shift = end.clone().sub(p.wrist);
-  const tip = holds ? stick.tip.clone().add(shift) : stick.tip.clone();
+  const tip = stick.tip.clone().addScaledVector(shift, holds);
   return {
     ...base,
+    held: out > 0.5 ? 'matched' : base.held,
     elbow: joint,
     wrist: end,
     hand: p.hand,
@@ -443,16 +461,21 @@ export function showPose(
   const ks = rest[keeper].shoulder;
   const keeperAt = mixPlaced(ks, restOf(rest[keeper]), mixPlaced(ks, keepAt, carryAt, g), k);
   const keeperStick = inWorld(keeperAt, mixHeld(keeperOwn.rest, keeperOwn.meet, k));
-  const keeperArm = armAt(rest[keeper], keeperAt, keeperStick, true, undefined);
+  const keeperArm = armAt(rest[keeper], keeperAt, keeperStick, 1, k, undefined);
 
   // the giver: to the meeting, off to its gesture and back, home
   const gestureAt = gesturePlace(show.kind, giver, rest[giver].shoulder, torso, look, t);
   const gs = rest[giver].shoulder;
   const giverAt = mixPlaced(gs, restOf(rest[giver]), mixPlaced(gs, giveAt, gestureAt, g), k);
-  const has = !kept(t);
-  const stick = has
-    ? inWorld(giverAt, mixHeld(giverStick.rest, giverStick.meet, k))
-    : inWorld(keeperArm, giverStick.kept);
+  // who has the stick: scaled by the fade as the hands are, so a show cut short by Play hands it
+  // back to the giver as both hands go home, rather than leaving it in the wrong one
+  const owned = kept(t) * fade;
+  const inGiver = inWorld(giverAt, mixHeld(giverStick.rest, giverStick.meet, k));
+  const inKeeper = inWorld(keeperArm, giverStick.kept);
+  const stick = {
+    tip: inGiver.tip.clone().lerp(inKeeper.tip, owned),
+    dir: inGiver.dir.clone().lerp(inKeeper.dir, owned).normalize(),
+  };
   // the hand opens to let the stick go and to take it back, and makes its gesture between
   const open = Math.max(
     ss(BEATS.pass, t) * (1 - ss(BEATS.away, t)),
@@ -467,7 +490,7 @@ export function showPose(
           amount: Math.max(open, shaped) * fade,
           then: { kind: show.kind, amount: shaped * fade },
         };
-  const giverArm = armAt(rest[giver], giverAt, stick, has, shape);
+  const giverArm = armAt(rest[giver], giverAt, stick, 1 - owned, k, shape);
 
   const lookAt =
     ss([BEATS.away[1] - 0.4, BEATS.gesture[0] + 0.2], t) *
