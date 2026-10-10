@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 
 import { buildDrummer, type DrummerModel } from '@/components/app/studio/drummer/drummer-model';
+import { buildSkeleton } from '@/components/app/studio/drummer/skeleton-model';
 import { buildKit } from '@/components/app/studio/drummer/kit-model';
 import {
   disposeMaterials,
@@ -123,7 +124,10 @@ export class DrummerStage {
     this.kitMaterials = makeMaterials(persona);
     this.kit = buildKit(this.kitMaterials);
     this.dress = makeMaterials(persona);
-    this.drummer = buildDrummer(this.dress, persona);
+    this.drummer = (persona.kind === 'skeleton' ? buildSkeleton : buildDrummer)(
+      this.dress,
+      persona
+    );
     this.rig.add(this.kit.root, this.drummer.root);
     this.scene.add(this.rig);
     this.addLights();
@@ -245,7 +249,7 @@ export class DrummerStage {
     disposeTree(this.drummer.root);
     disposeMaterials(this.dress);
     this.dress = makeMaterials(who);
-    this.drummer = buildDrummer(this.dress, who);
+    this.drummer = (who.kind === 'skeleton' ? buildSkeleton : buildDrummer)(this.dress, who);
     this.rig.add(this.drummer.root);
     // the same kit, repainted in theirs
     styleKit(this.kitMaterials, who);

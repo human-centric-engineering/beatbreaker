@@ -46,10 +46,11 @@ export type Cyborg = 'arm' | 'full';
 
 /**
  * What a player is: a person (the default); a robot — a whole cyborg with no
- * person left, plated to the floor, a machine's face; or a beast, furred from
- * head to foot.
+ * person left, plated to the floor, a machine's face; a beast, furred from
+ * head to foot; or a skeleton — every bone a drummer plays with and nothing
+ * else, its bone the colour of `skin` (see `skeleton-model.ts`).
  */
-export type Kind = 'human' | 'robot' | 'beast';
+export type Kind = 'human' | 'robot' | 'beast' | 'skeleton';
 
 /** A kit's shells: gloss lacquer, a metal-flake sparkle, a satin stain, or bare polished metal. */
 export type Finish = 'gloss' | 'sparkle' | 'satin' | 'metal';
@@ -823,6 +824,24 @@ export const PERSONAS: readonly Persona[] = [
     },
     headband: true,
     horns: true,
+  },
+  {
+    // nothing but the bones: the anatomy every other player moves on
+    id: 'bones',
+    name: 'Mister Bones',
+    figure: 'male',
+    build: 'average',
+    kind: 'skeleton',
+    skin: '#e6dcc4',
+    hair: '#e6dcc4',
+    hairStyle: 'bald',
+    beard: 'none',
+    top: 'bare',
+    shirt: '#e6dcc4',
+    trousers: '#e6dcc4',
+    shoes: '#e6dcc4',
+    accent: '#7fd1c7',
+    kit: { shell: '#1b1b1f', finish: 'gloss', hardware: 'chrome', rug: '#2a2236', trim: '#7fd1c7' },
   },
 ];
 
