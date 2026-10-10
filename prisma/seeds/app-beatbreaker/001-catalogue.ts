@@ -380,8 +380,8 @@ async function seedKits({ prisma, logger }: SeedContext, manifest: Manifest): Pr
 const GROUP_LABELS: Record<string, string> = {
   synth: 'Synthesised',
   drift: 'Drum machines',
-  pack: 'Recordings',
-  user: 'Recordings',
+  pack: 'Sampled Recordings',
+  user: 'Sampled Recordings',
 };
 
 const LIBRARY_DESCRIPTION =

@@ -11,6 +11,7 @@ import { PinButton, SHELF_LABEL } from '@/components/app/studio/pin-button';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { isUnsaved, type UnsavedItem } from '@/components/app/studio/use-practice-history';
+import { SelectMenu } from '@/components/app/ui/select-menu';
 import { apiClient } from '@/lib/api/client';
 import { PATTERNS_TAB } from '@/lib/app/breaks/browser-keys';
 import { type CatalogueEntry, libraryGroups } from '@/lib/app/breaks/catalogue/types';
@@ -339,30 +340,24 @@ function FilterBar({
         onChange={(e) => onChange({ ...filter, q: e.target.value })}
       />
       <div className="filters-row">
-        <select
+        <SelectMenu
           aria-label="Style"
           value={filter.style}
-          onChange={(e) => onChange({ ...filter, style: e.target.value })}
-        >
-          <option value="">Any style</option>
-          {options.map((o) => (
-            <option key={o.key} value={o.key}>
-              {o.label}
-            </option>
-          ))}
-        </select>
-        <select
+          onValueChange={(style) => onChange({ ...filter, style })}
+          options={[
+            { value: '', label: 'Any style' },
+            ...options.map((o) => ({ value: o.key, label: o.label })),
+          ]}
+        />
+        <SelectMenu
           aria-label="Time signature"
           value={filter.meter}
-          onChange={(e) => onChange({ ...filter, meter: e.target.value })}
-        >
-          <option value="">Any meter</option>
-          {METER_KEYS.map((m) => (
-            <option key={m} value={m}>
-              {m}
-            </option>
-          ))}
-        </select>
+          onValueChange={(meter) => onChange({ ...filter, meter })}
+          options={[
+            { value: '', label: 'Any meter' },
+            ...METER_KEYS.map((m) => ({ value: m, label: m })),
+          ]}
+        />
       </div>
     </div>
   );

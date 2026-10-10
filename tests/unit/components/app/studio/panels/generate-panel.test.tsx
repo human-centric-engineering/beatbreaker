@@ -18,9 +18,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { GeneratePanel } from '@/components/app/studio/panels/generate-panel';
 import { Stage } from '@/components/app/studio/stage';
-import { StudioProvider } from '@/components/app/studio/studio-provider';
+import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 import { pickStyle } from '@/tests/helpers/style-picker';
+import { openMenu, pickOption } from '@/tests/helpers/select-menu';
 
 const renderPanel = () =>
   render(
@@ -116,13 +117,19 @@ describe('GeneratePanel', () => {
     await user.click(screen.getByRole('radio', { name: 'My own' }));
     expect(document.querySelector('.lanepick')?.getAttribute('data-locked')).toBe('0');
 
-    const perc1 = screen.getByLabelText<HTMLSelectElement>('Perc 1');
-    const perc2 = screen.getByLabelText<HTMLSelectElement>('Perc 2');
+    const perc1 = screen.getByLabelText<HTMLButtonElement>('Perc 1');
+    const perc2 = screen.getByLabelText<HTMLButtonElement>('Perc 2');
     // the roster on offer is the full percussion table, not just the default two
-    expect(within(perc1).getByRole('option', { name: 'Cowbell' })).toBeTruthy();
-    expect(within(perc2).getByRole('option', { name: 'Woodblock' })).toBeTruthy();
+    expect(
+      within(await openMenu(user, perc1)).getByRole('option', { name: 'Cowbell' })
+    ).toBeTruthy();
+    await user.keyboard('{Escape}');
+    expect(
+      within(await openMenu(user, perc2)).getByRole('option', { name: 'Woodblock' })
+    ).toBeTruthy();
+    await user.keyboard('{Escape}');
 
-    await user.selectOptions(perc1, 'cowbell');
+    await pickOption(user, perc1, 'cowbell');
     expect(perc1.value).toBe('cowbell');
     expect(screen.getByText(/^On top of the kit: Cowbell\./)).toBeTruthy();
   });
@@ -187,5 +194,27 @@ describe('GeneratePanel', () => {
     // now ask for B to be rebuilt from the new A
     await user.click(screen.getByRole('button', { name: 'Build B from A' }));
     expect(gridOf()).not.toBe(originalB);
+  });
+
+  it('writes a new break in a style as soon as it is picked, and closes the drawer', async () => {
+    const user = userEvent.setup();
+    const onClose = vi.fn();
+    function OnStage() {
+      return <output data-testid="on-stage">{useStudio().view.A?.style}</output>;
+    }
+    render(
+      <StudioProvider catalogue={testCatalogue()}>
+        <GeneratePanel onClose={onClose} />
+        <OnStage />
+      </StudioProvider>
+    );
+    expect(await screen.findByTestId('on-stage')).toHaveTextContent('funk');
+    expect(onClose).not.toHaveBeenCalled();
+
+    await pickStyle(user, 'reggae');
+
+    // the break on the stage is a new one, in the style just picked
+    expect(screen.getByTestId('on-stage')).toHaveTextContent('reggae');
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 });

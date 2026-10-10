@@ -18,6 +18,7 @@ import {
 import {
   type Critique,
   type Playability,
+  barEq,
   critique,
   generateGood,
   playability,
@@ -348,6 +349,8 @@ export interface BreakConsole {
   setSize: (n: number) => void;
 
   newBreak: (which?: SectionLetter | 'both') => void;
+  /** A different take of the section being edited, in its own style and song. */
+  regenerate: () => void;
   buildBFromA: () => void;
   applyDoctor: (move: DoctorMove) => void;
   cycleCell: (
@@ -525,6 +528,14 @@ export interface ConsoleOptions {
    * provider, which holds the document, answers. Left out, every pattern is new.
    */
   stageSaved?: () => boolean;
+}
+
+/** How many seeds a regenerate tries for a take unlike the one it replaces. */
+const REGENERATE_TRIES = 8;
+
+/** Whether two patterns play the same notes, bar for bar. */
+function samePattern(a: Pattern, b: Pattern): boolean {
+  return a.bars.length === b.bars.length && a.bars.every((bar, i) => barEq(bar, b.bars[i]));
 }
 
 export function useBreakConsole(
@@ -938,25 +949,32 @@ export function useBreakConsole(
   /* ---- generation ----------------------------------------------------- */
 
   const generate = useCallback(
-    (which: SectionLetter | 'both', setup: Setup) => {
+    (which: SectionLetter | 'both', setup: Setup, unlike?: Pattern) => {
       const row = catalogue.styles[setup.style] ?? styleRow;
       if (!row) return null;
       const st = styleIn(withSong(row.params, setup.song), setup.meter);
       const roster = resolveLanes(st, lanesMode === 'custom' ? customLanes : null);
-      const made = generateGood(
-        {
-          style: row,
-          meter: setup.meter,
-          bars: setup.bars,
-          density,
-          ghosts,
-          seed: Math.floor(Math.random() * 0xffffffff),
-          lanes: roster.lanes,
-          perc: roster.perc,
-          song: setup.song,
-        },
-        setup.bpm
-      );
+      const roll = () =>
+        generateGood(
+          {
+            style: row,
+            meter: setup.meter,
+            bars: setup.bars,
+            density,
+            ghosts,
+            seed: Math.floor(Math.random() * 0xffffffff),
+            lanes: roster.lanes,
+            perc: roster.perc,
+            song: setup.song,
+          },
+          setup.bpm
+        );
+      /* A regenerate has to come out different: a style of a few written
+         figures can roll the same bars again, so it rolls again (a few times,
+         and then takes what it has rather than spin). */
+      let made = roll();
+      for (let t = 0; unlike && t < REGENERATE_TRIES && samePattern(made.pattern, unlike); t++)
+        made = roll();
       setTries({ tries: made.tries, rejected: made.rejected });
 
       setPatterns((prev) => {
@@ -1045,6 +1063,28 @@ export function useBreakConsole(
       followKit,
     ]
   );
+
+  /**
+   * A new take of the section you are editing: the same style, song, meter and
+   * length as the one on the stage (not the style picked for the next New),
+   * different notes.
+   */
+  const regenerate = useCallback(() => {
+    const stage = patterns[editing];
+    if (!stage) return;
+    pushHistory();
+    generate(
+      editing,
+      {
+        style: stage.style,
+        meter: stage.meter,
+        bars: stage.bars.length,
+        bpm,
+        song: stage.song,
+      },
+      stage
+    );
+  }, [patterns, editing, pushHistory, generate, bpm]);
 
   const buildBFromA = useCallback(() => {
     if (!patterns.A || !styleParams) return;
@@ -2095,6 +2135,7 @@ export function useBreakConsole(
     size,
     setSize,
     newBreak,
+    regenerate,
     buildBFromA,
     applyDoctor,
     cycleCell,

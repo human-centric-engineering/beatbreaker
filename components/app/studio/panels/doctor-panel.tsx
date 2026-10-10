@@ -23,6 +23,28 @@ export function DoctorPanel() {
               can see whether it helped.
             </StudioHelp>
           </div>
+          <div className="field" style={{ marginBottom: 14 }}>
+            <span className="fieldlab">
+              New take{' '}
+              <StudioHelp title="Regenerate">
+                Writes section {c.editing} again in the same style and song, at the same length and
+                meter: a different variation, not a different style. Undo brings the old one back.
+              </StudioHelp>
+            </span>
+            <div className="btnrow">
+              <button
+                type="button"
+                className="mini"
+                onClick={() => {
+                  c.regenerate();
+                  say(`Section ${c.editing} regenerated — undo brings the old take back`);
+                }}
+                disabled={!c.view[c.editing]}
+              >
+                ↻ Regenerate
+              </button>
+            </div>
+          </div>
           <div className="btnrow">
             {DOCTOR_MOVES.map(({ move, label }) => (
               <button key={move} type="button" className="mini" onClick={() => c.applyDoctor(move)}>

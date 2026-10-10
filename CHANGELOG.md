@@ -683,6 +683,17 @@ release process.
 
 ### Changed
 
+- **Dropdowns are the app's own, the kit groups are whole, and a style pick
+  makes a break.** Every `<select>` in the app is now `SelectMenu`
+  (`components/app/ui/select-menu.tsx`), a themed select-only combobox that
+  wears the Studio's tokens inside `.bb` and the site's `--color-*` palette
+  elsewhere, and still submits with a plain form. The kit picker files the
+  sampled kits under one heading, **Sampled Recordings**, and kits are named
+  for their sound (`Sixties Ludwig`, `Damped and dead`, `Bright and tight`,
+  `Small and dry`). Picking a style writes a new break in it and closes the
+  drawer. Edit gains **Regenerate**: a new take of the section, in its own
+  style, song, meter and length, never the same notes again.
+
 - **The drummers play sampled kits only.** `sixties` is now SM Drums' 1960s
   Ludwig and `teatowel` Gogodze's damped kit, both re-tuned; Tony Allen's
   songs moved from the synthesised kits to SM Drums, Gogodze and DRS. A

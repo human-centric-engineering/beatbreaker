@@ -1,0 +1,255 @@
+/*
+ * The app's dropdown (`select-menu.tsx`): a label plate that opens a paper
+ * list. One set of local tokens, fed by the site's `--color-*` palette on the
+ * public pages and by the Studio's own tokens inside `.bb`, so the same
+ * component looks at home in both.
+ */
+
+.selm,
+.selm-list {
+  --sm-face: var(--color-background, #fbfaf6);
+  --sm-sheet: var(--color-popover, var(--color-background, #fbfaf6));
+  --sm-ink: var(--color-foreground, #1a1712);
+  --sm-soft: var(--color-muted-foreground, #6f685c);
+  --sm-line: var(--color-border, #d8d3c6);
+  --sm-hover: color-mix(in oklab, var(--sm-ink) 6%, transparent);
+  --sm-accent: var(--color-primary, #9c6f1c);
+  --sm-ring: var(--color-ring, #c08a2a);
+  --sm-radius: 6px;
+  --sm-mono: var(--font-mono, ui-monospace, 'SFMono-Regular', Menlo, monospace);
+  --sm-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 14px 34px -16px rgb(0 0 0 / 0.35);
+}
+
+.bb .selm,
+.bb .selm-list,
+.bb.selm-list {
+  --sm-face: var(--raised);
+  --sm-sheet: var(--panel);
+  --sm-ink: var(--ink);
+  --sm-soft: var(--muted);
+  --sm-line: var(--line);
+  --sm-accent: var(--brass);
+  --sm-ring: var(--focus);
+  --sm-radius: var(--radius-sm);
+  --sm-mono: var(--f-mono);
+  --sm-shadow: var(--shadow-lift);
+}
+
+/* ---- the plate ----
+   Doubled with `.bb` to outrank the Studio's bare `.bb button` reset. */
+
+.selm,
+.bb .selm {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 36px;
+  padding: 7px 10px 7px 12px;
+  border: 1px solid var(--sm-line);
+  border-radius: var(--sm-radius);
+  background:
+    linear-gradient(to bottom, color-mix(in oklab, white 35%, transparent), transparent 60%),
+    var(--sm-face);
+  color: var(--sm-ink);
+  font: inherit;
+  font-size: 13.5px;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: inset 0 -1px 0 color-mix(in oklab, var(--sm-ink) 6%, transparent);
+  transition:
+    border-color 120ms ease,
+    box-shadow 120ms ease,
+    background-color 120ms ease;
+}
+.dark .selm,
+.dark .bb .selm {
+  background: var(--sm-face);
+}
+.selm:hover:not(:disabled) {
+  border-color: color-mix(in oklab, var(--sm-accent) 45%, var(--sm-line));
+}
+.selm:focus-visible,
+.bb .selm:focus-visible {
+  outline: none;
+  border-color: var(--sm-ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--sm-ring) 28%, transparent);
+}
+.selm[data-open] {
+  border-color: var(--sm-accent);
+}
+.selm:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.selm-value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.selm-value.empty {
+  color: var(--sm-soft);
+}
+
+.selm-chev {
+  flex: 0 0 11px;
+  height: 8px;
+  fill: none;
+  stroke: var(--sm-soft);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition:
+    transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    stroke 120ms ease;
+}
+.selm:hover .selm-chev,
+.selm[data-open] .selm-chev {
+  stroke: var(--sm-accent);
+}
+.selm[data-open] .selm-chev {
+  transform: rotate(180deg);
+}
+
+/* ---- the sheet ---- */
+
+.selm-list {
+  position: fixed;
+  z-index: 1000;
+  max-height: min(360px, 60vh);
+  max-width: min(420px, calc(100vw - 24px));
+  margin-top: 4px;
+  padding: 5px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--sm-line);
+  border-radius: calc(var(--sm-radius) + 2px);
+  background: var(--sm-sheet);
+  color: var(--sm-ink);
+  font-size: 13.5px;
+  line-height: 1.3;
+  box-shadow: var(--sm-shadow);
+  transform-origin: top center;
+  animation: selm-unfold 150ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  scrollbar-width: thin;
+}
+.selm-list.up {
+  margin-top: 0;
+  translate: 0 calc(-100% - 4px);
+  transform-origin: bottom center;
+}
+.selm-list:focus {
+  outline: none;
+}
+
+@keyframes selm-unfold {
+  from {
+    opacity: 0;
+    transform: scaleY(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .selm-list,
+  .selm-chev {
+    animation: none;
+    transition: none;
+  }
+}
+
+.selm-group + .selm-group {
+  margin-top: 4px;
+}
+/* a heading in mono caps over a hairline, as the style crate files its groups */
+.selm-group-h {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 8px 4px;
+  color: var(--sm-soft);
+  font-family: var(--sm-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.selm-group-h::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--sm-line);
+}
+
+.selm-opt {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 10px 7px 12px;
+  border-radius: calc(var(--sm-radius) - 2px);
+  cursor: pointer;
+  user-select: none;
+}
+/* the active row: a brass bar down its edge */
+.selm-opt[data-active] {
+  background: var(--sm-hover);
+}
+.selm-opt[data-active]::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--sm-accent);
+}
+.selm-opt[aria-disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* the chosen row's lamp: unlit everywhere else */
+.selm-led {
+  flex: 0 0 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklab, var(--sm-ink) 18%, transparent);
+  transition: background-color 120ms ease;
+}
+.selm-opt[aria-selected='true'] .selm-led {
+  border-color: var(--sm-accent);
+  background: var(--sm-accent);
+  box-shadow: 0 0 6px color-mix(in oklab, var(--sm-accent) 70%, transparent);
+}
+.selm-opt[aria-selected='true'] .selm-label {
+  font-weight: 600;
+}
+
+.selm-label {
+  flex: 1;
+  min-width: 0;
+}
+.selm-note {
+  color: var(--sm-soft);
+  font-family: var(--sm-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+/* read out between a label and its note, not drawn */
+.selm-sep {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

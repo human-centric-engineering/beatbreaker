@@ -87,8 +87,8 @@ export function testKits(): Record<string, CatalogueKit> {
 const GROUP_LABELS: Record<string, string> = {
   synth: 'Synthesised',
   drift: 'Drum machines',
-  pack: 'Recordings',
-  user: 'Recordings',
+  pack: 'Sampled Recordings',
+  user: 'Sampled Recordings',
 };
 
 /** The famous breaks, as documents — built exactly as the seed builds them. */

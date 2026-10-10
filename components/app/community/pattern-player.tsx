@@ -3,6 +3,7 @@
 import { Pause, Play } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
+import { SelectMenu } from '@/components/app/ui/select-menu';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Transport, type TransportSnapshot, maxBpm } from '@/lib/app/breaks/audio/transport';
@@ -178,18 +179,13 @@ export function PatternPlayer({
 
       <div className="flex flex-col gap-1">
         <Label htmlFor="player-layer">Layer</Label>
-        <select
+        <SelectMenu
           id="player-layer"
-          value={level}
-          onChange={(e) => setLevel(Number(e.target.value))}
-          className="border-input bg-background h-9 rounded-md border px-2 text-sm"
-        >
-          {LEVELS.map((n) => (
-            <option key={n} value={n}>
-              {n} · {LAYER_NAMES[n]}
-            </option>
-          ))}
-        </select>
+          className="w-56"
+          value={String(level)}
+          onValueChange={(v) => setLevel(Number(v))}
+          options={LEVELS.map((n) => ({ value: String(n), label: `${n} · ${LAYER_NAMES[n]}` }))}
+        />
       </div>
 
       {unsupported ? (

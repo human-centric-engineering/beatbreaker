@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import type { Tool } from '@/components/app/shell/tool-rail';
 import { Slider } from '@/components/app/studio/panels/controls';
@@ -10,6 +10,7 @@ import { StylePicker } from '@/components/app/studio/style-picker';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
+import { SelectMenu } from '@/components/app/ui/select-menu';
 import { pickerSections } from '@/lib/app/breaks/catalogue/picker';
 import { HAT_SHAPE } from '@/lib/app/breaks/feel';
 import { BASE_LANES, PERC_INSTS, PERC_KEYS, PERC_LANES, laneName } from '@/lib/app/breaks/lanes';
@@ -18,8 +19,26 @@ import { type CustomLanes, resolveLanes } from '@/lib/app/breaks/pattern';
 import { songOf } from '@/lib/app/breaks/songs';
 import { styleIn } from '@/lib/app/breaks/styles';
 
-export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => void }) {
+export function GeneratePanel({
+  onOpenTool,
+  onClose,
+}: {
+  onOpenTool?: (tool: Tool) => void;
+  onClose?: () => void;
+}) {
   const c = useStudio();
+
+  /* Picking a style writes a new break in it and closes the drawer. The break
+     is written once the pick has landed: on a new pattern the style is held as
+     a setting, and a New in the same tick would still read the old one. */
+  const [picked, setPicked] = useState<string | null>(null);
+  const { newBreak } = c;
+  useEffect(() => {
+    if (!picked || c.style !== picked) return;
+    setPicked(null);
+    newBreak('both');
+    onClose?.();
+  }, [picked, c.style, newBreak, onClose]);
   const { styles, styleGroups, kits } = c.catalogue;
 
   const sections = useMemo(
@@ -97,7 +116,10 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
               labelId="bb-style-label"
               sections={sections}
               value={c.style}
-              onPick={(_section, key) => c.setStyle(key)}
+              onPick={(_section, key) => {
+                c.setStyle(key);
+                setPicked(key);
+              }}
             />
             <div className="hint blurb">{style?.hint}</div>
             {style?.songs ? (
@@ -130,13 +152,12 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
 
           <div className="field">
             <label htmlFor="bb-meter">Time signature</label>
-            <select id="bb-meter" value={c.meter} onChange={(e) => c.setMeter(e.target.value)}>
-              {METER_KEYS.map((k) => (
-                <option key={k} value={k}>
-                  {METERS[k].label}
-                </option>
-              ))}
-            </select>
+            <SelectMenu
+              id="bb-meter"
+              value={c.meter}
+              onValueChange={c.setMeter}
+              options={METER_KEYS.map((k) => ({ value: k, label: METERS[k].label }))}
+            />
             <div className="hint">
               {meter.hint}
               {pulse ? (
@@ -192,20 +213,15 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
               {PERC_LANES.map((L, i) => (
                 <div className="row" key={L}>
                   <label htmlFor={`bb-perc-${L}`}>Perc {i + 1}</label>
-                  <select
+                  <SelectMenu
                     id={`bb-perc-${L}`}
                     value={shownLanes[L] ?? ''}
-                    onChange={(e) =>
-                      c.setCustomLanes({ ...shownLanes, [L]: e.target.value || undefined })
-                    }
-                  >
-                    <option value="">Off</option>
-                    {PERC_KEYS.map((k) => (
-                      <option key={k} value={k}>
-                        {PERC_INSTS[k].label}
-                      </option>
-                    ))}
-                  </select>
+                    onValueChange={(v) => c.setCustomLanes({ ...shownLanes, [L]: v || undefined })}
+                    options={[
+                      { value: '', label: 'Off' },
+                      ...PERC_KEYS.map((k) => ({ value: k, label: PERC_INSTS[k].label })),
+                    ]}
+                  />
                 </div>
               ))}
             </div>

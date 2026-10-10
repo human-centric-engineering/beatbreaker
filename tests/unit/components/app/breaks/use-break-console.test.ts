@@ -344,6 +344,27 @@ describe('generating and editing', () => {
     expect(result.current.patterns).toBe(at);
   });
 
+  it('regenerates the section being edited in its own style, with different notes, undoably', async () => {
+    const { result } = await mount();
+    const first = result.current.patterns;
+    // a style picked for the next New does not change what a regenerate writes in
+    act(() => result.current.setStyle('rock'));
+    for (let i = 0; i < 5; i++) {
+      const before = result.current.patterns.A!;
+      act(() => result.current.regenerate());
+      const after = result.current.patterns.A!;
+      expect(after.style).toBe(first.A!.style);
+      expect(after.meter).toBe(before.meter);
+      expect(after.bars).toHaveLength(before.bars.length);
+      expect(after.bars).not.toEqual(before.bars);
+      expect(result.current.patterns.B).toBe(first.B);
+    }
+    act(() => result.current.undo());
+    expect(result.current.canUndo).toBe(true);
+    for (let i = 0; i < 4; i++) act(() => result.current.undo());
+    expect(result.current.patterns.A).toEqual(first.A);
+  });
+
   it('rebuilds B from A', async () => {
     const { result } = await mount();
     act(() => result.current.newBreak('B'));

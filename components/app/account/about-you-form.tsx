@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { SelectMenu } from '@/components/app/ui/select-menu';
 import { FormError } from '@/components/forms/form-error';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -75,9 +76,6 @@ function valuesOf(about: AboutAnswer): AboutFormValues {
     public: about.public,
   };
 }
-
-const selectClass =
-  'border-input bg-background h-9 rounded-md border px-2 text-sm disabled:opacity-50';
 
 /**
  * Settings → About you (Phase 7B, task 7B.7): what you use BeatBreaker for,
@@ -172,14 +170,22 @@ export function AboutYouForm({ about, styles }: { about: AboutAnswer; styles: St
             Studio, and changing this again resets them. Private unless you switch it on below.
           </FieldHelp>
         </Label>
-        <select id="about-ability" className={selectClass} {...register('ability')}>
-          <option value="">Not saying</option>
-          {ABILITIES.map((a) => (
-            <option key={a} value={a}>
-              {ABILITY_LABELS[a]}
-            </option>
-          ))}
-        </select>
+        <Controller
+          control={control}
+          name="ability"
+          render={({ field }) => (
+            <SelectMenu
+              id="about-ability"
+              value={field.value ?? ''}
+              onValueChange={field.onChange}
+              onBlur={field.onBlur}
+              options={[
+                { value: '', label: 'Not saying' },
+                ...ABILITIES.map((a) => ({ value: a, label: ABILITY_LABELS[a] })),
+              ]}
+            />
+          )}
+        />
       </div>
 
       <fieldset className="space-y-2" disabled={isSubmitting}>
@@ -224,18 +230,25 @@ export function AboutYouForm({ about, styles }: { about: AboutAnswer; styles: St
                 <label htmlFor={`about-style-${key}`} className="w-32 truncate">
                   {label.get(key) ?? key}
                 </label>
-                <select
-                  id={`about-style-${key}`}
-                  className={selectClass}
-                  {...register(`styleAbility.${key}`)}
-                >
-                  <option value="">Same as overall</option>
-                  {ABILITIES.map((a) => (
-                    <option key={a} value={a}>
-                      {ABILITY_LABELS[a]}
-                    </option>
-                  ))}
-                </select>
+                <Controller
+                  control={control}
+                  name={`styleAbility.${key}`}
+                  // an untouched row says "Same as overall", as the select did, not nothing
+                  defaultValue=""
+                  render={({ field }) => (
+                    <SelectMenu
+                      id={`about-style-${key}`}
+                      className="max-w-56"
+                      value={field.value ?? ''}
+                      onValueChange={field.onChange}
+                      onBlur={field.onBlur}
+                      options={[
+                        { value: '', label: 'Same as overall' },
+                        ...ABILITIES.map((a) => ({ value: a, label: ABILITY_LABELS[a] })),
+                      ]}
+                    />
+                  )}
+                />
               </div>
             ))}
           </div>

@@ -24,6 +24,7 @@ import { stashPendingLink } from '@/lib/app/breaks/pending-link';
 import { encodeBreak } from '@/lib/app/breaks/share';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { testCatalogue, testStyle } from '@/tests/helpers/catalogue';
+import { pickOption } from '@/tests/helpers/select-menu';
 
 // jsdom/happy-dom has no CSS loader, and the stylesheet is not what is under test
 vi.mock('@/components/app/breaks/breaks.css', () => ({}));
@@ -348,7 +349,7 @@ describe('the Studio', () => {
     expect(voice().getByLabelText('Size')).toBeTruthy();
     expect(voice().getByLabelText('Bright')).toBeTruthy();
 
-    await user.selectOptions(kitPicker(), 'virtuosity');
+    await pickOption(user, kitPicker(), 'virtuosity');
     expect(voice().queryByLabelText('Bright')).toBeNull();
     expect(voice().getByLabelText('Speed')).toBeTruthy();
   });

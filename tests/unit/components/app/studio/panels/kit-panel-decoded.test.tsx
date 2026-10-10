@@ -26,6 +26,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { KitPanel } from '@/components/app/studio/panels/kit-panel';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { testCatalogue } from '@/tests/helpers/catalogue';
+import { pickOption } from '@/tests/helpers/select-menu';
 
 vi.mock('@/lib/app/breaks/audio/packs', () => {
   class FakePackSource {
@@ -104,7 +105,7 @@ describe('KitPanel with samples already decoded', () => {
 
     const kitPicker = () =>
       within(screen.getByRole('heading', { name: 'Kit' }).closest('.card')!).getByLabelText('Kit');
-    await user.selectOptions(kitPicker(), 'virtuosity');
+    await pickOption(user, kitPicker(), 'virtuosity');
 
     expect(await screen.findByText('3 recorded lanes loaded')).toBeTruthy();
   });
@@ -115,7 +116,7 @@ describe('KitPanel with samples already decoded', () => {
 
     const kitPicker = () =>
       within(screen.getByRole('heading', { name: 'Kit' }).closest('.card')!).getByLabelText('Kit');
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
 
     expect(await screen.findByText('4 of your own samples loaded')).toBeTruthy();
   });
@@ -128,7 +129,7 @@ describe('KitPanel with samples already decoded', () => {
 
     const kitPicker = () =>
       within(screen.getByRole('heading', { name: 'Kit' }).closest('.card')!).getByLabelText('Kit');
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
 
     expect(
       await screen.findByText(
@@ -149,7 +150,7 @@ describe('KitPanel with samples already decoded', () => {
        a real returning session with a decoded pack looks like anyway. */
     const kitPicker = () =>
       within(screen.getByRole('heading', { name: 'Kit' }).closest('.card')!).getByLabelText('Kit');
-    await user.selectOptions(kitPicker(), 'virtuosity');
+    await pickOption(user, kitPicker(), 'virtuosity');
 
     // Perc is one of the VOICE_KEYS tabs, always present regardless of kit
     await user.click(screen.getByRole('radio', { name: 'Perc' }));

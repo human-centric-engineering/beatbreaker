@@ -36,10 +36,11 @@ import '@/components/app/shell/studio.css';
  */
 
 /* A panel may send you to another drawer — Generate names the kit and links to
-   Sound, which is where the kit is chosen (E10). */
+   Sound, which is where the kit is chosen (E10) — or close its own: picking a
+   style makes a new break and gets out of the way of it. */
 const PANELS: Record<
   Exclude<Tool, 'buddy'>,
-  React.ComponentType<{ onOpenTool?: (tool: Tool) => void }>
+  React.ComponentType<{ onOpenTool?: (tool: Tool) => void; onClose?: () => void }>
 > = {
   gen: GeneratePanel,
   doctor: DoctorPanel,
@@ -195,7 +196,7 @@ export function StudioFrame() {
         {tool === 'buddy' ? (
           <BuddyPanel chat={buddy} />
         ) : Panel ? (
-          <Panel onOpenTool={open} />
+          <Panel onOpenTool={open} onClose={() => setTool(null)} />
         ) : null}
       </ToolDrawer>
 
