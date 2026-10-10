@@ -173,6 +173,39 @@ describe('armAngles', () => {
   });
 });
 
+describe('armAngles with the elbow straight', () => {
+  it('cannot read the humerus’s turn, but still reads the forearm’s and the wrist’s', () => {
+    // hanging straight, palm in toward the thigh (thumb forward): the hinge is gone, so the
+    // forearm's zero is taken from out to the side
+    const straight = arm('lead', DOWN, new Vector3(0, -0.27, 0), OUT, new Vector3(0, -1, 0));
+    const a = armAngles(straight, NONE, 'lead');
+    expect(a.flexion).toBeCloseTo(0, 6);
+    expect(Number.isNaN(a.rotation)).toBe(true);
+    expect(a.elevation).toBeCloseTo(0, 6);
+    expect(Number.isFinite(a.pronation)).toBe(true);
+    expect(a.wristFlexion).toBeCloseTo(0, 6);
+    expect(a.deviation).toBeCloseTo(0, 6);
+  });
+
+  it('still reads a straight arm held out to the side, where out to the side is along it', () => {
+    const out = new Vector3(0.3, 0, 0);
+    const a = armAngles(arm('lead', out, new Vector3(0.27, 0, 0), UP, OUT), NONE, 'lead');
+    expect(a.elevation).toBeCloseTo(Math.PI / 2, 6);
+    expect(a.plane).toBeCloseTo(0, 6);
+    expect(Number.isNaN(a.rotation)).toBe(true);
+    for (const v of [a.pronation, a.wristFlexion, a.deviation])
+      expect(Number.isFinite(v)).toBe(true);
+  });
+
+  it('reads a hand turned past palm-up the short way round, not as a full turn the other way', () => {
+    // palm up and then some: 120° of supination is read as that, not as 240° of pronation
+    const back = new Vector3(Math.sin((210 * Math.PI) / 180), Math.cos((210 * Math.PI) / 180), 0);
+    const a = armAngles(arm('lead', DOWN, FORWARD, back, AHEAD), NONE, 'lead');
+    expect(Math.abs(a.pronation)).toBeLessThanOrEqual(Math.PI);
+    expect(a.pronation).toBeCloseTo(-(120 * Math.PI) / 180, 6);
+  });
+});
+
 describe('twistAbout', () => {
   it('finds the turn about an axis in a turn that also swings off it', () => {
     const q = new Quaternion()

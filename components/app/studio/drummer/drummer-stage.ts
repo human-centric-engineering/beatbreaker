@@ -2,8 +2,8 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 
-import { buildDrummer, type DrummerModel } from '@/components/app/studio/drummer/drummer-model';
-import { buildSkeleton } from '@/components/app/studio/drummer/skeleton-model';
+import type { DrummerModel } from '@/components/app/studio/drummer/drummer-model';
+import { buildFigure } from '@/components/app/studio/drummer/figure';
 import { buildKit } from '@/components/app/studio/drummer/kit-model';
 import {
   disposeMaterials,
@@ -57,7 +57,8 @@ export class DrummerStage {
   private readonly kitMaterials: Materials;
   private drummer: DrummerModel;
   /** The drummer's own materials, made in their colours and freed with them. */
-  private dress: Materials;
+  /** Frees what was made for whoever is seated. */
+  private undress: () => void;
   private who: Persona;
   private readonly env: THREE.Texture;
   private readonly resize: ResizeObserver | null;
@@ -123,11 +124,9 @@ export class DrummerStage {
 
     this.kitMaterials = makeMaterials(persona);
     this.kit = buildKit(this.kitMaterials);
-    this.dress = makeMaterials(persona);
-    this.drummer = (persona.kind === 'skeleton' ? buildSkeleton : buildDrummer)(
-      this.dress,
-      persona
-    );
+    const figure = buildFigure(persona);
+    this.drummer = figure.model;
+    this.undress = figure.dispose;
     this.rig.add(this.kit.root, this.drummer.root);
     this.scene.add(this.rig);
     this.addLights();
@@ -247,9 +246,10 @@ export class DrummerStage {
     this.who = who;
     this.rig.remove(this.drummer.root);
     disposeTree(this.drummer.root);
-    disposeMaterials(this.dress);
-    this.dress = makeMaterials(who);
-    this.drummer = (who.kind === 'skeleton' ? buildSkeleton : buildDrummer)(this.dress, who);
+    this.undress();
+    const figure = buildFigure(who);
+    this.drummer = figure.model;
+    this.undress = figure.dispose;
     this.rig.add(this.drummer.root);
     // the same kit, repainted in theirs
     styleKit(this.kitMaterials, who);
@@ -307,7 +307,7 @@ export class DrummerStage {
     this.controls.dispose();
     disposeTree(this.scene);
     disposeMaterials(this.kitMaterials);
-    disposeMaterials(this.dress);
+    this.undress();
     this.env.dispose();
     this.renderer.dispose();
     this.renderer.domElement.remove();

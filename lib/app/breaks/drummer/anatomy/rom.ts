@@ -47,6 +47,12 @@ export const ROM = {
   mcpSplay: { hard: r(-20, 20), soft: r(-15, 15) },
   pip: { hard: r(0, 105), soft: r(23, 87) },
   dip: { hard: r(-10, 85), soft: r(10, 64) },
+  /**
+   * The thumb's CMC flexion (+) and extension (−): a saddle joint of two
+   * offset, non-perpendicular axes (Hollister et al. 1992), 53° flexion to
+   * extension all told (Cooney et al. 1981).
+   */
+  thumbCmc: { hard: r(-25, 30), soft: r(-15, 20) },
   /** The thumb's MCP and IP (AAOS 0–50 and 0–80, IP hyperextending 20; Hume et al. 1990: 21 and 18 in use). */
   thumbMcp: { hard: r(-10, 55), soft: r(0, 40) },
   thumbIp: { hard: r(-20, 80), soft: r(0, 50) },
@@ -72,7 +78,7 @@ export function splayLimit(flexion: number): number {
  * The scapulohumeral rhythm: how much of the arm's elevation is the scapula
  * turning upward on the chest. Little in the first 30° (Poppen & Walker 1976:
  * about 4:1 there), then about 5 of every 9 degrees at the shoulder joint and
- * 4 at the scapula (5:4), to the scapula's upward rotation of about 50°
+ * 4 at the scapula (5:4), up to the scapula's upward rotation of 50°
  * (McClure et al. 2001). Radians of scapular upward rotation for an
  * elevation of `elevation` radians.
  */
@@ -80,7 +86,7 @@ export function scapularRotation(elevation: number): number {
   const from = 30 * D;
   const early = Math.min(elevation, from) * 0.2;
   const late = Math.max(0, elevation - from) * (4 / 9);
-  return Math.min(55 * D, early + late);
+  return Math.min(50 * D, early + late);
 }
 
 /** How far `value` is outside `range`, radians: 0 inside it. */

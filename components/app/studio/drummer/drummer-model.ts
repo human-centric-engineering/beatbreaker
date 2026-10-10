@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 import { mergeGeometries, mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
+import { bendFingers, placeStick } from '@/components/app/studio/drummer/hand-pose';
 import {
   ball,
   furMaterial,
@@ -11,7 +12,7 @@ import {
   place,
   type Ring,
 } from '@/components/app/studio/drummer/parts';
-import { BODY, type Foot, type Hand, STICK, type V3 } from '@/lib/app/breaks/drummer/kit-layout';
+import { BODY, type Foot, type Hand, type V3 } from '@/lib/app/breaks/drummer/kit-layout';
 import type { Beard, Build, HairStyle, Hat, Persona } from '@/lib/app/breaks/drummer/personas';
 import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
 import type { Speak } from '@/lib/app/breaks/drummer/expression';
@@ -446,17 +447,10 @@ function poseArm(rig: ArmRig, a: ArmPose): void {
   rig.hand.group.position.copy(a.wrist);
   rig.hand.group.quaternion.copy(a.hand);
   const set = handSetOf(a, rig.hand.side);
-  rig.hand.fingers.forEach((joints, n) => {
-    const f = set.fingers[n];
-    joints.forEach((j, k) => (j.rotation.x = f.bend[k]));
-    joints[0].rotation.y = f.splay;
-  });
+  bendFingers(rig.hand.fingers, set);
   rig.hand.thumb.rotation.set(...set.thumb, 'YXZ');
   rig.hand.thumbTip.rotation.x = set.thumbTip;
-  // back from the bead: held up from the butt for a cross-stick, the fulcrum is not always the same way up it
-  const butt = a.tip.clone().addScaledVector(a.stick, -STICK.length);
-  place(rig.stick, butt, a.tip);
-  rig.bead.position.copy(a.tip);
+  placeStick(rig.stick, rig.bead, a);
 }
 
 interface LegRig {

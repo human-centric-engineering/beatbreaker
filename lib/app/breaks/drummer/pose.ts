@@ -1,5 +1,7 @@
 import { Euler, Matrix4, Quaternion, Vector3 } from 'three';
 
+import type { HandShape } from '@/lib/app/breaks/drummer/anatomy/hand';
+import { GRIP_IN_HAND, HAND_SPLAY, handFrame } from '@/lib/app/breaks/drummer/hold';
 import { solveTwoBone } from '@/lib/app/breaks/drummer/ik';
 import {
   AIM_FROM,
@@ -87,6 +89,8 @@ export interface ArmPose {
   ready: number;
   /** 0–1: how far the hand is set down on the snare for a cross-stick, its fingers laid over the stick. */
   cross: number;
+  /** A hand made to say something — open, waving, a thumbs-up — and how far into it (see `anatomy/hand.ts`). */
+  shape?: { kind: HandShape; amount: number };
 }
 
 /**
@@ -345,13 +349,6 @@ function aim(hand: Hand, tip: Vector3, pitch: number): Vector3 {
 }
 
 /**
- * Where the fulcrum sits in the hand's frame, for the lead hand (the other
- * mirrors `x`): under the pad of the thumb, the stick balanced on the middle
- * finger with the first finger wrapped beside it — out past the knuckles and
- * under them.
- */
-const GRIP_IN_HAND = new Vector3(0.023, -0.026, 0.12);
-/**
  * Where the stick lies in a hand set down for a cross-stick: under the first
  * finger, below its knuckle, running along it — the hand arched over it — so
  * the thumb can come in beside it on the drummer's side and the two pick it up
@@ -364,28 +361,6 @@ const GRIP_CROSS = new Vector3(0.04, -0.052, 0.09);
  * and the fingers curving back down to it, not pressed flat.
  */
 const CROSS_ARCH = 0.4;
-/**
- * How far the hand's long axis turns out from the stick. The stick runs across
- * the palm from the fulcrum to the heel of the hand, so the back fingers wrap
- * it behind the fulcrum and the butt shows past the little finger.
- */
-const HAND_SPLAY = 0.7;
-function handFrame(hand: Hand, stick: Vector3, roll: number, splay = HAND_SPLAY): Quaternion {
-  const outward = hand === 'lead' ? 1 : -1;
-  const up = UP.clone()
-    .sub(stick.clone().multiplyScalar(stick.dot(UP)))
-    .normalize();
-  const side = new Vector3().crossVectors(stick, up).normalize().multiplyScalar(outward);
-  const back = up
-    .clone()
-    .multiplyScalar(Math.cos(roll))
-    .addScaledVector(side, Math.sin(roll))
-    .normalize();
-  const fwd = stick.clone().multiplyScalar(Math.cos(splay)).addScaledVector(side, Math.sin(splay));
-  fwd.sub(back.clone().multiplyScalar(fwd.dot(back))).normalize();
-  const x = new Vector3().crossVectors(back, fwd);
-  return new Quaternion().setFromRotationMatrix(new Matrix4().makeBasis(x, back, fwd));
-}
 
 /**
  * Military grip: where the fulcrum sits in the hand's frame, for the lead hand

@@ -12,8 +12,8 @@ import * as THREE from 'three';
 import { describe, expect, it } from 'vitest';
 
 import { BEAD_RADIUS } from '@/components/app/studio/drummer/drummer-model';
-import { makeMaterials } from '@/components/app/studio/drummer/parts';
-import { buildSkeleton } from '@/components/app/studio/drummer/skeleton-model';
+import { buildSkeleton, fitThumb } from '@/components/app/studio/drummer/skeleton-model';
+import { ROM, beyond } from '@/lib/app/breaks/drummer/anatomy/rom';
 import { armAngles, torsoOf } from '@/lib/app/breaks/drummer/anatomy/arm';
 import { BODY } from '@/lib/app/breaks/drummer/kit-layout';
 import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
@@ -23,7 +23,7 @@ import { SWEEP_DUR, sweepTimeline } from '@/tests/helpers/drummer-sweep';
 const BONES = PERSONAS.find((p) => p.kind === 'skeleton')!;
 
 function build() {
-  return buildSkeleton(makeMaterials(BONES), BONES);
+  return buildSkeleton(new THREE.MeshStandardMaterial(), BONES);
 }
 
 function named(root: THREE.Object3D, name: string): THREE.Object3D[] {
@@ -234,5 +234,18 @@ describe('buildSkeleton', () => {
     );
     const toCamera = camera.clone().sub(at(skull)).normalize();
     expect(after.dot(toCamera)).toBeGreaterThan(before.dot(toCamera));
+  });
+
+  it('fits its real thumb to the grip inside the thumb’s ranges, as near the dressed thumb’s tip as they allow', () => {
+    for (const tip of [0, 0.25, 0.5, 0.85]) {
+      const f = fitThumb(tip);
+      expect(beyond(f.cmc, ROM.thumbCmc.hard)).toBe(0);
+      expect(beyond(f.mcp, ROM.thumbMcp.hard)).toBe(0);
+      expect(beyond(f.ip, ROM.thumbIp.hard)).toBe(0);
+      // the IP a little more bent than the MCP, as a thumb flexes
+      expect(f.ip).toBeGreaterThanOrEqual(f.mcp);
+    }
+    // straighter grips leave the real thumb room to reach: bent, it is folded as far as it goes
+    expect(fitThumb(0).mcp).toBeLessThanOrEqual(fitThumb(0.85).mcp + 1e-9);
   });
 });

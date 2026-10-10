@@ -44,8 +44,8 @@ export const DIGITS: readonly Digit[] = [
 /**
  * How far the knuckles are out from the wrist, and down from the back of the
  * hand, metres. (The wrist's centre to the middle knuckle is 88 mm in de Leva
- * 1996, scaled to 1.78 m: this palm is 9 mm long, which the grip was fitted
- * to and keeps for now.)
+ * 1996, scaled to 1.78 m: this palm is 9 mm longer than that, and the grip
+ * was fitted to it, so it keeps it for now.)
  */
 export const KNUCKLE_Z = 0.097;
 export const KNUCKLE_Y = -0.004;
@@ -153,7 +153,67 @@ export interface HandSet {
   thumb: [number, number, number];
   /** The thumb's end joint's bend, radians. */
   thumbTip: number;
+  /**
+   * How far the hand is into a {@link HandShape}, 0–1, and the shape's bend
+   * at the thumb's MCP — which a figure with a thumb metacarpal of its own
+   * (the skeleton) bends; holding a stick, it fits its thumb to the grip instead.
+   */
+  shaped: number;
+  thumbMcp: number;
 }
+
+/**
+ * A hand made to say something rather than hold a stick: open, letting go of
+ * one or taking it; open and spread to wave; or a fist with the thumb up.
+ */
+export type HandShape = 'open' | 'wave' | 'thumbsUp';
+
+interface Shape {
+  /** Each finger's MCP, PIP and DIP bend, first to little, radians. */
+  bend: [number, number, number][];
+  /** How far the fingers fan from the middle, as `SPLAY` does (the knuckles' bend still limits it). */
+  spread: number;
+  /** The thumb's base turn (lead side, mirrored for the other), its MCP and its IP. */
+  thumb: [number, number, number];
+  thumbMcp: number;
+  thumbTip: number;
+}
+
+/** Each DIP at this share of its PIP: the flexor and the oblique retinacular ligament (`rom.ts`). */
+const dips = (mcp: number[], pip: number[], k = 0.6): [number, number, number][] =>
+  mcp.map((m, i) => [m, pip[i], pip[i] * k]);
+
+/**
+ * The shapes, as joint angles inside the ranges in `rom.ts`. Open, the
+ * fingers keep the resting cascade — a little more bend toward the little
+ * finger (Kapandji). To wave, they straighten and spread, the thumb out from
+ * the palm. For a thumbs-up the fingers close to a fist — knuckles near 90°,
+ * PIPs near 100° — and the thumb stands out from it, swung out at its base
+ * across the knuckles' line and straight at its joints.
+ */
+export const SHAPES: Record<HandShape, Shape> = {
+  open: {
+    bend: dips([0.15, 0.2, 0.25, 0.3], [0.25, 0.3, 0.32, 0.35]),
+    spread: 2.5,
+    thumb: [0.15, 0.45, 0.15],
+    thumbMcp: 0.1,
+    thumbTip: 0.15,
+  },
+  wave: {
+    bend: dips([0.04, 0.05, 0.07, 0.09], [0.08, 0.08, 0.1, 0.12]),
+    spread: 4.5,
+    thumb: [0.05, 0.65, 0.1],
+    thumbMcp: 0.05,
+    thumbTip: 0.05,
+  },
+  thumbsUp: {
+    bend: dips([1.45, 1.5, 1.52, 1.52], [1.65, 1.7, 1.72, 1.7]),
+    spread: 0,
+    thumb: [-0.15, 1.45, 0.45],
+    thumbMcp: 0,
+    thumbTip: -0.1,
+  },
+};
 
 /** The thumb's base turn for a grip, set down for a cross-stick (`cross`) and ready to pick it up (`ready`). */
 export function thumbTurn(
@@ -195,9 +255,34 @@ export function handSetOf(a: ArmPose, side: 1 | -1): HandSet {
   });
   // the thumb helps pick it up: against the stick's near side, the first finger hooked round the far
   const tipBend = THUMB_BEND[0] + (THUMB_BEND[1] - THUMB_BEND[0]) * a.ready;
-  return {
+  const held: HandSet = {
     fingers,
     thumb: thumbTurn(side, a.held, a.cross, a.ready),
     thumbTip: THUMB_TIP + (tipBend - THUMB_TIP) * a.cross,
+    shaped: 0,
+    thumbMcp: 0,
+  };
+  return a.shape && a.shape.amount > 0 ? toward(held, a.shape.kind, a.shape.amount, side) : held;
+}
+
+/** A hand `k` (0–1) of the way from how it holds its stick to a {@link HandShape}. */
+function toward(held: HandSet, kind: HandShape, k: number, side: 1 | -1): HandSet {
+  const shape = SHAPES[kind];
+  const mix = (a: number, b: number) => a + (b - a) * k;
+  return {
+    fingers: held.fingers.map((f, n) => {
+      const bend = f.bend.map((b, j) => mix(b, shape.bend[n][j])) as [number, number, number];
+      const fan = mix(f.splay, -DIGITS[n].x * side * shape.spread);
+      const most = splayLimit(bend[0]);
+      return { splay: Math.max(-most, Math.min(most, fan)), bend };
+    }),
+    thumb: held.thumb.map((a, j) => mix(a, (j === 0 ? 1 : side) * shape.thumb[j])) as [
+      number,
+      number,
+      number,
+    ],
+    thumbTip: mix(held.thumbTip, shape.thumbTip),
+    shaped: k,
+    thumbMcp: shape.thumbMcp * k,
   };
 }

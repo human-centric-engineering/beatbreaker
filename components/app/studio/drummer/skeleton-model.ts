@@ -34,9 +34,10 @@ import {
   headTurn,
   stickGeometry,
 } from '@/components/app/studio/drummer/drummer-model';
-import { ball, type Materials, place, segment } from '@/components/app/studio/drummer/parts';
+import { bendFingers, placeStick } from '@/components/app/studio/drummer/hand-pose';
+import { ball, place, segment } from '@/components/app/studio/drummer/parts';
 import { armAngles } from '@/lib/app/breaks/drummer/anatomy/arm';
-import { scapularRotation } from '@/lib/app/breaks/drummer/anatomy/rom';
+import { ROM, scapularRotation } from '@/lib/app/breaks/drummer/anatomy/rom';
 import {
   DIGITS,
   KNUCKLE_Y,
@@ -55,7 +56,7 @@ import {
   neckTurns,
   spineAt,
 } from '@/lib/app/breaks/drummer/anatomy/spine';
-import { BODY, type Foot, type Hand, STICK } from '@/lib/app/breaks/drummer/kit-layout';
+import { BODY, type Foot, type Hand } from '@/lib/app/breaks/drummer/kit-layout';
 import type { Persona } from '@/lib/app/breaks/drummer/personas';
 import type { ArmPose, LegPose, Pose } from '@/lib/app/breaks/drummer/pose';
 
@@ -122,15 +123,68 @@ interface HandRig {
   /** Each finger's joints, knuckle out. */
   fingers: THREE.Group[][];
   thumb: THREE.Group;
-  /** The thumb's two joints past the metacarpal: the MCP and the IP. */
-  thumbJoints: [THREE.Group, THREE.Group];
+  /** The thumb's three joints, base out: the CMC's flexion, the MCP and the IP. */
+  thumbJoints: [THREE.Group, THREE.Group, THREE.Group];
   side: 1 | -1;
 }
 
 /** The thumb's bones, base out: metacarpal, proximal and distal phalanx (Buryanov & Kotiuk 2010, ×1.05). */
 const THUMB_BONES = [0.0485, 0.0331, 0.0228] as const;
-/** The thumb's MCP bend holding a stick, radians: its pad on top of the stick at the fulcrum. */
-const THUMB_MCP = 0.3;
+/**
+ * The dressed thumb the grip tables were fitted to: one bone from the base,
+ * then the end bone, bent at the joint between (`drummer-model.ts`). A real
+ * thumb — this one — is a metacarpal and two phalanges, three centimetres
+ * longer all told.
+ */
+const DRESSED_THUMB = [0.042, 0.032] as const;
+/** The IP's bend against the MCP's as the thumb flexes: a little more (Hume et al. 1990's postures). */
+const IP_OF_MCP = 1.15;
+
+/** Where the thumb's three bones put its tip, in its base's `y`–`z` plane, for CMC, MCP and IP bends. */
+function thumbEnd(cmc: number, mcp: number, ip: number): [number, number] {
+  let y = 0;
+  let z = 0;
+  let a = cmc;
+  [THUMB_BONES[0], THUMB_BONES[1], THUMB_BONES[2]].forEach((len, k) => {
+    y -= len * Math.sin(a);
+    z += len * Math.cos(a);
+    a += k === 0 ? mcp : ip;
+  });
+  return [y, z];
+}
+
+/**
+ * The real thumb's bends that put its tip where the dressed thumb's is, for
+ * an end-joint bend of `tip`: flexed at the CMC and the MCP, the IP a little
+ * more than the MCP, each inside its range (`ROM.thumbMcp`, `ROM.thumbIp`) —
+ * the nearest it can get where the dressed thumb asks more than a thumb has.
+ * Found by a few Gauss–Newton steps from a half-bent thumb.
+ */
+export function fitThumb(tip: number): { cmc: number; mcp: number; ip: number } {
+  const want: [number, number] = [
+    -DRESSED_THUMB[1] * Math.sin(tip),
+    DRESSED_THUMB[0] + DRESSED_THUMB[1] * Math.cos(tip),
+  ];
+  const ipOf = (m: number) => Math.min(ROM.thumbIp.hard.max, IP_OF_MCP * m);
+  const clampM = (m: number) => Math.max(0, Math.min(ROM.thumbMcp.hard.max, m));
+  let c = 0;
+  let m = 0.5;
+  for (let step = 0; step < 8; step++) {
+    const [y, z] = thumbEnd(c, m, ipOf(m));
+    const ry = want[0] - y;
+    const rz = want[1] - z;
+    const h = 1e-4;
+    const [yc, zc] = thumbEnd(c + h, m, ipOf(m));
+    const [ym, zm] = thumbEnd(c, m + h, ipOf(m + h));
+    const j = [(yc - y) / h, (ym - y) / h, (zc - z) / h, (zm - z) / h];
+    const det = j[0] * j[3] - j[1] * j[2];
+    if (Math.abs(det) < 1e-12) break;
+    c += (j[3] * ry - j[1] * rz) / det;
+    m = clampM(m + (-j[2] * ry + j[0] * rz) / det);
+    c = Math.max(ROM.thumbCmc.hard.min, Math.min(ROM.thumbCmc.hard.max, c));
+  }
+  return { cmc: c, mcp: m, ip: ipOf(m) };
+}
 
 /** Where each metacarpal's base sits on the distal carpals (lead side), metres. */
 const MC_BASE: [number, number, number][] = [
@@ -188,7 +242,9 @@ function buildHand(thumb: 1 | -1, bone: THREE.Material): HandRig {
   const thumbBase = new THREE.Group();
   thumbBase.position.set(thumb * THUMB_BASE[0], THUMB_BASE[1], THUMB_BASE[2]);
   thumbBase.rotation.set(...thumbTurn(thumb, 'matched'), 'YXZ');
-  thumbBase.add(mesh(handBone(THUMB_BONES[0], 0.0085), bone, 'metacarpal'));
+  // the trapeziometacarpal joint's flexion, under the turn the grip tables give the base
+  const cmc = new THREE.Group();
+  cmc.add(mesh(handBone(THUMB_BONES[0], 0.0085), bone, 'metacarpal'));
   const mcp = new THREE.Group();
   mcp.position.z = THUMB_BONES[0];
   mcp.add(mesh(handBone(THUMB_BONES[1], 0.0078), bone, 'phalanx'));
@@ -196,9 +252,10 @@ function buildHand(thumb: 1 | -1, bone: THREE.Material): HandRig {
   ip.position.z = THUMB_BONES[1];
   ip.add(mesh(handBone(THUMB_BONES[2], 0.007, true), bone, 'phalanx'));
   mcp.add(ip);
-  thumbBase.add(mcp);
+  cmc.add(mcp);
+  thumbBase.add(cmc);
   group.add(thumbBase);
-  return { group, fingers, thumb: thumbBase, thumbJoints: [mcp, ip], side: thumb };
+  return { group, fingers, thumb: thumbBase, thumbJoints: [cmc, mcp, ip], side: thumb };
 }
 
 /* ---- the arm --------------------------------------------------------- */
@@ -289,7 +346,8 @@ function poseArm(
   const h = a.elbow.clone().sub(a.shoulder).normalize();
   const f = a.wrist.clone().sub(a.elbow).normalize();
   const hinge = new THREE.Vector3().crossVectors(h, f);
-  if (hinge.lengthSq() < 1e-8) hinge.copy(across).multiplyScalar(side);
+  // (straight, the hinge is across the body: the same way for both arms, as the bent case gives)
+  if (hinge.lengthSq() < 1e-8) hinge.copy(across);
   hinge.normalize();
   rig.humerus.position.copy(a.shoulder);
   rig.humerus.quaternion.copy(along(h, hinge));
@@ -322,18 +380,16 @@ function poseArm(
   rig.hand.group.position.copy(a.wrist);
   rig.hand.group.quaternion.copy(a.hand);
   const set = handSetOf(a, rig.hand.side);
-  rig.hand.fingers.forEach((joints, n) => {
-    const fs = set.fingers[n];
-    joints.forEach((j, k) => (j.rotation.x = fs.bend[k]));
-    joints[0].rotation.y = fs.splay;
-  });
+  bendFingers(rig.hand.fingers, set);
   rig.hand.thumb.rotation.set(...set.thumb, 'YXZ');
-  rig.hand.thumbJoints[0].rotation.x = THUMB_MCP * (1 - a.cross);
-  rig.hand.thumbJoints[1].rotation.x = set.thumbTip;
-
-  const butt = a.tip.clone().addScaledVector(a.stick, -STICK.length);
-  place(rig.stick, butt, a.tip);
-  rig.bead.position.copy(a.tip);
+  // holding a stick, the thumb's tip goes where the grip was fitted; made into a shape, the
+  // shape's own angles
+  const fit = fitThumb(set.thumbTip);
+  const k = set.shaped;
+  rig.hand.thumbJoints[0].rotation.x = fit.cmc * (1 - k);
+  rig.hand.thumbJoints[1].rotation.x = fit.mcp + (set.thumbMcp - fit.mcp) * k;
+  rig.hand.thumbJoints[2].rotation.x = fit.ip + (set.thumbTip - fit.ip) * k;
+  placeStick(rig.stick, rig.bead, a);
 }
 
 /* ---- the leg --------------------------------------------------------- */
@@ -473,10 +529,10 @@ const STERNUM = { at: new THREE.Vector3(0, 0.572, -0.074), length: 0.185, slope:
 const STERNAL: number[] = [0.022, 0.045, 0.07, 0.093, 0.115, 0.135, 0.152, 0.16, 0.166, 0.17];
 
 /**
- * Build the skeleton drummer. `m` gives the stick's wood; the bone takes its
- * colour from `who.skin`.
+ * Build the skeleton drummer: the bone takes its colour from `who.skin`, the
+ * sticks are `wood`.
  */
-export function buildSkeleton(m: Materials, who: Persona): DrummerModel {
+export function buildSkeleton(wood: THREE.Material, who: Persona): DrummerModel {
   const root = new THREE.Group();
   root.name = 'drummer';
   const bone = new THREE.MeshStandardMaterial({ color: who.skin, roughness: 0.62, metalness: 0 });
@@ -534,7 +590,7 @@ export function buildSkeleton(m: Materials, who: Persona): DrummerModel {
   st.rotation.x = -STERNUM.slope;
   chest.add(st);
   root.add(chest);
-  const costal = ribEnds
+  const costalMeshes = ribEnds
     .filter((r) => r.n <= 10)
     .map((r) => {
       const c = segment(0.0055, 0.0045, cartilage, 8);
@@ -561,8 +617,8 @@ export function buildSkeleton(m: Materials, who: Persona): DrummerModel {
   root.add(skull);
 
   const arms: Record<Hand, ArmRig> = {
-    lead: buildArm('lead', bone, m.wood),
-    other: buildArm('other', bone, m.wood),
+    lead: buildArm('lead', bone, wood),
+    other: buildArm('other', bone, wood),
   };
   for (const a of Object.values(arms)) {
     root.add(a.clavicle, a.scapula, a.humerus, a.ulna, a.radius, a.hand.group, a.stick, a.bead);
@@ -574,8 +630,33 @@ export function buildSkeleton(m: Materials, who: Persona): DrummerModel {
   for (const l of Object.values(legs)) root.add(l.femur, l.patella, l.tibia, l.fibula, l.foot);
 
   const neck = SPINE.map((l, i) => (l.region === 'cervical' ? i : -1)).filter((i) => i >= 0);
-  const sternumAt = (q: THREE.Quaternion, at: THREE.Vector3, local: THREE.Vector3) =>
-    local.clone().applyAxisAngle(X, -STERNUM.slope).add(STERNUM.at).applyQuaternion(q).add(at);
+  // what the frame reads that never changes, worked out once: each step up the neck, the skull
+  // on C1, the top of the sacrum on the pelvis, each disc's width, and where on the sternum each
+  // cartilage and clavicle meets it (all in the torso's frame)
+  const neckSteps = neck.map((i, k) =>
+    k === 0
+      ? new THREE.Vector3()
+      : new THREE.Vector3(0, SPINE[i].y - SPINE[i - 1].y, SPINE[i].z - SPINE[i - 1].z)
+  );
+  const c1 = SPINE[neck[neck.length - 1]];
+  const toSkull = SKULL_REST.clone().sub(new THREE.Vector3(0, c1.y, c1.z));
+  const sacrumAt = SACRUM_TOP.clone().sub(HIP_MID.clone().sub(new THREE.Vector3(...BODY.pelvis)));
+  const discWidth = SPINE.map(
+    (l) => (l.region === 'lumbar' ? 0.022 : l.region === 'thoracic' ? 0.015 : 0.01) * l.scale
+  );
+  const onSternum = (local: THREE.Vector3) =>
+    local.applyAxisAngle(X, -STERNUM.slope).add(STERNUM.at);
+  const costal = costalMeshes.map((c) => ({
+    ...c,
+    onSternum: onSternum(new THREE.Vector3(c.side * 0.014, -STERNAL[c.n - 1], -0.002)),
+  }));
+  const SC = [1, -1].map((side) => onSternum(new THREE.Vector3(side * 0.02, -0.004, 0)));
+  // scratch, so a frame makes next to nothing new
+  const at = new THREE.Vector3();
+  const below = new THREE.Vector3();
+  const above = new THREE.Vector3();
+  const v = new THREE.Vector3();
+  const q = new THREE.Quaternion();
 
   return {
     root,
@@ -592,63 +673,52 @@ export function buildSkeleton(m: Materials, who: Persona): DrummerModel {
 
       // the neck shares the head's turn down it; the skull rests on the atlas
       const tq = spine.torso.quaternion;
-      const head = headTurn(pose, torso, SKULL_REST, camera);
-      const turns = neckTurns(head);
-      let at = spine.levels[neck[0]].position.clone();
+      const turns = neckTurns(headTurn(pose, torso, SKULL_REST, camera));
+      at.copy(spine.levels[neck[0]].position);
       neck.forEach((i, k) => {
-        if (k > 0) {
-          const step = new THREE.Vector3(
-            0,
-            SPINE[i].y - SPINE[i - 1].y,
-            SPINE[i].z - SPINE[i - 1].z
-          );
-          at = at.clone().add(step.applyQuaternion(tq.clone().multiply(turns[k - 1])));
-        }
+        if (k > 0) at.add(v.copy(neckSteps[k]).applyQuaternion(q.copy(tq).multiply(turns[k - 1])));
         levels[i].position.copy(at);
         levels[i].quaternion.copy(tq).multiply(turns[k]);
       });
-      const c1 = SPINE[neck[neck.length - 1]];
-      const toSkull = SKULL_REST.clone().sub(new THREE.Vector3(0, c1.y, c1.z));
       skull.position
         .copy(at)
-        .add(toSkull.applyQuaternion(tq.clone().multiply(turns[turns.length - 2])));
+        .add(v.copy(toSkull).applyQuaternion(q.copy(tq).multiply(turns[turns.length - 2])));
       skull.quaternion.copy(tq).multiply(turns[turns.length - 1]);
       // the jaw drops to count, and a little for a smile
       jaw.rotation.x = 0.03 + 0.34 * pose.speak.open + 0.05 * pose.smile;
 
       // a disc between each vertebra and the next (the first on the sacrum)
-      const top = (g: THREE.Object3D, h: number, sign: 1 | -1) =>
-        new THREE.Vector3(0, (sign * h) / 2, 0).applyQuaternion(g.quaternion).add(g.position);
-      const sacrumTop = SACRUM_TOP.clone()
-        .sub(HIP_MID.clone().sub(new THREE.Vector3(...BODY.pelvis)))
-        .applyQuaternion(pelvis.quaternion)
-        .add(pelvis.position);
+      below.copy(sacrumAt).applyQuaternion(pelvis.quaternion).add(pelvis.position);
       SPINE.forEach((l, i) => {
-        const below = i === 0 ? sacrumTop : top(levels[i - 1], SPINE[i - 1].height, 1);
-        const above = top(levels[i], l.height, -1);
+        const g = levels[i];
+        above
+          .set(0, -l.height / 2, 0)
+          .applyQuaternion(g.quaternion)
+          .add(g.position);
         place(discs[i], below, above);
-        const r =
-          (l.region === 'lumbar' ? 0.022 : l.region === 'thoracic' ? 0.015 : 0.01) * l.scale;
-        discs[i].scale.x = r;
-        discs[i].scale.z = r * 0.8;
+        discs[i].scale.x = discWidth[i];
+        discs[i].scale.z = discWidth[i] * 0.8;
+        // and this body's top, under the next disc
+        below
+          .set(0, l.height / 2, 0)
+          .applyQuaternion(g.quaternion)
+          .add(g.position);
       });
 
       // the sternum rides the chest, and the cartilage of each rib reaches it
       chest.position.copy(STERNUM.at).applyQuaternion(tq).add(spine.torso.position);
       chest.quaternion.copy(tq);
       for (const c of costal) {
-        const from = c.end.clone().applyQuaternion(c.level.quaternion).add(c.level.position);
-        const down = STERNAL[c.n - 1];
-        const to = sternumAt(
-          tq,
-          spine.torso.position,
-          new THREE.Vector3(c.side * 0.014, -down, -0.002)
-        );
-        place(c.mesh, from, to);
+        below.copy(c.end).applyQuaternion(c.level.quaternion).add(c.level.position);
+        above.copy(c.onSternum).applyQuaternion(tq).add(spine.torso.position);
+        place(c.mesh, below, above);
       }
 
       const sc = (side: 1 | -1) =>
-        sternumAt(tq, spine.torso.position, new THREE.Vector3(side * 0.02, -0.004, 0.0));
+        v
+          .copy(SC[side === 1 ? 0 : 1])
+          .applyQuaternion(tq)
+          .add(spine.torso.position);
       poseArm(arms.lead, pose.arms.lead, 'lead', tq, sc(1));
       poseArm(arms.other, pose.arms.other, 'other', tq, sc(-1));
       poseLeg(legs.kickFoot, pose.legs.kickFoot);

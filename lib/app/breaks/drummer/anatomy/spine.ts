@@ -101,12 +101,15 @@ export const SKULL_REST = new Vector3(0, 0.776, 0.016);
  * turn barely 1–2°, the thoracic bend 4–6° and turn up to 8° (about half that
  * in a living, seated body), and side bend is spread through both. How much
  * of a seated reach the pelvis takes, rolling on the seat bones, has not been
- * measured for drummers: a third is an estimate.
+ * measured for drummers: a third is an estimate. The pelvis only rolls, about
+ * the line through both hip joints — its sockets stay on the heads of the
+ * femurs, which the legs hang from where the pose has them — and leaves the
+ * turn and the side bend to the spine.
  */
 export const SHARE = {
   lean: { pelvis: 0.3, lumbar: 0.45, thoracic: 0.25 },
-  yaw: { pelvis: 0.05, lumbar: 0.12, thoracic: 0.83 },
-  roll: { pelvis: 0.1, lumbar: 0.4, thoracic: 0.5 },
+  yaw: { pelvis: 0, lumbar: 0.13, thoracic: 0.87 },
+  roll: { pelvis: 0, lumbar: 0.45, thoracic: 0.55 },
 } as const;
 
 /**

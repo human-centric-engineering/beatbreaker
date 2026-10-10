@@ -9,7 +9,7 @@ import { Vector3 } from 'three';
 import { describe, expect, it } from 'vitest';
 
 import { armAngles, torsoOf } from '@/lib/app/breaks/drummer/anatomy/arm';
-import { handSetOf } from '@/lib/app/breaks/drummer/anatomy/hand';
+import { type HandShape, SHAPES, handSetOf } from '@/lib/app/breaks/drummer/anatomy/hand';
 import {
   DIP_OF_PIP,
   ROM,
@@ -51,6 +51,11 @@ function everyHand(): ArmPose[] {
           for (const lift of [0, 0.05, 0.2]) out.push(handAt(held, curl, cross, ready, lift));
         }
       }
+    }
+    // and every shape a hand is made into, on the way there and all the way
+    for (const kind of Object.keys(SHAPES) as HandShape[]) {
+      for (const amount of [0.5, 1])
+        out.push({ ...handAt(held, 0.6, 0, 1, 0), shape: { kind, amount } });
     }
   }
   return out;
@@ -98,7 +103,7 @@ describe('scapularRotation', () => {
     expect(scapularRotation(0)).toBe(0);
     expect(scapularRotation(30 * D)).toBeCloseTo(6 * D, 9);
     expect(scapularRotation(120 * D)).toBeCloseTo(46 * D, 9);
-    expect(scapularRotation(180 * D)).toBeCloseTo(55 * D, 9);
+    expect(scapularRotation(180 * D)).toBeCloseTo(50 * D, 9);
   });
 });
 
@@ -115,6 +120,7 @@ describe('the grip tables, held to the limits', () => {
           expect(Math.abs(f.splay)).toBeLessThanOrEqual(splayLimit(f.bend[0]) + 1e-12);
         }
         expect(beyond(set.thumbTip, ROM.thumbIp.hard)).toBe(0);
+        expect(beyond(set.thumbMcp, ROM.thumbMcp.hard)).toBe(0);
       }
     });
   }
@@ -128,6 +134,36 @@ describe('the grip tables, held to the limits', () => {
         expect(k).toBeLessThanOrEqual(DIP_OF_PIP.max + 1e-9);
       }
     }
+  });
+});
+
+describe('SHAPES', () => {
+  it('makes a fist for the thumbs-up — every knuckle well bent — and straightens the fingers to wave', () => {
+    for (const [m, p] of SHAPES.thumbsUp.bend) {
+      expect(m).toBeGreaterThan(80 * D);
+      expect(p).toBeGreaterThan(90 * D);
+    }
+    for (const [m, p] of SHAPES.wave.bend) {
+      expect(m).toBeLessThan(10 * D);
+      expect(p).toBeLessThan(10 * D);
+    }
+  });
+
+  it('blends a hand into a shape: none of it at 0, all of it at 1', () => {
+    const plain = handSetOf(handAt('matched', 0.6, 0, 1, 0), 1);
+    const none = handSetOf(
+      { ...handAt('matched', 0.6, 0, 1, 0), shape: { kind: 'wave', amount: 0 } },
+      1
+    );
+    expect(none).toEqual(plain);
+    const full = handSetOf(
+      { ...handAt('matched', 0.6, 0, 1, 0), shape: { kind: 'thumbsUp', amount: 1 } },
+      -1
+    );
+    expect(full.shaped).toBe(1);
+    full.fingers.forEach((f, n) => expect(f.bend).toEqual(SHAPES.thumbsUp.bend[n]));
+    // the thumb's turn mirrored for the hand whose thumb is on the left
+    expect(full.thumb[1]).toBeCloseTo(-SHAPES.thumbsUp.thumb[1], 9);
   });
 });
 

@@ -121,11 +121,17 @@ describe('spineAt', () => {
     }
   });
 
-  it('rolls the pelvis forward on the hip joints, which stay put', () => {
+  it('rolls the pelvis forward about the line through the hip joints, never turning or tilting it', () => {
     const s = spineAt({ lean: 0.3, yaw: 0, roll: 0, bob: 0 });
     expect(s.pelvis.position.distanceTo(HIP_MID)).toBeLessThan(1e-12);
     const tilt = 2 * Math.acos(Math.min(1, Math.abs(s.pelvis.quaternion.w)));
     expect(tilt).toBeCloseTo(0.3 * SHARE.lean.pelvis, 6);
+    // turned and tilted as well, the pelvis still only rolls: both sockets stay where the femurs are
+    const turned = spineAt({ lean: 0.3, yaw: 0.3, roll: 0.05, bob: 0 });
+    for (const x of [BODY.hip[0], -BODY.hip[0]]) {
+      const socket = new Vector3(x, 0, 0).applyQuaternion(turned.pelvis.quaternion).add(HIP_MID);
+      expect(socket.distanceTo(new Vector3(x, BODY.hip[1], BODY.hip[2]))).toBeLessThan(1e-12);
+    }
   });
 });
 
