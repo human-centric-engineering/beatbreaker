@@ -16,11 +16,14 @@ movement. The numbers and their sources are in
 | `lib/app/breaks/drummer/anatomy/hand.ts`          | The hand every figure bends: `DIGITS` (measured phalanx lengths), the grip tables, and `handSetOf()`, a hand's finger and thumb angles from its `ArmPose`. The dressed drummers and the skeleton both read it.                                 |
 | `lib/app/breaks/drummer/anatomy/spine.ts`         | `SPINE` (L5 to C1 at rest, seated), `spineAt()` (the torso's lean, turn and tilt shared out between pelvis, lumbar and thoracic), and `neckTurns()` (the head's turn shared down the neck).                                                    |
 | `components/app/studio/drummer/bones.ts`          | The bones as shapes, each built once at its real size in its own frame. The skull and jaw are signed-distance surfaces meshed by marching cubes, so the face is one bone rather than parts stuck together.                                     |
-| `components/app/studio/drummer/skeleton-model.ts` | `buildSkeleton()`: the skeleton drummer, a `DrummerModel` like `buildDrummer()`'s, posed from the same `Pose`.                                                                                                                                 |
+| `components/app/studio/drummer/skeleton-model.ts` | `buildSkeleton()`: the skeleton drummer, a `DrummerModel` like `buildDrummer()`'s, posed from the same `Pose`. `fitThumb()` fits its real thumb to the grip.                                                                                   |
+| `components/app/studio/drummer/figure.ts`         | `buildFigure()`: whoever sits at the kit, dressed or bones, and what to free when they leave.                                                                                                                                                  |
+| `components/app/studio/drummer/hand-pose.ts`      | `bendFingers()` and `placeStick()`: what every figure does with its hand each frame.                                                                                                                                                           |
+| `lib/app/breaks/drummer/hold.ts`                  | The matched hold: `GRIP_IN_HAND` (the fulcrum in the hand) and `handFrame()`. The planner and the shows both hold sticks with it.                                                                                                              |
+| `lib/app/breaks/drummer/gesture.ts`               | The waiting drummer's show: `showAt()` (when one plays), `showPose()` (both arms, the head's look), `showOverlaps()` (so the stick twirls keep out of its way).                                                                                |
 
 The skeleton is a persona, **Mister Bones** (`kind: 'skeleton'`), so it joins
-the cast. `DrummerStage` builds it with `buildSkeleton` instead of
-`buildDrummer`.
+the cast. `DrummerStage` seats whoever it is given through `buildFigure()`.
 
 ## Conventions
 
@@ -65,13 +68,56 @@ the cast. `DrummerStage` builds it with `buildSkeleton` instead of
 - **The spine** shares the torso's turn by each region's segmental range
   (White & Panjabi). The lumbar spine takes most of the bend and almost none
   of the turn. The thoracic spine takes most of the turn. The pelvis rolls
-  forward on the seat bones for an estimated third of a lean. The chain is
+  forward on the seat bones for an estimated third of a lean, about the line
+  through both hip joints, so its sockets stay on the femoral heads. It
+  leaves the turn and the side bend to the spine. The chain is
   nudged so that T1, the ribs above it and the shoulder girdle land exactly
   where the pose's rigid torso put them.
 - **The neck**: half of all head turning is at the atlas on the axis
   (C1–C2), and the nod is spread down the neck with the most at the skull.
 - **The fingers** are a man's measured phalanx lengths (Buryanov & Kotiuk
   2010, ×1.05), and the dressed hands now use them too.
+- **Hand shapes** (`SHAPES` in `anatomy/hand.ts`) are joint angles inside
+  the ranges: open, with the resting cascade; a wave, the fingers straight
+  and spread; a thumbs-up, a fist (knuckles above 80°, PIPs above 90°) with
+  the thumb standing out of it. `ArmPose.shape` blends a hand into one, and
+  on from it into another (`then`).
+
+## The waiting drummer's show
+
+While the drummer waits for Play, now and then (a chance in each 18-second
+window, seeded from the clock like the stick twirls), one hand passes its
+stick to the other and the free hand waves at you or gives you a
+thumbs-up, the head turned to look at you (`gesture.ts`). It never plays
+near a note or a count, it is put away as Play comes in, and twirls keep out
+of its way. The camera is passed to `poseAt()` in the kit's frame, so the
+wave and the look are for wherever you are watching from.
+
+It runs about 6½ seconds:
+
+1. **The pass.** The keeping hand goes out in front, just over the middle,
+   its stick forward and up. The giving hand offers its own stick butt
+   first, alongside, so its butt lies in the keeper's palm beside the
+   keeper's stick, with the giver's hand a hand's breadth further along it.
+   Both hands are rolled toward thumb-up, as in American grip. The giver
+   opens and lets go. The head nods down to watch.
+2. **The gesture.** The keeper holds the pair lower, at ease. The free hand
+   goes up by the head, palm to the camera, and waves: swung from the
+   shoulder at 2.2 a second, the wrist trailing. Or it holds a fist out in
+   front, forearm at neutral with the thumb up, pushed toward you with a
+   wink. Either way the head turns to the camera, with a smile.
+3. **The take.** The hand comes back, closes on its stick, and both settle
+   home.
+
+The layout of the pass was found by search, not by eye. Where both arms sit
+inside their everyday ranges at once, the hands meet as described. Held
+across to the keeper's side instead, the giver's wrist would need about
+100° of flexion and deviation. A hand moving between two placements turns
+against its forearm, not in the room, so the wrist and forearm angles go
+from one in-range set to the other. `gesture.test.ts` reads every frame of
+every show (both gestures from either hand) through `armAngles()` and holds
+each joint inside its anatomical range. Nothing moves faster than a hand
+can, and the passed stick never jumps as it changes hands.
 
 ## What the sweep found
 
@@ -108,7 +154,12 @@ Shoulders and elbows stay inside their ranges throughout, and
 
 ## Known deviations from the anatomy
 
-- **The palm is 9 mm long.** The wrist centre to the middle knuckle is 97 mm
+- **The dressed thumb is 3 cm short.** The grips were fitted to a two-bone
+  thumb 74 mm long; a real one is a metacarpal and two phalanges, about
+  105 mm. The skeleton fits its real thumb to the grip each frame
+  (`fitThumb()`). The fit sits at the limits of the thumb's MCP and CMC,
+  which is the measure of how short the dressed thumb is (plan step C).
+- **The palm is 9 mm longer than measured.** The wrist centre to the middle knuckle is 97 mm
   (`KNUCKLE_Z`), against 88 mm (de Leva 1996, scaled). The grip's fulcrum
   was fitted to it, so it is kept until the grips are refitted (plan step C).
 - **The forearm is 270 mm**, against the research's pick of 280. The
@@ -125,7 +176,8 @@ Each step is a PR. The joints stay the planner's until step B, and every
 step's sweep test widens to the joints that step brings inside their ranges.
 
 - **A. Anatomy and the skeleton.** Done: the research, the modules above,
-  the skeleton drummer, and the sweep's findings.
+  the skeleton drummer, the sweep's findings, and the waiting drummer's
+  show to exercise the hands.
 - **B. Constrain the arm.** The planner solves the forearm's turn and the
   wrist inside `ROM`, preferring the soft range. The wrist bends along the
   dart-thrower's plane. The elbow swings to keep the hand's frame within

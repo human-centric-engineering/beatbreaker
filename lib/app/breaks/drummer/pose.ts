@@ -28,6 +28,7 @@ import {
   strikeTarget,
 } from '@/lib/app/breaks/drummer/kit-layout';
 import { type Glance, type Speak, expressionAt } from '@/lib/app/breaks/drummer/expression';
+import { showAt, showOverlaps, showPose, torsoFrame } from '@/lib/app/breaks/drummer/gesture';
 import { hatFootAt } from '@/lib/app/breaks/drummer/hat-foot';
 import { type FootStance, kickStanceAt } from '@/lib/app/breaks/drummer/kick-foot';
 import {
@@ -89,8 +90,11 @@ export interface ArmPose {
   ready: number;
   /** 0–1: how far the hand is set down on the snare for a cross-stick, its fingers laid over the stick. */
   cross: number;
-  /** A hand made to say something — open, waving, a thumbs-up — and how far into it (see `anatomy/hand.ts`). */
-  shape?: { kind: HandShape; amount: number };
+  /**
+   * A hand made to say something — open, waving, a thumbs-up — and how far
+   * into it; and, from there, on into another (see `anatomy/hand.ts`).
+   */
+  shape?: { kind: HandShape; amount: number; then?: { kind: HandShape; amount: number } };
 }
 
 /**
@@ -607,6 +611,8 @@ export function twirlAt(
       const spinEnd = from + TWIRL_UP + TWIRL_SPIN * turns;
       const end = spinEnd + TWIRL_DOWN;
       if (now < from || now > end) continue;
+      // a show passing a stick between the hands has them both
+      if (showOverlaps(from - TWIRL_UP, end + TWIRL_UP)) continue;
       const near = lastAtOrBefore(hits, end + TWIRL_CLEAR);
       if (near >= 0 && hits[near].time >= start - TWIRL_CLEAR) continue;
       const amount =
@@ -1415,7 +1421,8 @@ export function poseAt(
   timeline: StrokeTimeline,
   now: number,
   groove: number,
-  grips: Grips = MATCHED_GRIPS
+  grips: Grips = MATCHED_GRIPS,
+  audience?: Vector3
 ): Pose {
   const all = timeline.all();
   const hatHits = all.filter((h) => h.piece === 'hat');
@@ -1550,10 +1557,26 @@ export function poseAt(
       .add(pelvis);
   };
 
-  const leadArm = arm('lead', strokes.lead, paths.lead, shoulderOf('lead'), time.lead, grips.lead);
-  const otherArm = underLead(leadArm, (cap) =>
+  const leadRest = arm('lead', strokes.lead, paths.lead, shoulderOf('lead'), time.lead, grips.lead);
+  const otherRest = underLead(leadRest, (cap) =>
     arm('other', strokes.other, paths.other, shoulderOf('other'), time.other, grips.other, cap)
   );
+  // waiting, now and then a stick is passed between the hands and the free one waves or
+  // gives a thumbs-up, looking out at whoever is watching
+  const handHits = all.filter((h) => h.limb === 'lead' || h.limb === 'other');
+  const playingShow = showAt(now, groove, handHits);
+  const show = playingShow
+    ? showPose(
+        playingShow.show,
+        playingShow.t,
+        playingShow.fade,
+        { lead: leadRest, other: otherRest },
+        torsoFrame(new Quaternion().setFromEuler(torso), bob),
+        audience
+      )
+    : null;
+  const leadArm = show ? show.arms.lead : leadRest;
+  const otherArm = show ? show.arms.other : otherRest;
 
   const kickHits = timeline.forLimb('kickFoot');
   const kick = strokeAt(kickHits, now, KICK);
@@ -1609,18 +1632,33 @@ export function poseAt(
     lookNod += (toNod - nod) * foot.look;
   }
 
+  const glance: Glance = show
+    ? {
+        ...ex.glance,
+        look: Math.max(ex.glance.look, show.look),
+        brows: Math.max(ex.glance.brows, playingShow?.show.kind === 'wave' ? show.look : 0),
+        wink: Math.max(ex.glance.wink, show.wink),
+        eye:
+          show.wink > ex.glance.wink
+            ? playingShow?.show.giver === 'lead'
+              ? 1
+              : -1
+            : ex.glance.eye,
+      }
+    : ex.glance;
   return {
     bob,
     yaw,
     lean,
     roll,
-    nod: lookNod,
+    nod: lookNod + (show?.watch ?? 0),
     headYaw: lookYaw,
     headTilt,
     // playing or waiting for Play: a look at the camera is for either
-    glance: ex.glance,
+    glance,
     blink: ex.blink,
-    smile: ex.smile,
+    // and a show is done with a smile
+    smile: Math.max(ex.smile, 0.8 * (show?.look ?? 0)),
     speak: ex.speak,
     brow: ex.brow,
     arms: {

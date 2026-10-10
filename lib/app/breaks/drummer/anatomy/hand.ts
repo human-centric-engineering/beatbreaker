@@ -262,7 +262,13 @@ export function handSetOf(a: ArmPose, side: 1 | -1): HandSet {
     shaped: 0,
     thumbMcp: 0,
   };
-  return a.shape && a.shape.amount > 0 ? toward(held, a.shape.kind, a.shape.amount, side) : held;
+  const shape = a.shape;
+  if (!shape || shape.amount <= 0) return held;
+  const first = toward(held, shape.kind, shape.amount, side);
+  // and on from that shape into another: open, then into a wave or a fist
+  return shape.then && shape.then.amount > 0
+    ? toward(first, shape.then.kind, shape.then.amount, side)
+    : first;
 }
 
 /** A hand `k` (0–1) of the way from how it holds its stick to a {@link HandShape}. */
@@ -282,7 +288,8 @@ function toward(held: HandSet, kind: HandShape, k: number, side: 1 | -1): HandSe
       number,
     ],
     thumbTip: mix(held.thumbTip, shape.thumbTip),
-    shaped: k,
-    thumbMcp: shape.thumbMcp * k,
+    // shaped on top of however shaped it already was
+    shaped: 1 - (1 - held.shaped) * (1 - k),
+    thumbMcp: mix(held.thumbMcp, shape.thumbMcp),
   };
 }

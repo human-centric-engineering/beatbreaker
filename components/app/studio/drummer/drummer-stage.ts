@@ -273,7 +273,10 @@ export class DrummerStage {
     this.last = ms;
     this.groove += ((this.playing ? 1 : 0) - this.groove) * Math.min(1, dt * 2.5);
     const now = this.playing ? this.clock.now() - this.clock.latency() : ms / 1000;
-    const pose = poseAt(this.timeline, now, this.groove, this.grips);
+    // where the camera is, in the kit's frame (mirrored with it for a lefty): who a wave is for
+    this.rig.updateMatrixWorld();
+    const audience = this.rig.worldToLocal(this.camera.position.clone());
+    const pose = poseAt(this.timeline, now, this.groove, this.grips, audience);
     this.kit.update(
       pose,
       this.timeline.percussion,
