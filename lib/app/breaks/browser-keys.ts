@@ -103,7 +103,7 @@ const LEGACY_GRIP: Record<string, GripChoice> = {
 export const DRUMMER_GRIP: StoredSetting<GripChoice> = {
   key: 'bb.drummerGrip',
   schema: z.preprocess(
-    (v) => (typeof v === 'string' && v in LEGACY_GRIP ? LEGACY_GRIP[v] : v),
+    (v) => (typeof v === 'string' && Object.hasOwn(LEGACY_GRIP, v) ? LEGACY_GRIP[v] : v),
     z.enum(GRIP_CHOICES)
   ),
   fallback: 'american',

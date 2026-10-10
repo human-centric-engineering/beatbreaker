@@ -10,7 +10,7 @@ import {
   type GripStyle,
   type Grips,
 } from '@/lib/app/breaks/drummer/grips';
-import { GRIP_IN_HAND, handFrame, stickInHand } from '@/lib/app/breaks/drummer/hold';
+import { GRIP_IN_HAND, frameAlong, handFrame, stickInHand } from '@/lib/app/breaks/drummer/hold';
 import { solveTwoBone } from '@/lib/app/breaks/drummer/ik';
 import {
   AIM_FROM,
@@ -396,22 +396,6 @@ const REACH_SPARE = 0.004;
 
 const Z = new Vector3(0, 0, 1);
 
-/** A hand pointing along `fwd`, the back of it rolled out from facing up by `roll`. */
-function frameAlong(hand: Hand, fwd: Vector3, roll: number): Quaternion {
-  const outward = hand === 'lead' ? 1 : -1;
-  const up = UP.clone()
-    .sub(fwd.clone().multiplyScalar(fwd.dot(UP)))
-    .normalize();
-  const side = new Vector3().crossVectors(fwd, up).normalize().multiplyScalar(outward);
-  const back = up
-    .clone()
-    .multiplyScalar(Math.cos(roll))
-    .addScaledVector(side, Math.sin(roll))
-    .normalize();
-  const x = new Vector3().crossVectors(back, fwd);
-  return new Quaternion().setFromRotationMatrix(new Matrix4().makeBasis(x, back, fwd));
-}
-
 function stickMilitary(hand: Hand): Vector3 {
   const s = STICK_MILITARY.clone();
   if (hand === 'other') s.x = -s.x;
@@ -489,14 +473,6 @@ function militaryHold(
   return { d0: inHand.clone().applyQuaternion(q0), q0, shoulder };
 }
 
-/**
- * Where a matched hand holds its stick for the tip to be at `tip`, pitched
- * down `pitch` onto it: the stick fixed across the palm as the grip lays it
- * (`STICK_IN_HAND`), the arm solved as one piece to it (`militaryHold`) for the
- * way the stick comes across the kit, and the wrist bending only to pitch it
- * onto the piece as aimed. So whatever the stroke, the stick lies along the
- * same line in the hand and the fingers stay on it.
- */
 /** How far a matched arm's elbow swings either way, at most, to pitch its stick onto the piece, radians. */
 const ELBOW_SWING = 0.85;
 /** The swing's steps, the probe it reads its slope with, and its damping where the slope is slight. */
@@ -512,6 +488,13 @@ const SWING_BACK = 6;
  */
 const WRIST_ULNAR = 0.22;
 
+/**
+ * Where a matched hand holds its stick for the tip to be at `tip`, pitched
+ * down `pitch` onto it: the stick fixed across the palm as the grip lays it
+ * (`STICK_IN_HAND`), the arm solved as one piece to it (`armPiece`), and the elbow
+ * swung to pitch it onto a cymbal as aimed. So whatever the stroke, the stick lies along the
+ * same line in the hand and the fingers stay on it.
+ */
 function matchedHold(
   hand: Hand,
   tip: Vector3,
@@ -562,6 +545,10 @@ function matchedHold(
   return solve(phi);
 }
 
+/** A matched arm's piece length for each grip's turn and hold, and how many are kept. */
+const PIECE_LENGTH = new Map<string, number>();
+const PIECE_LENGTHS = 64;
+
 /** How many times a matched arm's forearm is turned to point its piece at the bead. */
 const PIECE_PASSES = 5;
 
@@ -587,13 +574,17 @@ function armPiece(
   const rest = { pronation, wristFlexion: 0, deviation: -WRIST_ULNAR };
   const hold = gripLocal.clone().addScaledVector(inHand, TIP_REACH);
   // the piece's length, elbow to bead, with the wrist at rest: the same whichever way it points
-  const length = (() => {
+  const key = `${hand}/${pronation}/${hold.x},${hold.y},${hold.z}`;
+  let length = PIECE_LENGTH.get(key);
+  if (length === undefined) {
     const e = new Vector3(0, 0, 0);
     const w = new Vector3(0, 0, -BODY.forearm);
     const s = new Vector3(0, BODY.upperArm, 0);
     const q = handFrameFor(s, e, w, rest, still, hand);
-    return w.clone().add(hold.clone().applyQuaternion(q)).length();
-  })();
+    length = w.clone().add(hold.clone().applyQuaternion(q)).length();
+    if (PIECE_LENGTH.size > PIECE_LENGTHS) PIECE_LENGTH.clear();
+    PIECE_LENGTH.set(key, length);
+  }
   const { joint: elbow, end } = solveTwoBone(shoulder, tip, BODY.upperArm, length, pole);
   const want = end.clone().sub(elbow).normalize();
   const fore = want.clone();
@@ -858,15 +849,15 @@ function pitchShare(p: HandPath): number {
 }
 const PITCH_DRUM = 0;
 
+/** How much more a matched forearm turns toward thumb-up for a cymbal than American grip's hand rolls for it. */
+const CYMBAL_TURN = 2.5;
+
 /**
  * The forearm's turn a matched grip plays a piece with, radians from thumb-up:
  * the grip's own on a drum, turned toward thumb-up as far as American grip
  * turns toward it for a cymbal (`ROLL`) — a drummer goes toward French grip
  * on the ride (Packer, `grip-research.md`) — but never past thumb-up.
  */
-/** How much more a matched forearm turns toward thumb-up for a cymbal than American grip's hand rolls for it. */
-const CYMBAL_TURN = 2.5;
-
 function gripPronation(style: GripStyle, american: number): number {
   return Math.max(0, style.pronation - CYMBAL_TURN * (american - ROLL_DRUM));
 }

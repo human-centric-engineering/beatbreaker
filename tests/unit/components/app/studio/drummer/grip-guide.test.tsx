@@ -135,4 +135,17 @@ describe('GripGuide', () => {
     expect(screen.getByRole('tab', { name: 'American', selected: true })).toBeInTheDocument();
     expect(stages.made[stages.made.length - 1].grip).toBe('american');
   });
+
+  it('reopens at the first step of a shorter lesson, not past its end', async () => {
+    const user = userEvent.setup();
+    const onOpenChange = vi.fn();
+    const { rerender } = render(<GripGuide open grip="traditional" onOpenChange={onOpenChange} />);
+    // the last of traditional's seven steps
+    await user.click(screen.getByRole('button', { name: 'Previous step' }));
+    expect(caption()).toHaveTextContent('Step 7 of 7');
+    rerender(<GripGuide open={false} grip="german" onOpenChange={onOpenChange} />);
+    rerender(<GripGuide open grip="german" onOpenChange={onOpenChange} />);
+    expect(caption()).toHaveTextContent(`Step 1 of 5: ${lessonOf('german').steps[0].title}`);
+    expect(stages.made[stages.made.length - 1].seek).toHaveBeenLastCalledWith(0);
+  });
 });

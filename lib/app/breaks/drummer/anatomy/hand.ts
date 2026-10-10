@@ -614,24 +614,5 @@ function digitsToward(
 
 /** A hand `k` (0–1) of the way from how it holds its stick to a {@link HandShape}. */
 function toward(held: HandSet, kind: HandShape, k: number, side: 1 | -1): HandSet {
-  const shape = SHAPES[kind];
-  const mix = (a: number, b: number) => a + (b - a) * k;
-  return {
-    fingers: held.fingers.map((f, n) => {
-      const bend = f.bend.map((b, j) => mix(b, shape.bend[n][j])) as [number, number, number];
-      const fan = mix(f.splay, (shape.splay?.[n] ?? -DIGITS[n].x * shape.spread) * side);
-      const most = splayLimit(bend[0]);
-      return { splay: Math.max(-most, Math.min(most, fan)), bend };
-    }),
-    thumb: held.thumb.map((a, j) => mix(a, (j === 0 ? 1 : side) * shape.thumb[j])) as [
-      number,
-      number,
-      number,
-    ],
-    thumbTip: mix(held.thumbTip, shape.thumbTip),
-    thumbHeld: held.thumbHeld,
-    // shaped on top of however shaped it already was
-    shaped: 1 - (1 - held.shaped) * (1 - k),
-    thumbMcp: mix(held.thumbMcp, shape.thumbMcp),
-  };
+  return digitsToward(held, kind, [k, k, k, k, k], side);
 }

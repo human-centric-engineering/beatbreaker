@@ -51,6 +51,9 @@ export class GripGuideStage {
   private time = 0;
   private playing = true;
   private grip: GuideGrip;
+  /** The lesson and moment the arms were last posed for. */
+  private posedAt = -1;
+  private posedFor: GuideGrip | null = null;
   private readonly onTime?: (seconds: number) => void;
 
   constructor(
@@ -139,6 +142,8 @@ export class GripGuideStage {
 
   /** Pose both arms for the lesson where it is. */
   private pose(): void {
+    this.posedAt = this.time;
+    this.posedFor = this.grip;
     const { arms } = guideAt(this.grip, this.time);
     poseArm(this.arms.lead, arms.lead);
     poseArm(this.arms.other, arms.other);
@@ -148,7 +153,8 @@ export class GripGuideStage {
     const dt = this.last === null ? 0 : Math.min(0.1, (now - this.last) / 1000);
     this.last = now;
     if (this.playing) this.time = (this.time + dt) % lessonLength(this.grip);
-    this.pose();
+    // a still picture is posed once, not every frame
+    if (this.time !== this.posedAt || this.grip !== this.posedFor) this.pose();
     this.onTime?.(this.time);
     this.controls.update();
     this.renderer.render(this.scene, this.camera);

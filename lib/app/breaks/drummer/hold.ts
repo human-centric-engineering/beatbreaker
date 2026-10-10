@@ -42,21 +42,31 @@ export function stickInHand(hand: Hand, k = 1): Vector3 {
  * lying in the hand along `stickInHand(hand, k)`.
  */
 export function handFrame(hand: Hand, stick: Vector3, roll: number, k = 1): Quaternion {
+  // the stick's own frame in the room, and the same frame in the hand: along the stick, and
+  // the back of the hand made square to it
+  const zs = stickInHand(hand, k);
+  const ys = new Vector3(0, 1, 0).addScaledVector(zs, -zs.y).normalize();
+  const inHand = new Quaternion().setFromRotationMatrix(
+    new Matrix4().makeBasis(new Vector3().crossVectors(ys, zs), ys, zs)
+  );
+  return frameAlong(hand, stick, roll).multiply(inHand.invert());
+}
+
+/**
+ * A frame pointing along `fwd` (its `z`), its `y` — the back of a hand —
+ * rolled `roll` radians out from facing up, toward the hand's own side.
+ */
+export function frameAlong(hand: Hand, fwd: Vector3, roll: number): Quaternion {
   const outward = hand === 'lead' ? 1 : -1;
-  // the stick's own frame in the room: along it, and its "up" rolled out from the vertical
   const up = UP.clone()
-    .sub(stick.clone().multiplyScalar(stick.dot(UP)))
+    .sub(fwd.clone().multiplyScalar(fwd.dot(UP)))
     .normalize();
-  const side = new Vector3().crossVectors(stick, up).normalize().multiplyScalar(outward);
+  const side = new Vector3().crossVectors(fwd, up).normalize().multiplyScalar(outward);
   const back = up
     .clone()
     .multiplyScalar(Math.cos(roll))
     .addScaledVector(side, Math.sin(roll))
     .normalize();
-  const world = new Matrix4().makeBasis(new Vector3().crossVectors(back, stick), back, stick);
-  // and the same frame in the hand: along the stick, and the back of the hand made square to it
-  const zs = stickInHand(hand, k);
-  const ys = new Vector3(0, 1, 0).addScaledVector(zs, -zs.y).normalize();
-  const inHand = new Matrix4().makeBasis(new Vector3().crossVectors(ys, zs), ys, zs);
-  return new Quaternion().setFromRotationMatrix(world.multiply(inHand.transpose()));
+  const x = new Vector3().crossVectors(back, fwd);
+  return new Quaternion().setFromRotationMatrix(new Matrix4().makeBasis(x, back, fwd));
 }

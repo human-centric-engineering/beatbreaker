@@ -43,15 +43,19 @@ export function GripGuide({
 }) {
   const [grip, setGrip] = useState<GuideGrip>(initial);
   const [opened, setOpened] = useState(open);
-  // opening again starts from the drummer's grip, wherever the guide was left
-  if (open !== opened) {
-    setOpened(open);
-    if (open) setGrip(initial);
-  }
-  const lesson = useMemo(() => lessonOf(grip), [grip]);
   const [playing, setPlaying] = useState(true);
   const [step, setStep] = useState(0);
   const [seek, setSeek] = useState({ to: 0, seq: 0 });
+  // opening again starts from the drummer's grip at its first step, wherever the guide was left
+  if (open !== opened) {
+    setOpened(open);
+    if (open) {
+      setGrip(initial);
+      setStep(0);
+      setSeek((s) => ({ to: 0, seq: s.seq + 1 }));
+    }
+  }
+  const lesson = useMemo(() => lessonOf(grip), [grip]);
   const bar = useRef<HTMLDivElement>(null);
 
   const starts = useMemo(() => lesson.steps.map((_, i) => stepStart(grip, i)), [lesson, grip]);
@@ -74,7 +78,7 @@ export function GripGuide({
     setSeek((s) => ({ to: starts[to], seq: s.seq + 1 }));
   };
 
-  const current = lesson.steps[step];
+  const current = lesson.steps[Math.min(step, lesson.steps.length - 1)];
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-3xl">
