@@ -65,16 +65,20 @@ export function playability(pat: Pattern, bpm: number): Playability {
     /* Written sticking (a rudiment, D44) says who plays each snare note, so a
        run of them is a sticking rather than one hand flailing, and a bar of
        them needs no air: there is no groove for it to let breathe. */
-    const written = (i: number) => !!stickingAt(pat.sticking, bi, i);
-    const stuck = b.s.some(Boolean) && b.s.every((v, i) => !v || written(i));
+    const row = pat.sticking?.[bi];
+    const written = (i: number) => !!row && !!stickingAt(pat.sticking, bi, i);
+    const stuck = !!row && b.s.some(Boolean) && b.s.every((v, i) => !v || written(i));
     for (let i = 0; i < nSteps; i++) {
       if (b.h[i] && b.r[i]) rideClash = true;
       if (i < nSteps - 2 && b.k[i] && b.k[i + 1] && b.k[i + 2] && (!heelToe || b.k[i + 3]))
         kickRun = true;
       if (
         i < nSteps - 3 &&
-        [0, 1, 2, 3].every((d) => b.s[i + d]) &&
-        ![0, 1, 2, 3].every((d) => written(i + d))
+        b.s[i] &&
+        b.s[i + 1] &&
+        b.s[i + 2] &&
+        b.s[i + 3] &&
+        !(written(i) && written(i + 1) && written(i + 2) && written(i + 3))
       )
         snareRun = true;
       if (i < nSteps - 1 && b.k[i] && b.k[i + 1]) doubleStrain++;
