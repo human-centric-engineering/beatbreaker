@@ -74,6 +74,22 @@ describe('explain_difficulty', () => {
     );
   });
 
+  it('reads each bar with its own written sticking, so a written snare run is not a failure', async () => {
+    const doc = breakDocFromPayload(DOC);
+    for (const bar of doc.A.bars) {
+      bar.k.fill(0);
+      bar.s.fill(2);
+    }
+    // bar 2 writes its hands; bar 1 does not
+    doc.A.sticking = [null, 'RL'.repeat(doc.A.bars[1].s.length / 2)];
+    const result = await run({ section: 'A' }, 'user-1', breakPayload(doc));
+
+    const [section] = dataOf(result).sections;
+    const run4 = 'Snare never runs four 16ths without a break';
+    expect(section.bars[0].failing).toContain(run4);
+    expect(section.bars[1].failing).not.toContain(run4);
+  });
+
   it("reads only the caller's workspace", async () => {
     const result = await run({}, 'user-2');
     expect(result).toMatchObject({ success: false, error: { code: 'no_workspace' } });

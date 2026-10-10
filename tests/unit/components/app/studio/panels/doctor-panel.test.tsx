@@ -23,7 +23,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DoctorPanel } from '@/components/app/studio/panels/doctor-panel';
 import { Stage } from '@/components/app/studio/stage';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
-import { testCatalogue } from '@/tests/helpers/catalogue';
+import { testCatalogue, testRudiments } from '@/tests/helpers/catalogue';
 
 function ToastProbe() {
   const c = useStudio();
@@ -49,7 +49,41 @@ beforeEach(() => {
   vi.stubGlobal('cancelAnimationFrame', (id: number) => clearTimeout(id));
 });
 
+/** Opens the first rudiment (Phase 10): a pattern whose style is not in the catalogue. */
+function OpenRudiment() {
+  const c = useStudio();
+  return (
+    <button type="button" onClick={() => c.loadLibraryEntry('rudiment-0')}>
+      Open a rudiment
+    </button>
+  );
+}
+
 describe('DoctorPanel', () => {
+  it('says why it cannot doctor a section whose style is not in the catalogue, and leaves it', async () => {
+    const user = userEvent.setup();
+    const base = testCatalogue();
+    render(
+      <StudioProvider catalogue={{ ...base, libraries: [...base.libraries, testRudiments()] }}>
+        <Stage />
+        <DoctorPanel />
+        <OpenRudiment />
+        <ToastProbe />
+      </StudioProvider>
+    );
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+    await user.click(screen.getByRole('button', { name: 'Open a rudiment' }));
+    const notes = document.querySelectorAll(NOTES).length;
+
+    await user.click(screen.getAllByRole('button', { name: /ghost/i })[0]);
+    expect(screen.getByRole('status')).toHaveTextContent(/not in the catalogue/);
+    expect(document.querySelectorAll(NOTES)).toHaveLength(notes);
+
+    // nor regenerate it: a rudiment has no style to write it in (D45)
+    await user.click(screen.getByRole('button', { name: '↻ Regenerate' }));
+    expect(screen.getByRole('status')).toHaveTextContent(/cannot be regenerated/);
+  });
+
   it('ships with undo and redo both disabled', async () => {
     renderPanel();
     await screen.findAllByRole('img', { name: /Drum notation/ });
