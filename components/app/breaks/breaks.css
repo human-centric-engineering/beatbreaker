@@ -1725,6 +1725,16 @@
   font-size: 13px;
   pointer-events: none;
 }
+/* The grip picker sits in the toolbar with the small segmented controls: as
+   wide as its longest grip, not the row, and no taller than they are. */
+.bb .chart-tools .drummer-grip {
+  width: auto;
+  min-width: 11.5rem;
+  min-height: 30px;
+  padding: 4px 8px 4px 10px;
+  font-size: 12.5px;
+}
+
 /* The chart in the drummer view's top corner: the section on one line,
    scrolling under the playhead, with its letter and the beat of the bar.
    Not on a phone, where the corner is most of the kit — nor its toggle. */

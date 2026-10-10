@@ -273,11 +273,11 @@ describe('DrummerStage', () => {
     const backY = () => new THREE.Vector3(0, 1, 0).applyQuaternion(other().quaternion).y;
     expect(backY()).toBeGreaterThan(0); // matched: the back of the hand up
 
-    stage.setGrips({ lead: 'matched', other: 'military' });
+    stage.setGrips({ lead: 'american', other: 'traditional' });
     rafCtl.runNextFrame(32);
     expect(backY()).toBeLessThan(0); // military: palm up
 
-    stage.setGrips({ lead: 'matched', other: 'matched' });
+    stage.setGrips({ lead: 'american', other: 'american' });
     rafCtl.runNextFrame(48);
     expect(backY()).toBeGreaterThan(0);
   });

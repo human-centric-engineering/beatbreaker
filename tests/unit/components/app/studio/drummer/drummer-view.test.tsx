@@ -20,6 +20,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Studio } from '@/components/app/studio/studio-provider';
 import { generatePattern } from '@/lib/app/breaks/generate';
 import { testStyle } from '@/tests/helpers/catalogue';
+import { openMenu, pickOption } from '@/tests/helpers/select-menu';
 
 let fakeStudio: Studio;
 
@@ -46,7 +47,7 @@ vi.mock('next/dynamic', () => ({
         <div
           data-testid="drummer-canvas-stub"
           data-lefty={String(props.lefty)}
-          data-military={String(props.military)}
+          data-grip={String(props.grip)}
           data-view={String(props.view)}
           data-view-seq={String(props.viewSeq)}
           data-playing={String(props.playing)}
@@ -123,7 +124,7 @@ describe('DrummerView, with WebGL available', () => {
 
     const canvas = await screen.findByTestId('drummer-canvas-stub');
     expect(canvas).toHaveAttribute('data-lefty', 'false'); // default hand: right
-    expect(canvas).toHaveAttribute('data-military', 'none'); // default grip: matched
+    expect(canvas).toHaveAttribute('data-grip', 'american'); // default grip: American matched
     expect(canvas).toHaveAttribute('data-view', 'front');
     expect(canvas).toHaveAttribute('data-view-seq', '0');
     expect(canvas).toHaveAttribute('data-playing', 'false');
@@ -164,40 +165,60 @@ describe('DrummerView, with WebGL available', () => {
     expect(await screen.findByTestId('drummer-canvas-stub')).toHaveAttribute('data-lefty', 'true');
   });
 
-  it('switches to a military grip, persists it, and passes it to the canvas', async () => {
+  it('offers the matched and traditional grips, persists the pick, and passes it to the canvas', async () => {
     stubWebGL(true);
     const DrummerView = await loadDrummerView();
     const user = userEvent.setup();
     render(<DrummerView />);
 
-    const grip = within(screen.getByRole('radiogroup', { name: 'Grip' }));
-    await user.click(grip.getByRole('radio', { name: 'Military (left)' }));
-    expect(await screen.findByTestId('drummer-canvas-stub')).toHaveAttribute(
-      'data-military',
-      'other'
-    );
-    expect(JSON.parse(localStorage.getItem('bb.drummerGrip') ?? 'null')).toBe('other');
+    const grip = screen.getByRole('combobox', { name: 'Grip' });
+    const menu = await openMenu(user, grip);
+    expect(
+      within(menu)
+        .getAllByRole('option')
+        .map((o) => o.getAttribute('data-value'))
+    ).toEqual(['american', 'german', 'french', 'traditional', 'traditionalBoth']);
+    await pickOption(user, grip, 'german');
+    expect(await screen.findByTestId('drummer-canvas-stub')).toHaveAttribute('data-grip', 'german');
+    expect(JSON.parse(localStorage.getItem('bb.drummerGrip') ?? 'null')).toBe('german');
 
-    await user.click(grip.getByRole('radio', { name: 'Military (both)' }));
+    await pickOption(user, grip, 'traditional');
     expect(await screen.findByTestId('drummer-canvas-stub')).toHaveAttribute(
-      'data-military',
-      'both'
+      'data-grip',
+      'traditional'
     );
+    expect(grip).toHaveTextContent('Traditional (left)');
   });
 
-  it('names the off hand by the kit: the right hand on a left-handed kit', async () => {
+  it('names the off hand by the kit, and reads a grip stored the old way as the grip it was', async () => {
     stubWebGL(true);
     localStorage.setItem('bb.drummerHand', JSON.stringify('left'));
+    // before the matched grips had names, this said traditional in the hand off the hats
     localStorage.setItem('bb.drummerGrip', JSON.stringify('other'));
     const DrummerView = await loadDrummerView();
     render(<DrummerView />);
 
-    const grip = within(screen.getByRole('radiogroup', { name: 'Grip' }));
-    expect(grip.getByRole('radio', { name: 'Military (right)' })).toBeChecked();
+    expect(screen.getByRole('combobox', { name: 'Grip' })).toHaveTextContent('Traditional (right)');
     expect(await screen.findByTestId('drummer-canvas-stub')).toHaveAttribute(
-      'data-military',
-      'other'
+      'data-grip',
+      'traditional'
     );
+  });
+
+  it('opens the grip guide on the grip the drummer plays', async () => {
+    stubWebGL(true);
+    localStorage.setItem('bb.drummerGrip', JSON.stringify('traditionalBoth'));
+    const DrummerView = await loadDrummerView();
+    const user = userEvent.setup();
+    render(<DrummerView />);
+
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'How to hold' }));
+    const dialog = await screen.findByRole('dialog', { name: 'How to hold the sticks' });
+    // traditional in both hands is taught as traditional
+    expect(
+      within(dialog).getByRole('tab', { name: 'Traditional', selected: true })
+    ).toBeInTheDocument();
   });
 
   it('changes the camera view and bumps viewSeq each time it is chosen', async () => {

@@ -1,6 +1,7 @@
 import { Matrix4, Quaternion, Vector3 } from 'three';
 
 import { GRIP_IN_HAND, handFrame } from '@/lib/app/breaks/drummer/hold';
+import { inRange } from '@/lib/app/breaks/drummer/anatomy/arm';
 import { solveTwoBone } from '@/lib/app/breaks/drummer/ik';
 import { BODY, type Hand, TIP_REACH } from '@/lib/app/breaks/drummer/kit-layout';
 import { lastAtOrBefore, smoothstep } from '@/lib/app/breaks/drummer/strokes';
@@ -373,10 +374,11 @@ export interface ShowPose {
  * Put an arm where a hand is placed, holding a stick at `stick` (`holds` of
  * it, 0–1: as much of the stick as this hand has goes with it): the elbow
  * solved. `out` is how far the hand is out of its rest into the show: past
- * half way it holds as the show does, in matched grip, whatever grip it
- * plays in — as a military hand turns over to matched for a cross-stick.
+ * half way it holds as the show does, in American grip, whatever grip it
+ * plays in — as a traditional hand turns over to matched for a cross-stick.
  */
 function armAt(
+  side: Hand,
   base: ArmPose,
   p: Placed,
   stick: { tip: Vector3; dir: Vector3 },
@@ -387,16 +389,26 @@ function armAt(
   const { joint, end } = solveTwoBone(base.shoulder, p.wrist, BODY.upperArm, BODY.forearm, p.pole);
   // out of reach, the hand stays on the arm, and a stick it holds goes with it
   const shift = end.clone().sub(p.wrist);
-  const tip = stick.tip.clone().addScaledVector(shift, holds);
+  // blended between placements each inside the wrist's range, the hand can pass a little
+  // outside it: turned back in about the wrist, and a stick it holds turned with it
+  const hand = inRange(base.shoulder, joint, end, p.hand, side);
+  const back = new Quaternion().slerp(hand.clone().multiply(p.hand.clone().invert()), holds);
+  const tip = stick.tip
+    .clone()
+    .addScaledVector(shift, holds)
+    .sub(end)
+    .applyQuaternion(back)
+    .add(end);
+  const dir = stick.dir.clone().applyQuaternion(back);
   return {
     ...base,
-    held: out > 0.5 ? 'matched' : base.held,
+    held: out > 0.5 ? 'american' : base.held,
     elbow: joint,
     wrist: end,
-    hand: p.hand,
+    hand,
     tip,
-    stick: stick.dir,
-    grip: tip.clone().addScaledVector(stick.dir, -TIP_REACH),
+    stick: dir,
+    grip: tip.clone().addScaledVector(dir, -TIP_REACH),
     lift: 0,
     cross: 0,
     shape,
@@ -461,7 +473,7 @@ export function showPose(
   const ks = rest[keeper].shoulder;
   const keeperAt = mixPlaced(ks, restOf(rest[keeper]), mixPlaced(ks, keepAt, carryAt, g), k);
   const keeperStick = inWorld(keeperAt, mixHeld(keeperOwn.rest, keeperOwn.meet, k));
-  const keeperArm = armAt(rest[keeper], keeperAt, keeperStick, 1, k, undefined);
+  const keeperArm = armAt(keeper, rest[keeper], keeperAt, keeperStick, 1, k, undefined);
 
   // the giver: to the meeting, off to its gesture and back, home
   const gestureAt = gesturePlace(show.kind, giver, rest[giver].shoulder, torso, look, t);
@@ -490,7 +502,7 @@ export function showPose(
           amount: Math.max(open, shaped) * fade,
           then: { kind: show.kind, amount: shaped * fade },
         };
-  const giverArm = armAt(rest[giver], giverAt, stick, 1 - owned, k, shape);
+  const giverArm = armAt(giver, rest[giver], giverAt, stick, 1 - owned, k, shape);
 
   const lookAt =
     ss([BEATS.away[1] - 0.4, BEATS.gesture[0] + 0.2], t) *

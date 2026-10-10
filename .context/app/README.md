@@ -24,6 +24,7 @@ folders beside this one; start at [`../substrate.md`](../substrate.md).
 | [`spike-drawers.md`](./spike-drawers.md)                         | Spike A: what the drawers were measured on, the seven findings, and the device pass that was not done.                                                 |
 | [`planning/app-plan.md`](./planning/app-plan.md)                 | The phased plan for turning the console into a live app: shell and drawers, saved patterns, sharing, BeatBuddy, launch.                                |
 | [`planning/anatomy-research.md`](./planning/anatomy-research.md) | The anatomy research: bone and segment lengths, joint ranges, couplings and drumming biomechanics, every number sourced.                               |
+| [`planning/grip-research.md`](./planning/grip-research.md)       | The grip research: matched (German, American, French) and traditional grip, the strokes, who held what, and the stick twirls, sourced.                 |
 | [`planning/site-copy.md`](./planning/site-copy.md)               | Pre-written copy for the public pages, dialogs and empty states.                                                                                       |
 
 Each phase of the plan adds its own page here (`shell.md`, `catalogue.md`,

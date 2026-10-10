@@ -18,7 +18,8 @@ import {
   scapularRotation,
   splayLimit,
 } from '@/lib/app/breaks/drummer/anatomy/rom';
-import { type ArmPose, type Grip, gripsFor, poseAt } from '@/lib/app/breaks/drummer/pose';
+import { GRIP_CHOICES, GRIPS, type Grip, gripsFor } from '@/lib/app/breaks/drummer/grips';
+import { type ArmPose, poseAt } from '@/lib/app/breaks/drummer/pose';
 import { SWEEP_DUR, sweepTimeline } from '@/tests/helpers/drummer-sweep';
 
 const D = Math.PI / 180;
@@ -44,7 +45,7 @@ function handAt(held: Grip, curl: number, cross: number, ready: number, lift: nu
 /** Every hand the tables can make: both grips, open to closed, playing, set down for a cross-stick and ready. */
 function everyHand(): ArmPose[] {
   const out: ArmPose[] = [];
-  for (const held of ['matched', 'military'] as const) {
+  for (const held of GRIPS) {
     for (const curl of [0, 0.5, 1]) {
       for (const cross of [0, 0.5, 1]) {
         for (const ready of [0, 1]) {
@@ -150,14 +151,14 @@ describe('SHAPES', () => {
   });
 
   it('blends a hand into a shape: none of it at 0, all of it at 1', () => {
-    const plain = handSetOf(handAt('matched', 0.6, 0, 1, 0), 1);
+    const plain = handSetOf(handAt('american', 0.6, 0, 1, 0), 1);
     const none = handSetOf(
-      { ...handAt('matched', 0.6, 0, 1, 0), shape: { kind: 'wave', amount: 0 } },
+      { ...handAt('american', 0.6, 0, 1, 0), shape: { kind: 'wave', amount: 0 } },
       1
     );
     expect(none).toEqual(plain);
     const full = handSetOf(
-      { ...handAt('matched', 0.6, 0, 1, 0), shape: { kind: 'thumbsUp', amount: 1 } },
+      { ...handAt('american', 0.6, 0, 1, 0), shape: { kind: 'thumbsUp', amount: 1 } },
       -1
     );
     expect(full.shaped).toBe(1);
@@ -168,7 +169,7 @@ describe('SHAPES', () => {
     expect(full.thumbTip).toBeCloseTo(SHAPES.thumbsUp.thumbTip, 9);
     expect(full.thumbHeld).toBe(plain.thumbTip);
     const half = handSetOf(
-      { ...handAt('matched', 0.6, 0, 1, 0), shape: { kind: 'thumbsUp', amount: 0.5 } },
+      { ...handAt('american', 0.6, 0, 1, 0), shape: { kind: 'thumbsUp', amount: 0.5 } },
       1
     );
     expect(half.thumbHeld).toBe(plain.thumbTip);
@@ -194,21 +195,31 @@ describe('armStrain', () => {
 });
 
 /**
- * The stroke planner across every kind of stroke, read as joint angles. Its
- * shoulders and elbows stay inside the body's limits; its wrists and forearms
- * do not yet (see `.context/app/anatomy.md`, "What the sweep found") — this
- * pins what already holds, so the anatomy work can only widen it.
+ * The stroke planner across every kind of stroke, read as joint angles, in
+ * every grip: every joint of both arms inside its anatomical range at every
+ * frame, but for the cross-stick's wrist. Its shoulders stay inside their everyday range too; the forearm and
+ * wrist are let past theirs, as a German grip's forearm or a big stroke's
+ * wrist goes, but never to the end (see `withinRange` in `pose.ts`).
  */
 describe('the stroke planner, read through the anatomy', () => {
-  for (const military of ['none', 'other', 'both'] as const) {
-    it(`keeps every elbow and shoulder inside its limits (military grip: ${military})`, () => {
+  for (const grip of GRIP_CHOICES) {
+    it(`keeps every joint of both arms inside its limits (${grip} grip)`, () => {
       const timeline = sweepTimeline(2);
       for (let t = 0; t < 32 * SWEEP_DUR; t += 0.01) {
-        const pose = poseAt(timeline, t, 1, gripsFor(military));
+        const pose = poseAt(timeline, t, 1, gripsFor(grip));
         const torso = torsoOf(pose);
         for (const hand of ['lead', 'other'] as const) {
           const a = armAngles(pose.arms[hand], torso, hand);
-          expect(beyond(a.flexion, ROM.elbowFlexion.hard), `${hand} elbow at ${t}`).toBe(0);
+          const strain = armStrain(a);
+          // a hand set down for a cross-stick has its wrist set by the drum, and with the
+          // shoulders as high as they are that is past its range: the one known exception
+          // (see "Known deviations", `.context/app/anatomy.md`)
+          if (pose.arms[hand].cross > 0) {
+            delete strain.wristFlexion;
+            delete strain.deviation;
+            delete strain.pronation;
+          }
+          expect(strain, `${hand} at ${t.toFixed(2)}`).toEqual({});
           expect(beyond(a.elevation, ROM.shoulderElevation.soft), `${hand} shoulder at ${t}`).toBe(
             0
           );

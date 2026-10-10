@@ -1,5 +1,6 @@
 import { Euler, Matrix4, Quaternion, Vector3 } from 'three';
 
+import { ROM } from '@/lib/app/breaks/drummer/anatomy/rom';
 import type { Hand } from '@/lib/app/breaks/drummer/kit-layout';
 import type { ArmPose, Pose } from '@/lib/app/breaks/drummer/pose';
 
@@ -166,4 +167,97 @@ export function armAngles(arm: ArmPose, torso: Quaternion, hand: Hand): ArmAngle
     wristFlexion: Math.atan2(-knuckles.y, knuckles.z),
     deviation: Math.atan2(knuckles.x, knuckles.z),
   };
+}
+
+/**
+ * The hand's frame for an arm whose joints are at `shoulder`, `elbow` and
+ * `wrist`, turned and bent by `angles` — {@link armAngles} the other way
+ * round: the forearm turned `pronation` from thumb-up, then the wrist bent
+ * `wristFlexion` and `deviation`. In the pose's frame for `hand` (`x = y × z`,
+ * whichever hand), with the torso at `torso`. The flexion and deviation must
+ * be under a right angle, as every wrist's are.
+ */
+export function handFrameFor(
+  shoulder: Vector3,
+  elbow: Vector3,
+  wrist: Vector3,
+  angles: Pick<ArmAngles, 'pronation' | 'wristFlexion' | 'deviation'>,
+  torso: Quaternion,
+  hand: Hand
+): Quaternion {
+  const side = hand === 'lead' ? 1 : -1;
+  const inv = torso.clone().invert();
+  const s = local(shoulder, inv, side);
+  const e = local(elbow, inv, side);
+  const h = e.clone().sub(s).normalize();
+  const f = local(wrist, inv, side).sub(e).normalize();
+  const Z = new Vector3(0, 0, 1);
+  const knuckles = new Vector3(
+    Math.tan(angles.deviation),
+    -Math.tan(angles.wristFlexion),
+    1
+  ).normalize();
+  const r = new Quaternion()
+    .setFromRotationMatrix(neutralForearm(h, f))
+    .multiply(new Quaternion().setFromAxisAngle(Z, -angles.pronation))
+    .multiply(new Quaternion().setFromUnitVectors(Z, knuckles));
+  // back out of the lead side's mirror, and into the room
+  const out = (u: Vector3) => {
+    const w = u.clone().applyQuaternion(r);
+    w.x *= side;
+    return w.applyQuaternion(torso);
+  };
+  const y = out(new Vector3(0, 1, 0));
+  const z = out(Z);
+  const x = new Vector3().crossVectors(y, z);
+  return new Quaternion().setFromRotationMatrix(new Matrix4().makeBasis(x, y, z));
+}
+
+/**
+ * A hand's frame turned back inside the forearm's and wrist's anatomical
+ * ranges (`ROM`), `spare` radians short of each end, about the wrist: for a
+ * hand placed by blending two placements, which can pass a little outside
+ * them between two that are each inside. Unchanged if it is already inside.
+ */
+export function inRange(
+  shoulder: Vector3,
+  elbow: Vector3,
+  wrist: Vector3,
+  hand: Quaternion,
+  side: Hand,
+  spare = 0.01
+): Quaternion {
+  const still = new Quaternion();
+  const a = armAngles(
+    {
+      shoulder,
+      elbow,
+      wrist,
+      hand,
+      grip: wrist,
+      stick: new Vector3(0, 0, -1),
+      tip: wrist,
+      lift: 0,
+      curl: 0,
+      held: 'american',
+      ready: 0,
+      cross: 0,
+    },
+    still,
+    side
+  );
+  const clamp = (v: number, m: { hard: { min: number; max: number } }) =>
+    Math.max(m.hard.min + spare, Math.min(m.hard.max - spare, v));
+  const want = {
+    pronation: clamp(a.pronation, ROM.pronation),
+    wristFlexion: clamp(a.wristFlexion, ROM.wristFlexion),
+    deviation: clamp(a.deviation, ROM.deviation),
+  };
+  if (
+    want.pronation === a.pronation &&
+    want.wristFlexion === a.wristFlexion &&
+    want.deviation === a.deviation
+  )
+    return hand;
+  return handFrameFor(shoulder, elbow, wrist, want, still, side);
 }

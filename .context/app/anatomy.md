@@ -19,7 +19,10 @@ movement. The numbers and their sources are in
 | `components/app/studio/drummer/skeleton-model.ts` | `buildSkeleton()`: the skeleton drummer, a `DrummerModel` like `buildDrummer()`'s, posed from the same `Pose`. `fitThumb()` fits its real thumb to the grip.                                                                                   |
 | `components/app/studio/drummer/figure.ts`         | `buildFigure()`: whoever sits at the kit, dressed or bones, and what to free when they leave.                                                                                                                                                  |
 | `components/app/studio/drummer/hand-pose.ts`      | `bendFingers()` and `placeStick()`: what every figure does with its hand each frame.                                                                                                                                                           |
-| `lib/app/breaks/drummer/hold.ts`                  | The matched hold: `GRIP_IN_HAND` (the fulcrum in the hand) and `handFrame()`. The planner and the shows both hold sticks with it.                                                                                                              |
+| `lib/app/breaks/drummer/hold.ts`                  | The matched hold: `GRIP_IN_HAND` (the fulcrum, in the fingers), `STICK_IN_HAND` (the stick's line across the hand) and `handFrame()`. The planner, the shows and the guide all hold sticks with it.                                            |
+| `lib/app/breaks/drummer/grips.ts`                 | The grips: German, American, French and traditional, and what each asks of the arm (`GRIP_STYLE`); the choices the drummer view offers (`GRIP_CHOICES`, `gripsFor()`).                                                                         |
+| `lib/app/breaks/drummer/grip-guide.ts`            | The grip guide's lessons: each grip's steps (`lessonOf()`) and both arms at any moment of them (`guideAt()`).                                                                                                                                  |
+| `components/app/studio/drummer/grip-guide.tsx`    | How to hold: the modal, a film per grip (`grip-guide-stage.ts`, mounted by `grip-guide-canvas.tsx`) with its steps' instructions under it.                                                                                                     |
 | `lib/app/breaks/drummer/gesture.ts`               | The waiting drummer's show: `showAt()` (when one plays), `showPose()` (both arms, the head's look), `showOverlaps()` (so the stick twirls keep out of its way).                                                                                |
 
 The skeleton is a persona, **Mister Bones** (`kind: 'skeleton'`), so it joins
@@ -80,8 +83,116 @@ the cast. `DrummerStage` seats whoever it is given through `buildFigure()`.
 - **Hand shapes** (`SHAPES` in `anatomy/hand.ts`) are joint angles inside
   the ranges: open, with the resting cascade; a wave, the fingers straight
   and spread; a thumbs-up, a fist (knuckles above 80°, PIPs above 90°) with
-  the thumb standing out of it. `ArmPose.shape` blends a hand into one, and
-  on from it into another (`then`).
+  the thumb standing out of it; the cigar grip a propeller twirl spins the
+  stick in. `ArmPose.shape` blends a hand into one, and on from it into
+  another (`then`).
+
+## The grips
+
+Four grips, each hand its own (`grips.ts`; the research is
+[`planning/grip-research.md`](./planning/grip-research.md)). The drummer view
+offers American, German or French in both hands, or traditional in the hand
+off the hats (the lead American) or in both.
+
+A grip is a forearm turn, as anatomy has it, not an angle of the hand in the
+room. Each matched grip holds its forearm at its own turn from thumb-up
+(`GRIP_STYLE.pronation`), and the hand turns with the arm. Read at every snare
+and tom stroke of the sweep:
+
+| Grip        | Forearm at the head | Teachers give | Wrist at the head                    | The stroke                                    | Elbow       |
+| ----------- | ------------------- | ------------- | ------------------------------------ | --------------------------------------------- | ----------- |
+| German      | 57–70° pronated     | 80–90°        | within 10° of straight, 7–22° ulnar  | the wrist; the arm for big strokes            | out         |
+| American    | 30–49° pronated     | about 45°     | within 10° of straight, 8–19° ulnar  | the wrist, a little forearm turn, the fingers | hanging     |
+| French      | −5 to 18°           | 0–15°         | within 10° of straight, 11–13° ulnar | the fingers and the forearm's turn            | by the ribs |
+| Traditional | 43–61° supinated    | 35–50°        | within 8° of straight                | the forearm's turn (65%), the wrist the rest  | hanging     |
+
+German reads below the teachers' figure because theirs is the palm's angle to
+the drum, which German's elbow, out from the body, makes up. Traditional's
+forearm rolls on toward 80° of supination at the top of a full stroke.
+
+- **The stick is held in the fingers.** The fulcrum (`GRIP_IN_HAND`) is inside
+  the first finger's curl, against its middle and end bones at the first
+  crease, a third of the way up the stick, the pad of the thumb on the
+  stick's side (Packer; wikiHow). It was found as the place a stick is hugged
+  by the first finger bent as the grip bends it. From there the stick runs
+  about 51° across the hand to leave it at the heel by the little finger,
+  tipped about 30° away from the palm (`STICK_IN_HAND`). There is a gap
+  between the stick and the palm on the first finger's side, for it to pivot
+  in.
+- **The matched arm is one piece from the elbow to the bead.** The forearm
+  is set at the grip's turn, the wrist at rest, 12° toward the little finger
+  (Trappe 2020: near straight at impact; the research's 10–15° ulnar), and the
+  stick fixed in the hand. The arm is solved as two bones, the upper arm and
+  that piece (`armPiece()` in `pose.ts`). The stick comes in across the kit at
+  whatever angle the arm gives it, rather than turning round in the palm to
+  meet an aim. So it lies along the same line in the hand at every stroke.
+  For a cymbal or the hats, whose bow a shallow stick would pass under, the
+  elbow swings round the shoulder-to-bead line, up and out, until the stick
+  comes down at the pitch it is aimed. It swings back if that would turn the
+  humerus past its everyday range, and is found by damped steps, so the elbow
+  never jumps. On a drum the elbow stays where the grip sets it. A cymbal
+  turns the forearm toward thumb-up, so the ride is played toward French
+  grip, as Packer does.
+- **The fingers are fitted to the stick** each frame (`fitted()` in
+  `anatomy/hand.ts`). A wrapping finger starts from the grip's own posture.
+  Its knuckle and its curl are found together, as close to that posture as
+  lets it lie on the stick's surface, round it. Being pressed into the stick
+  costs more than a gap. The first finger curls over the top of the stick.
+  The thumb lies along its side, by the fulcrum, pointing to the tip, as near
+  as the dressed thumb reaches. The back fingers ease off by up to a fifth of
+  their bend as the stick comes up, and close on it at the head. At every
+  stroke of the sweep, every finger of every matched grip is within 4 mm of
+  the stick's surface. In traditional grip the first finger lies over the
+  stick and the ring finger is curled in under it, the stick on its cuticle.
+- **Every arm joint stays inside its range** in every grip
+  (`withinRange()` in `pose.ts`), with one exception: the cross-stick's wrist
+  (below). Past the everyday range a joint is eased smoothly toward its end,
+  starting no more than 15° short of it, the hand turning about the fulcrum.
+  `armAngles()` has an inverse, `handFrameFor()`, to do it.
+
+## The stick twirls
+
+Waiting for Play, now and then a hand twirls its stick (`twirlAt()`), one of
+the two twirls a kit drummer does:
+
+- **Round the thumb.** The back fingers let go and the stick turns end over
+  end about the pinch of thumb and first finger. Each turn takes about 0.42 s,
+  and the wrist dips into it.
+- **The propeller.** The stick slides up to its middle, clamped between the
+  first two fingers (the cigar grip). The palm turns to the drummer, so the
+  stick's disc faces you. The stick spins flat across the palm, about 0.5 s a
+  turn, the wrist rocking ±11° with it. Then it slides back into the hand.
+
+Every frame of every twirl is inside every joint's range, in every grip
+(`grips.test.ts`). No study times either twirl; the timings are estimates
+(research §3).
+
+## The grip guide
+
+How to hold opens a guide to each grip (`grip-guide.tsx`): a film of two arms,
+their hands and a snare (`grip-guide-stage.ts`). It plays the grip's steps,
+paraphrased from wikiHow's "How to Hold a Drumstick", and shows the step's
+instruction under the film as it plays. It has a tab for each grip, steps
+forward and back, and pauses. The lessons (`grip-guide.ts`) are built from the
+drummer's own poses: each grip's hands at rest over the snare (`poseAt`), taken
+apart and put back together a finger at a time. The guide uses
+`ArmPose.unheld`, how far each finger and the thumb still is from the stick,
+and the hand shapes `flat` and `pocket`. The last step is the drummer playing
+the snare in that grip. So what the guide teaches is exactly what the drummer
+at the kit does.
+
+- **American**: make the pocket with the first finger; slide the stick into
+  it; find the balance point, sliding it and letting it bounce; thumb along
+  the side; curl the back fingers; the other hand the same; play.
+- **German** and **French** start from American at the balance point. German
+  turns the palms flat to the head and the elbows out. French turns the palms
+  to face each other and the elbows in. Each then plays.
+- **Traditional**: the off hand palm up; the stick in the crook of the thumb;
+  thumb and first finger over; the middle finger along the side; the ring and
+  little fingers under; the other hand overhand; play by turning the forearm.
+
+Every frame of every lesson is inside every joint's range, and no joint moves
+more than 2.5 cm from one frame to the next (`grip-guide.test.ts`).
 
 ## The waiting drummer's show
 
@@ -121,7 +232,9 @@ can, and the passed stick never jumps as it changes hands.
 
 ## What the sweep found
 
-The stroke planner, run over a bar that plays every lane and articulation
+This is what the first sweep found, before the grips were held to the ranges
+(see "The grips" for where they stand now). The stroke planner, run over a bar
+that plays every lane and articulation
 (`tests/helpers/drummer-sweep.ts`) and read through `armAngles()`. Ranges are
 in degrees. "Past hard" is the share of frames beyond the anatomical limit.
 The bar is weighted toward unusual strokes (perc2, cross-stick), so read the
@@ -154,6 +267,20 @@ Shoulders and elbows stay inside their ranges throughout, and
 
 ## Known deviations from the anatomy
 
+- **Traditional grip's fingers are not yet fitted as closely as matched
+  grip's.** At the head the first finger lies within 4 mm of the stick, but
+  the middle finger is up to 13 mm off it. The ring finger, which should
+  carry the stick on its cuticle, passes up to 11 mm into it.
+  `GRIP_MILITARY` and `STICK_MILITARY` want deriving from the curled fingers,
+  as the matched fulcrum was.
+- **The dressed thumb is short** (below), so it points down onto the stick's
+  side by the fulcrum rather than lying flat along it.
+- **The cross-stick's wrist is past its range.** With the heel and fingers
+  both on the head, the drum sets the wrist: about 75° of extension and 40–70°
+  of radial deviation, against 70° and 20°. Holding it in range tips the hand
+  off the stick and into the head, so the cross-stick is left as it was until
+  the shoulders come down (step E).
+
 - **The dressed thumb is 3 cm short.** The grips were fitted to a two-bone
   thumb 74 mm long; a real one is a metacarpal and two phalanges, about
   105 mm. The skeleton fits its real thumb to the grip each frame
@@ -178,18 +305,17 @@ step's sweep test widens to the joints that step brings inside their ranges.
 - **A. Anatomy and the skeleton.** Done: the research, the modules above,
   the skeleton drummer, the sweep's findings, and the waiting drummer's
   show to exercise the hands.
-- **B. Constrain the arm.** The planner solves the forearm's turn and the
-  wrist inside `ROM`, preferring the soft range. The wrist bends along the
-  dart-thrower's plane. The elbow swings to keep the hand's frame within
-  reach of the forearm, and the military hand sits near thumb-up. Done
-  when the sweep holds pronation, wrist flexion and deviation inside `hard`
-  for every grip.
-- **C. Grips at the bone.** German, American and French matched grip, and
-  traditional grip, as named grips with their forearm turn. The fingers
-  are solved to touch the stick's real surface, and the fulcrum is the
-  thumb's pad against the index finger's middle phalanx. The thumb's CMC
-  becomes two offset, non-perpendicular hinges (Hollister 1992). Finger
-  strokes and the Moeller whip are driven at the joints.
+- **B. Constrain the arm.** Done, but for the cross-stick. Every joint is
+  inside `hard` for every grip. The matched arm is solved from the anatomy
+  out, one piece from the elbow to the bead, with the stick fixed in the hand.
+- **C. Grips at the bone.** Mostly done. German, American, French and
+  traditional are named grips with their forearm turn, elbow and stroke. The
+  stick is held in the fingers, every finger is fitted to its surface, and a
+  guide teaches each grip with the drummer's own hands. The twirls are the
+  two a kit drummer does. Left: traditional's fingers fitted as matched
+  grip's are, and the thumb's CMC as two offset, non-perpendicular hinges
+  (Hollister 1992). Also left: the Moeller whip and push-pull, driven at the
+  joints.
 - **D. Close up on the hands.** A camera that follows one hand and zooms to
   the fingers, and the hand bones as signed-distance surfaces for close
   range.

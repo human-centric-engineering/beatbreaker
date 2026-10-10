@@ -17,7 +17,8 @@ import { ROM, beyond } from '@/lib/app/breaks/drummer/anatomy/rom';
 import { armAngles, torsoOf } from '@/lib/app/breaks/drummer/anatomy/arm';
 import { BODY } from '@/lib/app/breaks/drummer/kit-layout';
 import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
-import { type Pose, gripsFor, poseAt } from '@/lib/app/breaks/drummer/pose';
+import { type GripChoice, gripsFor } from '@/lib/app/breaks/drummer/grips';
+import { type Pose, poseAt } from '@/lib/app/breaks/drummer/pose';
 import { SWEEP_DUR, sweepTimeline } from '@/tests/helpers/drummer-sweep';
 
 const BONES = PERSONAS.find((p) => p.kind === 'skeleton')!;
@@ -40,11 +41,11 @@ function at(o: THREE.Object3D, local = new THREE.Vector3()): THREE.Vector3 {
 }
 
 /** Poses across the sweep bar: every kind of stroke, a few times a step. */
-function poses(military: 'none' | 'other' | 'both' = 'none'): Pose[] {
+function poses(grip: GripChoice = 'american'): Pose[] {
   const timeline = sweepTimeline(2);
   const out: Pose[] = [];
   for (let t = 0.03; t < 32 * SWEEP_DUR; t += 0.07)
-    out.push(poseAt(timeline, t, 1, gripsFor(military)));
+    out.push(poseAt(timeline, t, 1, gripsFor(grip)));
   return out;
 }
 
@@ -178,9 +179,10 @@ describe('buildSkeleton', () => {
   });
 
   it('keeps every bone where it was built to be, and nothing at NaN, across every stroke and grip', () => {
-    for (const military of ['none', 'both'] as const) {
+    // a matched grip and traditional: every grip's joints are swept in `rom.test.ts`
+    for (const grip of ['american', 'traditionalBoth'] as const) {
       const { root, update } = build();
-      for (const pose of poses(military)) {
+      for (const pose of poses(grip)) {
         update(pose);
         root.updateMatrixWorld(true);
         root.traverse((o) => {

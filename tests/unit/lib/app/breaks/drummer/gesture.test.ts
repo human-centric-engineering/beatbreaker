@@ -18,7 +18,8 @@ import {
   showOverlaps,
 } from '@/lib/app/breaks/drummer/gesture';
 import type { Hand } from '@/lib/app/breaks/drummer/kit-layout';
-import { gripsFor, poseAt, twirlAt } from '@/lib/app/breaks/drummer/pose';
+import { gripsFor } from '@/lib/app/breaks/drummer/grips';
+import { poseAt, twirlAt } from '@/lib/app/breaks/drummer/pose';
 import { StrokeTimeline } from '@/lib/app/breaks/drummer/timeline';
 import { stepWithHit } from '@/tests/helpers/drummer-fixtures';
 
@@ -138,7 +139,8 @@ describe('the show, read through the anatomy', () => {
       // the keeper holds its own stick as it always does, and the passed one beside it, side by
       // side the same way, its butt end in the keeper's palm
       expect(keep.grip.distanceTo(keep.wrist)).toBeLessThan(0.15);
-      expect(free.stick.dot(keep.stick)).toBeGreaterThan(0.99);
+      // side by side (the stick lies tipped across the palm, so they splay a few degrees)
+      expect(free.stick.dot(keep.stick)).toBeGreaterThan(0.98);
       const butt = free.tip.clone().addScaledVector(free.stick, -0.406);
       const toLine = keep.grip.clone().sub(butt);
       const offLine = toLine.clone().addScaledVector(free.stick, -toLine.dot(free.stick)).length();
@@ -197,12 +199,12 @@ describe('the show, read through the anatomy', () => {
 
   it('holds the pass in matched grip, whatever grip the hands play in, and goes back to it after', () => {
     for (const show of ALL) {
-      const mid = poseAt(idle, show.start + 3, 0, gripsFor('both'), AUDIENCE);
-      expect(mid.arms.lead.held).toBe('matched');
-      expect(mid.arms.other.held).toBe('matched');
-      const before = poseAt(idle, show.start - 0.5, 0, gripsFor('both'), AUDIENCE);
-      expect(before.arms.lead.held).toBe('military');
-      expect(before.arms.other.held).toBe('military');
+      const mid = poseAt(idle, show.start + 3, 0, gripsFor('traditionalBoth'), AUDIENCE);
+      expect(mid.arms.lead.held).toBe('american');
+      expect(mid.arms.other.held).toBe('american');
+      const before = poseAt(idle, show.start - 0.5, 0, gripsFor('traditionalBoth'), AUDIENCE);
+      expect(before.arms.lead.held).toBe('traditional');
+      expect(before.arms.other.held).toBe('traditional');
     }
   });
 

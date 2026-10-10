@@ -264,7 +264,7 @@ function buildHand(thumb: 1 | -1, bone: THREE.Material): HandRig {
   // the thumb: its metacarpal from the trapezium, then two phalanges
   const thumbBase = new THREE.Group();
   thumbBase.position.set(thumb * THUMB_BASE[0], THUMB_BASE[1], THUMB_BASE[2]);
-  thumbBase.rotation.set(...thumbTurn(thumb, 'matched'), 'YXZ');
+  thumbBase.rotation.set(...thumbTurn(thumb, 'american'), 'YXZ');
   // the trapeziometacarpal joint's flexion, under the turn the grip tables give the base
   const cmc = new THREE.Group();
   cmc.add(mesh(handBone(THUMB_BONES[0], 0.0085), bone, 'metacarpal'));

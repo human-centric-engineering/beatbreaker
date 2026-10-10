@@ -49,7 +49,7 @@ function arm(
     tip: new Vector3(),
     lift: 0,
     curl: 0.6,
-    held: 'matched',
+    held: 'american',
     ready: 1,
     cross: 0,
   };

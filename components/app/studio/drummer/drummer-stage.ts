@@ -15,7 +15,8 @@ import {
 import type { ScheduledStep } from '@/lib/app/breaks/audio/transport';
 import { type CameraView, cameraFor } from '@/lib/app/breaks/drummer/camera';
 import { type Persona, otherThan } from '@/lib/app/breaks/drummer/personas';
-import { type Grips, MATCHED_GRIPS, poseAt } from '@/lib/app/breaks/drummer/pose';
+import { DEFAULT_GRIPS, type Grips } from '@/lib/app/breaks/drummer/grips';
+import { poseAt } from '@/lib/app/breaks/drummer/pose';
 import { StrokeTimeline } from '@/lib/app/breaks/drummer/timeline';
 
 /**
@@ -66,7 +67,7 @@ export class DrummerStage {
   private groove = 0;
   private playing = false;
   private lefty = false;
-  private grips: Grips = MATCHED_GRIPS;
+  private grips: Grips = DEFAULT_GRIPS;
   private view: CameraView = 'front';
   /** Where the picture is slid to now, and where it is going: a share of the width. */
   private aside = 0;
