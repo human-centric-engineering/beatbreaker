@@ -377,9 +377,10 @@ export class Transport {
     /* When each note's key is struck again: a flam's grace and its stroke, a
        buzz's repeats, are the same note a few milliseconds apart, and the port
        must release one before the next. An ornament is held no further than
-       the end of the step, where the next step's note on that drum may be. */
+       the end of the step, where the next step's note on that drum may be; an
+       echo, which sounds steps later, a step past its own start. */
     const until = voices.map((v, n) => {
-      let next = v.ornament ? t + dur : Infinity;
+      let next = v.ornament === 'echo' ? whens[n] + dur : v.ornament ? t + dur : Infinity;
       voices.forEach((w, m) => {
         if (w.note === v.note && whens[m] > whens[n]) next = Math.min(next, whens[m]);
       });
@@ -441,7 +442,7 @@ export class Transport {
       case 's':
         return a.snare(when, vel, v.ghost, v.cross, v.rim);
       case 'h':
-        return a.hat(when, vel, v.open, false, v.half);
+        return a.hat(when, vel, v.open, false, v.half, v.ornament === 'echo');
       case 'r':
         return a.ride(when, vel, v.bell);
       case 'c':

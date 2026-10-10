@@ -217,9 +217,9 @@ export interface PercSpec {
 /**
  * The part of a style that travels with a pattern.
  *
- * Seven fields, and the list is not arbitrary — it is exactly what the transport
- * (`isSwung`, `hatShape`, `feelOffset`), the critic (`kickFeather`,
- * `targetDensity`, `doubleKick`), the 3D drummer (`doubleKick`, `oneHandHats`) and the MIDI
+ * Nine fields, and the list is not arbitrary — it is exactly what the transport
+ * (`isSwung`, `hatShape`, `feelOffset`, `echo`), the critic (`kickFeather`,
+ * `targetDensity`, `doubleKick`, `heelToe`), the 3D drummer (`doubleKick`, `oneHandHats`) and the MIDI
  * export read off a style once a pattern exists.
  * Everything else a style says is an instruction to the *generator*, and is
  * spent the moment the notes are written.
@@ -260,6 +260,28 @@ export interface StyleAttrs {
    * drummer plays a run of sixteenth hats hand to hand.
    */
   oneHandHats?: boolean;
+  /**
+   * Three 16ths on the kick with one foot, heel and toe: Yussef Dayes's 3,
+   * 3e, 3& in Tioga Pass. The generator keeps a triple and the critic passes
+   * it; four in a row is still a run, unless the style has a double pedal.
+   */
+  heelToe?: boolean;
+  /**
+   * A tape echo on part of the kit: each note in `lanes` heard once more,
+   * `steps` later, at `level` of its strength. Played, not written: the
+   * drummer struck one note and the machine answered it, so the grid, the
+   * critic and the 3D drummer never see the repeat. On the snare only a
+   * cross-stick goes through it. Copeland's Space Echo on Walking on the
+   * Moon: a dotted 8th, three 16ths, on the hats and the rim.
+   */
+  echo?: Echo;
+}
+
+/** See {@link StyleAttrs.echo}. */
+export interface Echo {
+  lanes: LaneKey[];
+  steps: number;
+  level: number;
 }
 
 export interface Style extends StyleAttrs {
@@ -346,6 +368,12 @@ export interface Style extends StyleAttrs {
    */
   anticipate?: number;
   /**
+   * The cymbal an anticipation lands on, as a crash-lane value: 1 the crash
+   * (the default), 4 a splash. Copeland's fills end on a splash on the "and"
+   * of 4.
+   */
+  anticipateCymbal?: number;
+  /**
    * Fills grow through the phrase: inside it the generator picks among the
    * fills no longer than half a bar, and at its end leans to the longest.
    * Mitchell's fills get longer and wilder as a song goes on.
@@ -373,9 +401,10 @@ export interface Style extends StyleAttrs {
   /**
    * Whether each half of the phrase is marked on its 1 with a crash, and a
    * kick under it. Both default to true. Tony Allen leaves the 1 to the
-   * figure: snare there as often as kick, and almost never a crash.
+   * figure: snare there as often as kick, and almost never a crash. `crash`
+   * may be a probability instead: Copeland crashes on a third of his 1s.
    */
-  phraseMark?: { crash?: boolean; kick?: boolean };
+  phraseMark?: { crash?: boolean | number; kick?: boolean };
   /**
    * Probability, 0–1, that the phrase ends on a fill (0.8, or 0.7 for a comp
    * ending, by default). Tony Allen: "I play like a machine or a loop."

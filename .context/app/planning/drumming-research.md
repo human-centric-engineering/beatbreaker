@@ -1105,6 +1105,89 @@ as it is; changing it moves its golden):
 - Its kick cells have no 1 + 1e double.
 - It has a fixed backbeat on 6 and 12.
 
+## J. Stewart Copeland (2026-10-10)
+
+**The sources.** About 20 human-made Songsterr drum tabs (each tab's
+`aiGenerated` flag was checked), read bar by bar: 2,610 bars of 4/4. Joe
+Bergamini's _Stewart Copeland: Drumming in the Police and Beyond_ (Hudson
+Music; the free sample's prose and gear chapters) settles Wrapped Around Your
+Finger, Murder by Numbers' 12/8 and the kit. Drumeo, Bonedo, a 1983 Music UK
+interview and a microtiming study fill in the feel. Tempos are songbpm's and
+Bergamini's. Fall Out, One World, Tea in the Sahara, Walking in Your
+Footsteps and Murder by Numbers' grid are reconstructions, and their `feel`
+says so.
+
+**What the tabs show:**
+
+- The kick avoids the 1: only 20% of his kicks are on it, and none in the
+  reggae verses (Walking on the Moon, Spirits, King of Pain, Man in a
+  Suitcase).
+- His cross-stick goes on 3 (37% of rim clicks), the one drop.
+- The backbeat moves to 4 alone (Wrapped Around Your Finger, Can't Stand
+  Losing You) or goes (Bring On the Night, Darkness, Masoko Tanga).
+- The hi-hat talks: accented quarters, `111` bursts, gaps, a bark on the
+  "and" of 4 (19% of his open hats), the foot on the "ands".
+- Crashes and splashes come early: a third of them on the 1, the rest on 4
+  or its "and", the next 1 left bare.
+- Fills are rare (one in 15–30 bars; none in Walking on the Moon) and short.
+- Verses go sparse and choruses go to rock, often on the ride bell.
+- A Space Echo single repeat, a dotted 8th, on hats and rim (Walking on the
+  Moon, Reggatta de Blanc, Every Little Thing).
+- Backbeats slightly early (−0.6% to −0.9% of a beat).
+
+**Model changes:**
+
+| Gap                                                          | Change                                              |
+| ------------------------------------------------------------ | --------------------------------------------------- |
+| No echo: the Space Echo repeat is part of three songs' sound | `echo` (played, never written)                      |
+| An anticipation always landed on a crash                     | `anticipateCymbal` (his: the splash)                |
+| Each phrase half crashed on its 1, or never did              | `phraseMark.crash` may be a probability (his: 0.35) |
+| No kit for his sound                                         | `police`: the DRS samples, snare and cymbals raised |
+
+The verse-to-chorus flip is `build`: the busier figure second, every phrase.
+
+**Still not modelled:** Octobans (three toms only), the gong drum and Oberheim
+on Every Breath You Take, cymbal chokes, and how much faster he played live
+(the ranges reach live tempos only where a source gives one).
+
+## K. Yussef Dayes (2026-10-10)
+
+**The sources.** Drum Hub's human transcriptions (Alex Richards): a beat sheet
+with an excerpt of every track on _Black Classical Music_, and studies of Love
+Is the Message, What Kinda Music and Strings of Light, read off the notation.
+Three human Songsterr tabs (Tioga Pass, Lift Off, Jamaican Links). Nightrider,
+For My Ladies and Last 100 come from AI tabs and say so; Black Focus and
+Lowrider are templates built from his habits. Tempos are SongBPM's detections
+or the transcriber's, with the half/double reading chosen per track.
+
+**What the transcriptions show:**
+
+- Dense, linear 16ths: hat, ghosted snare and kick take turns.
+- The backbeat slides: the "and" of 2 (Love Is the Message), the "a" of 1 and
+  "e" of 2 (Strings of Light), scattered (Rust). Beat 4 is the steadiest.
+- Half-time at high tempos, the snare on 3 (Lift Off, Jamaican Links, Encore).
+- Kick clusters, three 16ths on one foot (Tioga Pass: 3, 3e, 3&).
+- Buzz strokes, flams, 32nd ghost drags into the 1.
+- Rim clicks as the backbeat, on dotted 8ths in Pon di Plaza.
+- A cymbal stack for accents; crash and kick on 1 where a section starts.
+- Turquoise Galaxy is in 8th-note triplets.
+- In his own words he plays without a click; reviewers call him tight. No
+  source supports a "drunk" Dilla swing, so the swing is light (15–40 on the
+  slider, about 53–57% MPC) and the reggae and Afro tracks near straight.
+
+**Model changes:**
+
+| Gap                                                        | Change                                            |
+| ---------------------------------------------------------- | ------------------------------------------------- |
+| Three 16ths on the kick were thinned and called unplayable | `heelToe`                                         |
+| No china outside metal                                     | the stack plays as the china (`c` value 3)        |
+| No kit for his sound                                       | `london`: Gogodze's samples, snare raised, driven |
+
+**Still not modelled:** tempo drift and free-time intros; bars that mix 16ths
+with sextuplets (48 steps a bar) and the live Tioga paradiddle-diddles in
+32nds; 32nd ruffs (approximated by 16th pairs); the snares-off drum in
+Marching Band (played on the high tom).
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html
@@ -1141,3 +1224,22 @@ as it is; changing it moves its golden):
 - https://songbpm.com/@jimi-hendrix
 - https://www.musicradar.com/news/ginger-baker-drummer
 - https://articles.roland.com/behind-the-beat-funky-drummer-by-james-brown/
+- https://hudsonmusic.com/wp-content/uploads/Stewart-Copeland-Sample.pdf
+- https://www.drumeo.com/beat/stewart-copeland-drum-genius/
+- https://www.bonedo.de/?p=250858
+- https://www.muzines.co.uk/articles/stewart-copeland/11996
+- https://revuemusicaleoicrm.org/vol12-n2/microtiming-tempo-variability-rock-drummers/
+- https://www.onlinedrummer.com/blogs/drum-lessons/drum-technique-in-a-bottle
+- https://www.songsterr.com/a/wsa/the-police-tabs-a194?inst=drum
+- https://songbpm.com/@the-police
+- https://www.drum-hub.com/blog/2023/7/19/use-paradiddles-to-create-grooves-like-yussef-dayes-the-cinematic-orchestra-amp-tower-of-power-
+- https://www.drum-hub.com/blog/2020/2/10/yussef-kamaal-strings-of-light-beat-breakdown
+- https://www.songsterr.com/a/wsa/yussef-dayes-ft-rocco-palladino-tioga-pass-drum-tab-s884502
+- https://www.songsterr.com/a/wsa/tom-misch-yussef-dayes-lift-off-drum-tab-s6965167
+- https://www.songsterr.com/a/wsa/yussef-dayes-jamaican-links-drum-tab-s1273078
+- https://songbpm.com/@yussef-dayes
+- https://drummerszone.com/artists/profile/15367/yussef-dayes
+- https://www.drum-hub.com/blog/2023/10/20/i-learnt-1-drum-beat-from-every-song-on-yussef-dayes-black-classical-music-amp-you-can-too
+- https://www.drum-hub.com/blog/2022/3/15/yussef-dayes-love-is-the-message-beat-breakdown
+- https://www.drum-hub.com/blog/2020/4/3/tom-misch-amp-yussef-dayes-what-kinda-music-drum-cover-with-notation
+- https://www.drum-hub.com/blog/2023/8/16/improve-bass-drum-speed-with-grooves-from-mark-guiliana-yussef-dayes-amp-kublai-khan-tx-1

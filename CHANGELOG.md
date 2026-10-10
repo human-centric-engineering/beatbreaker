@@ -671,7 +671,23 @@ release process.
   its figure (no crash, no kick under it), and `fillChance` sets how often a
   phrase ends on a fill.
 
+- **Stewart Copeland and Yussef Dayes, a tape echo, splash anticipations and
+  heel-toe kicks.** Two drummers: `copeland` (41 Police songs, from Fall Out
+  to Synchronicity, most from human transcriptions; 6/4, 7/4 and 12/8 among
+  them) and `yussefdayes` (27 tracks, most from Drum Hub's transcriptions;
+  Turquoise Galaxy in sextuplets). New params: `echo` (a `StyleAttrs` field,
+  played and never written: one quieter repeat of chosen lanes),
+  `anticipateCymbal` (the cymbal an anticipation lands on), `phraseMark.crash`
+  as a probability, and `heelToe` (a `StyleAttrs` field: three 16ths on one
+  foot). Kits `police` and `london`: sampled kits re-tuned for them.
+
 ### Changed
+
+- **The drummers play sampled kits only.** `sixties` is now SM Drums' 1960s
+  Ludwig and `teatowel` Gogodze's damped kit, both re-tuned; Tony Allen's
+  songs moved from the synthesised kits to SM Drums, Gogodze and DRS. A
+  drummer and each of its songs name a pack kit unless the drummer played
+  electronic drums on that record (`drummer-kits.test.ts`).
 
 - **BeatBuddy is an `internal` agent (BeatBreaker Phase 8-i).** It was
   `public`, which let Sunrise's generic `POST /api/v1/chat/stream` reach it

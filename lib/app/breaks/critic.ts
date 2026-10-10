@@ -50,6 +50,8 @@ export function playability(pat: Pattern, bpm: number): Playability {
   const hands = handLanes(pat.perc);
   // on a double pedal a run of kicks is two feet's: no run is too long, and the kick is not the air
   const doubleKick = !!pat.attrs?.doubleKick;
+  // heel and toe: three 16ths on one foot, and the fourth is the run
+  const heelToe = !!pat.attrs?.heelToe;
 
   const nSteps = pat.bars[0] ? pat.bars[0].k.length : STEPS;
   /* A quarter of the bar, and never less than three sixteenths' worth: in a
@@ -62,7 +64,8 @@ export function playability(pat: Pattern, bpm: number): Playability {
   for (const b of pat.bars) {
     for (let i = 0; i < nSteps; i++) {
       if (b.h[i] && b.r[i]) rideClash = true;
-      if (i < nSteps - 2 && b.k[i] && b.k[i + 1] && b.k[i + 2]) kickRun = true;
+      if (i < nSteps - 2 && b.k[i] && b.k[i + 1] && b.k[i + 2] && (!heelToe || b.k[i + 3]))
+        kickRun = true;
       if (i < nSteps - 3 && b.s[i] && b.s[i + 1] && b.s[i + 2] && b.s[i + 3]) snareRun = true;
       if (i < nSteps - 1 && b.k[i] && b.k[i + 1]) doubleStrain++;
       // a flam's step is the grace check's to report, not this one's twice over —
@@ -95,7 +98,11 @@ export function playability(pat: Pattern, bpm: number): Playability {
     { ok: !rideClash, label: 'One cymbal at a time — no ride under a hi-hat' },
     {
       ok: !kickRun,
-      label: doubleKick ? 'Kick runs go to the double pedal' : 'No triple 16ths on the kick',
+      label: doubleKick
+        ? 'Kick runs go to the double pedal'
+        : heelToe
+          ? 'No four 16ths in a row on the kick'
+          : 'No triple 16ths on the kick',
     },
     { ok: !snareRun, label: 'Snare never runs four 16ths without a break' },
     {

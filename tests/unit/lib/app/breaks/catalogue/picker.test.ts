@@ -96,8 +96,10 @@ describe('drummerSection', () => {
       'mitchell',
       'bonham',
       'ringo',
+      'copeland',
       'stubblefield',
       'tonywilliams',
+      'yussefdayes',
       'tonyallen',
     ]);
     expect(drummers?.groups.map(([g]) => g)).toEqual([

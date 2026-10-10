@@ -1,7 +1,7 @@
 /**
  * The kit table — seed data.
  *
- * 22 kits across three engines, each a plain parameter object plus an engine
+ * 24 kits across three engines, each a plain parameter object plus an engine
  * name, so a kit is a row rather than a branch in playback and a user's tuning
  * is a saved override of these numbers.
  *
@@ -67,27 +67,37 @@ export const KITS: Record<string, Kit> = {
   },
   sixties: {
     label: "Sixties pop ('63–'66)",
-    hint: 'A small Ludwig kit with thin heads: ringing toms, a bright snare, and hi-hats played half open so they wash rather than tick. The early Beatles records.',
-    master: { lp: 12500, drive: 1.3, room: 0.3 },
-    k: { tune: 58, decay: 0.34, tone: 0.36, room: 0.14 },
-    s: { tune: 210, decay: 0.22, tone: 0.66, room: 0.32 },
-    h: { tune: 0.94, decay: 0.07, open: 0.62, tone: 7000, room: 0.24 },
-    r: { tune: 0.96, decay: 1.9, tone: 3000, room: 0.34 },
-    c: { tune: 0.9, decay: 2.6, tone: 2600, room: 0.44 },
-    t: { tune: 104, decay: 0.72, tone: 0.48, room: 0.34 },
-    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.26 },
+    engine: 'pack',
+    pack: 'smdrums',
+    trim: 1,
+    hint: "Ringo's early sound on a sampled kit: SM Drums' 1960s Ludwig, whose 1965 Jazz Festival snare is the model he played, with the top rolled off a little and its thin crashes left to wash. Ringing toms, a bright snare, loose hats.",
+    credit:
+      'SM Drums by Scott McLean, Tod Stillwell and Suleiman Ali · free for any use, by their grant. Splash from Salamander Drumkit by Alexander Holm · public domain. Mixed to mono, trimmed and re-encoded for the web.',
+    master: { lp: 13000, drive: 1.14, room: 0.18 },
+    k: { rate: 1.02, level: 0.95, room: 0.05 },
+    s: { rate: 1.03, level: 0.95, room: 0.16 },
+    h: { rate: 1, level: 0.9, room: 0.1 },
+    r: { rate: 1, level: 0.88, room: 0.16 },
+    c: { rate: 1, level: 0.86, room: 0.22 },
+    t: { tune: 90, decay: 0.54, tone: 0.38, room: 0.14 },
+    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.12 },
   },
   teatowel: {
     label: "Tea towels ('68–'69)",
-    hint: 'Towels over the toms and the snare, no front head on the kick, tuned low: short, dark and punchy, no ring and no room. The White Album and Abbey Road.',
-    master: { lp: 11000, drive: 1.35, room: 0.06 },
-    k: { tune: 46, decay: 0.24, tone: 0.24, room: 0.0 },
-    s: { tune: 168, decay: 0.1, tone: 0.34, room: 0.04 },
-    h: { tune: 0.9, decay: 0.04, open: 0.28, tone: 6400, room: 0.04 },
-    r: { tune: 0.88, decay: 1.3, tone: 2700, room: 0.08 },
-    c: { tune: 0.86, decay: 1.8, tone: 2300, room: 0.12 },
-    t: { tune: 78, decay: 0.26, tone: 0.22, room: 0.04 },
-    p: { tune: 0.96, level: 0.88, tone: 0.92, room: 0.06 },
+    engine: 'pack',
+    pack: 'gogodze',
+    trim: 1,
+    hint: "Ringo's late sound on a sampled kit: Gogodze's damped kick and deadened toms, played a shade slower so they sit low, with the room taken out. Short, dark and punchy, the White Album and Abbey Road; no free recording of real towels exists, so this is the nearest. Its cymbals are Big Rusty's.",
+    credit:
+      'Gogodze Phu Vol II by Karoryfer Lecolds · CC0 1.0 (public domain). Ride, crashes and china from Big Rusty Drums by Karoryfer Samples · CC0 1.0; splash from Salamander Drumkit by Alexander Holm · public domain. Mixed to mono, trimmed and re-encoded for the web; kick, snare and toms played slower.',
+    master: { lp: 11000, drive: 1.2, room: 0.04 },
+    k: { rate: 0.96, level: 1.0, room: 0.0 },
+    s: { rate: 0.94, level: 0.95, room: 0.04 },
+    h: { rate: 1, level: 0.88, room: 0.03 },
+    r: { rate: 1, level: 0.8, room: 0.06 },
+    c: { rate: 1, level: 0.8, room: 0.08 },
+    t: { tune: 84, decay: 0.48, tone: 0.3, room: 0.12 },
+    p: { tune: 0.96, level: 0.9, tone: 0.9, room: 0.12 },
   },
   machine: {
     label: 'Machine',
@@ -347,6 +357,42 @@ export const KITS: Record<string, Kit> = {
     c: { rate: 1, level: 0.86, room: 0.18 },
     t: { tune: 90, decay: 0.54, tone: 0.38, room: 0.14 },
     p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.12 },
+  },
+
+  police: {
+    label: "Police era ('78–'83)",
+    engine: 'pack',
+    pack: 'drs',
+    trim: 1,
+    hint: "Stewart Copeland's sound on a sampled kit: the DRS kit's snare played faster, so it sits higher and cracks like his cranked-up brass Pearl, with tight hats and Paiste cymbals sped up a little to speak short and small. The toms are the DRS kit's own: there are no Octobans.",
+    credit:
+      'DRSKit by Lars and Deva Muldjord (DrumGizmo), on a kit lent by DRSDrums · CC BY 4.0. Drum samples provided by DrumGizmo.org. China and splash from Salamander Drumkit by Alexander Holm · public domain. Close mics, overheads and room mixed to mono, trimmed and re-encoded for the web; snare, hats and cymbals played faster.',
+    master: { lp: 18000, drive: 1.08, room: 0.1 },
+    k: { rate: 1.04, level: 0.95, room: 0.03 },
+    s: { rate: 1.12, level: 0.95, room: 0.1 },
+    h: { rate: 1.04, level: 0.9, room: 0.06 },
+    r: { rate: 1.04, level: 0.88, room: 0.12 },
+    c: { rate: 1.08, level: 0.86, room: 0.14 },
+    t: { tune: 90, decay: 0.54, tone: 0.38, room: 0.14 },
+    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.12 },
+  },
+
+  london: {
+    label: 'London small kit',
+    engine: 'pack',
+    pack: 'gogodze',
+    trim: 1,
+    hint: "Yussef Dayes's sound on a sampled kit: Gogodze's damped, lo-fi drums with the snare played faster so it sits tight and high, pushed into a little more distortion, the way What Kinda Music went down on two mics. Its trashy crashes and china (his stack) are Big Rusty's.",
+    credit:
+      'Gogodze Phu Vol II by Karoryfer Lecolds · CC0 1.0 (public domain). Ride, crashes and china from Big Rusty Drums by Karoryfer Samples · CC0 1.0; splash from Salamander Drumkit by Alexander Holm · public domain. Mixed to mono, trimmed and re-encoded for the web; snare played faster.',
+    master: { lp: 13000, drive: 1.45, room: 0.08 },
+    k: { rate: 1.02, level: 1.0, room: 0.02 },
+    s: { rate: 1.16, level: 0.95, room: 0.08 },
+    h: { rate: 1.04, level: 0.88, room: 0.05 },
+    r: { rate: 1.0, level: 0.8, room: 0.1 },
+    c: { rate: 1.06, level: 0.8, room: 0.12 },
+    t: { tune: 84, decay: 0.48, tone: 0.3, room: 0.12 },
+    p: { tune: 0.96, level: 0.9, tone: 0.9, room: 0.12 },
   },
 
   osdk: {

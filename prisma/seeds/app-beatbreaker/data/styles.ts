@@ -1,7 +1,7 @@
 /**
  * The style table — seed data.
  *
- * 62 grooves and 4 famous drummers, each a set of tendencies or a handful of
+ * 62 grooves and 8 famous drummers, each a set of tendencies or a handful of
  * written-out bars, so the generator can write a different break in the same
  * idiom every time. A drummer is a style marked `drummer: true`, which the
  * picker files under Drummers.
@@ -6966,7 +6966,7 @@ export const STYLES: Record<string, Style> = {
     drummer: true,
     hint: 'Fela Kuti\'s drummer, who made Afrobeat: four limbs playing like four drummers. The hi-hat foot chicks every "and", the hand plays one-and-a on the hat around the snare, the kick comes in pairs and rarely marks the 1, and the snare pops in clusters with no fixed backbeat. Hardly a fill ("I play like a machine or a loop"). Each New plays a style inspired by one of thirty-four songs: Zombie, Water No Get Enemy, Expensive Shit, Lady, Gentleman, and his own later records. Built on the five patterns he demonstrated himself; the song grooves are variations of them, not transcriptions.',
     toms: true,
-    kit: 'studio70',
+    kit: 'smdrums',
     hats: 16,
     bpm: [84, 136],
     swingUnit: 16,
@@ -7071,7 +7071,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 6,
           swingRange: [0, 12],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7104,7 +7104,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 12,
           swingRange: [6, 18],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7138,7 +7138,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 15,
           swingRange: [9, 21],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7171,7 +7171,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 15,
           swingRange: [9, 21],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7204,7 +7204,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 12,
           swingRange: [6, 18],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7237,7 +7237,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 15,
           swingRange: [9, 21],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7270,7 +7270,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 12,
           swingRange: [6, 18],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7303,7 +7303,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 9,
           swingRange: [3, 15],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7336,7 +7336,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 18,
           swingRange: [12, 24],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7369,7 +7369,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 12,
           swingRange: [6, 18],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7404,7 +7404,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 21,
           swingRange: [15, 27],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7438,7 +7438,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 12,
           swingRange: [6, 18],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             // two bars
             [
@@ -7472,7 +7472,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 15,
           swingRange: [9, 21],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7505,7 +7505,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 36,
           swingRange: [30, 42],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             // from a human transcription
             [
@@ -7532,7 +7532,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 12,
           swingRange: [6, 18],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7565,7 +7565,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 15,
           swingRange: [9, 21],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7598,7 +7598,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 18,
           swingRange: [12, 24],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7631,7 +7631,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 12,
           swingRange: [6, 18],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7664,7 +7664,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 9,
           swingRange: [3, 15],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             // two bars
             [
@@ -7698,7 +7698,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 15,
           swingRange: [9, 21],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7731,7 +7731,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 15,
           swingRange: [9, 21],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7764,7 +7764,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 12,
           swingRange: [6, 18],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7797,7 +7797,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 15,
           swingRange: [9, 21],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7830,7 +7830,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 15,
           swingRange: [9, 21],
-          kit: 'studio70',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7863,7 +7863,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 6,
           swingRange: [0, 12],
-          kit: 'machine',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -7896,7 +7896,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 12,
           swingRange: [6, 18],
-          kit: 'raregroove',
+          kit: 'gogodze',
           figures: [
             // sparse
             [
@@ -7930,7 +7930,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 12,
           swingRange: [6, 18],
-          kit: 'raregroove',
+          kit: 'gogodze',
           figures: [
             [
               {
@@ -7995,7 +7995,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 18,
           swingRange: [12, 24],
-          kit: 'liveroom',
+          kit: 'drs',
           figures: [
             [
               {
@@ -8094,7 +8094,7 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 12,
           swingRange: [6, 18],
-          kit: 'liveroom',
+          kit: 'drs',
           figures: [
             [
               {
@@ -8152,14 +8152,14 @@ export const STYLES: Record<string, Style> = {
       {
         key: 'locked-and-loaded',
         title: 'Locked & Loaded',
-        feel: "with Jeff Mills, 2018: his first pattern on a drum machine's sounds",
+        feel: "with Jeff Mills, 2018: his first pattern on his own kit, Mills's 909 beside him",
         weight: 0.5,
         params: {
           bpm: [122, 128],
           swingUnit: 16,
           swing: 9,
           swingRange: [3, 15],
-          kit: 'tr909',
+          kit: 'smdrums',
           figures: [
             [
               {
@@ -8180,6 +8180,1359 @@ export const STYLES: Record<string, Style> = {
               1.0,
             ],
           ],
+        },
+      },
+    ],
+  },
+  copeland: {
+    label: 'Stewart Copeland',
+    drummer: true,
+    hint: 'The Police: a reggae drummer in a punk band. The kick stays off the 1, a cross-stick drops on 3, the backbeat goes to 4 alone or nowhere, and the hi-hat does the talking: accents, little 16th bursts, a bark on the "and" of 4. Verses go sparse and choruses go to rock, often on the ride bell. Few fills, short and often over before the bar line, with a splash on the "and" of 4 instead of a crash on 1. Each New plays a style inspired by one of forty-one songs, from Fall Out to Synchronicity, most from human transcriptions, at its record tempo (some up to their live speed).',
+    toms: true,
+    kit: 'police',
+    hats: 8,
+    bpm: [80, 200],
+    swingUnit: 16,
+    swing: 0,
+    ghostBias: 0.1,
+    opens: 1,
+    openSlots: [14, 6],
+    backbeats: [4, 12],
+    targetDensity: 9,
+    hatDepth: 0.9,
+    rimshot: 0.2,
+    // on top of the beat: the backbeat a shade early, the hats leaning with it
+    feel: { label: 'On top', s: -0.04, k: -0.02, h: [-0.02, 0], jitter: 0.01 },
+    /* A verse that goes sparse and a chorus that goes to rock: the busier
+       figure second, every phrase. */
+    build: true,
+    // a third of his 1s carry a crash, and a fill ends a phrase a third of the time
+    phraseMark: { crash: 0.35 },
+    fillChance: 0.35,
+    midFills: 0,
+    // the cymbal comes early, on a splash, and the next 1 is left bare
+    anticipate: 0.3,
+    anticipateCymbal: 4,
+    kick1: [
+      ['0010', 2],
+      ['0000', 1],
+      ['1010', 1],
+    ],
+    kick: [
+      ['0010', 2],
+      ['1000', 1],
+      ['0000', 1],
+    ],
+    /* His signature grooves, from human Songsterr transcriptions checked
+       against Joe Bergamini's book. See planning/drumming-research.md,
+       section J. */
+    figures: [
+      // Roxanne, the verse: the kick on the "and" of 1, the bark on the "and" of 4
+      [{ h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '..1.............' }, 1.5],
+      // King of Pain, the verse: the kick on every "and", never on 1
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '..1...1...1...1.' }, 1.2],
+      // Walking on the Moon: kick on 2 and 4, a cross-stick on 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '........4.......', k: '....1.......1...' }, 1.2],
+      // Wrapped Around Your Finger: the backbeat on 4 alone, a rim click
+      [{ h: '1.1.1.1.1...1...', s: '............4...', k: '......1.1.......' }, 1.0],
+      // the rock chorus he flips to
+      [{ h: '2.1.2.1.2.1.2.1.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1.2],
+      // on the bell
+      [{ r: '2...2...2...2...', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 0.8],
+    ],
+    fills: [
+      // the toms in unison, in 8ths, from 3
+      [{ t1: '1.1.1.1.', t2: '1.1.1.1.', k: '1.......' }, 1.2],
+      // Message in a Bottle: broken 16ths and a crash on the "a" of 3, then nothing
+      [{ s: '2.22.2.2....', c: '.......1....' }, 1.0],
+      // Spirits: the hat in unison with the snare
+      [{ h: '111.111.33', s: '....2.2.22' }, 0.8],
+      // Wrapped Around Your Finger: up the toms to a splash on the "and" of 4
+      [{ t2: '1.1.1.1.......', t1: '........1.1...', c: '............4.' }, 1.0],
+      // Roxanne: a bark, the foot, a crash on the "and" of 4
+      [{ s: '2...2...', h: '..3.....', hf: '....1...', c: '......1.', k: '..1...1.' }, 1.0],
+      // Synchronicity II: three 8ths on both toms with the kick
+      [{ t1: '1.1.1.', t2: '1.1.1.', k: '1.1.1.' }, 0.8],
+    ],
+    songs: [
+      {
+        key: 'fall-out',
+        title: 'Fall Out',
+        feel: 'the 1977 punk single, at its studio tempo up to the speed it went live',
+        weight: 0.5,
+        params: {
+          bpm: [160, 200],
+          fillChance: 0.6,
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1],
+            [{ r: '1...1...1...1...', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1],
+          ],
+          fills: [
+            [{ t1: '1.1.1.1.', t2: '1.1.1.1.', k: '1.......' }, 1],
+            [{ t1: '1.1.1.', t2: '1.1.1.', k: '1.1.1.' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'roxanne',
+        title: 'Roxanne',
+        feel: 'the kick off the 1 under the verse, a bark on the "and" of 4, then a rock chorus',
+        weight: 1.4,
+        params: {
+          bpm: [132, 136],
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '..1.............' }, 1.4],
+            [{ h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '..1.1...........' }, 1.0],
+            [
+              {
+                r: '2.1.1.1.2.1.1...',
+                s: '....2...........',
+                k: '..1.............',
+                t1: '............1.1.',
+              },
+              0.6,
+            ],
+            [{ h: '1.1.1.1.1.3.1.3.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1.2],
+          ],
+          fills: [
+            [{ s: '2...2...', h: '..3.....', hf: '....1...', c: '......1.', k: '..1...1.' }, 1.4],
+            [{ t1: '1.1.1.1.', t2: '1.1.1.1.', k: '1.......' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'cant-stand-losing-you',
+        title: "Can't Stand Losing You",
+        feel: 'a reggae verse with its backbeat on 4 alone, a rock chorus on the bell, a cross-stick hemiola in the bridge',
+        weight: 1.1,
+        params: {
+          bpm: [142, 146],
+          figures: [
+            [
+              {
+                h: '1.1.1.1.1.1...3.',
+                s: '............2...',
+                k: '..1.1...........',
+                t3: '............1...',
+              },
+              1.2,
+            ],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '...4..4..4..4..4', k: '1...1...1...1...' }, 0.6],
+            [{ r: '2...2...2...2...', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1.2],
+          ],
+          fills: [[{ t1: '1.1.1...', s: '......2.' }, 1]],
+        },
+      },
+      {
+        key: 'next-to-you',
+        title: 'Next to You',
+        feel: 'flat-out punk, the snare on every beat to start, a tom run every few bars',
+        weight: 0.8,
+        params: {
+          bpm: [170, 178],
+          fillChance: 0.8,
+          midFills: 0.4,
+          anticipate: 0,
+          figures: [
+            [{ s: '2...2...2...2...', k: '..1...1...1...1.' }, 0.6],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.1.....' }, 1],
+            [{ c: '1.......1.......', s: '....2.....2...2.', k: '1.......1...1...' }, 1],
+          ],
+          fills: [
+            [{ t1: '1.1.....1.11' }, 1.2],
+            [{ t1: '1.1.1.', t2: '1.1.1.', k: '1.1.1.' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'so-lonely',
+        title: 'So Lonely',
+        feel: 'a half-time reggae verse, the snare on 3, then a double-time rock chorus on the ride',
+        weight: 1.0,
+        params: {
+          bpm: [150, 156],
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.............1.' }, 1.2],
+            [{ r: '1...1...1...1...', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1.2],
+            [{ h: '3...3...3...3...', s: '2...2...2...2...', k: '..1...1...1...1.' }, 0.5],
+          ],
+          fills: [
+            [{ t1: '1.1.1.1.', t2: '1.1.1.1.', k: '1.......' }, 1],
+            [{ s: '2...2...', h: '..3.....', hf: '....1...', c: '......1.', k: '..1...1.' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'peanuts',
+        title: 'Peanuts',
+        feel: 'fast punk 8ths',
+        weight: 0.4,
+        params: {
+          bpm: [176, 184],
+          fillChance: 0.6,
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1],
+            [{ h: '2.1.2.1.2.1.2.1.', s: '....2.......2...', k: '1.......1.1.....' }, 0.6],
+          ],
+          fills: [
+            [{ t1: '1.1.1.', t2: '1.1.1.', k: '1.1.1.' }, 1],
+            [{ t1: '1.1.1.1.', t2: '1.1.1.1.', k: '1.......' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'born-in-the-50s',
+        title: "Born in the 50's",
+        feel: 'gappy hats with a 16th burst in the verse, the bell in the chorus',
+        weight: 0.6,
+        params: {
+          bpm: [138, 142],
+          figures: [
+            [{ h: '1.....111.1...3.', s: '....2.......2...', k: '1.....1.1.....1.' }, 1],
+            [{ r: '1.......2.....1.', s: '....2.......2...', k: '1.....1.1.....1.' }, 1],
+          ],
+          fills: [[{ h: '1.1.111.3.', s: '....222.2.' }, 1]],
+        },
+      },
+      {
+        key: 'masoko-tanga',
+        title: 'Masoko Tanga',
+        feel: 'four on the floor under busy 16th hats, and no backbeat at all',
+        weight: 0.5,
+        params: {
+          bpm: [144, 150],
+          figures: [
+            [{ h: '1.111.11111.1.11', k: '1...1...1...1...' }, 1],
+            [{ h: '1.1.111.1.1.111.', k: '1...1...1...1...' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'landlord',
+        title: 'Landlord',
+        feel: 'the slow section: open hats on the beat, a plain 2 and 4',
+        weight: 0.3,
+        params: {
+          bpm: [100, 105],
+          figures: [
+            [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.......1.......' }, 1],
+            [{ h: '3.1.3.1.3.1.3.1.', s: '....2.......2...', k: '1.......1.1.....' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'landlord-fast',
+        title: 'Landlord (fast section)',
+        feel: 'open hats on every 8th and the snare on every "and" (the 16th kicks thinned, to keep it at tempo)',
+        weight: 0.3,
+        params: {
+          bpm: [190, 200],
+          fillChance: 0.5,
+          figures: [
+            [{ h: '3.3.3.3.3.3.3.3.', s: '..2...2...2...2.', k: '1...1...1.......' }, 1],
+            [{ h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1.1.....1.1.....' }, 0.8],
+          ],
+          fills: [[{ t1: '1.1.1.', t2: '1.1.1.', k: '1.1.1.' }, 1]],
+        },
+      },
+      {
+        key: 'message-in-a-bottle',
+        title: 'Message in a Bottle',
+        feel: 'accented quarters on the hats, a mid and high tom answering over two bars, the bell into the outro',
+        weight: 1.4,
+        params: {
+          bpm: [147, 150],
+          figures: [
+            [{ h: '2.1.2.1.2.1.2.3.', s: '....2.......2...', k: '......1.1.......' }, 1.2],
+            [
+              {
+                h: '2.1.2.1.2.1.2.1.2.1.2.1.2.1.2.1.',
+                k: '1...1...1...1...1...1...1...1...',
+                t1: '......1.1.......................',
+                t2: '......................1.1.......',
+              },
+              1.0,
+            ],
+            [{ h: '2.1.2.1.2.1.2.1.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1.0],
+            [{ h: '2.1.2.1.2.1.2.1.', k: '1...1...1...1...' }, 0.6],
+            [{ r: '2.2.2.2.2.2.2.2.', s: '....2.......2...', k: '1...1...1...1...' }, 0.6],
+          ],
+          fills: [
+            [{ s: '2.22.2.2....', c: '.......1....' }, 1.4],
+            [{ h: '3.......', s: '..22..22', t1: '....11..' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'reggatta-de-blanc',
+        title: 'Reggatta de Blanc',
+        feel: 'a rim-click figure through the tape echo over the hat foot, then rock on the ride and open hats',
+        weight: 1.0,
+        params: {
+          bpm: [146, 150],
+          echo: { lanes: ['h', 's'], steps: 3, level: 0.35 },
+          figures: [
+            [{ h: '..1...1...1...1.', hf: '1...1...1...1...', s: '...4.4.44..4.44.' }, 1.2],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1.....1.1.....' }, 1],
+            [{ h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1.1.....1.1.....' }, 0.8],
+          ],
+          fills: [[{ s: '2.2.2.2.2.2.2.22' }, 1]],
+        },
+      },
+      {
+        key: 'bring-on-the-night',
+        title: 'Bring On the Night',
+        feel: '16th hats opening on the "and" of 2 and 4, the kick on 2 and 4, and no snare',
+        weight: 0.9,
+        params: {
+          bpm: [106, 112],
+          figures: [
+            [{ h: '1111113.1111113.', k: '....1.......1...' }, 1.2],
+            [{ h: '1111113311111133', k: '....1.......1...' }, 0.8],
+            [{ h: '1.1...1.1.1...1.', c: '....1.......1...', k: '....1.......1...' }, 0.4],
+          ],
+        },
+      },
+      {
+        key: 'walking-on-the-moon',
+        title: 'Walking on the Moon',
+        feel: 'the kick on 2 and 4, a cross-stick on 3, hats dropping out, and his tape echo; felt in half-time',
+        weight: 1.3,
+        params: {
+          bpm: [144, 148],
+          echo: { lanes: ['h', 's'], steps: 3, level: 0.35 },
+          fillChance: 0,
+          anticipate: 0,
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '........4.......', k: '....1.......1...' }, 1.2],
+            [{ h: '1.1.1...1...1.1.', s: '........4.......', k: '....1.......1...' }, 1],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '........4.4.....', k: '1...1...1...1...' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'the-beds-too-big',
+        title: "The Bed's Too Big Without You",
+        feel: 'a shaker keeping time, the snare skanking on the "ands"',
+        weight: 0.5,
+        params: {
+          bpm: [88, 92],
+          perc: [{ inst: 'shaker', every: 1, accents: [0, 4, 8, 12] }],
+          fillChance: 0.2,
+          fills: [[{ s: '..22' }, 1]],
+          figures: [
+            [{ s: '..2...22..2...22', k: '....1.......1...' }, 1],
+            [{ s: '..2...2...2...2.', k: '....1.......1...' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'dont-stand-so-close',
+        title: "Don't Stand So Close to Me",
+        feel: 'a one drop in the verse, the kick on 3 alone, then a chorus on the ride',
+        weight: 1.2,
+        params: {
+          bpm: [138, 142],
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', k: '........1.......' }, 1.2],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1...1...1...1...' }, 0.6],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '..1.....1.1.....' }, 1.2],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '..1.....1.......' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'driven-to-tears',
+        title: 'Driven to Tears',
+        feel: 'four on the floor, a cross-stick on 3, the hat foot running 8ths in the verse',
+        weight: 0.9,
+        params: {
+          bpm: [156, 160],
+          figures: [
+            [{ hf: '1.1.1.1.1.1.1.1.', s: '........4.......', k: '1...1...1...1...' }, 1],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '........4.......', k: '1...1...1...1...' }, 1],
+          ],
+          fills: [
+            [{ t1: '1.1.1.', t2: '1.1.1.', k: '1.1.1.' }, 1],
+            [{ t1: '1.1.1.1.', t2: '1.1.1.1.', k: '1.......' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'de-do-do-do',
+        title: 'De Do Do Do, De Da Da Da',
+        feel: 'four on the floor and a cross-stick on 3 under the verse, a 2 and 4 chorus',
+        weight: 1.0,
+        params: {
+          bpm: [143, 148],
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '........4.......', k: '1...1...1...1...' }, 1.2],
+            [{ h: '1...1.......1.1.', s: '........4.......', k: '1...1...1...1...' }, 0.6],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.....1.' }, 1.2],
+          ],
+        },
+      },
+      {
+        key: 'man-in-a-suitcase',
+        title: 'Man in a Suitcase',
+        feel: 'the kick on every "and" and never on 1, gaps in the hats',
+        weight: 0.6,
+        params: {
+          bpm: [138, 142],
+          figures: [
+            [{ h: '1.1...1.1.....3.', s: '....2.......2...', k: '..1...1...1...1.' }, 1],
+            [{ h: '1.1.1.1.1.111.1.', s: '....2.......2...', k: '..1...1...1...1.' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'voices-inside-my-head',
+        title: 'Voices Inside My Head',
+        feel: 'funk-reggae, a syncopated kick',
+        weight: 0.4,
+        params: {
+          bpm: [106, 110],
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1......11.....1.' }, 1],
+            [{ h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '1......1......1.' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'bombs-away',
+        title: 'Bombs Away',
+        feel: '16th hats, the kick on the "ands"',
+        weight: 0.4,
+        params: {
+          bpm: [128, 132],
+          figures: [
+            [{ h: '1111111111111111', s: '....2.......2...', k: '..1...1...1...1.' }, 1],
+            [{ h: '1111111111111111', s: '....2.......2...', k: '1..1..1...1.....' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'behind-my-camel',
+        title: 'Behind My Camel',
+        feel: 'slow half-time, the snare on 3',
+        weight: 0.3,
+        params: {
+          bpm: [85, 90],
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1...............' }, 1],
+            [{ h: '1.1.1.1.1.1.1.3.', s: '........2.......', k: '1.1.............' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'spirits-in-the-material-world',
+        title: 'Spirits in the Material World',
+        feel: 'a two-bar verse of hats around the hat foot on the "ands", kick on 2 and 4, no snare; a barking chorus',
+        weight: 1.3,
+        params: {
+          bpm: [138, 142],
+          figures: [
+            [
+              {
+                h: '....1...1...11..3...1..111..3...',
+                hf: '..1...1...1...1...1...1...1.....',
+                k: '....1.......1.......1.......1...',
+              },
+              1.2,
+            ],
+            [{ h: '1.3...1.1.3...1.', s: '....2.......2...', k: '1.....1.1.......' }, 1],
+            [{ h: '1.3...111.111.3.', s: '....2.......2...', k: '1.....1.1.......' }, 0.6],
+          ],
+          fills: [[{ h: '111.111.33', s: '....2.2.22' }, 1]],
+        },
+      },
+      {
+        key: 'every-little-thing',
+        title: 'Every Little Thing She Does Is Magic',
+        feel: 'written at half the felt tempo: 16th hats, cross-sticks in threes through the echo, a busy kick in the chorus',
+        weight: 1.0,
+        params: {
+          bpm: [80, 84],
+          echo: { lanes: ['h', 's'], steps: 3, level: 0.3 },
+          ghostBias: 0,
+          fills: [
+            [{ s: '2.22' }, 1],
+            [{ t1: '1.1.1.1.', t2: '1.1.1.1.', k: '1.......' }, 1],
+          ],
+          figures: [
+            [{ h: '1111111111111113', s: '....444.....444.', k: '....1.......1...' }, 1.2],
+            [{ h: '1111113311111113', s: '....4.......4...', k: '1.......1.......' }, 0.8],
+            [{ r: '1111111111111111', s: '..2...2...2...2.', k: '1...11.11.......' }, 1.2],
+          ],
+        },
+      },
+      {
+        key: 'invisible-sun',
+        title: 'Invisible Sun',
+        feel: 'no cymbals and no snare in the verse, the kick doubled on two toms on 2 and 4',
+        weight: 0.7,
+        params: {
+          bpm: [118, 122],
+          figures: [
+            [{ k: '....1.......1...', t2: '....1.......1...', t3: '....1.......1...' }, 1],
+            [{ h: '2.2...2.2.3...2.', s: '....2.......2...', k: '....1.......1...' }, 1],
+          ],
+          fills: [
+            [
+              {
+                k: '1.1.1.1.1...',
+                t2: '1.1.1.1.....',
+                t3: '1.1.1.1.....',
+                c: '........1...',
+                s: '........2...',
+              },
+              1,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'demolition-man',
+        title: 'Demolition Man',
+        feel: 'straight-ahead rock 8ths',
+        weight: 0.5,
+        params: {
+          bpm: [148, 152],
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 1],
+            [{ h: '1.1.1.1.1.1.1.1.', k: '1...1...1...1...' }, 0.5],
+          ],
+          fills: [
+            [{ t1: '1.1.1.', t2: '1.1.1.', k: '1.1.1.' }, 1],
+            [{ t1: '1.1.1.1.', t2: '1.1.1.1.', k: '1.......' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'omegaman',
+        title: 'Omegaman',
+        feel: 'fast rock on the ride',
+        weight: 0.4,
+        params: {
+          bpm: [176, 184],
+          figures: [
+            [{ r: '1...1...1.1.1...', s: '....2.......2...', k: '1.......1.......' }, 1],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 0.8],
+          ],
+          fills: [[{ t1: '1.1.1.', t2: '1.1.1.', k: '1.1.1.' }, 1]],
+        },
+      },
+      {
+        key: 'rehumanize-yourself',
+        title: 'Rehumanize Yourself',
+        feel: 'ska-punk: the hat opening on 2 and 4 with the snare',
+        weight: 0.6,
+        params: {
+          bpm: [184, 192],
+          fillChance: 0.5,
+          figures: [
+            [{ h: '1.1.3.1.1.1.3.1.', s: '....2.......2...', k: '1.1.....1.......' }, 1],
+            [{ r: '1...1.1.1...1.1.', s: '....2.......2...', k: '1.1.....1.......' }, 1],
+          ],
+          fills: [
+            [{ t1: '1.1.1.', t2: '1.1.1.', k: '1.1.1.' }, 1],
+            [{ t1: '1.1.1.1.', t2: '1.1.1.1.', k: '1.......' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'darkness',
+        title: 'Darkness',
+        feel: 'quarter-note hats and no backbeat, then the snare on 1 and 3',
+        weight: 0.5,
+        params: {
+          bpm: [88, 92],
+          figures: [
+            [{ h: '1...1...1...1.1.', k: '1.1...1.1.1.....' }, 1],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '2.......2.......', k: '..1.1.1...1.1.1.' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'one-world',
+        title: 'One World (Not Three)',
+        feel: 'a reggae one drop, reconstructed: no transcription survived',
+        weight: 0.3,
+        params: {
+          bpm: [164, 172],
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '........4.......', k: '........1.......' }, 1],
+            [{ h: '1.1.1.1.1.1.1.3.', s: '........4.......', k: '........1.......' }, 0.6],
+          ],
+          fills: [[{ t1: '1.1.1.', t2: '1.1.1.', k: '1.1.1.' }, 1]],
+        },
+      },
+      {
+        key: 'synchronicity-i',
+        title: 'Synchronicity I',
+        feel: 'driving 8ths to a sequencer, transcribed in 6/4',
+        weight: 0.7,
+        params: {
+          meter: '6/4',
+          bpm: [194, 200],
+          figures: [
+            [
+              {
+                h: '2.1.2.1.2.1.2.1.2.1.2.1.',
+                s: '....2.......2.......2...',
+                k: '1.1.....1.1.....1.1.....',
+              },
+              1,
+            ],
+            [
+              {
+                r: '1.1.1.1.1.1.1.1.1.1.1.1.',
+                s: '....2.......2.......2...',
+                k: '1.1.......1.......1...1.',
+              },
+              1,
+            ],
+          ],
+          fills: [
+            [{ s: '2.22' }, 1],
+            [{ t1: '1.1.1.', t2: '1.1.1.', k: '1.1.1.' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'walking-in-your-footsteps',
+        title: 'Walking in Your Footsteps',
+        feel: 'tribal: open hats on the "ands" over the toms, hardly a kick on 1',
+        weight: 0.3,
+        params: {
+          bpm: [104, 110],
+          phraseMark: { crash: false, kick: false },
+          figures: [
+            [{ h: '..3...3...3...3.', t3: '1.....1.1.......', t2: '....1.......1...' }, 1],
+            [{ h: '..3...3...3...3.', t3: '1.....1.1.....1.', k: '........1.......' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'o-my-god',
+        title: 'O My God',
+        feel: 'plain rock 8ths',
+        weight: 0.4,
+        params: {
+          bpm: [130, 134],
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.......' }, 1],
+            [{ h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '1.....1.1.....1.' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'mother',
+        title: 'Mother',
+        feel: 'a lurching 7/4, the snare on 4 alone',
+        weight: 0.4,
+        params: {
+          meter: '7/4',
+          bpm: [196, 204],
+          figures: [
+            [
+              {
+                h: '3...1...1...1...1...1...1...',
+                s: '............2...............',
+                k: '1...........1...............',
+              },
+              1,
+            ],
+          ],
+          fills: [[{ s: '2.2.2.2.' }, 1]],
+        },
+      },
+      {
+        key: 'miss-gradenko',
+        title: 'Miss Gradenko',
+        feel: '16th hats over the kick on 2 and 4, then plain rock',
+        weight: 0.5,
+        params: {
+          bpm: [108, 112],
+          figures: [
+            [{ h: '1111111111111111', k: '....1.......1...' }, 0.8],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 1],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.....1.' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'synchronicity-ii',
+        title: 'Synchronicity II',
+        feel: 'quarter hats driving the verse, the bow and bell of the ride in the bridge',
+        weight: 0.9,
+        params: {
+          bpm: [156, 160],
+          figures: [
+            [{ h: '1...1...1...1...', s: '....2.......2...', k: '1.............1.' }, 1],
+            [{ h: '1...1...1.1.1.1.', s: '....2.......2...', k: '1.............1.' }, 1],
+            [{ r: '....1...1.1.1...', s: '....2.......2...', k: '1.....1.1.....1.' }, 0.8],
+            [{ r: '2...2.2.2...2.2.', s: '....2.......2...', k: '1.............1.' }, 0.6],
+          ],
+          fills: [
+            [{ t1: '1.1.1.', t2: '1.1.1.', k: '1.1.1.' }, 1.4],
+            [{ t1: '1.1.1.1.', t2: '1.1.1.1.', k: '1.......' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'every-breath-you-take',
+        title: 'Every Breath You Take',
+        feel: 'straight and steady to a click, built up from overdubs',
+        weight: 0.8,
+        params: {
+          bpm: [115, 119],
+          fillChance: 0.2,
+          anticipate: 0,
+          figures: [
+            [{ s: '....2.......2...', k: '1.....1.1.......' }, 0.8],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.......' }, 1],
+            [{ r: '2...2...2...2...', s: '....2.......2...', k: '1.....1.1.......' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'king-of-pain',
+        title: 'King of Pain',
+        feel: 'the kick on every "and" under the verse, barks closed by the foot, a floor-tom bridge',
+        weight: 1.2,
+        params: {
+          bpm: [122, 128],
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '..1...1...1...1.' }, 1.2],
+            [
+              {
+                h: '1.1.1.1.3...3...',
+                hf: '..........1...1.',
+                s: '....2.......2...',
+                k: '..1...1...1...1.',
+              },
+              0.8,
+            ],
+            [{ r: '....1...1...1...', s: '....2.......2...', k: '1.......1.......' }, 1],
+            [{ h: '3.......3.......', s: '....2.......2...', t3: '1.1.1.1.1.1.1.1.' }, 0.5],
+          ],
+          fills: [
+            [{ s: '2.22' }, 1],
+            [{ t1: '1.1.1.1.', t2: '1.1.1.1.', k: '1.......' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'wrapped-around-your-finger',
+        title: 'Wrapped Around Your Finger',
+        feel: 'the backbeat on 4 alone, a rim click in the verse and the snare in the chorus, a fill up the toms to a splash',
+        weight: 1.3,
+        params: {
+          bpm: [126, 130],
+          anticipate: 0.5,
+          figures: [
+            [{ h: '1.1.1.1.1...1...', s: '............4...', k: '......1.1.......' }, 1.2],
+            [{ h: '3.1.3.1.1.1.1.1.', s: '............4...', k: '......1.1.......' }, 0.6],
+            [{ r: '2.1.2.1.2.1.2.1.', s: '............2...', k: '1.....1.1.......' }, 1.2],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.......' }, 0.4],
+          ],
+          fills: [[{ t2: '1.1.1.1.......', t1: '........1.1...', c: '............4.' }, 1]],
+        },
+      },
+      {
+        key: 'tea-in-the-sahara',
+        title: 'Tea in the Sahara',
+        feel: 'sparse and floating, reconstructed from rough transcriptions',
+        weight: 0.3,
+        params: {
+          bpm: [136, 140],
+          fillChance: 0.1,
+          phraseMark: { crash: false },
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', k: '..............1.' }, 1],
+            [{ h: '1...1...1.1.1.1.', s: '......2.........', k: '1...............' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'murder-by-numbers',
+        title: 'Murder by Numbers',
+        feel: 'a jazz-blues 12/8 on the ride, the snare on the third pulse; reconstructed',
+        weight: 0.4,
+        params: {
+          meter: '12/8',
+          bpm: [68, 74],
+          anticipate: 0,
+          figures: [
+            [
+              {
+                r: '1...1.1...1.1...1.1...1.',
+                hf: '......1...........1.....',
+                s: '............2...........',
+                k: '1.......................',
+              },
+              1,
+            ],
+          ],
+          fills: [
+            [{ s: '2...2.2...2.' }, 1],
+            [{ t1: '2...2.......', t3: '......2...2.' }, 1],
+          ],
+        },
+      },
+    ],
+  },
+  yussefdayes: {
+    label: 'Yussef Dayes',
+    drummer: true,
+    hint: 'The London drummer of Yussef Kamaal, What Kinda Music and Black Classical Music: dense, linear 16ths where hat, ghosted snare and kick take turns, a backbeat that slides off 2 and 4 to the "and" or the "e", kick clusters of three on one foot, buzz strokes and flams on a snare tuned tight, rim clicks for a backbeat, and a stack for an accent. Tight inside the bar, light on the swing. Each New plays a style inspired by one of twenty-seven tracks, most from Drum Hub\'s transcriptions, at its record tempo.',
+    toms: true,
+    kit: 'london',
+    hats: 16,
+    bpm: [76, 152],
+    swingUnit: 16,
+    swing: 25,
+    swingRange: [15, 40],
+    // the ghosts are written into his figures; few more are rolled for
+    ghostBias: 0.2,
+    opens: 1,
+    openSlots: [14, 15, 11],
+    backbeats: [4, 12],
+    targetDensity: 12,
+    hatDepth: 0.8,
+    // three 16ths on the kick with one foot: Tioga Pass's 3, 3e, 3&
+    heelToe: true,
+    // tight, the ghosts a touch late and every note a little alive
+    feel: { label: 'Tight, ghosts late', s: 0.02, sGhost: 0.08, jitter: 0.03 },
+    buzz: 0.15,
+    flam: 0.08,
+    drag: 0.05,
+    halfOpen: 0.5,
+    rimshot: 0.1,
+    // a pickup at the end of most phrases, and of some pairs of bars inside them
+    fillChance: 0.6,
+    midFills: 0.2,
+    kick1: [
+      ['1001', 2],
+      ['1000', 1.5],
+      ['1010', 1],
+    ],
+    kick: [
+      ['0010', 1.5],
+      ['0000', 1],
+      ['0101', 1],
+      ['1110', 0.6],
+    ],
+    /* From Drum Hub's human transcriptions (Alex Richards), read off the
+       notation. See planning/drumming-research.md, section K. */
+    figures: [
+      // What Kinda Music
+      [{ h: '1.1.1.1.1.1.1.3.', s: '....21.2.2..2...', k: '1.1.......11.11.' }, 1.2],
+      // Raisins Under the Sun
+      [{ h: '11111113..111111', s: '....2....1..2..1', k: '1..1......1..1..' }, 1.2],
+      // Love Is the Message: the snare on the "and" of 2
+      [{ h: '...112.111111...', s: '......2..1..2..1', k: '1..1......1.....' }, 1.0],
+      // Tioga Pass: the kick on 3, 3e, 3&
+      [{ h: '1.1.1.1.1.1.1.3.', s: '...22..2....2.2.', k: '1.......111..1..' }, 1.0],
+      // Woman's Touch: a rim click on 2 and 4
+      [{ h: '1111111111111111', s: '....4.......4...', k: '1......11.......' }, 0.8],
+    ],
+    fills: [
+      // Tioga Pass: a 16th pickup on the snare
+      [{ s: '22' }, 1.4],
+      // single strokes round the toms
+      [{ s: '2...', t1: '.2..', t2: '..2.', t3: '...2' }, 1.0],
+      // flammed toms (Gelato)
+      [{ t1: '33..', t2: '..22', k: '..1.' }, 0.8],
+      // a stack with the snare on the "and" of 4 (Cowrie Charms)
+      [{ s: '2.', c: '3.' }, 0.8],
+      // the floor tom building in 16ths
+      [{ t3: '22222222' }, 0.5],
+    ],
+    songs: [
+      {
+        key: 'black-focus',
+        title: 'Black Focus',
+        feel: 'broken beat; a template built from his habits, not a transcription',
+        weight: 0.6,
+        params: {
+          bpm: [90, 95],
+          figures: [
+            [{ h: '1.11.11.1.11.1.3', s: '.1..2..1.1..2..1', k: '1......1..1.....' }, 1],
+            [{ h: '1.11.11.1.11.1.3', s: '.1..2..1.1..2...', k: '1..1...1..1...1.' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'strings-of-light',
+        title: 'Strings of Light',
+        feel: 'Yussef Kamaal: accented snares on the "a" of 1 and the "e" of 2, ghosts all round them (also heard at 145)',
+        weight: 0.8,
+        params: {
+          bpm: [106, 112],
+          swing: 15,
+          swingRange: [5, 25],
+          figures: [[{ h: '1...1.111.1.111.', s: '.113.3..21.1..21', k: '1.........1.....' }, 1]],
+        },
+      },
+      {
+        key: 'lowrider',
+        title: 'Lowrider',
+        feel: 'Yussef Kamaal funk, 16th hats; a template built from his habits, not a transcription',
+        weight: 0.4,
+        params: {
+          bpm: [124, 128],
+          figures: [
+            [{ h: '1111111111111111', s: '....2..1.1..2..1', k: '1..1...1..1.....' }, 1],
+            [{ h: '1111111111111113', s: '....2..1.1..2...', k: '1..1...1..1...1.' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'love-is-the-message',
+        title: 'Love Is the Message',
+        feel: 'the snare on the "and" of 2, ghosts and a pickup into every 1; faster live',
+        weight: 1.2,
+        params: {
+          bpm: [83, 91],
+          figures: [
+            [
+              {
+                h: '...112.111111...111112.1111.1...',
+                s: '......2..1..2..1.1....2.....2..1',
+                k: '1..1......1.....1..1......1.....',
+              },
+              1.2,
+            ],
+            [{ h: '.111...1111111.1', s: '....112..1.12..1', k: '1..1......1..1..' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'what-kinda-music',
+        title: 'What Kinda Music',
+        feel: 'with Tom Misch: a slow, linear groove, kick pairs late in the bar',
+        weight: 1.0,
+        params: {
+          bpm: [94, 98],
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.3.', s: '....21.2.2..2...', k: '1.1.......11.11.' }, 1.2],
+            [{ h: '1.1...1.1.1.14..', s: '....61.2.2..2.11', k: '1.1.......11....' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'lift-off',
+        title: 'Lift Off',
+        feel: 'with Tom Misch: half-time, the snare on 3, a 16th ruff into the next bar',
+        weight: 0.8,
+        params: {
+          bpm: [138, 142],
+          swing: 5,
+          swingRange: [0, 12],
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.1...1.....1...' }, 1.2],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '........2.....2.', k: '1.1...1.....1...' }, 0.8],
+            [{ r: '1...1.2.1...1...', s: '........2.......', k: '1.1...1.....1...' }, 0.5],
+          ],
+          fills: [
+            [{ s: '22' }, 1.4],
+            [{ s: '2.22' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'jamaican-links',
+        title: 'Jamaican Links',
+        feel: 'half-time reggae, the snare on 3, near straight',
+        weight: 0.6,
+        params: {
+          bpm: [130, 136],
+          swing: 5,
+          swingRange: [0, 10],
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.....1.....1...' }, 1.2],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '........2..2..2.', k: '1.....1.........' }, 0.8],
+          ],
+          fills: [
+            [{ s: '22' }, 1],
+            [{ s: '2...', t1: '.2..', t2: '..2.', t3: '...2' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'encore-babylon-burning',
+        title: 'Encore ~ Babylon Burning',
+        feel: 'half-time, the snare on 3, the kick piling up on 4',
+        weight: 0.6,
+        params: {
+          bpm: [146, 152],
+          swing: 5,
+          swingRange: [0, 12],
+          figures: [[{ h: '1.1.11.11.1.11.1', s: '........2.......', k: '1.1.........11.1' }, 1]],
+          fills: [[{ s: '22' }, 1]],
+        },
+      },
+      {
+        key: 'nightrider',
+        title: 'Nightrider',
+        feel: 'with Tom Misch: laid back, a rim click on 2 and 4; from a rough transcription',
+        weight: 0.4,
+        params: {
+          bpm: [79, 83],
+          figures: [[{ h: '1111111113131111', s: '....4.......4...', k: '1..1...1.1.1...1' }, 1]],
+        },
+      },
+      {
+        key: 'black-classical-music',
+        title: 'Black Classical Music',
+        feel: 'jungle-ish and linear, the hat foot on the "ands", the backbeat moved off 2 (heard double at 155)',
+        weight: 1.0,
+        params: {
+          bpm: [76, 80],
+          swing: 5,
+          swingRange: [0, 12],
+          figures: [
+            [
+              {
+                h: '..1.1.11..111.11',
+                hf: '..1...1...1...1.',
+                s: '.....1...1.1.3.1',
+                k: '1...1..1....1...',
+              },
+              1,
+            ],
+            [
+              {
+                c: '1.1.1.1.........',
+                hf: '..1...1...1...1.',
+                s: '.1...1...1.1.3.1',
+                k: '1...1..1....1...',
+              },
+              0.5,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'afro-cubanism',
+        title: 'Afro Cubanism',
+        feel: 'Afro-Cuban: a buzz on the "a" of 2, toms inside the groove, a stack over two bars',
+        weight: 0.9,
+        params: {
+          bpm: [97, 101],
+          swing: 5,
+          swingRange: [0, 12],
+          figures: [
+            [
+              {
+                c: '..................3.............',
+                h: '.....3...3...........3...3......',
+                s: '.12....8...2..21.12....8...2..21',
+                k: '1..1.1..........1..1.1..........',
+                t1: '............11..............11..',
+              },
+              1,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'raisins-under-the-sun',
+        title: 'Raisins Under the Sun',
+        feel: '16th hats, the snare on 2 and 4 with ghost pickups',
+        weight: 0.8,
+        params: {
+          bpm: [101, 105],
+          figures: [
+            [{ h: '11111113..111111', s: '....2....1..2..1', k: '1..1......1..1..' }, 1.2],
+            [{ h: '11111113..111111', s: '....2....8..2..1', k: '1..1......1..1..' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'rust',
+        title: 'Rust',
+        feel: 'with Tom Misch: the snare scattered on 2, the "and" of 2, the "e" of 3 and 4',
+        weight: 1.0,
+        params: {
+          bpm: [95, 99],
+          figures: [
+            [
+              {
+                h: '...11.11111111113.11111111111121',
+                s: '....2.2..2...2......2.8..2......',
+                k: '1..1.......11..11..1.......11..1',
+              },
+              1,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'turquoise-galaxy',
+        title: 'Turquoise Galaxy',
+        feel: 'in 8th-note triplets, half-time, a ghost on every middle triplet',
+        weight: 0.8,
+        params: {
+          meter: '4/4-6',
+          bpm: [84, 88],
+          swing: 0,
+          figures: [
+            [
+              {
+                h: '....1.1...1.1...1.1...1.',
+                s: '..1.....1...2.1.....1...',
+                k: '1.........1.............',
+              },
+              1,
+            ],
+            [
+              {
+                h: '1...1.1...1.1...1.1...1.',
+                s: '..1.....1...2.1.....1...',
+                k: '....1.1...............1.',
+              },
+              1,
+            ],
+          ],
+          fills: [
+            [{ s: '1.2.2.' }, 1],
+            [{ t1: '2.2...', t3: '....2.' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'the-light',
+        title: 'The Light',
+        feel: 'linear and dense, the kick never on 1 (heard double at 157)',
+        weight: 0.8,
+        params: {
+          bpm: [76, 80],
+          phraseMark: { crash: false, kick: false },
+          figures: [[{ h: '1.11..1.3.113.11', s: '.1..11.1.1...1..', k: '........1..11..1' }, 1]],
+        },
+      },
+      {
+        key: 'pon-di-plaza',
+        title: 'Pon di Plaza',
+        feel: 'reggae: 16th hats and a rim click on dotted 8ths',
+        weight: 1.0,
+        params: {
+          bpm: [98, 102],
+          swing: 5,
+          swingRange: [0, 10],
+          figures: [
+            [
+              {
+                h: '11111111111111111111111111111141',
+                s: '...4..4..4..4......4..4..4..4...',
+                k: '1.........1.....1.........1....1',
+              },
+              1,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'chasing-the-drum',
+        title: 'Chasing the Drum',
+        feel: 'ghosts and a high tom woven through the groove (the COLORS version is near 91)',
+        weight: 0.7,
+        params: {
+          bpm: [132, 138],
+          figures: [
+            [
+              {
+                h: '1.11......1.1...',
+                s: '.1..11..1.2...2.',
+                k: '1..1........1...',
+                t1: '......11.1......',
+              },
+              1,
+            ],
+            [
+              {
+                h: '1.11........1..1',
+                c: '..........1.....',
+                s: '.1..11..1.2...2.',
+                k: '1..1........1...',
+                t1: '......11.1......',
+              },
+              0.6,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'birds-of-paradise',
+        title: 'Birds of Paradise',
+        feel: 'a rim click on 2 and 4 under 8ths and bursts of 16ths',
+        weight: 0.6,
+        params: {
+          bpm: [92, 96],
+          figures: [[{ h: '1.1.1.11113...11', s: '....4.......4...', k: '1.1...1.......1.' }, 1]],
+        },
+      },
+      {
+        key: 'gelato',
+        title: 'Gelato',
+        feel: 'four on the floor for once, rim clicks between the ride, a flammed tom fill',
+        weight: 0.6,
+        params: {
+          bpm: [129, 133],
+          swing: 5,
+          swingRange: [0, 12],
+          figures: [
+            [
+              {
+                c: '.1..............',
+                r: '...1..1.1.1.1.1.',
+                s: '......4...4..4..',
+                k: '1...1...1...1...',
+              },
+              1,
+            ],
+          ],
+          fills: [[{ t1: '33..', t2: '..22', k: '..1.' }, 1]],
+        },
+      },
+      {
+        key: 'marching-band',
+        title: 'Marching Band',
+        feel: 'with Masego: the snares off and the drum played as a tom, the hat foot on the "ands"',
+        weight: 0.5,
+        params: {
+          bpm: [103, 107],
+          figures: [
+            [
+              {
+                h: '1..1.....1..1...',
+                hf: '..1...1...1...1.',
+                t1: '.....3.11.11.111',
+                k: '1..1............',
+              },
+              1,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'presidential',
+        title: 'Presidential',
+        feel: 'busy 16th hats, the kick walking through the first half (heard double at 164)',
+        weight: 0.7,
+        params: {
+          bpm: [80, 84],
+          figures: [
+            [
+              {
+                h: '..11111111111111..11111111111111',
+                s: '....2.......2..1....2.......2.1.',
+                k: '1..1...1.1.1....1..1...1.1.1...1',
+              },
+              1,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'jukebox',
+        title: 'Jukebox',
+        feel: 'a plain 2 and 4 for once, the kick and hats doing the talking',
+        weight: 0.7,
+        params: {
+          bpm: [95, 99],
+          figures: [
+            [
+              {
+                h: '....1.111.1.1.1113..1.111...1.11',
+                s: '....2.......2.......2.......2...',
+                k: '1.........1..1..1.........11.1..',
+              },
+              1,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'womans-touch',
+        title: "Woman's Touch",
+        feel: '16th hats and a rim click on 2 and 4, ghosts in pairs',
+        weight: 0.6,
+        params: {
+          bpm: [90, 94],
+          figures: [
+            [{ h: '1111111111111111', s: '....4.......4...', k: '1......11.......' }, 1],
+            [{ h: '1111111111441111', s: '....4.....114...', k: '1......11...1...' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'tioga-pass',
+        title: 'Tioga Pass',
+        feel: 'with Rocco Palladino: three kicks on 3, 3e, 3&, a buzz on the "and" of 4; faster live',
+        weight: 1.2,
+        params: {
+          bpm: [91, 95],
+          figures: [
+            [
+              {
+                h: '..11111111111111111111111111114.',
+                s: '....2..1....2.8....12..1....2.2.',
+                k: '1.......111..1..1.......111..1..',
+              },
+              1.2,
+            ],
+            [{ h: '1.1.1.1.1.1.1.3.', s: '...22..2....2.2.', k: '1.......111..1..' }, 1],
+          ],
+          fills: [
+            [{ s: '22' }, 1.4],
+            [{ t1: '1..1......', s: '......2...', t2: '........11', k: '..1.1..1..' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'cowrie-charms',
+        title: 'Cowrie Charms',
+        feel: 'flams on the "and" of 1 and of 2, kick pairs, the stack on the "and" of 4',
+        weight: 0.6,
+        params: {
+          bpm: [86, 90],
+          figures: [
+            [
+              {
+                h: '111.....111.....',
+                c: '..............3.',
+                s: '....6.6.......2.',
+                k: '1.11...11.11....',
+              },
+              1,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'for-my-ladies',
+        title: 'For My Ladies',
+        feel: 'half-time, a rim click on 3; from a rough transcription',
+        weight: 0.3,
+        params: {
+          bpm: [128, 136],
+          swing: 5,
+          swingRange: [0, 12],
+          figures: [[{ h: '1.1.1.1.1.1.1.1.', s: '........4.......', k: '1.....1.......1.' }, 1]],
+        },
+      },
+      {
+        key: 'last-100',
+        title: 'Last 100',
+        feel: 'with Tom Misch: 16th hats over scattered rim clicks; from a rough transcription',
+        weight: 0.3,
+        params: {
+          bpm: [88, 92],
+          figures: [[{ h: '1111111111111111', s: '.....4.4..4..4.4', k: '1..1.......1....' }, 1]],
         },
       },
     ],
@@ -8223,8 +9576,8 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
   ['Metal', ['metal', 'gallop', 'thrash', 'doublekick', 'groove', 'doom']],
   ['Jamaica', ['reggae', 'dub']],
   ['Afro-Latin', ['afrobeat', 'son', 'rumba', 'mambo', 'songo', 'samba', 'reggaeton']],
-  ['Rock drummers', ['mitchell', 'bonham', 'ringo']],
+  ['Rock drummers', ['mitchell', 'bonham', 'ringo', 'copeland']],
   ['Funk drummers', ['stubblefield']],
-  ['Jazz drummers', ['tonywilliams']],
+  ['Jazz drummers', ['tonywilliams', 'yussefdayes']],
   ['Afrobeat drummers', ['tonyallen']],
 ];

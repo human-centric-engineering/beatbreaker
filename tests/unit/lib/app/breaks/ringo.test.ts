@@ -99,13 +99,16 @@ describe('11/8', () => {
 });
 
 describe('his kits', () => {
-  it('rings in the early sixties and is short and dry under tea towels', () => {
+  it('plays the early sixties on a 1960s Ludwig and the tea towels on a damped kit, both sampled', () => {
     const sixties = KITS.sixties;
     const towels = KITS.teatowel;
-    expect(sixties && towels).toBeTruthy();
-    expect(towels.t.decay ?? 0).toBeLessThan((sixties.t.decay ?? 0) / 2);
+    expect([sixties.engine, sixties.pack]).toEqual(['pack', 'smdrums']);
+    expect([towels.engine, towels.pack]).toEqual(['pack', 'gogodze']);
+    // the towels: tuned down, no room, the top rolled off
+    expect(towels.s.rate ?? 1).toBeLessThan(sixties.s.rate ?? 1);
+    expect(towels.k.rate ?? 1).toBeLessThan(sixties.k.rate ?? 1);
     expect(towels.master.room ?? 0).toBeLessThan(sixties.master.room ?? 0);
-    expect(sixties.h.open ?? 0).toBeGreaterThan(towels.h.open ?? 0);
+    expect(towels.master.lp ?? 0).toBeLessThan(sixties.master.lp ?? 0);
   });
 
   it('puts the 1968–69 songs on tea towels and Lady Madonna on brushes', () => {

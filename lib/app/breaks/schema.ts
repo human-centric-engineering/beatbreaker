@@ -103,6 +103,19 @@ export const styleAttrsSchema = z.object({
   doubleKick: z.boolean().optional(),
   /** Sixteenth hats in the lead hand alone, not hand to hand. */
   oneHandHats: z.boolean().optional(),
+  /** Three 16ths on the kick with one foot. */
+  heelToe: z.boolean().optional(),
+  /** One repeat of some lanes, played and never written: up to a bar of 4/4 late, never louder. */
+  echo: z
+    .object({
+      lanes: z
+        .array(z.enum(LANES as [LaneKey, ...LaneKey[]]))
+        .min(1)
+        .max(11),
+      steps: z.number().int().min(1).max(16),
+      level: z.number().min(0).max(1),
+    })
+    .optional(),
 });
 
 export const patternSchema = z.object({

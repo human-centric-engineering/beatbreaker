@@ -165,10 +165,17 @@ const styleFields = styleAttrsSchema.extend({
   fillComps: z.number().int().min(0).max(16).optional(),
   midFills: z.number().min(0).max(1).optional(),
   anticipate: z.number().min(0).max(1).optional(),
+  /** A crash-lane value: crash, crash 2, china or splash. */
+  anticipateCymbal: z.number().int().min(1).max(4).optional(),
   fillsGrow: z.boolean().optional(),
   build: z.boolean().optional(),
   swingCurve: z.boolean().optional(),
-  phraseMark: z.object({ crash: z.boolean().optional(), kick: z.boolean().optional() }).optional(),
+  phraseMark: z
+    .object({
+      crash: z.union([z.boolean(), z.number().min(0).max(1)]).optional(),
+      kick: z.boolean().optional(),
+    })
+    .optional(),
   fillChance: z.number().min(0).max(1).optional(),
   fillOrder: z
     .array(z.enum(['t1', 't2', 't3']))

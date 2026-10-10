@@ -70,6 +70,8 @@ describe('a song’s tempo', () => {
       'stubblefield',
       'tonywilliams',
       'tonyallen',
+      'copeland',
+      'yussefdayes',
     ]) {
       const st = testStyle(key).params;
       for (const song of st.songs ?? []) {

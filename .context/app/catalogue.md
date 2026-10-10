@@ -90,7 +90,8 @@ version rather than overwriting one; re-running it unchanged is a no-op.
 ## A drummer is a style
 
 The style picker has a second tab, **Drummers**: Mitch Mitchell, John Bonham,
-Clyde Stubblefield and Tony Williams. Each is an ordinary `Style` row whose
+Ringo Starr, Stewart Copeland, Clyde Stubblefield, Tony Williams, Yussef Dayes
+and Tony Allen. Each is an ordinary `Style` row whose
 params say `drummer: true`. The picker files those under Drummers and leaves
 them out of Styles (`drummerSection` in `lib/app/breaks/catalogue/picker.ts`).
 Picking one is `setStyle`, like any style.
@@ -100,7 +101,14 @@ Picking one is `setStyle`, like any style.
 - **Their playing is ordinary style params:**
   - their song grooves are `figures`;
   - their fills are `fills`, in threes where that is their habit;
-  - `kit` gives their sound;
+  - `kit` gives their sound, and it is always a **sampled** kit
+    (`engine: 'pack'`): never a synthesised one, unless the drummer played
+    electronic drums on that record. Look online first for freely licensed
+    samples of the drummer's own sound (the licence rules are in
+    `scripts/kits/sources.ts`); failing that, take the closest pack kit, or a
+    kit row that re-tunes one with its per-lane `rate` (Copeland's `police`
+    is the DRS kit with the snare raised). `drummer-kits.test.ts` holds every
+    drummer and every song to it, with a named list for the exceptions;
   - `midFills` sets how often they fill inside the phrase, as well as at its
     end.
 - **Approximate grooves.** Every song groove is an approximation, not a
@@ -164,6 +172,21 @@ few words of `feel`, a `weight`, and `params`: any style field except
   - `fillChance`: how often the phrase ends on a fill (0.8, or 0.7 for a comp
     ending, by default). The draw is made either way, so other styles' output
     is unchanged.
+- **Four params Copeland and Dayes needed:**
+  - `echo: { lanes, steps, level }`: a tape echo. Each note in `lanes` is
+    heard once more, `steps` 16ths later, at `level` of its strength; on the
+    snare only cross-sticks go through it. It is played, not written: it is a
+    `StyleAttrs` field that travels on the pattern, `performStep` adds the
+    repeat as an `ornament: 'echo'` voice, the 3D drummer does not play it, it
+    does not choke an open hat, and the MIDI file leaves it out.
+  - `anticipateCymbal`: the crash-lane value an anticipation lands on (4 is a
+    splash). Copeland's fills end on a splash on the "and" of 4.
+  - `phraseMark.crash` may be a probability as well as a yes or no: Copeland
+    crashes on about a third of his 1s. A number is drawn for only when it is
+    a number.
+  - `heelToe` (a `StyleAttrs` field): three 16ths on the kick with one foot.
+    The generator keeps a triple and the critic passes it; four in a row is
+    still a run. Dayes's Tioga Pass plays 3, 3e, 3&.
 - **A song that changes meter is split by section** (Lucy's 3/4 verse and 4/4
   chorus are two songs). A pattern has one meter, and a per-bar meter list
   would be a wire-format change.
@@ -350,8 +373,8 @@ one twice.
 
 ## Seeding
 
-`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 68 styles (62 genres and 6 drummers), 47 famous
-breaks in one library, and 22 kits. Its data lives beside it under `data/`, and
+`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 70 styles (62 genres and 8 drummers), 47 famous
+breaks in one library, and 24 kits. Its data lives beside it under `data/`, and
 **only that seed imports it**.
 
 - Upserts by key, so **re-seeding is a no-op**. (The runner also skips a unit

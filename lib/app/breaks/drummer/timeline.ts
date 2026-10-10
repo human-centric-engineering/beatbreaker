@@ -171,6 +171,8 @@ function voiceHit(
   hands: StepHands,
   step: number
 ): Hit | null {
+  // an echo is the tape machine's, and no limb plays it
+  if (voice.ornament === 'echo') return null;
   const { lane } = voice;
   const main = hands[lane];
   let limb: Limb | undefined = main;

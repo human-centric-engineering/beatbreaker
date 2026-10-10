@@ -115,6 +115,9 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
         if (raw < 0) early.set(voice.note, Math.max(early.get(voice.note) ?? 0, -raw));
       }
       for (const voice of voices) {
+        /* An echo is an effect, not a stroke: a file that carried it would
+           read back as notes somebody played, and a DAW has its own delay. */
+        if (voice.ornament === 'echo') continue;
         /* A hit pushed in front of bar 1 has nowhere earlier to go, so it lands
            on the downbeat rather than at a negative tick. */
         const shift = early.get(voice.note) ?? 0;

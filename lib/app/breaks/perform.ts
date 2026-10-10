@@ -17,7 +17,7 @@ import {
 import { isGroupStart, stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import { clamp } from '@/lib/app/breaks/rng';
-import type { Bar, LaneKey, Pattern } from '@/lib/app/breaks/types';
+import type { Bar, Echo, LaneKey, Pattern } from '@/lib/app/breaks/types';
 
 /**
  * The performance — the one place a written note becomes a sound: which drum,
@@ -179,8 +179,11 @@ export interface Voice {
   cymbal?: 'c2' | 'cChina' | 'cSplash';
   pedal?: boolean;
   perc?: { inst: string; accent: boolean };
-  /** A flam's or drag's grace note, or a buzz's repeat — played as a soft stroke of its drum. */
-  ornament?: 'grace' | 'buzz';
+  /**
+   * A flam's or drag's grace note, or a buzz's repeat — played as a soft
+   * stroke of its drum; or a tape echo's repeat, which nobody played.
+   */
+  ornament?: 'grace' | 'buzz' | 'echo';
 }
 
 /** A 0–1 velocity as MIDI sends it. */
@@ -421,7 +424,32 @@ export function performStep(pat: Pattern, bar: Bar, i: number, opts: PerformOpti
     if (graces) played.push(...gracesFor(note, graces, stepsPerMs, h));
     else if (note.lane === 's' && v === BUZZ) played.push(...buzzFor(note));
   }
+  /* The echo last of all, off every note as played, ornaments included, and
+     drawing nothing: a style without one plays exactly what it did. */
+  const echo = attrs?.echo;
+  if (echo) {
+    for (const note of played.slice()) {
+      if (!echo.lanes.includes(note.lane)) continue;
+      // through the echo the rim clicks go, not the backbeat
+      if (note.lane === 's' && !note.cross) continue;
+      played.push(echoOf(note, echo, spq));
+    }
+  }
   return played;
+}
+
+/**
+ * A note heard once more, later and quieter. `steps` are written in
+ * sixteenths, like a feel, so a dotted 8th stays a dotted 8th in sextuplets.
+ */
+function echoOf(note: Voice, echo: Echo, spq: number): Voice {
+  return {
+    ...note,
+    velocity: Math.max(MIDI_STEP, note.velocity * echo.level),
+    offset: note.offset + (echo.steps * spq) / 4,
+    ghost: true,
+    ornament: 'echo',
+  };
 }
 
 /**

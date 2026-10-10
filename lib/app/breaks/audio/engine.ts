@@ -864,8 +864,16 @@ export class BreakAudio {
    * shorter, duller, with the pedal's own thump under it. It chokes an open
    * hat, because that is literally what the foot is doing.
    */
-  hat(t: number, vel: number, open?: boolean, pedal?: boolean, half?: boolean): void {
-    this.chokeHats(t);
+  hat(
+    t: number,
+    vel: number,
+    open?: boolean,
+    pedal?: boolean,
+    half?: boolean,
+    /** A tape echo's repeat: the foot did not close anything, so nothing is choked. */
+    echo?: boolean
+  ): void {
+    if (!echo) this.chokeHats(t);
     /* A half-open hat is sent quieter than it was written, because GM has no
        note for it and velocity is how a MIDI reader tells it from an open one
        (`HALF_OPEN_SCALE` in `perform.ts`). Here it is played as written. */

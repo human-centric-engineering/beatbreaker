@@ -52,21 +52,23 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 62 styles and 6 drummers in 15 meters — the numbers the site copy quotes', () => {
+  it('is 62 styles and 8 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
     expect(TEST_STYLE_KEYS.length - drummers.length).toBe(62);
     expect([...drummers].sort()).toEqual([
       'bonham',
+      'copeland',
       'mitchell',
       'ringo',
       'stubblefield',
       'tonyallen',
       'tonywilliams',
+      'yussefdayes',
     ]);
     // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
     expect(METER_KEYS).toHaveLength(15);
     expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
-    expect(COMBOS).toHaveLength(1020);
+    expect(COMBOS).toHaveLength(1050);
   });
 });
 
@@ -568,6 +570,8 @@ describe('the rock, jazz and blues styles', () => {
   // every style written out as figures, bar metal, which has its own tests above
   const METAL = ['metal', 'gallop', 'thrash', 'doublekick', 'groove', 'doom'];
   const ROCK = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.figures && !METAL.includes(k));
+  // a stack is the nearest thing the crash lane has to a china
+  const CHINA_PLAYERS = ['yussefdayes'];
 
   it('covers the rock, jazz and blues groups', () => {
     for (const k of ['rock', 'rockabilly', 'bebop', 'modal', 'brushes', 'slowblues', 'boogie'])
@@ -584,9 +588,10 @@ describe('the rock, jazz and blues styles', () => {
       for (const [f] of params.figures ?? []) {
         for (const r of Object.values(f)) expect(r?.length).toBe(n);
       }
-      // nobody outside metal plays a china
+      // nobody outside metal plays a china, bar Yussef Dayes's cymbal stack
+      const china = CHINA_PLAYERS.includes(key);
       for (const [f] of [...(params.figures ?? []), ...(params.fills ?? [])])
-        expect(f.c ?? '').not.toMatch(/3/);
+        if (!china) expect(f.c ?? '').not.toMatch(/3/);
       // a style with songs is played song by song, each in its own meter and at its own tempo
       const runs = params.songs?.map((song) => ({ song, merged: withSong(params, song.key) })) ?? [
         { song: undefined, merged: params },
@@ -595,7 +600,7 @@ describe('the rock, jazz and blues styles', () => {
         const meter = merged.meter;
         const n = stepsOf(meterOf(meter ?? '4/4'));
         for (const [f] of [...(merged.figures ?? []), ...(merged.fills ?? [])])
-          expect(f.c ?? '').not.toMatch(/3/);
+          if (!china) expect(f.c ?? '').not.toMatch(/3/);
         for (const [f] of merged.fills ?? [])
           for (const r of Object.values(f)) expect(r?.length ?? 0).toBeLessThanOrEqual(n);
         // a figure is a bar, or two bars that play in turn
@@ -615,7 +620,7 @@ describe('the rock, jazz and blues styles', () => {
           };
           const pat = generatePattern(opts);
           const hard = playability(pat, bpm).hard;
-          for (const b of pat.bars) expect(b.c.includes(3)).toBe(false);
+          if (!china) for (const b of pat.bars) expect(b.c.includes(3)).toBe(false);
           if (!song) {
             expect({ key, seed, hard }).toEqual({ key, seed, hard: true });
             continue;

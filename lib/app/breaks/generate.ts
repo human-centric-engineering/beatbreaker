@@ -138,9 +138,11 @@ function applyKickRules(bar: Bar, style: Style): Bar {
   for (const i of forced) if (i < n) bar.k[i] = 1;
   // on a double pedal a run of kicks is two feet's, and stays
   if (style.doubleKick) return bar;
-  // never more than two 16ths of kick in a row — drop whichever the style did not ask for
-  for (let i = 0; i < n - 2; i++) {
-    if (bar.k[i] && bar.k[i + 1] && bar.k[i + 2]) {
+  /* never more than two 16ths of kick in a row (three, heel and toe) — drop
+     whichever the style did not ask for */
+  const reach = style.heelToe ? 1 : 0;
+  for (let i = 0; i < n - 2 - reach; i++) {
+    if (bar.k[i] && bar.k[i + 1] && bar.k[i + 2] && (!reach || bar.k[i + 3])) {
       if (!forced.includes(i + 1)) bar.k[i + 1] = 0;
       else if (!forced.includes(i + 2)) bar.k[i + 2] = 0;
       else bar.k[i] = 0;
@@ -508,7 +510,8 @@ function addMidFills(
 }
 
 /**
- * Crash and kick an 8th early ({@link Style.anticipate}): on the "and" of 4
+ * Crash and kick an 8th early ({@link Style.anticipate}), or a splash
+ * ({@link Style.anticipateCymbal}): on the "and" of 4
  * of bar `i`, tied over, so the next bar has no 1 — no crash, no kick, and
  * the cymbal hand left ringing rather than starting its ostinato on top. Only
  * between two bars of the phrase, never from the last bar into the first:
@@ -536,7 +539,7 @@ function addAnticipations(
       b[L][a + 1] = 0;
     }
     b.k[a + 1] = 0;
-    b.c[a] = 1;
+    b.c[a] = style.anticipateCymbal ?? 1;
     b.k[a] = 1;
     next.c[0] = 0;
     next.k[0] = 0;
@@ -774,7 +777,10 @@ function figurePhrase(
     /* ...unless the style leaves its 1 to the figure (Tony Allen: snare on 1
        as often as kick, and hardly ever a crash). */
     const mark = style.phraseMark ?? {};
-    if (start && mark.crash !== false && !bar.c[0]) {
+    /* Copeland crashes on a third of his 1s: a number is drawn for, and only
+       then, so a style that says yes or no draws what it always did. */
+    const crash = typeof mark.crash === 'number' ? start && rng() < mark.crash : mark.crash;
+    if (start && crash !== false && !bar.c[0]) {
       bar.c[0] = 1;
       bar.h[0] = 0;
       bar.r[0] = 0;
