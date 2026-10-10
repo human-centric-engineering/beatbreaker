@@ -11,7 +11,7 @@ import {
   kitSamplesSchema,
   styleParamsSchema,
 } from '@/lib/app/breaks/catalogue/schemas';
-import { kitEngine } from '@/lib/app/breaks/kit';
+import { KIT_GROUP_LABELS, kitEngine } from '@/lib/app/breaks/kit';
 import { KIT_CREDITS } from '@/lib/app/breaks/kit-credits.generated';
 import { patternFromLibrary } from '@/lib/app/breaks/library';
 import { packPattern } from '@/lib/app/breaks/share';
@@ -24,7 +24,7 @@ import { type Manifest, derivePieces, packPieceMap } from '@/scripts/kits/pieces
 import { RECIPES } from '@/scripts/kits/recipes';
 
 /**
- * The catalogue: 37 styles, 47 famous breaks, 20 kits and the pieces they are made of.
+ * The catalogue: 70 styles, 47 famous breaks, 24 kits and the pieces they are made of.
  *
  * This is where content became data (D13). The three tables it fills used to be
  * three TypeScript constants compiled into the app; the constants are still the
@@ -350,7 +350,7 @@ async function seedKits({ prisma, logger }: SeedContext, manifest: Manifest): Pr
       engine: kitEngine(kit),
       label,
       hint,
-      group: GROUP_LABELS[kitEngine(kit)],
+      group: KIT_GROUP_LABELS[kitEngine(kit)],
       credit: credit ?? null,
       params: parsed,
       samples: samples,
@@ -377,12 +377,6 @@ async function seedKits({ prisma, logger }: SeedContext, manifest: Manifest): Pr
 }
 
 /** What the picker calls each engine. `pack` and `user` share a heading. */
-const GROUP_LABELS: Record<string, string> = {
-  synth: 'Synthesised',
-  drift: 'Drum machines',
-  pack: 'Recordings',
-  user: 'Recordings',
-};
 
 const LIBRARY_DESCRIPTION =
   'The main groove off each record, a bar or two of it, in the meter it was played in. ' +

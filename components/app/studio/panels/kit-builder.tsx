@@ -6,6 +6,7 @@ import { Slider } from '@/components/app/studio/panels/controls';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { useKitPieces } from '@/components/app/studio/use-kit-pieces';
+import { SelectMenu } from '@/components/app/ui/select-menu';
 import { SLOT_BY_ID } from '@/lib/app/breaks/kit';
 import {
   BUILDER_ROWS,
@@ -182,25 +183,30 @@ function BuildRow({
         {row.label}
       </label>
       <div className="pick">
-        <select id={id} value={value} onChange={(e) => choose(e.target.value)}>
-          <option value="">None — synthesised</option>
-          {now.entry && 'sampleId' in now.entry ? (
-            <option value={SAMPLE}>Your sample: {now.entry.name}</option>
-          ) : null}
-          {/* the kit's piece before the list has loaded, so the picker shows what is there */}
-          {now.piece && !piece && now.entry && 'label' in now.entry ? (
-            <option value={now.piece}>{now.entry.label}</option>
-          ) : null}
-          {groups.map((group) => (
-            <optgroup key={group.label} label={group.label}>
-              {group.pieces.map((p) => (
-                <option key={p.key} value={p.key}>
-                  {p.label}
-                </option>
-              ))}
-            </optgroup>
-          ))}
-        </select>
+        <SelectMenu
+          id={id}
+          value={value}
+          onValueChange={choose}
+          groups={[
+            {
+              label: '',
+              options: [
+                { value: '', label: 'None — synthesised' },
+                ...(now.entry && 'sampleId' in now.entry
+                  ? [{ value: SAMPLE, label: `Your sample: ${now.entry.name}` }]
+                  : []),
+                /* the kit's piece before the list has loaded, so the picker shows what is there */
+                ...(now.piece && !piece && now.entry && 'label' in now.entry
+                  ? [{ value: now.piece, label: now.entry.label }]
+                  : []),
+              ],
+            },
+            ...groups.map((group) => ({
+              label: group.label,
+              options: group.pieces.map((p) => ({ value: p.key, label: p.label })),
+            })),
+          ]}
+        />
         <button
           type="button"
           className="mini"

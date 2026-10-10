@@ -14,6 +14,7 @@ import {
   withPreview,
 } from '@/lib/app/breaks/drummer/corner-chart';
 import { type Engraving, engrave } from '@/lib/app/breaks/engrave';
+import { groupAt, isGroupStart } from '@/lib/app/breaks/meter';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import type { Pattern } from '@/lib/app/breaks/types';
 import { cn } from '@/lib/utils';
@@ -187,11 +188,20 @@ export function DrummerChart() {
       <div className="drummer-chart-hd">
         <span className="drummer-chart-letter">{pos?.count ? 'In' : letter}</span>
         <ol className="drummer-chart-count">
-          {Array.from({ length: meter.num }, (_, n) => (
-            <li key={n} className={cn(n === beat && 'now', n === beat && n === 0 && 'one')}>
-              {n + 1}
-            </li>
-          ))}
+          {/* One cell per written beat, numbered by the pulse it starts: 12/8 counts
+              1 · · 2 · · 3 · · 4 · ·, the way it is felt, not twelve eighths aloud */}
+          {Array.from({ length: meter.num }, (_, n) => {
+            const step = n * meter.sub;
+            const pulse = isGroupStart(meter, step);
+            return (
+              <li
+                key={n}
+                className={cn(!pulse && 'off', n === beat && 'now', n === beat && n === 0 && 'one')}
+              >
+                {pulse ? groupAt(meter, step) + 1 : '·'}
+              </li>
+            );
+          })}
         </ol>
       </div>
       <div className="drummer-chart-window" ref={windowRef}>

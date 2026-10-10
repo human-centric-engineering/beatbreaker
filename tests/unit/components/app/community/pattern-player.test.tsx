@@ -67,6 +67,7 @@ import { PatternPlayer } from '@/components/app/community/pattern-player';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { breakPayload } from '@/lib/app/breaks/share';
 import { testKits, testStyle } from '@/tests/helpers/catalogue';
+import { pickOption } from '@/tests/helpers/select-menu';
 
 function payload() {
   const funk = testStyle('funk');
@@ -150,11 +151,11 @@ describe('PatternPlayer', () => {
   it('updates the layer label when a different layer is selected', async () => {
     const user = userEvent.setup();
     render(<PatternPlayer payload={payload()} kits={testKits()} />);
-    const select = screen.getByLabelText<HTMLSelectElement>('Layer');
+    const select = screen.getByLabelText<HTMLButtonElement>('Layer');
     expect(select.value).toBe('5');
-    await user.selectOptions(select, '2');
+    await pickOption(user, select, '2');
     expect(select.value).toBe('2');
-    expect(select.selectedOptions[0].textContent).toMatch(/^2 ·/);
+    expect(select.textContent).toMatch(/^2 ·/);
   });
 
   it('starts the transport on Play, and Stop actually stops it, toggling the button back', async () => {
@@ -185,8 +186,8 @@ describe('PatternPlayer', () => {
     fireEvent.change(screen.getByLabelText(/tempo/i), { target: { value: '120' } });
     expect(screen.getByText('Tempo: 120 bpm')).toBeInTheDocument();
 
-    await user.selectOptions(screen.getByLabelText<HTMLSelectElement>('Layer'), '2');
-    expect(screen.getByLabelText<HTMLSelectElement>('Layer').value).toBe('2');
+    await pickOption(user, screen.getByLabelText<HTMLButtonElement>('Layer'), '2');
+    expect(screen.getByLabelText<HTMLButtonElement>('Layer').value).toBe('2');
 
     // Still the same running transport — no second engine was constructed to
     // pick up the new tempo/layer snapshot, and it is still playing.

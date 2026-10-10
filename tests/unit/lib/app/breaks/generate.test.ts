@@ -16,8 +16,9 @@ import { engrave } from '@/lib/app/breaks/engrave';
 import { deriveB, fitHands, generatePattern } from '@/lib/app/breaks/generate';
 import { LANES, LANE_VALUES, handLanes, handsAt } from '@/lib/app/breaks/lanes';
 import { METER_KEYS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
+import { withSong } from '@/lib/app/breaks/songs';
 import { TEST_STYLE_KEYS, testStyles } from '@/tests/helpers/catalogue';
-import type { Figure, Pattern, ResolvedStyle, Style } from '@/lib/app/breaks/types';
+import type { Bar, Figure, Pattern, ResolvedStyle, Style } from '@/lib/app/breaks/types';
 import { styleParamsSchema } from '@/lib/app/breaks/catalogue/schemas';
 import type { SvgNode } from '@/lib/app/breaks/engrave';
 
@@ -51,10 +52,23 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 62 styles in 12 meters — the numbers the site copy quotes', () => {
-    expect(TEST_STYLE_KEYS).toHaveLength(62);
-    expect(METER_KEYS).toHaveLength(12);
-    expect(COMBOS).toHaveLength(744);
+  it('is 62 styles and 8 drummers in 15 meters — the numbers the site copy quotes', () => {
+    const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
+    expect(TEST_STYLE_KEYS.length - drummers.length).toBe(62);
+    expect([...drummers].sort()).toEqual([
+      'bonham',
+      'copeland',
+      'mitchell',
+      'ringo',
+      'stubblefield',
+      'tonyallen',
+      'tonywilliams',
+      'yussefdayes',
+    ]);
+    // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
+    expect(METER_KEYS).toHaveLength(15);
+    expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
+    expect(COMBOS).toHaveLength(1050);
   });
 });
 
@@ -71,17 +85,20 @@ describe('generatePattern', () => {
   it('writes only legal values into every lane', () => {
     // the lane's own values (a style that writes its bars out can ask for a half-open hat or a china)
     const max = Object.fromEntries(LANES.map((L) => [L, LANE_VALUES[L].length]));
+    /* Collected and asserted once: an expect per value is close to a million
+       of them across every style and meter, which is the whole of the time. */
+    const illegal: string[] = [];
     for (const { style, meter } of COMBOS) {
       for (const bar of gen(style, meter, 777, 4).bars) {
         for (const L of LANES) {
           for (const v of bar[L]) {
-            expect(Number.isInteger(v)).toBe(true);
-            expect(v).toBeGreaterThanOrEqual(0);
-            expect(v).toBeLessThanOrEqual(max[L]);
+            if (!Number.isInteger(v) || v < 0 || v > max[L])
+              illegal.push(`${style} ${meter} ${L}=${v}`);
           }
         }
       }
     }
+    expect(illegal).toEqual([]);
   });
 
   it('is deterministic: same seed and options give an identical pattern', () => {
@@ -430,10 +447,131 @@ describe('written-out bars (figures)', () => {
   });
 });
 
+describe('fills inside the phrase (midFills)', () => {
+  const row = (v: number[]) => v.map((x) => (x ? String(x) : '.')).join('');
+  const fill: Figure = { t1: '2..2..2.', t3: '.2..2..2', k: '..1..1..' };
+  const withFills = (extra: Partial<Style>): ResolvedStyle => ({
+    ...STYLES.rock,
+    params: {
+      ...STYLES.rock.params,
+      figures: [[{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.......' }, 1]],
+      fills: [[fill, 1]],
+      ...extra,
+    },
+  });
+  const filled = (b: { t3: number[] }) => row(b.t3.slice(8)) === '.2..2..2';
+
+  it('fills every bar that ends a pair when it is 1, and never the bars that start one', () => {
+    for (let seed = 1; seed <= 10; seed++) {
+      const pat = generatePattern({
+        style: withFills({ midFills: 1 }),
+        seed,
+        bars: 8,
+        density: 50,
+        ghosts: 0,
+      });
+      expect([1, 3, 5].map((i) => filled(pat.bars[i]))).toEqual([true, true, true]);
+      expect([0, 2, 4, 6].map((i) => filled(pat.bars[i]))).toEqual([false, false, false, false]);
+    }
+  });
+
+  it('fills the bar leading into the second half of a six-bar phrase, never its crash bar', () => {
+    const seen = new Set<string>();
+    for (let seed = 1; seed <= 200; seed++) {
+      const pat = generatePattern({
+        style: withFills({ midFills: 1 }),
+        seed,
+        bars: 6,
+        density: 50,
+        ghosts: 0,
+      });
+      const inside = [0, 1, 2, 3, 4].map((i) => filled(pat.bars[i]));
+      // split 3 + 3: the bar before the crash on bar 4; unsplit: pairs from the end
+      const split = [false, false, true, false, false];
+      const whole = [false, true, false, true, false];
+      expect([split, whole]).toContainEqual(inside);
+      seen.add(JSON.stringify(inside));
+    }
+    expect(seen.size).toBe(2);
+  });
+
+  it('fills only the last bar without it, and leaves the stream as it was at 0', () => {
+    for (let seed = 1; seed <= 10; seed++) {
+      const opts = { seed, bars: 8, density: 50, ghosts: 50 };
+      const none = generatePattern({ style: withFills({}), ...opts });
+      expect(none.bars.slice(0, 7).some(filled)).toBe(false);
+      expect(generatePattern({ style: withFills({ midFills: 0 }), ...opts })).toEqual(none);
+    }
+  });
+
+  it('fills inside the phrase on the kick-cell path too, leaving the first bar alone', () => {
+    const cells = (midFills?: number): ResolvedStyle => ({
+      ...STYLES.funk,
+      params: { ...STYLES.funk.params, midFills },
+    });
+    let changed = 0;
+    for (let seed = 1; seed <= 10; seed++) {
+      const opts = { seed, bars: 4, density: 50, ghosts: 0 };
+      const plain = generatePattern({ style: cells(), ...opts });
+      const busy = generatePattern({ style: cells(1), ...opts });
+      expect(busy.bars[0]).toEqual(plain.bars[0]);
+      if (JSON.stringify(busy.bars[1]) !== JSON.stringify(plain.bars[1])) changed++;
+    }
+    expect(changed).toBeGreaterThan(5);
+  });
+
+  it('makes the drummers who fill more fill more', () => {
+    const count = (key: string) => {
+      let n = 0;
+      for (let seed = 1; seed <= 60; seed++) {
+        const pat = generatePattern({ style: STYLES[key], seed, bars: 8, density: 50, ghosts: 0 });
+        // midFills off for the style and for every one of its songs
+        const params = STYLES[key].params;
+        const songs = params.songs?.map((sg) => ({
+          ...sg,
+          params: { ...sg.params, midFills: undefined },
+        }));
+        const plain = generatePattern({
+          style: { ...STYLES[key], params: { ...params, midFills: undefined, songs } },
+          seed,
+          bars: 8,
+          density: 50,
+          ghosts: 0,
+        });
+        for (const i of [1, 3, 5])
+          if (JSON.stringify(pat.bars[i]) !== JSON.stringify(plain.bars[i])) n++;
+      }
+      return n;
+    };
+    // Mitchell at a half, Bonham at a quarter, of 180 bars that could be filled
+    expect(count('mitchell')).toBeGreaterThan(count('bonham'));
+    expect(count('bonham')).toBeGreaterThan(20);
+  });
+});
+
+describe('Clyde Stubblefield', () => {
+  it('plays Cold Sweat as written, with no kick on 1', () => {
+    let open = 0;
+    for (let seed = 1; seed <= 60; seed++) {
+      const pat = generatePattern({
+        style: STYLES.stubblefield,
+        seed,
+        bars: 4,
+        density: 50,
+        ghosts: 50,
+      });
+      open += pat.bars.filter((b) => !b.k[0]).length;
+    }
+    expect(open).toBeGreaterThan(0);
+  });
+});
+
 describe('the rock, jazz and blues styles', () => {
   // every style written out as figures, bar metal, which has its own tests above
   const METAL = ['metal', 'gallop', 'thrash', 'doublekick', 'groove', 'doom'];
   const ROCK = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.figures && !METAL.includes(k));
+  // a stack is the nearest thing the crash lane has to a china
+  const CHINA_PLAYERS = ['yussefdayes'];
 
   it('covers the rock, jazz and blues groups', () => {
     for (const k of ['rock', 'rockabilly', 'bebop', 'modal', 'brushes', 'slowblues', 'boogie'])
@@ -450,21 +588,64 @@ describe('the rock, jazz and blues styles', () => {
       for (const [f] of params.figures ?? []) {
         for (const r of Object.values(f)) expect(r?.length).toBe(n);
       }
-      // nobody outside metal plays a china
+      // nobody outside metal plays a china, bar Yussef Dayes's cymbal stack
+      const china = CHINA_PLAYERS.includes(key);
       for (const [f] of [...(params.figures ?? []), ...(params.fills ?? [])])
-        expect(f.c ?? '').not.toMatch(/3/);
-      for (let seed = 1; seed <= 40; seed++) {
-        const pat = generatePattern({
-          style: STYLES[key],
-          meter: params.meter,
-          seed,
-          bars: 4,
-          density: 50,
-          ghosts: 50,
+        if (!china) expect(f.c ?? '').not.toMatch(/3/);
+      // a style with songs is played song by song, each in its own meter and at its own tempo
+      const runs = params.songs?.map((song) => ({ song, merged: withSong(params, song.key) })) ?? [
+        { song: undefined, merged: params },
+      ];
+      for (const { song, merged } of runs) {
+        const meter = merged.meter;
+        const n = stepsOf(meterOf(meter ?? '4/4'));
+        for (const [f] of [...(merged.figures ?? []), ...(merged.fills ?? [])])
+          if (!china) expect(f.c ?? '').not.toMatch(/3/);
+        for (const [f] of merged.fills ?? [])
+          for (const r of Object.values(f)) expect(r?.length ?? 0).toBeLessThanOrEqual(n);
+        // a figure is a bar, or two bars that play in turn
+        for (const [f] of merged.figures ?? [])
+          for (const r of Object.values(f)) expect([n, 2 * n]).toContain(r?.length);
+        const bpm = (merged.bpm[0] + merged.bpm[1]) / 2;
+        let soft = 0;
+        for (let seed = 1; seed <= 40; seed++) {
+          const opts = {
+            style: STYLES[key],
+            song: song?.key,
+            meter,
+            seed,
+            bars: 4,
+            density: 50,
+            ghosts: 50,
+          };
+          const pat = generatePattern(opts);
+          const hard = playability(pat, bpm).hard;
+          if (!china) for (const b of pat.bars) expect(b.c.includes(3)).toBe(false);
+          if (!song) {
+            expect({ key, seed, hard }).toEqual({ key, seed, hard: true });
+            continue;
+          }
+          /* A song's bars are transcriptions, as busy as the record: once in a
+             while one meets a busy fill and the critic calls the bar airless.
+             What New serves is generateGood's pick, which never is. */
+          if (!hard) soft++;
+          expect({
+            key,
+            song: song.key,
+            seed,
+            served: playability(generateGood(opts, bpm).pattern, bpm).hard,
+          }).toEqual({
+            key,
+            song: song.key,
+            seed,
+            served: true,
+          });
+        }
+        expect({ key, song: song?.key, soft: soft <= 4 }).toEqual({
+          key,
+          song: song?.key,
+          soft: true,
         });
-        const bpm = (params.bpm[0] + params.bpm[1]) / 2;
-        expect({ key, seed, hard: playability(pat, bpm).hard }).toEqual({ key, seed, hard: true });
-        for (const b of pat.bars) expect(b.c.includes(3)).toBe(false);
       }
     }
   });
@@ -530,5 +711,83 @@ describe('the swing range schema', () => {
     expect(parse({ swing: 70, swingRange: [80, 60] })).toBe(false);
     expect(parse({ swing: 40, swingRange: [60, 80] })).toBe(false);
     expect(parse({ swing: 90, swingRange: [60, 80] })).toBe(false);
+  });
+});
+
+describe('anticipations, fills that grow, and a build', () => {
+  // Mitchell's own params without his songs, so the figures below are the ones played
+  const base = (over: Partial<Style>): ResolvedStyle => {
+    const { songs: _songs, ...params } = STYLES.mitchell.params;
+    return {
+      ...STYLES.mitchell,
+      params: { ...params, anticipate: 0, fillsGrow: false, build: false, ...over },
+    };
+  };
+  const opts = { bars: 8, density: 50, ghosts: 0 };
+
+  it('lands a crash and kick on the "and" of 4, tied over, and never into the first bar', () => {
+    let seen = 0;
+    for (let seed = 1; seed <= 30; seed++) {
+      const pat = generatePattern({ style: base({ anticipate: 1, midFills: 1 }), seed, ...opts });
+      const n = pat.bars[0].k.length;
+      pat.bars.forEach((b, i) => {
+        if (i === pat.bars.length - 1 || !(b.c[n - 2] && b.k[n - 2] && !b.c[n - 1])) return;
+        const next = pat.bars[i + 1];
+        if (next.c[0] || next.k[0]) return;
+        seen++;
+        expect(b.s[n - 1]).toBe(0);
+      });
+      expect(pat.bars[0].c[0]).toBe(1);
+    }
+    expect(seen).toBeGreaterThan(30);
+  });
+
+  it('draws nothing for them at 0 or false, so a style without them is untouched', () => {
+    for (let seed = 1; seed <= 10; seed++) {
+      const off = generatePattern({ style: base({}), seed, ...opts });
+      const absent = generatePattern({
+        style: base({ anticipate: undefined, fillsGrow: undefined, build: undefined }),
+        seed,
+        ...opts,
+      });
+      expect(off).toEqual(absent);
+    }
+  });
+
+  it('keeps the long fills for the end of the phrase', () => {
+    const fills: Array<[Figure, number]> = [
+      [{ t2: '2.2.2.2.2.2.2.2.' }, 1],
+      [{ s: '2.22' }, 1],
+    ];
+    let lastLong = 0;
+    for (let seed = 1; seed <= 40; seed++) {
+      const pat = generatePattern({
+        style: base({ fills, midFills: 1, fillsGrow: true }),
+        seed,
+        ...opts,
+      });
+      for (const i of [1, 3, 5]) expect(pat.bars[i].t2.some((v) => v > 0)).toBe(false);
+      if (pat.bars[7].t2.some((v) => v > 0)) lastLong++;
+    }
+    expect(lastLong).toBeGreaterThan(10);
+  });
+
+  it('always splits a build in two, the busier figure second', () => {
+    const figures: Array<[Figure, number]> = [
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.......' }, 1],
+      [{ h: '1111111111111111', s: '....3..1.1..3.1.', k: '1.1...1.1.1...1.' }, 1],
+    ];
+    const notes = (b: Bar) => [...b.h, ...b.s, ...b.k].filter((v) => v > 0).length;
+    for (let seed = 1; seed <= 30; seed++) {
+      const pat = generatePattern({
+        style: base({ figures, midFills: 0, build: true }),
+        seed,
+        ...opts,
+        bars: 4,
+      });
+      // each half starts on a crash, and the second is the busy one
+      expect(pat.bars[2].c[0]).toBe(1);
+      expect(notes(pat.bars[2])).toBeGreaterThan(notes(pat.bars[0]));
+    }
   });
 });

@@ -6,6 +6,7 @@ import {
   PERC_LANES,
   TOM_LANES,
   laneRoster,
+  percInst,
   percRoster,
 } from '@/lib/app/breaks/lanes';
 import { DEFAULT_METER, STEPS, isGroupStart, meterOf, stepsOf } from '@/lib/app/breaks/meter';
@@ -80,6 +81,7 @@ export function clonePattern(p: Pattern): Pattern {
        a pattern's `attrs`, it replaces them when the style changes. Cloning the
        feel table on every undo step would be copying a constant. */
     attrs: p.attrs ?? {},
+    ...(p.song ? { song: p.song } : {}),
     voice: p.voice,
     seed: p.seed,
     meter: p.meter || DEFAULT_METER,
@@ -194,6 +196,26 @@ export function resolveLanes(
  * — the clave the cross-stick is already playing, or every snare accent, which
  * is how a clap gets layered onto a backbeat.
  */
+const FILL_FROM = new WeakMap<Bar, number>();
+
+/**
+ * Where a written fill starts in a bar. Percussion mounted on the kit (a
+ * cowbell, a block) is played by a hand the fill needs, so {@link writePerc}
+ * leaves it out from there, the way the fill lifts that hand off the hats.
+ */
+export function markFill(bar: Bar, from: number): void {
+  const was = FILL_FROM.get(bar);
+  FILL_FROM.set(bar, was === undefined ? from : Math.min(was, from));
+}
+
+/** A copy of a bar that keeps where its written fill starts, if it has one. */
+export function cloneBarKeepingFill(bar: Bar): Bar {
+  const copy = cloneBar(bar);
+  const from = FILL_FROM.get(bar);
+  if (from !== undefined) FILL_FROM.set(copy, from);
+  return copy;
+}
+
 export function writePerc(pat: Pattern, style: Style, rng?: Rng): void {
   const m = meterOfPat(pat);
   const n = stepsOf(m);
@@ -214,8 +236,10 @@ export function writePerc(pat: Pattern, style: Style, rng?: Rng): void {
         for (let i = 0; i < n; i++) if (b.s[i] >= 2) hits.push(i);
       }
 
+      // a hand on the kit's percussion is wanted for the fill
+      const until = percInst(inst).kit ? (FILL_FROM.get(b) ?? n) : n;
       for (const i of hits) {
-        if (i < 0 || i >= n) continue;
+        if (i < 0 || i >= until) continue;
         if (spec.drop && rng && rng() < spec.drop) continue;
         b[L][i] = 1;
       }
@@ -301,5 +325,8 @@ export function styleAttrs(style: StyleAttrs | undefined): StyleAttrs {
   if (style.targetDensity != null) out.targetDensity = style.targetDensity;
   if (style.hatDepth != null) out.hatDepth = style.hatDepth;
   if (style.doubleKick) out.doubleKick = true;
+  if (style.oneHandHats) out.oneHandHats = true;
+  if (style.heelToe) out.heelToe = true;
+  if (style.echo) out.echo = style.echo;
   return out;
 }

@@ -1,4 +1,5 @@
 import { Humaniser } from '@/lib/app/breaks/humanise';
+import { stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import { MIDI_MAP, midiVelocity, performStep } from '@/lib/app/breaks/perform';
 import type { Pattern } from '@/lib/app/breaks/types';
@@ -77,7 +78,6 @@ export interface MidiFile {
 
 export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
   const PPQ = 480;
-  const ST = PPQ / 4; // one grid step is a sixteenth, in every meter
   const events: MidiEvent[] = [];
   const ons: Array<{ t: number; n: number; v: number }> = [];
   let tick = 0;
@@ -95,6 +95,8 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
     if (!bar) continue;
 
     const nSteps = bar.k.length;
+    // ticks a step: a sixteenth's 120, or a sextuplet's 80 in 4/4-6
+    const ST = PPQ / stepsPerQuarter(meterOfPat(pat));
     for (let i = 0; i < nSteps; i++) {
       const voices = performStep(pat, bar, i, {
         swing: opts.swing,
@@ -113,6 +115,9 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
         if (raw < 0) early.set(voice.note, Math.max(early.get(voice.note) ?? 0, -raw));
       }
       for (const voice of voices) {
+        /* An echo is an effect, not a stroke: a file that carried it would
+           read back as notes somebody played, and a DAW has its own delay. */
+        if (voice.ornament === 'echo') continue;
         /* A hit pushed in front of bar 1 has nowhere earlier to go, so it lands
            on the downbeat rather than at a negative tick. */
         const shift = early.get(voice.note) ?? 0;

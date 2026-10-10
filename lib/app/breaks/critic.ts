@@ -8,7 +8,7 @@ import {
   handsAt,
   handsOf,
 } from '@/lib/app/breaks/lanes';
-import { STEPS, isGroupStart } from '@/lib/app/breaks/meter';
+import { STEPS, isGroupStart, stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { generatePattern, type GenerateOptions } from '@/lib/app/breaks/generate';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import { clamp, makeRng } from '@/lib/app/breaks/rng';
@@ -50,14 +50,22 @@ export function playability(pat: Pattern, bpm: number): Playability {
   const hands = handLanes(pat.perc);
   // on a double pedal a run of kicks is two feet's: no run is too long, and the kick is not the air
   const doubleKick = !!pat.attrs?.doubleKick;
+  // heel and toe: three 16ths on one foot, and the fourth is the run
+  const heelToe = !!pat.attrs?.heelToe;
 
   const nSteps = pat.bars[0] ? pat.bars[0].k.length : STEPS;
-  const airFloor = Math.max(3, Math.round(nSteps / 4));
+  /* A quarter of the bar, and never less than three sixteenths' worth: in a
+     bar of eighths (4/4-8) that is two steps, not three of eight. */
+  const airFloor = Math.max(
+    Math.round((3 * stepsPerQuarter(meterOfPat(pat))) / 4),
+    Math.round(nSteps / 4)
+  );
 
   for (const b of pat.bars) {
     for (let i = 0; i < nSteps; i++) {
       if (b.h[i] && b.r[i]) rideClash = true;
-      if (i < nSteps - 2 && b.k[i] && b.k[i + 1] && b.k[i + 2]) kickRun = true;
+      if (i < nSteps - 2 && b.k[i] && b.k[i + 1] && b.k[i + 2] && (!heelToe || b.k[i + 3]))
+        kickRun = true;
       if (i < nSteps - 3 && b.s[i] && b.s[i + 1] && b.s[i + 2] && b.s[i + 3]) snareRun = true;
       if (i < nSteps - 1 && b.k[i] && b.k[i + 1]) doubleStrain++;
       // a flam's step is the grace check's to report, not this one's twice over —
@@ -80,14 +88,21 @@ export function playability(pat: Pattern, bpm: number): Playability {
   }
 
   if (doubleKick) kickRun = false;
+  /* The tempo a double is played at, in sixteenths: a sextuplet double is half
+     again as quick as a sixteenth one at the same quarter. */
+  const doubleBpm = (bpm * stepsPerQuarter(meterOfPat(pat))) / 4;
   const fastDoubles =
-    !doubleKick && doubleStrain > 0 && bpm > 132 && doubleStrain > pat.bars.length;
+    !doubleKick && doubleStrain > 0 && doubleBpm > 132 && doubleStrain > pat.bars.length;
 
   const checks: Check[] = [
     { ok: !rideClash, label: 'One cymbal at a time — no ride under a hi-hat' },
     {
       ok: !kickRun,
-      label: doubleKick ? 'Kick runs go to the double pedal' : 'No triple 16ths on the kick',
+      label: doubleKick
+        ? 'Kick runs go to the double pedal'
+        : heelToe
+          ? 'No four 16ths in a row on the kick'
+          : 'No triple 16ths on the kick',
     },
     { ok: !snareRun, label: 'Snare never runs four 16ths without a break' },
     {

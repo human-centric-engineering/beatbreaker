@@ -21,6 +21,7 @@ import { BreakAudio } from '@/lib/app/breaks/audio/engine';
 import type { PieceView } from '@/lib/app/breaks/kit-builder';
 import type { SampleList, YourKitView } from '@/lib/validations/samples';
 import { testCatalogue } from '@/tests/helpers/catalogue';
+import { openMenu, pickOption } from '@/tests/helpers/select-menu';
 
 /* ---- the catalogue's pieces -------------------------------------------- */
 
@@ -190,11 +191,11 @@ function renderDrawer() {
 const kitPicker = () =>
   within(
     screen.getByRole('heading', { name: 'Kit' }).closest('.card')!
-  ).getByLabelText<HTMLSelectElement>('Kit');
+  ).getByLabelText<HTMLButtonElement>('Kit');
 
 const builder = () => screen.getByRole('heading', { name: 'Build your kit' }).closest('.card')!;
 const rowPicker = (label: string) =>
-  within(builder() as HTMLElement).getByLabelText<HTMLSelectElement>(label);
+  within(builder() as HTMLElement).getByLabelText<HTMLButtonElement>(label);
 
 let preview: ReturnType<typeof vi.spyOn>;
 
@@ -219,7 +220,7 @@ describe('Make my own from this kit', () => {
   it('copies a recorded kit into one of yours with the same pieces, and picks it', async () => {
     const user = userEvent.setup();
     renderDrawer();
-    await user.selectOptions(kitPicker(), 'muldjord');
+    await pickOption(user, kitPicker(), 'muldjord');
 
     await user.click(screen.getByRole('button', { name: 'Make my own from this kit' }));
 
@@ -235,7 +236,7 @@ describe('Make my own from this kit', () => {
   it('is not offered on a synthesised kit, which has no pieces', async () => {
     const user = userEvent.setup();
     renderDrawer();
-    await user.selectOptions(kitPicker(), 'studio70');
+    await pickOption(user, kitPicker(), 'studio70');
     expect(screen.queryByRole('button', { name: 'Make my own from this kit' })).toBeNull();
   });
 
@@ -249,7 +250,7 @@ describe('Make my own from this kit', () => {
     };
     const user = userEvent.setup();
     renderDrawer();
-    await user.selectOptions(kitPicker(), 'muldjord');
+    await pickOption(user, kitPicker(), 'muldjord');
 
     await user.click(screen.getByRole('button', { name: 'Make my own from this kit' }));
 
@@ -264,15 +265,17 @@ describe('the builder, on a kit of yours', () => {
   it('auditions a piece as you choose it, from its loudest take, then puts it in the row', async () => {
     const user = userEvent.setup();
     renderDrawer();
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
     // the pieces arrive, grouped by the library they came from
-    await waitFor(() =>
+    await waitFor(async () =>
       expect(
-        within(rowPicker('Snare')).getByRole('group', { name: 'Big Rusty Drums' })
+        within(await openMenu(user, rowPicker('Snare'))).getByRole('group', {
+          name: 'Big Rusty Drums',
+        })
       ).toBeTruthy()
     );
 
-    await user.selectOptions(rowPicker('Snare'), 'bigrusty-s');
+    await pickOption(user, rowPicker('Snare'), 'bigrusty-s');
 
     // the row's tune comes with it: −300 cents, on the new piece's file
     expect(preview).toHaveBeenCalledWith('/kits/bigrusty/s-0.9.m4a', 's', {
@@ -297,10 +300,10 @@ describe('the builder, on a kit of yours', () => {
   it('empties a row on None, and does not audition anything', async () => {
     const user = userEvent.setup();
     renderDrawer();
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
     await waitFor(() => expect(rowPicker('Snare').value).toBe('muldjord-s'));
 
-    await user.selectOptions(rowPicker('Snare'), '');
+    await pickOption(user, rowPicker('Snare'), '');
 
     await waitFor(() =>
       expect(sent.find((s) => s.method === 'PATCH')?.body).toEqual({
@@ -313,7 +316,7 @@ describe('the builder, on a kit of yours', () => {
   it('writes a knob to every filled slot of the row when the drag ends, and Reset puts them back', async () => {
     const user = userEvent.setup();
     renderDrawer();
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
     const snareRow = rowPicker('Snare').closest('.build-row') as HTMLElement;
 
     await user.click(within(snareRow).getByRole('button', { name: 'Adjust' }));
@@ -346,7 +349,7 @@ describe('the builder, on a kit of yours', () => {
   it('pans the row’s lanes: the hats and the foot together', async () => {
     const user = userEvent.setup();
     renderDrawer();
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
     const hatsRow = rowPicker('Hats').closest('.build-row') as HTMLElement;
 
     await user.click(within(hatsRow).getByRole('button', { name: 'Adjust' }));
@@ -367,8 +370,11 @@ describe('the builder, on a kit of yours', () => {
     preview.mockResolvedValue(false);
     const user = userEvent.setup();
     renderDrawer();
-    await user.selectOptions(kitPicker(), 'yours-a');
-    await waitFor(() => expect(within(rowPicker('Snare')).getAllByRole('group')).toHaveLength(2));
+    await pickOption(user, kitPicker(), 'yours-a');
+    await waitFor(async () =>
+      expect(within(await openMenu(user, rowPicker('Snare'))).getAllByRole('group')).toHaveLength(2)
+    );
+    await user.keyboard('{Escape}');
 
     await user.click(screen.getByRole('button', { name: 'Hear the snare' }));
 
@@ -385,7 +391,7 @@ describe('the builder, on a kit of yours', () => {
   it('plays the kit’s own voice on ▸ for a row with no piece, and offers it no settings', async () => {
     const user = userEvent.setup();
     renderDrawer();
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
     const rideRow = rowPicker('Ride').closest('.build-row') as HTMLElement;
 
     await user.click(screen.getByRole('button', { name: 'Hear the ride' }));
@@ -400,7 +406,7 @@ describe('the builder, on a kit of yours', () => {
   it('gives the splash no Pan of its own: it pans with the crash', async () => {
     const user = userEvent.setup();
     renderDrawer();
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
     const splashRow = rowPicker('Splash').closest('.build-row') as HTMLElement;
 
     await user.click(within(splashRow).getByRole('button', { name: 'Adjust' }));
@@ -413,7 +419,7 @@ describe('the builder, on a kit of yours', () => {
     piecesDown = true;
     const user = userEvent.setup();
     renderDrawer();
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
 
     expect(await screen.findByText(/The pieces did not load/)).toBeTruthy();
     // the kit's own piece stays in the picker, named from the kit
@@ -424,7 +430,7 @@ describe('the builder, on a kit of yours', () => {
   it('does not write anything when a knob is let go without moving', async () => {
     const user = userEvent.setup();
     renderDrawer();
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
     const snareRow = rowPicker('Snare').closest('.build-row') as HTMLElement;
     await user.click(within(snareRow).getByRole('button', { name: 'Adjust' }));
 
@@ -453,7 +459,7 @@ describe('the builder, on a kit of yours', () => {
         <ToastProbe />
       </StudioProvider>
     );
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
     const kickRow = rowPicker('Kick').closest('.build-row') as HTMLElement;
     await user.click(within(kickRow).getByRole('button', { name: 'Adjust' }));
 

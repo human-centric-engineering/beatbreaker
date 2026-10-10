@@ -28,6 +28,7 @@ const STYLES: PickerSection = {
   id: 'styles',
   label: 'Styles',
   noun: 'style',
+  searchHint: 'shuffle, 12/8',
   groups: [
     ['Funk', [entry('funk', 'Funk 16ths', 'Funk'), entry('boombap', 'Boom bap', 'Funk')]],
     ['Jazz', [entry('swing', 'Medium swing', 'Jazz'), entry('bebop', 'Bebop', 'Jazz')]],
@@ -37,6 +38,7 @@ const DRUMMERS: PickerSection = {
   id: 'drummers',
   label: 'Drummers',
   noun: 'drummer',
+  searchHint: 'Bonham',
   groups: [['The sixties', [entry('mitch', 'Mitch Mitchell', 'The sixties')]]],
 };
 

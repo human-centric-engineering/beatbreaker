@@ -24,6 +24,7 @@ import {
 } from '@/components/app/account/about-you-form';
 import { CHANNEL_RULE } from '@/lib/app/breaks/community/channels';
 import { APIClientError, apiClient } from '@/lib/api/client';
+import { pickOption } from '@/tests/helpers/select-menu';
 
 const EMPTY_ABOUT: AboutAnswer = {
   purposes: [],
@@ -72,13 +73,10 @@ describe('every field is sent in the PUT body', () => {
     render(<AboutYouForm about={EMPTY_ABOUT} styles={STYLES} />);
 
     await user.click(screen.getByRole('checkbox', { name: 'Learning to play' }));
-    await user.selectOptions(
-      screen.getByRole('combobox', { name: /How well you play/ }),
-      'Advanced'
-    );
+    await pickOption(user, screen.getByRole('combobox', { name: /How well you play/ }), 'Advanced');
     await user.click(screen.getByRole('checkbox', { name: 'Funk' }));
     await user.click(screen.getByRole('checkbox', { name: 'Rock' }));
-    await user.selectOptions(screen.getByRole('combobox', { name: 'Funk' }), 'Professional');
+    await pickOption(user, screen.getByRole('combobox', { name: 'Funk' }), 'Professional');
     await user.click(screen.getByRole('button', { name: 'Add a link' }));
     await user.type(
       screen.getByRole('textbox', { name: 'Channel link 1' }),

@@ -99,7 +99,9 @@ new control). Give it a `<StudioHelp>` if it needs more than its name, and
 | -------- | -------------------- | ---------------------------------------------------------------- | ----------------- | --------------- | ----------- |
 | button   | `Style <style>`      | Generate, opens the style picker                                 | the style's blurb | —               | 62px sleeve |
 | combobox | `Search the styles`  | Style picker, when open; ↑ ↓ move through the cards, Enter picks | —                 | ↑ ↓, Enter, Esc | 44px        |
-| combobox | `Time signature`     | Generate                                                         | —                 | —               | 36px select |
+| tab      | `Styles <n>`         | Style picker, when open                                          | —                 | —               | 44px        |
+| tab      | `Drummers <n>`       | Style picker, when open; its search is `Search the drummers`     | —                 | —               | 44px        |
+| combobox | `Time signature`     | Generate                                                         | —                 | —               | 36px menu   |
 | radio    | `<1\|2\|3\|4>`       | Generate, bars                                                   | —                 | —               | `Segmented` |
 | slider   | `Kick density`       | Generate                                                         | —                 | —               | 24px        |
 | slider   | `Ghost notes`        | Generate                                                         | —                 | —               | 24px        |
@@ -112,19 +114,21 @@ new control). Give it a `<StudioHelp>` if it needs more than its name, and
 | radio    | `The style's`        | Generate, kit lanes                                              | ⓘ _Kit lanes_     | —               | `Segmented` |
 | radio    | `My own`             | Generate, kit lanes                                              | ⓘ _Kit lanes_     | —               | `Segmented` |
 | checkbox | `Toms`               | Generate, kit lanes (My own)                                     | —                 | —               | 24px        |
-| combobox | `Perc <n>`           | Generate, kit lanes (My own)                                     | —                 | —               | 36px select |
+| combobox | `Perc <n>`           | Generate, kit lanes (My own)                                     | —                 | —               | 36px menu   |
 | button   | `About Kit lanes`    | Generate                                                         | ⓘ                 | —               | 24px        |
 | button   | `Change it in Sound` | Generate, under the style's kit                                  | —                 | —               | 24px link   |
 
 ## Edit
 
-| role   | name                                                                                                                                                                                          | where                    | help              | shortcut | target  |
-| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ----------------- | -------- | ------- |
-| button | `↶ Undo`                                                                                                                                                                                      | Edit                     | —                 | ⌘Z       | `.mini` |
-| button | `↷ Redo`                                                                                                                                                                                      | Edit                     | —                 | ⇧⌘Z      | `.mini` |
-| button | `<Add ghost notes\|Strip ghosts\|Busier kick\|More space\|Open the hats\|Swap hats ↔ ride\|Push the backbeat\|Crash on 1\|Fill the last bar\|Mirror bar 1\|Reverse the beats\|Flatten to L2>` | Edit, the Doctor's moves | ⓘ _Musical edits_ | —        | `.mini` |
-| button | `Clear section`                                                                                                                                                                               | Edit                     | —                 | —        | `.mini` |
-| button | `About Musical edits`                                                                                                                                                                         | Edit                     | ⓘ                 | —        | 24px    |
+| role   | name                                                                                                                                                                                          | where                                                | help              | shortcut | target  |
+| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ----------------- | -------- | ------- |
+| button | `↶ Undo`                                                                                                                                                                                      | Edit                                                 | —                 | ⌘Z       | `.mini` |
+| button | `↷ Redo`                                                                                                                                                                                      | Edit                                                 | —                 | ⇧⌘Z      | `.mini` |
+| button | `<Add ghost notes\|Strip ghosts\|Busier kick\|More space\|Open the hats\|Swap hats ↔ ride\|Push the backbeat\|Crash on 1\|Fill the last bar\|Mirror bar 1\|Reverse the beats\|Flatten to L2>` | Edit, the Doctor's moves                             | ⓘ _Musical edits_ | —        | `.mini` |
+| button | `Clear section`                                                                                                                                                                               | Edit                                                 | —                 | —        | `.mini` |
+| button | `↻ Regenerate`                                                                                                                                                                                | Edit: a new take of the section, same style and song | ⓘ _Regenerate_    | —        | `.mini` |
+| button | `About Regenerate`                                                                                                                                                                            | Edit                                                 | ⓘ                 | —        | 24px    |
+| button | `About Musical edits`                                                                                                                                                                         | Edit                                                 | ⓘ                 | —        | 24px    |
 
 The Doctor's moves are named by what they do. Today they are _Add ghost
 notes_, _Strip ghosts_, _Busier kick_, _More space_, _Open the hats_, _Swap
@@ -133,36 +137,36 @@ bar 1_, _Reverse the beats_ and _Flatten to L2_.
 
 ## Patterns
 
-| role      | name                                | where                                        | help      | shortcut | target      |
-| --------- | ----------------------------------- | -------------------------------------------- | --------- | -------- | ----------- |
-| tab       | `Practising <count>`                | Patterns                                     | —         | —        | `.mini`     |
-| tab       | `Later`                             | Patterns, when the shelf is empty            | —         | —        | `.mini`     |
-| tab       | `Later <count>`                     | Patterns, when the shelf has something       | —         | —        | `.mini`     |
-| tab       | `Recent`                            | Patterns                                     | —         | —        | `.mini`     |
-| tab       | `All`                               | Patterns                                     | —         | —        | `.mini`     |
-| tab       | `Libraries`                         | Patterns                                     | —         | —        | `.mini`     |
-| tab       | `Community`                         | Patterns                                     | —         | —        | `.mini`     |
-| button    | _a list row_                        | every tab: opens the pattern in place        | —         | —        | about 34px  |
-| button    | `Add <title> to a practice session` | every row                                    | —         | —        | `.mini`     |
-| button    | `Delete <title>`                    | rows of your own saved patterns              | its title | —        | `.mini`     |
-| button    | `Make a session from this shelf`    | Practising, Later                            | —         | —        | `.mini`     |
-| button    | `Clear history`                     | Recent                                       | —         | —        | `.mini`     |
-| button    | `Show all <n>`                      | Recent, when it is longer than eight         | —         | —        | `.mini`     |
-| button    | `Show fewer`                        | Recent, when all are shown                   | —         | —        | `.mini`     |
-| searchbox | `Search your patterns`              | All                                          | —         | —        | 36px        |
-| searchbox | `Search the libraries`              | Libraries                                    | —         | —        | 36px        |
-| combobox  | `Style`                             | All, Libraries                               | —         | —        | 36px select |
-| combobox  | `Time signature`                    | All, Libraries                               | —         | —        | 36px select |
-| button    | `About The libraries`               | Libraries                                    | ⓘ         | —        | 24px        |
-| button    | `Newest`                            | Community                                    | —         | —        | `.mini`     |
-| button    | `Most saved`                        | Community                                    | —         | —        | `.mini`     |
-| button    | `Try again`                         | All, Community, when the list would not read | —         | —        | `.mini`     |
+| role      | name                                | where                                        | help      | shortcut | target     |
+| --------- | ----------------------------------- | -------------------------------------------- | --------- | -------- | ---------- |
+| tab       | `Practising <count>`                | Patterns                                     | —         | —        | `.mini`    |
+| tab       | `Later`                             | Patterns, when the shelf is empty            | —         | —        | `.mini`    |
+| tab       | `Later <count>`                     | Patterns, when the shelf has something       | —         | —        | `.mini`    |
+| tab       | `Recent`                            | Patterns                                     | —         | —        | `.mini`    |
+| tab       | `All`                               | Patterns                                     | —         | —        | `.mini`    |
+| tab       | `Libraries`                         | Patterns                                     | —         | —        | `.mini`    |
+| tab       | `Community`                         | Patterns                                     | —         | —        | `.mini`    |
+| button    | _a list row_                        | every tab: opens the pattern in place        | —         | —        | about 34px |
+| button    | `Add <title> to a practice session` | every row                                    | —         | —        | `.mini`    |
+| button    | `Delete <title>`                    | rows of your own saved patterns              | its title | —        | `.mini`    |
+| button    | `Make a session from this shelf`    | Practising, Later                            | —         | —        | `.mini`    |
+| button    | `Clear history`                     | Recent                                       | —         | —        | `.mini`    |
+| button    | `Show all <n>`                      | Recent, when it is longer than eight         | —         | —        | `.mini`    |
+| button    | `Show fewer`                        | Recent, when all are shown                   | —         | —        | `.mini`    |
+| searchbox | `Search your patterns`              | All                                          | —         | —        | 36px       |
+| searchbox | `Search the libraries`              | Libraries                                    | —         | —        | 36px       |
+| combobox  | `Style`                             | All, Libraries                               | —         | —        | 36px menu  |
+| combobox  | `Time signature`                    | All, Libraries                               | —         | —        | 36px menu  |
+| button    | `About The libraries`               | Libraries                                    | ⓘ         | —        | 24px       |
+| button    | `Newest`                            | Community                                    | —         | —        | `.mini`    |
+| button    | `Most saved`                        | Community                                    | —         | —        | `.mini`    |
+| button    | `Try again`                         | All, Community, when the list would not read | —         | —        | `.mini`    |
 
 ## Sound
 
 | role     | name                                                                     | where                                         | help               | shortcut | target         |
 | -------- | ------------------------------------------------------------------------ | --------------------------------------------- | ------------------ | -------- | -------------- |
-| combobox | `Kit`                                                                    | Sound                                         | ⓘ _Kits_           | —        | 36px select    |
+| combobox | `Kit`                                                                    | Sound                                         | ⓘ _Kits_           | —        | 36px menu      |
 | button   | `About Kits`                                                             | Sound                                         | ⓘ                  | —        | 24px           |
 | radio    | `<The stool\|Out front>`                                                 | Sound, whose side the kit is panned from      | ⓘ _Heard from_     | —        | `Segmented`    |
 | button   | `About Heard from`                                                       | Sound                                         | ⓘ                  | —        | 24px           |
@@ -180,7 +184,7 @@ bar 1_, _Reverse the beats_ and _Flatten to L2_.
 | button   | `Reset whole kit`                                                        | Sound                                         | —                  | —        | `.mini`        |
 | button   | `New kit of your own`                                                    | Sound, Your sounds                            | —                  | —        | `.mini`        |
 | button   | `<Make my own from this kit\|Copy this kit>`                             | Sound, when on a recorded kit or one of yours | —                  | —        | `.mini`        |
-| select   | `<Kick\|Snare\|Hats\|Ride\|Crash\|Splash\|High tom\|Mid tom\|Floor tom>` | Sound, Build your kit, when on one of yours   | ⓘ _Build your kit_ | —        | 38px           |
+| combobox | `<Kick\|Snare\|Hats\|Ride\|Crash\|Splash\|High tom\|Mid tom\|Floor tom>` | Sound, Build your kit, when on one of yours   | ⓘ _Build your kit_ | —        | 38px           |
 | button   | `Hear the <row>`                                                         | Sound, Build your kit, when on yours          | —                  | —        | `.mini`, 44×38 |
 | button   | `Adjust`                                                                 | Sound, Build your kit, when on yours          | —                  | —        | `.mini`, 44×38 |
 | slider   | `<Level\|Tune\|Decay\|Pan>`                                              | Sound, a row's knobs, when open               | ⓘ each             | —        | 24px           |
@@ -321,6 +325,9 @@ And the ones the style picker adds:
       highlight (the highlighted card slides its record out) and Enter picks;
       Esc closes and focus goes back to the sleeve.
 - [ ] VoiceOver in the crate: each card is announced as you arrow onto it.
+- [ ] The Drummers tab: it sits after Styles with a count of 4. Picking Mitch
+      Mitchell closes the crate and the sleeve shows his name. Opening the
+      crate again lands on Drummers with him tagged _On the stage_.
 
 The five tasks in `planning/app-plan.md` §5 (Method) are the walk to do once
 these are ticked.

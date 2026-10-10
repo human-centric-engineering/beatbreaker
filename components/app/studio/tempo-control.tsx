@@ -4,6 +4,7 @@ import { Minus, Plus } from 'lucide-react';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { useStudio } from '@/components/app/studio/studio-provider';
+import { meterOf, pulseInfo, stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { cn } from '@/lib/utils';
 
 /** How long a stepper is held before it starts repeating, and how fast it then goes. */
@@ -49,6 +50,9 @@ function useHoldRepeat(step: () => void) {
   };
 }
 
+/** The note a pulse is, as a chart writes it in a tempo marking. */
+const PULSE_NOTE: Record<string, string> = { 'dotted quarter': '\u2669.', eighth: '\u266A' };
+
 /**
  * Tempo, the same way at every width (E4): a number you can type, − and +
  * that step by one and repeat while held, and — where there is room — the
@@ -85,6 +89,11 @@ export function TempoControl({
     now.current = Math.min(Math.max(Math.round(now.current) + by, 50), c.bpmCeiling);
     c.setBpm(now.current);
   };
+  /* The bpm counts quarters in every meter. Where the beat you feel is some
+     other note — the dotted quarter of 6/8, 9/8 and 12/8 — say what it comes to. */
+  const meter = meterOf(c.meter);
+  const pulse = pulseInfo(meter);
+  const pulseBpm = pulse ? Math.round((c.bpm * stepsPerQuarter(meter)) / pulse.steps) : 0;
   const slower = useHoldRepeat(() => nudge(-1));
   const faster = useHoldRepeat(() => nudge(1));
 
@@ -127,6 +136,11 @@ export function TempoControl({
           bpm
         </span>
       </span>
+      {pulse ? (
+        <span className="tempo-pulse" title={`The ${pulse.label} you count: ${pulseBpm} a minute`}>
+          {PULSE_NOTE[pulse.label] ?? pulse.label} = {pulseBpm}
+        </span>
+      ) : null}
       <button type="button" className="studio-step" aria-label="Faster" {...faster}>
         <Plus size={16} />
       </button>

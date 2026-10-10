@@ -627,7 +627,81 @@ release process.
   invitation metadata every session flow writes the same rows plus one
   populated column, and every pending invitation round-trips as before.
 
+- **Sextuplet 4/4, one-handed hats, and percussion that follows its
+  instrument.** A new meter, `4/4-6`, is 4/4 in sixteenth-note triplets, six
+  steps to the beat. It is accepted wherever a meter is (patterns, share codes,
+  the admin catalogue API) and lets a Bonham triplet be written as real
+  sextuplets. A step is no longer always a sixteenth: whatever turns steps
+  into time asks the meter, through `stepsPerQuarter(m)` and `stepSeconds(m, bpm)`
+  in `lib/app/breaks/meter.ts`. That covers the transport, the performance's
+  feel, humanise and grace offsets, the MIDI export (80 ticks a sextuplet) and
+  the community density score. A Groove Scribe link written in triplets in
+  4/4 now imports into `4/4-6` instead of being refused. A style's params may
+  carry `oneHandHats`, which travels with the pattern (`sa`) and keeps
+  sixteenth hats in the 3D drummer's lead hand rather than hand to hand
+  (Stubblefield). The 3D kit's percussion mounts show the instrument each
+  slot sounds as, and a kit-mounted cowbell or block stops where a written
+  fill starts.
+
+- **Songs, 4/4 in eighths, and the style params famous drummers needed.** A
+  style may list `songs`: each one lays its own meter, tempo, swing, kit,
+  grooves and fills over the style (`lib/app/breaks/songs.ts`). New picks
+  one, the Studio sets the controls to it, and the stage reads "Playing style
+  inspired by …". A pattern records its song as `song` (`sg` on the wire,
+  optional and additive, so no new wire version). Mitch Mitchell plays 45,
+  Tony Williams 32. A new meter, `4/4-8`, is 4/4 in eighth-note steps, two to
+  the quarter, so fast swing plays at its real tempo, up to 380 (`maxBpm`).
+  Style params may now set `anticipate` (crash and kick on the "and" of 4,
+  tied over), `fillsGrow`, `build`, `swingCurve` (swing that follows the tempo,
+  `swingAtTempo`, after Friberg and Sundström's ride-cymbal measurements) and
+  `crossRhythms` / `crossRhythm` (accent cycles that run across the bar line).
+  A style's tempo range may now reach 400.
+
+- **Ringo Starr, two-bar figures, lefty fills, 11/8 and two era kits.** A
+  fifth drummer, `ringo`, with 44 songs (most from human drum transcriptions;
+  songs that change meter are split by section). A figure may now be two bars
+  long, played in turn. `fillOrder` sets the tom order of generated fills (a
+  left-hander comes off the floor tom). A new meter, `11/8` (3+3+3+2). Two
+  kits: `sixties` (ringing toms, washy half-open hats) and `teatowel` (the
+  damped 1968–69 sound).
+
+- **Tony Allen, an unmarked 1, and a fill chance.** A sixth drummer,
+  `tonyallen`, built on the five Afrobeat patterns he demonstrated himself,
+  with 34 songs. `phraseMark` lets a style leave the 1 of each phrase half to
+  its figure (no crash, no kick under it), and `fillChance` sets how often a
+  phrase ends on a fill.
+
+- **Stewart Copeland and Yussef Dayes, a tape echo, splash anticipations and
+  heel-toe kicks.** Two drummers: `copeland` (41 Police songs, from Fall Out
+  to Synchronicity, most from human transcriptions; 6/4, 7/4 and 12/8 among
+  them) and `yussefdayes` (27 tracks, most from Drum Hub's transcriptions;
+  Turquoise Galaxy in sextuplets). New params: `echo` (a `StyleAttrs` field,
+  played and never written: one quieter repeat of chosen lanes),
+  `anticipateCymbal` (the cymbal an anticipation lands on), `phraseMark.crash`
+  as a probability, and `heelToe` (a `StyleAttrs` field: three 16ths on one
+  foot). Kits `police` and `london`: sampled kits re-tuned for them.
+
 ### Changed
+
+- **Dropdowns are the app's own, the kit groups are whole, and a style pick
+  makes a break.** Every `<select>` in the app is now `SelectMenu`
+  (`components/app/ui/select-menu.tsx`), a themed select-only combobox that
+  wears the Studio's tokens inside `.bb` and the site's `--color-*` palette
+  elsewhere, and still submits with a plain form. The kit picker files the
+  sampled kits under one heading, **Sampled Recordings**, and kits are named
+  for their sound (`Sixties Ludwig`, `Damped and dead`, `Bright and tight`,
+  `Small and dry`). Picking a style writes a new break in it and closes the
+  drawer; if the break was playing, it goes back to the top and counts in
+  (a bar at least) to the new one (`restartFromTop`, and
+  `Transport.start({ countIn })`). A press on the chart closes an open
+  drawer; the transport and the rail still leave it open. Edit gains **Regenerate**: a new take of the section, in its own
+  style, song, meter and length, never the same notes again.
+
+- **The drummers play sampled kits only.** `sixties` is now SM Drums' 1960s
+  Ludwig and `teatowel` Gogodze's damped kit, both re-tuned; Tony Allen's
+  songs moved from the synthesised kits to SM Drums, Gogodze and DRS. A
+  drummer and each of its songs name a pack kit unless the drummer played
+  electronic drums on that record (`drummer-kits.test.ts`).
 
 - **BeatBuddy is an `internal` agent (BeatBreaker Phase 8-i).** It was
   `public`, which let Sunrise's generic `POST /api/v1/chat/stream` reach it

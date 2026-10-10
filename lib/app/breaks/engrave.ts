@@ -12,7 +12,7 @@ import {
   laneName,
   percInst,
 } from '@/lib/app/breaks/lanes';
-import { countLabelsOf, groupsOf, isGroupStart, stepsOf } from '@/lib/app/breaks/meter';
+import { countLabelsOf, groupsOf, isEighths, isGroupStart, stepsOf } from '@/lib/app/breaks/meter';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import type { Bar, Group, LaneKey, Meter, Pattern } from '@/lib/app/breaks/types';
 
@@ -130,7 +130,52 @@ const CRASH_HEAD: Record<number, Pick<Head, 'step' | 'label'>> = {
   [SPLASH]: { step: 10 },
 };
 
+/**
+ * Engrave a pattern.
+ *
+ * A meter written in eighths (`4/4-8`, fast swing) is drawn as the 4/4 it is:
+ * each eighth laid on every other sixteenth, which gives exactly the beams and
+ * rests a chart of eighths has, and the anchors are folded back to one per
+ * eighth so the playhead and the editor still count the pattern's own steps.
+ */
 export function engrave(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptions): Engraving {
+  if (!isEighths(meterOfPat(pat))) return engraveSteps(pat, ghostPat, opts);
+  const e = engraveSteps(asSixteenths(pat), ghostPat && asSixteenths(ghostPat), opts);
+  return { ...e, map: e.map.filter((_, i) => i % 2 === 0), steps: e.steps / 2 };
+}
+
+/** A pattern in eighths as the same notes in 4/4 sixteenths: step i at 2i. */
+function asSixteenths(p: Pattern): Pattern {
+  const widen = (row: number[]): number[] => {
+    const out = new Array<number>(row.length * 2).fill(0);
+    row.forEach((v, i) => (out[2 * i] = v));
+    return out;
+  };
+  const bar = (b: Bar): Bar => {
+    const out = { ...b };
+    for (const lane of Object.keys(b) as LaneKey[]) out[lane] = widen(b[lane]);
+    return out;
+  };
+  return {
+    ...p,
+    meter: '4/4',
+    backbeats: p.backbeats.map((x) => x * 2),
+    bars: p.bars.map(bar),
+    pins: p.pins
+      ? p.pins.map((b) => {
+          if (!b) return b;
+          const out: Partial<Record<LaneKey, number[]>> = {};
+          for (const lane of Object.keys(b) as LaneKey[]) {
+            const row = b[lane];
+            if (row) out[lane] = widen(row);
+          }
+          return out;
+        })
+      : null,
+  };
+}
+
+function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptions): Engraving {
   const { scale } = opts;
   const m = meterOfPat(pat);
   const nSteps = pat.bars[0] ? pat.bars[0].k.length : stepsOf(m);
@@ -675,6 +720,32 @@ function drawVoice(ctx: VoiceCtx): void {
           out.add('rect', { x: sx - stub, y: secY, width: stub, height: bh, fill: ink });
         }
       });
+    }
+
+    /* Sextuplet 4/4: each beat is six sixteenths in the time of four, beamed
+       like a compound pulse, so it says so — a 6 beyond the beams; a 3 where
+       every note is on an eighth-note triplet, and nothing over a lone note,
+       which is not a tuplet of anything. */
+    const tuplet =
+      ctx.meter.sub === 6 && slots.length > 1
+        ? slots.every((s) => (s - gStart) % 2 === 0)
+          ? '3'
+          : '6'
+        : null;
+    if (tuplet) {
+      out.add(
+        'text',
+        {
+          x: (xs(gStart) + xs(gEnd - 1)) / 2 + (up ? 0.62 * SP : -0.62 * SP),
+          y: up ? beamY - 0.7 * SP : beamY + 1.9 * SP,
+          fill: ink,
+          'text-anchor': 'middle',
+          'font-size': `${SP * 1.25}px`,
+          'font-style': 'italic',
+          'font-weight': '700',
+        },
+        tuplet
+      );
     }
 
     // noteheads, marks, accents

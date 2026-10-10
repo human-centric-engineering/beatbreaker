@@ -6,9 +6,11 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  drummerSection,
   entryCount,
   feelLabel,
   firstSentence,
+  pickerSections,
   searchSection,
   spineOf,
   styleSection,
@@ -52,11 +54,16 @@ describe('feelLabel', () => {
   });
 });
 
+const isDrummer = (key: string) => cat.styles[key]?.params.drummer === true;
+
 describe('styleSection', () => {
-  it('holds every style the catalogue groups, in its groups and order', () => {
-    expect(section.groups.map(([g]) => g)).toEqual(cat.styleGroups.map(([g]) => g));
-    expect(keysOf(section)).toEqual(cat.styleGroups.flatMap(([, keys]) => keys));
-    expect(entryCount(section)).toBe(Object.keys(cat.styles).length);
+  it('holds every style the catalogue groups, bar the drummers, in its groups and order', () => {
+    const groups = cat.styleGroups
+      .map(([g, keys]): [string, string[]] => [g, keys.filter((k) => !isDrummer(k))])
+      .filter(([, keys]) => keys.length);
+    expect(section.groups.map(([g]) => g)).toEqual(groups.map(([g]) => g));
+    expect(keysOf(section)).toEqual(groups.flatMap(([, keys]) => keys));
+    expect(entryCount(section)).toBe(Object.keys(cat.styles).filter((k) => !isDrummer(k)).length);
   });
 
   it('puts the meter, the tempo, the feel and the kit a style asks for on its card', () => {
@@ -76,6 +83,103 @@ describe('styleSection', () => {
   it('leaves out a group with nothing in it', () => {
     const s = styleSection(cat.styles, [['Empty', []], ...cat.styleGroups], cat.kits);
     expect(s.groups.map(([g]) => g)).not.toContain('Empty');
+  });
+});
+
+describe('drummerSection', () => {
+  const drummers = drummerSection(cat.styles, cat.styleGroups, cat.kits);
+
+  it('holds the drummers, in their own groups, and nothing the Styles tab shows', () => {
+    expect(drummers).not.toBeNull();
+    expect(drummers?.id).toBe('drummers');
+    expect(keysOf(drummers!)).toEqual([
+      'mitchell',
+      'bonham',
+      'ringo',
+      'copeland',
+      'stubblefield',
+      'tonywilliams',
+      'yussefdayes',
+      'tonyallen',
+    ]);
+    expect(drummers?.groups.map(([g]) => g)).toEqual([
+      'Rock drummers',
+      'Funk drummers',
+      'Jazz drummers',
+      'Afrobeat drummers',
+    ]);
+    for (const key of keysOf(drummers!)) expect(keysOf(section)).not.toContain(key);
+  });
+
+  it("names both of a drummer's 4/4 grids on his card, sextuplets and sixteenths", () => {
+    const bonzo = drummers?.groups.flatMap(([, es]) => es).find((e) => e.key === 'bonham');
+    expect(bonzo?.label).toBe('John Bonham');
+    expect(bonzo?.meta).toEqual([
+      '4/4 sextuplets, 4/4',
+      '70–178 bpm',
+      '11 songs',
+      'straight to swung',
+      cat.kits.bigrusty.label,
+    ]);
+  });
+
+  it("gives a drummer with songs every meter and tempo his songs play in, and finds him by a song's title", () => {
+    const mitch = drummers?.groups.flatMap(([, es]) => es).find((e) => e.key === 'mitchell');
+    expect(mitch?.label).toBe('Mitch Mitchell');
+    expect(mitch?.meta).toEqual([
+      '4/4, 9/8, 12/8',
+      '56–225 bpm',
+      '45 songs',
+      'straight to swung',
+      cat.kits.smdrums.label,
+    ]);
+    const found = searchSection(drummers!, 'manic depression');
+    expect(found.groups.flatMap(([, es]) => es.map((e) => e.key))).toEqual(['mitchell']);
+  });
+
+  it('follows a drummer moved into Your styles, as a drummer', () => {
+    const moved = drummerSection(
+      cat.styles,
+      [['Your styles', ['funk', 'bonham']], ...cat.styleGroups],
+      cat.kits
+    );
+    expect(moved?.groups[0]).toEqual([
+      'Your drummers',
+      [expect.objectContaining({ key: 'bonham' })],
+    ]);
+  });
+
+  it("calls a drummer filed under the seed's catch-all group Other drummers", () => {
+    const other = drummerSection(cat.styles, [['Other', ['funk', 'mitchell']]], cat.kits);
+    expect(other?.groups.map(([g]) => g)).toEqual(['Other drummers']);
+    expect(styleSection(cat.styles, [['Other', ['funk', 'mitchell']]], cat.kits).groups).toEqual([
+      ['Other', [expect.objectContaining({ key: 'funk' })]],
+    ]);
+  });
+
+  it('files a drummer whose row did not load by its group, not under Styles', () => {
+    const groups: Array<[string, string[]]> = [
+      ['Funk', ['funk']],
+      ['Rock drummers', ['ghostdrummer']],
+    ];
+    expect(keysOf(drummerSection(cat.styles, groups, cat.kits)!)).toEqual(['ghostdrummer']);
+    expect(keysOf(styleSection(cat.styles, groups, cat.kits))).toEqual(['funk']);
+  });
+
+  it('is null when the catalogue has no drummers, and the picker shows Styles alone', () => {
+    const none = cat.styleGroups.map(([g, keys]): [string, string[]] => [
+      g,
+      keys.filter((k) => !isDrummer(k)),
+    ]);
+    expect(drummerSection(cat.styles, none, cat.kits)).toBeNull();
+    expect(pickerSections(cat.styles, none, cat.kits).map((s) => s.id)).toEqual(['styles']);
+  });
+
+  it('puts the drummers in a second tab, after the styles', () => {
+    expect(pickerSections(cat.styles, cat.styleGroups, cat.kits).map((s) => s.id)).toEqual([
+      'styles',
+      'drummers',
+    ]);
   });
 });
 

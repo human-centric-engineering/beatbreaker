@@ -21,6 +21,7 @@ import { StudioProvider, useStudio } from '@/components/app/studio/studio-provid
 import { parseWav } from '@/lib/app/breaks/samples/wav';
 import type { SampleList, YourKitView } from '@/lib/validations/samples';
 import { testCatalogue } from '@/tests/helpers/catalogue';
+import { pickOption } from '@/tests/helpers/select-menu';
 
 /* ---- Web Audio, offline ------------------------------------------------ */
 
@@ -225,7 +226,7 @@ describe('the Kit drawer, on a kit of yours', () => {
   it('sends an mp3 up as a mono 16-bit 44.1 kHz WAV, then puts it in the slot', async () => {
     const user = userEvent.setup();
     renderDrawer(START);
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
 
     const input = slotRow('Kick').querySelector('input[type="file"]') as HTMLInputElement;
     pick(input, new File([new Uint8Array(512)], 'kick.mp3', { type: 'audio/mpeg' }));
@@ -261,7 +262,7 @@ describe('the Kit drawer, on a kit of yours', () => {
     };
     const user = userEvent.setup();
     renderDrawer(START);
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
 
     const input = slotRow('Snare').querySelector('input[type="file"]') as HTMLInputElement;
     pick(input, new File([new Uint8Array(64)], 'snare.mp3'));
@@ -278,7 +279,7 @@ describe('the Kit drawer, on a kit of yours', () => {
   it('updates the usage after an upload, and again after a delete', async () => {
     const user = userEvent.setup();
     renderDrawer(START);
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
     expect(screen.getByText(/^1 of 150 samples/)).toBeTruthy();
 
     const input = slotRow('Kick').querySelector('input[type="file"]') as HTMLInputElement;
@@ -302,26 +303,26 @@ describe('the Kit drawer, on a kit of yours', () => {
 
     await user.click(screen.getByRole('button', { name: 'New kit of your own' }));
 
-    await waitFor(() => expect((kitPicker() as HTMLSelectElement).value).toBe('yours-new'));
+    await waitFor(() => expect((kitPicker() as HTMLButtonElement).value).toBe('yours-new'));
     expect(screen.getByLabelText('Name')).toHaveValue('My kit');
   });
 
   it('deletes the kit you are on, after asking, and goes back to the default kit', async () => {
     const user = userEvent.setup();
     renderDrawer(START);
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
 
     await user.click(screen.getByRole('button', { name: 'Delete this kit' }));
     await user.click(screen.getByRole('button', { name: 'Delete it?' }));
 
-    await waitFor(() => expect((kitPicker() as HTMLSelectElement).value).toBe('studio70'));
+    await waitFor(() => expect((kitPicker() as HTMLButtonElement).value).toBe('studio70'));
     expect(screen.getByRole('status').textContent).toMatch(/Garage kit deleted/);
   });
 
   it('renames the kit on Enter, and puts back an empty or unchanged name without asking', async () => {
     const user = userEvent.setup();
     renderDrawer(START);
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
     const name = screen.getByLabelText('Name');
 
     await user.clear(name);
@@ -341,7 +342,7 @@ describe('the Kit drawer, on a kit of yours', () => {
   it('empties a filled slot with its clear button', async () => {
     const user = userEvent.setup();
     renderDrawer(START);
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
     const input = slotRow('Kick').querySelector('input[type="file"]') as HTMLInputElement;
     pick(input, new File([new Uint8Array(512)], 'kick.mp3'));
     await screen.findByRole('button', { name: 'Clear Kick' });
@@ -357,7 +358,7 @@ describe('the Kit drawer, on a kit of yours', () => {
   it('says nothing is uploaded yet when you have no samples', async () => {
     const user = userEvent.setup();
     renderDrawer({ samples: [], usage: START.usage });
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
     expect(screen.getByText('Nothing uploaded yet.')).toBeTruthy();
   });
 });

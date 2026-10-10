@@ -291,7 +291,7 @@ describe('PATCH', () => {
     ['a fractional tempo', { startBpm: 94.5 }, 'startBpm'],
     ['a count-in of 3', { countIn: 3 }, 'countIn'],
     ['five bars', { startBars: 5 }, 'startBars'],
-    ['a meter the Studio does not have', { startMeter: '11/8' }, 'startMeter'],
+    ['a meter the Studio does not have', { startMeter: '13/8' }, 'startMeter'],
     [
       'a percussion lane that is not an instrument',
       { customLanes: { p1: 'kazoo' } },

@@ -344,6 +344,46 @@ describe('generating and editing', () => {
     expect(result.current.patterns).toBe(at);
   });
 
+  it('regenerates the section being edited in its own style, with different notes, undoably', async () => {
+    const { result } = await mount();
+    const first = result.current.patterns;
+    // a style picked for the next New does not change what a regenerate writes in
+    act(() => result.current.setStyle('rock'));
+    for (let i = 0; i < 5; i++) {
+      const before = result.current.patterns.A!;
+      act(() => {
+        result.current.regenerate();
+      });
+      const after = result.current.patterns.A!;
+      expect(after.style).toBe(first.A!.style);
+      expect(after.meter).toBe(before.meter);
+      expect(after.bars).toHaveLength(before.bars.length);
+      expect(after.bars).not.toEqual(before.bars);
+      expect(result.current.patterns.B).toBe(first.B);
+    }
+    act(() => result.current.undo());
+    expect(result.current.canUndo).toBe(true);
+    for (let i = 0; i < 4; i++) act(() => result.current.undo());
+    expect(result.current.patterns.A).toEqual(first.A);
+  });
+
+  it('will not regenerate a section whose style has left the catalogue', async () => {
+    const { result } = await mount();
+    const gone = { ...result.current.patterns.A!, style: 'no-such-style' };
+    act(() => {
+      result.current.loadCode(
+        encodeBreak({ bpm: 100, swing: 0, level: 4, arrangement: ['A'], A: gone, B: gone })
+      );
+    });
+    const before = result.current.patterns.A;
+    let ok = true;
+    act(() => {
+      ok = result.current.regenerate();
+    });
+    expect(ok).toBe(false);
+    expect(result.current.patterns.A).toBe(before);
+  });
+
   it('rebuilds B from A', async () => {
     const { result } = await mount();
     act(() => result.current.newBreak('B'));
@@ -764,6 +804,32 @@ describe('playing', () => {
     act(() => result.current.togglePlay());
     expect(result.current.playing).toBe(false);
     expect(result.current.position).toBeNull();
+  });
+
+  it('goes back to the top and counts in again when the next break replaces a playing one', async () => {
+    const { result } = await mount();
+    // no count-in of your own: the restart counts in a bar anyway
+    act(() => result.current.setCountIn(0));
+    act(() => result.current.togglePlay());
+    const audio = fakes.made.audio.at(-1)!;
+    expect(audio.resume).toHaveBeenCalledTimes(1);
+    const clicks = audio.click.mock.calls.length;
+
+    act(() => result.current.restartFromTop());
+    act(() => result.current.newBreak());
+    expect(result.current.playing).toBe(true);
+    expect(audio.resume).toHaveBeenCalledTimes(2);
+    expect(audio.click.mock.calls.length).toBeGreaterThan(clicks);
+  });
+
+  it('leaves a stopped break stopped, and asks nothing of a later one', async () => {
+    const { result } = await mount();
+    act(() => result.current.restartFromTop());
+    act(() => result.current.newBreak());
+    expect(result.current.playing).toBe(false);
+    act(() => result.current.togglePlay());
+    act(() => result.current.newBreak());
+    expect(fakes.made.audio.at(-1)!.resume).toHaveBeenCalledTimes(1);
   });
 
   it('stays usable without Web Audio', async () => {

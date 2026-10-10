@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { PatternCard } from '@/components/app/community/pattern-card';
+import { SelectMenu } from '@/components/app/ui/select-menu';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { studioCatalogue } from '@/lib/app/breaks/catalogue/data';
@@ -47,7 +48,7 @@ export default async function ExplorePage({ searchParams }: { searchParams: Sear
       ([k, v]) => (v === undefined ? [] : [[k, String(v)]])
     )
   );
-  const select = 'border-input bg-background h-9 rounded-md border px-2 text-sm';
+  const select = 'min-w-40';
 
   return (
     <div className="container mx-auto max-w-5xl space-y-8 px-4 py-10">
@@ -62,63 +63,71 @@ export default async function ExplorePage({ searchParams }: { searchParams: Sear
       <form method="get" className="flex flex-wrap items-end gap-4" aria-label="Filter patterns">
         <div className="flex flex-col gap-1">
           <Label htmlFor="f-style">Style</Label>
-          <select id="f-style" name="style" defaultValue={query.style ?? ''} className={select}>
-            <option value="">Any</option>
-            {catalogue.styleGroups.map(([group, keys]) => (
-              <optgroup key={group} label={group}>
-                {keys.map((k) => (
-                  <option key={k} value={k}>
-                    {label(k)}
-                  </option>
-                ))}
-              </optgroup>
-            ))}
-          </select>
+          <SelectMenu
+            id="f-style"
+            name="style"
+            className={select}
+            defaultValue={query.style ?? ''}
+            groups={[
+              { label: '', options: [{ value: '', label: 'Any' }] },
+              ...catalogue.styleGroups.map(([group, keys]) => ({
+                label: group,
+                options: keys.map((k) => ({ value: k, label: label(k) })),
+              })),
+            ]}
+          />
         </div>
         <div className="flex flex-col gap-1">
           <Label htmlFor="f-meter">Time signature</Label>
-          <select id="f-meter" name="meter" defaultValue={query.meter ?? ''} className={select}>
-            <option value="">Any</option>
-            {METER_KEYS.map((k) => (
-              <option key={k} value={k}>
-                {METERS[k].label}
-              </option>
-            ))}
-          </select>
+          <SelectMenu
+            id="f-meter"
+            name="meter"
+            className={select}
+            defaultValue={query.meter ?? ''}
+            options={[
+              { value: '', label: 'Any' },
+              ...METER_KEYS.map((k) => ({ value: k, label: METERS[k].label })),
+            ]}
+          />
         </div>
         <div className="flex flex-col gap-1">
           <Label htmlFor="f-tempo">Tempo</Label>
-          <select id="f-tempo" name="tempo" defaultValue={query.tempo ?? ''} className={select}>
-            <option value="">Any</option>
-            {Object.entries(TEMPO_LABELS).map(([k, v]) => (
-              <option key={k} value={k}>
-                {v}
-              </option>
-            ))}
-          </select>
+          <SelectMenu
+            id="f-tempo"
+            name="tempo"
+            className={select}
+            defaultValue={query.tempo ?? ''}
+            options={[
+              { value: '', label: 'Any' },
+              ...Object.entries(TEMPO_LABELS).map(([k, v]) => ({ value: k, label: v })),
+            ]}
+          />
         </div>
         <div className="flex flex-col gap-1">
           <Label htmlFor="f-difficulty">Difficulty</Label>
-          <select
+          <SelectMenu
             id="f-difficulty"
             name="difficulty"
-            defaultValue={query.difficulty ? String(query.difficulty) : ''}
             className={select}
-          >
-            <option value="">Any</option>
-            {Object.entries(DIFFICULTY_LABELS).map(([k, v]) => (
-              <option key={k} value={k}>
-                {v}
-              </option>
-            ))}
-          </select>
+            defaultValue={query.difficulty ? String(query.difficulty) : ''}
+            options={[
+              { value: '', label: 'Any' },
+              ...Object.entries(DIFFICULTY_LABELS).map(([k, v]) => ({ value: k, label: v })),
+            ]}
+          />
         </div>
         <div className="flex flex-col gap-1">
           <Label htmlFor="f-sort">Sort by</Label>
-          <select id="f-sort" name="sort" defaultValue={query.sort} className={select}>
-            <option value="newest">Newest</option>
-            <option value="saved">Most saved</option>
-          </select>
+          <SelectMenu
+            id="f-sort"
+            name="sort"
+            className={select}
+            defaultValue={query.sort}
+            options={[
+              { value: 'newest', label: 'Newest' },
+              { value: 'saved', label: 'Most saved' },
+            ]}
+          />
         </div>
         <Button type="submit" variant="secondary">
           Filter

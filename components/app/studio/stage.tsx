@@ -14,9 +14,11 @@ import { Toggle } from '@/components/app/studio/toggle';
 import { type SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { GRID_SIZE, GRID_SIZE_MAX, GRID_SIZE_MIN, STAGE_VIEW } from '@/lib/app/breaks/browser-keys';
 import { publicPath } from '@/lib/app/breaks/community/visibility';
+import { songOf } from '@/lib/app/breaks/songs';
 import { engrave } from '@/lib/app/breaks/engrave';
 import { LAYER_BLURB, LAYER_NAMES } from '@/lib/app/breaks/layers';
 import { parseReferenceLink, type StoredLink } from '@/lib/app/breaks/links';
+import type { Pattern } from '@/lib/app/breaks/types';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 
 /**
@@ -64,6 +66,23 @@ function BasedOn({ credit }: { credit: PatternSharing['basedOn'] }) {
         {credit.title}
       </a>{' '}
       by @{credit.username}
+    </p>
+  );
+}
+
+/**
+ * Which song the pattern plays, for a style that has songs (a drummer playing
+ * Manic Depression rather than "Mitch Mitchell"): the song and what it is.
+ * Read off the pattern's own style, not the picker's, which may already be
+ * set for the next one.
+ */
+function SongLine({ pattern }: { pattern: Pattern }) {
+  const c = useStudio();
+  const song = songOf(c.catalogue.styles[pattern.style]?.params, pattern.song);
+  if (!song) return null;
+  return (
+    <p className="title-credit song-line">
+      Playing style inspired by <b>{song.title}</b> — {song.feel}
     </p>
   );
 }
@@ -194,6 +213,7 @@ export function Stage() {
               <LinkChips links={c.doc.details.links} />
             </div>
             <BasedOn credit={c.doc.sharing.basedOn} />
+            <SongLine pattern={c.view.A} />
             {/* A fixed pattern is never edited in place (D26): the edit is a
                 variation until it is saved, and undo back to the original
                 takes the banner away. */}

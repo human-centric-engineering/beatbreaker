@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import type { Tool } from '@/components/app/shell/tool-rail';
 import { Slider } from '@/components/app/studio/panels/controls';
@@ -10,23 +10,49 @@ import { StylePicker } from '@/components/app/studio/style-picker';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
-import { styleSection } from '@/lib/app/breaks/catalogue/picker';
+import { SelectMenu } from '@/components/app/ui/select-menu';
+import { pickerSections } from '@/lib/app/breaks/catalogue/picker';
 import { HAT_SHAPE } from '@/lib/app/breaks/feel';
 import { BASE_LANES, PERC_INSTS, PERC_KEYS, PERC_LANES, laneName } from '@/lib/app/breaks/lanes';
 import { METERS, METER_KEYS, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
 import { type CustomLanes, resolveLanes } from '@/lib/app/breaks/pattern';
+import { songOf } from '@/lib/app/breaks/songs';
 import { styleIn } from '@/lib/app/breaks/styles';
 
-export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => void }) {
+export function GeneratePanel({
+  onOpenTool,
+  onClose,
+}: {
+  onOpenTool?: (tool: Tool) => void;
+  onClose?: () => void;
+}) {
   const c = useStudio();
+
+  /* Picking a style writes a new break in it and closes the drawer. The break
+     is written once the pick has landed: on a new pattern the style is held as
+     a setting, and a New in the same tick would still read the old one. */
+  const [picked, setPicked] = useState<string | null>(null);
+  const { newBreak, restartFromTop } = c;
+  useEffect(() => {
+    if (!picked) return;
+    // the pick and the style land in one render: anything else is a pick that did not take
+    setPicked(null);
+    if (c.style !== picked) return;
+    // playing, it goes back to the top and counts in to the new groove
+    restartFromTop();
+    newBreak('both');
+    onClose?.();
+  }, [picked, c.style, newBreak, restartFromTop, onClose]);
   const { styles, styleGroups, kits } = c.catalogue;
 
-  const pickerSections = useMemo(
-    () => [styleSection(styles, styleGroups, kits)],
+  const sections = useMemo(
+    () => pickerSections(styles, styleGroups, kits),
     [styles, styleGroups, kits]
   );
   const styleRow = styles[c.style];
   const style = styleRow?.params;
+  // the song on the stage, if it is this style's
+  const nowSong = c.view.A?.style === c.style ? songOf(style, c.view.A.song) : undefined;
   const meter = meterOf(c.meter);
   const pulse = pulseInfo(meter);
 
@@ -48,7 +74,7 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
     const f = style?.feel;
     if (!f) return '';
     if (c.feel === 0) return 'straight — every hit lands on the grid';
-    // one grid step is a sixteenth, in every meter
+    // a feel is written in sixteenths, whatever the meter's step is
     const step = 60 / c.bpm / 4;
     const ms = (v: number | [number, number] | undefined): string => {
       const n = Array.isArray(v) ? v[1] : (v ?? 0);
@@ -92,11 +118,25 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
             <StylePicker
               id="bb-style"
               labelId="bb-style-label"
-              sections={pickerSections}
+              sections={sections}
               value={c.style}
-              onPick={(_section, key) => c.setStyle(key)}
+              onPick={(_section, key) => {
+                c.setStyle(key);
+                setPicked(key);
+              }}
             />
             <div className="hint blurb">{style?.hint}</div>
+            {style?.songs ? (
+              <div className="hint songs">
+                {nowSong ? (
+                  <>
+                    Playing style inspired by <b>{nowSong.title}</b> — {nowSong.feel}.{' '}
+                  </>
+                ) : null}
+                Each New plays one of {style.songs.length} songs, at its own tempo and in its own
+                time: {style.songs.map((sg) => sg.title).join(', ')}.
+              </div>
+            ) : null}
           </div>
 
           {/* The kit is chosen in one place, Sound (E10). Here it is only named,
@@ -116,13 +156,12 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
 
           <div className="field">
             <label htmlFor="bb-meter">Time signature</label>
-            <select id="bb-meter" value={c.meter} onChange={(e) => c.setMeter(e.target.value)}>
-              {METER_KEYS.map((k) => (
-                <option key={k} value={k}>
-                  {METERS[k].label}
-                </option>
-              ))}
-            </select>
+            <SelectMenu
+              id="bb-meter"
+              value={c.meter}
+              onValueChange={c.setMeter}
+              options={METER_KEYS.map((k) => ({ value: k, label: METERS[k].label }))}
+            />
             <div className="hint">
               {meter.hint}
               {pulse ? (
@@ -178,20 +217,15 @@ export function GeneratePanel({ onOpenTool }: { onOpenTool?: (tool: Tool) => voi
               {PERC_LANES.map((L, i) => (
                 <div className="row" key={L}>
                   <label htmlFor={`bb-perc-${L}`}>Perc {i + 1}</label>
-                  <select
+                  <SelectMenu
                     id={`bb-perc-${L}`}
                     value={shownLanes[L] ?? ''}
-                    onChange={(e) =>
-                      c.setCustomLanes({ ...shownLanes, [L]: e.target.value || undefined })
-                    }
-                  >
-                    <option value="">Off</option>
-                    {PERC_KEYS.map((k) => (
-                      <option key={k} value={k}>
-                        {PERC_INSTS[k].label}
-                      </option>
-                    ))}
-                  </select>
+                    onValueChange={(v) => c.setCustomLanes({ ...shownLanes, [L]: v || undefined })}
+                    options={[
+                      { value: '', label: 'Off' },
+                      ...PERC_KEYS.map((k) => ({ value: k, label: PERC_INSTS[k].label })),
+                    ]}
+                  />
                 </div>
               ))}
             </div>

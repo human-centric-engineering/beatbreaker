@@ -21,6 +21,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { KitPanel } from '@/components/app/studio/panels/kit-panel';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { testCatalogue } from '@/tests/helpers/catalogue';
+import { openMenu, pickOption } from '@/tests/helpers/select-menu';
 
 function ToastProbe() {
   const c = useStudio();
@@ -68,14 +69,14 @@ describe('KitPanel', () => {
   it('says the recordings are still decoding for a pack kit with nothing loaded yet', async () => {
     const user = userEvent.setup();
     renderPanel();
-    await user.selectOptions(kitPicker(), 'virtuosity');
+    await pickOption(user, kitPicker(), 'virtuosity');
     expect(await screen.findByText('Decoding the recordings…')).toBeTruthy();
   });
 
   it('says a kit of yours with nothing in it has no samples yet', async () => {
     const user = userEvent.setup();
     renderPanel();
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
     expect(await screen.findByText('No samples in this kit yet')).toBeTruthy();
   });
 
@@ -84,7 +85,7 @@ describe('KitPanel', () => {
     renderPanel();
     expect(screen.queryByText('Samples')).toBeNull();
 
-    await user.selectOptions(kitPicker(), 'yours-a');
+    await pickOption(user, kitPicker(), 'yours-a');
     expect(await screen.findByText('Samples')).toBeTruthy();
     // and the voice knobs switch to the recording's own set: speed, level, room
     // — the hi-hat (the default voice) no longer offers a filter to sweep
@@ -171,11 +172,14 @@ describe('KitPanel', () => {
   });
 
   it('marks a not-yet-ported kit as disabled, with a note in its label', async () => {
+    const user = userEvent.setup();
     renderPanel();
-    await screen.findByLabelText('Kit');
+    const kit = await screen.findByLabelText<HTMLButtonElement>('Kit');
 
-    const option = screen.getByRole('option', { name: /TR-909 — not ported yet/ });
-    expect(option).toBeDisabled();
+    const option = within(await openMenu(user, kit)).getByRole('option', {
+      name: /TR-909 — not ported yet/,
+    });
+    expect(option).toHaveAttribute('aria-disabled', 'true');
   });
 
   it('switches the voice knobs and hint per voice, including the toms/perc "aux" hint', async () => {

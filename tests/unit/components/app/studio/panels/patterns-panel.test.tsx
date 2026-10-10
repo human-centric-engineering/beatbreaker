@@ -35,6 +35,7 @@ import { breakPayload } from '@/lib/app/breaks/share';
 import type { HistoryItem } from '@/lib/validations/history';
 import type { PracticeShelvesView } from '@/lib/validations/pins';
 import { testCatalogue, testStyle } from '@/tests/helpers/catalogue';
+import { pickOption } from '@/tests/helpers/select-menu';
 
 const catalogue = testCatalogue();
 const ENTRIES = catalogue.libraries[0].entries;
@@ -288,7 +289,7 @@ describe('PatternsPanel — All', () => {
     await waitFor(() => expect(listCalls()).toHaveLength(1));
 
     await user.type(screen.getByRole('searchbox', { name: 'Search your patterns' }), 'cold');
-    await user.selectOptions(screen.getByRole('combobox', { name: 'Time signature' }), '7/8');
+    await pickOption(user, screen.getByRole('combobox', { name: 'Time signature' }), '7/8');
 
     await waitFor(() => expect(listCalls()).toHaveLength(2));
     expect(listCalls()[1][1]).toEqual({
@@ -409,13 +410,13 @@ describe('PatternsPanel — Libraries', () => {
     expect(rows().every((r) => r.textContent?.includes(ENTRY.artist))).toBe(true);
     await user.clear(screen.getByRole('searchbox', { name: 'Search the libraries' }));
 
-    await user.selectOptions(screen.getByRole('combobox', { name: 'Time signature' }), '12/8');
+    await pickOption(user, screen.getByRole('combobox', { name: 'Time signature' }), '12/8');
     const twelve = ENTRIES.filter((e) => e.meter === '12/8');
     expect(twelve.length).toBeGreaterThan(0);
     expect(rows()).toHaveLength(twelve.length);
     expect(rows().every((r) => r.textContent?.endsWith('· 12/8'))).toBe(true);
 
-    await user.selectOptions(screen.getByRole('combobox', { name: 'Style' }), ENTRY.styleKey);
+    await pickOption(user, screen.getByRole('combobox', { name: 'Style' }), ENTRY.styleKey);
     expect(rows()).toHaveLength(
       ENTRIES.filter((e) => e.meter === '12/8' && e.styleKey === ENTRY.styleKey).length
     );

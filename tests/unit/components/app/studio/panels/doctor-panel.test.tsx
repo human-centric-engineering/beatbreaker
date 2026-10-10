@@ -109,4 +109,14 @@ describe('DoctorPanel', () => {
     await user.click(screen.getByRole('button', { name: '↶ Undo' }));
     expect(document.querySelectorAll(NOTES).length).toBe(before);
   });
+
+  it('regenerates the section being edited, and says undo brings the old take back', async () => {
+    const user = userEvent.setup();
+    renderPanel();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+
+    await user.click(screen.getByRole('button', { name: '↻ Regenerate' }));
+    expect(screen.getByRole('status').textContent).toMatch(/^Section A regenerated/);
+    expect(screen.getByRole('button', { name: '↶ Undo' })).toBeEnabled();
+  });
 });

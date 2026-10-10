@@ -11,6 +11,7 @@ import {
 import { Segmented } from '@/components/app/studio/segmented';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
+import { SelectMenu } from '@/components/app/ui/select-menu';
 import { HUMANISE_MODES, type HumaniseMode } from '@/lib/app/breaks/humanise';
 import {
   MASTER_PARAM_DEFS,
@@ -78,18 +79,20 @@ export function KitPanel() {
         <div className="card-bd">
           <div className="field">
             <label htmlFor="bb-kit">Kit</label>
-            <select id="bb-kit" value={c.kit} onChange={(e) => c.setKit(e.target.value)}>
-              {kitGroups.map((group) => (
-                <optgroup key={group.label} label={group.label}>
-                  {group.keys.map((k) => (
-                    <option key={k} value={k} disabled={!kitIsPlayable(kits[k])}>
-                      {kits[k].label}
-                      {kitIsPlayable(kits[k]) ? '' : ' — not ported yet'}
-                    </option>
-                  ))}
-                </optgroup>
-              ))}
-            </select>
+            <SelectMenu
+              id="bb-kit"
+              value={c.kit}
+              onValueChange={c.setKit}
+              groups={kitGroups.map((group) => ({
+                label: group.label,
+                options: group.keys.map((k) => ({
+                  value: k,
+                  label: kits[k].label,
+                  disabled: !kitIsPlayable(kits[k]),
+                  note: kitIsPlayable(kits[k]) ? undefined : 'not ported yet',
+                })),
+              }))}
+            />
             <div className="hint blurb">{kits[c.kit]?.hint}</div>
             {kits[c.kit]?.credit ? <div className="hint mono">{kits[c.kit].credit}</div> : null}
             {kitStatus ? <div className="hint mono">{kitStatus}</div> : null}

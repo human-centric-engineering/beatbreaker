@@ -381,7 +381,12 @@ export function mixLanes(...lanes: (LaneKey[] | undefined)[]): LaneKey[] {
 export function laneRoster(st: Style | undefined): LaneKey[] {
   const out = BASE_LANES.slice();
   if (st?.toms) out.push(...TOM_LANES);
-  if (st?.foot || st?.backbeatLane === FOOT_LANE) out.push(FOOT_LANE);
+  /* A figure or fill that writes the foot needs the lane too, or its chicks
+     are generated and never shown or heard: Straight Ahead keeps 8ths on it. */
+  const footFigure = [...(st?.figures ?? []), ...(st?.fills ?? [])].some(
+    ([f]) => !!f.hf?.replace(/\./g, '')
+  );
+  if (st?.foot || st?.backbeatLane === FOOT_LANE || footFigure) out.push(FOOT_LANE);
   (st?.perc ?? []).forEach((_, i) => {
     if (PERC_LANES[i]) out.push(PERC_LANES[i]);
   });

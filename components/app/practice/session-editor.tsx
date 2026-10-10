@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { NumberField } from '@/components/app/practice/number-field';
 import { ShareSession } from '@/components/app/practice/share-session';
+import { SelectMenu } from '@/components/app/ui/select-menu';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -48,9 +49,6 @@ import {
 } from '@/lib/validations/practice-sessions';
 
 const COUNT_IN_LABEL = ['None', 'One bar', 'Two bars'];
-
-const selectClass =
-  'border-input bg-background h-9 rounded-md border px-2 text-sm disabled:opacity-50';
 
 /** The session's own fields, as the editor holds them. */
 interface Fields {
@@ -390,18 +388,14 @@ export function SessionEditor({ initial }: { initial: SessionView }) {
               one bar.
             </FieldHelp>
           </Label>
-          <select
+          <SelectMenu
             id="session-count-in"
-            className={selectClass}
-            value={fields.countIn}
-            onChange={(e) => set('countIn', Number(e.target.value))}
-          >
-            {COUNT_IN_LABEL.slice(COUNT_IN_RANGE.min, COUNT_IN_RANGE.max + 1).map((label, n) => (
-              <option key={label} value={n}>
-                {label}
-              </option>
-            ))}
-          </select>
+            value={String(fields.countIn)}
+            onValueChange={(v) => set('countIn', Number(v))}
+            options={COUNT_IN_LABEL.slice(COUNT_IN_RANGE.min, COUNT_IN_RANGE.max + 1).map(
+              (label, n) => ({ value: String(n), label })
+            )}
+          />
         </div>
       </section>
 
@@ -518,18 +512,15 @@ export function SessionEditor({ initial }: { initial: SessionView }) {
                         Your best speed is kept per layer, so the target follows it.
                       </FieldHelp>
                     </Label>
-                    <select
+                    <SelectMenu
                       id={`item-${item.id}-level`}
-                      className={selectClass}
-                      value={item.level}
-                      onChange={(e) => patch(index, { level: Number(e.target.value) })}
-                    >
-                      {Object.keys(LAYER_NAMES).map((level) => (
-                        <option key={level} value={level}>
-                          {layerName(Number(level))}
-                        </option>
-                      ))}
-                    </select>
+                      value={String(item.level)}
+                      onValueChange={(v) => patch(index, { level: Number(v) })}
+                      options={Object.keys(LAYER_NAMES).map((level) => ({
+                        value: level,
+                        label: layerName(Number(level)),
+                      }))}
+                    />
                   </div>
                   <div className="space-y-1">
                     <Label htmlFor={`item-${item.id}-goal`} className="flex items-center gap-1">
@@ -703,23 +694,17 @@ function ClimbFields({
             loops. Default: steady.
           </FieldHelp>
         </Label>
-        <select
+        <SelectMenu
           id={`${prefix}-shape`}
-          className={selectClass}
           value={value.climbShape ?? ''}
-          onChange={(e) =>
-            onChange('climbShape', CLIMB_SHAPES.find((s) => s === e.target.value) ?? null)
-          }
-        >
-          {own ? (
-            <option value="">Session&apos;s ({SHAPE_LABEL[fallback.climbShape]})</option>
-          ) : null}
-          {CLIMB_SHAPES.map((s) => (
-            <option key={s} value={s}>
-              {SHAPE_LABEL[s]}
-            </option>
-          ))}
-        </select>
+          onValueChange={(v) => onChange('climbShape', CLIMB_SHAPES.find((s) => s === v) ?? null)}
+          options={[
+            ...(own
+              ? [{ value: '', label: `Session's (${SHAPE_LABEL[fallback.climbShape]})` }]
+              : []),
+            ...CLIMB_SHAPES.map((s) => ({ value: s, label: SHAPE_LABEL[s] })),
+          ]}
+        />
       </div>
       {shape === 'steps' ? (
         <div className="space-y-1">

@@ -284,8 +284,8 @@ export function kitIsPlayable(kit: Kit | undefined | null): boolean {
 export const KIT_GROUP_LABELS: Record<KitEngine, string> = {
   synth: 'Synthesised',
   drift: 'Drum machines',
-  pack: 'Recordings',
-  user: 'Recordings',
+  pack: 'Sampled Recordings',
+  user: 'Sampled Recordings',
 };
 
 /**

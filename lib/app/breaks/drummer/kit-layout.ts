@@ -107,10 +107,11 @@ export const PIECES: Record<PieceId, Piece> = {
     depth: 0,
     tilt: [0.32, -0.08],
   },
+  // the cowbell's mount: between the high and mid toms, a little above and behind them
   perc1: {
     id: 'perc1',
     kind: 'perc',
-    centre: [0.42, 0.9, -0.5],
+    centre: [0.03, 1.0, -0.64],
     radius: 0.06,
     depth: 0.12,
     tilt: [0.2, 0],

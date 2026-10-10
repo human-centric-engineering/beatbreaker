@@ -76,10 +76,14 @@ whether CSS can decide it instead.
 ### Non-modal, on purpose
 
 The drawer and the sheet both keep the chart live, playback running and the
-transport reachable. `onInteractOutside` is prevented, so clicking the chart does
-not dismiss what you are working in; `Esc` and the ✕ close it, and focus goes
-back to whatever opened it — the rail tab, or the header's tools button on a
-phone, where there is no rail.
+transport reachable. A press outside is prevented (`onPointerDownOutside`), so the
+transport, the header and the rail's tabs (which toggle drawers themselves) do
+not dismiss what you are working in, and nor does a dropdown's list, which opens
+outside the drawer. **A press on the main screen (`.studio-stage`, the chart)
+closes it**, and focus stays where you pressed. `Esc` and the ✕ close it too,
+and focus goes back to whatever opened it — the rail tab, or the header's tools
+button on a phone, where there is no rail. Picking a style closes the Generate
+drawer as well.
 
 Spike A measured the two things that mattered: the stage's bounding box is
 identical open and closed at 1440/1024/768/390, and 30 open/close cycles while

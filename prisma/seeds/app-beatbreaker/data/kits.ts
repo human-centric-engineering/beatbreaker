@@ -1,7 +1,7 @@
 /**
  * The kit table — seed data.
  *
- * 20 kits across three engines, each a plain parameter object plus an engine
+ * 24 kits across three engines, each a plain parameter object plus an engine
  * name, so a kit is a row rather than a branch in playback and a user's tuning
  * is a saved override of these numbers.
  *
@@ -323,6 +323,77 @@ export const KITS: Record<string, Kit> = {
     c: { rate: 1, level: 0.86, room: 0.18 },
     t: { tune: 90, decay: 0.54, tone: 0.38, room: 0.14 },
     p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.12 },
+  },
+
+  sixties: {
+    label: 'Sixties Ludwig',
+    engine: 'pack',
+    pack: 'smdrums',
+    trim: 1,
+    hint: "SM Drums' 1960s Ludwig with the top rolled off a little and its thin crashes left to wash: ringing toms, a bright snare, loose hats. Ringo Starr's early songs play it.",
+    credit:
+      'SM Drums by Scott McLean, Tod Stillwell and Suleiman Ali · free for any use, by their grant. Splash from Salamander Drumkit by Alexander Holm · public domain. Mixed to mono, trimmed and re-encoded for the web.',
+    master: { lp: 13000, drive: 1.14, room: 0.18 },
+    k: { rate: 1.02, level: 0.95, room: 0.05 },
+    s: { rate: 1.03, level: 0.95, room: 0.16 },
+    h: { rate: 1, level: 0.9, room: 0.1 },
+    r: { rate: 1, level: 0.88, room: 0.16 },
+    c: { rate: 1, level: 0.86, room: 0.22 },
+    t: { tune: 90, decay: 0.54, tone: 0.38, room: 0.14 },
+    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.12 },
+  },
+  teatowel: {
+    label: 'Damped and dead',
+    engine: 'pack',
+    pack: 'gogodze',
+    trim: 1,
+    hint: "Gogodze's damped kick and deadened toms, played a shade slower so they sit low, with the room taken out: short, dark and punchy, like drums with towels over them. Its cymbals are Big Rusty's. Ringo Starr's later songs play it.",
+    credit:
+      'Gogodze Phu Vol II by Karoryfer Lecolds · CC0 1.0 (public domain). Ride, crashes and china from Big Rusty Drums by Karoryfer Samples · CC0 1.0; splash from Salamander Drumkit by Alexander Holm · public domain. Mixed to mono, trimmed and re-encoded for the web; kick, snare and toms played slower.',
+    master: { lp: 11000, drive: 1.2, room: 0.04 },
+    k: { rate: 0.96, level: 1.0, room: 0.0 },
+    s: { rate: 0.94, level: 0.95, room: 0.04 },
+    h: { rate: 1, level: 0.88, room: 0.03 },
+    r: { rate: 1, level: 0.8, room: 0.06 },
+    c: { rate: 1, level: 0.8, room: 0.08 },
+    t: { tune: 84, decay: 0.48, tone: 0.3, room: 0.12 },
+    p: { tune: 0.96, level: 0.9, tone: 0.9, room: 0.12 },
+  },
+
+  police: {
+    label: 'Bright and tight',
+    engine: 'pack',
+    pack: 'drs',
+    trim: 1,
+    hint: 'The DRS kit with its snare played faster, so it sits high and cracks like a brass snare cranked tight, and its hats and Paiste cymbals sped up a little to speak short and small. The Stewart Copeland style plays it.',
+    credit:
+      'DRSKit by Lars and Deva Muldjord (DrumGizmo), on a kit lent by DRSDrums · CC BY 4.0. Drum samples provided by DrumGizmo.org. China and splash from Salamander Drumkit by Alexander Holm · public domain. Close mics, overheads and room mixed to mono, trimmed and re-encoded for the web; snare, hats and cymbals played faster.',
+    master: { lp: 18000, drive: 1.08, room: 0.1 },
+    k: { rate: 1.04, level: 0.95, room: 0.03 },
+    s: { rate: 1.12, level: 0.95, room: 0.1 },
+    h: { rate: 1.04, level: 0.9, room: 0.06 },
+    r: { rate: 1.04, level: 0.88, room: 0.12 },
+    c: { rate: 1.08, level: 0.86, room: 0.14 },
+    t: { tune: 90, decay: 0.54, tone: 0.38, room: 0.14 },
+    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.12 },
+  },
+
+  london: {
+    label: 'Small and dry',
+    engine: 'pack',
+    pack: 'gogodze',
+    trim: 1,
+    hint: "Gogodze's damped, lo-fi drums with the snare played faster so it sits tight and high, pushed into a little more distortion, as if recorded on two mics. Its trashy crashes and china are Big Rusty's. The Yussef Dayes style plays it.",
+    credit:
+      'Gogodze Phu Vol II by Karoryfer Lecolds · CC0 1.0 (public domain). Ride, crashes and china from Big Rusty Drums by Karoryfer Samples · CC0 1.0; splash from Salamander Drumkit by Alexander Holm · public domain. Mixed to mono, trimmed and re-encoded for the web; snare played faster.',
+    master: { lp: 13000, drive: 1.45, room: 0.08 },
+    k: { rate: 1.02, level: 1.0, room: 0.02 },
+    s: { rate: 1.16, level: 0.95, room: 0.08 },
+    h: { rate: 1.04, level: 0.88, room: 0.05 },
+    r: { rate: 1.0, level: 0.8, room: 0.1 },
+    c: { rate: 1.06, level: 0.8, room: 0.12 },
+    t: { tune: 84, decay: 0.48, tone: 0.3, room: 0.12 },
+    p: { tune: 0.96, level: 0.9, tone: 0.9, room: 0.12 },
   },
 
   osdk: {

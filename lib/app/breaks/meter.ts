@@ -3,11 +3,13 @@ import type { Group, Meter } from '@/lib/app/breaks/types';
 /**
  * Meters, in terms the grid understands.
  *
- * One grid step is always a sixteenth note, whatever the meter, so the
- * transport, the swing and the MIDI export never have to care which one is
- * running. What a meter decides is how many steps a bar holds and how they
- * group: `group` is the pulse grouping in *notated beats*, which is why 6/8 is
- * `[3, 3]` — two dotted-quarter pulses — rather than six separate beats.
+ * One grid step is a sixteenth note in every meter but one: `4/4-6`, 4/4
+ * written in sixteenth-note triplets (sextuplets), six steps to the beat,
+ * which is where a Bonham triplet lives. Whatever turns steps into time asks
+ * {@link stepsPerQuarter} rather than assuming four. What a meter decides is
+ * how many steps a bar holds and how they group: `group` is the pulse grouping
+ * in *notated beats*, which is why 6/8 is `[3, 3]` — two dotted-quarter
+ * pulses — rather than six separate beats.
  */
 export const METERS: Record<string, Meter> = {
   '4/4': {
@@ -90,6 +92,14 @@ export const METERS: Record<string, Meter> = {
     group: [3, 3, 3],
     hint: 'Compound three. Three dotted-quarter pulses, counted 1-2-3 4-5-6 7-8-9.',
   },
+  '11/8': {
+    label: '11/8',
+    num: 11,
+    den: 8,
+    sub: 2,
+    group: [3, 3, 3, 2],
+    hint: 'Three pulses of three and one of two, counted 1-2-3 1-2-3 1-2-3 1-2. Here Comes the Sun goes there in its bridge.',
+  },
   '12/8': {
     label: '12/8',
     num: 12,
@@ -97,6 +107,22 @@ export const METERS: Record<string, Meter> = {
     sub: 2,
     group: [3, 3, 3, 3],
     hint: 'Compound four — the blues and gospel meter. The triplets are written in, so leave Swing at zero.',
+  },
+  '4/4-6': {
+    label: '4/4 sextuplets',
+    num: 4,
+    den: 4,
+    sub: 6,
+    group: [1, 1, 1, 1],
+    hint: 'Four quarters, each split in six: sixteenth-note triplets. Eighths and eighth-note triplets fit; straight sixteenths do not. The Bonham triplet lives here. Leave Swing at zero.',
+  },
+  '4/4-8': {
+    label: '4/4 in eighths',
+    num: 4,
+    den: 4,
+    sub: 2,
+    group: [1, 1, 1, 1],
+    hint: 'Four quarters, each split in two: eighth notes and nothing shorter, which is how fast swing is written. The tempo goes to 380. Swing works on the eighths.',
   },
   '15/8': {
     label: '15/8',
@@ -122,6 +148,30 @@ export const M44 = METERS[DEFAULT_METER];
 
 export function stepsOf(m: Meter): number {
   return m.num * m.sub;
+}
+
+/**
+ * Grid steps to a quarter note: 4 in every meter whose step is a sixteenth
+ * (simple time at 4 a beat, compound at 2 an eighth), 6 in sextuplet 4/4. The
+ * tempo always counts quarters, so a step lasts `60 / bpm / stepsPerQuarter`.
+ */
+export function stepsPerQuarter(m: Meter): number {
+  return (m.sub * m.den) / 4;
+}
+
+/** Seconds a grid step lasts at `bpm` quarters a minute. */
+export function stepSeconds(m: Meter, bpm: number): number {
+  return 60 / bpm / stepsPerQuarter(m);
+}
+
+/** Whether a meter's steps are sixteenth-note triplets: six to the quarter. */
+export function isSextuplet(m: Meter): boolean {
+  return stepsPerQuarter(m) === 6;
+}
+
+/** Whether a meter's steps are eighth notes: two to the quarter. */
+export function isEighths(m: Meter): boolean {
+  return stepsPerQuarter(m) === 2;
 }
 
 /**
@@ -170,7 +220,8 @@ export function pulseInfo(m: Meter): { steps: number; label: string } | null {
   const g = m.group;
   for (let i = 1; i < g.length; i++) if (g[i] !== g[0]) return null;
   const steps = g[0] * m.sub;
-  if (steps === 4) return null; // the pulse already is the quarter
+  // the pulse already is the quarter, however many steps it is split into
+  if (steps === stepsPerQuarter(m)) return null;
   return {
     steps,
     label: steps === 6 ? 'dotted quarter' : steps === 2 ? 'eighth' : `${steps}-sixteenth pulse`,
@@ -185,6 +236,7 @@ export function countLabelsOf(m: Meter): string[] {
   for (let b = 0; b < m.num; b++) {
     const n = String(b + 1);
     if (m.sub === 4) out.push(n, 'e', '+', 'a');
+    else if (m.sub === 6) out.push(n, 'la', 'li', '+', 'la', 'li');
     else if (m.sub === 2) out.push(n, '+');
     else out.push(n);
   }
@@ -210,10 +262,23 @@ export function remapStep(step: number, from: Meter, to: Meter): number {
   const gi = groupAt(from, step);
   if (gi >= tg.length) return -1;
   let off = step - fg[gi].start;
+  /* Into sextuplets from sixteenths, and back: the beat and its "and" keep
+     their places, and an "e" or an "a" goes to the triplet partial nearest it
+     (the way a swung sixteenth does). From sextuplets, each step goes to the
+     sixteenth nearest it. */
+  if (to.sub === 6 && from.sub === 4) off = [0, 2, 3, 4][off] ?? -1;
+  else if (to.sub === 4 && from.sub === 6) off = [0, 1, 1, 2, 3, 3][off] ?? -1;
+  /* Into eighths, the beat and its "and" keep their places and the "e" and
+     the "a" have nowhere to go; out of them, each eighth is two sixteenths. */
+  else if (isEighths(to) && from.sub === 4) off = [0, -1, 1, -1][off] ?? -1;
+  else if (isEighths(to) && from.sub === 6) off = [0, -1, -1, 1, -1, -1][off] ?? -1;
+  else if (isEighths(from) && to.sub === 4) off *= 2;
+  else if (isEighths(from) && to.sub === 6) off *= 3;
   /* A compound pulse is three eighths, not four sixteenths — the odd steps
      between them are not places a triplet groove has. Anything landing there is
      pulled to the nearest partial rather than left off the grid. */
-  if (to.sub === 2) off = Math.min(tg[gi].size - 2, Math.round(off / 2) * 2);
+  if (to.sub === 2 && !isEighths(to) && !isEighths(from))
+    off = Math.min(tg[gi].size - 2, Math.round(off / 2) * 2);
   if (off >= tg[gi].size || off < 0) return -1;
   return tg[gi].start + off;
 }

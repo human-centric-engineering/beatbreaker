@@ -201,13 +201,13 @@ describe('readMidi — what other software writes', () => {
     expect(
       readMidi(
         smf([
-          [0, 0xff, 0x58, 4, 11, 3, 24, 8],
+          [0, 0xff, 0x58, 4, 13, 3, 24, 8],
           [0, ...ON(9, 36, 100)],
         ])
       )
     ).toMatchObject({
       ok: false,
-      error: expect.stringContaining('the file is in 11/8'),
+      error: expect.stringContaining('the file is in 13/8'),
     });
     expect(readMidi(smf([]))).toEqual({ ok: false, error: 'there are no notes in that file' });
     const whole = smf([[0, ...ON(9, 36, 100)]]);
