@@ -21,6 +21,7 @@ import {
   searchSection,
   spineOf,
 } from '@/lib/app/breaks/catalogue/picker';
+import { unlistedStyleLabel } from '@/lib/app/breaks/library';
 
 /**
  * The style picker: a record crate.
@@ -86,7 +87,7 @@ export function StylePicker({
           style={spineStyle(current?.group)}
           // what it is and what it is set to; its content is a sleeve and a line of facts
           aria-labelledby={labelId ? `${labelId} ${valueId}` : undefined}
-          aria-label={labelId ? undefined : `Style: ${current?.label ?? value}`}
+          aria-label={labelId ? undefined : `Style: ${current?.label ?? unlistedStyleLabel(value)}`}
           aria-haspopup="dialog"
         >
           <span className="pick-sleeve" aria-hidden="true">
@@ -94,7 +95,7 @@ export function StylePicker({
           </span>
           <span className="pick-trigger-tx">
             <span id={valueId} className="pick-trigger-label">
-              {current?.label ?? value}
+              {current?.label ?? unlistedStyleLabel(value)}
             </span>
             <span className="pick-trigger-meta">
               {current ? [current.group, ...current.meta.slice(0, 2)].join(' · ') : 'Pick a style'}

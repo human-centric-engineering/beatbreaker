@@ -13,18 +13,20 @@ import {
 } from '@/lib/app/breaks/catalogue/schemas';
 import { KIT_GROUP_LABELS, kitEngine } from '@/lib/app/breaks/kit';
 import { KIT_CREDITS } from '@/lib/app/breaks/kit-credits.generated';
-import { patternFromLibrary } from '@/lib/app/breaks/library';
+import { type LibraryItem, patternFromLibrary } from '@/lib/app/breaks/library';
 import { packPattern } from '@/lib/app/breaks/share';
 import type { ResolvedStyle } from '@/lib/app/breaks/types';
 import { KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
+import { RUDIMENTS } from '@/prisma/seeds/app-beatbreaker/data/rudiments';
 import { STYLES, STYLE_GROUPS } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import type { SeedContext, SeedUnit } from '@/prisma/runner';
 import { type Manifest, derivePieces, packPieceMap } from '@/scripts/kits/pieces';
 import { RECIPES } from '@/scripts/kits/recipes';
 
 /**
- * The catalogue: 70 styles, 47 famous breaks, 24 kits and the pieces they are made of.
+ * The catalogue: 70 styles, 47 famous breaks, 40 rudiments, 24 kits and the
+ * pieces they are made of.
  *
  * This is where content became data (D13). The three tables it fills used to be
  * three TypeScript constants compiled into the app; the constants are still the
@@ -66,8 +68,15 @@ function shelfOf(key: string): { group: string; position: number } {
   return { group: 'Other', position: 999 };
 }
 
-/** The one library the famous breaks live in. */
-const LIBRARY_KEY = 'famous-breaks';
+/** A system library and the data file it is seeded from. */
+interface SeededLibrary {
+  key: string;
+  title: string;
+  description: string;
+  /** Its place among the libraries: the famous breaks first. */
+  position: number;
+  items: LibraryItem[];
+}
 
 /**
  * Find a system row by key.
@@ -195,19 +204,15 @@ const PARKED = 100_000;
 
 async function seedLibrary(
   { prisma, logger }: SeedContext,
-  styles: Map<string, ResolvedStyle>
+  styles: Map<string, ResolvedStyle>,
+  library: SeededLibrary
 ): Promise<void> {
+  const { title, description, position } = library;
   const libraryId = await upsertSystemRow(
     prisma.patternLibrary as never,
-    LIBRARY_KEY,
-    {
-      key: LIBRARY_KEY,
-      title: 'Famous breaks',
-      description: LIBRARY_DESCRIPTION,
-      visibility: 'system',
-      position: 0,
-    },
-    { title: 'Famous breaks', description: LIBRARY_DESCRIPTION }
+    library.key,
+    { key: library.key, title, description, visibility: 'system', position },
+    { title, description }
   );
 
   /* Entries are matched by `seedKey`, not by position. A pin holds an entry's
@@ -215,7 +220,7 @@ async function seedLibrary(
      row — and every pin on it — a different break. Two titles with one slug
      would make two data-file entries fight over one row, so that stops the
      seed rather than shipping. */
-  const keys = LIBRARY.map((item) => seedKeyOf(item.title));
+  const keys = library.items.map((item) => seedKeyOf(item.title));
   const clash = keys.find((key, i) => keys.indexOf(key) !== i);
   if (clash) throw new Error(`Two library entries share the seed key "${clash}"`);
 
@@ -245,7 +250,7 @@ async function seedLibrary(
     });
   }
 
-  for (const [index, item] of LIBRARY.entries()) {
+  for (const [index, item] of library.items.entries()) {
     const style = styles.get(item.style);
     /* The index is the seed the pattern is built from, so an entry's notes are
        stable across re-seeds — `patternFromLibrary` uses `1000 + index` and
@@ -272,7 +277,7 @@ async function seedLibrary(
     });
   }
 
-  logger.info(`🥁 Famous breaks: ${LIBRARY.length} entries${count ? ` (${count} removed)` : ''}`);
+  logger.info(`🥁 ${title}: ${library.items.length} entries${count ? ` (${count} removed)` : ''}`);
 }
 
 /**
@@ -378,9 +383,27 @@ async function seedKits({ prisma, logger }: SeedContext, manifest: Manifest): Pr
 
 /** What the picker calls each engine. `pack` and `user` share a heading. */
 
-const LIBRARY_DESCRIPTION =
-  'The main groove off each record, a bar or two of it, in the meter it was played in. ' +
-  'Practice approximations — the thing you would be taught, not a transcription of a particular take.';
+/** The system libraries, in the order the drawer shows them. */
+const LIBRARIES: SeededLibrary[] = [
+  {
+    key: 'famous-breaks',
+    title: 'Famous breaks',
+    description:
+      'The main groove off each record, a bar or two of it, in the meter it was played in. ' +
+      'Practice approximations — the thing you would be taught, not a transcription of a particular take.',
+    position: 0,
+    items: LIBRARY,
+  },
+  {
+    key: 'rudiments',
+    title: 'Rudiments',
+    description:
+      'The forty International Drum Rudiments, on the snare with the sticking written under every note. ' +
+      'The rolls are written open; a practice session takes them from open to closed.',
+    position: 1,
+    items: RUDIMENTS,
+  },
+];
 
 /** The manifest: each pack's slots, read through the slot schema. */
 const manifestSchema = z.record(
@@ -431,6 +454,7 @@ const unit: SeedUnit = {
   hashInputs: [
     'data/styles.ts',
     'data/library.ts',
+    'data/rudiments.ts',
     'data/kits.ts',
     '../../../public/kits/manifest.json',
     '../../../scripts/kits/pieces.ts',
@@ -444,7 +468,7 @@ const unit: SeedUnit = {
   async run(ctx) {
     ctx.logger.info('🥁 Seeding the BeatBreaker catalogue...');
     const styles = await seedStyles(ctx);
-    await seedLibrary(ctx, styles);
+    for (const library of LIBRARIES) await seedLibrary(ctx, styles, library);
     const manifest = await readManifest();
     await seedPieces(ctx, manifest);
     await seedKits(ctx, manifest);

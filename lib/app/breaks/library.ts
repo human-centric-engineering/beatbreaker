@@ -1,11 +1,18 @@
 import { BASE_LANES, FOOT_LANE, TOM_LANES, percRoster } from '@/lib/app/breaks/lanes';
 import { DEFAULT_METER, METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
-import { type BarSpec, parseBar, styleAttrs } from '@/lib/app/breaks/pattern';
-import type { CymbalVoice, LaneKey, Pattern, ResolvedStyle } from '@/lib/app/breaks/types';
+import {
+  type BarSpec,
+  parseBar,
+  stickingRow,
+  styleAttrs,
+  tidySticking,
+} from '@/lib/app/breaks/pattern';
+import type { Bar, CymbalVoice, LaneKey, Pattern, ResolvedStyle } from '@/lib/app/breaks/types';
 
 /**
- * Famous breaks — the main groove off each record, a bar or two of it, in the
- * meter it was played in.
+ * The system pattern libraries: the famous breaks — the main groove off each
+ * record, a bar or two of it, in the meter it was played in — and the
+ * rudiments (Phase 10), the snare alone with its sticking written.
  *
  * **The entries themselves are not here any more.** They are `LibraryEntry`
  * rows, seeded from `prisma/seeds/app-beatbreaker/data/library.ts` (D13), and
@@ -19,6 +26,18 @@ import type { CymbalVoice, LaneKey, Pattern, ResolvedStyle } from '@/lib/app/bre
  * transcription of a particular take. The feel studies at the bottom of the
  * table are written rather than transcribed, and say so in their `artist` line.
  */
+/**
+ * The style key every rudiment carries (D45). It is not a style row: there is
+ * nothing to generate, regenerate or doctor a rudiment from, and the Studio
+ * offers none of them for it.
+ */
+export const RUDIMENT_STYLE = 'rudiment';
+
+/** What a style key reads as where the catalogue has no row for it: the key, or "Rudiment". */
+export function unlistedStyleLabel(key: string): string {
+  return key === RUDIMENT_STYLE ? 'Rudiment' : key;
+}
+
 export interface LibraryItem {
   /** Heading it files under in the picker. */
   group: string;
@@ -35,6 +54,18 @@ export interface LibraryItem {
   meter?: string;
   /** Where the style's own backbeats are in the wrong meter for this entry. */
   backbeats?: number[];
+  /**
+   * The lanes it is written on, where that is not the kit: a rudiment is the
+   * snare alone. Without it, the five base lanes and whatever toms or foot
+   * the bars write.
+   */
+  lanes?: LaneKey[];
+  /**
+   * Every layer plays it whole (D45): each note is pinned at layer 1, so the
+   * layer reduction thins and plains nothing. A rudiment's accents and
+   * flams are the rudiment, not detail to arrive later.
+   */
+  fixed?: boolean;
   bars: BarSpec[];
 }
 
@@ -65,10 +96,14 @@ export function patternFromLibrary(
   const steps = stepsOf(meterOf(meter));
   const params = style?.params;
 
-  const lanes: LaneKey[] = BASE_LANES.slice();
-  for (const L of [...TOM_LANES, FOOT_LANE]) {
-    if (item.bars.some((spec) => spec[L as keyof BarSpec])) lanes.push(L);
+  const lanes: LaneKey[] = item.lanes?.length ? item.lanes.slice() : BASE_LANES.slice();
+  if (!item.lanes?.length) {
+    for (const L of [...TOM_LANES, FOOT_LANE]) {
+      if (item.bars.some((spec) => spec[L as keyof BarSpec])) lanes.push(L);
+    }
   }
+  const bars = item.bars.map((spec) => parseBar(spec, steps));
+  const sticking = tidySticking(item.bars.map((spec) => stickingRow(spec.hands, steps)));
 
   return {
     name: item.title,
@@ -87,7 +122,17 @@ export function patternFromLibrary(
     bbLane: 's',
     hasRide: false,
     hasHat: false,
-    pins: null,
-    bars: item.bars.map((spec) => parseBar(spec, steps)),
+    pins: item.fixed ? bars.map((bar) => pinAll(bar)) : null,
+    ...(sticking ? { sticking } : {}),
+    bars,
   };
+}
+
+/** Every note of a bar pinned at layer 1, so every layer keeps it. */
+function pinAll(bar: Bar): Partial<Record<LaneKey, number[]>> {
+  const pins: Partial<Record<LaneKey, number[]>> = {};
+  for (const L of Object.keys(bar) as LaneKey[]) {
+    if (bar[L].some(Boolean)) pins[L] = bar[L].map((v) => (v ? 1 : 0));
+  }
+  return pins;
 }

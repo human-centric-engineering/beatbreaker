@@ -22,7 +22,8 @@ import { encodeBreak } from '@/lib/app/breaks/share';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { withYourKits } from '@/lib/app/breaks/samples/your-kit';
-import { testCatalogue } from '@/tests/helpers/catalogue';
+import { testCatalogue, testRudiments } from '@/tests/helpers/catalogue';
+import { RUDIMENTS } from '@/prisma/seeds/app-beatbreaker/data/rudiments';
 
 const fakes = vi.hoisted(() => {
   // `outputLatency`/`baseLatency` are optional: most tests never set them,
@@ -154,6 +155,9 @@ const catalogue = withYourKits(testCatalogue(), [
     slots: { k: { sampleId: 'csmp00000000000000000001', name: 'kick.wav', audioUrl: '' } },
   },
 ]);
+
+/* The same, with the rudiments beside the famous breaks (Phase 10). */
+const withRudiments = { ...catalogue, libraries: [...catalogue.libraries, testRudiments()] };
 
 async function mount(initial?: InitialPattern, options?: ConsoleOptions) {
   const hook = renderHook(() => useBreakConsole(catalogue, initial, options));
@@ -409,7 +413,14 @@ describe('generating and editing', () => {
      never had one (D45) — is not doctored in whatever the picker fell back to. */
   it('leaves a section alone, and says so, when its style is not in the catalogue', async () => {
     const A = {
-      ...generatePattern({ style: catalogue.styles.funk, meter: '4/4', seed: 5, bars: 1 }),
+      ...generatePattern({
+        style: catalogue.styles.funk,
+        meter: '4/4',
+        seed: 5,
+        bars: 1,
+        density: 50,
+        ghosts: 50,
+      }),
       style: 'rudiment',
     };
     const payload = sharePayloadSchema.parse(
@@ -540,6 +551,21 @@ describe('generating and editing', () => {
     const at = result.current.patterns;
     act(() => result.current.loadLibraryEntry('no-such-entry'));
     expect(result.current.patterns).toBe(at);
+  });
+
+  it('opens a rudiment with its sticking, B a copy of A, and no style to write it in', async () => {
+    const hook = renderHook(() => useBreakConsole(withRudiments));
+    await waitFor(() => expect(hook.result.current.ready).toBe(true));
+    const { result } = hook;
+    const paradiddle = RUDIMENTS.findIndex((r) => r.title === 'Single Paradiddle');
+    act(() => result.current.loadLibraryEntry(`rudiment-${paradiddle}`));
+    const { A, B } = result.current.patterns;
+    expect(A?.name).toBe('Single Paradiddle');
+    expect(A?.lanes).toEqual(['s']);
+    expect(A?.sticking).toEqual(['RLRRLRLLRLRRLRLL']);
+    expect(B?.bars).toEqual(A?.bars);
+    expect(B?.sticking).toEqual(A?.sticking);
+    expect(result.current.regenerate()).toBe(false);
   });
 
   it('turns the toms on and off without throwing the kit lanes away', async () => {

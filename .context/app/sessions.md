@@ -29,7 +29,8 @@ time split, the climb, the three tables and `/api/v1/practice-sessions`) and
 - **Don't take a title or a meter from the body.** An item names its pattern
   by id. The title, and the meter whose `maxBpm` bounds a goal, are read from
   the database, and a new pattern is checked visible to the caller by the same
-  rule that opens it (`openableBy`, or `PUBLIC` for a famous break).
+  rule that opens it (`openableBy`, or `PUBLIC` for a library entry: a famous
+  break or a rudiment).
 - **Don't change an item's pattern.** An item kept in the list by `id` keeps
   its target. A different pattern is a new item.
 - **Don't send a kept item's pattern back.** The items route takes the whole
@@ -47,7 +48,7 @@ time split, the climb, the three tables and `/api/v1/practice-sessions`) and
   closed mid-session leaves your settings as they were.
 - **Don't share a session someone else could not play.** Sharing checks
   every item is readable by anyone — a pattern shared by link or published,
-  or a famous break — and refuses, naming the ones that are not. A pattern
+  or a library entry (a famous break or a rudiment) — and refuses, naming the ones that are not. A pattern
   made private later is `available: false` on the public read, with no title.
 - **Don't put a user id in the public read.** `getPublicSession` reads the
   owner's id only to look up their username and their bests, and drops it.

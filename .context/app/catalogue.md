@@ -35,7 +35,7 @@ that keeps the golden-byte assertions meaningful.
 | ---------------- | ----------------- | ---------------------------------------------------------------------------------------------------- |
 | `Style`          | `style`           | `key`, `label`, `group`, `hint`, `meter`, `position`, `currentVersion`. Never holds params.          |
 | `StyleVersion`   | `style_version`   | `params Json`, `version`, `note`, `createdById`. **Immutable.**                                      |
-| `PatternLibrary` | `pattern_library` | A named, ordered list. One system row today: `famous-breaks`.                                        |
+| `PatternLibrary` | `pattern_library` | A named, ordered list. Two system rows: `famous-breaks` and `rudiments`.                             |
 | `LibraryEntry`   | `library_entry`   | `seedKey`, `group`, `title`, `artist`, `note`, `bpm`, `styleKey`, `meter`, `doc Json`, `links Json`. |
 | `Kit`            | `kit`             | `engine`, `label`, `hint`, `group`, `credit`, `params Json`, `samples Json`.                         |
 | `KitPiece`       | `kit_piece`       | `key`, `label`, `role`, `source`, `folder`, `slots Json`, `credit`. 9-v; see `sound.md`.             |
@@ -373,14 +373,26 @@ one twice.
 
 ## Seeding
 
-`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 70 styles (62 genres and 8 drummers), 47 famous
-breaks in one library, and 24 kits. Its data lives beside it under `data/`, and
+`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 70 styles (62 genres and 8 drummers), two
+libraries — 47 famous breaks (`data/library.ts`) and 40 rudiments
+(`data/rudiments.ts`, Phase 10) — and 24 kits. Its data lives beside it under `data/`, and
 **only that seed imports it**.
 
 - Upserts by key, so **re-seeding is a no-op**. (The runner also skips a unit
   whose content hash has not moved — that is an optimisation, not the guarantee.)
 - The unit declares `hashInputs` naming the three data files and
   `public/kits/manifest.json`, so editing one re-runs it.
+- **Each library is a `SeededLibrary`** in the `LIBRARIES` list (key, title,
+  description, position, items); one writer seeds them all. A re-seed updates
+  a library's title and description, never its position.
+- **The rudiments (D43–D45)** are on the snare alone (`lanes: ['s']`), with
+  their sticking written under each bar (`hands`, packed as `sk`), and `fixed`:
+  every note is pinned at layer 1, so all five layers play one whole. Their
+  style key, `rudiment` (`RUDIMENT_STYLE`), is not a style row. Opening one
+  makes B a copy of A, and Regenerate and the doctor refuse it.
+  `unlistedStyleLabel` shows the key as "Rudiment" in the drawer, the picker
+  and the stage. The rolls are written open (diddles as 16ths), because there
+  is no 32nd-note meter.
 - Library entries are **converted to wire-v4 documents at seed time** by
   `patternFromLibrary` + `packPattern`, with the style's snapshot baked in. A
   client shows an entry without the bar-string parser, and retuning a style later

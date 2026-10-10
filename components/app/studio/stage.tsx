@@ -17,6 +17,7 @@ import { publicPath } from '@/lib/app/breaks/community/visibility';
 import { songOf } from '@/lib/app/breaks/songs';
 import { engrave } from '@/lib/app/breaks/engrave';
 import { LAYER_BLURB, LAYER_NAMES } from '@/lib/app/breaks/layers';
+import { unlistedStyleLabel } from '@/lib/app/breaks/library';
 import { parseReferenceLink, type StoredLink } from '@/lib/app/breaks/links';
 import type { Pattern } from '@/lib/app/breaks/types';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
@@ -223,7 +224,7 @@ export function Stage() {
               </p>
             ) : null}
             <div className="title-sub">
-              <span className="chip">{style?.label ?? c.style}</span>
+              <span className="chip">{style?.label ?? unlistedStyleLabel(c.style)}</span>
               <span className="chip brass">
                 {c.bars} bar{c.bars === 1 ? '' : 's'}
               </span>

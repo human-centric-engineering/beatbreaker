@@ -5,6 +5,7 @@ import unit, { seedKeyOf } from '@/prisma/seeds/app-beatbreaker/001-catalogue';
 import { KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
 import { YOUR_KIT_KEY_PREFIX } from '@/lib/app/breaks/samples/limits';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
+import { RUDIMENTS } from '@/prisma/seeds/app-beatbreaker/data/rudiments';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { packedPatternSchema } from '@/lib/app/breaks/schema';
 import { styleParamsSchema } from '@/lib/app/breaks/catalogue/schemas';
@@ -171,6 +172,12 @@ function fakePrisma() {
 
 type Fake = ReturnType<typeof fakePrisma>;
 
+/** The entries of one system library, by its key. */
+function entriesOf(prisma: Fake, key: string) {
+  const library = prisma.patternLibrary.rows.find((r) => r.key === key);
+  return prisma.libraryEntry.rows.filter((r) => r.libraryId === library?.id);
+}
+
 async function seed(prisma: Fake): Promise<void> {
   await unit.run({ prisma: prisma as never, logger });
 }
@@ -182,9 +189,14 @@ describe('the catalogue seed', () => {
 
     expect(prisma.style.rows).toHaveLength(Object.keys(STYLES).length);
     expect(prisma.styleVersion.rows).toHaveLength(Object.keys(STYLES).length);
-    expect(prisma.libraryEntry.rows).toHaveLength(LIBRARY.length);
+    expect(entriesOf(prisma, 'famous-breaks')).toHaveLength(LIBRARY.length);
+    expect(entriesOf(prisma, 'rudiments')).toHaveLength(RUDIMENTS.length);
+    expect(prisma.libraryEntry.rows).toHaveLength(LIBRARY.length + RUDIMENTS.length);
     expect(prisma.kit.rows).toHaveLength(Object.keys(KITS).length);
-    expect(prisma.patternLibrary.rows).toHaveLength(1);
+    expect(prisma.patternLibrary.rows.map((r) => [r.key, r.position])).toEqual([
+      ['famous-breaks', 0],
+      ['rudiments', 1],
+    ]);
   });
 
   it('mints no system kit key under the prefix your own kits use, and no kit on your engine', () => {
@@ -269,6 +281,24 @@ describe('the catalogue seed', () => {
     }
   });
 
+  it('stores each rudiment with its sticking and every note pinned, on the snare alone', async () => {
+    const prisma = fakePrisma();
+    await seed(prisma);
+    for (const entry of entriesOf(prisma, 'rudiments')) {
+      const doc = packedPatternSchema.parse(entry.doc);
+      const title = String(entry.title);
+      expect(entry.styleKey, title).toBe('rudiment');
+      expect(doc.ln, title).toEqual(['s']);
+      expect(doc.sk?.length, title).toBe(doc.b.length);
+      // pinned at layer 1 wherever the snare plays, so no layer thins it
+      doc.b.forEach((bar, bi) => {
+        const snare = bar.split('|')[1];
+        const pins = doc.pn && doc.pn[bi];
+        expect(pins && pins.s, title).toBe(snare.replace(/[1-9]/g, '1'));
+      });
+    }
+  });
+
   it('validates every style on the way in, so a bad field fails the seed rather than shipping', async () => {
     const prisma = fakePrisma();
     await seed(prisma);
@@ -286,7 +316,9 @@ describe('the catalogue seed', () => {
     const removed = LIBRARY.pop();
     try {
       await seed(prisma);
-      expect(prisma.libraryEntry.rows).toHaveLength(LIBRARY.length);
+      expect(entriesOf(prisma, 'famous-breaks')).toHaveLength(LIBRARY.length);
+      // and nothing goes from the library beside it
+      expect(entriesOf(prisma, 'rudiments')).toHaveLength(RUDIMENTS.length);
     } finally {
       if (removed) LIBRARY.push(removed);
     }
@@ -306,10 +338,12 @@ describe('the catalogue seed', () => {
     try {
       await seed(prisma);
       // one row per entry: the same rows, moved — not new rows beside parked old ones
-      expect(prisma.libraryEntry.rows).toHaveLength(LIBRARY.length);
+      expect(entriesOf(prisma, 'famous-breaks')).toHaveLength(LIBRARY.length);
       for (const item of LIBRARY.slice(1)) expect(idOf(item.title)).toBe(before[item.title]);
       // and each sits in the slot the data file now gives it
-      const positions = new Map(prisma.libraryEntry.rows.map((r) => [r.title, r.position]));
+      const positions = new Map(
+        entriesOf(prisma, 'famous-breaks').map((r) => [r.title, r.position])
+      );
       expect(LIBRARY.map((item) => positions.get(item.title))).toEqual(LIBRARY.map((_, i) => i));
     } finally {
       LIBRARY.shift();
@@ -322,7 +356,7 @@ describe('the catalogue seed', () => {
     // appended the way `createEntry` does: the next free slot, no seedKey
     await prisma.libraryEntry.create({
       data: {
-        libraryId: prisma.libraryEntry.rows[0].libraryId,
+        libraryId: entriesOf(prisma, 'famous-breaks')[0].libraryId,
         position: LIBRARY.length,
         seedKey: null,
         title: 'Added by an admin',
@@ -335,7 +369,7 @@ describe('the catalogue seed', () => {
       const added = prisma.libraryEntry.rows.find((r) => r.title === 'Added by an admin');
       expect(added).toBeDefined();
       // out of the slot the new seeded entry needed, and after every seeded one
-      const seeded = prisma.libraryEntry.rows.filter((r) => r.seedKey !== null);
+      const seeded = entriesOf(prisma, 'famous-breaks').filter((r) => r.seedKey !== null);
       expect(Math.max(...seeded.map((r) => r.position as number))).toBe(LIBRARY.length - 1);
       expect(added?.position as number).toBeGreaterThan(LIBRARY.length - 1);
     } finally {

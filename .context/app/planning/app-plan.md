@@ -3304,7 +3304,7 @@ the 3D drummer.
 | 10.5 | **The rudiments library:** `data/rudiments.ts` holds the forty, each with its PAS number, bar strings, sticking and tempo. `LibraryItem` gains `sticking`, `lanes` and `fixed` (every note pinned at layer 1). The seed's library writer takes a key, title and items, and seeds `rudiments` at position 1 | Tests: every rudiment parses at its meter; sticking covers exactly the notes; the seed is idempotent and writes forty entries; the drawer lists both libraries                                            |
 | 10.6 | **Docs and the changelog:** `catalogue.md`, `breaks.md` (sticking), `sessions.md` (rudiments as targets), and the CHANGELOG                                                                                                                                                                                | `/docs-audit` clean on the three                                                                                                                                                                          |
 
-**It ships as two PRs:**
+**It was planned as two PRs** (and went up as one, below):
 
 - **10-a: the model (10.1–10.4).** Sticking on the wire, the chart and the
   drummer, and the Studio's guards. Nothing in the catalogue uses it yet,
@@ -3329,6 +3329,27 @@ the 3D drummer.
 - **Each entry says what it is.** `artist` carries "PAS #16", and those
   that are also among the original 26 Standard American rudiments say so.
   `note` says what to listen for.
+
+**Phase 10 built, 2026-10-10 (branch `phase-10-rudiments`).** 10-a and 10-b
+went up as one PR: the model alone has nothing to look at. Findings:
+
+- **Sticking needed no new version.** `sk` is optional on v5, as `sg` was. An
+  older reader strips it, and a test holds that.
+- **The drummer's search is narrowed, not replaced.** A written step has one
+  choice, the written hand. The bar is still weighed as a whole, so the hands
+  arrive where the sticking needs them. Bars with sticking have their own
+  cache, keyed by the rows.
+- **Fixing a rudiment took no layer code.** Pins at layer 1 on every note
+  already keep it whole at every layer, L1's accent promotion included.
+- **The doctor and "B from A" borrowed the first style** for any section
+  whose style is not in the catalogue. They now use the section's own style,
+  and the doctor says when it cannot.
+- **`unlistedStyleLabel`** shows `rudiment` as "Rudiment" in the drawer, the
+  picker and the stage.
+- **Flams play near an accent (0.9) and drags just above a tap (0.82).** That
+  is how the rudiments want them, so no accented flam value was needed.
+- **No browser check** (the owner is on Arc). The hook test opens a rudiment
+  from the catalogue, and the seed test reads all forty back.
 
 **Not in Phase 10:** editing sticking in the Studio, BeatBuddy writing
 sticking, hybrid rudiments (cheese, flam fives, herta…), rudiments around the

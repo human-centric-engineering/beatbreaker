@@ -312,6 +312,12 @@ export interface BarSpec {
   t3?: string;
   /** `f` chick */
   hf?: string;
+  /**
+   * Not a lane: the sticking written under the bar, `R`/`L` (or `r`/`l`, the
+   * graces on the same hand) a step and `.` for none (D44). `parseBar` leaves
+   * it to {@link patternFromLibrary}.
+   */
+  hands?: string;
 }
 
 /**

@@ -28,6 +28,14 @@ release process.
   snare notes. The doctor and "build B from A" now work only in the section's
   own style, not whichever style the picker fell back to.
 
+- **The rudiments library (BeatBreaker Phase 10-b).** A second system
+  `PatternLibrary`, `rudiments`, at position 1: the forty PAS International
+  Drum Rudiments on six shelves, each on the snare alone with its sticking
+  written, seeded from `data/rudiments.ts`. `LibraryItem` gains `lanes`,
+  `fixed` (every note pinned at layer 1) and a per-bar `hands` row, and the
+  catalogue seed writes every library in its `LIBRARIES` list. Rudiments are
+  practice-session targets like any other library entry.
+
 - **Written-out styles, swing ranges, and jazz, blues and rock widened.**
   A style's params may now carry `figures` (whole bars written out, per lane,
   weighted) and `fills` (written to the end of a bar), which the generator

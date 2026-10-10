@@ -16,6 +16,7 @@ import { apiClient } from '@/lib/api/client';
 import { PATTERNS_TAB } from '@/lib/app/breaks/browser-keys';
 import { type CatalogueEntry, libraryGroups } from '@/lib/app/breaks/catalogue/types';
 import { FULL_LAYER, layerName } from '@/lib/app/breaks/layers';
+import { unlistedStyleLabel } from '@/lib/app/breaks/library';
 import { DEFAULT_METER, METER_KEYS } from '@/lib/app/breaks/meter';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import { logger } from '@/lib/logging';
@@ -158,7 +159,8 @@ function Row({
 function useStyleLabel() {
   const { styles } = useStudio().catalogue;
   return useCallback(
-    (key: string | undefined) => (key ? (styles[key]?.params.label ?? key) : ''),
+    (key: string | undefined) =>
+      key ? (styles[key]?.params.label ?? unlistedStyleLabel(key)) : '',
     [styles]
   );
 }
@@ -539,11 +541,17 @@ function LibrariesList() {
         <div className="empty">Nothing in the libraries matches.</div>
       )}
       <div className="hint">
-        The main groove off each record, a bar or two of it.{' '}
+        The main groove off each record, and the forty rudiments.{' '}
         <StudioHelp title="The libraries">
-          The main groove off each record — a bar or two of it, in the meter it was played in. Fills
-          and variations are not here. The feel studies at the bottom are written rather than
-          transcribed, and say so.
+          <b>Famous breaks</b> are the main groove off each record — a bar or two of it, in the
+          meter it was played in. Fills and variations are not here. The feel studies at the bottom
+          are written rather than transcribed, and say so.
+          <br />
+          <br />
+          <b>Rudiments</b> are the forty International Drum Rudiments on the snare, with the
+          sticking printed under every note and played by the drummer. The rolls are written open,
+          each double as two sixteenths: add one to a practice session and its climb takes it
+          towards closed. Every layer plays a rudiment whole.
         </StudioHelp>
       </div>
     </>
