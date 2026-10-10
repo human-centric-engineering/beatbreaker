@@ -296,6 +296,8 @@ the rest are sequential because each stands on the one before.
 7B About you  (any time after 6; 7C's tables and 7D's targets read it only for defaults)
 
 9-i Engine ─► 9-ii Humanise ─► 9-iii Pipeline ─► 9-iv Notation ─► 8-iv ─► 8-v ─► 9-v Pieces ─► 9-vi More sounds
+
+10 Rudiments  (after 9-iv's articulations; 10-a model ─► 10-b library)
 ```
 
 ### Phase 0 — Groundwork · S
@@ -3260,6 +3262,80 @@ rather than a value, and rolls longer than one step. See `sound-plan.md` §10.
 
 ---
 
+### Phase 10 — Rudiments · M
+
+**Goal:** the forty rudiments, each one playable as a pattern and usable in
+a practice session, with the sticking written on the chart and played by
+the 3D drummer.
+
+**In short:**
+
+- **Sticking is part of the pattern (D44).** Each bar may carry a row of
+  R/L, one character a step. The chart prints it, and the drummer plays
+  each note with the hand it names.
+- **The rudiments are a second system library, `rudiments` (D43).** The
+  forty Percussive Arts Society International Drum Rudiments sit on six
+  shelves, seeded from `data/rudiments.ts` beside the famous breaks.
+- **A rudiment is fixed (D45).** Every layer plays it whole. New,
+  Regenerate and the doctor do not apply to it, and its B section is a copy
+  of A.
+- **Practice sessions take them as they are.** A library entry is already
+  a session target, so a rudiment can be added from its drawer row, and a
+  whole shelf can become a session.
+
+**Done when:**
+
+- The Studio drawer shows a Rudiments library of forty entries on six
+  shelves. Each opens, plays, and shows its sticking under the notes.
+- The 3D drummer plays a paradiddle R L R R L R L L, not hand to hand.
+- A rudiment added to a practice session climbs to its tempo like any
+  other item.
+- A share code with sticking decodes in a reader from before Phase 10,
+  without its sticking, rather than being refused.
+
+**The tasks:**
+
+| #    | Task                                                                                                                                                                                                                                                                                                       | Done when                                                                                                                                                                                                 |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 10.1 | **Sticking in the pattern:** `Pattern.sticking`, one string a bar (`.` none, `R`, `L`; `r`/`l` when the graces are on the same hand). It is packed as `sk` on wire v5, additive as `sg` was, and kept aligned with the bars wherever pins are: clone, repair, adding, removing and copying bars            | Tests: pack and unpack round-trip; a payload without `sk` decodes as before; a bad `sk` is refused; a v5 schema without `sk` strips it rather than refusing the code; removing a bar removes its sticking |
+| 10.2 | **The chart prints it:** where a step has written sticking, the sticking row shows that hand, with the grace notes before it in small letters (`lR`, `rrL`). It is printed whenever the pattern carries sticking, whatever the sticking setting says. Steps without it keep the heuristic                  | Engrave tests: a paradiddle's row reads R L R R L R L L; a flam reads `lR`; a pattern without sticking is drawn as before                                                                                 |
+| 10.3 | **The drummer plays it:** R is the lead hand and L the other. A written step's drum note goes to the written hand, and its grace to the other hand (`r`/`l`: no mimed grace). The cost search still places everything else                                                                                 | Sticking tests: a paradiddle comes out lead/other/lead/lead…; a flam tap's graces are on the hand not playing; a bar without sticking assigns exactly as before                                           |
+| 10.4 | **The Studio on a written pattern:** playability skips the four-in-a-row and airless checks on steps the sticking covers. Doctor moves are off, like Regenerate, when the pattern's style is not in the catalogue (today they silently borrow the first style's)                                           | Critic tests: a single-stroke roll with sticking is playable and one without it is not; the doctor panel says why it is off                                                                               |
+| 10.5 | **The rudiments library:** `data/rudiments.ts` holds the forty, each with its PAS number, bar strings, sticking and tempo. `LibraryItem` gains `sticking`, `lanes` and `fixed` (every note pinned at layer 1). The seed's library writer takes a key, title and items, and seeds `rudiments` at position 1 | Tests: every rudiment parses at its meter; sticking covers exactly the notes; the seed is idempotent and writes forty entries; the drawer lists both libraries                                            |
+| 10.6 | **Docs and the changelog:** `catalogue.md`, `breaks.md` (sticking), `sessions.md` (rudiments as targets), and the CHANGELOG                                                                                                                                                                                | `/docs-audit` clean on the three                                                                                                                                                                          |
+
+**It ships as two PRs:**
+
+- **10-a: the model (10.1–10.4).** Sticking on the wire, the chart and the
+  drummer, and the Studio's guards. Nothing in the catalogue uses it yet,
+  so tests are what checks it.
+- **10-b: the library (10.5–10.6).** The forty, the seed, the drawer copy.
+
+**How the forty are written (D43):**
+
+- **On the grids that exist.** 16ths in 4/4 for most of them, sextuplets
+  (`4/4-6`) where the rudiment is a triplet one, and 6/8, 3/4 or 6/4 where
+  its figure falls that way. There is no 32nd-note meter, so the rolls are
+  written **open**, with each diddle as two 16ths. That is how they are
+  taught: open to closed to open. The practice session's climb does the
+  closing.
+- **Both hands where the rudiment alternates.** One bar leads right and the
+  next leads left, or each half-bar does. A rudiment that does not
+  alternate, such as the paradiddle-diddle, leads right throughout.
+- **Taps are hits (2), accents are accents (3).** Flams and drags use 9-iv's
+  values (6 and 7), and the multiple bounce roll is buzzes (8). A flam's
+  grace is on the other hand. In the single dragadiddle the drag is a
+  diddle on the leading hand, so its sticking is `r`/`l`.
+- **Each entry says what it is.** `artist` carries "PAS #16", and those
+  that are also among the original 26 Standard American rudiments say so.
+  `note` says what to listen for.
+
+**Not in Phase 10:** editing sticking in the Studio, BeatBuddy writing
+sticking, hybrid rudiments (cheese, flam fives, herta…), rudiments around the
+toms, and a 32nd-note meter (D46).
+
+---
+
 ## 5. Ergonomic review — method and first findings
 
 ### Method
@@ -3605,6 +3681,15 @@ already cascade and already export.
 | #   | Decision              | Outcome                                                                                                                                  |
 | --- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | D42 | Where 9-v and 9-vi go | **Now, before 8-iv and 8-v.** Revises D36: the owner chose to finish Phase 9 before the end-to-end tests. Launch moves back by both PRs. |
+
+### Decided — 2026-10-10
+
+| #   | Decision                 | Outcome                                                                                                                                                                                                                                          |
+| --- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| D43 | Which rudiments, and how | **The forty PAS International Drum Rudiments**, as a second system library, `rudiments`. Each is one or two bars on the existing grids, with rolls written open (diddles as 16ths). The practice session's climb takes them from open to closed. |
+| D44 | Where sticking lives     | **On the pattern**, one R/L string a bar, packed as `sk` on wire v5 (additive, no version bump). R is the lead hand, so a left-hander's drummer leads with the left. Graces are on the other hand unless the letter is lower case.               |
+| D45 | Layers and the generator | **A rudiment is fixed.** Every note is pinned at layer 1, so all five layers play it whole. Its style key, `rudiment`, is not a style: New, Regenerate and the doctor do not apply, and B is a copy of A.                                        |
+| D46 | What Phase 10 leaves out | **Editing sticking in the Studio, BeatBuddy and sticking, hybrid rudiments, rudiments round the toms, and a 32nd-note meter.** Each is an addition on top of D44, not a change to it.                                                            |
 
 ### Still open
 
