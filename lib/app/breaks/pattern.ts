@@ -93,6 +93,7 @@ export function clonePattern(p: Pattern): Pattern {
     hasHat: !!p.hasHat,
     pins: clonePins(p.pins),
     ...(p.sticking ? { sticking: p.sticking.slice() } : {}),
+    ...(p.fixed ? { fixed: true } : {}),
     backbeats: p.backbeats.slice(),
     bars: p.bars.map(cloneBar),
   };
@@ -183,6 +184,23 @@ export function stickingRow(row: string | null | undefined, n: number): string |
     .replace(/[^RLrl]/g, '.')
     .padEnd(n, '.');
   return /[RLrl]/.test(out) ? out : null;
+}
+
+/**
+ * The sticking `before` wrote that still belongs to `after`'s bars: a bar's
+ * row where that bar's notes are unchanged, none where they moved. Whatever
+ * rewrites bars from a pattern (building B, a doctor's move) keeps the hands
+ * only where the notes they were written for are still there.
+ */
+export function keptSticking(before: Pattern, after: Pattern): Sticking | null {
+  if (!before.sticking) return null;
+  const same = (a: Bar | undefined, b: Bar | undefined): boolean =>
+    !!a && !!b && (Object.keys(a) as LaneKey[]).every((L) => a[L].join() === b[L]?.join());
+  return tidySticking(
+    after.bars.map((bar, bi) =>
+      same(before.bars[bi], bar) ? (before.sticking?.[bi] ?? null) : null
+    )
+  );
 }
 
 /** Sticking with no bar left that writes anything is no sticking at all. */

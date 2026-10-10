@@ -140,6 +140,8 @@ export function reduceBar(
 /** The whole break as it looks at one layer. */
 export function reducePattern(pat: Pattern, level: number): Pattern {
   const p = clonePattern(pat);
+  // a rudiment is the same at every layer (D45)
+  if (pat.fixed) return p;
   const m = meterOfPat(pat);
   p.bars = pat.bars.map((b, i) => reduceBar(b, level, m, pat.hasRide, pat.hasHat, pat.pins?.[i]));
   return p;

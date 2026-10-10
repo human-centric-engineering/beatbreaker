@@ -458,6 +458,10 @@ const unit: SeedUnit = {
     'data/kits.ts',
     '../../../public/kits/manifest.json',
     '../../../scripts/kits/pieces.ts',
+    // the code that turns a library item into the doc stored (lanes, sticking, `fixed`)
+    '../../../lib/app/breaks/library.ts',
+    '../../../lib/app/breaks/pattern.ts',
+    '../../../lib/app/breaks/share.ts',
     // each piece's credit (`seedPieces`), so a corrected credit re-runs the unit
     '../../../lib/app/breaks/kit-credits.generated.ts',
     '../../../scripts/kits/sources.ts',

@@ -7,7 +7,7 @@ import {
   styleAttrs,
   tidySticking,
 } from '@/lib/app/breaks/pattern';
-import type { Bar, CymbalVoice, LaneKey, Pattern, ResolvedStyle } from '@/lib/app/breaks/types';
+import type { CymbalVoice, LaneKey, Pattern, ResolvedStyle } from '@/lib/app/breaks/types';
 
 /**
  * The system pattern libraries: the famous breaks — the main groove off each
@@ -26,21 +26,6 @@ import type { Bar, CymbalVoice, LaneKey, Pattern, ResolvedStyle } from '@/lib/ap
  * transcription of a particular take. The feel studies at the bottom of the
  * table are written rather than transcribed, and say so in their `artist` line.
  */
-/**
- * The style key every rudiment carries (D45). It is not a style row: there is
- * nothing to generate, regenerate or doctor a rudiment from, and the Studio
- * offers none of them for it.
- */
-export const RUDIMENT_STYLE = 'rudiment';
-
-/** The rudiments' library key: shown in Generate rather than among the libraries. */
-export const RUDIMENTS_LIBRARY = 'rudiments';
-
-/** What a style key reads as where the catalogue has no row for it: the key, or "Rudiment". */
-export function unlistedStyleLabel(key: string): string {
-  return key === RUDIMENT_STYLE ? 'Rudiment' : key;
-}
-
 export interface LibraryItem {
   /** Heading it files under in the picker. */
   group: string;
@@ -63,13 +48,44 @@ export interface LibraryItem {
    * the bars write.
    */
   lanes?: LaneKey[];
-  /**
-   * Every layer plays it whole (D45): each note is pinned at layer 1, so the
-   * layer reduction thins and plains nothing. A rudiment's accents and
-   * flams are the rudiment, not detail to arrive later.
-   */
+  /** Every layer plays it whole (D45): {@link Pattern.fixed}. */
   fixed?: boolean;
   bars: BarSpec[];
+}
+
+/**
+ * The style key every rudiment carries (D45). It is not a style row: there is
+ * nothing to generate, regenerate or doctor a rudiment from, and the Studio
+ * offers none of them for it.
+ */
+export const RUDIMENT_STYLE = 'rudiment';
+
+/** The rudiments' library key: shown in Generate rather than among the libraries. */
+export const RUDIMENTS_LIBRARY = 'rudiments';
+
+/** What a style key reads as where the catalogue has no row for it: the key, or "Rudiment". */
+export function unlistedStyleLabel(key: string): string {
+  return key === RUDIMENT_STYLE ? 'Rudiment' : key;
+}
+
+/** A style key's name: its catalogue row's label, or {@link unlistedStyleLabel} without one. */
+export function styleLabel(
+  styles: Readonly<Record<string, { params: { label: string } } | undefined>>,
+  key: string
+): string {
+  return styles[key]?.params.label ?? unlistedStyleLabel(key);
+}
+
+/**
+ * Why a section cannot be rewritten in its style — doctored, regenerated,
+ * written anew or built on — where `key`, its style, has no catalogue row:
+ * a rudiment never had one (D45), and any other style has since been deleted.
+ * `done` finishes "so it cannot be …".
+ */
+export function noStyleReason(key: string, section: string, done: string): string {
+  return key === RUDIMENT_STYLE
+    ? `A rudiment is written out, not generated from a style, so it cannot be ${done}`
+    : `Section ${section}'s style is not in the catalogue, so it cannot be ${done}`;
 }
 
 /**
@@ -125,17 +141,9 @@ export function patternFromLibrary(
     bbLane: 's',
     hasRide: false,
     hasHat: false,
-    pins: item.fixed ? bars.map((bar) => pinAll(bar)) : null,
+    pins: null,
     ...(sticking ? { sticking } : {}),
+    ...(item.fixed ? { fixed: true } : {}),
     bars,
   };
-}
-
-/** Every note of a bar pinned at layer 1, so every layer keeps it. */
-function pinAll(bar: Bar): Partial<Record<LaneKey, number[]>> {
-  const pins: Partial<Record<LaneKey, number[]>> = {};
-  for (const L of Object.keys(bar) as LaneKey[]) {
-    if (bar[L].some(Boolean)) pins[L] = bar[L].map((v) => (v ? 1 : 0));
-  }
-  return pins;
 }

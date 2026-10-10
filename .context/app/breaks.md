@@ -127,6 +127,7 @@ itself. All three are checked by the same schema.
     "hr": 0, "hh": 0,  // style writes its own ride / hat pattern
     "pn": [0, { "s": "0020…" }],   // pins per bar: layer digits 0–5, or 0
     "sk": ["RLRRLRLL…", 0],        // written sticking per bar, or 0 — optional (Phase 10)
+    "fx": 1,                       // fixed: every layer plays it whole — optional (Phase 10)
     "b": ["1000100010001000|0000100000001000|…"]   // 1–8 bars
   },
   "B": { … }
@@ -152,6 +153,10 @@ Anything but those five characters is a 400, and a stored row is repaired to
 3D drummer plays each written step with its hand, and the critic does not call
 a written run of snare notes unplayable. Clearing a section or BeatBuddy
 writing a bar takes the sticking with the notes.
+
+**`fx` marks a pattern fixed (D45)**: `reducePattern` returns it as it is at
+every layer, so a rudiment's accents and flams are there at L1. Optional and
+additive, like `sk`; only rudiments carry it.
 
 **Version 4 is what makes a pattern stand on its own.** `sa` is a snapshot of
 the five style attributes playback, the critic and the MIDI export read, so a

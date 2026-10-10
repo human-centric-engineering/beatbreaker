@@ -281,7 +281,7 @@ describe('the catalogue seed', () => {
     }
   });
 
-  it('stores each rudiment with its sticking and every note pinned, on the snare alone', async () => {
+  it('stores each rudiment with its sticking, fixed, and on the snare alone', async () => {
     const prisma = fakePrisma();
     await seed(prisma);
     for (const entry of entriesOf(prisma, 'rudiments')) {
@@ -290,12 +290,9 @@ describe('the catalogue seed', () => {
       expect(entry.styleKey, title).toBe('rudiment');
       expect(doc.ln, title).toEqual(['s']);
       expect(doc.sk?.length, title).toBe(doc.b.length);
-      // pinned at layer 1 wherever the snare plays, so no layer thins it
-      doc.b.forEach((bar, bi) => {
-        const snare = bar.split('|')[1];
-        const pins = doc.pn && doc.pn[bi];
-        expect(pins && pins.s, title).toBe(snare.replace(/[1-9]/g, '1'));
-      });
+      // fixed as a whole, not by a pin on every note: the step editor shows pins
+      expect(doc.fx, title).toBe(1);
+      expect(doc.pn, title).toBe(0);
     }
   });
 

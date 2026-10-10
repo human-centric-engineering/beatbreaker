@@ -432,11 +432,15 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
             ...tomLanes.map((L) => gracesOf(L, bar[L][i]))
           );
           const hand = stickingAt(pat.sticking, barIndex, i);
-          if (hand && (drum || bar.h[i] || bar.r[i] || bar.c[i])) {
+          const cymbal = !!(bar.h[i] || bar.r[i] || bar.c[i]);
+          if (hand && (drum || cymbal)) {
             // the hand written, its graces on the other hand unless written lower case
             const main = hand.toUpperCase();
-            const grace = hand === main ? (main === 'R' ? 'l' : 'r') : hand;
+            const opposite = main === 'R' ? 'L' : 'R';
+            const grace = hand === main ? opposite.toLowerCase() : hand;
             lab = `${grace.repeat(graces)}${main}`;
+            // a cymbal with the drum is the other hand's, as the drummer plays it: cymbal first
+            if (drum && cymbal) lab = `${opposite} ${lab}`;
           } else {
             if (bar.h[i] || bar.r[i] || bar.c[i]) lab = 'R';
             if (drum) lab = lab ? 'R L' : 'L';

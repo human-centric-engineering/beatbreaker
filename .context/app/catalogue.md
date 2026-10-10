@@ -386,8 +386,8 @@ libraries — 47 famous breaks (`data/library.ts`) and 40 rudiments
   description, position, items); one writer seeds them all. A re-seed updates
   a library's title and description, never its position.
 - **The rudiments (D43–D45)** are on the snare alone (`lanes: ['s']`), with
-  their sticking written under each bar (`hands`, packed as `sk`), and `fixed`:
-  every note is pinned at layer 1, so all five layers play one whole. Their
+  their sticking written under each bar (`hands`, packed as `sk`), and `fixed`
+  (packed as `fx`), so all five layers play one whole. Their
   style key, `rudiment` (`RUDIMENT_STYLE`), is not a style row. Opening one
   makes B a copy of A, and Regenerate and the doctor refuse it.
   `unlistedStyleLabel` shows the key as "Rudiment" in the drawer, the picker

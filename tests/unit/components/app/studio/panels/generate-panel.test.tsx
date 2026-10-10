@@ -222,7 +222,12 @@ describe('GeneratePanel', () => {
 describe('GeneratePanel — the rudiments', () => {
   function OnStage() {
     const c = useStudio();
-    return <div data-testid="on-stage">{c.view.A?.name}</div>;
+    return (
+      <>
+        <div data-testid="on-stage">{c.view.A?.name}</div>
+        <div data-testid="notice">{c.notice?.message}</div>
+      </>
+    );
   }
 
   it('lists the forty on their shelves, and opens one on the stage and closes', async () => {
@@ -246,6 +251,11 @@ describe('GeneratePanel — the rudiments', () => {
     );
     expect(screen.getByTestId('on-stage')).toHaveTextContent('Single Paradiddle');
     expect(onClose).toHaveBeenCalledTimes(1);
+
+    // New A writes nothing over it, and says why
+    await user.click(screen.getByRole('button', { name: 'New A only' }));
+    expect(screen.getByTestId('on-stage')).toHaveTextContent('Single Paradiddle');
+    expect(screen.getByTestId('notice')).toHaveTextContent(/A rudiment is written out/);
   });
 
   it('shows no card without the library', async () => {

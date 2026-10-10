@@ -348,7 +348,12 @@ export interface BreakConsole {
   size: number;
   setSize: (n: number) => void;
 
-  newBreak: (which?: SectionLetter | 'both') => void;
+  /**
+   * False, and nothing done, for a new A or B whose section's style is not in
+   * the catalogue (a rudiment, or a style since deleted). A whole new pattern
+   * always rolls.
+   */
+  newBreak: (which?: SectionLetter | 'both') => boolean;
   /** If playing: start again from the top, with a count-in, once the next break is on the stage. */
   restartFromTop: () => void;
   /**
@@ -356,7 +361,8 @@ export interface BreakConsole {
    * False, and nothing written, when that style is no longer in the catalogue.
    */
   regenerate: () => boolean;
-  buildBFromA: () => void;
+  /** False, and nothing done, when A's style is not in the catalogue. */
+  buildBFromA: () => boolean;
   /** False, and nothing done, when the section's style is not in the catalogue. */
   applyDoctor: (move: DoctorMove) => boolean;
   cycleCell: (
@@ -955,7 +961,10 @@ export function useBreakConsole(
 
   const generate = useCallback(
     (which: SectionLetter | 'both', setup: Setup, unlike?: Pattern) => {
-      const row = catalogue.styles[setup.style] ?? styleRow;
+      /* Only in the style asked for. Writing in whatever the picker would fall
+         back to puts a groove in a style nobody chose over the stage: a
+         rudiment's New A would become the first style's. */
+      const row = catalogue.styles[setup.style];
       if (!row) return null;
       const st = styleIn(withSong(row.params, setup.song), setup.meter);
       const roster = resolveLanes(st, lanesMode === 'custom' ? customLanes : null);
@@ -989,7 +998,7 @@ export function useBreakConsole(
       });
       return made.pattern;
     },
-    [catalogue.styles, styleRow, density, ghosts, lanesMode, customLanes]
+    [catalogue.styles, density, ghosts, lanesMode, customLanes]
   );
 
   /**
@@ -1002,16 +1011,22 @@ export function useBreakConsole(
    * and the tempo left alone when it is locked.
    */
   const newBreak = useCallback(
-    (which: SectionLetter | 'both' = 'both') => {
-      pushHistory();
+    (which: SectionLetter | 'both' = 'both'): boolean => {
       if (which !== 'both') {
+        // only in the stage's own style: a rudiment has none to write a section in
+        if (!catalogue.styles[style]) return false;
+        pushHistory();
         // a new A or B is the same song as the pattern it belongs to
         const stage = patterns[which] ?? patterns.A;
         const song = stage?.style === style ? stage.song : undefined;
         generate(which, { style, meter, bars, bpm, song });
-        return;
+        return true;
       }
-      const styleKey = chosen.current.style ?? settings.startStyle;
+      pushHistory();
+      /* A whole new pattern always rolls: in the style you chose, or, where
+         that has left the catalogue since, in whatever it does have. */
+      const wanted = chosen.current.style ?? settings.startStyle;
+      const styleKey = catalogue.styles[wanted] ? wanted : (styleRow?.key ?? wanted);
       /* A style with songs plays one of them, and the song sets the meter and
          the tempo: Manic Depression is a fast 9/8, Little Wing a slow 4/4.
          Those win over your starting values here, because a song at
@@ -1049,6 +1064,7 @@ export function useBreakConsole(
         });
       }
       generate('both', { ...next, bpm: bpmAt });
+      return true;
     },
     [
       pushHistory,
@@ -1064,6 +1080,7 @@ export function useBreakConsole(
       level,
       applyStyleMix,
       catalogue.styles,
+      styleRow,
       patterns,
       followKit,
     ]
@@ -1094,12 +1111,13 @@ export function useBreakConsole(
     return true;
   }, [patterns, editing, catalogue.styles, pushHistory, generate, bpm]);
 
-  const buildBFromA = useCallback(() => {
+  const buildBFromA = useCallback((): boolean => {
     // in A's own style, as the doctor is: never one the picker fell back to
     const params = patterns.A && catalogue.styles[patterns.A.style]?.params;
-    if (!patterns.A || !params) return;
+    if (!patterns.A || !params) return false;
     pushHistory();
     setPatterns((prev) => (prev.A ? { ...prev, B: deriveB(prev.A, params) } : prev));
+    return true;
   }, [patterns.A, catalogue.styles, pushHistory]);
 
   /* ---- editing -------------------------------------------------------- */

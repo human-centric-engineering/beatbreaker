@@ -31,6 +31,7 @@ import {
   cloneBar,
   cloneBarKeepingFill,
   clonePattern,
+  keptSticking,
   emptyBar,
   meterOfPat,
   styleAttrs,
@@ -1146,6 +1147,9 @@ export function deriveB(patA: Pattern, style0: Style): Pattern {
   toRide(p, rng);
   fitHands(p);
   p.name = patA.name;
+  const kept = keptSticking(patA, p);
+  if (kept) p.sticking = kept;
+  else delete p.sticking;
   return p;
 }
 

@@ -16,7 +16,7 @@ import { apiClient } from '@/lib/api/client';
 import { PATTERNS_TAB } from '@/lib/app/breaks/browser-keys';
 import { type CatalogueEntry, libraryGroups } from '@/lib/app/breaks/catalogue/types';
 import { FULL_LAYER, layerName } from '@/lib/app/breaks/layers';
-import { RUDIMENTS_LIBRARY, unlistedStyleLabel } from '@/lib/app/breaks/library';
+import { RUDIMENTS_LIBRARY, styleLabel } from '@/lib/app/breaks/library';
 import { DEFAULT_METER, METER_KEYS } from '@/lib/app/breaks/meter';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import { logger } from '@/lib/logging';
@@ -159,11 +159,7 @@ export function Row({
 /** Style label, falling back to the key for a style that has since gone. */
 function useStyleLabel() {
   const { styles } = useStudio().catalogue;
-  return useCallback(
-    (key: string | undefined) =>
-      key ? (styles[key]?.params.label ?? unlistedStyleLabel(key)) : '',
-    [styles]
-  );
+  return useCallback((key: string | undefined) => (key ? styleLabel(styles, key) : ''), [styles]);
 }
 
 /**

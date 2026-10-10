@@ -135,6 +135,12 @@ export interface Pattern {
    * then prints its own guess and the drummer chooses.
    */
   sticking?: Sticking | null;
+  /**
+   * Every layer plays it whole (D45): a rudiment's accents and flams are the
+   * rudiment, not detail to arrive at a higher layer. Absent on everything
+   * else, whose layers are derived as ever.
+   */
+  fixed?: boolean;
   bars: Bar[];
 }
 

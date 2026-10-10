@@ -141,6 +141,7 @@ export const patternSchema = z.object({
   hasHat: z.boolean(),
   pins: z.array(z.record(laneKey, z.array(z.number().int().min(0).max(5))).nullable()).nullable(),
   sticking: z.array(z.string().max(32).regex(STICKING_ROW).nullable()).max(8).nullable().optional(),
+  fixed: z.boolean().optional(),
   bars: z.array(barSchema).min(1).max(8),
 });
 
@@ -286,6 +287,8 @@ export const packedPatternSchema = z.object({
     .array(z.union([z.literal(0), z.string().max(MAX_ROW).regex(STICKING_ROW)]))
     .max(8)
     .optional(),
+  /** fixed: every layer plays it whole (D45) — optional and additive, as `sk` is */
+  fx: z.literal(1).optional(),
   /** bars, each one every lane's row joined by `|` */
   b: z.array(packedBar).min(1).max(8),
 });

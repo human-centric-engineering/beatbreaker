@@ -14,9 +14,12 @@ import { withPreview } from '@/lib/app/breaks/drummer/corner-chart';
 import { type StepHands, assignBar } from '@/lib/app/breaks/drummer/sticking';
 import { type SvgNode, engrave } from '@/lib/app/breaks/engrave';
 import { DRAG, FLAM } from '@/lib/app/breaks/lanes';
+import { doctor } from '@/lib/app/breaks/doctor';
+import { reducePattern } from '@/lib/app/breaks/layers';
 import {
   clonePattern,
   emptyBar,
+  keptSticking,
   stickingAt,
   stickingRow,
   tidySticking,
@@ -28,6 +31,7 @@ import {
 } from '@/lib/app/breaks/schema';
 import { breakPayload, decodeBreak, encodeBreak, packPattern } from '@/lib/app/breaks/share';
 import type { Bar, Pattern } from '@/lib/app/breaks/types';
+import { testStyles } from '@/tests/helpers/catalogue';
 
 const PARADIDDLE = 'RLRRLRLLRLRRLRLL';
 
@@ -253,3 +257,53 @@ describe('the critic', () => {
 function docOf(pat: Pattern) {
   return { A: pat, B: pat, bpm: 90, swing: 0, level: 5, arrangement: ['A' as const] };
 }
+
+describe('the code-review fixes', () => {
+  it('ignores a written hand that cannot reach its drum, and still plays the bar', () => {
+    // L on the ride, out past the other hand's reach
+    const bar = emptyBar(16);
+    bar.r[0] = bar.r[4] = 1;
+    bar.s[8] = 2;
+    const steps = assignBar(bar, null, false, false, { bar: 'L...L...L.......' });
+    expect(steps).toHaveLength(16);
+    expect(steps[0].r).toBe('lead');
+    expect(steps[4].r).toBe('lead');
+    expect(steps[8].s).toBe('other');
+  });
+
+  it('prints the cymbal on the other hand beside a written drum, as the drummer plays it', () => {
+    const row = 'R...............';
+    const bar = snareBar(row);
+    bar.h[0] = 1;
+    expect(stickingLabels({ ...rudiment([bar], [row]), lanes: ['s', 'h'] })).toEqual(['L R']);
+  });
+
+  it('keeps the hands only on the bars whose notes did not move', () => {
+    const before = rudiment([snareBar(PARADIDDLE), snareBar(PARADIDDLE)], [PARADIDDLE, PARADIDDLE]);
+    const after = clonePattern(before);
+    after.bars[1].s[1] = 0;
+    expect(keptSticking(before, after)).toEqual([PARADIDDLE, null]);
+    after.bars[0].s[0] = 3;
+    expect(keptSticking(before, after)).toBeNull();
+    expect(keptSticking({ ...before, sticking: null }, before)).toBeNull();
+  });
+
+  it('drops the sticking a doctor move wrote over', () => {
+    const before = { ...rudiment([snareBar(PARADIDDLE)], [PARADIDDLE]), style: 'funk' };
+    const after = doctor(before, testStyles().funk.params, 'kick+', 7);
+    expect(after.bars[0]).not.toEqual(before.bars[0]);
+    expect(after.sticking).toBeUndefined();
+  });
+
+  it('carries fixed on the wire as fx, and every layer plays a fixed pattern whole', () => {
+    const pat = { ...rudiment([snareBar(PARADIDDLE, { 0: 3 })], [PARADIDDLE]), fixed: true };
+    expect(packPattern(pat).fx).toBe(1);
+    expect('fx' in packPattern({ ...pat, fixed: undefined })).toBe(false);
+    const back = decodeBreak(encodeBreak(docOf(pat))).A;
+    expect(back.fixed).toBe(true);
+    for (let level = 1; level <= 5; level++)
+      expect(reducePattern(back, level).bars).toEqual(pat.bars);
+    // unfixed, layer 1 turns every tap into an accent
+    expect(reducePattern({ ...pat, fixed: undefined }, 1).bars).not.toEqual(pat.bars);
+  });
+});

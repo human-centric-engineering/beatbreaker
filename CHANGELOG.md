@@ -25,14 +25,17 @@ release process.
   not `.RLrl`. The chart prints written sticking under the notes, the 3D
   drummer plays each written step with that hand (`assignBar` takes the rows
   as a fifth argument), and `playability` does not fail a written run of
-  snare notes. The doctor and "build B from A" now work only in the section's
-  own style, not whichever style the picker fell back to.
+  snare notes. New A, New B, the doctor and "build B from A" now work only in
+  the section's own style, not whichever style the picker fell back to, and
+  `newBreak` and `buildBFromA` return false when they cannot. Building B and
+  a doctor's move keep the sticking only on bars whose notes did not change.
 
 - **The rudiments library (BeatBreaker Phase 10-b).** A second system
   `PatternLibrary`, `rudiments`, at position 1: the forty PAS International
   Drum Rudiments on six shelves, each on the snare alone with its sticking
   written, seeded from `data/rudiments.ts`. `LibraryItem` gains `lanes`,
-  `fixed` (every note pinned at layer 1) and a per-bar `hands` row, and the
+  `fixed` (`Pattern.fixed`, packed as an optional `fx`: every layer plays it
+  whole) and a per-bar `hands` row, and the
   catalogue seed writes every library in its `LIBRARIES` list. The Studio
   shows them in the Generate drawer, on folding shelves, not in the
   Libraries tab. Rudiments are practice-session targets like any other

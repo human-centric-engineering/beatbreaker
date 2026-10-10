@@ -316,17 +316,21 @@ function writtenHand(ch: string | undefined): { hand: Hand; same: boolean } | nu
 
 /**
  * A step with its hand written: the drum on it to that hand (or, with no
- * drum, its first note), the other note to the other hand.
+ * drum, its first note), the other note to the other hand where it can reach
+ * it. A hand written for a drum it cannot reach (a share code's `L` on the
+ * floor tom) is not obeyed: the step is the costs' to place, as if unwritten,
+ * rather than one no path through the bar can take.
  */
 function writtenStep(bar: Bar, i: number, ch: string): StepHands[] | null {
   const written = writtenHand(ch);
   const notes = handNotes(bar, i);
   if (!written || !notes.length) return null;
   const main = notes.find((lane) => DRUMS.includes(lane)) ?? notes[0];
+  if (!reaches(written.hand, main)) return null;
   const rest = notes.find((lane) => lane !== main);
   const step = finish(bar, i, {
     [main]: written.hand,
-    ...(rest ? { [rest]: other(written.hand) } : {}),
+    ...(rest && reaches(other(written.hand), rest) ? { [rest]: other(written.hand) } : {}),
   });
   if (written.same) delete step.grace;
   return [step];

@@ -114,6 +114,7 @@ export function packPattern(p: Pattern): PackedPattern {
     ...(p.sticking?.some(Boolean)
       ? { sk: p.sticking.map((row) => (row && /[RLrl]/.test(row) ? row : (0 as const))) }
       : {}),
+    ...(p.fixed ? { fx: 1 as const } : {}),
     b: p.bars.map((bar) => LANES.map((L) => bar[L].join('')).join('|')),
   };
 }
@@ -205,6 +206,7 @@ export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Patte
     hasHat: !!p.hh,
     pins,
     ...(sticking ? { sticking } : {}),
+    ...(p.fx ? { fixed: true } : {}),
     bars: p.b.map((row) => {
       const parts = row.split('|');
       const bar = emptyBar(n);

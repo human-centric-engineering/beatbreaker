@@ -69,6 +69,8 @@ export function StylePicker({
       }
     return null;
   }, [sections, value]);
+  // a key the crate has no sleeve for (a rudiment's) still reads as a name
+  const shown = current?.label ?? unlistedStyleLabel(value);
 
   const openCrate = (next: boolean) => {
     // into the Studio frame, which carries the tokens and the fonts; the page body does not
@@ -87,7 +89,7 @@ export function StylePicker({
           style={spineStyle(current?.group)}
           // what it is and what it is set to; its content is a sleeve and a line of facts
           aria-labelledby={labelId ? `${labelId} ${valueId}` : undefined}
-          aria-label={labelId ? undefined : `Style: ${current?.label ?? unlistedStyleLabel(value)}`}
+          aria-label={labelId ? undefined : `Style: ${shown}`}
           aria-haspopup="dialog"
         >
           <span className="pick-sleeve" aria-hidden="true">
@@ -95,7 +97,7 @@ export function StylePicker({
           </span>
           <span className="pick-trigger-tx">
             <span id={valueId} className="pick-trigger-label">
-              {current?.label ?? unlistedStyleLabel(value)}
+              {shown}
             </span>
             <span className="pick-trigger-meta">
               {current ? [current.group, ...current.meta.slice(0, 2)].join(' · ') : 'Pick a style'}

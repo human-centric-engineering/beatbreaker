@@ -2,7 +2,7 @@ import { LANES, bbValue, snareKept } from '@/lib/app/breaks/lanes';
 import { M44, groupsOf, remapList } from '@/lib/app/breaks/meter';
 import { applyCompFill, applyFill, fitHands } from '@/lib/app/breaks/generate';
 import { reduceBar } from '@/lib/app/breaks/layers';
-import { clonePattern, meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
+import { clonePattern, keptSticking, meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
 import { makeRng, wpick } from '@/lib/app/breaks/rng';
 import { withSong } from '@/lib/app/breaks/songs';
 import { styleIn } from '@/lib/app/breaks/styles';
@@ -208,6 +208,10 @@ export function doctor(
      snare — so the result is fitted to two hands, as a generated pattern is.
      Fitting only removes, and never the backbeat. */
   fitHands(pat);
+  // the hands written for notes the move changed are not theirs any more
+  const kept = keptSticking(input, pat);
+  if (kept) pat.sticking = kept;
+  else delete pat.sticking;
 
   return pat;
 }

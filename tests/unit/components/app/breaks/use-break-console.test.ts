@@ -320,14 +320,20 @@ describe('generating and editing', () => {
     const { result } = await mount();
     const first = result.current.patterns;
 
-    act(() => result.current.newBreak('A'));
+    act(() => {
+      result.current.newBreak('A');
+    });
     expect(result.current.patterns.A).not.toBe(first.A);
     expect(result.current.patterns.B).toBe(first.B);
 
-    act(() => result.current.newBreak('B'));
+    act(() => {
+      result.current.newBreak('B');
+    });
     expect(result.current.patterns.B).not.toBe(first.B);
 
-    act(() => result.current.newBreak());
+    act(() => {
+      result.current.newBreak();
+    });
     expect(result.current.canUndo).toBe(true);
 
     act(() => result.current.undo());
@@ -390,8 +396,12 @@ describe('generating and editing', () => {
 
   it('rebuilds B from A', async () => {
     const { result } = await mount();
-    act(() => result.current.newBreak('B'));
-    act(() => result.current.buildBFromA());
+    act(() => {
+      result.current.newBreak('B');
+    });
+    act(() => {
+      result.current.buildBFromA();
+    });
     expect(result.current.patterns.B).toEqual(
       deriveB(result.current.patterns.A!, catalogue.styles.funk.params)
     );
@@ -433,7 +443,9 @@ describe('generating and editing', () => {
       done = result.current.applyDoctor('ghosts-');
     });
     expect(done).toBe(false);
-    act(() => result.current.buildBFromA());
+    act(() => {
+      result.current.buildBFromA();
+    });
     expect(result.current.patterns).toBe(before);
   });
 
@@ -566,6 +578,15 @@ describe('generating and editing', () => {
     expect(B?.bars).toEqual(A?.bars);
     expect(B?.sticking).toEqual(A?.sticking);
     expect(result.current.regenerate()).toBe(false);
+
+    // nor is a new A or B written over it in some other style, nor B built from it
+    const before = result.current.patterns;
+    let wrote = true;
+    act(() => {
+      wrote = result.current.newBreak('A') || result.current.buildBFromA();
+    });
+    expect(wrote).toBe(false);
+    expect(result.current.patterns).toBe(before);
   });
 
   it('turns the toms on and off without throwing the kit lanes away', async () => {
@@ -867,7 +888,9 @@ describe('playing', () => {
     const clicks = audio.click.mock.calls.length;
 
     act(() => result.current.restartFromTop());
-    act(() => result.current.newBreak());
+    act(() => {
+      result.current.newBreak();
+    });
     expect(result.current.playing).toBe(true);
     expect(audio.resume).toHaveBeenCalledTimes(2);
     expect(audio.click.mock.calls.length).toBeGreaterThan(clicks);
@@ -876,10 +899,14 @@ describe('playing', () => {
   it('leaves a stopped break stopped, and asks nothing of a later one', async () => {
     const { result } = await mount();
     act(() => result.current.restartFromTop());
-    act(() => result.current.newBreak());
+    act(() => {
+      result.current.newBreak();
+    });
     expect(result.current.playing).toBe(false);
     act(() => result.current.togglePlay());
-    act(() => result.current.newBreak());
+    act(() => {
+      result.current.newBreak();
+    });
     expect(fakes.made.audio.at(-1)!.resume).toHaveBeenCalledTimes(1);
   });
 
@@ -938,7 +965,9 @@ describe('sharing and saving', () => {
     const link = result.current.shareLink();
     expect(link).toMatch(/\/breaks#b=/);
     const name = result.current.patterns.A?.name;
-    act(() => result.current.newBreak());
+    act(() => {
+      result.current.newBreak();
+    });
     let ok = false;
     act(() => {
       ok = result.current.loadCode(`  ${link}  `);
@@ -1078,7 +1107,9 @@ describe('your settings (D19, D21)', () => {
     await settle();
     expect(patches()).toEqual([]);
     // New pattern opens at the starting tempo, not the saved pattern's
-    act(() => result.current.newBreak());
+    act(() => {
+      result.current.newBreak();
+    });
     expect(result.current.bpm).toBe(DEFAULT_STUDIO_SETTINGS.startBpm);
   });
 
@@ -1092,7 +1123,9 @@ describe('your settings (D19, D21)', () => {
     expect(result.current.bpm).toBe(88);
     expect(result.current.style).toBe('funk');
 
-    act(() => result.current.newBreak());
+    act(() => {
+      result.current.newBreak();
+    });
     expect(result.current.bpm).toBe(132);
     expect(result.current.style).toBe('bossa');
     expect(result.current.patterns.A?.style).toBe('bossa');
@@ -1103,7 +1136,9 @@ describe('your settings (D19, D21)', () => {
     const { result } = await mount(savedAt(88), { stageSaved: () => true });
     vi.useFakeTimers();
     act(() => result.current.setStyle('bossa'));
-    act(() => result.current.newBreak());
+    act(() => {
+      result.current.newBreak();
+    });
     expect(result.current.patterns.A?.style).toBe('bossa');
     await settle();
     expect(patches().some((b) => b && typeof b === 'object' && 'startStyle' in b)).toBe(false);
@@ -1112,9 +1147,13 @@ describe('your settings (D19, D21)', () => {
   it('New uses up a style picked on a saved pattern, and the next New is your starting style again', async () => {
     const { result } = await mount(savedAt(88), { stageSaved: () => true });
     act(() => result.current.setStyle('bossa'));
-    act(() => result.current.newBreak());
+    act(() => {
+      result.current.newBreak();
+    });
     expect(result.current.patterns.A?.style).toBe('bossa');
-    act(() => result.current.newBreak());
+    act(() => {
+      result.current.newBreak();
+    });
     expect(result.current.patterns.A?.style).toBe(DEFAULT_STUDIO_SETTINGS.startStyle);
   });
 
@@ -1126,7 +1165,9 @@ describe('your settings (D19, D21)', () => {
     // the stage becomes a new pattern without New (a pasted code, say)
     saved = false;
     act(() => result.current.setStyle('jazzballad'));
-    act(() => result.current.newBreak());
+    act(() => {
+      result.current.newBreak();
+    });
     // the style you picked on the new pattern, not the one from before it
     expect(result.current.patterns.A?.style).toBe('jazzballad');
     // the length picked on the saved pattern was not picked again, so it still counts
@@ -1157,7 +1198,9 @@ describe('your settings (D19, D21)', () => {
     act(() => {
       result.current.loadCode(codeFor('Pasted'));
     });
-    act(() => result.current.newBreak('B'));
+    act(() => {
+      result.current.newBreak('B');
+    });
     expect(result.current.patterns.B?.style).toBe('funk');
     expect(result.current.bpm).toBe(101);
   });
@@ -1474,7 +1517,9 @@ describe('swing set by the style', () => {
 
     const rolled = new Set<number>();
     for (let i = 0; i < 12; i++) {
-      act(() => result.current.newBreak('both'));
+      act(() => {
+        result.current.newBreak('both');
+      });
       expect(inRange(result.current.swing, range('rockabilly'))).toBe(true);
       rolled.add(result.current.swing);
     }
@@ -1483,7 +1528,9 @@ describe('swing set by the style', () => {
     // yours, from the slider: New keeps it
     act(() => result.current.setSwing(33));
     expect(result.current.swingYours).toBe(true);
-    act(() => result.current.newBreak('both'));
+    act(() => {
+      result.current.newBreak('both');
+    });
     expect(result.current.swing).toBe(33);
 
     // picking a style hands it back
@@ -1496,7 +1543,9 @@ describe('swing set by the style', () => {
     const { result } = await mount();
     act(() => result.current.setStyle('rockabilly'));
     act(() => result.current.setMeter('12/8'));
-    act(() => result.current.newBreak('both'));
+    act(() => {
+      result.current.newBreak('both');
+    });
     expect(result.current.meter).toBe('12/8');
     expect(result.current.swing).toBe(0);
   });
@@ -1511,7 +1560,9 @@ describe('swing set by the style', () => {
     act(() => result.current.setStyle('rockabilly'));
     expect(result.current.swing).toBe(12);
     // the next New is written in that style, at its swing
-    act(() => result.current.newBreak('both'));
+    act(() => {
+      result.current.newBreak('both');
+    });
     expect(inRange(result.current.swing, range('rockabilly'))).toBe(true);
   });
 

@@ -76,12 +76,14 @@ describe('DoctorPanel', () => {
     const notes = document.querySelectorAll(NOTES).length;
 
     await user.click(screen.getAllByRole('button', { name: /ghost/i })[0]);
-    expect(screen.getByRole('status')).toHaveTextContent(/not in the catalogue/);
+    expect(screen.getByRole('status')).toHaveTextContent(
+      /A rudiment is written out, not generated from a style, so it cannot be doctored/
+    );
     expect(document.querySelectorAll(NOTES)).toHaveLength(notes);
 
     // nor regenerate it: a rudiment has no style to write it in (D45)
     await user.click(screen.getByRole('button', { name: '↻ Regenerate' }));
-    expect(screen.getByRole('status')).toHaveTextContent(/cannot be regenerated/);
+    expect(screen.getByRole('status')).toHaveTextContent(/rudiment .* cannot be regenerated/);
   });
 
   it('ships with undo and redo both disabled', async () => {
