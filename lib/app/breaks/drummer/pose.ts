@@ -1,5 +1,7 @@
 import { Euler, Matrix4, Quaternion, Vector3 } from 'three';
 
+import type { HandShape } from '@/lib/app/breaks/drummer/anatomy/hand';
+import { GRIP_IN_HAND, HAND_SPLAY, handFrame } from '@/lib/app/breaks/drummer/hold';
 import { solveTwoBone } from '@/lib/app/breaks/drummer/ik';
 import {
   AIM_FROM,
@@ -26,6 +28,7 @@ import {
   strikeTarget,
 } from '@/lib/app/breaks/drummer/kit-layout';
 import { type Glance, type Speak, expressionAt } from '@/lib/app/breaks/drummer/expression';
+import { showAt, showOverlaps, showPose, torsoFrame } from '@/lib/app/breaks/drummer/gesture';
 import { hatFootAt } from '@/lib/app/breaks/drummer/hat-foot';
 import { type FootStance, kickStanceAt } from '@/lib/app/breaks/drummer/kick-foot';
 import {
@@ -87,6 +90,11 @@ export interface ArmPose {
   ready: number;
   /** 0–1: how far the hand is set down on the snare for a cross-stick, its fingers laid over the stick. */
   cross: number;
+  /**
+   * A hand made to say something — open, waving, a thumbs-up — and how far
+   * into it; and, from there, on into another (see `anatomy/hand.ts`).
+   */
+  shape?: { kind: HandShape; amount: number; then?: { kind: HandShape; amount: number } };
 }
 
 /**
@@ -345,13 +353,6 @@ function aim(hand: Hand, tip: Vector3, pitch: number): Vector3 {
 }
 
 /**
- * Where the fulcrum sits in the hand's frame, for the lead hand (the other
- * mirrors `x`): under the pad of the thumb, the stick balanced on the middle
- * finger with the first finger wrapped beside it — out past the knuckles and
- * under them.
- */
-const GRIP_IN_HAND = new Vector3(0.023, -0.026, 0.12);
-/**
  * Where the stick lies in a hand set down for a cross-stick: under the first
  * finger, below its knuckle, running along it — the hand arched over it — so
  * the thumb can come in beside it on the drummer's side and the two pick it up
@@ -364,28 +365,6 @@ const GRIP_CROSS = new Vector3(0.04, -0.052, 0.09);
  * and the fingers curving back down to it, not pressed flat.
  */
 const CROSS_ARCH = 0.4;
-/**
- * How far the hand's long axis turns out from the stick. The stick runs across
- * the palm from the fulcrum to the heel of the hand, so the back fingers wrap
- * it behind the fulcrum and the butt shows past the little finger.
- */
-const HAND_SPLAY = 0.7;
-function handFrame(hand: Hand, stick: Vector3, roll: number, splay = HAND_SPLAY): Quaternion {
-  const outward = hand === 'lead' ? 1 : -1;
-  const up = UP.clone()
-    .sub(stick.clone().multiplyScalar(stick.dot(UP)))
-    .normalize();
-  const side = new Vector3().crossVectors(stick, up).normalize().multiplyScalar(outward);
-  const back = up
-    .clone()
-    .multiplyScalar(Math.cos(roll))
-    .addScaledVector(side, Math.sin(roll))
-    .normalize();
-  const fwd = stick.clone().multiplyScalar(Math.cos(splay)).addScaledVector(side, Math.sin(splay));
-  fwd.sub(back.clone().multiplyScalar(fwd.dot(back))).normalize();
-  const x = new Vector3().crossVectors(back, fwd);
-  return new Quaternion().setFromRotationMatrix(new Matrix4().makeBasis(x, back, fwd));
-}
 
 /**
  * Military grip: where the fulcrum sits in the hand's frame, for the lead hand
@@ -632,6 +611,8 @@ export function twirlAt(
       const spinEnd = from + TWIRL_UP + TWIRL_SPIN * turns;
       const end = spinEnd + TWIRL_DOWN;
       if (now < from || now > end) continue;
+      // a show passing a stick between the hands has them both
+      if (showOverlaps(from - TWIRL_UP, end + TWIRL_UP, hits)) continue;
       const near = lastAtOrBefore(hits, end + TWIRL_CLEAR);
       if (near >= 0 && hits[near].time >= start - TWIRL_CLEAR) continue;
       const amount =
@@ -1440,7 +1421,8 @@ export function poseAt(
   timeline: StrokeTimeline,
   now: number,
   groove: number,
-  grips: Grips = MATCHED_GRIPS
+  grips: Grips = MATCHED_GRIPS,
+  audience?: Vector3
 ): Pose {
   const all = timeline.all();
   const hatHits = all.filter((h) => h.piece === 'hat');
@@ -1541,11 +1523,9 @@ export function poseAt(
   const rock = Math.cos(2 * Math.PI * (beatPhase(timeline.clock, now, 2) - SHOULDER_LAG / 2));
   const ones = timeline.downbeats();
   const barCue = (hand: Hand) => barCueAt(ones, hand === 'lead' ? leadHits : otherHits, now);
-  const twirls = twirlAt(
-    now,
-    groove,
-    all.filter((h) => h.limb === 'lead' || h.limb === 'other')
-  );
+  // the hands' notes, which the tricks and the shows keep clear of
+  const handHits = all.filter((h) => h.limb === 'lead' || h.limb === 'other');
+  const twirls = twirlAt(now, groove, handHits);
   const timeOf = (hand: Hand): TimeKeeping => {
     const st = strokes[hand];
     const hits = hand === 'lead' ? leadHits : otherHits;
@@ -1575,10 +1555,25 @@ export function poseAt(
       .add(pelvis);
   };
 
-  const leadArm = arm('lead', strokes.lead, paths.lead, shoulderOf('lead'), time.lead, grips.lead);
-  const otherArm = underLead(leadArm, (cap) =>
+  const leadRest = arm('lead', strokes.lead, paths.lead, shoulderOf('lead'), time.lead, grips.lead);
+  const otherRest = underLead(leadRest, (cap) =>
     arm('other', strokes.other, paths.other, shoulderOf('other'), time.other, grips.other, cap)
   );
+  // waiting, now and then a stick is passed between the hands and the free one waves or
+  // gives a thumbs-up, looking out at whoever is watching
+  const playingShow = showAt(now, groove, handHits);
+  const show = playingShow
+    ? showPose(
+        playingShow.show,
+        playingShow.t,
+        playingShow.fade,
+        { lead: leadRest, other: otherRest },
+        torsoFrame(new Quaternion().setFromEuler(torso), bob),
+        audience
+      )
+    : null;
+  const leadArm = show ? show.arms.lead : leadRest;
+  const otherArm = show ? show.arms.other : otherRest;
 
   const kickHits = timeline.forLimb('kickFoot');
   const kick = strokeAt(kickHits, now, KICK);
@@ -1634,18 +1629,33 @@ export function poseAt(
     lookNod += (toNod - nod) * foot.look;
   }
 
+  const glance: Glance = show
+    ? {
+        ...ex.glance,
+        look: Math.max(ex.glance.look, show.look),
+        brows: Math.max(ex.glance.brows, playingShow?.show.kind === 'wave' ? show.look : 0),
+        wink: Math.max(ex.glance.wink, show.wink),
+        eye:
+          show.wink > ex.glance.wink
+            ? playingShow?.show.giver === 'lead'
+              ? 1
+              : -1
+            : ex.glance.eye,
+      }
+    : ex.glance;
   return {
     bob,
     yaw,
     lean,
     roll,
-    nod: lookNod,
+    nod: lookNod + (show?.watch ?? 0),
     headYaw: lookYaw,
     headTilt,
     // playing or waiting for Play: a look at the camera is for either
-    glance: ex.glance,
+    glance,
     blink: ex.blink,
-    smile: ex.smile,
+    // and a show is done with a smile
+    smile: Math.max(ex.smile, 0.8 * (show?.look ?? 0)),
     speak: ex.speak,
     brow: ex.brow,
     arms: {

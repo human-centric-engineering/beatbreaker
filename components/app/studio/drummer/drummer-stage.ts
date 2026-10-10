@@ -2,7 +2,8 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 
-import { buildDrummer, type DrummerModel } from '@/components/app/studio/drummer/drummer-model';
+import type { DrummerModel } from '@/components/app/studio/drummer/drummer-model';
+import { buildFigure } from '@/components/app/studio/drummer/figure';
 import { buildKit } from '@/components/app/studio/drummer/kit-model';
 import {
   disposeMaterials,
@@ -55,8 +56,8 @@ export class DrummerStage {
   private readonly kit;
   private readonly kitMaterials: Materials;
   private drummer: DrummerModel;
-  /** The drummer's own materials, made in their colours and freed with them. */
-  private dress: Materials;
+  /** Frees the materials made for whoever is seated. */
+  private undress: () => void;
   private who: Persona;
   private readonly env: THREE.Texture;
   private readonly resize: ResizeObserver | null;
@@ -122,8 +123,9 @@ export class DrummerStage {
 
     this.kitMaterials = makeMaterials(persona);
     this.kit = buildKit(this.kitMaterials);
-    this.dress = makeMaterials(persona);
-    this.drummer = buildDrummer(this.dress, persona);
+    const figure = buildFigure(persona);
+    this.drummer = figure.model;
+    this.undress = figure.dispose;
     this.rig.add(this.kit.root, this.drummer.root);
     this.scene.add(this.rig);
     this.addLights();
@@ -243,9 +245,10 @@ export class DrummerStage {
     this.who = who;
     this.rig.remove(this.drummer.root);
     disposeTree(this.drummer.root);
-    disposeMaterials(this.dress);
-    this.dress = makeMaterials(who);
-    this.drummer = buildDrummer(this.dress, who);
+    this.undress();
+    const figure = buildFigure(who);
+    this.drummer = figure.model;
+    this.undress = figure.dispose;
     this.rig.add(this.drummer.root);
     // the same kit, repainted in theirs
     styleKit(this.kitMaterials, who);
@@ -269,7 +272,10 @@ export class DrummerStage {
     this.last = ms;
     this.groove += ((this.playing ? 1 : 0) - this.groove) * Math.min(1, dt * 2.5);
     const now = this.playing ? this.clock.now() - this.clock.latency() : ms / 1000;
-    const pose = poseAt(this.timeline, now, this.groove, this.grips);
+    // where the camera is, in the kit's frame (mirrored with it for a lefty): who a wave is for
+    this.rig.updateMatrixWorld();
+    const audience = this.rig.worldToLocal(this.camera.position.clone());
+    const pose = poseAt(this.timeline, now, this.groove, this.grips, audience);
     this.kit.update(
       pose,
       this.timeline.percussion,
@@ -303,7 +309,7 @@ export class DrummerStage {
     this.controls.dispose();
     disposeTree(this.scene);
     disposeMaterials(this.kitMaterials);
-    disposeMaterials(this.dress);
+    this.undress();
     this.env.dispose();
     this.renderer.dispose();
     this.renderer.domElement.remove();

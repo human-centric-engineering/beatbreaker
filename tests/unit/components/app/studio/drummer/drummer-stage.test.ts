@@ -222,6 +222,25 @@ describe('DrummerStage', () => {
     expect(scene.getObjectByName('drummer')).toBe(drummers[0]);
   });
 
+  it('seats the skeleton as bones, whether it opens the show or sits down mid-groove', () => {
+    const bones = PERSONAS.find((p) => p.kind === 'skeleton')!;
+    const isSkeleton = (scene: THREE.Scene) => {
+      let vertebrae = 0;
+      scene.getObjectByName('drummer')!.traverse((o) => {
+        if (o.name === 'vertebra') vertebrae++;
+      });
+      return vertebrae === 24;
+    };
+    const opened = new DrummerStage(host, clock, bones);
+    rafCtl.runNextFrame(16);
+    const first = fakes.renderers[0].render.mock.calls[0]?.[0] as THREE.Scene;
+    expect(isSkeleton(first)).toBe(true);
+    opened.setPersona(PERSONAS[0]);
+    expect(isSkeleton(first)).toBe(false);
+    opened.setPersona(bones);
+    expect(isSkeleton(first)).toBe(true);
+  });
+
   it("paints the kit in the player's colours, and repaints the same kit for the next one", () => {
     const [first, second] = PERSONAS;
     const stage = new DrummerStage(host, clock, first);

@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 import { mergeGeometries, mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
+import { bendFingers, placeStick } from '@/components/app/studio/drummer/hand-pose';
 import {
   ball,
   furMaterial,
@@ -11,11 +12,21 @@ import {
   place,
   type Ring,
 } from '@/components/app/studio/drummer/parts';
-import { BODY, type Foot, type Hand, STICK, type V3 } from '@/lib/app/breaks/drummer/kit-layout';
+import { BODY, type Foot, type Hand, type V3 } from '@/lib/app/breaks/drummer/kit-layout';
 import type { Beard, Build, HairStyle, Hat, Persona } from '@/lib/app/breaks/drummer/personas';
 import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
 import type { Speak } from '@/lib/app/breaks/drummer/expression';
-import type { ArmPose, Grip, LegPose, Pose } from '@/lib/app/breaks/drummer/pose';
+import {
+  DIGITS,
+  KNUCKLE_Y,
+  KNUCKLE_Z,
+  SPLAY,
+  THUMB_BASE,
+  THUMB_TIP,
+  handSetOf,
+  thumbTurn,
+} from '@/lib/app/breaks/drummer/anatomy/hand';
+import type { ArmPose, LegPose, Pose } from '@/lib/app/breaks/drummer/pose';
 import { makeRng } from '@/lib/app/breaks/rng';
 
 /**
@@ -281,18 +292,6 @@ function forwardLoft(
   return o;
 }
 
-interface FingerGrip {
-  /** How far each joint bends at full curl, radians. */
-  bend: [number, number, number];
-  /**
-   * How much of the curl the finger holds whatever the stroke, 0–1: in matched
-   * grip the middle finger is the fulcrum the stick balances on and never lets
-   * go; the first finger wraps beside it, mostly closed; the back two open and
-   * close with the stroke.
-   */
-  hold: number;
-}
-
 interface HandRig {
   group: THREE.Group;
   /** Each finger's joints, knuckle out. */
@@ -304,66 +303,6 @@ interface HandRig {
   side: 1 | -1;
 }
 
-const FINGERS: { x: number; lengths: [number, number, number]; r: number }[] = [
-  { x: 0.031, lengths: [0.045, 0.026, 0.021], r: 0.0095 },
-  { x: 0.011, lengths: [0.05, 0.03, 0.023], r: 0.0098 },
-  { x: -0.009, lengths: [0.046, 0.028, 0.021], r: 0.0092 },
-  { x: -0.028, lengths: [0.036, 0.022, 0.018], r: 0.0082 },
-];
-
-/** First, middle, ring, little: how each finger bends, and how much of it it holds, per grip. */
-const FINGER_GRIP: Record<Grip, FingerGrip[]> = {
-  matched: [
-    { bend: [0.95, 1.35, 0.85], hold: 0.7 },
-    { bend: [1.15, 1.45, 0.9], hold: 1 },
-    { bend: [1.45, 1.55, 1.0], hold: 0 },
-    { bend: [1.45, 1.55, 1.0], hold: 0 },
-  ],
-  // the first two lie over the stick, pressing it down into the stroke; the ring
-  // finger is curled under it and carries it, the little finger tucked in behind
-  military: [
-    { bend: [0.7, 0.95, 0.6], hold: 0.6 },
-    { bend: [0.85, 1.1, 0.7], hold: 0.5 },
-    { bend: [1.0, 1.6, 1.1], hold: 1 },
-    { bend: [1.35, 1.6, 1.1], hold: 1 },
-  ],
-};
-
-/**
- * A cross-stick's fingers, first to little: relaxed, the hand arched over the
- * stick, each curving gently from the knuckle back down — the first onto the
- * stick, the rest to the head beside it — and curling in a little more as they
- * lift it (by up to `CROSS_LIFT_CURL` radians a joint, at `CROSS_LIFT_FULL` metres).
- * Closer together than a hand spread to play (`CROSS_SPLAY` of the spread).
- */
-const FINGER_CROSS: [number, number, number][] = [
-  [0.4, 0.56, 0.32],
-  [0.48, 0.67, 0.38],
-  [0.48, 0.67, 0.38],
-  [0.5, 0.7, 0.4],
-];
-const CROSS_LIFT_CURL = 0.15;
-const CROSS_SPLAY = 0.6;
-/**
- * The first finger ready to pick a cross-stick up (`ArmPose.ready`): curving
- * down over the stick, which runs under it, and curled a little more so its end
- * hooks down the far side — the thumb against the near side, the stick between them.
- * `splay` turns the finger toward the thumb's side, radians; `bend` is each
- * joint's, knuckle out. Fitted round the stick where it lies, clear of the head.
- */
-const CROSS_HOOK: { splay: number; bend: [number, number, number] }[] = [
-  { splay: 0, bend: [0.4, 0.7, 0.3] },
-];
-const CROSS_LIFT_FULL = 0.1;
-
-/** Where the thumb's base turns, per grip (`y` and `z` mirrored for the other hand). */
-const THUMB: Record<Grip, [number, number, number]> = {
-  // along the stick on top of the fulcrum
-  matched: [0.38, -0.55, 0.5],
-  // over the stick where it leaves the web, pointing along it toward the first finger
-  military: [0.1, 0.2, 0.95],
-};
-
 /**
  * A hand in the frame the pose solves (`z` to the knuckles, `y` out of the
  * back of the hand); `thumb` is which side of `x` the thumb is on.
@@ -373,14 +312,14 @@ function buildHand(thumb: 1 | -1, skin: THREE.Material, nail?: THREE.Material): 
   group.name = 'hand';
   group.add(forwardLoft(PALM, skin));
 
-  const fingers = FINGERS.map((f) => {
+  const fingers = DIGITS.map((f) => {
     const joints: THREE.Group[] = [];
     let parent: THREE.Object3D = group;
     f.lengths.forEach((len, k) => {
       const joint = new THREE.Group();
       if (k === 0) {
-        joint.position.set(f.x * thumb, -0.004, 0.097);
-        joint.rotation.y = -f.x * thumb * 1.2; // a little splay from the middle
+        joint.position.set(f.x * thumb, KNUCKLE_Y, KNUCKLE_Z);
+        joint.rotation.y = -f.x * thumb * SPLAY; // a little splay from the middle
       } else {
         joint.position.z = f.lengths[k - 1];
       }
@@ -395,8 +334,8 @@ function buildHand(thumb: 1 | -1, skin: THREE.Material, nail?: THREE.Material): 
 
   const thumbBase = new THREE.Group();
   // its base inside the heel of the hand, as a thumb's is
-  thumbBase.position.set(thumb * 0.03, -0.01, 0.026);
-  turnThumb(thumbBase, thumb, 'matched');
+  thumbBase.position.set(thumb * THUMB_BASE[0], THUMB_BASE[1], THUMB_BASE[2]);
+  thumbBase.rotation.set(...thumbTurn(thumb, 'matched'), 'YXZ');
   const t1 = phalanx(0.042, 0.0115, skin);
   thumbBase.add(t1);
   const t2 = new THREE.Group();
@@ -412,33 +351,6 @@ function buildHand(thumb: 1 | -1, skin: THREE.Material, nail?: THREE.Material): 
   group.add(pad);
 
   return { group, fingers, thumb: thumbBase, thumbTip: t2, side: thumb };
-}
-
-/**
- * A thumb set down for a cross-stick: forward along the side of the hand on
- * the drummer's side of the stick (which runs under the first finger), its
- * nail up and out, bent well over at the end — a few millimetres off the stick,
- * relaxed, just after one is played.
- */
-const THUMB_CROSS: [number, number, number] = [0.2, 0.8, -0.65];
-/**
- * And ready to pick it up (`ArmPose.ready`): turned in a touch, so the end of
- * the thumb rests against the stick's near side — the first finger
- * hooked round the far side, the stick between them. Fitted where the stick
- * lies: the thumb within 30° of the fingers' line, clear of the head.
- * `THUMB_BEND` is the end joint's bend, relaxed and ready.
- */
-const THUMB_PINCH: [number, number, number] = [0.1, 0.45, -0.45];
-const THUMB_BEND = [0.85, 0.7] as const;
-/** The thumb's end joint, holding a stick to play it. */
-const THUMB_TIP = 0.25;
-
-function turnThumb(base: THREE.Group, side: 1 | -1, held: Grip, cross = 0, ready = 0): void {
-  const [x, y, z] = THUMB[held].map((a, k) => {
-    const set = THUMB_CROSS[k] + (THUMB_PINCH[k] - THUMB_CROSS[k]) * ready;
-    return a + (set - a) * cross;
-  });
-  base.rotation.set(x, side * y, side * z, 'YXZ');
 }
 
 interface ArmRig {
@@ -472,7 +384,7 @@ const STICK_PROFILE: [number, number][] = [
   [0.004, 0.5],
 ];
 
-function stickGeometry(): THREE.BufferGeometry {
+export function stickGeometry(): THREE.BufferGeometry {
   return new THREE.LatheGeometry(
     STICK_PROFILE.map(([r, y]) => new THREE.Vector2(r, y)),
     16
@@ -534,33 +446,11 @@ function poseArm(rig: ArmRig, a: ArmPose): void {
   rig.wrist.scale.set(1.08, 0.74, 1);
   rig.hand.group.position.copy(a.wrist);
   rig.hand.group.quaternion.copy(a.hand);
-  const grips = FINGER_GRIP[a.held];
-  const lifting = CROSS_LIFT_CURL * Math.min(1, a.lift / CROSS_LIFT_FULL);
-  rig.hand.fingers.forEach((joints, n) => {
-    const f = grips[n];
-    const c = f.hold + (1 - f.hold) * a.curl;
-    // set down for a cross-stick, the fingers lie out along the stick — and the first one
-    // hooked round it, ready to lift it, but for a moment flat after each one
-    const hook = CROSS_HOOK[n];
-    const ready = hook ? a.ready : 0;
-    joints.forEach((j, k) => {
-      const laid = FINGER_CROSS[n][k] + lifting;
-      const set = laid + ((hook?.bend[k] ?? laid) - laid) * ready;
-      j.rotation.x = f.bend[k] * c + (set - f.bend[k] * c) * a.cross;
-    });
-    // a little splay from the middle, and in toward the stick when hooked round it
-    joints[0].rotation.y =
-      -FINGERS[n].x * rig.hand.side * 1.2 * (1 - (1 - CROSS_SPLAY) * a.cross) +
-      (hook?.splay ?? 0) * rig.hand.side * ready * a.cross;
-  });
-  // the thumb helps pick it up: against the stick's near side, the first finger hooked round the far
-  turnThumb(rig.hand.thumb, rig.hand.side, a.held, a.cross, a.ready);
-  const tipBend = THUMB_BEND[0] + (THUMB_BEND[1] - THUMB_BEND[0]) * a.ready;
-  rig.hand.thumbTip.rotation.x = THUMB_TIP + (tipBend - THUMB_TIP) * a.cross;
-  // back from the bead: held up from the butt for a cross-stick, the fulcrum is not always the same way up it
-  const butt = a.tip.clone().addScaledVector(a.stick, -STICK.length);
-  place(rig.stick, butt, a.tip);
-  rig.bead.position.copy(a.tip);
+  const set = handSetOf(a, rig.hand.side);
+  bendFingers(rig.hand.fingers, set);
+  rig.hand.thumb.rotation.set(...set.thumb, 'YXZ');
+  rig.hand.thumbTip.rotation.x = set.thumbTip;
+  placeStick(rig.stick, rig.bead, a);
 }
 
 interface LegRig {
@@ -2190,6 +2080,38 @@ function swishOf(head: THREE.Object3D, torso: THREE.Object3D): (dt: number) => v
 }
 
 /**
+ * The head's turn on the torso, as Euler angles (`YXZ`): level-ish as the
+ * torso leans, nodding and turning as the pose has it, and — for a glance —
+ * turned toward `camera` (world space), if it is not behind. `headAt` is
+ * where the head turns, in the torso's frame.
+ */
+export function headTurn(
+  pose: Pose,
+  torso: THREE.Object3D,
+  headAt: THREE.Vector3,
+  camera?: THREE.Vector3
+): THREE.Euler {
+  // the head stays level-ish as the torso leans: it looks at the kit, not the floor
+  let pitch = pose.lean * 0.55 - pose.nod;
+  let yaw = pose.headYaw - pose.yaw;
+  const g = pose.glance;
+  if (camera && g.look > 0) {
+    // where the camera is from the head, in the torso's frame (mirrored with the kit for a lefty)
+    torso.updateMatrixWorld(true);
+    const d = torso.worldToLocal(camera.clone()).sub(headAt);
+    const toYaw = Math.atan2(-d.x, -d.z);
+    const toPitch = Math.atan2(d.y, Math.hypot(d.x, d.z));
+    // a camera behind the drummer is not looked round at
+    const look = g.look * (1 - THREE.MathUtils.smoothstep(Math.abs(toYaw), LOOK_YAW, LOOK_BEHIND));
+    const clampYaw = Math.max(-LOOK_YAW, Math.min(LOOK_YAW, toYaw));
+    const clampPitch = Math.max(-LOOK_PITCH, Math.min(LOOK_PITCH, toPitch));
+    yaw += (clampYaw - yaw) * look;
+    pitch += (clampPitch - pitch) * look;
+  }
+  return new THREE.Euler(pitch - g.nod, yaw, -pose.roll * 0.5 + pose.headTilt + g.tilt, 'YXZ');
+}
+
+/**
  * Build the drummer: `m` is coloured for `who` (`makeMaterials(who)`), and
  * `who` sets the build, the hair, the beard and what they wear.
  */
@@ -2251,25 +2173,8 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
     update(pose: Pose, camera?: THREE.Vector3, dt = 0) {
       torso.position.copy(pelvisAt).add(new THREE.Vector3(0, pose.bob, 0));
       torso.rotation.set(-pose.lean, pose.yaw, pose.roll, 'YXZ');
-      // the head stays level-ish as the torso leans: it looks at the kit, not the floor
-      let pitch = pose.lean * 0.55 - pose.nod;
-      let yaw = pose.headYaw - pose.yaw;
+      head.rotation.copy(headTurn(pose, torso, head.position, camera));
       const g = pose.glance;
-      if (camera && g.look > 0) {
-        // where the camera is from the head, in the torso's frame (mirrored with the kit for a lefty)
-        torso.updateMatrixWorld(true);
-        const d = torso.worldToLocal(camera.clone()).sub(head.position);
-        const toYaw = Math.atan2(-d.x, -d.z);
-        const toPitch = Math.atan2(d.y, Math.hypot(d.x, d.z));
-        // a camera behind the drummer is not looked round at
-        const look =
-          g.look * (1 - THREE.MathUtils.smoothstep(Math.abs(toYaw), LOOK_YAW, LOOK_BEHIND));
-        const clampYaw = Math.max(-LOOK_YAW, Math.min(LOOK_YAW, toYaw));
-        const clampPitch = Math.max(-LOOK_PITCH, Math.min(LOOK_PITCH, toPitch));
-        yaw += (clampYaw - yaw) * look;
-        pitch += (clampPitch - pitch) * look;
-      }
-      head.rotation.set(pitch - g.nod, yaw, -pose.roll * 0.5 + pose.headTilt + g.tilt, 'YXZ');
       for (const side of [1, -1] as const) {
         // a blink shuts both eyes, a wink the one
         const shut = Math.max(pose.blink, g.eye === side ? g.wink : 0);
