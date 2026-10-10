@@ -181,4 +181,32 @@ describe('SelectMenu', () => {
     await user.click(trigger());
     expect(screen.getByTestId('studio').contains(screen.getByRole('listbox'))).toBe(true);
   });
+
+  it('keeps Escape to itself, so the drawer around it stays open', async () => {
+    const user = userEvent.setup();
+    const drawer = vi.fn();
+    document.addEventListener('keydown', drawer, true);
+    try {
+      render(<Controlled />);
+      await user.click(trigger());
+      await user.keyboard('{Escape}');
+      expect(trigger()).toHaveAttribute('aria-expanded', 'false');
+      expect(drawer).not.toHaveBeenCalled();
+      // closed, Escape is the page's again
+      await user.keyboard('{Escape}');
+      expect(drawer).toHaveBeenCalledTimes(1);
+    } finally {
+      document.removeEventListener('keydown', drawer, true);
+    }
+  });
+
+  it('dims the placeholder as a class of its own, and opens upward near the bottom', async () => {
+    const user = userEvent.setup();
+    render(<SelectMenu aria-label="Shape" value="none" options={METERS} placeholder="Pick one" />);
+    const plate = screen.getByRole('combobox', { name: 'Shape' });
+    expect(plate.querySelector('.selm-value')).toHaveClass('selm-value', 'empty');
+    plate.getBoundingClientRect = () => new DOMRect(0, window.innerHeight - 40, 200, 36);
+    await user.click(plate);
+    expect(screen.getByRole('listbox')).toHaveClass('selm-list', 'up');
+  });
 });

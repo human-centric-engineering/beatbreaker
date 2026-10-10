@@ -14,6 +14,7 @@ import {
 import { createPortal } from 'react-dom';
 
 import '@/components/app/ui/select-menu.css';
+import { cn } from '@/lib/utils';
 
 /**
  * The app's dropdown: a button that opens a list, in place of the browser's
@@ -191,9 +192,6 @@ export function SelectMenu({
     } else if (key === 'Enter' || key === ' ') {
       e.preventDefault();
       choose(active);
-    } else if (key === 'Escape') {
-      e.preventDefault();
-      setOpen(false);
     } else if (key === 'Tab') {
       setOpen(false);
     } else if (key.length === 1 && /\S/.test(key)) {
@@ -245,6 +243,21 @@ export function SelectMenu({
     // eslint-disable-next-line react-hooks/exhaustive-deps -- optId is derived from id
   }, [open, active]);
 
+  /* Escape closes the list and nothing else. A drawer or dialog around it
+     listens for Escape on the document, which hears it before the trigger
+     does, so it is caught on the window, which hears it first. */
+  useEffect(() => {
+    if (!open) return;
+    const escape = (e: globalThis.KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      e.stopPropagation();
+      e.preventDefault();
+      setOpen(false);
+    };
+    window.addEventListener('keydown', escape, true);
+    return () => window.removeEventListener('keydown', escape, true);
+  }, [open]);
+
   // a press anywhere else closes it
   useEffect(() => {
     if (!open) return;
@@ -267,7 +280,7 @@ export function SelectMenu({
             role="listbox"
             aria-labelledby={aria['aria-labelledby'] ?? id}
             tabIndex={-1}
-            className={`selm-list${pos.up ? 'up' : ''}`}
+            className={cn('selm-list', pos.up && 'up')}
             style={{
               top: pos.top,
               left: pos.left,
@@ -346,7 +359,7 @@ export function SelectMenu({
         aria-describedby={aria['aria-describedby']}
         disabled={disabled}
         data-open={open || undefined}
-        className={`selm${className ? ` ${className}` : ''}`}
+        className={cn('selm', className)}
         onClick={() => (open ? setOpen(false) : show())}
         onKeyDown={onKeyDown}
         onBlur={() => {
@@ -354,7 +367,7 @@ export function SelectMenu({
           onBlur?.();
         }}
       >
-        <span className={`selm-value${selected ? '' : 'empty'}`}>
+        <span className={cn('selm-value', !selected && 'empty')}>
           {selected ? selected.label : placeholder}
         </span>
         <svg className="selm-chev" viewBox="0 0 12 8" aria-hidden="true">

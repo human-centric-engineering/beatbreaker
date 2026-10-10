@@ -1,5 +1,4 @@
-import { kitEngine } from '@/lib/app/breaks/kit';
-import { kitGroups } from '@/lib/app/breaks/kit';
+import { KIT_GROUP_LABELS, kitEngine, kitGroups } from '@/lib/app/breaks/kit';
 import { patternFromLibrary } from '@/lib/app/breaks/library';
 import { packPattern } from '@/lib/app/breaks/share';
 import type {
@@ -70,7 +69,7 @@ export function testKit(key: string): CatalogueKit {
     hint,
     engine: kitEngine(kit),
     credit,
-    group: GROUP_LABELS[kitEngine(kit)],
+    group: KIT_GROUP_LABELS[kitEngine(kit)],
     /* Empty rather than read from `public/kits/manifest.json`: a test that
        cares what is in a pack reads the manifest itself (kit-packs.test.ts
        does exactly that), and every other test is better off with a kit whose
@@ -83,13 +82,6 @@ export function testKit(key: string): CatalogueKit {
 export function testKits(): Record<string, CatalogueKit> {
   return Object.fromEntries(Object.keys(KITS).map((key) => [key, testKit(key)]));
 }
-
-const GROUP_LABELS: Record<string, string> = {
-  synth: 'Synthesised',
-  drift: 'Drum machines',
-  pack: 'Sampled Recordings',
-  user: 'Sampled Recordings',
-};
 
 /** The famous breaks, as documents — built exactly as the seed builds them. */
 export function testLibrary(): CatalogueLibrary {

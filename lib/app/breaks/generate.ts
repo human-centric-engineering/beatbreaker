@@ -29,6 +29,7 @@ import {
 } from '@/lib/app/breaks/meter';
 import {
   cloneBar,
+  cloneBarKeepingFill,
   clonePattern,
   emptyBar,
   meterOfPat,
@@ -529,8 +530,9 @@ function addAnticipations(
   if (!p) return;
   for (const i of [...new Set(at)].sort((x, y) => x - y)) {
     if (i < 0 || i >= bars.length - 1 || rng() >= p) continue;
-    const b = cloneBar(bars[i]);
-    const next = cloneBar(bars[i + 1]);
+    // a copy keeps the fill's mark, or the kit's cowbell plays on through the fill
+    const b = cloneBarKeepingFill(bars[i]);
+    const next = cloneBarKeepingFill(bars[i + 1]);
     const a = b.k.length - 2;
     // a groove with its backbeat on the "and" or the "a" of 4 keeps it
     if (backbeats.includes(a) || backbeats.includes(a + 1)) continue;

@@ -138,6 +138,35 @@ describe('anticipateCymbal', () => {
   });
 });
 
+describe('an anticipation over a written fill', () => {
+  it('keeps the kit’s cowbell out of the fill, as the fill’s own bar would', () => {
+    let seen = 0;
+    for (let seed = 1; seed <= 30; seed++) {
+      const pat = generatePattern({
+        style: style({
+          fills: [[{ s: '2.2.2.2.' }, 1]],
+          fillChance: 1,
+          midFills: 1,
+          anticipate: 1,
+          anticipateCymbal: SPLASH,
+          perc: [{ inst: 'cowbell', every: 2 }],
+        }),
+        perc: { p1: 'cowbell', p2: 'shaker' },
+        lanes: ['k', 's', 'h', 'r', 'c', 'p1'],
+        seed,
+        ...opts,
+      });
+      for (const b of pat.bars) {
+        // a filled bar the anticipation took over: its fill's hand is on the snare
+        if (b.c[14] !== SPLASH || b.s[8] !== 2 || b.s[10] !== 2) continue;
+        seen++;
+        expect(b.p1.slice(8)).toEqual([0, 0, 0, 0, 0, 0, 0, 0]);
+      }
+    }
+    expect(seen).toBeGreaterThan(0);
+  });
+});
+
 describe('phraseMark.crash as a probability', () => {
   const crashed = (p: number) => {
     let n = 0;

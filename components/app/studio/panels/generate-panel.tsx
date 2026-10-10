@@ -34,8 +34,10 @@ export function GeneratePanel({
   const [picked, setPicked] = useState<string | null>(null);
   const { newBreak } = c;
   useEffect(() => {
-    if (!picked || c.style !== picked) return;
+    if (!picked) return;
+    // the pick and the style land in one render: anything else is a pick that did not take
     setPicked(null);
+    if (c.style !== picked) return;
     newBreak('both');
     onClose?.();
   }, [picked, c.style, newBreak, onClose]);

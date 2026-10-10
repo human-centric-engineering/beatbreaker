@@ -723,8 +723,16 @@ function drawVoice(ctx: VoiceCtx): void {
     }
 
     /* Sextuplet 4/4: each beat is six sixteenths in the time of four, beamed
-       like a compound pulse, so it says so — a 6 beyond the beams. */
-    if (ctx.meter.sub === 6) {
+       like a compound pulse, so it says so — a 6 beyond the beams; a 3 where
+       every note is on an eighth-note triplet, and nothing over a lone note,
+       which is not a tuplet of anything. */
+    const tuplet =
+      ctx.meter.sub === 6 && slots.length > 1
+        ? slots.every((s) => (s - gStart) % 2 === 0)
+          ? '3'
+          : '6'
+        : null;
+    if (tuplet) {
       out.add(
         'text',
         {
@@ -736,7 +744,7 @@ function drawVoice(ctx: VoiceCtx): void {
           'font-style': 'italic',
           'font-weight': '700',
         },
-        '6'
+        tuplet
       );
     }
 

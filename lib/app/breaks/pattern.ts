@@ -208,6 +208,14 @@ export function markFill(bar: Bar, from: number): void {
   FILL_FROM.set(bar, was === undefined ? from : Math.min(was, from));
 }
 
+/** A copy of a bar that keeps where its written fill starts, if it has one. */
+export function cloneBarKeepingFill(bar: Bar): Bar {
+  const copy = cloneBar(bar);
+  const from = FILL_FROM.get(bar);
+  if (from !== undefined) FILL_FROM.set(copy, from);
+  return copy;
+}
+
 export function writePerc(pat: Pattern, style: Style, rng?: Rng): void {
   const m = meterOfPat(pat);
   const n = stepsOf(m);

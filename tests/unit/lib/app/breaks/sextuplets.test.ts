@@ -182,4 +182,24 @@ describe('Bonham in sextuplets', () => {
       expect(b.p1.slice(toms).some(Boolean)).toBe(false);
     }
   });
+
+  it('marks eighth-note triplets with a 3, and a lone note with nothing', () => {
+    const marks = (p: Pattern) => {
+      const out: string[] = [];
+      const walk = (nodes: { tag: string; text?: string; children?: unknown[] }[]) => {
+        for (const node of nodes) {
+          if (node.tag === 'text' && (node.text === '6' || node.text === '3')) out.push(node.text);
+          if (node.children) walk(node.children as typeof nodes);
+        }
+      };
+      walk(engrave(p, null, { scale: 1, perSystem: 1 }).nodes);
+      return out;
+    };
+    const triplets = emptyBar(24);
+    for (let i = 0; i < 24; i += 2) triplets.h[i] = 1;
+    expect(marks(pattern([triplets]))).toEqual(['3', '3', '3', '3']);
+    const quarters = emptyBar(24);
+    for (let i = 0; i < 24; i += 6) quarters.k[i] = 1;
+    expect(marks(pattern([quarters]))).toEqual([]);
+  });
 });

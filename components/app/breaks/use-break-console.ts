@@ -349,8 +349,11 @@ export interface BreakConsole {
   setSize: (n: number) => void;
 
   newBreak: (which?: SectionLetter | 'both') => void;
-  /** A different take of the section being edited, in its own style and song. */
-  regenerate: () => void;
+  /**
+   * A different take of the section being edited, in its own style and song.
+   * False, and nothing written, when that style is no longer in the catalogue.
+   */
+  regenerate: () => boolean;
   buildBFromA: () => void;
   applyDoctor: (move: DoctorMove) => void;
   cycleCell: (
@@ -1069,9 +1072,11 @@ export function useBreakConsole(
    * length as the one on the stage (not the style picked for the next New),
    * different notes.
    */
-  const regenerate = useCallback(() => {
+  const regenerate = useCallback((): boolean => {
     const stage = patterns[editing];
-    if (!stage) return;
+    /* Only in the section's own style: one that has left the catalogue would
+       otherwise be written in whatever the picker holds. */
+    if (!stage || !catalogue.styles[stage.style]) return false;
     pushHistory();
     generate(
       editing,
@@ -1084,7 +1089,8 @@ export function useBreakConsole(
       },
       stage
     );
-  }, [patterns, editing, pushHistory, generate, bpm]);
+    return true;
+  }, [patterns, editing, catalogue.styles, pushHistory, generate, bpm]);
 
   const buildBFromA = useCallback(() => {
     if (!patterns.A || !styleParams) return;
@@ -1843,14 +1849,16 @@ export function useBreakConsole(
     const song = pickSong(styleRow.params, Math.random);
     const merged = withSong(styleRow.params, song?.key);
     const atMeter = song ? songMeter(styleRow.params, song) : meter;
+    /* A locked tempo stays, held under the song meter's ceiling as New holds
+       it, and stays the base tempo it was. */
     const atBpm =
       song && !locks.bpm
         ? clamp(songTempo(styleRow.params, song, Math.random), 50, maxBpm(atMeter))
-        : bpm;
+        : clamp(bpm, 50, maxBpm(atMeter));
     if (song) {
       setMeterRaw(atMeter);
       setBpmRaw(atBpm);
-      setBaseBpm(atBpm);
+      if (!locks.bpm) setBaseBpm(atBpm);
       followKit(merged);
     }
     const st = styleIn(merged, atMeter);

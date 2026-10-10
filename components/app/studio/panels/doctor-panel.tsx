@@ -35,10 +35,13 @@ export function DoctorPanel() {
               <button
                 type="button"
                 className="mini"
-                onClick={() => {
-                  c.regenerate();
-                  say(`Section ${c.editing} regenerated — undo brings the old take back`);
-                }}
+                onClick={() =>
+                  say(
+                    c.regenerate()
+                      ? `Section ${c.editing} regenerated — undo brings the old take back`
+                      : `Section ${c.editing}'s style is not in the catalogue, so it cannot be regenerated`
+                  )
+                }
                 disabled={!c.view[c.editing]}
               >
                 ↻ Regenerate
