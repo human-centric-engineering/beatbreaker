@@ -13,6 +13,7 @@
  * origin and neither would satisfy the tight equality check below.
  */
 
+import { handSetOf } from '@/lib/app/breaks/drummer/anatomy/hand';
 import * as THREE from 'three';
 import { describe, expect, it } from 'vitest';
 
@@ -21,7 +22,8 @@ import { makeMaterials } from '@/components/app/studio/drummer/parts';
 import { HOOP, PIECES, onPiece } from '@/lib/app/breaks/drummer/kit-layout';
 import { type Persona, PERSONAS } from '@/lib/app/breaks/drummer/personas';
 import { expressionAt } from '@/lib/app/breaks/drummer/expression';
-import { gripsFor, poseAt } from '@/lib/app/breaks/drummer/pose';
+import { gripsFor } from '@/lib/app/breaks/drummer/grips';
+import { poseAt } from '@/lib/app/breaks/drummer/pose';
 import { StrokeTimeline } from '@/lib/app/breaks/drummer/timeline';
 import { stepWithHit } from '@/tests/helpers/drummer-fixtures';
 
@@ -110,7 +112,7 @@ describe('buildDrummer', () => {
     );
   });
 
-  it('balances the stick on the middle finger, the first finger mostly closed, the back fingers following the curl', () => {
+  it('bends each finger as the hand is fitted to its stick: the middle holds, the back fingers ease off', () => {
     const { root, update } = buildDrummer(makeMaterials());
     const timeline = new StrokeTimeline();
 
@@ -119,31 +121,23 @@ describe('buildDrummer', () => {
     update(idle);
     const hands = handGroups(root);
     const leadIdle = closestTo(hands, idle.arms.lead.wrist) as THREE.Group;
+    const knuckles = () => [1, 2, 3].map((k) => (leadIdle.children[k] as THREE.Group).rotation.x);
 
-    const first = leadIdle.children[1] as THREE.Group; // hold 0.7
-    const middle = leadIdle.children[2] as THREE.Group; // hold 1: the fulcrum
-    const ring = leadIdle.children[3] as THREE.Group; // hold 0: follows the curl
+    // exactly as the hand table fits them, whoever is drawing the hand
+    const fit = (pose: typeof idle) => handSetOf(pose.arms.lead, 1).fingers.slice(0, 3);
+    knuckles().forEach((x, n) => expect(x).toBeCloseTo(fit(idle)[n].bend[0], 9));
 
-    const FIRST_BEND_0 = 0.95;
-    const MIDDLE_BEND_0 = 1.15;
-    const RING_BEND_0 = 1.45;
-    const firstAt = (curl: number) => FIRST_BEND_0 * (0.7 + 0.3 * curl);
-
-    expect(middle.rotation.x).toBeCloseTo(MIDDLE_BEND_0, 6);
-    expect(first.rotation.x).toBeCloseTo(firstAt(idle.arms.lead.curl), 6);
-    expect(ring.rotation.x).toBeCloseTo(RING_BEND_0 * idle.arms.lead.curl, 6);
-
-    // a fresh lead-hand hit: the squeeze term should move curl away from idle
+    // a fresh lead-hand hit: the squeeze closes the back fingers on the stick
     timeline.ingest(stepWithHit({ lane: 'c', value: 1, at: 0 }));
     const struck = poseAt(timeline, 0.01, 0.5);
     update(struck);
-
-    expect(struck.arms.lead.curl).not.toBeCloseTo(idle.arms.lead.curl, 6);
-    // the middle finger never lets go of the stick
-    expect(middle.rotation.x).toBeCloseTo(MIDDLE_BEND_0, 6);
-    // the first finger gives a little, the back fingers the whole of it
-    expect(first.rotation.x).toBeCloseTo(firstAt(struck.arms.lead.curl), 6);
-    expect(ring.rotation.x).toBeCloseTo(RING_BEND_0 * struck.arms.lead.curl, 6);
+    expect(struck.arms.lead.curl).toBeGreaterThan(idle.arms.lead.curl);
+    knuckles().forEach((x, n) => expect(x).toBeCloseTo(fit(struck)[n].bend[0], 9));
+    // the same hand on the same stick, the curl let go: the middle finger is the fulcrum and
+    // holds whatever the curl; the back fingers ease off
+    const open = { ...struck, arms: { ...struck.arms, lead: { ...struck.arms.lead, curl: 0 } } };
+    expect(fit(open)[1]).toEqual(fit(struck)[1]);
+    expect(fit(open)[2].bend[0]).toBeLessThan(fit(struck)[2].bend[0]);
   });
 });
 
@@ -942,7 +936,7 @@ describe('buildDrummer() — a cross-stick', () => {
   });
 
   it('rests the hand on the head — palm, fingers and thumb down on it, none of it through it', () => {
-    for (const grips of [undefined, gripsFor('both')]) {
+    for (const grips of [undefined, gripsFor('traditionalBoth')]) {
       const parts = heights(grips);
       for (const h of parts) expect(h).toBeGreaterThan(-0.002);
       // the palm itself (the first part) lies on the head, not over it
@@ -961,7 +955,7 @@ describe('buildDrummer() — a rimshot', () => {
     const snare = PIECES.snare;
     const centre = new THREE.Vector3(...snare.centre);
     const up = new THREE.Vector3(...onPiece(snare, [0, 1, 0])).sub(centre).normalize();
-    for (const grips of [undefined, gripsFor('both')]) {
+    for (const grips of [undefined, gripsFor('traditionalBoth')]) {
       const tl = new StrokeTimeline();
       tl.ingest(stepWithHit({ lane: 's', value: 5, at: 0.5, slot: 4 }));
       const limb = tl.all()[0].limb as 'lead' | 'other';

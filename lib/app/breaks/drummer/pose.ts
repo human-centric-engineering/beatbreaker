@@ -1,7 +1,16 @@
 import { Euler, Matrix4, Quaternion, Vector3 } from 'three';
 
+import { armAngles, handFrameFor } from '@/lib/app/breaks/drummer/anatomy/arm';
 import type { HandShape } from '@/lib/app/breaks/drummer/anatomy/hand';
-import { GRIP_IN_HAND, HAND_SPLAY, handFrame } from '@/lib/app/breaks/drummer/hold';
+import { type Motion, ROM } from '@/lib/app/breaks/drummer/anatomy/rom';
+import {
+  DEFAULT_GRIPS,
+  GRIP_STYLE,
+  type Grip,
+  type GripStyle,
+  type Grips,
+} from '@/lib/app/breaks/drummer/grips';
+import { GRIP_IN_HAND, frameAlong, handFrame, stickInHand } from '@/lib/app/breaks/drummer/hold';
 import { solveTwoBone } from '@/lib/app/breaks/drummer/ik';
 import {
   AIM_FROM,
@@ -80,7 +89,7 @@ export interface ArmPose {
   lift: number;
   /** 0–1: the back fingers wrapped, tightening on contact and giving as the stick rises. */
   curl: number;
-  /** How this hand holds its stick (see `Grip`). */
+  /** How this hand holds its stick (see `grips.ts`). */
   held: Grip;
   /**
    * 0–1: how ready thumb and first finger are to pick a cross-stick up — the
@@ -95,25 +104,12 @@ export interface ArmPose {
    * into it; and, from there, on into another (see `anatomy/hand.ts`).
    */
   shape?: { kind: HandShape; amount: number; then?: { kind: HandShape; amount: number } };
-}
-
-/**
- * How a hand holds its stick. Matched: palm down-ish, the stick pinched
- * between thumb and finger. Military (traditional): palm up, the stick in the
- * web of the thumb and across the ring finger, played by turning the forearm
- * like a doorknob — usually the hand away from the hats, now and then both.
- */
-export type Grip = 'matched' | 'military';
-export type Grips = Record<Hand, Grip>;
-
-export const MATCHED_GRIPS: Grips = { lead: 'matched', other: 'matched' };
-
-/** Which hands hold military: neither, the one away from the hats, or both. */
-export function gripsFor(military: 'none' | 'other' | 'both'): Grips {
-  return {
-    lead: military === 'both' ? 'military' : 'matched',
-    other: military === 'none' ? 'matched' : 'military',
-  };
+  /**
+   * Learning a grip (the grip guide): how far each finger — first, middle, ring,
+   * little — and the thumb still is from holding the stick, 0–1, toward the
+   * hand shape `to`: the hand closes on it a digit at a time.
+   */
+  unheld?: { to: HandShape; by: [number, number, number, number, number] };
 }
 
 export interface LegPose {
@@ -193,6 +189,8 @@ export function beatPhase(clock: StrokeTimeline['clock'], now: number, pulses = 
 interface Target {
   tip: Vector3;
   pitch: number;
+  /** A cymbal or the hats: the stick must come down onto its bow at the pitch it is aimed. */
+  cymbal?: boolean;
   /**
    * How far this note's stroke leans off the stick's straight-up plane,
    * radians about the vertical at the fulcrum: the stick goes up a little to
@@ -210,10 +208,11 @@ interface Target {
 }
 
 /**
- * How far the back of the hand rolls out from flat on each kind of piece,
- * radians: about 40° on the drums (American grip, between German's flat palm
- * and French's thumb up), further toward the thumb on the ride — where the
- * fingers do more of the work — and the cymbals and hats in between.
+ * How far the back of the hand rolls out from flat on each kind of piece in
+ * American grip, radians: about 40° on the drums, further toward the thumb on
+ * the ride — where the fingers do more of the work — and the cymbals and hats
+ * in between. Another grip keeps the same turn toward the thumb from its own
+ * roll, as far as there is room before thumb-up (see `gripRoll`).
  */
 const ROLL: Partial<Record<PieceId, number>> = { ride: 1.05, crash: 0.85, hat: 0.75 };
 const ROLL_DRUM = 0.72;
@@ -247,6 +246,7 @@ function targetOf(hit: Hit | undefined, hand: Hand, hat: HatAt): Target {
   return {
     tip: out,
     pitch,
+    cymbal: PIECES[piece].kind === 'cymbal' || PIECES[piece].kind === 'hat',
     lean: scatter ? STROKE_LEAN * (0.6 * scatter[0] + 0.4 * scatter[2]) : 0,
     roll: hit ? (ROLL[piece] ?? ROLL_DRUM) : ROLL_REST,
   };
@@ -378,14 +378,14 @@ const GRIP_MILITARY = new Vector3(0.04, -0.022, 0.06);
  * little under it — over the ring finger, under the first two. The web holds
  * it at this angle, so where the hand goes the stick's line follows.
  */
-const STICK_MILITARY = new Vector3(-0.68, -0.18, 0.71).normalize();
-/** How far the back of the hand rolls out from facing up, radians: past thumb-up, the palm turned up toward the body. */
-const ROLL_MILITARY = 2.2;
+const STICK_MILITARY = new Vector3(-0.68, -0.3, 0.67).normalize();
 /**
- * How much of a military stroke's wrist share is the forearm turning about
- * its own length, 0–1; the rest is the wrist bending, as in matched grip.
+ * How far the back of the hand rolls out from facing up, radians: past
+ * thumb-up, the palm turned up toward the body — the forearm about 35–50°
+ * supinated as the stick meets the head, rolled on toward 80° at the top of a
+ * full stroke (see `GRIP_STYLE.traditional.turn`), as teachers give it.
  */
-const TURN_MILITARY = 0.75;
+const ROLL_MILITARY = 2.05;
 /** How much of the forearm's sideways carry the stick keeps as it rises, 0–1: the web gives the rest. */
 const SWEEP_MILITARY = 0.3;
 /** How many times the hand is turned to point its forearm and stick where the arm's solve says (see `militaryHold`). */
@@ -395,22 +395,6 @@ const SHOULDER_REACH = 0.06;
 const REACH_SPARE = 0.004;
 
 const Z = new Vector3(0, 0, 1);
-
-/** A hand pointing along `fwd`, the back of it rolled out from facing up by `roll`. */
-function frameAlong(hand: Hand, fwd: Vector3, roll: number): Quaternion {
-  const outward = hand === 'lead' ? 1 : -1;
-  const up = UP.clone()
-    .sub(fwd.clone().multiplyScalar(fwd.dot(UP)))
-    .normalize();
-  const side = new Vector3().crossVectors(fwd, up).normalize().multiplyScalar(outward);
-  const back = up
-    .clone()
-    .multiplyScalar(Math.cos(roll))
-    .addScaledVector(side, Math.sin(roll))
-    .normalize();
-  const x = new Vector3().crossVectors(back, fwd);
-  return new Quaternion().setFromRotationMatrix(new Matrix4().makeBasis(x, back, fwd));
-}
 
 function stickMilitary(hand: Hand): Vector3 {
   const s = STICK_MILITARY.clone();
@@ -433,19 +417,27 @@ function militaryFrame(hand: Hand, stick: Vector3): Quaternion {
  * turned until the piece points where the solve says. The stick comes in at
  * whatever angle that gives it, across the body and down, rather than the
  * wrist bending to whatever angle the stick was aimed.
+ *
+ * A matched hand is solved the same way (`inHand`, its stick's line across
+ * the palm, and `roll`, how far the back of the hand is turned): the stick
+ * stays where the grip puts it in the hand, and comes across the kit from
+ * wherever the arm brings it, rather than turning round in the palm to meet
+ * an aim the arm cannot.
  */
 function militaryHold(
   hand: Hand,
   tip: Vector3,
   gripLocal: Vector3,
   root: Vector3,
-  pole: Vector3
+  pole: Vector3,
+  inHand = stickMilitary(hand),
+  roll = ROLL_MILITARY,
+  forearm = Z
 ): Hold {
-  const inHand = stickMilitary(hand);
   // the elbow to the tip, in the hand's frame, with the forearm along `fore`
   const pieceFor = (fore: Vector3) =>
     fore.clone().multiplyScalar(BODY.forearm).add(gripLocal).addScaledVector(inHand, TIP_REACH);
-  let piece = pieceFor(Z);
+  let piece = pieceFor(forearm);
   // the fulcrum is nearer the wrist than in a matched grip, so the reach is shorter: at full
   // stretch the shoulder comes forward to make it up, and the wrist gives, bending the hand
   // toward the stick's line — each only as far as the reach needs
@@ -463,22 +455,147 @@ function militaryHold(
     let hi = 1;
     for (let i = 0; i < 12; i++) {
       const mid = (lo + hi) / 2;
-      if (pieceFor(Z.clone().lerp(inHand, mid).normalize()).length() < need) lo = mid;
+      if (pieceFor(forearm.clone().lerp(inHand, mid).normalize()).length() < need) lo = mid;
       else hi = mid;
     }
-    piece = pieceFor(Z.clone().lerp(inHand, hi).normalize());
+    piece = pieceFor(forearm.clone().lerp(inHand, hi).normalize());
   }
   const { joint, end } = solveTwoBone(shoulder, tip, BODY.upperArm, piece.length(), pole);
   const want = end.sub(joint).normalize();
   // the hand's roll is set from the vertical, so turning it is not quite a rotation: a few goes
   const fore = want.clone();
-  let q0 = frameAlong(hand, fore, ROLL_MILITARY);
+  let q0 = frameAlong(hand, fore, roll);
   for (let i = 0; i < HOLD_PASSES; i++) {
     const got = piece.clone().applyQuaternion(q0).normalize();
     fore.applyQuaternion(new Quaternion().setFromUnitVectors(got, want)).normalize();
-    q0 = frameAlong(hand, fore, ROLL_MILITARY);
+    q0 = frameAlong(hand, fore, roll);
   }
-  return { d0: inHand.applyQuaternion(q0), q0, shoulder };
+  return { d0: inHand.clone().applyQuaternion(q0), q0, shoulder };
+}
+
+/** How far a matched arm's elbow swings either way, at most, to pitch its stick onto the piece, radians. */
+const ELBOW_SWING = 0.85;
+/** The swing's steps, the probe it reads its slope with, and its damping where the slope is slight. */
+const SWING_STEPS = 3;
+const SWING_PROBE = 0.1;
+const SWING_DAMP = 0.02;
+/** How hard a swing is drawn back for each radian it would turn the humerus past its everyday turn. */
+const SWING_BACK = 6;
+
+/**
+ * A matched wrist at rest in a stroke, radians toward the little finger (ulnar
+ * deviation, 10–15° at impact; `grip-research.md` §2.3).
+ */
+const WRIST_ULNAR = 0.22;
+
+/**
+ * Where a matched hand holds its stick for the tip to be at `tip`, pitched
+ * down `pitch` onto it: the stick fixed across the palm as the grip lays it
+ * (`STICK_IN_HAND`), the arm solved as one piece to it (`armPiece`), and the elbow
+ * swung to pitch it onto a cymbal as aimed. So whatever the stroke, the stick lies along the
+ * same line in the hand and the fingers stay on it.
+ */
+function matchedHold(
+  hand: Hand,
+  tip: Vector3,
+  pitch: number,
+  pronation: number,
+  gripLocal: Vector3,
+  root: Vector3,
+  pole: Vector3,
+  share: number
+): Hold {
+  // the stick's line in the hand, as the grip lays it: the same for every matched grip
+  const inHand = stickInHand(hand);
+  // the elbow swung round the line from the shoulder to the bead — up and out to play down
+  // onto a high cymbal, as a drummer raises the elbow for the ride, rather than bending
+  // the wrist to it — the arm, hand and stick tipping with it as one piece. Found by
+  // stepping from no swing along how the pitch changes with it, damped where it hardly
+  // does: never two answers to choose between, so the elbow moves smoothly
+  const axis = tip.clone().sub(root).normalize();
+  const solve = (phi: number): Hold =>
+    armPiece(hand, tip, gripLocal, inHand, pronation, root, pole.clone().applyAxisAngle(axis, phi));
+  const want = -Math.sin(pitch);
+  let phi = 0;
+  for (let i = 0; i < SWING_STEPS; i++) {
+    const y = solve(phi).d0.y;
+    const slope =
+      (solve(phi + SWING_PROBE).d0.y - solve(phi - SWING_PROBE).d0.y) / (2 * SWING_PROBE);
+    phi += (share * (want - y) * slope) / (slope * slope + SWING_DAMP);
+    phi = Math.max(-ELBOW_SWING, Math.min(ELBOW_SWING, phi));
+  }
+  // and swung back toward none the further it turns the humerus past its everyday turn
+  if (phi !== 0) {
+    const h = solve(phi);
+    const wrist = tip
+      .clone()
+      .addScaledVector(h.d0, -TIP_REACH)
+      .sub(gripLocal.clone().applyQuaternion(h.q0));
+    const { joint } = solveTwoBone(root, wrist, BODY.upperArm, BODY.forearm, h.pole ?? pole);
+    const a = armAngles(
+      { ...ANGLES_ONLY, shoulder: root, elbow: joint, wrist, hand: h.q0 },
+      new Quaternion(),
+      hand
+    );
+    const over = Number.isNaN(a.rotation)
+      ? 0
+      : Math.abs(eased(a.rotation, ROM.shoulderRotation) - a.rotation);
+    phi /= 1 + SWING_BACK * over;
+  }
+  return solve(phi);
+}
+
+/** A matched arm's piece length for each grip's turn and hold, and how many are kept. */
+const PIECE_LENGTH = new Map<string, number>();
+const PIECE_LENGTHS = 64;
+
+/** How many times a matched arm's forearm is turned to point its piece at the bead. */
+const PIECE_PASSES = 5;
+
+/**
+ * A matched arm as one piece from the elbow to the bead: the forearm turned
+ * `pronation` from thumb-up, the wrist at its rest — a little toward the
+ * little finger (`WRIST_ULNAR`), straight otherwise — and the stick along
+ * `inHand` in the hand. The elbow bends on the side `pole` points to; the
+ * forearm is turned (about the elbow) until the piece points at the bead.
+ * The hand turns with the arm, so however the elbow is set the forearm's turn
+ * is the grip's.
+ */
+function armPiece(
+  hand: Hand,
+  tip: Vector3,
+  gripLocal: Vector3,
+  inHand: Vector3,
+  pronation: number,
+  shoulder: Vector3,
+  pole: Vector3
+): Hold {
+  const still = new Quaternion();
+  const rest = { pronation, wristFlexion: 0, deviation: -WRIST_ULNAR };
+  const hold = gripLocal.clone().addScaledVector(inHand, TIP_REACH);
+  // the piece's length, elbow to bead, with the wrist at rest: the same whichever way it points
+  const key = `${hand}/${pronation}/${hold.x},${hold.y},${hold.z}`;
+  let length = PIECE_LENGTH.get(key);
+  if (length === undefined) {
+    const e = new Vector3(0, 0, 0);
+    const w = new Vector3(0, 0, -BODY.forearm);
+    const s = new Vector3(0, BODY.upperArm, 0);
+    const q = handFrameFor(s, e, w, rest, still, hand);
+    length = w.clone().add(hold.clone().applyQuaternion(q)).length();
+    if (PIECE_LENGTH.size > PIECE_LENGTHS) PIECE_LENGTH.clear();
+    PIECE_LENGTH.set(key, length);
+  }
+  const { joint: elbow, end } = solveTwoBone(shoulder, tip, BODY.upperArm, length, pole);
+  const want = end.clone().sub(elbow).normalize();
+  const fore = want.clone();
+  let q = new Quaternion();
+  for (let i = 0; i < PIECE_PASSES; i++) {
+    const wrist = elbow.clone().addScaledVector(fore, BODY.forearm);
+    q = handFrameFor(shoulder, elbow, wrist, rest, still, hand);
+    const got = wrist.clone().add(hold.clone().applyQuaternion(q)).sub(elbow).normalize();
+    fore.applyQuaternion(new Quaternion().setFromUnitVectors(got, want)).normalize();
+  }
+  return { d0: inHand.clone().applyQuaternion(q), q0: q, shoulder, pole };
 }
 
 /** When the body reads where the hands are going, seconds from now. */
@@ -548,13 +665,21 @@ export function barCueAt(ones: readonly Downbeat[], hits: readonly Hit[], now: n
 /** A trick can come once in each of these windows while waiting, seconds, and does in this share of them. */
 const TWIRL_WINDOW = 10;
 const TWIRL_CHANCE = 0.38;
-/** The trick: up, spun round the fingers, and back down, seconds. */
+/**
+ * The trick: up, spun, and back down, seconds. A turn round the thumb takes
+ * about 0.3–0.5 s and the propeller about 0.4–0.6 s (one a beat, between two
+ * hits on the hats); both estimated in `grip-research.md`, no study times them.
+ */
 const TWIRL_UP = 0.35;
-const TWIRL_SPIN = 0.8;
+const TWIRL_TURN: Record<TwirlKind, number> = { thumb: 0.42, propeller: 0.5 };
 const TWIRL_DOWN = 0.45;
+/** How often a trick is the propeller rather than the turn round the thumb. */
+const TWIRL_PROPELLER = 0.55;
 /** How high the hand comes up for it, metres: rolled between these each time. */
 const TWIRL_LOW = 0.11;
 const TWIRL_HIGH = 0.3;
+/** And how far out in front, metres: the forearm opens out to it rather than folding up. */
+const TWIRL_OUT = 0.1;
 /** How often both hands do it together, the second a beat behind the first. */
 const TWIRL_BOTH = 0.1;
 const TWIRL_FOLLOW = 0.15;
@@ -563,6 +688,17 @@ const TWIRL_GROOVE = 0.15;
 /** How long either side of a trick the hands must have nothing to play, seconds. */
 const TWIRL_CLEAR = 1.5;
 
+/**
+ * The two twirls a kit drummer does (`grip-research.md` §3). Round the thumb:
+ * the back fingers let go, the first finger flicks the butt up and over, and
+ * the stick turns end over end about the pinch of thumb and first finger, the
+ * wrist dipping into each turn. The propeller ("cigar grip"): the stick slides
+ * up to its middle, clamped between the first and middle fingers; the palm
+ * turns to the drummer and the stick spins flat across it, kept going by the
+ * wrist rocking; then the thumb catches the butt and it slides back.
+ */
+export type TwirlKind = 'thumb' | 'propeller';
+
 export interface Twirl {
   /** 0–1: how far into the trick the hand is. */
   amount: number;
@@ -570,12 +706,14 @@ export interface Twirl {
   spin: number;
   /** How high the hand comes up for it, metres. */
   raise: number;
+  kind: TwirlKind;
 }
 
 /**
- * Waiting for Play, now and then a hand lifts its stick and twirls it round
- * the fingers and settles back into the rest — either hand, sometimes both,
- * to its own height and for one to three turns. Only waiting: never with a
+ * Waiting for Play, now and then a hand lifts its stick and twirls it — round
+ * the thumb, or spun like a propeller between two fingers — and settles back
+ * into the rest: either hand, sometimes both, to its own height and for one to
+ * three turns. Only waiting: never with a
  * note (or a count) anywhere near it, and put away as soon as the groove
  * starts to come in — pressing Play mid-trick winds the stick quickly home
  * rather than snapping it. Seeded from the time, so it holds still across
@@ -586,7 +724,7 @@ export function twirlAt(
   groove: number,
   hits: readonly Hit[] = []
 ): Record<Hand, Twirl> {
-  const none: Twirl = { amount: 0, spin: 0, raise: 0 };
+  const none: Twirl = { amount: 0, spin: 0, raise: 0, kind: 'thumb' };
   const out: Record<Hand, Twirl> = { lead: none, other: none };
   const fade = 1 - smoothstep(0, TWIRL_GROOVE, groove);
   if (fade <= 0) return out;
@@ -607,8 +745,9 @@ export function twirlAt(
       const r = rng();
       const turns = r < 0.45 ? 1 : r < 0.85 ? 2 : 3;
       const raise = TWIRL_LOW + (TWIRL_HIGH - TWIRL_LOW) * rng();
+      const kind: TwirlKind = rng() < TWIRL_PROPELLER ? 'propeller' : 'thumb';
       const from = start + delay;
-      const spinEnd = from + TWIRL_UP + TWIRL_SPIN * turns;
+      const spinEnd = from + TWIRL_UP + TWIRL_TURN[kind] * turns;
       const end = spinEnd + TWIRL_DOWN;
       if (now < from || now > end) continue;
       // a show passing a stick between the hands has them both
@@ -619,7 +758,7 @@ export function twirlAt(
         fade * smoothstep(from, from + TWIRL_UP, now) * (1 - smoothstep(spinEnd, end, now));
       // fast through the middle of each turn, easing in and out of the spin
       const spin = fade * 2 * Math.PI * turns * smootherstep(from + TWIRL_UP, spinEnd, now);
-      out[hand] = { amount, spin, raise };
+      out[hand] = { amount, spin, raise, kind };
     }
   }
   return out;
@@ -650,8 +789,7 @@ const EFFORT_WINDOW = [0, 0.04, 0.08, 0.12, 0.16, 0.2];
 /** How far behind the beat the shoulders settle, in beats. */
 const SHOULDER_LAG = 0.1;
 
-/** How much of a stroke's angle is the stick loose in the fingers, at rest and just off the head. */
-const LOOSE_REST = 0.12;
+/** How much of a stroke's angle is the stick loose in the fingers just off the head (at rest, the grip's `loose`). */
 const LOOSE_REBOUND = 0.85;
 /** On the ride, where the fingers do more: the stick bounces up in them, not only the hand. */
 const LOOSE_RIDE = 0.35;
@@ -663,9 +801,8 @@ const CARRY_RIDE = 0.2;
 const HEIGHT_DRIFT = 0.12;
 const HEIGHT_PERIOD = 2.3;
 
-/** The forearm joins a stroke past this tip height, and with this share of the rest. */
+/** The forearm joins a stroke past this tip height, with the grip's `arm` share of the rest. */
 const ARM_FROM = 0.2;
-const ARM_SHARE = 0.35;
 
 /**
  * How much of the stick's angle is the stick turning in the fingers rather
@@ -674,13 +811,55 @@ const ARM_SHARE = 0.35;
  * Then the hand comes up to catch it and the wrist takes over — by the time the
  * next stroke is thrown, the stick is back in the hand.
  */
-function looseness(st: StrokeState): number {
-  // on the ride the hand is turned thumb-up and the fingers play more of the stroke
-  const rest = (st.next ?? st.prev)?.piece === 'ride' ? LOOSE_RIDE : LOOSE_REST;
+function looseness(st: StrokeState, style: GripStyle): number {
+  const rest = restLoose(st, style);
   if (!st.prev) return rest;
   const gap = st.next ? st.next.time - st.prev.time : 0.5;
   const settle = Math.min(0.2, Math.max(0.05, gap * 0.4));
   return rest + (LOOSE_REBOUND - rest) * Math.exp(-st.since / settle);
+}
+
+/** On the ride the hand is turned thumb-up and the fingers play more of the stroke. */
+function restLoose(st: StrokeState, style: GripStyle): number {
+  return (st.next ?? st.prev)?.piece === 'ride' ? Math.max(LOOSE_RIDE, style.loose) : style.loose;
+}
+
+/**
+ * The hand's roll for a grip, from the roll American grip would have
+ * (`ROLL`): the grip's own on a drum, turned as far toward the thumb as
+ * American's is on a cymbal, but only by the share of the way to thumb-up the
+ * grip has left — a French hand is already there.
+ */
+function gripRoll(style: GripStyle, american: number): number {
+  const room = Math.max(0, (Math.PI / 2 - style.roll) / (Math.PI / 2 - ROLL_DRUM));
+  return style.roll + (american - ROLL_DRUM) * room;
+}
+
+/**
+ * How much of its aimed pitch a matched stick is brought to by swinging the
+ * elbow: all of it onto a cymbal or the hats, whose bow a shallow stick would
+ * pass under, and none of it on a drum, where the stick comes in at whatever
+ * pitch the arm gives it and the elbow keeps the grip's own set (out for
+ * German, in for French) — chasing a drum's pitch with the elbow throws it
+ * about for nothing.
+ */
+function pitchShare(p: HandPath): number {
+  const at = (t: Target) => (t.cymbal ? 1 : PITCH_DRUM);
+  return at(p.from) + (at(p.to) - at(p.from)) * p.travel;
+}
+const PITCH_DRUM = 0;
+
+/** How much more a matched forearm turns toward thumb-up for a cymbal than American grip's hand rolls for it. */
+const CYMBAL_TURN = 2.5;
+
+/**
+ * The forearm's turn a matched grip plays a piece with, radians from thumb-up:
+ * the grip's own on a drum, turned toward thumb-up as far as American grip
+ * turns toward it for a cymbal (`ROLL`) — a drummer goes toward French grip
+ * on the ride (Packer, `grip-research.md`) — but never past thumb-up.
+ */
+function gripPronation(style: GripStyle, american: number): number {
+  return Math.max(0, style.pronation - CYMBAL_TURN * (american - ROLL_DRUM));
 }
 
 /** A stroke this soft or softer is the fingers' alone, and one this hard or harder none of it. */
@@ -754,7 +933,8 @@ function arm(
   held: Grip,
   cap = Infinity
 ): ArmPose {
-  const military = held === 'military';
+  const military = held === 'traditional';
+  const style = GRIP_STYLE[held];
   const { from, to, travel } = p;
   // how far the hand is set for a cross-stick: the stroke is the fingers', the hand at rest,
   // the stick under the first finger's knuckle in the middle of the head
@@ -778,14 +958,16 @@ function arm(
   // the stick still meets it where it is aimed
   // the stroke coming, or with none coming the one just played
   const fingers = counting ? 0 : fingerShare(st.next ?? st.prev);
-  const loose0 = counting ? 0 : Math.max(looseness(st), LOOSE_FINGERS * fingers);
+  const loose0 = counting ? 0 : Math.max(looseness(st, style), LOOSE_FINGERS * fingers);
   const loose = loose0 + (1 - loose0) * crossed;
-  const rest = piece === 'ride' ? LOOSE_RIDE : LOOSE_REST;
+  const rest = restLoose(st, style);
   const caught = counting ? 1 : Math.max(0, 1 - (loose - rest) / (LOOSE_REBOUND - rest)) ** 2;
   const early = Math.min(cap, sign * time.ahead * time.height + arc + time.air);
   const ahead =
     lift + (early - lift) * caught * Math.min(1, Math.abs(lift) / WRIST_FADE) * (1 - crossed);
-  const roll = from.roll + (to.roll - from.roll) * travel;
+  // set down for a cross-stick, the hand lies as it lies whatever the grip
+  const american = from.roll + (to.roll - from.roll) * travel;
+  const roll = gripRoll(style, american) + (american - gripRoll(style, american)) * crossed;
 
   // elbows hang by the ribs, a little out and behind the hands; counting, the
   // elbow swings out as the arm comes up
@@ -793,7 +975,7 @@ function arm(
   const flare = counting ? COUNT_ELBOW * COUNT_ARM * ahead : 0;
   // set down across the snare for a cross-stick, the elbow goes out to the side, so the
   // forearm comes in across the drum in line with the hand
-  const pole = new Vector3(out * (0.35 + time.sway + flare), -1, 0.45).lerp(
+  const basePole = new Vector3(out * (style.elbow + time.sway + flare), -1, 0.45).lerp(
     new Vector3(out * CROSS_ELBOW[0], CROSS_ELBOW[1], CROSS_ELBOW[2]),
     crossed
   );
@@ -817,18 +999,36 @@ function arm(
     q0:
       military && crossed === 0
         ? militaryFrame(hand, aimed)
-        : handFrame(hand, aimed, roll, HAND_SPLAY * (1 - crossed)).multiply(
+        : handFrame(hand, aimed, roll, 1 - crossed).multiply(
             new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), -CROSS_ARCH * crossed)
           ),
     shoulder: root,
+    pole: basePole,
   };
   // (and holds it at the angle it is aimed, for a rimshot)
   const level = share(p, 'level');
-  const playing = military ? (1 - countShare(p)) * (1 - crossed) * (1 - level) : 0;
+  const playing = (1 - countShare(p)) * (1 - crossed) * (1 - level);
   const hold =
     playing <= 0
       ? held0
-      : blendHold(held0, militaryHold(hand, tip0, gripLocal, root, pole), playing);
+      : military
+        ? blendHold(held0, militaryHold(hand, tip0, gripLocal, root, basePole), playing)
+        : blendHold(
+            held0,
+            matchedHold(
+              hand,
+              tip0,
+              pitch,
+              gripPronation(style, american),
+              gripLocal,
+              root,
+              basePole,
+              pitchShare(p)
+            ),
+            playing
+          );
+  // the elbow where the hold put it
+  const pole = hold.pole ?? basePole;
   const { d0, q0 } = hold;
   const grip0 = tip0.clone().addScaledVector(d0, -reach);
   const wrist0 = grip0.clone().sub(gripLocal.clone().applyQuaternion(q0));
@@ -854,13 +1054,13 @@ function arm(
   const armLift =
     (counting
       ? COUNT_ARM * ahead
-      : ARM_SHARE * Math.max(0, ahead - ARM_FROM) + carry + WRIST_RISE * caught * ahead) *
+      : style.arm * Math.max(0, ahead - ARM_FROM) + carry + WRIST_RISE * caught * ahead) *
     (1 - crossed);
   const back = new Vector3(-d0.x, 0, -d0.z).normalize();
   const raise = new Vector3().addScaledVector(UP, armLift).addScaledVector(back, armLift * 0.25);
   // a trick: the hand comes up and out in front, to be seen
   const tw = time.twirl;
-  raise.addScaledVector(UP, tw.raise * tw.amount).addScaledVector(back, -0.05 * tw.amount);
+  raise.addScaledVector(UP, tw.raise * tw.amount).addScaledVector(back, -TWIRL_OUT * tw.amount);
 
   // the rest is the stick turning up: part in the fingers, part at the wrist
   const wristArm = grip0.distanceTo(wrist0);
@@ -869,15 +1069,18 @@ function arm(
   );
   const axis = new Vector3().crossVectors(d0, UP).normalize();
   const matchedTurn = new Quaternion().setFromAxisAngle(axis, theta * (1 - loose));
-  const turn = military
-    ? forearmTurn(
-        d0,
-        axis,
-        wrist0,
-        solveTwoBone(shoulder, wrist0, BODY.upperArm, BODY.forearm, pole).joint,
-        theta * (1 - loose)
-      ).slerp(matchedTurn, crossed)
-    : matchedTurn;
+  // ...the turn shared between the wrist and the forearm as the grip has it
+  const turn =
+    style.turn > 0
+      ? forearmTurn(
+          d0,
+          axis,
+          wrist0,
+          solveTwoBone(shoulder, wrist0, BODY.upperArm, BODY.forearm, pole).joint,
+          theta * (1 - loose),
+          style.turn
+        ).slerp(matchedTurn, crossed)
+      : matchedTurn;
   // a cross-stick turns about its butt, down on the head under the heel of the hand: the
   // fingers lift the stick and the hand rises with it, rather than the stick seesawing in
   // the fingers and its butt dipping into the head
@@ -902,10 +1105,20 @@ function arm(
           .normalize()
       : fingered
   ).applyQuaternion(sway);
-  const q = sway.clone().multiply(handLift).multiply(turn).multiply(q0);
+  const played = sway.clone().multiply(handLift).multiply(turn).multiply(q0);
+  // a propeller turns the palm to the drummer and holds the stick between two fingers;
+  // either twirl rocks the wrist into each turn
+  const prop = tw.kind === 'propeller' ? tw.amount : 0;
+  const q = (prop > 0 ? played.clone().slerp(propellerFrame(hand), prop) : played).multiply(
+    new Quaternion().setFromAxisAngle(
+      new Vector3(1, 0, 0),
+      TWIRL_ROCK * Math.sin(tw.spin) * tw.amount
+    )
+  );
+  const holdAt = gripLocal.clone().lerp(cigarOf(hand), prop);
 
   const reachFor = (frame: Quaternion) => {
-    const wrist = grip.clone().sub(gripLocal.clone().applyQuaternion(frame));
+    const wrist = grip.clone().sub(holdAt.clone().applyQuaternion(frame));
     return { wrist, ...solveTwoBone(shoulder, wrist, BODY.upperArm, BODY.forearm, pole) };
   };
   // the stick rolls a little in the palm so the hand can follow the forearm: solve
@@ -915,19 +1128,39 @@ function arm(
   const forearm = first.end.clone().sub(first.joint).normalize();
   // (a military hand is already in line with it: it turns about it — unless turned over)
   // (and a hand set down for a cross-stick keeps its fingers along the stick)
-  const aligned = alignHand(q, forearm, FOLLOW_FOREARM * (military ? crossed : 1) * (1 - crossed));
+  const turned = alignHand(
+    q,
+    forearm,
+    FOLLOW_FOREARM * (military ? crossed : 1 - playing) * (1 - crossed) * (1 - prop)
+  );
+  // and whatever the forearm and wrist cannot turn or bend, the stick takes in the palm —
+  // but for a hand set down for a cross-stick, whose heel and fingers both lie on the head:
+  // the drum sets its wrist (see "Known deviations" in `.context/app/anatomy.md`)
+  const aligned = withinRange(hand, turned, grip, holdAt, shoulder, pole, 1 - crossed);
   const { wrist: wristWanted, joint, end } = reachFor(aligned);
   // out of reach, the hand stays on the arm and the stick goes with it
   grip.add(end.clone().sub(wristWanted));
-  // a twirl spins the stick end over end round the fingers, about the line across the knuckles
-  if (tw.spin) {
+  // round the thumb, the stick turns end over end about the pinch, across the knuckles
+  if (tw.spin && tw.kind === 'thumb') {
+    // the stick lies across the palm, not square to the knuckles: spin it about the line
+    // across them made square to the stick, so it turns end over end rather than round a cone
     const across = new Vector3(1, 0, 0).applyQuaternion(aligned);
-    // a military stick lies across the palm, not square to the knuckles: spin it about the
-    // line across them made square to the stick, so it still turns end over end
-    if (military) across.addScaledVector(stick, -across.dot(stick)).normalize();
+    across.addScaledVector(stick, -across.dot(stick)).normalize();
     stick.applyAxisAngle(across, tw.spin);
   }
-  const tip = grip.clone().addScaledVector(stick, reach);
+  // as a propeller it slides up to its middle and lies flat across the palm, between the
+  // fingers, spinning about the line out of the back of the hand
+  if (prop > 0) {
+    const inv = aligned.clone().invert();
+    const flat = stick.clone().applyQuaternion(inv).setY(0);
+    if (flat.lengthSq() < 1e-8) flat.set(0, 0, 1);
+    const spun = flat
+      .normalize()
+      .applyAxisAngle(new Vector3(0, 1, 0), tw.spin)
+      .applyQuaternion(aligned);
+    stick.lerp(spun, prop).normalize();
+  }
+  const tip = grip.clone().addScaledVector(stick, reach + (STICK.length / 2 - reach) * prop);
 
   // the back fingers close on the stick at the head — hard for a loud note, and hard
   // too for a ghost, which they threw — and open to let it turn as it rises: all
@@ -948,11 +1181,135 @@ function arm(
     lift,
     curl: Math.min(1, Math.max(0, 0.62 + 0.3 * squeeze - 0.22 * give)),
     // turned over for a cross-stick, the hand holds it as a matched hand does
-    held: crossed > 0.5 ? 'matched' : held,
+    held: crossed > 0.5 && military ? 'american' : held,
     cross: crossed,
     ready: time.ready,
+    // a propeller's fingers: the stick between the first two, the rest out of its way;
+    // round the thumb, the back fingers let it go
+    ...(tw.amount > 0
+      ? {
+          shape:
+            tw.kind === 'propeller'
+              ? { kind: 'cigar' as const, amount: prop }
+              : { kind: 'open' as const, amount: TWIRL_RELEASE * tw.amount },
+        }
+      : {}),
   };
 }
+
+/** A twirl's wrist rock into each turn, radians either way (`grip-research.md` §3: 10–15°). */
+const TWIRL_ROCK = 0.2;
+/** How far toward open the hand lets go for a turn round the thumb: the back fingers clear of it. */
+const TWIRL_RELEASE = 0.5;
+
+/**
+ * Where a propeller's stick turns, in the lead hand's frame (the other mirrors
+ * `x`): between the first and middle fingers, a couple of centimetres out from
+ * the knuckles.
+ */
+const CIGAR = new Vector3(0.021, -0.006, 0.12);
+
+function cigarOf(hand: Hand): Vector3 {
+  return hand === 'lead' ? CIGAR.clone() : new Vector3(-CIGAR.x, CIGAR.y, CIGAR.z);
+}
+
+/**
+ * A hand spinning a propeller: up, the palm turned to the drummer so the
+ * stick's disc faces whoever is watching, the fingers up and a little out.
+ */
+function propellerFrame(hand: Hand): Quaternion {
+  const out = hand === 'lead' ? 1 : -1;
+  const back = new Vector3(0.15 * out, 0.1, -1).normalize();
+  const fwd = new Vector3(0.35 * out, 1, 0.15);
+  fwd.addScaledVector(back, -fwd.dot(back)).normalize();
+  return new Quaternion().setFromRotationMatrix(
+    new Matrix4().makeBasis(new Vector3().crossVectors(back, fwd), back, fwd)
+  );
+}
+
+/** How many times the hand is turned back inside its range and the arm solved again. */
+const RANGE_PASSES = 8;
+
+/**
+ * Where a joint at `value` is let go, inside `m`: as it is until it nears the
+ * anatomical end — the everyday range, or `RANGE_KNEE` short of the end if
+ * that is further out (a German grip works its forearm past the everyday
+ * range as a matter of course) — and squeezed smoothly from there into what
+ * is left, never quite reaching the end (`RANGE_SPARE` short of it).
+ */
+function eased(value: number, m: Motion): number {
+  const top = (knee: number, hard: number, v: number) => {
+    const room = Math.abs(hard - knee) - RANGE_SPARE;
+    const over = Math.abs(v - knee);
+    return knee + Math.sign(hard - knee) * room * Math.tanh(over / room);
+  };
+  const hi = Math.max(m.soft.max, m.hard.max - RANGE_KNEE);
+  const lo = Math.min(m.soft.min, m.hard.min + RANGE_KNEE);
+  if (value > hi) return top(hi, m.hard.max, value);
+  if (value < lo) return top(lo, m.hard.min, value);
+  return value;
+}
+/** How far short of a joint's anatomical end it starts to be eased, at most, radians. */
+const RANGE_KNEE = 0.26;
+/** How far short of a joint's anatomical end a hand is ever turned or bent, radians. */
+const RANGE_SPARE = 0.02;
+
+/**
+ * Keep a hand's forearm and wrist inside their ranges (`anatomy/rom.ts`). The
+ * stick is where the stroke put it: the hand turns about the fulcrum, so the
+ * wrist moves, the arm is solved again for it, and the stick lies a little
+ * differently across the palm. Past the everyday range a joint is eased
+ * smoothly toward its end rather than stopped at it, so the hand never kinks.
+ */
+function withinRange(
+  hand: Hand,
+  q: Quaternion,
+  grip: Vector3,
+  gripLocal: Vector3,
+  shoulder: Vector3,
+  pole: Vector3,
+  weight = 1
+): Quaternion {
+  if (weight <= 0) return q;
+  const still = new Quaternion();
+  let out = q;
+  for (let i = 0; i < RANGE_PASSES; i++) {
+    const wrist = grip.clone().sub(gripLocal.clone().applyQuaternion(out));
+    const { joint, end } = solveTwoBone(shoulder, wrist, BODY.upperArm, BODY.forearm, pole);
+    const a = armAngles(
+      { ...ANGLES_ONLY, shoulder, elbow: joint, wrist: end, hand: out },
+      still,
+      hand
+    );
+    const ease = (v: number, m: Motion) => v + (eased(v, m) - v) * weight;
+    const want = {
+      pronation: ease(a.pronation, ROM.pronation),
+      wristFlexion: ease(a.wristFlexion, ROM.wristFlexion),
+      deviation: ease(a.deviation, ROM.deviation),
+    };
+    if (
+      Math.abs(want.pronation - a.pronation) +
+        Math.abs(want.wristFlexion - a.wristFlexion) +
+        Math.abs(want.deviation - a.deviation) <
+      1e-5
+    )
+      break;
+    out = handFrameFor(shoulder, joint, end, want, still, hand);
+  }
+  return out;
+}
+
+/** What `armAngles` reads besides the joints and the hand: nothing, so any will do. */
+const ANGLES_ONLY: Omit<ArmPose, 'shoulder' | 'elbow' | 'wrist' | 'hand'> = {
+  grip: new Vector3(),
+  stick: new Vector3(0, 0, -1),
+  tip: new Vector3(),
+  lift: 0,
+  curl: 0,
+  held: 'american',
+  ready: 0,
+  cross: 0,
+};
 
 /** How much of the way a hand is at a count click: 1 there, 0 at a note or the rest, between as it moves. */
 function countShare(p: HandPath): number {
@@ -964,6 +1321,8 @@ interface Hold {
   d0: Vector3;
   q0: Quaternion;
   shoulder: Vector3;
+  /** Where the elbow is pushed, if the hold set it (pole units). */
+  pole?: Vector3;
 }
 
 /** Part of the way from one way of holding the stick to another: `k` 0 is `a`, 1 is `b`. */
@@ -973,26 +1332,29 @@ function blendHold(a: Hold, b: Hold, k: number): Hold {
     d0: a.d0.clone().lerp(b.d0, k).normalize(),
     q0: a.q0.clone().slerp(b.q0, k),
     shoulder: a.shoulder.clone().lerp(b.shoulder, k),
+    pole: a.pole && b.pole ? a.pole.clone().lerp(b.pole, k) : (b.pole ?? a.pole),
   };
 }
 
 /**
- * A military stroke's wrist share, `angle` radians of tip-up as matched grip
- * would turn it about `axis`: mostly the forearm turning about its own length
- * (`elbow` to `wrist`, before the stroke), by however far that has to turn
- * for the stick to rise as steeply.
+ * A stroke's wrist share, `angle` radians of tip-up as the wrist alone would
+ * turn it about `axis`, with `share` of it the forearm turning about its own
+ * length instead (`elbow` to `wrist`, before the stroke) — by however far that
+ * has to turn for the stick to rise as steeply. Most of a traditional stroke,
+ * some of a French one, none of a German one.
  */
 function forearmTurn(
   d0: Vector3,
   axis: Vector3,
   wrist: Vector3,
   elbow: Vector3,
-  angle: number
+  angle: number,
+  share: number
 ): Quaternion {
   const fore = wrist.clone().sub(elbow).normalize();
   // either way along the forearm is the same line: take the way a positive turn raises the tip
   if (new Vector3().crossVectors(fore, d0).y < 0) fore.negate();
-  const a = axis.clone().lerp(fore, TURN_MILITARY).normalize();
+  const a = axis.clone().lerp(fore, share).normalize();
   // the stick's height after `t` about `a` (Rodrigues): C + (A − C) cos t + B sin t
   const C = a.y * a.dot(d0);
   const A = d0.y - C;
@@ -1421,7 +1783,7 @@ export function poseAt(
   timeline: StrokeTimeline,
   now: number,
   groove: number,
-  grips: Grips = MATCHED_GRIPS,
+  grips: Grips = DEFAULT_GRIPS,
   audience?: Vector3
 ): Pose {
   const all = timeline.all();

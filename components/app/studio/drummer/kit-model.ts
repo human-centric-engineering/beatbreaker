@@ -137,6 +137,23 @@ interface Swinger {
   freq: number;
 }
 
+/**
+ * The snare alone on its stand, where the kit puts it: for the grip guide,
+ * which shows only the hands and the drum they play.
+ */
+export function buildSnare(m: Materials): THREE.Group {
+  const root = new THREE.Group();
+  root.name = 'snare';
+  const p = PIECES.snare;
+  const f = frame(p);
+  f.add(drum(p, m, 10));
+  root.add(f);
+  root.add(
+    stand(new THREE.Vector3(p.centre[0], p.centre[1] - p.depth - 0.02, p.centre[2]), m, 0.2)
+  );
+  return root;
+}
+
 export function buildKit(m: Materials): KitModel {
   const root = new THREE.Group();
   root.name = 'kit';

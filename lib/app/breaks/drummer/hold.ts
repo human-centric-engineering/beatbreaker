@@ -13,36 +13,60 @@ const UP = new Vector3(0, 1, 0);
 
 /**
  * Where the fulcrum sits in the hand's frame, for the lead hand (the other
- * mirrors `x`): under the pad of the thumb, the stick balanced on the middle
- * finger with the first finger wrapped beside it — out past the knuckles and
- * under them.
+ * mirrors `x`): in the fingers, not the palm — inside the first finger's
+ * curl, against its middle and end bones at the first crease, the pad of the
+ * thumb on the stick's side (Packer; wikiHow, American grip). Found as the
+ * place a stick is hugged by the first finger bent as the grip bends it.
  */
-export const GRIP_IN_HAND = new Vector3(0.023, -0.026, 0.12);
+export const GRIP_IN_HAND = new Vector3(0.03, -0.07, 0.106);
 
 /**
- * How far the hand's long axis turns out from the stick. The stick runs across
- * the palm from the fulcrum to the heel of the hand, so the back fingers wrap
- * it behind the fulcrum and the butt shows past the little finger.
+ * The stick's line in the hand, butt to tip, for the lead hand (the other
+ * mirrors `x`): from the heel of the hand, under the little finger, out
+ * through the fulcrum — about 39° across the palm toward the thumb, and
+ * tipped about 19° away from it, the butt near the palm and the tip held out
+ * in the fingers, with a gap between stick and palm for it to pivot in.
  */
-export const HAND_SPLAY = 0.7;
-export function handFrame(
-  hand: Hand,
-  stick: Vector3,
-  roll: number,
-  splay = HAND_SPLAY
-): Quaternion {
+export const STICK_IN_HAND = new Vector3(0.693, -0.497, 0.551).normalize();
+
+/** The stick's line in `hand`, `k` of the way from lying along the fingers (0) to as the grip lays it (1). */
+export function stickInHand(hand: Hand, k = 1): Vector3 {
+  const s = new Vector3(0, 0, 1).lerp(STICK_IN_HAND, k).normalize();
+  if (hand === 'other') s.x = -s.x;
+  return s;
+}
+
+/**
+ * The hand's frame holding a stick along `stick` (a unit vector), the back of
+ * the hand rolled `roll` radians out from facing up about it, and the stick
+ * lying in the hand along `stickInHand(hand, k)`.
+ */
+export function handFrame(hand: Hand, stick: Vector3, roll: number, k = 1): Quaternion {
+  // the stick's own frame in the room, and the same frame in the hand: along the stick, and
+  // the back of the hand made square to it
+  const zs = stickInHand(hand, k);
+  const ys = new Vector3(0, 1, 0).addScaledVector(zs, -zs.y).normalize();
+  const inHand = new Quaternion().setFromRotationMatrix(
+    new Matrix4().makeBasis(new Vector3().crossVectors(ys, zs), ys, zs)
+  );
+  return frameAlong(hand, stick, roll).multiply(inHand.invert());
+}
+
+/**
+ * A frame pointing along `fwd` (its `z`), its `y` — the back of a hand —
+ * rolled `roll` radians out from facing up, toward the hand's own side.
+ */
+export function frameAlong(hand: Hand, fwd: Vector3, roll: number): Quaternion {
   const outward = hand === 'lead' ? 1 : -1;
   const up = UP.clone()
-    .sub(stick.clone().multiplyScalar(stick.dot(UP)))
+    .sub(fwd.clone().multiplyScalar(fwd.dot(UP)))
     .normalize();
-  const side = new Vector3().crossVectors(stick, up).normalize().multiplyScalar(outward);
+  const side = new Vector3().crossVectors(fwd, up).normalize().multiplyScalar(outward);
   const back = up
     .clone()
     .multiplyScalar(Math.cos(roll))
     .addScaledVector(side, Math.sin(roll))
     .normalize();
-  const fwd = stick.clone().multiplyScalar(Math.cos(splay)).addScaledVector(side, Math.sin(splay));
-  fwd.sub(back.clone().multiplyScalar(fwd.dot(back))).normalize();
   const x = new Vector3().crossVectors(back, fwd);
   return new Quaternion().setFromRotationMatrix(new Matrix4().makeBasis(x, back, fwd));
 }

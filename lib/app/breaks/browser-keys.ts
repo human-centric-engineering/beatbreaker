@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { PATTERNS_TABS } from '@/components/app/shell/studio-address';
+import { GRIP_CHOICES, type GripChoice } from '@/lib/app/breaks/drummer/grips';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
 
 /**
@@ -88,13 +89,24 @@ export const DRUMMER_HAND: StoredSetting<(typeof DRUMMER_HANDS)[number]> = {
   fallback: 'right',
 };
 
-/** Which of the 3D drummer's hands hold the stick in a military (traditional) grip. */
-export const DRUMMER_GRIPS = ['none', 'other', 'both'] as const;
+/**
+ * How the 3D drummer holds the sticks (`GRIP_CHOICES`). The setting once held
+ * only which hands played traditional (`none`, `other`, `both`); those values
+ * are read as the grips they were.
+ */
+const LEGACY_GRIP: Record<string, GripChoice> = {
+  none: 'american',
+  other: 'traditional',
+  both: 'traditionalBoth',
+};
 
-export const DRUMMER_GRIP: StoredSetting<(typeof DRUMMER_GRIPS)[number]> = {
+export const DRUMMER_GRIP: StoredSetting<GripChoice> = {
   key: 'bb.drummerGrip',
-  schema: z.enum(DRUMMER_GRIPS),
-  fallback: 'none',
+  schema: z.preprocess(
+    (v) => (typeof v === 'string' && Object.hasOwn(LEGACY_GRIP, v) ? LEGACY_GRIP[v] : v),
+    z.enum(GRIP_CHOICES)
+  ),
+  fallback: 'american',
 };
 
 /** The scrolling chart and beat count in the corner of the 3D drummer view. */

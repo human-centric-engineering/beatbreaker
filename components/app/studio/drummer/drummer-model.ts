@@ -35,12 +35,13 @@ import { makeRng } from '@/lib/app/breaks/rng';
  * A jointed figure rather than a skinned one: every limb is a segment placed
  * between two joints the pose has solved, so what you see is exactly what the
  * stroke planner and the IK decided — nothing is blended or retargeted on the
- * way to the screen. The hands are articulated to the finger joint: the
- * stick balances on the middle finger under the thumb, the first finger wraps
- * beside it, and the back two close on each stroke and give as the stick
- * comes up. In a military grip the stick sits in the web of the thumb instead:
- * the thumb lies over it, the first two fingers rest on top, and the ring
- * finger is curled underneath with the little finger tucked in behind.
+ * way to the screen. The hands are articulated to the finger joint, and each finger is fitted to
+ * the stick where it lies (`anatomy/hand.ts`): in a matched grip the stick
+ * balances on the middle finger under the pad of the thumb, the first finger
+ * wraps beside it, and the back two close on each stroke and ease off as the
+ * stick comes up. In traditional grip the stick sits in the web of the thumb
+ * instead: the thumb lies over it, the first two fingers rest on top, and the
+ * ring finger is curled underneath with the little finger tucked in behind.
  *
  * Who is playing is a {@link Persona}: their build thickens or thins the
  * limbs and the trunk round the same joints, and their hair, beard and what
@@ -335,7 +336,7 @@ function buildHand(thumb: 1 | -1, skin: THREE.Material, nail?: THREE.Material): 
   const thumbBase = new THREE.Group();
   // its base inside the heel of the hand, as a thumb's is
   thumbBase.position.set(thumb * THUMB_BASE[0], THUMB_BASE[1], THUMB_BASE[2]);
-  thumbBase.rotation.set(...thumbTurn(thumb, 'matched'), 'YXZ');
+  thumbBase.rotation.set(...thumbTurn(thumb, 'american'), 'YXZ');
   const t1 = phalanx(0.042, 0.0115, skin);
   thumbBase.add(t1);
   const t2 = new THREE.Group();
@@ -353,7 +354,7 @@ function buildHand(thumb: 1 | -1, skin: THREE.Material, nail?: THREE.Material): 
   return { group, fingers, thumb: thumbBase, thumbTip: t2, side: thumb };
 }
 
-interface ArmRig {
+export interface ArmRig {
   shoulder: THREE.Mesh;
   sleeve: THREE.Mesh;
   upper: THREE.Mesh;
@@ -391,7 +392,7 @@ export function stickGeometry(): THREE.BufferGeometry {
   );
 }
 
-function buildArm(hand: Hand, m: Materials, who: Persona): ArmRig {
+export function buildArm(hand: Hand, m: Materials, who: Persona): ArmRig {
   const stick = new THREE.Mesh(stickGeometry(), m.wood);
   stick.castShadow = true;
   const g = SHAPES[who.build].arm;
@@ -427,7 +428,7 @@ function buildArm(hand: Hand, m: Materials, who: Persona): ArmRig {
   };
 }
 
-function poseArm(rig: ArmRig, a: ArmPose): void {
+export function poseArm(rig: ArmRig, a: ArmPose): void {
   // from just over the joint, down the arm
   const down = new THREE.Vector3().subVectors(a.elbow, a.shoulder);
   place(

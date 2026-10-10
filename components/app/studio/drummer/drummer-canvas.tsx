@@ -5,9 +5,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { DrummerStage } from '@/components/app/studio/drummer/drummer-stage';
 import type { ScheduledStep } from '@/lib/app/breaks/audio/transport';
 import type { CameraView } from '@/lib/app/breaks/drummer/camera';
-import type { DRUMMER_GRIPS } from '@/lib/app/breaks/browser-keys';
 import { noteSeated, openingPersona, otherThan } from '@/lib/app/breaks/drummer/personas';
-import { gripsFor } from '@/lib/app/breaks/drummer/pose';
+import { type GripChoice, gripsFor } from '@/lib/app/breaks/drummer/grips';
 
 /**
  * The box the 3D drummer is drawn in (experiment). Loaded only in the
@@ -21,8 +20,8 @@ import { gripsFor } from '@/lib/app/breaks/drummer/pose';
 
 export interface DrummerCanvasProps {
   lefty: boolean;
-  /** Which hands hold the stick in a military grip. */
-  military: (typeof DRUMMER_GRIPS)[number];
+  /** How the sticks are held: a matched grip, or traditional in one hand or both. */
+  grip: GripChoice;
   view: CameraView;
   /** Bumped to fly back to `view` when it has not changed — the camera was dragged away. */
   viewSeq: number;
@@ -38,7 +37,7 @@ export interface DrummerCanvasProps {
 
 export default function DrummerCanvas({
   lefty,
-  military,
+  grip,
   view,
   viewSeq,
   shuffleSeq = 0,
@@ -62,7 +61,7 @@ export default function DrummerCanvas({
   useEffect(() => {
     noteSeated(persona.id);
   }, [persona]);
-  const grips = useMemo(() => gripsFor(military), [military]);
+  const grips = useMemo(() => gripsFor(grip), [grip]);
   // what a stage made after the first mount must start from
   const latest = useRef({ lefty, grips, playing, view, persona, aside });
   useEffect(() => {

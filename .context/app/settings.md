@@ -118,20 +118,20 @@ its meter (the 12/8 jazz and blues) has no range, and sits at zero.
 Every key the Studio writes is listed, with the schema it is read back through,
 in `lib/app/breaks/browser-keys.ts`:
 
-| Key               | What                                                                    | Schema / default                           | Read by                                     |
-| ----------------- | ----------------------------------------------------------------------- | ------------------------------------------ | ------------------------------------------- |
-| `bb.size`         | Chart zoom                                                              | number 0.7–1.7 / `1`                       | the console, via `useStoredSetting`         |
-| `bb.gridSize`     | The step grid's zoom                                                    | number 0.75–2 / `1`                        | the stage, via `useStoredSetting`           |
-| `bb.view`         | Which layers the chart shows                                            | `A`, `B` or `both` / `both`                | the console, via `useStoredSetting`         |
-| `bb.midiTiming`   | How Download .mid writes the timing                                     | `played` or `quantised` / `played`         | the Export panel, via `useStoredSetting`    |
-| `bb.stageView`    | What the stage shows: the chart, or the 3D drummer (experiment)         | `chart` or `drummer` / `chart`             | the stage, via `useStoredSetting`           |
-| `bb.drummerHand`  | Which way round the 3D drummer's kit is set up (lead hand on the hats)  | `right` or `left` / `right`                | the drummer view, via `useStoredSetting`    |
-| `bb.drummerGrip`  | Which of the 3D drummer's hands hold a military (traditional) grip      | `none`, `other` or `both` / `none`         | the drummer view, via `useStoredSetting`    |
-| `bb.drummerChart` | The scrolling chart and beat count in the corner of the 3D drummer view | boolean / `true`                           | the drummer view, via `useStoredSetting`    |
-| `bb.tourSeen`     | The first-run tour has been seen or skipped                             | boolean / `false`                          | `lib/app/breaks/tour-seen.ts`               |
-| `bb.patternsTab`  | The Patterns drawer's last tab (also written by a `?tab=` link)         | one of `PATTERNS_TABS`, or `null` / `null` | the Patterns drawer, via `useStoredSetting` |
-| `bb.scratch`      | The pattern on the stage that has never been saved                      | `{ payload, at }`, payload a share payload | `lib/app/breaks/scratch.ts`                 |
-| `bb.pendingLink`  | A `#b=` link held across sign-in, for an hour (H5)                      | `{ hash, at }`                             | `lib/app/breaks/pending-link.ts`            |
+| Key               | What                                                                                                              | Schema / default                                                                | Read by                                     |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------- |
+| `bb.size`         | Chart zoom                                                                                                        | number 0.7–1.7 / `1`                                                            | the console, via `useStoredSetting`         |
+| `bb.gridSize`     | The step grid's zoom                                                                                              | number 0.75–2 / `1`                                                             | the stage, via `useStoredSetting`           |
+| `bb.view`         | Which layers the chart shows                                                                                      | `A`, `B` or `both` / `both`                                                     | the console, via `useStoredSetting`         |
+| `bb.midiTiming`   | How Download .mid writes the timing                                                                               | `played` or `quantised` / `played`                                              | the Export panel, via `useStoredSetting`    |
+| `bb.stageView`    | What the stage shows: the chart, or the 3D drummer (experiment)                                                   | `chart` or `drummer` / `chart`                                                  | the stage, via `useStoredSetting`           |
+| `bb.drummerHand`  | Which way round the 3D drummer's kit is set up (lead hand on the hats)                                            | `right` or `left` / `right`                                                     | the drummer view, via `useStoredSetting`    |
+| `bb.drummerGrip`  | How the 3D drummer holds the sticks (`GRIP_CHOICES`; the old `none`, `other`, `both` read as the grips they were) | `american`, `german`, `french`, `traditional` or `traditionalBoth` / `american` | the drummer view, via `useStoredSetting`    |
+| `bb.drummerChart` | The scrolling chart and beat count in the corner of the 3D drummer view                                           | boolean / `true`                                                                | the drummer view, via `useStoredSetting`    |
+| `bb.tourSeen`     | The first-run tour has been seen or skipped                                                                       | boolean / `false`                                                               | `lib/app/breaks/tour-seen.ts`               |
+| `bb.patternsTab`  | The Patterns drawer's last tab (also written by a `?tab=` link)                                                   | one of `PATTERNS_TABS`, or `null` / `null`                                      | the Patterns drawer, via `useStoredSetting` |
+| `bb.scratch`      | The pattern on the stage that has never been saved                                                                | `{ payload, at }`, payload a share payload                                      | `lib/app/breaks/scratch.ts`                 |
+| `bb.pendingLink`  | A `#b=` link held across sign-in, for an hour (H5)                                                                | `{ hash, at }`                                                                  | `lib/app/breaks/pending-link.ts`            |
 
 `useStoredSetting(setting)` (`lib/app/breaks/use-stored-setting.ts`) wraps
 Sunrise's `useLocalStorage`, which is left untouched. It takes a setting from
