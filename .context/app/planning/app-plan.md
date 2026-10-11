@@ -3483,6 +3483,36 @@ stays).
 | 11-e | **Rock, metal and beyond:** Ginger Baker, Dave Lombardo, Adrienne Davies, Klek de Poitrine                                                                                                                           | The same; Klek's record keeps the persona policy                                                                                                                                                                                                                                                                       |
 | 11-f | **BeatBuddy reads the records.** A knowledge base built from the records, scoped to BeatBuddy                                                                                                                        | Its answer about a drummer cites the record                                                                                                                                                                                                                                                                            |
 
+**11-b reconciled against the tree, 2026-10-11** (branch `phase-11-b-lineage-map`):
+
+- **All twenty records are already in.** 11-a seeded the twelve new drummers'
+  records as well as our eight, so the map has 189 nodes and 275 edges from the
+  start. The twelve have no `style_key` yet: their pages say they are not
+  playable until 11-c–e add the styles, rather than offering a Play that fails.
+- **The map leaves out the genres.** `style` nodes only join each other (a
+  genre's parents), never a drummer, so they are a second graph; the map draws
+  people. A stub with no edge left after the filters is hidden; a modelled
+  drummer always shows.
+- **A stub has no year.** Sixty of the eighty drummers are stubs with no
+  `activeFrom`. Its column is inferred from its edges: an ancestor a decade
+  before its earliest descendant, a descendant a decade after its latest
+  ancestor, a peer beside its peer. An inferred column is drawn as one, and a
+  node with nothing to infer from goes in a "dates unknown" column at the end.
+- **Families** come from a drummer's heaviest genre through a table of the
+  model's 46 genres (a test holds that every genre has one); a stub takes the
+  family of the modelled drummers it touches. Five bands: jazz; funk and soul;
+  rock; Latin and African (afrobeat sits with Afro-Cuban); metal and
+  experimental.
+- **Highlight on hover and focus, or picked** from a "Trace a drummer" select
+  that keeps it; Esc clears. A node is a link to its page, so Tab walks the map.
+  Pan is the scrolling box; zoom is three buttons.
+- **The Studio had no address for a style.** `/studio?style=<key>` is new: it
+  picks the style and writes a new break in it, through the same pick and New
+  the Generate drawer uses (so an unsaved stage still asks first). The login
+  link carries it.
+- Public nav only, as the plan says; the sitemap lists `/drummers` and each
+  modelled drummer.
+
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
 stays `archetype` or `approximation` until stems are checked); personas
