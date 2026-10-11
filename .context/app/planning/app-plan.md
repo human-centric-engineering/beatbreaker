@@ -3550,6 +3550,19 @@ stays).
   every drummer's songs (`song-tempo.test.ts`); it covers the four without a
   change. A test for the four adds what is theirs: each is filed, keyed both
   ways, and every song's bars pass the critic at its own tempo.
+- **Built 2026-10-11**, research in `drumming-research.md` §L–O. Jabo Starks:
+  9 records, six from published grids or human tabs (his other records have
+  only machine-made tabs, so more songs would be one invented bar under new
+  titles). Bernard Purdie: 12, seven from Funklet and four from human tabs,
+  his Steely Dan shuffles in sextuplets as Fool in the Rain is. Steve Gadd: 15,
+  four built from lessons and eleven reconstructions — no tab was read, so his
+  are the loosest of the four and the first to revisit. Omar Hakim: 17, twelve
+  from human tabs; no electronic kit, because none of the seventeen was played
+  on one. Credits were checked song by song; _Say It Loud_ stays Stubblefield's.
+- **Found on the way, not changed:** the `purdie` genre is 12/8 at 126–150, a
+  dotted-quarter pulse of 84–100, slower than the records' 120–128. The model
+  has no foot closing an open hat (Purdie's), no ghost velocity of its own, and
+  no way for `build` to put a ride figure second when it is no busier.
 
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern

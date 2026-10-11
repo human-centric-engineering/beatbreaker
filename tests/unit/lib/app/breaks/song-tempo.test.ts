@@ -8,6 +8,7 @@ import { describe, expect, it } from 'vitest';
 import { RUN_RATE, longestRun, playableBpm, songTempo, withSong } from '@/lib/app/breaks/songs';
 import { makeRng } from '@/lib/app/breaks/rng';
 import type { Style } from '@/lib/app/breaks/types';
+import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { testStyle } from '@/tests/helpers/catalogue';
 
 const BASE = testStyle('rock').params;
@@ -63,16 +64,7 @@ describe('a song’s tempo', () => {
   });
 
   it('never asks any drummer’s song for a run faster than ten notes a second', () => {
-    for (const key of [
-      'mitchell',
-      'bonham',
-      'ringo',
-      'stubblefield',
-      'tonywilliams',
-      'tonyallen',
-      'copeland',
-      'yussefdayes',
-    ]) {
+    for (const key of Object.keys(STYLES).filter((k) => STYLES[k].drummer)) {
       const st = testStyle(key).params;
       for (const song of st.songs ?? []) {
         const merged = withSong(st, song.key);
