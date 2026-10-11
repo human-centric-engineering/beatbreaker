@@ -161,6 +161,58 @@ describe('strokeAt', () => {
     expect(hand).toBeLessThan(tip * 0.75);
   });
 
+  describe('a buzz', () => {
+    /** A buzz at 0.6 s, its three repeats a quarter of a 0.125 s step apart, a hit after. */
+    const step = 0.125;
+    const repeats = [1, 2, 3].map((k) => 0.6 + (k * step) / 4);
+    const hits = [
+      hit(0.2, 0.55, { piece: 'snare' }),
+      hit(0.6, 0.32, { piece: 'snare', press: true }),
+      ...repeats.map((t) => hit(t, 0.03, { piece: 'snare', bounce: true })),
+      hit(1.1, 0.55, { piece: 'snare' }),
+    ];
+    /** The tip's height through the buzz, every half millisecond. */
+    const through = (from: number, to: number) => {
+      const out: { t: number; lift: number; hand: number }[] = [];
+      for (let t = from; t <= to; t += 0.0005) {
+        const st = strokeAt(hits, t, HAND);
+        out.push({ t, lift: st.lift, hand: st.hand });
+      }
+      return out;
+    };
+
+    it('is one stroke of the hand: the repeats are the stick bouncing, not strokes', () => {
+      const st = strokeAt(hits, repeats[1] + 0.005, HAND);
+      expect(st.prev?.time).toBe(0.6);
+      expect(st.next?.time).toBe(1.1);
+    });
+
+    it('bounces the stick back onto the head on every repeat, each bounce lower', () => {
+      const pts = through(0.6005, repeats[2] + 0.001);
+      for (const r of repeats) {
+        const near = pts.filter((p) => Math.abs(p.t - r) < 0.002);
+        expect(Math.min(...near.map((p) => p.lift))).toBeLessThan(0.0015);
+      }
+      const tops = [0.6, ...repeats.slice(0, 2)].map((a, k) =>
+        Math.max(...pts.filter((p) => p.t > a && p.t < repeats[k]).map((p) => p.lift))
+      );
+      expect(tops[0]).toBeGreaterThan(0.005);
+      expect(tops[1]).toBeLessThan(tops[0]);
+      expect(tops[2]).toBeLessThan(tops[1]);
+    });
+
+    it('presses with the fingers: the hand stays down on the head through it', () => {
+      const pts = through(0.6005, repeats[2]);
+      expect(Math.max(...pts.map((p) => Math.abs(p.hand)))).toBeLessThan(0.004);
+    });
+
+    it('dies on the head after the last repeat, then comes up for the next note', () => {
+      expect(strokeAt(hits, repeats[2] + 0.03, HAND).lift).toBeLessThan(0.002);
+      expect(strokeAt(hits, 1.0, HAND).lift).toBeGreaterThan(0.03);
+      expect(strokeAt(hits, 1.1, HAND).lift).toBe(0);
+    });
+  });
+
   it('settles from the rebound toward rest when nothing else is coming', () => {
     const hits = [hit(0, 1)];
     const soonAfter = strokeAt(hits, 0.05, HAND).lift;

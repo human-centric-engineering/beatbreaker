@@ -402,11 +402,12 @@ const RISE_MIN = 0.03;
 const SEGMENTS = new WeakMap<StrokeProfile, WeakMap<Hit, Map<string, Rebound>>>();
 
 /** The rebound off `hits[i]`, simulated once and kept while the note is. */
-function reboundOf(hits: readonly Hit[], i: number, p: StrokeProfile): Rebound {
+function reboundOf(hits: readonly Hit[], i: number, j: number, p: StrokeProfile): Rebound {
   const prev = hits[i];
-  const next: Hit | undefined = hits[i + 1];
-  const before: Hit | undefined = hits[i - 1];
-  const base = p.fingers ?? 0;
+  const next: Hit | undefined = hits[j];
+  const before: Hit | undefined = hits[strokeBefore(hits, i)];
+  // a buzz's repeats: the stick bouncing off the press, between this note and the next
+  const bounces = prev.press ? hits.slice(i + 1, j) : [];
   let byHit = SEGMENTS.get(p);
   if (!byHit) SEGMENTS.set(p, (byHit = new WeakMap()));
   let byKey = byHit.get(prev);
@@ -414,14 +415,31 @@ function reboundOf(hits: readonly Hit[], i: number, p: StrokeProfile): Rebound {
   const key = next
     ? `${next.time}|${next.step}|${next.strength}|${next.piece}|${next.contact}|${before?.time ?? '-'}`
     : `-|${before?.time ?? '-'}`;
-  const kept = byKey.get(key);
+  const pressKey = bounces.length ? `|${bounces.length}|${bounces[0].time}` : '';
+  const kept = byKey.get(key + pressKey);
   if (kept) return kept;
+  if (byKey.size > 8) byKey.clear();
+  const r = simulated(prev, next, before, bounces, p);
+  byKey.set(key + pressKey, r);
+  return r;
+}
+
+/** Simulate the rebound off `prev`, `before` the stroke played before it. */
+function simulated(
+  prev: Hit,
+  next: Hit | undefined,
+  before: Hit | undefined,
+  bounces: readonly Hit[],
+  p: StrokeProfile
+): Rebound {
+  const base = p.fingers ?? 0;
 
   // how the note just played was thrown: from the height it was planned from
   const thrown = planOf(before, prev, p);
   const v0 = impactSpeed(thrown.target);
   const e = restitution(prev, v0);
   const free = { height: flight(e * v0), speed: e * v0 };
+  if (bounces.length) return pressed(prev, next, bounces, v0, e, p);
   const plan = planOf(prev, next, p, free);
   // the closer the notes, the more of each is the fingers'
   const f0 = Math.max(fingerShare(prev, base), quickFingers(thrown.gap));
@@ -429,7 +447,7 @@ function reboundOf(hits: readonly Hit[], i: number, p: StrokeProfile): Rebound {
   // how far the next note is past a long gap, and when the stick wakes for it
   const long = smoothstep(LONG_GAP[0], LONG_GAP[1], plan.gap);
   const wake = next ? next.time - plan.fall : Infinity;
-  const r = simulate({
+  return simulate({
     t0: prev.time,
     v0,
     f0,
@@ -451,9 +469,52 @@ function reboundOf(hits: readonly Hit[], i: number, p: StrokeProfile): Rebound {
       f1,
     },
   });
-  if (byKey.size > 8) byKey.clear();
-  byKey.set(key, r);
-  return r;
+}
+
+/**
+ * A buzz: the stick thrown into the head and held pressed there, so it bounces
+ * — three or four times, each lower — off the head and back down onto it under
+ * the fingers' press, as the repeats sound. Pressed harder, the bounces come
+ * quicker; the press is set so they come as often as the repeats do. Then it is
+ * let go, and comes up for the next note from the head.
+ */
+function pressed(
+  prev: Hit,
+  next: Hit | undefined,
+  bounces: readonly Hit[],
+  v0: number,
+  e: number,
+  p: StrokeProfile
+): Rebound {
+  const period = bounces[0].time - prev.time;
+  const until = bounces[bounces.length - 1].time + period / 2;
+  // from where the press lets go: the stick on the head, nothing left of the blow
+  const from: Hit = { ...prev, time: until, press: false };
+  const plan = planOf(from, next, p, { height: 0, speed: 0 });
+  const base = p.fingers ?? 0;
+  const f1 = next ? Math.max(fingerShare(next, base), quickFingers(plan.gap)) : base;
+  return simulate({
+    t0: prev.time,
+    v0,
+    f0: PRESS_FINGERS,
+    e,
+    plan: (t) => (t < until ? 0 : liftOf(plan, t, p)),
+    fingers: (t) => PRESS_FINGERS + (f1 - PRESS_FINGERS) * smoothstep(until, until + plan.rise, t),
+    caught: until + plan.rise,
+    tight: 0,
+    press: { at: bounces.map((b) => b.time), until },
+    next: next && { t1: next.time, fall: plan.fall, v1: impactSpeed(plan.target), f1 },
+  });
+}
+
+/** How much of a buzz is the fingers': they press it; the hand stays down. */
+const PRESS_FINGERS = 0.7;
+
+/** The stroke played before `hits[i]`, past any buzz's repeats: its index, or -1. */
+function strokeBefore(hits: readonly Hit[], i: number): number {
+  let k = i - 1;
+  while (k >= 0 && hits[k].bounce) k--;
+  return k;
 }
 
 /**
@@ -465,9 +526,13 @@ function reboundOf(hits: readonly Hit[], i: number, p: StrokeProfile): Rebound {
  * note before; the rest follow the plan.
  */
 export function strokeAt(hits: readonly Hit[], now: number, p: StrokeProfile): StrokeState {
-  const i = lastAtOrBefore(hits, now);
+  // a buzz's repeats are the stick bouncing, not strokes: the hand plays past them
+  let i = lastAtOrBefore(hits, now);
+  if (i >= 0 && hits[i].bounce) i = strokeBefore(hits, i);
+  let j = i + 1;
+  while (j < hits.length && hits[j].bounce) j++;
   const prev = i >= 0 ? hits[i] : undefined;
-  const next = hits[i + 1];
+  const next: Hit | undefined = hits[j];
 
   if (!prev && !next) {
     return { prev, next, lift: p.rest, hand: p.rest, grip: 0, travel: 0, since: Infinity };
@@ -480,7 +545,7 @@ export function strokeAt(hits: readonly Hit[], now: number, p: StrokeProfile): S
   let fall: number;
   // (counting in, the sticks are clicked together held fixed: nothing bounces)
   if (p.physics && prev && prev.piece !== 'sticks' && next?.piece !== 'sticks') {
-    const r = reboundOf(hits, i, p);
+    const r = reboundOf(hits, i, j, p);
     ({ lift, hand, grip } = reboundAt(r, now));
     fall = r.spec.next?.fall ?? 0;
   } else {

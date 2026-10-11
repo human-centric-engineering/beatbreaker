@@ -106,6 +106,7 @@ const CARRY = 0.01;
 const WRIST_SOFT = 2 * Math.PI * 4;
 const WRIST_FIRM = 2 * Math.PI * 9;
 const WRIST_DAMP = 0.75;
+const WRIST_PRESS = 2 * Math.PI * 20;
 
 /** The step results are kept at, seconds, and how many integration steps each is. */
 const STEP = 0.001;
@@ -224,6 +225,11 @@ export interface ReboundSpec {
   caught: number;
   /** 0–1: how hard the grip closes on this rebound — 1 for a downstroke. */
   tight: number;
+  /**
+   * A buzz: when its bounces are to land on the head (its repeats), and until
+   * when the fingers press the stick into it.
+   */
+  press?: { at: readonly number[]; until: number };
   /** The note coming, to be thrown onto: when, over how long, how fast and how much in the fingers. */
   next?: { t1: number; fall: number; v1: number; f1: number };
 }
@@ -379,6 +385,20 @@ function impactState(spec: ReboundSpec): State {
   };
 }
 
+/**
+ * How hard to press a buzz's tip down, m/s², leaving the head at `rate` m/s at
+ * `t`, for it to come back down onto the head on the next repeat: a bounce of
+ * height rate·Δt/4, the stick thrown up and pulled straight back. Each bounce
+ * leaves at the head's share of the speed it came in at, so they shrink as they
+ * come, as a buzz's do. Past the last repeat, no press.
+ */
+function pressFor(spec: ReboundSpec, t: number, rate: number): number {
+  const due = spec.press?.at.find((at) => at > t + PRESS_SPAN);
+  return due === undefined ? 0 : (2 * Math.max(0, rate)) / (due - t);
+}
+/** The least time ahead a buzz's next bounce can be aimed at, seconds. */
+const PRESS_SPAN = 0.004;
+
 function run(
   spec: ReboundSpec,
   from: number,
@@ -408,6 +428,8 @@ function run(
   let handFrom: { x: number; v: number } | undefined;
   let stickFrom: { x: number; v: number } | undefined;
   const into = next ? strikeRates(next.v1, next.f1) : { dphi: 0, dpsi: 0 };
+  // a buzz: how hard the fingers press the tip down, m/s², to land the next bounce on time
+  let press = spec.press ? pressFor(spec, from, R_HAND * dphi + R_TIP * dpsi) : 0;
   const t1 = next?.t1 ?? Infinity;
 
   for (let k = 0; k < count; k++) {
@@ -423,6 +445,9 @@ function run(
       // the grip: open with slack for a free stroke; closed and stiff, a moment after the
       // head, for a downstroke
       const closed = closedAt(spec, tHand, t);
+      // pressing a buzz, the fingers bear down on the stick (see `pressFor`)
+      // (until the last repeat has landed; the hand braced, the grip's push not on it)
+      const pressing = spec.press !== undefined && t < spec.press.until && press > 0;
       // (once the hand has the stick back, the fingers are closed on it for the next stroke)
       const slack =
         SLACK * open * (1 - closed) * (1 - smoothstep(spec.caught, spec.caught + REGRIP, t));
@@ -437,6 +462,7 @@ function run(
       let grip = 0;
       if (rel < 0) grip = -stiff * rel + WEIGHT * Math.min(1, -rel / CARRY) + damp;
       else if (rel > slack) grip = -Math.max(CATCH, stiff) * (rel - slack) + damp;
+      if (pressing) grip = 0;
 
       // the stick's own turn, which the hand's does not change but through the grip
       const dtheta0 = dphi + dpsi;
@@ -449,7 +475,8 @@ function run(
         phi = h.x;
       } else {
         // (it moves as the plan does, and is pulled back to it as a spring)
-        const w = WRIST_SOFT + (WRIST_FIRM - WRIST_SOFT) * closed;
+        // (pressing a buzz, the hand bears down and holds: the stick bounces, not the hand)
+        const w = pressing ? WRIST_PRESS : WRIST_SOFT + (WRIST_FIRM - WRIST_SOFT) * closed;
         const ddphi =
           want.a + w * w * (want.x - phi) + 2 * WRIST_DAMP * w * (want.v - dphi) - grip / I_HAND;
         dphi += ddphi * DT;
@@ -471,9 +498,10 @@ function run(
         dpsi = h.v - dphi;
         continue;
       }
-      // the stick turns about the fulcrum under the grip and its weight; what the hand
-      // does it feels only through the grip
-      const ddtheta = (grip - WEIGHT) / I_STICK;
+      // the stick turns about the fulcrum under the grip and its weight — or, pressed, as
+      // hard down as lands it on the next repeat; what the hand does it feels only through
+      // the grip
+      const ddtheta = pressing ? -press / R_TIP : (grip - WEIGHT) / I_STICK;
       const dtheta = dtheta0 + ddtheta * DT;
       dpsi = dtheta - dphi;
       psi += dpsi * DT;
@@ -483,6 +511,11 @@ function run(
       if (tip < 0 && rate < 0) {
         psi -= tip / R_TIP;
         dpsi += ((1 + spec.e) * -rate) / R_TIP;
+        if (pressing) {
+          press = pressFor(spec, t, spec.e * -rate);
+          // the last repeat: the fingers keep it there — the buzz dies on the head
+          if (press === 0) dpsi = (-R_HAND * dphi) / R_TIP;
+        }
       }
     }
   }
