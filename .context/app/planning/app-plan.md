@@ -3555,8 +3555,9 @@ stays).
   only machine-made tabs, so more songs would be one invented bar under new
   titles). Bernard Purdie: 12, seven from Funklet and four from human tabs,
   his Steely Dan shuffles in sextuplets as Fool in the Rain is. Steve Gadd: 15,
-  four built from lessons and eleven reconstructions — no tab was read, so his
-  are the loosest of the four and the first to revisit. Omar Hakim: 17, twelve
+  eight from human tabs read bar by bar in a second pass (50 Ways' verse turned
+  out not to be linear; Chuck E.'s in Love is a half-time bar at 58), Lenore
+  from a lesson, six reconstructions. Omar Hakim: 17, twelve
   from human tabs; no electronic kit, because none of the seventeen was played
   on one. Credits were checked song by song; _Say It Loud_ stays Stubblefield's.
 - **Found on the way, not changed:** the `purdie` genre is 12/8 at 126–150, a

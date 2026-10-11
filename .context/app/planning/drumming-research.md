@@ -1475,38 +1475,73 @@ takes.
 **What the style encodes.** A snare offset of +0.04 of a 16th (about 6 ms at
 100 bpm, the record's estimate), the kick +0.01, the hats on the grid;
 `flam` 0.3 and `drag` 0.2 for the rudiments; `fillChance` 0.6 and no
-`midFills`, every written fill two beats or less; `phraseMark.crash` 0.5;
-`linear` on 50 Ways, so nothing shares a step with the kick or the snare. The
+`midFills`, every written fill two beats or less; `phraseMark.crash` 0.5. The
 cowbell in Late in the Evening is a percussion slot on the kit (`perc` with
 the bell steps), so the right hand leaves it for a fill. The 1970s songs play
 `teatowel` (Gogodze's damped drums: his "towel-muffled toms"); the Clapton and
 James Taylor songs play `osdk`, warmer and with soft strokes really soft.
 
-**Grids.** None is a transcription. The four marked "lesson" below are built
-to the descriptions above; the rest are reconstructions in his vocabulary at
-the record's tempo. 50 Ways' five-stroke roll is written as a drag on 4 (a
-written run of four snare 16ths fails the critic), and its second bar ends on
-a double. The mozambique bell is the usual Gadd cell (`x.xx.xx.` twice). Each
-written fill keeps a struck note at or next to the backbeat it covers, or the
-critic finds no backbeat in the last bar.
+**Grids.** Eight songs follow human Songsterr transcriptions (each tab's
+`aiGenerated` flag checked), read bar by bar with the most common bars kept,
+second pass 2026-10-11:
 
-| Song                                     | Year | Tempo (quarter)                           | Hats                        | What defines it                                                    | Source of the bars      |
-| ---------------------------------------- | ---- | ----------------------------------------- | --------------------------- | ------------------------------------------------------------------ | ----------------------- |
-| 50 Ways to Leave Your Lover (Paul Simon) | 1975 | 102 (songbpm, Bonedo); 100 (Drummer Cafe) | 16ths, left hand, linear    | hat, snare and hat foot in turn; a rest on 3; a roll into 4        | lesson (reconstruction) |
-| Late in the Evening (Paul Simon)         | 1980 | 119 (songbpm)                             | none: the cowbell           | mozambique bell; snare and floor tom in the left hand; foot on 1–4 | lesson (reconstruction) |
-| Aja (Steely Dan)                         | 1977 | 117 (songbpm)                             | 8ths                        | the vamp; hand-hand-foot threes round the toms                     | **reconstruction**      |
-| Nite Sprite (Chick Corea)                | 1976 | 120 (musiciwant)                          | 16ths                       | funk 16ths, the 10" tom answering                                  | **reconstruction**      |
-| Lenore (Chick Corea)                     | 1976 | 130 (Drummer Cafe); 91 (songbpm)          | 8ths                        | backbeat a 16th early (A) and late (B); floor tom on 1             | lesson (reconstruction) |
-| Samba Song (Chick Corea, _Friends_)      | 1978 | 136 (Todd Bishop's solo transcription)    | ride 8ths                   | clave on the rim, surdo in the kick                                | **reconstruction**      |
-| Chuck E.'s in Love (Rickie Lee Jones)    | 1979 | 109 (AcousticBrainz); 108                 | 8ths, shuffled              | half-time shuffle, backbeat on 3                                   | lesson (reconstruction) |
-| The Hustle (Van McCoy)                   | 1975 | 110 (songbpm)                             | 8ths, opening on the "and"s | four on the floor                                                  | **reconstruction**      |
-| Glamour Profession (Steely Dan)          | 1980 | 117–118 (Shazam, Tunebat, songbpm)        | 16ths                       | disco, four on the floor                                           | **reconstruction**      |
-| Third World Man (Steely Dan)             | 1980 | 107 (songbpm)                             | 8ths                        | slow, ghosts round the backbeat                                    | **reconstruction**      |
-| Slip Slidin' Away (Paul Simon)           | 1977 | 121 (songbpm)                             | 8ths                        | cross-stick on 2 and 4                                             | **reconstruction**      |
-| Just the Two of Us (Grover Washington)   | 1980 | 96 (karaoke-version; Mixmeister 95.8)     | 16ths, accents on the beat  | smooth 16ths                                                       | **reconstruction**      |
-| We're in This Love Together (Al Jarreau) | 1981 | 79 (songbpm; Musicnotes 70–75 "shuffle")  | 16ths, swung                | slow 16th shuffle                                                  | **reconstruction**      |
-| When You Got a Good Friend (Clapton)     | 2004 | 96 (songbpm)                              | 8ths, shuffled; ride        | Robert Johnson shuffle                                             | **reconstruction**      |
-| Stretch of the Highway (James Taylor)    | 2015 | 110 (songbpm)                             | 16ths                       | rolling groove, cross-stick verse                                  | **reconstruction**      |
+- **50 Ways** (234652): the verse is not linear after all. The hat foot on 1
+  and the "a" of 1, the left hand's hat on the "e" of 1, 2 and the "and" of 2,
+  ghosts on the "and" of 1 and the "e" of 2, the kick on 1, the "a" of 2 and 3
+  with the rack tom on 3, and a 32nd roll from 4. The roll's first stroke and
+  the 32nd after it are a buzz here, and the 16ths after it ghosts (four snare
+  16ths in a row fail the critic); the answering bar has the floor tom on 4 and
+  two double strokes. There is no backbeat on 2, so the song's backbeat is 4
+  alone. The chorus is eighths with the hats open on every "and".
+- **Late in the Evening** (424011): the right hand's bell pattern
+  (`1.1.11.1.11.11.1`, split in the tab between hat and ride) and the left on
+  the low tom on the "and" of 2 and the "a" of 3, which is the backbeat the
+  critic looks for; the fill is the tab's, down the toms in threes. The tab
+  writes no feet: the kick on the "and"s of 2 and 4 and the foot on every beat
+  are from the lessons.
+- **Aja** (54438, the drum track named for him): the verse, hats open on the
+  "and"s of 1 and 3, a cross-stick on 2 and 4, the kick on 1, the "and" of 2,
+  3 and the "and" of 4. Its ride sections (floor tom on 3, no backbeat) and
+  the solo are left out, because the critic wants a backbeat in every bar.
+- **Chuck E.'s in Love** (385456): written at 116 with a triplet feel and the
+  snare once every two bars. Two of its bars are one bar here, in `4/4-6` at
+  56–60: its eighths are the first and third of each triplet, the snare lands
+  on 3, the hats on the "and"s, the kick in pairs. The tempo shown is the
+  half-time beat, half the record's.
+- **The Hustle** (57585): sixteenths on the hats with opens through the bar,
+  the kick on 1 and the "and" of 2, not four on the floor. Its percussion and
+  its intro (no backbeat) are left out.
+- **Glamour Profession** (64450): the kick on every beat, the hats on the
+  "and"s opening on the last, the foot on 1; its two tom fills.
+- **Just the Two of Us** (597061, the drum track named for him): eighths, the
+  kick on 1, the "a" of 2 and 3; the bridge (ride on the beats, no snare) is
+  left out.
+- **When You Got a Good Friend** (5009): a shuffle (the tab's triplet feel),
+  the kick on every beat, the hats accented on it, a ghost on the "and" of 4.
+
+Lenore is built from Drummer Cafe's description; Nite Sprite, Samba Song,
+Third World Man, Slip Slidin' Away, We're in This Love Together and Stretch
+of the Highway are reconstructions (Songsterr has only machine-made tabs of
+them, or none). Each written fill keeps a struck note at or next to the
+backbeat it covers, or the critic finds no backbeat in the last bar.
+
+| Song                                     | Year | Tempo (quarter)                                  | Hats                                 | What defines it                                                            | Source of the bars                          |
+| ---------------------------------------- | ---- | ------------------------------------------------ | ------------------------------------ | -------------------------------------------------------------------------- | ------------------------------------------- |
+| 50 Ways to Leave Your Lover (Paul Simon) | 1975 | 105 (tab); 102 (songbpm, Bonedo)                 | 16ths, left hand                     | hat foot, hat and snare in turn; kick on the "a" of 2 and 3; a roll into 4 | Songsterr 234652 (human)                    |
+| Late in the Evening (Paul Simon)         | 1980 | 119 (songbpm)                                    | none: the cowbell                    | mozambique bell; the left hand on the low tom; foot on 1–4                 | Songsterr 424011 (human; feet from lessons) |
+| Aja (Steely Dan)                         | 1977 | 117 (songbpm)                                    | 8ths, opens on the "and"s of 1 and 3 | cross-stick on 2 and 4; kick on 1, &2, 3, &4                               | Songsterr 54438 (human)                     |
+| Nite Sprite (Chick Corea)                | 1976 | 120 (musiciwant)                                 | 16ths                                | funk 16ths, the 10" tom answering                                          | **reconstruction**                          |
+| Lenore (Chick Corea)                     | 1976 | 130 (Drummer Cafe); 91 (songbpm)                 | 8ths                                 | backbeat a 16th early (A) and late (B); floor tom on 1                     | lesson (reconstruction)                     |
+| Samba Song (Chick Corea, _Friends_)      | 1978 | 136 (Todd Bishop's solo transcription)           | ride 8ths                            | clave on the rim, surdo in the kick                                        | **reconstruction**                          |
+| Chuck E.'s in Love (Rickie Lee Jones)    | 1979 | 116 (tab), so 58 half-time; 109 (AcousticBrainz) | on the "and"s, shuffled              | half-time shuffle in 4/4-6 at 56–60, snare on 3                            | Songsterr 385456 (human)                    |
+| The Hustle (Van McCoy)                   | 1975 | 110 (songbpm)                                    | 16ths, opens through the bar         | kick on 1 and the "and" of 2                                               | Songsterr 57585 (human)                     |
+| Glamour Profession (Steely Dan)          | 1980 | 117–118 (Shazam, Tunebat, songbpm)               | 8ths on the "and"s                   | disco, four on the floor, foot on 1                                        | Songsterr 64450 (human)                     |
+| Third World Man (Steely Dan)             | 1980 | 107 (songbpm)                                    | 8ths                                 | slow, ghosts round the backbeat                                            | **reconstruction**                          |
+| Slip Slidin' Away (Paul Simon)           | 1977 | 121 (songbpm)                                    | 8ths                                 | cross-stick on 2 and 4                                                     | **reconstruction**                          |
+| Just the Two of Us (Grover Washington)   | 1980 | 96 (karaoke-version; Mixmeister 95.8)            | 8ths                                 | kick on 1, the "a" of 2 and 3                                              | Songsterr 597061 (human)                    |
+| We're in This Love Together (Al Jarreau) | 1981 | 79 (songbpm; Musicnotes 70–75 "shuffle")         | 16ths, swung                         | slow 16th shuffle                                                          | **reconstruction**                          |
+| When You Got a Good Friend (Clapton)     | 2004 | 96 (songbpm)                                     | 8ths, shuffled, accented on the beat | kick on every beat; a ghost on the "and" of 4                              | Songsterr 5009 (human)                      |
+| Stretch of the Highway (James Taylor)    | 2015 | 110 (songbpm)                                    | 16ths                                | rolling groove, cross-stick verse                                          | **reconstruction**                          |
 
 **Left out.** "Still Crazy After All These Years" (Roger Hawkins). "Night
 Game" (credit unclear on the page). "Hey Nineteen" (percussion only). "My
@@ -1517,10 +1552,7 @@ Parker and Gadd are credited together, with no track split). "Riding with the
 King" and _Reptile_ (most tracks also credited to drum programming).
 "Take It Away" (Ringo Starr drums on it too). "Today Today Today" (songbpm's
 80 may be half). Stuff and the Gadd Gang, Steps Ahead and the Concert in
-Central Park are left for a later pass. Songsterr has human tabs of 50 Ways
-(234652), Late in the Evening (424011), Aja (54438, track named "Steve
-Gadd"), Chuck E.'s in Love (385456) and Riding with the King (4337); reading
-them bar by bar, as for Copeland (J), would turn four of these into grids.
+Central Park are left for a later pass.
 
 **Not modelled.** Sextuplet hand-hand-foot fills (the 4/4 grid has none; they
 are played as 16ths in threes); the two pairs of sticks on Late in the

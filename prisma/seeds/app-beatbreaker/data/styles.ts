@@ -10245,7 +10245,7 @@ export const STYLES: Record<string, Style> = {
   gadd: {
     label: 'Steve Gadd',
     drummer: true,
-    hint: "The New York session drummer of the 1970s, with Paul Simon, Steely Dan and Chick Corea, later Eric Clapton and James Taylor: drum corps rudiments split across the kit, ghosts felt more than heard, a firm backbeat a hair behind, and a groove that becomes the song's hook. Short fills at the end of a phrase: flams, drags, hand-hand-foot runs round the toms. A dead 1970s studio kit. Each New plays one of fifteen of his songs at its record tempo: 50 Ways to Leave Your Lover's linear verse, Late in the Evening's mozambique, Aja's vamp, Lenore's displaced backbeat, Chuck E.'s in Love's half-time shuffle. The stage names the song. Four are built from lessons that describe them; the rest are approximations. None is a transcription.",
+    hint: "The New York session drummer of the 1970s, with Paul Simon, Steely Dan and Chick Corea, later Eric Clapton and James Taylor: drum corps rudiments split across the kit, ghosts felt more than heard, a firm backbeat a hair behind, and a groove that becomes the song's hook. Short fills at the end of a phrase: flams, drags, hand-hand-foot runs round the toms. A dead 1970s studio kit. Each New plays one of fifteen of his songs at its record tempo: 50 Ways to Leave Your Lover's march, Late in the Evening's mozambique, Aja's verse, Chuck E.'s in Love's half-time shuffle, Lenore's displaced backbeat. The stage names the song. Eight follow human transcriptions; the rest are approximations.",
     toms: true,
     kit: 'teatowel',
     mix: { h: 0.7 },
@@ -10309,126 +10309,139 @@ export const STYLES: Record<string, Style> = {
     ],
     /* His records: one New picks one, and the stage names it. Tempos are
        songbpm's unless the Steve Gadd section of
-       `.context/app/planning/drumming-research.md` gives another source. No
-       grid here is a transcription: 50 Ways,
-       Late in the Evening and Lenore are built from lessons that describe
-       them, Chuck E.'s in Love from Rockschool's note that its backbeat is on
-       3, and the rest are reconstructions in his vocabulary. */
+       `.context/app/planning/drumming-research.md` gives another source. Eight
+       follow human Songsterr transcriptions, read bar by bar: 50 Ways, Late
+       in the Evening (the hands; the feet are from lessons), Aja, Chuck E.'s
+       in Love, The Hustle, Glamour Profession, Just the Two of Us and When
+       You Got a Good Friend. Lenore is built from a lesson that describes it,
+       and the rest are reconstructions in his vocabulary. */
     songs: [
       {
         key: 'fifty-ways',
         title: '50 Ways to Leave Your Lover',
-        feel: 'the left hand on the hats, a march split across hat, snare and hat foot, a rest on 3',
+        feel: 'a march across hat, snare and hat foot, the kick on the "a" of 2 and on 3, a roll into 4',
         weight: 1.6,
         params: {
-          bpm: [98, 106],
+          bpm: [100, 106],
           swing: 0,
           swingRange: [0, 6],
           hats: 16,
-          /* The verse is written linear, nothing sharing a step with the kick
-             or the snare; `linear` is not set, because it would hold the
-             chorus to it too and strip its hats. */
+          // the verse has no backbeat on 2: the 4 is the one it marks
+          backbeats: [12],
           // the groove is written out to the last ghost
           ghostWeights: {},
+          /* From a human Songsterr transcription (234652), bar by bar. The
+             roll into 4 is 32nds there; on this grid its first stroke and the
+             32nd after it are a buzz, and the 16ths after it ghosts. */
           figures: [
-            // the dense half, the rest on 3, a drag into 4
+            // the verse's first bar: the rack tom on 3 with the kick, a roll into 4
             [
               {
-                h: '.1.1..1.........',
-                s: '..1.3..1....7.1.',
-                k: '1.......1.......',
-                hf: '.....1..........',
+                h: '.1..1.1.........',
+                hf: '1..1............',
+                k: '1......11.......',
+                s: '..1..1......8.11',
+                t1: '........1.......',
               },
               2,
             ],
-            // the second bar: doubles at the end instead of the drag
+            // its answer: the floor tom on 4, two double strokes after it
             [
               {
-                h: '.1.1..1.........',
-                s: '..1.3..1....3.11',
-                k: '1.......1.......',
-                hf: '.....1..........',
+                h: '.1..1.1.........',
+                hf: '1..1............',
+                k: '1......11.......',
+                s: '..1..1........88',
+                t1: '........1.......',
+                t3: '............1...',
               },
-              1.6,
+              1.8,
             ],
-            // the chorus: a plain backbeat
-            [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.....1.1.......' }, 0.6],
+            // the chorus: eighths, the hats opening on every "and"
+            [{ h: '1.3.1.3.1.3.1.3.', s: '....2.......2...', k: '1.......1.......' }, 0.8],
           ],
           fills: [
-            [{ s: '3.113' }, 1.4],
-            [{ s: '7.13' }, 1.0],
+            // the verse's roll, as a phrase ending
+            [{ s: '8.11' }, 1.4],
+            [{ t3: '2...', s: '..88' }, 1.0],
           ],
         },
       },
       {
         key: 'late-in-the-evening',
         title: 'Late in the Evening',
-        feel: 'his mozambique: the bell pattern on the cowbell, the left hand between snare and floor tom, the foot on every beat',
+        feel: 'his mozambique: the bell pattern in the right hand, the left on the low tom, the foot on every beat',
         weight: 1.5,
         params: {
-          bpm: [115, 122],
+          bpm: [116, 122],
           swing: 0,
+          // the left hand's tom, not a snare, carries the 2 and the "a" of 3
+          backbeats: [6, 12],
           mix: { h: 0.7, p1: 0.8 },
-          // the right hand's bell: a two-beat cell, played twice
-          perc: [{ inst: 'cowbell', steps: [0, 2, 3, 5, 6, 8, 10, 11, 13, 14], accents: [0, 8] }],
+          /* The hands are from a human Songsterr transcription (424011): the
+             right hand's bell pattern, which the tab splits between hat and
+             ride, and the left hand on the low tom on the "and" of 2 and the
+             "a" of 3. The tab writes no feet; the kick on the "and"s of 2 and
+             4 and the foot on every beat are from the lessons that describe
+             his mozambique. */
+          perc: [{ inst: 'cowbell', steps: [0, 2, 4, 5, 7, 9, 10, 12, 13, 15], accents: [0, 8] }],
           ghostWeights: {},
           figures: [
             [
               {
-                s: '.1..2....1..2...',
-                t3: '.......2.......2',
+                t2: '......2....2....',
                 k: '......1.......1.',
                 hf: '1...1...1...1...',
               },
               2,
             ],
-            // the left hand up to the rack tom on the "a" of 2
+            // the left hand once more, on the "a" of 4
             [
               {
-                s: '.1..2....1..2...',
-                t2: '.......2........',
-                t3: '...............2',
+                t2: '......2....2.2..',
                 k: '......1.......1.',
                 hf: '1...1...1...1...',
               },
-              1.4,
+              1.2,
             ],
           ],
           fills: [
-            // a flam on 4, the kick, then the toms
-            [{ s: '6...', k: '.1..', t1: '..2.', t3: '...2' }, 1.2],
-            // two beats of the toms, hand to hand
-            [{ t1: '2.1.2.1.', t3: '.2.1.2.1' }, 1.0],
+            // the tab's fill: down the toms in threes, the foot between them
+            [
+              {
+                t1: '222........',
+                hf: '...1...1...',
+                t2: '....222....',
+                t3: '........222',
+              },
+              1.4,
+            ],
+            [{ t2: '2.2.', t3: '.2.2' }, 1.0],
           ],
         },
       },
       {
         key: 'aja',
         title: 'Aja',
-        feel: 'the vamp under the sax and the drum solo: eighths on the hats, then hand-hand-foot threes round the toms',
+        feel: 'the verse: hats opening on the "and"s of 1 and 3, a cross-stick on 2 and 4',
         weight: 1.4,
         params: {
-          bpm: [114, 120],
+          bpm: [116, 122],
           swing: 0,
           swingRange: [0, 6],
+          /* From a human Songsterr transcription whose drum track is named
+             for him (54438). Its ride sections, the floor tom on 3 and no
+             backbeat at all, and the solo are left out: the critic wants a
+             backbeat in every bar. */
           figures: [
-            [{ h: '1.1.1.1.1.1.1.1.', s: '....3..1.1..3...', k: '1.....1...1.....' }, 2],
-            // the second half of the bar in hand, hand, foot
-            [
-              {
-                h: '1.1.1.1.........',
-                s: '....3...31......',
-                k: '1.........1..1..',
-                t1: '...........21...',
-                t3: '..............21',
-              },
-              1.2,
-            ],
+            [{ h: '1.3.1.1.1.3.1.1.', s: '....4.......4...', k: '1.....1.1.....1.' }, 2],
+            [{ h: '1.3.1.1.1.3.1.1.', s: '....4.......4...', k: '1.....1.1.......' }, 1.2],
+            // the hats open on the "and" of 4 as well
+            [{ h: '1.3.1.1.1.3.1.3.', s: '....4.......4...', k: '1.....1.1.....1.' }, 0.8],
           ],
           fills: [
             [{ s: '31......', k: '..1..1..', t1: '...21...', t3: '......21' }, 1.4],
             [{ s: '7.13' }, 1.0],
-            [{ s: '6.1.6.1.' }, 0.8],
           ],
         },
       },
@@ -10523,61 +10536,135 @@ export const STYLES: Record<string, Style> = {
       {
         key: 'chuck-es-in-love',
         title: "Chuck E.'s in Love",
-        feel: 'a lazy half-time shuffle, the backbeat on 3, the drums behind the beat',
+        feel: 'a lazy half-time shuffle, the snare on 3, the kick in pairs; the tempo is the half-time beat',
         weight: 1.2,
         params: {
-          bpm: [105, 112],
-          swingUnit: 8,
-          swing: 80,
-          swingRange: [70, 95],
-          backbeats: [8],
-          ghostWeights: { 2: 0.2, 14: 0.2 },
+          meter: '4/4-6',
+          bpm: [56, 60],
+          swing: 0,
+          backbeats: [12],
+          ghostWeights: {},
+          opens: 0,
+          /* From a human Songsterr transcription (385456), written at 116
+             with the snare once every two bars and a triplet feel: two of its
+             bars are one bar here, its eighths are our shuffled sixteenths
+             (the first and third of each triplet), and the snare lands on 3. */
           figures: [
-            [{ h: '1.1.1.1.1.1.1.1.', s: '..1.....3.1...1.', k: '1.....1.......1.' }, 1.6],
-            [{ h: '1.1.1.1.1.1.1.3.', s: '......1.3.....1.', k: '1.....1...1.....' }, 1.2],
+            [
+              {
+                h: '......1..1.....1.....1..',
+                k: '..11.............11.1..1',
+                s: '............2...........',
+              },
+              1.6,
+            ],
+            [
+              {
+                h: '...1.......1...1.....1..',
+                k: '.....11.................',
+                s: '............2.....2.....',
+              },
+              1.2,
+            ],
+            [
+              {
+                h: '...1.......1...1.....1..',
+                k: '.....11...........1.....',
+                s: '............2...........',
+              },
+              1.0,
+            ],
+            [
+              {
+                h: '...1.......1...1.....1..',
+                k: '1....11...........1.....',
+                s: '............2...........',
+              },
+              0.6,
+            ],
+            // the later choruses: the snare on 1 as well as 3
+            [
+              {
+                h: '...1.....1.....1.....1..',
+                k: '......1...........1.....',
+                s: '2...........2...........',
+              },
+              1.0,
+            ],
           ],
-          fills: [
-            [{ s: '3.1.3.3.' }, 1.2],
-            [{ s: '3.......', t1: '..2.2...', t3: '......2.' }, 1.0],
-          ],
+          // the tab has no fills to speak of: a backbeat and two ghosts
+          fills: [[{ s: '2.1.1.' }, 1.0]],
         },
       },
       {
         key: 'the-hustle',
         title: 'The Hustle',
-        feel: 'disco: the kick on every beat, the hats opening on the "and"s',
+        feel: 'sixteenths on the hats, opening through the bar, the kick on 1 and the "and" of 2',
         weight: 0.8,
         params: {
           bpm: [107, 113],
           swing: 0,
           swingRange: [0, 6],
+          hats: 16,
+          ghostWeights: {},
+          /* From a human Songsterr transcription (57585). The percussion
+             (tambourine, congas, cabasa) is the percussionist's, and is left
+             out; so is the intro, which has no backbeat. */
           figures: [
-            [{ h: '1.3.1.3.1.3.1.3.', s: '....3.......3...', k: '1...1...1...1...' }, 1.6],
-            [{ h: '1.3.1.3.1.3.1.3.', s: '....3..1....3.1.', k: '1...1...1...1...' }, 1.0],
+            [{ h: '1113111..13.1131', s: '....2.......2...', k: '1.....1.........' }, 2],
+            // the break: crash and kick on 1 and 3, the snare either side of 2 and 4
+            [
+              {
+                c: '........2.......',
+                h: '3...............',
+                s: '...2.2.....2.2..',
+                k: '1.......1.......',
+              },
+              0.4,
+            ],
           ],
           fills: [
-            [{ s: '3.11' }, 1.2],
-            [{ s: '6.1.3.1.' }, 1.0],
+            // crash, kick and snare together, then the toms in pairs
+            [
+              {
+                c: '1.......',
+                k: '1.......',
+                s: '2.......',
+                t1: '..11....',
+                t2: '....11..',
+                t3: '......11',
+              },
+              1.2,
+            ],
+            [{ s: '2.22' }, 1.0],
           ],
         },
       },
       {
         key: 'glamour-profession',
         title: 'Glamour Profession',
-        feel: "Steely Dan's disco: sixteenths on the hats, the kick on every beat",
+        feel: 'Steely Dan\'s disco: the kick on every beat, eighths on the hats\' "and"s, opening on the last',
         weight: 0.9,
         params: {
           bpm: [114, 120],
           swing: 0,
           swingRange: [0, 6],
-          hats: 16,
+          ghostWeights: {},
+          // from a human Songsterr transcription (64450), the fills its own
           figures: [
-            [{ h: '1111111111111111', s: '....3.......3...', k: '1...1...1...1...' }, 1.6],
-            [{ h: '1111131111111311', s: '....3..1.1..3...', k: '1...1...1...1.1.' }, 1.2],
+            [
+              {
+                h: '..1...1...1...3.',
+                hf: '1...............',
+                s: '....2.......2...',
+                k: '1...1...1...1...',
+              },
+              2,
+            ],
           ],
           fills: [
-            [{ s: '31......', k: '..1..1..', t1: '...21...', t3: '......21' }, 1.2],
-            [{ s: '7.13' }, 1.0],
+            [{ s: '2.......', t2: '...12.2.', k: '1...1...' }, 1.2],
+            [{ t1: '1.1.....', t2: '...1..1.', s: '....2...', k: '1...1...' }, 1.0],
           ],
         },
       },
@@ -10623,16 +10710,20 @@ export const STYLES: Record<string, Style> = {
       {
         key: 'just-the-two-of-us',
         title: 'Just the Two of Us',
-        feel: 'a smooth sixteenth on the hats, the accents on the beat, the ghosts barely there',
+        feel: 'eighths on the hats, the kick on 1, the "a" of 2 and 3, a plain backbeat',
         weight: 1.0,
         params: {
           bpm: [93, 99],
           swing: 0,
-          swingRange: [0, 8],
-          hats: 16,
+          swingRange: [0, 6],
+          ghostWeights: {},
+          /* From a human Songsterr transcription whose drum track is named for
+             him (597061). The bridge, ride on the beats and no snare, is left
+             out: the critic wants a backbeat in every bar. */
           figures: [
-            [{ h: '2121212121212121', s: '....3.......3...', k: '1.....1..1......' }, 1.4],
-            [{ h: '2121212121212121', s: '.1..3..1.1..3..1', k: '1.....1..1......' }, 1.2],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1......11.......' }, 1.6],
+            [{ h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '1......11.......' }, 0.8],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1......11......1' }, 0.8],
           ],
           fills: [
             [{ s: '3.13' }, 1.2],
@@ -10663,22 +10754,21 @@ export const STYLES: Record<string, Style> = {
       {
         key: 'good-friend',
         title: 'When You Got a Good Friend',
-        feel: 'a Robert Johnson shuffle with Clapton, the snare ghosting the "and"s, on a warmer kit',
+        feel: 'a light shuffle with Clapton, the kick on every beat, a ghost on the "and" of 4, on a warmer kit',
         weight: 0.8,
         params: {
-          bpm: [92, 100],
+          bpm: [92, 98],
           kit: 'osdk',
           swingUnit: 8,
           swing: 85,
           swingRange: [75, 100],
+          ghostWeights: {},
+          // from a human Songsterr transcription (5009), its triplet feel the swing
           figures: [
-            [{ h: '1.1.1.1.1.1.1.1.', s: '..1.3.....1.3...', k: '1.......1.......' }, 1.4],
-            [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.....1.1.......' }, 1.0],
+            [{ h: '2.1.2.1.2.1.2.1.', s: '....2.......2.1.', k: '1...1...1...1...' }, 1.6],
+            [{ h: '2.1.2.1.2.1.2.1.', s: '....2.......2...', k: '1...1...1...1...' }, 0.8],
           ],
-          fills: [
-            [{ s: '6.1.6.1.' }, 1.0],
-            [{ s: '1.3.3.3.' }, 1.0],
-          ],
+          fills: [[{ s: '2.11' }, 1.0]],
         },
       },
       {
