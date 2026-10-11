@@ -744,6 +744,7 @@
     ]
   },
   "beatbreaker": {
+    "style_key": "jabostarks",
     "headline_pattern_ids": [
       "pattern:starks-sex-machine-archetype",
       "pattern:starks-super-bad-archetype",

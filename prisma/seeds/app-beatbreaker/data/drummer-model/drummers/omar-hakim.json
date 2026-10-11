@@ -681,6 +681,7 @@
     ]
   },
   "beatbreaker": {
+    "style_key": "hakim",
     "headline_pattern_ids": [
       "pattern:hakim-fusion-16th-archetype",
       "pattern:hakim-money-for-nothing-archetype",

@@ -90,8 +90,8 @@ version rather than overwriting one; re-running it unchanged is a no-op.
 ## A drummer is a style
 
 The style picker has a second tab, **Drummers**: Mitch Mitchell, John Bonham,
-Ringo Starr, Stewart Copeland, Clyde Stubblefield, Tony Williams, Yussef Dayes
-and Tony Allen. Each is an ordinary `Style` row whose
+Ringo Starr, Stewart Copeland, Clyde Stubblefield, Jabo Starks, Bernard Purdie,
+Steve Gadd, Omar Hakim, Tony Williams, Yussef Dayes and Tony Allen. Each is an ordinary `Style` row whose
 params say `drummer: true`. The picker files those under Drummers and leaves
 them out of Styles (`drummerSection` in `lib/app/breaks/catalogue/picker.ts`).
 Picking one is `setStyle`, like any style.
@@ -112,7 +112,7 @@ Picking one is `setStyle`, like any style.
   - `midFills` sets how often they fill inside the phrase, as well as at its
     end.
 - **Approximate grooves.** Every song groove is an approximation, not a
-  transcription. The source is `planning/drumming-research.md`, §C and §D.
+  transcription. The source is `planning/drumming-research.md`: §C and §E–O, one section for each drummer.
 - **Adding one** is a style in `data/styles.ts` with `drummer: true`, listed in
   a `… drummers` group of `STYLE_GROUPS`, **and a record** in the drummer model
   whose `beatbreaker.style_key` names it (Phase 11, D47). A test fails without
@@ -375,7 +375,7 @@ one twice.
 
 ## Seeding
 
-`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 70 styles (62 genres and 8 drummers), two
+`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 74 styles (62 genres and 12 drummers), two
 libraries — 47 famous breaks (`data/library.ts`) and 40 rudiments
 (`data/rudiments.ts`, Phase 10) — and 24 kits. Its data lives beside it under `data/`, and
 **only that seed imports it**.

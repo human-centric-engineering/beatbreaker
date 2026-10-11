@@ -8,10 +8,12 @@ import { describe, expect, it } from 'vitest';
 
 import { styleParamsSchema } from '@/lib/app/breaks/catalogue/schemas';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
+import { meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { makeRng } from '@/lib/app/breaks/rng';
 import { packPattern, patternFromPacked } from '@/lib/app/breaks/share';
 import { pickSong, songMeter, songOf, songTempo, withSong } from '@/lib/app/breaks/songs';
 import type { Style, StyleSong } from '@/lib/app/breaks/types';
+import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { testStyle } from '@/tests/helpers/catalogue';
 
 const MITCH = testStyle('mitchell');
@@ -157,5 +159,34 @@ describe('the song schema', () => {
 
   it('refuses a song key that is not a slug', () => {
     expect(styleParamsSchema.safeParse(base([one({}, 'Hey Joe')])).success).toBe(false);
+  });
+});
+
+describe("a drummer's songs", () => {
+  /* A figure whose rows are not one bar of its song's meter, or two (a groove
+     whose second bar answers its first, as in I Feel Fine), is skipped by the
+     generator without a word, so a row one character short would leave a song
+     playing something other than what it says. */
+  it("write every figure one or two bars of the song's meter long, and no fill longer than a bar", () => {
+    for (const key of Object.keys(STYLES).filter((k) => STYLES[k].drummer)) {
+      const st = testStyle(key).params;
+      for (const song of st.songs ?? []) {
+        const steps = stepsOf(meterOf(songMeter(st, song)));
+        const merged = withSong(st, song.key);
+        for (const [figure] of merged.figures ?? []) {
+          const rows = Object.entries(figure);
+          const len = rows[0]?.[1].length;
+          expect([steps, 2 * steps], `${key}/${song.key} figure`).toContain(len);
+          for (const [lane, row] of rows) {
+            expect(row, `${key}/${song.key} figure, ${lane}`).toHaveLength(len);
+          }
+        }
+        for (const [fill] of merged.fills ?? []) {
+          for (const [lane, row] of Object.entries(fill)) {
+            expect(row.length, `${key}/${song.key} fill, ${lane}`).toBeLessThanOrEqual(steps);
+          }
+        }
+      }
+    }
   });
 });

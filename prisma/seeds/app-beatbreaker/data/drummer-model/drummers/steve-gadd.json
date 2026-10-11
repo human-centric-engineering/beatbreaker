@@ -1481,6 +1481,7 @@
     ]
   },
   "beatbreaker": {
+    "style_key": "gadd",
     "headline_pattern_ids": [
       "pattern:gadd-50-ways-verse-approx",
       "pattern:gadd-mozambique-archetype",

@@ -788,6 +788,7 @@
     ]
   },
   "beatbreaker": {
+    "style_key": "bernardpurdie",
     "headline_pattern_ids": [
       "pattern:purdie-shuffle-approx",
       "pattern:purdie-rock-steady-archetype"

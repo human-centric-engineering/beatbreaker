@@ -90,10 +90,14 @@ describe('the drummer model', () => {
       .map(({ record }) => record.meta.id)
       .sort();
     expect(playable).toEqual([
+      'drummer:bernard-purdie',
       'drummer:clyde-stubblefield',
+      'drummer:jabo-starks',
       'drummer:john-bonham',
       'drummer:mitch-mitchell',
+      'drummer:omar-hakim',
       'drummer:ringo-starr',
+      'drummer:steve-gadd',
       'drummer:stewart-copeland',
       'drummer:tony-allen',
       'drummer:tony-williams',

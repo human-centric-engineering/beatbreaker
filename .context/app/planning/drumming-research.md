@@ -1188,6 +1188,529 @@ with sextuplets (48 steps a bar) and the live Tioga paradiddle-diddles in
 32nds; 32nd ruffs (approximated by 16th pairs); the snares-off drum in
 Marching Band (played on the high tom).
 
+## L. Bernard Purdie (2026-10-11)
+
+The `bernardpurdie` style plays **songs** the way `stubblefield` does (E): each
+New picks one of his records, and its tempo, grid, hats and swing come with
+it. The genre style `purdie` (the "Purdie shuffle", 12/8) is left as it is.
+
+**Which records are his.** He claims around 4,000 sessions, and some of the
+claims are his alone: the "21 Beatles songs" are disputed by everyone else
+(Ringo Starr, Jim Vallance), so none is used. Credits were checked one by one:
+
+- _The Royal Scam_ (1976): Wikipedia's personnel gives Purdie every track but
+  3 and 8 ("Don't Take Me Alive" and "Everything You Did" are Rick Marotta), so
+  Kid Charlemagne, The Fez and Haitian Divorce are his.
+- _Aja_ (1977): Deacon Blues and Home at Last are Purdie; Aja is Steve Gadd,
+  Peg Rick Marotta, Black Cow Paul Humphrey, Josie Jim Keltner, I Got the News
+  Ed Greene.
+- _Gaucho_ (1980): only Babylon Sisters is Purdie.
+- Rock Steady (1971): Purdie, with Dr. John on percussion hitting a second
+  bass drum with a stick (Funklet, from an alternate mix).
+- King Curtis, _Live at Fillmore West_ (1971): Purdie on drums with Jerry
+  Jemmott, Cornell Dupree and Billy Preston; Memphis Soul Stew opens it. The
+  1967 studio single was cut at American Sound in Memphis and is not his.
+- O-o-h Child (Five Stairsteps, 1970): Purdie's own account ("Vince gave me my
+  head"), which Funklet and every write-up of the song repeat. No session
+  sheet was found.
+- Synthetic Substitution (Melvin Bliss, 1973): Purdie, as Jazzman Records and
+  every account of the sample give it.
+- Use Me (Esther Phillips, _Alone Again, Naturally_, 1972): the album credits
+  both Purdie and Billy Cobham; Funklet gives this track to Purdie.
+- Hot Sweat (_Master Drummers Volume 1_, 1996): Purdie alone, his take on
+  Cold Sweat.
+
+**How he played.** Strict, centred time: the thing his peers name first, so
+the feel is near the grid with very little jitter. A hard backbeat with soft
+ghosts round it. The hats are the engine: they open on the "and"s of 1 and 3,
+and open a crack on the "a" just before 2 and 4 ("opens the HiHat slightly
+just before the downbeat", Drummer Cafe; Jim Payne's Rock Steady lesson plays
+the foot on the quarters to get it). The shuffle: triplets on the hats,
+accented on the beat, with the ghosts "between the two hi-hats on the second
+triplet" (Bonedo), and one backbeat, on 3. The kick moves under the chorus
+("Purdie builds the chorus by improvising on the kick", Drummer Cafe). Fills
+are few and short and stay inside the grid; long tom runs are avoided.
+
+**Grids.** Seven are Goodhertz's Funklet (Jack Stratton's transcriptions):
+two bars at five velocity levels, the opens marked. They are mapped as in E —
+snare 4→accent, 3→hit, 2/1→ghost; kick 4→accent, else hit — and the hats
+4→accent (`h` 2), open as marked, so a transcription's accented hats come
+through. Funklet's swing setting (0–2) is read as 0, about 8 and about 14.
+Where the critic's air rule (a quarter of the bar free of kick and snare)
+failed a real bar, or left it with no slack for the generator's own kick
+variations, the softest ghosts are left out: O-o-h Child (three a bar), The
+Fez (the "a"s of 2 and 4), Hot Sweat bar 2 (two). Synthetic Substitution's
+kick runs three 16ths on the "e", "and" and "a" of 3, which the critic calls
+unplayable on one foot; its softest note (the "e") is left out.
+
+Four are the commonest bars of human Songsterr transcriptions (each tab's
+`aiGenerated` flag checked): Kid Charlemagne (113 bars), Deacon Blues (218),
+Home at Last ("fix", 177) and Babylon Sisters ("fix", 178). The two shuffle
+tabs are written as straight 8ths with no ghosts; their kicks are moved to
+the triplet grid (an "and" is the last triplet) and the middle-triplet ghosts
+that every Purdie-shuffle lesson describes are written in. The shuffles are
+in `4/4-6`, as Bonham's Fool in the Rain is, so the tempo reads as the
+record's quarter (Home at Last 126–128, not 12/8's dotted quarter) and the
+backbeat on 3 is step 12.
+
+| Song                     | Year | Tempo (quarter)                          | Hats                                                      | What defines it                                                    | Source of the bars                   |
+| ------------------------ | ---- | ---------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------ |
+| O-o-h Child              | 1970 | 89 (Funklet); 88 (songbpm)               | disco: two 16ths and an open "and", accented on the beat  | busy kick (1, &1, 3, &3, a3), snare cracking on the "e" of 3       | Funklet                              |
+| Rock Steady              | 1971 | 103 (Funklet); 102 (Payne); 105          | 8ths, open on the "and"s of 1 and 3, a crack on 2a and 4a | no kick on 1; foot on the quarters                                 | Funklet; funkydrummer.com lesson 22  |
+| Memphis Soul Stew (live) | 1971 | ~113 (songbpm; may be the studio single) | 16ths but for the backbeat, a crack before every beat     | left hand on every "e"                                             | **reconstruction** from Drummer Cafe |
+| Use Me (Esther Phillips) | 1972 | 82 (Funklet); 83 (songbpm)               | 16ths, open on the "and"s of 1 and 3                      | a busy snare of even hits                                          | Funklet                              |
+| Synthetic Substitution   | 1973 | 93 (Funklet)                             | 8ths, accented                                            | plain backbeat, fast-footed kick ("swings his foot a little")      | Funklet                              |
+| Kid Charlemagne          | 1976 | 95–100 (tab); 97 (songbpm)               | 8ths, open on the "and"s of 1 and 3                       | four on the floor, ghosts on the "e"s and "a"s                     | Songsterr 54434 (human)              |
+| The Fez                  | 1976 | 99 (Funklet and songbpm)                 | the "and"s only                                           | linear: snare in every gap, kick on 1 and 3                        | Funklet                              |
+| Haitian Divorce          | 1976 | 74 (Funklet and songbpm)                 | 16ths, open on the "and"s of 1 and 3                      | kick on 1&, 2, 3&, 4; ghosts round the backbeat                    | Funklet                              |
+| Deacon Blues             | 1977 | 116 (tab and songbpm)                    | 8ths; ride in the choruses                                | kick on 1, &2, 3, &4; no ghosts in the tab                         | Songsterr 54440 (human)              |
+| Home at Last             | 1977 | 126 (tab); 128 (songbpm)                 | shuffle, accented on the beat; quarters in the verse      | backbeat on 3, kick on 1, 1-trip, 2-trip, 4-trip                   | Songsterr 3705091 (human) + ghosts   |
+| Babylon Sisters          | 1980 | 120 (tab); 122 (songbpm)                 | shuffle; the intro on the beats                           | kick on 1 and the last triplet of 4; cross-stick on 3 in the intro | Songsterr 3789127 (human) + ghosts   |
+| Hot Sweat                | 1996 | 114 (Funklet)                            | 8ths, then 16ths in pairs                                 | backbeat on 2 and the "and" of 4, then the kick doubled            | Funklet                              |
+
+Kits: the 1970–73 soul records and Hot Sweat play `smdrums` (the 60s Ludwig,
+"the funk and soul kit"); the Steely Dan records play `teatowel`, damped and
+dry, for the record's "dry 70s" sound.
+
+Left out: Say It Loud – I'm Black and I'm Proud (Purdie is credited on the
+album, but the title song is Jabo Starks and Clyde Stubblefield, and which
+tracks are his is unconfirmed); Memphis Soul Stew's 1967 single (Memphis
+musicians); Day Dreaming and the rest of _Young, Gifted and Black_ (Purdie,
+Ray Lucas and Al Jackson Jr. all drum on the album, split unconfirmed); Cissy
+Strut (Zigaboo Modeliste); Green Earrings, The Royal Scam, The Caves of
+Altamira and Sign In Stranger (his, but only AI-generated tabs and no
+lesson, so no bars to trust); Soul Drums, Funky Donkey and Hap'nin' (his, but
+no tempo or grid found); Cow'd Bell (Funklet, but from an instructional
+video, and a cowbell groove); the Beatles claims.
+
+**Still not modelled:** his hi-hat "pish-ship" is a hat opened a crack and
+closed by the foot on the beat; the model has the half-open hat and the foot
+chick but not the foot's close shaping the open note. The ghost level is the
+kit's, not his 25–35 velocity. Dr. John's second bass drum on Rock Steady is
+not played.
+
+Sources: goodhertz.com/funklet (rock-steady, ooh-child, purdie-use-me,
+synthetic-substitution, the-fez, hatian-divorce, hot-sweat, purdie-cowbell)
+and its machine script (the `vals` and `mods` encoding); Songsterr API (songs
+54434, 54440, 3705091, 3789127, 646715, 3761347; AI flags checked on the
+rest); Wikipedia (Bernard Purdie, The Royal Scam, Aja, Gaucho, Soul Drums,
+Memphis Soul Stew, O-o-h Child); songbpm.com/@steely-dan,
+/@aretha-franklin/rock-steady, /@the-five-stairsteps/o-o-h-child,
+/@esther-phillips/use-me, /@king-curtis/memphis-soul-stew; funkydrummer.com
+School of Funk lesson 22 (Rock Steady); drummercafe.com (Home at Last,
+Memphis Soul Stew); bonedo.de "Workshop: Shuffle Grooves"; Dusty Groove
+(Alone Again, Naturally); nodepression.org (King Curtis Live at Fillmore
+West); Jazzman Records (Synthetic Substitution).
+
+## M. Jabo Starks (2026-10-11)
+
+The `jabostarks` style plays **songs** the way `stubblefield` does (E): each New
+picks one of his records, and its tempo, hats and swing come with it.
+
+**Which records are his.** Only records whose Wikipedia personnel list (mostly
+from Alan Leeds's liner notes) names him on drums are used:
+
+- With James Brown: Sex Machine (1970), Super Bad (1970), Talkin' Loud and
+  Sayin' Nothing (1970), Soul Power (1971), Hot Pants (1971), Make It Funky
+  (1971), Get on the Good Foot (1972), The Payback (1973) and Papa Don't Take
+  No Mess (1973).
+- Licking Stick – Licking Stick (1968).
+- With the J.B.'s: Pass the Peas (1971) and Doing It to Death (1973).
+- Lyn Collins's Think (About It) (1972).
+- Bobby Bland's Turn On Your Love Light (1961). Wikipedia says "probably",
+  after Morthland; PAS and uDiscover name him.
+
+Some of the credits around him belong to other drummers:
+
+- **Say It Loud – I'm Black and I'm Proud.** His drummer record calls it a
+  shared credit, citing PAS's obituary. That obituary also gives him Cold
+  Sweat and I Got the Feelin', which are Clyde Stubblefield's, so it is not
+  reliable track by track. Wikipedia credits Say It Loud to Stubblefield
+  alone, so it stays in `stubblefield`.
+- **Get Up, Get into It, Get Involved** is Stubblefield's.
+- **The Grunt** is Frank Waddy's.
+- **King Heroin** is Billy Cobham's.
+- **My Thang** is Jimmy Madison's.
+- **People Get Up and Drive Your Funky Soul** is Harvey Mason's or Ndugu
+  Chancler's.
+- **Funky President** is Allan Schwartzberg's (Funklet).
+- **It's a New Day** is George Bragg's (Funklet).
+- **Escape-ism, There It Is and I Got Ants in My Pants**: no drummer is
+  named, so they are left out.
+
+**How he played.** His playing was lean, crisp and steady, and he never tried
+to outplay anyone. He kept cool while Brown raged in front of him. He came
+from the blues, where Stubblefield came from soul and jazz (Wikipedia). His
+groove sits "somewhere between 16th notes and 16th-note triplets", which is a
+light 16th swing. Funklet's note on Sex Machine says "Jabo swings this beat
+like mad". His hats are 8ths with a 16th slipped in before 3 (Sex Machine,
+Hot Pants), and they open on the "and"s of 1 and 3. Under them, the left hand
+plays ghosts on the same 16ths, so the style sets `oneHandHats`. That is an
+inference from the grids, not something a source says.
+
+He lifts a section with the cymbal, not with a fill:
+
+- Super Bad's bridge moves to the ride bell, with the hat foot on every beat.
+- Soul Power's B sections go to the ride.
+
+The kick takes the 1 and the upbeats. The Payback is the exception, with the
+kick on every beat. He hardly fills, so the style sets `fillChance` to 0.35
+and `midFills` to 0. Its fills are short: a backbeat with the hats opening, a
+ghost and an accent on the "a" of 4, or unison accents with the kick.
+
+**Grids.** There are four kinds of source:
+
+- **Funklet.** Sex Machine's two bars, mapped as in E: snare 4 is an accent,
+  3 a hit, and 2 or 1 a ghost; kick 4 is an accent and anything else a hit;
+  the hats are closed, with the opens marked. Funklet's own 109 bpm and swing
+  setting 3 back up the heavy swing.
+- **Modern Drummer.** Super Bad, from Joseph Connell's transcription (MD,
+  May 2018, at 132 bpm). It was checked against two human Songsterr tabs
+  (s10344 and the drum track of s6535055), which agree on the verse and the
+  bridge.
+- **Cruise Ship Drummer.** The Payback's three examples at 99 bpm: the intro,
+  the groove and the ghosts at the end. A human Songsterr tab (s2397269)
+  disagrees. It has the kick on 1 and 3 with a 16th on the "a" of 2 or 4,
+  under 8ths on the hat foot, doubled on the floor tom. The published grid is
+  used, and the tab's 16th kick backs up Cruise Ship's "the 16th note on the
+  bass drum can happen on beat 2".
+- **Human Songsterr tabs** (each tab's `aiGenerated` flag was checked):
+  - Hot Pants (s1889573)
+  - Pass the Peas (s1936430)
+  - Licking Stick (s4694682), whose backbeat is a cross-stick
+  - Sex Machine (s10223, its drum track named "Jab'o Starks"), which
+    matches Funklet bar for bar
+
+Make It Funky, Papa Don't Take No Mess, Doing It to Death, Think, Love Light
+and Hot Pants Road have only AI-generated tabs, which were not used.
+
+| Song                                     | Year | Tempo (quarter)                               | Hats                                                                     | What defines it                                                                                     | Source of the bars                       |
+| ---------------------------------------- | ---- | --------------------------------------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| Get Up (I Feel Like Being a) Sex Machine | 1970 | 109 (Funklet); 108 (songbpm, Songsterr)       | 8ths, opens on the "and"s of 1 and 3, 16th before 3                      | snare `....3.11.1..3..1`, kick `2.........1...1.`, heavy swing                                      | Funklet; Songsterr s10223                |
+| Super Bad                                | 1970 | 132 (MD); 125 (songbpm, Songsterr); 120 (tab) | 8ths and a 16th, opens on the "and"s of 1 and 3; ride bell in the bridge | snare on the 1 and the "and" of 2; bridge: bell and snare on 2, 3, 4, then on the "and"s of 1 and 3 | MD (Connell); Songsterr s10344, s6535055 |
+| The Payback                              | 1973 | 99 (Cruise Ship); 98 (songbpm); 95 (tab)      | quarters, open on the "and" of 1 or 3                                    | kick on every beat and the "a" of 4; snare on 2 alone in the intro; ghosts later                    | Cruise Ship Drummer                      |
+| Hot Pants                                | 1971 | 98 (songbpm and tab)                          | 8ths with 16ths before 3 and before the 1                                | kick on 1 and 3; long stops (1 and 2, then silence)                                                 | Songsterr s1889573                       |
+| Pass the Peas                            | 1971 | 102 (tab); 99 (search)                        | 8ths                                                                     | plain kick on 1 and 3, snare on the "a" of 2 and the "e" of 3                                       | Songsterr s1936430                       |
+| Licking Stick – Licking Stick            | 1968 | 104 (tab); 115 (getsongbpm)                   | 8ths, opens on the "and" of 3 (and of 1)                                 | cross-stick backbeat with clicks on the "a" of 2 and the "e" of 3                                   | Songsterr s4694682                       |
+| Soul Power                               | 1971 | 105 (songbpm)                                 | shuffled 16th lilt; ride in the B section                                | shuffling verse; ride with the bell on 2 and 4, foot on 2 and 4                                     | **reconstruction**                       |
+| Think (About It)                         | 1972 | 113 (songbpm); 110–115 (AI tab, not used)     | swung, "plenty of shuffle in the hi-hats"                                | the "yeah! woo!" break                                                                              | **reconstruction**                       |
+| Turn On Your Love Light                  | 1961 | 106 (songbpm; may be half)                    | swung 8ths, ride to lift                                                 | gospel R&B drive                                                                                    | **reconstruction**                       |
+
+**Left out:**
+
+- **No grid found:** Talkin' Loud and Sayin' Nothing (102), Make It Funky
+  (97), Get on the Good Foot (108), Papa Don't Take No Mess (97) and Doing It
+  to Death (no tempo found). Built from nothing, they would be the same
+  generic bar under nine titles.
+- **Sex Machine's opening accents** (Songsterr bar 2: 8th-note kicks with
+  the snare) and Super Bad's crash bar, which has the foot on 2. The phrase's
+  crash on 1 stands in for both.
+- **Think's tambourine**, which another player plays.
+- **Funklet's five velocity levels on the hats.** Accented and unaccented
+  closed hats are folded to one value.
+
+**The model.** Nothing new was needed, but one gap showed. The cymbal switch
+between sections is two figures in a phrase. `build` would put the ride
+section second, but it sorts by note count, and his ride bars are no busier
+than his hat bars, so it is not set. There is no way to say "the ride figure
+second" when the ride figure is not the busier one.
+
+Sources: goodhertz.com/funklet/get-up (Jack Stratton, 2011); moderndrummer.com
+"John 'Jabo' Starks: 'Superbad'" (transcribed by Joseph Connell, 2018);
+cruiseshipdrummer.com "Groove o' the day: Jabo Starks — The Payback" (2015);
+songsterr.com tabs 10223, 10344, 6535055, 2397269, 1889573, 1936430, 4694682
+(human), 610633 (AI, not used); Wikipedia (Jabo Starks; Get Up (I Feel Like
+Being a) Sex Machine; Super Bad; Talkin' Loud and Sayin' Nothing; Hot Pants;
+Make It Funky; Pass the Peas; Get on the Good Foot; Doing It to Death; The
+Payback; Papa Don't Take No Mess; Licking Stick – Licking Stick; Think (About
+It); Think break; Turn On Your Love Light; Say It Loud; Get Up, Get into It,
+Get Involved; The Grunt; King Heroin; My Thang; People Get Up and Drive Your
+Funky Soul); songbpm.com (@james-brown, @lyn-collins,
+@bobby-blue-bland); getsongbpm.com (Licking Stick); attackmagazine.com "The
+2nd most sampled track in history"; pas.org "In Memoriam: John 'Jabo'
+Starks"; Rolling Stone "James Brown drummer John 'Jabo' Starks: 5 classic
+tracks" (via the drummer record).
+
+## N. Steve Gadd (2026-10-11)
+
+The `gadd` style plays **songs** the way `stubblefield` does (E): each New
+picks one of his records, and its tempo, hats and swing come with it. His
+record in the drummer model (`drummer-model/drummers/steve-gadd.json`) sets the
+rules: soft ghosts and firm backbeats, the snare a little behind, rudimental
+fills (paradiddles, flams, drags) at phrase ends only and short, hand-foot
+combinations, the crash only where a section starts, and no double kick.
+
+**Which records are his.** Personnel credits were checked on Wikipedia for
+every song kept. Some records often filed under him are not his. The title
+track of _Still Crazy After All These Years_ and "My Little Town" are Roger
+Hawkins; "Gone at Last" is Grady Tate (Gadd plays 3, 4 and 7–10 on that
+album). On _Aja_ he plays only the title track; Paul Humphrey, Bernard
+Purdie, Rick Marotta, Ed Greene and Jim Keltner play the rest. On _Gaucho_
+he drums on "Glamour Profession", "My Rival" and "Third World Man" (on "Hey
+Nineteen" he plays percussion; Marotta drums). George Benson's "Breezin'" and
+Bob James's "Westchester Lady" are Harvey Mason; Chuck Mangione's _Chase the
+Clouds Away_ is Joe LaBarbera. Al Di Meola's "Race with Devil on Spanish
+Highway" is Lenny White (Gadd plays "Flight Over Rio" and "Elegant Gypsy
+Suite"). On _The Mad Hatter_ he plays four tracks and Harvey Mason two. On
+_Breakin' Away_ he plays everything but "Roof Garden" (Jeff Porcaro).
+
+**How he played.** Rudiments split across the limbs: Drummer Cafe's 50 Ways
+lesson has the left hand on the hats and "a three-note grouping between the
+Hi-Hat foot, Hi-Hat and Snare drum"; MusicRadar calls it "a standard
+rudimental beat split up across his four limbs". Bonedo hears dense 16ths in
+the first half of each bar, "a caesura in the form of a quarter note on beat
+three", and a snare roll at each bar's end; Drumeo gives the rolls as RRLRL
+and then doubles, and the touch as light ("he's got a soft feel"). His
+mozambique on Late in the Evening has the right hand on the bell pattern and
+the left on a bombo-like part round the toms; Wikipedia adds that he played
+it with two pairs of sticks, to sound like two drummers. Lenore (Drummer
+Cafe) is a "funk-samba": the backbeat on 2 displaced by a 16th, early in the
+A section and late in the B, the floor tom on 1, and in the B "the kick drum
+always sounds with the hi-hat". Chuck E.'s in Love is a half-time shuffle
+with the backbeat on 3 (Rockschool Grade 5 notes), "behind-the-beat drums"
+(Classic Song of the Day). Aja's ending is "hand/foot triplets" and
+"explosive tom-tom runs" (MusicRadar, Wikipedia); its drum part was two
+takes.
+
+**What the style encodes.** A snare offset of +0.04 of a 16th (about 6 ms at
+100 bpm, the record's estimate), the kick +0.01, the hats on the grid;
+`flam` 0.3 and `drag` 0.2 for the rudiments; `fillChance` 0.6 and no
+`midFills`, every written fill two beats or less; `phraseMark.crash` 0.5. The
+cowbell in Late in the Evening is a percussion slot on the kit (`perc` with
+the bell steps), so the right hand leaves it for a fill. The 1970s songs play
+`teatowel` (Gogodze's damped drums: his "towel-muffled toms"); the Clapton and
+James Taylor songs play `osdk`, warmer and with soft strokes really soft.
+
+**Grids.** Eight songs follow human Songsterr transcriptions (each tab's
+`aiGenerated` flag checked), read bar by bar with the most common bars kept,
+second pass 2026-10-11:
+
+- **50 Ways** (234652): the verse is not linear after all. The hat foot on 1
+  and the "a" of 1, the left hand's hat on the "e" of 1, 2 and the "and" of 2,
+  ghosts on the "and" of 1 and the "e" of 2, the kick on 1, the "a" of 2 and 3
+  with the rack tom on 3, and a 32nd roll from 4. The roll's first stroke and
+  the 32nd after it are a buzz here, and the 16ths after it ghosts (four snare
+  16ths in a row fail the critic); the answering bar has the floor tom on 4 and
+  two double strokes. There is no backbeat on 2, so the song's backbeat is 4
+  alone. The chorus is eighths with the hats open on every "and".
+- **Late in the Evening** (424011): the right hand's bell pattern
+  (`1.1.11.1.11.11.1`, split in the tab between hat and ride) and the left on
+  the low tom on the "and" of 2 and the "a" of 3, which is the backbeat the
+  critic looks for; the fill is the tab's, down the toms in threes. The tab
+  writes no feet: the kick on the "and"s of 2 and 4 and the foot on every beat
+  are from the lessons.
+- **Aja** (54438, the drum track named for him): the verse, hats open on the
+  "and"s of 1 and 3, a cross-stick on 2 and 4, the kick on 1, the "and" of 2,
+  3 and the "and" of 4. Its ride sections (floor tom on 3, no backbeat) and
+  the solo are left out, because the critic wants a backbeat in every bar.
+- **Chuck E.'s in Love** (385456): written at 116 with a triplet feel and the
+  snare once every two bars. Two of its bars are one bar here, in `4/4-6` at
+  56–60: its eighths are the first and third of each triplet, the snare lands
+  on 3, the hats on the "and"s, the kick in pairs. The tempo shown is the
+  half-time beat, half the record's.
+- **The Hustle** (57585): sixteenths on the hats with opens through the bar,
+  the kick on 1 and the "and" of 2, not four on the floor. Its percussion and
+  its intro (no backbeat) are left out.
+- **Glamour Profession** (64450): the kick on every beat, the hats on the
+  "and"s opening on the last, the foot on 1; its two tom fills.
+- **Just the Two of Us** (597061, the drum track named for him): eighths, the
+  kick on 1, the "a" of 2 and 3; the bridge (ride on the beats, no snare) is
+  left out.
+- **When You Got a Good Friend** (5009): a shuffle (the tab's triplet feel),
+  the kick on every beat, the hats accented on it, a ghost on the "and" of 4.
+
+Lenore is built from Drummer Cafe's description; Nite Sprite, Samba Song,
+Third World Man, Slip Slidin' Away, We're in This Love Together and Stretch
+of the Highway are reconstructions (Songsterr has only machine-made tabs of
+them, or none). Each written fill keeps a struck note at or next to the
+backbeat it covers, or the critic finds no backbeat in the last bar.
+
+| Song                                     | Year | Tempo (quarter)                                  | Hats                                 | What defines it                                                            | Source of the bars                          |
+| ---------------------------------------- | ---- | ------------------------------------------------ | ------------------------------------ | -------------------------------------------------------------------------- | ------------------------------------------- |
+| 50 Ways to Leave Your Lover (Paul Simon) | 1975 | 105 (tab); 102 (songbpm, Bonedo)                 | 16ths, left hand                     | hat foot, hat and snare in turn; kick on the "a" of 2 and 3; a roll into 4 | Songsterr 234652 (human)                    |
+| Late in the Evening (Paul Simon)         | 1980 | 119 (songbpm)                                    | none: the cowbell                    | mozambique bell; the left hand on the low tom; foot on 1–4                 | Songsterr 424011 (human; feet from lessons) |
+| Aja (Steely Dan)                         | 1977 | 117 (songbpm)                                    | 8ths, opens on the "and"s of 1 and 3 | cross-stick on 2 and 4; kick on 1, &2, 3, &4                               | Songsterr 54438 (human)                     |
+| Nite Sprite (Chick Corea)                | 1976 | 120 (musiciwant)                                 | 16ths                                | funk 16ths, the 10" tom answering                                          | **reconstruction**                          |
+| Lenore (Chick Corea)                     | 1976 | 130 (Drummer Cafe); 91 (songbpm)                 | 8ths                                 | backbeat a 16th early (A) and late (B); floor tom on 1                     | lesson (reconstruction)                     |
+| Samba Song (Chick Corea, _Friends_)      | 1978 | 136 (Todd Bishop's solo transcription)           | ride 8ths                            | clave on the rim, surdo in the kick                                        | **reconstruction**                          |
+| Chuck E.'s in Love (Rickie Lee Jones)    | 1979 | 116 (tab), so 58 half-time; 109 (AcousticBrainz) | on the "and"s, shuffled              | half-time shuffle in 4/4-6 at 56–60, snare on 3                            | Songsterr 385456 (human)                    |
+| The Hustle (Van McCoy)                   | 1975 | 110 (songbpm)                                    | 16ths, opens through the bar         | kick on 1 and the "and" of 2                                               | Songsterr 57585 (human)                     |
+| Glamour Profession (Steely Dan)          | 1980 | 117–118 (Shazam, Tunebat, songbpm)               | 8ths on the "and"s                   | disco, four on the floor, foot on 1                                        | Songsterr 64450 (human)                     |
+| Third World Man (Steely Dan)             | 1980 | 107 (songbpm)                                    | 8ths                                 | slow, ghosts round the backbeat                                            | **reconstruction**                          |
+| Slip Slidin' Away (Paul Simon)           | 1977 | 121 (songbpm)                                    | 8ths                                 | cross-stick on 2 and 4                                                     | **reconstruction**                          |
+| Just the Two of Us (Grover Washington)   | 1980 | 96 (karaoke-version; Mixmeister 95.8)            | 8ths                                 | kick on 1, the "a" of 2 and 3                                              | Songsterr 597061 (human)                    |
+| We're in This Love Together (Al Jarreau) | 1981 | 79 (songbpm; Musicnotes 70–75 "shuffle")         | 16ths, swung                         | slow 16th shuffle                                                          | **reconstruction**                          |
+| When You Got a Good Friend (Clapton)     | 2004 | 96 (songbpm)                                     | 8ths, shuffled, accented on the beat | kick on every beat; a ghost on the "and" of 4                              | Songsterr 5009 (human)                      |
+| Stretch of the Highway (James Taylor)    | 2015 | 110 (songbpm)                                    | 16ths                                | rolling groove, cross-stick verse                                          | **reconstruction**                          |
+
+**Left out.** "Still Crazy After All These Years" (Roger Hawkins). "Night
+Game" (credit unclear on the page). "Hey Nineteen" (percussion only). "My
+Rival" (his, 97 bpm, but no description of the part was found). "Humpty
+Dumpty" (his, 125 bpm, a version of unknown provenance) and "The One Step"
+(his, 113 bpm): no description of either groove. The Stuff records (Chris
+Parker and Gadd are credited together, with no track split). "Riding with the
+King" and _Reptile_ (most tracks also credited to drum programming).
+"Take It Away" (Ringo Starr drums on it too). "Today Today Today" (songbpm's
+80 may be half). Stuff and the Gadd Gang, Steps Ahead and the Concert in
+Central Park are left for a later pass.
+
+**Not modelled.** Sextuplet hand-hand-foot fills (the 4/4 grid has none; they
+are played as 16ths in threes); the two pairs of sticks on Late in the
+Evening; brushes on the later ballads; the drag's and flam's exact grace
+spacing.
+
+Sources: Wikipedia (Steve Gadd; Late in the Evening; Still Crazy After All
+These Years; Aja (song); Gaucho (album); The Leprechaun (Chick Corea album);
+The Mad Hatter (album); Friends (Chick Corea album); Stuff (Stuff album);
+Elegant Gypsy; Breakin' Away (album); Winelight; Slip Slidin' Away; The
+Hustle (song); Me and Mr. Johnson; Before This World; Tug of War; Riding with
+the King (B. B. King and Eric Clapton album); Reptile (album); Three (Bob
+James album); Chase the Clouds Away); drummercafe.com "Steve Gadd 50 Ways
+drum groove" and "Chick Corea Lenore Steve Gadd drum grooves"; bonedo.de
+"Paul Simon 50 Ways To Leave Your Lover auf dem Schlagzeug lernen";
+drumeo.com/beat (50 Ways); musicradar.com (five Steve Gadd tracks; career in
+beats); classicsongoftheday.com (Chuck E.'s in Love); musicgurus.com
+Rockschool Grade 5 (Chuck E.'s in Love); cruiseshipdrummer.com (Samba Song
+solo transcription, Conga to Mozambique); hudsonmusic.com (Classic Steve
+Gadd Grooves & Fills); songbpm.com (Paul Simon, Steely Dan, Van McCoy, Eric
+Clapton, James Taylor, Chick Corea, Al Jarreau); getsongbpm.com;
+tunebat.com; shazam.com; acousticbrainz.org; musiciwant.com;
+karaoke-version.com; musicnotes.com.
+
+## O. Omar Hakim (2026-10-11)
+
+The `hakim` style plays **songs** the way `stubblefield` does (E): each New
+picks one of his records, and its tempo, hats and kit come with it.
+
+**Which records are his.** He shares two of his best-known albums, so each
+song was checked track by track.
+
+- _Let's Dance_ (Bowie, 1983) credits "Omar Hakim, Tony Thompson – drums" with
+  no track split, and Wikipedia's album article says Thompson arrived late and
+  played on three tracks. The title track is Hakim's (Wikipedia's song
+  article; the human Songsterr tab names him). "Modern Love" and "China Girl"
+  are not settled: Wikipedia's song articles credit Hakim, but
+  davidbowieworld.com says Thompson's drumming "drives Modern Love, China Girl,
+  Without You, Cat People and Shake It", and the human Modern Love tab names
+  Thompson. Both are left out.
+- _Brothers in Arms_ (Dire Straits, 1985): Hakim re-recorded the album in a
+  few days. Terry Williams kept "Walk of Life" and the improvised crescendo at
+  the start of "Money for Nothing", and (Neil Dorfsman) his toms and tom fills
+  all through "Money for Nothing". So that song carries Hakim's groove and
+  none of its tom fills.
+- _The Dream of the Blue Turtles_ (Sting, 1985): Hakim is the only drummer.
+- _Random Access Memories_ (Daft Punk, 2013): Hakim is credited on tracks 3,
+  7–9, 11 and 13 (Giorgio by Moroder, Touch, Get Lucky, Beyond, Fragments of
+  Time, Contact), and Quinn also on Touch. JR Robinson plays 1–6 and 14, so
+  "Lose Yourself to Dance", "Give Life Back to Music", "Instant Crush" and
+  "The Game of Love" are not his.
+- "Slave to Love" (Bryan Ferry, 1985): Wikipedia's song article credits Hakim.
+- Weather Report, 1982–86: _Procession_, _Domino Theory_, _Sportin' Life_,
+  _This Is This!_. Not every track is a live kit. On "Can It Be Done" Zawinul
+  says "I have the drum machine playing the hi-hat". "Domino Theory" is
+  Zawinul's drum machine with Hakim overdubbed. "Two Lines" is a Linn part
+  transcribed for him. "Ice-Pick Willy" is MIDI with Hakim's cymbal
+  overdubbed. All four are left out. The Simmons on "Hot Cargo" is Mino
+  Cinélu's.
+
+**Electronic drums.** None on the songs here. His own account (Roland) has a
+Syndrum in the late 1970s, a LinnDrum he programmed on New York sessions in
+the early 1980s, a TD-5 triggering Michael Jackson's body-percussion samples
+on _HIStory_, and a TD-10 on Madonna's tour after _Ray of Light_. None of
+those records is in the style, so every song plays a sampled kit: `drs` by
+default, `bigrusty` for the two gated 1980s records, and `police` for Weather
+Report.
+
+**How he played.** Bowie: "a fascinating drummer, with impeccable timing" and
+"always fresh". The tabs show:
+
+- Pop played big and simple: quarter-note hats on Let's Dance, eighths on
+  Brothers in Arms, and a backbeat that never moves.
+- The kick does the work, in 16ths under the hats: Let's Dance's 1, "a" of 1,
+  "and" of 2, 3; So Far Away's 1 and "and" of 2; Beyond's dotted 8ths;
+  Giorgio's climax, 1, 1a, 2&, 3e, 4, 4&.
+- The hats speak quietly: a half-open on the "and" of 4 (So Far Away), a 16th
+  pair at the bar's end (Get Lucky, So Far Away), an open hat on every beat
+  (Get Lucky's chorus, Contact).
+- Fills are rare and short, mostly the last beat: two on the floor tom, three
+  16ths on the snare, ghosts into 4. "Avoid dated busy fills in pop."
+- The fusion side is denser, with clean ghosts and 16th hats. No human
+  transcription of his Weather Report playing was found (Cruise Ship Drummer's
+  "Unpacking a groove: Predator" exists but could not be read), so Predator
+  is a reconstruction and Corner Pocket follows an AI tab.
+- Timing: the style's feel is near zero, a 0.005 wobble and nothing else.
+  That is the claim of everyone who worked with him, not a measurement.
+
+| Song                               | Year | Tempo (quarter)          | Hats                                  | What defines it                                                     | Source of the bars                 |
+| ---------------------------------- | ---- | ------------------------ | ------------------------------------- | ------------------------------------------------------------------- | ---------------------------------- |
+| Let's Dance                        | 1983 | 114 (tab); 115 (search)  | quarters, open on 4                   | kick `1..1..1.1.......`; an 8th-note crescendo into the groove      | Songsterr (human)                  |
+| Money for Nothing                  | 1985 | 134 (tab and songbpm)    | 8ths, open on the "and" of 4          | kick on 1, 3 and the "and" of 4; ghosts into 4                      | Songsterr (human)                  |
+| So Far Away                        | 1985 | 114 (tab and songbpm)    | 8ths, half-open on the "and" of 4     | kick on 1 and the "and" of 2; a 16th pair before the 1              | Songsterr (human)                  |
+| Your Latest Trick                  | 1985 | 123 (tab and songbpm)    | 8ths, a 16th burst on the "and" of 1  | cross-stick on 2 and the "and" of 3, or the "and" of 2 and 4        | Songsterr (human)                  |
+| One World                          | 1985 | 108 (tab and songbpm)    | 8ths (assumed; the tab has none)      | plain 1 and 3, 2 and 4; a snare pickup on the "and" of 4            | Songsterr (human)                  |
+| Slave to Love                      | 1985 | 74 (tab); 147 (songbpm)  | the foot on every other 16th          | kick on every beat and the "e" of 3; the snare enters later         | Songsterr (human)                  |
+| If You Love Somebody Set Them Free | 1985 | 125 (songbpm); 128 (tab) | 8ths                                  | kick pushing into 3                                                 | **Songsterr AI tab**               |
+| Love Is the Seventh Wave           | 1985 | 160 (tab); 81 (songbpm)  | 8ths, a bark on the "and" of 4        | kick on 3 only; the cross-stick with it is added                    | Songsterr (human), snare **added** |
+| Fortress Around Your Heart         | 1985 | 120 (tab and songbpm)    | 8ths                                  | cross-stick verse, struck chorus, kick 1, "and" of 2, 3             | **regenerated tab**                |
+| Consider Me Gone                   | 1985 | 124 (tab); 127 (songbpm) | ride, swung                           | a rim click on 4 alone                                              | **Songsterr AI tab**               |
+| Get Lucky                          | 2013 | 116 (tab and songbpm)    | 16ths, open on every beat             | the hats are the groove; claps on 2 and 4, also his                 | Songsterr (human)                  |
+| Giorgio by Moroder                 | 2013 | 113 (tab and songbpm)    | 8ths; then the foot, crashes on beats | four on the floor; the climax's kick in dotted 8ths                 | Songsterr (human)                  |
+| Contact                            | 2013 | 120 (tab); 124 (songbpm) | open on the beat; then the ride       | the snare answering the riff, a snare build                         | Songsterr (human)                  |
+| Fragments of Time                  | 2013 | 131 (tab); 130 (songbpm) | quarters, 8ths or 16ths by section    | kick `1.1...1.1.1...1.`; a crash on the "and" of 4                  | Songsterr (human)                  |
+| Beyond                             | 2013 | 100 (tab); 104 (songbpm) | 16ths                                 | the kick in dotted 8ths, `..1..1..1..1..1.`                         | Songsterr (human)                  |
+| Predator                           | 1984 | 106 (songbpm)            | 16ths, open on the "and" of 2         | dense ghosts, kick 1, "a" of 1, "a" of 2, "and" of 3                | **reconstruction**                 |
+| Corner Pocket                      | 1985 | 108 (songbpm); 105 (tab) | 16ths or 8ths                         | kick on 1, the "a" of 1 and the "and" of 2; the backbeat on 4 alone | **Songsterr AI tab**               |
+
+The tabs were read with Songsterr's API: each tab's `aiGenerated` flag was
+checked, the drum part's bars counted, and the commonest bars used as
+figures. Changes made so the critic passes:
+
+- Money for Nothing's `1123` ghosts into 4 lose the first ghost: four snare
+  16ths in a row is a run.
+- Contact's 16th snare build is broken into 8ths and pairs.
+- Giorgio's drum-solo bars (16ths of ghosts throughout) are left out.
+
+Left out:
+
+- "Modern Love" and "China Girl": credits disputed (above). Wikipedia gives
+  Modern Love Hakim, the tab and davidbowieworld give it Thompson.
+- "Brothers in Arms", "The Man's Too Strong", "Why Worry": the tabs have no
+  usable drum notes.
+- "Ride Across the River": a tom-and-rim part across 3/4 and 4/4 bars. It
+  fits the model but was not worth it against the rest.
+- "Touch": a suite, six tempos in its first eight bars.
+- "We Work the Black Seam" and "Children's Crusade": AI tabs only, and nothing
+  in them is distinctive enough to stand without a human one.
+- "Procession", "Where the Moon Goes", "Plaza Real", "D♭ Waltz": no tempo
+  found for the first three; D♭ Waltz's songbpm figure (107) does not say
+  whether it is a 3/4 bar, and nothing describes its drum part.
+- "Can It Be Done", "Domino Theory", "Two Lines", "Ice-Pick Willy": drum machine
+  or MIDI (above).
+- "Lose Yourself to Dance", "Give Life Back to Music", "Instant Crush": JR
+  Robinson.
+
+**Still not modelled:** the gated-reverb snare as an effect (the `bigrusty`
+kit stands in), his live hybrid kit, and Weather Report's percussion scores
+"that you need 12 hands to play".
+
+Sources: en.wikipedia.org (Omar Hakim; Let's Dance (David Bowie album); Let's
+Dance (David Bowie song); Modern Love (David Bowie song); China Girl (song);
+Brothers in Arms (album); The Dream of the Blue Turtles; Random Access
+Memories; Slave to Love; Procession (album); Domino Theory (album); Sportin'
+Life (Weather Report album)); davidbowieworld.com/bowie-tony-thompson-without-you;
+weatherreportdiscography.org (procession, domino-theory, sportin-life);
+roland.com/us/community/roland_users_group/1719 (his electronic kits);
+songbpm.com (@david-bowie, @dire-straits, @sting, @daft-punk,
+@weather-report, @bryan-ferry); musicgurus.com Rockschool "Let's Dance"
+analysis; Songsterr drum tabs s29034 (Let's Dance), s480492 (Money for
+Nothing), s30586 (So Far Away), s30096 (Your Latest Trick), s575827 (One
+World), s486432 (Slave to Love), s802259 (Love Is the Seventh Wave), s422383
+(Fortress Around Your Heart), s381654 (Get Lucky), s405392 (Giorgio by
+Moroder), s390281 (Contact), s415921 (Fragments of Time), s415923 (Beyond),
+and the AI tabs s2881738 (If You Love Somebody Set Them Free), s1549175
+(Consider Me Gone), s2565903 (Corner Pocket), s407356 (Modern Love, credits
+Thompson).
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html
