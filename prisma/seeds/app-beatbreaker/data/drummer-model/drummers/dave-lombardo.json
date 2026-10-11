@@ -767,6 +767,7 @@
     ]
   },
   "beatbreaker": {
+    "style_key": "lombardo",
     "headline_pattern_ids": [
       "pattern:lombardo-thrash-beat-archetype",
       "pattern:lombardo-aod-break-archetype"

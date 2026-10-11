@@ -197,8 +197,8 @@ that no `?entry=` or `?session=` was given (`Object.hasOwn`, so `constructor`
 is not a style), and the provider calls the console's `newBreakIn(key)`
 through the replacing wrapper, so an unsaved stage is asked about first. It
 is **not a pick**: your starting style is untouched, and the next plain New is
-in yours. A key the console cannot write says so. The login link carries it. A record
-with no `style_key` (the four until 11-e) gets no Play.
+in yours. A key the console cannot write says so. The login link carries it. Since 11-e
+every record has a `style_key`; one added without it gets no Play.
 
 ## Adding a drummer
 

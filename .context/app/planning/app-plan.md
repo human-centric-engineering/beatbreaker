@@ -3658,7 +3658,7 @@ stays).
   pedal; for the generator, the critic and the 3D drummer that is the same
   thing, `doubleKick`, a run of kicks alternating the feet. Baker's Toad
   ostinato is a triplet figure, so it goes in sextuplets (`4/4-6`); his Afro
-  12/8 has its bell on the `cowbell` slot.
+  12/8 would have its bell on the `cowbell` slot (but see Built).
 - **Thrash is faster than a sixteenth grid goes.** A 4/4 bar of sixteenths
   stops at 190; Lombardo's skank beats run past 200. His fast songs are
   written in eighths (`4/4-8`, to 380), as Tony Williams's fast swing is, and
@@ -3666,11 +3666,13 @@ stays).
   either grid at its tempo: where a record has one it is written as sixteenths
   at the same tempo or left out, and the research says which.
 - **Earth is slower than the Studio goes.** The tempo control stops at 50 and
-  Davies's records sit between about 30 and 60. A song under 50 is counted in
-  eighths: one bar here is half a bar of the record's, at twice the number, as
+  Davies's records sit between about 30 and 60. Her style is written in
+  eighths (`4/4-8`), her record's finest grid; a slow 12/8 counts its tempo in
+  quarters, so a dotted-quarter pulse of 36–47 reads 52–72. A song still under
+  50 is counted in eighths: a quarter here is the record's eighth, at twice
+  the number, and its offbeat steps (the record's sixteenths) take no kick, as
   Puente's mambos are counted in the half note the other way. Her rules stay:
-  no grid finer than eighths, two to eight notes a bar, cymbals left to ring,
-  almost no fills.
+  two to eight notes a bar, cymbals left to ring, almost no fills.
 - **Klek's record keeps the persona policy.** The record is
   `private_do_not_research`; the check already refuses a stored name, birth or
   death. This PR sets only `style_key` on it. The research looks at the
@@ -3678,8 +3680,8 @@ stays).
   plays the drums; the style and its songs name the persona and the band
   (Angine de Poitrine) and nothing else. A test holds that the record keeps
   the policy and stores no identity after the key is added.
-- **Kits are sampled** (the rule stays): Baker a sixties kit, Davies a big,
-  old room kit, Lombardo and Klek a dry, punchy one. None of the four played
+- **Kits are sampled** (the rule stays): Baker a sixties kit, Davies an old,
+  ringing one, Lombardo and Klek a dry, punchy one. None of the four played
   electronic drums on these records, so nothing joins `drummer-kits.test.ts`'s
   list.
 - **The research comes first**, as for the others: credits checked, tempos
@@ -3691,6 +3693,39 @@ stays).
   11-d's, adds that each is filed and keyed both ways, each song's range needs
   no cutting, no written bar needs three hands, and every song's bars pass the
   critic at its own tempo; and that the double-bass players say so.
+- **Built 2026-10-11**, research in `drumming-research.md` §T–W, each read
+  from Songsterr tabs whose `aiGenerated` flag and revision history were
+  checked. Ginger Baker: 11 songs, ten from human tabs (Cream and Blind
+  Faith), Toad a reconstruction of his record's ostinato; White Room is its
+  5/4 opening, not the 4/4 verse, and Do What You Like is in 5/4. **No Afro
+  12/8 song**: every Fela and Air Force tab is machine-made and no source gives
+  those records' meter, so a song would name no record; it waits for one that
+  can be checked. On Fela's _Live!_ he plays three tracks, Tony Allen the
+  others. Dave Lombardo: 14 songs, all from human tabs, Slayer from _Show No
+  Mercy_ to _World Painted Blood_; six in eighths at record speed, eight in
+  sixteenths; the 32nds of the Angel of Death break are sixteenths at its own
+  105, and sixteenth double bass above 150 is left out. Adrienne Davies: 15
+  songs, one from a human tab (The Bees Made Honey in the Lion's Skull), the
+  rest reconstructions; the tempo databases double or treble Earth's, so each
+  tempo was measured from the record's preview and checked against them;
+  three songs are counted in eighths. Klek de Poitrine: 12 songs, ten from
+  human tabs, Sherpa and Sarniezz two songs each where the tempo modulates;
+  7/8, 5/8 and 12/8 as the records have them; Fabienk's 14-beat cycle is
+  played as the drums' 4/4, since a figure holds 32 steps, not two bars of
+  7/4. Kits: `sixties` (Baker),
+  `crocell` (Lombardo), `smdrums` with `bigrusty` on _Primitive and Deadly_
+  (Davies), `teatowel` (Klek: "timbre mat", damped and close-miked).
+- **Fixed on the way:** a fill in Seasons in the Abyss started on the
+  backbeat it meant to keep, so a quarter of its bars had no findable
+  backbeat; the fill now writes it. Lombardo plays a real china, so he joins
+  the china players `generate.test.ts` allows.
+- **Found on the way, not changed:** a song has one meter and one tempo, so
+  White Room's 4/4 verse, Toad's vamp, Sherpa's and Sarniezz's modulations
+  and Earth's 12/8–15/8 alternation are cut or split; there is no timpani,
+  mallet, cymbal swell or ring length, so Davies's swells are a crash left to
+  ring; a figure holds two bars, so Tohogd's 4/4 over four bars of 7/8 is cut
+  in halves; there are no loops to lock Klek to, only a small jitter; a run of
+  sixteenth kicks above 150 and a sextuplet 5/4 have no grid.
 
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern

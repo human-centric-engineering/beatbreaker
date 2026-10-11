@@ -716,6 +716,7 @@
     ]
   },
   "beatbreaker": {
+    "style_key": "baker",
     "headline_pattern_ids": [
       "pattern:baker-sunshine-tom-archetype",
       "pattern:baker-toad-ostinato-archetype",

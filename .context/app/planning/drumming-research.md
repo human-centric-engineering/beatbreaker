@@ -2361,6 +2361,726 @@ record.
   both a bell and the cáscara with the clave.
 - His bongos and timbales mounted in place of toms are played on the toms.
 
+## T. Ginger Baker (2026-10-11)
+
+The `baker` style plays **songs** the way `gadd` does (N): each New picks one
+of his records, and its tempo, meter and grooves come with it. His record in
+the drummer model (`drummer-model/drummers/ginger-baker.json`) sets the rules:
+let the toms carry grooves; two-bass-drum (K/K2) ostinatos under tom phrases;
+triplet and 12/8 feels; and avoid tight quantised rock and ghost-note funk.
+
+**Which records are his.** Credits checked on Wikipedia. Cream was a trio:
+every Cream drum part is Baker's. On "White Room" he is credited with drums
+**and timpani** (Felix Pappalardi plays the violas). On _Blind Faith_ he is the
+only drummer ("drums, percussion; vocals on 'Do What You Like'"), and he wrote
+"Do What You Like". On Fela's _Live!_ (recorded at Abbey Road, 25 July 1971)
+Tony Allen is the band's drummer and Baker plays on tracks 3–5 only: "Ye Ye De
+Smell", "Egbe Mi O" and the 1978 Berlin drum duet with Allen; "Let's Start"
+and "Black Man's Cry" are Allen's, so they are not used here. _Ginger Baker's
+Air Force_ (1970) has three drummers (Baker, Phil Seamen, Remi Kabaka), and its
+"Toad" has solos by all three, so the Toad here is Cream's.
+
+**How he played.** Wikipedia (Ginger Baker): his drumming "melded jazz and
+African rhythms"; he used "syncopation and ride cymbal patterns characteristic
+of bebop", "two bass drums instead of the conventional single one", 7A sticks
+in matched grip, and was "one of the first drummers to move his left foot
+between his left bass drum pedal and hi-hat pedal". The two bass drums came
+from seeing Sam Woodyard with Ellington in 1966, who "played incredible tom tom
+and two bass drum patterns" (Jazzwise interview, as the search result quotes
+it). On "Sunshine of Your Love" he "played much of the song on the tom-toms"
+with a pattern that "emphasises beats one and three"; Tom Dowd: "the Indian
+beat, where the downbeat is the beat" (Wikipedia, Sunshine of Your Love). On
+"Toad" he builds "a sequence of drum patterns that are built up, varied, and
+then dropped", with "complementary rhythms on the hi-hat, ride cymbal,
+double-bass drums and tom-toms simultaneously" (Wikipedia, Toad). "White
+Room": "Both Bruce and Baker claimed to have added the distinctive 5/4 ...
+opening to what had been a 4/4 ... composition" (Wikipedia); "Baker leads
+Cream from a mysterious 5/4 intro into the song's rumbling main 4/4 rhythm"
+(Ultimate Classic Rock). "Do What You Like" is in 5/4 and runs fifteen minutes
+(Wikipedia; Ultimate Classic Rock).
+
+**What the style encodes.** `doubleKick` (two bass drums: to the generator,
+critic and 3D drummer the same as a double pedal); the `sixties` kit (SM
+Drums' 1960s Ludwig: he played Ludwig, the Songsterr tabs name a Super Classic
+in silver sparkle, until the late 1990s); `toms`, and toms in five of the six
+style figures; `ghostBias` 0.1 and no ghost weights (the record's
+_avoid_: ghost-note funk); a feel a hair on top of the beat (the record's
+`beat_placement: on_top`, inferred) with a 0.02 wobble rather than a grid
+(_avoid_: tight quantised rock); `flam` 0.15 for the rudimental passages;
+`midFills` 0.25 (the record's fill every four bars); a floor-tom accent every
+dotted eighth as a cross-rhythm (`crossRhythm` 0.2) for his polyrhythm. The
+style's own bpm stops at 150 because its hand-hand-foot-foot fill runs eight notes without a gap.
+
+**Grids.** Ten songs follow human Songsterr transcriptions (each tab's
+`aiGenerated` flag and revision history checked), read bar by bar, the most
+common bars kept. Each tab's length at its marked tempo matches the record
+(Sunshine 250 s, White Room 301 s, Crossroads 253 s, I Feel Free 170 s, Born
+Under a Bad Sign 190 s, Badge 161 s), which is a check on the tempo too.
+
+- **Sunshine of Your Love** (256): the verse, 30 bars of it, is all toms: rack
+  and floor together on 1 and 3, the floor on the "and"s of 1 and 3, the mid
+  tom with the kick on 2, the "and" of 2, 4 and the "and" of 4. The chorus has
+  crashes on 1 and 3 and the toms answering the riff; the solo puts the snare
+  with the crash on 1 and 3. Fills are threes down the kit.
+- **White Room** (4455): the 5/4 bar (below) and the verse's fill.
+- **Crossroads** (242, the Winterland live take on _Wheels of Fire_): the floor
+  tom on 1, the snare on 2, 3 and 4, the kick on the "and"s of 1, 2 and 4, and
+  only the hat foot on the "and"s of 2 and 4: the tab writes no cymbal under
+  the verse, and it is kept as written.
+- **I Feel Free** (4746): a two-bar verse, the hats open on the beat and the
+  "and"s; its tom fill has no run of four, so it plays at 176.
+- **Badge** (4135), **Tales of Brave Ulysses** (4922, the snare on every beat,
+  then a section of floor tom and both kicks in eighths), **SWLABR** (4888),
+  **Strange Brew** (4216) and **Born Under a Bad Sign** (62912, the ride's
+  bell on the "and"s, the snare with the riff, so the song's backbeats are 2
+  and the "and" of 3).
+- **Do What You Like** (3491, the whole _Blind Faith_ album in one human tab,
+  an early revision): crash and kick on 1, the hat foot on every eighth, the
+  toms on the "and" of 2, the "and" of 3, 4 and 5. The cabasa in 16ths over it
+  is left out: no credit says it is his. Its fills are reconstructions in
+  eighths (the tab has none in that section).
+
+**White Room: the 5/4 bar, not the 4/4 verse.** The bar the record calls out
+(`why_it_matters`: "Odd-metre intro in 5/4") is the one Baker claimed to have
+added; it is his part, not a plain backbeat; and it is 23 of the tab's 131
+bars (the opening, and before and after the third verse). The verse (kick on
+1 and the "and" of 1, a 16th after each backbeat, half-open hats) is a rock
+beat the genre styles already play. The bar: crash, snare and kick on 1, then
+both floor toms (or the timpani) struck together, a triplet on 2, a quarter on
+3, eighths on 4, the "and" of 4 and 5. A 5/4 bar here is sixteenths, so the
+triplet is the nearest steps, 4, 5 and 7; there is no sextuplet 5/4.
+
+**Toad is a reconstruction.** Songsterr's Toad (67057) has no
+drum part. The Toad here is in sextuplet 4/4 (`4/4-6`) from his record's
+ostinato: the right kick on the beat, the left on the second triplet, the toms
+on the third, a gap between every note; then the tom melody moving, jazz ride
+time with the foot back on the hat, and a rudimental snare passage, the parts
+Wikipedia names. Its backbeat is the toms on the last triplet of 1 and 3.
+
+**No Afro 12/8 song.** Every Fela and _Live!_ tab on Songsterr is
+machine-made, and no source found gives the meter of "Ye Ye De Smell", "Egbe
+Mi O" or Air Force's "Aiko Biaye". A draft wrote his record's 12/8 archetype
+(the standard bell on the `cowbell` slot, the kick on 1 and 3, the floor tom
+on 2 and 4) as a song, but a song names a record and this one would name none,
+so it was dropped. His West African playing waits for a record whose meter
+can be checked.
+
+| Song                   | Year | Tempo (quarter)                                  | Meter | What defines it                                              | Source of the bars          |
+| ---------------------- | ---- | ------------------------------------------------ | ----- | ------------------------------------------------------------ | --------------------------- |
+| Sunshine of Your Love  | 1967 | 116 (tab); 115 (songbpm)                         | 4/4   | toms, not snare; 1 and 3 accented                            | Songsterr 256 (human)       |
+| White Room             | 1968 | 110 (tab, songbpm)                               | 5/4   | crash and snare on 1, both floor toms: triplet on 2, eighths | Songsterr 4455 (human)      |
+| Crossroads (live)      | 1968 | 132 (tab; length matches); songbpm 101 disagrees | 4/4   | floor tom on 1, snare on 2, 3, 4, hat foot on the "and"s     | Songsterr 242 (human)       |
+| I Feel Free            | 1966 | 176 (tab, songbpm)                               | 4/4   | open hats on the beat and the "and"s                         | Songsterr 4746 (human)      |
+| Badge                  | 1969 | 106 (tab, songbpm)                               | 4/4   | eighths; the bridge on the ride, a crash on the "and" of 4   | Songsterr 4135 (human)      |
+| Tales of Brave Ulysses | 1967 | 106 (tab, songbpm)                               | 4/4   | snare on every beat; floor tom and both kicks in eighths     | Songsterr 4922 (human)      |
+| SWLABR                 | 1967 | 124 (tab, songbpm)                               | 4/4   | eighths; crash and snare on every beat; a run down the toms  | Songsterr 4888 (human)      |
+| Strange Brew           | 1967 | 104 (tab); 106 (songbpm)                         | 4/4   | hats opening on 1, kick on 3, the "and" of 3 and of 4        | Songsterr 4216 (human)      |
+| Born Under a Bad Sign  | 1968 | 92 (tab); songbpm 183 (doubled)                  | 4/4   | ride bell on the "and"s, snare with the riff, kicks doubled  | Songsterr 62912 (human)     |
+| Toad                   | 1966 | 141 (songbpm; 71 half)                           | 4/4-6 | two kicks in triplets under tom phrases                      | **reconstruction** (record) |
+| Do What You Like       | 1969 | 160 (tab); 153 (songbpm)                         | 5/4   | hat foot in eighths, toms answering, no snare                | Songsterr 3491 (human)      |
+
+**Left out.** "Sitting on Top of the World" (4004, human): its 12/8 bar has the
+kick and snare every two eighths under a ride on every eighth, two against
+three; that may be his, or the tab's barring, and could not be checked against
+the record. "Spoonful" (62917): 74 of its bars are blank. "Politician"
+(4453): one plain bar of eighths, 76 times. "N.S.U." (415624): the drum track
+is empty. "Deserted Cities of the Heart" (62913): the drum track is
+machine-made ("regenerated", created via AI). Blind Faith's single-song tabs
+("Had to Cry Today", "Do What You Like", "Well All Right"), every Fela tab with
+Baker, and the Baker Gurvitz Army tabs are AI-generated. "Presence of the
+Lord" has no drum track. Graham Bond Organisation: no tab found.
+
+**Found on the way, not changed.**
+
+- His left foot moved between the left bass drum and the hi-hat; the model has
+  one `doubleKick` flag and a hat foot, so nothing stops a figure writing the
+  hat foot under a left-foot kick (none of his here does).
+- There is no sextuplet 5/4, so White Room's triplet on 2 is the nearest
+  sixteenths.
+- A timpani is not a lane: White Room's two floor toms stand for whatever the
+  tab's two low drums were.
+- A song cannot change meter at a section: White Room's 4/4 verse and Toad's
+  4/4 vamp around the solo are not in the songs.
+- The style-level cross-rhythm (a floor-tom accent every six steps) means three
+  against four only on a sixteenth grid; Toad turns it off.
+
+Sources: Wikipedia — [Ginger Baker](https://en.wikipedia.org/wiki/Ginger_Baker),
+[Sunshine of Your Love](https://en.wikipedia.org/wiki/Sunshine_of_Your_Love),
+[White Room](https://en.wikipedia.org/wiki/White_Room),
+[Toad (instrumental)](<https://en.wikipedia.org/wiki/Toad_(instrumental)>),
+[Blind Faith (album)](<https://en.wikipedia.org/wiki/Blind_Faith_(Blind_Faith_album)>),
+[Live! (Fela Kuti album)](<https://en.wikipedia.org/wiki/Live!_(Fela_Kuti_album)>),
+[Ginger Baker's Air Force (album)](<https://en.wikipedia.org/wiki/Ginger_Baker%27s_Air_Force_(album)>);
+[Ultimate Classic Rock, Ginger Baker songs](https://ultimateclassicrock.com/ginger-baker-songs/);
+[Far Out, six drum tracks](https://faroutmagazine.co.uk/ginger-baker-six-best-drum-tracks/);
+[Jazzwise, Ginger Baker – Drums](https://jazzwise.com/features/article/ginger-baker-drums) (via search summary; the page did not load);
+[Cedric Suggests, Fela with Ginger Baker Live!](https://cedricsuggests.co.uk/fela-with-ginger-baker-live-album-of-the-month-june-2021/);
+Songsterr tabs 256, 4455, 242, 4746, 4135, 4922, 4888, 4216, 62912, 3491
+(`https://www.songsterr.com/api/meta/<id>` for the `aiGenerated` flag and
+revision); [songbpm.com](https://songbpm.com/@cream) (Cream; Blind Faith).
+
+## U. Dave Lombardo (2026-10-11)
+
+The `lombardo` style plays **songs** the way `bonham` and `tonywilliams` do
+(F, G): each New picks one of his records, and its meter, tempo and grooves
+come with it. His record in the drummer model
+(`drummer-model/drummers/dave-lombardo.json`) sets the rules: tempos of 180 to
+250 for the thrash sections and half-time for the heavy ones; K and K2 in turn
+in a double-bass run; clave-like syncopations when the toms play over the
+double bass; small timing jitter, never quantised. Its avoid list is
+triggered, machine-perfect kicks, swing, and ghost-note funk.
+
+**Which records are his.** Personnel was checked on Wikipedia album by album;
+he is the drummer on every track of each one used: _Show No Mercy_ (1983),
+_Hell Awaits_ (1985), _Reign in Blood_ (1986), _South of Heaven_ (1988),
+_Seasons in the Abyss_ (1990), _Christ Illusion_ (2006) and _World Painted
+Blood_ (2009). Paul Bostaph drums on everything from _Divine Intervention_
+(1994) to _God Hates Us All_ (2001) and on _Repentless_ (2015); Songsterr also files Bostaph's "213",
+"Disciple", "Bloodline" and a live "Hell Awaits" under Slayer, and its tabs
+of the _Undisputed Attitude_ covers name John Dette. None of those is used. His records
+outside Slayer (Grip Inc., Fantômas, Testament's _The Gathering_, Suicidal
+Tendencies, Dead Cross) are his, but no transcriptions of them were read; they
+are left for a later pass.
+
+**How he played.** On two bass drums, not a double pedal: "I don't like a
+double pedal because when the beater hits, I immediately come back with the
+other pedal. And that head is resonating, which creates a momentum that isn't
+helpful … With two bass drums, I don't have any problems. It's just a feel
+thing" (Guitar Center, 2012, quoted on Wikipedia). Heel up, pedals angled;
+in _Modern Drummer_ he said a beat on the bass drums always starts with his
+left foot (Wikipedia). The _Angel of Death_ break began in a drum solo, and
+Hanneman asked to put it in a song (Blabbermouth). Of that break he told _New
+Noise_ that the double bass is in 32nd notes, with syncopated tom hits over it
+in "a very typical Tito Puente" figure (as reported by Metal Injection and
+NPR); NPR: "he unwittingly felt Puente's influence during a key drum break";
+he grew up watching the drummers in Cuban dance bands at his parents' clubs.
+Drummerworld called him "the godfather of double bass". _Die Zeit_: "Dave
+Lombardo's fast and precise groove are at the eye of this metallic storm".
+
+**What the style encodes.** `doubleKick`, so a run of kicks is two feet. No
+swing and `ghostBias` 0 (the avoid list). A feel just ahead of the beat on the
+snare and kick with a wobble of 0.03 of a sixteenth (his record's 3–4 ms of
+jitter: "controlled chaos", not quantised). `rimshot` 0.3 for the cutting
+snare; `flam` 0.1 for the flammed toms of the break. The kit is `crocell`, the
+sampled kit of a metal band: a punchy kick and a tight, cracking snare, mixed
+close with little room, nearest the dry _Reign in Blood_ sound (Rubin, no
+triggers). The open hat of the tabs, struck on every eighth at speed, is
+written half-open (`h` 4), as the `thrash` genre does. The style's own figures
+and fills are his mid-tempo vocabulary, gathered from the songs below.
+
+**Grids.** The songs are in two grids, as the plan says (11-e):
+
+- **Past 190, in eighths (`4/4-8`).** Angel of Death, Raining Blood,
+  Necrophobic, War Ensemble, Jesus Saves and Cult. Their tabs are written in
+  sixteenths at the record's speed (about 200–250); here each tab sixteenth
+  that falls on an eighth is kept and the rest dropped. The skank beat comes
+  through whole (kick on the beat, snare on every "and", the ride or hat on
+  every eighth). The tabs' kick doubles on the "e" (`x...xx..`), a sixteenth,
+  are dropped, and so are their sections of sixteenth double bass at 175–210
+  (Raining Blood's verse, War Ensemble's chorus, Angel of Death's intro and
+  outro): too fine for eighths and past the run limit of a sixteenth grid
+  (150). Eighths on both feet, as in War Ensemble and Cult, are kept.
+- **Up to 190, in sixteenths (`4/4`).** South of Heaven, Mandatory Suicide,
+  Seasons in the Abyss, Dead Skin Mask, the Hell Awaits intro, World Painted
+  Blood and Black Magic, at the record's tempo. Where a song's bars run four
+  sixteenths or more (double bass), its range stops at 150.
+- **The Angel of Death break** is counted as he counts it: half the tab's
+  210, so 103–110 (songbpm.com's 106), where his 32nds would be. They are
+  written as sixteenths at that tempo, half the record's rate on the feet, as
+  the plan allows. The bars either side are written in the same count (the
+  ride on the record's eighths becomes sixteenths, the snare on its quarters
+  eighths). The tab (Songsterr 17586) writes the tom figure as flammed
+  quarter-note triplets, three on the rack tom and three on the mid; a
+  sixteenth grid holds no triplet, so it is written as a tresillo (3-3-2) on
+  each tom, the clave-like figure his record's rule asks for. **That figure is
+  a reconstruction.**
+
+All fourteen follow human Songsterr transcriptions, read with Songsterr's API
+(each tab's `aiGenerated` flag was false), the drum track's bars counted and
+the commonest kept; the tempo is the tab's tempo map, checked against
+songbpm.com, which gives most of them in half time (106 for 212). Changes
+made so the critic passes, and the rest:
+
+- Four snare notes in a row fail the critic, so the tabs' snare rolls into a
+  section (sixteenths at 210, eighths here) are broken with toms or rests.
+- Hell Awaits: the intro has both toms on 1 and 3 over the double bass; under
+  the crash that marks each half of the phrase that is three hands, so the 1
+  is the floor tom alone.
+- Dead Skin Mask has no snare in its main sections (the floor tom and bell on
+  2 and 4 over the hat foot; double bass under the ride; a gallop under
+  crashes); the song keeps none, and the critic finds its backbeat on the tom.
+- World Painted Blood's tom figure (`xxx.x.xxx.x.xxx.`) alternates bar by bar
+  between the mid and floor toms; here it is on the mid tom.
+- War Ensemble's two-bar march figure (snare and floor tom on the riff, the
+  crash on the pushes, eighths on the feet) is kept as one two-bar figure.
+- The 6/4, 5/4, 9/8, 10/8, 11/8 and 12/8 bars of Mandatory Suicide, Black
+  Magic, Jesus Saves, At Dawn They Sleep, Hell Awaits and Postmortem are left
+  out: one song has one meter.
+
+| Song                       | Year | Tempo (quarter)                                 | Grid  | What defines it                                                                   | Source of the bars                               |
+| -------------------------- | ---- | ----------------------------------------------- | ----- | --------------------------------------------------------------------------------- | ------------------------------------------------ |
+| Angel of Death             | 1986 | 206–220 (tab); 106/212 (songbpm)                | 4/4-8 | skank on ride or open hats; the 182 rock beat; half-time on the ride              | Songsterr 17586 (human)                          |
+| Angel of Death (the break) | 1986 | 103–110, half the tab's 206–220                 | 4/4   | both feet throughout; toms over them; the double-bass ride beat either side       | Songsterr 17586 (human); toms **reconstruction** |
+| Raining Blood              | 1986 | 211–251 (tab, skank sections); 89/178 (songbpm) | 4/4-8 | skank to the 250 of the ending, crash on every beat; the intro toms in unison     | Songsterr 17904 (human)                          |
+| Necrophobic                | 1986 | 241–259 (tab); 124/248 (songbpm)                | 4/4-8 | the fastest on the record: skank on hats and ride                                 | Songsterr 53719 (human)                          |
+| Jesus Saves                | 1986 | 210–228 (tab, fast part); 109/218 (songbpm)     | 4/4-8 | skank on the bell after a splash; the bell over a snare on every beat             | Songsterr 53758 (human)                          |
+| War Ensemble               | 1990 | 195–207 (tab); 99/198 (songbpm)                 | 4/4-8 | eighths on both feet, snare on every beat; skank; the two-bar march               | Songsterr 18010 (human)                          |
+| Cult                       | 2006 | 200–210 (tab); 101/202 (songbpm)                | 4/4-8 | skank; ride quarters over eighths on the feet; a tom groove                       | Songsterr 37608 (human)                          |
+| South of Heaven            | 1988 | 134–146 (tab); 139 (songbpm)                    | 4/4   | hats over 2 and 4; snare on every beat over double bass; dotted-eighth china      | Songsterr 17962 (human)                          |
+| Mandatory Suicide          | 1988 | 148 (tab and songbpm)                           | 4/4   | hats on the beat, double bass or 1 and 3; the ride; a half-time bar               | Songsterr 17669 (human)                          |
+| Seasons in the Abyss       | 1990 | 152 (tab and songbpm)                           | 4/4   | rock beat on the ride, the snare doubling at the bar's end, the mid tom answering | Songsterr 17564 (human)                          |
+| Dead Skin Mask             | 1990 | 110 (tab and songbpm)                           | 4/4   | no snare: floor tom and bell on 2 and 4; double bass under the ride; a gallop     | Songsterr 18024 (human)                          |
+| Hell Awaits (intro)        | 1985 | 103–106 (tab); 106 (songbpm)                    | 4/4   | both toms with the kick on 2 and 4; toms on 1 and 3 over double bass              | Songsterr 18291 (human)                          |
+| World Painted Blood        | 2009 | 180–182 (tab); 93/186 (songbpm)                 | 4/4   | eighths on both feet under crashes, hats or a tom figure in threes; skank         | Songsterr 60404 (human)                          |
+| Black Magic                | 1983 | 177–190 (tab); 94/188 (songbpm)                 | 4/4   | skank on open hats                                                                | Songsterr 17871 (human)                          |
+
+**Left out.** Criminally Insane, Postmortem, Hallowed Point, Chemical
+Warfare, Ghosts of War, Silent Scream, Expendable Youth, At Dawn They Sleep,
+Die by the Sword and Spirit in Black are his and have human tabs, but their
+grooves are the skank beat and the double-bass beats the fourteen already
+have (Postmortem's 12/8 opening and At Dawn They Sleep's 10/8 bars would need
+songs of their own). Piece by Piece's tab has no snare in its main bars,
+which looks unfinished. Reign in Blood's title is not a track ("Raining
+Blood" is). Raining Blood's double-bass verse at 175 and the sixteenth double
+bass of War Ensemble, Silent Scream and At Dawn They Sleep at 196–208 fit
+neither grid (above).
+
+**Found on the way, not changed.**
+
+- The model has no leading foot: `doubleKick` alternates the feet, but he
+  starts a run on the left (_Modern Drummer_), and two bass drums with their
+  own heads are the same as a double pedal to the generator, the critic and
+  the 3D drummer.
+- A run of sixteenths on the kick at 175–210, the core of his playing, fits
+  no grid: a sixteenth grid stops at 190 and its runs at 150; eighths are too
+  coarse. Those sections are left out rather than slowed down.
+- The tom figure of the break is in quarter-note triplets over straight
+  sixteenths; no meter holds triplets and sixteenths in one bar.
+- One song has one meter and one tempo: Seasons in the Abyss's slow intro at
+  64, Raining Blood's verse at 175 against its 250 ending, Angel of Death's
+  182 middle, Postmortem's 12/8 and the odd bars are not written.
+- He stretches endings live (two more bars on Raining Blood's): the model has
+  no live arrangement.
+
+Sources:
+
+- https://en.wikipedia.org/wiki/Dave_Lombardo
+- https://en.wikipedia.org/wiki/Show_No_Mercy
+- https://en.wikipedia.org/wiki/Hell_Awaits
+- https://en.wikipedia.org/wiki/Reign_in_Blood
+- https://en.wikipedia.org/wiki/South_of_Heaven
+- https://en.wikipedia.org/wiki/Seasons_in_the_Abyss
+- https://en.wikipedia.org/wiki/Christ_Illusion
+- https://en.wikipedia.org/wiki/World_Painted_Blood
+- https://blabbermouth.net/news/dave-lombardo-says-double-bass-break-in-slayers-angel-of-death-was-originally-part-of-a-drum-solo
+- https://metalinjection.net/?p=389749 (New Noise interview, as reported)
+- https://www.kunc.org/2023-05-05/from-slayer-to-tito-puente-drummer-dave-lombardo-changes-tempo (NPR)
+- https://www.npr.org/transcripts/1173267909
+- https://www.songsterr.com/api/songs?pattern=slayer
+- https://www.songsterr.com/api/meta/17586 (and 17904, 53719, 53758, 18010, 37608, 17962, 17669, 17564, 18024, 18291, 60404, 17871)
+- https://www.songsterr.com/a/wsa/slayer-angel-of-death-drum-tab-s17586
+- https://www.songsterr.com/a/wsa/slayer-raining-blood-drum-tab-s17904
+- https://www.songsterr.com/a/wsa/slayer-south-of-heaven-drum-tab-s17962
+- https://www.songsterr.com/a/wsa/slayer-war-ensemble-drum-tab-s18010
+- https://songbpm.com/@slayer/angel-of-death (and /raining-blood, /necrophobic, /jesus-saves, /war-ensemble, /cult, /south-of-heaven, /mandatory-suicide, /seasons-in-the-abyss, /dead-skin-mask, /hell-awaits, /world-painted-blood, /black-magic)
+
+## V. Adrienne Davies (2026-10-11)
+
+The `davies` style plays **songs** the way `gadd` does (N): each New picks
+one of her records, and its meter, tempo and swing come with it. Her record
+in the drummer model (`drummer-model/drummers/adrienne-davies.json`) sets the
+rules: tempo 35 to 60 with a grid no finer than eighths; let every cymbal
+ring; two to eight notes a bar; fills almost never, swells and dynamic shifts
+instead. It says to avoid 16th hats, a busy kick, fast fills and short,
+choked sounds. Its three patterns are archetypes: a glacial half-time
+backbeat (ride on 1 and 3, snare on 3), a mallet swell and a slow swampy
+shuffle.
+
+**Which records are hers.** Credits checked on Wikipedia for every record
+kept. _Hex; Or Printing in the Infernal Method_ (Southern Lord, recorded
+March–May 2005, Randall Dunn producing): "drums, percussion, wind chime". _The
+Bees Made Honey in the Lion's Skull_ (2008): "drums, percussion".
+_Angels of Darkness, Demons of Light I_ (2011) and _II_ (2012, recorded at the
+same sessions): "trap kit and percussives", with Lori Goldston on cello and
+Karl Blau on bass. _Primitive and Deadly_ (2014): drums, with Bill Herzog on
+bass and Mark Lanegan singing on "There Is a Serpent Coming" and "Rooks Across
+the Gate". _Full Upon Her Burning Lips_ (2019): Wikipedia lists the members
+without instruments; reviews (mxdwn, The Sound Projector) give the core duo,
+Carlson on guitar and bass and Davies on drums and percussion. _Hibernaculum_
+(2007, re-recordings of older songs) is credited to her on her Wikipedia page
+but its personnel was not checked, and it is left out.
+
+**How she played.** Lori Goldston, interviewing her for Tom Tom Magazine
+(2011): her playing is "fluid and precise, somehow delicate and massive at
+the same time"; in Earth "an extraneous note or gesture sounds ridiculous".
+Davies there: "I have always preferred ride cymbals to crash or hi-hats, so I
+wanted to make them more interesting and expressive", and she was working "on
+using hats more and learning to play at other tempos, and to not swing
+everything – straight feel, as well as 3/4 time and better fills". Her
+favourite drummers: "Jim Keltner, Levon Helm, Thomas Widler [Wydler], Jim
+Sclavunos, and Ralph Molina. Simplicity." Bandcamp Daily (2016): "I noticed
+how impossible it was to play music that slow, [with that] relaxed of a
+backbeat. If you go too slow, you lose all momentum and there's no groove to
+it"; "What I'm doing is very circular; there are no right angles"; she
+prefers Hex and Hibernaculum live. Louder Than War: "I always play the drums
+lyrically and make each note count", slow playing as "using a rocking
+motion, using your momentum" with "a 2/4 blues back beat". Metal Odyssey
+(2011): "It's what I don't play and knowing what not to fill a song with";
+"I like to make it dramatic, rather than pummel a song to death". The
+Brooklyn Rail (2019): "Often, the quieter you play—it can sound heavier than
+hitting hard"; her '64 mahogany Ludwig snare has been "my main snare on every
+album and on tour"; a '72 14 × 10 Ludwig rack tom; Gregg Keplinger's
+hand-hammered cymbals on top of the ride and the crash; "I absolutely love
+playing brushes, and some of the heaviest songs that we've recorded have
+them"; on "She Rides an Air of Malevolence", "a close-miked, hide drum with
+soft mallets barely touching it". Her first kit was "a sixties Ludwig set of
+drums, a blue oyster color" (Metal Odyssey). The Sound Projector on Full Upon
+Her Burning Lips: "always soft and unobtrusive ... yet unerring", "precise and
+placid drumming", and "unexpected cowbell dings" on "Descending Belladonna".
+No Modern Drummer feature, lesson or published transcription of her playing
+was found.
+
+**Tempos.** No tempo for any of these songs is published anywhere found, and
+the machine figures disagree with each other: songbpm (Spotify's analysis)
+and Deezer's `bpm` field are double, triple or unrelated as often as right.
+So each tempo was **measured**: the onset envelope of the record's 30-second
+Deezer preview, autocorrelated, and the gaps between its strongest onsets
+read by hand (a numpy script; the preview is part of the record, not
+necessarily its main groove). A reading is trusted where a machine figure is
+a whole multiple of it: Deezer's 116.8 and songbpm's 119 for Old Black are
+twice the 59 measured, Deezer's 136 for Engine of Ruin three times the 45.5
+(it is counting triplet eighths). Where nothing agrees, the measurement is
+used and the table says so. The Bees Made Honey's 82 is the human tab's own
+tempo, and the preview agrees (a dotted quarter of 55.5 is 83). Which pulse
+is "the beat" is a reading too: at these speeds a stroke every 2.9 seconds is
+a backbeat on 2 and 4 at 41 or once a bar at 83, and the notes are the same.
+All are open to a listen.
+
+**What the style encodes.** The kit is `smdrums`, SM Drums' 1960s Ludwig
+with a 1965 snare left ringing, heard through a stereo mix: her '64 Ludwig
+snare and her first sixties Ludwig, and the room. The three Primitive and
+Deadly songs, where Earth "allowed themselves to be a rock band", take
+`bigrusty`, the `doom` genre's thick, rough kit with its wash of cymbal. The
+meter is `4/4-8`, bars of eighths, the record's grid; `ghostBias` 0 and
+`noKick` on the "and"s of 1, 2 and 3, so no ghosts and no busy kick;
+`targetDensity` 5 (two to eight notes); `fillChance` 0.15 and no mid fills;
+`phraseMark` a crash on 30% of phrase starts, the record's "replace the ride
+with a long crash swell" (0.3); the snare 0.03 of a step behind and the kick
+0.02 (the record's "laid back", inferred). The style's own figures are the
+record's half-time archetype, one bar each: the ride on 1 and 3, the snare on
+3, the kick on 1 and sometimes the "and" of 4, the kick left out, a crash in
+place of the ride, the ride on every beat. Its three fills are two
+floor-tom strokes, a snare and a floor tom, and the swell: a crash and kick
+on 1, rung through the bar, a floor tom on 3. **A song under 50 is counted in
+eighths**, as the plan decided: one bar here is half a bar of the record's,
+at twice the number, so a quarter here is the record's eighth and the steps
+between are its sixteenths, which her rule leaves empty (`noKick` on every
+odd step in those songs). The 12/8 songs need no doubling: a 12/8 tempo
+counts quarters, so a dotted-quarter pulse of 36 reads 54. Their notes sit on
+the eighths, the even steps. Father Midnight is swung (`swingUnit` 8, swing
+80): in the preview its eighths split two to one.
+
+**Grids.** One song follows a human transcription:
+
+- **The Bees Made Honey in the Lion's Skull** (Songsterr 609341, the drum
+  track named "Adrienne Davies", `aiGenerated` false, read bar by bar): 12/8
+  at 82, the ride on the four dotted-quarter pulses (a crash or ride bell on
+  the first bar of a phrase), the kick on 1 and on the last eighth of pulses
+  2 and 4, the snare on pulse 3; every other bar the last kick is a snare;
+  once, the snare on 3 and 4 with a kick after each, which is the fill. Every
+  second bar of the tab is 15/8, the cymbal stopping for its last two
+  pulses; that is left out.
+
+Songsterr's other tabs of her songs (Old Black 1042140, Rise to Glory
+1227621, Even Hell Has Its Heroes 2300416, Torn by the Fox 4019772) are
+machine-made (`aiGenerated` true) and were not used. Miami Morning Coming
+Down II (424408) is a human tab, but only a 14-bar intro fragment in 3/4 at
+100 with four snare strokes, which does not match the record's 1.44-second
+pulse; it was not used. The other fourteen songs are **reconstructions**
+from the record's archetypes, what she says (ride over hats, the relaxed
+2/4 backbeat, cymbals left to ring) and the measured pulse; the shuffles are
+the record's swampy-shuffle archetype thinned toward its own rule of eight
+notes a bar (the archetype has thirteen).
+
+| Song                                    | Record                            | Tempo (measured; machine figures)                                                         | Meter, here         | What defines it                                          | Source of the bars |
+| --------------------------------------- | --------------------------------- | ----------------------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------- | ------------------ |
+| Land of Some Other Order                | Hex (2005)                        | pulse 0.89–0.97 s, 64–66 (autocorrelation 66.5); songbpm 105, Deezer 160 do not fit       | 4/4-8, 63–67        | ride on every beat, snare on 3, kick on 1                | **reconstruction** |
+| Lens of Unrectified Night               | Hex                               | snare gaps 2.1–2.4 s, halves 1.10–1.23 s: 52–54; Deezer 105.2 (double)                    | 4/4-8, 52–55        | ride on 1 and 3, snare once a bar                        | **reconstruction** |
+| An Inquest Concerning Teeth             | Hex                               | 1.38–1.58 s, 41.5 (autocorrelation 41.5); songbpm 144, Deezer 159 do not fit              | 4/4-8, 82–84 (×2)   | counted in eighths; snare on the record's 2 and 4        | **reconstruction** |
+| Raiford (The Felon Wind)                | Hex                               | pulse 1.63–1.75 s, 35.7; Deezer 107.7 (= 3 × 35.9), songbpm 112 (≈ 3 × 37)                | 12/8, 52–55         | four slow pulses, snare on the third                     | **reconstruction** |
+| The Bees Made Honey in the Lion's Skull | Bees (2008)                       | 82 (tab); dotted quarter 1.06–1.15 s = 83; Deezer 164.7 (double)                          | 12/8, 80–84         | kick on 1 and the "a" of 2 and 4, snare on 3             | Songsterr 609341   |
+| Rise to Glory                           | Bees                              | stream 0.66–0.72 s, 87; songbpm 87, Deezer 86.9; read as eighths of 43.5                  | 4/4-8, 86–88 (×2)   | counted in eighths; ride on the record's eighths         | **reconstruction** |
+| Engine of Ruin                          | Bees                              | pulse 1.27–1.39 s, 45.5 (autocorrelation 45.5); Deezer 136 (= 3 × 45.3)                   | 12/8, 67–70         | slow shuffle, snare on 2 and 4                           | **reconstruction** |
+| Old Black                               | Angels I (2011)                   | bar 4.07 s, beat 1.02 s: 59; songbpm 119, Deezer 116.8 (double)                           | 4/4-8, 58–60        | dirge: ride on every beat, snare on 3                    | **reconstruction** |
+| Father Midnight                         | Angels I                          | 0.85–0.93 s, 66–68 (autocorrelation 68); songbpm 65, Deezer 129.2 (double)                | 4/4-8, 64–68, swing | swung eighths split 2:1, kick on the "and" of 4          | **reconstruction** |
+| Hell's Winter                           | Angels I                          | 1.13–1.25 s, 53 (autocorrelation 53.5); Deezer 105.5 (double)                             | 4/4-8, 52–54        | a crash ridden on 1 and 3                                | **reconstruction** |
+| His Teeth Did Brightly Shine            | Angels II (2012)                  | dotted quarter 1.27 s, 47 (with 73 and 145); Deezer 141.1 (= 3 × 47)                      | 12/8, 69–72         | slow swampy shuffle, snare on 2 and 4                    | **reconstruction** |
+| There Is a Serpent Coming               | Primitive and Deadly (2014)       | 0.96–1.03 s, 61–63 (autocorrelation 63); Deezer 160.9 does not fit                        | 4/4-8, 60–63        | rock backbeat on 2 and 4, `bigrusty`                     | **reconstruction** |
+| Torn by the Fox of the Crescent Moon    | Primitive and Deadly              | two-bar cycle 6.45–6.7 s, eighths 0.39–0.43 s: 73–74; songbpm 144, Deezer 142.6 (eighths) | 4/4-8, 72–75        | backbeat on 2 and 4, a crash ridden; three-eighth pickup | **reconstruction** |
+| Rooks Across the Gate                   | Primitive and Deadly              | 1.20–1.35 s, 47.5 (autocorrelation 47.5); Deezer 97.7 (double); songbpm 144 no            | 4/4-8, 94–98 (×2)   | counted in eighths; a crash on the record's beats        | **reconstruction** |
+| Cats on the Briar                       | Full Upon Her Burning Lips (2019) | 0.87–0.96 s, 65 (autocorrelation 65); songbpm 66, Deezer 132.1 (double)                   | 4/4-8, 64–66        | soft: a cross-stick on 3 under the ride                  | **reconstruction** |
+
+The three-note pickup in Torn by the Fox is three onsets an eighth apart
+every second bar in the preview; whether they are the drums or the guitars
+is not certain. Rise to Glory's 87, on which all three readings agree, is
+read as the eighths of 43.5 because at 87 her relaxed 2/4 backbeat would
+come every 1.4 seconds, quicker than anything else she plays; written here
+at 87, the notes are the same either way.
+
+**Left out.** The Dire and Ever Circling Wolves (65–68 measured, Deezer
+132.9 = 2 × 66.5) and Omens and Portents I: The Driver (41.5, counted 83) are
+the same grooves as Land of Some Other Order and An Inquest Concerning
+Teeth. Hung from the Moon (57; Deezer 113 double), Descent to the Zenith (54),
+A Multiplicity of Doors (62), The Corascene Dog (45), The Rakehell (no clear
+reading) and Exaltation of Larks (59; songbpm 118, the eighths) have no
+description of the drums beyond the tempo. Datura's Crimson Veils measures
+70–72 but songbpm and Deezer both say 81 (161.5 = 2 × 80.75): unresolved.
+She Rides an Air of Malevolence is the hide drum and soft mallets, which the
+kit does not have. Miami Morning Coming Down II (41.5): see the tab above.
+Hibernaculum: personnel not checked.
+
+**Found on the way, not changed.**
+
+- The model has no mallets, no cymbal roll or swell, no hide drum and no wind
+  chimes, which are half of her sound (the record's "mallet swell and
+  rumble" pattern, She Rides an Air of Malevolence, Hex's wind chime). A
+  swell is written as a crash on 1 left to ring.
+- Nothing says how long a cymbal rings: "let every cymbal ring" is the
+  samples' own decay, and the kit has no choke to avoid.
+- A song cannot change meter bar by bar, so the Bees tab's alternating 12/8
+  and 15/8 is written as 12/8 alone.
+- In a song counted in eighths the generator's variation can put a crash
+  accent on an off-beat eighth here, the record's sixteenth; `noKick` keeps
+  the kick off those steps, but no field keeps a cymbal off them.
+- Brushes: she loves them and uses them on "some of the heaviest songs", but
+  no source says which, so no song uses the DRS brush kit.
+- The record's own swampy-shuffle archetype has thirteen notes a bar, over
+  its own rule of two to eight; the shuffles here are thinned to eight or
+  nine.
+- The record's generation rule says 35 to 60, but the measured songs run from
+  36 to 74 (its `tempo_comfort_bpm` of 30–80 is closer). Its open question
+  "measure actual tempos" is partly answered here, from previews.
+- The record lists Bill Frisell as a likely guest on Bees; not checked, and
+  not relevant to the drums.
+
+Sources: [Hex (Wikipedia)](https://en.wikipedia.org/wiki/Hex;_Or_Printing_in_the_Infernal_Method),
+[The Bees Made Honey in the Lion's Skull (Wikipedia)](https://en.wikipedia.org/wiki/The_Bees_Made_Honey_in_the_Lion%27s_Skull),
+[Angels of Darkness, Demons of Light I](https://en.wikipedia.org/wiki/Angels_of_Darkness,_Demons_of_Light_I)
+and [II](https://en.wikipedia.org/wiki/Angels_of_Darkness,_Demons_of_Light_II),
+[Primitive and Deadly](https://en.wikipedia.org/wiki/Primitive_and_Deadly),
+[Full Upon Her Burning Lips](https://en.wikipedia.org/wiki/Full_Upon_Her_Burning_Lips),
+[mxdwn review](https://music.mxdwn.com/2019/06/03/reviews/earth-full-upon-her-burning-lips/amp/),
+[The Sound Projector review](https://www.thesoundprojector.com/2019/06/12/full-upon-her-burning-lips/),
+[Tom Tom Magazine (Lori Goldston, 2011)](https://tomtommag.com/2011/12/earths-adrienne-davies/),
+[The Brooklyn Rail (2019)](https://brooklynrail.org/2019/10/music/Lighter-And-Heavier-Adrienne-Davies-of-Earth-In-Conversation/),
+[Bandcamp Daily (2016)](https://daily.bandcamp.com/features/adrienne-davies-interview),
+[Louder Than War](https://louderthanwar.com/interview-depth-conversation-earth-eve-uk-tour/),
+[Metal Odyssey (2011)](https://metalodyssey.net/2011/03/12/earth-a-metal-odyssey-interview-with-adrienne-davies/),
+[Adrienne Davies (Wikipedia)](https://en.wikipedia.org/wiki/Adrienne_Davies),
+[Songsterr 609341](https://www.songsterr.com/a/wsa/earth-the-bees-made-honey-in-the-lions-skull-drum-tab-s609341)
+(and the machine-made 1042140, 1227621, 2300416, 4019772; the fragment
+424408), songbpm (`https://songbpm.com/@earth/<song>`), and Deezer's API
+(`https://api.deezer.com/album/<id>/tracks`, each track's `bpm` and
+`preview`).
+
+## W. Klek de Poitrine (2026-10-11)
+
+The `klek` style plays **songs** the way `gadd` does (N): each New picks one
+of Angine de Poitrine's records, and its meter, tempo and grooves come with
+it. The record in the drummer model
+(`drummer-model/drummers/klek-de-poitrine.json`) sets the rules: long
+repetition with rare, abrupt changes; tight timing (2 ms of jitter) to sit
+against live loops; polymetric accent cycles for builds; no swing, and no busy
+fills during a loop build.
+
+**The persona policy holds.** The record is `private_do_not_research`. This
+research read the band's records, their Bandcamp notes, an article on the
+music, the tempo database and the drum tabs, and nothing about who plays the
+drums. The style, the songs and this section name only Klek de Poitrine, Khn
+de Poitrine and the band.
+
+**Which records are Klek's.** The band is a duo, and both albums' own
+Bandcamp credits name Klek on drums: _Vol. 1_ (14 June 2024, "Percussions et
+voix : Klek de Poitrine") and _Vol. II_ (3 April 2026, "Batterie et
+percussions : Klek de Poitrine"). _Vol. 1_ is Sherpa, Tohogd, Tamebsz, Ababa
+Hotel, Sahardnieh and L'Aberek; _Vol. II_ is Fabienk, Mata Zyklek, Sarniezz,
+Utzp, Yor Zarad and Angor (some shops list the fourth as "Perep Utz"; the
+band's own page says Utzp). The KEXP session, filmed at Trans Musicales in
+Rennes on 4 December 2025 and published on 5 February 2026, is the same two
+players; the Songsterr tabs taken from it are of Sherpa, Sarniezz and Mata
+Zyklek, and MusicRadar's article reads Fabienk from it too.
+
+**How Klek plays.** _Vol. 1_'s notes describe the band as "mantra-rock", built
+"à la manière de la musique techno" round "un jeu dynamique d'ajout et de
+retrait de motifs sonores": Khn records and layers loops live with the feet,
+and "la batterie au timbre mat de Klek se comporte avec la sagesse et la
+tempérance du sherpa; l'ajout progressif et calculé d'éléments ou le dosage
+stoïque du silence guident l'auditeur … faisant danser des grooves
+asymétriques, culminer l'intensité ou basculer le point d'ancrage rythmique au
+bon moment". MusicRadar's dissection of Fabienk calls the drums "far simpler"
+than the guitar, "with a beautifully dampened and close-miked drum sound,
+which is straight out of funk playbook", and explains the trick in its second
+part: the loops stay in 7/8 while "the drums play three bars of 4/4, with an
+added bar of 2/4 at the end of each cycle. This creates a 14-beat crotchet
+cycle, which is the same length as four bars of 7/8", with "cymbal crashes
+which cement the beginning of each new 4-bar section" and a "4-to-the-floor
+kick drum". It calls the device metric modulation. The tabs show the same
+device in Tohogd (a 4/4 groove laid across four bars of 7/8) and two more
+changes of pulse on a shared note: Sarniezz goes from 12/8 at a dotted
+quarter of 116 to 4/4 at 174, the 8th unchanged, and Sherpa's triplet section
+at 120 becomes the main groove at 180, the triplet 8th becoming the 8th.
+
+**What the style encodes.** The record's rules, where the model has a field
+for them: `swing` 0; a `feel` with `jitter` 0.015 of a 16th (about 2 ms at 130) and no lean; `build` (the busier figure second: "l'ajout progressif et
+calculé d'éléments"); `fillChance` 0.4, `midFills` 0, `anticipate` 0 (few
+fills, none inside the phrase); `crossRhythm` 0.25 over two cycles, Sherpa's
+kick and snare on every dotted quarter for three bars, and the record's
+archetype, a dotted-8th snare accent (marked in the source as not from a tab).
+Each song sets `crossRhythm` itself: 0.35 in Sherpa, 0 elsewhere, because in
+7/8, 5/8, 12/8 and the triplet bars the polymeter is already written in
+the figures. The kit is `teatowel`, Gogodze's damped drums with the room taken
+out: "timbre mat", "dampened and close-miked". `rimshot` 0.15 for the
+hard-hit backbeat; few ghosts (`ghostBias` 0.1), because the tabs have almost
+none. Two-bar figures carry what crosses the bar line: Sherpa's four-bar kick
+cycle as two pairs, and Tohogd's 4/4 over two bars of 7/8.
+
+**Grids.** Songsterr's tabs of the band were read through its API, each
+tab's revision history checked: several began as a machine import (the
+`aiGenerated` flag on the first revision) and were then rewritten by hand,
+and those are counted as human where the history says the drums were
+redone. Tabs only ever machine-made (Sherpa's first tab, the "Standard
+tunning" and "y"/"a" copies, Sahardnieh, L'Aberek, Teaser, the Fallon
+Zugzegk) were not used; the "mp3" uploads of one contributor were not used
+either, since four of the five are flagged as machine-made. The bars were
+decoded per measure and the most common kept. Ten songs follow human tabs:
+
+- **Sherpa** (5022558, live at KEXP, one human revision; 4372986, _Vol. 1_,
+  one human revision; 3886668, begun by machine and revised five times, as a
+  check): all three put the main groove at 180, and two of them (5022558 and 3886668) agree on a four-bar kick cycle under 2 and 4 (1, 3, &3 / 1, &2,
+  &3 / 1, &1, 3, &4 / &1, 3, &3), over open hats on the beat, the crash on the
+  beat, or closed 8ths. All three have the
+  build with kick and snare in unison on every dotted quarter across three
+  bars, and two have the same fill, three on the snare, three on the tom. The
+  16th snare rolls (two bars of them) are left out: four snare 16ths in a row
+  fail the critic, and at 180 a run is past `RUN_RATE`.
+- **Sherpa, the triplet section** (5022558, and 4372986's tempo map): at 120,
+  triplet 8ths on the hat and kick and snare together on the last triplet of
+  every beat, in `4/4-6`; then the tempo goes to 180. Its unison quarters
+  (crash, kick and snare) are the fill.
+- **Tohogd** (4039482; begun by machine, the drums rewritten and completed by
+  hand over five revisions "to be accurate to studio recording"): 172, 7/8.
+  The loops go down one at a time and the drums add one thing with each; then
+  hats on a quarter pulse and a 4/4 groove (snare on 2 and 4, kick on 1, &1,
+  3, &3) run over two bars of 7/8 at a time, with and without the loops.
+- **Tamebsz** (4046299; begun by machine, drums added and corrected by hand):
+  125, though the drum part goes no further than the intro. Hats on the beat,
+  kick on 1 and the "and" of 2, a snare pickup at the bar's end.
+- **Fabienk, first part** (4005903, rewritten "completely" by hand, drums
+  "finished"; 4664952, one human revision): 128 (songbpm and both tabs), 7/8.
+  The first groove has hat and snare struck together with the riff and the
+  kick alone; the second is busier, half-open hat on 1, a ghost near the end.
+  The two tabs disagree about the first groove; 4005903's is kept, with
+  4664952's as a lighter figure.
+- **Fabienk, second part** (4932418 "Loop Instructions" and 4413175, human;
+  4005903; MusicRadar): four on the floor and 2 and 4 over a 14-beat cycle,
+  written in 4/4, the drums' own meter. A draft wrote two bars of 7/4 so the
+  backbeat ran on across them, but a figure row is 32 steps at most and that
+  is 56; the 2/4 bar that closes each cycle is not written. The build is
+  the tab's: kick alone, then hats on the beat and the snare, then 8ths, then
+  16ths with the hat foot on the backbeat, then the crash on the beat with
+  the kick on 8ths.
+- **Mata Zyklek** (3886712, live at KEXP; begun by machine, "basically
+  changed everything from the ai tabs" and the drums corrected by hand): 94
+  (songbpm and the tab), 5/8 in 16ths. The chorus and post-chorus (kick in
+  pairs, snare on the second and fourth 8ths, hats and hat foot on the 8ths)
+  and the pre-chorus (the ride). The main riff is left out: the kick on six of
+  its ten 16ths (three in a row) and the snare on three more leaves one step
+  of air, and the critic asks for three.
+- **Sarniezz** (5245273 and 4536298, human; 4887063 and 4967459, human;
+  3922271 and 4549576, begun by machine and revised many times): 12/8 at a
+  dotted quarter of 116 (songbpm 116), so 174 here. Hats on the 8ths (two tabs
+  accent the pulse), the snare on the second and fourth pulse, the kick on
+  every pulse or on the first and third; a section of hat, kick and snare
+  together in 3+3+2. The fills: floor tom, snare and kick together on 8ths;
+  crash, kick and snare on two notes.
+- **Sarniezz, after the modulation** (the same tabs, marked "Rhythmic
+  modulation" in two): 4/4 at 174, the crash ridden on the beat, snare on 2
+  and 4, the kick on 1, &1, &2, &3 (sometimes &4 too) or 1, 3, &3, &4; two
+  tabs put the hat foot on every beat in their 6/4 bars.
+- **Yor Zarad** (5353242, human; 4664503 has almost no drums): eighth 214,
+  so 107, in 7/8. 16ths on the hat with the 8ths accented and the snare on
+  four of them, the half-open hat in a second section, and a break with the
+  hat alone. The snare falls on hat strokes, so the 16ths are one hand's
+  (`oneHandHats`). One of the tab's kicks (the second of the last pair) is
+  thinned to leave the critic its four steps of air.
+
+Two songs are **reconstructions**: Ababa Hotel (4595298) and Utzp (4664492)
+come from tabs a machine began and one person revised once, without saying
+the drums were changed. They are written from those tabs' most common bars
+and labelled so. Ababa Hotel: 7/8 at 122 (songbpm; the tab says 125), 8ths
+on the ride, the snare on the third 8th and on the "and" of the last two, and
+a passage with the kick on a quarter pulse across the bar. Utzp: 129 (the
+tab; songbpm does not list it), four on the floor with the snare on every
+"and", the kick going to pairs as the loop builds, the crash on the 8ths at
+the top.
+
+| Song                            | Record        | Tempo (quarter)                    | Meter | What defines it                                                  | Source of the bars                                      |
+| ------------------------------- | ------------- | ---------------------------------- | ----- | ---------------------------------------------------------------- | ------------------------------------------------------- |
+| Sherpa                          | Vol. 1; KEXP  | 180 (three tabs)                   | 4/4   | four-bar kick cycle; dotted-quarter kick and snare for the build | Songsterr 5022558, 4372986 (human); 3886668 (revised)   |
+| Sherpa (the triplet section)    | KEXP; Vol. 1  | 120 (two tabs), then 180           | 4/4-6 | kick and snare on the last triplet of each beat                  | Songsterr 5022558 (human)                               |
+| Tohogd                          | Vol. 1        | 172 (tab)                          | 7/8   | loop-by-loop build; 4/4 over the 7/8                             | Songsterr 4039482 (drums redone by hand)                |
+| Tamebsz                         | Vol. 1        | 125 (tab)                          | 4/4   | hats on the beat; snare pickup                                   | Songsterr 4046299 (drums corrected by hand; intro only) |
+| Ababa Hotel                     | Vol. 1        | 122 (songbpm); 125 (tab)           | 7/8   | ride 8ths; snare on the third 8th and the "and" of the last two  | **reconstruction** from Songsterr 4595298               |
+| Fabienk                         | Vol. II; KEXP | 128 (songbpm, two tabs)            | 7/8   | hat and snare in unison with the riff                            | Songsterr 4005903 (rewritten by hand), 4664952 (human)  |
+| Fabienk (second part)           | Vol. II; KEXP | 128                                | 4/4   | four on the floor and 2 and 4 across the 14-beat loop            | Songsterr 4932418, 4413175 (human); MusicRadar          |
+| Mata Zyklek                     | Vol. II; KEXP | 94 (songbpm, tab)                  | 5/8   | kick in pairs; snare on the second and fourth 8ths               | Songsterr 3886712 (rewritten by hand)                   |
+| Sarniezz                        | Vol. II; KEXP | 116 dotted (songbpm, tabs), so 174 | 12/8  | snare on pulses 2 and 4; 3+3+2 unison                            | Songsterr 5245273, 4536298, 4887063, 4967459 (human)    |
+| Sarniezz (after the modulation) | Vol. II; KEXP | 174 (tabs)                         | 4/4   | the 8th held, the pulse from three to two; crash on the beat     | as above                                                |
+| Utzp                            | Vol. II       | 129 (tab)                          | 4/4   | four on the floor, the snare on every "and"                      | **reconstruction** from Songsterr 4664492               |
+| Yor Zarad                       | Vol. II       | 214 to the 8th (tab), so 107       | 7/8   | accented 16th hats; kick doubles                                 | Songsterr 5353242 (human)                               |
+
+**Left out.** Sahardnieh (songbpm 145), L'Aberek (124) and Angor (99): their
+only drum tabs are machine-made or an "mp3" upload of unclear making (Angor's
+says 197 in 3/4, twice songbpm's figure). Zugzegk (played on the Tonight
+Show): a machine tab only. Sherpa's closing 3/4 section and Sarniezz's 6/4
+bars, which would be further songs in meters of their own; the album
+versions' differences from the KEXP set, since most tabs follow KEXP.
+
+**Not modelled, found on the way, not changed.**
+
+- **A 4/4 groove over a 7/8 loop longer than two bars.** Tohogd's 4/4 runs
+  four bars of 7/8 before it comes round (56 16ths, seven bars of 4/4); a
+  figure holds at most two bars, so the cycle is cut into two halves that
+  each keep the quarter pulse across their own bar line. Fabienk's 14-beat
+  cycle is played as plain 4/4, without its closing 2/4 bar.
+- **Metric modulation inside a song.** A song has one meter and one tempo
+  range, so Sherpa's 120 triplets into 180 and Sarniezz's 12/8 into 4/4 are
+  two songs each; the shared note value, the point of the device, is in the
+  feel line and the tempo, not played.
+- **The loops themselves.** Klek locks to Khn's looper (MusicRadar: a Boss
+  RC-600 clocking a DB-80 metronome); the model has no loop to lock to, so
+  "tight to the loop" is only the small jitter.
+- **Dense kicks.** Mata Zyklek's main riff and one bar of Yor Zarad have more
+  kick and snare than the critic's air floor allows; the riff is left out and
+  the Yor Zarad kick thinned. Three single-foot kicks in a row (Mata Zyklek)
+  would need `heelToe`, which no source supports for Klek.
+- **Snare rolls at 180.** Sherpa's 16th snare rolls are past `RUN_RATE` and
+  fail the critic's four-in-a-row check.
+- **Kit.** Not documented anywhere found (the record's open question stands);
+  `teatowel` is chosen from the descriptions of its sound.
+
+Sources: anginedepoitrine.bandcamp.com/album/vol-1 and /album/vol-ii (track
+lists, credits, the _Vol. 1_ notes); en.wikipedia.org/wiki/Angine_de_Poitrine;
+musicradar.com/artists/in-actual-fact-its-pure-maths-just-what-are-angine-de-poitrine-actually-doing-musically-we-dissect-their-biggest-track
+(Fabienk); kexp.org/read/2026/3/25/angine-de-poitrine-kexp-session-feature
+(the session's date); songbpm.com/@angine-de-poitrine (Fabienk, Mata Zyklek,
+Sarniezz, Ababa Hotel, Sahardnieh, L'Aberek, Angor); Songsterr,
+songsterr.com/a/wsa/angine-de-poitrine-tabs-a524708?inst=drum, tabs 5022558,
+4372986, 3886668, 4039482, 4046299, 4595298, 4005903, 4664952, 4932418,
+4413175, 3886712, 3922271, 5245273, 4549576, 4536298, 4887063, 4967459,
+4664492, 5353242, 4664503 (each read through songsterr.com/api/meta/{id} and
+its revisions).
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

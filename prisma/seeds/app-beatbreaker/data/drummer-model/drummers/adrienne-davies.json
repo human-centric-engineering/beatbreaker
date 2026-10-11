@@ -744,6 +744,7 @@
     ]
   },
   "beatbreaker": {
+    "style_key": "davies",
     "headline_pattern_ids": [
       "pattern:davies-glacial-backbeat-archetype",
       "pattern:davies-mallet-swell-archetype"

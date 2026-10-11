@@ -557,6 +557,7 @@
     ]
   },
   "beatbreaker": {
+    "style_key": "klek",
     "headline_pattern_ids": [
       "pattern:klek-loop-groove-archetype",
       "pattern:klek-polymetric-accent-archetype"

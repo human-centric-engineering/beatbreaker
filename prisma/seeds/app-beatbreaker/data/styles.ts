@@ -1,7 +1,7 @@
 /**
  * The style table — seed data.
  *
- * 62 grooves and 16 famous drummers, each a set of tendencies or a handful of
+ * 62 grooves and 20 famous drummers, each a set of tendencies or a handful of
  * written-out bars, so the generator can write a different break in the same
  * idiom every time. A drummer is a style marked `drummer: true`, which the
  * picker files under Drummers.
@@ -12985,6 +12985,1909 @@ export const STYLES: Record<string, Style> = {
       },
     ],
   },
+  lombardo: {
+    label: 'Dave Lombardo',
+    drummer: true,
+    hint: 'Slayer from Show No Mercy to World Painted Blood: the skank beat, kick on the beat and snare on every "and", under the ride, a crash or a wash of open hat at 180 to 250; the snare on 2 and 4 or on every beat over a wall of double bass; half-time on the ride for the heavy riffs, and tom figures over the feet that he hears as Cuban. Two bass drums, not a double pedal, on a dry, punchy kit. Each New plays one of fourteen of his songs in its own time: the fast ones, Angel of Death and Raining Blood among them, in eighths at the speed of the record (the slider goes to 380); the heavy ones, South of Heaven and Seasons in the Abyss among them, in sixteenths. The stage names the song. All fourteen follow human transcriptions; the tom figure of the break is a reconstruction.',
+    toms: true,
+    kit: 'crocell',
+    // two bass drums, alternating the feet in a run (his record's rule)
+    doubleKick: true,
+    hats: 8,
+    // the double-bass figures below run, so a sixteenth grid stops at 150
+    bpm: [100, 150],
+    // his record's avoid list: no swing, no ghost-note funk
+    swing: 0,
+    ghostBias: 0,
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 14,
+    hatDepth: 0.3,
+    mix: { h: 0.85 },
+    rimshot: 0.3,
+    // the flammed toms of the Angel of Death break
+    flam: 0.1,
+    /* On top, never quantised: a small repeating wobble rather than a grid
+       ("controlled chaos"; his record's 3–4 ms of jitter, not triggered kicks) */
+    feel: { label: 'On top', s: -0.02, k: -0.01, jitter: 0.03 },
+    forceKick: [0],
+    kick1: [
+      ['1010', 4],
+      ['1111', 2],
+    ],
+    kick: [
+      ['1010', 3],
+      ['1111', 2],
+      ['1000', 1.5],
+      ['1011', 0.8],
+    ],
+    /* His mid-tempo and heavy vocabulary, from the songs below: the double
+       bass under the ride or under a snare on every beat, the dotted-eighth
+       china of South of Heaven, the tom figure of World Painted Blood over
+       eighths on the feet, the half-time ride, the gallop under crashes. */
+    figures: [
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1111111111111111' }, 3],
+      [{ s: '3...3...3...3...', k: '1111111111111111' }, 2],
+      [{ c: '3..3..3.....3.3.', s: '3..3..3..3..3.3.', k: '1111111111111111' }, 1.2],
+      [{ t2: '222.2.222.2.222.', s: '....3.......3...', k: '1.1.1.1.1.1.1.1.' }, 1],
+      [{ r: '1.1.1.1.1.1.1.1.', s: '........3.......', k: '1.1...........1.' }, 1.5],
+      [{ c: '1.1.1.1.1.1.1.1.', k: '1.11....1.11....' }, 1],
+    ],
+    fills: [
+      // snare and toms in turn, the feet carrying on under them
+      [{ s: '333..3..', t1: '...2..2.', t2: '....2..2' }, 2],
+      [{ s: '33......', t1: '..22....', t2: '....22..', t3: '......22' }, 2],
+      // the tresillo on the floor tom, a crash on each stroke
+      [{ c: '1..1..1.', t3: '2..2..2.' }, 1.4],
+      [{ s: '3.3.3.3.', k: '........' }, 1],
+    ],
+    /* His songs. Every groove is read from a human Songsterr transcription
+       (each tab's aiGenerated flag checked), the commonest bars kept, and the
+       tempo is the tab's, checked against songbpm.com, which counts most of
+       them in half time. Past 190 they are in eighths (4/4-8): there the
+       sixteenths of the tabs' kicks fall on the eighths, and a run of
+       sixteenth double bass at 175 and over is left out. The Angel of Death
+       break is counted as he counts it, at 105, its 32nds written as
+       sixteenths. See planning/drumming-research.md, section U. */
+    songs: [
+      {
+        key: 'angel-of-death',
+        title: 'Angel of Death',
+        feel: 'the skank beat at full speed under the ride or open hats, the rock beat and half-time between (record 206–220)',
+        weight: 1.4,
+        params: {
+          meter: '4/4-8',
+          bpm: [205, 220],
+          backbeats: [2, 6],
+          figures: [
+            [{ r: '11111111', s: '.3.3.3.3', k: '1.1.1.1.' }, 2],
+            [{ h: '44444444', s: '.3.3.3.3', k: '1.1.1.1.' }, 2],
+            [{ h: '44444444', s: '..3...3.', k: '1...1...' }, 1.5],
+            [{ r: '11111111', s: '..3...3.', k: '1...1...' }, 1],
+            [{ r: '11111111', s: '....3...', k: '1.......' }, 1],
+          ],
+          fills: [
+            // crash and kick together twice, the snare answering
+            [{ c: '11..11..', s: '..33..33', k: '11..11..' }, 1.4],
+            [{ s: '33..', t1: '..22' }, 1.2],
+            [{ s: '.333....', t1: '....22..', t2: '......22' }, 1],
+            [{ s: '.3.333..', t2: '......22' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'angel-of-death-break',
+        title: 'Angel of Death (the break)',
+        feel: 'the break as he counts it: his 32nds on the feet as sixteenths, a tresillo on the toms (record 103–110)',
+        weight: 1.2,
+        params: {
+          bpm: [100, 110],
+          figures: [
+            // the break: both feet throughout, the toms in threes and threes and two
+            [{ t1: '2..2..2.........', t2: '........3..2..2.', k: '1111111111111111' }, 2],
+            // either side of it: the ride on the record's eighths, the snare on its quarters
+            [{ r: '1111111111111111', s: '3.3.3.3.3.3.3.3.', k: '1111111111111111' }, 2],
+            // the skank going into it, in the same count
+            [{ r: '1111111111111111', s: '.3.3.3.3.3.3.3.3', k: '1.1.1.1.1.1.1.1.' }, 1],
+          ],
+          fills: [
+            [{ s: '33..33..', t1: '..22....', t2: '......22' }, 1.4],
+            [{ c: '1..1..1.', t3: '2..2..2.' }, 1.2],
+            [{ s: '3.3.3.3.3.3.33..', t1: '..............22' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'raining-blood',
+        title: 'Raining Blood',
+        feel: 'the skank beat from 214 to the 250 of the ending, crashes on every beat at the end, the intro toms (record 211–251)',
+        weight: 1.3,
+        params: {
+          meter: '4/4-8',
+          bpm: [212, 250],
+          backbeats: [2, 6],
+          figures: [
+            [{ r: '11111111', s: '.3.3.3.3', k: '1.1.1.1.' }, 2],
+            [{ h: '44444444', s: '.3.3.3.3', k: '1.1.1.1.' }, 1.2],
+            // the ending: a crash on every beat
+            [{ c: '1.1.1.1.', s: '.3.3.3.3', k: '1.1.1.1.' }, 1.4],
+            // the half-time riff: hats on the beat, the snare on 3
+            [{ h: '4.4.4.4.', s: '....3...', k: '11......' }, 1],
+          ],
+          fills: [
+            // the intro: floor and mid toms together, three times
+            [{ t2: '222.', t3: '222.' }, 1.4],
+            [{ s: '.3.3.333' }, 1.2],
+            [{ t1: '22......', t2: '..2222..', t3: '......22' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'necrophobic',
+        title: 'Necrophobic',
+        feel: 'the fastest on Reign in Blood: the skank beat on open hats and ride, a half-time bar now and then (record 241–259)',
+        weight: 0.9,
+        params: {
+          meter: '4/4-8',
+          bpm: [240, 250],
+          backbeats: [2, 6],
+          figures: [
+            [{ h: '44444444', s: '.3.3.3.3', k: '1.1.1.1.' }, 2],
+            [{ r: '11111111', s: '.3.3.3.3', k: '1.1.1.1.' }, 1.6],
+            [{ r: '11111111', s: '....3...', k: '1.......' }, 0.6],
+          ],
+          fills: [
+            [{ s: '.3.3.333' }, 1.4],
+            [{ s: '33..', t1: '..2.', t3: '...2' }, 1.2],
+            [{ s: '.3.3', t3: '...2' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'war-ensemble',
+        title: 'War Ensemble',
+        feel: 'eighths on both feet under the snare on every beat, the skank beat, the two-bar march (record 195–207)',
+        weight: 1.1,
+        params: {
+          meter: '4/4-8',
+          bpm: [198, 207],
+          backbeats: [2, 6],
+          figures: [
+            [{ r: '11111111', s: '3.3.3.3.', k: '11111111' }, 2],
+            [{ h: '44444444', s: '.3.3.3.3', k: '1.1.1.1.' }, 1.6],
+            [{ r: '11111111', s: '3...3...', k: '11111111' }, 1.2],
+            // the march: snare and floor tom on the riff, crashes on the pushes
+            [
+              {
+                c: '....1.1.1.......',
+                h: '4.4.......4...4.',
+                s: '3...3.3.3...3...',
+                t3: '............2...',
+                k: '1111111111111111',
+              },
+              1.2,
+            ],
+          ],
+          fills: [
+            [{ s: '.33.....', t1: '...22...', t2: '.....22.' }, 1.4],
+            [{ s: '3.3.', t3: '.2.2' }, 1],
+            [{ c: '1..1..1.', s: '3..3..3.', k: '1..1..1.' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'jesus-saves',
+        title: 'Jesus Saves',
+        feel: 'the skank beat on the ride bell after a splash, then on open hats; the bell over a snare on every beat (record 210–228)',
+        weight: 0.8,
+        params: {
+          meter: '4/4-8',
+          bpm: [210, 228],
+          backbeats: [2, 6],
+          figures: [
+            [{ c: '4.......', r: '.2222222', s: '.3.3.3.3', k: '1.1.1.1.' }, 2],
+            [{ h: '44444444', s: '.3.3.3.3', k: '1.1.1.1.' }, 1.4],
+            [{ r: '22222222', s: '3.3.3.3.', k: '1.1.1.1.' }, 1],
+          ],
+          fills: [
+            [{ s: '.3.3.333' }, 1.2],
+            [{ s: '33..', t1: '..22' }, 1],
+            [{ r: '2...', s: '..33', t2: '.2..' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'cult',
+        title: 'Cult',
+        feel: 'Christ Illusion: the skank beat, the ride over eighths on the feet, a tom groove under the riff (record 200–210)',
+        weight: 0.8,
+        params: {
+          meter: '4/4-8',
+          bpm: [200, 210],
+          backbeats: [2, 6],
+          figures: [
+            [{ h: '44444444', s: '.3.3.3.3', k: '1.1.1.1.' }, 2],
+            [{ r: '11111111', s: '.3.3.3.3', k: '1.1.1.1.' }, 1.4],
+            [{ r: '1.1.1.1.', s: '3...3...', k: '11111111' }, 1.2],
+            [{ t3: '2.2...2.', s: '....3...', t2: '....2...', k: '1.1.1.1.' }, 1],
+          ],
+          fills: [
+            [{ s: '.33.3...', t2: '...2.22.', t3: '.......2' }, 1.4],
+            [{ s: '33..', t2: '..22' }, 1],
+            [{ s: '.3.3', t2: '..2.', t3: '...2' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'south-of-heaven',
+        title: 'South of Heaven',
+        feel: 'open hats over 2 and 4, then the snare on every beat over double bass, the dotted-eighth china (record 134–146)',
+        weight: 1.2,
+        params: {
+          bpm: [134, 146],
+          figures: [
+            [{ h: '4.4.4.4.4.4.4.4.', s: '....3.......3...', k: '1.......1.......' }, 2],
+            [{ s: '3...3...3...3...', k: '1111111111111111' }, 2],
+            [{ c: '....4...3.......', s: '....3.......3...', k: '1.1.....1.....1.' }, 1.2],
+            // threes across the bar on the china and snare, the feet underneath
+            [{ c: '3..3..3.....3.3.', s: '3..3..3..3..3.3.', k: '1111111111111111' }, 0.8],
+          ],
+          fills: [
+            [{ s: '333..3..33..3.3.', t1: '...2..2...2.....', t2: '....2..2...2....' }, 1.4],
+            [
+              {
+                s: '333..3..333.....',
+                t1: '...2........2...',
+                t2: '....2......2.2..',
+                t3: '......22......2.',
+              },
+              1,
+            ],
+            [{ s: '3.3.3.3.', k: '........' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'mandatory-suicide',
+        title: 'Mandatory Suicide',
+        feel: 'open hats on the beat, the snare on 2 and 4, the feet in sixteenths or on 1 and 3; a half-time bar (record 148)',
+        weight: 1.0,
+        params: {
+          bpm: [142, 150],
+          figures: [
+            [{ h: '4...4...4...4...', s: '....3.......3...', k: '1111111111111111' }, 2],
+            [{ h: '4...4...4...4...', s: '....3.......3...', k: '1.......1.....1.' }, 1.6],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1111111111111111' }, 1.2],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '........3.......', k: '1.....11..1.1...' }, 0.8],
+          ],
+          fills: [
+            [{ s: '3.3.', t3: '2.2.' }, 1.2],
+            [{ s: '33..', t1: '..2.', t3: '...2' }, 1.2],
+            [{ s: '33......', t1: '..22....', t2: '....22..', t3: '......22' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'seasons-in-the-abyss',
+        title: 'Seasons in the Abyss',
+        feel: 'a straight rock beat at 152 on the ride or open hats, the snare doubling at the end of the bar, the mid tom answering',
+        weight: 1.1,
+        params: {
+          bpm: [146, 156],
+          figures: [
+            [{ r: '....1.1.1.1.1...', s: '....3.......3.33', k: '1.......1.......' }, 2],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.......' }, 1.6],
+            [{ h: '4.4.4.4.4.4.4.4.', s: '....3.......3...', k: '1.......1.......' }, 1.4],
+            [
+              {
+                r: '....1.1.1.1.1...',
+                s: '....3.......3...',
+                t2: '..............2.',
+                k: '1.......1.......',
+              },
+              1,
+            ],
+          ],
+          fills: [
+            [{ s: '3.3.3...', t2: '......2.', t3: '.......2' }, 1.4],
+            [{ s: '3...3.33', t3: '..2.....' }, 1],
+            // the backbeat on 4 kept, the snare on its "and", the mid tom last
+            [{ s: '3.3.', t2: '...2' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'dead-skin-mask',
+        title: 'Dead Skin Mask',
+        feel: 'no snare: floor tom and bell on 2 and 4 over the hat foot, then double bass under the ride, a gallop (record 110)',
+        weight: 1.0,
+        params: {
+          bpm: [106, 114],
+          figures: [
+            [{ r: '....2.......2...', t3: '....2.......2...', hf: '1.......1.......' }, 1.4],
+            [{ r: '1.1.1.1.1.1.1.2.', k: '1111111111111111' }, 2],
+            [{ c: '1.1.1.1.1.1.1.1.', k: '1.11....1.11....' }, 1.4],
+            [{ h: '4...4...4...4...', k: '1.11....1.11....' }, 1.2],
+          ],
+          fills: [
+            [{ t3: '22......', t1: '.....222' }, 1.2],
+            [{ t3: '22......', t1: '.....2..', t2: '......22' }, 1],
+            [{ t2: '...22..22.22....', t3: '..............22' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'hell-awaits',
+        title: 'Hell Awaits',
+        feel: 'the intro: toms and kick on 2 and 4, then double bass under the snare, the toms on 1 and 3 (record 103–106)',
+        weight: 1.0,
+        params: {
+          bpm: [100, 108],
+          figures: [
+            [{ t2: '....2.......2...', t3: '....2.......2...', k: '....1.......1...' }, 1.2],
+            // the floor tom alone on the 1, under the crash; both toms on 3
+            [
+              {
+                s: '....3.......3...',
+                t2: '........2.......',
+                t3: '2.......2.......',
+                k: '1111111111111111',
+              },
+              2,
+            ],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1111111111111111' }, 1.6],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.......' }, 1],
+          ],
+          fills: [
+            [{ s: '33....', t1: '..22..', t2: '....22' }, 1.4],
+            [{ s: '..3.3.', k: '11....' }, 1],
+            [{ s: '....3...', t1: '......2.', t2: '2.....2.', t3: '2.......', k: '11111.1.' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'world-painted-blood',
+        title: 'World Painted Blood',
+        feel: '2009: eighths on both feet under crashes, open hats or a tom figure in threes; then the skank beat (record 180–182)',
+        weight: 1.0,
+        params: {
+          bpm: [176, 186],
+          figures: [
+            // the toms in threes and ones over eighths on the feet: a bar on the mid tom, a bar on
+            // the floor
+            [{ t2: '222.2.222.2.222.', k: '1.1.1.1.1.1.1.1.' }, 1.4],
+            [{ c: '1...1...1...1...', s: '3.......3.......', k: '1.1.1.1.1.1.1.1.' }, 1.2],
+            [{ c: '1...1...1...1...', s: '3...3...3...3...', k: '1.1.1.1.1.1.1.1.' }, 1.2],
+            [{ h: '4...4...4...4...', s: '....3.......3...', k: '1.1.1.1.1.1.1.1.' }, 1.6],
+            [{ h: '4.4.4.4.4.4.4.4.', s: '..3...3...3...3.', k: '1...1...1...1...' }, 2],
+          ],
+          fills: [
+            [{ s: '3.33.33.' }, 1.2],
+            [{ t2: '222.2.22', s: '........' }, 1],
+            [{ t2: '2.2.....', t3: '....2.2.' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'black-magic',
+        title: 'Black Magic',
+        feel: 'Show No Mercy, 1983: the skank beat on open hats at 177–190, a bar of 2 and 4 now and then',
+        weight: 0.8,
+        params: {
+          bpm: [177, 188],
+          figures: [
+            [{ h: '4.4.4.4.4.4.4.4.', s: '..3...3...3...3.', k: '1...1...1...1...' }, 2.4],
+            [{ h: '4.4.4.4.4.4.4.4.', s: '....3.......3...', k: '1.......1.......' }, 0.8],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '..3...3...3...3.', k: '1...1...1...1...' }, 0.8],
+          ],
+          fills: [
+            [{ s: '333.333.' }, 1.4],
+            [{ s: '33......', t1: '..2.....', t2: '....2.2.' }, 1],
+            [{ c: '1...1...', s: '..3...3.' }, 1],
+          ],
+        },
+      },
+    ],
+  },
+  davies: {
+    label: 'Adrienne Davies',
+    drummer: true,
+    hint: "Earth's drummer from Hex (2005) on, half of the band with Dylan Carlson: the slowest drummer you will meet. A ride she prefers to the hats, a heavy, relaxed backbeat, the kick placed rarely, every cymbal left to ring, and almost never a fill: a crash left to swell over the bar instead. A ringing 1960s Ludwig, or a big, rough kit on the heavier Primitive and Deadly. Each New plays one of fifteen of her songs at its record tempo: Hex's half-time, the 12/8 of The Bees Made Honey in the Lion's Skull, the slow shuffles of Angels of Darkness, Demons of Light. The tempo stops at 50, so a song slower than that is counted in eighths: Rise to Glory, at 43 on the record, plays at 87. The stage names the song. One follows a human transcription; the rest are reconstructions.",
+    toms: true,
+    kit: 'smdrums',
+    mix: { h: 0.7 },
+    meter: '4/4-8',
+    hats: 8,
+    // the record: 35–60, and the Studio stops at 50; the slower songs set their own count
+    bpm: [50, 60],
+    swingUnit: 8,
+    swing: 0,
+    // no ghosts: two to eight notes a bar (the record's generation rules)
+    ghostBias: 0,
+    opens: 0,
+    backbeats: [4],
+    targetDensity: 5,
+    hatDepth: 0.3,
+    // heavy and a little behind (the record's "laid back", inferred: to be measured from stems)
+    feel: { label: 'Heavy, behind', s: 0.03, k: 0.02, jitter: 0.01 },
+    /* Fills almost never: swells and dynamic shifts instead (the record).
+       The crash that marks a phrase is the swell, on about a third of them
+       ("replace the ride with a long crash swell", 0.3 in the record). */
+    fillChance: 0.15,
+    midFills: 0,
+    phraseMark: { crash: 0.3 },
+    kick1: [
+      ['1000', 4],
+      ['0000', 1],
+    ],
+    kick: [
+      ['0000', 5],
+      ['0010', 1],
+    ],
+    // no busy kick (the record's avoid list): none on the "and"s of 1, 2 and 3
+    noKick: [1, 3, 5],
+    /* The record's glacial half-time backbeat (an archetype): the ride on 1
+       and 3, the snare on 3, the kick on 1 and now and then the "and" of 4.
+       Bars of eighths, nothing finer; the cymbals ring. */
+    figures: [
+      [{ r: '1...1...', s: '....3...', k: '1.......' }, 2],
+      [{ r: '1...1...', s: '....3...', k: '1.....1.' }, 1.4],
+      // the kick left out for a phrase (0.2 in the record)
+      [{ r: '1...1...', s: '....3...' }, 0.6],
+      // a crash on 1 in place of the ride, left to ring through the bar
+      [{ c: '1.......', s: '....3...', k: '1.......' }, 0.8],
+      // the ride on every beat
+      [{ r: '1.1.1.1.', s: '....3...', k: '1.......' }, 1],
+    ],
+    fills: [
+      // two floor-tom strokes on 3 and 4
+      [{ t3: '2.2.' }, 1],
+      // the snare on 3, the floor tom on 4
+      [{ s: '3...', t3: '..2.' }, 0.8],
+      // the swell: a crash and the kick on 1, left to ring, one floor-tom stroke on 3
+      [{ c: '1.......', k: '1.......', t3: '....2...' }, 1],
+    ],
+    /* Her records: one New picks one, and the stage names it. Credits checked
+       on Wikipedia (drums on every Earth record from Hex; Full Upon Her
+       Burning Lips is the duo). No published tempo exists for these songs:
+       each is the beat measured from the record's Deezer preview, checked
+       against the Spotify figure on songbpm and Deezer's own, which are
+       often doubled or tripled (see the Adrienne Davies section of
+       `.context/app/planning/drumming-research.md`). The Bees Made Honey in
+       the Lion's Skull follows a human Songsterr transcription (609341); the
+       rest are reconstructions from the record's patterns and what she has
+       said about her playing. A song under 50 is counted in eighths: one bar
+       here is half a bar of the record's, at twice the number, so a quarter
+       here is the record's eighth, and nothing is written between. */
+    songs: [
+      {
+        key: 'land-of-some-other-order',
+        title: 'Land of Some Other Order',
+        feel: 'Hex: the ride on every beat, the snare on 3, the kick on 1 (record about 65)',
+        weight: 1.4,
+        params: {
+          bpm: [63, 67],
+          swing: 0,
+          figures: [
+            [{ r: '1.1.1.1.', s: '....3...', k: '1.......' }, 2],
+            [{ r: '1.1.1.1.', s: '....3...', k: '1.....1.' }, 1.2],
+            // the floor tom answering on 4
+            [{ r: '1.1.1.1.', s: '....3...', t3: '......2.', k: '1.......' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'lens-of-unrectified-night',
+        title: 'Lens of Unrectified Night',
+        feel: 'Hex at its slowest: the ride on 1 and 3, the snare once a bar on 3 (record about 53)',
+        weight: 1.2,
+        params: {
+          bpm: [52, 55],
+          swing: 0,
+          figures: [
+            [{ r: '1...1...', s: '....3...', k: '1.......' }, 2],
+            [{ r: '1...1...', s: '....3...', k: '1.....1.' }, 1],
+            [{ c: '1.......', s: '....3...', k: '1.......' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'an-inquest-concerning-teeth',
+        title: 'An Inquest Concerning Teeth',
+        feel: 'Hex, counted in eighths: the record beats about 41, so it plays at twice that, the snare on its 2 and 4',
+        weight: 1.0,
+        params: {
+          /* The record's beat is about 41.5, under the Studio's 50, so it is
+             counted in eighths: one bar here is half a bar of the record's,
+             at twice the number. The ride on the record's eighths (our
+             quarters), the snare on its 2 and 4 (our 3, every bar), the kick
+             on its 1. */
+          bpm: [82, 84],
+          swing: 0,
+          targetDensity: 3,
+          // nothing between the record's eighths: no kick off our quarters
+          noKick: [1, 3, 5, 7],
+          figures: [
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1...............' }, 2],
+            [{ r: '1...1...', s: '....3...', k: '1.......' }, 1.2],
+          ],
+          fills: [
+            [{ t3: '2...' }, 1],
+            [{ c: '1.......', k: '1.......', s: '....3...' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'raiford',
+        title: 'Raiford (The Felon Wind)',
+        feel: 'Hex in 12/8: the ride on each of four slow pulses, the snare on the third (record pulse about 36)',
+        weight: 1.0,
+        params: {
+          /* 12/8: the pulse is a dotted quarter of about 36, and the tempo
+             counts quarters, so it reads half again (54). Notes on the
+             eighths only, the even steps. */
+          meter: '12/8',
+          bpm: [52, 55],
+          swing: 0,
+          backbeats: [12],
+          figures: [
+            [
+              {
+                r: '1.....1.....1.....1.....',
+                s: '............3...........',
+                k: '1.......................',
+              },
+              2,
+            ],
+            [
+              {
+                r: '1.....1.....1.....1.....',
+                s: '............3...........',
+                k: '1.........1.............',
+              },
+              1,
+            ],
+            [
+              {
+                c: '1.......................',
+                s: '............3...........',
+                k: '1.......................',
+              },
+              0.6,
+            ],
+          ],
+          fills: [
+            [{ t3: '2.....2.....' }, 1],
+            [{ c: '1.....', k: '1.....' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'bees-made-honey',
+        title: "The Bees Made Honey in the Lion's Skull",
+        feel: 'in 12/8: the ride on the four pulses, the kick on 1 and the last eighth of 2 and 4, the snare on 3 (record 82)',
+        weight: 1.4,
+        params: {
+          /* From a human Songsterr transcription whose drum track is named
+             for her (609341), at its tempo of 82 (the preview measures a
+             dotted quarter of 55, which is 83). Its bars of 15/8, the
+             cymbal stopping for two pulses, are left out. */
+          meter: '12/8',
+          bpm: [80, 84],
+          swing: 0,
+          backbeats: [12],
+          figures: [
+            [
+              {
+                r: '1.....1.....1.....1.....',
+                s: '............2...........',
+                k: '1.........1...........1.',
+              },
+              2,
+            ],
+            // the last kick a snare
+            [
+              {
+                r: '1.....1.....1.....1.....',
+                s: '............2.........2.',
+                k: '1.........1.............',
+              },
+              1.2,
+            ],
+          ],
+          fills: [
+            // the tab's one variation: the snare on 3 and 4, the kick after each
+            [{ s: '2.....2.....', k: '....1.....1.' }, 1],
+            [{ t3: '2.....2.....' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'rise-to-glory',
+        title: 'Rise to Glory',
+        feel: 'Bees, counted in eighths: the record beats about 43, the ride on its eighths, the snare on its 2 and 4',
+        weight: 1.0,
+        params: {
+          /* The record's beat is about 43.5, under the Studio's 50, so it is
+             counted in eighths: one bar here is half a bar of the record's,
+             at twice the number. The ride on its eighths (our quarters), the
+             snare on its 2 and 4 (our 3). */
+          bpm: [86, 88],
+          swing: 0,
+          targetDensity: 3,
+          // nothing between the record's eighths: no kick off our quarters
+          noKick: [1, 3, 5, 7],
+          figures: [
+            [{ r: '1.1.1.1.', s: '....3...', k: '1.......' }, 2],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.......' }, 1],
+            [{ c: '1.......', s: '....3...', k: '1.......' }, 0.5],
+          ],
+          fills: [
+            [{ t3: '2...' }, 1],
+            [{ c: '1.......', k: '1.......', s: '....3...' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'engine-of-ruin',
+        title: 'Engine of Ruin',
+        feel: 'Bees in 12/8: a slow shuffle, the snare on 2 and 4 (record pulse about 45)',
+        weight: 0.8,
+        params: {
+          /* 12/8: a dotted quarter of about 45.5, so the tempo reads 68.
+             The record's slow swampy shuffle, thinned to its rule of eight
+             notes a bar. */
+          meter: '12/8',
+          bpm: [67, 70],
+          swing: 0,
+          backbeats: [6, 18],
+          figures: [
+            [
+              {
+                r: '1.....1.....1.....1.....',
+                s: '......3...........3.....',
+                k: '1...........1...........',
+              },
+              2,
+            ],
+            // the ride on the last triplet of 4, into the bar line
+            [
+              {
+                r: '1.....1.....1.....1...1.',
+                s: '......3...........3.....',
+                k: '1.......................',
+              },
+              1,
+            ],
+          ],
+          fills: [
+            [{ t3: '2.....' }, 1],
+            [{ c: '1.....', k: '1.....', s: '3.....' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'old-black',
+        title: 'Old Black',
+        feel: 'Angels of Darkness: a ponderous dirge, the ride on every beat, the snare on 3 (record about 59)',
+        weight: 1.4,
+        params: {
+          bpm: [58, 60],
+          swing: 0,
+          figures: [
+            [{ r: '1.1.1.1.', s: '....3...', k: '1.......' }, 2],
+            // the kick on the "and" of 4 every second bar
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.............1.' }, 1.2],
+            [{ c: '1.......', s: '....3...', k: '1.......' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'father-midnight',
+        title: 'Father Midnight',
+        feel: 'Angels of Darkness: swung eighths on the ride, a swampy kick on the "and" of 4 (record about 66)',
+        weight: 1.0,
+        params: {
+          bpm: [64, 68],
+          // the preview's eighths split two to one: a triplet swing
+          swing: 80,
+          swingRange: [70, 90],
+          figures: [
+            [{ r: '1.1.1.11', s: '....3...', k: '1.......' }, 2],
+            [{ r: '1.1.1.1.', s: '....3...', k: '1......1' }, 1.2],
+          ],
+        },
+      },
+      {
+        key: 'hells-winter',
+        title: "Hell's Winter",
+        feel: 'Angels of Darkness: a crash ridden on 1 and 3 and left to wash, the snare on 3 (record about 53)',
+        weight: 0.8,
+        params: {
+          bpm: [52, 54],
+          swing: 0,
+          figures: [
+            [{ c: '1...1...', s: '....3...', k: '1.......' }, 1.6],
+            [{ r: '1.1.1.1.', s: '....3...', k: '1.......' }, 1.2],
+          ],
+        },
+      },
+      {
+        key: 'his-teeth-did-brightly-shine',
+        title: 'His Teeth Did Brightly Shine',
+        feel: 'Angels of Darkness II in 12/8: a slow, swampy shuffle, the snare on 2 and 4 (record pulse about 47)',
+        weight: 1.0,
+        params: {
+          /* 12/8: a dotted quarter of about 47, so the tempo reads 70. The
+             record's slow swampy shuffle, thinned to eight notes a bar. */
+          meter: '12/8',
+          bpm: [69, 72],
+          swing: 0,
+          backbeats: [6, 18],
+          targetDensity: 7,
+          figures: [
+            [
+              {
+                r: '1.....1.....1.....1...1.',
+                s: '......3...........3.....',
+                k: '1.......................',
+              },
+              2,
+            ],
+            [
+              {
+                r: '1.....1.....1.....1.....',
+                s: '......3...........3.....',
+                k: '1...........1...........',
+              },
+              1.2,
+            ],
+          ],
+          fills: [
+            [{ t3: '2.....' }, 1],
+            [{ c: '1.....', k: '1.....', s: '3.....' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'there-is-a-serpent-coming',
+        title: 'There Is a Serpent Coming',
+        feel: 'Primitive and Deadly, the rock record: a heavy backbeat on 2 and 4 under Mark Lanegan (record about 62)',
+        weight: 1.0,
+        params: {
+          bpm: [60, 63],
+          kit: 'bigrusty',
+          swing: 0,
+          backbeats: [2, 6],
+          figures: [
+            [{ r: '1.1.1.1.', s: '..3...3.', k: '1...1...' }, 2],
+            [{ h: '4.4.4.4.', s: '..3...3.', k: '1.....1.' }, 1],
+            [{ c: '1.......', r: '....1...', s: '..3...3.', k: '1...1...' }, 0.6],
+          ],
+          fills: [
+            [{ s: '3.3.', t3: '..2.' }, 1],
+            [{ t1: '2.', t3: '.2' }, 0.8],
+            [{ c: '1.......', k: '1.......', s: '..3...3.' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'torn-by-the-fox',
+        title: 'Torn by the Fox of the Crescent Moon',
+        feel: 'Primitive and Deadly: the backbeat on 2 and 4, the crash ridden in the heavy sections (record about 73)',
+        weight: 0.9,
+        params: {
+          bpm: [72, 75],
+          kit: 'bigrusty',
+          swing: 0,
+          backbeats: [2, 6],
+          figures: [
+            [{ r: '1.1.1.1.', s: '..3...3.', k: '1...1...' }, 2],
+            [{ c: '1.1.1.1.', s: '..3...3.', k: '1...1...' }, 1],
+          ],
+          fills: [
+            // three eighths into the bar line: floor tom, then the snare twice
+            [{ t3: '2..', s: '.33' }, 1],
+            [{ c: '1.......', k: '1.......', s: '..3...3.' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'rooks-across-the-gate',
+        title: 'Rooks Across the Gate',
+        feel: 'Primitive and Deadly, counted in eighths: the record beats about 48, a crash on its beats, the snare on 2 and 4',
+        weight: 0.7,
+        params: {
+          /* The record's beat is about 48, under the Studio's 50, so it is
+             counted in eighths: one bar here is half a bar of the record's,
+             at twice the number. The crash on its beats (our 1 and 3), the
+             snare on its 2 and 4 (our 3, every bar). */
+          bpm: [94, 98],
+          kit: 'bigrusty',
+          swing: 0,
+          targetDensity: 3,
+          // nothing between the record's eighths: no kick off our quarters
+          noKick: [1, 3, 5, 7],
+          figures: [
+            [{ c: '1...1...', s: '....3...', k: '1.......' }, 1.6],
+            [{ r: '1.1.1.1.', s: '....3...', k: '1.......' }, 1.2],
+          ],
+          fills: [
+            [{ t3: '2...' }, 1],
+            [{ c: '1.......', k: '1.......', s: '....3...' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'cats-on-the-briar',
+        title: 'Cats on the Briar',
+        feel: 'Full Upon Her Burning Lips, the duo: soft and placid, a cross-stick on 3 under the ride (record 65)',
+        weight: 1.0,
+        params: {
+          bpm: [64, 66],
+          swing: 0,
+          figures: [
+            [{ r: '1.1.1.1.', s: '....4...', k: '1.......' }, 2],
+            [{ r: '1.1.1.1.', s: '....4...', k: '1.....1.' }, 1.2],
+            // the hats for once, closed
+            [{ h: '1.1.1.1.', s: '....4...', k: '1.......' }, 0.8],
+          ],
+          fills: [
+            [{ t3: '2.2.' }, 1],
+            [{ c: '1.......', k: '1.......', s: '....4...' }, 0.6],
+          ],
+        },
+      },
+    ],
+  },
+  klek: {
+    label: 'Klek de Poitrine',
+    drummer: true,
+    hint: "The masked drummer of the Quebec duo Angine de Poitrine, under Khn de Poitrine's live loops: one groove held for a long time, built up an element at a time and changed rarely and all at once, on a dry, damped kit kept tight to the loop. Odd meters (7/8, 5/8, 12/8) and the drummer's metric modulation: in Fabienk and Tohogd a 4/4 groove runs across the loop's 7/8 bar lines, and in Sherpa and Sarniezz the pulse moves to a new tempo on a note value both share. Dotted-quarter accents run three against four for a build. No swing, few fills. Each New plays one of twelve songs from Vol. 1, Vol. II and the KEXP set; ten follow human Songsterr tabs read bar by bar, two are reconstructions from tabs a machine began.",
+    toms: true,
+    // "la batterie au timbre mat" (Vol. 1's notes); "dampened and close-miked" (MusicRadar)
+    kit: 'teatowel',
+    hats: 8,
+    bpm: [94, 182],
+    // the record's avoid list: no swing
+    swing: 0,
+    ghostBias: 0.1,
+    ghostHit: 0.3,
+    opens: 1,
+    openSlots: [14],
+    backbeats: [4, 12],
+    targetDensity: 11,
+    hatDepth: 0.5,
+    rimshot: 0.15,
+    // tight to the loops: the record's 2 ms of jitter, about 0.015 of a 16th at 130
+    feel: { label: 'Locked to the loop', jitter: 0.015 },
+    /* The record's rules: long repetition with rare, abrupt changes, and the
+       loop built up an element at a time ("l'ajout progressif et calculé
+       d'éléments", Vol. 1's notes), so the busier figure goes second. Few
+       fills and none inside the phrase: no busy fills during a build. */
+    build: true,
+    fillChance: 0.4,
+    midFills: 0,
+    anticipate: 0,
+    // the record's polymetric accent cycles for builds
+    crossRhythm: 0.25,
+    crossRhythms: [
+      // Sherpa: kick and snare on every dotted quarter, three bars of three against four
+      [{ every: 6, lanes: { s: 3, k: 1 }, bars: 3 }, 1],
+      // the record's archetype: a dotted-8th accent across the bar line (not from a tab)
+      [{ every: 3, lanes: { s: 3 }, bars: 2 }, 0.5],
+    ],
+    kick1: [
+      ['1000', 3],
+      ['1010', 1],
+    ],
+    kick: [
+      ['0000', 1.5],
+      ['1010', 1],
+      ['1000', 1],
+      ['0010', 0.6],
+    ],
+    /* The 4/4 grooves of Sherpa and Sarniezz, from the human Songsterr tabs.
+       See planning/drumming-research.md, section W. */
+    figures: [
+      // Sherpa: open hats on the beat, the kick on 1, 3 and the "and" of 3
+      [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.......1.1.....' }, 1.2],
+      // Sherpa: the crash ridden on the beat
+      [{ c: '1...1...1...1...', s: '....2.......2...', k: '1.....1...1.....' }, 1.0],
+      // Sherpa: closed 8ths, the kick on the "and" of 1
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1.....1.....1.' }, 1.0],
+      // Sarniezz after the modulation: the crash on the beat, the hat foot under it
+      [
+        {
+          c: '1...1...1...1...',
+          hf: '1...1...1...1...',
+          s: '....2.......2...',
+          k: '1.1...1...1...1.',
+        },
+        0.8,
+      ],
+    ],
+    fills: [
+      // Sherpa: three on the snare, three on the tom
+      [{ s: '2...222.....', t2: '........111.' }, 1.2],
+      // a unison stop with the riff: crash, kick and snare on 3 and 4
+      [{ c: '1...1...', k: '1...1...', s: '3...3...' }, 1.0],
+      // Sarniezz: floor tom, snare and kick in unison 8ths
+      [{ t3: '1.1.1.1.', s: '2.2.2.2.', k: '1.1.1.1.' }, 0.8],
+    ],
+    /* The songs: one New picks one, and the stage names it. Credits from the
+       albums' own Bandcamp notes (Klek on drums on both). Tempos from songbpm
+       where it lists the song, otherwise from the tabs' own markings. Grooves
+       from human Songsterr tabs (each tab's revisions checked: several began as
+       a machine import and were rewritten by hand); Ababa Hotel and Utzp come
+       from tabs a machine began and one person revised, so they are labelled
+       reconstructions. Every groove is an approximation. See
+       planning/drumming-research.md, section W. */
+    songs: [
+      {
+        key: 'sherpa',
+        title: 'Sherpa',
+        feel: 'a four-bar kick cycle under 2 and 4, kick and snare in dotted quarters for the build (record and tabs 180)',
+        weight: 1.2,
+        params: {
+          bpm: [178, 182],
+          crossRhythm: 0.35,
+          crossRhythms: [[{ every: 6, lanes: { s: 3, k: 1 }, bars: 3 }, 1]],
+          figures: [
+            // the cycle's first two bars, open hats on the beat
+            [
+              {
+                h: '3...3...3...3...3...3...3...3...',
+                s: '....2.......2.......2.......2...',
+                k: '1.......1.1.....1.....1...1.....',
+              },
+              1.4,
+            ],
+            // its last two, the snare doubling at the end
+            [
+              {
+                h: '3...3...3...3...3...3...3...3...',
+                s: '....2.......2.......2.......2.2.',
+                k: '1.1.....1.....1...1.....1.1.....',
+              },
+              1.2,
+            ],
+            // the same kicks with the crash ridden on the beat
+            [
+              {
+                c: '1...1...1...1...1...1...1...1...',
+                s: '....2.......2.......2.......2...',
+                k: '1.......1.1.....1.....1...1.....',
+              },
+              1.0,
+            ],
+            // closed 8ths
+            [
+              {
+                h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                s: '....2.......2.......2.......2...',
+                k: '1.......1.1.....1.....1...1.....',
+              },
+              0.8,
+            ],
+          ],
+          fills: [
+            [{ s: '2...222.....', t2: '........111.' }, 1.4],
+            [{ c: '1...1...', k: '1...1...', s: '3...3...' }, 1.0],
+            // hat, kick and snare together on 2, the "and" of 2, 3 and the "and" of 3
+            [{ h: '1.1.1.1...', k: '1.1.1.1...', s: '3.3.3.3...' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'sherpa-triplets',
+        title: 'Sherpa (the triplet section)',
+        feel: 'before the tempo change: triplet hats, kick and snare on the last triplet of each beat (tab 120, then 180)',
+        weight: 0.6,
+        params: {
+          meter: '4/4-6',
+          bpm: [118, 122],
+          crossRhythm: 0,
+          figures: [
+            [
+              {
+                h: '1.1.1.1.1.1.1.1.1.1.1.1.',
+                s: '....2.....2.....2.....2.',
+                k: '....1.....1.....1.....1.',
+              },
+              1.4,
+            ],
+            // the plain bars between: hats on the beat, kick on 1 and 3
+            [
+              {
+                h: '1.....1.....1.....1.....',
+                s: '......2...........2.....',
+                k: '1...........1...........',
+              },
+              0.8,
+            ],
+          ],
+          fills: [[{ c: '1.....1.....', k: '1.....1.....', s: '3.....3.....' }, 1]],
+        },
+      },
+      {
+        key: 'tohogd',
+        title: 'Tohogd',
+        feel: 'Vol. 1 in 7/8, built a loop at a time, then a 4/4 groove across the 7/8 bar lines (tab 172)',
+        weight: 1.0,
+        params: {
+          meter: '7/8',
+          bpm: [170, 174],
+          crossRhythm: 0,
+          figures: [
+            // loop 2: the kick on 1 and 2, the snare on 3 with the hat open
+            [{ h: '1...1...3...1.', s: '........2.....', k: '1...1.........' }, 0.6],
+            // loop 3
+            [{ h: '1...1...1.1...', s: '........2.2...', k: '1...1.........' }, 0.6],
+            // loop 4: kick and snare together through the bar
+            [{ h: '1...1...3.1.1.', s: '2...2...2.2.2.', k: '1...1...1.1.1.' }, 0.8],
+            // the bass loop in: a 4/4 groove over two bars of 7/8, hats on its quarters
+            [
+              {
+                h: '....3...1...1...1...1...1...',
+                s: '....2..2....2.......2..2....',
+                k: '1.1.....1.1...1...1.....1.1.',
+              },
+              1.4,
+            ],
+            [
+              {
+                h: '1...1...1...1...1...1...1...',
+                s: '2..2....2.......2..2....2..2',
+                k: '....1.1...1...1.....1.1.....',
+              },
+              1.2,
+            ],
+            // the loops stop: kick and snare alone, the same 4/4 underneath
+            [
+              {
+                s: '....2.22....2.......2.22....',
+                k: '1.......1.1...1...1.....1.1.',
+              },
+              0.6,
+            ],
+          ],
+          fills: [[{ h: '..1...1.......', k: '1.1...1.......', s: '....2...222...' }, 1]],
+        },
+      },
+      {
+        key: 'tamebsz',
+        title: 'Tamebsz',
+        feel: 'hats on the beat, the kick on 1 and the "and" of 2, a snare pickup into the bar (tab 125, the intro only)',
+        weight: 0.5,
+        params: {
+          bpm: [123, 127],
+          crossRhythm: 0,
+          figures: [
+            [{ h: '1...1...1...1...', s: '....2.......2.22', k: '1.....1.1.......' }, 1.2],
+            [{ h: '1...1...1...1...', s: '....2.......2...', k: '1.....1.1.....1.' }, 1.0],
+          ],
+          fills: [[{ s: '2.22', k: '1...' }, 1]],
+        },
+      },
+      {
+        key: 'ababa-hotel',
+        title: 'Ababa Hotel',
+        feel: '7/8: 8ths on the ride, the snare on the third 8th and the "and" of the last two (record 122). A reconstruction',
+        weight: 0.6,
+        params: {
+          meter: '7/8',
+          bpm: [120, 124],
+          crossRhythm: 0,
+          figures: [
+            [{ r: '1.1.1.1.1.1.1.', s: '....2......2.2', k: '1.....1.1.....' }, 1.4],
+            [{ h: '1.1.1.1.1.1.1.', s: '....2......2.2', k: '1.....1.1.....' }, 0.8],
+            [{ h: '3.3.3.3.3.3.3.', s: '....2......2.2', k: '1.....1.1.....' }, 0.8],
+            // the kick on a quarter pulse that runs across the 7/8
+            [{ h: '3.3.3.3.3.3.3.', s: '..2...2...2...', k: '1...1...1...1.' }, 0.5],
+          ],
+          fills: [[{ t1: '11....', t2: '..11..', s: '....22' }, 1]],
+        },
+      },
+      {
+        key: 'fabienk',
+        title: 'Fabienk',
+        feel: 'the first part, in 7/8: hat and snare in unison with the riff, then a busier groove (record 128)',
+        weight: 1.4,
+        params: {
+          meter: '7/8',
+          bpm: [126, 130],
+          crossRhythm: 0,
+          figures: [
+            // groove 1: hat and snare together, the kick alone on the third 8th
+            [{ h: '.1......1.1.1.', s: '.2......2.2.2.', k: '....1.........' }, 1.2],
+            [{ h: '.1........1.1.', s: '.2........2.2.', k: '....1.........' }, 0.6],
+            // groove 2: the half-open hat on 1 and the third 8th, a ghost before the end
+            [{ h: '4.114.111.1.1.', s: '.2..2....1.2.2', k: '1..1....1.1...' }, 1.4],
+            // the other tab's groove: the kick on 1 alone
+            [{ h: '1...1.1.1..1..', s: '....2.2.2..2..', k: '1.............' }, 0.6],
+          ],
+          fills: [[{ t1: '......11......', t2: '.........2....', s: '.2.1.3..3..3.3' }, 1]],
+        },
+      },
+      {
+        key: 'fabienk-part-2',
+        title: 'Fabienk (second part)',
+        feel: 'four on the floor and 2 and 4 over the 7/8 loop, built a layer at a time (record 128)',
+        weight: 1.2,
+        params: {
+          /* The drums' own 4/4 over the loop's 7/8: three bars of 4/4 and one of
+             2/4 make 14 beats, four bars of the loop. A song has one meter and a
+             figure two bars at most, so the 2/4 bar is not written. */
+          bpm: [126, 130],
+          crossRhythm: 0,
+          figures: [
+            // the kick alone while the loop goes down
+            [{ k: '1...1...1...1...' }, 0.4],
+            // hats on the beat and the backbeat
+            [
+              {
+                h: '1...1...1...1...',
+                s: '....2.......2...',
+                k: '1...1...1...1...',
+              },
+              1.0,
+            ],
+            // 8ths
+            [
+              {
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '1...1...1...1...',
+              },
+              1.0,
+            ],
+            // 16ths, the hat foot closing on the backbeat
+            [
+              {
+                h: '1111.1111111.111',
+                hf: '....1.......1...',
+                s: '....2.......2...',
+                k: '1...1...1...1...',
+              },
+              1.2,
+            ],
+            // the top of the build: the crash on the beat, the kick on 8ths
+            [
+              {
+                c: '1...1...1...1...',
+                s: '....2.......2...',
+                k: '1.1.1.1.1.1.1.1.',
+              },
+              0.8,
+            ],
+          ],
+          fills: [
+            [{ s: '2.22', k: '1...' }, 1.2],
+            [{ c: '1...', k: '1...', s: '3.33' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'mata-zyklek',
+        title: 'Mata Zyklek',
+        feel: '5/8: 8ths on the hats over a kick in pairs, the ride and the hat foot in the pre-chorus (record 94)',
+        weight: 1.0,
+        params: {
+          meter: '5/8',
+          bpm: [92, 96],
+          crossRhythm: 0,
+          figures: [
+            /* The chorus and post-chorus bars, the snare on the second and fourth
+               8ths. The main riff (kicks on six of its ten 16ths, the snare on three
+               more) leaves no air the critic will pass, and is left out. */
+            [{ h: '1.1.1.1.1.', hf: '1.1.1.1.1.', s: '..2...2...', k: '1...11.11.' }, 1.2],
+            [{ h: '1.1.1..3..', hf: '1.1.1.1.1.', s: '..2...2...', k: '1...11.1.1' }, 0.8],
+            [{ h: '..3.3.3.3.', s: '..2...2...', k: '1...11.1.1' }, 1.2],
+            // the pre-chorus: the ride and the hat foot on the 8ths, a third snare at the end
+            [{ r: '..1.1.1.1.', hf: '..1.1.1.1.', s: '..2...2..2', k: '1...11..1.' }, 1.0],
+          ],
+          fills: [
+            [{ s: '.222..', t1: '....11' }, 1.0],
+            // floor tom and kick together on the 8ths
+            [{ t3: '1.1.1.1.1.', k: '1.1.1.1.1.' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'sarniezz',
+        title: 'Sarniezz',
+        feel: 'the first part, in 12/8: hats on the 8ths, the snare on pulses 2 and 4 (record 116 to the dotted quarter, so 174)',
+        weight: 1.2,
+        params: {
+          meter: '12/8',
+          bpm: [172, 176],
+          crossRhythm: 0,
+          figures: [
+            [
+              {
+                h: '2.1.1.2.1.1.2.1.1.2.1.1.',
+                s: '......2...........2.....',
+                k: '1...........1...........',
+              },
+              1.2,
+            ],
+            [
+              {
+                h: '1.1.1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1.....1.....1.....1.....',
+              },
+              1.2,
+            ],
+            // hat, kick and snare together: three, three, two and a rest
+            [
+              {
+                h: '1.....1.....1...1.......',
+                s: '2.....2.....2...2.......',
+                k: '1.....1.....1...1.......',
+              },
+              0.6,
+            ],
+          ],
+          fills: [
+            [{ t3: '1.1.1.1.1.', s: '2.2.2.2.2.', k: '1.1.1.1.1.' }, 1.0],
+            [{ c: '1...1.....', k: '1...1.....', s: '3...3.....' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'sarniezz-modulation',
+        title: 'Sarniezz (after the modulation)',
+        feel: 'the 8th held and the pulse moved from three to two: 4/4 at 174, the crash ridden on the beat',
+        weight: 1.0,
+        params: {
+          bpm: [172, 176],
+          crossRhythm: 0,
+          figures: [
+            [{ c: '1...1...1...1...', s: '....2.......2...', k: '1.1...1...1.....' }, 1.2],
+            [{ c: '1...1...1...1...', s: '....2.......2...', k: '1.1...1...1...1.' }, 1.0],
+            [{ c: '1...1...1...1...', s: '....2..1....2...', k: '1.......1.1...1.' }, 1.0],
+            [
+              {
+                c: '1...1...1...1...',
+                hf: '1...1...1...1...',
+                s: '....2.......2...',
+                k: '1.1...1...1...1.',
+              },
+              0.8,
+            ],
+          ],
+          fills: [[{ s: '22..2...', k: '..1...1.' }, 1]],
+        },
+      },
+      {
+        key: 'utzp',
+        title: 'Utzp',
+        feel: 'four on the floor, the snare on every "and", the kick in pairs as it builds (tab 129). A reconstruction',
+        weight: 0.6,
+        params: {
+          bpm: [127, 131],
+          crossRhythm: 0,
+          figures: [
+            // the snare alone on the beat while the loop builds
+            [{ s: '2...2...2...2...' }, 0.3],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '..2...2...2...2.', k: '1...1...1...1...' }, 1.0],
+            [{ h: '3.3.3.3.3.3.3.3.', s: '..2...2...2...2.', k: '1...11..11..11..' }, 1.0],
+            [{ c: '1.1.1.1.1.1.1.1.', s: '..2...2...2...2.', k: '1...11..11..11..' }, 1.0],
+            [{ t3: '1.1.1.1.1.1.1.1.', s: '..2...2...2...2.', k: '11..11..11..11..' }, 0.6],
+          ],
+          fills: [[{ s: '2.2.2.22', k: '1...1...' }, 1]],
+        },
+      },
+      {
+        key: 'yor-zarad',
+        title: 'Yor Zarad',
+        feel: 'Vol. II in 7/8: 16ths on the hat with the 8ths accented, the snare on four of them (tab 214 to the 8th, so 107)',
+        weight: 0.8,
+        params: {
+          meter: '7/8',
+          bpm: [105, 109],
+          crossRhythm: 0,
+          // the snare falls on hat strokes, so the 16ths are one hand's
+          oneHandHats: true,
+          figures: [
+            // the second of the last two kicks thinned, to leave the critic its air
+            [{ h: '.1212121212121', s: '..2...2...2..2', k: '1...11.1.1.1..' }, 1.4],
+            // the half-open hat on the 8ths
+            [{ h: '4.4.4.4.4.4.4.', s: '..2...2...2..2', k: '1...11.1.1.1..' }, 1.0],
+            // the loop alone: the hat and nothing else
+            [{ h: '1...1..1.1.1.1' }, 0.3],
+          ],
+          fills: [
+            // the pickup: kick and open hat together, the foot between, the backbeat kept
+            [{ h: '3.3.3..', hf: '.1.1.1.', k: '1.1.1..', s: '...2..3' }, 1.0],
+            // the tab's fill, off its grid in places, brought onto the 16ths
+            [{ s: '2..3', t1: '.1..' }, 0.8],
+          ],
+        },
+      },
+    ],
+  },
+  baker: {
+    label: 'Ginger Baker',
+    drummer: true,
+    hint: "Cream, Blind Faith, Air Force and Fela's Lagos: a jazz drummer, taught by Phil Seamen, who played rock on two bass drums. The toms carry the groove as often as the snare does, the two kicks run ostinatos under tom phrases, and the backbeat may sit on 1 and 3. An open, ringing 1960s Ludwig. Each New plays one of eleven of his songs at its record tempo: Sunshine of Your Love's tom pattern, White Room's 5/4 opening, Crossroads with the floor tom on 1, I Feel Free fast and open, Toad's two-bass-drum triplets and Do What You Like in 5/4. The stage names the song. Ten follow human transcriptions; Toad is a reconstruction.",
+    toms: true,
+    kit: 'sixties',
+    // two bass drums, not a double pedal: the same thing to the generator, the critic and the 3D drummer
+    doubleKick: true,
+    hats: 8,
+    // the 4/4 songs; the hand-hand-foot-foot fill, a run of eight, holds the style itself at 150
+    bpm: [72, 150],
+    swing: 0,
+    swingRange: [0, 8],
+    // the record's `avoid`: no ghost-note funk
+    ghostBias: 0.1,
+    ghostWeights: {},
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 10,
+    hatDepth: 0.6,
+    rimshot: 0.2,
+    flam: 0.15,
+    midFills: 0.25,
+    // the record's `avoid`: not tight, quantised rock. On top of the beat (the record's estimate) and loose
+    feel: {
+      label: 'On top, loose',
+      k: -0.01,
+      s: -0.01,
+      t1: -0.01,
+      t2: -0.01,
+      t3: -0.01,
+      jitter: 0.02,
+    },
+    // the jazz drummer's three against four: a floor-tom accent every dotted eighth, across the bar line
+    crossRhythm: 0.2,
+    crossRhythms: [[{ every: 6, lanes: { t3: 2 } }, 1]],
+    kick1: [
+      ['1010', 3],
+      ['1000', 2],
+      ['1011', 1],
+    ],
+    kick: [
+      ['0000', 2],
+      ['0010', 1.5],
+      ['1010', 1],
+      ['0011', 0.6],
+    ],
+    /* The record's rules: let the toms carry the groove; the two kicks under
+       tom phrases; triplet and 12/8 feels (the songs). Every bar is from one
+       of the human transcriptions below. */
+    figures: [
+      // Sunshine of Your Love: rack and floor tom together on 1 and 3, the kick with the mid tom
+      [
+        {
+          t1: '1.......1.......',
+          t2: '....1.1.....1.1.',
+          t3: '1.1.....1.1.....',
+          k: '....1.1.....1.1.',
+        },
+        2,
+      ],
+      // its solo: crash and snare on 1 and 3, the toms on 2 and 4
+      [
+        {
+          c: '1.......1.......',
+          s: '2.......2.......',
+          t1: '....1.......1...',
+          t3: '....1.1.....1.1.',
+          k: '1.....1.1.....1.',
+        },
+        1.2,
+      ],
+      // Tales of Brave Ulysses: floor tom and both kicks in eighths, the ride on the beat
+      [{ r: '....1...1...1...', t3: '1.1.1.1.1.1.1...', k: '1.1.1.1.1.1.1.1.' }, 1.0],
+      // Crossroads: the floor tom on 1, the snare on 2, 3 and 4, the foot on the "and"s
+      [
+        {
+          hf: '......1.......1.',
+          s: '....2...2...2...',
+          t3: '1...............',
+          k: '..1...1.......1.',
+        },
+        1.0,
+      ],
+      // SWLABR: eighths on the hats, a 16th after the backbeat on 2
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2..2....2...', k: '1.......1.1...1.' }, 0.8],
+      // Sunshine's solo: eighths on the two kicks under threes round the toms
+      [
+        {
+          c: '1...............',
+          s: '2...............',
+          t1: '....111.........',
+          t2: '........111.111.',
+          k: '1.1.1.1.1.1.1.1.',
+        },
+        0.8,
+      ],
+    ],
+    fills: [
+      // Sunshine and SWLABR: snare, rack, mid, floor, three strokes each
+      [
+        {
+          s: '222.............',
+          t1: '....111.........',
+          t2: '........111.....',
+          t3: '............111.',
+        },
+        1.4,
+      ],
+      // Tales of Brave Ulysses: two toms in 16ths, both kicks on the eighths between
+      [{ t1: '11.11....', t2: '.....1.1.', k: '.1.1.1.1.' }, 1.2],
+      // hand, hand, foot, foot round the toms: what he took from Sam Woodyard
+      [{ t1: '2...2...', t3: '.2...2..', k: '..11..11' }, 1.0],
+      // Crossroads' ending: rack and mid tom in threes
+      [{ t1: '2..2..2.', t2: '.2..2..2' }, 1.0],
+    ],
+    /* His records: one New picks one, and the stage names it. Credits checked
+       on Wikipedia: Cream's and Blind Faith's drums are all his; on Fela's
+       Live! he plays three tracks beside Tony Allen. Tempos are the tab's and
+       songbpm's, which agree, and each tab's length matches the record at its
+       tempo. Ten follow human Songsterr transcriptions (each tab's
+       `aiGenerated` flag checked), read bar by bar with the most common bars
+       kept; Toad is a reconstruction from his record's ostinato. No
+       record of his West African playing has a meter any source gives, so
+       his record's Afro 12/8 is not a song. See the Ginger Baker section of
+       `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'sunshine-of-your-love',
+        title: 'Sunshine of Your Love',
+        feel: 'the toms, not the snare: rack and floor together on 1 and 3, the kick with the mid tom on 2 and 4',
+        weight: 1.6,
+        params: {
+          bpm: [112, 118],
+          swing: 0,
+          // Songsterr 256 (human), bar by bar
+          figures: [
+            // the verse, thirty bars of it
+            [
+              {
+                t1: '1.......1.......',
+                t2: '....1.1.....1.1.',
+                t3: '1.1.....1.1.....',
+                k: '....1.1.....1.1.',
+              },
+              2,
+            ],
+            // the chorus: crash on 1 and 3, the toms answering the riff
+            [
+              {
+                c: '1.......1.......',
+                t1: '............1...',
+                t2: '....1.......1...',
+                t3: '......1.......1.',
+                k: '1.....1.1.....1.',
+              },
+              1.2,
+            ],
+            // the solo: crash and snare on 1 and 3
+            [
+              {
+                c: '1.......1.......',
+                s: '2.......2.......',
+                t1: '....1.......1...',
+                t3: '....1.1.....1.1.',
+                k: '1.....1.1.....1.',
+              },
+              1.0,
+            ],
+            // the last verse: the snare joins the crash on 1 and 3
+            [
+              {
+                c: '1.......1.......',
+                s: '2.......2.......',
+                t2: '....1.1.....1.1.',
+                t3: '..1.......1.....',
+                k: '1...1.1.....1.1.',
+              },
+              0.8,
+            ],
+          ],
+          fills: [
+            [
+              {
+                s: '222.............',
+                t1: '....111.........',
+                t2: '........111.....',
+                t3: '............111.',
+              },
+              1.4,
+            ],
+            // the verse's turnaround: down the toms in threes from 2
+            [
+              {
+                t1: '1...111.........',
+                t2: '........111.....',
+                t3: '1.1.........111.',
+              },
+              1.0,
+            ],
+            [{ t1: '11..', t3: '..1.' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'white-room',
+        title: 'White Room',
+        feel: 'the 5/4 opening: crash and snare on 1, then both floor toms together, a triplet on 2 and eighths to the end',
+        weight: 1.3,
+        params: {
+          meter: '5/4',
+          bpm: [106, 112],
+          swing: 0,
+          /* Songsterr 4455 (human): the 5/4 bar that opens the record and
+             comes back before the third verse and after it, 23 of its 131
+             bars. Both floor toms (or Baker's timpani) struck together: a
+             triplet on 2, which this grid of sixteenths holds as the nearest
+             steps, 4, 5 and 7; then 3, 4, the "and" of 4 and 5. */
+          figures: [
+            [
+              {
+                c: '2...................',
+                s: '2...................',
+                t2: '....11.11...1.1.1...',
+                t3: '....11.11...1.1.1...',
+                k: '1...................',
+              },
+              2,
+            ],
+          ],
+          fills: [
+            // the verse's fill: the snare on 2, then rack, mid and floor in threes
+            [
+              {
+                s: '2...........',
+                t1: '..111.......',
+                t2: '......111...',
+                t3: '..........11',
+              },
+              1.0,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'crossroads',
+        title: 'Crossroads',
+        feel: 'live at Winterland, 1968: the floor tom on 1, the snare on 2, 3 and 4, the hat foot on the "and"s',
+        weight: 1.2,
+        params: {
+          bpm: [128, 134],
+          swing: 0,
+          // Songsterr 242 (human): no cymbal under the verse, only the hat foot
+          figures: [
+            [
+              {
+                hf: '......1.......1.',
+                s: '....2...2...2...',
+                t3: '1...............',
+                k: '..1...1.......1.',
+              },
+              2,
+            ],
+            // under the solos: the snare pushing the "a" of 2 and the "e" of 3
+            [{ hf: '......1...1.....', s: '....2..2.2..2...', k: '1.....1...1.....' }, 1.4],
+            // the crash on the "and"s for the third section
+            [
+              {
+                c: '......1.......1.',
+                s: '....2...2...2...',
+                t3: '1...............',
+                k: '..1...1.......1.',
+              },
+              1.0,
+            ],
+          ],
+          fills: [
+            // the last bar: mid and floor tom across the bar
+            [
+              {
+                s: '2.............2.',
+                t2: '..1...1.1.1.....',
+                t3: '....1.......1...',
+                k: '1...............',
+              },
+              1.0,
+            ],
+            // rack and mid tom in threes
+            [{ t1: '2..2..2.', t2: '.2..2..2' }, 1.2],
+          ],
+        },
+      },
+      {
+        key: 'i-feel-free',
+        title: 'I Feel Free',
+        feel: 'fast and open: the hats open on the beat and the "and"s, the kick pushing the "and" of 2',
+        weight: 1.0,
+        params: {
+          bpm: [170, 178],
+          swing: 0,
+          // Songsterr 4746 (human): the verse is a two-bar phrase, each bar its own figure
+          figures: [
+            [{ h: '3...3.3.3...3.3.', s: '....2.......2...', k: '1.....1.1.....1.' }, 2],
+            [{ h: '..3.3.3.3...3...', s: '....2.......2...', k: '..1...1.1.......' }, 1.6],
+            [
+              {
+                c: '2...............',
+                h: '....3.3.3...3.3.',
+                s: '....2.......2...',
+                k: '1.....1.1.....1.',
+              },
+              0.8,
+            ],
+          ],
+          // the tab's own fills; no run of four notes, which at this tempo would be too quick to play
+          fills: [
+            [{ t1: '1.111.11........', t2: '........1.111.1.' }, 1.2],
+            [{ t1: '1.1...', t2: '....1.' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'badge',
+        title: 'Badge',
+        feel: 'plain eighths on the hats for the verse, then the ride and a crash on the "and" of 4 for the bridge',
+        weight: 1.0,
+        params: {
+          bpm: [104, 108],
+          swing: 0,
+          // Songsterr 4135 (human)
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.......' }, 2],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....2..2....2...', k: '1.......1.......' }, 1.2],
+            // the bridge: the snare on 2, 3, the "and" of 3 and 4
+            [
+              {
+                c: '1.............1.',
+                r: '..1.1.1.1.1.1...',
+                s: '....2...2.2.2...',
+                k: '1.............1.',
+              },
+              1.0,
+            ],
+          ],
+          fills: [
+            // mid tom, then the floor tom in threes, a crash on the "and" of 4
+            [{ c: '..............1.', t2: '111.............', t3: '....111.111.1...' }, 1.2],
+            [{ s: '2.......', t3: '..1.1...', c: '......1.' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'tales-of-brave-ulysses',
+        title: 'Tales of Brave Ulysses',
+        feel: 'the snare on every beat under accented hats, then the floor tom and both kicks in eighths',
+        weight: 1.0,
+        params: {
+          bpm: [104, 108],
+          swing: 0,
+          // Songsterr 4922 (human)
+          figures: [
+            [
+              {
+                h: '3...2.1.2.1.2.1.',
+                hf: '....1...........',
+                s: '2...2...2...2...',
+                k: '1.......1.1...1.',
+              },
+              2,
+            ],
+            [
+              {
+                c: '1...............',
+                h: '....2.1.2.1.2.1.',
+                s: '2...2...2...2...',
+                k: '1.1...1.1.1...1.',
+              },
+              1.4,
+            ],
+            // the middle section: floor tom and both kicks in eighths, the ride on the beat
+            [{ r: '....1...1...1...', t3: '1.1.1.1.1.1.1...', k: '1.1.1.1.1.1.1.1.' }, 1.0],
+          ],
+          fills: [
+            [{ t1: '11.11....', t2: '.....1.1.', k: '.1.1.1.1.' }, 1.2],
+            [{ t1: '111.....', t2: '....111.', k: '1.1.1.1.' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'swlabr',
+        title: 'SWLABR',
+        feel: 'eighths on the hats for the verse, crash and snare on every beat for the chorus, a run down the toms',
+        weight: 0.9,
+        params: {
+          bpm: [120, 126],
+          swing: 0,
+          // Songsterr 4888 (human)
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2..2....2...', k: '1.......1.1...1.' }, 2],
+            // the chorus: crash and snare together on the beat, the kick on the "and"s
+            [{ c: '1...1...1...1...', s: '2...2...2...2...', k: '..1...1...1...1.' }, 1.2],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....2..2.2..2...', k: '1.1...1.1.1...1.' }, 1.0],
+          ],
+          fills: [
+            /* The intro's run, a bar of 16ths down the kit: the tab starts it
+               with four on the snare, which the critic will not pass, so the
+               last two of them go to the rack tom. */
+            [
+              {
+                s: '22..............',
+                t1: '..111111........',
+                t2: '........1111....',
+                t3: '............111.',
+              },
+              1.2,
+            ],
+            [
+              {
+                s: '222.............',
+                t1: '....111.........',
+                t2: '........111.....',
+                t3: '............111.',
+              },
+              1.0,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'strange-brew',
+        title: 'Strange Brew',
+        feel: 'eighths on the hats, opening on 1, the kick on 3, the "and" of 3 and the "and" of 4',
+        weight: 0.9,
+        params: {
+          bpm: [102, 106],
+          swing: 0,
+          // Songsterr 4216 (human)
+          figures: [
+            [{ h: '3.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1...1.' }, 2],
+            [{ h: '3.1.3.1.3.1.1.1.', s: '....2.......2...', k: '1.......1.1...1.' }, 1.2],
+            [{ h: '3.1.1.1.3.1.3.1.', s: '....2.......2...', k: '1.....1.1.1...1.' }, 1.0],
+          ],
+          fills: [
+            // the mid tom in eighths through 3 and 4
+            [{ t2: '2.2.2.2.' }, 1.2],
+            [
+              {
+                s: '222.............',
+                t1: '....111.........',
+                t2: '........111.....',
+                t3: '............111.',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'born-under-a-bad-sign',
+        title: 'Born Under a Bad Sign',
+        feel: 'the ride in eighths with the bell on the "and"s, the snare with the riff, the two kicks doubled on 3 and 4',
+        weight: 0.9,
+        params: {
+          bpm: [90, 94],
+          swing: 0,
+          // the snare follows the riff: 2, the "a" of 2, the "and" of 3 and the "and" of 4
+          backbeats: [4, 10],
+          // Songsterr 62912 (human)
+          figures: [
+            [{ r: '1.2.1.2.1.2.1.2.', s: '....2..2..2...2.', k: '1.......11..11..' }, 2],
+            [{ r: '1.2.1.2.1.2.2.2.', s: '....2..2..2...2.', k: '1.......11...1..' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'toad',
+        title: 'Toad',
+        feel: 'the drum solo: the two kicks in triplets under tom phrases, then rudiments on the snare and jazz time on the ride',
+        weight: 1.4,
+        params: {
+          meter: '4/4-6',
+          bpm: [128, 141],
+          swing: 0,
+          // a dotted eighth here would land on the beat: no cross-rhythm
+          crossRhythm: 0,
+          // the toms on the last triplet of 1 and 3 carry the backbeat here
+          backbeats: [4, 16],
+          /* A reconstruction: no human transcription of Toad was found (the
+             one Songsterr tab has no drum part). The bars follow his record's
+             ostinato (the right foot on the beat, the left on the second
+             triplet, the toms on the third) and Wikipedia's account of the
+             solo: tom phrases, rudimental snare, two-bass-drum ostinatos and
+             jazz ride time. In eighth-note triplets, a gap between every
+             note. */
+          figures: [
+            [
+              {
+                t1: '....2...........2.......',
+                t3: '..........2...........2.',
+                k: '1.1...1.1...1.1...1.1...',
+              },
+              2,
+            ],
+            // the tom melody moves: rack, mid, floor, mid
+            [
+              {
+                t1: '....2...................',
+                t2: '..........2...........2.',
+                t3: '................2.......',
+                k: '1.1...1.1...1.1...1.1...',
+              },
+              1.4,
+            ],
+            // jazz time: the ride's skip beat, the foot back on the hat on 2 and 4
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                hf: '......1...........1.....',
+                s: '....2...........2.......',
+                k: '1...........1...........',
+              },
+              1.0,
+            ],
+            // the rudimental passage: snare triplets, accent on the beat, the kick under it
+            [{ s: '3.1.2.3.1.2.3.1.2.3.1.2.', k: '1.....1.....1.....1.....' }, 0.8],
+          ],
+          fills: [
+            [{ t1: '2.2.........', t2: '....2.2.....', t3: '........2.2.' }, 1.4],
+            // hand, hand, foot, foot in triplets
+            [{ t1: '2.......2.......', t3: '..2.......2.....', k: '....1.1.....1.1.' }, 1.2],
+            [{ s: '3.2.2.......', t3: '......2.2.2.' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'do-what-you-like',
+        title: 'Do What You Like',
+        feel: 'Blind Faith\'s 5/4 jam: the hat foot on every eighth, the toms answering on the "and" of 2, the "and" of 3, 4 and 5',
+        weight: 1.0,
+        params: {
+          meter: '5/4',
+          bpm: [150, 158],
+          swing: 0,
+          // no snare: the toms carry the 2 and the 4
+          backbeats: [6, 12],
+          /* Songsterr 3491, the whole Blind Faith album in one human tab; its
+             Do What You Like section. The cabasa in 16ths over it is left
+             out: no credit says it is Baker's. */
+          figures: [
+            [
+              {
+                c: '1...................',
+                hf: '1.1.1.1.1.1.1.1.1.1.',
+                t2: '......1.....1.......',
+                t3: '..........1.....1...',
+                k: '1...................',
+              },
+              2,
+            ],
+            [
+              {
+                c: '1...................',
+                hf: '1.1.1.1.1.1.1.1.1.1.',
+                t1: '......1.............',
+                t3: '..........1.1...1...',
+                k: '1...................',
+              },
+              1.2,
+            ],
+          ],
+          // reconstructions, in eighths: the tab writes no fill in this section
+          fills: [
+            [{ t1: '2.2.....', t2: '....2...', t3: '......2.' }, 1.2],
+            [{ t2: '2...2...', t3: '..2...2.', k: '1...1...' }, 1.0],
+          ],
+        },
+      },
+    ],
+  },
 };
 
 /**
@@ -13024,7 +14927,8 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
   ['Metal', ['metal', 'gallop', 'thrash', 'doublekick', 'groove', 'doom']],
   ['Jamaica', ['reggae', 'dub']],
   ['Afro-Latin', ['afrobeat', 'son', 'rumba', 'mambo', 'songo', 'samba', 'reggaeton']],
-  ['Rock drummers', ['mitchell', 'bonham', 'ringo', 'copeland']],
+  ['Rock drummers', ['mitchell', 'bonham', 'ringo', 'copeland', 'baker', 'klek']],
+  ['Metal drummers', ['lombardo', 'davies']],
   ['Funk drummers', ['stubblefield', 'jabostarks', 'bernardpurdie']],
   ['Session drummers', ['gadd', 'hakim']],
   ['Jazz drummers', ['tonywilliams', 'yussefdayes', 'elvinjones']],
