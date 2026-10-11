@@ -41,6 +41,35 @@ export interface KitModel {
 
 const vec = (a: V3) => new THREE.Vector3(a[0], a[1], a[2]);
 
+/** The kick's front head's fundamental, Hz: a 22-inch reso tuned low. */
+const RESO_HZ = 52;
+/** How fast it dies, seconds to 1/e: a ported head, felt or a pillow inside. */
+const RESO_DECAY = 0.12;
+/** How far a full-strength kick pushes its centre out, metres. */
+const RESO_PEAK = 0.003;
+
+/**
+ * How far the kick's front head is pushed out at its centre, metres, `since`
+ * seconds after a kick of `strength` (0–1). The beater drives the batter head
+ * in, the air in the shell pushes the front one out, and it rings at its
+ * fundamental, dying away.
+ */
+export function resoBulge(since: number, strength: number): number {
+  if (since < 0 || since > 8 * RESO_DECAY) return 0;
+  return (
+    RESO_PEAK * strength * Math.exp(-since / RESO_DECAY) * Math.sin(2 * Math.PI * RESO_HZ * since)
+  );
+}
+
+/**
+ * The shape of a drum head's fundamental (the (0,1) mode) at `u` of the way
+ * from centre to rim: J0(2.405 u), 1 at the centre and 0 at the hoop.
+ */
+export function resoShape(u: number): number {
+  const x = (2.405 * u) ** 2 / 4;
+  return Math.max(0, 1 - x + (x * x) / 4 - (x * x * x) / 36);
+}
+
 /** A piece's frame: at its centre, turned by its tilt (`XYZ`, as `onPiece` reads it). */
 function frame(p: Piece): THREE.Group {
   const g = new THREE.Group();
@@ -215,14 +244,24 @@ export function buildKit(m: Materials): KitModel {
   kickBody.position.z = kick.depth / 2;
   // a white batter head facing the drummer, a black reso out front with the name round it
   const logo = kickLogoTexture();
+  // (in rings, so it can bow out at the middle when it rings: see `resoBulge`)
+  let reso: { geometry: THREE.BufferGeometry; shape: Float32Array; bowed: boolean } | undefined;
   if (logo) {
+    const geometry = new THREE.RingGeometry(0, kick.radius * 0.99, 64, 10);
+    const pos = geometry.getAttribute('position');
+    const shape = new Float32Array(pos.count);
+    for (let k = 0; k < pos.count; k++) {
+      shape[k] = resoShape(Math.hypot(pos.getX(k), pos.getY(k)) / (kick.radius * 0.99));
+    }
     const front = new THREE.Mesh(
-      new THREE.CircleGeometry(kick.radius * 0.99, 64),
+      geometry,
       new THREE.MeshStandardMaterial({ map: logo, roughness: 0.6 })
     );
+    // (its +z, the way it bows, out of the front of the drum)
     front.rotation.x = Math.PI / 2;
     front.position.y = -kick.depth - 0.001;
     kickBody.add(front);
+    reso = { geometry, shape, bowed: false };
   }
   kickGroup.add(kickBody);
   for (const side of [-1, 1]) {
@@ -475,6 +514,18 @@ export function buildKit(m: Materials): KitModel {
         const give = h ? h.strength * Math.exp(-h.since * 28) : 0;
         s.group.position.y = s.id === 'kick' ? 0 : -0.0025 * give;
         if (s.id === 'kick') s.group.scale.setScalar(1 + 0.004 * give);
+      }
+      // the front head rings after a kick; flat again once it has died
+      if (reso) {
+        const k = pose.hits.kick;
+        const bulge = k ? resoBulge(k.since, k.strength) : 0;
+        if (bulge !== 0 || reso.bowed) {
+          const pos = reso.geometry.getAttribute('position');
+          for (let j = 0; j < pos.count; j++) pos.setZ(j, bulge * reso.shape[j]);
+          pos.needsUpdate = true;
+          reso.geometry.computeVertexNormals();
+          reso.bowed = bulge !== 0;
+        }
       }
       for (const s of swingers) {
         const h = pose.hits[s.id];

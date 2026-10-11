@@ -20,7 +20,7 @@
 import * as THREE from 'three';
 import { describe, expect, it } from 'vitest';
 
-import { buildKit } from '@/components/app/studio/drummer/kit-model';
+import { buildKit, resoBulge, resoShape } from '@/components/app/studio/drummer/kit-model';
 import { makeMaterials } from '@/components/app/studio/drummer/parts';
 import {
   DOUBLE_PEDAL,
@@ -343,5 +343,34 @@ describe('buildKit().update — pedals and beater', () => {
     update(struck, timeline.percussion);
     expect(beaterGroup!.rotation.x).not.toBeCloseTo(idleRotation, 4);
     expect(beaterGroup!.rotation.x).toBeCloseTo(struck.beater, 6);
+  });
+});
+
+describe("resoBulge — the kick's front head ringing", () => {
+  it('is still before a kick and once the ring has died', () => {
+    expect(resoBulge(-0.01, 1)).toBe(0);
+    expect(resoBulge(0, 1)).toBe(0);
+    expect(resoBulge(2, 1)).toBe(0);
+  });
+
+  it('is pushed out first, by a few millimetres at most, then swings back in', () => {
+    // a quarter of a 52 Hz cycle out, three quarters in
+    const out = resoBulge(1 / 208, 1);
+    expect(out).toBeGreaterThan(0.001);
+    expect(out).toBeLessThan(0.004);
+    expect(resoBulge(3 / 208, 1)).toBeLessThan(0);
+  });
+
+  it('rings smaller for a softer kick, and dies away', () => {
+    expect(resoBulge(1 / 208, 0.3)).toBeCloseTo(0.3 * resoBulge(1 / 208, 1), 9);
+    expect(Math.abs(resoBulge(1 / 208 + 10 / 52, 1))).toBeLessThan(resoBulge(1 / 208, 1) * 0.3);
+  });
+});
+
+describe("resoShape — the head's fundamental", () => {
+  it('is 1 at the centre and falls to nothing at the hoop', () => {
+    expect(resoShape(0)).toBe(1);
+    expect(resoShape(1)).toBeLessThan(0.01);
+    for (let u = 0; u < 0.85; u += 0.1) expect(resoShape(u + 0.1)).toBeLessThan(resoShape(u));
   });
 });
