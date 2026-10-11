@@ -3644,6 +3644,54 @@ stays).
   played electronic drums on _Sandunguera_, but no source says which sounds,
   so it stays on a sampled kit.
 
+**11-e reconciled against the tree, 2026-10-11** (branch `phase-11-e-rock-metal`):
+
+- **The records are in; the styles are not**, as for 11-c and 11-d. This PR
+  adds four drummer styles with songs and sets `style_key` on each record,
+  the last four: after it every modelled drummer has Play. The keys: `baker`,
+  `lombardo`, `davies` and `klek`. None is taken.
+- **Groups.** Ginger Baker and Klek join Mitchell, Bonham, Ringo and Copeland
+  under Rock drummers (math rock is rock). Lombardo and Adrienne Davies open a
+  seventh group, **Metal drummers**, after the rock drummers: thrash and drone
+  doom are both filed under Metal among the genres.
+- **Two bass drums.** Baker and Lombardo played two bass drums, not a double
+  pedal; for the generator, the critic and the 3D drummer that is the same
+  thing, `doubleKick`, a run of kicks alternating the feet. Baker's Toad
+  ostinato is a triplet figure, so it goes in sextuplets (`4/4-6`); his Afro
+  12/8 has its bell on the `cowbell` slot.
+- **Thrash is faster than a sixteenth grid goes.** A 4/4 bar of sixteenths
+  stops at 190; Lombardo's skank beats run past 200. His fast songs are
+  written in eighths (`4/4-8`, to 380), as Tony Williams's fast swing is, and
+  the heavy half-time sections in sixteenths. A run of 32nds is finer than
+  either grid at its tempo: where a record has one it is written as sixteenths
+  at the same tempo or left out, and the research says which.
+- **Earth is slower than the Studio goes.** The tempo control stops at 50 and
+  Davies's records sit between about 30 and 60. A song under 50 is counted in
+  eighths: one bar here is half a bar of the record's, at twice the number, as
+  Puente's mambos are counted in the half note the other way. Her rules stay:
+  no grid finer than eighths, two to eight notes a bar, cymbals left to ring,
+  almost no fills.
+- **Klek's record keeps the persona policy.** The record is
+  `private_do_not_research`; the check already refuses a stored name, birth or
+  death. This PR sets only `style_key` on it. The research looks at the
+  band's records, interviews about the music and the drum tabs, never at who
+  plays the drums; the style and its songs name the persona and the band
+  (Angine de Poitrine) and nothing else. A test holds that the record keeps
+  the policy and stores no identity after the key is added.
+- **Kits are sampled** (the rule stays): Baker a sixties kit, Davies a big,
+  old room kit, Lombardo and Klek a dry, punchy one. None of the four played
+  electronic drums on these records, so nothing joins `drummer-kits.test.ts`'s
+  list.
+- **The research comes first**, as for the others: credits checked, tempos
+  from tempo databases, grooves from human transcriptions where there are any,
+  into `drumming-research.md` as sections T–W.
+- **The counts move**: 62 styles and 20 drummers, the style-and-meter pairs,
+  the picker's drummer list and groups, the lineage test's playable drummers
+  (now all twenty), `catalogue.md` and `drummers.md`. A test for the four, like
+  11-d's, adds that each is filed and keyed both ways, each song's range needs
+  no cutting, no written bar needs three hands, and every song's bars pass the
+  critic at its own tempo; and that the double-bass players say so.
+
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
 stays `archetype` or `approximation` until stems are checked); personas
