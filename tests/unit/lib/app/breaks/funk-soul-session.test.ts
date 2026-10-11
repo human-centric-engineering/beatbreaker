@@ -1,21 +1,19 @@
 /**
  * The four drummers of 11-c — Jabo Starks, Bernard Purdie, Steve Gadd and
- * Omar Hakim: each filed with his family, and every one of his songs written
- * so that what it says is what plays.
+ * Omar Hakim: each filed with his family, and every one of his songs writing,
+ * at its own tempo, a break the critic passes, in the tempo range it says.
  *
- * A figure whose rows are not as long as its song's bar is skipped by the
- * generator without a word, and a tempo range wider than its runs allow is
- * cut down by `playableBpm` just as quietly; both would leave a song playing
- * something other than what it says. And at its own tempo, every song must
- * write a break the critic passes.
+ * `song-tempo.test.ts` holds every drummer's merged range to `playableBpm`,
+ * but the merge has already cut it down, so a range written wider than its
+ * runs allow passes there. Here the range as written must need no cutting.
+ * Bar lengths for every drummer are held in `songs.test.ts`.
  */
 
 import { describe, expect, it } from 'vitest';
 
 import { generateGood, playability } from '@/lib/app/breaks/critic';
-import { meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { makeRng } from '@/lib/app/breaks/rng';
-import { playableBpm, songMeter, songTempo, withSong } from '@/lib/app/breaks/songs';
+import { playableBpm, songMeter, songTempo } from '@/lib/app/breaks/songs';
 import { STYLES, STYLE_GROUPS } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { testStyle } from '@/tests/helpers/catalogue';
 
@@ -36,23 +34,6 @@ describe.each(Object.keys(FAMILIES))('%s', (key) => {
     const group = STYLE_GROUPS.find(([, keys]) => keys.includes(key));
     expect(group?.[0]).toBe(FAMILIES[key]);
     expect(songs.length).toBeGreaterThan(0);
-  });
-
-  it("writes every song's bars at its meter's length", () => {
-    for (const song of songs) {
-      const steps = stepsOf(meterOf(songMeter(st, song)));
-      const merged = withSong(st, song.key);
-      for (const [figure] of merged.figures ?? []) {
-        for (const [lane, row] of Object.entries(figure)) {
-          expect(row, `${song.key} figure, ${lane}`).toHaveLength(steps);
-        }
-      }
-      for (const [fill] of merged.fills ?? []) {
-        for (const [lane, row] of Object.entries(fill)) {
-          expect(row.length, `${song.key} fill, ${lane}`).toBeLessThanOrEqual(steps);
-        }
-      }
-    }
   });
 
   it('gives every song a tempo range its runs allow, so none is cut down', () => {

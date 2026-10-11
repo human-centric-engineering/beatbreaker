@@ -112,7 +112,7 @@ Picking one is `setStyle`, like any style.
   - `midFills` sets how often they fill inside the phrase, as well as at its
     end.
 - **Approximate grooves.** Every song groove is an approximation, not a
-  transcription. The source is `planning/drumming-research.md`, §C onwards, one section for each drummer.
+  transcription. The source is `planning/drumming-research.md`: §C and §E–O, one section for each drummer.
 - **Adding one** is a style in `data/styles.ts` with `drummer: true`, listed in
   a `… drummers` group of `STYLE_GROUPS`, **and a record** in the drummer model
   whose `beatbreaker.style_key` names it (Phase 11, D47). A test fails without

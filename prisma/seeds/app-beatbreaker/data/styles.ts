@@ -9645,7 +9645,7 @@ export const STYLES: Record<string, Style> = {
                 r: '2...2...2...2.22',
                 s: '....3...3...3...',
                 k: '1...............',
-                hf: '....1...1...1...',
+                hf: '1...1...1...1...',
               },
               0.9,
             ],
@@ -9883,9 +9883,10 @@ export const STYLES: Record<string, Style> = {
     ],
     /* His records, each at its own tempo: one New picks one, and the stage
        names it. Seven are from Goodhertz's Funklet grids (Jack Stratton's
-       transcriptions, two bars each, tempos as given there): snare 4 is an
-       accent, 3 a hit, 2 and 1 ghosts; kick 4 an accent; hats 4 accented, the
-       opens marked. Kid Charlemagne, Deacon Blues, Home at Last and Babylon
+       transcriptions, two bars each, tempos as given there), its five levels
+       mapped onto this file's values: Funklet's snare 4 is our accent (3), its
+       3 our hit (2), its 2 and 1 our ghost (1); its kick 4 our accent; its
+       accented hats our `h` 2, the opens 3 and the half-opens 4. Kid Charlemagne, Deacon Blues, Home at Last and Babylon
        Sisters are the commonest bars of human Songsterr transcriptions; the
        two shuffles' tabs leave out the ghosts, which every lesson on the
        Purdie shuffle puts on the middle triplet, so they are written in.
@@ -10324,8 +10325,9 @@ export const STYLES: Record<string, Style> = {
           swing: 0,
           swingRange: [0, 6],
           hats: 16,
-          // nothing shares a step with the kick or the snare
-          linear: true,
+          /* The verse is written linear, nothing sharing a step with the kick
+             or the snare; `linear` is not set, because it would hold the
+             chorus to it too and strip its hats. */
           // the groove is written out to the last ghost
           ghostWeights: {},
           figures: [
@@ -10468,6 +10470,8 @@ export const STYLES: Record<string, Style> = {
           swing: 0,
           swingRange: [0, 6],
           ghostWeights: {},
+          // the floor tom has the 1: the phrase's crash, but no kick under it
+          phraseMark: { kick: false },
           figures: [
             // the A section: the floor tom on 1, the backbeat on the "a" of 1
             [
@@ -10854,7 +10858,7 @@ export const STYLES: Record<string, Style> = {
           bpm: [106, 110],
           figures: [
             [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 1.4],
-            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2..2', k: '1.......1.......' }, 0.6],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2.2.', k: '1.......1.......' }, 0.6],
           ],
           fills: [
             [{ s: '2.22' }, 1.2],
@@ -10910,6 +10914,8 @@ export const STYLES: Record<string, Style> = {
         params: {
           bpm: [158, 162],
           fillChance: 0.2,
+          // a one drop: nothing on the 1, not even the phrase's kick
+          noKick: [0],
           figures: [
             [{ h: '1.1.1.1.1.1.1.1.', s: '........4.......', k: '........1.......' }, 1.2],
             [{ h: '1.1.1.1.1.1.1.3.', s: '........4.......', k: '........1.......' }, 1.2],
@@ -10925,7 +10931,6 @@ export const STYLES: Record<string, Style> = {
         weight: 0.7,
         params: {
           bpm: [118, 122],
-          build: true,
           figures: [
             [{ h: '1.1.1.1.1.1.1.1.', s: '....4.......4...', k: '1.....1.1.......' }, 1.4],
             [{ h: '1.1.1.1.1.1.1.1.', s: '....4.......4...', k: '1.....1.1.1.....' }, 0.8],
