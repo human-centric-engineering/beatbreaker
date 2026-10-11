@@ -129,6 +129,8 @@ export interface LegPose {
 export interface PieceHit {
   since: number;
   strength: number;
+  /** The stroke's own seed (`seedOf`): no two land quite alike, and each the same every frame. */
+  seed: number;
 }
 
 export interface Pose {
@@ -1954,7 +1956,7 @@ export function poseAt(
   for (let i = all.length - 1; i >= 0; i--) {
     const h = all[i];
     if (h.time > now || hits[h.piece]) continue;
-    hits[h.piece] = { since: now - h.time, strength: h.strength };
+    hits[h.piece] = { since: now - h.time, strength: h.strength, seed: seedOf(h) };
   }
 
   const legs = {

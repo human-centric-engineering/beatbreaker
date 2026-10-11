@@ -16,6 +16,7 @@ import {
   cymbalY,
 } from '@/lib/app/breaks/drummer/kit-layout';
 import { HAT_CLOSED_GAP, type Pose } from '@/lib/app/breaks/drummer/pose';
+import { makeRng } from '@/lib/app/breaks/rng';
 
 /**
  * The kit, built from primitives and laid out by `kit-layout.ts`
@@ -87,10 +88,10 @@ export function resoAcross(u: number): number {
  * fastest (its wires damp it), the floor tom gives most and rings longest.
  */
 const HEADS = {
-  snare: { hz: 26, decay: 0.09, dip: 0.003 },
-  tom1: { hz: 23, decay: 0.2, dip: 0.004 },
-  tom2: { hz: 21, decay: 0.24, dip: 0.0045 },
-  floor: { hz: 17, decay: 0.3, dip: 0.005 },
+  snare: { hz: 26, decay: 0.09, dip: 0.004 },
+  tom1: { hz: 23, decay: 0.2, dip: 0.0055 },
+  tom2: { hz: 21, decay: 0.24, dip: 0.006 },
+  floor: { hz: 17, decay: 0.3, dip: 0.007 },
 } as const;
 
 /**
@@ -102,11 +103,33 @@ const HEADS = {
  * floor tom, on three rubber feet, give less and settle sooner.
  */
 const BODIES = {
-  snare: { hz: 9, decay: 0.12, bob: 0.002, rock: 0.012 },
-  tom1: { hz: 6, decay: 0.38, bob: 0.003, rock: 0.03 },
-  tom2: { hz: 5.5, decay: 0.4, bob: 0.003, rock: 0.028 },
-  floor: { hz: 7, decay: 0.22, bob: 0.0025, rock: 0.014 },
+  snare: { hz: 9, decay: 0.12, bob: 0.0032, rock: 0.02 },
+  tom1: { hz: 6, decay: 0.38, bob: 0.005, rock: 0.048 },
+  tom2: { hz: 5.5, decay: 0.4, bob: 0.005, rock: 0.045 },
+  floor: { hz: 7, decay: 0.22, bob: 0.004, rock: 0.022 },
 } as const;
+
+/**
+ * How one stroke differs from the next, from its seed (none without one): the
+ * stick lands a little nearer or further, harder or softer, off to one side
+ * or the other, and the drum answers a little differently each time.
+ */
+function strokeVariety(seed: number | undefined) {
+  if (seed === undefined) return { size: 1, turn: 0, rate: 1, ring: 1, side: 1.3 };
+  const rng = makeRng(seed ^ 0x5bd1e995);
+  const between = (lo: number, hi: number) => lo + (hi - lo) * rng();
+  return {
+    /** How much harder or softer it lands than its velocity alone says. */
+    size: between(0.75, 1.25),
+    /** Which way the drum tips, radians off straight toward the drummer: where the stick met it. */
+    turn: between(-0.6, 0.6),
+    /** How fast it rocks, and how long it rings, against the drum's own. */
+    rate: between(0.9, 1.1),
+    ring: between(0.85, 1.15),
+    /** How far out of step its side-to-side wobble is. */
+    side: between(1.15, 1.45),
+  };
+}
 
 /**
  * How a struck drum has moved on its mount `since` seconds after a stroke of
@@ -117,17 +140,22 @@ const BODIES = {
 export function drumShake(
   id: StruckHead,
   since: number,
-  strength: number
+  strength: number,
+  seed?: number
 ): { y: number; rx: number; rz: number } {
   const b = BODIES[id];
-  if (since < 0 || since > 8 * b.decay) return { y: 0, rx: 0, rz: 0 };
-  const a = strength * Math.exp(-since / b.decay);
-  const w = 2 * Math.PI * b.hz * since;
+  const v = strokeVariety(seed);
+  const decay = b.decay * v.ring;
+  if (since < 0 || since > 8 * decay) return { y: 0, rx: 0, rz: 0 };
+  const a = strength * v.size * Math.exp(-since / decay);
+  const w = 2 * Math.PI * b.hz * v.rate * since;
+  const tip = b.rock * a * Math.sin(w);
+  // (and a little side to side, out of step: it wobbles rather than nods)
+  const wobble = 0.3 * b.rock * a * Math.sin(v.side * w);
   return {
     y: -b.bob * a * Math.sin(w),
-    rx: b.rock * a * Math.sin(w),
-    // (and a little side to side, out of step: it wobbles rather than nods)
-    rz: 0.3 * b.rock * a * Math.sin(1.3 * w),
+    rx: tip * Math.cos(v.turn) - wobble * Math.sin(v.turn),
+    rz: tip * Math.sin(v.turn) + wobble * Math.cos(v.turn),
   };
 }
 export type StruckHead = keyof typeof HEADS;
@@ -141,10 +169,13 @@ function isStruckHead(id: PieceId): id is StruckHead {
  * in), `since` seconds after a stroke of `strength` (the note's velocity,
  * 0–1): driven in by the stick, then ringing, dying away.
  */
-export function headDip(id: StruckHead, since: number, strength: number): number {
+export function headDip(id: StruckHead, since: number, strength: number, seed?: number): number {
   const h = HEADS[id];
-  if (since < 0 || since > 8 * h.decay) return 0;
-  return -h.dip * strength * Math.exp(-since / h.decay) * Math.cos(2 * Math.PI * h.hz * since);
+  const v = strokeVariety(seed);
+  const decay = h.decay * v.ring;
+  if (since < 0 || since > 8 * decay) return 0;
+  const w = 2 * Math.PI * h.hz * v.rate * since;
+  return -h.dip * strength * v.size * Math.exp(-since / decay) * Math.cos(w);
 }
 
 /**
@@ -642,14 +673,15 @@ export function buildKit(m: Materials): KitModel {
           continue;
         }
         // a struck drum rocks on its mount, as hard as it was struck
-        const m = h && isStruckHead(s.id) ? drumShake(s.id, h.since, h.strength) : undefined;
+        const m =
+          h && isStruckHead(s.id) ? drumShake(s.id, h.since, h.strength, h.seed) : undefined;
         s.group.position.y = m?.y ?? 0;
         s.group.rotation.set(m?.rx ?? 0, 0, m?.rz ?? 0);
       }
       // a struck head dips and rings, as hard as it was struck; still again once it has died
       for (const h of heads) {
         const hit = pose.hits[h.id];
-        const dip = hit ? headDip(h.id, hit.since, hit.strength) : 0;
+        const dip = hit ? headDip(h.id, hit.since, hit.strength, hit.seed) : 0;
         if (dip === 0 && !h.moved) continue;
         const pos = h.geometry.getAttribute('position');
         for (let j = 0; j < pos.count; j++) pos.setZ(j, dip * h.shape[j]);

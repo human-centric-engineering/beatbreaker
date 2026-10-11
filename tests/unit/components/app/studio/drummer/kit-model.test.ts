@@ -479,6 +479,22 @@ describe('drumShake — a struck drum on its mount', () => {
     expect(most('tom1', 0.4)).toBeGreaterThan(most('snare', 0.4) * 10);
   });
 
+  it('lands each stroke a little differently, and the same stroke the same way every frame', () => {
+    const at = (seed: number) => drumShake('tom1', 0.03, 0.8, seed);
+    expect(at(17)).toEqual(at(17));
+    const many = Array.from({ length: 40 }, (_, i) => at(i * 7919 + 1));
+    // harder and softer, and tipped off to either side
+    const tips = many.map((m) => Math.hypot(m.rx, m.rz));
+    expect(Math.max(...tips)).toBeGreaterThan(Math.min(...tips) * 1.3);
+    expect(many.some((m) => m.rz > 0.005)).toBe(true);
+    expect(many.some((m) => m.rz < -0.005)).toBe(true);
+    // never wildly: no more than a quarter past the plain stroke's
+    const plain = Math.max(
+      ...Array.from({ length: 200 }, (_, i) => Math.abs(drumShake('tom1', i / 1000, 0.8).rx))
+    );
+    for (const m of many) expect(Math.hypot(m.rx, m.rz)).toBeLessThan(plain * 1.5);
+  });
+
   it('rocks the struck drum in the kit, and leaves the rest still', () => {
     const { root, update } = buildKit(makeMaterials());
     // every group with a drum head in it, and how it is turned
