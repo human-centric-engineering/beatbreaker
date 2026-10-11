@@ -34,7 +34,10 @@ export function LineageList({ graph, layout }: { graph: LineageGraph; layout: Li
       {FAMILIES.map((family) => {
         const drummers = layout.nodes
           .filter((n) => n.family === family && n.modelled)
-          .sort((a, b) => (a.year ?? 0) - (b.year ?? 0) || a.label.localeCompare(b.label));
+          .sort(
+            // undated last, as the map's "Dates unknown" column is
+            (a, b) => (a.year ?? Infinity) - (b.year ?? Infinity) || a.label.localeCompare(b.label)
+          );
         if (drummers.length === 0) return null;
         return (
           <section key={family} aria-labelledby={`family-${family}`} className="space-y-3">

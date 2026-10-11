@@ -340,7 +340,7 @@ describe('the real records on the map', () => {
     for (const e of layout.edges) {
       expect(placed.has(e.from) && placed.has(e.to), e.id).toBe(true);
     }
-    expect(layout.edges.some((e) => e.kind === 'style')).toBe(false);
+    expect(new Set<string>(layout.edges.map((e) => e.kind)).has('style')).toBe(false);
   });
 
   it('fits everything inside the drawing', () => {
