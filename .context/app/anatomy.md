@@ -210,9 +210,18 @@ A stick is not drawn up and down: it bounces, and the hand uses the bounce
   and a chick shuts the hats on the note, the top cymbal coming back off a
   fraction into a sole that shuts it again. Simulated over the last quarter
   second each frame, from where the foot had it then.
-- **The kick's front head rings** (`resoBulge()` in `kit-model.ts`). After a
-  kick it bows out by up to 3 mm and rings at its fundamental (52 Hz, the
-  (0,1) mode's shape), dying away in about a tenth of a second.
+- **A struck snare or tom head dips and rings** (`headDip()` in
+  `kit-model.ts`). The stick drives its middle in, as far as the note's
+  velocity — up to 1.5 mm on the snare and 3 mm on the floor tom — and it rings
+  in the (0,1) mode's shape, the snare dying fastest (its wires damp it) and the
+  floor tom ringing longest. Each is drawn at under half the frame rate (17–26
+  Hz, high to low as the real 200–80 Hz fundamentals are), so it is seen.
+- **The kick's front head shivers** (`resoShake()` in `kit-model.ts`). After a
+  kick it bows out by up to 4 mm in the (0,1) mode's shape and shakes up to
+  5 mm across its face, the middle most and the hoop holding the edge, so the
+  name round it and the small ring in the middle are seen to shiver; it dies
+  away in a few tenths of a second. It is drawn at 18 Hz, not the head's real
+  ~52 Hz: at 60 frames a second that would alias into a slow, random drift.
 
 ## The stick twirls
 

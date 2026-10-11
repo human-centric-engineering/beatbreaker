@@ -174,9 +174,12 @@ Nothing measured was found for either. The hat stand's spring is taken as
 the sole as a 15 Hz one-sided stop that presses a little past where the foot
 means the board, so a held pedal is shut against the spring rather than
 sagging open, and the top cymbal comes off the bottom one at 0.3 (felt, a
-clutch, two plates). The kick's front head rings at 52 Hz, a low-tuned
-22-inch reso, dying to 1/e in 0.12 s (ported or muffled), bowed out at most
-3 mm, in the shape of a membrane's (0,1) mode, J0(2.405 r/R).
+clutch, two plates). The kick's front head would ring at about 52 Hz, a
+low-tuned 22-inch reso, dying fast (ported or muffled); the model bows it out
+in the shape of a membrane's (0,1) mode, J0(2.405 r/R), but draws it at
+18 Hz, under half a 60 fps frame rate, so it is seen to shiver rather than
+aliased into a drift, and shakes it across its face as well — a head seen
+from the front barely shows a few millimetres toward the camera.
 
 ## 6. Speed, height and phase
 
