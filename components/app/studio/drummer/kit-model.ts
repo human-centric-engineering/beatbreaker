@@ -104,8 +104,8 @@ const HEADS = {
  */
 const BODIES = {
   snare: { hz: 9, decay: 0.12, bob: 0.0032, rock: 0.02 },
-  tom1: { hz: 6, decay: 0.38, bob: 0.005, rock: 0.048 },
-  tom2: { hz: 5.5, decay: 0.4, bob: 0.005, rock: 0.045 },
+  tom1: { hz: 6, decay: 0.38, bob: 0.005, rock: 0.041 },
+  tom2: { hz: 5.5, decay: 0.4, bob: 0.005, rock: 0.038 },
   floor: { hz: 7, decay: 0.22, bob: 0.004, rock: 0.022 },
 } as const;
 

@@ -213,7 +213,7 @@ A stick is not drawn up and down: it bounces, and the hand uses the bounce
 - **A struck snare or tom rocks, and its head rings** (`drumShake()` and
   `headDip()` in `kit-model.ts`), both as far as the note's velocity. The
   whole drum is driven down and tipped toward the drummer, then rocks back and
-  settles: the toms, hung on arms off the kick, wobble most (up to about 2.7°)
+  settles: the toms, hung on arms off the kick, wobble most (up to about 2.3°)
   and longest; the snare in its basket and the floor tom on its feet give less
   and settle sooner. The head dips in by up to 4 mm on the snare and 7 mm on
   the floor tom and rings in the (0,1) mode's shape, the snare dying fastest
