@@ -1,3 +1,4 @@
+import { clamp01, smoothstep } from '@/lib/app/breaks/drummer/ease';
 import {
   type Rebound,
   flight,
@@ -161,15 +162,7 @@ function settled(p: StrokeProfile, peak: number, after: number): number {
   return p.rest + (peak - p.rest) * (1 + k) * Math.exp(-k);
 }
 
-function clamp01(x: number): number {
-  return x < 0 ? 0 : x > 1 ? 1 : x;
-}
-
-export function smoothstep(a: number, b: number, x: number): number {
-  if (b <= a) return x >= b ? 1 : 0;
-  const u = clamp01((x - a) / (b - a));
-  return u * u * (3 - 2 * u);
-}
+export { smoothstep };
 
 /** How far a slow stroke's rebound falls back before the next is prepared, and over what wait, seconds. */
 const LOOP = 0.5;
@@ -232,6 +225,12 @@ interface Plan {
   fall: number;
   /** The rise is the hand following a stick up, not the stick itself. */
   follows: boolean;
+  /**
+   * With a stick that bounces and the next note a long way off, the plan as if
+   * nothing were coming: what a long wait is waited out as, so that the next
+   * note coming into view changes nothing before the stick wakes for it.
+   */
+  idle?: Plan;
 }
 
 function heightOf(h: Hit, p: StrokeProfile): number {
@@ -277,13 +276,24 @@ function planOf(
   }
   // with no time to wait, the rebound goes straight to the next stroke's height
   const peak = Number.isFinite(gap) && gap - rise - fall < 0.03 ? target : bounce;
-  return { prev, next, gap, target, bounce, peak, rise, fall, follows: free !== undefined };
+  const idle = next && free && gap > LONG_GAP[0] ? planOf(prev, undefined, p, free) : undefined;
+  return { prev, next, gap, target, bounce, peak, rise, fall, follows: free !== undefined, idle };
 }
 
 /** Where the plan has the tip at `now`. */
 function liftOf(plan: Plan, now: number, p: StrokeProfile): number {
   const { prev, next, gap, target, peak, rise, fall } = plan;
   const since = prev ? now - prev.time : Infinity;
+  // a long gap is waited out as if nothing were coming — the rebound and all — then the
+  // stick wakes for the next note
+  if (plan.idle && next && now <= next.time - fall) {
+    const long = smoothstep(LONG_GAP[0], LONG_GAP[1], gap);
+    const near = long < 1 ? liftOf({ ...plan, idle: undefined }, now, p) : 0;
+    const far = liftOf(plan.idle, now, p);
+    const hi = next.time - fall;
+    const woken = far + (target - far) * smoothstep(hi - WAKE, hi, now);
+    return near + (woken - near) * long;
+  }
   let lift: number;
   if (prev && since < rise) {
     const u = since / rise;
@@ -336,8 +346,17 @@ function liftOf(plan: Plan, now: number, p: StrokeProfile): number {
  */
 export function fingerShare(h: Hit | undefined, base = 0): number {
   if (!h || h.piece === 'sticks') return 0;
-  const ghost = LOOSE_FINGERS * (1 - smoothstep(FINGERS_ALL, FINGERS_NONE, h.strength));
-  return Math.max(ghost, base, h.piece === 'ride' ? LOOSE_RIDE : 0);
+  return Math.max(LOOSE_FINGERS * ghostShare(h), base, h.piece === 'ride' ? LOOSE_RIDE : 0);
+}
+
+/**
+ * How much of a ghost a note is, 0–1: all of it at a ghost's strength, none
+ * at a backbeat's. Its stroke is the fingers' (`fingerShare`), and so is the
+ * back fingers' flick through it (`pose.ts`).
+ */
+export function ghostShare(h: Hit | undefined): number {
+  if (!h || h.piece === 'sticks') return 0;
+  return 1 - smoothstep(FINGERS_ALL, FINGERS_NONE, h.strength);
 }
 
 /** A stroke this soft or softer is the fingers' alone, and one this hard or harder none of it. */
@@ -407,15 +426,24 @@ function reboundOf(hits: readonly Hit[], i: number, p: StrokeProfile): Rebound {
   // the closer the notes, the more of each is the fingers'
   const f0 = Math.max(fingerShare(prev, base), quickFingers(thrown.gap));
   const f1 = next ? Math.max(fingerShare(next, base), quickFingers(plan.gap)) : base;
+  // how far the next note is past a long gap, and when the stick wakes for it
+  const long = smoothstep(LONG_GAP[0], LONG_GAP[1], plan.gap);
+  const wake = next ? next.time - plan.fall : Infinity;
   const r = simulate({
     t0: prev.time,
     v0,
     f0,
     e,
     plan: (t) => liftOf(plan, t, p),
-    fingers: (t) => f0 + (f1 - f0) * smoothstep(prev.time, prev.time + plan.rise, t),
+    fingers: (t) => {
+      // waiting out a long gap, the hand holds the stick as it would with nothing coming,
+      // and takes it as the next note wants only as it wakes for it
+      const wait = f1 + (base - f1) * long * (1 - smoothstep(wake - WAKE, wake, t));
+      return f0 + (wait - f0) * smoothstep(prev.time, prev.time + plan.rise, t);
+    },
     caught: prev.time + plan.rise,
-    tight: next ? tightness(thrown.target, plan.target + p.stop) : 0,
+    // (a downstroke is stopped for the note close behind it; one far off, the stick settles)
+    tight: next ? tightness(thrown.target, plan.target + p.stop) * (1 - long) : 0,
     next: next && {
       t1: next.time,
       fall: plan.fall,

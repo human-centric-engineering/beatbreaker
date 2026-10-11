@@ -1,3 +1,4 @@
+import { smoothstep } from '@/lib/app/breaks/drummer/ease';
 import { STICK } from '@/lib/app/breaks/drummer/kit-layout';
 import type { Hit } from '@/lib/app/breaks/drummer/timeline';
 
@@ -87,8 +88,10 @@ const CATCH = 8;
 /** Its damping, as a share of critical. */
 const GRIP_DAMP_LOOSE = 0.6;
 const GRIP_DAMP_TIGHT = 0.9;
-/** How soon the grip closes on a downstroke's rebound, seconds. */
+/** How soon the grip closes on a downstroke's rebound, how long it holds, and how long it eases, seconds. */
 const CLOSE = 0.012;
+const HOLD = 0.15;
+const EASE = 0.2;
 /**
  * A grip closed at the head: how much less of the blow it gives back, and how
  * much of it goes into the hand rather than the stick turning in the fingers
@@ -238,8 +241,9 @@ export interface Rebound {
   /** The throw's own samples, when the wait between was left to the plan. */
   throwAt?: Rebound;
   spec: ReboundSpec;
-  /** How far the wrist runs ahead of the stick, seconds (see `wristLead`). */
+  /** How far the wrist runs ahead of the stick, seconds (see `wristLead`), and when it starts the throw. */
   lead: number;
+  tHand: number;
 }
 
 /** A cubic from `(x0, v0)` at 0 to `(x1, v1)` at `T`: position, speed and acceleration at `u` seconds in. */
@@ -298,12 +302,6 @@ function leadAt(spec: ReboundSpec, lead: number, t: number): number {
   return lead * smoothstep(spec.caught, spec.caught + lead, t);
 }
 
-function smoothstep(a: number, b: number, x: number): number {
-  if (b <= a) return x >= b ? 1 : 0;
-  const u = Math.max(0, Math.min(1, (x - a) / (b - a)));
-  return u * u * (3 - 2 * u);
-}
-
 /** Where the plan has the hand at `t`, radians, and how fast and how hard it is turning. */
 function handPlan(spec: ReboundSpec, t: number): { x: number; v: number; a: number } {
   const at = (u: number) => (spec.plan(u) * (1 - spec.fingers(u))) / R_HAND;
@@ -343,7 +341,8 @@ export function simulate(spec: ReboundSpec): Rebound {
   const lead = next ? wristLead(next.t1 - t0) : 0;
   const tHand = next ? Math.max(t0, tStick - Math.min(lead, (tStick - t0) * 0.5)) : Infinity;
   // a long wait is the plan's: simulate the rebound, and then the throw from where the plan has it
-  const long = next !== undefined && tHand - t0 > SIM_MAX;
+  // (only past the hand-over to the plan, so the throw starts from where the plan has it)
+  const long = next !== undefined && tHand - t0 > SIM_MAX + HANDOVER;
   const simEnd = long ? t0 + SIM_MAX : end;
   const out = run(spec, t0, simEnd, impactState(spec), tHand, tStick, lead);
   if (long && next) {
@@ -351,6 +350,18 @@ export function simulate(spec: ReboundSpec): Rebound {
     out.throwAt = run(spec, tHand, next.t1, from, tHand, tStick, lead);
   }
   return out;
+}
+
+/**
+ * How closed the grip is at `t`, 0–1: on a downstroke, closing a moment after
+ * the head, held while the rebound is stopped, then easing — and let go
+ * through the throw, so it is open again as the next note meets the head.
+ */
+function closedAt(spec: ReboundSpec, tHand: number, t: number): number {
+  const after = t - spec.t0;
+  const held = 1 - smoothstep(CLOSE + HOLD, CLOSE + HOLD + EASE, after);
+  const thrown = spec.next ? 1 - smoothstep(tHand, spec.next.t1, t) : 1;
+  return spec.tight * Math.min(1, after / CLOSE) * held * thrown;
 }
 
 /** Just off the head after the stroke at `t0`: the hand as it struck, the stick thrown back up in the fingers. */
@@ -386,8 +397,9 @@ function run(
     grip: new Float32Array(count),
     spec,
     lead,
+    tHand,
   };
-  const { next, tight } = spec;
+  const { next } = spec;
   // how far the fingers open for the rebound: wide with time to let it fly, hardly at all
   // with the next note close behind, where they keep the stick near and meter its bounce
   const open = next ? smoothstep(...OPEN_GAP, next.t1 - spec.t0) : 1;
@@ -399,10 +411,9 @@ function run(
   const t1 = next?.t1 ?? Infinity;
 
   for (let k = 0; k < count; k++) {
-    const closedAt = (t: number) => tight * Math.min(1, (t - spec.t0) / CLOSE);
     out.lift[k] = Math.max(0, R_HAND * phi + R_TIP * psi);
     out.hand[k] = R_HAND * phi;
-    out.grip[k] = closedAt(from + k * STEP);
+    out.grip[k] = closedAt(spec, tHand, from + k * STEP);
     // the plan, read once a sample: it is smooth over a millisecond
     const at = from + k * STEP;
     const y = spec.plan(at);
@@ -411,7 +422,7 @@ function run(
       const t = from + k * STEP + j * DT;
       // the grip: open with slack for a free stroke; closed and stiff, a moment after the
       // head, for a downstroke
-      const closed = closedAt(t);
+      const closed = closedAt(spec, tHand, t);
       // (once the hand has the stick back, the fingers are closed on it for the next stroke)
       const slack =
         SLACK * open * (1 - closed) * (1 - smoothstep(spec.caught, spec.caught + REGRIP, t));
@@ -501,7 +512,8 @@ export function reboundAt(r: Rebound, t: number): { lift: number; hand: number; 
 function plannedAt(r: Rebound, t: number) {
   const { spec } = r;
   const ahead = t + leadAt(spec, r.lead, t);
-  return { lift: spec.plan(t), hand: spec.plan(ahead) * (1 - spec.fingers(ahead)), grip: 0 };
+  const hand = spec.plan(ahead) * (1 - spec.fingers(ahead));
+  return { lift: spec.plan(t), hand, grip: closedAt(spec, r.tHand, t) };
 }
 
 function blend(

@@ -48,7 +48,7 @@ import {
   hatOpenAt,
   drift,
   crashOn,
-  fingerShare,
+  ghostShare,
   lastAtOrBefore,
   seedOf,
   smoothstep,
@@ -942,12 +942,12 @@ function arm(
   // ...and how high the hand's own turn has it: what the rebound left it, the stick loose
   // ahead of it in the fingers. Counting, the arm plays the stick held fixed, a moment
   // ahead of the click. (`fingers`: the stroke coming, or with none coming the one just played)
-  const fingers = counting ? 0 : fingerShare(st.next ?? st.prev, style.loose);
+  const fingers = counting ? 0 : ghostShare(st.next ?? st.prev);
   const early = Math.min(cap, sign * time.ahead * time.height + arc + time.air);
   // (the arm's lead fades out at the click, so the sticks still meet where they are aimed)
   const ahead = counting
     ? lift + (early - lift) * Math.min(1, Math.abs(lift) / COUNT_FADE)
-    : Math.min(cap, st.hand * time.height + arc + time.air);
+    : Math.min(cap, Math.max(0, st.hand) * time.height + arc + time.air);
   // set down for a cross-stick, the hand lies as it lies whatever the grip
   const american = from.roll + (to.roll - from.roll) * travel;
   const roll = gripRoll(style, american) + (american - gripRoll(style, american)) * crossed;
@@ -1154,7 +1154,7 @@ function arm(
   // too for a ghost, which they threw — and open to let it turn as it rises: all
   // the way over a finger stroke's inch. The squeeze is the note just played's,
   // whatever comes next: a ghost before the backbeat is still the fingers'
-  const thrown = Math.max(st.prev?.strength ?? 0, 0.8 * (counting ? 0 : fingerShare(st.prev)));
+  const thrown = Math.max(st.prev?.strength ?? 0, 0.8 * (counting ? 0 : ghostShare(st.prev)));
   const squeeze = st.prev ? thrown * Math.exp(-st.since * 22) : 0;
   const giveAt = GIVE_FULL + (GIVE_FINGERS - GIVE_FULL) * fingers;
   const give = Math.min(1, lift / giveAt) + 1.6 * tw.amount;
@@ -1891,7 +1891,11 @@ export function poseAt(
       air: groove * idle * AIR_SWING * 2 * (0.5 - dip) * ex.nodScale,
       height: (1 + HEIGHT_DRIFT * drift(now, HEIGHT_PERIOD, salt)) * (1 + groove * barCue(hand)),
       sway: groove * ex.nodScale * 0.1 * (0.5 - settle),
-      ahead: strokeAt(hits, now + COUNT_LEAD, stroke[hand]).lift,
+      // (only counting in reads it: no stroke worked out a frame early for nothing)
+      ahead:
+        (st.next ?? st.prev)?.piece === 'sticks'
+          ? strokeAt(hits, now + COUNT_LEAD, stroke[hand]).lift
+          : 0,
       twirl: twirls[hand],
       cross: crossLiftAt(st, now),
       ready: crossReadyAt(st),

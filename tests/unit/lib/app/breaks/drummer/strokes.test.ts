@@ -2,14 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { Hit } from '@/lib/app/breaks/drummer/timeline';
 import { flight, impactSpeed, restitution } from '@/lib/app/breaks/drummer/rebound';
-import {
-  HAND,
-  KICK,
-  hatOpenAt,
-  lastAtOrBefore,
-  smoothstep,
-  strokeAt,
-} from '@/lib/app/breaks/drummer/strokes';
+import { HAND, KICK, hatOpenAt, lastAtOrBefore, strokeAt } from '@/lib/app/breaks/drummer/strokes';
 
 /**
  * The stroke planner: a stick's height, travel and rebound between two
@@ -31,28 +24,6 @@ function hit(time: number, strength: number, extra: Partial<Hit> = {}): Hit {
     ...extra,
   };
 }
-
-describe('smoothstep', () => {
-  it('is 0 at and before a, 1 at and after b, and monotonic in between', () => {
-    expect(smoothstep(0, 1, -0.5)).toBe(0);
-    expect(smoothstep(0, 1, 0)).toBe(0);
-    expect(smoothstep(0, 1, 1)).toBe(1);
-    expect(smoothstep(0, 1, 1.5)).toBe(1);
-    const xs = [0, 0.25, 0.5, 0.75, 1];
-    const ys = xs.map((x) => smoothstep(0, 1, x));
-    for (let i = 1; i < ys.length; i++) expect(ys[i]).toBeGreaterThanOrEqual(ys[i - 1]);
-  });
-
-  it('is symmetric about the midpoint', () => {
-    expect(smoothstep(0, 1, 0.3)).toBeCloseTo(1 - smoothstep(0, 1, 0.7), 9);
-  });
-
-  it('treats a degenerate interval (b <= a) as a step function at b', () => {
-    expect(smoothstep(1, 1, 0.9)).toBe(0);
-    expect(smoothstep(1, 1, 1)).toBe(1);
-    expect(smoothstep(1, 0.5, 2)).toBe(1); // b < a
-  });
-});
 
 describe('lastAtOrBefore', () => {
   const hits = [hit(0, 1), hit(1, 1), hit(2, 1)];
@@ -108,7 +79,8 @@ describe('strokeAt', () => {
   });
 
   it('on a downstroke (accent -> ghost), closes the grip and stops the rebound near the ghost’s height', () => {
-    const hits = [hit(0, 1), hit(2, 0.1)]; // a big gap: nothing here caps the rebound by speed
+    // room to let the rebound fly, but not a long wait (one far off is waited out at rest)
+    const hits = [hit(0, 1), hit(0.6, 0.1)];
     // each note's height carries its own small variation (`reach`)
     const reach = (h: Hit) => HAND.reach?.(h) ?? 1;
     const target = HAND.height(0.1) * reach(hits[1]);
@@ -119,7 +91,7 @@ describe('strokeAt', () => {
 
     let peak = 0;
     let grip = 0;
-    for (let t = 0; t < 1; t += 0.002) {
+    for (let t = 0; t < 0.4; t += 0.002) {
       const st = strokeAt(hits, t, HAND);
       peak = Math.max(peak, st.lift);
       grip = Math.max(grip, st.grip);

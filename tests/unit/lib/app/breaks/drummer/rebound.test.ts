@@ -160,7 +160,10 @@ describe('simulate', () => {
       return top;
     };
     expect(peak(1)).toBeLessThan(peak(0) * 0.6);
-    expect(simulate(spec({ tight: 1 })).grip.at(-1)).toBeCloseTo(1, 6);
+    // closed a moment after the head, then eased once the rebound is stopped
+    const grip = simulate(spec({ tight: 1 })).grip;
+    expect(Math.max(...grip)).toBeCloseTo(1, 6);
+    expect(grip.at(-1)).toBeCloseTo(0, 6);
   });
 
   it('turns the wrist down before the tip on the throw: the stick follows like a whip', () => {

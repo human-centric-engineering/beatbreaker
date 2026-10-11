@@ -313,6 +313,13 @@ Shoulders and elbows stay inside their ranges throughout, and
   carry the stick on its cuticle, passes up to 11 mm into it.
   `GRIP_MILITARY` and `STICK_MILITARY` want deriving from the curled fingers,
   as the matched fulcrum was.
+- **A traditional rimshot races the forearm.** Held level for the rim, the
+  stroke asks the forearm's turn (`forearmTurn()` in `pose.ts`) for more than
+  it can give, so the turn sits at its limit and then comes off it at the
+  throw's speed: the wrist moves at about 3 m/s for a frame or two, where an
+  accented backbeat's moves at 1. The tip is where it should be throughout.
+  It wants the share between forearm and web worked out from the turn's reach
+  rather than clamped (a `todo` in `pose.test.ts`).
 - **The dressed thumb is short** (below), so it points down onto the stick's
   side by the fulcrum rather than lying flat along it.
 - **The cross-stick's wrist is past its range.** With the heel and fingers
