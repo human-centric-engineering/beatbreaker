@@ -167,6 +167,17 @@ model buries most loud lone heel-up notes, as rock players do, and lets soft
 notes and the first of a run come off the head (the run's next note is played
 off the rebound).
 
+## 5b. The hi-hat pedal and the kick's front head [I]
+
+Nothing measured was found for either. The hat stand's spring is taken as
+5 Hz on the pedal's travel (the hats apart in about a twentieth of a second),
+the sole as a 15 Hz one-sided stop that presses a little past where the foot
+means the board, so a held pedal is shut against the spring rather than
+sagging open, and the top cymbal comes off the bottom one at 0.3 (felt, a
+clutch, two plates). The kick's front head rings at 52 Hz, a low-tuned
+22-inch reso, dying to 1/e in 0.12 s (ported or muffled), bowed out at most
+3 mm, in the shape of a membrane's (0,1) mode, J0(2.405 r/R).
+
 ## 6. Speed, height and phase
 
 **Speed and height [S]**
@@ -187,7 +198,7 @@ The model throws the stick from where it waits with an even acceleration of abou
 
 ## Gaps
 
-- No measured restitution for cymbals, hats, rim or kick.
+- No measured restitution for cymbals, hats, rim or kick; no measured hat-stand spring or kick reso motion.
 - No measured grip stiffness: Hajian 1997 could not be reached.
 - No measured ratio for the second note of a double.
 - Dahl & Altenmüller's grip effects are qualitative only.

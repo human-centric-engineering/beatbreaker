@@ -26,6 +26,7 @@ movement. The numbers and their sources are in
 | `lib/app/breaks/drummer/gesture.ts`               | The waiting drummer's show: `showAt()` (when one plays), `showPose()` (both arms, the head's look), `showOverlaps()` (so the stick twirls keep out of its way).                                                                                                                   |
 | `lib/app/breaks/drummer/rebound.ts`               | The stick bouncing in the hand: `simulate()` (a stretch between two notes, worked out once; a buzz's press), `reboundAt()`, `restitution()` (each piece's), `impactSpeed()`, `flight()`, `clickFlick()`. Driven by `strokeAt()` in `strokes.ts`; see [The rebound](#the-rebound). |
 | `lib/app/breaks/drummer/beater.ts`                | The kick pedal bouncing under the foot: `beaterAt()` (the pose's kick and double pedal), `buries()` (whether a note's beater is held on the head).                                                                                                                                |
+| `lib/app/breaks/drummer/hat-pedal.ts`             | The hi-hat pedal moving under the foot: `hatPedalAt()` (the pose's hat gap and board), from where the foot means it (`chickLiftAt()` in `hat-foot.ts`, `hatOpenAt()`).                                                                                                            |
 
 The skeleton is a persona, **Mister Bones** (`kind: 'skeleton'`), so it joins
 the cast. `DrummerStage` seats whoever it is given through `buildFigure()`.
@@ -202,7 +203,16 @@ A stick is not drawn up and down: it bounces, and the hand uses the bounce
   down, the beater on the head — and a soft note, or one the rebound carries
   into the next of a run, is let off. The pose draws the pedal, and the foot on
   it, from the simulation.
-- **Not simulated:** the hi-hat pedal (still the planner's curve).
+- **The hi-hat pedal is sprung** (`hat-pedal.ts`). Board, rod and top cymbal
+  are one piece; the stand's spring pushes it up, the bottom cymbal stops it
+  and throws it back, and the foot only pushes down. The spring lifts the board
+  after a toe coming up — a moment behind it on a quick chick or an open note —
+  and a chick shuts the hats on the note, the top cymbal coming back off a
+  fraction into a sole that shuts it again. Simulated over the last quarter
+  second each frame, from where the foot had it then.
+- **The kick's front head rings** (`resoBulge()` in `kit-model.ts`). After a
+  kick it bows out by up to 3 mm and rings at its fundamental (52 Hz, the
+  (0,1) mode's shape), dying away in about a tenth of a second.
 
 ## The stick twirls
 
