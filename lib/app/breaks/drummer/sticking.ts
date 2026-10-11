@@ -69,6 +69,14 @@ import type { Bar, LaneKey } from '@/lib/app/breaks/types';
  * up a long run or when two land at once. A grace note is the hand that is not
  * playing the note it decorates, when that hand is free.
  *
+ * Where the pattern writes its sticking (a rudiment, D44), the hand written
+ * plays the step: `R` the lead hand, `L` the other, so a left-hander's
+ * drummer leads with the left as a left-handed player would. The drum on the
+ * step goes to it, anything else on the step to the other hand, and a grace
+ * to the other hand as ever, unless the letter is lower case, when the grace
+ * is a bounce of the same stick and is not mimed. Steps without a letter are
+ * placed by the costs above.
+ *
  * On a double pedal (a pattern from a double-kick style) the kick is two
  * feet's: a run of kicks goes right foot, left foot, the left foot taking
  * every other one — unless it is on the hat pedal for a chick on that step,
@@ -299,8 +307,39 @@ function crossBar(bar: Bar): boolean {
 /** The snare's ghost value. */
 const GHOST = 1;
 
+/** The hand a written letter names, and whether its grace is on the same stick. */
+function writtenHand(ch: string | undefined): { hand: Hand; same: boolean } | null {
+  if (ch === 'R' || ch === 'r') return { hand: 'lead', same: ch === 'r' };
+  if (ch === 'L' || ch === 'l') return { hand: 'other', same: ch === 'l' };
+  return null;
+}
+
+/**
+ * A step with its hand written: the drum on it to that hand (or, with no
+ * drum, its first note), the other note to the other hand where it can reach
+ * it. A hand written for a drum it cannot reach (a share code's `L` on the
+ * floor tom) is not obeyed: the step is the costs' to place, as if unwritten,
+ * rather than one no path through the bar can take.
+ */
+function writtenStep(bar: Bar, i: number, ch: string): StepHands[] | null {
+  const written = writtenHand(ch);
+  const notes = handNotes(bar, i);
+  if (!written || !notes.length) return null;
+  const main = notes.find((lane) => DRUMS.includes(lane)) ?? notes[0];
+  if (!reaches(written.hand, main)) return null;
+  const rest = notes.find((lane) => lane !== main);
+  const step = finish(bar, i, {
+    [main]: written.hand,
+    ...(rest && reaches(other(written.hand), rest) ? { [rest]: other(written.hand) } : {}),
+  });
+  if (written.same) delete step.grace;
+  return [step];
+}
+
 /** The ways a step's notes can be shared between the hands; `turn` says hand to hand, and whose go it is. */
-function choices(bar: Bar, i: number, turn?: Hand): StepHands[] {
+function choices(bar: Bar, i: number, turn?: Hand, sticking?: string | null): StepHands[] {
+  const written = sticking?.[i] ? writtenStep(bar, i, sticking[i]) : null;
+  if (written) return written;
   const lane = turn && turnNote(bar, i);
   // a ghost under the hats: the other hand plays it, the lead hand stays on the hats
   if (lane === 's' && bar.s[i] === GHOST && bar.h[i])
@@ -485,7 +524,8 @@ function assign(
   prev: StepHands | null,
   from: HandsAt,
   kept: number,
-  oneHand: boolean
+  oneHand: boolean,
+  sticking?: string | null
 ): StepHands[] {
   // the other hand set down on the snare for the cross-sticks does not come up for the hats
   const stay = crossBar(bar);
@@ -501,7 +541,7 @@ function assign(
   };
   paths.set(stateKey(start), { state: start, cost: 0, steps: [] });
   for (let i = 0; i < bar.k.length; i++) {
-    const options = choices(bar, i, turns[i]);
+    const options = choices(bar, i, turns[i], sticking);
     const next = new Map<string, { state: HandsState; cost: number; steps: StepHands[] }>();
     for (const { state, cost, steps } of paths.values()) {
       for (const step of options) {
@@ -576,14 +616,16 @@ export function assignBar(
   bar: Bar,
   before?: Bar | null,
   doubleKick = false,
-  oneHandHats = false
+  oneHandHats = false,
+  written?: WrittenRows
 ): StepHands[] {
   if (doubleKick) {
-    const hands = assignBar(bar, before, false, oneHandHats);
+    const hands = assignBar(bar, before, false, oneHandHats, written);
     let out = doubled.get(hands);
     if (!out) doubled.set(hands, (out = withDoublePedal(hands, bar, before)));
     return out;
   }
+  if (written?.bar || written?.before) return assignWritten(bar, before, oneHandHats, written);
   if (before) {
     const following = followings[`${oneHandHats}`];
     let byBefore = following.get(bar);
@@ -602,5 +644,48 @@ export function assignBar(
   if (hit) return hit;
   const out = assign(bar, null, HAND_REST, FILL_AFTER, oneHandHats);
   cache.set(bar, out);
+  return out;
+}
+
+/** The sticking written for a bar and for the bar before it, one letter a step (D44). */
+export interface WrittenRows {
+  bar?: string | null;
+  before?: string | null;
+}
+
+/** Bars with sticking, by bar, then by hat sticking and the rows, then by the bar before. */
+const writtenCache = new WeakMap<
+  Bar,
+  Map<string, { alone?: StepHands[]; after: WeakMap<Bar, StepHands[]> }>
+>();
+
+/** {@link assignBar} for a bar whose sticking, or whose bar before's, is written. */
+function assignWritten(
+  bar: Bar,
+  before: Bar | null | undefined,
+  oneHandHats: boolean,
+  written: WrittenRows
+): StepHands[] {
+  let byKey = writtenCache.get(bar);
+  if (!byKey) {
+    byKey = new Map<string, { alone?: StepHands[]; after: WeakMap<Bar, StepHands[]> }>();
+    writtenCache.set(bar, byKey);
+  }
+  const key = `${oneHandHats}|${written.bar ?? ''}|${written.before ?? ''}`;
+  let hit = byKey.get(key);
+  if (!hit) byKey.set(key, (hit = { after: new WeakMap() }));
+  const seen = before ? hit.after.get(before) : hit.alone;
+  if (seen) return seen;
+  let out: StepHands[];
+  if (before) {
+    const lead = assignBar(before, null, false, oneHandHats, { bar: written.before });
+    let at: HandsAt = HAND_REST;
+    for (const step of lead) at = after(step, at);
+    out = assign(bar, lead[lead.length - 1] ?? null, at, keptAtEnd(lead), oneHandHats, written.bar);
+    hit.after.set(before, out);
+  } else {
+    out = assign(bar, null, HAND_REST, FILL_AFTER, oneHandHats, written.bar);
+    hit.alone = out;
+  }
   return out;
 }

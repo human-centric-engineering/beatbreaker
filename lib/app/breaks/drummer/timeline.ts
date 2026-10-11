@@ -6,7 +6,7 @@ import {
   LANE_PIECE,
   type PieceId,
 } from '@/lib/app/breaks/drummer/kit-layout';
-import { type StepHands, assignBar } from '@/lib/app/breaks/drummer/sticking';
+import { type StepHands, type WrittenRows, assignBar } from '@/lib/app/breaks/drummer/sticking';
 import { CHINA, HALF_OPEN, PERC_INSTS, RIMSHOT } from '@/lib/app/breaks/lanes';
 import { isGroupStart } from '@/lib/app/breaks/meter';
 import { LEVELS, type Voice } from '@/lib/app/breaks/perform';
@@ -115,11 +115,12 @@ export function gridHits(
   before?: Bar | null,
   aux: readonly LaneKey[] = [],
   doubleKick = false,
-  oneHandHats = false
+  oneHandHats = false,
+  written?: WrittenRows
 ): Hit[] {
   bar = barWithout(bar, aux);
   const hands: StepHands =
-    assignBar(bar, before && barWithout(before, aux), doubleKick, oneHandHats)[i] ?? {};
+    assignBar(bar, before && barWithout(before, aux), doubleKick, oneHandHats, written)[i] ?? {};
   const out: Hit[] = [];
   for (const lane of LANES_PLAYED) {
     const value = bar[lane][i];
@@ -144,7 +145,8 @@ export function gridHits(
 export function scheduledHits(
   step: ScheduledStep,
   before?: Bar | null,
-  aux: readonly LaneKey[] = []
+  aux: readonly LaneKey[] = [],
+  beforeSticking?: string | null
 ): Hit[] {
   const { bar, slot, t } = step;
   if (step.count || !bar) return countHits(step);
@@ -153,7 +155,8 @@ export function scheduledHits(
       barWithout(bar, aux),
       before && barWithout(before, aux),
       !!step.doubleKick,
-      !!step.oneHandHats
+      !!step.oneHandHats,
+      { bar: step.sticking, before: beforeSticking }
     )[slot] ?? {};
   const out: Hit[] = [];
   for (const { voice, when } of step.notes) {
@@ -288,8 +291,13 @@ export class StrokeTimeline {
   private lastStep = -Infinity;
   private merged: Hit[] | null = null;
   /** The bar of the last step heard, its slot, and the bar heard before the current one. */
-  private heard: { bar: Bar | null; slot: number } = { bar: null, slot: -1 };
+  private heard: { bar: Bar | null; slot: number; sticking?: string | null } = {
+    bar: null,
+    slot: -1,
+  };
   private before: Bar | null = null;
+  /** The sticking written for {@link before}. */
+  private beforeSticking: string | null = null;
   /** Percussion lanes a percussionist plays, learnt from what they sound as. */
   private aux: LaneKey[] = [];
   /** The ones heard lately, and the next one coming, if it is known. */
@@ -322,12 +330,13 @@ export class StrokeTimeline {
     // a new bar has begun when the slot comes round (a one-bar loop is its own bar before)
     if (step.slot <= this.heard.slot || step.bar !== this.heard.bar) {
       this.before = step.slot === 0 ? this.heard.bar : null;
+      this.beforeSticking = step.slot === 0 ? (this.heard.sticking ?? null) : null;
     }
-    this.heard = { bar: step.bar, slot: step.slot };
+    this.heard = { bar: step.bar, slot: step.slot, sticking: step.sticking };
     this.doublePedal = !!step.doubleKick;
     this.noteDownbeats(step);
     this.learnPercussion(step);
-    this.sure.push(...scheduledHits(step, this.before, this.aux));
+    this.sure.push(...scheduledHits(step, this.before, this.aux, this.beforeSticking));
     const cutoff = step.t - KEEP_S;
     if (this.sure.length && this.sure[0].time < cutoff) {
       this.sure = this.sure.filter((h) => h.time >= cutoff);
@@ -335,7 +344,7 @@ export class StrokeTimeline {
     this.ahead = step.count
       ? countAhead(step, this.aux)
       : step.bar
-        ? forecast(step, this.before, this.aux)
+        ? forecast(step, this.before, this.aux, this.beforeSticking)
         : [];
     this.merged = null;
     for (const bar of [step.bar, step.next]) {
@@ -400,6 +409,7 @@ export class StrokeTimeline {
     this.clock = null;
     this.heard = { bar: null, slot: -1 };
     this.before = null;
+    this.beforeSticking = null;
     this.aux = [];
     this.ones = [];
     this.nextOne = null;
@@ -443,27 +453,37 @@ function countAhead(step: ScheduledStep, aux: readonly LaneKey[]): Hit[] {
       out.push(...hits.map((h) => ({ ...h, sure: false })));
     } else if (step.next && k - left < step.next.k.length) {
       out.push(
-        ...gridHits(step.next, k - left, t, null, aux, !!step.doubleKick, !!step.oneHandHats)
+        ...gridHits(step.next, k - left, t, null, aux, !!step.doubleKick, !!step.oneHandHats, {
+          bar: step.nextSticking,
+        })
       );
     } else break;
   }
   return out;
 }
 
-function forecast(step: ScheduledStep, before: Bar | null, aux: readonly LaneKey[]): Hit[] {
+function forecast(
+  step: ScheduledStep,
+  before: Bar | null,
+  aux: readonly LaneKey[],
+  beforeSticking: string | null = null
+): Hit[] {
+  const { doubleKick, oneHandHats } = step;
+  const here: WrittenRows = { bar: step.sticking, before: beforeSticking };
+  const then: WrittenRows = { bar: step.nextSticking, before: step.sticking };
   const out: Hit[] = [];
   const { bar, next, slot, t, dur } = step;
   if (!bar) return out;
   const n = bar.k.length;
   let k = 1;
   for (let i = slot + 1; i < n && k <= FORECAST_STEPS; i++, k++)
-    out.push(...gridHits(bar, i, t + k * dur, before, aux, !!step.doubleKick, !!step.oneHandHats));
+    out.push(...gridHits(bar, i, t + k * dur, before, aux, !!doubleKick, !!oneHandHats, here));
   if (next) {
     const m = next.k.length;
     // (the next bar is read as this one is played: a section of another pattern is
     // corrected as it is scheduled)
     for (let i = 0; i < m && k <= FORECAST_STEPS; i++, k++)
-      out.push(...gridHits(next, i, t + k * dur, bar, aux, !!step.doubleKick, !!step.oneHandHats));
+      out.push(...gridHits(next, i, t + k * dur, bar, aux, !!doubleKick, !!oneHandHats, then));
   }
   return out;
 }

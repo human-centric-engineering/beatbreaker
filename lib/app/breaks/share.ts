@@ -1,7 +1,7 @@
 import { BASE_LANES, LANES, percRoster } from '@/lib/app/breaks/lanes';
 import { DEFAULT_METER, METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { LAYER_V1_TO_V2 } from '@/lib/app/breaks/layers';
-import { emptyBar, styleAttrs } from '@/lib/app/breaks/pattern';
+import { emptyBar, stickingRow, styleAttrs, tidySticking } from '@/lib/app/breaks/pattern';
 import { type PackedPattern, type SharePayload, sharePayloadSchema } from '@/lib/app/breaks/schema';
 import type { LaneKey, Pattern, PercLaneKey, Pins, ResolvedStyle } from '@/lib/app/breaks/types';
 
@@ -111,6 +111,10 @@ export function packPattern(p: Pattern): PackedPattern {
           return Object.keys(o).length ? o : (0 as const);
         })
       : (0 as const),
+    ...(p.sticking?.some(Boolean)
+      ? { sk: p.sticking.map((row) => (row && /[RLrl]/.test(row) ? row : (0 as const))) }
+      : {}),
+    ...(p.fixed ? { fx: 1 as const } : {}),
     b: p.bars.map((bar) => LANES.map((L) => bar[L].join('')).join('|')),
   };
 }
@@ -180,6 +184,11 @@ export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Patte
         })
       : null;
 
+  // one row a bar, held to the bar's length; a row past the last bar is dropped
+  const sticking = tidySticking(
+    p.sk?.slice(0, p.b.length).map((row) => stickingRow(row === 0 ? null : row, n))
+  );
+
   return {
     name: p.n,
     style: p.st,
@@ -196,6 +205,8 @@ export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Patte
     hasRide: !!p.hr,
     hasHat: !!p.hh,
     pins,
+    ...(sticking ? { sticking } : {}),
+    ...(p.fx ? { fixed: true } : {}),
     bars: p.b.map((row) => {
       const parts = row.split('|');
       const bar = emptyBar(n);

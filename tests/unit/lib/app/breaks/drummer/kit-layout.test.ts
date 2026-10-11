@@ -415,3 +415,25 @@ describe('rimShot', () => {
     });
   }
 });
+
+describe('strikeTarget — two hands on one drum', () => {
+  /* A single-stroke roll on the snare: the sticks meet the head in a V, each
+     tip on its own hand's side of the centre line, so they never cross. */
+  it("keeps each hand's tip on its own side, wherever the scatter puts it", () => {
+    const corners = [-1, 1];
+    for (const drum of ['snare', 'tom1', 'tom2', 'floor'] as const) {
+      for (const a of corners)
+        for (const b of corners) {
+          const lead = strikeTarget(drum, 'centre', [a, 0], 'lead').tip[0];
+          const other = strikeTarget(drum, 'centre', [b, 0], 'other').tip[0];
+          expect(lead - other, `${drum} ${a} ${b}`).toBeGreaterThan(0.02);
+        }
+    }
+  });
+
+  it('leaves a note with no hand where it always was', () => {
+    expect(strikeTarget('snare', 'centre', [0.5, 0.5])).toEqual(
+      strikeTarget('snare', 'centre', [0.5, 0.5], undefined)
+    );
+  });
+});

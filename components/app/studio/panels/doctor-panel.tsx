@@ -4,10 +4,14 @@ import { ScoreCard } from '@/components/app/studio/panels/score-card';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { DOCTOR_MOVES } from '@/lib/app/breaks/doctor';
+import { noStyleReason } from '@/lib/app/breaks/library';
 
 export function DoctorPanel() {
   const c = useStudio();
   const { say } = c;
+  /** Why the section on the stage cannot be rewritten in its style, finishing "so it cannot be …". */
+  const cannot = (done: string) =>
+    noStyleReason(c.view[c.editing]?.style ?? c.style, c.editing, done);
 
   return (
     <>
@@ -39,7 +43,7 @@ export function DoctorPanel() {
                   say(
                     c.regenerate()
                       ? `Section ${c.editing} regenerated — undo brings the old take back`
-                      : `Section ${c.editing}'s style is not in the catalogue, so it cannot be regenerated`
+                      : cannot('regenerated')
                   )
                 }
                 disabled={!c.view[c.editing]}
@@ -50,7 +54,14 @@ export function DoctorPanel() {
           </div>
           <div className="btnrow">
             {DOCTOR_MOVES.map(({ move, label }) => (
-              <button key={move} type="button" className="mini" onClick={() => c.applyDoctor(move)}>
+              <button
+                key={move}
+                type="button"
+                className="mini"
+                onClick={() => {
+                  if (!c.applyDoctor(move)) say(cannot('doctored'));
+                }}
+              >
                 {label}
               </button>
             ))}

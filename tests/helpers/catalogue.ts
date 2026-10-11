@@ -1,5 +1,5 @@
 import { KIT_GROUP_LABELS, kitEngine, kitGroups } from '@/lib/app/breaks/kit';
-import { patternFromLibrary } from '@/lib/app/breaks/library';
+import { type LibraryItem, patternFromLibrary } from '@/lib/app/breaks/library';
 import { packPattern } from '@/lib/app/breaks/share';
 import type {
   CatalogueEntry,
@@ -10,6 +10,7 @@ import type {
 } from '@/lib/app/breaks/catalogue/types';
 import { KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
+import { RUDIMENTS } from '@/prisma/seeds/app-beatbreaker/data/rudiments';
 import { STYLES, STYLE_GROUPS } from '@/prisma/seeds/app-beatbreaker/data/styles';
 
 /**
@@ -85,12 +86,31 @@ export function testKits(): Record<string, CatalogueKit> {
 
 /** The famous breaks, as documents — built exactly as the seed builds them. */
 export function testLibrary(): CatalogueLibrary {
+  return {
+    key: 'famous-breaks',
+    title: 'Famous breaks',
+    description: 'The main groove off each record.',
+    entries: entriesOf(LIBRARY, 'entry'),
+  };
+}
+
+/** The rudiments (Phase 10), as documents, ids `rudiment-<index>`. Not in {@link testCatalogue}. */
+export function testRudiments(): CatalogueLibrary {
+  return {
+    key: 'rudiments',
+    title: 'Rudiments',
+    description: 'The forty International Drum Rudiments.',
+    entries: entriesOf(RUDIMENTS, 'rudiment'),
+  };
+}
+
+function entriesOf(items: LibraryItem[], prefix: string): CatalogueEntry[] {
   const styles = testStyles();
-  const entries: CatalogueEntry[] = LIBRARY.map((item, index) => {
+  return items.map((item, index) => {
     const style = styles[item.style];
     const doc = packPattern(patternFromLibrary(item, index, style));
     return {
-      id: `entry-${index}`,
+      id: `${prefix}-${index}`,
       group: item.group,
       title: item.title,
       artist: item.artist,
@@ -102,12 +122,6 @@ export function testLibrary(): CatalogueLibrary {
       doc,
     };
   });
-  return {
-    key: 'famous-breaks',
-    title: 'Famous breaks',
-    description: 'The main groove off each record.',
-    entries,
-  };
 }
 
 export function testCatalogue(): StudioCatalogue {

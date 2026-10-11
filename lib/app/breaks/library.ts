@@ -1,11 +1,18 @@
 import { BASE_LANES, FOOT_LANE, TOM_LANES, percRoster } from '@/lib/app/breaks/lanes';
 import { DEFAULT_METER, METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
-import { type BarSpec, parseBar, styleAttrs } from '@/lib/app/breaks/pattern';
+import {
+  type BarSpec,
+  parseBar,
+  stickingRow,
+  styleAttrs,
+  tidySticking,
+} from '@/lib/app/breaks/pattern';
 import type { CymbalVoice, LaneKey, Pattern, ResolvedStyle } from '@/lib/app/breaks/types';
 
 /**
- * Famous breaks — the main groove off each record, a bar or two of it, in the
- * meter it was played in.
+ * The system pattern libraries: the famous breaks — the main groove off each
+ * record, a bar or two of it, in the meter it was played in — and the
+ * rudiments (Phase 10), the snare alone with its sticking written.
  *
  * **The entries themselves are not here any more.** They are `LibraryEntry`
  * rows, seeded from `prisma/seeds/app-beatbreaker/data/library.ts` (D13), and
@@ -35,7 +42,50 @@ export interface LibraryItem {
   meter?: string;
   /** Where the style's own backbeats are in the wrong meter for this entry. */
   backbeats?: number[];
+  /**
+   * The lanes it is written on, where that is not the kit: a rudiment is the
+   * snare alone. Without it, the five base lanes and whatever toms or foot
+   * the bars write.
+   */
+  lanes?: LaneKey[];
+  /** Every layer plays it whole (D45): {@link Pattern.fixed}. */
+  fixed?: boolean;
   bars: BarSpec[];
+}
+
+/**
+ * The style key every rudiment carries (D45). It is not a style row: there is
+ * nothing to generate, regenerate or doctor a rudiment from, and the Studio
+ * offers none of them for it.
+ */
+export const RUDIMENT_STYLE = 'rudiment';
+
+/** The rudiments' library key: shown in Generate rather than among the libraries. */
+export const RUDIMENTS_LIBRARY = 'rudiments';
+
+/** What a style key reads as where the catalogue has no row for it: the key, or "Rudiment". */
+export function unlistedStyleLabel(key: string): string {
+  return key === RUDIMENT_STYLE ? 'Rudiment' : key;
+}
+
+/** A style key's name: its catalogue row's label, or {@link unlistedStyleLabel} without one. */
+export function styleLabel(
+  styles: Readonly<Record<string, { params: { label: string } } | undefined>>,
+  key: string
+): string {
+  return styles[key]?.params.label ?? unlistedStyleLabel(key);
+}
+
+/**
+ * Why a section cannot be rewritten in its style — doctored, regenerated,
+ * written anew or built on — where `key`, its style, has no catalogue row:
+ * a rudiment never had one (D45), and any other style has since been deleted.
+ * `done` finishes "so it cannot be …".
+ */
+export function noStyleReason(key: string, section: string, done: string): string {
+  return key === RUDIMENT_STYLE
+    ? `A rudiment is written out, not generated from a style, so it cannot be ${done}`
+    : `Section ${section}'s style is not in the catalogue, so it cannot be ${done}`;
 }
 
 /**
@@ -65,10 +115,14 @@ export function patternFromLibrary(
   const steps = stepsOf(meterOf(meter));
   const params = style?.params;
 
-  const lanes: LaneKey[] = BASE_LANES.slice();
-  for (const L of [...TOM_LANES, FOOT_LANE]) {
-    if (item.bars.some((spec) => spec[L as keyof BarSpec])) lanes.push(L);
+  const lanes: LaneKey[] = item.lanes?.length ? item.lanes.slice() : BASE_LANES.slice();
+  if (!item.lanes?.length) {
+    for (const L of [...TOM_LANES, FOOT_LANE]) {
+      if (item.bars.some((spec) => spec[L as keyof BarSpec])) lanes.push(L);
+    }
   }
+  const bars = item.bars.map((spec) => parseBar(spec, steps));
+  const sticking = tidySticking(item.bars.map((spec) => stickingRow(spec.hands, steps)));
 
   return {
     name: item.title,
@@ -88,6 +142,8 @@ export function patternFromLibrary(
     hasRide: false,
     hasHat: false,
     pins: null,
-    bars: item.bars.map((spec) => parseBar(spec, steps)),
+    ...(sticking ? { sticking } : {}),
+    ...(item.fixed ? { fixed: true } : {}),
+    bars,
   };
 }

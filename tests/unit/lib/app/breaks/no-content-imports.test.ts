@@ -91,6 +91,6 @@ describe('the catalogue is data, not code', () => {
        check above by making the thing being guarded disappear. */
     const data = join(ROOT, 'prisma/seeds/app-beatbreaker/data');
     const files = readdirSync(data).sort();
-    expect(files).toEqual(['kits.ts', 'library.ts', 'styles.ts']);
+    expect(files).toEqual(['kits.ts', 'library.ts', 'rudiments.ts', 'styles.ts']);
   });
 });

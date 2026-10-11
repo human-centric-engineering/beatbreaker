@@ -150,7 +150,7 @@ describe('poseAt — reachability', () => {
       // each note lands a little off its mark, the same every time for the same note
       const played = timeline.forLimb(hand).find((h) => h.time === now && h.piece === piece);
       expect(played).toBeDefined();
-      const { tip: targetTip } = strikeTarget(piece, contact, scatterOf(played!, hand));
+      const { tip: targetTip } = strikeTarget(piece, contact, scatterOf(played!, hand), hand);
       const mark = strikeTarget(piece, contact).tip;
       expect(Math.hypot(...mark.map((x, k) => x - targetTip[k]))).toBeLessThan(0.06);
 
@@ -1076,7 +1076,10 @@ describe('poseAt — crossed over', () => {
       crossings++;
       expect(over).toBeLessThan(-STICK_CLEAR + 1e-3);
     }
-    expect(crossings).toBeGreaterThan(10); // the sticks really do cross through the bar
+    /* The sticks really do cross through the bar. Fewer frames than before
+       each hand kept to its own side of the snare (the snare stick now lands
+       left of centre, under less of the hat stick), but still crossing. */
+    expect(crossings).toBeGreaterThan(5);
   });
 });
 
@@ -1111,7 +1114,7 @@ describe('poseAt — the wrist leads the stroke', () => {
     const hit = tl.all().filter((h) => h.piece === 'snare')[1];
     const a = poseAt(tl, hit.time, 1).arms[hit.limb as Hand];
     const want = new Vector3(
-      ...strikeTarget('snare', hit.contact, scatterOf(hit, hit.limb as Hand)).tip
+      ...strikeTarget('snare', hit.contact, scatterOf(hit, hit.limb as Hand), hit.limb as Hand).tip
     );
     expect(a.tip.distanceTo(want)).toBeLessThan(0.001);
   });
@@ -1139,6 +1142,30 @@ describe('poseAt — the forearm turns with the piece', () => {
       expect(turnOf(lane)).toBeGreaterThan(0.45);
       expect(turnOf(lane)).toBeLessThan(1.05);
     }
+  });
+});
+
+describe('poseAt — the arm on the ride', () => {
+  /** The lead shoulder's highest elevation through a bar of eighths on one lane, radians. */
+  function peakElevation(lane: LaneKey): number {
+    const b = bar();
+    for (let i = 0; i < N; i += 2) b[lane][i] = 1;
+    const tl = new StrokeTimeline();
+    for (let i = 0; i < N; i += 2) tl.ingest(stepFor(i, b, lane, b));
+    let peak = 0;
+    for (let now = 0.5; now < N * DUR - 0.3; now += 0.01) {
+      const pose = poseAt(tl, now, 1);
+      peak = Math.max(peak, armAngles(pose.arms.lead, torsoOf(pose), 'lead').elevation);
+    }
+    return peak;
+  }
+
+  /* Time on the ride is kept with the arm hanging from the shoulder and the
+     wrist doing the work; the elbow is hoisted out only for a crash. */
+  it('hangs lower than for a crash, and well short of shoulder height', () => {
+    const ride = peakElevation('r');
+    expect(ride).toBeLessThan(peakElevation('c') - 0.1);
+    expect(ride).toBeLessThan((60 * Math.PI) / 180);
   });
 });
 
@@ -1366,7 +1393,7 @@ describe('poseAt — traditional grip', () => {
           ? crossStick(h.limb).tip
           : h.contact === 'rim'
             ? rimShot(h.limb).tip
-            : strikeTarget(h.piece, h.contact, scatterOf(h, h.limb)).tip;
+            : strikeTarget(h.piece, h.contact, scatterOf(h, h.limb), h.limb).tip;
       const want = new Vector3(x, h.piece === 'hat' ? y + pose.hatGap - HAT_CLOSED_GAP : y, z);
       expect(pose.arms[h.limb].tip.distanceTo(want)).toBeLessThan(0.001);
       checked++;

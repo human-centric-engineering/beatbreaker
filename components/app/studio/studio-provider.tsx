@@ -339,13 +339,15 @@ export function StudioProvider({
 
   const replacing = useMemo(
     () => ({
-      newBreak: (which?: Parameters<typeof newBreak>[0]) => {
-        if (which === undefined || which === 'both')
+      newBreak: (which?: Parameters<typeof newBreak>[0]): boolean => {
+        if (which === undefined || which === 'both') {
           replace(() => {
             setEntry(null);
             newBreak(which);
           });
-        else newBreak(which);
+          return true;
+        }
+        return newBreak(which);
       },
       loadLibraryEntry: (id: string) =>
         replace(() => {

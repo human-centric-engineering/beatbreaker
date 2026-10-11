@@ -399,6 +399,15 @@ export function rimShot(hand: Hand): { tip: V3; rim: V3; pitch: number } {
 /** How far above the surface the tip's centre is when it touches: the bead's radius. */
 const BEAD = 0.006;
 
+/**
+ * How far each hand's notes on a drum sit off its centre line, toward that
+ * hand's own side, metres. The two sticks meet the head in a V, tips a few
+ * centimetres apart, and never cross over each other: the lead stick's tip
+ * stays on the lead side, the other's on its own. Hand to hand on the snare
+ * (a single-stroke roll) is where it shows.
+ */
+const HAND_SIDE = 0.026;
+
 /** How far a note can land from its mark, metres either way in the piece's plane. */
 const SCATTER: Partial<Record<PieceKind, number>> = {
   drum: 0.028,
@@ -435,7 +444,8 @@ export const BELL_SHORT = 0.04;
 export function strikeTarget(
   id: PieceId,
   contact: Contact = 'centre',
-  scatter: readonly number[] = [0, 0]
+  scatter: readonly number[] = [0, 0],
+  hand?: Hand
 ): { tip: V3; pitch: number } {
   const p = PIECES[id];
   const r = p.radius;
@@ -483,7 +493,10 @@ export function strikeTarget(
     default: {
       if (contact === 'cross') return { tip: onPiece(p, [r * 0.3, 0.035, -r * 0.15]), pitch: 0.1 };
       if (contact === 'rim') return { tip: onPiece(p, [0, 0.012 + BEAD, r * 0.94]), pitch: 0.3 };
-      return { tip: onPiece(p, [sx, 0.002 + BEAD, r * 0.18 + sz]), pitch: 0.32 };
+      /* With the hand known, its notes land on its own side of the centre
+         line, half the scatter either way inside that: the sticks in a V. */
+      const x = hand ? (hand === 'lead' ? 1 : -1) * HAND_SIDE + sx / 2 : sx;
+      return { tip: onPiece(p, [x, 0.002 + BEAD, r * 0.18 + sz]), pitch: 0.32 };
     }
   }
 }

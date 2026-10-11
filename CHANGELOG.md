@@ -18,6 +18,31 @@ release process.
 
 ### Added
 
+- **Written sticking on a pattern (BeatBreaker Phase 10-a).** A pattern may
+  carry `sticking`, one R/L string per bar, packed in a share code or a
+  `Break.doc` as an optional `sk` beside `pn`. It is additive on wire version
+  5: an older reader drops it, and `sharePayloadSchema` refuses a row that is
+  not `.RLrl`. The chart prints written sticking under the notes, the 3D
+  drummer plays each written step with that hand (`assignBar` takes the rows
+  as a fifth argument), and `playability` does not fail a written run of
+  snare notes. New A, New B, the doctor and "build B from A" now work only in
+  the section's own style, not whichever style the picker fell back to, and
+  `newBreak` and `buildBFromA` return false when they cannot. Building B and
+  a doctor's move keep the sticking only on bars whose notes did not change.
+
+- **The rudiments library (BeatBreaker Phase 10-b).** A second system
+  `PatternLibrary`, `rudiments`, at position 1: the forty PAS International
+  Drum Rudiments on six shelves, each on the snare alone with its sticking
+  written, seeded from `data/rudiments.ts`. `LibraryItem` gains `lanes`,
+  `fixed` (`Pattern.fixed`, packed as an optional `fx`: every layer plays it
+  whole) and a per-bar `hands` row, and the
+  catalogue seed writes every library in its `LIBRARIES` list. The Studio
+  shows them in the Generate drawer, on folding shelves, not in the
+  Libraries tab. Rudiments are practice-session targets like any other
+  library entry. `POST /api/v1/breaks/doctor` refuses a fixed pattern with a
+  400. Clearing a section, or BeatBuddy rewriting a whole one, drops `fixed`;
+  editing a bar's notes drops that bar's sticking.
+
 - **Written-out styles, swing ranges, and jazz, blues and rock widened.**
   A style's params may now carry `figures` (whole bars written out, per lane,
   weighted) and `fills` (written to the end of a bar), which the generator

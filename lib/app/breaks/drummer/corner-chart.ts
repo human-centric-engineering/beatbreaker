@@ -1,6 +1,7 @@
 import type { SectionLetter } from '@/lib/app/breaks/audio/transport';
 import type { StepAnchor } from '@/lib/app/breaks/engrave';
 import { mixLanes } from '@/lib/app/breaks/lanes';
+import { tidySticking } from '@/lib/app/breaks/pattern';
 import type { Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -68,6 +69,10 @@ export function withPreview(pat: Pattern, next: Pattern | null): Pattern {
     ...pat,
     lanes: mixLanes(pat.lanes, next.lanes),
     bars: [...pat.bars, ...next.bars.slice(0, PREVIEW_BARS)],
+    sticking: tidySticking([
+      ...pat.bars.map((_, i) => pat.sticking?.[i] ?? null),
+      ...next.bars.slice(0, PREVIEW_BARS).map((_, i) => next.sticking?.[i] ?? null),
+    ]),
   };
 }
 

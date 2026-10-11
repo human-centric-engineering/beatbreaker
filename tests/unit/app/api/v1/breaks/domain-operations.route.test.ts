@@ -231,6 +231,16 @@ describe('POST /api/v1/breaks/doctor', () => {
     const res = await DOCTOR(post('doctor', { styleKey: 'gone', doc, move: 'ghosts+' }));
     expect(res.status).toBe(404);
   });
+
+  it('refuses a rudiment, which is written out rather than written in a style', async () => {
+    const doc = packPattern({ ...directPattern(5), fixed: true });
+    const res = await DOCTOR(post('doctor', { styleKey: 'funk', doc, move: 'ghosts+' }));
+    expect(res.status).toBe(400);
+    expect(await res.json()).toMatchObject({
+      success: false,
+      error: { message: expect.stringMatching(/rudiment is written out/) },
+    });
+  });
 });
 
 describe('POST /api/v1/breaks/critique', () => {

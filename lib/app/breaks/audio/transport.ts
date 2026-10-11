@@ -145,6 +145,9 @@ export interface ScheduledStep {
   doubleKick?: boolean;
   /** The pattern playing keeps sixteenth hats in one hand (its style's `oneHandHats`). */
   oneHandHats?: boolean;
+  /** The sticking written for `bar` and for `next`, where the pattern writes it (D44). */
+  sticking?: string | null;
+  nextSticking?: string | null;
 }
 
 interface SeqEntry {
@@ -349,6 +352,7 @@ export class Transport {
         bar: null,
         // what the band comes in on, so the drummer can be ready for it
         next: (livePat && pos && livePat.bars[pos.barIdx]) ?? null,
+        nextSticking: (livePat && pos && livePat.sticking?.[pos.barIdx]) ?? null,
         notes: [],
         doubleKick: !!livePat?.attrs?.doubleKick,
         oneHandHats: !!livePat?.attrs?.oneHandHats,
@@ -416,6 +420,8 @@ export class Transport {
         meter: m,
         bar,
         next: (after && snap.patterns[after.letter]?.bars[after.barIdx]) ?? null,
+        sticking: livePat.sticking?.[pos.barIdx] ?? null,
+        nextSticking: (after && snap.patterns[after.letter]?.sticking?.[after.barIdx]) ?? null,
         /* Every voice, before the mixer, as the MIDI port hears it: the
            drummer plays the whole pattern whatever is muted or soloed, since
            it plans its limbs from `bar` and `next`, which the mixer never

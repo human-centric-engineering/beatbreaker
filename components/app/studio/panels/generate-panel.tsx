@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import type { Tool } from '@/components/app/shell/tool-rail';
 import { Slider } from '@/components/app/studio/panels/controls';
+import { RudimentsCard } from '@/components/app/studio/panels/rudiments-card';
 import { ScoreCard } from '@/components/app/studio/panels/score-card';
 import { Segmented } from '@/components/app/studio/segmented';
 import { StylePicker } from '@/components/app/studio/style-picker';
@@ -12,6 +13,7 @@ import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
 import { SelectMenu } from '@/components/app/ui/select-menu';
 import { pickerSections } from '@/lib/app/breaks/catalogue/picker';
+import { noStyleReason } from '@/lib/app/breaks/library';
 import { HAT_SHAPE } from '@/lib/app/breaks/feel';
 import { BASE_LANES, PERC_INSTS, PERC_KEYS, PERC_LANES, laneName } from '@/lib/app/breaks/lanes';
 import { METERS, METER_KEYS, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
@@ -305,18 +307,33 @@ export function GeneratePanel({
           </div>
 
           <div className="btnrow" style={{ marginTop: 6 }}>
-            <button type="button" className="mini" onClick={() => c.newBreak('A')}>
-              New A only
-            </button>
-            <button type="button" className="mini" onClick={() => c.newBreak('B')}>
-              New B only
-            </button>
-            <button type="button" className="mini" onClick={c.buildBFromA}>
+            {(['A', 'B'] as const).map((letter) => (
+              <button
+                key={letter}
+                type="button"
+                className="mini"
+                onClick={() => {
+                  if (!c.newBreak(letter)) c.say(noStyleReason(c.style, letter, 'regenerated'));
+                }}
+              >
+                New {letter} only
+              </button>
+            ))}
+            <button
+              type="button"
+              className="mini"
+              onClick={() => {
+                if (!c.buildBFromA())
+                  c.say(noStyleReason(c.view.A?.style ?? c.style, 'A', 'built on for B'));
+              }}
+            >
               Build B from A
             </button>
           </div>
         </div>
       </div>
+
+      <RudimentsCard onClose={onClose} />
 
       <ScoreCard />
     </>
