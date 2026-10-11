@@ -20,7 +20,14 @@
 import * as THREE from 'three';
 import { describe, expect, it } from 'vitest';
 
-import { buildKit } from '@/components/app/studio/drummer/kit-model';
+import {
+  buildKit,
+  drumShake,
+  headDip,
+  resoAcross,
+  resoShake,
+  resoShape,
+} from '@/components/app/studio/drummer/kit-model';
 import { makeMaterials } from '@/components/app/studio/drummer/parts';
 import {
   DOUBLE_PEDAL,
@@ -343,5 +350,168 @@ describe('buildKit().update — pedals and beater', () => {
     update(struck, timeline.percussion);
     expect(beaterGroup!.rotation.x).not.toBeCloseTo(idleRotation, 4);
     expect(beaterGroup!.rotation.x).toBeCloseTo(struck.beater, 6);
+  });
+});
+
+describe("resoShake — the kick's front head shivering", () => {
+  const still = { out: 0, x: 0, y: 0 };
+  const size = (s: { out: number; x: number; y: number }) => Math.hypot(s.out, s.x, s.y);
+  const across = (t: number) => Math.hypot(resoShake(t, 1).x, resoShake(t, 1).y);
+
+  it('is still before a kick and once the shiver has died', () => {
+    expect(resoShake(-0.01, 1)).toEqual(still);
+    expect(resoShake(2, 1)).toEqual(still);
+    expect(resoShake(0, 1).out).toBe(0);
+  });
+
+  it('is pushed out first, by a few millimetres, and shakes across its face as much', () => {
+    // a quarter of an 18 Hz cycle out
+    const s = resoShake(1 / 72, 1);
+    expect(s.out).toBeGreaterThan(0.002);
+    expect(s.out).toBeLessThan(0.005);
+    const most = Math.max(...Array.from({ length: 20 }, (_, i) => across(i / 400)));
+    expect(most).toBeGreaterThan(0.002);
+    expect(most).toBeLessThan(0.007);
+  });
+
+  it('shivers slowly enough for a 60 fps frame to catch: frames a sixtieth apart change sign', () => {
+    const outs = Array.from({ length: 8 }, (_, f) => resoShake(f / 60 + 0.001, 1).out);
+    const flips = outs.slice(1).filter((o, i) => Math.sign(o) !== Math.sign(outs[i])).length;
+    expect(flips).toBeGreaterThanOrEqual(3);
+  });
+
+  it('shakes less for a softer kick, and dies away', () => {
+    expect(resoShake(1 / 72, 0.3).out).toBeCloseTo(0.3 * resoShake(1 / 72, 1).out, 9);
+    expect(size(resoShake(1 / 72 + 0.5, 1))).toBeLessThan(size(resoShake(1 / 72, 1)) * 0.1);
+  });
+});
+
+describe('resoAcross — the shake across the face', () => {
+  it('is all of it in the middle and none at the hoop', () => {
+    expect(resoAcross(0)).toBe(1);
+    expect(resoAcross(1)).toBe(0);
+    // (the name, round the ring at 400 of 512, still shivers)
+    expect(resoAcross(0.78)).toBeGreaterThan(0.5);
+  });
+});
+
+describe("resoShape — the head's fundamental", () => {
+  it('is 1 at the centre and falls to nothing at the hoop', () => {
+    expect(resoShape(0)).toBe(1);
+    expect(resoShape(1)).toBeLessThan(0.01);
+    for (let u = 0; u < 0.85; u += 0.1) expect(resoShape(u + 0.1)).toBeLessThan(resoShape(u));
+  });
+});
+
+describe('headDip — a struck snare or tom head', () => {
+  it('is driven in by the stick, as far as the stroke was hard, and still before and after', () => {
+    expect(headDip('snare', -0.01, 1)).toBe(0);
+    expect(headDip('snare', 0, 1)).toBeLessThan(-0.001);
+    expect(headDip('snare', 0, 0.3)).toBeCloseTo(0.3 * headDip('snare', 0, 1), 9);
+    expect(headDip('floor', 5, 1)).toBe(0);
+  });
+
+  it('gives more on the floor tom than the snare, and rings longer', () => {
+    expect(headDip('floor', 0, 1)).toBeLessThan(headDip('snare', 0, 1));
+    const envelope = (id: 'snare' | 'floor', t: number) =>
+      Math.max(...Array.from({ length: 40 }, (_, i) => Math.abs(headDip(id, t + i / 2000, 1))));
+    expect(envelope('floor', 0.25)).toBeGreaterThan(envelope('snare', 0.25) * 5);
+  });
+
+  it('rings slowly enough for a 60 fps frame to catch: frames a sixtieth apart change sign', () => {
+    for (const id of ['snare', 'tom1', 'tom2', 'floor'] as const) {
+      const at = Array.from({ length: 8 }, (_, f) => headDip(id, f / 60 + 0.001, 1));
+      const flips = at.slice(1).filter((d, i) => Math.sign(d) !== Math.sign(at[i])).length;
+      expect(flips).toBeGreaterThanOrEqual(3);
+    }
+  });
+
+  it('dips the struck head in the kit, and only that one', () => {
+    const { root, update } = buildKit(makeMaterials());
+    const heads = (): Map<THREE.BufferGeometry, number> => {
+      const out = new Map<THREE.BufferGeometry, number>();
+      root.traverse((o) => {
+        if (o instanceof THREE.Mesh && o.name === 'head') {
+          const z = o.geometry.getAttribute('position');
+          let low = 0;
+          for (let k = 0; k < z.count; k++) low = Math.min(low, z.getZ(k));
+          out.set(o.geometry, low);
+        }
+      });
+      return out;
+    };
+    const timeline = new StrokeTimeline();
+    timeline.ingest(stepWithHit({ lane: 's', value: 1, at: 0 }));
+    update(poseAt(timeline, 0.001, 1), new Set());
+    // (a soft snare note, 0.17 of full velocity: a quarter of a millimetre)
+    const dipped = [...heads().values()].filter((low) => low < -0.0001);
+    expect(dipped).toHaveLength(1);
+    update(poseAt(timeline, 3, 1), new Set());
+    expect([...heads().values()].every((low) => low === 0)).toBe(true);
+  });
+});
+
+describe('drumShake — a struck drum on its mount', () => {
+  const tip = (id: 'snare' | 'tom1' | 'floor', t: number, v = 1) => drumShake(id, t, v).rx;
+  const most = (id: 'snare' | 'tom1' | 'floor', from: number, v = 1) =>
+    Math.max(...Array.from({ length: 200 }, (_, i) => Math.abs(tip(id, from + i / 1000, v))));
+
+  it('is still before the stroke and once it has settled', () => {
+    expect(drumShake('tom1', -0.01, 1)).toEqual({ y: 0, rx: 0, rz: 0 });
+    const at = drumShake('tom1', 0, 1);
+    expect(Math.hypot(at.y, at.rx, at.rz)).toBe(0);
+    expect(drumShake('tom1', 5, 1)).toEqual({ y: 0, rx: 0, rz: 0 });
+  });
+
+  it('goes down and tips its near edge down first', () => {
+    const s = drumShake('tom1', 0.02, 1);
+    expect(s.y).toBeLessThan(-0.001);
+    // (+x turns the drummer's side, +z, down)
+    expect(s.rx).toBeGreaterThan(0.01);
+  });
+
+  it('moves as far as the stroke was hard', () => {
+    expect(most('tom1', 0, 0.3)).toBeCloseTo(0.3 * most('tom1', 0, 1), 6);
+  });
+
+  it('wobbles the hung toms more and longer than the snare in its basket', () => {
+    expect(most('tom1', 0)).toBeGreaterThan(most('snare', 0) * 2);
+    expect(most('tom1', 0.4)).toBeGreaterThan(most('snare', 0.4) * 10);
+  });
+
+  it('lands each stroke a little differently, and the same stroke the same way every frame', () => {
+    const at = (seed: number) => drumShake('tom1', 0.03, 0.8, seed);
+    expect(at(17)).toEqual(at(17));
+    const many = Array.from({ length: 40 }, (_, i) => at(i * 7919 + 1));
+    // harder and softer, and tipped off to either side
+    const tips = many.map((m) => Math.hypot(m.rx, m.rz));
+    expect(Math.max(...tips)).toBeGreaterThan(Math.min(...tips) * 1.3);
+    expect(many.some((m) => m.rz > 0.005)).toBe(true);
+    expect(many.some((m) => m.rz < -0.005)).toBe(true);
+    // never wildly: no more than a quarter past the plain stroke's
+    const plain = Math.max(
+      ...Array.from({ length: 200 }, (_, i) => Math.abs(drumShake('tom1', i / 1000, 0.8).rx))
+    );
+    for (const m of many) expect(Math.hypot(m.rx, m.rz)).toBeLessThan(plain * 1.5);
+  });
+
+  it('rocks the struck drum in the kit, and leaves the rest still', () => {
+    const { root, update } = buildKit(makeMaterials());
+    // every group with a drum head in it, and how it is turned
+    const turns = () => {
+      const out: number[] = [];
+      root.traverse((o) => {
+        if (o instanceof THREE.Group && o.getObjectByName('head')) out.push(o.rotation.x);
+      });
+      return out;
+    };
+    const still = turns();
+    const timeline = new StrokeTimeline();
+    timeline.ingest(stepWithHit({ lane: 's', value: 1, at: 0 }));
+    update(poseAt(timeline, 0.03, 1), new Set());
+    const moved = turns().filter((x, i) => Math.abs(x - still[i]) > 1e-4);
+    expect(moved).toHaveLength(1);
+    update(poseAt(timeline, 3, 1), new Set());
+    expect(turns()).toEqual(still);
   });
 });

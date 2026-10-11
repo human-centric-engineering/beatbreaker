@@ -216,6 +216,30 @@ describe('scheduledHits', () => {
     expect(grace?.strength).not.toBe(main?.strength);
   });
 
+  it('marks a buzz pressed, and its repeats the stick bouncing, forecast and scheduled', () => {
+    const b = hitAt(2, { s: BUZZ });
+    expect(gridHits(b, 2, 5)[0].press).toBe(true);
+    const step: ScheduledStep = {
+      t: 5,
+      dur: 0.1,
+      slot: 2,
+      meter: M44,
+      bar: b,
+      next: null,
+      notes: [
+        { voice: voice('s'), when: 5.0 },
+        { voice: voice('s', { ornament: 'buzz' }), when: 5.025 },
+      ],
+    };
+    const [main, repeat] = scheduledHits(step);
+    expect(main.press).toBe(true);
+    expect(main.bounce).toBeUndefined();
+    expect(repeat.bounce).toBe(true);
+    expect(repeat.press).toBeUndefined();
+    // and nothing else is either
+    expect(gridHits(hitAt(2, { s: 2 }), 2, 5)[0].press).toBeUndefined();
+  });
+
   it('plays a buzz at the fixed buzz strength, regardless of the written velocity', () => {
     const b = hitAt(2, { s: BUZZ });
     const step: ScheduledStep = {

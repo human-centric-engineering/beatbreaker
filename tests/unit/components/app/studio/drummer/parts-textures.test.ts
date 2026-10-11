@@ -178,8 +178,8 @@ describe('canvas textures', () => {
   it('writes the name twice round the kick’s front head, BEAT in cream and BREAKER in brass', () => {
     const tex = kickLogoTexture();
     expect(tex).toBeInstanceOf(THREE.CanvasTexture);
-    // the two brass rings the name runs between
-    expect(drawn.arcs).toBe(2);
+    // the two brass rings the name runs between, and a small one in the middle
+    expect(drawn.arcs).toBe(3);
     const written = drawn.text.map((t) => t.ch).join('');
     expect(written).toBe('BEATBREAKER • BEATBREAKER • ');
     const colourOf = (ch: string) => drawn.text.find((t) => t.ch === ch)!.colour;

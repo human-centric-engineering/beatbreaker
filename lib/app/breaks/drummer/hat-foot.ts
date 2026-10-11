@@ -19,7 +19,8 @@ import { makeRng } from '@/lib/app/breaks/rng';
  * - **opening** — the toe eases off, heel on the plate, just before the open
  *   note (that part is `hatOpenAt`, in `strokes.ts`).
  *
- * Pure: a function of the chicks, the time and the pulse.
+ * This is where the foot means the pedal to be; where the pedal goes under it
+ * is `hat-pedal.ts`. Pure: a function of the chicks, the time and the pulse.
  */
 
 /** The longest the toe is up before a chick, seconds. */
@@ -48,9 +49,25 @@ function windowBefore(chicks: readonly Hit[], i: number): number {
   return Math.min(CHICK_WINDOW * (isStomp(chicks, i) ? 1.6 : 1), gap * 0.6);
 }
 
+/**
+ * How far the toe means the pedal up at `now` for the chicks in time order, 0
+ * pressed to 1 the toe right up: up quickly before each, then down
+ * accelerating so it is moving fastest as the hats meet.
+ */
+export function chickLiftAt(chicks: readonly Hit[], now: number): number {
+  const i = lastAtOrBefore(chicks, now);
+  const next = chicks[i + 1];
+  if (!next) return 0;
+  const w = windowBefore(chicks, i + 1);
+  const start = next.time - w;
+  if (now <= start) return 0;
+  const u = Math.min(1, (now - start) / w);
+  const height = 0.45 + 0.45 * next.strength;
+  return u < 0.45 ? height * smoothstep(0, 0.45, u) : height * (1 - ((u - 0.45) / 0.55) ** 2);
+}
+
 export interface HatFoot {
-  /** How far the pedal is up for a chick, 0 pressed to 1 the toe right up. */
-  lift: number;
+  /** (where the toe means the pedal is `chickLiftAt`, and where it goes `hatPedalAt`) */
   stance: FootStance;
 }
 
@@ -70,26 +87,17 @@ export function hatFootAt(
   const prev = i >= 0 ? chicks[i] : undefined;
   const next = chicks[i + 1];
 
-  let lift = 0;
+  const lift = chickLiftAt(chicks, now);
   // 0–1: how much this moment belongs to a chick rather than to holding closed
   let busy = 0;
   let stomp = false;
   if (next) {
-    const w = windowBefore(chicks, i + 1);
-    const start = next.time - w;
-    if (now > start) {
-      const u = (now - start) / w;
-      const height = 0.45 + 0.45 * next.strength;
-      // up quickly, then down accelerating so it is moving fastest as the hats meet
-      lift = u < 0.45 ? height * smoothstep(0, 0.45, u) : height * (1 - ((u - 0.45) / 0.55) ** 2);
-    }
+    const start = next.time - windowBefore(chicks, i + 1);
     busy = smoothstep(start - 0.08, start, now);
     stomp = isStomp(chicks, i + 1) && now > start - 0.12;
   }
   if (prev) {
     const since = now - prev.time;
-    // the pedal kicks back up a little off the chick and settles
-    lift = Math.max(lift, 0.12 * prev.strength * Math.sin(Math.min(1, since / 0.07) * Math.PI));
     busy = Math.max(busy, 1 - smoothstep(0.05, 0.2, since));
     if (isStomp(chicks, i) && since < 0.3) stomp = true;
   }
@@ -99,7 +107,6 @@ export function hatFootAt(
   const free = (1 - busy) * (1 - Math.min(1, open * 3));
   const base = stomp ? HAT_STOMP : HAT_HEEL_DOWN;
   return {
-    lift,
     stance: {
       ...base,
       pitch: base.pitch + base.drive * lift + rock * free,

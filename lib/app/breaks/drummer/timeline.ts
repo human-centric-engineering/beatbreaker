@@ -7,7 +7,7 @@ import {
   type PieceId,
 } from '@/lib/app/breaks/drummer/kit-layout';
 import { type StepHands, type WrittenRows, assignBar } from '@/lib/app/breaks/drummer/sticking';
-import { CHINA, HALF_OPEN, PERC_INSTS, RIMSHOT } from '@/lib/app/breaks/lanes';
+import { BUZZ, CHINA, HALF_OPEN, PERC_INSTS, RIMSHOT } from '@/lib/app/breaks/lanes';
 import { isGroupStart } from '@/lib/app/breaks/meter';
 import { LEVELS, type Voice } from '@/lib/app/breaks/perform';
 import type { Bar, LaneKey, Meter } from '@/lib/app/breaks/types';
@@ -42,6 +42,10 @@ export interface Hit {
   hat?: HatState;
   /** Scheduled (true), or read ahead off the grid (false). */
   sure: boolean;
+  /** A buzz: the stick is pressed into the head and left to bounce (its repeats are `bounce`). */
+  press?: boolean;
+  /** One of a buzz's repeats: the stick bouncing off the press, not a stroke of the hand. */
+  bounce?: boolean;
 }
 
 /**
@@ -136,6 +140,7 @@ export function gridHits(
       strength: strengthOf(lane, value),
       hat: hatOf(lane, value),
       sure: false,
+      ...(lane === 's' && value === BUZZ ? { press: true } : {}),
     });
   }
   return out;
@@ -200,6 +205,11 @@ function voiceHit(
     strength,
     hat: voice.ornament ? undefined : hatOf(lane, value),
     sure: true,
+    ...(voice.ornament === 'buzz'
+      ? { bounce: true }
+      : !voice.ornament && lane === 's' && value === BUZZ
+        ? { press: true }
+        : {}),
   };
 }
 

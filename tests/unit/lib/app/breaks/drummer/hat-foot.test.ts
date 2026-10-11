@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { HAT_HEEL_DOWN, hatFootAt, isStomp } from '@/lib/app/breaks/drummer/hat-foot';
+import { HAT_HEEL_DOWN, chickLiftAt, hatFootAt, isStomp } from '@/lib/app/breaks/drummer/hat-foot';
 import type { Hit } from '@/lib/app/breaks/drummer/timeline';
 
 function chick(time: number, strength = 0.5): Hit {
@@ -17,22 +17,22 @@ function chick(time: number, strength = 0.5): Hit {
   };
 }
 
-describe('hatFootAt — holding the hats closed', () => {
+describe('the hat foot — holding the hats closed', () => {
   it('keeps the pedal down with no chick coming', () => {
-    for (const now of [0, 0.3, 1.1, 2.7]) expect(hatFootAt([], now, 0.4, 1, 0).lift).toBe(0);
+    for (const now of [0, 0.3, 1.1, 2.7]) expect(chickLiftAt([], now)).toBe(0);
   });
 
   it('keeps the pedal down between chicks, lifting only just before one', () => {
     const chicks = [chick(1), chick(2)];
     for (let now = 1.25; now < 1.75; now += 0.05) {
-      expect(hatFootAt(chicks, now, 0, 0, 0).lift).toBeCloseTo(0, 9);
+      expect(chickLiftAt(chicks, now)).toBeCloseTo(0, 9);
     }
-    expect(hatFootAt(chicks, 1.95, 0, 0, 0).lift).toBeGreaterThan(0.2);
+    expect(chickLiftAt(chicks, 1.95)).toBeGreaterThan(0.2);
   });
 
   it('has the pedal down at the instant of the chick', () => {
     const chicks = [chick(1), chick(2)];
-    expect(hatFootAt(chicks, 2, 0, 0, 0).lift).toBeCloseTo(0, 6);
+    expect(chickLiftAt(chicks, 2)).toBeCloseTo(0, 6);
   });
 
   it('rocks the heel with the groove: down on the beat, up between', () => {
@@ -68,5 +68,19 @@ describe('hatFootAt — stomped chicks', () => {
     )!;
     const before = hatFootAt([chick(t, 1)], t - 0.1, 0, 0, 0).stance;
     expect(before.pitch).toBeGreaterThan(HAT_HEEL_DOWN.pitch + 0.2);
+  });
+});
+
+describe('chickLiftAt', () => {
+  it('is down with no chick coming, and down again at the chick', () => {
+    const chicks = [chick(1), chick(2)];
+    expect(chickLiftAt([], 3)).toBe(0);
+    expect(chickLiftAt(chicks, 1.5)).toBe(0);
+    expect(chickLiftAt(chicks, 2)).toBe(0);
+    expect(chickLiftAt(chicks, 2.05)).toBe(0);
+  });
+
+  it('lifts higher for a louder chick', () => {
+    expect(chickLiftAt([chick(2, 1)], 1.93)).toBeGreaterThan(chickLiftAt([chick(2, 0.2)], 1.93));
   });
 });

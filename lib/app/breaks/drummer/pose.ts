@@ -38,15 +38,18 @@ import {
 } from '@/lib/app/breaks/drummer/kit-layout';
 import { type Glance, type Speak, expressionAt } from '@/lib/app/breaks/drummer/expression';
 import { showAt, showOverlaps, showPose, torsoFrame } from '@/lib/app/breaks/drummer/gesture';
-import { hatFootAt } from '@/lib/app/breaks/drummer/hat-foot';
-import { type FootStance, kickStanceAt } from '@/lib/app/breaks/drummer/kick-foot';
+import { chickLiftAt, hatFootAt } from '@/lib/app/breaks/drummer/hat-foot';
+import { hatPedalAt } from '@/lib/app/breaks/drummer/hat-pedal';
+import { beaterAt } from '@/lib/app/breaks/drummer/beater';
+import { type FootStance, kickPlan, kickStanceAt } from '@/lib/app/breaks/drummer/kick-foot';
 import {
   HAND,
-  KICK,
+  type StrokeProfile,
   type StrokeState,
   hatOpenAt,
   drift,
   crashOn,
+  ghostShare,
   lastAtOrBefore,
   seedOf,
   smoothstep,
@@ -126,6 +129,8 @@ export interface LegPose {
 export interface PieceHit {
   since: number;
   strength: number;
+  /** The stroke's own seed (`seedOf`): no two land quite alike, and each the same every frame. */
+  seed: number;
 }
 
 export interface Pose {
@@ -620,7 +625,7 @@ interface TimeKeeping {
   height: number;
   /** How far the elbow swings out, in pole units. */
   sway: number;
-  /** The stroke's lift `WRIST_LEAD` from now, metres: what the wrist is already doing. */
+  /** The stroke's lift `COUNT_LEAD` from now, metres: what the arm counting in is already doing. */
   ahead: number;
   /** A stick trick while waiting for Play. */
   twirl: Twirl;
@@ -771,18 +776,18 @@ export function twirlAt(
 }
 
 /**
- * How far ahead of the stick the wrist moves, seconds. A stroke starts at the
- * wrist: it rises while the tip is still low and drops while the tip is still
- * up, and the stick follows like the end of a whip.
+ * Counting in, how far ahead of the stick the arm moves, seconds: the stick is
+ * held fixed and swung like the end of a whip. (Playing, the rebound has the
+ * wrist's lead: see `rebound.ts`.)
  */
-const WRIST_LEAD = 0.035;
+const COUNT_LEAD = 0.035;
+/** The tip height under which the arm's lead fades out toward the click, metres. */
+const COUNT_FADE = 0.04;
 /** How much of a stroke's lift the wrist joint itself rises with. */
 const WRIST_RISE = 0.12;
 /** Counting in: how much of the stroke is the arm lifting (the rest the wrist), and how far the elbow flares with it. */
 const COUNT_ARM = 0.85;
 const COUNT_ELBOW = 3;
-/** The tip height under which the wrist's lead fades out toward the head, metres. */
-const WRIST_FADE = 0.04;
 
 /** How long either side of a note a hand is too busy to keep time in the air, seconds. */
 const AIR_CLEAR = [0.16, 0.42] as const;
@@ -795,10 +800,15 @@ const EFFORT_WINDOW = [0, 0.04, 0.08, 0.12, 0.16, 0.2];
 /** How far behind the beat the shoulders settle, in beats. */
 const SHOULDER_LAG = 0.1;
 
-/** How much of a stroke's angle is the stick loose in the fingers just off the head (at rest, the grip's `loose`). */
-const LOOSE_REBOUND = 0.85;
-/** On the ride, where the fingers do more: the stick bounces up in them, not only the hand. */
-const LOOSE_RIDE = 0.35;
+/** Each grip's strokes: a hand's, with as much of every stroke in the fingers as the grip plays there. */
+const handWith = (g: Grip): StrokeProfile => ({ ...HAND, fingers: GRIP_STYLE[g].loose });
+const HAND_FOR: Record<Grip, StrokeProfile> = {
+  german: handWith('german'),
+  american: handWith('american'),
+  french: handWith('french'),
+  traditional: handWith('traditional'),
+};
+
 /** How much of a time-keeping stroke on the hats or ride the hand itself rises with. */
 const CARRY = 0.35;
 /** Less on the ride: more of its stroke is the stick coming up off the bow. */
@@ -809,26 +819,6 @@ const HEIGHT_PERIOD = 2.3;
 
 /** The forearm joins a stroke past this tip height, with the grip's `arm` share of the rest. */
 const ARM_FROM = 0.2;
-
-/**
- * How much of the stick's angle is the stick turning in the fingers rather
- * than the hand turning at the wrist. Off the head, nearly all of it: the stick
- * rebounds on its own, the back fingers open, and the hand stays where it hit.
- * Then the hand comes up to catch it and the wrist takes over — by the time the
- * next stroke is thrown, the stick is back in the hand.
- */
-function looseness(st: StrokeState, style: GripStyle): number {
-  const rest = restLoose(st, style);
-  if (!st.prev) return rest;
-  const gap = st.next ? st.next.time - st.prev.time : 0.5;
-  const settle = Math.min(0.2, Math.max(0.05, gap * 0.4));
-  return rest + (LOOSE_REBOUND - rest) * Math.exp(-st.since / settle);
-}
-
-/** On the ride the hand is turned thumb-up and the fingers play more of the stroke. */
-function restLoose(st: StrokeState, style: GripStyle): number {
-  return (st.next ?? st.prev)?.piece === 'ride' ? Math.max(LOOSE_RIDE, style.loose) : style.loose;
-}
 
 /**
  * The hand's roll for a grip, from the roll American grip would have
@@ -876,24 +866,9 @@ function gripPronation(style: GripStyle, american: number): number {
   return Math.max(0, style.pronation - CYMBAL_TURN * (american - ROLL_DRUM));
 }
 
-/** A stroke this soft or softer is the fingers' alone, and one this hard or harder none of it. */
-const FINGERS_ALL = 0.15;
-const FINGERS_NONE = 0.4;
-/** How much of a finger stroke's angle is the stick turning in the fingers: the hand all but still. */
-const LOOSE_FINGERS = 0.9;
 /** The tip height the back fingers are fully open at: a full stroke's, and a finger stroke's inch. */
 const GIVE_FULL = 0.15;
 const GIVE_FINGERS = 0.035;
-
-/**
- * How much of a stroke is the fingers', 0–1. A ghost note is played from an
- * inch, and that inch is the back fingers flicking the stick down onto the
- * head while the hand stays where it is; a backbeat is the wrist's.
- */
-function fingerShare(h: Hit | undefined): number {
-  if (!h || h.piece === 'sticks') return 0;
-  return 1 - smoothstep(FINGERS_ALL, FINGERS_NONE, h.strength);
-}
 
 /** The tip height a stroke reaches its full lean at, metres. */
 const LEAN_FULL = 0.2;
@@ -920,13 +895,13 @@ function alignHand(q: Quaternion, forearm: Vector3, k: number): Quaternion {
  * An arm, from what its stick is doing.
  *
  * The stick is placed where it meets the piece, and the hand holding it there.
- * A stroke then turns the stick up by however far the planner wants the tip,
- * shared between two joints: the wrist, which turns hand and stick together,
- * and the fulcrum, where the stick turns loose between thumb and finger. Off
- * the head the fulcrum takes nearly all of it — the tip bounces up a long way
- * while the hand hardly moves — and the wrist takes it back as the hand comes
- * up to catch the stick and throw the next one (see `looseness`). Only a big
- * stroke brings the forearm in, and then not far.
+ * A stroke then turns the stick up as far as its tip has come, shared between
+ * two joints: the wrist, which turns hand and stick together, and the fulcrum,
+ * where the stick turns loose between thumb and finger. How it is shared is
+ * the rebound's (`rebound.ts`): off the head the stick leaps up in the fingers
+ * while the hand is still where it struck, the hand follows it up, and the
+ * wrist starts the next throw a moment before the stick. Only a big stroke
+ * brings the forearm in, and then not far.
  *
  * In a military grip the wrist's share is mostly the forearm turning about its
  * own length instead — the palm-up hand rocking like a doorknob — so the stick
@@ -967,18 +942,15 @@ function arm(
   const sign = counting && hand === 'other' ? -1 : 1;
   const swung = sign * st.lift * time.height + arc + time.air;
   const lift = Math.min(cap, swung + (time.cross - swung) * crossed);
-  // the wrist leads the next throw, not the rebound — off the head the stick bounces in the
-  // fingers and the hand waits (see `looseness`) — and its lead fades out at the head, so
-  // the stick still meets it where it is aimed
-  // the stroke coming, or with none coming the one just played
-  const fingers = counting ? 0 : fingerShare(st.next ?? st.prev);
-  const loose0 = counting ? 0 : Math.max(looseness(st, style), LOOSE_FINGERS * fingers);
-  const loose = loose0 + (1 - loose0) * crossed;
-  const rest = restLoose(st, style);
-  const caught = counting ? 1 : Math.max(0, 1 - (loose - rest) / (LOOSE_REBOUND - rest)) ** 2;
+  // ...and how high the hand's own turn has it: what the rebound left it, the stick loose
+  // ahead of it in the fingers. Counting, the arm plays the stick held fixed, a moment
+  // ahead of the click. (`fingers`: the stroke coming, or with none coming the one just played)
+  const fingers = counting ? 0 : ghostShare(st.next ?? st.prev);
   const early = Math.min(cap, sign * time.ahead * time.height + arc + time.air);
-  const ahead =
-    lift + (early - lift) * caught * Math.min(1, Math.abs(lift) / WRIST_FADE) * (1 - crossed);
+  // (the arm's lead fades out at the click, so the sticks still meet where they are aimed)
+  const ahead = counting
+    ? lift + (early - lift) * Math.min(1, Math.abs(lift) / COUNT_FADE)
+    : Math.min(cap, Math.max(0, st.hand) * time.height + arc + time.air);
   // set down for a cross-stick, the hand lies as it lies whatever the grip
   const american = from.roll + (to.roll - from.roll) * travel;
   const roll = gripRoll(style, american) + (american - gripRoll(style, american)) * crossed;
@@ -1068,7 +1040,7 @@ function arm(
   const armLift =
     (counting
       ? COUNT_ARM * ahead
-      : style.arm * Math.max(0, ahead - ARM_FROM) + carry + WRIST_RISE * caught * ahead) *
+      : style.arm * Math.max(0, ahead - ARM_FROM) + carry + WRIST_RISE * ahead) *
     (1 - crossed);
   const back = new Vector3(-d0.x, 0, -d0.z).normalize();
   const raise = new Vector3().addScaledVector(UP, armLift).addScaledVector(back, armLift * 0.25);
@@ -1076,13 +1048,19 @@ function arm(
   const tw = time.twirl;
   raise.addScaledVector(UP, tw.raise * tw.amount).addScaledVector(back, -TWIRL_OUT * tw.amount);
 
-  // the rest is the stick turning up: part in the fingers, part at the wrist
+  // the rest is the stick turning up: the hand's share at the wrist, turning hand and stick
+  // together, and the fingers' on top of it (all of it, set down for a cross-stick)
   const wristArm = grip0.distanceTo(wrist0);
-  const theta = Math.asin(
-    Math.max(-0.97, Math.min(0.97, (lift - armLift) / (reach + wristArm * (1 - loose))))
-  );
+  const asin = (x: number) => Math.asin(Math.max(-0.97, Math.min(0.97, x)));
+  // (counting, the stick is held fixed and the arm plays it: the hand turns only as far as
+  // the stick, but for the click ringing in the fingers)
+  const fixed = Math.min(cap, sign * st.hand * time.height + arc + time.air);
+  const wristTurn = counting
+    ? asin((fixed - armLift) / (reach + wristArm))
+    : asin((ahead - armLift) / (reach + wristArm)) * (1 - crossed);
+  const theta = asin((lift - armLift - wristArm * Math.sin(wristTurn)) / reach);
   const axis = new Vector3().crossVectors(d0, UP).normalize();
-  const matchedTurn = new Quaternion().setFromAxisAngle(axis, theta * (1 - loose));
+  const matchedTurn = new Quaternion().setFromAxisAngle(axis, wristTurn);
   // ...the turn shared between the wrist and the forearm as the grip has it
   const turn =
     style.turn > 0
@@ -1091,7 +1069,7 @@ function arm(
           axis,
           wrist0,
           solveTwoBone(shoulder, wrist0, BODY.upperArm, BODY.forearm, pole).joint,
-          theta * (1 - loose),
+          wristTurn,
           style.turn
         ).slerp(matchedTurn, crossed)
       : matchedTurn;
@@ -1180,7 +1158,7 @@ function arm(
   // too for a ghost, which they threw — and open to let it turn as it rises: all
   // the way over a finger stroke's inch. The squeeze is the note just played's,
   // whatever comes next: a ghost before the backbeat is still the fingers'
-  const thrown = Math.max(st.prev?.strength ?? 0, 0.8 * (counting ? 0 : fingerShare(st.prev)));
+  const thrown = Math.max(st.prev?.strength ?? 0, 0.8 * (counting ? 0 : ghostShare(st.prev)));
   const squeeze = st.prev ? thrown * Math.exp(-st.since * 22) : 0;
   const giveAt = GIVE_FULL + (GIVE_FINGERS - GIVE_FULL) * fingers;
   const give = Math.min(1, lift / giveAt) + 1.6 * tw.amount;
@@ -1193,7 +1171,7 @@ function arm(
     stick,
     tip,
     lift,
-    curl: Math.min(1, Math.max(0, 0.62 + 0.3 * squeeze - 0.22 * give)),
+    curl: Math.min(1, Math.max(0, 0.62 + 0.3 * Math.max(squeeze, st.grip) - 0.22 * give)),
     // turned over for a cross-stick, the hand holds it as a matched hand does
     held: crossed > 0.5 && military ? 'american' : held,
     cross: crossed,
@@ -1489,8 +1467,10 @@ const CROSS_LIFT = 0.06;
 
 /** 0 on the hat pedal, 1 on the double pedal: how far over the left foot is, from its strokes there. */
 function onDoublePedal(kicks: readonly Hit[], now: number): number {
+  // (the nearest kick is the last at or before now, or the one after it)
+  const i = lastAtOrBefore(kicks, now);
   let near = Infinity;
-  for (const h of kicks) near = Math.min(near, Math.abs(h.time - now));
+  for (const h of [kicks[i], kicks[i + 1]]) if (h) near = Math.min(near, Math.abs(h.time - now));
   return 1 - smootherstep(ON_DOUBLE, OFF_DOUBLE, near);
 }
 
@@ -1808,23 +1788,27 @@ export function poseAt(
   const leftFoot = timeline.forLimb('hatFoot');
   const leftKicks = leftFoot.filter((h) => h.piece === 'kick');
   const across = onDoublePedal(leftKicks, now);
-  const hatFoot = hatFootAt(
-    leftKicks.length ? leftFoot.filter((h) => h.piece === 'hat') : leftFoot,
-    now,
-    phase,
-    groove,
-    open
+  const chicks = leftKicks.length ? leftFoot.filter((h) => h.piece === 'hat') : leftFoot;
+  const hatFoot = hatFootAt(chicks, now, phase, groove, open);
+  // the pedal bouncing under the foot, which means it up for the open notes and the
+  // chicks — and a foot over on the double pedal is not rocking the hats
+  const hatLift = hatPedalAt(
+    (t) =>
+      Math.max(
+        hatOpenAt(hatHits, t),
+        chickLiftAt(chicks, t) * (leftKicks.length ? 1 - onDoublePedal(leftKicks, t) : 1)
+      ),
+    now
   );
-  // a foot over on the double pedal is not rocking the hats
-  const hatLift = Math.max(open, hatFoot.lift * (1 - across));
   const hatGap = HAT_CLOSED_GAP + 0.024 * hatLift;
   const hatAt: HatAt = { gap: hatGap, shift: hatShift(timeline.doublePedal) };
 
   const leadHits = timeline.forLimb('lead');
   const otherHits = timeline.forLimb('other');
+  const stroke = { lead: HAND_FOR[grips.lead], other: HAND_FOR[grips.other] };
   const strokes = {
-    lead: strokeAt(leadHits, now, HAND),
-    other: strokeAt(otherHits, now, HAND),
+    lead: strokeAt(leadHits, now, stroke.lead),
+    other: strokeAt(otherHits, now, stroke.other),
   };
   const paths = {
     lead: path(strokes.lead, leadHits, 'lead', now, hatAt),
@@ -1842,7 +1826,7 @@ export function poseAt(
       ['lead', leadHits, lt],
       ['other', otherHits, ot],
     ] as const) {
-      const p = path(strokeAt(hits, at, HAND), hits, hand, at, hatAt);
+      const p = path(strokeAt(hits, at, stroke[hand]), hits, hand, at, hatAt);
       sum.addScaledVector(p.from.tip.clone().lerp(p.to.tip, p.travel), 1 / LOOK_AHEAD.length);
     }
   }
@@ -1858,7 +1842,10 @@ export function poseAt(
   let effort = 0;
   for (const dt of EFFORT_WINDOW) {
     const at = now - dt;
-    const big = Math.max(strokeAt(leadHits, at, HAND).lift, strokeAt(otherHits, at, HAND).lift);
+    const big = Math.max(
+      strokeAt(leadHits, at, stroke.lead).lift,
+      strokeAt(otherHits, at, stroke.other).lift
+    );
     effort += Math.max(0, big - 0.18) / EFFORT_WINDOW.length;
   }
 
@@ -1913,7 +1900,12 @@ export function poseAt(
       air: groove * idle * AIR_SWING * 2 * (0.5 - dip) * ex.nodScale,
       height: (1 + HEIGHT_DRIFT * drift(now, HEIGHT_PERIOD, salt)) * (1 + groove * barCue(hand)),
       sway: groove * ex.nodScale * 0.1 * (0.5 - settle),
-      ahead: strokeAt(hits, now + WRIST_LEAD, HAND).lift,
+      // (only counting in reads it: no stroke worked out a frame early for nothing; and the
+      // hand's, without the click's ring in the fingers, which the arm does not play)
+      ahead:
+        (st.next ?? st.prev)?.piece === 'sticks'
+          ? strokeAt(hits, now + COUNT_LEAD, stroke[hand]).hand
+          : 0,
       twirl: twirls[hand],
       cross: crossLiftAt(st, now),
       ready: crossReadyAt(st),
@@ -1952,16 +1944,19 @@ export function poseAt(
   const otherArm = show ? show.arms.other : otherRest;
 
   const kickHits = timeline.forLimb('kickFoot');
-  const kick = strokeAt(kickHits, now, KICK);
-  const stance = kickStanceAt(kickHits, now);
-  const leftKick = strokeAt(leftKicks, now, KICK);
-  const leftStance = kickStanceAt(leftKicks, now);
+  // (each foot's plan worked out once, for its stance and its pedal both)
+  const kickNotes = kickPlan(kickHits);
+  const leftNotes = kickPlan(leftKicks);
+  const kick = beaterAt(kickHits, now, kickNotes);
+  const stance = kickStanceAt(kickHits, now, kickNotes);
+  const leftKick = beaterAt(leftKicks, now, leftNotes);
+  const leftStance = kickStanceAt(leftKicks, now, leftNotes);
 
   const hits: Partial<Record<PieceId, PieceHit>> = {};
   for (let i = all.length - 1; i >= 0; i--) {
     const h = all[i];
     if (h.time > now || hits[h.piece]) continue;
-    hits[h.piece] = { since: now - h.time, strength: h.strength };
+    hits[h.piece] = { since: now - h.time, strength: h.strength, seed: seedOf(h) };
   }
 
   const legs = {
