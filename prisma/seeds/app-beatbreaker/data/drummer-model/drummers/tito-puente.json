@@ -673,6 +673,7 @@
     ]
   },
   "beatbreaker": {
+    "style_key": "puente",
     "headline_pattern_ids": [
       "pattern:puente-mambo-bell-archetype",
       "pattern:puente-cascara-archetype",

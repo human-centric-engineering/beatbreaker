@@ -91,7 +91,10 @@ describe('the drummer model', () => {
       .sort();
     expect(playable).toEqual([
       'drummer:bernard-purdie',
+      'drummer:changuito',
       'drummer:clyde-stubblefield',
+      'drummer:elvin-jones',
+      'drummer:horacio-hernandez',
       'drummer:jabo-starks',
       'drummer:john-bonham',
       'drummer:mitch-mitchell',
@@ -99,6 +102,7 @@ describe('the drummer model', () => {
       'drummer:ringo-starr',
       'drummer:steve-gadd',
       'drummer:stewart-copeland',
+      'drummer:tito-puente',
       'drummer:tony-allen',
       'drummer:tony-williams',
       'drummer:yussef-dayes',

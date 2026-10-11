@@ -6,7 +6,6 @@ import {
   gracesOf,
   handLanes,
   handsAt,
-  handsOf,
 } from '@/lib/app/breaks/lanes';
 import { STEPS, isGroupStart, stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { generatePattern, type GenerateOptions } from '@/lib/app/breaks/generate';
@@ -84,7 +83,7 @@ export function playability(pat: Pattern, bpm: number): Playability {
       if (i < nSteps - 1 && b.k[i] && b.k[i + 1]) doubleStrain++;
       // a flam's step is the grace check's to report, not this one's twice over —
       // that step only, so a three-hand step elsewhere is still named
-      if (graceTooMany(b, i)) graceClash = true;
+      if (graceTooMany(b, i, hands)) graceClash = true;
       else if (handsAt(b, i, hands) > 2) threeHands = true;
     }
 
@@ -155,18 +154,15 @@ export const HANDS_CHECK = 'Two hands — never three things for the sticks at o
 export const GRACE_CHECK =
   'A flam or drag takes both hands — nothing else in the hands on that step';
 
-/** The lanes played with a stick. */
-const HAND_LANES: LaneKey[] = LANES.filter((L) => L !== 'k' && L !== FOOT_LANE);
-
 /**
  * A flam or drag is two hands — the grace is the other one — so on its step
- * there is no hand left for a hi-hat, a ride, a crash or another drum.
+ * there is no hand left for a hi-hat, a ride, a crash or another drum. Over
+ * the same lanes as the two-hands check (`handLanes`): a percussionist's
+ * conga or claves under a drag is not a third hand.
  */
-function graceTooMany(b: Bar, i: number): boolean {
-  if (!HAND_LANES.some((L) => gracesOf(L, b[L][i]))) return false;
-  let hands = 0;
-  for (const L of HAND_LANES) hands += handsOf(L, b[L][i]);
-  return hands > 2;
+function graceTooMany(b: Bar, i: number, lanes: readonly LaneKey[]): boolean {
+  if (!lanes.some((L) => gracesOf(L, b[L][i]))) return false;
+  return handsAt(b, i, lanes) > 2;
 }
 
 /** "Did a backbeat arrive at this step?", for whichever lane carries the pulse. */

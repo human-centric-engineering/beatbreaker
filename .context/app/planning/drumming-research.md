@@ -1711,6 +1711,656 @@ and the AI tabs s2881738 (If You Love Somebody Set Them Free), s1549175
 (Consider Me Gone), s2565903 (Corner Pocket), s407356 (Modern Love, credits
 Thompson).
 
+## P. Elvin Jones (2026-10-11)
+
+The `elvinjones` style plays **songs** the way `gadd` does (N): each New
+picks one of his records, and its meter, tempo and swing come with it. His
+record in the drummer model (`drummer-model/drummers/elvin-jones.json`) sets
+the rules: a triplet grid and never straight 16ths; generate, don't loop;
+cross-rhythm accents in groups of two or four triplets across snare, toms and
+kick; the ride legato and broad; the hi-hat foot on 2 and 4 by default. It
+says to avoid quantised loops, a rock backbeat and sparse pocket minimalism.
+
+**Which records are his.** Personnel credits were checked on Wikipedia for
+every record kept. _My Favorite Things_ (Atlantic, recorded October 1960;
+Steve Davis on bass). _Coltrane "Live" at the Village Vanguard_ (November
+1961): Chasin' the Trane. _Impressions_: only "India" and "Impressions"
+(Village Vanguard, 3 and 5 November 1961) and "Up 'Gainst the Wall" are his;
+"After the Rain" and "Dear Old Stockholm" are Roy Haynes. _Live at Birdland_:
+"Afro Blue" is live (8 October 1963); "Your Lady" is a studio track (18
+November 1963), though the album is called Live. _Crescent_ (April and June
+1964): Bessie's Blues. _A Love Supreme_ (9 December 1964; he is credited with
+drums, gong and timpani). Wayne Shorter's _Juju_ (3 August 1964) and _Speak
+No Evil_ (24 December 1964). McCoy Tyner's _The Real McCoy_ (21 April 1967),
+Larry Young's _Unity_ (10 November 1965, "a standard 4-piece drum kit with
+two cymbals and hi-hat") and Sonny Rollins's _A Night at the "Village
+Vanguard"_ (3 November 1957) are his too, but on the Rollins record only the
+evening sets: "A Night in Tunisia" on the original LP is Pete LaRoca's
+afternoon set. The Jazz Machine's _Live in Japan 1978_ (Yomiuri Hall, 8–9
+April 1978) has "A Love Supreme" as its second side.
+
+**How he played.** Todd Bishop (Cruise Ship Drummer, "Key players: Elvin
+Jones") hears the ride accent "the 'skip' note— the note on the & of 2 and 4"
+and play down the note after it, "a strong tendency to phrase in 3/4, even
+when playing in 4/4", and the snare, kick "and sometimes hihat" filling out
+"a constant stream of triplets"; "the stereotype of his playing is that it is
+all triplets, but he uses a lot of 16th notes as well", the grid "shifting
+between triplets and 16th notes" ("How can I understand Elvin Jones?"). His
+waltz "has a polyrhythm built into his playing, with an omnipresent 3/4 and
+6/8 cross rhythm". The Afro waltz of Your Lady is "a linear left hand/BD/HH
+part in 6/8 played under a standard jazz waltz cymbal pattern". Learn Jazz
+Standards: "Throughout Elvin's playing, we can hear him stressing or even
+landing phrases on the second triplet", "3/4 and 5/4 phrases on top of the
+4/4 bar" while he keeps the ride going. John Xepoleas (Modern Drummer,
+"Elvin Jones–style triplet fills") voices the right hand's accents on "the
+ride cymbal and bass drum" and "all of the left hand notes softly on the
+snare". Wikipedia (Afro Blue): Jones superimposed "two cross-beats over every
+measure of a 3/4 waltz (2:3)", reversing Santamaría's 6/8. Ethan Hein: on My
+Favorite Things "the groove's main feature is the accented 'and' of one".
+Bishop on Chasin' the Trane: "bass drum accents on a downbeat, with a ghosted
+note on the & before it". His snare is "tuned high", toms and kick "high ...
+and wide open", cymbals "large ... thin, and dark".
+
+**What the style encodes.** The `virtuosity` kit for every song (the open
+jazz kit); `backbeatLane: 'hf'`, the foot on 2 and 4 in 4/4, on 3 (with 2 or
+the "and" of 1) in the waltzes; `fill: 'comp'` with `midFills` 0.4 and a
+crash on 40% of phrase marks; `crossRhythm` 0.35 with per-song cycles of 8
+steps (four triplets) and 4 (two), 9 for Afro Blue's two cross-beats, 3 and 6
+in the fast eighths (dotted quarters, three-beat phrases); ghosts weighted to
+the middle triplet; the ride +0.03 of a step late and the snare +0.02 (the
+record's "laid back" estimate). Medium tunes are in `4/4-6`, so the tempo is
+the record's and every note sits on an even step (triplet eighths). The
+waltzes are in `9/8`, a dotted quarter to each waltz beat, so the readout is
+half again the waltz quarter. Over 200 the triplet meters cannot go (the
+transport stops 4/4-6 at 190 and 9/8/12/8 at 300, a quarter of 200), so
+Chasin' the Trane, Impressions and Pursuance are in `4/4-8` with
+`swingCurve`, as Tony Williams's fast tunes are; Impressions and Pursuance
+open at 240–280 and the slider reaches the records' 272–300.
+
+**Grids.** Four songs follow human transcriptions by Todd Bishop (notation
+images and PDFs read, 2026-10-11):
+
+- **Chasin' the Trane** (part 1, choruses 1–6): the foot on every 2 and 4;
+  the ride in quarters with the skip note; the snare on the "and" of 4 or 2,
+  accented, a buzz on 4; the kick on a downbeat (bar 3 on 2), once a ghost
+  "and" before an accent. Five of its bars are the figures. Its triplet
+  streams (bars 34–36, the snare on the second and third triplets) do not fit
+  in eighths.
+- **Your Lady** (intro and head): kick, foot, ghosted snare, kick, foot, tom
+  on the six eighths of a 3/4 bar, then foot, foot, snare, kick, foot, tom;
+  the left-hand triplets later in the head.
+- **Juju** (Page o' coordination, "developing an Elvin Jones groove" from the
+  record, exercises 1–4): the cymbal on every eighth but the "and" of 1, the
+  feet in 6/8 across two bars, a rim click on 2, a tom on the "and" of 3.
+- **A Love Supreme, Jazz Machine** ("Groove o' the day: two by Elvin Jones"):
+  the mozambique on the bell, a rim click on the "and" of 2, the high tom on
+  4 and its "and", kick on 1 and foot on 3, in Bishop's two-bar eighth
+  writing.
+
+My Favorite Things is built from Bishop's "Assembling a basic Elvin waltz"
+(it names My Favorite Things among its sources) and Hein's accented "and" of
+
+1. Afro Blue, Resolution, Acknowledgement, Bessie's Blues, Speak No Evil,
+   Witch Hunt, Impressions and Pursuance are reconstructions in his vocabulary.
+
+| Song                                         | Year | Tempo (quarter)                                       | Meter | What defines it                                         | Source of the bars           |
+| -------------------------------------------- | ---- | ----------------------------------------------------- | ----- | ------------------------------------------------------- | ---------------------------- |
+| My Favorite Things (Coltrane)                | 1960 | 179 (jazzomat 179.3; AllSolos 177–179)                | 9/8   | waltz, the "and" of 1, triplets under the ride, hemiola | lesson (Bishop) + Hein       |
+| Afro Blue (Live at Birdland)                 | 1963 | about 200: songbpm 133 (four readings) and 100 (two)  | 9/8   | two cross-beats a bar, 2:3                              | **reconstruction**           |
+| Juju (Wayne Shorter)                         | 1964 | 177 (AllSolos, Elvin's solo; jazzomat 178.2, "LATIN") | 9/8   | 6/8 feet under the waltz ride, rim click on 2           | Bishop, Page o' coordination |
+| Your Lady (Coltrane)                         | 1963 | **none found**; 150–170 estimated                     | 9/8   | linear kick / foot / left hand in 6/8                   | Bishop transcription         |
+| Resolution (A Love Supreme)                  | 1964 | 178–182 (AllSolos)                                    | 4/4-6 | every triplet filled, accents in fours                  | **reconstruction**           |
+| Acknowledgement (A Love Supreme)             | 1964 | 126 (AllSolos, "latin")                               | 4/4-6 | triplets round the toms over the bass figure            | **reconstruction**           |
+| Bessie's Blues (Crescent)                    | 1964 | 184 (jazzomat)                                        | 4/4-6 | short fast blues, comps on the "ands"                   | **reconstruction**           |
+| Speak No Evil (Wayne Shorter)                | 1964 | 142–143 (AllSolos; jazzomat 142.7)                    | 4/4-6 | broad ride, a few hard comps                            | **reconstruction**           |
+| Witch Hunt (Wayne Shorter)                   | 1964 | 136–139 (AllSolos)                                    | 4/4-6 | horn calls answered on snare and kick                   | **reconstruction**           |
+| Chasin' the Trane (Coltrane)                 | 1961 | 235–244 (Bishop); 236 (AllSolos)                      | 4/4-8 | snare on the "ands", foot on 2 and 4, no piano          | Bishop transcription         |
+| Impressions (Coltrane, Vanguard)             | 1961 | 272 (AllSolos); 293.4 (jazzomat, swing ratio 0.99:1)  | 4/4-8 | near-even gallop, 3/4 phrases across the bar            | **reconstruction**           |
+| Pursuance (A Love Supreme)                   | 1964 | 277–300 (AllSolos; his solo 284–300)                  | 4/4-8 | fastest swing on the record, rolling toms               | **reconstruction**           |
+| A Love Supreme (Jazz Machine, Live in Japan) | 1978 | **none found**; 180–220 estimated (eighth writing)    | 4/4-8 | mozambique on the bell                                  | Bishop groove transcription  |
+
+The Afro Blue tempo is a reading: songbpm's two values agree only if the
+waltz quarter is 200 (133 is the dotted-quarter cross-beat, 100 the half
+tempo). Your Lady and the Jazz Machine song have no measured tempo; both
+ranges are estimates and should be measured.
+
+**Left out.** India (his, 201–208 per AllSolos, but no description of his
+part found); Up 'Gainst the Wall; Softly, as in a Morning Sunrise and
+Spiritual from the Vanguard sets; Crescent's title track and The Drum Thing
+(rubato and mallets); Psalm; The Real McCoy (Passion Dance's tempo readings
+disagree, 120 and 141, and no description of the drums found); Unity (no
+tempo or description found); the Rollins Vanguard record (no tempo or
+description found); Tin Tin Deo on _Very R.A.R.E._ (1979, his record; Bishop
+transcribed its Afro 6/8, the long bell pattern, but no tempo was found).
+
+**Found on the way, not changed.**
+
+- A figure row holds at most 32 steps (`styleParamsSchema`), so a two-bar
+  9/8 figure (36 steps) cannot be written. The two-bar 6/8 foot parts of
+  Juju and Your Lady are two one-bar figures, and the generator does not
+  keep them in order.
+- The triplet meters stop at a quarter of 190 (4/4-6) or 200 (9/8, 12/8:
+  the transport's 300). Chasin' the Trane, Impressions, Pursuance and India
+  are faster, so they are in eighths, and his triplets there (Chasin's
+  streams, the middle triplet) cannot be written.
+- The ride has no accent value (1 ride, 2 bell), so his accented skip note
+  and the softer beat after it are not written.
+- Bishop's "shifting between triplets and 16th notes" has no grid: a bar is
+  either sextuplets or sixteenths.
+- Gong, timpani and mallet swells (A Love Supreme, Crescent) are not in the
+  kit.
+- On the Jazz Machine's A Love Supreme he plays the bell pattern in 16ths,
+  double time over the feet; it is written here in Bishop's eighths.
+
+## Q. Tito Puente (2026-10-11)
+
+The `puente` style plays **songs** the way `gadd` does (N): each New picks one
+of his records, and its tempo and the right hand's instrument come with it.
+His record in the drummer model (`drummer-model/drummers/tito-puente.json`)
+sets the rules: always declare clave and stay in it; cáscara on verses, bell
+on the montuno; open sections with an abanico; offer a kit translation (the
+timbales on the toms, the bells on a cowbell). Its `avoid` list is a rock
+backbeat and swung eighths.
+
+**He played timbales, not a kit.** So the style is the kit translation of
+plan decision D50: the macho (high timbale) is `t1`, the hembra (low) `t2`;
+the shell (paila) is a `cascara` percussion slot and the mambo or cha-cha
+bell a `cowbell` slot, both mounted and so in the right hand; the claves are
+the percussionist's (`clave`, no hand). There is one bell-or-shell slot per
+song, because a song has two percussion slots and one is the clave.
+
+**Which records are his.** It is his orchestra on every one, and he is on
+timbales as leader on each:
+
+- _Dance Mania_ (RCA, recorded November–December 1957, released 1958):
+  Wikipedia's personnel lists "Tito Puente – leader, arranger, timbales,
+  vibraphone, marimba", with Ray Barretto (congas), Ray Rodríguez (bongos) and
+  Julito Collazo (congas on 4 and 11). No kit drummer. Five songs are from it:
+  El Cayuco, Complicación (Francisco Aguabella's), 3-D Mambo (Ray Santos's),
+  Hong Kong Mambo, Mambo Gozón. Discogs's track list agrees.
+- "Oye Como Va" (_El Rey Bravo_, Tico, recorded 1961, released 1962):
+  Wikipedia: "arranged as a cha-cha-chá with a repeated piano tumbao". Its
+  personnel lists congas and bongos and no kit. (The record's open question on
+  the year: Wikipedia gives recorded 1961, released 1962.)
+- "Ran Kan Kan": "first recorded … with his band in 1950" (Muppet Wiki's page
+  on it; the song's later appearance on _Mambo Birdland_, 1999, is live).
+  "Picadillo" and "Babarabatiri" are among his early mambo hits (as web search
+  summaries put it; no credit page was found for either), and which take
+  songbpm measured is not given; see below.
+- "Para Los Rumberos": first on _Cuban Carnival_ (1956), whose personnel has
+  Mongo Santamaría, **Willie Bobo** (himself a timbalero), Patato Valdés,
+  Cándido and Johnny Rodríguez on percussion besides Puente on timbales. The
+  song here is the 1972 remake on _Para Los Rumberos_, which Craft Recordings
+  says slows "the original blistering fast rumba abierta tempo of the 1955
+  version to a respectable mambo tempo" and ends with "a short timbale solo".
+- "Mambo Diablo" (_Mambo Diablo_, Concord Picante, 1985): Tito Puente
+  (timbales, vibes, percussion), José Madera (congas) and Johnny "Dandy"
+  Rodríguez (bongos); George Shearing only on "Lullaby of Birdland". No kit.
+
+**How he played.** "I played the drumset first … then I went over to the
+timbales" (PAS Hall of Fame); he "brought them out front and played them
+standing up … so he could give cues more easily", and "listens to the big
+band as a rhythm player, and he interprets the band as a drum" (PAS). On
+clave: "I always write the clave on the bottom of the score", and "the clave
+doesn't change; the feeling changes" (PAS). jazz.com: "Puente's early drumming
+style combined the cascara patterns of the timbales with bass drum and
+cymbals, to 'kick' the arrangement." Wikipedia's Timbales article names his
+vocabulary's sources: "the shells and the typical pattern played on them are
+referred to as cáscara", the cowbell mounted in the mambo era, and the
+abanico among the common strokes. For Oye Como Va a forum post on
+mycongaplace quotes his book with Jim Payne (_Tito Puente's Drumming with the
+Mambo King_): three patterns, "two for cymbal and one for bell played at
+Half-tone = 64 bpm"; another poster: the timbalero plays "the cha cha beat",
+"hitting the quarter note all the time".
+
+**What the style encodes.**
+
+- **Clave.** Every song declares the 2-3 son clave on the claves, steps
+  `[2, 4, 8, 11, 14]` (one 4/4 bar here holds the whole clave: the record's
+  two bars of eighths). That is the direction his record gives for both the
+  bell and the shell; it was **not** checked against a chart song by song.
+- **The right hand.** The instrumental mambos (Ran Kan Kan, 3-D Mambo, Hong
+  Kong Mambo, Mambo Gozón, Picadillo, Para Los Rumberos) play the record's
+  mambo bell, `[0, 2, 4, 5, 7, 8, 10, 11, 13, 15]`, the mouth accented on
+  each bar's 1 and 3. The sung guarachas and the Latin jazz one (El Cayuco,
+  Complicación, Babarabatiri, Mambo Diablo) play the shell, the cáscara over
+  2-3, `[0, 2, 3, 5, 7, 8, 10, 12, 13, 15]` (the record's archetype, which
+  matches the brief's table). Oye Como Va plays the cha-cha bell on every
+  beat of its bars (every other step), accented on 1 and 3.
+- **The left hand.** The hembra on 2 (a muffled stroke) and 4 (open) of each
+  bar of the clave: steps 2, 6, 10, 14. The record's own bell archetype has
+  the low timbale on 2 and 4; its cáscara archetype has it on 3, which is not
+  used (no source for it was found, and the verse figure here keeps only the
+  open stroke on each 4, the ponche). The open strokes, steps 6 and 14, are
+  the style's `backbeats`: a tom counts for the critic, as in Gadd's
+  mozambique. In the model's own beats those steps are the "and" of 2 and
+  the "and" of 4, so nothing sits on a rock 2 and 4.
+- **The kick.** A timbalero has no bass drum. The translation keeps one kick
+  note, the bass tumbao's bombo (the anticipated "and" of 2 of each bar of
+  the clave: steps 3 and 11; kick cells `0001`), on jazz.com's word that his
+  early style used bass drum to "kick" the arrangement, and so that a
+  drummer on a kit has something under the feet. Never on the 1:
+  `phraseMark.kick` is false. Oye Como Va's figures have no kick (the bass
+  and piano tumbao is the ostinato there).
+- **The abanico** is the main fill: a press roll into a rimshot on the last
+  eighth of the clave, into the 1 (`s: '885'`: two buzzes and a rimshot,
+  on the snare, because a tom lane has no buzz or rimshot value). The other
+  fill is the two timbales answering each other into the same rimshot; Para
+  Los Rumberos's longer one stands for its "short timbale solo".
+  `fillChance` 0.8, no `midFills`: a fill opens the next section and is
+  played at a phrase end.
+- **Feel.** Swing 0 everywhere ("swing 8ths" is on the avoid list); the
+  timbales a shade on top (−0.02), the record's inferred "on top"; no
+  ghosts (the left hand is on the hembra, not the snare).
+- **Kit.** `police` ("bright and tight": the DRS kit with its snare cracking
+  "like a brass snare cranked tight"): of the sampled kits it is the nearest
+  to a steel-shelled timbale's ring and its rimshot, and it keeps the DRS
+  toms, which ring clearly. `drs` would be rounder, `osdk` softer.
+- **Tempo.** Songbpm's figures, which for the mambos are the half note: the
+  charts are in cut time and one 4/4 bar here is two of their bars, so the
+  half note is this grid's quarter (songbpm also lists 3-D Mambo at 198 on
+  one version, the quarter). Oye Como Va is 124 on songbpm (the quarter of
+  the cha-cha-chá), so 62 here; the book's "half-tone = 64" agrees.
+
+**Grids.** None follows a human transcription. Songsterr has tabs of Oye
+Como Va, Mambo Diablo, Cuban Fantasy, Mambo Gallego and Mambo en Blues, and
+each has `aiGenerated: true`; the Payne book's three solo transcriptions and
+José Madera's charts were not available. Every song is a reconstruction from
+the record's archetypes and the descriptions above, and the songs differ
+mainly in tempo and in whether the right hand is on the bell or the shell.
+
+| Song                         | Year           | Tempo (this grid's quarter)                         | Right hand        | Clave            | Source of the bars |
+| ---------------------------- | -------------- | --------------------------------------------------- | ----------------- | ---------------- | ------------------ |
+| Oye Como Va                  | 1962 (rec. 61) | 62–64: songbpm 124 (quarter); "half-tone = 64" book | cha-cha bell, 1–4 | son 2-3 (claves) | **reconstruction** |
+| Ran Kan Kan                  | 1950           | 105 (songbpm)                                       | mambo bell        | son 2-3          | **reconstruction** |
+| El Cayuco (_Dance Mania_)    | 1958           | 128 (songbpm)                                       | cáscara           | son 2-3          | **reconstruction** |
+| Complicación (_Dance Mania_) | 1958           | 95 (songbpm)                                        | cáscara           | son 2-3          | **reconstruction** |
+| 3-D Mambo (_Dance Mania_)    | 1958           | 100–101 (songbpm; one listing 198, the quarter)     | mambo bell        | son 2-3          | **reconstruction** |
+| Hong Kong Mambo (_D. M._)    | 1958           | 91 (songbpm)                                        | mambo bell        | son 2-3          | **reconstruction** |
+| Mambo Gozón (_Dance Mania_)  | 1958           | 105 (songbpm)                                       | mambo bell        | son 2-3          | **reconstruction** |
+| Babarabatiri                 | early 1950s    | 101 (songbpm; take not named)                       | cáscara           | son 2-3          | **reconstruction** |
+| Picadillo                    | early 1950s    | 97 (songbpm; take not named)                        | mambo bell        | son 2-3          | **reconstruction** |
+| Para Los Rumberos (1972)     | 1972           | 133 (songbpm; take not named, taken as the remake)  | mambo bell        | son 2-3          | **reconstruction** |
+| Mambo Diablo                 | 1985           | 155 on songbpm, read as the quarter: 75–80 here     | cáscara           | son 2-3          | **reconstruction** |
+
+**Left out.** "Mi Chiquita Quiere Bembé" (_Dance Mania_): by its name a 6/8
+bembé, but no source for its rhythm or tempo was found. "Cuban Fantasy" (Ray
+Bryant's, on _Cuban Carnival_): no tempo found. "Philadelphia Mambo" and
+"Mambo Birdland": no tempo found, and _Mambo Birdland_ is an album, not a
+song of that name that could be placed. "El Rey del Timbal" (songbpm 146):
+which recording was not clear. The 1956 "Pa' Los Rumberos" at its rumba
+abierta tempo: the remake was kept instead, and Willie Bobo is also on that
+date.
+
+**Found on the way, not changed.**
+
+- A song cannot move the right hand from the shell to the bell between its
+  verse and its montuno: percussion slots are per song, not per figure, and
+  the bell on the ride lane over a shell slot would be three hands with the
+  hembra. So each song is one or the other, against his record's "cáscara on
+  verses, bell on montuno".
+- The abanico is a roll on the drum's head: a tom lane has only hit, accent
+  and flam, so the roll and its rimshot are written on the snare.
+- The figure variation pass (`varyFigureBar`) puts a kick under every cymbal
+  accent it adds and toggles off-beat kicks, so Oye Como Va, written without a
+  kick, sometimes has one, and the mambos sometimes a kick off the bombo.
+- The book's two cymbal patterns for Oye Como Va are not written: a song's
+  bell slot plays in every bar, so a cymbal bar would have the bell under it.
+- The 2-3 direction is the record's default; a chart-by-chart check (Madera's
+  charts in the Payne book) would settle it per song.
+- Songbpm does not say which take it measured for Babarabatiri, Picadillo,
+  Ran Kan Kan and Para Los Rumberos, and its Mambo Diablo figure is read as
+  the quarter (half note 77.5) by judgement, not by a source.
+
+## R. José Luis "Changuito" Quintana (2026-10-11)
+
+The `changuito` style plays **songs** the way `gadd` does (N): each New picks
+one of his records, and its tempo, clave, percussion and kick come with it.
+His record in the drummer model (`drummer-model/drummers/changuito.json`)
+sets the rules: songo, with kick anticipations, displaced snare ghosts and
+timbale accents; the bells keeping a steady pulse while the timbales move;
+everything in clave, 2-3 rumba by default; no rock backbeat and no swing.
+
+**Which records are his.** He joined Los Van Van in 1970, replacing Blas
+Egües, and left in 1993 for a solo career, after _Disco Azúcar_; Samuel
+Formell followed him (Wikipedia, timba.com). Egües plays the 1969 EPs (_Los
+Van Van, Vol. I_): timba.com's personnel lists "Blas Egües: drums" for all
+twelve tracks, so nothing from them is used. Every song kept carries Kevin
+Moore's credit line "bass: Juan Formell — drums: Changuito" on timba.com
+(_The Roots of Timba, Part II_), or comes from an album of the Changuito
+years in timba.com's 1980s discography: Pero a mi manera and Y que se sepa
+(singles, 1972–73), Chirrín chirrán and La Habana joven (_Vol. II_ /
+_Tránsito_, 1974, "recorded in Spain as per Changuito"), Llegué llegué and Mi
+ritmo caliente (_Vol. III_, 1974), Te traigo, Dale dos, Tu decisión ¿cuál
+es?, Por qué lo haces and No digas que no compadre (_Vol. IV_, 1976), El
+baile del buey cansao (_Vol. VII_, 1982), Por encima del nivel, better known
+as Sandunguera (_Vol. VIII_, 1983). On some names in the brief: "Chapeando"
+is a 2004 album, after he left; I found no song of that name from his
+years. "Por encima del caballo" is not a Van Van title I could find; the
+1983 hit is "Por encima del nivel" (Sandunguera). "La Habana no aguanta más"
+is on _Vol. IX_ (1984), so his, but no description of its drum part was
+found and songbpm's 148–152 may be a double time, so it is left out. _Ritmo y
+Candela_ (1995, with Patato and Orestes Vilató, Grammy-nominated) is a
+percussion record and I found no track credit for a kit, and on Flora Purim's
+_Speed of Light_ (1994) he plays percussion (the record's own
+`percussion_only`): both left out.
+
+**How he played.** Drummerszone: Egües "used a kit without cymbals to invent
+the songo beat. But it was Changuito who brought the songo to fruition, soon
+restoring the cymbals and eventually adding timbales and electronic drums to
+his traps", with influences from "James Brown's drummer Clyde Stubblefield"
+and "Blood Sweat & Tears' Bobby Colomby". Moore (timba.com, _Changuito_)
+gives his alterations from his video _La historia del songo_: Egües had the
+kick on the downbeat; "the most significant change ... was moving the kick
+drum from the downbeat to the bombos", and an "important later Changuito
+alteration" keeps the 2-side bombo alone. In the same demonstration the rim
+of the snare plays the offbeats of the first three beats and the toms the
+last beat; Wikipedia (_Songo music_) gives the general rule, "the right hand
+... plays the four main beats, while the left hand plays offbeats ... on a
+closed hi-hat, woodblock, or cowbell ... snare rim, snare, cowbell(s), or
+toms". Moore again: the snare "on the backbeat of the 2-side, but not the
+3-side had already become the most common practice", the most common
+variation "adding the snare on the ponche of the 3-side"; "a master at
+spicing up slower rhythms with double-time variations" (La Habana joven,
+Resuelve and Llegué llegué are slow songs whose drums imply double time); on
+_Vol. IV_ a kick "which lasts two claves before repeating" (Te traigo). Victor
+Barrientos on Mi son entero: "Using snare, bass drum and hi-hat only ...
+shifting between the son half and double time feels", then "Chango lays into
+the cowbell for the son feel", and "the press roll on the snare to bring the
+dynamics down for the outgoing coro". From _Vol. VII_ (1982): "this is the
+album where Changuito begins adding timbales, although there is still drumset
+present" (timba.com). His "independencia" double bell, the "Changuito
+Special": "He took the hand-held campana bell normally played by the
+bongocero, mounted it on his timbale stand and played it with his right
+hand, while simultaneously playing a modified timbale bell part with his left
+and a kick drum pattern which he played from a standing position"
+(timba.com, _Changuito_ musician page); Wikipedia (_Timbales_) prints it in
+2-3.
+
+**What the style encodes.** One clave to a bar, as Moore writes it and as the
+brief's clave tables have it: sixteen steps are two bars of eighths, and the
+tempo is Moore's (four steps a beat), which songbpm's numbers for these songs
+agree with. Swing 0. The 2-3 rumba clave on the `clave` slot (no hand), 3-2
+on Tu decisión. In the 1970s songs the other slot is the congas as Changuito
+demonstrates El Yulo's part (high tones on 3, 4, 14, 15, low through the
+3-side); Moore notes Yulo does not turn the figure round for 3-2, so Tu
+decisión keeps it. In the timbales songs the bell is the `cowbell` slot (on
+the kit, a hand) and the timbales are `t1`/`t2`. No rolled ghosts
+(`ghostWeights: {}`): the left hand is written. Rudiments as `flam` 0.2 and
+`drag` 0.1, the press roll as a buzz fill. Feel "on top" (snare −0.02, kick
+−0.01 of a 16th): the record's beat placement, which it marks as inferred.
+Kit `sixties`: ringing toms for the timbales, a bright snare.
+
+The genre `songo` style puts a displaced backbeat on 6 and 12 with a 16th
+hat and a swing range; his record and Moore's grids do not support either the
+swing or a fixed backbeat there. His own demonstration has the left hand on 1,
+2, 5, 7, 9 and 10 and the toms on 12 and 14, so the backbeats the generator
+reads off his figures are those rim strokes, and the genre style is left as
+it is.
+
+**Grids.** Moore transcribes kick and snare against the clave and nothing
+else, so the hands in his songs are the songo Changuito demonstrates (via
+Moore) unless noted. Read from the colour-coded grids on each page (red a
+stroke, black a rest):
+
+- **Chirrín chirrán** (1974): the kick on both bombos (3, 11), his first
+  alteration. Second figure: the snare on the 3-side's ponche (14).
+- **La Habana joven** (1974): Moore's tumbao 1 (kick 0, 1, 9, 10; snare 4, 11) and tumbao 2 (kick 0, 1, 7, 11; snare 4, 12), and his variation kick
+  (0, 7). At the slow tempo, with sixteenths on the hat for the double time
+  he hears; the snare on the 2-side's backbeat is the one both share.
+- **Llegué llegué / Guararey** (1974): Moore's tumbao 3, twelve claves of
+  kick, five kept ([3, 11], [3, 5, 11], [1, 9, 13], [3, 5, 11, 13], [3, 10,
+  11]); the hat in eighths from his note on the interlude.
+- **Mi ritmo caliente** (1974): kick 0, 3, 5, 11, at 94.
+- **Y que se sepa** (1973): both bombos, "frequently (but not always)" the
+  offbeat after the first: [3, 5, 11] and [3, 11].
+- **Te traigo** (1976): the two-clave kick, 0, 3, 11 then 0, 1, 3, 11, as one
+  two-bar figure.
+- **Dale dos** (1976): tumbao 3, the kick on the 2-side bombo alone.
+- **Tu decisión ¿cuál es?** (1976): 3-2 rumba clave. Tumbaos 1 and 2 have the
+  snare on the downbeat of the 2-side (8), a half-time backbeat; the kick
+  under it (0, 6, with the bass) is mine. Tumbao 3 is "normal songo, but in
+  3-2", so his songo turned round by half a bar.
+- **Por qué lo haces** (1976): the "basic part - different every time", 0, 3,
+  5, 11, and two of its changes.
+- **No digas que no compadre** (1976): snare 8, kick 0, 7, 14, "a half time
+  R&B figure"; the hats are mine.
+
+**El baile del buey cansao** (1982) and **Sandunguera** (1983) are
+reconstructions. Buey cansao: the bell on the four main beats, the left hand
+of Wikipedia's basic songo stick pattern on the timbales, the kick on the
+2-side bombo alone, two displaced snare ghosts. Sandunguera: the bongó-bell
+voice of Wikipedia's Changuito Special on the cowbell (the mouth on the
+beats, the neck between, plus the extra sixteenths on 7, 11 and 15), the two
+strokes only the other bell plays (5, 9) on the low timbale, kick on the
+bombos. Its 2-3 clave is from Bass Musician Magazine.
+
+| Song                               | Year | Tempo (Moore's beat)                          | Clave                      | Hands                     | Source of the bars                     |
+| ---------------------------------- | ---- | --------------------------------------------- | -------------------------- | ------------------------- | -------------------------------------- |
+| Chirrín chirrán                    | 1974 | 107–109 (songbpm)                             | 2-3 rumba                  | his demo, hat on the beat | Moore (kick); demo (hands)             |
+| La Habana joven                    | 1974 | ~60 (Moore: slow son montuno; songbpm 120 ×2) | 2-3 rumba                  | 16ths on the hat          | Moore (kick and snare)                 |
+| Llegué llegué (Guararey)           | 1974 | 118 (Moore 59 ×2); songbpm 113                | 2-3 rumba                  | eighths on the hat        | Moore (kick, 12 claves)                |
+| Mi ritmo caliente                  | 1974 | 94 (Moore)                                    | 2-3 rumba                  | demo                      | Moore (kick)                           |
+| Y que se sepa                      | 1973 | 102 (Moore); songbpm 104                      | 2-3 rumba                  | demo                      | Moore (kick)                           |
+| Te traigo                          | 1976 | 90 (Moore)                                    | 2-3 rumba                  | demo                      | Moore (two-clave kick)                 |
+| Dale dos                           | 1976 | 96 (Moore); songbpm 94–98                     | 2-3 rumba                  | demo                      | Moore (kick)                           |
+| Tu decisión ¿cuál es?              | 1976 | 153 (Moore, end); songbpm 146; held at 150    | **3-2** rumba              | demo turned round         | Moore (snare); kick reconstruction     |
+| Por qué lo haces                   | 1976 | 115 (Moore); songbpm 110                      | 2-3 rumba                  | demo                      | Moore (kick)                           |
+| No digas que no compadre           | 1976 | 102 (Moore)                                   | 2-3 rumba                  | eighths, reconstruction   | Moore (kick and snare)                 |
+| El baile del buey cansao           | 1982 | 87 (songbpm 174–176, one entry 87)            | 2-3 rumba (record default) | bell + timbales           | **reconstruction**                     |
+| Sandunguera (Por encima del nivel) | 1983 | 95–100 (songbpm, the 1983 cut)                | 2-3 (Bass Musician)        | bongó bell + timbale      | **reconstruction** (Changuito Special) |
+
+**Left out.** The 1969 EPs (Egües). Pero a mi manera, Pero qué falta de
+respeto, Ponte para las cosas, Ana and Si mami se va: his, with Moore's kick
+(and for Ana and Pero qué falta the snare), but no tempo from Moore or
+songbpm. Resuelve (~56, both backbeats): his, transcribed, but La Habana
+joven already plays that slow double-time songo. La Habana no aguanta más,
+Qué palo es ese, Anda ven y muévete: his, tempos known, no description of
+the drums; one more invented bar under a new title would add nothing.
+_Ritmo y Candela_ and _Speed of Light_: percussion, not kit.
+
+**Found on the way, not changed.**
+
+- The record's two archetype grids are 16ths over two 4/4 bars (32 steps to
+  a clave). On the one-clave-to-a-bar grid half their strokes fall between
+  steps (the timbale strokes on 7 and 15, the snare ghosts on odd 16ths), so
+  they could not be used as written; the bell's even pulse with accents on 1
+  and 3 survives, and is what Sandunguera's bell does.
+- The record's tempo for the archetypes (100–130) is consistent with Moore's
+  songo range, 105–130.
+- The double bell (two cowbells at once) cannot be held: two percussion
+  slots, and the clave needs one. Only the bongó bell is played; the other
+  bell's own strokes go to the timbale.
+- "Rim of snare" is written as a cross-stick (4), the nearest sound; two in a
+  row (1, 2 and 9, 10) is a rim click, not a laid stick.
+- The model has no tempo changes inside a song: Llegué llegué's three related
+  tempos and Tu decisión's two at once (Moore) are one tempo each here.
+- Electronic drums: drummerszone says he added them, and Van Van's 1983–86
+  albums (from _Vol. VIII_, Sandunguera's) are the period "marred by the use
+  of dated electronic percussion and synths" (timba.com). So he very likely
+  played electronic drums on Sandunguera, but no source says which sounds
+  were his. The kit stays a sampled pack (`sixties`).
+- The record's birth-date and training questions are unchanged: timba.com's
+  musician page says 18 January 1948, Casablanca, and "self taught /
+  autodidacta"; it also gives his death as 6 June 2025, as the record does.
+
+## S. Horacio "El Negro" Hernández (2026-10-11)
+
+The `horaciohernandez` style plays **songs** the way `gadd` does (N): each New
+picks one of his records, and its tempo, meter, kit and grooves come with it.
+His record in the drummer model (`drummer-model/drummers/horacio-hernandez.json`)
+sets the rules: every pattern declares a clave and a direction and variations
+stay in it; the left foot carries the clave; the kick follows the bass
+tumbao, the "and" of 2 and the 4; the direction flips only at a section
+boundary. Avoid: a rock backbeat, accents that cross the clave, swung 8ths.
+
+**Which records are his.** Credits checked on Wikipedia's personnel lists
+unless said otherwise.
+
+- _Habana_ (Roy Hargrove's Crisol, 1997, the 1998 Grammy): drums on every
+  track but "Nusia's Poem" (Idris Muhammad). Changuito plays timbales and Angá
+  Díaz congas beside him.
+- _Supernatural_ (Santana, 1999): he plays one track, "Africa Bamba". The rest
+  are Rodney Holmes, Carter Beauford, Billy Johnson, Alex González, Gregg
+  Bissonette and Jimmy Keegan, or programming.
+- _Shaman_ (Santana, 2002): one track, "You Are My Kind" (with Seal).
+- _Live at the Blue Note_ (Michel Camilo, 2003, Grammy for Best Latin Jazz
+  Album): his on all eighteen tracks, with Charles Flores on bass.
+- _Triangulo_ (Michel Camilo, 2002): the trio with Anthony Jackson, all ten
+  tracks (All About Jazz, Ink 19, Jazz Music Archives).
+- _For Hamp, Red, Bags, and Cal_ (Gary Burton, 2001): he plays the three Cal
+  Tjader tracks, "Afro Blue", "Body and Soul" and "João", with Danilo Pérez,
+  John Patitucci and Luis Quintero; Lewis Nash plays the others (Dutch
+  Wikipedia track table; the UNT catalogue).
+- _Imprint_ (John Patitucci, 2000): tracks 1, 2 and 6 ("King Kong",
+  "Postcard", "Imprint"); Jack DeJohnette plays the rest.
+- _Mi Gran Pasión_ (Gonzalo Rubalcaba, 1987) and _Live in Havana_: Proyecto,
+  with Rafael Carrasco and Felipe Cabrera.
+- _Italuba_ (2004) and _Italuba II_ (2007): his own band.
+
+Not his, or not checked: Steve Winwood's _About Time_ (2003) is Walfredo Reyes
+Jr. on drums, with Karl Vanden Bossche and Richard Bailey on percussion; he
+toured with Winwood, but the record is not his. Tito Puente's _Masterpiece_,
+Paquito D'Rivera's records and an Irakere credit before Irakere 50 were not
+confirmed and are left out. Wikipedia also lists Grammys for Alejandro Sanz's
+_No es lo mismo_ and Eddie Palmieri's _Listen Here!_, which this pass did not
+go into.
+
+**How he played.** Pearl's artist page: "truly ambidextrous, being able to
+play the leading pattern with either hand or to play the basic rhythmic
+figure of Afro-Cuban music, the clave-beat, with his left foot on the
+high-hat or the cowbell with the foot-pedal, while his right foot supports
+the base line." Drummer Cafe and Hudson Music: a "Latin Fusion" style,
+"melding the folkloric clave with the fierce punch, crisp snap and deep
+grooves of today's Jazz, Pop, and Rock." Tiger Bill's review of the 1997
+Modern Drummer Festival video: "Our Family" opens "with El Negro playing his
+trademark left foot clave rhythm"; on "Rumbatella" he switches "back and forth
+between his left foot clave pattern and his left foot bass drum pedal"; and
+"his approach to drumming is more like a language than simply a collection of
+memorized drum patterns". A _Triangulo_ review (Ink 19): "his subtle,
+galloping work on 'La Comparsa', for example, is truly brilliant." SFJAZZ's
+masterclass (episode 4): "the Cuban cáscara pattern can serve as an anchor for
+polyrhythmic playing"; episode 5 moves between "duple and triple feel ...
+from guaracha to rumba, conga de comparsa and timba."
+
+His book _Conversations in Clave_ (2000, transcriptions by Ken Ross), by Tiger
+Bill's review: Part 1 the four basic claves and four feel against six; Parts
+2 and 4 clave or cáscara in the right hand with "the hi-hat ... played with
+the foot on the initial downbeat" against left-hand variations; Part 5 the
+6/8 clave, with "variations of cowbell ride, bass drum, and hi-hat patterns for
+6/8 rhythms"; Part 6 three- and four-limb ostinatos; Part 7 groove
+transcriptions: 6/8, guaguancó, mambo, conga and comparsa, cáscara, macuta,
+cha-cha-chá, merengue, songo, mozambique. The grids themselves were not found
+online; the style uses the book's list of grooves and the record's two
+patterns, not the book's notes.
+
+**What the style encodes.** `swing` 0 everywhere and no swing range (no swung
+8ths). The kick cells and every Latin figure put the kick on the tumbao: in a
+bar holding one clave, the "and" of 2 and the 4 of each half, steps 3, 6, 11
+and 14. Each Latin song names its clave on the first perc slot, `clave`, which
+takes no hand (the left foot's pedal block), and leaves `hf` empty. The right
+hand's part is the second slot: a `cowbell` (Mambo for Roy, Afro Blue, the
+songo) or the `cascara` (Afrodisia), both on the kit, so the hand leaves them
+for a fill. A song with clave and bell has no slot left for the cáscara, so
+each song picks one. The left hand is the snare and toms, conga and timbale
+figures, and its accents on the "and"s of 2 and 4 (steps 6 and 14) are the
+backbeat the critic looks for. Every written fill accents the three side of
+the song's clave on the toms. The feel is on top (`s` −0.02, `k` −0.01),
+`fillChance` 0.6, no mid-phrase fills, a crash on half the phrase starts. The
+kit is `police`, the DRS kit with a fast, high, cracking snare and short
+cymbals: the record's "bright, cutting bells, crisp snare, high-tuned toms,
+punchy kick". The Santana songs play `drs`, the plain studio kit, and Afro
+Blue the `virtuosity` jazz kit, Burton's acoustic quartet.
+
+| Song (key)      | Clave (slot p1, the foot) | Right hand (p2)        | Cáscara |
+| --------------- | ------------------------- | ---------------------- | ------- |
+| mambo-for-roy   | son 2-3 [2,4,8,11,14]     | cowbell, every 8th     | no      |
+| afrodisia       | rumba 2-3 [2,4,8,11,15]   | cáscara over 2-3       | yes     |
+| afro-blue       | 6/8 clave [0,4,8,14,18]   | cowbell, 6/8 bell      | no      |
+| la-comparsa     | son 2-3 [2,4,8,11,14]     | none: both hands drums | no      |
+| night-in-torino | rumba 2-3 [2,4,8,11,15]   | none: ride bell (r)    | no      |
+| que-negro-esta  | son 3-2 [0,3,6,10,12]     | cowbell, every step    | no      |
+| africa-bamba    | none (Santana rock feel)  | none                   | no      |
+| you-are-my-kind | none (Santana pop feel)   | none                   | no      |
+
+**Grids.** Two songs follow human Songsterr transcriptions, `aiGenerated`
+false on both, read bar by bar:
+
+- **Africa Bamba** (717963, at its 100): sixteenths on the hats, the kick on
+  1, the "a" of 1, 2, 3, the "a" of 3 and 4, and in the choruses on every
+  beat. Most of the tab's bars have no snare at all; the critic wants a
+  backbeat in every bar, so only the bars with the snare on 2 and 4 are kept.
+  The maracas are the percussionist's.
+- **You Are My Kind** (3770724, at its 105): eighths on the hats, the kick on
+  1, the "a" of 1, the "and" of 2 and the "and" of 3, and on the "and" of 4
+  every second bar; the intro's hats open on every eighth; the interlude's
+  cross-stick figure; the last chorus in sixteenths; the tab's fill, the kick
+  in pairs round a snare on 4. The four strokes the tab writes as crashes in
+  the interlude are left out.
+
+The six Latin songs are **reconstructions**. Mambo for Roy, Afrodisia, Afro
+Blue, La Comparsa and Que Negro Está are grooves his book transcribes (mambo,
+cáscara, 6/8, conga de comparsa, songo), laid out as the record's two
+patterns lay them; A Night in Torino is the tune's Latin A section. Afrodisia
+plays the record's cáscara pattern note for note (cáscara over rumba 2-3, the
+kick on 3, 6, 11 and 14, the snare's ghost and pair of strokes). Que Negro
+Está plays the record's songo read the way every other Latin song here is
+(and Kevin Moore's songo transcriptions are): one bar holds one clave. The
+record writes it over two bars of sixteenths, so every other step is kept:
+son 3-2 on the foot, the bell's eighths on every step, the snare's accents on
+the record's "and"s of 2 and 4 (steps 3, 7, 11, 15), the kick on its "and"
+of 3 (steps 5 and 13). The record's ghosts and its tom 2 stroke sit on odd steps and drop
+out; the variation keeps the tom on the last "and".
+
+Tempos: the two tabs' own. For the rest no tempo was published anywhere
+found; they are Deezer's track `bpm` field, a machine estimate, read so that
+one 16-step bar holds one clave: Mambo for Roy 136, Afrodisia 112.3, A Night
+in Torino 124.2. Afro Blue's 193.2 is read as eighths: a dotted quarter of
+64, so 96.6 quarters in 12/8 (Mongo Santamaría's tune sits there). La
+Comparsa's 100 is the tempo on Songsterr's machine-made tab (5641772,
+`aiGenerated` true, used for the tempo only, not the notes). Que Negro Está
+has two Deezer figures, 117.5 and 156.6; read as one clave a bar, 117.5 is a
+songo tempo and 156.6 far too quick, so 117.5 is used. All six are open to a listen.
+
+| Song                                     | Year | Tempo                                | Meter          | What defines it                         | Source of the bars        |
+| ---------------------------------------- | ---- | ------------------------------------ | -------------- | --------------------------------------- | ------------------------- |
+| Africa Bamba (Santana)                   | 1999 | 100 (tab); 99 (songbpm, Deezer)      | 4/4, 16th hats | kick 1, a1, 2, 3, a3, 4; snare 2 and 4  | Songsterr 717963 (human)  |
+| You Are My Kind (Santana, Seal)          | 2002 | 105 (tab; Deezer 104.9)              | 4/4, 8th hats  | kick 1, a1, &2, &3 (&4 every other bar) | Songsterr 3770724 (human) |
+| Mambo for Roy (Hargrove's Crisol)        | 1997 | 136 (Deezer, machine)                | 4/4, one clave | son 2-3 foot, bell, tumbao kick         | **reconstruction**        |
+| Afrodisia (Hargrove's Crisol)            | 1997 | 112 (Deezer, machine)                | 4/4, one clave | cáscara over rumba 2-3                  | record's cáscara pattern  |
+| Afro Blue (Gary Burton)                  | 2001 | 193 eighths (Deezer) = 96.6 quarters | 12/8           | 6/8 bell, 6/8 clave on the foot         | **reconstruction**        |
+| La Comparsa (Michel Camilo, _Triangulo_) | 2002 | 100 (Songsterr machine tab)          | 4/4, one clave | son 2-3 foot, galloping hands           | **reconstruction**        |
+| A Night in Torino (Tunisia) (Italuba)    | 2004 | 124 (Deezer, machine)                | 4/4, one clave | rumba 2-3 foot, ride bell, toms         | **reconstruction**        |
+| Que Negro Está (Italuba)                 | 2004 | 117.5 (Deezer; another entry 156.6)  | 4/4, one clave | the record's songo, every other step    | record's songo pattern    |
+
+**Left out.** _Live at the Blue Note_ (his, a Grammy, but no tempo or
+description of any track was found). _Triangulo_'s other tracks, Patitucci's
+_Imprint_, Burton's "Body and Soul" and "João" and _Habana_'s "Dream Traveler"
+(Afro-Cuban 6/8 head, son montuno solos, per Jazz Leadsheets; Deezer's 123.4
+could not be read as either pulse with confidence): no description of his
+part. Songsterr has only machine-made tabs of Camilo's "Piece of Cake",
+"Dotcom-bustion" and "Caribe". "Not Yet" has a human tab but is not his
+record.
+
+**Found on the way, not changed.**
+
+- The record's songo writes the son clave over **two** bars of sixteenths,
+  while its cáscara and every other grid holds one clave in sixteen pulses.
+  The style reads it as one clave a bar, like the rest; the record's ghosts
+  and tom stroke, on odd steps, are lost in that reading.
+- The record's songo kick (the "a" of 1 and the "and" of 3) is not the
+  tumbao its own generation rule asks for, and compressed (steps 5 and 13)
+  it still is not; the grid is kept as written.
+- `varyFigureBar` can put a crash, with a kick under it, on the "and" of 2, 3
+  or 4 of any bar; in a clave song that may cross the clave, which the record
+  says to avoid. The style has no way to turn it off.
+- There is no pedal-played percussion and no second hi-hat-foot voice, so the
+  clave is a percussionist's claves, not a block under his left foot; the 3D
+  drummer does not play it.
+- No song can switch clave direction at a section boundary, and no song holds
+  both a bell and the cáscara with the clave.
+- His bongos and timbales mounted in place of toms are played on the toms.
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html
@@ -1766,3 +2416,134 @@ Thompson).
 - https://www.drum-hub.com/blog/2022/3/15/yussef-dayes-love-is-the-message-beat-breakdown
 - https://www.drum-hub.com/blog/2020/4/3/tom-misch-amp-yussef-dayes-what-kinda-music-drum-cover-with-notation
 - https://www.drum-hub.com/blog/2023/8/16/improve-bass-drum-speed-with-grooves-from-mark-guiliana-yussef-dayes-amp-kublai-khan-tx-1
+- https://en.wikipedia.org/wiki/My_Favorite_Things_(John_Coltrane_album)
+- https://en.wikipedia.org/wiki/A_Love_Supreme
+- https://en.wikipedia.org/wiki/Impressions_(John_Coltrane_album)
+- https://en.wikipedia.org/wiki/Crescent_(John_Coltrane_album)
+- https://en.wikipedia.org/wiki/Live_at_Birdland_(John_Coltrane_album)
+- https://en.wikipedia.org/wiki/Live!_at_the_Village_Vanguard
+- https://en.wikipedia.org/wiki/Speak_No_Evil_(Wayne_Shorter_album)
+- https://en.wikipedia.org/wiki/JuJu_(Wayne_Shorter_album)
+- https://en.wikipedia.org/wiki/The_Real_McCoy_(McCoy_Tyner_album)
+- https://en.wikipedia.org/wiki/Unity_(Larry_Young_album)
+- https://en.wikipedia.org/wiki/A_Night_at_the_Village_Vanguard
+- https://en.wikipedia.org/wiki/Afro_Blue
+- https://en.wikipedia.org/wiki/Very_R.A.R.E.
+- https://mion.music/en/records/artists/the-elvin-jones-jazz-machine/albums/the-elvin-jones-jazz-machine-live-in-japan-1978
+- https://jazzomat.hfm-weimar.de/dbformat/dbcontent.html
+- https://jazzomat.hfm-weimar.de/dbformat/synopsis/solo216.html
+- https://jazzomat.hfm-weimar.de/dbformat/synopsis/solo224.html
+- https://jazzomat.hfm-weimar.de/dbformat/synopsis/solo227.html
+- https://jazzomat.hfm-weimar.de/dbformat/synopsis/solo433.html
+- https://jazzomat.hfm-weimar.de/dbformat/synopsis/solo435.html
+- https://www.allsolos.com/album/53/my-favorite-things
+- https://www.allsolos.com/album/67/a-love-supreme
+- https://www.allsolos.com/album/86/impressions
+- https://www.allsolos.com/album/87/coltrane-live-at-the-village-vanguard
+- https://www.allsolos.com/album/102/speak-no-evil
+- https://www.allsolos.com/album/145/juju
+- https://www.allsolos.com/solo/1365/elvin-jones-drums-solo-on-a-love-supreme-part-3-pursuance
+- https://songbpm.com/@john-coltrane
+- https://shipdrummer.blogspot.com/2020/12/transcription-elvin-jones-chasin-trane.html
+- http://www.pdxdrummer.com/downloads/lessons_downloads/transcriptions/pdxdrummer.com_transcription_elvin-jones_chasin-the-trane_01.pdf
+- https://shipdrummer.blogspot.com/2012/06/transcription-elvin-jones-your-lady.html
+- https://shipdrummer.blogspot.com/2012/03/groove-o-day-elvin-afro-waltz.html
+- https://shipdrummer.blogspot.com/2012/04/developing-elvins-afro-waltz.html
+- https://shipdrummer.blogspot.com/2022/12/page-o-coordination-juju.html
+- http://www.pdxdrummer.com/downloads/lessons_downloads/drumset/pdxdrummer.com_poc-juju.pdf
+- https://shipdrummer.blogspot.com/2015/07/assembling-basic-elvin-jones-style-waltz.html
+- https://shipdrummer.blogspot.com/2024/04/groove-o-day-two-by-elvin-jones.html
+- https://shipdrummer.blogspot.com/2014/07/groove-o-day-elvin-afro-6.html
+- https://shipdrummer.blogspot.com/2015/01/how-can-i-understand-elvin-jones.html
+- https://shipdrummer.blogspot.com/2017/05/key-players-elvin-jones.html
+- https://www.learnjazzstandards.com/blog/learning-jazz/drums/trading-fours-like-elvin-jones-style-and-analysis/
+- https://ethanhein.substack.com/p/my-favorite-things
+- https://en.wikipedia.org/wiki/Oye_C%C3%B3mo_Va
+- https://en.wikipedia.org/wiki/Dance_Mania_(album)
+- https://en.wikipedia.org/wiki/Timbales
+- https://en.wikipedia.org/wiki/Tumbao
+- https://en.wikipedia.org/wiki/Mambo_Birdland
+- https://api.discogs.com/masters/306080
+- https://api.discogs.com/releases/568361
+- https://pas.org/?p=7879
+- https://www.jazz.com/encyclopedia/puente-tito-ernesto-antonio-jr
+- https://www.mycongaplace.com/forum/eng/viewtopic.php?p=3237
+- https://www.FunkyDrummer.com/funk-store-products/tito-puente-drumming-with-the-mambo-king
+- https://craftrecordings.com/blogs/news/tito-puente-para-los-rumberos
+- https://www.lyreka.com/album/tito-puente-cuban-carnival
+- https://theaudiobeat.com/music/tito_puente_mambo_diablo_lp.htm
+- https://breezewiki.discard.no/muppet/wiki/Ran-Kan-Kan
+- https://songbpm.com/@tito-puente
+- https://songbpm.com/@tito-puente/oye-como-va
+- https://songbpm.com/@tito-puente/ran-kan-kan
+- https://songbpm.com/@tito-puente/el-cayuco
+- https://songbpm.com/@tito-puente/complicacion
+- https://songbpm.com/@tito-puente/babarabatiri
+- https://songbpm.com/@tito-puente/picadillo
+- https://songbpm.com/@tito-puente/mambo-gozon
+- https://songbpm.com/@tito-puente/hong-kong-mambo
+- https://songbpm.com/@tito-puente/para-los-rumberos
+- https://songbpm.com/@tito-puente/mambo-diablo
+- https://songbpm.com/@tito-puente/el-rey-del-timbal
+- https://www.songsterr.com/api/songs?pattern=tito%20puente
+- https://en.wikipedia.org/wiki/Changuito
+- https://en.wikipedia.org/wiki/Songo_music
+- https://en.wikipedia.org/wiki/Los_Van_Van
+- https://en.wikipedia.org/wiki/Sandunguera
+- https://upload.wikimedia.org/wikipedia/en/c/c2/Two_cowbells.png
+- https://www.timba.com/artists/6?lang=en-US
+- https://www.timba.com/artist_pages/1969-los-van-van-the-first-eps
+- https://www.timba.com/artist_pages/1970-1974-the-singles
+- https://www.timba.com/artist_pages/1975-1979
+- https://www.timba.com/artist_pages/the-1980s
+- https://www.timba.com/encyclopedia_pages/changuito
+- https://www.timba.com/encyclopedia_pages/the-songo-enigma
+- https://www.timba.com/encyclopedia_pages/los-van-van-s-first-album
+- https://www.timba.com/encyclopedia_pages/los-van-van-the-singles
+- https://www.timba.com/encyclopedia_pages/another-lost-classic
+- https://www.timba.com/encyclopedia_pages/into-the-eye-of-the-storm
+- https://www.timba.com/encyclopedia_pages/transition-to-tr-nsito
+- https://www.timba.com/encyclopedia_pages/the-album-los-van-van
+- https://www.timba.com/encyclopedia_pages/chang
+- https://www.timba.com/encyclopedia_pages/llegu-llegu
+- https://www.timba.com/encyclopedia_pages/two-styles-of-kick-drum-playing
+- https://www.timba.com/encyclopedia_pages/los-van-van-volume-iv
+- https://www.timba.com/encyclopedia_pages/the-clave-and-the-backbeat
+- https://timba.com/musicians/changuito?lang=en-US
+- https://drummerszone.com/artists/jos-luis-changuito-quintana-fuerte/570/profile/
+- https://www.moderndrummer.com/2025/06/jose-luis-changuito-quintana-the-eternal-pulse-of-cuban-drumming/
+- https://bassmusicianmagazine.com/2015/09/bass-lines-by-jaime-vazquez-part-xiv-los-van-vans-sandunguera/amp/
+- https://songbpm.com/@los-van-van
+- https://en.wikipedia.org/wiki/Horacio_Hernández
+- https://en.wikipedia.org/wiki/Habana_(album)
+- https://en.wikipedia.org/wiki/Supernatural_(Santana_album)
+- https://en.wikipedia.org/wiki/Shaman_(album)
+- https://en.wikipedia.org/wiki/About_Time_(Steve_Winwood_album)
+- https://en.wikipedia.org/wiki/Live_at_the_Blue_Note_(Michel_Camilo_album)
+- https://nl.wikipedia.org/wiki/For_Hamp,_Red,_Bags,_and_Cal
+- https://discover.library.unt.edu/catalog/b4240023
+- https://news.allaboutjazz.com/michel-camilo-marks-his-move-to-telarc-with-his-most-ambitious-recording-to-date.php
+- https://ink19.com/2002/04/magazine/music-reviews/michel-camilo
+- https://www.jazzmusicarchives.com/album/michel-camilo/triangulo
+- https://www.jazzmusicarchives.com/album/gonzalo-rubalcaba/mi-gran-pasion
+- https://www.jazzmusicarchives.com/album/roy-hargrove/habana
+- https://latinomusiccafe.com/2010/08/09/cafe-with-master-percussionist-horacio-el-negro-hernandez/
+- https://en.wikipedia.org/wiki/John_Patitucci
+- https://www.allmusic.com/album/italuba-mw0000331678
+- https://www.audaud.com/?p=5930
+- https://pearldrum.com/artist/horacio-hernandez
+- https://drummercafe.com/featured/drummer-percussionist/horacio-hernandez.html
+- https://hudsonmusic.com/?p=4881
+- https://www.drumeo.com/beat/?p=23034
+- https://www.discussionsinpercussion.com/home/2020/1/22/jcj2epmsfkbq3pz3rbqzegn6ny3cg9
+- https://tigerbill.com/drumreviews/elnegrohernandezatmoderndrummerfest.htm
+- https://tigerbill.com/drumreviews/conversationsinclavehernandez.htm
+- https://www.alfred.com/products/conversations-in-clave-00-907096
+- https://athome.sfjazz.org/masterclasses-lessons-lectures/videos/conversations-in-clave-ep-4-cascara-variations
+- https://athome.sfjazz.org/masterclasses-lessons-lectures/videos/conversations-in-clave-ep-5-feeling-the-clave-in-4-and-6
+- https://jazzleadsheets.com/dream-traveler.html
+- https://songbpm.com/@santana/africa-bamba
+- https://www.songsterr.com/a/wsa/santana-africa-bamba-drum-tab-s717963
+- https://www.songsterr.com/a/wsa/santana-feat-seal-you-are-my-kind-drum-tab-s3770724
+- https://www.songsterr.com/api/meta/5641772
+- https://api.deezer.com/album

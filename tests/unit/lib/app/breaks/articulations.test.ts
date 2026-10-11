@@ -448,6 +448,15 @@ describe('the rest of the app knows them (9.14)', () => {
     }
   });
 
+  it("counts a percussionist's conga under a drag as nobody's hand, and a cowbell on the kit as one", () => {
+    const bar = barWith('s', 7);
+    bar.p1[4] = 1;
+    const theirs = playability(pattern([bar], { perc: { p1: 'conga', p2: 'clave' } }), 100);
+    expect(theirs.checks.some((c) => c.label === GRACE_CHECK)).toBe(false);
+    const ours = playability(pattern([bar], { perc: { p1: 'cowbell', p2: 'clave' } }), 100);
+    expect(ours.checks.find((c) => c.label === GRACE_CHECK)?.ok).toBe(false);
+  });
+
   it('calls a tom flam beside the snare unplayable, and a buzz under the hat fine', () => {
     const tom = barWith('t2', 3);
     tom.s[4] = 2;

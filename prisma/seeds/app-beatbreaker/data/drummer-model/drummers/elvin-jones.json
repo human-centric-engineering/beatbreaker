@@ -791,6 +791,7 @@
     ]
   },
   "beatbreaker": {
+    "style_key": "elvinjones",
     "headline_pattern_ids": [
       "pattern:elvin-triplet-cross-rhythm-archetype",
       "pattern:elvin-waltz-archetype"

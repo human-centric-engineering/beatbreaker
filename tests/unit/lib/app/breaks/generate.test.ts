@@ -52,17 +52,21 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 62 styles and 12 drummers in 15 meters — the numbers the site copy quotes', () => {
+  it('is 62 styles and 16 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
     expect(TEST_STYLE_KEYS.length - drummers.length).toBe(62);
     expect([...drummers].sort()).toEqual([
       'bernardpurdie',
       'bonham',
+      'changuito',
       'copeland',
+      'elvinjones',
       'gadd',
       'hakim',
+      'horaciohernandez',
       'jabostarks',
       'mitchell',
+      'puente',
       'ringo',
       'stubblefield',
       'tonyallen',
@@ -72,7 +76,7 @@ describe('the style table', () => {
     // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
     expect(METER_KEYS).toHaveLength(15);
     expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
-    expect(COMBOS).toHaveLength(1110);
+    expect(COMBOS).toHaveLength(1170);
   });
 });
 
@@ -576,6 +580,10 @@ describe('the rock, jazz and blues styles', () => {
   const ROCK = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.figures && !METAL.includes(k));
   // a stack is the nearest thing the crash lane has to a china
   const CHINA_PLAYERS = ['yussefdayes'];
+  /* A clave groove is a few bars that stay in clave, not a stock of grooves to
+     vary: Puente's and Changuito's own figures are two each, and their songs
+     carry the rest. The clave itself is held in `jazz-latin.test.ts`. */
+  const CLAVE_DRUMMERS = ['puente', 'changuito'];
 
   it('covers the rock, jazz and blues groups', () => {
     for (const k of ['rock', 'rockabilly', 'bebop', 'modal', 'brushes', 'slowblues', 'boogie'])
@@ -590,8 +598,10 @@ describe('the rock, jazz and blues styles', () => {
     for (const key of ROCK) {
       const params = STYLES[key].params;
       const n = stepsOf(meterOf(params.meter ?? '4/4'));
-      expect(params.figures?.length).toBeGreaterThan(3);
-      expect(params.fills?.length).toBeGreaterThan(2);
+      if (!CLAVE_DRUMMERS.includes(key)) {
+        expect(params.figures?.length).toBeGreaterThan(3);
+        expect(params.fills?.length).toBeGreaterThan(2);
+      }
       for (const [f] of params.figures ?? []) {
         for (const r of Object.values(f)) expect(r?.length).toBe(n);
       }
