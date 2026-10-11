@@ -8,7 +8,9 @@
  * real identity is not stored.
  */
 
+import { RELATIONSHIPS } from '@/lib/app/lineage/build';
 import type { Corpus } from '@/lib/app/lineage/corpus';
+import type { LineageGraph } from '@/lib/app/lineage/types';
 
 const ID = /^(drummer|rec|style|pattern|src|kit|era|trait|lick):[a-z0-9][a-z0-9-]*$/;
 
@@ -89,6 +91,16 @@ export function checkCorpus(corpus: Corpus): string[] {
     }
   }
 
+  /* The builder skips a relationship type it has no direction for, so one the
+     schema gains before `RELATIONSHIPS` does would vanish from the map. */
+  for (const { file, record } of corpus.drummers) {
+    for (const r of record.relationships ?? []) {
+      if (!(r.type in RELATIONSHIPS)) {
+        errors.push(`${file}: relationship type ${r.type} has no entry in RELATIONSHIPS`);
+      }
+    }
+  }
+
   for (const { file, record } of corpus.drummers) {
     const identity: Record<string, unknown> = record.identity;
     const persona = isRecord(identity.persona) ? identity.persona : {};
@@ -146,6 +158,32 @@ function checkPattern(file: string, p: Record<string, unknown>): string[] {
   const status = isRecord(p.transcription) ? p.transcription.status : undefined;
   if (fidelity.startsWith('transcribed') && status !== 'verified') {
     errors.push(`${name}: fidelity says transcribed but status is ${String(status)}`);
+  }
+  return errors;
+}
+
+/** The longest id or slug the `lineage_*` columns hold. */
+const MAX_KEY = 120;
+
+/**
+ * What the built graph must be before it is written: every slug unique (the
+ * column is), every id and slug short enough for its column, and no edge from
+ * a node to itself. Caught here so the seed names the nodes rather than
+ * failing on a database constraint mid-transaction.
+ */
+export function checkGraph(graph: LineageGraph): string[] {
+  const errors: string[] = [];
+  const bySlug = new Map<string, string>();
+  for (const n of graph.nodes) {
+    const other = bySlug.get(n.slug);
+    if (other) errors.push(`slug ${n.slug} is both ${other} and ${n.id}`);
+    bySlug.set(n.slug, n.id);
+    if (n.id.length > MAX_KEY || n.slug.length > MAX_KEY) {
+      errors.push(`${n.id}: id or slug longer than ${MAX_KEY} characters`);
+    }
+  }
+  for (const e of graph.edges) {
+    if (e.from === e.to) errors.push(`${e.from}: an edge (${e.relation}) to itself`);
   }
   return errors;
 }

@@ -5,7 +5,8 @@
 
 import { describe, expect, it } from 'vitest';
 
-import { checkCorpus } from '@/lib/app/lineage/check';
+import { buildLineage } from '@/lib/app/lineage/build';
+import { checkCorpus, checkGraph } from '@/lib/app/lineage/check';
 import { corpusOf, drummer, recording } from '@/tests/helpers/lineage';
 
 function pattern(extra: Record<string, unknown> = {}): Record<string, unknown> {
@@ -133,5 +134,51 @@ describe('checkCorpus', () => {
     expect(checkCorpus(c)).toEqual([
       'drummers/0.json pattern:p: fidelity says transcribed but status is draft',
     ]);
+  });
+
+  it('names a relationship type the builder has no direction for', () => {
+    const c = corpusOf({
+      drummers: [
+        drummer('a', {
+          relationships: [{ type: 'apprenticed_to', target: { name: 'X', kind: 'drummer' } }],
+        }),
+      ],
+    });
+    expect(checkCorpus(c)).toEqual([
+      'drummers/0.json: relationship type apprenticed_to has no entry in RELATIONSHIPS',
+    ]);
+  });
+});
+
+describe('checkGraph', () => {
+  it('passes a sound graph', () => {
+    expect(checkGraph(buildLineage(corpusOf({ drummers: [drummer('a')] })))).toEqual([]);
+  });
+
+  it('names a slug two nodes share', () => {
+    const g = buildLineage(corpusOf({ drummers: [drummer('style-funk')] }));
+    expect(checkGraph(g)).toEqual(['slug style-funk is both drummer:style-funk and style:funk']);
+  });
+
+  it('names an id too long for its column', () => {
+    const long = 'x'.repeat(130);
+    expect(checkGraph(buildLineage(corpusOf({ drummers: [drummer(long)] })))).toEqual([
+      `drummer:${long}: id or slug longer than 120 characters`,
+    ]);
+  });
+
+  it('names an edge from a node to itself', () => {
+    const g = buildLineage(
+      corpusOf({
+        drummers: [
+          drummer('a', {
+            relationships: [
+              { type: 'bandmate', target: { name: 'A', id: 'drummer:a', kind: 'drummer' } },
+            ],
+          }),
+        ],
+      })
+    );
+    expect(checkGraph(g)).toEqual(['drummer:a: an edge (bandmate) to itself']);
   });
 });

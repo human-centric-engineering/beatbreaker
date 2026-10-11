@@ -71,7 +71,7 @@ const CONFIDENCE_RANK: Record<Confidence, number> = {
 export function slugOf(name: string): string {
   return name
     .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
+    .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
@@ -83,18 +83,52 @@ export function nodeSlug(id: string): string {
   return ns === 'drummer' ? rest : `${ns}-${rest}`;
 }
 
-/** The id for a target named without one. Musicians and teachers share `person:`. */
-function idForUnnamed(name: string, kind: NodeKind | undefined): string {
-  const slug = slugOf(name);
+/**
+ * A name's slug, never empty: a name with no Latin letters at all (written in
+ * another script) gets a short hash of itself, so two such names stay two
+ * people instead of collapsing into one `person:` node.
+ */
+function slugForName(name: string): string {
+  return slugOf(name) || `n-${createHash('sha1').update(name).digest('hex').slice(0, 10)}`;
+}
+
+/**
+ * The id for a target named without one.
+ *
+ * A person is one node however each record described them: if anyone calls
+ * them a drummer — by kind, or by a `drummer:` id with their slug — every
+ * unnamed mention is `drummer:<slug>`; otherwise musicians and teachers share
+ * `person:<slug>`. Styles, traditions and ensembles keep their own namespace.
+ */
+function idForUnnamed(name: string, kind: NodeKind | undefined, drummers: Set<string>): string {
+  const slug = slugForName(name);
   switch (kind) {
-    case 'drummer':
     case 'style':
     case 'tradition':
     case 'ensemble':
       return `${kind}:${slug}`;
     default:
-      return `person:${slug}`;
+      return kind === 'drummer' || drummers.has(slug) ? `drummer:${slug}` : `person:${slug}`;
   }
+}
+
+/** Every slug some record says is a drummer's — what `idForUnnamed` merges on. */
+function drummerSlugs(corpus: Corpus): Set<string> {
+  const slugs = new Set<string>();
+  const addId = (id: string | undefined) => {
+    if (id?.startsWith('drummer:')) slugs.add(id.slice('drummer:'.length));
+  };
+  for (const { record } of corpus.drummers) {
+    addId(record.meta.id);
+    for (const r of record.relationships ?? []) {
+      addId(r.target.id);
+      if (!r.target.id && r.target.kind === 'drummer') slugs.add(slugForName(r.target.name));
+    }
+  }
+  for (const { record } of corpus.recordings) {
+    for (const p of record.drum_performances) addId(p.drummer_id);
+  }
+  return slugs;
 }
 
 function kindOfId(id: string, fallback: NodeKind | undefined): NodeKind {
@@ -103,9 +137,10 @@ function kindOfId(id: string, fallback: NodeKind | undefined): NodeKind {
   return fallback ?? 'musician';
 }
 
-function edgeId(from: string, to: string, relation: string, recordingId: string | null): string {
+/** One edge per pair, kind and recording: the same id whichever claim of the kind wins. */
+function edgeId(from: string, to: string, kind: EdgeKind, recordingId: string | null): string {
   return createHash('sha1')
-    .update(`${from}|${to}|${relation}|${recordingId ?? ''}`)
+    .update(`${from}|${to}|${kind}|${recordingId ?? ''}`)
     .digest('hex')
     .slice(0, 20);
 }
@@ -148,9 +183,16 @@ function drummerNode(d: DrummerRecord): LineageNode {
 /**
  * Build the graph.
  *
- * Mirrored claims (A says B influenced them, B says they influenced A) become
- * one edge carrying the stronger confidence and strength. Undirected edges are
- * stored with their ends in id order, so A–B and B–A are the same edge.
+ * Claims of one kind about one pair become one edge: mirrored claims (A says
+ * B influenced them, B says they influenced A) and claims of two relations of
+ * a kind (`taught` and `mentored`). The edge carries the best-evidenced claim
+ * whole — its relation, confidence, scope and declarer — so a relation is
+ * never paired with evidence that belongs to another; strength is the
+ * largest any claim gave. Undirected edges are stored with their ends in id
+ * order, so A–B and B–A are the same edge.
+ *
+ * A relationship type outside `RELATIONSHIPS` is skipped here and reported by
+ * `checkCorpus`, which the seed runs first.
  */
 export function buildLineage(corpus: Corpus): LineageGraph {
   const nodes = new Map<string, LineageNode>();
@@ -166,25 +208,23 @@ export function buildLineage(corpus: Corpus): LineageGraph {
     });
   }
 
+  const drummers = drummerSlugs(corpus);
   const edges = new Map<string, LineageEdge>();
   const add = (e: Omit<LineageEdge, 'id'>) => {
     const [a, b] = e.directed ? [e.from, e.to] : [e.from, e.to].sort();
-    const key = `${a}|${b}|${e.kind}|${e.recordingId ?? ''}`;
-    const seen = edges.get(key);
-    if (!seen) {
-      edges.set(key, { ...e, from: a, to: b, id: edgeId(a, b, e.relation, e.recordingId) });
-      return;
-    }
-    if (rank(e.confidence) < rank(seen.confidence)) seen.confidence = e.confidence;
-    if ((e.strength ?? -1) > (seen.strength ?? -1)) seen.strength = e.strength;
+    const id = edgeId(a, b, e.kind, e.recordingId);
+    const seen = edges.get(id);
+    const strength = Math.max(e.strength ?? -1, seen?.strength ?? -1);
+    const winner = !seen || rank(e.confidence) < rank(seen.confidence) ? e : seen;
+    edges.set(id, { ...winner, from: a, to: b, id, strength: strength < 0 ? null : strength });
   };
 
   for (const { record: d } of corpus.drummers) {
     const me = d.meta.id;
     for (const r of d.relationships ?? []) {
       const rule = RELATIONSHIPS[r.type];
-      if (!rule) continue; // the schema's enum is the gate; an unknown type is the check's to report
-      const target = r.target.id ?? idForUnnamed(r.target.name, r.target.kind);
+      if (!rule) continue;
+      const target = r.target.id ?? idForUnnamed(r.target.name, r.target.kind, drummers);
       if (!nodes.has(target)) {
         nodes.set(target, stub(target, r.target.name, kindOfId(target, r.target.kind)));
       }

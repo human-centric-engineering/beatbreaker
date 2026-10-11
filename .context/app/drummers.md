@@ -87,15 +87,30 @@ types and the way each one points are the `RELATIONSHIPS` table there:
 | `recording`  | two drummers on one record (`same_recording`)                                                                                         | none                  |
 | `style`      | a genre's `parents` (`derived_from`, `fusion_of`, `sub_genre_of`…)                                                                    | parent → child        |
 
-A claim both sides made is one edge, keeping the surer confidence and the
-larger strength. An edge's id is a hash of its ends, relation and recording,
-so it is the same on every run.
+Claims of one kind about one pair are one edge — a claim both sides made, or
+`taught` and `mentored` from the same teacher. The edge carries the
+best-evidenced claim whole (its relation, confidence, scope and declarer), so a
+relation is never paired with another claim's evidence; strength is the
+largest given. An edge's id is a hash of its ends, kind and recording, so it is
+the same on every run whichever claim wins.
+
+A person named without an id is one node: `drummer:<slug>` if any record calls
+them a drummer (by kind or by a `drummer:` id), otherwise `person:<slug>`. A
+name with no Latin letters gets a short hash for a slug, so two such names stay
+two people.
 
 `lib/app/lineage/check.ts` — `checkCorpus(corpus)`: the rules a schema cannot
 state. Unique ids; every reference resolves (bar unmodelled drummers); a key
 recording has the drummer on it; lanes fit `numerator × steps_per_beat` and
 `bars`; a clave's carrying voice has a lane; no stored identity for a private
-persona; no `transcribed_*` before `verified`.
+persona; no `transcribed_*` before `verified`; every relationship type has an
+entry in `RELATIONSHIPS` (the builder skips one that does not, so it would
+vanish from the map). A recording's performers must be `drummer:` ids — the
+parser refuses anything else.
+
+`checkGraph(graph)`: what the built graph must be before it is written. Every
+slug unique (the column is), ids and slugs within 120 characters, no edge from
+a node to itself.
 
 ## The tables and the seed
 
@@ -110,9 +125,13 @@ the data export with that reason:
 - `LineageRecording` — `id`, `title`, `artist`, `year`, `drummerIds`, `record`.
 
 `prisma/seeds/app-beatbreaker/004-lineage.ts` reads the files, refuses a
-corpus with any `checkCorpus` error, and makes the tables say exactly what the
-records say: upsert by id, delete what is gone. Every model file is a hash
-input, so editing a record re-runs it.
+corpus with any `checkCorpus` or `checkGraph` error, and **replaces the three
+tables whole** in one transaction: three deletes, three bulk inserts. Nothing
+from an earlier run survives — not an edge's old confidence, not the record of
+a drummer who is now only a stub — and a refused corpus leaves the tables as
+they were. No user FK points at these tables, so a replace orphans nothing.
+Every model file, and the code that reads them, is a hash input, so editing
+either re-runs it.
 
 ## The API
 
@@ -141,10 +160,10 @@ it needs.
 
 ## Tests
 
-| File                                                          | What it holds                                                                    |
-| ------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| `tests/unit/lib/app/lineage/model.test.ts`                    | the real records: Ajv against the schemas, the checks, style ↔ record, the graph |
-| `tests/unit/lib/app/lineage/build.test.ts`                    | the builder's decisions: direction, merging, stubs, ids                          |
-| `tests/unit/lib/app/lineage/check.test.ts`                    | each rule, broken once                                                           |
-| `tests/unit/prisma/seeds/app-beatbreaker/004-lineage.test.ts` | the seed: writes it all, idempotent, removes the stale, refuses a bad corpus     |
-| `tests/unit/app/api/v1/catalogue/lineage.test.ts`             | the two routes: public, ETag and 304, 404                                        |
+| File                                                          | What it holds                                                                                                          |
+| ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `tests/unit/lib/app/lineage/model.test.ts`                    | the real records: Ajv against the schemas, the checks, style ↔ record, the graph                                       |
+| `tests/unit/lib/app/lineage/build.test.ts`                    | the builder's decisions: direction, merging, stubs, ids                                                                |
+| `tests/unit/lib/app/lineage/check.test.ts`                    | each rule, broken once                                                                                                 |
+| `tests/unit/prisma/seeds/app-beatbreaker/004-lineage.test.ts` | the seed: writes it all, idempotent, updates changed edges, clears a stub's record, refuses a bad corpus or slug clash |
+| `tests/unit/app/api/v1/catalogue/lineage.test.ts`             | the two routes: public, ETag and 304, 404                                                                              |

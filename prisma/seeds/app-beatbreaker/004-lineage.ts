@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import { z } from 'zod';
 
 import { buildLineage } from '@/lib/app/lineage/build';
-import { checkCorpus } from '@/lib/app/lineage/check';
+import { checkCorpus, checkGraph } from '@/lib/app/lineage/check';
 import type { Corpus } from '@/lib/app/lineage/corpus';
 import type { SeedContext, SeedUnit } from '@/prisma/runner';
 import { corpusFiles, readCorpus } from '@/scripts/lineage/read-corpus';
@@ -14,12 +14,17 @@ import { corpusFiles, readCorpus } from '@/scripts/lineage/read-corpus';
  *
  * The records under `data/drummer-model/` are the source; the three tables are
  * what the map and the drummer pages read. Each run makes the tables say
- * exactly what the records say: rows are upserted by their model id, and a
- * row whose record has gone is deleted. Edge ids are hashes of what the edge
- * says, so running it twice changes nothing.
+ * exactly what the records say by **replacing them whole**, in one
+ * transaction: three deletes and three bulk inserts. Nothing of a previous run
+ * survives — not an edge's old confidence, not the record of a drummer who is
+ * now only a stub. The tables are system content with no user FK pointing at
+ * them, so there is nothing a replace could orphan; ids are model ids and
+ * hashes of what an edge connects, so running it twice writes the same rows.
  *
- * It refuses to write a corpus that fails `checkCorpus`: a dangling reference
- * or a stored identity for a masked performer must not reach a public page.
+ * It refuses to write a corpus that fails `checkCorpus` or a graph that fails
+ * `checkGraph`: a dangling reference, a masked performer's real identity or a
+ * slug two nodes share must stop the seed with the files named, not reach a
+ * public page or fail on a constraint half-way.
  */
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -30,19 +35,27 @@ const jsonObject = z.record(z.string(), z.json());
 
 /** Write a parsed corpus. Exported for the seed test. */
 export async function seedLineage({ prisma, logger }: SeedContext, corpus: Corpus): Promise<void> {
-  const errors = checkCorpus(corpus);
+  const graph = buildLineage(corpus);
+  const errors = [...checkCorpus(corpus), ...checkGraph(graph)];
   if (errors.length > 0) {
     throw new Error(`The drummer model has ${errors.length} problem(s):\n${errors.join('\n')}`);
   }
-  const graph = buildLineage(corpus);
-  const records = new Map(corpus.drummers.map(({ record }) => [record.meta.id, record]));
-  const styles = new Map(corpus.styles.map(({ record }) => [record.id, record]));
+  const records = new Map<string, unknown>([
+    ...corpus.drummers.map(({ record }) => [record.meta.id, record] as const),
+    ...corpus.styles.map(({ record }) => [record.id, record] as const),
+  ]);
 
-  await prisma.$transaction(
-    async (tx) => {
-      for (const n of graph.nodes) {
-        const record = records.get(n.id) ?? styles.get(n.id) ?? null;
-        const row = {
+  await prisma.$transaction(async (tx) => {
+    // edges first: they reference the nodes
+    await tx.lineageEdge.deleteMany({});
+    await tx.lineageNode.deleteMany({});
+    await tx.lineageRecording.deleteMany({});
+
+    await tx.lineageNode.createMany({
+      data: graph.nodes.map((n) => {
+        const record = records.get(n.id);
+        return {
+          id: n.id,
           slug: n.slug,
           kind: n.kind,
           label: n.label,
@@ -53,56 +66,37 @@ export async function seedLineage({ prisma, logger }: SeedContext, corpus: Corpu
           genres: n.genres,
           tags: n.tags,
           summary: n.summary,
-          record: record ? jsonObject.parse(record) : undefined,
+          // a stub has no record: the column is left NULL
+          ...(record === undefined ? {} : { record: jsonObject.parse(record) }),
         };
-        await tx.lineageNode.upsert({
-          where: { id: n.id },
-          create: { id: n.id, ...row },
-          update: row,
-        });
-      }
-
-      await tx.lineageEdge.deleteMany({ where: { id: { notIn: graph.edges.map((e) => e.id) } } });
-      await tx.lineageEdge.createMany({
-        data: graph.edges.map((e) => ({
-          id: e.id,
-          fromId: e.from,
-          toId: e.to,
-          relation: e.relation,
-          kind: e.kind,
-          directed: e.directed,
-          strength: e.strength,
-          confidence: e.confidence,
-          scope: e.scope,
-          declaredBy: e.declaredBy,
-          recordingId: e.recordingId,
-        })),
-        skipDuplicates: true,
-      });
-      /* Nodes last: deleting one cascades its edges, and every edge left is
-         between nodes that are staying. */
-      await tx.lineageNode.deleteMany({ where: { id: { notIn: graph.nodes.map((n) => n.id) } } });
-
-      for (const { record: r } of corpus.recordings) {
-        const row = {
-          title: r.title,
-          artist: r.artist,
-          year: r.year,
-          drummerIds: [...new Set(r.drum_performances.map((p) => p.drummer_id))],
-          record: jsonObject.parse(r),
-        };
-        await tx.lineageRecording.upsert({
-          where: { id: r.id },
-          create: { id: r.id, ...row },
-          update: row,
-        });
-      }
-      await tx.lineageRecording.deleteMany({
-        where: { id: { notIn: corpus.recordings.map(({ record }) => record.id) } },
-      });
-    },
-    { timeout: 60_000 }
-  );
+      }),
+    });
+    await tx.lineageEdge.createMany({
+      data: graph.edges.map((e) => ({
+        id: e.id,
+        fromId: e.from,
+        toId: e.to,
+        relation: e.relation,
+        kind: e.kind,
+        directed: e.directed,
+        strength: e.strength,
+        confidence: e.confidence,
+        scope: e.scope,
+        declaredBy: e.declaredBy,
+        recordingId: e.recordingId,
+      })),
+    });
+    await tx.lineageRecording.createMany({
+      data: corpus.recordings.map(({ record: r }) => ({
+        id: r.id,
+        title: r.title,
+        artist: r.artist,
+        year: r.year,
+        drummerIds: [...new Set(r.drum_performances.map((p) => p.drummer_id))],
+        record: jsonObject.parse(r),
+      })),
+    });
+  });
 
   const modelled = graph.nodes.filter((n) => n.kind === 'drummer' && n.modelled).length;
   logger.info(
@@ -119,6 +113,8 @@ const unit: SeedUnit = {
     '../../../lib/app/lineage/build.ts',
     '../../../lib/app/lineage/check.ts',
     '../../../lib/app/lineage/corpus.ts',
+    '../../../lib/app/lineage/types.ts',
+    '../../../scripts/lineage/read-corpus.ts',
   ],
   async run(ctx) {
     await seedLineage(ctx, readCorpus(MODEL_DIR));

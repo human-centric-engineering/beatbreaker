@@ -51,4 +51,17 @@ describe('parseCorpus', () => {
       parseCorpus({ ...empty, sources: [{ file: 'sources/c.json', json: { not: 'an array' } }] })
     ).toThrow(/^sources\/c\.json: /);
   });
+
+  it('refuses a recording whose performer is not a drummer', () => {
+    const rec = {
+      id: 'rec:r',
+      title: 'R',
+      artist: 'A',
+      year: 1970,
+      drum_performances: [{ drummer_id: 'style:funk' }],
+    };
+    expect(() =>
+      parseCorpus({ ...empty, recordings: [{ file: 'recordings/r.json', json: rec }] })
+    ).toThrow(/^recordings\/r\.json: /);
+  });
 });

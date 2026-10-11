@@ -25,7 +25,7 @@ import addFormats from 'ajv-formats';
 import { describe, expect, it } from 'vitest';
 
 import { buildLineage } from '@/lib/app/lineage/build';
-import { checkCorpus } from '@/lib/app/lineage/check';
+import { checkCorpus, checkGraph } from '@/lib/app/lineage/check';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { DRUMMER_MODEL_DIR, readCorpus, readFolder } from '@/scripts/lineage/read-corpus';
 
@@ -104,6 +104,10 @@ describe('the drummer model', () => {
   describe('the graph it draws', () => {
     const graph = buildLineage(corpus);
     const ids = new Set(graph.nodes.map((n) => n.id));
+
+    it('passes the graph checks: unique slugs, ids that fit, no self-loops', () => {
+      expect(checkGraph(graph)).toEqual([]);
+    });
 
     it('has a node at both ends of every edge', () => {
       const loose = graph.edges.filter((e) => !ids.has(e.from) || !ids.has(e.to));

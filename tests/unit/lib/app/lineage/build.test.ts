@@ -161,6 +161,84 @@ describe('buildLineage', () => {
     ]);
   });
 
+  it('makes one node of a person named without an id as a drummer in one record and a teacher in another', () => {
+    const g = buildLineage(
+      corpusOf({
+        drummers: [
+          drummer('a', { relationships: [rel('cites_as_influence', { name: 'Cozy Cole' })] }),
+          drummer('b', {
+            relationships: [rel('studied_with', { name: 'Cozy Cole', kind: 'teacher' })],
+          }),
+        ],
+      })
+    );
+    expect(g.nodes.filter((n) => n.label === 'Cozy Cole').map((n) => n.id)).toEqual([
+      'drummer:cozy-cole',
+    ]);
+  });
+
+  it('keeps two people whose names have no Latin letters apart', () => {
+    const g = buildLineage(
+      corpusOf({
+        drummers: [
+          drummer('a', {
+            relationships: [
+              rel('played_alongside', { name: '坂本龍一', kind: 'musician' }),
+              rel('played_alongside', { name: 'Ẹ̀gbẹ́', kind: 'musician' }),
+              rel('played_alongside', { name: 'Τζίμης', kind: 'musician' }),
+            ],
+          }),
+        ],
+      })
+    );
+    const people = g.nodes.filter((n) => n.kind === 'musician');
+    expect(people).toHaveLength(3);
+    expect(new Set(people.map((n) => n.id)).size).toBe(3);
+    expect(people.every((n) => n.slug.length > 'person-'.length)).toBe(true);
+  });
+
+  it('carries the best-evidenced claim of a kind whole, not one claim’s relation with another’s evidence', () => {
+    const g = buildLineage(
+      corpusOf({
+        drummers: [
+          drummer('a', {
+            relationships: [
+              rel('taught', { name: 'B', id: 'drummer:b' }),
+              rel(
+                'mentored',
+                { name: 'B', id: 'drummer:b' },
+                { strength: 0.9, evidence: { confidence: 'verified' }, scope: 'band' }
+              ),
+            ],
+          }),
+        ],
+      })
+    );
+    expect(g.edges).toEqual([
+      expect.objectContaining({
+        kind: 'teacher',
+        relation: 'mentored',
+        confidence: 'verified',
+        strength: 0.9,
+        scope: 'band',
+      }),
+    ]);
+  });
+
+  it('keeps an edge’s id when a better-evidenced claim of its kind replaces the relation', () => {
+    const one = rel('taught', { name: 'B', id: 'drummer:b' });
+    const two = rel(
+      'mentored',
+      { name: 'B', id: 'drummer:b' },
+      { evidence: { confidence: 'verified' } }
+    );
+    const before = buildLineage(corpusOf({ drummers: [drummer('a', { relationships: [one] })] }));
+    const after = buildLineage(
+      corpusOf({ drummers: [drummer('a', { relationships: [one, two] })] })
+    );
+    expect(after.edges.map((e) => e.id)).toEqual(before.edges.map((e) => e.id));
+  });
+
   it('draws a style from its parent', () => {
     const g = buildLineage(
       corpusOf({
