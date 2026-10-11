@@ -39,10 +39,10 @@ import {
 import { type Glance, type Speak, expressionAt } from '@/lib/app/breaks/drummer/expression';
 import { showAt, showOverlaps, showPose, torsoFrame } from '@/lib/app/breaks/drummer/gesture';
 import { hatFootAt } from '@/lib/app/breaks/drummer/hat-foot';
-import { type FootStance, kickStanceAt } from '@/lib/app/breaks/drummer/kick-foot';
+import { beaterAt } from '@/lib/app/breaks/drummer/beater';
+import { type FootStance, kickPlan, kickStanceAt } from '@/lib/app/breaks/drummer/kick-foot';
 import {
   HAND,
-  KICK,
   type StrokeProfile,
   type StrokeState,
   hatOpenAt,
@@ -1935,10 +1935,13 @@ export function poseAt(
   const otherArm = show ? show.arms.other : otherRest;
 
   const kickHits = timeline.forLimb('kickFoot');
-  const kick = strokeAt(kickHits, now, KICK);
-  const stance = kickStanceAt(kickHits, now);
-  const leftKick = strokeAt(leftKicks, now, KICK);
-  const leftStance = kickStanceAt(leftKicks, now);
+  // (each foot's plan worked out once, for its stance and its pedal both)
+  const kickNotes = kickPlan(kickHits);
+  const leftNotes = kickPlan(leftKicks);
+  const kick = beaterAt(kickHits, now, kickNotes);
+  const stance = kickStanceAt(kickHits, now, kickNotes);
+  const leftKick = beaterAt(leftKicks, now, leftNotes);
+  const leftStance = kickStanceAt(leftKicks, now, leftNotes);
 
   const hits: Partial<Record<PieceId, PieceHit>> = {};
   for (let i = all.length - 1; i >= 0; i--) {
