@@ -1,7 +1,7 @@
 /**
  * The style table — seed data.
  *
- * 62 grooves and 12 famous drummers, each a set of tendencies or a handful of
+ * 62 grooves and 16 famous drummers, each a set of tendencies or a handful of
  * written-out bars, so the generator can write a different break in the same
  * idiom every time. A drummer is a style marked `drummer: true`, which the
  * picker files under Drummers.
@@ -11200,6 +11200,1791 @@ export const STYLES: Record<string, Style> = {
       },
     ],
   },
+  elvinjones: {
+    label: 'Elvin Jones',
+    drummer: true,
+    hint: "Coltrane's drummer 1960–66, then with McCoy Tyner, Wayne Shorter and his own Jazz Machine: a broad, legato ride leaning on the skip note, the hi-hat foot on 2 and 4, and the snare, toms and kick filling the triplets round it in groups of two and four that run across the bar line. Never a loop: the comping changes every bar. An open 1960s jazz kit. Each New plays one of thirteen of his songs in its own time: My Favorite Things and Juju as waltzes over a 6/8 foot part, Afro Blue two against three, Resolution in triplets, Chasin' the Trane and Impressions in fast eighths (the slider goes to 380). The stage names the song. Four follow Todd Bishop's transcriptions; the rest are reconstructions.",
+    toms: true,
+    kit: 'virtuosity',
+    meter: '4/4-6',
+    hats: 8,
+    bpm: [120, 190],
+    // the triplets are the meter in most of his songs; the fast ones set their own
+    swing: 0,
+    ghostBias: 1.2,
+    ghostHit: 0.55,
+    // the left hand on the middle triplet, which he stressed and landed phrases on
+    ghostWeights: { 2: 0.36, 8: 0.32, 14: 0.36, 20: 0.32, 4: 0.2, 16: 0.2 },
+    opens: 0,
+    // no backbeat: in jazz the 2 and the 4 are the hi-hat foot
+    backbeats: [6, 18],
+    backbeatLane: 'hf',
+    targetDensity: 8,
+    hatDepth: 0.9,
+    // broad and a little behind on the ride (the record's estimate; to be measured from stems)
+    feel: { label: 'Broad, behind', r: 0.03, s: 0.02, k: 0.01, jitter: 0.02 },
+    /* Constant commentary: a phrase ends by saying a little more rather than
+       with a fill, and he comments inside the phrase too. The crash is part of
+       the wave, not a marker on every 1. */
+    fill: 'comp',
+    fillComps: 2,
+    midFills: 0.4,
+    phraseMark: { crash: 0.4 },
+    crossRhythm: 0.35,
+    kick1: [
+      ['1000', 4],
+      ['0000', 3],
+    ],
+    kick: [
+      ['0000', 5],
+      ['0010', 1.2],
+      ['1000', 1],
+    ],
+    /* His records: one New picks one, and the stage names it. Credits checked
+       on Wikipedia for every song. Tempos are the Weimar Jazz Database's
+       (jazzomat) and AllSolos's measurements of the solos on each record; Your
+       Lady and the Jazz Machine's A Love Supreme have no measured tempo, and
+       their ranges are estimates. Four follow Todd Bishop's transcriptions
+       (cruiseshipdrummer.com): Chasin' the Trane (the first six choruses), Your
+       Lady (intro and head), Juju (his page built from the record's groove)
+       and the Jazz Machine's A Love Supreme (its groove). My Favorite Things is
+       built from his "Assembling a basic Elvin waltz", which names it; the rest
+       are reconstructions in his vocabulary. The waltzes are in 9/8, a beat to
+       each dotted quarter, so the tempo reads half again the waltz's quarter
+       (268 is 179); the medium tunes are in sextuplet 4/4 (`4/4-6`), so the
+       tempo is the record's; those over 200 are in eighths (`4/4-8`), because
+       the triplet meters stop at 190 (4/4-6) and 300 (9/8 and 12/8), which is
+       a quarter of 200. See the Elvin Jones section of
+       `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'my-favorite-things',
+        title: 'My Favorite Things',
+        feel: 'the 1960 waltz in 9/8: the "and" of 1 leaned on, triplets under the ride (record 179)',
+        weight: 1.6,
+        params: {
+          meter: '9/8',
+          bpm: [258, 279],
+          swing: 0,
+          backbeats: [12],
+          ghostWeights: { 2: 0.3, 8: 0.35, 14: 0.35 },
+          crossRhythms: [
+            // four triplets at a time, across the bar line
+            [{ every: 8, lanes: { s: 3 } }, 1],
+            // the 6/8 hemiola: two dotted quarters a bar
+            [{ every: 9, lanes: { c: 1, k: 2 }, bars: 2 }, 0.6],
+          ],
+          figures: [
+            // the ride on 1, 2, the "and" of 2 and 3; the snare on the "and" of 1
+            [
+              {
+                r: '1.....1...1.1.....',
+                hf: '......1.....1.....',
+                s: '....3...........1.',
+                k: '1.........1.......',
+              },
+              2,
+            ],
+            // a triplet on 1 and on 3, the left hand rolling
+            [
+              {
+                r: '1.....1...1.1.....',
+                hf: '......1.....1.....',
+                s: '..1.1.........1.1.',
+                k: '1.........1.......',
+              },
+              1.4,
+            ],
+            // the foot on the "and" of 1, a tom on the "and" of 3
+            [
+              {
+                r: '1.....1...1.1...1.',
+                hf: '....1.......1.....',
+                s: '......1...........',
+                t1: '................2.',
+                k: '1.........1.......',
+              },
+              1.2,
+            ],
+            // the hemiola: crash and kick every dotted quarter
+            [
+              {
+                c: '1........1........',
+                k: '1........1........',
+                hf: '......1.....1.....',
+                s: '....1.........1...',
+              },
+              0.6,
+            ],
+          ],
+          fills: [
+            // snare, then down the toms in triplets
+            [{ s: '3.1.1.......', t1: '......2.2...', t3: '..........2.' }, 1.2],
+            // triplets through the bar, the kick on each beat
+            [{ s: '..1.1...1.1...1.1.', k: '2.....2.....2.....' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'afro-blue',
+        title: 'Afro Blue',
+        feel: 'live at Birdland, 1963: a fast 3/4 swing with two cross-beats in every bar (record about 200)',
+        weight: 1.3,
+        params: {
+          meter: '9/8',
+          bpm: [282, 300],
+          swing: 0,
+          backbeats: [12],
+          ghostWeights: { 2: 0.3, 8: 0.35, 14: 0.35 },
+          crossRhythm: 0.45,
+          crossRhythms: [
+            // two against three: the cross-beats on the cymbal and the kick
+            [{ every: 9, lanes: { c: 1, k: 2 } }, 1],
+            [{ every: 8, lanes: { t3: 2 }, bars: 2 }, 0.6],
+          ],
+          figures: [
+            // the waltz ride, the kick on the two cross-beats
+            [
+              {
+                r: '1.....1...1.1...1.',
+                hf: '............1.....',
+                s: '..1.....1.....1...',
+                k: '1........1........',
+              },
+              2,
+            ],
+            // the cross-beats on the crash, the snare and floor tom answering
+            [
+              {
+                c: '1........1........',
+                k: '1........1........',
+                hf: '............1.....',
+                s: '....1.3.......1...',
+                t3: '................1.',
+              },
+              1.2,
+            ],
+            // the ride on the beat, every other triplet filled by the left hand
+            [
+              {
+                r: '1.....1.....1.....',
+                hf: '............1.....',
+                s: '..1.1...1.1...1.1.',
+                k: '1.................',
+              },
+              1.0,
+            ],
+          ],
+          fills: [
+            [{ s: '3.1.1.......', t1: '......2.2...', t3: '..........2.' }, 1.2],
+            // the bar's second cross-beat, snare and kick together, then air into the 1
+            [{ s: '3........', k: '2........' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'juju',
+        title: 'Juju',
+        feel: "Wayne Shorter's 1964 waltz: a 6/8 kick and hi-hat part under the waltz ride, a rim click on 2 (record 177)",
+        weight: 1.0,
+        params: {
+          meter: '9/8',
+          bpm: [256, 273],
+          swing: 0,
+          backbeats: [12],
+          ghostWeights: { 2: 0.3, 8: 0.35, 14: 0.35 },
+          /* Bishop's Page o' coordination: the record's groove is two bars, the
+             cymbal on every eighth but the "and" of 1, the feet in 6/8 (kick on
+             1 and the "and" of 2, the foot on the "and" of 1 and 3; then the
+             foot on 2 and 3, the kick on the "and" of 3), the left hand on 2.
+             A figure row holds 32 steps, so each bar is its own figure, the
+             first weighted a little higher. */
+          crossRhythms: [[{ every: 8, lanes: { s: 3 } }, 1]],
+          figures: [
+            [
+              {
+                r: '1.....1...1.1...1.',
+                hf: '....1.......1.....',
+                s: '......4...........',
+                k: '1.........1.......',
+              },
+              2,
+            ],
+            [
+              {
+                r: '1.....1...1.1...1.',
+                hf: '......1.....1.....',
+                s: '......4...........',
+                k: '................1.',
+              },
+              1.6,
+            ],
+            // a tom on the "and" of 3; in the second bar a low tom on the last triplet of 3
+            [
+              {
+                r: '1.....1...1.1...1.',
+                hf: '....1.......1.....',
+                s: '......4...........',
+                t1: '................2.',
+                k: '1.........1.......',
+              },
+              1.2,
+            ],
+            [
+              {
+                r: '1.....1...1.1...1.',
+                hf: '......1.....1.....',
+                t3: '..............2...',
+                k: '................1.',
+              },
+              0.96,
+            ],
+            // the left hand on the middle triplets
+            [
+              {
+                r: '1.....1...1.1...1.',
+                hf: '....1.......1.....',
+                s: '..1.....4.....1...',
+                k: '1.........1.......',
+              },
+              1.0,
+            ],
+            [
+              {
+                r: '1.....1...1.1...1.',
+                hf: '......1.....1.....',
+                s: '..1.....1.....1...',
+                k: '................1.',
+              },
+              0.8,
+            ],
+          ],
+          fills: [
+            [{ s: '3.1.1.......', t1: '......2.2...', t3: '..........2.' }, 1.2],
+            [{ s: '..1.1...1.1...1.1.', k: '2.....2.....2.....' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'your-lady',
+        title: 'Your Lady',
+        feel: 'the Afro waltz: kick, hi-hat and left hand taking the six eighths in turn under the ride',
+        weight: 0.9,
+        params: {
+          meter: '9/8',
+          // no measured tempo found: an estimate between the quartet's other waltzes and a ballad
+          bpm: [225, 255],
+          swing: 0,
+          backbeats: [12],
+          ghostWeights: { 2: 0.3, 8: 0.35, 14: 0.35 },
+          /* Bishop's transcription of the intro and head: one bar of 3/4 is
+             kick, foot, snare, kick, foot, tom on the six eighths (the snare a
+             ghost, the tom on the "and" of 3 accented), then foot, foot, snare,
+             kick, foot, tom; later in the head the left hand fills the
+             triplets. One bar a figure, as for Juju. */
+          crossRhythms: [[{ every: 8, lanes: { t1: 2 } }, 1]],
+          figures: [
+            [
+              {
+                r: '1.....1...1.1.....',
+                hf: '....1.......1.....',
+                s: '......1...........',
+                t1: '................2.',
+                k: '1.........1.......',
+              },
+              2,
+            ],
+            [
+              {
+                r: '1.....1...1.1.....',
+                hf: '1...1.......1.....',
+                s: '......1...........',
+                t1: '................2.',
+                k: '..........1.......',
+              },
+              1.6,
+            ],
+            [
+              {
+                r: '1.....1...1.1...1.',
+                hf: '....1.......1.....',
+                s: '..1.....1.....1...',
+                k: '1.........1.......',
+              },
+              1.2,
+            ],
+            [
+              {
+                r: '1.....1...1.1...1.',
+                hf: '....1.......1.....',
+                s: '..1.....3.....1...',
+                k: '..........1.......',
+              },
+              0.96,
+            ],
+          ],
+          fills: [
+            // the head's last bars: triplets round the snare and toms
+            [{ s: '3.1.1.......', t1: '......2.2...', t3: '..........2.' }, 1.2],
+            // in triplet eighths, the tom on the last of them
+            [{ s: '2.1.2...', t1: '......2.' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'resolution',
+        title: 'Resolution',
+        feel: 'A Love Supreme, part 2: medium-up, every triplet filled under the ride (record 178–182)',
+        weight: 1.2,
+        params: {
+          bpm: [174, 186],
+          crossRhythms: [
+            // accents every four triplets: three against four, over three bars
+            [{ every: 8, lanes: { s: 3 } }, 1],
+            [{ every: 8, lanes: { k: 2, c: 1 }, bars: 2 }, 0.6],
+          ],
+          figures: [
+            // the ride and the foot, the left hand on the middle triplets
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                hf: '......1...........1.....',
+                s: '..1.1.........1.3.......',
+                k: '1...................2...',
+              },
+              2,
+            ],
+            // a continuous stream: the ride on the beat, the snare on the other two
+            [
+              {
+                r: '1.....1.....1.....1.....',
+                hf: '......1...........1.....',
+                s: '..1.1...1.1...1.1...1.1.',
+                k: '1...........2...........',
+              },
+              1.4,
+            ],
+            // four against three: accents every fourth triplet on snare, tom and kick
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                hf: '......1...........1.....',
+                s: '........3...............',
+                t1: '................2.......',
+                k: '2.......................',
+              },
+              1.2,
+            ],
+            // half-note triplets on the crash and kick
+            [
+              {
+                c: '1.......1.......1.......',
+                k: '1.......1.......1.......',
+                hf: '......1...........1.....',
+              },
+              0.6,
+            ],
+          ],
+          fills: [
+            // triplets, the accents on the kick and cymbal (right hand), the rest soft on the snare
+            [{ r: '1.....1.....', k: '2.....2.....', s: '..1.1...1.1.' }, 1.2],
+            [{ s: '2.2.........', t1: '....2.2.....', t3: '........2.2.' }, 1.2],
+            // a whole bar in fours across the triplets
+            [{ s: '3.1.1.1.3.1.1.1.3.1.1.1.', k: '2.......2.......2.......' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'acknowledgement',
+        title: 'Acknowledgement',
+        feel: 'A Love Supreme, part 1: a Latin-tinged triplet groove round the toms over the four-note bass figure (record 126)',
+        weight: 1.0,
+        params: {
+          bpm: [120, 132],
+          crossRhythms: [[{ every: 4, lanes: { t3: 2 }, bars: 1 }, 1]],
+          figures: [
+            // the ride on the beat, the toms on the triplets
+            [
+              {
+                r: '1.....1.....1.....1.....',
+                hf: '......1...........1.....',
+                t2: '....1...................',
+                t3: '..........2.....1.......',
+                s: '......................1.',
+                k: '1...........1...........',
+              },
+              2,
+            ],
+            // the ride on the beat and the last triplet, a rim click
+            [
+              {
+                r: '1...1.1...1.1...1.1...1.',
+                hf: '......1...........1.....',
+                s: '........4...............',
+                t3: '....................2...',
+                k: '1...........1...........',
+              },
+              1.2,
+            ],
+            // the left hand round the kit
+            [
+              {
+                r: '1.....1.....1.....1.....',
+                hf: '......1...........1.....',
+                s: '..1.1...1.1...1.........',
+                t1: '................1.......',
+                t3: '....................2.1.',
+                k: '1.......................',
+              },
+              1.0,
+            ],
+          ],
+          fills: [
+            [{ s: '2.2.........', t1: '....2.2.....', t3: '........2.2.' }, 1.2],
+            [{ t1: '2.2.', t3: '..22' }, 0.4],
+          ],
+        },
+      },
+      {
+        key: 'bessies-blues',
+        title: "Bessie's Blues",
+        feel: 'Crescent, 1964: a short blues at a gallop, snare comps on the "ands", the kick dropping bombs (record 184)',
+        weight: 0.8,
+        params: {
+          bpm: [178, 190],
+          crossRhythms: [[{ every: 8, lanes: { s: 3 } }, 1]],
+          figures: [
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                hf: '......1...........1.....',
+                s: '....3...........1.....3.',
+                k: '1...................1...',
+              },
+              2,
+            ],
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                hf: '......1...........1.....',
+                s: '..........3...1.3.......',
+                k: '............2.........1.',
+              },
+              1.4,
+            ],
+            [
+              {
+                r: '1.....1.....1.....1.....',
+                hf: '......1...........1.....',
+                s: '..1.1...1.1...3.1...1...',
+                k: '......................2.',
+              },
+              1.0,
+            ],
+          ],
+          fills: [
+            [{ r: '1.....1.....', k: '2.....2.....', s: '..1.1...1.1.' }, 1.2],
+            [{ s: '3.1.3.', t3: '.....2' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'speak-no-evil',
+        title: 'Speak No Evil',
+        feel: "Wayne Shorter's 1964 record: medium-up, the ride broad and open, a few hard comps (record 142)",
+        weight: 0.9,
+        params: {
+          bpm: [138, 148],
+          ghostBias: 0.8,
+          crossRhythms: [[{ every: 8, lanes: { t3: 2 } }, 1]],
+          figures: [
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                hf: '......1...........1.....',
+                s: '..........3.............',
+                k: '................2.......',
+              },
+              2,
+            ],
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                hf: '......1...........1.....',
+                s: '..1.............3.......',
+                k: '1.....................1.',
+              },
+              1.4,
+            ],
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                hf: '......1...........1.....',
+                s: '........3...............',
+                t3: '................2.......',
+                k: '1.......................',
+              },
+              1.0,
+            ],
+          ],
+          fills: [
+            [{ s: '3.1.1.......', t1: '......2.2...', t3: '..........2.' }, 1.2],
+            [{ s: '1.1.3.', k: '.....2' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'witch-hunt',
+        title: 'Witch Hunt',
+        feel: 'the opener of Speak No Evil: medium swing, the horn calls answered on the snare and kick (record 136–139)',
+        weight: 0.8,
+        params: {
+          bpm: [132, 142],
+          crossRhythms: [[{ every: 8, lanes: { s: 3, k: 2 }, bars: 2 }, 1]],
+          figures: [
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                hf: '......1...........1.....',
+                s: '....3...........3.......',
+                k: '..........2.............',
+              },
+              2,
+            ],
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                hf: '......1...........1.....',
+                s: '..1.....1.....3.....1...',
+                k: '1.....................2.',
+              },
+              1.4,
+            ],
+            // the call: crash and kick every fourth triplet
+            [
+              {
+                c: '1.......1.......1.......',
+                k: '1.......1.......1.......',
+                hf: '......1...........1.....',
+                s: '......................1.',
+              },
+              0.6,
+            ],
+          ],
+          fills: [
+            [{ r: '1.....1.....', k: '2.....2.....', s: '..1.1...1.1.' }, 1.2],
+            [{ s: '2.2.........', t1: '....2.2.....', t3: '........2.2.' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'chasin-the-trane',
+        title: "Chasin' the Trane",
+        feel: 'the Vanguard, 1961: a fast blues, no piano, the snare on the "ands", the foot on 2 and 4 (record 235–244)',
+        weight: 1.2,
+        params: {
+          meter: '4/4-8',
+          swingCurve: true,
+          bpm: [226, 246],
+          swing: 30,
+          swingRange: [22, 38],
+          backbeats: [2, 6],
+          ghostWeights: { 3: 0.3, 7: 0.3 },
+          ghostBias: 0.6,
+          /* Bishop's transcription of the first six choruses, read bar by bar:
+             the foot on every 2 and 4, the ride in quarters with the skip
+             note, the snare on the "and" of 4 or 2 and accented, a buzz on 4;
+             the kick on a downbeat, often with a ghost on the "and" before it.
+             His triplet streams (the snare on the second and third triplets)
+             have no place in eighths. */
+          crossRhythms: [[{ every: 3, lanes: { s: 3 }, bars: 2 }, 1]],
+          figures: [
+            [{ r: '1.1.1.11', hf: '..1...1.', s: '.......3', k: '1.......' }, 2],
+            [{ r: '1.11111.', hf: '..1...1.', s: '.....3..', k: '..1.....' }, 1.4],
+            [{ r: '1.111111', hf: '..1...1.', s: '...3.18.' }, 1.2],
+            [{ r: '11111.11', hf: '..1...1.', s: '.31.....', k: '.....12.' }, 1.0],
+            [{ r: '111.1111', hf: '..1...1.', s: '.3...1.3' }, 1.0],
+          ],
+          fills: [
+            [{ s: '3..3..3.', k: '.2..2..2' }, 1.0],
+            [{ s: '3.13', k: '.2..' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'impressions',
+        title: 'Impressions',
+        feel: 'live at the Vanguard, 1961: a gallop with the swing nearly even, phrases in three across the bar (record 272–293)',
+        weight: 1.2,
+        params: {
+          meter: '4/4-8',
+          swingCurve: true,
+          bpm: [240, 280],
+          swing: 12,
+          swingRange: [4, 20],
+          backbeats: [2, 6],
+          ghostWeights: { 3: 0.3, 7: 0.3 },
+          ghostBias: 0.5,
+          crossRhythm: 0.45,
+          crossRhythms: [
+            // 3/4 over 4/4: an accent every three beats
+            [{ every: 6, lanes: { s: 3 } }, 1],
+            // dotted quarters on the kick
+            [{ every: 3, lanes: { k: 2 }, bars: 2 }, 0.8],
+          ],
+          figures: [
+            [{ r: '1.111.11', hf: '..1...1.', s: '...1..3.', k: '.....2..' }, 2],
+            [{ r: '1.1.1.11', hf: '..1...1.', s: '.1...3.1', k: '...2....' }, 1.4],
+            // dotted quarters on the crash and kick, three against four
+            [{ c: '1..1..1.', k: '1..1..1.', hf: '..1...1.' }, 0.6],
+          ],
+          fills: [
+            [{ s: '3..3..3.', t3: '.2..2..2' }, 1.2],
+            [{ s: '3.1.', t3: '...2' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'pursuance',
+        title: 'Pursuance',
+        feel: 'A Love Supreme, part 3: his solo opens it, then the fastest swing on the record, the toms rolling (record 277–300)',
+        weight: 1.1,
+        params: {
+          meter: '4/4-8',
+          swingCurve: true,
+          bpm: [240, 280],
+          swing: 18,
+          swingRange: [10, 26],
+          backbeats: [2, 6],
+          ghostWeights: { 3: 0.3, 7: 0.3 },
+          ghostBias: 0.5,
+          midFills: 0.5,
+          crossRhythms: [
+            [{ every: 6, lanes: { t3: 2 } }, 1],
+            [{ every: 3, lanes: { s: 3 }, bars: 2 }, 0.8],
+          ],
+          figures: [
+            [{ r: '1.111.11', hf: '..1...1.', s: '...3...1', t3: '.....2..' }, 2],
+            [{ r: '1.1.1.11', hf: '..1...1.', s: '.1.1..3.', k: '....2...' }, 1.4],
+            [{ r: '1.111.11', hf: '..1...1.', t1: '...2....', t3: '......2.', k: '.2......' }, 1.0],
+          ],
+          fills: [
+            // the solo's language: snare, toms and kick in turn
+            [{ s: '3.....3.', t1: '.2......', t3: '..2..2..', k: '...2...2' }, 1.2],
+            [{ s: '3..3..3.', k: '.2..2..2' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'a-love-supreme-live',
+        title: 'A Love Supreme (Jazz Machine)',
+        feel: 'the Jazz Machine live in Japan, 1978: a mozambique on the cymbal bell, the kick on 1 and the foot on 3',
+        weight: 0.6,
+        params: {
+          meter: '4/4-8',
+          // no measured tempo found: an estimate
+          bpm: [180, 220],
+          swing: 0,
+          backbeats: [4],
+          ghostWeights: {},
+          ghostBias: 0.3,
+          crossRhythm: 0,
+          /* Bishop's groove from the record, written as he writes it in two bars
+             of eighths: the bell's mozambique, a rim click on the "and" of 2,
+             the high tom on 4 and its "and", the kick on 1 and the foot on 3.
+             On the record it is one bar of sixteenths, double time over the
+             feet. */
+          figures: [
+            [
+              {
+                r: '2.2.22.2.22.22.2',
+                s: '...4.......4....',
+                t1: '......22......22',
+                k: '1.......1.......',
+                hf: '....1.......1...',
+              },
+              2,
+            ],
+          ],
+          fills: [[{ t1: '2.2.', t3: '.2.2' }, 1.0]],
+        },
+      },
+    ],
+  },
+  puente: {
+    label: 'Tito Puente',
+    drummer: true,
+    hint: "The King of the Timbales, leading his own orchestra from the Palladium mambo of the 1950s to the Latin jazz of the 1980s: always in clave, the right hand on the timbale's shell for the verse or the mambo bell for the montuno, the left on the low drum, a roll into a rimshot to open a section. He played timbales, not a kit, so this is a translation: the timbales on the toms, the shell or bell a percussion slot, the claves the percussionist's, the bass's anticipated note on the kick. Each New plays one of eleven of his songs at its record tempo: Oye Como Va's cha-cha-chá, Ran Kan Kan and Picadillo on the bell, El Cayuco and Complicación on the shell. The stage names the song. None follows a transcription; all are reconstructions.",
+    toms: true,
+    // a tight, high snare that cracks like metal: the nearest these kits have to a steel timbale and its rimshot
+    kit: 'police',
+    // the bell or the shell and the claves are the front line
+    mix: { p1: 0.7, p2: 0.9 },
+    hats: 8,
+    bpm: [60, 136],
+    // "Swing 8ths" is on his record's avoid list: the clave's eighths are even
+    swing: 0,
+    // no ghosts: the left hand plays the low drum, not the snare
+    ghostBias: 0,
+    ghostWeights: {},
+    opens: 0,
+    /* The left hand's low drum on the 2 and the 4 of each bar of the clave:
+       one 4/4 bar here holds two of the record's bars in eighths, so those
+       are steps 2, 6, 10 and 14. The open stroke on each 4 is the one the
+       critic looks for, and a tom counts. */
+    backbeats: [6, 14],
+    targetDensity: 9,
+    hatDepth: 0.8,
+    // on top: a bandleader cueing the band from the front
+    feel: { label: 'On top', t1: -0.02, t2: -0.02, jitter: 0.01 },
+    /* Fills open a section: an abanico, a roll into a rimshot, on the last
+       eighth of the clave, and the timbales answering each other. The crash
+       marks a section; there is no kick on the 1, which is the bass's to leave
+       empty. */
+    fillChance: 0.8,
+    midFills: 0,
+    phraseMark: { crash: 0.4, kick: false },
+    /* The kick: a timbalero has no bass drum, but his early playing "combined
+       the cascara patterns of the timbales with bass drum and cymbals" (jazz.com),
+       so the translation keeps one note, the bass tumbao's bombo, the anticipated
+       "and" of 2 in each bar of the clave (the last step of a beat here). Never
+       on the 1. */
+    kick1: [
+      ['0000', 3],
+      ['0001', 1],
+    ],
+    kick: [
+      ['0000', 3],
+      ['0001', 1],
+    ],
+    // claves on the 2-3 son clave (the percussionist's), and the shell of the timbale over it
+    perc: [
+      { inst: 'clave', steps: [2, 4, 8, 11, 14] },
+      { inst: 'cascara', steps: [0, 2, 3, 5, 7, 8, 10, 12, 13, 15] },
+    ],
+    figures: [
+      // the verse: the left hand's open stroke on the low drum on each 4, the bombo on the kick
+      [{ t2: '......2.......2.', k: '...1.......1....' }, 1.4],
+      // the same with a muffled stroke on each 2
+      [{ t2: '..1...2...1...2.', k: '...1.......1....' }, 1.0],
+    ],
+    fills: [
+      // the abanico: a press roll into a rimshot on the last eighth, into the 1
+      [{ s: '885' }, 1.6],
+      // the timbales answering each other, high and low, into the abanico's rimshot
+      [{ t1: '2...2..', t2: '..2..2.', s: '......5' }, 1.0],
+    ],
+    /* His records: one New picks one, and the stage names it. Credits are
+       Wikipedia's and Discogs's: he is on timbales on all of them, as leader.
+       Tempos are songbpm's, which for the mambos is the half note (the
+       charts are in cut time, and one 4/4 bar here is two of their bars, so
+       the half note is this grid's quarter); Oye Como Va's is half the
+       cha-cha-chá's quarter, as in a forum post quoting his book with Jim
+       Payne ("half-tone = 64"). The clave is the 2-3 son clave his record
+       gives for the mambo bell and the shell on every song, not checked chart
+       by chart. No human transcription of his playing on any of them was
+       found (Songsterr's tabs are all machine-made), so every song is a
+       reconstruction: the bell or the shell in the right hand, the low drum
+       in the left. A song has one percussion slot for the right hand, so it
+       plays either the shell (the vocal guarachas: the verse) or the bell
+       (the instrumental mambos: the montuno), never both. */
+    songs: [
+      {
+        key: 'oye-como-va',
+        title: 'Oye Como Va',
+        feel: 'a cha-cha-chá: the small bell on every beat, the low drum on 4; the tempo is the half note',
+        weight: 2,
+        params: {
+          bpm: [60, 66],
+          swing: 0,
+          perc: [
+            { inst: 'clave', steps: [2, 4, 8, 11, 14] },
+            // the cha-cha bell on the beat, its mouth on 1 and 3
+            { inst: 'cowbell', steps: [0, 2, 4, 6, 8, 10, 12, 14], accents: [0, 4, 8, 12] },
+          ],
+          // the bass's own tumbao, the ostinato under the chorus: no kick
+          figures: [
+            [{ t2: '......2.......2.' }, 1.6],
+            [{ t2: '..1...2...1...2.' }, 1.0],
+          ],
+          fills: [
+            [{ s: '885' }, 1.4],
+            // the "cha-cha-chá" on 4 and its "and", on the timbales
+            [{ t1: '.2.', t2: '2.2' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'ran-kan-kan',
+        title: 'Ran Kan Kan',
+        feel: 'a mambo on the bell, the low drum on the 2 and the 4, the bombo on the kick',
+        weight: 1.4,
+        params: {
+          bpm: [102, 108],
+          swing: 0,
+          perc: [
+            { inst: 'clave', steps: [2, 4, 8, 11, 14] },
+            { inst: 'cowbell', steps: [0, 2, 4, 5, 7, 8, 10, 11, 13, 15], accents: [0, 4, 8, 12] },
+          ],
+          figures: [
+            [{ t2: '..1...2...1...2.', k: '...1.......1....' }, 1.6],
+            // the macho on the last eighth, pushing into the 1
+            [{ t2: '..1...2...1...2.', t1: '...............2', k: '...1.......1....' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'el-cayuco',
+        title: 'El Cayuco',
+        feel: 'Dance Mania: the shell under the voice, the low drum open on each 4',
+        weight: 1.1,
+        params: {
+          bpm: [125, 131],
+          swing: 0,
+        },
+      },
+      {
+        key: 'complicacion',
+        title: 'Complicación',
+        feel: 'Dance Mania: the shell under the voice, the bombo on the kick',
+        weight: 0.9,
+        params: {
+          bpm: [92, 98],
+          swing: 0,
+        },
+      },
+      {
+        key: '3-d-mambo',
+        title: '3-D Mambo',
+        feel: 'Dance Mania: the mambo bell, the low drum on the 2 and the 4',
+        weight: 1.0,
+        params: {
+          bpm: [97, 103],
+          swing: 0,
+          perc: [
+            { inst: 'clave', steps: [2, 4, 8, 11, 14] },
+            { inst: 'cowbell', steps: [0, 2, 4, 5, 7, 8, 10, 11, 13, 15], accents: [0, 4, 8, 12] },
+          ],
+          figures: [
+            [{ t2: '..1...2...1...2.', k: '...1.......1....' }, 1.6],
+            [{ t2: '..1...2...1...2.', t1: '...............2', k: '...1.......1....' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'hong-kong-mambo',
+        title: 'Hong Kong Mambo',
+        feel: 'Dance Mania: a slower mambo on the bell, the low drum on the 2 and the 4',
+        weight: 0.8,
+        params: {
+          bpm: [88, 94],
+          swing: 0,
+          perc: [
+            { inst: 'clave', steps: [2, 4, 8, 11, 14] },
+            { inst: 'cowbell', steps: [0, 2, 4, 5, 7, 8, 10, 11, 13, 15], accents: [0, 4, 8, 12] },
+          ],
+          figures: [
+            [{ t2: '..1...2...1...2.', k: '...1.......1....' }, 1.6],
+            [{ t2: '..1...2...1...2.' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'mambo-gozon',
+        title: 'Mambo Gozón',
+        feel: 'Dance Mania: the mambo bell, the macho pushing into the 1',
+        weight: 0.9,
+        params: {
+          bpm: [102, 108],
+          swing: 0,
+          perc: [
+            { inst: 'clave', steps: [2, 4, 8, 11, 14] },
+            { inst: 'cowbell', steps: [0, 2, 4, 5, 7, 8, 10, 11, 13, 15], accents: [0, 4, 8, 12] },
+          ],
+          figures: [
+            [{ t2: '..1...2...1...2.', k: '...1.......1....' }, 1.2],
+            [{ t2: '..1...2...1...2.', t1: '...............2', k: '...1.......1....' }, 1.2],
+          ],
+        },
+      },
+      {
+        key: 'babarabatiri',
+        title: 'Babarabatiri',
+        feel: 'the shell under the voice, the low drum open on each 4',
+        weight: 1.0,
+        params: {
+          bpm: [98, 104],
+          swing: 0,
+        },
+      },
+      {
+        key: 'picadillo',
+        title: 'Picadillo',
+        feel: 'an early mambo on the bell, the low drum on the 2 and the 4',
+        weight: 0.9,
+        params: {
+          bpm: [94, 100],
+          swing: 0,
+          perc: [
+            { inst: 'clave', steps: [2, 4, 8, 11, 14] },
+            { inst: 'cowbell', steps: [0, 2, 4, 5, 7, 8, 10, 11, 13, 15], accents: [0, 4, 8, 12] },
+          ],
+          figures: [
+            [{ t2: '..1...2...1...2.', k: '...1.......1....' }, 1.6],
+            [{ t2: '..1...2...1...2.', t1: '...............2', k: '...1.......1....' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'para-los-rumberos',
+        title: 'Para Los Rumberos',
+        feel: 'the 1972 remake at a mambo tempo: the bell, a timbale break to end it',
+        weight: 0.9,
+        params: {
+          bpm: [130, 136],
+          swing: 0,
+          perc: [
+            { inst: 'clave', steps: [2, 4, 8, 11, 14] },
+            { inst: 'cowbell', steps: [0, 2, 4, 5, 7, 8, 10, 11, 13, 15], accents: [0, 4, 8, 12] },
+          ],
+          figures: [
+            [{ t2: '..1...2...1...2.', k: '...1.......1....' }, 1.4],
+            [{ t2: '..1...2...1...2.', t1: '...............2', k: '...1.......1....' }, 1.0],
+          ],
+          fills: [
+            [{ s: '885' }, 1.2],
+            // the short timbale break: the macho and the hembra in turn
+            [{ t1: '2.2.2...', t2: '.2.2.22.', s: '.......5' }, 1.2],
+          ],
+        },
+      },
+      {
+        key: 'mambo-diablo',
+        title: 'Mambo Diablo',
+        feel: 'with his Latin Ensemble, 1985: the shell, the low drum open on each 4, an octet in no hurry',
+        weight: 0.8,
+        params: {
+          bpm: [75, 80],
+          swing: 0,
+        },
+      },
+    ],
+  },
+  changuito: {
+    label: 'Changuito',
+    drummer: true,
+    hint: "José Luis Quintana, Los Van Van's drummer from 1970 to 1993, who built Blas Egües' first songo beat into a style with Juan Formell. One 2-3 rumba clave to a bar: the right hand on the four main beats, the left on the rim and toms between them, the kick on the bombos, the snare off the backbeat. A kit with cymbals in the 1970s; from 1982 timbales and bells beside it, the bell keeping the pulse while the timbales move. Each New plays one of twelve of his songs at its record tempo: Chirrín chirrán, La Habana joven's slow double time, Te traigo's two-clave kick, Tu decisión in 3-2, Sandunguera, El baile del buey cansao. The stage names the song. Ten take their kick, some their snare, from Kevin Moore's transcriptions; Sandunguera and Buey cansao are reconstructions.",
+    toms: true,
+    kit: 'sixties',
+    mix: { h: 0.75, p1: 0.7, p2: 0.75 }, // the clave and the congas are the front line
+    hats: 8,
+    bpm: [88, 118],
+    swing: 0,
+    ghostBias: 0.3,
+    // the left hand is written out: no ghosts rolled on top of it
+    ghostWeights: {},
+    opens: 0,
+    targetDensity: 11,
+    hatDepth: 0.8,
+    // rudiments on the drums: a fill accent sometimes a flam, now and then a drag
+    flam: 0.2,
+    drag: 0.1,
+    // on top: the snare and kick a shade early, the hands on the grid
+    feel: { label: 'On top', s: -0.02, k: -0.01, jitter: 0.01 },
+    fillChance: 0.6,
+    midFills: 0,
+    phraseMark: { crash: 0.5 },
+    kick1: [
+      ['0001', 3],
+      ['1001', 1],
+    ],
+    kick: [
+      ['0000', 2],
+      ['0001', 1.5],
+      ['0100', 0.6],
+    ],
+    /* The percussionists' parts, which take none of his hands: El Yulo's
+       congas as Changuito plays them in La historia del songo (high tones on
+       the "and" of 2, 3 and the end of the bar, low tones through the 3-side),
+       and the 2-3 rumba clave every early Van Van song is in. */
+    perc: [
+      { inst: 'conga', steps: [3, 4, 6, 7, 8, 9, 10, 11, 14, 15], accents: [3, 4, 14, 15] },
+      { inst: 'clave', steps: [2, 4, 8, 11, 15] },
+    ],
+    figures: [
+      // his songo as he shows it: the hat on the beats, the rim between, the toms at the end, the kick on the bombos
+      [
+        {
+          h: '1...1...1...1...',
+          s: '.44..4.4.44.....',
+          t1: '............2...',
+          t2: '..............2.',
+          k: '...1.......1....',
+        },
+        1.4,
+      ],
+      // the snare on the ponche of the 3-side, in place of the low tom
+      [
+        {
+          h: '1...1...1...1...',
+          s: '.44..4.4.44...2.',
+          t1: '............2...',
+          k: '...1.......1....',
+        },
+        0.8,
+      ],
+    ],
+    fills: [
+      // the timbale player's turn: the two drums in turn
+      [{ t1: '2.2.', t2: '.2.2' }, 1.2],
+      // a flam, a ghost, the low drum
+      [{ s: '6.1.', t2: '...2' }, 1.0],
+      // two snare accents, then down the toms
+      [{ s: '3.3.....', t1: '....2.2.', t2: '.....2.2' }, 0.8],
+      // the press roll that brings a coro down
+      [{ s: '8.8.' }, 0.6],
+    ],
+    /* His records: one New picks one, and the stage names it. The grid is
+       Kevin Moore's (timba.com, The Roots of Timba, Part II): sixteen steps
+       are one clave, two bars of eighths, and the tempo counts four of them a
+       beat, as his and songbpm's do. Ten songs take the kick, and La Habana
+       joven, Tu decisión and No digas que no the snare, from his
+       transcriptions; Moore writes no hands, so theirs are the songo
+       Changuito demonstrates in La historia del songo (via Moore) and
+       Wikipedia's basic songo stick pattern. El baile del buey cansao and
+       Sandunguera, the timbales years, are reconstructions from the drummer
+       record and Wikipedia's "Changuito Special". Tempos are Moore's where he
+       gives one, otherwise songbpm's. */
+    songs: [
+      {
+        key: 'chirrin-chirran',
+        title: 'Chirrín chirrán',
+        feel: 'songo as he first altered it: the kick on both bombos, the rim between the beats, 1974',
+        weight: 1.4,
+        params: {
+          bpm: [107, 109],
+          // the kick is Moore's (Los Van Van, Vol. II); the hands are the songo he demonstrates
+          figures: [
+            [
+              {
+                h: '1...1...1...1...',
+                s: '.44..4.4.44.....',
+                t1: '............2...',
+                t2: '..............2.',
+                k: '...1.......1....',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1...1...1...1...',
+                s: '.44..4.4.44...2.',
+                t1: '............2...',
+                k: '...1.......1....',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'la-habana-joven',
+        title: 'La Habana joven',
+        feel: 'a slow songo: double-time hats, the snare on the backbeat of the 2-side, the kick in pairs',
+        weight: 1.1,
+        params: {
+          // Moore: the base tempo of a slow son montuno; songbpm's 120 is the double time
+          bpm: [58, 62],
+          hats: 16,
+          /* Moore's two tumbaos and the variation kick, read bar by bar. The
+             sixteenths on the hats are the double time he hears; the snare
+             stays on the 2-side's backbeat and moves on the 3-side. */
+          figures: [
+            [{ h: '2111211121112111', s: '....2......2....', k: '11.......11.....' }, 1.6],
+            [{ h: '2111211121112111', s: '....2.......2...', k: '11.....1...1....' }, 1.2],
+            [{ h: '2111211121112111', s: '....2...........', k: '1......1........' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'llegue-llegue',
+        title: 'Llegué llegué (Guararey)',
+        feel: 'the Guararey section at double the opening tempo: eighths on the hat, a kick that never repeats',
+        weight: 1.0,
+        params: {
+          // Moore: the opening at 59, the songo at exactly double; songbpm 113 for the track
+          bpm: [113, 118],
+          /* The kick is Moore's tumbao 3 (Two Styles of Kick Drum Playing):
+             twelve claves, no two alike, the most common kept. The hat in
+             eighths is his note on the interlude; the left hand is the songo
+             Changuito demonstrates. */
+          figures: [
+            [
+              {
+                h: '1.1.1.1.1.1.1.1.',
+                s: '.44..4.4.44.....',
+                t1: '............2...',
+                t2: '..............2.',
+                k: '...1.1.....1....',
+              },
+              1.6,
+            ],
+            [
+              {
+                h: '1.1.1.1.1.1.1.1.',
+                s: '.44..4.4.44.....',
+                t1: '............2...',
+                t2: '..............2.',
+                k: '...1.......1....',
+              },
+              1.4,
+            ],
+            [
+              {
+                h: '1.1.1.1.1.1.1.1.',
+                s: '.44..4.4.44.....',
+                t1: '............2...',
+                t2: '..............2.',
+                k: '.1.......1...1..',
+              },
+              0.6,
+            ],
+            [
+              {
+                h: '1.1.1.1.1.1.1.1.',
+                s: '.44..4.4.44.....',
+                t1: '............2...',
+                t2: '..............2.',
+                k: '...1.1.....1.1..',
+              },
+              0.8,
+            ],
+            [
+              {
+                h: '1.1.1.1.1.1.1.1.',
+                s: '.44..4.4.44.....',
+                t1: '............2...',
+                t2: '..............2.',
+                k: '...1......11....',
+              },
+              0.6,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'mi-ritmo-caliente',
+        title: 'Mi ritmo caliente',
+        feel: 'a slower songo: the kick on 1, both bombos and the offbeat after the first',
+        weight: 0.7,
+        params: {
+          // Moore: 94, "quite a bit slower than a typical songo track"
+          bpm: [92, 96],
+          figures: [
+            [
+              {
+                h: '1...1...1...1...',
+                s: '.44..4.4.44.....',
+                t1: '............2...',
+                t2: '..............2.',
+                k: '1..1.1.....1....',
+              },
+              2,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'y-que-se-sepa',
+        title: 'Y que se sepa',
+        feel: 'a slow songo single: both bombos, often the offbeat after the first',
+        weight: 0.7,
+        params: {
+          // Moore 102, songbpm 104
+          bpm: [100, 104],
+          // Moore: "plays both bombos and frequently (but not always) adds the next offbeat"
+          figures: [
+            [
+              {
+                h: '1...1...1...1...',
+                s: '.44..4.4.44.....',
+                t1: '............2...',
+                t2: '..............2.',
+                k: '...1.1.....1....',
+              },
+              1.4,
+            ],
+            [
+              {
+                h: '1...1...1...1...',
+                s: '.44..4.4.44.....',
+                t1: '............2...',
+                t2: '..............2.',
+                k: '...1.......1....',
+              },
+              1.0,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'te-traigo',
+        title: 'Te traigo',
+        feel: 'a minor-key songo whose kick takes two claves to repeat',
+        weight: 0.9,
+        params: {
+          bpm: [88, 92],
+          // Moore: the kick "keeps returning to a pattern which lasts two claves before repeating"
+          figures: [
+            [
+              {
+                h: '1...1...1...1...1...1...1...1...',
+                s: '.44..4.4.44......44..4.4.44.....',
+                t1: '............2...............2...',
+                t2: '..............2...............2.',
+                k: '1..1.......1....11.1.......1....',
+              },
+              2,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'dale-dos',
+        title: 'Dale dos',
+        feel: 'the closing songo: the kick on the 2-side bombo and nowhere else',
+        weight: 1.1,
+        params: {
+          // Moore 96 for this section; songbpm 94 to 98
+          bpm: [94, 98],
+          figures: [
+            [
+              {
+                h: '1...1...1...1...',
+                s: '.44..4.4.44.....',
+                t1: '............2...',
+                t2: '..............2.',
+                k: '...1............',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1...1...1...1...',
+                s: '.44..4.4.44...2.',
+                t1: '............2...',
+                k: '...1............',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'tu-decision',
+        title: 'Tu decisión, ¿cuál es?',
+        feel: 'a rare 3-2 songo, very fast: the drums in half time until they join the rumba',
+        weight: 0.7,
+        params: {
+          // Moore 153 at the end, songbpm 146 for the track; a run of four holds it at 150
+          bpm: [146, 150],
+          perc: [
+            // El Yulo does not turn his figure round for 3-2 (Moore)
+            { inst: 'conga', steps: [3, 4, 6, 7, 8, 9, 10, 11, 14, 15], accents: [3, 4, 14, 15] },
+            { inst: 'clave', steps: [0, 3, 7, 10, 12] },
+          ],
+          /* Tumbaos 1 and 2: Moore's snare on the downbeat of the 2-side,
+             a half-time backbeat; the kick under the bass is a reconstruction.
+             Tumbao 3 is normal songo, his songo turned round to 3-2. */
+          figures: [
+            [{ h: '1...1...1...1...', s: '........3.......', k: '1.....1.........' }, 1.4],
+            [
+              {
+                h: '1...1...1...1...',
+                s: '.44......44..4.4',
+                t1: '....2...........',
+                t2: '......2.........',
+                k: '...1.......1....',
+              },
+              1.2,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'por-que-lo-haces',
+        title: 'Por qué lo haces',
+        feel: 'a rollicking songo, the kick on 1 and both bombos and different every time',
+        weight: 0.8,
+        params: {
+          // Moore 115, songbpm 110
+          bpm: [110, 115],
+          // Moore's "basic part", and two of the ways it changes
+          figures: [
+            [
+              {
+                h: '1...1...1...1...',
+                s: '.44..4.4.44.....',
+                t1: '............2...',
+                t2: '..............2.',
+                k: '1..1.1.....1....',
+              },
+              1.6,
+            ],
+            [
+              {
+                h: '1...1...1...1...',
+                s: '.44..4.4.44.....',
+                t1: '............2...',
+                t2: '..............2.',
+                k: '1..1.......1....',
+              },
+              1.0,
+            ],
+            [
+              {
+                h: '1...1...1...1...',
+                s: '.44..4.4.44...2.',
+                t1: '............2...',
+                k: '...1.1.....1....',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'no-digas-que-no',
+        title: 'No digas que no, compadre',
+        feel: 'kick and snare as a half-time R&B figure: the snare on the downbeat of the 3-side',
+        weight: 0.8,
+        params: {
+          // Moore: 102, "slow songo, or fast timba"
+          bpm: [100, 104],
+          // Moore's snare and kick; the hats are a reconstruction
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '........3.......', k: '1......1......1.' }, 1.6],
+            [{ h: '1...1...1...1...', s: '........3.......', k: '1......1......1.' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'buey-cansao',
+        title: 'El baile del buey cansao',
+        feel: 'the timbales arrive: the bell on the beats, the timbales between, the kick on one bombo',
+        weight: 1.3,
+        params: {
+          // songbpm 174 to 176 is the double time; one entry has it at 87
+          bpm: [85, 89],
+          mix: { p1: 0.8, p2: 0.75 },
+          perc: [
+            // the bell on the kit, the right hand's: the four main beats
+            { inst: 'cowbell', steps: [0, 4, 8, 12], accents: [0, 8] },
+            { inst: 'clave', steps: [2, 4, 8, 11, 15] },
+          ],
+          /* A reconstruction: the left hand of Wikipedia's basic songo stick
+             pattern on the timbales, the kick on the 2-side bombo alone (the
+             "later alteration" Changuito shows), and a displaced ghost or two
+             on the snare, because there was still a kit there. */
+          figures: [
+            [{ t1: '.1...1.......1.1', t2: '..2....2..2.....', k: '...1............' }, 1.6],
+            [
+              {
+                t1: '.1...1.......1.1',
+                t2: '..2....2..2.....',
+                s: '......1.......1.',
+                k: '...1.......1....',
+              },
+              1.0,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'sandunguera',
+        title: 'Sandunguera (Por encima del nivel)',
+        feel: 'his biggest hit: the bongó bell in the right hand, timbale accents in the left, Pedrito calling his name',
+        weight: 1.6,
+        params: {
+          // songbpm 95 to 100 for the 1983 recording
+          bpm: [95, 100],
+          mix: { p1: 0.8, p2: 0.75 },
+          perc: [
+            /* The bongó bell half of the "Changuito Special" (Wikipedia):
+               the mouth on the four beats, the neck between, with the extra
+               sixteenths his version adds. */
+            {
+              inst: 'cowbell',
+              steps: [0, 2, 4, 6, 7, 8, 10, 11, 12, 14, 15],
+              accents: [0, 4, 8, 12],
+            },
+            { inst: 'clave', steps: [2, 4, 8, 11, 15] },
+          ],
+          /* A reconstruction. The other bell of the Special has no slot left;
+             the left hand keeps the two strokes it plays alone, on the low
+             timbale, and a ghost either side on the snare. */
+          figures: [
+            [{ t2: '.....2...2......', s: '.1...........1..', k: '...1.......1....' }, 1.6],
+            [{ t2: '.....2...2......', s: '.1...........1..', k: '...1............' }, 1.0],
+          ],
+        },
+      },
+    ],
+  },
+  horaciohernandez: {
+    label: 'Horacio "El Negro" Hernández',
+    drummer: true,
+    hint: "The Havana drummer of Rubalcaba's Proyecto, then Hargrove's Habana, Michel Camilo's trios and Santana: four limbs, four Cuban parts. The left foot plays the clave on a pedal block, the right foot the tumbao, the right hand a bell or the cáscara, the left hand conga and timbale figures on snare and toms. Each Latin song keeps one clave and one direction, and its accents stay with it. A bright, tight kit. Each New plays one of eight of his songs at its record tempo: Mambo for Roy's bell, Afrodisia's cáscara, Afro Blue in 6/8, La Comparsa's gallop, his own songo, and Santana's Africa Bamba with a plain backbeat. The stage names the song. Two follow human transcriptions; the rest are reconstructions from his book's grooves.",
+    toms: true,
+    kit: 'police',
+    mix: { h: 0.7 },
+    hats: 8,
+    bpm: [93, 140],
+    // straight Cuban eighths and sixteenths: never swung
+    swing: 0,
+    ghostBias: 0.4,
+    opens: 0,
+    backbeats: [6, 14],
+    targetDensity: 10,
+    hatDepth: 0.8,
+    // on top of the beat, and the same every pass
+    feel: { label: 'On top', s: -0.02, k: -0.01, jitter: 0.01 },
+    /* Fills at phrase ends only, short, in clave: the crash marks a section,
+       not every half of one. */
+    fillChance: 0.6,
+    midFills: 0,
+    phraseMark: { crash: 0.5 },
+    // the kick follows the bass: the "and" of 2 and the 4
+    kick1: [
+      ['0001', 2],
+      ['1000', 1],
+    ],
+    kick: [
+      ['0010', 2],
+      ['1000', 1],
+      ['0000', 1],
+    ],
+    /* His records: one New picks one, and the stage names it. Credits are
+       Wikipedia's personnel lists (Habana, Supernatural, Shaman, Live at the
+       Blue Note, the Dutch one for For Hamp, Red, Bags, and Cal) and reviews
+       for Triangulo and Italuba. Two songs follow human Songsterr transcriptions read bar by
+       bar: Africa Bamba (717963) and You Are My Kind (3770724), at the tabs'
+       tempos. The Latin songs are reconstructions: the grooves are the ones
+       his book Conversations in Clave transcribes (mambo, cáscara, 6/8,
+       conga de comparsa, songo), laid out as his record's two patterns lay
+       them, and their tempos are machine estimates (Deezer; La Comparsa's
+       from a machine-made Songsterr tab), read so that one bar holds one
+       clave. Every Latin song keeps the clave on the left foot
+       (the clave slot, no hand) and leaves the hat foot silent. See the
+       Horacio Hernández section of `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'africa-bamba',
+        title: 'Africa Bamba',
+        feel: 'Santana: sixteenths on the hats, the kick on 1, the "a" of 1, 2, 3, the "a" of 3 and 4',
+        weight: 1.4,
+        params: {
+          kit: 'drs',
+          bpm: [98, 101],
+          swing: 0,
+          hats: 16,
+          backbeats: [4, 12],
+          ghostWeights: {},
+          /* From a human Songsterr transcription (717963), at its 100. Most
+             of its bars have no snare at all, only the kick under the hats;
+             the critic wants a backbeat in every bar, so the bars with one are
+             kept. The maracas are the percussionist's and are left out. */
+          figures: [
+            [{ h: '1111111111111111', s: '....2.......2...', k: '1..11...1..11...' }, 2],
+            // the chorus: the kick on every beat
+            [{ h: '1111111111111111', s: '....2.......2...', k: '1...1...1...1...' }, 1.2],
+            // the hats with a gap after each beat
+            [{ h: '1.111.111.111.11', s: '....2.......2...', k: '1...1...1...1...' }, 0.6],
+          ],
+          fills: [
+            // the tab's way in: two toms, then the floor tom
+            [{ t1: '.22.', t3: '...2', s: '2...' }, 1.2],
+            [{ s: '2.11', t3: '..2.' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'you-are-my-kind',
+        title: 'You Are My Kind',
+        feel: 'Santana with Seal: eighths on the hats, the kick on 1, the "a" of 1 and the "and"s of 2 and 3, a plain backbeat',
+        weight: 1.0,
+        params: {
+          kit: 'drs',
+          bpm: [103, 107],
+          swing: 0,
+          backbeats: [4, 12],
+          ghostWeights: {},
+          /* From a human Songsterr transcription (3770724), at its 105: the
+             kick figure two bars long, the second with the "and" of 4. Its
+             interlude has a cross-stick figure and four strokes the tab writes
+             as crashes, which are left out. */
+          figures: [
+            // the verse
+            [
+              {
+                h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                s: '....2.......2.......2.......2...',
+                k: '1..1..1...1.....1..1..1...1...1.',
+              },
+              2,
+            ],
+            // the intro: the hats open on every eighth
+            [
+              {
+                h: '3.3.3.3.3.3.3.3.3.3.3.3.3.3.3.3.',
+                s: '....2.......2.......2.......2...',
+                k: '1..1..1...1.....1..1..1...1...1.',
+              },
+              0.8,
+            ],
+            // the interlude: a cross-stick figure over the same kick
+            [
+              {
+                s: '4.4..4..4...4...4.4..4..4...4...',
+                k: '1..1..1...1.....1..1..1...1...1.',
+              },
+              0.6,
+            ],
+            // the last chorus: sixteenths on the hats
+            [
+              {
+                h: '11111111111111111111111111111111',
+                s: '....2.......2.......2.......2...',
+                k: '1..1..1...1.....1..1..1...1...1.',
+              },
+              0.8,
+            ],
+          ],
+          fills: [
+            // the tab's: the kick in pairs round a snare on 4
+            [{ k: '.11..11.', s: '....2...' }, 1.2],
+            [{ s: '2.11', t3: '..2.' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'mambo-for-roy',
+        title: 'Mambo for Roy',
+        feel: "Hargrove's Crisol: son clave 2-3 on the foot, the bell on the beats, the tumbao in the kick",
+        weight: 1.4,
+        params: {
+          bpm: [133, 139],
+          swing: 0,
+          backbeats: [6, 14],
+          ghostWeights: {},
+          mix: { h: 0.7, p1: 0.75, p2: 0.85 },
+          /* A reconstruction: Chucho Valdés's mambo, with Changuito on
+             timbales and Angá on congas beside him. Son clave 2-3 on the left
+             foot; the right hand on the bell, every pulse with the beats
+             accented; the kick on the bass's "and" of 2 and 4 in each half; the
+             left hand's ghosts and the two strokes into the ponche. */
+          perc: [
+            { inst: 'clave', steps: [2, 4, 8, 11, 14] },
+            { inst: 'cowbell', every: 2, accentPulse: true },
+          ],
+          figures: [
+            [{ s: '..1...32..1...32', k: '...1..1....1..1.' }, 2],
+            // the left hand to the low tom on the ponche
+            [{ s: '..1....1..1....1', t2: '......2.......2.', k: '...1..1....1..1.' }, 1.2],
+          ],
+          fills: [
+            // the three side of the clave, accented on the toms
+            [{ t1: '2..2..2.', s: '.11.11.1' }, 1.4],
+            [{ t1: '2...', t2: '..2.', t3: '...2' }, 0.6],
+            [{ t2: '.2.2', s: '1.1.' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'afrodisia',
+        title: 'Afrodisia',
+        feel: "Kenny Dorham's tune on Habana: the cáscara in the right hand over rumba clave 2-3 on the foot",
+        weight: 1.0,
+        params: {
+          bpm: [109, 115],
+          swing: 0,
+          backbeats: [6, 14],
+          ghostWeights: {},
+          mix: { h: 0.7, p1: 0.75, p2: 0.85 },
+          /* A reconstruction on his record's cáscara pattern: rumba clave 2-3
+             on the left foot, the cáscara over it in the right hand, the kick
+             on the tumbao's "and" of 2 and 4 in each half, and the left hand's
+             ghost and the two strokes before the bar's middle and its end. */
+          perc: [
+            { inst: 'clave', steps: [2, 4, 8, 11, 15] },
+            { inst: 'cascara', steps: [0, 2, 3, 5, 7, 8, 10, 12, 13, 15], accents: [0, 8] },
+          ],
+          figures: [
+            [{ s: '..1...22..1...22', k: '...1..1....1..1.' }, 2],
+            // the left hand on the low tom for the second stroke
+            [{ s: '..1...2...1...2.', t3: '.......2.......2', k: '...1..1....1..1.' }, 1.2],
+          ],
+          fills: [
+            // the three side of the clave on the toms
+            [{ t1: '2..2...2', s: '.1..11..' }, 1.4],
+            [{ t2: '.2.2', s: '1.1.' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'afro-blue',
+        title: 'Afro Blue',
+        feel: "Gary Burton's Cal Tjader tribute: 6/8, the bell in the right hand, the 6/8 clave on the foot",
+        weight: 1.1,
+        params: {
+          kit: 'virtuosity',
+          meter: '12/8',
+          bpm: [93, 100],
+          swing: 0,
+          backbeats: [6, 18],
+          ghostWeights: {},
+          mix: { r: 0.85, p1: 0.75, p2: 0.85 },
+          /* A reconstruction of his book's 6/8: the standard bell in the right
+             hand, the 6/8 clave inside it on the left foot, the kick on the
+             first and third pulse, and the left hand's open tones on the second
+             and fourth on the low tom, conga-fashion. */
+          perc: [
+            { inst: 'clave', steps: [0, 4, 8, 14, 18] },
+            { inst: 'cowbell', steps: [0, 4, 8, 10, 14, 18, 22], accents: [0] },
+          ],
+          figures: [
+            // no ghost under the second open tone: the bell has the other hand
+            [
+              {
+                s: '..1.......1.............',
+                t2: '......2...........2.....',
+                k: '1...........1...........',
+              },
+              2,
+            ],
+            // the kick answers on the "and" of the fourth pulse
+            [
+              {
+                s: '..1.......1.....1.......',
+                t2: '......2...........2.....',
+                k: '1...........1.........1.',
+              },
+              1.2,
+            ],
+          ],
+          fills: [
+            // the bell's last notes on the toms
+            [{ t1: '2...2.', t3: '..2..2' }, 1.2],
+            [{ t2: '2.2.2.', t3: '.....2', s: '.1.1..' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'la-comparsa',
+        title: 'La Comparsa',
+        feel: "Lecuona's carnival piece with Michel Camilo: son clave 2-3 on the foot, the hands galloping like a conga line",
+        weight: 1.0,
+        params: {
+          bpm: [97, 103],
+          swing: 0,
+          backbeats: [6, 14],
+          ghostWeights: {},
+          mix: { h: 0.7, p1: 0.75 },
+          /* A reconstruction: the reviewer heard "subtle, galloping work". The
+             conga de comparsa his book transcribes, son clave 2-3 on the left
+             foot, both hands on the snare and the toms, two quick strokes into
+             each accent, the low tom on the ponche with the kick. */
+          perc: [{ inst: 'clave', steps: [2, 4, 8, 11, 14] }],
+          figures: [
+            [{ s: '.11.2..1.11.2...', t2: '......2.......2.', k: '......1.......1.' }, 2],
+            [{ s: '.11.2....11.2...', t2: '......2.......2.', k: '...1..1....1..1.' }, 1.2],
+          ],
+          fills: [
+            [{ t1: '2..2..2.', s: '.11.11.1' }, 1.2],
+            [{ s: '11.2', t2: '..2.' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'night-in-torino',
+        title: 'A Night in Torino (Tunisia)',
+        feel: "Italuba's A Night in Tunisia: rumba clave 2-3 on the foot, the ride bell, the left hand on the toms",
+        weight: 0.8,
+        params: {
+          bpm: [121, 127],
+          swing: 0,
+          backbeats: [6, 14],
+          ghostWeights: {},
+          mix: { r: 0.8, p1: 0.75 },
+          /* A reconstruction of the tune's Latin A section with his own band:
+             rumba clave 2-3 on the left foot, the right hand on the ride bell,
+             the left on the toms where a conga player's open tones go, the kick
+             on the tumbao. */
+          perc: [{ inst: 'clave', steps: [2, 4, 8, 11, 15] }],
+          figures: [
+            [
+              {
+                r: '2.2.2.2.2.2.2.2.',
+                s: '..1.......1.....',
+                t3: '......2.......2.',
+                k: '...1..1....1..1.',
+              },
+              2,
+            ],
+            [
+              {
+                r: '2.2.2.2.2.2.2.2.',
+                s: '..1.......1.....',
+                t2: '.......2.......2',
+                t3: '......2.......2.',
+                k: '...1..1....1..1.',
+              },
+              1.2,
+            ],
+          ],
+          fills: [
+            [{ t1: '2..2...2', s: '.1..11..' }, 1.2],
+            [{ t2: '.2.2', s: '1.1.' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'que-negro-esta',
+        title: 'Que Negro Está',
+        feel: 'his own songo with Italuba: son clave 3-2 on the foot, the bell in the right hand, snare accents on the "and"s',
+        weight: 0.9,
+        params: {
+          bpm: [114, 120],
+          swing: 0,
+          backbeats: [7, 15],
+          ghostWeights: {},
+          mix: { h: 0.7, p1: 0.75, p2: 0.85 },
+          /* A reconstruction on his record's songo, read as every other Latin
+             song is: one bar holds one clave. The record writes it over two
+             bars of sixteenths; here every other step is kept, so the bell's
+             eighths are every step, the snare's accents (the record's "and"s of
+             2 and 4) on steps 3, 7, 11 and 15, the kick (its "and" of 3) on 5
+             and 13, and the record's ghosts and tom
+             stroke (its odd steps) drop out. The tempo is Deezer's 117.5 in
+             this reading, a songo tempo with one clave a bar; its other entry,
+             156.6, would be far too quick. */
+          perc: [
+            { inst: 'clave', steps: [0, 3, 6, 10, 12] },
+            { inst: 'cowbell', every: 1, accents: [0, 8] },
+          ],
+          figures: [
+            [{ s: '...3...3...3...3', k: '.....1.......1..' }, 2],
+            // the record's variation: the tom on the last "and", the kick on 3
+            [{ s: '...3...3...3....', t2: '...............2', k: '.....1..1....1..' }, 1.2],
+          ],
+          fills: [
+            [{ s: '3.1.1.', t2: '.1.1.2' }, 1.2],
+            [{ t1: '2..2', t2: '..2.' }, 1.0],
+          ],
+        },
+      },
+    ],
+  },
 };
 
 /**
@@ -11242,6 +13027,7 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
   ['Rock drummers', ['mitchell', 'bonham', 'ringo', 'copeland']],
   ['Funk drummers', ['stubblefield', 'jabostarks', 'bernardpurdie']],
   ['Session drummers', ['gadd', 'hakim']],
-  ['Jazz drummers', ['tonywilliams', 'yussefdayes']],
+  ['Jazz drummers', ['tonywilliams', 'yussefdayes', 'elvinjones']],
+  ['Latin drummers', ['puente', 'changuito', 'horaciohernandez']],
   ['Afrobeat drummers', ['tonyallen']],
 ];

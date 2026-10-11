@@ -448,6 +448,15 @@ describe('the rest of the app knows them (9.14)', () => {
     }
   });
 
+  it("counts a percussionist's conga under a drag as nobody's hand, and a cowbell on the kit as one", () => {
+    const bar = barWith('s', 7);
+    bar.p1[4] = 1;
+    const theirs = playability(pattern([bar], { perc: { p1: 'conga', p2: 'clave' } }), 100);
+    expect(theirs.checks.some((c) => c.label === GRACE_CHECK)).toBe(false);
+    const ours = playability(pattern([bar], { perc: { p1: 'cowbell', p2: 'clave' } }), 100);
+    expect(ours.checks.find((c) => c.label === GRACE_CHECK)?.ok).toBe(false);
+  });
+
   it('calls a tom flam beside the snare unplayable, and a buzz under the hat fine', () => {
     const tom = barWith('t2', 3);
     tom.s[4] = 2;
@@ -499,6 +508,16 @@ describe('the rest of the app knows them (9.14)', () => {
     expect(playability(rich, 100).checks.every((c) => c.label !== GRACE_CHECK)).toBe(true);
     // the same groove underneath: every kick where it was
     expect(rich.bars.map((b) => b.k)).toEqual(plain.bars.map((b) => b.k));
+  });
+
+  it('takes the hand off a bell on the kit for a flam, and leaves a conga alone', () => {
+    const bar = barWith('s', 3, 6);
+    bar.p1[6] = 1;
+    bar.p2[6] = 1;
+    const pat = pattern([bar], { perc: { p1: 'cowbell', p2: 'conga' } });
+    articulate(pat, { ...testStyle('funk').params, flam: 1 });
+    expect([pat.bars[0].s[6], pat.bars[0].p1[6], pat.bars[0].p2[6]]).toEqual([6, 0, 1]);
+    expect(playability(pat, 100).checks.every((c) => c.label !== GRACE_CHECK)).toBe(true);
   });
 
   it('leaves a pattern untouched when a style sets no articulation param', () => {

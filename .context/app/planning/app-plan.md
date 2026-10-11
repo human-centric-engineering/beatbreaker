@@ -3565,6 +3565,85 @@ stays).
   has no foot closing an open hat (Purdie's), no ghost velocity of its own, and
   no way for `build` to put a ride figure second when it is no busier.
 
+**11-d reconciled against the tree, 2026-10-11** (branch `phase-11-d-jazz-latin`):
+
+- **The records are in; the styles are not**, as for 11-c. This PR adds four
+  drummer styles with songs and sets `style_key` on each record. The keys:
+  `elvinjones` (`jones` alone would do for Philly Joe as well), `puente`,
+  `changuito` and `horaciohernandez`. None is taken.
+- **Groups.** Elvin Jones joins Tony Williams and Yussef Dayes under Jazz
+  drummers. The other three open a sixth group, **Latin drummers**, between
+  the jazz and the Afrobeat drummers.
+- **Where the clave and cáscara go.** One 4/4 bar of sixteenths holds one whole
+  clave, as in the Afro-Latin genres (`son`, `mambo`, `songo`); the records'
+  two-bar grids of eighths are the same sixteen pulses. Each song writes its
+  clave as a percussion slot with the type and direction its record gives:
+  Puente son 2-3 on claves; Changuito rumba 2-3 under songo; Hernández son 3-2
+  under songo and rumba 2-3 under cáscara. The cáscara goes on the `cascara`
+  slot, which is on the kit and takes a hand, the right hand's time.
+- **Hernández's clave is his left foot** on a pedal jam block. The model has
+  no pedal percussion: a slot is a hand on the kit or someone else's. It is
+  written on the `clave` slot, which takes no hand, and those songs leave the
+  hat foot silent, because that foot is busy. A foot-played slot is not added
+  here.
+- **Puente played timbales, not a kit.** His style is the kit translation his
+  record offers (D50): the timbales on the toms (`t1` the macho, `t2` the
+  hembra), the paila's cáscara on the `cascara` slot, the mambo bell on the
+  `cowbell` slot, an abanico (a roll into a rimshot) opening a section.
+- **Elvin is a triplet grid**, never straight sixteenths: his songs are in
+  12/8, sextuplet 4/4 or 9/8 (the waltz with its 6/8 hemiola), as the record's
+  patterns are. The fast ones open at a tempo `playableBpm` allows, like Tony
+  Williams's.
+- **Kits are sampled.** Changuito's record mentions electronic pads; one goes
+  in `drummer-kits.test.ts`'s list only for a record he really played them on.
+- **The research comes first**, as for the eight: credits checked, tempos
+  from tempo databases, grooves from transcriptions where there are any, into
+  `drumming-research.md` as sections P–S.
+- **The counts move**: 62 styles and 16 drummers, the style-and-meter pairs,
+  the picker's drummer list and groups, the lineage test's playable drummers,
+  and `catalogue.md`. A test for the four, like 11-c's, adds that each is
+  filed and keyed both ways, every song's bars pass the critic at its own
+  tempo, and each Latin song's clave is the one its record names.
+- **Built 2026-10-11**, research in `drumming-research.md` §P–S. Elvin Jones:
+  13 songs, four from Todd Bishop's transcriptions (Chasin' the Trane, Your
+  Lady, Juju, the Jazz Machine's A Love Supreme) and My Favorite Things from his
+  lesson; the waltzes in 9/8, the medium tunes in sextuplets, the fast ones in
+  eighths with `swingCurve`. Tito Puente: 11, all reconstructions (every
+  Songsterr tab of his is machine-made); son 2-3 throughout, his record's
+  default, not checked chart by chart; the cáscara on the vocal guarachas, the
+  bell on the instrumental mambos. Changuito: 12, ten taking their kick (two
+  their snare too) from Kevin Moore's grids on timba.com, which put one clave in
+  a bar as the plan does; rumba 2-3, Tu decisión 3-2. Horacio Hernández: 8,
+  six Latin songs in clave on the claves slot with the hat foot silent, and
+  two Santana songs from human tabs, which have no clave. Credits were checked
+  song by song (Winwood's _About Time_ is Walfredo Reyes Jr.; on
+  _Impressions_ Elvin plays three tracks; Changuito's percussion records have
+  no kit credit and are left out).
+- **Fixed on the way:** the critic's flam-and-drag check counted every
+  percussion slot as a hand, though the two-hands check counts only those on
+  the kit, so a drag over Changuito's conga was called unplayable. It now uses
+  the same lanes (`handLanes`), with a test. `/code-review` then found the
+  other half: making a flam or drag took the hand off the cymbals and toms but
+  not off a bell mounted on the kit, so it now does that too. It also found
+  three slips in the songs: a bar of Hernández's Afro Blue that needed three
+  hands (the bell lost a stroke every bar), and two of Elvin's fills one step
+  off the triplet grid. Tests now hold that no written bar needs three hands
+  with its percussion under it, and that Elvin's compound-time notes fall on a
+  triplet eighth or the hemiola.
+- **Puente's and Changuito's own figures are two each**, under the four
+  `generate.test.ts` wants of a written-out style: a clave groove is a few
+  bars that stay in clave, and their songs carry the rest. They are named
+  there.
+- **Found on the way, not changed:** a song's percussion slots are the song's,
+  not a figure's, so no song moves from the cáscara on the verse to the bell
+  on the montuno, or flips its clave at a section; there is no pedal
+  percussion, so the 3D drummer does not play Hernández's foot clave; the
+  figure variation can add a kick under a cymbal accent across the clave; the
+  ride has no accent value for Elvin's skip note; the triplet meters stop at
+  190 (sextuplets) and 300, below his fastest records; Changuito very likely
+  played electronic drums on _Sandunguera_, but no source says which sounds,
+  so it stays on a sampled kit.
+
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
 stays `archetype` or `approximation` until stems are checked); personas

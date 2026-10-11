@@ -652,6 +652,7 @@
     ]
   },
   "beatbreaker": {
+    "style_key": "changuito",
     "headline_pattern_ids": [
       "pattern:changuito-songo-archetype",
       "pattern:changuito-bell-timbales-archetype"

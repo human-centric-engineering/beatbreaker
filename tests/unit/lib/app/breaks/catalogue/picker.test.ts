@@ -104,6 +104,10 @@ describe('drummerSection', () => {
       'hakim',
       'tonywilliams',
       'yussefdayes',
+      'elvinjones',
+      'puente',
+      'changuito',
+      'horaciohernandez',
       'tonyallen',
     ]);
     expect(drummers?.groups.map(([g]) => g)).toEqual([
@@ -111,6 +115,7 @@ describe('drummerSection', () => {
       'Funk drummers',
       'Session drummers',
       'Jazz drummers',
+      'Latin drummers',
       'Afrobeat drummers',
     ]);
     for (const key of keysOf(drummers!)) expect(keysOf(section)).not.toContain(key);
