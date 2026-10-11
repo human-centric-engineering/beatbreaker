@@ -87,12 +87,54 @@ export function resoAcross(u: number): number {
  * fastest (its wires damp it), the floor tom gives most and rings longest.
  */
 const HEADS = {
-  snare: { hz: 26, decay: 0.09, dip: 0.0015 },
-  tom1: { hz: 23, decay: 0.2, dip: 0.002 },
-  tom2: { hz: 21, decay: 0.24, dip: 0.0025 },
-  floor: { hz: 17, decay: 0.3, dip: 0.003 },
+  snare: { hz: 26, decay: 0.09, dip: 0.003 },
+  tom1: { hz: 23, decay: 0.2, dip: 0.004 },
+  tom2: { hz: 21, decay: 0.24, dip: 0.0045 },
+  floor: { hz: 17, decay: 0.3, dip: 0.005 },
 } as const;
+
+/**
+ * A struck drum moving on whatever holds it, per drum: `hz` how fast it rocks,
+ * `decay` seconds to 1/e, `bob` how far a full-velocity stroke drives it down,
+ * metres, and `rock` how far it tips, radians, the near edge (the drummer's
+ * side, where the stick lands) going down first. The toms, hung on arms off
+ * the kick, wobble most and longest; the snare, gripped in its basket, and the
+ * floor tom, on three rubber feet, give less and settle sooner.
+ */
+const BODIES = {
+  snare: { hz: 9, decay: 0.12, bob: 0.002, rock: 0.012 },
+  tom1: { hz: 6, decay: 0.38, bob: 0.003, rock: 0.03 },
+  tom2: { hz: 5.5, decay: 0.4, bob: 0.003, rock: 0.028 },
+  floor: { hz: 7, decay: 0.22, bob: 0.0025, rock: 0.014 },
+} as const;
+
+/**
+ * How a struck drum has moved on its mount `since` seconds after a stroke of
+ * `strength` (the note's velocity, 0–1): `y` up, metres, and `rx`, `rz` its
+ * tip, radians, about its own across and front-to-back axes. Driven down and
+ * tipped toward the drummer by the stick, it rocks back and settles.
+ */
+export function drumShake(
+  id: StruckHead,
+  since: number,
+  strength: number
+): { y: number; rx: number; rz: number } {
+  const b = BODIES[id];
+  if (since < 0 || since > 8 * b.decay) return { y: 0, rx: 0, rz: 0 };
+  const a = strength * Math.exp(-since / b.decay);
+  const w = 2 * Math.PI * b.hz * since;
+  return {
+    y: -b.bob * a * Math.sin(w),
+    rx: b.rock * a * Math.sin(w),
+    // (and a little side to side, out of step: it wobbles rather than nods)
+    rz: 0.3 * b.rock * a * Math.sin(1.3 * w),
+  };
+}
 export type StruckHead = keyof typeof HEADS;
+
+function isStruckHead(id: PieceId): id is StruckHead {
+  return id in HEADS;
+}
 
 /**
  * How far a struck head's middle is moved out of the drum, metres (negative
@@ -594,9 +636,15 @@ export function buildKit(m: Materials): KitModel {
 
       for (const s of shakers) {
         const h = pose.hits[s.id];
-        const give = h ? h.strength * Math.exp(-h.since * 28) : 0;
-        s.group.position.y = s.id === 'kick' ? 0 : -0.0025 * give;
-        if (s.id === 'kick') s.group.scale.setScalar(1 + 0.004 * give);
+        if (s.id === 'kick') {
+          const give = h ? h.strength * Math.exp(-h.since * 28) : 0;
+          s.group.scale.setScalar(1 + 0.004 * give);
+          continue;
+        }
+        // a struck drum rocks on its mount, as hard as it was struck
+        const m = h && isStruckHead(s.id) ? drumShake(s.id, h.since, h.strength) : undefined;
+        s.group.position.y = m?.y ?? 0;
+        s.group.rotation.set(m?.rx ?? 0, 0, m?.rz ?? 0);
       }
       // a struck head dips and rings, as hard as it was struck; still again once it has died
       for (const h of heads) {

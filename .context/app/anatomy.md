@@ -210,12 +210,15 @@ A stick is not drawn up and down: it bounces, and the hand uses the bounce
   and a chick shuts the hats on the note, the top cymbal coming back off a
   fraction into a sole that shuts it again. Simulated over the last quarter
   second each frame, from where the foot had it then.
-- **A struck snare or tom head dips and rings** (`headDip()` in
-  `kit-model.ts`). The stick drives its middle in, as far as the note's
-  velocity — up to 1.5 mm on the snare and 3 mm on the floor tom — and it rings
-  in the (0,1) mode's shape, the snare dying fastest (its wires damp it) and the
-  floor tom ringing longest. Each is drawn at under half the frame rate (17–26
-  Hz, high to low as the real 200–80 Hz fundamentals are), so it is seen.
+- **A struck snare or tom rocks, and its head rings** (`drumShake()` and
+  `headDip()` in `kit-model.ts`), both as far as the note's velocity. The
+  whole drum is driven down and tipped toward the drummer, then rocks back and
+  settles: the toms, hung on arms off the kick, wobble most (up to about 1.7°)
+  and longest; the snare in its basket and the floor tom on its feet give less
+  and settle sooner. The head dips in by up to 3 mm on the snare and 5 mm on
+  the floor tom and rings in the (0,1) mode's shape, the snare dying fastest
+  (its wires damp it). Each is drawn under half the frame rate (5–9 Hz rocking,
+  17–26 Hz ringing, high to low as the real drums are), so it is seen.
 - **The kick's front head shivers** (`resoShake()` in `kit-model.ts`). After a
   kick it bows out by up to 4 mm in the (0,1) mode's shape and shakes up to
   5 mm across its face, the middle most and the hoop holding the edge, so the

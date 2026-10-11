@@ -22,6 +22,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   buildKit,
+  drumShake,
   headDip,
   resoAcross,
   resoShake,
@@ -447,5 +448,54 @@ describe('headDip — a struck snare or tom head', () => {
     expect(dipped).toHaveLength(1);
     update(poseAt(timeline, 3, 1), new Set());
     expect([...heads().values()].every((low) => low === 0)).toBe(true);
+  });
+});
+
+describe('drumShake — a struck drum on its mount', () => {
+  const tip = (id: 'snare' | 'tom1' | 'floor', t: number, v = 1) => drumShake(id, t, v).rx;
+  const most = (id: 'snare' | 'tom1' | 'floor', from: number, v = 1) =>
+    Math.max(...Array.from({ length: 200 }, (_, i) => Math.abs(tip(id, from + i / 1000, v))));
+
+  it('is still before the stroke and once it has settled', () => {
+    expect(drumShake('tom1', -0.01, 1)).toEqual({ y: 0, rx: 0, rz: 0 });
+    const at = drumShake('tom1', 0, 1);
+    expect(Math.hypot(at.y, at.rx, at.rz)).toBe(0);
+    expect(drumShake('tom1', 5, 1)).toEqual({ y: 0, rx: 0, rz: 0 });
+  });
+
+  it('goes down and tips its near edge down first', () => {
+    const s = drumShake('tom1', 0.02, 1);
+    expect(s.y).toBeLessThan(-0.001);
+    // (+x turns the drummer's side, +z, down)
+    expect(s.rx).toBeGreaterThan(0.01);
+  });
+
+  it('moves as far as the stroke was hard', () => {
+    expect(most('tom1', 0, 0.3)).toBeCloseTo(0.3 * most('tom1', 0, 1), 6);
+  });
+
+  it('wobbles the hung toms more and longer than the snare in its basket', () => {
+    expect(most('tom1', 0)).toBeGreaterThan(most('snare', 0) * 2);
+    expect(most('tom1', 0.4)).toBeGreaterThan(most('snare', 0.4) * 10);
+  });
+
+  it('rocks the struck drum in the kit, and leaves the rest still', () => {
+    const { root, update } = buildKit(makeMaterials());
+    // every group with a drum head in it, and how it is turned
+    const turns = () => {
+      const out: number[] = [];
+      root.traverse((o) => {
+        if (o instanceof THREE.Group && o.getObjectByName('head')) out.push(o.rotation.x);
+      });
+      return out;
+    };
+    const still = turns();
+    const timeline = new StrokeTimeline();
+    timeline.ingest(stepWithHit({ lane: 's', value: 1, at: 0 }));
+    update(poseAt(timeline, 0.03, 1), new Set());
+    const moved = turns().filter((x, i) => Math.abs(x - still[i]) > 1e-4);
+    expect(moved).toHaveLength(1);
+    update(poseAt(timeline, 3, 1), new Set());
+    expect(turns()).toEqual(still);
   });
 });
