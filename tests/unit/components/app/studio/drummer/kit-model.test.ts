@@ -20,7 +20,13 @@
 import * as THREE from 'three';
 import { describe, expect, it } from 'vitest';
 
-import { buildKit, resoBulge, resoShape } from '@/components/app/studio/drummer/kit-model';
+import {
+  buildKit,
+  headDip,
+  resoAcross,
+  resoShake,
+  resoShape,
+} from '@/components/app/studio/drummer/kit-model';
 import { makeMaterials } from '@/components/app/studio/drummer/parts';
 import {
   DOUBLE_PEDAL,
@@ -346,24 +352,45 @@ describe('buildKit().update — pedals and beater', () => {
   });
 });
 
-describe("resoBulge — the kick's front head ringing", () => {
-  it('is still before a kick and once the ring has died', () => {
-    expect(resoBulge(-0.01, 1)).toBe(0);
-    expect(resoBulge(0, 1)).toBe(0);
-    expect(resoBulge(2, 1)).toBe(0);
+describe("resoShake — the kick's front head shivering", () => {
+  const still = { out: 0, x: 0, y: 0 };
+  const size = (s: { out: number; x: number; y: number }) => Math.hypot(s.out, s.x, s.y);
+  const across = (t: number) => Math.hypot(resoShake(t, 1).x, resoShake(t, 1).y);
+
+  it('is still before a kick and once the shiver has died', () => {
+    expect(resoShake(-0.01, 1)).toEqual(still);
+    expect(resoShake(2, 1)).toEqual(still);
+    expect(resoShake(0, 1).out).toBe(0);
   });
 
-  it('is pushed out first, by a few millimetres at most, then swings back in', () => {
-    // a quarter of a 52 Hz cycle out, three quarters in
-    const out = resoBulge(1 / 208, 1);
-    expect(out).toBeGreaterThan(0.001);
-    expect(out).toBeLessThan(0.004);
-    expect(resoBulge(3 / 208, 1)).toBeLessThan(0);
+  it('is pushed out first, by a few millimetres, and shakes across its face as much', () => {
+    // a quarter of an 18 Hz cycle out
+    const s = resoShake(1 / 72, 1);
+    expect(s.out).toBeGreaterThan(0.002);
+    expect(s.out).toBeLessThan(0.005);
+    const most = Math.max(...Array.from({ length: 20 }, (_, i) => across(i / 400)));
+    expect(most).toBeGreaterThan(0.002);
+    expect(most).toBeLessThan(0.007);
   });
 
-  it('rings smaller for a softer kick, and dies away', () => {
-    expect(resoBulge(1 / 208, 0.3)).toBeCloseTo(0.3 * resoBulge(1 / 208, 1), 9);
-    expect(Math.abs(resoBulge(1 / 208 + 10 / 52, 1))).toBeLessThan(resoBulge(1 / 208, 1) * 0.3);
+  it('shivers slowly enough for a 60 fps frame to catch: frames a sixtieth apart change sign', () => {
+    const outs = Array.from({ length: 8 }, (_, f) => resoShake(f / 60 + 0.001, 1).out);
+    const flips = outs.slice(1).filter((o, i) => Math.sign(o) !== Math.sign(outs[i])).length;
+    expect(flips).toBeGreaterThanOrEqual(3);
+  });
+
+  it('shakes less for a softer kick, and dies away', () => {
+    expect(resoShake(1 / 72, 0.3).out).toBeCloseTo(0.3 * resoShake(1 / 72, 1).out, 9);
+    expect(size(resoShake(1 / 72 + 0.5, 1))).toBeLessThan(size(resoShake(1 / 72, 1)) * 0.1);
+  });
+});
+
+describe('resoAcross — the shake across the face', () => {
+  it('is all of it in the middle and none at the hoop', () => {
+    expect(resoAcross(0)).toBe(1);
+    expect(resoAcross(1)).toBe(0);
+    // (the name, round the ring at 400 of 512, still shivers)
+    expect(resoAcross(0.78)).toBeGreaterThan(0.5);
   });
 });
 
@@ -372,5 +399,53 @@ describe("resoShape — the head's fundamental", () => {
     expect(resoShape(0)).toBe(1);
     expect(resoShape(1)).toBeLessThan(0.01);
     for (let u = 0; u < 0.85; u += 0.1) expect(resoShape(u + 0.1)).toBeLessThan(resoShape(u));
+  });
+});
+
+describe('headDip — a struck snare or tom head', () => {
+  it('is driven in by the stick, as far as the stroke was hard, and still before and after', () => {
+    expect(headDip('snare', -0.01, 1)).toBe(0);
+    expect(headDip('snare', 0, 1)).toBeLessThan(-0.001);
+    expect(headDip('snare', 0, 0.3)).toBeCloseTo(0.3 * headDip('snare', 0, 1), 9);
+    expect(headDip('floor', 5, 1)).toBe(0);
+  });
+
+  it('gives more on the floor tom than the snare, and rings longer', () => {
+    expect(headDip('floor', 0, 1)).toBeLessThan(headDip('snare', 0, 1));
+    const envelope = (id: 'snare' | 'floor', t: number) =>
+      Math.max(...Array.from({ length: 40 }, (_, i) => Math.abs(headDip(id, t + i / 2000, 1))));
+    expect(envelope('floor', 0.25)).toBeGreaterThan(envelope('snare', 0.25) * 5);
+  });
+
+  it('rings slowly enough for a 60 fps frame to catch: frames a sixtieth apart change sign', () => {
+    for (const id of ['snare', 'tom1', 'tom2', 'floor'] as const) {
+      const at = Array.from({ length: 8 }, (_, f) => headDip(id, f / 60 + 0.001, 1));
+      const flips = at.slice(1).filter((d, i) => Math.sign(d) !== Math.sign(at[i])).length;
+      expect(flips).toBeGreaterThanOrEqual(3);
+    }
+  });
+
+  it('dips the struck head in the kit, and only that one', () => {
+    const { root, update } = buildKit(makeMaterials());
+    const heads = (): Map<THREE.BufferGeometry, number> => {
+      const out = new Map<THREE.BufferGeometry, number>();
+      root.traverse((o) => {
+        if (o instanceof THREE.Mesh && o.name === 'head') {
+          const z = o.geometry.getAttribute('position');
+          let low = 0;
+          for (let k = 0; k < z.count; k++) low = Math.min(low, z.getZ(k));
+          out.set(o.geometry, low);
+        }
+      });
+      return out;
+    };
+    const timeline = new StrokeTimeline();
+    timeline.ingest(stepWithHit({ lane: 's', value: 1, at: 0 }));
+    update(poseAt(timeline, 0.001, 1), new Set());
+    // (a soft snare note, 0.17 of full velocity: a quarter of a millimetre)
+    const dipped = [...heads().values()].filter((low) => low < -0.0001);
+    expect(dipped).toHaveLength(1);
+    update(poseAt(timeline, 3, 1), new Set());
+    expect([...heads().values()].every((low) => low === 0)).toBe(true);
   });
 });

@@ -41,24 +41,68 @@ export interface KitModel {
 
 const vec = (a: V3) => new THREE.Vector3(a[0], a[1], a[2]);
 
-/** The kick's front head's fundamental, Hz: a 22-inch reso tuned low. */
-const RESO_HZ = 52;
+/**
+ * How fast the kick's front head is drawn shivering, Hz. Its real fundamental
+ * is about 52 Hz (a 22-inch reso tuned low), but drawn at 60 frames a second
+ * that aliases into a slow, random-looking drift; slowed to well under half
+ * the frame rate, the shiver reads as one.
+ */
+const RESO_HZ = 18;
 /** How fast it dies, seconds to 1/e: a ported head, felt or a pillow inside. */
-const RESO_DECAY = 0.12;
-/** How far a full-strength kick pushes its centre out, metres. */
-const RESO_PEAK = 0.003;
+const RESO_DECAY = 0.15;
+/** How far a full-strength kick pushes the head's middle out, metres. */
+const RESO_OUT = 0.004;
+/** And how far it shakes across its face, metres: enough for the name to be seen to shiver. */
+const RESO_ACROSS = 0.005;
 
 /**
- * How far the kick's front head is pushed out at its centre, metres, `since`
- * seconds after a kick of `strength` (0–1). The beater drives the batter head
- * in, the air in the shell pushes the front one out, and it rings at its
- * fundamental, dying away.
+ * How the kick's front head is moved at its middle, metres, `since` seconds
+ * after a kick of `strength` (0–1): `out` of the drum, and `x`, `y` across
+ * its face. The beater drives the batter head in, the air in the shell pushes
+ * the front one out, and it rings, dying away.
  */
-export function resoBulge(since: number, strength: number): number {
-  if (since < 0 || since > 8 * RESO_DECAY) return 0;
-  return (
-    RESO_PEAK * strength * Math.exp(-since / RESO_DECAY) * Math.sin(2 * Math.PI * RESO_HZ * since)
-  );
+export function resoShake(since: number, strength: number): { out: number; x: number; y: number } {
+  if (since < 0 || since > 8 * RESO_DECAY) return { out: 0, x: 0, y: 0 };
+  const a = strength * Math.exp(-since / RESO_DECAY);
+  const w = 2 * Math.PI * RESO_HZ * since;
+  return {
+    out: RESO_OUT * a * Math.sin(w),
+    // (across at a different rate, so it shivers rather than slides)
+    x: RESO_ACROSS * a * Math.sin(w * 1.3 + 0.6),
+    y: RESO_ACROSS * a * 0.7 * Math.sin(w * 0.8 + 1.9),
+  };
+}
+
+/** How much of the shake across the face a point `u` of the way from the middle to the rim takes: the hoop holds the edge. */
+export function resoAcross(u: number): number {
+  return 1 - u ** 4;
+}
+
+/**
+ * A struck head, per drum: `hz` how fast it is drawn ringing, `decay` seconds
+ * to 1/e, and `dip` how far a full-velocity stroke drives its middle in,
+ * metres. The real fundamentals — a snare's about 200 Hz, the toms' 150 down
+ * to the floor tom's 80 — would alias at 60 frames a second, so each is drawn
+ * at under half that, in the same order; the snare is tightest and dies
+ * fastest (its wires damp it), the floor tom gives most and rings longest.
+ */
+const HEADS = {
+  snare: { hz: 26, decay: 0.09, dip: 0.0015 },
+  tom1: { hz: 23, decay: 0.2, dip: 0.002 },
+  tom2: { hz: 21, decay: 0.24, dip: 0.0025 },
+  floor: { hz: 17, decay: 0.3, dip: 0.003 },
+} as const;
+export type StruckHead = keyof typeof HEADS;
+
+/**
+ * How far a struck head's middle is moved out of the drum, metres (negative
+ * in), `since` seconds after a stroke of `strength` (the note's velocity,
+ * 0–1): driven in by the stick, then ringing, dying away.
+ */
+export function headDip(id: StruckHead, since: number, strength: number): number {
+  const h = HEADS[id];
+  if (since < 0 || since > 8 * h.decay) return 0;
+  return -h.dip * strength * Math.exp(-since / h.decay) * Math.cos(2 * Math.PI * h.hz * since);
 }
 
 /**
@@ -78,7 +122,14 @@ function frame(p: Piece): THREE.Group {
   return g;
 }
 
-function drum(p: Piece, m: Materials, lugs: number, hoop: THREE.Material = m.chrome): THREE.Group {
+/** (`headShape`: the batter head's geometry, in rings so a struck head can dip and ring: see `headDip`) */
+function drum(
+  p: Piece,
+  m: Materials,
+  lugs: number,
+  hoop: THREE.Material = m.chrome,
+  headShape: THREE.BufferGeometry = new THREE.CircleGeometry(p.radius * 0.99, 48)
+): THREE.Group {
   const r = p.radius;
   const g = new THREE.Group();
   const shell = new THREE.Mesh(new THREE.CylinderGeometry(r, r, p.depth, 48, 1, true), m.shell);
@@ -87,12 +138,14 @@ function drum(p: Piece, m: Materials, lugs: number, hoop: THREE.Material = m.chr
   shell.receiveShadow = true;
   g.add(shell);
 
-  const head = new THREE.Mesh(new THREE.CircleGeometry(r * 0.99, 48), m.head);
+  const head = new THREE.Mesh(headShape, m.head);
+  head.name = 'head';
   head.rotation.x = -Math.PI / 2;
   head.position.y = 0.001;
   head.receiveShadow = true;
   g.add(head);
   const reso = new THREE.Mesh(new THREE.CircleGeometry(r * 0.99, 48), m.black);
+  reso.name = 'reso';
   reso.rotation.x = Math.PI / 2;
   reso.position.y = -p.depth;
   g.add(reso);
@@ -187,6 +240,12 @@ export function buildKit(m: Materials): KitModel {
   const root = new THREE.Group();
   root.name = 'kit';
   const shakers: { id: PieceId; group: THREE.Group }[] = [];
+  const heads: {
+    id: StruckHead;
+    geometry: THREE.BufferGeometry;
+    shape: Float32Array;
+    moved: boolean;
+  }[] = [];
   const swingers: Swinger[] = [];
 
   /* ---- drums --------------------------------------------------------- */
@@ -194,9 +253,16 @@ export function buildKit(m: Materials): KitModel {
   for (const id of ['snare', 'tom1', 'tom2', 'floor'] as const) {
     const p = PIECES[id];
     const f = frame(p);
-    const body = drum(p, m, lugCount[id] ?? 6);
+    const geometry = new THREE.RingGeometry(0, p.radius * 0.99, 48, 8);
+    const body = drum(p, m, lugCount[id] ?? 6, m.chrome, geometry);
     f.add(body);
     shakers.push({ id, group: body });
+    const pos = geometry.getAttribute('position');
+    const shape = new Float32Array(pos.count);
+    for (let k = 0; k < pos.count; k++) {
+      shape[k] = resoShape(Math.hypot(pos.getX(k), pos.getY(k)) / (p.radius * 0.99));
+    }
+    heads.push({ id, geometry, shape, moved: false });
     root.add(f);
   }
   // snare stand, tom mounts off the kick, floor tom legs
@@ -244,14 +310,29 @@ export function buildKit(m: Materials): KitModel {
   kickBody.position.z = kick.depth / 2;
   // a white batter head facing the drummer, a black reso out front with the name round it
   const logo = kickLogoTexture();
-  // (in rings, so it can bow out at the middle when it rings: see `resoBulge`)
-  let reso: { geometry: THREE.BufferGeometry; shape: Float32Array; bowed: boolean } | undefined;
+  // (in rings, so it can shiver, the middle most: see `resoShake`)
+  let reso:
+    | {
+        geometry: THREE.BufferGeometry;
+        base: Float32Array;
+        out: Float32Array;
+        across: Float32Array;
+        moved: boolean;
+      }
+    | undefined;
   if (logo) {
-    const geometry = new THREE.RingGeometry(0, kick.radius * 0.99, 64, 10);
+    const R = kick.radius * 0.99;
+    const geometry = new THREE.RingGeometry(0, R, 64, 10);
     const pos = geometry.getAttribute('position');
-    const shape = new Float32Array(pos.count);
+    const base = new Float32Array(pos.count * 2);
+    const out = new Float32Array(pos.count);
+    const across = new Float32Array(pos.count);
     for (let k = 0; k < pos.count; k++) {
-      shape[k] = resoShape(Math.hypot(pos.getX(k), pos.getY(k)) / (kick.radius * 0.99));
+      base[2 * k] = pos.getX(k);
+      base[2 * k + 1] = pos.getY(k);
+      const u = Math.hypot(pos.getX(k), pos.getY(k)) / R;
+      out[k] = resoShape(u);
+      across[k] = resoAcross(u);
     }
     const front = new THREE.Mesh(
       geometry,
@@ -261,7 +342,9 @@ export function buildKit(m: Materials): KitModel {
     front.rotation.x = Math.PI / 2;
     front.position.y = -kick.depth - 0.001;
     kickBody.add(front);
-    reso = { geometry, shape, bowed: false };
+    // the plain black head behind it would show through the middle as it swings in
+    kickBody.getObjectByName('reso')?.removeFromParent();
+    reso = { geometry, base, out, across, moved: false };
   }
   kickGroup.add(kickBody);
   for (const side of [-1, 1]) {
@@ -515,16 +598,36 @@ export function buildKit(m: Materials): KitModel {
         s.group.position.y = s.id === 'kick' ? 0 : -0.0025 * give;
         if (s.id === 'kick') s.group.scale.setScalar(1 + 0.004 * give);
       }
-      // the front head rings after a kick; flat again once it has died
+      // a struck head dips and rings, as hard as it was struck; still again once it has died
+      for (const h of heads) {
+        const hit = pose.hits[h.id];
+        const dip = hit ? headDip(h.id, hit.since, hit.strength) : 0;
+        if (dip === 0 && !h.moved) continue;
+        const pos = h.geometry.getAttribute('position');
+        for (let j = 0; j < pos.count; j++) pos.setZ(j, dip * h.shape[j]);
+        pos.needsUpdate = true;
+        h.geometry.computeVertexNormals();
+        h.moved = dip !== 0;
+      }
+      // the front head shivers after a kick; still again once it has died
       if (reso) {
         const k = pose.hits.kick;
-        const bulge = k ? resoBulge(k.since, k.strength) : 0;
-        if (bulge !== 0 || reso.bowed) {
+        const shake = k ? resoShake(k.since, k.strength) : { out: 0, x: 0, y: 0 };
+        const moving = shake.out !== 0 || shake.x !== 0 || shake.y !== 0;
+        if (moving || reso.moved) {
           const pos = reso.geometry.getAttribute('position');
-          for (let j = 0; j < pos.count; j++) pos.setZ(j, bulge * reso.shape[j]);
+          for (let j = 0; j < pos.count; j++) {
+            const a = reso.across[j];
+            pos.setXYZ(
+              j,
+              reso.base[2 * j] + shake.x * a,
+              reso.base[2 * j + 1] + shake.y * a,
+              shake.out * reso.out[j]
+            );
+          }
           pos.needsUpdate = true;
           reso.geometry.computeVertexNormals();
-          reso.bowed = bulge !== 0;
+          reso.moved = moving;
         }
       }
       for (const s of swingers) {

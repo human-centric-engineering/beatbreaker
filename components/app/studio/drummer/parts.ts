@@ -99,7 +99,8 @@ export function kickLogoTexture(): THREE.Texture | null {
   ctx.fillRect(0, 0, size, size);
   ctx.strokeStyle = brass;
   ctx.lineWidth = 8;
-  for (const r of [470, 330]) {
+  // (and a small one in the middle, where the head moves most)
+  for (const r of [470, 330, 70]) {
     ctx.beginPath();
     ctx.arc(c, c, r, 0, Math.PI * 2);
     ctx.stroke();
