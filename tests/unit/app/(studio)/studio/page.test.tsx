@@ -300,6 +300,8 @@ describe('/studio', () => {
       ['upper case', 'Bonham'],
       ['repeated', ['bonham', 'funk']],
       ['empty', ''],
+      // well-formed, and on every object: only the catalogue's own keys count
+      ['an inherited property name', 'constructor'],
     ])('opens the Studio on nothing when the style is %s', async (_, style) => {
       const el = await StudioPage(query({ style }));
       expect(el.type).toBe(StudioProvider);

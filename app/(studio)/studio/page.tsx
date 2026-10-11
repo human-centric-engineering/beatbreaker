@@ -118,11 +118,14 @@ export default async function StudioPage({
     listSamples(session.user.id),
   ]);
 
-  /* A style to play (a drummer's page): only one the catalogue has, and not
-     over a library entry or a session, which name what to open themselves. */
+  /* A style to play (a drummer's page): only a key the catalogue has of its
+     own, so `constructor` is not one, and not over a library entry or a
+     session, which name what to open themselves. */
   const style = readStudioStyle(query);
   const openStyle =
-    style && catalogue.styles[style] && !entry.success && !practice ? style : undefined;
+    style && Object.hasOwn(catalogue.styles, style) && !entry.success && !practice
+      ? style
+      : undefined;
 
   return (
     <StudioProvider

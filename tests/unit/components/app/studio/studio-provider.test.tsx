@@ -122,15 +122,27 @@ describe('StudioProvider openStyle (/studio?style=, a drummer’s Play)', () => 
     expect(stage().dataset.picked).toBe('funk');
   });
 
-  /*
-   * AMBIGUOUS: the stage here is someone else's saved pattern with no edits of
-   * the user's own. It prompts because picking the style (`setStyle`) is
-   * itself counted as an edit to a saved document, as it is from Generate's
-   * picker. `/studio?style=` has no saved pattern to meet, so this is the
-   * only way the prompt is reachable; the contract pinned is "never replaced
-   * behind the prompt's back", whichever way "dirty" is reached.
-   */
-  it('asks before replacing a saved pattern that would lose changes, and writes the break once answered', async () => {
+  it('does not make the style your starting style: a plain New afterwards is back in yours', async () => {
+    function New() {
+      const c = useStudio();
+      return (
+        <button type="button" onClick={() => c.newBreak('both')}>
+          probe: new
+        </button>
+      );
+    }
+    render(
+      <StudioProvider catalogue={testCatalogue()} openStyle="rock">
+        <StageProbe />
+        <New />
+      </StudioProvider>
+    );
+    await waitFor(() => expect(stage().dataset.style).toBe('rock'));
+    screen.getByRole('button', { name: 'probe: new' }).click();
+    await waitFor(() => expect(stage().dataset.style).toBe('funk'));
+  });
+
+  it('replaces an unedited saved pattern without asking, as New does', async () => {
     const funk = testStyle('funk');
     const A = generatePattern({
       style: funk,
@@ -153,27 +165,29 @@ describe('StudioProvider openStyle (/studio?style=, a drummer’s Play)', () => 
       }),
       mine: false,
     };
-    function Answer() {
-      const c = useStudio();
-      return (
-        <button type="button" onClick={() => void c.resolveLeave('discard')}>
-          probe: discard
-        </button>
-      );
-    }
     render(
       <StudioProvider catalogue={testCatalogue()} initial={initial} openStyle="rock">
         <StageProbe />
-        <Answer />
       </StudioProvider>
     );
-
-    await waitFor(() => expect(stage().dataset.leaving).toBe('Cold Carpet'));
-    // asked, not replaced: the stage is still the pattern it was
-    expect(stage().dataset.style).toBe('funk');
-
-    screen.getByRole('button', { name: 'probe: discard' }).click();
     await waitFor(() => expect(stage().dataset.style).toBe('rock'));
     expect(stage().dataset.leaving).toBe('');
+  });
+
+  it('says so, and leaves the stage alone, for a style the catalogue does not have', async () => {
+    function Said() {
+      const c = useStudio();
+      return <span data-testid="said">{c.notice?.message ?? ''}</span>;
+    }
+    render(
+      <StudioProvider catalogue={testCatalogue()} openStyle="not-a-style">
+        <StageProbe />
+        <Said />
+      </StudioProvider>
+    );
+    await waitFor(() =>
+      expect(screen.getByTestId('said').textContent).toBe('That style is not in the Studio')
+    );
+    expect(stage().dataset.style).toBe('funk');
   });
 });

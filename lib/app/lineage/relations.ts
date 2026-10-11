@@ -4,6 +4,7 @@
  * and each `/drummers/[slug]` page read it (Phase 11-b).
  */
 
+import { isLineageEdge } from '@/lib/app/lineage/layout';
 import type { LineageEdge, LineageNode } from '@/lib/app/lineage/types';
 
 export interface Relation {
@@ -21,8 +22,6 @@ export interface Relations {
   around: Relation[];
 }
 
-const LINEAGE_KINDS = new Set(['influence', 'teacher']);
-
 /**
  * The relations of `id` among `edges`. An edge whose other end is not in
  * `nodes`, or that joins genres, is left out.
@@ -38,7 +37,7 @@ export function relationsOf(
     const otherId = edge.from === id ? edge.to : edge.to === id ? edge.from : null;
     const node = otherId === null ? undefined : nodes.get(otherId);
     if (!node) continue;
-    if (edge.directed && LINEAGE_KINDS.has(edge.kind)) {
+    if (isLineageEdge(edge)) {
       (edge.to === id ? out.learnedFrom : out.passedOnTo).push({ node, edge });
     } else out.around.push({ node, edge });
   }

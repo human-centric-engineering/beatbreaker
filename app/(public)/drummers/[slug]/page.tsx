@@ -23,10 +23,12 @@ import { type Relation, relationsOf } from '@/lib/app/lineage/relations';
 
 const slugSchema = z.string().min(1).max(120);
 
-/* Read once for the metadata and the page. */
+/* Read once for the metadata and the page. A genre is a node too, but not a
+   person: it has no page here. */
 const profileFor = cache(async (slug: string) => {
   const read = slugSchema.safeParse(slug);
-  return read.success ? getLineageProfile(read.data) : null;
+  const profile = read.success ? await getLineageProfile(read.data) : null;
+  return profile && profile.node.kind !== 'style' ? profile : null;
 });
 
 type Params = Promise<{ slug: string }>;
@@ -84,11 +86,14 @@ export default async function DrummerPage({ params }: { params: Params }) {
 
   const { node } = profile;
   const record = node.modelled ? readDrummerRecord(profile.record) : null;
-  const rel = relationsOf(
-    node.id,
-    profile.edges,
-    new Map(profile.neighbours.map((n) => [n.id, n]))
+  const people = new Map(
+    profile.neighbours.filter((n) => n.kind !== 'style').map((n) => [n.id, n])
   );
+  const rel = relationsOf(node.id, profile.edges, people);
+  /* On the map as `layoutLineage` places people: a record, or a link to a person. */
+  const onMap =
+    node.modelled ||
+    profile.edges.some((e) => isMapEdge(e) && people.has(e.from === node.id ? e.to : e.from));
   const active = record
     ? years(record.activeFrom, record.activeTo, record.ongoing)
     : years(node.activeFrom, node.activeTo, false);
@@ -130,11 +135,13 @@ export default async function DrummerPage({ params }: { params: Params }) {
           ) : node.modelled ? (
             <p className="text-muted-foreground text-sm">Their style is not in the Studio yet.</p>
           ) : null}
-          <Button asChild variant="outline">
-            <Link href={`/drummers?trace=${encodeURIComponent(node.slug)}`}>
-              See them on the map
-            </Link>
-          </Button>
+          {onMap && (
+            <Button asChild variant="outline">
+              <Link href={`/drummers?trace=${encodeURIComponent(node.slug)}`}>
+                See them on the map
+              </Link>
+            </Button>
+          )}
         </div>
       </header>
 

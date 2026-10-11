@@ -314,7 +314,7 @@ export function StudioProvider({
      Regenerating one section is an edit to the pattern, not a new one, so
      `newBreak('A')` and `newBreak('B')` pass straight through. */
   const { detach, needsPrompt } = doc;
-  const { newBreak, loadLibraryEntry, loadCode, rename } = state;
+  const { newBreak, newBreakIn, loadLibraryEntry, loadCode, rename } = state;
 
   /* The replacement waiting on the prompt, if there is one. Kept as a thunk so
      "Don't save" and "Save" run exactly what was asked for, later. The detach
@@ -355,6 +355,18 @@ export function StudioProvider({
         }
         return newBreak(which);
       },
+      /* A style the address named: a whole new pattern, so the stage is let
+         go first. Said when it cannot be written, rather than doing nothing. */
+      newBreakIn: (style: string): boolean => {
+        replace(() => {
+          if (!newBreakIn(style)) {
+            say('That style is not in the Studio', { error: true });
+            return false;
+          }
+          setEntry(null);
+        });
+        return true;
+      },
       loadLibraryEntry: (id: string) =>
         replace(() => {
           setEntry({ id, notes: null });
@@ -376,7 +388,7 @@ export function StudioProvider({
         return true;
       },
     }),
-    [replace, newBreak, loadLibraryEntry, loadCode, say]
+    [replace, newBreak, newBreakIn, loadLibraryEntry, loadCode, say]
   );
 
   /* Opening from the history happens after a fetch, so it reads `replace` as
@@ -486,26 +498,17 @@ export function StudioProvider({
   }, [ready, initialHistory, catalogue, openTarget, say]);
 
   /* Once, when the console is first ready: the style the address asked for,
-     picked and then written in, as Generate's picker does. The New waits for
-     the pick to land, since on a new pattern the style is held as a setting
-     and a New in the same tick would still read the old one. It goes through
-     the replacing New, so an unsaved stage is asked about first. */
+     written in as a whole new pattern. Not a pick: your starting style stays
+     yours. It goes through the replacing New, so an unsaved stage is asked
+     about first. */
   const styleToOpen = useRef(openStyle);
-  const [styleOpening, setStyleOpening] = useState<string | null>(null);
-  const { setStyle, style: stageStyle } = state;
+  const { newBreakIn: openInStyle } = replacing;
   useEffect(() => {
     const key = styleToOpen.current;
     if (!ready || !key) return;
     styleToOpen.current = undefined;
-    setStyle(key);
-    setStyleOpening(key);
-  }, [ready, setStyle]);
-  const { newBreak: newBreakReplacing } = replacing;
-  useEffect(() => {
-    if (!styleOpening) return;
-    setStyleOpening(null);
-    if (stageStyle === styleOpening) newBreakReplacing('both');
-  }, [styleOpening, stageStyle, newBreakReplacing]);
+    openInStyle(key);
+  }, [ready, openInStyle]);
 
   const historyCurrent = useMemo<HistoryCurrent | null>(
     () => (ready && stagePin ? { target: stagePin, level, bpm } : null),

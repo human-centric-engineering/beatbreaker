@@ -66,7 +66,9 @@ export function LineageMap({ layout, initialTrace = null }: LineageMapProps) {
   const [kinds, setKinds] = useState<ReadonlySet<MapEdgeKind>>(() => new Set(MAP_EDGE_KINDS));
   const [floor, setFloor] = useState<Confidence | ''>('');
   const [picked, setPicked] = useState<string | null>(initialTrace);
-  const [pointed, setPointed] = useState<string | null>(null);
+  /* Hover and keyboard focus are kept apart, so leaving one never drops the other. */
+  const [hovered, setHovered] = useState<string | null>(null);
+  const [focused, setFocused] = useState<string | null>(null);
   const [zoom, setZoom] = useState<number>(1);
 
   const edges = useMemo(
@@ -84,36 +86,39 @@ export function LineageMap({ layout, initialTrace = null }: LineageMapProps) {
   const byId = useMemo(() => new Map(layout.nodes.map((n) => [n.id, n])), [layout.nodes]);
 
   /* Esc lets go of a trace, wherever focus is — the select's own list closes first. */
-  const tracing = pointed !== null || picked !== null;
+  const tracing = hovered !== null || focused !== null || picked !== null;
   useEffect(() => {
     if (!tracing) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Escape' || e.defaultPrevented) return;
       setPicked(null);
-      setPointed(null);
+      setHovered(null);
+      setFocused(null);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [tracing]);
 
-  const focus = pointed ?? picked;
+  const focus = hovered ?? focused ?? picked;
   const trace = useMemo(() => (focus ? traceLineage(edges, focus) : null), [edges, focus]);
   const lit = (id: string) =>
     !trace || id === focus || trace.ancestors.has(id) || trace.descendants.has(id);
 
   const traceable = useMemo(
     () =>
+      /* The records, and whoever the page opened traced (a stub, from its own
+         page), so the select always names who is traced. */
       layout.nodes
-        .filter((n) => n.modelled)
+        .filter((n) => n.modelled || n.id === initialTrace)
         .sort((a, b) => a.label.localeCompare(b.label))
         .map((n) => ({ value: n.id, label: n.label })),
-    [layout.nodes]
+    [layout.nodes, initialTrace]
   );
 
-  const focused = focus ? byId.get(focus) : undefined;
+  const tracedNode = focus ? byId.get(focus) : undefined;
   const status =
-    focused && trace
-      ? `${focused.label}: learned from ${trace.ancestors.size}, passed on to ${trace.descendants.size}.`
+    tracedNode && trace
+      ? `${tracedNode.label}: learned from ${trace.ancestors.size}, passed on to ${trace.descendants.size}.`
       : '';
 
   const toggleKind = (kind: MapEdgeKind, on: boolean) =>
@@ -333,10 +338,10 @@ export function LineageMap({ layout, initialTrace = null }: LineageMapProps) {
                 key={n.id}
                 href={`/drummers/${n.slug}`}
                 aria-label={`${n.label}, ${year}`}
-                onMouseEnter={() => setPointed(n.id)}
-                onMouseLeave={() => setPointed(null)}
-                onFocus={() => setPointed(n.id)}
-                onBlur={() => setPointed(null)}
+                onMouseEnter={() => setHovered(n.id)}
+                onMouseLeave={() => setHovered(null)}
+                onFocus={() => setFocused(n.id)}
+                onBlur={() => setFocused(null)}
                 className="group outline-none"
                 data-node={n.id}
                 data-lit={trace ? String(on) : undefined}

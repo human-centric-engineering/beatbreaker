@@ -3507,11 +3507,21 @@ stays).
   that keeps it; Esc clears. A node is a link to its page, so Tab walks the map.
   Pan is the scrolling box; zoom is three buttons.
 - **The Studio had no address for a style.** `/studio?style=<key>` is new: it
-  picks the style and writes a new break in it, through the same pick and New
-  the Generate drawer uses (so an unsaved stage still asks first). The login
-  link carries it.
+  writes a new break in that style through the replacing New (so an unsaved
+  stage still asks first). It is not a pick: `/code-review` found the first
+  version, which went through Generate's picker, saved the drummer's style as
+  your starting style. The login link carries it.
+- **Tracing follows influence and teacher only.** Taking a chair has a
+  direction but passes nothing on, so it is "around them" on the pages and is
+  not traced on the map either.
 - Public nav only, as the plan says; the sitemap lists `/drummers` and each
   modelled drummer.
+- **Built 2026-10-11.** `/code-review` also found: an inherited name
+  (`constructor`) passing the catalogue check (now `Object.hasOwn`); genre
+  slugs serving a broken drummer page (now 404); a traced stub blank in the
+  select; hover and focus clearing each other. All fixed, with tests. **No
+  browser check** (the owner is on Arc): the map was looked at as a rendered
+  SVG, and its behaviour is held by component tests.
 
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern

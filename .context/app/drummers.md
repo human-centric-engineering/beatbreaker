@@ -30,9 +30,11 @@ record, the graph, the API, and the map and pages that show them.
 - **Don't claim a transcription.** Every pattern is `stylistic_archetype` or
   `approximation`; `transcribed_*` fidelity without `verified` status fails the
   check.
-- **Don't draw from `relation`, or trace through an undirected edge.** The
-  map's highlight follows directed edges only: a bandmate is not an ancestor.
-  `traceLineage` holds it.
+- **Don't draw from `relation`, or trace through anything but lineage.** The
+  map's highlight follows influence and teacher edges only (`isLineageEdge`):
+  a bandmate is not an ancestor, and taking someone's chair passes nothing on.
+  The pages' "Learned from" and "Passed on to" use the same rule, so the map
+  and the pages agree.
 - **Don't show a record field by casting it.** The stored record is unchecked
   JSON; a page reads it through `readDrummerRecord`, which drops a field that
   does not read and never returns a masked performer's name or dates.
@@ -153,10 +155,10 @@ it needs.
 
 ## The map and the pages (11-b)
 
-| Route              | What                                                                                                                                                                                                         |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `/drummers`        | The map (`components/app/drummers/lineage-map.tsx`) from `md` up; the list (`lineage-list.tsx`) below it. `?trace=<slug>` opens it with that person traced.                                                  |
-| `/drummers/[slug]` | Any node by slug. A record: summary, traits with confidence, technique, eras, recordings, learned from / passed on to / around them. A stub: the links that name it. **Play** → `/studio?style=<style_key>`. |
+| Route              | What                                                                                                                                                                                                                          |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/drummers`        | The map (`components/app/drummers/lineage-map.tsx`) from `md` up; the list (`lineage-list.tsx`) below it. `?trace=<slug>` opens it with that person traced.                                                                   |
+| `/drummers/[slug]` | Any person by slug (a genre 404s). A record: summary, traits with confidence, technique, eras, recordings, learned from / passed on to / around them. A stub: the links that name it. **Play** → `/studio?style=<style_key>`. |
 
 Both are public server components reading `lib/app/lineage/data.ts`; the
 public nav lists Drummers and the sitemap lists `/drummers` and every
@@ -181,17 +183,21 @@ run on the server:
 
 **The map** draws edges coloured by kind, dashed below `likely`
 (`isTentative`), with an arrow when directed. Pointing at or focusing a
-person traces them (`traceLineage`); the "Trace a drummer" select keeps a
-trace; Esc clears. Filters: link kinds (checkboxes) and a confidence floor;
+person traces them (`traceLineage`); hover and keyboard focus are tracked
+apart, so one leaving never drops the other. The "Trace a drummer" select
+keeps a trace and lists the records plus whoever `?trace=` named; Esc
+clears. Filters: link kinds (checkboxes) and a confidence floor;
 a stub left with no visible edge is hidden. Pan is the scrolling box; zoom
 is three buttons (50–150%). Each person is a `next/link` inside the SVG, so
 Tab walks the map in band order.
 
 **The Studio's `?style=`** (`components/app/shell/studio-address.ts`):
 `readStudioStyle` checks the shape, the page checks the catalogue has it and
-that no `?entry=` or `?session=` was given, and the provider picks the style
-and then writes a new break in it through the replacing `newBreak`, so an
-unsaved stage is asked about first. The login link carries it. A record
+that no `?entry=` or `?session=` was given (`Object.hasOwn`, so `constructor`
+is not a style), and the provider calls the console's `newBreakIn(key)`
+through the replacing wrapper, so an unsaved stage is asked about first. It
+is **not a pick**: your starting style is untouched, and the next plain New is
+in yours. A key the console cannot write says so. The login link carries it. A record
 with no `style_key` (the twelve until 11-c–e) gets no Play.
 
 ## Adding a drummer

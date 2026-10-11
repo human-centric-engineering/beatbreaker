@@ -112,6 +112,13 @@ describe('traceLineage', () => {
     );
   });
 
+  it('does not trace through a chair taken: it has a direction but passes nothing on', () => {
+    const chair = edge('a', 'b', { kind: 'succession', relation: 'replaced' });
+    const t = traceLineage([chair], 'b');
+    expect(t.ancestors.size).toBe(0);
+    expect(t.edges.size).toBe(0);
+  });
+
   it('ends on a cycle rather than walking it forever, and never lists the person themself', () => {
     const t = traceLineage([edge('x', 'y'), edge('y', 'x')], 'x');
     expect([...t.ancestors]).toEqual(['y']);

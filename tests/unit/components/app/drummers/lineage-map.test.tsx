@@ -153,6 +153,18 @@ describe('tracing by pointing', () => {
     fireEvent.blur(person('Beta'));
     expect(svg().querySelectorAll('[data-lit]')).toHaveLength(0);
   });
+
+  it('keeps a keyboard trace when the mouse leaves another drummer', async () => {
+    const user = userEvent.setup();
+    show();
+    fireEvent.focus(person('Beta'));
+    await user.hover(person('Alpha'));
+    await user.unhover(person('Alpha'));
+    // Beta still has focus, so Beta is still traced
+    expect(lit('Gamma')).toBe('true');
+    expect(lit('Delta')).toBe('false');
+    expect(status()).toMatch(/^Beta:/);
+  });
 });
 
 describe('Trace a drummer', () => {

@@ -156,7 +156,12 @@ describe('/drummers', () => {
     it('traces a stub the map places, too', async () => {
       await show({ trace: 'echo' });
       expect(dot('drummer:echo')?.getAttribute('data-lit')).toBe('true');
-      expect(screen.getByText('Echo: learned from 0, passed on to 1.')).toBeTruthy();
+      // Echo's only link is taking Delta's chair, which passes nothing on
+      expect(screen.getByText('Echo: learned from 0, passed on to 0.')).toBeTruthy();
+      // a stub is not offered in the select, but the one traced is named there
+      expect(screen.getByRole('combobox', { name: /Trace a drummer/ }).textContent).toContain(
+        'Echo'
+      );
     });
 
     it.each([

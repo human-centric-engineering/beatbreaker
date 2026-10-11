@@ -142,20 +142,33 @@ export function isMapEdge(edge: LineageEdge): edge is LineageEdge & { kind: MapE
 
 /* ---- tracing ----------------------------------------------------------- */
 
+/**
+ * The edge kinds that are lineage: something learned. Taking someone's chair
+ * has a direction but passes nothing on, so it is "around them", not here —
+ * the map's trace and a drummer's page agree on that.
+ */
+export const LINEAGE_EDGE_KINDS = ['influence', 'teacher'] as const satisfies readonly EdgeKind[];
+
+/** Whether an edge says one person learned from another. */
+export function isLineageEdge(edge: LineageEdge): boolean {
+  return edge.directed && LINEAGE_EDGE_KINDS.some((k) => k === edge.kind);
+}
+
 export interface Trace {
   ancestors: Set<string>;
   descendants: Set<string>;
-  /** The directed edges on a path into or out of the traced node. */
+  /** The influence and teacher edges on a path into or out of the traced node. */
   edges: Set<string>;
 }
 
 /**
  * Everyone a node learned from, however far back, and everyone who learned
- * from it, however far on — through directed edges only. Peers, family and
- * shared records have no direction, so they lead nowhere here.
+ * from it, however far on — through influence and teacher edges only. Peers,
+ * family and shared records have no direction, and a chair taken passes
+ * nothing on, so they lead nowhere here.
  */
 export function traceLineage(edges: readonly LineageEdge[], id: string): Trace {
-  const directed = edges.filter((e) => e.directed);
+  const directed = edges.filter(isLineageEdge);
   const walk = (start: string, next: (e: LineageEdge) => [string, string]): Set<string> => {
     const seen = new Set<string>();
     const queue = [start];

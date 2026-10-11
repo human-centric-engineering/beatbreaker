@@ -129,6 +129,14 @@ describe('which slugs are looked up', () => {
     expect(getLineageProfile).toHaveBeenCalledWith('no-such-drummer');
   });
 
+  it('is the not-found page for a genre, which is a node but not a person', async () => {
+    vi.mocked(getLineageProfile).mockResolvedValue(
+      profile({ node: lineageNode('funk', { kind: 'style', slug: 'style-funk', modelled: true }) })
+    );
+    await expect(DrummerPage(params('style-funk'))).rejects.toThrow('NEXT_NOT_FOUND');
+    expect(await generateMetadata(params('style-funk'))).toEqual({ title: 'Not found' });
+  });
+
   it('never asks the database about a slug over 120 characters', async () => {
     await expect(DrummerPage(params('a'.repeat(121)))).rejects.toThrow('NEXT_NOT_FOUND');
     expect(getLineageProfile).not.toHaveBeenCalled(); // test-review:accept no_arg_called — an over-long slug never reaches the database
@@ -218,6 +226,26 @@ describe('a stub', () => {
     // a stub is not "modelled", so there is no "not in the Studio yet" either
     expect(screen.queryByText(/not in the Studio yet/)).toBeNull();
     expect(screen.queryByText(/could not be read/)).toBeNull();
+  });
+
+  it('links to their place on the map, since a link to a person puts them there', async () => {
+    await show('echo');
+    expect(screen.getByRole('link', { name: 'See them on the map' }).getAttribute('href')).toBe(
+      '/drummers?trace=echo'
+    );
+  });
+
+  it('offers no map link when they are linked to nobody the map places', async () => {
+    vi.mocked(getLineageProfile).mockResolvedValue(
+      profile({
+        node: echo,
+        neighbours: [lineageNode('funk', { kind: 'style', slug: 'style-funk' })],
+        // only a genre at the other end: the map leaves genres off
+        edges: [lineageEdge('e3', 'echo', 'funk', { kind: 'peer', directed: false })],
+      })
+    );
+    await show('echo');
+    expect(screen.queryByRole('link', { name: 'See them on the map' })).toBeNull();
   });
 });
 
