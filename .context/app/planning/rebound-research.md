@@ -151,9 +151,21 @@ At 60 frames a second a contact of a few milliseconds is a single instant, so th
 - From 1 m/s to 0.05 m/s at e = 0.7 takes ln(0.05)/ln(0.7) ≈ 8.4 bounces, inside Miura's 3–9.
 - A double stroke played purely off the rebound comes back at about e of the first note's speed, so ≈ 0.7. Pedagogy says the second note is naturally "too close … and too soft" and must be "pulled" (Modern Drummer, Oct. 2015 [S-weak]). No measured ratio was found.
 
-The model bounces the stick again if it comes back down onto the head between notes. It does not yet play a press roll as many bounces of one stroke: a buzz's repeats are each a written note (`timeline.ts`).
+The model plays a buzz as one pressed stroke. The sound's repeats are already fixed — a quarter of a step apart (`BUZZ_REPEATS` in `perform.ts`), about 30 Hz at 120 bpm, inside the roll rates above — so rather than tune a spring and hope the bounces fall on them, the fingers press each bounce down just hard enough (a constant pull over its flight) to land it on the next repeat. Each bounce leaves at e of the speed it came in at, so the heights fall geometrically, as Yamanaka's do; the gaps are the repeats', even, as a soft arm's are. The last repeat is held on the head.
 
 ---
+
+## 5a. The kick pedal [I]
+
+No measured restitution was found for a felt beater on a kick head; the model
+takes 0.6 at low speed, falling 3.5 % per m/s (§3's guess of 0.4–0.5 for a
+forte stroke). The pedal's spring returns the board from the head in about a
+tenth of a second (a 3 Hz spring on the board's travel), and the foot is a
+stiff, one-sided stop: it can hold the board down, never pull it up. Whether a
+note is buried — the beater held against the head — is a player's choice; the
+model buries most loud lone heel-up notes, as rock players do, and lets soft
+notes and the first of a run come off the head (the run's next note is played
+off the rebound).
 
 ## 6. Speed, height and phase
 
