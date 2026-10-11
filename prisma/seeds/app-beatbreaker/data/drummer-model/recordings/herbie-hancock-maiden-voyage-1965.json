@@ -1,0 +1,54 @@
+{
+  "id": "rec:herbie-hancock-maiden-voyage-1965",
+  "title": "Maiden Voyage",
+  "artist": "Herbie Hancock",
+  "release": "Blue Note",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "personnel": [
+    {
+      "name": "Herbie Hancock",
+      "role": "piano"
+    },
+    {
+      "name": "Freddie Hubbard",
+      "role": "trumpet"
+    },
+    {
+      "name": "George Coleman",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Ron Carter",
+      "role": "bass"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams",
+      "name": "Tony Williams",
+      "drummer_role": "sole_drummer",
+      "significance": 0.75,
+      "why_it_matters": "The title track's straight modal groove: the kick with the piano figure, a cross-stick on 4 and cymbal swells.",
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "Straight, modal time rather than swing, with ride swells into each phrase.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:tony-williams-goodman-2011"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tony-williams-wikipedia"]
+  }
+}

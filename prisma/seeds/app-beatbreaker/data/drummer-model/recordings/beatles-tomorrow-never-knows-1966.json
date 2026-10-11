@@ -1,0 +1,22 @@
+{
+  "id": "rec:beatles-tomorrow-never-knows-1966",
+  "title": "Tomorrow Never Knows",
+  "artist": "The Beatles",
+  "release": "Revolver",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr",
+      "name": "Ringo Starr",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Hypnotic, repeating drum figure under a drone."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:melodics-ringo"]
+  }
+}

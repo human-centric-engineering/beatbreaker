@@ -1,0 +1,16 @@
+{
+  "id": "style:cuban-son",
+  "name": "Son cubano",
+  "kind": "genre",
+  "region": "Cuba",
+  "parents": [
+    {
+      "style_id": "style:afro-cuban",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "summary": "Root of much Cuban popular music; clave-based."
+}

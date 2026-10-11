@@ -1,0 +1,46 @@
+{
+  "id": "style:blues-shuffle",
+  "name": "Blues shuffle",
+  "kind": "groove_family",
+  "parents": [
+    {
+      "style_id": "style:blues",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "drum_characteristics": {
+    "feel": "Triplet swing",
+    "subdivision": "8th-note triplets",
+    "tempo_range_bpm": [70, 160],
+    "hallmarks": ["triplet hi-hat or ride", "backbeat on 2 and 4"]
+  },
+  "archetype_patterns": [
+    {
+      "id": "pattern:style-blues-shuffle",
+      "name": "Basic blues shuffle",
+      "type": "groove",
+      "fidelity": "stylistic_archetype",
+      "transcription": {
+        "status": "archetype"
+      },
+      "time_signature": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "steps_per_beat": 3,
+      "bars": 1,
+      "feel": "shuffle",
+      "lanes": {
+        "hihat": "x.xx.xx.xx.x",
+        "snare": "...X.....X..",
+        "kick": "x.....x....."
+      },
+      "tempo": {
+        "playable_range_bpm": [70, 150]
+      }
+    }
+  ]
+}

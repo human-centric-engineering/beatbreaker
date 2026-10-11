@@ -1,0 +1,794 @@
+{
+  "meta": {
+    "id": "drummer:dave-lombardo",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Transcribe the 'Angel of Death' double-bass break and the 'Raining Blood' ending from stems.",
+      "Measure real tempos for Reign in Blood tracks.",
+      "Confirm the two-bass-drum preference and heel-up technique from a primary source (current source is an aggregator quoting a 2012 interview).",
+      "Model Ginger Baker and Mitch Mitchell to complete the Elvin Jones to Lombardo lineage."
+    ]
+  },
+  "identity": {
+    "name": "Dave Lombardo",
+    "full_name": "David Lombardo",
+    "born": {
+      "date": "1965-02-16",
+      "place": "Havana, Cuba",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-lombardo"]
+      }
+    },
+    "nationality": ["Cuban-American"],
+    "home_scenes": ["South Gate and Los Angeles metal scene (early 1980s)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "active": {
+      "from": 1981,
+      "ongoing": true
+    },
+    "roles": ["band_member", "session", "touring", "composer", "percussionist"],
+    "summary": "Slayer's co-founding drummer and the reference point for thrash and extreme metal drumming. Created a new double-bass vocabulary on Show No Mercy and Reign in Blood at what felt like inhuman tempos, in a sound he calls controlled chaos. Born in Havana and raised on his family's Latin records, he later recognised Cuban and Afro-Caribbean syncopation running through his metal parts. Since Slayer: Fantômas, Mr. Bungle, Dead Cross, Suicidal Tendencies, Misfits, Testament and solo percussion work."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "traditions": [
+      {
+        "tradition": "Cuban and Latin music at home",
+        "impact": "Latin music his parents brought from Cuba formed the backbone of his musical education; he later realised his syncopations are instinctively Cuban and Afro-Caribbean.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:stereogum-lombardo", "src:metalinjection-lombardo"]
+        }
+      },
+      {
+        "tradition": "1960s and 70s rock",
+        "impact": "Grew up on Zeppelin, Hendrix and similar rock via his family.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:stereogum-lombardo"]
+        }
+      },
+      {
+        "tradition": "Jazz-oriented rock drummers",
+        "impact": "Ginger Baker and Mitch Mitchell, whose syncopations he later linked to Latin jazz.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:metalinjection-lombardo"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "age": 2,
+        "event": "Family moved from Havana to South Gate, California; he still speaks Spanish.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-lombardo"]
+        }
+      },
+      {
+        "year": 1981,
+        "event": "Co-founded Slayer.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-lombardo"]
+        }
+      },
+      {
+        "year": 1986,
+        "event": "Enlisted Rick Rubin to produce Reign in Blood.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-lombardo"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:lombardo-slayer-classic",
+      "label": "Classic Slayer",
+      "years": {
+        "from": 1981,
+        "to": 1992
+      },
+      "context": "Show No Mercy to Seasons in the Abyss, with a brief exit during the Reign in Blood tour.",
+      "defining_traits": [
+        "thrash beats at extreme tempos",
+        "double-bass runs",
+        "tom-heavy fills",
+        "controlled chaos"
+      ],
+      "key_recording_ids": ["rec:slayer-angel-of-death-1986", "rec:slayer-raining-blood-1986"]
+    },
+    {
+      "id": "era:lombardo-experimental",
+      "label": "Grip Inc., Fantômas and beyond",
+      "years": {
+        "from": 1993,
+        "to": 2001
+      },
+      "context": "Grip Inc., Fantômas with Mike Patton.",
+      "defining_traits": ["avant-garde metal", "wider dynamics and percussion"]
+    },
+    {
+      "id": "era:lombardo-slayer-return",
+      "label": "Slayer return",
+      "years": {
+        "from": 2001,
+        "to": 2013
+      },
+      "context": "Christ Illusion (2006), World Painted Blood (2009); dismissed in 2013 and replaced by Paul Bostaph.",
+      "defining_traits": ["mature thrash", "expanded double-bass"]
+    },
+    {
+      "id": "era:lombardo-polymath",
+      "label": "Polymath percussionist",
+      "years": {
+        "from": 2013,
+        "ongoing": true
+      },
+      "context": "Suicidal Tendencies, Misfits, Dead Cross, Mr. Bungle, Testament, solo Rites of Percussion.",
+      "defining_traits": [
+        "punk, avant-garde and world percussion",
+        "Cuban influence acknowledged openly"
+      ],
+      "key_recording_ids": ["rec:lombardo-rites-of-percussion-2023"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:thrash-metal",
+        "name": "Thrash metal",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:metal",
+        "name": "Metal / extreme metal",
+        "weight": 0.9,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:punk",
+        "name": "Punk / hardcore",
+        "weight": 0.5,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "name": "Avant-garde / experimental",
+        "weight": 0.5,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:afro-cuban",
+        "name": "Afro-Cuban (implicit)",
+        "weight": 0.3,
+        "authority": 0.1,
+        "notes": "Instinctive syncopation and solo percussion work."
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "driver",
+    "descriptors": ["ferocious", "fast", "controlled chaos", "syncopated", "organic", "unquantised"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred"
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "ff",
+      "ghost_note_level": 50,
+      "accent_level": 125,
+      "balance": "Loud, even kicks; cutting snare; crashes and china for punctuation."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 64],
+      "fill_frequency": "every_4_bars",
+      "space_usage": 0.2
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [80, 260],
+    "timekeeping_context": ["free"],
+    "interaction": "Locks to guitar riffs and stops; stretches endings live (e.g. adding measures to the 'Raining Blood' ending).",
+    "descriptors": ["controlled chaos", "human", "no computers", "aggressive"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Fast single-stroke thrash",
+        "description": "Alternating kick and snare 8ths and 16ths at high tempo with open crash or hi-hat.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "widely_reported"
+        }
+      },
+      {
+        "name": "Syncopated tom figures over double bass",
+        "description": "Latin-derived tom syncopations played over continuous double-bass.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:metalinjection-lombardo"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Two bass drums rather than a double pedal",
+        "description": "Prefers two bass drums so each head can breathe; finds a double pedal's beater return awkward.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bio-lombardo"]
+        }
+      },
+      {
+        "name": "Heel-up, angled pedals",
+        "description": "Heel-up technique with pedals set at an angle.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bio-lombardo"]
+        }
+      },
+      {
+        "name": "32nd-note double-bass runs",
+        "description": "Continuous 32nds under breaks such as 'Angel of Death'.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:metalinjection-lombardo"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.8,
+      "linear_playing": 0.4,
+      "ostinato_usage": 0.7,
+      "polyrhythm_usage": 0.5,
+      "odd_meter_fluency": 0.6,
+      "double_bass": 1.0,
+      "foot_ostinato_usage": 0.8
+    },
+    "voice_language": {
+      "hihat": "Open, washy or replaced by crash and china at high tempo.",
+      "ride": "Bell and bow for mid-tempo heavy sections.",
+      "snare": "Cutting, fast backbeats and upbeats.",
+      "kick": "Two bass drums; continuous runs and gallops.",
+      "toms": "Big, syncopated fills; Latin-style accents.",
+      "cymbals": "Crashes and chinas for punctuation; heavy use."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "mallets": 0.3,
+      "hands": 0.3,
+      "notes": "Solo work adds timpani, concert bass drum, gongs, batá, congas, timbales and more."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["organic, unquantised", "punchy, clicky kicks", "cutting snare", "big toms"],
+    "by_era": [
+      {
+        "era_id": "era:lombardo-slayer-classic",
+        "description": "Rick Rubin's dry, tight Reign in Blood sound; no triggers or editing."
+      },
+      {
+        "era_id": "era:lombardo-polymath",
+        "description": "Expanded orchestral and world percussion palette."
+      }
+    ],
+    "sample_hints": {
+      "80s-thrash": "Dry, tight kit; two 22in kicks with attack; cutting snare; crashes and china."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:blabbermouth-lombardo-2006"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:lombardo-godfather-double-bass",
+      "label": "Godfather of double bass",
+      "category": "technique",
+      "description": "His 80s Slayer playing created a new vocabulary for metal double-bass drumming; Drummerworld dubbed him the Godfather of Double Bass.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:lombardo-aod-break-archetype"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-lombardo", "src:stereogum-lombardo"]
+      }
+    },
+    {
+      "id": "trait:lombardo-controlled-chaos",
+      "label": "Controlled chaos",
+      "category": "musical_approach",
+      "description": "Describes Slayer's music as chaos under control; values the human, computer-free sound of Reign in Blood.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blabbermouth-lombardo-2006"]
+      }
+    },
+    {
+      "id": "trait:lombardo-cuban-subtext",
+      "label": "Cuban syncopation inside thrash",
+      "category": "groove",
+      "description": "The tom figure over the 'Angel of Death' double-bass break is, in his words, a typical Tito Puente-style figure; he recognises his syncopations as instinctively Cuban and Afro-Caribbean.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:slayer-angel-of-death-1986"
+        }
+      ],
+      "pattern_ids": ["pattern:lombardo-aod-break-archetype"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:metalinjection-lombardo", "src:israelnn-lombardo"]
+      }
+    },
+    {
+      "id": "trait:lombardo-live-stretch",
+      "label": "Stretching parts live",
+      "category": "quirk",
+      "description": "Extends sections live, such as adding two measures to the 'Raining Blood' ending.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:slayer-raining-blood-1986"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blabbermouth-lombardo-2006"]
+      }
+    },
+    {
+      "id": "trait:lombardo-beat-shaper",
+      "label": "Shaping the beat from a demo",
+      "category": "studio_practice",
+      "description": "Took standard double-bass-and-snare demo beats from Jeff Hanneman and chose the rolls and beats that made them Slayer.",
+      "audibility": "subtle",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blabbermouth-lombardo-2006"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:lombardo-thrash-beat-archetype",
+        "name": "Fast thrash beat",
+        "type": "groove",
+        "function": "Verse / riff section",
+        "style_ids": ["style:thrash-metal"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [190, 250]
+        },
+        "lanes": {
+          "crash_1": "x.......|x.......",
+          "hihat": "..x.x.x.|..x.x.x.",
+          "kick": "x.x.x.x.|x.x.x.x.",
+          "snare": ".X.X.X.X|.X.X.X.X"
+        },
+        "humanise": {
+          "timing_jitter_ms": 4,
+          "velocity_jitter": 8
+        },
+        "variation_rules": [
+          {
+            "description": "Switch to double-bass 16ths under the same snare for riff climaxes",
+            "probability": 0.3
+          },
+          {
+            "description": "Add a tom fill in the last beat of every 4th bar",
+            "probability": 0.6,
+            "applies_to": "every 4th bar"
+          }
+        ],
+        "difficulty": 7,
+        "related_pattern_ids": ["pattern:style-thrash-beat"],
+        "tags": ["thrash", "fast", "skank beat"]
+      },
+      {
+        "id": "pattern:lombardo-aod-break-archetype",
+        "name": "Double-bass 32nds with Latin tom syncopation (Angel of Death style)",
+        "type": "fill",
+        "function": "Feature break",
+        "style_ids": ["style:thrash-metal", "style:afro-cuban"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:metalinjection-lombardo", "src:blabbermouth-lombardo-aod"],
+          "note": "Structure from his description (32nd double bass, syncopated tom hits); exact tom rhythm is illustrative."
+        },
+        "source": {
+          "recording_id": "rec:slayer-angel-of-death-1986"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 8,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [90, 130]
+        },
+        "lanes": {
+          "kick": "x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.",
+          "kick_2": ".x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x",
+          "floor_tom_1": "X.....X.....X...........X.......",
+          "tom_1": "................X.....X.........",
+          "crash_1": "................................"
+        },
+        "humanise": {
+          "timing_jitter_ms": 3,
+          "velocity_jitter": 6
+        },
+        "difficulty": 9,
+        "derived_from": [
+          {
+            "drummer_id": "drummer:tito-puente",
+            "how": "He likens the tom figure to a typical Tito Puente phrase.",
+            "evidence": {
+              "confidence": "verified",
+              "source_ids": ["src:metalinjection-lombardo"]
+            }
+          }
+        ],
+        "community_names": ["the Angel of Death break"],
+        "tags": ["double bass", "32nds", "latin", "iconic"]
+      },
+      {
+        "id": "pattern:lombardo-half-time-heavy-archetype",
+        "name": "Half-time heavy groove with double-bass gallop",
+        "type": "groove",
+        "function": "Slow, heavy section",
+        "style_ids": ["style:thrash-metal"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [80, 110]
+        },
+        "lanes": {
+          "ride": "B...B...B...B...",
+          "snare": "........X.......",
+          "kick": "x.xx..x.x.xx..x.",
+          "kick_2": "...x.......x...."
+        },
+        "sticking_lane": "K.KK..K.K.KK..K.",
+        "difficulty": 5,
+        "tags": ["half-time", "gallop", "heavy"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:lombardo-raining-blood-ending",
+        "name": "Raining Blood ending figure",
+        "description": "The closing riff figure he extends by two measures live.",
+        "heard_on": ["rec:slayer-raining-blood-1986"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:blabbermouth-lombardo-2006"]
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:lombardo-double-kick",
+      "label": "Two bass drum kit",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "kick_2"
+        }
+      ],
+      "layout_notes": "Two bass drums rather than a double pedal; pedals angled, played heel-up.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bio-lombardo", "src:blabbermouth-lombardo-aod"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Slayer",
+      "type": "band_member",
+      "years": {
+        "from": 1981,
+        "to": 2013
+      },
+      "bandmates": [
+        {
+          "name": "Jeff Hanneman"
+        },
+        {
+          "name": "Kerry King"
+        },
+        {
+          "name": "Tom Araya"
+        }
+      ],
+      "notes": "Three stints: 1981 to 1986, 1987 to 1992, 2001 to 2013.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-lombardo", "src:stereogum-lombardo"]
+      }
+    },
+    {
+      "name": "Fantômas",
+      "type": "band_member",
+      "bandmates": [
+        {
+          "name": "Mike Patton"
+        }
+      ],
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "name": "Mr. Bungle",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stereogum-lombardo"]
+      }
+    },
+    {
+      "name": "Dead Cross",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stereogum-lombardo"]
+      }
+    },
+    {
+      "name": "Suicidal Tendencies",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:metalinjection-lombardo"]
+      }
+    },
+    {
+      "name": "Misfits",
+      "type": "touring_drummer",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:metalinjection-lombardo"]
+      }
+    },
+    {
+      "name": "Testament",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:metalinjection-lombardo"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:slayer-angel-of-death-1986",
+    "rec:slayer-raining-blood-1986",
+    "rec:lombardo-rites-of-percussion-2023"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "strength": 0.6,
+      "aspects": ["jazz-oriented syncopation"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:metalinjection-lombardo"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "strength": 0.6,
+      "aspects": ["jazz-oriented syncopation"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:metalinjection-lombardo"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tito Puente",
+        "kind": "drummer",
+        "id": "drummer:tito-puente"
+      },
+      "strength": 0.5,
+      "aspects": ["tom syncopation"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:metalinjection-lombardo"]
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Afro-Cuban music",
+        "kind": "style",
+        "id": "style:afro-cuban"
+      },
+      "strength": 0.5,
+      "aspects": ["instinctive syncopation"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:metalinjection-lombardo", "src:stereogum-lombardo"]
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Punk",
+        "kind": "style",
+        "id": "style:punk"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely"
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Jeff Hanneman",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blabbermouth-lombardo-aod"]
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Paul Bostaph",
+        "kind": "drummer",
+        "id": "drummer:paul-bostaph"
+      },
+      "years": {
+        "from": 1992
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blabbermouth-lombardo-aod"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Heavy music should sound human; Reign in Blood was made by kids with no computers.",
+        "paraphrase_of_source_id": "src:blabbermouth-lombardo-2006"
+      },
+      {
+        "idea": "Two bass drums let each head breathe; it's a feel thing.",
+        "paraphrase_of_source_id": "src:bio-lombardo"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.9,
+    "innovations": [
+      "New vocabulary for metal double-bass drumming",
+      "Template for thrash and extreme metal drumming",
+      "Latin syncopation smuggled into thrash"
+    ],
+    "accolades": [],
+    "cultural_references": [
+      {
+        "description": "The 'Angel of Death' double-bass break began as part of a drum solo; Hanneman asked to put it in a song, and fans wait for it at every show.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:blabbermouth-lombardo-aod"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he uses a double pedal. He prefers two bass drums.",
+      "That thrash drumming is all speed. His parts carry Latin-derived syncopation."
+    ]
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:lombardo-thrash-beat-archetype",
+      "pattern:lombardo-aod-break-archetype"
+    ],
+    "default_kit_sound": "Dry 80s thrash kit: two attacking kicks, cutting snare, big toms, crash and china",
+    "generation_rules": [
+      "Tempos 180 to 250 for thrash sections; drop to half-time for heavy sections.",
+      "Alternate K and K2 in double-bass runs.",
+      "When adding tom figures over double bass, prefer clave-like syncopations.",
+      "Do not quantise to perfection; small timing jitter keeps the controlled chaos."
+    ],
+    "avoid": ["Triggered, machine-perfect kicks", "Swing", "Ghost-note funk textures"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:ginger-baker",
+        "drummer:mitch-mitchell",
+        "drummer:tito-puente",
+        "style:afro-cuban"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Havana-born, raised on Latin records and jazz-rock drummers; his thrash carries Elvin Jones' great-grandchildren and Tito Puente's tom figures."
+    },
+    "tags": ["metal", "thrash", "double bass", "80s", "fast"]
+  }
+}

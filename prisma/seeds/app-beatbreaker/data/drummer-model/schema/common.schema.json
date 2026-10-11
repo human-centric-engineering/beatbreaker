@@ -1,0 +1,757 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://beatbreaker.app/schema/common.schema.json",
+  "title": "Shared definitions",
+  "$defs": {
+    "Id": {
+      "type": "string",
+      "pattern": "^[a-z]+:[a-z0-9][a-z0-9-]*$",
+      "description": "Namespaced id, e.g. drummer:steve-gadd, pattern:gadd-mozambique, rec:steely-dan-aja-1977, style:mozambique, src:remo-profile"
+    },
+    "Year": {
+      "type": "integer",
+      "minimum": 1800,
+      "maximum": 2100
+    },
+    "YearRange": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "$ref": "#/$defs/Year"
+        },
+        "to": {
+          "$ref": "#/$defs/Year"
+        },
+        "ongoing": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Weight": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "0 = absent, 1 = defining"
+    },
+    "Confidence": {
+      "type": "string",
+      "enum": [
+        "verified",
+        "widely_reported",
+        "likely",
+        "inferred",
+        "speculative",
+        "needs_verification"
+      ]
+    },
+    "Evidence": {
+      "type": "object",
+      "properties": {
+        "confidence": {
+          "$ref": "#/$defs/Confidence"
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Id"
+          }
+        },
+        "note": {
+          "type": "string"
+        },
+        "alternatives": {
+          "type": "array",
+          "description": "Conflicting values reported by sources, e.g. disputed birth years.",
+          "items": {
+            "type": "object",
+            "required": ["value"],
+            "properties": {
+              "value": {},
+              "source_ids": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/Id"
+                }
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": ["confidence"]
+    },
+    "Timestamp": {
+      "type": "string",
+      "pattern": "^\\d{1,2}:\\d{2}(:\\d{2})?$",
+      "description": "m:ss or h:mm:ss within a recording or video"
+    },
+    "PersonRef": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "drummer_id": {
+          "$ref": "#/$defs/Id",
+          "description": "Set if this person has their own drummer record."
+        },
+        "role": {
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/Evidence"
+        }
+      }
+    },
+    "Instrument": {
+      "type": "string",
+      "enum": [
+        "kick",
+        "kick_2",
+        "snare",
+        "snare_2",
+        "hihat",
+        "hihat_pedal",
+        "tom_1",
+        "tom_2",
+        "tom_3",
+        "floor_tom_1",
+        "floor_tom_2",
+        "ride",
+        "ride_2",
+        "crash_1",
+        "crash_2",
+        "china",
+        "splash",
+        "stack",
+        "cowbell",
+        "pedal_cowbell",
+        "pedal_jam_block",
+        "bongo_bell",
+        "cha_cha_bell",
+        "woodblock",
+        "jam_block",
+        "tambourine",
+        "shaker",
+        "clave",
+        "timbale_high",
+        "timbale_low",
+        "conga",
+        "bongo",
+        "electronic_pad",
+        "other"
+      ]
+    },
+    "Articulation": {
+      "type": "string",
+      "enum": [
+        "normal",
+        "ghost",
+        "accent",
+        "marcato",
+        "rimshot",
+        "cross_stick",
+        "rim_click",
+        "shell",
+        "flam",
+        "drag",
+        "ruff",
+        "buzz",
+        "dead_stroke",
+        "double",
+        "choke",
+        "closed",
+        "open",
+        "half_open",
+        "loose",
+        "foot_chick",
+        "foot_splash",
+        "bell",
+        "edge",
+        "bow",
+        "shank",
+        "brush_sweep",
+        "brush_tap",
+        "brush_slap",
+        "mallet_roll",
+        "open_tone",
+        "slap",
+        "muted_tone"
+      ]
+    },
+    "Sticking": {
+      "type": "string",
+      "enum": ["R", "L", "RL", "LR", "K", "K2", "LF", "HH", "?"],
+      "description": "R/L hands, RL simultaneous, K right foot, K2 second kick foot, LF/HH left foot."
+    },
+    "Pattern": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "type",
+        "fidelity",
+        "time_signature",
+        "steps_per_beat",
+        "bars",
+        "transcription"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/Id"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "groove",
+            "groove_variation",
+            "fill",
+            "solo_phrase",
+            "ostinato",
+            "intro",
+            "ending",
+            "setup_figure",
+            "comping",
+            "transition",
+            "exercise",
+            "trade"
+          ]
+        },
+        "function": {
+          "type": "string",
+          "description": "Musical job, e.g. 'verse groove', 'chorus lift', 'set-up into bridge'."
+        },
+        "style_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Id"
+          }
+        },
+        "fidelity": {
+          "enum": [
+            "transcribed_exact",
+            "transcribed_simplified",
+            "approximation",
+            "stylistic_archetype"
+          ],
+          "description": "transcribed_*: taken from a recording. approximation: close but unverified. stylistic_archetype: 'in the style of', not a quote."
+        },
+        "evidence": {
+          "$ref": "#/$defs/Evidence"
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "recording_id": {
+              "$ref": "#/$defs/Id"
+            },
+            "section": {
+              "type": "string"
+            },
+            "timestamp": {
+              "$ref": "#/$defs/Timestamp"
+            },
+            "transcription_source_id": {
+              "$ref": "#/$defs/Id"
+            }
+          }
+        },
+        "time_signature": {
+          "type": "object",
+          "required": ["numerator", "denominator"],
+          "properties": {
+            "numerator": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "denominator": {
+              "type": "integer",
+              "enum": [1, 2, 4, 8, 16, 32]
+            },
+            "grouping": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              },
+              "description": "e.g. [3,2,2] for 7/8"
+            }
+          }
+        },
+        "steps_per_beat": {
+          "type": "integer",
+          "enum": [1, 2, 3, 4, 6, 8, 12, 16],
+          "description": "Grid resolution. 4 = 16ths in 4/4, 3 = 8th triplets, 6 = sextuplets."
+        },
+        "bars": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "feel": {
+          "enum": [
+            "straight",
+            "swung",
+            "shuffle",
+            "half_time_shuffle",
+            "triplet",
+            "mixed",
+            "rubato"
+          ]
+        },
+        "swing_ratio": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 0.75
+        },
+        "tempo": {
+          "type": "object",
+          "properties": {
+            "original_bpm": {
+              "type": "number"
+            },
+            "playable_range_bpm": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "half_time_feel": {
+              "type": "boolean"
+            }
+          }
+        },
+        "lanes": {
+          "type": "object",
+          "description": "Quick human-readable grid, one string per instrument, one char per step, bars separated by '|'. Legend: '.' rest, 'x' normal, 'X' accent, 'g' ghost, 'o' open hat, 'h' half-open, 'c' cross-stick, 'r' rimshot, 'f' flam, 'd' drag, 'b' buzz, 'k' foot chick, 's' foot splash, 'B' ride bell, 'p' shell / paila (cáscara on timbale shells), '-' tie/sustain.",
+          "propertyNames": {
+            "$ref": "#/$defs/Instrument"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[.xXgohcrfdbksBp\\-|]+$"
+          }
+        },
+        "sticking_lane": {
+          "type": "string",
+          "description": "Optional per-step sticking aligned to lanes, e.g. 'RLRRLRLL'."
+        },
+        "events": {
+          "type": "array",
+          "description": "Precise event list. Authoritative where present; lanes are a convenience view.",
+          "items": {
+            "$ref": "#/$defs/NoteEvent"
+          }
+        },
+        "humanise": {
+          "type": "object",
+          "properties": {
+            "timing_jitter_ms": {
+              "type": "number",
+              "minimum": 0
+            },
+            "velocity_jitter": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 64
+            },
+            "voice_offsets_ms": {
+              "type": "object",
+              "propertyNames": {
+                "$ref": "#/$defs/Instrument"
+              },
+              "additionalProperties": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "variation_rules": {
+          "type": "array",
+          "description": "Generative mutations BeatBreaker may apply while staying in character.",
+          "items": {
+            "type": "object",
+            "required": ["description"],
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "probability": {
+                "$ref": "#/$defs/Weight"
+              },
+              "applies_to": {
+                "type": "string",
+                "description": "e.g. 'bar 4 beat 4', 'every 2nd bar', 'last bar of phrase'"
+              },
+              "replacement_pattern_id": {
+                "$ref": "#/$defs/Id"
+              }
+            }
+          }
+        },
+        "difficulty": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "practice_notes": {
+          "type": "string"
+        },
+        "derived_from": {
+          "type": "array",
+          "description": "Pattern lineage: source idioms or other drummers' patterns this descends from.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pattern_id": {
+                "$ref": "#/$defs/Id"
+              },
+              "style_id": {
+                "$ref": "#/$defs/Id"
+              },
+              "drummer_id": {
+                "$ref": "#/$defs/Id"
+              },
+              "how": {
+                "type": "string"
+              },
+              "evidence": {
+                "$ref": "#/$defs/Evidence"
+              }
+            }
+          }
+        },
+        "community_names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "related_pattern_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Id"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "transcription": {
+          "$ref": "#/$defs/Transcription"
+        },
+        "clave": {
+          "type": "object",
+          "description": "Clave reference for Afro-Cuban and related patterns.",
+          "required": ["type", "direction"],
+          "properties": {
+            "type": {
+              "enum": ["son", "rumba", "bossa", "cascara_implied", "six_eight", "other"]
+            },
+            "direction": {
+              "enum": ["3-2", "2-3", "n/a"]
+            },
+            "carried_by": {
+              "$ref": "#/$defs/Instrument",
+              "description": "Which voice plays the clave, if any."
+            },
+            "evidence": {
+              "$ref": "#/$defs/Evidence"
+            }
+          }
+        },
+        "cross_rhythms": {
+          "type": "array",
+          "description": "Polyrhythms or polymeters layered over the base metre.",
+          "items": {
+            "type": "object",
+            "required": ["ratio"],
+            "properties": {
+              "ratio": {
+                "type": "string",
+                "pattern": "^\\d+:\\d+$",
+                "description": "e.g. '3:2' = three evenly spaced events in the space of two beats"
+              },
+              "voices": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/Instrument"
+                }
+              },
+              "cycle_steps": {
+                "type": "integer",
+                "description": "Length in grid steps of the repeating accent group, for polymetric cycles."
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "improvised": {
+          "type": "boolean",
+          "description": "True when the pattern is a representative sample of improvised comping rather than a fixed part."
+        }
+      },
+      "anyOf": [
+        {
+          "required": ["lanes"]
+        },
+        {
+          "required": ["events"]
+        }
+      ]
+    },
+    "NoteEvent": {
+      "type": "object",
+      "required": ["bar", "step", "instrument"],
+      "properties": {
+        "bar": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "step": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "1-based step within the bar on the pattern grid."
+        },
+        "instrument": {
+          "$ref": "#/$defs/Instrument"
+        },
+        "articulation": {
+          "$ref": "#/$defs/Articulation"
+        },
+        "velocity": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 127
+        },
+        "sticking": {
+          "$ref": "#/$defs/Sticking"
+        },
+        "offset_ms": {
+          "type": "number",
+          "description": "Microtiming relative to grid. Negative ahead, positive behind."
+        },
+        "duration_steps": {
+          "type": "number"
+        },
+        "grace": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "sticking": {
+              "type": "string"
+            },
+            "velocity": {
+              "type": "integer"
+            }
+          }
+        },
+        "midi_note": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127,
+          "description": "Optional override of default GM mapping."
+        }
+      }
+    },
+    "DescribedLick": {
+      "type": "object",
+      "required": ["id", "name", "description"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/Id"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "sticking": {
+          "type": "string"
+        },
+        "heard_on": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Id"
+          }
+        },
+        "to_transcribe": {
+          "type": "boolean"
+        },
+        "evidence": {
+          "$ref": "#/$defs/Evidence"
+        }
+      }
+    },
+    "Source": {
+      "type": "object",
+      "required": ["id", "type", "title"],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/Id"
+        },
+        "type": {
+          "enum": [
+            "interview",
+            "biography",
+            "encyclopedia",
+            "manufacturer_profile",
+            "magazine",
+            "book",
+            "transcription",
+            "video_lesson",
+            "liner_notes",
+            "recording",
+            "forum",
+            "analysis",
+            "obituary",
+            "news",
+            "podcast"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "reliability": {
+          "$ref": "#/$defs/Weight"
+        },
+        "accessed": {
+          "type": "string",
+          "format": "date"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "Transcription": {
+      "type": "object",
+      "required": ["status"],
+      "description": "Workflow for promoting a pattern from archetype to verified transcription.",
+      "properties": {
+        "status": {
+          "enum": ["archetype", "draft", "in_review", "verified", "rejected"]
+        },
+        "method": {
+          "enum": [
+            "by_ear",
+            "stem_isolated",
+            "midi_capture",
+            "published_transcription",
+            "video_observation",
+            "artist_demonstration"
+          ]
+        },
+        "transcribed_by": {
+          "type": "string"
+        },
+        "reviewed_by": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stem_analysis": {
+          "type": "object",
+          "properties": {
+            "tool": {
+              "type": "string",
+              "description": "e.g. htdemucs v4"
+            },
+            "tempo_measured_bpm": {
+              "type": "number"
+            },
+            "swing_ratio_measured": {
+              "type": "number"
+            },
+            "voice_offsets_ms": {
+              "type": "object",
+              "propertyNames": {
+                "$ref": "#/$defs/Instrument"
+              },
+              "additionalProperties": {
+                "type": "number"
+              }
+            },
+            "velocity_profile": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              }
+            },
+            "segment": {
+              "type": "object",
+              "properties": {
+                "start": {
+                  "$ref": "#/$defs/Timestamp"
+                },
+                "end": {
+                  "$ref": "#/$defs/Timestamp"
+                }
+              }
+            }
+          }
+        },
+        "history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["date", "status"],
+            "properties": {
+              "date": {
+                "type": "string",
+                "format": "date"
+              },
+              "status": {
+                "type": "string"
+              },
+              "by": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "verified"
+              }
+            }
+          },
+          "then": {
+            "required": ["method", "reviewed_by"],
+            "properties": {
+              "reviewed_by": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

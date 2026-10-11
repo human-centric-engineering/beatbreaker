@@ -1,0 +1,38 @@
+{
+  "id": "rec:fela-live-ginger-baker-1971",
+  "title": "Live!",
+  "artist": "Fela Ransome-Kuti and the Africa '70 with Ginger Baker",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:afrobeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ginger-baker",
+      "name": "Ginger Baker",
+      "drummer_role": "co_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Baker sitting in with Fela's band; recorded 1971, released on Regal Zonophone.",
+      "ev": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-mirror-baker"]
+      }
+    },
+    {
+      "drummer_id": "drummer:tony-allen",
+      "name": "Tony Allen",
+      "drummer_role": "co_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Fela's drummer and co-architect of afrobeat, recorded live in 1971 with Baker sitting in; Black Man's Cry carries his first pattern with a floor tom answering like a conga.",
+      "pattern_ids": ["pattern:allen-first-pattern"],
+      "ev": {
+        "confidence": "likely",
+        "source_ids": ["src:tony-allen-wikipedia"],
+        "note": "Which drummer leads on each track not confirmed."
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wiki-mirror-baker"]
+  }
+}

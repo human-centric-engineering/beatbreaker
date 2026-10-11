@@ -1,0 +1,21 @@
+{
+  "id": "rec:bobby-bland-turn-on-your-love-light-1961",
+  "title": "Turn On Your Love Light",
+  "artist": "Bobby 'Blue' Bland",
+  "year": 1961,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul", "style:blues"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jabo-starks",
+      "name": "Jabo Starks",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "One of Bland's biggest hits; pre-James Brown Starks with gospel-driven R&B drive."
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:pas-starks", "src:udiscover-starks"]
+  }
+}

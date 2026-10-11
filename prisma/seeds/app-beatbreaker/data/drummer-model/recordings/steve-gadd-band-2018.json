@@ -1,0 +1,21 @@
+{
+  "id": "rec:steve-gadd-band-2018",
+  "title": "Steve Gadd Band",
+  "artist": "Steve Gadd Band",
+  "year": 2018,
+  "type": "album",
+  "style_ids": ["style:jazz", "style:rnb-soul"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:modern-drummer"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-gadd",
+      "name": "Steve Gadd",
+      "drummer_role": "leader",
+      "significance": 0.6,
+      "why_it_matters": "Won the Grammy for Best Contemporary Instrumental Album, his first for a project of his own."
+    }
+  ]
+}

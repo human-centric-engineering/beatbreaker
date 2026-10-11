@@ -1,0 +1,30 @@
+{
+  "id": "rec:fela-zombie-1976",
+  "title": "Zombie",
+  "artist": "Fela Kuti and Africa 70",
+  "release": "Zombie",
+  "year": 1976,
+  "type": "studio_track",
+  "style_ids": ["style:afrobeat"],
+  "studio_context": "Title track of the album released in Nigeria in 1976 and internationally in 1977; its mockery of the army led to the 1977 raid on the Kalakuta Republic.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen",
+      "name": "Tony Allen",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Fela's best-known record, driven by Allen at its fastest: a two-bar groove whose second bar mimics a military march.",
+      "pattern_ids": ["pattern:allen-zombie-archetype"]
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:tony-allen-wikipedia", "src:tony-allen-nme-obit"],
+    "alternatives": [
+      {
+        "value": 1977,
+        "note": "International release year."
+      }
+    ]
+  }
+}

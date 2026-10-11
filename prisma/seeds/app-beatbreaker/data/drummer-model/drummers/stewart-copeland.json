@@ -1,0 +1,609 @@
+{
+  "meta": {
+    "id": "drummer:stewart-copeland",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Confirm handedness (one source calls him left-handed).",
+      "Transcribe 'Walking on the Moon' and 'Message in a Bottle' from stems.",
+      "Confirm Purdie shuffle link to 'Walking on the Moon' and identify reggae drummers he cites."
+    ]
+  },
+  "identity": {
+    "name": "Stewart Copeland",
+    "full_name": "Stewart Armstrong Copeland",
+    "born": {
+      "date": "1952-07-16",
+      "place": "Alexandria, Virginia, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:imdb-copeland"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Childhood in Egypt and Lebanon", "London punk and new wave (late 1970s)"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1974,
+      "ongoing": true
+    },
+    "alter_egos": [
+      {
+        "name": "Klark Kent",
+        "description": "Pseudonymous solo recording persona.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:imdb-copeland"]
+        }
+      }
+    ],
+    "roles": ["band_member", "composer", "producer", "touring"],
+    "summary": "The Police's restless engine. Fused punk energy with reggae space, put the hi-hat at the centre of the groove, and decorated everything with splashes, octobans and ride-bell backbeats. Plays traditional grip, grew up speaking Arabic in Beirut and Cairo, and later became a prolific film and concert composer."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Arabic music",
+        "impact": "Childhood exposure in the Middle East shaped his approach to rhythm and timing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:imdb-copeland"]
+        }
+      },
+      {
+        "tradition": "Reggae and dub",
+        "impact": "Reggae-ish grooves and dub-style echo on snare and hats.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:musicradar-copeland-interview", "src:thomann-copeland"]
+        }
+      },
+      {
+        "tradition": "Jazz (grip and vocabulary)",
+        "impact": "Traditional grip; jazz influences in phrasing.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:thomann-copeland", "src:imdb-copeland"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Grew up in Egypt and Lebanon due to his parents' careers; fluent in Arabic.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:imdb-copeland"]
+        }
+      },
+      {
+        "year": 1977,
+        "event": "Founded The Police.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "note": "From general knowledge."
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:copeland-curved-air",
+      "label": "Curved Air",
+      "years": {
+        "from": 1974,
+        "to": 1976
+      },
+      "context": "Prog-rock apprenticeship.",
+      "defining_traits": ["prog chops"]
+    },
+    {
+      "id": "era:copeland-police",
+      "label": "The Police",
+      "years": {
+        "from": 1977,
+        "to": 1986
+      },
+      "context": "Five albums on virtually the same kit.",
+      "defining_traits": ["reggae-punk hybrid", "hi-hat as lead voice", "splashes and octobans"],
+      "key_recording_ids": [
+        "rec:police-roxanne-1978",
+        "rec:police-walking-on-the-moon-1979",
+        "rec:police-message-in-a-bottle-1979",
+        "rec:police-driven-to-tears-1980"
+      ]
+    },
+    {
+      "id": "era:copeland-composer",
+      "label": "Composer",
+      "years": {
+        "from": 1983,
+        "ongoing": true
+      },
+      "context": "Rumble Fish onwards: film, TV, opera and orchestral work; Police reunion 2007 to 2008.",
+      "defining_traits": ["orchestral and world percussion"],
+      "key_recording_ids": ["rec:copeland-rumble-fish-1983"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-wave",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:reggae",
+        "weight": 0.7,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.6,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.8,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:middle-eastern",
+        "weight": 0.3,
+        "authority": 0.2
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.3,
+    "role_tendency": "driver",
+    "descriptors": ["restless", "syncopated", "hi-hat virtuoso", "splashy", "energetic"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "ahead",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "Commonly described as pushing; verify from stems."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.15,
+      "typical_swing_ratio": 0.55
+    },
+    "dynamics": {
+      "range": 0.8,
+      "default_level": "f",
+      "ghost_note_level": 35,
+      "accent_level": 120,
+      "balance": "Hi-hat forward in the mix; high, cracking snare; sparse kick in reggae feels."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 30],
+      "fill_frequency": "every_2_bars",
+      "space_usage": 0.45
+    },
+    "consistency": 0.8,
+    "tempo_comfort_bpm": [70, 180],
+    "timekeeping_context": ["free"],
+    "interaction": "Keeps listeners off balance with accents and embellishments; constant dialogue with Sting's bass.",
+    "descriptors": ["untamable energy", "off-beat"]
+  },
+  "technique_profile": {
+    "grip": ["traditional"],
+    "hand_techniques": [
+      {
+        "name": "Hi-hat embellishments",
+        "description": "Touch, accents and ornaments make the hi-hat the most expressive part of his kit.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:musicradar-copeland-howto", "src:imdb-copeland"]
+        }
+      },
+      {
+        "name": "Ride bell on the backbeat",
+        "description": "Right hand jumps from hats to ride bell exactly as the snare hits.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:musicradar-copeland-howto"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Sparse or displaced kick",
+        "description": "Omits the kick on beat 1 or places it on 2 and 4 in reggae feels.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:musicradar-copeland-howto"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.8,
+      "linear_playing": 0.5,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.5,
+      "odd_meter_fluency": 0.5
+    },
+    "voice_language": {
+      "hihat": "Lead voice; accents, openings, ornaments; 13in hats.",
+      "snare": "High-tuned, cracking, cuts through; sometimes with delay.",
+      "kick": "Sparse, displaced.",
+      "toms": "Melodic parts, octobans.",
+      "cymbals": "Splashes as punctuation; ride bell accents."
+    },
+    "implements": {
+      "sticks": 1.0
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": ["high-tuned snare", "bright hats", "splashes", "octobans"],
+    "tuning": {
+      "snare": "High and cracking",
+      "toms": "High, melodic"
+    },
+    "sample_hints": {
+      "80s": "Tama kit with octobans, 13in hats, high snare, splashes, light echo on snare and hats."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": ["src:thomann-copeland", "src:faroutmag-copeland"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:copeland-hihat",
+      "label": "Hi-hat at the centre",
+      "category": "groove",
+      "description": "Gave the hi-hat unprecedented prominence; in many Police songs it is the central part of the percussion.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thomann-copeland", "src:musicradar-copeland-howto"]
+      },
+      "pattern_ids": ["pattern:copeland-hihat-bell-archetype"]
+    },
+    {
+      "id": "trait:copeland-reggae-ish",
+      "label": "Reggae-ish, not reggae",
+      "category": "groove",
+      "description": "Grooves borrow reggae elements (sparse or displaced kick, space, dub echo) without being strict reggae rhythms.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:musicradar-copeland-interview"]
+      },
+      "pattern_ids": ["pattern:copeland-walking-on-the-moon-archetype"]
+    },
+    {
+      "id": "trait:copeland-gear",
+      "label": "Splashes and octobans",
+      "category": "setup",
+      "description": "Brought octobans and small splash cymbals into mainstream rock drumming.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thomann-copeland", "src:musicradar-copeland-howto"]
+      }
+    },
+    {
+      "id": "trait:copeland-traditional-grip",
+      "label": "Traditional grip in rock",
+      "category": "technique",
+      "description": "Prefers traditional grip, rare among rock drummers.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thomann-copeland", "src:imdb-copeland"]
+      }
+    },
+    {
+      "id": "trait:copeland-gloves",
+      "label": "Leather gloves",
+      "category": "physical_habit",
+      "description": "Habitually wears suede leather gloves when playing.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:imdb-copeland"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:copeland-walking-on-the-moon-archetype",
+        "name": "Reggae-ish verse with kick on 2 and 4 (Walking on the Moon style)",
+        "type": "groove",
+        "style_ids": ["style:reggae", "style:new-wave"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:musicradar-copeland-howto"],
+          "note": "Kick on 2 and 4 documented; hi-hat and cross-stick placement illustrative."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [140, 150]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.xxx.x.",
+          "snare": "........c.......",
+          "kick": "....x.......x..."
+        },
+        "source": {
+          "recording_id": "rec:police-walking-on-the-moon-1979"
+        },
+        "humanise": {
+          "timing_jitter_ms": 4,
+          "velocity_jitter": 12
+        },
+        "difficulty": 4,
+        "tags": ["reggae", "space", "hi-hat"]
+      },
+      {
+        "id": "pattern:copeland-hihat-bell-archetype",
+        "name": "Hi-hat embellishments with ride-bell backbeat",
+        "type": "groove",
+        "style_ids": ["style:new-wave", "style:rock"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:musicradar-copeland-howto"],
+          "note": "Ride bell doubling the backbeat documented; specific embellishments illustrative."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [130, 160]
+        },
+        "lanes": {
+          "hihat": "x.xxx.x.x.xxx.xo",
+          "ride": "....B.......B...",
+          "snare": "....X.......X...",
+          "kick": "x.....x...x....."
+        },
+        "difficulty": 6,
+        "tags": ["hi-hat", "ride bell", "new wave"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:copeland-splash-punctuation",
+        "name": "Splash punctuation",
+        "description": "Splash cymbal accents dropped into grooves and fills.",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:musicradar-copeland-howto"]
+        }
+      },
+      {
+        "id": "lick:copeland-wotm-ending",
+        "name": "Walking on the Moon ending",
+        "description": "The closing drum passage an engineer told him would put him on the map.",
+        "heard_on": ["rec:police-walking-on-the-moon-1979"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:musicradar-copeland-interview"]
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:copeland-tama",
+      "label": "Police-era Tama kit",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "snare",
+          "tuning": "high"
+        },
+        {
+          "instrument": "other",
+          "model": "Tama octobans"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "size_in": 13
+        },
+        {
+          "instrument": "splash"
+        }
+      ],
+      "layout_notes": "Virtually the same set for all five Police albums.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:thomann-copeland"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Curved Air",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "name": "The Police",
+      "type": "band_member",
+      "years": {
+        "from": 1977,
+        "to": 1986
+      },
+      "bandmates": [
+        {
+          "name": "Sting"
+        },
+        {
+          "name": "Andy Summers"
+        }
+      ],
+      "notes": "Reunion tour 2007 to 2008.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:imdb-copeland"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:police-roxanne-1978",
+    "rec:police-walking-on-the-moon-1979",
+    "rec:police-message-in-a-bottle-1979",
+    "rec:police-driven-to-tears-1980",
+    "rec:copeland-rumble-fish-1983"
+  ],
+  "relationships": [
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Reggae",
+        "kind": "style",
+        "id": "style:reggae"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:musicradar-copeland-interview"]
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Dub",
+        "kind": "style",
+        "id": "style:dub"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:musicradar-copeland-interview"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Arabic music",
+        "kind": "style",
+        "id": "style:middle-eastern"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:imdb-copeland"]
+      },
+      "strength": 0.4
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Bernard Purdie",
+        "kind": "drummer",
+        "id": "drummer:bernard-purdie"
+      },
+      "evidence": {
+        "confidence": "needs_verification",
+        "source_ids": ["src:dnn-purdie"],
+        "note": "Source lists 'Walking on the Moon' among variations on the Purdie shuffle; no direct citation by Copeland found."
+      },
+      "strength": 0.3
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Sting",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:musicradar-copeland-interview"]
+      },
+      "strength": 0.9
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Confidence over caution: he played the hi-hat parts knowing listeners would love them.",
+        "paraphrase_of_source_id": "src:musicradar-copeland-interview"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.9,
+    "innovations": [
+      "Hi-hat as lead voice in rock",
+      "Reggae and dub space in punk-era rock",
+      "Octobans and splashes in mainstream rock"
+    ],
+    "cultural_references": [
+      {
+        "description": "Composed the Rumble Fish soundtrack and many film scores.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:imdb-copeland"]
+        }
+      }
+    ],
+    "common_misconceptions": ["That The Police played reggae. He calls the grooves reggae-ish."]
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:copeland-hihat-bell-archetype",
+      "pattern:copeland-walking-on-the-moon-archetype"
+    ],
+    "default_kit_sound": "High snare, bright 13in hats, splashes, octobans, light echo",
+    "generation_rules": [
+      "Make the hi-hat the busiest, most varied voice.",
+      "Drop or displace the kick on 1 in reggae feels.",
+      "Add splash accents at phrase ends.",
+      "Optional short delay on snare and hats."
+    ],
+    "avoid": ["Heavy, low-tuned drums", "Four-on-the-floor rock with no hi-hat variation"],
+    "lineage_display": {
+      "primary_ancestors": ["style:reggae", "style:dub", "style:middle-eastern"],
+      "primary_descendants": [],
+      "lineage_blurb": "Beirut childhood, reggae and dub, filtered through punk energy."
+    },
+    "tags": ["new wave", "reggae", "hi-hat", "80s", "Police"],
+    "style_key": "copeland"
+  }
+}

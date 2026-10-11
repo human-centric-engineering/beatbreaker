@@ -1,0 +1,1049 @@
+{
+  "meta": {
+    "id": "drummer:clyde-stubblefield",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.55,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Split James Brown session credits track by track between Stubblefield, Jabo Starks, Nate Jones and Melvin Parker.",
+      "Confirm the date and circumstances of joining Brown (Macon, Georgia, 1965) and the exact date he left (1970 or 1971).",
+      "Promote the four Funklet-derived grids to in_review against stems; add microtiming and velocity detail.",
+      "Reconstructions for Say It Loud, Give It Up or Turnit a Loose and Get Up, Get into It, Get Involved have no published grid.",
+      "Document his kit in the James Brown years."
+    ]
+  },
+  "identity": {
+    "name": "Clyde Stubblefield",
+    "full_name": "Clyde Austin Stubblefield",
+    "aliases": ["The Funky Drummer"],
+    "born": {
+      "date": "1943-04-18",
+      "place": "Chattanooga, Tennessee, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stubblefield-wikipedia", "src:stubblefield-pas-memoriam"]
+      }
+    },
+    "died": {
+      "date": "2017-02-18",
+      "place": "Madison, Wisconsin, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stubblefield-wikipedia", "src:stubblefield-pas-memoriam"],
+        "note": "Kidney failure."
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Chattanooga, Tennessee",
+      "Macon, Georgia",
+      "James Brown's touring and recording bands",
+      "Madison, Wisconsin (1971 onwards)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "active": {
+      "from": 1958,
+      "to": 2017
+    },
+    "roles": ["touring", "band_member", "session", "bandleader", "educator"],
+    "summary": "James Brown's drummer from 1965 to about 1970, in tandem with Jabo Starks. Played softly, with ghost notes felt more than heard, a kick that rarely lands where you expect and a backbeat that moves. His unaccompanied break on 'Funky Drummer' is among the most sampled recordings ever made, yet he received almost no credit or royalties for it. Spent his later decades as a much-loved bandleader in Madison, Wisconsin."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "teachers": [],
+    "traditions": [
+      {
+        "tradition": "Self-taught",
+        "impact": "No formal training; learned by playing in local bands.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Industrial and train rhythms of Chattanooga",
+        "impact": "Took his sense of rhythm from the factories and trains around him as a boy.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-wikipedia", "src:stubblefield-conversation"]
+        }
+      },
+      {
+        "tradition": "Southern R&B and blues bands",
+        "impact": "Learned to play for singers and dancers on the Tennessee and Georgia club circuits.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:stubblefield-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Played with local Tennessee bands as a teenager.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-wikipedia"]
+        }
+      },
+      {
+        "event": "Moved to Macon, Georgia; worked with guitarist Eddie Kirkland and toured with Otis Redding.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-wikipedia"],
+          "note": "Years not confirmed."
+        }
+      },
+      {
+        "year": 1965,
+        "event": "Seen by James Brown in Macon and hired, shortly after Jabo Starks joined.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-wikipedia", "src:stubblefield-pas-memoriam"],
+          "alternatives": [
+            {
+              "value": 1966,
+              "note": "Some accounts date the James Brown start to 1966."
+            }
+          ]
+        }
+      },
+      {
+        "year": 1969,
+        "event": "Recorded 'Funky Drummer' at King Studios, Cincinnati, on 20 November 1969; Brown named it on the spot.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:stubblefield-wiki-funky-drummer", "src:stubblefield-roland"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:stubblefield-early",
+      "label": "Tennessee and Macon",
+      "years": {
+        "from": 1958,
+        "to": 1965
+      },
+      "context": "Local bands in Chattanooga, then Macon, Georgia, with Eddie Kirkland and on the road with Otis Redding.",
+      "defining_traits": ["R&B club work", "playing for dancers"]
+    },
+    {
+      "id": "era:stubblefield-james-brown",
+      "label": "James Brown",
+      "years": {
+        "from": 1965,
+        "to": 1970
+      },
+      "context": "Two-drummer era with Jabo Starks; Brown's sound moved from soul to hard funk on 'Cold Sweat', 'I Got the Feelin'', 'Mother Popcorn' and 'Funky Drummer'.",
+      "defining_traits": [
+        "whisper-quiet ghost notes",
+        "syncopated sixteenth kicks",
+        "displaced backbeats",
+        "one-handed sixteenth hats",
+        "almost no fills"
+      ],
+      "key_recording_ids": [
+        "rec:james-brown-cold-sweat-1967",
+        "rec:james-brown-i-got-the-feelin-1968",
+        "rec:james-brown-say-it-loud-1969",
+        "rec:james-brown-mother-popcorn-1969",
+        "rec:james-brown-funky-drummer-1970",
+        "rec:james-brown-give-it-up-sex-machine-1970"
+      ]
+    },
+    {
+      "id": "era:stubblefield-madison",
+      "label": "Madison bandleader",
+      "years": {
+        "from": 1971,
+        "to": 2017
+      },
+      "context": "Settled in Madison, Wisconsin; led his own band on Monday nights for decades; house drummer on the public radio show 'Whad'Ya Know?'; solo albums from 1997; the Funkmasters with Jabo Starks; sessions with Garbage.",
+      "defining_traits": ["local institution", "teaching the funk"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:funk",
+        "name": "Funk",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "name": "R&B / soul",
+        "weight": 0.8,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "name": "Hip-hop breakbeat",
+        "weight": 0.6,
+        "authority": 1.0,
+        "notes": "As source rather than practitioner: the Funky Drummer break is a foundation of sampled hip-hop."
+      },
+      {
+        "style_id": "style:blues",
+        "name": "Blues",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": -0.9,
+    "role_tendency": "driver",
+    "descriptors": ["light", "syncopated", "ghosted", "slippery", "economical", "funky"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "Measure from stems; often described as relaxed but not obviously behind."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.35,
+      "typical_swing_ratio": 0.54,
+      "notes": "Light sixteenth lilt on Funky Drummer; Cold Sweat, I Got the Feelin' and Mother Popcorn essentially straight."
+    },
+    "dynamics": {
+      "range": 0.7,
+      "default_level": "mp",
+      "ghost_note_level": 22,
+      "accent_level": 110,
+      "balance": "Soft overall; ghosts felt more than heard, a clear snare accent where the groove hooks, kick locked to the bass."
+    },
+    "density": {
+      "groove_notes_per_bar": [10, 22],
+      "fill_frequency": "rare",
+      "space_usage": 0.6
+    },
+    "consistency": 0.95,
+    "tempo_comfort_bpm": [96, 132],
+    "interaction": "Keeps the groove fixed under Brown's cues and the horn lines; changes come at Brown's call rather than as fills.",
+    "descriptors": ["light", "greasy", "syncopated", "relentless"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american", "traditional"],
+    "hand_techniques": [
+      {
+        "name": "One-handed sixteenth hats",
+        "description": "Right hand alone plays sixteenths on the hi-hat; the left hand plays every snare note, ghost and accent.",
+        "weight": 1.0,
+        "pattern_ids": ["pattern:stubblefield-funky-drummer-approx"],
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-current", "src:stubblefield-roland"]
+        }
+      },
+      {
+        "name": "Soft touch",
+        "description": "Played very softly rather than striking the drums hard; dynamics come from contrast, not volume.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-bonedo-cold-sweat", "src:stubblefield-bb-research"]
+        }
+      },
+      {
+        "name": "Whisper ghost notes",
+        "description": "Ghosts round the backbeat at very low velocity, felt more than heard.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-roland", "src:stubblefield-pas-cold-sweat"]
+        }
+      },
+      {
+        "name": "Hi-hat openings on offbeats",
+        "description": "Opens the hats on chosen 'and's (Cold Sweat: the 'and's of 1 and 3) as part of the figure.",
+        "weight": 0.7,
+        "pattern_ids": ["pattern:stubblefield-cold-sweat-approx"],
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:stubblefield-pas-cold-sweat"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Syncopated sixteenth kick",
+        "description": "Kick on the 'a' and 'and' partials rather than downbeats, locked with the bass line.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-roland"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Singles in groupings of three",
+        "usage": ["groove", "ghosted_texture"],
+        "application": "Left-hand ghosts grouped in threes across the bar (I Got the Feelin').",
+        "weight": 0.5,
+        "pattern_ids": ["pattern:stubblefield-i-got-the-feelin-approx"]
+      }
+    ],
+    "coordination": {
+      "independence": 0.85,
+      "linear_playing": 0.3,
+      "ostinato_usage": 0.9,
+      "polyrhythm_usage": 0.2,
+      "odd_meter_fluency": 0.1
+    },
+    "voice_language": {
+      "hihat": "Sixteenths in one hand, eighths or quarters by song; openings as part of the figure.",
+      "snare": "Very soft ghosts, a moving backbeat, single accents on the 'a'.",
+      "kick": "Syncopated, sparse on downbeats after the one.",
+      "toms": "Almost never.",
+      "cymbals": "Few crashes; the hats carry the time."
+    },
+    "implements": {
+      "sticks": 1.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["dry late-60s funk kit", "tight snare", "bright hats", "small room"],
+    "sample_hints": {
+      "60s-70s": "Dry King Studios kit: tight high snare with audible ghosts, short kick, crisp hats with quick openings."
+    },
+    "evidence": {
+      "confidence": "inferred"
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:stubblefield-funky-drummer-break",
+      "label": "The Funky Drummer break",
+      "category": "groove",
+      "description": "An eight-bar unaccompanied break of his own groove, called by Brown; one of the most sampled recordings in history, used by Public Enemy, N.W.A, LL Cool J, Run-DMC and many others.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:james-brown-funky-drummer-1970"
+        }
+      ],
+      "pattern_ids": ["pattern:stubblefield-funky-drummer-approx"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:stubblefield-wiki-funky-drummer",
+          "src:stubblefield-current",
+          "src:stubblefield-conversation"
+        ]
+      }
+    },
+    {
+      "id": "trait:stubblefield-ghosts",
+      "label": "Ghosts felt more than heard",
+      "category": "feel",
+      "description": "Snare ghost notes so quiet they register as texture; the groove's swagger lives in them.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:stubblefield-roland",
+          "src:stubblefield-bonedo-cold-sweat",
+          "src:stubblefield-bb-research"
+        ]
+      }
+    },
+    {
+      "id": "trait:stubblefield-moving-backbeat",
+      "label": "The backbeat that moves",
+      "category": "groove",
+      "description": "Backbeats pushed off 2 and 4: Cold Sweat's to the 'and' of 4, I Got the Feelin's to the 'and's of 2 and 4, Mother Popcorn's to 2 and the 'and' of 4.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:james-brown-cold-sweat-1967"
+        },
+        {
+          "recording_id": "rec:james-brown-i-got-the-feelin-1968"
+        },
+        {
+          "recording_id": "rec:james-brown-mother-popcorn-1969"
+        }
+      ],
+      "pattern_ids": [
+        "pattern:stubblefield-cold-sweat-approx",
+        "pattern:stubblefield-i-got-the-feelin-approx",
+        "pattern:stubblefield-mother-popcorn-approx"
+      ],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:stubblefield-funklet-cold-sweat",
+          "src:stubblefield-funklet-i-got-the-feelin",
+          "src:stubblefield-funklet-mother-popcorn",
+          "src:stubblefield-pas-cold-sweat"
+        ]
+      }
+    },
+    {
+      "id": "trait:stubblefield-no-fills",
+      "label": "Just keep what you got",
+      "category": "musical_approach",
+      "description": "Hardly fills; the groove is the part. Brown's instruction before the Funky Drummer break was not to solo but to keep the groove going.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stubblefield-wiki-funky-drummer"]
+      }
+    },
+    {
+      "id": "trait:stubblefield-one-hand-hats",
+      "label": "One-handed sixteenths",
+      "category": "technique",
+      "description": "Sixteenth hats in the right hand alone, leaving the left free for every snare note.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:stubblefield-funky-drummer-approx"],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:stubblefield-current", "src:stubblefield-roland"]
+      }
+    },
+    {
+      "id": "trait:stubblefield-tandem",
+      "label": "The drum tandem",
+      "category": "studio_practice",
+      "description": "Shared Brown's drum chair with Jabo Starks, alternating songs and sometimes playing together.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stubblefield-wikipedia", "src:stubblefield-pas-memoriam"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:stubblefield-funky-drummer-approx",
+        "name": "Funky Drummer",
+        "type": "groove",
+        "function": "Main groove",
+        "style_ids": ["style:funk", "style:hip-hop-breakbeat"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "history": [
+            {
+              "date": "2026-10-11",
+              "status": "draft",
+              "by": "Claude",
+              "note": "Lanes from BeatBreaker's Funky Drummer figures, which follow the Funklet two-bar grid. Five velocity levels collapsed to three; microtiming and swing (light, about 54%) not captured."
+            }
+          ]
+        },
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:stubblefield-funklet-funky-drummer",
+            "src:stubblefield-current",
+            "src:stubblefield-roland"
+          ],
+          "note": "Mapped from the Funklet grid via BeatBreaker's stubblefield figures; velocity levels collapsed to ghost / hit / accent."
+        },
+        "source": {
+          "recording_id": "rec:james-brown-funky-drummer-1970"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [96, 104]
+        },
+        "lanes": {
+          "hihat": "xxxxxoxoxxxxxoxx|xxxxxoxxxxxxxoxx",
+          "snare": "....X..g.g.xX..x|....X..g.g.xX..x",
+          "kick": "x.x.......x..x..|x.x.......x..x.."
+        },
+        "humanise": {
+          "timing_jitter_ms": 4,
+          "velocity_jitter": 12
+        },
+        "swing_ratio": 0.54,
+        "variation_rules": [
+          {
+            "description": "Let the accent on the 'a' of 4 down to a ghost",
+            "probability": 0.3,
+            "applies_to": "bar 2 step 16"
+          }
+        ],
+        "difficulty": 6,
+        "practice_notes": "Right hand alone on the sixteenth hats; the left hand plays every snare note. Ghosts barely audible, the snare accent on the 'a' of 3 is the hook.",
+        "community_names": ["Funky Drummer", "the Funky Drummer break"],
+        "tags": ["funk", "break", "ghost notes", "one-handed sixteenths", "most sampled", "iconic"]
+      },
+      {
+        "id": "pattern:stubblefield-cold-sweat-approx",
+        "name": "Cold Sweat",
+        "type": "groove",
+        "function": "Main groove",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "history": [
+            {
+              "date": "2026-10-11",
+              "status": "draft",
+              "by": "Claude",
+              "note": "Lanes from BeatBreaker's Cold Sweat figures (Funklet grid). Bar 1 pushes the backbeat on 4 to its 'and'; bar 2 drops the kick on 1."
+            }
+          ]
+        },
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:stubblefield-funklet-cold-sweat",
+            "src:stubblefield-pas-cold-sweat",
+            "src:stubblefield-bonedo-cold-sweat"
+          ],
+          "note": "Mapped from the Funklet grid via BeatBreaker's stubblefield figures; velocity levels collapsed to ghost / hit / accent."
+        },
+        "source": {
+          "recording_id": "rec:james-brown-cold-sweat-1967"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [110, 120]
+        },
+        "lanes": {
+          "hihat": "x.o.x.x.x.o.x.x.|x.o.x.x.x.o.x.x.",
+          "snare": "....X..x......X.|.x..X..x.g..X...",
+          "kick": "X.......x.x.....|..x.....x.x...x."
+        },
+        "humanise": {
+          "timing_jitter_ms": 4,
+          "velocity_jitter": 12
+        },
+        "difficulty": 5,
+        "practice_notes": "Open the hats on the 'and's of 1 and 3. Play softly: the groove is felt, not hammered.",
+        "tags": ["funk", "displaced backbeat", "open hats", "first funk record"]
+      },
+      {
+        "id": "pattern:stubblefield-i-got-the-feelin-approx",
+        "name": "I Got the Feelin'",
+        "type": "groove",
+        "function": "Main groove",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "history": [
+            {
+              "date": "2026-10-11",
+              "status": "draft",
+              "by": "Claude",
+              "note": "Lanes from BeatBreaker's figures (Funklet grid). Bar 2 omits two lone ghosts (the 'e's of 1 and 2) that the Funklet grid has."
+            }
+          ]
+        },
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-funklet-i-got-the-feelin"],
+          "note": "Mapped from the Funklet grid via BeatBreaker's stubblefield figures; velocity levels collapsed to ghost / hit / accent."
+        },
+        "source": {
+          "recording_id": "rec:james-brown-i-got-the-feelin-1968"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [124, 132]
+        },
+        "lanes": {
+          "hihat": "x.o.x.x.x.o.x.x.|x.x.x.x.o.x.x.x.",
+          "snare": "......X..g....X.|....X..x.ggg.ggg",
+          "kick": "x.X.......X.....|..X.....x...x.x."
+        },
+        "humanise": {
+          "timing_jitter_ms": 4,
+          "velocity_jitter": 12
+        },
+        "difficulty": 6,
+        "practice_notes": "Bar 1 puts the backbeats on the 'and's of 2 and 4. Bar 2 groups the left hand in threes on the snare.",
+        "tags": ["funk", "displaced backbeat", "groupings of three"]
+      },
+      {
+        "id": "pattern:stubblefield-mother-popcorn-approx",
+        "name": "Mother Popcorn",
+        "type": "groove",
+        "function": "Main groove",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "history": [
+            {
+              "date": "2026-10-11",
+              "status": "draft",
+              "by": "Claude",
+              "note": "Lanes from BeatBreaker's figures (Funklet grid). Bar 2 omits the three softest ghosts (the 'a's of 1, 2 and 3)."
+            }
+          ]
+        },
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-funklet-mother-popcorn"],
+          "note": "Mapped from the Funklet grid via BeatBreaker's stubblefield figures; velocity levels collapsed to ghost / hit / accent."
+        },
+        "source": {
+          "recording_id": "rec:james-brown-mother-popcorn-1969"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [113, 121]
+        },
+        "lanes": {
+          "hihat": "x...x...x...x...|x...x...x...x...",
+          "snare": "....X..g.g....X.|.g..xg...X..xg.g",
+          "kick": "x.x.......x.....|..x...x...x...x."
+        },
+        "humanise": {
+          "timing_jitter_ms": 4,
+          "velocity_jitter": 12
+        },
+        "difficulty": 6,
+        "practice_notes": "Quarter-note hats leave the snare free to talk with the horns; kick on every 'and' in bar 2.",
+        "tags": ["funk", "quarter-note hats", "busy snare"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:stubblefield-give-the-drummer-some",
+        "name": "Cold Sweat drum break",
+        "description": "The short break Brown calls for with 'give the drummer some', a template for the drum breaks that dance music and hip-hop would build on.",
+        "heard_on": ["rec:james-brown-cold-sweat-1967"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-pas-cold-sweat"]
+        }
+      },
+      {
+        "id": "lick:stubblefield-sex-machine-break",
+        "name": "'Clap your hands, stomp your feet' break",
+        "description": "Drums carrying the break under Brown's voice on the Sex Machine version of 'Give It Up or Turnit a Loose'.",
+        "heard_on": ["rec:james-brown-give-it-up-sex-machine-1970"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:stubblefield-bb-research"]
+        }
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Eddie Kirkland",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:stubblefield-wikipedia"],
+        "note": "Years not confirmed."
+      }
+    },
+    {
+      "name": "Otis Redding",
+      "type": "touring_drummer",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:stubblefield-wikipedia"],
+        "note": "Reported as touring with Redding before Brown; details thin."
+      }
+    },
+    {
+      "name": "James Brown",
+      "type": "band_member",
+      "years": {
+        "from": 1965,
+        "to": 1970
+      },
+      "bandmates": [
+        {
+          "name": "Jabo Starks",
+          "drummer_id": "drummer:jabo-starks",
+          "role": "co-drummer"
+        },
+        {
+          "name": "Bernard Odum",
+          "role": "bass"
+        },
+        {
+          "name": "Jimmy Nolen",
+          "role": "guitar"
+        },
+        {
+          "name": "Maceo Parker",
+          "role": "tenor saxophone"
+        },
+        {
+          "name": "Fred Wesley",
+          "role": "trombone"
+        },
+        {
+          "name": "Pee Wee Ellis",
+          "role": "saxophone, arranger"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stubblefield-wikipedia", "src:stubblefield-pas-memoriam"]
+      }
+    },
+    {
+      "name": "The Clyde Stubblefield Band",
+      "type": "bandleader",
+      "years": {
+        "from": 1971,
+        "to": 2017
+      },
+      "notes": "Weekly Monday-night residency in Madison for decades; years approximate.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:stubblefield-wikipedia"]
+      }
+    },
+    {
+      "name": "Whad'Ya Know? (public radio)",
+      "type": "house_band",
+      "notes": "Regular drummer on Michael Feldman's show for over two decades.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:stubblefield-wikipedia"]
+      }
+    },
+    {
+      "name": "The Funkmasters",
+      "type": "band_member",
+      "bandmates": [
+        {
+          "name": "Jabo Starks",
+          "drummer_id": "drummer:jabo-starks"
+        }
+      ],
+      "notes": "Records and instructional videos.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:stranger-starks"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:james-brown-cold-sweat-1967",
+    "rec:james-brown-i-got-the-feelin-1968",
+    "rec:james-brown-say-it-loud-1969",
+    "rec:james-brown-mother-popcorn-1969",
+    "rec:james-brown-funky-drummer-1970",
+    "rec:james-brown-give-it-up-sex-machine-1970"
+  ],
+  "relationships": [
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Jabo Starks",
+        "kind": "drummer",
+        "id": "drummer:jabo-starks"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1965,
+        "to": 1970
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stubblefield-wikipedia", "src:wapo-starks"]
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Melvin Parker",
+        "kind": "drummer",
+        "id": "drummer:melvin-parker"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "note": "Melvin Parker drummed for Brown in 1964-65 ('Papa's Got a Brand New Bag'); Stubblefield followed. Not a direct one-for-one replacement."
+      }
+    },
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Industrial and train rhythms of Chattanooga",
+        "kind": "tradition"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:stubblefield-wikipedia", "src:stubblefield-conversation"]
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "R&B / soul",
+        "kind": "style",
+        "id": "style:rnb-soul"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "inferred"
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Otis Redding",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:stubblefield-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Eddie Kirkland",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:stubblefield-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Bernard Odum",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:stubblefield-wiki-cold-sweat"],
+        "note": "Bass on Cold Sweat; track-level partnership to confirm."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Bootsy Collins",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "aspects": ["Sex Machine album, 1970"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:stubblefield-wikipedia", "src:stubblefield-wiki-give-it-up"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Hip-hop breakbeat",
+        "kind": "style",
+        "id": "style:hip-hop-breakbeat"
+      },
+      "strength": 1.0,
+      "aspects": ["the Funky Drummer break, sampled on more than a thousand records"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:stubblefield-wiki-funky-drummer",
+          "src:stubblefield-current",
+          "src:stubblefield-conversation"
+        ]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Questlove",
+        "kind": "drummer",
+        "id": "drummer:questlove"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "note": "Questlove has repeatedly cited the James Brown drummers; specific citation to be sourced."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Prince",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "aspects": ["admired him; paid about $80,000 of his medical bills"],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:stubblefield-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "videos": [
+      {
+        "title": "The Funkmasters instructional videos (with Jabo Starks)",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stranger-starks"]
+        }
+      }
+    ],
+    "philosophy": [
+      {
+        "idea": "Keep what you've got: the groove is the part, not the fill.",
+        "paraphrase_of_source_id": "src:stubblefield-wiki-funky-drummer"
+      },
+      {
+        "idea": "Play light; the funk is in the ghosts and the space.",
+        "paraphrase_of_source_id": "src:stubblefield-bonedo-cold-sweat"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.95,
+    "innovations": [
+      "Ghost-note and syncopated-kick vocabulary that defined funk drumming",
+      "Displaced, moving backbeats inside a fixed groove",
+      "The Funky Drummer break, a cornerstone of sample-based music"
+    ],
+    "accolades": [
+      {
+        "award": "Wisconsin Area Music Industry Hall of Fame",
+        "year": 2000,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-wikipedia"]
+        }
+      },
+      {
+        "award": "Yamaha Legacy Award (with Jabo Starks)",
+        "year": 2013,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-wikipedia"]
+        }
+      },
+      {
+        "award": "Rolling Stone 100 Greatest Drummers of All Time, no. 6 (tied with Jabo Starks)",
+        "year": 2016,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-wikipedia"]
+        }
+      },
+      {
+        "award": "Honorary doctorate, University of Wisconsin-Madison (posthumous)",
+        "year": 2017,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "The Funky Drummer break underpins Public Enemy, N.W.A, LL Cool J, Run-DMC and Beastie Boys records, among more than a thousand others; he was rarely credited and received no sampling royalties.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:stubblefield-wiki-funky-drummer",
+            "src:stubblefield-current",
+            "src:stubblefield-conversation"
+          ]
+        }
+      },
+      {
+        "description": "Prince paid about $80,000 of his medical bills, revealed in 2016.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he played 'Sex Machine' and 'Super Bad'. Those are Jabo Starks.",
+      "That he played the 1969 single of 'Give It Up or Turnit a Loose'. That is Nate Jones; the Sex Machine album version is his.",
+      "That he played 'Papa's Got a Brand New Bag' (1965). It predates him."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "stubblefield",
+    "headline_pattern_ids": [
+      "pattern:stubblefield-funky-drummer-approx",
+      "pattern:stubblefield-cold-sweat-approx",
+      "pattern:stubblefield-i-got-the-feelin-approx",
+      "pattern:stubblefield-mother-popcorn-approx"
+    ],
+    "default_kit_sound": "Dry late-60s King Studios funk kit: tight snare, short kick, crisp hats",
+    "generation_rules": [
+      "Each New plays one record at its own tempo, hat subdivision and swing.",
+      "Sixteenth hats in the right hand only; the left plays every snare note.",
+      "Ghosts very quiet (velocity 15 to 30) and placed round the backbeat.",
+      "Kick on syncopated sixteenths; the one usually present.",
+      "Fills rare and short: an accent on the 'a', a hat opening."
+    ],
+    "avoid": [
+      "Hand-to-hand sixteenth hats",
+      "Tom fills",
+      "Loud ghost notes",
+      "Crash on every phrase"
+    ],
+    "lineage_display": {
+      "primary_ancestors": ["style:rnb-soul", "drummer:jabo-starks"],
+      "primary_descendants": ["style:hip-hop-breakbeat", "drummer:questlove"],
+      "lineage_blurb": "Self-taught in Chattanooga from the rhythm of trains and factories, he and Jabo Starks built James Brown's funk, and his Funky Drummer break became a foundation of hip-hop."
+    },
+    "tags": ["funk", "James Brown", "breaks", "ghost notes", "most sampled", "60s"]
+  }
+}

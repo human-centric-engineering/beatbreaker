@@ -1,0 +1,22 @@
+{
+  "id": "rec:angine-vol-ii-2026",
+  "title": "Vol. II",
+  "artist": "Angine de Poitrine",
+  "year": 2026,
+  "type": "album",
+  "style_ids": ["style:math-rock", "style:experimental-rock", "style:progressive-rock"],
+  "studio_context": "Released 3 April 2026 on Spectacles Bonzaï; shortlisted for the 2026 Polaris Music Prize.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:klek-de-poitrine",
+      "name": "Klek de Poitrine",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Breakthrough album; tracks include 'Fabienk', 'Mata Zyklek' and 'Sarniezz'."
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wikipedia-angine"]
+  }
+}

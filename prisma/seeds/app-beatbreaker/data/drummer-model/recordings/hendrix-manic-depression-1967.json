@@ -1,0 +1,43 @@
+{
+  "id": "rec:hendrix-manic-depression-1967",
+  "title": "Manic Depression",
+  "artist": "The Jimi Hendrix Experience",
+  "release": "Are You Experienced",
+  "year": 1967,
+  "type": "studio_track",
+  "producer": "Chas Chandler",
+  "style_ids": ["style:psychedelic-rock", "style:jazz-waltz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mitch-mitchell",
+      "name": "Mitch Mitchell",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "A psychedelic 3/4 waltz where he clearly emulates Elvin Jones.",
+      "pattern_ids": ["pattern:mitchell-manic-depression-archetype"],
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "3/4 rock waltz that drummers immediately recognised as his version of Elvin Jones.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:npr-mitchell", "src:md-mitchell"]
+          },
+          "pattern_id": "pattern:mitchell-manic-depression-archetype"
+        },
+        {
+          "category": "fill",
+          "description": "Triplets explode around the kit in the outro.",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:drumchat-mitchell"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:npr-mitchell"]
+  }
+}

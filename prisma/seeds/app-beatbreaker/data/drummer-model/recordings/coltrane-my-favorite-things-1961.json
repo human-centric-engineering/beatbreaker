@@ -1,0 +1,51 @@
+{
+  "id": "rec:coltrane-my-favorite-things-1961",
+  "title": "My Favorite Things",
+  "artist": "John Coltrane",
+  "year": 1961,
+  "type": "album",
+  "style_ids": ["style:jazz-waltz", "style:post-bop"],
+  "personnel": [
+    {
+      "name": "John Coltrane",
+      "role": "soprano and tenor saxophone"
+    },
+    {
+      "name": "McCoy Tyner",
+      "role": "piano"
+    },
+    {
+      "name": "Steve Davis",
+      "role": "bass",
+      "evidence": {
+        "confidence": "likely"
+      }
+    }
+  ],
+  "studio_context": "Recorded October 1960.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:elvin-jones",
+      "name": "Elvin Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "The title track's 3/4 waltz with implied 6/8 became a template he reused on 'Afro Blue'.",
+      "pattern_ids": ["pattern:elvin-waltz-archetype"],
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "Jazz waltz feel with hemiola under Coltrane's soprano.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:jazzonthetube-elvin"]
+          },
+          "pattern_id": "pattern:elvin-waltz-archetype"
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:britannica-elvin"]
+  }
+}

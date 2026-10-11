@@ -1,0 +1,17 @@
+{
+  "id": "style:punk",
+  "name": "Punk",
+  "kind": "genre",
+  "parents": [
+    {
+      "style_id": "style:rock",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1974
+  }
+}

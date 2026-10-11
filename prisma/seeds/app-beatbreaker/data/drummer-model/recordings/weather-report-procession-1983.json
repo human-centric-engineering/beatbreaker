@@ -1,0 +1,35 @@
+{
+  "id": "rec:weather-report-procession-1983",
+  "title": "Procession",
+  "artist": "Weather Report",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "Joe Zawinul",
+      "role": "keyboards"
+    },
+    {
+      "name": "Wayne Shorter",
+      "role": "saxophone"
+    },
+    {
+      "name": "Victor Bailey",
+      "role": "bass"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:omar-hakim",
+      "name": "Omar Hakim",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "First of three Weather Report albums; Hakim's fusion credentials established here."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:roland-hakim"]
+  }
+}

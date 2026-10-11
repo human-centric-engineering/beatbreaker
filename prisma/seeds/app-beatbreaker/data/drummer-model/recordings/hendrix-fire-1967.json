@@ -1,0 +1,23 @@
+{
+  "id": "rec:hendrix-fire-1967",
+  "title": "Fire",
+  "artist": "The Jimi Hendrix Experience",
+  "release": "Are You Experienced",
+  "year": 1967,
+  "type": "studio_track",
+  "style_ids": ["style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mitch-mitchell",
+      "name": "Mitch Mitchell",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Hard-charging, explosive drumming.",
+      "pattern_ids": ["pattern:mitchell-fire-archetype"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:pollstar-mitchell"]
+  }
+}

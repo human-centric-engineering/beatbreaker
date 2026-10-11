@@ -1,0 +1,78 @@
+[
+  {
+    "id": "src:tony-williams-wikipedia",
+    "type": "encyclopedia",
+    "title": "Tony Williams (drummer) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Tony_Williams_(drummer)",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:tony-williams-goodman-2011",
+    "type": "analysis",
+    "title": "Dave Goodman, Tony Williams' drumset ideology to 1969 (PhD thesis, Sydney Conservatorium of Music, 2011)",
+    "url": "https://ses.library.usyd.edu.au/handle/2123/7797",
+    "reliability": 0.9,
+    "accessed": "2026-10-11",
+    "notes": "Read in full for drumming-research.md section G. Source for the Blakey/Roach/Philly Joe modelling, the silent hat foot in 1964-65, and Miles's 'on top' remark."
+  },
+  {
+    "id": "src:tony-williams-bishop-seven-steps",
+    "type": "transcription",
+    "title": "Todd Bishop, Transcription: Tony Williams - Seven Steps to Heaven, head in (cruiseshipdrummer.com)",
+    "url": "https://cruiseshipdrummer.com/?p=3161",
+    "reliability": 0.8,
+    "accessed": "2026-10-11",
+    "notes": "Measured tempos (about 310 rising to 356) for the Four & More tunes."
+  },
+  {
+    "id": "src:tony-williams-bishop-cantaloupe",
+    "type": "transcription",
+    "title": "Todd Bishop, Transcription: Tony Williams - Cantaloupe Island (cruiseshipdrummer.com)",
+    "url": "https://cruiseshipdrummer.com/2023/03/04/transcription-tony-williams-cantaloupe-island",
+    "reliability": 0.8,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:tony-williams-md-1983",
+    "type": "magazine",
+    "title": "Modern Drummer, January 1983: Studies in Style part II - Tony Williams",
+    "url": "https://www.moderndrummer.com/article/january-1983-studies-style-part-ii-tony-williams/",
+    "reliability": 0.8,
+    "accessed": "2026-10-11",
+    "notes": "Preview only."
+  },
+  {
+    "id": "src:tony-williams-friberg-2002",
+    "type": "analysis",
+    "title": "Friberg and Sundstrom, Swing ratios and ensemble timing in jazz performance (Music Perception 19/3, 2002)",
+    "url": "https://acoustics.org/pressroom/httpdocs/137th/friberg.html",
+    "reliability": 0.85,
+    "accessed": "2026-10-11",
+    "notes": "Ride-cymbal swing ratios fall towards even eighths as tempo rises; includes a 1964 Tony Williams concert."
+  },
+  {
+    "id": "src:tony-williams-jazzhistorydatabase",
+    "type": "biography",
+    "title": "Tony Williams: drummer, composer, bandleader (Jazz History Database, New England Jazz)",
+    "url": "https://www.jazzhistorydatabase.com/neja/tony-williams.php",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:tony-williams-allmusic",
+    "type": "biography",
+    "title": "AllMusic: Tony Williams biography",
+    "url": "https://www.allmusic.com/artist/tony-williams-mn0000791318/biography",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:tony-williams-bluenote",
+    "type": "biography",
+    "title": "Blue Note Records: Tony Williams",
+    "url": "https://www.bluenote.com/artist/anthony-williams-tony-williams/",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  }
+]

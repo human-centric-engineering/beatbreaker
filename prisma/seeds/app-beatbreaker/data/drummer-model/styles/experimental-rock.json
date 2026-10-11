@@ -1,0 +1,14 @@
+{
+  "id": "style:experimental-rock",
+  "name": "Experimental rock",
+  "kind": "genre",
+  "parents": [
+    {
+      "style_id": "style:rock",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ]
+}

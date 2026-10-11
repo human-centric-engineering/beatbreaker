@@ -1,0 +1,810 @@
+{
+  "meta": {
+    "id": "drummer:bernard-purdie",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Resolve birth year (1939 vs 1941) from a primary source.",
+      "Transcribe the Purdie shuffle from Home at Last and Babylon Sisters stems; current grid is an approximation.",
+      "Transcribe the Rock Steady break.",
+      "Confirm Purdie on 'Kid Charlemagne' from album credits.",
+      "Add his Steely Dan sound and kit details from the 1970s."
+    ]
+  },
+  "identity": {
+    "name": "Bernard Purdie",
+    "full_name": "Bernard Lee Purdie",
+    "aliases": ["Pretty Purdie", "The Hitmaker"],
+    "born": {
+      "date": "1939-06-11",
+      "place": "Elkton, Maryland, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wiki-mirror-purdie", "src:wiki-old-purdie"],
+        "alternatives": [
+          {
+            "value": "1941-06-11",
+            "note": "Some biographies give 1941."
+          }
+        ]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York R&B and session scene (1960s onwards)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "active": {
+      "from": 1958,
+      "ongoing": true
+    },
+    "roles": ["session", "touring", "bandleader", "producer"],
+    "summary": "The archetypal soul and funk session drummer. Strict, deep time and a half-time triplet groove that carries his name. Musical director for Aretha Franklin in the early 1970s, drummer on Steely Dan's most celebrated shuffles, and a famously confident self-promoter who styles himself the world's most recorded drummer."
+  },
+  "formation": {
+    "first_instrument": "drums (hitting cans with sticks as a child)",
+    "teachers": [
+      {
+        "name": "Leonard Heywood",
+        "role": "Learned first by overhearing his lessons, later took lessons and played in his big band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wiki-mirror-purdie"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Big band swing",
+        "impact": "Early study of swing-era drummers and big band playing shaped his time and set-ups.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wiki-mirror-purdie"]
+        }
+      },
+      {
+        "tradition": "R&B and soul sessions",
+        "impact": "Learned to make records: short, hooky parts with a strong backbeat.",
+        "evidence": {
+          "confidence": "inferred"
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Eleventh of fifteen children.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wiki-mirror-purdie"]
+        }
+      },
+      {
+        "year": 1961,
+        "event": "Moved from Elkton to New York City.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wiki-mirror-purdie"],
+          "alternatives": [
+            {
+              "value": 1960,
+              "source_ids": ["src:wiki-old-purdie"]
+            }
+          ]
+        }
+      },
+      {
+        "year": 1965,
+        "event": "Hired by arranger Sammy Lowe for a James Brown session.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wiki-mirror-purdie"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:purdie-ny-rnb",
+      "label": "New York R&B sessions",
+      "years": {
+        "from": 1961,
+        "to": 1969
+      },
+      "context": "Lonnie Youngblood, King Curtis, Mickey and Sylvia, James Brown sessions, own album Soul Drums (1968).",
+      "defining_traits": ["hard backbeat", "economical fills", "hit-making parts"]
+    },
+    {
+      "id": "era:purdie-aretha",
+      "label": "Aretha Franklin musical director",
+      "years": {
+        "from": 1970,
+        "to": 1975
+      },
+      "context": "Musical director and drummer for Aretha and her opening act King Curtis and the Kingpins.",
+      "defining_traits": ["gospel-soul lift", "funk grooves", "leading a band from the kit"],
+      "key_recording_ids": ["rec:aretha-rock-steady-1971", "rec:aretha-live-fillmore-west-1971"]
+    },
+    {
+      "id": "era:purdie-steely-dan",
+      "label": "Steely Dan and jazz-funk",
+      "years": {
+        "from": 1976,
+        "to": 1980
+      },
+      "context": "Studio work for Steely Dan alongside wide jazz, funk and pop sessions.",
+      "defining_traits": ["Purdie shuffle", "precise half-time feel"],
+      "key_recording_ids": [
+        "rec:steely-dan-kid-charlemagne-1976",
+        "rec:steely-dan-home-at-last-1977",
+        "rec:steely-dan-babylon-sisters-1980"
+      ]
+    },
+    {
+      "id": "era:purdie-elder",
+      "label": "Elder statesman",
+      "years": {
+        "from": 1981,
+        "ongoing": true
+      },
+      "context": "Sessions, clinics, the 3B's (mid-1990s), own projects.",
+      "defining_traits": ["teaching the shuffle", "showmanship"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rnb-soul",
+        "name": "R&B / soul",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:funk",
+        "name": "Funk",
+        "weight": 0.9,
+        "authority": 0.85
+      },
+      {
+        "style_id": "style:half-time-shuffle",
+        "name": "Half-time shuffle",
+        "weight": 0.8,
+        "authority": 1.0,
+        "notes": "The Purdie shuffle is the reference version."
+      },
+      {
+        "style_id": "style:jazz",
+        "name": "Jazz / soul-jazz",
+        "weight": 0.6,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "name": "Pop and rock sessions",
+        "weight": 0.6,
+        "authority": 0.6
+      }
+    ],
+    "versatility": 0.85,
+    "groove_vs_chops": -0.7,
+    "role_tendency": "driver",
+    "descriptors": ["deep pocket", "strict time", "funky", "confident", "song-making", "showman"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "Known for strict time rather than an obviously laid-back feel. Measure from stems."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.35,
+      "typical_swing_ratio": 0.66,
+      "notes": "Comfortable moving between straight funk and full triplet shuffle; ghost notes often swung."
+    },
+    "dynamics": {
+      "range": 0.75,
+      "default_level": "mf",
+      "ghost_note_level": 30,
+      "accent_level": 115,
+      "balance": "Strong backbeat, active but quiet ghost notes, solid kick."
+    },
+    "density": {
+      "groove_notes_per_bar": [10, 24],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.5
+    },
+    "consistency": 0.97,
+    "tempo_comfort_bpm": [65, 140],
+    "interaction": "Plays to the singer and makes the groove the foundation of the record. As musical director he cued and led the band.",
+    "descriptors": ["rock steady", "funky", "rolling", "precise"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american", "traditional"],
+    "hand_techniques": [
+      {
+        "name": "Middle-partial ghost notes",
+        "description": "Soft snare strokes on the middle triplet partial that give the shuffle its roll.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:historyofrecording-purdie"]
+        }
+      },
+      {
+        "name": "Hi-hat articulation",
+        "description": "Shuffled hi-hat with clear accents; uses openings for lift.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely"
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Syncopated kick under shuffle",
+        "description": "Kick placed on triplet partials to push the half-time feel forward.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely"
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single strokes in triplet groupings",
+        "usage": ["groove", "ghosted_texture"],
+        "application": "Hi-hat plus snare ghost combinations across the triplet grid.",
+        "weight": 0.8,
+        "pattern_ids": ["pattern:purdie-shuffle-approx"]
+      }
+    ],
+    "coordination": {
+      "independence": 0.8,
+      "linear_playing": 0.3,
+      "ostinato_usage": 0.7,
+      "polyrhythm_usage": 0.3,
+      "odd_meter_fluency": 0.3
+    },
+    "voice_language": {
+      "hihat": "Shuffled or straight, accented; the engine of the groove.",
+      "snare": "Hard backbeat plus constant soft ghost commentary.",
+      "kick": "Syncopated but always supporting the bass line.",
+      "toms": "Used for short fills rather than long runs.",
+      "cymbals": "Crashes to mark sections; little ride wash."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.4
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": ["fat snare", "tight hi-hat", "dry 70s toms"],
+    "sample_hints": {
+      "70s": "Dry kit, medium-tuned fat snare, tight hats, muffled kick."
+    },
+    "evidence": {
+      "confidence": "inferred"
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:purdie-shuffle",
+      "label": "The Purdie shuffle",
+      "category": "groove",
+      "description": "Triplet shuffle against a half-time backbeat on 3, with ghost notes on the middle triplet partial filling the gaps. Copied and adapted by Jeff Porcaro, John Bonham and many others.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:steely-dan-home-at-last-1977"
+        },
+        {
+          "recording_id": "rec:steely-dan-babylon-sisters-1980"
+        }
+      ],
+      "pattern_ids": ["pattern:purdie-shuffle-approx"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dnn-purdie", "src:wiki-mirror-purdie"]
+      }
+    },
+    {
+      "id": "trait:purdie-strict-time",
+      "label": "Strict time",
+      "category": "feel",
+      "description": "Precise, unwavering time is the quality most associated with him by peers and biographers.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dnn-purdie"]
+      }
+    },
+    {
+      "id": "trait:purdie-hitmaker-signs",
+      "label": "Hitmaker signs",
+      "category": "quirk",
+      "description": "Sets up two signs by his kit on new sessions declaring himself the hitmaker. Part of a larger-than-life self-promotional persona.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-old-purdie", "src:rbma-purdie"]
+      }
+    },
+    {
+      "id": "trait:purdie-md-from-kit",
+      "label": "Leading the band from the kit",
+      "category": "musical_approach",
+      "description": "As Aretha Franklin's musical director he ran the band from the drums; his job was to give the singer what she needed every time.",
+      "audibility": "subtle",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rbma-purdie"]
+      }
+    },
+    {
+      "id": "trait:purdie-groove-fusion",
+      "label": "Fusing swing, blues and funk",
+      "category": "groove",
+      "description": "Often blends swing, blues and funk inside one groove, including straight-eight feels with swung ghost notes.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:historyofrecording-purdie"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:purdie-shuffle-approx",
+        "name": "Purdie shuffle (half-time)",
+        "type": "groove",
+        "function": "Main groove",
+        "style_ids": ["style:half-time-shuffle", "style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "by_ear",
+          "history": [
+            {
+              "date": "2026-10-11",
+              "status": "draft",
+              "by": "Claude",
+              "note": "Built from the documented structure; kick placement approximate."
+            }
+          ]
+        },
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dnn-purdie", "src:historyofrecording-purdie"]
+        },
+        "source": {
+          "recording_id": "rec:steely-dan-home-at-last-1977"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 2,
+        "feel": "half_time_shuffle",
+        "tempo": {
+          "playable_range_bpm": [80, 130],
+          "half_time_feel": true
+        },
+        "lanes": {
+          "hihat": "X.xX.xX.xX.x|X.xX.xX.xX.x",
+          "snare": ".g..g.Xg..g.|.g..g.Xg..gg",
+          "kick": "x....x....x.|x....x..x..."
+        },
+        "humanise": {
+          "timing_jitter_ms": 4,
+          "velocity_jitter": 10
+        },
+        "variation_rules": [
+          {
+            "description": "Add a ghost on the last partial of bar 2 to lead back in",
+            "probability": 0.5,
+            "applies_to": "bar 2 beat 4"
+          },
+          {
+            "description": "Open the hi-hat on the last partial before a section change",
+            "probability": 0.3,
+            "applies_to": "last bar of phrase"
+          }
+        ],
+        "difficulty": 7,
+        "practice_notes": "Keep ghosts very quiet and evenly spaced on the middle partial. The backbeat on 3 must sit dead centre.",
+        "derived_from": [
+          {
+            "style_id": "style:blues-shuffle",
+            "how": "Triplet shuffle halved in feel with funk ghost notes added",
+            "evidence": {
+              "confidence": "widely_reported"
+            }
+          }
+        ],
+        "community_names": ["Purdie shuffle", "half-time shuffle"],
+        "related_pattern_ids": ["pattern:style-blues-shuffle"],
+        "tags": ["shuffle", "ghost notes", "half-time", "iconic"]
+      },
+      {
+        "id": "pattern:purdie-rock-steady-archetype",
+        "name": "Rock Steady-style funk groove",
+        "type": "groove",
+        "function": "Verse groove / break",
+        "style_ids": ["style:funk", "style:rnb-soul"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "In the spirit of his 'funky and low down' Rock Steady groove; not the actual part."
+        },
+        "source": {
+          "recording_id": "rec:aretha-rock-steady-1971"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "swing_ratio": 0.55,
+        "tempo": {
+          "playable_range_bpm": [95, 110]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.o.",
+          "snare": "....X..g.g..X...",
+          "kick": "x..x..x...x..x.."
+        },
+        "humanise": {
+          "timing_jitter_ms": 4,
+          "velocity_jitter": 10
+        },
+        "difficulty": 4,
+        "tags": ["funk", "break"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:purdie-rock-steady-break",
+        "name": "Rock Steady drum break",
+        "description": "The break that DJs, drummers and producers seized on; a high-water mark of funk drumming.",
+        "heard_on": ["rec:aretha-rock-steady-1971"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:rbma-purdie"]
+        }
+      },
+      {
+        "id": "lick:purdie-shuffle-fill",
+        "name": "Triplet fill out of the shuffle",
+        "description": "Short triplet snare-and-tom figure that stays inside the shuffle grid rather than breaking the feel.",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely"
+        }
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Lonnie Youngblood",
+      "type": "band_member",
+      "years": {
+        "from": 1960
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wiki-old-purdie"]
+      }
+    },
+    {
+      "name": "King Curtis and the Kingpins",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-mirror-purdie"]
+      }
+    },
+    {
+      "name": "Aretha Franklin",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1970,
+        "to": 1975
+      },
+      "notes": "Musical director for five years.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-mirror-purdie", "src:dnn-purdie"]
+      }
+    },
+    {
+      "name": "The 3B's",
+      "type": "band_member",
+      "years": {
+        "from": 1994,
+        "to": 1997
+      },
+      "bandmates": [
+        {
+          "name": "Bross Townsend"
+        },
+        {
+          "name": "Bob Cunningham"
+        }
+      ],
+      "notes": "Mid-1990s; years approximate.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wiki-mirror-purdie"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:purdie-soul-drums-1968",
+    "rec:james-brown-say-it-loud-1969",
+    "rec:aretha-rock-steady-1971",
+    "rec:aretha-live-fillmore-west-1971",
+    "rec:steely-dan-kid-charlemagne-1976",
+    "rec:steely-dan-home-at-last-1977",
+    "rec:steely-dan-babylon-sisters-1980"
+  ],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Leonard Heywood",
+        "kind": "teacher"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wiki-mirror-purdie"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Papa Jo Jones",
+        "kind": "drummer",
+        "id": "drummer:papa-jo-jones"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dnn-purdie"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dnn-purdie"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dnn-purdie"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dnn-purdie"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Joe Marshall",
+        "kind": "drummer"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dnn-purdie"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Louie Bellson",
+        "kind": "drummer",
+        "id": "drummer:louie-bellson"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wiki-mirror-purdie"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Herbie Lovelle",
+        "kind": "drummer"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wiki-mirror-purdie"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Cozy Cole",
+        "kind": "drummer",
+        "id": "drummer:cozy-cole"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wiki-mirror-purdie"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Panama Francis",
+        "kind": "drummer"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wiki-mirror-purdie"]
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Big band swing",
+        "kind": "style",
+        "id": "style:big-band-swing"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "inferred"
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "King Curtis",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-mirror-purdie"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Jeff Porcaro",
+        "kind": "drummer",
+        "id": "drummer:jeff-porcaro"
+      },
+      "strength": 0.7,
+      "aspects": ["half-time shuffle (Rosanna)"],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dnn-purdie"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.4,
+      "aspects": ["half-time shuffle (Fool in the Rain)"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dnn-purdie"],
+        "note": "Source notes the shuffle variant on the record, not a direct citation."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "The drummer's job is to give the artist what they need, every time.",
+        "paraphrase_of_source_id": "src:rbma-purdie"
+      },
+      {
+        "idea": "Time first: precision is the foundation everything else sits on."
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.9,
+    "innovations": [
+      "Codified the half-time shuffle with middle-partial ghost notes",
+      "Funk breaks that became sampling staples"
+    ],
+    "accolades": [
+      {
+        "award": "Modern Drummer Hall of Fame",
+        "year": 2013,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wiki-mirror-purdie"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Variations on his shuffle underpin Led Zeppelin's 'Fool in the Rain', Toto's 'Rosanna' and others.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dnn-purdie"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he secretly drummed on early Beatles records. He claimed in the 1970s to have overdubbed early Beatles-related recordings; this is disputed and unverified.",
+      "That 'world's most recorded drummer' is an established fact. It is his own long-standing claim."
+    ]
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:purdie-shuffle-approx",
+      "pattern:purdie-rock-steady-archetype"
+    ],
+    "default_kit_sound": "Dry 70s soul kit: fat snare, tight hats, muffled kick",
+    "generation_rules": [
+      "Default to triplet grid with backbeat on 3 for shuffles.",
+      "Ghost notes on the middle triplet partial at velocity 25 to 35.",
+      "Accent hi-hat on the beat.",
+      "Fills short and inside the grid."
+    ],
+    "avoid": ["Displacing the backbeat", "Long tom runs", "Loose or wandering time"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:papa-jo-jones", "drummer:buddy-rich", "style:big-band-swing"],
+      "primary_descendants": ["drummer:jeff-porcaro"],
+      "lineage_blurb": "Swing-era time meets soul and funk sessions; the shuffle passed to Porcaro and on to rock."
+    },
+    "tags": ["session", "soul", "funk", "shuffle", "70s", "breaks"]
+  }
+}

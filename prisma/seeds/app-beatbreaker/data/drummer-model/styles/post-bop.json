@@ -1,0 +1,22 @@
+{
+  "id": "style:post-bop",
+  "name": "Post-bop / modal jazz",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:jazz",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1960
+  },
+  "summary": "Small-group jazz after bebop; modal harmony, extended solos, drummer as co-improviser.",
+  "drum_characteristics": {
+    "feel": "Swing, often triplet-saturated",
+    "hallmarks": ["ride as melodic line", "comping as conversation", "cross-rhythms over the time"]
+  }
+}

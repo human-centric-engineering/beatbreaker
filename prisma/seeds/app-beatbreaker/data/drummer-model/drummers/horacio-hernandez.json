@@ -1,0 +1,685 @@
+{
+  "meta": {
+    "id": "drummer:horacio-hernandez",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Check the cáscara orientation and the songo grid against Conversations in Clave before promoting either pattern.",
+      "Confirm which recording the 1997 Grammy relates to.",
+      "Confirm birth date (one source gives 24 April 1963, others only the year).",
+      "Add track-level detail for the Michel Camilo, Santana and Roy Hargrove work.",
+      "Add Volcán and Rubalcaba Proyecto albums with confirmed titles and years."
+    ]
+  },
+  "identity": {
+    "name": "Horacio Hernández",
+    "aliases": ["El Negro", "Horacio 'El Negro' Hernández"],
+    "born": {
+      "date": "1963-04-24",
+      "place": "Havana, Cuba",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:drummercafe-hernandez", "src:pearl-hernandez"],
+        "note": "Year confirmed by several sources; day and month from one."
+      }
+    },
+    "nationality": ["Cuban"],
+    "home_scenes": ["Havana (1980s)", "International Latin jazz (from 1990)"],
+    "handedness": "ambidextrous",
+    "kit_orientation": "right_handed",
+    "active": {
+      "from": 1980,
+      "ongoing": true
+    },
+    "roles": [
+      "session",
+      "touring",
+      "band_member",
+      "composer",
+      "producer",
+      "author",
+      "educator",
+      "percussionist"
+    ],
+    "summary": "The leading exponent of four-way independence in Afro-Cuban drumming. Plays clave with his left foot on a pedal cowbell, jam block or hi-hat while the right foot holds the bass line and the hands play bongo, timbale and conga parts across the kit. Rose with Gonzalo Rubalcaba's Proyecto, left Cuba in 1990, and became the engine of Latin and Latin-fusion records for Michel Camilo, Santana, Roy Hargrove, Chucho Valdés and many more."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "institutions": [
+      {
+        "name": "National School of Arts, Havana",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pearl-hernandez"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Cuban folkloric and popular rhythm (clave-based)",
+        "impact": "Clave as the anchor for everything he plays.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sfjazz-hernandez"]
+        }
+      },
+      {
+        "tradition": "Jazz, pop and rock drumming",
+        "impact": "Fused folkloric clave with the punch and snap of modern jazz, pop and rock.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:drummercafe-hernandez"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "While still a student, played with saxophonist Nicolás Reynoso, whose band included Gonzalo Rubalcaba.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pearl-hernandez"]
+        }
+      },
+      {
+        "event": "International recognition as drummer in Rubalcaba's Proyecto.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:daddario-hernandez"]
+        }
+      },
+      {
+        "year": 1990,
+        "event": "Left Cuba.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:daddario-hernandez"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:hernandez-havana",
+      "label": "Havana and Proyecto",
+      "years": {
+        "from": 1980,
+        "to": 1990
+      },
+      "context": "Reynoso, Rubalcaba's Proyecto.",
+      "defining_traits": ["clave-based fusion", "folkloric grounding"]
+    },
+    {
+      "id": "era:hernandez-international",
+      "label": "International first-call",
+      "years": {
+        "from": 1990,
+        "to": 2014
+      },
+      "context": "Michel Camilo, Roy Hargrove, Gary Burton, Santana, Paquito D'Rivera, Alejandro Sanz; Conversations in Clave (2000).",
+      "defining_traits": [
+        "four-way independence",
+        "pedal cowbell and jam block clave",
+        "Latin fusion"
+      ],
+      "key_recording_ids": ["rec:gary-burton-for-hamp-2001"]
+    },
+    {
+      "id": "era:hernandez-volcan",
+      "label": "Volcán and Irakere 50",
+      "years": {
+        "from": 2015,
+        "ongoing": true
+      },
+      "context": "Volcán with Rubalcaba, Giovanni Hidalgo and José Armando Gola; Irakere 50; teaching via SFJAZZ.",
+      "defining_traits": ["reunion with old partners", "masterclass teaching"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:latin-jazz",
+        "name": "Latin jazz",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:afro-cuban",
+        "name": "Afro-Cuban",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:songo",
+        "name": "Songo",
+        "weight": 0.8,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "name": "Latin fusion",
+        "weight": 0.8,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "name": "Latin pop and rock",
+        "weight": 0.5,
+        "authority": 0.5
+      }
+    ],
+    "versatility": 0.8,
+    "groove_vs_chops": 0.3,
+    "role_tendency": "driver",
+    "descriptors": ["four-way independent", "ambidextrous", "fierce", "crisp", "clave-centred"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred"
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.15,
+      "typical_swing_ratio": 0.55,
+      "notes": "Straight Cuban 16ths with subtle lilt; 6/8 feels also central."
+    },
+    "dynamics": {
+      "range": 0.9,
+      "default_level": "mf",
+      "ghost_note_level": 30,
+      "accent_level": 118,
+      "balance": "Clave voice clear but not dominant; bell and timbale parts prominent; kick tied to bass tumbao."
+    },
+    "density": {
+      "groove_notes_per_bar": [16, 40],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.3
+    },
+    "consistency": 0.95,
+    "tempo_comfort_bpm": [80, 260],
+    "timekeeping_context": ["free", "dancers"],
+    "interaction": "Clave is the shared reference with piano, bass and percussion; improvises over it without ever losing it.",
+    "descriptors": ["deep groove", "fierce punch", "crisp snap"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Ambidextrous lead",
+        "description": "Can play the leading pattern with either hand.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pearl-hernandez"]
+        }
+      },
+      {
+        "name": "Percussion parts on the kit",
+        "description": "Hands play bongo, timbale and conga figures, often with bongos and timbales replacing standard toms.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pearl-hernandez"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Left-foot clave",
+        "description": "Clave on the hi-hat, a pedal cowbell or a pedal jam block.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pearl-hernandez", "src:sfjazz-hernandez"]
+        }
+      },
+      {
+        "name": "Right-foot bass line",
+        "description": "Kick carries the bass tumbao while the left foot plays clave.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pearl-hernandez"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 1.0,
+      "linear_playing": 0.5,
+      "ostinato_usage": 1.0,
+      "polyrhythm_usage": 0.9,
+      "odd_meter_fluency": 0.7,
+      "foot_ostinato_usage": 1.0,
+      "double_bass": 0.3,
+      "notes": "Four-way independence is his defining skill."
+    },
+    "voice_language": {
+      "hihat": "Often a clave or ostinato voice played by foot.",
+      "ride": "Cáscara and bell patterns.",
+      "snare": "Conga-like open tones, slaps and ghosts.",
+      "kick": "Bass tumbao and anticipations.",
+      "toms": "Frequently replaced by bongos and timbales.",
+      "percussion": "Pedal cowbell, pedal jam blocks, signature cowbells."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.3,
+      "hands": 0.4
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "bright, cutting bells",
+      "crisp snare",
+      "high-tuned toms or timbales",
+      "punchy kick"
+    ],
+    "sample_hints": {
+      "default": "Pedal cowbell and jam block on the left foot, timbales, bongos, crisp snare, tight kick."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:pearl-hernandez"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:hernandez-four-way",
+      "label": "Four-way Afro-Cuban independence",
+      "category": "technique",
+      "description": "Each limb carries a separate Cuban part: clave (left foot), tumbao (right foot), bell or cáscara and conga or timbale figures (hands).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:hernandez-songo-clave-archetype",
+        "pattern:hernandez-cascara-independence-archetype"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pearl-hernandez", "src:drummercafe-hernandez"]
+      }
+    },
+    {
+      "id": "trait:hernandez-pedal-percussion",
+      "label": "Foot-pedal percussion",
+      "category": "setup",
+      "description": "Uses foot pedals to play patterns on bells or jam blocks, amplifying the clave as the anchor.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sfjazz-hernandez"]
+      }
+    },
+    {
+      "id": "trait:hernandez-latin-fusion",
+      "label": "Latin fusion sound",
+      "category": "musical_approach",
+      "description": "Melds folkloric clave with the punch, snap and deep groove of jazz, pop and rock.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:drummercafe-hernandez", "src:daddario-hernandez"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:hernandez-songo-clave-archetype",
+        "name": "Songo with left-foot son clave",
+        "type": "groove",
+        "function": "Up-tempo Latin fusion groove",
+        "style_ids": ["style:songo", "style:latin-jazz"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Illustrative; check against Conversations in Clave."
+        },
+        "clave": {
+          "type": "son",
+          "direction": "3-2",
+          "carried_by": "pedal_jam_block"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [100, 140]
+        },
+        "lanes": {
+          "pedal_jam_block": "x.....x.....x...|....x...x.......",
+          "cowbell": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": ".g.g..X..g.g..X.|.g.g..X..g.g..X.",
+          "tom_2": "...........x....|...........x....",
+          "kick": "...x......x.....|...x......x....."
+        },
+        "sticking_lane": "RLRLRRRLRLRLRRRL|RLRLRRRLRLRLRRRL",
+        "humanise": {
+          "timing_jitter_ms": 3,
+          "velocity_jitter": 10
+        },
+        "variation_rules": [
+          {
+            "description": "Flip clave to 2-3 when the arrangement does",
+            "applies_to": "section change"
+          },
+          {
+            "description": "Move right hand from bell to ride bell for a chorus",
+            "probability": 0.3
+          }
+        ],
+        "difficulty": 9,
+        "derived_from": [
+          {
+            "style_id": "style:songo",
+            "how": "Songo hand and kick figures with clave added on the left foot",
+            "evidence": {
+              "confidence": "inferred"
+            }
+          },
+          {
+            "pattern_id": "pattern:changuito-songo-archetype",
+            "drummer_id": "drummer:changuito",
+            "how": "Changuito's songo hand and kick layout, with clave moved to the left foot",
+            "evidence": {
+              "confidence": "likely"
+            }
+          }
+        ],
+        "tags": ["clave", "four-way independence", "songo"]
+      },
+      {
+        "id": "pattern:hernandez-cascara-independence-archetype",
+        "name": "Cáscara over rumba clave and tumbao",
+        "type": "ostinato",
+        "function": "Independence foundation / salsa feel",
+        "style_ids": ["style:afro-cuban", "style:latin-jazz"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Cáscara orientation must be verified against Conversations in Clave and the SFJAZZ masterclass."
+        },
+        "clave": {
+          "type": "rumba",
+          "direction": "2-3",
+          "carried_by": "pedal_cowbell"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [160, 220]
+        },
+        "lanes": {
+          "pedal_cowbell": "..x.x...|x..x...x",
+          "timbale_high": "x.xx.x.x|x.x.xx.x",
+          "kick": "...x..x.|...x..x.",
+          "snare": "..g...xx|..g...xx"
+        },
+        "humanise": {
+          "timing_jitter_ms": 3,
+          "velocity_jitter": 8
+        },
+        "difficulty": 8,
+        "tags": ["cáscara", "clave", "salsa", "independence"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:hernandez-cascara-variations",
+        "name": "Cáscara variations",
+        "description": "Accent and variation work over cáscara as an anchor for polyrhythm and improvisation.",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sfjazz-hernandez"]
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:hernandez-pearl",
+      "label": "Pearl setup",
+      "context": "both",
+      "drums": [],
+      "hardware": [
+        "P2002C double pedal",
+        "P2000C pedal with PPS15 bracket",
+        "PBL20 medium and PBL30 low clave blocks"
+      ],
+      "cymbals": [],
+      "endorsements": ["Pearl", "Promark"],
+      "layout_notes": "Signature cowbells; pedal-mounted blocks and bells for left-foot clave.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pearl-hernandez", "src:daddario-hernandez"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Gonzalo Rubalcaba / Proyecto",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:daddario-hernandez"]
+      }
+    },
+    {
+      "name": "Michel Camilo",
+      "type": "touring_drummer",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:daddario-hernandez"]
+      }
+    },
+    {
+      "name": "Carlos Santana",
+      "type": "touring_drummer",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:daddario-hernandez"]
+      }
+    },
+    {
+      "name": "Volcán",
+      "type": "band_member",
+      "years": {
+        "from": 2015,
+        "ongoing": true
+      },
+      "bandmates": [
+        {
+          "name": "Gonzalo Rubalcaba"
+        },
+        {
+          "name": "Giovanni Hidalgo"
+        },
+        {
+          "name": "José Armando Gola"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:daddario-hernandez"]
+      }
+    },
+    {
+      "name": "Irakere 50",
+      "type": "band_member",
+      "bandmates": [
+        {
+          "name": "Roberto 'Tato' Vizcaíno Jr."
+        },
+        {
+          "name": "José Armando Gola"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sfjazz-hernandez"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:gary-burton-for-hamp-2001", "rec:modern-drummer-festival-2011"],
+  "relationships": [
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Songo",
+        "kind": "style",
+        "id": "style:songo"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "likely"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Changuito (José Luis Quintana)",
+        "kind": "drummer",
+        "id": "drummer:changuito"
+      },
+      "strength": 0.6,
+      "aspects": ["songo"],
+      "evidence": {
+        "confidence": "likely",
+        "note": "Songo lineage; direct citation not yet sourced."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Gonzalo Rubalcaba",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pearl-hernandez", "src:daddario-hernandez"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Giovanni Hidalgo",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:daddario-hernandez"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "books": [
+      {
+        "title": "Conversations in Clave: The Ultimate Technical Study of Four-Way Independence in Afro-Cuban Rhythms",
+        "year": 2000,
+        "summary": "Book and CD; widely treated as a standard text.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:drummercafe-hernandez"]
+        }
+      }
+    ],
+    "videos": [
+      {
+        "title": "Traveling Through Time",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pearl-hernandez"]
+        }
+      },
+      {
+        "title": "SFJAZZ masterclass: Conversations in Clave (five episodes, with Irakere 50)",
+        "url": "https://athome.sfjazz.org/videos/conversations-in-clave-ep-4-cascara-variations",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sfjazz-hernandez"]
+        }
+      }
+    ],
+    "philosophy": [
+      {
+        "idea": "Clave is the foundational anchor for rhythmic fluidity and improvisation.",
+        "paraphrase_of_source_id": "src:sfjazz-hernandez"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "Codified four-way Afro-Cuban independence for drum kit",
+      "Made pedal-played clave a mainstream kit technique"
+    ],
+    "accolades": [
+      {
+        "award": "Grammy",
+        "year": 1997,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:pearl-hernandez"],
+          "note": "Recording and category to confirm."
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Described by one sponsor as the most recorded drummer of Cuba.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:daddario-hernandez"]
+        }
+      }
+    ],
+    "common_misconceptions": []
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:hernandez-songo-clave-archetype",
+      "pattern:hernandez-cascara-independence-archetype"
+    ],
+    "default_kit_sound": "Bright bells and jam blocks, timbales, crisp snare, punchy kick",
+    "generation_rules": [
+      "Every pattern declares a clave and direction; generated variations must stay in clave.",
+      "Left foot carries clave unless the user disables it.",
+      "Kick follows bass tumbao (anticipations on the and of 2 and on 4).",
+      "Flip clave direction only at section boundaries."
+    ],
+    "avoid": ["Backbeat rock feel", "Accents that cross the clave", "Swung 8ths"],
+    "lineage_display": {
+      "primary_ancestors": ["style:afro-cuban", "style:songo", "drummer:changuito"],
+      "primary_descendants": [],
+      "lineage_blurb": "Cuban folkloric rhythm and songo, extended into four-limb kit language and carried round the world."
+    },
+    "tags": ["cuban", "clave", "latin jazz", "independence", "songo"]
+  }
+}

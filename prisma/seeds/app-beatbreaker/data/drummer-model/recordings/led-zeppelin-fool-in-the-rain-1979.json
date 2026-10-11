@@ -1,0 +1,36 @@
+{
+  "id": "rec:led-zeppelin-fool-in-the-rain-1979",
+  "title": "Fool in the Rain",
+  "artist": "Led Zeppelin",
+  "release": "In Through the Out Door",
+  "year": 1979,
+  "type": "studio_track",
+  "style_ids": ["style:half-time-shuffle", "style:hard-rock"],
+  "tempo_bpm": 130,
+  "time_signature": "4/4",
+  "feel": "half-time shuffle, a samba-style bridge",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-bonham",
+      "name": "John Bonham",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "His take on the Purdie half-time shuffle, played hard; Jeff Porcaro named it in the recipe for Rosanna.",
+      "pattern_ids": ["pattern:bonham-fool-in-the-rain-shuffle-approx"],
+      "notable_moments": [
+        {
+          "category": "arrangement",
+          "description": "The bridge leaves the shuffle for a samba-style feel, with a whistle.",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:bonham-wikipedia-fool"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:bonham-wikipedia-fool"]
+  }
+}

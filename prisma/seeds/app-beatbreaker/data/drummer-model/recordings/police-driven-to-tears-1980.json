@@ -1,0 +1,22 @@
+{
+  "id": "rec:police-driven-to-tears-1980",
+  "title": "Driven to Tears",
+  "artist": "The Police",
+  "release": "Zenyatta Mondatta",
+  "year": 1980,
+  "type": "studio_track",
+  "style_ids": ["style:new-wave"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stewart-copeland",
+      "name": "Stewart Copeland",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Tension built from rapid hi-hat and ride patterns and aggressive snare."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:musicradar-copeland-howto"]
+  }
+}

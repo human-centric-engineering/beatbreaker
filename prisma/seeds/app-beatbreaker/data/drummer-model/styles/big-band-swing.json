@@ -1,0 +1,26 @@
+{
+  "id": "style:big-band-swing",
+  "name": "Big band swing",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:jazz",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1930,
+    "to": 1950
+  },
+  "drum_characteristics": {
+    "feel": "Swing",
+    "hallmarks": [
+      "4 on the floor feathered kick",
+      "ride and hi-hat time",
+      "ensemble kicks and set-ups"
+    ]
+  }
+}

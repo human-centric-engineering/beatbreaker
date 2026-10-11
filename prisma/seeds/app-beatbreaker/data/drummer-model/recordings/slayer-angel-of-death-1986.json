@@ -1,0 +1,46 @@
+{
+  "id": "rec:slayer-angel-of-death-1986",
+  "title": "Angel of Death",
+  "artist": "Slayer",
+  "release": "Reign in Blood",
+  "year": 1986,
+  "type": "studio_track",
+  "producer": "Rick Rubin",
+  "style_ids": ["style:thrash-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-lombardo",
+      "name": "Dave Lombardo",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Contains arguably the most famous double-bass break in metal.",
+      "pattern_ids": [
+        "pattern:lombardo-aod-break-archetype",
+        "pattern:lombardo-thrash-beat-archetype"
+      ],
+      "notable_moments": [
+        {
+          "category": "studio_story",
+          "description": "The double-bass break started as part of a drum solo; Hanneman heard it and asked to put it in a song.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:blabbermouth-lombardo-aod"]
+          }
+        },
+        {
+          "category": "technique",
+          "description": "32nd-note double bass under syncopated tom hits he likens to a Tito Puente figure, then back into the thrash beat.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:metalinjection-lombardo"]
+          },
+          "pattern_id": "pattern:lombardo-aod-break-archetype"
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wikipedia-lombardo", "src:blabbermouth-lombardo-aod"]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "rec:james-brown-say-it-loud-1969",
+  "title": "Say It Loud – I'm Black and I'm Proud",
+  "artist": "James Brown",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jabo-starks",
+      "name": "Jabo Starks",
+      "drummer_role": "co_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Starks and Stubblefield both played on the title song.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-starks"]
+      }
+    },
+    {
+      "drummer_id": "drummer:clyde-stubblefield",
+      "name": "Clyde Stubblefield",
+      "drummer_role": "co_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Played with Starks on the title song: a medium groove with light ghosts under the call and response. BeatBreaker's version of it is a reconstruction, not a transcription.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-starks", "src:stubblefield-wikipedia"]
+      }
+    },
+    {
+      "drummer_id": "drummer:bernard-purdie",
+      "name": "Bernard Purdie",
+      "drummer_role": "co_drummer",
+      "significance": 0.3,
+      "why_it_matters": "Purdie is credited on the album; which tracks is unconfirmed.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wiki-mirror-purdie"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:pas-starks", "src:wiki-mirror-purdie"],
+    "note": "Track-level drum credits to be split."
+  }
+}

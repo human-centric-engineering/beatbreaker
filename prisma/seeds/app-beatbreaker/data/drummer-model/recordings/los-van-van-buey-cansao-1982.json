@@ -1,0 +1,31 @@
+{
+  "id": "rec:los-van-van-buey-cansao-1982",
+  "title": "El baile del buey cansao (Los Van Van Vol. VII)",
+  "artist": "Los Van Van",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:songo"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:changuito",
+      "name": "Changuito",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.8,
+      "why_it_matters": "Where he added timbales to the drum kit.",
+      "notable_moments": [
+        {
+          "category": "technique",
+          "description": "Timbales combined with drum kit.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:wikipedia-losvanvan"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wikipedia-losvanvan"]
+  }
+}

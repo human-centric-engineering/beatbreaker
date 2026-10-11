@@ -1,0 +1,12 @@
+{
+  "id": "style:rudimental",
+  "name": "Rudimental drumming",
+  "kind": "tradition",
+  "region": "USA / Switzerland / Europe",
+  "summary": "Military and drum corps snare tradition built on the PAS rudiments.",
+  "drum_characteristics": {
+    "feel": "March, crisp, articulated",
+    "hallmarks": ["flams", "drags", "rolls", "paradiddle family", "dynamic accent control"],
+    "key_voices": ["snare"]
+  }
+}

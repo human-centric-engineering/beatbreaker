@@ -1,0 +1,21 @@
+{
+  "id": "rec:bb-king-clapton-riding-2000",
+  "title": "Riding with the King",
+  "artist": "B.B. King and Eric Clapton",
+  "year": 2000,
+  "type": "album",
+  "style_ids": ["style:blues-shuffle"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-gadd",
+      "name": "Steve Gadd",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Later-era blues pocket: relaxed shuffles, economy, feel over flash."
+    }
+  ]
+}

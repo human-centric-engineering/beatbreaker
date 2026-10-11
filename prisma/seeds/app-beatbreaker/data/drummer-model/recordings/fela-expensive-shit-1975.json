@@ -1,0 +1,23 @@
+{
+  "id": "rec:fela-expensive-shit-1975",
+  "title": "Expensive Shit",
+  "artist": "Fela Ransome-Kuti and the Africa '70",
+  "release": "Expensive Shit",
+  "year": 1975,
+  "type": "studio_track",
+  "style_ids": ["style:afrobeat"],
+  "studio_context": "Title track of the 1975 LP (Soundworkshop), written after the police tried to plant evidence on Fela.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen",
+      "name": "Tony Allen",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Peak Africa 70: his first pattern answered by kick and snare over two bars, held for the length of the side."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:tony-allen-wikipedia", "src:tony-allen-nme-obit"]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "style:skiffle",
+  "name": "Skiffle",
+  "kind": "genre",
+  "region": "UK",
+  "era": {
+    "from": 1955
+  },
+  "parents": [
+    {
+      "style_id": "style:blues",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ]
+}

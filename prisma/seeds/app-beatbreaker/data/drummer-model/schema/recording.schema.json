@@ -1,0 +1,206 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://beatbreaker.app/schema/recording.schema.json",
+  "title": "Recording",
+  "description": "A track, album or video. Drum performances hold per-drummer detail so one recording can feature several drummers.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "title", "artist", "year", "drum_performances"],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "title": {
+      "type": "string"
+    },
+    "artist": {
+      "type": "string"
+    },
+    "release": {
+      "type": "string"
+    },
+    "year": {
+      "$ref": "common.schema.json#/$defs/Year"
+    },
+    "type": {
+      "enum": ["studio_track", "live_track", "album", "video", "film_soundtrack", "broadcast"]
+    },
+    "personnel": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/PersonRef"
+      }
+    },
+    "producer": {
+      "type": "string"
+    },
+    "style_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Id"
+      }
+    },
+    "tempo_bpm": {
+      "type": "number"
+    },
+    "time_signature": {
+      "type": "string"
+    },
+    "feel": {
+      "type": "string"
+    },
+    "studio_context": {
+      "type": "string"
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "evidence": {
+      "$ref": "common.schema.json#/$defs/Evidence"
+    },
+    "drum_performances": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["drummer_id"],
+        "properties": {
+          "drummer_id": {
+            "$ref": "common.schema.json#/$defs/Id"
+          },
+          "name": {
+            "type": "string"
+          },
+          "drummer_role": {
+            "enum": [
+              "sole_drummer",
+              "co_drummer",
+              "drums_and_percussion",
+              "percussion_only",
+              "leader"
+            ]
+          },
+          "significance": {
+            "$ref": "common.schema.json#/$defs/Weight",
+            "description": "Importance to the drummer's legacy."
+          },
+          "why_it_matters": {
+            "type": "string"
+          },
+          "section_map": {
+            "type": "array",
+            "description": "What the drums do in each section.",
+            "items": {
+              "type": "object",
+              "required": ["section"],
+              "properties": {
+                "section": {
+                  "type": "string"
+                },
+                "timestamp": {
+                  "$ref": "common.schema.json#/$defs/Timestamp"
+                },
+                "drum_approach": {
+                  "type": "string"
+                },
+                "pattern_ids": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "common.schema.json#/$defs/Id"
+                  }
+                }
+              }
+            }
+          },
+          "notable_moments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["description"],
+              "properties": {
+                "timestamp": {
+                  "$ref": "common.schema.json#/$defs/Timestamp"
+                },
+                "category": {
+                  "enum": [
+                    "groove",
+                    "fill",
+                    "solo",
+                    "feel",
+                    "dynamics",
+                    "sound",
+                    "interaction",
+                    "arrangement",
+                    "studio_story",
+                    "technique"
+                  ]
+                },
+                "description": {
+                  "type": "string"
+                },
+                "pattern_id": {
+                  "$ref": "common.schema.json#/$defs/Id"
+                },
+                "evidence": {
+                  "$ref": "common.schema.json#/$defs/Evidence"
+                }
+              }
+            }
+          },
+          "kit_setup_id": {
+            "$ref": "common.schema.json#/$defs/Id"
+          },
+          "pattern_ids": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/Id"
+            }
+          },
+          "evidence": {
+            "$ref": "common.schema.json#/$defs/Evidence"
+          }
+        }
+      }
+    },
+    "sampled_by": {
+      "type": "array",
+      "description": "Breakbeat and sampling legacy.",
+      "items": {
+        "type": "object",
+        "required": ["artist"],
+        "properties": {
+          "artist": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "year": {
+            "$ref": "common.schema.json#/$defs/Year"
+          },
+          "evidence": {
+            "$ref": "common.schema.json#/$defs/Evidence"
+          }
+        }
+      }
+    },
+    "later_versions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "recording_id": {
+            "$ref": "common.schema.json#/$defs/Id"
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

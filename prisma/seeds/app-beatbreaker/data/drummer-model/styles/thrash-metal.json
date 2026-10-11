@@ -1,0 +1,55 @@
+{
+  "id": "style:thrash-metal",
+  "name": "Thrash metal",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:metal",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:punk",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1981
+  },
+  "drum_characteristics": {
+    "tempo_range_bpm": [160, 260],
+    "hallmarks": ["skank / thrash beat", "double bass runs", "tight stops with guitars"]
+  },
+  "archetype_patterns": [
+    {
+      "id": "pattern:style-thrash-beat",
+      "name": "Basic thrash beat",
+      "type": "groove",
+      "fidelity": "stylistic_archetype",
+      "transcription": {
+        "status": "archetype"
+      },
+      "time_signature": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "steps_per_beat": 2,
+      "bars": 1,
+      "feel": "straight",
+      "tempo": {
+        "playable_range_bpm": [180, 240]
+      },
+      "lanes": {
+        "crash_1": "x.......",
+        "kick": "x.x.x.x.",
+        "snare": ".x.x.x.x"
+      }
+    }
+  ],
+  "key_drummer_ids": ["drummer:dave-lombardo"]
+}

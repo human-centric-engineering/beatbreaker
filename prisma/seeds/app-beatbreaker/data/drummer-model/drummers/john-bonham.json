@@ -1,0 +1,1006 @@
+{
+  "meta": {
+    "id": "drummer:john-bonham",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.55,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Transcribe Good Times Bad Times and When the Levee Breaks from isolated stems.",
+      "Confirm the Carmine Appice origin story for the Bonham triplet beyond lesson anecdote.",
+      "Confirm the exact Ludwig shell sizes per era (rack tom 14x10 vs 15x12)."
+    ]
+  },
+  "identity": {
+    "name": "John Bonham",
+    "full_name": "John Henry Bonham",
+    "aliases": ["Bonzo"],
+    "born": {
+      "date": "1948-05-31",
+      "place": "Redditch, Worcestershire, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bonham-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1980-09-25",
+      "place": "Clewer, Windsor, Berkshire, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bonham-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": ["Birmingham and the West Midlands beat and blues scene (1960s)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1962,
+      "to": 1980
+    },
+    "roles": ["band_member", "touring", "composer"],
+    "summary": "Led Zeppelin's drummer: a huge kick and a backbeat like a door slamming, sitting back on the beat, with fills in threes split between hands and feet. Self-taught, he played with a jazz drummer's swing and a soul drummer's ear under the loudest band of its day, and his Levee groove became one of hip-hop's most sampled breaks."
+  },
+  "formation": {
+    "teachers": [],
+    "traditions": [
+      {
+        "tradition": "Big band and jazz drumming",
+        "impact": "Krupa, Rich, Roach and Morello shaped his showmanship, solos and touch.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bonham-wikipedia"]
+        }
+      },
+      {
+        "tradition": "American soul and R&B",
+        "impact": "Half-time shuffle from Purdie; a lifelong ear for soul and funk grooves (Trampled Under Foot, The Crunge).",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bonham-faroutmagazine-purdie", "src:bonham-bonedo"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1958,
+        "event": "Given his first snare drum at ten, after drumming on containers; a full Premier kit at fifteen.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bonham-wikipedia"]
+        }
+      },
+      {
+        "event": "Self-taught: never took formal lessons, though local drummers gave him advice.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bonham-wikipedia"]
+        }
+      },
+      {
+        "year": 1966,
+        "event": "Joins Robert Plant in the Band of Joy.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bonham-wikipedia"]
+        }
+      },
+      {
+        "year": 1968,
+        "event": "Recruited by Jimmy Page into the band that became Led Zeppelin, after Plant recommended him; he had been touring with Tim Rose.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bonham-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:bonham-midlands",
+      "label": "Midlands bands",
+      "years": {
+        "from": 1962,
+        "to": 1968
+      },
+      "context": "Terry Webb and the Spiders, the Senators, A Way of Life, Crawling King Snakes, Band of Joy.",
+      "defining_traits": ["loud", "self-taught"]
+    },
+    {
+      "id": "era:bonham-zeppelin-early",
+      "label": "Led Zeppelin, 1968-71",
+      "years": {
+        "from": 1968,
+        "to": 1971
+      },
+      "context": "The first four albums: blues rock turned heavy.",
+      "defining_traits": ["kick triplets", "Bonham triplet fills", "the Levee sound"],
+      "key_recording_ids": [
+        "rec:led-zeppelin-good-times-bad-times-1969",
+        "rec:led-zeppelin-moby-dick-1969",
+        "rec:led-zeppelin-immigrant-song-1970",
+        "rec:led-zeppelin-when-the-levee-breaks-1971"
+      ]
+    },
+    {
+      "id": "era:bonham-zeppelin-late",
+      "label": "Led Zeppelin, 1972-80",
+      "years": {
+        "from": 1972,
+        "to": 1980
+      },
+      "context": "Houses of the Holy to In Through the Out Door: funk, odd meters and long live shows.",
+      "defining_traits": ["funk-rock grooves", "half-time shuffle", "laid-back weight"],
+      "key_recording_ids": [
+        "rec:led-zeppelin-kashmir-1975",
+        "rec:led-zeppelin-fool-in-the-rain-1979"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.8,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.8,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:half-time-shuffle",
+        "weight": 0.3,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.3,
+        "authority": 0.3
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.6,
+    "role_tendency": "driver",
+    "descriptors": ["heavy", "powerful", "swinging", "laid back", "riff-locked"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bonham-drumeo-grooves"],
+        "note": "Clearest on slow songs (Levee, Kashmir); faster songs push harder."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.2
+    },
+    "dynamics": {
+      "range": 0.8,
+      "default_level": "ff",
+      "ghost_note_level": 40,
+      "accent_level": 125
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 20],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.45
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [65, 180],
+    "timekeeping_context": ["free"],
+    "interaction": "Locks the kick to John Paul Jones' bass and Page's riff, doubling it rather than running a fixed pattern under it.",
+    "descriptors": ["heavy", "behind the beat", "big"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Bonham triplets",
+        "description": "Sextuplets grouped hand, hand, foot, moved round the kit.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bonham-musicradar-1", "src:bonham-drumeo-triplets"]
+        }
+      },
+      {
+        "name": "Hand drumming",
+        "description": "Plays part of his Moby Dick solo with bare hands on the drums.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bonham-wikipedia-moby"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Single-pedal kick triplets",
+        "description": "Fast doubles and triplets on one bass drum pedal (Ludwig Speed King).",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bonham-wikipedia-gtbt", "src:bonham-musicradar-1"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single paradiddle",
+        "usage": ["groove", "split_between_limbs"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bonham-drummercafe-immigrant"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.7,
+      "linear_playing": 0.6,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.4,
+      "odd_meter_fluency": 0.5
+    },
+    "voice_language": {
+      "kick": "Huge, often doubled, tied to the riff.",
+      "snare": "Hard backbeat, occasional ghost after it.",
+      "hihat": "8ths, sometimes loose and half-open.",
+      "toms": "Big, open, low; the triplet runs end on the floor tom.",
+      "cymbals": "Crashes and ride bell for the big sections; cowbell as a ride."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "hands": 0.2
+    },
+    "reading": "unknown"
+  },
+  "equipment": [
+    {
+      "id": "kit:bonham-ludwig-1970s",
+      "label": "Ludwig kit, 26-inch kick (1970s)",
+      "era_ids": ["era:bonham-zeppelin-early", "era:bonham-zeppelin-late"],
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Ludwig",
+          "size": "26x14"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Ludwig",
+          "model": "Supraphonic",
+          "size": "14x6.5"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Ludwig",
+          "size": "14x10"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Ludwig",
+          "size": "16x16"
+        },
+        {
+          "instrument": "floor_tom_2",
+          "brand": "Ludwig",
+          "size": "18x16"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "ride",
+          "brand": "Paiste",
+          "size_in": 24
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Paiste",
+          "size_in": 18
+        },
+        {
+          "instrument": "hihat",
+          "brand": "Paiste",
+          "size_in": 15
+        }
+      ],
+      "hardware": ["Ludwig Speed King pedal", "Rogers Swiv-O-Matic"],
+      "layout_notes": "Gong, timpani and congas on stage; Amber Vistalite and stainless-steel kits in the mid-70s.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bonham-wikipedia", "src:bonham-bonedo"],
+        "note": "Brands and pedal from Wikipedia; shell and cymbal sizes widely reported but vary by era."
+      }
+    }
+  ],
+  "sound_profile": {
+    "aesthetic": ["huge kick", "open, resonant toms", "live room", "bright cracking snare"],
+    "sample_hints": {
+      "70s": "Ludwig with a 26-inch kick, little muffling, recorded with room mics at a distance (Headley Grange stairwell)."
+    },
+    "evidence": {
+      "confidence": "widely_reported",
+      "source_ids": ["src:bonham-wikipedia-levee", "src:bonham-bonedo"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:bonham-triplet",
+      "label": "The Bonham triplet",
+      "category": "fill",
+      "description": "Sextuplet fills grouped hand, hand, foot, moved round the kit from snare to floor tom.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bonham-musicradar-1", "src:bonham-drumeo-triplets"]
+      },
+      "pattern_ids": ["pattern:bonham-triplet-fill-archetype"]
+    },
+    {
+      "id": "trait:bonham-right-foot",
+      "label": "The right foot",
+      "category": "technique",
+      "description": "Fast triplets and doubles on a single kick pedal, the illusion of the bass drum doing more than it is.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bonham-wikipedia-gtbt", "src:bonham-musicradar-1"]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:led-zeppelin-good-times-bad-times-1969"
+        }
+      ],
+      "pattern_ids": ["pattern:bonham-gtbt-kick-triplets-approx"]
+    },
+    {
+      "id": "trait:bonham-weight",
+      "label": "Behind the beat and enormous",
+      "category": "feel",
+      "description": "On slow songs he sits well back on the beat with a hard backbeat, so the groove feels heavier than its tempo.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bonham-drumeo-grooves", "src:bonham-musicradar-1"]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:led-zeppelin-when-the-levee-breaks-1971"
+        },
+        {
+          "recording_id": "rec:led-zeppelin-kashmir-1975"
+        }
+      ],
+      "pattern_ids": ["pattern:bonham-levee-approx"]
+    },
+    {
+      "id": "trait:bonham-room-sound",
+      "label": "The big room sound",
+      "category": "sound",
+      "description": "Open, resonant drums recorded with distant room mics; the Levee stairwell is the famous case.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bonham-wikipedia-levee"]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:led-zeppelin-when-the-levee-breaks-1971"
+        }
+      ]
+    },
+    {
+      "id": "trait:bonham-shuffle",
+      "label": "Half-time shuffle, rock weight",
+      "category": "groove",
+      "description": "Purdie's half-time shuffle played with a heavier hand and fewer ghosts.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bonham-faroutmagazine-purdie", "src:bonham-wikipedia-rosanna"]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:led-zeppelin-fool-in-the-rain-1979"
+        }
+      ],
+      "pattern_ids": ["pattern:bonham-fool-in-the-rain-shuffle-approx"]
+    },
+    {
+      "id": "trait:bonham-hands-solo",
+      "label": "Soloing with bare hands",
+      "category": "performance_persona",
+      "description": "Long Moby Dick solos on stage, part of them with his hands.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bonham-wikipedia-moby"]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:led-zeppelin-moby-dick-1969"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:bonham-gtbt-kick-triplets-approx",
+        "name": "Kick triplets under a cowbell (Good Times Bad Times)",
+        "type": "groove",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bonham-musicradar-1", "src:bonham-drumeo-triplets"],
+          "note": "Follows lesson descriptions (hand, then two kicks on the next two sextuplets; hats in the left foot under a cowbell). Converted from the BeatBreaker bonham song 'good-times-bad-times'; not a transcription."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [90, 96]
+        },
+        "lanes": {
+          "cowbell": "X..x..X..x..X..x..X..x..|X..x..X..x..X..x..X..x..",
+          "hihat_pedal": "k..k..k..k..k..k..k..k..|k..k..k..k..k..k..k..k..",
+          "snare": "......X...........X.....|......X...........X.....",
+          "kick": ".xx..........xx.........|.xx....xx....xx....xx..."
+        },
+        "source": {
+          "recording_id": "rec:led-zeppelin-good-times-bad-times-1969"
+        },
+        "difficulty": 8,
+        "tags": ["sextuplets", "single pedal", "cowbell", "rock"]
+      },
+      {
+        "id": "pattern:bonham-fool-in-the-rain-shuffle-approx",
+        "name": "Half-time shuffle (Fool in the Rain)",
+        "type": "groove",
+        "style_ids": ["style:half-time-shuffle", "style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bonham-musicradar-1", "src:bonham-drumeo-grooves"],
+          "note": "Hats on triplet partials 1 and 3, opening on the shuffled 'and' of 1, backbeat on 3, sparse ghosts; the kick is reconstructed. Second bar is the ride-bell variation. From the BeatBreaker song 'fool-in-the-rain'."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 2,
+        "feel": "half_time_shuffle",
+        "tempo": {
+          "playable_range_bpm": [126, 134]
+        },
+        "lanes": {
+          "hihat": "x...o.x...x.x...x.x...x.|........................",
+          "ride": "........................|B...B.B...B.B...B.B...B.",
+          "snare": "........g...X.......g...|..g.....g...X.g.....g...",
+          "kick": "x.........x...........x.|x.........x...........x."
+        },
+        "source": {
+          "recording_id": "rec:led-zeppelin-fool-in-the-rain-1979"
+        },
+        "derived_from": [
+          {
+            "pattern_id": "pattern:purdie-shuffle-approx",
+            "drummer_id": "drummer:bernard-purdie",
+            "how": "Purdie's half-time shuffle, played harder and with fewer ghosts",
+            "evidence": {
+              "confidence": "likely",
+              "source_ids": ["src:bonham-faroutmagazine-purdie", "src:bonham-wikipedia-rosanna"]
+            }
+          }
+        ],
+        "difficulty": 6,
+        "tags": ["shuffle", "half-time", "triplets"]
+      },
+      {
+        "id": "pattern:bonham-levee-approx",
+        "name": "Slow heavy groove behind the beat (When the Levee Breaks)",
+        "type": "groove",
+        "style_ids": ["style:hard-rock", "style:blues-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bonham-drumeo-grooves"],
+          "note": "Ghost after each backbeat and soft kicks follow Drumeo; the kick cluster is reconstructed. From the BeatBreaker song 'when-the-levee-breaks'."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [70, 74]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "....Xg......Xg..|....Xg......Xg..",
+          "kick": "Xx.....xx.x.....|X.....x.x.x....."
+        },
+        "source": {
+          "recording_id": "rec:led-zeppelin-when-the-levee-breaks-1971"
+        },
+        "difficulty": 4,
+        "tags": ["laid back", "breakbeat", "sampled", "heavy"]
+      },
+      {
+        "id": "pattern:bonham-triplet-fill-archetype",
+        "name": "The Bonham triplet round the kit",
+        "type": "fill",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bonham-musicradar-1", "src:bonham-drumeo-triplets"],
+          "note": "Sextuplets grouped hand, hand, foot, moved from snare to rack tom to floor tom. A bar-long version of the BeatBreaker bonham fill."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "playable_range_bpm": [70, 130]
+        },
+        "lanes": {
+          "snare": "xx.xx...................",
+          "tom_1": "......xx.xx.............",
+          "floor_tom_1": "............xx.xx.xx.xx.",
+          "kick": "..x..x..x..x..x..x..x..x"
+        },
+        "sticking_lane": "RLKRLKRLKRLKRLKRLKRLKRLK",
+        "source": {
+          "recording_id": "rec:led-zeppelin-good-times-bad-times-1969"
+        },
+        "difficulty": 7,
+        "tags": ["triplets", "hands and feet", "fill", "sextuplets"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:bonham-black-dog-fill",
+        "name": "Black Dog fill",
+        "description": "Snare, snare, rack tom, floor tom in sixteenths, down the kit.",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bonham-musicradar-1"]
+        }
+      },
+      {
+        "id": "lick:bonham-immigrant-paradiddle",
+        "name": "Immigrant Song paradiddle",
+        "description": "Single paradiddles split between kick (right) and snare (left), with left strokes dropped.",
+        "heard_on": ["rec:led-zeppelin-immigrant-song-1970"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bonham-drummercafe-immigrant"]
+        }
+      },
+      {
+        "id": "lick:bonham-bonzo-fury",
+        "name": "Crossover triplets",
+        "description": "Bonham triplets with crossovers between rack and floor tom.",
+        "sticking": "RLK",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bonham-drumeo-triplets"]
+        }
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Band of Joy",
+      "type": "band_member",
+      "years": {
+        "from": 1966,
+        "to": 1968
+      },
+      "bandmates": [
+        {
+          "name": "Robert Plant"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bonham-wikipedia"]
+      }
+    },
+    {
+      "name": "Tim Rose (touring band)",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1968,
+        "to": 1968
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bonham-wikipedia"]
+      }
+    },
+    {
+      "name": "Led Zeppelin",
+      "type": "band_member",
+      "years": {
+        "from": 1968,
+        "to": 1980
+      },
+      "bandmates": [
+        {
+          "name": "Jimmy Page"
+        },
+        {
+          "name": "Robert Plant"
+        },
+        {
+          "name": "John Paul Jones"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bonham-wikipedia", "src:bonham-rockhall"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:led-zeppelin-good-times-bad-times-1969",
+    "rec:led-zeppelin-moby-dick-1969",
+    "rec:led-zeppelin-immigrant-song-1970",
+    "rec:led-zeppelin-when-the-levee-breaks-1971",
+    "rec:led-zeppelin-kashmir-1975",
+    "rec:led-zeppelin-fool-in-the-rain-1979"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bonham-wikipedia"]
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bonham-wikipedia"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bonham-wikipedia"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Joe Morello",
+        "kind": "drummer",
+        "id": "drummer:joe-morello"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bonham-wikipedia"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ap-baker"],
+        "note": "Baker reports Bonham saying there were only two drummers in British rock: Bonham and Baker."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Bernard Purdie",
+        "kind": "drummer",
+        "id": "drummer:bernard-purdie"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bonham-faroutmagazine-purdie"]
+      },
+      "strength": 0.4,
+      "aspects": ["half-time shuffle (Fool in the Rain)"]
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Carmine Appice",
+        "kind": "drummer",
+        "id": "drummer:carmine-appice"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bonham-drumeo-triplets"],
+        "note": "Lesson anecdote: he heard something like the triplet on a Carmine Appice track (Vanilla Fudge, who toured with Zeppelin)."
+      },
+      "strength": 0.4,
+      "aspects": ["kick triplets"]
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Jason Bonham",
+        "kind": "drummer",
+        "id": "drummer:jason-bonham"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bonham-wikipedia"],
+        "note": "His son, also a drummer; played with Led Zeppelin at the 2007 O2 reunion."
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Robert Plant",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bonham-wikipedia"]
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Jimmy Page",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bonham-wikipedia"]
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "John Paul Jones",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bonham-wikipedia"]
+      },
+      "strength": 1.0
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Dave Grohl",
+        "kind": "drummer",
+        "id": "drummer:dave-grohl"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bonham-wikipedia"]
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Neil Peart",
+        "kind": "drummer",
+        "id": "drummer:neil-peart"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bonham-wikipedia"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Chad Smith",
+        "kind": "drummer",
+        "id": "drummer:chad-smith"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bonham-wikipedia"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Dave Lombardo",
+        "kind": "drummer",
+        "id": "drummer:dave-lombardo"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bonham-wikipedia"]
+      },
+      "strength": 0.4
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Jeff Porcaro",
+        "kind": "drummer",
+        "id": "drummer:jeff-porcaro"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bonham-wikipedia-rosanna"]
+      },
+      "strength": 0.4,
+      "aspects": ["Rosanna shuffle"]
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Hip-hop breakbeat",
+        "kind": "style"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bonham-wikipedia-levee"],
+        "note": "When the Levee Breaks sampled by the Beastie Boys, Dr. Dre and others."
+      },
+      "strength": 0.5
+    }
+  ],
+  "pedagogy": {
+    "philosophy": []
+  },
+  "legacy": {
+    "influence_score": 0.98,
+    "innovations": [
+      "Sextuplet hand-hand-foot fills (the Bonham triplet)",
+      "Single-pedal kick triplets as a rock groove",
+      "The big room drum sound in hard rock",
+      "One of the most sampled drum breaks (When the Levee Breaks)"
+    ],
+    "accolades": [
+      {
+        "award": "Rock and Roll Hall of Fame (Led Zeppelin)",
+        "year": 1995,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bonham-rockhall"]
+        }
+      },
+      {
+        "award": "Rolling Stone, greatest drummer of all time",
+        "year": 2016,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bonham-loudersound-rs"]
+        }
+      },
+      {
+        "award": "Classic Rock, greatest rock drummer",
+        "year": 2005,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bonham-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Led Zeppelin disbanded after his death in 1980 rather than replace him.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bonham-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That the Good Times Bad Times kick triplets use a double pedal: they are played on one pedal.",
+      "That the Levee echo is his playing: it is production."
+    ]
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:bonham-triplet-fill-archetype",
+      "pattern:bonham-gtbt-kick-triplets-approx",
+      "pattern:bonham-levee-approx",
+      "pattern:bonham-fool-in-the-rain-shuffle-approx"
+    ],
+    "default_kit_sound": "Big open Ludwig, 26-inch kick, room mics (bigrusty kit)",
+    "generation_rules": [
+      "Hats in 8ths, a hard backbeat, a big kick that doubles the riff.",
+      "Fills in threes: hand, hand, foot, down the kit.",
+      "Laid back on slow songs.",
+      "Pick one of his records per bar set, each at its own tempo and grid (4/4 or sextuplet 4/4)."
+    ],
+    "avoid": ["Double-pedal blast beats", "Busy jazz ride comping"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:gene-krupa",
+        "drummer:buddy-rich",
+        "drummer:max-roach",
+        "drummer:bernard-purdie"
+      ],
+      "primary_descendants": ["drummer:jason-bonham", "drummer:dave-grohl", "drummer:chad-smith"],
+      "lineage_blurb": "Big-band showmanship and soul shuffles, turned into the heaviest groove in rock."
+    },
+    "tags": ["rock", "hard rock", "70s", "triplets", "heavy", "sampled"],
+    "style_key": "bonham"
+  }
+}

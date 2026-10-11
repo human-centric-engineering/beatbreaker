@@ -1,0 +1,25 @@
+{
+  "id": "rec:steely-dan-kid-charlemagne-1976",
+  "title": "Kid Charlemagne",
+  "artist": "Steely Dan",
+  "release": "The Royal Scam",
+  "year": 1976,
+  "type": "studio_track",
+  "style_ids": ["style:funk", "style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bernard-purdie",
+      "name": "Bernard Purdie",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Funk drive under one of rock's most celebrated guitar solos.",
+      "evidence": {
+        "confidence": "likely",
+        "note": "Confirm from album credits."
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "likely"
+  }
+}

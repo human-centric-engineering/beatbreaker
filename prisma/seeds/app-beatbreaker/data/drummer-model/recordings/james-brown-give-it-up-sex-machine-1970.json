@@ -1,0 +1,40 @@
+{
+  "id": "rec:james-brown-give-it-up-sex-machine-1970",
+  "title": "Give It Up or Turnit a Loose (Sex Machine version)",
+  "artist": "James Brown",
+  "release": "Sex Machine",
+  "year": 1970,
+  "type": "studio_track",
+  "style_ids": ["style:funk"],
+  "personnel": [
+    {
+      "name": "Bootsy Collins",
+      "role": "bass"
+    },
+    {
+      "name": "Catfish Collins",
+      "role": "guitar"
+    }
+  ],
+  "tempo_bpm": 111,
+  "time_signature": "4/4",
+  "feel": "straight",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clyde-stubblefield",
+      "name": "Clyde Stubblefield",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "His version of the song (the 1969 single is Nate Jones), later remixed on In the Jungle Groove; the drums carry the 'clap your hands, stomp your feet' break under Brown's voice.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:stubblefield-bb-research", "src:stubblefield-wiki-give-it-up"],
+        "note": "Drummer credit per Wikipedia personnel; to confirm from liner notes."
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:stubblefield-wiki-give-it-up", "src:stubblefield-bb-research"]
+  }
+}

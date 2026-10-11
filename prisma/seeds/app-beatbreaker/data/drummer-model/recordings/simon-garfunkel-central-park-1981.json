@@ -1,0 +1,20 @@
+{
+  "id": "rec:simon-garfunkel-central-park-1981",
+  "title": "The Concert in Central Park",
+  "artist": "Simon & Garfunkel",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session"],
+  "evidence": {
+    "confidence": "likely"
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-gadd",
+      "name": "Steve Gadd",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Live versions of 50 Ways and Late in the Evening in front of a huge audience."
+    }
+  ]
+}

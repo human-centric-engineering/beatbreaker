@@ -1,0 +1,66 @@
+{
+  "id": "rec:yussef-dayes-black-classical-music-2023",
+  "title": "Black Classical Music",
+  "artist": "Yussef Dayes",
+  "year": 2023,
+  "type": "album",
+  "personnel": [
+    {
+      "name": "Yussef Dayes"
+    },
+    {
+      "name": "Rocco Palladino"
+    },
+    {
+      "name": "Charlie Stacey"
+    },
+    {
+      "name": "Tom Misch"
+    },
+    {
+      "name": "Shabaka Hutchings"
+    },
+    {
+      "name": "Masego"
+    },
+    {
+      "name": "Chronixx"
+    }
+  ],
+  "style_ids": [
+    "style:uk-jazz",
+    "style:jazz-fusion",
+    "style:reggae",
+    "style:afro-cuban",
+    "style:west-african"
+  ],
+  "studio_context": "His debut solo album (Brownswood / Nonesuch, 8 September 2023), 19 tracks; UK Jazz & Blues chart number 1; Ivor Novello Award for Best Album (2024).",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:yussef-dayes",
+      "name": "Yussef Dayes",
+      "drummer_role": "leader",
+      "significance": 1.0,
+      "why_it_matters": "The fullest statement of his vocabulary: linear jungle-ish grooves (Black Classical Music, The Light), reggae (Pon di Plaza, Jamaican Links), Afro-Cuban (Afro Cubanism), 8th-note triplets (Turquoise Galaxy) and the one-footed kick triplet of Tioga Pass.",
+      "pattern_ids": ["pattern:yussef-dayes-tioga-pass"],
+      "notable_moments": [
+        {
+          "description": "Tioga Pass: three 16ths on the kick on 3, 3e, 3& with one foot, a buzz on the 'and' of 4.",
+          "category": "technique"
+        },
+        {
+          "description": "Pon di Plaza: rim clicks on dotted 8ths under 16th hats.",
+          "category": "groove"
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:yussef-dayes-wikipedia-bcm",
+      "src:yussef-dayes-nonesuch-2023",
+      "src:yussef-dayes-drumhub-bcm"
+    ]
+  }
+}

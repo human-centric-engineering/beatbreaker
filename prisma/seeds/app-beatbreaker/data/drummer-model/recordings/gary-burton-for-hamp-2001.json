@@ -1,0 +1,21 @@
+{
+  "id": "rec:gary-burton-for-hamp-2001",
+  "title": "For Hamp, Red, Bags, and Cal",
+  "artist": "Gary Burton",
+  "year": 2001,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:horacio-hernandez",
+      "name": "Horacio Hernández",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.5,
+      "why_it_matters": "Vibraphone tribute record carrying his percussion stamp."
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:drummercafe-hernandez"]
+  }
+}

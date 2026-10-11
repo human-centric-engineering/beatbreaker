@@ -1,0 +1,39 @@
+{
+  "id": "rec:paul-simon-late-in-the-evening-1980",
+  "title": "Late in the Evening",
+  "artist": "Paul Simon",
+  "release": "One-Trick Pony",
+  "year": 1980,
+  "type": "studio_track",
+  "style_ids": ["style:afro-cuban", "style:pop-rock-session"],
+  "evidence": {
+    "confidence": "widely_reported"
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-gadd",
+      "name": "Steve Gadd",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Brings a mozambique-derived Latin groove into a pop single.",
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "Mozambique-based groove driving the song.",
+          "pattern_id": "pattern:gadd-mozambique-archetype",
+          "evidence": {
+            "confidence": "widely_reported"
+          }
+        },
+        {
+          "category": "technique",
+          "description": "Reported use of doubled sticks for a thicker attack.",
+          "evidence": {
+            "confidence": "needs_verification"
+          }
+        }
+      ],
+      "pattern_ids": ["pattern:gadd-mozambique-archetype"]
+    }
+  ]
+}

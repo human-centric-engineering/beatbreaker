@@ -1,0 +1,30 @@
+{
+  "id": "rec:steely-dan-home-at-last-1977",
+  "title": "Home at Last",
+  "artist": "Steely Dan",
+  "release": "Aja",
+  "year": 1977,
+  "type": "studio_track",
+  "style_ids": ["style:half-time-shuffle"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bernard-purdie",
+      "name": "Bernard Purdie",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "A reference recording of the Purdie shuffle. Same album as Steve Gadd's 'Aja'.",
+      "section_map": [
+        {
+          "section": "Throughout",
+          "drum_approach": "Half-time shuffle with middle-partial ghost notes.",
+          "pattern_ids": ["pattern:purdie-shuffle-approx"]
+        }
+      ],
+      "pattern_ids": ["pattern:purdie-shuffle-approx"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:dnn-purdie", "src:wiki-old-purdie"]
+  }
+}

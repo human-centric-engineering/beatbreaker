@@ -1,0 +1,38 @@
+{
+  "id": "rec:yussef-kamaal-black-focus-2016",
+  "title": "Black Focus",
+  "artist": "Yussef Kamaal",
+  "year": 2016,
+  "type": "album",
+  "personnel": [
+    {
+      "name": "Yussef Dayes"
+    },
+    {
+      "name": "Kamaal Williams"
+    }
+  ],
+  "style_ids": ["style:uk-jazz", "style:broken-beat", "style:jazz-fusion"],
+  "studio_context": "The duo's only album, released on Gilles Peterson's Brownswood Recordings; recorded largely live, much of it improvised around grooves.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:yussef-dayes",
+      "name": "Yussef Dayes",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The record that put him and the London scene on the map: broken beat and jazz-funk played live on an acoustic kit, with the backbeat sliding off 2 and 4 (Strings of Light) and straight-ahead funk drive (Lowrider).",
+      "pattern_ids": ["pattern:yussef-dayes-strings-of-light"],
+      "notable_moments": [
+        {
+          "description": "Strings of Light: accented snares on the 'a' of 1 and the 'e' of 2 with ghosts all round them.",
+          "category": "groove"
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:yussef-dayes-wikipedia", "src:yussef-dayes-crack-2023"],
+    "note": "Studio-context detail (largely live, improvised) is likely rather than verified."
+  }
+}

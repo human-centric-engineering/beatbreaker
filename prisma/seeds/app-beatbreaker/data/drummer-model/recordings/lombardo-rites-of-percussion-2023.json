@@ -1,0 +1,23 @@
+{
+  "id": "rec:lombardo-rites-of-percussion-2023",
+  "title": "Rites of Percussion",
+  "artist": "Dave Lombardo",
+  "year": 2023,
+  "type": "album",
+  "style_ids": ["style:experimental-rock", "style:afro-cuban"],
+  "studio_context": "Mixed by his son David A. Lombardo. Instrumentation includes concert bass drum, timpani, gongs, batá, congas, timbales, bongos, djembes, darbukas and more.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-lombardo",
+      "name": "Dave Lombardo",
+      "drummer_role": "leader",
+      "significance": 0.5,
+      "why_it_matters": "Solo percussion album; makes his Cuban and world percussion roots explicit."
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:metalinjection-lombardo", "src:stereogum-lombardo"],
+    "note": "Release year to confirm."
+  }
+}

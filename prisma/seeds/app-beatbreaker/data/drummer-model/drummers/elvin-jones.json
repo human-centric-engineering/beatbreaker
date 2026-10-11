@@ -1,0 +1,818 @@
+{
+  "meta": {
+    "id": "drummer:elvin-jones",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Transcribe representative comping from A Love Supreme and My Favorite Things; patterns here are samples of improvised language, not fixed parts.",
+      "Measure swing ratios at several tempos from stems to replace the ratio_by_tempo estimates.",
+      "Document his kit and cymbals by era.",
+      "Confirm which drummers he cited as his own influences."
+    ]
+  },
+  "identity": {
+    "name": "Elvin Jones",
+    "full_name": "Elvin Ray Jones",
+    "born": {
+      "date": "1927-09-09",
+      "place": "Pontiac, Michigan, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-elvin", "src:britannica-elvin"]
+      }
+    },
+    "died": {
+      "date": "2004-05-18",
+      "place": "Englewood, New Jersey, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Detroit jazz (late 1940s to mid 1950s)", "New York jazz (from 1955/56)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "active": {
+      "from": 1949,
+      "to": 2004
+    },
+    "roles": ["band_member", "bandleader", "session", "educator"],
+    "summary": "The drummer who turned jazz time into a rolling, polyrhythmic wave. In John Coltrane's classic quartet he layered independent metres across hands and feet, so the drummer became a co-improviser with the soloist rather than a timekeeper. His triplet-saturated swing reshaped jazz drumming and crossed into rock through Ginger Baker and Mitch Mitchell."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "teachers": [],
+    "traditions": [
+      {
+        "tradition": "Circus and marching bands",
+        "impact": "Fascinated as a small child by circus band drummers parading past his home; later played in his high school marching band, building a rudimental base.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jazzonthetube-elvin", "src:notoriousjazz-elvin"]
+        }
+      },
+      {
+        "tradition": "US Army band",
+        "impact": "Played in army bands before turning professional.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:britannica-elvin"]
+        }
+      },
+      {
+        "tradition": "Musical family",
+        "impact": "Youngest of ten; brothers Hank (piano) and Thad (trumpet) Jones were major jazz musicians.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:britannica-elvin", "src:aaj-elvin"]
+        }
+      },
+      {
+        "tradition": "Self-taught",
+        "impact": "Mostly self-taught.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:britannica-elvin"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1949,
+        "event": "Began professional career in Detroit, including the Grand River Street club house band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:britannica-elvin", "src:jazzonthetube-elvin"]
+        }
+      },
+      {
+        "year": 1956,
+        "event": "Moved to New York; worked with Donald Byrd, Pepper Adams and others.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:britannica-elvin"],
+          "alternatives": [
+            {
+              "value": 1955,
+              "source_ids": ["src:notoriousjazz-elvin"]
+            }
+          ]
+        }
+      },
+      {
+        "year": 1960,
+        "event": "Joined John Coltrane's quartet.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:britannica-elvin"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:elvin-detroit",
+      "label": "Detroit and early New York",
+      "years": {
+        "from": 1949,
+        "to": 1959
+      },
+      "context": "Detroit club scene, then New York sideman work.",
+      "defining_traits": ["bebop vocabulary", "already polyrhythmic; seen as hard to play with"]
+    },
+    {
+      "id": "era:elvin-coltrane",
+      "label": "Classic Coltrane Quartet",
+      "years": {
+        "from": 1960,
+        "to": 1966
+      },
+      "context": "With McCoy Tyner and Jimmy Garrison; long duet passages with Coltrane.",
+      "defining_traits": [
+        "triplet wave",
+        "cross-rhythms",
+        "drummer as equal improviser",
+        "huge dynamic arcs"
+      ],
+      "key_recording_ids": [
+        "rec:coltrane-my-favorite-things-1961",
+        "rec:coltrane-a-love-supreme-1965"
+      ]
+    },
+    {
+      "id": "era:elvin-leader",
+      "label": "Bandleader and Jazz Machine",
+      "years": {
+        "from": 1966,
+        "to": 2004
+      },
+      "context": "Left when Coltrane added Rashied Ali; led trios (Joe Farrell, Jimmy Garrison) and later the Elvin Jones Jazz Machine. Lived in Japan 1985 to 1989.",
+      "defining_traits": ["leader from the kit", "mentoring young players"],
+      "style_shift": "Same language; more space for his own solos and bands."
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-bop",
+        "name": "Post-bop / modal jazz",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:jazz",
+        "name": "Jazz",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:jazz-waltz",
+        "name": "Jazz waltz",
+        "weight": 0.6,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:latin-jazz",
+        "name": "Afro-Cuban-inflected jazz",
+        "weight": 0.3,
+        "authority": 0.4,
+        "notes": "e.g. 'Afro Blue' recast as a 3/4 jazz waltz."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.4,
+    "role_tendency": "conversational",
+    "descriptors": [
+      "polyrhythmic",
+      "volcanic",
+      "rolling",
+      "legato",
+      "dense yet swinging",
+      "spiritual intensity"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "Commonly heard as broad and behind on the ride; measure from stems."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.66,
+      "ratio_by_tempo": [
+        {
+          "bpm": 120,
+          "ratio": 0.68
+        },
+        {
+          "bpm": 200,
+          "ratio": 0.62
+        },
+        {
+          "bpm": 280,
+          "ratio": 0.56
+        }
+      ],
+      "notes": "Triplet partials are filled in constantly, so the swing feels like a continuous triplet wave rather than a dotted shuffle. Ratios are estimates."
+    },
+    "dynamics": {
+      "range": 1.0,
+      "default_level": "f",
+      "ghost_note_level": 30,
+      "accent_level": 120,
+      "balance": "Ride and snare comping roughly equal; kick used as an accent voice, not four-on-the-floor."
+    },
+    "density": {
+      "groove_notes_per_bar": [10, 30],
+      "fill_frequency": "constant_commentary",
+      "space_usage": 0.25
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [50, 320],
+    "timekeeping_context": ["free"],
+    "interaction": "Plays in dialogue with the soloist, building and releasing tension across whole choruses; famous extended duets with Coltrane.",
+    "descriptors": [
+      "four pistons in an engine (Tyner's image of the quartet)",
+      "pulses rather than a single pulse",
+      "propulsive"
+    ]
+  },
+  "technique_profile": {
+    "grip": ["traditional", "matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Triplet-based comping",
+        "description": "Snare and toms fill the triplet grid with shifting accents rather than discrete kicks and fills.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "widely_reported"
+        }
+      },
+      {
+        "name": "Mallets and rolls",
+        "description": "Mallet rumbles and cymbal swells for rubato and ballad textures.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely"
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Kick and hi-hat as independent voices",
+        "description": "Feet join the cross-rhythm rather than just marking time.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:britannica-elvin"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Triplet singles and doubles across voices",
+        "usage": ["groove", "orchestrated_around_kit", "split_between_limbs"],
+        "application": "Rudimental base from marching band, dissolved into flowing triplet orchestrations.",
+        "weight": 0.7
+      }
+    ],
+    "coordination": {
+      "independence": 1.0,
+      "linear_playing": 0.5,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 1.0,
+      "odd_meter_fluency": 0.6,
+      "notes": "Different metres played independently by hands and feet into a flow of shifting accents."
+    },
+    "voice_language": {
+      "ride": "Broad, legato, the melodic thread; often more of a wash than a rigid spang-a-lang.",
+      "hihat": "Pedal on 2 and 4 or shifting with the cross-rhythm.",
+      "snare": "Constant triplet commentary with accents displaced across the bar.",
+      "kick": "Accents and bombs inside the triplet flow.",
+      "toms": "Melodic, rolling triplet runs.",
+      "cymbals": "Crashes and swells as part of the wave."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.6,
+      "mallets": 0.5
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["dark, washy ride", "open, resonant toms", "deep kick", "lots of cymbal"],
+    "sample_hints": {
+      "60s": "Open jazz kit, 18in or 20in kick, dark K-style cymbals with long decay, resonant toms."
+    },
+    "evidence": {
+      "confidence": "inferred"
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:elvin-polyrhythmic-flow",
+      "label": "Polyrhythmic flow",
+      "category": "feel",
+      "description": "Different metres played independently by hands and feet merge into a propulsive flow of irregularly shifting accents.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:elvin-triplet-cross-rhythm-archetype"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:britannica-elvin"]
+      }
+    },
+    {
+      "id": "trait:elvin-co-improviser",
+      "label": "Drummer as equal improviser",
+      "category": "musical_approach",
+      "description": "Through his example the drummer became an improviser of equal weight to the melodic soloist; his solos show architecture comparable to Coltrane's.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:britannica-elvin", "src:tampabay-elvin"]
+      }
+    },
+    {
+      "id": "trait:elvin-waltz",
+      "label": "The Coltrane waltz feel",
+      "category": "groove",
+      "description": "3/4 jazz waltz with implied 6/8, used on 'My Favorite Things' and 'Afro Blue'.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:coltrane-my-favorite-things-1961"
+        }
+      ],
+      "pattern_ids": ["pattern:elvin-waltz-archetype"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzonthetube-elvin"]
+      }
+    },
+    {
+      "id": "trait:elvin-hard-to-play-with",
+      "label": "Too much for some bands",
+      "category": "quirk",
+      "description": "Early on his density and power gave him a reputation as hard to play with; later his style clashed with Rashied Ali's 'multidirectional' approach, prompting his exit from Coltrane's band.",
+      "audibility": "subtle",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:allsolos-elvin", "src:wikipedia-elvin"]
+      }
+    },
+    {
+      "id": "trait:elvin-to-the-end",
+      "label": "Played to the end",
+      "category": "performance_constraint",
+      "description": "Kept performing despite heart problems, sometimes with an oxygen tank, until weeks before his death.",
+      "audibility": "subtle",
+      "frequency": "rare",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:allsolos-elvin", "src:aaj-elvin"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:elvin-triplet-cross-rhythm-archetype",
+        "name": "Triplet swing with four-against-three accents",
+        "type": "comping",
+        "function": "Medium-up swing under a soloist",
+        "style_ids": ["style:post-bop"],
+        "fidelity": "stylistic_archetype",
+        "improvised": true,
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Illustrates the principle (accents grouped in fours across the triplet grid). Real playing is never a loop."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 2,
+        "feel": "triplet",
+        "tempo": {
+          "playable_range_bpm": [140, 260]
+        },
+        "lanes": {
+          "ride": "x..x.xx..x.x|x..x.xx..x.x",
+          "hihat_pedal": "...k.....k..|...k.....k..",
+          "snare": "X.g.X.g.X.g.|X.g.X.g.X.g.",
+          "kick": "..x.......x.|......x....."
+        },
+        "cross_rhythms": [
+          {
+            "ratio": "3:4",
+            "voices": ["snare", "kick"],
+            "cycle_steps": 4,
+            "description": "Accents every four triplet partials: three accents per bar against four beats."
+          }
+        ],
+        "humanise": {
+          "timing_jitter_ms": 8,
+          "velocity_jitter": 14
+        },
+        "variation_rules": [
+          {
+            "description": "Shift the accent cycle start by one partial each phrase",
+            "probability": 0.5
+          },
+          {
+            "description": "Move snare accents onto toms for a rolling orchestration",
+            "probability": 0.4
+          },
+          {
+            "description": "Drop to ride and hi-hat only for a chorus",
+            "probability": 0.15
+          }
+        ],
+        "difficulty": 9,
+        "derived_from": [
+          {
+            "style_id": "style:rudimental",
+            "how": "Marching band rudiments dissolved into triplet orchestration",
+            "evidence": {
+              "confidence": "likely"
+            }
+          }
+        ],
+        "tags": ["swing", "polyrhythm", "triplets", "comping"]
+      },
+      {
+        "id": "pattern:elvin-waltz-archetype",
+        "name": "Coltrane-era jazz waltz with 6/8 hemiola",
+        "type": "groove",
+        "function": "Waltz vamp",
+        "style_ids": ["style:jazz-waltz", "style:post-bop"],
+        "fidelity": "stylistic_archetype",
+        "improvised": true,
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred"
+        },
+        "source": {
+          "recording_id": "rec:coltrane-my-favorite-things-1961"
+        },
+        "time_signature": {
+          "numerator": 3,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 2,
+        "feel": "triplet",
+        "tempo": {
+          "playable_range_bpm": [160, 240]
+        },
+        "lanes": {
+          "ride": "x..x.xx..|x..x.xx..",
+          "hihat_pedal": "...k..k..|...k..k..",
+          "snare": "..g..X..g|.g..X..g.",
+          "kick": "x........|.....x..."
+        },
+        "cross_rhythms": [
+          {
+            "ratio": "2:3",
+            "voices": ["snare", "kick"],
+            "description": "Implied 6/8 against the 3/4 waltz."
+          }
+        ],
+        "humanise": {
+          "timing_jitter_ms": 7,
+          "velocity_jitter": 12
+        },
+        "difficulty": 7,
+        "related_pattern_ids": ["pattern:style-jazz-waltz"],
+        "tags": ["waltz", "3/4", "hemiola"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:elvin-triplet-tom-roll",
+        "name": "Rolling triplet tom phrases",
+        "description": "Triplet runs across snare and toms with kick interjections, phrased across bar lines.",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "widely_reported"
+        }
+      },
+      {
+        "id": "lick:elvin-mallet-rumble",
+        "name": "Mallet rumbles and swells",
+        "description": "Rubato mallet textures on toms and cymbals for ballads and intros.",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely"
+        }
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "John Coltrane Quartet",
+      "type": "band_member",
+      "years": {
+        "from": 1960,
+        "to": 1966
+      },
+      "bandmates": [
+        {
+          "name": "John Coltrane"
+        },
+        {
+          "name": "McCoy Tyner"
+        },
+        {
+          "name": "Jimmy Garrison"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:britannica-elvin", "src:wikipedia-elvin"]
+      }
+    },
+    {
+      "name": "Elvin Jones trio",
+      "type": "bandleader",
+      "years": {
+        "from": 1966
+      },
+      "bandmates": [
+        {
+          "name": "Joe Farrell"
+        },
+        {
+          "name": "Jimmy Garrison"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzonthetube-elvin"]
+      }
+    },
+    {
+      "name": "Elvin Jones Jazz Machine",
+      "type": "bandleader",
+      "years": {
+        "from": 1980,
+        "to": 2004
+      },
+      "bandmates": [
+        {
+          "name": "Ravi Coltrane",
+          "role": "saxophone, 1990s"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-elvin", "src:allsolos-elvin"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:coltrane-my-favorite-things-1961", "rec:coltrane-a-love-supreme-1965"],
+  "relationships": [
+    {
+      "type": "family",
+      "target": {
+        "name": "Hank Jones",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:britannica-elvin"]
+      }
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Thad Jones",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:britannica-elvin"]
+      }
+    },
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Rudimental / marching band",
+        "kind": "style",
+        "id": "style:rudimental"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:notoriousjazz-elvin"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "John Coltrane",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:britannica-elvin"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "McCoy Tyner",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:britannica-elvin"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Jimmy Garrison",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:britannica-elvin"]
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Rashied Ali (Coltrane's later drummer)",
+        "kind": "drummer",
+        "id": "drummer:rashied-ali"
+      },
+      "years": {
+        "from": 1966
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-elvin"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:notoriousjazz-elvin"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:notoriousjazz-elvin"]
+      }
+    },
+    {
+      "type": "mentored",
+      "target": {
+        "name": "Peter Erskine",
+        "kind": "drummer",
+        "id": "drummer:peter-erskine"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:aaj-elvin"],
+        "note": "Erskine is described as one of his drumming protégés."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Steve Gadd",
+        "kind": "drummer",
+        "id": "drummer:steve-gadd"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:remo-profile"]
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Afro-Cuban music (via 'Afro Blue')",
+        "kind": "style",
+        "id": "style:afro-cuban"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzonthetube-elvin"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Lessons covered music history as well as technique.",
+        "paraphrase_of_source_id": "src:notoriousjazz-elvin"
+      },
+      {
+        "idea": "Drumming was his single obsession from childhood.",
+        "paraphrase_of_source_id": "src:aaj-elvin"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 1.0,
+    "innovations": [
+      "Polyrhythmic, triplet-based swing as the norm for modern jazz drumming",
+      "The drummer as co-improviser with the soloist",
+      "Carried jazz polyrhythm into rock via Baker and Mitchell"
+    ],
+    "accolades": [
+      {
+        "award": "Modern Drummer Hall of Fame",
+        "year": 1995,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-elvin"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "New Yorker critic Whitney Balliett called him the greatest of all modern drummers.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:aaj-elvin"]
+        }
+      },
+      {
+        "description": "Ran a restaurant and jazz club in Japan from 1985 to 1989.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:allsolos-elvin"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That his density means loose time. The pulse stays strong under the cross-rhythms."
+    ]
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:elvin-triplet-cross-rhythm-archetype",
+      "pattern:elvin-waltz-archetype"
+    ],
+    "default_kit_sound": "Open 60s jazz kit, dark long-decay cymbals, resonant toms",
+    "generation_rules": [
+      "Triplet grid; never straight 16ths.",
+      "Generate, don't loop: apply variation rules every bar so no two bars repeat.",
+      "Cross-rhythm accents (groups of 2 or 4 partials) across snare, toms and kick.",
+      "Ride is legato and broad; hi-hat pedal on 2 and 4 by default."
+    ],
+    "avoid": ["Quantised, repeating loops", "Backbeat rock feel", "Sparse 'pocket' minimalism"],
+    "lineage_display": {
+      "primary_ancestors": ["style:rudimental"],
+      "primary_descendants": [
+        "drummer:steve-gadd",
+        "drummer:ginger-baker",
+        "drummer:mitch-mitchell",
+        "drummer:peter-erskine"
+      ],
+      "lineage_blurb": "From circus bands in Pontiac to Coltrane's quartet; his triplet wave flowed into fusion, rock and, via Baker and Mitchell, eventually metal."
+    },
+    "tags": ["jazz", "polyrhythm", "triplets", "60s", "improvised"]
+  }
+}

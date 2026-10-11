@@ -1,0 +1,9 @@
+{
+  "id": "style:jazz",
+  "name": "Jazz",
+  "kind": "genre",
+  "region": "USA",
+  "era": {
+    "from": 1910
+  }
+}

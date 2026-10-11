@@ -1,0 +1,57 @@
+{
+  "id": "rec:miles-davis-miles-smiles-1967",
+  "title": "Miles Smiles",
+  "artist": "Miles Davis",
+  "release": "Columbia",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "personnel": [
+    {
+      "name": "Miles Davis",
+      "role": "trumpet"
+    },
+    {
+      "name": "Wayne Shorter",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Herbie Hancock",
+      "role": "piano"
+    },
+    {
+      "name": "Ron Carter",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "Recorded October 1966.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams",
+      "name": "Tony Williams",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Footprints floats between 6/4 and 12/8 and accelerates; Freedom Jazz Dance and Orbits show the quintet's free-bop time.",
+      "pattern_ids": ["pattern:tony-williams-footprints-archetype"],
+      "notable_moments": [
+        {
+          "category": "feel",
+          "description": "Footprints speeds up from about 166 to 221 bpm across the take.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:tony-williams-goodman-2011"]
+          },
+          "pattern_id": "pattern:tony-williams-footprints-archetype"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-goodman-2011", "src:tony-williams-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tony-williams-wikipedia"]
+  }
+}

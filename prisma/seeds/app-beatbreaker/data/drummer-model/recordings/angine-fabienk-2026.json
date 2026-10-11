@@ -1,0 +1,32 @@
+{
+  "id": "rec:angine-fabienk-2026",
+  "title": "Fabienk",
+  "artist": "Angine de Poitrine",
+  "release": "Vol. II",
+  "year": 2026,
+  "type": "studio_track",
+  "style_ids": ["style:math-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:klek-de-poitrine",
+      "name": "Klek de Poitrine",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Single released 5 February 2026; SOCAN Polaris Song Prize finalist.",
+      "notable_moments": [
+        {
+          "category": "arrangement",
+          "description": "deadmau5 previewed and played a remix in his live sets.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:wikipedia-angine"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wikipedia-angine"]
+  }
+}

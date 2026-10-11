@@ -1,0 +1,34 @@
+{
+  "id": "rec:led-zeppelin-immigrant-song-1970",
+  "title": "Immigrant Song",
+  "artist": "Led Zeppelin",
+  "release": "Led Zeppelin III",
+  "year": 1970,
+  "type": "studio_track",
+  "style_ids": ["style:hard-rock"],
+  "tempo_bpm": 112,
+  "time_signature": "4/4",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-bonham",
+      "name": "John Bonham",
+      "drummer_role": "sole_drummer",
+      "significance": 0.75,
+      "why_it_matters": "A broken single paradiddle split between kick (right) and snare (left), rolling under the riff for the whole song.",
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "Paradiddle between kick and snare with two left-hand strokes dropped; one ghost on the snare.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:bonham-drummercafe-immigrant"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:bonham-wikipedia-immigrant"]
+  }
+}

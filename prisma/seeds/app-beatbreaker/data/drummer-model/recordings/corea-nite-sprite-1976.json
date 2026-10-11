@@ -1,0 +1,31 @@
+{
+  "id": "rec:corea-nite-sprite-1976",
+  "title": "Nite Sprite",
+  "artist": "Chick Corea",
+  "release": "The Leprechaun",
+  "year": 1976,
+  "type": "studio_track",
+  "style_ids": ["style:jazz-fusion"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:yamaha-profile", "src:drumlib"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-gadd",
+      "name": "Steve Gadd",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Showcase of orchestrated fusion drumming: arranged figures, precise ensemble hits and inventive fills.",
+      "notable_moments": [
+        {
+          "category": "arrangement",
+          "description": "Drums treated as an arranged voice in the ensemble, catching written figures with rudimental precision.",
+          "evidence": {
+            "confidence": "widely_reported"
+          }
+        }
+      ]
+    }
+  ]
+}

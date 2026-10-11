@@ -1,0 +1,33 @@
+{
+  "id": "rec:james-brown-super-bad-1970",
+  "title": "Super Bad",
+  "artist": "James Brown",
+  "year": 1970,
+  "type": "studio_track",
+  "style_ids": ["style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jabo-starks",
+      "name": "Jabo Starks",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "No. 1 R&B. Starts as if mid-groove, with a shifting rhythm built on unexpected upbeats.",
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "No build-up: the drums are in full flow from the first second.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:rollingstone-starks"]
+          },
+          "pattern_id": "pattern:starks-super-bad-archetype"
+        }
+      ],
+      "pattern_ids": ["pattern:starks-super-bad-archetype"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wapo-starks", "src:rollingstone-starks"]
+  }
+}

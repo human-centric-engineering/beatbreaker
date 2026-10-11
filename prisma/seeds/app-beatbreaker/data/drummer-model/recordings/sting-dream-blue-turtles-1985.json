@@ -1,0 +1,35 @@
+{
+  "id": "rec:sting-dream-blue-turtles-1985",
+  "title": "The Dream of the Blue Turtles",
+  "artist": "Sting",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "Branford Marsalis",
+      "role": "saxophone"
+    },
+    {
+      "name": "Kenny Kirkland",
+      "role": "keyboards"
+    },
+    {
+      "name": "Darryl Jones",
+      "role": "bass"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:omar-hakim",
+      "name": "Omar Hakim",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Defined the groove of Sting's first solo album; also in the Bring on the Night film."
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:roland-hakim", "src:wikipedia-hakim"]
+  }
+}

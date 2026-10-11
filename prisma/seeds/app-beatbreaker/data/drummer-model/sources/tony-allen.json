@@ -1,0 +1,93 @@
+[
+  {
+    "id": "src:tony-allen-wikipedia",
+    "type": "encyclopedia",
+    "title": "Tony Allen (musician) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Tony_Allen_(musician)",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:tony-allen-rollingstone-patterns",
+    "type": "video_lesson",
+    "title": "See Tony Allen Break Down Afrobeat's Major Drum Patterns in Unseen Doc Clip (Rolling Stone; clip from Birth of Afrobeat)",
+    "url": "https://www.rollingstone.com/music/music-news/tony-allen-afrobeat-drum-patterns-unseen-doc-clip-993318",
+    "reliability": 0.9,
+    "accessed": "2026-10-11",
+    "notes": "Allen demonstrates his five major Afrobeat patterns on camera; filmed 2017. He says the first is the one to learn."
+  },
+  {
+    "id": "src:tony-allen-poitevin",
+    "type": "transcription",
+    "title": "Tony Allen's five Afrobeat patterns, transcribed by Sebastien Poitevin (bestmusicsheet.com)",
+    "url": "https://www.bestmusicsheet.com",
+    "reliability": 0.75,
+    "accessed": "2026-10-10",
+    "notes": "Transcription of Allen's own demonstration in the Birth of Afrobeat footage. Exact page URL not recorded in the research notes."
+  },
+  {
+    "id": "src:tony-allen-ospalla",
+    "type": "transcription",
+    "title": "Joe Ospalla: Tony Allen first Afrobeat pattern (PDF)",
+    "reliability": 0.7,
+    "accessed": "2026-10-10",
+    "notes": "Agrees almost note for note with Poitevin's transcription of the first pattern. URL not recorded."
+  },
+  {
+    "id": "src:tony-allen-songsterr-wnge",
+    "type": "transcription",
+    "title": "Fela Kuti - Water No Get Enemy drum tab (Songsterr 489456, human-made)",
+    "url": "https://www.songsterr.com/a/wa/song?id=489456",
+    "reliability": 0.55,
+    "accessed": "2026-10-10",
+    "notes": "The one human-made Fela drum tab found; most other Fela tabs on Songsterr are AI-generated."
+  },
+  {
+    "id": "src:tony-allen-bishop",
+    "type": "analysis",
+    "title": "Todd Bishop, Cruise Ship Drummer: African music",
+    "url": "https://cruiseshipdrummer.com/african-music",
+    "reliability": 0.6,
+    "accessed": "2026-10-10",
+    "notes": "Tempos and the observation that his fills are rare, short and unexpected."
+  },
+  {
+    "id": "src:tony-allen-research",
+    "type": "analysis",
+    "title": "BeatBreaker drumming research, section I: Tony Allen (.context/app/planning/drumming-research.md)",
+    "reliability": 0.6,
+    "accessed": "2026-10-10",
+    "notes": "Internal synthesis of the transcriptions above; source of the BeatBreaker tonyallen style."
+  },
+  {
+    "id": "src:tony-allen-globe-obit",
+    "type": "obituary",
+    "title": "Tony Allen, drummer who created the beat of Afrobeat, dies at 79 (The Globe and Mail, from The New York Times)",
+    "url": "https://www.theglobeandmail.com/world/article-tony-allen-drummer-who-created-the-beat-of-afrobeat-dies-at-79-2/",
+    "reliability": 0.85,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:tony-allen-nme-obit",
+    "type": "obituary",
+    "title": "Tony Allen, 1940 - 2020: Afrobeat pioneer whose skill and talent inspired the world to skip and swing (NME)",
+    "url": "https://www.nme.com/features/tony-allen-obituary-tribute-2657971",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:tony-allen-autobiography",
+    "type": "book",
+    "title": "Tony Allen: An Autobiography of the Master Drummer of Afrobeat (with Michael E. Veal; Duke University Press, 2013)",
+    "reliability": 0.9,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:tony-allen-afropop",
+    "type": "interview",
+    "title": "The Beat magazine, vol. 36: Tony Allen (afropop.org archive)",
+    "url": "https://afropop.org/client-uploads/pdf/Beat36TAllen.pdf",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  }
+]

@@ -1,0 +1,34 @@
+{
+  "id": "rec:slayer-raining-blood-1986",
+  "title": "Raining Blood",
+  "artist": "Slayer",
+  "release": "Reign in Blood",
+  "year": 1986,
+  "type": "studio_track",
+  "producer": "Rick Rubin",
+  "style_ids": ["style:thrash-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-lombardo",
+      "name": "Dave Lombardo",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "Thrash landmark; the ending figure is one he stretches live.",
+      "pattern_ids": ["pattern:lombardo-thrash-beat-archetype"],
+      "notable_moments": [
+        {
+          "category": "arrangement",
+          "description": "Live, he extends the closing figure by two measures.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:blabbermouth-lombardo-2006"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wikipedia-lombardo"]
+  }
+}

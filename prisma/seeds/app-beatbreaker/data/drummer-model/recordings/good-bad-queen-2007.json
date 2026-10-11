@@ -1,0 +1,38 @@
+{
+  "id": "rec:good-bad-queen-2007",
+  "title": "The Good, the Bad & the Queen",
+  "artist": "The Good, the Bad & the Queen",
+  "release": "The Good, the Bad & the Queen",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:experimental-rock", "style:afrobeat"],
+  "personnel": [
+    {
+      "name": "Damon Albarn",
+      "role": "vocals, keyboards"
+    },
+    {
+      "name": "Paul Simonon",
+      "role": "bass"
+    },
+    {
+      "name": "Simon Tong",
+      "role": "guitar"
+    }
+  ],
+  "producer": "Danger Mouse",
+  "studio_context": "Produced by Danger Mouse; Damon Albarn, Paul Simonon, Simon Tong and Allen.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen",
+      "name": "Tony Allen",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Allen's Afrobeat independence, restrained and floating, under English rock songs; it brought him to a new audience."
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tony-allen-wikipedia"]
+  }
+}

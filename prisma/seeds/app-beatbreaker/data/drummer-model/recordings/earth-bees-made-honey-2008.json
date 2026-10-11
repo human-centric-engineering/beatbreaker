@@ -1,0 +1,29 @@
+{
+  "id": "rec:earth-bees-made-honey-2008",
+  "title": "The Bees Made Honey in the Lion's Skull",
+  "artist": "Earth",
+  "year": 2008,
+  "type": "album",
+  "style_ids": ["style:drone-doom", "style:americana"],
+  "personnel": [
+    {
+      "name": "Bill Frisell",
+      "role": "guitar (guest)",
+      "evidence": {
+        "confidence": "likely"
+      }
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:adrienne-davies",
+      "name": "Adrienne Davies",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Extends the sunbaked Hex sound with more warmth."
+    }
+  ],
+  "evidence": {
+    "confidence": "likely"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "rec:beatles-come-together-1969",
+  "title": "Come Together",
+  "artist": "The Beatles",
+  "release": "Abbey Road",
+  "year": 1969,
+  "type": "studio_track",
+  "style_ids": ["style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr",
+      "name": "Ringo Starr",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "Muffled tom groove; the opening tom roll runs low to high, the reverse of a right-handed drummer's instinct.",
+      "pattern_ids": [
+        "pattern:ringo-come-together-archetype",
+        "pattern:ringo-left-lead-fill-archetype"
+      ],
+      "notable_moments": [
+        {
+          "category": "sound",
+          "description": "Drums muffled with tea towels.",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:faroutmag-ringo"]
+          }
+        },
+        {
+          "category": "fill",
+          "description": "Ascending, left-led tom roll at the start.",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:drumheadauthority-ringo"]
+          },
+          "pattern_id": "pattern:ringo-left-lead-fill-archetype"
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:drumheadauthority-ringo"]
+  }
+}

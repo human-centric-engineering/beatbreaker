@@ -1,0 +1,21 @@
+{
+  "id": "rec:flora-purim-speed-of-light-1994",
+  "title": "Speed of Light",
+  "artist": "Flora Purim",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:changuito",
+      "name": "Changuito",
+      "drummer_role": "percussion_only",
+      "significance": 0.3,
+      "why_it_matters": "Congas and timbales guest spot."
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:worldmusiccentral-changuito"]
+  }
+}

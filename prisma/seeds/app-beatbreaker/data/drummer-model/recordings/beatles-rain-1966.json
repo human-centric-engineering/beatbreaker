@@ -1,0 +1,21 @@
+{
+  "id": "rec:beatles-rain-1966",
+  "title": "Rain",
+  "artist": "The Beatles",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr",
+      "name": "Ringo Starr",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Widely considered his best drumming and his own favourite; inventive tom work."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:footyalmanac-ringo", "src:melodics-ringo"]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "rec:hendrix-wind-cries-mary-1967",
+  "title": "The Wind Cries Mary",
+  "artist": "The Jimi Hendrix Experience",
+  "year": 1967,
+  "type": "studio_track",
+  "style_ids": ["style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mitch-mitchell",
+      "name": "Mitch Mitchell",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Shadows Hendrix's short guitar break almost note for note, with jazz fills, before returning to 2 and 4.",
+      "notable_moments": [
+        {
+          "category": "interaction",
+          "description": "Drums mirror the guitar solo phrase by phrase.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:npr-mitchell"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:npr-mitchell"]
+  }
+}

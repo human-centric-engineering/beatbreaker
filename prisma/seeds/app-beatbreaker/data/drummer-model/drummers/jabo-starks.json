@@ -1,0 +1,766 @@
+{
+  "meta": {
+    "id": "drummer:jabo-starks",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Transcribe 'Sex Machine', 'Super Bad' and 'The Payback' grooves from stems.",
+      "Split James Brown album credits track by track between Starks and Clyde Stubblefield.",
+      "Confirm his kit and cymbal setup in the James Brown years."
+    ]
+  },
+  "identity": {
+    "name": "Jabo Starks",
+    "full_name": "John Henry Starks",
+    "aliases": ["Jab'o Starks", "John 'Jabo' Starks"],
+    "born": {
+      "date": "1938-10-26",
+      "place": "Jackson, Alabama, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-starks"]
+      }
+    },
+    "died": {
+      "date": "2018-05-01",
+      "place": "Mobile, Alabama, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Mobile, Alabama", "James Brown's touring and recording bands"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "active": {
+      "from": 1957,
+      "to": 2018
+    },
+    "roles": ["touring", "band_member", "session", "educator"],
+    "summary": "One half of James Brown's great drum tandem with Clyde Stubblefield. Lean, crisp, disciplined grooves with a gospel and blues heart: 'Sex Machine', 'Super Bad', 'The Payback'. The steady rock under Bootsy Collins' bass, and one of the most sampled drummers in history."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "teachers": [],
+    "traditions": [
+      {
+        "tradition": "Gospel and blues",
+        "impact": "Grew up listening to both; the root of his feel.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-starks"]
+        }
+      },
+      {
+        "tradition": "Marching band / Mardi Gras parade drumming",
+        "impact": "Seeing a marching band in a Mardi Gras parade sparked his interest in drums.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-starks"]
+        }
+      },
+      {
+        "tradition": "Self-taught",
+        "impact": "Mostly self-taught; learned on the bandstand with blues artists.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-starks"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "After high school, played with John Lee Hooker, Smiley Lewis, Howlin' Wolf and Big Mama Thornton.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-starks"]
+        }
+      },
+      {
+        "year": 1959,
+        "event": "Joined Bobby 'Blue' Bland's band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-starks", "src:udiscover-starks"]
+        }
+      },
+      {
+        "year": 1965,
+        "event": "Joined James Brown; Clyde Stubblefield was hired around two weeks later.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wapo-starks"],
+          "alternatives": [
+            {
+              "value": 1966,
+              "source_ids": ["src:bonedo-starks"]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:starks-blues",
+      "label": "Blues and Bobby Bland",
+      "years": {
+        "from": 1957,
+        "to": 1965
+      },
+      "context": "Club work with blues greats, then Bland's band and hits.",
+      "defining_traits": ["blues shuffle", "gospel lift", "following the singer"],
+      "key_recording_ids": ["rec:bobby-bland-turn-on-your-love-light-1961"]
+    },
+    {
+      "id": "era:starks-james-brown",
+      "label": "James Brown",
+      "years": {
+        "from": 1965,
+        "to": 1975
+      },
+      "context": "Two-drummer era with Clyde Stubblefield; the JBs; Bootsy Collins era.",
+      "defining_traits": [
+        "lean funk grooves",
+        "upbeat-driven patterns",
+        "authoritative accents",
+        "ride cymbal sections"
+      ],
+      "key_recording_ids": [
+        "rec:james-brown-sex-machine-1970",
+        "rec:james-brown-super-bad-1970",
+        "rec:james-brown-soul-power-1971",
+        "rec:james-brown-the-payback-1973"
+      ]
+    },
+    {
+      "id": "era:starks-later",
+      "label": "B.B. King and the Funkmasters",
+      "years": {
+        "from": 1975,
+        "to": 2018
+      },
+      "context": "Toured and recorded with B.B. King; later the Funkmasters with Clyde Stubblefield, records and instructional videos.",
+      "defining_traits": ["blues pocket", "teaching the funk"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:funk",
+        "name": "Funk",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "name": "R&B / soul",
+        "weight": 0.9,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:blues",
+        "name": "Blues",
+        "weight": 0.7,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:blues-shuffle",
+        "name": "Blues shuffle",
+        "weight": 0.6,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:gospel",
+        "name": "Gospel",
+        "weight": 0.5,
+        "authority": 0.3
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": -0.9,
+    "role_tendency": "driver",
+    "descriptors": ["lean", "crisp", "disciplined", "cool", "steady", "economical"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred"
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.4,
+      "typical_swing_ratio": 0.6,
+      "notes": "Swinging hi-hat feel on 'Sex Machine'; shuffled verses on 'Soul Power'."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "mf",
+      "ghost_note_level": 35,
+      "accent_level": 115,
+      "balance": "Crisp snare, steady hats, kick locked to the bass."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 18],
+      "fill_frequency": "rare",
+      "space_usage": 0.7
+    },
+    "consistency": 0.97,
+    "tempo_comfort_bpm": [90, 130],
+    "interaction": "Plays it cool under a volatile, physical frontman; holds the band together rather than reacting to every move.",
+    "descriptors": ["steady", "lean", "driving", "unflashy"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american", "traditional"],
+    "hand_techniques": [
+      {
+        "name": "Swinging hi-hat",
+        "description": "Hi-hat groove with a swing lilt as the core of the pattern.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wapo-starks"]
+        }
+      },
+      {
+        "name": "Ride and bell for B sections",
+        "description": "Switches to a more open, ride-driven feel to lift a section.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:rollingstone-starks"]
+        }
+      },
+      {
+        "name": "Authoritative accents",
+        "description": "Strong unison accents to launch or punctuate a groove.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:rollingstone-starks"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Kick on upbeats",
+        "description": "Grooves built around unexpected upbeats rather than downbeat-heavy kick.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:rollingstone-starks"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.7,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.8,
+      "polyrhythm_usage": 0.2,
+      "odd_meter_fluency": 0.1
+    },
+    "voice_language": {
+      "hihat": "Swinging, steady, the main motor.",
+      "ride": "Open, driving ride for contrast sections.",
+      "snare": "Crisp backbeat with sparse ghosts.",
+      "kick": "Syncopated, often on upbeats; locks with Bootsy or Bernard Odum.",
+      "toms": "Rarely used.",
+      "cymbals": "Minimal crashes."
+    },
+    "implements": {
+      "sticks": 1.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["crisp snare", "dry kit", "bright hats"],
+    "sample_hints": {
+      "60s-70s": "Dry, roomy funk kit; crisp high-ish snare; tight kick; slightly trashy hats."
+    },
+    "evidence": {
+      "confidence": "inferred"
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:starks-not-outplaying",
+      "label": "Not trying to outplay anyone",
+      "category": "musical_approach",
+      "description": "Described his own approach as never trying to outplay other musicians; the groove and the band come first.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wapo-starks", "src:rollingstone-starks"]
+      }
+    },
+    {
+      "id": "trait:starks-cool-under-fire",
+      "label": "Cool under James Brown",
+      "category": "feel",
+      "description": "While Brown howled and marched across the stage, Starks played it cool and kept steady beats.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wapo-starks"]
+      }
+    },
+    {
+      "id": "trait:starks-upbeat-grooves",
+      "label": "Grooves built on upbeats",
+      "category": "groove",
+      "description": "Shifting rhythms built around unexpected upbeats, as on 'Super Bad', which starts as if in the middle of a groove.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:james-brown-super-bad-1970"
+        }
+      ],
+      "pattern_ids": ["pattern:starks-super-bad-archetype"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rollingstone-starks"]
+      }
+    },
+    {
+      "id": "trait:starks-tandem",
+      "label": "The drum tandem",
+      "category": "studio_practice",
+      "description": "Played alongside or in rotation with Clyde Stubblefield in Brown's two-drummer lineup. Questlove compared them to the Beatles and the Stones, with Jabo as the Beatles.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:udiscover-starks", "src:wapo-starks"]
+      }
+    },
+    {
+      "id": "trait:starks-section-contrast",
+      "label": "Shuffle verses, ride-driven B sections",
+      "category": "groove",
+      "description": "Changes cymbal and feel between sections for momentum without adding fills.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:james-brown-soul-power-1971"
+        }
+      ],
+      "pattern_ids": ["pattern:starks-soul-power-ride-archetype"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rollingstone-starks"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:starks-sex-machine-archetype",
+        "name": "Swinging hi-hat funk (Sex Machine style)",
+        "type": "groove",
+        "function": "Main vamp",
+        "style_ids": ["style:funk"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Captures the documented swinging hi-hat groove; not a transcription."
+        },
+        "source": {
+          "recording_id": "rec:james-brown-sex-machine-1970"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "swung",
+        "swing_ratio": 0.6,
+        "tempo": {
+          "playable_range_bpm": [100, 115]
+        },
+        "lanes": {
+          "hihat": "XxxxXxxxXxxxXxxx",
+          "snare": "....X.......X..g",
+          "kick": "x.....x.x......."
+        },
+        "humanise": {
+          "timing_jitter_ms": 4,
+          "velocity_jitter": 10
+        },
+        "difficulty": 4,
+        "tags": ["funk", "hi-hat", "James Brown"]
+      },
+      {
+        "id": "pattern:starks-super-bad-archetype",
+        "name": "Upbeat-driven funk (Super Bad style)",
+        "type": "groove",
+        "function": "Main vamp",
+        "style_ids": ["style:funk"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred"
+        },
+        "source": {
+          "recording_id": "rec:james-brown-super-bad-1970"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "swing_ratio": 0.55,
+        "tempo": {
+          "playable_range_bpm": [110, 125]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.o.",
+          "snare": "....X..g.g..X...",
+          "kick": "x.x...x...x..x.."
+        },
+        "humanise": {
+          "timing_jitter_ms": 4,
+          "velocity_jitter": 10
+        },
+        "difficulty": 5,
+        "tags": ["funk", "syncopation"]
+      },
+      {
+        "id": "pattern:starks-soul-power-ride-archetype",
+        "name": "Ride-driven B section",
+        "type": "groove_variation",
+        "function": "Lift for B section",
+        "style_ids": ["style:funk"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred"
+        },
+        "source": {
+          "recording_id": "rec:james-brown-soul-power-1971"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [100, 120]
+        },
+        "lanes": {
+          "ride": "x.x.B.x.x.x.B.x.",
+          "snare": "....X.......X...",
+          "kick": "x......x..x.....",
+          "hihat_pedal": "....k.......k..."
+        },
+        "difficulty": 3,
+        "related_pattern_ids": ["pattern:starks-sex-machine-archetype"],
+        "tags": ["ride", "section contrast"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:starks-sex-machine-intro",
+        "name": "Sex Machine opening accents",
+        "description": "A series of authoritative accents that open the record before the groove settles.",
+        "heard_on": ["rec:james-brown-sex-machine-1970"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:rollingstone-starks"]
+        }
+      },
+      {
+        "id": "lick:starks-think-break",
+        "name": "Think (About It) break",
+        "description": "The breakbeat on Lyn Collins' record, one of the most used breaks in hip-hop and dance music.",
+        "heard_on": ["rec:lyn-collins-think-1972"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:stranger-starks"]
+        }
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Bobby 'Blue' Bland",
+      "type": "band_member",
+      "years": {
+        "from": 1959,
+        "to": 1965
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-starks"]
+      }
+    },
+    {
+      "name": "James Brown / The JBs",
+      "type": "band_member",
+      "years": {
+        "from": 1965,
+        "to": 1975
+      },
+      "bandmates": [
+        {
+          "name": "Clyde Stubblefield",
+          "drummer_id": "drummer:clyde-stubblefield",
+          "role": "co-drummer"
+        },
+        {
+          "name": "Bootsy Collins",
+          "role": "bass"
+        },
+        {
+          "name": "Bobby Byrd"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-starks", "src:bonedo-starks"]
+      }
+    },
+    {
+      "name": "B.B. King",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1975
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-starks"]
+      }
+    },
+    {
+      "name": "The Funkmasters",
+      "type": "band_member",
+      "bandmates": [
+        {
+          "name": "Clyde Stubblefield",
+          "drummer_id": "drummer:clyde-stubblefield"
+        }
+      ],
+      "notes": "Records and instructional videos.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stranger-starks"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:bobby-bland-turn-on-your-love-light-1961",
+    "rec:james-brown-say-it-loud-1969",
+    "rec:james-brown-sex-machine-1970",
+    "rec:james-brown-super-bad-1970",
+    "rec:james-brown-soul-power-1971",
+    "rec:lyn-collins-think-1972",
+    "rec:james-brown-the-payback-1973"
+  ],
+  "relationships": [
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Gospel",
+        "kind": "style",
+        "id": "style:gospel"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-starks"]
+      }
+    },
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "New Orleans / Gulf Coast parade drumming",
+        "kind": "style",
+        "id": "style:new-orleans-second-line"
+      },
+      "strength": 0.5,
+      "aspects": ["first spark"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:pas-starks"],
+        "note": "Source says Mardi Gras marching band; Gulf Coast tradition link is inferred."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "John Lee Hooker",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-starks"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Howlin' Wolf",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-starks"]
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Clyde Stubblefield",
+        "kind": "drummer",
+        "id": "drummer:clyde-stubblefield"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1965,
+        "to": 1975
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wapo-starks"]
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Clayton Fillyau (James Brown's earlier drummer)",
+        "kind": "drummer",
+        "id": "drummer:clayton-fillyau"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:rollingstone-starks"],
+        "note": "Starks refers to the Fillyau single-drummer era preceding him."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Bootsy Collins",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "aspects": ["Bootsy built his bass grooves on Starks' time"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:udiscover-starks"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Questlove",
+        "kind": "drummer",
+        "id": "drummer:questlove"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:udiscover-starks", "src:stranger-starks"]
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Hip-hop breakbeat",
+        "kind": "style",
+        "id": "style:hip-hop-breakbeat"
+      },
+      "strength": 0.9,
+      "aspects": ["sampled breaks"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-starks"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "videos": [
+      {
+        "title": "The Funkmasters instructional videos (with Clyde Stubblefield)",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:stranger-starks"]
+        }
+      }
+    ],
+    "philosophy": [
+      {
+        "idea": "Don't try to outplay anyone; hold the time and the band.",
+        "paraphrase_of_source_id": "src:wapo-starks"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.9,
+    "innovations": [
+      "Defined the lean, upbeat-driven James Brown funk groove",
+      "Two-drummer band concept with Clyde Stubblefield"
+    ],
+    "accolades": [],
+    "cultural_references": [
+      {
+        "description": "His James Brown-era beats have been sampled by LL Cool J, Kendrick Lamar, A Tribe Called Quest, the Roots, the Black Eyed Peas and Kool Moe Dee, among many others.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-starks"]
+        }
+      },
+      {
+        "description": "Worked with Stubblefield on music for the film Superbad.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stranger-starks"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That Clyde Stubblefield played all the famous James Brown grooves. Starks played 'Sex Machine', 'Super Bad' and 'The Payback'."
+    ]
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:starks-sex-machine-archetype",
+      "pattern:starks-super-bad-archetype",
+      "pattern:starks-soul-power-ride-archetype"
+    ],
+    "default_kit_sound": "Dry late-60s funk kit, crisp snare, slightly trashy hats",
+    "generation_rules": [
+      "Few fills; vary feel between sections by switching hats to ride.",
+      "Kick favours upbeats and the one.",
+      "Light swing on 16ths (0.55 to 0.6)."
+    ],
+    "avoid": ["Busy fills", "Heavy ghost-note density", "Tom runs"],
+    "lineage_display": {
+      "primary_ancestors": ["style:gospel", "style:blues"],
+      "primary_descendants": ["drummer:questlove", "style:hip-hop-breakbeat"],
+      "lineage_blurb": "Gospel, blues and a Mardi Gras marching band, through Bobby Bland and James Brown, into the breakbeats of hip-hop."
+    },
+    "tags": ["funk", "James Brown", "breaks", "60s", "70s", "groove"]
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "id": "rec:tony-williams-lifetime-emergency-1969",
+  "title": "Emergency!",
+  "artist": "The Tony Williams Lifetime",
+  "release": "Polydor",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:rock"],
+  "personnel": [
+    {
+      "name": "John McLaughlin",
+      "role": "guitar"
+    },
+    {
+      "name": "Larry Young",
+      "role": "organ"
+    },
+    {
+      "name": "Tony Williams",
+      "role": "drums, vocals"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams",
+      "name": "Tony Williams",
+      "drummer_role": "leader",
+      "significance": 0.9,
+      "why_it_matters": "The first Lifetime album: loud organ-trio jazz-rock recorded months before Bitches Brew, the drums doubling riffs under a ride and crash wash.",
+      "pattern_ids": ["pattern:tony-williams-emergency-archetype"],
+      "notable_moments": [
+        {
+          "category": "sound",
+          "description": "Distorted, overdriven recording; drums at rock volume.",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:tony-williams-wikipedia"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tony-williams-wikipedia"]
+  }
+}

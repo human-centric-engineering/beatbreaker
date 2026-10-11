@@ -1,0 +1,33 @@
+{
+  "id": "rec:james-brown-soul-power-1971",
+  "title": "Soul Power",
+  "artist": "James Brown",
+  "year": 1971,
+  "type": "studio_track",
+  "style_ids": ["style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jabo-starks",
+      "name": "Jabo Starks",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Momentum from section contrast rather than fills.",
+      "section_map": [
+        {
+          "section": "Verses",
+          "drum_approach": "Crisp and shuffling."
+        },
+        {
+          "section": "B sections",
+          "drum_approach": "More open, ride-cymbal-driven feel.",
+          "pattern_ids": ["pattern:starks-soul-power-ride-archetype"]
+        }
+      ],
+      "pattern_ids": ["pattern:starks-soul-power-ride-archetype"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:rollingstone-starks"]
+  }
+}

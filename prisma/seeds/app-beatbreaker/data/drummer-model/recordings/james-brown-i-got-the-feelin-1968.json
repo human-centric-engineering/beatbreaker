@@ -1,0 +1,33 @@
+{
+  "id": "rec:james-brown-i-got-the-feelin-1968",
+  "title": "I Got the Feelin'",
+  "artist": "James Brown",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:funk"],
+  "tempo_bpm": 128,
+  "time_signature": "4/4",
+  "feel": "straight",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clyde-stubblefield",
+      "name": "Clyde Stubblefield",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The backbeat displaced to the 'and's of 2 and 4, then the left hand grouping ghosts in threes on the snare.",
+      "pattern_ids": ["pattern:stubblefield-i-got-the-feelin-approx"],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:stubblefield-wikipedia", "src:stubblefield-funklet-i-got-the-feelin"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": [
+      "src:stubblefield-wiki-i-got-the-feelin",
+      "src:stubblefield-funklet-i-got-the-feelin"
+    ],
+    "note": "BeatBreaker research lists it as 1967; single released early 1968."
+  }
+}

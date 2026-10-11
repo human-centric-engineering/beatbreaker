@@ -1,0 +1,103 @@
+{
+  "id": "rec:james-brown-funky-drummer-1970",
+  "title": "Funky Drummer",
+  "artist": "James Brown",
+  "year": 1970,
+  "type": "studio_track",
+  "style_ids": ["style:funk", "style:hip-hop-breakbeat"],
+  "personnel": [
+    {
+      "name": "James Brown",
+      "role": "vocals, organ"
+    },
+    {
+      "name": "Jimmy Nolen",
+      "role": "guitar"
+    },
+    {
+      "name": "Maceo Parker",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Fred Wesley",
+      "role": "trombone"
+    }
+  ],
+  "tempo_bpm": 101,
+  "time_signature": "4/4",
+  "feel": "straight sixteenths, light lilt",
+  "studio_context": "Recorded 20 November 1969 at King Studios, Cincinnati; released March 1970 as a two-part single.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clyde-stubblefield",
+      "name": "Clyde Stubblefield",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "His defining record and the most famous break in sampling. One-handed sixteenth hats, whisper ghosts, the snare accent on the 'a' of 3; Brown named the song after him on the spot.",
+      "notable_moments": [
+        {
+          "category": "solo",
+          "description": "Eight-bar unaccompanied break: Brown tells him not to solo but to keep what he's got.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:stubblefield-wiki-funky-drummer"]
+          }
+        },
+        {
+          "category": "groove",
+          "description": "Single-handed sixteenth hats with syncopated kick, open hats and ghost notes.",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:stubblefield-current", "src:stubblefield-roland"]
+          },
+          "pattern_id": "pattern:stubblefield-funky-drummer-approx"
+        }
+      ],
+      "pattern_ids": ["pattern:stubblefield-funky-drummer-approx"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:stubblefield-wiki-funky-drummer",
+          "src:stubblefield-funklet-funky-drummer"
+        ]
+      }
+    }
+  ],
+  "sampled_by": [
+    {
+      "artist": "Public Enemy",
+      "title": "Fight the Power",
+      "year": 1989,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:stubblefield-current"]
+      }
+    },
+    {
+      "artist": "LL Cool J",
+      "title": "Mama Said Knock You Out",
+      "year": 1990,
+      "evidence": {
+        "confidence": "likely"
+      }
+    },
+    {
+      "artist": "N.W.A",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:stubblefield-wiki-funky-drummer"]
+      }
+    },
+    {
+      "artist": "Run-DMC",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:stubblefield-wiki-funky-drummer"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:stubblefield-wiki-funky-drummer", "src:stubblefield-current"]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "id": "rec:dire-straits-money-for-nothing-1985",
+  "title": "Money for Nothing",
+  "artist": "Dire Straits",
+  "release": "Brothers in Arms",
+  "year": 1985,
+  "type": "studio_track",
+  "style_ids": ["style:rock"],
+  "studio_context": "Hakim was brought in late and re-recorded the album's drums in two days, replacing most of Terry Williams' takes.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:omar-hakim",
+      "name": "Omar Hakim",
+      "drummer_role": "co_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Hakim plays the main groove; the album's drums are almost entirely his.",
+      "section_map": [
+        {
+          "section": "Main groove",
+          "drum_approach": "Big, straight rock groove with a large snare.",
+          "pattern_ids": ["pattern:hakim-money-for-nothing-archetype"]
+        }
+      ],
+      "pattern_ids": ["pattern:hakim-money-for-nothing-archetype"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-hakim"]
+      }
+    },
+    {
+      "drummer_id": "drummer:terry-williams",
+      "name": "Terry Williams",
+      "drummer_role": "co_drummer",
+      "significance": 0.3,
+      "why_it_matters": "Plays only the improvised drum crescendo at the start.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-hakim"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wikipedia-hakim"]
+  }
+}

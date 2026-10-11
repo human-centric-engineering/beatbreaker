@@ -1,0 +1,22 @@
+{
+  "id": "rec:angine-kexp-trans-musicales-2025",
+  "title": "Live at Trans Musicales (KEXP)",
+  "artist": "Angine de Poitrine",
+  "year": 2026,
+  "type": "video",
+  "style_ids": ["style:math-rock"],
+  "studio_context": "Filmed at Trans Musicales, Rennes, December 2025; released by KEXP on 5 February 2026.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:klek-de-poitrine",
+      "name": "Klek de Poitrine",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The viral breakthrough: over two million views in a week and over 16 million by June 2026."
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wikipedia-angine"]
+  }
+}

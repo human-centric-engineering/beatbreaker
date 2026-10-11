@@ -1,0 +1,50 @@
+{
+  "id": "style:broken-beat",
+  "name": "Broken beat",
+  "aliases": ["bruk", "broken beat (West London)"],
+  "kind": "sub_genre",
+  "region": "West London, UK",
+  "era": {
+    "from": 1997
+  },
+  "parents": [
+    {
+      "style_id": "style:hip-hop-breakbeat",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:jazz-fusion",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:funk",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "summary": "West London club music of the late 1990s and 2000s: jazz-funk harmony over syncopated 4/4 beats whose snares and kicks are shifted off the grid points of house and hip-hop.",
+  "drum_characteristics": {
+    "feel": "Syncopated, lightly swung 16ths",
+    "subdivision": "16ths",
+    "tempo_range_bpm": [90, 130],
+    "key_voices": ["kick", "snare", "hihat"],
+    "hallmarks": [
+      "backbeat displaced to the 16th before or after 2 and 4",
+      "kicks on offbeat 16ths",
+      "busy syncopated hats"
+    ],
+    "avoid": ["four-on-the-floor kick", "plain 2 and 4 backbeat"]
+  },
+  "key_recording_ids": ["rec:yussef-kamaal-black-focus-2016"],
+  "evidence": {
+    "confidence": "widely_reported"
+  }
+}

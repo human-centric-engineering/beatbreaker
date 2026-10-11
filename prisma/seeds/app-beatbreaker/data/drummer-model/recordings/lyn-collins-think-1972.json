@@ -1,0 +1,31 @@
+{
+  "id": "rec:lyn-collins-think-1972",
+  "title": "Think (About It)",
+  "artist": "Lyn Collins",
+  "year": 1972,
+  "type": "studio_track",
+  "style_ids": ["style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jabo-starks",
+      "name": "Jabo Starks",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Its break became one of the most widely used in hip-hop and dance music."
+    }
+  ],
+  "sampled_by": [
+    {
+      "artist": "Rob Base and DJ E-Z Rock",
+      "title": "It Takes Two",
+      "year": 1988,
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:stranger-starks"]
+  }
+}

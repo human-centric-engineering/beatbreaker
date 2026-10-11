@@ -1,0 +1,26 @@
+{
+  "id": "style:reggae",
+  "name": "Reggae",
+  "kind": "genre",
+  "region": "Jamaica",
+  "era": {
+    "from": 1968
+  },
+  "parents": [
+    {
+      "style_id": "style:rnb-soul",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "drum_characteristics": {
+    "hallmarks": [
+      "one drop (kick and snare on 3)",
+      "rockers and steppers kick patterns",
+      "rim clicks",
+      "space"
+    ]
+  }
+}

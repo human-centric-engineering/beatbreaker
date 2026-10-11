@@ -1,0 +1,22 @@
+{
+  "id": "rec:police-roxanne-1978",
+  "title": "Roxanne",
+  "artist": "The Police",
+  "release": "Outlandos d'Amour",
+  "year": 1978,
+  "type": "studio_track",
+  "style_ids": ["style:new-wave", "style:reggae"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stewart-copeland",
+      "name": "Stewart Copeland",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "A simple beat syncopated by as little as an eighth note, landing between punk drive and reggae dance."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:faroutmag-copeland"]
+  }
+}

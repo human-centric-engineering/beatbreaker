@@ -1,0 +1,34 @@
+{
+  "id": "rec:daft-punk-ram-2013",
+  "title": "Random Access Memories",
+  "artist": "Daft Punk",
+  "year": 2013,
+  "type": "album",
+  "style_ids": ["style:funk", "style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:omar-hakim",
+      "name": "Omar Hakim",
+      "drummer_role": "co_drummer",
+      "significance": 0.5,
+      "why_it_matters": "Live drums on a landmark disco-revival album; later played with Daft Punk at the Grammys.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roland-hakim"]
+      }
+    },
+    {
+      "drummer_id": "drummer:jr-robinson",
+      "name": "John 'JR' Robinson",
+      "drummer_role": "co_drummer",
+      "evidence": {
+        "confidence": "likely"
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:roland-hakim"],
+    "note": "Track-level credits to confirm."
+  }
+}

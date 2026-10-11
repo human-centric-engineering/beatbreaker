@@ -1,0 +1,19 @@
+{
+  "id": "style:mozambique",
+  "name": "Mozambique",
+  "kind": "groove_family",
+  "region": "Cuba",
+  "era": {
+    "from": 1963
+  },
+  "parents": [
+    {
+      "style_id": "style:afro-cuban",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "summary": "Cuban rhythm created by Pello el Afrokan in the 1960s; adapted to drum kit by New York players, most famously Steve Gadd."
+}

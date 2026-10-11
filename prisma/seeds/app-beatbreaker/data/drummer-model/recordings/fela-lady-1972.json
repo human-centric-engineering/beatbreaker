@@ -1,0 +1,23 @@
+{
+  "id": "rec:fela-lady-1972",
+  "title": "Lady",
+  "artist": "Fela Ransome-Kuti and the Africa '70",
+  "release": "Shakara",
+  "year": 1972,
+  "type": "studio_track",
+  "style_ids": ["style:afrobeat"],
+  "studio_context": "Side one of the Shakara LP (EMI Nigeria, 1972).",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen",
+      "name": "Tony Allen",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "A slow, soft Africa 70 groove: his double-kick pattern played quietly under Fela's satire."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:tony-allen-wikipedia"]
+  }
+}

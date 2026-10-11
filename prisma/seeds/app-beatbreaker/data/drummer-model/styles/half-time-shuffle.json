@@ -1,0 +1,27 @@
+{
+  "id": "style:half-time-shuffle",
+  "name": "Half-time shuffle",
+  "kind": "groove_family",
+  "parents": [
+    {
+      "style_id": "style:blues-shuffle",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:funk",
+      "relation": "fusion_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "summary": "Triplet shuffle with the backbeat on 3 and ghost notes on the middle triplet partial. Popularised as the Purdie shuffle.",
+  "drum_characteristics": {
+    "subdivision": "8th-note triplets",
+    "hallmarks": ["backbeat on 3", "middle-partial ghost notes", "rolling feel"]
+  },
+  "key_drummer_ids": ["drummer:bernard-purdie", "drummer:jeff-porcaro", "drummer:john-bonham"]
+}

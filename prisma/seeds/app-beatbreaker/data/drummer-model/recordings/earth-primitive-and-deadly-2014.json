@@ -1,0 +1,21 @@
+{
+  "id": "rec:earth-primitive-and-deadly-2014",
+  "title": "Primitive and Deadly",
+  "artist": "Earth",
+  "year": 2014,
+  "type": "album",
+  "style_ids": ["style:drone-doom", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:adrienne-davies",
+      "name": "Adrienne Davies",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Heavier record with more vocals than usual for Earth."
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:metal-insider-davies"]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "id": "rec:puente-oye-como-va-1963",
+  "title": "Oye Como Va",
+  "artist": "Tito Puente",
+  "year": 1963,
+  "type": "studio_track",
+  "style_ids": ["style:cha-cha-cha"],
+  "later_versions": [
+    {
+      "recording_id": "rec:santana-oye-como-va-1970",
+      "note": "Santana's 1970 cover reached No. 13 on the Billboard Hot 100."
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tito-puente",
+      "name": "Tito Puente",
+      "drummer_role": "leader",
+      "significance": 0.95,
+      "why_it_matters": "His best-known composition; a cha-cha-chá that became a crossover standard."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jazzcom-puente"],
+    "alternatives": [
+      {
+        "value": 1962,
+        "source_ids": ["src:nylatin-puente"],
+        "note": "On El Rey Bravo"
+      },
+      {
+        "value": 1956,
+        "source_ids": ["src:pas-puente"]
+      }
+    ]
+  }
+}

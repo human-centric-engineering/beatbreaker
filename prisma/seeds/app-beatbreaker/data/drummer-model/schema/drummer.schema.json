@@ -1,0 +1,1261 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://beatbreaker.app/schema/drummer.schema.json",
+  "title": "Drummer",
+  "description": "A drummer: identity, formation, feel, technique, vocabulary, equipment, affiliations and lineage edges. Recordings, styles and sources live in their own registries and are referenced by id.",
+  "type": "object",
+  "required": ["meta", "identity", "style_profile", "feel_profile", "vocabulary"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "identity": {
+      "$ref": "#/$defs/Identity"
+    },
+    "formation": {
+      "$ref": "#/$defs/Formation"
+    },
+    "eras": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Era"
+      }
+    },
+    "style_profile": {
+      "$ref": "#/$defs/StyleProfile"
+    },
+    "feel_profile": {
+      "$ref": "#/$defs/FeelProfile"
+    },
+    "technique_profile": {
+      "$ref": "#/$defs/TechniqueProfile"
+    },
+    "sound_profile": {
+      "$ref": "#/$defs/SoundProfile"
+    },
+    "signature_traits": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/SignatureTrait"
+      }
+    },
+    "vocabulary": {
+      "type": "object",
+      "description": "Playable and descriptive language of the drummer.",
+      "properties": {
+        "patterns": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/Pattern"
+          }
+        },
+        "licks_described": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/DescribedLick"
+          },
+          "description": "Vocabulary known but not yet gridded."
+        }
+      },
+      "required": ["patterns"]
+    },
+    "equipment": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/KitSetup"
+      }
+    },
+    "affiliations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Affiliation"
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Relationship"
+      },
+      "description": "Typed edges for the lineage graph."
+    },
+    "pedagogy": {
+      "$ref": "#/$defs/Pedagogy"
+    },
+    "legacy": {
+      "$ref": "#/$defs/Legacy"
+    },
+    "beatbreaker": {
+      "$ref": "#/$defs/BeatBreakerHints"
+    },
+    "key_recording_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Id"
+      },
+      "description": "Recordings in recordings/ where this drummer has a drum_performance."
+    }
+  },
+  "$defs": {
+    "Meta": {
+      "type": "object",
+      "required": ["id", "schema_version", "record_status"],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/Id"
+        },
+        "schema_version": {
+          "const": "1.4.0",
+          "description": "Every record is at the current version; the test refuses an older one."
+        },
+        "record_status": {
+          "enum": ["stub", "draft", "reviewed", "canonical"]
+        },
+        "completeness": {
+          "$ref": "common.schema.json#/$defs/Weight"
+        },
+        "created": {
+          "type": "string",
+          "format": "date"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "open_questions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Known gaps to research or transcribe."
+        }
+      }
+    },
+    "Identity": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "born": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string"
+            },
+            "place": {
+              "type": "string"
+            },
+            "evidence": {
+              "$ref": "common.schema.json#/$defs/Evidence"
+            }
+          }
+        },
+        "died": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string"
+            },
+            "place": {
+              "type": "string"
+            }
+          }
+        },
+        "nationality": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "home_scenes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Cities or scenes they are associated with, e.g. 'New York studio scene 1970s'"
+        },
+        "handedness": {
+          "enum": ["right", "left", "ambidextrous", "unknown"]
+        },
+        "kit_orientation": {
+          "enum": ["right_handed", "left_handed", "open_handed", "mirror", "unknown"]
+        },
+        "active": {
+          "$ref": "common.schema.json#/$defs/YearRange"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "session",
+              "touring",
+              "band_member",
+              "bandleader",
+              "composer",
+              "producer",
+              "educator",
+              "author",
+              "clinician",
+              "percussionist"
+            ]
+          }
+        },
+        "summary": {
+          "type": "string",
+          "description": "One-paragraph description of who they are as a player."
+        },
+        "pseudonymous": {
+          "type": "boolean"
+        },
+        "persona": {
+          "type": "object",
+          "description": "Stage persona for masked or pseudonymous performers.",
+          "properties": {
+            "stage_name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "costume": {
+              "type": "string"
+            },
+            "language": {
+              "type": "string"
+            },
+            "real_identity_policy": {
+              "enum": ["public", "private_do_not_research"],
+              "description": "private_do_not_research: never store, infer or search for the real identity."
+            },
+            "evidence": {
+              "$ref": "common.schema.json#/$defs/Evidence"
+            }
+          }
+        },
+        "primary_instruments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "e.g. ['drum kit'], ['timbales','vibraphone']"
+        },
+        "setup_type": {
+          "enum": [
+            "drum_kit",
+            "timbales",
+            "hybrid_kit_timbales",
+            "hand_percussion",
+            "multi_percussion",
+            "electronic",
+            "other"
+          ]
+        },
+        "alter_egos": {
+          "type": "array",
+          "description": "Public side personas (e.g. a pseudonymous solo project). Not for private identities.",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "years": {
+                "$ref": "common.schema.json#/$defs/YearRange"
+              },
+              "evidence": {
+                "$ref": "common.schema.json#/$defs/Evidence"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Formation": {
+      "type": "object",
+      "description": "How the drummer was formed: teachers, schools, traditions, early gigs.",
+      "properties": {
+        "started_age": {
+          "type": "integer"
+        },
+        "first_instrument": {
+          "type": "string"
+        },
+        "other_instruments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "teachers": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/PersonRef"
+          }
+        },
+        "institutions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "years": {
+                "$ref": "common.schema.json#/$defs/YearRange"
+              },
+              "outcome": {
+                "type": "string"
+              },
+              "evidence": {
+                "$ref": "common.schema.json#/$defs/Evidence"
+              }
+            }
+          }
+        },
+        "traditions": {
+          "type": "array",
+          "description": "Formative traditions, e.g. drum corps, military band, church, orchestral, hand percussion.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tradition": {
+                "type": "string"
+              },
+              "impact": {
+                "type": "string"
+              },
+              "evidence": {
+                "$ref": "common.schema.json#/$defs/Evidence"
+              }
+            }
+          }
+        },
+        "formative_events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "year": {
+                "$ref": "common.schema.json#/$defs/Year"
+              },
+              "age": {
+                "type": "integer"
+              },
+              "event": {
+                "type": "string"
+              },
+              "evidence": {
+                "$ref": "common.schema.json#/$defs/Evidence"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Era": {
+      "type": "object",
+      "required": ["id", "label", "years"],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/Id"
+        },
+        "label": {
+          "type": "string"
+        },
+        "years": {
+          "$ref": "common.schema.json#/$defs/YearRange"
+        },
+        "context": {
+          "type": "string"
+        },
+        "defining_traits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "style_shift": {
+          "type": "string",
+          "description": "How playing changed relative to the previous era."
+        },
+        "kit_setup_id": {
+          "$ref": "common.schema.json#/$defs/Id"
+        },
+        "key_recording_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/Id"
+          }
+        }
+      }
+    },
+    "StyleProfile": {
+      "type": "object",
+      "required": ["genres"],
+      "properties": {
+        "genres": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["style_id", "weight"],
+            "properties": {
+              "style_id": {
+                "$ref": "common.schema.json#/$defs/Id"
+              },
+              "name": {
+                "type": "string"
+              },
+              "weight": {
+                "$ref": "common.schema.json#/$defs/Weight",
+                "description": "How central this style is to the drummer."
+              },
+              "authority": {
+                "$ref": "common.schema.json#/$defs/Weight",
+                "description": "How much the drummer shaped this style."
+              },
+              "notes": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "versatility": {
+          "$ref": "common.schema.json#/$defs/Weight"
+        },
+        "groove_vs_chops": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1,
+          "description": "-1 pure pocket/support, +1 pure virtuosic display"
+        },
+        "role_tendency": {
+          "enum": ["accompanist", "colourist", "driver", "soloist", "conversational", "hybrid"]
+        },
+        "descriptors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "FeelProfile": {
+      "type": "object",
+      "properties": {
+        "beat_placement": {
+          "type": "object",
+          "description": "Microtiming tendency per voice. Negative ms = ahead, positive = behind.",
+          "properties": {
+            "overall": {
+              "enum": ["ahead", "on_top", "centre", "laid_back", "variable"]
+            },
+            "per_voice_ms": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "typical": {
+                    "type": "number"
+                  },
+                  "range": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  }
+                }
+              }
+            },
+            "evidence": {
+              "$ref": "common.schema.json#/$defs/Evidence"
+            }
+          }
+        },
+        "swing": {
+          "type": "object",
+          "properties": {
+            "straight_16_lilt": {
+              "$ref": "common.schema.json#/$defs/Weight",
+              "description": "Subtle swing applied to straight 16ths."
+            },
+            "typical_swing_ratio": {
+              "type": "number",
+              "minimum": 0.5,
+              "maximum": 0.75,
+              "description": "Long-note share of the beat pair. 0.5 straight, 0.667 triplet."
+            },
+            "notes": {
+              "type": "string"
+            },
+            "ratio_by_tempo": {
+              "type": "array",
+              "description": "Swing ratio usually flattens as tempo rises.",
+              "items": {
+                "type": "object",
+                "required": ["bpm", "ratio"],
+                "properties": {
+                  "bpm": {
+                    "type": "number"
+                  },
+                  "ratio": {
+                    "type": "number",
+                    "minimum": 0.5,
+                    "maximum": 0.75
+                  }
+                }
+              }
+            }
+          }
+        },
+        "dynamics": {
+          "type": "object",
+          "properties": {
+            "range": {
+              "$ref": "common.schema.json#/$defs/Weight"
+            },
+            "default_level": {
+              "enum": ["pp", "p", "mp", "mf", "f", "ff"]
+            },
+            "ghost_note_level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 127,
+              "description": "Typical MIDI velocity of ghost notes."
+            },
+            "accent_level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 127
+            },
+            "balance": {
+              "type": "string",
+              "description": "Relative balance between limbs, e.g. 'quiet hats, strong backbeat, soft feathered kick'."
+            }
+          }
+        },
+        "density": {
+          "type": "object",
+          "properties": {
+            "groove_notes_per_bar": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "fill_frequency": {
+              "enum": ["rare", "phrase_ends", "every_4_bars", "every_2_bars", "constant_commentary"]
+            },
+            "space_usage": {
+              "$ref": "common.schema.json#/$defs/Weight"
+            }
+          }
+        },
+        "consistency": {
+          "$ref": "common.schema.json#/$defs/Weight",
+          "description": "Metronomic steadiness, 1 = machine-like."
+        },
+        "tempo_comfort_bpm": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "interaction": {
+          "type": "string",
+          "description": "How they respond to soloists, singers, bass."
+        },
+        "descriptors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "timekeeping_context": {
+          "type": "array",
+          "items": {
+            "enum": ["free", "click", "live_loops", "sequencer", "conductor", "dancers"]
+          }
+        }
+      }
+    },
+    "TechniqueProfile": {
+      "type": "object",
+      "properties": {
+        "grip": {
+          "type": "array",
+          "items": {
+            "enum": ["matched_german", "matched_american", "matched_french", "traditional", "mixed"]
+          }
+        },
+        "hand_techniques": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TechniqueItem"
+          }
+        },
+        "foot_techniques": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TechniqueItem"
+          }
+        },
+        "rudiments": {
+          "type": "array",
+          "description": "PAS rudiments or hybrids and how they are applied on the kit.",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "usage": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "groove",
+                    "fill",
+                    "solo",
+                    "orchestrated_around_kit",
+                    "split_between_limbs",
+                    "ghosted_texture"
+                  ]
+                }
+              },
+              "application": {
+                "type": "string"
+              },
+              "weight": {
+                "$ref": "common.schema.json#/$defs/Weight"
+              },
+              "pattern_ids": {
+                "type": "array",
+                "items": {
+                  "$ref": "common.schema.json#/$defs/Id"
+                }
+              }
+            }
+          }
+        },
+        "coordination": {
+          "type": "object",
+          "properties": {
+            "independence": {
+              "$ref": "common.schema.json#/$defs/Weight"
+            },
+            "linear_playing": {
+              "$ref": "common.schema.json#/$defs/Weight"
+            },
+            "ostinato_usage": {
+              "$ref": "common.schema.json#/$defs/Weight"
+            },
+            "polyrhythm_usage": {
+              "$ref": "common.schema.json#/$defs/Weight"
+            },
+            "odd_meter_fluency": {
+              "$ref": "common.schema.json#/$defs/Weight"
+            },
+            "notes": {
+              "type": "string"
+            },
+            "foot_ostinato_usage": {
+              "$ref": "common.schema.json#/$defs/Weight"
+            },
+            "double_bass": {
+              "$ref": "common.schema.json#/$defs/Weight"
+            }
+          }
+        },
+        "voice_language": {
+          "type": "object",
+          "description": "How each part of the kit is spoken.",
+          "properties": {
+            "hihat": {
+              "type": "string"
+            },
+            "ride": {
+              "type": "string"
+            },
+            "snare": {
+              "type": "string"
+            },
+            "kick": {
+              "type": "string"
+            },
+            "toms": {
+              "type": "string"
+            },
+            "cymbals": {
+              "type": "string"
+            },
+            "percussion": {
+              "type": "string"
+            }
+          }
+        },
+        "implements": {
+          "type": "object",
+          "properties": {
+            "sticks": {
+              "$ref": "common.schema.json#/$defs/Weight"
+            },
+            "brushes": {
+              "$ref": "common.schema.json#/$defs/Weight"
+            },
+            "mallets": {
+              "$ref": "common.schema.json#/$defs/Weight"
+            },
+            "rods": {
+              "$ref": "common.schema.json#/$defs/Weight"
+            },
+            "hands": {
+              "$ref": "common.schema.json#/$defs/Weight"
+            },
+            "notes": {
+              "type": "string"
+            }
+          }
+        },
+        "reading": {
+          "enum": ["none", "basic", "strong", "elite_sight_reader", "unknown"]
+        }
+      }
+    },
+    "TechniqueItem": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "weight": {
+          "$ref": "common.schema.json#/$defs/Weight"
+        },
+        "evidence": {
+          "$ref": "common.schema.json#/$defs/Evidence"
+        }
+      }
+    },
+    "SoundProfile": {
+      "type": "object",
+      "properties": {
+        "aesthetic": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tuning": {
+          "type": "object",
+          "properties": {
+            "snare": {
+              "type": "string"
+            },
+            "toms": {
+              "type": "string"
+            },
+            "kick": {
+              "type": "string"
+            }
+          }
+        },
+        "muffling": {
+          "type": "string"
+        },
+        "cymbal_character": {
+          "type": "string"
+        },
+        "by_era": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "era_id": {
+                "$ref": "common.schema.json#/$defs/Id"
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "sample_hints": {
+          "type": "object",
+          "description": "Suggestions for BeatBreaker sample selection.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "evidence": {
+          "$ref": "common.schema.json#/$defs/Evidence"
+        }
+      }
+    },
+    "SignatureTrait": {
+      "type": "object",
+      "required": ["id", "category", "description"],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/Id"
+        },
+        "label": {
+          "type": "string"
+        },
+        "category": {
+          "enum": [
+            "groove",
+            "fill",
+            "feel",
+            "sound",
+            "technique",
+            "orchestration",
+            "musical_approach",
+            "physical_habit",
+            "setup",
+            "studio_practice",
+            "quirk",
+            "performance_persona",
+            "performance_constraint"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "audibility": {
+          "enum": ["obvious", "noticeable_to_drummers", "subtle"]
+        },
+        "frequency": {
+          "enum": ["signature", "frequent", "occasional", "rare"]
+        },
+        "heard_on": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "recording_id": {
+                "$ref": "common.schema.json#/$defs/Id"
+              },
+              "timestamp": {
+                "$ref": "common.schema.json#/$defs/Timestamp"
+              }
+            }
+          }
+        },
+        "pattern_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/Id"
+          }
+        },
+        "evidence": {
+          "$ref": "common.schema.json#/$defs/Evidence"
+        }
+      }
+    },
+    "KitSetup": {
+      "type": "object",
+      "required": ["id", "label"],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/Id"
+        },
+        "label": {
+          "type": "string"
+        },
+        "era_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/Id"
+          }
+        },
+        "years": {
+          "$ref": "common.schema.json#/$defs/YearRange"
+        },
+        "context": {
+          "enum": ["studio", "live", "both", "signature_model", "unknown"]
+        },
+        "drums": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "instrument": {
+                "$ref": "common.schema.json#/$defs/Instrument"
+              },
+              "brand": {
+                "type": "string"
+              },
+              "model": {
+                "type": "string"
+              },
+              "size": {
+                "type": "string",
+                "description": "e.g. 14x5.5"
+              },
+              "material": {
+                "type": "string"
+              },
+              "heads": {
+                "type": "string"
+              },
+              "tuning": {
+                "type": "string"
+              },
+              "muffling": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "cymbals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "instrument": {
+                "$ref": "common.schema.json#/$defs/Instrument"
+              },
+              "brand": {
+                "type": "string"
+              },
+              "model": {
+                "type": "string"
+              },
+              "size_in": {
+                "type": "number"
+              },
+              "notes": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "sticks": {
+          "type": "string"
+        },
+        "hardware": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "layout_notes": {
+          "type": "string"
+        },
+        "endorsements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence": {
+          "$ref": "common.schema.json#/$defs/Evidence"
+        }
+      }
+    },
+    "Affiliation": {
+      "type": "object",
+      "required": ["name", "type"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "band_member",
+            "bandleader",
+            "touring_drummer",
+            "session_regular",
+            "house_band",
+            "ensemble",
+            "military_band",
+            "drum_corps",
+            "big_band"
+          ]
+        },
+        "years": {
+          "$ref": "common.schema.json#/$defs/YearRange"
+        },
+        "bandmates": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/PersonRef"
+          }
+        },
+        "notes": {
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "common.schema.json#/$defs/Evidence"
+        }
+      }
+    },
+    "Relationship": {
+      "type": "object",
+      "required": ["type", "target"],
+      "properties": {
+        "type": {
+          "enum": [
+            "studied_with",
+            "taught",
+            "influenced_by",
+            "influenced",
+            "cites_as_influence",
+            "cited_by",
+            "family",
+            "mentored",
+            "mentored_by",
+            "replaced",
+            "replaced_by",
+            "sub_for",
+            "played_alongside",
+            "co_drummer_with",
+            "bandmate",
+            "rhythm_section_partner",
+            "imitated_by",
+            "parodied_by",
+            "tradition_lineage",
+            "style_lineage",
+            "admired",
+            "covered_by",
+            "composed_for"
+          ]
+        },
+        "target": {
+          "type": "object",
+          "required": ["name"],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "kind": {
+              "enum": ["drummer", "musician", "teacher", "tradition", "style", "ensemble"]
+            },
+            "id": {
+              "$ref": "common.schema.json#/$defs/Id"
+            }
+          }
+        },
+        "strength": {
+          "$ref": "common.schema.json#/$defs/Weight"
+        },
+        "aspects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "What was transmitted, e.g. 'rudimental vocabulary', 'ride cymbal phrasing'."
+        },
+        "years": {
+          "$ref": "common.schema.json#/$defs/YearRange"
+        },
+        "evidence": {
+          "$ref": "common.schema.json#/$defs/Evidence"
+        },
+        "scope": {
+          "enum": ["individual", "band", "unknown"],
+          "description": "band: the influence was cited by the band as a whole, not the drummer personally."
+        }
+      }
+    },
+    "Pedagogy": {
+      "type": "object",
+      "properties": {
+        "books": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Work"
+          }
+        },
+        "videos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Work"
+          }
+        },
+        "philosophy": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "idea": {
+                "type": "string"
+              },
+              "paraphrase_of_source_id": {
+                "$ref": "common.schema.json#/$defs/Id"
+              }
+            }
+          },
+          "description": "Paraphrased ideas about playing, never long verbatim quotes."
+        }
+      }
+    },
+    "Work": {
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "year": {
+          "$ref": "common.schema.json#/$defs/Year"
+        },
+        "publisher": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "common.schema.json#/$defs/Evidence"
+        }
+      }
+    },
+    "Legacy": {
+      "type": "object",
+      "properties": {
+        "influence_score": {
+          "$ref": "common.schema.json#/$defs/Weight"
+        },
+        "innovations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "accolades": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "award": {
+                "type": "string"
+              },
+              "year": {
+                "$ref": "common.schema.json#/$defs/Year"
+              },
+              "for": {
+                "type": "string"
+              },
+              "evidence": {
+                "$ref": "common.schema.json#/$defs/Evidence"
+              }
+            }
+          }
+        },
+        "cultural_references": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "evidence": {
+                "$ref": "common.schema.json#/$defs/Evidence"
+              }
+            }
+          }
+        },
+        "common_misconceptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "BeatBreakerHints": {
+      "type": "object",
+      "description": "App-facing summary for selecting and generating beats.",
+      "properties": {
+        "headline_pattern_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/Id"
+          }
+        },
+        "default_kit_sound": {
+          "type": "string"
+        },
+        "generation_rules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "avoid": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Things that would make a beat sound un-like this drummer."
+        },
+        "lineage_display": {
+          "type": "object",
+          "properties": {
+            "primary_ancestors": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/Id"
+              }
+            },
+            "primary_descendants": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/Id"
+              }
+            },
+            "lineage_blurb": {
+              "type": "string"
+            }
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "style_key": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*$",
+          "description": "The key of this drummer's playable style in BeatBreaker's catalogue (a style marked drummer: true). Every drummer style has exactly one record naming it, and every style_key names one."
+        }
+      }
+    }
+  }
+}
