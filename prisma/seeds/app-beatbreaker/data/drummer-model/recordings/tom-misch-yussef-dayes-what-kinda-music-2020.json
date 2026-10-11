@@ -1,0 +1,35 @@
+{
+  "id": "rec:tom-misch-yussef-dayes-what-kinda-music-2020",
+  "title": "What Kinda Music",
+  "artist": "Tom Misch & Yussef Dayes",
+  "year": 2020,
+  "type": "album",
+  "personnel": [
+    {
+      "name": "Tom Misch"
+    },
+    {
+      "name": "Yussef Dayes"
+    },
+    {
+      "name": "Rocco Palladino"
+    }
+  ],
+  "style_ids": ["style:uk-jazz", "style:jazz-fusion", "style:hip-hop-breakbeat"],
+  "studio_context": "Joint album on Blue Note / Beyond the Groove; reached number 4 in the UK albums chart.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:yussef-dayes",
+      "name": "Yussef Dayes",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Brought his drumming to a pop audience: slow, linear grooves with kick pairs late in the bar (What Kinda Music), half-time drive (Lift Off), rim-click backbeats (Nightrider).",
+      "pattern_ids": ["pattern:yussef-dayes-what-kinda-music"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:yussef-dayes-wikipedia", "src:yussef-dayes-drumhub-wkm"],
+    "note": "Rocco Palladino's presence on the album is likely, not checked track by track."
+  }
+}

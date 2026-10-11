@@ -1,0 +1,50 @@
+{
+  "id": "rec:police-walking-on-the-moon-1979",
+  "title": "Walking on the Moon",
+  "artist": "The Police",
+  "release": "Reggatta de Blanc",
+  "year": 1979,
+  "type": "studio_track",
+  "style_ids": ["style:reggae", "style:new-wave", "style:dub"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stewart-copeland",
+      "name": "Stewart Copeland",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The track people single out; kick on 2 and 4 in the verse, dub-style echo, and an ending an engineer said would put him on the map.",
+      "pattern_ids": ["pattern:copeland-walking-on-the-moon-archetype"],
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "Verse kick on beats 2 and 4, normally reggae's upbeat territory.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:musicradar-copeland-howto"]
+          },
+          "pattern_id": "pattern:copeland-walking-on-the-moon-archetype"
+        },
+        {
+          "category": "sound",
+          "description": "Gentle delay on snare and hi-hat, inspired by dub.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:thomann-copeland", "src:musicradar-copeland-interview"]
+          }
+        },
+        {
+          "category": "studio_story",
+          "description": "Engineer predicted the ending would make his name.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:musicradar-copeland-interview"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:musicradar-copeland-interview"]
+  }
+}

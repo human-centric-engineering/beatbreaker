@@ -1,0 +1,673 @@
+{
+  "meta": {
+    "id": "drummer:changuito",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Resolve birth date (18 January vs 18 March 1948) and place (Casablanca vs Regla).",
+      "Reconcile accounts of his training (self-taught vs taught by his father).",
+      "Transcribe a songo passage from Los Van Van recordings.",
+      "Confirm Ritmo y Candela release year and credits."
+    ]
+  },
+  "identity": {
+    "name": "Changuito",
+    "full_name": "José Luis Quintana",
+    "aliases": ["José Luis 'Changuito' Quintana", "José Luis Quintana Fuerte"],
+    "born": {
+      "date": "1948-01-18",
+      "place": "Casablanca, Havana, Cuba",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-changuito", "src:kosamusic-changuito"],
+        "alternatives": [
+          {
+            "value": "1948-03-18, Regla",
+            "source_ids": ["src:drummerszone-changuito"]
+          }
+        ]
+      }
+    },
+    "died": {
+      "date": "2025-06-06"
+    },
+    "nationality": ["Cuban"],
+    "home_scenes": ["Havana"],
+    "handedness": "unknown",
+    "kit_orientation": "unknown",
+    "setup_type": "hybrid_kit_timbales",
+    "primary_instruments": ["timbales", "congas", "drum kit"],
+    "active": {
+      "from": 1956,
+      "to": 2025
+    },
+    "roles": ["band_member", "percussionist", "educator", "author"],
+    "summary": "The drummer who turned songo into a defining sound of modern Cuban music. In Los Van Van he restored cymbals to Blas Egües' original kit idea, then added timbales and electronic drums, playing bongó bell and timbale parts at once and bringing snare-drum rudiments into conga and timbale technique. One of the most imitated Cuban percussionists and a teacher of Giovanni Hidalgo, Karl Perazzo and Luis Conte."
+  },
+  "formation": {
+    "started_age": 5,
+    "first_instrument": "bongó",
+    "teachers": [
+      {
+        "name": "Pedro Luis Quintana (father)",
+        "role": "Percussionist father who taught and played with him.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:drummerszone-changuito", "src:worldmusiccentral-changuito"],
+          "note": "Another source calls him self-taught."
+        }
+      },
+      {
+        "name": "Tony Valdez",
+        "role": "Drummer in Los Harmónicos who steered him towards jazz and the drum kit.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:drummerszone-changuito"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Cuban popular and folkloric percussion",
+        "impact": "Congas, bongó and timbales from childhood.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ecured-changuito"]
+        }
+      },
+      {
+        "tradition": "Snare-drum rudiments",
+        "impact": "Applied to conga and timbale technique.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-losvanvan"]
+        }
+      },
+      {
+        "tradition": "Latin jazz",
+        "impact": "Los Harmónicos de Felipe Dulzaides, 1964 to 1968.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:drummerszone-changuito"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "age": 8,
+        "event": "Performing at Havana's Tropicana nightclub.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:drummerszone-changuito", "src:ecured-changuito"]
+        }
+      },
+      {
+        "year": 1970,
+        "event": "Joined Los Van Van, replacing original drummer Blas Egües.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:drummerszone-changuito", "src:wikipedia-losvanvan"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:changuito-early",
+      "label": "Havana clubs and Latin jazz",
+      "years": {
+        "from": 1956,
+        "to": 1969
+      },
+      "context": "Tropicana, Habana Jazz, Los Harmónicos.",
+      "defining_traits": ["congas", "jazz kit introduction"]
+    },
+    {
+      "id": "era:changuito-van-van",
+      "label": "Los Van Van",
+      "years": {
+        "from": 1970,
+        "to": 1993
+      },
+      "context": "Songo developed with Juan Formell; timbales added to kit (by 1982).",
+      "defining_traits": [
+        "songo",
+        "hybrid kit and timbales",
+        "bongó bell plus timbales simultaneously",
+        "electronic drums"
+      ],
+      "key_recording_ids": ["rec:los-van-van-transito-1974", "rec:los-van-van-buey-cansao-1982"]
+    },
+    {
+      "id": "era:changuito-teacher",
+      "label": "Solo and teaching",
+      "years": {
+        "from": 1993,
+        "to": 2025
+      },
+      "context": "Ritmo y Candela, instructional videos, book, world collaborations.",
+      "defining_traits": ["educator", "guarapachangueo and quinto"],
+      "key_recording_ids": ["rec:changuito-ritmo-y-candela-1995"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:songo",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:afro-cuban",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:cuban-son",
+        "weight": 0.7,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 0.5,
+        "authority": 0.5
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.2,
+    "role_tendency": "driver",
+    "descriptors": ["innovative", "displaced hands", "dancefloor engine", "virtuoso"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred"
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.15,
+      "typical_swing_ratio": 0.53
+    },
+    "dynamics": {
+      "range": 0.85,
+      "default_level": "f",
+      "ghost_note_level": 30,
+      "accent_level": 118
+    },
+    "density": {
+      "groove_notes_per_bar": [14, 32],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.3
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [90, 220],
+    "timekeeping_context": ["dancers"],
+    "interaction": "Locks with Formell's bass; singers shouted him on in songs.",
+    "descriptors": ["engine of Los Van Van"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Bongó bell and timbales at once",
+        "description": "Popularised playing timbale and bongó bell parts simultaneously.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-changuito"]
+        }
+      },
+      {
+        "name": "Rudiments on congas and timbales",
+        "description": "Snare rudiments applied to hand and timbale technique.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-losvanvan"]
+        }
+      },
+      {
+        "name": "Mano secreta",
+        "description": "'Secret hand' technique, at its simplest a roll.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:pluznick-changuito"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Kit kick under timbales",
+        "description": "Kick from the drum kit under timbale and bell parts.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-losvanvan"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Snare rudiments (general)",
+        "usage": ["groove", "ghosted_texture"],
+        "application": "Displaced hand patterns on timbales and congas.",
+        "weight": 0.8
+      }
+    ],
+    "coordination": {
+      "independence": 0.9,
+      "linear_playing": 0.6,
+      "ostinato_usage": 0.9,
+      "polyrhythm_usage": 0.8,
+      "odd_meter_fluency": 0.3
+    },
+    "voice_language": {
+      "percussion": "Timbales, cha-cha and bongó bells, woodblocks, electronic pads, cymbals.",
+      "kick": "Songo anticipations."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "hands": 0.8
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["bells and timbales on a kit", "electronic drums (Van Van era)", "crisp"],
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": ["src:kosamusic-changuito"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:changuito-songo",
+      "label": "Brought songo to fruition",
+      "category": "groove",
+      "description": "Took the songo beat Blas Egües began on a cymbal-less kit, restored cymbals, and built it out with timbales, bells, woodblocks and electronic drums.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:drummerszone-changuito", "src:kosamusic-changuito"]
+      },
+      "pattern_ids": ["pattern:changuito-songo-archetype"]
+    },
+    {
+      "id": "trait:changuito-hybrid",
+      "label": "Kit and timbales as one instrument",
+      "category": "setup",
+      "description": "Combined drum kit and timbales, later with electronic drums.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-losvanvan", "src:drummerszone-changuito"]
+      },
+      "pattern_ids": ["pattern:changuito-bell-timbales-archetype"]
+    },
+    {
+      "id": "trait:changuito-displaced-hands",
+      "label": "Displaced hands",
+      "category": "technique",
+      "description": "Technical displacement of the hands gave Van Van a distinctive, original touch.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kosamusic-changuito"]
+      }
+    },
+    {
+      "id": "trait:changuito-shouted",
+      "label": "Named in the music",
+      "category": "quirk",
+      "description": "Singer Pedrito Calvo hailed him by name in 'Sandunguera', calling on him to break the paila.",
+      "audibility": "obvious",
+      "frequency": "rare",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kosamusic-changuito"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:changuito-songo-archetype",
+        "name": "Songo on hybrid kit and timbales",
+        "type": "groove",
+        "style_ids": ["style:songo"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Illustrative songo layout; verify against Los Van Van recordings and his instructional material."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [100, 130]
+        },
+        "lanes": {
+          "cha_cha_bell": "x...x...x...x...|x...x...x...x...",
+          "timbale_low": ".......X.......X|.......X......X.",
+          "snare": ".g.g.g...g.g.g..|.g.g.g...g.g.g..",
+          "kick": "...x......x.....|...x......x....."
+        },
+        "difficulty": 7,
+        "tags": ["songo", "hybrid", "timbales"]
+      },
+      {
+        "id": "pattern:changuito-bell-timbales-archetype",
+        "name": "Bongó bell and timbale parts together",
+        "type": "ostinato",
+        "style_ids": ["style:songo", "style:cuban-son"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-changuito"],
+          "note": "Technique documented; rhythms illustrative."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [100, 130]
+        },
+        "lanes": {
+          "bongo_bell": "X...x...X...x...|X...x...X...x...",
+          "timbale_low": "..x...x...x..x..|..x...x..x...x.."
+        },
+        "difficulty": 6,
+        "tags": ["bongó bell", "timbales", "independence"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:changuito-mano-secreta",
+        "name": "Mano secreta",
+        "description": "'Secret hand' roll technique.",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:pluznick-changuito"]
+        }
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Los Harmónicos de Felipe Dulzaides",
+      "type": "band_member",
+      "years": {
+        "from": 1964,
+        "to": 1968
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:drummerszone-changuito"]
+      }
+    },
+    {
+      "name": "Los Van Van",
+      "type": "band_member",
+      "years": {
+        "from": 1970,
+        "to": 1993
+      },
+      "bandmates": [
+        {
+          "name": "Juan Formell",
+          "role": "leader, bass"
+        },
+        {
+          "name": "Pedrito Calvo",
+          "role": "vocals"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-losvanvan", "src:drummerszone-changuito"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:los-van-van-transito-1974",
+    "rec:los-van-van-buey-cansao-1982",
+    "rec:changuito-ritmo-y-candela-1995",
+    "rec:flora-purim-speed-of-light-1994"
+  ],
+  "relationships": [
+    {
+      "type": "family",
+      "target": {
+        "name": "Pedro Luis Quintana",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ecured-changuito"]
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tito Puente",
+        "kind": "drummer",
+        "id": "drummer:tito-puente"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ecured-changuito"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "La Lupe",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ecured-changuito"]
+      },
+      "strength": 0.3
+    },
+    {
+      "type": "mentored_by",
+      "target": {
+        "name": "Tony Valdez",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:drummerszone-changuito"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Blas Egües (Los Van Van)",
+        "kind": "drummer",
+        "id": "drummer:blas-egues"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:drummerszone-changuito", "src:wikipedia-losvanvan"]
+      },
+      "strength": 0.8,
+      "aspects": ["original songo beat on a cymbal-less kit"]
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Juan Formell",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ecured-changuito"]
+      },
+      "strength": 1.0
+    },
+    {
+      "type": "taught",
+      "target": {
+        "name": "Giovanni Hidalgo",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kosamusic-changuito", "src:ecured-changuito"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "taught",
+      "target": {
+        "name": "Karl Perazzo",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kosamusic-changuito"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "taught",
+      "target": {
+        "name": "Luis Conte",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kosamusic-changuito"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Horacio Hernández",
+        "kind": "drummer",
+        "id": "drummer:horacio-hernandez"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "note": "Songo lineage; direct citation not yet sourced."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Snare-drum rudiments",
+        "kind": "style",
+        "id": "style:rudimental"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-losvanvan"]
+      },
+      "strength": 0.5
+    }
+  ],
+  "pedagogy": {
+    "books": [
+      {
+        "title": "Changuito: A Master's Approach to Timbales",
+        "year": 1998,
+        "publisher": "Alfred Publishing",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-changuito"]
+        }
+      }
+    ],
+    "videos": [
+      {
+        "title": "The History of the Songo",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:drummerszone-changuito"]
+        }
+      },
+      {
+        "title": "Evolution of the Tumbadoras",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:drummerszone-changuito"]
+        }
+      }
+    ],
+    "philosophy": [
+      {
+        "idea": "Helping the hands of those who want to study Cuban percussion.",
+        "paraphrase_of_source_id": "src:worldmusiccentral-changuito"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.9,
+    "innovations": [
+      "Songo as a full kit-and-percussion system",
+      "Bongó bell and timbales played simultaneously (popularised)",
+      "Rudiments applied to congas and timbales"
+    ],
+    "cultural_references": [
+      {
+        "description": "Described as the most influential Cuban percussionist of the late twentieth century.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-losvanvan"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he invented songo alone. Blas Egües played the first songo beat; Changuito developed it into the style."
+    ]
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:changuito-songo-archetype",
+      "pattern:changuito-bell-timbales-archetype"
+    ],
+    "default_kit_sound": "Kit plus timbales, cha-cha and bongó bells, woodblock, optional electronic pads",
+    "generation_rules": [
+      "Songo: kick anticipations, displaced snare ghosts, timbale accents.",
+      "Bells keep a steady pulse while timbales displace.",
+      "Stay in clave (default rumba 2-3 for songo)."
+    ],
+    "avoid": ["Rock backbeat", "Swing"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:tito-puente", "drummer:blas-egues", "style:cuban-son"],
+      "primary_descendants": ["drummer:horacio-hernandez"],
+      "lineage_blurb": "Havana nightclubs and his father's teaching, Puente's example, and Egües' first songo beat, built into a new Cuban drum language."
+    },
+    "tags": ["cuban", "songo", "timbales", "70s", "hybrid"]
+  }
+}

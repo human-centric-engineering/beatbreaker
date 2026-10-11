@@ -1,0 +1,51 @@
+{
+  "id": "rec:paul-simon-50-ways-1975",
+  "title": "50 Ways to Leave Your Lover",
+  "artist": "Paul Simon",
+  "release": "Still Crazy After All These Years",
+  "year": 1975,
+  "type": "studio_track",
+  "style_ids": ["style:pop-rock-session", "style:rudimental"],
+  "feel": "Straight 16ths with a march-like, rudimental verse",
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:yamaha-profile", "src:drumlib"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-gadd",
+      "name": "Steve Gadd",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Probably the most famous groove in pop session drumming. Opens the song on drums alone and acts as a hook. A drum-corps idea made into a radio hit.",
+      "section_map": [
+        {
+          "section": "Intro / verses",
+          "drum_approach": "Linear, rudimental groove split between hi-hat and snare, soft and contained.",
+          "pattern_ids": ["pattern:gadd-50-ways-verse-approx"]
+        },
+        {
+          "section": "Chorus",
+          "drum_approach": "Opens into a more conventional backbeat groove for lift."
+        }
+      ],
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "Drums establish the song before any other instrument.",
+          "evidence": {
+            "confidence": "widely_reported"
+          }
+        },
+        {
+          "category": "dynamics",
+          "description": "Low volume intricacy: complex sticking played very softly, leaving space for the vocal.",
+          "evidence": {
+            "confidence": "widely_reported"
+          }
+        }
+      ],
+      "pattern_ids": ["pattern:gadd-50-ways-verse-approx"]
+    }
+  ]
+}

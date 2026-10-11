@@ -1,0 +1,21 @@
+{
+  "id": "rec:earth-full-upon-her-burning-lips-2019",
+  "title": "Full Upon Her Burning Lips",
+  "artist": "Earth",
+  "year": 2019,
+  "type": "album",
+  "style_ids": ["style:drone-doom"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:adrienne-davies",
+      "name": "Adrienne Davies",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Earth stripped to its two permanent members; drums carry half the arrangement."
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:brooklyn-rail-davies"]
+  }
+}

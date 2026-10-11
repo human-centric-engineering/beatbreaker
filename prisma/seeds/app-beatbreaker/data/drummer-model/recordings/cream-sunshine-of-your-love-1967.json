@@ -1,0 +1,22 @@
+{
+  "id": "rec:cream-sunshine-of-your-love-1967",
+  "title": "Sunshine of Your Love",
+  "artist": "Cream",
+  "release": "Disraeli Gears",
+  "year": 1967,
+  "type": "studio_track",
+  "style_ids": ["style:blues-rock", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ginger-baker",
+      "name": "Ginger Baker",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Tom-led groove under one of rock's best-known riffs.",
+      "pattern_ids": ["pattern:baker-sunshine-tom-archetype"]
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported"
+  }
+}

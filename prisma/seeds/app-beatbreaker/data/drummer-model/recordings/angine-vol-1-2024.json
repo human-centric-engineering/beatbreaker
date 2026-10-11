@@ -1,0 +1,22 @@
+{
+  "id": "rec:angine-vol-1-2024",
+  "title": "Vol. 1",
+  "artist": "Angine de Poitrine",
+  "year": 2024,
+  "type": "album",
+  "style_ids": ["style:math-rock", "style:experimental-rock"],
+  "studio_context": "Released independently on 14 June 2024; later charted internationally (e.g. No. 4 in Germany).",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:klek-de-poitrine",
+      "name": "Klek de Poitrine",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Debut album; includes 'Sherpa'."
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wikipedia-angine"]
+  }
+}

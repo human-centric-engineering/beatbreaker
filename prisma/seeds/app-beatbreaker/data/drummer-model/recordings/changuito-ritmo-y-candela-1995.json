@@ -1,0 +1,37 @@
+{
+  "id": "rec:changuito-ritmo-y-candela-1995",
+  "title": "Ritmo y Candela",
+  "artist": "Changuito, Patato and Orestes Vilató",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:afro-cuban"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:changuito",
+      "name": "Changuito",
+      "drummer_role": "co_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Grammy-nominated San Francisco recording after leaving Los Van Van.",
+      "ev": {
+        "confidence": "verified",
+        "source_ids": ["src:drummerszone-changuito"]
+      }
+    },
+    {
+      "drummer_id": "drummer:orestes-vilato",
+      "name": "Orestes Vilató",
+      "drummer_role": "co_drummer",
+      "significance": 0.4,
+      "why_it_matters": "Timbales legend on the same session.",
+      "ev": {
+        "confidence": "verified",
+        "source_ids": ["src:drummerszone-changuito"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:drummerszone-changuito"],
+    "note": "Release year to confirm."
+  }
+}

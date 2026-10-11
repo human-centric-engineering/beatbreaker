@@ -1,0 +1,21 @@
+{
+  "id": "rec:hendrix-woodstock-1969",
+  "title": "Live at Woodstock",
+  "artist": "Jimi Hendrix",
+  "year": 1969,
+  "type": "live_track",
+  "style_ids": ["style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mitch-mitchell",
+      "name": "Mitch Mitchell",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Closing set of Woodstock, including 'The Star-Spangled Banner' into 'Purple Haze'."
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:pollstar-mitchell"]
+  }
+}

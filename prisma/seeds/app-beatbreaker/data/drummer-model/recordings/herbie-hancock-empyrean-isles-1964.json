@@ -1,0 +1,52 @@
+{
+  "id": "rec:herbie-hancock-empyrean-isles-1964",
+  "title": "Empyrean Isles",
+  "artist": "Herbie Hancock",
+  "release": "Blue Note",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "personnel": [
+    {
+      "name": "Herbie Hancock",
+      "role": "piano"
+    },
+    {
+      "name": "Freddie Hubbard",
+      "role": "cornet"
+    },
+    {
+      "name": "Ron Carter",
+      "role": "bass"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams",
+      "name": "Tony Williams",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Cantaloupe Island's straight vamp with the foot on every beat, and the fast swing of One Finger Snap: both sides of his Blue Note playing.",
+      "pattern_ids": ["pattern:tony-williams-cantaloupe-island-archetype"],
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "Cantaloupe Island at about 115 bpm, drifting a little faster.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:tony-williams-bishop-cantaloupe"]
+          },
+          "pattern_id": "pattern:tony-williams-cantaloupe-island-archetype"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-bishop-cantaloupe", "src:tony-williams-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tony-williams-wikipedia"]
+  }
+}

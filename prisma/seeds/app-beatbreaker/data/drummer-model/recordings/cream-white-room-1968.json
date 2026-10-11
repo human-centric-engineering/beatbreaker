@@ -1,0 +1,25 @@
+{
+  "id": "rec:cream-white-room-1968",
+  "title": "White Room",
+  "artist": "Cream",
+  "release": "Wheels of Fire",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ginger-baker",
+      "name": "Ginger Baker",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Odd-metre intro in 5/4 before settling into 4/4.",
+      "ev": {
+        "confidence": "likely",
+        "note": "5/4 intro from general knowledge; verify."
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "likely"
+  }
+}

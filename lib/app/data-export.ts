@@ -262,6 +262,21 @@ export function initAppSubjectSources(): void {
         reason:
           'Catalogue data: one recorded instrument from a sample library, seeded from the kit build. It has no owner and records nothing about anyone; a kit of yours that names a piece is exported with the kit.',
       },
+      {
+        model: 'LineageNode',
+        reason:
+          'Catalogue data (Phase 11): a famous drummer, musician or style on the lineage map, seeded from the drummer model. It has no owner and no link to any account.',
+      },
+      {
+        model: 'LineageEdge',
+        reason:
+          'Catalogue data (Phase 11): a link between two lineage nodes, seeded from the drummer model. It has no owner and no link to any account.',
+      },
+      {
+        model: 'LineageRecording',
+        reason:
+          'Catalogue data (Phase 11): a published recording and the famous drummers on it, seeded from the drummer model. It has no owner and no link to any account.',
+      },
     ],
   });
 }

@@ -1,0 +1,1526 @@
+{
+  "meta": {
+    "id": "drummer:steve-gadd",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.55,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Transcribe the '50 Ways' verse groove note-for-note; current grid is a paradiddle-based approximation.",
+      "Confirm the doubled-stick technique on 'Late in the Evening' from an interview source.",
+      "Add timestamps for the Aja solo section and the Nite Sprite figures.",
+      "Confirm early-career kit (pre-Yamaha) and cymbal endorsement history.",
+      "Measure real microtiming offsets from isolated stems (Demucs) rather than descriptive estimates.",
+      "Review against the reference video ZG6PB3NdnnA and add observations."
+    ]
+  },
+  "identity": {
+    "name": "Steve Gadd",
+    "full_name": "Stephen Kendall Gadd",
+    "born": {
+      "date": "1945-04-09",
+      "place": "Rochester area (Irondequoit), New York, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia", "src:remo-profile"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Rochester, NY jazz scene (1960s)", "New York studio scene (1970s to 1980s)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "active": {
+      "from": 1968,
+      "ongoing": true
+    },
+    "roles": ["session", "touring", "band_member", "bandleader", "author", "clinician"],
+    "summary": "The defining session drummer of the 1970s and the most imitated kit player of that era. Combines drum-corps rudimental vocabulary with jazz feel and an almost total commitment to serving the song. Famous for grooves that become hooks in their own right ('50 Ways'), for orchestrated fusion playing (Chick Corea), and for a relaxed, deep pocket that later made him first-call for Paul Simon, Eric Clapton and James Taylor."
+  },
+  "formation": {
+    "started_age": 7,
+    "first_instrument": "drums",
+    "teachers": [
+      {
+        "name": "Uncle (army drummer)",
+        "role": "encouraged lessons from age 7",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:remo-profile"]
+        }
+      },
+      {
+        "name": "Bill Street",
+        "role": "private teacher",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:yamaha-profile"]
+        }
+      },
+      {
+        "name": "Stanley Street",
+        "role": "private teacher",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:yamaha-profile"]
+        }
+      },
+      {
+        "name": "John Beck",
+        "role": "private teacher, Eastman percussion",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:yamaha-profile"]
+        }
+      }
+    ],
+    "institutions": [
+      {
+        "name": "Manhattan School of Music",
+        "outcome": "two years of study",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:yamaha-profile"]
+        }
+      },
+      {
+        "name": "Eastman School of Music",
+        "years": {
+          "to": 1968
+        },
+        "outcome": "graduated 1968; wind ensemble and concert band",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia", "src:remo-profile"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Drum corps / rudimental snare",
+        "impact": "Core of his vocabulary: flams, drags, paradiddle families, orchestrated across the kit. Later codified in his book Gaddiments.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:modern-drummer"]
+        }
+      },
+      {
+        "tradition": "US Army band",
+        "impact": "Three years of military band playing after college; reinforced reading, ensemble discipline and march feel.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:remo-profile"]
+        }
+      },
+      {
+        "tradition": "Tap dance",
+        "impact": "Commonly cited as feeding his foot-hand phrasing and sense of rhythmic conversation.",
+        "evidence": {
+          "confidence": "needs_verification"
+        }
+      },
+      {
+        "tradition": "Jazz club playing in Rochester",
+        "impact": "Night gigs with Chick Corea, Chuck Mangione and others while at Eastman.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:remo-profile"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "age": 11,
+        "event": "Sat in with Dizzy Gillespie.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:remo-profile", "src:modern-drummer"]
+        }
+      },
+      {
+        "year": 1957,
+        "event": "Appeared on Disney's Mickey Mouse Club.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:modern-drummer"]
+        }
+      },
+      {
+        "year": 1972,
+        "event": "Formed a trio with Tony Levin and Mike Holmes and moved to New York; trio dissolved and studio work took over.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:remo-profile", "src:wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:rochester-formation",
+      "label": "Rochester and Army",
+      "years": {
+        "from": 1960,
+        "to": 1971
+      },
+      "context": "Eastman, Rochester jazz clubs, Chuck and Gap Mangione, then Army band.",
+      "defining_traits": ["rudimental foundation", "jazz small-group swing", "reading"]
+    },
+    {
+      "id": "era:ny-session-peak",
+      "label": "New York session peak",
+      "years": {
+        "from": 1972,
+        "to": 1985
+      },
+      "context": "First-call studio drummer across pop, jazz, fusion and R&B. Stuff, Chick Corea, Paul Simon, Steely Dan, Steps.",
+      "defining_traits": [
+        "hook-like grooves",
+        "orchestrated fusion figures",
+        "muffled 70s studio sound",
+        "linear and rudimental fills"
+      ],
+      "style_shift": "Brought drum-corps ideas into pop and fusion contexts; became the template drummers copied.",
+      "kit_setup_id": "kit:yamaha-studio",
+      "key_recording_ids": [
+        "rec:paul-simon-50-ways-1975",
+        "rec:corea-nite-sprite-1976",
+        "rec:steely-dan-aja-1977",
+        "rec:paul-simon-late-in-the-evening-1980"
+      ]
+    },
+    {
+      "id": "era:gadd-gang-and-simon",
+      "label": "Gadd Gang and Paul Simon world music",
+      "years": {
+        "from": 1986,
+        "to": 1993
+      },
+      "context": "Own band the Gadd Gang; Paul Simon's touring band in the Graceland and Rhythm of the Saints period (toured all of 1991).",
+      "defining_traits": ["soul and R&B pocket", "Afro-Latin and South African grooves"]
+    },
+    {
+      "id": "era:elder-statesman",
+      "label": "First-call for legends, own bands",
+      "years": {
+        "from": 1994,
+        "ongoing": true
+      },
+      "context": "Eric Clapton's first-call drummer from the 1990s, long-term James Taylor drummer, Blicher Hemmer Gadd (from 2014), Steve Gadd Band.",
+      "defining_traits": [
+        "extreme economy",
+        "shuffle and blues pocket",
+        "brushes",
+        "warm, open sound"
+      ],
+      "style_shift": "Less display, more space; groove and touch foregrounded."
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "name": "Pop / singer-songwriter",
+        "weight": 0.9,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "name": "Jazz fusion",
+        "weight": 0.8,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:jazz",
+        "name": "Jazz (small group, swing)",
+        "weight": 0.7,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "name": "R&B / soul / soul-jazz",
+        "weight": 0.8,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:afro-cuban",
+        "name": "Afro-Cuban adaptations (mozambique)",
+        "weight": 0.5,
+        "authority": 0.8,
+        "notes": "His kit mozambique became a standard pattern for drummers."
+      },
+      {
+        "style_id": "style:blues-shuffle",
+        "name": "Blues / shuffle",
+        "weight": 0.6,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:rudimental",
+        "name": "Drum corps rudimental",
+        "weight": 0.7,
+        "authority": 0.6
+      }
+    ],
+    "versatility": 0.95,
+    "groove_vs_chops": -0.4,
+    "role_tendency": "hybrid",
+    "descriptors": [
+      "song-first",
+      "orchestral",
+      "tasteful",
+      "relaxed authority",
+      "compositional",
+      "economical",
+      "conversational in jazz settings"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "per_voice_ms": {
+        "snare": {
+          "typical": 6,
+          "range": [0, 15]
+        },
+        "kick": {
+          "typical": 2,
+          "range": [-3, 8]
+        },
+        "hihat": {
+          "typical": 0,
+          "range": [-5, 5]
+        }
+      },
+      "evidence": {
+        "confidence": "inferred",
+        "note": "Placeholder estimates from the commonly described 'sits back' feel. Replace with measured stem analysis."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.2,
+      "typical_swing_ratio": 0.62,
+      "notes": "Straight 16ths carry a slight lilt; shuffles are relaxed rather than hard triplet."
+    },
+    "dynamics": {
+      "range": 0.85,
+      "default_level": "mp",
+      "ghost_note_level": 28,
+      "accent_level": 110,
+      "balance": "Quiet, articulate hi-hat and ghost notes; firm but unforced backbeat; feathered kick."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 22],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.75
+    },
+    "consistency": 0.95,
+    "tempo_comfort_bpm": [50, 220],
+    "interaction": "In pop he locks to vocal and bass and rarely draws attention. In fusion and jazz he answers soloists and plays arranged figures as compositional events.",
+    "descriptors": [
+      "deep pocket",
+      "relaxed",
+      "inside the tune",
+      "never rushed",
+      "precise but human"
+    ]
+  },
+  "technique_profile": {
+    "grip": ["matched_american", "traditional"],
+    "hand_techniques": [
+      {
+        "name": "Rudimental control",
+        "description": "Clean flams, drags, ruffs and diddles at all dynamics.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:modern-drummer"]
+        }
+      },
+      {
+        "name": "Ghost-note texture",
+        "description": "Very low ghost notes that colour without cluttering.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "widely_reported"
+        }
+      },
+      {
+        "name": "Doubled sticks",
+        "description": "Reported use of two sticks in a hand for a thicker attack on 'Late in the Evening'.",
+        "weight": 0.2,
+        "evidence": {
+          "confidence": "needs_verification"
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Hand-foot combinations",
+        "description": "Kick integrated into hand stickings (hand-hand-foot) for fills and linear grooves.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "widely_reported"
+        }
+      },
+      {
+        "name": "Hi-hat foot as time keeper",
+        "description": "Pedal hi-hat keeps quarters or 2 and 4 under Latin and jazz patterns.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely"
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Paradiddle",
+        "usage": ["groove", "split_between_limbs"],
+        "application": "Split between hi-hat and snare to create linear grooves.",
+        "weight": 0.9,
+        "pattern_ids": ["pattern:gadd-50-ways-verse-approx"]
+      },
+      {
+        "name": "Paradiddle-diddle",
+        "usage": ["fill", "orchestrated_around_kit"],
+        "application": "Sextuplet fills travelling snare to toms.",
+        "weight": 0.8,
+        "pattern_ids": ["pattern:gadd-paradiddle-diddle-fill"]
+      },
+      {
+        "name": "Flam accent",
+        "usage": ["fill", "orchestrated_around_kit"],
+        "application": "Triplet flam figures moved between snare and toms.",
+        "weight": 0.8,
+        "pattern_ids": ["pattern:gadd-flam-accent-fill"]
+      },
+      {
+        "name": "Drag / ruff",
+        "usage": ["groove", "fill", "ghosted_texture"],
+        "application": "Grace-note ornaments on backbeats and in snare solos.",
+        "weight": 0.7
+      },
+      {
+        "name": "Six-stroke roll",
+        "usage": ["fill", "solo"],
+        "application": "Accented roll figures resolving onto toms or cymbals.",
+        "weight": 0.6
+      },
+      {
+        "name": "Swiss army triplet",
+        "usage": ["fill"],
+        "application": "Flam-led triplet fills.",
+        "weight": 0.5
+      }
+    ],
+    "coordination": {
+      "independence": 0.9,
+      "linear_playing": 0.8,
+      "ostinato_usage": 0.7,
+      "polyrhythm_usage": 0.5,
+      "odd_meter_fluency": 0.7,
+      "notes": "Ostinato-based Latin patterns (mozambique) with the hands and feet working as independent voices."
+    },
+    "voice_language": {
+      "hihat": "Precise, articulate, often quiet; used melodically in linear patterns rather than as a wash.",
+      "ride": "Swing ride in jazz settings; in pop often replaced by hi-hat or cowbell.",
+      "snare": "Centre of his language: backbeats, ghosts, flams, drags, cross-stick on ballads.",
+      "kick": "Supportive and soft; locks with bass; used as a linear voice in fills.",
+      "toms": "Melodic, short-sustain toms used for orchestrated fills and Latin accents.",
+      "cymbals": "Crashes used sparingly to mark structure.",
+      "percussion": "Cowbell on the kit for mozambique-style patterns."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.7,
+      "mallets": 0.3,
+      "rods": 0.1,
+      "hands": 0.1,
+      "notes": "Highly regarded brush player, especially later with James Taylor and in jazz trios."
+    },
+    "reading": "elite_sight_reader"
+  },
+  "sound_profile": {
+    "aesthetic": ["warm", "dry", "short-sustain toms (1970s)", "fat snare", "unobtrusive cymbals"],
+    "tuning": {
+      "snare": "Medium, fat with a crisp but not cutting crack.",
+      "toms": "Medium-low with controlled sustain; deadened in the 1970s studio era.",
+      "kick": "Muffled, round, short."
+    },
+    "muffling": "Heavy in the 1970s studio era (typical of New York sessions); more open in later decades.",
+    "cymbal_character": "Dark-to-medium, musical, not bright or cutting.",
+    "by_era": [
+      {
+        "era_id": "era:ny-session-peak",
+        "description": "Classic dead 70s sound: thick heads, close-miked, minimal ring."
+      },
+      {
+        "era_id": "era:elder-statesman",
+        "description": "Warmer, more resonant kit; more air around the drums."
+      }
+    ],
+    "sample_hints": {
+      "70s": "Dry kit, coated or dotted heads, towel-muffled toms, tight kick with felt beater.",
+      "modern": "Warm maple/birch kit, coated heads, medium-dark cymbals, steel snare."
+    },
+    "evidence": {
+      "confidence": "widely_reported"
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:rudiments-on-kit",
+      "label": "Drum corps on a drum kit",
+      "category": "technique",
+      "description": "Takes snare rudiments and distributes them across hi-hat, snare, toms and kick, so grooves and fills sound like marching snare language recomposed for the kit.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:paul-simon-50-ways-1975"
+        }
+      ],
+      "pattern_ids": [
+        "pattern:gadd-50-ways-verse-approx",
+        "pattern:gadd-paradiddle-diddle-fill",
+        "pattern:gadd-flam-accent-fill"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer"]
+      }
+    },
+    {
+      "id": "trait:groove-as-hook",
+      "label": "The groove is the hook",
+      "category": "groove",
+      "description": "Creates drum parts so distinctive they become part of the song's identity, recognisable from the drums alone.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:paul-simon-50-ways-1975"
+        },
+        {
+          "recording_id": "rec:paul-simon-late-in-the-evening-1980"
+        }
+      ],
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "id": "trait:orchestral-thinking",
+      "label": "Orchestral, compositional approach",
+      "category": "orchestration",
+      "description": "Treats the kit as a set of orchestral voices and drum parts as arranged compositions. Chick Corea described him in these terms.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:corea-nite-sprite-1976"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:remo-profile"]
+      }
+    },
+    {
+      "id": "trait:inside-the-tune",
+      "label": "Plays inside the song",
+      "category": "musical_approach",
+      "description": "Finds the one part that serves the song and commits to it; restraint over display in pop and blues settings.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:drumlib"]
+      }
+    },
+    {
+      "id": "trait:kit-mozambique",
+      "label": "Kit mozambique",
+      "category": "groove",
+      "description": "Adapted the Cuban mozambique to a four-limb kit pattern with cowbell, snare, toms and kick; widely copied as 'the Gadd mozambique'.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:gadd-mozambique-archetype"],
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "id": "trait:hand-hand-foot",
+      "label": "Hand-hand-foot sextuplet fills",
+      "category": "fill",
+      "description": "Fast sextuplet fills with the kick replacing every third note, giving a rolling, descending sound.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:gadd-hhf-sextuplet-fill"],
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "id": "trait:quiet-precision",
+      "label": "Low-volume precision",
+      "category": "feel",
+      "description": "Plays complex figures at low volume with perfect evenness, which is why his parts sit so well in a mix.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely"
+      }
+    },
+    {
+      "id": "trait:dead-70s-sound",
+      "label": "Deadened 70s studio sound",
+      "category": "sound",
+      "description": "Short, thuddy toms and fat snare characteristic of mid-70s New York sessions; a major part of how 'Gadd' is recognised on record.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:gadd-50-ways-verse-approx",
+        "name": "50 Ways verse groove (paradiddle approximation)",
+        "type": "groove",
+        "function": "Verse groove and song intro",
+        "style_ids": ["style:pop-rock-session", "style:rudimental"],
+        "fidelity": "approximation",
+        "evidence": {
+          "confidence": "needs_verification",
+          "note": "Captures the principle (paradiddle split hi-hat/snare, march feel). Not a verified transcription. Replace once checked."
+        },
+        "source": {
+          "recording_id": "rec:paul-simon-50-ways-1975",
+          "section": "Intro / verse"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 104,
+          "playable_range_bpm": [90, 115]
+        },
+        "lanes": {
+          "hihat": "x.xx.x..x.xx.x..",
+          "snare": ".g..X.gg.g..X.gg",
+          "kick": "x.......x......."
+        },
+        "sticking_lane": "LRLLRLRRLRLLRLRR",
+        "humanise": {
+          "timing_jitter_ms": 4,
+          "velocity_jitter": 8,
+          "voice_offsets_ms": {
+            "snare": 5
+          }
+        },
+        "variation_rules": [
+          {
+            "description": "Drop to soft dynamic with lighter ghosts in quieter verse lines",
+            "probability": 0.5
+          },
+          {
+            "description": "Switch to straight backbeat groove in the chorus",
+            "applies_to": "chorus"
+          }
+        ],
+        "difficulty": 6,
+        "practice_notes": "Left hand leads on hi-hat; keep ghosts barely audible so the backbeats and hat pattern carry the march.",
+        "derived_from": [
+          {
+            "style_id": "style:rudimental",
+            "how": "Paradiddle sticking split across two voices",
+            "evidence": {
+              "confidence": "widely_reported"
+            }
+          }
+        ],
+        "community_names": ["The 50 Ways beat"],
+        "tags": ["linear", "march", "iconic", "hook"],
+        "transcription": {
+          "status": "draft",
+          "history": [
+            {
+              "date": "2026-10-11",
+              "status": "draft",
+              "by": "Claude",
+              "note": "Initial entry"
+            }
+          ],
+          "method": "by_ear"
+        }
+      },
+      {
+        "id": "pattern:gadd-mozambique-archetype",
+        "name": "Gadd-style kit mozambique",
+        "type": "groove",
+        "function": "Up-tempo Latin groove",
+        "style_ids": ["style:afro-cuban", "style:jazz-fusion"],
+        "fidelity": "stylistic_archetype",
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Illustrative four-limb mozambique in his manner. Check against Gadd's own demonstrations."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [100, 140]
+        },
+        "lanes": {
+          "cowbell": "x.xx.xx.x.xx.xx.",
+          "snare": ".g..g....g..g...",
+          "floor_tom_1": ".......X.......X",
+          "kick": "......x.......x.",
+          "hihat_pedal": "k...k...k...k..."
+        },
+        "sticking_lane": "RLRRLRRLRLRRLRRL",
+        "humanise": {
+          "timing_jitter_ms": 3,
+          "velocity_jitter": 10
+        },
+        "variation_rules": [
+          {
+            "description": "Move left-hand accents between tom_2 and floor tom",
+            "probability": 0.4
+          },
+          {
+            "description": "Open with a snare flam on beat 1 of a new section",
+            "probability": 0.3,
+            "applies_to": "section start"
+          }
+        ],
+        "difficulty": 7,
+        "derived_from": [
+          {
+            "style_id": "style:mozambique",
+            "how": "Cuban mozambique (Pello el Afrokan) bell and conga parts mapped to cowbell, snare and toms",
+            "evidence": {
+              "confidence": "widely_reported"
+            }
+          }
+        ],
+        "related_pattern_ids": ["pattern:gadd-50-ways-verse-approx"],
+        "community_names": ["Gadd mozambique"],
+        "tags": ["latin", "ostinato", "four-way coordination"],
+        "transcription": {
+          "status": "archetype",
+          "history": [
+            {
+              "date": "2026-10-11",
+              "status": "archetype",
+              "by": "Claude",
+              "note": "Initial entry"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pattern:gadd-ballad-cross-stick-archetype",
+        "name": "Singer-songwriter cross-stick ballad",
+        "type": "groove",
+        "function": "Ballad / soft verse",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "stylistic_archetype",
+        "evidence": {
+          "confidence": "inferred"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [60, 90]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....c..g....c...",
+          "kick": "x.......x.x....."
+        },
+        "humanise": {
+          "timing_jitter_ms": 5,
+          "velocity_jitter": 10,
+          "voice_offsets_ms": {
+            "snare": 8
+          }
+        },
+        "difficulty": 2,
+        "practice_notes": "Feel is everything: soft hats, behind-the-beat cross-stick, minimal kick.",
+        "tags": ["ballad", "cross-stick", "James Taylor era"],
+        "transcription": {
+          "status": "archetype",
+          "history": [
+            {
+              "date": "2026-10-11",
+              "status": "archetype",
+              "by": "Claude",
+              "note": "Initial entry"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pattern:gadd-hhf-sextuplet-fill",
+        "name": "Hand-hand-foot descending sextuplets",
+        "type": "fill",
+        "function": "Two-beat fill into a new section",
+        "style_ids": ["style:jazz-fusion", "style:pop-rock-session"],
+        "fidelity": "stylistic_archetype",
+        "evidence": {
+          "confidence": "widely_reported",
+          "note": "Common Gadd-associated idea; exact voicing varies."
+        },
+        "time_signature": {
+          "numerator": 2,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "playable_range_bpm": [80, 130]
+        },
+        "lanes": {
+          "snare": "xx..........",
+          "tom_1": "...xx.......",
+          "tom_2": "......xx....",
+          "floor_tom_1": ".........xx.",
+          "kick": "..x..x..x..x"
+        },
+        "sticking_lane": "RLKRLKRLKRLK",
+        "variation_rules": [
+          {
+            "description": "Reverse direction (floor to snare)",
+            "probability": 0.2
+          },
+          {
+            "description": "Stay on snare with accents for a tighter, more rudimental version",
+            "probability": 0.3
+          }
+        ],
+        "difficulty": 6,
+        "tags": ["linear", "sextuplet", "hand-foot"],
+        "transcription": {
+          "status": "archetype",
+          "history": [
+            {
+              "date": "2026-10-11",
+              "status": "archetype",
+              "by": "Claude",
+              "note": "Initial entry"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pattern:gadd-paradiddle-diddle-fill",
+        "name": "Paradiddle-diddle around the kit",
+        "type": "fill",
+        "function": "Two-beat fill",
+        "style_ids": ["style:jazz-fusion", "style:rudimental"],
+        "fidelity": "stylistic_archetype",
+        "evidence": {
+          "confidence": "widely_reported"
+        },
+        "time_signature": {
+          "numerator": 2,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "lanes": {
+          "snare": "Xx..........",
+          "tom_1": "..xx........",
+          "tom_2": "....xx......",
+          "floor_tom_1": "......Xxxxxx",
+          "kick": "x.....x....."
+        },
+        "sticking_lane": "RLRRLLRLRRLL",
+        "difficulty": 5,
+        "derived_from": [
+          {
+            "style_id": "style:rudimental",
+            "how": "Paradiddle-diddle orchestrated across voices"
+          }
+        ],
+        "tags": ["rudimental", "sextuplet"],
+        "transcription": {
+          "status": "archetype",
+          "history": [
+            {
+              "date": "2026-10-11",
+              "status": "archetype",
+              "by": "Claude",
+              "note": "Initial entry"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pattern:gadd-flam-accent-fill",
+        "name": "Flam accent, snare to floor",
+        "type": "fill",
+        "function": "Short two-beat set-up",
+        "style_ids": ["style:rudimental", "style:jazz-fusion"],
+        "fidelity": "stylistic_archetype",
+        "evidence": {
+          "confidence": "widely_reported"
+        },
+        "time_signature": {
+          "numerator": 2,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 1,
+        "feel": "triplet",
+        "lanes": {
+          "snare": "fxx...",
+          "floor_tom_1": "...fxx",
+          "kick": "x.....",
+          "hihat_pedal": "k..k.."
+        },
+        "sticking_lane": "RLRLRL",
+        "difficulty": 4,
+        "derived_from": [
+          {
+            "style_id": "style:rudimental",
+            "how": "Flam accent rudiment split between snare and floor tom"
+          }
+        ],
+        "tags": ["flam", "rudimental", "triplet"],
+        "transcription": {
+          "status": "archetype",
+          "history": [
+            {
+              "date": "2026-10-11",
+              "status": "archetype",
+              "by": "Claude",
+              "note": "Initial entry"
+            }
+          ]
+        }
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:aja-solo-language",
+        "name": "Aja closing solo language",
+        "description": "Extended improvised drum feature over the ensemble vamp: rudimental figures, tom melodies and hand-foot combinations built in long, developing phrases.",
+        "heard_on": ["rec:steely-dan-aja-1977"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "widely_reported"
+        }
+      },
+      {
+        "id": "lick:drag-backbeat",
+        "name": "Dragged backbeat",
+        "description": "Backbeat preceded by a soft double grace note for a fat, lazy snare.",
+        "sticking": "llR",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely"
+        }
+      },
+      {
+        "id": "lick:six-stroke-crash",
+        "name": "Six-stroke roll into crash",
+        "description": "Accented six-stroke roll resolving to a crash and kick on the downbeat.",
+        "sticking": "RllrrL",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely"
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:yamaha-studio",
+      "label": "Yamaha (long-term endorser)",
+      "years": {
+        "from": 1976,
+        "ongoing": true
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "snare",
+          "brand": "Yamaha",
+          "model": "Steve Gadd signature steel snare",
+          "size": "14x5.5",
+          "material": "steel (also birch and maple versions) with wood hoops"
+        }
+      ],
+      "endorsements": ["Yamaha drums", "Remo heads"],
+      "layout_notes": "Has used the Yamaha Steve Gadd Commemorative kit (30th anniversary of the partnership), Recording Custom and Club Custom kits.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia", "src:yamaha-profile", "src:remo-profile"],
+        "note": "Start year of Yamaha relationship inferred from the 30th-anniversary kit; verify."
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Chuck and Gap Mangione",
+      "type": "session_regular",
+      "years": {
+        "from": 1968,
+        "to": 1971
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia"]
+      }
+    },
+    {
+      "name": "Trio with Tony Levin and Mike Holmes",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 1972
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:remo-profile"]
+      }
+    },
+    {
+      "name": "Return to Forever (Chick Corea)",
+      "type": "band_member",
+      "notes": "Early, brief tenure.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:remo-profile"]
+      }
+    },
+    {
+      "name": "Stuff",
+      "type": "band_member",
+      "years": {
+        "from": 1976
+      },
+      "bandmates": [
+        {
+          "name": "Richard Tee"
+        },
+        {
+          "name": "Eric Gale"
+        },
+        {
+          "name": "Cornell Dupree"
+        },
+        {
+          "name": "Gordon Edwards"
+        },
+        {
+          "name": "Chris Parker",
+          "role": "second drummer"
+        }
+      ],
+      "notes": "Appeared on Saturday Night Live, including backing Joe Cocker.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:adolphesax", "src:bfmjazz"]
+      }
+    },
+    {
+      "name": "Steps (Steps Ahead)",
+      "type": "band_member",
+      "years": {
+        "from": 1979
+      },
+      "evidence": {
+        "confidence": "likely"
+      }
+    },
+    {
+      "name": "Gadd Gang",
+      "type": "bandleader",
+      "years": {
+        "from": 1986
+      },
+      "bandmates": [
+        {
+          "name": "Richard Tee"
+        },
+        {
+          "name": "Cornell Dupree"
+        },
+        {
+          "name": "Eddie Gomez"
+        },
+        {
+          "name": "Ronnie Cuber"
+        }
+      ],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:adolphesax"]
+      }
+    },
+    {
+      "name": "Paul Simon touring band",
+      "type": "touring_drummer",
+      "notes": "Toured all of 1991.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia"]
+      }
+    },
+    {
+      "name": "Eric Clapton",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1994,
+        "ongoing": false
+      },
+      "notes": "First-call drummer through the 1990s and beyond.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:drumlib", "src:modern-drummer"]
+      }
+    },
+    {
+      "name": "James Taylor",
+      "type": "touring_drummer",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer"]
+      }
+    },
+    {
+      "name": "Blicher Hemmer Gadd",
+      "type": "band_member",
+      "years": {
+        "from": 2014,
+        "ongoing": true
+      },
+      "bandmates": [
+        {
+          "name": "Michael Blicher"
+        },
+        {
+          "name": "Dan Hemmer"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia"]
+      }
+    },
+    {
+      "name": "Steve Gadd Band",
+      "type": "bandleader",
+      "years": {
+        "ongoing": true
+      },
+      "bandmates": [
+        {
+          "name": "Walt Fowler"
+        },
+        {
+          "name": "Kevin Hays"
+        },
+        {
+          "name": "Jimmy Johnson"
+        },
+        {
+          "name": "Michael Landau"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer"]
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "John Beck",
+        "kind": "teacher"
+      },
+      "strength": 0.7,
+      "aspects": ["classical percussion", "technique"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yamaha-profile"]
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Bill Street",
+        "kind": "teacher"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yamaha-profile"]
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Stanley Street",
+        "kind": "teacher"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yamaha-profile"]
+      }
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Uncle (army drummer)",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "aspects": ["first encouragement"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:remo-profile"]
+      }
+    },
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Drum corps rudimental tradition",
+        "kind": "tradition",
+        "id": "style:rudimental"
+      },
+      "strength": 1.0,
+      "aspects": ["rudiments", "flams", "drags", "march feel"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "strength": 0.8,
+      "aspects": ["triplet flow", "jazz feel"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:remo-profile"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:remo-profile"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jack DeJohnette",
+        "kind": "drummer",
+        "id": "drummer:jack-dejohnette"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:remo-profile"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.6,
+      "aspects": ["hands", "big band"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:remo-profile"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Louie Bellson",
+        "kind": "drummer",
+        "id": "drummer:louie-bellson"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:remo-profile"]
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Cuban mozambique",
+        "kind": "style",
+        "id": "style:mozambique"
+      },
+      "strength": 0.6,
+      "aspects": ["bell pattern", "conga accents"],
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Chris Parker",
+        "kind": "drummer"
+      },
+      "years": {
+        "from": 1976
+      },
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Richard Tee",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:adolphesax"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Eddie Gomez",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Dave Weckl",
+        "kind": "drummer",
+        "id": "drummer:dave-weckl"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Keith Carlock",
+        "kind": "drummer",
+        "id": "drummer:keith-carlock"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Japanese session drummers (1970s to 1980s)",
+        "kind": "tradition"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:remo-profile"]
+      }
+    },
+    {
+      "type": "parodied_by",
+      "target": {
+        "name": "Vinnie Colaiuta (on Zappa's 'A Little Green Rosetta')",
+        "kind": "drummer",
+        "id": "drummer:vinnie-colaiuta"
+      },
+      "aspects": ["signature Gadd fills played deliberately out of context"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bfmjazz"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Adrienne Davies",
+        "kind": "drummer",
+        "id": "drummer:adrienne-davies"
+      },
+      "strength": 0.4,
+      "aspects": ["serving the song", "restraint"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bandcamp-davies"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "books": [
+      {
+        "title": "Gaddiments",
+        "year": 2021,
+        "publisher": "Hudson Music",
+        "summary": "Rudimental passages drawn from his drum corps background.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:modern-drummer"]
+        }
+      }
+    ],
+    "videos": [
+      {
+        "title": "Reference video (to review)",
+        "url": "https://www.youtube.com/watch?v=ZG6PB3NdnnA",
+        "evidence": {
+          "confidence": "needs_verification"
+        }
+      }
+    ],
+    "philosophy": [
+      {
+        "idea": "Serve the song first; the right part matters more than the impressive one."
+      },
+      {
+        "idea": "Rudiments are musical vocabulary, not exercises."
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.98,
+    "innovations": [
+      "Rudimental drum corps language applied to pop and fusion grooves",
+      "Kit mozambique adaptation",
+      "Groove-as-hook approach to session drumming",
+      "Template for the 'complete' studio drummer: reading, feel, sound and taste"
+    ],
+    "accolades": [
+      {
+        "award": "Honorary Doctor of Music, Berklee College of Music",
+        "year": 2005,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:adolphesax"]
+        }
+      },
+      {
+        "award": "Grammy, Best Contemporary Instrumental Album",
+        "year": 2019,
+        "for": "Steve Gadd Band",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:modern-drummer"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Frank Zappa's 'A Little Green Rosetta' (Joe's Garage) jokes about hiring 'Steve Gadd's clone'; Vinnie Colaiuta plays the Gadd-style fills.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bfmjazz"]
+        }
+      },
+      {
+        "description": "Transcriptions of his solos were sold in Japan in the late 1970s.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:remo-profile"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That his famous grooves are about chops. Most are simple ideas played with extreme control and placement."
+    ]
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:gadd-50-ways-verse-approx",
+      "pattern:gadd-mozambique-archetype",
+      "pattern:gadd-hhf-sextuplet-fill"
+    ],
+    "default_kit_sound": "70s dry studio kit: muffled toms, fat snare, felt-beater kick, dark cymbals",
+    "generation_rules": [
+      "Keep ghost notes very soft (velocity 20 to 35) and backbeats firm (100 to 115).",
+      "Place snare slightly behind the grid; keep hats on or near the grid.",
+      "Prefer rudimental stickings (paradiddle family, flams, drags) when generating fills.",
+      "Fills at phrase ends only; 2 beats is typical, 1 bar maximum in pop contexts.",
+      "Use hand-foot combinations in fills rather than hands-only tom runs.",
+      "Crash only at section starts."
+    ],
+    "avoid": [
+      "Busy, constant fills in pop grooves",
+      "Loud, bright cymbal washes",
+      "Machine-quantised velocities",
+      "Double-kick or metal-style bass drum patterns"
+    ],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:elvin-jones",
+        "drummer:tony-williams",
+        "drummer:buddy-rich",
+        "style:rudimental"
+      ],
+      "primary_descendants": ["drummer:dave-weckl", "drummer:keith-carlock"],
+      "lineage_blurb": "Drum corps meets Elvin and Tony, filtered through the 70s New York studio scene."
+    },
+    "tags": ["session", "fusion", "rudimental", "70s", "pocket", "song-first"]
+  },
+  "key_recording_ids": [
+    "rec:paul-simon-50-ways-1975",
+    "rec:corea-nite-sprite-1976",
+    "rec:steely-dan-aja-1977",
+    "rec:stuff-1976",
+    "rec:paul-simon-late-in-the-evening-1980",
+    "rec:simon-garfunkel-central-park-1981",
+    "rec:bb-king-clapton-riding-2000",
+    "rec:steve-gadd-band-2018"
+  ]
+}

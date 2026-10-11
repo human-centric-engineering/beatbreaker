@@ -18,6 +18,15 @@ release process.
 
 ### Added
 
+- **The drummer model and the lineage graph (BeatBreaker Phase 11-a).** Every
+  famous drummer is a record in the drummer model (v1.4, JSON Schemas under
+  `prisma/seeds/app-beatbreaker/data/drummer-model/schema/`) as well as a
+  catalogue style, joined by `beatbreaker.style_key`. Three new system tables,
+  `LineageNode`, `LineageEdge` and `LineageRecording`, are seeded from the
+  records by `004-lineage`, and read by two new public catalogue endpoints,
+  `GET /api/v1/catalogue/lineage` and `GET /api/v1/catalogue/lineage/[slug]`.
+  `ajv` and `ajv-formats` are new dev dependencies.
+
 - **Written sticking on a pattern (BeatBreaker Phase 10-a).** A pattern may
   carry `sticking`, one R/L string per bar, packed in a share code or a
   `Break.doc` as an optional `sk` beside `pn`. It is additive on wire version

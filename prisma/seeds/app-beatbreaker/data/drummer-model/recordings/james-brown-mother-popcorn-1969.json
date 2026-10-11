@@ -1,0 +1,42 @@
+{
+  "id": "rec:james-brown-mother-popcorn-1969",
+  "title": "Mother Popcorn (You Got to Have a Mother for Me)",
+  "artist": "James Brown",
+  "year": 1969,
+  "type": "studio_track",
+  "style_ids": ["style:funk"],
+  "personnel": [
+    {
+      "name": "Pee Wee Ellis",
+      "role": "co-writer, arranger"
+    }
+  ],
+  "tempo_bpm": 117,
+  "time_signature": "4/4",
+  "feel": "straight",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clyde-stubblefield",
+      "name": "Clyde Stubblefield",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Quarter-note hats leave the snare free to talk with the horns; backbeat on 2 and the 'and' of 4, kick on every 'and' in the second bar.",
+      "pattern_ids": ["pattern:stubblefield-mother-popcorn-approx"],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:stubblefield-wikipedia",
+          "src:stubblefield-wiki-mother-popcorn",
+          "src:stubblefield-funklet-mother-popcorn"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": [
+      "src:stubblefield-wiki-mother-popcorn",
+      "src:stubblefield-funklet-mother-popcorn"
+    ]
+  }
+}

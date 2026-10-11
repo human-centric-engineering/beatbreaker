@@ -1,0 +1,44 @@
+{
+  "id": "style:jazz-waltz",
+  "name": "Jazz waltz",
+  "kind": "groove_family",
+  "parents": [
+    {
+      "style_id": "style:jazz",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "drum_characteristics": {
+    "subdivision": "triplets in 3/4",
+    "hallmarks": ["3/4 ride pattern", "implied 6/8 hemiola"]
+  },
+  "archetype_patterns": [
+    {
+      "id": "pattern:style-jazz-waltz",
+      "name": "Basic jazz waltz",
+      "type": "groove",
+      "fidelity": "stylistic_archetype",
+      "transcription": {
+        "status": "archetype"
+      },
+      "time_signature": {
+        "numerator": 3,
+        "denominator": 4
+      },
+      "steps_per_beat": 3,
+      "bars": 1,
+      "feel": "swung",
+      "tempo": {
+        "playable_range_bpm": [100, 220]
+      },
+      "lanes": {
+        "ride": "x..x.xx..",
+        "hihat_pedal": "...k..k..",
+        "kick": "x........"
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "rec:cream-toad-1966",
+  "title": "Toad",
+  "artist": "Cream",
+  "release": "Fresh Cream",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:blues-rock"],
+  "later_versions": [
+    {
+      "note": "Extended live version on Wheels of Fire (1968)."
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ginger-baker",
+      "name": "Ginger Baker",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "One of the first extended drum solos on a rock album.",
+      "pattern_ids": ["pattern:baker-toad-ostinato-archetype"]
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported"
+  }
+}

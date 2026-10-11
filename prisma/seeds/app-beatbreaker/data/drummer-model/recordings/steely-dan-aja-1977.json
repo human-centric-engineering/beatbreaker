@@ -1,0 +1,55 @@
+{
+  "id": "rec:steely-dan-aja-1977",
+  "title": "Aja",
+  "artist": "Steely Dan",
+  "release": "Aja",
+  "year": 1977,
+  "type": "studio_track",
+  "personnel": [
+    {
+      "name": "Wayne Shorter",
+      "role": "tenor saxophone"
+    }
+  ],
+  "producer": "Gary Katz",
+  "style_ids": ["style:jazz-fusion"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:yamaha-profile", "src:drumlib"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-gadd",
+      "name": "Steve Gadd",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "A landmark of studio drumming: highly interactive playing behind Wayne Shorter's sax solo, then an extended drum feature over the ensemble vamp near the end.",
+      "section_map": [
+        {
+          "section": "Sax solo",
+          "drum_approach": "Conversational, responding to Shorter's phrases."
+        },
+        {
+          "section": "Closing vamp",
+          "drum_approach": "Extended drum feature over ensemble figures."
+        }
+      ],
+      "notable_moments": [
+        {
+          "category": "studio_story",
+          "description": "Widely reported to have been played largely from the chart in very few takes.",
+          "evidence": {
+            "confidence": "widely_reported"
+          }
+        },
+        {
+          "category": "solo",
+          "description": "Solo built from rudimental language and tom melodies, developing over the vamp.",
+          "evidence": {
+            "confidence": "widely_reported"
+          }
+        }
+      ]
+    }
+  ]
+}

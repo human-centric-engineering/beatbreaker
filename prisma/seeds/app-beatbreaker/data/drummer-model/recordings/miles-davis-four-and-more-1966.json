@@ -1,0 +1,65 @@
+{
+  "id": "rec:miles-davis-four-and-more-1966",
+  "title": "Four & More",
+  "artist": "Miles Davis",
+  "release": "Columbia",
+  "year": 1966,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "personnel": [
+    {
+      "name": "Miles Davis",
+      "role": "trumpet"
+    },
+    {
+      "name": "George Coleman",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Herbie Hancock",
+      "role": "piano"
+    },
+    {
+      "name": "Ron Carter",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "Recorded live at Philharmonic Hall, New York, 12 February 1964; the up-tempo half of the concert (the ballads are on My Funny Valentine).",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams",
+      "name": "Tony Williams",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "The fast tunes (So What, Walkin', Seven Steps to Heaven) at 270-370 bpm: the light ride, silent hat foot, accents in three across the bar and tempos surging upward.",
+      "pattern_ids": ["pattern:tony-williams-seven-steps-archetype"],
+      "notable_moments": [
+        {
+          "category": "feel",
+          "description": "Seven Steps to Heaven opens around 310 and ends near 356 bpm.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:tony-williams-bishop-seven-steps"]
+          },
+          "pattern_id": "pattern:tony-williams-seven-steps-archetype"
+        },
+        {
+          "category": "interaction",
+          "description": "So What played at about twice the speed of the 1959 record.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:tony-williams-goodman-2011"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-bishop-seven-steps", "src:tony-williams-goodman-2011"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tony-williams-wikipedia"]
+  }
+}

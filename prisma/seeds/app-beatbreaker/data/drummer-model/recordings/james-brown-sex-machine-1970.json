@@ -1,0 +1,51 @@
+{
+  "id": "rec:james-brown-sex-machine-1970",
+  "title": "Get Up (I Feel Like Being a) Sex Machine",
+  "artist": "James Brown",
+  "year": 1970,
+  "type": "studio_track",
+  "style_ids": ["style:funk"],
+  "personnel": [
+    {
+      "name": "Bootsy Collins",
+      "role": "bass"
+    },
+    {
+      "name": "Bobby Byrd",
+      "role": "vocals"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jabo-starks",
+      "name": "Jabo Starks",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Built around his swinging hi-hat groove; one of the most foot-tapping records ever made.",
+      "notable_moments": [
+        {
+          "category": "arrangement",
+          "description": "Opens with a series of authoritative accents before the groove settles.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:rollingstone-starks"]
+          }
+        },
+        {
+          "category": "groove",
+          "description": "Swinging hi-hat groove carries the whole track.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:wapo-starks"]
+          },
+          "pattern_id": "pattern:starks-sex-machine-archetype"
+        }
+      ],
+      "pattern_ids": ["pattern:starks-sex-machine-archetype"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wapo-starks", "src:rollingstone-starks"]
+  }
+}

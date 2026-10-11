@@ -1,0 +1,578 @@
+{
+  "meta": {
+    "id": "drummer:klek-de-poitrine",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.35,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Review the community drum tabs on Songsterr (Sarniezz, Mata Zyklek, Fabienk, KEXP versions) and promote the best to draft transcriptions after checking against the recordings.",
+      "Measure tempos and metres of Vol. II tracks; current patterns are archetypes only.",
+      "Find any drummer-specific influences Klek has cited; current influences are band-level.",
+      "Document the kit (none published so far)."
+    ]
+  },
+  "identity": {
+    "name": "Klek de Poitrine",
+    "aliases": ["Klek"],
+    "pseudonymous": true,
+    "persona": {
+      "stage_name": "Klek de Poitrine",
+      "description": "One of two 'space-time voyagers' who arrived on Earth in a pyramid-shaped craft. Speaks an invented alien language that the band's manager translates in interviews.",
+      "costume": "Full-body black-and-white polka-dot suit and an oversized papier-mâché mask with a long proboscis-monkey-like nose.",
+      "language": "Invented language",
+      "real_identity_policy": "private_do_not_research",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-angine", "src:ctv-angine"]
+      }
+    },
+    "nationality": ["Canadian"],
+    "home_scenes": ["Saguenay, Quebec"],
+    "handedness": "unknown",
+    "kit_orientation": "unknown",
+    "active": {
+      "from": 2019,
+      "ongoing": true
+    },
+    "roles": ["band_member", "composer"],
+    "summary": "The masked, hard-hitting drummer of Quebec microtonal math-rock duo Angine de Poitrine. Drives repetitive, hypnotic, danceable grooves locked to Khn de Poitrine's live loops on a microtonal double-neck guitar and bass, while wearing a costume that restricts vision and traps heat. The band's breakout in 2026 came partly from music widely heard as unmistakably human."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "traditions": [
+      {
+        "tradition": "Long-term duo partnership",
+        "impact": "Has played with Khn in various projects since about age 13, for two decades.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-angine", "src:ctv-angine"]
+        }
+      },
+      {
+        "tradition": "Previous band's destructive papier-mâché shows",
+        "impact": "Their previous band built papier-mâché structures for audiences to destroy like a giant piñata; the masks grew out of that.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-angine"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 2019,
+        "event": "First Angine de Poitrine show, a costumed one-off so a second gig at the same venue in one week would still draw a crowd.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-angine"]
+        }
+      },
+      {
+        "year": 2023,
+        "event": "Began performing regularly as Angine de Poitrine.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-angine"]
+        }
+      },
+      {
+        "year": 2025,
+        "event": "Trans Musicales, Rennes, December 2025; footage released by KEXP on 5 February 2026 went viral.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-angine"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:klek-local",
+      "label": "Local joke to Quebec festivals",
+      "years": {
+        "from": 2019,
+        "to": 2025
+      },
+      "context": "One-off gag in 2019, regular from 2023, Vol. 1 in 2024, Quebec festival circuit and GAMIQ Artist of the Year 2025.",
+      "defining_traits": ["anonymous persona", "loop-locked grooves"],
+      "key_recording_ids": ["rec:angine-vol-1-2024"]
+    },
+    {
+      "id": "era:klek-global",
+      "label": "Global breakout",
+      "years": {
+        "from": 2026,
+        "ongoing": true
+      },
+      "context": "Viral KEXP video, Vol. II, international tours, 70,000 at the Montreal Jazz Festival.",
+      "defining_traits": ["big stages in costume", "ritual gestures with the crowd"],
+      "key_recording_ids": [
+        "rec:angine-kexp-trans-musicales-2025",
+        "rec:angine-vol-ii-2026",
+        "rec:angine-fabienk-2026"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:math-rock",
+        "name": "Math rock",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "name": "Experimental rock",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:progressive-rock",
+        "name": "Progressive rock",
+        "weight": 0.6,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:funk",
+        "name": "Groove / funk feel",
+        "weight": 0.5,
+        "authority": 0.1,
+        "notes": "Described as funky and danceable."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.1,
+    "role_tendency": "driver",
+    "descriptors": ["hard-hitting", "hypnotic", "danceable", "precise", "ritualistic", "absurdist"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "Has to stay locked to live loops; measure from the KEXP video."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "typical_swing_ratio": 0.5
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 122,
+      "balance": "Hard-hitting backbeats and accents under dense looped guitar."
+    },
+    "density": {
+      "groove_notes_per_bar": [10, 24],
+      "fill_frequency": "every_4_bars",
+      "space_usage": 0.3
+    },
+    "consistency": 0.95,
+    "tempo_comfort_bpm": [100, 160],
+    "timekeeping_context": ["live_loops"],
+    "interaction": "Drums stay locked while Khn stacks loops; mantra-like repetition with sudden surprises.",
+    "descriptors": ["mantra-rock", "repetition and surprise", "locked in"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Hard-hitting groove playing",
+        "description": "Powerful, consistent strokes that keep a dense duo full.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ctv-angine"]
+        }
+      }
+    ],
+    "foot_techniques": [],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.7,
+      "linear_playing": 0.4,
+      "ostinato_usage": 0.8,
+      "polyrhythm_usage": 0.6,
+      "odd_meter_fluency": 0.6,
+      "notes": "Band is noted for complex rhythms and polyrhythm; drum-level detail unconfirmed."
+    },
+    "voice_language": {
+      "hihat": "Driving 8ths and 16ths (to verify).",
+      "snare": "Hard backbeats and accent figures.",
+      "kick": "Locks with looped bass lines."
+    },
+    "implements": {
+      "sticks": 1.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["punchy", "live-room", "dry enough to cut through loops"],
+    "evidence": {
+      "confidence": "inferred"
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:klek-masked",
+      "label": "Drumming in a mask and costume",
+      "category": "performance_constraint",
+      "description": "Plays in a bulky papier-mâché mask and full costume, with limited vision and heat to cope with. The band's instruments are adapted for impaired vision under the masks.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:professionalmoron-klek", "src:wikipedia-angine"]
+      }
+    },
+    {
+      "id": "trait:klek-anonymity",
+      "label": "Anonymity as freedom",
+      "category": "performance_persona",
+      "description": "Anonymity lets him skip the post-show attention drummers get and just drink his water. Real identity is private by choice and is not stored here.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:guitar-com-angine", "src:wikipedia-angine"]
+      }
+    },
+    {
+      "id": "trait:klek-loop-lock",
+      "label": "Locked to live loops",
+      "category": "feel",
+      "description": "Drives the band while Khn stacks live loops; the drums must stay locked as patterns pile up.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:klek-loop-groove-archetype"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:montrealrocks-angine"]
+      }
+    },
+    {
+      "id": "trait:klek-ritual",
+      "label": "Silent ritual between songs",
+      "category": "performance_persona",
+      "description": "No talking to the audience; instead ritual gestures between the two players, especially a triangle made with the hands that the crowd copies.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-angine"]
+      }
+    },
+    {
+      "id": "trait:klek-human",
+      "label": "Heard as unmistakably human",
+      "category": "musical_approach",
+      "description": "Critics and academics have framed the band as an anti-AI proposition: two humans, despite the alien persona.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ctv-angine", "src:wikipedia-angine"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:klek-loop-groove-archetype",
+        "name": "Hard-hitting loop-locked dance groove",
+        "type": "groove",
+        "function": "Main groove under stacked loops",
+        "style_ids": ["style:math-rock", "style:funk"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Built from descriptions (hard-hitting, funky, danceable, locked to loops). Not from a transcription."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [110, 140]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.o.",
+          "snare": "....X......g.X..|....X..g....X.X.",
+          "kick": "x.....x.x.....x.|x.....x.x..x...."
+        },
+        "humanise": {
+          "timing_jitter_ms": 2,
+          "velocity_jitter": 8
+        },
+        "variation_rules": [
+          {
+            "description": "Hold the exact pattern for long stretches; mantra repetition is part of the style",
+            "probability": 0.8
+          },
+          {
+            "description": "Sudden unison hit-and-stop with the guitar",
+            "probability": 0.15,
+            "applies_to": "phrase end"
+          }
+        ],
+        "difficulty": 4,
+        "tags": ["groove", "loops", "danceable"]
+      },
+      {
+        "id": "pattern:klek-polymetric-accent-archetype",
+        "name": "Three-step accent cycle over 4/4",
+        "type": "groove_variation",
+        "function": "Build section with rhythmic disorientation",
+        "style_ids": ["style:math-rock"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Represents the band's 'complex rhythms' and polyrhythm in general terms."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 3,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [110, 140]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx",
+          "snare": "...X..X..X..X..X|..X..X..X..X..X.|.X..X..X..X..X..",
+          "kick": "x..x..x..x..x..x|..x..x..x..x..x.|.x..x..x..x..x..",
+          "crash_1": "x...............|................|................"
+        },
+        "cross_rhythms": [
+          {
+            "ratio": "4:3",
+            "voices": ["snare", "kick"],
+            "cycle_steps": 3,
+            "description": "Dotted-8th accents (every three 16ths) against the quarter-note pulse, realigning after three bars."
+          }
+        ],
+        "humanise": {
+          "timing_jitter_ms": 2,
+          "velocity_jitter": 6
+        },
+        "difficulty": 6,
+        "tags": ["polymeter", "math rock", "displacement"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:klek-unison-stops",
+        "name": "Unison hits with guitar",
+        "description": "Tight stop-start unison figures with Khn's riffs (to confirm from footage).",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "inferred"
+        }
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Angine de Poitrine",
+      "type": "band_member",
+      "years": {
+        "from": 2019,
+        "ongoing": true
+      },
+      "bandmates": [
+        {
+          "name": "Khn de Poitrine",
+          "role": "microtonal guitar, microtonal bass, loops, vocals"
+        }
+      ],
+      "notes": "Klek also contributes vocals.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-angine"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:angine-vol-1-2024",
+    "rec:angine-kexp-trans-musicales-2025",
+    "rec:angine-vol-ii-2026",
+    "rec:angine-fabienk-2026"
+  ],
+  "relationships": [
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Khn de Poitrine",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 2005
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-angine"],
+        "note": "Start year approximate: together since about age 13, for two decades."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "scope": "band",
+      "target": {
+        "name": "King Gizzard & the Lizard Wizard",
+        "kind": "ensemble"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-angine"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "scope": "band",
+      "target": {
+        "name": "Frank Zappa",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-angine"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "scope": "band",
+      "target": {
+        "name": "Gentle Giant",
+        "kind": "ensemble"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-angine"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "scope": "band",
+      "target": {
+        "name": "John Scofield",
+        "kind": "musician"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-angine"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "scope": "band",
+      "target": {
+        "name": "Leo Brouwer",
+        "kind": "musician"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-angine"]
+      }
+    },
+    {
+      "type": "cited_by",
+      "scope": "band",
+      "target": {
+        "name": "Dave Grohl",
+        "kind": "drummer",
+        "id": "drummer:dave-grohl"
+      },
+      "strength": 0.3,
+      "aspects": ["public praise"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-angine"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": []
+  },
+  "legacy": {
+    "influence_score": 0.3,
+    "innovations": ["Masked, persona-driven drumming at festival scale"],
+    "accolades": [
+      {
+        "award": "GAMIQ Artist of the Year (band)",
+        "year": 2025,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-angine"]
+        }
+      },
+      {
+        "award": "Polaris Music Prize shortlist, Vol. II (band)",
+        "year": 2026,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-angine"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "KEXP video passed 16 million views by June 2026.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-angine"]
+        }
+      },
+      {
+        "description": "Free show at the Montreal International Jazz Festival drew an estimated 70,000.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-angine"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That the drums are microtonal. The microtonality is in Khn's fretted instruments."
+    ]
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:klek-loop-groove-archetype",
+      "pattern:klek-polymetric-accent-archetype"
+    ],
+    "default_kit_sound": "Punchy live-room rock kit",
+    "generation_rules": [
+      "Long repetition with rare, abrupt changes.",
+      "Tight timing (2 ms jitter) to sit against loops.",
+      "Use polymetric accent cycles for builds."
+    ],
+    "avoid": ["Swing", "Busy fills during loop builds"],
+    "lineage_display": {
+      "primary_ancestors": ["style:math-rock", "style:progressive-rock"],
+      "primary_descendants": [],
+      "lineage_blurb": "Two decades of friendship in Saguenay, prog and Zappa influences, and a costume joke that went global."
+    },
+    "tags": ["math rock", "masked", "loops", "2020s", "microtonal band"]
+  }
+}

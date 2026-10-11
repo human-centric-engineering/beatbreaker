@@ -1,0 +1,21 @@
+{
+  "id": "rec:purdie-soul-drums-1968",
+  "title": "Soul Drums",
+  "artist": "Bernard Purdie",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:rnb-soul", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bernard-purdie",
+      "name": "Bernard Purdie",
+      "drummer_role": "leader",
+      "significance": 0.5,
+      "why_it_matters": "His debut as a bandleader; reissued in 2009 with the unreleased Alexander's Ragtime Band sessions."
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wiki-mirror-purdie"]
+  }
+}

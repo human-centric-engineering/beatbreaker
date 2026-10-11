@@ -1,0 +1,23 @@
+{
+  "id": "rec:steely-dan-babylon-sisters-1980",
+  "title": "Babylon Sisters",
+  "artist": "Steely Dan",
+  "release": "Gaucho",
+  "year": 1980,
+  "type": "studio_track",
+  "style_ids": ["style:half-time-shuffle"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bernard-purdie",
+      "name": "Bernard Purdie",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Second canonical Purdie shuffle recording; slower and more spacious.",
+      "pattern_ids": ["pattern:purdie-shuffle-approx"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:dnn-purdie", "src:wiki-old-purdie"]
+  }
+}

@@ -1,0 +1,162 @@
+[
+  {
+    "id": "src:yussef-dayes-wikipedia",
+    "type": "encyclopedia",
+    "title": "Yussef Dayes - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Yussef_Dayes",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:yussef-dayes-wikipedia-bcm",
+    "type": "encyclopedia",
+    "title": "Black Classical Music - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Black_Classical_Music",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:yussef-dayes-stampthewax-2017",
+    "type": "magazine",
+    "title": "Yussef Dayes' 10 favourite drummers (Stamp the Wax, 2017-05-05)",
+    "url": "https://www.stampthewax.com/?p=31866",
+    "reliability": 0.8,
+    "accessed": "2026-10-11",
+    "notes": "Dayes' own picks with short comments; also discusses Billy Cobham and Tony Williams."
+  },
+  {
+    "id": "src:yussef-dayes-crack-2023",
+    "type": "magazine",
+    "title": "Chasing the rhythm with Yussef Dayes (Crack Magazine, 2023-11-13)",
+    "url": "https://crackmagazine.net/?p=204048",
+    "reliability": 0.8,
+    "accessed": "2026-10-11",
+    "notes": "Interview: no click, sabar study in Senegal, Candomblé in Bahia, jungle, Yussef Kamaal."
+  },
+  {
+    "id": "src:yussef-dayes-wdet-2023",
+    "type": "interview",
+    "title": "Soul Saturday: The evolution of Yussef Dayes, from pots and pans to global beats (WDET, 2023-11-21)",
+    "url": "https://wdet.org/2023/11/21/soul-saturday-the-evolution-of-yussef-dayes-from-pots-and-pans-to-global-beats/",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:yussef-dayes-nonesuch-2023",
+    "type": "news",
+    "title": "Yussef Dayes shares Marching Band and Tioga Pass from Black Classical Music (Nonesuch Journal, 2023-07-12)",
+    "url": "https://nonesuch.com/journal/yussef-dayes-marching-band-masego-tioga-pass-rocco-palladino-black-classical-music-2023-07-12",
+    "reliability": 0.85,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:yussef-dayes-vinylfactory-litm",
+    "type": "news",
+    "title": "Yussef Dayes debuts 'Love Is The Message' live from Abbey Road (The Vinyl Factory)",
+    "url": "https://thevinylfactory.com/?p=110510",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:yussef-dayes-drumhub-bcm",
+    "type": "transcription",
+    "title": "Drum Hub: I learnt 1 drum beat from every song on Yussef Dayes' Black Classical Music (Alex Richards, 2023)",
+    "url": "https://www.drum-hub.com/blog/2023/10/20/i-learnt-1-drum-beat-from-every-song-on-yussef-dayes-black-classical-music-amp-you-can-too",
+    "reliability": 0.75,
+    "accessed": "2026-10-11",
+    "notes": "Human transcription in notation; excerpts, not full parts."
+  },
+  {
+    "id": "src:yussef-dayes-drumhub-litm",
+    "type": "transcription",
+    "title": "Drum Hub: Yussef Dayes - Love Is the Message beat breakdown (2022)",
+    "url": "https://www.drum-hub.com/blog/2022/3/15/yussef-dayes-love-is-the-message-beat-breakdown",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:yussef-dayes-drumhub-wkm",
+    "type": "transcription",
+    "title": "Drum Hub: Tom Misch & Yussef Dayes - What Kinda Music drum cover with notation (2020)",
+    "url": "https://www.drum-hub.com/blog/2020/4/3/tom-misch-amp-yussef-dayes-what-kinda-music-drum-cover-with-notation",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:yussef-dayes-drumhub-sol",
+    "type": "transcription",
+    "title": "Drum Hub: Yussef Kamaal - Strings of Light beat breakdown (2020)",
+    "url": "https://www.drum-hub.com/blog/2020/2/10/yussef-kamaal-strings-of-light-beat-breakdown",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:yussef-dayes-drumhub-paradiddles",
+    "type": "video_lesson",
+    "title": "Drum Hub: Use paradiddles to create grooves like Yussef Dayes, The Cinematic Orchestra & Tower of Power (2023)",
+    "url": "https://www.drum-hub.com/blog/2023/7/19/use-paradiddles-to-create-grooves-like-yussef-dayes-the-cinematic-orchestra-amp-tower-of-power-",
+    "reliability": 0.65,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:yussef-dayes-drumhub-bass-drum",
+    "type": "video_lesson",
+    "title": "Drum Hub: Improve bass drum speed with grooves from Mark Guiliana, Yussef Dayes & Kublai Khan TX (2023)",
+    "url": "https://www.drum-hub.com/blog/2023/8/16/improve-bass-drum-speed-with-grooves-from-mark-guiliana-yussef-dayes-amp-kublai-khan-tx-1",
+    "reliability": 0.65,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:yussef-dayes-songsterr-tioga",
+    "type": "transcription",
+    "title": "Songsterr: Yussef Dayes ft. Rocco Palladino - Tioga Pass drum tab",
+    "url": "https://www.songsterr.com/a/wsa/yussef-dayes-ft-rocco-palladino-tioga-pass-drum-tab-s884502",
+    "reliability": 0.55,
+    "accessed": "2026-10-11",
+    "notes": "User-submitted human tab."
+  },
+  {
+    "id": "src:yussef-dayes-songsterr-lift-off",
+    "type": "transcription",
+    "title": "Songsterr: Tom Misch & Yussef Dayes - Lift Off drum tab",
+    "url": "https://www.songsterr.com/a/wsa/tom-misch-yussef-dayes-lift-off-drum-tab-s6965167",
+    "reliability": 0.55,
+    "accessed": "2026-10-11",
+    "notes": "User-submitted human tab."
+  },
+  {
+    "id": "src:yussef-dayes-songsterr-jamaican-links",
+    "type": "transcription",
+    "title": "Songsterr: Yussef Dayes - Jamaican Links drum tab",
+    "url": "https://www.songsterr.com/a/wsa/yussef-dayes-jamaican-links-drum-tab-s1273078",
+    "reliability": 0.55,
+    "accessed": "2026-10-11",
+    "notes": "User-submitted human tab."
+  },
+  {
+    "id": "src:yussef-dayes-songbpm",
+    "type": "analysis",
+    "title": "SongBPM: Yussef Dayes",
+    "url": "https://songbpm.com/@yussef-dayes",
+    "reliability": 0.5,
+    "accessed": "2026-10-11",
+    "notes": "Automatic tempo detection; half/double readings chosen per track."
+  },
+  {
+    "id": "src:yussef-dayes-drummerszone",
+    "type": "biography",
+    "title": "Drummerszone: Yussef Dayes profile",
+    "url": "https://drummerszone.com/artists/profile/15367/yussef-dayes",
+    "reliability": 0.6,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:yussef-dayes-bb-research",
+    "type": "analysis",
+    "title": "BeatBreaker drumming research, section K. Yussef Dayes (2026-10-10)",
+    "url": ".context/app/planning/drumming-research.md",
+    "reliability": 0.6,
+    "accessed": "2026-10-11",
+    "notes": "Internal synthesis of the transcriptions above; readings off notation, not a primary source."
+  }
+]

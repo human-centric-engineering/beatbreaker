@@ -1,0 +1,10 @@
+{
+  "id": "style:gospel",
+  "name": "Gospel",
+  "kind": "tradition",
+  "region": "USA (Black church)",
+  "summary": "Church music tradition; drummers learn to follow and lift a singer and congregation.",
+  "drum_characteristics": {
+    "hallmarks": ["following the vocal", "dynamic builds", "shuffles and backbeat"]
+  }
+}

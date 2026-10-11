@@ -1,0 +1,776 @@
+{
+  "meta": {
+    "id": "drummer:adrienne-davies",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Measure actual tempos of key Earth tracks (stems) to set real bpm ranges.",
+      "Document her hybrid kit components and cymbal choices from interviews or live footage.",
+      "Transcribe a representative passage from Hex and from Angels of Darkness, Demons of Light I.",
+      "Confirm guest personnel on each album."
+    ]
+  },
+  "identity": {
+    "name": "Adrienne Davies",
+    "nationality": ["American"],
+    "home_scenes": [
+      "Seattle and the Pacific Northwest",
+      "Olympia punk and indie scene (1990s, as a fan)"
+    ],
+    "handedness": "unknown",
+    "kit_orientation": "unknown",
+    "active": {
+      "from": 2001,
+      "ongoing": true
+    },
+    "roles": ["band_member", "composer"],
+    "summary": "Earth's drummer since the band's second act and one of its two permanent members. A staunch minimalist who plays at glacial tempos with complete physical commitment: every stroke placed, weighted and allowed to ring. Described as the slowest drummer alive, she gave a band once built on drones and drum machines a human, ceremonial pulse."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "traditions": [
+      {
+        "tradition": "Punk and metal drumming",
+        "impact": "Grounding in heavy music and its physicality.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bandcamp-davies"]
+        }
+      },
+      {
+        "tradition": "1970s session drumming",
+        "impact": "Steve Gadd and Jim Keltner: serving the song, adding rather than detracting.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bandcamp-davies"]
+        }
+      },
+      {
+        "tradition": "1990s Pacific Northwest scene",
+        "impact": "Lived through grunge's key years as a teenager; Earth fan before joining.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:invisible-oranges-davies"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "age": 17,
+        "event": "Met Earth founder Dylan Carlson.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:invisible-oranges-davies", "src:bandcamp-davies"]
+        }
+      },
+      {
+        "event": "Seeing Sara Lund play with Unwound in Olympia left a strong impression.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:brooklyn-rail-davies"]
+        }
+      },
+      {
+        "year": 2000,
+        "event": "Reconnected with Carlson; began playing music together, initially not as Earth.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bandcamp-davies"]
+        }
+      },
+      {
+        "year": 2005,
+        "event": "Earth debut on record with Hex, met with near-universal acclaim.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bandcamp-davies"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:davies-hex",
+      "label": "Hex and the desert turn",
+      "years": {
+        "from": 2005,
+        "to": 2010
+      },
+      "context": "Earth's rebirth with a sunbaked sound drawing on country, blues, folk and jazz.",
+      "defining_traits": ["glacial tempos", "space", "ritual weight"],
+      "key_recording_ids": ["rec:earth-hex-2005", "rec:earth-bees-made-honey-2008"]
+    },
+    {
+      "id": "era:davies-angels",
+      "label": "Angels of Darkness, Demons of Light",
+      "years": {
+        "from": 2011,
+        "to": 2013
+      },
+      "context": "Looser, more improvised approach by Earth standards, with swampy R&B elements and cello from Lori Goldston.",
+      "defining_traits": ["looser feel", "improvised shepherding of the band"],
+      "style_shift": "More freedom within the minimalism.",
+      "key_recording_ids": ["rec:earth-angels-of-darkness-i-2011"]
+    },
+    {
+      "id": "era:davies-heavy-return",
+      "label": "Primitive and Deadly to duo era",
+      "years": {
+        "from": 2014,
+        "ongoing": true
+      },
+      "context": "Heavier, more vocal Primitive and Deadly; later Earth as a duo with Carlson.",
+      "defining_traits": ["heavier backbeats", "hybrid kit", "duo interplay"],
+      "key_recording_ids": [
+        "rec:earth-primitive-and-deadly-2014",
+        "rec:earth-full-upon-her-burning-lips-2019"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:drone-doom",
+        "name": "Drone / doom",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:americana",
+        "name": "Americana / desert rock",
+        "weight": 0.6,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:metal",
+        "name": "Metal",
+        "weight": 0.4,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:punk",
+        "name": "Punk",
+        "weight": 0.3,
+        "authority": 0.1
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "name": "Swampy R&B (later Earth)",
+        "weight": 0.2,
+        "authority": 0.1
+      }
+    ],
+    "versatility": 0.4,
+    "groove_vs_chops": -1.0,
+    "role_tendency": "accompanist",
+    "descriptors": ["minimalist", "methodical", "ritual", "physical", "patient", "unshowy"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "At these tempos placement is felt as weight and breath rather than ms offsets. Measure from stems."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.6,
+      "notes": "Mostly straight; some slow shuffled feels in the later, swampier material."
+    },
+    "dynamics": {
+      "range": 0.9,
+      "default_level": "mf",
+      "ghost_note_level": 20,
+      "accent_level": 120,
+      "balance": "Heavy, full strokes balanced against near-silent mallet and brush textures."
+    },
+    "density": {
+      "groove_notes_per_bar": [2, 8],
+      "fill_frequency": "rare",
+      "space_usage": 1.0
+    },
+    "consistency": 0.95,
+    "tempo_comfort_bpm": [30, 80],
+    "interaction": "Guides and shepherds the band through long modal, repetitive pieces; in duo Earth she is half the arrangement.",
+    "descriptors": ["glacial", "heavy", "delicate and massive", "meditative"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Full, committed strokes at slow tempos",
+        "description": "Large, focused motions so each note has weight and consistent timing across long gaps.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tomtom-davies"]
+        }
+      },
+      {
+        "name": "Soft mallet textures",
+        "description": "Barely touching a close-miked hide drum with soft mallets for a thunder rumble.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:brooklyn-rail-davies"]
+        }
+      },
+      {
+        "name": "Brushes",
+        "description": "Used for quieter textures.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:brooklyn-rail-davies"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Sparse, weighted kick",
+        "description": "Kick placed rarely and heavily to mark structure.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "inferred"
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.5,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.6,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.3,
+      "notes": "The challenge is time over very long gaps, physically and mentally."
+    },
+    "voice_language": {
+      "hihat": "Occasional, often replaced by ride or cymbal swells.",
+      "ride": "Slow quarter-note or half-note pulse, allowed to ring.",
+      "snare": "Heavy, spaced backbeats.",
+      "kick": "Rare, weighted.",
+      "toms": "Floor tom and hide drum for rumbles and swells.",
+      "cymbals": "Long swells and sustained crashes as texture."
+    },
+    "implements": {
+      "sticks": 0.8,
+      "brushes": 0.4,
+      "mallets": 0.6
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "huge, roomy",
+      "long cymbal decay",
+      "natural and organic",
+      "hybrid acoustic with additional drums"
+    ],
+    "tuning": {
+      "toms": "Low, resonant",
+      "snare": "Fat with ring"
+    },
+    "cymbal_character": "Large, washy, long sustain.",
+    "sample_hints": {
+      "default": "Big room, low toms, long-decay ride and crash, hide drum rumble played with soft mallets."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:brooklyn-rail-davies"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:davies-glacial",
+      "label": "Glacial tempos",
+      "category": "feel",
+      "description": "Plays almost exclusively at very slow and even slower tempos; described as the slowest drummer alive.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:davies-glacial-backbeat-archetype"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bandcamp-davies", "src:metal-insider-davies"]
+      }
+    },
+    {
+      "id": "trait:davies-restraint",
+      "label": "Restraint as a principle",
+      "category": "musical_approach",
+      "description": "Not a showy drummer; drums too in-your-face would wreck Earth's dynamic. An extraneous note or gesture would sound ridiculous in this music.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:invisible-oranges-davies", "src:tomtom-davies"]
+      }
+    },
+    {
+      "id": "trait:davies-physicality",
+      "label": "Focused physical commitment",
+      "category": "physical_habit",
+      "description": "Remarkably focused and fully committed physicality at the instrument; fluid and precise, delicate and massive at once.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tomtom-davies"]
+      }
+    },
+    {
+      "id": "trait:davies-hybrid-kit",
+      "label": "Hybrid kit and textures",
+      "category": "setup",
+      "description": "Uses a hybrid drum kit including a close-miked hide drum played with soft mallets for rumbling textures.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:davies-mallet-swell-archetype"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brooklyn-rail-davies"]
+      }
+    },
+    {
+      "id": "trait:davies-serve-song",
+      "label": "Add, don't detract",
+      "category": "musical_approach",
+      "description": "Built her Earth style to fit the music and serve the songs, adding to them rather than detracting.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bandcamp-davies"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:davies-glacial-backbeat-archetype",
+        "name": "Glacial half-time backbeat",
+        "type": "groove",
+        "function": "Main pulse under a modal riff",
+        "style_ids": ["style:drone-doom"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [35, 60]
+        },
+        "lanes": {
+          "ride": "x...x...|x...x...",
+          "crash_1": "x-------|........",
+          "snare": "....X...|....X...",
+          "kick": "x.......|x.....x."
+        },
+        "humanise": {
+          "timing_jitter_ms": 8,
+          "velocity_jitter": 6
+        },
+        "variation_rules": [
+          {
+            "description": "Replace ride with a long crash swell on the first bar of a riff cycle",
+            "probability": 0.3
+          },
+          {
+            "description": "Drop the kick entirely for a phrase",
+            "probability": 0.2
+          }
+        ],
+        "difficulty": 4,
+        "practice_notes": "Difficulty is in sustaining time and intensity across long gaps, not in the notes. Let cymbals ring fully.",
+        "tags": ["slow", "space", "doom"]
+      },
+      {
+        "id": "pattern:davies-mallet-swell-archetype",
+        "name": "Mallet swell and rumble",
+        "type": "intro",
+        "function": "Textural intro or transition",
+        "style_ids": ["style:drone-doom"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Based on her described use of soft mallets on a hide drum and cymbal swells."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "rubato",
+        "tempo": {
+          "playable_range_bpm": [40, 60]
+        },
+        "events": [
+          {
+            "bar": 1,
+            "step": 1,
+            "instrument": "crash_1",
+            "articulation": "mallet_roll",
+            "velocity": 20,
+            "duration_steps": 8
+          },
+          {
+            "bar": 1,
+            "step": 5,
+            "instrument": "crash_1",
+            "articulation": "mallet_roll",
+            "velocity": 55,
+            "duration_steps": 4
+          },
+          {
+            "bar": 1,
+            "step": 1,
+            "instrument": "floor_tom_1",
+            "articulation": "mallet_roll",
+            "velocity": 25,
+            "duration_steps": 16
+          },
+          {
+            "bar": 2,
+            "step": 1,
+            "instrument": "crash_1",
+            "articulation": "mallet_roll",
+            "velocity": 95,
+            "duration_steps": 6
+          },
+          {
+            "bar": 2,
+            "step": 7,
+            "instrument": "crash_1",
+            "articulation": "choke",
+            "velocity": 110
+          },
+          {
+            "bar": 2,
+            "step": 7,
+            "instrument": "kick",
+            "velocity": 115
+          },
+          {
+            "bar": 2,
+            "step": 7,
+            "instrument": "floor_tom_1",
+            "velocity": 110
+          }
+        ],
+        "difficulty": 3,
+        "tags": ["texture", "mallets", "swell"]
+      },
+      {
+        "id": "pattern:davies-slow-swamp-shuffle-archetype",
+        "name": "Slow swampy shuffle",
+        "type": "groove",
+        "function": "Looser later-Earth groove",
+        "style_ids": ["style:drone-doom", "style:blues-shuffle"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Reflects the swampy R&B elements she describes in the Angels of Darkness era."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "playable_range_bpm": [50, 70]
+        },
+        "lanes": {
+          "ride": "x.xx.xx.xx.x",
+          "snare": "...X.....X..",
+          "kick": "x.....x...x."
+        },
+        "humanise": {
+          "timing_jitter_ms": 7,
+          "velocity_jitter": 8
+        },
+        "difficulty": 3,
+        "related_pattern_ids": ["pattern:style-blues-shuffle"],
+        "tags": ["shuffle", "slow", "swamp"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:davies-thunder-rumble",
+        "name": "Thunder rumble",
+        "description": "Soft mallets barely touching a close-miked hide drum.",
+        "to_transcribe": false,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:brooklyn-rail-davies"]
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:davies-hybrid",
+      "label": "Hybrid kit",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "other",
+          "model": "Hide drum, close-miked"
+        }
+      ],
+      "layout_notes": "Standard kit plus additional drums; details to document.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brooklyn-rail-davies"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Earth",
+      "type": "band_member",
+      "years": {
+        "from": 2001,
+        "ongoing": true
+      },
+      "bandmates": [
+        {
+          "name": "Dylan Carlson",
+          "role": "guitar, founder"
+        },
+        {
+          "name": "Lori Goldston",
+          "role": "cello (Angels of Darkness era)"
+        }
+      ],
+      "notes": "One of two permanent members.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brooklyn-rail-davies", "src:tomtom-davies"],
+        "note": "Join year approximate; she began playing with Carlson after 2000."
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:earth-hex-2005",
+    "rec:earth-bees-made-honey-2008",
+    "rec:earth-angels-of-darkness-i-2011",
+    "rec:earth-primitive-and-deadly-2014",
+    "rec:earth-full-upon-her-burning-lips-2019"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jim Keltner",
+        "kind": "drummer",
+        "id": "drummer:jim-keltner"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tomtom-davies", "src:bandcamp-davies"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Steve Gadd",
+        "kind": "drummer",
+        "id": "drummer:steve-gadd"
+      },
+      "strength": 0.4,
+      "aspects": ["serving the song"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bandcamp-davies"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Levon Helm",
+        "kind": "drummer",
+        "id": "drummer:levon-helm"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tomtom-davies"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Thomas Wydler",
+        "kind": "drummer",
+        "id": "drummer:thomas-wydler"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tomtom-davies"],
+        "note": "Spelled 'Widler' in the source."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jim Sclavunos",
+        "kind": "drummer",
+        "id": "drummer:jim-sclavunos"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tomtom-davies"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Ralph Molina",
+        "kind": "drummer",
+        "id": "drummer:ralph-molina"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tomtom-davies"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Sara Lund",
+        "kind": "drummer",
+        "id": "drummer:sara-lund"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brooklyn-rail-davies"]
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Punk",
+        "kind": "style",
+        "id": "style:punk"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bandcamp-davies"]
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Metal",
+        "kind": "style",
+        "id": "style:metal"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bandcamp-davies"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Dylan Carlson",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brooklyn-rail-davies"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Fit the music and serve the songs: add, don't detract.",
+        "paraphrase_of_source_id": "src:bandcamp-davies"
+      },
+      {
+        "idea": "Keep improving as an all-round drummer without losing uniqueness to empty technique.",
+        "paraphrase_of_source_id": "src:tomtom-davies"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.5,
+    "innovations": [
+      "Brought a human, ritual pulse to drone music that had relied on guitar drones and drum machines",
+      "Showed glacial tempo as a demanding technique in its own right"
+    ],
+    "cultural_references": [
+      {
+        "description": "Earth's live shows have been compared to meditation practice by listeners and organisers.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:metal-insider-davies"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That slow playing is easy. She describes very slow tempos as physically and mentally demanding."
+    ]
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:davies-glacial-backbeat-archetype",
+      "pattern:davies-mallet-swell-archetype"
+    ],
+    "default_kit_sound": "Big room, low toms, long-decay cymbals, hide drum with soft mallets",
+    "generation_rules": [
+      "Tempo 35 to 60 bpm; grid no finer than 8ths.",
+      "Let every cymbal ring its full decay.",
+      "Two to eight notes per bar maximum.",
+      "Fills almost never; use swells and dynamic shifts instead."
+    ],
+    "avoid": [
+      "16th-note hats",
+      "Busy kick patterns",
+      "Fast fills",
+      "Short, choked sounds as default"
+    ],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:jim-keltner",
+        "drummer:levon-helm",
+        "drummer:steve-gadd",
+        "style:metal"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Keltner and Helm's song-first feel, Gadd's restraint and punk-metal weight, slowed to a geological pace."
+    },
+    "tags": ["doom", "drone", "slow", "minimalist", "texture"]
+  }
+}

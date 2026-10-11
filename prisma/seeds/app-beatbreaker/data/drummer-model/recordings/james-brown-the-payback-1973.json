@@ -1,0 +1,21 @@
+{
+  "id": "rec:james-brown-the-payback-1973",
+  "title": "The Payback",
+  "artist": "James Brown",
+  "year": 1973,
+  "type": "studio_track",
+  "style_ids": ["style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jabo-starks",
+      "name": "Jabo Starks",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "No. 1 R&B. A cooled-out tempo in contrast to Brown's usual brisk singles; builds into its vamp."
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wapo-starks", "src:rollingstone-starks"]
+  }
+}

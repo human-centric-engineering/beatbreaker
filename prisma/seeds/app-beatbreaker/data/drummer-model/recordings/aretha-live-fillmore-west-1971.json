@@ -1,0 +1,22 @@
+{
+  "id": "rec:aretha-live-fillmore-west-1971",
+  "title": "Aretha Live at Fillmore West",
+  "artist": "Aretha Franklin",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:rnb-soul"],
+  "studio_context": "Recorded 5 to 7 March 1971. Purdie also drummed for opening act King Curtis and the Kingpins, released as King Curtis Live at Fillmore West.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bernard-purdie",
+      "name": "Bernard Purdie",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Live document of Purdie as Aretha's musical director and drummer."
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wiki-mirror-purdie"]
+  }
+}

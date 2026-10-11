@@ -1,0 +1,34 @@
+{
+  "id": "rec:bowie-lets-dance-1983",
+  "title": "Let's Dance",
+  "artist": "David Bowie",
+  "year": 1983,
+  "type": "album",
+  "producer": "Nile Rodgers",
+  "style_ids": ["style:pop-rock-session", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:omar-hakim",
+      "name": "Omar Hakim",
+      "drummer_role": "co_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Bowie's most commercially successful album, made while Hakim was in Weather Report.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-hakim"]
+      }
+    },
+    {
+      "drummer_id": "drummer:tony-thompson",
+      "name": "Tony Thompson",
+      "drummer_role": "co_drummer",
+      "evidence": {
+        "confidence": "likely"
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wikipedia-hakim"]
+  }
+}

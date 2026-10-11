@@ -91,6 +91,7 @@ describe('the catalogue is data, not code', () => {
        check above by making the thing being guarded disappear. */
     const data = join(ROOT, 'prisma/seeds/app-beatbreaker/data');
     const files = readdirSync(data).sort();
-    expect(files).toEqual(['kits.ts', 'library.ts', 'rudiments.ts', 'styles.ts']);
+    // `drummer-model/` is the drummer records (Phase 11), read by the lineage seed
+    expect(files).toEqual(['drummer-model', 'kits.ts', 'library.ts', 'rudiments.ts', 'styles.ts']);
   });
 });

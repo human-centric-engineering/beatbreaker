@@ -1,0 +1,70 @@
+{
+  "id": "rec:james-brown-cold-sweat-1967",
+  "title": "Cold Sweat",
+  "artist": "James Brown",
+  "year": 1967,
+  "type": "studio_track",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Bernard Odum",
+      "role": "bass"
+    },
+    {
+      "name": "Jimmy Nolen",
+      "role": "guitar"
+    },
+    {
+      "name": "Maceo Parker",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Pee Wee Ellis",
+      "role": "saxophone, co-writer, arranger"
+    }
+  ],
+  "tempo_bpm": 112,
+  "time_signature": "4/4",
+  "feel": "straight",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clyde-stubblefield",
+      "name": "Clyde Stubblefield",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "Often called the first funk record. Bar 1 pushes the backbeat to the 'and' of 4, bar 2 drops the kick on 1, the hats open on the 'and's of 1 and 3, all played softly.",
+      "notable_moments": [
+        {
+          "category": "solo",
+          "description": "Brown calls 'give the drummer some' for a short drum break, the first of its kind on his records.",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:stubblefield-pas-cold-sweat"]
+          }
+        },
+        {
+          "category": "groove",
+          "description": "Hats open on the 'and's of 1 and 3; on the bridge the kick on 1 gives way to a snare hit.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:stubblefield-pas-cold-sweat"]
+          },
+          "pattern_id": "pattern:stubblefield-cold-sweat-approx"
+        }
+      ],
+      "pattern_ids": ["pattern:stubblefield-cold-sweat-approx"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:stubblefield-wikipedia",
+          "src:stubblefield-wiki-cold-sweat",
+          "src:stubblefield-pas-cold-sweat"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:stubblefield-wiki-cold-sweat", "src:stubblefield-pas-cold-sweat"]
+  }
+}

@@ -1,0 +1,1055 @@
+{
+  "meta": {
+    "id": "drummer:tony-williams",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Measure swing ratio by tempo from stems (Four & More, Miles Smiles) to replace the estimates.",
+      "Confirm kit brands and sizes by era (Gretsch in the 1960s, Yamaha later) from interviews.",
+      "Read the 1984 and 1989 Modern Drummer interviews (paywalled) for his own words on influences and practice.",
+      "Transcribe the Nefertiti drum part, where the drums carry the development while the horns repeat the tune.",
+      "Model metric modulation and polytempo, which the lane format cannot hold."
+    ]
+  },
+  "identity": {
+    "name": "Tony Williams",
+    "full_name": "Anthony Tillmon Williams",
+    "born": {
+      "date": "1945-12-12",
+      "place": "Chicago, Illinois, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-wikipedia", "src:tony-williams-allmusic"]
+      }
+    },
+    "died": {
+      "date": "1997-02-23",
+      "place": "Daly City, California, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-wikipedia"],
+        "note": "Heart attack after gall bladder surgery."
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Boston jazz (late 1950s to 1962)",
+      "New York jazz (from 1962)",
+      "San Francisco Bay Area (later years)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1959,
+      "to": 1997
+    },
+    "roles": ["band_member", "bandleader", "session", "composer"],
+    "summary": "Joined Miles Davis at seventeen and remade jazz time in the Second Great Quintet: a ride so light it nearly straightens at speed, rimshot stabs, bombs and broken time, and phrases in three running across the bar line, so the drums became a full voice in the band's improvising. Then led Lifetime, the loud organ trio with John McLaughlin and Larry Young that helped start jazz-rock."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "teachers": [
+      {
+        "name": "Alan Dawson",
+        "drummer_id": "drummer:alan-dawson",
+        "role": "Studied with him in Boston from about age ten or eleven; Dawson later became a renowned Berklee teacher.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:tony-williams-wikipedia",
+            "src:tony-williams-jazzhistorydatabase",
+            "src:tony-williams-goodman-2011"
+          ]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Bebop and hard-bop drumming",
+        "impact": "Goodman frames his early style as adaptive modelling of Art Blakey's feel, Max Roach's technique and Philly Joe Jones's creativity, learned by copying records.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tony-williams-goodman-2011"]
+        }
+      },
+      {
+        "tradition": "Rudimental study",
+        "impact": "Rudiments and reading through Dawson's teaching gave him speed, control and the even single strokes heard in his fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tony-williams-jazzhistorydatabase", "src:tony-williams-goodman-2011"]
+        }
+      },
+      {
+        "tradition": "Rock",
+        "impact": "Listened to rock and the Beatles, Cream and Hendrix in the late 1960s, which fed Lifetime's volume and straight feel.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Father, a saxophonist, took him to Boston clubs, where he sat in as a boy.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-wikipedia", "src:tony-williams-jazzhistorydatabase"]
+        }
+      },
+      {
+        "year": 1960,
+        "event": "Played with saxophonist Sam Rivers in Boston as a teenager.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-wikipedia", "src:tony-williams-jazzhistorydatabase"]
+        }
+      },
+      {
+        "year": 1962,
+        "event": "Jackie McLean brought him to New York at sixteen to join his band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tony-williams-wikipedia", "src:tony-williams-bluenote"]
+        }
+      },
+      {
+        "year": 1963,
+        "event": "Joined Miles Davis's quintet at seventeen.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tony-williams-wikipedia", "src:tony-williams-allmusic"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:tony-williams-early",
+      "label": "Boston and Jackie McLean",
+      "years": {
+        "from": 1959,
+        "to": 1963
+      },
+      "context": "Boston clubs with Sam Rivers, then New York with Jackie McLean (One Step Beyond, Vertigo).",
+      "defining_traits": ["teenage virtuoso", "Blakey, Roach and Philly Joe absorbed"]
+    },
+    {
+      "id": "era:tony-williams-miles",
+      "label": "Miles Davis Quintet and Blue Note sessions",
+      "years": {
+        "from": 1963,
+        "to": 1969
+      },
+      "context": "With Herbie Hancock, Ron Carter and from 1964 Wayne Shorter; also Hancock, Dolphy and his own Blue Note albums.",
+      "defining_traits": [
+        "ride nearly straight at speed",
+        "silent hat foot in 1964-65",
+        "broken time",
+        "three across the bar line",
+        "drums as soloist"
+      ],
+      "key_recording_ids": [
+        "rec:miles-davis-four-and-more-1966",
+        "rec:herbie-hancock-empyrean-isles-1964",
+        "rec:herbie-hancock-maiden-voyage-1965",
+        "rec:miles-davis-miles-smiles-1967",
+        "rec:miles-davis-nefertiti-1968"
+      ]
+    },
+    {
+      "id": "era:tony-williams-lifetime",
+      "label": "Lifetime and fusion",
+      "years": {
+        "from": 1969,
+        "to": 1980
+      },
+      "context": "Lifetime with John McLaughlin and Larry Young (Emergency!, 1969), later Jack Bruce; the New Tony Williams Lifetime with Allan Holdsworth (1975-76).",
+      "defining_traits": [
+        "jazz-rock volume",
+        "big drums",
+        "ride and crash wash",
+        "hat foot on every beat"
+      ],
+      "style_shift": "From jazz-scaled kit and touch to rock volume and larger drums.",
+      "key_recording_ids": ["rec:tony-williams-lifetime-emergency-1969"]
+    },
+    {
+      "id": "era:tony-williams-later",
+      "label": "Blue Note quintet and late work",
+      "years": {
+        "from": 1985,
+        "to": 1997
+      },
+      "context": "Acoustic quintet with Wallace Roney and Mulgrew Miller; V.S.O.P. reunions; sessions such as Public Image Ltd's Album (1986).",
+      "defining_traits": ["hard bop with big rimshots", "foot back on 2 and 4"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-bop",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.9,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.8,
+        "authority": 0.95,
+        "notes": "Lifetime was among the first jazz-rock bands."
+      },
+      {
+        "style_id": "style:jazz-waltz",
+        "weight": 0.3,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.3,
+        "authority": 0.4
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.3,
+    "role_tendency": "conversational",
+    "descriptors": ["mercurial", "explosive", "light-touched at speed", "virtuosic", "restless"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tony-williams-goodman-2011"],
+        "note": "Miles described him as playing just a fraction above the beat (quoted in Goodman 2011)."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.6,
+      "ratio_by_tempo": [
+        {
+          "bpm": 140,
+          "ratio": 0.7
+        },
+        {
+          "bpm": 200,
+          "ratio": 0.66
+        },
+        {
+          "bpm": 270,
+          "ratio": 0.54
+        },
+        {
+          "bpm": 330,
+          "ratio": 0.51
+        }
+      ],
+      "notes": "Ride swing falls to nearly even eighths above about 270 bpm and widens below 200 (Friberg and Sundstrom). Estimates, not measurements."
+    },
+    "dynamics": {
+      "range": 1.0,
+      "default_level": "mf",
+      "ghost_note_level": 30,
+      "accent_level": 124,
+      "balance": "Light, fast ride; snare and kick as accent voices; huge crescendos and sudden drops."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 24],
+      "fill_frequency": "constant_commentary",
+      "space_usage": 0.4
+    },
+    "consistency": 0.75,
+    "tempo_comfort_bpm": [50, 372],
+    "timekeeping_context": ["free"],
+    "interaction": "Answers the soloist and pushes the form: breaks the time into pieces, implies double time or two, and lets the tempo surge with the band.",
+    "descriptors": ["on top of the beat", "time on the cymbal and in his head", "elastic"]
+  },
+  "technique_profile": {
+    "grip": ["traditional", "matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Light, fast ride",
+        "description": "Ride played so lightly and quickly at up-tempos that the swing nearly straightens.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tony-williams-friberg-2002", "src:tony-williams-goodman-2011"]
+        }
+      },
+      {
+        "name": "Rimshot stabs and bombs",
+        "description": "Sharp rimshots and kick bombs punctuating the horns.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:tony-williams-md-1983"]
+        }
+      },
+      {
+        "name": "Single strokes around the kit",
+        "description": "Even singles between snare and floor tom, often grouped in threes or twos.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tony-williams-goodman-2011"]
+        }
+      },
+      {
+        "name": "Press rolls and swells",
+        "description": "Press-roll crescendos and cymbal swells, as on Nefertiti.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tony-williams-goodman-2011"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Hi-hat foot as a choice",
+        "description": "Little or no hat foot in 1964-65; all four beats as the main pulse from about 1968.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tony-williams-goodman-2011"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.95,
+      "linear_playing": 0.6,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.85,
+      "odd_meter_fluency": 0.6
+    },
+    "voice_language": {
+      "ride": "Light and fast; in pieces when the time breaks up.",
+      "snare": "Rimshots, comping in pairs, press rolls.",
+      "kick": "Bombs and answers, not a steady pulse.",
+      "toms": "Singles and pairs with the snare."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.3,
+      "mallets": 0.1
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "crisp jazz kit in the 1960s",
+      "big, open fusion kit from 1969",
+      "dark, washy cymbals"
+    ],
+    "cymbal_character": "Large, dark ride and crash cymbals used for wash as well as time.",
+    "by_era": [
+      {
+        "era_id": "era:tony-williams-miles",
+        "description": "Small jazz kit, high snare, light ride."
+      },
+      {
+        "era_id": "era:tony-williams-lifetime",
+        "description": "Larger drums and louder cymbals for jazz-rock volume."
+      }
+    ],
+    "sample_hints": {
+      "60s": "Small bop kit, crisp snare, dark ride.",
+      "70s": "Big open kit, deep toms, loud crash-ride wash."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:tony-williams-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:tony-williams-light-fast-ride",
+      "label": "A ride that nearly straightens at speed",
+      "category": "feel",
+      "description": "At 270 bpm and above the ride's eighths become almost even; slower, the swing widens.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-friberg-2002", "src:tony-williams-goodman-2011"]
+      },
+      "pattern_ids": ["pattern:tony-williams-seven-steps-archetype"]
+    },
+    {
+      "id": "trait:tony-williams-silent-foot",
+      "label": "Hi-hat foot left out",
+      "category": "musical_approach",
+      "description": "In 1964-65 the time lives on the cymbal; the hat foot on every beat arrives later.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-goodman-2011"]
+      }
+    },
+    {
+      "id": "trait:tony-williams-broken-time",
+      "label": "Broken time and threes over the bar",
+      "category": "musical_approach",
+      "description": "Breaks the time into fragments and runs accents in three across the bar line, as on So What and Joshua.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-goodman-2011"]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:miles-davis-four-and-more-1966"
+        }
+      ]
+    },
+    {
+      "id": "trait:tony-williams-drums-as-soloist",
+      "label": "Drums carry the development",
+      "category": "musical_approach",
+      "description": "On Nefertiti the horns repeat the melody while the drums improvise underneath.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tony-williams-wikipedia", "src:tony-williams-goodman-2011"]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:miles-davis-nefertiti-1968"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:tony-williams-seven-steps-archetype",
+        "name": "Up-tempo ride and comping (Seven Steps to Heaven style)",
+        "type": "comping",
+        "function": "Fast swing time under the horns, live 1964",
+        "style_ids": ["style:post-bop", "style:jazz"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "source_ids": ["src:tony-williams-bishop-seven-steps", "src:tony-williams-goodman-2011"],
+          "note": "Taken from BeatBreaker's 'seven-steps' song figures (4/4 in eighth steps); tempo from Bishop's measurement."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "swung",
+        "swing_ratio": 0.52,
+        "tempo": {
+          "original_bpm": 310,
+          "playable_range_bpm": [220, 356]
+        },
+        "lanes": {
+          "ride": "x.x.x.xx|x.xxx.xx",
+          "snare": "...X...x|.x...r..",
+          "kick": ".....X..|...X...."
+        },
+        "source": {
+          "recording_id": "rec:miles-davis-four-and-more-1966",
+          "section": "head in and trumpet solo",
+          "transcription_source_id": "src:tony-williams-bishop-seven-steps"
+        },
+        "improvised": true,
+        "cross_rhythms": [
+          {
+            "ratio": "2:3",
+            "voices": ["snare", "floor_tom_1"],
+            "cycle_steps": 3,
+            "description": "In the head break, accents every three eighths run across the bar line (dotted quarters over 4/4)."
+          }
+        ],
+        "variation_rules": [
+          {
+            "description": "Leave the hi-hat foot out most of the time (1964-65); add it on every beat only now and then.",
+            "probability": 0.8,
+            "applies_to": "hihat_pedal"
+          },
+          {
+            "description": "Swap the snare comp for a rimshot stab or a kick bomb on an off-beat.",
+            "probability": 0.3
+          }
+        ],
+        "derived_from": [
+          {
+            "drummer_id": "drummer:max-roach",
+            "how": "Bebop ride-and-comp language, played lighter and much faster",
+            "evidence": {
+              "confidence": "likely",
+              "source_ids": ["src:tony-williams-goodman-2011"]
+            }
+          }
+        ],
+        "difficulty": 9,
+        "tags": ["swing", "up-tempo", "comping", "ride", "4/4 in eighths"]
+      },
+      {
+        "id": "pattern:tony-williams-cantaloupe-island-archetype",
+        "name": "Straight groove, foot on every beat (Cantaloupe Island style)",
+        "type": "groove",
+        "function": "Medium straight-eighth vamp under the piano riff",
+        "style_ids": ["style:post-bop", "style:jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tony-williams-bishop-cantaloupe"],
+          "note": "Follows BeatBreaker's figure, which was built from Bishop's transcription; not itself checked against the record."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 115,
+          "playable_range_bpm": [108, 122]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "hihat_pedal": "k...k...k...k...|k...k...k...k...",
+          "snare": "....c.......c...|..x.c.......c.x.",
+          "kick": "x.....x.x.....x.|x.....x........."
+        },
+        "source": {
+          "recording_id": "rec:herbie-hancock-empyrean-isles-1964",
+          "transcription_source_id": "src:tony-williams-bishop-cantaloupe"
+        },
+        "difficulty": 4,
+        "tags": ["straight eighths", "cross-stick", "modal", "blue note"]
+      },
+      {
+        "id": "pattern:tony-williams-footprints-archetype",
+        "name": "6/4 felt as 12/8 (Footprints style)",
+        "type": "groove",
+        "function": "Floating minor-blues time between three and four",
+        "style_ids": ["style:post-bop"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "source_ids": ["src:tony-williams-goodman-2011"],
+          "note": "Reconstruction from BeatBreaker's 'footprints' song; the record's tempo drift (Goodman: 166 to 221) is not modelled."
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8,
+          "grouping": [3, 3, 3, 3]
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [140, 160]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.x.x.x.x.",
+          "hihat_pedal": "......k...........k.....",
+          "snare": "......c...........c.....",
+          "kick": "x.....................x."
+        },
+        "source": {
+          "recording_id": "rec:miles-davis-miles-smiles-1967"
+        },
+        "cross_rhythms": [
+          {
+            "ratio": "3:2",
+            "voices": ["ride", "hihat_pedal"],
+            "description": "The ride moves in twelve eighths while the foot and cross-stick mark a broad two; the band hears 6/4."
+          }
+        ],
+        "improvised": true,
+        "difficulty": 6,
+        "tags": ["12/8", "6/4", "modal", "float"]
+      },
+      {
+        "id": "pattern:tony-williams-emergency-archetype",
+        "name": "Jazz-rock riff doubling (Emergency! style)",
+        "type": "groove",
+        "function": "Loud organ-trio jazz-rock, drums doubling the riff",
+        "style_ids": ["style:jazz-fusion", "style:rock"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Reconstruction from BeatBreaker's 'emergency' song figure."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [150, 170]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.|..x.x.x...x.x.x.",
+          "crash_1": "................|x.......x.......",
+          "hihat_pedal": "....k.......k...|................",
+          "snare": "....X..x....X.x.|....X.......X...",
+          "kick": "x..x....x.x.....|x..x....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:tony-williams-lifetime-emergency-1969"
+        },
+        "difficulty": 6,
+        "tags": ["fusion", "jazz-rock", "1969", "loud"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:tony-williams-snare-floor-singles",
+        "name": "Snare and floor-tom singles in two and one",
+        "description": "Even single strokes spread between snare and floor tom, grouped unevenly so the phrase floats over the bar.",
+        "heard_on": ["rec:miles-davis-four-and-more-1966"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "inferred",
+          "source_ids": ["src:tony-williams-goodman-2011"]
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:tony-williams-lifetime",
+      "label": "Large Gretsch kit (Lifetime era)",
+      "era_ids": ["era:tony-williams-lifetime"],
+      "context": "both",
+      "layout_notes": "Bigger kick and toms than his 1960s jazz kit, for jazz-rock volume.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:tony-williams-wikipedia"],
+        "note": "Brand and sizes from general knowledge; verify."
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Jackie McLean",
+      "type": "band_member",
+      "years": {
+        "from": 1962,
+        "to": 1963
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-wikipedia"]
+      }
+    },
+    {
+      "name": "Miles Davis Quintet",
+      "type": "band_member",
+      "years": {
+        "from": 1963,
+        "to": 1969
+      },
+      "bandmates": [
+        {
+          "name": "Miles Davis"
+        },
+        {
+          "name": "Herbie Hancock"
+        },
+        {
+          "name": "Ron Carter"
+        },
+        {
+          "name": "Wayne Shorter"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-wikipedia", "src:tony-williams-allmusic"]
+      }
+    },
+    {
+      "name": "The Tony Williams Lifetime",
+      "type": "bandleader",
+      "years": {
+        "from": 1969,
+        "to": 1976
+      },
+      "bandmates": [
+        {
+          "name": "John McLaughlin"
+        },
+        {
+          "name": "Larry Young"
+        },
+        {
+          "name": "Jack Bruce"
+        },
+        {
+          "name": "Allan Holdsworth"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-wikipedia"]
+      }
+    },
+    {
+      "name": "V.S.O.P.",
+      "type": "band_member",
+      "years": {
+        "from": 1976,
+        "to": 1992
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-wikipedia"]
+      }
+    },
+    {
+      "name": "Tony Williams Quintet",
+      "type": "bandleader",
+      "years": {
+        "from": 1985,
+        "to": 1997
+      },
+      "bandmates": [
+        {
+          "name": "Wallace Roney"
+        },
+        {
+          "name": "Mulgrew Miller"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:miles-davis-four-and-more-1966",
+    "rec:herbie-hancock-empyrean-isles-1964",
+    "rec:herbie-hancock-maiden-voyage-1965",
+    "rec:miles-davis-miles-smiles-1967",
+    "rec:miles-davis-nefertiti-1968",
+    "rec:tony-williams-lifetime-emergency-1969"
+  ],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Alan Dawson",
+        "kind": "teacher",
+        "id": "drummer:alan-dawson"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:tony-williams-wikipedia",
+          "src:tony-williams-jazzhistorydatabase",
+          "src:tony-williams-goodman-2011"
+        ]
+      },
+      "strength": 1.0
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-goodman-2011"],
+        "note": "Goodman: modelled Blakey's feel."
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-goodman-2011"],
+        "note": "Goodman: modelled Roach's technique."
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Philly Joe Jones",
+        "kind": "drummer",
+        "id": "drummer:philly-joe-jones"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-goodman-2011"],
+        "note": "Goodman: modelled Philly Joe's creativity."
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Roy Haynes",
+        "kind": "drummer",
+        "id": "drummer:roy-haynes"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:tony-williams-wikipedia"],
+        "note": "Widely cited; not checked against his own words."
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Miles Davis",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-wikipedia"]
+      },
+      "strength": 1.0
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Herbie Hancock",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-wikipedia"]
+      },
+      "strength": 1.0
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Ron Carter",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-wikipedia"]
+      },
+      "strength": 1.0
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "John McLaughlin",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-wikipedia"]
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Jack DeJohnette",
+        "kind": "drummer",
+        "id": "drummer:jack-dejohnette"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-wikipedia"],
+        "note": "DeJohnette took the drum chair in Miles Davis's band in 1969."
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-mitchell"]
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Steve Gadd",
+        "kind": "drummer",
+        "id": "drummer:steve-gadd"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:remo-profile"]
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Cindy Blackman Santana",
+        "kind": "drummer",
+        "id": "drummer:cindy-blackman-santana"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tony-williams-wikipedia"]
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Vinnie Colaiuta",
+        "kind": "drummer",
+        "id": "drummer:vinnie-colaiuta"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "note": "Commonly cited among his influences; unchecked."
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Terri Lyne Carrington",
+        "kind": "drummer",
+        "id": "drummer:terri-lyne-carrington"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "note": "Also an Alan Dawson student; influence commonly cited, unchecked."
+      },
+      "strength": 0.6
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Keep the time on the cymbal and in your head rather than in the hi-hat foot (his 1960s view).",
+        "paraphrase_of_source_id": "src:tony-williams-goodman-2011"
+      },
+      {
+        "idea": "Learn by copying the masters closely, then let the borrowed parts combine into something your own.",
+        "paraphrase_of_source_id": "src:tony-williams-goodman-2011"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.95,
+    "innovations": [
+      "Freed jazz time in the Miles Davis Second Great Quintet: broken time, implied metres, surging tempos",
+      "Light, nearly straight ride at very fast tempos",
+      "Drummer as an equal improviser who can carry a tune's development",
+      "Lifetime: early jazz-rock, bringing rock volume and big drums into jazz"
+    ],
+    "accolades": [
+      {
+        "award": "Modern Drummer Hall of Fame",
+        "year": 1986,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tony-williams-wikipedia"]
+        }
+      },
+      {
+        "award": "Percussive Arts Society Hall of Fame",
+        "year": 1997,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tony-williams-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Robert Christgau called him probably the best drummer in the world (1970).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tony-williams-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he always played the hi-hat on every beat: in 1964-65 the foot is mostly silent (Goodman)."
+    ]
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:tony-williams-seven-steps-archetype",
+      "pattern:tony-williams-cantaloupe-island-archetype",
+      "pattern:tony-williams-footprints-archetype",
+      "pattern:tony-williams-emergency-archetype"
+    ],
+    "default_kit_sound": "Crisp 60s bop kit with a dark ride; big open kit for Lifetime songs",
+    "generation_rules": [
+      "Swing ratio follows tempo: nearly even above 270 bpm, wider below 200.",
+      "At fast tempos write 4/4 in eighth steps.",
+      "Leave the hat foot out of Miles-era fast tunes; put it on every beat for 1968 onwards.",
+      "Rimshot stabs, kick bombs and accents in three across the bar line."
+    ],
+    "avoid": [
+      "Heavy kick on every beat in swing",
+      "Fixed, repeating comping",
+      "A swing ratio that ignores tempo"
+    ],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:alan-dawson",
+        "drummer:art-blakey",
+        "drummer:max-roach",
+        "drummer:philly-joe-jones"
+      ],
+      "primary_descendants": [
+        "drummer:mitch-mitchell",
+        "drummer:steve-gadd",
+        "drummer:cindy-blackman-santana"
+      ],
+      "lineage_blurb": "Blakey's feel, Roach's technique and Philly Joe's invention, learned under Alan Dawson and turned loose with Miles, then turned up loud in Lifetime."
+    },
+    "tags": ["jazz", "post-bop", "fusion", "60s", "up-tempo", "miles davis"],
+    "style_key": "tonywilliams"
+  }
+}

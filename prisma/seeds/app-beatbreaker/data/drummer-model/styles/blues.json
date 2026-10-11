@@ -1,0 +1,9 @@
+{
+  "id": "style:blues",
+  "name": "Blues",
+  "kind": "genre",
+  "region": "Southern USA",
+  "era": {
+    "from": 1900
+  }
+}

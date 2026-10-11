@@ -1,0 +1,23 @@
+{
+  "id": "rec:tony-allen-the-source-2017",
+  "title": "The Source",
+  "artist": "Tony Allen",
+  "release": "The Source",
+  "year": 2017,
+  "type": "album",
+  "style_ids": ["style:afrobeat", "style:jazz"],
+  "studio_context": "Blue Note album arranged with saxophonist Yann Jankielewicz; a jazz big band around his Afrobeat.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen",
+      "name": "Tony Allen",
+      "drummer_role": "leader",
+      "significance": 0.6,
+      "why_it_matters": "His late statement as a leader, bringing Afrobeat back to the jazz he learned from: Blakey and Roach meet Africa 70."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:tony-allen-wikipedia"]
+  }
+}

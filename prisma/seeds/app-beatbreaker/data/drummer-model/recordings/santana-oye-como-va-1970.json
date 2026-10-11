@@ -1,0 +1,26 @@
+{
+  "id": "rec:santana-oye-como-va-1970",
+  "title": "Oye Como Va",
+  "artist": "Santana",
+  "release": "Abraxas",
+  "year": 1970,
+  "type": "studio_track",
+  "style_ids": ["style:latin-jazz", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:michael-shrieve",
+      "name": "Michael Shrieve",
+      "drummer_role": "sole_drummer",
+      "significance": 0.5,
+      "why_it_matters": "Rock-Latin version of Puente's tune that introduced it to a new generation.",
+      "ev": {
+        "confidence": "likely",
+        "note": "Kit credit to confirm; percussion section also prominent."
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:jazzcom-puente"]
+  }
+}

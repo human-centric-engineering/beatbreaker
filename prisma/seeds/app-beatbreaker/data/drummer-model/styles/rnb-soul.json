@@ -1,0 +1,24 @@
+{
+  "id": "style:rnb-soul",
+  "name": "R&B / soul",
+  "kind": "genre",
+  "parents": [
+    {
+      "style_id": "style:gospel",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:blues",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1950
+  }
+}

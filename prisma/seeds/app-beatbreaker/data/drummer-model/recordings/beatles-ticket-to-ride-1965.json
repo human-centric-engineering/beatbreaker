@@ -1,0 +1,23 @@
+{
+  "id": "rec:beatles-ticket-to-ride-1965",
+  "title": "Ticket to Ride",
+  "artist": "The Beatles",
+  "release": "Help!",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr",
+      "name": "Ringo Starr",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Often cited by drummers as a turning point in rock drumming; deliberately not metronomic.",
+      "pattern_ids": ["pattern:ringo-ticket-to-ride-archetype"]
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:drumheadauthority-ringo", "src:drumeo-ringo"]
+  }
+}

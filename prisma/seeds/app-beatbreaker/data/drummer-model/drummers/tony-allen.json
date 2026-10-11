@@ -1,0 +1,891 @@
+{
+  "meta": {
+    "id": "drummer:tony-allen",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.55,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Resolve birth date (20 July vs 12 August 1940).",
+      "Record the exact URLs of Poitevin's and Ospalla's transcriptions.",
+      "Transcribe Zombie and Expensive Shit from stems; the song grooves are variations of his five demonstrated patterns, not transcriptions.",
+      "Confirm whether he left Africa 70 in 1978 or 1979.",
+      "Confirm his role on each track of the Fela Live! with Ginger Baker album."
+    ]
+  },
+  "identity": {
+    "name": "Tony Allen",
+    "full_name": "Tony Oladipo Allen",
+    "born": {
+      "date": "1940-07-20",
+      "place": "Lagos, Nigeria",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tony-allen-wikipedia"],
+        "alternatives": [
+          {
+            "value": "1940-08-12",
+            "note": "Given by some obituaries and discographies; not checked against a primary source."
+          }
+        ]
+      }
+    },
+    "died": {
+      "date": "2020-04-30",
+      "place": "Paris, France"
+    },
+    "nationality": ["Nigerian"],
+    "home_scenes": [
+      "Lagos highlife and jazz (1950s-60s)",
+      "Lagos Afrobeat (1969-1979)",
+      "Paris and London (1984-2020)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1959,
+      "to": 2020
+    },
+    "roles": ["band_member", "bandleader", "composer"],
+    "summary": "Fela Kuti's drummer and musical director in Africa 70, and with Fela the maker of Afrobeat. Self-taught from jazz records, he played the kit like four drummers: the hi-hat foot chicking every 'and', the hand on the hat around clustered snare strokes, the kick in pairs that rarely marks the 1. He hardly ever filled. Later a bandleader in Paris and the drummer of The Good, the Bad & the Queen."
+  },
+  "formation": {
+    "started_age": 18,
+    "first_instrument": "claves",
+    "teachers": [],
+    "traditions": [
+      {
+        "tradition": "American modern jazz drumming",
+        "impact": "Learned from records of Art Blakey and Max Roach; the four-limb independence and hi-hat work came from studying them.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tony-allen-wikipedia", "src:tony-allen-autobiography"]
+        }
+      },
+      {
+        "tradition": "Ghanaian and Nigerian highlife",
+        "impact": "Started on claves with Victor Olaiya's Cool Cats, then drummed in highlife bands (Agu Norris and the Heatwaves, the Nigerian Messengers, the Melody Makers).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tony-allen-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Juju",
+        "impact": "His father's juju records were in the house as he grew up.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1958,
+        "event": "Took up drums at about 18 while working as an engineer at a Lagos radio station.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-wikipedia"],
+          "note": "Year inferred from his birth year and starting age."
+        }
+      },
+      {
+        "year": 1964,
+        "event": "Auditioned for Fela Ransome-Kuti's Koola Lobitos, a highlife-jazz band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tony-allen-wikipedia", "src:tony-allen-globe-obit"]
+        }
+      },
+      {
+        "year": 1969,
+        "event": "After Fela's 1969 US trip and his turn to James Brown-style funk and politics, the band became Nigeria 70 and then Africa 70, with Allen as musical director.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:allen-africa-70",
+      "label": "Fela Kuti and Africa 70",
+      "years": {
+        "from": 1964,
+        "to": 1979
+      },
+      "context": "Koola Lobitos, then Nigeria 70 and Africa 70 as drummer and musical director; some 30 albums with Fela, the Afrobeat canon.",
+      "defining_traits": [
+        "four-limb independence",
+        "hi-hat foot on every 'and'",
+        "paired kicks",
+        "clustered snare, no fixed backbeat",
+        "hardly any fills"
+      ],
+      "key_recording_ids": [
+        "rec:fela-live-ginger-baker-1971",
+        "rec:fela-lady-1972",
+        "rec:fela-expensive-shit-1975",
+        "rec:fela-water-no-get-enemy-1975",
+        "rec:fela-zombie-1976"
+      ]
+    },
+    {
+      "id": "era:allen-solo-paris",
+      "label": "Bandleader in Lagos, London and Paris",
+      "years": {
+        "from": 1979,
+        "to": 2020
+      },
+      "context": "His own Afro Messengers and later bands; N.E.P.A. (1985), the dub and hip-hop of Black Voices (1999) and Home Cooking (2002), the Blue Note album The Source (2017) and the Art Blakey tribute EP.",
+      "defining_traits": ["Afrobeat with electronics, dub and hip-hop", "jazz big-band settings"],
+      "key_recording_ids": ["rec:tony-allen-the-source-2017"]
+    },
+    {
+      "id": "era:allen-collaborations",
+      "label": "Collaborations",
+      "years": {
+        "from": 2006,
+        "to": 2020
+      },
+      "context": "The Good, the Bad & the Queen with Damon Albarn, Paul Simonon and Simon Tong; Rocket Juice & the Moon with Albarn and Flea; Tomorrow Comes the Harvest with Jeff Mills; Rejoice with Hugh Masekela.",
+      "defining_traits": ["restrained, floating time under rock and electronic music"],
+      "key_recording_ids": ["rec:good-bad-queen-2007"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:afrobeat",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:west-african",
+        "weight": 0.6,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.5,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.4,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:dub",
+        "weight": 0.2,
+        "authority": 0.2
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.15,
+    "role_tendency": "driver",
+    "descriptors": [
+      "polyrhythmic",
+      "hypnotic",
+      "fluid",
+      "economical",
+      "four limbs as four drummers"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "The BeatBreaker style plays him relaxed and a touch behind; no microtiming study found."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.35
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "mf",
+      "ghost_note_level": 40,
+      "accent_level": 105
+    },
+    "density": {
+      "groove_notes_per_bar": [20, 30],
+      "fill_frequency": "rare",
+      "space_usage": 0.45
+    },
+    "consistency": 0.95,
+    "tempo_comfort_bpm": [84, 136],
+    "timekeeping_context": ["free", "dancers"],
+    "interaction": "Holds a repeating pattern for the length of a long Fela track, varying it sparsely and never where you expect, while the band's percussion, bass and rhythm guitars lock around it.",
+    "descriptors": ["like a machine or a loop", "liquid", "relaxed"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Hand on the hat around the snare",
+        "description": "The right hand plays a '1 & a' figure on the hi-hat that interlocks with clustered snare strokes, with an occasional half-open stroke.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tony-allen-poitevin", "src:tony-allen-rollingstone-patterns"]
+        }
+      },
+      {
+        "name": "Snare clusters without a backbeat",
+        "description": "Snare comes in short groups of hits and ghosts placed across the bar; in two of his five patterns beat 1 is the snare.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tony-allen-poitevin"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Hi-hat foot on every 'and'",
+        "description": "The left foot chicks the hi-hat on the off-beat 8ths throughout, the fourth independent voice. He said his hi-hat does not stay closed.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tony-allen-poitevin", "src:tony-allen-research"]
+        }
+      },
+      {
+        "name": "Paired kicks",
+        "description": "The kick comes in 16th-note pairs (1 and 1e, 3 and 3e) or floats off the beat; he avoided a plain 'one, one' on the bass drum.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tony-allen-poitevin", "src:tony-allen-research"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.95,
+      "linear_playing": 0.4,
+      "ostinato_usage": 0.95,
+      "polyrhythm_usage": 0.7,
+      "odd_meter_fluency": 0.2,
+      "foot_ostinato_usage": 0.95
+    },
+    "voice_language": {
+      "hihat": "Hand figure '1 & a' with half-open strokes; the foot chicks every 'and'.",
+      "snare": "Clusters of hits and ghosts, no fixed backbeat; a buzz stroke in one pattern.",
+      "kick": "Pairs of 16ths, rarely on the 1 alone.",
+      "toms": "Occasionally answer the snare like congas."
+    },
+    "implements": {
+      "sticks": 1.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["dry 70s Lagos studio kit", "crisp tight snare", "busy closed hi-hat"],
+    "sample_hints": {
+      "70s": "Small dry kit, crisp medium-high snare, tight hats with a half-open edge, short kick.",
+      "2000s": "Warmer, roomier kit under electronics and dub production."
+    },
+    "evidence": {
+      "confidence": "inferred"
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:allen-four-drummers",
+      "label": "Four limbs, four drummers",
+      "category": "groove",
+      "description": "Each limb carries its own part: hand on the hat, snare clusters, kick pairs, the hat foot on every 'and'. Together they sound like a percussion section.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:tony-allen-poitevin",
+          "src:tony-allen-rollingstone-patterns",
+          "src:tony-allen-globe-obit"
+        ]
+      },
+      "pattern_ids": ["pattern:allen-first-pattern", "pattern:allen-snare-on-one"]
+    },
+    {
+      "id": "trait:allen-never-one-one",
+      "label": "The 1 left to the pattern",
+      "category": "musical_approach",
+      "description": "He avoided marking the 1 with a plain kick; the 1 is a kick pair or, in two of his five patterns, the snare.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tony-allen-research", "src:tony-allen-poitevin"]
+      },
+      "pattern_ids": ["pattern:allen-snare-on-one"]
+    },
+    {
+      "id": "trait:allen-like-a-loop",
+      "label": "Plays like a loop",
+      "category": "feel",
+      "description": "He described himself as playing like a machine or a loop: one figure held for many minutes, fills rare, short and unexpected.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tony-allen-research", "src:tony-allen-bishop"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:allen-first-pattern",
+        "name": "Afrobeat first pattern (his own demonstration)",
+        "type": "groove",
+        "function": "the basic Afrobeat groove; the one he said to learn first",
+        "style_ids": ["style:afrobeat"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Sebastien Poitevin",
+          "history": [
+            {
+              "date": "2026-10-10",
+              "status": "draft",
+              "by": "John, Claude",
+              "note": "Taken from Poitevin's transcription of Allen's on-camera demonstration (Birth of Afrobeat), cross-checked against Joe Ospalla's PDF, via the BeatBreaker tonyallen figure. Not checked against the footage by us."
+            }
+          ]
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:tony-allen-poitevin",
+            "src:tony-allen-ospalla",
+            "src:tony-allen-rollingstone-patterns"
+          ]
+        },
+        "source": {
+          "transcription_source_id": "src:tony-allen-poitevin"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [100, 130]
+        },
+        "lanes": {
+          "hihat": "x.x.x.xxx.xxx.xx",
+          "hihat_pedal": "..k...k...k...k.",
+          "snare": "...x.gx.....gxx.",
+          "kick": "xx......xx......"
+        },
+        "practice_notes": "Four independent parts. Get the hat foot on the 'ands' automatic first, then add the kick pairs, then the hand and snare.",
+        "difficulty": 6,
+        "tags": ["afrobeat", "independence", "hi-hat foot"]
+      },
+      {
+        "id": "pattern:allen-snare-on-one",
+        "name": "Snare on one (Shakara style)",
+        "type": "groove",
+        "style_ids": ["style:afrobeat"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Sebastien Poitevin",
+          "history": [
+            {
+              "date": "2026-10-10",
+              "status": "draft",
+              "by": "John, Claude",
+              "note": "The second of his five demonstrated patterns, via the BeatBreaker tonyallen figure. BeatBreaker uses it for Shakara and Why Black Man Dey Suffer as a stylistic variation, not a transcription of those songs."
+            }
+          ]
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tony-allen-poitevin", "src:tony-allen-rollingstone-patterns"]
+        },
+        "source": {
+          "transcription_source_id": "src:tony-allen-poitevin"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [90, 124]
+        },
+        "lanes": {
+          "hihat": "x.x.x.xxx.xxx.xx",
+          "hihat_pedal": "..k...k...k...k.",
+          "snare": "xg...x..xg...x..",
+          "kick": "...x..x.......x."
+        },
+        "difficulty": 6,
+        "tags": ["afrobeat", "no kick on one"]
+      },
+      {
+        "id": "pattern:allen-water-no-get-enemy",
+        "name": "Liquid shuffle (Water No Get Enemy)",
+        "type": "groove",
+        "style_ids": ["style:afrobeat"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "history": [
+            {
+              "date": "2026-10-10",
+              "status": "draft",
+              "by": "John, Claude",
+              "note": "From a human-made Songsterr tab (489456), via the BeatBreaker song figure. Swing amount set by ear in BeatBreaker, not measured."
+            }
+          ]
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tony-allen-songsterr-wnge"]
+        },
+        "source": {
+          "recording_id": "rec:fela-water-no-get-enemy-1975",
+          "transcription_source_id": "src:tony-allen-songsterr-wnge"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "playable_range_bpm": [88, 96]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "hihat_pedal": "..k...k...k...k.",
+          "snare": "...x...x.....x..",
+          "kick": "xx..xx..xx.x..x."
+        },
+        "difficulty": 5,
+        "tags": ["afrobeat", "swung 16ths", "kick pairs"]
+      },
+      {
+        "id": "pattern:allen-zombie-archetype",
+        "name": "Two-bar Zombie groove with march pickup",
+        "type": "groove",
+        "style_ids": ["style:afrobeat"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "source_ids": ["src:tony-allen-research"],
+          "note": "His first pattern answered in the second bar, ending on accented snare strokes that echo the song's mock military march. A variation, not a transcription."
+        },
+        "source": {
+          "recording_id": "rec:fela-zombie-1976"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [128, 136]
+        },
+        "lanes": {
+          "hihat": "x.x.x.xxx.xxx.xx|x.x.x.xxx.xxx.xx",
+          "hihat_pedal": "..k...k...k...k.|..k...k...k...k.",
+          "snare": "...x.gx.....gxx.|...x.xx.....X.XX",
+          "kick": "xx......xx......|xx......x..x...."
+        },
+        "derived_from": [
+          {
+            "pattern_id": "pattern:allen-first-pattern",
+            "drummer_id": "drummer:tony-allen",
+            "how": "First bar is his first pattern; second bar answers it and closes on a march figure.",
+            "evidence": {
+              "confidence": "inferred"
+            }
+          }
+        ],
+        "difficulty": 6,
+        "tags": ["afrobeat", "two-bar", "fast"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:allen-short-pickup",
+        "name": "One- or two-16th snare pickup",
+        "description": "His rare fills are a stroke or two on the snare, or a buzz into the next bar, placed where you don't expect them.",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-bishop"]
+        }
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Victor Olaiya's Cool Cats",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-allen-wikipedia"],
+        "note": "On claves, before drums."
+      }
+    },
+    {
+      "name": "Koola Lobitos",
+      "type": "band_member",
+      "years": {
+        "from": 1964,
+        "to": 1969
+      },
+      "bandmates": [
+        {
+          "name": "Fela Kuti"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-allen-wikipedia"]
+      }
+    },
+    {
+      "name": "Africa 70 (Fela Kuti)",
+      "type": "band_member",
+      "years": {
+        "from": 1969,
+        "to": 1979
+      },
+      "bandmates": [
+        {
+          "name": "Fela Kuti"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-allen-wikipedia", "src:tony-allen-globe-obit"],
+        "alternatives": [
+          {
+            "value": "left 1978",
+            "source_ids": ["src:tony-allen-globe-obit"]
+          }
+        ],
+        "note": "Musical director; left over unpaid royalties and the band's direction."
+      }
+    },
+    {
+      "name": "Tony Allen and the Afro Messengers / his own bands",
+      "type": "bandleader",
+      "years": {
+        "from": 1979,
+        "to": 2020
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tony-allen-wikipedia"]
+      }
+    },
+    {
+      "name": "The Good, the Bad & the Queen",
+      "type": "band_member",
+      "years": {
+        "from": 2006,
+        "to": 2020
+      },
+      "bandmates": [
+        {
+          "name": "Damon Albarn"
+        },
+        {
+          "name": "Paul Simonon"
+        },
+        {
+          "name": "Simon Tong"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-allen-wikipedia"]
+      }
+    },
+    {
+      "name": "Rocket Juice & the Moon",
+      "type": "band_member",
+      "years": {
+        "from": 2008,
+        "to": 2012
+      },
+      "bandmates": [
+        {
+          "name": "Damon Albarn"
+        },
+        {
+          "name": "Flea"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-allen-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:fela-live-ginger-baker-1971",
+    "rec:fela-lady-1972",
+    "rec:fela-expensive-shit-1975",
+    "rec:fela-water-no-get-enemy-1975",
+    "rec:fela-zombie-1976",
+    "rec:good-bad-queen-2007",
+    "rec:tony-allen-the-source-2017"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "aspects": ["hi-hat independence", "driving jazz time"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-allen-wikipedia", "src:tony-allen-autobiography"],
+        "note": "He later recorded A Tribute to Art Blakey (2017)."
+      },
+      "strength": 1.0,
+      "scope": "individual"
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "aspects": ["four-limb independence"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-allen-wikipedia", "src:tony-allen-autobiography"]
+      },
+      "strength": 0.9,
+      "scope": "individual"
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Guy Warren (Kofi Ghanaba)",
+        "kind": "drummer",
+        "id": "drummer:kofi-ghanaba"
+      },
+      "aspects": ["African drumming meeting jazz"],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tony-allen-wikipedia"]
+      },
+      "strength": 0.6,
+      "scope": "individual"
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Fela Kuti",
+        "kind": "musician"
+      },
+      "years": {
+        "from": 1964,
+        "to": 1979
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-allen-wikipedia", "src:tony-allen-globe-obit"],
+        "note": "Fela is widely quoted as saying there would be no Afrobeat without Allen."
+      },
+      "strength": 1.0
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "years": {
+        "from": 1971,
+        "to": 1971
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wiki-mirror-baker"],
+        "note": "Both on the 1971 Live! album; Baker spent 1970-76 in Nigeria around Fela's band."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Damon Albarn",
+        "kind": "musician"
+      },
+      "years": {
+        "from": 2006,
+        "to": 2020
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-allen-wikipedia"]
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Jeff Mills",
+        "kind": "musician"
+      },
+      "years": {
+        "from": 2016,
+        "to": 2018
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tony-allen-wikipedia"],
+        "note": "Tomorrow Comes the Harvest (2018)."
+      },
+      "strength": 0.4
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Questlove",
+        "kind": "drummer",
+        "id": "drummer:questlove"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "note": "Questlove has publicly praised Allen; not checked against a specific interview."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Yussef Dayes",
+        "kind": "drummer",
+        "id": "drummer:yussef-dayes"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "note": "Dayes' Afro-leaning grooves are commonly linked to Allen; not checked against a specific interview."
+      },
+      "strength": 0.4
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Afrobeat",
+        "kind": "style",
+        "id": "style:afrobeat"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-allen-wikipedia"]
+      },
+      "strength": 1.0
+    }
+  ],
+  "pedagogy": {
+    "books": [
+      {
+        "title": "Tony Allen: An Autobiography of the Master Drummer of Afrobeat (with Michael E. Veal)",
+        "year": 2013
+      }
+    ],
+    "videos": [
+      {
+        "title": "Birth of Afrobeat (documentary short, filmed 2017): the five major patterns",
+        "year": 2017
+      }
+    ],
+    "philosophy": [
+      {
+        "idea": "Learn the first pattern before anything else; it is the foundation of Afrobeat drumming.",
+        "paraphrase_of_source_id": "src:tony-allen-rollingstone-patterns"
+      },
+      {
+        "idea": "Don't just play the 1 on the kick; let the hi-hat breathe rather than stay closed.",
+        "paraphrase_of_source_id": "src:tony-allen-research"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "Co-created the Afrobeat drum language with Fela Kuti",
+      "Jazz four-way independence applied to a West African polyrhythmic ensemble groove",
+      "The hi-hat foot as a constant off-beat voice under a free hand part"
+    ],
+    "accolades": [],
+    "cultural_references": [
+      {
+        "description": "Fela said there would be no Afrobeat without Tony Allen; Brian Eno called him perhaps the greatest drummer who ever lived.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-globe-obit", "src:tony-allen-nme-obit"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That Afrobeat drumming has a fixed 2-and-4 backbeat: his snare comes in clusters, and two of his five patterns put the snare on 1.",
+      "That the off-beat hi-hat is an open hand stroke: it is his foot."
+    ]
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:allen-first-pattern",
+      "pattern:allen-snare-on-one",
+      "pattern:allen-water-no-get-enemy"
+    ],
+    "default_kit_sound": "Small dry 70s kit, crisp snare, tight hats",
+    "generation_rules": [
+      "Hi-hat foot on every 'and', always.",
+      "Kick in pairs; never a crash and kick on the phrase's 1.",
+      "Snare in clusters with no fixed backbeat.",
+      "Fills rare (about a fifth of phrase ends) and only a stroke or two."
+    ],
+    "avoid": [
+      "Fixed 2-and-4 backbeat",
+      "Crash on the 1",
+      "Tom fills around the kit",
+      "Open hand hats on the 'ands'"
+    ],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:art-blakey", "drummer:max-roach", "drummer:kofi-ghanaba"],
+      "primary_descendants": ["drummer:questlove", "drummer:yussef-dayes"],
+      "lineage_blurb": "Blakey and Roach's independence, learned from records in Lagos and turned into the four-limb engine of Fela's Afrobeat."
+    },
+    "tags": ["afrobeat", "nigeria", "70s", "polyrhythm", "independence"],
+    "style_key": "tonyallen"
+  }
+}

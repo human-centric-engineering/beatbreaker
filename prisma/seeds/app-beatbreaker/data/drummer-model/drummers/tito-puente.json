@@ -1,0 +1,696 @@
+{
+  "meta": {
+    "id": "drummer:tito-puente",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Pin down the original recording year of 'Oye Como Va' (sources give 1956, 1962 and 1963).",
+      "Check mambo bell and cáscara grids against transcriptions before promoting.",
+      "Confirm Grammy count (sources give five and six).",
+      "Identify the drummer on Santana's 'Oye Como Va' from credits."
+    ]
+  },
+  "identity": {
+    "name": "Tito Puente",
+    "full_name": "Ernest Anthony Puente Jr.",
+    "aliases": ["El Rey de los Timbales", "The King of Latin Music", "Ernesto Antonio Puente Jr."],
+    "born": {
+      "date": "1923-04-20",
+      "place": "New York City (East Harlem), USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-puente", "src:jazzcom-puente"]
+      }
+    },
+    "died": {
+      "date": "2000-05-31",
+      "place": "New York City, USA"
+    },
+    "nationality": ["American (Puerto Rican parents)"],
+    "home_scenes": ["Spanish Harlem", "Palladium Ballroom mambo era (1950s)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "timbales",
+    "primary_instruments": ["timbales", "vibraphone", "drum kit", "percussion"],
+    "active": {
+      "from": 1938,
+      "to": 2000
+    },
+    "roles": ["bandleader", "composer", "percussionist", "producer", "band_member"],
+    "summary": "The King of the Timbales. Started on drum kit in the image of his idol Gene Krupa, then moved to timbales and brought them to the front of the band as a solo instrument. Led one of the Palladium's 'Big Three' mambo orchestras, wrote 'Oye Como Va' and 'Ran Kan Kan', and danced the timbales for dancers. A trained arranger and conductor as well as a showman."
+  },
+  "formation": {
+    "started_age": 10,
+    "first_instrument": "piano",
+    "other_instruments": ["drum kit", "vibraphone"],
+    "teachers": [
+      {
+        "name": "Unnamed drum-set teacher",
+        "role": "Taught him drum kit before he moved to timbales.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-puente"]
+        }
+      }
+    ],
+    "institutions": [
+      {
+        "name": "Juilliard School",
+        "outcome": "Studied conducting and orchestration after the Navy, via the GI Bill.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-puente", "src:biography-puente"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Swing-era big band drumming",
+        "impact": "Gene Krupa was his idol; Krupa's reckless abandon shaped his stage persona.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-puente", "src:nylatin-puente"]
+        }
+      },
+      {
+        "tradition": "Afro-Cuban dance music",
+        "impact": "Machito band recordings in 1942; timbales as main instrument.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jazzcom-puente"]
+        }
+      },
+      {
+        "tradition": "Dance",
+        "impact": "Formed a dance team with his sister as a child; an ankle injury ended a dance career. Music made for dancers.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-puente"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Won $10 in a contest playing Krupa's 'Sing, Sing, Sing' solo note for note.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-puente"]
+        }
+      },
+      {
+        "year": 1942,
+        "event": "Recorded with Machito's band; drafted into the US Navy for three years.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jazzcom-puente"]
+        }
+      },
+      {
+        "year": 1948,
+        "event": "Formed the band that became the Tito Puente Orchestra.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:biography-puente"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:puente-palladium",
+      "label": "Palladium mambo era",
+      "years": {
+        "from": 1948,
+        "to": 1966
+      },
+      "context": "One of the Palladium's Big Three with Machito and Tito Rodríguez.",
+      "defining_traits": ["mambo big band", "timbales up front", "showmanship"],
+      "key_recording_ids": ["rec:puente-dance-mania-1958", "rec:puente-oye-como-va-1963"]
+    },
+    {
+      "id": "era:puente-later",
+      "label": "Latin jazz elder",
+      "years": {
+        "from": 1967,
+        "to": 2000
+      },
+      "context": "Boogaloo and pachanga crazes, salsa, Concord jazz albums, films (The Mambo Kings, Calle 54).",
+      "defining_traits": ["Latin jazz", "Grammy-winning", "teaching and scholarships"],
+      "key_recording_ids": ["rec:puente-mambo-birdland-1999"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:mambo",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 0.9,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:cha-cha-cha",
+        "weight": 0.7,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:salsa",
+        "weight": 0.6,
+        "authority": 0.7,
+        "notes": "Famously resisted the label."
+      },
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.4,
+        "authority": 0.2
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.3,
+    "role_tendency": "hybrid",
+    "descriptors": ["showman", "dancer", "arranger", "fiery", "joyful"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred"
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "typical_swing_ratio": 0.52
+    },
+    "dynamics": {
+      "range": 0.9,
+      "default_level": "f",
+      "accent_level": 122
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 24],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [90, 240],
+    "timekeeping_context": ["dancers", "conductor"],
+    "interaction": "Leads the band from the timbales, cueing sections with fills and solos.",
+    "descriptors": ["made for dancers"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Cáscara on the paila",
+        "description": "Shell patterns on timbales during verses.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely"
+        }
+      },
+      {
+        "name": "Mambo bell",
+        "description": "Bell pattern driving the montuno.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely"
+        }
+      },
+      {
+        "name": "Jazz kit technique on timbales",
+        "description": "Applied jazz drum-kit training to timbales, redefining them as a solo instrument.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-puente", "src:pas-puente"]
+        }
+      }
+    ],
+    "foot_techniques": [],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.7,
+      "linear_playing": 0.5,
+      "ostinato_usage": 0.8,
+      "polyrhythm_usage": 0.7,
+      "odd_meter_fluency": 0.2
+    },
+    "voice_language": {
+      "percussion": "Timbales (hembra and macho), paila, mambo bell, cha-cha bell, timbalitos, thunder drums."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "mallets": 0.6,
+      "notes": "Mallets for vibraphone."
+    },
+    "reading": "elite_sight_reader"
+  },
+  "sound_profile": {
+    "aesthetic": ["cracking timbale rimshots", "bright bells", "big band roar"],
+    "sample_hints": {
+      "default": "LP Tito Puente timbales, mambo and cha-cha bells, timbale rimshots."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:alexpertout-puente"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:puente-timbales-front",
+      "label": "Timbales at the front of the band",
+      "category": "performance_persona",
+      "description": "Like Krupa bringing drums to centre stage, he brought timbales to the front and made them a solo instrument.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nylatin-puente", "src:wikipedia-puente"]
+      }
+    },
+    {
+      "id": "trait:puente-dances",
+      "label": "Danced the timbales",
+      "category": "physical_habit",
+      "description": "A former dancer who played for dancers; his playing was a performance in itself.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nylatin-puente", "src:pas-puente"]
+      }
+    },
+    {
+      "id": "trait:puente-arranger",
+      "label": "Arranger and conductor",
+      "category": "musical_approach",
+      "description": "Juilliard-trained arranger; wrote and led the charts as well as playing.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-puente"]
+      }
+    },
+    {
+      "id": "trait:puente-timbale-collector",
+      "label": "Twenty sets of timbales",
+      "category": "quirk",
+      "description": "Kept around twenty sets of timbales in his garage, painted every colour, plus gold timbales, timbalitos and thunder drums; carried his own timbales at 76.",
+      "audibility": "subtle",
+      "frequency": "rare",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-puente"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:puente-mambo-bell-archetype",
+        "name": "Mambo bell over son clave (montuno)",
+        "type": "groove",
+        "style_ids": ["style:mambo"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Bell figure illustrative; verify against transcriptions."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [160, 220]
+        },
+        "lanes": {
+          "cowbell": "x.x.xx.x|x.xx.x.x",
+          "timbale_low": "..x...x.|..x...x.",
+          "clave": "..x.x...|x..x..x."
+        },
+        "clave": {
+          "type": "son",
+          "direction": "2-3",
+          "carried_by": "clave"
+        },
+        "difficulty": 5,
+        "tags": ["mambo", "bell", "montuno"]
+      },
+      {
+        "id": "pattern:puente-cascara-archetype",
+        "name": "Cáscara on the paila",
+        "type": "ostinato",
+        "style_ids": ["style:mambo", "style:latin-jazz"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Cáscara orientation to verify."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [160, 220]
+        },
+        "lanes": {
+          "timbale_high": "p.pp.p.p|p.p.pp.p",
+          "timbale_low": "....x...|....x...",
+          "clave": "..x.x...|x..x..x."
+        },
+        "clave": {
+          "type": "son",
+          "direction": "2-3",
+          "carried_by": "clave"
+        },
+        "related_pattern_ids": ["pattern:hernandez-cascara-independence-archetype"],
+        "difficulty": 4,
+        "tags": ["cáscara", "paila", "verse"]
+      },
+      {
+        "id": "pattern:puente-abanico-archetype",
+        "name": "Abanico (roll into rimshot)",
+        "type": "fill",
+        "style_ids": ["style:mambo"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "note": "Standard timbalero figure to open a montuno; rhythm illustrative."
+        },
+        "time_signature": {
+          "numerator": 2,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [160, 220]
+        },
+        "lanes": {
+          "timbale_high": "....bbbr"
+        },
+        "difficulty": 3,
+        "tags": ["timbales", "fill", "roll"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:puente-sing-sing-sing",
+        "name": "Krupa's Sing, Sing, Sing solo",
+        "description": "Played note for note as a boy to win a contest.",
+        "to_transcribe": false,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-puente"]
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:puente-lp",
+      "label": "LP Tito Puente timbales",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "timbale_high"
+        },
+        {
+          "instrument": "timbale_low"
+        },
+        {
+          "instrument": "other",
+          "model": "Timbalitos, thunder drums"
+        }
+      ],
+      "cymbals": [],
+      "layout_notes": "Played standing; bells mounted on timbales.",
+      "endorsements": ["LP (Latin Percussion)"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzcom-puente", "src:pas-puente", "src:alexpertout-puente"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Machito and his Afro-Cubans",
+      "type": "band_member",
+      "years": {
+        "from": 1942,
+        "to": 1942
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzcom-puente"]
+      }
+    },
+    {
+      "name": "Tito Puente Orchestra",
+      "type": "bandleader",
+      "years": {
+        "from": 1948,
+        "to": 2000
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:biography-puente"]
+      }
+    },
+    {
+      "name": "Tito Puente's Golden Jazz Latin All-Stars",
+      "type": "bandleader",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzcom-puente"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:puente-dance-mania-1958",
+    "rec:puente-oye-como-va-1963",
+    "rec:puente-mambo-birdland-1999"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-puente", "src:pas-puente", "src:nylatin-puente"]
+      },
+      "strength": 0.9,
+      "aspects": ["showmanship", "solo drumming", "bringing drums to the front"]
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Machito",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzcom-puente"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Ray Barretto",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzcom-puente"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "covered_by",
+      "target": {
+        "name": "Santana",
+        "kind": "ensemble"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzcom-puente", "src:pas-puente"]
+      },
+      "strength": 0.7,
+      "aspects": ["Oye Como Va", "Para Los Rumberos"]
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Changuito",
+        "kind": "drummer",
+        "id": "drummer:changuito"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ecured-changuito"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Dave Lombardo",
+        "kind": "drummer",
+        "id": "drummer:dave-lombardo"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:metalinjection-lombardo"]
+      },
+      "strength": 0.4,
+      "aspects": ["tom syncopation in 'Angel of Death'"]
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Big band swing",
+        "kind": "style",
+        "id": "style:big-band-swing"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alexpertout-puente"]
+      },
+      "strength": 0.6
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Make people dance.",
+        "paraphrase_of_source_id": "src:pas-puente"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.95,
+    "innovations": [
+      "Timbales as a solo, front-line instrument",
+      "Jazz drum technique applied to timbales",
+      "Big band mambo arranging"
+    ],
+    "accolades": [
+      {
+        "award": "Grammy Awards (multiple wins, including posthumous)",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:josplay-puente"],
+          "alternatives": [
+            {
+              "value": "5 wins"
+            },
+            {
+              "value": "6 wins",
+              "source_ids": ["src:josplay-puente"]
+            }
+          ]
+        }
+      },
+      {
+        "award": "Hollywood Walk of Fame",
+        "year": 1990,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:josplay-puente"]
+        }
+      },
+      {
+        "award": "National Medal of Arts",
+        "year": 1997,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:josplay-puente"]
+        }
+      },
+      {
+        "award": "Library of Congress Living Legend",
+        "year": 2000,
+        "evidence": {
+          "confidence": "widely_reported"
+        }
+      },
+      {
+        "award": "Grammy Lifetime Achievement Award",
+        "year": 2003,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:josplay-puente"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "East 110th Street in Harlem is co-named Tito Puente Way.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:nylatin-puente"]
+        }
+      },
+      {
+        "description": "Created a scholarship fund for Latin percussionists at Juilliard in 1979.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:biography-puente"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That 'Oye Como Va' is a Santana original. Puente wrote and first recorded it."
+    ]
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:puente-mambo-bell-archetype",
+      "pattern:puente-cascara-archetype",
+      "pattern:puente-abanico-archetype"
+    ],
+    "default_kit_sound": "Timbales with bells; option to map onto kit (bell on ride bell, timbales on toms)",
+    "generation_rules": [
+      "Always declare clave; stay in clave.",
+      "Cáscara on verses, bell on montuno.",
+      "Open sections with an abanico.",
+      "Offer a kit translation that maps timbale voices to toms and bells to cowbell."
+    ],
+    "avoid": ["Backbeat rock feel", "Swing 8ths"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:gene-krupa", "style:big-band-swing", "style:mambo"],
+      "primary_descendants": ["drummer:changuito", "drummer:dave-lombardo"],
+      "lineage_blurb": "Krupa's showmanship meets Afro-Cuban dance music; his timbales echo in Havana and even in Slayer."
+    },
+    "tags": ["latin", "timbales", "mambo", "50s", "bandleader"]
+  }
+}

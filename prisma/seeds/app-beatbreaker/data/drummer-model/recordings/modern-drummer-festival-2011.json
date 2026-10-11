@@ -1,0 +1,21 @@
+{
+  "id": "rec:modern-drummer-festival-2011",
+  "title": "Modern Drummer Festival 2011",
+  "artist": "Various",
+  "year": 2011,
+  "type": "video",
+  "style_ids": ["style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:horacio-hernandez",
+      "name": "Horacio Hernández",
+      "drummer_role": "leader",
+      "significance": 0.6,
+      "why_it_matters": "Filmed festival performance demonstrating his four-way independence."
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:drummercafe-hernandez"]
+  }
+}

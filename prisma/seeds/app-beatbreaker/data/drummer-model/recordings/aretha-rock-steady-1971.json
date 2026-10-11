@@ -1,0 +1,42 @@
+{
+  "id": "rec:aretha-rock-steady-1971",
+  "title": "Rock Steady",
+  "artist": "Aretha Franklin",
+  "release": "Young, Gifted and Black",
+  "year": 1971,
+  "type": "studio_track",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bernard-purdie",
+      "name": "Bernard Purdie",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "His best-known track with Franklin. The break inspired DJs, drummers and producers and is regarded as a high-water mark of funk drumming.",
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "Purdie described the groove as funky and low down.",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:wiki-mirror-purdie"]
+          },
+          "pattern_id": "pattern:purdie-rock-steady-archetype"
+        },
+        {
+          "category": "studio_story",
+          "description": "The band kept the groove going without stopping while Aretha called out the title.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:rbma-purdie"]
+          }
+        }
+      ],
+      "pattern_ids": ["pattern:purdie-rock-steady-archetype"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:rbma-purdie", "src:wiki-mirror-purdie"]
+  }
+}

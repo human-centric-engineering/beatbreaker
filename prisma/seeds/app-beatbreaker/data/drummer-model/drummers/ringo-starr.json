@@ -1,0 +1,629 @@
+{
+  "meta": {
+    "id": "drummer:ringo-starr",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Transcribe 'Ticket to Ride', 'Rain' and 'Come Together' from stems; current grids are archetypes.",
+      "Add the All Starr Band era and solo records.",
+      "Document kit changes (Premier to Ludwig, later maple kit)."
+    ]
+  },
+  "identity": {
+    "name": "Ringo Starr",
+    "full_name": "Richard Starkey",
+    "born": {
+      "date": "1940-07-07",
+      "place": "Liverpool, England",
+      "evidence": {
+        "confidence": "widely_reported",
+        "note": "From general knowledge."
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": ["Liverpool and Hamburg beat scene (early 1960s)"],
+    "handedness": "left",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1957,
+      "ongoing": true
+    },
+    "roles": ["band_member", "bandleader", "touring", "composer"],
+    "summary": "The Beatles' drummer and the model of song-first rock drumming. A natural left-hander on a right-handed kit, he leads fills with his left hand, which gives them their lopsided, tumbling character. Self-taught, ego-free, with steady time and a loose swing; his parts are written for each song and are as recognisable as the melodies."
+  },
+  "formation": {
+    "teachers": [],
+    "traditions": [
+      {
+        "tradition": "Self-taught by ear",
+        "impact": "No formal training; learned by ear.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:faroutmag-ringo"]
+        }
+      },
+      {
+        "tradition": "Skiffle and rock and roll",
+        "impact": "Liverpool beat-group grounding.",
+        "evidence": {
+          "confidence": "likely"
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1957,
+        "event": "First proper kit at Christmas 1957.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:drumheadauthority-ringo"]
+        }
+      },
+      {
+        "year": 1962,
+        "event": "Joined the Beatles from Rory Storm and the Hurricanes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "note": "From general knowledge."
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:ringo-beat",
+      "label": "Beatlemania",
+      "years": {
+        "from": 1962,
+        "to": 1965
+      },
+      "context": "Live beat group and early records.",
+      "defining_traits": ["driving swing feel", "flams on fills", "washy hats and crashes"]
+    },
+    {
+      "id": "era:ringo-studio",
+      "label": "Studio Beatles",
+      "years": {
+        "from": 1965,
+        "to": 1970
+      },
+      "context": "Ticket to Ride to Abbey Road.",
+      "defining_traits": ["song-specific parts", "muffled toms", "hypnotic ostinatos"],
+      "key_recording_ids": [
+        "rec:beatles-ticket-to-ride-1965",
+        "rec:beatles-rain-1966",
+        "rec:beatles-tomorrow-never-knows-1966",
+        "rec:beatles-a-day-in-the-life-1967",
+        "rec:beatles-come-together-1969",
+        "rec:beatles-the-end-1969"
+      ]
+    },
+    {
+      "id": "era:ringo-solo",
+      "label": "Solo and All Starr Band",
+      "years": {
+        "from": 1970,
+        "ongoing": true
+      },
+      "context": "Solo albums; All Starr Band with a second drummer.",
+      "defining_traits": ["double-drummer live shows"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:merseybeat",
+        "weight": 0.9,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "weight": 0.7,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.8,
+        "authority": 0.8
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": -0.8,
+    "role_tendency": "accompanist",
+    "descriptors": ["song-first", "loose swing", "ego-free", "inventive", "steady"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "evidence": {
+        "confidence": "inferred"
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.3,
+      "typical_swing_ratio": 0.58,
+      "notes": "Hi-hat feel has a slight lilt, partly attributed to his left-handed approach."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "mf",
+      "ghost_note_level": 40,
+      "accent_level": 112
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 18],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.6
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [60, 180],
+    "timekeeping_context": ["free"],
+    "interaction": "Listens and writes a new part for each song.",
+    "descriptors": ["the magic glue (McCartney)", "not metronomic, but steady"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Left-hand-led fills",
+        "description": "Fills start with the left hand on a right-handed kit, so tom moves come out reversed and slightly off-kilter.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:drumeo-ringo", "src:drumheadauthority-ringo", "src:musicverse-ringo"]
+        }
+      },
+      {
+        "name": "Flams in fills",
+        "description": "Flammed fills on early hits.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:faroutmag-ringo"]
+        }
+      }
+    ],
+    "foot_techniques": [],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.6,
+      "linear_playing": 0.3,
+      "ostinato_usage": 0.6,
+      "polyrhythm_usage": 0.2,
+      "odd_meter_fluency": 0.5
+    },
+    "voice_language": {
+      "hihat": "Loose, swung, accents often left-handed.",
+      "snare": "Backbeat with character; flams.",
+      "toms": "Muffled, melodic, used as grooves (Come Together, Tomorrow Never Knows).",
+      "cymbals": "Washy crashes early; mellow ride."
+    },
+    "implements": {
+      "sticks": 1.0
+    },
+    "reading": "none"
+  },
+  "sound_profile": {
+    "aesthetic": ["deadened toms (tea towels)", "mellow ride", "crisp hi-hat"],
+    "muffling": "Tea towels on drums, e.g. on 'Come Together'.",
+    "sample_hints": {
+      "60s": "Ludwig Oyster Black Pearl four-piece, muffled toms, Zildjian cymbals."
+    },
+    "evidence": {
+      "confidence": "widely_reported",
+      "source_ids": ["src:faroutmag-ringo", "src:melodics-ringo"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:ringo-lefty",
+      "label": "Left-hander on a right-handed kit",
+      "category": "technique",
+      "description": "Leads fills with his dominant left hand, giving unusual, tumbling tom moves; Dave Grohl likened the effect to something falling down the stairs.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:drumeo-ringo", "src:musicverse-ringo"]
+      },
+      "pattern_ids": ["pattern:ringo-left-lead-fill-archetype"]
+    },
+    {
+      "id": "trait:ringo-song-parts",
+      "label": "Parts written for the song",
+      "category": "musical_approach",
+      "description": "Each song gets its own drum part; 'Come Together' and 'Ticket to Ride' grooves have nothing in common.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:drumheadauthority-ringo"]
+      }
+    },
+    {
+      "id": "trait:ringo-muffling",
+      "label": "Muffled drums",
+      "category": "sound",
+      "description": "Used tea towels and damping to get the right sound.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:faroutmag-ringo"]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:beatles-come-together-1969"
+        }
+      ]
+    },
+    {
+      "id": "trait:ringo-self-deprecation",
+      "label": "Self-deprecating",
+      "category": "quirk",
+      "description": "Describes himself as a basic offbeat drummer with funny fills because he is left-handed on a right-handed kit.",
+      "audibility": "subtle",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:drumeo-ringo"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:ringo-ticket-to-ride-archetype",
+        "name": "Broken tom-snare groove (Ticket to Ride style)",
+        "type": "groove",
+        "style_ids": ["style:merseybeat", "style:rock"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Captures the broken, non-metronomic feel only. The real displaced tom figure must be transcribed."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [118, 128]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....X..x.x..X...",
+          "floor_tom_1": ".......x......x.",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:beatles-ticket-to-ride-1965"
+        },
+        "difficulty": 4,
+        "tags": ["broken beat", "toms"]
+      },
+      {
+        "id": "pattern:ringo-come-together-archetype",
+        "name": "Muffled tom groove (Come Together style)",
+        "type": "groove",
+        "style_ids": ["style:rock"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [80, 90]
+        },
+        "lanes": {
+          "hihat": "x.x.x.o.x.x.x.x.",
+          "tom_1": "..x.x.......x.x.",
+          "floor_tom_1": "x.....x.x.....x.",
+          "kick": "x.....x.x......."
+        },
+        "source": {
+          "recording_id": "rec:beatles-come-together-1969"
+        },
+        "humanise": {
+          "timing_jitter_ms": 8,
+          "velocity_jitter": 10
+        },
+        "difficulty": 4,
+        "tags": ["toms", "muffled"]
+      },
+      {
+        "id": "pattern:ringo-left-lead-fill-archetype",
+        "name": "Left-led ascending tom fill",
+        "type": "fill",
+        "style_ids": ["style:rock"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:drumheadauthority-ringo"],
+          "note": "Direction (low to high) and left lead documented; rhythm illustrative."
+        },
+        "time_signature": {
+          "numerator": 2,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [80, 140]
+        },
+        "lanes": {
+          "floor_tom_1": "xxxx....",
+          "tom_1": "....xxxx"
+        },
+        "sticking_lane": "LRLRLRLR",
+        "difficulty": 2,
+        "tags": ["fill", "left-handed"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:ringo-day-in-the-life",
+        "name": "A Day in the Life tom fills",
+        "description": "Off-kilter, melodic tom fills, including a widely cited one around 3:34.",
+        "heard_on": ["rec:beatles-a-day-in-the-life-1967"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:melodics-ringo"]
+        }
+      },
+      {
+        "id": "lick:ringo-the-end-solo",
+        "name": "The End drum solo",
+        "description": "His only recorded Beatles drum solo.",
+        "heard_on": ["rec:beatles-the-end-1969"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:melodics-ringo"]
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:ringo-ludwig",
+      "label": "Ludwig Oyster Black Pearl Downbeat",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "Zildjian",
+          "size_in": 14
+        },
+        {
+          "instrument": "ride",
+          "brand": "Zildjian",
+          "size_in": 20
+        }
+      ],
+      "layout_notes": "Mostly a four-piece in the Beatles years.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:melodics-ringo", "src:footyalmanac-ringo", "src:faroutmag-ringo"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Rory Storm and the Hurricanes",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "name": "The Beatles",
+      "type": "band_member",
+      "years": {
+        "from": 1962,
+        "to": 1970
+      },
+      "bandmates": [
+        {
+          "name": "John Lennon"
+        },
+        {
+          "name": "Paul McCartney"
+        },
+        {
+          "name": "George Harrison"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:drumeo-ringo"]
+      }
+    },
+    {
+      "name": "Ringo Starr & His All Starr Band",
+      "type": "bandleader",
+      "years": {
+        "from": 1989,
+        "ongoing": true
+      },
+      "bandmates": [
+        {
+          "name": "Gregg Bissonette",
+          "role": "second drummer"
+        }
+      ],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:drumeo-ringo"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:beatles-ticket-to-ride-1965",
+    "rec:beatles-rain-1966",
+    "rec:beatles-tomorrow-never-knows-1966",
+    "rec:beatles-a-day-in-the-life-1967",
+    "rec:beatles-come-together-1969",
+    "rec:beatles-the-end-1969"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Cozy Cole",
+        "kind": "drummer",
+        "id": "drummer:cozy-cole"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:faroutmag-ringo"],
+        "note": "Said a Cozy Cole record was the only drum record he ever bought; otherwise demurred on influences."
+      },
+      "strength": 0.4
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Jim Keltner",
+        "kind": "drummer",
+        "id": "drummer:jim-keltner"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gear4music-ringo"],
+        "note": "Keltner widely cited as his favourite drummer."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Gregg Bissonette",
+        "kind": "drummer",
+        "id": "drummer:gregg-bissonette"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:drumeo-ringo"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Dave Grohl",
+        "kind": "drummer",
+        "id": "drummer:dave-grohl"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:musicverse-ringo"]
+      },
+      "strength": 0.4
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Skiffle / rock and roll",
+        "kind": "style",
+        "id": "style:merseybeat"
+      },
+      "evidence": {
+        "confidence": "likely"
+      },
+      "strength": 0.6
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Play what the song needs; leave ego out.",
+        "paraphrase_of_source_id": "src:faroutmag-ringo"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.95,
+    "innovations": [
+      "Song-specific drum parts as composition",
+      "Made drumming look cool to a generation"
+    ],
+    "cultural_references": [
+      {
+        "description": "'Rain' is widely held to be his best drumming and is his own favourite.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:footyalmanac-ringo"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he couldn't play. His time and invention are what drummers single out; 'Rain' is the usual rebuttal."
+    ]
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:ringo-come-together-archetype",
+      "pattern:ringo-ticket-to-ride-archetype",
+      "pattern:ringo-left-lead-fill-archetype"
+    ],
+    "default_kit_sound": "60s four-piece, muffled toms, Zildjian hats and mellow ride",
+    "generation_rules": [
+      "Fills lead with L and move in the direction a right-handed drummer wouldn't.",
+      "Slight swing on hats (0.55 to 0.6).",
+      "Write a distinct groove per song; avoid stock patterns."
+    ],
+    "avoid": ["Busy chops", "Machine timing"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:cozy-cole", "style:merseybeat"],
+      "primary_descendants": ["drummer:dave-grohl"],
+      "lineage_blurb": "Self-taught Liverpool beat drummer whose left-handed fills became part of the songs."
+    },
+    "tags": ["rock", "60s", "Beatles", "song-first", "left-handed"],
+    "style_key": "ringo"
+  }
+}

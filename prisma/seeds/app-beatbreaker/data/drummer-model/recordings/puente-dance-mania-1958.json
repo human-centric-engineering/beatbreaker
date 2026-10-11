@@ -1,0 +1,45 @@
+{
+  "id": "rec:puente-dance-mania-1958",
+  "title": "Dance Mania",
+  "artist": "Tito Puente",
+  "year": 1958,
+  "type": "album",
+  "style_ids": ["style:mambo", "style:cha-cha-cha"],
+  "personnel": [
+    {
+      "name": "Ray Barretto",
+      "role": "congas"
+    },
+    {
+      "name": "Santos Colón",
+      "role": "vocals"
+    },
+    {
+      "name": "Ray Coen",
+      "role": "piano"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tito-puente",
+      "name": "Tito Puente",
+      "drummer_role": "leader",
+      "significance": 1.0,
+      "why_it_matters": "His best-known and best-selling album; listed by the New York Times among the most significant albums of the twentieth century.",
+      "ev": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-puente"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wikipedia-puente", "src:pas-puente"],
+    "alternatives": [
+      {
+        "value": 1957,
+        "source_ids": ["src:jazzcom-puente"]
+      }
+    ]
+  }
+}

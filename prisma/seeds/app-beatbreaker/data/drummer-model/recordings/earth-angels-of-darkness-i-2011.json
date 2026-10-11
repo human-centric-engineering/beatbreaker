@@ -1,0 +1,28 @@
+{
+  "id": "rec:earth-angels-of-darkness-i-2011",
+  "title": "Angels of Darkness, Demons of Light I",
+  "artist": "Earth",
+  "year": 2011,
+  "type": "album",
+  "style_ids": ["style:drone-doom"],
+  "personnel": [
+    {
+      "name": "Lori Goldston",
+      "role": "cello"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:adrienne-davies",
+      "name": "Adrienne Davies",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Looser, more improvised by Earth standards, with the drums guiding and shepherding the band.",
+      "pattern_ids": ["pattern:davies-slow-swamp-shuffle-archetype"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:phoenix-new-times-davies", "src:tomtom-davies"]
+  }
+}

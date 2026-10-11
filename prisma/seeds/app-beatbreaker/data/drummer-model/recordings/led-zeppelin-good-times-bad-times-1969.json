@@ -1,0 +1,38 @@
+{
+  "id": "rec:led-zeppelin-good-times-bad-times-1969",
+  "title": "Good Times Bad Times",
+  "artist": "Led Zeppelin",
+  "release": "Led Zeppelin",
+  "year": 1969,
+  "type": "studio_track",
+  "producer": "Jimmy Page",
+  "style_ids": ["style:hard-rock", "style:blues-rock"],
+  "tempo_bpm": 93,
+  "time_signature": "4/4",
+  "studio_context": "Recorded at Olympic Studios, London, in October 1968; the opening track of the first album.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-bonham",
+      "name": "John Bonham",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "His first statement on record: a cowbell intro, then fast triplets on a single bass drum pedal that drummers still argue about.",
+      "pattern_ids": ["pattern:bonham-gtbt-kick-triplets-approx"],
+      "notable_moments": [
+        {
+          "category": "technique",
+          "description": "Two kicks after each hand stroke, in sextuplets, on one pedal.",
+          "pattern_id": "pattern:bonham-gtbt-kick-triplets-approx",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:bonham-wikipedia-gtbt", "src:bonham-musicradar-1"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:bonham-wikipedia-gtbt"]
+  }
+}

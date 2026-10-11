@@ -1,0 +1,1127 @@
+{
+  "meta": {
+    "id": "drummer:yussef-dayes",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Age at Billy Cobham's course: 10 (Wikipedia, WDET) or 12 (his own words, Stamp the Wax 2017)?",
+      "Grip and kit details not yet sourced.",
+      "Who has he influenced? No documented descendants yet beyond teaching material (Drum Hub).",
+      "Transcribe Tioga Pass and Love Is the Message from stems; model the live 32nd paradiddle-diddles and sextuplet bars."
+    ]
+  },
+  "identity": {
+    "name": "Yussef Dayes",
+    "born": {
+      "date": "1992",
+      "place": "South London, England",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:yussef-dayes-wikipedia"],
+        "note": "Year from Wikipedia; full date not widely reported, so left out."
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": [
+      "South London jazz (2010s)",
+      "London jazz/club scene (Brownswood, Jazz re:freshed)"
+    ],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 2009
+    },
+    "roles": ["bandleader", "band_member", "composer", "producer"],
+    "summary": "South London drummer and bandleader: half of Yussef Kamaal (Black Focus, 2016), Tom Misch's partner on What Kinda Music (2020), and leader of Black Classical Music (2023). Dense, linear 16ths where hat, ghosted snare and kick take turns, a backbeat that slides off 2 and 4, kick clusters on one foot, buzzes and flams on a tight snare, all played without a click. Jazz, Afrobeat, reggae, sabar and jungle in one vocabulary."
+  },
+  "formation": {
+    "teachers": [
+      {
+        "name": "Billy Cobham"
+      },
+      {
+        "name": "Doudou N'Diaye Rose"
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Jazz and fusion",
+        "impact": "Cobham (especially Mahavishnu Orchestra), Elvin Jones, Tony Williams, Max Roach, Milford Graves.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:yussef-dayes-stampthewax-2017"]
+        }
+      },
+      {
+        "tradition": "Afrobeat and West African drumming",
+        "impact": "Tony Allen; sabar studied in Senegal; 'the drum is the original talking'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:yussef-dayes-stampthewax-2017",
+            "src:yussef-dayes-crack-2023",
+            "src:yussef-dayes-wdet-2023"
+          ]
+        }
+      },
+      {
+        "tradition": "Jamaican music",
+        "impact": "His father's reggae records; Carlton Barrett; reggae grooves on Black Classical Music.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-wikipedia", "src:yussef-dayes-stampthewax-2017"]
+        }
+      },
+      {
+        "tradition": "Jungle, grime and hip-hop",
+        "impact": "His brother Ahmad's jungle production, grime and Dilla: 'that same energy and those different flows' put into the drums.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:yussef-dayes-wikipedia",
+            "src:yussef-dayes-crack-2023",
+            "src:yussef-dayes-wdet-2023"
+          ]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Given his first drum kit by his father at about four; jammed with his brothers at home.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-wikipedia", "src:yussef-dayes-wdet-2023"]
+        }
+      },
+      {
+        "event": "Attended Billy Cobham's course in Bath as a child; he calls it the most impactful thing for his progress.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:yussef-dayes-wikipedia",
+            "src:yussef-dayes-wdet-2023",
+            "src:yussef-dayes-stampthewax-2017"
+          ],
+          "note": "Age 10 or 12 depending on source."
+        }
+      },
+      {
+        "event": "Supported Tony Allen and saw a whole room dance to just the beat.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:yussef-dayes-stampthewax-2017"]
+        }
+      },
+      {
+        "year": 2009,
+        "event": "Formed United Vibrations with his brothers Ahmad and Kareem and Wayne Francis.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:yussef-dayes-united-vibrations",
+      "label": "United Vibrations",
+      "years": {
+        "from": 2009,
+        "to": 2016
+      },
+      "context": "Afro-jazz family band on the London club circuit.",
+      "defining_traits": ["Afro-jazz", "family band"]
+    },
+    {
+      "id": "era:yussef-dayes-yussef-kamaal",
+      "label": "Yussef Kamaal",
+      "years": {
+        "from": 2015,
+        "to": 2017
+      },
+      "context": "Duo with Kamaal Williams; Black Focus on Brownswood.",
+      "defining_traits": ["broken beat on a live kit", "displaced backbeats", "improvised grooves"],
+      "key_recording_ids": ["rec:yussef-kamaal-black-focus-2016"]
+    },
+    {
+      "id": "era:yussef-dayes-solo",
+      "label": "Solo and collaborations",
+      "years": {
+        "from": 2017
+      },
+      "context": "Love Is the Message, What Kinda Music with Tom Misch, Black Classical Music; band with Rocco Palladino and Charlie Stacey.",
+      "defining_traits": [
+        "linear 16ths",
+        "kick clusters",
+        "reggae and Afro-Cuban grooves",
+        "tight dry snare"
+      ],
+      "key_recording_ids": [
+        "rec:yussef-dayes-love-is-the-message-2018",
+        "rec:tom-misch-yussef-dayes-what-kinda-music-2020",
+        "rec:yussef-dayes-black-classical-music-2023"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:uk-jazz",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:broken-beat",
+        "weight": 0.7,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.7,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "weight": 0.5,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:reggae",
+        "weight": 0.4,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:afrobeat",
+        "weight": 0.4,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:afro-cuban",
+        "weight": 0.2,
+        "authority": 0.2
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.55,
+    "role_tendency": "driver",
+    "descriptors": ["linear", "dense", "tight", "displaced", "drum-led"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:yussef-dayes-bb-research"],
+        "note": "Reviewers call him tight; ghosts sit a touch late in BeatBreaker's reading."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.3,
+      "typical_swing_ratio": 0.55
+    },
+    "dynamics": {
+      "range": 0.75,
+      "default_level": "mf",
+      "ghost_note_level": 35,
+      "accent_level": 118
+    },
+    "density": {
+      "groove_notes_per_bar": [10, 24],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.25
+    },
+    "consistency": 0.75,
+    "tempo_comfort_bpm": [76, 160],
+    "timekeeping_context": ["free"],
+    "interaction": "Drum-led: the groove directs the band, and long tracks build and drift without a click.",
+    "descriptors": [
+      "tight inside the bar",
+      "light swing",
+      "no click",
+      "backbeat slides off 2 and 4"
+    ]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Linear 16ths",
+        "description": "Hat, ghosted snare and kick take turns rather than stacking.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:yussef-dayes-drumhub-bcm",
+            "src:yussef-dayes-drumhub-litm",
+            "src:yussef-dayes-bb-research"
+          ]
+        }
+      },
+      {
+        "name": "Paradiddle grooves",
+        "description": "Paradiddle and paradiddle-diddle stickings split between hat and snare; 32nd paradiddle-diddles live on Tioga Pass.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:yussef-dayes-drumhub-paradiddles", "src:yussef-dayes-bb-research"]
+        }
+      },
+      {
+        "name": "Buzz strokes, flams and 32nd drags",
+        "description": "Ornaments on a tightly tuned snare; 32nd ghost drags into the 1.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm", "src:yussef-dayes-bb-research"]
+        }
+      },
+      {
+        "name": "Rim clicks as backbeat",
+        "description": "Cross-stick on 2 and 4 (Woman's Touch, Birds of Paradise) or on dotted 8ths (Pon di Plaza).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm", "src:yussef-dayes-bb-research"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "One-footed kick clusters",
+        "description": "Three 16ths on one foot (Tioga Pass: 3, 3e, 3&).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:yussef-dayes-drumhub-bass-drum",
+            "src:yussef-dayes-songsterr-tioga",
+            "src:yussef-dayes-bb-research"
+          ]
+        }
+      },
+      {
+        "name": "Hat foot on the 'ands'",
+        "description": "Hi-hat pedal on the offbeat 8ths under linear hand patterns (Black Classical Music, Marching Band).",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Paradiddle-diddle",
+        "usage": ["groove", "split_between_limbs"]
+      },
+      {
+        "name": "Flam",
+        "usage": ["groove", "fill"]
+      },
+      {
+        "name": "Buzz roll",
+        "usage": ["groove", "ghosted_texture"]
+      },
+      {
+        "name": "Drag",
+        "usage": ["groove"]
+      }
+    ],
+    "coordination": {
+      "independence": 0.8,
+      "linear_playing": 0.85,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.5,
+      "odd_meter_fluency": 0.4
+    },
+    "voice_language": {
+      "hihat": "Busy 16ths or linear fragments, accented opens at bar ends.",
+      "snare": "Ghosts all round a displaced backbeat; buzzes, flams, rim clicks.",
+      "kick": "Clusters and pairs late in the bar, rarely four on the floor.",
+      "toms": "Inside the groove (Chasing the Drum, Afro Cubanism) and flammed fills.",
+      "cymbals": "A stack for accents; crash and kick on 1 at section starts."
+    },
+    "implements": {
+      "sticks": 1.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["tight, high snare", "dry and close", "stack for accents", "driven room sound"],
+    "sample_hints": {
+      "BeatBreaker": "The 'london' kit: snare tuned up and driven, short toms, a stack as the china."
+    },
+    "evidence": {
+      "confidence": "inferred",
+      "source_ids": ["src:yussef-dayes-bb-research", "src:yussef-dayes-crack-2023"],
+      "note": "Crack reports sabar drums in his setup; the rest is from listening and the transcriptions."
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:yussef-dayes-sliding-backbeat",
+      "label": "The backbeat slides",
+      "category": "groove",
+      "description": "The snare leaves 2 and 4 for the 'and' of 2 (Love Is the Message), the 'a' of 1 and 'e' of 2 (Strings of Light) or scatters (Rust); beat 4 is the steadiest.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:yussef-dayes-drumhub-litm",
+          "src:yussef-dayes-drumhub-sol",
+          "src:yussef-dayes-bb-research"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:yussef-dayes-love-is-the-message",
+        "pattern:yussef-dayes-strings-of-light"
+      ]
+    },
+    {
+      "id": "trait:yussef-dayes-linear",
+      "label": "Dense linear 16ths",
+      "category": "technique",
+      "description": "Hat, ghosted snare and kick take turns to fill the 16th grid.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:yussef-dayes-drumhub-bcm", "src:yussef-dayes-bb-research"]
+      },
+      "pattern_ids": ["pattern:yussef-dayes-what-kinda-music"]
+    },
+    {
+      "id": "trait:yussef-dayes-kick-clusters",
+      "label": "Three on one foot",
+      "category": "technique",
+      "description": "Kick clusters of three 16ths with one foot, as on Tioga Pass.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:yussef-dayes-songsterr-tioga", "src:yussef-dayes-drumhub-bass-drum"]
+      },
+      "pattern_ids": ["pattern:yussef-dayes-tioga-pass"]
+    },
+    {
+      "id": "trait:yussef-dayes-half-time",
+      "label": "Half-time at high tempos",
+      "category": "groove",
+      "description": "Fast tracks drop to half-time with the snare on 3 (Lift Off, Jamaican Links, Encore ~ Babylon Burning).",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:yussef-dayes-songsterr-lift-off",
+          "src:yussef-dayes-songsterr-jamaican-links",
+          "src:yussef-dayes-bb-research"
+        ]
+      }
+    },
+    {
+      "id": "trait:yussef-dayes-no-click",
+      "label": "No click",
+      "category": "musical_approach",
+      "description": "Plays without a click for freedom in the groove; tempos drift and intros can be in free time.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-crack-2023"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:yussef-dayes-what-kinda-music",
+        "name": "Slow linear groove, kick pairs late in the bar (What Kinda Music)",
+        "type": "groove",
+        "style_ids": ["style:uk-jazz", "style:hip-hop-breakbeat"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Alex Richards (Drum Hub)",
+          "history": [
+            {
+              "date": "2026-10-11",
+              "status": "draft",
+              "by": "Claude",
+              "note": "From BeatBreaker's What Kinda Music figure, itself read off Drum Hub's notation."
+            }
+          ]
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:yussef-dayes-drumhub-wkm", "src:yussef-dayes-bb-research"],
+          "note": "Read off a published transcription excerpt via BeatBreaker's figure; velocities collapsed to ghost/hit/accent."
+        },
+        "source": {
+          "recording_id": "rec:tom-misch-yussef-dayes-what-kinda-music-2020",
+          "section": "What Kinda Music (title track), main groove",
+          "transcription_source_id": "src:yussef-dayes-drumhub-wkm"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "swing_ratio": 0.54,
+        "tempo": {
+          "playable_range_bpm": [94, 98]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.o.",
+          "snare": "....xg.x.x..x...",
+          "kick": "x.x.......xx.xx."
+        },
+        "difficulty": 5,
+        "tags": ["linear", "16ths", "kick pairs", "neo-soul"]
+      },
+      {
+        "id": "pattern:yussef-dayes-love-is-the-message",
+        "name": "Backbeat on the 'and' of 2, ghosts and pickups (Love Is the Message)",
+        "type": "groove",
+        "style_ids": ["style:uk-jazz", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Alex Richards (Drum Hub)",
+          "history": [
+            {
+              "date": "2026-10-11",
+              "status": "draft",
+              "by": "Claude",
+              "note": "From BeatBreaker's two-bar Love Is the Message figure (Drum Hub breakdown). Faster live."
+            }
+          ]
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:yussef-dayes-drumhub-litm", "src:yussef-dayes-bb-research"],
+          "note": "Read off a published transcription excerpt via BeatBreaker's figure; velocities collapsed to ghost/hit/accent."
+        },
+        "source": {
+          "recording_id": "rec:yussef-dayes-love-is-the-message-2018",
+          "section": "Main groove (studio version)",
+          "transcription_source_id": "src:yussef-dayes-drumhub-litm"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "swing_ratio": 0.54,
+        "tempo": {
+          "playable_range_bpm": [83, 91]
+        },
+        "lanes": {
+          "hihat": "...xxX.xxxxxx...|xxxxxX.xxxx.x...",
+          "snare": "......x..g..x..g|.g....x.....x..g",
+          "kick": "x..x......x.....|x..x......x....."
+        },
+        "difficulty": 6,
+        "tags": ["displaced backbeat", "linear", "ghost notes"]
+      },
+      {
+        "id": "pattern:yussef-dayes-strings-of-light",
+        "name": "Accents on the 'a' of 1 and 'e' of 2 (Strings of Light)",
+        "type": "groove",
+        "style_ids": ["style:uk-jazz", "style:broken-beat"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Alex Richards (Drum Hub)",
+          "history": [
+            {
+              "date": "2026-10-11",
+              "status": "draft",
+              "by": "Claude",
+              "note": "From BeatBreaker's Strings of Light figure (Drum Hub breakdown); also heard near 145 BPM."
+            }
+          ]
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:yussef-dayes-drumhub-sol", "src:yussef-dayes-bb-research"],
+          "note": "Read off a published transcription excerpt via BeatBreaker's figure; velocities collapsed to ghost/hit/accent."
+        },
+        "source": {
+          "recording_id": "rec:yussef-kamaal-black-focus-2016",
+          "section": "Strings of Light, main groove",
+          "transcription_source_id": "src:yussef-dayes-drumhub-sol"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "swing_ratio": 0.54,
+        "tempo": {
+          "playable_range_bpm": [106, 112]
+        },
+        "lanes": {
+          "hihat": "x...x.xxx.x.xxx.",
+          "snare": ".ggX.X..xg.g..xg",
+          "kick": "x.........x....."
+        },
+        "difficulty": 7,
+        "tags": ["broken beat", "displaced backbeat", "ghost notes"]
+      },
+      {
+        "id": "pattern:yussef-dayes-tioga-pass",
+        "name": "One-footed kick triplet on 3, 3e, 3& (Tioga Pass)",
+        "type": "groove",
+        "style_ids": ["style:uk-jazz", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Songsterr user tab",
+          "history": [
+            {
+              "date": "2026-10-11",
+              "status": "draft",
+              "by": "Claude",
+              "note": "From BeatBreaker's two-bar Tioga Pass figure (Songsterr human tab, cross-checked with Drum Hub's Black Classical Music sheet). Faster live."
+            }
+          ]
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:yussef-dayes-songsterr-tioga", "src:yussef-dayes-bb-research"],
+          "note": "Read off a published transcription excerpt via BeatBreaker's figure; velocities collapsed to ghost/hit/accent."
+        },
+        "source": {
+          "recording_id": "rec:yussef-dayes-black-classical-music-2023",
+          "section": "Tioga Pass (track 18), main groove",
+          "transcription_source_id": "src:yussef-dayes-songsterr-tioga"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "swing_ratio": 0.54,
+        "tempo": {
+          "playable_range_bpm": [91, 95]
+        },
+        "lanes": {
+          "hihat": "..xxxxxxxxxxxxxx|xxxxxxxxxxxxxxhx",
+          "snare": "....x..g....x.b.|...gx..g....x.x.",
+          "kick": "x.......xxx..x..|x.......xxx..x.."
+        },
+        "difficulty": 7,
+        "tags": ["kick cluster", "heel-toe", "buzz", "16ths"],
+        "practice_notes": "The three kicks on 3, 3e, 3& are played with one foot; BeatBreaker uses heel-toe so they are not thinned."
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:yussef-dayes-snare-pickup",
+        "name": "16th snare pickup",
+        "description": "Two 16ths on the snare into the next phrase (Tioga Pass, Lift Off).",
+        "heard_on": ["rec:yussef-dayes-black-classical-music-2023"],
+        "to_transcribe": false,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:yussef-dayes-songsterr-tioga"]
+        }
+      },
+      {
+        "id": "lick:yussef-dayes-flammed-toms",
+        "name": "Flammed tom fill",
+        "description": "Flams down the toms with a kick between (Gelato).",
+        "heard_on": ["rec:yussef-dayes-black-classical-music-2023"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm"]
+        }
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "United Vibrations",
+      "type": "band_member",
+      "years": {
+        "from": 2009,
+        "to": 2016
+      },
+      "bandmates": [
+        {
+          "name": "Ahmad Dayes"
+        },
+        {
+          "name": "Kareem Dayes"
+        },
+        {
+          "name": "Wayne Francis"
+        }
+      ],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:yussef-dayes-wikipedia", "src:yussef-dayes-crack-2023"]
+      }
+    },
+    {
+      "name": "Yussef Kamaal",
+      "type": "band_member",
+      "years": {
+        "from": 2015,
+        "to": 2017
+      },
+      "bandmates": [
+        {
+          "name": "Kamaal Williams"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-wikipedia", "src:yussef-dayes-crack-2023"]
+      }
+    },
+    {
+      "name": "Yussef Dayes band",
+      "type": "bandleader",
+      "years": {
+        "from": 2018
+      },
+      "bandmates": [
+        {
+          "name": "Rocco Palladino"
+        },
+        {
+          "name": "Charlie Stacey"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-nonesuch-2023", "src:yussef-dayes-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:yussef-kamaal-black-focus-2016",
+    "rec:yussef-dayes-love-is-the-message-2018",
+    "rec:tom-misch-yussef-dayes-what-kinda-music-2020",
+    "rec:yussef-dayes-black-classical-music-2023"
+  ],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Billy Cobham",
+        "kind": "drummer",
+        "id": "drummer:billy-cobham"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:yussef-dayes-wikipedia",
+          "src:yussef-dayes-wdet-2023",
+          "src:yussef-dayes-stampthewax-2017"
+        ],
+        "note": "Attended Cobham's course as a child; age given as 10 (Wikipedia, WDET) or 12 (Dayes in Stamp the Wax)."
+      },
+      "strength": 1.0
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Billy Cobham",
+        "kind": "drummer",
+        "id": "drummer:billy-cobham"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-stampthewax-2017"],
+        "note": "Played along to his records, especially Mahavishnu Orchestra; the first drummer his father showed him."
+      },
+      "strength": 1.0
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tony Allen",
+        "kind": "drummer",
+        "id": "drummer:tony-allen"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-stampthewax-2017", "src:yussef-dayes-wdet-2023"],
+        "note": "Listed among his ten favourite drummers; supporting Allen, he saw a room dance to the beat alone, which pushed him to find his own rhythms."
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-stampthewax-2017"]
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-stampthewax-2017"]
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-stampthewax-2017", "src:yussef-dayes-wdet-2023"]
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Milford Graves",
+        "kind": "drummer",
+        "id": "drummer:milford-graves"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-stampthewax-2017"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Clyde Stubblefield",
+        "kind": "drummer",
+        "id": "drummer:clyde-stubblefield"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-stampthewax-2017"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Idris Muhammad",
+        "kind": "drummer",
+        "id": "drummer:idris-muhammad"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-stampthewax-2017"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Harvey Mason",
+        "kind": "drummer",
+        "id": "drummer:harvey-mason"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-stampthewax-2017"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Questlove",
+        "kind": "drummer",
+        "id": "drummer:questlove"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-stampthewax-2017"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Carlton Barrett",
+        "kind": "drummer",
+        "id": "drummer:carlton-barrett"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-stampthewax-2017"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Doudou N'Diaye Rose",
+        "kind": "drummer",
+        "id": "drummer:doudou-ndiaye-rose"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:yussef-dayes-crack-2023"],
+        "note": "Crack reports he studied sabar in Senegal under Doudou N'Diaye Rose; also in his 2017 favourites list."
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Sheila E.",
+        "kind": "drummer",
+        "id": "drummer:sheila-e"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:yussef-dayes-wdet-2023"]
+      },
+      "strength": 0.4
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Cindy Blackman",
+        "kind": "drummer",
+        "id": "drummer:cindy-blackman"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:yussef-dayes-wdet-2023"]
+      },
+      "strength": 0.4
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "J Dilla",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:yussef-dayes-wdet-2023"],
+        "note": "WDET names Dilla among his inspirations; no source supports a Dilla-style 'drunk' swing in his playing."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Kamaal Williams",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-wikipedia"]
+      },
+      "strength": 1.0,
+      "scope": "band"
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Tom Misch",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-wikipedia"]
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Rocco Palladino",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-wikipedia", "src:yussef-dayes-nonesuch-2023"]
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Charlie Stacey",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-wikipedia", "src:yussef-dayes-nonesuch-2023"]
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Alfa Mist",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-vinylfactory-litm"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Ahmad Dayes",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-wikipedia", "src:yussef-dayes-crack-2023"],
+        "note": "Older brother, trombonist in United Vibrations; his jungle production was an early influence."
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Kareem Dayes",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-wikipedia", "src:yussef-dayes-crack-2023"],
+        "note": "Older brother, bassist in United Vibrations."
+      },
+      "strength": 0.7
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Freedom in the groove matters more than the metronome; he plays without a click.",
+        "paraphrase_of_source_id": "src:yussef-dayes-crack-2023"
+      },
+      {
+        "idea": "In African traditions the drum is the original talking: drums as a melodic, communicating instrument.",
+        "paraphrase_of_source_id": "src:yussef-dayes-wdet-2023"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.6,
+    "innovations": [
+      "Broken beat, jungle and grime energy played live on an acoustic kit in a jazz setting",
+      "Drum-led albums that put the London jazz scene in the UK charts"
+    ],
+    "accolades": [
+      {
+        "award": "Ivor Novello Award, Best Album (Black Classical Music)",
+        "year": 2024,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-wikipedia"]
+        }
+      },
+      {
+        "award": "Jazz FM Award, Breakthrough Act (Yussef Kamaal)",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:yussef-dayes-crack-2023"],
+          "note": "Year not confirmed (2017 likely)."
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "What Kinda Music with Tom Misch reached number 4 in the UK albums chart (2020).",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-wikipedia"]
+        }
+      },
+      {
+        "description": "Nominated for the Brit Award for Best New Artist (2024).",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That his feel is a 'drunk' Dilla swing: the transcriptions show tight, lightly swung 16ths, and the reggae and Afro tracks near straight."
+    ]
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:yussef-dayes-love-is-the-message",
+      "pattern:yussef-dayes-tioga-pass",
+      "pattern:yussef-dayes-what-kinda-music",
+      "pattern:yussef-dayes-strings-of-light"
+    ],
+    "default_kit_sound": "'london' kit: tight, raised, driven snare; short toms; a stack as the china.",
+    "generation_rules": [
+      "Linear 16ths: avoid stacking hat, snare and kick on the same step except on 1.",
+      "Let the backbeat move off 2 to the 'and' or the 'e'; keep 4 steadier.",
+      "Allow three-16th kick clusters on one foot (heelToe).",
+      "Light swing (about 53-57%); near straight for reggae and Afro tracks.",
+      "Half-time with the snare on 3 above about 125 BPM.",
+      "A pickup at most phrase ends: 16th snare pairs, single strokes round the toms, flammed toms, a stack on the 'and' of 4."
+    ],
+    "avoid": [
+      "Heavy Dilla-style lag",
+      "Four-on-the-floor (except Gelato)",
+      "Long jazz ride swing",
+      "Big rock crashes on every phrase"
+    ],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:billy-cobham",
+        "drummer:tony-allen",
+        "drummer:elvin-jones",
+        "drummer:max-roach",
+        "drummer:carlton-barrett"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Cobham's fusion, Tony Allen's Afrobeat and Carlton Barrett's reggae, run through south London jungle and broken beat."
+    },
+    "tags": ["uk jazz", "broken beat", "linear", "london", "2010s", "neo-soul"],
+    "style_key": "yussefdayes"
+  }
+}

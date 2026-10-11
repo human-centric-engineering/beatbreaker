@@ -1,0 +1,22 @@
+{
+  "id": "rec:earth-hex-2005",
+  "title": "Hex; Or Printing in the Infernal Method",
+  "artist": "Earth",
+  "year": 2005,
+  "type": "album",
+  "style_ids": ["style:drone-doom", "style:americana"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:adrienne-davies",
+      "name": "Adrienne Davies",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Her Earth debut and the start of the band's second act; near-universally acclaimed and her favourite material to play live.",
+      "pattern_ids": ["pattern:davies-glacial-backbeat-archetype"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:bandcamp-davies"]
+  }
+}

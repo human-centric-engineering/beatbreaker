@@ -1,0 +1,72 @@
+{
+  "id": "style:uk-jazz",
+  "name": "UK jazz (the London scene)",
+  "aliases": ["new London jazz", "south London jazz"],
+  "kind": "sub_genre",
+  "region": "London, UK",
+  "era": {
+    "from": 2012
+  },
+  "parents": [
+    {
+      "style_id": "style:jazz",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:afrobeat",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:broken-beat",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:hip-hop-breakbeat",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:reggae",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "likely"
+      }
+    }
+  ],
+  "summary": "The London jazz wave of the 2010s: players from Tomorrow's Warriors, Jazz re:freshed and the south London clubs mixing jazz with Afrobeat, Caribbean music, broken beat, grime, jungle and hip-hop. Drum-led and made for dancing.",
+  "drum_characteristics": {
+    "feel": "Straight to lightly swung 16ths, tight",
+    "subdivision": "16ths",
+    "tempo_range_bpm": [75, 160],
+    "key_voices": ["hihat", "snare", "kick", "stack"],
+    "hallmarks": [
+      "dense linear 16th grooves",
+      "backbeats displaced off 2 and 4",
+      "Afrobeat and Caribbean rhythms",
+      "jungle and grime energy on an acoustic kit",
+      "tight, dry snares",
+      "usually no click"
+    ],
+    "avoid": ["long jazz ride swing as the default"]
+  },
+  "key_drummer_ids": ["drummer:yussef-dayes", "drummer:moses-boyd", "drummer:femi-koleoso"],
+  "key_recording_ids": [
+    "rec:yussef-kamaal-black-focus-2016",
+    "rec:yussef-dayes-black-classical-music-2023"
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:yussef-dayes-crack-2023", "src:yussef-dayes-wikipedia"]
+  }
+}

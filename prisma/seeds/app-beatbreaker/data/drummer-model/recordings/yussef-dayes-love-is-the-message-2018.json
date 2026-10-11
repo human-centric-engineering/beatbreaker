@@ -1,0 +1,37 @@
+{
+  "id": "rec:yussef-dayes-love-is-the-message-2018",
+  "title": "Love Is the Message",
+  "artist": "Yussef Dayes",
+  "year": 2018,
+  "type": "studio_track",
+  "personnel": [
+    {
+      "name": "Yussef Dayes"
+    },
+    {
+      "name": "Alfa Mist"
+    },
+    {
+      "name": "Mansur Brown"
+    },
+    {
+      "name": "Rocco Palladino"
+    }
+  ],
+  "style_ids": ["style:uk-jazz", "style:jazz-fusion"],
+  "studio_context": "Released as a single in 2018; the quartet also filmed an extended live version at Abbey Road Studios that year, later pressed to vinyl by The Vinyl Factory.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:yussef-dayes",
+      "name": "Yussef Dayes",
+      "drummer_role": "leader",
+      "significance": 0.8,
+      "why_it_matters": "His first release under his own name after Yussef Kamaal: the snare moved to the 'and' of 2, with ghost notes and a pickup into every 1.",
+      "pattern_ids": ["pattern:yussef-dayes-love-is-the-message"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:yussef-dayes-vinylfactory-litm", "src:yussef-dayes-drumhub-litm"]
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://beatbreaker.app/schema/style.schema.json",
+  "title": "Style",
+  "description": "A genre, idiom or groove family. Parent links form the style lineage alongside drummer lineage.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name"],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "name": {
+      "type": "string"
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "kind": {
+      "enum": ["genre", "sub_genre", "idiom", "groove_family", "tradition"]
+    },
+    "parents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["style_id", "relation"],
+        "properties": {
+          "style_id": {
+            "$ref": "common.schema.json#/$defs/Id"
+          },
+          "relation": {
+            "enum": ["derived_from", "fusion_of", "sub_genre_of", "adapted_from", "influenced_by"]
+          },
+          "evidence": {
+            "$ref": "common.schema.json#/$defs/Evidence"
+          }
+        }
+      }
+    },
+    "region": {
+      "type": "string"
+    },
+    "era": {
+      "$ref": "common.schema.json#/$defs/YearRange"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "drum_characteristics": {
+      "type": "object",
+      "properties": {
+        "feel": {
+          "type": "string"
+        },
+        "subdivision": {
+          "type": "string"
+        },
+        "tempo_range_bpm": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "key_voices": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/Instrument"
+          }
+        },
+        "hallmarks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "avoid": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "archetype_patterns": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Pattern"
+      }
+    },
+    "key_drummer_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Id"
+      }
+    },
+    "key_recording_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/Id"
+      }
+    },
+    "evidence": {
+      "$ref": "common.schema.json#/$defs/Evidence"
+    }
+  }
+}

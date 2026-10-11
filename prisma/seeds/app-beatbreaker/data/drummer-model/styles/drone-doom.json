@@ -1,0 +1,24 @@
+{
+  "id": "style:drone-doom",
+  "name": "Drone / doom",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:metal",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1989
+  },
+  "summary": "Extremely slow, sustained, repetitive heavy music. Earth's early records are a founding reference.",
+  "drum_characteristics": {
+    "tempo_range_bpm": [30, 70],
+    "hallmarks": ["glacial tempos", "long cymbal sustain", "sparse strokes", "weight over density"],
+    "avoid": ["fills for their own sake", "fast subdivisions"]
+  },
+  "key_drummer_ids": ["drummer:adrienne-davies"]
+}

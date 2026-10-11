@@ -1,0 +1,743 @@
+{
+  "meta": {
+    "id": "drummer:ginger-baker",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Transcribe 'Sunshine of Your Love' and the 'Toad' solo ostinatos from stems.",
+      "Confirm the 5/4 'White Room' intro detail and Tony Allen's role on the Fela Live! album.",
+      "Document kit (two bass drums, Ludwig/Zildjian era details)."
+    ]
+  },
+  "identity": {
+    "name": "Ginger Baker",
+    "full_name": "Peter Edward Baker",
+    "born": {
+      "date": "1939-08-19",
+      "place": "Lewisham, London, England",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ap-baker"],
+        "note": "Year verified; day and place from general knowledge."
+      }
+    },
+    "died": {
+      "date": "2019-10-06",
+      "place": "Canterbury, England"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London jazz and R&B (late 1950s to 60s)", "Lagos (1970 to 1976)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1954,
+      "to": 2019
+    },
+    "roles": ["band_member", "bandleader", "composer", "touring"],
+    "summary": "Cream's volatile, jazz-trained powerhouse. Used two bass drums to build a pounding polyrhythmic style, swift and heavy, that inspired and intimidated a generation. Considered himself a jazz drummer, despised rock 'bashers', and spent much of the 1970s in Nigeria playing with Fela Kuti."
+  },
+  "formation": {
+    "started_age": 15,
+    "teachers": [
+      {
+        "name": "Phil Seamen",
+        "role": "lessons and mentoring, early 1960s",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wiki-mirror-baker", "src:ap-baker"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "British and American jazz",
+        "impact": "Jazz since his teens; philosophy of time and the drummer as the driving force of an ensemble.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wiki-mirror-baker", "src:ap-baker"]
+        }
+      },
+      {
+        "tradition": "West African drumming",
+        "impact": "Long-time interest pursued by living and recording in Nigeria.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wiki-mirror-baker"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "age": 4,
+        "event": "Father killed in the Second World War.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ap-baker"]
+        }
+      },
+      {
+        "year": 1971,
+        "event": "Drove from Algeria across the Sahara to Lagos, set up a recording studio and jammed with Fela Kuti (documented in the film Ginger Baker in Africa).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wiki-mirror-baker"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:baker-graham-bond",
+      "label": "London jazz and R&B",
+      "years": {
+        "from": 1960,
+        "to": 1966
+      },
+      "context": "Jazz gigs, Graham Bond Organisation with Jack Bruce.",
+      "defining_traits": ["jazz time in R&B"]
+    },
+    {
+      "id": "era:baker-cream",
+      "label": "Cream and Blind Faith",
+      "years": {
+        "from": 1966,
+        "to": 1969
+      },
+      "context": "Power trio with Clapton and Bruce; then Blind Faith.",
+      "defining_traits": ["two bass drums", "tom-led grooves", "long improvised solos"],
+      "key_recording_ids": [
+        "rec:cream-toad-1966",
+        "rec:cream-sunshine-of-your-love-1967",
+        "rec:cream-white-room-1968"
+      ]
+    },
+    {
+      "id": "era:baker-africa",
+      "label": "Air Force and Africa",
+      "years": {
+        "from": 1970,
+        "to": 1976
+      },
+      "context": "Ginger Baker's Air Force; lived in Nigeria, recorded with Fela Kuti.",
+      "defining_traits": ["West African rhythm", "big percussion ensembles"],
+      "key_recording_ids": ["rec:fela-live-ginger-baker-1971"]
+    },
+    {
+      "id": "era:baker-later",
+      "label": "Later projects",
+      "years": {
+        "from": 1977,
+        "to": 2019
+      },
+      "context": "Public Image Ltd, jazz groups.",
+      "defining_traits": ["jazz focus", "polyrhythm"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.8,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "weight": 0.7,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:afrobeat",
+        "weight": 0.5,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.5,
+        "authority": 0.5
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.4,
+    "role_tendency": "driver",
+    "descriptors": ["volatile", "propulsive", "polyrhythmic", "heavy", "jazz finesse"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred"
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.2,
+      "typical_swing_ratio": 0.62
+    },
+    "dynamics": {
+      "range": 0.85,
+      "default_level": "f",
+      "ghost_note_level": 35,
+      "accent_level": 122,
+      "balance": "Toms and two kicks prominent; snare used less as a constant backbeat."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 32],
+      "fill_frequency": "every_4_bars",
+      "space_usage": 0.3
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [70, 200],
+    "timekeeping_context": ["free"],
+    "interaction": "Improvises alongside guitar and bass as an equal in the Cream jams.",
+    "descriptors": ["swift and heavy", "driving force"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american", "traditional"],
+    "hand_techniques": [
+      {
+        "name": "Tom-led grooves",
+        "description": "Melodic tom patterns as the groove itself rather than snare backbeat.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "widely_reported"
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Two bass drums",
+        "description": "Twin bass drums for pounding polyrhythmic patterns; unusual in 60s rock.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wiki-mirror-baker", "src:ap-baker"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.85,
+      "linear_playing": 0.5,
+      "ostinato_usage": 0.8,
+      "polyrhythm_usage": 0.85,
+      "odd_meter_fluency": 0.6,
+      "double_bass": 0.9
+    },
+    "voice_language": {
+      "toms": "Lead voice; melodic, African-tinged patterns.",
+      "kick": "Two bass drums, ostinatos under solos.",
+      "snare": "Jazz-style comping as much as backbeat.",
+      "ride": "Jazz ride time in improvisations."
+    },
+    "implements": {
+      "sticks": 1.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["big toms", "two resonant kicks", "jazz cymbals"],
+    "sample_hints": {
+      "60s": "Open, loud kit; two 22in kicks; tuned toms; jazz-weight cymbals."
+    },
+    "evidence": {
+      "confidence": "inferred"
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:baker-twin-kicks",
+      "label": "Twin bass drums",
+      "category": "setup",
+      "description": "Used two bass drums instead of one, building a pounding polyrhythmic style uncommonly swift and heavy.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ap-baker", "src:wiki-mirror-baker"]
+      },
+      "pattern_ids": ["pattern:baker-toad-ostinato-archetype"]
+    },
+    {
+      "id": "trait:baker-jazz-drummer",
+      "label": "A jazz drummer in a rock band",
+      "category": "musical_approach",
+      "description": "Saw Cream as two jazz players and a blues guitarist improvising; held the drummer to be the driving force of an ensemble.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ap-baker", "src:wiki-mirror-baker"]
+      }
+    },
+    {
+      "id": "trait:baker-tom-grooves",
+      "label": "Tom-led grooves",
+      "category": "groove",
+      "description": "Grooves carried by tom patterns rather than snare backbeat.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "widely_reported"
+      },
+      "pattern_ids": ["pattern:baker-sunshine-tom-archetype"],
+      "heard_on": [
+        {
+          "recording_id": "rec:cream-sunshine-of-your-love-1967"
+        }
+      ]
+    },
+    {
+      "id": "trait:baker-contempt",
+      "label": "Contempt for 'bashers'",
+      "category": "quirk",
+      "description": "Openly dismissed Keith Moon and others as bashers without style or background, despite being ranked alongside them.",
+      "audibility": "subtle",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ap-baker"]
+      }
+    },
+    {
+      "id": "trait:baker-africa",
+      "label": "African immersion",
+      "category": "musical_approach",
+      "description": "Lived in Nigeria 1970 to 1976 and recorded with Fela Kuti in pursuit of a long-time interest in African music.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-mirror-baker"]
+      },
+      "pattern_ids": ["pattern:baker-afro-12-8-archetype"]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:baker-sunshine-tom-archetype",
+        "name": "Tom-led rock groove (Sunshine of Your Love style)",
+        "type": "groove",
+        "style_ids": ["style:blues-rock", "style:psychedelic-rock"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Illustrates the tom-led feel; not a transcription."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [105, 120]
+        },
+        "lanes": {
+          "floor_tom_1": "X...x...X...x...",
+          "tom_1": "..x.......x.....",
+          "kick": "x.......x.......",
+          "hihat_pedal": "....k.......k..."
+        },
+        "source": {
+          "recording_id": "rec:cream-sunshine-of-your-love-1967"
+        },
+        "difficulty": 3,
+        "tags": ["toms", "rock"]
+      },
+      {
+        "id": "pattern:baker-toad-ostinato-archetype",
+        "name": "Two-bass-drum ostinato under tom melody (Toad style)",
+        "type": "solo_phrase",
+        "style_ids": ["style:blues-rock"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "playable_range_bpm": [100, 150]
+        },
+        "lanes": {
+          "kick": "x..x..x..x..",
+          "kick_2": ".x..x..x..x.",
+          "tom_1": "..x.....x...",
+          "floor_tom_1": ".....x.....x"
+        },
+        "source": {
+          "recording_id": "rec:cream-toad-1966"
+        },
+        "difficulty": 7,
+        "tags": ["double bass", "solo", "ostinato"]
+      },
+      {
+        "id": "pattern:baker-afro-12-8-archetype",
+        "name": "West African 12/8 bell groove on kit",
+        "type": "groove",
+        "style_ids": ["style:afrobeat", "style:west-african"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred"
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 1,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "playable_range_bpm": [90, 130]
+        },
+        "lanes": {
+          "cowbell": "x.x.xx.x.x.x",
+          "kick": "x.....x.....",
+          "floor_tom_1": "...x.....x..",
+          "snare": "......X....."
+        },
+        "cross_rhythms": [
+          {
+            "ratio": "3:2",
+            "voices": ["kick", "floor_tom_1"],
+            "description": "Duple kick against the ternary bell."
+          }
+        ],
+        "derived_from": [
+          {
+            "style_id": "style:west-african",
+            "how": "Standard 12/8 bell pattern carried on the kit",
+            "evidence": {
+              "confidence": "likely"
+            }
+          }
+        ],
+        "difficulty": 5,
+        "tags": ["12/8", "bell", "africa"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:baker-toad-solo",
+        "name": "Toad drum solo",
+        "description": "Extended solo built on two-bass-drum ostinatos and tom melodies.",
+        "heard_on": ["rec:cream-toad-1966"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "widely_reported"
+        }
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Graham Bond Organisation",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "name": "Cream",
+      "type": "band_member",
+      "years": {
+        "from": 1966,
+        "to": 1968
+      },
+      "bandmates": [
+        {
+          "name": "Eric Clapton"
+        },
+        {
+          "name": "Jack Bruce"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ap-baker"]
+      }
+    },
+    {
+      "name": "Blind Faith",
+      "type": "band_member",
+      "years": {
+        "from": 1969,
+        "to": 1969
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-mirror-baker"]
+      }
+    },
+    {
+      "name": "Ginger Baker's Air Force",
+      "type": "bandleader",
+      "years": {
+        "from": 1970,
+        "to": 1971
+      },
+      "notes": "Expensive; imploded after two albums.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-mirror-baker", "src:ap-baker"]
+      }
+    },
+    {
+      "name": "Fela Kuti (sessions)",
+      "type": "session_regular",
+      "years": {
+        "from": 1970,
+        "to": 1976
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-mirror-baker"]
+      }
+    },
+    {
+      "name": "Public Image Ltd",
+      "type": "session_regular",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ap-baker"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:cream-toad-1966",
+    "rec:cream-sunshine-of-your-love-1967",
+    "rec:cream-white-room-1968",
+    "rec:fela-live-ginger-baker-1971"
+  ],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Phil Seamen",
+        "kind": "drummer",
+        "id": "drummer:phil-seamen"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-mirror-baker", "src:ap-baker"]
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-mirror-baker"]
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-mirror-baker"]
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-mirror-baker"]
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Philly Joe Jones",
+        "kind": "drummer",
+        "id": "drummer:philly-joe-jones"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-mirror-baker"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Baby Dodds",
+        "kind": "drummer",
+        "id": "drummer:baby-dodds"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-mirror-baker"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Fela Kuti",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-mirror-baker", "src:ap-baker"]
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "West African drumming",
+        "kind": "style",
+        "id": "style:west-african"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-mirror-baker"]
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Jack Bruce",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ap-baker"]
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ap-baker"],
+        "note": "Baker reports Bonham saying there were only two drummers in British rock: Bonham and Baker."
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Dave Lombardo",
+        "kind": "drummer",
+        "id": "drummer:dave-lombardo"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:metalinjection-lombardo"]
+      },
+      "strength": 0.6
+    }
+  ],
+  "pedagogy": {
+    "books": [
+      {
+        "title": "Hellraiser (autobiography)",
+        "year": 2009,
+        "evidence": {
+          "confidence": "likely"
+        }
+      }
+    ],
+    "philosophy": [
+      {
+        "idea": "Time is everything; the drummer is the driving force of the band.",
+        "paraphrase_of_source_id": "src:wiki-mirror-baker"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.9,
+    "innovations": [
+      "Two bass drums in rock",
+      "Jazz polyrhythm and extended solos in rock",
+      "Early Western rock engagement with Nigerian music"
+    ],
+    "cultural_references": [
+      {
+        "description": "Rolling Stone once ranked him the third-greatest rock drummer, behind Moon and Bonham.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ap-baker"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he saw himself as a rock drummer. He considered himself a jazz drummer."
+    ]
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:baker-sunshine-tom-archetype",
+      "pattern:baker-toad-ostinato-archetype",
+      "pattern:baker-afro-12-8-archetype"
+    ],
+    "default_kit_sound": "Loud open 60s kit, two kicks, tuned toms",
+    "generation_rules": [
+      "Let toms carry grooves.",
+      "Use K/K2 ostinatos under tom phrases in solos.",
+      "Allow triplet and 12/8 feels."
+    ],
+    "avoid": ["Tight quantised rock", "Ghost-note funk"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:phil-seamen",
+        "drummer:elvin-jones",
+        "drummer:art-blakey",
+        "style:west-african"
+      ],
+      "primary_descendants": ["drummer:dave-lombardo"],
+      "lineage_blurb": "Jazz-schooled by Phil Seamen, he brought Elvin and Blakey into rock, then took rock to Lagos."
+    },
+    "tags": ["rock", "jazz", "double bass", "60s", "africa"]
+  }
+}

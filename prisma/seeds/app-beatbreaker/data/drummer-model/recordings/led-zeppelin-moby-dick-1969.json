@@ -1,0 +1,37 @@
+{
+  "id": "rec:led-zeppelin-moby-dick-1969",
+  "title": "Moby Dick",
+  "artist": "Led Zeppelin",
+  "release": "Led Zeppelin II",
+  "year": 1969,
+  "type": "studio_track",
+  "style_ids": ["style:hard-rock", "style:blues-rock"],
+  "later_versions": [
+    {
+      "note": "Live versions ran to twenty minutes and more; one is in the film The Song Remains the Same (1976)."
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-bonham",
+      "name": "John Bonham",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "His solo feature: a riff frames a drum solo, part of it played with his bare hands.",
+      "notable_moments": [
+        {
+          "category": "solo",
+          "description": "Part of the solo is played with the hands rather than sticks.",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:bonham-wikipedia-moby"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:bonham-wikipedia-moby"]
+  }
+}

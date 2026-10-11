@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://beatbreaker.app/schema/sources.schema.json",
+  "title": "Source registry",
+  "type": "array",
+  "items": {
+    "$ref": "common.schema.json#/$defs/Source"
+  }
+}

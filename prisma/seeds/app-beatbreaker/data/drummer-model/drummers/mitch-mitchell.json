@@ -1,0 +1,583 @@
+{
+  "meta": {
+    "id": "drummer:mitch-mitchell",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Resolve birth year (1946 vs 1947).",
+      "Transcribe 'Manic Depression' and 'Fire' from stems.",
+      "Confirm name of the children's TV programme he appeared in."
+    ]
+  },
+  "identity": {
+    "name": "Mitch Mitchell",
+    "full_name": "John Graham Mitchell",
+    "born": {
+      "date": "1946-07-09",
+      "place": "Ealing, London, England",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-mitchell"],
+        "alternatives": [
+          {
+            "value": "1947-07-09",
+            "source_ids": ["src:drumchat-mitchell"]
+          }
+        ],
+        "note": "Place from general knowledge."
+      }
+    },
+    "died": {
+      "date": "2008-11-12",
+      "place": "Portland, Oregon, USA"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London R&B and jazz (1960s)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1962,
+      "to": 2008
+    },
+    "roles": ["band_member", "session", "touring"],
+    "summary": "The Jimi Hendrix Experience's drummer: Elvin Jones playing rock, as fellow drummers put it. Fluid triplets, jazz ride work and constant interplay with Hendrix's guitar, so he rarely needed to solo because he was soloing all the time. Recorded Are You Experienced aged about 20."
+  },
+  "formation": {
+    "teachers": [],
+    "traditions": [
+      {
+        "tradition": "Jazz drumming",
+        "impact": "Elvin Jones, Tony Williams, Max Roach, Philly Joe Jones and Joe Morello shaped his triplet flow and ride work.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-mitchell"]
+        }
+      },
+      {
+        "tradition": "British R&B",
+        "impact": "Georgie Fame and the Blue Flames, December 1965 to October 1966.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-mitchell", "src:charleston-mitchell"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Child actor on a children's TV programme as a teenager.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:drumchat-mitchell"]
+        }
+      },
+      {
+        "year": 1966,
+        "event": "Invited by Chas Chandler to audition for the band being built around Jimi Hendrix; meant to be a two-week gig.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:charleston-mitchell", "src:npr-mitchell"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:mitchell-experience",
+      "label": "Jimi Hendrix Experience",
+      "years": {
+        "from": 1966,
+        "to": 1970
+      },
+      "context": "Three studio albums, Woodstock 1969, later lineups.",
+      "defining_traits": ["jazz triplets in rock", "shadowing the guitar", "ride cymbal swing"],
+      "key_recording_ids": [
+        "rec:hendrix-manic-depression-1967",
+        "rec:hendrix-fire-1967",
+        "rec:hendrix-wind-cries-mary-1967",
+        "rec:hendrix-woodstock-1969"
+      ]
+    },
+    {
+      "id": "era:mitchell-after",
+      "label": "After Hendrix",
+      "years": {
+        "from": 1971,
+        "to": 2008
+      },
+      "context": "Ramatam, sessions, Experience Hendrix tours until his death.",
+      "defining_traits": ["keeper of the Hendrix legacy"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:psychedelic-rock",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.6,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.7,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.5,
+        "authority": 0.3
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.4,
+    "role_tendency": "conversational",
+    "descriptors": ["fluid", "explosive", "jazz-tinged", "interactive"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred"
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.25,
+      "typical_swing_ratio": 0.64
+    },
+    "dynamics": {
+      "range": 0.85,
+      "default_level": "f",
+      "ghost_note_level": 35,
+      "accent_level": 120
+    },
+    "density": {
+      "groove_notes_per_bar": [10, 30],
+      "fill_frequency": "constant_commentary",
+      "space_usage": 0.25
+    },
+    "consistency": 0.8,
+    "tempo_comfort_bpm": [60, 200],
+    "timekeeping_context": ["free"],
+    "interaction": "Shadows Hendrix's solos almost note for note, then drops back into the backbeat.",
+    "descriptors": ["constantly soloing", "polyrhythmic dervish"]
+  },
+  "technique_profile": {
+    "grip": ["traditional"],
+    "hand_techniques": [
+      {
+        "name": "Triplet rolls around the kit",
+        "description": "Elvin-style triplets in rock contexts.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:md-mitchell", "src:charleston-mitchell"]
+        }
+      },
+      {
+        "name": "Jazz ride work",
+        "description": "Swinging ride patterns inside rock grooves.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:charleston-mitchell"]
+        }
+      }
+    ],
+    "foot_techniques": [],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.85,
+      "linear_playing": 0.4,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.8,
+      "odd_meter_fluency": 0.6
+    },
+    "voice_language": {
+      "ride": "Jazz ride time.",
+      "snare": "Busy, conversational, drags and rolls.",
+      "toms": "Triplet runs."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.3
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["bright 60s kit", "open toms", "ride-forward"],
+    "sample_hints": {
+      "60s": "Ludwig or Premier kit, open tuning, jazz ride."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:charleston-mitchell"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:mitchell-elvin-in-rock",
+      "label": "Elvin Jones playing rock",
+      "category": "feel",
+      "description": "Fellow drummers describe his fluidity and triplets as Elvin Jones' influence brought into rock; 'Manic Depression' is his version of Elvin.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:md-mitchell", "src:npr-mitchell"]
+      },
+      "pattern_ids": ["pattern:mitchell-manic-depression-archetype"]
+    },
+    {
+      "id": "trait:mitchell-shadowing",
+      "label": "Shadowing the guitar",
+      "category": "musical_approach",
+      "description": "Mirrors Hendrix's solo phrases on the drums, as in the 'The Wind Cries Mary' guitar break.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:npr-mitchell"]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:hendrix-wind-cries-mary-1967"
+        }
+      ]
+    },
+    {
+      "id": "trait:mitchell-traditional-grip",
+      "label": "Jazz grip in rock",
+      "category": "technique",
+      "description": "Held his sticks in traditional jazz grip.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:npr-mitchell"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:mitchell-manic-depression-archetype",
+        "name": "Rock jazz waltz (Manic Depression style)",
+        "type": "groove",
+        "style_ids": ["style:psychedelic-rock", "style:jazz-waltz"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred"
+        },
+        "time_signature": {
+          "numerator": 3,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 2,
+        "feel": "triplet",
+        "tempo": {
+          "playable_range_bpm": [160, 190]
+        },
+        "lanes": {
+          "ride": "x..x.xx..|x..x.xx..",
+          "hihat_pedal": "...k..k..|...k..k..",
+          "snare": "..g..X.gg|.g..X..gX",
+          "kick": "x.....x..|x....x..."
+        },
+        "source": {
+          "recording_id": "rec:hendrix-manic-depression-1967"
+        },
+        "cross_rhythms": [
+          {
+            "ratio": "2:3",
+            "voices": ["kick"],
+            "description": "Implied 6/8 against the 3/4."
+          }
+        ],
+        "derived_from": [
+          {
+            "pattern_id": "pattern:elvin-waltz-archetype",
+            "drummer_id": "drummer:elvin-jones",
+            "how": "Elvin's Coltrane-era waltz played with rock volume and density",
+            "evidence": {
+              "confidence": "verified",
+              "source_ids": ["src:npr-mitchell", "src:md-mitchell"]
+            }
+          }
+        ],
+        "difficulty": 7,
+        "tags": ["waltz", "3/4", "triplets", "rock"]
+      },
+      {
+        "id": "pattern:mitchell-fire-archetype",
+        "name": "Driving rock groove with busy snare (Fire style)",
+        "type": "groove",
+        "style_ids": ["style:psychedelic-rock"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [140, 160]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....X..gd...X.gg",
+          "kick": "x.x....x.x.x...."
+        },
+        "source": {
+          "recording_id": "rec:hendrix-fire-1967"
+        },
+        "difficulty": 6,
+        "tags": ["rock", "busy"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:mitchell-triplet-outro",
+        "name": "Triplet explosion outro",
+        "description": "Triplets all around the kit in the outro of 'Manic Depression'.",
+        "heard_on": ["rec:hendrix-manic-depression-1967"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:drumchat-mitchell"]
+        }
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Georgie Fame and the Blue Flames",
+      "type": "band_member",
+      "years": {
+        "from": 1965,
+        "to": 1966
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-mitchell"]
+      }
+    },
+    {
+      "name": "The Jimi Hendrix Experience",
+      "type": "band_member",
+      "years": {
+        "from": 1966,
+        "to": 1970
+      },
+      "bandmates": [
+        {
+          "name": "Jimi Hendrix"
+        },
+        {
+          "name": "Noel Redding"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:charleston-mitchell"]
+      }
+    },
+    {
+      "name": "The Dirty Mac",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-mitchell"]
+      }
+    },
+    {
+      "name": "Ramatam",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-mitchell", "src:echoes-mitchell"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:hendrix-manic-depression-1967",
+    "rec:hendrix-fire-1967",
+    "rec:hendrix-wind-cries-mary-1967",
+    "rec:hendrix-woodstock-1969"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-mitchell", "src:npr-mitchell"]
+      },
+      "strength": 1.0
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-mitchell"]
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-mitchell", "src:pollstar-mitchell"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Philly Joe Jones",
+        "kind": "drummer",
+        "id": "drummer:philly-joe-jones"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-mitchell"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Joe Morello",
+        "kind": "drummer",
+        "id": "drummer:joe-morello"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-mitchell"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Jimi Hendrix",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:npr-mitchell"]
+      },
+      "strength": 1.0
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Dave Lombardo",
+        "kind": "drummer",
+        "id": "drummer:dave-lombardo"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:metalinjection-lombardo"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Alex Cline",
+        "kind": "drummer",
+        "id": "drummer:alex-cline"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:greenleaf-mitchell"],
+        "note": "Tribute essay by a drummer whose twin brother is Nels; attribution to Alex Cline inferred."
+      },
+      "strength": 0.6
+    }
+  ],
+  "pedagogy": {
+    "philosophy": []
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "Jazz triplet language and ride work in hard rock",
+      "Drummer as constant soloist alongside the guitar"
+    ],
+    "accolades": [
+      {
+        "award": "Rock and Roll Hall of Fame (Jimi Hendrix Experience)",
+        "year": 1992,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-mitchell"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Played Woodstock 1969 with Hendrix's band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pollstar-mitchell"]
+        }
+      }
+    ],
+    "common_misconceptions": []
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:mitchell-manic-depression-archetype",
+      "pattern:mitchell-fire-archetype"
+    ],
+    "default_kit_sound": "Bright open 60s kit with jazz ride",
+    "generation_rules": [
+      "Triplet fills by default.",
+      "Frequent commentary on snare and toms; follow the lead line.",
+      "Jazz waltz option for 3/4."
+    ],
+    "avoid": ["Sparse pocket minimalism", "Straight 16th funk"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:elvin-jones", "drummer:tony-williams", "drummer:max-roach"],
+      "primary_descendants": ["drummer:dave-lombardo"],
+      "lineage_blurb": "Elvin Jones' waltz and triplets, turned up loud next to Hendrix."
+    },
+    "tags": ["rock", "jazz", "60s", "psychedelic", "triplets"],
+    "style_key": "mitchell"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "rec:stuff-1976",
+  "title": "Stuff",
+  "artist": "Stuff",
+  "release": "Stuff",
+  "year": 1976,
+  "type": "album",
+  "personnel": [
+    {
+      "name": "Chris Parker",
+      "role": "drums"
+    },
+    {
+      "name": "Richard Tee",
+      "role": "keys"
+    },
+    {
+      "name": "Cornell Dupree",
+      "role": "guitar"
+    },
+    {
+      "name": "Eric Gale",
+      "role": "guitar"
+    },
+    {
+      "name": "Gordon Edwards",
+      "role": "bass"
+    }
+  ],
+  "style_ids": ["style:rnb-soul"],
+  "evidence": {
+    "confidence": "likely"
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-gadd",
+      "name": "Steve Gadd",
+      "drummer_role": "co_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Deep R&B pocket in a band of session aces, sometimes with two drummers."
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+[
+  {
+    "id": "src:bonham-wikipedia",
+    "type": "encyclopedia",
+    "title": "John Bonham - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/John_Bonham",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonham-musicradar-1",
+    "type": "magazine",
+    "title": "MusicRadar: The best John Bonham beats and fills every drummer should learn",
+    "url": "https://musicradar.com/news/best-john-bonham-beats-and-fills",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonham-musicradar-2",
+    "type": "magazine",
+    "title": "MusicRadar: Career in beats: John Bonham",
+    "url": "https://www.musicradar.com/rhythm/career-in-beats-john-bonham-252984",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonham-drumeo-triplets",
+    "type": "video_lesson",
+    "title": "Drumeo: How to play triplets like Bonham (Brian Tichy)",
+    "url": "https://www.drumeo.com/beat/how-to-play-triplets-like-bonham/",
+    "reliability": 0.75,
+    "accessed": "2026-10-11",
+    "notes": "Also tells the story of the triplet coming from a Carmine Appice track."
+  },
+  {
+    "id": "src:bonham-drumeo-grooves",
+    "type": "video_lesson",
+    "title": "Drumeo: Breaking down the grooves of John Bonham",
+    "url": "https://drumeo.com/grooves-of-john-bonham",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonham-drumeo-licks",
+    "type": "video_lesson",
+    "title": "Drumeo: 5 John Bonham drum licks",
+    "url": "https://www.drumeo.com/beat/5-john-bonham-drum-licks/",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonham-bonedo",
+    "type": "magazine",
+    "title": "bonedo.de: John Bonham - Biografie, Stil und Equipment",
+    "url": "https://www.bonedo.de/artikel/john-bonham-biografie-stil-und-equipment-des-led-zeppelin-drummers/",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonham-drummercafe-immigrant",
+    "type": "transcription",
+    "title": "Drummer Cafe: Led Zeppelin, Immigrant Song drum groove",
+    "url": "https://drummercafe.com/education/lessons/led-zeppelin-immigrant-song-drum-groove",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonham-faroutmagazine-purdie",
+    "type": "magazine",
+    "title": "Far Out: John Bonham's favourite drummer, according to Robert Plant",
+    "url": "https://faroutmagazine.co.uk/john-bonham-favourite-drummer-robert-plant/",
+    "reliability": 0.5,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonham-loudersound-rs",
+    "type": "news",
+    "title": "Louder: John Bonham named best drummer of all time (Rolling Stone, 2016)",
+    "url": "https://loudersound.com/news/john-bonham-named-best-drummer-of-all-time",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonham-songbpm",
+    "type": "analysis",
+    "title": "songbpm.com: Led Zeppelin tempos",
+    "url": "https://songbpm.com/@led-zeppelin",
+    "reliability": 0.5,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonham-rockhall",
+    "type": "encyclopedia",
+    "title": "Rock and Roll Hall of Fame: Led Zeppelin",
+    "url": "https://www.rockhall.com/inductees/led-zeppelin",
+    "reliability": 0.85,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonham-wikipedia-gtbt",
+    "type": "encyclopedia",
+    "title": "Good Times Bad Times - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Good_Times_Bad_Times",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonham-wikipedia-moby",
+    "type": "encyclopedia",
+    "title": "Moby Dick (instrumental) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Moby_Dick_(instrumental)",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonham-wikipedia-immigrant",
+    "type": "encyclopedia",
+    "title": "Immigrant Song - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Immigrant_Song",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonham-wikipedia-levee",
+    "type": "encyclopedia",
+    "title": "When the Levee Breaks - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/When_the_Levee_Breaks",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonham-wikipedia-kashmir",
+    "type": "encyclopedia",
+    "title": "Kashmir (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Kashmir_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonham-wikipedia-fool",
+    "type": "encyclopedia",
+    "title": "Fool in the Rain - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Fool_in_the_Rain",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonham-wikipedia-rosanna",
+    "type": "encyclopedia",
+    "title": "Rosanna (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Rosanna_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-11",
+    "notes": "Porcaro describes the Rosanna shuffle as Purdie shuffle plus Bonham's Fool in the Rain feel plus Bo Diddley."
+  }
+]

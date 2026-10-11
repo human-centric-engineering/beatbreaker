@@ -1,0 +1,37 @@
+{
+  "id": "rec:coltrane-a-love-supreme-1965",
+  "title": "A Love Supreme",
+  "artist": "John Coltrane",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "personnel": [
+    {
+      "name": "John Coltrane",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "McCoy Tyner",
+      "role": "piano"
+    },
+    {
+      "name": "Jimmy Garrison",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "Recorded December 1964; released 1965.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:elvin-jones",
+      "name": "Elvin Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Among the most influential jazz albums; Jones' polyrhythmic intensity is central to its spiritual arc.",
+      "pattern_ids": ["pattern:elvin-triplet-cross-rhythm-archetype"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:britannica-elvin", "src:aaj-elvin"]
+  }
+}

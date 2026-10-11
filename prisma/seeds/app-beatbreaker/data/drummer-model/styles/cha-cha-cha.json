@@ -1,0 +1,18 @@
+{
+  "id": "style:cha-cha-cha",
+  "name": "Cha-cha-chá",
+  "kind": "groove_family",
+  "region": "Cuba",
+  "era": {
+    "from": 1953
+  },
+  "parents": [
+    {
+      "style_id": "style:cuban-son",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ]
+}

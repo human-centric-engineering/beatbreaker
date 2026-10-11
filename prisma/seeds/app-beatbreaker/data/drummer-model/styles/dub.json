@@ -1,0 +1,16 @@
+{
+  "id": "style:dub",
+  "name": "Dub",
+  "kind": "sub_genre",
+  "region": "Jamaica",
+  "parents": [
+    {
+      "style_id": "style:reggae",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "summary": "Producer-led reggae remixing; echo and delay as instruments."
+}

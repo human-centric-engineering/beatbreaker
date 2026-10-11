@@ -1,0 +1,11 @@
+{
+  "id": "style:new-orleans-second-line",
+  "name": "New Orleans second line",
+  "kind": "tradition",
+  "region": "New Orleans and the Gulf Coast",
+  "summary": "Parade drumming from brass band culture; syncopated snare and bass drum interplay that fed funk.",
+  "drum_characteristics": {
+    "feel": "Syncopated, swung-straight hybrid",
+    "hallmarks": ["press rolls", "syncopated bass drum", "parade march feel"]
+  }
+}

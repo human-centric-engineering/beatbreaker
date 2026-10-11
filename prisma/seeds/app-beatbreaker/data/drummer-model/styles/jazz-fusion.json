@@ -1,0 +1,39 @@
+{
+  "id": "style:jazz-fusion",
+  "name": "Jazz fusion",
+  "kind": "genre",
+  "parents": [
+    {
+      "style_id": "style:jazz",
+      "relation": "fusion_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:funk",
+      "relation": "fusion_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:rock",
+      "relation": "fusion_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1968
+  },
+  "drum_characteristics": {
+    "hallmarks": [
+      "ensemble figures",
+      "odd meters",
+      "16th-note funk with jazz vocabulary",
+      "solo features"
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "id": "rec:led-zeppelin-when-the-levee-breaks-1971",
+  "title": "When the Levee Breaks",
+  "artist": "Led Zeppelin",
+  "release": "Led Zeppelin IV",
+  "year": 1971,
+  "type": "studio_track",
+  "producer": "Jimmy Page",
+  "style_ids": ["style:hard-rock", "style:blues-rock"],
+  "tempo_bpm": 72,
+  "time_signature": "4/4",
+  "studio_context": "Drums recorded at Headley Grange with the kit in the hallway at the foot of the stairs and the microphones up the stairwell (engineer Andy Johns); the echo on the drums is production, not playing.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-bonham",
+      "name": "John Bonham",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The slow, enormous groove behind the beat, and one of the most sampled drum recordings there is.",
+      "pattern_ids": ["pattern:bonham-levee-approx"],
+      "notable_moments": [
+        {
+          "category": "sound",
+          "description": "The stairwell sound at Headley Grange.",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:bonham-wikipedia-levee"]
+          }
+        },
+        {
+          "category": "feel",
+          "description": "Sits well behind the beat, a soft ghost after each backbeat.",
+          "pattern_id": "pattern:bonham-levee-approx",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:bonham-drumeo-grooves"]
+          }
+        }
+      ]
+    }
+  ],
+  "sampled_by": [
+    {
+      "artist": "Beastie Boys",
+      "title": "Rhymin & Stealin",
+      "year": 1986,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bonham-wikipedia-levee"]
+      }
+    },
+    {
+      "artist": "Dr. Dre",
+      "title": "Lyrical Gangbang",
+      "year": 1992,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bonham-wikipedia-levee"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:bonham-wikipedia-levee"]
+  }
+}

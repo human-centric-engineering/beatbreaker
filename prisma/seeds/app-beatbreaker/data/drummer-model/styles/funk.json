@@ -1,0 +1,70 @@
+{
+  "id": "style:funk",
+  "name": "Funk",
+  "kind": "genre",
+  "parents": [
+    {
+      "style_id": "style:rnb-soul",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:new-orleans-second-line",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:jazz",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1964
+  },
+  "summary": "Emphasis on the one, interlocking syncopation and ghost notes. Codified in James Brown's bands.",
+  "drum_characteristics": {
+    "feel": "Straight or lightly swung 16ths",
+    "subdivision": "16ths",
+    "tempo_range_bpm": [85, 125],
+    "hallmarks": ["emphasis on the one", "ghost notes", "syncopated kick", "open hi-hat accents"],
+    "avoid": ["busy fills", "crash on every bar"]
+  },
+  "key_drummer_ids": [
+    "drummer:jabo-starks",
+    "drummer:clyde-stubblefield",
+    "drummer:bernard-purdie"
+  ],
+  "archetype_patterns": [
+    {
+      "id": "pattern:style-funk-16th",
+      "name": "Basic 16th funk",
+      "type": "groove",
+      "fidelity": "stylistic_archetype",
+      "transcription": {
+        "status": "archetype"
+      },
+      "time_signature": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "steps_per_beat": 4,
+      "bars": 1,
+      "feel": "straight",
+      "lanes": {
+        "hihat": "x.x.x.x.x.x.x.x.",
+        "snare": "....X..g.g..X..g",
+        "kick": "x.x....x..x....."
+      },
+      "tempo": {
+        "playable_range_bpm": [90, 115]
+      }
+    }
+  ]
+}

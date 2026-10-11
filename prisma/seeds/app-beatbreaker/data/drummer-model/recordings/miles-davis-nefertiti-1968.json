@@ -1,0 +1,55 @@
+{
+  "id": "rec:miles-davis-nefertiti-1968",
+  "title": "Nefertiti",
+  "artist": "Miles Davis",
+  "release": "Columbia",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "personnel": [
+    {
+      "name": "Miles Davis",
+      "role": "trumpet"
+    },
+    {
+      "name": "Wayne Shorter",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Herbie Hancock",
+      "role": "piano"
+    },
+    {
+      "name": "Ron Carter",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "Recorded June and July 1967.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams",
+      "name": "Tony Williams",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "On the title track the horns repeat the melody and the drums improvise beneath it, inverting the usual roles.",
+      "notable_moments": [
+        {
+          "category": "arrangement",
+          "description": "Press rolls, swells and fragments develop under the repeated melody.",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:tony-williams-wikipedia", "src:tony-williams-goodman-2011"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-wikipedia", "src:tony-williams-goodman-2011"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tony-williams-wikipedia"]
+  }
+}

@@ -1,0 +1,703 @@
+{
+  "meta": {
+    "id": "drummer:omar-hakim",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Transcribe the 'Money for Nothing' main groove and the Weather Report grooves from stems.",
+      "Confirm which Daft Punk Random Access Memories tracks he plays on.",
+      "Document his electronic and hybrid kit history (Simmons, Roland) from interviews.",
+      "Confirm drummer influences he cites beyond his father."
+    ]
+  },
+  "identity": {
+    "name": "Omar Hakim",
+    "born": {
+      "date": "1959-02-12",
+      "place": "New York City, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-hakim"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York jazz and session scene (1980s onwards)"],
+    "handedness": "unknown",
+    "kit_orientation": "unknown",
+    "active": {
+      "from": 1968,
+      "ongoing": true
+    },
+    "roles": [
+      "session",
+      "touring",
+      "band_member",
+      "bandleader",
+      "composer",
+      "producer",
+      "educator"
+    ],
+    "summary": "A chameleon who moves between jazz fusion and global pop without dilution in either direction. Weather Report's drummer in the early 1980s while also making Bowie's Let's Dance, then the groove behind Sting's first solo album and the drums on almost all of Dire Straits' Brothers in Arms. Combines fusion-level technique with immaculate pop time."
+  },
+  "formation": {
+    "started_age": 5,
+    "teachers": [
+      {
+        "name": "Hasaan Hakim",
+        "role": "Father, trombonist; Omar first performed in his band at around nine or ten.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-hakim"]
+        }
+      }
+    ],
+    "institutions": [
+      {
+        "name": "High School of Music and Art, New York",
+        "outcome": "graduate",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-hakim"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Big band and jazz (through his father)",
+        "impact": "Father's background in big band jazz shaped his ear for ensemble playing.",
+        "evidence": {
+          "confidence": "likely",
+          "note": "Claim that his father played with Ellington and Basie is flagged as needing a citation."
+        }
+      },
+      {
+        "tradition": "New York pop and soul sessions",
+        "impact": "Early career recording with pop and soul groups.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-hakim"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1980,
+        "event": "First major attention backing Carly Simon.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-hakim"]
+        }
+      },
+      {
+        "year": 1982,
+        "event": "Joined Weather Report.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-hakim", "src:roland-hakim"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:hakim-weather-report",
+      "label": "Weather Report and Bowie",
+      "years": {
+        "from": 1982,
+        "to": 1986
+      },
+      "context": "Three albums and three world tours with Weather Report, while also recording two Bowie albums and Bryan Ferry.",
+      "defining_traits": [
+        "fusion vocabulary",
+        "dance-pop precision",
+        "switching worlds week to week"
+      ],
+      "key_recording_ids": ["rec:weather-report-procession-1983", "rec:bowie-lets-dance-1983"]
+    },
+    {
+      "id": "era:hakim-sting-straits",
+      "label": "Sting and Dire Straits",
+      "years": {
+        "from": 1984,
+        "to": 1986
+      },
+      "context": "Re-recorded Brothers in Arms drums in two days; Sting's Dream of the Blue Turtles band and Bring on the Night film.",
+      "defining_traits": ["jazz musicians in a pop setting", "big-room rock groove"],
+      "key_recording_ids": [
+        "rec:dire-straits-money-for-nothing-1985",
+        "rec:sting-dream-blue-turtles-1985"
+      ]
+    },
+    {
+      "id": "era:hakim-global-session",
+      "label": "Global first-call",
+      "years": {
+        "from": 1987,
+        "ongoing": true
+      },
+      "context": "Madonna world tour, Mariah Carey, Celine Dion, Daft Punk, own albums, Trio of OZ with Rachel Z, Berklee.",
+      "defining_traits": ["production thinking", "hybrid electronic kits"],
+      "key_recording_ids": ["rec:daft-punk-ram-2013"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "name": "Jazz fusion",
+        "weight": 0.9,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "name": "Pop / rock",
+        "weight": 0.9,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:funk",
+        "name": "Funk / dance",
+        "weight": 0.8,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:jazz",
+        "name": "Jazz",
+        "weight": 0.6,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "name": "R&B",
+        "weight": 0.6,
+        "authority": 0.5
+      }
+    ],
+    "versatility": 1.0,
+    "groove_vs_chops": 0.0,
+    "role_tendency": "hybrid",
+    "descriptors": ["chameleon", "precise", "fresh", "modern", "producer's drummer"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "Bowie praised his impeccable timing; placement tendency needs stem analysis."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "typical_swing_ratio": 0.6
+    },
+    "dynamics": {
+      "range": 0.85,
+      "default_level": "mf",
+      "ghost_note_level": 30,
+      "accent_level": 118,
+      "balance": "Crisp hats, strong backbeat, punchy kick; ghost notes clean and even."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 28],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.5
+    },
+    "consistency": 0.98,
+    "tempo_comfort_bpm": [60, 240],
+    "interaction": "In pop, a locked, mix-ready groove. In Weather Report, an active, conversational foil for Zawinul and Shorter.",
+    "descriptors": ["impeccable timing", "always fresh", "tight", "clean"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Clean 16th hi-hat work",
+        "description": "Even, articulate 16ths with accent shaping for dance and funk grooves.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely"
+        }
+      },
+      {
+        "name": "Fusion chops",
+        "description": "Fast fills and solo vocabulary from Weather Report, used sparingly in pop.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely"
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Dance-pop kick placement",
+        "description": "Precise four-on-the-floor and syncopated kick patterns for dance records.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "inferred"
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.9,
+      "linear_playing": 0.6,
+      "ostinato_usage": 0.6,
+      "polyrhythm_usage": 0.6,
+      "odd_meter_fluency": 0.8
+    },
+    "voice_language": {
+      "hihat": "Main time voice in pop and funk; open-hat offbeats for dance feels.",
+      "ride": "Jazz ride in acoustic settings.",
+      "snare": "Big, consistent backbeat in pop; ghosted and conversational in fusion.",
+      "kick": "Punchy and exact, locked with bass.",
+      "toms": "Melodic fills, fusion runs.",
+      "percussion": "Electronic pads and triggers in hybrid setups."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.4,
+      "notes": "Electronic and hybrid kits are a notable part of his work; details to verify."
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": ["80s big snare (era-dependent)", "punchy kick", "crisp hats"],
+    "by_era": [
+      {
+        "era_id": "era:hakim-weather-report",
+        "description": "Bright, modern fusion kit; gated, larger snare on 80s pop records."
+      },
+      {
+        "era_id": "era:hakim-global-session",
+        "description": "Varies by production; frequently hybrid acoustic and electronic."
+      }
+    ],
+    "sample_hints": {
+      "80s": "Big gated snare, tight punchy kick, bright hats",
+      "modern": "Clean, close-miked kit with electronic layers"
+    },
+    "evidence": {
+      "confidence": "inferred"
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:hakim-two-worlds",
+      "label": "Fusion and pop at the same time",
+      "category": "musical_approach",
+      "description": "Held the Weather Report chair while making Bowie records; each world stays authentic rather than blended into a compromise.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roland-hakim"]
+      }
+    },
+    {
+      "id": "trait:hakim-timing",
+      "label": "Impeccable timing",
+      "category": "feel",
+      "description": "David Bowie described him as fascinating, with impeccable timing and a consistently fresh approach.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-hakim"]
+      }
+    },
+    {
+      "id": "trait:hakim-fast-fix",
+      "label": "The fixer",
+      "category": "studio_practice",
+      "description": "Brought in late to Brothers in Arms and re-recorded the album's drums in two days.",
+      "audibility": "subtle",
+      "frequency": "occasional",
+      "heard_on": [
+        {
+          "recording_id": "rec:dire-straits-money-for-nothing-1985"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-hakim"]
+      }
+    },
+    {
+      "id": "trait:hakim-hybrid",
+      "label": "Hybrid acoustic and electronic kit",
+      "category": "setup",
+      "description": "Integrates electronic drums and pads with acoustic kit as part of his sound.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "needs_verification"
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:hakim-money-for-nothing-archetype",
+        "name": "Big-room rock groove (Money for Nothing style)",
+        "type": "groove",
+        "function": "Main groove",
+        "style_ids": ["style:rock", "style:pop-rock-session"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Illustrative only. Transcribe from the record."
+        },
+        "source": {
+          "recording_id": "rec:dire-straits-money-for-nothing-1985"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [125, 140]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....X.......X...",
+          "kick": "x.....x.x......."
+        },
+        "humanise": {
+          "timing_jitter_ms": 2,
+          "velocity_jitter": 6
+        },
+        "difficulty": 2,
+        "tags": ["rock", "80s", "big snare"]
+      },
+      {
+        "id": "pattern:hakim-fusion-16th-archetype",
+        "name": "Fusion 16th groove with ghosts and open hat",
+        "type": "groove",
+        "function": "Up-tempo fusion vamp",
+        "style_ids": ["style:jazz-fusion", "style:funk"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [100, 125]
+        },
+        "lanes": {
+          "hihat": "xxxxxxoxxxxxxxox|xxxxxxoxxxxxxxxx",
+          "snare": "....X.g..g..X.g.|.g..X.g..g..X.gg",
+          "kick": "x..x...x..x.....|x..x...x..x.x..."
+        },
+        "humanise": {
+          "timing_jitter_ms": 2,
+          "velocity_jitter": 8
+        },
+        "variation_rules": [
+          {
+            "description": "Replace last beat of bar 2 with a 16th tom fill",
+            "probability": 0.25,
+            "applies_to": "every 4th bar"
+          }
+        ],
+        "difficulty": 7,
+        "tags": ["fusion", "16ths", "ghost notes"]
+      },
+      {
+        "id": "pattern:hakim-dance-pop-archetype",
+        "name": "Dance-pop groove with open-hat offbeats",
+        "type": "groove",
+        "function": "Dance / pop chorus",
+        "style_ids": ["style:pop-rock-session", "style:funk"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Represents his dance-pop work (Bowie, Madonna, Daft Punk) in general terms."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [110, 125]
+        },
+        "lanes": {
+          "hihat": "x.o.x.o.x.o.x.o.",
+          "snare": "....X..g....X...",
+          "kick": "x...x...x...x..."
+        },
+        "humanise": {
+          "timing_jitter_ms": 2,
+          "velocity_jitter": 6
+        },
+        "difficulty": 3,
+        "tags": ["dance", "disco", "four on the floor"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:hakim-weather-report-solo",
+        "name": "Weather Report solo language",
+        "description": "Fusion solo vocabulary from his Weather Report live years.",
+        "heard_on": ["rec:weather-report-procession-1983"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "inferred"
+        }
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Carly Simon",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1980
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-hakim"]
+      }
+    },
+    {
+      "name": "Weather Report",
+      "type": "band_member",
+      "years": {
+        "from": 1982,
+        "to": 1986
+      },
+      "bandmates": [
+        {
+          "name": "Joe Zawinul"
+        },
+        {
+          "name": "Wayne Shorter"
+        },
+        {
+          "name": "Victor Bailey"
+        }
+      ],
+      "notes": "Three albums and three world tours.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roland-hakim"]
+      }
+    },
+    {
+      "name": "Sting",
+      "type": "band_member",
+      "years": {
+        "from": 1985,
+        "to": 1986
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roland-hakim"]
+      }
+    },
+    {
+      "name": "Madonna",
+      "type": "touring_drummer",
+      "notes": "World tour in the 1990s.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:roland-hakim"]
+      }
+    },
+    {
+      "name": "Journey",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2015,
+        "to": 2015
+      },
+      "notes": "Temporary replacement on a North American tour.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-hakim"]
+      }
+    },
+    {
+      "name": "Trio of OZ",
+      "type": "band_member",
+      "bandmates": [
+        {
+          "name": "Rachel Z"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roland-hakim"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:weather-report-procession-1983",
+    "rec:bowie-lets-dance-1983",
+    "rec:dire-straits-money-for-nothing-1985",
+    "rec:sting-dream-blue-turtles-1985",
+    "rec:daft-punk-ram-2013"
+  ],
+  "relationships": [
+    {
+      "type": "family",
+      "target": {
+        "name": "Hasaan Hakim",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "aspects": ["first band experience", "jazz ensemble ear"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-hakim"]
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Peter Erskine (Weather Report)",
+        "kind": "drummer",
+        "id": "drummer:peter-erskine"
+      },
+      "years": {
+        "from": 1982
+      },
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Terry Williams (Brothers in Arms sessions)",
+        "kind": "drummer",
+        "id": "drummer:terry-williams"
+      },
+      "years": {
+        "from": 1984,
+        "to": 1985
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-hakim"]
+      }
+    },
+    {
+      "type": "sub_for",
+      "target": {
+        "name": "Deen Castronovo (Journey)",
+        "kind": "drummer"
+      },
+      "years": {
+        "from": 2015,
+        "to": 2015
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-hakim"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Victor Bailey",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Tony Thompson",
+        "kind": "drummer",
+        "id": "drummer:tony-thompson"
+      },
+      "aspects": ["Let's Dance sessions"],
+      "evidence": {
+        "confidence": "likely"
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Serve each musical world on its own terms rather than importing one style into another."
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.8,
+    "innovations": [
+      "Template for the modern drummer who is equally credible in fusion and global pop",
+      "Early adopter of hybrid electronic kits in high-profile pop"
+    ],
+    "accolades": [
+      {
+        "award": "Chair, Berklee Percussion Department",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-hakim"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Performed with Daft Punk at the Grammys and on Random Access Memories.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:roland-hakim"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That Terry Williams plays 'Money for Nothing'. Williams plays only the improvised intro crescendo; Hakim plays the rest of the album."
+    ]
+  },
+  "beatbreaker": {
+    "headline_pattern_ids": [
+      "pattern:hakim-fusion-16th-archetype",
+      "pattern:hakim-money-for-nothing-archetype",
+      "pattern:hakim-dance-pop-archetype"
+    ],
+    "default_kit_sound": "Bright modern kit; 80s option with big gated snare",
+    "generation_rules": [
+      "Tight timing, low jitter (2 ms).",
+      "Clean, even ghost notes; crisp 16th hats.",
+      "Pick register by context: big and simple for pop, dense and conversational for fusion."
+    ],
+    "avoid": ["Sloppy or heavily swung feels", "Dated 'busy' fills in pop contexts"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:peter-erskine"],
+      "primary_descendants": [],
+      "lineage_blurb": "Raised in jazz by a trombonist father, he took Weather Report's chair and carried fusion precision into 80s pop."
+    },
+    "tags": ["fusion", "pop", "80s", "session", "dance", "hybrid"]
+  }
+}

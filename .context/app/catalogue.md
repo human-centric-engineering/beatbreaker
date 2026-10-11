@@ -114,7 +114,9 @@ Picking one is `setStyle`, like any style.
 - **Approximate grooves.** Every song groove is an approximation, not a
   transcription. The source is `planning/drumming-research.md`, §C and §D.
 - **Adding one** is a style in `data/styles.ts` with `drummer: true`, listed in
-  a `… drummers` group of `STYLE_GROUPS`.
+  a `… drummers` group of `STYLE_GROUPS`, **and a record** in the drummer model
+  whose `beatbreaker.style_key` names it (Phase 11, D47). A test fails without
+  either half; see [`drummers.md`](./drummers.md).
 
 ### A style with songs
 

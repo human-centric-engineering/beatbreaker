@@ -1,0 +1,31 @@
+{
+  "id": "style:mambo",
+  "name": "Mambo",
+  "kind": "genre",
+  "region": "Cuba / New York",
+  "era": {
+    "from": 1938
+  },
+  "parents": [
+    {
+      "style_id": "style:cuban-son",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:big-band-swing",
+      "relation": "fusion_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "summary": "Big band Afro-Cuban dance music; New York Palladium era led by Tito Puente, Machito and Tito Rodríguez.",
+  "key_drummer_ids": ["drummer:tito-puente"],
+  "drum_characteristics": {
+    "key_voices": ["timbale_high", "timbale_low", "cowbell"],
+    "hallmarks": ["mambo bell on the montuno", "cáscara on verses", "abanico roll into sections"]
+  }
+}

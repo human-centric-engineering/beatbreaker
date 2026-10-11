@@ -1,0 +1,690 @@
+[
+  {
+    "id": "src:wikipedia",
+    "type": "encyclopedia",
+    "title": "Steve Gadd - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Steve_Gadd",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:remo-profile",
+    "type": "manufacturer_profile",
+    "title": "Remo artist profile: Steve Gadd",
+    "url": "https://remo.com/profile/steve-gadd",
+    "reliability": 0.8,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:yamaha-profile",
+    "type": "manufacturer_profile",
+    "title": "Yamaha artist profile: Steve Gadd",
+    "url": "https://www.yamaha.com/artists/stevegadd.html",
+    "reliability": 0.8,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:modern-drummer",
+    "type": "magazine",
+    "title": "Modern Drummer: Steve Gadd",
+    "url": "https://www.moderndrummer.com/?p=450752",
+    "reliability": 0.85,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:adolphesax",
+    "type": "biography",
+    "title": "Steve Gadd and the Gadd Gang (adolphesax.com)",
+    "url": "https://adolphesax.com/en/videos/steve-gadd-and-the-gadd-gang-signed-sealed-delivered",
+    "reliability": 0.5,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bfmjazz",
+    "type": "biography",
+    "title": "Steve Gadd and Friends (bfmjazz.com)",
+    "url": "https://bfmjazz.com/steve-gadd-and-friends",
+    "reliability": 0.5,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:drumlib",
+    "type": "biography",
+    "title": "Drummer library: Steve Gadd",
+    "url": "https://drumlib.duckdns.org/drummers/Steve%20Gadd/",
+    "reliability": 0.4,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:invisible-oranges-davies",
+    "type": "interview",
+    "title": "Invisible Oranges: Interview with Adrienne Davies",
+    "url": "https://www.invisibleoranges.com/?p=39710",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:phoenix-new-times-davies",
+    "type": "interview",
+    "title": "Phoenix New Times: Earth drummer Adrienne Davies",
+    "url": "https://www.phoenixnewtimes.com/?p=40539774",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:brooklyn-rail-davies",
+    "type": "interview",
+    "title": "Brooklyn Rail: Adrienne Davies of Earth in conversation (2019)",
+    "url": "https://brooklynrail.org/2019/10/music/Lighter-And-Heavier-Adrienne-Davies-of-Earth-In-Conversation/",
+    "reliability": 0.8,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bandcamp-davies",
+    "type": "interview",
+    "title": "Bandcamp Daily: Adrienne Davies, Earth's Core (2016)",
+    "url": "https://daily.bandcamp.com/features/adrienne-davies-interview",
+    "reliability": 0.8,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:tomtom-davies",
+    "type": "interview",
+    "title": "Tom Tom Magazine: Earth's Adrienne Davies (2011)",
+    "url": "https://tomtommag.com/2011/12/earths-adrienne-davies/",
+    "reliability": 0.8,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:metal-insider-davies",
+    "type": "interview",
+    "title": "Metal Insider: Adrienne Davies on Primitive and Deadly",
+    "url": "https://metalinsider.net/?p=77670",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:pas-starks",
+    "type": "obituary",
+    "title": "Percussive Arts Society: In Memoriam John 'Jabo' Starks",
+    "url": "https://pas.org/?p=5594",
+    "reliability": 0.9,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:wapo-starks",
+    "type": "obituary",
+    "title": "Washington Post obituary (via Pittsburgh Post-Gazette)",
+    "url": "https://www.pressreader.com/usa/pittsburgh-post-gazette/20180503/281724090174354",
+    "reliability": 0.85,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:rollingstone-starks",
+    "type": "magazine",
+    "title": "Rolling Stone: Jabo Starks, 5 classic tracks",
+    "url": "https://www.rollingstone.com/music/lists/james-brown-drummer-john-jabo-starks-5-classic-tracks-w519744",
+    "reliability": 0.85,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stranger-starks",
+    "type": "news",
+    "title": "The Stranger: Jabo Starks has died",
+    "url": "https://www.thestranger.com/music/another-of-james-browns-funky-drummers-john-jabo-starks-has-died-26127752/",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:udiscover-starks",
+    "type": "news",
+    "title": "uDiscover Music: Jabo Starks dies at 79",
+    "url": "https://www.udiscovermusic.com/news/john-jabo-starks-dies-79/",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bonedo-starks",
+    "type": "news",
+    "title": "Bonedo: James Brown drummer Jabo Starks has died",
+    "url": "https://www.bonedo.de/?p=205772",
+    "reliability": 0.6,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:wikipedia-hakim",
+    "type": "encyclopedia",
+    "title": "Omar Hakim - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Omar_Hakim",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:roland-hakim",
+    "type": "manufacturer_profile",
+    "title": "Roland: Omar Hakim, the drummer's drummer",
+    "url": "https://rolandindonesia.com/omar-hakim-the-drummers-drummer/",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:dnn-purdie",
+    "type": "news",
+    "title": "Drumming News Network: Bernard Purdie interview notice",
+    "url": "https://drummingnewsnetwork.com/?p=14460",
+    "reliability": 0.6,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:wiki-mirror-purdie",
+    "type": "encyclopedia",
+    "title": "Bernard Purdie biography (Wikipedia-derived)",
+    "url": "https://micklabriola.com/?p=57008",
+    "reliability": 0.55,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:rbma-purdie",
+    "type": "interview",
+    "title": "Red Bull Music Academy: Give the Drummer Some, Bernard Purdie",
+    "url": "https://daily.redbullmusicacademy.com/2019/03/give-the-drummer-some-bernard-purdie",
+    "reliability": 0.85,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:wiki-old-purdie",
+    "type": "encyclopedia",
+    "title": "Bernard Purdie (older Wikipedia snapshot)",
+    "url": "https://wikipedia.classicistranieri.com/en/articles/b/e/r/Bernard_Purdie_22b4.html",
+    "reliability": 0.5,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:historyofrecording-purdie",
+    "type": "biography",
+    "title": "History of Recording: Bernard 'Pretty' Purdie",
+    "url": "https://historyofrecording.com/Bernard_Pretty_Purdie.html",
+    "reliability": 0.5,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:wikipedia-elvin",
+    "type": "encyclopedia",
+    "title": "Elvin Jones - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Elvin_Jones",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:britannica-elvin",
+    "type": "encyclopedia",
+    "title": "Britannica: Elvin Jones",
+    "url": "https://www.Britannica.Com/biography/Elvin-Jones",
+    "reliability": 0.85,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:aaj-elvin",
+    "type": "obituary",
+    "title": "Washington Post obituary via All About Jazz",
+    "url": "https://italia.allaboutjazz.com/php/news.php?id=3715",
+    "reliability": 0.8,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:tampabay-elvin",
+    "type": "obituary",
+    "title": "Tampa Bay Times: Renowned jazz drummer Elvin Jones dies",
+    "url": "https://www.tampabay.com/archive/2004/05/20/renowned-jazz-drummer-elvin-jones-dies",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:jazzonthetube-elvin",
+    "type": "biography",
+    "title": "Jazz on the Tube: Elvin Jones, Afro Blue",
+    "url": "https://jazzonthetube.com/video/afro-blue/",
+    "reliability": 0.6,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:notoriousjazz-elvin",
+    "type": "biography",
+    "title": "Notorious Jazz: Elvin Jones",
+    "url": "https://notoriousjazz.com/?p=4880",
+    "reliability": 0.5,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:allsolos-elvin",
+    "type": "biography",
+    "title": "All Solos: Elvin Jones",
+    "url": "https://www.allsolos.com/soloist/167/elvin-jones",
+    "reliability": 0.5,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:pearl-hernandez",
+    "type": "manufacturer_profile",
+    "title": "Pearl: Horacio Hernandez",
+    "url": "https://pearldrum.com/artist/horacio-hernandez",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:daddario-hernandez",
+    "type": "manufacturer_profile",
+    "title": "D'Addario / Promark: Horacio Hernandez",
+    "url": "https://www.daddario.com/pages/artists/horacio-hernandez",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:drummercafe-hernandez",
+    "type": "biography",
+    "title": "Drummer Cafe: Horacio Hernandez",
+    "url": "https://drummercafe.com/featured/drummer-percussionist/horacio-hernandez.html",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:sfjazz-hernandez",
+    "type": "video_lesson",
+    "title": "SFJAZZ: Conversations in Clave, Ep. 4",
+    "url": "https://athome.sfjazz.org/videos/conversations-in-clave-ep-4-cascara-variations",
+    "reliability": 0.85,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:wikipedia-lombardo",
+    "type": "encyclopedia",
+    "title": "Dave Lombardo - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Dave_Lombardo",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stereogum-lombardo",
+    "type": "interview",
+    "title": "Stereogum: We've Got A File On You, Dave Lombardo",
+    "url": "https://stereogum.com/2222323/dave-lombardo-solo-album/interviews",
+    "reliability": 0.85,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:blabbermouth-lombardo-aod",
+    "type": "news",
+    "title": "Blabbermouth: Angel of Death break began as a drum solo",
+    "url": "https://blabbermouth.net/news/dave-lombardo-says-double-bass-break-in-slayers-angel-of-death-was-originally-part-of-a-drum-solo",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:blabbermouth-lombardo-2006",
+    "type": "interview",
+    "title": "Blabbermouth / GASPetc interview (2006)",
+    "url": "https://blabbermouth.net/news/dave-lombardo-discusses-playing-live-his-songwriting-contributions-to-slayer",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:metalinjection-lombardo",
+    "type": "interview",
+    "title": "Metal Injection / New Noise: Lombardo on Cuban influence",
+    "url": "https://metalinjection.net/?p=389749",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:israelnn-lombardo",
+    "type": "interview",
+    "title": "Israel National News: Dave Lombardo in Israel",
+    "url": "https://www.israelnationalnews.com/news/168118",
+    "reliability": 0.6,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:bio-lombardo",
+    "type": "biography",
+    "title": "Dave Lombardo biography (aggregator, quotes Guitar Center 2012)",
+    "url": "https://francesco.codes/dave-lombardo-biography-age-height-wife-net-worth-family.html",
+    "reliability": 0.35,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:wikipedia-angine",
+    "type": "encyclopedia",
+    "title": "Angine de Poitrine - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Angine_de_Poitrine",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:guitar-com-angine",
+    "type": "news",
+    "title": "Guitar.com: Angine de Poitrine string break at LPR",
+    "url": "https://guitar.com/news/music-news/angine-de-poitrine-string-break/",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:ctv-angine",
+    "type": "news",
+    "title": "CTV News: Angine de Poitrine's success hits close to home",
+    "url": "https://www.ctvnews.ca/entertainment/article/angine-de-poitrines-out-of-this-world-success-hits-close-to-home/",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:montrealrocks-angine",
+    "type": "news",
+    "title": "Montreal Rocks: secret show at Quai des Brumes",
+    "url": "https://montrealrocks.ca/?p=61705",
+    "reliability": 0.6,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:professionalmoron-klek",
+    "type": "analysis",
+    "title": "Klek: Otherworldly Drummer for Angine de Poitrine",
+    "url": "https://professionalmoron.com/2026/08/24/klek-drummer-angine-de-poitrine-tribute/",
+    "reliability": 0.4,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:songsterr-angine",
+    "type": "transcription",
+    "title": "Songsterr: Angine de Poitrine drum tabs (community)",
+    "url": "https://www.songsterr.com/a/wsa/angine-de-poitrine-tabs-a524708?inst=drum",
+    "reliability": 0.4,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:wikipedia-changuito",
+    "type": "encyclopedia",
+    "title": "Changuito - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Changuito",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:drummerszone-changuito",
+    "type": "biography",
+    "title": "Drummerszone: José Luis 'Changuito' Quintana Fuerte",
+    "url": "https://drummerszone.com/artists/jos-luis-changuito-quintana-fuerte/570/profile/",
+    "reliability": 0.6,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:ecured-changuito",
+    "type": "encyclopedia",
+    "title": "EcuRed: Changuito",
+    "url": "https://www.ecured.cu/José_Luis_Quintana,_Changuito",
+    "reliability": 0.6,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:worldmusiccentral-changuito",
+    "type": "biography",
+    "title": "World Music Central: Artist Profiles, Changuito",
+    "url": "https://worldmusiccentral.org/?p=63256",
+    "reliability": 0.6,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:kosamusic-changuito",
+    "type": "biography",
+    "title": "KoSA Music: Changuito biography",
+    "url": "https://www.kosamusic.com/?p=1160",
+    "reliability": 0.6,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:wikipedia-losvanvan",
+    "type": "encyclopedia",
+    "title": "Los Van Van - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Los_Van_Van",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:pluznick-changuito",
+    "type": "analysis",
+    "title": "Michael Pluznick: Who is Changuito",
+    "url": "https://michaelpluznick.com/who-is-changuito/",
+    "reliability": 0.45,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:wiki-mirror-baker",
+    "type": "encyclopedia",
+    "title": "Ginger Baker (Wikipedia mirror)",
+    "url": "https://www.chise.org/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/wiki/Ginger_Baker.html",
+    "reliability": 0.6,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:ap-baker",
+    "type": "obituary",
+    "title": "AP obituary: Ginger Baker, Cream's volatile drummer, dies at 80",
+    "url": "https://www.ktvu.com/news/ginger-baker-drummer-for-cream-dies-at-80",
+    "reliability": 0.85,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:wikipedia-mitchell",
+    "type": "encyclopedia",
+    "title": "Mitch Mitchell - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Mitch_Mitchell",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:md-mitchell",
+    "type": "magazine",
+    "title": "Modern Drummer: Mitch Mitchell, drummers weigh in",
+    "url": "https://moderndrummer.com/?p=1747",
+    "reliability": 0.8,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:npr-mitchell",
+    "type": "obituary",
+    "title": "NPR: Hendrix Drummer Mitch Mitchell Remembered",
+    "url": "https://www.npr.org/2008/11/14/96978286/hendrix-drummer-mitch-mitchell-remembered",
+    "reliability": 0.85,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:pollstar-mitchell",
+    "type": "obituary",
+    "title": "Pollstar: Mitch Mitchell Dies",
+    "url": "https://news.pollstar.com/2008/11/12/mitch-mitchell-dies/",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:charleston-mitchell",
+    "type": "news",
+    "title": "Charleston City Paper: Mitch Mitchell",
+    "url": "https://charlestoncitypaper.com/?p=19843",
+    "reliability": 0.55,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:drumchat-mitchell",
+    "type": "forum",
+    "title": "DrumChat: Mitch Mitchell RIP",
+    "url": "https://www.drumchat.com/showthread.php/7408-Mitch-Mitchell-RIP?p=128804",
+    "reliability": 0.3,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:greenleaf-mitchell",
+    "type": "analysis",
+    "title": "Greenleaf Music: Remembering Mitch Mitchell",
+    "url": "https://greenleafmusic.com/?p=481",
+    "reliability": 0.6,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:faroutmag-ringo",
+    "type": "analysis",
+    "title": "Far Out: How to play drums like Ringo Starr",
+    "url": "https://faroutmagazine.co.uk/how-to-play-drums-like-ringo-starr/",
+    "reliability": 0.55,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:drumeo-ringo",
+    "type": "analysis",
+    "title": "Drumeo: 5 reasons Ringo Starr is a genius",
+    "url": "https://www.drumeo.com/beat/beatles-ringo-starr-drumming-genius/",
+    "reliability": 0.65,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:gear4music-ringo",
+    "type": "analysis",
+    "title": "Gear4music: Reasons to love Ringo Starr's drumming",
+    "url": "https://www.gear4music.com/blog/reasons-to-love-ringo-starrs-drumming/",
+    "reliability": 0.5,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:drumheadauthority-ringo",
+    "type": "analysis",
+    "title": "Drumhead Authority: Ringo Starr, style and gear",
+    "url": "https://drumheadauthority.com/?p=7098",
+    "reliability": 0.5,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:melodics-ringo",
+    "type": "analysis",
+    "title": "Melodics: The drumming genius of Ringo Starr",
+    "url": "https://melodics.com/blog/the-drumming-genius-of-ringo-starr",
+    "reliability": 0.5,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:musicverse-ringo",
+    "type": "analysis",
+    "title": "Musicverse: Half the Beatles were left-handed",
+    "url": "https://musicverse.substack.com/p/half-the-beatles-were-left-handed",
+    "reliability": 0.45,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:footyalmanac-ringo",
+    "type": "analysis",
+    "title": "Footy Almanac: Arise Sir Ringo",
+    "url": "https://www.footyalmanac.com.au/almanac-music-my-favourite-drummers-arise-sir-ringo/",
+    "reliability": 0.4,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:thomann-copeland",
+    "type": "analysis",
+    "title": "Thomann: Dissecting Stewart Copeland",
+    "url": "https://www.thomann.de/blog/en/gear/hit-the-tone-dissecting-stewart-copeland",
+    "reliability": 0.5,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:faroutmag-copeland",
+    "type": "analysis",
+    "title": "Far Out: How to play drums like Stewart Copeland",
+    "url": "https://faroutmagazine.co.uk/how-to-play-drums-like-stewart-copeland/",
+    "reliability": 0.5,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:musicradar-copeland-howto",
+    "type": "video_lesson",
+    "title": "MusicRadar: How to play drums like Stewart Copeland",
+    "url": "https://www.musicradar.com/news/how-to-play-drums-like-stewart-copeland",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:musicradar-copeland-interview",
+    "type": "interview",
+    "title": "MusicRadar: Stewart Copeland on his Police career",
+    "url": "https://www.musicradar.com/features/stewart-copeland-on-his-police-career-we-fought-like-cat-and-dog-over-the-fking-hi-hat",
+    "reliability": 0.85,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:imdb-copeland",
+    "type": "biography",
+    "title": "IMDb: Stewart Copeland biography",
+    "url": "https://www.imdb.de/name/nm0004841/bio",
+    "reliability": 0.5,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:wikipedia-puente",
+    "type": "encyclopedia",
+    "title": "Tito Puente - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Tito_Puente",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:pas-puente",
+    "type": "magazine",
+    "title": "PAS Hall of Fame: Tito Puente",
+    "url": "https://pas.org/?p=7879",
+    "reliability": 0.85,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:alexpertout-puente",
+    "type": "obituary",
+    "title": "Alex Pertout: Tito Puente",
+    "url": "https://www.alexpertout.com/titopuente.htm",
+    "reliability": 0.6,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:jazzcom-puente",
+    "type": "encyclopedia",
+    "title": "Jazz.com encyclopedia: Tito Puente",
+    "url": "https://www.jazz.com/encyclopedia/puente-tito-ernesto-antonio-jr",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:josplay-puente",
+    "type": "biography",
+    "title": "Josplay: Tito Puente",
+    "url": "https://www.josplay.com/artist/Tito Puente",
+    "reliability": 0.4,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:nylatin-puente",
+    "type": "biography",
+    "title": "New York Latin Culture: Tito Puente",
+    "url": "https://www.newyorklatinculture.com/?p=36642",
+    "reliability": 0.55,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:biography-puente",
+    "type": "biography",
+    "title": "Biography.com: Tito Puente",
+    "url": "https://www.biography.com/musicians/tito-puente",
+    "reliability": 0.65,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:echoes-mitchell",
+    "type": "obituary",
+    "title": "Echoes: Another Beat Drops, Mitch Mitchell Dead at 61",
+    "url": "https://echoes.org/2008/11/13/another-beat-drops-mitch-mitchell-dead-at-61/",
+    "reliability": 0.6,
+    "accessed": "2026-10-11"
+  }
+]

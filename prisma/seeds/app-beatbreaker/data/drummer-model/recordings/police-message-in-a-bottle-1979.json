@@ -1,0 +1,24 @@
+{
+  "id": "rec:police-message-in-a-bottle-1979",
+  "title": "Message in a Bottle",
+  "artist": "The Police",
+  "release": "Reggatta de Blanc",
+  "year": 1979,
+  "type": "studio_track",
+  "style_ids": ["style:new-wave"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stewart-copeland",
+      "name": "Stewart Copeland",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Driving, embellished hi-hat and fills.",
+      "ev": {
+        "confidence": "likely"
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "likely"
+  }
+}

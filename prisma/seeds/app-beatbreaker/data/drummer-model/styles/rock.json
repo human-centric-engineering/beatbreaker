@@ -1,0 +1,31 @@
+{
+  "id": "style:rock",
+  "name": "Rock",
+  "kind": "genre",
+  "parents": [
+    {
+      "style_id": "style:blues",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:rnb-soul",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:rock-and-roll",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1955
+  }
+}

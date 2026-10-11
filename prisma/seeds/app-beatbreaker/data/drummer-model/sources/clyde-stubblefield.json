@@ -1,0 +1,146 @@
+[
+  {
+    "id": "src:stubblefield-wikipedia",
+    "type": "encyclopedia",
+    "title": "Clyde Stubblefield - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Clyde_Stubblefield",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stubblefield-wiki-funky-drummer",
+    "type": "encyclopedia",
+    "title": "Funky Drummer - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Funky_Drummer",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stubblefield-wiki-cold-sweat",
+    "type": "encyclopedia",
+    "title": "Cold Sweat (James Brown song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Cold_Sweat",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stubblefield-wiki-mother-popcorn",
+    "type": "encyclopedia",
+    "title": "Mother Popcorn - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Mother_Popcorn",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stubblefield-wiki-i-got-the-feelin",
+    "type": "encyclopedia",
+    "title": "I Got the Feelin' - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/I_Got_the_Feelin%27",
+    "reliability": 0.65,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stubblefield-wiki-give-it-up",
+    "type": "encyclopedia",
+    "title": "Give It Up or Turnit a Loose - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Give_It_Up_or_Turnit_a_Loose",
+    "reliability": 0.65,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stubblefield-current",
+    "type": "magazine",
+    "title": "Pride and pain: The story of the Funky Drummer (The Current)",
+    "url": "https://www.thecurrent.org/feature/2020/02/11/pride-and-pain-the-story-of-the-funky-drummer",
+    "reliability": 0.75,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stubblefield-roland",
+    "type": "analysis",
+    "title": "Behind the Beat: Funky Drummer by James Brown (Roland Articles)",
+    "url": "https://articles.roland.com/behind-the-beat-funky-drummer-by-james-brown/",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stubblefield-conversation",
+    "type": "analysis",
+    "title": "The story of the Funky Drummer, the most exploited man in modern music (The Conversation)",
+    "url": "https://theconversation.com/the-story-of-the-funky-drummer-the-most-exploited-man-in-modern-music-73473",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stubblefield-pas-cold-sweat",
+    "type": "transcription",
+    "title": "Groove of the Month: 'Cold Sweat' (Percussive Arts Society)",
+    "url": "https://pas.org/?p=29431",
+    "reliability": 0.85,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stubblefield-pas-memoriam",
+    "type": "obituary",
+    "title": "In Memoriam: Clyde Stubblefield (Percussive Arts Society)",
+    "url": "https://pas.org/?p=5612",
+    "reliability": 0.85,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stubblefield-bonedo-cold-sweat",
+    "type": "video_lesson",
+    "title": "James Brown 'Cold Sweat' auf dem Schlagzeug lernen (bonedo.de)",
+    "url": "https://www.bonedo.de/?p=532606",
+    "reliability": 0.7,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stubblefield-funklet-funky-drummer",
+    "type": "transcription",
+    "title": "Funklet: Funky Drummer (Goodhertz; Jack Stratton's transcription)",
+    "url": "https://goodhertz.com/funklet/funky-drummer",
+    "reliability": 0.8,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stubblefield-funklet-cold-sweat",
+    "type": "transcription",
+    "title": "Funklet: Cold Sweat (Goodhertz; Jack Stratton's transcription)",
+    "url": "https://goodhertz.com/funklet/cold-sweat",
+    "reliability": 0.8,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stubblefield-funklet-i-got-the-feelin",
+    "type": "transcription",
+    "title": "Funklet: I Got the Feelin' (Goodhertz; Jack Stratton's transcription)",
+    "url": "https://goodhertz.com/funklet/i-got-the-feelin",
+    "reliability": 0.8,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stubblefield-funklet-mother-popcorn",
+    "type": "transcription",
+    "title": "Funklet: Mother Popcorn (Goodhertz; Jack Stratton's transcription)",
+    "url": "https://goodhertz.com/funklet/mother-popcorn",
+    "reliability": 0.8,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stubblefield-songbpm",
+    "type": "analysis",
+    "title": "songbpm.com: James Brown tempos",
+    "url": "https://songbpm.com/@james-brown",
+    "reliability": 0.5,
+    "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:stubblefield-bb-research",
+    "type": "analysis",
+    "title": "BeatBreaker drumming research, section E: Clyde Stubblefield's records",
+    "reliability": 0.6,
+    "accessed": "2026-10-11",
+    "notes": "Internal: .context/app/planning/drumming-research.md section E; which records are his, how he played, and the grids behind the stubblefield style."
+  }
+]
