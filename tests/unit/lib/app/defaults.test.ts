@@ -302,6 +302,7 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     // BuddyWorkspace, the pattern BeatBuddy last saw. Phase 7D (task 7D.2)
     // added PracticeSession, with its items inside it, and PracticeRun.
     // Phase 9-v (task 9.16) excluded KitPiece, catalogue data with no owner.
+    // Phase 11-a excluded the three lineage tables, the same.
     assert: async () => {
       __resetAppSubjectSourceRegistryForTests();
       expect(
@@ -359,6 +360,9 @@ const SEAM_DEFAULTS: SeamDefault[] = [
       ).toEqual([
         'KitPiece',
         'LibraryEntry',
+        'LineageEdge',
+        'LineageNode',
+        'LineageRecording',
         'PracticeSessionItem',
         'ReservedUsername',
         'StyleVersion',

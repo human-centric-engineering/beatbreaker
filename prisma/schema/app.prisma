@@ -899,3 +899,81 @@ model Kit {
   @@index([visibility, position])
   @@map("kit")
 }
+
+/// A node on the drummer lineage map (Phase 11, D48): a famous drummer, or a
+/// musician, teacher, ensemble, tradition or style one of them is linked to.
+///
+/// System content, seeded from the drummer model by `004-lineage` and replaced
+/// whole on each run. No user FK: nothing here is about an account.
+model LineageNode {
+  /// The model id, e.g. `drummer:bernard-purdie`. Never changes.
+  id         String   @id @db.VarChar(120)
+  /// The URL slug: a drummer's is bare (`bernard-purdie`), others keep their kind.
+  slug       String   @unique @db.VarChar(120)
+  /// "drummer" | "musician" | "teacher" | "ensemble" | "tradition" | "style".
+  kind       String   @db.VarChar(16)
+  label      String   @db.VarChar(160)
+  /// True when the model has a record for it; false for a stub.
+  modelled   Boolean  @default(false)
+  activeFrom Int?
+  activeTo   Int?
+  /// The playable style's key in the catalogue, for a modelled drummer.
+  styleKey   String?  @db.VarChar(40)
+  /// The model's style ids for the drummer's genres, heaviest first.
+  genres     String[]
+  tags       String[]
+  summary    String?
+  /// The whole record, as the model holds it. Null for a stub.
+  record     Json?
+  updatedAt  DateTime @updatedAt
+
+  outgoing LineageEdge[] @relation("LineageEdgeFrom")
+  incoming LineageEdge[] @relation("LineageEdgeTo")
+
+  @@index([kind])
+  @@map("lineage_node")
+}
+
+/// An edge on the lineage map. For a directed edge `fromId` is the ancestor.
+model LineageEdge {
+  /// A hash of from, to, relation and recording: stable across re-seeds.
+  id          String  @id @db.VarChar(40)
+  fromId      String  @db.VarChar(120)
+  toId        String  @db.VarChar(120)
+  /// The model's relationship type, as declared (`cites_as_influence`…).
+  relation    String  @db.VarChar(32)
+  /// "influence" | "teacher" | "succession" | "peer" | "family" | "recording" | "style".
+  kind        String  @db.VarChar(16)
+  directed    Boolean
+  strength    Float?
+  confidence  String? @db.VarChar(24)
+  /// "individual" | "band" | "unknown".
+  scope       String  @db.VarChar(16)
+  /// The record that made the claim (a model id; not a FK).
+  declaredBy  String  @db.VarChar(120)
+  /// For a shared-recording edge, the recording (a model id; not a FK).
+  recordingId String? @db.VarChar(120)
+
+  from LineageNode @relation("LineageEdgeFrom", fields: [fromId], references: [id], onDelete: Cascade)
+  to   LineageNode @relation("LineageEdgeTo", fields: [toId], references: [id], onDelete: Cascade)
+
+  @@index([fromId])
+  @@index([toId])
+  @@map("lineage_edge")
+}
+
+/// A recording from the drummer model, with the drummers who play on it.
+model LineageRecording {
+  /// The model id, e.g. `rec:aretha-rock-steady-1971`.
+  id         String   @id @db.VarChar(120)
+  title      String   @db.VarChar(200)
+  artist     String   @db.VarChar(200)
+  year       Int
+  /// The `drummer:` ids with a drum performance on it.
+  drummerIds String[]
+  /// The whole record, as the model holds it.
+  record     Json
+  updatedAt  DateTime @updatedAt
+
+  @@map("lineage_recording")
+}
