@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import type { Hit } from '@/lib/app/breaks/drummer/timeline';
+import { flight, impactSpeed, restitution } from '@/lib/app/breaks/drummer/rebound';
 import {
   HAND,
   KICK,
@@ -84,6 +85,8 @@ describe('strokeAt', () => {
       prev: undefined,
       next: undefined,
       lift: HAND.rest,
+      hand: HAND.rest,
+      grip: 0,
       travel: 0,
       since: Infinity,
     });
@@ -104,23 +107,39 @@ describe('strokeAt', () => {
     );
   });
 
-  it('on a downstroke (accent -> ghost), holds the rebound to at most the next note’s height plus `stop`', () => {
+  it('on a downstroke (accent -> ghost), closes the grip and stops the rebound near the ghost’s height', () => {
     const hits = [hit(0, 1), hit(2, 0.1)]; // a big gap: nothing here caps the rebound by speed
     // each note's height carries its own small variation (`reach`)
     const reach = (h: Hit) => HAND.reach?.(h) ?? 1;
     const target = HAND.height(0.1) * reach(hits[1]);
-    const freeRebound = HAND.height(1) * reach(hits[0]) * HAND.rebound;
-    // sanity: an unclamped rebound really would overshoot target + stop
-    expect(freeRebound).toBeGreaterThan(target + HAND.stop);
+    // let go, the accent's rebound would carry the stick far higher than the ghost wants
+    const thrown = HAND.height(1) * reach(hits[0]);
+    const free = flight(restitution(hits[0], impactSpeed(thrown)) * impactSpeed(thrown));
+    expect(free).toBeGreaterThan(target + HAND.stop * 3);
 
-    // sample at the top of the rebound (prev.time + rise), where the clamp applies
-    const bounce = Math.min(freeRebound, target + HAND.stop);
-    const rise = HAND.rise + HAND.risePerUnit * bounce;
-    const peakLift = strokeAt(hits, rise, HAND).lift;
+    let peak = 0;
+    let grip = 0;
+    for (let t = 0; t < 1; t += 0.002) {
+      const st = strokeAt(hits, t, HAND);
+      peak = Math.max(peak, st.lift);
+      grip = Math.max(grip, st.grip);
+    }
+    // stopped: no higher than the next note's height and the stop, give or take a centimetre
+    expect(peak).toBeLessThan(target + HAND.stop + 0.01);
+    expect(grip).toBeGreaterThan(0.9);
+  });
 
-    expect(peakLift).toBeLessThanOrEqual(target + HAND.stop + 1e-9);
-    expect(peakLift).toBeLessThan(freeRebound); // proves the clamp actually engaged
-    expect(peakLift).toBeCloseTo(bounce, 6);
+  it('on a free stroke (accent -> accent), leaves the grip open and lets the stick come back up', () => {
+    const hits = [hit(0, 1), hit(2, 1)];
+    let peak = 0;
+    let grip = 0;
+    for (let t = 0; t < 0.6; t += 0.002) {
+      const st = strokeAt(hits, t, HAND);
+      peak = Math.max(peak, st.lift);
+      grip = Math.max(grip, st.grip);
+    }
+    expect(grip).toBe(0);
+    expect(peak).toBeGreaterThan(HAND.height(1) * (HAND.reach?.(hits[1]) ?? 1) * 0.9);
   });
 
   it('on an upstroke, waits low and lifts for the accent only just before throwing it', () => {
@@ -128,21 +147,46 @@ describe('strokeAt', () => {
     const target = HAND.height(1) * (HAND.reach?.(hits[1]) ?? 1);
     // halfway through the gap the stick is still near the ghost note's height
     expect(strokeAt(hits, 0.5, HAND).lift).toBeLessThan(target * 0.25);
-    // and at full height by the time it is thrown
+    // and most of the way up by the time it is thrown (the stick lagging the hand a little)
     const fall = HAND.fall + HAND.fallPerUnit * target;
-    expect(strokeAt(hits, 1 - fall, HAND).lift).toBeCloseTo(target, 6);
+    expect(strokeAt(hits, 1 - fall, HAND).lift).toBeGreaterThan(target * 0.8);
   });
 
-  it('caps a fast note’s height to what the time available allows, however loud it is written', () => {
-    const gap = 0.01; // two strokes 10ms apart
-    const hits = [hit(0, 1), hit(gap, 1)];
+  it('keeps fast notes low however loud they are written: the rebound is metered in the fingers', () => {
+    const gap = 0.08; // one hand at 12.5 Hz
+    const hits = Array.from({ length: 8 }, (_, i) => hit(i * gap, 1));
     const cap = HAND.speed * gap * 0.5;
-    const full = HAND.height(1);
-    expect(cap).toBeLessThan(full); // the cap really is the binding constraint here
+    expect(cap).toBeLessThan(HAND.height(1)); // the cap really is the binding constraint here
 
+    // once the run is going (the first note is thrown from full height)
     let max = 0;
-    for (let t = 0; t <= gap; t += gap / 20) max = Math.max(max, strokeAt(hits, t, HAND).lift);
-    expect(max).toBeLessThanOrEqual(cap + 1e-6);
+    for (let t = 3 * gap; t <= 7 * gap; t += gap / 40)
+      max = Math.max(max, strokeAt(hits, t, HAND).lift);
+    expect(max).toBeLessThanOrEqual(cap);
+  });
+
+  it('bounces higher off a tight snare than a slack floor tom: the head gives the rebound', () => {
+    const off = (piece: Hit['piece']) => {
+      const hits = [hit(0, 0.6, { piece }), hit(1, 0.6, { piece })];
+      let top = 0;
+      for (let t = 0; t < 0.06; t += 0.002) top = Math.max(top, strokeAt(hits, t, HAND).lift);
+      return top;
+    };
+    expect(off('snare')).toBeGreaterThan(off('floor') * 1.1);
+  });
+
+  it('plays the second note of a fast double off the rebound, the hand hardly lifting between', () => {
+    // R R at sixteenths, 120 bpm, then a rest for the other hand's pair
+    const hits = [hit(0, 0.5), hit(0.125, 0.5), hit(0.5, 0.5)];
+    let tip = 0;
+    let hand = 0;
+    for (let t = 0; t < 0.125; t += 0.002) {
+      const st = strokeAt(hits, t, HAND);
+      tip = Math.max(tip, st.lift);
+      hand = Math.max(hand, st.hand);
+    }
+    expect(tip).toBeGreaterThan(0.04);
+    expect(hand).toBeLessThan(tip * 0.75);
   });
 
   it('settles from the rebound toward rest when nothing else is coming', () => {

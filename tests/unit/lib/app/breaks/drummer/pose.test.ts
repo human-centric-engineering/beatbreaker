@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import type { ScheduledStep } from '@/lib/app/breaks/audio/transport';
 import { RIMSHOT } from '@/lib/app/breaks/lanes';
 import { METERS } from '@/lib/app/breaks/meter';
-import type { Voice } from '@/lib/app/breaks/perform';
+import { LEVELS, type Voice } from '@/lib/app/breaks/perform';
 import {
   BODY,
   BOARD_LENGTH,
@@ -1763,12 +1763,20 @@ describe('poseAt — a cross-stick', () => {
         strength,
         sure: true,
       };
-      const st = { prev: undefined, next, lift: 0, travel: 0, since: Infinity };
+      const st = { prev: undefined, next, lift: 0, hand: 0, grip: 0, travel: 0, since: Infinity };
       return Math.max(...[0.9, 0.93, 0.95, 0.97].map((t) => crossLiftAt(st, t)));
     };
     expect(lift(0.9)).toBeGreaterThan(lift(0.2) + 0.03);
     // and nothing for a note that is not a cross-stick
-    const st = { prev: undefined, next: undefined, lift: 0, travel: 0, since: Infinity };
+    const st = {
+      prev: undefined,
+      next: undefined,
+      lift: 0,
+      hand: 0,
+      grip: 0,
+      travel: 0,
+      since: Infinity,
+    };
     expect(crossLiftAt(st, 0.9)).toBe(0);
   });
 
@@ -1820,7 +1828,12 @@ describe('poseAt — a rimshot', () => {
           meter: M44,
           bar: b,
           next: bars[Math.floor(fed / N) + 1] ?? null,
-          notes: lanes.map((l) => ({ voice: voice(l), when: fed * STEP })),
+          // each at its value's own level, as the performance plays it: what the grid read
+          // ahead is what arrives, so no stroke is re-planned as its note is scheduled
+          notes: lanes.map((l) => ({
+            voice: { ...voice(l), velocity: LEVELS[l][b[l][i]] },
+            when: fed * STEP,
+          })),
         });
       }
       return poseAt(tl, now, 1, grips).arms.other;
@@ -1879,7 +1892,7 @@ describe('poseAt — a rimshot', () => {
     expect(peak([backbeat, rims])).toBeGreaterThan(peak([backbeat, backbeat]));
   });
 
-  it('goes in and out of rimshots no faster than it plays the backbeat, in either grip', () => {
+  it('goes in and out of rimshots no faster than it plays accented backbeats, in either grip', () => {
     const fastest = (bars: Bar[], g?: ReturnType<typeof gripsFor>) => {
       const play = played(bars);
       let last: Vector3 | null = null;
@@ -1891,9 +1904,12 @@ describe('poseAt — a rimshot', () => {
       }
       return top;
     };
+    // a rimshot is a full stroke, so it is held against the backbeat played as full strokes —
+    // accents, the same ghost between — with a little room for the hand going down to the rim
+    const accents = hats({ 4: 3, 7: 1, 12: 3 });
     for (const g of grips) {
       expect(fastest([backbeat, rims, backbeat], g)).toBeLessThan(
-        fastest([backbeat, backbeat, backbeat], g) * 1.1
+        fastest([backbeat, accents, backbeat], g) * 1.25
       );
     }
   });

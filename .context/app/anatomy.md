@@ -9,21 +9,22 @@ movement. The numbers and their sources are in
 
 ## Where it lives
 
-| Module                                            | What it is                                                                                                                                                                                                                                     |
-| ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `lib/app/breaks/drummer/anatomy/arm.ts`           | `armAngles()`: an `ArmPose` read as joint angles: shoulder elevation, plane and rotation, elbow flexion, forearm pronation, wrist flexion and deviation. `torsoOf()`, `twistAbout()`, `neutralForearm()`.                                      |
-| `lib/app/breaks/drummer/anatomy/rom.ts`           | `ROM`: each motion's anatomical (`hard`) and everyday (`soft`) range, with its source. `splayLimit()` (a finger's fan closes as its knuckle bends), `scapularRotation()` (the scapulohumeral rhythm), `DIP_OF_PIP`, `beyond()`, `armStrain()`. |
-| `lib/app/breaks/drummer/anatomy/hand.ts`          | The hand every figure bends: `DIGITS` (measured phalanx lengths), the grip tables, and `handSetOf()`, a hand's finger and thumb angles from its `ArmPose`. The dressed drummers and the skeleton both read it.                                 |
-| `lib/app/breaks/drummer/anatomy/spine.ts`         | `SPINE` (L5 to C1 at rest, seated), `spineAt()` (the torso's lean, turn and tilt shared out between pelvis, lumbar and thoracic), and `neckTurns()` (the head's turn shared down the neck).                                                    |
-| `components/app/studio/drummer/bones.ts`          | The bones as shapes, each built once at its real size in its own frame. The skull and jaw are signed-distance surfaces meshed by marching cubes, so the face is one bone rather than parts stuck together.                                     |
-| `components/app/studio/drummer/skeleton-model.ts` | `buildSkeleton()`: the skeleton drummer, a `DrummerModel` like `buildDrummer()`'s, posed from the same `Pose`. `fitThumb()` fits its real thumb to the grip.                                                                                   |
-| `components/app/studio/drummer/figure.ts`         | `buildFigure()`: whoever sits at the kit, dressed or bones, and what to free when they leave.                                                                                                                                                  |
-| `components/app/studio/drummer/hand-pose.ts`      | `bendFingers()` and `placeStick()`: what every figure does with its hand each frame.                                                                                                                                                           |
-| `lib/app/breaks/drummer/hold.ts`                  | The matched hold: `GRIP_IN_HAND` (the fulcrum, in the fingers), `STICK_IN_HAND` (the stick's line across the hand) and `handFrame()`. The planner, the shows and the guide all hold sticks with it.                                            |
-| `lib/app/breaks/drummer/grips.ts`                 | The grips: German, American, French and traditional, and what each asks of the arm (`GRIP_STYLE`); the choices the drummer view offers (`GRIP_CHOICES`, `gripsFor()`).                                                                         |
-| `lib/app/breaks/drummer/grip-guide.ts`            | The grip guide's lessons: each grip's steps (`lessonOf()`) and both arms at any moment of them (`guideAt()`).                                                                                                                                  |
-| `components/app/studio/drummer/grip-guide.tsx`    | How to hold: the modal, a film per grip (`grip-guide-stage.ts`, mounted by `grip-guide-canvas.tsx`) with its steps' instructions under it.                                                                                                     |
-| `lib/app/breaks/drummer/gesture.ts`               | The waiting drummer's show: `showAt()` (when one plays), `showPose()` (both arms, the head's look), `showOverlaps()` (so the stick twirls keep out of its way).                                                                                |
+| Module                                            | What it is                                                                                                                                                                                                                                        |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `lib/app/breaks/drummer/anatomy/arm.ts`           | `armAngles()`: an `ArmPose` read as joint angles: shoulder elevation, plane and rotation, elbow flexion, forearm pronation, wrist flexion and deviation. `torsoOf()`, `twistAbout()`, `neutralForearm()`.                                         |
+| `lib/app/breaks/drummer/anatomy/rom.ts`           | `ROM`: each motion's anatomical (`hard`) and everyday (`soft`) range, with its source. `splayLimit()` (a finger's fan closes as its knuckle bends), `scapularRotation()` (the scapulohumeral rhythm), `DIP_OF_PIP`, `beyond()`, `armStrain()`.    |
+| `lib/app/breaks/drummer/anatomy/hand.ts`          | The hand every figure bends: `DIGITS` (measured phalanx lengths), the grip tables, and `handSetOf()`, a hand's finger and thumb angles from its `ArmPose`. The dressed drummers and the skeleton both read it.                                    |
+| `lib/app/breaks/drummer/anatomy/spine.ts`         | `SPINE` (L5 to C1 at rest, seated), `spineAt()` (the torso's lean, turn and tilt shared out between pelvis, lumbar and thoracic), and `neckTurns()` (the head's turn shared down the neck).                                                       |
+| `components/app/studio/drummer/bones.ts`          | The bones as shapes, each built once at its real size in its own frame. The skull and jaw are signed-distance surfaces meshed by marching cubes, so the face is one bone rather than parts stuck together.                                        |
+| `components/app/studio/drummer/skeleton-model.ts` | `buildSkeleton()`: the skeleton drummer, a `DrummerModel` like `buildDrummer()`'s, posed from the same `Pose`. `fitThumb()` fits its real thumb to the grip.                                                                                      |
+| `components/app/studio/drummer/figure.ts`         | `buildFigure()`: whoever sits at the kit, dressed or bones, and what to free when they leave.                                                                                                                                                     |
+| `components/app/studio/drummer/hand-pose.ts`      | `bendFingers()` and `placeStick()`: what every figure does with its hand each frame.                                                                                                                                                              |
+| `lib/app/breaks/drummer/hold.ts`                  | The matched hold: `GRIP_IN_HAND` (the fulcrum, in the fingers), `STICK_IN_HAND` (the stick's line across the hand) and `handFrame()`. The planner, the shows and the guide all hold sticks with it.                                               |
+| `lib/app/breaks/drummer/grips.ts`                 | The grips: German, American, French and traditional, and what each asks of the arm (`GRIP_STYLE`); the choices the drummer view offers (`GRIP_CHOICES`, `gripsFor()`).                                                                            |
+| `lib/app/breaks/drummer/grip-guide.ts`            | The grip guide's lessons: each grip's steps (`lessonOf()`) and both arms at any moment of them (`guideAt()`).                                                                                                                                     |
+| `components/app/studio/drummer/grip-guide.tsx`    | How to hold: the modal, a film per grip (`grip-guide-stage.ts`, mounted by `grip-guide-canvas.tsx`) with its steps' instructions under it.                                                                                                        |
+| `lib/app/breaks/drummer/gesture.ts`               | The waiting drummer's show: `showAt()` (when one plays), `showPose()` (both arms, the head's look), `showOverlaps()` (so the stick twirls keep out of its way).                                                                                   |
+| `lib/app/breaks/drummer/rebound.ts`               | The stick bouncing in the hand: `simulate()` (a stretch between two notes, worked out once), `reboundAt()`, `restitution()` (each piece's), `impactSpeed()`, `flight()`. Driven by `strokeAt()` in `strokes.ts`; see [The rebound](#the-rebound). |
 
 The skeleton is a persona, **Mister Bones** (`kind: 'skeleton'`), so it joins
 the cast. `DrummerStage` seats whoever it is given through `buildFigure()`.
@@ -149,6 +150,45 @@ forearm rolls on toward 80° of supination at the top of a full stroke.
   (below). Past the everyday range a joint is eased smoothly toward its end,
   starting no more than 15° short of it, the hand turning about the fulcrum.
   `armAngles()` has an inverse, `handFrameFor()`, to do it.
+
+## The rebound
+
+A stick is not drawn up and down: it bounces, and the hand uses the bounce
+(`rebound.ts`; the physics and its sources are in
+[`planning/rebound-research.md`](./planning/rebound-research.md)).
+
+- **Two parts.** The stroke planner (`strokeAt()` in `strokes.ts`) still says
+  where the drummer _means_ the tip to be: up to the next note's height,
+  waiting, thrown. The rebound says what the stick does about it. Each
+  stretch between two notes is simulated once (1 ms samples, cached on the
+  note) and sampled every frame, so the pose stays a pure function of time:
+  a seek lands on the right frame.
+- **Two angles.** The hand turns at the wrist, and the stick turns in the
+  fingers about the fulcrum. `StrokeState` carries both: `lift`, the tip's
+  height, and `hand`, the part of it the hand's own turn gives. `arm()`
+  turns the wrist by `hand` and the stick in the fingers by the rest.
+- **The head throws the stick back** at its restitution (snare livelier than
+  a tom, a tom than the floor tom, the crash and an open hat least, falling
+  off as the blow gets harder). The fulcrum at a third of the length is the
+  conjugate of the tip's centre of percussion, so the blow does not reach
+  the hand: the stick leaps up in the fingers while the hand is still where
+  it struck, and the hand follows it up.
+- **Free stroke, downstroke, upstroke.** To a note as high as the last, the
+  grip stays open and the rebound brings the stick back up. To a softer one,
+  the grip closes a moment after the head and stops the stick low (`grip` in
+  `StrokeState`, which also closes the back fingers). To a louder one, the
+  rebound comes up on its own and the hand adds the rest.
+- **Fast notes stay low.** With the next note close behind, the fingers do
+  not open for the rebound and play more of each stroke, so fast singles are
+  played from a few centimetres. They are thrown from their height at an even
+  acceleration, not slammed down in the time there is.
+- **The throw lands on time.** The last stretch before each note is thrown
+  from wherever hand and stick are, so the tip meets the head exactly as the
+  note sounds. The wrist starts it a moment before the stick, which lags in
+  the fingers: the whip. As the tip lands, the wrist has already slowed.
+- **Not simulated:** the kick's beater (still the planner's curve), the count
+  in (the sticks are held fixed), and a press roll's many bounces from one
+  stroke (a buzz's repeats are written notes).
 
 ## The stick twirls
 
@@ -314,8 +354,9 @@ step's sweep test widens to the joints that step brings inside their ranges.
   guide teaches each grip with the drummer's own hands. The twirls are the
   two a kit drummer does. Left: traditional's fingers fitted as matched
   grip's are, and the thumb's CMC as two offset, non-perpendicular hinges
-  (Hollister 1992). Also left: the Moeller whip and push-pull, driven at the
-  joints.
+  (Hollister 1992). The stick now bounces in the hand and the wrist leads
+  it like a whip ([The rebound](#the-rebound)). Also left: the full Moeller
+  arm wave and push-pull's two notes a wrist stroke, driven at the joints.
 - **D. Close up on the hands.** A camera that follows one hand and zooms to
   the fingers, and the hand bones as signed-distance surfaces for close
   range.
