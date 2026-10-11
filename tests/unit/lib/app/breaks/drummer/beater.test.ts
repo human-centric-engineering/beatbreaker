@@ -85,3 +85,31 @@ describe('beaterAt', () => {
     expect(st.lift).toBe(st.hand);
   });
 });
+
+describe('beaterAt — long waits', () => {
+  /** The most the pedal moves in a millisecond over [from, to]. */
+  function worstFrame(hits: Hit[], from: number, to: number): number {
+    const plan = kickPlan(hits);
+    let worst = 0;
+    let last = beaterAt(hits, from, plan).lift;
+    for (let t = from + 0.001; t < to; t += 0.001) {
+      const now = beaterAt(hits, t, plan).lift;
+      worst = Math.max(worst, Math.abs(now - last));
+      last = now;
+    }
+    return worst;
+  }
+
+  it('hands a last note over to the foot without a snap', () => {
+    // (settled by then: a millisecond moves it next to nothing; a snap moved it 0.006)
+    expect(worstFrame([kick(0.2, 0.92)], 0.9, 1.6)).toBeLessThan(0.001);
+  });
+
+  it('simulates a long gap all the way to the next note, landing it on time', () => {
+    const hits = [kick(0.2, 0.92), kick(2.2, 0.92)];
+    const plan = kickPlan(hits);
+    expect(worstFrame(hits, 0.9, 1.6)).toBeLessThan(0.001);
+    expect(beaterAt(hits, 2.2, plan).lift).toBeLessThan(0.01);
+    expect(beaterAt(hits, 2.1, plan).lift).toBeGreaterThan(0.1);
+  });
+});

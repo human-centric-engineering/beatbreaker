@@ -164,6 +164,11 @@ const SURFACE: Record<Hit['piece'], Surface> = {
 const OPEN_HAT = 0.4;
 const RIM = 0.45;
 
+/** How much less a piece gives back per m/s of impact speed. */
+export function fadeOf(hit: Hit): number {
+  return SURFACE[hit.piece].fade;
+}
+
 /** The restitution of a stroke at `speed` m/s on the piece it is played on, 0–1. */
 export function restitution(hit: Hit, speed: number): number {
   const s = SURFACE[hit.piece];
@@ -233,6 +238,8 @@ export interface ReboundSpec {
   f0: number;
   /** The head's restitution for it. */
   e: number;
+  /** How much less the head gives back per m/s of impact speed (`Surface.fade`): none if left out. */
+  fade?: number;
   /** The plan: where the tip is meant to be at `t`, metres. */
   plan: (t: number) => number;
   /** How much of the plan's height is the stick held up in the fingers rather than the hand turned, at `t`. */
@@ -269,7 +276,14 @@ export interface Rebound {
 }
 
 /** A cubic from `(x0, v0)` at 0 to `(x1, v1)` at `T`: position, speed and acceleration at `u` seconds in. */
-function hermite(x0: number, v0: number, x1: number, v1: number, T: number, u: number) {
+export function hermite(
+  x0: number,
+  v0: number,
+  x1: number,
+  v1: number,
+  T: number,
+  u: number
+): { x: number; v: number; a: number } {
   const s = u / T;
   const h00 = 2 * s ** 3 - 3 * s * s + 1;
   const h10 = s ** 3 - 2 * s * s + s;
@@ -363,8 +377,9 @@ export function simulate(spec: ReboundSpec): Rebound {
   const lead = next ? wristLead(next.t1 - t0) : 0;
   const tHand = next ? Math.max(t0, tStick - Math.min(lead, (tStick - t0) * 0.5)) : Infinity;
   // a long wait is the plan's: simulate the rebound, and then the throw from where the plan has it
-  // (only past the hand-over to the plan, so the throw starts from where the plan has it)
-  const long = next !== undefined && tHand - t0 > SIM_MAX + HANDOVER;
+  // (handed over as a stretch with nothing coming is, so a note coming into view far off changes
+  // nothing until the throw)
+  const long = next !== undefined && tHand - t0 > SIM_MAX;
   const simEnd = long ? t0 + SIM_MAX : end;
   const out = run(spec, t0, simEnd, impactState(spec), tHand, tStick, lead);
   if (long && next) {
@@ -384,6 +399,17 @@ function closedAt(spec: ReboundSpec, tHand: number, t: number): number {
   const held = 1 - smoothstep(CLOSE + HOLD, CLOSE + HOLD + EASE, after);
   const thrown = spec.next ? 1 - smoothstep(tHand, spec.next.t1, t) : 1;
   return spec.tight * Math.min(1, after / CLOSE) * held * thrown;
+}
+
+/**
+ * The head's restitution for the tip coming back down onto it at `speed` m/s,
+ * the grip `closed` (0–1): the first impact's, eased for the slower blow as
+ * `restitution` does, less what a closed grip takes.
+ */
+function bounceE(spec: ReboundSpec, speed: number, closed: number): number {
+  const fade = spec.fade ?? 0;
+  const e = (spec.e * (1 - fade * speed)) / (1 - fade * spec.v0);
+  return Math.max(0.1, Math.min(0.95, e)) * (1 - CLOSED_GIVES * closed);
 }
 
 /** Just off the head after the stroke at `t0`: the hand as it struck, the stick thrown back up in the fingers. */
@@ -526,7 +552,10 @@ function run(
       const rate = R_HAND * dphi + R_TIP * dpsi;
       if (tip < 0 && rate < 0) {
         psi -= tip / R_TIP;
-        dpsi += ((1 + spec.e) * -rate) / R_TIP;
+        // (pressed, the buzz's bounces each give back the head's share, as `pressFor` aims them;
+        // free, the head gives back more of a slower blow, and a closed grip takes some of it)
+        const e = pressing ? spec.e : bounceE(spec, -rate, closed);
+        dpsi += ((1 + e) * -rate) / R_TIP;
         if (pressing) {
           press = pressFor(spec, t, spec.e * -rate);
           // the last repeat: the fingers keep it there — the buzz dies on the head
@@ -545,16 +574,11 @@ export function reboundAt(r: Rebound, t: number): { lift: number; hand: number; 
   const simEnd = r.start + (r.lift.length - 1) * r.step;
   if (t <= simEnd) {
     const got = sample(r, t);
-    if (spec.next || t < simEnd - HANDOVER) return got;
-    // nothing coming: hand over to the plan as the stretch ends
+    if ((spec.next && !r.throwAt) || t < simEnd - HANDOVER) return got;
+    // nothing coming yet: hand over to the plan as the stretch ends
     return blend(got, plannedAt(r, t), (t - (simEnd - HANDOVER)) / HANDOVER);
   }
-  if (r.throwAt) {
-    // the wait between: the plan's, eased in from where the rebound left off
-    const got = plannedAt(r, t);
-    const last = sample(r, simEnd);
-    return blend(last, got, Math.min(1, (t - simEnd) / HANDOVER));
-  }
+  // the wait, the plan's, until the throw
   return plannedAt(r, t);
 }
 

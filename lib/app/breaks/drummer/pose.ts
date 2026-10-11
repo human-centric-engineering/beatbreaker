@@ -1898,10 +1898,11 @@ export function poseAt(
       air: groove * idle * AIR_SWING * 2 * (0.5 - dip) * ex.nodScale,
       height: (1 + HEIGHT_DRIFT * drift(now, HEIGHT_PERIOD, salt)) * (1 + groove * barCue(hand)),
       sway: groove * ex.nodScale * 0.1 * (0.5 - settle),
-      // (only counting in reads it: no stroke worked out a frame early for nothing)
+      // (only counting in reads it: no stroke worked out a frame early for nothing; and the
+      // hand's, without the click's ring in the fingers, which the arm does not play)
       ahead:
         (st.next ?? st.prev)?.piece === 'sticks'
-          ? strokeAt(hits, now + COUNT_LEAD, stroke[hand]).lift
+          ? strokeAt(hits, now + COUNT_LEAD, stroke[hand]).hand
           : 0,
       twirl: twirls[hand],
       cross: crossLiftAt(st, now),

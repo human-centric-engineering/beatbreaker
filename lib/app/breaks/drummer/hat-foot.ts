@@ -67,8 +67,7 @@ export function chickLiftAt(chicks: readonly Hit[], now: number): number {
 }
 
 export interface HatFoot {
-  /** How far the toe means the pedal up for a chick, 0 pressed to 1 the toe right up. */
-  lift: number;
+  /** (where the toe means the pedal is `chickLiftAt`, and where it goes `hatPedalAt`) */
   stance: FootStance;
 }
 
@@ -108,7 +107,6 @@ export function hatFootAt(
   const free = (1 - busy) * (1 - Math.min(1, open * 3));
   const base = stomp ? HAT_STOMP : HAT_HEEL_DOWN;
   return {
-    lift,
     stance: {
       ...base,
       pitch: base.pitch + base.drive * lift + rock * free,

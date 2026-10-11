@@ -2,6 +2,7 @@ import { clamp01, smoothstep } from '@/lib/app/breaks/drummer/ease';
 import {
   type Rebound,
   clickFlick,
+  fadeOf,
   flight,
   flightTime,
   impactSpeed,
@@ -281,15 +282,24 @@ function planOf(
   return { prev, next, gap, target, bounce, peak, rise, fall, follows: free !== undefined, idle };
 }
 
-/** Where the plan has the tip at `now`. */
-function liftOf(plan: Plan, now: number, p: StrokeProfile): number {
+/** How long the plan's fall onto `next` from `prev` takes, seconds: the throw. */
+export function fallOf(prev: Hit, next: Hit, p: StrokeProfile): number {
+  return planOf(prev, next, p).fall;
+}
+
+/**
+ * Where the plan has the tip at `now`. (`waitOnly`: a long gap's wait as if it
+ * were a short one, unblended with the rest it is waited out at — the idle
+ * plan blends it, once.)
+ */
+function liftOf(plan: Plan, now: number, p: StrokeProfile, waitOnly = false): number {
   const { prev, next, gap, target, peak, rise, fall } = plan;
   const since = prev ? now - prev.time : Infinity;
   // a long gap is waited out as if nothing were coming — the rebound and all — then the
   // stick wakes for the next note
   if (plan.idle && next && now <= next.time - fall) {
     const long = smoothstep(LONG_GAP[0], LONG_GAP[1], gap);
-    const near = long < 1 ? liftOf({ ...plan, idle: undefined }, now, p) : 0;
+    const near = long < 1 ? liftOf({ ...plan, idle: undefined }, now, p, true) : 0;
     const far = liftOf(plan.idle, now, p);
     const hi = next.time - fall;
     const woken = far + (target - far) * smoothstep(hi - WAKE, hi, now);
@@ -324,7 +334,7 @@ function liftOf(plan: Plan, now: number, p: StrokeProfile): number {
           : hold + (target - hold) * smoothstep(hi - up, hi, now);
     }
     // a long gap is waited out at rest, as if nothing were coming, then the stick wakes
-    const long = smoothstep(LONG_GAP[0], LONG_GAP[1], gap);
+    const long = waitOnly ? 0 : smoothstep(LONG_GAP[0], LONG_GAP[1], gap);
     const idle = settled(p, peak, since - rise);
     const woken = idle + (target - idle) * smoothstep(hi - WAKE, hi, now);
     lift = wait + (woken - wait) * long;
@@ -453,6 +463,7 @@ function simulated(
     v0,
     f0,
     e,
+    fade: fadeOf(prev),
     plan: (t) => liftOf(plan, t, p),
     fingers: (t) => {
       // waiting out a long gap, the hand holds the stick as it would with nothing coming,

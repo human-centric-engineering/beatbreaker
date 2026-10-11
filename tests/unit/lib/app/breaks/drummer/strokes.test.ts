@@ -173,6 +173,19 @@ describe('strokeAt', () => {
     expect(Math.abs(ring(0.65))).toBeLessThan(0.001);
   });
 
+  it('waits out a long gap the same whether the far note is in view yet or not, until it wakes', () => {
+    // (the wait hands over to the plan as one with nothing coming does: a note coming
+    // into view far off moves nothing)
+    const s = (time: number) => hit(time, 0.9, { piece: 'snare', lane: 's' });
+    for (const far of [1.6, 2]) {
+      for (let t = 0.9; t < far - 0.45; t += 0.01) {
+        const alone = strokeAt([s(0)], t, HAND).lift;
+        const seen = strokeAt([s(0), s(far)], t, HAND).lift;
+        expect(Math.abs(seen - alone)).toBeLessThan(0.001);
+      }
+    }
+  });
+
   describe('a buzz', () => {
     /** A buzz at 0.6 s, its three repeats a quarter of a 0.125 s step apart, a hit after. */
     const step = 0.125;

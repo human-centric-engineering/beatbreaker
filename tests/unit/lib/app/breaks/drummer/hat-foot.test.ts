@@ -17,22 +17,22 @@ function chick(time: number, strength = 0.5): Hit {
   };
 }
 
-describe('hatFootAt — holding the hats closed', () => {
+describe('the hat foot — holding the hats closed', () => {
   it('keeps the pedal down with no chick coming', () => {
-    for (const now of [0, 0.3, 1.1, 2.7]) expect(hatFootAt([], now, 0.4, 1, 0).lift).toBe(0);
+    for (const now of [0, 0.3, 1.1, 2.7]) expect(chickLiftAt([], now)).toBe(0);
   });
 
   it('keeps the pedal down between chicks, lifting only just before one', () => {
     const chicks = [chick(1), chick(2)];
     for (let now = 1.25; now < 1.75; now += 0.05) {
-      expect(hatFootAt(chicks, now, 0, 0, 0).lift).toBeCloseTo(0, 9);
+      expect(chickLiftAt(chicks, now)).toBeCloseTo(0, 9);
     }
-    expect(hatFootAt(chicks, 1.95, 0, 0, 0).lift).toBeGreaterThan(0.2);
+    expect(chickLiftAt(chicks, 1.95)).toBeGreaterThan(0.2);
   });
 
   it('has the pedal down at the instant of the chick', () => {
     const chicks = [chick(1), chick(2)];
-    expect(hatFootAt(chicks, 2, 0, 0, 0).lift).toBeCloseTo(0, 6);
+    expect(chickLiftAt(chicks, 2)).toBeCloseTo(0, 6);
   });
 
   it('rocks the heel with the groove: down on the beat, up between', () => {
@@ -82,12 +82,5 @@ describe('chickLiftAt', () => {
 
   it('lifts higher for a louder chick', () => {
     expect(chickLiftAt([chick(2, 1)], 1.93)).toBeGreaterThan(chickLiftAt([chick(2, 0.2)], 1.93));
-  });
-
-  it('is the lift the foot reports', () => {
-    const chicks = [chick(1), chick(2)];
-    for (const t of [1.9, 1.95, 1.99]) {
-      expect(hatFootAt(chicks, t, 0, 0, 0).lift).toBe(chickLiftAt(chicks, t));
-    }
   });
 });

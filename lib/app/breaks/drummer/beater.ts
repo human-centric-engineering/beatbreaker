@@ -1,10 +1,11 @@
 import { smoothstep } from '@/lib/app/breaks/drummer/ease';
 import { type KickNote, RUN_GAP, kickPlan } from '@/lib/app/breaks/drummer/kick-foot';
 import { KICK_PEDAL } from '@/lib/app/breaks/drummer/kit-layout';
-import { restitution } from '@/lib/app/breaks/drummer/rebound';
+import { hermite, restitution } from '@/lib/app/breaks/drummer/rebound';
 import {
   KICK,
   type StrokeState,
+  fallOf,
   lastAtOrBefore,
   seedOf,
   strokeAt,
@@ -54,17 +55,10 @@ const BURY_FROM = 0.6;
 const STEP = 0.001;
 const SUB = 2;
 const DT = STEP / SUB;
-/** How long a rebound is simulated before the foot's curve alone is followed, seconds. */
+/** With nothing coming, how long a rebound is simulated before the foot's curve alone is followed, seconds. */
 const SIM_MAX = 1;
-/**
- * How long the throw onto `next` takes, seconds: the planner's fall for it
- * (`KICK`), as long as the note's height and the time there is allow.
- */
-function throwOf(prev: Hit, next: Hit): number {
-  const gap = next.time - prev.time;
-  const target = Math.min(KICK.height(next.strength), KICK.speed * gap * 0.5);
-  return Math.min(KICK.fall + KICK.fallPerUnit * target, gap * 0.5);
-}
+/** The last stretch of it over which it hands over to the foot's curve, seconds. */
+const HANDOVER = 0.2;
 
 /** Does the foot keep the beater on the head after this note? */
 export function buries(hit: Hit, note: KickNote | undefined, next: Hit | undefined): boolean {
@@ -100,7 +94,10 @@ export function beaterAt(
   const k = Math.floor(x);
   if (k >= pedal.lift.length - 1) return { ...st, lift: foot, hand: foot };
   const u = x - k;
-  const lift = pedal.lift[k] + (pedal.lift[k + 1] - pedal.lift[k]) * u;
+  let lift = pedal.lift[k] + (pedal.lift[k + 1] - pedal.lift[k]) * u;
+  // nothing coming: hand over to the foot as the simulated stretch ends
+  if (!hits[i + 1])
+    lift += (foot - lift) * smoothstep(SIM_MAX - HANDOVER, SIM_MAX, now - pedal.start);
   return { ...st, lift: Math.max(0, lift), hand: foot };
 }
 
@@ -145,14 +142,15 @@ function simulate(hits: readonly Hit[], i: number, plan: readonly KickNote[]): P
   const prev = hits[i];
   const next: Hit | undefined = hits[i + 1];
   const t0 = prev.time;
+  // (with a note coming, all the way to it, the throw and all)
   const end = next ? next.time : t0 + SIM_MAX;
-  const count = Math.max(2, Math.ceil((Math.min(end, t0 + SIM_MAX) - t0) / STEP) + 1);
+  const count = Math.max(2, Math.ceil((end - t0) / STEP) + 1);
   const lift = new Float32Array(count);
   const v0 = speedInto(hits, i);
   const e = restitution(prev, v0 * REACH);
   const v1 = next ? speedInto(hits, i + 1) : 0;
   // the throw onto the next note: from when the foot starts down for it
-  const tThrow = next ? Math.max(t0, next.time - throwOf(prev, next)) : Infinity;
+  const tThrow = next ? Math.max(t0, next.time - fallOf(prev, next, KICK)) : Infinity;
   let x = 0;
   let v = e * v0;
   let from: { x: number; v: number } | undefined;
@@ -164,10 +162,10 @@ function simulate(hits: readonly Hit[], i: number, plan: readonly KickNote[]): P
         // the foot drives it in: from where it is to the head as the note sounds
         from ??= { x, v };
         const T = next.time - tThrow;
-        const s = Math.min(1, (t + DT - tThrow) / T);
+        const h = hermite(from.x, from.v, 0, -v1, T, Math.min(T, t + DT - tThrow));
         // (and never above the foot pushing it down)
-        x = Math.min(cubic(from.x, from.v * T, 0, -v1 * T, s), footAt(hits, i, plan, t + DT));
-        v = (cubic(from.x, from.v * T, 0, -v1 * T, Math.min(1, s + 1e-4)) - x) / (1e-4 * T);
+        x = Math.min(h.x, footAt(hits, i, plan, t + DT));
+        v = h.v;
         continue;
       }
       const foot = footAt(hits, i, plan, t);
@@ -184,13 +182,4 @@ function simulate(hits: readonly Hit[], i: number, plan: readonly KickNote[]): P
     }
   }
   return { start: t0, lift };
-}
-
-/** Cubic Hermite from `(a, da)` to `(b, db)` (slopes scaled to the span) at `s` in 0–1. */
-function cubic(a: number, da: number, b: number, db: number, s: number): number {
-  const s2 = s * s;
-  const s3 = s2 * s;
-  return (
-    (2 * s3 - 3 * s2 + 1) * a + (s3 - 2 * s2 + s) * da + (-2 * s3 + 3 * s2) * b + (s3 - s2) * db
-  );
 }

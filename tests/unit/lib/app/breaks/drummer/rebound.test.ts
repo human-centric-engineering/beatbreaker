@@ -177,6 +177,28 @@ describe('simulate', () => {
     expect(grip.at(-1)).toBeCloseTo(0, 6);
   });
 
+  it('lets a downstroke held on the head chatter less than the head alone would: the grip takes it', () => {
+    // (each later bounce gives back the head's share at its own speed, less what the closed
+    // grip takes, not the first blow's: once more off the head, under half a millimetre)
+    const v0 = 4.5;
+    const r = simulate(spec({ v0, tight: 1, fade: 0.025, plan: () => 0 }));
+    let contacts = 0;
+    let after = false;
+    let top = 0;
+    let last = 1;
+    for (let t = 0.002; t < 0.6; t += 0.0005) {
+      const y = reboundAt(r, t).lift;
+      if (y < 0.0005 && last >= 0.0005) {
+        contacts++;
+        after = true;
+      }
+      if (after) top = Math.max(top, y);
+      last = y;
+    }
+    expect(contacts).toBe(1);
+    expect(top).toBeLessThan(0.0005);
+  });
+
   it('turns the wrist down before the tip on the throw: the stick follows like a whip', () => {
     // waiting low, then prepared: lifted for the next note before it is thrown
     const next = { t1: 0.8, fall: 0.12, v1: 4, f1: 0.12 };
