@@ -38,7 +38,8 @@ import {
 } from '@/lib/app/breaks/drummer/kit-layout';
 import { type Glance, type Speak, expressionAt } from '@/lib/app/breaks/drummer/expression';
 import { showAt, showOverlaps, showPose, torsoFrame } from '@/lib/app/breaks/drummer/gesture';
-import { hatFootAt } from '@/lib/app/breaks/drummer/hat-foot';
+import { chickLiftAt, hatFootAt } from '@/lib/app/breaks/drummer/hat-foot';
+import { hatPedalAt } from '@/lib/app/breaks/drummer/hat-pedal';
 import { beaterAt } from '@/lib/app/breaks/drummer/beater';
 import { type FootStance, kickPlan, kickStanceAt } from '@/lib/app/breaks/drummer/kick-foot';
 import {
@@ -1464,8 +1465,10 @@ const CROSS_LIFT = 0.06;
 
 /** 0 on the hat pedal, 1 on the double pedal: how far over the left foot is, from its strokes there. */
 function onDoublePedal(kicks: readonly Hit[], now: number): number {
+  // (the nearest kick is the last at or before now, or the one after it)
+  const i = lastAtOrBefore(kicks, now);
   let near = Infinity;
-  for (const h of kicks) near = Math.min(near, Math.abs(h.time - now));
+  for (const h of [kicks[i], kicks[i + 1]]) if (h) near = Math.min(near, Math.abs(h.time - now));
   return 1 - smootherstep(ON_DOUBLE, OFF_DOUBLE, near);
 }
 
@@ -1783,15 +1786,18 @@ export function poseAt(
   const leftFoot = timeline.forLimb('hatFoot');
   const leftKicks = leftFoot.filter((h) => h.piece === 'kick');
   const across = onDoublePedal(leftKicks, now);
-  const hatFoot = hatFootAt(
-    leftKicks.length ? leftFoot.filter((h) => h.piece === 'hat') : leftFoot,
-    now,
-    phase,
-    groove,
-    open
+  const chicks = leftKicks.length ? leftFoot.filter((h) => h.piece === 'hat') : leftFoot;
+  const hatFoot = hatFootAt(chicks, now, phase, groove, open);
+  // the pedal bouncing under the foot, which means it up for the open notes and the
+  // chicks — and a foot over on the double pedal is not rocking the hats
+  const hatLift = hatPedalAt(
+    (t) =>
+      Math.max(
+        hatOpenAt(hatHits, t),
+        chickLiftAt(chicks, t) * (leftKicks.length ? 1 - onDoublePedal(leftKicks, t) : 1)
+      ),
+    now
   );
-  // a foot over on the double pedal is not rocking the hats
-  const hatLift = Math.max(open, hatFoot.lift * (1 - across));
   const hatGap = HAT_CLOSED_GAP + 0.024 * hatLift;
   const hatAt: HatAt = { gap: hatGap, shift: hatShift(timeline.doublePedal) };
 

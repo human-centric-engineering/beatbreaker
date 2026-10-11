@@ -220,7 +220,8 @@ describe('poseAt — hi-hat gap', () => {
 
     expect(wellOpen).toBeGreaterThan(HAT_CLOSED_GAP + 0.005);
     expect(atOpen).toBeLessThanOrEqual(wellOpen);
-    expect(atClose).toBeCloseTo(HAT_CLOSED_GAP, 6);
+    // (shut to within a twentieth of a millimetre: the pedal lands the top cymbal, it is not set)
+    expect(atClose).toBeCloseTo(HAT_CLOSED_GAP, 4);
   });
 
   it('closes on an hf chick even without a following closed hat note', () => {

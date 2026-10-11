@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { HAT_HEEL_DOWN, hatFootAt, isStomp } from '@/lib/app/breaks/drummer/hat-foot';
+import { HAT_HEEL_DOWN, chickLiftAt, hatFootAt, isStomp } from '@/lib/app/breaks/drummer/hat-foot';
 import type { Hit } from '@/lib/app/breaks/drummer/timeline';
 
 function chick(time: number, strength = 0.5): Hit {
@@ -68,5 +68,26 @@ describe('hatFootAt — stomped chicks', () => {
     )!;
     const before = hatFootAt([chick(t, 1)], t - 0.1, 0, 0, 0).stance;
     expect(before.pitch).toBeGreaterThan(HAT_HEEL_DOWN.pitch + 0.2);
+  });
+});
+
+describe('chickLiftAt', () => {
+  it('is down with no chick coming, and down again at the chick', () => {
+    const chicks = [chick(1), chick(2)];
+    expect(chickLiftAt([], 3)).toBe(0);
+    expect(chickLiftAt(chicks, 1.5)).toBe(0);
+    expect(chickLiftAt(chicks, 2)).toBe(0);
+    expect(chickLiftAt(chicks, 2.05)).toBe(0);
+  });
+
+  it('lifts higher for a louder chick', () => {
+    expect(chickLiftAt([chick(2, 1)], 1.93)).toBeGreaterThan(chickLiftAt([chick(2, 0.2)], 1.93));
+  });
+
+  it('is the lift the foot reports', () => {
+    const chicks = [chick(1), chick(2)];
+    for (const t of [1.9, 1.95, 1.99]) {
+      expect(hatFootAt(chicks, t, 0, 0, 0).lift).toBe(chickLiftAt(chicks, t));
+    }
   });
 });
