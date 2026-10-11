@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 
 import { publishedForSitemap } from '@/lib/app/breaks/community/public';
+import { getLineageGraph } from '@/lib/app/lineage/data';
 import { logger } from '@/lib/logging';
 
 /**
@@ -17,6 +18,9 @@ import { logger } from '@/lib/logging';
  * published pattern's `/p/` page and every drummer with something published.
  * Link shares are never here: they are `noindex`, reachable only by whoever
  * has the link. If the database cannot be read the static pages still go out.
+ *
+ * FORK (BeatBreaker, Phase 11-b): plus the lineage map, `/drummers`, and the
+ * page of every drummer with a record.
  */
 /*
  * FORK (BeatBreaker, Phase 6): a sitemap is cached at build time unless told
@@ -32,6 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publicPages = [
     { path: '', priority: 1.0, changeFrequency: 'weekly' as const },
     { path: '/explore', priority: 0.9, changeFrequency: 'daily' as const },
+    { path: '/drummers', priority: 0.8, changeFrequency: 'weekly' as const },
     { path: '/about', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/help', priority: 0.6, changeFrequency: 'monthly' as const },
     { path: '/contact', priority: 0.8, changeFrequency: 'monthly' as const },
@@ -61,6 +66,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   } catch (error) {
     logger.error('Sitemap: could not read the community library', error);
+  }
+
+  try {
+    const { nodes } = await getLineageGraph();
+    for (const n of nodes) {
+      if (n.kind !== 'drummer' || !n.modelled) continue;
+      pages.push({
+        url: `${baseUrl}/drummers/${n.slug}`,
+        changeFrequency: 'monthly',
+        priority: 0.6,
+      });
+    }
+  } catch (error) {
+    logger.error('Sitemap: could not read the drummer lineage', error);
   }
 
   return pages;

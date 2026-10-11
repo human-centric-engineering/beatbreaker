@@ -24,7 +24,7 @@
  *
  * Full guide: CUSTOMIZATION.md §4 · lib/public-nav/types.ts
  */
-import { Compass, Home, Info, Mail } from 'lucide-react';
+import { Compass, Drum, Home, Info, Mail } from 'lucide-react';
 
 import type { PublicNavItem } from '@/lib/public-nav/types';
 
@@ -32,11 +32,13 @@ import type { PublicNavItem } from '@/lib/public-nav/types';
  * Header nav. `null` = platform default; a non-null array replaces it.
  *
  * BeatBreaker (Phase 6): the platform's three plus **Explore**, the community
- * library, which a signed-out visitor can browse (D2).
+ * library, which a signed-out visitor can browse (D2). **Drummers**, the
+ * lineage map (Phase 11-b), is public for the same reason.
  */
 export const publicNavItems: PublicNavItem[] | null = [
   { href: '/', label: 'Home', icon: Home },
   { href: '/explore', label: 'Explore', icon: Compass },
+  { href: '/drummers', label: 'Drummers', icon: Drum },
   { href: '/about', label: 'About', icon: Info },
   { href: '/contact', label: 'Contact', icon: Mail },
 ];

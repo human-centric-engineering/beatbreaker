@@ -1,5 +1,5 @@
 /**
- * `?drawer=&tab=` — read from the URL, so every value is checked and anything
+ * `?drawer=&tab=` and `?style=` — read from the URL, so every value is checked and anything
  * that is not a tool or a tab is dropped rather than trusted.
  *
  * @see components/app/shell/studio-address.ts
@@ -7,7 +7,12 @@
 
 import { describe, expect, it } from 'vitest';
 
-import { readStudioDrawer, studioDrawerHref } from '@/components/app/shell/studio-address';
+import {
+  readStudioDrawer,
+  readStudioStyle,
+  studioDrawerHref,
+  studioStyleHref,
+} from '@/components/app/shell/studio-address';
 
 describe('readStudioDrawer', () => {
   it('reads a tool, and a Patterns tab with it', () => {
@@ -49,5 +54,33 @@ describe('studioDrawerHref', () => {
 
   it('leaves a tab off a drawer that has none', () => {
     expect(studioDrawerHref({ tool: 'kit', tab: 'libraries' })).toBe('/studio?drawer=kit');
+  });
+});
+
+describe('readStudioStyle', () => {
+  it('reads a well-formed style key', () => {
+    expect(readStudioStyle({ style: 'funk' })).toBe('funk');
+    expect(readStudioStyle({ style: 'jazz-waltz' })).toBe('jazz-waltz');
+    expect(readStudioStyle({ style: 'tonywilliams' })).toBe('tonywilliams');
+  });
+
+  it('drops anything else: missing, repeated, upper case, odd characters, too long', () => {
+    expect(readStudioStyle({})).toBeUndefined();
+    expect(readStudioStyle({ style: ['funk', 'rock'] })).toBeUndefined();
+    expect(readStudioStyle({ style: 'Funk' })).toBeUndefined();
+    expect(readStudioStyle({ style: '-funk' })).toBeUndefined();
+    expect(readStudioStyle({ style: 'funk/../x' })).toBeUndefined();
+    expect(readStudioStyle({ style: '' })).toBeUndefined();
+    expect(readStudioStyle({ style: 'a'.repeat(41) })).toBeUndefined();
+    expect(readStudioStyle({ style: 'a'.repeat(40) })).toBe('a'.repeat(40));
+  });
+});
+
+describe('studioStyleHref', () => {
+  it('is the address readStudioStyle reads back', () => {
+    const href = studioStyleHref('bonham');
+    expect(href).toBe('/studio?style=bonham');
+    const query = Object.fromEntries(new URL(href, 'http://x').searchParams);
+    expect(readStudioStyle(query)).toBe('bonham');
   });
 });

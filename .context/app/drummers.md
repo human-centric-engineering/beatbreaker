@@ -1,11 +1,11 @@
 # Drummers: the model and the lineage
 
-What Phase 11-a of [`planning/app-plan.md`](./planning/app-plan.md) built
-(D47, D48): every famous drummer in BeatBreaker is a **record** in the drummer
+What Phase 11-a and 11-b of [`planning/app-plan.md`](./planning/app-plan.md)
+built (D47–D49): every famous drummer in BeatBreaker is a **record** in the drummer
 model as well as a **style** in the catalogue, and the records draw a map of
 who learned from whom. The style is how BeatBreaker _plays_ a drummer; that is
 in [`catalogue.md`](./catalogue.md#a-drummer-is-a-style). This page is the
-record, the graph and the API.
+record, the graph, the API, and the map and pages that show them.
 
 ## Anti-patterns first
 
@@ -30,6 +30,12 @@ record, the graph and the API.
 - **Don't claim a transcription.** Every pattern is `stylistic_archetype` or
   `approximation`; `transcribed_*` fidelity without `verified` status fails the
   check.
+- **Don't draw from `relation`, or trace through an undirected edge.** The
+  map's highlight follows directed edges only: a bandmate is not an ancestor.
+  `traceLineage` holds it.
+- **Don't show a record field by casting it.** The stored record is unchecked
+  JSON; a page reads it through `readDrummerRecord`, which drops a field that
+  does not read and never returns a masked performer's name or dates.
 - **Don't put the graph in the vector store.** Traversal, direction and filters
   need rows. The records' prose goes to a knowledge base for BeatBuddy as well
   (11-f), but the map reads the tables.
@@ -145,6 +151,49 @@ Catalogue reads (no auth, `catalogue` rate-limit tier, ETag, `public` cache):
 `record` is the model's JSON as stored. A page that shows it parses the parts
 it needs.
 
+## The map and the pages (11-b)
+
+| Route              | What                                                                                                                                                                                                         |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `/drummers`        | The map (`components/app/drummers/lineage-map.tsx`) from `md` up; the list (`lineage-list.tsx`) below it. `?trace=<slug>` opens it with that person traced.                                                  |
+| `/drummers/[slug]` | Any node by slug. A record: summary, traits with confidence, technique, eras, recordings, learned from / passed on to / around them. A stub: the links that name it. **Play** → `/studio?style=<style_key>`. |
+
+Both are public server components reading `lib/app/lineage/data.ts`; the
+public nav lists Drummers and the sitemap lists `/drummers` and every
+modelled drummer.
+
+**The layout** — `lib/app/lineage/layout.ts`, `layoutLineage(graph)`, pure and
+run on the server:
+
+- **People only.** Genre (`style`) nodes join only each other, so they stay
+  off. A stub with no link to a person is left out; a record always shows.
+- **x is the start year**, `pxPerYear` 14. A stub has no year: each edge to
+  someone dated is a hint (ancestor −10, descendant +10, peer ±0) and it takes
+  the middle one, repeated so chains of stubs fill in. Italic on the map. One
+  with nothing to go on goes in a "Dates unknown" column (the real records
+  have none; a test holds it).
+- **A band per family**, top to bottom: jazz, funk and soul, rock, Latin and
+  African, metal and experimental. A record's family is its heaviest genre's
+  in `GENRE_FAMILY`; a stub takes its neighbours' majority. **A new genre
+  needs a row in `GENRE_FAMILY`** — `layout.test.ts` fails until it has one.
+- **Rows** inside a band are packed left to right so labels never overlap
+  (estimated at `charWidth` 6.6px a character).
+
+**The map** draws edges coloured by kind, dashed below `likely`
+(`isTentative`), with an arrow when directed. Pointing at or focusing a
+person traces them (`traceLineage`); the "Trace a drummer" select keeps a
+trace; Esc clears. Filters: link kinds (checkboxes) and a confidence floor;
+a stub left with no visible edge is hidden. Pan is the scrolling box; zoom
+is three buttons (50–150%). Each person is a `next/link` inside the SVG, so
+Tab walks the map in band order.
+
+**The Studio's `?style=`** (`components/app/shell/studio-address.ts`):
+`readStudioStyle` checks the shape, the page checks the catalogue has it and
+that no `?entry=` or `?session=` was given, and the provider picks the style
+and then writes a new break in it through the replacing `newBreak`, so an
+unsaved stage is asked about first. The login link carries it. A record
+with no `style_key` (the twelve until 11-c–e) gets no Play.
+
 ## Adding a drummer
 
 1. Write `drummers/<slug>.json` at schema 1.4.0, modelled on
@@ -167,3 +216,8 @@ it needs.
 | `tests/unit/lib/app/lineage/check.test.ts`                    | each rule, broken once                                                                                                 |
 | `tests/unit/prisma/seeds/app-beatbreaker/004-lineage.test.ts` | the seed: writes it all, idempotent, updates changed edges, clears a stub's record, refuses a bad corpus or slug clash |
 | `tests/unit/app/api/v1/catalogue/lineage.test.ts`             | the two routes: public, ETag and 304, 404                                                                              |
+| `tests/unit/lib/app/lineage/layout.test.ts`                   | tracing, confidence, the layout rules, and the real records: every genre has a family, every person dated, no overlap  |
+| `tests/unit/lib/app/lineage/relations.test.ts`                | learned from / passed on to / around                                                                                   |
+| `tests/unit/lib/app/lineage/record.test.ts`                   | every real record reads; a masked identity never shows; one bad field costs only that field                            |
+| `tests/unit/components/app/drummers/lineage-map.test.tsx`     | the map: links, tracing, filters, zoom                                                                                 |
+| `tests/unit/app/(public)/drummers/`                           | the two pages: list and map, `?trace=`, Play, stubs, masked records, 404                                               |

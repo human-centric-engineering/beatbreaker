@@ -196,6 +196,7 @@ export function StudioProvider({
   yourSamples,
   openEntry,
   openDrawer,
+  openStyle,
   session,
   children,
 }: {
@@ -234,6 +235,11 @@ export function StudioProvider({
   openEntry?: string;
   /** A drawer to open once the Studio is up — `/studio?drawer=patterns&tab=libraries`. */
   openDrawer?: StudioDrawer;
+  /**
+   * A style to write a new break in once the Studio is up — `/studio?style=funk`,
+   * which is how a drummer's page plays them (11-b). A key the catalogue has.
+   */
+  openStyle?: string;
   /** A practice session to run — `/studio?session=<id>`, read server-side (7D). */
   session?: SessionView;
   children: React.ReactNode;
@@ -478,6 +484,28 @@ export function StudioProvider({
       if (result === 'gone') say('That pattern is no longer there', { error: true });
     });
   }, [ready, initialHistory, catalogue, openTarget, say]);
+
+  /* Once, when the console is first ready: the style the address asked for,
+     picked and then written in, as Generate's picker does. The New waits for
+     the pick to land, since on a new pattern the style is held as a setting
+     and a New in the same tick would still read the old one. It goes through
+     the replacing New, so an unsaved stage is asked about first. */
+  const styleToOpen = useRef(openStyle);
+  const [styleOpening, setStyleOpening] = useState<string | null>(null);
+  const { setStyle, style: stageStyle } = state;
+  useEffect(() => {
+    const key = styleToOpen.current;
+    if (!ready || !key) return;
+    styleToOpen.current = undefined;
+    setStyle(key);
+    setStyleOpening(key);
+  }, [ready, setStyle]);
+  const { newBreak: newBreakReplacing } = replacing;
+  useEffect(() => {
+    if (!styleOpening) return;
+    setStyleOpening(null);
+    if (stageStyle === styleOpening) newBreakReplacing('both');
+  }, [styleOpening, stageStyle, newBreakReplacing]);
 
   const historyCurrent = useMemo<HistoryCurrent | null>(
     () => (ready && stagePin ? { target: stagePin, level, bpm } : null),
