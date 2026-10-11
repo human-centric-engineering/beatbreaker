@@ -298,6 +298,8 @@ the rest are sequential because each stands on the one before.
 9-i Engine ─► 9-ii Humanise ─► 9-iii Pipeline ─► 9-iv Notation ─► 8-iv ─► 8-v ─► 9-v Pieces ─► 9-vi More sounds
 
 10 Rudiments  (after 9-iv's articulations; 10-a model ─► 10-b library)
+
+11 Drummers  (11-a standard ─► 11-b map ─► 11-c, 11-d, 11-e drummers ─► 11-f BeatBuddy)
 ```
 
 ### Phase 0 — Groundwork · S
@@ -3383,6 +3385,111 @@ toms, and a 32nd-note meter (D46).
 
 ---
 
+### Phase 11 — Drummers: the model, the lineage map, twelve more · L
+
+**Goal:** every famous drummer in BeatBreaker is described by one standard
+record — who they are, how they play, what they recorded, who they learned
+from and who learned from them, each claim with its evidence — and the
+records draw a map of influence you can walk. Twelve drummers join the eight
+already in the catalogue, each playable song by song.
+
+**Where it came from.** The owner brought a drummer data model (v1.3, drafted
+with Claude): JSON Schemas, 15 drummers, 69 recordings, 43 styles, 86 sources
+and a validator that builds a lineage graph (142 nodes, 194 edges). Three of
+its drummers are already ours (Mitchell, Ringo, Copeland); twelve are not.
+
+**The assessment, in short (D47):**
+
+- **It is a knowledge model; our `Style` is a generative one.** The model
+  says _what is true_ about a drummer, with evidence. A style says _how to
+  write a new bar_ in their idiom: weighted figures, fills, feel offsets and
+  forty-odd songs. The model's patterns are two to six fixed grids a drummer,
+  and its `beatbreaker.generation_rules` are prose. Neither replaces the
+  other, so the standard is **both, joined by a key**: a drummer record names
+  its style (`beatbreaker.style_key`), and a drummer style must have a
+  record. A test holds both directions.
+- **What is good, and kept as it is:** evidence on every claim (confidence,
+  sources, disputed alternatives), the transcription workflow (`archetype` →
+  `verified`), namespaced ids that never change, eras, signature traits, and
+  the privacy rule for masked performers (`private_do_not_research`).
+- **What needed fixing before it is a standard** (v1.4):
+  - nothing joined a record to its playable style — `beatbreaker.style_key`;
+  - files were at three schema versions (1.1, 1.2, 1.3);
+  - three edges pointed at drummers with no node (Tony Allen, Orestes
+    Vilató, JR Robinson — from shared recordings), and Cozy Cole was two
+    nodes (`person:` and `drummer:`);
+  - band and recording edges (`bandmate`, `same_recording`) are not
+    influence and have no direction, but came out of the builder as arrows;
+  - the builder was Python, outside the test suite. It is now TypeScript
+    under the gates, and the JSON Schemas are checked by Ajv in a test.
+- **Five of our eight have no record** (Bonham, Stubblefield, Tony Williams,
+  Tony Allen, Yussef Dayes); four of them were stub nodes and Dayes was
+  missing. Their records are written from `drumming-research.md` §E–K.
+
+**Where things live (D48):**
+
+- The records are content (D13): `prisma/seeds/app-beatbreaker/data/drummer-model/`,
+  the owner's layout kept (`schema/`, `drummers/`, `recordings/`, `styles/`,
+  `sources/`). Its `styles/` are _genres_; ours are generators. The two
+  never share a key space: model ids are `style:songo`, ours are `songo`.
+- A seed unit writes three tables, all system content with no user FK:
+  `LineageNode` (every drummer, musician, style and tradition; a modelled
+  one carries its whole record), `LineageEdge` (from, to, type, strength,
+  confidence, scope, directed or not), `LineageRecording`.
+- **Not the vector store.** Traversal, direction and filters need rows. The
+  records' prose goes into a BeatBuddy knowledge base as well (11-f), so it
+  can answer "who plays like Purdie but busier?" with sources.
+- Read API, no auth, like the catalogue: `GET /api/v1/catalogue/lineage` (the graph,
+  light) and `GET /api/v1/catalogue/lineage/[slug]` (a node, its record, its
+  recordings and its edges).
+
+**The map (D49).** Four ways were weighed:
+
+| Approach                               | For                                                                                                                             | Against                                                                                                                      |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| three.js, 3D force graph               | Striking; three is already in the bundle                                                                                        | Labels and edges hide behind nodes; a camera to drive; poor on phones and for screen readers; answers "who came first" badly |
+| Canvas 2D, force layout                | Thousands of nodes                                                                                                              | We have 150–500. Hit-testing, focus and links all hand-made; nothing for a screen reader or a search engine                  |
+| `@xyflow/react`                        | Pan, zoom and minimap free; already a dependency (admin)                                                                        | Built for editing node graphs; still needs our layout; heavy for a read-only page                                            |
+| **SVG in React, time-anchored layout** | Time runs left to right, so it reads as a family tree; nodes are real links; server-rendered; filters and focus are plain state | Pan and zoom are ours to write (small)                                                                                       |
+
+**SVG, with the layout computed on the server**: x is the decade a drummer
+started, y is a band per family (jazz, rock, funk and soul, Latin, metal and
+experimental), edges are curves from ancestor to descendant, coloured by
+kind (influence, teacher, band, recording) and dashed below `likely`.
+Picking a drummer lights their ancestors and descendants and dims the rest.
+On a phone the same data is a list: each drummer with "learned from" and
+"passed on to". Each modelled drummer has a page: the record, the
+recordings, the traits, and **Play** into the Studio on their style.
+
+**Patterns for the twelve (D50).** Each new drummer is a style like
+Mitchell's: kit, feel, figures, fills and **songs**, one per key recording
+and more from listening and lessons, each at its own tempo, meter and
+swing, the stage naming the song. Every groove is an approximation from
+descriptions and listening, as for the eight. The model's own grids are
+the starting point for the songs they name, and its `generation_rules` and
+`avoid` become the style's parameters. Instruments map onto ours: timbales
+on the toms or the `timbale` slot, cowbell, clave, jam block on `p1`/`p2`,
+a second kick as `doubleKick`. Drummer kits are sampled packs (the rule
+stays).
+
+**PRs:**
+
+| PR   | What                                                                                                                                                                                                                 | Done when                                                                                                                                                                                                                                                                                                              |
+| ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 11-a | **The standard.** The records in the repo at v1.4; `style_key`; the builder in TypeScript with the fixes; Ajv checks every file; records for our five; the two-way test; the three tables, the seed and the read API | Tests: every file validates; every id resolves; lanes fit their grid; no stored identity for a private persona; every drummer style has a record and every `style_key` a style; no dangling edge, no duplicate person; non-influence edges undirected; the seed is idempotent; the API returns the graph and a profile |
+| 11-b | **The map and the pages.** `/drummers` and `/drummers/[slug]`, public nav, the list view for phones                                                                                                                  | Server-rendered; a drummer's ancestors and descendants light up; filters by kind and confidence; keyboard reachable; Play opens the Studio on the style                                                                                                                                                                |
+| 11-c | **Funk, soul and session:** Purdie, Jabo Starks, Steve Gadd, Omar Hakim                                                                                                                                              | Each is a drummer style with songs; the catalogue tests pass at the new counts; every song plays at a tempo `playableBpm` allows                                                                                                                                                                                       |
+| 11-d | **Jazz and Latin:** Elvin Jones, Tito Puente, Changuito, Horacio Hernández                                                                                                                                           | The same, plus the clave and cáscara written where the records place them                                                                                                                                                                                                                                              |
+| 11-e | **Rock, metal and beyond:** Ginger Baker, Dave Lombardo, Adrienne Davies, Klek de Poitrine                                                                                                                           | The same; Klek's record keeps the persona policy                                                                                                                                                                                                                                                                       |
+| 11-f | **BeatBuddy reads the records.** A knowledge base built from the records, scoped to BeatBuddy                                                                                                                        | Its answer about a drummer cites the record                                                                                                                                                                                                                                                                            |
+
+**Not in Phase 11:** editing records in the admin (they are seed content,
+like the styles were before D16); verified transcriptions (every pattern
+stays `archetype` or `approximation` until stems are checked); personas
+that look like the drummer.
+
+---
+
 ## 5. Ergonomic review — method and first findings
 
 ### Method
@@ -3737,6 +3844,15 @@ already cascade and already export.
 | D44 | Where sticking lives     | **On the pattern**, one R/L string a bar, packed as `sk` on wire v5 (additive, no version bump). R is the lead hand, so a left-hander's drummer leads with the left. Graces are on the other hand unless the letter is lower case.               |
 | D45 | Layers and the generator | **A rudiment is fixed** (`Pattern.fixed`, packed as `fx`), so all five layers play it whole. Its style key, `rudiment`, is not a style: New, Regenerate and the doctor do not apply, and B is a copy of A.                                       |
 | D46 | What Phase 10 leaves out | **Editing sticking in the Studio, BeatBuddy and sticking, hybrid rudiments, rudiments round the toms, and a 32nd-note meter.** Each is an addition on top of D44, not a change to it.                                                            |
+
+### Decided — 2026-10-11
+
+| #   | Decision                             | Outcome                                                                                                                                                                                             |
+| --- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D47 | The drummer model as the standard    | **Adopted at v1.4, beside the style, not instead of it.** A record says what is true, with evidence; a style writes bars. Each drummer has both, joined by `beatbreaker.style_key`, held by a test. |
+| D48 | Where the records and the graph live | **Seed content in the repo, three system tables, a read API.** Not the vector store: the graph needs rows. The prose also goes to a BeatBuddy knowledge base (11-f).                                |
+| D49 | How the lineage map is drawn         | **Server-rendered SVG on a time-anchored layout**, with a list view on phones. Not three.js or canvas: 150–500 nodes, and it must read as a family tree and work with a keyboard.                   |
+| D50 | The twelve new drummers              | **Styles with songs, like Mitchell's**, in three PRs by family. Approximations, labelled as such.                                                                                                   |
 
 ### Still open
 
