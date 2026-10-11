@@ -3523,6 +3523,34 @@ stays).
   browser check** (the owner is on Arc): the map was looked at as a rendered
   SVG, and its behaviour is held by component tests.
 
+**11-c reconciled against the tree, 2026-10-11** (branch `phase-11-c-funk-soul-session`):
+
+- **The records are in; the styles are not.** The four records came with 11-a
+  and have no `style_key`. This PR adds four drummer styles with songs and sets
+  the key on each record, which is all the map and the pages need: the seed
+  carries `styleKey` onto the node, and the page shows Play.
+- **`purdie` is taken.** It is the half-time shuffle genre (B5), which Bonham's
+  and Porcaro's grooves lean on too, and it stays a genre. The drummer is
+  `bernardpurdie`. The others are `jabostarks`, `gadd` and `hakim`.
+- **Groups.** Purdie and Jabo join Stubblefield under Funk drummers. Gadd and
+  Hakim are neither funk nor jazz drummers in the picker's sense, so they open a
+  fifth group, **Session drummers**.
+- **The research comes first, as for the eight**: credits checked against
+  personnel lists (Jabo's records are often credited to Clyde and the reverse;
+  _Let's Dance_ is split between Hakim and Tony Thompson), tempos from tempo
+  databases, grooves from published transcriptions where there are any. It goes
+  into `drumming-research.md` as sections L–O.
+- **Kits are sampled** (the rule stays). Hakim is the one to check: an
+  electronic kit is allowed only on a record where he really played one, named
+  in `drummer-kits.test.ts`'s list.
+- **The counts move**: 62 styles and 12 drummers, 1,110 style-and-meter pairs,
+  the picker's drummer list and groups, the lineage test's playable drummers,
+  and `catalogue.md`. The goldens gain the four and change nowhere else.
+- **"Every song plays at a tempo `playableBpm` allows"** is already a test over
+  every drummer's songs (`song-tempo.test.ts`); it covers the four without a
+  change. A test for the four adds what is theirs: each is filed, keyed both
+  ways, and every song's bars pass the critic at its own tempo.
+
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
 stays `archetype` or `approximation` until stems are checked); personas
