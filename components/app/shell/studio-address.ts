@@ -59,3 +59,21 @@ export function studioDrawerHref({ tool, tab }: StudioDrawer): string {
   if (tab && tool === 'patterns') q.set('tab', tab);
   return `/studio?${q.toString()}`;
 }
+
+/**
+ * A style to open the Studio on — `/studio?style=funk` writes a new break in
+ * it, as picking it in Generate does. How a drummer's page plays them (11-b).
+ * Only the shape is checked here; the page checks the key is in the catalogue.
+ */
+const styleSchema = z.string().regex(/^[a-z0-9][a-z0-9-]{0,39}$/);
+
+/** Read `?style=` — a well-formed key, or nothing. */
+export function readStudioStyle(query: { style?: unknown }): string | undefined {
+  const style = styleSchema.safeParse(query.style);
+  return style.success ? style.data : undefined;
+}
+
+/** The address that opens the Studio on a style. */
+export function studioStyleHref(style: string): string {
+  return `/studio?${new URLSearchParams({ style }).toString()}`;
+}

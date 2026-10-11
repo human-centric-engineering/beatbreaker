@@ -196,6 +196,7 @@ export function StudioProvider({
   yourSamples,
   openEntry,
   openDrawer,
+  openStyle,
   session,
   children,
 }: {
@@ -234,6 +235,11 @@ export function StudioProvider({
   openEntry?: string;
   /** A drawer to open once the Studio is up — `/studio?drawer=patterns&tab=libraries`. */
   openDrawer?: StudioDrawer;
+  /**
+   * A style to write a new break in once the Studio is up — `/studio?style=funk`,
+   * which is how a drummer's page plays them (11-b). A key the catalogue has.
+   */
+  openStyle?: string;
   /** A practice session to run — `/studio?session=<id>`, read server-side (7D). */
   session?: SessionView;
   children: React.ReactNode;
@@ -308,7 +314,7 @@ export function StudioProvider({
      Regenerating one section is an edit to the pattern, not a new one, so
      `newBreak('A')` and `newBreak('B')` pass straight through. */
   const { detach, needsPrompt } = doc;
-  const { newBreak, loadLibraryEntry, loadCode, rename } = state;
+  const { newBreak, newBreakIn, loadLibraryEntry, loadCode, rename } = state;
 
   /* The replacement waiting on the prompt, if there is one. Kept as a thunk so
      "Don't save" and "Save" run exactly what was asked for, later. The detach
@@ -349,6 +355,18 @@ export function StudioProvider({
         }
         return newBreak(which);
       },
+      /* A style the address named: a whole new pattern, so the stage is let
+         go first. Said when it cannot be written, rather than doing nothing. */
+      newBreakIn: (style: string): boolean => {
+        replace(() => {
+          if (!newBreakIn(style)) {
+            say('That style is not in the Studio', { error: true });
+            return false;
+          }
+          setEntry(null);
+        });
+        return true;
+      },
       loadLibraryEntry: (id: string) =>
         replace(() => {
           setEntry({ id, notes: null });
@@ -370,7 +388,7 @@ export function StudioProvider({
         return true;
       },
     }),
-    [replace, newBreak, loadLibraryEntry, loadCode, say]
+    [replace, newBreak, newBreakIn, loadLibraryEntry, loadCode, say]
   );
 
   /* Opening from the history happens after a fetch, so it reads `replace` as
@@ -478,6 +496,19 @@ export function StudioProvider({
       if (result === 'gone') say('That pattern is no longer there', { error: true });
     });
   }, [ready, initialHistory, catalogue, openTarget, say]);
+
+  /* Once, when the console is first ready: the style the address asked for,
+     written in as a whole new pattern. Not a pick: your starting style stays
+     yours. It goes through the replacing New, so an unsaved stage is asked
+     about first. */
+  const styleToOpen = useRef(openStyle);
+  const { newBreakIn: openInStyle } = replacing;
+  useEffect(() => {
+    const key = styleToOpen.current;
+    if (!ready || !key) return;
+    styleToOpen.current = undefined;
+    openInStyle(key);
+  }, [ready, openInStyle]);
 
   const historyCurrent = useMemo<HistoryCurrent | null>(
     () => (ready && stagePin ? { target: stagePin, level, bpm } : null),

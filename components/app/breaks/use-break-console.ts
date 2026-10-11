@@ -355,6 +355,12 @@ export interface BreakConsole {
    * always rolls.
    */
   newBreak: (which?: SectionLetter | 'both') => boolean;
+  /**
+   * A whole new pattern in `style`, without making it your starting style —
+   * how a drummer's Play arrives (`/studio?style=`). False, and nothing done,
+   * when the catalogue does not have it.
+   */
+  newBreakIn: (style: string) => boolean;
   /** If playing: start again from the top, with a count-in, once the next break is on the stage. */
   restartFromTop: () => void;
   /**
@@ -1085,6 +1091,24 @@ export function useBreakConsole(
       patterns,
       followKit,
     ]
+  );
+
+  const newBreakIn = useCallback(
+    (key: string): boolean => {
+      const params = catalogue.styles[key]?.params;
+      if (!params) return false;
+      /* Picked for this New only, as a pick on a saved pattern is: nothing is
+         written to your settings. New follows a song's kit itself; a style
+         without songs asks for its kit here, as picking it would. */
+      chosen.current = {
+        ...chosen.current,
+        style: key,
+        meter: params.meter ?? chosen.current.meter,
+      };
+      if (!params.songs) followKit(params);
+      return newBreak('both');
+    },
+    [catalogue.styles, followKit, newBreak]
   );
 
   /**
@@ -2197,6 +2221,7 @@ export function useBreakConsole(
     size,
     setSize,
     newBreak,
+    newBreakIn,
     restartFromTop,
     regenerate,
     buildBFromA,

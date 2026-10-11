@@ -280,4 +280,77 @@ describe('/studio', () => {
       expect(readSession).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing asked for
     });
   });
+
+  describe("?style= — a drummer's Play in their style", () => {
+    beforeEach(() => {
+      vi.mocked(getServerSession).mockResolvedValue(createMockAuthSession());
+      vi.mocked(studioCatalogue).mockResolvedValue(testCatalogue());
+    });
+    const query = (q: Record<string, string | string[]>) => ({ searchParams: Promise.resolve(q) });
+
+    it('hands a style the catalogue has to the provider to write a break in', async () => {
+      const el = await StudioPage(query({ style: 'bonham' }));
+      expect(el.type).toBe(StudioProvider);
+      expect(el.props.openStyle).toBe('bonham');
+    });
+
+    it.each([
+      ['not in the catalogue', 'not-a-style'],
+      ['malformed', '../admin'],
+      ['upper case', 'Bonham'],
+      ['repeated', ['bonham', 'funk']],
+      ['empty', ''],
+      // well-formed, and on every object: only the catalogue's own keys count
+      ['an inherited property name', 'constructor'],
+    ])('opens the Studio on nothing when the style is %s', async (_, style) => {
+      const el = await StudioPage(query({ style }));
+      expect(el.type).toBe(StudioProvider);
+      expect(el.props.openStyle).toBeUndefined();
+    });
+
+    it('leaves it to a library entry, which names what to open itself', async () => {
+      const el = await StudioPage(query({ style: 'bonham', entry: ENTRY_ID }));
+      expect(el.props.openEntry).toBe(ENTRY_ID);
+      expect(el.props.openStyle).toBeUndefined();
+    });
+
+    it('leaves it to a practice session', async () => {
+      const practice = sessionView();
+      vi.mocked(readSession).mockResolvedValue(practice);
+      const el = await StudioPage(query({ style: 'bonham', session: 'csess0000000000000000001' }));
+      expect(el.props.session).toBe(practice);
+      expect(el.props.openStyle).toBeUndefined();
+    });
+
+    it('still honours the style when the entry is malformed, as it names nothing to open', async () => {
+      const el = await StudioPage(query({ style: 'bonham', entry: '../admin' }));
+      expect(el.props.openEntry).toBeUndefined();
+      expect(el.props.openStyle).toBe('bonham');
+    });
+
+    it('brings a signed-out drummer back to the style after signing in', async () => {
+      vi.mocked(getServerSession).mockResolvedValue(null);
+      const el = await StudioPage(query({ style: 'bonham' }));
+      expect(el.type).toBe(SignInToOpen);
+      expect(el.props.loginHref).toBe(
+        `/login?callbackUrl=${encodeURIComponent('/studio?style=bonham')}`
+      );
+    });
+
+    it('carries the style beside a session and an entry, and drops a malformed one', async () => {
+      vi.mocked(getServerSession).mockResolvedValue(null);
+      const both = await StudioPage(
+        query({ session: 'csess0000000000000000001', entry: ENTRY_ID, style: 'bonham' })
+      );
+      expect(both.props.loginHref).toBe(
+        `/login?callbackUrl=${encodeURIComponent(
+          `/studio?session=csess0000000000000000001&entry=${ENTRY_ID}&style=bonham`
+        )}`
+      );
+      const junk = await StudioPage(query({ style: 'javascript:alert(1)' }));
+      expect(junk.props.loginHref).toBe(`/login?callbackUrl=${encodeURIComponent('/studio')}`);
+      const repeated = await StudioPage(query({ style: ['bonham', 'funk'] }));
+      expect(repeated.props.loginHref).toBe(`/login?callbackUrl=${encodeURIComponent('/studio')}`);
+    });
+  });
 });

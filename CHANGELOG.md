@@ -18,6 +18,14 @@ release process.
 
 ### Added
 
+- **The lineage map and drummer pages (BeatBreaker Phase 11-b).** Two public
+  pages, `/drummers` (a server-rendered SVG map, time left to right and a
+  band per family, with a list on phones) and `/drummers/[slug]` (a record,
+  its recordings and its lineage). `lib/app/lineage` gains `layoutLineage` /
+  `traceLineage` (`layout.ts`), `relationsOf` (`relations.ts`) and
+  `readDrummerRecord` (`record.ts`). The Studio takes `/studio?style=<key>`,
+  which writes a new break in that style; the public nav gains Drummers.
+
 - **The drummer model and the lineage graph (BeatBreaker Phase 11-a).** Every
   famous drummer is a record in the drummer model (v1.4, JSON Schemas under
   `prisma/seeds/app-beatbreaker/data/drummer-model/schema/`) as well as a

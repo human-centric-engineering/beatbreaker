@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { readStudioDrawer } from '@/components/app/shell/studio-address';
+import { readStudioDrawer, readStudioStyle } from '@/components/app/shell/studio-address';
 import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
 import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioTour } from '@/components/app/shell/studio-tour';
@@ -63,18 +63,24 @@ export const metadata: Metadata = {
 };
 
 /**
- * Where sign-in comes back to. A session link keeps its `?session=`, and a
- * library link its `?entry=` — each is a query, which the login form carries,
- * unlike a fragment — so a signed-out drummer lands back on the session or the
- * break, not a bare Studio. Only a well-formed id is carried; anything else is
- * dropped.
+ * Where sign-in comes back to. A session link keeps its `?session=`, a library
+ * link its `?entry=` and a drummer's Play its `?style=` — each is a query,
+ * which the login form carries, unlike a fragment — so a signed-out drummer
+ * lands back on the session, the break or the style, not a bare Studio. Only a
+ * well-formed value is carried; anything else is dropped.
  */
-function loginHref(query: { session?: string | string[]; entry?: string | string[] }): string {
+function loginHref(query: {
+  session?: string | string[];
+  entry?: string | string[];
+  style?: string | string[];
+}): string {
   const back = new URLSearchParams();
   const session = cuidSchema.safeParse(query.session);
   if (session.success) back.set('session', session.data);
   const entry = cuidSchema.safeParse(query.entry);
   if (entry.success) back.set('entry', entry.data);
+  const style = readStudioStyle(query);
+  if (style) back.set('style', style);
   const qs = back.toString();
   return `/login?callbackUrl=${encodeURIComponent(qs ? `/studio?${qs}` : '/studio')}`;
 }
@@ -87,6 +93,7 @@ export default async function StudioPage({
     session?: string | string[];
     drawer?: string | string[];
     tab?: string | string[];
+    style?: string | string[];
   }>;
 }) {
   const session = await getServerSession();
@@ -111,6 +118,15 @@ export default async function StudioPage({
     listSamples(session.user.id),
   ]);
 
+  /* A style to play (a drummer's page): only a key the catalogue has of its
+     own, so `constructor` is not one, and not over a library entry or a
+     session, which name what to open themselves. */
+  const style = readStudioStyle(query);
+  const openStyle =
+    style && Object.hasOwn(catalogue.styles, style) && !entry.success && !practice
+      ? style
+      : undefined;
+
   return (
     <StudioProvider
       catalogue={preferStyles(catalogue, about.styles)}
@@ -121,6 +137,7 @@ export default async function StudioPage({
       yourSamples={yourSamples}
       openEntry={entry.success ? entry.data : undefined}
       openDrawer={readStudioDrawer(query)}
+      openStyle={openStyle}
       session={practice}
     >
       <StudioFrame />
