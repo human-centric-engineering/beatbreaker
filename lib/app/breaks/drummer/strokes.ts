@@ -1,6 +1,7 @@
 import { clamp01, smoothstep } from '@/lib/app/breaks/drummer/ease';
 import {
   type Rebound,
+  clickFlick,
   flight,
   flightTime,
   impactSpeed,
@@ -553,6 +554,11 @@ export function strokeAt(hits: readonly Hit[], now: number, p: StrokeProfile): S
     lift = liftOf(plan, now, p);
     hand = lift * (1 - (p.physics ? fingerShare(next ?? prev, p.fingers) : 0));
     fall = plan.fall;
+    // a stick clicked on the other rings in the fingers a moment: the arm does not
+    if (p.physics && prev?.piece === 'sticks') {
+      const speed = impactSpeed(planOf(hits[strokeBefore(hits, i)], prev, p).target);
+      lift = Math.max(0, lift + clickFlick(speed, restitution(prev, speed), since));
+    }
   }
 
   let travel = 1;

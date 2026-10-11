@@ -1049,12 +1049,13 @@ function arm(
   // together, and the fingers' on top of it (all of it, set down for a cross-stick)
   const wristArm = grip0.distanceTo(wrist0);
   const asin = (x: number) => Math.asin(Math.max(-0.97, Math.min(0.97, x)));
+  // (counting, the stick is held fixed and the arm plays it: the hand turns only as far as
+  // the stick, but for the click ringing in the fingers)
+  const fixed = Math.min(cap, sign * st.hand * time.height + arc + time.air);
   const wristTurn = counting
-    ? asin((lift - armLift) / (reach + wristArm))
+    ? asin((fixed - armLift) / (reach + wristArm))
     : asin((ahead - armLift) / (reach + wristArm)) * (1 - crossed);
-  const theta = counting
-    ? wristTurn
-    : asin((lift - armLift - wristArm * Math.sin(wristTurn)) / reach);
+  const theta = asin((lift - armLift - wristArm * Math.sin(wristTurn)) / reach);
   const axis = new Vector3().crossVectors(d0, UP).normalize();
   const matchedTurn = new Quaternion().setFromAxisAngle(axis, wristTurn);
   // ...the turn shared between the wrist and the forearm as the grip has it

@@ -161,6 +161,18 @@ describe('strokeAt', () => {
     expect(hand).toBeLessThan(tip * 0.75);
   });
 
+  it('counting in, rings the clicked stick in the fingers a moment, the arm not', () => {
+    const hits = [0, 0.5, 1].map((t) => hit(t, 0.9, { piece: 'sticks' }));
+    // the arm is the plan's; the stick answers the click on top of it
+    const ring = (t: number) => {
+      const st = strokeAt(hits, t, HAND);
+      return st.lift - st.hand;
+    };
+    expect(ring(0.5)).toBe(0);
+    expect(ring(0.515)).toBeGreaterThan(0.005);
+    expect(Math.abs(ring(0.65))).toBeLessThan(0.001);
+  });
+
   describe('a buzz', () => {
     /** A buzz at 0.6 s, its three repeats a quarter of a 0.125 s step apart, a hit after. */
     const step = 0.125;

@@ -208,6 +208,22 @@ export function flightTime(speed: number, height: number): number {
   return d > 0 ? (speed - Math.sqrt(d)) / DECEL : speed / DECEL;
 }
 
+/**
+ * Counting in, how far a stick clicked on the other rings in the fingers
+ * holding it, `since` seconds after the click, metres at the tip: thrown back
+ * at the click's share of `speed` (`e`, wood on wood) and taken by the grip —
+ * held firm for the count — as a damped spring, gone in a few hundredths of a
+ * second. The arm plays the count; this is only the stick answering the click.
+ */
+export function clickFlick(speed: number, e: number, since: number): number {
+  if (since < 0) return 0;
+  const w = Math.sqrt(GRIP_TIGHT / I_STICK);
+  const wd = w * Math.sqrt(1 - CLICK_DAMP * CLICK_DAMP);
+  return ((e * speed) / wd) * Math.exp(-CLICK_DAMP * w * since) * Math.sin(wd * since);
+}
+/** How damped a clicked stick's ring in the fingers is, as a share of critical. */
+const CLICK_DAMP = 0.4;
+
 /** A stretch of a hand's playing between two notes (or after the last), worked out once. */
 export interface ReboundSpec {
   /** When the stroke just played met the head. */

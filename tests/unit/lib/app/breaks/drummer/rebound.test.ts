@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   type ReboundSpec,
   SIM_MAX,
+  clickFlick,
   flight,
   flightTime,
   impactSpeed,
@@ -108,6 +109,16 @@ describe('flight', () => {
     const decel = v / flightTime(v, flight(v));
     expect(decel).toBeGreaterThan(6);
     expect(decel).toBeLessThan(12);
+  });
+});
+
+describe('clickFlick', () => {
+  it('rings a clicked stick up and back, and lets it go quiet', () => {
+    expect(clickFlick(3, 0.5, 0)).toBe(0);
+    expect(clickFlick(3, 0.5, -0.01)).toBe(0);
+    expect(clickFlick(3, 0.5, 0.012)).toBeGreaterThan(0.005);
+    expect(clickFlick(6, 0.5, 0.012)).toBeGreaterThan(clickFlick(3, 0.5, 0.012));
+    expect(Math.abs(clickFlick(3, 0.5, 0.2))).toBeLessThan(0.0005);
   });
 });
 
