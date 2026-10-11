@@ -589,6 +589,28 @@ describe('generating and editing', () => {
     expect(result.current.patterns).toBe(before);
   });
 
+  it('takes the hands off an edited rudiment bar, and the fixed flag off a cleared one', async () => {
+    const hook = renderHook(() => useBreakConsole(withRudiments));
+    await waitFor(() => expect(hook.result.current.ready).toBe(true));
+    const { result } = hook;
+    const paradiddle = RUDIMENTS.findIndex((r) => r.title === 'Single Paradiddle');
+    act(() => result.current.loadLibraryEntry(`rudiment-${paradiddle}`));
+    expect(result.current.patterns.A?.fixed).toBe(true);
+
+    // the hands were written for the notes that were there, not these
+    act(() => result.current.setCell('A', 0, 's', 1, 0));
+    expect(result.current.patterns.A?.sticking).toBeUndefined();
+    expect(result.current.patterns.A?.fixed).toBe(true);
+
+    // what is drawn over a cleared rudiment is not the rudiment: its layers derive
+    act(() => result.current.clearSection());
+    expect(result.current.patterns.A?.fixed).toBeUndefined();
+
+    act(() => result.current.cycleCell('B', 0, 's', 1, false));
+    expect(result.current.patterns.B?.sticking).toBeUndefined();
+    expect(result.current.patterns.B?.fixed).toBe(true);
+  });
+
   it('turns the toms on and off without throwing the kit lanes away', async () => {
     const { result } = await mount();
     const kick = result.current.patterns.A?.bars[0].k.slice();

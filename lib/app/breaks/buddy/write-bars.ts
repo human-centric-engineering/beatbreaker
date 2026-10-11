@@ -143,6 +143,7 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
     next.meter = meterKey;
     next.pins = null;
     next.sticking = null;
+    delete next.fixed;
     const found = backbeatsOf(next.bars);
     next.backbeats = found.length
       ? found

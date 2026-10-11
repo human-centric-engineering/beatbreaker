@@ -256,6 +256,10 @@ describe('GeneratePanel — the rudiments', () => {
     await user.click(screen.getByRole('button', { name: 'New A only' }));
     expect(screen.getByTestId('on-stage')).toHaveTextContent('Single Paradiddle');
     expect(screen.getByTestId('notice')).toHaveTextContent(/A rudiment is written out/);
+
+    // nor is B built on it
+    await user.click(screen.getByRole('button', { name: 'Build B from A' }));
+    expect(screen.getByTestId('notice')).toHaveTextContent(/cannot be built on for B/);
   });
 
   it('shows no card without the library', async () => {

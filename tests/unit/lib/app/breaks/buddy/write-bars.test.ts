@@ -259,6 +259,19 @@ describe('write_bars', () => {
     expect(playability(after, 94).hard).toBe(true);
   });
 
+  it('with whole: true, takes the fixed flag and the written hands off a rewritten rudiment', async () => {
+    const doc = decoded(DOC);
+    doc.A.fixed = true;
+    doc.A.sticking = ['RLRRLRLLRLRRLRLL'];
+    fake.rows.set('user-1', { userId: 'user-1', doc: breakPayload(doc), rev: 2 });
+
+    const result = await run({ section: 'A', whole: true, text: `bar 1${PLAIN}` });
+
+    const after = decoded(dataOf(result).doc).A;
+    expect(after.fixed).toBeUndefined();
+    expect(after.sticking).toBeUndefined();
+  });
+
   it('refuses a new meter without whole: true', async () => {
     const result = await run({ section: 'A', meter: '3/4', text: `bar 1${PLAIN}` });
 

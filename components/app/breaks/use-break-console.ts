@@ -51,6 +51,7 @@ import { takePendingLink } from '@/lib/app/breaks/pending-link';
 import {
   type CustomLanes,
   clonePattern,
+  dropBarSticking,
   resolveLanes,
   setPin,
   writePerc,
@@ -1161,6 +1162,7 @@ export function useBreakConsole(
       const v = (shown + (back ? states - 1 : 1)) % states;
       next.bars[bar][lane][step] = v;
       if (v) setPin(next, bar, lane, step, level);
+      dropBarSticking(next, bar);
       setPatterns((prev) => ({ ...prev, [letter]: next }));
     },
     [patterns, level, pushHistory]
@@ -1191,6 +1193,7 @@ export function useBreakConsole(
         const next = clonePattern(pat);
         next.bars[bar][lane][step] = value;
         if (value) setPin(next, bar, lane, step, level);
+        dropBarSticking(next, bar);
         return { ...prev, [letter]: next };
       });
     },
@@ -1198,9 +1201,10 @@ export function useBreakConsole(
   );
 
   /**
-   * Blank the section being edited — every lane, every bar, and the pins with
-   * them. A cleared section that still carried pins would re-derive notes the
-   * moment you moved layers, which is not what "clear" means.
+   * Blank the section being edited — every lane, every bar, and the pins,
+   * written hands and fixed flag with them. A cleared section that still
+   * carried pins would re-derive notes the moment you moved layers, which is
+   * not what "clear" means.
    */
   const clearSection = useCallback(() => {
     const pat = patterns[editing];
@@ -1210,6 +1214,8 @@ export function useBreakConsole(
     for (const bar of next.bars) for (const lane of LANES) bar[lane].fill(0);
     next.pins = null;
     delete next.sticking;
+    // whatever is drawn next is not the rudiment, so its layers derive as ever
+    delete next.fixed;
     setPatterns((prev) => ({ ...prev, [editing]: next }));
   }, [patterns, editing, pushHistory]);
 

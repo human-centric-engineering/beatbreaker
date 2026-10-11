@@ -39,7 +39,9 @@ release process.
   catalogue seed writes every library in its `LIBRARIES` list. The Studio
   shows them in the Generate drawer, on folding shelves, not in the
   Libraries tab. Rudiments are practice-session targets like any other
-  library entry.
+  library entry. `POST /api/v1/breaks/doctor` refuses a fixed pattern with a
+  400. Clearing a section, or BeatBuddy rewriting a whole one, drops `fixed`;
+  editing a bar's notes drops that bar's sticking.
 
 - **Written-out styles, swing ranges, and jazz, blues and rock widened.**
   A style's params may now carry `figures` (whole bars written out, per lane,

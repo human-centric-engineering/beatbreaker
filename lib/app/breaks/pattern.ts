@@ -203,6 +203,18 @@ export function keptSticking(before: Pattern, after: Pattern): Sticking | null {
   );
 }
 
+/**
+ * Take the written hands off one bar of `p`, in place: its notes were edited,
+ * and the hands were written for the old ones. `p` must be a clone.
+ */
+export function dropBarSticking(p: Pattern, bi: number): void {
+  if (!p.sticking?.[bi]) return;
+  p.sticking[bi] = null;
+  const kept = tidySticking(p.sticking);
+  if (kept) p.sticking = kept;
+  else delete p.sticking;
+}
+
 /** Sticking with no bar left that writes anything is no sticking at all. */
 export function tidySticking(sticking: Sticking | null | undefined): Sticking | null {
   return sticking?.some(Boolean) ? sticking : null;
