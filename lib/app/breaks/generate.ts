@@ -7,6 +7,7 @@ import {
   HALF_OPEN,
   RIMSHOT,
   TOM_LANES,
+  PERC_LANES,
   bbLaneOf,
   bbValue,
   handLanes,
@@ -1043,8 +1044,8 @@ export function fitHands(pat: Pattern): void {
  *
  * Some backbeats become rimshots and some open hats half-open ones; off the
  * backbeat, a snare accent may become a flam and a plain hit a drag or a buzz.
- * A flam or drag takes both hands, so the hand leaves the cymbal on that step,
- * as it does in a fill — otherwise the critic would rightly call it
+ * A flam or drag takes both hands, so the hand leaves the cymbal, a tom or a
+ * bell mounted on the kit on that step, as it does in a fill — otherwise the critic would rightly call it
  * unplayable.
  *
  * It draws from a stream of its own, and only runs when a param is set: the
@@ -1061,11 +1062,13 @@ export function articulate(pat: Pattern, style: Style): Pattern {
   if (!(rim || flam || drag || buzz || half)) return pat;
 
   const rng = makeRng((pat.seed ^ 0x2545f491) >>> 0);
+  // a bell or a shell mounted on the kit is a hand as well; a conga is not
+  const kitPerc = PERC_LANES.filter((L) => handLanes(pat.perc).includes(L));
   const freeHands = (b: Bar, i: number): void => {
     b.h[i] = 0;
     b.r[i] = 0;
     b.c[i] = 0;
-    for (const L of TOM_LANES) b[L][i] = 0;
+    for (const L of [...TOM_LANES, ...kitPerc]) b[L][i] = 0;
   };
   for (const b of pat.bars) {
     for (let i = 0; i < b.s.length; i++) {

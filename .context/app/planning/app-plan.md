@@ -3622,7 +3622,14 @@ stays).
 - **Fixed on the way:** the critic's flam-and-drag check counted every
   percussion slot as a hand, though the two-hands check counts only those on
   the kit, so a drag over Changuito's conga was called unplayable. It now uses
-  the same lanes (`handLanes`), with a test.
+  the same lanes (`handLanes`), with a test. `/code-review` then found the
+  other half: making a flam or drag took the hand off the cymbals and toms but
+  not off a bell mounted on the kit, so it now does that too. It also found
+  three slips in the songs: a bar of Hernández's Afro Blue that needed three
+  hands (the bell lost a stroke every bar), and two of Elvin's fills one step
+  off the triplet grid. Tests now hold that no written bar needs three hands
+  with its percussion under it, and that Elvin's compound-time notes fall on a
+  triplet eighth or the hemiola.
 - **Puente's and Changuito's own figures are two each**, under the four
   `generate.test.ts` wants of a written-out style: a clave groove is a few
   bars that stay in clave, and their songs carry the rest. They are named

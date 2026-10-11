@@ -11377,8 +11377,8 @@ export const STYLES: Record<string, Style> = {
           ],
           fills: [
             [{ s: '3.1.1.......', t1: '......2.2...', t3: '..........2.' }, 1.2],
-            // the two cross-beats, the second on the kick
-            [{ s: '3........3', k: '.........2' }, 0.8],
+            // the bar's second cross-beat, snare and kick together, then air into the 1
+            [{ s: '3........', k: '2........' }, 0.8],
           ],
         },
       },
@@ -11526,7 +11526,8 @@ export const STYLES: Record<string, Style> = {
           fills: [
             // the head's last bars: triplets round the snare and toms
             [{ s: '3.1.1.......', t1: '......2.2...', t3: '..........2.' }, 1.2],
-            [{ s: '2.1.2.1.', t1: '.......2' }, 0.8],
+            // in triplet eighths, the tom on the last of them
+            [{ s: '2.1.2...', t1: '......2.' }, 0.8],
           ],
         },
       },
@@ -12852,9 +12853,10 @@ export const STYLES: Record<string, Style> = {
             { inst: 'cowbell', steps: [0, 4, 8, 10, 14, 18, 22], accents: [0] },
           ],
           figures: [
+            // no ghost under the second open tone: the bell has the other hand
             [
               {
-                s: '..1.......1.......1.....',
+                s: '..1.......1.............',
                 t2: '......2...........2.....',
                 k: '1...........1...........',
               },

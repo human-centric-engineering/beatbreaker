@@ -510,6 +510,16 @@ describe('the rest of the app knows them (9.14)', () => {
     expect(rich.bars.map((b) => b.k)).toEqual(plain.bars.map((b) => b.k));
   });
 
+  it('takes the hand off a bell on the kit for a flam, and leaves a conga alone', () => {
+    const bar = barWith('s', 3, 6);
+    bar.p1[6] = 1;
+    bar.p2[6] = 1;
+    const pat = pattern([bar], { perc: { p1: 'cowbell', p2: 'conga' } });
+    articulate(pat, { ...testStyle('funk').params, flam: 1 });
+    expect([pat.bars[0].s[6], pat.bars[0].p1[6], pat.bars[0].p2[6]]).toEqual([6, 0, 1]);
+    expect(playability(pat, 100).checks.every((c) => c.label !== GRACE_CHECK)).toBe(true);
+  });
+
   it('leaves a pattern untouched when a style sets no articulation param', () => {
     const style = testStyle('funk');
     const pat = generatePattern({ style, seed: 3, bars: 2, density: 50, ghosts: 50 });

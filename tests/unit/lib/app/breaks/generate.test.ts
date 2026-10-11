@@ -582,7 +582,8 @@ describe('the rock, jazz and blues styles', () => {
   const CHINA_PLAYERS = ['yussefdayes'];
   /* A clave groove is a few bars that stay in clave, not a stock of grooves to
      vary: Puente's and Changuito's own figures are two each, and their songs
-     carry the rest. The clave itself is held in `jazz-latin.test.ts`. */
+     carry the rest; Puente's fills are two, the abanico and its answer. The
+     clave itself is held in `jazz-latin.test.ts`. */
   const CLAVE_DRUMMERS = ['puente', 'changuito'];
 
   it('covers the rock, jazz and blues groups', () => {
@@ -598,10 +599,9 @@ describe('the rock, jazz and blues styles', () => {
     for (const key of ROCK) {
       const params = STYLES[key].params;
       const n = stepsOf(meterOf(params.meter ?? '4/4'));
-      if (!CLAVE_DRUMMERS.includes(key)) {
-        expect(params.figures?.length).toBeGreaterThan(3);
-        expect(params.fills?.length).toBeGreaterThan(2);
-      }
+      const clave = CLAVE_DRUMMERS.includes(key);
+      expect(params.figures?.length).toBeGreaterThan(clave ? 1 : 3);
+      expect(params.fills?.length).toBeGreaterThan(clave ? 1 : 2);
       for (const [f] of params.figures ?? []) {
         for (const r of Object.values(f)) expect(r?.length).toBe(n);
       }

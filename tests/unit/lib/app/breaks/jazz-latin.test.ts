@@ -2,7 +2,9 @@
  * The four drummers of 11-d — Elvin Jones, Tito Puente, Changuito and Horacio
  * Hernández: each filed with his family, every one of his songs writing, at
  * its own tempo, a break the critic passes, and every Latin song keeping the
- * clave its record names, in every bar it writes.
+ * clave its record names, in every bar it writes. What a song writes by hand
+ * needs no more than two hands with its percussion under it, and Elvin's
+ * compound-time songs stay on the triplet grid his record asks for.
  *
  * `song-tempo.test.ts` holds every drummer's merged range to `playableBpm`,
  * but the merge has already cut it down, so a range written wider than its
@@ -14,10 +16,12 @@ import { describe, expect, it } from 'vitest';
 
 import { generateGood, playability } from '@/lib/app/breaks/critic';
 import { generatePattern } from '@/lib/app/breaks/generate';
-import { PERC_LANES } from '@/lib/app/breaks/lanes';
+import { PERC_LANES, handLanes, handsAt, percRoster } from '@/lib/app/breaks/lanes';
+import { meterOf, stepsOf } from '@/lib/app/breaks/meter';
+import { emptyBar } from '@/lib/app/breaks/pattern';
 import { makeRng } from '@/lib/app/breaks/rng';
-import { playableBpm, songMeter, songTempo } from '@/lib/app/breaks/songs';
-import type { Pattern } from '@/lib/app/breaks/types';
+import { playableBpm, songMeter, songTempo, withSong } from '@/lib/app/breaks/songs';
+import type { Figure, LaneKey, Pattern } from '@/lib/app/breaks/types';
 import { STYLES, STYLE_GROUPS } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { testStyle } from '@/tests/helpers/catalogue';
 
@@ -115,6 +119,32 @@ describe.each(Object.keys(FAMILIES))('%s', (key) => {
     }
   });
 
+  /* `fitHands` would quietly drop a note from a bar that asks for three hands,
+     so a figure written that way never plays as written; the critic cannot
+     see it. Each bar here is the figure with the song's percussion slots
+     under it, as `writePerc` lays them. */
+  it('writes no bar that needs three hands with its percussion under it', () => {
+    for (const song of songs) {
+      const merged = withSong(st, song.key);
+      const n = stepsOf(meterOf(songMeter(st, song)));
+      const hands = handLanes(percRoster(merged));
+      for (const [figure] of merged.figures ?? []) {
+        const rows = Object.entries(figure) as Array<[LaneKey, string]>;
+        for (let bar = 0; bar * n < (rows[0]?.[1].length ?? 0); bar++) {
+          const b = emptyBar(n);
+          for (const [lane, row] of rows)
+            for (let i = 0; i < n; i++)
+              b[lane][i] = row[bar * n + i] === '.' ? 0 : Number(row[bar * n + i]);
+          (merged.perc ?? []).forEach((spec, li) => {
+            for (const i of spec.steps ?? []) if (i < n) b[PERC_LANES[li]][i] ||= 1;
+          });
+          for (let i = 0; i < n; i++)
+            expect(handsAt(b, i, hands), `${song.key}, step ${i}`).toBeLessThanOrEqual(2);
+        }
+      }
+    }
+  });
+
   it('writes a break the critic passes in every song, at its own tempo', () => {
     const rng = makeRng(7);
     for (const song of songs) {
@@ -127,6 +157,34 @@ describe.each(Object.keys(FAMILIES))('%s', (key) => {
         expect(res.pattern.song).toBe(song.key);
         expect(res.pattern.meter).toBe(songMeter(st, song));
         expect(playability(res.pattern, bpm).hard, `${song.key} at ${bpm}`).toBe(true);
+      }
+    }
+  });
+});
+
+describe('Elvin Jones in compound time', () => {
+  /* "Triplet grid; never straight 16ths" (his record). In 9/8 and 12/8 a step
+     is a sixteenth, so a triplet eighth is an even step. The one other place a
+     note may fall is half way through the bar: the second beat of the 6/8
+     hemiola he lays over the waltz. A fill is right-aligned to the bar's end,
+     so its row's length decides where it lands. */
+  it('writes every figure and fill note on a triplet eighth or the hemiola', () => {
+    const st = STYLES.elvinjones;
+    for (const song of st.songs ?? []) {
+      const meter = songMeter(st, song);
+      if (meter !== '9/8' && meter !== '12/8') continue;
+      const n = stepsOf(meterOf(meter));
+      const merged = withSong(st, song.key);
+      const odd = (f: Figure, from: number) =>
+        Object.entries(f).flatMap(([lane, row]) =>
+          [...(row ?? '')].flatMap((c, i) =>
+            c !== '.' && (from + i) % 2 && from + i !== n / 2 ? [`${lane}@${from + i}`] : []
+          )
+        );
+      for (const [f] of merged.figures ?? []) expect(odd(f, 0), `${song.key} figure`).toEqual([]);
+      for (const [f] of merged.fills ?? []) {
+        const len = Math.max(...Object.values(f).map((r) => r?.length ?? 0));
+        expect(odd(f, n - len), `${song.key} fill`).toEqual([]);
       }
     }
   });
