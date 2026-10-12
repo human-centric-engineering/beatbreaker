@@ -11,6 +11,7 @@ import {
   firstSection,
   nextSection,
   pageShift,
+  previewApart,
   withPreview,
 } from '@/lib/app/breaks/drummer/corner-chart';
 import { type Engraving, engrave } from '@/lib/app/breaks/engrave';
@@ -67,6 +68,29 @@ function lineOf(current: Pattern, following: Pattern | null): Engraving {
   return out;
 }
 
+/** The first bars of a next section in another meter, drawn on their own. */
+const drawnApart = new WeakMap<Pattern, Engraving>();
+
+/**
+ * The preview of a next section in another meter, as its own short line with
+ * its clef and time signature, drawn once for as long as the pattern lives.
+ * `null` when the preview goes on the section's own line.
+ */
+function apartOf(current: Pattern, following: Pattern | null): Engraving | null {
+  const pat = previewApart(current, following);
+  if (!pat || !following) return null;
+  const hit = drawnApart.get(following);
+  if (hit) return hit;
+  const out = engrave(pat, null, {
+    scale: CHART_SCALE,
+    perSystem: Math.max(1, pat.bars.length),
+    guides: false,
+    sticking: false,
+  });
+  drawnApart.set(following, out);
+  return out;
+}
+
 /** Where the strip was left: by which engraving, at which step, and where the step after it was on screen. */
 interface Placed {
   engraving: Engraving | null;
@@ -118,6 +142,8 @@ export function DrummerChart() {
     () => (current ? lineOf(current, following) : null),
     [current, following]
   );
+
+  const apart = useMemo(() => (current ? apartOf(current, following) : null), [current, following]);
 
   // a bar index past the section's end (a bar cut while it plays, before the
   // transport catches up) would land in the preview: no playhead until it does
@@ -171,15 +197,21 @@ export function DrummerChart() {
     }
     const next = pageShift(room, x, shift);
     if (next !== shift) move(next, true);
+    // the step after the last is the first of a preview drawn apart, past the line's end
     const after = engraving.map[index + 1];
+    const ahead = after
+      ? centreOf(after)
+      : apart?.map[0]
+        ? engraving.width + centreOf(apart.map[0])
+        : x;
     placed.current = {
       engraving,
       index,
       shift: next,
       here: x + next,
-      ahead: (after ? centreOf(after) : x) + next,
+      ahead: ahead + next,
     };
-  }, [engraving, index, room]);
+  }, [engraving, apart, index, room]);
 
   if (!current || !engraving) return null;
 
@@ -187,6 +219,8 @@ export function DrummerChart() {
   const counting = !!pos && (pos.count || pos.letter === letter);
   const beat = counting && pos ? Math.floor(pos.slot / meter.sub) : -1;
   const previewAt = engraving.map[current.bars.length * engraving.steps];
+  // a preview drawn apart starts where the section's line ends, at its own clef
+  const nextAt = apart ? engraving.width : previewAt ? previewAt.x - 8 * CHART_SCALE : null;
 
   return (
     <div className="drummer-chart" aria-hidden="true">
@@ -211,9 +245,12 @@ export function DrummerChart() {
       </div>
       <div className="drummer-chart-window" ref={windowRef}>
         <div className="drummer-chart-strip" ref={strip}>
-          <Stave ref={stave} engraving={engraving} />
-          {previewAt ? (
-            <div className="drummer-chart-next" style={{ left: previewAt.x - 8 * CHART_SCALE }}>
+          <div className="drummer-chart-line">
+            <Stave ref={stave} engraving={engraving} />
+            {apart ? <Stave engraving={apart} /> : null}
+          </div>
+          {nextAt != null ? (
+            <div className="drummer-chart-next" style={{ left: nextAt }}>
               <span>Next: {nextLetter}</span>
             </div>
           ) : null}

@@ -61,7 +61,7 @@ export function firstSection(
  * The section and, after it, the first bars of the one that follows, as one
  * pattern to engrave on one line. Every lane either plays is drawn. A next
  * section in another meter is left off: one line of music cannot change time
- * signature mid-way without saying so.
+ * signature mid-way without saying so — {@link previewApart} draws it instead.
  */
 export function withPreview(pat: Pattern, next: Pattern | null): Pattern {
   if (!next || next.meter !== pat.meter) return pat;
@@ -73,6 +73,23 @@ export function withPreview(pat: Pattern, next: Pattern | null): Pattern {
       ...pat.bars.map((_, i) => pat.sticking?.[i] ?? null),
       ...next.bars.slice(0, PREVIEW_BARS).map((_, i) => next.sticking?.[i] ?? null),
     ]),
+  };
+}
+
+/**
+ * The first bars of a next section in another meter, on their own: drawn as
+ * a line of their own after this one, with their own clef and time
+ * signature, so the change of meter is said where it comes. `null` when the
+ * preview goes on the section's own line, or there is none.
+ */
+export function previewApart(pat: Pattern, next: Pattern | null): Pattern | null {
+  if (!next || next.meter === pat.meter) return null;
+  const bars = next.bars.slice(0, PREVIEW_BARS);
+  return {
+    ...next,
+    bars,
+    sticking: tidySticking(bars.map((_, i) => next.sticking?.[i] ?? null)),
+    pins: next.pins ? next.pins.slice(0, PREVIEW_BARS) : null,
   };
 }
 

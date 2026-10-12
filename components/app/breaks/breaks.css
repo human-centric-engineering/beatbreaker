@@ -1871,6 +1871,11 @@
   text-transform: uppercase;
   color: var(--brass);
 }
+/* The section's line, and a preview in another meter drawn after it on its own. */
+.bb .drummer-chart-line {
+  display: flex;
+  align-items: flex-start;
+}
 .bb .drummer-chart-strip .stave {
   overflow: visible;
 }
