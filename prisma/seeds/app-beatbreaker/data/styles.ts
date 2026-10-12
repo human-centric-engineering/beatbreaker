@@ -13274,6 +13274,14 @@ export const STYLES: Record<string, Style> = {
         weight: 1.1,
         params: {
           bpm: [146, 156],
+          /* past 150 on a sixteenth grid a run of double bass is past RUN_RATE,
+             and these figures have none, so the fallback kick cells drop it too */
+          kick1: [['1010', 1]],
+          kick: [
+            ['1010', 3],
+            ['1000', 1.5],
+            ['1011', 0.8],
+          ],
           figures: [
             [{ r: '....1.1.1.1.1...', s: '....3.......3.33', k: '1.......1.......' }, 2],
             [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.......' }, 1.6],
@@ -13303,6 +13311,10 @@ export const STYLES: Record<string, Style> = {
         weight: 1.0,
         params: {
           bpm: [106, 114],
+          /* the intro has no kick on 1: the style's forced one is lifted, and the
+             crash that starts each half goes without one (the grooves write their own) */
+          forceKick: [],
+          phraseMark: { kick: false },
           figures: [
             [{ r: '....2.......2...', t3: '....2.......2...', hf: '1.......1.......' }, 1.4],
             [{ r: '1.1.1.1.1.1.1.2.', k: '1111111111111111' }, 2],
@@ -13323,6 +13335,10 @@ export const STYLES: Record<string, Style> = {
         weight: 1.0,
         params: {
           bpm: [100, 108],
+          /* the intro has no kick on 1: the style's forced one is lifted, and the
+             crash that starts each half goes without one (the grooves write their own) */
+          forceKick: [],
+          phraseMark: { kick: false },
           figures: [
             [{ t2: '....2.......2...', t3: '....2.......2...', k: '....1.......1...' }, 1.2],
             // the floor tom alone on the 1, under the crash; both toms on 3
@@ -13352,6 +13368,14 @@ export const STYLES: Record<string, Style> = {
         weight: 1.0,
         params: {
           bpm: [176, 186],
+          /* past 150 on a sixteenth grid a run of double bass is past RUN_RATE,
+             and these figures have none, so the fallback kick cells drop it too */
+          kick1: [['1010', 1]],
+          kick: [
+            ['1010', 3],
+            ['1000', 1.5],
+            ['1011', 0.8],
+          ],
           figures: [
             // the toms in threes and ones over eighths on the feet: a bar on the mid tom, a bar on
             // the floor
@@ -13375,6 +13399,14 @@ export const STYLES: Record<string, Style> = {
         weight: 0.8,
         params: {
           bpm: [177, 188],
+          /* past 150 on a sixteenth grid a run of double bass is past RUN_RATE,
+             and these figures have none, so the fallback kick cells drop it too */
+          kick1: [['1010', 1]],
+          kick: [
+            ['1010', 3],
+            ['1000', 1.5],
+            ['1011', 0.8],
+          ],
           figures: [
             [{ h: '4.4.4.4.4.4.4.4.', s: '..3...3...3...3.', k: '1...1...1...1...' }, 2.4],
             [{ h: '4.4.4.4.4.4.4.4.', s: '....3.......3...', k: '1.......1.......' }, 0.8],
@@ -13431,7 +13463,7 @@ export const STYLES: Record<string, Style> = {
        Bars of eighths, nothing finer; the cymbals ring. */
     figures: [
       [{ r: '1...1...', s: '....3...', k: '1.......' }, 2],
-      [{ r: '1...1...', s: '....3...', k: '1.....1.' }, 1.4],
+      [{ r: '1...1...', s: '....3...', k: '1......1' }, 1.4],
       // the kick left out for a phrase (0.2 in the record)
       [{ r: '1...1...', s: '....3...' }, 0.6],
       // a crash on 1 in place of the ride, left to ring through the bar
@@ -13470,7 +13502,7 @@ export const STYLES: Record<string, Style> = {
           swing: 0,
           figures: [
             [{ r: '1.1.1.1.', s: '....3...', k: '1.......' }, 2],
-            [{ r: '1.1.1.1.', s: '....3...', k: '1.....1.' }, 1.2],
+            [{ r: '1.1.1.1.', s: '....3...', k: '1......1' }, 1.2],
             // the floor tom answering on 4
             [{ r: '1.1.1.1.', s: '....3...', t3: '......2.', k: '1.......' }, 0.6],
           ],
@@ -13486,7 +13518,7 @@ export const STYLES: Record<string, Style> = {
           swing: 0,
           figures: [
             [{ r: '1...1...', s: '....3...', k: '1.......' }, 2],
-            [{ r: '1...1...', s: '....3...', k: '1.....1.' }, 1],
+            [{ r: '1...1...', s: '....3...', k: '1......1' }, 1],
             [{ c: '1.......', s: '....3...', k: '1.......' }, 0.6],
           ],
         },
@@ -13530,6 +13562,8 @@ export const STYLES: Record<string, Style> = {
           bpm: [52, 55],
           swing: 0,
           backbeats: [12],
+          // the style's noKick is for eighths of 4/4; here the kick keeps to the eighths, the even steps
+          noKick: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23],
           figures: [
             [
               {
@@ -13576,6 +13610,8 @@ export const STYLES: Record<string, Style> = {
           bpm: [80, 84],
           swing: 0,
           backbeats: [12],
+          // the style's noKick is for eighths of 4/4; here the kick keeps to the eighths, the even steps
+          noKick: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23],
           figures: [
             [
               {
@@ -13641,6 +13677,8 @@ export const STYLES: Record<string, Style> = {
           bpm: [67, 70],
           swing: 0,
           backbeats: [6, 18],
+          // the style's noKick is for eighths of 4/4; here the kick keeps to the eighths, the even steps
+          noKick: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23],
           figures: [
             [
               {
@@ -13677,7 +13715,7 @@ export const STYLES: Record<string, Style> = {
           figures: [
             [{ r: '1.1.1.1.', s: '....3...', k: '1.......' }, 2],
             // the kick on the "and" of 4 every second bar
-            [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.............1.' }, 1.2],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1..............1' }, 1.2],
             [{ c: '1.......', s: '....3...', k: '1.......' }, 0.6],
           ],
         },
@@ -13724,6 +13762,8 @@ export const STYLES: Record<string, Style> = {
           bpm: [69, 72],
           swing: 0,
           backbeats: [6, 18],
+          // the style's noKick is for eighths of 4/4; here the kick keeps to the eighths, the even steps
+          noKick: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23],
           targetDensity: 7,
           figures: [
             [
@@ -13828,7 +13868,7 @@ export const STYLES: Record<string, Style> = {
           swing: 0,
           figures: [
             [{ r: '1.1.1.1.', s: '....4...', k: '1.......' }, 2],
-            [{ r: '1.1.1.1.', s: '....4...', k: '1.....1.' }, 1.2],
+            [{ r: '1.1.1.1.', s: '....4...', k: '1......1' }, 1.2],
             // the hats for once, closed
             [{ h: '1.1.1.1.', s: '....4...', k: '1.......' }, 0.8],
           ],
@@ -13975,7 +14015,7 @@ export const STYLES: Record<string, Style> = {
             [{ s: '2...222.....', t2: '........111.' }, 1.4],
             [{ c: '1...1...', k: '1...1...', s: '3...3...' }, 1.0],
             // hat, kick and snare together on 2, the "and" of 2, 3 and the "and" of 3
-            [{ h: '1.1.1.1...', k: '1.1.1.1...', s: '3.3.3.3...' }, 0.8],
+            [{ h: '1.1.1.1.....', k: '1.1.1.1.....', s: '3.3.3.3.....' }, 0.8],
           ],
         },
       },
@@ -13987,7 +14027,14 @@ export const STYLES: Record<string, Style> = {
         params: {
           meter: '4/4-6',
           bpm: [118, 122],
+          // the style's 4/4 step lists do not carry into this meter
+          backbeats: [4, 10, 16, 22],
+          openSlots: [22],
           crossRhythm: 0,
+          /* triplet eighths only, the even steps: the kick never on the odd ones,
+             and no ghosts, which the defaults would put there */
+          noKick: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23],
+          ghostWeights: {},
           figures: [
             [
               {
@@ -14018,6 +14065,9 @@ export const STYLES: Record<string, Style> = {
         params: {
           meter: '7/8',
           bpm: [170, 174],
+          // the style's 4/4 step lists do not carry into this meter
+          backbeats: [8],
+          openSlots: [12],
           crossRhythm: 0,
           figures: [
             // loop 2: the kick on 1 and 2, the snare on 3 with the hat open
@@ -14078,6 +14128,9 @@ export const STYLES: Record<string, Style> = {
         params: {
           meter: '7/8',
           bpm: [120, 124],
+          // the style's 4/4 step lists do not carry into this meter
+          backbeats: [4, 11, 13],
+          openSlots: [12],
           crossRhythm: 0,
           figures: [
             [{ r: '1.1.1.1.1.1.1.', s: '....2......2.2', k: '1.....1.1.....' }, 1.4],
@@ -14097,6 +14150,9 @@ export const STYLES: Record<string, Style> = {
         params: {
           meter: '7/8',
           bpm: [126, 130],
+          // the style's 4/4 step lists do not carry into this meter
+          backbeats: [1, 8, 12],
+          openSlots: [12],
           crossRhythm: 0,
           figures: [
             // groove 1: hat and snare together, the kick alone on the third 8th
@@ -14176,6 +14232,9 @@ export const STYLES: Record<string, Style> = {
         params: {
           meter: '5/8',
           bpm: [92, 96],
+          // the style's 4/4 step lists do not carry into this meter
+          backbeats: [2, 6],
+          openSlots: [8],
           crossRhythm: 0,
           figures: [
             /* The chorus and post-chorus bars, the snare on the second and fourth
@@ -14202,6 +14261,9 @@ export const STYLES: Record<string, Style> = {
         params: {
           meter: '12/8',
           bpm: [172, 176],
+          // the style's 4/4 step lists do not carry into this meter
+          backbeats: [6, 18],
+          openSlots: [22],
           crossRhythm: 0,
           figures: [
             [
@@ -14288,6 +14350,11 @@ export const STYLES: Record<string, Style> = {
         params: {
           meter: '7/8',
           bpm: [105, 109],
+          // the style's 4/4 step lists do not carry into this meter
+          backbeats: [2, 6, 10, 13],
+          openSlots: [12],
+          // the riff's last kick is on 11: one on 12 too runs into the snare on 13
+          noKick: [12],
           crossRhythm: 0,
           // the snare falls on hat strokes, so the 16ths are one hand's
           oneHandHats: true,
@@ -14796,6 +14863,8 @@ export const STYLES: Record<string, Style> = {
           crossRhythm: 0,
           // the toms on the last triplet of 1 and 3 carry the backbeat here
           backbeats: [4, 16],
+          // eighth-note triplets only, the even steps: the kick never on the odd ones
+          noKick: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23],
           /* A reconstruction: no human transcription of Toad was found (the
              one Songsterr tab has no drum part). The bars follow his record's
              ostinato (the right foot on the beat, the left on the second

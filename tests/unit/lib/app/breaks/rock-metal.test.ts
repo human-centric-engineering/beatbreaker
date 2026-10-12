@@ -72,7 +72,8 @@ describe.each(Object.keys(FAMILIES))('%s', (key) => {
   /* `fitHands` would quietly drop a note from a bar that asks for three hands,
      so a figure written that way never plays as written; the critic cannot
      see it. Each bar here is the figure with the song's percussion slots
-     under it, as `writePerc` lays them. */
+     under it, as `writePerc` lays them; a fill is written to the end of the
+     bar, as `applyFigureFill` puts it, with the percussion under it too. */
   it('writes no bar that needs three hands with its percussion under it', () => {
     for (const song of songs) {
       const merged = withSong(st, song.key);
@@ -91,6 +92,19 @@ describe.each(Object.keys(FAMILIES))('%s', (key) => {
           for (let i = 0; i < n; i++)
             expect(handsAt(b, i, hands), `${song.key}, step ${i}`).toBeLessThanOrEqual(2);
         }
+      }
+      for (const [fill] of merged.fills ?? []) {
+        const rows = Object.entries(fill) as Array<[LaneKey, string]>;
+        const b = emptyBar(n);
+        for (const [lane, row] of rows)
+          [...row].forEach((ch, j) => {
+            if (ch !== '.') b[lane][n - row.length + j] = Number(ch);
+          });
+        (merged.perc ?? []).forEach((spec, li) => {
+          for (const i of spec.steps ?? []) if (i < n) b[PERC_LANES[li]][i] ||= 1;
+        });
+        for (let i = 0; i < n; i++)
+          expect(handsAt(b, i, hands), `${song.key}, fill, step ${i}`).toBeLessThanOrEqual(2);
       }
     }
   });

@@ -3474,14 +3474,15 @@ stays).
 
 **PRs:**
 
-| PR   | What                                                                                                                                                                                                                 | Done when                                                                                                                                                                                                                                                                                                              |
-| ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 11-a | **The standard.** The records in the repo at v1.4; `style_key`; the builder in TypeScript with the fixes; Ajv checks every file; records for our five; the two-way test; the three tables, the seed and the read API | Tests: every file validates; every id resolves; lanes fit their grid; no stored identity for a private persona; every drummer style has a record and every `style_key` a style; no dangling edge, no duplicate person; non-influence edges undirected; the seed is idempotent; the API returns the graph and a profile |
-| 11-b | **The map and the pages.** `/drummers` and `/drummers/[slug]`, public nav, the list view for phones                                                                                                                  | Server-rendered; a drummer's ancestors and descendants light up; filters by kind and confidence; keyboard reachable; Play opens the Studio on the style                                                                                                                                                                |
-| 11-c | **Funk, soul and session:** Purdie, Jabo Starks, Steve Gadd, Omar Hakim                                                                                                                                              | Each is a drummer style with songs; the catalogue tests pass at the new counts; every song plays at a tempo `playableBpm` allows                                                                                                                                                                                       |
-| 11-d | **Jazz and Latin:** Elvin Jones, Tito Puente, Changuito, Horacio Hernández                                                                                                                                           | The same, plus the clave and cáscara written where the records place them                                                                                                                                                                                                                                              |
-| 11-e | **Rock, metal and beyond:** Ginger Baker, Dave Lombardo, Adrienne Davies, Klek de Poitrine                                                                                                                           | The same; Klek's record keeps the persona policy                                                                                                                                                                                                                                                                       |
-| 11-f | **BeatBuddy reads the records.** A knowledge base built from the records, scoped to BeatBuddy                                                                                                                        | Its answer about a drummer cites the record                                                                                                                                                                                                                                                                            |
+| PR      | What                                                                                                                                                                                                                 | Done when                                                                                                                                                                                                                                                                                                              |
+| ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 11-a    | **The standard.** The records in the repo at v1.4; `style_key`; the builder in TypeScript with the fixes; Ajv checks every file; records for our five; the two-way test; the three tables, the seed and the read API | Tests: every file validates; every id resolves; lanes fit their grid; no stored identity for a private persona; every drummer style has a record and every `style_key` a style; no dangling edge, no duplicate person; non-influence edges undirected; the seed is idempotent; the API returns the graph and a profile |
+| 11-b    | **The map and the pages.** `/drummers` and `/drummers/[slug]`, public nav, the list view for phones                                                                                                                  | Server-rendered; a drummer's ancestors and descendants light up; filters by kind and confidence; keyboard reachable; Play opens the Studio on the style                                                                                                                                                                |
+| 11-c    | **Funk, soul and session:** Purdie, Jabo Starks, Steve Gadd, Omar Hakim                                                                                                                                              | Each is a drummer style with songs; the catalogue tests pass at the new counts; every song plays at a tempo `playableBpm` allows                                                                                                                                                                                       |
+| 11-d    | **Jazz and Latin:** Elvin Jones, Tito Puente, Changuito, Horacio Hernández                                                                                                                                           | The same, plus the clave and cáscara written where the records place them                                                                                                                                                                                                                                              |
+| 11-e    | **Rock, metal and beyond:** Ginger Baker, Dave Lombardo, Adrienne Davies, Klek de Poitrine                                                                                                                           | The same; Klek's record keeps the persona policy                                                                                                                                                                                                                                                                       |
+| 11-e-ii | **Sections A–Z, each in its own meter.** A break holds up to 26 sections; songs written as sections; the split songs merged                                                                                          | A break with sections in different meters plays, engraves, exports and shares; old codes read unchanged                                                                                                                                                                                                                |
+| 11-f    | **BeatBuddy reads the records.** A knowledge base built from the records, scoped to BeatBuddy                                                                                                                        | Its answer about a drummer cites the record                                                                                                                                                                                                                                                                            |
 
 **11-b reconciled against the tree, 2026-10-11** (branch `phase-11-b-lineage-map`):
 
@@ -3719,13 +3720,87 @@ stays).
   backbeat it meant to keep, so a quarter of its bars had no findable
   backbeat; the fill now writes it. Lombardo plays a real china, so he joins
   the china players `generate.test.ts` allows.
+- **Fixed in review:** Lombardo's forced kick on 1 played under the Dead
+  Skin Mask and Hell Awaits intros, which have none, so those two lift it;
+  his fallback kick cells ran sixteenth double bass past the run limit in the
+  three sixteenth-grid songs over 150. Davies's "and" of 4 was written on 4
+  in four songs and Old Black. Klek's Sherpa unison fill started an eighth
+  late. Toad and Sherpa's triplet section got kicks and crashes between the
+  triplets: both keep the kick to the even steps, and the figure variation
+  no longer puts a cymbal accent (with its kick) where the style bans one.
+  Klek's songs in other meters carried the 4/4 backbeats, and Davies's 12/8
+  songs her 4/4-8 kick ban, so each now names its own. The three-hands test
+  reads the fills too. Davies's variety test asks 9 distinct breaks in 12,
+  not 10: her record holds one bar through a phrase.
 - **Found on the way, not changed:** a song has one meter and one tempo, so
   White Room's 4/4 verse, Toad's vamp, Sherpa's and Sarniezz's modulations
-  and Earth's 12/8–15/8 alternation are cut or split; there is no timpani,
+  and Earth's 12/8–15/8 alternation are cut or split (11-e-ii, below); there is no timpani,
   mallet, cymbal swell or ring length, so Davies's swells are a crash left to
   ring; a figure holds two bars, so Tohogd's 4/4 over four bars of 7/8 is cut
   in halves; there are no loops to lock Klek to, only a small jitter; a run of
   sixteenth kicks above 150 and a sextuplet 5/4 have no grid.
+
+**11-e-ii planned against the tree, 2026-10-12** (asked for in 11-e's
+review: go past A and B, up to 26 sections, each in its own meter where the
+drummer's song changes meter):
+
+- **Meter is already per section.** Every `Pattern` carries its own `meter`,
+  the share code stores one for A and one for B, playback reads each
+  section's own (`transport.ts`), and the buddy's `write_bars` can already
+  write B in another meter. What assumes one meter: the Studio console's
+  meter state (taken from A), the MIDI file's single time signature
+  (`midi.ts`), the top tempo (`maxBpm(doc.A.meter)`) and the `Break.meter`
+  column. So a break of mixed meters half-works today.
+- **Two sections are assumed** in `schema.ts` (`arr` is `A|B`, both
+  required), `share.ts` (`BreakDoc { A, B }`), the transport's
+  `SectionLetter`, the chart's view modes (`A|B|both`), the console and
+  stage (two staves, arrangement buttons that toggle A↔B), the generate,
+  practice and export panels, the community player and `gridHash`,
+  `humaniseSeed([A, B])`, the buddy's section enums, the import split, and
+  `deriveB`, which builds B from A. A song is one `params` with one pool of
+  figures, so an intro and a main groove are drawn into the same phrase
+  (the cause of Lombardo's forced-kick finding) and songs with real parts
+  are split into entries ("Sherpa (the triplet section)", "Lucy… (verse)").
+- **No migration for the data.** `Break.doc` is JSON held to
+  `sharePayloadSchema`. A share-code v6 keeps A and B required and adds the
+  rest, so every stored doc and every v1–5 code still reads; a break with
+  only A and B still writes v5, byte for byte, and keeps its `gridHash`.
+  An older client refuses a v6 code, which is the rule already.
+- **Up to 26 letters, under a bar budget.** 26 sections of 8 bars would not
+  fit a URL, so the letters go to Z but the total bars a break holds are
+  capped (the number decided in PR 2, against the share-code length).
+- **Tempo stays one per break.** Sherpa's triplet section and 12/8 Sarniezz
+  keep the eighth at the same speed, so they merge without one. The Angel of
+  Death break (×½), Landlord and Llegué llegué (×2) need a per-section tempo
+  ratio; that is the optional last PR, and until then they stay split.
+
+**PRs:**
+
+| PR        | What                                                                                                                                                                                                                | Done when                                                                                                                     |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| 11-e-ii-a | **Mixed meters across A and B everywhere:** the console's meter follows the section, MIDI writes a time signature at each change, the top tempo is the lowest of the sections', the count-in is the first section's | A break with A in 7/8 and B in 4/4 plays, engraves, exports MIDI with two time-signature events and round-trips a share code  |
+| 11-e-ii-b | **Share code v6 and sections C–Z in the domain:** schema, `share.ts`, `gridHash`, `humaniseSeed`, the transport's letters, stored-break repair, the bar budget                                                      | Every v1–5 golden decodes unchanged; an A/B break still writes v5 with the same hash; a four-section v6 break round-trips     |
+| 11-e-ii-c | **The Studio:** a letter in each arrangement slot, add and delete a section, the chart showing all or one, engraving, mixer, practice and export over every section                                                 | A user builds `ABACD` with different meters, saves, reloads and plays it                                                      |
+| 11-e-ii-d | **Songs in sections:** `StyleSong.sections` (letter, label, meter, params) and an `arrangement`; New builds each section in its own meter; old split keys resolve as aliases                                        | Hell Awaits generates its intro and main groove as two sections, the forced kick on the groove only; goldens moved on purpose |
+| 11-e-ii-e | **The buddy:** section enums A–Z and `all` (`both` kept), an add-section move                                                                                                                                       | The tool-schema tests cover section C                                                                                         |
+| 11-e-ii-f | **The songs merged**, drummer by drummer, from the list below                                                                                                                                                       | Each merged song generates every section; every old song key still resolves                                                   |
+| 11-e-ii-g | **(Optional) a tempo ratio per section** (×½, ×2)                                                                                                                                                                   | Angel of Death, Landlord and Llegué llegué merge                                                                              |
+
+**Songs to write as sections**, first (split today, or a meter change the
+model cuts): Klek's Sherpa (12/8 triplets → 4/4 cycle → the dotted-quarter
+build), Sarniezz (12/8 → 4/4), Fabienk (7/8 → busier 7/8 → the drums' 4/4)
+and Tohogd (7/8 loops → 4/4 across them); Ringo's Lucy in the Sky (3/4 →
+4/4), Here Comes the Sun (4/4 → the 11/8 bridge), Good Morning Good Morning
+(5/4, 3/4, 4/4) and All You Need Is Love (7/4 → 4/4); Baker's White Room (the
+5/4 opening → 4/4 verse) and Toad (kick triplets → rudiments → ride time);
+Lombardo's Hell Awaits and Dead Skin Mask (intro → groove); Copeland's So
+Lonely (half-time reggae → double-time rock). Then, for fidelity: Copeland's
+Roxanne, Walking on the Moon, King of Pain; Lombardo's Raining Blood, South
+of Heaven; Baker's Badge; Davies's Father Midnight and Torn by the Fox;
+Klek's Mata Zyklek; Mitchell's Stone Free and Are You Experienced?; Gadd's
+Samba Song and Aja; Tony Williams's Autumn Leaves; Elvin's Pursuance. Each is
+checked against its transcription before it is merged: the bar orders of Here
+Comes the Sun's turnaround and Good Morning Good Morning are not yet.
 
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
