@@ -19,6 +19,7 @@ import { stashPendingLink, takePendingLink } from '@/lib/app/breaks/pending-link
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
 import { clearScratch, readScratch, writeScratch } from '@/lib/app/breaks/scratch';
 import { breakPayload, encodeBreak } from '@/lib/app/breaks/share';
+import type { SectionLetter } from '@/lib/app/breaks/sections';
 import { songOf } from '@/lib/app/breaks/songs';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
@@ -131,6 +132,8 @@ vi.mock('@/lib/app/breaks/audio/midi-out', () => ({
 import {
   type ConsoleOptions,
   type InitialPattern,
+  DEFAULT_ARRANGEMENT,
+  arrangementForNew,
   editingSection,
   useBreakConsole,
 } from '@/components/app/breaks/use-break-console';
@@ -1260,6 +1263,34 @@ describe('your settings (D19, D21)', () => {
     expect(result.current.bpm).toBe(DEFAULT_STUDIO_SETTINGS.startBpm);
   });
 
+  it('gives your arrangement back after a song in sections, and keeps the song’s order only if you changed it', async () => {
+    const { result } = await mount(undefined, {
+      settings: { ...DEFAULT_STUDIO_SETTINGS, startStyle: 'lombardo' },
+    });
+    const inSections = () => !!result.current.patterns.A?.song?.includes(':');
+    const newUntil = (want: boolean) => {
+      for (let i = 0; i < 200 && inSections() !== want; i++)
+        act(() => void result.current.newBreak());
+      expect(inSections()).toBe(want);
+    };
+    newUntil(false);
+    const yours: SectionLetter[] = ['A', 'B', 'A', 'B', 'B'];
+    act(() => result.current.setArrangement(yours));
+
+    // the song's order while it plays, and yours again after it
+    newUntil(true);
+    expect(result.current.arrangement).not.toEqual(yours);
+    newUntil(false);
+    expect(result.current.arrangement).toEqual(yours);
+
+    // an order you changed while the song played is yours, and stays
+    newUntil(true);
+    const changed: SectionLetter[] = ['B', 'A'];
+    act(() => result.current.setArrangement(changed));
+    newUntil(false);
+    expect(result.current.arrangement).toEqual(changed);
+  });
+
   it('New of a song written in sections writes every section and its arrangement, and one Undo takes them back', async () => {
     const { result } = await mount(undefined, {
       settings: { ...DEFAULT_STUDIO_SETTINGS, startStyle: 'lombardo' },
@@ -2109,5 +2140,76 @@ describe('sections past B (11-e-ii)', () => {
     expect(result.current.viewMode).toBe('C');
     act(() => result.current.undo());
     expect(result.current.viewMode).toBe('both');
+  });
+});
+
+describe('arrangementForNew', () => {
+  const pat = generatePattern({
+    style: catalogue.styles.funk,
+    seed: 1,
+    bars: 1,
+    density: 50,
+    ghosts: 50,
+  });
+  const AB = { A: pat, B: pat };
+
+  it('takes a song’s order and puts yours aside', () => {
+    expect(
+      arrangementForNew({
+        current: ['A', 'B'],
+        playing: null,
+        own: null,
+        next: ['A', 'A', 'B', 'C'],
+        sections: AB,
+      })
+    ).toEqual({ arrangement: ['A', 'A', 'B', 'C'], own: ['A', 'B'] });
+  });
+
+  it('keeps what was put aside from song to song', () => {
+    expect(
+      arrangementForNew({
+        current: ['A', 'A', 'B'],
+        playing: ['A', 'A', 'B'],
+        own: ['B', 'A'],
+        next: ['A', 'B', 'C'],
+        sections: AB,
+      }).own
+    ).toEqual(['B', 'A']);
+  });
+
+  it('gives yours back, kept to the sections there are, when the song’s order is untouched', () => {
+    expect(
+      arrangementForNew({
+        current: ['A', 'B', 'C'],
+        playing: ['A', 'B', 'C'],
+        own: ['A', 'C', 'B'],
+        next: null,
+        sections: AB,
+      })
+    ).toEqual({ arrangement: ['A', 'B'], own: null });
+  });
+
+  it('is the Studio’s own after an Undo back to a song, with nothing put aside', () => {
+    expect(
+      arrangementForNew({
+        current: ['A', 'B'],
+        playing: ['A', 'B'],
+        own: null,
+        next: null,
+        sections: AB,
+      }).arrangement
+    ).toEqual(DEFAULT_ARRANGEMENT);
+  });
+
+  it('leaves an order that is not a song’s alone', () => {
+    expect(
+      arrangementForNew({
+        current: ['B', 'B', 'A'],
+        playing: ['A', 'B'],
+        own: ['A'],
+        next: null,
+        sections: AB,
+      }).arrangement
+    ).toEqual(['B', 'B', 'A']);
   });
 });

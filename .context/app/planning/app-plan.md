@@ -3892,6 +3892,11 @@ exists for, and an alias is only tested by a song that was merged.
   to, `POST /api/v1/breaks/generate` (now with an optional `song`, and C–Z and
   `arrangement` in the answer) and BeatBuddy's `generate_pattern` all call it.
   A style without songs in sections writes byte for byte what it did.
+- **The song's arrangement comes with the song, and goes with it.** Yours is
+  put aside while it plays and given back by the next New (or famous break)
+  that is not a song in sections, unless you changed the song's order in the
+  meantime; read off the stage, so it holds after an Undo. The break you
+  arrive to keeps every slot to the sections it has.
 - **One tempo**: a song's range is held to every section's playable top, the
   ceiling to the slowest meter's. The stage names the section on show
   ("Hell Awaits (the main groove)").
