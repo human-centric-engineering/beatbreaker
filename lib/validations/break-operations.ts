@@ -46,6 +46,15 @@ export const generateBreakSchema = styleRef.extend({
   /** The tempo the critic scores against — not written into the pattern. */
   bpm: z.number().min(20).max(400).default(94),
   /**
+   * One of the style's songs, by key. Left out, a style with songs picks one
+   * from the seed among those in the meter. A song written in sections comes
+   * back as every section, in its own meters, with its arrangement.
+   */
+  song: z
+    .string()
+    .regex(/^[a-z0-9-]{1,40}$/, 'a song key')
+    .optional(),
+  /**
    * Leave it out for a fresh break, pass it to reproduce one.
    *
    * With a seed the endpoint runs `generatePattern` once rather than the

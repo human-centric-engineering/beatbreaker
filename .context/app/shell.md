@@ -128,8 +128,11 @@ plus two things the split created:
   meter and length, plays it once at the end of the arrangement and turns the
   chart to it; `Delete <letter>` (`deleteSection`) takes a section past B and
   its slots. Each is one Undo, slots and all. A whole New, or a famous break,
-  is an A and a B again. A slot of the arrangement cycles through the letters
-  there are (`cycleLetter`).
+  is an A and a B again — or, for a song written in sections (11-e-ii-d), every
+  section and the song's own arrangement. Yours is put aside while the song's
+  plays, and comes back with the next New that is not such a song, unless you
+  changed the song's order meanwhile (`arrangementForNew`). A slot of the
+  arrangement cycles through the letters there are (`cycleLetter`).
 
 The provider also owns the audio lifetime, closing the `AudioContext` on unmount
 (H7). A browser allows a page only a handful and will not reopen a closed one.

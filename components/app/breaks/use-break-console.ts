@@ -21,7 +21,6 @@ import {
   type Playability,
   barEq,
   critique,
-  generateGood,
   playability,
 } from '@/lib/app/breaks/critic';
 import type { Visibility } from '@/lib/app/breaks/community/visibility';
@@ -78,7 +77,15 @@ import {
   encodeBreak,
   patternFromPacked,
 } from '@/lib/app/breaks/share';
-import { pickSong, songMeter, songTempo, withSong } from '@/lib/app/breaks/songs';
+import { songBreak, writePart } from '@/lib/app/breaks/song-break';
+import {
+  pickSong,
+  songMeter,
+  songMeters,
+  songOf,
+  songTempo,
+  withSong,
+} from '@/lib/app/breaks/songs';
 import { styleIn, swingAtTempo, swingFor } from '@/lib/app/breaks/styles';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
@@ -138,6 +145,38 @@ export function arrangementIn(
 ): SectionLetter[] {
   const kept = arrangement.filter((L) => !!sections[L]);
   return kept.length ? kept : ['A'];
+}
+
+/** The arrangement the Studio opens with, and comes back to when it has no other of yours. */
+export const DEFAULT_ARRANGEMENT: readonly SectionLetter[] = ['A', 'A', 'A', 'B'];
+
+function sameOrder(a: readonly SectionLetter[], b: readonly SectionLetter[]): boolean {
+  return a.length === b.length && a.every((L, i) => L === b[i]);
+}
+
+/**
+ * The arrangement after a whole New, and yours to come back to.
+ *
+ * A song in sections brings its own order (`next`), and the order it replaces
+ * is put aside as yours. A New of anything else gives yours back, kept to the
+ * sections there are — unless you changed the song's order while it played,
+ * which makes it yours. "The song's" is the order of the song in sections on
+ * the stage (`playing`), still as it set it; that holds after an Undo too,
+ * which is why it is read off the stage rather than remembered. With nothing
+ * of yours put aside, yours is the Studio's own.
+ */
+export function arrangementForNew(o: {
+  current: readonly SectionLetter[];
+  playing: readonly SectionLetter[] | null;
+  own: readonly SectionLetter[] | null;
+  next: readonly SectionLetter[] | null;
+  sections: MaybeSections;
+}): { arrangement: SectionLetter[]; own: SectionLetter[] | null } {
+  const songs = !!o.playing && sameOrder(o.current, o.playing);
+  const yours = songs ? (o.own ?? DEFAULT_ARRANGEMENT) : o.current;
+  return o.next
+    ? { arrangement: [...o.next], own: [...yours] }
+    : { arrangement: arrangementIn(yours, o.sections), own: null };
 }
 
 /** Every section of a decoded break, as the Studio holds them. */
@@ -745,11 +784,21 @@ export function useBreakConsole(
      every tempo change — a layer, a ramp, the slider — moves it, until you set
      the swing yourself. Read off the pattern on the stage, with its song. */
   const stageParams = patterns.A ? catalogue.styles[patterns.A.style]?.params : undefined;
+  /* The order of the song in sections on the stage, where that is what it is:
+     what a New after it gives your arrangement back from. */
+  const stageSongArrangement = useMemo((): SectionLetter[] | null => {
+    const song = songOf(stageParams, patterns.A?.song);
+    if (!song?.sections) return null;
+    return song.arrangement ?? song.sections.map((x) => x.letter);
+  }, [stageParams, patterns.A?.song]);
   const swingCurved = !!(stageParams && withSong(stageParams, patterns.A?.song).swingCurve);
   const swing = swingCurved && !swingYours ? swingAtTempo(bpm) : swingSet;
   /** The tempo the break is written at — the 100% the layer match works from. */
   const [baseBpm, setBaseBpm] = useState(bpm);
-  const [arrangement, setArrangement] = useState<SectionLetter[]>(['A', 'A', 'A', 'B']);
+  const [arrangement, setArrangement] = useState<SectionLetter[]>([...DEFAULT_ARRANGEMENT]);
+  /* Your arrangement, put aside while a song in sections plays its own
+     (`arrangementForNew`). */
+  const ownArrangement = useRef<SectionLetter[] | null>(null);
 
   /**
    * Whether a change of style, meter, bars or tempo should move the starting
@@ -1104,23 +1153,45 @@ export function useBreakConsole(
          rudiment's New A would become the first style's. */
       const row = catalogue.styles[setup.style];
       if (!row) return null;
-      const st = styleIn(withSong(row.params, setup.song), setup.meter);
-      const roster = resolveLanes(st, lanesMode === 'custom' ? customLanes : null);
+      /* A whole New is an A and a B, or every section of a song written in
+         sections, each in its own meter, and the order the song plays them. */
+      if (which === 'both') {
+        const made = songBreak({
+          style: row,
+          song: setup.song,
+          meter: setup.meter,
+          bars: setup.bars,
+          density,
+          ghosts,
+          seed: Math.floor(Math.random() * 0xffffffff),
+          bpm: setup.bpm,
+          custom: lanesMode === 'custom' ? customLanes : null,
+        });
+        setTries({ tries: made.tries, rejected: made.rejected });
+        setPatterns(made.sections);
+        const next = arrangementForNew({
+          current: arrangement,
+          playing: stageSongArrangement,
+          own: ownArrangement.current,
+          next: made.arrangement,
+          sections: made.sections,
+        });
+        ownArrangement.current = next.own;
+        setArrangement(next.arrangement);
+        return made.sections.A;
+      }
       const roll = () =>
-        generateGood(
-          {
-            style: row,
-            meter: setup.meter,
-            bars: setup.bars,
-            density,
-            ghosts,
-            seed: Math.floor(Math.random() * 0xffffffff),
-            lanes: roster.lanes,
-            perc: roster.perc,
-            song: setup.song,
-          },
-          setup.bpm
-        );
+        writePart({
+          style: row,
+          song: setup.song,
+          meter: setup.meter,
+          bars: setup.bars,
+          density,
+          ghosts,
+          seed: Math.floor(Math.random() * 0xffffffff),
+          bpm: setup.bpm,
+          custom: lanesMode === 'custom' ? customLanes : null,
+        });
       /* A regenerate has to come out different: a style of a few written
          figures can roll the same bars again, so it rolls again (a few times,
          and then takes what it has rather than spin). */
@@ -1129,14 +1200,10 @@ export function useBreakConsole(
         made = roll();
       setTries({ tries: made.tries, rejected: made.rejected });
 
-      setPatterns((prev) =>
-        which === 'both'
-          ? { A: made.pattern, B: deriveB(made.pattern, row.params) }
-          : { ...prev, [which]: made.pattern }
-      );
+      setPatterns((prev) => ({ ...prev, [which]: made.pattern }));
       return made.pattern;
     },
-    [catalogue.styles, density, ghosts, lanesMode, customLanes]
+    [catalogue.styles, density, ghosts, lanesMode, customLanes, arrangement, stageSongArrangement]
   );
 
   /**
@@ -1173,11 +1240,6 @@ export function useBreakConsole(
         generate(which, { style, meter, bars: Math.max(1, Math.min(bars, room)), bpm: at, song });
         return true;
       }
-      /* A whole new pattern is an A and a B, so any sections past B go, and
-         with them their slots in the arrangement — which one Undo puts back. */
-      const dropping = letters.length > 2;
-      pushHistory(dropping);
-      if (dropping) setArrangement((a) => arrangementIn(a, { A: patterns.A, B: patterns.B }));
       /* A whole new pattern always rolls: in the style you chose, or, where
          that has left the catalogue since, in whatever it does have. */
       const wanted = chosen.current.style ?? settings.startStyle;
@@ -1189,6 +1251,11 @@ export function useBreakConsole(
          stays locked. */
       const params = catalogue.styles[styleKey]?.params;
       const song = params ? pickSong(params, Math.random) : undefined;
+      /* A whole new pattern is an A and a B, so any sections past B go, and
+         with them their slots in the arrangement — which one Undo puts back.
+         A song in sections brings its own arrangement, and a New after one
+         gives yours back (`arrangementForNew`), so those go into it too. */
+      pushHistory(letters.length > 2 || !!song?.sections || !!stageSongArrangement);
       const next = {
         style: styleKey,
         meter:
@@ -1199,7 +1266,8 @@ export function useBreakConsole(
       // used up: the pattern they were picked for is this one
       chosen.current = {};
       pickedForNext.current = false;
-      const top = maxBpm(next.meter);
+      // a song in sections plays at a tempo its slowest meter allows
+      const top = params && song ? maxBpmOf(songMeters(params, song)) : maxBpm(next.meter);
       const start = params && song ? songTempo(params, song, Math.random) : settings.startBpm;
       const base = locks.bpm ? baseBpm : clamp(start, 50, top);
       const at = matchOn ? Math.round(base * (LAYER_TEMPO[level] ?? 1)) : base;
@@ -1223,6 +1291,7 @@ export function useBreakConsole(
       return true;
     },
     [
+      stageSongArrangement,
       pushHistory,
       generate,
       style,
@@ -1521,15 +1590,26 @@ export function useBreakConsole(
     (id: string, at?: PracticePlace) => {
       const entry = catalogue.libraries.flatMap((l) => l.entries).find((e) => e.id === id);
       if (!entry) return;
-      // a famous break is an A and a B: sections past B go, and their slots with them
-      const dropping = letters.length > 2;
+      /* a famous break is an A and a B: sections past B go, and their slots
+         with them; after a song in sections, your arrangement comes back */
+      const dropping = letters.length > 2 || !!stageSongArrangement;
       pushHistory(dropping);
       const pat = patternFromPacked(entry.doc, (key) => catalogue.styles[key]);
       const params = catalogue.styles[entry.styleKey]?.params;
       const b = params ? deriveB(pat, params) : clonePattern(pat);
       b.name = `${entry.title} (B)`;
       setPatterns({ A: pat, B: b });
-      if (dropping) setArrangement((a) => arrangementIn(a, { A: pat, B: b }));
+      if (dropping) {
+        const next = arrangementForNew({
+          current: arrangement,
+          playing: stageSongArrangement,
+          own: ownArrangement.current,
+          next: null,
+          sections: { A: pat, B: b },
+        });
+        ownArrangement.current = next.own;
+        setArrangement(next.arrangement);
+      }
       chosen.current = {};
       pickedForNext.current = false;
       setStyleRaw(entry.styleKey);
@@ -1546,7 +1626,16 @@ export function useBreakConsole(
       } else if (!locks.bpm) placeTempo(entry.bpm);
       setTries(null);
     },
-    [catalogue, letters, pushHistory, locks.bpm, placeTempo, baseFor]
+    [
+      catalogue,
+      letters,
+      pushHistory,
+      locks.bpm,
+      placeTempo,
+      baseFor,
+      arrangement,
+      stageSongArrangement,
+    ]
   );
 
   /* ---- style and meter follow each other ------------------------------ */
@@ -2146,33 +2235,32 @@ export function useBreakConsole(
     const atMeter = song ? songMeter(styleRow.params, song) : meter;
     /* A locked tempo stays, held under the song meter's ceiling as New holds
        it, and stays the base tempo it was. */
+    const top = song ? maxBpmOf(songMeters(styleRow.params, song)) : maxBpm(atMeter);
     const atBpm =
       song && !locks.bpm
-        ? clamp(songTempo(styleRow.params, song, Math.random), 50, maxBpm(atMeter))
-        : clamp(bpm, 50, maxBpm(atMeter));
+        ? clamp(songTempo(styleRow.params, song, Math.random), 50, top)
+        : clamp(bpm, 50, top);
     if (song) {
       setMeterRaw(atMeter);
       setBpmRaw(atBpm);
       if (!locks.bpm) setBaseBpm(atBpm);
       followKit(merged);
     }
-    const st = styleIn(merged, atMeter);
-    const roster = resolveLanes(st, lanesMode === 'custom' ? customLanes : null);
-    const made = generateGood(
-      {
-        style: styleRow,
-        meter: atMeter,
-        bars,
-        density,
-        ghosts,
-        seed: Math.floor(Math.random() * 0xffffffff),
-        lanes: roster.lanes,
-        perc: roster.perc,
-        song: song?.key,
-      },
-      atBpm
-    );
-    setPatterns({ A: made.pattern, B: deriveB(made.pattern, styleRow.params) });
+    const made = songBreak({
+      style: styleRow,
+      song: song?.key,
+      meter: atMeter,
+      bars,
+      density,
+      ghosts,
+      seed: Math.floor(Math.random() * 0xffffffff),
+      bpm: atBpm,
+      custom: lanesMode === 'custom' ? customLanes : null,
+    });
+    setPatterns(made.sections);
+    /* Every slot names a section the break has: a link or scratch pattern that
+       failed to load partway may have left an arrangement of its own. */
+    setArrangement((a) => made.arrangement ?? arrangementIn(a, made.sections));
     setTries({ tries: made.tries, rejected: made.rejected });
     setSwingRaw(swingFor(merged, atMeter));
     applyStyleMix(style, {});

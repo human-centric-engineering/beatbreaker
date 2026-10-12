@@ -14,7 +14,7 @@
  * choice the chart and the grid share.
  */
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -421,5 +421,26 @@ describe('Stage, with sections past B (11-e-ii)', () => {
     for (let i = 4; i < 16; i++) await user.click(addSlot);
     expect(document.querySelectorAll('.arr button').length).toBe(16);
     expect(addSlot).toBeDisabled();
+  });
+});
+
+describe('Stage, playing a song written in sections', () => {
+  it('names the song and the part of it on the stage', async () => {
+    render(
+      <StudioProvider catalogue={testCatalogue()}>
+        <Probe />
+        <Stage />
+      </StudioProvider>
+    );
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+    // New in Lombardo's style until it plays one of his songs in sections
+    for (let i = 0; i < 200 && !studio!.view.A?.song?.includes(':'); i++)
+      act(() => void studio!.newBreakIn('lombardo'));
+    const key = studio!.view.A?.song ?? '';
+    expect(key).toMatch(/^(hell-awaits|dead-skin-mask):A$/);
+
+    expect(screen.getByText(/\(the intro\)/)).toBeInTheDocument();
+    act(() => studio!.setViewMode('B'));
+    expect(screen.getByText(/\(the (main )?groove\)/)).toBeInTheDocument();
   });
 });

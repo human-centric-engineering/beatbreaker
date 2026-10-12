@@ -30,6 +30,7 @@ import { humaniseSeed } from '@/lib/app/breaks/humanise';
 import { buildMidi } from '@/lib/app/breaks/midi';
 import { resolveLanes } from '@/lib/app/breaks/pattern';
 import { encodeBreak, packPattern, patternFromPacked } from '@/lib/app/breaks/share';
+import { songBreak } from '@/lib/app/breaks/song-break';
 import { styleIn } from '@/lib/app/breaks/styles';
 import { mockAuthenticatedUser } from '@/tests/helpers/auth';
 import { testStyle } from '@/tests/helpers/catalogue';
@@ -139,6 +140,65 @@ describe('POST /api/v1/breaks/generate', () => {
       await GENERATE(post('generate', { styleKey: 'funk', seed: data.seed }))
     );
     expect(again.data.A).toEqual(data.A);
+  });
+
+  it('writes every section of a song in sections, with its arrangement, as songBreak does', async () => {
+    const lombardo = testStyle('lombardo');
+    vi.mocked(getStyle).mockResolvedValue(lombardo);
+    const res = await GENERATE(
+      post('generate', { styleKey: 'lombardo', song: 'hell-awaits', seed: 5, bpm: 104 })
+    );
+    expect(res.status).toBe(200);
+    const { data } = await json(res);
+
+    const expected = songBreak({
+      style: lombardo,
+      song: 'hell-awaits',
+      bars: 2,
+      density: 55,
+      ghosts: 60,
+      bpm: 104,
+      seed: 5,
+      exact: true,
+    });
+    expect(data.A).toEqual(packPattern(expected.sections.A));
+    expect(data.B).toEqual(packPattern(expected.sections.B));
+    expect(data.arrangement).toEqual(['A', 'A', 'B', 'B']);
+    expect(data.critique).toEqual(critique(expected.sections.A, 104));
+  });
+
+  it('carries a third section and on beside A and B', async () => {
+    vi.mocked(getStyle).mockResolvedValue(testStyle('baker'));
+    const { data } = await json(
+      await GENERATE(post('generate', { styleKey: 'baker', song: 'toad', seed: 1, bpm: 130 }))
+    );
+    expect((data.C as { sg: string }).sg).toBe('toad:C');
+    expect(data.arrangement).toEqual(['A', 'A', 'B', 'C']);
+  });
+
+  it('leaves out the arrangement for a break of an A and a B', async () => {
+    const { data } = await json(await GENERATE(post('generate', { styleKey: 'funk', seed: 1 })));
+    expect('arrangement' in data).toBe(false);
+    expect('C' in data).toBe(false);
+  });
+
+  it('is a 404 for a song the style does not have, songs or none', async () => {
+    const res = await GENERATE(post('generate', { styleKey: 'funk', song: 'no-such-song' }));
+    expect(res.status).toBe(404);
+    // a style with songs would otherwise pick one of its own and answer 200
+    vi.mocked(getStyle).mockResolvedValue(testStyle('mitchell'));
+    const withSongs = await GENERATE(
+      post('generate', { styleKey: 'mitchell', song: 'no-such-song' })
+    );
+    expect(withSongs.status).toBe(404);
+  });
+
+  it('writes a named song in its own meter when the caller names none', async () => {
+    vi.mocked(getStyle).mockResolvedValue(testStyle('mitchell'));
+    const { data } = await json(
+      await GENERATE(post('generate', { styleKey: 'mitchell', song: 'manic-depression', seed: 1 }))
+    );
+    expect((data.A as { mt: string }).mt).toBe('9/8');
   });
 
   it('is a 404 for a style the catalogue does not have', async () => {

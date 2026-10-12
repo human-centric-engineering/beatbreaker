@@ -18,6 +18,8 @@
  * untrusted values enter.
  */
 
+import type { SectionLetter } from '@/lib/app/breaks/sections';
+
 /** Lanes every style gets. */
 export type BaseLaneKey = 'k' | 's' | 'h' | 'r' | 'c';
 /** Toms, high to floor. */
@@ -98,7 +100,8 @@ export interface Pattern {
   /**
    * Which of the style's {@link Style.songs} wrote it, by key. Absent for a
    * style without songs. Deriving a B or doctoring the pattern lays the same
-   * song over the style again; the stage names it.
+   * song over the style again; the stage names it. A section of a song written
+   * in sections is the song's key and its letter: `hell-awaits:B`.
    */
   song?: string;
   /** Key into `METERS`. */
@@ -486,6 +489,29 @@ export interface CrossRhythm {
 export type StyleSongParams = Partial<Omit<Style, 'label' | 'hint' | 'drummer' | 'songs'>>;
 
 /**
+ * One part of a song written in sections (11-e-ii-d): an intro, a verse, a
+ * section in another meter. Its params are laid over the song's, which are
+ * laid over the style's, so a section says only what changes — its meter, its
+ * figures, the forced kick an intro has not got. The tempo is the song's: a
+ * break has one.
+ */
+export interface SongSection {
+  /** The section of the break it writes: A first, then B, C… in order. */
+  letter: SectionLetter;
+  /** What it is, in a few words: 'the intro', 'the 5/4 opening'. */
+  label: string;
+  /** How many bars New writes; absent, the length the pickers hold. */
+  bars?: number;
+  /**
+   * The song keys this section was before the song was written in sections
+   * ('sherpa-triplets'), so a pattern saved under one still lays the same
+   * grooves over its style.
+   */
+  aliases?: string[];
+  params: StyleSongParams;
+}
+
+/**
  * One song in a style's {@link Style.songs}: its own meter, tempo, swing, kit,
  * grooves and fills, laid over the style's.
  */
@@ -499,6 +525,13 @@ export interface StyleSong {
   /** How often New picks it, against the style's other songs. */
   weight: number;
   params: StyleSongParams;
+  /**
+   * The song's parts, each a section of the break in its own meter (11-e-ii-d).
+   * New writes every one; absent, the song is one part, an A and a B from it.
+   */
+  sections?: SongSection[];
+  /** The order the sections play in; absent, each once, A to the last. */
+  arrangement?: SectionLetter[];
 }
 
 /**

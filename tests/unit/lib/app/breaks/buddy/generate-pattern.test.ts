@@ -35,6 +35,9 @@ import { listStyles } from '@/lib/app/breaks/catalogue/data';
 import { critique, generateGood, playability } from '@/lib/app/breaks/critic';
 import { deriveB } from '@/lib/app/breaks/generate';
 import { resolveLanes } from '@/lib/app/breaks/pattern';
+import { maxBpm } from '@/lib/app/breaks/audio/transport';
+import { lettersOf } from '@/lib/app/breaks/sections';
+import { songForSeed } from '@/lib/app/breaks/song-break';
 import { styleIn } from '@/lib/app/breaks/styles';
 import { testStyle } from '@/tests/helpers/catalogue';
 
@@ -93,6 +96,24 @@ describe('generate_pattern', () => {
     const after = breakDocFromPayload(sharePayloadSchema.parse(dataOf(result).doc));
     expect(playability(after.A, after.bpm).hard).toBe(true);
     expect(critique(after.A, after.bpm).score).toBeGreaterThan(0);
+  });
+
+  it('writes every section of a song in sections, its arrangement, and a tempo the slowest meter allows', async () => {
+    const klek = testStyle('klek');
+    // the first seed that picks a song in sections whose meters differ: Sherpa, in 12/8 and 4/4
+    let seed = 0;
+    while (songForSeed(klek.params, seed, '12/8')?.key !== 'sherpa') seed++;
+
+    const result = await run({ style: 'klek', meter: '12/8', seed, bpm: 250 });
+    const after = breakDocFromPayload(sharePayloadSchema.parse(dataOf(result).doc));
+
+    expect(lettersOf(after)).toEqual(['A', 'B', 'C']);
+    expect([after.A.meter, after.B.meter, after.C?.meter]).toEqual(['12/8', '4/4', '4/4']);
+    expect(after.C?.song).toBe('sherpa:C');
+    expect(after.arrangement).toEqual(['A', 'A', 'B', 'B', 'C', 'B']);
+    // 250 suits 12/8, but not the 4/4 sections beside it
+    expect(after.bpm).toBe(maxBpm('4/4'));
+    expect(dataOf(result).changes.map((c) => c.section)).toEqual(['A', 'B', 'C']);
   });
 
   it('refuses a style that is not in the catalogue, naming list_styles, and writes nothing', async () => {

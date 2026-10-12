@@ -16,7 +16,7 @@ import { GRID_SIZE, GRID_SIZE_MAX, GRID_SIZE_MIN, STAGE_VIEW } from '@/lib/app/b
 import { publicPath } from '@/lib/app/breaks/community/visibility';
 import { type Engraving } from '@/lib/app/breaks/engrave';
 import { MAX_ARRANGEMENT, cycleLetter } from '@/lib/app/breaks/sections';
-import { songOf } from '@/lib/app/breaks/songs';
+import { songPartOf } from '@/lib/app/breaks/songs';
 import { engrave } from '@/lib/app/breaks/engrave';
 import { LAYER_BLURB, LAYER_NAMES } from '@/lib/app/breaks/layers';
 import { styleLabel } from '@/lib/app/breaks/library';
@@ -75,17 +75,21 @@ function BasedOn({ credit }: { credit: PatternSharing['basedOn'] }) {
 
 /**
  * Which song the pattern plays, for a style that has songs (a drummer playing
- * Manic Depression rather than "Mitch Mitchell"): the song and what it is.
+ * Manic Depression rather than "Mitch Mitchell"): the song and what it is,
+ * and which part of it — the section on the stage — for a song written in
+ * sections.
  * Read off the pattern's own style, not the picker's, which may already be
  * set for the next one.
  */
 function SongLine({ pattern }: { pattern: Pattern }) {
   const c = useStudio();
-  const song = songOf(c.catalogue.styles[pattern.style]?.params, pattern.song);
-  if (!song) return null;
+  const part = songPartOf(c.catalogue.styles[pattern.style]?.params, pattern.song);
+  if (!part) return null;
+  const { song, section } = part;
   return (
     <p className="title-credit song-line">
-      Playing style inspired by <b>{song.title}</b> — {song.feel}
+      Playing style inspired by <b>{song.title}</b>
+      {section ? ` (${section.label})` : ''} — {song.feel}
     </p>
   );
 }
@@ -224,7 +228,7 @@ export function Stage() {
               <LinkChips links={c.doc.details.links} />
             </div>
             <BasedOn credit={c.doc.sharing.basedOn} />
-            <SongLine pattern={c.view.A} />
+            <SongLine pattern={c.view[c.editing] ?? c.view.A} />
             {/* A fixed pattern is never edited in place (D26): the edit is a
                 variation until it is saved, and undo back to the original
                 takes the banner away. */}

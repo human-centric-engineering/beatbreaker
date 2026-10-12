@@ -15,13 +15,21 @@
 import { describe, expect, it } from 'vitest';
 
 import { maxBpm } from '@/lib/app/breaks/audio/transport';
-import { generateGood, playability } from '@/lib/app/breaks/critic';
+import { playability } from '@/lib/app/breaks/critic';
 import { generatePattern } from '@/lib/app/breaks/generate';
 import { PERC_LANES, handLanes, handsAt, percRoster } from '@/lib/app/breaks/lanes';
 import { meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import { makeRng } from '@/lib/app/breaks/rng';
-import { playableBpm, songMeter, songTempo, withSong } from '@/lib/app/breaks/songs';
+import { songBreak } from '@/lib/app/breaks/song-break';
+import {
+  partKey,
+  playableBpm,
+  songMeter,
+  songParts,
+  songTempo,
+  withSong,
+} from '@/lib/app/breaks/songs';
 import type { LaneKey } from '@/lib/app/breaks/types';
 import { STYLES, STYLE_GROUPS } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { DRUMMER_MODEL_DIR, readCorpus } from '@/scripts/lineage/read-corpus';
@@ -61,11 +69,13 @@ describe.each(Object.keys(FAMILIES))('%s', (key) => {
   });
 
   it('gives every song a tempo range its runs allow and the Studio can set', () => {
-    for (const song of songs) {
-      const asWritten = { ...st, ...song.params };
-      expect(playableBpm(asWritten), song.key).toEqual(asWritten.bpm);
-      expect(asWritten.bpm[0], song.key).toBeGreaterThanOrEqual(STUDIO_FLOOR);
-      expect(asWritten.bpm[1], song.key).toBeLessThanOrEqual(maxBpm(songMeter(st, song)));
+    // each part as written: a song in one part, or each section laid over its song
+    for (const { song, section } of songParts(st)) {
+      const key = partKey(song, section);
+      const asWritten = { ...st, ...song.params, ...section?.params };
+      expect(playableBpm(asWritten), key).toEqual(asWritten.bpm);
+      expect(asWritten.bpm[0], key).toBeGreaterThanOrEqual(STUDIO_FLOOR);
+      expect(asWritten.bpm[1], key).toBeLessThanOrEqual(maxBpm(songMeter(st, song, section)));
     }
   });
 
@@ -75,9 +85,10 @@ describe.each(Object.keys(FAMILIES))('%s', (key) => {
      under it, as `writePerc` lays them; a fill is written to the end of the
      bar, as `applyFigureFill` puts it, with the percussion under it too. */
   it('writes no bar that needs three hands with its percussion under it', () => {
-    for (const song of songs) {
-      const merged = withSong(st, song.key);
-      const n = stepsOf(meterOf(songMeter(st, song)));
+    for (const { song, section } of songParts(st)) {
+      const key = partKey(song, section);
+      const merged = withSong(st, key);
+      const n = stepsOf(meterOf(songMeter(st, song, section)));
       const hands = handLanes(percRoster(merged));
       for (const [figure] of merged.figures ?? []) {
         const rows = Object.entries(figure) as Array<[LaneKey, string]>;
@@ -90,7 +101,7 @@ describe.each(Object.keys(FAMILIES))('%s', (key) => {
             for (const i of spec.steps ?? []) if (i < n) b[PERC_LANES[li]][i] ||= 1;
           });
           for (let i = 0; i < n; i++)
-            expect(handsAt(b, i, hands), `${song.key}, step ${i}`).toBeLessThanOrEqual(2);
+            expect(handsAt(b, i, hands), `${key}, step ${i}`).toBeLessThanOrEqual(2);
         }
       }
       for (const [fill] of merged.fills ?? []) {
@@ -104,7 +115,7 @@ describe.each(Object.keys(FAMILIES))('%s', (key) => {
           for (const i of spec.steps ?? []) if (i < n) b[PERC_LANES[li]][i] ||= 1;
         });
         for (let i = 0; i < n; i++)
-          expect(handsAt(b, i, hands), `${song.key}, fill, step ${i}`).toBeLessThanOrEqual(2);
+          expect(handsAt(b, i, hands), `${key}, fill, step ${i}`).toBeLessThanOrEqual(2);
       }
     }
   });
@@ -114,13 +125,24 @@ describe.each(Object.keys(FAMILIES))('%s', (key) => {
     for (const song of songs) {
       for (const seed of [1, 2]) {
         const bpm = songTempo(st, song, rng);
-        const res = generateGood(
-          { style: resolved, song: song.key, seed, bars: 4, density: 50, ghosts: 50 },
-          bpm
-        );
-        expect(res.pattern.song).toBe(song.key);
-        expect(res.pattern.meter).toBe(songMeter(st, song));
-        expect(playability(res.pattern, bpm).hard, `${song.key} at ${bpm}`).toBe(true);
+        const made = songBreak({
+          style: resolved,
+          song: song.key,
+          seed,
+          bars: 4,
+          density: 50,
+          ghosts: 50,
+          bpm,
+        });
+        // every section of a song in sections, each in its own meter; an A of one in one part
+        const parts = song.sections ?? [undefined];
+        for (const section of parts) {
+          const pat = made.sections[section?.letter ?? 'A'];
+          const key = partKey(song, section);
+          expect(pat?.song, key).toBe(key);
+          expect(pat?.meter, key).toBe(songMeter(st, song, section));
+          expect(pat && playability(pat, bpm).hard, `${key} at ${bpm}`).toBe(true);
+        }
       }
     }
   });
@@ -133,11 +155,11 @@ describe('the two bass drums', () => {
   it.each(['baker', 'lombardo'])('are on every one of %s’s songs', (key) => {
     const st = STYLES[key];
     expect(st.doubleKick).toBe(true);
-    for (const song of st.songs ?? []) {
-      expect(withSong(st, song.key).doubleKick, song.key).toBe(true);
+    for (const { song, section } of songParts(st)) {
+      expect(withSong(st, partKey(song, section)).doubleKick, song.key).toBe(true);
       const pat = generatePattern({
         style: testStyle(key),
-        song: song.key,
+        song: partKey(song, section),
         seed: 1,
         bars: 4,
         density: 50,
