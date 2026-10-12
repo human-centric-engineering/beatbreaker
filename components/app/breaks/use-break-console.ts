@@ -895,12 +895,13 @@ export function useBreakConsole(
    * back when the meters match again (undo, or a New B back in A's), unless
    * you moved the tempo yourself in between.
    */
-  const capped = useRef<{ base: number; baseAt: number } | null>(null);
+  /** `top` is the ceiling it was capped under: the cap lifts only when the ceiling rises past it. */
+  const capped = useRef<{ base: number; baseAt: number; top: number } | null>(null);
   useEffect(() => {
     const cap = capped.current;
     if (mixedTop !== null && (bpm > mixedTop || baseBpm > mixedTop)) {
       const baseAt = Math.min(baseBpm, mixedTop);
-      capped.current = { base: cap?.base ?? baseBpm, baseAt };
+      capped.current = { base: cap?.base ?? baseBpm, baseAt, top: mixedTop };
       setBpmRaw(Math.min(bpm, mixedTop));
       setBaseBpm(baseAt);
       return;
@@ -910,7 +911,10 @@ export function useBreakConsole(
       capped.current = null;
       return;
     }
-    if (bpmCeiling > cap.baseAt) {
+    /* Only a ceiling that has risen since — the meters matching again — puts
+       it back. A base that was already under the ceiling it was capped to
+       (only the played tempo was over) is no reason to move anything. */
+    if (bpmCeiling > cap.top) {
       capped.current = null;
       // the break's own tempo comes back; with the match on, the layer's follows from it
       const base = Math.min(cap.base, bpmCeiling);
@@ -1159,9 +1163,14 @@ export function useBreakConsole(
           .filter((L) => L !== which)
           .map((L) => patterns[L]?.meter);
         const at = Math.min(bpm, maxBpmOf([meter, ...others]));
+        /* Held to the bars the break has room for: the other sections keep
+           theirs, so a new section no longer than this keeps it within
+           MAX_BREAK_BARS, which a save and a share code are held to. Never
+           shorter than one bar — the section it replaces had at least that. */
+        const room = MAX_BREAK_BARS - (totalBars(patterns) - (patterns[which]?.bars.length ?? 0));
         // used up: the section they were picked for is this one
         pickedForNext.current = false;
-        generate(which, { style, meter, bars, bpm: at, song });
+        generate(which, { style, meter, bars: Math.max(1, Math.min(bars, room)), bpm: at, song });
         return true;
       }
       /* A whole new pattern is an A and a B, so any sections past B go, and

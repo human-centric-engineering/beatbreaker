@@ -18,7 +18,7 @@ import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { stashPendingLink, takePendingLink } from '@/lib/app/breaks/pending-link';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
 import { clearScratch, readScratch, writeScratch } from '@/lib/app/breaks/scratch';
-import { encodeBreak } from '@/lib/app/breaks/share';
+import { breakPayload, encodeBreak } from '@/lib/app/breaks/share';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { withYourKits } from '@/lib/app/breaks/samples/your-kit';
@@ -1729,6 +1729,58 @@ describe('swing set by the style', () => {
 });
 
 describe('sections past B (11-e-ii)', () => {
+  it('writes a new section no longer than the break has room for', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.loadPayload(
+        breakPayload({
+          bpm: 120,
+          swing: 0,
+          level: 5,
+          arrangement: ['A', 'B'],
+          A: generatePattern({
+            style: catalogue.styles.funk,
+            meter: '4/4',
+            seed: 5,
+            bars: 2,
+            density: 50,
+            ghosts: 50,
+          }),
+          B: generatePattern({
+            style: catalogue.styles.funk,
+            meter: '4/4',
+            seed: 6,
+            bars: 1,
+            density: 50,
+            ghosts: 50,
+          }),
+        }),
+        'Room'
+      );
+    });
+    // 2 + 1, then three of 8 and one of 5: 32, the most a break holds
+    act(() => result.current.setBars(8));
+    for (let i = 0; i < 3; i++) {
+      act(() => {
+        result.current.addSection();
+      });
+    }
+    act(() => result.current.setBars(5));
+    act(() => {
+      result.current.addSection();
+    });
+    expect(result.current.letters).toEqual(['A', 'B', 'C', 'D', 'E', 'F']);
+    act(() => result.current.setViewMode('A'));
+    act(() => result.current.setBars(8));
+    act(() => {
+      result.current.newBreak('A');
+    });
+    // A had 2 bars and there was room for no more
+    expect(result.current.patterns.A?.bars).toHaveLength(2);
+    const payload = result.current.payload();
+    expect(sharePayloadSchema.safeParse(payload).success).toBe(true);
+  });
+
   /** Bytes of a meta time-signature event: FF 58 04 nn dd 24 08. */
   const sigBytes = (num: number, den: number) => [0xff, 0x58, 0x04, num, Math.log2(den)];
   const countSig = (bytes: number[], num: number, den: number) => {

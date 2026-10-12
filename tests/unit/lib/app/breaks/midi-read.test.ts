@@ -8,13 +8,14 @@
 import { describe, expect, it } from 'vitest';
 
 import { generatePattern } from '@/lib/app/breaks/generate';
-import { importedDoc } from '@/lib/app/breaks/import';
+import { capBars, importedDoc } from '@/lib/app/breaks/import';
 import { LANES, PERC_LANES } from '@/lib/app/breaks/lanes';
 import { patternFromLibrary } from '@/lib/app/breaks/library';
 import { buildMidi, vlq } from '@/lib/app/breaks/midi';
 import { readMidi } from '@/lib/app/breaks/midi-read';
 import { packPattern } from '@/lib/app/breaks/share';
 import { packedPatternSchema } from '@/lib/app/breaks/schema';
+import { emptyBar } from '@/lib/app/breaks/pattern';
 import type { Bar, Pattern } from '@/lib/app/breaks/types';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
@@ -291,6 +292,31 @@ describe('importedDoc', () => {
     if (!r.ok) throw new Error(r.error);
     expect(r.pattern.meter).toBe('4/4');
     expect(r.pattern.meters).toEqual(['4/4', '3/4']);
+  });
+
+  it('keeps only the bars an arrangement can play when the meter changes every bar, and says so', () => {
+    // twenty bars alternating 4/4 and 7/8: a section a bar
+    const meters = Array.from({ length: 20 }, (_, i) => (i % 2 ? '7/8' : '4/4'));
+    const imp = capBars({
+      name: '',
+      meter: '4/4',
+      bpm: 100,
+      swing: 0,
+      bars: meters.map((m) => emptyBar(m === '4/4' ? 16 : 14)),
+      meters,
+      perc: {},
+      notes: [],
+    });
+    expect(imp.bars).toHaveLength(16);
+    expect(imp.meters).toHaveLength(16);
+    expect(imp.notes).toEqual([
+      'Only the first 16 of 20 bars were kept — its meter changes so often that those bars make 16 sections, as many as an arrangement plays.',
+    ]);
+    const doc = importedDoc(imp, 'rock');
+    // every section made is one the arrangement plays
+    expect(doc.arrangement).toHaveLength(16);
+    expect(doc.P?.meter).toBe('7/8');
+    expect(doc.Q).toBeUndefined();
   });
 
   it('cuts a long run of one meter every eight bars', () => {

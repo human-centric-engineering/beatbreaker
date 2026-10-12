@@ -151,10 +151,12 @@ disagree.
 - **Sections run A to Z (11-e-ii).** A tool's `section` is a letter or `all`
   (`both` is kept, and means all); a letter the break has not got is refused
   with `no_section` (`sectionsFor` in `describe.ts`). `get_pattern` returns
-  every section. `write_bars` to an unused letter with `whole: true` is the
-  add-section move: the section is written in A's style and lanes, in the meter
-  given, and played once at the end of the arrangement; past 32 bars across the
-  sections it is refused (`too_many_bars`). `generate_pattern` and opening a
+  every section. `write_bars` to the next unused letter with `whole: true` is
+  the add-section move: the section is written in A's style and lanes, in the
+  meter given, and played once at the end of the arrangement. Any other unused
+  letter is refused (`not_next_section`), as is going past 32 bars across the
+  sections (`too_many_bars`). A write in a slower meter brings the tempo down
+  to that meter's ceiling, checks its bars there, and says so. `generate_pattern` and opening a
   famous break write an A and a B, so the sections past B go, with their slots.
 - **Every mutating tool goes through `editWorkspace()`** (`edit.ts`): read the
   workspace, apply the edit, hold the result to `sharePayloadSchema`, write if

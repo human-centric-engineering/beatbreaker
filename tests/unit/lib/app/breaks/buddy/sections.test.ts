@@ -347,6 +347,62 @@ describe('write_bars adding a section', () => {
     expect(result.success).toBe(true);
   });
 
+  it('adds only the next letter, as the Studio does, and writes nothing otherwise', async () => {
+    seed(funkPayload());
+    const result = await runCap(new WriteBarsCapability(), {
+      section: 'Q',
+      whole: true,
+      text: `bar 1${PLAIN}`,
+    });
+    expect(result).toMatchObject({ success: false, error: { code: 'not_next_section' } });
+    expect(result.error?.message).toContain('The next new section is C');
+    expect(fake.rows.get('user-1')).toMatchObject({ doc: funkPayload(), rev: 2 });
+  });
+
+  it('brings the tempo down to the ceiling of a slower meter it adds, and says so', async () => {
+    const funk = testStyle('funk');
+    const A = generatePattern({
+      style: funk,
+      meter: '12/8',
+      bars: 2,
+      density: 55,
+      ghosts: 0,
+      seed: 3,
+    });
+    // 12/8 runs to 300; a section in 4/4 holds the break to 190
+    seed(
+      breakPayload({ bpm: 280, swing: 0, level: 5, arrangement: ['A', 'B'], A, B: clonePattern(A) })
+    );
+    const data = dataOf(
+      await runCap(new WriteBarsCapability(), {
+        section: 'C',
+        whole: true,
+        meter: '4/4',
+        text: `bar 1${PLAIN}`,
+      })
+    );
+    expect(data.doc.bpm).toBe(190);
+    expect(decoded(data.doc).C!.meter).toBe('4/4');
+    expect(data.summary).toBe('Added section C: 1 bar; tempo down to 190 bpm, the top of 4/4');
+  });
+
+  it('leaves a tempo the new section can play at alone', async () => {
+    seed(funkPayload());
+    const data = dataOf(
+      await runCap(new WriteBarsCapability(), {
+        section: 'C',
+        whole: true,
+        meter: '3/4',
+        text: `bar 1
+        hat    x.x.x.x.x.x.
+        snare  ....S.......
+        kick   X.......X...`,
+      })
+    );
+    expect(data.doc.bpm).toBe(funkPayload().bpm);
+    expect(data.summary).toBe('Added section C: 1 bar');
+  });
+
   it('does not grow an arrangement that is already 16 slots', async () => {
     const doc = decoded(funkPayload());
     seed(breakPayload({ ...doc, arrangement: Array.from({ length: 16 }, () => 'A' as const) }));

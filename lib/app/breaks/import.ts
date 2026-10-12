@@ -52,15 +52,24 @@ export type ImportResult = { ok: true; pattern: ImportedPattern } | { ok: false;
  * Readers call this last, so the note sits after their own.
  */
 export function capBars(pattern: ImportedPattern): ImportedPattern {
-  if (pattern.bars.length <= MAX_IMPORT_BARS) return pattern;
+  const total = pattern.bars.length;
+  let keep = Math.min(total, MAX_IMPORT_BARS);
+  let why = `a pattern holds ${MAX_IMPORT_BARS}, ${SECTION_BARS} to a section`;
+  /* Every section an import makes is played once by the arrangement, which
+     has MAX_ARRANGEMENT slots. A file that changes meter nearly every bar
+     makes a section a bar, so what would need more sections than that is cut
+     here, and said, rather than kept where nothing plays it. */
+  const runs = runsOf({ ...pattern, bars: pattern.bars.slice(0, keep) });
+  if (runs.length > MAX_ARRANGEMENT) {
+    keep = runs.slice(0, MAX_ARRANGEMENT).reduce((n, r) => n + r.bars.length, 0);
+    why = `its meter changes so often that those bars make ${MAX_ARRANGEMENT} sections, as many as an arrangement plays`;
+  }
+  if (keep === total) return pattern;
   return {
     ...pattern,
-    notes: [
-      ...pattern.notes,
-      `Only the first ${MAX_IMPORT_BARS} of ${pattern.bars.length} bars were kept — a pattern holds ${MAX_IMPORT_BARS}, ${SECTION_BARS} to a section.`,
-    ],
-    bars: pattern.bars.slice(0, MAX_IMPORT_BARS),
-    ...(pattern.meters ? { meters: pattern.meters.slice(0, MAX_IMPORT_BARS) } : {}),
+    notes: [...pattern.notes, `Only the first ${keep} of ${total} bars were kept — ${why}.`],
+    bars: pattern.bars.slice(0, keep),
+    ...(pattern.meters ? { meters: pattern.meters.slice(0, keep) } : {}),
   };
 }
 
@@ -111,8 +120,8 @@ function sectionOf(imp: ImportedPattern, bars: Bar[], style: string, meter = imp
 
 /**
  * The bars cut into sections: a new one at every change of meter, and every
- * {@link SECTION_BARS} bars within one meter. At most as many as there are
- * letters; what would need more is left out.
+ * {@link SECTION_BARS} bars within one meter. {@link capBars} keeps them to
+ * what an arrangement plays.
  */
 function runsOf(imp: ImportedPattern): { meter: string; bars: Bar[] }[] {
   const runs: { meter: string; bars: Bar[] }[] = [];
@@ -122,7 +131,7 @@ function runsOf(imp: ImportedPattern): { meter: string; bars: Bar[] }[] {
     if (last && last.meter === meter && last.bars.length < SECTION_BARS) last.bars.push(bar);
     else runs.push({ meter, bars: [bar] });
   });
-  return runs.slice(0, SECTION_LETTERS.length);
+  return runs;
 }
 
 /**
@@ -133,7 +142,8 @@ function runsOf(imp: ImportedPattern): { meter: string; bars: Bar[] }[] {
  * always has a B to edit.
  */
 export function importedDoc(imp: ImportedPattern, style: string): BreakDoc {
-  const runs = runsOf(imp);
+  // capBars has already cut a reader's bars to this; the slice holds a caller that skipped it
+  const runs = runsOf(imp).slice(0, MAX_ARRANGEMENT);
   const sections = runs.map((run) => sectionOf(imp, run.bars, style, run.meter));
   const A = sections[0] ?? sectionOf(imp, [], style);
   const B = sections[1] ?? sectionOf(imp, A.bars, style, A.meter);
@@ -141,7 +151,7 @@ export function importedDoc(imp: ImportedPattern, style: string): BreakDoc {
     bpm: imp.bpm,
     swing: imp.swing,
     level: 5,
-    arrangement: SECTION_LETTERS.slice(0, Math.min(Math.max(1, sections.length), MAX_ARRANGEMENT)),
+    arrangement: SECTION_LETTERS.slice(0, Math.max(1, sections.length)),
     A,
     B,
   };

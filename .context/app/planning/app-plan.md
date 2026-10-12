@@ -3865,6 +3865,18 @@ break with a C would have rewritten it blind, so the three are one PR.
   to an unused letter with `whole: true` is the add-section move;
   `generate_pattern` and a famous break drop C–Z. The chat request's
   on-screen section takes A–Z.
+- **From the code review:** a New of one section is held to the bars the
+  break has room for, so it never takes a break past 32 (it could, and the
+  save was then refused). `write_bars` adds only the next letter and brings
+  the tempo down to a slower meter's ceiling. The MIDI route plays only slots
+  naming a section the break has, so its loop ends even if the schema's rule
+  ever loosens. An import whose meter changes nearly every bar keeps only the
+  bars that make the 16 sections an arrangement plays, and says so. The tempo
+  cap lifts only when the ceiling rises past the one it was capped under; the
+  reviewer's case for it is not reachable from the Studio (a meter picked
+  clamps the tempo first, and an Undo brings its tempo back), so it has no
+  test of its own. Not done: session lists decode each break's whole document
+  for its ceiling, and the pickers follow the playhead under All.
 
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
