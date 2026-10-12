@@ -424,6 +424,38 @@ describe('Stage, with sections past B (11-e-ii)', () => {
   });
 });
 
+describe('Stage, a section at a tempo ratio (11-e-ii-g)', () => {
+  const renderWithProbe = () =>
+    render(
+      <StudioProvider catalogue={testCatalogue()}>
+        <Stage />
+        <Probe />
+      </StudioProvider>
+    );
+  const picker = () => within(screen.getByRole('radiogroup', { name: 'Section' }));
+
+  it("picks the tempo of the section on show, and names it beside the section's letter", async () => {
+    const user = userEvent.setup();
+    renderWithProbe();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+    await user.click(picker().getByRole('radio', { name: 'B' }));
+    const tempo = within(screen.getByRole('radiogroup', { name: "Section B's tempo" }));
+    expect(tempo.getByRole('radio', { name: '×1' })).toHaveAttribute('aria-checked', 'true');
+
+    await user.click(tempo.getByRole('radio', { name: '×2' }));
+
+    expect(studio!.patterns.B?.tempoRatio).toBe(2);
+    expect(tempo.getByRole('radio', { name: '×2' })).toHaveAttribute('aria-checked', 'true');
+    // the stave says so, under All too, where every section is named
+    expect(screen.getByText('B ×2')).toBeInTheDocument();
+    await user.click(picker().getByRole('radio', { name: 'All' }));
+    const labels = [...document.querySelectorAll('.chart-section-label')].map((n) => n.textContent);
+    expect(labels).toEqual(['A', 'B ×2']);
+    // with every section on show, there is no one section to pick a tempo for
+    expect(screen.queryByRole('radiogroup', { name: /tempo/ })).toBeNull();
+  });
+});
+
 describe('Stage, playing a song written in sections', () => {
   it('names the song and the part of it on the stage', async () => {
     render(

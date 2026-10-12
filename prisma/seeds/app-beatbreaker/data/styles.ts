@@ -8264,7 +8264,7 @@ export const STYLES: Record<string, Style> = {
   copeland: {
     label: 'Stewart Copeland',
     drummer: true,
-    hint: 'The Police: a reggae drummer in a punk band. The kick stays off the 1, a cross-stick drops on 3, the backbeat goes to 4 alone or nowhere, and the hi-hat does the talking: accents, little 16th bursts, a bark on the "and" of 4. Verses go sparse and choruses go to rock, often on the ride bell. Few fills, short and often over before the bar line, with a splash on the "and" of 4 instead of a crash on 1. Each New plays a style inspired by one of forty-one songs, from Fall Out to Synchronicity, most from human transcriptions, at its record tempo (some up to their live speed).',
+    hint: 'The Police: a reggae drummer in a punk band. The kick stays off the 1, a cross-stick drops on 3, the backbeat goes to 4 alone or nowhere, and the hi-hat does the talking: accents, little 16th bursts, a bark on the "and" of 4. Verses go sparse and choruses go to rock, often on the ride bell. Few fills, short and often over before the bar line, with a splash on the "and" of 4 instead of a crash on 1. Each New plays a style inspired by one of forty songs, from Fall Out to Synchronicity, most from human transcriptions, at its record tempo (some up to their live speed).',
     toms: true,
     kit: 'police',
     hats: 8,
@@ -8521,30 +8521,41 @@ export const STYLES: Record<string, Style> = {
       {
         key: 'landlord',
         title: 'Landlord',
-        feel: 'the slow section: open hats on the beat, a plain 2 and 4',
-        weight: 0.3,
+        feel: 'the slow section, open hats on the beat; then the fast one at double time, the snare on every "and"',
+        weight: 0.5,
         params: {
           bpm: [100, 105],
-          figures: [
-            [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.......1.......' }, 1],
-            [{ h: '3.1.3.1.3.1.3.1.', s: '....2.......2...', k: '1.......1.1.....' }, 0.6],
-          ],
         },
-      },
-      {
-        key: 'landlord-fast',
-        title: 'Landlord (fast section)',
-        feel: 'open hats on every 8th and the snare on every "and" (the 16th kicks thinned, to keep it at tempo)',
-        weight: 0.3,
-        params: {
-          bpm: [190, 200],
-          fillChance: 0.5,
-          figures: [
-            [{ h: '3.3.3.3.3.3.3.3.', s: '..2...2...2...2.', k: '1...1...1.......' }, 1],
-            [{ h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1.1.....1.1.....' }, 0.8],
-          ],
-          fills: [[{ t1: '1.1.1.', t2: '1.1.1.', k: '1.1.1.' }, 1]],
-        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the slow section',
+            params: {
+              figures: [
+                [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.......1.......' }, 1],
+                [{ h: '3.1.3.1.3.1.3.1.', s: '....2.......2...', k: '1.......1.1.....' }, 0.6],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the fast section',
+            // twice the slow section's tempo: its own range is the record's, 190–200
+            tempoRatio: 2,
+            aliases: ['landlord-fast'],
+            params: {
+              bpm: [190, 200],
+              fillChance: 0.5,
+              // open hats on every 8th (the 16th kicks thinned, to keep it at tempo)
+              figures: [
+                [{ h: '3.3.3.3.3.3.3.3.', s: '..2...2...2...2.', k: '1...1...1.......' }, 1],
+                [{ h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1.1.....1.1.....' }, 0.8],
+              ],
+              fills: [[{ t1: '1.1.1.', t2: '1.1.1.', k: '1.1.1.' }, 1]],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'message-in-a-bottle',
@@ -13141,7 +13152,7 @@ export const STYLES: Record<string, Style> = {
   lombardo: {
     label: 'Dave Lombardo',
     drummer: true,
-    hint: 'Slayer from Show No Mercy to World Painted Blood: the skank beat, kick on the beat and snare on every "and", under the ride, a crash or a wash of open hat at 180 to 250; the snare on 2 and 4 or on every beat over a wall of double bass; half-time on the ride for the heavy riffs, and tom figures over the feet that he hears as Cuban. Two bass drums, not a double pedal, on a dry, punchy kit. Each New plays one of fourteen of his songs in its own time: the fast ones, Angel of Death and Raining Blood among them, in eighths at the speed of the record (the slider goes to 380); the heavy ones, South of Heaven and Seasons in the Abyss among them, in sixteenths. The stage names the song. All fourteen follow human transcriptions; the tom figure of the break is a reconstruction.',
+    hint: 'Slayer from Show No Mercy to World Painted Blood: the skank beat, kick on the beat and snare on every "and", under the ride, a crash or a wash of open hat at 180 to 250; the snare on 2 and 4 or on every beat over a wall of double bass; half-time on the ride for the heavy riffs, and tom figures over the feet that he hears as Cuban. Two bass drums, not a double pedal, on a dry, punchy kit. Each New plays one of thirteen of his songs in its own time: the fast ones, Angel of Death and Raining Blood among them, in eighths at the speed of the record (the slider goes to 380); the heavy ones, South of Heaven and Seasons in the Abyss among them, in sixteenths. The stage names the song. All fourteen follow human transcriptions; the tom figure of the break is a reconstruction.',
     toms: true,
     kit: 'crocell',
     // two bass drums, alternating the feet in a run (his record's rule)
@@ -13200,55 +13211,67 @@ export const STYLES: Record<string, Style> = {
        them in half time. Past 190 they are in eighths (4/4-8): there the
        sixteenths of the tabs' kicks fall on the eighths, and a run of
        sixteenth double bass at 175 and over is left out. The Angel of Death
-       break is counted as he counts it, at 105, its 32nds written as
-       sixteenths. See planning/drumming-research.md, section U. */
+       break is counted as he counts it, at 105 — half the song's tempo, so a
+       section at ×½ — its 32nds written as sixteenths. See
+       planning/drumming-research.md, section U. */
     songs: [
       {
         key: 'angel-of-death',
         title: 'Angel of Death',
-        feel: 'the skank beat at full speed under the ride or open hats, the rock beat and half-time between (record 206–220)',
-        weight: 1.4,
+        feel: 'the skank beat at full speed (record 206–220); the break at half the tempo, a tresillo on the toms',
+        weight: 1.6,
         params: {
-          meter: '4/4-8',
           bpm: [205, 220],
-          backbeats: [2, 6],
-          figures: [
-            [{ r: '11111111', s: '.3.3.3.3', k: '1.1.1.1.' }, 2],
-            [{ h: '44444444', s: '.3.3.3.3', k: '1.1.1.1.' }, 2],
-            [{ h: '44444444', s: '..3...3.', k: '1...1...' }, 1.5],
-            [{ r: '11111111', s: '..3...3.', k: '1...1...' }, 1],
-            [{ r: '11111111', s: '....3...', k: '1.......' }, 1],
-          ],
-          fills: [
-            // crash and kick together twice, the snare answering
-            [{ c: '11..11..', s: '..33..33', k: '11..11..' }, 1.4],
-            [{ s: '33..', t1: '..22' }, 1.2],
-            [{ s: '.333....', t1: '....22..', t2: '......22' }, 1],
-            [{ s: '.3.333..', t2: '......22' }, 1],
-          ],
         },
-      },
-      {
-        key: 'angel-of-death-break',
-        title: 'Angel of Death (the break)',
-        feel: 'the break as he counts it: his 32nds on the feet as sixteenths, a tresillo on the toms (record 103–110)',
-        weight: 1.2,
-        params: {
-          bpm: [100, 110],
-          figures: [
-            // the break: both feet throughout, the toms in threes and threes and two
-            [{ t1: '2..2..2.........', t2: '........3..2..2.', k: '1111111111111111' }, 2],
-            // either side of it: the ride on the record's eighths, the snare on its quarters
-            [{ r: '1111111111111111', s: '3.3.3.3.3.3.3.3.', k: '1111111111111111' }, 2],
-            // the skank going into it, in the same count
-            [{ r: '1111111111111111', s: '.3.3.3.3.3.3.3.3', k: '1.1.1.1.1.1.1.1.' }, 1],
-          ],
-          fills: [
-            [{ s: '33..33..', t1: '..22....', t2: '......22' }, 1.4],
-            [{ c: '1..1..1.', t3: '2..2..2.' }, 1.2],
-            [{ s: '3.3.3.3.3.3.33..', t1: '..............22' }, 1],
-          ],
-        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the skank beat',
+            params: {
+              meter: '4/4-8',
+              backbeats: [2, 6],
+              figures: [
+                [{ r: '11111111', s: '.3.3.3.3', k: '1.1.1.1.' }, 2],
+                [{ h: '44444444', s: '.3.3.3.3', k: '1.1.1.1.' }, 2],
+                [{ h: '44444444', s: '..3...3.', k: '1...1...' }, 1.5],
+                [{ r: '11111111', s: '..3...3.', k: '1...1...' }, 1],
+                [{ r: '11111111', s: '....3...', k: '1.......' }, 1],
+              ],
+              fills: [
+                // crash and kick together twice, the snare answering
+                [{ c: '11..11..', s: '..33..33', k: '11..11..' }, 1.4],
+                [{ s: '33..', t1: '..22' }, 1.2],
+                [{ s: '.333....', t1: '....22..', t2: '......22' }, 1],
+                [{ s: '.3.333..', t2: '......22' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the break',
+            /* as he counts it, at half the song's tempo (record 103–110): his
+               32nds on the feet as sixteenths */
+            tempoRatio: 0.5,
+            aliases: ['angel-of-death-break'],
+            params: {
+              bpm: [100, 110],
+              figures: [
+                // the break: both feet throughout, the toms in threes and threes and two
+                [{ t1: '2..2..2.........', t2: '........3..2..2.', k: '1111111111111111' }, 2],
+                // either side of it: the ride on the record's eighths, the snare on its quarters
+                [{ r: '1111111111111111', s: '3.3.3.3.3.3.3.3.', k: '1111111111111111' }, 2],
+                // the skank going into it, in the same count
+                [{ r: '1111111111111111', s: '.3.3.3.3.3.3.3.3', k: '1.1.1.1.1.1.1.1.' }, 1],
+              ],
+              fills: [
+                [{ s: '33..33..', t1: '..22....', t2: '......22' }, 1.4],
+                [{ c: '1..1..1.', t3: '2..2..2.' }, 1.2],
+                [{ s: '3.3.3.3.3.3.33..', t1: '..............22' }, 1],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'A'],
       },
       {
         key: 'raining-blood',

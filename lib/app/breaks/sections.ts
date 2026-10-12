@@ -115,3 +115,38 @@ export function cycleLetter(sections: MaybeSections, letter: SectionLetter): Sec
   const at = have.indexOf(letter);
   return have[(at + 1) % have.length];
 }
+
+/**
+ * How fast a section plays against the break's tempo (11-e-ii-g): half or
+ * double. A break has one tempo — the slider, the trainer's ramp, a speed
+ * record are all one number — and a section at ×2 plays at twice it, as
+ * Landlord's fast section plays at twice its slow one. ×1 is not written:
+ * a pattern without a ratio plays at the break's tempo, as every pattern did.
+ */
+export const TEMPO_RATIOS = [0.5, 2] as const;
+
+export type TempoRatio = (typeof TEMPO_RATIOS)[number];
+
+export function isTempoRatio(v: unknown): v is TempoRatio {
+  return (TEMPO_RATIOS as readonly unknown[]).includes(v);
+}
+
+/** A section's ratio: its own, else 1. */
+export function ratioOf(p: { tempoRatio?: TempoRatio } | null | undefined): TempoRatio | 1 {
+  return p?.tempoRatio ?? 1;
+}
+
+/** The tempo a section plays at, under the break's. */
+export function sectionBpm(bpm: number, p: { tempoRatio?: TempoRatio } | null | undefined): number {
+  return bpm * ratioOf(p);
+}
+
+/** Whether any section plays at a ratio of the break's tempo. */
+export function hasTempoRatios(sections: MaybeSections): boolean {
+  return patternsOf(sections).some((p) => !!p.tempoRatio);
+}
+
+/** How a ratio reads beside a section's letter: `×2`, `×½`. */
+export function ratioLabel(r: number): string {
+  return r === 0.5 ? '×½' : `×${r}`;
+}

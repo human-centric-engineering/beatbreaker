@@ -3990,6 +3990,27 @@ fidelity list, where a song's parts are different grooves in one meter.
 | --------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 11-e-ii-g | `tempoRatio` on a section: playback, MIDI, ceiling, share v7, songs, the Studio picker; two songs merge | A break with B at ×2 plays B's steps at half the length, exports a tempo event at B, round-trips v7; a ratio-less break writes v5/v6 unchanged; Angel of Death and Landlord generate every section and their old keys resolve |
 
+**11-e-ii-g built, 2026-10-12** (branch `phase-11-e-ii-g-tempo-ratio`), as
+reconciled, with these found on the way:
+
+- **The ratio is set where the section is written.** `generatePattern` takes
+  a `tempoRatio` (1 for none) and otherwise a song section's own, so a
+  pattern written alone from `landlord-fast` plays at ×2 as well as a whole
+  New does; `playability` takes the break's tempo and judges a section at its
+  own, so every caller (the generate, critique, doctor and save routes, the
+  buddy) is right without passing a second number.
+- **Landlord is held to 95.** Its fast section is in sixteenths, so at ×2 4/4's
+  190 holds the song to 95 (slow) and 190 (fast) — where `landlord-fast` was
+  held before. Writing it in eighths (`4/4-8`) would reach the record's 200,
+  but Copeland's backbeats, open slots and kick cells are sixteenth positions
+  that a section in another grid would misread; left for a later look.
+- **`clonePattern` lists its fields**, so it had to learn the ratio, or every
+  Undo, Build B and BeatBuddy write would have dropped it.
+- **Moved on purpose:** Copeland's and Lombardo's goldens (two Landlord entries
+  became one, Angel of Death's two became one, and the weighted pick moved).
+- **Not checked in a browser** (no Chrome): the tempo picker and the stave's
+  `B ×2` are covered by the Stage test.
+
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
 stays `archetype` or `approximation` until stems are checked); personas

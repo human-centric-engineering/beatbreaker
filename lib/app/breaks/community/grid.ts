@@ -2,7 +2,7 @@ import type { BreakDoc } from '@/lib/app/breaks/share';
 import { LANES } from '@/lib/app/breaks/lanes';
 import { stepSeconds } from '@/lib/app/breaks/meter';
 import { meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
-import { EXTRA_LETTERS, type Sections, patternsOf } from '@/lib/app/breaks/sections';
+import { EXTRA_LETTERS, type Sections, patternsOf, sectionBpm } from '@/lib/app/breaks/sections';
 import type { Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -67,7 +67,7 @@ export function difficultyLabel(value: unknown): string | null {
   return value === 1 || value === 2 || value === 3 ? DIFFICULTY_LABELS[value] : null;
 }
 
-/** Hits per second in one section at `bpm` (sixteenths at a quarter of it, sextuplets at a sixth). */
+/** Hits per second in one section under the break's `bpm`, at its tempo ratio (sixteenths at a quarter of it, sextuplets at a sixth). */
 function hitsPerSecond(p: Pattern, bpm: number): number {
   const steps = patSteps(p) * p.bars.length;
   if (!steps || bpm <= 0) return 0;
@@ -75,7 +75,7 @@ function hitsPerSecond(p: Pattern, bpm: number): number {
   for (const bar of p.bars) {
     for (const lane of p.lanes) for (const v of bar[lane] ?? []) if (v) hits++;
   }
-  return hits / (steps * stepSeconds(meterOfPat(p), bpm));
+  return hits / (steps * stepSeconds(meterOfPat(p), sectionBpm(bpm, p)));
 }
 
 /**

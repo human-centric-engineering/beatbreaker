@@ -160,6 +160,12 @@ disagree.
   famous break write an A and a B, so the sections past B go, with their slots;
   a song written in sections writes every one of its sections instead, with its
   arrangement, at a tempo its slowest meter allows.
+- **A section at a tempo ratio (11-e-ii-g)** is reported by `get_pattern` as
+  `tempoRatio` (0.5 or 2), its text headed with the tempo it plays at.
+  `write_bars` keeps the ratio of a section it rewrites, holds the break's
+  tempo to that section's ceiling over its ratio (and names the ratio when it
+  slows the tempo), and adds a new section at the break's tempo. Setting a
+  ratio is the Studio's (`Section C's tempo`, beside Delete); no tool does it.
 - **Every mutating tool goes through `editWorkspace()`** (`edit.ts`): read the
   workspace, apply the edit, hold the result to `sharePayloadSchema`, write if
   the rev has not moved. A lost write is made again on the newer pattern, up to

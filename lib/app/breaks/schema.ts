@@ -243,6 +243,11 @@ export const packedPatternSchema = z.object({
    * a code without one is a pattern without one, and an older reader drops it.
    */
   sg: z.string().max(40).optional(),
+  /**
+   * the section's tempo against the break's, ×½ or ×2 — v7 (11-e-ii-g).
+   * Absent is ×1.
+   */
+  tr: z.union([z.literal(0.5), z.literal(2)]).optional(),
   /** voice */
   v: z.enum(['hat', 'ride']).default('hat'),
   /** seed */
@@ -318,14 +323,15 @@ const extraSections = Object.fromEntries(
  * meant, and a v4 writer never meant a 5. That is also what an older decoder
  * does with a v5 code — it refuses the version outright — so neither side
  * ever plays a value it does not know as something else. The same holds for
- * sections: a section past B, or an arrangement naming one, needs version 6.
+ * sections: a section past B, or an arrangement naming one, needs version 6,
+ * and a section at a tempo ratio needs version 7.
  *
  * **An arrangement names sections the code has**, and the code's bars, every
  * section counted once, stay within {@link MAX_BREAK_BARS}.
  */
 export const sharePayloadSchema = z
   .object({
-    ver: z.number().int().min(1).max(6),
+    ver: z.number().int().min(1).max(7),
     bpm: z.number().min(20).max(400).default(94),
     sw: z.number().min(0).max(100).default(0),
     lv: z.number().int().min(1).max(5).optional(),
@@ -336,6 +342,16 @@ export const sharePayloadSchema = z
   })
   .superRefine((payload, ctx) => {
     const letters = SECTION_LETTERS.filter((L) => payload[L]);
+    if (payload.ver < 7) {
+      for (const L of letters) {
+        if (payload[L]?.tr === undefined) continue;
+        ctx.addIssue({
+          code: 'custom',
+          path: [L, 'tr'],
+          message: `a version ${payload.ver} code plays every section at its tempo; a tempo ratio needs version 7`,
+        });
+      }
+    }
     if (payload.ver < 6) {
       for (const L of letters) {
         if (L === 'A' || L === 'B') continue;

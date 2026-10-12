@@ -1,5 +1,6 @@
 import { DEFAULT_METER, meterOf, stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { wpick, type Rng } from '@/lib/app/breaks/rng';
+import type { TempoRatio } from '@/lib/app/breaks/sections';
 import type { Figure, SongSection, Style, StyleSong } from '@/lib/app/breaks/types';
 
 /**
@@ -81,6 +82,22 @@ export function songMeter(st: Style, song: StyleSong | undefined, section?: Song
   return part?.params.meter ?? song?.params.meter ?? st.meter ?? DEFAULT_METER;
 }
 
+/**
+ * Each section of a song as the top tempo sees it: its meter and its tempo
+ * ratio — what `maxBpmOf` holds the break's tempo to.
+ */
+export function songPaces(
+  st: Style,
+  song: StyleSong
+): Array<{ meter: string; tempoRatio?: TempoRatio }> {
+  return song.sections?.length
+    ? song.sections.map((x) => ({
+        meter: songMeter(st, song, x),
+        ...(x.tempoRatio ? { tempoRatio: x.tempoRatio } : {}),
+      }))
+    : [{ meter: songMeter(st, song) }];
+}
+
 /** Every meter a song plays in: its own, or each of its sections'. */
 export function songMeters(st: Style, song: StyleSong): string[] {
   return song.sections?.length
@@ -140,11 +157,17 @@ export function songTempo(st: Style, song: StyleSong | undefined, rng: Rng): num
  * A song's tempo range. A break has one tempo, so for a song in sections it is
  * the range every section can play at: the song's, held to the slowest
  * section's playable top (a section of sixteenths runs out of hands before a
- * section of quarters does).
+ * section of quarters does). A section at a tempo ratio names its range at the
+ * speed it plays, so it is divided by its ratio first: Angel of Death's break
+ * at 100–110, at ×½, is 200–220 of the song's tempo.
  */
 export function songBpm(st: Style, song: StyleSong | undefined): [number, number] {
   if (!song?.sections?.length) return withSong(st, song?.key).bpm;
-  const ranges = song.sections.map((x) => withSong(st, partKey(song, x)).bpm);
+  const ranges = song.sections.map((x) => {
+    const [lo, hi] = withSong(st, partKey(song, x)).bpm;
+    const r = x.tempoRatio ?? 1;
+    return [Math.ceil(lo / r), Math.floor(hi / r)];
+  });
   const hi = Math.min(...ranges.map((r) => r[1]));
   const lo = Math.min(hi, Math.max(...ranges.map((r) => r[0])));
   return [lo, hi];

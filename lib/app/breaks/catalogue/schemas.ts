@@ -236,6 +236,8 @@ const songSectionSchema = z.object({
   letter: z.enum(SECTION_LETTERS),
   label: z.string().min(1).max(60),
   bars: z.number().int().min(1).max(8).optional(),
+  /** how fast it plays against the song's tempo (11-e-ii-g); absent, ×1 */
+  tempoRatio: z.union([z.literal(0.5), z.literal(2)]).optional(),
   aliases: z.array(songKey).min(1).max(8).optional(),
   params: songParams,
 });

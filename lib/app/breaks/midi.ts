@@ -2,6 +2,7 @@ import { Humaniser } from '@/lib/app/breaks/humanise';
 import { stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import { MIDI_MAP, midiVelocity, performStep } from '@/lib/app/breaks/perform';
+import { sectionBpm } from '@/lib/app/breaks/sections';
 import type { Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -57,6 +58,7 @@ export interface SequencedBar {
 }
 
 export interface MidiOptions {
+  /** The break's tempo; a section at a tempo ratio plays at a ratio of it. */
   bpm: number;
   /** Swing slider, 0–100. */
   swing: number;
@@ -82,17 +84,18 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
   const ons: Array<{ t: number; n: number; v: number }> = [];
   let tick = 0;
   const human = opts.humanise
-    ? {
-        stream: new Humaniser(opts.humanise.seed),
-        amount: opts.humanise.amount,
-        bpm: opts.bpm,
-      }
+    ? { stream: new Humaniser(opts.humanise.seed), amount: opts.humanise.amount }
     : null;
 
   /* A time signature at the top of the file, and again at the bar where the
      meter changes (A in 7/8, B in 4/4). One is written only where the
      signature does: 4/4 to 4/4 in sextuplets is a new grid, not a new meter. */
   const sigs: Array<{ t: number; num: number; den: number }> = [];
+  /* A tempo at the top, and again at the bar where a section at a tempo
+     ratio starts or ends (11-e-ii-g): the ticks are quarters whatever the
+     speed, so a section at ×2 is its notes where they always were, under a
+     tempo twice the break's. */
+  const tempos: Array<{ t: number; bpm: number }> = [];
 
   for (const pos of seq) {
     const pat = pos.pattern;
@@ -103,6 +106,8 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
     const was = sigs[sigs.length - 1];
     if (!was || was.num !== m.num || was.den !== m.den)
       sigs.push({ t: tick, num: m.num, den: m.den });
+    const bpm = sectionBpm(opts.bpm, pat);
+    if (tempos[tempos.length - 1]?.bpm !== bpm) tempos.push({ t: tick, bpm });
 
     const nSteps = bar.k.length;
     // ticks a step: a sixteenth's 120, or a sextuplet's 80 in 4/4-6
@@ -112,8 +117,8 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
         swing: opts.swing,
         feel: opts.feel,
         hats: opts.hats,
-        humanise: human,
-        bpm: opts.bpm,
+        humanise: human && { ...human, bpm },
+        bpm,
       });
       /* A grace pushed in front of bar 1 takes its note with it: the flam
          moves later as a whole, so the grace still comes first. Collapsed onto
@@ -159,24 +164,36 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
   events.sort((a, b) => a.t - b.t || (a.type & 0xf0) - (b.type & 0xf0));
 
   const track: number[] = [];
-  const mpqn = Math.round(60000000 / opts.bpm);
-  track.push(0, 0xff, 0x51, 0x03, (mpqn >> 16) & 255, (mpqn >> 8) & 255, mpqn & 255);
 
-  // a file of no bars still says what it is in
+  // a file of no bars still says what it is in, and how fast
   if (!sigs.length) {
     const em = meterOfPat(null);
     sigs.push({ t: 0, num: em.num, den: em.den });
   }
+  if (!tempos.length) tempos.push({ t: 0, bpm: opts.bpm });
 
   let last = 0;
   let nextSig = 0;
-  // a signature goes ahead of the notes on its tick: they are in the new bar
+  let nextTempo = 0;
+  /* A tempo and a signature go ahead of the notes on their tick: they are in
+     the new bar. On one tick the tempo is written first, as the file's own
+     tempo always was. */
   const sigsUpTo = (t: number) => {
-    for (; nextSig < sigs.length && sigs[nextSig].t <= t; nextSig++) {
+    for (;;) {
+      const tempo = tempos[nextTempo];
       const sig = sigs[nextSig];
-      track.push(...vlq(sig.t - last));
-      track.push(0xff, 0x58, 0x04, sig.num, Math.round(Math.log2(sig.den)), 24, 8);
-      last = sig.t;
+      if (tempo && tempo.t <= t && (!sig || tempo.t <= sig.t)) {
+        const mpqn = Math.round(60000000 / tempo.bpm);
+        track.push(...vlq(tempo.t - last));
+        track.push(0xff, 0x51, 0x03, (mpqn >> 16) & 255, (mpqn >> 8) & 255, mpqn & 255);
+        last = tempo.t;
+        nextTempo++;
+      } else if (sig && sig.t <= t) {
+        track.push(...vlq(sig.t - last));
+        track.push(0xff, 0x58, 0x04, sig.num, Math.round(Math.log2(sig.den)), 24, 8);
+        last = sig.t;
+        nextSig++;
+      } else return;
     }
   };
   for (const e of events) {

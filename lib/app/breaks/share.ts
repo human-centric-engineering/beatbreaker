@@ -8,12 +8,18 @@ import {
   type SectionLetter,
   type Sections,
   hasExtraSections,
+  hasTempoRatios,
 } from '@/lib/app/breaks/sections';
 import type { LaneKey, Pattern, PercLaneKey, Pins, ResolvedStyle } from '@/lib/app/breaks/types';
 
 /**
  * Share codes: a whole break — every section, the tempo, the swing and the
  * style — as one base64 string you can paste to anyone.
+ *
+ * **Version 7** (11-e-ii-g) adds a section's tempo ratio (`tr`, ×½ or ×2). It
+ * is written only when a section has one: a v6 reader would drop the key it
+ * does not know and play that section at the break's tempo, so it must refuse
+ * the code instead, as it refuses any newer version.
  *
  * **Version 6** (11-e-ii) adds sections C to Z beside A and B. It is written
  * only when a break has one, or an arrangement names one: a break of A and B
@@ -44,8 +50,11 @@ import type { LaneKey, Pattern, PercLaneKey, Pins, ResolvedStyle } from '@/lib/a
  * something has actually checked.
  */
 
-/** The newest version this app writes — for a break with sections past B. */
-export const SHARE_VERSION = 6;
+/** The newest version this app writes — for a break with a section at a tempo ratio. */
+export const SHARE_VERSION = 7;
+
+/** The version a break with sections past B, and no tempo ratio, is written as. */
+export const SHARE_VERSION_SECTIONS = 6;
 
 /** The version a break of A and B alone is written as, so its code does not change. */
 export const SHARE_VERSION_AB = 5;
@@ -101,6 +110,7 @@ export function packPattern(p: Pattern): PackedPattern {
     sv: p.styleVersionId ?? undefined,
     sa: p.attrs ?? {},
     ...(p.song ? { sg: p.song } : {}),
+    ...(p.tempoRatio ? { tr: p.tempoRatio } : {}),
     v: p.voice,
     sd: p.seed,
     bb: p.backbeats,
@@ -139,7 +149,7 @@ export function packPattern(p: Pattern): PackedPattern {
 export function breakPayload(doc: BreakDoc): SharePayload {
   const extra = hasExtraSections(doc) || doc.arrangement.some((L) => L !== 'A' && L !== 'B');
   const out: SharePayload = {
-    ver: extra ? SHARE_VERSION : SHARE_VERSION_AB,
+    ver: hasTempoRatios(doc) ? SHARE_VERSION : extra ? SHARE_VERSION_SECTIONS : SHARE_VERSION_AB,
     bpm: doc.bpm,
     sw: doc.swing,
     lv: doc.level,
@@ -226,6 +236,7 @@ export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Patte
     styleVersionId,
     attrs,
     ...(p.sg ? { song: p.sg } : {}),
+    ...(p.tr ? { tempoRatio: p.tr } : {}),
     meter: mk,
     seed: p.sd >>> 0,
     voice: p.v,

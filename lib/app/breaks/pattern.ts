@@ -86,6 +86,7 @@ export function clonePattern(p: Pattern): Pattern {
     voice: p.voice,
     seed: p.seed,
     meter: p.meter || DEFAULT_METER,
+    ...(p.tempoRatio ? { tempoRatio: p.tempoRatio } : {}),
     lanes: (p.lanes ?? BASE_LANES).slice(),
     perc: { ...p.perc },
     bbLane: p.bbLane || 's',

@@ -3,7 +3,12 @@ import { barEq, critique, playability } from '@/lib/app/breaks/critic';
 import { type BreakDoc, breakDocFromPayload } from '@/lib/app/breaks/share';
 import type { SharePayload } from '@/lib/app/breaks/schema';
 import { toText } from '@/lib/app/breaks/text';
-import { SECTION_LETTERS, type SectionLetter, lettersOf } from '@/lib/app/breaks/sections';
+import {
+  SECTION_LETTERS,
+  type SectionLetter,
+  lettersOf,
+  sectionBpm,
+} from '@/lib/app/breaks/sections';
 import type { Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -44,6 +49,11 @@ export interface SectionView {
   section: Section;
   style: string;
   meter: string;
+  /**
+   * How fast it plays against the break's tempo, ×½ or ×2 (11-e-ii-g); absent
+   * at the break's tempo. Its header's bpm is the speed it plays at.
+   */
+  tempoRatio?: number;
   bars: number;
   /** `toText()` — a header line, then a count row and one row per lane, per bar. */
   text: string;
@@ -75,8 +85,9 @@ export function viewSection(
     section,
     style: pat.style,
     meter: pat.meter,
+    ...(pat.tempoRatio ? { tempoRatio: pat.tempoRatio } : {}),
     bars: pat.bars.length,
-    text: toText(pat, { section, bpm, swing }),
+    text: toText(pat, { section, bpm: sectionBpm(bpm, pat), swing }),
     critic: {
       score: score.score,
       verdict: score.verdict,

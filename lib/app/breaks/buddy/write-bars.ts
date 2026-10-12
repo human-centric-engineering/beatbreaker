@@ -13,6 +13,8 @@ import {
   type SectionLetter,
   lettersOf,
   nextLetter,
+  ratioLabel,
+  ratioOf,
   totalBars,
 } from '@/lib/app/breaks/sections';
 import type { BreakDoc } from '@/lib/app/breaks/share';
@@ -129,6 +131,8 @@ function blankSection(a: Pattern, letter: SectionLetter): Pattern {
   out.pins = null;
   out.sticking = null;
   delete out.fixed;
+  // a new section plays at the break's tempo, whatever A's ratio
+  delete out.tempoRatio;
   return out;
 }
 
@@ -285,13 +289,23 @@ export class WriteBarsCapability extends BaseCapability<Args, EditData> {
       }
       const base = current ?? blankSection(doc.A, args.section);
       /* One tempo plays every section, held to the lowest of their meters'
-         ceilings. A section written in a slower meter (C in 4/4 beside an A
-         in 12/8 at 280) brings the tempo down to its ceiling, and its bars
-         are checked at the tempo they will play at — as the Studio does. */
-      const meters = lettersOf(doc)
+         ceilings, each over its tempo ratio. A section written in a slower
+         meter (C in 4/4 beside an A in 12/8 at 280) brings the tempo down to
+         its ceiling, and its bars are checked at the tempo they will play at
+         — as the Studio does. A section rewritten keeps its ratio. */
+      const others = lettersOf(doc)
         .filter((L) => L !== args.section)
-        .map((L) => doc[L]?.meter);
-      const bpm = Math.min(doc.bpm, maxBpmOf([...meters, args.meter ?? base.meter]));
+        .map((L) => doc[L]);
+      const bpm = Math.min(
+        doc.bpm,
+        maxBpmOf([
+          ...others,
+          {
+            meter: args.meter ?? base.meter,
+            ...(base.tempoRatio ? { tempoRatio: base.tempoRatio } : {}),
+          },
+        ])
+      );
       const built = build(base, args, bpm);
       if (!built.ok) return built;
       const after = { ...withSection(doc, args.section, built.pattern), bpm };
@@ -319,7 +333,11 @@ export class WriteBarsCapability extends BaseCapability<Args, EditData> {
             ? `Wrote ${args.section}: no bars changed`
             : `Wrote ${args.section} bar${bars.length > 1 ? 's' : ''} ${bars.join(', ')}`) +
         (outcome.extra.slowed
-          ? `; tempo down to ${outcome.after.bpm} bpm, the top of ${outcome.after[args.section]?.meter}`
+          ? `; tempo down to ${outcome.after.bpm} bpm, the top of ${outcome.after[args.section]?.meter}${
+              outcome.after[args.section]?.tempoRatio
+                ? ` at ${ratioLabel(ratioOf(outcome.after[args.section]))}`
+                : ''
+            }`
           : ''),
       ...described,
     });

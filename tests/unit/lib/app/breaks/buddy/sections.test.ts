@@ -441,3 +441,66 @@ describe('notesKey', () => {
     expect(notesKey({ ...base, bpm: 120 })).toBe(notesKey(base));
   });
 });
+
+describe('a section at a tempo ratio (11-e-ii-g)', () => {
+  /** A funk break of A and B, B at the ratio given. */
+  function ratioPayload(bpm: number, r: 0.5 | 2): SharePayload {
+    const doc = breakDocFromPayload(funkPayload());
+    return breakPayload({ ...doc, bpm, B: { ...doc.B, tempoRatio: r } });
+  }
+
+  it('get_pattern reports the ratio, and heads the section with the tempo it plays at', async () => {
+    seed(ratioPayload(90, 2));
+    const data = dataOf(await runCap(new GetPatternCapability(), {}));
+    const [a, b] = data.sections;
+    expect(a).not.toHaveProperty('tempoRatio');
+    expect(b.tempoRatio).toBe(2);
+    expect(a.text).toContain('90 bpm');
+    expect(b.text).toContain('180 bpm');
+  });
+
+  it('write_bars keeps the ratio of a section it rewrites, and adds a new one at the break tempo', async () => {
+    seed(ratioPayload(90, 2));
+    const rewrote = decoded(
+      dataOf(await runCap(new WriteBarsCapability(), { section: 'B', text: `bar 1${PLAIN}` })).doc
+    );
+    expect(rewrote.B.tempoRatio).toBe(2);
+
+    seed(
+      breakPayload({
+        ...decoded(ratioPayload(90, 2)),
+        A: { ...decoded(ratioPayload(90, 2)).A, tempoRatio: 0.5 },
+      })
+    );
+    const added = decoded(
+      dataOf(
+        await runCap(new WriteBarsCapability(), {
+          section: 'C',
+          whole: true,
+          text: `bar 1${PLAIN}`,
+        })
+      ).doc
+    );
+    expect(added.C).not.toHaveProperty('tempoRatio');
+  });
+
+  it("write_bars holds the tempo to a ratio's ceiling, and names the ratio", async () => {
+    // B at ×2 in 4/4 holds the break to 95, rewritten whole or bar by bar
+    seed(ratioPayload(95, 2));
+    const data = dataOf(
+      await runCap(new WriteBarsCapability(), {
+        section: 'B',
+        whole: true,
+        meter: '4/4',
+        text: `bar 1${PLAIN}`,
+      })
+    );
+    expect(data.doc.bpm).toBe(95);
+    seed(ratioPayload(150, 2));
+    const slowed = dataOf(
+      await runCap(new WriteBarsCapability(), { section: 'B', text: `bar 1${PLAIN}` })
+    );
+    expect(slowed.doc.bpm).toBe(95);
+    expect(slowed.summary).toContain('tempo down to 95 bpm, the top of 4/4 at ×2');
+  });
+});

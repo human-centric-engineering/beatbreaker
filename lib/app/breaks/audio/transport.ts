@@ -11,7 +11,13 @@ import {
   stepSeconds,
 } from '@/lib/app/breaks/meter';
 import { meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
-import type { MaybeSections, SectionLetter } from '@/lib/app/breaks/sections';
+import {
+  type MaybeSections,
+  type SectionLetter,
+  type TempoRatio,
+  ratioOf,
+  sectionBpm,
+} from '@/lib/app/breaks/sections';
 import { type Voice, performStep } from '@/lib/app/breaks/perform';
 import type { Bar, Meter, Pattern } from '@/lib/app/breaks/types';
 
@@ -205,14 +211,25 @@ export function maxBpm(meterKey: string): number {
 }
 
 /**
- * The top tempo of a break whose sections may be in different meters: the
- * lowest of theirs. The tempo is one for the whole break and always counts
- * quarters, so a 4/4 B holds a fast-swing A in eighths to 4/4's ceiling. No
- * sections is 4/4's.
+ * A section as the top tempo sees it: its meter, and how fast it plays against
+ * the break's tempo. A bare meter key is a section at ×1.
  */
-export function maxBpmOf(meterKeys: readonly (string | undefined)[]): number {
-  const keys = meterKeys.filter((k): k is string => !!k);
-  return keys.length ? Math.min(...keys.map(maxBpm)) : maxBpm(M44.label);
+export type SectionPace = string | { meter: string; tempoRatio?: TempoRatio };
+
+/**
+ * The top tempo of a break whose sections may be in different meters, or play
+ * at a ratio of its tempo: the lowest of their ceilings, each over its ratio.
+ * The tempo is one for the whole break and always counts quarters, so a 4/4 B
+ * holds a fast-swing A in eighths to 4/4's ceiling, and a B at ×2 holds the
+ * break to half of B's. No sections is 4/4's.
+ */
+export function maxBpmOf(sections: readonly (SectionPace | null | undefined)[]): number {
+  const tops = sections.flatMap((x) => {
+    if (!x) return [];
+    if (typeof x === 'string') return [maxBpm(x)];
+    return [Math.floor(maxBpm(x.meter) / ratioOf(x))];
+  });
+  return tops.length ? Math.min(...tops) : maxBpm(M44.label);
 }
 
 export class Transport {
@@ -338,11 +355,14 @@ export class Transport {
 
   /** How long a step of the pattern playing lasts: a sixteenth, or a sextuplet in 4/4-6. */
   private stepDur(snap: TransportSnapshot): number {
+    const pat = this.countLeft > 0 ? this.countInPattern(snap) : this.livePattern(snap);
+    return stepSeconds(meterOfPat(pat), sectionBpm(snap.bpm, pat));
+  }
+
+  /** The section the playhead is in: the arrangement's, else A. */
+  private livePattern(snap: TransportSnapshot): Pattern | null {
     const pos = this.seq[this.seqIndex];
-    return stepSeconds(
-      meterOfPat((pos && snap.patterns[pos.letter]) || snap.patterns.A || null),
-      snap.bpm
-    );
+    return (pos && snap.patterns[pos.letter]) || snap.patterns.A || null;
   }
 
   private barSteps(snap: TransportSnapshot): number {
@@ -409,8 +429,12 @@ export class Transport {
       swing: snap.swing,
       feel: snap.feel,
       hats: snap.hats,
-      humanise: { stream: this.human, amount: snap.humanise.amount, bpm: snap.bpm },
-      bpm: snap.bpm,
+      humanise: {
+        stream: this.human,
+        amount: snap.humanise.amount,
+        bpm: sectionBpm(snap.bpm, livePat),
+      },
+      bpm: sectionBpm(snap.bpm, livePat),
     });
     const whens = voices.map((v) => Math.max(floor, t + dur * v.offset));
     /* When each note's key is struck again: a flam's grace and its stroke, a

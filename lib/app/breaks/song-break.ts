@@ -8,6 +8,7 @@ import {
   MAX_BREAK_BARS,
   type SectionLetter,
   type Sections,
+  type TempoRatio,
 } from '@/lib/app/breaks/sections';
 import { partKey, pickSong, songMeter, songOf, withSong } from '@/lib/app/breaks/songs';
 import { styleIn } from '@/lib/app/breaks/styles';
@@ -99,8 +100,14 @@ export interface PartOptions {
   density: number;
   ghosts: number;
   seed: number;
-  /** The tempo it is judged at. */
+  /** The break's tempo: a section at a ratio is judged at the speed it plays. */
   bpm: number;
+  /**
+   * How fast the section plays against the break's tempo. Absent, a section
+   * of a song takes its own ratio (`hell-awaits:B`), anything else plays at
+   * ×1; 1 is ×1 whatever the section says.
+   */
+  tempoRatio?: TempoRatio | 1;
   /** One candidate from the seed, rather than the best of sixteen (`generateGood`). */
   exact?: boolean;
   /** The Studio's own lanes, where you have set them. */
@@ -125,6 +132,7 @@ export function writePart(opts: PartOptions): GeneratedBreak {
     lanes: roster.lanes,
     perc: roster.perc,
     seed: opts.seed,
+    tempoRatio: opts.tempoRatio,
   };
   return opts.exact
     ? { pattern: generatePattern(gen), tries: 1, rejected: 0 }

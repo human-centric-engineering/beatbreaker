@@ -876,3 +876,53 @@ describe('Transport — sections in different meters (11-e-ii-a)', () => {
     ]);
   });
 });
+
+describe('a section at a tempo ratio (11-e-ii-g)', () => {
+  /** Every step scheduled while the clock runs to `seconds`. */
+  function stepsUpTo(snap: TransportSnapshot, seconds: number): ScheduledStep[] {
+    const onStep = vi.fn<(s: ScheduledStep) => void>();
+    const f = fakeAudio();
+    const t = new Transport(f.engine, {
+      getSnapshot: () => snap,
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onStep,
+    });
+    t.start();
+    while (f.ctx.currentTime < seconds) {
+      f.ctx.currentTime += 0.02;
+      vi.advanceTimersByTime(25);
+    }
+    t.stop();
+    return onStep.mock.calls.map(([s]) => s);
+  }
+
+  it('plays its steps at the break tempo times its ratio, and back at the next section', () => {
+    const A = patternIn('4/4');
+    const B: Pattern = { ...patternIn('4/4'), tempoRatio: 2 };
+    // 120: a sixteenth of A is 0.125 s, of B at ×2 0.0625 s; A, B, A is 2 + 1 + 2 s
+    const steps = stepsUpTo(
+      snapshot(A, { patterns: { A, B }, arrangement: ['A', 'B', 'A'], click: false }),
+      4.5
+    );
+    const durs = steps.slice(0, 48).map((s) => s.dur);
+    expect(durs.slice(0, 16).every((d) => d === 0.125)).toBe(true);
+    expect(durs.slice(16, 32).every((d) => d === 0.0625)).toBe(true);
+    expect(durs.slice(32, 48).every((d) => d === 0.125)).toBe(true);
+    // B starts where A's bar ends, and the second A where B's shorter bar ends
+    expect(steps[16].t).toBeCloseTo(0.08 + 2, 9);
+    expect(steps[32].t).toBeCloseTo(0.08 + 3, 9);
+  });
+
+  it('counts in at the speed of the section it leads into', () => {
+    const A: Pattern = { ...patternIn('4/4'), tempoRatio: 0.5 };
+    const steps = stepsUpTo(snapshot(A, { countIn: 1, click: false }), 4.5);
+    const count = steps.filter((s) => s.count);
+    expect(count).toHaveLength(16);
+    // ×½ at 120 is 60: a sixteenth of 0.25 s, the band in after 4 s
+    expect(count.every((s) => s.dur === 0.25)).toBe(true);
+    expect(steps.find((s) => !s.count)?.t).toBeCloseTo(0.08 + 4, 9);
+  });
+});

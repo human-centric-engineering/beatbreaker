@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { maxBpmOf } from '@/lib/app/breaks/audio/transport';
 import { type EditData, editWorkspace } from '@/lib/app/breaks/buddy/edit';
 import { FULL_LAYER, layerName } from '@/lib/app/breaks/layers';
-import { patternsOf } from '@/lib/app/breaks/sections';
+import { hasTempoRatios, patternsOf } from '@/lib/app/breaks/sections';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
 import type {
   CapabilityContext,
@@ -61,15 +61,17 @@ export class SetPlaybackCapability extends BaseCapability<Args, EditData> {
 
     const outcome = await editWorkspace(context.userId, (doc) => {
       const meterKeys = [...new Set(patternsOf(doc).map((p) => p.meter))];
-      const top = maxBpmOf(meterKeys);
+      const top = maxBpmOf(patternsOf(doc));
       if (args.bpm !== undefined && args.bpm > top) {
         const meters =
           meterKeys.length > 1
             ? `${meterKeys.slice(0, -1).join(', ')} and ${meterKeys[meterKeys.length - 1]}`
             : meterKeys[0];
+        // a section at double time holds the break to half its ceiling: say so
+        const doubled = hasTempoRatios(doc) ? ', with every section at its tempo ratio' : '';
         return {
           ok: false,
-          message: `The Studio plays ${meters} up to ${top} bpm`,
+          message: `The Studio plays ${meters} up to ${top} bpm${doubled}`,
           code: 'tempo_out_of_range',
         };
       }

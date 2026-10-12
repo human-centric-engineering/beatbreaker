@@ -6,7 +6,7 @@ import { DEFAULT_METER, METER_KEYS } from '@/lib/app/breaks/meter';
 import { lettersOf } from '@/lib/app/breaks/sections';
 import { withoutExtraSections } from '@/lib/app/breaks/share';
 import { songBreak, songForSeed } from '@/lib/app/breaks/song-break';
-import { songMeters } from '@/lib/app/breaks/songs';
+import { songPaces } from '@/lib/app/breaks/songs';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
 import type {
   CapabilityContext,
@@ -123,7 +123,7 @@ export class GeneratePatternCapability extends BaseCapability<Args, EditData> {
       const [lo, hi] = style.params.bpm;
       const wanted =
         args.bpm ?? (doc.bpm >= lo && doc.bpm <= hi ? doc.bpm : Math.round((lo + hi) / 2));
-      const top = song?.sections ? maxBpmOf(songMeters(style.params, song)) : maxBpm(meter);
+      const top = song?.sections ? maxBpmOf(songPaces(style.params, song)) : maxBpm(meter);
       const bpm = Math.min(Math.max(wanted, 50), top);
 
       const made = songBreak({

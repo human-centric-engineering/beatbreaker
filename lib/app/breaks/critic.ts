@@ -11,6 +11,7 @@ import { STEPS, isGroupStart, stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { generatePattern, type GenerateOptions } from '@/lib/app/breaks/generate';
 import { meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
 import { clamp, makeRng } from '@/lib/app/breaks/rng';
+import { sectionBpm } from '@/lib/app/breaks/sections';
 import type { Bar, LaneKey, Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -37,7 +38,13 @@ export interface Playability {
   hard: boolean;
 }
 
-export function playability(pat: Pattern, bpm: number): Playability {
+/**
+ * Whether a pattern can be played, at the break's tempo `bpm0`. A section at a
+ * tempo ratio is judged at the speed it plays (11-e-ii-g): a B at ×2 under a
+ * break at 100 is a B at 200.
+ */
+export function playability(pat: Pattern, bpm0: number): Playability {
+  const bpm = sectionBpm(bpm0, pat);
   let rideClash = false;
   let kickRun = false;
   let snareRun = false;
