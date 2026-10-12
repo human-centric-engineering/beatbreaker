@@ -67,6 +67,57 @@ release process.
   `npm run db:seed` so the `022-delivery-destinations` unit fills existing rows
   from their current subscription or hook (the best available value, not a
   record). Rows whose parent is deleted before it runs stay unrecorded.
+- **At `TENANCY_MODE=multi`, an org's stored files live under `orgs/{orgId}/`,
+  and agent uploads are private by default** (§109 t-736). The
+  `upload_to_storage` capability writes `orgs/{orgId}/{keyPrefix}{uuid}.{ext}`
+  (the org prefix wraps a binding's own `keyPrefix`), through
+  `getStorageClient({ orgId })`, a new optional argument that returns the
+  provider wrapped to refuse any key outside that org on upload, read, delete,
+  prefix delete and signing (`lib/storage/org-scoped.ts`). A binding that sets
+  **neither `public` nor `signedUrlTtlSeconds`** now uploads privately and
+  returns a signed URL valid for 24 hours; set `public: true` to keep a public
+  link. On Vercel Blob, which cannot sign, such a binding is refused with
+  `signed_url_not_supported` until it opts into public; **on S3, set
+  `S3_OBJECTS_PRIVATE_BY_DEFAULT=true`** (bucket blocks public access) or
+  `S3_USE_ACL=true`, or such a binding is refused with
+  `private_objects_not_supported`. A dispatch with no org
+  in its tenant context is refused with `no_org_context`. `orgs/` is now a
+  reserved root: **`getStorageClient()` without `orgId` now refuses any key
+  under `orgs/`** (in any letter case), so an org's files are reachable only
+  through that org's client, and at `single` a binding whose `keyPrefix`
+  starts with it is refused with `invalid_binding`. **`getStorageClient()`
+  therefore returns a guarded wrapper, not the provider instance**: it exposes
+  the `StorageProvider` interface only, so a fork that reached a provider's own
+  extra methods through it must keep its own reference to the provider.
+  **`validateStorageKey()` now rejects `.` and empty path segments** (a
+  trailing `/` on a prefix is fine; a full blob URL is judged by its path):
+  the local provider resolves keys as paths, so `./orgs/b/x` reached another
+  org's directory. Local storage access
+  tokens gain an optional `org` claim: `generateStorageAccessToken()` and
+  `buildStorageAccessUrl()` take `{ orgId }`, refuse an org-owned key signed
+  for any other org (or for none), and the read route answers `403
+  TOKEN_ORG_MISMATCH` when the claim does not match the key, or `403
+  ORG_UNAVAILABLE` once the claimed org is erased or suspended. `StorageProvider.getSignedUrl`
+  gains an optional third `options` argument (`SignedUrlOptions`); a fork's
+  custom provider that ignores it still compiles, but one that mints
+  local-style tokens must forward it, or signing an org key fails. `eraseOrg()`
+  deletes the org's prefix after its transaction commits, best-effort, and
+  reports `storageSwept` (also on `DELETE /api/v1/admin/orgs/[id]`);
+  `sweepErasedOrgStorage(orgId)` re-runs that sweep for an org already erased. **Unchanged at `single`**: no prefix, and
+  the public default stays. Avatars and files uploaded before this stay where
+  they are, and org erasure does not reach the older ones. See
+  `.context/storage/tenancy.md`.
+
+### Fixed
+
+- **S3 and Vercel Blob `deletePrefix` now delete past the first page**
+  (§109 t-736). Both read only the first listing page (1,000 objects on S3),
+  so a prefix holding more kept the rest while reporting success; S3 also
+  reported success when `DeleteObjects` returned per-key `Errors`. S3 now
+  follows the listing to the end, Vercel Blob re-lists until the prefix is
+  empty, and an S3 per-key failure returns `{ success: false }`. `eraseUser()`'s avatar sweep and `eraseOrg()`'s org
+  sweep both go through it.
+
 
 ## [0.14.0] — 2026-10-08
 
