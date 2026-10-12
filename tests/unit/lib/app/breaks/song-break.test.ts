@@ -10,8 +10,13 @@ import { describe, expect, it } from 'vitest';
 
 import { generateGood } from '@/lib/app/breaks/critic';
 import { deriveB } from '@/lib/app/breaks/generate';
-import { MAX_BREAK_BARS, lettersOf, totalBars } from '@/lib/app/breaks/sections';
-import { songBreak, songForSeed } from '@/lib/app/breaks/song-break';
+import {
+  MAX_BREAK_BARS,
+  type SectionLetter,
+  lettersOf,
+  totalBars,
+} from '@/lib/app/breaks/sections';
+import { type SongBreak, songBreak, songForSeed } from '@/lib/app/breaks/song-break';
 import {
   partKey,
   songBpm,
@@ -21,7 +26,7 @@ import {
   songPartOf,
   withSong,
 } from '@/lib/app/breaks/songs';
-import type { Style, StyleSong } from '@/lib/app/breaks/types';
+import type { Bar, Style, StyleSong } from '@/lib/app/breaks/types';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { testStyle } from '@/tests/helpers/catalogue';
 
@@ -42,6 +47,15 @@ function styleWith(song: Partial<StyleSong>): Style {
     songs: [{ key: 'tune', title: 'Tune', feel: 'a tune', weight: 1, params: {}, ...song }],
   };
 }
+
+/** The first bar of a section the break must have. */
+function first(made: SongBreak, letter: SectionLetter): Bar {
+  const bar = made.sections[letter]?.bars[0];
+  if (!bar) throw new Error(`no section ${letter}`);
+  return bar;
+}
+
+const hits = (lane: number[]) => lane.filter(Boolean).length;
 
 describe('a key naming a section', () => {
   it('names a section by its song and letter', () => {
@@ -72,6 +86,11 @@ describe('a key naming a section', () => {
     ['klek', 'sarniezz-modulation', 'sarniezz:B', '4/4'],
     ['klek', 'fabienk', 'fabienk:A', '7/8'],
     ['klek', 'fabienk-part-2', 'fabienk:C', '4/4'],
+    // 11-e-ii-f: a song's own key goes to the part most of its one pool was
+    ['lombardo', 'raining-blood', 'raining-blood:B', '4/4-8'],
+    ['tonywilliams', 'autumn-leaves', 'autumn-leaves:B', '4/4-8'],
+    ['klek', 'mata-zyklek', 'mata-zyklek:B', '5/8'],
+    ['copeland', 'roxanne', 'roxanne:A', '4/4'],
   ])('reads %s’s old key %s as %s', (style, old, now, meter) => {
     const st = STYLES[style];
     const part = songPartOf(st, old);
@@ -150,6 +169,82 @@ describe('songBreak', () => {
       // the intro's 1 has no kick in any bar; the groove's has one in every bar
       expect(made.sections.A.bars.map((b) => b.k[0])).not.toContain(1);
       expect(made.sections.B.bars.every((b) => b.k[0] > 0)).toBe(true);
+    }
+  });
+
+  /* 11-e-ii-f: a song's grooves were one pool, drawn into the same phrase. Each
+     section now draws only its own, so a mark of one part never shows in the
+     other. */
+  it.each([
+    // a kick or two under the verse, a rock kick under the chorus
+    [
+      'copeland',
+      'roxanne',
+      (s: SongBreak) => hits(first(s, 'A').k) <= 3 && hits(first(s, 'B').k) >= 5,
+    ],
+    // the bridge rides the floor tom on the eighths, and nothing else does
+    [
+      'copeland',
+      'king-of-pain',
+      (s: SongBreak) =>
+        hits(first(s, 'C').t3) >= 8 && hits(first(s, 'A').t3) + hits(first(s, 'B').t3) === 0,
+    ],
+    // the ending crashes on every beat; the skank beat rides
+    [
+      'lombardo',
+      'raining-blood',
+      (s: SongBreak) => hits(first(s, 'C').c) >= 4 && hits(first(s, 'B').c) <= 1,
+    ],
+    // double bass under the snare on every beat, only in the second part
+    [
+      'lombardo',
+      'south-of-heaven',
+      (s: SongBreak) => first(s, 'B').k.every(Boolean) && !first(s, 'A').k.every(Boolean),
+    ],
+    // hats in the verse, the ride in the chorus
+    [
+      'mitchell',
+      'stone-free',
+      (s: SongBreak) => hits(first(s, 'A').r) === 0 && hits(first(s, 'B').r) > 0,
+    ],
+    // no kick on 3 in the verse; four on the floor in the chorus
+    [
+      'copeland',
+      'walking-on-the-moon',
+      (s: SongBreak) => first(s, 'A').k[8] === 0 && first(s, 'B').k[8] > 0,
+    ],
+    // the bridge's snare on the "and" of 3, which the verse never plays
+    ['baker', 'badge', (s: SongBreak) => first(s, 'A').s[10] === 0 && first(s, 'B').s[10] > 0],
+    // the ride in the verse, the crash ridden in the heavy section
+    [
+      'davies',
+      'torn-by-the-fox',
+      (s: SongBreak) => hits(first(s, 'A').c) <= 1 && hits(first(s, 'B').c) >= 4,
+    ],
+    // the ride in the pre-chorus only
+    [
+      'klek',
+      'mata-zyklek',
+      (s: SongBreak) => hits(first(s, 'A').r) > 0 && hits(first(s, 'B').r) === 0,
+    ],
+    // the snare march with no ride, then the ride section
+    [
+      'mitchell',
+      'are-you-experienced',
+      (s: SongBreak) => hits(first(s, 'A').r) === 0 && hits(first(s, 'B').r) > 0,
+    ],
+    // the ride on the beats in two, the skip beat in double time
+    [
+      'tonywilliams',
+      'autumn-leaves',
+      (s: SongBreak) => hits(first(s, 'A').r) <= 4 && hits(first(s, 'B').r) >= 5,
+    ],
+  ])('writes %s’s %s with each part from its own grooves', (style, song, holds) => {
+    for (const seed of [1, 2, 3, 4, 5]) {
+      expect(
+        holds(songBreak({ style: testStyle(style), song, seed, ...opts })),
+        `seed ${seed}`
+      ).toBe(true);
     }
   });
 

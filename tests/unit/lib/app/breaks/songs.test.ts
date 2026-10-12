@@ -13,6 +13,7 @@ import { makeRng } from '@/lib/app/breaks/rng';
 import { packPattern, patternFromPacked } from '@/lib/app/breaks/share';
 import {
   partKey,
+  pickSection,
   pickSong,
   songMeter,
   songOf,
@@ -64,6 +65,31 @@ describe('withSong', () => {
 });
 
 describe('pickSong and songTempo', () => {
+  it('picks a section of a song in sections by the weight of its grooves, in the meter asked', () => {
+    const lombardo = testStyle('lombardo').params;
+    const rb = songOf(lombardo, 'raining-blood');
+    if (!rb) throw new Error('no Raining Blood');
+    const count: Record<string, number> = {};
+    const rng = makeRng(5);
+    for (let i = 0; i < 3000; i++) {
+      const x = pickSection(lombardo, rb, rng)?.letter ?? '-';
+      count[x] = (count[x] ?? 0) + 1;
+    }
+    // the skank beat's figures weigh 3.2 of 5.6, the riff's 1, the ending's 1.4
+    expect(Object.keys(count).sort()).toEqual(['A', 'B', 'C']);
+    expect(count.B).toBeGreaterThan(count.C);
+    expect(count.C).toBeGreaterThan(count.A);
+    // Sherpa picked in 12/8 writes only its 12/8 section
+    const klek = testStyle('klek').params;
+    const sherpa = songOf(klek, 'sherpa');
+    if (!sherpa) throw new Error('no Sherpa');
+    for (let i = 0; i < 200; i++) {
+      const x = pickSection(klek, sherpa, rng, '12/8');
+      expect(x && songMeter(klek, sherpa, x)).toBe('12/8');
+    }
+    expect(pickSection(MITCH.params, song('little-wing'), rng)).toBeUndefined();
+  });
+
   it('picks every song in time, and only those in the meter asked for', () => {
     const seen = new Set<string>();
     const rng = makeRng(7);
