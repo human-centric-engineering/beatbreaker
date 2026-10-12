@@ -5405,6 +5405,8 @@ export const STYLES: Record<string, Style> = {
           {
             letter: 'B',
             label: 'the double time',
+            // the old key: most of the song’s one pool was the double time
+            aliases: ['autumn-leaves'],
             params: {
               figures: [
                 [{ r: '1.111.11', s: '.1..1..3', k: '.....2..' }, 2],
@@ -13278,6 +13280,8 @@ export const STYLES: Record<string, Style> = {
           {
             letter: 'B',
             label: 'the skank beat',
+            // the old key: most of the song’s one pool was the skank beat
+            aliases: ['raining-blood'],
             params: {
               figures: [
                 [{ r: '11111111', s: '.3.3.3.3', k: '1.1.1.1.' }, 2],
@@ -14547,6 +14551,8 @@ export const STYLES: Record<string, Style> = {
           {
             letter: 'B',
             label: 'the chorus',
+            // the old key: most of the song’s one pool was the chorus
+            aliases: ['mata-zyklek'],
             params: {
               figures: [
                 /* The chorus and post-chorus bars, the snare on the second and fourth

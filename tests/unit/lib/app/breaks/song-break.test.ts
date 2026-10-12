@@ -86,6 +86,11 @@ describe('a key naming a section', () => {
     ['klek', 'sarniezz-modulation', 'sarniezz:B', '4/4'],
     ['klek', 'fabienk', 'fabienk:A', '7/8'],
     ['klek', 'fabienk-part-2', 'fabienk:C', '4/4'],
+    // 11-e-ii-f: a song's own key goes to the part most of its one pool was
+    ['lombardo', 'raining-blood', 'raining-blood:B', '4/4-8'],
+    ['tonywilliams', 'autumn-leaves', 'autumn-leaves:B', '4/4-8'],
+    ['klek', 'mata-zyklek', 'mata-zyklek:B', '5/8'],
+    ['copeland', 'roxanne', 'roxanne:A', '4/4'],
   ])('reads %s’s old key %s as %s', (style, old, now, meter) => {
     const st = STYLES[style];
     const part = songPartOf(st, old);
@@ -181,7 +186,8 @@ describe('songBreak', () => {
     [
       'copeland',
       'king-of-pain',
-      (s: SongBreak) => hits(first(s, 'C').t3) >= 8 && hits(first(s, 'A').t3) === 0,
+      (s: SongBreak) =>
+        hits(first(s, 'C').t3) >= 8 && hits(first(s, 'A').t3) + hits(first(s, 'B').t3) === 0,
     ],
     // the ending crashes on every beat; the skank beat rides
     [
@@ -200,6 +206,38 @@ describe('songBreak', () => {
       'mitchell',
       'stone-free',
       (s: SongBreak) => hits(first(s, 'A').r) === 0 && hits(first(s, 'B').r) > 0,
+    ],
+    // no kick on 3 in the verse; four on the floor in the chorus
+    [
+      'copeland',
+      'walking-on-the-moon',
+      (s: SongBreak) => first(s, 'A').k[8] === 0 && first(s, 'B').k[8] > 0,
+    ],
+    // the bridge's snare on the "and" of 3, which the verse never plays
+    ['baker', 'badge', (s: SongBreak) => first(s, 'A').s[10] === 0 && first(s, 'B').s[10] > 0],
+    // the ride in the verse, the crash ridden in the heavy section
+    [
+      'davies',
+      'torn-by-the-fox',
+      (s: SongBreak) => hits(first(s, 'A').c) <= 1 && hits(first(s, 'B').c) >= 4,
+    ],
+    // the ride in the pre-chorus only
+    [
+      'klek',
+      'mata-zyklek',
+      (s: SongBreak) => hits(first(s, 'A').r) > 0 && hits(first(s, 'B').r) === 0,
+    ],
+    // the snare march with no ride, then the ride section
+    [
+      'mitchell',
+      'are-you-experienced',
+      (s: SongBreak) => hits(first(s, 'A').r) === 0 && hits(first(s, 'B').r) > 0,
+    ],
+    // the ride on the beats in two, the skip beat in double time
+    [
+      'tonywilliams',
+      'autumn-leaves',
+      (s: SongBreak) => hits(first(s, 'A').r) <= 4 && hits(first(s, 'B').r) >= 5,
     ],
   ])('writes %s’s %s with each part from its own grooves', (style, song, holds) => {
     for (const seed of [1, 2, 3, 4, 5]) {

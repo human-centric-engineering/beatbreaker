@@ -105,6 +105,28 @@ export function pickSong(st: Style, rng: Rng, meterKey?: string): StyleSong | un
 }
 
 /**
+ * One section of a song in sections, for a pattern written alone from a song a
+ * seed picked: among the sections in the meter (the first's, which is how the
+ * song was picked), by the weight of their figures — the share each groove had
+ * when the song was one pool. Undefined for a song in one part.
+ */
+export function pickSection(
+  st: Style,
+  song: StyleSong,
+  rng: Rng,
+  meterKey: string = songMeter(st, song)
+): SongSection | undefined {
+  const inMeter = (song.sections ?? []).filter((x) => songMeter(st, song, x) === meterKey);
+  if (!inMeter.length) return song.sections?.[0];
+  const share = (x: SongSection) =>
+    (x.params.figures ?? song.params.figures ?? []).reduce((n, [, w]) => n + w, 0) || 1;
+  return wpick(
+    rng,
+    inMeter.map((x): [SongSection, number] => [x, share(x)])
+  );
+}
+
+/**
  * A tempo in the song's range, or the style's where the song names none — held
  * where its written bars stay playable (see {@link playableBpm}). Whole bpm,
  * because that is what the tempo control shows.

@@ -40,7 +40,14 @@ import {
   writePerc,
 } from '@/lib/app/breaks/pattern';
 import { clamp, makeRng, wpick, type Rng } from '@/lib/app/breaks/rng';
-import { partKey, pickSong, songMeter, songPartOf, withSong } from '@/lib/app/breaks/songs';
+import {
+  partKey,
+  pickSection,
+  pickSong,
+  songMeter,
+  songPartOf,
+  withSong,
+} from '@/lib/app/breaks/songs';
 import { styleIn } from '@/lib/app/breaks/styles';
 import type {
   Bar,
@@ -940,14 +947,15 @@ export function generatePattern(opts: GenerateOptions): Pattern {
   const named = songPartOf(params, opts.song);
   const meterKey =
     opts.meter ?? (named ? songMeter(params, named.song, named.section) : DEFAULT_METER);
-  const picked = named
-    ? undefined
-    : params.songs
-      ? pickSong(params, makeRng((opts.seed ^ SONG_SALT) >>> 0), meterKey)
-      : undefined;
-  /* A song in sections picked here writes its section in this meter — its
-     first, which is how it was picked. A whole break of it is `songBreak`'s. */
-  const part = named ?? (picked ? { song: picked, section: picked.sections?.[0] } : undefined);
+  const songRng = makeRng((opts.seed ^ SONG_SALT) >>> 0);
+  const picked = named ? undefined : params.songs ? pickSong(params, songRng, meterKey) : undefined;
+  /* A song in sections picked here writes one of its sections in this meter,
+     by the weight of its grooves. A whole break of it is `songBreak`'s. */
+  const part =
+    named ??
+    (picked
+      ? { song: picked, section: pickSection(params, picked, songRng, meterKey) }
+      : undefined);
   const songKey = part ? partKey(part.song, part.section) : undefined;
   const base = withSong(params, songKey);
   const m = meterOf(meterKey);

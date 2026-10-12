@@ -215,8 +215,13 @@ few words of `feel`, a `weight`, and `params`: any style field except
     Studio's New picks among every song.
   - **A song in one meter is written in sections too** when its parts are
     different grooves (11-e-ii-f): Roxanne's verse kick off the 1 never lands
-    in its chorus. The split is of the figures the song already had, so its
-    bare key reads as its first section.
+    in its chorus. The split is of the figures the song already had; its
+    own key is aliased to the section holding most of them (Raining Blood's
+    to its skank beat), else it reads as the first.
+  - **A pattern written alone from a song a seed picked** (`generatePattern`
+    with no song named) takes one of its sections in that meter, by the
+    weight of each section's figures (`pickSection`), so every part of the
+    song stays reachable, in the share it had as one pool.
   - Not merged: Here Comes the Sun and Good Morning Good Morning, whose bar
     orders are not checked against a transcription; and Father Midnight,
     Samba Song, Aja and Pursuance, which are one groove with variations.
