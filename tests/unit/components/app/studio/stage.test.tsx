@@ -465,11 +465,12 @@ describe('Stage, playing a song written in sections', () => {
       </StudioProvider>
     );
     await screen.findAllByRole('img', { name: /Drum notation/ });
-    // New in Lombardo's style until it plays one of his songs in sections
-    for (let i = 0; i < 200 && !studio!.view.A?.song?.includes(':'); i++)
+    // New in Lombardo's style until it plays one of his two songs with an intro
+    const intro = /^(hell-awaits|dead-skin-mask):A$/;
+    for (let i = 0; i < 400 && !intro.test(studio!.view.A?.song ?? ''); i++)
       act(() => void studio!.newBreakIn('lombardo'));
     const key = studio!.view.A?.song ?? '';
-    expect(key).toMatch(/^(hell-awaits|dead-skin-mask):A$/);
+    expect(key).toMatch(intro);
 
     expect(screen.getByText(/\(the intro\)/)).toBeInTheDocument();
     act(() => studio!.setViewMode('B'));
