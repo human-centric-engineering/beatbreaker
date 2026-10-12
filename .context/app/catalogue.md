@@ -191,16 +191,39 @@ few words of `feel`, a `weight`, and `params`: any style field except
   - `heelToe` (a `StyleAttrs` field): three 16ths on the kick with one foot.
     The generator keeps a triple and the critic passes it; four in a row is
     still a run. Dayes's Tioga Pass plays 3, 3e, 3&.
-- **A song that changes meter is split by section** (Lucy's 3/4 verse and 4/4
-  chorus are two songs). A pattern has one meter, and a per-bar meter list
-  would be a wire-format change.
+- **A song that changes meter is written in sections** (11-e-ii-d). A song may
+  list `sections` — each a `letter` (A, B, C… in order, at least two), a
+  `label`, optional `bars` and `aliases`, and `params` laid over the song's —
+  and an `arrangement`. New writes every section in its own meter as that
+  section of the break, and plays them in the song's order (`songBreak` in
+  `song-break.ts`, which the Studio, the generate endpoint and BeatBuddy all
+  call). A pattern from a section records `song` as `key:letter`
+  (`hell-awaits:B`), so a B, a Doctor move or a regenerate lays that
+  section's params again. The schema holds such a key to 38 characters.
+  - **The tempo is the song's**, one for the break: `songBpm` is its range
+    held to every section's playable top, and the ceiling is the lowest of
+    the sections' meters. A section that would need another tempo (×½, ×2)
+    cannot be written yet (11-e-ii-g), so Angel of Death, Landlord and Llegué
+    llegué stay split. Sherpa's triplet section is 12/8 at the song's 180:
+    the eighth is the same speed either side of the change.
+  - **Old keys still read.** A section's `aliases` are the keys it had as a
+    song of its own (`sherpa-triplets`, `lucy-verse`); a bare key of a song
+    in sections is the section that aliases it, else the first. The schema
+    refuses an alias another song or section already answers to.
+  - **A seeded pick in a meter goes by the first section's meter**, so a 4/4
+    New from the API or BeatBuddy never picks Sherpa (it opens in 12/8). The
+    Studio's New picks among every song.
+  - Not yet merged: Here Comes the Sun and Good Morning Good Morning, whose
+    bar orders are not checked against a transcription, and the fidelity
+    list in the plan (11-e-ii-f).
 - **A song cannot unset a field, only set one.** The seed drops `undefined`,
   so a field on the base style (a written `ride`, `fill: 'comp'`, a foot
   backbeat) reaches every song. Keep the base neutral and let each song turn
   such things on. That is why Tony Williams's base has none of them.
 - **One schema rule spans two fields.** A song that names its own `swing` and
   no `swingRange` drops the style's range. The schema checks each song's
-  swing against the range it actually ends up with.
+  swing against the range it actually ends up with. A section is laid over its
+  song the same way, and checked the same way.
 
 ## Wire format v4 — a pattern stands on its own
 

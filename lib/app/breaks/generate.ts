@@ -40,7 +40,7 @@ import {
   writePerc,
 } from '@/lib/app/breaks/pattern';
 import { clamp, makeRng, wpick, type Rng } from '@/lib/app/breaks/rng';
-import { pickSong, songMeter, songOf, withSong } from '@/lib/app/breaks/songs';
+import { partKey, pickSong, songMeter, songPartOf, withSong } from '@/lib/app/breaks/songs';
 import { styleIn } from '@/lib/app/breaks/styles';
 import type {
   Bar,
@@ -933,16 +933,23 @@ function cellPhrase(
 
 /* Salts the song draw off the seed on a stream of its own, so the generator's
    stream, and with it every style without songs, is untouched by it. */
-const SONG_SALT = 0x5f356495;
+export const SONG_SALT = 0x5f356495;
 
 export function generatePattern(opts: GenerateOptions): Pattern {
   const params = opts.style.params;
-  const named = songOf(params, opts.song);
-  const meterKey = opts.meter ?? (named ? songMeter(params, named) : DEFAULT_METER);
-  const song =
-    named ??
-    (params.songs ? pickSong(params, makeRng((opts.seed ^ SONG_SALT) >>> 0), meterKey) : undefined);
-  const base = withSong(params, song?.key);
+  const named = songPartOf(params, opts.song);
+  const meterKey =
+    opts.meter ?? (named ? songMeter(params, named.song, named.section) : DEFAULT_METER);
+  const picked = named
+    ? undefined
+    : params.songs
+      ? pickSong(params, makeRng((opts.seed ^ SONG_SALT) >>> 0), meterKey)
+      : undefined;
+  /* A song in sections picked here writes its section in this meter — its
+     first, which is how it was picked. A whole break of it is `songBreak`'s. */
+  const part = named ?? (picked ? { song: picked, section: picked.sections?.[0] } : undefined);
+  const songKey = part ? partKey(part.song, part.section) : undefined;
+  const base = withSong(params, songKey);
   const m = meterOf(meterKey);
   const style = styleIn(base, meterKey);
   const lanes = opts.lanes ?? laneRoster(style);
@@ -963,7 +970,7 @@ export function generatePattern(opts: GenerateOptions): Pattern {
        positional. */
     attrs: styleAttrs(base),
     // only where there is one, so a pattern without stays the shape it was
-    ...(song ? { song: song.key } : {}),
+    ...(songKey ? { song: songKey } : {}),
     meter: meterKey,
     voice: style.ride ? 'ride' : (opts.voice ?? 'hat'),
     lanes: lanes.slice(),

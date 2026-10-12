@@ -6448,43 +6448,50 @@ export const STYLES: Record<string, Style> = {
         },
       },
       {
-        key: 'lucy-verse',
-        title: 'Lucy in the Sky with Diamonds (verse)',
-        feel: 'the verses in 3/4: the ride on the beat, the kick on 1',
-        weight: 0.6,
-        params: {
-          meter: '3/4',
-          backbeats: [4, 8],
-          bpm: [122, 130],
-          swing: 0,
-          ghostBias: 0,
-          figures: [
-            [{ k: '1...........', r: '1...1...1...' }, 2],
-            [{ k: '1...........', r: '1...1...1...', s: '........2...' }, 1.0],
-          ],
-          fills: [[{ s: '2.22', t3: '....' }, 1.0]],
-        },
-      },
-      {
-        key: 'lucy-chorus',
-        title: 'Lucy in the Sky with Diamonds (chorus)',
-        feel: 'the chorus in 4/4: the ride in 8ths, the foot on 2 and 4',
-        weight: 0.6,
+        key: 'lucy-in-the-sky',
+        title: 'Lucy in the Sky with Diamonds',
+        feel: 'the verses in 3/4, the ride on the beat; the chorus in 4/4, the ride in 8ths and the foot on 2 and 4',
+        weight: 0.8,
         params: {
           bpm: [122, 130],
           swing: 0,
-          figures: [
-            [
-              {
-                r: '1.1.1.1.1.1.1.1.',
-                hf: '....1.......1...',
-                k: '1.......1.1...1.',
-                s: '....2.......2...',
-              },
-              2,
-            ],
-          ],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the verse, in 3/4',
+            aliases: ['lucy-verse'],
+            params: {
+              meter: '3/4',
+              backbeats: [4, 8],
+              ghostBias: 0,
+              figures: [
+                [{ k: '1...........', r: '1...1...1...' }, 2],
+                [{ k: '1...........', r: '1...1...1...', s: '........2...' }, 1.0],
+              ],
+              fills: [[{ s: '2.22', t3: '....' }, 1.0]],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the chorus, in 4/4',
+            aliases: ['lucy-chorus'],
+            params: {
+              figures: [
+                [
+                  {
+                    r: '1.1.1.1.1.1.1.1.',
+                    hf: '....1.......1...',
+                    k: '1.......1.1...1.',
+                    s: '....2.......2...',
+                  },
+                  2,
+                ],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'getting-better',
@@ -6563,26 +6570,47 @@ export const STYLES: Record<string, Style> = {
       },
       {
         key: 'all-you-need-is-love',
-        title: 'All You Need Is Love (7/4)',
-        feel: 'the verse in 7/4, the snare on every beat',
+        title: 'All You Need Is Love',
+        feel: 'the verse in 7/4, the snare on every beat; then the chorus in 4/4',
         weight: 0.6,
         params: {
-          meter: '7/4',
-          backbeats: [4, 12],
           bpm: [94, 100],
           swing: 0,
           ghostBias: 0,
-          figures: [
-            [
-              {
-                h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
-                s: '2...2...2...2...2...2...2...',
-                k: '1.......1.......1...........',
-              },
-              2,
-            ],
-          ],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the verse, in 7/4',
+            params: {
+              meter: '7/4',
+              backbeats: [4, 12],
+              figures: [
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '2...2...2...2...2...2...2...',
+                    k: '1.......1.......1...........',
+                  },
+                  2,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the chorus, in 4/4',
+            /* A reconstruction: the chorus's plain 2 and 4 under 8ths, the kick
+               on 1 and 3. Not checked against a transcription. */
+            params: {
+              figures: [
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 2],
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1.....' }, 1.0],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'i-am-the-walrus',
@@ -8351,16 +8379,33 @@ export const STYLES: Record<string, Style> = {
         weight: 1.0,
         params: {
           bpm: [150, 156],
-          figures: [
-            [{ h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.............1.' }, 1.2],
-            [{ r: '1...1...1...1...', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1.2],
-            [{ h: '3...3...3...3...', s: '2...2...2...2...', k: '..1...1...1...1.' }, 0.5],
-          ],
           fills: [
             [{ t1: '1.1.1.1.', t2: '1.1.1.1.', k: '1.......' }, 1],
             [{ s: '2...2...', h: '..3.....', hf: '....1...', c: '......1.', k: '..1...1.' }, 1],
           ],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the half-time reggae verse',
+            params: {
+              figures: [
+                [{ h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.............1.' }, 1.2],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the double-time chorus',
+            params: {
+              figures: [
+                [{ r: '1...1...1...1...', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1.2],
+                [{ h: '3...3...3...3...', s: '2...2...2...2...', k: '..1...1...1...1.' }, 0.5],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'peanuts',
@@ -13311,22 +13356,39 @@ export const STYLES: Record<string, Style> = {
         weight: 1.0,
         params: {
           bpm: [106, 114],
-          /* the intro has no kick on 1: the style's forced one is lifted, and the
-             crash that starts each half goes without one (the grooves write their own) */
-          forceKick: [],
-          phraseMark: { kick: false },
-          figures: [
-            [{ r: '....2.......2...', t3: '....2.......2...', hf: '1.......1.......' }, 1.4],
-            [{ r: '1.1.1.1.1.1.1.2.', k: '1111111111111111' }, 2],
-            [{ c: '1.1.1.1.1.1.1.1.', k: '1.11....1.11....' }, 1.4],
-            [{ h: '4...4...4...4...', k: '1.11....1.11....' }, 1.2],
-          ],
           fills: [
             [{ t3: '22......', t1: '.....222' }, 1.2],
             [{ t3: '22......', t1: '.....2..', t2: '......22' }, 1],
             [{ t2: '...22..22.22....', t3: '..............22' }, 0.8],
           ],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the intro',
+            params: {
+              /* the intro has no kick on 1: the style's forced one is lifted, and the
+                 crash that starts each half goes without one */
+              forceKick: [],
+              phraseMark: { kick: false },
+              figures: [
+                [{ r: '....2.......2...', t3: '....2.......2...', hf: '1.......1.......' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the groove',
+            params: {
+              figures: [
+                [{ r: '1.1.1.1.1.1.1.2.', k: '1111111111111111' }, 2],
+                [{ c: '1.1.1.1.1.1.1.1.', k: '1.11....1.11....' }, 1.4],
+                [{ h: '4...4...4...4...', k: '1.11....1.11....' }, 1.2],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'hell-awaits',
@@ -13335,31 +13397,48 @@ export const STYLES: Record<string, Style> = {
         weight: 1.0,
         params: {
           bpm: [100, 108],
-          /* the intro has no kick on 1: the style's forced one is lifted, and the
-             crash that starts each half goes without one (the grooves write their own) */
-          forceKick: [],
-          phraseMark: { kick: false },
-          figures: [
-            [{ t2: '....2.......2...', t3: '....2.......2...', k: '....1.......1...' }, 1.2],
-            // the floor tom alone on the 1, under the crash; both toms on 3
-            [
-              {
-                s: '....3.......3...',
-                t2: '........2.......',
-                t3: '2.......2.......',
-                k: '1111111111111111',
-              },
-              2,
-            ],
-            [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1111111111111111' }, 1.6],
-            [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.......' }, 1],
-          ],
           fills: [
             [{ s: '33....', t1: '..22..', t2: '....22' }, 1.4],
             [{ s: '..3.3.', k: '11....' }, 1],
             [{ s: '....3...', t1: '......2.', t2: '2.....2.', t3: '2.......', k: '11111.1.' }, 1],
           ],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the intro',
+            params: {
+              /* the intro has no kick on 1: the style's forced one is lifted, and the
+                 crash that starts each half goes without one */
+              forceKick: [],
+              phraseMark: { kick: false },
+              figures: [
+                [{ t2: '....2.......2...', t3: '....2.......2...', k: '....1.......1...' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the main groove',
+            params: {
+              figures: [
+                // the floor tom alone on the 1, under the crash; both toms on 3
+                [
+                  {
+                    s: '....3.......3...',
+                    t2: '........2.......',
+                    t3: '2.......2.......',
+                    k: '1111111111111111',
+                  },
+                  2,
+                ],
+                [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1111111111111111' }, 1.6],
+                [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.......' }, 1],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'world-painted-blood',
@@ -13967,11 +14046,10 @@ export const STYLES: Record<string, Style> = {
       {
         key: 'sherpa',
         title: 'Sherpa',
-        feel: 'a four-bar kick cycle under 2 and 4, kick and snare in dotted quarters for the build (record and tabs 180)',
+        feel: 'triplets in 12/8, a four-bar kick cycle under 2 and 4, then dotted quarters for the build (record and tabs 180)',
         weight: 1.2,
         params: {
           bpm: [178, 182],
-          crossRhythm: 0.35,
           crossRhythms: [[{ every: 6, lanes: { s: 3, k: 1 }, bars: 3 }, 1]],
           figures: [
             // the cycle's first two bars, open hats on the beat
@@ -14018,44 +14096,61 @@ export const STYLES: Record<string, Style> = {
             [{ h: '1.1.1.1.....', k: '1.1.1.1.....', s: '3.3.3.3.....' }, 0.8],
           ],
         },
-      },
-      {
-        key: 'sherpa-triplets',
-        title: 'Sherpa (the triplet section)',
-        feel: 'before the tempo change: triplet hats, kick and snare on the last triplet of each beat (tab 120, then 180)',
-        weight: 0.6,
-        params: {
-          meter: '4/4-6',
-          bpm: [118, 122],
-          // the style's 4/4 step lists do not carry into this meter
-          backbeats: [4, 10, 16, 22],
-          openSlots: [22],
-          crossRhythm: 0,
-          /* triplet eighths only, the even steps: the kick never on the odd ones,
-             and no ghosts, which the defaults would put there */
-          noKick: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23],
-          ghostWeights: {},
-          figures: [
-            [
-              {
-                h: '1.1.1.1.1.1.1.1.1.1.1.1.',
-                s: '....2.....2.....2.....2.',
-                k: '....1.....1.....1.....1.',
-              },
-              1.4,
-            ],
-            // the plain bars between: hats on the beat, kick on 1 and 3
-            [
-              {
-                h: '1.....1.....1.....1.....',
-                s: '......2...........2.....',
-                k: '1...........1...........',
-              },
-              0.8,
-            ],
-          ],
-          fills: [[{ c: '1.....1.....', k: '1.....1.....', s: '3.....3.....' }, 1]],
-        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the triplet section, in 12/8',
+            aliases: ['sherpa-triplets'],
+            params: {
+              /* The tab's 120 in triplets is the record's 180 in 12/8: the eighth
+                 is the same speed either side of the change, so the section holds
+                 the song's tempo and its 24 steps sit where they did. */
+              meter: '12/8',
+              // the style's 4/4 step lists do not carry into this meter
+              backbeats: [4, 10, 16, 22],
+              openSlots: [22],
+              crossRhythm: 0,
+              /* triplet eighths only, the even steps: the kick never on the odd ones,
+                 and no ghosts, which the defaults would put there */
+              noKick: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23],
+              ghostWeights: {},
+              figures: [
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '....2.....2.....2.....2.',
+                    k: '....1.....1.....1.....1.',
+                  },
+                  1.4,
+                ],
+                // the plain bars between: hats on the beat, kick on 1 and 3
+                [
+                  {
+                    h: '1.....1.....1.....1.....',
+                    s: '......2...........2.....',
+                    k: '1...........1...........',
+                  },
+                  0.8,
+                ],
+              ],
+              fills: [[{ c: '1.....1.....', k: '1.....1.....', s: '3.....3.....' }, 1]],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the kick cycle',
+            aliases: ['sherpa'],
+            params: { crossRhythm: 0 },
+          },
+          {
+            letter: 'C',
+            label: 'the build, in dotted quarters',
+            bars: 4,
+            // kick and snare on every dotted quarter, three bars of three against four
+            params: { crossRhythm: 1 },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B', 'C', 'B'],
       },
       {
         key: 'tohogd',
@@ -14069,41 +14164,58 @@ export const STYLES: Record<string, Style> = {
           backbeats: [8],
           openSlots: [12],
           crossRhythm: 0,
-          figures: [
-            // loop 2: the kick on 1 and 2, the snare on 3 with the hat open
-            [{ h: '1...1...3...1.', s: '........2.....', k: '1...1.........' }, 0.6],
-            // loop 3
-            [{ h: '1...1...1.1...', s: '........2.2...', k: '1...1.........' }, 0.6],
-            // loop 4: kick and snare together through the bar
-            [{ h: '1...1...3.1.1.', s: '2...2...2.2.2.', k: '1...1...1.1.1.' }, 0.8],
-            // the bass loop in: a 4/4 groove over two bars of 7/8, hats on its quarters
-            [
-              {
-                h: '....3...1...1...1...1...1...',
-                s: '....2..2....2.......2..2....',
-                k: '1.1.....1.1...1...1.....1.1.',
-              },
-              1.4,
-            ],
-            [
-              {
-                h: '1...1...1...1...1...1...1...',
-                s: '2..2....2.......2..2....2..2',
-                k: '....1.1...1...1.....1.1.....',
-              },
-              1.2,
-            ],
-            // the loops stop: kick and snare alone, the same 4/4 underneath
-            [
-              {
-                s: '....2.22....2.......2.22....',
-                k: '1.......1.1...1...1.....1.1.',
-              },
-              0.6,
-            ],
-          ],
           fills: [[{ h: '..1...1.......', k: '1.1...1.......', s: '....2...222...' }, 1]],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the loops',
+            params: {
+              figures: [
+                // loop 2: the kick on 1 and 2, the snare on 3 with the hat open
+                [{ h: '1...1...3...1.', s: '........2.....', k: '1...1.........' }, 1],
+                // loop 3
+                [{ h: '1...1...1.1...', s: '........2.2...', k: '1...1.........' }, 1],
+                // loop 4: kick and snare together through the bar
+                [{ h: '1...1...3.1.1.', s: '2...2...2.2.2.', k: '1...1...1.1.1.' }, 1.4],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the 4/4 across the 7/8',
+            params: {
+              figures: [
+                // the bass loop in: a 4/4 groove over two bars of 7/8, hats on its quarters
+                [
+                  {
+                    h: '....3...1...1...1...1...1...',
+                    s: '....2..2....2.......2..2....',
+                    k: '1.1.....1.1...1...1.....1.1.',
+                  },
+                  1.4,
+                ],
+                [
+                  {
+                    h: '1...1...1...1...1...1...1...',
+                    s: '2..2....2.......2..2....2..2',
+                    k: '....1.1...1...1.....1.1.....',
+                  },
+                  1.2,
+                ],
+                // the loops stop: kick and snare alone, the same 4/4 underneath
+                [
+                  {
+                    s: '....2.22....2.......2.22....',
+                    k: '1.......1.1...1...1.....1.1.',
+                  },
+                  0.6,
+                ],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'tamebsz',
@@ -14145,84 +14257,102 @@ export const STYLES: Record<string, Style> = {
       {
         key: 'fabienk',
         title: 'Fabienk',
-        feel: 'the first part, in 7/8: hat and snare in unison with the riff, then a busier groove (record 128)',
+        feel: '7/8 with hat and snare in unison with the riff, a busier 7/8, then four on the floor in 4/4 (record 128)',
         weight: 1.4,
         params: {
-          meter: '7/8',
-          bpm: [126, 130],
-          // the style's 4/4 step lists do not carry into this meter
-          backbeats: [1, 8, 12],
-          openSlots: [12],
-          crossRhythm: 0,
-          figures: [
-            // groove 1: hat and snare together, the kick alone on the third 8th
-            [{ h: '.1......1.1.1.', s: '.2......2.2.2.', k: '....1.........' }, 1.2],
-            [{ h: '.1........1.1.', s: '.2........2.2.', k: '....1.........' }, 0.6],
-            // groove 2: the half-open hat on 1 and the third 8th, a ghost before the end
-            [{ h: '4.114.111.1.1.', s: '.2..2....1.2.2', k: '1..1....1.1...' }, 1.4],
-            // the other tab's groove: the kick on 1 alone
-            [{ h: '1...1.1.1..1..', s: '....2.2.2..2..', k: '1.............' }, 0.6],
-          ],
-          fills: [[{ t1: '......11......', t2: '.........2....', s: '.2.1.3..3..3.3' }, 1]],
-        },
-      },
-      {
-        key: 'fabienk-part-2',
-        title: 'Fabienk (second part)',
-        feel: 'four on the floor and 2 and 4 over the 7/8 loop, built a layer at a time (record 128)',
-        weight: 1.2,
-        params: {
-          /* The drums' own 4/4 over the loop's 7/8: three bars of 4/4 and one of
-             2/4 make 14 beats, four bars of the loop. A song has one meter and a
-             figure two bars at most, so the 2/4 bar is not written. */
           bpm: [126, 130],
           crossRhythm: 0,
-          figures: [
-            // the kick alone while the loop goes down
-            [{ k: '1...1...1...1...' }, 0.4],
-            // hats on the beat and the backbeat
-            [
-              {
-                h: '1...1...1...1...',
-                s: '....2.......2...',
-                k: '1...1...1...1...',
-              },
-              1.0,
-            ],
-            // 8ths
-            [
-              {
-                h: '1.1.1.1.1.1.1.1.',
-                s: '....2.......2...',
-                k: '1...1...1...1...',
-              },
-              1.0,
-            ],
-            // 16ths, the hat foot closing on the backbeat
-            [
-              {
-                h: '1111.1111111.111',
-                hf: '....1.......1...',
-                s: '....2.......2...',
-                k: '1...1...1...1...',
-              },
-              1.2,
-            ],
-            // the top of the build: the crash on the beat, the kick on 8ths
-            [
-              {
-                c: '1...1...1...1...',
-                s: '....2.......2...',
-                k: '1.1.1.1.1.1.1.1.',
-              },
-              0.8,
-            ],
-          ],
-          fills: [
-            [{ s: '2.22', k: '1...' }, 1.2],
-            [{ c: '1...', k: '1...', s: '3.33' }, 0.8],
-          ],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the first groove, in 7/8',
+            params: {
+              meter: '7/8',
+              // the style's 4/4 step lists do not carry into this meter
+              backbeats: [1, 8, 12],
+              openSlots: [12],
+              figures: [
+                // groove 1: hat and snare together, the kick alone on the third 8th
+                [{ h: '.1......1.1.1.', s: '.2......2.2.2.', k: '....1.........' }, 1.2],
+                [{ h: '.1........1.1.', s: '.2........2.2.', k: '....1.........' }, 0.6],
+                // the other tab's groove: the kick on 1 alone
+                [{ h: '1...1.1.1..1..', s: '....2.2.2..2..', k: '1.............' }, 0.6],
+              ],
+              fills: [[{ t1: '......11......', t2: '.........2....', s: '.2.1.3..3..3.3' }, 1]],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the busier groove, in 7/8',
+            params: {
+              meter: '7/8',
+              backbeats: [1, 8, 12],
+              openSlots: [12],
+              figures: [
+                // groove 2: the half-open hat on 1 and the third 8th, a ghost before the end
+                [{ h: '4.114.111.1.1.', s: '.2..2....1.2.2', k: '1..1....1.1...' }, 1],
+              ],
+              fills: [[{ t1: '......11......', t2: '.........2....', s: '.2.1.3..3..3.3' }, 1]],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the second part, in 4/4',
+            aliases: ['fabienk-part-2'],
+            params: {
+              /* The drums' own 4/4 over the loop's 7/8: three bars of 4/4 and one of
+                 2/4 make 14 beats, four bars of the loop. A section has one meter
+                 and a figure two bars at most, so the 2/4 bar is not written. */
+              figures: [
+                // the kick alone while the loop goes down
+                [{ k: '1...1...1...1...' }, 0.4],
+                // hats on the beat and the backbeat
+                [
+                  {
+                    h: '1...1...1...1...',
+                    s: '....2.......2...',
+                    k: '1...1...1...1...',
+                  },
+                  1.0,
+                ],
+                // 8ths
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.',
+                    s: '....2.......2...',
+                    k: '1...1...1...1...',
+                  },
+                  1.0,
+                ],
+                // 16ths, the hat foot closing on the backbeat
+                [
+                  {
+                    h: '1111.1111111.111',
+                    hf: '....1.......1...',
+                    s: '....2.......2...',
+                    k: '1...1...1...1...',
+                  },
+                  1.2,
+                ],
+                // the top of the build: the crash on the beat, the kick on 8ths
+                [
+                  {
+                    c: '1...1...1...1...',
+                    s: '....2.......2...',
+                    k: '1.1.1.1.1.1.1.1.',
+                  },
+                  0.8,
+                ],
+              ],
+              fills: [
+                [{ s: '2.22', k: '1...' }, 1.2],
+                [{ c: '1...', k: '1...', s: '3.33' }, 0.8],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B', 'C', 'C'],
       },
       {
         key: 'mata-zyklek',
@@ -14256,72 +14386,80 @@ export const STYLES: Record<string, Style> = {
       {
         key: 'sarniezz',
         title: 'Sarniezz',
-        feel: 'the first part, in 12/8: hats on the 8ths, the snare on pulses 2 and 4 (record 116 to the dotted quarter, so 174)',
+        feel: '12/8 with the snare on pulses 2 and 4, then the pulse moved from three to two (record 116 to the dotted quarter)',
         weight: 1.2,
         params: {
-          meter: '12/8',
-          bpm: [172, 176],
-          // the style's 4/4 step lists do not carry into this meter
-          backbeats: [6, 18],
-          openSlots: [22],
-          crossRhythm: 0,
-          figures: [
-            [
-              {
-                h: '2.1.1.2.1.1.2.1.1.2.1.1.',
-                s: '......2...........2.....',
-                k: '1...........1...........',
-              },
-              1.2,
-            ],
-            [
-              {
-                h: '1.1.1.1.1.1.1.1.1.1.1.1.',
-                s: '......2...........2.....',
-                k: '1.....1.....1.....1.....',
-              },
-              1.2,
-            ],
-            // hat, kick and snare together: three, three, two and a rest
-            [
-              {
-                h: '1.....1.....1...1.......',
-                s: '2.....2.....2...2.......',
-                k: '1.....1.....1...1.......',
-              },
-              0.6,
-            ],
-          ],
-          fills: [
-            [{ t3: '1.1.1.1.1.', s: '2.2.2.2.2.', k: '1.1.1.1.1.' }, 1.0],
-            [{ c: '1...1.....', k: '1...1.....', s: '3...3.....' }, 0.8],
-          ],
-        },
-      },
-      {
-        key: 'sarniezz-modulation',
-        title: 'Sarniezz (after the modulation)',
-        feel: 'the 8th held and the pulse moved from three to two: 4/4 at 174, the crash ridden on the beat',
-        weight: 1.0,
-        params: {
           bpm: [172, 176],
           crossRhythm: 0,
-          figures: [
-            [{ c: '1...1...1...1...', s: '....2.......2...', k: '1.1...1...1.....' }, 1.2],
-            [{ c: '1...1...1...1...', s: '....2.......2...', k: '1.1...1...1...1.' }, 1.0],
-            [{ c: '1...1...1...1...', s: '....2..1....2...', k: '1.......1.1...1.' }, 1.0],
-            [
-              {
-                c: '1...1...1...1...',
-                hf: '1...1...1...1...',
-                s: '....2.......2...',
-                k: '1.1...1...1...1.',
-              },
-              0.8,
-            ],
-          ],
-          fills: [[{ s: '22..2...', k: '..1...1.' }, 1]],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the first part, in 12/8',
+            params: {
+              meter: '12/8',
+              // the style's 4/4 step lists do not carry into this meter
+              backbeats: [6, 18],
+              openSlots: [22],
+              figures: [
+                [
+                  {
+                    h: '2.1.1.2.1.1.2.1.1.2.1.1.',
+                    s: '......2...........2.....',
+                    k: '1...........1...........',
+                  },
+                  1.2,
+                ],
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '......2...........2.....',
+                    k: '1.....1.....1.....1.....',
+                  },
+                  1.2,
+                ],
+                // hat, kick and snare together: three, three, two and a rest
+                [
+                  {
+                    h: '1.....1.....1...1.......',
+                    s: '2.....2.....2...2.......',
+                    k: '1.....1.....1...1.......',
+                  },
+                  0.6,
+                ],
+              ],
+              fills: [
+                [{ t3: '1.1.1.1.1.', s: '2.2.2.2.2.', k: '1.1.1.1.1.' }, 1.0],
+                [{ c: '1...1.....', k: '1...1.....', s: '3...3.....' }, 0.8],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'after the modulation, in 4/4',
+            aliases: ['sarniezz-modulation'],
+            /* the 8th held and the pulse moved from three to two: 4/4 at 174, the
+               crash ridden on the beat */
+            params: {
+              figures: [
+                [{ c: '1...1...1...1...', s: '....2.......2...', k: '1.1...1...1.....' }, 1.2],
+                [{ c: '1...1...1...1...', s: '....2.......2...', k: '1.1...1...1...1.' }, 1.0],
+                [{ c: '1...1...1...1...', s: '....2..1....2...', k: '1.......1.1...1.' }, 1.0],
+                [
+                  {
+                    c: '1...1...1...1...',
+                    hf: '1...1...1...1...',
+                    s: '....2.......2...',
+                    k: '1.1...1...1...1.',
+                  },
+                  0.8,
+                ],
+              ],
+              fills: [[{ s: '22..2...', k: '..1...1.' }, 1]],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'utzp',
@@ -14583,29 +14721,11 @@ export const STYLES: Record<string, Style> = {
       {
         key: 'white-room',
         title: 'White Room',
-        feel: 'the 5/4 opening: crash and snare on 1, then both floor toms together, a triplet on 2 and eighths to the end',
+        feel: 'the 5/4 opening: crash and snare on 1, then both floor toms together; then the 4/4 verse',
         weight: 1.3,
         params: {
-          meter: '5/4',
           bpm: [106, 112],
           swing: 0,
-          /* Songsterr 4455 (human): the 5/4 bar that opens the record and
-             comes back before the third verse and after it, 23 of its 131
-             bars. Both floor toms (or Baker's timpani) struck together: a
-             triplet on 2, which this grid of sixteenths holds as the nearest
-             steps, 4, 5 and 7; then 3, 4, the "and" of 4 and 5. */
-          figures: [
-            [
-              {
-                c: '2...................',
-                s: '2...................',
-                t2: '....11.11...1.1.1...',
-                t3: '....11.11...1.1.1...',
-                k: '1...................',
-              },
-              2,
-            ],
-          ],
           fills: [
             // the verse's fill: the snare on 2, then rack, mid and floor in threes
             [
@@ -14619,6 +14739,45 @@ export const STYLES: Record<string, Style> = {
             ],
           ],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the 5/4 opening',
+            params: {
+              meter: '5/4',
+              /* Songsterr 4455 (human): the 5/4 bar that opens the record and
+                 comes back before the third verse and after it, 23 of its 131
+                 bars. Both floor toms (or Baker's timpani) struck together: a
+                 triplet on 2, which this grid of sixteenths holds as the nearest
+                 steps, 4, 5 and 7; then 3, 4, the "and" of 4 and 5. */
+              figures: [
+                [
+                  {
+                    c: '2...................',
+                    s: '2...................',
+                    t2: '....11.11...1.1.1...',
+                    t3: '....11.11...1.1.1...',
+                    k: '1...................',
+                  },
+                  2,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the verse, in 4/4',
+            /* A reconstruction, not from the tab: a plain 2 and 4 on the snare
+               under 8ths on the hat, the kick on 1 and the "and" of 2 and 3. */
+            params: {
+              figures: [
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.......' }, 2],
+                [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.......' }, 1.0],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'crossroads',
@@ -14872,38 +15031,6 @@ export const STYLES: Record<string, Style> = {
              solo: tom phrases, rudimental snare, two-bass-drum ostinatos and
              jazz ride time. In eighth-note triplets, a gap between every
              note. */
-          figures: [
-            [
-              {
-                t1: '....2...........2.......',
-                t3: '..........2...........2.',
-                k: '1.1...1.1...1.1...1.1...',
-              },
-              2,
-            ],
-            // the tom melody moves: rack, mid, floor, mid
-            [
-              {
-                t1: '....2...................',
-                t2: '..........2...........2.',
-                t3: '................2.......',
-                k: '1.1...1.1...1.1...1.1...',
-              },
-              1.4,
-            ],
-            // jazz time: the ride's skip beat, the foot back on the hat on 2 and 4
-            [
-              {
-                r: '1.....1...1.1.....1...1.',
-                hf: '......1...........1.....',
-                s: '....2...........2.......',
-                k: '1...........1...........',
-              },
-              1.0,
-            ],
-            // the rudimental passage: snare triplets, accent on the beat, the kick under it
-            [{ s: '3.1.2.3.1.2.3.1.2.3.1.2.', k: '1.....1.....1.....1.....' }, 0.8],
-          ],
           fills: [
             [{ t1: '2.2.........', t2: '....2.2.....', t3: '........2.2.' }, 1.4],
             // hand, hand, foot, foot in triplets
@@ -14911,6 +15038,63 @@ export const STYLES: Record<string, Style> = {
             [{ s: '3.2.2.......', t3: '......2.2.2.' }, 1.0],
           ],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the tom phrases over the two kicks',
+            params: {
+              figures: [
+                [
+                  {
+                    t1: '....2...........2.......',
+                    t3: '..........2...........2.',
+                    k: '1.1...1.1...1.1...1.1...',
+                  },
+                  2,
+                ],
+                // the tom melody moves: rack, mid, floor, mid
+                [
+                  {
+                    t1: '....2...................',
+                    t2: '..........2...........2.',
+                    t3: '................2.......',
+                    k: '1.1...1.1...1.1...1.1...',
+                  },
+                  1.4,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the rudiments',
+            params: {
+              figures: [
+                // snare triplets, accent on the beat, the kick under it
+                [{ s: '3.1.2.3.1.2.3.1.2.3.1.2.', k: '1.....1.....1.....1.....' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'jazz time on the ride',
+            params: {
+              figures: [
+                // the ride's skip beat, the foot back on the hat on 2 and 4
+                [
+                  {
+                    r: '1.....1...1.1.....1...1.',
+                    hf: '......1...........1.....',
+                    s: '....2...........2.......',
+                    k: '1...........1...........',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'C'],
       },
       {
         key: 'do-what-you-like',

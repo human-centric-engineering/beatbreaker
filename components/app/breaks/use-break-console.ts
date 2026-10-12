@@ -78,7 +78,8 @@ import {
   encodeBreak,
   patternFromPacked,
 } from '@/lib/app/breaks/share';
-import { pickSong, songMeter, songTempo, withSong } from '@/lib/app/breaks/songs';
+import { songBreak } from '@/lib/app/breaks/song-break';
+import { pickSong, songMeter, songMeters, songTempo, withSong } from '@/lib/app/breaks/songs';
 import { styleIn, swingAtTempo, swingFor } from '@/lib/app/breaks/styles';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
@@ -1104,6 +1105,25 @@ export function useBreakConsole(
          rudiment's New A would become the first style's. */
       const row = catalogue.styles[setup.style];
       if (!row) return null;
+      /* A whole New is an A and a B, or every section of a song written in
+         sections, each in its own meter, and the order the song plays them. */
+      if (which === 'both') {
+        const made = songBreak({
+          style: row,
+          song: setup.song,
+          meter: setup.meter,
+          bars: setup.bars,
+          density,
+          ghosts,
+          seed: Math.floor(Math.random() * 0xffffffff),
+          bpm: setup.bpm,
+          custom: lanesMode === 'custom' ? customLanes : null,
+        });
+        setTries({ tries: made.tries, rejected: made.rejected });
+        setPatterns(made.sections);
+        if (made.arrangement) setArrangement(made.arrangement);
+        return made.sections.A;
+      }
       const st = styleIn(withSong(row.params, setup.song), setup.meter);
       const roster = resolveLanes(st, lanesMode === 'custom' ? customLanes : null);
       const roll = () =>
@@ -1129,11 +1149,7 @@ export function useBreakConsole(
         made = roll();
       setTries({ tries: made.tries, rejected: made.rejected });
 
-      setPatterns((prev) =>
-        which === 'both'
-          ? { A: made.pattern, B: deriveB(made.pattern, row.params) }
-          : { ...prev, [which]: made.pattern }
-      );
+      setPatterns((prev) => ({ ...prev, [which]: made.pattern }));
       return made.pattern;
     },
     [catalogue.styles, density, ghosts, lanesMode, customLanes]
@@ -1173,11 +1189,6 @@ export function useBreakConsole(
         generate(which, { style, meter, bars: Math.max(1, Math.min(bars, room)), bpm: at, song });
         return true;
       }
-      /* A whole new pattern is an A and a B, so any sections past B go, and
-         with them their slots in the arrangement — which one Undo puts back. */
-      const dropping = letters.length > 2;
-      pushHistory(dropping);
-      if (dropping) setArrangement((a) => arrangementIn(a, { A: patterns.A, B: patterns.B }));
       /* A whole new pattern always rolls: in the style you chose, or, where
          that has left the catalogue since, in whatever it does have. */
       const wanted = chosen.current.style ?? settings.startStyle;
@@ -1189,6 +1200,12 @@ export function useBreakConsole(
          stays locked. */
       const params = catalogue.styles[styleKey]?.params;
       const song = params ? pickSong(params, Math.random) : undefined;
+      /* A whole new pattern is an A and a B, so any sections past B go, and
+         with them their slots in the arrangement — which one Undo puts back.
+         A song in sections writes its own arrangement, so that goes too. */
+      const dropping = letters.length > 2 || !!song?.sections;
+      pushHistory(dropping);
+      if (dropping) setArrangement((a) => arrangementIn(a, { A: patterns.A, B: patterns.B }));
       const next = {
         style: styleKey,
         meter:
@@ -1199,7 +1216,8 @@ export function useBreakConsole(
       // used up: the pattern they were picked for is this one
       chosen.current = {};
       pickedForNext.current = false;
-      const top = maxBpm(next.meter);
+      // a song in sections plays at a tempo its slowest meter allows
+      const top = params && song ? maxBpmOf(songMeters(params, song)) : maxBpm(next.meter);
       const start = params && song ? songTempo(params, song, Math.random) : settings.startBpm;
       const base = locks.bpm ? baseBpm : clamp(start, 50, top);
       const at = matchOn ? Math.round(base * (LAYER_TEMPO[level] ?? 1)) : base;
@@ -2146,33 +2164,30 @@ export function useBreakConsole(
     const atMeter = song ? songMeter(styleRow.params, song) : meter;
     /* A locked tempo stays, held under the song meter's ceiling as New holds
        it, and stays the base tempo it was. */
+    const top = song ? maxBpmOf(songMeters(styleRow.params, song)) : maxBpm(atMeter);
     const atBpm =
       song && !locks.bpm
-        ? clamp(songTempo(styleRow.params, song, Math.random), 50, maxBpm(atMeter))
-        : clamp(bpm, 50, maxBpm(atMeter));
+        ? clamp(songTempo(styleRow.params, song, Math.random), 50, top)
+        : clamp(bpm, 50, top);
     if (song) {
       setMeterRaw(atMeter);
       setBpmRaw(atBpm);
       if (!locks.bpm) setBaseBpm(atBpm);
       followKit(merged);
     }
-    const st = styleIn(merged, atMeter);
-    const roster = resolveLanes(st, lanesMode === 'custom' ? customLanes : null);
-    const made = generateGood(
-      {
-        style: styleRow,
-        meter: atMeter,
-        bars,
-        density,
-        ghosts,
-        seed: Math.floor(Math.random() * 0xffffffff),
-        lanes: roster.lanes,
-        perc: roster.perc,
-        song: song?.key,
-      },
-      atBpm
-    );
-    setPatterns({ A: made.pattern, B: deriveB(made.pattern, styleRow.params) });
+    const made = songBreak({
+      style: styleRow,
+      song: song?.key,
+      meter: atMeter,
+      bars,
+      density,
+      ghosts,
+      seed: Math.floor(Math.random() * 0xffffffff),
+      bpm: atBpm,
+      custom: lanesMode === 'custom' ? customLanes : null,
+    });
+    setPatterns(made.sections);
+    if (made.arrangement) setArrangement(made.arrangement);
     setTries({ tries: made.tries, rejected: made.rejected });
     setSwingRaw(swingFor(merged, atMeter));
     applyStyleMix(style, {});

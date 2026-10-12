@@ -3878,6 +3878,38 @@ break with a C would have rewritten it blind, so the three are one PR.
   test of its own. Not done: session lists decode each break's whole document
   for its ceiling, and the pickers follow the playhead under All.
 
+**11-e-ii-d and the first of -f built together, 2026-10-12** (branch
+`phase-11-e-ii-d-songs-in-sections`): the model is proved by the songs it
+exists for, and an alias is only tested by a song that was merged.
+
+- **A song may be written in sections**: `StyleSong.sections` (letter, label,
+  optional bars and aliases, params over the song's) and an `arrangement`.
+  A pattern from one records `song` as `key:letter`, so the Doctor, Build B and
+  Regenerate lay that section's params with no change to the wire.
+- **`songBreak` writes a whole New** (`lib/app/breaks/song-break.ts`): an A and
+  a B as before, or every section of a song in its own meter, in the song's
+  order, within the 32-bar budget. The Studio's New and the break you arrive
+  to, `POST /api/v1/breaks/generate` (now with an optional `song`, and C–Z and
+  `arrangement` in the answer) and BeatBuddy's `generate_pattern` all call it.
+  A style without songs in sections writes byte for byte what it did.
+- **One tempo**: a song's range is held to every section's playable top, the
+  ceiling to the slowest meter's. The stage names the section on show
+  ("Hell Awaits (the main groove)").
+- **Merged, eleven songs:** Hell Awaits and Dead Skin Mask (intro → groove,
+  the forced kick lifted on the intro only); Sherpa (12/8 triplets → the kick
+  cycle → a dotted-quarter build), Sarniezz (12/8 → 4/4), Fabienk (7/8 →
+  busier 7/8 → 4/4), Tohogd (the loops → 4/4 across the 7/8); Lucy in the Sky
+  (3/4 → 4/4, now `lucy-in-the-sky`), All You Need Is Love (7/4 → 4/4); White
+  Room (5/4 → 4/4) and Toad (toms over the kicks → rudiments → ride time); So
+  Lonely (half-time verse → double-time chorus). All You Need Is Love's chorus
+  and White Room's verse are new and are reconstructions, not from a
+  transcription. Every old key still resolves (`song-break.test.ts`).
+- **Left split:** Here Comes the Sun and Good Morning Good Morning (bar orders
+  not checked), and Angel of Death, Landlord and Llegué llegué (-g).
+- **Moved on purpose:** Klek's goldens. Sherpa now opens in 12/8, so a seeded
+  4/4 pick (the API, BeatBuddy) no longer offers it; the Studio's New picks
+  among every song.
+
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
 stays `archetype` or `approximation` until stems are checked); personas

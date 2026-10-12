@@ -1,6 +1,6 @@
 import { METERS, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
 import { YOUR_STYLES_GROUP } from '@/lib/app/breaks/catalogue/prefer';
-import { withSong } from '@/lib/app/breaks/songs';
+import { partKey, songBpm, songParts, withSong } from '@/lib/app/breaks/songs';
 import type { CatalogueKit, CatalogueStyle } from '@/lib/app/breaks/catalogue/types';
 import type { Style } from '@/lib/app/breaks/types';
 
@@ -65,15 +65,17 @@ function meterLabel(st: Style): string {
  * when they all share one.
  */
 function songsMeta(st: Style): string[] {
-  const songs = (st.songs ?? []).map((sg) => withSong(st, sg.key));
-  const meters = [...new Set(songs.map(meterLabel))];
-  const lo = Math.min(...songs.map((sg) => sg.bpm[0]));
-  const hi = Math.max(...songs.map((sg) => sg.bpm[1]));
-  const feels = [...new Set(songs.map(feelLabel))];
+  // every part, so a song's section in another meter is counted among the meters
+  const parts = songParts(st).map(({ song, section }) => withSong(st, partKey(song, section)));
+  const meters = [...new Set(parts.map(meterLabel))];
+  const tempos = (st.songs ?? []).map((sg) => songBpm(st, sg));
+  const lo = Math.min(...tempos.map((t) => t[0]));
+  const hi = Math.max(...tempos.map((t) => t[1]));
+  const feels = [...new Set(parts.map(feelLabel))];
   return [
     meters.join(', '),
     `${lo}–${hi} bpm`,
-    `${songs.length} songs`,
+    `${tempos.length} songs`,
     feels.length === 1 ? feels[0] : 'straight to swung',
   ];
 }

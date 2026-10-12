@@ -19,6 +19,7 @@ import { stashPendingLink, takePendingLink } from '@/lib/app/breaks/pending-link
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
 import { clearScratch, readScratch, writeScratch } from '@/lib/app/breaks/scratch';
 import { breakPayload, encodeBreak } from '@/lib/app/breaks/share';
+import { songOf } from '@/lib/app/breaks/songs';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { withYourKits } from '@/lib/app/breaks/samples/your-kit';
@@ -1257,6 +1258,39 @@ describe('your settings (D19, D21)', () => {
       result.current.newBreak();
     });
     expect(result.current.bpm).toBe(DEFAULT_STUDIO_SETTINGS.startBpm);
+  });
+
+  it('New of a song written in sections writes every section and its arrangement, and one Undo takes them back', async () => {
+    const { result } = await mount(undefined, {
+      settings: { ...DEFAULT_STUDIO_SETTINGS, startStyle: 'lombardo' },
+    });
+    const inSections = () => !!result.current.patterns.A?.song?.includes(':');
+    // New until it plays one of his songs in one part, then until one in sections
+    for (let i = 0; i < 200 && inSections(); i++) act(() => void result.current.newBreak());
+    let before = { patterns: result.current.patterns, arrangement: result.current.arrangement };
+    for (let i = 0; i < 200 && !inSections(); i++) {
+      before = { patterns: result.current.patterns, arrangement: result.current.arrangement };
+      act(() => void result.current.newBreak());
+    }
+    expect(before.patterns.A?.song).toBeDefined();
+    expect(before.patterns.A?.song).not.toContain(':');
+
+    const song = songOf(STYLES.lombardo, result.current.patterns.A?.song);
+    expect(song?.sections).toBeDefined();
+    const sections = song?.sections ?? [];
+    expect(
+      Object.keys(result.current.patterns).filter((L) => result.current.patterns[L as 'A'] != null)
+    ).toEqual(sections.map((x) => x.letter));
+    expect(result.current.patterns.B?.song).toBe(`${song?.key}:B`);
+    expect(result.current.arrangement).toEqual(song?.arrangement);
+    // the pickers show the section on the stage: A, in its meter
+    expect(result.current.meter).toBe(result.current.patterns.A?.meter);
+
+    // one Undo: the song in one part before it, and its arrangement
+    act(() => result.current.undo());
+    expect(result.current.patterns.A).toEqual(before.patterns.A);
+    expect(result.current.patterns.B).toEqual(before.patterns.B);
+    expect(result.current.arrangement).toEqual(before.arrangement);
   });
 
   it('after opening a saved pattern at another tempo, New pattern opens at your starting values', async () => {

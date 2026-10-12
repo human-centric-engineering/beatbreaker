@@ -468,14 +468,14 @@ All six are `POST`, signed-in, stateless (nothing is written), and under the
 section cap. All are `decidedBy: 'nothing'` because there is no row and
 therefore no subject to scope to.
 
-| Route                          | Body                                                                              | Answers                                                                  |
-| ------------------------------ | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| `POST /api/v1/breaks/generate` | `styleKey`, `styleVersion?`, `meter`, `bars`, `density`, `ghosts`, `bpm`, `seed?` | `{ seed, styleVersionId, A, B, critique, playability, tries, rejected }` |
-| `POST /api/v1/breaks/doctor`   | `styleKey`, `styleVersion?`, `doc`, `move`, `entropy?`                            | `{ doc, critique, playability }`                                         |
-| `POST /api/v1/breaks/critique` | `doc`, `bpm`                                                                      | `{ critique, playability }`                                              |
-| `POST /api/v1/breaks/engrave`  | `doc`, `layer`, `scale`, `perSystem`, `guides`, `sticking`                        | the `Engraving` — nodes, playhead map, dimensions                        |
-| `POST /api/v1/breaks/midi`     | `doc` (a whole `SharePayload`), `feel`, `hats`, `bars`, `humanise?`               | `audio/midi` bytes                                                       |
-| `POST /api/v1/breaks/import`   | `{ kind: 'midi', data, fileName? }` or `{ kind: 'text', text }`                   | `{ source, doc, notes }`; 422 `IMPORT_UNREADABLE` with a sentence        |
+| Route                          | Body                                                                                       | Answers                                                                                                                                                                            |
+| ------------------------------ | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST /api/v1/breaks/generate` | `styleKey`, `styleVersion?`, `meter`, `bars`, `density`, `ghosts`, `bpm`, `song?`, `seed?` | `{ seed, styleVersionId, A, B, C?…, arrangement?, critique, playability, tries, rejected }` — a song in sections adds its sections past B and its arrangement; the critique is A's |
+| `POST /api/v1/breaks/doctor`   | `styleKey`, `styleVersion?`, `doc`, `move`, `entropy?`                                     | `{ doc, critique, playability }`                                                                                                                                                   |
+| `POST /api/v1/breaks/critique` | `doc`, `bpm`                                                                               | `{ critique, playability }`                                                                                                                                                        |
+| `POST /api/v1/breaks/engrave`  | `doc`, `layer`, `scale`, `perSystem`, `guides`, `sticking`                                 | the `Engraving` — nodes, playhead map, dimensions                                                                                                                                  |
+| `POST /api/v1/breaks/midi`     | `doc` (a whole `SharePayload`), `feel`, `hats`, `bars`, `humanise?`                        | `audio/midi` bytes                                                                                                                                                                 |
+| `POST /api/v1/breaks/import`   | `{ kind: 'midi', data, fileName? }` or `{ kind: 'text', text }`                            | `{ source, doc, notes }`; 422 `IMPORT_UNREADABLE` with a sentence                                                                                                                  |
 
 Four things worth knowing:
 

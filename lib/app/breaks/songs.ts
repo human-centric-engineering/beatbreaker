@@ -1,6 +1,6 @@
 import { DEFAULT_METER, meterOf, stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { wpick, type Rng } from '@/lib/app/breaks/rng';
-import type { Figure, Style, StyleSong } from '@/lib/app/breaks/types';
+import type { Figure, SongSection, Style, StyleSong } from '@/lib/app/breaks/types';
 
 /**
  * A style's songs ({@link Style.songs}): picking one, and laying it over the
@@ -13,22 +13,87 @@ import type { Figure, Style, StyleSong } from '@/lib/app/breaks/types';
  * B, the Doctor) lays the same song over the style again.
  */
 
-/** The song with this key, if the style has one. */
-export function songOf(st: Style | undefined, key: string | undefined): StyleSong | undefined {
-  if (!st?.songs || !key) return undefined;
-  return st.songs.find((s) => s.key === key);
+/** The separator between a song's key and a section's letter: `hell-awaits:B`. */
+const PART = ':';
+
+/** A song, and the section of it a key names, where it is written in sections. */
+export interface SongPart {
+  song: StyleSong;
+  section?: SongSection;
 }
 
-/** The meter a song is written in: its own, else its style's. */
-export function songMeter(st: Style, song: StyleSong | undefined): string {
-  return song?.params.meter ?? st.meter ?? DEFAULT_METER;
+/**
+ * What a pattern's song key names: a song, or a section of one.
+ *
+ * `hell-awaits:B` is section B. A song's bare key, where it has sections, is
+ * the section that names that key among its aliases, else its first: a pattern
+ * saved before the song was split into sections played what is now one of
+ * them. Another song's old key ('sherpa-triplets') is found among the
+ * sections' aliases.
+ */
+export function songPartOf(st: Style | undefined, key: string | undefined): SongPart | undefined {
+  if (!st?.songs || !key) return undefined;
+  const at = key.indexOf(PART);
+  if (at >= 0) {
+    const song = st.songs.find((s) => s.key === key.slice(0, at));
+    const section = song?.sections?.find((x) => x.letter === key.slice(at + 1));
+    return song && section ? { song, section } : undefined;
+  }
+  const song = st.songs.find((s) => s.key === key);
+  if (song) {
+    if (!song.sections?.length) return { song };
+    return {
+      song,
+      section: song.sections.find((x) => x.aliases?.includes(key)) ?? song.sections[0],
+    };
+  }
+  for (const sg of st.songs) {
+    const section = sg.sections?.find((x) => x.aliases?.includes(key));
+    if (section) return { song: sg, section };
+  }
+  return undefined;
+}
+
+/** The song with this key (or a section of it, or a key it was), if the style has one. */
+export function songOf(st: Style | undefined, key: string | undefined): StyleSong | undefined {
+  return songPartOf(st, key)?.song;
+}
+
+/** The key a pattern records for a song, or for one section of it. */
+export function partKey(song: StyleSong, section?: SongSection): string {
+  return section ? `${song.key}${PART}${section.letter}` : song.key;
+}
+
+/** Every part a style's songs write: each song without sections, and each section of those with. */
+export function songParts(st: Style): Array<Required<Pick<SongPart, 'song'>> & SongPart> {
+  return (st.songs ?? []).flatMap((song) =>
+    song.sections?.length ? song.sections.map((section) => ({ song, section })) : [{ song }]
+  );
+}
+
+/**
+ * The meter a song is written in: its own, else its style's. For a song in
+ * sections, the section's — its first, if none is named, which is the meter a
+ * break of the song opens in.
+ */
+export function songMeter(st: Style, song: StyleSong | undefined, section?: SongSection): string {
+  const part = section ?? song?.sections?.[0];
+  return part?.params.meter ?? song?.params.meter ?? st.meter ?? DEFAULT_METER;
+}
+
+/** Every meter a song plays in: its own, or each of its sections'. */
+export function songMeters(st: Style, song: StyleSong): string[] {
+  return song.sections?.length
+    ? song.sections.map((x) => songMeter(st, song, x))
+    : [songMeter(st, song)];
 }
 
 /**
  * Pick one of a style's songs, by weight. Given a meter, only songs written in
- * it are candidates: a pattern whose meter is already settled (a B, a test, a
- * caller that passed one) gets a song that fits the bar. Undefined for a style
- * without songs, or with none in that meter.
+ * it are candidates — for a song in sections, its first section's: a pattern
+ * whose meter is already settled (a B, a test, a caller that passed one) gets
+ * a song that fits the bar. Undefined for a style without songs, or with none
+ * in that meter.
  */
 export function pickSong(st: Style, rng: Rng, meterKey?: string): StyleSong | undefined {
   const songs = (st.songs ?? []).filter((s) => !meterKey || songMeter(st, s) === meterKey);
@@ -45,8 +110,22 @@ export function pickSong(st: Style, rng: Rng, meterKey?: string): StyleSong | un
  * because that is what the tempo control shows.
  */
 export function songTempo(st: Style, song: StyleSong | undefined, rng: Rng): number {
-  const [lo, hi] = withSong(st, song?.key).bpm;
+  const [lo, hi] = songBpm(st, song);
   return Math.round(lo + rng() * (hi - lo));
+}
+
+/**
+ * A song's tempo range. A break has one tempo, so for a song in sections it is
+ * the range every section can play at: the song's, held to the slowest
+ * section's playable top (a section of sixteenths runs out of hands before a
+ * section of quarters does).
+ */
+export function songBpm(st: Style, song: StyleSong | undefined): [number, number] {
+  if (!song?.sections?.length) return withSong(st, song?.key).bpm;
+  const ranges = song.sections.map((x) => withSong(st, partKey(song, x)).bpm);
+  const hi = Math.min(...ranges.map((r) => r[1]));
+  const lo = Math.min(hi, Math.max(...ranges.map((r) => r[0])));
+  return [lo, hi];
 }
 
 /**
@@ -99,6 +178,8 @@ const MERGED = new WeakMap<Style, Map<string, Style>>();
 /**
  * The style with a song laid over it: the song's params win, field by field.
  *
+ * A section of a song is laid over the song in turn.
+ *
  * One exception, because two fields are one setting: a song that names its own
  * `swing` and no `swingRange` is a song with that one swing, and the style's
  * range must not survive it — `swingFor` reads the range first and would set
@@ -109,18 +190,27 @@ const MERGED = new WeakMap<Style, Map<string, Style>>();
  * still hits on the merged style.
  */
 export function withSong(st: Style, key: string | undefined): Style {
-  const song = songOf(st, key);
-  if (!song) return st;
+  const part = songPartOf(st, key);
+  if (!part) return st;
+  const { song, section } = part;
+  const at = partKey(song, section);
   let byKey = MERGED.get(st);
-  const cached = byKey?.get(song.key);
+  const cached = byKey?.get(at);
   if (cached) return cached;
-  const out: Style = { ...st, ...song.params };
-  if (song.params.swing !== undefined && !song.params.swingRange) delete out.swingRange;
+  const out: Style = { ...st, ...song.params, ...section?.params };
+  /* The swing is the innermost one named, and a range named outside it does
+     not survive it: only one named beside it, or inside it, still applies. */
+  const layers = section ? [song.params, section.params] : [song.params];
+  let named = -1;
+  layers.forEach((l, i) => {
+    if (l.swing !== undefined) named = i;
+  });
+  if (named >= 0 && !layers.slice(named).some((l) => l.swingRange)) delete out.swingRange;
   out.bpm = playableBpm(out);
   if (!byKey) {
     byKey = new Map();
     MERGED.set(st, byKey);
   }
-  byKey.set(song.key, out);
+  byKey.set(at, out);
   return out;
 }

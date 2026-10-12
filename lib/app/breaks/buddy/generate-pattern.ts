@@ -1,14 +1,12 @@
 import { z } from 'zod';
 
-import { maxBpm } from '@/lib/app/breaks/audio/transport';
+import { maxBpm, maxBpmOf } from '@/lib/app/breaks/audio/transport';
 import { type EditData, describeEdit, editWorkspace } from '@/lib/app/breaks/buddy/edit';
-import { generateGood } from '@/lib/app/breaks/critic';
-import { deriveB } from '@/lib/app/breaks/generate';
 import { DEFAULT_METER, METER_KEYS } from '@/lib/app/breaks/meter';
-import { resolveLanes } from '@/lib/app/breaks/pattern';
 import { lettersOf } from '@/lib/app/breaks/sections';
 import { withoutExtraSections } from '@/lib/app/breaks/share';
-import { styleIn } from '@/lib/app/breaks/styles';
+import { songBreak, songForSeed } from '@/lib/app/breaks/song-break';
+import { songMeters } from '@/lib/app/breaks/songs';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
 import type {
   CapabilityContext,
@@ -20,9 +18,11 @@ import type {
  * `generate_pattern` — a new A section, and the B derived from it, from a
  * style in the catalogue. What the Studio's Generate button does: the
  * rejection sampler (`generateGood`) draws sixteen and keeps the best, and
- * `deriveB` builds the chorus.
+ * `deriveB` builds the chorus. A song written in sections (11-e-ii-d) is
+ * every section, each in its own meter, and the song's arrangement
+ * (`songBreak`).
  *
- * Replaces both sections of the workspace. The tempo is kept when it suits the
+ * Replaces every section of the workspace. The tempo is kept when it suits the
  * style and moved into the style's range when it does not, unless one is given.
  */
 
@@ -49,7 +49,7 @@ export class GeneratePatternCapability extends BaseCapability<Args, EditData> {
   readonly functionDefinition: CapabilityFunctionDefinition = {
     name: 'generate_pattern',
     description:
-      "Write a brand-new pattern in a style from list_styles, replacing both sections of the open pattern: the generator draws sixteen candidates and keeps the one the critic scores best, and section B is derived from A. Use a style key, never a label. The tempo stays where it is if it suits the style; otherwise it moves into the style's range. Returns the new sections as text.",
+      "Write a brand-new pattern in a style from list_styles, replacing every section of the open pattern: the generator draws sixteen candidates and keeps the one the critic scores best, and section B is derived from A. Where the style's song is written in sections (an intro and a groove, a part in another meter), every section is written in its own meter, with the song's arrangement. Use a style key, never a label. The tempo stays where it is if it suits the style; otherwise it moves into the style's range. Returns the new sections as text.",
     parameters: {
       type: 'object',
       properties: {
@@ -117,34 +117,34 @@ export class GeneratePatternCapability extends BaseCapability<Args, EditData> {
         };
       }
       const meter = args.meter ?? style.params.meter ?? DEFAULT_METER;
+      /* The song the seed picks, first: a song in sections is every section
+         in its own meter, so the tempo has to suit the slowest of them. */
+      const song = songForSeed(style.params, seed, meter);
       const [lo, hi] = style.params.bpm;
       const wanted =
         args.bpm ?? (doc.bpm >= lo && doc.bpm <= hi ? doc.bpm : Math.round((lo + hi) / 2));
-      const bpm = Math.min(Math.max(wanted, 50), maxBpm(meter));
+      const top = song?.sections ? maxBpmOf(songMeters(style.params, song)) : maxBpm(meter);
+      const bpm = Math.min(Math.max(wanted, 50), top);
 
-      const roster = resolveLanes(styleIn(style.params, meter), null);
-      const made = generateGood(
-        {
-          style,
-          seed,
-          meter,
-          bars: args.bars,
-          density: args.density,
-          ghosts: args.ghosts,
-          lanes: roster.lanes,
-          perc: roster.perc,
-        },
-        bpm
-      );
+      const made = songBreak({
+        style,
+        seed,
+        meter,
+        bars: args.bars,
+        density: args.density,
+        ghosts: args.ghosts,
+        bpm,
+      });
+      // a brand-new pattern is an A and a B, as the Studio's New writes one, or a song's sections
+      const kept = withoutExtraSections(doc);
       return {
         ok: true,
         doc: {
-          // a brand-new pattern is an A and a B, as the Studio's New writes one
-          ...withoutExtraSections(doc),
+          ...kept,
+          ...made.sections,
+          arrangement: made.arrangement ?? kept.arrangement,
           bpm,
           swing: args.swing ?? style.params.swing,
-          A: made.pattern,
-          B: deriveB(made.pattern, style.params),
         },
         extra: style.params.label,
       };

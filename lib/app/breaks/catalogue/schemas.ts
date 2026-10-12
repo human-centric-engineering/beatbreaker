@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { LANES, LANE_VALUES, PERC_KEYS } from '@/lib/app/breaks/lanes';
 import type { LaneKey } from '@/lib/app/breaks/types';
 import { METER_KEYS } from '@/lib/app/breaks/meter';
+import { MAX_ARRANGEMENT, MAX_BREAK_BARS, SECTION_LETTERS } from '@/lib/app/breaks/sections';
 import { feelSchema, styleAttrsSchema } from '@/lib/app/breaks/schema';
 
 /**
@@ -216,20 +217,102 @@ function swingInRange(p: { swing?: number; swingRange?: [number, number] }): boo
   );
 }
 
+type SwingLayer = { swing?: number; swingRange?: [number, number] };
+
+/**
+ * The swing and range a style ends up with under its song (and section), as
+ * `withSong` lays them: the innermost swing named, and the innermost range
+ * named beside it or inside it — one named further out does not survive it.
+ */
+function swingOf(layers: SwingLayer[]): SwingLayer {
+  let named = 0;
+  layers.forEach((l, i) => {
+    if (l.swing !== undefined) named = i;
+  });
+  const inner = layers.slice(named);
+  return {
+    swing: layers[named].swing,
+    swingRange: inner.reduce<SwingLayer['swingRange']>((r, l) => l.swingRange ?? r, undefined),
+  };
+}
+
 /**
  * One of a style's songs: its own meter, tempo, swing, kit and bars, laid over
  * the style's. Every field a style has, optional, bar the four a song cannot
  * change (its style's name, description, drummer flag and songs).
  */
-const styleSongSchema = z.object({
-  key: z
-    .string()
-    .regex(/^[a-z0-9-]{1,40}$/, 'a song key is a slug: lower-case letters, digits and hyphens'),
-  title: z.string().min(1).max(80),
-  feel: z.string().max(120),
-  weight,
-  params: styleFields.omit({ label: true, hint: true, drummer: true }).partial(),
+const songParams = styleFields.omit({ label: true, hint: true, drummer: true }).partial();
+const songKey = z
+  .string()
+  .regex(/^[a-z0-9-]{1,40}$/, 'a song key is a slug: lower-case letters, digits and hyphens');
+
+/**
+ * One part of a song written in sections: its letter, a label, and the params
+ * laid over the song's. Its aliases are the keys it had as a song of its own.
+ */
+const songSectionSchema = z.object({
+  letter: z.enum(SECTION_LETTERS),
+  label: z.string().min(1).max(60),
+  bars: z.number().int().min(1).max(8).optional(),
+  aliases: z.array(songKey).min(1).max(8).optional(),
+  params: songParams,
 });
+
+const styleSongSchema = z
+  .object({
+    key: songKey,
+    title: z.string().min(1).max(80),
+    feel: z.string().max(120),
+    weight,
+    params: songParams,
+    sections: z.array(songSectionSchema).min(2).max(SECTION_LETTERS.length).optional(),
+    arrangement: z.array(z.enum(SECTION_LETTERS)).min(1).max(MAX_ARRANGEMENT).optional(),
+  })
+  .superRefine((song, ctx) => {
+    const sections = song.sections;
+    if (!sections) {
+      if (song.arrangement)
+        ctx.addIssue({
+          code: 'custom',
+          message: 'only a song in sections has an arrangement',
+          path: ['arrangement'],
+        });
+      return;
+    }
+    /* A pattern records `key:L`, and a pattern's song is 40 characters at most
+       (`schema.ts`). */
+    if (song.key.length > 38)
+      ctx.addIssue({
+        code: 'custom',
+        message: 'a song in sections has a key of 38 characters at most',
+        path: ['key'],
+      });
+    // A, B, C… in order: New writes them as the break's sections, and a break always has A and B
+    sections.forEach((x, i) => {
+      if (x.letter !== SECTION_LETTERS[i])
+        ctx.addIssue({
+          code: 'custom',
+          message: `section ${i + 1} is ${SECTION_LETTERS[i]}`,
+          path: ['sections', i, 'letter'],
+        });
+    });
+    const bars = sections.reduce((n, x) => n + (x.bars ?? 0), 0);
+    if (bars > MAX_BREAK_BARS)
+      ctx.addIssue({
+        code: 'custom',
+        message: `a song's sections hold ${MAX_BREAK_BARS} bars at most`,
+        path: ['sections'],
+      });
+    const letters = new Set(sections.map((x) => x.letter));
+    song.arrangement?.forEach((L, i) => {
+      if (!letters.has(L))
+        ctx.addIssue({
+          code: 'custom',
+          message: `the arrangement plays section ${L}, which the song has not got`,
+          path: ['arrangement', i],
+        });
+    });
+  });
 
 export const styleParamsSchema = styleFields
   .extend({ songs: z.array(styleSongSchema).min(1).max(64).optional() })
@@ -247,19 +330,41 @@ export const styleParamsSchema = styleFields
           path: ['songs', i, 'key'],
         });
       keys.add(song.key);
+    });
+    // a section's old key names it alone: no song has it, and no other section
+    const aliases = new Set<string>();
+    (p.songs ?? []).forEach((song, i) => {
+      song.sections?.forEach((x, j) => {
+        for (const a of x.aliases ?? []) {
+          if ((keys.has(a) && a !== song.key) || aliases.has(a))
+            ctx.addIssue({
+              code: 'custom',
+              message: `the old key ${a} names something else too`,
+              path: ['songs', i, 'sections', j, 'aliases'],
+            });
+          aliases.add(a);
+        }
+      });
+    });
+    (p.songs ?? []).forEach((song, i) => {
       /* The swing the song ends up with, against the range it ends up with: a
          song naming its own swing and no range drops the style's range (see
          `withSong`), so only a range it names, or inherits with no swing of
-         its own, applies. */
-      const swing = song.params.swing ?? p.swing;
-      const range =
-        song.params.swingRange ?? (song.params.swing === undefined ? p.swingRange : undefined);
-      if (!swingInRange({ swing, swingRange: range }))
+         its own, applies. A section is laid over its song the same way. */
+      if (!swingInRange(swingOf([p, song.params])))
         ctx.addIssue({
           code: 'custom',
           message: 'a song’s swing sits inside its swing range',
           path: ['songs', i, 'params', 'swingRange'],
         });
+      song.sections?.forEach((x, j) => {
+        if (!swingInRange(swingOf([p, song.params, x.params])))
+          ctx.addIssue({
+            code: 'custom',
+            message: 'a section’s swing sits inside its swing range',
+            path: ['songs', i, 'sections', j, 'params', 'swingRange'],
+          });
+      });
     });
   });
 

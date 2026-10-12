@@ -11,7 +11,15 @@ import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { makeRng } from '@/lib/app/breaks/rng';
 import { packPattern, patternFromPacked } from '@/lib/app/breaks/share';
-import { pickSong, songMeter, songOf, songTempo, withSong } from '@/lib/app/breaks/songs';
+import {
+  partKey,
+  pickSong,
+  songMeter,
+  songOf,
+  songParts,
+  songTempo,
+  withSong,
+} from '@/lib/app/breaks/songs';
 import type { Style, StyleSong } from '@/lib/app/breaks/types';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { testStyle } from '@/tests/helpers/catalogue';
@@ -160,6 +168,73 @@ describe('the song schema', () => {
   it('refuses a song key that is not a slug', () => {
     expect(styleParamsSchema.safeParse(base([one({}, 'Hey Joe')])).success).toBe(false);
   });
+
+  describe('a song in sections', () => {
+    const section = (letter: string, params: Partial<Style> = {}, more = {}) => ({
+      letter,
+      label: `part ${letter}`,
+      params,
+      ...more,
+    });
+    const inSections = (sections: unknown[], more = {}, key = 'one') => ({
+      ...one({}, key),
+      sections,
+      ...more,
+    });
+    const parses = (songs: unknown[]) => styleParamsSchema.safeParse(base(songs)).success;
+
+    it('passes every shipped song in sections', () => {
+      for (const key of ['ringo', 'copeland', 'baker', 'lombardo', 'klek'])
+        expect(styleParamsSchema.safeParse(STYLES[key]).success, key).toBe(true);
+    });
+
+    it('takes sections lettered A, B, C… in order, and refuses a gap or one alone', () => {
+      expect(parses([inSections([section('A'), section('B'), section('C')])])).toBe(true);
+      expect(parses([inSections([section('A'), section('C')])])).toBe(false);
+      expect(parses([inSections([section('B'), section('A')])])).toBe(false);
+      expect(parses([inSections([section('A')])])).toBe(false);
+    });
+
+    it('refuses an arrangement naming a section the song has not got, or one without sections', () => {
+      const two = [section('A'), section('B')];
+      expect(parses([inSections(two, { arrangement: ['A', 'B', 'A'] })])).toBe(true);
+      expect(parses([inSections(two, { arrangement: ['A', 'C'] })])).toBe(false);
+      expect(parses([{ ...one({}), arrangement: ['A'] }])).toBe(false);
+    });
+
+    it('refuses sections holding more bars than a break', () => {
+      const long = ['A', 'B', 'C', 'D', 'E'].map((L) => section(L, {}, { bars: 7 }));
+      expect(parses([inSections(long)])).toBe(false);
+    });
+
+    it('refuses a key too long to carry its letter in a pattern', () => {
+      const two = [section('A'), section('B')];
+      expect(parses([inSections(two, {}, 'a'.repeat(38))])).toBe(true);
+      expect(parses([inSections(two, {}, 'a'.repeat(39))])).toBe(false);
+    });
+
+    it('refuses an old key another song or section already answers to', () => {
+      const aliased = (a: string) => [section('A', {}, { aliases: [a] }), section('B')];
+      // a song's own old key is its section's to answer to
+      expect(parses([inSections(aliased('one'))])).toBe(true);
+      expect(parses([inSections(aliased('two')), one({}, 'two')])).toBe(false);
+      expect(parses([inSections(aliased('old')), inSections(aliased('old'), {}, 'three')])).toBe(
+        false
+      );
+    });
+
+    it('refuses a section whose swing is outside the range it ends up with', () => {
+      // the style's range is [0, 20]; a section naming swing 50 alone drops it
+      expect(parses([inSections([section('A', { swing: 50 }), section('B')])])).toBe(true);
+      expect(
+        parses([inSections([section('A', { swing: 50, swingRange: [0, 20] }), section('B')])])
+      ).toBe(false);
+      // a section naming a range only is held to the swing outside it
+      expect(parses([inSections([section('A', { swingRange: [30, 40] }), section('B')])])).toBe(
+        false
+      );
+    });
+  });
 });
 
 describe("a drummer's songs", () => {
@@ -170,9 +245,9 @@ describe("a drummer's songs", () => {
   it("write every figure one or two bars of the song's meter long, and no fill longer than a bar", () => {
     for (const key of Object.keys(STYLES).filter((k) => STYLES[k].drummer)) {
       const st = testStyle(key).params;
-      for (const song of st.songs ?? []) {
-        const steps = stepsOf(meterOf(songMeter(st, song)));
-        const merged = withSong(st, song.key);
+      for (const { song, section } of songParts(st)) {
+        const steps = stepsOf(meterOf(songMeter(st, song, section)));
+        const merged = withSong(st, partKey(song, section));
         for (const [figure] of merged.figures ?? []) {
           const rows = Object.entries(figure);
           const len = rows[0]?.[1].length;
