@@ -9,6 +9,7 @@ import {
   pageShift,
   PREVIEW_BARS,
   TURN_AT,
+  previewApart,
   withPreview,
 } from '@/lib/app/breaks/drummer/corner-chart';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
@@ -85,6 +86,38 @@ describe('withPreview', () => {
     });
     expect(withPreview(A, waltz)).toBe(A);
     expect(withPreview(A, null)).toBe(A);
+  });
+});
+
+describe('previewApart', () => {
+  const funk = testStyle('funk');
+  const A = generatePattern({
+    style: funk,
+    meter: '4/4',
+    seed: 3,
+    bars: 4,
+    density: 50,
+    ghosts: 50,
+  });
+  const waltz = generatePattern({
+    style: funk,
+    meter: '3/4',
+    seed: 3,
+    bars: 4,
+    density: 50,
+    ghosts: 50,
+  });
+
+  it('is the first bars of a next section in another meter, in its meter', () => {
+    const out = previewApart(A, waltz);
+    expect(out?.meter).toBe('3/4');
+    expect(out?.bars).toEqual(waltz.bars.slice(0, PREVIEW_BARS));
+    expect(waltz.bars).toHaveLength(4);
+  });
+
+  it('is nothing when the preview goes on the line, or there is none', () => {
+    expect(previewApart(A, deriveB(A, funk.params))).toBeNull();
+    expect(previewApart(A, null)).toBeNull();
   });
 });
 

@@ -184,6 +184,47 @@ describe('DrummerChart', () => {
     expect(p.next).toBe('Next: A');
   });
 
+  it('previews a next section in another meter on a line of its own, and carries on into it', () => {
+    const funk = testStyle('funk');
+    const C = generatePattern({
+      style: funk,
+      meter: '3/4',
+      seed: 7,
+      bars: 2,
+      density: 50,
+      ghosts: 50,
+    });
+    const withC = (position: PlayEvent | null): Studio => ({
+      ...studio(position, 'both', ['A', 'C']),
+      view: { A, B, C },
+    });
+    fake = withC(null);
+    const { container, rerender } = render(<DrummerChart />);
+    for (let k = 0; k < 32; k++) {
+      fake = withC({ t: k, letter: 'A', barIdx: Math.floor(k / 16), secIdx: 0, slot: k % 16 });
+      rerender(<DrummerChart />);
+    }
+    const lineW = engrave(A, null, { scale: CHART_SCALE, perSystem: A.bars.length }).width;
+    const apart = engrave(C, null, { scale: CHART_SCALE, perSystem: 2 });
+    const staves = container.querySelectorAll('.drummer-chart-line .sheet');
+    expect(staves).toHaveLength(2);
+    expect(Number(staves[1].getAttribute('width'))).toBeCloseTo(apart.width);
+    expect(parts(container).next).toBe('Next: C');
+    expect(
+      parseFloat(container.querySelector<HTMLElement>('.drummer-chart-next')?.style.left ?? '')
+    ).toBeCloseTo(lineW);
+    const ahead = lineW + centre(apart.map[0]) + parts(container).shift;
+
+    fake = withC({ t: 32, letter: 'C', barIdx: 0, secIdx: 1, slot: 0 });
+    rerender(<DrummerChart />);
+    const x = centre(engrave(C, null, { scale: CHART_SCALE, perSystem: 2 }).map[0]);
+    // C's first step jumps to where its preview's was, then glides home
+    expect(ahead - x).toBeGreaterThan(0);
+    expect(pageShift(ROOM, x, ahead - x)).toBe(0);
+    expect(parts(container).letter).toBe('C');
+    expect(parts(container).shift).toBe(0);
+  });
+
   it('puts no playhead in the preview for a bar the section no longer has', () => {
     // A has two bars; bar 2 is a bar cut while it played, before the transport caught up
     fake = studio({ t: 0, letter: 'A', barIdx: 2, secIdx: 0, slot: 0 });
