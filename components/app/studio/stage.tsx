@@ -14,6 +14,8 @@ import { Toggle } from '@/components/app/studio/toggle';
 import { type SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { GRID_SIZE, GRID_SIZE_MAX, GRID_SIZE_MIN, STAGE_VIEW } from '@/lib/app/breaks/browser-keys';
 import { publicPath } from '@/lib/app/breaks/community/visibility';
+import { type Engraving } from '@/lib/app/breaks/engrave';
+import { MAX_ARRANGEMENT, cycleLetter } from '@/lib/app/breaks/sections';
 import { songOf } from '@/lib/app/breaks/songs';
 import { engrave } from '@/lib/app/breaks/engrave';
 import { LAYER_BLURB, LAYER_NAMES } from '@/lib/app/breaks/layers';
@@ -99,8 +101,8 @@ export function Stage() {
   const c = useStudio();
   const [gridSize, setGridSize] = useStoredSetting(GRID_SIZE);
   const [stageView, setStageView] = useStoredSetting(STAGE_VIEW);
-  const staveA = useRef<StaveHandle>(null);
-  const staveB = useRef<StaveHandle>(null);
+  /* One stave per section on show, each reached by its letter. */
+  const staveRefs = useRef<Partial<Record<SectionLetter, StaveHandle | null>>>({});
   const [showEditor, setShowEditor] = useState(true);
 
   /* The engraver takes the next layer as a second pattern and draws whatever
@@ -114,47 +116,49 @@ export function Stage() {
       guides: c.guides,
       sticking: c.sticking,
     };
-    return {
-      A: c.view.A ? engrave(c.view.A, peek?.A ?? null, opts) : null,
-      B: c.view.B ? engrave(c.view.B, peek?.B ?? null, opts) : null,
-    };
-  }, [c.view.A, c.view.B, peek, c.guides, c.sticking, c.size]);
+    const out: Partial<Record<SectionLetter, Engraving>> = {};
+    for (const letter of c.letters) {
+      const pat = c.view[letter];
+      if (pat) out[letter] = engrave(pat, peek?.[letter] ?? null, opts);
+    }
+    return out;
+  }, [c.letters, c.view, peek, c.guides, c.sticking, c.size]);
 
   /* The playhead is driven imperatively — sixteen re-renders a bar to move one
      rectangle would re-render the whole staff with it. */
   useEffect(() => {
     const pos = c.position;
-    if (!pos || pos.count) {
-      staveA.current?.clear();
-      staveB.current?.clear();
-      return;
+    const at = pos && !pos.count ? pos.letter : undefined;
+    for (const [letter, stave] of Object.entries(staveRefs.current)) {
+      if (letter !== at) stave?.clear();
     }
-    const target = pos.letter === 'B' ? staveB : staveA;
-    const other = pos.letter === 'B' ? staveA : staveB;
-    const eng = pos.letter === 'B' ? engravings.B : engravings.A;
-    other.current?.clear();
+    if (!pos || !at) return;
+    const eng = engravings[at];
     if (eng && pos.barIdx != null)
-      target.current?.moveTo(eng.map[pos.barIdx * eng.steps + pos.slot]);
+      staveRefs.current[at]?.moveTo(eng.map[pos.barIdx * eng.steps + pos.slot]);
   }, [c.position, engravings]);
 
   const style = c.catalogue.styles[c.style]?.params;
-  const shown: SectionLetter[] = c.viewMode === 'both' ? ['A', 'B'] : [c.viewMode];
+  const viewMode = c.viewMode;
+  const shown: SectionLetter[] = viewMode === 'both' ? c.letters : [viewMode];
+  /** The section on show, when it is one a break can do without. */
+  const deletable = viewMode !== 'both' && viewMode !== 'A' && viewMode !== 'B' ? viewMode : null;
   /* What BeatBuddy just changed, as the chart indexes steps: any lane changed
      on a step lights that step. */
   const flashSteps = useMemo(() => {
-    const out: Record<'A' | 'B', number[]> = { A: [], B: [] };
+    const out: Partial<Record<SectionLetter, number[]>> = {};
     if (!c.flash) return out;
-    for (const letter of ['A', 'B'] as const) {
+    for (const letter of c.letters) {
       const steps = c.patterns[letter]?.bars[0]?.k.length ?? 16;
       const seen = new Set<number>();
-      for (const key of c.flash[letter]) {
+      for (const key of c.flash.cells[letter] ?? []) {
         const [bar, , step] = key.split(':');
         seen.add(Number(bar) * steps + Number(step));
       }
       out[letter] = [...seen];
     }
     return out;
-  }, [c.flash, c.patterns]);
+  }, [c.flash, c.letters, c.patterns]);
 
   const editingView = c.view[c.editing];
   const editingStored = c.patterns[c.editing];
@@ -173,7 +177,13 @@ export function Stage() {
       return (
         <Stave
           key={letter}
-          ref={live ? (letter === 'A' ? staveA : staveB) : undefined}
+          ref={
+            live
+              ? (h: StaveHandle | null) => {
+                  staveRefs.current[letter] = h;
+                }
+              : undefined
+          }
           engraving={eng}
           label={c.viewMode === 'both' ? letter : undefined}
           playing={live && c.position?.letter === letter}
@@ -253,13 +263,14 @@ export function Stage() {
           />
 
           {/* The one section choice (E11): the chart shows it, the transport
-              plays it, and the grid and the Doctor below work on it. */}
+              plays it, and the grid and the Doctor below work on it. All is
+              stored as `both`, its name from when a break had two. */}
           <Segmented
             label="Section"
-            options={(['A', 'B', 'both'] as const).map((v) => ({
+            options={[...c.letters, 'both' as const].map((v) => ({
               value: v,
-              face: v === 'both' ? 'Both' : v,
-              keyshortcuts: v === 'both' ? 'V' : v,
+              face: v === 'both' ? 'All' : v,
+              keyshortcuts: v === 'both' ? 'V' : v === 'A' || v === 'B' ? v : undefined,
             }))}
             value={c.viewMode}
             onChange={c.setViewMode}
@@ -399,42 +410,74 @@ export function Stage() {
         <div className="chart-ft">
           <span className="eyebrow">Arrangement</span>
           <div className="arr" role="group" aria-label="Arrangement">
-            {c.arrangement.map((letter, i) => (
-              <button
-                key={i}
-                type="button"
-                className={c.position?.secIdx === i ? 'now' : undefined}
-                aria-label={`Section ${i + 1} plays ${letter}`}
-                title={`Switch to ${letter === 'A' ? 'B' : 'A'}`}
-                onClick={() =>
-                  c.setArrangement(
-                    c.arrangement.map((x, j) => (j === i ? (x === 'A' ? 'B' : 'A') : x))
-                  )
-                }
-              >
-                {letter}
-              </button>
-            ))}
+            {c.arrangement.map((letter, i) => {
+              /* A tap moves the slot on to the next section the break has. */
+              const next = cycleLetter(c.patterns, letter);
+              return (
+                <button
+                  key={i}
+                  type="button"
+                  className={c.position?.secIdx === i ? 'now' : undefined}
+                  aria-label={`Slot ${i + 1} plays ${letter}`}
+                  title={`Switch to ${next}`}
+                  onClick={() =>
+                    c.setArrangement(c.arrangement.map((x, j) => (j === i ? next : x)))
+                  }
+                >
+                  {letter}
+                </button>
+              );
+            })}
           </div>
           <button
             type="button"
             className="mini"
-            title="Add a section"
-            aria-label="Add a section"
+            title={
+              c.arrangement.length >= MAX_ARRANGEMENT
+                ? `An arrangement has ${MAX_ARRANGEMENT} slots at most`
+                : 'Add a slot'
+            }
+            aria-label="Add a slot"
             onClick={() => c.setArrangement([...c.arrangement, 'A'])}
+            disabled={c.arrangement.length >= MAX_ARRANGEMENT}
           >
             +
           </button>
           <button
             type="button"
             className="mini"
-            title="Remove last section"
-            aria-label="Remove last section"
+            title="Remove the last slot"
+            aria-label="Remove the last slot"
             onClick={() => c.setArrangement(c.arrangement.slice(0, -1))}
             disabled={c.arrangement.length <= 1}
           >
             −
           </button>
+          <span className="spacer" />
+          {/* Sections themselves (11-e-ii): a new one is written as New
+              would write it, in the pickers' style, meter and length. A and
+              B are every break's, so only a section past them can go. */}
+          <button
+            type="button"
+            className="mini"
+            onClick={() => c.addSection()}
+            disabled={!!c.addSectionBlocked}
+            title={
+              c.addSectionBlocked ?? 'Write a new section in the style, meter and length picked'
+            }
+          >
+            + Section
+          </button>
+          {deletable ? (
+            <button
+              type="button"
+              className="mini"
+              onClick={() => c.deleteSection(deletable)}
+              title={`Delete section ${deletable} and its slots in the arrangement`}
+            >
+              Delete {deletable}
+            </button>
+          ) : null}
         </div>
       </div>
 
@@ -462,7 +505,7 @@ export function Stage() {
               view={editingView}
               stored={editingStored}
               cursor={cursor}
-              flash={c.flash?.[c.editing]}
+              flash={c.flash?.cells[c.editing]}
               flashSeq={c.flash?.seq}
               onCycle={(bar, lane, step, back) => c.cycleCell(c.editing, bar, lane, step, back)}
               section={c.editing}

@@ -30,7 +30,7 @@ export function StudioFooter({ onShowShortcuts }: { onShowShortcuts?: () => void
           {at && pos ? (
             <>
               <b>{at}</b> · bar <b>{(pos.barIdx ?? 0) + 1}</b> · beat{' '}
-              <b>{beatOf(c.view[at], pos.slot)}</b> · loop <b>{c.loops}</b>
+              <b>{beatOf(c.view[at] ?? null, pos.slot)}</b> · loop <b>{c.loops}</b>
             </>
           ) : (
             <>

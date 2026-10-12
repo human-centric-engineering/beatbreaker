@@ -1,6 +1,11 @@
 import { z } from 'zod';
 
-import { SECTIONS, type Section } from '@/lib/app/breaks/buddy/describe';
+import {
+  SECTION_CHOICES,
+  SECTION_CHOICE_HELP,
+  type Section,
+  sectionsFor,
+} from '@/lib/app/breaks/buddy/describe';
 import {
   type EditData,
   barsSummary,
@@ -16,13 +21,13 @@ import type {
 } from '@/lib/orchestration/capabilities/types';
 
 /**
- * `tidy_pattern` — `tidy()` on section A, B or both of the caller's workspace:
+ * `tidy_pattern` — `tidy()` on one section or all of the caller's workspace:
  * the uncontroversial clean-up, every change reported in a line a drummer can
  * read. Never adds a note.
  */
 
 const schema = z.object({
-  section: z.enum(['A', 'B', 'both']).default('both'),
+  section: z.enum(SECTION_CHOICES).default('all'),
 });
 
 type Args = z.infer<typeof schema>;
@@ -45,8 +50,8 @@ export class TidyPatternCapability extends BaseCapability<Args, TidyPatternData>
       properties: {
         section: {
           type: 'string',
-          enum: ['A', 'B', 'both'],
-          description: 'Which section to tidy. Defaults to both.',
+          enum: SECTION_CHOICES,
+          description: `Which section to tidy. ${SECTION_CHOICE_HELP} Defaults to all.`,
         },
       },
     },
@@ -60,21 +65,25 @@ export class TidyPatternCapability extends BaseCapability<Args, TidyPatternData>
   ): Promise<CapabilityResult<TidyPatternData>> {
     if (!context.userId) return this.error('BeatBuddy needs a signed-in user', 'no_user');
 
-    const targets: readonly Section[] = args.section === 'both' ? SECTIONS : [args.section];
     const outcome = await editWorkspace(context.userId, (doc) => {
+      const targets = sectionsFor(doc, args.section);
+      if (!targets.ok) return targets;
       const next = { ...doc };
       const notes: string[] = [];
-      for (const section of targets) {
-        const result = tidy(doc[section]);
+      for (const section of targets.sections) {
+        const pat = doc[section];
+        if (!pat) continue;
+        const result = tidy(pat);
         next[section] = result.pattern;
         notes.push(...result.changes.map((c) => `${section}: ${c.note}`));
       }
-      return { ok: true, doc: next, extra: notes };
+      return { ok: true, doc: next, extra: { notes, targets: targets.sections } };
     });
     if (!outcome.ok) return this.error(outcome.message, outcome.code);
 
+    const targets: readonly Section[] = outcome.extra.targets;
     const described = describeEdit(outcome.before, outcome.after, targets);
-    const notes = outcome.extra;
+    const notes = outcome.extra.notes;
     return this.success({
       doc: outcome.payload,
       rev: outcome.rev,

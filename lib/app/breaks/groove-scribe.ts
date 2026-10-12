@@ -192,7 +192,7 @@ export function readGrooveScribeUrl(input: string): ImportResult {
   const notes: string[] = [];
   if (claimed > measures) {
     notes.push(
-      `Only the first ${measures} of ${claimed} bars were kept — a pattern holds two sections of ${MAX_IMPORT_BARS / 2}.`
+      `Only the first ${measures} of ${claimed} bars were kept — a pattern holds ${MAX_IMPORT_BARS}.`
     );
   }
   let between = 0;

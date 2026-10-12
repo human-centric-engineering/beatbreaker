@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
+import { SECTION_LETTERS } from '@/lib/app/breaks/sections';
 import { cuidSchema } from '@/lib/validations/common';
 import {
   MAX_CHAT_ATTACHMENT_COMBINED_BASE64_CHARS,
@@ -43,7 +44,7 @@ export const buddyStreamRequestSchema = z.object({
   doc: sharePayloadSchema,
 
   /** The section on screen, so "bar 2" means the bar the person is looking at. */
-  section: z.enum(['A', 'B']).default('A'),
+  section: z.enum(SECTION_LETTERS).default('A'),
 
   /** Carry on an existing BeatBuddy conversation; absent starts a new one. */
   conversationId: cuidSchema.optional(),

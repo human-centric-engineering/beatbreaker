@@ -1,13 +1,9 @@
 import { z } from 'zod';
 
-import {
-  SECTIONS,
-  type SectionView,
-  decodeWorkspace,
-  viewSection,
-} from '@/lib/app/breaks/buddy/describe';
+import { type SectionView, decodeWorkspace, viewSection } from '@/lib/app/breaks/buddy/describe';
 import { readWorkspace } from '@/lib/app/breaks/buddy/workspace';
 import { layerName } from '@/lib/app/breaks/layers';
+import { type SectionLetter, lettersOf } from '@/lib/app/breaks/sections';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
 import type {
   CapabilityContext,
@@ -35,8 +31,8 @@ export interface GetPatternData {
   /** 1–5: how much of the pattern is showing. 5 is the full break. */
   layer: number;
   layerName: string;
-  /** The order the sections play in, e.g. A A B A. */
-  arrangement: Array<'A' | 'B'>;
+  /** The order the sections play in, e.g. A A B A C. */
+  arrangement: SectionLetter[];
   sections: SectionView[];
 }
 
@@ -47,7 +43,7 @@ export class GetPatternCapability extends BaseCapability<Args, GetPatternData> {
   readonly functionDefinition: CapabilityFunctionDefinition = {
     name: 'get_pattern',
     description:
-      "Read the drum pattern the user has open in the Studio. Returns each section (A and B) as text — one row per lane per bar, with a count row — plus the tempo, swing, the layer being shown, the arrangement, and the critic's score and any playability problems. Call this before changing anything unless the user wants something brand new. Don't call it in the same step as a change: every change returns the sections it touched.",
+      "Read the drum pattern the user has open in the Studio. Returns each section (A, B and any others the break has, up to Z, each in its own meter) as text — one row per lane per bar, with a count row — plus the tempo, swing, the layer being shown, the arrangement, and the critic's score and any playability problems. Call this before changing anything unless the user wants something brand new. Don't call it in the same step as a change: every change returns the sections it touched.",
     parameters: { type: 'object', properties: {} },
   };
 
@@ -72,7 +68,10 @@ export class GetPatternCapability extends BaseCapability<Args, GetPatternData> {
       layer: doc.level,
       layerName: layerName(doc.level),
       arrangement: doc.arrangement,
-      sections: SECTIONS.map((s) => viewSection(doc[s], s, doc.bpm, doc.swing)),
+      sections: lettersOf(doc).flatMap((s) => {
+        const pat = doc[s];
+        return pat ? [viewSection(pat, s, doc.bpm, doc.swing)] : [];
+      }),
     });
   }
 }

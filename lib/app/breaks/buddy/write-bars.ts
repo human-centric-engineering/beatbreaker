@@ -5,6 +5,14 @@ import { playability } from '@/lib/app/breaks/critic';
 import { DEFAULT_PERC, LANES, PERC_LANES } from '@/lib/app/breaks/lanes';
 import { METER_KEYS, meterOf, remapList } from '@/lib/app/breaks/meter';
 import { clonePattern, tidySticking } from '@/lib/app/breaks/pattern';
+import {
+  MAX_ARRANGEMENT,
+  MAX_BREAK_BARS,
+  SECTION_LETTERS,
+  type SectionLetter,
+  totalBars,
+} from '@/lib/app/breaks/sections';
+import type { BreakDoc } from '@/lib/app/breaks/share';
 import { type TextBar, fromText, notationKey } from '@/lib/app/breaks/text';
 import { type TidyRule, tidy } from '@/lib/app/breaks/tidy';
 import type { Bar, Pattern } from '@/lib/app/breaks/types';
@@ -32,13 +40,17 @@ import type {
  * whole section, and may change its meter — what a transcription needs. A
  * whole-section write also moves the backbeat to where the writing puts it,
  * since the section's old one belonged to a groove that is no longer there.
+ *
+ * **Writing a letter the break has not used adds that section** (11-e-ii) —
+ * BeatBuddy's add-section move. It is written whole, in A's style and lanes
+ * unless the bars use others, and played once at the end of the arrangement.
  */
 
 /** A section's bar limit, from the wire format. */
 const MAX_BARS = 8;
 
 const schema = z.object({
-  section: z.enum(['A', 'B']),
+  section: z.enum(SECTION_LETTERS),
   text: z.string().min(1).max(8000),
   whole: z.boolean().default(false),
   meter: z
@@ -102,6 +114,31 @@ function backbeatsOf(bars: Bar[]): number[] {
 }
 
 type Built = { ok: true; pattern: Pattern } | { ok: false; message: string; code: string };
+
+/**
+ * What a new section is written over: A's style, voice and lanes with no
+ * bars, pins or hands of its own. A whole write replaces the bars and finds
+ * its own backbeat, so nothing of A's notes reaches it.
+ */
+function blankSection(a: Pattern, letter: SectionLetter): Pattern {
+  const out = clonePattern(a);
+  out.name = `${a.name} (${letter})`;
+  out.pins = null;
+  out.sticking = null;
+  delete out.fixed;
+  return out;
+}
+
+/** The sections and arrangement once `pattern` is written as `letter`. */
+function withSection(doc: BreakDoc, letter: SectionLetter, pattern: Pattern): BreakDoc {
+  const next: BreakDoc = { ...doc };
+  next[letter] = pattern;
+  // a section added is heard: once, at the end, while the arrangement has room
+  if (!doc[letter] && doc.arrangement.length < MAX_ARRANGEMENT) {
+    next.arrangement = [...doc.arrangement, letter];
+  }
+  return next;
+}
 
 function build(pat: Pattern, args: Args, bpm: number): Built {
   const meterKey = args.meter ?? pat.meter;
@@ -188,11 +225,15 @@ export class WriteBarsCapability extends BaseCapability<Args, EditData> {
 
   readonly functionDefinition: CapabilityFunctionDefinition = {
     name: 'write_bars',
-    description: `Write bars yourself, in the same text notation get_pattern returns, replacing bars of section A or B. Use it for a genre no style covers, for transcribing notation from an image, or for a specific change no doctor move makes. Start each bar with "bar N", then one line per lane: a lane name and one character per 16th step (a bar of 4/4 is 16 steps; spaces and | are ignored, "." is a rest). Lanes and their characters: ${notationKey()}. Flams, drags, buzzes, rimshots, the half-open hat and the crash lane's other cymbals are for when the user asks for them or the notation shows them. A lane you leave out is empty in that bar. By default each bar replaces that bar number (or adds it if it is one past the end). With whole: true the bars become the whole section and meter may change. Every bar is checked before anything is written: no hi-hat and ride together, at most two hands on one step (a flam or drag is both hands), no triple 16ths on the kick, no four 16ths running on the snare, a backbeat in every bar, and a quarter of each bar left as air. A refused bar comes back with the reason; fix it and try again.`,
+    description: `Write bars yourself, in the same text notation get_pattern returns, replacing bars of a section — or adding a section: name a letter the pattern does not have yet (the next after its last, up to Z) with whole: true, and it is added in the meter you give and played once at the end of the arrangement. A break holds ${MAX_BREAK_BARS} bars across all its sections. Use it for a genre no style covers, for transcribing notation from an image, or for a specific change no doctor move makes. Start each bar with "bar N", then one line per lane: a lane name and one character per 16th step (a bar of 4/4 is 16 steps; spaces and | are ignored, "." is a rest). Lanes and their characters: ${notationKey()}. Flams, drags, buzzes, rimshots, the half-open hat and the crash lane's other cymbals are for when the user asks for them or the notation shows them. A lane you leave out is empty in that bar. By default each bar replaces that bar number (or adds it if it is one past the end). With whole: true the bars become the whole section and meter may change. Every bar is checked before anything is written: no hi-hat and ride together, at most two hands on one step (a flam or drag is both hands), no triple 16ths on the kick, no four 16ths running on the snare, a backbeat in every bar, and a quarter of each bar left as air. A refused bar comes back with the reason; fix it and try again.`,
     parameters: {
       type: 'object',
       properties: {
-        section: { type: 'string', enum: ['A', 'B'], description: 'Which section to write.' },
+        section: {
+          type: 'string',
+          enum: SECTION_LETTERS,
+          description: 'Which section to write. A letter the pattern has not used adds it.',
+        },
         text: {
           type: 'string',
           description: 'The bars, in the notation: "bar 1" then a line per lane, and so on.',
@@ -219,19 +260,37 @@ export class WriteBarsCapability extends BaseCapability<Args, EditData> {
     if (!context.userId) return this.error('BeatBuddy needs a signed-in user', 'no_user');
 
     const outcome = await editWorkspace(context.userId, (doc) => {
-      const built = build(doc[args.section], args, doc.bpm);
+      const current = doc[args.section];
+      if (!current && !args.whole) {
+        return {
+          ok: false,
+          message: `The pattern has no section ${args.section}. To add it, write it whole (whole: true), from bar 1`,
+          code: 'no_section',
+        };
+      }
+      const built = build(current ?? blankSection(doc.A, args.section), args, doc.bpm);
       if (!built.ok) return built;
-      return { ok: true, doc: { ...doc, [args.section]: built.pattern }, extra: null };
+      const next = withSection(doc, args.section, built.pattern);
+      const bars = totalBars(next);
+      if (bars > MAX_BREAK_BARS) {
+        return {
+          ok: false,
+          message: `A break holds up to ${MAX_BREAK_BARS} bars across its sections; this would make ${bars}`,
+          code: 'too_many_bars',
+        };
+      }
+      return { ok: true, doc: next, extra: !current };
     });
     if (!outcome.ok) return this.error(outcome.message, outcome.code);
 
     const described = describeEdit(outcome.before, outcome.after, [args.section]);
-    const bars = described.changes[0].bars;
+    const bars = described.changes[0]?.bars ?? [];
     return this.success({
       doc: outcome.payload,
       rev: outcome.rev,
-      summary:
-        bars.length === 0
+      summary: outcome.extra
+        ? `Added section ${args.section}: ${bars.length} bar${bars.length > 1 ? 's' : ''}`
+        : bars.length === 0
           ? `Wrote ${args.section}: no bars changed`
           : `Wrote ${args.section} bar${bars.length > 1 ? 's' : ''} ${bars.join(', ')}`,
       ...described,

@@ -3829,6 +3829,43 @@ Comes the Sun's turnaround and Good Morning Good Morning are not yet.
   signature in its first meter, and says so (11-e-ii-b/-c, with the import
   split).
 
+**11-e-ii-b, -c and -e built together, 2026-10-12** (branch
+`phase-11-e-ii-bc-sections`, on top of -a): the domain alone could not be
+seen working without the Studio, and BeatBuddy reading only A and B of a
+break with a C would have rewritten it blind, so the three are one PR.
+
+- **Sections are flat keys beside A and B** (`BreakDoc` is
+  `{ …, A, B } & Partial<Record<'C'…'Z', Pattern>>`, `lib/app/breaks/sections.ts`),
+  so everything that reads `doc.A` and `doc.B` still does. A and B are always
+  there; letters are kept, not renumbered.
+- **Share code v6 is written only for a section past B.** A break of A and
+  B is the v5 code it was, byte for byte, with the same `gridHash`
+  (`sections.test.ts` pins both against what `main` wrote). Every v1–5 golden
+  decodes unchanged. Stored rows repair C–Z as they repair A and B.
+- **The bar budget is 32 across the sections** (`MAX_BREAK_BARS`), each
+  counted once: double the 16 an A and a B could hold, measured against the
+  link (a bar of 4/4 is about 310 characters, 15/8 about 520, so 16 KB at the
+  worst). The arrangement stays at 16 slots.
+- **The Studio:** the section picker is every letter plus All (stored as
+  `both`); `+ Section` writes the next letter in the pickers' style, meter and
+  length and plays it once at the end; `Delete C` takes a section and its
+  slots; a slot cycles through the letters there are. Each is one Undo,
+  arrangement and all. A whole New and a famous break are an A and a B again.
+  Engraving, flash, mixer lanes, Humanise's seed, MIDI export, the public
+  chart and player all run over every section. The arrangement's own buttons
+  are now _slots_ (`Slot 2 plays A`, `Add a slot`), since _section_ means a
+  letter.
+- **MIDI import splits** at every change of time signature and every eight
+  bars, filling sections from A up to 32 bars (it stopped at B's 16). A file
+  is in 4/4 until its first signature, per the MIDI spec — it used to take the
+  first signature anywhere in the file as the meter of all of it. A signature
+  the app has no meter for is read in the one before it, and said.
+- **BeatBuddy (-e):** `section` is a letter or `all` (`both` kept); a missing
+  letter is `no_section`; `get_pattern` returns every section; `write_bars`
+  to an unused letter with `whole: true` is the add-section move;
+  `generate_pattern` and a famous break drop C–Z. The chat request's
+  on-screen section takes A–Z.
+
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
 stays `archetype` or `approximation` until stems are checked); personas

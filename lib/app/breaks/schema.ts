@@ -3,6 +3,13 @@ import { z } from 'zod';
 import { LANES, LANE_VALUES, PERC_KEYS } from '@/lib/app/breaks/lanes';
 import type { LaneKey } from '@/lib/app/breaks/types';
 import { METER_KEYS } from '@/lib/app/breaks/meter';
+import {
+  EXTRA_LETTERS,
+  type ExtraLetter,
+  MAX_ARRANGEMENT,
+  MAX_BREAK_BARS,
+  SECTION_LETTERS,
+} from '@/lib/app/breaks/sections';
 
 /**
  * Zod schemas for everything that arrives from outside: a pasted share code, a
@@ -208,6 +215,10 @@ function pastV4(bar: string): string | null {
 }
 
 /* ---- the wire format ------------------------------------------------
+   Version 6 adds sections C to Z beside A and B (11-e-ii). A and B are still
+   required, so a v6 code is a v5 code with more keys, and a break that has only
+   A and B is still written as v5 (see `breakPayload`).
+
    Version 5 adds the articulations: rimshot, flam, drag and buzz on the
    snare, the half-open hat, crash 2, china and splash, and the tom flam. The
    shape is the same; only the digits a bar may hold grew.
@@ -293,6 +304,11 @@ export const packedPatternSchema = z.object({
   b: z.array(packedBar).min(1).max(8),
 });
 
+/** Sections C–Z on the wire: each optional, each a packed pattern (v6). */
+const extraSections = Object.fromEntries(
+  EXTRA_LETTERS.map((L) => [L, packedPatternSchema.optional()])
+) as Record<ExtraLetter, z.ZodOptional<typeof packedPatternSchema>>;
+
 /**
  * A whole break on the wire.
  *
@@ -301,25 +317,55 @@ export const packedPatternSchema = z.object({
  * refused rather than read: the version is the writer's claim about what it
  * meant, and a v4 writer never meant a 5. That is also what an older decoder
  * does with a v5 code — it refuses the version outright — so neither side
- * ever plays a value it does not know as something else.
+ * ever plays a value it does not know as something else. The same holds for
+ * sections: a section past B, or an arrangement naming one, needs version 6.
+ *
+ * **An arrangement names sections the code has**, and the code's bars, every
+ * section counted once, stay within {@link MAX_BREAK_BARS}.
  */
 export const sharePayloadSchema = z
   .object({
-    ver: z.number().int().min(1).max(5),
+    ver: z.number().int().min(1).max(6),
     bpm: z.number().min(20).max(400).default(94),
     sw: z.number().min(0).max(100).default(0),
     lv: z.number().int().min(1).max(5).optional(),
-    arr: z
-      .array(z.enum(['A', 'B']))
-      .max(16)
-      .optional(),
+    arr: z.array(z.enum(SECTION_LETTERS)).max(MAX_ARRANGEMENT).optional(),
     A: packedPatternSchema,
     B: packedPatternSchema,
+    ...extraSections,
   })
   .superRefine((payload, ctx) => {
+    const letters = SECTION_LETTERS.filter((L) => payload[L]);
+    if (payload.ver < 6) {
+      for (const L of letters) {
+        if (L === 'A' || L === 'B') continue;
+        ctx.addIssue({
+          code: 'custom',
+          path: [L],
+          message: `a version ${payload.ver} code has only A and B; section ${L} needs version 6`,
+        });
+      }
+    }
+    payload.arr?.forEach((L, i) => {
+      if (!payload[L]) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['arr', i],
+          message: `the arrangement plays section ${L}, which the code does not have`,
+        });
+      }
+    });
+    const bars = letters.reduce((n, L) => n + (payload[L]?.b.length ?? 0), 0);
+    if (bars > MAX_BREAK_BARS) {
+      ctx.addIssue({
+        code: 'custom',
+        path: [],
+        message: `a break holds up to ${MAX_BREAK_BARS} bars across its sections; this one has ${bars}`,
+      });
+    }
     if (payload.ver >= 5) return;
-    for (const section of ['A', 'B'] as const) {
-      payload[section].b.forEach((bar, i) => {
+    for (const section of letters) {
+      payload[section]?.b.forEach((bar, i) => {
         const past = pastV4(bar);
         if (past) {
           ctx.addIssue({
@@ -425,5 +471,7 @@ function repairPacked(p: unknown, v5: boolean): unknown {
 export const storedPayloadSchema = z.preprocess((raw) => {
   if (!isObject(raw)) return raw;
   const v5 = typeof raw.ver === 'number' && raw.ver >= 5;
-  return { ...raw, A: repairPacked(raw.A, v5), B: repairPacked(raw.B, v5) };
+  const out: Record<string, unknown> = { ...raw };
+  for (const L of SECTION_LETTERS) if (L in raw) out[L] = repairPacked(raw[L], v5);
+  return out;
 }, sharePayloadSchema);

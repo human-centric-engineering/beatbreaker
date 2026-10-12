@@ -3,6 +3,7 @@ import { barEq, critique, playability } from '@/lib/app/breaks/critic';
 import { type BreakDoc, breakDocFromPayload } from '@/lib/app/breaks/share';
 import type { SharePayload } from '@/lib/app/breaks/schema';
 import { toText } from '@/lib/app/breaks/text';
+import { SECTION_LETTERS, type SectionLetter, lettersOf } from '@/lib/app/breaks/sections';
 import type { Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -11,9 +12,33 @@ import type { Pattern } from '@/lib/app/breaks/types';
  * Shared by every tool that returns a pattern, so the model sees one shape.
  */
 
-export type Section = 'A' | 'B';
+export type Section = SectionLetter;
 
-export const SECTIONS: readonly Section[] = ['A', 'B'];
+/**
+ * Which sections a tool works on: one, by its letter, or `all` of them.
+ * `both` is kept from when a break had two, and means all too — a model that
+ * says "both" of a break with a C means the whole break.
+ */
+export const SECTION_CHOICES = [...SECTION_LETTERS, 'all', 'both'] as const;
+export type SectionChoice = (typeof SECTION_CHOICES)[number];
+
+/** Said in every tool's description of its `section` argument. */
+export const SECTION_CHOICE_HELP =
+  'A section letter (every break has A and B; get_pattern lists any others), or "all" for every section.';
+
+export type SectionsFor =
+  { ok: true; sections: Section[] } | { ok: false; message: string; code: string };
+
+/** The sections a choice names in `doc`, or why it names none the break has. */
+export function sectionsFor(doc: BreakDoc, choice: SectionChoice): SectionsFor {
+  if (choice === 'all' || choice === 'both') return { ok: true, sections: lettersOf(doc) };
+  if (doc[choice]) return { ok: true, sections: [choice] };
+  return {
+    ok: false,
+    message: `The pattern has no section ${choice}; it has ${lettersOf(doc).join(', ')}`,
+    code: 'no_section',
+  };
+}
 
 export interface SectionView {
   section: Section;
@@ -61,12 +86,15 @@ export function viewSection(
   };
 }
 
-/** The 1-based numbers of the bars that differ between two versions of a section. */
-export function changedBars(before: Pattern, after: Pattern): number[] {
+/**
+ * The 1-based numbers of the bars that differ between two versions of a
+ * section. A section that was not there before is every bar changed.
+ */
+export function changedBars(before: Pattern | undefined, after: Pattern): number[] {
   const out: number[] = [];
-  const n = Math.max(before.bars.length, after.bars.length);
+  const n = Math.max(before?.bars.length ?? 0, after.bars.length);
   for (let i = 0; i < n; i++) {
-    const a = before.bars[i];
+    const a = before?.bars[i];
     const b = after.bars[i];
     if (!a || !b || !barEq(a, b)) out.push(i + 1);
   }

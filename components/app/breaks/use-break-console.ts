@@ -39,6 +39,16 @@ import {
 } from '@/lib/app/breaks/lanes';
 
 import { reducePattern } from '@/lib/app/breaks/layers';
+import {
+  MAX_ARRANGEMENT,
+  MAX_BREAK_BARS,
+  type MaybeSections,
+  type Sections,
+  lettersOf,
+  nextLetter,
+  patternsOf,
+  totalBars,
+} from '@/lib/app/breaks/sections';
 import type { StoredLink } from '@/lib/app/breaks/links';
 import {
   HUMANISE_AMOUNT,
@@ -96,9 +106,10 @@ export type ViewMode = (typeof VIEW_MODES)[number];
 
 /**
  * The section the grid and the Doctor work on (E11) — one choice, not two.
- * A or B when that is the choice. With Both, the section under the playhead
- * while it moves, so the section you hear is the one you see; during the
- * count-in and when stopped, whichever you last chose or edited.
+ * A section when that is the choice. With All (`'both'`, its stored name from
+ * when there were two), the section under the playhead while it moves, so the
+ * section you hear is the one you see; during the count-in and when stopped,
+ * whichever you last chose or edited.
  */
 export function editingSection(
   viewMode: ViewMode,
@@ -109,10 +120,56 @@ export function editingSection(
   return playhead && !playhead.count && playhead.letter ? playhead.letter : touched;
 }
 
-/** Two undo steps' worth of both sections. */
+/**
+ * The section choice as it applies to the break on the stage: a section the
+ * break does not have (C, kept in the browser from another break) is All.
+ */
+export function viewIn(viewMode: ViewMode, sections: MaybeSections): ViewMode {
+  return viewMode === 'both' || sections[viewMode] ? viewMode : 'both';
+}
+
+/**
+ * The arrangement, kept to the sections there are: a slot naming one that has
+ * gone is dropped, and an arrangement left empty plays A.
+ */
+export function arrangementIn(
+  arrangement: readonly SectionLetter[],
+  sections: MaybeSections
+): SectionLetter[] {
+  const kept = arrangement.filter((L) => !!sections[L]);
+  return kept.length ? kept : ['A'];
+}
+
+/** Every section of a decoded break, as the Studio holds them. */
+function sectionsOfDoc(doc: Sections): MaybeSections {
+  const out: MaybeSections = {};
+  for (const L of lettersOf(doc)) out[L] = doc[L];
+  return out;
+}
+
+/** Every section reduced to a layer — how they sound and look there. */
+function reduceSections(sections: MaybeSections, level: number): MaybeSections {
+  const out: MaybeSections = {};
+  for (const L of lettersOf(sections)) {
+    const p = sections[L];
+    if (p) out[L] = reducePattern(p, level);
+  }
+  return out;
+}
+
+/** A copy of every section, for the undo stack. */
+function cloneSections(sections: MaybeSections): MaybeSections {
+  const out: MaybeSections = {};
+  for (const L of lettersOf(sections)) {
+    const p = sections[L];
+    if (p) out[L] = clonePattern(p);
+  }
+  return out;
+}
+
+/** Two undo steps' worth of every section. */
 interface Snapshot {
-  A: Pattern | null;
-  B: Pattern | null;
+  sections: MaybeSections;
   /**
    * Tempo, swing, layer and arrangement — carried only by an entry whose
    * change moved them (one of BeatBuddy's), so one Undo puts those back too.
@@ -134,8 +191,7 @@ interface Playback {
 
 /** Cells that changed in the last change BeatBuddy made, keyed `bar:lane:step`, per section. */
 export interface Flash {
-  A: ReadonlySet<string>;
-  B: ReadonlySet<string>;
+  cells: Partial<Record<SectionLetter, ReadonlySet<string>>>;
   /** Moves on with every change, so the same cells can flash twice in a row. */
   seq: number;
 }
@@ -144,7 +200,10 @@ export interface Flash {
 const FLASH_MS = 1600;
 
 /** `bar:lane:step` for every cell that differs between two versions of a section. */
-function changedCells(before: Pattern | null, after: Pattern | null): Set<string> {
+function changedCells(
+  before: Pattern | null | undefined,
+  after: Pattern | null | undefined
+): Set<string> {
   const out = new Set<string>();
   if (!after) return out;
   after.bars.forEach((bar, b) => {
@@ -175,27 +234,33 @@ export interface BreakConsole {
    * Without this the Studio sat on "Writing you a break…" for ever.
    */
   noCatalogue: boolean;
-  patterns: Record<SectionLetter, Pattern | null>;
+  /** Every section, A to Z, as stored (layer 5). A and B are null only before the first break. */
+  patterns: MaybeSections;
+  /** The letters the break has, in order: A, B and any added. */
+  letters: SectionLetter[];
   /** The sections as they sound and look at the current layer. */
-  view: Record<SectionLetter, Pattern | null>;
+  view: MaybeSections;
   /**
    * The same sections one layer up, or `null` at the top layer. The chart
    * draws the difference faintly, so you can see what arrives next without
    * committing to playing it.
    */
-  next: Record<SectionLetter, Pattern | null> | null;
+  next: MaybeSections | null;
   report: Critique | null;
   checks: Playability | null;
   tries: { tries: number; rejected: number } | null;
 
   level: number;
   setLevel: (n: number) => void;
-  /** The one section choice (E11): what the chart shows and plays, and the grid edits. */
+  /**
+   * The one section choice (E11): what the chart shows and plays, and the grid
+   * edits — a section, or All (`'both'`). Never a section the break has not got.
+   */
   viewMode: ViewMode;
   setViewMode: (v: ViewMode) => void;
   /**
    * The section the grid shows and the Doctor works on — never chosen on its
-   * own. A or B when that is the choice; with Both, the section under the
+   * own. The section when that is the choice; with All, the section under the
    * playhead while playing, and otherwise the last one you touched.
    */
   editing: SectionLetter;
@@ -351,9 +416,9 @@ export interface BreakConsole {
   setSize: (n: number) => void;
 
   /**
-   * False, and nothing done, for a new A or B whose section's style is not in
-   * the catalogue (a rudiment, or a style since deleted). A whole new pattern
-   * always rolls.
+   * False, and nothing done, for a new section whose style is not in the
+   * catalogue (a rudiment, or a style since deleted). A whole new pattern
+   * always rolls, and has an A and a B again.
    */
   newBreak: (which?: SectionLetter | 'both') => boolean;
   /**
@@ -371,6 +436,21 @@ export interface BreakConsole {
   regenerate: () => boolean;
   /** False, and nothing done, when A's style is not in the catalogue. */
   buildBFromA: () => boolean;
+  /**
+   * Add a section (11-e-ii): the next free letter, written as a New of it
+   * would be — in the pickers' style, meter and length — and played once at
+   * the end of the arrangement. The chart turns to it. False, and nothing
+   * done, when all 26 letters are used, the break's bars would pass
+   * {@link MAX_BREAK_BARS}, or the style is not in the catalogue.
+   */
+  addSection: () => boolean;
+  /** Whether {@link addSection} can add one now, and if not, why not. */
+  addSectionBlocked: string | null;
+  /**
+   * Delete a section past B, and every slot of the arrangement that plays it.
+   * A and B stay: every break has them. One Undo puts it back, slots and all.
+   */
+  deleteSection: (letter: SectionLetter) => boolean;
   /** False, and nothing done, when the section's style is not in the catalogue. */
   applyDoctor: (move: DoctorMove) => boolean;
   cycleCell: (
@@ -565,10 +645,8 @@ export function useBreakConsole(
 ): BreakConsole {
   const [ready, setReady] = useState(false);
   const [noCatalogue, setNoCatalogue] = useState(false);
-  const [patterns, setPatterns] = useState<Record<SectionLetter, Pattern | null>>({
-    A: null,
-    B: null,
-  });
+  const [patterns, setPatterns] = useState<MaybeSections>({ A: null, B: null });
+  const letters = useMemo(() => lettersOf(patterns), [patterns]);
   const [tries, setTries] = useState<{ tries: number; rejected: number } | null>(null);
 
   /* ---- your settings (D19) --------------------------------------------
@@ -616,8 +694,8 @@ export function useBreakConsole(
      these while the pattern on the stage is new and unsaved moves them. */
   // the layer a new pattern opens at; your ability sets it (7B)
   const [level, setLevel] = useState(settings.startLevel);
-  const [viewMode, setViewModeRaw] = useStoredSetting(VIEW);
-  /** The section last chosen or edited — what Both edits when nothing is playing. */
+  const [viewChoice, setViewModeRaw] = useStoredSetting(VIEW);
+  /** The section last chosen or edited — what All edits when nothing is playing. */
   const [touched, setTouched] = useState<SectionLetter>('A');
   const setViewMode = useCallback(
     (v: ViewMode) => {
@@ -713,7 +791,11 @@ export function useBreakConsole(
   const [loops, setLoops] = useState(0);
   const [position, setPosition] = useState<PlayEvent | null>(null);
 
-  const editing = editingSection(viewMode, playing ? position : null, touched);
+  /* The section choice, held to the sections there are. */
+  const viewMode = viewIn(viewChoice, patterns);
+  /* A section deleted since it was last touched is no longer one to edit. */
+  const editingAt = editingSection(viewMode, playing ? position : null, touched);
+  const editing: SectionLetter = patterns[editingAt] ? editingAt : 'A';
 
   const [mix, setMix] = useState<Record<string, number>>({ ...DEFAULT_MIX });
   const [mixTouched, setMixTouched] = useState<Record<string, boolean>>({});
@@ -727,12 +809,10 @@ export function useBreakConsole(
   /* The top tempo is the meter picker's, as it always was — a style picked
      for the next New brings its tempo with it, past what the pattern still on
      the stage would take. A break whose sections are in different meters is
-     held to the lowest of theirs instead: one tempo plays both, so a B in 4/4
-     holds an A in eighths to 190. */
-  const mixedTop =
-    patterns.A && patterns.B && patterns.A.meter !== patterns.B.meter
-      ? maxBpmOf([patterns.A.meter, patterns.B.meter])
-      : null;
+     held to the lowest of theirs instead: one tempo plays them all, so a B in
+     4/4 holds an A in eighths to 190. */
+  const sectionMeters = [...new Set(patternsOf(patterns).map((p) => p.meter))];
+  const mixedTop = sectionMeters.length > 1 ? maxBpmOf(sectionMeters) : null;
   const bpmCeiling = mixedTop ?? maxBpm(meter);
 
   const setSize = useCallback(
@@ -859,23 +939,11 @@ export function useBreakConsole(
 
   /* ---- derived: the sections as they sound and look ------------------- */
 
-  const view = useMemo(
-    () => ({
-      A: patterns.A ? reducePattern(patterns.A, level) : null,
-      B: patterns.B ? reducePattern(patterns.B, level) : null,
-    }),
-    [patterns, level]
-  );
+  const view = useMemo(() => reduceSections(patterns, level), [patterns, level]);
 
   /* Layer 5 is what's stored, so there is nothing above it to preview. */
   const next = useMemo(
-    () =>
-      level >= 5
-        ? null
-        : {
-            A: patterns.A ? reducePattern(patterns.A, level + 1) : null,
-            B: patterns.B ? reducePattern(patterns.B, level + 1) : null,
-          },
+    () => (level >= 5 ? null : reduceSections(patterns, level + 1)),
     [patterns, level]
   );
 
@@ -984,8 +1052,7 @@ export function useBreakConsole(
         const next: Snapshot[] = [
           ...h,
           {
-            A: patterns.A && clonePattern(patterns.A),
-            B: patterns.B && clonePattern(patterns.B),
+            sections: cloneSections(patterns),
             ...(withPlayback ? { playback: playbackNow() } : {}),
           },
         ];
@@ -1002,9 +1069,9 @@ export function useBreakConsole(
       const prev = h[h.length - 1];
       setFuture((f) => [
         ...f,
-        { A: patterns.A, B: patterns.B, ...(prev.playback ? { playback: playbackNow() } : {}) },
+        { sections: patterns, ...(prev.playback ? { playback: playbackNow() } : {}) },
       ]);
-      setPatterns({ A: prev.A, B: prev.B });
+      setPatterns(prev.sections);
       if (prev.playback) restorePlayback(prev.playback);
       return h.slice(0, -1);
     });
@@ -1016,9 +1083,9 @@ export function useBreakConsole(
       const next = f[f.length - 1];
       setHistory((h) => [
         ...h,
-        { A: patterns.A, B: patterns.B, ...(next.playback ? { playback: playbackNow() } : {}) },
+        { sections: patterns, ...(next.playback ? { playback: playbackNow() } : {}) },
       ]);
-      setPatterns({ A: next.A, B: next.B });
+      setPatterns(next.sections);
       if (next.playback) restorePlayback(next.playback);
       return f.slice(0, -1);
     });
@@ -1058,11 +1125,11 @@ export function useBreakConsole(
         made = roll();
       setTries({ tries: made.tries, rejected: made.rejected });
 
-      setPatterns((prev) => {
-        if (which === 'A') return { ...prev, A: made.pattern };
-        if (which === 'B') return { ...prev, B: made.pattern };
-        return { A: made.pattern, B: deriveB(made.pattern, row.params) };
-      });
+      setPatterns((prev) =>
+        which === 'both'
+          ? { A: made.pattern, B: deriveB(made.pattern, row.params) }
+          : { ...prev, [which]: made.pattern }
+      );
       return made.pattern;
     },
     [catalogue.styles, density, ghosts, lanesMode, customLanes]
@@ -1086,16 +1153,22 @@ export function useBreakConsole(
         // a new A or B is the same song as the pattern it belongs to
         const stage = patterns[which] ?? patterns.A;
         const song = stage?.style === style ? stage.song : undefined;
-        /* Judged at the tempo it will play at: beside the other section, the
-           break is held to the lower of the two meters' ceilings. */
-        const other = patterns[which === 'A' ? 'B' : 'A'];
-        const at = Math.min(bpm, maxBpmOf([meter, other?.meter]));
+        /* Judged at the tempo it will play at: beside the other sections, the
+           break is held to the lowest of their meters' ceilings. */
+        const others = lettersOf(patterns)
+          .filter((L) => L !== which)
+          .map((L) => patterns[L]?.meter);
+        const at = Math.min(bpm, maxBpmOf([meter, ...others]));
         // used up: the section they were picked for is this one
         pickedForNext.current = false;
         generate(which, { style, meter, bars, bpm: at, song });
         return true;
       }
-      pushHistory();
+      /* A whole new pattern is an A and a B, so any sections past B go, and
+         with them their slots in the arrangement — which one Undo puts back. */
+      const dropping = letters.length > 2;
+      pushHistory(dropping);
+      if (dropping) setArrangement((a) => arrangementIn(a, { A: patterns.A, B: patterns.B }));
       /* A whole new pattern always rolls: in the style you chose, or, where
          that has left the catalogue since, in whatever it does have. */
       const wanted = chosen.current.style ?? settings.startStyle;
@@ -1156,6 +1229,7 @@ export function useBreakConsole(
       catalogue.styles,
       styleRow,
       patterns,
+      letters,
       followKit,
     ]
   );
@@ -1211,6 +1285,63 @@ export function useBreakConsole(
     setPatterns((prev) => (prev.A ? { ...prev, B: deriveB(prev.A, params) } : prev));
     return true;
   }, [patterns.A, catalogue.styles, pushHistory]);
+
+  /* ---- sections past B (11-e-ii) --------------------------------------- */
+
+  const addSectionBlocked = useMemo((): string | null => {
+    if (!nextLetter(patterns)) return 'A break has 26 sections at most';
+    if (totalBars(patterns) + bars > MAX_BREAK_BARS) {
+      return `A break holds ${MAX_BREAK_BARS} bars across its sections — shorten one, or add a shorter one`;
+    }
+    if (!catalogue.styles[style]) return 'Pick a style to write the new section in';
+    return null;
+  }, [patterns, bars, catalogue.styles, style]);
+
+  const addSection = useCallback((): boolean => {
+    const letter = nextLetter(patterns);
+    if (!letter || addSectionBlocked) return false;
+    // the arrangement changes too, so one Undo takes both back
+    pushHistory(true);
+    // the same song as the section on the stage, when it is in the same style
+    const stage = patterns[editing];
+    const song = stage?.style === style ? stage.song : undefined;
+    const at = Math.min(bpm, maxBpmOf([meter, ...patternsOf(patterns).map((p) => p.meter)]));
+    pickedForNext.current = false;
+    generate(letter, { style, meter, bars, bpm: at, song });
+    setArrangement((a) => (a.length < MAX_ARRANGEMENT ? [...a, letter] : a));
+    setViewMode(letter);
+    setTouched(letter);
+    return true;
+  }, [
+    patterns,
+    addSectionBlocked,
+    pushHistory,
+    editing,
+    style,
+    meter,
+    bars,
+    bpm,
+    generate,
+    setViewMode,
+  ]);
+
+  const deleteSection = useCallback(
+    (letter: SectionLetter): boolean => {
+      if (letter === 'A' || letter === 'B' || !patterns[letter]) return false;
+      pushHistory(true);
+      setPatterns((prev) => {
+        const out = { ...prev };
+        delete out[letter];
+        return out;
+      });
+      setArrangement((a) => {
+        const kept = a.filter((L) => L !== letter);
+        return kept.length ? kept : ['A'];
+      });
+      return true;
+    },
+    [patterns, pushHistory]
+  );
 
   /* ---- editing -------------------------------------------------------- */
 
@@ -1322,7 +1453,7 @@ export function useBreakConsole(
     (mode: 'style' | 'custom', lanes: CustomLanes) => {
       setPatterns((prev) => {
         const out = { ...prev };
-        for (const letter of ['A', 'B'] as SectionLetter[]) {
+        for (const letter of lettersOf(prev)) {
           const pat = prev[letter];
           if (!pat) continue;
           /* The pattern's own style, not the one selected: A and B can be from
@@ -1381,12 +1512,15 @@ export function useBreakConsole(
     (id: string, at?: PracticePlace) => {
       const entry = catalogue.libraries.flatMap((l) => l.entries).find((e) => e.id === id);
       if (!entry) return;
-      pushHistory();
+      // a famous break is an A and a B: sections past B go, and their slots with them
+      const dropping = letters.length > 2;
+      pushHistory(dropping);
       const pat = patternFromPacked(entry.doc, (key) => catalogue.styles[key]);
       const params = catalogue.styles[entry.styleKey]?.params;
       const b = params ? deriveB(pat, params) : clonePattern(pat);
       b.name = `${entry.title} (B)`;
       setPatterns({ A: pat, B: b });
+      if (dropping) setArrangement((a) => arrangementIn(a, { A: pat, B: b }));
       chosen.current = {};
       pickedForNext.current = false;
       setStyleRaw(entry.styleKey);
@@ -1403,7 +1537,7 @@ export function useBreakConsole(
       } else if (!locks.bpm) placeTempo(entry.bpm);
       setTries(null);
     },
-    [catalogue, pushHistory, locks.bpm, placeTempo, baseFor]
+    [catalogue, letters, pushHistory, locks.bpm, placeTempo, baseFor]
   );
 
   /* ---- style and meter follow each other ------------------------------ */
@@ -1533,8 +1667,8 @@ export function useBreakConsole(
 
   /* Only a solo on a lane this pattern plays counts (`soloInPlay`). */
   const soloNow = useMemo(
-    () => soloInPlay(laneSolo, mixLanes(view.A?.lanes, view.B?.lanes)),
-    [laneSolo, view.A?.lanes, view.B?.lanes]
+    () => soloInPlay(laneSolo, mixLanes(...patternsOf(view).map((p) => p.lanes))),
+    [laneSolo, view]
   );
 
   /* Humanise's seed is the full sections' notes and your take — not the
@@ -1542,9 +1676,9 @@ export function useBreakConsole(
   const humanisePlay = useMemo(
     () => ({
       amount: humaniseAmount(humanise),
-      seed: humaniseSeed([patterns.A, patterns.B], humanise.take),
+      seed: humaniseSeed(patternsOf(patterns), humanise.take),
     }),
-    [humanise, patterns.A, patterns.B]
+    [humanise, patterns]
   );
 
   /**
@@ -1899,7 +2033,7 @@ export function useBreakConsole(
 
   /** Put a whole decoded break on the stage — the arrival paths share this. */
   const applyDoc = (doc: BreakDoc) => {
-    setPatterns({ A: doc.A, B: doc.B });
+    setPatterns(sectionsOfDoc(doc));
     setBpmRaw(doc.bpm);
     setBaseBpm(baseFor(doc.bpm, doc.level));
     setSwingRaw(doc.swing);
@@ -1907,9 +2041,10 @@ export function useBreakConsole(
     setLevel(doc.level);
     setArrangement(doc.arrangement);
     // the pickers show the section on the stage
-    setStyleRaw(doc[editing].style);
-    setMeterRaw(doc[editing].meter);
-    setBarsRaw(doc[editing].bars.length);
+    const on = doc[editing] ?? doc.A;
+    setStyleRaw(on.style);
+    setMeterRaw(on.meter);
+    setBarsRaw(on.bars.length);
     chosen.current = {};
     pickedForNext.current = false;
     applyStyleMix(doc.A.style, {});
@@ -2040,8 +2175,21 @@ export function useBreakConsole(
   /* ---- export ---------------------------------------------------------- */
 
   const asDoc = useCallback((): BreakDoc | null => {
-    if (!patterns.A || !patterns.B) return null;
-    return { bpm, swing, level, arrangement, A: patterns.A, B: patterns.B };
+    const { A, B } = patterns;
+    if (!A || !B) return null;
+    const doc: BreakDoc = {
+      bpm,
+      swing,
+      level,
+      arrangement: arrangementIn(arrangement, patterns),
+      A,
+      B,
+    };
+    for (const L of lettersOf(patterns)) {
+      const p = patterns[L];
+      if (p && L !== 'A' && L !== 'B') doc[L] = p;
+    }
+    return doc;
   }, [patterns, bpm, swing, level, arrangement]);
 
   const shareCode = useCallback(() => {
@@ -2070,16 +2218,17 @@ export function useBreakConsole(
   const putDoc = useCallback(
     (doc: BreakDoc) => {
       pushHistory();
-      setPatterns({ A: doc.A, B: doc.B });
+      setPatterns(sectionsOfDoc(doc));
       setBpmRaw(doc.bpm);
       setBaseBpm(baseFor(doc.bpm, doc.level));
       setSwingRaw(doc.swing);
       holdSwing(false);
       setLevel(doc.level);
       setArrangement(doc.arrangement);
-      setStyleRaw(doc[editing].style);
-      setMeterRaw(doc[editing].meter);
-      setBarsRaw(doc[editing].bars.length);
+      const on = doc[editing] ?? doc.A;
+      setStyleRaw(on.style);
+      setMeterRaw(on.meter);
+      setBarsRaw(on.bars.length);
       chosen.current = {};
       pickedForNext.current = false;
       setTries(null);
@@ -2100,24 +2249,23 @@ export function useBreakConsole(
     (stored: SharePayload, push: boolean): BreakDoc => {
       const doc = breakDocFromPayload(stored, (key) => catalogue.styles[key]);
       if (push) pushHistory(true);
-      setFlash((prev) => ({
-        A: changedCells(patterns.A, doc.A),
-        B: changedCells(patterns.B, doc.B),
-        seq: (prev?.seq ?? 0) + 1,
-      }));
+      const cells: Flash['cells'] = {};
+      for (const L of lettersOf(doc)) cells[L] = changedCells(patterns[L], doc[L]);
+      setFlash((prev) => ({ cells, seq: (prev?.seq ?? 0) + 1 }));
       if (flashTimer.current) clearTimeout(flashTimer.current);
       flashTimer.current = setTimeout(() => setFlash(null), FLASH_MS);
 
-      setPatterns({ A: doc.A, B: doc.B });
+      setPatterns(sectionsOfDoc(doc));
       setBpmRaw(doc.bpm);
       setBaseBpm(baseFor(doc.bpm, doc.level));
       setSwingRaw(doc.swing);
       holdSwing(false);
       setLevel(doc.level);
       setArrangement(doc.arrangement);
-      setStyleRaw(doc[editing].style);
-      setMeterRaw(doc[editing].meter);
-      setBarsRaw(doc[editing].bars.length);
+      const on = doc[editing] ?? doc.A;
+      setStyleRaw(on.style);
+      setMeterRaw(on.meter);
+      setBarsRaw(on.bars.length);
       chosen.current = {};
       pickedForNext.current = false;
       setTries(null);
@@ -2146,7 +2294,7 @@ export function useBreakConsole(
       try {
         const doc = breakDocFromPayload(stored, (key) => catalogue.styles[key]);
         const bpmAt = at
-          ? clamp(Math.round(at.bpm), 50, maxBpmOf([doc.A.meter, doc.B.meter]))
+          ? clamp(Math.round(at.bpm), 50, maxBpmOf(patternsOf(doc).map((p) => p.meter)))
           : doc.bpm;
         // the row's title, for the reason the arrival path gives
         putDoc({
@@ -2196,6 +2344,7 @@ export function useBreakConsole(
     ready,
     noCatalogue,
     patterns,
+    letters,
     view,
     next,
     report,
@@ -2302,6 +2451,9 @@ export function useBreakConsole(
     restartFromTop,
     regenerate,
     buildBFromA,
+    addSection,
+    addSectionBlocked,
+    deleteSection,
     applyDoctor,
     cycleCell,
     setCell,

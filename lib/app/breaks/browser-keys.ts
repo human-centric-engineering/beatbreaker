@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { PATTERNS_TABS } from '@/components/app/shell/studio-address';
 import { GRIP_CHOICES, type GripChoice } from '@/lib/app/breaks/drummer/grips';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
+import { SECTION_LETTERS } from '@/lib/app/breaks/sections';
 
 /**
  * Everything the Studio keeps in this browser, each key with the schema it is
@@ -26,8 +27,12 @@ export interface StoredSetting<T> {
   fallback: T;
 }
 
-/** Which layers the chart shows: A alone, B alone, or both. */
-export const VIEW_MODES = ['A', 'B', 'both'] as const;
+/**
+ * Which sections the chart shows: one, by its letter, or all of them —
+ * `'both'`, its name from when a break had two, kept so a stored choice still
+ * reads.
+ */
+export const VIEW_MODES = [...SECTION_LETTERS, 'both'] as const;
 
 /** The chart's zoom, within what the size slider allows. */
 export const SIZE_MIN = 0.7;

@@ -1,6 +1,5 @@
 import { z } from 'zod';
 
-import { SECTIONS } from '@/lib/app/breaks/buddy/describe';
 import { type EditData, describeEdit, editWorkspace } from '@/lib/app/breaks/buddy/edit';
 import { maxBpm } from '@/lib/app/breaks/audio/transport';
 import { listLibraries, listStyles, styleLookup } from '@/lib/app/breaks/catalogue/data';
@@ -9,7 +8,13 @@ import { slugSchema } from '@/lib/app/breaks/community/visibility';
 import { deriveB } from '@/lib/app/breaks/generate';
 import { clonePattern } from '@/lib/app/breaks/pattern';
 import { openSavedBreak } from '@/lib/app/breaks/saved/data';
-import { type BreakDoc, breakDocFromPayload, patternFromPacked } from '@/lib/app/breaks/share';
+import {
+  type BreakDoc,
+  breakDocFromPayload,
+  patternFromPacked,
+  withoutExtraSections,
+} from '@/lib/app/breaks/share';
+import { lettersOf } from '@/lib/app/breaks/sections';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
 import type {
   CapabilityContext,
@@ -95,8 +100,9 @@ async function loadLibrary(id: string): Promise<Loaded> {
   B.name = `${entry.title} (B)`;
   return {
     ok: true,
+    // a famous break is an A and a B: the sections past B the open pattern had go
     load: (current) => ({
-      ...current,
+      ...withoutExtraSections(current),
       bpm: Math.min(Math.max(Math.round(entry.bpm), 50), maxBpm(A.meter)),
       A,
       B,
@@ -160,7 +166,7 @@ export class OpenPatternCapability extends BaseCapability<Args, OpenPatternData>
       doc: outcome.payload,
       rev: outcome.rev,
       summary: `Opened ${opened.title}${opened.mine ? '' : ' (a copy)'}`,
-      ...describeEdit(outcome.before, outcome.after, SECTIONS),
+      ...describeEdit(outcome.before, outcome.after, lettersOf(outcome.after)),
       opened,
     });
   }

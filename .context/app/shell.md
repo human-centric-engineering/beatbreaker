@@ -116,11 +116,20 @@ plus two things the split created:
   timer, even with the same words, and a line's timer only ever takes down
   that line. A hook that says things takes the `Say` type, not
   `(message: string) => void`.
-- **`viewMode` and `editing`** — one section choice (E11). `viewMode` (A · B ·
-  Both, on the chart) is what shows, plays and exports. `editing` is derived,
-  never set: the chosen section, or with Both the one under the playhead while
+- **`viewMode` and `editing`** — one section choice (E11). `viewMode` (a
+  section the break has, or All — stored as `both`, its name from when there
+  were two — on the chart) is what shows, plays and exports. A stored letter
+  the break has not got reads as All (`viewIn()`). `editing` is derived,
+  never set: the chosen section, or with All the one under the playhead while
   it moves, else the last one chosen or edited (`editingSection()` in
   `use-break-console.ts`). The grid and the Doctor use `editing`.
+- **Sections (11-e-ii).** `letters` lists the break's sections, A to Z.
+  `+ Section` (`addSection`) writes the next free letter in the pickers' style,
+  meter and length, plays it once at the end of the arrangement and turns the
+  chart to it; `Delete <letter>` (`deleteSection`) takes a section past B and
+  its slots. Each is one Undo, slots and all. A whole New, or a famous break,
+  is an A and a B again. A slot of the arrangement cycles through the letters
+  there are (`cycleLetter`).
 
 The provider also owns the audio lifetime, closing the `AudioContext` on unmount
 (H7). A browser allows a page only a handful and will not reopen a closed one.

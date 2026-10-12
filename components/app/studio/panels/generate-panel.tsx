@@ -307,7 +307,7 @@ export function GeneratePanel({
           </div>
 
           <div className="btnrow" style={{ marginTop: 6 }}>
-            {(['A', 'B'] as const).map((letter) => (
+            {c.letters.map((letter) => (
               <button
                 key={letter}
                 type="button"

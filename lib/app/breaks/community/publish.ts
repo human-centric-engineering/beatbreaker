@@ -10,6 +10,7 @@ import {
   type SharePayload,
   storedPayloadSchema,
 } from '@/lib/app/breaks/schema';
+import { patternsOf } from '@/lib/app/breaks/sections';
 import { patternFromPacked } from '@/lib/app/breaks/share';
 import { prisma } from '@/lib/db/client';
 import { isFeatureEnabled } from '@/lib/feature-flags';
@@ -156,7 +157,7 @@ export async function assertPublishable(
   }
 
   const famous = await libraryHashes();
-  for (const section of [decoded.A, decoded.B]) {
+  for (const section of patternsOf(decoded)) {
     const match = famous.get(await sectionHash(section));
     if (match) {
       refuse(

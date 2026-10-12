@@ -22,6 +22,7 @@ import { getRouteLogger } from '@/lib/api/context';
 import { validateRequestBody } from '@/lib/api/validation';
 import { withAuth } from '@/lib/auth/guards';
 import { humaniseSeed } from '@/lib/app/breaks/humanise';
+import { patternsOf } from '@/lib/app/breaks/sections';
 import { breakDocFromPayload } from '@/lib/app/breaks/share';
 import { type SequencedBar, buildMidi } from '@/lib/app/breaks/midi';
 import { midiBreakSchema } from '@/lib/validations/break-operations';
@@ -40,6 +41,7 @@ export const POST = withAuth(
     for (let i = 0; seq.length < input.bars; i++) {
       const letter = doc.arrangement[i % doc.arrangement.length];
       const pattern = doc[letter];
+      if (!pattern) continue;
       for (let b = 0; b < pattern.bars.length && seq.length < input.bars; b++) {
         seq.push({ pattern, barIdx: b });
       }
@@ -54,7 +56,7 @@ export const POST = withAuth(
         ? {
             humanise: {
               amount: input.humanise.amount,
-              seed: humaniseSeed([doc.A, doc.B], input.humanise.take),
+              seed: humaniseSeed(patternsOf(doc), input.humanise.take),
             },
           }
         : {}),

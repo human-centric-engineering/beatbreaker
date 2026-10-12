@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { maxBpmOf } from '@/lib/app/breaks/audio/transport';
 import { type EditData, editWorkspace } from '@/lib/app/breaks/buddy/edit';
 import { FULL_LAYER, layerName } from '@/lib/app/breaks/layers';
+import { patternsOf } from '@/lib/app/breaks/sections';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
 import type {
   CapabilityContext,
@@ -59,10 +60,13 @@ export class SetPlaybackCapability extends BaseCapability<Args, EditData> {
     if (!context.userId) return this.error('BeatBuddy needs a signed-in user', 'no_user');
 
     const outcome = await editWorkspace(context.userId, (doc) => {
-      const top = maxBpmOf([doc.A.meter, doc.B.meter]);
+      const meterKeys = [...new Set(patternsOf(doc).map((p) => p.meter))];
+      const top = maxBpmOf(meterKeys);
       if (args.bpm !== undefined && args.bpm > top) {
         const meters =
-          doc.A.meter === doc.B.meter ? doc.A.meter : `${doc.A.meter} and ${doc.B.meter}`;
+          meterKeys.length > 1
+            ? `${meterKeys.slice(0, -1).join(', ')} and ${meterKeys[meterKeys.length - 1]}`
+            : meterKeys[0];
         return {
           ok: false,
           message: `The Studio plays ${meters} up to ${top} bpm`,

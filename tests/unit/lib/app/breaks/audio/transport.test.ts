@@ -10,6 +10,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { BreakAudio } from '@/lib/app/breaks/audio/engine';
 import type { MidiSink } from '@/lib/app/breaks/audio/midi-out';
 import {
+  type PlayEvent,
   Transport,
   type ScheduledStep,
   type TransportSnapshot,
@@ -369,6 +370,44 @@ describe('Transport — the clock', () => {
     });
     const { audio } = drive(snap, 3);
     expect(audio.kick).not.toHaveBeenCalled(); // test-review:accept no_arg_called — A is skipped under solo B
+    expect(audio.snare.mock.calls.length).toBeGreaterThan(0);
+  });
+
+  it('plays a section past B where the arrangement calls it, in its own meter (11-e-ii)', () => {
+    const a = patternIn('4/4');
+    const b = patternIn('4/4');
+    const c = patternIn('7/8');
+    c.bars[0].s[0] = 2;
+    const snap = snapshot(a, {
+      patterns: { A: a, B: b, C: c },
+      arrangement: ['A', 'C'],
+      click: false,
+      countIn: 0,
+    });
+    const { audio, cb } = drive(snap, 3, true);
+    // only C has a note
+    expect(audio.snare.mock.calls.length).toBeGreaterThan(0);
+    const painted = cb.onPaint.mock.calls.map((call) => call[0] as PlayEvent);
+    const onC = painted.filter((ev) => ev.letter === 'C');
+    expect(onC.length).toBeGreaterThan(0);
+    // C's bar is seven eighths: fourteen steps, never a sixteenth step 14 or 15
+    expect(Math.max(...onC.map((ev) => ev.slot))).toBeLessThanOrEqual(13);
+  });
+
+  it('plays only C when C is soloed', () => {
+    const a = patternIn('4/4');
+    a.bars[0].k[0] = 1;
+    const b = patternIn('4/4');
+    const c = patternIn('4/4');
+    c.bars[0].s[0] = 2;
+    const snap = snapshot(a, {
+      patterns: { A: a, B: b, C: c },
+      arrangement: ['A', 'B', 'C'],
+      solo: 'C',
+      click: false,
+    });
+    const { audio } = drive(snap, 3);
+    expect(audio.kick).not.toHaveBeenCalled(); // test-review:accept no_arg_called — A is skipped under solo C
     expect(audio.snare.mock.calls.length).toBeGreaterThan(0);
   });
 

@@ -27,6 +27,7 @@ import { withAuth } from '@/lib/auth/guards';
 import { listStyles, styleLookup } from '@/lib/app/breaks/catalogue/data';
 import { type ImportInput, readImport } from '@/lib/app/breaks/read-import';
 import { importLimiter } from '@/lib/app/breaks/import-limit';
+import { totalBars } from '@/lib/app/breaks/sections';
 import { breakPayload } from '@/lib/app/breaks/share';
 import { createRateLimitResponse } from '@/lib/security/rate-limit';
 import { MAX_IMPORT_BODY_BYTES, importBreakSchema } from '@/lib/validations/break-operations';
@@ -67,9 +68,8 @@ export const POST = withAuth(
 
     log.info('Pattern imported', {
       source: result.source,
-      bars:
-        result.doc.A.bars.length +
-        (result.doc.arrangement.includes('B') ? result.doc.B.bars.length : 0),
+      // every section the arrangement plays (an import's B is a copy of A it never reaches)
+      bars: totalBars(Object.fromEntries(result.doc.arrangement.map((L) => [L, result.doc[L]]))),
       notes: result.notes.length,
     });
 

@@ -33,7 +33,12 @@ export function useChartSections() {
   const letter: SectionLetter = (!pos?.count && pos?.letter) || first;
   const secIdx = pos && !pos.count ? pos.secIdx : c.arrangement.findIndex(eligible);
   const nextLetter = nextSection(c.arrangement, c.viewMode, secIdx, letter, has);
-  return { letter, nextLetter, current: c.view[letter], following: c.view[nextLetter] };
+  return {
+    letter,
+    nextLetter,
+    current: c.view[letter] ?? undefined,
+    following: c.view[nextLetter] ?? null,
+  };
 }
 
 /** Lines drawn, by the section and the one after it (or none). */

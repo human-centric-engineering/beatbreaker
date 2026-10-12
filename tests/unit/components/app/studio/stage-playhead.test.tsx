@@ -58,6 +58,7 @@ beforeEach(() => {
   fake = {
     ready: true,
     patterns: { A, B },
+    letters: ['A', 'B'],
     view: { A, B },
     next: null,
     report: null,

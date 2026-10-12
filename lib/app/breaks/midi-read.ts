@@ -19,9 +19,9 @@ import type { Bar, LaneKey, PercLaneKey } from '@/lib/app/breaks/types';
 /**
  * Read a Standard MIDI File into bars — the inverse of `buildMidi()`.
  *
- * GM drum map to lanes, every hit quantised to the nearest sixteenth, the meter
- * from the first time-signature event and the tempo from the first tempo
- * event. Drums are read from channel 10; a file with nothing there is read
+ * GM drum map to lanes, every hit quantised to the nearest sixteenth, each
+ * bar in the time signature in force where it starts (a change of signature
+ * starts a new section, 11-e-ii) and the tempo from the first tempo event. Drums are read from channel 10; a file with nothing there is read
  * from every channel, since some exporters put a drum track on channel 1.
  *
  * **Velocity decides accents and ghosts**, read against the levels the
@@ -330,16 +330,31 @@ export function readMidi(bytes: Uint8Array): ImportResult {
   }
 
   const notes: string[] = [];
-  const sig = parsed.timeSigs.sort((a, b) => a.tick - b.tick)[0];
-  const meter = sig ? `${sig.num}/${sig.den}` : DEFAULT_METER;
+  const sigs = [...parsed.timeSigs].sort((a, b) => a.tick - b.tick);
+  /* A file is in 4/4 until a signature says otherwise (the MIDI spec's
+     default), so one whose first signature comes later starts in 4/4 and
+     changes there. Within a 32nd of the top is the top. */
+  const first = sigs[0] && sigs[0].tick <= parsed.division / 8 ? sigs[0] : undefined;
+  const meter = first ? `${first.num}/${first.den}` : DEFAULT_METER;
   if (!METERS[meter]) {
     return {
       ok: false,
       error: `the file is in ${meter}, and BeatBreaker has ${Object.keys(METERS).join(', ')}`,
     };
   }
-  if (parsed.timeSigs.some((s) => `${s.num}/${s.den}` !== meter)) {
-    notes.push(`The time signature changes part-way through; everything was read in ${meter}.`);
+  /* A later signature this app has no meter for is read in the one before it,
+     and said; the rest each start their own section. */
+  const changes: { tick: number; meter: string }[] = first ? [] : [{ tick: 0, meter }];
+  const unread = new Set<string>();
+  for (const s of sigs) {
+    const key = `${s.num}/${s.den}`;
+    if (METERS[key]) changes.push({ tick: s.tick, meter: key });
+    else unread.add(key);
+  }
+  if (unread.size) {
+    notes.push(
+      `BeatBreaker has no ${[...unread].join(' or ')}, so those bars were read in the time signature before them.`
+    );
   }
 
   let hits = parsed.notes.filter((n) => n.channel === 9);
@@ -349,17 +364,39 @@ export function readMidi(bytes: Uint8Array): ImportResult {
   }
   if (!hits.length) return { ok: false, error: 'there are no notes in that file' };
 
-  const steps = stepsOf(meterOf(meter));
   const stepTicks = parsed.division / 4;
   const ornaments = readOrnaments(hits, stepTicks);
   // a buzz's repeats run past its step, and must not add a bar of their own
   const lastStep = Math.max(
     ...hits.filter((h) => !ornaments.part.has(h)).map((h) => Math.round(h.tick / stepTicks))
   );
-  /* Bounded by the notes the file really has, so a note at tick 2^28 costs one
-     empty bar per sixteen, not a claimed length — and capBars trims it after. */
-  const barCount = Math.min(Math.floor(lastStep / steps) + 1, 64);
-  const bars: Bar[] = Array.from({ length: barCount }, () => emptyBar(steps));
+  /* Where each bar starts, in sixteenths, and its meter: the signature in force
+     at its first step. A change that falls inside a bar takes effect at the
+     next. Bounded by the notes the file really has, so a note at tick 2^28
+     costs one empty bar per bar's worth of steps, not a claimed length — and
+     capBars trims it after. */
+  const layout: { start: number; meter: string; steps: number }[] = [];
+  for (let start = 0, c = 0; start <= lastStep && layout.length < 64;) {
+    while (c + 1 < changes.length && changes[c + 1].tick <= start * stepTicks + stepTicks / 2) c++;
+    const m = changes[c]?.meter ?? meter;
+    const n = stepsOf(meterOf(m));
+    layout.push({ start, meter: m, steps: n });
+    start += n;
+  }
+  const barCount = layout.length;
+  const bars: Bar[] = layout.map((b) => emptyBar(b.steps));
+  const end = layout[barCount - 1].start + layout[barCount - 1].steps;
+  /** The bar a step falls in: the last to start at or before it. */
+  const barAt = (at: number): number => {
+    let lo = 0;
+    let hi = barCount - 1;
+    while (lo < hi) {
+      const mid = (lo + hi + 1) >> 1;
+      if (layout[mid].start <= at) lo = mid;
+      else hi = mid - 1;
+    }
+    return lo;
+  };
 
   const perc: Partial<Record<PercLaneKey, string>> = {};
   const unknown = new Map<number, number>();
@@ -370,12 +407,12 @@ export function readMidi(bytes: Uint8Array): ImportResult {
     if (ornaments.part.has(h)) continue;
     const at = Math.round(h.tick / stepTicks);
     if (Math.abs(h.tick - at * stepTicks) > stepTicks / 4) moved++;
-    const bi = Math.floor(at / steps);
-    if (bi >= barCount) {
+    if (at >= end) {
       beyond++;
       continue;
     }
-    const i = at % steps;
+    const bi = barAt(at);
+    const i = at - layout[bi].start;
 
     let lane: LaneKey | undefined;
     let value = 0;
@@ -429,6 +466,16 @@ export function readMidi(bytes: Uint8Array): ImportResult {
 
   return {
     ok: true,
-    pattern: capBars({ name: parsed.name.trim(), meter, bpm, swing: 0, bars, perc, notes }),
+    pattern: capBars({
+      name: parsed.name.trim(),
+      meter,
+      bpm,
+      swing: 0,
+      bars,
+      // only where the meter changes: one meter throughout is the import it always was
+      ...(layout.some((b) => b.meter !== meter) ? { meters: layout.map((b) => b.meter) } : {}),
+      perc,
+      notes,
+    }),
   };
 }

@@ -14,6 +14,7 @@ import { withTuning } from '@/lib/app/breaks/kit';
 import { DEFAULT_MIX } from '@/lib/app/breaks/lanes';
 import { LAYER_NAMES, reducePattern } from '@/lib/app/breaks/layers';
 import type { SharePayload } from '@/lib/app/breaks/schema';
+import { lettersOf, patternsOf } from '@/lib/app/breaks/sections';
 import { breakDocFromPayload } from '@/lib/app/breaks/share';
 import { logger } from '@/lib/logging';
 import { DEFAULT_STUDIO_SETTINGS } from '@/lib/validations/studio-settings';
@@ -56,7 +57,7 @@ export function PatternPlayer({
 }) {
   const doc = useMemo(() => breakDocFromPayload(payload), [payload]);
   // the lowest of the sections' ceilings: one tempo plays them all
-  const ceiling = maxBpmOf([doc.A.meter, doc.B.meter]);
+  const ceiling = maxBpmOf(patternsOf(doc).map((p) => p.meter));
   // a break saved past its ceiling (A in 12/8 at 280 beside a 4/4 B) starts at it
   const [bpm, setBpm] = useState(() => Math.min(Math.round(doc.bpm), ceiling));
   const [level, setLevel] = useState(doc.level);
@@ -67,14 +68,19 @@ export function PatternPlayer({
   const humanise = useMemo(
     () => ({
       amount: humaniseAmount(DEFAULT_STUDIO_SETTINGS.humanise),
-      seed: humaniseSeed([doc.A, doc.B], DEFAULT_STUDIO_SETTINGS.humanise.take),
+      seed: humaniseSeed(patternsOf(doc), DEFAULT_STUDIO_SETTINGS.humanise.take),
     }),
     [doc]
   );
 
   const snapshot: TransportSnapshot = useMemo(
     () => ({
-      patterns: { A: reducePattern(doc.A, level), B: reducePattern(doc.B, level) },
+      patterns: Object.fromEntries(
+        lettersOf(doc).flatMap((L) => {
+          const p = doc[L];
+          return p ? [[L, reducePattern(p, level)]] : [];
+        })
+      ),
       arrangement: doc.arrangement,
       solo: null,
       bpm,

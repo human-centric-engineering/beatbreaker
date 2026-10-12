@@ -97,20 +97,20 @@ argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
 | `saved/targets.ts` | What a pin and a practice visit point at: `visibleTarget` (the "yours, not private, or in the catalogue" rule), `TARGET_SELECT`, `toTargetView`, `targetVisible`. Server-side; `pins.ts` and `history.ts` share it.                                                                                                                                                                                                                                                                                                                                                                                                |
 | `audio/*`          | Browser only. `engine.ts` (Web Audio), `transport.ts` (the look-ahead clock, metronome, MIDI out), `packs.ts` / `your-samples.ts` (recorded kits and yours, [`samples.md`](./samples.md)), `encode-wav.ts` (a picked file as a sample), `midi-out.ts` (Web MIDI port).                                                                                                                                                                                                                                                                                                                                             |
 
-## The wire format (share code, version 5)
+## The wire format (share code, versions 5 and 6)
 
-A break travels as a `BreakDoc` (`{ bpm, swing, level, arrangement, A, B }`)
+A break travels as a `BreakDoc` (`{ bpm, swing, level, arrangement, A, B, C?…Z? }`)
 packed into a `SharePayload`. As a share code or a `#b=` link, the payload is
 base64 of its UTF-8 JSON. As an API body or a `Break.doc` column, it is the JSON
 itself. All three are checked by the same schema.
 
 ```jsonc
 {
-  "ver": 5,            // 1–5 accepted; encode writes 5
+  "ver": 5,            // 1–6 accepted; 5 for A and B alone, 6 with a section past B
   "bpm": 94,           // 20–400
   "sw": 0,             // swing, 0–100
   "lv": 5,             // layer 1–5 (v1 numbers are remapped)
-  "arr": ["A","A","B","A"],
+  "arr": ["A","A","B","A"],   // ≤16 slots, each a section the code has
   "A": {
     "n": "Name",       // ≤120 chars
     "st": "funk",      // kept as written — v4 does NOT substitute a default
@@ -130,9 +130,21 @@ itself. All three are checked by the same schema.
     "fx": 1,                       // fixed: every layer plays it whole — optional (Phase 10)
     "b": ["1000100010001000|0000100000001000|…"]   // 1–8 bars
   },
-  "B": { … }
+  "B": { … },
+  "C": { … }           // v6: C to Z, each optional, each a packed pattern in its own meter
 }
 ```
+
+**Version 6 (11-e-ii) adds sections C to Z** beside A and B, which stay
+required. `breakPayload` writes v6 only when a break has a section past B or an
+arrangement names one, so a break of A and B is still a v5 code byte for byte,
+with the same `gridHash` (`sections.test.ts` pins both). A v5-or-older header
+carrying C is refused. An arrangement may only name sections the code has, and
+a break holds `MAX_BREAK_BARS` (32) across its sections, each counted once —
+measured against the link: a bar of 4/4 is about 310 characters, a bar of 15/8
+about 520. Letters are kept, not renumbered: deleting C from `ABCD` leaves
+`ABD`. `lib/app/breaks/sections.ts` holds the letters and the helpers
+(`lettersOf`, `patternsOf`, `totalBars`, `nextLetter`, `cycleLetter`).
 
 **Version 5 (9-iv) adds the articulations** as step values 5–8 on the lanes
 that have them; nothing else changed. **A payload is held to its own

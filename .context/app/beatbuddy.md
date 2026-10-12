@@ -133,21 +133,29 @@ from `BEATBUDDY_CAPABILITIES` in `lib/app/capabilities.ts`. The seed reads each
 tool's `functionDefinition` from its class, so the row and the code cannot
 disagree.
 
-| Tool                 | Changes the workspace | Built on                                                        |
-| -------------------- | --------------------- | --------------------------------------------------------------- |
-| `get_pattern`        | no                    | `toText`, `critique`, `playability`                             |
-| `list_styles`        | no                    | the catalogue (`listStyles`)                                    |
-| `generate_pattern`   | both sections         | `generateGood`, `deriveB` — what the Generate button runs       |
-| `write_bars`         | one section           | `fromText`, `playability`, `tidy`'s physical rules              |
-| `apply_doctor_move`  | A, B or both          | `doctor`                                                        |
-| `tidy_pattern`       | A, B or both          | `tidy`                                                          |
-| `set_playback`       | tempo, swing, layer   | —                                                               |
-| `explain_difficulty` | no                    | `critique`, `playability`, run per bar                          |
-| `find_patterns`      | no                    | own rows by `userId`, `listLibraries`, `listPublished`          |
-| `open_pattern`       | replaces it           | `openSavedBreak`, `openableIdForSlug`, the library picker's way |
-| `save_pattern`       | no (writes a `Break`) | `breakCreateData`, as `POST /api/v1/breaks`                     |
-| `suggest_title`      | no                    | `critique`, `nameBreak`                                         |
+| Tool                 | Changes the workspace     | Built on                                                        |
+| -------------------- | ------------------------- | --------------------------------------------------------------- |
+| `get_pattern`        | no                        | `toText`, `critique`, `playability`                             |
+| `list_styles`        | no                        | the catalogue (`listStyles`)                                    |
+| `generate_pattern`   | A and B (drops C–Z)       | `generateGood`, `deriveB` — what the Generate button runs       |
+| `write_bars`         | one section, or a new one | `fromText`, `playability`, `tidy`'s physical rules              |
+| `apply_doctor_move`  | a section, or `all`       | `doctor`                                                        |
+| `tidy_pattern`       | a section, or `all`       | `tidy`                                                          |
+| `set_playback`       | tempo, swing, layer       | —                                                               |
+| `explain_difficulty` | no                        | `critique`, `playability`, run per bar                          |
+| `find_patterns`      | no                        | own rows by `userId`, `listLibraries`, `listPublished`          |
+| `open_pattern`       | replaces it               | `openSavedBreak`, `openableIdForSlug`, the library picker's way |
+| `save_pattern`       | no (writes a `Break`)     | `breakCreateData`, as `POST /api/v1/breaks`                     |
+| `suggest_title`      | no                        | `critique`, `nameBreak`                                         |
 
+- **Sections run A to Z (11-e-ii).** A tool's `section` is a letter or `all`
+  (`both` is kept, and means all); a letter the break has not got is refused
+  with `no_section` (`sectionsFor` in `describe.ts`). `get_pattern` returns
+  every section. `write_bars` to an unused letter with `whole: true` is the
+  add-section move: the section is written in A's style and lanes, in the meter
+  given, and played once at the end of the arrangement; past 32 bars across the
+  sections it is refused (`too_many_bars`). `generate_pattern` and opening a
+  famous break write an A and a B, so the sections past B go, with their slots.
 - **Every mutating tool goes through `editWorkspace()`** (`edit.ts`): read the
   workspace, apply the edit, hold the result to `sharePayloadSchema`, write if
   the rev has not moved. A lost write is made again on the newer pattern, up to
