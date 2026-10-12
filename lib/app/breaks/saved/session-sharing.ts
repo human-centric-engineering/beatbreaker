@@ -12,6 +12,7 @@ import {
   readableTarget,
   readShape,
   SESSION_SELECT,
+  itemTopBpm,
   slotTarget,
   toView,
   withSplit,
@@ -167,7 +168,7 @@ export async function getPublicSession(slug: string): Promise<PublicSession | nu
     if (!pattern) return { available: false, position: item.position, minutes: item.minutes };
 
     const best = bests.get(bestKey(pattern.pin, item.level));
-    const targetBpm = slotTarget(item.goalBpm ?? best ?? pattern.bpm, pattern.meter);
+    const targetBpm = slotTarget(item.goalBpm ?? best ?? pattern.bpm, itemTopBpm(item));
     const climb = effectiveClimb(session, {
       startPct: item.startPct,
       climbPct: item.climbPct,

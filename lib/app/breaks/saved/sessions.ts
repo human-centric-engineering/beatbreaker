@@ -2,6 +2,7 @@ import type { Prisma } from '@prisma/client';
 
 import { APIError, NotFoundError, ValidationError } from '@/lib/api/errors';
 import { maxBpm } from '@/lib/app/breaks/audio/transport';
+import { breakTopBpm } from '@/lib/app/breaks/saved/top-bpm';
 import { PUBLIC } from '@/lib/app/breaks/catalogue/data';
 import { usernameOf } from '@/lib/app/breaks/community/profile';
 import { openableBy, readVisibility } from '@/lib/app/breaks/community/visibility';
@@ -63,6 +64,8 @@ export const ITEM_SELECT = {
       bpm: true,
       visibility: true,
       slug: true,
+      // what its top tempo is read from: the lowest of its sections' ceilings
+      doc: true,
     },
   },
   libraryEntry: {
@@ -128,12 +131,21 @@ export function pinTargetOf(target: NonNullable<SessionItemView['target']>): Pin
 }
 
 /**
+ * The top tempo of an item's pattern: a saved break's is the lowest of its
+ * sections' ceilings, a famous break's its one meter's.
+ */
+export function itemTopBpm(row: ItemRow): number {
+  if (row.breakRef) return breakTopBpm(row.breakRef.meter, row.breakRef.doc);
+  return maxBpm(row.libraryEntry?.meter ?? '');
+}
+
+/**
  * What a slot climbs to, from the bpm it aims at. A pattern may be saved at
  * any tempo, but a run logs only what a speed record allows, so the target is
- * kept inside that range: 40 to the meter's ceiling.
+ * kept inside that range: 40 to the pattern's top tempo (`itemTopBpm`).
  */
-export function slotTarget(bpm: number, meter: string): number {
-  return Math.min(maxBpm(meter), Math.max(PRACTICE_BPM_MIN, bpm));
+export function slotTarget(bpm: number, top: number): number {
+  return Math.min(top, Math.max(PRACTICE_BPM_MIN, bpm));
 }
 
 /**
@@ -171,7 +183,7 @@ export async function toView(row: SessionRow, userId: string): Promise<SessionVi
     };
     const bestBpm = target ? (bests.get(bestKey(pinTargetOf(target), item.level)) ?? null) : null;
     const targetBpm = target
-      ? slotTarget(item.goalBpm ?? bestBpm ?? target.bpm, target.meter)
+      ? slotTarget(item.goalBpm ?? bestBpm ?? target.bpm, itemTopBpm(item))
       : null;
     const plan =
       targetBpm === null
@@ -213,7 +225,8 @@ export async function toView(row: SessionRow, userId: string): Promise<SessionVi
 /** What a new item needs to know about its pattern, if the caller may see it. */
 interface Resolved {
   title: string;
-  meter: string;
+  /** The top tempo a goal may aim at. */
+  top: number;
 }
 
 /**
@@ -233,7 +246,7 @@ async function resolveTargets(
     breakIds.length
       ? prisma.break.findMany({
           where: { id: { in: breakIds }, ...openableBy(userId) },
-          select: { id: true, title: true, meter: true },
+          select: { id: true, title: true, meter: true, doc: true },
         })
       : [],
     entryIds.length
@@ -247,8 +260,10 @@ async function resolveTargets(
     throw new NotFoundError('Pattern not found');
   }
   const resolved = new Map<string, Resolved>();
-  for (const b of breaks) resolved.set(`b:${b.id}`, b);
-  for (const e of entries) resolved.set(`e:${e.id}`, e);
+  for (const b of breaks) {
+    resolved.set(`b:${b.id}`, { title: b.title, top: breakTopBpm(b.meter, b.doc) });
+  }
+  for (const e of entries) resolved.set(`e:${e.id}`, { title: e.title, top: maxBpm(e.meter) });
   return resolved;
 }
 
@@ -256,11 +271,10 @@ function targetKey(target: PinTarget): string {
   return 'breakId' in target ? `b:${target.breakId}` : `e:${target.libraryEntryId}`;
 }
 
-function goalTooFast(goalBpm: number | null, meter: string, index: number): void {
+function goalTooFast(goalBpm: number | null, ceiling: number, index: number): void {
   if (goalBpm === null) return;
-  const ceiling = maxBpm(meter);
   if (goalBpm > ceiling) {
-    throw new ValidationError(`A goal is at most ${ceiling} bpm in this pattern's meter`, {
+    throw new ValidationError(`A goal is at most ${ceiling} bpm for this pattern`, {
       [`items.${index}.goalBpm`]: [`At most ${ceiling}`],
     });
   }
@@ -303,7 +317,7 @@ function itemSettings(input: ItemInput) {
 function newItemData(input: ItemInput, resolved: Map<string, Resolved>, index: number): ItemData {
   const found = input.target ? resolved.get(targetKey(input.target)) : undefined;
   if (!input.target || !found) throw new NotFoundError('Pattern not found');
-  goalTooFast(input.goalBpm, found.meter, index);
+  goalTooFast(input.goalBpm, found.top, index);
   return {
     ...input.target,
     titleSnapshot: found.title.slice(0, 160),
@@ -377,7 +391,7 @@ export async function assertRoom(userId: string): Promise<void> {
 /**
  * Make a session, with any items it starts with. Past {@link SESSIONS_MAX}
  * sessions is a 429; a pattern you cannot see is a 404; more patterns than
- * minutes, or a goal past the meter's ceiling, is a 400.
+ * minutes, or a goal past the pattern's top tempo, is a 400.
  */
 export async function createSession(
   userId: string,
@@ -481,8 +495,9 @@ export async function replaceItems(
           });
         }
         seen.add(item.id);
-        const meter = readableTarget(existing, userId)?.meter;
-        if (meter) goalTooFast(item.goalBpm, meter, index);
+        if (readableTarget(existing, userId)) {
+          goalTooFast(item.goalBpm, itemTopBpm(existing), index);
+        }
         return {
           id: item.id,
           breakId: existing.breakId,

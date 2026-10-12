@@ -148,6 +148,29 @@ describe('PatternPlayer', () => {
     expect(screen.queryByLabelText(/tempo: 96 bpm/i)).toBeNull();
   });
 
+  it('starts a break in two meters saved past its ceiling at the ceiling (11-e-ii-a)', () => {
+    const at = (meter: string) =>
+      generatePattern({
+        style: testStyle('funk'),
+        meter,
+        seed: 4,
+        bars: 1,
+        density: 50,
+        ghosts: 50,
+      });
+    // 12/8 alone goes to 300; beside a 4/4 B the break plays at 190 at most
+    const mixed = breakPayload({
+      bpm: 280,
+      swing: 0,
+      level: 5,
+      arrangement: ['A', 'B'],
+      A: at('12/8'),
+      B: at('4/4'),
+    });
+    render(<PatternPlayer payload={mixed} kits={testKits()} />);
+    expect(screen.getByLabelText(/tempo: 190 bpm/i)).toHaveAttribute('max', '190');
+  });
+
   it('updates the layer label when a different layer is selected', async () => {
     const user = userEvent.setup();
     render(<PatternPlayer payload={payload()} kits={testKits()} />);

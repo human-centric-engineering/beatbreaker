@@ -38,6 +38,9 @@ vi.mock('@/lib/app/breaks/saved/settings', () => ({
 }));
 
 import { APIError, NotFoundError, ValidationError } from '@/lib/api/errors';
+import { generatePattern } from '@/lib/app/breaks/generate';
+import { breakPayload } from '@/lib/app/breaks/share';
+import { testStyle } from '@/tests/helpers/catalogue';
 import { PUBLIC } from '@/lib/app/breaks/catalogue/data';
 import { breakHash, entryHash, placesOn } from '@/lib/app/breaks/community/speed-tables';
 import { openableBy } from '@/lib/app/breaks/community/visibility';
@@ -69,6 +72,20 @@ function breakRow(over: Record<string, unknown> = {}) {
     doc: null,
     ...over,
   };
+}
+
+/** A saved break's document with A and B in two meters (11-e-ii-a). */
+function mixedDoc(aMeter: string, bMeter: string) {
+  const at = (meter: string) =>
+    generatePattern({ style: testStyle('funk'), meter, seed: 4, bars: 1, density: 50, ghosts: 50 });
+  return breakPayload({
+    bpm: 120,
+    swing: 0,
+    level: 5,
+    arrangement: ['A', 'B'],
+    A: at(aMeter),
+    B: at(bMeter),
+  });
 }
 
 function input(over: Partial<CreateSpeedInput> = {}): CreateSpeedInput {
@@ -168,6 +185,17 @@ describe('recordSpeed — the tempo ceiling', () => {
     vi.mocked(prisma.break.findFirst).mockResolvedValue(breakRow({ meter: '12/8' }) as never);
 
     await expect(recordSpeed(USER_ID, input({ bpm: 300 }), NOW)).resolves.toBeDefined();
+  });
+
+  it('holds a break in two meters to the lower ceiling, though its meter column is A’s (11-e-ii-a)', async () => {
+    // the column says 12/8 (300); the 4/4 B holds the Studio, and so the record, to 190
+    vi.mocked(prisma.break.findFirst).mockResolvedValue(
+      breakRow({ meter: '12/8', doc: mixedDoc('12/8', '4/4') }) as never
+    );
+
+    const error = await recordSpeed(USER_ID, input({ bpm: 250 }), NOW).catch((e: unknown) => e);
+    expect(error).toBeInstanceOf(ValidationError);
+    expect((error as ValidationError).message).toBe('A speed is between 40 and 190 bpm');
   });
 });
 

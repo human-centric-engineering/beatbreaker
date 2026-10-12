@@ -89,14 +89,24 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
       }
     : null;
 
+  /* A time signature at the top of the file, and again at the bar where the
+     meter changes (A in 7/8, B in 4/4). One is written only where the
+     signature does: 4/4 to 4/4 in sextuplets is a new grid, not a new meter. */
+  const sigs: Array<{ t: number; num: number; den: number }> = [];
+
   for (const pos of seq) {
     const pat = pos.pattern;
     const bar = pat.bars[pos.barIdx];
     if (!bar) continue;
 
+    const m = meterOfPat(pat);
+    const was = sigs[sigs.length - 1];
+    if (!was || was.num !== m.num || was.den !== m.den)
+      sigs.push({ t: tick, num: m.num, den: m.den });
+
     const nSteps = bar.k.length;
     // ticks a step: a sixteenth's 120, or a sextuplet's 80 in 4/4-6
-    const ST = PPQ / stepsPerQuarter(meterOfPat(pat));
+    const ST = PPQ / stepsPerQuarter(m);
     for (let i = 0; i < nSteps; i++) {
       const voices = performStep(pat, bar, i, {
         swing: opts.swing,
@@ -152,16 +162,30 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
   const mpqn = Math.round(60000000 / opts.bpm);
   track.push(0, 0xff, 0x51, 0x03, (mpqn >> 16) & 255, (mpqn >> 8) & 255, mpqn & 255);
 
-  const em = meterOfPat(seq[0]?.pattern ?? null);
-  const den = Math.round(Math.log(em.den) / Math.LN2);
-  track.push(0, 0xff, 0x58, 0x04, em.num, den, 24, 8);
+  // a file of no bars still says what it is in
+  if (!sigs.length) {
+    const em = meterOfPat(null);
+    sigs.push({ t: 0, num: em.num, den: em.den });
+  }
 
   let last = 0;
+  let nextSig = 0;
+  // a signature goes ahead of the notes on its tick: they are in the new bar
+  const sigsUpTo = (t: number) => {
+    for (; nextSig < sigs.length && sigs[nextSig].t <= t; nextSig++) {
+      const sig = sigs[nextSig];
+      track.push(...vlq(sig.t - last));
+      track.push(0xff, 0x58, 0x04, sig.num, Math.round(Math.log2(sig.den)), 24, 8);
+      last = sig.t;
+    }
+  };
   for (const e of events) {
+    sigsUpTo(e.t);
     track.push(...vlq(e.t - last));
     track.push(e.type, e.n, e.v);
     last = e.t;
   }
+  sigsUpTo(Infinity);
   track.push(0, 0xff, 0x2f, 0x00);
 
   const len = track.length;

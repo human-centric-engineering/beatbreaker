@@ -13,6 +13,7 @@ import {
   type SectionLetter,
   type TransportSnapshot,
   maxBpm,
+  maxBpmOf,
   soloInPlay,
 } from '@/lib/app/breaks/audio/transport';
 import {
@@ -723,7 +724,16 @@ export function useBreakConsole(
   const [history, setHistory] = useState<Snapshot[]>([]);
   const [future, setFuture] = useState<Snapshot[]>([]);
 
-  const bpmCeiling = maxBpm(meter);
+  /* The top tempo is the meter picker's, as it always was — a style picked
+     for the next New brings its tempo with it, past what the pattern still on
+     the stage would take. A break whose sections are in different meters is
+     held to the lowest of theirs instead: one tempo plays both, so a B in 4/4
+     holds an A in eighths to 190. */
+  const mixedTop =
+    patterns.A && patterns.B && patterns.A.meter !== patterns.B.meter
+      ? maxBpmOf([patterns.A.meter, patterns.B.meter])
+      : null;
+  const bpmCeiling = mixedTop ?? maxBpm(meter);
 
   const setSize = useCallback(
     (n: number) => setSizeRaw(clamp(Math.round(n * 100) / 100, SIZE_MIN, SIZE_MAX)),
@@ -743,14 +753,14 @@ export function useBreakConsole(
    */
   const placeTempo = useCallback(
     (n: number) => {
-      const top = maxBpm(meter);
+      const top = bpmCeiling;
       const v = clamp(Math.round(n), 50, top);
       const base = matchOn ? clamp(Math.round(v / (LAYER_TEMPO[level] ?? 1)), 50, top) : v;
       setBaseBpm(base);
       setBpmRaw(v);
       return base;
     },
-    [meter, matchOn, level]
+    [bpmCeiling, matchOn, level]
   );
 
   const setBpm = useCallback(
@@ -768,9 +778,9 @@ export function useBreakConsole(
   const quickTempo = useCallback(
     (pct: number) => {
       const written = matchOn ? baseBpm * (LAYER_TEMPO[level] ?? 1) : baseBpm;
-      setBpmRaw(clamp(Math.round((written * pct) / 100), 50, maxBpm(meter)));
+      setBpmRaw(clamp(Math.round((written * pct) / 100), 50, bpmCeiling));
     },
-    [matchOn, baseBpm, level, meter]
+    [matchOn, baseBpm, level, bpmCeiling]
   );
 
   /**
@@ -794,8 +804,58 @@ export function useBreakConsole(
      layer should be practised, measured against the break's own tempo. */
   useEffect(() => {
     if (!matchOn) return;
-    setBpmRaw(clamp(Math.round(baseBpm * (LAYER_TEMPO[level] ?? 1)), 50, maxBpm(meter)));
-  }, [matchOn, level, meter, baseBpm, setBpmRaw]);
+    setBpmRaw(clamp(Math.round(baseBpm * (LAYER_TEMPO[level] ?? 1)), 50, bpmCeiling));
+  }, [matchOn, level, bpmCeiling, baseBpm, setBpmRaw]);
+
+  /**
+   * The tempo a break in two meters brought down to its ceiling, and the base
+   * it was brought down to. A section written in a slower meter (a new B in
+   * 4/4 under an A in eighths at 300) has to lower the tempo — a locked one
+   * too, since nothing plays past the ceiling — but it is kept here, and comes
+   * back when the meters match again (undo, or a New B back in A's), unless
+   * you moved the tempo yourself in between.
+   */
+  const capped = useRef<{ base: number; baseAt: number } | null>(null);
+  useEffect(() => {
+    const cap = capped.current;
+    if (mixedTop !== null && (bpm > mixedTop || baseBpm > mixedTop)) {
+      const baseAt = Math.min(baseBpm, mixedTop);
+      capped.current = { base: cap?.base ?? baseBpm, baseAt };
+      setBpmRaw(Math.min(bpm, mixedTop));
+      setBaseBpm(baseAt);
+      return;
+    }
+    if (!cap) return;
+    if (baseBpm !== cap.baseAt) {
+      capped.current = null;
+      return;
+    }
+    if (bpmCeiling > cap.baseAt) {
+      capped.current = null;
+      // the break's own tempo comes back; with the match on, the layer's follows from it
+      const base = Math.min(cap.base, bpmCeiling);
+      setBaseBpm(base);
+      if (!matchOn) setBpmRaw(base);
+    }
+  }, [mixedTop, bpmCeiling, bpm, baseBpm, matchOn]);
+
+  /**
+   * Style, meter and length picked for the next New, which the pickers keep
+   * until a New uses them or a pattern is opened. Until then they follow the
+   * section on the stage, as the grid and the Doctor do: editing B in 7/8 and
+   * four bars shows 7/8 and four bars, and a New B is written in them.
+   */
+  const pickedForNext = useRef(false);
+  const stage = patterns[editing];
+  const stageStyle = stage?.style;
+  const stageMeter = stage?.meter;
+  const stageBars = stage?.bars.length;
+  useEffect(() => {
+    if (pickedForNext.current || !stageStyle || !stageMeter || !stageBars) return;
+    setStyleRaw(stageStyle);
+    setMeterRaw(stageMeter);
+    setBarsRaw(stageBars);
+  }, [editing, stageStyle, stageMeter, stageBars]);
 
   /* ---- derived: the sections as they sound and look ------------------- */
 
@@ -1026,7 +1086,13 @@ export function useBreakConsole(
         // a new A or B is the same song as the pattern it belongs to
         const stage = patterns[which] ?? patterns.A;
         const song = stage?.style === style ? stage.song : undefined;
-        generate(which, { style, meter, bars, bpm, song });
+        /* Judged at the tempo it will play at: beside the other section, the
+           break is held to the lower of the two meters' ceilings. */
+        const other = patterns[which === 'A' ? 'B' : 'A'];
+        const at = Math.min(bpm, maxBpmOf([meter, other?.meter]));
+        // used up: the section they were picked for is this one
+        pickedForNext.current = false;
+        generate(which, { style, meter, bars, bpm: at, song });
         return true;
       }
       pushHistory();
@@ -1050,6 +1116,7 @@ export function useBreakConsole(
       };
       // used up: the pattern they were picked for is this one
       chosen.current = {};
+      pickedForNext.current = false;
       const top = maxBpm(next.meter);
       const start = params && song ? songTempo(params, song, Math.random) : settings.startBpm;
       const base = locks.bpm ? baseBpm : clamp(start, 50, top);
@@ -1321,6 +1388,7 @@ export function useBreakConsole(
       b.name = `${entry.title} (B)`;
       setPatterns({ A: pat, B: b });
       chosen.current = {};
+      pickedForNext.current = false;
       setStyleRaw(entry.styleKey);
       setMeterRaw(pat.meter);
       setBarsRaw(pat.bars.length);
@@ -1348,6 +1416,7 @@ export function useBreakConsole(
   const setStyle = useCallback(
     (s: string) => {
       setStyleRaw(s);
+      pickedForNext.current = true;
       const st = catalogue.styles[s]?.params;
       const nextMeter = st?.meter ?? userMeter;
       /* A style may name its own meter and its own kit — picking one switches
@@ -1387,6 +1456,7 @@ export function useBreakConsole(
   const setMeter = useCallback(
     (m: string) => {
       setMeterRaw(m);
+      pickedForNext.current = true;
       if (settingUpNew()) {
         update({ userMeter: m, startMeter: m });
         chosen.current = { style: chosen.current.style, bars: chosen.current.bars };
@@ -1403,6 +1473,7 @@ export function useBreakConsole(
   const setBars = useCallback(
     (n: number) => {
       setBarsRaw(n);
+      pickedForNext.current = true;
       if (settingUpNew()) {
         update({ startBars: n });
         chosen.current = { style: chosen.current.style, meter: chosen.current.meter };
@@ -1776,8 +1847,8 @@ export function useBreakConsole(
   /* A practice tempo, as the trainer's ramp sets it: the pattern's own tempo
      (`baseBpm`) is not moved. Down to 40, the slowest a session plays. */
   const playAt = useCallback(
-    (n: number) => setBpmRaw(clamp(Math.round(n), 40, maxBpm(meter))),
-    [meter]
+    (n: number) => setBpmRaw(clamp(Math.round(n), 40, bpmCeiling)),
+    [bpmCeiling]
   );
 
   const audioNow = useCallback(() => audioRef.current?.ctx?.currentTime ?? 0, []);
@@ -1835,10 +1906,12 @@ export function useBreakConsole(
     holdSwing(false);
     setLevel(doc.level);
     setArrangement(doc.arrangement);
-    setStyleRaw(doc.A.style);
-    setMeterRaw(doc.A.meter);
-    setBarsRaw(doc.A.bars.length);
+    // the pickers show the section on the stage
+    setStyleRaw(doc[editing].style);
+    setMeterRaw(doc[editing].meter);
+    setBarsRaw(doc[editing].bars.length);
     chosen.current = {};
+    pickedForNext.current = false;
     applyStyleMix(doc.A.style, {});
   };
 
@@ -2004,13 +2077,14 @@ export function useBreakConsole(
       holdSwing(false);
       setLevel(doc.level);
       setArrangement(doc.arrangement);
-      setStyleRaw(doc.A.style);
-      setMeterRaw(doc.A.meter);
-      setBarsRaw(doc.A.bars.length);
+      setStyleRaw(doc[editing].style);
+      setMeterRaw(doc[editing].meter);
+      setBarsRaw(doc[editing].bars.length);
       chosen.current = {};
+      pickedForNext.current = false;
       setTries(null);
     },
-    [pushHistory, baseFor, holdSwing]
+    [pushHistory, baseFor, holdSwing, editing]
   );
 
   const [flash, setFlash] = useState<Flash | null>(null);
@@ -2041,14 +2115,15 @@ export function useBreakConsole(
       holdSwing(false);
       setLevel(doc.level);
       setArrangement(doc.arrangement);
-      setStyleRaw(doc.A.style);
-      setMeterRaw(doc.A.meter);
-      setBarsRaw(doc.A.bars.length);
+      setStyleRaw(doc[editing].style);
+      setMeterRaw(doc[editing].meter);
+      setBarsRaw(doc[editing].bars.length);
       chosen.current = {};
+      pickedForNext.current = false;
       setTries(null);
       return doc;
     },
-    [catalogue, pushHistory, patterns, baseFor, holdSwing]
+    [catalogue, pushHistory, patterns, baseFor, holdSwing, editing]
   );
 
   const loadCode = useCallback(
@@ -2070,7 +2145,9 @@ export function useBreakConsole(
     (stored: SharePayload, title: string, at?: PracticePlace): boolean => {
       try {
         const doc = breakDocFromPayload(stored, (key) => catalogue.styles[key]);
-        const bpmAt = at ? clamp(Math.round(at.bpm), 50, maxBpm(doc.A.meter)) : doc.bpm;
+        const bpmAt = at
+          ? clamp(Math.round(at.bpm), 50, maxBpmOf([doc.A.meter, doc.B.meter]))
+          : doc.bpm;
         // the row's title, for the reason the arrival path gives
         putDoc({
           ...doc,

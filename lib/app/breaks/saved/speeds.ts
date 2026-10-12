@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 import { APIError, NotFoundError, ValidationError } from '@/lib/api/errors';
 import { maxBpm } from '@/lib/app/breaks/audio/transport';
+import { breakTopBpm } from '@/lib/app/breaks/saved/top-bpm';
 import { PUBLIC } from '@/lib/app/breaks/catalogue/data';
 import {
   breakHash,
@@ -43,7 +44,8 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 /** What a record needs to know about its target, read from the database. */
 interface Resolved {
   title: string;
-  meter: string;
+  /** The top tempo a record may log: the lowest of the sections' ceilings. */
+  top: number;
   hash: string;
   /** Has a public table: a published pattern or a famous break. */
   public: boolean;
@@ -63,7 +65,7 @@ async function resolveTarget(userId: string, target: PinTarget): Promise<Resolve
     if (!row) return null;
     return {
       title: row.title,
-      meter: row.meter,
+      top: breakTopBpm(row.meter, row.doc),
       hash: await breakHash(row),
       public: row.visibility === 'published' && row.slug !== null,
     };
@@ -73,7 +75,12 @@ async function resolveTarget(userId: string, target: PinTarget): Promise<Resolve
     select: { title: true, meter: true, doc: true },
   });
   if (!row) return null;
-  return { title: row.title, meter: row.meter, hash: await entryHash(row.doc), public: true };
+  return {
+    title: row.title,
+    top: maxBpm(row.meter),
+    hash: await entryHash(row.doc),
+    public: true,
+  };
 }
 
 type ListSpeeds = 'ask' | 'list' | 'keep';
@@ -122,7 +129,8 @@ function toView(row: RecordRow): SpeedRecordView {
 
 /**
  * Record a speed. The time is the server's. The tempo is held to 40 and the
- * meter's own ceiling; past {@link SPEED_DAILY_CAP} records in a day is a 429.
+ * pattern's ceiling, the lowest of its sections'; past {@link SPEED_DAILY_CAP}
+ * records in a day is a 429.
  *
  * **Listing.** Only a record on a target with a public table can be listed;
  * on anything else `listed` is false whatever was asked, so publishing a
@@ -139,7 +147,7 @@ export async function recordSpeed(
   const resolved = await resolveTarget(userId, input.target);
   if (!resolved) throw new NotFoundError('Pattern not found');
 
-  const ceiling = maxBpm(resolved.meter);
+  const ceiling = resolved.top;
   if (input.bpm < SPEED_BPM_MIN || input.bpm > ceiling) {
     throw new ValidationError(`A speed is between ${SPEED_BPM_MIN} and ${ceiling} bpm`, {
       bpm: [`Between ${SPEED_BPM_MIN} and ${ceiling}`],

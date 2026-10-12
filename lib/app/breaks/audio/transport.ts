@@ -201,12 +201,25 @@ export function maxBpm(meterKey: string): number {
   return pi?.steps === 6 ? 300 : 190;
 }
 
+/**
+ * The top tempo of a break whose sections may be in different meters: the
+ * lowest of theirs. The tempo is one for the whole break and always counts
+ * quarters, so a 4/4 B holds a fast-swing A in eighths to 4/4's ceiling. No
+ * sections is 4/4's.
+ */
+export function maxBpmOf(meterKeys: readonly (string | undefined)[]): number {
+  const keys = meterKeys.filter((k): k is string => !!k);
+  return keys.length ? Math.min(...keys.map(maxBpm)) : maxBpm(M44.label);
+}
+
 export class Transport {
   private timer: ReturnType<typeof setTimeout> | null = null;
   private nextTime = 0;
   private step = 0;
   private seqIndex = 0;
   private countLeft = 0;
+  /** The count-in bars this start was given: the setting's, or a restart's own. */
+  private countBars = 0;
   private queue: PlayEvent[] = [];
   private seq: SeqEntry[] = [];
   private raf: number | null = null;
@@ -245,7 +258,8 @@ export class Transport {
     this.seqIndex = 0;
     this.queue = [];
     this.loops = 0;
-    this.countLeft = (opts.countIn ?? snap.countIn) * patSteps(snap.patterns.A);
+    this.countBars = opts.countIn ?? snap.countIn;
+    this.countLeft = this.countBars * patSteps(this.countInPattern(snap));
     this.nextTime = ctx.currentTime + 0.08;
     this.playing = true;
     if (this.countLeft === 0) this.cb.onDownbeat?.(this.nextTime);
@@ -309,6 +323,16 @@ export class Transport {
     if (wasIndex !== this.seqIndex) this.step = Math.min(this.step, this.barSteps(snap) - 1);
   }
 
+  /**
+   * The section the count-in leads into — the first the sequence plays — so
+   * its bars are that section's length, in that section's meter: a break that
+   * opens on B in 7/8 counts in a bar of 7/8, whatever A is in.
+   */
+  private countInPattern(snap: TransportSnapshot): Pattern | null {
+    const first = this.seq[0];
+    return (first && snap.patterns[first.letter]) || snap.patterns.A;
+  }
+
   /** How long a step of the pattern playing lasts: a sixteenth, or a sextuplet in 4/4-6. */
   private stepDur(snap: TransportSnapshot): number {
     const pos = this.seq[this.seqIndex];
@@ -338,8 +362,8 @@ export class Transport {
     const cm = meterOfPat(livePat ?? snap.patterns.A);
 
     if (this.countLeft > 0) {
-      const cn = patSteps(snap.patterns.A);
-      const i = (snap.countIn * cn - this.countLeft) % cn;
+      const cn = patSteps(this.countInPattern(snap));
+      const i = (this.countBars * cn - this.countLeft) % cn;
       if (isGroupStart(cm, i)) this.audio.click(t, i === 0);
       this.queue.push({ t, count: true, slot: i, meter: cm });
       this.cb.onStep?.({
