@@ -689,6 +689,11 @@ function varyFigureBar(rng: Rng, bar: Bar, style: Style, m: Meter): Bar {
     const cands = inMeter([14, 6, 10], m).filter((i) => i < n && !b.c[i]);
     if (cands.length) {
       const i = cands[Math.floor(rng() * rng() * cands.length)];
+      /* The accent takes a kick under it, so it goes nowhere the style keeps
+         the kick off: in a triplet meter the 4/4 "and"s carried over land
+         between the triplets. Checked after the draw, so the stream is the
+         same for every style that bans nothing there. */
+      if ((style.noKick ?? []).includes(i)) return b;
       b.c[i] = china && rng() < 0.55 ? CHINA : 1;
       b.h[i] = 0;
       b.r[i] = 0;

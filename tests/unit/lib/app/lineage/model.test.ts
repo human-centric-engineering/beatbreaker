@@ -90,13 +90,17 @@ describe('the drummer model', () => {
       .map(({ record }) => record.meta.id)
       .sort();
     expect(playable).toEqual([
+      'drummer:adrienne-davies',
       'drummer:bernard-purdie',
       'drummer:changuito',
       'drummer:clyde-stubblefield',
+      'drummer:dave-lombardo',
       'drummer:elvin-jones',
+      'drummer:ginger-baker',
       'drummer:horacio-hernandez',
       'drummer:jabo-starks',
       'drummer:john-bonham',
+      'drummer:klek-de-poitrine',
       'drummer:mitch-mitchell',
       'drummer:omar-hakim',
       'drummer:ringo-starr',
