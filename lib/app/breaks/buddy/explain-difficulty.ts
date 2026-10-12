@@ -1,6 +1,12 @@
 import { z } from 'zod';
 
-import { SECTIONS, type Section, decodeWorkspace } from '@/lib/app/breaks/buddy/describe';
+import {
+  SECTION_CHOICES,
+  SECTION_CHOICE_HELP,
+  type Section,
+  decodeWorkspace,
+  sectionsFor,
+} from '@/lib/app/breaks/buddy/describe';
 import { readWorkspace } from '@/lib/app/breaks/buddy/workspace';
 import { critique, playability } from '@/lib/app/breaks/critic';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
@@ -24,7 +30,7 @@ import type {
  */
 
 const schema = z.object({
-  section: z.enum(['A', 'B', 'both']).default('both'),
+  section: z.enum(SECTION_CHOICES).default('all'),
 });
 
 type Args = z.infer<typeof schema>;
@@ -110,8 +116,8 @@ export class ExplainDifficultyCapability extends BaseCapability<Args, ExplainDif
       properties: {
         section: {
           type: 'string',
-          enum: ['A', 'B', 'both'],
-          description: 'Which section to explain. Defaults to both.',
+          enum: SECTION_CHOICES,
+          description: `Which section to explain. ${SECTION_CHOICE_HELP} Defaults to all.`,
         },
       },
     },
@@ -129,10 +135,14 @@ export class ExplainDifficultyCapability extends BaseCapability<Args, ExplainDif
     if (!workspace) return this.error('No pattern is open in the Studio yet', 'no_workspace');
 
     const doc = await decodeWorkspace(workspace.doc);
-    const targets = args.section === 'both' ? SECTIONS : [args.section];
+    const targets = sectionsFor(doc, args.section);
+    if (!targets.ok) return this.error(targets.message, targets.code);
     return this.success({
       bpm: doc.bpm,
-      sections: targets.map((s) => explain(doc[s], s, doc.bpm)),
+      sections: targets.sections.flatMap((s) => {
+        const pat = doc[s];
+        return pat ? [explain(pat, s, doc.bpm)] : [];
+      }),
     });
   }
 }

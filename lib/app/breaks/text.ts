@@ -1,4 +1,5 @@
 import { LANES, LANE_ORDER } from '@/lib/app/breaks/lanes';
+import type { SectionLetter } from '@/lib/app/breaks/sections';
 import { countLabelsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import type { Bar, LaneKey, Meter, Pattern } from '@/lib/app/breaks/types';
@@ -119,8 +120,8 @@ function textLanes(pat: Pattern): LaneKey[] {
 }
 
 export interface TextHeader {
-  /** Which section this is, when the pattern is one of a break's two. */
-  section?: 'A' | 'B';
+  /** Which section this is, when the pattern is one of a break's. */
+  section?: SectionLetter;
   bpm?: number;
   swing?: number;
 }

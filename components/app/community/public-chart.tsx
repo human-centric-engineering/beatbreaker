@@ -1,6 +1,7 @@
 import { EngravedThumbnail } from '@/components/app/home/engraved-thumbnail';
 import { engrave } from '@/lib/app/breaks/engrave';
 import type { SharePayload } from '@/lib/app/breaks/schema';
+import { lettersOf } from '@/lib/app/breaks/sections';
 import { breakDocFromPayload } from '@/lib/app/breaks/share';
 
 /** Bars per line on the public page — wide enough to read, narrow enough for a phone to scale. */
@@ -11,15 +12,15 @@ const PER_SYSTEM = 2;
  * the page's first paint — and a crawler, and a link preview — has the
  * notation in the HTML rather than after a script runs.
  *
- * Both sections, at the full layer, with the counting guide. The player below
+ * Every section, at the full layer, with the counting guide. The player below
  * changes what is heard, not what is drawn.
  */
 export function PublicChart({ payload }: { payload: SharePayload }) {
   const doc = breakDocFromPayload(payload);
-  const sections = [
-    ['A', doc.A],
-    ['B', doc.B],
-  ] as const;
+  const sections = lettersOf(doc).flatMap((letter) => {
+    const pattern = doc[letter];
+    return pattern ? [[letter, pattern] as const] : [];
+  });
   return (
     <div className="space-y-6">
       {sections.map(([letter, pattern]) => (

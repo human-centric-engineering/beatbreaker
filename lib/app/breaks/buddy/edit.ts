@@ -122,12 +122,14 @@ export function describeEdit(
   after: BreakDoc,
   sections: readonly Section[]
 ): { changes: SectionChange[]; sections: SectionView[] } {
+  /* A section the edit took away has nothing to read back. */
+  const kept = sections.flatMap((s) => {
+    const pat = after[s];
+    return pat ? [{ s, pat }] : [];
+  });
   return {
-    changes: sections.map((section) => ({
-      section,
-      bars: changedBars(before[section], after[section]),
-    })),
-    sections: sections.map((s) => viewSection(after[s], s, after.bpm, after.swing)),
+    changes: kept.map(({ s, pat }) => ({ section: s, bars: changedBars(before[s], pat) })),
+    sections: kept.map(({ s, pat }) => viewSection(pat, s, after.bpm, after.swing)),
   };
 }
 

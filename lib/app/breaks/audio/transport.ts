@@ -11,6 +11,7 @@ import {
   stepSeconds,
 } from '@/lib/app/breaks/meter';
 import { meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
+import type { MaybeSections, SectionLetter } from '@/lib/app/breaks/sections';
 import { type Voice, performStep } from '@/lib/app/breaks/perform';
 import type { Bar, Meter, Pattern } from '@/lib/app/breaks/types';
 
@@ -29,7 +30,8 @@ import type { Bar, Meter, Pattern } from '@/lib/app/breaks/types';
  * are learning.
  */
 
-export type SectionLetter = 'A' | 'B';
+/** Re-exported from where sections are defined, for the callers that have always imported it here. */
+export type { SectionLetter } from '@/lib/app/breaks/sections';
 
 /** Where the transport is, for the UI to draw. */
 export interface PlayEvent {
@@ -54,9 +56,10 @@ export interface PlayEvent {
  */
 export interface TransportSnapshot {
   /** Already reduced to the current difficulty layer. */
-  patterns: Record<SectionLetter, Pattern | null>;
+  /** Every section the break has, A to Z. */
+  patterns: MaybeSections;
   arrangement: SectionLetter[];
-  /** `'A only'` / `'B only'` — the other section's bars are skipped, not muted. */
+  /** One section only: every other section's bars are skipped, not muted. */
   solo: SectionLetter | null;
   bpm: number;
   swing: number;
@@ -282,8 +285,8 @@ export class Transport {
   }
 
   /**
-   * "A only" means A only — the arrangement's B sections are **skipped** rather
-   * than played into a chart that is not on screen.
+   * "A only" means A only — the arrangement's other sections are **skipped**
+   * rather than played into a chart that is not on screen.
    */
   private buildSeq(snap: TransportSnapshot): void {
     this.seq = [];
@@ -330,18 +333,21 @@ export class Transport {
    */
   private countInPattern(snap: TransportSnapshot): Pattern | null {
     const first = this.seq[0];
-    return (first && snap.patterns[first.letter]) || snap.patterns.A;
+    return (first && snap.patterns[first.letter]) || snap.patterns.A || null;
   }
 
   /** How long a step of the pattern playing lasts: a sixteenth, or a sextuplet in 4/4-6. */
   private stepDur(snap: TransportSnapshot): number {
     const pos = this.seq[this.seqIndex];
-    return stepSeconds(meterOfPat((pos && snap.patterns[pos.letter]) || snap.patterns.A), snap.bpm);
+    return stepSeconds(
+      meterOfPat((pos && snap.patterns[pos.letter]) || snap.patterns.A || null),
+      snap.bpm
+    );
   }
 
   private barSteps(snap: TransportSnapshot): number {
     const pos = this.seq[this.seqIndex];
-    return patSteps(pos ? snap.patterns[pos.letter] : null);
+    return patSteps((pos && snap.patterns[pos.letter]) || null);
   }
 
   private tick = (): void => {
@@ -358,8 +364,8 @@ export class Transport {
   private schedule(t: number, snap: TransportSnapshot): void {
     const dur = this.stepDur(snap);
     const pos = this.seq[this.seqIndex];
-    const livePat = pos ? snap.patterns[pos.letter] : null;
-    const cm = meterOfPat(livePat ?? snap.patterns.A);
+    const livePat = (pos && snap.patterns[pos.letter]) || null;
+    const cm = meterOfPat(livePat ?? snap.patterns.A ?? null);
 
     if (this.countLeft > 0) {
       const cn = patSteps(this.countInPattern(snap));

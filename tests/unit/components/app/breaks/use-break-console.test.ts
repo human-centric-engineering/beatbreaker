@@ -18,7 +18,7 @@ import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { stashPendingLink, takePendingLink } from '@/lib/app/breaks/pending-link';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
 import { clearScratch, readScratch, writeScratch } from '@/lib/app/breaks/scratch';
-import { encodeBreak } from '@/lib/app/breaks/share';
+import { breakPayload, encodeBreak } from '@/lib/app/breaks/share';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { withYourKits } from '@/lib/app/breaks/samples/your-kit';
@@ -1449,7 +1449,7 @@ describe("applying BeatBuddy's changes (7.13)", () => {
       result.current.applyAssistant(buddyPayload('Lit', 100), true);
     });
     const after = result.current.patterns.A;
-    const lit = result.current.flash?.A ?? new Set<string>();
+    const lit = result.current.flash?.cells.A ?? new Set<string>();
     expect(lit.size).toBeGreaterThan(0);
     for (const key of lit) {
       const [b, lane, i] = key.split(':');
@@ -1725,5 +1725,355 @@ describe('swing set by the style', () => {
     act(() => result.current.undo());
     expect(result.current.swing).toBe(33);
     expect(result.current.swingYours).toBe(true);
+  });
+});
+
+describe('sections past B (11-e-ii)', () => {
+  it('writes a new section no longer than the break has room for', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.loadPayload(
+        breakPayload({
+          bpm: 120,
+          swing: 0,
+          level: 5,
+          arrangement: ['A', 'B'],
+          A: generatePattern({
+            style: catalogue.styles.funk,
+            meter: '4/4',
+            seed: 5,
+            bars: 2,
+            density: 50,
+            ghosts: 50,
+          }),
+          B: generatePattern({
+            style: catalogue.styles.funk,
+            meter: '4/4',
+            seed: 6,
+            bars: 1,
+            density: 50,
+            ghosts: 50,
+          }),
+        }),
+        'Room'
+      );
+    });
+    // 2 + 1, then three of 8 and one of 5: 32, the most a break holds
+    act(() => result.current.setBars(8));
+    for (let i = 0; i < 3; i++) {
+      act(() => {
+        result.current.addSection();
+      });
+    }
+    act(() => result.current.setBars(5));
+    act(() => {
+      result.current.addSection();
+    });
+    expect(result.current.letters).toEqual(['A', 'B', 'C', 'D', 'E', 'F']);
+    act(() => result.current.setViewMode('A'));
+    act(() => result.current.setBars(8));
+    act(() => {
+      result.current.newBreak('A');
+    });
+    // A had 2 bars and there was room for no more
+    expect(result.current.patterns.A?.bars).toHaveLength(2);
+    const payload = result.current.payload();
+    expect(sharePayloadSchema.safeParse(payload).success).toBe(true);
+  });
+
+  /** Bytes of a meta time-signature event: FF 58 04 nn dd 24 08. */
+  const sigBytes = (num: number, den: number) => [0xff, 0x58, 0x04, num, Math.log2(den)];
+  const countSig = (bytes: number[], num: number, den: number) => {
+    const want = sigBytes(num, den);
+    let n = 0;
+    for (let i = 0; i + want.length <= bytes.length; i++) {
+      if (want.every((b, j) => bytes[i + j] === b)) n++;
+    }
+    return n;
+  };
+
+  it('adds C in the pickers meter, plays it once at the end, and turns the view to it', async () => {
+    const { result } = await mount();
+    act(() => result.current.setMeter('7/8'));
+    const arrBefore = result.current.arrangement;
+
+    let ok = false;
+    act(() => {
+      ok = result.current.addSection();
+    });
+
+    expect(ok).toBe(true);
+    expect(result.current.letters).toEqual(['A', 'B', 'C']);
+    expect(result.current.patterns.C?.meter).toBe('7/8');
+    // A and B are as they were: the new section is C alone
+    expect(result.current.patterns.A?.meter).toBe('4/4');
+    expect(result.current.arrangement).toEqual([...arrBefore, 'C']);
+    expect(result.current.viewMode).toBe('C');
+    expect(result.current.editing).toBe('C');
+  });
+
+  it('adds D after C', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.addSection();
+    });
+    act(() => {
+      result.current.addSection();
+    });
+    expect(result.current.letters).toEqual(['A', 'B', 'C', 'D']);
+    expect(result.current.arrangement.slice(-2)).toEqual(['C', 'D']);
+    expect(result.current.viewMode).toBe('D');
+  });
+
+  it('takes C and its slot back with one Undo, and returns both on Redo', async () => {
+    const { result } = await mount();
+    const arrBefore = result.current.arrangement;
+    act(() => {
+      result.current.addSection();
+    });
+    const withC = result.current.patterns.C;
+    expect(withC).toBeTruthy();
+
+    act(() => result.current.undo());
+    expect(result.current.patterns.C).toBeUndefined();
+    expect(result.current.letters).toEqual(['A', 'B']);
+    expect(result.current.arrangement).toEqual(arrBefore);
+
+    act(() => result.current.redo());
+    expect(result.current.patterns.C).toEqual(withC);
+    expect(result.current.arrangement).toEqual([...arrBefore, 'C']);
+  });
+
+  it('deletes C and every slot that plays it, and one Undo puts both back', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.addSection();
+    });
+    act(() => result.current.setArrangement(['A', 'C', 'B', 'C']));
+
+    let ok = false;
+    act(() => {
+      ok = result.current.deleteSection('C');
+    });
+    expect(ok).toBe(true);
+    expect(result.current.patterns.C).toBeUndefined();
+    expect(result.current.letters).toEqual(['A', 'B']);
+    expect(result.current.arrangement).toEqual(['A', 'B']);
+    // the choice of C falls back to All, since the break has no C now
+    expect(result.current.viewMode).toBe('both');
+
+    act(() => result.current.undo());
+    expect(result.current.letters).toEqual(['A', 'B', 'C']);
+    expect(result.current.arrangement).toEqual(['A', 'C', 'B', 'C']);
+  });
+
+  it('keeps letters rather than renumbering when a middle section goes', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.addSection();
+    });
+    act(() => {
+      result.current.addSection();
+    });
+    const d = result.current.patterns.D;
+    act(() => {
+      result.current.deleteSection('C');
+    });
+    expect(result.current.letters).toEqual(['A', 'B', 'D']);
+    expect(result.current.patterns.D).toBe(d);
+    // the freed letter is the next one added
+    act(() => {
+      result.current.addSection();
+    });
+    expect(result.current.letters).toEqual(['A', 'B', 'C', 'D']);
+  });
+
+  it('refuses to delete A or B, or a section the break does not have', async () => {
+    const { result } = await mount();
+    const before = result.current.patterns;
+    const arr = result.current.arrangement;
+    const out: boolean[] = [];
+    act(() => {
+      out.push(result.current.deleteSection('A'));
+      out.push(result.current.deleteSection('B'));
+      out.push(result.current.deleteSection('C'));
+    });
+    expect(out).toEqual([false, false, false]);
+    expect(result.current.patterns).toBe(before);
+    expect(result.current.arrangement).toBe(arr);
+    expect(result.current.canUndo).toBe(false);
+  });
+
+  it('leaves an arrangement that played only the deleted section as A', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.addSection();
+    });
+    act(() => result.current.setArrangement(['C', 'C']));
+    act(() => {
+      result.current.deleteSection('C');
+    });
+    expect(result.current.arrangement).toEqual(['A']);
+  });
+
+  it('blocks a section that would take the break past 32 bars, and adds nothing', async () => {
+    const { result } = await mount();
+    act(() => result.current.setBars(8));
+    act(() => {
+      result.current.newBreak('both');
+    });
+    expect(result.current.patterns.A?.bars).toHaveLength(8);
+    expect(result.current.addSectionBlocked).toBeNull();
+
+    // 8 + 8 + 8 = 24, then 32
+    act(() => {
+      result.current.addSection();
+    });
+    act(() => {
+      result.current.addSection();
+    });
+    expect(result.current.letters).toEqual(['A', 'B', 'C', 'D']);
+
+    // 32 bars in, another 8 would make 40
+    expect(result.current.addSectionBlocked).toMatch(/32 bars/);
+    let ok = true;
+    act(() => {
+      ok = result.current.addSection();
+    });
+    expect(ok).toBe(false);
+    expect(result.current.letters).toEqual(['A', 'B', 'C', 'D']);
+
+    // back to 24 bars, an 8-bar section lands exactly on the cap and is allowed
+    act(() => {
+      result.current.deleteSection('D');
+    });
+    act(() => result.current.setBars(8));
+    expect(result.current.addSectionBlocked).toBeNull();
+  });
+
+  it('writes a break of A and B as the version it always was, byte for byte (v5)', async () => {
+    const { result } = await mount();
+    const p = result.current.payload();
+    expect(p?.ver).toBe(5);
+    expect(p).not.toHaveProperty('C');
+  });
+
+  it('writes sections past B as a v6 payload that loads back whole, in their own meters', async () => {
+    const first = await mount();
+    const c = first.result;
+    // A 4/4, B 4/4 (as generated), C 7/8, D 3/4
+    act(() => c.current.setMeter('7/8'));
+    act(() => {
+      c.current.addSection();
+    });
+    act(() => c.current.setMeter('3/4'));
+    act(() => {
+      c.current.addSection();
+    });
+    act(() => c.current.setArrangement(['A', 'B', 'A', 'C', 'D']));
+    expect(c.current.patterns.C?.meter).toBe('7/8');
+    expect(c.current.patterns.D?.meter).toBe('3/4');
+
+    const payload = c.current.payload();
+    expect(payload?.ver).toBe(6);
+    const wire: unknown = JSON.parse(JSON.stringify(payload));
+    expect(wire).toHaveProperty('C');
+    expect(wire).toHaveProperty('D');
+    // it survives the schema the server validates with
+    const parsed = sharePayloadSchema.parse(wire);
+
+    const second = await mount();
+    let ok = false;
+    act(() => {
+      ok = second.result.current.loadPayload(parsed, 'Mixed meters');
+    });
+    expect(ok).toBe(true);
+    const r = second.result.current;
+    expect(r.letters).toEqual(['A', 'B', 'C', 'D']);
+    expect(r.patterns.A?.meter).toBe('4/4');
+    expect(r.patterns.C?.meter).toBe('7/8');
+    expect(r.patterns.D?.meter).toBe('3/4');
+    expect(r.patterns.C?.bars).toEqual(c.current.patterns.C?.bars);
+    expect(r.patterns.D?.bars).toEqual(c.current.patterns.D?.bars);
+    expect(r.arrangement).toEqual(['A', 'B', 'A', 'C', 'D']);
+    expect(r.patterns.A?.name).toBe('Mixed meters');
+
+    // and it plays: the file changes signature at each meter change, in order
+    act(() => r.setViewMode('both'));
+    const bytes = second.result.current.midi()!.bytes;
+    expect(countSig(bytes, 7, 8)).toBe(1);
+    expect(countSig(bytes, 3, 4)).toBe(1);
+    // 4/4 is written once, at the top: A, B and A again share it
+    expect(countSig(bytes, 4, 4)).toBe(1);
+    const at = (n: number, d: number) => {
+      const want = sigBytes(n, d);
+      return bytes.findIndex((_, i) => want.every((b, j) => bytes[i + j] === b));
+    };
+    expect(at(4, 4)).toBeLessThan(at(7, 8));
+    expect(at(7, 8)).toBeLessThan(at(3, 4));
+  });
+
+  it('round-trips C and D through a share code too', async () => {
+    const first = await mount();
+    act(() => {
+      first.result.current.addSection();
+    });
+    const code = first.result.current.shareCode();
+    const second = await mount();
+    let ok = false;
+    act(() => {
+      ok = second.result.current.loadCode(code);
+    });
+    expect(ok).toBe(true);
+    expect(second.result.current.letters).toEqual(['A', 'B', 'C']);
+    expect(second.result.current.arrangement).toEqual(first.result.current.arrangement);
+  });
+
+  it('drops sections past B and their slots on a whole new pattern, and Undo brings them back', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.addSection();
+    });
+    const withC = result.current.patterns.C;
+    const arr = result.current.arrangement;
+    expect(arr).toContain('C');
+
+    act(() => {
+      result.current.newBreak('both');
+    });
+    expect(result.current.letters).toEqual(['A', 'B']);
+    expect(result.current.arrangement).not.toContain('C');
+    expect(result.current.arrangement.length).toBeGreaterThan(0);
+    expect(result.current.payload()?.ver).toBe(5);
+
+    act(() => result.current.undo());
+    expect(result.current.letters).toEqual(['A', 'B', 'C']);
+    // restored from the undo stack's copy: equal notes, not the same object
+    expect(result.current.patterns.C).toEqual(withC);
+    expect(result.current.arrangement).toEqual(arr);
+  });
+
+  it('drops sections past B on opening a library entry, and Undo brings them back', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.addSection();
+    });
+    act(() => result.current.loadLibraryEntry('entry-0'));
+    expect(result.current.letters).toEqual(['A', 'B']);
+    expect(result.current.arrangement).not.toContain('C');
+
+    act(() => result.current.undo());
+    expect(result.current.letters).toEqual(['A', 'B', 'C']);
+    expect(result.current.arrangement).toContain('C');
+  });
+
+  it('fixes a stored section choice the break has not got to All (viewIn)', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.addSection();
+    });
+    expect(result.current.viewMode).toBe('C');
+    act(() => result.current.undo());
+    expect(result.current.viewMode).toBe('both');
   });
 });

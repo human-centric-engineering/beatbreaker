@@ -10,6 +10,7 @@ import { TempoControl } from '@/components/app/studio/tempo-control';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
 import { LANE_DEFS, laneName, mixLanes } from '@/lib/app/breaks/lanes';
+import { patternsOf } from '@/lib/app/breaks/sections';
 
 export function PracticePanel() {
   const c = useStudio();
@@ -17,7 +18,7 @@ export function PracticePanel() {
   /* The console guarded on a pattern existing before it drew anything; a panel
      is mounted on its own, so the mixer asks for itself. No pattern means no
      lanes to fade, not an empty Practice panel. */
-  const lanes = c.view.A ? mixLanes(c.view.A.lanes, c.view.B?.lanes) : [];
+  const lanes = c.view.A ? mixLanes(...patternsOf(c.view).map((p) => p.lanes)) : [];
 
   return (
     <>

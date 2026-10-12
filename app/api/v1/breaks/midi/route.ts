@@ -22,6 +22,7 @@ import { getRouteLogger } from '@/lib/api/context';
 import { validateRequestBody } from '@/lib/api/validation';
 import { withAuth } from '@/lib/auth/guards';
 import { humaniseSeed } from '@/lib/app/breaks/humanise';
+import { patternsOf } from '@/lib/app/breaks/sections';
 import { breakDocFromPayload } from '@/lib/app/breaks/share';
 import { type SequencedBar, buildMidi } from '@/lib/app/breaks/midi';
 import { midiBreakSchema } from '@/lib/validations/break-operations';
@@ -37,9 +38,16 @@ export const POST = withAuth(
        requested bar count is filled. A break with a four-letter arrangement and
        two bars a section is eight bars of MIDI, which is the default. */
     const seq: SequencedBar[] = [];
+    /* Only the slots that name a section the break has. The schema already
+       refuses an arrangement naming one it has not got; this keeps the loop
+       finite if that rule ever loosens, and plays A when nothing is left. */
+    const plays = doc.arrangement.flatMap((L) => {
+      const pattern = doc[L];
+      return pattern ? [pattern] : [];
+    });
+    const order = plays.length ? plays : [doc.A];
     for (let i = 0; seq.length < input.bars; i++) {
-      const letter = doc.arrangement[i % doc.arrangement.length];
-      const pattern = doc[letter];
+      const pattern = order[i % order.length];
       for (let b = 0; b < pattern.bars.length && seq.length < input.bars; b++) {
         seq.push({ pattern, barIdx: b });
       }
@@ -54,7 +62,7 @@ export const POST = withAuth(
         ? {
             humanise: {
               amount: input.humanise.amount,
-              seed: humaniseSeed([doc.A, doc.B], input.humanise.take),
+              seed: humaniseSeed(patternsOf(doc), input.humanise.take),
             },
           }
         : {}),

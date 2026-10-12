@@ -8,13 +8,14 @@
 import { describe, expect, it } from 'vitest';
 
 import { generatePattern } from '@/lib/app/breaks/generate';
-import { importedDoc } from '@/lib/app/breaks/import';
+import { capBars, importedDoc } from '@/lib/app/breaks/import';
 import { LANES, PERC_LANES } from '@/lib/app/breaks/lanes';
 import { patternFromLibrary } from '@/lib/app/breaks/library';
 import { buildMidi, vlq } from '@/lib/app/breaks/midi';
 import { readMidi } from '@/lib/app/breaks/midi-read';
 import { packPattern } from '@/lib/app/breaks/share';
 import { packedPatternSchema } from '@/lib/app/breaks/schema';
+import { emptyBar } from '@/lib/app/breaks/pattern';
 import type { Bar, Pattern } from '@/lib/app/breaks/types';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
@@ -176,16 +177,16 @@ describe('readMidi — what other software writes', () => {
     expect(r.ok && r.pattern.notes).toContain('2 notes with no lane here (MIDI 31) were left out.');
   });
 
-  it('keeps sixteen bars and says how many there were', () => {
+  it('keeps the bars a break holds and says how many there were', () => {
     const r = readMidi(
       smf([
         [0, ...ON(9, 36, 100)],
-        [480 * 4 * 19, ...ON(9, 36, 100)],
+        [480 * 4 * 39, ...ON(9, 36, 100)],
       ])
     );
-    expect(r.ok && r.pattern.bars).toHaveLength(16);
+    expect(r.ok && r.pattern.bars).toHaveLength(32);
     expect(r.ok && r.pattern.notes).toContain(
-      'Only the first 16 of 20 bars were kept — a pattern holds two sections of 8.'
+      'Only the first 32 of 40 bars were kept — a pattern holds 32, 8 to a section.'
     );
   });
 
@@ -234,6 +235,101 @@ describe('importedDoc', () => {
     expect(doc.A.style).toBe('rock');
     for (const p of [doc.A, doc.B])
       expect(packedPatternSchema.safeParse(packPattern(p)).success).toBe(true);
+  });
+
+  it('starts a new section at each change of time signature (11-e-ii)', () => {
+    // two bars of 7/8 (14 sixteenths each, 120 ticks a sixteenth), then 4/4, then 3/4
+    const bar78 = 14 * 120;
+    const bar44 = 16 * 120;
+    const r = readMidi(
+      smf([
+        [0, 0xff, 0x58, 4, 7, 3, 24, 8], // 7/8
+        [0, ...ON(9, 36, 100)],
+        [bar78 * 2, 0xff, 0x58, 4, 4, 2, 24, 8], // 4/4, at bar 3
+        [0, ...ON(9, 38, 100)],
+        [bar44, 0xff, 0x58, 4, 3, 2, 24, 8], // 3/4, at bar 4
+        [0, ...ON(9, 42, 100)],
+      ])
+    );
+    if (!r.ok) throw new Error(r.error);
+    expect(r.pattern.meters).toEqual(['7/8', '7/8', '4/4', '3/4']);
+    expect(r.pattern.bars.map((b) => b.k.length)).toEqual([14, 14, 16, 12]);
+    expect(r.pattern.bars[2].s[0]).toBeGreaterThan(0);
+    expect(r.pattern.bars[3].h[0]).toBeGreaterThan(0);
+    expect(r.pattern.notes.join(' ')).not.toMatch(/everything was read in/);
+
+    const doc = importedDoc(r.pattern, 'rock');
+    expect([doc.A.meter, doc.B.meter, doc.C?.meter]).toEqual(['7/8', '4/4', '3/4']);
+    expect([doc.A.bars.length, doc.B.bars.length, doc.C?.bars.length]).toEqual([2, 1, 1]);
+    expect(doc.arrangement).toEqual(['A', 'B', 'C']);
+  });
+
+  it('reads a signature it has no meter for in the one before it, and says so', () => {
+    const r = readMidi(
+      smf([
+        [0, 0xff, 0x58, 4, 4, 2, 24, 8], // 4/4
+        [0, ...ON(9, 36, 100)],
+        [480 * 4, 0xff, 0x58, 4, 11, 4, 24, 8], // 11/16
+        [0, ...ON(9, 38, 100)],
+      ])
+    );
+    if (!r.ok) throw new Error(r.error);
+    expect(r.pattern.meters).toBeUndefined();
+    expect(r.pattern.bars.map((b) => b.k.length)).toEqual([16, 16]);
+    expect(r.pattern.notes).toContain(
+      'BeatBreaker has no 11/16, so those bars were read in the time signature before them.'
+    );
+  });
+
+  it('is in 4/4 until a signature that comes later', () => {
+    const r = readMidi(
+      smf([
+        [0, ...ON(9, 36, 100)],
+        [480 * 4, 0xff, 0x58, 4, 3, 2, 24, 8], // 3/4, at bar 2
+        [0, ...ON(9, 38, 100)],
+      ])
+    );
+    if (!r.ok) throw new Error(r.error);
+    expect(r.pattern.meter).toBe('4/4');
+    expect(r.pattern.meters).toEqual(['4/4', '3/4']);
+  });
+
+  it('keeps only the bars an arrangement can play when the meter changes every bar, and says so', () => {
+    // twenty bars alternating 4/4 and 7/8: a section a bar
+    const meters = Array.from({ length: 20 }, (_, i) => (i % 2 ? '7/8' : '4/4'));
+    const imp = capBars({
+      name: '',
+      meter: '4/4',
+      bpm: 100,
+      swing: 0,
+      bars: meters.map((m) => emptyBar(m === '4/4' ? 16 : 14)),
+      meters,
+      perc: {},
+      notes: [],
+    });
+    expect(imp.bars).toHaveLength(16);
+    expect(imp.meters).toHaveLength(16);
+    expect(imp.notes).toEqual([
+      'Only the first 16 of 20 bars were kept — its meter changes so often that those bars make 16 sections, as many as an arrangement plays.',
+    ]);
+    const doc = importedDoc(imp, 'rock');
+    // every section made is one the arrangement plays
+    expect(doc.arrangement).toHaveLength(16);
+    expect(doc.P?.meter).toBe('7/8');
+    expect(doc.Q).toBeUndefined();
+  });
+
+  it('cuts a long run of one meter every eight bars', () => {
+    const r = readMidi(
+      smf([
+        [0, ...ON(9, 36, 100)],
+        [480 * 4 * 19, ...ON(9, 36, 100)],
+      ])
+    );
+    if (!r.ok) throw new Error(r.error);
+    const doc = importedDoc(r.pattern, 'rock');
+    expect([doc.A, doc.B, doc.C].map((p) => p?.bars.length)).toEqual([8, 8, 4]);
+    expect(doc.arrangement).toEqual(['A', 'B', 'C']);
   });
 
   it('plays one section on its own when the import fits in eight bars', () => {

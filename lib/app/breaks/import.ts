@@ -1,6 +1,7 @@
 import { BASE_LANES, FOOT_LANE, PERC_LANES, TOM_LANES } from '@/lib/app/breaks/lanes';
 import { isGroupStart, meterOf } from '@/lib/app/breaks/meter';
 import { cloneBar } from '@/lib/app/breaks/pattern';
+import { MAX_ARRANGEMENT, MAX_BREAK_BARS, SECTION_LETTERS } from '@/lib/app/breaks/sections';
 import type { BreakDoc } from '@/lib/app/breaks/share';
 import type { Bar, LaneKey, Pattern, PercLaneKey } from '@/lib/app/breaks/types';
 
@@ -16,8 +17,8 @@ import type { Bar, LaneKey, Pattern, PercLaneKey } from '@/lib/app/breaks/types'
 
 /** Bars in one section of a document — the wire format's own limit. */
 export const SECTION_BARS = 8;
-/** An import fills A, then B, and stops. */
-export const MAX_IMPORT_BARS = SECTION_BARS * 2;
+/** An import fills sections from A, eight bars to each, up to what a break holds. */
+export const MAX_IMPORT_BARS = MAX_BREAK_BARS;
 
 export interface ImportedPattern {
   /** The title the source carried, or '' — the caller names it otherwise. */
@@ -27,8 +28,13 @@ export interface ImportedPattern {
   bpm: number;
   /** Swing slider, 0–100. */
   swing: number;
-  /** Already on the sixteenth grid, at the meter's step count. */
+  /** Already on the sixteenth grid, each at its own meter's step count. */
   bars: Bar[];
+  /**
+   * Each bar's meter, where the source changes meter (a MIDI file's time
+   * signatures). Left out, every bar is in {@link meter}.
+   */
+  meters?: string[];
   /** What sits in each percussion slot, when the source used one. */
   perc: Partial<Record<PercLaneKey, string>>;
   /**
@@ -46,19 +52,29 @@ export type ImportResult = { ok: true; pattern: ImportedPattern } | { ok: false;
  * Readers call this last, so the note sits after their own.
  */
 export function capBars(pattern: ImportedPattern): ImportedPattern {
-  if (pattern.bars.length <= MAX_IMPORT_BARS) return pattern;
+  const total = pattern.bars.length;
+  let keep = Math.min(total, MAX_IMPORT_BARS);
+  let why = `a pattern holds ${MAX_IMPORT_BARS}, ${SECTION_BARS} to a section`;
+  /* Every section an import makes is played once by the arrangement, which
+     has MAX_ARRANGEMENT slots. A file that changes meter nearly every bar
+     makes a section a bar, so what would need more sections than that is cut
+     here, and said, rather than kept where nothing plays it. */
+  const runs = runsOf({ ...pattern, bars: pattern.bars.slice(0, keep) });
+  if (runs.length > MAX_ARRANGEMENT) {
+    keep = runs.slice(0, MAX_ARRANGEMENT).reduce((n, r) => n + r.bars.length, 0);
+    why = `its meter changes so often that those bars make ${MAX_ARRANGEMENT} sections, as many as an arrangement plays`;
+  }
+  if (keep === total) return pattern;
   return {
     ...pattern,
-    notes: [
-      ...pattern.notes,
-      `Only the first ${MAX_IMPORT_BARS} of ${pattern.bars.length} bars were kept — a pattern holds two sections of ${SECTION_BARS}.`,
-    ],
-    bars: pattern.bars.slice(0, MAX_IMPORT_BARS),
+    notes: [...pattern.notes, `Only the first ${keep} of ${total} bars were kept — ${why}.`],
+    bars: pattern.bars.slice(0, keep),
+    ...(pattern.meters ? { meters: pattern.meters.slice(0, keep) } : {}),
   };
 }
 
-function sectionOf(imp: ImportedPattern, bars: Bar[], style: string): Pattern {
-  const m = meterOf(imp.meter);
+function sectionOf(imp: ImportedPattern, bars: Bar[], style: string, meter = imp.meter): Pattern {
+  const m = meterOf(meter);
   const n = bars[0]?.k.length ?? 0;
   const has = (L: LaneKey) => bars.some((b) => b[L].some((v) => v));
 
@@ -88,7 +104,7 @@ function sectionOf(imp: ImportedPattern, bars: Bar[], style: string): Pattern {
        with default feel, which is what the source wrote. */
     styleVersionId: null,
     attrs: {},
-    meter: imp.meter,
+    meter,
     seed: 0,
     voice: rideNotes > hatNotes ? 'ride' : 'hat',
     lanes,
@@ -103,21 +119,44 @@ function sectionOf(imp: ImportedPattern, bars: Bar[], style: string): Pattern {
 }
 
 /**
- * An import as a document: the first eight bars are A, the next eight B.
- * One section plays on its own, so B is a copy of A that the arrangement
- * never reaches — the Studio always has a B to edit.
+ * The bars cut into sections: a new one at every change of meter, and every
+ * {@link SECTION_BARS} bars within one meter. {@link capBars} keeps them to
+ * what an arrangement plays.
+ */
+function runsOf(imp: ImportedPattern): { meter: string; bars: Bar[] }[] {
+  const runs: { meter: string; bars: Bar[] }[] = [];
+  imp.bars.slice(0, MAX_IMPORT_BARS).forEach((bar, i) => {
+    const meter = imp.meters?.[i] ?? imp.meter;
+    const last = runs[runs.length - 1];
+    if (last && last.meter === meter && last.bars.length < SECTION_BARS) last.bars.push(bar);
+    else runs.push({ meter, bars: [bar] });
+  });
+  return runs;
+}
+
+/**
+ * An import as a document: sections from A, in the order the source plays
+ * them — a new one at every change of meter (11-e-ii) and every eight bars —
+ * and an arrangement that plays each once. One section plays on its own, so
+ * B is then a copy of A that the arrangement never reaches: the Studio
+ * always has a B to edit.
  */
 export function importedDoc(imp: ImportedPattern, style: string): BreakDoc {
-  const bars = imp.bars.slice(0, MAX_IMPORT_BARS);
-  const A = sectionOf(imp, bars.slice(0, SECTION_BARS), style);
-  const rest = bars.slice(SECTION_BARS);
-  const B = rest.length ? sectionOf(imp, rest, style) : sectionOf(imp, A.bars, style);
-  return {
+  // capBars has already cut a reader's bars to this; the slice holds a caller that skipped it
+  const runs = runsOf(imp).slice(0, MAX_ARRANGEMENT);
+  const sections = runs.map((run) => sectionOf(imp, run.bars, style, run.meter));
+  const A = sections[0] ?? sectionOf(imp, [], style);
+  const B = sections[1] ?? sectionOf(imp, A.bars, style, A.meter);
+  const doc: BreakDoc = {
     bpm: imp.bpm,
     swing: imp.swing,
     level: 5,
-    arrangement: rest.length ? ['A', 'B'] : ['A'],
+    arrangement: SECTION_LETTERS.slice(0, Math.max(1, sections.length)),
     A,
     B,
   };
+  sections.slice(2).forEach((p, i) => {
+    doc[SECTION_LETTERS[i + 2]] = p;
+  });
+  return doc;
 }

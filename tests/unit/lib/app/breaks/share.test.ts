@@ -13,6 +13,7 @@ import { patternSchema, sharePayloadSchema, storedPayloadSchema } from '@/lib/ap
 import {
   type BreakDoc,
   SHARE_VERSION,
+  SHARE_VERSION_AB,
   breakDocFromPayload,
   decodeBreak,
   encodeBreak,
@@ -105,10 +106,11 @@ describe('encodeBreak / decodeBreak', () => {
     expect(back).toEqual(mixed);
   });
 
-  it('writes the current version', () => {
-    expect(SHARE_VERSION).toBe(5);
+  it('writes a break of A and B as v5, so its code does not change (11-e-ii)', () => {
+    expect(SHARE_VERSION).toBe(6);
+    expect(SHARE_VERSION_AB).toBe(5);
     const raw: unknown = JSON.parse(atob(encodeBreak(docFor('funk'))));
-    expect(sharePayloadSchema.parse(raw).ver).toBe(SHARE_VERSION);
+    expect(sharePayloadSchema.parse(raw).ver).toBe(SHARE_VERSION_AB);
   });
 
   it('carries the style version and the style snapshot on the wire (v4)', () => {

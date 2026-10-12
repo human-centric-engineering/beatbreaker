@@ -2,6 +2,7 @@ import type { BreakDoc } from '@/lib/app/breaks/share';
 import { LANES } from '@/lib/app/breaks/lanes';
 import { stepSeconds } from '@/lib/app/breaks/meter';
 import { meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
+import { EXTRA_LETTERS, type Sections, patternsOf } from '@/lib/app/breaks/sections';
 import type { Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -34,11 +35,20 @@ export function sectionHash(p: Pattern): Promise<string> {
 }
 
 /**
- * A hash of both sections' notes — the `Break.gridHash` column, and what the
+ * A hash of every section's notes — the `Break.gridHash` column, and what the
  * check against other people's published patterns compares.
+ *
+ * A and B are hashed as they always were; a section past B is added after them
+ * with its letter, so a break of A and B keeps the hash it was stored with, and
+ * the same notes under another letter are another break.
  */
-export function gridHash(doc: Pick<BreakDoc, 'A' | 'B'>): Promise<string> {
-  return sha256(`${sectionText(doc.A)}#${sectionText(doc.B)}`);
+export function gridHash(doc: Sections): Promise<string> {
+  let text = `${sectionText(doc.A)}#${sectionText(doc.B)}`;
+  for (const L of EXTRA_LETTERS) {
+    const p = doc[L];
+    if (p) text += `#${L}:${sectionText(p)}`;
+  }
+  return sha256(text);
 }
 
 /** Hits per second at or above which a pattern reads as medium, then hard. */
@@ -69,7 +79,7 @@ function hitsPerSecond(p: Pattern, bpm: number): number {
 }
 
 /**
- * How hard a pattern is to play: 1 easy · 2 medium · 3 hard, from the busier
+ * How hard a pattern is to play: 1 easy · 2 medium · 3 hard, from the busiest
  * section's hits per second at the pattern's own tempo.
  *
  * A first cut — the critic scores whether a pattern is good, not whether it is
@@ -77,7 +87,7 @@ function hitsPerSecond(p: Pattern, bpm: number): number {
  * rock beat at 100 is easy; the same with sixteenth hats is medium; a busy
  * funk pattern with ghosts is hard.
  */
-export function difficultyOf(doc: Pick<BreakDoc, 'A' | 'B' | 'bpm'>): Difficulty {
-  const rate = Math.max(hitsPerSecond(doc.A, doc.bpm), hitsPerSecond(doc.B, doc.bpm));
+export function difficultyOf(doc: Sections & Pick<BreakDoc, 'bpm'>): Difficulty {
+  const rate = Math.max(...patternsOf(doc).map((p) => hitsPerSecond(p, doc.bpm)));
   return rate >= HARD_FROM ? 3 : rate >= MEDIUM_FROM ? 2 : 1;
 }

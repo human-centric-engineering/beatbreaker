@@ -3,11 +3,22 @@ import { DEFAULT_METER, METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter'
 import { LAYER_V1_TO_V2 } from '@/lib/app/breaks/layers';
 import { emptyBar, stickingRow, styleAttrs, tidySticking } from '@/lib/app/breaks/pattern';
 import { type PackedPattern, type SharePayload, sharePayloadSchema } from '@/lib/app/breaks/schema';
+import {
+  EXTRA_LETTERS,
+  type SectionLetter,
+  type Sections,
+  hasExtraSections,
+} from '@/lib/app/breaks/sections';
 import type { LaneKey, Pattern, PercLaneKey, Pins, ResolvedStyle } from '@/lib/app/breaks/types';
 
 /**
- * Share codes: a whole break — both sections, the tempo, the swing and the
+ * Share codes: a whole break — every section, the tempo, the swing and the
  * style — as one base64 string you can paste to anyone.
+ *
+ * **Version 6** (11-e-ii) adds sections C to Z beside A and B. It is written
+ * only when a break has one, or an arrangement names one: a break of A and B
+ * is still a v5 code, byte for byte, so its link and its `gridHash` are what
+ * they were, and a reader that knows only v5 still opens it.
  *
  * **Version 5** (9-iv) adds the articulations — rimshot, flam, drag and buzz
  * on the snare, the half-open hat, crash 2, china and splash, the tom flam —
@@ -33,7 +44,11 @@ import type { LaneKey, Pattern, PercLaneKey, Pins, ResolvedStyle } from '@/lib/a
  * something has actually checked.
  */
 
-export const SHARE_VERSION = 5;
+/** The newest version this app writes — for a break with sections past B. */
+export const SHARE_VERSION = 6;
+
+/** The version a break of A and B alone is written as, so its code does not change. */
+export const SHARE_VERSION_AB = 5;
 
 /**
  * How a code older than v4 gets its snapshot back.
@@ -49,15 +64,13 @@ export const SHARE_VERSION = 5;
  */
 export type StyleLookup = (key: string) => ResolvedStyle | undefined;
 
-/** Everything a share code carries. */
-export interface BreakDoc {
+/** Everything a share code carries: the playback, and every section A to Z. */
+export type BreakDoc = {
   bpm: number;
   swing: number;
   level: number;
-  arrangement: Array<'A' | 'B'>;
-  A: Pattern;
-  B: Pattern;
-}
+  arrangement: SectionLetter[];
+} & Sections;
 
 /* base64 of the UTF-8 bytes — the same bytes as the prototype's
    `btoa(unescape(encodeURIComponent(s)))`, without the deprecated `unescape`. */
@@ -124,8 +137,9 @@ export function packPattern(p: Pattern): PackedPattern {
  * the `doc` a `POST`/`PATCH` of `/api/v1/breaks` carries.
  */
 export function breakPayload(doc: BreakDoc): SharePayload {
-  return {
-    ver: SHARE_VERSION,
+  const extra = hasExtraSections(doc) || doc.arrangement.some((L) => L !== 'A' && L !== 'B');
+  const out: SharePayload = {
+    ver: extra ? SHARE_VERSION : SHARE_VERSION_AB,
     bpm: doc.bpm,
     sw: doc.swing,
     lv: doc.level,
@@ -133,10 +147,27 @@ export function breakPayload(doc: BreakDoc): SharePayload {
     A: packPattern(doc.A),
     B: packPattern(doc.B),
   };
+  for (const L of EXTRA_LETTERS) {
+    const p = doc[L];
+    if (p) out[L] = packPattern(p);
+  }
+  return out;
 }
 
 export function encodeBreak(doc: BreakDoc): string {
   return toBase64(JSON.stringify(breakPayload(doc)));
+}
+
+/**
+ * A break cut back to A and B, as a whole new pattern is: the sections past B
+ * go, and so does every slot of the arrangement that played one. An
+ * arrangement left with nothing plays A.
+ */
+export function withoutExtraSections(doc: BreakDoc): BreakDoc {
+  const kept = doc.arrangement.filter((L) => L === 'A' || L === 'B');
+  const out: BreakDoc = { ...doc, arrangement: kept.length ? kept : ['A'] };
+  for (const L of EXTRA_LETTERS) delete out[L];
+  return out;
 }
 
 /**
@@ -250,7 +281,7 @@ export function breakDocFromPayload(payload: SharePayload, styles?: StyleLookup)
         ? payload.lv
         : (LAYER_V1_TO_V2[payload.lv] ?? payload.lv);
 
-  return {
+  const doc: BreakDoc = {
     bpm: payload.bpm,
     swing: payload.sw,
     level,
@@ -258,4 +289,9 @@ export function breakDocFromPayload(payload: SharePayload, styles?: StyleLookup)
     A: patternFromPacked(payload.A, styles),
     B: patternFromPacked(payload.B, styles),
   };
+  for (const L of EXTRA_LETTERS) {
+    const p = payload[L];
+    if (p) doc[L] = patternFromPacked(p, styles);
+  }
+  return doc;
 }

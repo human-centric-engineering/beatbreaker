@@ -13,6 +13,7 @@ import { VISIBILITIES } from '@/lib/app/breaks/community/visibility';
 import { useAppEvents } from '@/lib/app/breaks/events';
 import { storedLinkSchema } from '@/lib/app/breaks/links';
 import type { SharePayload } from '@/lib/app/breaks/schema';
+import { SECTION_LETTERS } from '@/lib/app/breaks/sections';
 import { clearScratch, writeScratch } from '@/lib/app/breaks/scratch';
 import { logger } from '@/lib/logging';
 import type { Say } from '@/components/app/studio/use-notice';
@@ -180,7 +181,13 @@ const created = z.object({ id: z.string().min(1), basedOn: basedOnSchema.nullish
  */
 export function notesKey(payload: SharePayload): string {
   const { bpm: _bpm, lv: _lv, ...rest } = payload;
-  return JSON.stringify({ ...rest, A: { ...rest.A, n: '' }, B: { ...rest.B, n: '' } });
+  // every section's name blanked, each in the place its key already has
+  const out = { ...rest };
+  for (const L of SECTION_LETTERS) {
+    const section = rest[L];
+    if (section) out[L] = { ...section, n: '' };
+  }
+  return JSON.stringify(out);
 }
 
 /** A title the API will take: it refuses an empty one. */

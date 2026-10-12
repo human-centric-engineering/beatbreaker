@@ -58,7 +58,7 @@ export function ExportPanel() {
             <span className="fieldlab">
               The notes as a code{' '}
               <StudioHelp title="Break code">
-                Both sections, the tempo, swing and the style, carried in the code itself, so there
+                Every section, the tempo, swing and the style, carried in the code itself, so there
                 is nothing to save first. Paste it into Load a break code; the Studio link opens the
                 same notes in the Studio for anyone signed in.
               </StudioHelp>

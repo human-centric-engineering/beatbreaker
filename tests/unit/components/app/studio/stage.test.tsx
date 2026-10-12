@@ -21,6 +21,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { GeneratePanel } from '@/components/app/studio/panels/generate-panel';
 import { Stage } from '@/components/app/studio/stage';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
+import type { SectionLetter } from '@/lib/app/breaks/sections';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 import { pickStyle } from '@/tests/helpers/style-picker';
 
@@ -30,7 +31,7 @@ function Probe() {
   studio = useStudio();
   return null;
 }
-const barOf = (L: 'A' | 'B') => JSON.stringify(studio!.view[L]!.bars);
+const barOf = (L: SectionLetter) => JSON.stringify(studio!.view[L]!.bars);
 const probe = () => ({
   a: barOf('A'),
   b: barOf('B'),
@@ -75,13 +76,13 @@ describe('Stage, with nothing in the catalogue', () => {
 });
 
 describe('Stage', () => {
-  it('shows one stave for A, one for B, and two for Both', async () => {
+  it('shows one stave for A, one for B, and two for All', async () => {
     const user = userEvent.setup();
     renderStage();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
     const seg = within(screen.getByRole('radiogroup', { name: 'Section' }));
-    expect(seg.getAllByRole('radio').map((r) => r.textContent)).toEqual(['A', 'B', 'Both']);
+    expect(seg.getAllByRole('radio').map((r) => r.textContent)).toEqual(['A', 'B', 'All']);
 
     await user.click(seg.getByRole('radio', { name: 'A' }));
     expect(screen.getAllByRole('img', { name: /Drum notation/ }).length).toBe(1);
@@ -92,9 +93,9 @@ describe('Stage', () => {
     expect(seg.getByRole('radio', { name: 'B' })).toHaveAttribute('aria-checked', 'true');
     expect(seg.getByRole('radio', { name: 'A' })).toHaveAttribute('aria-checked', 'false');
 
-    await user.click(seg.getByRole('radio', { name: 'Both' }));
+    await user.click(seg.getByRole('radio', { name: 'All' }));
     expect(screen.getAllByRole('img', { name: /Drum notation/ }).length).toBe(2);
-    expect(seg.getByRole('radio', { name: 'Both' })).toHaveAttribute('aria-checked', 'true');
+    expect(seg.getByRole('radio', { name: 'All' })).toHaveAttribute('aria-checked', 'true');
   });
 
   it('names each arrangement cell for what it plays, and says so again when switched', async () => {
@@ -103,13 +104,13 @@ describe('Stage', () => {
     await screen.findAllByRole('img', { name: /Drum notation/ });
     const arr = within(screen.getByRole('group', { name: 'Arrangement' }));
     expect(arr.getAllByRole('button').map((b) => b.getAttribute('aria-label'))).toEqual([
-      'Section 1 plays A',
-      'Section 2 plays A',
-      'Section 3 plays A',
-      'Section 4 plays B',
+      'Slot 1 plays A',
+      'Slot 2 plays A',
+      'Slot 3 plays A',
+      'Slot 4 plays B',
     ]);
-    await user.click(arr.getByRole('button', { name: 'Section 2 plays A' }));
-    expect(arr.getByRole('button', { name: 'Section 2 plays B' })).toBeTruthy();
+    await user.click(arr.getByRole('button', { name: 'Slot 2 plays A' }));
+    expect(arr.getByRole('button', { name: 'Slot 2 plays B' })).toBeTruthy();
   });
 
   it('names each layer button by its layer, with its number as the shortcut', async () => {
@@ -221,7 +222,7 @@ describe('Stage', () => {
     expect(screen.getByLabelText<HTMLInputElement>('Chart size').value).toBe('140');
   });
 
-  it('adds and removes arrangement sections, and disables remove at one section', async () => {
+  it('adds and removes arrangement slots, and disables remove at one slot', async () => {
     const user = userEvent.setup();
     renderStage();
     await screen.findAllByRole('img', { name: /Drum notation/ });
@@ -229,15 +230,15 @@ describe('Stage', () => {
     const arrCount = () => document.querySelectorAll('.arr button').length;
     const start = arrCount();
 
-    await user.click(screen.getByRole('button', { name: 'Add a section' }));
+    await user.click(screen.getByRole('button', { name: 'Add a slot' }));
     expect(arrCount()).toBe(start + 1);
 
-    // reduce all the way down to one section
+    // reduce all the way down to one slot
     for (let i = arrCount(); i > 1; i--) {
-      await user.click(screen.getByRole('button', { name: 'Remove last section' }));
+      await user.click(screen.getByRole('button', { name: 'Remove the last slot' }));
     }
     expect(arrCount()).toBe(1);
-    expect(screen.getByRole('button', { name: 'Remove last section' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Remove the last slot' })).toBeDisabled();
   });
 
   it('flips an arrangement letter from A to B and back to A', async () => {
@@ -319,5 +320,106 @@ describe('Stage', () => {
     /* What plays follows the same choice: the transport solos `viewMode`, as
        the console's MIDI test checks for the export cut the same way. */
     expect(studio!.viewMode).toBe('B');
+  });
+});
+
+describe('Stage, with sections past B (11-e-ii)', () => {
+  const renderWithProbe = () =>
+    render(
+      <StudioProvider catalogue={testCatalogue()}>
+        <Stage />
+        <Probe />
+      </StudioProvider>
+    );
+  const picker = () => within(screen.getByRole('radiogroup', { name: 'Section' }));
+
+  it('adds a C to the section picker, which turns to it, and shows Delete C only there', async () => {
+    const user = userEvent.setup();
+    renderWithProbe();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+    // a break of A and B has nothing past B to delete
+    expect(screen.queryByRole('button', { name: /^Delete / })).toBeNull();
+
+    await user.click(screen.getByRole('button', { name: '+ Section' }));
+
+    expect(
+      picker()
+        .getAllByRole('radio')
+        .map((r) => r.textContent)
+    ).toEqual(['A', 'B', 'C', 'All']);
+    expect(picker().getByRole('radio', { name: 'C' })).toHaveAttribute('aria-checked', 'true');
+    expect(studio!.letters).toEqual(['A', 'B', 'C']);
+    expect(screen.getByRole('button', { name: 'Delete C' })).toBeInTheDocument();
+
+    // on A, the section on show is not past B: no Delete
+    await user.click(picker().getByRole('radio', { name: 'A' }));
+    expect(screen.queryByRole('button', { name: /^Delete / })).toBeNull();
+  });
+
+  it('deletes C from the Delete C button, taking its slots and its picker button with it', async () => {
+    const user = userEvent.setup();
+    renderWithProbe();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+    await user.click(screen.getByRole('button', { name: '+ Section' }));
+    const arr = within(screen.getByRole('group', { name: 'Arrangement' }));
+    expect(arr.getByRole('button', { name: 'Slot 5 plays C' })).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Delete C' }));
+
+    expect(studio!.letters).toEqual(['A', 'B']);
+    expect(
+      picker()
+        .getAllByRole('radio')
+        .map((r) => r.textContent)
+    ).toEqual(['A', 'B', 'All']);
+    expect(arr.queryByRole('button', { name: /plays C/ })).toBeNull();
+    expect(arr.getAllByRole('button')).toHaveLength(4);
+    expect(screen.queryByRole('button', { name: /^Delete / })).toBeNull();
+  });
+
+  it('cycles an arrangement slot through A, B and C and back to A', async () => {
+    const user = userEvent.setup();
+    renderWithProbe();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+    await user.click(screen.getByRole('button', { name: '+ Section' }));
+    const arr = within(screen.getByRole('group', { name: 'Arrangement' }));
+
+    await user.click(arr.getByRole('button', { name: 'Slot 1 plays A' }));
+    expect(arr.getByRole('button', { name: 'Slot 1 plays B' })).toBeInTheDocument();
+    await user.click(arr.getByRole('button', { name: 'Slot 1 plays B' }));
+    expect(arr.getByRole('button', { name: 'Slot 1 plays C' })).toBeInTheDocument();
+    await user.click(arr.getByRole('button', { name: 'Slot 1 plays C' }));
+    expect(arr.getByRole('button', { name: 'Slot 1 plays A' })).toBeInTheDocument();
+    expect(studio!.arrangement).toEqual(['A', 'A', 'A', 'B', 'C']);
+  });
+
+  it('disables + Section with the reason in its title when the break is full', async () => {
+    const user = userEvent.setup();
+    render(
+      <StudioProvider catalogue={testCatalogue()}>
+        <Stage />
+        <GeneratePanel />
+        <Probe />
+      </StudioProvider>
+    );
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+    const add = () => screen.getByRole('button', { name: '+ Section' });
+    expect(add()).toBeEnabled();
+
+    // 2-bar sections: A and B are 4 bars, so 14 more sections fill the 32
+    for (let i = 0; i < 14; i++) await user.click(add());
+    expect(studio!.letters).toHaveLength(16);
+    expect(add()).toBeDisabled();
+    expect(add().getAttribute('title')).toMatch(/32 bars/);
+  });
+
+  it('disables Add a slot at 16 slots', async () => {
+    const user = userEvent.setup();
+    renderStage();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+    const addSlot = screen.getByRole('button', { name: 'Add a slot' });
+    for (let i = 4; i < 16; i++) await user.click(addSlot);
+    expect(document.querySelectorAll('.arr button').length).toBe(16);
+    expect(addSlot).toBeDisabled();
   });
 });

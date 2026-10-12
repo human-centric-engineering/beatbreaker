@@ -54,7 +54,7 @@ export function firstSection(
   has: (letter: SectionLetter) => boolean
 ): SectionLetter {
   const first = arrangement.find((l) => (viewMode === 'both' || l === viewMode) && has(l));
-  return first ?? (viewMode === 'B' ? 'B' : 'A');
+  return first ?? (viewMode === 'both' ? 'A' : viewMode);
 }
 
 /**

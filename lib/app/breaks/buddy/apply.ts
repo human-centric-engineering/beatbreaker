@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { type SharePayload, sharePayloadSchema } from '@/lib/app/breaks/schema';
+import { SECTION_LETTERS } from '@/lib/app/breaks/sections';
 
 /**
  * Which of BeatBuddy's tool results the Studio applies (task 7.13).
@@ -54,12 +55,14 @@ export function newestChange(changes: ToolChange[], appliedRev: number): ToolCha
 }
 
 /**
- * The notes of a document, as a comparable string: both sections, nothing
+ * The notes of a document, as a comparable string: every section, nothing
  * else. Tempo, swing and layer are left out on purpose — practising at 80%
  * while BeatBuddy works is not an edit to the pattern.
  */
 export function notesKey(payload: SharePayload | null): string {
-  return payload ? JSON.stringify([payload.A, payload.B]) : '';
+  return payload
+    ? JSON.stringify(SECTION_LETTERS.flatMap((L) => (payload[L] ? [L, payload[L]] : [])))
+    : '';
 }
 
 export type ApplyDecision =

@@ -1,12 +1,13 @@
 import { z } from 'zod';
 
 import { maxBpm } from '@/lib/app/breaks/audio/transport';
-import { SECTIONS } from '@/lib/app/breaks/buddy/describe';
 import { type EditData, describeEdit, editWorkspace } from '@/lib/app/breaks/buddy/edit';
 import { generateGood } from '@/lib/app/breaks/critic';
 import { deriveB } from '@/lib/app/breaks/generate';
 import { DEFAULT_METER, METER_KEYS } from '@/lib/app/breaks/meter';
 import { resolveLanes } from '@/lib/app/breaks/pattern';
+import { lettersOf } from '@/lib/app/breaks/sections';
+import { withoutExtraSections } from '@/lib/app/breaks/share';
 import { styleIn } from '@/lib/app/breaks/styles';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
 import type {
@@ -138,7 +139,8 @@ export class GeneratePatternCapability extends BaseCapability<Args, EditData> {
       return {
         ok: true,
         doc: {
-          ...doc,
+          // a brand-new pattern is an A and a B, as the Studio's New writes one
+          ...withoutExtraSections(doc),
           bpm,
           swing: args.swing ?? style.params.swing,
           A: made.pattern,
@@ -154,7 +156,7 @@ export class GeneratePatternCapability extends BaseCapability<Args, EditData> {
       doc: outcome.payload,
       rev: outcome.rev,
       summary: `New ${outcome.extra} pattern: ${after.A.bars.length} bar${after.A.bars.length > 1 ? 's' : ''} of ${after.A.meter} at ${after.bpm} bpm`,
-      ...describeEdit(outcome.before, after, SECTIONS),
+      ...describeEdit(outcome.before, after, lettersOf(after)),
     });
   }
 }
