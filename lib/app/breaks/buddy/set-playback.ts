@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { maxBpm } from '@/lib/app/breaks/audio/transport';
+import { maxBpmOf } from '@/lib/app/breaks/audio/transport';
 import { type EditData, editWorkspace } from '@/lib/app/breaks/buddy/edit';
 import { FULL_LAYER, layerName } from '@/lib/app/breaks/layers';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
@@ -59,11 +59,13 @@ export class SetPlaybackCapability extends BaseCapability<Args, EditData> {
     if (!context.userId) return this.error('BeatBuddy needs a signed-in user', 'no_user');
 
     const outcome = await editWorkspace(context.userId, (doc) => {
-      const top = maxBpm(doc.A.meter);
+      const top = maxBpmOf([doc.A.meter, doc.B.meter]);
       if (args.bpm !== undefined && args.bpm > top) {
+        const meters =
+          doc.A.meter === doc.B.meter ? doc.A.meter : `${doc.A.meter} and ${doc.B.meter}`;
         return {
           ok: false,
-          message: `The Studio plays ${doc.A.meter} up to ${top} bpm`,
+          message: `The Studio plays ${meters} up to ${top} bpm`,
           code: 'tempo_out_of_range',
         };
       }

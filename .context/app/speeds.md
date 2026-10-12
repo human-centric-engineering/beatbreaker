@@ -11,7 +11,9 @@ best can go on a public table.
 - **Don't take the notes, the title or the tempo ceiling from the client.**
   `recordSpeed` (`lib/app/breaks/saved/speeds.ts`) reads the target and
   stores its _stored_ notes hash, its title, and holds `bpm` to 40 and the
-  target meter's `maxBpm`. The body names the target by id and nothing else.
+  target's top tempo: a saved break's `breakTopBpm`, read from its document
+  (the lowest of its sections' ceilings, not `Break.meter`, which is A's), a
+  famous break's meter's `maxBpm`. The body names the target by id and nothing else.
 - **Don't list a record on a private target.** `listed` is forced false on
   anything but a published pattern or a famous break, whatever the request
   said, so publishing a pattern later never puts records on a table nobody

@@ -51,6 +51,9 @@ vi.mock('@/lib/app/breaks/saved/speeds', async (importActual) => {
 vi.mock('@/lib/app/breaks/community/profile', () => ({ usernameOf: vi.fn() }));
 
 import { APIError, NotFoundError, ValidationError } from '@/lib/api/errors';
+import { generatePattern } from '@/lib/app/breaks/generate';
+import { breakPayload } from '@/lib/app/breaks/share';
+import { testStyle } from '@/tests/helpers/catalogue';
 import { usernameOf } from '@/lib/app/breaks/community/profile';
 import { bestKey, yourBests } from '@/lib/app/breaks/saved/speeds';
 import { assertDefined } from '@/tests/helpers/assertions';
@@ -102,6 +105,20 @@ function itemRow(over: Record<string, unknown> = {}) {
     libraryEntry: null,
     ...over,
   };
+}
+
+/** A saved break's document with A and B in two meters (11-e-ii-a). */
+function mixedDoc(aMeter: string, bMeter: string) {
+  const at = (meter: string) =>
+    generatePattern({ style: testStyle('funk'), meter, seed: 4, bars: 1, density: 50, ghosts: 50 });
+  return breakPayload({
+    bpm: 120,
+    swing: 0,
+    level: 5,
+    arrangement: ['A', 'B'],
+    A: at(aMeter),
+    B: at(bMeter),
+  });
 }
 
 function sessionRow(over: Record<string, unknown> = {}) {
@@ -462,6 +479,35 @@ describe('createSession', () => {
     expect(prisma.practiceSession.create).not.toHaveBeenCalled(); // test-review:accept no_arg_called — refused before any write
   });
 
+  it('holds a break in two meters to the lower ceiling in its target and its goal (11-e-ii-a)', async () => {
+    // the column says 12/8 (300); the 4/4 B holds the break to 190
+    const row = itemRow({ goalBpm: null });
+    const doc = mixedDoc('12/8', '4/4');
+    vi.mocked(prisma.practiceSession.findFirst).mockResolvedValue(
+      sessionRow({
+        items: [{ ...row, breakRef: { ...row.breakRef, meter: '12/8', bpm: 250, doc } }],
+      }) as never
+    );
+    const read = await readSession(USER_ID, SESSION_ID);
+    expect(read?.items[0].targetBpm).toBe(190);
+
+    vi.mocked(prisma.break.findMany).mockResolvedValue([
+      { id: BREAK_ID, title: 'Cold Carpet', meter: '12/8', doc },
+    ] as never);
+    const error = await createSession(USER_ID, {
+      name: 'Session',
+      description: null,
+      totalMinutes: 10,
+      startPct: 20,
+      climbPct: 67,
+      climbShape: 'steady',
+      climbSteps: 4,
+      countIn: 1,
+      items: [itemInput({ target: { breakId: BREAK_ID }, goalBpm: 250 })],
+    }).catch((e: unknown) => e);
+    expect((error as ValidationError).message).toBe('A goal is at most 190 bpm for this pattern');
+  });
+
   it("400s a goal over the target's own meter ceiling (4/4 -> 190)", async () => {
     vi.mocked(prisma.break.findMany).mockResolvedValue([
       { id: BREAK_ID, title: 'Cold Carpet', meter: '4/4' },
@@ -480,9 +526,7 @@ describe('createSession', () => {
     }).catch((e: unknown) => e);
 
     expect(error).toBeInstanceOf(ValidationError);
-    expect((error as ValidationError).message).toBe(
-      "A goal is at most 190 bpm in this pattern's meter"
-    );
+    expect((error as ValidationError).message).toBe('A goal is at most 190 bpm for this pattern');
     expect(prisma.practiceSession.create).not.toHaveBeenCalled(); // test-review:accept no_arg_called — refused before any write
   });
 

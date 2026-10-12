@@ -240,7 +240,7 @@ export const sessionItemViewSchema = z.object({
   bestBpm: z.number().int().nullable(),
   /**
    * What the slot climbs to: the goal, else your best, else the pattern's
-   * tempo — held between 40 and the meter's ceiling, so a run can log it. Null on a gap.
+   * tempo — held between 40 and the pattern's top tempo, so a run can log it. Null on a gap.
    */
   targetBpm: z.number().int().nullable(),
   /** Where it starts: `startPct` below the target. Null on a gap. */

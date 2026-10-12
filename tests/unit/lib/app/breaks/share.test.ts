@@ -87,6 +87,24 @@ describe('encodeBreak / decodeBreak', () => {
     expect(back).toEqual(doc);
   });
 
+  it('round-trips A and B in different meters, each keeping its own (11-e-ii-a)', () => {
+    const doc = docFor('funk', '7/8');
+    const B = generatePattern({
+      style: testStyle('funk'),
+      meter: '4/4',
+      seed: 9,
+      bars: 2,
+      density: 60,
+      ghosts: 40,
+    });
+    const mixed: BreakDoc = { ...doc, B };
+    const back = decodeBreak(encodeBreak(mixed));
+    expect([back.A.meter, back.B.meter]).toEqual(['7/8', '4/4']);
+    expect(back.A.bars[0].k).toHaveLength(14);
+    expect(back.B.bars[0].k).toHaveLength(16);
+    expect(back).toEqual(mixed);
+  });
+
   it('writes the current version', () => {
     expect(SHARE_VERSION).toBe(5);
     const raw: unknown = JSON.parse(atob(encodeBreak(docFor('funk'))));

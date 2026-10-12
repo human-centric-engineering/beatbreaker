@@ -18,6 +18,7 @@ import {
   laneGain,
   soloInPlay,
   maxBpm,
+  maxBpmOf,
 } from '@/lib/app/breaks/audio/transport';
 import { METER_KEYS, groupsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { MIDI_MAP } from '@/lib/app/breaks/midi';
@@ -239,6 +240,20 @@ describe('maxBpm', () => {
     expect(maxBpm('6/8')).toBe(300);
     expect(maxBpm('4/4')).toBe(190);
     expect(maxBpm('7/8')).toBe(190);
+  });
+});
+
+describe('maxBpmOf (11-e-ii-a)', () => {
+  it('is the lowest of the sections’ ceilings: one tempo plays every section', () => {
+    // fast swing in eighths goes to 380 alone, and to 4/4's 190 beside a 4/4 B
+    expect(maxBpmOf(['4/4-8', '4/4'])).toBe(190);
+    expect(maxBpmOf(['12/8', '4/4-8'])).toBe(300);
+    expect(maxBpmOf(['7/8', '7/8'])).toBe(190);
+  });
+
+  it('skips a missing section, and is 4/4’s with none', () => {
+    expect(maxBpmOf([undefined, '6/8'])).toBe(300);
+    expect(maxBpmOf([])).toBe(190);
   });
 });
 
@@ -750,5 +765,75 @@ describe('onStep (the 3D drummer handoff)', () => {
     const real = onStep.mock.calls.map(([step]) => step as ScheduledStep).filter((s) => !s.count);
     const firstStep = real.find((s) => s.slot === 0);
     expect(firstStep?.notes.map((n) => n.voice.lane).sort()).toEqual(['k', 's']);
+  });
+});
+
+describe('Transport — sections in different meters (11-e-ii-a)', () => {
+  // 120 bpm: a sixteenth is 0.125s, so a bar of 7/8 (14 steps) is 1.75s and 4/4 is 2s
+  const STEP = 0.125;
+
+  function mixed(): { A: Pattern; B: Pattern } {
+    const A = patternIn('7/8');
+    A.bars[0].k[0] = 1;
+    const B = patternIn('4/4');
+    B.bars[0].s[0] = 2;
+    return { A, B };
+  }
+
+  it('plays each section for its own bar length, so the loop comes round at their sum', () => {
+    const { A, B } = mixed();
+    const { cb } = drive(
+      snapshot(A, { patterns: { A, B }, arrangement: ['A', 'B'], click: false }),
+      4
+    );
+    expect(cb.onLoop.mock.calls[0][1]).toBeCloseTo(0.08 + (14 + 16) * STEP, 6);
+  });
+
+  it('counts in a bar of the first section played, in its meter, not A’s', () => {
+    const { A, B } = mixed();
+    // the arrangement opens on the 4/4 B: four clicks over 16 steps, then the snare
+    const { cb, audio } = drive(
+      snapshot(A, { patterns: { A, B }, arrangement: ['B', 'A'], countIn: 1, click: false }),
+      1.9
+    );
+    expect(cb.onDownbeat.mock.calls[0][0]).toBeCloseTo(0.08 + 16 * STEP, 6);
+    expect(audio.click).toHaveBeenCalledTimes(4);
+    expect(audio.snare).not.toHaveBeenCalled(); // test-review:accept no_arg_called — the count-in plays only clicks
+  });
+
+  it('counts a restart in on every pulse when the setting is None', () => {
+    const pat = patternIn('4/4');
+    const { audio, engine, ctx } = fakeAudio();
+    const t = new Transport(engine, {
+      getSnapshot: () => snapshot(pat, { countIn: 0, click: false }),
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+    });
+    t.start({ countIn: 1 });
+    while (ctx.currentTime < 1.9) {
+      ctx.currentTime += 0.02;
+      vi.advanceTimersByTime(25);
+    }
+    t.stop();
+    expect(audio.click.mock.calls.map(([, strong]) => strong)).toEqual([true, false, false, false]);
+  });
+
+  it('counts in 7/8 on its long-short pulse when the 7/8 section leads', () => {
+    const { A, B } = mixed();
+    const { cb, audio } = drive(
+      snapshot(B, { patterns: { A, B }, arrangement: ['A', 'B'], countIn: 1, click: false }),
+      1.7
+    );
+    expect(cb.onDownbeat.mock.calls[0][0]).toBeCloseTo(0.08 + 14 * STEP, 6);
+    // 2 + 2 + 3 eighths: clicks on steps 0, 4 and 8, the first strong
+    expect(
+      audio.click.mock.calls.map(([t, strong]) => [Math.round((t - 0.08) / STEP), strong])
+    ).toEqual([
+      [0, true],
+      [4, false],
+      [8, false],
+    ]);
   });
 });

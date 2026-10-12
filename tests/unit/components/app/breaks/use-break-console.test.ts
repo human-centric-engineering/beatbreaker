@@ -706,6 +706,130 @@ describe('tempo, style and meter', () => {
   });
 });
 
+describe('sections in different meters (11-e-ii-a)', () => {
+  function mixedCode(aMeter: string, bpm: number, bMeter = '4/4') {
+    const funk = catalogue.styles.funk;
+    const at = (meter: string, seed: number, bars: number) =>
+      generatePattern({ style: funk, meter, seed, bars, density: 50, ghosts: 50 });
+    return encodeBreak({
+      bpm,
+      swing: 0,
+      level: 5,
+      arrangement: ['A', 'B'],
+      A: at(aMeter, 5, 2),
+      B: at(bMeter, 6, 1),
+    });
+  }
+
+  it('shows the meter of the section on the stage, and follows you to the other', async () => {
+    const { result } = await mount();
+    act(() => result.current.setViewMode('A'));
+    act(() => {
+      result.current.loadCode(mixedCode('7/8', 120));
+    });
+    expect(result.current.meter).toBe('7/8');
+    act(() => result.current.setViewMode('B'));
+    expect(result.current.meter).toBe('4/4');
+    act(() => result.current.setViewMode('A'));
+    expect(result.current.meter).toBe('7/8');
+  });
+
+  it('opens on the meter of the section being edited, not always A’s', async () => {
+    const { result } = await mount();
+    act(() => result.current.setViewMode('B'));
+    act(() => {
+      result.current.loadCode(mixedCode('7/8', 120));
+    });
+    expect(result.current.meter).toBe('4/4');
+  });
+
+  it('writes a new B in the meter picked for it, leaving A in its own', async () => {
+    const { result } = await mount();
+    const a = result.current.patterns.A;
+    act(() => result.current.setViewMode('B'));
+    act(() => result.current.setMeter('7/8'));
+    act(() => {
+      result.current.newBreak('B');
+    });
+    expect(result.current.patterns.A).toBe(a);
+    expect(result.current.patterns.B?.meter).toBe('7/8');
+    expect(result.current.meter).toBe('7/8');
+    act(() => result.current.setViewMode('A'));
+    expect(result.current.meter).toBe(a?.meter);
+  });
+
+  it('keeps a meter picked for the next New when you move to the other section', async () => {
+    const { result } = await mount();
+    act(() => result.current.setViewMode('A'));
+    act(() => {
+      result.current.loadCode(mixedCode('7/8', 120));
+    });
+    act(() => result.current.setMeter('5/4'));
+    act(() => result.current.setViewMode('B'));
+    expect(result.current.meter).toBe('5/4');
+  });
+
+  it('shows the length and style of the section on the stage, not always A’s', async () => {
+    const { result } = await mount();
+    act(() => result.current.setViewMode('B'));
+    act(() => {
+      result.current.loadCode(mixedCode('7/8', 120));
+    });
+    expect(result.current.bars).toBe(1);
+    act(() => result.current.setViewMode('A'));
+    expect(result.current.bars).toBe(2);
+    expect(result.current.style).toBe('funk');
+  });
+
+  it('gives a locked tempo back when the meters match again', async () => {
+    const { result } = await mount();
+    act(() => result.current.setViewMode('B'));
+    act(() => {
+      result.current.loadCode(mixedCode('4/4-8', 300, '4/4-8'));
+    });
+    act(() => result.current.toggleLock('bpm'));
+    expect(result.current.bpm).toBe(300);
+    // a New B in 4/4 holds the break to 190 ...
+    act(() => result.current.setMeter('4/4'));
+    act(() => {
+      result.current.newBreak('B');
+    });
+    expect(result.current.bpm).toBe(190);
+    // ... and taking it back brings the 300 back
+    act(() => result.current.undo());
+    expect(result.current.patterns.B?.meter).toBe('4/4-8');
+    expect(result.current.bpm).toBe(300);
+  });
+
+  it('keeps a tempo you set yourself while the break was held down', async () => {
+    const { result } = await mount();
+    act(() => result.current.setViewMode('B'));
+    act(() => {
+      result.current.loadCode(mixedCode('4/4-8', 300, '4/4-8'));
+    });
+    act(() => result.current.setMeter('4/4'));
+    act(() => {
+      result.current.newBreak('B');
+    });
+    act(() => result.current.setBpm(150));
+    act(() => result.current.undo());
+    expect(result.current.bpm).toBe(150);
+  });
+
+  it('holds the tempo to the lowest of the sections’ ceilings', async () => {
+    const { result } = await mount();
+    // A in eighths goes to 380 on its own; a B in 4/4 holds the break to 190
+    act(() => {
+      result.current.loadCode(mixedCode('4/4-8', 300));
+    });
+    expect(result.current.bpmCeiling).toBe(190);
+    expect(result.current.bpm).toBe(190);
+    act(() => result.current.setViewMode('A'));
+    act(() => result.current.setBpm(999));
+    expect(result.current.bpm).toBe(190);
+  });
+});
+
 describe('the kit', () => {
   it('refuses a kit whose engine is not ported, and one that does not exist', async () => {
     const { result } = await mount();

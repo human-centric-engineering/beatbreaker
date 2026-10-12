@@ -5,15 +5,16 @@
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { generatePattern } from '@/lib/app/breaks/generate';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
-import { breakDocFromPayload } from '@/lib/app/breaks/share';
+import { breakDocFromPayload, breakPayload } from '@/lib/app/breaks/share';
 import {
   dataOf,
   fakeWorkspaceTable,
   funkPayload,
   type FakeWorkspaceTable,
 } from '@/tests/helpers/buddy';
-import { testStyles } from '@/tests/helpers/catalogue';
+import { testStyle, testStyles } from '@/tests/helpers/catalogue';
 
 const table = vi.hoisted(() => ({ current: null as FakeWorkspaceTable | null }));
 
@@ -65,6 +66,34 @@ describe('set_playback', () => {
     expect(result).toMatchObject({ success: false, error: { code: 'tempo_out_of_range' } });
     expect(result.error?.message).toBe('The Studio plays 4/4 up to 190 bpm');
     expect(fake.rows.get('user-1')).toMatchObject({ doc: DOC, rev: 2 });
+  });
+
+  it('holds a break in two meters to the lower of their ceilings (11-e-ii-a)', async () => {
+    const at = (meter: string) =>
+      generatePattern({
+        style: testStyle('funk'),
+        meter,
+        seed: 4,
+        bars: 1,
+        density: 50,
+        ghosts: 50,
+      });
+    // 12/8 alone goes to 300; beside a 4/4 B the break stops at 190
+    const mixed = breakPayload({
+      bpm: 120,
+      swing: 0,
+      level: 5,
+      arrangement: ['A', 'B'],
+      A: at('12/8'),
+      B: at('4/4'),
+    });
+    fake = fakeWorkspaceTable([{ userId: 'user-1', doc: mixed, rev: 2 }]);
+    table.current = fake;
+
+    const result = await run({ bpm: 250 });
+
+    expect(result).toMatchObject({ success: false, error: { code: 'tempo_out_of_range' } });
+    expect(result.error?.message).toBe('The Studio plays 12/8 and 4/4 up to 190 bpm');
   });
 
   it('rejects a call that names nothing to change, and a layer that does not exist', () => {

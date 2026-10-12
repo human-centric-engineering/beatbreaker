@@ -27,8 +27,9 @@ time split, the climb, the three tables and `/api/v1/practice-sessions`) and
   is pure, so the Studio's runner and a native client (D14) play the same
   session.
 - **Don't take a title or a meter from the body.** An item names its pattern
-  by id. The title, and the meter whose `maxBpm` bounds a goal, are read from
-  the database, and a new pattern is checked visible to the caller by the same
+  by id. The title, and the top tempo that bounds a goal (`itemTopBpm`: a
+  saved break's from its document, the lowest of its sections' ceilings), are
+  read from the database, and a new pattern is checked visible to the caller by the same
   rule that opens it (`openableBy`, or `PUBLIC` for a library entry: a famous
   break or a rudiment).
 - **Don't change an item's pattern.** An item kept in the list by `id` keeps

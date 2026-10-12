@@ -3802,6 +3802,33 @@ Samba Song and Aja; Tony Williams's Autumn Leaves; Elvin's Pursuance. Each is
 checked against its transcription before it is merged: the bar orders of Here
 Comes the Sun's turnaround and Good Morning Good Morning are not yet.
 
+**11-e-ii-a built, 2026-10-12** (branch `phase-11-e-ii-a-mixed-meters`):
+
+- **The pickers follow the section on the stage**, as the grid and the
+  Doctor do: editing B in 7/8 and four bars shows 7/8 and four bars, and New
+  B is written in them. A style, meter or length picked for the next New
+  stays picked until a New uses it or a pattern is opened.
+- **The top tempo is the lowest of the sections' only when they differ**
+  (`maxBpmOf`). With one meter it is still the picker's: picking hard bop
+  or Take Five sets their tempo past 190 before New writes the 12/8 or 15/8
+  pattern, and holding that to the 4/4 still on the stage would cap them. A
+  tempo a second meter brings down — a locked one too — comes back when the
+  meters match again, unless you moved it in between. A New A or B is judged
+  at the tempo it will play at.
+- **The count-in is a bar of the first section played**, in its meter and
+  its length: an arrangement opening on B counts B in. A restart's own
+  count-in (the setting at None) now clicks every pulse, not just the first.
+- **MIDI writes a time signature at each change of meter**, ahead of the
+  notes on that tick; 4/4 to `4/4-6` changes the grid, not the signature,
+  and writes none.
+- **The server reads the top tempo from the document.** `Break.meter` stays
+  A's (the Time signature filter reads it), so speed records and session
+  targets and goals take a saved break's ceiling from its sections
+  (`breakTopBpm`), not the column: A in 12/8 beside a 4/4 B is 190, not 300.
+- **Found, not changed:** MIDI import still reads a file with a change of
+  signature in its first meter, and says so (11-e-ii-b/-c, with the import
+  split).
+
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
 stays `archetype` or `approximation` until stems are checked); personas

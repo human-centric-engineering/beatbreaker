@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { SelectMenu } from '@/components/app/ui/select-menu';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { Transport, type TransportSnapshot, maxBpm } from '@/lib/app/breaks/audio/transport';
+import { Transport, type TransportSnapshot, maxBpmOf } from '@/lib/app/breaks/audio/transport';
 import type { CatalogueKit } from '@/lib/app/breaks/catalogue/types';
 import { percussionSource } from '@/lib/app/breaks/catalogue/types';
 import { humaniseAmount, humaniseSeed } from '@/lib/app/breaks/humanise';
@@ -55,8 +55,10 @@ export function PatternPlayer({
   kits: Record<string, CatalogueKit>;
 }) {
   const doc = useMemo(() => breakDocFromPayload(payload), [payload]);
-  const ceiling = maxBpm(doc.A.meter);
-  const [bpm, setBpm] = useState(() => Math.round(doc.bpm));
+  // the lowest of the sections' ceilings: one tempo plays them all
+  const ceiling = maxBpmOf([doc.A.meter, doc.B.meter]);
+  // a break saved past its ceiling (A in 12/8 at 280 beside a 4/4 B) starts at it
+  const [bpm, setBpm] = useState(() => Math.min(Math.round(doc.bpm), ceiling));
   const [level, setLevel] = useState(doc.level);
   const [playing, setPlaying] = useState(false);
   const [unsupported, setUnsupported] = useState(false);

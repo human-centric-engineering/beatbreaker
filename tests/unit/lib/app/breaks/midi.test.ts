@@ -43,6 +43,8 @@ function parse(bytes: number[]) {
 
   const notes: Array<{ t: number; note: number; vel: number }> = [];
   const meta: Array<{ t: number; type: number; data: number[] }> = [];
+  /** Every event in the order the track holds them: a meta event by its type, a note-on as 'on'. */
+  const stream: Array<{ t: number; kind: number | 'on' }> = [];
   let i = 0;
   let t = 0;
   while (i < track.length) {
@@ -58,14 +60,18 @@ function parse(bytes: number[]) {
       const type = track[i++];
       const len = track[i++];
       meta.push({ t, type, data: track.slice(i, i + len) });
+      stream.push({ t, kind: type });
       i += len;
     } else {
       const note = track[i++];
       const vel = track[i++];
-      if ((status & 0xf0) === 0x90) notes.push({ t, note, vel });
+      if ((status & 0xf0) === 0x90) {
+        notes.push({ t, note, vel });
+        stream.push({ t, kind: 'on' });
+      }
     }
   }
-  return { header, trackId, trackLen, track, notes, meta };
+  return { header, trackId, trackLen, track, notes, meta, stream };
 }
 
 describe('midiFileName', () => {
@@ -134,6 +140,49 @@ describe('buildMidi', () => {
     });
     const ts = parse(buildMidi(seqOf(sig), OPTS).bytes).meta.find((m) => m.type === 0x58);
     expect(ts?.data.slice(0, 2)).toEqual([7, 3]); // 7 over 2^3
+  });
+
+  it('writes a time signature at each change of meter, ahead of the notes on its tick (11-e-ii-a)', () => {
+    const inMeter = (meter: string) =>
+      generatePattern({
+        style: testStyle('funk'),
+        meter,
+        seed: 3,
+        bars: 1,
+        density: 50,
+        ghosts: 50,
+      });
+    const A = inMeter('7/8');
+    const B = inMeter('4/4');
+    // A, B, B, A: a bar of 7/8 is 14 × 120 ticks, a bar of 4/4 is 16 × 120
+    const seq: SequencedBar[] = [A, B, B, A].map((pattern) => ({ pattern, barIdx: 0 }));
+    const f = parse(buildMidi(seq, OPTS).bytes);
+    const sigs = f.meta.filter((m) => m.type === 0x58);
+    expect(sigs.map((m) => [m.t, m.data[0], m.data[1]])).toEqual([
+      [0, 7, 3],
+      [1680, 4, 2],
+      [1680 + 2 * 1920, 7, 3],
+    ]);
+    // the notes on the 4/4 bar's downbeat come after the signature that starts it
+    const onTick = f.stream.filter((e) => e.t === 1680);
+    expect(onTick.some((e) => e.kind === 'on')).toBe(true);
+    expect(onTick[0].kind).toBe(0x58);
+    expect(f.trackLen).toBe(f.track.length);
+  });
+
+  it('writes no new signature where only the grid changes: 4/4 to 4/4 in sextuplets', () => {
+    const plain = { ...pat, bars: [emptyBar(16)] };
+    const six = { ...pat, meter: '4/4-6', bars: [emptyBar(24)] };
+    const f = parse(
+      buildMidi(
+        [
+          { pattern: plain, barIdx: 0 },
+          { pattern: six, barIdx: 0 },
+        ],
+        OPTS
+      ).bytes
+    );
+    expect(f.meta.filter((m) => m.type === 0x58)).toHaveLength(1);
   });
 
   it('puts each note on channel 10 at its step, one sixteenth = 120 ticks', () => {

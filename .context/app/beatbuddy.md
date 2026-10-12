@@ -173,7 +173,7 @@ changes, sections }`, which is what the drawer applies.
 - **`set_playback` does not do count-in.** The plan listed it, but count-in is
   a `StudioSettings` field of the person's, not part of a pattern, and every
   other tool edits the pattern. The tempo range is the Studio's: 50 to
-  `maxBpm(meter)`.
+  `maxBpmOf` the sections' meters, the lowest of their ceilings.
 - **The instructions changed in the seed only.** The seed's agent `update` branch
   leaves an admin's edits alone, so the new line about dependent edits reaches a
   fresh install, not an existing agent row. On an existing install, paste it in
