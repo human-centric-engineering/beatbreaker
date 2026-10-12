@@ -3925,15 +3925,32 @@ export const STYLES: Record<string, Style> = {
           swingUnit: 16,
           swing: 4,
           swingRange: [0, 10],
-          figures: [
-            [{ h: '1.1.1.1.1.1.1.3.', s: '....3.......3..1', k: '1..1..1...1.....' }, 2],
-            [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1..1..1...1.....' }, 1.2],
-          ],
           fills: [
             [{ s: '22.22.', k: '..1..1' }, 1.2],
             [{ s: '22..', t1: '..2.', t3: '...2' }, 1.0],
           ],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the verse',
+            params: {
+              figures: [
+                [{ h: '1.1.1.1.1.1.1.3.', s: '....3.......3..1', k: '1..1..1...1.....' }, 2],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the chorus',
+            params: {
+              figures: [
+                [{ r: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1..1..1...1.....' }, 1.2],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'i-dont-live-today',
@@ -4249,12 +4266,27 @@ export const STYLES: Record<string, Style> = {
           ghostBias: 0.2,
           bpm: [78, 86],
           swing: 0,
-          figures: [
-            [{ s: '2.2.2.222.2.2.22', k: '1.1.....1.......' }, 1.6],
-            [{ r: '1...1...1...1...', s: '....2.......2...', k: '1.......1.....1.' }, 1.0],
-          ],
           fills: [[{ s: '8.8.8.3.' }, 1.0]],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the march',
+            params: {
+              figures: [[{ s: '2.2.2.222.2.2.22', k: '1.1.....1.......' }, 1.6]],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the ride section',
+            params: {
+              figures: [
+                [{ r: '1...1...1...1...', s: '....2.......2...', k: '1.......1.....1.' }, 1.0],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'laughing-sams-dice',
@@ -5360,14 +5392,29 @@ export const STYLES: Record<string, Style> = {
           bpm: [190, 220],
           swing: 42,
           swingRange: [34, 50],
-          figures: [
-            [{ r: '1.111.11', s: '.1..1..3', k: '.....2..' }, 2],
-            [{ r: '1.1.1.1.', k: '1...1...' }, 1.0],
-            // now and then, the foot on every beat
-            [{ r: '1.111.11', hf: '1.1.1.1.', s: '.1..1..3', k: '.....2..' }, 0.5],
-          ],
           fills: [[{ s: '1.3.', t3: '.2.2' }, 1.2]],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'in two',
+            params: {
+              figures: [[{ r: '1.1.1.1.', k: '1...1...' }, 1.0]],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the double time',
+            params: {
+              figures: [
+                [{ r: '1.111.11', s: '.1..1..3', k: '.....2..' }, 2],
+                // now and then, the foot on every beat
+                [{ r: '1.111.11', hf: '1.1.1.1.', s: '.1..1..3', k: '.....2..' }, 0.5],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'madness',
@@ -8308,25 +8355,42 @@ export const STYLES: Record<string, Style> = {
         weight: 1.4,
         params: {
           bpm: [132, 136],
-          figures: [
-            [{ h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '..1.............' }, 1.4],
-            [{ h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '..1.1...........' }, 1.0],
-            [
-              {
-                r: '2.1.1.1.2.1.1...',
-                s: '....2...........',
-                k: '..1.............',
-                t1: '............1.1.',
-              },
-              0.6,
-            ],
-            [{ h: '1.1.1.1.1.3.1.3.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1.2],
-          ],
           fills: [
             [{ s: '2...2...', h: '..3.....', hf: '....1...', c: '......1.', k: '..1...1.' }, 1.4],
             [{ t1: '1.1.1.1.', t2: '1.1.1.1.', k: '1.......' }, 1],
           ],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the verse',
+            params: {
+              figures: [
+                [{ h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '..1.............' }, 1.4],
+                [{ h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '..1.1...........' }, 1.0],
+                [
+                  {
+                    r: '2.1.1.1.2.1.1...',
+                    s: '....2...........',
+                    k: '..1.............',
+                    t1: '............1.1.',
+                  },
+                  0.6,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the chorus',
+            params: {
+              figures: [
+                [{ h: '1.1.1.1.1.3.1.3.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1.2],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'cant-stand-losing-you',
@@ -8548,12 +8612,29 @@ export const STYLES: Record<string, Style> = {
           echo: { lanes: ['h', 's'], steps: 3, level: 0.35 },
           fillChance: 0,
           anticipate: 0,
-          figures: [
-            [{ h: '1.1.1.1.1.1.1.1.', s: '........4.......', k: '....1.......1...' }, 1.2],
-            [{ h: '1.1.1...1...1.1.', s: '........4.......', k: '....1.......1...' }, 1],
-            [{ h: '1.1.1.1.1.1.1.1.', s: '........4.4.....', k: '1...1...1...1...' }, 1],
-          ],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the verse',
+            params: {
+              figures: [
+                [{ h: '1.1.1.1.1.1.1.1.', s: '........4.......', k: '....1.......1...' }, 1.2],
+                [{ h: '1.1.1...1...1.1.', s: '........4.......', k: '....1.......1...' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the chorus',
+            params: {
+              figures: [
+                [{ h: '1.1.1.1.1.1.1.1.', s: '........4.4.....', k: '1...1...1...1...' }, 1],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'the-beds-too-big',
@@ -8948,25 +9029,50 @@ export const STYLES: Record<string, Style> = {
         weight: 1.2,
         params: {
           bpm: [122, 128],
-          figures: [
-            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '..1...1...1...1.' }, 1.2],
-            [
-              {
-                h: '1.1.1.1.3...3...',
-                hf: '..........1...1.',
-                s: '....2.......2...',
-                k: '..1...1...1...1.',
-              },
-              0.8,
-            ],
-            [{ r: '....1...1...1...', s: '....2.......2...', k: '1.......1.......' }, 1],
-            [{ h: '3.......3.......', s: '....2.......2...', t3: '1.1.1.1.1.1.1.1.' }, 0.5],
-          ],
           fills: [
             [{ s: '2.22' }, 1],
             [{ t1: '1.1.1.1.', t2: '1.1.1.1.', k: '1.......' }, 1],
           ],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the verse',
+            params: {
+              figures: [
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '..1...1...1...1.' }, 1.2],
+                [
+                  {
+                    h: '1.1.1.1.3...3...',
+                    hf: '..........1...1.',
+                    s: '....2.......2...',
+                    k: '..1...1...1...1.',
+                  },
+                  0.8,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the chorus',
+            params: {
+              figures: [
+                [{ r: '....1...1...1...', s: '....2.......2...', k: '1.......1.......' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the floor-tom bridge',
+            params: {
+              figures: [
+                [{ h: '3.......3.......', s: '....2.......2...', t3: '1.1.1.1.1.1.1.1.' }, 0.5],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B', 'C', 'C'],
       },
       {
         key: 'wrapped-around-your-finger',
@@ -13151,14 +13257,6 @@ export const STYLES: Record<string, Style> = {
           meter: '4/4-8',
           bpm: [212, 250],
           backbeats: [2, 6],
-          figures: [
-            [{ r: '11111111', s: '.3.3.3.3', k: '1.1.1.1.' }, 2],
-            [{ h: '44444444', s: '.3.3.3.3', k: '1.1.1.1.' }, 1.2],
-            // the ending: a crash on every beat
-            [{ c: '1.1.1.1.', s: '.3.3.3.3', k: '1.1.1.1.' }, 1.4],
-            // the half-time riff: hats on the beat, the snare on 3
-            [{ h: '4.4.4.4.', s: '....3...', k: '11......' }, 1],
-          ],
           fills: [
             // the intro: floor and mid toms together, three times
             [{ t2: '222.', t3: '222.' }, 1.4],
@@ -13166,6 +13264,39 @@ export const STYLES: Record<string, Style> = {
             [{ t1: '22......', t2: '..2222..', t3: '......22' }, 1],
           ],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the half-time riff',
+            params: {
+              figures: [
+                // the half-time riff: hats on the beat, the snare on 3
+                [{ h: '4.4.4.4.', s: '....3...', k: '11......' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the skank beat',
+            params: {
+              figures: [
+                [{ r: '11111111', s: '.3.3.3.3', k: '1.1.1.1.' }, 2],
+                [{ h: '44444444', s: '.3.3.3.3', k: '1.1.1.1.' }, 1.2],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the ending',
+            params: {
+              figures: [
+                // the ending: a crash on every beat
+                [{ c: '1.1.1.1.', s: '.3.3.3.3', k: '1.1.1.1.' }, 1.4],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B', 'C', 'C'],
       },
       {
         key: 'necrophobic',
@@ -13270,13 +13401,6 @@ export const STYLES: Record<string, Style> = {
         weight: 1.2,
         params: {
           bpm: [134, 146],
-          figures: [
-            [{ h: '4.4.4.4.4.4.4.4.', s: '....3.......3...', k: '1.......1.......' }, 2],
-            [{ s: '3...3...3...3...', k: '1111111111111111' }, 2],
-            [{ c: '....4...3.......', s: '....3.......3...', k: '1.1.....1.....1.' }, 1.2],
-            // threes across the bar on the china and snare, the feet underneath
-            [{ c: '3..3..3.....3.3.', s: '3..3..3..3..3.3.', k: '1111111111111111' }, 0.8],
-          ],
           fills: [
             [{ s: '333..3..33..3.3.', t1: '...2..2...2.....', t2: '....2..2...2....' }, 1.4],
             [
@@ -13291,6 +13415,30 @@ export const STYLES: Record<string, Style> = {
             [{ s: '3.3.3.3.', k: '........' }, 1],
           ],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the verse',
+            params: {
+              figures: [
+                [{ h: '4.4.4.4.4.4.4.4.', s: '....3.......3...', k: '1.......1.......' }, 2],
+                [{ c: '....4...3.......', s: '....3.......3...', k: '1.1.....1.....1.' }, 1.2],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the double bass',
+            params: {
+              figures: [
+                [{ s: '3...3...3...3...', k: '1111111111111111' }, 2],
+                // threes across the bar on the china and snare, the feet underneath
+                [{ c: '3..3..3.....3.3.', s: '3..3..3..3..3.3.', k: '1111111111111111' }, 0.8],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'mandatory-suicide',
@@ -13900,16 +14048,29 @@ export const STYLES: Record<string, Style> = {
           kit: 'bigrusty',
           swing: 0,
           backbeats: [2, 6],
-          figures: [
-            [{ r: '1.1.1.1.', s: '..3...3.', k: '1...1...' }, 2],
-            [{ c: '1.1.1.1.', s: '..3...3.', k: '1...1...' }, 1],
-          ],
           fills: [
             // three eighths into the bar line: floor tom, then the snare twice
             [{ t3: '2..', s: '.33' }, 1],
             [{ c: '1.......', k: '1.......', s: '..3...3.' }, 0.6],
           ],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the verse',
+            params: {
+              figures: [[{ r: '1.1.1.1.', s: '..3...3.', k: '1...1...' }, 2]],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the heavy section',
+            params: {
+              figures: [[{ c: '1.1.1.1.', s: '..3...3.', k: '1...1...' }, 1]],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'rooks-across-the-gate',
@@ -14366,22 +14527,39 @@ export const STYLES: Record<string, Style> = {
           backbeats: [2, 6],
           openSlots: [8],
           crossRhythm: 0,
-          figures: [
-            /* The chorus and post-chorus bars, the snare on the second and fourth
-               8ths. The main riff (kicks on six of its ten 16ths, the snare on three
-               more) leaves no air the critic will pass, and is left out. */
-            [{ h: '1.1.1.1.1.', hf: '1.1.1.1.1.', s: '..2...2...', k: '1...11.11.' }, 1.2],
-            [{ h: '1.1.1..3..', hf: '1.1.1.1.1.', s: '..2...2...', k: '1...11.1.1' }, 0.8],
-            [{ h: '..3.3.3.3.', s: '..2...2...', k: '1...11.1.1' }, 1.2],
-            // the pre-chorus: the ride and the hat foot on the 8ths, a third snare at the end
-            [{ r: '..1.1.1.1.', hf: '..1.1.1.1.', s: '..2...2..2', k: '1...11..1.' }, 1.0],
-          ],
           fills: [
             [{ s: '.222..', t1: '....11' }, 1.0],
             // floor tom and kick together on the 8ths
             [{ t3: '1.1.1.1.1.', k: '1.1.1.1.1.' }, 0.8],
           ],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the pre-chorus',
+            params: {
+              figures: [
+                // the pre-chorus: the ride and the hat foot on the 8ths, a third snare at the end
+                [{ r: '..1.1.1.1.', hf: '..1.1.1.1.', s: '..2...2..2', k: '1...11..1.' }, 1.0],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the chorus',
+            params: {
+              figures: [
+                /* The chorus and post-chorus bars, the snare on the second and fourth
+                 8ths. The main riff (kicks on six of its ten 16ths, the snare on three
+                 more) leaves no air the critic will pass, and is left out. */
+                [{ h: '1.1.1.1.1.', hf: '1.1.1.1.1.', s: '..2...2...', k: '1...11.11.' }, 1.2],
+                [{ h: '1.1.1..3..', hf: '1.1.1.1.1.', s: '..2...2...', k: '1...11.1.1' }, 0.8],
+                [{ h: '..3.3.3.3.', s: '..2...2...', k: '1...11.1.1' }, 1.2],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'sarniezz',
@@ -14865,26 +15043,43 @@ export const STYLES: Record<string, Style> = {
           bpm: [104, 108],
           swing: 0,
           // Songsterr 4135 (human)
-          figures: [
-            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.......' }, 2],
-            [{ r: '1.1.1.1.1.1.1.1.', s: '....2..2....2...', k: '1.......1.......' }, 1.2],
-            // the bridge: the snare on 2, 3, the "and" of 3 and 4
-            [
-              {
-                c: '1.............1.',
-                r: '..1.1.1.1.1.1...',
-                s: '....2...2.2.2...',
-                k: '1.............1.',
-              },
-              1.0,
-            ],
-          ],
           fills: [
             // mid tom, then the floor tom in threes, a crash on the "and" of 4
             [{ c: '..............1.', t2: '111.............', t3: '....111.111.1...' }, 1.2],
             [{ s: '2.......', t3: '..1.1...', c: '......1.' }, 1.0],
           ],
         },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the verse',
+            params: {
+              figures: [
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.......' }, 2],
+                [{ r: '1.1.1.1.1.1.1.1.', s: '....2..2....2...', k: '1.......1.......' }, 1.2],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the bridge',
+            params: {
+              figures: [
+                // the bridge: the snare on 2, 3, the "and" of 3 and 4
+                [
+                  {
+                    c: '1.............1.',
+                    r: '..1.1.1.1.1.1...',
+                    s: '....2...2.2.2...',
+                    k: '1.............1.',
+                  },
+                  1.0,
+                ],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
       },
       {
         key: 'tales-of-brave-ulysses',

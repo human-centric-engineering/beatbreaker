@@ -213,9 +213,13 @@ few words of `feel`, a `weight`, and `params`: any style field except
   - **A seeded pick in a meter goes by the first section's meter**, so a 4/4
     New from the API or BeatBuddy never picks Sherpa (it opens in 12/8). The
     Studio's New picks among every song.
-  - Not yet merged: Here Comes the Sun and Good Morning Good Morning, whose
-    bar orders are not checked against a transcription, and the fidelity
-    list in the plan (11-e-ii-f).
+  - **A song in one meter is written in sections too** when its parts are
+    different grooves (11-e-ii-f): Roxanne's verse kick off the 1 never lands
+    in its chorus. The split is of the figures the song already had, so its
+    bare key reads as its first section.
+  - Not merged: Here Comes the Sun and Good Morning Good Morning, whose bar
+    orders are not checked against a transcription; and Father Midnight,
+    Samba Song, Aja and Pursuance, which are one groove with variations.
 - **A song cannot unset a field, only set one.** The seed drops `undefined`,
   so a field on the base style (a written `ride`, `fill: 'comp'`, a foot
   backbeat) reaches every song. Keep the base neutral and let each song turn

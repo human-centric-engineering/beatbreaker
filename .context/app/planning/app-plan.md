@@ -3915,6 +3915,29 @@ exists for, and an alias is only tested by a song that was merged.
   4/4 pick (the API, BeatBuddy) no longer offers it; the Studio's New picks
   among every song.
 
+**11-e-ii-f built, 2026-10-12** (branch `phase-11-e-ii-f-songs-merged`): the
+fidelity list, where a song's parts are different grooves in one meter.
+
+- **Merged, eleven songs**, each from the figures it already had, split by
+  part: Roxanne, Walking on the Moon (verse → chorus) and King of Pain (verse
+  → chorus → the floor-tom bridge); Raining Blood (the half-time riff → the
+  skank beat → the crashes of the ending) and South of Heaven (verse → the
+  double bass); Badge (verse → bridge); Torn by the Fox (verse → the heavy
+  section); Mata Zyklek (pre-chorus → chorus, 5/8 throughout); Stone Free
+  (verse → chorus) and Are You Experienced? (the march → the ride section);
+  Autumn Leaves (in two → the double time). No figure is new and none was
+  dropped. Each section is playable at its song's top tempo in every seed
+  tried but one of Mata Zyklek's chorus, which the best-of-sixteen discards.
+- **The old keys** were the songs' own, so each reads as its first section:
+  a pattern saved from Roxanne's mixed pool regenerates as its verse.
+- **Not merged:** Father Midnight, Samba Song, Aja and Pursuance are one
+  groove with variations (Aja's ride sections were left out in 11-e for the
+  critic, and stay out); Here Comes the Sun and Good Morning Good Morning
+  wait on a transcription's bar order. Angel of Death, Landlord and Llegué
+  llegué wait on -g.
+- **Moved on purpose:** the Lombardo golden records `south-of-heaven:A`; its
+  bars are unchanged.
+
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
 stays `archetype` or `approximation` until stems are checked); personas

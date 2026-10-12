@@ -3373,7 +3373,7 @@
    "hatDepth": 0.3,
    "doubleKick": true
   },
-  "sg": "south-of-heaven",
+  "sg": "south-of-heaven:A",
   "v": "hat",
   "sd": 1808719064,
   "bb": [
