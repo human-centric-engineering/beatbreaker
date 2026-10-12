@@ -26,6 +26,7 @@ import { critique, playability } from '@/lib/app/breaks/critic';
 import { lettersOf } from '@/lib/app/breaks/sections';
 import { packPattern } from '@/lib/app/breaks/share';
 import { songBreak } from '@/lib/app/breaks/song-break';
+import { songOf } from '@/lib/app/breaks/songs';
 import { generateBreakSchema } from '@/lib/validations/break-operations';
 
 export const POST = withAuth(
@@ -36,6 +37,13 @@ export const POST = withAuth(
     const style = await getStyle(input.styleKey, input.styleVersion);
     if (!style) {
       return errorResponse('No such style', { code: ErrorCodes.NOT_FOUND, status: 404 });
+    }
+
+    if (input.song && !songOf(style.params, input.song)) {
+      return errorResponse('The style has no such song', {
+        code: ErrorCodes.NOT_FOUND,
+        status: 404,
+      });
     }
 
     /* With a seed, one candidate a section. Without, the rejection sampler.
@@ -54,12 +62,6 @@ export const POST = withAuth(
       seed: input.seed ?? Math.floor(Math.random() * 0xffffffff),
       exact: input.seed !== undefined,
     });
-    if (input.song && !made.song) {
-      return errorResponse('The style has no such song', {
-        code: ErrorCodes.NOT_FOUND,
-        status: 404,
-      });
-    }
     const a = made.sections.A;
     const score = critique(a, input.bpm);
     const checks = playability(a, input.bpm);

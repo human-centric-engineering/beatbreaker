@@ -128,6 +128,8 @@ export class GeneratePatternCapability extends BaseCapability<Args, EditData> {
 
       const made = songBreak({
         style,
+        // the song the tempo was set for, so the two cannot disagree
+        song: song?.key,
         seed,
         meter,
         bars: args.bars,

@@ -182,9 +182,23 @@ describe('POST /api/v1/breaks/generate', () => {
     expect('C' in data).toBe(false);
   });
 
-  it('is a 404 for a song the style does not have', async () => {
+  it('is a 404 for a song the style does not have, songs or none', async () => {
     const res = await GENERATE(post('generate', { styleKey: 'funk', song: 'no-such-song' }));
     expect(res.status).toBe(404);
+    // a style with songs would otherwise pick one of its own and answer 200
+    vi.mocked(getStyle).mockResolvedValue(testStyle('mitchell'));
+    const withSongs = await GENERATE(
+      post('generate', { styleKey: 'mitchell', song: 'no-such-song' })
+    );
+    expect(withSongs.status).toBe(404);
+  });
+
+  it('writes a named song in its own meter when the caller names none', async () => {
+    vi.mocked(getStyle).mockResolvedValue(testStyle('mitchell'));
+    const { data } = await json(
+      await GENERATE(post('generate', { styleKey: 'mitchell', song: 'manic-depression', seed: 1 }))
+    );
+    expect((data.A as { mt: string }).mt).toBe('9/8');
   });
 
   it('is a 404 for a style the catalogue does not have', async () => {

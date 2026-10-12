@@ -21,7 +21,6 @@ import {
   type Playability,
   barEq,
   critique,
-  generateGood,
   playability,
 } from '@/lib/app/breaks/critic';
 import type { Visibility } from '@/lib/app/breaks/community/visibility';
@@ -78,7 +77,7 @@ import {
   encodeBreak,
   patternFromPacked,
 } from '@/lib/app/breaks/share';
-import { songBreak } from '@/lib/app/breaks/song-break';
+import { songBreak, writePart } from '@/lib/app/breaks/song-break';
 import { pickSong, songMeter, songMeters, songTempo, withSong } from '@/lib/app/breaks/songs';
 import { styleIn, swingAtTempo, swingFor } from '@/lib/app/breaks/styles';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
@@ -1124,23 +1123,18 @@ export function useBreakConsole(
         if (made.arrangement) setArrangement(made.arrangement);
         return made.sections.A;
       }
-      const st = styleIn(withSong(row.params, setup.song), setup.meter);
-      const roster = resolveLanes(st, lanesMode === 'custom' ? customLanes : null);
       const roll = () =>
-        generateGood(
-          {
-            style: row,
-            meter: setup.meter,
-            bars: setup.bars,
-            density,
-            ghosts,
-            seed: Math.floor(Math.random() * 0xffffffff),
-            lanes: roster.lanes,
-            perc: roster.perc,
-            song: setup.song,
-          },
-          setup.bpm
-        );
+        writePart({
+          style: row,
+          song: setup.song,
+          meter: setup.meter,
+          bars: setup.bars,
+          density,
+          ghosts,
+          seed: Math.floor(Math.random() * 0xffffffff),
+          bpm: setup.bpm,
+          custom: lanesMode === 'custom' ? customLanes : null,
+        });
       /* A regenerate has to come out different: a style of a few written
          figures can roll the same bars again, so it rolls again (a few times,
          and then takes what it has rather than spin). */

@@ -201,6 +201,32 @@ describe('songBreak', () => {
     }
   });
 
+  it('writes every candidate of an unseeded New in the one song it picked', () => {
+    // without `exact`, sixteen candidates are drawn; each picking its own song would
+    // write a song in sections as its first section alone
+    const style = testStyle('lombardo');
+    for (let seed = 0; seed < 30; seed++) {
+      const song = songForSeed(style.params, seed, '4/4');
+      const made = songBreak({ style, seed, meter: '4/4', ...opts });
+      expect(made.song?.key).toBe(song?.key);
+      expect(made.sections.A.song).toBe(song?.sections ? `${song.key}:A` : song?.key);
+      expect(lettersOf(made.sections)).toHaveLength(song?.sections?.length ?? 2);
+    }
+  });
+
+  it('writes a named song in its own meter, whatever meter the caller defaulted to', () => {
+    const made = songBreak({
+      style: testStyle('mitchell'),
+      song: 'manic-depression',
+      meter: '4/4',
+      seed: 1,
+      ...opts,
+      exact: true,
+    });
+    expect(made.meter).toBe('9/8');
+    expect(made.sections.A.meter).toBe('9/8');
+  });
+
   it('brings the longest sections down until the break fits its bars', () => {
     const st = styleWith({
       sections: (['A', 'B', 'C', 'D', 'E'] as const).map((letter) => ({

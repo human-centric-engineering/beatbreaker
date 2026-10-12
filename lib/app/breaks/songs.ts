@@ -65,7 +65,7 @@ export function partKey(song: StyleSong, section?: SongSection): string {
 }
 
 /** Every part a style's songs write: each song without sections, and each section of those with. */
-export function songParts(st: Style): Array<Required<Pick<SongPart, 'song'>> & SongPart> {
+export function songParts(st: Style): SongPart[] {
   return (st.songs ?? []).flatMap((song) =>
     song.sections?.length ? song.sections.map((section) => ({ song, section })) : [{ song }]
   );
@@ -173,6 +173,30 @@ export function playableBpm(st: Style): [number, number] {
   return [Math.min(lo, top), Math.min(hi, top)];
 }
 
+/** A swing and its range, as a style, a song or a section names them. */
+export interface SwingLayer {
+  swing?: number;
+  swingRange?: [number, number];
+}
+
+/**
+ * The swing and range a style ends up with under its song (and section): the
+ * innermost swing named, and the innermost range named beside it or inside it.
+ * A range named further out does not survive a swing named inside it —
+ * `swingFor` reads the range first and would set the slider somewhere the song
+ * never asked for. `withSong` lays them so, and the catalogue schema checks
+ * the swing against the range this gives.
+ */
+export function layeredSwing(layers: SwingLayer[]): SwingLayer {
+  let named = 0;
+  layers.forEach((l, i) => {
+    if (l.swing !== undefined) named = i;
+  });
+  let swingRange: SwingLayer['swingRange'];
+  for (const l of layers.slice(named)) swingRange = l.swingRange ?? swingRange;
+  return { swing: layers[named]?.swing, swingRange };
+}
+
 const MERGED = new WeakMap<Style, Map<string, Style>>();
 
 /**
@@ -198,14 +222,9 @@ export function withSong(st: Style, key: string | undefined): Style {
   const cached = byKey?.get(at);
   if (cached) return cached;
   const out: Style = { ...st, ...song.params, ...section?.params };
-  /* The swing is the innermost one named, and a range named outside it does
-     not survive it: only one named beside it, or inside it, still applies. */
-  const layers = section ? [song.params, section.params] : [song.params];
-  let named = -1;
-  layers.forEach((l, i) => {
-    if (l.swing !== undefined) named = i;
-  });
-  if (named >= 0 && !layers.slice(named).some((l) => l.swingRange)) delete out.swingRange;
+  const swung = layeredSwing([st, song.params, ...(section ? [section.params] : [])]);
+  if (swung.swingRange) out.swingRange = swung.swingRange;
+  else delete out.swingRange;
   out.bpm = playableBpm(out);
   if (!byKey) {
     byKey = new Map();

@@ -1,4 +1,4 @@
-import { generateGood } from '@/lib/app/breaks/critic';
+import { type GeneratedBreak, generateGood } from '@/lib/app/breaks/critic';
 import { SONG_SALT, deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { DEFAULT_METER } from '@/lib/app/breaks/meter';
 import { resolveLanes, type CustomLanes } from '@/lib/app/breaks/pattern';
@@ -30,7 +30,7 @@ export interface SongBreakOptions {
    * among those in `meter`, as `generatePattern` would.
    */
   song?: string;
-  /** The meter of a song in one part; a song in sections names its own. */
+  /** The meter for a style without songs; a song is written in its own. */
   meter?: string;
   /** Bars a section is, where the song's section names none. */
   bars: number;
@@ -78,8 +78,8 @@ function sectionBars(sections: SongSection[], bars: number): number[] {
 
 /**
  * The song a seed picks in a meter, as `generatePattern` picks it, on the same
- * stream — so a caller can set the tempo for the song before writing it, and
- * a style whose songs are all in one part writes exactly what it always wrote.
+ * stream — so a caller can set the tempo for the song before writing it, and a
+ * seeded break of a style whose songs are all in one part is what it always was.
  */
 export function songForSeed(
   params: Style,
@@ -89,42 +89,68 @@ export function songForSeed(
   return params.songs ? pickSong(params, makeRng((seed ^ SONG_SALT) >>> 0), meter) : undefined;
 }
 
+/** What {@link writePart} writes one section with. */
+export interface PartOptions {
+  style: ResolvedStyle;
+  /** The song, or the section of one (`hell-awaits:B`), by key. */
+  song: string | undefined;
+  meter: string;
+  bars: number;
+  density: number;
+  ghosts: number;
+  seed: number;
+  /** The tempo it is judged at. */
+  bpm: number;
+  /** One candidate from the seed, rather than the best of sixteen (`generateGood`). */
+  exact?: boolean;
+  /** The Studio's own lanes, where you have set them. */
+  custom?: CustomLanes | null;
+}
+
+/**
+ * One section of a break: the lanes the style asks for in that meter (or
+ * yours), and the best of sixteen candidates or the one the seed gives. New
+ * writes every section with it, and the Studio's New A and Regenerate one.
+ */
+export function writePart(opts: PartOptions): GeneratedBreak {
+  const st = styleIn(withSong(opts.style.params, opts.song), opts.meter);
+  const roster = resolveLanes(st, opts.custom ?? null);
+  const gen = {
+    style: opts.style,
+    song: opts.song,
+    meter: opts.meter,
+    bars: opts.bars,
+    density: opts.density,
+    ghosts: opts.ghosts,
+    lanes: roster.lanes,
+    perc: roster.perc,
+    seed: opts.seed,
+  };
+  return opts.exact
+    ? { pattern: generatePattern(gen), tries: 1, rejected: 0 }
+    : generateGood(gen, opts.bpm);
+}
+
 export function songBreak(opts: SongBreakOptions): SongBreak {
   const params = opts.style.params;
+  /* The song is settled here, once, and every candidate is written in it: left
+     to the generator, each of `generateGood`'s sixteen would pick its own. */
   const song =
     songOf(params, opts.song) ??
     (opts.song ? undefined : songForSeed(params, opts.seed, opts.meter));
 
-  const write = (key: string | undefined, meter: string, bars: number, seed: number) => {
-    const st = styleIn(withSong(params, key), meter);
-    const roster = resolveLanes(st, opts.custom ?? null);
-    const gen = {
-      style: opts.style,
-      song: key,
-      meter,
-      bars,
-      density: opts.density,
-      ghosts: opts.ghosts,
-      lanes: roster.lanes,
-      perc: roster.perc,
-      seed,
-    };
-    return opts.exact
-      ? { pattern: generatePattern(gen), tries: 1, rejected: 0 }
-      : generateGood(gen, opts.bpm);
-  };
+  const write = (key: string | undefined, meter: string, bars: number, seed: number) =>
+    writePart({ ...opts, song: key, meter, bars, seed });
 
   const parts = song?.sections;
   if (!song || !parts?.length) {
-    /* A named song in one part keeps its key; an unnamed one is left to
-       `generatePattern`, which picks the same one from the same seed. */
-    const key = opts.song && song ? song.key : undefined;
-    const meter = opts.meter ?? (song ? songMeter(params, song) : DEFAULT_METER);
-    const made = write(key, meter, opts.bars, opts.seed);
+    // a song is written in its own meter, whatever the caller's default
+    const meter = song ? songMeter(params, song) : (opts.meter ?? DEFAULT_METER);
+    const made = write(song?.key, meter, opts.bars, opts.seed);
     return {
       sections: { A: made.pattern, B: deriveB(made.pattern, params) },
       arrangement: null,
-      song: songOf(params, made.pattern.song),
+      song,
       meter,
       tries: made.tries,
       rejected: made.rejected,

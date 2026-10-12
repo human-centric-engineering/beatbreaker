@@ -4,6 +4,7 @@ import { LANES, LANE_VALUES, PERC_KEYS } from '@/lib/app/breaks/lanes';
 import type { LaneKey } from '@/lib/app/breaks/types';
 import { METER_KEYS } from '@/lib/app/breaks/meter';
 import { MAX_ARRANGEMENT, MAX_BREAK_BARS, SECTION_LETTERS } from '@/lib/app/breaks/sections';
+import { layeredSwing } from '@/lib/app/breaks/songs';
 import { feelSchema, styleAttrsSchema } from '@/lib/app/breaks/schema';
 
 /**
@@ -217,25 +218,6 @@ function swingInRange(p: { swing?: number; swingRange?: [number, number] }): boo
   );
 }
 
-type SwingLayer = { swing?: number; swingRange?: [number, number] };
-
-/**
- * The swing and range a style ends up with under its song (and section), as
- * `withSong` lays them: the innermost swing named, and the innermost range
- * named beside it or inside it — one named further out does not survive it.
- */
-function swingOf(layers: SwingLayer[]): SwingLayer {
-  let named = 0;
-  layers.forEach((l, i) => {
-    if (l.swing !== undefined) named = i;
-  });
-  const inner = layers.slice(named);
-  return {
-    swing: layers[named].swing,
-    swingRange: inner.reduce<SwingLayer['swingRange']>((r, l) => l.swingRange ?? r, undefined),
-  };
-}
-
 /**
  * One of a style's songs: its own meter, tempo, swing, kit and bars, laid over
  * the style's. Every field a style has, optional, bar the four a song cannot
@@ -351,14 +333,14 @@ export const styleParamsSchema = styleFields
          song naming its own swing and no range drops the style's range (see
          `withSong`), so only a range it names, or inherits with no swing of
          its own, applies. A section is laid over its song the same way. */
-      if (!swingInRange(swingOf([p, song.params])))
+      if (!swingInRange(layeredSwing([p, song.params])))
         ctx.addIssue({
           code: 'custom',
           message: 'a song’s swing sits inside its swing range',
           path: ['songs', i, 'params', 'swingRange'],
         });
       song.sections?.forEach((x, j) => {
-        if (!swingInRange(swingOf([p, song.params, x.params])))
+        if (!swingInRange(layeredSwing([p, song.params, x.params])))
           ctx.addIssue({
             code: 'custom',
             message: 'a section’s swing sits inside its swing range',
