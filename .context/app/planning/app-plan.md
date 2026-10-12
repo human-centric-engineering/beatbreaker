@@ -3947,6 +3947,49 @@ fidelity list, where a song's parts are different grooves in one meter.
   the sixteen candidates drew Badge, which now writes a section by weight, and
   the pick among the near-best moved with it.
 
+**11-e-ii-g reconciled against the tree, 2026-10-12** (branch
+`phase-11-e-ii-g-tempo-ratio`):
+
+- **The break keeps one tempo; a section plays at a ratio of it.**
+  `Pattern.tempoRatio` is `½` or `2`, absent for ×1, so every pattern there is
+  plays as it did. The slider, the trainer's ramp, speed records and session
+  targets stay the break's tempo; a section at ×2 plays at twice it. A ratio
+  rather than a tempo per section, because a ramp and a speed record move one
+  number.
+- **Where a step's length is read** (`stepSeconds` with the break's bpm):
+  the transport, the count-in (the first section's ratio), `performStep`'s bpm
+  for Humanise, MIDI export (a tempo event at each change, as signatures are
+  written) and the community grid's density. Engraving prints no tempo, so the
+  stave's letter carries it (`C ×2`).
+- **The top tempo is each section's ceiling over its ratio** (`maxBpmOf`
+  takes the sections, not their meters): an Angel of Death break in 4/4 at ×½
+  holds the break to 380, its 4/4-8 skank's own ceiling. Every caller that
+  passed meters (the console, BeatBuddy's three tools, `breakTopBpm`, the
+  community player) passes sections.
+- **Share code v7**, written only when a section has a ratio, with the ratio
+  as `tr`. v6 readers would strip an unknown key and play the section at the
+  wrong speed, so an older reader must refuse it; a break without one writes
+  what it wrote, byte for byte.
+- **Songs:** `SongSection.tempoRatio`; a section's `bpm` stays its own (the
+  record's), and `songBpm` divides each by its ratio before taking the range
+  every section shares. `songBreak` and `writePart` set the ratio and judge a
+  section at the tempo it plays at.
+- **The Studio:** a `Tempo` picker beside Delete for the section on the stage
+  (×½, ×1, ×2), one Undo, the tempo brought down if the new ceiling is lower.
+  Regenerate keeps a section's ratio; Build B copies A's, as it copies its meter.
+- **BeatBuddy:** `get_pattern` reports each section's ratio; `write_bars`
+  keeps the ratio of a section it rewrites. Setting one is the Studio's.
+- **The songs:** Angel of Death (the skank at full speed → the break at ×½)
+  and Landlord (the slow section → the fast one at ×2) merge, their old keys
+  aliases. **Llegué llegué does not:** it was never split. It is one entry, the
+  Guararey section at 118; Moore's opening at 59 is the same tumbao with the
+  hats in sixteenths, so a section at ×½ would write the same notes at the same
+  speed. It stays one part.
+
+| PR        | What                                                                                                    | Done when                                                                                                                                                                                                                     |
+| --------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 11-e-ii-g | `tempoRatio` on a section: playback, MIDI, ceiling, share v7, songs, the Studio picker; two songs merge | A break with B at ×2 plays B's steps at half the length, exports a tempo event at B, round-trips v7; a ratio-less break writes v5/v6 unchanged; Angel of Death and Landlord generate every section and their old keys resolve |
+
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
 stays `archetype` or `approximation` until stems are checked); personas
