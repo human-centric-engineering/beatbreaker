@@ -3345,8 +3345,9 @@ tree at `ff9f58d8`:
   Closing the engine stops its renders.
 
 `SynthSource` sits behind the packs and your samples in the Studio and the
-community player. **Still to do by hand:** the owner listens to the five
-synthesised kits against `main`.
+community player. The owner listened on 2026-10-13: the five synthesised kits
+are no worse than they were, and are fine for what they are, which is not
+much. The drum machines are still missing; they are 9-vi-e.
 
 | PR     | What                                                                                                  | Done when                                                                                                                                                                                                                    |
 | ------ | ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
