@@ -12,8 +12,9 @@
  * plus an engine name, so a fork adds a kit without touching playback and a
  * user's tuning is a saved override of these numbers:
  *
- * - `synth` — the five acoustic kits. A graph per hit, so every knob is live,
- *   every hit is slightly different, and the whole thing costs nothing to ship.
+ * - `synth` — the five acoustic kits. Drawn by `voices.ts`, rendered ahead
+ *   into takes when the kit is picked and played like samples (9-vi-d); the
+ *   live graph plays until the renders land. Costs nothing to ship.
  * - `drift` — TR-808 / TR-909 voice models, rendered through an
  *   `OfflineAudioContext` into one buffer per velocity layer when a knob moves.
  * - `pack` — recorded kits, decoded on first use.

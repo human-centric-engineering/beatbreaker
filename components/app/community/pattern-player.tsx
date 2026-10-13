@@ -112,12 +112,13 @@ export function PatternPlayer({
     void Promise.all([
       import('@/lib/app/breaks/audio/engine'),
       import('@/lib/app/breaks/audio/packs'),
+      import('@/lib/app/breaks/audio/synth-source'),
     ])
-      .then(([{ BreakAudio, SourceStack }, { PackSource }]) => {
+      .then(([{ BreakAudio, SourceStack }, { PackSource }, { SynthSource }]) => {
         if (cancelled) return;
         const audio = new BreakAudio();
         const packs = new PackSource(noop);
-        audio.samples = new SourceStack([packs]);
+        audio.samples = new SourceStack([packs, new SynthSource()]);
         audio.percussion = percussionSource(kits);
         const kit = kits[DEFAULT_STUDIO_SETTINGS.kit] ?? Object.values(kits)[0] ?? null;
         audio.setKit(kit, withTuning(kit, undefined));

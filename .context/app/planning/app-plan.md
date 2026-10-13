@@ -3306,6 +3306,39 @@ reggae, which still has none.
 | ------ | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 9-vi-c | Six combinations as system kits: pieces, pans, derived credits, the `Combinations` heading | Seed tests: every piece a combination names exists and fills a slot; each plays only piece slots, from more than one folder; its credit names every source; the picker files the six under `Combinations`. Owner sign-off by ear in `sound.md` |
 
+**9-vi-d reconciled, 2026-10-13 (branch `phase-9-vi-d`).** Read against the
+tree at `ff9f58d8`:
+
+- **The voices leave `engine.ts` for `voices.ts`,** as functions that draw
+  into a `Draw`: a context, a noise buffer, a `send` and a `rand`.
+  `BreakAudio` keeps its voice methods. Each one asks the sources first, then
+  draws live. Its 1,633-line test pins the live graph, and it passes
+  unchanged.
+- **§8's 2 MB a kit was wrong by 15–30×.** Five velocities × three takes of
+  every slot is 29–60 MB a kit, measured from the five kits' decays. The
+  budget is 32 MB (§9). Most of it is waste. Only the snare's wires change
+  with velocity (`3200 + vel × 2400`). In every other voice, velocity is a
+  gain on each part. So `s`, `sGhost` and `sRim` render at five velocities,
+  and every other slot renders once, at full velocity, played at `vel`. That
+  is exact, and it comes to 8–15 MB.
+- **"Each voice" is each slot the synth draws:** 18 slots across six voices.
+  Toms are included. Percussion is not, per 9.21.
+- **Another kit drops every render at once.** "The old render plays until
+  the new one is ready" is for a knob. Across kits, the old render is the
+  wrong drums, so the new kit plays live until its own renders land.
+- **Room is not in a render's signature.** It is sent at playback, so moving
+  it re-renders nothing.
+
+**9-vi-d built, 2026-10-13.** As reconciled. `SynthSource` sits behind the
+packs and your samples in the Studio and the community player. **Still to do
+by hand:** the owner listens to the five synthesised kits against `main`. The
+one expected difference is the beater and stick sending as much room as the
+drum.
+
+| PR     | What                                                                                                  | Done when                                                                                                                                                                                                                 |
+| ------ | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 9-vi-d | Synth voices draw into a given destination; `SynthSource` renders and plays them; per-voice re-render | Tests: a synth hit creates one source node; a knob change re-renders only that voice; the old render plays until the new one is ready (`synth-source.test.ts`); the live graph unchanged (`engine.test.ts`). Owner by ear |
+
 **Not in Phase 9:** cymbal chokes (grabs), crash 2 as a separate lane
 rather than a value, and rolls longer than one step. See `sound-plan.md` §10.
 

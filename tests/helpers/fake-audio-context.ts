@@ -245,7 +245,7 @@ export class FakeAudioContext {
   static instances: FakeAudioContext[] = [];
 
   currentTime = 0;
-  readonly sampleRate = 44100;
+  readonly sampleRate: number;
   state: 'running' | 'suspended' | 'closed' = 'running';
   readonly destination = new FakeAudioNode();
   /** Every node this context has created, in creation order. */
@@ -254,10 +254,11 @@ export class FakeAudioContext {
   /** When true, the next close() rejects even though it still tears the context down. */
   closeShouldReject = false;
 
-  constructor() {
+  constructor(sampleRate = 44100) {
     if (FakeAudioContext.throwOnConstruct) {
       throw new Error('no audio hardware available');
     }
+    this.sampleRate = sampleRate;
     FakeAudioContext.instances.push(this);
   }
 
@@ -318,6 +319,52 @@ export class FakeAudioContext {
       return Promise.reject(new Error('close() failed'));
     }
     return Promise.resolve();
+  }
+}
+
+/**
+ * A fake `OfflineAudioContext`: the graph is recorded as a live one is, and
+ * `startRendering()` hands back a buffer of the length asked for whose first
+ * half is a constant 0.5 and whose second half is silence, so a caller that
+ * trims a render's silent end has one to trim.
+ *
+ * `hold` keeps every render pending until {@link release}, for testing what
+ * plays while a render is on its way. Every one constructed is in `made`, and
+ * in `FakeAudioContext.instances` too, as a subclass.
+ */
+export class FakeOfflineAudioContext extends FakeAudioContext {
+  static made: FakeOfflineAudioContext[] = [];
+  static hold = false;
+  private static held: Array<() => void> = [];
+
+  readonly length: number;
+  readonly numberOfChannels: number;
+
+  constructor(numberOfChannels: number, length: number, sampleRate: number) {
+    super(sampleRate);
+    this.numberOfChannels = numberOfChannels;
+    this.length = length;
+    FakeOfflineAudioContext.made.push(this);
+  }
+
+  startRendering(): Promise<FakeAudioBuffer> {
+    const out = new FakeAudioBuffer(this.numberOfChannels, this.length, this.sampleRate);
+    out.getChannelData(0).fill(0.5, 0, Math.floor(this.length / 2));
+    if (!FakeOfflineAudioContext.hold) return Promise.resolve(out);
+    return new Promise((resolve) => FakeOfflineAudioContext.held.push(() => resolve(out)));
+  }
+
+  /** Finish every held render. */
+  static release(): void {
+    const held = FakeOfflineAudioContext.held;
+    FakeOfflineAudioContext.held = [];
+    for (const finish of held) finish();
+  }
+
+  static reset(): void {
+    FakeOfflineAudioContext.made.length = 0;
+    FakeOfflineAudioContext.hold = false;
+    FakeOfflineAudioContext.held = [];
   }
 }
 
