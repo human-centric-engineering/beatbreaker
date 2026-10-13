@@ -7,6 +7,7 @@
  * already gets a 304.
  */
 
+import { slugOf } from '@/lib/app/lineage/build';
 import { prisma } from '@/lib/db/client';
 import {
   CONFIDENCES,
@@ -146,4 +147,46 @@ export async function getLineageProfile(slug: string): Promise<LineageProfile | 
       record: r.record,
     })),
   };
+}
+
+/** A drummer node with its record (null for a stub), for BeatBuddy's search. */
+export interface DrummerEntry {
+  node: LineageNode;
+  record: unknown;
+}
+
+/** Every drummer node, modelled ones first, each with its record (11-f). */
+export async function listDrummers(): Promise<DrummerEntry[]> {
+  const rows = await prisma.lineageNode.findMany({
+    where: { kind: 'drummer' },
+    select: { ...NODE_FIELDS, record: true },
+    orderBy: [{ modelled: 'desc' }, { label: 'asc' }],
+  });
+  return rows.map(({ record, ...row }) => ({ node: toNode(row), record }));
+}
+
+/**
+ * The slug of the person a name means, from a name as typed ("Bernard
+ * Purdie") or a slug ("bernard-purdie"); null if none. An exact name wins over
+ * a slug, so a name that happens to slug to another node's slug still finds
+ * its own. A genre is a node too, but not a person, and has no page: it is
+ * never the answer.
+ */
+export async function findLineageSlug(nameOrSlug: string): Promise<string | null> {
+  const typed = nameOrSlug.trim();
+  if (!typed) return null;
+  const person = { kind: { not: 'style' } };
+  const byName = await prisma.lineageNode.findFirst({
+    where: { ...person, label: { equals: typed, mode: 'insensitive' } },
+    select: { slug: true },
+    // a drummer with a record before a stub, a band or a teacher of the same name
+    orderBy: [{ modelled: 'desc' }, { kind: 'asc' }, { slug: 'asc' }],
+  });
+  if (byName) return byName.slug;
+  const bySlug = await prisma.lineageNode.findFirst({
+    where: { ...person, slug: { in: [...new Set([typed, slugOf(typed)])] } },
+    select: { slug: true },
+    orderBy: { slug: 'asc' },
+  });
+  return bySlug?.slug ?? null;
 }

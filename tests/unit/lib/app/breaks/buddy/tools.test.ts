@@ -7,7 +7,7 @@
  * FORK NOTE — this reads the real `BEATBUDDY_CAPABILITIES` from
  * `@/lib/app/capabilities` on purpose: a mock would hold the guardrails to a
  * list of its own and let a new tool slip past them. A fork that adds or
- * removes a BeatBuddy tool in that seam should see "are the twelve in the
+ * removes a BeatBuddy tool in that seam should see "are the ones in the
  * plan" fail until it updates the expected slugs here; the guardrail cases
  * then cover the new tool automatically.
  */
@@ -19,13 +19,15 @@ import { BEATBUDDY_CAPABILITIES } from '@/lib/app/capabilities';
 const OWNER_WORDS = /user|owner|account|author/i;
 
 describe('BeatBuddy tools', () => {
-  it('are the twelve in the plan', () => {
+  it("are the ones in the plan: twelve, and the drummer records' two", () => {
     expect(BEATBUDDY_CAPABILITIES.map((c) => c.slug).sort()).toEqual(
       [
         'apply_doctor_move',
         'explain_difficulty',
+        'find_drummers',
         'find_patterns',
         'generate_pattern',
+        'get_drummer',
         'get_pattern',
         'list_styles',
         'open_pattern',

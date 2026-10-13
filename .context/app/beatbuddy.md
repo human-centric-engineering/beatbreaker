@@ -3,7 +3,8 @@
 The Studio's assistant (Phase 7, app-plan §6). A drummer asks for something in
 words and the chart changes. This page grows as Phase 7 lands. So far it covers
 the loop as built in 7.8–7.9, what Spike B (7.10) found when the loop met the
-live model, the twelve tools (7.11), and the drawer and apply loop (7.12–7.13).
+live model, the twelve tools (7.11), the drawer and apply loop (7.12–7.13), and the two
+tools that read the drummer records (11-f).
 
 ## The loop
 
@@ -128,7 +129,7 @@ script was throwaway and is not in the tree.
 
 ## The tools
 
-All twelve are `BaseCapability` classes in `lib/app/breaks/buddy/`, registered
+All fourteen are `BaseCapability` classes in `lib/app/breaks/buddy/`, registered
 from `BEATBUDDY_CAPABILITIES` in `lib/app/capabilities.ts`. The seed reads each
 tool's `functionDefinition` from its class, so the row and the code cannot
 disagree.
@@ -147,6 +148,8 @@ disagree.
 | `open_pattern`       | replaces it                                                 | `openSavedBreak`, `openableIdForSlug`, the library picker's way |
 | `save_pattern`       | no (writes a `Break`)                                       | `breakCreateData`, as `POST /api/v1/breaks`                     |
 | `suggest_title`      | no                                                          | `critique`, `nameBreak`                                         |
+| `find_drummers`      | no                                                          | `listDrummers` (the lineage tables), `readDrummerRecord`        |
+| `get_drummer`        | no                                                          | `findLineageSlug`, `getLineageProfile`, `relationsOf`           |
 
 - **Sections run A to Z (11-e-ii).** A tool's `section` is a letter or `all`
   (`both` is kept, and means all); a letter the break has not got is refused
@@ -169,6 +172,26 @@ disagree.
   together, the tempo brought into the new range when none is named, as the
   Studio's picker does. A tempo under the floor (100 with a section at ×½) is
   `tempo_out_of_range`.
+- **The drummer records (11-f) are read, not searched.** `find_drummers` lists
+  every drummer with a record (first sentence of the summary, eight
+  descriptors, the style key), or those where every word of a query starts a
+  word of theirs, plus the people the records only name (`modelled: false`);
+  a query that matches nothing, or has no word in it, says to call it with
+  none. `get_drummer` finds a person by exact name before slug, and never a
+  genre, which has no page. It returns what `/drummers/[slug]` shows, through the same `readDrummerRecord`, so a masked
+  performer's name and dates are withheld the same way; traits and relations
+  carry the record's confidence, relations as one line each, and `cite` names
+  the record, its status and its page. The instructions say to look a drummer
+  up before answering, to cite the record, to say when a claim is only likely,
+  and never to say there is no record unless a tool has. The records' sources
+  are not in the tables, so the citation is the record, not its sources.
+- **A comparison turn is the dearest BeatBuddy makes.** "Who plays like Purdie
+  but busier?" is `find_drummers` and two `get_drummer`s: $0.10–0.14 on
+  `gpt-4.1` in the live check (2026-10-13), over the seeded per-turn cap of
+  $0.10. Over the cap on the last iteration the answer still arrives with a
+  `budget_exceeded_per_turn` notice; over it mid-loop, the tool loop stops.
+  The payloads were cut for it (14 KB to 8.5 KB for the list); the cap is the
+  admin's (`/admin/orchestration/agents`).
 - **Every mutating tool goes through `editWorkspace()`** (`edit.ts`): read the
   workspace, apply the edit, hold the result to `sharePayloadSchema`, write if
   the rev has not moved. A lost write is made again on the newer pattern, up to

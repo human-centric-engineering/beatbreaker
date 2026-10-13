@@ -12,13 +12,18 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/lib/db/client', () => ({
   prisma: {
-    lineageNode: { findMany: vi.fn(), findUnique: vi.fn() },
+    lineageNode: { findMany: vi.fn(), findUnique: vi.fn(), findFirst: vi.fn() },
     lineageEdge: { findMany: vi.fn() },
     lineageRecording: { findMany: vi.fn() },
   },
 }));
 
-import { getLineageGraph, getLineageProfile } from '@/lib/app/lineage/data';
+import {
+  findLineageSlug,
+  getLineageGraph,
+  getLineageProfile,
+  listDrummers,
+} from '@/lib/app/lineage/data';
 import { prisma } from '@/lib/db/client';
 
 function nodeRow(id: string, extra: Record<string, unknown> = {}) {
@@ -57,6 +62,7 @@ function edgeRow(fromId: string, toId: string, extra: Record<string, unknown> = 
 
 const findNodes = vi.mocked(prisma.lineageNode.findMany);
 const findNode = vi.mocked(prisma.lineageNode.findUnique);
+const findFirstNode = vi.mocked(prisma.lineageNode.findFirst);
 const findEdges = vi.mocked(prisma.lineageEdge.findMany);
 const findRecordings = vi.mocked(prisma.lineageRecording.findMany);
 
@@ -147,5 +153,59 @@ describe('getLineageProfile', () => {
     expect(profile?.recordings).toEqual([
       { id: 'rec:r', title: 'R', artist: 'Band', year: 1971, record: { id: 'rec:r' } },
     ]);
+  });
+});
+
+describe('listDrummers', () => {
+  it('reads drummers only, modelled first, each with its record (null for a stub)', async () => {
+    findNodes.mockResolvedValue([
+      { ...nodeRow('drummer:a'), record: { identity: { name: 'A' } } },
+      { ...nodeRow('drummer:b', { modelled: false }), record: null },
+    ] as never);
+
+    const drummers = await listDrummers();
+
+    expect(findNodes.mock.calls[0][0]).toMatchObject({
+      where: { kind: 'drummer' },
+      select: expect.objectContaining({ record: true }),
+      orderBy: [{ modelled: 'desc' }, { label: 'asc' }],
+    });
+    expect(drummers).toEqual([
+      { node: expect.objectContaining({ id: 'drummer:a' }), record: { identity: { name: 'A' } } },
+      { node: expect.objectContaining({ id: 'drummer:b', modelled: false }), record: null },
+    ]);
+  });
+});
+
+describe('findLineageSlug', () => {
+  it('takes an exact name first, any case, never a genre, a modelled drummer first', async () => {
+    findFirstNode.mockResolvedValueOnce({ slug: 'max-roach' } as never);
+
+    expect(await findLineageSlug('  MAX ROACH ')).toBe('max-roach');
+    expect(findFirstNode.mock.calls[0][0]).toMatchObject({
+      where: { kind: { not: 'style' }, label: { equals: 'MAX ROACH', mode: 'insensitive' } },
+      orderBy: [{ modelled: 'desc' }, { kind: 'asc' }, { slug: 'asc' }],
+    });
+    // the name answered: the slug is not tried
+    expect(findFirstNode).toHaveBeenCalledTimes(1);
+  });
+
+  it('falls back to the slug as typed, or the name slugged, never a genre', async () => {
+    findFirstNode
+      .mockResolvedValueOnce(null)
+      .mockResolvedValueOnce({ slug: 'horacio-hernandez' } as never);
+
+    expect(await findLineageSlug('Horacio Hernández')).toBe('horacio-hernandez');
+    expect(findFirstNode.mock.calls[1][0]).toMatchObject({
+      where: { kind: { not: 'style' }, slug: { in: ['Horacio Hernández', 'horacio-hernandez'] } },
+    });
+  });
+
+  it('is null for a blank name or one nobody has', async () => {
+    expect(await findLineageSlug('   ')).toBeNull();
+    expect(findFirstNode).not.toHaveBeenCalled();
+
+    findFirstNode.mockResolvedValue(null);
+    expect(await findLineageSlug('Nobody')).toBeNull();
   });
 });

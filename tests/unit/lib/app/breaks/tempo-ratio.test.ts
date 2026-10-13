@@ -204,9 +204,14 @@ describe('songs with a section at a ratio', () => {
     expect(songBpm(STYLES.copeland, songIn('copeland', 'landlord'))).toEqual([100, 100]);
   });
 
-  it('holds Landlord to the ceiling of its fast section in sixteenths, as landlord-fast was', () => {
-    // 4/4 tops out at 190, so the fast section at ×2 holds the song to 95
-    expect(maxBpmOf(songPaces(STYLES.copeland, songIn('copeland', 'landlord')))).toBe(95);
+  it("plays Landlord at the record's tempo: its fast section is in eighths", () => {
+    // in 4/4's sixteenths the fast section at ×2 held the song to 95; 4/4-8's 380 lets it reach 100
+    const landlord = songIn('copeland', 'landlord');
+    expect(songPaces(STYLES.copeland, landlord)).toEqual([
+      { meter: '4/4' },
+      { meter: '4/4-8', tempoRatio: 2 },
+    ]);
+    expect(maxBpmOf(songPaces(STYLES.copeland, landlord))).toBeGreaterThanOrEqual(100);
   });
 
   it.each([
