@@ -212,6 +212,13 @@ export const PROCESS_STATE: readonly ProcessStateDeclaration[] = [
     why: "Each org's approved-provider policy, filled by a `findUnique` on the org id, so a system-scoped fill returns the same row an org scope would; and each provider row's id and jurisdiction, global config keyed by a slug unique install-wide (§120 t-742). A write through the org providers API clears that org's entry and a provider-row write clears the row's; the 60-second TTL is the window in which another process may still answer with a revoked grant. Read only at multi.",
   },
   {
+    file: 'lib/orchestration/llm/spend-caps.ts',
+    holders: ['orgEntries', 'orgCapEntries'],
+    posture: 'row-keyed',
+    keyedBy: 'org id',
+    why: "Each org's month-to-date spend and its monthly cap (§110 t-788), filled by an `aggregate` filtered on `orgId` and a `findUnique` on the org id, so an entry is that org's whatever scope filled it. A caps write through the orgs API clears that org's cap; `logCost` adds this process's rows to its total. The 10-second (spend) and 30-second (cap) TTLs are how long another process's spend or write can go unseen.",
+  },
+  {
     file: 'lib/orchestration/llm/budget-mutex.ts',
     holders: ['locks'],
     posture: 'row-keyed',
@@ -255,6 +262,13 @@ export const PROCESS_STATE: readonly ProcessStateDeclaration[] = [
     posture: 'shared-by-decision',
     keyedBy: 'outbound hostname',
     why: "What the limit protects is the third-party host, which every org shares, so one org can spend another's budget against it — revisit if per-org outbound quotas land (§110).",
+  },
+  {
+    file: 'lib/orchestration/llm/spend-caps.ts',
+    holders: ['globalEntry'],
+    posture: 'shared-by-decision',
+    keyedBy: 'nothing — one install-wide total',
+    why: "The global monthly budget is the operator's ceiling on the shared provider keys (§110 t-788), so its spend total sums every org and one org's spend counts against every org's calls. It is compared with the global cap, and shown only in the install org (`getGlobalCapStatus`); a customer org is told only whether the cap is reached. Revisit if the global cap is ever made per org.",
   },
   {
     file: 'lib/orchestration/llm/circuit-breaker.ts',
@@ -410,6 +424,12 @@ export const PROCESS_STATE: readonly ProcessStateDeclaration[] = [
     holders: ['txScope'],
     posture: 'async-local',
     why: 'Marks the call stack that is already inside a transaction so the data layer sets the org GUC once per transaction rather than per operation.',
+  },
+  {
+    file: 'lib/orchestration/llm/spend-caps.ts',
+    holders: ['paidCallHold'],
+    posture: 'async-local',
+    why: "One chat turn's hold on paid calls, set when the turn goes on, on a local model, past its agent's reached budget (§110 t-788); the gate reads it for every paid call that turn makes. The handle is module-level, the hold is per turn, and a nested turn runs under its own.",
   },
   {
     file: 'lib/tenancy/context.ts',

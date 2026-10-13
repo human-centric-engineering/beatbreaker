@@ -50,7 +50,72 @@ release process.
   model whose `Org` relation has no `onDelete: Cascade` or `SetNull`, a fork's
   included, because org erasure relies on the cascade.
 
+- **A per-org monthly AI budget cap** (§110 t-788). `Org.settings` gains a
+  `quotas` slice holding `monthlyBudgetUsd`. A platform admin writes it with
+  `PATCH /api/v1/admin/orgs/[id]` `{ settings: { quotas } }` (`null` removes
+  it). At `multi` that write is refused with a 403
+  (`details.reason: shared_settings_install_org_only`) unless it comes from
+  the install org or an unbound admin API key, so an org's admins cannot raise
+  their own cap. Every caps write is recorded in the admin audit log as
+  `org.quotas.update`, with the caps it replaced. The cap holds every paid AI
+  call made in the org, not only chat (see the spend gate under Changed).
+  `checkBudget()` reports it as `orgCapExceeded` / `org: { limit, spent }`,
+  and the agents list's `_budget` carries `orgCapExceeded: true`. A local
+  model is never stopped, so a cap of `0` means "no paid calls". With no
+  `quotas` set, nothing changes. Exported for forks' billing or plan code:
+  `readOrgQuotas()` / `loadOrgQuotas()` / `writeOrgQuotas()` and
+  `ORG_QUOTAS_KEY` from `lib/tenancy/org-settings.ts`, and `orgQuotasSchema` /
+  `OrgQuotas` from `lib/validations/tenancy.ts`. The spend gate caches each
+  org's cap for 30 seconds: code calling `writeOrgQuotas()` directly calls
+  `forgetOrgCap(orgId)` from `lib/orchestration/llm/spend-caps.ts` after it
+  so its own process enforces the new cap at once. Migration
+  `20261013120000_ai_cost_log_org_created_at_index` adds an
+  `(orgId, createdAt)` index on `AiCostLog`. Known limits: the budget lock is
+  per agent, so two agents in one org can each overrun the org cap by up to
+  one turn, and the month-to-date totals are cached for 10 seconds per
+  process, so another process's spend is seen within that window. See
+  [Costs → Per-org monthly budget cap](./.context/admin/orchestration-costs.md#per-org-monthly-budget-cap).
+
 ### Changed
+
+- **The org and global monthly budget caps hold every paid AI call, not only
+  chat** (§110 t-788). Only the streaming chat handler checked them, so
+  workflow steps, the orchestrator, evaluations, judges, knowledge ingestion
+  and scheduled or webhook runs kept spending after a cap was reached. The
+  provider manager now runs a spend gate (`assertWithinSpendCaps` in
+  `lib/orchestration/llm/spend-caps.ts`) before every vendor call, beside the
+  eligibility gate. A refused call throws `SpendCapExceededError`, a
+  `ProviderError` with code `org_budget_exceeded` or `global_budget_exceeded`.
+  The codes are request faults (`isRequestFault`): not retried, and no circuit
+  breaker failure. Local providers are never refused, so provider selection
+  passes over a refused paid candidate to a local fallback:
+  `getProviderWithFallbacks` does, and so does chat's mid-stream failover.
+  When no candidate is left, `getProviderWithFallbacks` throws the cap's
+  `SpendCapExceededError` instead of the retriable `all_providers_exhausted`.
+  `spendCapRefusal()` answers without throwing. A chat agent whose primary is
+  local now answers on it after a cap, its own included, is reached. The turn
+  runs inside `withPaidCallHold`, and the gate refuses every paid call that
+  turn makes (a fallback, embeddings, the summarizer, tools), so `budget_exceeded`
+  is now a spend-cap code and a request fault too. An install with a global
+  cap set will see non-chat work stop at that cap where it used to carry on.
+
+- **Chat turns stopped by the org or global budget get their own error
+  codes** (§110 t-788). The streaming handler emitted `budget_exceeded`, with
+  "This agent has reached its monthly budget", for every cap. It now emits
+  `org_budget_exceeded` or `global_budget_exceeded` when one of those caps
+  stopped the turn. `budget_exceeded` now means the agent's own cap only. A
+  client that matched `budget_exceeded` to catch every budget stop must also
+  match the two new codes. The `budget_exceeded` webhook still fires for all
+  three, including a turn the provider gate stops part way, and gains a
+  `cap: 'agent' | 'org' | 'global'` field. The message for each is the error
+  registry's message and action for the code, so the agent's no longer names
+  its limit (it read "…its monthly budget of $10.00").
+
+- **`GET /api/v1/admin/orchestration/costs/alerts` returns `globalCap.spent`
+  only to the install org** (§110 t-788). The global total sums every org's
+  spend, so at `multi` an admin in a customer org gets `spent: null`, with
+  `cap` and `exceeded` as before. `GlobalCapStatus.spent` in
+  `lib/orchestration/llm/cost-reports.ts` is now `number | null`.
 
 - **Backup export and import run in one named org, and the shared part moves
   only for the install org** (§109 t-738). Both
@@ -152,6 +217,16 @@ release process.
   `.context/storage/tenancy.md`.
 
 ### Fixed
+
+- **The global monthly budget cap totals every org's spend again at
+  `multi`** (§110 t-788). `checkBudget()` summed month-to-date spend inside
+  the acting org's scope, where the `org_isolation` policy hides other orgs'
+  rows. So `globalMonthlyBudgetUsd` acted as the same cap applied to each org,
+  and the install had no ceiling on its shared provider keys. The total is now
+  summed in the system scope, detached `NULL`-org rows included, and the
+  agents list and `GET /costs/alerts` read the same figure
+  (`getGlobalCapState()` in `lib/orchestration/llm/cost-tracker.ts`). At
+  `single` nothing changes.
 
 - **S3 and Vercel Blob `deletePrefix` now delete past the first page**
   (§109 t-736). Both read only the first listing page (1,000 objects on S3),

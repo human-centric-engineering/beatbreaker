@@ -1308,6 +1308,8 @@ export interface BudgetSummary {
   limit: number | null;
   remaining: number | null;
   globalCapExceeded?: boolean;
+  /** Set when the agent's org has reached its own monthly cap (§110 t-788). */
+  orgCapExceeded?: boolean;
 }
 
 /** Enriched agent row returned by the list endpoint. */

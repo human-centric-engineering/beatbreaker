@@ -1,5 +1,7 @@
 /**
- * Who uses a piece of global config, counted across every org (§107 t-731).
+ * Who uses a piece of global config, counted across every org (§107 t-731),
+ * and how much of the global monthly budget the install has spent (§110
+ * t-788).
  *
  * Providers, provider models, knowledge tags and agent profiles are global
  * config: one row serves every org. What uses them is tenant-owned: agents,
@@ -18,6 +20,12 @@
  * writes. At `single` there is one org, no policy to bypass, and every row
  * is the caller's, so the reads run as they are.
  *
+ * The global budget's spend total is the same kind of read: a number summed
+ * over every org's `AiCostLog` rows, detached `NULL`-org rows included,
+ * because `globalMonthlyBudgetUsd` is the operator's ceiling on the shared
+ * provider keys. `checkBudget()` asks it on every chat turn, which is the
+ * other reason it lives here rather than behind `runAsSystem`'s info line.
+ *
  * Platform-agnostic: no Next.js imports.
  */
 
@@ -28,8 +36,8 @@ import { getTenantContext, isMultiTenant, runAsCrossOrgCount } from '@/lib/tenan
 const REASON = 'in-use check on global config (counted across orgs)';
 
 /** `fn` reading every org: the cross-org count scope at `multi`, as it is at `single`. */
-function acrossOrgs<T>(fn: () => Promise<T>): Promise<T> {
-  return isMultiTenant() ? runAsCrossOrgCount(REASON, fn) : fn();
+function acrossOrgs<T>(fn: () => Promise<T>, reason: string = REASON): Promise<T> {
+  return isMultiTenant() ? runAsCrossOrgCount(reason, fn) : fn();
 }
 
 /**
@@ -452,4 +460,23 @@ export function agentProfileUsage(profileIds: string[]): Promise<Map<string, num
     }
     return counts;
   });
+}
+
+// ── Global budget ───────────────────────────────────────────────────────────
+
+/**
+ * Total `AiCostLog` spend since `since`, in every org — the figure the global
+ * monthly budget cap is checked against (§110 t-788).
+ *
+ * Read in the acting org's scope, the `org_isolation` policy would hide every
+ * other org's rows and turn the install-wide ceiling into a per-org one.
+ */
+export function globalSpendSince(since: Date): Promise<number> {
+  return acrossOrgs(async () => {
+    const aggregate = await prisma.aiCostLog.aggregate({
+      where: { createdAt: { gte: since } },
+      _sum: { totalCostUsd: true },
+    });
+    return aggregate._sum.totalCostUsd ?? 0;
+  }, 'global budget spend total (summed across orgs)');
 }

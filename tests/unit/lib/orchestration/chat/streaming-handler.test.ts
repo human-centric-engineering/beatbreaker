@@ -68,6 +68,8 @@ vi.mock('@/lib/orchestration/llm/provider-manager', () => {
     getProvider,
     getProviderWithFallbacks: vi.fn(),
     assertModelSupportsAttachments: vi.fn(),
+    // Paid unless a test says otherwise (§110 t-788).
+    isLocalProvider: vi.fn(async () => false),
     // Mid-stream failover fetches through this (§120 t-744). By default it
     // delegates to `getProvider` with a closed breaker keyed on the slug, so
     // the failover tests keep asserting on `getProvider`.
@@ -230,6 +232,7 @@ const {
   getProvider,
   assertModelSupportsAttachments,
   getProviderIfBreakerClosed,
+  isLocalProvider,
 } = await import('@/lib/orchestration/llm/provider-manager');
 const { checkBudget, logCost } = await import('@/lib/orchestration/llm/cost-tracker');
 const { capabilityDispatcher } = await import('@/lib/orchestration/capabilities/dispatcher');
@@ -244,6 +247,8 @@ const { readAgentConsistently } = await import('@/lib/orchestration/agents/agent
 const { CostOperation } = await import('@/types/orchestration');
 const { getBreaker } = await import('@/lib/orchestration/llm/circuit-breaker');
 const { ProviderError } = await import('@/lib/orchestration/llm/provider');
+const { SpendCapExceededError, assertWithinSpendCaps } =
+  await import('@/lib/orchestration/llm/spend-caps');
 const { ProviderCallRefusedError } = await import('@/lib/orchestration/llm/provider-eligibility');
 const { scanForInjection } = await import('@/lib/orchestration/chat/input-guard');
 const { registerGuardFloorContributor, __resetGuardFloorContributorsForTests } =
@@ -475,13 +480,245 @@ describe('StreamingChatHandler', () => {
     // Act
     const events = await collect(streamChat(baseRequest));
 
-    // Assert: error event emitted with budget_exceeded code
+    // Assert: error event emitted with budget_exceeded code, in the error
+    // registry's words, so it reads as the mid-turn refusal does.
     expect(events).toHaveLength(1);
-    const errEvt = events[0] as { type: string; code: string; message: string };
-    expect(errEvt).toMatchObject({ type: 'error', code: 'budget_exceeded' });
-    // The message should use "its" when limit is null
-    expect(errEvt.message).toContain('its');
+    expect(events[0]).toEqual({
+      type: 'error',
+      code: 'budget_exceeded',
+      message:
+        'This agent has reached its monthly budget. Contact an admin to increase the limit or switch to a local model.',
+    });
     expect(getProviderWithFallbacks).not.toHaveBeenCalled();
+  });
+
+  // 2c — each cap has its own code (§110 t-788) -------------------------------
+  it.each([
+    [
+      'the agent',
+      { limit: 10 },
+      'budget_exceeded',
+      'agent',
+      /This agent has reached its monthly budget\./,
+    ],
+    [
+      'the org',
+      { limit: null, orgCapExceeded: true, org: { limit: 40, spent: 41 } },
+      'org_budget_exceeded',
+      'org',
+      /Your organisation has reached its monthly AI budget/,
+    ],
+    [
+      'the platform',
+      { limit: 10, orgCapExceeded: true, globalCapExceeded: true },
+      'global_budget_exceeded',
+      'global',
+      /This platform has reached its monthly AI budget/,
+    ],
+  ])('names %s cap when it stops the turn', async (_label, budget, code, cap, message) => {
+    (checkBudget as ReturnType<typeof vi.fn>).mockResolvedValue({
+      withinBudget: false,
+      spent: 11,
+      remaining: null,
+      ...budget,
+    });
+
+    const events = await collect(streamChat(baseRequest));
+
+    expect(events).toHaveLength(1);
+    expect(events[0]).toMatchObject({ type: 'error', code });
+    const text = (events[0] as { message: string }).message;
+    expect(text).toMatch(message);
+    // No cap's amount is the visitor's to know.
+    expect(text).not.toMatch(/\$/);
+    await vi.waitFor(() =>
+      expect(dispatchWebhookEvent).toHaveBeenCalledWith(
+        'budget_exceeded',
+        expect.objectContaining({ cap })
+      )
+    );
+    expect(getProviderWithFallbacks).not.toHaveBeenCalled();
+  });
+
+  // 2d — a reached cap stops paid calls, not a local one (§110 t-788) -------
+  it('answers on a local primary when a cap is reached, even a cap of 0', async () => {
+    (checkBudget as ReturnType<typeof vi.fn>).mockResolvedValue({
+      withinBudget: false,
+      spent: 0,
+      limit: null,
+      remaining: null,
+      orgCapExceeded: true,
+      org: { limit: 0, spent: 0 },
+    });
+    (isLocalProvider as ReturnType<typeof vi.fn>).mockResolvedValueOnce(true);
+    const provider = {
+      ...mockProvider([
+        [
+          { type: 'text', content: 'Hello' },
+          { type: 'done', usage: { inputTokens: 1, outputTokens: 1 } },
+        ],
+      ]),
+      isLocal: true,
+    };
+    (getProviderWithFallbacks as ReturnType<typeof vi.fn>).mockResolvedValue({
+      provider,
+      usedSlug: 'ollama',
+    });
+
+    const events = await collect(streamChat(baseRequest));
+
+    expect(events.find((e) => (e as { type: string }).type === 'error')).toBeUndefined();
+    expect(events).toContainEqual({ type: 'content', delta: 'Hello' });
+    expect(isLocalProvider).toHaveBeenCalledWith('anthropic');
+    expect(dispatchWebhookEvent).not.toHaveBeenCalledWith('budget_exceeded', expect.anything());
+  });
+
+  /** A paid provider whose stream runs the real spend gate first, as the provider manager's does. */
+  function gatedPaidProvider(slug: string) {
+    const provider = mockProvider([[{ type: 'text', content: 'should not stream' }]]);
+    const script = provider.chatStream.getMockImplementation()!;
+    provider.chatStream.mockImplementation(async function* () {
+      await assertWithinSpendCaps(slug, false);
+      yield* script();
+    });
+    return provider;
+  }
+
+  /** The error marker the turn persisted, if any. */
+  function persistedErrorMarker() {
+    return (prisma.aiMessage.create as ReturnType<typeof vi.fn>).mock.calls
+      .map(([arg]) => (arg as { data: { metadata?: { error?: boolean } } }).data)
+      .find((data) => data.metadata?.error === true);
+  }
+
+  it('holds paid calls for the turn: the gate refuses a paid provider the turn reaches', async () => {
+    // The local primary was unavailable, so a paid fallback was chosen. The
+    // turn holds paid calls for its agent's cap, so the provider gate refuses
+    // it before anything streams, and the turn ends as any provider refusal
+    // does: an error marker for reload, and the budget webhook.
+    (checkBudget as ReturnType<typeof vi.fn>).mockResolvedValue({
+      withinBudget: false,
+      spent: 12,
+      limit: 10,
+      remaining: -2,
+    });
+    (isLocalProvider as ReturnType<typeof vi.fn>).mockResolvedValueOnce(true);
+    const paid = gatedPaidProvider('openai');
+    (getProviderWithFallbacks as ReturnType<typeof vi.fn>).mockResolvedValue({
+      provider: paid,
+      usedSlug: 'openai',
+    });
+
+    const events = await collect(streamChat(baseRequest));
+
+    expect(events).toContainEqual({
+      type: 'error',
+      code: 'budget_exceeded',
+      message:
+        'This agent has reached its monthly budget. Contact an admin to increase the limit or switch to a local model.',
+    });
+    expect(events).not.toContainEqual(expect.objectContaining({ delta: 'should not stream' }));
+    expect(persistedErrorMarker()).toMatchObject({
+      metadata: { error: true, errorCode: 'budget_exceeded' },
+    });
+    await vi.waitFor(() =>
+      expect(dispatchWebhookEvent).toHaveBeenCalledWith(
+        'budget_exceeded',
+        expect.objectContaining({ cap: 'agent', usedUsd: 12, limitUsd: 10 })
+      )
+    );
+  });
+
+  it('does not hold anything when the agent is within its budget', async () => {
+    (getProviderWithFallbacks as ReturnType<typeof vi.fn>).mockResolvedValue({
+      provider: gatedPaidProvider('openai'),
+      usedSlug: 'openai',
+    });
+
+    const events = await collect(streamChat(baseRequest));
+
+    expect(events).toContainEqual({ type: 'content', delta: 'should not stream' });
+    expect(events.find((e) => (e as { type: string }).type === 'error')).toBeUndefined();
+  });
+
+  it('passes over a paid fallback the hold refuses when the local primary fails mid-stream', async () => {
+    (checkBudget as ReturnType<typeof vi.fn>).mockResolvedValue({
+      withinBudget: false,
+      spent: 12,
+      limit: 10,
+      remaining: -2,
+    });
+    (isLocalProvider as ReturnType<typeof vi.fn>).mockResolvedValueOnce(true);
+    const local = {
+      ...mockProvider([]),
+      isLocal: true,
+      chatStream: vi.fn(async function* () {
+        yield { type: 'text', content: 'partial...' };
+        throw new Error('Connection reset');
+      }),
+    };
+    const paid = gatedPaidProvider('openai');
+    (prisma.aiAgent.findFirst as ReturnType<typeof vi.fn>).mockResolvedValue(
+      makeAgent({ fallbackProviders: ['openai'] })
+    );
+    (getProviderWithFallbacks as ReturnType<typeof vi.fn>).mockResolvedValue({
+      provider: local,
+      usedSlug: 'ollama',
+    });
+    (getProvider as ReturnType<typeof vi.fn>).mockResolvedValue(paid);
+
+    const events = (await collect(streamChat(baseRequest))) as Array<{
+      type: string;
+      code?: string;
+      reason?: string;
+    }>;
+
+    // No "retrying" for a fallback that could only be refused.
+    expect(events.some((e) => e.type === 'warning' && e.code === 'provider_retry')).toBe(false);
+    expect(paid.chatStream).not.toHaveBeenCalled(); // test-review:accept no_arg_called — passed over, never called
+    // The partial answer is wiped, and the turn ends on the cap.
+    expect(events).toContainEqual({ type: 'content_reset', reason: 'request_fault' });
+    expect(events.at(-1)).toMatchObject({ type: 'error', code: 'budget_exceeded' });
+    expect(persistedErrorMarker()).toMatchObject({
+      metadata: { error: true, errorCode: 'budget_exceeded' },
+    });
+  });
+
+  it('fails over to a local fallback when a cap refuses the paid primary, without tripping its breaker', async () => {
+    // The org reached its cap part way through the month: the gate refuses the
+    // paid primary, and a local fallback, which the caps never refuse, serves.
+    const mockBreaker = { recordSuccess: vi.fn(), recordFailure: vi.fn() };
+    (getBreaker as ReturnType<typeof vi.fn>).mockReturnValue(mockBreaker);
+    const paid = {
+      ...mockProvider([]),
+      chatStream: vi.fn(async function* () {
+        yield* [];
+        throw new SpendCapExceededError('org', 'anthropic');
+      }),
+    };
+    const local = {
+      ...mockProvider([
+        [
+          { type: 'text', content: 'Local answer' },
+          { type: 'done', usage: { inputTokens: 1, outputTokens: 1 }, finishReason: 'stop' },
+        ],
+      ]),
+      isLocal: true,
+    };
+    (prisma.aiAgent.findFirst as ReturnType<typeof vi.fn>).mockResolvedValue(
+      makeAgent({ fallbackProviders: ['ollama'] })
+    );
+    (getProviderWithFallbacks as ReturnType<typeof vi.fn>).mockResolvedValue({
+      provider: paid,
+      usedSlug: 'anthropic',
+    });
+    (getProvider as ReturnType<typeof vi.fn>).mockResolvedValue(local);
+
+    const events = await collect(streamChat(baseRequest));
+
+    expect(events).toContainEqual({ type: 'content', delta: 'Local answer' });
+    expect(events.find((e) => (e as { type: string }).type === 'error')).toBeUndefined();
+    expect(mockBreaker.recordFailure).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a reached cap is not provider ill health
   });
 
   // 3 -----------------------------------------------------------------------
@@ -3361,6 +3598,89 @@ describe('mid-loop budget re-check', () => {
       code: 'budget_exceeded',
     });
     expect(budgetCallCount).toBe(2);
+  });
+
+  it.each([
+    ['org_budget_exceeded', { orgCapExceeded: true }],
+    ['global_budget_exceeded', { globalCapExceeded: true }],
+  ])('yields %s when that cap is reached after a tool call iteration', async (code, flags) => {
+    let budgetCallCount = 0;
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    (checkBudget as ReturnType<typeof vi.fn>).mockImplementation(() => {
+      budgetCallCount++;
+      if (budgetCallCount === 1) {
+        return Promise.resolve({ withinBudget: true, spent: 5, limit: null, remaining: null });
+      }
+      return Promise.resolve({
+        withinBudget: false,
+        spent: 6,
+        limit: null,
+        remaining: null,
+        ...flags,
+      });
+    });
+    const provider = mockProvider([
+      [
+        { type: 'tool_call', toolCall: { id: 'tc1', name: 'search', arguments: {} } },
+        { type: 'done', usage: { inputTokens: 100, outputTokens: 50 } },
+      ],
+    ]);
+    (getProviderWithFallbacks as ReturnType<typeof vi.fn>).mockResolvedValue({
+      provider,
+      usedSlug: 'anthropic',
+    });
+    (capabilityDispatcher.dispatch as ReturnType<typeof vi.fn>).mockResolvedValue({
+      success: true,
+      data: 'result',
+    });
+
+    const events = await collect(streamChat(baseRequest));
+    const errorEvt = events.find((e: unknown) => (e as Record<string, unknown>).type === 'error');
+
+    expect(errorEvt).toMatchObject({ type: 'error', code });
+    expect(budgetCallCount).toBe(2);
+  });
+
+  it('keeps going on a local provider when a cap is reached mid-loop', async () => {
+    // A reached cap stops paid calls; the local provider serving this turn
+    // costs nothing, so the tool loop carries on.
+    let budgetCallCount = 0;
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    (checkBudget as ReturnType<typeof vi.fn>).mockImplementation(() => {
+      budgetCallCount++;
+      return Promise.resolve(
+        budgetCallCount === 1
+          ? { withinBudget: true, spent: 0, limit: null, remaining: null }
+          : { withinBudget: false, spent: 1, limit: null, remaining: null, orgCapExceeded: true }
+      );
+    });
+    const provider = {
+      ...mockProvider([
+        [
+          { type: 'tool_call', toolCall: { id: 'tc1', name: 'search', arguments: {} } },
+          { type: 'done', usage: { inputTokens: 100, outputTokens: 50 } },
+        ],
+        [
+          { type: 'text', content: 'Answer' },
+          { type: 'done', usage: { inputTokens: 10, outputTokens: 5 } },
+        ],
+      ]),
+      isLocal: true,
+    };
+    (getProviderWithFallbacks as ReturnType<typeof vi.fn>).mockResolvedValue({
+      provider,
+      usedSlug: 'ollama',
+    });
+    (capabilityDispatcher.dispatch as ReturnType<typeof vi.fn>).mockResolvedValue({
+      success: true,
+      data: 'result',
+    });
+
+    const events = await collect(streamChat(baseRequest));
+
+    expect(events.find((e) => (e as { type: string }).type === 'error')).toBeUndefined();
+    expect(provider.chatStream).toHaveBeenCalledTimes(2);
+    expect(events).toContainEqual({ type: 'content', delta: 'Answer' });
   });
 
   it('yields budget_exceeded_per_turn when agent.maxCostPerTurnUsd is breached mid-loop', async () => {

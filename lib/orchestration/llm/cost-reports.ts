@@ -14,7 +14,9 @@
 
 import { prisma } from '@/lib/db/client';
 import { logger } from '@/lib/logging';
-import { calculateLocalSavings } from '@/lib/orchestration/llm/cost-tracker';
+import { calculateLocalSavings, getGlobalCapState } from '@/lib/orchestration/llm/cost-tracker';
+import { utcMonthStart } from '@/lib/orchestration/llm/spend-caps';
+import { canChangeSharedSettings } from '@/lib/tenancy/shared-settings';
 import type { LocalSavingsResult } from '@/types/orchestration';
 
 // ----------------------------------------------------------------------------
@@ -106,12 +108,17 @@ export interface BudgetAlert {
   severity: 'warning' | 'critical';
 }
 
+/** The global cap, its month-to-date spend in every org, and whether it is met. */
 export interface GlobalCapStatus {
   /** The configured global monthly budget in USD, or null if not set. */
   cap: number | null;
-  /** Month-to-date spend across all agents. */
-  spent: number;
-  /** True when `spent >= cap`. */
+  /**
+   * Month-to-date spend in every org. `null` for a caller in a customer org at
+   * `multi`: the figure includes every other org's spend, so it is shown only
+   * in the install org, where the global cap is set.
+   */
+  spent: number | null;
+  /** True when the spend has reached the cap: every paid AI call is refused. */
   exceeded: boolean;
 }
 
@@ -125,10 +132,6 @@ const BUDGET_CRITICAL_THRESHOLD = 1.0;
 
 function utcStartOfDay(date: Date): Date {
   return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
-}
-
-function utcStartOfMonth(date: Date): Date {
-  return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1));
 }
 
 function isoDate(date: Date): string {
@@ -288,7 +291,7 @@ export async function getCostSummary(): Promise<CostSummary> {
   const todayStart = utcStartOfDay(now);
   const tomorrowStart = new Date(todayStart.getTime() + MS_PER_DAY);
   const weekStart = new Date(todayStart.getTime() - 6 * MS_PER_DAY);
-  const monthStart = utcStartOfMonth(now);
+  const monthStart = utcMonthStart(now);
   const trendStart = new Date(todayStart.getTime() - 29 * MS_PER_DAY);
 
   const [todayAgg, weekAgg, monthAgg, byAgentGrouped, byModelGrouped, trendRaw, agentsWithBudget] =
@@ -423,7 +426,7 @@ export async function getBudgetAlerts(): Promise<BudgetAlert[]> {
   if (agents.length === 0) return [];
 
   const now = new Date();
-  const monthStart = utcStartOfMonth(now);
+  const monthStart = utcMonthStart(now);
 
   const grouped = await prisma.aiCostLog.groupBy({
     by: ['agentId'],
@@ -474,24 +477,18 @@ export async function getBudgetAlerts(): Promise<BudgetAlert[]> {
 /**
  * Check whether the global monthly budget cap (from `AiOrchestrationSettings`)
  * has been exceeded. Returns null cap when no settings row or no cap configured.
+ *
+ * The spend is every org's (`getGlobalCapState`), read across orgs at `multi`
+ * — the same figure the spend gate enforces against. So it goes only to a
+ * caller in the install org (or a system scope), the one place the global cap
+ * can be changed (`canChangeSharedSettings`). An admin in a customer org is
+ * told whether the cap is reached, since it refuses their org's paid calls
+ * too, but not what every org has spent.
  */
 export async function getGlobalCapStatus(): Promise<GlobalCapStatus> {
   try {
-    const settings = await prisma.aiOrchestrationSettings.findUnique({
-      where: { slug: 'global' },
-      select: { globalMonthlyBudgetUsd: true },
-    });
-    const cap = settings?.globalMonthlyBudgetUsd ?? null;
-    if (cap === null) return { cap: null, spent: 0, exceeded: false };
-
-    const now = new Date();
-    const monthStart = utcStartOfMonth(now);
-    const agg = await prisma.aiCostLog.aggregate({
-      where: { createdAt: { gte: monthStart } },
-      _sum: { totalCostUsd: true },
-    });
-    const spent = agg._sum.totalCostUsd ?? 0;
-    return { cap, spent, exceeded: spent >= cap };
+    const state = await getGlobalCapState();
+    return canChangeSharedSettings() ? state : { ...state, spent: null };
   } catch (err) {
     logger.warn('getGlobalCapStatus: failed, returning safe default', {
       error: err instanceof Error ? err.message : String(err),

@@ -319,6 +319,39 @@ wherever the provider came from — including a site nobody has listed yet.
 The gate binds what core sends through the manager. It does not bind a fork's
 own direct construction of a provider class — see the next two sections.
 
+### The spend gate
+
+Right after the eligibility gate, every `track` / `trackStream` call is held to
+the monthly spend caps that are not about any one agent: the org's
+(`Org.settings.quotas.monthlyBudgetUsd`) and the global one
+(`globalMonthlyBudgetUsd`). This is `assertWithinSpendCaps` in
+`lib/orchestration/llm/spend-caps.ts` (§110 t-788). It is what holds workflow
+steps, the orchestrator, evaluations, judges, knowledge ingestion and scheduled
+or webhook runs to those caps. Before it existed, only the chat handler checked
+them. See [Costs → Per-org monthly budget cap](../admin/orchestration-costs.md#per-org-monthly-budget-cap)
+for the caps themselves.
+
+| Property            | Behaviour                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Local providers** | Never refused (`isLocal` on the provider instance). They cost nothing, so a cap of `0` means "no paid calls", not "no calls".                                                                                                                                                                                                                                                                                                                                                                                                         |
+| **The org**         | The tenant context's org, or the install org at `single` when none was entered.                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| **Order**           | The global cap first, then the org's, as in chat: the global cap is the one nobody in the org can lift.                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| **Refusal**         | `SpendCapExceededError` (a `ProviderError`, code `org_budget_exceeded`, `global_budget_exceeded` or `budget_exceeded`, non-retriable, `cap` `'org'`, `'global'` or `'agent'`), thrown before `track` counts anything or a stream is opened. `spendCapRefusal()` answers the same question without throwing.                                                                                                                                                                                                                           |
+| **After a refusal** | The codes are request faults (`isRequestFault`): not retried, and no circuit breaker records a failure. A local provider is the one failover that can help, so provider selection makes it: `getProviderWithFallbacks` and chat's mid-stream failover pass over every paid candidate the caps refuse. With no local candidate left, the refusal itself is thrown, not a retriable `all_providers_exhausted`. `ExecutorError` keeps the cap's code, so a trace says which cap stopped the step.                                        |
+| **A failed read**   | Logged and that cap skipped (`globalCapStateOrSkip` / `orgCapStateOrSkip`, which `checkBudget()` and the agents list use too), so a settings read that fails does not stop every AI call on the install.                                                                                                                                                                                                                                                                                                                              |
+| **Cost per call**   | The month-to-date totals are cached for 10 seconds (`SPEND_TOTAL_TTL_MS`), and `logCost` adds each row it writes to them at once. Another process's spend is seen when the entry expires, which bounds how far it can carry a cap past its limit. An org's cap is cached for 30 seconds (`CAP_SETTING_TTL_MS`), and the orgs API clears it with `forgetOrgCap`. The global cap is read from `getOrchestrationSettings()`, whose 30-second cache the settings PATCH and the backup importer clear. A warm call makes no database read. |
+| **Not gated**       | `listModels` and `testConnection`, as for the eligibility gate.                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+
+Chat still checks the caps before a turn starts (`checkBudget()`), so its user
+is told which cap stopped the turn, and it adds the agent's own cap, which only
+it knows. An agent whose primary provider is local is not refused there. The
+turn runs inside `withPaidCallHold`, and it sets the hold instead, so from then
+on this gate refuses every paid call the turn makes with the cap's code: a
+paid fallback or failover, and the summarizer, embeddings and tools as well as
+the main stream. The hold is an `AsyncLocalStorage` carried across the turn's
+yields, so work the turn starts and leaves running sees it too, and a nested
+turn (an agent calling another) runs under its own.
+
 ### What bypasses the Provider Manager
 
 One route reaches a vendor without a manager-built, Proxy-wrapped instance. It

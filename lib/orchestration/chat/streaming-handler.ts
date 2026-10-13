@@ -48,14 +48,32 @@ import {
   assertModelSupportsAttachments,
   getProviderWithFallbacks,
   getProviderIfBreakerClosed,
+  isLocalProvider,
   type AttachmentCapability,
 } from '@/lib/orchestration/llm/provider-manager';
 import { fallbackCallContext } from '@/lib/orchestration/llm/provider-eligibility';
 import { resolveAgentProviderAndModel } from '@/lib/orchestration/llm/agent-resolver';
 import { resolveEffectivePrompt } from '@/lib/orchestration/agents/resolve-effective-prompt';
 import { touchAgentLastActive } from '@/lib/orchestration/agents/touch-last-active';
-import { isRequestFault, ProviderError, type LlmProvider } from '@/lib/orchestration/llm/provider';
-import { calculateCost, checkBudget, logCost } from '@/lib/orchestration/llm/cost-tracker';
+import {
+  isRequestFault,
+  ProviderError,
+  SPEND_CAP_CODES,
+  type LlmProvider,
+} from '@/lib/orchestration/llm/provider';
+import {
+  SpendCapExceededError,
+  spendCapRefusal,
+  withPaidCallHold,
+  type PaidCallHold,
+  type SpendCap,
+} from '@/lib/orchestration/llm/spend-caps';
+import {
+  calculateCost,
+  checkBudget,
+  logCost,
+  type BudgetStatus,
+} from '@/lib/orchestration/llm/cost-tracker';
 import { resolveMaxCostPerTurn } from '@/lib/orchestration/llm/cost-caps';
 import { withAgentBudgetLock } from '@/lib/orchestration/llm/budget-mutex';
 import { dispatchWebhookEvent } from '@/lib/orchestration/webhooks/dispatcher';
@@ -390,15 +408,24 @@ export class StreamingChatHandler {
     // backends — one trace per turn, not fragmented roots. `manualStatus`
     // lets the inner manage error status without breaking the SSE consumer
     // contract (the iterator yields error events; never rejects).
-    yield* withSpanGenerator(
-      SPAN_CHAT_TURN,
-      {
-        [GEN_AI_OPERATION_NAME]: 'chat',
-        [SUNRISE_USER_ID]: request.userId,
-        [SUNRISE_AGENT_SLUG]: request.agentSlug,
-      },
-      (chatSpan) => this.runInner(chatSpan, request),
-      { manualStatus: true }
+    //
+    // `withPaidCallHold` gives the turn its own hold on paid calls, which the
+    // turn sets if it goes on, on a local model, past a reached budget cap.
+    // From then the provider gate refuses every paid call the turn makes —
+    // tools, the summarizer and embeddings as well as the main stream.
+    const hold: PaidCallHold = { cap: null };
+    yield* withPaidCallHold(
+      hold,
+      withSpanGenerator(
+        SPAN_CHAT_TURN,
+        {
+          [GEN_AI_OPERATION_NAME]: 'chat',
+          [SUNRISE_USER_ID]: request.userId,
+          [SUNRISE_AGENT_SLUG]: request.agentSlug,
+        },
+        (chatSpan) => this.runInner(chatSpan, request, hold),
+        { manualStatus: true }
+      )
     );
   }
 
@@ -413,7 +440,8 @@ export class StreamingChatHandler {
    */
   private async *runInner(
     chatSpan: Span,
-    request: ChatRequest
+    request: ChatRequest,
+    hold: PaidCallHold
   ): AsyncGenerator<ChatEvent, void, unknown> {
     const log =
       request.requestId || request.visitorId
@@ -430,6 +458,9 @@ export class StreamingChatHandler {
     // shared credential, slug + identity for a per-org one.
     let resolvedBreakerKey: string | null = null;
     let chatSpanError: unknown = undefined;
+    // The agent and its latest budget reading, for the `budget_exceeded`
+    // webhook when a spend cap ends the turn from inside the provider gate.
+    let budgetNotice: { agent: BudgetNoticeAgent; budget: BudgetStatus } | null = null;
     try {
       registerBuiltInCapabilities();
 
@@ -450,6 +481,7 @@ export class StreamingChatHandler {
       // Per-agent mutex prevents TOCTOU race between concurrent budget reads.
       // See lib/orchestration/llm/budget-mutex.ts for accepted over-run tolerance.
       const budget = await withAgentBudgetLock(agent.id, () => checkBudget(agent.id));
+      budgetNotice = { agent, budget };
 
       // Budget warning at 80%
       if (
@@ -472,34 +504,18 @@ export class StreamingChatHandler {
         };
       }
 
-      if (!budget.withinBudget) {
-        const limitStr = budget.limit !== null ? `$${budget.limit.toFixed(2)}` : 'its';
-        yield errorEvent(
-          'budget_exceeded',
-          `This agent has reached its monthly budget of ${limitStr}. Contact an admin to increase the limit or switch to a local model.`
-        );
-        // Resolve the actor name out-of-band so the synchronous chat-stream
-        // path doesn't block the SSE `error` event we yielded above. The
-        // webhook dispatcher creates the delivery row inside this call,
-        // so ordering against subsequent failures is fine.
-        //
-        // An embed visitor is not a `User` (#705, t-765): the payload names
-        // them as `embedVisitorId` and carries no `actorUserId`, the field a
-        // receiver would look up as one, and no name lookup is made for them.
-        void (async () => {
-          const actorUserId = userIdForUserRef(request.userId);
-          const actorUserName = await resolveUserDisplayName(actorUserId);
-          await dispatchWebhookEvent('budget_exceeded', {
-            agentId: agent.id,
-            agentSlug: agent.slug,
-            agentName: agent.name,
-            ...(actorUserId ? { actorUserId } : { embedVisitorId: request.userId }),
-            actorUserName,
-            conversationId,
-            usedUsd: budget.spent,
-            limitUsd: budget.limit,
-          });
-        })();
+      // A cap that has been reached stops paid calls, not free ones: an agent
+      // whose primary is local still answers on it, and a cap of 0 means "no
+      // paid calls". The turn holds paid calls instead (`hold`), and the
+      // provider gate refuses each one it would make — a fallback, a failover
+      // mid-stream, a tool, the summarizer. (The org and global caps are
+      // enforced at the gate in any case; the agent's cap is known only here.)
+      if (!budget.withinBudget && (await isLocalProvider(resolvedBinding.providerSlug))) {
+        hold.cap = budgetRefusal(budget).cap;
+      } else if (!budget.withinBudget) {
+        const refusal = budgetRefusal(budget);
+        yield errorEvent(refusal.code, refusal.message);
+        notifyBudgetExceeded({ agent, budget, cap: refusal.cap, request, conversationId });
         return;
       }
 
@@ -1490,7 +1506,12 @@ export class StreamingChatHandler {
                 // one agent's `maxTokens` being too low is not evidence about
                 // provider health, and at `failureThreshold: 5` a couple of
                 // bad turns would open it for every other agent on that slug.
-                if (isRequestFault(streamErr)) {
+                // A spend cap refusing a paid provider is a request fault too,
+                // but one a LOCAL fallback can still serve, since the caps
+                // never refuse a local call; it goes on to failover below,
+                // which passes over every paid candidate the caps refuse.
+                const capRefused = streamErr instanceof SpendCapExceededError;
+                if (isRequestFault(streamErr) && !capRefused) {
                   setSpanStatus(llmSpan, { code: 'error', message: streamErr.message });
                   // Discard what was streamed. A structured extraction only
                   // trips this after yielding the fragment of JSON it managed
@@ -1533,7 +1554,8 @@ export class StreamingChatHandler {
                   throw streamErr;
                 }
 
-                getBreaker(currentBreakerKey).recordFailure();
+                // A reached cap says nothing about the provider's health.
+                if (!capRefused) getBreaker(currentBreakerKey).recordFailure();
 
                 // Pick the next fallback BEFORE telling the client a retry is
                 // coming (§120 t-744 review). A candidate whose credential's
@@ -1544,6 +1566,9 @@ export class StreamingChatHandler {
                 // just failed (it may sit in the fallback list too, when it was
                 // the one getProviderWithFallbacks chose) must not be retried.
                 let next: { slug: string; provider: LlmProvider; breakerKey: string } | null = null;
+                // Set when a spend cap passes over a paid candidate: if nothing
+                // is left, the cap is why the turn ends.
+                let capRefusal: SpendCapExceededError | null = capRefused ? streamErr : null;
                 if (streamRetries <= MAX_STREAM_RETRIES) {
                   // A fallback without a recorded provenance is still gated AS a
                   // fallback, as getProviderWithFallbacks gates one.
@@ -1557,7 +1582,17 @@ export class StreamingChatHandler {
                     triedSlugs.add(candidate);
                     try {
                       const acquired = await getProviderIfBreakerClosed(candidate, fallbackOrigin);
-                      if (acquired) {
+                      const refusal = acquired
+                        ? await spendCapRefusal(candidate, acquired.provider.isLocal === true)
+                        : null;
+                      if (refusal) {
+                        capRefusal = refusal;
+                        log.warn('Skipping fallback provider — a monthly spend cap refuses it', {
+                          agentSlug: request.agentSlug,
+                          provider: candidate,
+                          cap: refusal.cap,
+                        });
+                      } else if (acquired) {
                         next = { slug: candidate, ...acquired };
                       } else {
                         log.warn('Skipping fallback provider — circuit breaker open', {
@@ -1586,6 +1621,13 @@ export class StreamingChatHandler {
                     code: 'error',
                     message: streamErr instanceof Error ? streamErr.message : 'stream failed',
                   });
+                  if (capRefusal) {
+                    // The turn ends on the cap, as the request-fault branch
+                    // ends one: what was streamed is discarded, and the outer
+                    // catch persists the error marker and sends the webhook.
+                    yield { type: 'content_reset', reason: 'request_fault' };
+                    throw capRefusal;
+                  }
                   throw streamErr;
                 }
                 const nextSlug = next.slug;
@@ -2107,13 +2149,16 @@ export class StreamingChatHandler {
         // Re-check budget before the next tool-loop iteration (locked to
         // prevent TOCTOU overruns when concurrent requests hit the same agent).
         const midBudget = await withAgentBudgetLock(agent.id, () => checkBudget(agent.id));
+        budgetNotice = { agent, budget: midBudget };
         if (!midBudget.withinBudget) {
-          const limitStr = midBudget.limit !== null ? `$${midBudget.limit.toFixed(2)}` : 'its';
-          yield errorEvent(
-            'budget_exceeded',
-            `This agent has reached its monthly budget of ${limitStr}. Contact an admin to increase the limit or switch to a local model.`
-          );
-          return;
+          const refusal = budgetRefusal(midBudget);
+          // Held, as before the turn, while the turn is on a local provider.
+          if (currentProvider.isLocal) {
+            hold.cap = refusal.cap;
+          } else {
+            yield errorEvent(refusal.code, refusal.message);
+            return;
+          }
         }
 
         // Tool call path — dispatch all tool calls from this turn.
@@ -2743,13 +2788,20 @@ export class StreamingChatHandler {
         // contain internal details (env var names, provider slugs, base URLs)
         // that must not reach the browser.
         const safe = getUserFacingError(err.code);
+        if (err instanceof SpendCapExceededError && budgetNotice) {
+          notifyBudgetExceeded({ ...budgetNotice, cap: err.cap, request, conversationId });
+        }
         // Same reason the generic path below does it. This branch returns
         // early, so without it a provider failure that exhausted its
         // fallbacks — or a request fault like `truncated_no_output`, which
         // now ends the turn here rather than failing over — leaves the user
         // message unanswered on reload.
         await persistErrorMarker(err.code);
-        yield errorEvent(err.code, safe.message);
+        // A spend cap ends with the words a refusal before the turn uses.
+        yield errorEvent(
+          err.code,
+          err instanceof SpendCapExceededError ? refusalText(err.code) : safe.message
+        );
         return;
       }
       // Not on a client abort — see `isClientAbort`.
@@ -3109,6 +3161,80 @@ function isClientAbort(err: unknown, signal?: AbortSignal): boolean {
 
 function errorEvent(code: string, message: string): ChatEvent {
   return { type: 'error', code, message };
+}
+
+/** A budget refusal: the code and words a turn ends with, and which cap stopped it. */
+interface BudgetRefusalReason {
+  code: (typeof SPEND_CAP_CODES)[SpendCap];
+  cap: SpendCap;
+  message: string;
+}
+
+/**
+ * The words a turn ends with when a budget cap stops it: the error registry's
+ * message and action for the code, so a refusal before the turn and one the
+ * provider gate makes part way through say the same thing, and the admin chat
+ * (which maps the code through the registry itself) agrees with both.
+ */
+function refusalText(code: string): string {
+  const { message, action } = getUserFacingError(code);
+  return action ? `${message} ${action}` : message;
+}
+
+/**
+ * The code and words for a turn `checkBudget` refused, naming the cap that
+ * did it (§110 t-788). The global cap first, then the org's, then the agent's:
+ * the widest cap is the one no admin of this agent or org can lift, so it is
+ * the one worth saying. The org and global messages name no amount — the
+ * reader may be an embed visitor, and those caps are not theirs to know.
+ */
+function budgetRefusal(budget: BudgetStatus): BudgetRefusalReason {
+  const cap: SpendCap = budget.globalCapExceeded
+    ? 'global'
+    : budget.orgCapExceeded
+      ? 'org'
+      : 'agent';
+  const code = SPEND_CAP_CODES[cap];
+  return { code, cap, message: refusalText(code) };
+}
+
+/** The agent fields the `budget_exceeded` webhook names. */
+type BudgetNoticeAgent = Pick<AgentWithProfile, 'id' | 'slug' | 'name'>;
+
+/**
+ * Send the `budget_exceeded` webhook for a turn a budget cap ended, whether it
+ * was refused before it started or stopped by the provider gate part way.
+ * `usedUsd` / `limitUsd` are the agent's; `cap` says which cap it was.
+ *
+ * The actor's name is resolved out-of-band so the chat stream does not wait
+ * on it; the dispatcher creates the delivery row inside this call. An embed
+ * visitor is not a `User` (#705, t-765): the payload names them as
+ * `embedVisitorId` and carries no `actorUserId`, the field a receiver would
+ * look up as one, and no name lookup is made for them.
+ */
+function notifyBudgetExceeded(args: {
+  agent: BudgetNoticeAgent;
+  budget: BudgetStatus;
+  cap: SpendCap;
+  request: ChatRequest;
+  conversationId: string | null;
+}): void {
+  const { agent, budget, cap, request, conversationId } = args;
+  void (async () => {
+    const actorUserId = userIdForUserRef(request.userId);
+    const actorUserName = await resolveUserDisplayName(actorUserId);
+    await dispatchWebhookEvent('budget_exceeded', {
+      agentId: agent.id,
+      agentSlug: agent.slug,
+      agentName: agent.name,
+      ...(actorUserId ? { actorUserId } : { embedVisitorId: request.userId }),
+      actorUserName,
+      conversationId,
+      usedUsd: budget.spent,
+      limitUsd: budget.limit,
+      cap,
+    });
+  })();
 }
 
 /**

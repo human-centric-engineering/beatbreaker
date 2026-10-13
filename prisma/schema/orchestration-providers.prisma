@@ -54,6 +54,7 @@ model AiCostLog {
   @@index([operation])
   @@index([createdAt])
   @@index([agentId, createdAt])
+  @@index([orgId, createdAt]) // an org's month-to-date spend: the org budget cap and the metering rollup (§110)
   @@index([traceId])
   @@map("ai_cost_log")
 }
