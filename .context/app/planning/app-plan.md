@@ -3259,6 +3259,45 @@ cross-stick, `sCross` drops and the kit falls back to its synthesised voice.
 - **The owner A/B-listens against a recording of each real machine.** That
   recording is played on the owner's side and is never shipped.
 
+**9-vi-c reconciled, 2026-10-13 (branch `phase-9-vi-c`).** Read against the
+tree at `d4bb680d`:
+
+- **A combination is a recorded kit that names no pack.** A slot that
+  names a piece resolves to that piece's folder, so `packs.ts` already plays
+  a kit whose slots come from several folders; only a slot with no folder
+  needs the kit's `pack`. A combination is an `engine: 'pack'` row with no
+  `pack`, every slot a piece, filed under `Combinations`, after the
+  recorded kits.
+- **Its data is a list of pieces, in order.** Each piece fills every slot it
+  has, and a later piece takes a slot from an earlier one: Crocell's crashes
+  then Salamander's china is Crocell's crashes and splash with that china.
+  `COMBINATIONS` in `data/kits.ts`; the seed turns the list into the slot
+  map, as `packPieceMap` does for a pack.
+- **Its credit is derived** from its pieces' sources (`KIT_CREDITS`), so it
+  cannot leave one out. A pack kit's stays hand-written.
+- **Pans are `samples.pan`,** which 9-v built and nothing seeded yet. Each
+  combination sets the lanes it means to move; the rest take `DEFAULT_PAN`.
+- **§7's table, against the pieces there are:**
+  - Studio rock and Big room share Big Rusty's kick and hats and Crocell's
+    crashes. They differ in the snare (DRS's against Big Rusty's, whose
+    rimshots are the accents), the ride, and the room: Studio rock is dry,
+    Big room has three times the send.
+  - Jazz brushes from DRS alone would be the DRS brushes kit again. It
+    takes Virtuosity's kick, a small jazz bass drum, under the DRS brushes.
+  - Boom bap takes Frankensnare's 20×12, as 9.19 decided, and Gogodze's
+    hats and cymbals.
+  - **There is no Salamander ride.** Salamander lends a splash, a china and
+    a crash. Garage takes SM Drums' thin 1960s ride instead, so it is not
+    the Unruly kit again.
+  - The toms, which §7 leaves out, are the kick's kit's.
+- **No style is re-pointed in this PR's first commit.** 9.19 waits on the
+  owner's sign-off by ear; candidates are listed in `sound.md` with the
+  sign-off record.
+
+| PR     | What                                                                                       | Done when                                                                                                                                                                                                                                      |
+| ------ | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 9-vi-c | Six combinations as system kits: pieces, pans, derived credits, the `Combinations` heading | Seed tests: every piece a combination names exists and fills a slot; each plays only piece slots, from more than one folder; its credit names every source; the picker files the six under `Combinations`. Owner sign-off by ear in `sound.md` |
+
 **Not in Phase 9:** cymbal chokes (grabs), crash 2 as a separate lane
 rather than a value, and rolls longer than one step. See `sound-plan.md` §10.
 

@@ -16,17 +16,24 @@ import { KIT_CREDITS } from '@/lib/app/breaks/kit-credits.generated';
 import { type LibraryItem, RUDIMENTS_LIBRARY, patternFromLibrary } from '@/lib/app/breaks/library';
 import { packPattern } from '@/lib/app/breaks/share';
 import type { ResolvedStyle } from '@/lib/app/breaks/types';
-import { KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
+import { COMBINATIONS, KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { RUDIMENTS } from '@/prisma/seeds/app-beatbreaker/data/rudiments';
 import { STYLES, STYLE_GROUPS } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import type { SeedContext, SeedUnit } from '@/prisma/runner';
-import { type Manifest, derivePieces, packPieceMap } from '@/scripts/kits/pieces';
+import {
+  type DerivedPiece,
+  type Manifest,
+  combinationCredit,
+  combinationPieceMap,
+  derivePieces,
+  packPieceMap,
+} from '@/scripts/kits/pieces';
 import { RECIPES } from '@/scripts/kits/recipes';
 
 /**
- * The catalogue: 70 styles, 47 famous breaks, 40 rudiments, 24 kits and the
- * pieces they are made of.
+ * The catalogue: 70 styles, 47 famous breaks, 40 rudiments, 24 kits, six
+ * combinations and the pieces they are made of.
  *
  * This is where content became data (D13). The three tables it fills used to be
  * three TypeScript constants compiled into the app; the constants are still the
@@ -286,7 +293,10 @@ async function seedLibrary(
  * piece no recipe builds any more goes, and a kit slot naming it reads as
  * empty.
  */
-async function seedPieces({ prisma, logger }: SeedContext, manifest: Manifest): Promise<void> {
+async function seedPieces(
+  { prisma, logger }: SeedContext,
+  manifest: Manifest
+): Promise<DerivedPiece[]> {
   const packLabels: Record<string, string> = {};
   for (const kit of Object.values(KITS)) if (kit.pack) packLabels[kit.pack] ??= kit.label;
   const pieces = derivePieces(RECIPES, manifest, packLabels);
@@ -316,9 +326,14 @@ async function seedPieces({ prisma, logger }: SeedContext, manifest: Manifest): 
   logger.info(
     `🥁 Pieces: ${pieces.length} in place${gone.count ? ` (${gone.count} removed)` : ''}`
   );
+  return pieces;
 }
 
-async function seedKits({ prisma, logger }: SeedContext, manifest: Manifest): Promise<void> {
+async function seedKits(
+  { prisma, logger }: SeedContext,
+  manifest: Manifest,
+  pieces: DerivedPiece[]
+): Promise<void> {
   const recipes = new Map(RECIPES.map((r) => [r.pack, r]));
   let position = 0;
 
@@ -370,6 +385,34 @@ async function seedKits({ prisma, logger }: SeedContext, manifest: Manifest): Pr
     );
   }
 
+  /* The combinations (9-vi-c), after the recorded kits: a recorded kit that
+     names no pack, each slot a piece from wherever it was recorded. */
+  for (const [key, combination] of Object.entries(COMBINATIONS)) {
+    const { label, hint, engine: _engine, pieces: keys, pan, ...params } = combination;
+    const samples = kitSamplesSchema.parse({
+      slots: Object.fromEntries(
+        Object.entries(combinationPieceMap(keys, pieces)).map(([slot, piece]) => [slot, { piece }])
+      ),
+      ...(pan ? { pan } : {}),
+    });
+    const fields = {
+      engine: 'pack' as const,
+      label,
+      hint,
+      group: COMBINATIONS_GROUP,
+      credit: combinationCredit(keys, pieces, KIT_CREDITS),
+      params: kitParamsSchema.parse(params),
+      samples,
+      position: position++,
+    };
+    await upsertSystemRow(
+      prisma.kit as never,
+      key,
+      { key, visibility: 'system', ...fields },
+      fields
+    );
+  }
+
   /* The system "Your samples" kit kept one-shots in the browser. Your own kits
      are rows you own now (D20), so a system row on the `user` engine is one a
      seed before Phase 4A wrote, and it goes. A setting that named it reads as
@@ -377,11 +420,12 @@ async function seedKits({ prisma, logger }: SeedContext, manifest: Manifest): Pr
   const retired = await prisma.kit.deleteMany({ where: { ownerId: null, engine: 'user' } });
 
   logger.info(
-    `🥁 Kits: ${Object.keys(KITS).length} in place${retired.count ? ` (${retired.count} retired)` : ''}`
+    `🥁 Kits: ${Object.keys(KITS).length} and ${Object.keys(COMBINATIONS).length} combinations in place${retired.count ? ` (${retired.count} retired)` : ''}`
   );
 }
 
-/** What the picker calls each engine. `pack` and `user` share a heading. */
+/** The picker's heading for the combinations. */
+const COMBINATIONS_GROUP = 'Combinations';
 
 /** The system libraries, in the order the drawer shows them. */
 const LIBRARIES: SeededLibrary[] = [
@@ -474,8 +518,8 @@ const unit: SeedUnit = {
     const styles = await seedStyles(ctx);
     for (const library of LIBRARIES) await seedLibrary(ctx, styles, library);
     const manifest = await readManifest();
-    await seedPieces(ctx, manifest);
-    await seedKits(ctx, manifest);
+    const pieces = await seedPieces(ctx, manifest);
+    await seedKits(ctx, manifest, pieces);
     ctx.logger.info('✅ Catalogue seeded');
   },
 };

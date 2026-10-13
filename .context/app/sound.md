@@ -159,8 +159,8 @@ the note's time.
 **Pans** are `DEFAULT_PAN` in `lanes.ts`: a narrow spread, nothing past ±0.4,
 from the stool. Hats and crash are on the left, the ride and floor tom on the
 right. The setting `panView` (`drummer` or `audience`) mirrors them. In the
-Kit drawer it is _Heard from_: The stool, or Out front. Per-kit pans wait for
-pieces (9-v).
+Kit drawer it is _Heard from_: The stool, or Out front. A kit's own pans
+(`samples.pan`, below) override them lane by lane.
 
 An audition from the Kit drawer (`hit`, `demo`) has no lane. It goes straight
 to the bus, centred.
@@ -240,6 +240,49 @@ catalogue table, served by `GET /api/v1/catalogue/pieces`.
   them. They override `DEFAULT_PAN` per lane and are mirrored by `panView`. Pan
   is per lane, not per slot: a rimshot panned away from its snare is not a
   sound anyone wants.
+
+### Combinations (9-vi-c)
+
+Six system kits made of other kits' pieces, filed under _Combinations_ in the
+picker, after the recorded kits. `COMBINATIONS` in
+`prisma/seeds/app-beatbreaker/data/kits.ts`.
+
+- **A combination names no pack.** It is an `engine: 'pack'` row whose every
+  slot is a piece, and a piece's slot carries its folder, so `packs.ts`
+  plays it as it plays a kit of yours.
+- **Its data is a list of pieces, in order.** Each fills every slot it has;
+  a later one takes a slot from an earlier one (`combinationPieceMap` in
+  `scripts/kits/pieces.ts`). A key no recipe builds, or a piece left filling
+  nothing, fails the seed.
+- **Its credit is derived** from its pieces' sources (`combinationCredit`),
+  with each source's notice, so a combination cannot leave one out.
+- **Its pans** are `samples.pan`. Studio rock keeps `DEFAULT_PAN`; Boom bap
+  is nearly mono, like a sampled break; Big room is the widest.
+- **No piece is new.** Every level is the piece's own trim, measured by the
+  pipeline against its role, so a snare from one library sits where another's
+  did.
+
+| Kit          | Kick       | Snare                    | Hats        | Ride                  | Crashes                                  | Toms        |
+| ------------ | ---------- | ------------------------ | ----------- | --------------------- | ---------------------------------------- | ----------- |
+| Studio rock  | Big Rusty  | DRS                      | Big Rusty   | Crocell               | Crocell (and its china and splash)       | Big Rusty   |
+| Funk & soul  | SM Drums   | Frankensnare 13×9 birch  | SM Drums    | DRS                   | SM Drums, Salamander splash              | SM Drums    |
+| Jazz brushes | Virtuosity | DRS brushes              | DRS brushes | DRS brushes           | DRS brushes                              | DRS brushes |
+| Boom bap     | Gogodze    | Frankensnare 20×12 alder | Gogodze     | Gogodze (Big Rusty's) | Gogodze (Big Rusty's), Salamander splash | Gogodze     |
+| Big room     | Big Rusty  | Big Rusty, rimshots      | Big Rusty   | Big Rusty             | Crocell, Salamander china                | Big Rusty   |
+| Garage       | Unruly     | Unruly                   | Unruly      | SM Drums              | Unruly, Salamander crash, china, splash  | Unruly      |
+
+**Sign-off by ear.** No style takes a combination as its default until the
+owner has listened to it and signed it off here (9.19). The styles in the last
+column are the candidates, not decisions.
+
+| Kit          | Signed off | Candidate styles                               |
+| ------------ | ---------- | ---------------------------------------------- |
+| Studio rock  | —          | rock, hardrock, bluesrock, funkrock            |
+| Funk & soul  | —          | funk, soul, stax, motown, nolafunk, linearfunk |
+| Jazz brushes | —          | brushes, jazzballad                            |
+| Boom bap     | —          | boombap, dilla                                 |
+| Big room     | —          | powerballad                                    |
+| Garage       | —          | none yet                                       |
 
 ### Choosing what plays (`packs.ts`)
 

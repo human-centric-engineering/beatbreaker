@@ -3,7 +3,8 @@
  *
  * 24 kits across three engines, each a plain parameter object plus an engine
  * name, so a kit is a row rather than a branch in playback and a user's tuning
- * is a saved override of these numbers.
+ * is a saved override of these numbers. Then six combinations of the recorded
+ * kits' pieces (9-vi-c), at the end of the file.
  *
  * No kit here is `engine: 'user'`. Your own kits are rows you own, made through
  * `/api/v1/kits` (D20); the system "Your samples" kit that kept one-shots in
@@ -27,6 +28,7 @@
  */
 
 import type { Kit } from '@/lib/app/breaks/kit';
+import type { LaneKey } from '@/lib/app/breaks/types';
 
 export const KITS: Record<string, Kit> = {
   studio70: {
@@ -430,5 +432,169 @@ export const KITS: Record<string, Kit> = {
     c: { rate: 1, level: 0.86, room: 0.16 },
     t: { tune: 90, decay: 0.54, tone: 0.38, room: 0.14 },
     p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.12 },
+  },
+};
+
+/**
+ * A combination (9-vi-c): a recorded kit made of other kits' pieces, filed
+ * under _Combinations_ in the picker. It names no pack, because each of its
+ * slots plays from its own piece's folder.
+ */
+export interface Combination extends Omit<Kit, 'pack' | 'credit'> {
+  /**
+   * `KitPiece` keys, in order. Each fills every slot it has, and a later one
+   * takes a slot from an earlier one: a set of crashes, then a china, is
+   * those crashes with that china.
+   */
+  pieces: string[];
+  /** Lane → pan, as the drummer hears it, where it is not `DEFAULT_PAN`. */
+  pan?: Partial<Record<LaneKey, number>>;
+}
+
+/** The voices of a recorded kit: its rate, level and room, and the synthesised fallbacks' numbers. */
+const RECORDED: Pick<Kit, 'k' | 's' | 'h' | 'r' | 'c' | 't' | 'p'> = {
+  k: { rate: 1, level: 0.95, room: 0.03 },
+  s: { rate: 1, level: 0.95, room: 0.12 },
+  h: { rate: 1, level: 0.9, room: 0.07 },
+  r: { rate: 1, level: 0.88, room: 0.14 },
+  c: { rate: 1, level: 0.86, room: 0.18 },
+  t: { tune: 90, decay: 0.54, tone: 0.38, room: 0.14 },
+  p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.12 },
+};
+
+/**
+ * The six of `sound-plan.md` §7, from the pieces there are (the reconcile in
+ * `app-plan.md` says where they differ). Each is signed off by ear before a
+ * style takes it as its default; the record is in `sound.md`. Their credits
+ * are derived from their pieces, so none is written here.
+ */
+export const COMBINATIONS: Record<string, Combination> = {
+  studioRock: {
+    label: 'Studio rock',
+    engine: 'pack',
+    trim: 1,
+    hint: "Big Rusty's damped kick and hats under the DRS kit's even, cracking snare, with Crocell's big cymbals. A rock kit that sounds like a record: tight, dry and close.",
+    master: { lp: 18000, drive: 1.08, room: 0.08 },
+    ...RECORDED,
+    pieces: [
+      'bigrusty-k',
+      'drs-s',
+      'bigrusty-h',
+      'crocell-r',
+      'crocell-c',
+      'bigrusty-t1',
+      'bigrusty-t2',
+      'bigrusty-t3',
+    ],
+  },
+  funkSoul: {
+    label: 'Funk & soul',
+    engine: 'pack',
+    trim: 1,
+    hint: "SM Drums' 1960s Ludwig with Frankensnare's fat 13-inch birch snare in place of its own: short and thumpy, for ghost notes that speak. The DRS kit's Paiste ride over it.",
+    master: { lp: 15500, drive: 1.12, room: 0.1 },
+    ...RECORDED,
+    pieces: [
+      'smdrums-k',
+      'frankensnare-13b',
+      'smdrums-h',
+      'drs-r',
+      'smdrums-c',
+      'salamander-splash',
+      'smdrums-t1',
+      'smdrums-t2',
+      'smdrums-t3',
+    ],
+    pan: { h: -0.25, hf: -0.25, r: 0.3, c: -0.32 },
+  },
+  jazzBrushes: {
+    label: 'Jazz brushes',
+    engine: 'pack',
+    trim: 1,
+    hint: "The DRS kit played with brushes, over the Virtuosity jazz kit's small bass drum, feathered rather than thumped. For ballads and brush swing.",
+    master: { lp: 17000, drive: 1.02, room: 0.18 },
+    ...RECORDED,
+    k: { rate: 1, level: 0.9, room: 0.06 },
+    s: { rate: 1, level: 1.0, room: 0.16 },
+    h: { rate: 1, level: 0.95, room: 0.1 },
+    r: { rate: 1, level: 0.92, room: 0.18 },
+    c: { rate: 1, level: 0.88, room: 0.22 },
+    pieces: [
+      'virtuosity-k',
+      'drs-brush-s',
+      'drs-brush-sCross',
+      'drs-brush-h',
+      'drs-brush-hFoot',
+      'drs-brush-r',
+      'drs-brush-c',
+      'drs-brush-t1',
+      'drs-brush-t2',
+      'drs-brush-t3',
+    ],
+    pan: { h: -0.22, hf: -0.22, r: 0.3 },
+  },
+  boomBap: {
+    label: 'Boom bap',
+    engine: 'pack',
+    trim: 1,
+    hint: "Gogodze's boxy, lo-fi kick and hats with Frankensnare's 20-inch snare, deep and thumpy like an 808's, all pushed into the drive and rolled off. Nearly mono, like a sampled break. The clap is on the percussion lanes.",
+    master: { lp: 11000, drive: 1.25, room: 0.06 },
+    ...RECORDED,
+    k: { rate: 1, level: 1.0, room: 0.02 },
+    s: { rate: 1, level: 0.95, room: 0.08 },
+    pieces: [
+      'gogodze-k',
+      'frankensnare-20m',
+      'gogodze-h',
+      'gogodze-r',
+      'gogodze-c',
+      'salamander-splash',
+      'gogodze-t1',
+      'gogodze-t2',
+      'gogodze-t3',
+    ],
+    pan: { s: 0, h: -0.12, hf: -0.12, r: 0.12, c: -0.15, t1: -0.06, t2: 0.04, t3: 0.12 },
+  },
+  bigRoom: {
+    label: 'Big room',
+    engine: 'pack',
+    trim: 1,
+    hint: "Big Rusty played hard in a big room, its rimshots for the accents, under Crocell's crashes and Salamander's china. Wide, with plenty of air: for the chorus, not the verse.",
+    master: { lp: 18000, drive: 1.06, room: 0.32 },
+    ...RECORDED,
+    pieces: [
+      'bigrusty-k',
+      'bigrusty-s',
+      'bigrusty-h',
+      'bigrusty-r',
+      'crocell-c',
+      'salamander-china',
+      'bigrusty-t1',
+      'bigrusty-t2',
+      'bigrusty-t3',
+    ],
+    pan: { h: -0.4, hf: -0.4, r: 0.45, c: -0.5, t1: -0.25, t2: 0.15, t3: 0.45 },
+  },
+  garage: {
+    label: 'Garage',
+    engine: 'pack',
+    trim: 1,
+    hint: "Unruly's rattling drums, every one with snare wires on, under SM Drums' thin 1960s ride and Salamander's crash and china. Loose and a little trashy.",
+    master: { lp: 15000, drive: 1.18, room: 0.14 },
+    ...RECORDED,
+    pieces: [
+      'unruly-k',
+      'unruly-s',
+      'unruly-h',
+      'smdrums-r',
+      'unruly-c',
+      'salamander-crash',
+      'salamander-china',
+      'salamander-splash',
+      'unruly-t1',
+      'unruly-t2',
+      'unruly-t3',
+    ],
+    pan: { h: -0.2, hf: -0.2, r: 0.22, c: -0.25, t1: -0.1, t2: 0.06, t3: 0.2 },
   },
 };
