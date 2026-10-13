@@ -41,6 +41,9 @@ import {
   type RateLimitRule,
 } from '@/lib/security/rate-limit-policy';
 import { resolveRateLimitCredential } from '@/lib/security/rate-limit-credentials';
+import { checkOrgRequestCap } from '@/lib/security/org-request-cap';
+import { sessionActingOrgId } from '@/lib/tenancy/entry';
+import { isMultiTenant } from '@/lib/tenancy/context';
 import { registerAppRateLimits } from '@/lib/app/rate-limit';
 
 // Auto-wire the app's rate-limit registrations (fork-readiness — the `lib/app/`
@@ -141,9 +144,19 @@ try {
  *   4. Build the rate-limit token via the rule's key strategy. Session
  *      resolution happens only for `'session-user'` rules and falls back
  *      to IP if there's no session.
- *   5. Check the section limiter for that token. Allowed → return `null`.
- *      Exceeded → return the standard 429 response with `Retry-After` and
- *      `X-RateLimit-*` headers.
+ *   5. Check the section limiter for that token. Exceeded → return the
+ *      standard 429 response with `Retry-After` and `X-RateLimit-*` headers.
+ *   6. At `multi`, when step 4 identified the caller by a verified principal
+ *      that acts for an org, count the request against that org's
+ *      `quotas.requestsPerMinute` too (§110 t-789). No cap set, or no org →
+ *      nothing counted. Exceeded → the same 429, carrying the org's limit.
+ *      Allowed → return `null`.
+ *
+ * The org counter runs after the caller's own, so a request the caller's
+ * limit refused never spends org capacity: one caller's share of an org's cap
+ * is bounded by its own limit, a removed member whose session still names the
+ * org included. It never runs under `/api/v1/admin/**` — see
+ * {@link ORG_CAP_EXEMPT}.
  *
  * Failure modes:
  *   - If session resolution throws (better-auth outage, DB down) we DO NOT
@@ -200,13 +213,34 @@ export async function applyRateLimit(request: NextRequest): Promise<Response | n
     return null;
   }
 
-  const token = await buildToken(rule, request);
-  const result = limiter.check(token);
+  const caller = await resolveCaller(rule.key, request);
+  // Namespaced by tier and key strategy so different sections don't share
+  // buckets, and so these tokens don't collide with the per-flow sub-limiter
+  // tokens route handlers build with their own conventions (`audio:user:...`).
+  const result = limiter.check(`mw:${rule.tier}:${rule.key}:${caller.id}`);
   if (!result.success) {
     return createRateLimitResponse(result);
   }
+
+  if (caller.orgId && !ORG_CAP_EXEMPT.test(pathname)) {
+    const orgResult = await checkOrgRequestCap(caller.orgId);
+    if (orgResult && !orgResult.success) {
+      return createRateLimitResponse(orgResult);
+    }
+  }
   return null;
 }
+
+/**
+ * Paths the org request cap never counts: the platform admin surface.
+ *
+ * It is the vendor's control plane — the default authorization policy admits
+ * only platform admins — and it is where a saturated cap is raised
+ * (`PATCH /api/v1/admin/orgs/[id]`). Counting it would let a tenant's traffic
+ * lock the operator out of the remedy, and charge the vendor's own support
+ * work in a customer's org to that customer. Its section tiers still apply.
+ */
+const ORG_CAP_EXEMPT = /^\/api\/v1\/admin\//;
 
 /**
  * Whether the test/dev bypass is active. Set `RATE_LIMIT_BYPASS=true` (or `1`)
@@ -251,18 +285,24 @@ function warnIfBypassActiveInProduction(): void {
 }
 
 /**
- * Build the rate-limit token (LRU cache key) for a given rule + request.
- *
- * Tokens are namespaced by tier and key strategy so different sections
- * don't share buckets, and so the middleware's section tokens don't
- * collide with per-flow sub-limiter tokens that route handlers may build
- * with their own conventions (e.g. `audio:user:...`).
- *
- * Format: `mw:${tier}:${key-strategy}:${identifier}`.
+ * Who is calling: the bucket identifier for the rule's key strategy, and the
+ * org the caller acts for when the org request cap should count it.
  */
-async function buildToken(rule: RateLimitRule, request: NextRequest): Promise<string> {
-  const id = await resolveIdentifier(rule.key, request);
-  return `mw:${rule.tier}:${rule.key}:${id}`;
+interface Caller {
+  id: string;
+  /**
+   * Set only at `multi`, and only from a verified principal: the session's
+   * own `activeOrgId`, or the org column of the credential row the lookup
+   * found. Never the `x-sunrise-org` header — this runs before
+   * `resolveTenantFromRequest` strips and rewrites it, so here it is
+   * whatever the client sent.
+   */
+  orgId: string | null;
+}
+
+async function resolveCaller(key: RateLimitRule['key'], request: NextRequest): Promise<Caller> {
+  const { id, orgId } = await resolveIdentifier(key, request);
+  return { id, orgId: isMultiTenant() ? orgId : null };
 }
 
 /**
@@ -288,9 +328,14 @@ async function buildToken(rule: RateLimitRule, request: NextRequest): Promise<st
  * IP fallback exists because rate-limiting is best-effort defense in depth —
  * if we can't identify the caller more precisely, we still want *some* bucket
  * rather than letting the request through unlimited.
+ *
+ * Alongside the identifier, each built-in strategy that found a principal
+ * names the org it acts for: the session's `activeOrgId`, or the org column
+ * of the key or token row. An IP, a fallback and a custom resolver name none.
  */
-async function resolveIdentifier(key: RateLimitRule['key'], request: NextRequest): Promise<string> {
+async function resolveIdentifier(key: RateLimitRule['key'], request: NextRequest): Promise<Caller> {
   const ip = getClientIP(request);
+  const noOrg = (id: string): Caller => ({ id, orgId: null });
 
   // App-defined key strategies (registerRateLimitKeyResolver). The rule
   // registry guarantees a rule naming a custom key had a resolver at
@@ -307,33 +352,42 @@ async function resolveIdentifier(key: RateLimitRule['key'], request: NextRequest
         key,
         fix: 'registerRateLimitKeyResolver() must run before rules using the key are evaluated.',
       });
-      return `ip:${ip}`;
+      return noOrg(`ip:${ip}`);
     }
     try {
       const id = await resolver(request);
-      if (id) return id;
+      // A custom resolver answers a bucket, not an org: the org counter runs
+      // only for the built-in strategies, which identify a principal.
+      if (id) return noOrg(id);
     } catch (error) {
       logger.error('rate-limit middleware: custom key resolver threw; falling back to IP', {
         key,
         error: error instanceof Error ? error.message : String(error),
       });
     }
-    return `ip:${ip}`;
+    return noOrg(`ip:${ip}`);
   }
 
   switch (key) {
     case 'ip':
-      return ip;
+      return noOrg(ip);
 
     case 'session-user': {
       try {
         const session = await auth.api.getSession({ headers: request.headers });
-        if (session?.user?.id) return `user:${session.user.id}`;
+        if (session?.user?.id) {
+          // The org the guard will enter, read as it reads it — less the
+          // resolver header, which nothing has verified at this point.
+          return {
+            id: `user:${session.user.id}`,
+            orgId: sessionActingOrgId(null, session.session?.activeOrgId),
+          };
+        }
       } catch {
         // Session resolution failed (auth provider hiccup, DB down). Fall
         // back to IP so we still apply some cap instead of failing open.
       }
-      return `ip:${ip}`;
+      return noOrg(`ip:${ip}`);
     }
 
     case 'api-key': {
@@ -342,16 +396,16 @@ async function resolveIdentifier(key: RateLimitRule['key'], request: NextRequest
       // proxy never gives its own bucket to a header the route would refuse.
       const header = request.headers.get('authorization') ?? '';
       const bearer = header.startsWith('Bearer ') ? header.slice('Bearer '.length) : '';
-      if (!bearer) return `ip:${ip}`;
-      const id = await resolveRateLimitCredential('api-key', bearer, ip);
-      return id ? `key:${id}` : `ip:${ip}`;
+      if (!bearer) return noOrg(`ip:${ip}`);
+      const found = await resolveRateLimitCredential('api-key', bearer, ip);
+      return found ? { id: `key:${found.id}`, orgId: found.orgId } : noOrg(`ip:${ip}`);
     }
 
     case 'embed-token': {
       const token = request.headers.get('x-embed-token');
-      if (!token) return `ip:${ip}`;
-      const id = await resolveRateLimitCredential('embed-token', token, ip);
-      return id ? `embed:${id}:${ip}` : `ip:${ip}`;
+      if (!token) return noOrg(`ip:${ip}`);
+      const found = await resolveRateLimitCredential('embed-token', token, ip);
+      return found ? { id: `embed:${found.id}:${ip}`, orgId: found.orgId } : noOrg(`ip:${ip}`);
     }
   }
 }

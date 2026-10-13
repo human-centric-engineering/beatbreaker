@@ -23,8 +23,12 @@ vi.mock('@/lib/logging', () => ({
   logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn() },
 }));
 
+const mockEnv = vi.hoisted(() => ({ TENANCY_MODE: 'single' }));
+vi.mock('@/lib/env', () => ({ env: mockEnv }));
+
 import { prisma } from '@/lib/db/client';
 import { logger } from '@/lib/logging';
+import { INSTALL_ORG_ID } from '@/lib/tenancy/constants';
 import {
   resetRateLimitCredentialBudget,
   resetRateLimitCredentialCache,
@@ -56,6 +60,7 @@ describe('resolveRateLimitCredential', () => {
     vi.useRealTimers();
     vi.useFakeTimers({ toFake: ['Date'], now: Date.now() });
     vi.clearAllMocks();
+    mockEnv.TENANCY_MODE = 'single';
     vi.spyOn(performance, 'now').mockImplementation(() => realPerformanceNow() + clockOffset);
     resetRateLimitCredentialCache();
     resetRateLimitCredentialBudget(IP);
@@ -71,10 +76,10 @@ describe('resolveRateLimitCredential', () => {
         expiresAt: null,
       } as never);
 
-      await expect(resolveKey('sk_abc')).resolves.toBe('sk:k1');
+      await expect(resolveKey('sk_abc')).resolves.toEqual({ id: 'sk:k1', orgId: INSTALL_ORG_ID });
       expect(prisma.aiApiKey.findFirst).toHaveBeenCalledWith({
         where: { keyHash: sha256('sk_abc'), revokedAt: null },
-        select: { id: true, expiresAt: true },
+        select: { id: true, expiresAt: true, orgId: true },
       });
     });
 
@@ -104,7 +109,10 @@ describe('resolveRateLimitCredential', () => {
         orgId: null,
         org: null,
       } as never);
-      await expect(resolveKey('smcp_abc')).resolves.toBe('mcp:m1');
+      await expect(resolveKey('smcp_abc')).resolves.toEqual({
+        id: 'mcp:m1',
+        orgId: INSTALL_ORG_ID,
+      });
       expect(prisma.mcpApiKey.findUnique).toHaveBeenCalledWith({
         where: { keyHash: sha256('smcp_abc') },
         select: {
@@ -160,7 +168,10 @@ describe('resolveRateLimitCredential', () => {
         agent: { isActive: true },
         org: null,
       } as never);
-      await expect(resolveRateLimitCredential('embed-token', 'tok', IP)).resolves.toBe('t1');
+      await expect(resolveRateLimitCredential('embed-token', 'tok', IP)).resolves.toEqual({
+        id: 't1',
+        orgId: INSTALL_ORG_ID,
+      });
 
       vi.mocked(prisma.aiAgentEmbedToken.findUnique).mockResolvedValueOnce({
         id: 't2',
@@ -173,6 +184,62 @@ describe('resolveRateLimitCredential', () => {
     });
   });
 
+  describe('the org each credential acts for (§110 t-789)', () => {
+    it('answers the org column of every kind of credential row', async () => {
+      mockEnv.TENANCY_MODE = 'multi';
+      vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
+        id: 'k1',
+        expiresAt: null,
+        orgId: 'cmorg_a',
+      } as never);
+      vi.mocked(prisma.mcpApiKey.findUnique).mockResolvedValue({
+        id: 'm1',
+        isActive: true,
+        expiresAt: null,
+        orgId: 'cmorg_b',
+        org: { status: 'ACTIVE' },
+      } as never);
+      vi.mocked(prisma.aiAgentEmbedToken.findUnique).mockResolvedValue({
+        id: 't1',
+        isActive: true,
+        orgId: 'cmorg_c',
+        agent: { isActive: true },
+        org: { status: 'ACTIVE' },
+      } as never);
+
+      await expect(resolveKey('sk_bound')).resolves.toEqual({ id: 'sk:k1', orgId: 'cmorg_a' });
+      await expect(resolveKey('smcp_bound')).resolves.toEqual({ id: 'mcp:m1', orgId: 'cmorg_b' });
+      await expect(resolveRateLimitCredential('embed-token', 'tok', IP)).resolves.toEqual({
+        id: 't1',
+        orgId: 'cmorg_c',
+      });
+    });
+
+    it('answers no org for an unbound user key at multi, and still gives it its own bucket', async () => {
+      mockEnv.TENANCY_MODE = 'multi';
+      // Every admin-scoped key is unbound: a platform credential, in no org.
+      vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
+        id: 'k_admin',
+        expiresAt: null,
+        orgId: null,
+      } as never);
+
+      await expect(resolveKey('sk_admin')).resolves.toEqual({ id: 'sk:k_admin', orgId: null });
+    });
+
+    it('serves the org from the cache with the id', async () => {
+      vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
+        id: 'k1',
+        expiresAt: null,
+        orgId: 'cmorg_a',
+      } as never);
+
+      await resolveKey('sk_cached');
+      await expect(resolveKey('sk_cached')).resolves.toEqual({ id: 'sk:k1', orgId: 'cmorg_a' });
+      expect(prisma.aiApiKey.findFirst).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe('cache', () => {
     it('serves a verified key without a query, refreshes it in the background after 30s, and lets it lapse after 60s', async () => {
       vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
@@ -181,12 +248,12 @@ describe('resolveRateLimitCredential', () => {
       } as never);
 
       await resolveKey('sk_live');
-      await expect(resolveKey('sk_live')).resolves.toBe('sk:k1');
+      await expect(resolveKey('sk_live')).resolves.toMatchObject({ id: 'sk:k1' });
       expect(prisma.aiApiKey.findFirst).toHaveBeenCalledTimes(1);
 
       // Second half of the TTL: still served, with one background re-check.
       await advanceClocks(30_001);
-      await expect(resolveKey('sk_live')).resolves.toBe('sk:k1');
+      await expect(resolveKey('sk_live')).resolves.toMatchObject({ id: 'sk:k1' });
       await settle();
       expect(prisma.aiApiKey.findFirst).toHaveBeenCalledTimes(2);
 
@@ -252,7 +319,7 @@ describe('resolveRateLimitCredential', () => {
 
       // t=61s: past the original TTL, still served thanks to the re-arm.
       await advanceClocks(31_000);
-      await expect(resolveKey('sk_db_flaky')).resolves.toBe('sk:k1');
+      await expect(resolveKey('sk_db_flaky')).resolves.toMatchObject({ id: 'sk:k1' });
       await settle();
 
       // t=121s: the last good check is over 2x TTL old, so the entry lapsed.
@@ -274,7 +341,7 @@ describe('resolveRateLimitCredential', () => {
         resolveKey('sk_busy'),
       ]);
 
-      expect(results).toEqual(['sk:k1', 'sk:k1', 'sk:k1']);
+      expect(results.map((r) => r?.id)).toEqual(['sk:k1', 'sk:k1', 'sk:k1']);
       expect(prisma.aiApiKey.findFirst).toHaveBeenCalledTimes(1);
     });
 
@@ -310,7 +377,8 @@ describe('resolveRateLimitCredential', () => {
       // The second lookup is still pending and must still be shared.
       const third = resolveKey('sk_reset_race');
       resolveSecond({ id: 'k1', expiresAt: null });
-      await expect(Promise.all([second, third])).resolves.toEqual(['sk:k1', 'sk:k1']);
+      const settled = await Promise.all([second, third]);
+      expect(settled.map((r) => r?.id)).toEqual(['sk:k1', 'sk:k1']);
       expect(prisma.aiApiKey.findFirst).toHaveBeenCalledTimes(2);
     });
   });

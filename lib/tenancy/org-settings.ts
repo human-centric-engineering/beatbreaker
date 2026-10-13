@@ -405,11 +405,12 @@ export async function loadOrgQuotas(
  * Through {@link writeSettingsSlice}: a clash with a concurrent settings write
  * throws `P2034` ({@link isSettingsWriteConflict}).
  *
- * **The spend gate caches each org's cap** (`spend-caps.ts`). Call
- * `forgetOrgCap(orgId)` after this write so this process enforces the new cap
- * on its next call; otherwise it takes effect within the cache's TTL, as it
- * does in every other process. It does not call it itself, because that
- * module reads its caps through this one.
+ * **The spend gate and the request counter cache each org's caps**
+ * (`spend-caps.ts`, `lib/security/org-request-cap.ts`). Call
+ * `forgetOrgCap(orgId)` and `forgetOrgRequestCap(orgId)` after this write so
+ * this process enforces the new caps at once; otherwise they take effect
+ * within each cache's TTL, as they do in every other process. It does not
+ * call them itself, because both modules read their caps through this one.
  *
  * @returns the previous and the stored caps, or `null` when the org does not
  *   exist.

@@ -27,7 +27,7 @@
  * **An org's caps change only from the install org** (§110 t-788). The guard
  * admits a platform admin switched into a customer's org, which is right for
  * a rename; for `settings.quotas` it would let whoever administers that org
- * raise its own monthly budget. So at `multi` a patch naming `quotas` is
+ * raise its own monthly budget or request cap. So at `multi` a patch naming `quotas` is
  * refused unless the call stack is in the install org — the rule shared
  * settings use (`canChangeSharedSettings`) — or the caller is an unbound admin
  * API key, which acts as the install org. Each caps write is recorded in the
@@ -52,6 +52,7 @@ import { isSettingsWriteConflict, readOrgQuotas } from '@/lib/tenancy/org-settin
 import { logAdminAction } from '@/lib/orchestration/audit/admin-audit-logger';
 import { getClientIP } from '@/lib/security/ip';
 import { forgetOrgCap } from '@/lib/orchestration/llm/spend-caps';
+import { forgetOrgRequestCap } from '@/lib/security/org-request-cap';
 import {
   canChangeSharedSettings,
   SHARED_SETTINGS_REFUSAL_CODE,
@@ -179,9 +180,10 @@ export const PATCH = withAdminAuth<{ id: string }>(async (request, session, { pa
   const { org, previousSettings } = updated;
 
   if (body.settings?.quotas !== undefined) {
-    // This process enforces the new cap on its next call; others within the
-    // spend gate's cap TTL.
+    // This process enforces the new caps at once; others within each cache's
+    // TTL (the spend gate's, and the request counter's in the proxy).
     forgetOrgCap(id);
+    forgetOrgRequestCap(id);
 
     // An org's caps are a financial control, so a change to one is kept in the
     // admin audit log with what it replaced, as agent budgets are.

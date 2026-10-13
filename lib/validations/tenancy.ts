@@ -225,8 +225,15 @@ export type OrgProviderPolicyInput = z.infer<typeof orgProviderPolicyInputSchema
  * Absent means no org cap. Zero is allowed and blocks every paid call, as it
  * does for the global cap, whose bounds these mirror.
  *
- * Every key optional, so the slice can take more caps (§110's request cap)
- * without a stored value going stale. `.strict()` on write: an unknown key is
+ * `requestsPerMinute` is how many API requests the org's callers may make
+ * between them in a minute, counted by the rate-limit middleware on top of
+ * each caller's own limit (`lib/security/org-request-cap.ts`, §110 t-789).
+ * Absent means no org cap. At least 1: an org that should make no requests is
+ * suspended, not capped. The upper bound keeps the sliding window's per-org
+ * timestamp list small enough to scan on every request.
+ *
+ * Every key optional, so the slice can take more caps without a stored value
+ * going stale. `.strict()` on write: an unknown key is
  * a typo that would be stored and never enforced. The read in
  * `lib/tenancy/org-settings.ts` goes key by key instead, so one unreadable key
  * does not discard the rest.
@@ -238,13 +245,19 @@ export const orgQuotasSchema = z
       .nonnegative('Monthly budget must be zero or positive')
       .max(1_000_000, 'Monthly budget must be at most $1,000,000')
       .optional(),
+    requestsPerMinute: z
+      .number()
+      .int('Requests per minute must be a whole number')
+      .min(1, 'Requests per minute must be at least 1')
+      .max(100_000, 'Requests per minute must be at most 100,000')
+      .optional(),
   })
   .strict();
 
 export type OrgQuotas = z.infer<typeof orgQuotasSchema>;
 
 /** The caps an org's `quotas` slice may name, for the per-key read. */
-export const ORG_QUOTA_KEYS = ['monthlyBudgetUsd'] as const;
+export const ORG_QUOTA_KEYS = ['monthlyBudgetUsd', 'requestsPerMinute'] as const;
 
 /**
  * The platform-owned slices of `Org.settings` a PATCH may write.
