@@ -120,7 +120,7 @@ The check is only "does this credential exist and is it live" — scopes and ori
 Every key strategy above identifies a **caller**. At `TENANCY_MODE=multi` that lets an org with many users or keys use as much capacity as all of them together. An org's `Org.settings.quotas.requestsPerMinute` (§110 t-789) is one number that caps the whole tenant, enforced by `applyRateLimit` as a **second counter on top of the matched rule** (`lib/security/org-request-cap.ts`):
 
 1. The matched rule's per-caller check runs first, exactly as before. If it refuses, the request gets the 429 and the org's count does not go up, so one caller can use at most its own limit of the org's cap.
-2. Then, if the caller acts for an org, the request is counted in that org's window, token `mw:org:{orgId}`. Over the cap, it gets the same 429 envelope, with `X-RateLimit-Limit` set to the org's cap.
+2. Then, if the caller acts for an org, the request is counted in that org's window, keyed by org id in `lib/security/org-request-cap.ts` (not a section-limiter token). Over the cap, it gets the same 429 envelope, with `X-RateLimit-Limit` set to the org's cap.
 
 Per-caller fairness inside the org still applies, because both counters must pass.
 
@@ -138,7 +138,7 @@ The credential lookups already read these rows, so working out the org costs no 
 
 **A user is counted only against an org they can enter.** Neither a session's org nor a key's column is a membership: a removed member's session still names the org, and a resolver names an org by hostname whoever is calling. So for a session, or a user API key's owner, the membership is checked the way the guards check it (present, org `ACTIVE`) before the request is counted. The answer is cached for 30 seconds per user and org, and the check is made only for an org that has a cap. Someone who cannot enter the org is refused by the guard anyway, and counting them would let a former member, or anyone visiting the org's hostname, hold it at its cap.
 
-**A user API key on a session-keyed route still counts.** Every `withAuth` route accepts `Authorization: Bearer sk_…`, and the catch-all rule keys on the session. So when there is no session and the request carries a key, the key is looked up (through the same cache and per-IP lookup budget as the `api-key` strategy) for its org alone. The request's own bucket stays the IP's, as before.
+**A user API key on a session-keyed route still counts.** Every `withAuth` route accepts `Authorization: Bearer sk_…`, and the catch-all rule keys on the session. So when the request carries an `sk_` key, the key is looked up (through the same cache and per-IP lookup budget as the `api-key` strategy) for its org, and that org is counted, ahead of the session's, as `withAuth` reads the key first. The request's own bucket is unchanged: the user's with a session, the IP's without. An MCP key is ignored there, since those routes refuse it.
 
 **When nothing is counted:** at `single`; when the org has no `requestsPerMinute`; when no org could be worked out; when the user cannot enter the org; and on the ways out of a full org:
 

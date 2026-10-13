@@ -405,6 +405,45 @@ describe('applyRateLimit — per-org request cap', () => {
     expect(await statuses(keyed, 3)).toEqual([200, 200, 429]);
   });
 
+  it("counts a signed-in request carrying a user key against the key's org, as withAuth acts", async () => {
+    const keyOrg = fresh('org_key');
+    const sessionOrg = fresh('org_session');
+    orgQuotas[keyOrg] = { requestsPerMinute: 2 };
+    orgQuotas[sessionOrg] = { requestsPerMinute: 1 };
+    const user = fresh('user');
+    join(user, sessionOrg);
+    members.set(`${user}:${keyOrg}`, 'ACTIVE');
+    vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
+      scopes: ['chat'],
+      id: fresh('k'),
+      expiresAt: null,
+      orgId: keyOrg,
+      userId: user,
+    } as never);
+
+    const withKey = () => sessionRequest(API, user, { authorization: 'Bearer sk_both_1' });
+    expect(await statuses(withKey, 3)).toEqual([200, 200, 429]);
+    // The session's own org was never charged for them.
+    expect(await statuses(() => sessionRequest(API, user), 2)).toEqual([200, 429]);
+  });
+
+  it('does not count an MCP key on the general API, which refuses it', async () => {
+    const org = fresh('org');
+    orgQuotas[org] = { requestsPerMinute: 1 };
+    vi.mocked(prisma.mcpApiKey.findUnique).mockResolvedValue({
+      id: fresh('m'),
+      isActive: true,
+      expiresAt: null,
+      orgId: org,
+      org: { status: 'ACTIVE' },
+    } as never);
+
+    const mcpOnGeneral = () =>
+      request(API, { authorization: 'Bearer smcp_general_1', 'x-forwarded-for': '198.51.100.62' });
+    expect(await statuses(mcpOnGeneral, 3)).toEqual([200, 200, 200]);
+    expect(prisma.mcpApiKey.findUnique).not.toHaveBeenCalled();
+  });
+
   it("tells a refused client to retry when the org's estimate has room, not at the minute's end", async () => {
     vi.useFakeTimers({ toFake: ['Date'] });
     const minute = 60_000;

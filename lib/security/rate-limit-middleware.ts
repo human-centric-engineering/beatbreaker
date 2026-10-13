@@ -44,6 +44,7 @@ import { resolveRateLimitCredential } from '@/lib/security/rate-limit-credential
 import { checkOrgRequestCap } from '@/lib/security/org-request-cap';
 import { sessionActingOrgId } from '@/lib/tenancy/entry';
 import { resolveTenantFromRequest } from '@/lib/tenancy/resolver';
+import { API_KEY_PREFIX } from '@/lib/auth/api-keys';
 import { isMultiTenant } from '@/lib/tenancy/context';
 import { registerAppRateLimits } from '@/lib/app/rate-limit';
 
@@ -389,12 +390,18 @@ async function resolveIdentifier(key: RateLimitRule['key'], request: NextRequest
       try {
         const session = await auth.api.getSession({ headers: request.headers });
         if (session?.user?.id) {
-          // The org the guard will enter, in its precedence: the fork's
-          // resolver (pure, computed from the request here rather than read
-          // from a header the client could have set), else the session's
-          // choice. Neither is a membership; the org counter verifies it.
+          const id = `user:${session.user.id}`;
+          // `withAuth` reads a user API key before the cookie, so a request
+          // carrying both acts for the key's org.
+          const key = await userKeyOrg(request, ip);
+          if (key) return { id, ...key };
+          // Otherwise the org the guard will enter, in its precedence: the
+          // fork's resolver (pure, computed from the request here rather than
+          // read from a header the client could have set), else the
+          // session's choice. Neither is a membership; the org counter
+          // verifies it.
           return {
-            id: `user:${session.user.id}`,
+            id,
             orgId: isMultiTenant()
               ? sessionActingOrgId(resolveTenantFromRequest(request), session.session?.activeOrgId)
               : null,
@@ -405,7 +412,12 @@ async function resolveIdentifier(key: RateLimitRule['key'], request: NextRequest
         // Session resolution failed (auth provider hiccup, DB down). Fall
         // back to IP so we still apply some cap instead of failing open.
       }
-      return keyOrgOnIpBucket(request, ip);
+      // No session: the per-IP bucket, as always — re-keying the catch-all
+      // rule is not the org counter's business — and, for a user API key, the
+      // key's org. Every `withAuth` route accepts one, so without this a
+      // tenant's keys on the general API would never count against its cap.
+      const key = await userKeyOrg(request, ip);
+      return key ? { id: `ip:${ip}`, ...key } : noOrg(`ip:${ip}`);
     }
 
     case 'api-key': {
@@ -440,16 +452,19 @@ function bearerOf(request: NextRequest): string {
 }
 
 /**
- * A `session-user` request with no session: the per-IP bucket, as always, and
- * — at `multi`, when it carries a user API key — the key's org for the org
- * counter. Every `withAuth` route accepts a key, so without this a tenant's
- * keys on the general API would never count against its cap. The bucket stays
- * the IP's: re-keying the catch-all rule is not this counter's business.
+ * On a `session-user` route, the org of the user API key the request carries
+ * — the credential `withAuth` reads first (`resolveApiKey`) — or `null` when
+ * there is none, it names no live key, or the install is at `single`. Only an
+ * `sk_` key: an MCP key is refused by those routes, so its requests must not
+ * spend the org's capacity.
  */
-async function keyOrgOnIpBucket(request: NextRequest, ip: string): Promise<Caller> {
-  const bucket = `ip:${ip}`;
-  const bearer = isMultiTenant() ? bearerOf(request) : '';
-  if (!bearer) return { id: bucket, orgId: null, memberUserId: null };
+async function userKeyOrg(
+  request: NextRequest,
+  ip: string
+): Promise<Pick<Caller, 'orgId' | 'memberUserId'> | null> {
+  if (!isMultiTenant()) return null;
+  const bearer = bearerOf(request);
+  if (!bearer.startsWith(API_KEY_PREFIX)) return null;
   const found = await resolveRateLimitCredential('api-key', bearer, ip);
-  return { id: bucket, orgId: found?.orgId ?? null, memberUserId: found?.memberUserId ?? null };
+  return found ? { orgId: found.orgId, memberUserId: found.memberUserId } : null;
 }
