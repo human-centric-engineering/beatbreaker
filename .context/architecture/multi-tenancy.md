@@ -98,6 +98,16 @@ is on:
   org's spend, so one tenant can still exhaust it for everyone unless each
   org has a cap below it. See
   [Costs → Per-org monthly budget cap](../admin/orchestration-costs.md#per-org-monthly-budget-cap).
+- **Each org can have its own API request cap** (§110 t-789). Set
+  `settings.quotas.requestsPerMinute` the same way, with the same
+  install-org-only rule. It limits all of the org's callers together, on top
+  of each caller's own limit, so one org can no longer use as much shared
+  capacity as every one of its users and keys combined. The org is taken from
+  the session or from the key or token row, never from `x-sunrise-org`. The
+  platform admin surface is not counted. Unset means no org cap, and at
+  `single` nothing is counted. Another instance can enforce an old cap for up
+  to 30 seconds, and with several instances each counts separately. See
+  [Rate limiting → Per-org request cap](../security/rate-limiting.md#per-org-request-cap).
 - **The data subject is per org.** `eraseUser` / `exportUserData` act inside
   the org the request entered: a person with memberships in several orgs is
   erased from, and exported from, the org that asked — the tenant is the
@@ -456,11 +466,14 @@ db:drift-check` is what tells you, and the order in
   every policy. `runAsSystem` is never the path of least resistance for a
   job that "needs to see everything" — that job is per-org, and the policies
   do the seeing ([scheduling.md → App jobs](../orchestration/scheduling.md#app-jobs--the-fork-seam-on-the-tick)).
-- **Per-tenant quotas: register a key resolver, don't fork the middleware.**
-  `registerRateLimitKeyResolver('org', …)` in `lib/app/rate-limit.ts`
-  buckets by anything derivable from the request; derive the identifier from
-  an authenticated principal, never from a value the caller controls
-  ([rate limiting → custom keys](../security/rate-limiting.md)).
+- **A per-tenant request cap is built in; don't register an `'org'` key for
+  it.** Set the org's `quotas.requestsPerMinute` (see the request-cap bullet
+  above). A custom key resolver in `lib/app/rate-limit.ts` is still how to
+  bucket by something else derivable from the request, a workspace or a
+  device. Derive it from an authenticated principal, never from a value the
+  caller controls ([rate limiting → custom keys](../security/rate-limiting.md)).
+  A fork that registered `'org'` from the earlier version of this advice still
+  boots, because the built-in counter does not claim that key name.
 
 ## The control plane: which admin surfaces are whose
 
