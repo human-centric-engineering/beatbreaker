@@ -4,6 +4,16 @@
  * Validates and imports a backup payload, upserting by slug.
  * Runs in a transaction so partial failures roll back cleanly.
  * Excludes secrets with a warning.
+ *
+ * **Scoped to one org** (§109 t-738). Everything — the provider-policy
+ * warnings, the transaction, its version records — runs inside
+ * `runAsOrg(scope.orgId)`, so the org's own part lands in that org whatever
+ * org the caller's session is in. The shared part (capabilities, knowledge
+ * tags, the `global` settings) is written only when `scope.includeShared`;
+ * otherwise a bundle's shared part is skipped with a warning naming it.
+ * `resolveBackupScope()` decides both and refuses a customer org that asks,
+ * so this importer is what enforces the install-org rule for the import
+ * route (listed in `UNDECLARED_ROUTE_EXCEPTIONS` for that reason).
  */
 
 import { z } from 'zod';
@@ -11,7 +21,19 @@ import { Prisma } from '@prisma/client';
 import { isSafeProviderUrl } from '@/lib/security/safe-url';
 import { prisma } from '@/lib/db/client';
 import { logger } from '@/lib/logging';
-import { backupSchema } from '@/lib/orchestration/backup/schema';
+import { isMultiTenant, runAsOrg } from '@/lib/tenancy/context';
+import {
+  backupSchema,
+  IMPORTED_FROM_SLUG_KEY,
+  type BackupPayload,
+} from '@/lib/orchestration/backup/schema';
+
+export { IMPORTED_FROM_SLUG_KEY };
+import type { BackupScope } from '@/lib/orchestration/backup/scope';
+import {
+  findFreeWorkflowSlug,
+  workflowSlugsHeldAnywhere,
+} from '@/lib/orchestration/workflows/slug-availability';
 // Direct submodule import, not the barrel: `@/lib/orchestration/capabilities`
 // re-exports the dispatcher and the built-in registry, none of which a config
 // restore needs pulled into its module graph.
@@ -45,7 +67,96 @@ export interface ImportResult {
   webhooks: { created: number; skipped: number };
   knowledgeTags: { created: number; updated: number };
   settingsUpdated: boolean;
+  /** The bundle carried a shared part and it was not written (§109 t-738). */
+  sharedSkipped: boolean;
   warnings: string[];
+}
+
+const jsonObjectSchema = z.record(z.string(), z.unknown());
+
+/** The workflow metadata with the renamed-import marker set. */
+function withImportedFromSlug(metadata: unknown, slug: string): Prisma.InputJsonValue {
+  // Bundle metadata is uploaded data the schema accepts as anything; only an
+  // object is merged, anything else is replaced.
+  const parsed = jsonObjectSchema.safeParse(metadata);
+  return {
+    ...(parsed.success ? parsed.data : {}),
+    [IMPORTED_FROM_SLUG_KEY]: slug,
+  };
+}
+
+/**
+ * Whether a failed import lost a race for a workflow slug: another org took
+ * the free slug this import planned between the plan and the create. The
+ * transaction rolled back, so the import can be run again (the route answers
+ * 409, as for an agent version conflict).
+ */
+export function isWorkflowSlugConflict(err: unknown): boolean {
+  return (
+    err instanceof Prisma.PrismaClientKnownRequestError &&
+    err.code === 'P2002' &&
+    // The driver adapter names the model, not the constraint's fields;
+    // `slug` is the only unique key a create here can collide on.
+    err.meta?.modelName === 'AiWorkflow'
+  );
+}
+
+/**
+ * The slug each bundle workflow will be created under when another org holds
+ * its own: asked once, before the transaction, so the probes — each its own
+ * system-scope read — never wait on a second pooled connection while the
+ * import holds the first (with a pool of one they would never get it).
+ *
+ * Two queries, not one per slug: which of the bundle's slugs any org holds
+ * (the system-scope probe), and which this org holds (an ordinary read, which
+ * the policy limits to it). A slug this org holds is updated in place, so only
+ * the rest — held by another org — are planned. System and built-in template
+ * slugs are skipped by the import loop, so they are not asked about. Planned
+ * slugs avoid every slug the bundle carries and every slug already planned,
+ * so two workflows never land on one slug and a later workflow in the bundle
+ * is not mistaken for an earlier one's renamed copy. At `single` every row is
+ * the install org's and the transaction's own read sees it, so there is
+ * nothing to plan.
+ *
+ * Runs inside the target org (the caller's `runAsOrg`), outside the transaction.
+ */
+async function planWorkflowSlugs(
+  workflows: ReadonlyArray<{ slug: string; isTemplate: boolean }>
+): Promise<Map<string, string>> {
+  const planned = new Map<string, string>();
+  if (!isMultiTenant()) return planned;
+  const bundleSlugs = new Set(workflows.map((wf) => wf.slug));
+  const asked = [
+    ...new Set(
+      workflows
+        .filter(
+          (wf) =>
+            !isSystemWorkflowSlug(wf.slug) && !(wf.isTemplate && isBuiltinTemplateSlug(wf.slug))
+        )
+        .map((wf) => wf.slug)
+    ),
+  ];
+  const heldAnywhere = await workflowSlugsHeldAnywhere(asked);
+  if (heldAnywhere.size === 0) return planned;
+  const heldHere = new Set(
+    (
+      await prisma.aiWorkflow.findMany({
+        where: { slug: { in: [...heldAnywhere] } },
+        select: { slug: true },
+      })
+    ).map((row) => row.slug)
+  );
+  const reserved = new Set<string>();
+  for (const slug of asked) {
+    if (!heldAnywhere.has(slug) || heldHere.has(slug)) continue;
+    const free = await findFreeWorkflowSlug(
+      slug,
+      (candidate) => bundleSlugs.has(candidate) || reserved.has(candidate)
+    );
+    reserved.add(free);
+    planned.set(slug, free);
+  }
+  return planned;
 }
 
 /** The warning for a system workflow the import refused, by slug or by row flag. */
@@ -53,12 +164,44 @@ function systemWorkflowSkipped(slug: string): string {
   return `System workflow '${slug}' skipped — system workflows cannot be overwritten by backup import`;
 }
 
+/**
+ * What a bundle's shared part holds, as the words of a skip warning — or null
+ * when it holds nothing, so an empty shared part (a customer org's own export)
+ * is not reported as skipped.
+ */
+function describeSharedPart(parsed: BackupPayload): string | null {
+  const { data } = parsed;
+  const parts: string[] = [];
+  if (data.capabilities.length > 0) parts.push(`${data.capabilities.length} capabilities`);
+  if (data.knowledgeTags.length > 0) parts.push(`${data.knowledgeTags.length} knowledge tags`);
+  // A v1 bundle carries no tags, but its agents' categories become tags on
+  // import — a shared write too, so its skip is reported with the rest.
+  if (parsed.schemaVersion === 1) {
+    const categories = new Set(
+      data.agents.flatMap((agent) => (agent.knowledgeCategories ?? []).map((c) => c.trim()))
+    );
+    categories.delete('');
+    if (categories.size > 0) parts.push(`${categories.size} knowledge tags from v1 categories`);
+  }
+  if (data.settings !== null) parts.push('the orchestration settings');
+  return parts.length > 0 ? parts.join(', ') : null;
+}
+
+/** Validate a backup and import it into `scope.orgId` — see the module header. */
 export async function importOrchestrationConfig(
   raw: unknown,
-  userId: string
+  userId: string,
+  scope: BackupScope
 ): Promise<ImportResult> {
   const parsed = backupSchema.parse(raw);
+  return runAsOrg(scope.orgId, () => importParsed(parsed, userId, scope.includeShared));
+}
 
+async function importParsed(
+  parsed: BackupPayload,
+  userId: string,
+  includeShared: boolean
+): Promise<ImportResult> {
   const result: ImportResult = {
     agents: { created: 0, updated: 0 },
     capabilities: { created: 0, updated: 0 },
@@ -66,8 +209,21 @@ export async function importOrchestrationConfig(
     webhooks: { created: 0, skipped: 0 },
     knowledgeTags: { created: 0, updated: 0 },
     settingsUpdated: false,
+    sharedSkipped: false,
     warnings: [],
   };
+
+  const sharedContent = describeSharedPart(parsed);
+  if (!includeShared && sharedContent !== null) {
+    result.sharedSkipped = true;
+    result.warnings.push(
+      `Shared settings not imported: ${sharedContent}. ` +
+        (isMultiTenant()
+          ? 'They apply to every organisation, so they are imported only from the install ' +
+            'organisation, and only when asked for (shared=true).'
+          : 'This import was asked to leave them out (shared=false).')
+    );
+  }
 
   // At multi, agents and workflow steps naming a provider the org is not
   // approved for are imported and flagged, not refused (§120 t-743). Asked
@@ -80,13 +236,14 @@ export async function importOrchestrationConfig(
   for (const unchecked of [agentProviders.unchecked, workflowProviders.unchecked]) {
     if (unchecked) result.warnings.push(unchecked);
   }
+  const plannedWorkflowSlugs = await planWorkflowSlugs(parsed.data.workflows);
 
   await prisma.$transaction(
     async (tx) => {
       // Knowledge tags first — agents reference them by slug, so create/refresh
       // them before the agent import so grant resolution succeeds.
       const tagIdBySlug = new Map<string, string>();
-      for (const tag of parsed.data.knowledgeTags ?? []) {
+      for (const tag of includeShared ? parsed.data.knowledgeTags : []) {
         const upserted = await tx.knowledgeTag.upsert({
           where: { slug: tag.slug },
           create: { slug: tag.slug, name: tag.name, description: tag.description ?? null },
@@ -111,7 +268,8 @@ export async function importOrchestrationConfig(
           .replace(/^-+|-+$/g, '')
           .slice(0, 64);
       }
-      if (parsed.schemaVersion === 1) {
+      // Creating a tag is a shared write, so only with the shared part.
+      if (parsed.schemaVersion === 1 && includeShared) {
         const inferredCategories = new Set<string>();
         for (const a of parsed.data.agents) {
           for (const c of a.knowledgeCategories ?? []) {
@@ -129,6 +287,29 @@ export async function importOrchestrationConfig(
           tagIdBySlug.set(slug, upserted.id);
           result.knowledgeTags.created++;
         }
+      }
+
+      // A grant may name a tag this import did not write — the shared part was
+      // left out, or the bundle simply did not carry the tag. Tags are shared
+      // rows every org reads, so an existing one is granted rather than
+      // reported missing. One lookup for every slug the grants name.
+      const grantSlugs = new Set<string>();
+      for (const agent of parsed.data.agents) {
+        for (const slug of agent.grantedTagSlugs) grantSlugs.add(slug);
+        if (parsed.schemaVersion === 1) {
+          for (const c of agent.knowledgeCategories ?? []) {
+            const slug = slugifyFor(c);
+            if (slug) grantSlugs.add(slug);
+          }
+        }
+      }
+      const unresolvedSlugs = [...grantSlugs].filter((slug) => !tagIdBySlug.has(slug));
+      if (unresolvedSlugs.length > 0) {
+        const existingTags = await tx.knowledgeTag.findMany({
+          where: { slug: { in: unresolvedSlugs } },
+          select: { id: true, slug: true },
+        });
+        for (const tag of existingTags) tagIdBySlug.set(tag.slug, tag.id);
       }
 
       // Import agents by slug upsert
@@ -326,8 +507,8 @@ export async function importOrchestrationConfig(
         });
       }
 
-      // Import capabilities by slug upsert
-      for (const cap of parsed.data.capabilities) {
+      // Import capabilities by slug upsert — the shared part.
+      for (const cap of includeShared ? parsed.data.capabilities : []) {
         const existing = await tx.aiCapability.findUnique({ where: { slug: cap.slug } });
         if (existing) {
           const data: Prisma.AiCapabilityUpdateInput = {
@@ -423,7 +604,20 @@ export async function importOrchestrationConfig(
           );
           continue;
         }
-        const existing = await tx.aiWorkflow.findUnique({ where: { slug: wf.slug } });
+        // Read in this org: at `multi` the policy hides every other org's rows.
+        // When another org holds the slug, the workflow may still be this
+        // org's own earlier import of it, created under another slug and
+        // marked. Asked only then, so a marker that travelled in some other
+        // bundle can never redirect a workflow whose slug is simply free.
+        const existing =
+          (await tx.aiWorkflow.findUnique({ where: { slug: wf.slug } })) ??
+          (plannedWorkflowSlugs.has(wf.slug)
+            ? await tx.aiWorkflow.findFirst({
+                where: { metadata: { path: [IMPORTED_FROM_SLUG_KEY], equals: wf.slug } },
+                // The oldest, so a repeat import always picks the same row.
+                orderBy: { createdAt: 'asc' },
+              })
+            : null);
         // The row flag catches a system workflow the slug list does not know (a
         // fork's own seed). Versioning over one would republish whatever
         // definition the bundle carried, and the update below could deactivate
@@ -465,21 +659,42 @@ export async function importOrchestrationConfig(
               patternsUsed: wf.patternsUsed,
               isActive: wf.isActive,
               isTemplate: wf.isTemplate,
-              metadata: (wf.metadata as Prisma.InputJsonValue) ?? Prisma.JsonNull,
+              // A row found by the marker keeps it, or the next import misses it.
+              metadata:
+                existing.slug !== wf.slug
+                  ? withImportedFromSlug(wf.metadata, wf.slug)
+                  : ((wf.metadata as Prisma.InputJsonValue) ?? Prisma.JsonNull),
               publishedVersionId: newVersion.id,
             },
           });
           result.workflows.updated++;
         } else {
+          // `AiWorkflow.slug` is unique across every org, so a slug another org
+          // holds would fail the create and roll the whole import back (t-728).
+          // Take the first free one instead and say so. The probe answers
+          // yes/no only, and also covers another org's system workflow, which
+          // the `isSystem` check above cannot see.
+          //
+          // Planned before the transaction (see planWorkflowSlugs).
+          const slug = plannedWorkflowSlugs.get(wf.slug) ?? wf.slug;
+          if (slug !== wf.slug) {
+            result.warnings.push(
+              `Workflow '${wf.slug}' imported as '${slug}' — that slug is already used by another organisation`
+            );
+          }
           const created = await tx.aiWorkflow.create({
             data: {
               name: wf.name,
-              slug: wf.slug,
+              slug,
               description: wf.description,
               patternsUsed: wf.patternsUsed,
               isActive: wf.isActive,
               isTemplate: wf.isTemplate,
-              metadata: (wf.metadata as Prisma.InputJsonValue) ?? Prisma.JsonNull,
+              // Renamed: mark it, so importing this bundle again updates it.
+              metadata:
+                slug !== wf.slug
+                  ? withImportedFromSlug(wf.metadata, wf.slug)
+                  : ((wf.metadata as Prisma.InputJsonValue) ?? Prisma.JsonNull),
               createdBy: userId,
             },
           });
@@ -574,8 +789,8 @@ export async function importOrchestrationConfig(
         result.webhooks.created++;
       }
 
-      // Import settings
-      if (parsed.data.settings) {
+      // Import settings — the shared part.
+      if (includeShared && parsed.data.settings) {
         const s = parsed.data.settings;
         await tx.aiOrchestrationSettings.upsert({
           where: { slug: 'global' },
