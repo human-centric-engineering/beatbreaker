@@ -127,10 +127,6 @@ export const TEMPO_RATIOS = [0.5, 2] as const;
 
 export type TempoRatio = (typeof TEMPO_RATIOS)[number];
 
-export function isTempoRatio(v: unknown): v is TempoRatio {
-  return (TEMPO_RATIOS as readonly unknown[]).includes(v);
-}
-
 /** A section's ratio: its own, else 1. */
 export function ratioOf(p: { tempoRatio?: TempoRatio } | null | undefined): TempoRatio | 1 {
   return p?.tempoRatio ?? 1;
