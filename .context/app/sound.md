@@ -401,8 +401,9 @@ slot with a `folder` is a piece, and is the packs'.
 The five synthesised kits play from renders, as a recorded kit plays from
 samples. `voices.ts` draws every voice into the `Draw` it is given: a
 context, a noise buffer, a `send` and a `rand`. Live, that is `BreakAudio`'s
-context, its lane channel and `Math.random`. In a render it is an
-`OfflineAudioContext` of its own, its destination and a seeded stream.
+context, its lane channel and `Math.random`, built once per context. In a
+render it is an `OfflineAudioContext` of its own (from `offline.ts`, which
+`encode-wav.ts` uses too), its destination and a seeded stream.
 `SynthSource` (`synth-source.ts`) is a third `SampleSource` behind the packs
 and your samples.
 
@@ -415,40 +416,54 @@ and your samples.
   with the hit, so `s`, `sGhost` and `sRim` render at five velocities (0.2 to
   1). In every other voice, velocity is only a gain on each part, so those
   slots render once, at full velocity, and a hit plays at `vel`. That is
-  exact. Five layers of everything would be 29–60 MB a kit; this is 8–15 MB.
-  A hit takes the nearest layer, above or below, at `vel / layer.v`.
+  exact. A hit takes the nearest layer, above or below, at `vel / layer.v`.
 - **Three takes of every layer,** each seeded by slot, layer and take: its
-  jitter, its noise, and ±1.5% pitch and ±5% decay on the knobs. A take never
+  jitter, and ±1.5% pitch and ±5% decay on the knobs. Its noise is one of
+  three seeded buffers, one per take, shared by every render. A take never
   plays twice in a row (`pickTake`). A render's silent end is cut off at
   −80 dBFS.
-- **One room send per hit.** A render is the voice dry, and the room is sent
-  when it plays, at the voice's amount. Live, the beater and stick send less
-  (×0.4, ×0.5). A render cannot.
+- **The room is sent when a take plays, as it was live.** Live, the beater
+  and stick send less room than the drum (×0.4, ×0.5, the pedal ×0.3). A voice
+  with such a part renders two channels, the voice and its room send, and
+  `BreakAudio.playTake` splits them: the voice to the lane, the send into the
+  room at the voice's amount. Still one source node. A voice whose parts all
+  send alike (the hats, the crash lane) renders one channel and plays as a
+  recording does. A kit is 12–24 MB; five mono layers of everything would
+  be 29–60 MB.
+- **One voice renders at a time,** a layer's three takes together, so
+  picking a kit does not build ninety graphs at once on the thread the
+  transport schedules from.
 - **A knob re-renders its voice only.** A voice's signature is its knobs
-  except room, plus the rate. When the signature changes, the voice
-  re-renders 150 ms after the knob stops. Its old render plays until the new
-  one lands. A render that a later move overtook is dropped. Room alone
-  re-renders nothing.
+  except room, plus the rate. When it changes, the voice plays live, at the
+  knob, and re-renders 150 ms after the knob stops. A render that a later
+  move overtook is dropped. Room alone re-renders nothing.
 - **Another kit drops every render.** The last kit's would be the wrong
-  drums, so the new kit plays live until its own renders land. So does a
-  browser without `OfflineAudioContext`.
+  drums, so the new kit plays live until its own renders land. A render on
+  its way when the kit changes is let go even if you come back to it.
+- **What plays live instead.** A slot that would ring longer than 8 s
+  (`MAX_RENDER_S`), or that the browser would not render, plays live, and
+  `logger.warn` says which. So does every voice in a browser without
+  `OfflineAudioContext`. A missing or zero decay is sized as the toms' 0.5 s
+  default, which is what the tom voice plays with.
+- **Closing the engine** disposes its sources: no render starts or lands
+  after it.
 
 ## Tests
 
-| File                                                              | Holds                                                                                                                                                                                                                                               |
-| ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tests/unit/lib/app/breaks/audio/packs.test.ts`                   | Round-robins never repeat back to back; the flat shape plays as before; the shelf; the wobble bounds; a kit from two folders; Level, Tune, Decay; mixed kits                                                                                        |
-| `tests/unit/scripts/kits/pieces.test.ts`                          | Each piece once; a lent piece one key; every recorded kit as pieces plays the same files at the same trims                                                                                                                                          |
-| `tests/unit/lib/app/breaks/catalogue/pieces.test.ts`              | Resolving a piece, `from`, a sample of yours, a piece that is gone                                                                                                                                                                                  |
-| `tests/unit/lib/app/breaks/audio/synth-source.test.ts`            | A rendered hit is one source node; layers only on the snare strokes; velocity as gain; no take twice; a knob re-renders its voice once, debounced; the old render plays until the new lands; an overtaken render is dropped; a kit change goes live |
-| `tests/unit/lib/app/breaks/audio/engine.test.ts`                  | The master chain to the ceiling; the ceiling curve; lane channels, pans, room; choking every open hat; the 9-iv slots and their synthesised voices                                                                                                  |
-| `tests/unit/lib/app/breaks/articulations.test.ts`                 | 9-iv end to end: the wire, the layers, graces and Humanise, MIDI write and read for every value, the critic, `tidy`, the generator, the notation key                                                                                                |
-| `tests/unit/lib/app/breaks/goldens.test.ts`                       | The engraver, the generator and the MIDI export, pinned as they were before 9-iv; a golden SVG per articulation                                                                                                                                     |
-| `tests/unit/lib/app/breaks/audio/performance-consistency.test.ts` | Speakers, port and file agree, Humanise on over two passes too; the fader reaches the channel and never the velocity; no `Math.random` in `perform.ts` or `feel.ts`                                                                                 |
-| `tests/unit/lib/app/breaks/humanise.test.ts`                      | The seed; replay; σ within 10% over 10,000 notes; negative interval correlation; independent limbs; the ±25 ms clamp; Amount 0                                                                                                                      |
-| `tests/unit/lib/app/breaks/perform.test.ts`                       | Amount 0 is the grid; every humanised note reads back as its value; ms to steps at the tempo                                                                                                                                                        |
-| `tests/unit/lib/app/breaks/audio/transport.test.ts`               | Play replays the performance; a new seed is taken up at the top of the next pass                                                                                                                                                                    |
-| `tests/unit/lib/app/breaks/audio/your-samples.test.ts`            | Onset trim and `kit.trim` on your samples                                                                                                                                                                                                           |
-| `tests/unit/lib/app/breaks/catalogue/schemas.test.ts`             | The layered slot's bounds                                                                                                                                                                                                                           |
-| `tests/unit/lib/app/breaks/kit-packs.test.ts`                     | Files match the manifest and the lock; every source has its licence and credit; ≥2 takes on hats, snares and rides, and on every percussion stroke; the §9 budgets                                                                                  |
-| `tests/unit/scripts/kits/*.test.ts`                               | Onset, tail and fade; K-weighting and loudness; choosing layers and takes; path patterns                                                                                                                                                            |
+| File                                                              | Holds                                                                                                                                                                                                                                                                                                                                    |
+| ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tests/unit/lib/app/breaks/audio/packs.test.ts`                   | Round-robins never repeat back to back; the flat shape plays as before; the shelf; the wobble bounds; a kit from two folders; Level, Tune, Decay; mixed kits                                                                                                                                                                             |
+| `tests/unit/scripts/kits/pieces.test.ts`                          | Each piece once; a lent piece one key; every recorded kit as pieces plays the same files at the same trims                                                                                                                                                                                                                               |
+| `tests/unit/lib/app/breaks/catalogue/pieces.test.ts`              | Resolving a piece, `from`, a sample of yours, a piece that is gone                                                                                                                                                                                                                                                                       |
+| `tests/unit/lib/app/breaks/audio/synth-source.test.ts`            | A rendered hit is one source node; layers only on the snare strokes; the room channel and `playTake`'s split; velocity as gain; no take twice; one voice at a time; a knob plays live and re-renders its voice once, debounced; an overtaken render is dropped; a kit change goes live; too-long and missing decays; close stops renders |
+| `tests/unit/lib/app/breaks/audio/engine.test.ts`                  | The master chain to the ceiling; the ceiling curve; lane channels, pans, room; choking every open hat; the 9-iv slots and their synthesised voices                                                                                                                                                                                       |
+| `tests/unit/lib/app/breaks/articulations.test.ts`                 | 9-iv end to end: the wire, the layers, graces and Humanise, MIDI write and read for every value, the critic, `tidy`, the generator, the notation key                                                                                                                                                                                     |
+| `tests/unit/lib/app/breaks/goldens.test.ts`                       | The engraver, the generator and the MIDI export, pinned as they were before 9-iv; a golden SVG per articulation                                                                                                                                                                                                                          |
+| `tests/unit/lib/app/breaks/audio/performance-consistency.test.ts` | Speakers, port and file agree, Humanise on over two passes too; the fader reaches the channel and never the velocity; no `Math.random` in `perform.ts` or `feel.ts`                                                                                                                                                                      |
+| `tests/unit/lib/app/breaks/humanise.test.ts`                      | The seed; replay; σ within 10% over 10,000 notes; negative interval correlation; independent limbs; the ±25 ms clamp; Amount 0                                                                                                                                                                                                           |
+| `tests/unit/lib/app/breaks/perform.test.ts`                       | Amount 0 is the grid; every humanised note reads back as its value; ms to steps at the tempo                                                                                                                                                                                                                                             |
+| `tests/unit/lib/app/breaks/audio/transport.test.ts`               | Play replays the performance; a new seed is taken up at the top of the next pass                                                                                                                                                                                                                                                         |
+| `tests/unit/lib/app/breaks/audio/your-samples.test.ts`            | Onset trim and `kit.trim` on your samples                                                                                                                                                                                                                                                                                                |
+| `tests/unit/lib/app/breaks/catalogue/schemas.test.ts`             | The layered slot's bounds                                                                                                                                                                                                                                                                                                                |
+| `tests/unit/lib/app/breaks/kit-packs.test.ts`                     | Files match the manifest and the lock; every source has its licence and credit; ≥2 takes on hats, snares and rides, and on every percussion stroke; the §9 budgets                                                                                                                                                                       |
+| `tests/unit/scripts/kits/*.test.ts`                               | Onset, tail and fade; K-weighting and loudness; choosing layers and takes; path patterns                                                                                                                                                                                                                                                 |

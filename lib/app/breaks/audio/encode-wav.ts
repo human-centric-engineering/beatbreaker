@@ -1,4 +1,5 @@
 import { MAX_PICKED_BYTES, MAX_SAMPLE_SECONDS, mb } from '@/lib/app/breaks/samples/limits';
+import { browserOffline } from '@/lib/app/breaks/audio/offline';
 import { SAMPLE_FORMAT, writeWav } from '@/lib/app/breaks/samples/wav';
 
 /**
@@ -48,9 +49,8 @@ export interface RenderContext {
 export type MakeContext = (channels: number, length: number, sampleRate: number) => RenderContext;
 
 function browserContext(): MakeContext | null {
-  if (typeof OfflineAudioContext === 'undefined') return null;
   // structurally a `RenderContext`: the narrower interface is what lets tests supply a fake
-  return (channels, length, sampleRate) => new OfflineAudioContext(channels, length, sampleRate);
+  return browserOffline();
 }
 
 /** The channels averaged into one, so a stereo kick is not twice as loud as a mono one. */

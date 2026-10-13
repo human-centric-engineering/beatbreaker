@@ -3329,15 +3329,28 @@ tree at `ff9f58d8`:
 - **Room is not in a render's signature.** It is sent at playback, so moving
   it re-renders nothing.
 
-**9-vi-d built, 2026-10-13.** As reconciled. `SynthSource` sits behind the
-packs and your samples in the Studio and the community player. **Still to do
-by hand:** the owner listens to the five synthesised kits against `main`. The
-one expected difference is the beater and stick sending as much room as the
-drum.
+**9-vi-d built, 2026-10-13.** As reconciled, with these changes from
+`/code-review`:
 
-| PR     | What                                                                                                  | Done when                                                                                                                                                                                                                 |
-| ------ | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 9-vi-d | Synth voices draw into a given destination; `SynthSource` renders and plays them; per-voice re-render | Tests: a synth hit creates one source node; a knob change re-renders only that voice; the old render plays until the new one is ready (`synth-source.test.ts`); the live graph unchanged (`engine.test.ts`). Owner by ear |
+- **The room stays as it was live.** The beater and stick send less room
+  than the drum. A render cannot apply that, so a voice with such a part
+  renders two channels, the voice and its room send, and `playTake` splits
+  them. That puts a kit at 12–24 MB, under §9's 32.
+- **A knob plays its voice live until the re-render lands,** not the old
+  render. 9.21 had the old render playing on. That meant a Kit-drawer
+  audition played where the knob was, not where it is now. The live graph
+  is the knob, and costs nothing that matters for one voice for a moment.
+- **One voice renders at a time,** so a kit pick is not ninety graphs in
+  one burst. A voice that would ring over 8 s plays live and is logged.
+  Closing the engine stops its renders.
+
+`SynthSource` sits behind the packs and your samples in the Studio and the
+community player. **Still to do by hand:** the owner listens to the five
+synthesised kits against `main`.
+
+| PR     | What                                                                                                  | Done when                                                                                                                                                                                                                    |
+| ------ | ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 9-vi-d | Synth voices draw into a given destination; `SynthSource` renders and plays them; per-voice re-render | Tests: a synth hit creates one source node; a knob change re-renders only that voice; the voice plays live until its new render is ready (`synth-source.test.ts`); the live graph unchanged (`engine.test.ts`). Owner by ear |
 
 **Not in Phase 9:** cymbal chokes (grabs), crash 2 as a separate lane
 rather than a value, and rolls longer than one step. See `sound-plan.md` §10.

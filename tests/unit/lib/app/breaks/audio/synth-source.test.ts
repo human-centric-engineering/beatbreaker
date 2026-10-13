@@ -13,24 +13,31 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { BreakAudio, SourceStack } from '@/lib/app/breaks/audio/engine';
+import type { MakeOffline } from '@/lib/app/breaks/audio/offline';
 import {
   DEBOUNCE_MS,
   LAYERS,
+  MAX_RENDER_S,
   RENDERED,
   SynthSource,
   VARIATIONS,
   nearestLayer,
+  renderSeconds,
   renderTake,
   signature,
-  type MakeOffline,
 } from '@/lib/app/breaks/audio/synth-source';
 import { type ResolvedKit, type VoiceParams, withTuning } from '@/lib/app/breaks/kit';
+import { logger } from '@/lib/logging';
 import { testKit } from '@/tests/helpers/catalogue';
 import {
   FakeAudioBuffer,
   FakeAudioBufferSourceNode,
   FakeAudioContext,
   FakeAudioNode,
+  FakeChannelMergerNode,
+  FakeChannelSplitterNode,
+  FakeConvolverNode,
+  FakeGainNode,
   FakeOfflineAudioContext,
   FakeOscillatorNode,
   nodesOfKind,
@@ -45,7 +52,7 @@ const make: MakeOffline = (channels, length, rate) =>
 
 /** Let every render's promise chain run out. */
 async function settle(): Promise<void> {
-  for (let i = 0; i < 200; i++) await Promise.resolve();
+  for (let i = 0; i < 2000; i++) await Promise.resolve();
 }
 
 /** Past the debounce, and every render it started finished. */
@@ -60,14 +67,12 @@ function engineWith(
 ): {
   audio: BreakAudio;
   ctx: FakeAudioContext;
-  synth: SynthSource;
 } {
   const audio = new BreakAudio();
-  const synth = new SynthSource(undefined, make);
-  audio.samples = new SourceStack([synth]);
+  audio.samples = new SourceStack([new SynthSource(undefined, make)]);
   audio.setKit(kit, sound ?? withTuning(kit, undefined));
   const ctx = audio.init() as unknown as FakeAudioContext;
-  return { audio, ctx, synth };
+  return { audio, ctx };
 }
 
 /** Nodes the live context created while `fn` ran. */
@@ -83,12 +88,29 @@ function played(nodes: FakeAudioNode[]): FakeAudioBufferSourceNode[] {
   );
 }
 
+function oscillators(nodes: FakeAudioNode[]): FakeAudioNode[] {
+  return nodes.filter((n) => n instanceof FakeOscillatorNode);
+}
+
+/** Whether a kick plays from a render — one buffer that is not looped noise, no oscillator. */
+function kickRendered(audio: BreakAudio, ctx: FakeAudioContext): boolean {
+  const nodes = recordNodes(ctx, () => audio.kick(9, 1));
+  return oscillators(nodes).length === 0 && played(nodes).length === 1;
+}
+
 /** How many takes a voice renders: five layers × three for a snare stroke with wires, three otherwise. */
 function rendersOf(voice: string): number {
   return RENDERED[voice].reduce(
     (n, slot) => n + (['s', 'sGhost', 'sRim'].includes(slot) ? LAYERS.length : 1) * VARIATIONS,
     0
   );
+}
+const ALL = Object.keys(RENDERED).reduce((n, v) => n + rendersOf(v), 0);
+
+function gainOf(node: FakeAudioNode): number {
+  const g = (node as FakeGainNode).gain;
+  const first = g.events[0] as { value?: number } | undefined;
+  return first?.value ?? g.value;
 }
 
 beforeEach(() => {
@@ -124,7 +146,7 @@ describe('signature', () => {
 });
 
 describe('nearestLayer', () => {
-  const layers = LAYERS.map((v) => ({ v, takes: [] }));
+  const layers = LAYERS.map((v) => ({ v }));
 
   it('takes the layer nearest above or below, the first on a tie', () => {
     expect(nearestLayer(layers, 0.05).v).toBe(0.2);
@@ -135,22 +157,35 @@ describe('nearestLayer', () => {
   });
 });
 
+describe('renderSeconds', () => {
+  it('outlasts the longest-ringing part: decay, or the open hat', () => {
+    expect(renderSeconds({ decay: 0.36 })).toBeCloseTo(0.36 * 1.8 + 0.25, 9);
+    expect(renderSeconds({ decay: 0.05, open: 0.5 })).toBeCloseTo(0.5 * 1.8 + 0.25, 9);
+  });
+
+  it("sizes a missing, zero or broken decay as the toms' default, which the tom plays with", () => {
+    const tom = 0.5 * 1.8 + 0.25;
+    expect(renderSeconds({ tune: 90 })).toBeCloseTo(tom, 9);
+    expect(renderSeconds({ decay: 0 })).toBeCloseTo(tom, 9);
+    expect(renderSeconds({ decay: NaN, open: NaN })).toBeCloseTo(tom, 9);
+  });
+});
+
 describe('renderTake', () => {
   const kick: VoiceParams = { tune: 50, decay: 0.36, tone: 0.3, room: 0.04 };
 
-  it('draws the slot into a mono context of its own, at the rate asked, long enough to ring out', async () => {
+  it('draws the slot into a context of its own, at the rate asked, long enough to ring out', async () => {
     const buf = await renderTake(make, 48000, 'k', 1, kick, 7);
     expect(FakeOfflineAudioContext.made).toHaveLength(1);
     const ctx = FakeOfflineAudioContext.made[0];
-    expect(ctx.numberOfChannels).toBe(1);
     expect(ctx.sampleRate).toBe(48000);
     // decay ±5%, × 1.8, + 0.25 s
     expect(ctx.length).toBeGreaterThan(48000 * (0.36 * 0.95 * 1.8 + 0.25) - 1);
     expect(ctx.length).toBeLessThan(48000 * (0.36 * 1.05 * 1.8 + 0.25) + 1);
-    // the kick's sine, into the render's own destination
-    const osc = nodesOfKind<FakeOscillatorNode>(ctx, 'oscillator');
-    expect(osc).toHaveLength(1);
-    expect(ctx.nodes.some((n) => n.outputs.includes(ctx.destination))).toBe(true);
+    // the kick's sine, through the merger into the render's own destination
+    expect(nodesOfKind<FakeOscillatorNode>(ctx, 'oscillator')).toHaveLength(1);
+    const merger = nodesOfKind<FakeChannelMergerNode>(ctx, 'merger')[0];
+    expect(merger.outputs).toContain(ctx.destination);
     expect(buf).not.toBeNull();
   });
 
@@ -161,6 +196,24 @@ describe('renderTake', () => {
     const half = Math.floor(ctx.length / 2);
     expect(buf.length).toBe(half + Math.ceil(44100 * 0.001));
     expect(buf.getChannelData(0)[half - 1]).toBe(0.5);
+  });
+
+  it("keeps the room send's own channel when a part sends less room — the kick's beater, ×0.4", async () => {
+    const buf = (await renderTake(make, 44100, 'k', 1, kick, 7)) as unknown as FakeAudioBuffer;
+    expect(buf.numberOfChannels).toBe(2);
+    const ctx = FakeOfflineAudioContext.made[0];
+    const merger = nodesOfKind<FakeChannelMergerNode>(ctx, 'merger')[0];
+    // into the room channel: the sine's envelope directly, the beater's through a 0.4 tap
+    const toRoom = ctx.nodes.filter((n) => n.links.some((l) => l.dest === merger && l.input === 1));
+    expect(toRoom).toHaveLength(2);
+    const taps = toRoom.filter((n) => (n as FakeGainNode).gain.events.length === 0);
+    expect(taps.map((n) => (n as FakeGainNode).gain.value)).toEqual([0.4]);
+  });
+
+  it('is one channel when every part sends the room alike — a crash', async () => {
+    const crash: VoiceParams = { tune: 0.88, decay: 2.4, tone: 2500 };
+    const buf = (await renderTake(make, 44100, 'c', 1, crash, 7)) as unknown as FakeAudioBuffer;
+    expect(buf.numberOfChannels).toBe(1);
   });
 
   it('strays its pitch by the seed, the same seed the same way', async () => {
@@ -181,14 +234,55 @@ describe('renderTake', () => {
     expect(Math.random).not.toHaveBeenCalled();
   });
 
-  it('does not send the render to a room: a render is the voice dry', async () => {
+  it('does not reach the room itself: the room is sent when it plays', async () => {
     await renderTake(make, 44100, 's', 1, { tune: 186, decay: 0.18, tone: 0.52, room: 0.2 }, 3);
-    const ctx = FakeOfflineAudioContext.made[0];
-    expect(nodesOfKind(ctx, 'convolver')).toHaveLength(0);
+    expect(nodesOfKind(FakeOfflineAudioContext.made[0], 'convolver')).toHaveLength(0);
   });
 
-  it('is null for a slot the synth does not draw', async () => {
+  it('is null for a slot the synth does not draw, and for one that rings too long', async () => {
     expect(await renderTake(make, 44100, 'p1', 1, kick, 1)).toBeNull();
+    const huge = { ...kick, decay: MAX_RENDER_S };
+    expect(await renderTake(make, 44100, 'k', 1, huge, 1)).toBeNull();
+    expect(FakeOfflineAudioContext.made).toHaveLength(1); // the p1 context; none for the long one
+  });
+});
+
+/* ---------------------------------------------------------------------- */
+/* BreakAudio.playTake                                                    */
+/* ---------------------------------------------------------------------- */
+
+describe('BreakAudio.playTake', () => {
+  it("splits a two-channel take: the voice to the bus, its room send at the voice's room", () => {
+    const audio = new BreakAudio();
+    audio.setKit(STUDIO70, withTuning(STUDIO70, undefined));
+    const ctx = audio.init() as unknown as FakeAudioContext;
+    const buf = new FakeAudioBuffer(2, 100, 44100) as unknown as AudioBuffer;
+
+    const nodes = recordNodes(ctx, () => audio.playTake(1, buf, 0.8, 's'));
+    expect(played(nodes)).toHaveLength(1);
+    const split = nodes.find(
+      (n): n is FakeChannelSplitterNode => n instanceof FakeChannelSplitterNode
+    );
+    expect(split).toBeDefined();
+    const [dry, wet] = [0, 1].map((o) => split?.links.find((l) => l.output === o)?.dest);
+    const convolver = nodesOfKind<FakeConvolverNode>(ctx, 'convolver')[0];
+    // dry: no room send of its own
+    expect(dry?.outputs.some((n) => n.outputs.includes(convolver))).toBe(false);
+    // wet: into the room at the snare's 0.2, and not to the bus
+    expect(wet?.outputs).toHaveLength(1);
+    const send = wet?.outputs[0] as FakeGainNode;
+    expect(send.gain.value).toBeCloseTo(0.2, 9);
+    expect(send.outputs).toContain(convolver);
+  });
+
+  it('plays a one-channel take as any recording', () => {
+    const audio = new BreakAudio();
+    audio.setKit(STUDIO70, withTuning(STUDIO70, undefined));
+    const ctx = audio.init() as unknown as FakeAudioContext;
+    const buf = new FakeAudioBuffer(1, 100, 44100) as unknown as AudioBuffer;
+    const nodes = recordNodes(ctx, () => audio.playTake(1, buf, 0.8, 'c'));
+    expect(played(nodes)).toHaveLength(1);
+    expect(nodes.some((n) => n instanceof FakeChannelSplitterNode)).toBe(false);
   });
 });
 
@@ -198,14 +292,10 @@ describe('renderTake', () => {
 
 describe('SynthSource', () => {
   it('plays the live graph until the renders land, then a synth hit is one source node', async () => {
-    const { audio, ctx, synth } = engineWith(STUDIO70);
-
-    const live = recordNodes(ctx, () => audio.kick(1, 1));
-    expect(nodesOfKind(ctx, 'oscillator').length).toBeGreaterThan(0);
-    expect(played(live).every((n) => n.loop)).toBe(true); // only the beater's noise
+    const { audio, ctx } = engineWith(STUDIO70);
+    expect(kickRendered(audio, ctx)).toBe(false);
 
     await rendered();
-    expect(synth.isReady()).toBe(true);
 
     for (const hit of [
       () => audio.kick(2, 1),
@@ -219,30 +309,49 @@ describe('SynthSource', () => {
       const nodes = recordNodes(ctx, hit);
       expect(played(nodes)).toHaveLength(1);
       expect(played(nodes)[0].loop).toBe(false);
-      expect(nodes.filter((n) => n instanceof FakeOscillatorNode)).toHaveLength(0);
+      expect(oscillators(nodes)).toHaveLength(0);
     }
   });
 
   it('renders each voice once: five layers × three takes for the snare with wires, three takes elsewhere', async () => {
     engineWith(STUDIO70);
     await rendered();
-    const total = Object.keys(RENDERED).reduce((n, v) => n + rendersOf(v), 0);
-    expect(FakeOfflineAudioContext.made).toHaveLength(total);
+    expect(FakeOfflineAudioContext.made).toHaveLength(ALL);
     expect(rendersOf('s')).toBe(15 + 15 + 3 + 15);
     expect(rendersOf('k')).toBe(3);
+  });
+
+  it("renders one voice at a time, a layer's takes together", async () => {
+    FakeOfflineAudioContext.hold = true;
+    engineWith(STUDIO70);
+    await rendered();
+    expect(FakeOfflineAudioContext.made).toHaveLength(VARIATIONS);
+    FakeOfflineAudioContext.release();
+    await settle();
+    expect(FakeOfflineAudioContext.made).toHaveLength(2 * VARIATIONS);
+  });
+
+  it('shares one seeded noise buffer per take across every render', async () => {
+    engineWith(STUDIO70);
+    await rendered();
+    const noiseOf = (c: FakeOfflineAudioContext) =>
+      nodesOfKind<FakeAudioBufferSourceNode>(c, 'bufferSource')[0]?.buffer;
+    const made = FakeOfflineAudioContext.made;
+    // the kick's takes 0–2, then the snare's first layer, takes 0–2
+    expect(noiseOf(made[0])).toBeDefined();
+    expect(noiseOf(made[3])).toBe(noiseOf(made[0]));
+    expect(noiseOf(made[1])).not.toBe(noiseOf(made[0]));
   });
 
   it('plays a hit at its velocity over the layer it was rendered at', async () => {
     const { audio, ctx } = engineWith(STUDIO70);
     await rendered();
 
-    const kick = recordNodes(ctx, () => audio.kick(2, 0.5));
-    const kg = played(kick)[0].outputs[0] as unknown as { gain: { events: { value: number }[] } };
-    expect(kg.gain.events[0].value).toBeCloseTo(0.5, 9); // rendered at 1
+    const kick = played(recordNodes(ctx, () => audio.kick(2, 0.5)))[0];
+    expect(gainOf(kick.outputs[0])).toBeCloseTo(0.5, 9); // rendered at 1
 
-    const snare = recordNodes(ctx, () => audio.snare(2, 0.5));
-    const sg = played(snare)[0].outputs[0] as unknown as { gain: { events: { value: number }[] } };
-    expect(sg.gain.events[0].value).toBeCloseTo(0.5 / 0.4, 9); // nearest layer, 0.4
+    const snare = played(recordNodes(ctx, () => audio.snare(2, 0.5)))[0];
+    expect(gainOf(snare.outputs[0])).toBeCloseTo(0.5 / 0.4, 9); // nearest layer, 0.4
   });
 
   it('never plays the same take twice in a row', async () => {
@@ -261,7 +370,7 @@ describe('SynthSource', () => {
     await rendered();
     const open = played(recordNodes(ctx, () => audio.hat(2, 0.9, true)))[0];
     audio.hat(2.1, 0.8);
-    const g = open.outputs[0] as unknown as { gain: { events: { type: string }[] } };
+    const g = open.outputs[0] as FakeGainNode;
     expect(g.gain.events.map((e) => e.type)).toContain('exponentialRampToValueAtTime');
   });
 
@@ -295,24 +404,29 @@ describe('SynthSource', () => {
      a 0.8 s one to about 0.85 s. Its length says which render played. */
   const longKick = (buf: unknown): boolean => (buf as FakeAudioBuffer).duration > 0.65;
 
-  it('plays the old render until the new one is ready', async () => {
+  it('plays the voice live while it re-renders, so an audition is where the knob is', async () => {
     const { audio, ctx } = engineWith(STUDIO70);
     await rendered();
-    expect(longKick(played(recordNodes(ctx, () => audio.kick(2, 1)))[0].buffer)).toBe(false);
+    expect(kickRendered(audio, ctx)).toBe(true);
 
     FakeOfflineAudioContext.hold = true;
     const sound = withTuning(STUDIO70, undefined);
-    audio.setKit(STUDIO70, { ...sound, k: { ...sound.k, decay: 0.8 } });
+    audio.setKit(STUDIO70, { ...sound, k: { ...sound.k, tune: 60, decay: 0.8 } });
+
+    // moved, not yet rendered: the live kick, at the new tune
+    const during = recordNodes(ctx, () => audio.kick(3, 1));
+    const sine = oscillators(during)[0] as FakeOscillatorNode;
+    const lastFreq = sine.frequency.events[sine.frequency.events.length - 1] as { value: number };
+    expect(lastFreq.value).toBeCloseTo(60, 9);
+    // the other voices keep their renders
+    expect(oscillators(recordNodes(ctx, () => audio.snare(3, 1)))).toHaveLength(0);
+
     await rendered();
-
-    // rendering: still the old kick, as one buffer
-    const during = played(recordNodes(ctx, () => audio.kick(3, 1)));
-    expect(during).toHaveLength(1);
-    expect(longKick(during[0].buffer)).toBe(false);
-
     FakeOfflineAudioContext.release();
     await settle();
-    expect(longKick(played(recordNodes(ctx, () => audio.kick(4, 1)))[0].buffer)).toBe(true);
+    const after = played(recordNodes(ctx, () => audio.kick(4, 1)));
+    expect(after).toHaveLength(1);
+    expect(longKick(after[0].buffer)).toBe(true);
   });
 
   it('drops a render that a later knob move overtook', async () => {
@@ -327,7 +441,7 @@ describe('SynthSource', () => {
     FakeOfflineAudioContext.hold = false;
     audio.setKit(STUDIO70, { ...sound, k: { ...sound.k, decay: 0.2 } });
     await rendered();
-    // the 0.8 s render finishes last, and is not wanted any more
+    // the 0.8 s render finishes after the move, and is not wanted any more
     FakeOfflineAudioContext.release();
     await settle();
 
@@ -337,7 +451,7 @@ describe('SynthSource', () => {
   });
 
   it('keeps its render when a knob moves and comes back before the debounce', async () => {
-    const { audio } = engineWith(STUDIO70);
+    const { audio, ctx } = engineWith(STUDIO70);
     await rendered();
     const before = FakeOfflineAudioContext.made.length;
     const sound = withTuning(STUDIO70, undefined);
@@ -345,43 +459,80 @@ describe('SynthSource', () => {
     audio.setKit(STUDIO70, sound);
     await rendered();
     expect(FakeOfflineAudioContext.made.length).toBe(before);
+    expect(kickRendered(audio, ctx)).toBe(true);
   });
 
   it('drops every render when the kit changes, and plays the new kit live until its own land', async () => {
-    const { audio, ctx, synth } = engineWith(STUDIO70);
+    const { audio, ctx } = engineWith(STUDIO70);
     await rendered();
     audio.setKit(LIVEROOM, withTuning(LIVEROOM, undefined));
-    expect(synth.isReady()).toBe(false);
-    const live = recordNodes(ctx, () => audio.kick(2, 1));
-    expect(live.filter((n) => n instanceof FakeOscillatorNode)).toHaveLength(1);
+    expect(kickRendered(audio, ctx)).toBe(false);
     await rendered();
-    expect(synth.isReady()).toBe(true);
+    expect(kickRendered(audio, ctx)).toBe(true);
+  });
+
+  it('renders a kit once when it is left and picked again mid-render', async () => {
+    FakeOfflineAudioContext.hold = true;
+    const { audio, ctx } = engineWith(STUDIO70);
+    await rendered(); // the kick's first layer is held
+    audio.setKit(LIVEROOM, withTuning(LIVEROOM, undefined));
+    audio.setKit(STUDIO70, withTuning(STUDIO70, undefined));
+    FakeOfflineAudioContext.hold = false;
+    FakeOfflineAudioContext.release();
+    await rendered();
+    // the held layer, then one full render: the first was let go, not installed and redone
+    expect(FakeOfflineAudioContext.made).toHaveLength(VARIATIONS + ALL);
+    expect(kickRendered(audio, ctx)).toBe(true);
   });
 
   it('renders nothing for a recorded kit', async () => {
-    const { synth } = engineWith(MULDJORD);
+    const { audio, ctx } = engineWith(MULDJORD);
     await rendered();
     expect(FakeOfflineAudioContext.made).toHaveLength(0);
-    expect(synth.isReady()).toBe(false);
+    expect(kickRendered(audio, ctx)).toBe(false);
   });
 
   it('plays live in a browser without OfflineAudioContext', async () => {
     const audio = new BreakAudio();
-    const synth = new SynthSource(undefined, null);
-    audio.samples = new SourceStack([synth]);
+    audio.samples = new SourceStack([new SynthSource(undefined, null)]);
     audio.setKit(STUDIO70, withTuning(STUDIO70, undefined));
     const ctx = audio.init() as unknown as FakeAudioContext;
     await rendered();
-    expect(synth.isReady()).toBe(false);
-    expect(nodesOfKind(ctx, 'oscillator')).toHaveLength(0);
-    audio.kick(1, 1);
-    expect(nodesOfKind(ctx, 'oscillator')).toHaveLength(1);
+    expect(kickRendered(audio, ctx)).toBe(false);
+  });
+
+  it('plays a voice that rings too long to render live, and logs why', async () => {
+    const warn = vi.spyOn(logger, 'warn').mockImplementation(() => {});
+    const sound = withTuning(STUDIO70, undefined);
+    const { audio, ctx } = engineWith(STUDIO70, { ...sound, c: { ...sound.c, decay: 600 } });
+    await rendered();
+    expect(oscillators(recordNodes(ctx, () => audio.crash(2, 1))).length).toBeGreaterThan(0);
+    expect(kickRendered(audio, ctx)).toBe(true);
+    expect(warn).toHaveBeenCalledWith(
+      'Synth kit: slots that did not render play live',
+      expect.objectContaining({ kit: 'studio70', voice: 'c' })
+    );
+  });
+
+  it('renders a tom whose row has no decay, as the live tom plays it', async () => {
+    const sound = withTuning(STUDIO70, undefined);
+    const { decay: _decay, ...noDecay } = sound.t;
+    const { audio, ctx } = engineWith(STUDIO70, { ...sound, t: noDecay });
+    await rendered();
+    expect(oscillators(recordNodes(ctx, () => audio.tom(2, 1, 't2')))).toHaveLength(0);
+  });
+
+  it('stops rendering when the engine closes', async () => {
+    const { audio } = engineWith(STUDIO70);
+    audio.close();
+    await rendered();
+    expect(FakeOfflineAudioContext.made).toHaveLength(0);
   });
 
   it('leaves percussion live', async () => {
     const { audio, ctx } = engineWith(STUDIO70);
     await rendered();
     const nodes = recordNodes(ctx, () => audio.perc(2, 1, 'cowbell'));
-    expect(nodes.filter((n) => n instanceof FakeOscillatorNode)).toHaveLength(2);
+    expect(oscillators(nodes)).toHaveLength(2);
   });
 });

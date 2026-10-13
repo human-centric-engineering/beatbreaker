@@ -23,7 +23,10 @@ release process.
   when the kit is picked: one source node a hit, and never the same take
   twice. The voices move to `lib/app/breaks/audio/voices.ts`, drawn into a
   `Draw` they are given, and `SynthSource` (`synth-source.ts`) is a third
-  `SampleSource`. A knob re-renders its voice only, debounced 150 ms.
+  `SampleSource`, played through `BreakAudio.playTake`, which keeps a
+  voice's own room send. A knob plays its voice live and re-renders it only,
+  debounced 150 ms. `lib/app/breaks/audio/offline.ts` is the one
+  `OfflineAudioContext` factory, shared with `encode-wav.ts`.
 
 - **The lineage map and drummer pages (BeatBreaker Phase 11-b).** Two public
   pages, `/drummers` (a server-rendered SVG map, time left to right and a

@@ -94,9 +94,12 @@ let nextNodeId = 1;
 export class FakeAudioNode {
   readonly id = nextNodeId++;
   readonly outputs: FakeAudioNode[] = [];
+  /** Every connection with its output and input index, for the channel splitter and merger. */
+  readonly links: Array<{ dest: FakeAudioNode; output: number; input: number }> = [];
 
-  connect(dest: FakeAudioNode): FakeAudioNode {
+  connect(dest: FakeAudioNode, output = 0, input = 0): FakeAudioNode {
     this.outputs.push(dest);
+    this.links.push({ dest, output, input });
     return dest;
   }
 
@@ -167,6 +170,20 @@ export class FakeWaveShaperNode extends FakeAudioNode {
 export class FakeStereoPannerNode extends FakeAudioNode {
   readonly kind = 'panner';
   readonly pan = new FakeAudioParam(0);
+}
+
+export class FakeChannelSplitterNode extends FakeAudioNode {
+  readonly kind = 'splitter';
+  constructor(readonly numberOfOutputs: number) {
+    super();
+  }
+}
+
+export class FakeChannelMergerNode extends FakeAudioNode {
+  readonly kind = 'merger';
+  constructor(readonly numberOfInputs: number) {
+    super();
+  }
 }
 
 export class FakeConvolverNode extends FakeAudioNode {
@@ -303,6 +320,14 @@ export class FakeAudioContext {
     return this.track(new FakeOscillatorNode());
   }
 
+  createChannelSplitter(outputs = 6): FakeChannelSplitterNode {
+    return this.track(new FakeChannelSplitterNode(outputs));
+  }
+
+  createChannelMerger(inputs = 6): FakeChannelMergerNode {
+    return this.track(new FakeChannelMergerNode(inputs));
+  }
+
   resume(): Promise<void> {
     this.state = 'running';
     return Promise.resolve();
@@ -324,8 +349,8 @@ export class FakeAudioContext {
 
 /**
  * A fake `OfflineAudioContext`: the graph is recorded as a live one is, and
- * `startRendering()` hands back a buffer of the length asked for whose first
- * half is a constant 0.5 and whose second half is silence, so a caller that
+ * `startRendering()` hands back a buffer of the length asked for whose every
+ * channel is a constant 0.5 for its first half and silence after, so a caller that
  * trims a render's silent end has one to trim.
  *
  * `hold` keeps every render pending until {@link release}, for testing what
@@ -349,7 +374,9 @@ export class FakeOfflineAudioContext extends FakeAudioContext {
 
   startRendering(): Promise<FakeAudioBuffer> {
     const out = new FakeAudioBuffer(this.numberOfChannels, this.length, this.sampleRate);
-    out.getChannelData(0).fill(0.5, 0, Math.floor(this.length / 2));
+    for (let c = 0; c < this.numberOfChannels; c++) {
+      out.getChannelData(c).fill(0.5, 0, Math.floor(this.length / 2));
+    }
     if (!FakeOfflineAudioContext.hold) return Promise.resolve(out);
     return new Promise((resolve) => FakeOfflineAudioContext.held.push(() => resolve(out)));
   }

@@ -50,6 +50,8 @@ export interface SampleSource {
   percHit?(engine: BreakAudio, t: number, inst: string, vel: number, accent: boolean): boolean;
   /** Called when the kit or its knobs change. */
   refresh?(engine: BreakAudio): void;
+  /** Called when the engine closes: stop anything still on its way. */
+  dispose?(): void;
 }
 
 /**
@@ -76,6 +78,10 @@ export class SourceStack implements SampleSource {
 
   refresh(engine: BreakAudio): void {
     for (const s of this.sources) s.refresh?.(engine);
+  }
+
+  dispose(): void {
+    for (const s of this.sources) s.dispose?.();
   }
 }
 
@@ -159,6 +165,8 @@ export class BreakAudio {
   private ceilingIn: GainNode | null = null;
   private ceiling: WaveShaperNode | null = null;
   private noise: AudioBuffer | null = null;
+  /** Where the voices draw live: built once per context, not once per hit. */
+  private draw: voices.Draw | null = null;
   /** Every open hat still ringing, so a closing one chokes them all. */
   private hatTails: PlayedBuffer[] = [];
   private channels = new Map<string, Channel>();
@@ -225,6 +233,12 @@ export class BreakAudio {
     const d = buf.getChannelData(0);
     for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
     this.noise = buf;
+    this.draw = {
+      ctx,
+      noise: buf,
+      send: (node, voice, extra) => this.send(node, voice, extra),
+      rand: () => Math.random(),
+    };
 
     // master chain: everything -> drive -> tone -> glue compressor -> out
     this.bus = ctx.createGain();
@@ -294,6 +308,7 @@ export class BreakAudio {
     this.ceilingIn = null;
     this.ceiling = null;
     this.noise = null;
+    this.draw = null;
     this.hatTails = [];
     this.channels = new Map();
     this.route = null;
@@ -304,6 +319,8 @@ export class BreakAudio {
     /* Already-closed contexts throw rather than no-op, and a close that races a
        navigation is not worth an unhandled rejection in the console. */
     if (ctx && ctx.state !== 'closed') void ctx.close().catch(() => {});
+    // nothing renders for an engine that is finished (9-vi-d)
+    this.samples?.dispose?.();
   }
 
   setKit(kit: ResolvedKit | null, sound: Record<string, VoiceParams> | null): void {
@@ -423,12 +440,14 @@ export class BreakAudio {
    * ({@link SynthSource}).
    */
   private live(): voices.Draw {
-    return {
-      ctx: this.ctx as AudioContext,
-      noise: this.noise,
-      send: (node, voice, extra) => this.send(node, voice, extra),
-      rand: () => Math.random(),
-    };
+    return (
+      this.draw ?? {
+        ctx: this.ctx as AudioContext,
+        noise: this.noise,
+        send: (node, voice, extra) => this.send(node, voice, extra),
+        rand: () => Math.random(),
+      }
+    );
   }
 
   /**
@@ -437,9 +456,18 @@ export class BreakAudio {
    * channel; an audition from the Kit drawer goes straight to the bus.
    */
   send(node: AudioNode, voice: string, extra?: number): void {
-    const ctx = this.ctx as AudioContext;
+    this.toBus(node);
+    this.toRoom(node, voice, extra);
+  }
+
+  private toBus(node: AudioNode): void {
     const ch = this.route ? this.channel(this.route) : null;
     node.connect(ch ? ch.fader : (this.bus as GainNode));
+  }
+
+  private toRoom(node: AudioNode, voice: string, extra?: number): void {
+    const ctx = this.ctx as AudioContext;
+    const ch = this.route ? this.channel(this.route) : null;
     const amt = this.roomOf(voice) * (extra ?? 1);
     if (amt > 0.005 && this.convolver) {
       const s = ctx.createGain();
@@ -595,6 +623,34 @@ export class BreakAudio {
     src.start(t, from);
     src.stop(t + len + 0.02);
     return { g, end: t + len };
+  }
+
+  /**
+   * Play one rendered take of a synthesised voice (9-vi-d). A mono take is the
+   * voice whose parts all send the same room, and plays as {@link playBuf}
+   * does. A two-channel take is the voice dry and what it sends to the room —
+   * the beater and the stick send less than the drum — split here so each
+   * goes its own way. Either way it is one source node, and one gain to choke.
+   */
+  playTake(t: number, buf: AudioBuffer, gain: number, voice: string): PlayedBuffer {
+    if (buf.numberOfChannels < 2) return this.playBuf(t, buf, gain, voice);
+    const ctx = this.ctx as AudioContext;
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(Math.max(0.0001, gain), t);
+    src.connect(g);
+    const split = ctx.createChannelSplitter(2);
+    g.connect(split);
+    const dry = ctx.createGain();
+    const wet = ctx.createGain();
+    split.connect(dry, 0);
+    split.connect(wet, 1);
+    this.toBus(dry);
+    this.toRoom(wet, voice);
+    src.start(t);
+    src.stop(t + buf.duration + 0.02);
+    return { g, end: t + buf.duration };
   }
 
   private sampleHit(t: number, slotId: string, vel: number): boolean {
