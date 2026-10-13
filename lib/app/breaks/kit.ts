@@ -288,6 +288,9 @@ export const KIT_GROUP_LABELS: Record<KitEngine, string> = {
   user: 'Sampled Recordings',
 };
 
+/** The picker's heading for the combinations (9-vi-c): recorded kits made of other kits' pieces. */
+export const COMBINATIONS_GROUP = 'Combinations';
+
 /**
  * The kits as the picker shows them: runs of consecutive kits that share a
  * heading, in catalogue order.

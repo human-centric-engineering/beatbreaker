@@ -266,7 +266,7 @@ picker, after the recorded kits. `COMBINATIONS` in
 | ------------ | ---------- | ------------------------ | ----------- | --------------------- | ---------------------------------------- | ----------- |
 | Studio rock  | Big Rusty  | DRS                      | Big Rusty   | Crocell               | Crocell (and its china and splash)       | Big Rusty   |
 | Funk & soul  | SM Drums   | Frankensnare 13×9 birch  | SM Drums    | DRS                   | SM Drums, Salamander splash              | SM Drums    |
-| Jazz brushes | Virtuosity | DRS brushes              | DRS brushes | DRS brushes           | DRS brushes                              | DRS brushes |
+| Jazz brushes | Virtuosity | DRS brushes              | DRS brushes | DRS brushes           | DRS brushes, Salamander china and splash | DRS brushes |
 | Boom bap     | Gogodze    | Frankensnare 20×12 alder | Gogodze     | Gogodze (Big Rusty's) | Gogodze (Big Rusty's), Salamander splash | Gogodze     |
 | Big room     | Big Rusty  | Big Rusty, rimshots      | Big Rusty   | Big Rusty             | Crocell, Salamander china                | Big Rusty   |
 | Garage       | Unruly     | Unruly                   | Unruly      | SM Drums              | Unruly, Salamander crash, china, splash  | Unruly      |
@@ -277,14 +277,14 @@ off on 2026-10-13, and five became defaults:
 
 | Kit          | Signed off | Default for                                                                   |
 | ------------ | ---------- | ----------------------------------------------------------------------------- |
-| Studio rock  | 2026-10-13 | rock, hardrock (was Big Rusty), funkrock (was DRS)                            |
+| Studio rock  | 2026-10-13 | rock, funkrock (was DRS). Not hard rock: its rimshots need Big Rusty's snare  |
 | Funk & soul  | 2026-10-13 | funk, soul, stax, nolafunk; Stubblefield, Jabo Starks, Purdie (were SM Drums) |
 | Jazz brushes | 2026-10-13 | brushes (was DRS brushes)                                                     |
 | Boom bap     | 2026-10-13 | boombap, dilla                                                                |
 | Big room     | 2026-10-13 | Bonham (was Big Rusty), powerballad (was Live room, synthesised)              |
 | Garage       | 2026-10-13 | none yet                                                                      |
 
-A song that names its own kit keeps it. Picking a style that has a kit
+A combination that replaces a style's kit keeps every recorded slot that kit had: Studio rock's DRS snare has no rimshot, so hard rock stays on Big Rusty, and Jazz brushes carries the DRS brushes kit's Salamander china and splash. A song that names its own kit keeps it. Picking a style that has a kit
 switches to it, and leaving it for a style with none hands yours back.
 
 ### Choosing what plays (`packs.ts`)

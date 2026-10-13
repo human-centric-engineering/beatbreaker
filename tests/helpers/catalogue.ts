@@ -1,4 +1,4 @@
-import { KIT_GROUP_LABELS, kitEngine, kitGroups } from '@/lib/app/breaks/kit';
+import { COMBINATIONS_GROUP, KIT_GROUP_LABELS, kitEngine, kitGroups } from '@/lib/app/breaks/kit';
 import { type LibraryItem, patternFromLibrary } from '@/lib/app/breaks/library';
 import { packPattern } from '@/lib/app/breaks/share';
 import type {
@@ -80,18 +80,18 @@ export function testKit(key: string): CatalogueKit {
   };
 }
 
-/** A combination (9-vi-c), with no samples, as {@link testKit} gives a pack kit. */
+/** A combination (9-vi-c), with its pans but no recordings, as {@link testKit} gives a pack kit. */
 export function testCombination(key: string): CatalogueKit {
   const combination = COMBINATIONS[key];
   if (!combination) throw new Error(`No such combination in the seed data: ${key}`);
-  const { label, hint, engine: _engine, pieces: _pieces, pan: _pan, ...params } = combination;
+  const { label, hint, engine: _engine, pieces: _pieces, pan, ...params } = combination;
   return {
     key,
     label,
     hint,
     engine: 'pack',
-    group: 'Combinations',
-    samples: {},
+    group: COMBINATIONS_GROUP,
+    samples: pan ? { pan } : {},
     ...params,
   };
 }

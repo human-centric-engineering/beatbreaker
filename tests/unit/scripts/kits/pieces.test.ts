@@ -23,6 +23,7 @@ import {
   combinationCredit,
   combinationPieceMap,
   derivePieces,
+  sourceCredit,
   packPieceMap,
   pieceKey,
 } from '@/scripts/kits/pieces';
@@ -203,6 +204,17 @@ describe('combinationCredit', () => {
         'Big Rusty Drums by Karoryfer Samples · CC0 1.0. ' +
         'Mixed to mono, trimmed and re-encoded for the web.'
     );
+  });
+
+  it('refuses a key no recipe builds, rather than leaving its library out', () => {
+    expect(() => combinationCredit(['bigrusty-k', 'drs-snare'], pieces, KIT_CREDITS)).toThrow(
+      /No piece "drs-snare"/
+    );
+  });
+
+  it('credits a library with the line its pieces carry', () => {
+    const drs = KIT_CREDITS.find((c) => c.id === 'drskit');
+    expect(drs && combinationCredit(['drs-k'], pieces, KIT_CREDITS)).toContain(sourceCredit(drs!));
   });
 
   it('refuses a source with no credit, rather than shipping a kit without one', () => {

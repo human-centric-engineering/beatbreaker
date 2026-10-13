@@ -3294,8 +3294,9 @@ tree at `d4bb680d`:
   record is in `sound.md`.
 
 **9-vi-c built, 2026-10-13.** As reconciled. The owner listened and signed
-off all six the same day, and five became defaults: Studio rock (rock, hard
-rock, funk rock), Funk & soul (funk, soul, Stax, New Orleans funk,
+off all six the same day, and five became defaults: Studio rock (rock, funk
+rock; hard rock stays on Big Rusty, whose snare has the rimshots its hint
+promises), Funk & soul (funk, soul, Stax, New Orleans funk,
 Stubblefield, Jabo Starks, Purdie), Jazz brushes (brushes), Boom bap (boom
 bap, Dilla) and Big room (Bonham, power ballad). Garage is in the picker with
 no style yet. Funk losing its kit-less status moved one console test to

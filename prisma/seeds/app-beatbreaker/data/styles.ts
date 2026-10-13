@@ -727,7 +727,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Hard rock',
     hint: 'AC/DC, Zeppelin, Van Halen: the same 8ths, hit harder. Hats left a little open so they wash, rimshots on 2 and 4, a crash on every 8th for the chorus, the kick pushing a 16th ahead of 3. Fills are hands and feet, or the snare and floor tom together.',
     toms: true,
-    kit: 'studioRock',
+    kit: 'bigrusty',
     hats: 8,
     bpm: [92, 140],
     swing: 0,

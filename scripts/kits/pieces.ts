@@ -144,6 +144,11 @@ export function combinationPieceMap(
   return map;
 }
 
+/** One library's credit line, as a piece carries it: "Big Rusty Drums by Karoryfer Samples · CC0 1.0". */
+export function sourceCredit(c: KitCredit): string {
+  return `${c.title} by ${c.author} · ${c.licence}`;
+}
+
 /**
  * A combination's credit: each source its pieces were recorded from, once,
  * in the order they first appear, with the notice a source asks for.
@@ -155,12 +160,19 @@ export function combinationCredit(
 ): string {
   const byKey = new Map(pieces.map((p) => [p.key, p]));
   const sources = [
-    ...new Set(keys.map((key) => byKey.get(key)?.source).filter((s) => s !== undefined)),
+    ...new Set(
+      keys.map((key) => {
+        const piece = byKey.get(key);
+        // a key left out here would be a library left out of the credit
+        if (!piece) throw new Error(`No piece "${key}": no recipe builds it`);
+        return piece.source;
+      })
+    ),
   ];
   const lines = sources.map((id) => {
     const c = credits.find((credit) => credit.id === id);
     if (!c) throw new Error(`No credit for source "${id}"`);
-    return `${c.title} by ${c.author} · ${c.licence}${c.notice ? `. ${c.notice.replace(/\.$/, '')}` : ''}`;
+    return `${sourceCredit(c)}${c.notice ? `. ${c.notice.replace(/\.$/, '')}` : ''}`;
   });
   return `${lines.join('. ')}. Mixed to mono, trimmed and re-encoded for the web.`;
 }

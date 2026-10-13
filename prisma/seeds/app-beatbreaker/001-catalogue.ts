@@ -11,7 +11,7 @@ import {
   kitSamplesSchema,
   styleParamsSchema,
 } from '@/lib/app/breaks/catalogue/schemas';
-import { KIT_GROUP_LABELS, kitEngine } from '@/lib/app/breaks/kit';
+import { COMBINATIONS_GROUP, KIT_GROUP_LABELS, kitEngine } from '@/lib/app/breaks/kit';
 import { KIT_CREDITS } from '@/lib/app/breaks/kit-credits.generated';
 import { type LibraryItem, RUDIMENTS_LIBRARY, patternFromLibrary } from '@/lib/app/breaks/library';
 import { packPattern } from '@/lib/app/breaks/share';
@@ -28,6 +28,7 @@ import {
   combinationPieceMap,
   derivePieces,
   packPieceMap,
+  sourceCredit,
 } from '@/scripts/kits/pieces';
 import { RECIPES } from '@/scripts/kits/recipes';
 
@@ -300,9 +301,7 @@ async function seedPieces(
   const packLabels: Record<string, string> = {};
   for (const kit of Object.values(KITS)) if (kit.pack) packLabels[kit.pack] ??= kit.label;
   const pieces = derivePieces(RECIPES, manifest, packLabels);
-  const credits = new Map(
-    KIT_CREDITS.map((c) => [c.id, `${c.title} by ${c.author} · ${c.licence}`])
-  );
+  const credits = new Map(KIT_CREDITS.map((c) => [c.id, sourceCredit(c)]));
 
   for (const [position, piece] of pieces.entries()) {
     const fields = {
@@ -337,6 +336,17 @@ async function seedKits(
   const recipes = new Map(RECIPES.map((r) => [r.pack, r]));
   let position = 0;
 
+  /* Both upsert by key, so a combination keyed like a recorded kit would
+     quietly overwrite it, and every style naming that kit would follow. */
+  const clash = Object.keys(COMBINATIONS).filter((key) => key in KITS);
+  if (clash.length) throw new Error(`Combinations keyed like a recorded kit: ${clash.join(', ')}`);
+
+  /** One system kit row, at the next position: the recorded kits, then the combinations. */
+  const writeKit = (key: string, fields: Omit<KitRowFields, 'position'>) => {
+    const row = { ...fields, position: position++ };
+    return upsertSystemRow(prisma.kit as never, key, { key, visibility: 'system', ...row }, row);
+  };
+
   for (const [key, kit] of Object.entries(KITS)) {
     /* `engine` is pulled out to keep it out of `...params` — it is a column,
      not a parameter. `kitEngine` supplies the default for a row that names none. */
@@ -366,23 +376,15 @@ async function seedKits(
         : (pack ?? {})
     );
 
-    const fields = {
+    await writeKit(key, {
       engine: kitEngine(kit),
       label,
       hint,
       group: KIT_GROUP_LABELS[kitEngine(kit)],
       credit: credit ?? null,
       params: parsed,
-      samples: samples,
-      position: position++,
-    };
-
-    await upsertSystemRow(
-      prisma.kit as never,
-      key,
-      { key, visibility: 'system', ...fields },
-      fields
-    );
+      samples,
+    });
   }
 
   /* The combinations (9-vi-c), after the recorded kits: a recorded kit that
@@ -395,23 +397,23 @@ async function seedKits(
       ),
       ...(pan ? { pan } : {}),
     });
-    const fields = {
-      engine: 'pack' as const,
+    await writeKit(key, {
+      engine: 'pack',
       label,
       hint,
       group: COMBINATIONS_GROUP,
       credit: combinationCredit(keys, pieces, KIT_CREDITS),
       params: kitParamsSchema.parse(params),
       samples,
-      position: position++,
-    };
-    await upsertSystemRow(
-      prisma.kit as never,
-      key,
-      { key, visibility: 'system', ...fields },
-      fields
-    );
+    });
   }
+
+  /* A combination dropped or renamed here goes: they are curated by ear and
+     will change, and a stale one would stay in the picker, its position
+     splitting the Combinations heading in two. */
+  const dropped = await prisma.kit.deleteMany({
+    where: { ownerId: null, group: COMBINATIONS_GROUP, key: { notIn: Object.keys(COMBINATIONS) } },
+  });
 
   /* The system "Your samples" kit kept one-shots in the browser. Your own kits
      are rows you own now (D20), so a system row on the `user` engine is one a
@@ -420,12 +422,21 @@ async function seedKits(
   const retired = await prisma.kit.deleteMany({ where: { ownerId: null, engine: 'user' } });
 
   logger.info(
-    `🥁 Kits: ${Object.keys(KITS).length} and ${Object.keys(COMBINATIONS).length} combinations in place${retired.count ? ` (${retired.count} retired)` : ''}`
+    `🥁 Kits: ${Object.keys(KITS).length} and ${Object.keys(COMBINATIONS).length} combinations in place${retired.count ? ` (${retired.count} retired)` : ''}${dropped.count ? ` (${dropped.count} combinations dropped)` : ''}`
   );
 }
 
-/** The picker's heading for the combinations. */
-const COMBINATIONS_GROUP = 'Combinations';
+/** A system kit row's columns, as {@link seedKits} writes them. */
+interface KitRowFields {
+  engine: string;
+  label: string;
+  hint: string;
+  group: string;
+  credit: string | null;
+  params: unknown;
+  samples: unknown;
+  position: number;
+}
 
 /** The system libraries, in the order the drawer shows them. */
 const LIBRARIES: SeededLibrary[] = [

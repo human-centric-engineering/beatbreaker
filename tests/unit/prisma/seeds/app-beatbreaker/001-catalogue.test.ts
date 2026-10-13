@@ -9,6 +9,7 @@ import { RUDIMENTS } from '@/prisma/seeds/app-beatbreaker/data/rudiments';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { packedPatternSchema } from '@/lib/app/breaks/schema';
 import { styleParamsSchema } from '@/lib/app/breaks/catalogue/schemas';
+import { COMBINATIONS_GROUP } from '@/lib/app/breaks/kit';
 
 /**
  * The catalogue seed.
@@ -442,11 +443,13 @@ describe('the catalogue seed', () => {
     const prisma = fakePrisma();
     await seed(prisma);
 
-    const combos = prisma.kit.rows.filter((r) => r.group === 'Combinations');
+    const combos = prisma.kit.rows.filter((r) => r.group === COMBINATIONS_GROUP);
     expect(combos.map((r) => r.key)).toEqual(Object.keys(COMBINATIONS));
     // the picker files consecutive runs, so they must come after every other system kit
     const lastKit = Math.max(
-      ...prisma.kit.rows.filter((r) => r.group !== 'Combinations').map((r) => Number(r.position))
+      ...prisma.kit.rows
+        .filter((r) => r.group !== COMBINATIONS_GROUP)
+        .map((r) => Number(r.position))
     );
     expect(Math.min(...combos.map((r) => Number(r.position)))).toBe(lastKit + 1);
 
@@ -483,6 +486,50 @@ describe('the catalogue seed', () => {
     expect(slots.c).toEqual({ piece: 'crocell-c' });
     expect(slots.cChina).toEqual({ piece: 'salamander-china' });
     expect((bigRoom?.samples as { pan?: object }).pan).toEqual(COMBINATIONS.bigRoom.pan);
+  });
+
+  it('drops a combination no longer in the data file, and no other kit', async () => {
+    const prisma = fakePrisma();
+    await prisma.kit.create({
+      data: { key: 'oldGarage', engine: 'pack', group: COMBINATIONS_GROUP, label: 'Old garage' },
+    });
+    await prisma.kit.create({
+      data: {
+        key: 'yours-abc',
+        engine: 'user',
+        ownerId: 'u1',
+        group: COMBINATIONS_GROUP,
+        label: 'Mine',
+      },
+    });
+
+    await seed(prisma);
+
+    expect(prisma.kit.rows.some((r) => r.key === 'oldGarage')).toBe(false);
+    expect(prisma.kit.rows.find((r) => r.key === 'yours-abc')).toMatchObject({ ownerId: 'u1' });
+    expect(
+      prisma.kit.rows.filter((r) => r.group === COMBINATIONS_GROUP && r.ownerId === null)
+    ).toHaveLength(Object.keys(COMBINATIONS).length);
+  });
+
+  it('refuses a combination keyed like a recorded kit, rather than overwriting it', async () => {
+    const prisma = fakePrisma();
+    const combinations: Record<string, unknown> = COMBINATIONS;
+    combinations.drs = COMBINATIONS.studioRock;
+    try {
+      await expect(seed(prisma)).rejects.toThrow(/keyed like a recorded kit: drs/);
+    } finally {
+      delete combinations.drs;
+    }
+  });
+
+  it('keeps every recorded slot of the DRS brushes kit in Jazz brushes, which replaced it for brushes', async () => {
+    const prisma = fakePrisma();
+    await seed(prisma);
+
+    const slotsOf = (key: string) =>
+      Object.keys((prisma.kit.rows.find((r) => r.key === key)?.samples as { slots: object }).slots);
+    expect(slotsOf('jazzBrushes')).toEqual(expect.arrayContaining(slotsOf('drsBrush')));
   });
 
   it('writes each piece once, with its folder, slots and credit, and drops one no recipe builds', async () => {

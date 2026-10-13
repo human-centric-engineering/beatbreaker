@@ -527,6 +527,9 @@ export const COMBINATIONS: Record<string, Combination> = {
       'drs-brush-hFoot',
       'drs-brush-r',
       'drs-brush-c',
+      // as the DRS brushes kit has them
+      'salamander-china',
+      'salamander-splash',
       'drs-brush-t1',
       'drs-brush-t2',
       'drs-brush-t3',
