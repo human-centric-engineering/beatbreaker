@@ -7,7 +7,7 @@
 
 import { describe, expect, it } from 'vitest';
 
-import { maxBpmOf } from '@/lib/app/breaks/audio/transport';
+import { TEMPO_TOP, maxBpmOf, minBpmOf } from '@/lib/app/breaks/audio/transport';
 import { playability } from '@/lib/app/breaks/critic';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { type SequencedBar, buildMidi } from '@/lib/app/breaks/midi';
@@ -73,6 +73,19 @@ describe('the top tempo', () => {
     expect(maxBpmOf(['4/4-8', { meter: '4/4', tempoRatio: 0.5 }])).toBe(380);
     // a bare key and an object without a ratio are the same section
     expect(maxBpmOf([{ meter: '12/8' }])).toBe(maxBpmOf(['12/8']));
+  });
+
+  it('never goes past the fastest any meter goes, so every section at ×½ still saves', () => {
+    // 12/8 tops out at 300: two sections at ×½ would otherwise let the break to 600
+    const half = { meter: '12/8', tempoRatio: 0.5 as const };
+    expect(maxBpmOf([half, half])).toBe(TEMPO_TOP);
+    expect(TEMPO_TOP).toBeLessThanOrEqual(400);
+  });
+
+  it('has a floor raised by a section at ×½, so none plays under 50', () => {
+    expect(minBpmOf(['4/4', { meter: '4/4' }])).toBe(50);
+    expect(minBpmOf(['4/4', { meter: '4/4', tempoRatio: 0.5 }])).toBe(100);
+    expect(minBpmOf([{ meter: '4/4', tempoRatio: 2 }])).toBe(50);
   });
 
   it("is read off a saved break's document, ratios and all", () => {
@@ -225,6 +238,30 @@ describe('songs with a section at a ratio', () => {
     expect(songPartOf(STYLES.lombardo, 'angel-of-death')?.section?.letter).toBe('A');
     expect(songPartOf(STYLES.copeland, 'landlord-fast')?.section?.letter).toBe('B');
     expect(songPartOf(STYLES.copeland, 'landlord')?.section?.letter).toBe('A');
+  });
+
+  it("moves a section's inherited range to its own speed, so the song's is not divided twice", () => {
+    const funk = testStyle('funk').params;
+    const st = {
+      ...funk,
+      songs: [
+        {
+          key: 'tune',
+          title: 'Tune',
+          feel: 'a tune',
+          weight: 1,
+          params: { bpm: [100, 110] as [number, number] },
+          sections: [
+            { letter: 'A' as const, label: 'slow', params: {} },
+            { letter: 'B' as const, label: 'fast', tempoRatio: 2 as const, params: {} },
+          ],
+        },
+      ],
+    };
+    const song = st.songs[0];
+    // B names no range: the song's 100–110, at ×2, is 200–220 at the speed B plays
+    expect(withSong(st, 'tune:B').bpm[1]).toBeGreaterThan(110);
+    expect(songBpm(st, song)[0]).toBe(100);
   });
 
   it("writes an old key's pattern at its section's ratio, and 1 overrides it", () => {

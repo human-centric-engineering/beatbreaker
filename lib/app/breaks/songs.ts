@@ -98,13 +98,6 @@ export function songPaces(
     : [{ meter: songMeter(st, song) }];
 }
 
-/** Every meter a song plays in: its own, or each of its sections'. */
-export function songMeters(st: Style, song: StyleSong): string[] {
-  return song.sections?.length
-    ? song.sections.map((x) => songMeter(st, song, x))
-    : [songMeter(st, song)];
-}
-
 /**
  * Pick one of a style's songs, by weight. Given a meter, only songs written in
  * it are candidates — for a song in sections, its first section's: a pattern
@@ -267,6 +260,13 @@ export function withSong(st: Style, key: string | undefined): Style {
   const cached = byKey?.get(at);
   if (cached) return cached;
   const out: Style = { ...st, ...song.params, ...section?.params };
+  /* A section at a tempo ratio names its range at the speed it plays; one
+     that names none inherits the song's, in the song's tempo, so it is moved
+     to the section's — or `songBpm` would divide it a second time. */
+  if (section?.tempoRatio && !section.params.bpm) {
+    const r = section.tempoRatio;
+    out.bpm = [Math.round(out.bpm[0] * r), Math.round(out.bpm[1] * r)];
+  }
   const swung = layeredSwing([st, song.params, ...(section ? [section.params] : [])]);
   if (swung.swingRange) out.swingRange = swung.swingRange;
   else delete out.swingRange;

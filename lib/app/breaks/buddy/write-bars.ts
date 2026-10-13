@@ -130,9 +130,9 @@ function blankSection(a: Pattern, letter: SectionLetter): Pattern {
   out.name = `${a.name} (${letter})`;
   out.pins = null;
   out.sticking = null;
+  /* A's tempo ratio stays, as its meter does: a section built from another
+     takes its pace, as Build B does. `set_playback` sets another. */
   delete out.fixed;
-  // a new section plays at the break's tempo, whatever A's ratio
-  delete out.tempoRatio;
   return out;
 }
 

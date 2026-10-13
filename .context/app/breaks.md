@@ -23,7 +23,11 @@ argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
   `playability` (which takes the break's tempo and judges a section at its own),
   the MIDI writer (a tempo event at each change) and the community grid's
   density. The top tempo is `maxBpmOf(sections)`: each section's meter ceiling
-  over its ratio. `clonePattern` carries it; Build B copies A's.
+  over its ratio, never past `TEMPO_TOP` (380, under the wire's 400). The
+  bottom is `minBpmOf(sections)`: 50, or 100 with a section at ×½, so none
+  plays under 50. `clonePattern` carries the ratio; a section built from
+  another (Build B, BeatBuddy's new section) takes its ratio as it takes its
+  meter.
 - **Every bar carries every lane, full length**, even lanes the pattern does not
   use (`pattern.lanes` says which it does). Turning a lane on never reshapes a
   bar.

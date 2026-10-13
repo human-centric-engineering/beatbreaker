@@ -164,8 +164,11 @@ disagree.
   `tempoRatio` (0.5 or 2), its text headed with the tempo it plays at.
   `write_bars` keeps the ratio of a section it rewrites, holds the break's
   tempo to that section's ceiling over its ratio (and names the ratio when it
-  slows the tempo), and adds a new section at the break's tempo. Setting a
-  ratio is the Studio's (`Section C's tempo`, beside Delete); no tool does it.
+  slows the tempo), and gives a new section A's ratio, as it gives it A's
+  meter. `set_playback` sets one: `section` and `tempoRatio` (0.5, 1 or 2)
+  together, the tempo brought into the new range when none is named, as the
+  Studio's picker does. A tempo under the floor (100 with a section at ×½) is
+  `tempo_out_of_range`.
 - **Every mutating tool goes through `editWorkspace()`** (`edit.ts`): read the
   workspace, apply the edit, hold the result to `sharePayloadSchema`, write if
   the rev has not moved. A lost write is made again on the newer pattern, up to

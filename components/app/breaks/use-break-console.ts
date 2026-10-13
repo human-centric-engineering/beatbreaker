@@ -14,6 +14,7 @@ import {
   type TransportSnapshot,
   maxBpm,
   maxBpmOf,
+  minBpmOf,
   soloInPlay,
 } from '@/lib/app/breaks/audio/transport';
 import {
@@ -339,6 +340,8 @@ export interface BreakConsole {
    */
   quickTempo: (pct: number) => void;
   bpmCeiling: number;
+  /** The lowest tempo the break may take: 50, or 100 with a section at ×½ (11-e-ii-g). */
+  bpmFloor: number;
   playing: boolean;
   togglePlay: () => void;
   loops: number;
@@ -878,6 +881,10 @@ export function useBreakConsole(
   const mixedTop =
     sectionMeters.length > 1 || hasTempoRatios(patterns) ? maxBpmOf(patternsOf(patterns)) : null;
   const bpmCeiling = mixedTop ?? maxBpm(meter);
+  /* And the bottom: a section at ×½ plays at half the break's tempo, so the
+     break goes no lower than twice the floor, or that section would play
+     slower than anything else the Studio does. */
+  const bpmFloor = minBpmOf(patternsOf(patterns));
 
   const setSize = useCallback(
     (n: number) => setSizeRaw(clamp(Math.round(n * 100) / 100, SIZE_MIN, SIZE_MAX)),
@@ -898,13 +905,13 @@ export function useBreakConsole(
   const placeTempo = useCallback(
     (n: number) => {
       const top = bpmCeiling;
-      const v = clamp(Math.round(n), 50, top);
-      const base = matchOn ? clamp(Math.round(v / (LAYER_TEMPO[level] ?? 1)), 50, top) : v;
+      const v = clamp(Math.round(n), bpmFloor, top);
+      const base = matchOn ? clamp(Math.round(v / (LAYER_TEMPO[level] ?? 1)), bpmFloor, top) : v;
       setBaseBpm(base);
       setBpmRaw(v);
       return base;
     },
-    [bpmCeiling, matchOn, level]
+    [bpmCeiling, bpmFloor, matchOn, level]
   );
 
   const setBpm = useCallback(
@@ -922,9 +929,9 @@ export function useBreakConsole(
   const quickTempo = useCallback(
     (pct: number) => {
       const written = matchOn ? baseBpm * (LAYER_TEMPO[level] ?? 1) : baseBpm;
-      setBpmRaw(clamp(Math.round((written * pct) / 100), 50, bpmCeiling));
+      setBpmRaw(clamp(Math.round((written * pct) / 100), bpmFloor, bpmCeiling));
     },
-    [matchOn, baseBpm, level, bpmCeiling]
+    [matchOn, baseBpm, level, bpmCeiling, bpmFloor]
   );
 
   /**
@@ -948,8 +955,21 @@ export function useBreakConsole(
      layer should be practised, measured against the break's own tempo. */
   useEffect(() => {
     if (!matchOn) return;
-    setBpmRaw(clamp(Math.round(baseBpm * (LAYER_TEMPO[level] ?? 1)), 50, bpmCeiling));
-  }, [matchOn, level, bpmCeiling, baseBpm, setBpmRaw]);
+    setBpmRaw(clamp(Math.round(baseBpm * (LAYER_TEMPO[level] ?? 1)), bpmFloor, bpmCeiling));
+  }, [matchOn, level, bpmCeiling, bpmFloor, baseBpm, setBpmRaw]);
+
+  /* A section set to ×½ under a tempo below the floor brings the tempo up to
+     it, as one set to ×2 brings it down to the ceiling. One Undo of the ratio
+     puts the tempo back with it (`setSectionTempo` records both). Only when
+     the floor rises: a practice session may play under 50 on purpose. */
+  const lastFloor = useRef(bpmFloor);
+  useEffect(() => {
+    const rose = bpmFloor > lastFloor.current;
+    lastFloor.current = bpmFloor;
+    if (!rose) return;
+    if (bpm < bpmFloor) setBpmRaw(bpmFloor);
+    if (baseBpm < bpmFloor) setBaseBpm(bpmFloor);
+  }, [bpm, baseBpm, bpmFloor, setBpmRaw]);
 
   /**
    * The tempo a break in two meters brought down to its ceiling, and the base
@@ -1411,9 +1431,14 @@ export function useBreakConsole(
     // the same song as the section on the stage, when it is in the same style
     const stage = patterns[editing];
     const song = stage?.style === style ? stage.song : undefined;
-    const at = Math.min(bpm, maxBpmOf([meter, ...patternsOf(patterns)]));
+    /* At the pace the stage's section plays, where it is that song's part;
+       at the break's tempo otherwise — never a ratio from the catalogue you
+       took off the stage (11-e-ii-g). */
+    const tempoRatio = song ? ratioOf(stage) : 1;
+    const pace = tempoRatio === 1 ? meter : { meter, tempoRatio };
+    const at = Math.min(bpm, maxBpmOf([pace, ...patternsOf(patterns)]));
     pickedForNext.current = false;
-    generate(letter, { style, meter, bars, bpm: at, song });
+    generate(letter, { style, meter, bars, bpm: at, song, tempoRatio });
     setArrangement((a) => (a.length < MAX_ARRANGEMENT ? [...a, letter] : a));
     setViewMode(letter);
     setTouched(letter);
@@ -2522,6 +2547,7 @@ export function useBreakConsole(
     setBpm,
     quickTempo,
     bpmCeiling,
+    bpmFloor,
     playing,
     togglePlay,
     loops,

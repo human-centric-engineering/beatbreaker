@@ -1,9 +1,16 @@
 import { z } from 'zod';
 
-import { maxBpmOf } from '@/lib/app/breaks/audio/transport';
+import { maxBpmOf, minBpmOf } from '@/lib/app/breaks/audio/transport';
 import { type EditData, editWorkspace } from '@/lib/app/breaks/buddy/edit';
 import { FULL_LAYER, layerName } from '@/lib/app/breaks/layers';
-import { hasTempoRatios, patternsOf } from '@/lib/app/breaks/sections';
+import {
+  SECTION_LETTERS,
+  type SectionLetter,
+  hasTempoRatios,
+  patternsOf,
+  ratioLabel,
+} from '@/lib/app/breaks/sections';
+import type { BreakDoc } from '@/lib/app/breaks/share';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
 import type {
   CapabilityContext,
@@ -12,7 +19,8 @@ import type {
 } from '@/lib/orchestration/capabilities/types';
 
 /**
- * `set_playback` — tempo, swing and the layer showing. Settings, not notes.
+ * `set_playback` — tempo, swing and the layer showing, and how fast one
+ * section plays against the tempo (×½, ×1, ×2; 11-e-ii-g). Settings, not notes.
  *
  * These three travel with the pattern, so they are the workspace's to change.
  * The count-in the plan also lists does not: it is a Studio setting of the
@@ -30,9 +38,20 @@ const schema = z
     bpm: z.number().int().min(MIN_BPM).max(MAX_BPM).optional(),
     swing: z.number().int().min(0).max(100).optional(),
     layer: z.number().int().min(1).max(FULL_LAYER).optional(),
+    section: z.enum(SECTION_LETTERS).optional(),
+    tempoRatio: z.union([z.literal(0.5), z.literal(1), z.literal(2)]).optional(),
   })
-  .refine((a) => a.bpm !== undefined || a.swing !== undefined || a.layer !== undefined, {
-    message: 'Name at least one of bpm, swing or layer',
+  .refine(
+    (a) =>
+      a.bpm !== undefined ||
+      a.swing !== undefined ||
+      a.layer !== undefined ||
+      a.tempoRatio !== undefined,
+    { message: 'Name at least one of bpm, swing, layer or tempoRatio' }
+  )
+  .refine((a) => (a.tempoRatio === undefined) === (a.section === undefined), {
+    message: 'tempoRatio and section go together: the section whose tempo it is',
+    path: ['section'],
   });
 
 type Args = z.infer<typeof schema>;
@@ -43,13 +62,23 @@ export class SetPlaybackCapability extends BaseCapability<Args, EditData> {
 
   readonly functionDefinition: CapabilityFunctionDefinition = {
     name: 'set_playback',
-    description: `Change how the open pattern plays, not its notes: the tempo (${MIN_BPM}–190 bpm, or up to ${MAX_BPM} in compound meters like 6/8 and 12/8), the swing (0 straight to 100 full triplet), and the layer showing (1 Skeleton, 2 Groove, 3 Sixteenths, 4 Ghosted, 5 Full break — lower layers are simplified views for practising). Give only what should change.`,
+    description: `Change how the open pattern plays, not its notes: the tempo (${MIN_BPM}–190 bpm, or up to ${MAX_BPM} in compound meters like 6/8 and 12/8), the swing (0 straight to 100 full triplet), and the layer showing (1 Skeleton, 2 Groove, 3 Sixteenths, 4 Ghosted, 5 Full break — lower layers are simplified views for practising). To play one section at half or double the tempo (a half-time break, a double-time chorus), give section and tempoRatio (0.5, 2, or 1 for the tempo itself). Give only what should change.`,
     parameters: {
       type: 'object',
       properties: {
         bpm: { type: 'integer', minimum: MIN_BPM, maximum: MAX_BPM, description: 'Tempo.' },
         swing: { type: 'integer', minimum: 0, maximum: 100, description: 'Swing amount.' },
         layer: { type: 'integer', minimum: 1, maximum: FULL_LAYER, description: 'Layer to show.' },
+        section: {
+          type: 'string',
+          enum: [...SECTION_LETTERS],
+          description: 'The section tempoRatio applies to.',
+        },
+        tempoRatio: {
+          type: 'number',
+          enum: [0.5, 1, 2],
+          description: "How fast the section plays against the break's tempo.",
+        },
       },
     },
   };
@@ -59,7 +88,16 @@ export class SetPlaybackCapability extends BaseCapability<Args, EditData> {
   async execute(args: Args, context: CapabilityContext): Promise<CapabilityResult<EditData>> {
     if (!context.userId) return this.error('BeatBuddy needs a signed-in user', 'no_user');
 
-    const outcome = await editWorkspace(context.userId, (doc) => {
+    const outcome = await editWorkspace(context.userId, (doc0) => {
+      const paced = args.section ? withRatio(doc0, args.section, args.tempoRatio ?? 1) : doc0;
+      if (!paced) {
+        return {
+          ok: false,
+          message: `The pattern has no section ${args.section}`,
+          code: 'no_section',
+        };
+      }
+      const doc = paced;
       const meterKeys = [...new Set(patternsOf(doc).map((p) => p.meter))];
       const top = maxBpmOf(patternsOf(doc));
       if (args.bpm !== undefined && args.bpm > top) {
@@ -75,11 +113,23 @@ export class SetPlaybackCapability extends BaseCapability<Args, EditData> {
           code: 'tempo_out_of_range',
         };
       }
+      // a section at half time holds the break to twice the floor, so it never plays under it
+      const floor = minBpmOf(patternsOf(doc));
+      if (args.bpm !== undefined && args.bpm < floor) {
+        return {
+          ok: false,
+          message: `A section plays at half the break's tempo, so the break goes no lower than ${floor} bpm`,
+          code: 'tempo_out_of_range',
+        };
+      }
+      /* A ratio with no tempo named brings the tempo into the new range, as
+         the Studio's picker does: a B at ×2 under a break at 120 holds it to 95. */
+      const bpm = args.bpm ?? Math.min(Math.max(doc.bpm, floor), top);
       return {
         ok: true,
         doc: {
           ...doc,
-          bpm: args.bpm ?? doc.bpm,
+          bpm,
           swing: args.swing ?? doc.swing,
           level: args.layer ?? doc.level,
         },
@@ -90,7 +140,10 @@ export class SetPlaybackCapability extends BaseCapability<Args, EditData> {
 
     const { after } = outcome;
     const parts = [
-      args.bpm !== undefined ? `${after.bpm} bpm` : null,
+      args.section && args.tempoRatio !== undefined
+        ? `section ${args.section} at ${args.tempoRatio === 1 ? "the break's tempo" : ratioLabel(args.tempoRatio)}`
+        : null,
+      args.bpm !== undefined || after.bpm !== outcome.before.bpm ? `${after.bpm} bpm` : null,
       args.swing !== undefined ? `swing ${after.swing}` : null,
       args.layer !== undefined ? `layer ${after.level} (${layerName(after.level)})` : null,
     ].filter((p): p is string => p !== null);
@@ -103,4 +156,12 @@ export class SetPlaybackCapability extends BaseCapability<Args, EditData> {
       sections: [],
     });
   }
+}
+
+/** The document with one section at a ratio (1 takes it off), or null when the section is not there. */
+function withRatio(doc: BreakDoc, letter: SectionLetter, r: 0.5 | 1 | 2): BreakDoc | null {
+  const pat = doc[letter];
+  if (!pat) return null;
+  const { tempoRatio: _was, ...rest } = pat;
+  return { ...doc, [letter]: r === 1 ? rest : { ...rest, tempoRatio: r } };
 }

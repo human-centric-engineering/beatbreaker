@@ -2193,6 +2193,25 @@ describe('a section at a tempo ratio (11-e-ii-g)', () => {
     expect(result.current.patterns.A).not.toHaveProperty('tempoRatio');
   });
 
+  it('plays A at half time, raising a tempo under the floor to it, and holds the slider there', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.loadCode(abCode(70));
+    });
+    expect(result.current.bpmFloor).toBe(50);
+    act(() => {
+      result.current.setSectionTempo('A', 0.5);
+    });
+    // A at ×½ under 70 would play at 35: the break comes up to 100
+    expect(result.current.bpmFloor).toBe(100);
+    expect(result.current.bpm).toBe(100);
+    act(() => result.current.setBpm(60));
+    expect(result.current.bpm).toBe(100);
+    act(() => result.current.undo());
+    expect(result.current.bpm).toBe(70);
+    expect(result.current.bpmFloor).toBe(50);
+  });
+
   it('keeps the ratio through a new take of the section', async () => {
     const { result } = await mount();
     act(() => {

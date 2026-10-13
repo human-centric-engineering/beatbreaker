@@ -45,6 +45,7 @@ import { describeEdit } from '@/lib/app/breaks/buddy/edit';
 import { ExplainDifficultyCapability } from '@/lib/app/breaks/buddy/explain-difficulty';
 import { GeneratePatternCapability } from '@/lib/app/breaks/buddy/generate-pattern';
 import { GetPatternCapability } from '@/lib/app/breaks/buddy/get-pattern';
+import { SetPlaybackCapability } from '@/lib/app/breaks/buddy/set-playback';
 import { TidyPatternCapability } from '@/lib/app/breaks/buddy/tidy-pattern';
 import { WriteBarsCapability } from '@/lib/app/breaks/buddy/write-bars';
 import type { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
@@ -459,19 +460,15 @@ describe('a section at a tempo ratio (11-e-ii-g)', () => {
     expect(b.text).toContain('180 bpm');
   });
 
-  it('write_bars keeps the ratio of a section it rewrites, and adds a new one at the break tempo', async () => {
+  it("write_bars keeps the ratio of a section it rewrites, and a new one takes A's, as its meter", async () => {
     seed(ratioPayload(90, 2));
     const rewrote = decoded(
       dataOf(await runCap(new WriteBarsCapability(), { section: 'B', text: `bar 1${PLAIN}` })).doc
     );
     expect(rewrote.B.tempoRatio).toBe(2);
 
-    seed(
-      breakPayload({
-        ...decoded(ratioPayload(90, 2)),
-        A: { ...decoded(ratioPayload(90, 2)).A, tempoRatio: 0.5 },
-      })
-    );
+    const doc = decoded(ratioPayload(120, 2));
+    seed(breakPayload({ ...doc, A: { ...doc.A, tempoRatio: 0.5 } }));
     const added = decoded(
       dataOf(
         await runCap(new WriteBarsCapability(), {
@@ -481,7 +478,7 @@ describe('a section at a tempo ratio (11-e-ii-g)', () => {
         })
       ).doc
     );
-    expect(added.C).not.toHaveProperty('tempoRatio');
+    expect(added.C?.tempoRatio).toBe(0.5);
   });
 
   it("write_bars holds the tempo to a ratio's ceiling, and names the ratio", async () => {
@@ -502,5 +499,33 @@ describe('a section at a tempo ratio (11-e-ii-g)', () => {
     );
     expect(slowed.doc.bpm).toBe(95);
     expect(slowed.summary).toContain('tempo down to 95 bpm, the top of 4/4 at ×2');
+  });
+
+  it('set_playback plays a section at a ratio, bringing the tempo into its range', async () => {
+    seed(ratioPayload(120, 0.5));
+    const data = dataOf(await runCap(new SetPlaybackCapability(), { section: 'A', tempoRatio: 2 }));
+    const after = decoded(data.doc);
+    expect(after.A.tempoRatio).toBe(2);
+    // A at ×2 in 4/4 holds the break to 95
+    expect(after.bpm).toBe(95);
+    expect(data.summary).toBe('Playback: section A at ×2, 95 bpm');
+
+    const back = dataOf(await runCap(new SetPlaybackCapability(), { section: 'A', tempoRatio: 1 }));
+    expect(decoded(back.doc).A).not.toHaveProperty('tempoRatio');
+  });
+
+  it('set_playback refuses a ratio without a section, a section the break lacks, and a tempo under the floor', async () => {
+    const cap = new SetPlaybackCapability();
+    expect(() => cap.validate({ tempoRatio: 2 })).toThrow();
+    seed(ratioPayload(120, 0.5));
+    expect(await runCap(cap, { section: 'Q', tempoRatio: 2 })).toMatchObject({
+      success: false,
+      error: { code: 'no_section' },
+    });
+    // B at ×½ holds the break to 100 or more
+    expect(await runCap(cap, { bpm: 80 })).toMatchObject({
+      success: false,
+      error: { code: 'tempo_out_of_range' },
+    });
   });
 });

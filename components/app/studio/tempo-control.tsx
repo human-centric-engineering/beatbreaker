@@ -86,7 +86,7 @@ export function TempoControl({
     now.current = c.bpm;
   });
   const nudge = (by: number) => {
-    now.current = Math.min(Math.max(Math.round(now.current) + by, 50), c.bpmCeiling);
+    now.current = Math.min(Math.max(Math.round(now.current) + by, c.bpmFloor), c.bpmCeiling);
     c.setBpm(now.current);
   };
   /* The bpm counts quarters in every meter. Where the beat you feel is some
@@ -147,7 +147,7 @@ export function TempoControl({
       {slider ? (
         <input
           type="range"
-          min={50}
+          min={c.bpmFloor}
           max={c.bpmCeiling}
           value={c.bpm}
           onChange={(e) => c.setBpm(Number(e.target.value))}

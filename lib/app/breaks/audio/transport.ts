@@ -193,6 +193,12 @@ const LOOKAHEAD = 0.13;
 /** How often the scheduler wakes. Comfortably inside the lookahead. */
 const TICK_MS = 25;
 
+/** The slowest tempo the Studio plays anything at. */
+export const TEMPO_FLOOR = 50;
+
+/** The fastest any meter goes: eighths, counted at their real tempo. */
+export const TEMPO_TOP = 380;
+
 /**
  * The clock counts sixteenths. In a compound meter the pulse you feel is a
  * dotted quarter — six of those sixteenths — so the clock has to run half again
@@ -205,7 +211,7 @@ const TICK_MS = 25;
 export function maxBpm(meterKey: string): number {
   const m = meterOf(meterKey);
   // eighth-note steps: fast swing, at the tempo it is counted in
-  if (isEighths(m)) return 380;
+  if (isEighths(m)) return TEMPO_TOP;
   const pi = pulseInfo(m);
   return pi?.steps === 6 ? 300 : 190;
 }
@@ -227,9 +233,25 @@ export function maxBpmOf(sections: readonly (SectionPace | null | undefined)[]):
   const tops = sections.flatMap((x) => {
     if (!x) return [];
     if (typeof x === 'string') return [maxBpm(x)];
-    return [Math.floor(maxBpm(x.meter) / ratioOf(x))];
+    /* A section at ×½ doubles its meter's ceiling, but never past the
+       fastest any meter goes: every section at ×½ in 12/8 would otherwise let
+       the break to 600, past what a share code or a save takes. */
+    return [Math.min(Math.floor(maxBpm(x.meter) / ratioOf(x)), TEMPO_TOP)];
   });
   return tops.length ? Math.min(...tops) : maxBpm(M44.label);
+}
+
+/**
+ * The bottom tempo of a break: {@link TEMPO_FLOOR}, raised so no section plays
+ * under it — a section at ×½ holds the break to 100 or more, as one at ×2
+ * holds it to half its ceiling.
+ */
+export function minBpmOf(sections: readonly (SectionPace | null | undefined)[]): number {
+  const slowest = Math.min(
+    1,
+    ...sections.map((x) => (x && typeof x !== 'string' ? ratioOf(x) : 1))
+  );
+  return Math.ceil(TEMPO_FLOOR / slowest);
 }
 
 export class Transport {

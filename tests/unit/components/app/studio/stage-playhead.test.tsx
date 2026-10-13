@@ -97,6 +97,7 @@ beforeEach(() => {
     setBpm: vi.fn(),
     quickTempo: vi.fn(),
     bpmCeiling: 200,
+    bpmFloor: 50,
     playing: false,
     togglePlay: vi.fn(),
     loops: 0,

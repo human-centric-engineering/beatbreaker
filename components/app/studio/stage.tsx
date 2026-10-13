@@ -81,9 +81,9 @@ function BasedOn({ credit }: { credit: PatternSharing['basedOn'] }) {
 
 /** A section's tempo against the break's: half, the same, double. */
 const TEMPO_CHOICES: Segment<TempoRatio | 1>[] = [
-  { value: 0.5, face: '×½', title: "Half the break's tempo" },
-  { value: 1, face: '×1', title: "The break's tempo" },
-  { value: 2, face: '×2', title: "Double the break's tempo" },
+  { value: 0.5, face: ratioLabel(0.5), title: "Half the break's tempo" },
+  { value: 1, face: ratioLabel(1), title: "The break's tempo" },
+  { value: 2, face: ratioLabel(2), title: "Double the break's tempo" },
 ];
 
 /**

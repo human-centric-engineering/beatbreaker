@@ -3978,7 +3978,7 @@ fidelity list, where a song's parts are different grooves in one meter.
   (×½, ×1, ×2), one Undo, the tempo brought down if the new ceiling is lower.
   Regenerate keeps a section's ratio; Build B copies A's, as it copies its meter.
 - **BeatBuddy:** `get_pattern` reports each section's ratio; `write_bars`
-  keeps the ratio of a section it rewrites. Setting one is the Studio's.
+  keeps the ratio of a section it rewrites; `set_playback` sets one.
 - **The songs:** Angel of Death (the skank at full speed → the break at ×½)
   and Landlord (the slow section → the fast one at ×2) merge, their old keys
   aliases. **Llegué llegué does not:** it was never split. It is one entry, the
@@ -4010,6 +4010,15 @@ reconciled, with these found on the way:
   became one, Angel of Death's two became one, and the weighted pick moved).
 - **Not checked in a browser** (no Chrome): the tempo picker and the stave's
   `B ×2` are covered by the Stage test.
+- **From the code review:** the ceiling stops at 380 (two sections at ×½ in
+  12/8 reached 600, past the wire's 400), and a floor answers it — 100 with a
+  section at ×½, so none plays under 50 (`minBpmOf`); `+ Section` passes the
+  stage's ratio for its song, else ×1, never the catalogue's under one you
+  changed; a section built from another takes its ratio as it takes its
+  meter, BeatBuddy's new section too; a section naming no range of its own
+  has the song's moved to its speed before `songBpm` divides it; and
+  `set_playback` sets a section's ratio (`section`, `tempoRatio`), so it is
+  not the Studio's alone (CLAUDE.md, API-first).
 
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
