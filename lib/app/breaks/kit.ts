@@ -272,10 +272,16 @@ const IMPLEMENTED_ENGINES: ReadonlySet<KitEngine> = new Set<KitEngine>([
  * a kit key out of localStorage: once an admin deleted a kit, picking any style
  * wrote that dead key into state, the picker showed nothing selected, and
  * playback fell through to the synthesised fallback.
+ *
+ * A drum machine also has to be one `DRIFT_MAP` knows: a `drift` row naming a
+ * machine not built here would otherwise play the synth in its place.
  */
 export function kitIsPlayable(kit: Kit | undefined | null): boolean {
   if (!kit) return false;
-  return IMPLEMENTED_ENGINES.has(kitEngine(kit));
+  const engine = kitEngine(kit);
+  // a drum machine plays only if it is one of the machines built
+  if (engine === 'drift') return kit.machine !== undefined && Object.hasOwn(DRIFT_MAP, kit.machine);
+  return IMPLEMENTED_ENGINES.has(engine);
 }
 
 /**

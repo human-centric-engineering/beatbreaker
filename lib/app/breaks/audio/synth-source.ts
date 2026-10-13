@@ -408,10 +408,13 @@ export class SynthSource implements SampleSource {
     // re-rendering: the live voice is where the knob is now
     if (this.wanted.has(slot.voice)) return false;
     const rendered = this.voices.get(slot.voice)?.slots;
-    // a slot this machine does not have plays its `fall`, as a pack's does
+    const kit = engine.kit;
+    const machine = kitEngine(kit) === 'drift' ? kit?.machine : undefined;
+    /* A slot this machine does not have plays its `fall`, as a pack's does.
+       One that did not render — the synth's, or a machine's own — plays live. */
     const layers = rendered?.[slotId]?.length
       ? rendered[slotId]
-      : slot.fall
+      : slot.fall && machine !== undefined && !machineHas(machine, slotId)
         ? rendered?.[slot.fall]
         : undefined;
     if (!layers?.length) return false;
@@ -419,8 +422,7 @@ export class SynthSource implements SampleSource {
     const layer = nearestLayer(layers, vel);
     const i = pickTake(layer.takes.length, this.lastTake.get(slotId), engine.rand);
     this.lastTake.set(slotId, i);
-    const kit = engine.kit;
-    const gain = kitEngine(kit) === 'drift' ? machineGain(kit?.trim, engine.knobs(slot.voice)) : 1;
+    const gain = machine !== undefined ? machineGain(kit?.trim, engine.knobs(slot.voice)) : 1;
     const played = engine.playTake(t, layer.takes[i], (vel / layer.v) * gain, slot.voice);
     if (slotId === 'hOpen' || slotId === 'hHalf') engine.noteHatTail(played);
     return true;

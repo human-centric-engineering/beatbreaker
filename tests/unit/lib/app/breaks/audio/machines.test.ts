@@ -187,10 +187,13 @@ describe('MACHINE_VOICES', () => {
     const { d, ctx } = drawInto();
     MACHINE_VOICES['808.ch'].draw(d, 0, 1, { tune: 0.5, decay: 0.5, tone: 0.5, colour: 0.5 });
     const osc = nodesOfKind<FakeOscillatorNode>(ctx, 'oscillator');
-    expect(osc).toHaveLength(12); // six, into each of two bandpasses
+    expect(osc).toHaveLength(6); // six, each into both bandpasses
     expect(osc.every((o) => o.type === 'square')).toBe(true);
+    for (const o of osc) {
+      expect(o.outputs.map((b) => (b as { kind?: string }).kind)).toEqual(['biquad', 'biquad']);
+    }
     const size = 0.85 + (1.2 - 0.85) * 0.5;
-    expect(osc.slice(0, 6).map((o) => o.frequency.value)).toEqual(
+    expect(osc.map((o) => o.frequency.value)).toEqual(
       [205.3, 304.4, 369.6, 522.7, 540, 800].map((f) => f * size)
     );
   });
@@ -206,10 +209,31 @@ describe('MACHINE_VOICES', () => {
     }
   });
 
-  it("plays the 606's one cymbal on the crash lane", () => {
+  it("plays the 606's one cymbal on the crash lane, with no hat tail for the next hat to choke", () => {
     const { d, sent } = drawInto();
-    drawMachineSlot(d, '606', 'c', 0, 1, { tune: 0.5, decay: 0.5, tone: 0.5, colour: 0.5 });
+    const P = { tune: 0.5, decay: 0.5, tone: 0.5, colour: 0.5 };
+    expect(drawMachineSlot(d, '606', 'c', 0, 1, P)).toBeNull();
     expect(sent.map((s) => s.voice)).toEqual(['c']);
+  });
+
+  it('drives the kick at full level and turns it down after, so Level does not change its drive', () => {
+    const P = { tune: 0.5, decay: 0.5, tone: 0.5, colour: 0.5 };
+    const shaped = (vel: number) => {
+      const { d, ctx, sent } = drawInto();
+      MACHINE_VOICES['808.bd'].draw(d, 0, vel, P);
+      const out = sent[0].node as unknown as FakeGainNode;
+      const sine = nodesOfKind<FakeOscillatorNode>(ctx, 'oscillator')[0];
+      const env = sine.outputs[0] as FakeGainNode;
+      return {
+        out: out.gain.value,
+        peak: env.gain.events.map((e) => (e as { value: number }).value),
+      };
+    };
+    const loud = shaped(1);
+    const soft = shaped(0.3);
+    expect(soft.out).toBeCloseTo(0.3, 9);
+    expect(loud.out).toBeCloseTo(1, 9);
+    expect(soft.peak).toEqual(loud.peak);
   });
 
   it('reads a missing knob as the middle, and a tom with no decay as the synth tom does', () => {
@@ -249,6 +273,24 @@ describe('the drum-machine kits', () => {
     for (const kit of [TR808, TR909, TR606, LINN]) expect(kitIsPlayable(kit)).toBe(true);
   });
 
+  it('are not playable naming a machine not built here, or none', () => {
+    expect(kitIsPlayable({ ...TR808, machine: '707' })).toBe(false);
+    expect(kitIsPlayable({ ...TR808, machine: undefined })).toBe(false);
+    expect(kitIsPlayable({ ...TR808, machine: 'toString' })).toBe(false);
+  });
+
+  it('let a live 606 crash ring through the next hat — the cymbal is not a hat', () => {
+    const { audio, ctx } = engineWith(TR606, undefined, false);
+    const crash = recordNodes(ctx, () => audio.crash(1, 1));
+    const env = crash.find(
+      (n): n is FakeGainNode =>
+        n instanceof FakeGainNode && n.gain.events.some((e) => e.type === 'linearRampToValueAtTime')
+    );
+    const before = env?.gain.events.length;
+    audio.hat(1.125, 1);
+    expect(env?.gain.events.length).toBe(before);
+  });
+
   it("play the machine live, at its own knobs, before the renders land — not the synth's stand-in", () => {
     const { audio, ctx } = engineWith(TR808, undefined, false);
     const nodes = recordNodes(ctx, () => audio.kick(1, 1));
@@ -273,7 +315,7 @@ describe('the drum-machine kits', () => {
   it('fall back as a pack does: a foot hat to the closed hat, a rimshot to the synth', () => {
     const { audio, ctx } = engineWith(TR808, undefined, false);
     const foot = oscillators(recordNodes(ctx, () => audio.hat(1, 1, false, true)));
-    expect(foot).toHaveLength(12); // the 808's closed hat
+    expect(foot).toHaveLength(6); // the 808's closed hat: six squares, each into both bands
     const rim = oscillators(recordNodes(ctx, () => audio.snare(1, 1, false, false, true)));
     // the synthesised rimshot: the snare's six modes and two rim partials, at the stand-in's tune
     expect(rim).toHaveLength(8);

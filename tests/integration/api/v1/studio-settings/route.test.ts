@@ -80,7 +80,9 @@ function install() {
     { key: 'studio70', engine: 'synth' },
     { key: 'brush', engine: 'pack' },
     // a drum machine: playable since the machines were built (9-vi-e)
-    { key: 'tr808', engine: 'drift' },
+    { key: 'tr808', engine: 'drift', machine: '808' },
+    // a drum machine no model has been built for: listed, not playable
+    { key: 'tr707', engine: 'drift', machine: '707' },
   ] as never);
   vi.mocked(listStyles).mockResolvedValue([{ key: 'funk' }, { key: 'jazz' }] as never);
 
@@ -343,6 +345,7 @@ describe('PATCH', () => {
 
   it.each([
     ['kit', 'retired-kit'],
+    ['kit', 'tr707'],
     ['userKit', 'retired-kit'],
     ['startStyle', 'polka'],
   ])('refuses %s %s, which the catalogue cannot play, and writes nothing', async (field, key) => {

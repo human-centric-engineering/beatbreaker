@@ -101,16 +101,24 @@ function hiss(
 
 /** Soft saturation, for the colour knob: odd length, so silence stays silence. */
 function saturate(d: Draw, drive: number): WaveShaperNode {
+  const ws = d.ctx.createWaveShaper();
+  ws.curve = curveOf(Math.max(1, drive));
+  return ws;
+}
+
+/** The last curve made, kept: the drive is one knob, so hit after hit asks for the same one. */
+let lastCurve: { a: number; c: Float32Array<ArrayBuffer> } | null = null;
+
+function curveOf(a: number): Float32Array<ArrayBuffer> {
+  if (lastCurve?.a === a) return lastCurve.c;
   const n = 513;
   const c = new Float32Array(new ArrayBuffer(n * Float32Array.BYTES_PER_ELEMENT));
-  const a = Math.max(1, drive);
   for (let i = 0; i < n; i++) {
     const x = (i / (n - 1)) * 2 - 1;
     c[i] = Math.tanh(x * a) / Math.tanh(a);
   }
-  const ws = d.ctx.createWaveShaper();
-  ws.curve = c;
-  return ws;
+  lastCurve = { a, c };
+  return c;
 }
 
 /* ---- models ------------------------------------------------------------ */
@@ -142,25 +150,28 @@ function kick(tab: KickTable): MachineVoice {
     const len = log(tab.ring, knob(P, 'decay'));
     const tone = knob(P, 'tone');
     const sat = saturate(d, lin(tab.drive, knob(P, 'colour')));
-    // the ring and the click both go through the saturation, then out as one
+    /* The ring and the click both go through the saturation at full level,
+       then out at `vel` — which carries Level and trim live — as a render
+       drawn at 1 and played at its gain is, so the two drive it alike. */
     const into: Draw = {
       ...d,
       send: (node) => {
         node.connect(sat);
       },
     };
-    ring(into, t, { f, from: tab.from, drop: tab.drop, peak: vel, ring: len, voice: 'k' });
+    ring(into, t, { f, from: tab.from, drop: tab.drop, peak: 1, ring: len, voice: 'k' });
     const click = lin(tab.click, tone);
     if (click > 0.01) {
       hiss(into, t, {
         type: 'lowpass',
         f: log(tab.clickF, tone),
-        peak: vel * click,
+        peak: click,
         ring: 0.006,
         voice: 'k',
       });
     }
     const out = d.ctx.createGain();
+    out.gain.value = vel;
     sat.connect(out);
     d.send(out, 'k');
     return null;
@@ -282,7 +293,7 @@ function metalHat(tab: MetalTable, stroke: 'closed' | 'open'): MachineVoice {
     const g = mkEnv(d, t, vel * tab.peak, 0.0005, len);
     hp.connect(g);
     d.send(g, 'h');
-    tab.bands.forEach((band, i) => {
+    const bps = tab.bands.map((band, i) => {
       const bp = ctx.createBiquadFilter();
       bp.type = 'bandpass';
       bp.frequency.value = band;
@@ -291,15 +302,17 @@ function metalHat(tab: MetalTable, stroke: 'closed' | 'open'): MachineVoice {
       level.gain.value = i === 0 ? 1 - mix * 0.7 : 0.3 + mix * 0.7;
       bp.connect(level);
       level.connect(hp);
-      for (const f of METAL_808) {
-        const osc = ctx.createOscillator();
-        osc.type = 'square';
-        osc.frequency.value = f * size;
-        osc.connect(bp);
-        osc.start(t);
-        osc.stop(t + len + 0.05);
-      }
+      return bp;
     });
+    // the six squares once, each into both bands
+    for (const f of METAL_808) {
+      const osc = ctx.createOscillator();
+      osc.type = 'square';
+      osc.frequency.value = f * size;
+      for (const bp of bps) osc.connect(bp);
+      osc.start(t);
+      osc.stop(t + len + 0.05);
+    }
     return stroke === 'open' ? { g, end: t + len } : null;
   };
   return { draw, seconds };
@@ -432,7 +445,6 @@ interface TomTable {
   noise: number;
 }
 
-/** A tom: a ring with a pitch drop and a little noise. Its knobs are the synth's Hz and seconds (`SYNTH_ONLY`). */
 /** A tom's knobs, Hz and seconds, with the synth tom's defaults for one missing. */
 function tomKnobs(P: VoiceParams): { tune: number; decay: number } {
   const ok = (v: number | undefined): v is number =>
@@ -440,6 +452,7 @@ function tomKnobs(P: VoiceParams): { tune: number; decay: number } {
   return { tune: ok(P.tune) ? P.tune : 90, decay: ok(P.decay) ? P.decay : 0.5 };
 }
 
+/** A tom: a ring with a pitch drop and a little noise. Its knobs are the synth's Hz and seconds (`SYNTH_ONLY`). */
 function tom(tab: TomTable): MachineVoice {
   const seconds = (P: VoiceParams) => tomKnobs(P).decay * tab.ring + PAST;
   const draw: MachineVoice['draw'] = (d, t, vel, P) => {
@@ -595,11 +608,17 @@ const TOM_909 = (mult: number): TomTable => ({
   noise: 0.3,
 });
 
-/** The 606's cymbal, on whichever lane plays it. */
+/**
+ * The 606's cymbal, on the crash lane. Drawn as an open hat, but it is not
+ * one: no tail, so the next hat does not choke it.
+ */
 function asCrash(voice: MachineVoice): MachineVoice {
   return {
     seconds: voice.seconds,
-    draw: (d, t, vel, P) => voice.draw({ ...d, send: (n, _v, e) => d.send(n, 'c', e) }, t, vel, P),
+    draw: (d, t, vel, P) => {
+      voice.draw({ ...d, send: (n, _v, e) => d.send(n, 'c', e) }, t, vel, P);
+      return null;
+    },
   };
 }
 

@@ -347,7 +347,7 @@ export class BreakAudio {
     if (!SYNTH_ONLY[voice] && kitEngine(this.kit) !== 'synth') {
       return SAMPLE_STAND_IN[voice];
     }
-    return this.sound?.[voice] ?? (this.kit ?? SYNTH_FALLBACK)[voice as 'k'];
+    return this.knobs(voice);
   }
 
   /**
