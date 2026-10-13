@@ -94,9 +94,12 @@ let nextNodeId = 1;
 export class FakeAudioNode {
   readonly id = nextNodeId++;
   readonly outputs: FakeAudioNode[] = [];
+  /** Every connection with its output and input index, for the channel splitter and merger. */
+  readonly links: Array<{ dest: FakeAudioNode; output: number; input: number }> = [];
 
-  connect(dest: FakeAudioNode): FakeAudioNode {
+  connect(dest: FakeAudioNode, output = 0, input = 0): FakeAudioNode {
     this.outputs.push(dest);
+    this.links.push({ dest, output, input });
     return dest;
   }
 
@@ -167,6 +170,20 @@ export class FakeWaveShaperNode extends FakeAudioNode {
 export class FakeStereoPannerNode extends FakeAudioNode {
   readonly kind = 'panner';
   readonly pan = new FakeAudioParam(0);
+}
+
+export class FakeChannelSplitterNode extends FakeAudioNode {
+  readonly kind = 'splitter';
+  constructor(readonly numberOfOutputs: number) {
+    super();
+  }
+}
+
+export class FakeChannelMergerNode extends FakeAudioNode {
+  readonly kind = 'merger';
+  constructor(readonly numberOfInputs: number) {
+    super();
+  }
 }
 
 export class FakeConvolverNode extends FakeAudioNode {
@@ -245,7 +262,7 @@ export class FakeAudioContext {
   static instances: FakeAudioContext[] = [];
 
   currentTime = 0;
-  readonly sampleRate = 44100;
+  readonly sampleRate: number;
   state: 'running' | 'suspended' | 'closed' = 'running';
   readonly destination = new FakeAudioNode();
   /** Every node this context has created, in creation order. */
@@ -254,10 +271,11 @@ export class FakeAudioContext {
   /** When true, the next close() rejects even though it still tears the context down. */
   closeShouldReject = false;
 
-  constructor() {
+  constructor(sampleRate = 44100) {
     if (FakeAudioContext.throwOnConstruct) {
       throw new Error('no audio hardware available');
     }
+    this.sampleRate = sampleRate;
     FakeAudioContext.instances.push(this);
   }
 
@@ -302,6 +320,14 @@ export class FakeAudioContext {
     return this.track(new FakeOscillatorNode());
   }
 
+  createChannelSplitter(outputs = 6): FakeChannelSplitterNode {
+    return this.track(new FakeChannelSplitterNode(outputs));
+  }
+
+  createChannelMerger(inputs = 6): FakeChannelMergerNode {
+    return this.track(new FakeChannelMergerNode(inputs));
+  }
+
   resume(): Promise<void> {
     this.state = 'running';
     return Promise.resolve();
@@ -318,6 +344,54 @@ export class FakeAudioContext {
       return Promise.reject(new Error('close() failed'));
     }
     return Promise.resolve();
+  }
+}
+
+/**
+ * A fake `OfflineAudioContext`: the graph is recorded as a live one is, and
+ * `startRendering()` hands back a buffer of the length asked for whose every
+ * channel is a constant 0.5 for its first half and silence after, so a caller that
+ * trims a render's silent end has one to trim.
+ *
+ * `hold` keeps every render pending until {@link release}, for testing what
+ * plays while a render is on its way. Every one constructed is in `made`, and
+ * in `FakeAudioContext.instances` too, as a subclass.
+ */
+export class FakeOfflineAudioContext extends FakeAudioContext {
+  static made: FakeOfflineAudioContext[] = [];
+  static hold = false;
+  private static held: Array<() => void> = [];
+
+  readonly length: number;
+  readonly numberOfChannels: number;
+
+  constructor(numberOfChannels: number, length: number, sampleRate: number) {
+    super(sampleRate);
+    this.numberOfChannels = numberOfChannels;
+    this.length = length;
+    FakeOfflineAudioContext.made.push(this);
+  }
+
+  startRendering(): Promise<FakeAudioBuffer> {
+    const out = new FakeAudioBuffer(this.numberOfChannels, this.length, this.sampleRate);
+    for (let c = 0; c < this.numberOfChannels; c++) {
+      out.getChannelData(c).fill(0.5, 0, Math.floor(this.length / 2));
+    }
+    if (!FakeOfflineAudioContext.hold) return Promise.resolve(out);
+    return new Promise((resolve) => FakeOfflineAudioContext.held.push(() => resolve(out)));
+  }
+
+  /** Finish every held render. */
+  static release(): void {
+    const held = FakeOfflineAudioContext.held;
+    FakeOfflineAudioContext.held = [];
+    for (const finish of held) finish();
+  }
+
+  static reset(): void {
+    FakeOfflineAudioContext.made.length = 0;
+    FakeOfflineAudioContext.hold = false;
+    FakeOfflineAudioContext.held = [];
   }
 }
 

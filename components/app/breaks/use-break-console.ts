@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { BreakAudio, SourceStack } from '@/lib/app/breaks/audio/engine';
 import { MidiOut } from '@/lib/app/breaks/audio/midi-out';
 import { PackSource } from '@/lib/app/breaks/audio/packs';
+import { SynthSource } from '@/lib/app/breaks/audio/synth-source';
 import { YourSampleSource } from '@/lib/app/breaks/audio/your-samples';
 import {
   Transport,
@@ -2048,7 +2049,9 @@ export function useBreakConsole(
     packs.usePercSamples = percSamplesRef.current;
     packsRef.current = packs;
     yoursRef.current = yours;
-    audio.samples = new SourceStack([packs, yours]);
+    /* A synthesised kit is a third, rendered ahead (9-vi-d): its voices play
+       live until their renders land. */
+    audio.samples = new SourceStack([packs, yours, new SynthSource()]);
     audio.setPanView(panViewRef.current);
     audioRef.current = audio;
     const midi = new MidiOut();

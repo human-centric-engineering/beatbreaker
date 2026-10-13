@@ -18,6 +18,16 @@ release process.
 
 ### Added
 
+- **Synthesised kits rendered ahead (BeatBreaker Phase 9-vi-d).** The five
+  synthesised kits play from takes rendered through an `OfflineAudioContext`
+  when the kit is picked: one source node a hit, and never the same take
+  twice. The voices move to `lib/app/breaks/audio/voices.ts`, drawn into a
+  `Draw` they are given, and `SynthSource` (`synth-source.ts`) is a third
+  `SampleSource`, played through `BreakAudio.playTake`, which keeps a
+  voice's own room send. A knob plays its voice live and re-renders it only,
+  debounced 150 ms. `lib/app/breaks/audio/offline.ts` is the one
+  `OfflineAudioContext` factory, shared with `encode-wav.ts`.
+
 - **The lineage map and drummer pages (BeatBreaker Phase 11-b).** Two public
   pages, `/drummers` (a server-rendered SVG map, time left to right and a
   band per family, with a list on phones) and `/drummers/[slug]` (a record,
