@@ -228,8 +228,9 @@ const unit: SeedUnit = {
         enableImageInput: true,
         enableDocumentInput: true,
         // Spend caps (§6 Guardrails). The per-user daily allowance is the
-        // stream route's, not a column.
-        maxCostPerTurnUsd: 0.1,
+        // stream route's, not a column. A drummer comparison costs
+        // $0.10–0.14 (D52).
+        maxCostPerTurnUsd: 0.2,
         monthlyBudgetUsd: 50,
         rateLimitRpm: 20,
         retentionDays: 90,

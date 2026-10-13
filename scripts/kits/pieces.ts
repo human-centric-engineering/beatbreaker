@@ -16,6 +16,7 @@
  */
 
 import { type KitSampleSlot, SLOT_BY_ID } from '@/lib/app/breaks/kit';
+import type { KitCredit } from '@/lib/app/breaks/kit-credits.generated';
 import type { Piece, Recipe, Role } from '@/scripts/kits/recipe';
 import type { SourceId } from '@/scripts/kits/sources';
 
@@ -116,4 +117,62 @@ export function packPieceMap(recipe: Recipe, manifest: Manifest): Record<string,
     for (const slot of Object.keys(piece.slots)) if (pack?.slots[slot]) map[slot] = key;
   }
   return map;
+}
+
+/**
+ * A combination's slots (9-vi-c): slot → the key of the piece that fills it.
+ *
+ * Each piece fills every slot it has, in order, so a later piece takes a slot
+ * from an earlier one. Throws on a key no recipe builds, and on a piece that
+ * ends up filling nothing, because either is a typo the seed should not ship.
+ */
+export function combinationPieceMap(
+  keys: readonly string[],
+  pieces: readonly DerivedPiece[]
+): Record<string, string> {
+  const byKey = new Map(pieces.map((p) => [p.key, p]));
+  const map: Record<string, string> = {};
+  for (const key of keys) {
+    const piece = byKey.get(key);
+    if (!piece) throw new Error(`No piece "${key}": no recipe builds it`);
+    for (const slot of Object.keys(piece.slots)) map[slot] = key;
+  }
+  const used = new Set(Object.values(map));
+  const lost = keys.filter((key) => !used.has(key));
+  if (lost.length)
+    throw new Error(`Pieces ${lost.join(', ')} fill no slot: a later piece took them all`);
+  return map;
+}
+
+/** One library's credit line, as a piece carries it: "Big Rusty Drums by Karoryfer Samples · CC0 1.0". */
+export function sourceCredit(c: KitCredit): string {
+  return `${c.title} by ${c.author} · ${c.licence}`;
+}
+
+/**
+ * A combination's credit: each source its pieces were recorded from, once,
+ * in the order they first appear, with the notice a source asks for.
+ */
+export function combinationCredit(
+  keys: readonly string[],
+  pieces: readonly DerivedPiece[],
+  credits: readonly KitCredit[]
+): string {
+  const byKey = new Map(pieces.map((p) => [p.key, p]));
+  const sources = [
+    ...new Set(
+      keys.map((key) => {
+        const piece = byKey.get(key);
+        // a key left out here would be a library left out of the credit
+        if (!piece) throw new Error(`No piece "${key}": no recipe builds it`);
+        return piece.source;
+      })
+    ),
+  ];
+  const lines = sources.map((id) => {
+    const c = credits.find((credit) => credit.id === id);
+    if (!c) throw new Error(`No credit for source "${id}"`);
+    return `${sourceCredit(c)}${c.notice ? `. ${c.notice.replace(/\.$/, '')}` : ''}`;
+  });
+  return `${lines.join('. ')}. Mixed to mono, trimmed and re-encoded for the web.`;
 }

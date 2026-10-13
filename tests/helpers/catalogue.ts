@@ -1,4 +1,4 @@
-import { KIT_GROUP_LABELS, kitEngine, kitGroups } from '@/lib/app/breaks/kit';
+import { COMBINATIONS_GROUP, KIT_GROUP_LABELS, kitEngine, kitGroups } from '@/lib/app/breaks/kit';
 import { type LibraryItem, patternFromLibrary } from '@/lib/app/breaks/library';
 import { packPattern } from '@/lib/app/breaks/share';
 import type {
@@ -8,7 +8,7 @@ import type {
   CatalogueStyle,
   StudioCatalogue,
 } from '@/lib/app/breaks/catalogue/types';
-import { KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
+import { COMBINATIONS, KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { RUDIMENTS } from '@/prisma/seeds/app-beatbreaker/data/rudiments';
 import { STYLES, STYLE_GROUPS } from '@/prisma/seeds/app-beatbreaker/data/styles';
@@ -80,8 +80,27 @@ export function testKit(key: string): CatalogueKit {
   };
 }
 
+/** A combination (9-vi-c), with its pans but no recordings, as {@link testKit} gives a pack kit. */
+export function testCombination(key: string): CatalogueKit {
+  const combination = COMBINATIONS[key];
+  if (!combination) throw new Error(`No such combination in the seed data: ${key}`);
+  const { label, hint, engine: _engine, pieces: _pieces, pan, ...params } = combination;
+  return {
+    key,
+    label,
+    hint,
+    engine: 'pack',
+    group: COMBINATIONS_GROUP,
+    samples: pan ? { pan } : {},
+    ...params,
+  };
+}
+
 export function testKits(): Record<string, CatalogueKit> {
-  return Object.fromEntries(Object.keys(KITS).map((key) => [key, testKit(key)]));
+  return Object.fromEntries([
+    ...Object.keys(KITS).map((key) => [key, testKit(key)] as const),
+    ...Object.keys(COMBINATIONS).map((key) => [key, testCombination(key)] as const),
+  ]);
 }
 
 /** The famous breaks, as documents — built exactly as the seed builds them. */

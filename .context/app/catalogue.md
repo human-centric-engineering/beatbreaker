@@ -422,7 +422,7 @@ one twice.
 
 `prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 82 styles (62 genres and 20 drummers), two
 libraries — 47 famous breaks (`data/library.ts`) and 40 rudiments
-(`data/rudiments.ts`, Phase 10) — and 24 kits. Its data lives beside it under `data/`, and
+(`data/rudiments.ts`, Phase 10) — 24 kits and six combinations (9-vi-c). Its data lives beside it under `data/`, and
 **only that seed imports it**.
 
 - Upserts by key, so **re-seeding is a no-op**. (The runner also skips a unit

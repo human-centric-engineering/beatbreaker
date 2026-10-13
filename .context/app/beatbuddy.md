@@ -187,10 +187,11 @@ disagree.
   are not in the tables, so the citation is the record, not its sources.
 - **A comparison turn is the dearest BeatBuddy makes.** "Who plays like Purdie
   but busier?" is `find_drummers` and two `get_drummer`s: $0.10–0.14 on
-  `gpt-4.1` in the live check (2026-10-13), over the seeded per-turn cap of
-  $0.10. Over the cap on the last iteration the answer still arrives with a
-  `budget_exceeded_per_turn` notice; over it mid-loop, the tool loop stops.
-  The payloads were cut for it (14 KB to 8.5 KB for the list); the cap is the
+  `gpt-4.1` in the live check (2026-10-13), so the seeded per-turn cap is
+  $0.20 (D52). Over the cap on the last iteration the answer still arrives
+  with a `budget_exceeded_per_turn` notice; over it mid-loop, the tool loop
+  stops. The payloads were cut for it (14 KB to 8.5 KB for the list). The
+  seed only sets the cap on a new install; on an existing one it is the
   admin's (`/admin/orchestration/agents`).
 - **Every mutating tool goes through `editWorkspace()`** (`edit.ts`): read the
   workspace, apply the edit, hold the result to `sharePayloadSchema`, write if

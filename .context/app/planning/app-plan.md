@@ -3259,6 +3259,53 @@ cross-stick, `sCross` drops and the kit falls back to its synthesised voice.
 - **The owner A/B-listens against a recording of each real machine.** That
   recording is played on the owner's side and is never shipped.
 
+**9-vi-c reconciled, 2026-10-13 (branch `phase-9-vi-c`).** Read against the
+tree at `d4bb680d`:
+
+- **A combination is a recorded kit that names no pack.** A slot that
+  names a piece resolves to that piece's folder, so `packs.ts` already plays
+  a kit whose slots come from several folders; only a slot with no folder
+  needs the kit's `pack`. A combination is an `engine: 'pack'` row with no
+  `pack`, every slot a piece, filed under `Combinations`, after the
+  recorded kits.
+- **Its data is a list of pieces, in order.** Each piece fills every slot it
+  has, and a later piece takes a slot from an earlier one: Crocell's crashes
+  then Salamander's china is Crocell's crashes and splash with that china.
+  `COMBINATIONS` in `data/kits.ts`; the seed turns the list into the slot
+  map, as `packPieceMap` does for a pack.
+- **Its credit is derived** from its pieces' sources (`KIT_CREDITS`), so it
+  cannot leave one out. A pack kit's stays hand-written.
+- **Pans are `samples.pan`,** which 9-v built and nothing seeded yet. Each
+  combination sets the lanes it means to move; the rest take `DEFAULT_PAN`.
+- **§7's table, against the pieces there are:**
+  - Studio rock and Big room share Big Rusty's kick and hats and Crocell's
+    crashes. They differ in the snare (DRS's against Big Rusty's, whose
+    rimshots are the accents), the ride, and the room: Studio rock is dry,
+    Big room has three times the send.
+  - Jazz brushes from DRS alone would be the DRS brushes kit again. It
+    takes Virtuosity's kick, a small jazz bass drum, under the DRS brushes.
+  - Boom bap takes Frankensnare's 20×12, as 9.19 decided, and Gogodze's
+    hats and cymbals.
+  - **There is no Salamander ride.** Salamander lends a splash, a china and
+    a crash. Garage takes SM Drums' thin 1960s ride instead, so it is not
+    the Unruly kit again.
+  - The toms, which §7 leaves out, are the kick's kit's.
+- **No style is re-pointed until the owner signs off by ear** (9.19). The
+  record is in `sound.md`.
+
+**9-vi-c built, 2026-10-13.** As reconciled. The owner listened and signed
+off all six the same day, and five became defaults: Studio rock (rock, funk
+rock; hard rock stays on Big Rusty, whose snare has the rimshots its hint
+promises), Funk & soul (funk, soul, Stax, New Orleans funk,
+Stubblefield, Jabo Starks, Purdie), Jazz brushes (brushes), Boom bap (boom
+bap, Dilla) and Big room (Bonham, power ballad). Garage is in the picker with
+no style yet. Funk losing its kit-less status moved one console test to
+reggae, which still has none.
+
+| PR     | What                                                                                       | Done when                                                                                                                                                                                                                                      |
+| ------ | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 9-vi-c | Six combinations as system kits: pieces, pans, derived credits, the `Combinations` heading | Seed tests: every piece a combination names exists and fills a slot; each plays only piece slots, from more than one folder; its credit names every source; the picker files the six under `Combinations`. Owner sign-off by ear in `sound.md` |
+
 **Not in Phase 9:** cymbal chokes (grabs), crash 2 as a separate lane
 rather than a value, and rolls longer than one step. See `sound-plan.md` §10.
 
@@ -4063,8 +4110,7 @@ reconciled, with these found on the way:
 - **A comparison costs $0.10–0.14**, over the seeded $0.10 per-turn cap,
   which on the last iteration only warns but mid-loop stops the tool loop.
   The list's summaries were cut to their first sentence (14 KB to 8.5 KB) and
-  relations to one line each; the cap itself is the owner's call (still
-  open, below).
+  relations to one line each; the cap was then raised to $0.20 (D52).
 - **Landlord plays at 100**, the fast section at 200 (the record's 190–200).
   In eighths, one figure (snare on every "and", kicks on 1, 2 and 3) left one
   empty eighth where the critic wants two, a rule it met in sixteenths only
@@ -4455,28 +4501,28 @@ already cascade and already export.
 
 ### Decided — 2026-10-13
 
-| #   | Decision                        | Outcome                                                                                                                                                                                                                                              |
-| --- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| D51 | How BeatBuddy reads the records | **Two read tools over the lineage tables, not a knowledge base.** Revises D48's last sentence. Twenty records need no retrieval; a vector store needs an embedding job and loses the confidence and the masked-persona rule the tables already keep. |
+| #   | Decision                        | Outcome                                                                                                                                                                                                                                                     |
+| --- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D51 | How BeatBuddy reads the records | **Two read tools over the lineage tables, not a knowledge base.** Revises D48's last sentence. Twenty records need no retrieval; a vector store needs an embedding job and loses the confidence and the masked-persona rule the tables already keep.        |
+| D52 | BeatBuddy's per-turn cost cap   | **Raise it to $0.20.** A drummer comparison (11-f) costs $0.10–0.14 on `gpt-4.1`, and crossing the cap mid-turn stops the answer. The monthly budget still bounds the total. The seed's value only reaches a new install; an existing one is an admin edit. |
 
 ### Still open
 
 Recommendation first in each case. None blocks Phases 0–4.
 
-| #   | Decision                                                                | Recommendation                                                                                                                                                                                                                                              | Needed by |
-| --- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| D4  | BeatBuddy's daily allowance                                             | **30 turns/day**, tuned after a week of real cost data.                                                                                                                                                                                                     | Phase 7   |
-| D7  | Who reviews Privacy and Terms, and what is the minimum age?             | Owner to arrange. Community features, third-party embeds and model-provider data flows make a real review worth having. 13+ or 16+ depending on the jurisdictions served.                                                                                   | launch    |
-| D8  | Takes — build, defer or drop?                                           | **Defer.** Video/audio storage, consent and moderation are a product of their own. Leave the table dormant and documented. (Reference links cover "here is a video of this pattern" without BeatBreaker hosting any video.)                                 | —         |
-| D9  | Licence on published patterns                                           | A plain-language grant in the Terms — others may play, copy and build on with credit — rather than a named Creative Commons licence, unless the owner wants patterns reusable outside BeatBreaker.                                                          | Phase 6   |
-| D10 | Famous-breaks library: keep song titles and artist credits as they are? | **Keep**, framed as study versions credited to the drummers, with a contact route for corrections and objections. Short rhythmic figures named for study are normal practice in drum education; still worth one conversation with whoever reviews D7.       | launch    |
-| D12 | More link providers (Apple Music, Bandcamp, SoundCloud, Drumeo…)?       | **Not at launch.** Each is one more entry in the parser, the CSP and the privacy policy; add on demand.                                                                                                                                                     | —         |
-| D15 | How a native app signs in                                               | Bearer tokens rather than cookies: better-auth's bearer plugin, or Sunrise's self-service API keys if they fit a per-device login. Until then, keep every route free of cookie-only assumptions (D14).                                                      | native    |
-| D16 | Who may create and publish styles, libraries and kits                   | Users create private ones; publishing one follows the pattern rules of Phase 6 (username, moderation, reporting). A published style is used by reference to a version, so its author cannot change patterns that other people made from it.                 | §10 item  |
-| D33 | Which channel platforms at launch?                                      | The eight in 7B plus a personal website. Add on demand, like D12.                                                                                                                                                                                           |
-| D34 | Publishing practice sessions to Explore?                                | **Not yet** — link-sharing only. Publishing means moderation and a browse surface of their own; see §10.                                                                                                                                                    |
-| D52 | BeatBuddy's per-turn cost cap                                           | **Raise it to $0.20.** A drummer comparison (11-f) costs $0.10–0.14 on `gpt-4.1`, and crossing the cap mid-turn stops the answer. The monthly budget still bounds the total. The seed's value only reaches a new install; an existing one is an admin edit. | 11-f      |
-| D35 | Where production runs                                                   | **Render** (web, managed Postgres with backups, cron for the maintenance tick) + **Cloudflare R2** for samples + **Resend** + **Sentry**. Vercel ruled out: no private Blob, function duration and body caps against BeatBuddy. Owner confirms (spend).     | 8-v       |
+| #   | Decision                                                                | Recommendation                                                                                                                                                                                                                                          | Needed by |
+| --- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| D4  | BeatBuddy's daily allowance                                             | **30 turns/day**, tuned after a week of real cost data.                                                                                                                                                                                                 | Phase 7   |
+| D7  | Who reviews Privacy and Terms, and what is the minimum age?             | Owner to arrange. Community features, third-party embeds and model-provider data flows make a real review worth having. 13+ or 16+ depending on the jurisdictions served.                                                                               | launch    |
+| D8  | Takes — build, defer or drop?                                           | **Defer.** Video/audio storage, consent and moderation are a product of their own. Leave the table dormant and documented. (Reference links cover "here is a video of this pattern" without BeatBreaker hosting any video.)                             | —         |
+| D9  | Licence on published patterns                                           | A plain-language grant in the Terms — others may play, copy and build on with credit — rather than a named Creative Commons licence, unless the owner wants patterns reusable outside BeatBreaker.                                                      | Phase 6   |
+| D10 | Famous-breaks library: keep song titles and artist credits as they are? | **Keep**, framed as study versions credited to the drummers, with a contact route for corrections and objections. Short rhythmic figures named for study are normal practice in drum education; still worth one conversation with whoever reviews D7.   | launch    |
+| D12 | More link providers (Apple Music, Bandcamp, SoundCloud, Drumeo…)?       | **Not at launch.** Each is one more entry in the parser, the CSP and the privacy policy; add on demand.                                                                                                                                                 | —         |
+| D15 | How a native app signs in                                               | Bearer tokens rather than cookies: better-auth's bearer plugin, or Sunrise's self-service API keys if they fit a per-device login. Until then, keep every route free of cookie-only assumptions (D14).                                                  | native    |
+| D16 | Who may create and publish styles, libraries and kits                   | Users create private ones; publishing one follows the pattern rules of Phase 6 (username, moderation, reporting). A published style is used by reference to a version, so its author cannot change patterns that other people made from it.             | §10 item  |
+| D33 | Which channel platforms at launch?                                      | The eight in 7B plus a personal website. Add on demand, like D12.                                                                                                                                                                                       |
+| D34 | Publishing practice sessions to Explore?                                | **Not yet** — link-sharing only. Publishing means moderation and a browse surface of their own; see §10.                                                                                                                                                |
+| D35 | Where production runs                                                   | **Render** (web, managed Postgres with backups, cron for the maintenance tick) + **Cloudflare R2** for samples + **Resend** + **Sentry**. Vercel ruled out: no private Blob, function duration and body caps against BeatBuddy. Owner confirms (spend). | 8-v       |
 
 ---
 

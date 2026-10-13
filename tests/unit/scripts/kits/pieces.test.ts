@@ -15,9 +15,18 @@ import { describe, expect, it } from 'vitest';
 
 import { resolveKitSamples } from '@/lib/app/breaks/catalogue/pieces';
 import { type KitSampleSlot, slotLayers, slotTrim } from '@/lib/app/breaks/kit';
-import { KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
+import { KIT_CREDITS } from '@/lib/app/breaks/kit-credits.generated';
+import { COMBINATIONS, KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
 import type { Recipe } from '@/scripts/kits/recipe';
-import { type Manifest, derivePieces, packPieceMap, pieceKey } from '@/scripts/kits/pieces';
+import {
+  type Manifest,
+  combinationCredit,
+  combinationPieceMap,
+  derivePieces,
+  sourceCredit,
+  packPieceMap,
+  pieceKey,
+} from '@/scripts/kits/pieces';
 import { RECIPES } from '@/scripts/kits/recipes';
 
 const manifest = JSON.parse(
@@ -146,5 +155,71 @@ describe('every recorded kit as pieces', () => {
     expect(map.cChina).toBe('bigrusty-c');
     expect(map.cSplash).toBe('salamander-splash');
     expect(pieceKey('bigrusty', bigrusty.pieces[0])).toBe('bigrusty-k');
+  });
+});
+
+describe('combinationPieceMap', () => {
+  it('fills every slot of each piece, a later piece taking a slot from an earlier one', () => {
+    const map = combinationPieceMap(['crocell-c', 'salamander-china', 'bigrusty-k'], pieces);
+    expect(map).toEqual({
+      c: 'crocell-c',
+      c2: 'crocell-c',
+      cSplash: 'crocell-c',
+      cChina: 'salamander-china',
+      k: 'bigrusty-k',
+    });
+  });
+
+  it('refuses a key no recipe builds', () => {
+    expect(() => combinationPieceMap(['bigrusty-k', 'salamander-ride'], pieces)).toThrow(
+      /No piece "salamander-ride"/
+    );
+  });
+
+  it('refuses a piece whose every slot a later piece takes', () => {
+    // a typo'd order: the china first, then a crash set that has a china of its own
+    expect(() => combinationPieceMap(['salamander-china', 'crocell-c'], pieces)).toThrow(
+      /salamander-china fill no slot/
+    );
+  });
+
+  it('builds every shipped combination', () => {
+    for (const [key, combo] of Object.entries(COMBINATIONS)) {
+      expect(() => combinationPieceMap(combo.pieces, pieces), key).not.toThrow();
+    }
+  });
+});
+
+describe('combinationCredit', () => {
+  it('credits each library once, in the order its pieces first appear, with its notice', () => {
+    // gogodze-r is Big Rusty's ride on Gogodze's mic: its source is Big Rusty
+    const credit = combinationCredit(
+      ['gogodze-k', 'drs-s', 'gogodze-r', 'gogodze-h'],
+      pieces,
+      KIT_CREDITS
+    );
+    expect(credit).toBe(
+      'Gogodze Phu Vol II by Karoryfer Lecolds · CC0 1.0. ' +
+        'DRSKit by Lars and Deva Muldjord, DrumGizmo, on a kit lent by DRSDrums · CC BY 4.0. Drum samples provided by DrumGizmo.org. ' +
+        'Big Rusty Drums by Karoryfer Samples · CC0 1.0. ' +
+        'Mixed to mono, trimmed and re-encoded for the web.'
+    );
+  });
+
+  it('refuses a key no recipe builds, rather than leaving its library out', () => {
+    expect(() => combinationCredit(['bigrusty-k', 'drs-snare'], pieces, KIT_CREDITS)).toThrow(
+      /No piece "drs-snare"/
+    );
+  });
+
+  it('credits a library with the line its pieces carry', () => {
+    const drs = KIT_CREDITS.find((c) => c.id === 'drskit');
+    expect(drs && combinationCredit(['drs-k'], pieces, KIT_CREDITS)).toContain(sourceCredit(drs!));
+  });
+
+  it('refuses a source with no credit, rather than shipping a kit without one', () => {
+    expect(() => combinationCredit(['bigrusty-k'], pieces, [])).toThrow(
+      /No credit for source "bigrusty"/
+    );
   });
 });
