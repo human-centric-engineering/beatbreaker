@@ -178,23 +178,26 @@ describe('listDrummers', () => {
 });
 
 describe('findLineageSlug', () => {
-  it('takes a slug as typed, or a name slugged, without looking at names', async () => {
-    findFirstNode.mockResolvedValueOnce({ slug: 'horacio-hernandez' } as never);
+  it('takes an exact name first, any case, never a genre, a modelled drummer first', async () => {
+    findFirstNode.mockResolvedValueOnce({ slug: 'max-roach' } as never);
 
-    expect(await findLineageSlug('  Horacio Hernández ')).toBe('horacio-hernandez');
+    expect(await findLineageSlug('  MAX ROACH ')).toBe('max-roach');
     expect(findFirstNode.mock.calls[0][0]).toMatchObject({
-      where: { slug: { in: ['Horacio Hernández', 'horacio-hernandez'] } },
+      where: { kind: { not: 'style' }, label: { equals: 'MAX ROACH', mode: 'insensitive' } },
+      orderBy: [{ modelled: 'desc' }, { kind: 'asc' }, { slug: 'asc' }],
     });
+    // the name answered: the slug is not tried
     expect(findFirstNode).toHaveBeenCalledTimes(1);
   });
 
-  it('falls back to the name, any case, a modelled drummer first', async () => {
-    findFirstNode.mockResolvedValueOnce(null).mockResolvedValueOnce({ slug: 'max-roach' } as never);
+  it('falls back to the slug as typed, or the name slugged, never a genre', async () => {
+    findFirstNode
+      .mockResolvedValueOnce(null)
+      .mockResolvedValueOnce({ slug: 'horacio-hernandez' } as never);
 
-    expect(await findLineageSlug('MAX ROACH')).toBe('max-roach');
+    expect(await findLineageSlug('Horacio Hernández')).toBe('horacio-hernandez');
     expect(findFirstNode.mock.calls[1][0]).toMatchObject({
-      where: { label: { equals: 'MAX ROACH', mode: 'insensitive' } },
-      orderBy: [{ modelled: 'desc' }, { kind: 'asc' }],
+      where: { kind: { not: 'style' }, slug: { in: ['Horacio Hernández', 'horacio-hernandez'] } },
     });
   });
 

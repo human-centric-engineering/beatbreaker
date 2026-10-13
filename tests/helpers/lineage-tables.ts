@@ -15,20 +15,41 @@ const records = new Map<string, unknown>(
   corpus.drummers.map(({ record }) => [record.meta.id, record] as const)
 );
 
-/** `listDrummers()`: drummers only, modelled first, then by name. */
+const byCodePoint = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
+
+/**
+ * `listDrummers()`: drummers only, modelled first, then by name. The names
+ * sort by code point here and by the database's collation there, so a test
+ * may hold the modelled-first split but not the order of two names.
+ */
 export async function listDrummersFromModel(): Promise<DrummerEntry[]> {
   return graph.nodes
     .filter((n) => n.kind === 'drummer')
-    .sort((a, b) => Number(b.modelled) - Number(a.modelled) || a.label.localeCompare(b.label))
+    .sort((a, b) => Number(b.modelled) - Number(a.modelled) || byCodePoint(a.label, b.label))
     .map((node) => ({ node, record: records.get(node.id) ?? null }));
 }
 
-/** `findLineageSlug()`: the slug as typed or slugged, then the name. */
+/**
+ * `findLineageSlug()`, the same rules: never a genre; an exact name first (a
+ * modelled node, then by kind, then slug), then the slug as typed or slugged.
+ */
 export async function findSlugInModel(typed: string): Promise<string | null> {
   const t = typed.trim();
-  const bySlug = graph.nodes.find((n) => n.slug === t || n.slug === slugOf(t));
-  if (bySlug) return bySlug.slug;
-  return graph.nodes.find((n) => n.label.toLowerCase() === t.toLowerCase())?.slug ?? null;
+  if (!t) return null;
+  const people = graph.nodes.filter((n) => n.kind !== 'style');
+  const [byName] = people
+    .filter((n) => n.label.toLowerCase() === t.toLowerCase())
+    .sort(
+      (a, b) =>
+        Number(b.modelled) - Number(a.modelled) ||
+        byCodePoint(a.kind, b.kind) ||
+        byCodePoint(a.slug, b.slug)
+    );
+  if (byName) return byName.slug;
+  const [bySlug] = people
+    .filter((n) => n.slug === t || n.slug === slugOf(t))
+    .sort((a, b) => byCodePoint(a.slug, b.slug));
+  return bySlug?.slug ?? null;
 }
 
 /** `getLineageProfile()`, from the built graph. */

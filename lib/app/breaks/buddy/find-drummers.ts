@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import { type DrummerEntry, listDrummers } from '@/lib/app/lineage/data';
-import { readDrummerRecord } from '@/lib/app/lineage/record';
+import { type DrummerRecord, readDrummerRecord } from '@/lib/app/lineage/record';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
 import type {
   CapabilityContext,
@@ -60,15 +60,31 @@ function activeSpan(from: number | null, to: number | null): string | null {
   return to === null ? `${from}–` : `${from}–${to}`;
 }
 
-/** A summary's first sentence: twenty whole summaries cost a turn more than its cap. */
-function firstSentence(text: string | null): string | null {
+/** Words a full stop follows without ending a sentence: "Mr. Bungle", "c. 1940". */
+const ABBREVIATIONS = new Set(['mr', 'mrs', 'ms', 'dr', 'st', 'jr', 'sr', 'vs', 'c', 'ca', 'no']);
+
+/**
+ * A summary's first sentence: twenty whole summaries cost a turn more than its
+ * cap. A sentence ends at a stop followed by a capital, unless the word before
+ * it is an initial ("J.R. Robinson") or an abbreviation.
+ */
+export function firstSentence(text: string | null): string | null {
   if (text === null) return null;
-  const end = text.search(/[.!?](\s|$)/);
-  return end === -1 ? text : text.slice(0, end + 1);
+  for (const m of text.matchAll(/([\p{L}\p{N}]*)([.!?])\s+(?=\p{Lu})/gu)) {
+    const [, word, stop] = m;
+    if (stop === '.' && (word.length === 1 || ABBREVIATIONS.has(word.toLowerCase()))) continue;
+    return text.slice(0, m.index + word.length + 1);
+  }
+  return text;
 }
 
-function summarise({ node, record }: DrummerEntry): DrummerSummary {
-  const read = node.modelled ? readDrummerRecord(record) : null;
+/** A drummer with their record read once: both the match and the summary use it. */
+interface Read {
+  entry: DrummerEntry;
+  record: DrummerRecord | null;
+}
+
+function summarise({ entry: { node }, record }: Read): DrummerSummary {
   return {
     slug: node.slug,
     name: node.label,
@@ -78,36 +94,37 @@ function summarise({ node, record }: DrummerEntry): DrummerSummary {
     style: node.styleKey,
     genres: node.genres.map((g) => g.replace(/^style:/, '')),
     summary: firstSentence(node.summary),
-    descriptors: (read?.descriptors ?? []).slice(0, DESCRIPTORS),
+    descriptors: (record?.descriptors ?? []).slice(0, DESCRIPTORS),
   };
 }
 
-/** Everything a query word may match: the name, the style, the genres, the words and traits. */
-function haystack({ node, record }: DrummerEntry): string {
-  const read = node.modelled ? readDrummerRecord(record) : null;
-  return [
-    node.label,
-    node.styleKey ?? '',
-    ...node.genres,
-    ...node.tags,
-    node.summary ?? '',
-    ...(read?.descriptors ?? []),
-    ...(read?.traits.map((t) => t.label) ?? []),
-    ...(read?.from ?? []),
-  ]
-    .join(' ')
+/** Accents folded, lower case, split into words. */
+function words(text: string): string[] {
+  return text
     .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase();
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .split(/[^\p{L}\p{N}]+/u)
+    .filter(Boolean);
 }
 
-function words(query: string): string[] {
-  return query
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase()
-    .split(/[^a-z0-9]+/)
-    .filter(Boolean);
+/**
+ * Every word a query may match: the name, the style, the genres, the summary,
+ * the describing words and traits, where they are from.
+ */
+function vocabulary({ entry: { node }, record }: Read): string[] {
+  return words(
+    [
+      node.label,
+      node.styleKey ?? '',
+      ...node.genres.map((g) => g.replace(/^style:/, '')),
+      ...node.tags,
+      node.summary ?? '',
+      ...(record?.descriptors ?? []),
+      ...(record?.traits.map((t) => t.label) ?? []),
+      ...(record?.from ?? []),
+    ].join(' ')
+  );
 }
 
 export class FindDrummersCapability extends BaseCapability<Args, FindDrummersData> {
@@ -124,7 +141,7 @@ export class FindDrummersCapability extends BaseCapability<Args, FindDrummersDat
         query: {
           type: 'string',
           description:
-            'Optional. Words to match in the name, genres, style, summary and traits. Leave it out to list every drummer with a record.',
+            'Optional. Words to match in the name, genres, style, summary and traits; each matches the start of a word. Leave it out to list every drummer with a record.',
         },
       },
     },
@@ -136,23 +153,31 @@ export class FindDrummersCapability extends BaseCapability<Args, FindDrummersDat
     args: Args,
     _context: CapabilityContext
   ): Promise<CapabilityResult<FindDrummersData>> {
-    const all = await listDrummers();
-    const terms = words(args.query ?? '');
-    if (terms.length === 0) {
-      return this.success({ drummers: all.filter((d) => d.node.modelled).map(summarise) });
+    const all: Read[] = (await listDrummers()).map((entry) => ({
+      entry,
+      record: entry.node.modelled ? readDrummerRecord(entry.record) : null,
+    }));
+    const query = args.query ?? '';
+    if (!query) {
+      return this.success({
+        drummers: all.filter((d) => d.entry.node.modelled).map(summarise),
+      });
     }
+    /* Each term starts a word: "art" finds Art Blakey, not "heart". A query
+       with no word in it at all (punctuation alone) matches nothing. */
+    const terms = words(query);
     const hits = all.filter((d) => {
-      const text = haystack(d);
-      return terms.every((t) => text.includes(t));
+      const vocab = vocabulary(d);
+      return terms.length > 0 && terms.every((t) => vocab.some((w) => w.startsWith(t)));
     });
-    const modelled = hits.filter((d) => d.node.modelled);
-    const stubs = hits.filter((d) => !d.node.modelled).slice(0, STUBS);
     if (hits.length === 0) {
       return this.success({
         drummers: [],
-        note: `Nothing matched "${args.query}". Call find_drummers with no query to see every drummer with a record.`,
+        note: `Nothing matched "${query}". Call find_drummers with no query to see every drummer with a record.`,
       });
     }
+    const modelled = hits.filter((d) => d.entry.node.modelled);
+    const stubs = hits.filter((d) => !d.entry.node.modelled).slice(0, STUBS);
     return this.success({ drummers: [...modelled, ...stubs].map(summarise) });
   }
 }

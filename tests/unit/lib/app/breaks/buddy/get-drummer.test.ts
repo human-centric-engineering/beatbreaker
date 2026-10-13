@@ -87,6 +87,11 @@ describe('get_drummer', () => {
     expect([...roach.learnedFrom, ...roach.passedOnTo, ...roach.around].length).toBeGreaterThan(0);
   });
 
+  it('refuses a genre, which has no page, as it refuses a name nobody has', async () => {
+    const result = await get('Funk');
+    expect(result.error).toMatchObject({ code: 'unknown_drummer' });
+  });
+
   it('refuses a name it has no node for, pointing at find_drummers', async () => {
     const result = await get('Nobody Atall');
     expect(result.success).toBe(false);

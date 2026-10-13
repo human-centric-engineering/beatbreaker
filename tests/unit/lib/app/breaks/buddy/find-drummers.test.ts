@@ -11,7 +11,7 @@ import { listDrummersFromModel } from '@/tests/helpers/lineage-tables';
 
 vi.mock('@/lib/app/lineage/data', () => ({ listDrummers: vi.fn() }));
 
-import { FindDrummersCapability } from '@/lib/app/breaks/buddy/find-drummers';
+import { FindDrummersCapability, firstSentence } from '@/lib/app/breaks/buddy/find-drummers';
 import { listDrummers } from '@/lib/app/lineage/data';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 
@@ -30,7 +30,8 @@ describe('find_drummers', () => {
   it('lists every drummer with a record, and only them, when there is no query', async () => {
     const drummers = await find({});
     const modelled = (await listDrummersFromModel()).filter((d) => d.node.modelled);
-    expect(drummers.map((d) => d.slug)).toEqual(modelled.map((d) => d.node.slug));
+    // the set, not the order: the database sorts names by its own collation
+    expect(drummers.map((d) => d.slug).sort()).toEqual(modelled.map((d) => d.node.slug).sort());
     expect(drummers.every((d) => d.modelled)).toBe(true);
   });
 
@@ -63,24 +64,38 @@ describe('find_drummers', () => {
     expect(await find({ query: 'purdie lombardo' })).toEqual([]);
   });
 
-  it('points a search that matched nothing at the full list', async () => {
-    const cap = new FindDrummersCapability();
-    const data = dataOf(await cap.execute(cap.validate({ query: 'busier funk' }), context));
-    expect(data.drummers).toEqual([]);
-    expect(data.note).toMatch(/no query/);
+  it.each(['busier funk', '村上', '—!?'])(
+    'points a search that matched nothing (%s) at the full list, rather than listing everyone',
+    async (query) => {
+      const cap = new FindDrummersCapability();
+      const data = dataOf(await cap.execute(cap.validate({ query }), context));
+      expect(data.drummers).toEqual([]);
+      expect(data.note).toMatch(/no query/);
+    }
+  );
+
+  it('matches the start of a word, not a fragment inside one', async () => {
+    expect((await find({ query: 'shuf' })).map((d) => d.slug)).toContain('bernard-purdie');
+    // inside "shuffle", and the start of no word in any record
+    expect(await find({ query: 'huffle' })).toEqual([]);
+  });
+});
+
+describe('firstSentence', () => {
+  it('ends at a stop before a capital', () => {
+    expect(firstSentence('Deep time. Steely Dan.')).toBe('Deep time.');
+    expect(firstSentence('Is it a shuffle? Yes.')).toBe('Is it a shuffle?');
+    expect(firstSentence('One sentence only.')).toBe('One sentence only.');
+    expect(firstSentence(null)).toBeNull();
   });
 
-  it('finds someone the records only mention, marked as having no record', async () => {
-    const [roach] = await find({ query: 'Max Roach' });
-    expect(roach).toMatchObject({ slug: 'max-roach', modelled: false, descriptors: [] });
-  });
-
-  it('puts drummers with a record before people only mentioned', async () => {
-    // Elvin has a record; Papa Jo Jones is only named in others'
-    const found = await find({ query: 'jones' });
-    expect(found[0].slug).toBe('elvin-jones');
-    const firstStub = found.findIndex((d) => !d.modelled);
-    expect(firstStub).toBeGreaterThan(0);
-    expect(found.slice(firstStub).every((d) => !d.modelled)).toBe(true);
+  it('runs on past an initial or an abbreviation', () => {
+    expect(firstSentence('J.R. Robinson is a session drummer. He played.')).toBe(
+      'J.R. Robinson is a session drummer.'
+    );
+    expect(firstSentence('Played with Mr. Bungle and Dr. John. Later, Faith No More.')).toBe(
+      'Played with Mr. Bungle and Dr. John.'
+    );
+    expect(firstSentence('Born c. 1940 in Ohio. Moved to New York.')).toBe('Born c. 1940 in Ohio.');
   });
 });

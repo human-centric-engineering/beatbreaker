@@ -174,10 +174,11 @@ disagree.
   `tempo_out_of_range`.
 - **The drummer records (11-f) are read, not searched.** `find_drummers` lists
   every drummer with a record (first sentence of the summary, eight
-  descriptors, the style key), or those matching every word of a query, plus
-  the people the records only name (`modelled: false`); a query that matches
-  nothing says to call it with none. `get_drummer` returns what
-  `/drummers/[slug]` shows, through the same `readDrummerRecord`, so a masked
+  descriptors, the style key), or those where every word of a query starts a
+  word of theirs, plus the people the records only name (`modelled: false`);
+  a query that matches nothing, or has no word in it, says to call it with
+  none. `get_drummer` finds a person by exact name before slug, and never a
+  genre, which has no page. It returns what `/drummers/[slug]` shows, through the same `readDrummerRecord`, so a masked
   performer's name and dates are withheld the same way; traits and relations
   carry the record's confidence, relations as one line each, and `cite` names
   the record, its status and its page. The instructions say to look a drummer

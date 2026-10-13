@@ -4072,6 +4072,15 @@ reconciled, with these found on the way:
   Copeland's `backbeats`, `openSlots` and `anticipate` name sixteenth steps,
   so the section restates them. Forty seeds all play; no golden moved.
 - **Not checked in a browser** (no Chrome): nothing in the Studio changed.
+- **From the code review:** `get_drummer` could answer with a genre, citing a
+  page that 404s, so `findLineageSlug` never returns a `style` node; it also
+  tries an exact name before a slug, so a name that slugs to another node's
+  slug still finds its own. A query word must start a word of the record
+  ("art" no longer matches "heart"), and a query with no word in it (`村上`,
+  punctuation) is a miss with the note, not the whole list. The first
+  sentence runs on past initials and abbreviations (`J.R.`, `Mr.`, `c.`). Each
+  record is read once per search. The test tables follow the lookup's order
+  and leave the order of names to the database.
 
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
