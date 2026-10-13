@@ -25,6 +25,8 @@ release process.
   ahead by `SynthSource`. `BreakAudio.knobs` reads a voice's own knobs.
   `DRIFT_MAP` gains the rim shot, toms and the two new machines, and `drift`
   is an implemented engine, so the picker's "not ported yet" is gone.
+  `kitIsPlayable` takes a `drift` kit only when `DRIFT_MAP` knows its
+  machine.
 
 - **Synthesised kits rendered ahead (BeatBreaker Phase 9-vi-d).** The five
   synthesised kits play from takes rendered through an `OfflineAudioContext`
