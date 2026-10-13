@@ -668,7 +668,9 @@ describe('tempo, style and meter', () => {
     const [lo, hi] = STYLES.jazzballad.bpm;
     expect(result.current.bpm).toBe(Math.round((lo + hi) / 2));
 
-    act(() => result.current.setStyle('funk'));
+    // a style with no kit of its own
+    act(() => result.current.setStyle('reggae'));
+    expect(STYLES.reggae.kit).toBeUndefined();
     expect(result.current.meter).toBe('4/4');
     expect(result.current.kit).toBe('liveroom');
   });

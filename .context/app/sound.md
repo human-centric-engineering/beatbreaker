@@ -272,17 +272,20 @@ picker, after the recorded kits. `COMBINATIONS` in
 | Garage       | Unruly     | Unruly                   | Unruly      | SM Drums              | Unruly, Salamander crash, china, splash  | Unruly      |
 
 **Sign-off by ear.** No style takes a combination as its default until the
-owner has listened to it and signed it off here (9.19). The styles in the last
-column are the candidates, not decisions.
+owner has listened to it and signed it off here (9.19). All six were signed
+off on 2026-10-13, and five became defaults:
 
-| Kit          | Signed off | Candidate styles                               |
-| ------------ | ---------- | ---------------------------------------------- |
-| Studio rock  | —          | rock, hardrock, bluesrock, funkrock            |
-| Funk & soul  | —          | funk, soul, stax, motown, nolafunk, linearfunk |
-| Jazz brushes | —          | brushes, jazzballad                            |
-| Boom bap     | —          | boombap, dilla                                 |
-| Big room     | —          | powerballad                                    |
-| Garage       | —          | none yet                                       |
+| Kit          | Signed off | Default for                                                                   |
+| ------------ | ---------- | ----------------------------------------------------------------------------- |
+| Studio rock  | 2026-10-13 | rock, hardrock (was Big Rusty), funkrock (was DRS)                            |
+| Funk & soul  | 2026-10-13 | funk, soul, stax, nolafunk; Stubblefield, Jabo Starks, Purdie (were SM Drums) |
+| Jazz brushes | 2026-10-13 | brushes (was DRS brushes)                                                     |
+| Boom bap     | 2026-10-13 | boombap, dilla                                                                |
+| Big room     | 2026-10-13 | Bonham (was Big Rusty), powerballad (was Live room, synthesised)              |
+| Garage       | 2026-10-13 | none yet                                                                      |
+
+A song that names its own kit keeps it. Picking a style that has a kit
+switches to it, and leaving it for a style with none hands yours back.
 
 ### Choosing what plays (`packs.ts`)
 

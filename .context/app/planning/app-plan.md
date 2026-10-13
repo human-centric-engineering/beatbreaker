@@ -3290,9 +3290,16 @@ tree at `d4bb680d`:
     a crash. Garage takes SM Drums' thin 1960s ride instead, so it is not
     the Unruly kit again.
   - The toms, which §7 leaves out, are the kick's kit's.
-- **No style is re-pointed in this PR's first commit.** 9.19 waits on the
-  owner's sign-off by ear; candidates are listed in `sound.md` with the
-  sign-off record.
+- **No style is re-pointed until the owner signs off by ear** (9.19). The
+  record is in `sound.md`.
+
+**9-vi-c built, 2026-10-13.** As reconciled. The owner listened and signed
+off all six the same day, and five became defaults: Studio rock (rock, hard
+rock, funk rock), Funk & soul (funk, soul, Stax, New Orleans funk,
+Stubblefield, Jabo Starks, Purdie), Jazz brushes (brushes), Boom bap (boom
+bap, Dilla) and Big room (Bonham, power ballad). Garage is in the picker with
+no style yet. Funk losing its kit-less status moved one console test to
+reggae, which still has none.
 
 | PR     | What                                                                                       | Done when                                                                                                                                                                                                                                      |
 | ------ | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

@@ -26,6 +26,7 @@ import type { Style } from '@/lib/app/breaks/types';
 export const STYLES: Record<string, Style> = {
   funk: {
     label: 'Funk 16ths',
+    kit: 'funkSoul',
     mix: { h: 0.72 }, // unbroken 16ths under a kick-and-ghost conversation
     hint: 'Stubblefield and Jabo territory — unbroken 16th hats, a kick that answers the snare, ghosts everywhere.',
     hats: 16,
@@ -56,6 +57,7 @@ export const STYLES: Record<string, Style> = {
   },
   boombap: {
     label: 'Boom bap',
+    kit: 'boomBap',
     hint: 'Sparse and heavy. Hats on 8ths, kick leaves room, the snare is the loudest thing in the bar.',
     hats: 8,
     bpm: [80, 96],
@@ -361,6 +363,7 @@ export const STYLES: Record<string, Style> = {
   },
   dilla: {
     label: 'Dilla time',
+    kit: 'boomBap',
     mix: { h: 0.6 }, // the hats lean their own way and should not lead
     hint: 'Snare well behind the beat, kick just in front of it, hats leaning their own way. The page stays on the grid; the playback does not.',
     hats: 16,
@@ -455,6 +458,7 @@ export const STYLES: Record<string, Style> = {
   },
   soul: {
     label: 'Soul',
+    kit: 'funkSoul',
     hint: 'Al Jackson weight without the funk busyness — 8th hats, a backbeat you lean on, ghosts filling the gaps. Sits a hair behind the click.',
     hats: 8,
     bpm: [86, 104],
@@ -602,6 +606,7 @@ export const STYLES: Record<string, Style> = {
   },
   stax: {
     label: 'Stax / Memphis soul',
+    kit: 'funkSoul',
     hint: 'Sparse kick, huge snare, almost nothing else. The whole thing sits behind the click and stays there. If you are adding notes you are playing the wrong style.',
     hats: 8,
     bpm: [84, 102],
@@ -651,6 +656,7 @@ export const STYLES: Record<string, Style> = {
      ------------------------------------------------------------------- */
   rock: {
     label: 'Rock',
+    kit: 'studioRock',
     hint: 'Straight 8ths, snare on 2 and 4, a kick that lands on 1 and somewhere round 3: the and of 2, the and of 3, a 16th before. The hats open into the next bar, the chorus goes to the ride, a fill goes round the toms. No swing, few ghosts, nothing behind the beat.',
     toms: true,
     hats: 8,
@@ -721,7 +727,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Hard rock',
     hint: 'AC/DC, Zeppelin, Van Halen: the same 8ths, hit harder. Hats left a little open so they wash, rimshots on 2 and 4, a crash on every 8th for the chorus, the kick pushing a 16th ahead of 3. Fills are hands and feet, or the snare and floor tom together.',
     toms: true,
-    kit: 'bigrusty',
+    kit: 'studioRock',
     hats: 8,
     bpm: [92, 140],
     swing: 0,
@@ -785,7 +791,7 @@ export const STYLES: Record<string, Style> = {
     mix: { h: 0.75 },
     hint: 'Chili Peppers, Faith No More, Living Colour: a rock backbeat with the ghosts and the syncopated kick of funk round it. The kick on the "a" of 1 or the "e" of 3, the hats opening on the "and" of 2 and 4, and now and then 16ths on the hats with one hand.',
     toms: true,
-    kit: 'drs',
+    kit: 'studioRock',
     hats: 8,
     bpm: [90, 120],
     swing: 4,
@@ -843,7 +849,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Power ballad',
     hint: 'Slow, big and patient: a kick on 1 and the "and" of 2, a snare backbeat that rings out, cross-stick for the quiet verse and the ride for the chorus. At this tempo a fill is 16ths down the toms with room in them.',
     toms: true,
-    kit: 'liveroom',
+    kit: 'bigRoom',
     hats: 8,
     bpm: [60, 84],
     swing: 0,
@@ -2770,9 +2776,9 @@ export const STYLES: Record<string, Style> = {
   },
   brushes: {
     label: 'Brushes — medium swing',
-    hint: 'A trio on brushes: the right hand taps the ride rhythm on the snare, the foot keeps 2 and 4, the kick feathers four, and the comps are slaps — the Charleston, the last triplet of 2. Played on the DRS kit with brushes; the sweep under it is the one thing this page cannot play. 12/8, so the triplets are the meter.',
+    hint: 'A trio on brushes: the right hand taps the ride rhythm on the snare, the foot keeps 2 and 4, the kick feathers four, and the comps are slaps — the Charleston, the last triplet of 2. Played on the Jazz brushes kit, the DRS kit brushed over a small jazz bass drum; the sweep under it is the one thing this page cannot play. 12/8, so the triplets are the meter.',
     toms: true,
-    kit: 'drsBrush',
+    kit: 'jazzBrushes',
     meter: '12/8',
     hats: 8,
     bpm: [165, 255],
@@ -3075,6 +3081,7 @@ export const STYLES: Record<string, Style> = {
   /* ---- more funk ----------------------------------------------------- */
   nolafunk: {
     label: 'New Orleans funk',
+    kit: 'funkSoul',
     mix: { h: 0.7 }, // the displaced accents are what you are meant to hear
     hint: 'Zigaboo — second-line phrasing pulled into a funk band. Loose, syncopated, accents landing where you do not expect them, and the backbeat happy to arrive late at the end of a phrase.',
     toms: true,
@@ -4530,7 +4537,7 @@ export const STYLES: Record<string, Style> = {
     drummer: true,
     hint: "Led Zeppelin: a huge kick, often doubled, the hats in 8ths and a backbeat like a door slamming, sitting back on the beat. Fills in threes, hands and feet — the Bonham triplet, played as real sextuplets where the song allows. Each New plays one of his records at its own tempo and in its own grid: Good Times Bad Times' kick triplets under a cowbell, Fool in the Rain's half-time shuffle, Immigrant Song's paradiddle between kick and snare, the slow weight of When the Levee Breaks. The stage names the song. The grooves are approximations, not transcriptions.",
     toms: true,
-    kit: 'bigrusty',
+    kit: 'bigRoom',
     hats: 8,
     bpm: [70, 178],
     swing: 0,
@@ -4873,7 +4880,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Clyde Stubblefield',
     drummer: true,
     hint: "James Brown's drummer, 1965–70: ghost notes so quiet they are felt, a kick that never sits where you expect, and a backbeat that moves, the hats in his right hand alone and the left on the snare. Hardly a fill: the groove is the point. Each New plays one of his records at its own tempo: Funky Drummer's one-handed sixteenths, Cold Sweat's backbeat pushed to the \"and\" of 4, I Got the Feelin's threes on the snare, Mother Popcorn's quarter-note hats. The stage names the song. The first four follow published grids; the rest are approximations.",
-    kit: 'smdrums',
+    kit: 'funkSoul',
     mix: { h: 0.72 },
     hats: 16,
     bpm: [96, 132],
@@ -9715,7 +9722,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Jabo Starks',
     drummer: true,
     hint: "James Brown's other drummer, 1965–76, and Bobby Bland's before that: lean, crisp and steady, a blues and gospel man who never tried to outplay anyone. The hats carry a light swing with a sixteenth slipped in before 3, the kick goes for the 1 and the upbeats, and a section lifts by moving the right hand to the ride, not by a fill. Hardly any fills at all. Each New plays one of nine of his records at its own tempo: Sex Machine's swinging hats, Super Bad's snare on the 1 and the bell in the bridge, The Payback's kick on every beat, Licking Stick's cross-stick. The stage names the song. Six follow published grids; Soul Power, Think (About It) and Turn On Your Love Light are approximations.",
-    kit: 'smdrums',
+    kit: 'funkSoul',
     mix: { h: 0.72 },
     hats: 8,
     bpm: [95, 132],
@@ -9998,7 +10005,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Bernard Purdie',
     drummer: true,
     hint: "Aretha Franklin's musical director and Steely Dan's drummer: strict time, dead in the pocket, a hard backbeat with soft ghosts all round it, and hats that open a crack just before the beat. His shuffle is the half-time one: triplets on the hats, the ghosts on the middle one, the backbeat on 3. Few fills, short and inside the groove. Each New plays a style inspired by one of twelve of his songs, from O-o-h Child and Rock Steady to Home at Last and Babylon Sisters, at its record tempo. The stage names the song. Seven follow Funklet's published grids and four human drum transcriptions; Memphis Soul Stew is an approximation, not a transcription.",
-    kit: 'smdrums',
+    kit: 'funkSoul',
     mix: { h: 0.8 },
     hats: 8,
     bpm: [72, 130],

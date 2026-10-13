@@ -134,7 +134,7 @@ describe('drummerSection', () => {
       '70–178 bpm',
       '11 songs',
       'straight to swung',
-      cat.kits.bigrusty.label,
+      cat.kits.bigRoom.label,
     ]);
   });
 
