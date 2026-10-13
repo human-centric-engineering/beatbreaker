@@ -50,7 +50,34 @@ release process.
   model whose `Org` relation has no `onDelete: Cascade` or `SetNull`, a fork's
   included, because org erasure relies on the cascade.
 
+- **A per-org monthly AI budget cap** (§110 t-788). `Org.settings` gains a
+  `quotas` slice holding `monthlyBudgetUsd`. A platform admin writes it with
+  `PATCH /api/v1/admin/orgs/[id]` `{ settings: { quotas } }` (`null` removes
+  it). At `multi` that write is refused with a 403
+  (`details.reason: shared_settings_install_org_only`) unless it comes from
+  the install org or an unbound admin API key, so an org's admins cannot raise
+  their own cap. `checkBudget()` enforces it beside the agent's budget and the
+  global cap, on the org's month-to-date spend, and reports `orgCapExceeded` /
+  `org: { limit, spent }`. With no `quotas` set, nothing changes. Exported for
+  forks' billing or plan code: `readOrgQuotas()` / `loadOrgQuotas()` /
+  `writeOrgQuotas()` and `ORG_QUOTAS_KEY` from `lib/tenancy/org-settings.ts`,
+  and `orgQuotasSchema` / `OrgQuotas` from `lib/validations/tenancy.ts`.
+  Migration `20261013120000_ai_cost_log_org_created_at_index` adds an
+  `(orgId, createdAt)` index on `AiCostLog`. Known limit: the budget lock is
+  per agent, so two agents in one org can each overrun the org cap by up to
+  one turn. See
+  [Costs → Per-org monthly budget cap](./.context/admin/orchestration-costs.md#per-org-monthly-budget-cap).
+
 ### Changed
+
+- **Chat turns stopped by the org or global budget get their own error
+  codes** (§110 t-788). The streaming handler emitted `budget_exceeded`, with
+  "This agent has reached its monthly budget", for every cap. It now emits
+  `org_budget_exceeded` or `global_budget_exceeded` when one of those caps
+  stopped the turn. `budget_exceeded` now means the agent's own cap only. A
+  client that matched `budget_exceeded` to catch every budget stop must also
+  match the two new codes. The `budget_exceeded` webhook still fires for all
+  three and gains a `cap: 'agent' | 'org' | 'global'` field.
 
 - **Backup export and import run in one named org, and the shared part moves
   only for the install org** (§109 t-738). Both
@@ -152,6 +179,16 @@ release process.
   `.context/storage/tenancy.md`.
 
 ### Fixed
+
+- **The global monthly budget cap totals every org's spend again at
+  `multi`** (§110 t-788). `checkBudget()` summed month-to-date spend inside
+  the acting org's scope, where the `org_isolation` policy hides other orgs'
+  rows. So `globalMonthlyBudgetUsd` acted as the same cap applied to each org,
+  and the install had no ceiling on its shared provider keys. The total is now
+  summed in the system scope, detached `NULL`-org rows included, and the
+  agents list and `GET /costs/alerts` read the same figure
+  (`getGlobalCapState()` in `lib/orchestration/llm/cost-tracker.ts`). At
+  `single` nothing changes.
 
 - **S3 and Vercel Blob `deletePrefix` now delete past the first page**
   (§109 t-736). Both read only the first listing page (1,000 objects on S3),

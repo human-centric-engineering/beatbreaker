@@ -86,6 +86,16 @@ is on:
   org you create after flipping the mode**, or its agents, workflows and
   knowledge base will refuse to call any vendor. See
   [LLM providers → Per-org approved providers](../orchestration/llm-providers.md#per-org-approved-providers-core-at-multi).
+- **Each org can have its own monthly AI budget** (§110 t-788). A platform
+  admin in the install org sets `settings.quotas.monthlyBudgetUsd` with
+  `PATCH /api/v1/admin/orgs/[id]`, or a fork's billing code calls
+  `writeOrgQuotas()`. An org's own admins cannot change it. `checkBudget()`
+  enforces it beside the agent's budget, and the turn ends with
+  `org_budget_exceeded`. Unset means no org cap. The global
+  `globalMonthlyBudgetUsd` stays an install-wide ceiling: it totals every
+  org's spend, so one tenant can still exhaust it for everyone unless each
+  org has a cap below it. See
+  [Costs → Per-org monthly budget cap](../admin/orchestration-costs.md#per-org-monthly-budget-cap).
 - **The data subject is per org.** `eraseUser` / `exportUserData` act inside
   the org the request entered: a person with memberships in several orgs is
   erased from, and exported from, the org that asked — the tenant is the

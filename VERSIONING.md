@@ -158,6 +158,7 @@ covered by the version contract.
   - `successResponse()`, `errorResponse()` from `lib/api/responses.ts`
   - `serverFetch()` from `lib/api/server-fetch.ts`
   - `logger` from `lib/logging/`
+  - an org's caps in `Org.settings.quotas`: `readOrgQuotas()` / `loadOrgQuotas()` / `writeOrgQuotas()` and `ORG_QUOTAS_KEY` from `lib/tenancy/org-settings.ts`, with `orgQuotasSchema` / `OrgQuotas` from `lib/validations/tenancy.ts` — what a fork's billing or plan code calls to set an org's monthly budget
   - The orchestration admin API surface documented in
     [`.context/api/orchestration-endpoints.md`](./.context/api/orchestration-endpoints.md)
 - **Published Prisma model interfaces** —

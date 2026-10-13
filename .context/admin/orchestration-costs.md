@@ -108,11 +108,30 @@ At runtime, values resolve via `getDefaultModelForTask(task)` in `lib/orchestrat
 
 ### Global monthly budget cap — enforcement
 
-When the cap is set on the Settings page, `cost-tracker.ts#checkBudget()` additionally computes the month-to-date spend _across all agents_ via `getMonthToDateGlobalSpend()` and flips `globalCapExceeded: true` when the cumulative total is at or above the cap.
-
-The streaming chat handler treats this the same as a per-agent budget breach: it emits the shared `budget_exceeded` SSE error code (`lib/orchestration/chat/streaming-handler.ts:396-399`) with a generic "monthly budget reached" message, and dispatches the `budget_exceeded` webhook. There is **no distinct error code for the global cap** — the UI's red "Global monthly budget exceeded" banner is driven by `GET /costs/alerts → globalCap.exceeded`, not by SSE frame discrimination.
+When the cap is set on the Settings page, `cost-tracker.ts#checkBudget()` additionally computes the month-to-date spend _across every org_ via `getMonthToDateGlobalSpend()` and flips `globalCapExceeded: true` when the cumulative total is at or above the cap. The cap is the operator's ceiling on the shared provider keys, so at `TENANCY_MODE=multi` the total is summed in the system scope (`globalSpendSince()` in `lib/orchestration/admin/global-config-usage.ts`). Otherwise the `org_isolation` policy would show it only the acting org's rows, and the cap would act as a per-org cap. Detached `NULL`-org rows count too. `getGlobalCapState()` is the one place that reads the cap and the total. `checkBudget()`, the agents list's budget column and `getGlobalCapStatus()` (behind `GET /costs/alerts`) all call it.
 
 The global cap enforcement is wrapped in try/catch so a transient settings fetch failure degrades gracefully to the per-agent path — it never blocks chat globally because Prisma hiccuped.
+
+### Per-org monthly budget cap
+
+An org can have a cap of its own: `monthlyBudgetUsd` under the `quotas` key of `Org.settings` (§110 t-788). `checkBudget()` reads it for the agent's org and sums the org's month-to-date spend with an explicit `orgId` filter, over the same UTC calendar month as the agent and global checks. When that spend is at or above the cap it sets `orgCapExceeded: true` and reports `org: { limit, spent }`. The global cap still sits above every org's cap.
+
+- **Unset means no org cap.** With no `quotas` slice, `checkBudget()` returns exactly what it did before org caps existed, and the org's spend is never summed.
+- **Who sets it.** A platform admin sets it with `PATCH /api/v1/admin/orgs/[id]` `{ settings: { quotas: { monthlyBudgetUsd } } }`. `quotas: null` removes it. At `multi` the write is refused (403, `details.reason: shared_settings_install_org_only`) unless it comes from the install org or an unbound admin API key, so a platform admin switched into a customer org cannot raise that org's cap. A fork's billing or plan code calls `writeOrgQuotas(orgId, quotas)` from `lib/tenancy/org-settings.ts` instead; that helper validates but does not check who is calling.
+- **A malformed stored value fails open.** An unreadable cap is dropped with a warning and the org is limited only by its agents' budgets and the global cap. A failed org lookup is logged and skipped the same way.
+- **Known limit: it can be overrun by up to one turn per agent.** `withAgentBudgetLock` is keyed by agent, so two agents in one org can both pass the org check at the same time and each go over by up to one turn. The global cap already has the same bound.
+
+### What the chat user sees
+
+The streaming handler names the cap that stopped the turn, checking the widest first:
+
+| Code                     | Cap                                    | Message names an amount |
+| ------------------------ | -------------------------------------- | ----------------------- |
+| `global_budget_exceeded` | `globalMonthlyBudgetUsd`               | No                      |
+| `org_budget_exceeded`    | `Org.settings.quotas.monthlyBudgetUsd` | No                      |
+| `budget_exceeded`        | `AiAgent.monthlyBudgetUsd`             | Yes, the agent's        |
+
+The org and global messages give no amount because the reader may be an embed visitor. All three dispatch the `budget_exceeded` webhook, whose payload carries `cap: 'agent' | 'org' | 'global'`. Its `usedUsd` / `limitUsd` are still the agent's. The red "Global monthly budget exceeded" banner on this page is driven by `GET /costs/alerts → globalCap.exceeded`.
 
 ### Per-turn cost cap
 

@@ -480,8 +480,12 @@ A fork owns:
 ## Explicitly out of scope (v1)
 
 Per-tenant provider credentials held by Sunrise (declined as policy) ·
-per-tenant default models, budgets-as-settings, or embedding models (singleton
-and vector-dimension consequences, research §5C B3) · per-tenant storage
+per-tenant default models, per-tenant copies of the budget settings, or
+embedding models (singleton and vector-dimension consequences, research §5C
+B3) — the `AiOrchestrationSettings` singleton, `globalMonthlyBudgetUsd`
+included, stays global. A per-org monthly budget cap held in `Org.settings`
+(`quotas`) is a different thing and **is** in scope: §110 t-788 shipped it,
+beneath the global cap · per-tenant storage
 backends or databases (rungs 4/6 — a dedicated deployment is the answer) ·
 plans, invoicing, payments (fork product) · schema-per-tenant and cell
 tooling.
