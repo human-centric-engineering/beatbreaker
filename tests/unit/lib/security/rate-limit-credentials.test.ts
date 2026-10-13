@@ -72,6 +72,7 @@ describe('resolveRateLimitCredential', () => {
   describe('lookups', () => {
     it('looks a user key up by its SHA-256 hash, excluding revoked keys', async () => {
       vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
+        scopes: [],
         id: 'k1',
         expiresAt: null,
       } as never);
@@ -83,13 +84,14 @@ describe('resolveRateLimitCredential', () => {
       });
       expect(prisma.aiApiKey.findFirst).toHaveBeenCalledWith({
         where: { keyHash: sha256('sk_abc'), revokedAt: null },
-        select: { id: true, expiresAt: true, orgId: true, userId: true },
+        select: { id: true, expiresAt: true, orgId: true, userId: true, scopes: true },
       });
     });
 
     it('refuses an expired user key and an expired MCP key', async () => {
       const past = new Date(Date.now() - 1000);
       vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
+        scopes: [],
         id: 'k1',
         expiresAt: past,
       } as never);
@@ -194,6 +196,7 @@ describe('resolveRateLimitCredential', () => {
     it('answers the org column of every kind of credential row', async () => {
       mockEnv.TENANCY_MODE = 'multi';
       vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
+        scopes: [],
         id: 'k1',
         expiresAt: null,
         orgId: 'cmorg_a',
@@ -237,6 +240,7 @@ describe('resolveRateLimitCredential', () => {
       mockEnv.TENANCY_MODE = 'multi';
       // Every admin-scoped key is unbound: a platform credential, in no org.
       vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
+        scopes: [],
         id: 'k_admin',
         expiresAt: null,
         orgId: null,
@@ -249,8 +253,25 @@ describe('resolveRateLimitCredential', () => {
       });
     });
 
+    it('answers no org for an admin-scoped key bound to one, which the guards refuse', async () => {
+      mockEnv.TENANCY_MODE = 'multi';
+      vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
+        id: 'k_bound_admin',
+        expiresAt: null,
+        orgId: 'cmorg_a',
+        userId: 'cmuser_admin',
+        scopes: ['admin'],
+      } as never);
+
+      await expect(resolveKey('sk_bound_admin')).resolves.toMatchObject({
+        id: 'sk:k_bound_admin',
+        orgId: null,
+      });
+    });
+
     it('serves the org from the cache with the id', async () => {
       vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
+        scopes: [],
         id: 'k1',
         expiresAt: null,
         orgId: 'cmorg_a',
@@ -270,6 +291,7 @@ describe('resolveRateLimitCredential', () => {
   describe('cache', () => {
     it('serves a verified key without a query, refreshes it in the background after 30s, and lets it lapse after 60s', async () => {
       vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
+        scopes: [],
         id: 'k1',
         expiresAt: null,
       } as never);
@@ -298,6 +320,7 @@ describe('resolveRateLimitCredential', () => {
 
     it('caches a key that expires within the TTL only until it expires, without refreshing it', async () => {
       vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
+        scopes: [],
         id: 'k1',
         expiresAt: new Date(Date.now() + 20_000),
       } as never);
@@ -315,6 +338,7 @@ describe('resolveRateLimitCredential', () => {
 
     it('drops the cached entry when a background re-check finds the key gone', async () => {
       vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValueOnce({
+        scopes: [],
         id: 'k1',
         expiresAt: null,
       } as never);
@@ -329,6 +353,7 @@ describe('resolveRateLimitCredential', () => {
 
     it('re-arms an entry when its re-check fails, but not past 2x the TTL since the last good check', async () => {
       vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValueOnce({
+        scopes: [],
         id: 'k1',
         expiresAt: null,
       } as never);
@@ -358,6 +383,7 @@ describe('resolveRateLimitCredential', () => {
   describe('lookup budget and sharing', () => {
     it('spends one budget slot and one query on concurrent checks of the same cold value', async () => {
       vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
+        scopes: [],
         id: 'k1',
         expiresAt: null,
       } as never);
@@ -398,12 +424,12 @@ describe('resolveRateLimitCredential', () => {
       resetRateLimitCredentialCache();
       const second = resolveKey('sk_reset_race');
       await settle();
-      resolveFirst({ id: 'k1', expiresAt: null });
+      resolveFirst({ id: 'k1', expiresAt: null, scopes: [] });
       await first;
 
       // The second lookup is still pending and must still be shared.
       const third = resolveKey('sk_reset_race');
-      resolveSecond({ id: 'k1', expiresAt: null });
+      resolveSecond({ id: 'k1', expiresAt: null, scopes: [] });
       const settled = await Promise.all([second, third]);
       expect(settled.map((r) => r?.id)).toEqual(['sk:k1', 'sk:k1']);
       expect(prisma.aiApiKey.findFirst).toHaveBeenCalledTimes(2);

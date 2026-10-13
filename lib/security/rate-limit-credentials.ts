@@ -174,13 +174,16 @@ async function lookup(
     const row = await runAsCredentialLookup('api-key', () =>
       prisma.aiApiKey.findFirst({
         where: { keyHash: hashApiKey(value), revokedAt: null },
-        select: { id: true, expiresAt: true, orgId: true, userId: true },
+        select: { id: true, expiresAt: true, orgId: true, userId: true, scopes: true },
       })
     );
-    // The column as `enterApiKeyOrg` reads it: an unbound key (every `admin`
-    // one) acts for no org at `multi`. The owner's membership is verified by
-    // the org counter, and only for an org with a cap.
-    return row ? live(`sk:${row.id}`, orgOfColumn(row.orgId), row.expiresAt, row.userId) : null;
+    // The org as `enterApiKeyOrg` reads it: an `admin`-scoped key enters no
+    // org (and one bound to an org is refused outright), and an unbound key
+    // acts for no org at `multi`. The owner's membership is verified by the
+    // org counter, and only for an org with a cap.
+    if (!row) return null;
+    const orgId = row.scopes.includes('admin') ? null : orgOfColumn(row.orgId);
+    return live(`sk:${row.id}`, orgId, row.expiresAt, row.userId);
   }
   if (value.startsWith(MCP_API_KEY_PREFIX)) {
     const row = await runAsCredentialLookup('mcp-key', () =>

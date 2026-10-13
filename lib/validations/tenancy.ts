@@ -229,8 +229,8 @@ export type OrgProviderPolicyInput = z.infer<typeof orgProviderPolicyInputSchema
  * between them in a minute, counted by the rate-limit middleware on top of
  * each caller's own limit (`lib/security/org-request-cap.ts`, §110 t-789).
  * Absent means no org cap. At least 1: an org that should make no requests is
- * suspended, not capped. The upper bound keeps the sliding window's per-org
- * timestamp list small enough to scan on every request.
+ * suspended, not capped. The upper bound is a sanity limit on a typo, not a
+ * cost: the window is two counters whatever the cap.
  *
  * Every key optional, so the slice can take more caps without a stored value
  * going stale. `.strict()` on write: an unknown key is

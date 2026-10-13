@@ -106,7 +106,7 @@ is on:
   the guard will enter (your tenant resolver's, else the session's) or the
   key row's, never `x-sunrise-org`, and a user is counted only against an org
   they are an active member of. Embed-widget traffic, the platform admin
-  surface and `POST /api/v1/orgs/switch` are not counted. Unset means no org
+  surface, listing orgs and switching between them are not counted. Unset means no org
   cap, and at `single` nothing is counted. Another instance can enforce an old cap for up
   to 30 seconds, and with several instances each counts separately. See
   [Rate limiting → Per-org request cap](../security/rate-limiting.md#per-org-request-cap).

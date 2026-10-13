@@ -86,7 +86,8 @@ release process.
   `activeOrgId`) or the org column of the API or MCP key row, and a user, or a
   user key's owner, is counted only while an active member of it. The
   `x-sunrise-org` header is never used to choose it. Embed-widget traffic,
-  `/api/v1/admin/**` and `POST /api/v1/orgs/switch` are not counted. Nothing changes at `single`, or for an
+  `/api/v1/admin/**`, `/api/v1/orgs` and `/api/v1/orgs/switch` are not
+  counted. A user API key on a session-keyed route counts against its org. Nothing changes at `single`, or for an
   org with no `requestsPerMinute`. Each org's cap is cached for 30 seconds:
   code calling `writeOrgQuotas()` directly calls `forgetOrgRequestCap(orgId)`
   from `lib/security/org-request-cap.ts` after it. Known limits: another

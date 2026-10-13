@@ -56,7 +56,11 @@ export const ORG_REQUEST_CAP_TTL_MS = 30_000;
 /** How long a verified (or refused) membership is served from the cache. */
 const MEMBERSHIP_TTL_MS = 30_000;
 
-/** Upper bound on cached memberships and org windows (per process). */
+/**
+ * Upper bound on cached caps, memberships and org windows (per process). An
+ * evicted window starts again at zero, so past this many capped orgs active
+ * in one process, the least recent can briefly get a fresh cap's worth.
+ */
 const MAX_ENTRIES = 10_000;
 
 /** A cached cap: the lookup, so concurrent misses share one read. */
@@ -66,13 +70,13 @@ interface CapEntry {
 }
 
 const globalForOrgCaps = globalThis as unknown as {
-  sunriseOrgRequestCaps?: Map<string, CapEntry>;
+  sunriseOrgRequestCapCache?: LRUCache<string, CapEntry>;
 };
 
-const capEntries: Map<string, CapEntry> = (globalForOrgCaps.sunriseOrgRequestCaps ??= new Map<
-  string,
-  CapEntry
->());
+// Bounded, because the org a session names can come from a fork's resolver,
+// which may answer an org id per hostname whether or not the org exists.
+const capEntries: LRUCache<string, CapEntry> = (globalForOrgCaps.sunriseOrgRequestCapCache ??=
+  new LRUCache<string, CapEntry>({ max: MAX_ENTRIES }));
 
 // Whether a user may enter an org: a present membership in an ACTIVE org, the
 // guards' rule. Keyed `userId:orgId`; the lookup is cached, so concurrent
@@ -145,8 +149,23 @@ function countRequest(orgId: string, cap: number): RateLimitResult {
     success,
     limit: cap,
     remaining: Math.max(0, Math.floor(cap - used - (success ? 1 : 0))),
-    reset: Math.ceil((start + interval) / 1000),
+    reset: Math.ceil(roomAt(window, cap, interval) / 1000),
   };
+}
+
+/**
+ * When the estimate next drops below the cap, for `Retry-After` — not the end
+ * of the minute, when the minute just gone still weighs in full and a client
+ * retrying then is refused again. This minute's count alone at or over the cap
+ * frees as it decays through the next one; otherwise the last minute's
+ * decays through this one.
+ */
+function roomAt(window: OrgWindow, cap: number, interval: number): number {
+  if (window.count >= cap) {
+    return window.start + interval + interval * (1 - cap / window.count);
+  }
+  if (window.previous === 0) return Date.now();
+  return window.start + interval * (1 - (cap - window.count) / window.previous);
 }
 
 /**

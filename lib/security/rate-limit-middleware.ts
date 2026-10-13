@@ -242,10 +242,15 @@ export async function applyRateLimit(request: NextRequest): Promise<Response | n
  *   Counting it would let a tenant's traffic lock the operator out of the
  *   remedy, and charge the vendor's support work in a customer's org to that
  *   customer.
- * - **`POST /api/v1/orgs/switch`.** A member of two orgs whose session names
- *   the saturated one must still be able to move to the other.
+ * - **`/api/v1/orgs` and `/api/v1/orgs/switch`.** A member of two orgs whose
+ *   session names the saturated one must still be able to list their orgs and
+ *   move to the other.
+ *
+ * The admin exemption is by path, which holds while only platform admins
+ * reach that surface (the default authorization policy). A fork that admits
+ * org admins there lets that traffic past its tenants' caps.
  */
-const ORG_CAP_EXEMPT = /^\/api\/v1\/(admin\/|orgs\/switch(\/|$))/;
+const ORG_CAP_EXEMPT = /^\/api\/v1\/(admin\/|orgs(\/switch)?\/?$)/;
 
 /**
  * Whether the test/dev bypass is active. Set `RATE_LIMIT_BYPASS=true` (or `1`)
@@ -390,10 +395,9 @@ async function resolveIdentifier(key: RateLimitRule['key'], request: NextRequest
           // choice. Neither is a membership; the org counter verifies it.
           return {
             id: `user:${session.user.id}`,
-            orgId: sessionActingOrgId(
-              resolveTenantFromRequest(request),
-              session.session?.activeOrgId
-            ),
+            orgId: isMultiTenant()
+              ? sessionActingOrgId(resolveTenantFromRequest(request), session.session?.activeOrgId)
+              : null,
             memberUserId: session.user.id,
           };
         }
@@ -401,15 +405,11 @@ async function resolveIdentifier(key: RateLimitRule['key'], request: NextRequest
         // Session resolution failed (auth provider hiccup, DB down). Fall
         // back to IP so we still apply some cap instead of failing open.
       }
-      return noOrg(`ip:${ip}`);
+      return keyOrgOnIpBucket(request, ip);
     }
 
     case 'api-key': {
-      // Parsed exactly as the routes parse it (`resolveApiKey`, the MCP
-      // transport): a case-sensitive `Bearer ` and the rest verbatim, so the
-      // proxy never gives its own bucket to a header the route would refuse.
-      const header = request.headers.get('authorization') ?? '';
-      const bearer = header.startsWith('Bearer ') ? header.slice('Bearer '.length) : '';
+      const bearer = bearerOf(request);
       if (!bearer) return noOrg(`ip:${ip}`);
       const found = await resolveRateLimitCredential('api-key', bearer, ip);
       return found
@@ -427,4 +427,29 @@ async function resolveIdentifier(key: RateLimitRule['key'], request: NextRequest
       return found ? noOrg(`embed:${found.id}:${ip}`) : noOrg(`ip:${ip}`);
     }
   }
+}
+
+/**
+ * The `Authorization: Bearer` value, parsed exactly as the routes parse it
+ * (`resolveApiKey`, the MCP transport): a case-sensitive `Bearer ` and the
+ * rest verbatim, so the proxy never credits a header the route would refuse.
+ */
+function bearerOf(request: NextRequest): string {
+  const header = request.headers.get('authorization') ?? '';
+  return header.startsWith('Bearer ') ? header.slice('Bearer '.length) : '';
+}
+
+/**
+ * A `session-user` request with no session: the per-IP bucket, as always, and
+ * — at `multi`, when it carries a user API key — the key's org for the org
+ * counter. Every `withAuth` route accepts a key, so without this a tenant's
+ * keys on the general API would never count against its cap. The bucket stays
+ * the IP's: re-keying the catch-all rule is not this counter's business.
+ */
+async function keyOrgOnIpBucket(request: NextRequest, ip: string): Promise<Caller> {
+  const bucket = `ip:${ip}`;
+  const bearer = isMultiTenant() ? bearerOf(request) : '';
+  if (!bearer) return { id: bucket, orgId: null, memberUserId: null };
+  const found = await resolveRateLimitCredential('api-key', bearer, ip);
+  return { id: bucket, orgId: found?.orgId ?? null, memberUserId: found?.memberUserId ?? null };
 }

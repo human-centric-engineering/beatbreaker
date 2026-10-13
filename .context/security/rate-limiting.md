@@ -129,7 +129,7 @@ Per-caller fairness inside the org still applies, because both counters must pas
 | Strategy                       | Org counted                                                                                                                                  |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | `session-user`                 | the org the guard will enter: the fork's tenant resolver's answer, computed from the request here, else the session's `activeOrgId`          |
-| `api-key` (`sk_`)              | the key row's `orgId`; an unbound key (every `admin`-scoped one) has none                                                                    |
+| `api-key` (`sk_`)              | the key row's `orgId`; an `admin`-scoped key, and an unbound key at `multi`, have none                                                       |
 | `api-key` (MCP)                | the key row's `orgId`, from the same lookup that checks the org can be entered                                                               |
 | `embed-token`                  | none: the token is public (it is in the embedding page), so counting it would let anyone hold the tenant at its cap and lock out its members |
 | `ip`, any fallback, custom key | none, so the request is not counted                                                                                                          |
@@ -138,10 +138,16 @@ The credential lookups already read these rows, so working out the org costs no 
 
 **A user is counted only against an org they can enter.** Neither a session's org nor a key's column is a membership: a removed member's session still names the org, and a resolver names an org by hostname whoever is calling. So for a session, or a user API key's owner, the membership is checked the way the guards check it (present, org `ACTIVE`) before the request is counted. The answer is cached for 30 seconds per user and org, and the check is made only for an org that has a cap. Someone who cannot enter the org is refused by the guard anyway, and counting them would let a former member, or anyone visiting the org's hostname, hold it at its cap.
 
-**When nothing is counted:** at `single`; when the org has no `requestsPerMinute`; when no org could be worked out; when the user cannot enter the org; and on the two ways out of a full org:
+**A user API key on a session-keyed route still counts.** Every `withAuth` route accepts `Authorization: Bearer sk_…`, and the catch-all rule keys on the session. So when there is no session and the request carries a key, the key is looked up (through the same cache and per-IP lookup budget as the `api-key` strategy) for its org alone. The request's own bucket stays the IP's, as before.
+
+**When nothing is counted:** at `single`; when the org has no `requestsPerMinute`; when no org could be worked out; when the user cannot enter the org; and on the ways out of a full org:
 
 - **`/api/v1/admin/**`**, the platform operator's control plane. A tenant's traffic must not lock the operator out of `PATCH /api/v1/admin/orgs/[id]`, which is where a full cap is raised, and the operator's support work inside a customer's org should not be charged to that customer.
-- **`POST /api/v1/orgs/switch`**, so a member of two orgs whose session names the full one can still move to the other.
+- **`/api/v1/orgs` and `/api/v1/orgs/switch`**, so a member of two orgs whose session names the full one can still list their orgs and move to the other. An org's own sub-routes (`/api/v1/orgs/[id]/…`) are counted.
+
+The admin exemption is by path. That holds while only platform admins reach that surface, which is the default authorization policy; a fork that admits org admins there lets that traffic past its tenants' caps.
+
+A refused request's `Retry-After` is the moment the sliding estimate next has room, not the end of the minute.
 
 MCP and webhook traffic **is** counted: it is the tenant's own credentials calling.
 
@@ -149,7 +155,7 @@ MCP and webhook traffic **is** counted: it is the tenant's own credentials calli
 
 **Caching and staleness.** Each org's cap, including "no cap", is cached for 30 seconds, so a request makes no database read while its org's entry is warm. The PATCH route clears the entry in its own process (`forgetOrgRequestCap(orgId)`; call it after `writeOrgQuotas()` too). The cache is held on `globalThis` so that clear reaches the proxy's copy. **Other instances can enforce the old cap for up to 30 seconds.** If the cap cannot be read, the org counter is skipped with a warning, and the per-caller limits still apply.
 
-**It is per process**, like every section tier. With N instances an org can get up to N × its cap; see [Distributed Deployments](#distributed-deployments). Each org's window is a sliding estimate from this minute's count and the last minute's, weighted by how much of the last minute is still inside the window. A check is the same small amount of work whatever the cap.
+**It is per process**, like every section tier. With N instances an org can get up to N × its cap; see [Distributed Deployments](#distributed-deployments). Each org's window is a sliding estimate from this minute's count and the last minute's, weighted by how much of the last minute is still inside the window. A check is the same small amount of work whatever the cap. Each process keeps at most 10,000 cached caps, memberships and windows. An evicted window starts again at zero, so beyond that many capped orgs active in one process, the least recently used can briefly get a fresh cap's worth of requests.
 
 ## Per-Flow Sub-Caps (handler-applied)
 

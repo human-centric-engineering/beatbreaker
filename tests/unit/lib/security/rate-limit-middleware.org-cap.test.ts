@@ -257,6 +257,7 @@ describe('applyRateLimit — per-org request cap', () => {
     orgQuotas[org] = { requestsPerMinute: 3 };
     members.set(`${owner}:${org}`, 'ACTIVE');
     vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
+      scopes: [],
       id: fresh('k'),
       expiresAt: null,
       orgId: org,
@@ -287,6 +288,7 @@ describe('applyRateLimit — per-org request cap', () => {
     const org = fresh('org');
     orgQuotas[org] = { requestsPerMinute: 1 };
     vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
+      scopes: [],
       id: fresh('k'),
       expiresAt: null,
       orgId: org,
@@ -370,14 +372,63 @@ describe('applyRateLimit — per-org request cap', () => {
     expect(await applyRateLimit(sessionRequest(API, user))).toBeNull();
   });
 
-  it('never counts POST /api/v1/orgs/switch, the way out of a saturated org', async () => {
+  it('never counts listing orgs or switching, the way out of a saturated org', async () => {
     const org = fresh('org');
     orgQuotas[org] = { requestsPerMinute: 1 };
     const user = fresh('user');
     join(user, org);
 
     expect(await statuses(() => sessionRequest(API, user), 2)).toEqual([200, 429]);
+    expect(await applyRateLimit(sessionRequest('/api/v1/orgs', user))).toBeNull();
     expect(await applyRateLimit(sessionRequest('/api/v1/orgs/switch', user))).toBeNull();
+    // An org's own sub-routes are not a way out, and are counted.
+    expect(
+      (await applyRateLimit(sessionRequest(`/api/v1/orgs/${org}/members`, user)))?.status
+    ).toBe(429);
+  });
+
+  it('counts a user API key on the general API, where the rule keys on the session', async () => {
+    const org = fresh('org');
+    const owner = fresh('owner');
+    orgQuotas[org] = { requestsPerMinute: 2 };
+    members.set(`${owner}:${org}`, 'ACTIVE');
+    vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
+      id: fresh('k'),
+      expiresAt: null,
+      orgId: org,
+      userId: owner,
+      scopes: ['chat'],
+    } as never);
+
+    const keyed = () =>
+      request(API, { authorization: 'Bearer sk_general_1', 'x-forwarded-for': '198.51.100.61' });
+    expect(await statuses(keyed, 3)).toEqual([200, 200, 429]);
+  });
+
+  it("tells a refused client to retry when the org's estimate has room, not at the minute's end", async () => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    const minute = 60_000;
+    const start = Math.ceil(Date.now() / minute) * minute;
+    vi.setSystemTime(start + 59_000);
+    const org = fresh('org');
+    orgQuotas[org] = { requestsPerMinute: 4 };
+    const user = fresh('user');
+    join(user, org);
+
+    await statuses(() => sessionRequest(API, user), 4);
+    // 6s into the next minute the last minute's 4 weigh 3.6, so one more
+    // fits (3.6 < 4); after it, 3.6 + 1 does not.
+    vi.setSystemTime(start + minute + 6_000);
+    expect(await statuses(() => sessionRequest(API, user), 2)).toEqual([200, 429]);
+
+    const refused = await applyRateLimit(sessionRequest(API, user));
+    // used = 4 * (1 - f) + 1 drops below 4 once f > 1/4: 15s into the minute.
+    const expected = Math.ceil((start + minute + 15_000) / 1000);
+    expect(refused?.headers.get('X-RateLimit-Reset')).toBe(String(expected));
+    // Not the end of the minute, when 4 * 0 + 1 has long had room.
+    expect(Number(refused?.headers.get('X-RateLimit-Reset'))).toBeLessThan(
+      Math.ceil((start + 2 * minute) / 1000)
+    );
   });
 
   it("slides the org's window: last minute's requests weigh on this one by how much of it is left", async () => {
