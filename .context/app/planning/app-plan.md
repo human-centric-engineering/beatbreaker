@@ -4020,6 +4020,59 @@ reconciled, with these found on the way:
   `set_playback` sets a section's ratio (`section`, `tempoRatio`), so it is
   not the Studio's alone (CLAUDE.md, API-first).
 
+**11-f reconciled against the tree, 2026-10-13** (branch
+`phase-11-f-buddy-records`), with the loose end from 11-e-ii-g:
+
+- **Not a knowledge base (D51).** Sunrise's knowledge search only reads chunks
+  that have an embedding, and its seeder writes none (`007-knowledge-chunks`
+  leaves that to an admin job), so a records KB would answer nothing until
+  someone embedded it. More to the point, the records are twenty structured
+  files already in rows: the confidence on each claim, the lineage edges and
+  `readDrummerRecord`'s withholding of a masked performer's identity are what
+  a citation needs, and chunking throws them away. BeatBuddy reads the rows
+  instead, as the pages do. Its `knowledgeAccessMode` stays `restricted`.
+- **Two tools.** `find_drummers` (every drummer with a record, short enough
+  to compare; or a word search that also finds stubs) and `get_drummer` (what
+  `/drummers/[slug]` shows, with `cite`: the record, its status, its page).
+  Two data functions join `data.ts`: `listDrummers` and `findLineageSlug`.
+- **The sources are not cited.** `sources/` is not in the tables (004 seeds
+  nodes, edges and recordings); the citation is the record and its page,
+  which lists them no more than the tool does. Adding them is a table of its
+  own, left for when a page wants them too.
+- **Llegué llegué was settled in -g's reconciliation** (never split), so the
+  loose end is Landlord alone: its fast section is in eighths throughout, so
+  it can be written in `4/4-8`, if the style's sixteenth positions are
+  restated for that grid.
+
+| PR   | What                                                                                                | Done when                                                                                                                                                                       |
+| ---- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 11-f | `find_drummers` and `get_drummer`, the seed rows and instructions; Landlord's fast section in 4/4-8 | Its answer about a drummer cites the record (checked live); a masked performer's name stays withheld; every drummer with a record names a playable style; Landlord plays at 100 |
+
+**11-f built, 2026-10-13**, as reconciled, with these found on the way:
+
+- **Checked live** on `gpt-4.1` (a scratch script calling `streamChat` as the
+  stream route does): the Purdie question cites "BeatBreaker's record of
+  Bernard Purdie, draft (/drummers/bernard-purdie)"; asked Klek's real name,
+  it says the record keeps it private.
+- **The first instructions were not enough.** Asked about Klek, the model
+  called no tool and said there was no record; asked who is busier than
+  Purdie, it searched twice by query and never listed them. The instructions
+  now say to look a drummer up before answering, to compare from the full
+  list, and never to say there is no record unless a tool has; an empty
+  search says to call it with no query.
+- **A comparison costs $0.10–0.14**, over the seeded $0.10 per-turn cap,
+  which on the last iteration only warns but mid-loop stops the tool loop.
+  The list's summaries were cut to their first sentence (14 KB to 8.5 KB) and
+  relations to one line each; the cap itself is the owner's call (still
+  open, below).
+- **Landlord plays at 100**, the fast section at 200 (the record's 190–200).
+  In eighths, one figure (snare on every "and", kicks on 1, 2 and 3) left one
+  empty eighth where the critic wants two, a rule it met in sixteenths only
+  because the off-sixteenths counted as air; its kick is now on 1 and 3.
+  Copeland's `backbeats`, `openSlots` and `anticipate` name sixteenth steps,
+  so the section restates them. Forty seeds all play; no golden moved.
+- **Not checked in a browser** (no Chrome): nothing in the Studio changed.
+
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
 stays `archetype` or `approximation` until stems are checked); personas
@@ -4391,23 +4444,30 @@ already cascade and already export.
 | D49 | How the lineage map is drawn         | **Server-rendered SVG on a time-anchored layout**, with a list view on phones. Not three.js or canvas: 150–500 nodes, and it must read as a family tree and work with a keyboard.                   |
 | D50 | The twelve new drummers              | **Styles with songs, like Mitchell's**, in three PRs by family. Approximations, labelled as such.                                                                                                   |
 
+### Decided — 2026-10-13
+
+| #   | Decision                        | Outcome                                                                                                                                                                                                                                              |
+| --- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D51 | How BeatBuddy reads the records | **Two read tools over the lineage tables, not a knowledge base.** Revises D48's last sentence. Twenty records need no retrieval; a vector store needs an embedding job and loses the confidence and the masked-persona rule the tables already keep. |
+
 ### Still open
 
 Recommendation first in each case. None blocks Phases 0–4.
 
-| #   | Decision                                                                | Recommendation                                                                                                                                                                                                                                          | Needed by |
-| --- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| D4  | BeatBuddy's daily allowance                                             | **30 turns/day**, tuned after a week of real cost data.                                                                                                                                                                                                 | Phase 7   |
-| D7  | Who reviews Privacy and Terms, and what is the minimum age?             | Owner to arrange. Community features, third-party embeds and model-provider data flows make a real review worth having. 13+ or 16+ depending on the jurisdictions served.                                                                               | launch    |
-| D8  | Takes — build, defer or drop?                                           | **Defer.** Video/audio storage, consent and moderation are a product of their own. Leave the table dormant and documented. (Reference links cover "here is a video of this pattern" without BeatBreaker hosting any video.)                             | —         |
-| D9  | Licence on published patterns                                           | A plain-language grant in the Terms — others may play, copy and build on with credit — rather than a named Creative Commons licence, unless the owner wants patterns reusable outside BeatBreaker.                                                      | Phase 6   |
-| D10 | Famous-breaks library: keep song titles and artist credits as they are? | **Keep**, framed as study versions credited to the drummers, with a contact route for corrections and objections. Short rhythmic figures named for study are normal practice in drum education; still worth one conversation with whoever reviews D7.   | launch    |
-| D12 | More link providers (Apple Music, Bandcamp, SoundCloud, Drumeo…)?       | **Not at launch.** Each is one more entry in the parser, the CSP and the privacy policy; add on demand.                                                                                                                                                 | —         |
-| D15 | How a native app signs in                                               | Bearer tokens rather than cookies: better-auth's bearer plugin, or Sunrise's self-service API keys if they fit a per-device login. Until then, keep every route free of cookie-only assumptions (D14).                                                  | native    |
-| D16 | Who may create and publish styles, libraries and kits                   | Users create private ones; publishing one follows the pattern rules of Phase 6 (username, moderation, reporting). A published style is used by reference to a version, so its author cannot change patterns that other people made from it.             | §10 item  |
-| D33 | Which channel platforms at launch?                                      | The eight in 7B plus a personal website. Add on demand, like D12.                                                                                                                                                                                       |
-| D34 | Publishing practice sessions to Explore?                                | **Not yet** — link-sharing only. Publishing means moderation and a browse surface of their own; see §10.                                                                                                                                                |
-| D35 | Where production runs                                                   | **Render** (web, managed Postgres with backups, cron for the maintenance tick) + **Cloudflare R2** for samples + **Resend** + **Sentry**. Vercel ruled out: no private Blob, function duration and body caps against BeatBuddy. Owner confirms (spend). | 8-v       |
+| #   | Decision                                                                | Recommendation                                                                                                                                                                                                                                              | Needed by |
+| --- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| D4  | BeatBuddy's daily allowance                                             | **30 turns/day**, tuned after a week of real cost data.                                                                                                                                                                                                     | Phase 7   |
+| D7  | Who reviews Privacy and Terms, and what is the minimum age?             | Owner to arrange. Community features, third-party embeds and model-provider data flows make a real review worth having. 13+ or 16+ depending on the jurisdictions served.                                                                                   | launch    |
+| D8  | Takes — build, defer or drop?                                           | **Defer.** Video/audio storage, consent and moderation are a product of their own. Leave the table dormant and documented. (Reference links cover "here is a video of this pattern" without BeatBreaker hosting any video.)                                 | —         |
+| D9  | Licence on published patterns                                           | A plain-language grant in the Terms — others may play, copy and build on with credit — rather than a named Creative Commons licence, unless the owner wants patterns reusable outside BeatBreaker.                                                          | Phase 6   |
+| D10 | Famous-breaks library: keep song titles and artist credits as they are? | **Keep**, framed as study versions credited to the drummers, with a contact route for corrections and objections. Short rhythmic figures named for study are normal practice in drum education; still worth one conversation with whoever reviews D7.       | launch    |
+| D12 | More link providers (Apple Music, Bandcamp, SoundCloud, Drumeo…)?       | **Not at launch.** Each is one more entry in the parser, the CSP and the privacy policy; add on demand.                                                                                                                                                     | —         |
+| D15 | How a native app signs in                                               | Bearer tokens rather than cookies: better-auth's bearer plugin, or Sunrise's self-service API keys if they fit a per-device login. Until then, keep every route free of cookie-only assumptions (D14).                                                      | native    |
+| D16 | Who may create and publish styles, libraries and kits                   | Users create private ones; publishing one follows the pattern rules of Phase 6 (username, moderation, reporting). A published style is used by reference to a version, so its author cannot change patterns that other people made from it.                 | §10 item  |
+| D33 | Which channel platforms at launch?                                      | The eight in 7B plus a personal website. Add on demand, like D12.                                                                                                                                                                                           |
+| D34 | Publishing practice sessions to Explore?                                | **Not yet** — link-sharing only. Publishing means moderation and a browse surface of their own; see §10.                                                                                                                                                    |
+| D52 | BeatBuddy's per-turn cost cap                                           | **Raise it to $0.20.** A drummer comparison (11-f) costs $0.10–0.14 on `gpt-4.1`, and crossing the cap mid-turn stops the answer. The monthly budget still bounds the total. The seed's value only reaches a new install; an existing one is an admin edit. | 11-f      |
+| D35 | Where production runs                                                   | **Render** (web, managed Postgres with backups, cron for the maintenance tick) + **Cloudflare R2** for samples + **Resend** + **Sentry**. Vercel ruled out: no private Blob, function duration and body caps against BeatBuddy. Owner confirms (spend).     | 8-v       |
 
 ---
 
