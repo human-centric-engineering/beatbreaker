@@ -79,7 +79,7 @@ function install() {
   vi.mocked(listKits).mockResolvedValue([
     { key: 'studio70', engine: 'synth' },
     { key: 'brush', engine: 'pack' },
-    // a drum machine with no implementation behind it yet: listed, not playable
+    // a drum machine: playable since the machines were built (9-vi-e)
     { key: 'tr808', engine: 'drift' },
   ] as never);
   vi.mocked(listStyles).mockResolvedValue([{ key: 'funk' }, { key: 'jazz' }] as never);
@@ -343,12 +343,18 @@ describe('PATCH', () => {
 
   it.each([
     ['kit', 'retired-kit'],
-    ['kit', 'tr808'],
     ['userKit', 'retired-kit'],
     ['startStyle', 'polka'],
   ])('refuses %s %s, which the catalogue cannot play, and writes nothing', async (field, key) => {
     expect(await refused(await patch({ countIn: 2, [field]: key }))).toEqual([field]);
     expect(prisma.$executeRaw).not.toHaveBeenCalled();
+  });
+
+  it('takes a drum machine, now the machines are built (9-vi-e)', async () => {
+    const res = await patch({ kit: 'tr808' });
+
+    expect(res.status).toBe(200);
+    expect((await json(res)).data.kit).toBe('tr808');
   });
 
   it('takes one of your own kits', async () => {
