@@ -70,7 +70,7 @@ vi.mock('@/lib/db/client', () => {
 });
 
 vi.mock('@/lib/orchestration/llm/cost-tracker', () => ({
-  getMonthToDateGlobalSpend: vi.fn(),
+  getGlobalCapState: vi.fn(),
 }));
 
 vi.mock('@/lib/orchestration/audit/admin-audit-logger', () => ({
@@ -148,8 +148,10 @@ async function parseJson<T>(response: Response): Promise<T> {
 // ─── Tests ────────────────────────────────────────────────────────────────────
 
 describe('GET /api/v1/admin/orchestration/agents', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     vi.clearAllMocks();
+    const { getGlobalCapState } = await import('@/lib/orchestration/llm/cost-tracker');
+    vi.mocked(getGlobalCapState).mockResolvedValue({ cap: null, spent: 0, exceeded: false });
   });
 
   describe('Authentication & Authorization', () => {
@@ -266,15 +268,10 @@ describe('GET /api/v1/admin/orchestration/agents', () => {
       vi.mocked(prisma.aiCostLog.groupBy).mockResolvedValue([
         { agentId: agent.id, _sum: { totalCostUsd: 5 } },
       ] as never);
-      // The route imports getMonthToDateGlobalSpend; that helper is
-      // already mocked at the top of this file. Mock its return so
-      // global spend exceeds the cap defined below.
-      const { getMonthToDateGlobalSpend } = await import('@/lib/orchestration/llm/cost-tracker');
-      vi.mocked(getMonthToDateGlobalSpend).mockResolvedValue(110);
-      vi.mocked(prisma.aiOrchestrationSettings.findUnique).mockResolvedValue({
-        slug: 'global',
-        globalMonthlyBudgetUsd: 100,
-      } as never);
+      // The route reads the global cap through getGlobalCapState, mocked at
+      // the top of this file: spend in every org ($110) is over the $100 cap.
+      const { getGlobalCapState } = await import('@/lib/orchestration/llm/cost-tracker');
+      vi.mocked(getGlobalCapState).mockResolvedValue({ cap: 100, spent: 110, exceeded: true });
 
       const response = await GET(makeGetRequest());
 
