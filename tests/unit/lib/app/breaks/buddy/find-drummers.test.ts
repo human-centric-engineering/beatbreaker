@@ -1,0 +1,86 @@
+/**
+ * `find_drummers` (11-f): BeatBreaker's drummer records, listed or searched.
+ * The data layer is mocked with the real drummer model as the seed writes it
+ * (`tests/helpers/lineage-tables.ts`), so these read the real records.
+ */
+
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { dataOf } from '@/tests/helpers/buddy';
+import { listDrummersFromModel } from '@/tests/helpers/lineage-tables';
+
+vi.mock('@/lib/app/lineage/data', () => ({ listDrummers: vi.fn() }));
+
+import { FindDrummersCapability } from '@/lib/app/breaks/buddy/find-drummers';
+import { listDrummers } from '@/lib/app/lineage/data';
+import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
+
+const context = { userId: 'user-1', agentId: 'agent-1' };
+
+async function find(args: unknown) {
+  const cap = new FindDrummersCapability();
+  return dataOf(await cap.execute(cap.validate(args), context)).drummers;
+}
+
+beforeEach(() => {
+  vi.mocked(listDrummers).mockImplementation(listDrummersFromModel);
+});
+
+describe('find_drummers', () => {
+  it('lists every drummer with a record, and only them, when there is no query', async () => {
+    const drummers = await find({});
+    const modelled = (await listDrummersFromModel()).filter((d) => d.node.modelled);
+    expect(drummers.map((d) => d.slug)).toEqual(modelled.map((d) => d.node.slug));
+    expect(drummers.every((d) => d.modelled)).toBe(true);
+  });
+
+  it("gives each one's page, years, playable style, genres, summary and a few describing words", async () => {
+    const purdie = (await find({})).find((d) => d.slug === 'bernard-purdie');
+    expect(purdie).toMatchObject({
+      name: 'Bernard Purdie',
+      page: '/drummers/bernard-purdie',
+      active: '1958–',
+      style: 'bernardpurdie',
+    });
+    expect(purdie?.genres.every((g) => !g.startsWith('style:'))).toBe(true);
+    expect(purdie?.summary).toMatch(/session drummer/);
+    // nine in the record, held to eight so the full list stays short
+    expect(purdie?.descriptors).toHaveLength(8);
+  });
+
+  it('names a style generate_pattern can play for every drummer with a record', async () => {
+    for (const d of await find({})) expect(STYLES).toHaveProperty(d.style ?? 'missing');
+  });
+
+  it('matches a signature trait, not just the name', async () => {
+    const slugs = (await find({ query: 'shuffle' })).map((d) => d.slug);
+    expect(slugs).toContain('bernard-purdie');
+    expect(slugs).not.toContain('dave-lombardo');
+  });
+
+  it('folds accents and case, and needs every word', async () => {
+    expect((await find({ query: 'HERNANDEZ' })).map((d) => d.slug)).toEqual(['horacio-hernandez']);
+    expect(await find({ query: 'purdie lombardo' })).toEqual([]);
+  });
+
+  it('points a search that matched nothing at the full list', async () => {
+    const cap = new FindDrummersCapability();
+    const data = dataOf(await cap.execute(cap.validate({ query: 'busier funk' }), context));
+    expect(data.drummers).toEqual([]);
+    expect(data.note).toMatch(/no query/);
+  });
+
+  it('finds someone the records only mention, marked as having no record', async () => {
+    const [roach] = await find({ query: 'Max Roach' });
+    expect(roach).toMatchObject({ slug: 'max-roach', modelled: false, descriptors: [] });
+  });
+
+  it('puts drummers with a record before people only mentioned', async () => {
+    // Elvin has a record; Papa Jo Jones is only named in others'
+    const found = await find({ query: 'jones' });
+    expect(found[0].slug).toBe('elvin-jones');
+    const firstStub = found.findIndex((d) => !d.modelled);
+    expect(firstStub).toBeGreaterThan(0);
+    expect(found.slice(firstStub).every((d) => !d.modelled)).toBe(true);
+  });
+});

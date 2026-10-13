@@ -7,6 +7,7 @@
  * already gets a 304.
  */
 
+import { slugOf } from '@/lib/app/lineage/build';
 import { prisma } from '@/lib/db/client';
 import {
   CONFIDENCES,
@@ -146,4 +147,42 @@ export async function getLineageProfile(slug: string): Promise<LineageProfile | 
       record: r.record,
     })),
   };
+}
+
+/** A drummer node with its record (null for a stub), for BeatBuddy's search. */
+export interface DrummerEntry {
+  node: LineageNode;
+  record: unknown;
+}
+
+/** Every drummer node, modelled ones first, each with its record (11-f). */
+export async function listDrummers(): Promise<DrummerEntry[]> {
+  const rows = await prisma.lineageNode.findMany({
+    where: { kind: 'drummer' },
+    select: { ...NODE_FIELDS, record: true },
+    orderBy: [{ modelled: 'desc' }, { label: 'asc' }],
+  });
+  return rows.map(({ record, ...row }) => ({ node: toNode(row), record }));
+}
+
+/**
+ * The slug of the node a person means, from a slug or a name as typed
+ * ("Bernard Purdie", "bernard-purdie", "purdie" does not match); null if none.
+ */
+export async function findLineageSlug(nameOrSlug: string): Promise<string | null> {
+  const typed = nameOrSlug.trim();
+  if (!typed) return null;
+  const bySlug = await prisma.lineageNode.findFirst({
+    where: { slug: { in: [...new Set([typed, slugOf(typed)])] } },
+    select: { slug: true },
+    orderBy: { slug: 'asc' },
+  });
+  if (bySlug) return bySlug.slug;
+  const byName = await prisma.lineageNode.findFirst({
+    where: { label: { equals: typed, mode: 'insensitive' } },
+    select: { slug: true },
+    // a drummer before a band or a style of the same name
+    orderBy: [{ modelled: 'desc' }, { kind: 'asc' }],
+  });
+  return byName?.slug ?? null;
 }

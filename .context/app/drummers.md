@@ -39,8 +39,10 @@ record, the graph, the API, and the map and pages that show them.
   JSON; a page reads it through `readDrummerRecord`, which drops a field that
   does not read and never returns a masked performer's name or dates.
 - **Don't put the graph in the vector store.** Traversal, direction and filters
-  need rows. The records' prose goes to a knowledge base for BeatBuddy as well
-  (11-f), but the map reads the tables.
+  need rows. BeatBuddy reads the same tables (11-f): `find_drummers` and
+  `get_drummer` in `lib/app/breaks/buddy/`, through `listDrummers`,
+  `findLineageSlug` and `getLineageProfile` in `data.ts`. See
+  [beatbuddy.md](./beatbuddy.md#the-tools).
 
 ## The model
 

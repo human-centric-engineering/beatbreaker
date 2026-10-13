@@ -210,8 +210,11 @@ few words of `feel`, a `weight`, and `params`: any style field except
     `songBpm` divides it by the ratio before taking the range every section
     shares; the ceiling is each section's meter's over its ratio
     (`songPaces`). Angel of Death's break plays at ×½ of the skank; Landlord's
-    fast section at ×2 of its slow one — in sixteenths, so it is held to
-    4/4's 190 and the song to 95, where `landlord-fast` was held before.
+    fast section at ×2 of its slow one, written in eighths (`4/4-8`, with
+    Copeland's sixteenth-position backbeats, open slots and anticipation
+    restated for that grid), so the song plays at the record's 100 and the
+    fast section at 200. In sixteenths 4/4's 190 had held it to 95. A
+    section in another grid must restate any style field that names a step.
     Llegué llegué was never split: Moore's opening at 59 is the Guararey
     tumbao with the hats in sixteenths, the same notes at the same speed.
   - **Old keys still read.** A section's `aliases` are the keys it had as a

@@ -15,8 +15,10 @@
  */
 import { ApplyDoctorMoveCapability } from '@/lib/app/breaks/buddy/apply-doctor-move';
 import { ExplainDifficultyCapability } from '@/lib/app/breaks/buddy/explain-difficulty';
+import { FindDrummersCapability } from '@/lib/app/breaks/buddy/find-drummers';
 import { FindPatternsCapability } from '@/lib/app/breaks/buddy/find-patterns';
 import { GeneratePatternCapability } from '@/lib/app/breaks/buddy/generate-pattern';
+import { GetDrummerCapability } from '@/lib/app/breaks/buddy/get-drummer';
 import { GetPatternCapability } from '@/lib/app/breaks/buddy/get-pattern';
 import { ListStylesCapability } from '@/lib/app/breaks/buddy/list-styles';
 import { OpenPatternCapability } from '@/lib/app/breaks/buddy/open-pattern';
@@ -28,7 +30,7 @@ import { WriteBarsCapability } from '@/lib/app/breaks/buddy/write-bars';
 import { registerAppCapability } from '@/lib/orchestration/capabilities/registry';
 
 /**
- * BeatBuddy's tools (Phase 7). Each needs its active `AiCapability` row and a
+ * BeatBuddy's tools (Phase 7; the drummer records' two, 11-f). Each needs its active `AiCapability` row and a
  * binding to the `beatbuddy` agent before a model sees it — both seeded by
  * `prisma/seeds/app-beatbreaker/003-beatbuddy.ts`, which reads each tool's
  * `functionDefinition` from these same classes.
@@ -46,6 +48,9 @@ export const BEATBUDDY_CAPABILITIES = [
   new OpenPatternCapability(),
   new SavePatternCapability(),
   new SuggestTitleCapability(),
+  // the drummer records (11-f)
+  new FindDrummersCapability(),
+  new GetDrummerCapability(),
 ];
 
 export function initAppCapabilities(): void {

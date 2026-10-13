@@ -8544,14 +8544,24 @@ export const STYLES: Record<string, Style> = {
             tempoRatio: 2,
             aliases: ['landlord-fast'],
             params: {
+              /* in eighths, as everything in it falls on one: 4/4's sixteenths
+                 top out at 190, which held the song to 95 */
+              meter: '4/4-8',
               bpm: [190, 200],
               fillChance: 0.5,
-              // open hats on every 8th (the 16th kicks thinned, to keep it at tempo)
+              // Copeland's slots are sixteenths; in eighths they are these
+              backbeats: [],
+              openSlots: [7, 3],
+              // his tied "and" of 4 is a sixteenth position; this section has none
+              anticipate: 0,
+              /* open hats on every 8th (the 16th kicks thinned, to keep it at
+                 tempo, and the "and" kicks to 1 and 3, to leave a quarter of
+                 the bar air) */
               figures: [
-                [{ h: '3.3.3.3.3.3.3.3.', s: '..2...2...2...2.', k: '1...1...1.......' }, 1],
-                [{ h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1.1.....1.1.....' }, 0.8],
+                [{ h: '33333333', s: '.2.2.2.2', k: '1...1...' }, 1],
+                [{ h: '33333333', s: '..2...2.', k: '11..11..' }, 0.8],
               ],
-              fills: [[{ t1: '1.1.1.', t2: '1.1.1.', k: '1.1.1.' }, 1]],
+              fills: [[{ t1: '111', t2: '111', k: '111' }, 1]],
             },
           },
         ],
