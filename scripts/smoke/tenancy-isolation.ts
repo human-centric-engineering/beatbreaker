@@ -144,6 +144,12 @@ import { backfillMissingEmbeddings } from '@/lib/orchestration/chat/message-embe
 import { searchConversationEmbeddings } from '@/lib/orchestration/chat/conversation-semantic-search';
 import { getCostBreakdown, getCostSummary } from '@/lib/orchestration/llm/cost-reports';
 import { checkBudget, getMonthToDateGlobalSpend } from '@/lib/orchestration/llm/cost-tracker';
+import {
+  assertWithinSpendCaps,
+  forgetOrgCap,
+  SpendCapExceededError,
+  utcMonthStart,
+} from '@/lib/orchestration/llm/spend-caps';
 import { signHookPayload } from '@/lib/orchestration/hooks/signing';
 import { POST as inboundPost } from '@/app/api/v1/inbound/[channel]/[slug]/route';
 import { withAdminAuth } from '@/lib/auth/guards';
@@ -698,9 +704,11 @@ async function main(): Promise<void> {
 
     // The global budget cap totals every org (§110 t-788). Read in A's scope,
     // the policy would hide B's row and make the "global" cap a per-org one.
+    // Both totals from the start of the month: a 24-hour window would reach
+    // into last month just after midnight UTC on the 1st, and fail spuriously.
     const plainTotalInA = await runAsOrg(a.orgId, async () => {
       const agg = await prisma.aiCostLog.aggregate({
-        where: { createdAt: { gte: dayAgo } },
+        where: { createdAt: { gte: utcMonthStart() } },
         _sum: { totalCostUsd: true },
       });
       return agg._sum.totalCostUsd ?? 0;
@@ -714,6 +722,8 @@ async function main(): Promise<void> {
     // An org cap stops its own org's turns and not another's (§110 t-788).
     await writeOrgQuotas(a.orgId, { monthlyBudgetUsd: a.costUsd / 2 });
     await writeOrgQuotas(b.orgId, { monthlyBudgetUsd: b.costUsd * 10 });
+    forgetOrgCap(a.orgId);
+    forgetOrgCap(b.orgId);
     const budgetA = await runAsOrg(a.orgId, () => checkBudget(a.agentId));
     const budgetB = await runAsOrg(b.orgId, () => checkBudget(b.agentId));
     check(
@@ -724,8 +734,27 @@ async function main(): Promise<void> {
       budgetB.orgCapExceeded === undefined && (budgetB.org?.spent ?? 0) >= b.costUsd,
       `B's spend is B's alone, under B's cap (${JSON.stringify(budgetB.org)})`
     );
+    // The call-time gate reads the same caps for every paid vendor call, in
+    // the org the call is made for: A's paid calls stop, B's do not, and A's
+    // local calls are never stopped.
+    const gateRefusal = async (orgId: string, isLocal: boolean) =>
+      runAsOrg(orgId, () => assertWithinSpendCaps('smoke-paid-provider', isLocal)).then(
+        () => null,
+        (err: unknown) => (err instanceof SpendCapExceededError ? err.cap : String(err))
+      );
+    check(
+      (await gateRefusal(a.orgId, false)) === 'org',
+      "the spend gate refuses a paid call in A, over A's cap"
+    );
+    check((await gateRefusal(b.orgId, false)) === null, 'the spend gate admits a paid call in B');
+    check(
+      (await gateRefusal(a.orgId, true)) === null,
+      'the spend gate admits a local call in A, over its cap'
+    );
     await writeOrgQuotas(a.orgId, null);
     await writeOrgQuotas(b.orgId, null);
+    forgetOrgCap(a.orgId);
+    forgetOrgCap(b.orgId);
 
     const convSearch = (who: OrgFixture, topic: string) =>
       runAsOrg(who.orgId, () =>

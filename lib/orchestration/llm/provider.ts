@@ -254,6 +254,16 @@ export class ProviderError extends Error {
 export const PROVIDER_NOT_PERMITTED = 'provider_not_permitted';
 
 /**
+ * The codes a monthly spend-cap refusal carries (§110 t-788): the call-time
+ * gate's `SpendCapExceededError` (`spend-caps.ts`), and the chat handler's own
+ * refusal before a turn starts, which uses the same words for the same cap.
+ */
+export const SPEND_CAP_CODES = {
+  org: 'org_budget_exceeded',
+  global: 'global_budget_exceeded',
+} as const;
+
+/**
  * `ProviderError` codes describing a fault in the REQUEST rather than in the
  * provider — the same cap, the same schema, the same rejection at any vendor.
  *
@@ -282,7 +292,17 @@ export const PROVIDER_NOT_PERMITTED = 'provider_not_permitted';
 // provider is the reroute the gate exists to rule out. It is also not evidence
 // about the provider's health, so it must never reach a circuit breaker — at
 // `multi`, one org's refusal would otherwise open the circuit for every org.
-const REQUEST_FAULT_CODES = new Set(['truncated_no_output', PROVIDER_NOT_PERMITTED]);
+//
+// The spend-cap codes are the same kind of answer (§110 t-788): a cap that has
+// been reached stays reached on a retry, and failing over to another paid
+// provider spends against the same cap. Nor is a reached cap anything to do
+// with the provider's health.
+const REQUEST_FAULT_CODES = new Set<string>([
+  'truncated_no_output',
+  PROVIDER_NOT_PERMITTED,
+  SPEND_CAP_CODES.org,
+  SPEND_CAP_CODES.global,
+]);
 
 /**
  * Whether `err` is a {@link REQUEST_FAULT_CODES} `ProviderError` — i.e. a

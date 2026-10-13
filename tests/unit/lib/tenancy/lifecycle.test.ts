@@ -54,6 +54,7 @@ import {
   resolveOrgResource,
   syncInstallMembershipRole,
   updateOrg,
+  updateOrgReportingPrevious,
 } from '@/lib/tenancy/lifecycle';
 import { APIError } from '@/lib/api/errors';
 import { logger } from '@/lib/logging';
@@ -695,6 +696,28 @@ describe('updateOrg — the retention slice (§108 t-713)', () => {
     expect(db.org.update).toHaveBeenCalledWith(
       expect.objectContaining({ data: { settings: Prisma.DbNull } })
     );
+  });
+
+  it('reports the settings the write replaced, read inside its transaction', async () => {
+    // What the caps audit entry records as "from" (§110 t-788).
+    const before = { quotas: { monthlyBudgetUsd: 10 }, branding: { logo: 'x' } };
+    stored(before);
+
+    const result = await updateOrgReportingPrevious(ORG, {
+      settings: { quotas: { monthlyBudgetUsd: 20 } },
+    });
+
+    expect(result.previousSettings).toEqual(before);
+    expect(result.org).toEqual(orgRow());
+  });
+
+  it('reports the current settings as the previous ones for a patch that leaves them alone', async () => {
+    db.org.findUnique.mockResolvedValue({ ...orgRow(), settings: { branding: { logo: 'y' } } });
+    db.org.update.mockResolvedValue(orgRow());
+
+    const result = await updateOrgReportingPrevious(ORG, { name: 'Renamed' });
+
+    expect(result.previousSettings).toEqual({ branding: { logo: 'y' } });
   });
 
   it('takes no transaction when the patch does not touch settings', async () => {

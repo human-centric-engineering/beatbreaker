@@ -56,19 +56,42 @@ release process.
   it). At `multi` that write is refused with a 403
   (`details.reason: shared_settings_install_org_only`) unless it comes from
   the install org or an unbound admin API key, so an org's admins cannot raise
-  their own cap. `checkBudget()` enforces it beside the agent's budget and the
-  global cap, on the org's month-to-date spend, and reports `orgCapExceeded` /
-  `org: { limit, spent }`. With no `quotas` set, nothing changes. Exported for
-  forks' billing or plan code: `readOrgQuotas()` / `loadOrgQuotas()` /
-  `writeOrgQuotas()` and `ORG_QUOTAS_KEY` from `lib/tenancy/org-settings.ts`,
-  and `orgQuotasSchema` / `OrgQuotas` from `lib/validations/tenancy.ts`.
-  Migration `20261013120000_ai_cost_log_org_created_at_index` adds an
-  `(orgId, createdAt)` index on `AiCostLog`. Known limit: the budget lock is
+  their own cap. Every caps write is recorded in the admin audit log as
+  `org.quotas.update`, with the caps it replaced. The cap holds every paid AI
+  call made in the org, not only chat (see the spend gate under Changed).
+  `checkBudget()` reports it as `orgCapExceeded` / `org: { limit, spent }`,
+  and the agents list's `_budget` carries `orgCapExceeded: true`. A local
+  model is never stopped, so a cap of `0` means "no paid calls". With no
+  `quotas` set, nothing changes. Exported for forks' billing or plan code:
+  `readOrgQuotas()` / `loadOrgQuotas()` / `writeOrgQuotas()` and
+  `ORG_QUOTAS_KEY` from `lib/tenancy/org-settings.ts`, and `orgQuotasSchema` /
+  `OrgQuotas` from `lib/validations/tenancy.ts`. The spend gate caches each
+  org's cap for 30 seconds: code calling `writeOrgQuotas()` directly calls
+  `forgetOrgCap(orgId)` from `lib/orchestration/llm/spend-caps.ts` after it
+  so its own process enforces the new cap at once. Migration
+  `20261013120000_ai_cost_log_org_created_at_index` adds an
+  `(orgId, createdAt)` index on `AiCostLog`. Known limits: the budget lock is
   per agent, so two agents in one org can each overrun the org cap by up to
-  one turn. See
+  one turn, and the month-to-date totals are cached for 10 seconds per
+  process, so another process's spend is seen within that window. See
   [Costs → Per-org monthly budget cap](./.context/admin/orchestration-costs.md#per-org-monthly-budget-cap).
 
 ### Changed
+
+- **The org and global monthly budget caps hold every paid AI call, not only
+  chat** (§110 t-788). Only the streaming chat handler checked them, so
+  workflow steps, the orchestrator, evaluations, judges, knowledge ingestion
+  and scheduled or webhook runs kept spending after a cap was reached. The
+  provider manager now runs a spend gate (`assertWithinSpendCaps` in
+  `lib/orchestration/llm/spend-caps.ts`) before every vendor call, beside the
+  eligibility gate. A refused call throws `SpendCapExceededError`, a
+  `ProviderError` with code `org_budget_exceeded` or `global_budget_exceeded`.
+  Both codes are request faults (`isRequestFault`): no failover, no circuit
+  breaker failure, and a workflow step fails with that code and is not
+  retried. Local providers are never refused. A chat agent whose primary is
+  local now answers on it after a cap is reached, and is refused only if the
+  turn would reach a paid provider. An install with a global cap set will see
+  non-chat work stop at that cap where it used to carry on.
 
 - **Chat turns stopped by the org or global budget get their own error
   codes** (§110 t-788). The streaming handler emitted `budget_exceeded`, with

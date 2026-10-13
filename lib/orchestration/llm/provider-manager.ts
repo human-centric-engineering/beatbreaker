@@ -47,6 +47,7 @@ import {
   type ProviderEligibilityContext,
 } from '@/lib/orchestration/llm/provider-eligibility';
 import { track, trackStream } from '@/lib/orchestration/llm/in-flight-counter';
+import { assertWithinSpendCaps } from '@/lib/orchestration/llm/spend-caps';
 import { OpenAiCompatibleProvider } from '@/lib/orchestration/llm/openai-compatible';
 import { forgetProviderRow } from '@/lib/orchestration/llm/org-provider-policy';
 import { hydrateFromDb as hydrateModelRegistryFromDb } from '@/lib/orchestration/llm/model-registry-db-hydrate';
@@ -216,6 +217,19 @@ export async function getProvider(
   context?: ProviderEligibilityContext
 ): Promise<LlmProvider> {
   return acquireProvider(slugOrName, context);
+}
+
+/**
+ * Whether `slugOrName` is a local provider, whose calls cost nothing. `false`
+ * when it cannot be resolved, so a caller deciding whether a spend cap applies
+ * treats a provider it cannot see as a paid one.
+ */
+export async function isLocalProvider(slugOrName: string): Promise<boolean> {
+  try {
+    return (await acquireProvider(slugOrName, undefined)).isLocal === true;
+  } catch {
+    return false;
+  }
 }
 
 /** `getProvider` for any call origin, including an unrecorded fallback. */
@@ -430,7 +444,11 @@ function dispositionOf(prop: string): MethodDisposition | undefined {
  * `assertProviderCallPermitted` against `slug` and `context` (§120 t-741), so
  * the provider eligibility rule applies to every vendor call core makes through
  * the manager, whichever site chose the provider. `passthrough` methods are not
- * gated; that function says why. Throws on an empty `slug`,
+ * gated; that function says why. **Every gated call is then held to the
+ * monthly spend caps** — the org's and the global one — by
+ * `assertWithinSpendCaps` (§110 t-788), so a workflow, an evaluation or a job
+ * cannot spend past a cap chat would have refused; a local provider is
+ * exempt, since it costs nothing. Throws on an empty `slug`,
  * because the alternative — returning the instance unwrapped — is the one way
  * the cache's invariant could quietly fail.
  *
@@ -481,13 +499,14 @@ function withInFlightTracking(
           const task = taskOfMethod(prop as ProviderMethodName);
           return async (...args: unknown[]): Promise<unknown> => {
             await assertProviderCallPermitted(slug, context, task);
+            await assertWithinSpendCaps(slug, target.isLocal === true);
             return track(stateKey, () => fn.apply(target, args) as Promise<unknown>);
           };
         }
         case 'trackStream': {
           const task = taskOfMethod(prop as ProviderMethodName);
           return (...args: unknown[]): AsyncIterable<unknown> =>
-            gatedStream(slug, context, task, () =>
+            gatedStream(slug, context, task, target.isLocal === true, () =>
               trackStream(stateKey, () => fn.apply(target, args) as AsyncIterable<unknown>)
             );
         }
@@ -528,17 +547,19 @@ function withInFlightTracking(
 }
 
 /**
- * A stream that asks the gate before the first chunk. The vendor stream is not
- * even created until the gate permits it, so a refused call opens no
- * connection and the in-flight counter never sees it.
+ * A stream that asks the gates before the first chunk. The vendor stream is not
+ * even created until both permit it, so a refused call opens no connection and
+ * the in-flight counter never sees it.
  */
 async function* gatedStream(
   slug: string,
   context: CallOrigin,
   task: TaskType,
+  isLocal: boolean,
   open: () => AsyncIterable<unknown>
 ): AsyncGenerator<unknown> {
   await assertProviderCallPermitted(slug, context, task);
+  await assertWithinSpendCaps(slug, isLocal);
   yield* open();
 }
 

@@ -17,6 +17,7 @@ import { getRouteLogger } from '@/lib/api/context';
 import { getClientIP } from '@/lib/security/ip';
 import { createAgentSchema, listAgentsQuerySchema } from '@/lib/validations/orchestration';
 import { getGlobalCapState } from '@/lib/orchestration/llm/cost-tracker';
+import { getOrgCapState, utcMonthStart } from '@/lib/orchestration/llm/spend-caps';
 import { logAdminAction } from '@/lib/orchestration/audit/admin-audit-logger';
 import { assertAgentSlugNotReserved } from '@/lib/orchestration/agents/platform-agent-guard';
 import {
@@ -108,18 +109,36 @@ export const GET = withAdminAuth(async (request, _session) => {
   if (rawAgents.length > 0) {
     try {
       const agentIds = rawAgents.map((a) => a.id);
-      const now = new Date();
-      const monthStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
+      const orgIds = [...new Set(rawAgents.map((a) => a.orgId).filter((id) => id !== null))];
 
-      const [spendGroups, globalCap] = await Promise.all([
+      // The same three caps `checkBudget` applies, so the list never says an
+      // agent is within budget while its chat turns are being refused. A cap
+      // that cannot be read is skipped, as it is there.
+      const [spendGroups, globalCap, orgCaps] = await Promise.all([
         prisma.aiCostLog.groupBy({
           by: ['agentId'],
-          where: { agentId: { in: agentIds }, createdAt: { gte: monthStart } },
+          where: { agentId: { in: agentIds }, createdAt: { gte: utcMonthStart() } },
           _sum: { totalCostUsd: true },
         }),
         getGlobalCapState(),
+        Promise.all(
+          orgIds.map(async (orgId) => {
+            try {
+              return [orgId, await getOrgCapState(orgId)] as const;
+            } catch (err) {
+              logger.warn('Agents list: org cap lookup failed, skipping the org cap', {
+                orgId,
+                error: err instanceof Error ? err.message : String(err),
+              });
+              return [orgId, null] as const;
+            }
+          })
+        ),
       ]);
       const globalCapExceeded = globalCap.exceeded;
+      const orgCapExceeded = new Set(
+        orgCaps.filter(([, cap]) => cap?.exceeded === true).map(([orgId]) => orgId)
+      );
 
       const spendByAgent = new Map(spendGroups.map((g) => [g.agentId, g._sum.totalCostUsd ?? 0]));
 
@@ -128,12 +147,14 @@ export const GET = withAdminAuth(async (request, _session) => {
           const spent = spendByAgent.get(agent.id) ?? 0;
           const limit = agent.monthlyBudgetUsd;
           const withinAgentBudget = limit === null ? true : spent < limit;
+          const overOrgCap = agent.orgId !== null && orgCapExceeded.has(agent.orgId);
           const summary: BudgetSummary = {
-            withinBudget: withinAgentBudget && !globalCapExceeded,
+            withinBudget: withinAgentBudget && !overOrgCap && !globalCapExceeded,
             spent,
             limit: limit ?? null,
             remaining: limit !== null ? limit - spent : null,
             ...(globalCapExceeded ? { globalCapExceeded: true } : {}),
+            ...(overOrgCap ? { orgCapExceeded: true } : {}),
           };
           return [agent.id, summary];
         })

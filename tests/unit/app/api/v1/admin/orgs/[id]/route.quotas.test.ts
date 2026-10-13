@@ -35,8 +35,14 @@ vi.mock('@/lib/db/client', () => ({
 const mockUpdateOrg = vi.hoisted(() => vi.fn());
 vi.mock('@/lib/tenancy/lifecycle', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@/lib/tenancy/lifecycle')>()),
-  updateOrg: mockUpdateOrg,
+  updateOrgReportingPrevious: mockUpdateOrg,
 }));
+const mockLogAdminAction = vi.hoisted(() => vi.fn());
+vi.mock('@/lib/orchestration/audit/admin-audit-logger', () => ({
+  logAdminAction: mockLogAdminAction,
+}));
+const mockForgetOrgCap = vi.hoisted(() => vi.fn());
+vi.mock('@/lib/orchestration/llm/spend-caps', () => ({ forgetOrgCap: mockForgetOrgCap }));
 vi.mock('@/lib/privacy/erase-org', () => ({ eraseOrg: vi.fn() }));
 vi.mock('@/lib/orchestration/retention-windows', () => ({ readRetentionWindows: vi.fn() }));
 
@@ -104,10 +110,22 @@ beforeEach(() => {
   mockEnv.TENANCY_MODE = 'multi';
   mockResolveApiKey.mockResolvedValue(null);
   writtenFrom = [];
-  mockUpdateOrg.mockImplementation(async (id: string) => {
-    writtenFrom.push(getTenantContext()?.orgId);
-    return { id, slug: 'other', name: 'Other', status: 'ACTIVE' };
-  });
+  mockUpdateOrg.mockImplementation(
+    async (id: string, patchBody: { settings?: { quotas?: unknown } }) => {
+      writtenFrom.push(getTenantContext()?.orgId);
+      const quotas = patchBody.settings?.quotas;
+      return {
+        org: {
+          id,
+          slug: 'other',
+          name: 'Other',
+          status: 'ACTIVE',
+          settings: quotas ? { quotas } : null,
+        },
+        previousSettings: { quotas: { monthlyBudgetUsd: 100 }, branding: { logo: 'x' } },
+      };
+    }
+  );
 });
 
 describe('PATCH /api/v1/admin/orgs/[id] — settings.quotas at multi', () => {
@@ -182,6 +200,43 @@ describe('PATCH /api/v1/admin/orgs/[id] — settings.quotas at multi', () => {
 
     expect(res.status).toBe(200);
     expect(mockUpdateOrg).toHaveBeenCalledWith(CUSTOMER, { name: 'Renamed' });
+    // No caps in the patch, so nothing for the audit log.
+    expect(mockLogAdminAction).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a rename audits nothing
+  });
+
+  it('records a caps change in the admin audit log, with the caps it replaced', async () => {
+    signedIn('ADMIN', INSTALL_ORG_ID);
+
+    const res = await patch(CAP);
+
+    expect(res.status).toBe(200);
+    // So this process's spend gate enforces the new cap on its next call.
+    expect(mockForgetOrgCap).toHaveBeenCalledWith(CUSTOMER);
+    expect(mockLogAdminAction).toHaveBeenCalledTimes(1);
+    expect(mockLogAdminAction).toHaveBeenCalledWith(
+      expect.objectContaining({
+        action: 'org.quotas.update',
+        entityType: 'org',
+        entityId: CUSTOMER,
+        changes: {
+          quotas: { from: { monthlyBudgetUsd: 100 }, to: { monthlyBudgetUsd: 500 } },
+        },
+      })
+    );
+  });
+
+  it('records a cleared cap as a change to no caps', async () => {
+    signedIn('ADMIN', INSTALL_ORG_ID);
+
+    const res = await patch({ settings: { quotas: null } });
+
+    expect(res.status).toBe(200);
+    expect(mockLogAdminAction).toHaveBeenCalledWith(
+      expect.objectContaining({
+        action: 'org.quotas.update',
+        changes: { quotas: { from: { monthlyBudgetUsd: 100 }, to: {} } },
+      })
+    );
   });
 
   it('refuses a cap out of bounds or an unknown key with a 400', async () => {

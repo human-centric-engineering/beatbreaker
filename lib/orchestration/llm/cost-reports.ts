@@ -19,6 +19,7 @@ import {
   getGlobalCapState,
   type GlobalCapState,
 } from '@/lib/orchestration/llm/cost-tracker';
+import { utcMonthStart } from '@/lib/orchestration/llm/spend-caps';
 import type { LocalSavingsResult } from '@/types/orchestration';
 
 // ----------------------------------------------------------------------------
@@ -123,10 +124,6 @@ const BUDGET_CRITICAL_THRESHOLD = 1.0;
 
 function utcStartOfDay(date: Date): Date {
   return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
-}
-
-function utcStartOfMonth(date: Date): Date {
-  return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1));
 }
 
 function isoDate(date: Date): string {
@@ -286,7 +283,7 @@ export async function getCostSummary(): Promise<CostSummary> {
   const todayStart = utcStartOfDay(now);
   const tomorrowStart = new Date(todayStart.getTime() + MS_PER_DAY);
   const weekStart = new Date(todayStart.getTime() - 6 * MS_PER_DAY);
-  const monthStart = utcStartOfMonth(now);
+  const monthStart = utcMonthStart(now);
   const trendStart = new Date(todayStart.getTime() - 29 * MS_PER_DAY);
 
   const [todayAgg, weekAgg, monthAgg, byAgentGrouped, byModelGrouped, trendRaw, agentsWithBudget] =
@@ -421,7 +418,7 @@ export async function getBudgetAlerts(): Promise<BudgetAlert[]> {
   if (agents.length === 0) return [];
 
   const now = new Date();
-  const monthStart = utcStartOfMonth(now);
+  const monthStart = utcMonthStart(now);
 
   const grouped = await prisma.aiCostLog.groupBy({
     by: ['agentId'],

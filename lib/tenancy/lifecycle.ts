@@ -57,7 +57,7 @@ import { revokeUserSessions } from '@/lib/auth/sessions';
 import { INSTALL_ORG_ID } from '@/lib/tenancy/constants';
 import { initialMembershipFor } from '@/lib/tenancy/membership';
 import { orgIdParamSchema, type OrgSettingsPatch } from '@/lib/validations/tenancy';
-import { applyOrgSettingsPatch } from '@/lib/tenancy/org-settings';
+import { applyOrgSettingsPatch, definedEntries } from '@/lib/tenancy/org-settings';
 import {
   DEFAULT_ORG_ROLE,
   ORG_OWNER_ROLE,
@@ -305,9 +305,31 @@ async function materialisePlatformAgents(orgId: string): Promise<void> {
  */
 export async function updateOrg(
   orgId: string,
-  patch: { name?: string; slug?: string; status?: OrgStatus; settings?: OrgSettingsPatch },
+  patch: OrgPatch,
   db: LifecycleDb = prisma
 ): Promise<OrgRecord> {
+  return (await updateOrgReportingPrevious(orgId, patch, db)).org;
+}
+
+/** What {@link updateOrg} accepts. */
+export interface OrgPatch {
+  name?: string;
+  slug?: string;
+  status?: OrgStatus;
+  settings?: OrgSettingsPatch;
+}
+
+/**
+ * {@link updateOrg}, also returning the `settings` column as it stood before
+ * the write — read inside the write's transaction for a settings patch, so it
+ * is the value this write replaced. For an audit entry that records what a cap
+ * was changed from.
+ */
+export async function updateOrgReportingPrevious(
+  orgId: string,
+  patch: OrgPatch,
+  db: LifecycleDb = prisma
+): Promise<{ org: OrgRecord; previousSettings: Prisma.JsonValue }> {
   const current = await requireOrg(orgId, db);
 
   if (orgId === INSTALL_ORG_ID) {
@@ -339,6 +361,7 @@ export async function updateOrg(
   // the column (`retention`, `quotas`) takes the transaction.
   const settingsPatch = patch.settings;
 
+  let previousSettings: Prisma.JsonValue = current.settings;
   const updated =
     settingsPatch === undefined
       ? await db.org.update({ where: { id: orgId }, data, select: orgSelect })
@@ -350,6 +373,7 @@ export async function updateOrg(
             select: { settings: true },
           });
           if (!row) throw new OrgLifecycleError('ORG_NOT_FOUND', 'Organisation not found');
+          previousSettings = row.settings;
           return tx.org.update({
             where: { id: orgId },
             data: {
@@ -365,19 +389,13 @@ export async function updateOrg(
     changes: Object.keys(patch),
     ...(patch.status !== undefined && patch.status !== current.status && { status: patch.status }),
     ...(settingsPatch?.retention !== undefined && {
-      retention:
-        settingsPatch.retention === null || Object.keys(settingsPatch.retention).length === 0
-          ? 'cleared'
-          : 'set',
+      retention: definedEntries(settingsPatch.retention) === null ? 'cleared' : 'set',
     }),
     ...(settingsPatch?.quotas !== undefined && {
-      quotas:
-        settingsPatch.quotas === null || Object.keys(settingsPatch.quotas).length === 0
-          ? 'cleared'
-          : 'set',
+      quotas: definedEntries(settingsPatch.quotas) === null ? 'cleared' : 'set',
     }),
   });
-  return updated;
+  return { org: updated, previousSettings };
 }
 
 /**

@@ -23,8 +23,12 @@ import { prisma } from '@/lib/db/client';
 import { logger } from '@/lib/logging';
 import { getAvailableModels, getModel } from '@/lib/orchestration/llm/model-registry';
 import { touchAgentLastActive } from '@/lib/orchestration/agents/touch-last-active';
-import { globalSpendSince } from '@/lib/orchestration/admin/global-config-usage';
-import { loadOrgQuotas } from '@/lib/tenancy/org-settings';
+import {
+  getGlobalCapState,
+  getOrgCapState,
+  noteSpend,
+  utcMonthStart,
+} from '@/lib/orchestration/llm/spend-caps';
 import type { AgentCostSummary, CostOperation, LocalSavingsResult } from '@/types/orchestration';
 import type { ModelInfo } from '@/lib/orchestration/llm/types';
 
@@ -247,14 +251,13 @@ export interface BudgetStatus {
   orgCapExceeded?: boolean;
 }
 
-/** The global cap and what it is checked against. Shared by `checkBudget` and the admin surfaces. */
-export interface GlobalCapState {
-  /** `AiOrchestrationSettings.globalMonthlyBudgetUsd`; `null` when no cap is set. */
-  cap: number | null;
-  /** Month-to-date spend in every org; `0` when no cap is set, since nothing reads it. */
-  spent: number;
-  exceeded: boolean;
-}
+// The org and global caps live in `spend-caps.ts`, which the provider manager's
+// call-time gate also reads. Re-exported for the surfaces that show them.
+export {
+  getGlobalCapState,
+  getMonthToDateGlobalSpend,
+  type GlobalCapState,
+} from '@/lib/orchestration/llm/spend-caps';
 
 /**
  * Compute the USD cost of an operation for the given model and token
@@ -389,6 +392,8 @@ export async function logCost(params: LogCostParams): Promise<AiCostLog | null> 
   try {
     const row = await prisma.aiCostLog.create({ data });
     touchAgentLastActive(params.agentId, row.createdAt);
+    // So this process's spend caps see the row before their cached totals expire.
+    noteSpend(row.orgId, row.totalCostUsd, row.createdAt);
     logger.debug('Cost logged', {
       agentId: params.agentId,
       model: params.model,
@@ -462,64 +467,6 @@ export async function getAgentCosts(
   return summary;
 }
 
-/** Midnight UTC on the first of the current month: where every monthly budget starts. */
-function utcMonthStart(now: Date = new Date()): Date {
-  return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
-}
-
-/**
- * Sum of every `AiCostLog.totalCostUsd` row created since the start of
- * the current UTC calendar month, in every org — detached `NULL`-org rows
- * included. Used by the global budget cap in `checkBudget` and by surfaces
- * that show platform-wide spend.
- *
- * At `multi` it is read in the system scope (`globalSpendSince`), because the
- * caller is usually inside one org's scope, where the `org_isolation` policy
- * would hide every other org's rows (§110 t-788).
- */
-export function getMonthToDateGlobalSpend(): Promise<number> {
-  return globalSpendSince(utcMonthStart());
-}
-
-/**
- * The global cap and whether this month's spend has reached it. Throws when
- * the settings row or the total cannot be read; each caller decides what a
- * failure means for it.
- */
-export async function getGlobalCapState(): Promise<GlobalCapState> {
-  const settings = await prisma.aiOrchestrationSettings.findUnique({
-    where: { slug: 'global' },
-    select: { globalMonthlyBudgetUsd: true },
-  });
-  const cap = settings?.globalMonthlyBudgetUsd ?? null;
-  if (cap === null) return { cap: null, spent: 0, exceeded: false };
-  const spent = await getMonthToDateGlobalSpend();
-  return { cap, spent, exceeded: spent >= cap };
-}
-
-/**
- * The agent's org cap, if it has one, and the org's month-to-date spend.
- * `null` when the agent has no org or the org has set no cap.
- *
- * The spend is filtered on `orgId` explicitly rather than left to the
- * `org_isolation` policy, so it is the org's total whatever scope the caller
- * is in, and at `single` too — where there is no policy, and a total with no
- * filter would be the whole install's.
- */
-async function getOrgCapState(
-  orgId: string | null,
-  monthStart: Date
-): Promise<{ limit: number; spent: number } | null> {
-  if (!orgId) return null;
-  const { monthlyBudgetUsd } = await loadOrgQuotas(orgId);
-  if (monthlyBudgetUsd === undefined) return null;
-  const aggregate = await prisma.aiCostLog.aggregate({
-    where: { orgId, createdAt: { gte: monthStart } },
-    _sum: { totalCostUsd: true },
-  });
-  return { limit: monthlyBudgetUsd, spent: aggregate._sum.totalCostUsd ?? 0 };
-}
-
 /**
  * Report whether an agent is within its monthly budget.
  *
@@ -536,6 +483,13 @@ async function getOrgCapState(
  * org or global cap is logged and that cap skipped, so it never takes the
  * per-agent check down.
  *
+ * Only chat calls this. The org and global caps are also enforced on every
+ * paid vendor call by the provider manager's gate (`assertWithinSpendCaps` in
+ * `spend-caps.ts`), which is what holds workflows, evaluations and every other
+ * caller to them; chat checks first so the user is told which cap stopped the
+ * turn. Their month-to-date totals are cached for a few seconds there, which
+ * bounds how far another process's spend can carry a cap past its limit.
+ *
  * Callers hold `withAgentBudgetLock`, which is keyed by agent: two agents in
  * one org can both pass the org check at once and each overrun the org cap by
  * up to one turn. The global cap has the same bound.
@@ -549,36 +503,33 @@ export async function checkBudget(agentId: string): Promise<BudgetStatus> {
     throw new Error(`Agent ${agentId} not found`);
   }
 
-  const monthStart = utcMonthStart();
-
-  const aggregate = await prisma.aiCostLog.aggregate({
-    where: { agentId, createdAt: { gte: monthStart } },
-    _sum: { totalCostUsd: true },
-  });
+  // Three independent reads. The org and global ones never reject: a failure
+  // reading either cap is logged and that cap skipped, so it never takes the
+  // per-agent check down.
+  const [aggregate, global, org] = await Promise.all([
+    prisma.aiCostLog.aggregate({
+      where: { agentId, createdAt: { gte: utcMonthStart() } },
+      _sum: { totalCostUsd: true },
+    }),
+    getGlobalCapState().catch((err: unknown) => {
+      logger.warn('checkBudget: global cap lookup failed, falling back to per-agent only', {
+        agentId,
+        error: err instanceof Error ? err.message : String(err),
+      });
+      return null;
+    }),
+    getOrgCapState(agent.orgId ?? null).catch((err: unknown) => {
+      logger.warn('checkBudget: org cap lookup failed, skipping the org cap', {
+        agentId,
+        orgId: agent.orgId,
+        error: err instanceof Error ? err.message : String(err),
+      });
+      return null;
+    }),
+  ]);
   const spent = aggregate._sum.totalCostUsd ?? 0;
-
-  let globalCapExceeded = false;
-  try {
-    globalCapExceeded = (await getGlobalCapState()).exceeded;
-  } catch (err) {
-    // Settings lookup must never take the per-agent path down.
-    logger.warn('checkBudget: global cap lookup failed, falling back to per-agent only', {
-      agentId,
-      error: err instanceof Error ? err.message : String(err),
-    });
-  }
-
-  let org: { limit: number; spent: number } | null = null;
-  try {
-    org = await getOrgCapState(agent.orgId ?? null, monthStart);
-  } catch (err) {
-    logger.warn('checkBudget: org cap lookup failed, skipping the org cap', {
-      agentId,
-      orgId: agent.orgId,
-      error: err instanceof Error ? err.message : String(err),
-    });
-  }
-  const orgCapExceeded = org !== null && org.spent >= org.limit;
+  const globalCapExceeded = global?.exceeded ?? false;
+  const orgCapExceeded = org?.exceeded ?? false;
 
   const limit = agent.monthlyBudgetUsd ?? null;
   const withinAgentBudget = limit === null || spent < limit;
@@ -588,7 +539,7 @@ export async function checkBudget(agentId: string): Promise<BudgetStatus> {
     limit,
     remaining: limit === null ? null : limit - spent,
     ...(globalCapExceeded ? { globalCapExceeded: true } : {}),
-    ...(org ? { org } : {}),
+    ...(org ? { org: { limit: org.limit, spent: org.spent } } : {}),
     ...(orgCapExceeded ? { orgCapExceeded: true } : {}),
   };
 }

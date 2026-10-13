@@ -144,14 +144,20 @@ export async function loadOrgRetention(
 }
 
 /**
- * Apply a retention patch to an org's stored `settings`, returning the value
- * to write. The retention half of {@link applyOrgSettingsPatch}.
+ * A slice with its `undefined` keys dropped, or `null` when that leaves
+ * nothing — the one spelling of "this slice names nothing", for `null`, `{}`
+ * and `{ key: undefined }` alike. The last is what a caller produces by
+ * forwarding an unset value (`{ monthlyBudgetUsd: plan.cap }` for a plan with
+ * no cap), and Zod keeps the key, so counting keys would store it as `{}`.
  */
-export function applyRetentionPatch(
-  current: unknown,
-  slice: OrgRetentionSlice | null | undefined
-): Prisma.InputJsonValue | typeof Prisma.DbNull {
-  return applyOrgSettingsPatch(current, { retention: slice });
+export function definedEntries<T extends Record<string, unknown>>(
+  slice: T | null
+): Partial<T> | null {
+  if (slice === null) return null;
+  const defined = Object.fromEntries(
+    Object.entries(slice).filter(([, value]) => value !== undefined)
+  ) as Partial<T>;
+  return Object.keys(defined).length === 0 ? null : defined;
 }
 
 /**
@@ -186,10 +192,11 @@ export function applyOrgSettingsPatch(
 
   for (const [key, slice] of slices) {
     if (slice === undefined) continue;
-    if (slice === null || Object.keys(slice).length === 0) {
+    const stored = definedEntries(slice);
+    if (stored === null) {
       delete base[key];
     } else {
-      base[key] = slice;
+      base[key] = stored;
     }
   }
 
@@ -398,6 +405,12 @@ export async function loadOrgQuotas(
  * Through {@link writeSettingsSlice}: a clash with a concurrent settings write
  * throws `P2034` ({@link isSettingsWriteConflict}).
  *
+ * **The spend gate caches each org's cap** (`spend-caps.ts`). Call
+ * `forgetOrgCap(orgId)` after this write so this process enforces the new cap
+ * on its next call; otherwise it takes effect within the cache's TTL, as it
+ * does in every other process. It does not call it itself, because that
+ * module reads its caps through this one.
+ *
  * @returns the previous and the stored caps, or `null` when the org does not
  *   exist.
  */
@@ -406,8 +419,7 @@ export async function writeOrgQuotas(
   quotas: OrgQuotas | null,
   db: Pick<PrismaClient, '$transaction'> = prisma
 ): Promise<{ previous: OrgQuotas; stored: OrgQuotas } | null> {
-  const parsed = quotas === null ? {} : orgQuotasSchema.parse(quotas);
-  const stored = Object.keys(parsed).length === 0 ? null : parsed;
+  const stored = definedEntries(quotas === null ? null : orgQuotasSchema.parse(quotas));
   const replaced = await writeSettingsSlice(orgId, ORG_QUOTAS_KEY, stored, db);
   if (replaced === null) return null;
   return { previous: readOrgQuotas(replaced.settings, { orgId }), stored: stored ?? {} };

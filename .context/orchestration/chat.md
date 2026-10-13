@@ -661,6 +661,8 @@ Every terminal `error` event carries one of these stable `code` values:
 | `input_blocked`          | Input guard in `block` mode flagged the message                   | Admin has configured strict input filtering — message rejected by security policy                                        |
 | `internal_error`         | Any other thrown exception                                        | Provider failure, DB outage, etc. `message` is a **generic** sanitized string — the raw error is logged server-side only |
 
+**A reached budget does not stop a local model.** When the agent's primary provider is local, the three budget codes are held rather than emitted: the turn answers on the local provider, and the code is emitted only if the turn would reach a paid one (a fallback, or a failover mid-stream). The org and global caps are also enforced by the provider manager's spend gate on every paid call, chat or not; see [LLM providers → The spend gate](./llm-providers.md#the-spend-gate).
+
 Dispatcher-level failures (`unknown_capability`, `rate_limited`, `requires_approval`, `invalid_args`, `execution_error`) surface as `capability_result` events with `success: false` — they're not fatal to the chat turn. The LLM sees them as tool errors unless `skipFollowup` is set.
 
 ## OTEL tracing

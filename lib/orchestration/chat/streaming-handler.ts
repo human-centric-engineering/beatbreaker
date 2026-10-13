@@ -48,6 +48,7 @@ import {
   assertModelSupportsAttachments,
   getProviderWithFallbacks,
   getProviderIfBreakerClosed,
+  isLocalProvider,
   type AttachmentCapability,
 } from '@/lib/orchestration/llm/provider-manager';
 import { fallbackCallContext } from '@/lib/orchestration/llm/provider-eligibility';
@@ -477,7 +478,16 @@ export class StreamingChatHandler {
         };
       }
 
-      if (!budget.withinBudget) {
+      // A cap that has been reached stops paid calls, not free ones: an agent
+      // whose primary is local still answers on it, and a cap of 0 means "no
+      // paid calls". The refusal is held instead, and made the moment the turn
+      // would reach a paid provider — a fallback, or a failover mid-stream.
+      // (The org and global caps are also enforced at the provider gate; the
+      // agent's cap is known only here.)
+      let paidCallRefusal: BudgetRefusalReason | null = null;
+      if (!budget.withinBudget && (await isLocalProvider(resolvedBinding.providerSlug))) {
+        paidCallRefusal = budgetRefusal(budget);
+      } else if (!budget.withinBudget) {
         const refusal = budgetRefusal(budget);
         yield errorEvent(refusal.code, refusal.message);
         // Resolve the actor name out-of-band so the synchronous chat-stream
@@ -1375,6 +1385,10 @@ export class StreamingChatHandler {
         let llmSpanId = '';
 
         while (!streamSucceeded && streamRetries <= MAX_STREAM_RETRIES) {
+          if (paidCallRefusal && !currentProvider.isLocal) {
+            yield errorEvent(paidCallRefusal.code, paidCallRefusal.message);
+            return;
+          }
           // `withSpanGenerator` activates the llm.call span as the OTEL
           // active context across yields, so any helper-`withSpan` calls
           // inside the stream body see it as their parent. Each retry
@@ -2113,8 +2127,13 @@ export class StreamingChatHandler {
         const midBudget = await withAgentBudgetLock(agent.id, () => checkBudget(agent.id));
         if (!midBudget.withinBudget) {
           const refusal = budgetRefusal(midBudget);
-          yield errorEvent(refusal.code, refusal.message);
-          return;
+          // Held, as before the turn, while the turn is on a local provider.
+          if (currentProvider.isLocal) {
+            paidCallRefusal = refusal;
+          } else {
+            yield errorEvent(refusal.code, refusal.message);
+            return;
+          }
         }
 
         // Tool call path — dispatch all tool calls from this turn.
@@ -3112,6 +3131,13 @@ function errorEvent(code: string, message: string): ChatEvent {
   return { type: 'error', code, message };
 }
 
+/** A budget refusal: the code and words a turn ends with, and which cap stopped it. */
+interface BudgetRefusalReason {
+  code: 'budget_exceeded' | 'org_budget_exceeded' | 'global_budget_exceeded';
+  cap: 'agent' | 'org' | 'global';
+  message: string;
+}
+
 /**
  * The code and words for a turn `checkBudget` refused, naming the cap that
  * did it (§110 t-788). The global cap first, then the org's, then the agent's:
@@ -3119,11 +3145,7 @@ function errorEvent(code: string, message: string): ChatEvent {
  * the one worth saying. The org and global messages name no amount — the
  * reader may be an embed visitor, and those caps are not theirs to know.
  */
-function budgetRefusal(budget: BudgetStatus): {
-  code: 'budget_exceeded' | 'org_budget_exceeded' | 'global_budget_exceeded';
-  cap: 'agent' | 'org' | 'global';
-  message: string;
-} {
+function budgetRefusal(budget: BudgetStatus): BudgetRefusalReason {
   if (budget.globalCapExceeded) {
     return {
       code: 'global_budget_exceeded',

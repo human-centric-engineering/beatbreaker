@@ -4,6 +4,7 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { ModelInfo } from '@/lib/orchestration/llm/types';
+import { forgetSpendCaps } from '@/lib/orchestration/llm/spend-caps';
 
 vi.mock('@/lib/db/client', () => ({
   prisma: {
@@ -60,6 +61,8 @@ const {
 } = await import('@/lib/orchestration/llm/cost-tracker');
 
 beforeEach(() => {
+  // The month-to-date totals are cached across calls; each test starts cold.
+  forgetSpendCaps();
   vi.clearAllMocks();
 });
 
@@ -236,6 +239,33 @@ describe('logCost', () => {
     expect(call.data.outputCostUsd).toBeCloseTo(0.0075);
     expect(call.data.isLocal).toBe(false);
     expect(call.data.operation).toBe('chat');
+  });
+
+  it("adds the row it wrote to the spend caps' cached totals (§110 t-788)", async () => {
+    // Without this, a cap would not see this process's own spend until the
+    // cached month-to-date total expired.
+    (prisma.aiCostLog.aggregate as ReturnType<typeof vi.fn>).mockResolvedValue({
+      _sum: { totalCostUsd: 10 },
+    });
+    expect(await getMonthToDateGlobalSpend()).toBe(10);
+    (prisma.aiCostLog.create as ReturnType<typeof vi.fn>).mockResolvedValue({
+      id: 'row-1',
+      orgId: 'org-a',
+      totalCostUsd: 2.5,
+      createdAt: new Date(),
+    });
+
+    await logCost({
+      agentId: 'agent-1',
+      model: 'claude-sonnet-4-6',
+      provider: 'anthropic',
+      inputTokens: 1000,
+      outputTokens: 500,
+      operation: 'chat',
+    });
+
+    expect(await getMonthToDateGlobalSpend()).toBe(12.5);
+    expect(prisma.aiCostLog.aggregate).toHaveBeenCalledTimes(1);
   });
 
   it('returns null instead of throwing on DB failure', async () => {

@@ -37,6 +37,7 @@ vi.mock('@/lib/logging', () => ({
 }));
 
 import { checkBudget, getMonthToDateGlobalSpend } from '@/lib/orchestration/llm/cost-tracker';
+import { forgetSpendCaps } from '@/lib/orchestration/llm/spend-caps';
 import { getTenantContext, runAsOrg } from '@/lib/tenancy/context';
 
 const ORG_A = 'cmorg0000000000000000orga';
@@ -50,6 +51,8 @@ interface SeenAggregate {
 let seen: SeenAggregate[];
 
 beforeEach(() => {
+  // The month-to-date totals are cached across calls; each test starts cold.
+  forgetSpendCaps();
   vi.clearAllMocks();
   mockMode.value = 'multi';
   seen = [];

@@ -13,6 +13,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { forgetSpendCaps } from '@/lib/orchestration/llm/spend-caps';
 
 vi.mock('@/lib/db/client', () => ({
   prisma: {
@@ -43,6 +44,8 @@ const mockedSettingsFindUnique = prisma.aiOrchestrationSettings.findUnique as un
 const mockedAggregate = prisma.aiCostLog.aggregate as unknown as ReturnType<typeof vi.fn>;
 
 beforeEach(() => {
+  // The month-to-date totals are cached across calls; each test starts cold.
+  forgetSpendCaps();
   vi.resetAllMocks();
 });
 

@@ -36,7 +36,6 @@ import {
   ORG_QUOTAS_KEY,
   ORG_RETENTION_KEY,
   applyOrgSettingsPatch,
-  applyRetentionPatch,
   loadOrgQuotas,
   loadOrgRetention,
   loadPlatformAgentsMarker,
@@ -154,11 +153,11 @@ describe('loadOrgRetention', () => {
   });
 });
 
-describe('applyRetentionPatch', () => {
+describe('applyOrgSettingsPatch: the retention slice', () => {
   it('replaces the slice and leaves a fork’s own keys alone', () => {
-    const written = applyRetentionPatch(
+    const written = applyOrgSettingsPatch(
       { branding: { logo: 'x' }, retention: { webhookRetentionDays: 7 } },
-      { executionRetentionDays: 30 }
+      { retention: { executionRetentionDays: 30 } }
     );
 
     expect(written).toEqual({
@@ -170,9 +169,9 @@ describe('applyRetentionPatch', () => {
   it('replaces the slice outright rather than merging key by key', () => {
     // Merging would leave no way to stop overriding a window: a PATCH states
     // the org's whole set.
-    const written = applyRetentionPatch(
+    const written = applyOrgSettingsPatch(
       { retention: { webhookRetentionDays: 7, costLogRetentionDays: 90 } },
-      { costLogRetentionDays: 120 }
+      { retention: { costLogRetentionDays: 120 } }
     );
 
     expect(written).toEqual({ retention: { costLogRetentionDays: 120 } });
@@ -180,19 +179,22 @@ describe('applyRetentionPatch', () => {
 
   it('removes the slice on null, keeping the rest of the column', () => {
     expect(
-      applyRetentionPatch({ branding: { logo: 'x' }, retention: { webhookRetentionDays: 7 } }, null)
+      applyOrgSettingsPatch(
+        { branding: { logo: 'x' }, retention: { webhookRetentionDays: 7 } },
+        { retention: null }
+      )
     ).toEqual({ branding: { logo: 'x' } });
   });
 
   it('nulls the column when nothing is left, so "never set" has one shape', () => {
-    expect(applyRetentionPatch({ retention: { webhookRetentionDays: 7 } }, null)).toBe(
-      Prisma.DbNull
-    );
-    expect(applyRetentionPatch(null, null)).toBe(Prisma.DbNull);
+    expect(
+      applyOrgSettingsPatch({ retention: { webhookRetentionDays: 7 } }, { retention: null })
+    ).toBe(Prisma.DbNull);
+    expect(applyOrgSettingsPatch(null, { retention: null })).toBe(Prisma.DbNull);
   });
 
   it('writes the slice into an unset column', () => {
-    expect(applyRetentionPatch(null, { webhookRetentionDays: 7 })).toEqual({
+    expect(applyOrgSettingsPatch(null, { retention: { webhookRetentionDays: 7 } })).toEqual({
       [ORG_RETENTION_KEY]: { webhookRetentionDays: 7 },
     });
   });
@@ -200,8 +202,10 @@ describe('applyRetentionPatch', () => {
   it('treats an empty slice as no slice, so "never set" keeps one spelling', () => {
     // `{}` names no window, so it says what `null` says. Storing it would
     // leave the column non-NULL for ever.
-    expect(applyRetentionPatch({ retention: { webhookRetentionDays: 7 } }, {})).toBe(Prisma.DbNull);
-    expect(applyRetentionPatch({ branding: { logo: 'x' } }, {})).toEqual({
+    expect(
+      applyOrgSettingsPatch({ retention: { webhookRetentionDays: 7 } }, { retention: {} })
+    ).toBe(Prisma.DbNull);
+    expect(applyOrgSettingsPatch({ branding: { logo: 'x' } }, { retention: {} })).toEqual({
       branding: { logo: 'x' },
     });
   });
@@ -210,16 +214,16 @@ describe('applyRetentionPatch', () => {
     // Not reachable through the route today — the schema admits only
     // `retention` — but the column is shared and the next slice is a fork's.
     expect(
-      applyRetentionPatch(
+      applyOrgSettingsPatch(
         { branding: { logo: 'x' }, retention: { webhookRetentionDays: 7 } },
-        undefined
+        { retention: undefined }
       )
     ).toEqual({ branding: { logo: 'x' }, retention: { webhookRetentionDays: 7 } });
   });
 
   it('replaces a column that is not an object at all', () => {
     // Nothing the platform writes produces this; a hand-edit can.
-    expect(applyRetentionPatch('nonsense', { webhookRetentionDays: 7 })).toEqual({
+    expect(applyOrgSettingsPatch('nonsense', { retention: { webhookRetentionDays: 7 } })).toEqual({
       retention: { webhookRetentionDays: 7 },
     });
   });
@@ -292,11 +296,15 @@ describe('the platform-agents marker (§116 t-724)', () => {
   it('keeps the retention slice’s own writes from dropping the marker', () => {
     // The other direction: an admin's retention PATCH merges into a column
     // that now carries the marker.
-    expect(applyRetentionPatch({ platformAgents: marker }, { webhookRetentionDays: 7 })).toEqual({
+    expect(
+      applyOrgSettingsPatch({ platformAgents: marker }, { retention: { webhookRetentionDays: 7 } })
+    ).toEqual({
       platformAgents: marker,
       retention: { webhookRetentionDays: 7 },
     });
-    expect(applyRetentionPatch({ platformAgents: marker, retention: {} }, null)).toEqual({
+    expect(
+      applyOrgSettingsPatch({ platformAgents: marker, retention: {} }, { retention: null })
+    ).toEqual({
       platformAgents: marker,
     });
   });
@@ -374,7 +382,7 @@ describe('the provider policy (§120 t-742)', () => {
 
   it('keeps the retention slice’s own writes from dropping the policy', () => {
     const providers = { approved: ['openai'] };
-    expect(applyRetentionPatch({ providers }, null)).toEqual({ providers });
+    expect(applyOrgSettingsPatch({ providers }, { retention: null })).toEqual({ providers });
   });
 
   it('recognises a serialization clash and nothing else as a write conflict', () => {
@@ -493,6 +501,21 @@ describe('the org caps (§110 t-788)', () => {
     });
   });
 
+  it('treats a cap forwarded as undefined as no cap, removing the slice', async () => {
+    // What a plan with no cap produces: `{ monthlyBudgetUsd: plan.cap }`. Zod
+    // keeps the key, so counting keys would store `quotas: {}` for ever.
+    const { tx, db } = txOver({ quotas: { monthlyBudgetUsd: 10 } });
+
+    expect(await writeOrgQuotas(ORG_A, { monthlyBudgetUsd: undefined }, db)).toEqual({
+      previous: { monthlyBudgetUsd: 10 },
+      stored: {},
+    });
+    expect(tx.org.update).toHaveBeenCalledWith({
+      where: { id: ORG_A },
+      data: { settings: Prisma.DbNull },
+    });
+  });
+
   it('validates what it is given, writing nothing for a bad cap or an unknown key', async () => {
     const { tx, db } = txOver({});
 
@@ -512,6 +535,21 @@ describe('the org caps (§110 t-788)', () => {
     expect(tx.org.update).not.toHaveBeenCalled(); // test-review:accept no_arg_called — no row, so no write at all
   });
 
+  it('a PATCH slice whose every key is undefined removes the slice', () => {
+    expect(
+      applyOrgSettingsPatch(
+        { quotas: { monthlyBudgetUsd: 10 }, branding: { logo: 'x' } },
+        { quotas: { monthlyBudgetUsd: undefined } }
+      )
+    ).toEqual({ branding: { logo: 'x' } });
+    expect(
+      applyOrgSettingsPatch(
+        { quotas: { monthlyBudgetUsd: 10 } },
+        { quotas: { monthlyBudgetUsd: undefined } }
+      )
+    ).toBe(Prisma.DbNull);
+  });
+
   it('a PATCH replaces each slice it names and leaves the rest', () => {
     const current = {
       retention: { webhookRetentionDays: 7 },
@@ -529,7 +567,7 @@ describe('the org caps (§110 t-788)', () => {
       branding: { logo: 'x' },
     });
     // A retention-only patch carries the caps across untouched.
-    expect(applyRetentionPatch(current, null)).toEqual({
+    expect(applyOrgSettingsPatch(current, { retention: null })).toEqual({
       quotas: { monthlyBudgetUsd: 10 },
       branding: { logo: 'x' },
     });

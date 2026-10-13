@@ -25,6 +25,7 @@ const mockLogger = vi.hoisted(() => ({
 vi.mock('@/lib/logging', () => ({ logger: mockLogger }));
 
 import { checkBudget } from '@/lib/orchestration/llm/cost-tracker';
+import { forgetSpendCaps } from '@/lib/orchestration/llm/spend-caps';
 
 const ORG_A = 'cmorg0000000000000000orga';
 const ORG_B = 'cmorg0000000000000000orgb';
@@ -45,6 +46,8 @@ function sumFor(where: { agentId?: string; orgId?: string }): number {
 }
 
 beforeEach(() => {
+  // The month-to-date totals are cached across calls; each test starts cold.
+  forgetSpendCaps();
   vi.clearAllMocks();
   orgSettings = {
     [ORG_A]: { quotas: { monthlyBudgetUsd: 40 } },

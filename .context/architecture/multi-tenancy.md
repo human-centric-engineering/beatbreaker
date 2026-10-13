@@ -89,9 +89,11 @@ is on:
 - **Each org can have its own monthly AI budget** (§110 t-788). A platform
   admin in the install org sets `settings.quotas.monthlyBudgetUsd` with
   `PATCH /api/v1/admin/orgs/[id]`, or a fork's billing code calls
-  `writeOrgQuotas()`. An org's own admins cannot change it. `checkBudget()`
-  enforces it beside the agent's budget, and the turn ends with
-  `org_budget_exceeded`. Unset means no org cap. The global
+  `writeOrgQuotas()`. An org's own admins cannot change it, and every change
+  is in the admin audit log. Every paid AI call made in the org is held to it
+  (the provider manager's spend gate): a chat turn ends with
+  `org_budget_exceeded`, and a workflow step, evaluation or job fails with
+  that code. Local models are never stopped. Unset means no org cap. The global
   `globalMonthlyBudgetUsd` stays an install-wide ceiling: it totals every
   org's spend, so one tenant can still exhaust it for everyone unless each
   org has a cap below it. See

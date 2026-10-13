@@ -30,7 +30,8 @@
  * raise its own monthly budget. So at `multi` a patch naming `quotas` is
  * refused unless the call stack is in the install org — the rule shared
  * settings use (`canChangeSharedSettings`) — or the caller is an unbound admin
- * API key, which acts as the install org.
+ * API key, which acts as the install org. Each caps write is recorded in the
+ * admin audit log (`org.quotas.update`) with the caps it replaced.
  */
 
 import { withAdminAuth, type AuthenticatedSession } from '@/lib/auth/guards';
@@ -43,11 +44,14 @@ import {
   updateOrgSchema,
   type OrgRetentionSlice,
 } from '@/lib/validations/tenancy';
-import { OrgLifecycleError, updateOrg } from '@/lib/tenancy/lifecycle';
+import { OrgLifecycleError, updateOrgReportingPrevious } from '@/lib/tenancy/lifecycle';
 import { readRetentionWindows } from '@/lib/orchestration/retention-windows';
 import { getTenantContext, isMultiTenant } from '@/lib/tenancy/context';
 import { eraseOrg } from '@/lib/privacy/erase-org';
-import { isSettingsWriteConflict } from '@/lib/tenancy/org-settings';
+import { isSettingsWriteConflict, readOrgQuotas } from '@/lib/tenancy/org-settings';
+import { logAdminAction } from '@/lib/orchestration/audit/admin-audit-logger';
+import { getClientIP } from '@/lib/security/ip';
+import { forgetOrgCap } from '@/lib/orchestration/llm/spend-caps';
 import {
   canChangeSharedSettings,
   SHARED_SETTINGS_REFUSAL_CODE,
@@ -146,9 +150,9 @@ export const PATCH = withAdminAuth<{ id: string }>(async (request, session, { pa
     );
   }
 
-  let org: Awaited<ReturnType<typeof updateOrg>>;
+  let updated: Awaited<ReturnType<typeof updateOrgReportingPrevious>>;
   try {
-    org = await updateOrg(id, body);
+    updated = await updateOrgReportingPrevious(id, body);
   } catch (error) {
     if (!isSettingsWriteConflict(error)) throw error;
     // A concurrent write to this org's settings (another admin, the provider
@@ -169,6 +173,31 @@ export const PATCH = withAdminAuth<{ id: string }>(async (request, session, { pa
     log.info('Org retention windows stored but not applied at TENANCY_MODE=single', {
       orgId: id,
       windows: Object.keys(body.settings.retention),
+    });
+  }
+
+  const { org, previousSettings } = updated;
+
+  if (body.settings?.quotas !== undefined) {
+    // This process enforces the new cap on its next call; others within the
+    // spend gate's cap TTL.
+    forgetOrgCap(id);
+
+    // An org's caps are a financial control, so a change to one is kept in the
+    // admin audit log with what it replaced, as agent budgets are.
+    logAdminAction({
+      userId: session.user.id,
+      action: 'org.quotas.update',
+      entityType: 'org',
+      entityId: id,
+      entityName: org.name,
+      changes: {
+        quotas: {
+          from: readOrgQuotas(previousSettings, { orgId: id }),
+          to: readOrgQuotas(org.settings, { orgId: id }),
+        },
+      },
+      clientIp: getClientIP(request),
     });
   }
 
