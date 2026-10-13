@@ -81,10 +81,12 @@ release process.
   `monthlyBudgetUsd` is and under the same install-org-only rule. At `multi`,
   `applyRateLimit` counts every request from a caller acting for an org
   against that org's cap, in a second counter (token `mw:org:{orgId}`) that
-  runs after the matched per-caller rule; both must pass. The org is the
-  session's `activeOrgId` or the org column of the API key, MCP key or embed
-  token row. The `x-sunrise-org` header is never used to choose it.
-  `/api/v1/admin/**` is not counted. Nothing changes at `single`, or for an
+  runs after the matched per-caller rule; both must pass. The org is the one
+  the guard will enter (a fork's tenant resolver's answer, else the session's
+  `activeOrgId`) or the org column of the API or MCP key row, and a user, or a
+  user key's owner, is counted only while an active member of it. The
+  `x-sunrise-org` header is never used to choose it. Embed-widget traffic,
+  `/api/v1/admin/**` and `POST /api/v1/orgs/switch` are not counted. Nothing changes at `single`, or for an
   org with no `requestsPerMinute`. Each org's cap is cached for 30 seconds:
   code calling `writeOrgQuotas()` directly calls `forgetOrgRequestCap(orgId)`
   from `lib/security/org-request-cap.ts` after it. Known limits: another

@@ -124,25 +124,32 @@ Every key strategy above identifies a **caller**. At `TENANCY_MODE=multi` that l
 
 Per-caller fairness inside the org still applies, because both counters must pass.
 
-**Where the org comes from: a verified principal, never a header.** `applyRateLimit` runs before `resolveTenantFromRequest`, so an `x-sunrise-org` header at this point is whatever the client sent, and it is ignored. The org is:
+**Where the org comes from: a verified principal, never a header.** `applyRateLimit` runs before the proxy strips and rewrites `x-sunrise-org`, so that header at this point is whatever the client sent, and it is ignored. The org is:
 
-| Strategy                       | Org counted                                                                    |
-| ------------------------------ | ------------------------------------------------------------------------------ |
-| `session-user`                 | the session's `activeOrgId` (set at sign-in and by `POST /api/v1/orgs/switch`) |
-| `api-key` (`sk_`)              | the key row's `orgId`; an unbound key (every `admin`-scoped one) has none      |
-| `api-key` (MCP)                | the key row's `orgId`, from the same lookup that checks the org can be entered |
-| `embed-token`                  | the token row's `orgId`, likewise                                              |
-| `ip`, any fallback, custom key | none, so the request is not counted                                            |
+| Strategy                       | Org counted                                                                                                                                  |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `session-user`                 | the org the guard will enter: the fork's tenant resolver's answer, computed from the request here, else the session's `activeOrgId`          |
+| `api-key` (`sk_`)              | the key row's `orgId`; an unbound key (every `admin`-scoped one) has none                                                                    |
+| `api-key` (MCP)                | the key row's `orgId`, from the same lookup that checks the org can be entered                                                               |
+| `embed-token`                  | none: the token is public (it is in the embedding page), so counting it would let anyone hold the tenant at its cap and lock out its members |
+| `ip`, any fallback, custom key | none, so the request is not counted                                                                                                          |
 
 The credential lookups already read these rows, so working out the org costs no extra query.
 
-**When nothing is counted:** at `single`; when the org has no `requestsPerMinute`; when no org could be worked out; and under `/api/v1/admin/**`. That surface is excluded because it is the platform operator's control plane. A tenant's traffic must not lock the operator out of `PATCH /api/v1/admin/orgs/[id]`, which is where a full cap is raised, and the operator's support work inside a customer's org should not be charged to that customer. MCP and webhook traffic **is** counted: it is the tenant's own credentials calling.
+**A user is counted only against an org they can enter.** Neither a session's org nor a key's column is a membership: a removed member's session still names the org, and a resolver names an org by hostname whoever is calling. So for a session, or a user API key's owner, the membership is checked the way the guards check it (present, org `ACTIVE`) before the request is counted. The answer is cached for 30 seconds per user and org, and the check is made only for an org that has a cap. Someone who cannot enter the org is refused by the guard anyway, and counting them would let a former member, or anyone visiting the org's hostname, hold it at its cap.
+
+**When nothing is counted:** at `single`; when the org has no `requestsPerMinute`; when no org could be worked out; when the user cannot enter the org; and on the two ways out of a full org:
+
+- **`/api/v1/admin/**`**, the platform operator's control plane. A tenant's traffic must not lock the operator out of `PATCH /api/v1/admin/orgs/[id]`, which is where a full cap is raised, and the operator's support work inside a customer's org should not be charged to that customer.
+- **`POST /api/v1/orgs/switch`**, so a member of two orgs whose session names the full one can still move to the other.
+
+MCP and webhook traffic **is** counted: it is the tenant's own credentials calling.
 
 **Setting it.** `PATCH /api/v1/admin/orgs/[id]` `{ settings: { quotas: { requestsPerMinute } } }` (a whole number, 1–100,000), or `writeOrgQuotas()` from a fork's billing code. At `multi` only the install org may write `quotas` (see [Costs → Per-org monthly budget cap](../admin/orchestration-costs.md#per-org-monthly-budget-cap) for the rule and the audit entry). `quotas` is replaced whole, so a write that sets one cap and leaves out the other removes the one left out.
 
 **Caching and staleness.** Each org's cap, including "no cap", is cached for 30 seconds, so a request makes no database read while its org's entry is warm. The PATCH route clears the entry in its own process (`forgetOrgRequestCap(orgId)`; call it after `writeOrgQuotas()` too). The cache is held on `globalThis` so that clear reaches the proxy's copy. **Other instances can enforce the old cap for up to 30 seconds.** If the cap cannot be read, the org counter is skipped with a warning, and the per-caller limits still apply.
 
-**It is per process**, like every section tier. With N instances an org can get up to N × its cap; see [Distributed Deployments](#distributed-deployments).
+**It is per process**, like every section tier. With N instances an org can get up to N × its cap; see [Distributed Deployments](#distributed-deployments). Each org's window is a sliding estimate from this minute's count and the last minute's, weighted by how much of the last minute is still inside the window. A check is the same small amount of work whatever the cap.
 
 ## Per-Flow Sub-Caps (handler-applied)
 

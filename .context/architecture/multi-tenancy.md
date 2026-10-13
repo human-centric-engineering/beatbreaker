@@ -102,10 +102,12 @@ is on:
   `settings.quotas.requestsPerMinute` the same way, with the same
   install-org-only rule. It limits all of the org's callers together, on top
   of each caller's own limit, so one org can no longer use as much shared
-  capacity as every one of its users and keys combined. The org is taken from
-  the session or from the key or token row, never from `x-sunrise-org`. The
-  platform admin surface is not counted. Unset means no org cap, and at
-  `single` nothing is counted. Another instance can enforce an old cap for up
+  capacity as every one of its users and keys combined. The org is the one
+  the guard will enter (your tenant resolver's, else the session's) or the
+  key row's, never `x-sunrise-org`, and a user is counted only against an org
+  they are an active member of. Embed-widget traffic, the platform admin
+  surface and `POST /api/v1/orgs/switch` are not counted. Unset means no org
+  cap, and at `single` nothing is counted. Another instance can enforce an old cap for up
   to 30 seconds, and with several instances each counts separately. See
   [Rate limiting → Per-org request cap](../security/rate-limiting.md#per-org-request-cap).
 - **The data subject is per org.** `eraseUser` / `exportUserData` act inside

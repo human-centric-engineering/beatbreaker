@@ -220,10 +220,10 @@ export const PROCESS_STATE: readonly ProcessStateDeclaration[] = [
   },
   {
     file: 'lib/security/org-request-cap.ts',
-    holders: ['globalForOrgCaps', 'capEntries', 'orgRequestLimiter'],
+    holders: ['globalForOrgCaps', 'capEntries', 'memberships', 'windows'],
     posture: 'row-keyed',
-    keyedBy: 'org id',
-    why: "Each org's `quotas.requestsPerMinute` and its request window (§110 t-789), filled by a `findUnique` on the org id, and counted only for the org a verified principal acts for. The cap cache is on globalThis so the orgs API, in the server bundle, clears the copy the proxy reads; the 30-second TTL is how long another process may enforce an old cap. The windows are per process, like the section tiers.",
+    keyedBy: 'org id (memberships: user id + org id)',
+    why: "Each org's `quotas.requestsPerMinute` and its request window (§110 t-789), filled by a `findUnique` on the org id, and counted only for the org a verified principal acts for; and whether a user may enter an org, filled by the guards' membership read for that pair. The cap cache is on globalThis so the orgs API, in the server bundle, clears the copy the proxy reads; the 30-second TTLs are how long another process may enforce an old cap, or count a removed member. The windows are per process, like the section tiers.",
   },
   {
     file: 'lib/orchestration/llm/budget-mutex.ts',

@@ -24,20 +24,40 @@
  * then reaches the copy the proxy reads. Another instance sees the change when
  * its entry expires, so it can enforce the old cap for up to one TTL.
  *
- * **The counters are per process**, like every section tier
- * (`createDynamicLimiter`'s in-memory window). An install running N instances
- * behind a load balancer lets an org through up to N times its cap.
+ * **A user is counted only against an org they can enter.** A session or a
+ * user API key names an org by a column the user cannot forge, but that
+ * column outlives a membership: a removed member's session still names the
+ * org. So the membership is verified — present, org `ACTIVE`, the guards'
+ * rule — and cached for 30 seconds, and only for an org that has a cap, so an
+ * uncapped org costs no read.
  *
- * Tenancy posture: row-keyed — both the cap cache and the counter are keyed by
- * org id, filled by a `findUnique` on that id (lib/tenancy/process-state.ts).
+ * **The counters are per process**, like every section tier. An install
+ * running N instances behind a load balancer lets an org through up to N
+ * times its cap. Each window is a sliding estimate from two one-minute counts
+ * (see {@link OrgWindow}), so a burst at a minute's boundary is weighed, not
+ * forgotten.
+ *
+ * Tenancy posture: row-keyed — the cap cache, the windows and the membership
+ * cache are keyed by org id (and user id), filled by reads filtered on those
+ * ids (lib/tenancy/process-state.ts).
  */
 
+import { LRUCache } from 'lru-cache';
+import { prisma } from '@/lib/db/client';
 import { logger } from '@/lib/logging';
-import { createDynamicLimiter, type RateLimitResult } from '@/lib/security/rate-limit';
+import type { RateLimitResult } from '@/lib/security/rate-limit';
+import { SECURITY_CONSTANTS } from '@/lib/security/constants';
 import { loadOrgQuotas } from '@/lib/tenancy/org-settings';
+import { verifiedMembership } from '@/lib/tenancy/entry';
 
 /** How long an org's request cap is served from the cache. */
 export const ORG_REQUEST_CAP_TTL_MS = 30_000;
+
+/** How long a verified (or refused) membership is served from the cache. */
+const MEMBERSHIP_TTL_MS = 30_000;
+
+/** Upper bound on cached memberships and org windows (per process). */
+const MAX_ENTRIES = 10_000;
 
 /** A cached cap: the lookup, so concurrent misses share one read. */
 interface CapEntry {
@@ -54,8 +74,27 @@ const capEntries: Map<string, CapEntry> = (globalForOrgCaps.sunriseOrgRequestCap
   CapEntry
 >());
 
-// Every check passes the org's own cap; the default is never used.
-const orgRequestLimiter = createDynamicLimiter('org', 1);
+// Whether a user may enter an org: a present membership in an ACTIVE org, the
+// guards' rule. Keyed `userId:orgId`; the lookup is cached, so concurrent
+// misses share one read.
+const memberships = new LRUCache<string, Promise<boolean>>({
+  max: MAX_ENTRIES,
+  ttl: MEMBERSHIP_TTL_MS,
+});
+
+/**
+ * One org's window: this minute's count and the last minute's. The two are
+ * blended into a sliding estimate, so a check is constant work whatever the
+ * cap — a list of timestamps would be scanned on every request, and caps run
+ * to the tens of thousands.
+ */
+interface OrgWindow {
+  start: number;
+  count: number;
+  previous: number;
+}
+
+const windows = new LRUCache<string, OrgWindow>({ max: MAX_ENTRIES });
 
 /**
  * The org's `quotas.requestsPerMinute`, cached; `null` when it has none. A
@@ -75,20 +114,67 @@ function orgRequestCap(orgId: string): Promise<number | null> {
   return entry.value;
 }
 
+/** Whether `userId` may enter `orgId`, cached. A failed read is not kept. */
+function isMember(userId: string, orgId: string): Promise<boolean> {
+  const key = `${userId}:${orgId}`;
+  const cached = memberships.get(key);
+  if (cached) return cached;
+  const value = verifiedMembership(userId, orgId, prisma).then((m) => !('refused' in m));
+  memberships.set(key, value);
+  value.catch(() => {
+    if (memberships.get(key) === value) memberships.delete(key);
+  });
+  return value;
+}
+
+/** Count one request in the org's window, if the cap leaves room for it. */
+function countRequest(orgId: string, cap: number): RateLimitResult {
+  const interval = SECURITY_CONSTANTS.RATE_LIMIT.DEFAULT_INTERVAL;
+  const now = Date.now();
+  const start = now - (now % interval);
+  let window = windows.get(orgId);
+  if (!window || window.start !== start) {
+    const previous = window?.start === start - interval ? window.count : 0;
+    window = { start, count: 0, previous };
+  }
+  const used = window.previous * (1 - (now - start) / interval) + window.count;
+  const success = used < cap;
+  if (success) window.count += 1;
+  windows.set(orgId, window);
+  return {
+    success,
+    limit: cap,
+    remaining: Math.max(0, Math.floor(cap - used - (success ? 1 : 0))),
+    reset: Math.ceil((start + interval) / 1000),
+  };
+}
+
 /**
  * Count one request against its org's cap.
  *
  * @param orgId The org a verified principal acts for — never one a client
  *   header named.
- * @returns the limiter's answer, or `null` when the org has no cap (nothing
- *   was counted). A cap that cannot be read is also `null`, logged: the org
- *   counter is defence in depth over the per-caller limits, which still
- *   applied, and a database fault must not refuse every request.
+ * @param memberUserId The user whose membership the org rests on (a session's
+ *   user, or a user API key's owner), or `null` for a credential with no user
+ *   behind it, whose org its own lookup already checked. A user who cannot
+ *   enter the org — removed from it, or the org suspended — is not counted
+ *   against it: their requests are refused by the guard anyway, and counting
+ *   them would let a former member hold an org at its cap.
+ * @returns the window's answer, or `null` when nothing was counted: the org
+ *   has no cap, or the user cannot enter it. A cap or membership that cannot
+ *   be read is also `null`, logged: the org counter is defence in depth over
+ *   the per-caller limits, which still applied, and a database fault must not
+ *   refuse every request.
  */
-export async function checkOrgRequestCap(orgId: string): Promise<RateLimitResult | null> {
-  let cap: number | null;
+export async function checkOrgRequestCap(
+  orgId: string,
+  memberUserId: string | null
+): Promise<RateLimitResult | null> {
   try {
-    cap = await orgRequestCap(orgId);
+    const cap = await orgRequestCap(orgId);
+    if (cap === null) return null;
+    if (memberUserId && !(await isMember(memberUserId, orgId))) return null;
+    return countRequest(orgId, cap);
   } catch (error) {
     logger.warn('rate-limit middleware: could not read the org request cap; not applied', {
       orgId,
@@ -96,8 +182,6 @@ export async function checkOrgRequestCap(orgId: string): Promise<RateLimitResult
     });
     return null;
   }
-  if (cap === null) return null;
-  return orgRequestLimiter.check(`mw:org:${orgId}`, cap);
 }
 
 /** Drop one org's cached cap after a write, so this process enforces the new one at once. */
@@ -105,8 +189,9 @@ export function forgetOrgRequestCap(orgId: string): void {
   capEntries.delete(orgId);
 }
 
-/** Test-only: drop every cached cap and every org's window. */
+/** Test-only: drop every cached cap and membership, and every org's window. */
 export function resetOrgRequestCaps(): void {
-  for (const orgId of capEntries.keys()) orgRequestLimiter.reset(`mw:org:${orgId}`);
   capEntries.clear();
+  memberships.clear();
+  windows.clear();
 }

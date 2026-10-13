@@ -27,6 +27,7 @@ vi.mock('@/lib/logging', () => ({
 vi.mock('@/lib/db/client', () => ({
   prisma: {
     org: { findUnique: vi.fn() },
+    orgMembership: { findUnique: vi.fn() },
     aiApiKey: { findFirst: vi.fn() },
     mcpApiKey: { findUnique: vi.fn() },
     aiAgentEmbedToken: { findUnique: vi.fn() },
@@ -54,6 +55,7 @@ import {
   resetRateLimitCredentialBudget,
   resetRateLimitCredentialCache,
 } from '@/lib/security/rate-limit-credentials';
+import { __resetTenantResolverForTests, registerTenantResolver } from '@/lib/tenancy/resolver';
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -65,6 +67,15 @@ let orgQuotas: Record<string, Record<string, unknown>> = {};
 
 /** Each user's session `activeOrgId`. */
 let sessions: Record<string, string | null> = {};
+
+/** Memberships, `userId:orgId` → the org's status. */
+let members: Map<string, string> = new Map();
+
+/** A member of `org` whose session acts in it. */
+function join(userId: string, orgId: string, status = 'ACTIVE') {
+  sessions[userId] = orgId;
+  members.set(`${userId}:${orgId}`, status);
+}
 
 function sessionRequest(path: string, userId: string, headers: Record<string, string> = {}) {
   return new NextRequest(`http://localhost:3000${path}`, {
@@ -96,6 +107,7 @@ describe('applyRateLimit — per-org request cap', () => {
     mockEnv.TENANCY_MODE = 'multi';
     orgQuotas = {};
     sessions = {};
+    members = new Map();
     resetOrgRequestCaps();
     resetRateLimitCredentialCache();
     resetRateLimitCredentialBudget('203.0.113.9');
@@ -118,6 +130,15 @@ describe('applyRateLimit — per-org request cap', () => {
       const quotas = orgQuotas[where.id];
       return { settings: quotas ? { quotas } : null };
     }) as never);
+    vi.mocked(prisma.orgMembership.findUnique).mockImplementation((async ({
+      where,
+    }: {
+      where: { orgId_userId: { orgId: string; userId: string } };
+    }) => {
+      const { orgId, userId } = where.orgId_userId;
+      const status = members.get(`${userId}:${orgId}`);
+      return status ? { role: 'MEMBER', org: { status } } : null;
+    }) as never);
     vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue(null);
     vi.mocked(prisma.mcpApiKey.findUnique).mockResolvedValue(null);
     vi.mocked(prisma.aiAgentEmbedToken.findUnique).mockResolvedValue(null);
@@ -127,6 +148,8 @@ describe('applyRateLimit — per-org request cap', () => {
     process.env.RATE_LIMIT_BYPASS = 'true';
     __resetAppRateLimitRules();
     __resetAppRateLimitKeyResolvers();
+    __resetTenantResolverForTests();
+    vi.useRealTimers();
   });
 
   it("limits org A's callers together to its cap, and leaves org B's alone", async () => {
@@ -134,9 +157,9 @@ describe('applyRateLimit — per-org request cap', () => {
     const orgB = fresh('org_b');
     orgQuotas[orgA] = { requestsPerMinute: 3 };
     const [a1, a2, b1] = [fresh('ua1'), fresh('ua2'), fresh('ub1')];
-    sessions[a1] = orgA;
-    sessions[a2] = orgA;
-    sessions[b1] = orgB;
+    join(a1, orgA);
+    join(a2, orgA);
+    join(b1, orgB);
 
     // Two callers, each far under the api tier's 100/min, share org A's 3.
     expect(await statuses(() => sessionRequest(API, a1), 2)).toEqual([200, 200]);
@@ -154,8 +177,8 @@ describe('applyRateLimit — per-org request cap', () => {
     const org = fresh('org');
     orgQuotas[org] = { requestsPerMinute: 1000 };
     const [heavy, other] = [fresh('heavy'), fresh('other')];
-    sessions[heavy] = org;
-    sessions[other] = org;
+    join(heavy, org);
+    join(other, org);
 
     const heavyStatuses = await statuses(() => sessionRequest(API, heavy), 101);
     expect(heavyStatuses.slice(0, 100).every((s) => s === 200)).toBe(true);
@@ -170,8 +193,8 @@ describe('applyRateLimit — per-org request cap', () => {
     const org = fresh('org');
     orgQuotas[org] = { requestsPerMinute: 102 };
     const [heavy, other] = [fresh('heavy'), fresh('other')];
-    sessions[heavy] = org;
-    sessions[other] = org;
+    join(heavy, org);
+    join(other, org);
 
     // 100 pass and count; 5 are refused by heavy's own cap and must not count.
     await statuses(() => sessionRequest(API, heavy), 105);
@@ -184,7 +207,7 @@ describe('applyRateLimit — per-org request cap', () => {
     const org = fresh('org');
     orgQuotas[org] = { requestsPerMinute: 1 };
     const user = fresh('user');
-    sessions[user] = org;
+    join(user, org);
 
     expect(await statuses(() => sessionRequest(API, user), 3)).toEqual([200, 200, 200]);
     expect(prisma.org.findUnique).not.toHaveBeenCalled();
@@ -193,7 +216,7 @@ describe('applyRateLimit — per-org request cap', () => {
   it('counts nothing for an org with no cap, and reads its settings once per TTL', async () => {
     const org = fresh('org');
     const user = fresh('user');
-    sessions[user] = org;
+    join(user, org);
 
     expect(await statuses(() => sessionRequest(API, user), 5)).toEqual([200, 200, 200, 200, 200]);
     expect(prisma.org.findUnique).toHaveBeenCalledTimes(1);
@@ -204,8 +227,8 @@ describe('applyRateLimit — per-org request cap', () => {
     const own = fresh('org_own');
     orgQuotas[capped] = { requestsPerMinute: 2 };
     const [outsider, member] = [fresh('outsider'), fresh('member')];
-    sessions[outsider] = own;
-    sessions[member] = capped;
+    join(outsider, own);
+    join(member, capped);
 
     // An outsider naming the capped org is counted against their own org,
     // which has no cap — not against the capped one.
@@ -228,13 +251,16 @@ describe('applyRateLimit — per-org request cap', () => {
     expect(await statuses(() => sessionRequest(API, member), 3)).toEqual([200, 200, 429]);
   });
 
-  it("counts a user API key, an MCP key and an embed token against their row's org", async () => {
+  it("counts a user API key and an MCP key against their row's org", async () => {
     const org = fresh('org');
+    const owner = fresh('owner');
     orgQuotas[org] = { requestsPerMinute: 3 };
+    members.set(`${owner}:${org}`, 'ACTIVE');
     vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
       id: fresh('k'),
       expiresAt: null,
       orgId: org,
+      userId: owner,
     } as never);
     vi.mocked(prisma.mcpApiKey.findUnique).mockResolvedValue({
       id: fresh('m'),
@@ -243,6 +269,43 @@ describe('applyRateLimit — per-org request cap', () => {
       orgId: org,
       org: { status: 'ACTIVE' },
     } as never);
+
+    const results = [
+      await applyRateLimit(
+        request('/api/v1/webhooks/trigger/x', { authorization: 'Bearer sk_live_1' })
+      ),
+      await applyRateLimit(request('/api/v1/mcp', { authorization: 'Bearer smcp_live_1' })),
+      await applyRateLimit(
+        request('/api/v1/webhooks/trigger/x', { authorization: 'Bearer sk_live_1' })
+      ),
+      await applyRateLimit(request('/api/v1/mcp', { authorization: 'Bearer smcp_live_1' })),
+    ];
+    expect(results.map((r) => r?.status ?? 200)).toEqual([200, 200, 200, 429]);
+  });
+
+  it("does not count a user API key whose owner has left the key's org", async () => {
+    const org = fresh('org');
+    orgQuotas[org] = { requestsPerMinute: 1 };
+    vi.mocked(prisma.aiApiKey.findFirst).mockResolvedValue({
+      id: fresh('k'),
+      expiresAt: null,
+      orgId: org,
+      userId: fresh('departed'),
+    } as never);
+
+    expect(
+      await statuses(
+        () => request('/api/v1/webhooks/trigger/x', { authorization: 'Bearer sk_live_2' }),
+        3
+      )
+    ).toEqual([200, 200, 200]);
+  });
+
+  it('never counts embed-widget traffic: the token is public, so anyone could fill the cap', async () => {
+    const org = fresh('org');
+    const member = fresh('member');
+    orgQuotas[org] = { requestsPerMinute: 2 };
+    join(member, org);
     vi.mocked(prisma.aiAgentEmbedToken.findUnique).mockResolvedValue({
       id: fresh('t'),
       isActive: true,
@@ -251,22 +314,99 @@ describe('applyRateLimit — per-org request cap', () => {
       org: { status: 'ACTIVE' },
     } as never);
 
-    const results = [
-      await applyRateLimit(
-        request('/api/v1/webhooks/trigger/x', { authorization: 'Bearer sk_live_1' })
-      ),
-      await applyRateLimit(request('/api/v1/mcp', { authorization: 'Bearer smcp_live_1' })),
-      await applyRateLimit(request('/api/v1/embed/chat', { 'x-embed-token': 'tok_live_1' })),
-      await applyRateLimit(request('/api/v1/mcp', { authorization: 'Bearer smcp_live_1' })),
-    ];
-    expect(results.map((r) => r?.status ?? 200)).toEqual([200, 200, 200, 429]);
+    expect(
+      await statuses(
+        () =>
+          request('/api/v1/embed/chat', {
+            'x-embed-token': 'tok_public',
+            'x-forwarded-for': '198.51.100.50',
+          }),
+        5
+      )
+    ).toEqual([200, 200, 200, 200, 200]);
+    // The org's members still have the whole cap.
+    expect(await statuses(() => sessionRequest(API, member), 3)).toEqual([200, 200, 429]);
+  });
+
+  it('does not count a removed member whose session still names the org, or an org that is suspended', async () => {
+    const org = fresh('org');
+    const suspended = fresh('org_suspended');
+    orgQuotas[org] = { requestsPerMinute: 2 };
+    orgQuotas[suspended] = { requestsPerMinute: 1 };
+    const [departed, member, inSuspended] = [fresh('departed'), fresh('member'), fresh('m')];
+    sessions[departed] = org; // the session outlived the membership
+    join(member, org);
+    join(inSuspended, suspended, 'SUSPENDED');
+
+    expect(await statuses(() => sessionRequest(API, departed), 5)).toEqual([
+      200, 200, 200, 200, 200,
+    ]);
+    expect(await statuses(() => sessionRequest(API, member), 3)).toEqual([200, 200, 429]);
+    expect(await statuses(() => sessionRequest(API, inSuspended), 3)).toEqual([200, 200, 200]);
+  });
+
+  it("counts a session against the org a fork's tenant resolver names, as the guard enters it", async () => {
+    const hostOrg = fresh('org_host');
+    const sessionOrg = fresh('org_session');
+    orgQuotas[hostOrg] = { requestsPerMinute: 2 };
+    orgQuotas[sessionOrg] = { requestsPerMinute: 1 };
+    const [user, outsider] = [fresh('user'), fresh('outsider')];
+    join(user, sessionOrg);
+    members.set(`${user}:${hostOrg}`, 'ACTIVE');
+    join(outsider, sessionOrg);
+    registerTenantResolver((req) =>
+      new URL(req.url).hostname === 'host.example.com' ? hostOrg : null
+    );
+
+    const onHost = (userId: string) =>
+      new NextRequest(`http://host.example.com${API}`, {
+        headers: { cookie: `uid=${userId}`, 'x-forwarded-for': '203.0.113.9' },
+      });
+
+    // A non-member of the resolver's org is not counted against it...
+    expect(await statuses(() => onHost(outsider), 3)).toEqual([200, 200, 200]);
+    // ...and a member is, not against the org their session last chose.
+    expect(await statuses(() => onHost(user), 3)).toEqual([200, 200, 429]);
+    expect(await applyRateLimit(sessionRequest(API, user))).toBeNull();
+  });
+
+  it('never counts POST /api/v1/orgs/switch, the way out of a saturated org', async () => {
+    const org = fresh('org');
+    orgQuotas[org] = { requestsPerMinute: 1 };
+    const user = fresh('user');
+    join(user, org);
+
+    expect(await statuses(() => sessionRequest(API, user), 2)).toEqual([200, 429]);
+    expect(await applyRateLimit(sessionRequest('/api/v1/orgs/switch', user))).toBeNull();
+  });
+
+  it("slides the org's window: last minute's requests weigh on this one by how much of it is left", async () => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    const minute = 60_000;
+    vi.setSystemTime(Math.ceil(Date.now() / minute) * minute + 59_000);
+    const org = fresh('org');
+    orgQuotas[org] = { requestsPerMinute: 2 };
+    const [a, b, c] = [fresh('a'), fresh('b'), fresh('c')];
+    join(a, org);
+    join(b, org);
+    join(c, org);
+
+    expect(await statuses(() => sessionRequest(API, a), 3)).toEqual([200, 200, 429]);
+
+    // Half way through the next minute, the last minute's 2 count as 1.
+    vi.setSystemTime(Date.now() + 31_000);
+    expect(await statuses(() => sessionRequest(API, b), 2)).toEqual([200, 429]);
+
+    // A full minute on, the window has slid past them.
+    vi.setSystemTime(Date.now() + 2 * minute);
+    expect(await statuses(() => sessionRequest(API, c), 3)).toEqual([200, 200, 429]);
   });
 
   it('never counts the platform admin surface, where a full cap is raised', async () => {
     const org = fresh('org');
     orgQuotas[org] = { requestsPerMinute: 2 };
     const admin = fresh('admin');
-    sessions[admin] = org;
+    join(admin, org);
 
     expect(await statuses(() => sessionRequest(`/api/v1/admin/orgs/${org}`, admin), 5)).toEqual([
       200, 200, 200, 200, 200,
@@ -278,7 +418,7 @@ describe('applyRateLimit — per-org request cap', () => {
   it('enforces a changed cap at once after forgetOrgRequestCap', async () => {
     const org = fresh('org');
     const user = fresh('user');
-    sessions[user] = org;
+    join(user, org);
 
     expect(await statuses(() => sessionRequest(API, user), 2)).toEqual([200, 200]);
     orgQuotas[org] = { requestsPerMinute: 1 };
@@ -290,7 +430,7 @@ describe('applyRateLimit — per-org request cap', () => {
   it('applies no org cap, and warns, when the cap cannot be read', async () => {
     const org = fresh('org');
     const user = fresh('user');
-    sessions[user] = org;
+    join(user, org);
     vi.mocked(prisma.org.findUnique).mockRejectedValue(new Error('db down'));
 
     expect(await statuses(() => sessionRequest(API, user), 2)).toEqual([200, 200]);

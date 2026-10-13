@@ -76,10 +76,14 @@ describe('resolveRateLimitCredential', () => {
         expiresAt: null,
       } as never);
 
-      await expect(resolveKey('sk_abc')).resolves.toEqual({ id: 'sk:k1', orgId: INSTALL_ORG_ID });
+      await expect(resolveKey('sk_abc')).resolves.toEqual({
+        id: 'sk:k1',
+        orgId: INSTALL_ORG_ID,
+        memberUserId: null,
+      });
       expect(prisma.aiApiKey.findFirst).toHaveBeenCalledWith({
         where: { keyHash: sha256('sk_abc'), revokedAt: null },
-        select: { id: true, expiresAt: true, orgId: true },
+        select: { id: true, expiresAt: true, orgId: true, userId: true },
       });
     });
 
@@ -112,6 +116,7 @@ describe('resolveRateLimitCredential', () => {
       await expect(resolveKey('smcp_abc')).resolves.toEqual({
         id: 'mcp:m1',
         orgId: INSTALL_ORG_ID,
+        memberUserId: null,
       });
       expect(prisma.mcpApiKey.findUnique).toHaveBeenCalledWith({
         where: { keyHash: sha256('smcp_abc') },
@@ -171,6 +176,7 @@ describe('resolveRateLimitCredential', () => {
       await expect(resolveRateLimitCredential('embed-token', 'tok', IP)).resolves.toEqual({
         id: 't1',
         orgId: INSTALL_ORG_ID,
+        memberUserId: null,
       });
 
       vi.mocked(prisma.aiAgentEmbedToken.findUnique).mockResolvedValueOnce({
@@ -191,6 +197,7 @@ describe('resolveRateLimitCredential', () => {
         id: 'k1',
         expiresAt: null,
         orgId: 'cmorg_a',
+        userId: 'cmuser_owner',
       } as never);
       vi.mocked(prisma.mcpApiKey.findUnique).mockResolvedValue({
         id: 'm1',
@@ -207,11 +214,22 @@ describe('resolveRateLimitCredential', () => {
         org: { status: 'ACTIVE' },
       } as never);
 
-      await expect(resolveKey('sk_bound')).resolves.toEqual({ id: 'sk:k1', orgId: 'cmorg_a' });
-      await expect(resolveKey('smcp_bound')).resolves.toEqual({ id: 'mcp:m1', orgId: 'cmorg_b' });
+      // A user key carries its owner, whose membership the org counter checks;
+      // the user-less credentials had their org's status checked here.
+      await expect(resolveKey('sk_bound')).resolves.toEqual({
+        id: 'sk:k1',
+        orgId: 'cmorg_a',
+        memberUserId: 'cmuser_owner',
+      });
+      await expect(resolveKey('smcp_bound')).resolves.toEqual({
+        id: 'mcp:m1',
+        orgId: 'cmorg_b',
+        memberUserId: null,
+      });
       await expect(resolveRateLimitCredential('embed-token', 'tok', IP)).resolves.toEqual({
         id: 't1',
         orgId: 'cmorg_c',
+        memberUserId: null,
       });
     });
 
@@ -222,9 +240,13 @@ describe('resolveRateLimitCredential', () => {
         id: 'k_admin',
         expiresAt: null,
         orgId: null,
+        userId: 'cmuser_admin',
       } as never);
 
-      await expect(resolveKey('sk_admin')).resolves.toEqual({ id: 'sk:k_admin', orgId: null });
+      await expect(resolveKey('sk_admin')).resolves.toMatchObject({
+        id: 'sk:k_admin',
+        orgId: null,
+      });
     });
 
     it('serves the org from the cache with the id', async () => {
@@ -232,10 +254,15 @@ describe('resolveRateLimitCredential', () => {
         id: 'k1',
         expiresAt: null,
         orgId: 'cmorg_a',
+        userId: 'cmuser_owner',
       } as never);
 
       await resolveKey('sk_cached');
-      await expect(resolveKey('sk_cached')).resolves.toEqual({ id: 'sk:k1', orgId: 'cmorg_a' });
+      await expect(resolveKey('sk_cached')).resolves.toEqual({
+        id: 'sk:k1',
+        orgId: 'cmorg_a',
+        memberUserId: 'cmuser_owner',
+      });
       expect(prisma.aiApiKey.findFirst).toHaveBeenCalledTimes(1);
     });
   });

@@ -81,6 +81,7 @@ const LOOKUPS_PER_IP_PER_MINUTE = 30;
 interface LiveCredential {
   id: string;
   orgId: string | null;
+  memberUserId: string | null;
   expiresAt: Date | null;
 }
 
@@ -90,6 +91,12 @@ export interface VerifiedRateLimitCredential {
   id: string;
   /** The org the row is bound to, for the org request cap; `null` for none. */
   orgId: string | null;
+  /**
+   * The user whose membership that org rests on — a user API key's owner, as
+   * `enterApiKeyOrg` verifies it — or `null` for an embed token or MCP key,
+   * whose org's status this lookup already checked.
+   */
+  memberUserId: string | null;
 }
 
 /**
@@ -125,8 +132,15 @@ function cacheKey(kind: RateLimitCredentialKind, value: string): string {
   return createHash('sha256').update(`${kind}:${value}`).digest('hex');
 }
 
-function live(id: string, orgId: string | null, expiresAt: Date | null): LiveCredential | null {
-  return expiresAt === null || expiresAt > new Date() ? { id, orgId, expiresAt } : null;
+function live(
+  id: string,
+  orgId: string | null,
+  expiresAt: Date | null,
+  memberUserId: string | null = null
+): LiveCredential | null {
+  return expiresAt === null || expiresAt > new Date()
+    ? { id, orgId, memberUserId, expiresAt }
+    : null;
 }
 
 async function lookup(
@@ -160,12 +174,13 @@ async function lookup(
     const row = await runAsCredentialLookup('api-key', () =>
       prisma.aiApiKey.findFirst({
         where: { keyHash: hashApiKey(value), revokedAt: null },
-        select: { id: true, expiresAt: true, orgId: true },
+        select: { id: true, expiresAt: true, orgId: true, userId: true },
       })
     );
     // The column as `enterApiKeyOrg` reads it: an unbound key (every `admin`
-    // one) acts for no org at `multi`. Membership is the guard's to verify.
-    return row ? live(`sk:${row.id}`, orgOfColumn(row.orgId), row.expiresAt) : null;
+    // one) acts for no org at `multi`. The owner's membership is verified by
+    // the org counter, and only for an org with a cap.
+    return row ? live(`sk:${row.id}`, orgOfColumn(row.orgId), row.expiresAt, row.userId) : null;
   }
   if (value.startsWith(MCP_API_KEY_PREFIX)) {
     const row = await runAsCredentialLookup('mcp-key', () =>
@@ -218,12 +233,16 @@ async function verifyAndCache(
     // credential's expiry, and only while its last good check is recent.
     const cached = verified.get(key);
     if (cached && Date.now() - cached.verifiedAt < MAX_REARM_AGE_MS) {
-      cacheLive(key, live(cached.id, cached.orgId, cached.expiresAt), cached.verifiedAt);
+      cacheLive(
+        key,
+        live(cached.id, cached.orgId, cached.expiresAt, cached.memberUserId),
+        cached.verifiedAt
+      );
     }
     throw error;
   }
   cacheLive(key, found, Date.now());
-  return found ? { id: found.id, orgId: found.orgId } : null;
+  return found ? { id: found.id, orgId: found.orgId, memberUserId: found.memberUserId } : null;
 }
 
 /** Run (or join) the one lookup in flight for this credential. */
@@ -270,7 +289,7 @@ export async function resolveRateLimitCredential(
     if (!cached.capped && verified.getRemainingTTL(key) < REFRESH_BELOW_MS) {
       verifyShared(key, kind, value).catch((error: unknown) => warnLookupFailed(kind, error));
     }
-    return { id: cached.id, orgId: cached.orgId };
+    return { id: cached.id, orgId: cached.orgId, memberUserId: cached.memberUserId };
   }
 
   // A lookup already running for this value costs nothing more to join.

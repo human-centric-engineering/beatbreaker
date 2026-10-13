@@ -43,6 +43,7 @@ import {
 import { resolveRateLimitCredential } from '@/lib/security/rate-limit-credentials';
 import { checkOrgRequestCap } from '@/lib/security/org-request-cap';
 import { sessionActingOrgId } from '@/lib/tenancy/entry';
+import { resolveTenantFromRequest } from '@/lib/tenancy/resolver';
 import { isMultiTenant } from '@/lib/tenancy/context';
 import { registerAppRateLimits } from '@/lib/app/rate-limit';
 
@@ -148,15 +149,15 @@ try {
  *      standard 429 response with `Retry-After` and `X-RateLimit-*` headers.
  *   6. At `multi`, when step 4 identified the caller by a verified principal
  *      that acts for an org, count the request against that org's
- *      `quotas.requestsPerMinute` too (§110 t-789). No cap set, or no org →
- *      nothing counted. Exceeded → the same 429, carrying the org's limit.
- *      Allowed → return `null`.
+ *      `quotas.requestsPerMinute` too (§110 t-789). No cap set, no org, or a
+ *      user who cannot enter the org → nothing counted. Exceeded → the same
+ *      429, carrying the org's limit. Allowed → return `null`.
  *
  * The org counter runs after the caller's own, so a request the caller's
  * limit refused never spends org capacity: one caller's share of an org's cap
- * is bounded by its own limit, a removed member whose session still names the
- * org included. It never runs under `/api/v1/admin/**` — see
- * {@link ORG_CAP_EXEMPT}.
+ * is bounded by its own limit. It never runs on {@link ORG_CAP_EXEMPT}.
+ * Embed-token traffic is not counted: the token is public, so counting it
+ * would let anyone hold a tenant at its cap and lock out its members.
  *
  * Failure modes:
  *   - If session resolution throws (better-auth outage, DB down) we DO NOT
@@ -223,7 +224,7 @@ export async function applyRateLimit(request: NextRequest): Promise<Response | n
   }
 
   if (caller.orgId && !ORG_CAP_EXEMPT.test(pathname)) {
-    const orgResult = await checkOrgRequestCap(caller.orgId);
+    const orgResult = await checkOrgRequestCap(caller.orgId, caller.memberUserId);
     if (orgResult && !orgResult.success) {
       return createRateLimitResponse(orgResult);
     }
@@ -232,15 +233,19 @@ export async function applyRateLimit(request: NextRequest): Promise<Response | n
 }
 
 /**
- * Paths the org request cap never counts: the platform admin surface.
+ * Paths the org request cap never counts — the ways out of a saturated org.
+ * Their section tiers still apply.
  *
- * It is the vendor's control plane — the default authorization policy admits
- * only platform admins — and it is where a saturated cap is raised
- * (`PATCH /api/v1/admin/orgs/[id]`). Counting it would let a tenant's traffic
- * lock the operator out of the remedy, and charge the vendor's own support
- * work in a customer's org to that customer. Its section tiers still apply.
+ * - **The platform admin surface.** It is the vendor's control plane — the
+ *   default authorization policy admits only platform admins — and it is
+ *   where a saturated cap is raised (`PATCH /api/v1/admin/orgs/[id]`).
+ *   Counting it would let a tenant's traffic lock the operator out of the
+ *   remedy, and charge the vendor's support work in a customer's org to that
+ *   customer.
+ * - **`POST /api/v1/orgs/switch`.** A member of two orgs whose session names
+ *   the saturated one must still be able to move to the other.
  */
-const ORG_CAP_EXEMPT = /^\/api\/v1\/admin\//;
+const ORG_CAP_EXEMPT = /^\/api\/v1\/(admin\/|orgs\/switch(\/|$))/;
 
 /**
  * Whether the test/dev bypass is active. Set `RATE_LIMIT_BYPASS=true` (or `1`)
@@ -291,18 +296,20 @@ function warnIfBypassActiveInProduction(): void {
 interface Caller {
   id: string;
   /**
-   * Set only at `multi`, and only from a verified principal: the session's
-   * own `activeOrgId`, or the org column of the credential row the lookup
-   * found. Never the `x-sunrise-org` header — this runs before
-   * `resolveTenantFromRequest` strips and rewrites it, so here it is
-   * whatever the client sent.
+   * Set only at `multi`, and only from a verified principal: for a session,
+   * the org the guard will enter (the fork's tenant resolver, else the
+   * session's `activeOrgId`); for a key, the org column of the row the lookup
+   * found. Never the `x-sunrise-org` header — this runs before the proxy
+   * strips and rewrites it, so here it is whatever the client sent.
    */
   orgId: string | null;
+  /** Whose membership of `orgId` must be verified before counting; see `checkOrgRequestCap`. */
+  memberUserId: string | null;
 }
 
 async function resolveCaller(key: RateLimitRule['key'], request: NextRequest): Promise<Caller> {
-  const { id, orgId } = await resolveIdentifier(key, request);
-  return { id, orgId: isMultiTenant() ? orgId : null };
+  const caller = await resolveIdentifier(key, request);
+  return isMultiTenant() ? caller : { ...caller, orgId: null, memberUserId: null };
 }
 
 /**
@@ -330,12 +337,13 @@ async function resolveCaller(key: RateLimitRule['key'], request: NextRequest): P
  * rather than letting the request through unlimited.
  *
  * Alongside the identifier, each built-in strategy that found a principal
- * names the org it acts for: the session's `activeOrgId`, or the org column
- * of the key or token row. An IP, a fallback and a custom resolver name none.
+ * names the org it acts for: the session's org, or the org column of the API
+ * or MCP key row. An embed token, an IP, a fallback and a custom resolver name
+ * none.
  */
 async function resolveIdentifier(key: RateLimitRule['key'], request: NextRequest): Promise<Caller> {
   const ip = getClientIP(request);
-  const noOrg = (id: string): Caller => ({ id, orgId: null });
+  const noOrg = (id: string): Caller => ({ id, orgId: null, memberUserId: null });
 
   // App-defined key strategies (registerRateLimitKeyResolver). The rule
   // registry guarantees a rule naming a custom key had a resolver at
@@ -376,11 +384,17 @@ async function resolveIdentifier(key: RateLimitRule['key'], request: NextRequest
       try {
         const session = await auth.api.getSession({ headers: request.headers });
         if (session?.user?.id) {
-          // The org the guard will enter, read as it reads it — less the
-          // resolver header, which nothing has verified at this point.
+          // The org the guard will enter, in its precedence: the fork's
+          // resolver (pure, computed from the request here rather than read
+          // from a header the client could have set), else the session's
+          // choice. Neither is a membership; the org counter verifies it.
           return {
             id: `user:${session.user.id}`,
-            orgId: sessionActingOrgId(null, session.session?.activeOrgId),
+            orgId: sessionActingOrgId(
+              resolveTenantFromRequest(request),
+              session.session?.activeOrgId
+            ),
+            memberUserId: session.user.id,
           };
         }
       } catch {
@@ -398,14 +412,19 @@ async function resolveIdentifier(key: RateLimitRule['key'], request: NextRequest
       const bearer = header.startsWith('Bearer ') ? header.slice('Bearer '.length) : '';
       if (!bearer) return noOrg(`ip:${ip}`);
       const found = await resolveRateLimitCredential('api-key', bearer, ip);
-      return found ? { id: `key:${found.id}`, orgId: found.orgId } : noOrg(`ip:${ip}`);
+      return found
+        ? { id: `key:${found.id}`, orgId: found.orgId, memberUserId: found.memberUserId }
+        : noOrg(`ip:${ip}`);
     }
 
     case 'embed-token': {
       const token = request.headers.get('x-embed-token');
       if (!token) return noOrg(`ip:${ip}`);
       const found = await resolveRateLimitCredential('embed-token', token, ip);
-      return found ? { id: `embed:${found.id}:${ip}`, orgId: found.orgId } : noOrg(`ip:${ip}`);
+      // No org: an embed token is public (it sits in the embedding page), so
+      // counting its traffic against the org's cap would let anyone hold the
+      // tenant at its cap and lock its members out.
+      return found ? noOrg(`embed:${found.id}:${ip}`) : noOrg(`ip:${ip}`);
     }
   }
 }
