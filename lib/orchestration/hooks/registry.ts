@@ -42,7 +42,7 @@ import {
   signHookPayload,
 } from '@/lib/orchestration/hooks/signing';
 import { noteMaintenanceWork } from '@/lib/orchestration/maintenance/idle-gate';
-import { notRetried } from '@/lib/orchestration/webhooks/not-retried';
+import { isAwaitingRetry, notRetried } from '@/lib/orchestration/webhooks/not-retried';
 import {
   describeDestination,
   destinationUpdate,
@@ -452,6 +452,9 @@ function scheduleRetry(deliveryId: string, delayMs: number): void {
             where: { id: deliveryId },
             include: { hook: true },
           });
+          // Settled since this timer was armed — stopped by an erasure, or
+          // delivered: see `isAwaitingRetry`.
+          if (delivery && !isAwaitingRetry(delivery.status)) return;
           if (!delivery || !delivery.hook || !delivery.hook.isEnabled) {
             if (delivery) {
               await prisma.aiEventHookDelivery.update({

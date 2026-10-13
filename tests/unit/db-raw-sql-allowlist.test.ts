@@ -150,6 +150,11 @@ const ALLOWLIST: ReadonlyArray<{ file: string; calls: number; why: string }> = [
     calls: 2,
     why: 'cost aggregation windows',
   },
+  {
+    file: 'lib/privacy/delivery-payloads.ts',
+    calls: 2,
+    why: 'deliveries whose payload names a person (JSON containment via the GIN index) and their bulk redaction (t-783); system-scoped at multi, like every erasure and subject-access read',
+  },
 ];
 
 function countRawSqlCalls(source: string): number {

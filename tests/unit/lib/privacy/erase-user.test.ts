@@ -30,6 +30,10 @@ const {
   mockDeliveryUpdateMany,
   mockDeliveryFindMany,
   mockDeliveryUpdate,
+  mockSubFindMany,
+  mockSubUpdateMany,
+  mockAuditCreateMany,
+  mockEraseDeliveries,
   mockPrisma,
   mockLogger,
 } = vi.hoisted(() => {
@@ -45,6 +49,10 @@ const {
   const deliveryUpdateMany = vi.fn().mockResolvedValue({ count: 0 });
   const deliveryFindMany = vi.fn().mockResolvedValue([]);
   const deliveryUpdate = vi.fn().mockResolvedValue({});
+  const subFindMany = vi.fn().mockResolvedValue([]);
+  const subUpdateMany = vi.fn().mockResolvedValue({ count: 0 });
+  const auditCreateMany = vi.fn().mockResolvedValue({ count: 0 });
+  const eraseDeliveries = vi.fn().mockResolvedValue(0);
   const userFind = vi.fn().mockResolvedValue({ email: 'foo@bar.com', emailVerified: true });
 
   // Prisma mock — $transaction invokes its async callback with the same
@@ -53,9 +61,10 @@ const {
   // assertions vacuous).
   const prismaObj = {
     $transaction: vi.fn(),
-    aiAdminAuditLog: { updateMany },
+    aiAdminAuditLog: { updateMany, createMany: auditCreateMany },
     contactSubmission: { deleteMany: contactDeleteMany, count: contactCount },
     dataErasureReceipt: { create: receiptCreate },
+    aiWebhookSubscription: { findMany: subFindMany, updateMany: subUpdateMany },
     aiWebhookDelivery: {
       updateMany: deliveryUpdateMany,
       findMany: deliveryFindMany,
@@ -86,6 +95,10 @@ const {
     mockDeliveryUpdateMany: deliveryUpdateMany,
     mockDeliveryFindMany: deliveryFindMany,
     mockDeliveryUpdate: deliveryUpdate,
+    mockSubFindMany: subFindMany,
+    mockSubUpdateMany: subUpdateMany,
+    mockAuditCreateMany: auditCreateMany,
+    mockEraseDeliveries: eraseDeliveries,
     mockPrisma: prismaObj,
     mockLogger: log,
   };
@@ -100,6 +113,12 @@ vi.mock('@/lib/env', () => ({ env: mockEnv }));
 
 vi.mock('@/lib/db/client', () => ({
   prisma: mockPrisma,
+}));
+
+// The payload redaction has its own tests (delivery-payloads.test.ts); here
+// only the call contract matters: which client, table and user, and when.
+vi.mock('@/lib/privacy/delivery-payloads', () => ({
+  eraseSubjectFromDeliveries: mockEraseDeliveries,
 }));
 
 // Storage — dynamically imported by the source; mock the module so dynamic
@@ -118,7 +137,7 @@ vi.mock('@/lib/storage/upload', () => ({
 // Import under test (AFTER all vi.mock() calls)
 // ---------------------------------------------------------------------------
 
-import { eraseUser } from '@/lib/privacy/erase-user';
+import { eraseUser, ERASURE_TRANSACTION_TIMEOUT_MS } from '@/lib/privacy/erase-user';
 import { getTenantContext, runAsOrg } from '@/lib/tenancy/context';
 
 // ---------------------------------------------------------------------------
@@ -157,6 +176,10 @@ describe('eraseUser', () => {
     mockDeliveryUpdateMany.mockResolvedValue({ count: 0 });
     mockDeliveryFindMany.mockResolvedValue([]);
     mockDeliveryUpdate.mockResolvedValue({});
+    mockSubFindMany.mockResolvedValue([]);
+    mockSubUpdateMany.mockResolvedValue({ count: 0 });
+    mockAuditCreateMany.mockResolvedValue({ count: 0 });
+    mockEraseDeliveries.mockResolvedValue(0);
     mockUserFind.mockResolvedValue({ email: 'foo@bar.com', emailVerified: true });
     mockReceiptCreate.mockResolvedValue({
       id: 'receipt-1',
@@ -850,6 +873,329 @@ describe('eraseUser', () => {
       await expect(eraseUser(BASE_PARAMS)).rejects.toThrow('bulk redaction failed');
 
       expect(mockUserDelete).not.toHaveBeenCalled();
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // t-786: colleagues' email subscriptions that notify the erased person
+  // -------------------------------------------------------------------------
+
+  describe('colleague email subscriptions (t-786)', () => {
+    type Sub = {
+      id: string;
+      emailAddress: string | null;
+      isActive: boolean;
+      orgId: string | null;
+      createdBy: string;
+    };
+
+    /** A candidate row as the `findMany` returns it; override what a test cares about. */
+    function sub(overrides: Partial<Sub> & { id: string }): Sub {
+      return {
+        emailAddress: 'foo@bar.com',
+        isActive: true,
+        orgId: 'org-a',
+        createdBy: 'owner-1',
+        ...overrides,
+      };
+    }
+
+    it('asks for other people’s email subscriptions only, by an exact where on the erased user', async () => {
+      await eraseUser(BASE_PARAMS);
+
+      // The erased user's own subscriptions are excluded by the where (they
+      // cascade with the user row); the address is compared in code, so the
+      // query carries no address at all.
+      expect(mockSubFindMany).toHaveBeenCalledTimes(1);
+      expect(mockSubFindMany).toHaveBeenCalledWith({
+        where: {
+          channel: 'email',
+          emailAddress: { not: null },
+          createdBy: { not: BASE_PARAMS.userId },
+        },
+        select: { id: true, emailAddress: true, isActive: true, orgId: true, createdBy: true },
+      });
+      expect(JSON.stringify(mockSubFindMany.mock.calls)).not.toContain('insensitive');
+    });
+
+    it('clears exactly the subscriptions whose normalised address is the STORED one, whatever case or whitespace they were typed in', async () => {
+      // Arrange — stored form is not canonical, and differs from the caller's copy
+      mockUserFind.mockResolvedValue({ email: '  Stored@BAR.com ', emailVerified: true });
+      mockSubFindMany.mockResolvedValue([
+        sub({ id: 'sub-exact', emailAddress: 'stored@bar.com' }),
+        sub({ id: 'sub-case', emailAddress: 'STORED@Bar.COM' }),
+        sub({ id: 'sub-tab', emailAddress: '\tstored@bar.com \t' }),
+        sub({ id: 'sub-other', emailAddress: 'someone-else@bar.com' }),
+        sub({ id: 'sub-caller', emailAddress: 'caller-supplied@bar.com' }),
+        sub({ id: 'sub-prefix', emailAddress: 'xstored@bar.com' }),
+        sub({ id: 'sub-null', emailAddress: null }),
+      ]);
+
+      // Act
+      await eraseUser({ ...BASE_PARAMS, userEmail: 'caller-supplied@bar.com' });
+
+      // Assert — matched in code on the stored address; the caller's copy is ignored
+      expect(mockSubUpdateMany).toHaveBeenCalledTimes(1);
+      expect(mockSubUpdateMany).toHaveBeenCalledWith({
+        where: { id: { in: ['sub-exact', 'sub-case', 'sub-tab'] } },
+        data: { emailAddress: null, isActive: false },
+      });
+      expect(
+        mockAuditCreateMany.mock.calls[0][0].data.map((row: { entityId: string }) => row.entityId)
+      ).toEqual(['sub-exact', 'sub-case', 'sub-tab']);
+    });
+
+    it('writes one audit entry per cleared subscription, recording its prior isActive, never the address', async () => {
+      // Arrange
+      mockSubFindMany.mockResolvedValue([
+        sub({ id: 'sub-1', orgId: 'org-a', createdBy: 'owner-1', isActive: true }),
+        sub({
+          id: 'sub-2',
+          orgId: null,
+          createdBy: 'owner-2',
+          isActive: false,
+          emailAddress: ' FOO@bar.com ',
+        }),
+      ]);
+      mockUserFind.mockResolvedValue({ email: ' Foo@BAR.com ', emailVerified: true });
+
+      // Act
+      await eraseUser(BASE_PARAMS);
+
+      // Assert
+      expect(mockAuditCreateMany).toHaveBeenCalledTimes(1);
+      const reason = 'The person this subscription emailed was erased.';
+      expect(mockAuditCreateMany).toHaveBeenCalledWith({
+        data: [
+          {
+            userId: BASE_PARAMS.actorUserId,
+            action: 'webhook_subscription.recipient_erased',
+            entityType: 'webhook_subscription',
+            entityId: 'sub-1',
+            entityName: 'sub-1',
+            changes: {
+              emailAddress: { from: '[erased]', to: null },
+              isActive: { from: true, to: false },
+            },
+            metadata: { reason, ownerUserId: 'owner-1', orgId: 'org-a' },
+          },
+          {
+            userId: BASE_PARAMS.actorUserId,
+            action: 'webhook_subscription.recipient_erased',
+            entityType: 'webhook_subscription',
+            entityId: 'sub-2',
+            entityName: 'sub-2',
+            changes: {
+              emailAddress: { from: '[erased]', to: null },
+              isActive: { from: false, to: false },
+            },
+            metadata: { reason, ownerUserId: 'owner-2', orgId: null },
+          },
+        ],
+      });
+      // The log is kept through erasure and the address is what is erased
+      const serialised = JSON.stringify(mockAuditCreateMany.mock.calls).toLowerCase();
+      expect(serialised).not.toContain('foo@bar.com');
+    });
+
+    it('writes nothing when no subscription matches the address', async () => {
+      mockSubFindMany.mockResolvedValue([sub({ id: 'sub-other', emailAddress: 'nobody@bar.com' })]);
+
+      await eraseUser(BASE_PARAMS);
+
+      // Population: the candidates were read and the erasure completed
+      expect(mockSubFindMany).toHaveBeenCalledTimes(1);
+      expect(mockUserDelete).toHaveBeenCalledTimes(1);
+      expect(mockSubUpdateMany).not.toHaveBeenCalled();
+      expect(mockAuditCreateMany).not.toHaveBeenCalled();
+    });
+
+    it('reads, updates and audits nothing for an unverified address', async () => {
+      mockUserFind.mockResolvedValue({ email: 'foo@bar.com', emailVerified: false });
+      mockSubFindMany.mockResolvedValue([sub({ id: 'sub-1' })]);
+
+      await eraseUser(BASE_PARAMS);
+
+      // Population: the erasure itself ran
+      expect(mockUserDelete).toHaveBeenCalledTimes(1);
+      expect(mockSubFindMany).not.toHaveBeenCalled();
+      expect(mockSubUpdateMany).not.toHaveBeenCalled();
+      expect(mockAuditCreateMany).not.toHaveBeenCalled();
+      expect(mockLogger.info).toHaveBeenCalledWith(
+        'User erased',
+        expect.objectContaining({ subscriptionsDeactivated: 0 })
+      );
+    });
+
+    it('logs the number of subscriptions deactivated', async () => {
+      mockSubFindMany.mockResolvedValue([
+        sub({ id: 'sub-1' }),
+        sub({ id: 'sub-2', emailAddress: 'FOO@bar.com' }),
+        sub({ id: 'sub-3', orgId: 'org-b', createdBy: 'owner-2', isActive: false }),
+        sub({ id: 'sub-skipped', emailAddress: 'other@bar.com' }),
+      ]);
+
+      await eraseUser(BASE_PARAMS);
+
+      expect(mockLogger.info).toHaveBeenCalledWith(
+        'User erased',
+        expect.objectContaining({ subscriptionsDeactivated: 3 })
+      );
+    });
+
+    it('clears subscriptions first: before the delivery-address passes, the payload passes and tx.user.delete', async () => {
+      const callOrder: string[] = [];
+      mockSubFindMany.mockImplementation(async () => {
+        callOrder.push('subscription.findMany');
+        return [sub({ id: 'sub-1' })];
+      });
+      mockSubUpdateMany.mockImplementation(async () => {
+        callOrder.push('subscription.updateMany');
+        return { count: 1 };
+      });
+      mockAuditCreateMany.mockImplementation(async () => {
+        callOrder.push('audit.createMany');
+        return { count: 1 };
+      });
+      mockDeliveryFindMany.mockImplementation(async () => {
+        callOrder.push('delivery.findMany');
+        return [];
+      });
+      mockDeliveryUpdateMany.mockImplementation(async () => {
+        callOrder.push('delivery.updateMany');
+        return { count: 0 };
+      });
+      mockEraseDeliveries.mockImplementation(async () => {
+        callOrder.push('eraseSubjectFromDeliveries');
+        return 0;
+      });
+      mockUserDelete.mockImplementation(async () => {
+        callOrder.push('user.delete');
+        return { id: BASE_PARAMS.userId };
+      });
+
+      await eraseUser(BASE_PARAMS);
+
+      expect(callOrder).toEqual([
+        'subscription.findMany',
+        'subscription.updateMany',
+        'audit.createMany',
+        'delivery.findMany',
+        'delivery.updateMany',
+        'delivery.findMany',
+        'eraseSubjectFromDeliveries',
+        'eraseSubjectFromDeliveries',
+        'user.delete',
+      ]);
+    });
+
+    it('a failed subscription read rolls the erasure back: the user row is never deleted', async () => {
+      mockSubFindMany.mockRejectedValue(new Error('subscription read failed'));
+
+      await expect(eraseUser(BASE_PARAMS)).rejects.toThrow('subscription read failed');
+
+      expect(mockUserDelete).not.toHaveBeenCalled();
+      expect(mockReceiptCreate).not.toHaveBeenCalled();
+    });
+
+    it('a failed subscription update rolls the erasure back: the user row is never deleted', async () => {
+      mockSubFindMany.mockResolvedValue([sub({ id: 'sub-1' })]);
+      mockSubUpdateMany.mockRejectedValue(new Error('subscription clear failed'));
+
+      await expect(eraseUser(BASE_PARAMS)).rejects.toThrow('subscription clear failed');
+
+      expect(mockAuditCreateMany).not.toHaveBeenCalled();
+      expect(mockUserDelete).not.toHaveBeenCalled();
+      expect(mockReceiptCreate).not.toHaveBeenCalled();
+    });
+
+    it('a failed audit write rolls the erasure back: the user row is never deleted', async () => {
+      mockSubFindMany.mockResolvedValue([sub({ id: 'sub-1' })]);
+      mockAuditCreateMany.mockRejectedValue(new Error('audit write failed'));
+
+      await expect(eraseUser(BASE_PARAMS)).rejects.toThrow('audit write failed');
+
+      expect(mockUserDelete).not.toHaveBeenCalled();
+    });
+  });
+
+  it('runs the erasure transaction with the 60s timeout, not Prisma’s 5s default', async () => {
+    await eraseUser(BASE_PARAMS);
+
+    expect(ERASURE_TRANSACTION_TIMEOUT_MS).toBe(60_000);
+    expect(mockPrisma.$transaction).toHaveBeenCalledTimes(1);
+    expect(mockPrisma.$transaction).toHaveBeenCalledWith(expect.any(Function), {
+      timeout: ERASURE_TRANSACTION_TIMEOUT_MS,
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // t-783: delivery payloads that name the person
+  // -------------------------------------------------------------------------
+
+  describe('delivery payload redaction (t-783)', () => {
+    it('redacts both delivery tables for the user, through the transaction client', async () => {
+      // Arrange — a tx distinct from `prisma`, so a call on the outer client misses it
+      const tx = { ...mockPrisma };
+      mockPrisma.$transaction.mockImplementation(
+        (callback: (client: typeof tx) => Promise<unknown>) => callback(tx)
+      );
+
+      // Act
+      await eraseUser(BASE_PARAMS);
+
+      // Assert
+      expect(mockEraseDeliveries).toHaveBeenCalledTimes(2);
+      expect(mockEraseDeliveries).toHaveBeenNthCalledWith(1, tx, 'webhook', BASE_PARAMS.userId);
+      expect(mockEraseDeliveries).toHaveBeenNthCalledWith(2, tx, 'hook', BASE_PARAMS.userId);
+    });
+
+    it('redacts for the user even when the address is unverified', async () => {
+      // The payload match is on the user id, not the address
+      mockUserFind.mockResolvedValue({ email: 'foo@bar.com', emailVerified: false });
+
+      await eraseUser(BASE_PARAMS);
+
+      expect(mockEraseDeliveries).toHaveBeenCalledTimes(2);
+      expect(mockUserDelete).toHaveBeenCalledTimes(1);
+    });
+
+    it('runs both redactions before tx.user.delete', async () => {
+      const callOrder: string[] = [];
+      mockEraseDeliveries.mockImplementation(async (_tx: unknown, table: string) => {
+        callOrder.push(`deliveries:${table}`);
+        return 0;
+      });
+      mockUserDelete.mockImplementation(async () => {
+        callOrder.push('user.delete');
+        return { id: BASE_PARAMS.userId };
+      });
+
+      await eraseUser(BASE_PARAMS);
+
+      expect(callOrder).toEqual(['deliveries:webhook', 'deliveries:hook', 'user.delete']);
+    });
+
+    it('logs each table’s redacted count separately', async () => {
+      mockEraseDeliveries.mockImplementation(async (_tx: unknown, table: string) =>
+        table === 'webhook' ? 4 : 7
+      );
+
+      await eraseUser(BASE_PARAMS);
+
+      expect(mockLogger.info).toHaveBeenCalledWith(
+        'User erased',
+        expect.objectContaining({ webhookPayloadsRedacted: 4, eventHookPayloadsRedacted: 7 })
+      );
+    });
+
+    it('a failed redaction rolls the erasure back: the user row is never deleted', async () => {
+      mockEraseDeliveries.mockRejectedValue(new Error('payload redaction failed'));
+
+      await expect(eraseUser(BASE_PARAMS)).rejects.toThrow('payload redaction failed');
+
+      expect(mockUserDelete).not.toHaveBeenCalled();
+      expect(mockReceiptCreate).not.toHaveBeenCalled();
     });
   });
 
