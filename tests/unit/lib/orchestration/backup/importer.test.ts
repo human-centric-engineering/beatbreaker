@@ -104,6 +104,16 @@ vi.mock('@/lib/tenancy/context', async (importOriginal) => ({
   isMultiTenant: mockIsMultiTenant,
 }));
 
+// The settings caches the importer clears after restoring the settings row.
+vi.mock('@/lib/orchestration/settings', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/lib/orchestration/settings')>()),
+  invalidateOrchestrationSettingsCache: vi.fn(),
+}));
+vi.mock('@/lib/orchestration/llm/settings-resolver', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/lib/orchestration/llm/settings-resolver')>()),
+  invalidateSettingsCache: vi.fn(),
+}));
+
 // ─── Imports after mocks ─────────────────────────────────────────────────────
 
 import {
@@ -114,6 +124,8 @@ import {
 import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db/client';
 import { getTenantContext } from '@/lib/tenancy/context';
+import { invalidateOrchestrationSettingsCache } from '@/lib/orchestration/settings';
+import { invalidateSettingsCache } from '@/lib/orchestration/llm/settings-resolver';
 import type { BackupScope } from '@/lib/orchestration/backup/scope';
 import {
   INITIAL_VERSION_SUMMARY,
@@ -596,6 +608,10 @@ describe('importOrchestrationConfig', () => {
     expect(mockTx.aiOrchestrationSettings.upsert).toHaveBeenCalledOnce();
     // test-review:accept tobe_true — boolean field `settingsUpdated` on ImportResult; structural assertion on import outcome
     expect(result.settingsUpdated).toBe(true);
+    // The restored settings (the global budget cap among them) take effect on
+    // this process's next read, as a settings PATCH does.
+    expect(invalidateOrchestrationSettingsCache).toHaveBeenCalledOnce();
+    expect(invalidateSettingsCache).toHaveBeenCalledOnce();
   });
 
   it('sets settingsUpdated: false when settings is null', async () => {
@@ -604,6 +620,7 @@ describe('importOrchestrationConfig', () => {
 
     expect(mockTx.aiOrchestrationSettings.upsert).not.toHaveBeenCalled();
     expect(result.settingsUpdated).toBe(false);
+    expect(invalidateOrchestrationSettingsCache).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing restored, nothing to clear
   });
 
   it('adds a warning to warnings array when a webhook is imported without a secret', async () => {

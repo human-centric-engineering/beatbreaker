@@ -24,9 +24,9 @@ import { logger } from '@/lib/logging';
 import { getAvailableModels, getModel } from '@/lib/orchestration/llm/model-registry';
 import { touchAgentLastActive } from '@/lib/orchestration/agents/touch-last-active';
 import {
-  getGlobalCapState,
-  getOrgCapState,
+  globalCapStateOrSkip,
   noteSpend,
+  orgCapStateOrSkip,
   utcMonthStart,
 } from '@/lib/orchestration/llm/spend-caps';
 import type { AgentCostSummary, CostOperation, LocalSavingsResult } from '@/types/orchestration';
@@ -503,29 +503,16 @@ export async function checkBudget(agentId: string): Promise<BudgetStatus> {
     throw new Error(`Agent ${agentId} not found`);
   }
 
-  // Three independent reads. The org and global ones never reject: a failure
-  // reading either cap is logged and that cap skipped, so it never takes the
-  // per-agent check down.
+  // Three independent reads. The org and global ones never reject: a cap that
+  // cannot be read is logged and skipped, so it never takes the per-agent
+  // check down.
   const [aggregate, global, org] = await Promise.all([
     prisma.aiCostLog.aggregate({
       where: { agentId, createdAt: { gte: utcMonthStart() } },
       _sum: { totalCostUsd: true },
     }),
-    getGlobalCapState().catch((err: unknown) => {
-      logger.warn('checkBudget: global cap lookup failed, falling back to per-agent only', {
-        agentId,
-        error: err instanceof Error ? err.message : String(err),
-      });
-      return null;
-    }),
-    getOrgCapState(agent.orgId ?? null).catch((err: unknown) => {
-      logger.warn('checkBudget: org cap lookup failed, skipping the org cap', {
-        agentId,
-        orgId: agent.orgId,
-        error: err instanceof Error ? err.message : String(err),
-      });
-      return null;
-    }),
+    globalCapStateOrSkip({ agentId }),
+    orgCapStateOrSkip(agent.orgId ?? null, { agentId }),
   ]);
   const spent = aggregate._sum.totalCostUsd ?? 0;
   const globalCapExceeded = global?.exceeded ?? false;

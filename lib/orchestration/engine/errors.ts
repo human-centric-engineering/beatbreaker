@@ -81,7 +81,7 @@ function isPolicyRefusal(cause: unknown): boolean {
   return refusalCodeIn(cause, [PROVIDER_NOT_PERMITTED]) !== null;
 }
 
-const SPEND_CAP_REFUSALS: readonly string[] = [SPEND_CAP_CODES.org, SPEND_CAP_CODES.global];
+const SPEND_CAP_REFUSALS: readonly string[] = Object.values(SPEND_CAP_CODES);
 
 /**
  * The first of `codes` carried by `cause` or anything it wraps, by duck type

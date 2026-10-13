@@ -257,8 +257,11 @@ export const PROVIDER_NOT_PERMITTED = 'provider_not_permitted';
  * The codes a monthly spend-cap refusal carries (§110 t-788): the call-time
  * gate's `SpendCapExceededError` (`spend-caps.ts`), and the chat handler's own
  * refusal before a turn starts, which uses the same words for the same cap.
+ * `agent` is the agent's own cap, which the gate enforces only for a chat turn
+ * that holds paid calls for it (`withPaidCallHold`).
  */
 export const SPEND_CAP_CODES = {
+  agent: 'budget_exceeded',
   org: 'org_budget_exceeded',
   global: 'global_budget_exceeded',
 } as const;
@@ -294,14 +297,17 @@ export const SPEND_CAP_CODES = {
 // `multi`, one org's refusal would otherwise open the circuit for every org.
 //
 // The spend-cap codes are the same kind of answer (§110 t-788): a cap that has
-// been reached stays reached on a retry, and failing over to another paid
-// provider spends against the same cap. Nor is a reached cap anything to do
-// with the provider's health.
+// been reached stays reached on a retry, and every other paid provider is held
+// to the same cap. Nor is a reached cap anything to do with the provider's
+// health. A LOCAL provider is exempt from the caps, so it is the one failover
+// that can help; provider selection makes it, by skipping each paid candidate
+// the caps refuse (`getProviderWithFallbacks`, chat's mid-stream failover),
+// rather than this code permitting a failover that would only meet the same
+// refusal at the next paid provider.
 const REQUEST_FAULT_CODES = new Set<string>([
   'truncated_no_output',
   PROVIDER_NOT_PERMITTED,
-  SPEND_CAP_CODES.org,
-  SPEND_CAP_CODES.global,
+  ...Object.values(SPEND_CAP_CODES),
 ]);
 
 /**

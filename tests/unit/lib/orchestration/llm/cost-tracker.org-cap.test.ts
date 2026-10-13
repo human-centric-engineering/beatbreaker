@@ -189,7 +189,7 @@ describe('checkBudget — no org cap set (behaviour-neutral)', () => {
 
     expect(await checkBudget('agent-a')).toEqual(before(50, null));
     expect(mockLogger.warn).toHaveBeenCalledWith(
-      'checkBudget: org cap lookup failed, skipping the org cap',
+      'Spend caps: the org cap could not be read, so it is skipped',
       expect.objectContaining({ agentId: 'agent-a', orgId: ORG_A, error: 'db down' })
     );
   });

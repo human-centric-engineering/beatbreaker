@@ -560,8 +560,8 @@ describe('checkBudget — global budget cap', () => {
     expect(status.limit).toBe(100);
     // Assert: warning logged for the settings lookup failure
     expect(vi.mocked(logger.warn)).toHaveBeenCalledWith(
-      'checkBudget: global cap lookup failed, falling back to per-agent only',
-      expect.objectContaining({ agentId: 'agent-1' })
+      'Spend caps: the global cap could not be read, so it is skipped',
+      expect.objectContaining({ agentId: 'agent-1', error: 'settings db down' })
     );
   });
 

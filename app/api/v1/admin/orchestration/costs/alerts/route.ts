@@ -8,7 +8,8 @@
  * and 1.0 and `critical` at 1.0 or above. Agents below 0.8 and agents
  * without a budget are omitted entirely.
  *
- * Admin-global (not user-scoped).
+ * Admin-global (not user-scoped). `globalCap.spent` is every org's spend, so
+ * it is `null` unless the caller is in the install org (`getGlobalCapStatus`).
  *
  * Authentication: Admin role required.
  */

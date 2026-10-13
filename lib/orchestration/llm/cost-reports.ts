@@ -14,12 +14,9 @@
 
 import { prisma } from '@/lib/db/client';
 import { logger } from '@/lib/logging';
-import {
-  calculateLocalSavings,
-  getGlobalCapState,
-  type GlobalCapState,
-} from '@/lib/orchestration/llm/cost-tracker';
+import { calculateLocalSavings, getGlobalCapState } from '@/lib/orchestration/llm/cost-tracker';
 import { utcMonthStart } from '@/lib/orchestration/llm/spend-caps';
+import { canChangeSharedSettings } from '@/lib/tenancy/shared-settings';
 import type { LocalSavingsResult } from '@/types/orchestration';
 
 // ----------------------------------------------------------------------------
@@ -112,7 +109,18 @@ export interface BudgetAlert {
 }
 
 /** The global cap, its month-to-date spend in every org, and whether it is met. */
-export type GlobalCapStatus = GlobalCapState;
+export interface GlobalCapStatus {
+  /** The configured global monthly budget in USD, or null if not set. */
+  cap: number | null;
+  /**
+   * Month-to-date spend in every org. `null` for a caller in a customer org at
+   * `multi`: the figure includes every other org's spend, so it is shown only
+   * in the install org, where the global cap is set.
+   */
+  spent: number | null;
+  /** True when the spend has reached the cap: every paid AI call is refused. */
+  exceeded: boolean;
+}
 
 // ----------------------------------------------------------------------------
 // Helpers
@@ -470,12 +478,17 @@ export async function getBudgetAlerts(): Promise<BudgetAlert[]> {
  * Check whether the global monthly budget cap (from `AiOrchestrationSettings`)
  * has been exceeded. Returns null cap when no settings row or no cap configured.
  *
- * The spend is every org's (`getGlobalCapState`), read in the system scope at
- * `multi` — the same figure `checkBudget` enforces against.
+ * The spend is every org's (`getGlobalCapState`), read across orgs at `multi`
+ * — the same figure the spend gate enforces against. So it goes only to a
+ * caller in the install org (or a system scope), the one place the global cap
+ * can be changed (`canChangeSharedSettings`). An admin in a customer org is
+ * told whether the cap is reached, since it refuses their org's paid calls
+ * too, but not what every org has spent.
  */
 export async function getGlobalCapStatus(): Promise<GlobalCapStatus> {
   try {
-    return await getGlobalCapState();
+    const state = await getGlobalCapState();
+    return canChangeSharedSettings() ? state : { ...state, spent: null };
   } catch (err) {
     logger.warn('getGlobalCapStatus: failed, returning safe default', {
       error: err instanceof Error ? err.message : String(err),

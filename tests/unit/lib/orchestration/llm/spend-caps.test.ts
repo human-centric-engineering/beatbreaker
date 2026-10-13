@@ -5,7 +5,8 @@
  * manager's Proxy), so it is what holds workflows, evaluations and jobs to the
  * org and global caps. These tests pin what it refuses, what it never refuses
  * (a local provider), which org it asks about, and the cached totals that keep
- * it from summing a month of cost rows on every call.
+ * it from summing a month of cost rows on every call, and the chat turn's hold
+ * on paid calls for its agent's own cap (`withPaidCallHold`).
  */
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
@@ -40,15 +41,21 @@ import {
   CAP_SETTING_TTL_MS,
   SpendCapExceededError,
   assertWithinSpendCaps,
-  forgetGlobalCap,
   forgetOrgCap,
   forgetSpendCaps,
   getMonthToDateGlobalSpend,
   getMonthToDateOrgSpend,
   getOrgCapState,
+  globalCapStateOrSkip,
   noteSpend,
+  orgCapStateOrSkip,
+  spendCapRefusal,
   utcMonthStart,
+  withPaidCallHold,
+  type PaidCallHold,
+  type SpendCap,
 } from '@/lib/orchestration/llm/spend-caps';
+import { invalidateOrchestrationSettingsCache } from '@/lib/orchestration/settings';
 import { isRequestFault } from '@/lib/orchestration/llm/provider';
 import { INSTALL_ORG_ID } from '@/lib/tenancy/constants';
 import { runAsOrg } from '@/lib/tenancy/context';
@@ -92,8 +99,8 @@ const capOrg = (orgId: string, monthlyBudgetUsd: number) => {
   settingsByOrg[orgId] = { quotas: { monthlyBudgetUsd } };
 };
 
-/** The gate's refusal as `'org'` / `'global'`, or `null` when it let the call through. */
-async function refusal(run: () => Promise<void>): Promise<'org' | 'global' | null> {
+/** The cap the gate refused on, or `null` when it let the call through. */
+async function refusal(run: () => Promise<void>): Promise<SpendCap | null> {
   try {
     await run();
     return null;
@@ -201,12 +208,12 @@ describe('assertWithinSpendCaps', () => {
 
     expect(await refusal(() => assertWithinSpendCaps('openai', false))).toBeNull();
     expect(mockLogger.warn).toHaveBeenCalledWith(
-      'Spend gate: org cap lookup failed, skipping the org cap',
-      expect.objectContaining({ orgId: INSTALL_ORG_ID })
+      'Spend caps: the org cap could not be read, so it is skipped',
+      expect.objectContaining({ orgId: INSTALL_ORG_ID, providerSlug: 'openai', error: 'db down' })
     );
     expect(mockLogger.warn).toHaveBeenCalledWith(
-      'Spend gate: global cap lookup failed, skipping the global cap',
-      expect.objectContaining({ providerSlug: 'openai' })
+      'Spend caps: the global cap could not be read, so it is skipped',
+      expect.objectContaining({ providerSlug: 'openai', error: 'db down' })
     );
   });
 
@@ -358,12 +365,14 @@ describe('the cached caps', () => {
     expect(await refusal(() => assertWithinSpendCaps('openai', false))).toBe('org');
   });
 
-  it('enforces a new global cap at once after forgetGlobalCap', async () => {
+  it('reads the global cap from the settings cache, so clearing that enforces a new one at once', async () => {
     spendByOrg[INSTALL_ORG_ID] = 50;
     expect(await refusal(() => assertWithinSpendCaps('openai', false))).toBeNull();
 
     globalCap = 10;
-    forgetGlobalCap();
+    expect(await refusal(() => assertWithinSpendCaps('openai', false))).toBeNull();
+    // What the settings PATCH and the backup importer call after a write.
+    invalidateOrchestrationSettingsCache();
 
     expect(await refusal(() => assertWithinSpendCaps('openai', false))).toBe('global');
   });
@@ -378,5 +387,139 @@ describe('the cached caps', () => {
     vi.setSystemTime(new Date(Date.now() + CAP_SETTING_TTL_MS));
 
     expect(await refusal(() => assertWithinSpendCaps('openai', false))).toBe('org');
+  });
+});
+
+describe('spendCapRefusal', () => {
+  it('returns the refusal rather than throwing it, for provider selection', async () => {
+    capOrg(INSTALL_ORG_ID, 5);
+    spendByOrg[INSTALL_ORG_ID] = 5;
+
+    const refused = await spendCapRefusal('openai', false);
+
+    expect(refused).toBeInstanceOf(SpendCapExceededError);
+    expect(refused).toMatchObject({ cap: 'org', providerSlug: 'openai' });
+    await expect(spendCapRefusal('ollama', true)).resolves.toBeNull();
+  });
+});
+
+describe('globalCapStateOrSkip / orgCapStateOrSkip', () => {
+  it("answers null for a cap that cannot be read, logged with the caller's context", async () => {
+    db.aiOrchestrationSettings.findUnique.mockRejectedValue(new Error('settings down'));
+    db.org.findUnique.mockRejectedValue(new Error('org down'));
+
+    await expect(globalCapStateOrSkip({ route: 'agents list' })).resolves.toBeNull();
+    await expect(orgCapStateOrSkip(ORG_A, { route: 'agents list' })).resolves.toBeNull();
+
+    expect(mockLogger.warn).toHaveBeenCalledWith(
+      'Spend caps: the global cap could not be read, so it is skipped',
+      { route: 'agents list', error: 'settings down' }
+    );
+    expect(mockLogger.warn).toHaveBeenCalledWith(
+      'Spend caps: the org cap could not be read, so it is skipped',
+      { orgId: ORG_A, route: 'agents list', error: 'org down' }
+    );
+  });
+
+  it('passes a readable cap through unchanged', async () => {
+    globalCap = 100;
+    capOrg(ORG_A, 10);
+    spendByOrg[ORG_A] = 12;
+
+    await expect(globalCapStateOrSkip({})).resolves.toEqual({
+      cap: 100,
+      spent: 12,
+      exceeded: false,
+    });
+    await expect(orgCapStateOrSkip(ORG_A, {})).resolves.toEqual({
+      limit: 10,
+      spent: 12,
+      exceeded: true,
+    });
+  });
+});
+
+describe('the paid-call hold (withPaidCallHold)', () => {
+  /** Drain `gen`, returning what it yielded. */
+  async function drain<T>(gen: AsyncGenerator<T, void, unknown>): Promise<T[]> {
+    const out: T[] = [];
+    for await (const value of gen) out.push(value);
+    return out;
+  }
+
+  it('refuses every paid call in the turn once the turn sets it, and no local one', async () => {
+    const hold: PaidCallHold = { cap: null };
+    async function* turn(): AsyncGenerator<SpendCap | 'allowed' | null, void, unknown> {
+      yield (await refusal(() => assertWithinSpendCaps('openai', false))) ?? 'allowed';
+      hold.cap = 'agent'; // the turn found its agent's cap reached
+      yield await refusal(() => assertWithinSpendCaps('openai', false));
+      yield (await refusal(() => assertWithinSpendCaps('ollama', true))) ?? 'allowed';
+    }
+
+    expect(await drain(withPaidCallHold(hold, turn()))).toEqual(['allowed', 'agent', 'allowed']);
+  });
+
+  it('refuses with the agent code, a request fault', async () => {
+    const hold: PaidCallHold = { cap: 'agent' };
+    async function* turn(): AsyncGenerator<unknown, void, unknown> {
+      yield await assertWithinSpendCaps('openai', false).catch((e: unknown) => e);
+    }
+
+    const [err] = await drain(withPaidCallHold(hold, turn()));
+
+    expect(err).toMatchObject({ cap: 'agent', code: 'budget_exceeded', retriable: false });
+    expect(isRequestFault(err)).toBe(true);
+  });
+
+  it('reaches work the turn starts and leaves running, such as a queued embedding', async () => {
+    const hold: PaidCallHold = { cap: null };
+    let late: Promise<SpendCap | null> = Promise.resolve(null);
+    async function* turn(): AsyncGenerator<string, void, unknown> {
+      hold.cap = 'agent';
+      // Fire-and-forget: settles after the turn has yielded and finished.
+      late = (async () => {
+        await new Promise((resolve) => setTimeout(resolve, 5));
+        return refusal(() => assertWithinSpendCaps('openai', false));
+      })();
+      yield 'done';
+    }
+
+    await drain(withPaidCallHold(hold, turn()));
+
+    expect(await late).toBe('agent');
+  });
+
+  it('does not reach a call made outside the turn, or a nested turn under its own hold', async () => {
+    const outer: PaidCallHold = { cap: 'agent' };
+    const inner: PaidCallHold = { cap: null };
+    async function* nested(): AsyncGenerator<SpendCap | null, void, unknown> {
+      yield await refusal(() => assertWithinSpendCaps('openai', false));
+    }
+    async function* turn(): AsyncGenerator<SpendCap | null, void, unknown> {
+      // An agent calling another agent: that turn answers to its own cap.
+      for await (const value of withPaidCallHold(inner, nested())) yield value;
+      yield await refusal(() => assertWithinSpendCaps('openai', false));
+    }
+
+    expect(await drain(withPaidCallHold(outer, turn()))).toEqual([null, 'agent']);
+    expect(await refusal(() => assertWithinSpendCaps('openai', false))).toBeNull();
+  });
+
+  it("runs the turn's own finally when the consumer stops early", async () => {
+    let cleanedUp = false;
+    async function* turn(): AsyncGenerator<number, void, unknown> {
+      try {
+        yield 1;
+        yield 2;
+      } finally {
+        cleanedUp = true;
+      }
+    }
+
+    for await (const value of withPaidCallHold({ cap: null }, turn())) {
+      if (value === 1) break;
+    }
+
+    expect(cleanedUp).toBe(true);
   });
 });

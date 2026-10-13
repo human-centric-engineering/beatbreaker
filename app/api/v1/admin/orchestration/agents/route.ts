@@ -16,8 +16,11 @@ import { validateQueryParams, validateRequestBody } from '@/lib/api/validation';
 import { getRouteLogger } from '@/lib/api/context';
 import { getClientIP } from '@/lib/security/ip';
 import { createAgentSchema, listAgentsQuerySchema } from '@/lib/validations/orchestration';
-import { getGlobalCapState } from '@/lib/orchestration/llm/cost-tracker';
-import { getOrgCapState, utcMonthStart } from '@/lib/orchestration/llm/spend-caps';
+import {
+  globalCapStateOrSkip,
+  orgCapStateOrSkip,
+  utcMonthStart,
+} from '@/lib/orchestration/llm/spend-caps';
 import { logAdminAction } from '@/lib/orchestration/audit/admin-audit-logger';
 import { assertAgentSlugNotReserved } from '@/lib/orchestration/agents/platform-agent-guard';
 import {
@@ -120,22 +123,15 @@ export const GET = withAdminAuth(async (request, _session) => {
           where: { agentId: { in: agentIds }, createdAt: { gte: utcMonthStart() } },
           _sum: { totalCostUsd: true },
         }),
-        getGlobalCapState(),
+        globalCapStateOrSkip({ route: 'agents list' }),
         Promise.all(
-          orgIds.map(async (orgId) => {
-            try {
-              return [orgId, await getOrgCapState(orgId)] as const;
-            } catch (err) {
-              logger.warn('Agents list: org cap lookup failed, skipping the org cap', {
-                orgId,
-                error: err instanceof Error ? err.message : String(err),
-              });
-              return [orgId, null] as const;
-            }
-          })
+          orgIds.map(
+            async (orgId) =>
+              [orgId, await orgCapStateOrSkip(orgId, { route: 'agents list' })] as const
+          )
         ),
       ]);
-      const globalCapExceeded = globalCap.exceeded;
+      const globalCapExceeded = globalCap?.exceeded ?? false;
       const orgCapExceeded = new Set(
         orgCaps.filter(([, cap]) => cap?.exceeded === true).map(([orgId]) => orgId)
       );

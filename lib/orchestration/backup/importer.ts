@@ -47,6 +47,8 @@ import {
   isSystemWorkflowSlug,
 } from '@/lib/orchestration/workflows/template-catalogue';
 import { createInitialVersion } from '@/lib/orchestration/workflows/version-service';
+import { invalidateOrchestrationSettingsCache } from '@/lib/orchestration/settings';
+import { invalidateSettingsCache } from '@/lib/orchestration/llm/settings-resolver';
 import { workflowDefinitionSchema } from '@/lib/validations/orchestration';
 import type { WorkflowDefinition } from '@/types/orchestration';
 import { importedAgentProviderWarnings } from '@/lib/orchestration/agents/provider-approval';
@@ -837,6 +839,14 @@ async function importParsed(
     },
     { timeout: AGENT_BATCH_TRANSACTION_TIMEOUT_MS }
   );
+
+  if (result.settingsUpdated) {
+    // As the settings PATCH does: the restored settings, the global budget cap
+    // among them, take effect on this process's next read rather than up to
+    // 30s later.
+    invalidateOrchestrationSettingsCache();
+    invalidateSettingsCache();
+  }
 
   logger.info('Orchestration config imported', { ...result });
   return result;

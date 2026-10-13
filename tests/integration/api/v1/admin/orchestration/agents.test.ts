@@ -69,13 +69,13 @@ vi.mock('@/lib/db/client', () => {
   return { prisma: mock };
 });
 
-vi.mock('@/lib/orchestration/llm/cost-tracker', () => ({
-  getGlobalCapState: vi.fn(),
-}));
-
+// The route reads the caps through the skip-on-failure readers; what they do
+// with a failed read is pinned in spend-caps.test.ts, so here they stand in
+// for a readable cap (a state) or an unreadable one (`null`).
 vi.mock('@/lib/orchestration/llm/spend-caps', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@/lib/orchestration/llm/spend-caps')>()),
-  getOrgCapState: vi.fn(),
+  globalCapStateOrSkip: vi.fn(),
+  orgCapStateOrSkip: vi.fn(),
 }));
 
 vi.mock('@/lib/orchestration/audit/admin-audit-logger', () => ({
@@ -155,8 +155,10 @@ async function parseJson<T>(response: Response): Promise<T> {
 describe('GET /api/v1/admin/orchestration/agents', () => {
   beforeEach(async () => {
     vi.clearAllMocks();
-    const { getGlobalCapState } = await import('@/lib/orchestration/llm/cost-tracker');
-    vi.mocked(getGlobalCapState).mockResolvedValue({ cap: null, spent: 0, exceeded: false });
+    const { globalCapStateOrSkip, orgCapStateOrSkip } =
+      await import('@/lib/orchestration/llm/spend-caps');
+    vi.mocked(globalCapStateOrSkip).mockResolvedValue({ cap: null, spent: 0, exceeded: false });
+    vi.mocked(orgCapStateOrSkip).mockResolvedValue(null);
   });
 
   describe('Authentication & Authorization', () => {
@@ -273,10 +275,9 @@ describe('GET /api/v1/admin/orchestration/agents', () => {
       vi.mocked(prisma.aiCostLog.groupBy).mockResolvedValue([
         { agentId: agent.id, _sum: { totalCostUsd: 5 } },
       ] as never);
-      // The route reads the global cap through getGlobalCapState, mocked at
-      // the top of this file: spend in every org ($110) is over the $100 cap.
-      const { getGlobalCapState } = await import('@/lib/orchestration/llm/cost-tracker');
-      vi.mocked(getGlobalCapState).mockResolvedValue({ cap: 100, spent: 110, exceeded: true });
+      // Spend in every org ($110) is over the $100 cap.
+      const { globalCapStateOrSkip } = await import('@/lib/orchestration/llm/spend-caps');
+      vi.mocked(globalCapStateOrSkip).mockResolvedValue({ cap: 100, spent: 110, exceeded: true });
 
       const response = await GET(makeGetRequest());
 
@@ -300,10 +301,8 @@ describe('GET /api/v1/admin/orchestration/agents', () => {
       vi.mocked(prisma.aiAgent.findMany).mockResolvedValue([capped, fine] as never);
       vi.mocked(prisma.aiAgent.count).mockResolvedValue(2);
       vi.mocked(prisma.aiCostLog.groupBy).mockResolvedValue([] as never);
-      const { getGlobalCapState } = await import('@/lib/orchestration/llm/cost-tracker');
-      vi.mocked(getGlobalCapState).mockResolvedValue({ cap: null, spent: 0, exceeded: false });
-      const { getOrgCapState } = await import('@/lib/orchestration/llm/spend-caps');
-      vi.mocked(getOrgCapState).mockImplementation(async (orgId) =>
+      const { orgCapStateOrSkip } = await import('@/lib/orchestration/llm/spend-caps');
+      vi.mocked(orgCapStateOrSkip).mockImplementation(async (orgId) =>
         orgId === 'org-over'
           ? { limit: 40, spent: 41, exceeded: true }
           : { limit: 40, spent: 1, exceeded: false }
@@ -320,27 +319,35 @@ describe('GET /api/v1/admin/orchestration/agents', () => {
       expect(byId.get('agent-fine')).toMatchObject({ withinBudget: true });
       expect(byId.get('agent-fine')).not.toHaveProperty('orgCapExceeded');
       // One lookup per org, not per agent.
-      expect(getOrgCapState).toHaveBeenCalledTimes(2);
+      expect(orgCapStateOrSkip).toHaveBeenCalledTimes(2);
     });
 
-    it('skips an org cap it cannot read rather than dropping every budget', async () => {
+    it.each([
+      ['an org cap', 'orgCapStateOrSkip'],
+      ['the global cap', 'globalCapStateOrSkip'],
+    ] as const)('skips %s it cannot read rather than dropping every budget', async (_l, reader) => {
       vi.mocked(auth.api.getSession).mockResolvedValue(mockAdminUser());
-      vi.mocked(prisma.aiAgent.findMany).mockResolvedValue([
-        makeAgent({ orgId: 'org-x' }),
-      ] as never);
+      const agent = makeAgent({ orgId: 'org-x', monthlyBudgetUsd: 10 });
+      vi.mocked(prisma.aiAgent.findMany).mockResolvedValue([agent] as never);
       vi.mocked(prisma.aiAgent.count).mockResolvedValue(1);
-      vi.mocked(prisma.aiCostLog.groupBy).mockResolvedValue([] as never);
-      const { getGlobalCapState } = await import('@/lib/orchestration/llm/cost-tracker');
-      vi.mocked(getGlobalCapState).mockResolvedValue({ cap: null, spent: 0, exceeded: false });
-      const { getOrgCapState } = await import('@/lib/orchestration/llm/spend-caps');
-      vi.mocked(getOrgCapState).mockRejectedValue(new Error('db down'));
+      vi.mocked(prisma.aiCostLog.groupBy).mockResolvedValue([
+        { agentId: agent.id, _sum: { totalCostUsd: 4 } },
+      ] as never);
+      const caps = await import('@/lib/orchestration/llm/spend-caps');
+      vi.mocked(caps[reader]).mockResolvedValue(null);
 
       const response = await GET(makeGetRequest());
 
       const data = await parseJson<{ data: Array<{ _budget: Record<string, unknown> | null }> }>(
         response
       );
-      expect(data.data[0]._budget).toMatchObject({ withinBudget: true });
+      // The agent's own budget is still reported; only the unreadable cap is left out.
+      expect(data.data[0]._budget).toEqual({
+        withinBudget: true,
+        spent: 4,
+        limit: 10,
+        remaining: 6,
+      });
     });
 
     it('returns null budgets when the cost-log aggregation fails (catch arm)', async () => {

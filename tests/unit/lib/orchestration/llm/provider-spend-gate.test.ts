@@ -41,6 +41,7 @@ vi.mock('@/lib/logging', () => ({
 import {
   clearCache,
   getProvider,
+  getProviderWithFallbacks,
   isLocalProvider,
   registerProviderInstance,
 } from '@/lib/orchestration/llm/provider-manager';
@@ -199,5 +200,72 @@ describe('isLocalProvider', () => {
     db.aiProviderConfig.findFirst.mockResolvedValue(null);
 
     await expect(isLocalProvider('nowhere')).resolves.toBe(false);
+  });
+
+  it("reads the row's flag, so a local row whose credential cannot be resolved is still local", async () => {
+    // Building this client would fail (an anthropic row with no key); reading
+    // the flag builds nothing and asks no credential resolver.
+    db.aiProviderConfig.findFirst.mockResolvedValueOnce({
+      isLocal: true,
+      providerType: 'anthropic',
+    });
+
+    await expect(isLocalProvider('local-proxy')).resolves.toBe(true);
+    expect(db.aiProviderConfig.findFirst).toHaveBeenCalledWith({
+      where: { slug: 'local-proxy' },
+      select: { isLocal: true, providerType: true },
+    });
+  });
+
+  it('matches a slug before a name, as the manager does', async () => {
+    db.aiProviderConfig.findFirst
+      .mockResolvedValueOnce(null)
+      .mockResolvedValueOnce({ isLocal: true, providerType: 'openai-compatible' });
+
+    await expect(isLocalProvider('Local Ollama')).resolves.toBe(true);
+    expect(db.aiProviderConfig.findFirst).toHaveBeenLastCalledWith({
+      where: { name: 'Local Ollama' },
+      select: { isLocal: true, providerType: true },
+    });
+  });
+
+  it('never calls a Voyage row local: its flag only allows a loopback baseUrl', async () => {
+    db.aiProviderConfig.findFirst.mockResolvedValueOnce({ isLocal: true, providerType: 'voyage' });
+
+    await expect(isLocalProvider('voyage')).resolves.toBe(false);
+  });
+});
+
+describe('getProviderWithFallbacks under a reached cap', () => {
+  beforeEach(() => {
+    registerProviderInstance('paid', fakeProvider('paid', false).provider);
+    registerProviderInstance('paid-2', fakeProvider('paid-2', false).provider);
+    registerProviderInstance('local', fakeProvider('local', true).provider);
+  });
+
+  it('passes over a paid primary the caps refuse to a local fallback', async () => {
+    installOrgAt(120, 100);
+
+    const { usedSlug, provider } = await getProviderWithFallbacks('paid', ['paid-2', 'local']);
+
+    expect(usedSlug).toBe('local');
+    expect(provider.isLocal).toBe(true);
+  });
+
+  it('answers with the cap when no candidate is local, not a retriable exhaustion', async () => {
+    installOrgAt(120, 100);
+
+    const err = await getProviderWithFallbacks('paid', ['paid-2']).catch((e: unknown) => e);
+
+    expect(err).toBeInstanceOf(SpendCapExceededError);
+    expect(err).toMatchObject({ code: 'org_budget_exceeded', retriable: false });
+  });
+
+  it('keeps the paid primary under the cap', async () => {
+    installOrgAt(10, 100);
+
+    const { usedSlug } = await getProviderWithFallbacks('paid', ['local']);
+
+    expect(usedSlug).toBe('paid');
   });
 });

@@ -265,10 +265,10 @@ export const PROCESS_STATE: readonly ProcessStateDeclaration[] = [
   },
   {
     file: 'lib/orchestration/llm/spend-caps.ts',
-    holders: ['globalEntry', 'globalCapEntry'],
+    holders: ['globalEntry'],
     posture: 'shared-by-decision',
-    keyedBy: 'nothing — one install-wide total and cap',
-    why: "The global monthly budget is the operator's ceiling on the shared provider keys (§110 t-788), so its spend total sums every org and one org's spend counts against every org's calls. It is only compared with the global cap, never shown to an org. Revisit if the global cap is ever made per org.",
+    keyedBy: 'nothing — one install-wide total',
+    why: "The global monthly budget is the operator's ceiling on the shared provider keys (§110 t-788), so its spend total sums every org and one org's spend counts against every org's calls. It is compared with the global cap, and shown only in the install org (`getGlobalCapStatus`); a customer org is told only whether the cap is reached. Revisit if the global cap is ever made per org.",
   },
   {
     file: 'lib/orchestration/llm/circuit-breaker.ts',
@@ -424,6 +424,12 @@ export const PROCESS_STATE: readonly ProcessStateDeclaration[] = [
     holders: ['txScope'],
     posture: 'async-local',
     why: 'Marks the call stack that is already inside a transaction so the data layer sets the org GUC once per transaction rather than per operation.',
+  },
+  {
+    file: 'lib/orchestration/llm/spend-caps.ts',
+    holders: ['paidCallHold'],
+    posture: 'async-local',
+    why: "One chat turn's hold on paid calls, set when the turn goes on, on a local model, past its agent's reached budget (§110 t-788); the gate reads it for every paid call that turn makes. The handle is module-level, the hold is per turn, and a nested turn runs under its own.",
   },
   {
     file: 'lib/tenancy/context.ts',

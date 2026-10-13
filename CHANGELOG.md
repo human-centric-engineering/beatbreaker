@@ -86,12 +86,18 @@ release process.
   `lib/orchestration/llm/spend-caps.ts`) before every vendor call, beside the
   eligibility gate. A refused call throws `SpendCapExceededError`, a
   `ProviderError` with code `org_budget_exceeded` or `global_budget_exceeded`.
-  Both codes are request faults (`isRequestFault`): no failover, no circuit
-  breaker failure, and a workflow step fails with that code and is not
-  retried. Local providers are never refused. A chat agent whose primary is
-  local now answers on it after a cap is reached, and is refused only if the
-  turn would reach a paid provider. An install with a global cap set will see
-  non-chat work stop at that cap where it used to carry on.
+  The codes are request faults (`isRequestFault`): not retried, and no circuit
+  breaker failure. Local providers are never refused, so provider selection
+  passes over a refused paid candidate to a local fallback:
+  `getProviderWithFallbacks` does, and so does chat's mid-stream failover.
+  When no candidate is left, `getProviderWithFallbacks` throws the cap's
+  `SpendCapExceededError` instead of the retriable `all_providers_exhausted`.
+  `spendCapRefusal()` answers without throwing. A chat agent whose primary is
+  local now answers on it after a cap, its own included, is reached. The turn
+  runs inside `withPaidCallHold`, and the gate refuses every paid call that
+  turn makes (a fallback, embeddings, the summarizer, tools), so `budget_exceeded`
+  is now a spend-cap code and a request fault too. An install with a global
+  cap set will see non-chat work stop at that cap where it used to carry on.
 
 - **Chat turns stopped by the org or global budget get their own error
   codes** (§110 t-788). The streaming handler emitted `budget_exceeded`, with
@@ -100,7 +106,16 @@ release process.
   stopped the turn. `budget_exceeded` now means the agent's own cap only. A
   client that matched `budget_exceeded` to catch every budget stop must also
   match the two new codes. The `budget_exceeded` webhook still fires for all
-  three and gains a `cap: 'agent' | 'org' | 'global'` field.
+  three, including a turn the provider gate stops part way, and gains a
+  `cap: 'agent' | 'org' | 'global'` field. The message for each is the error
+  registry's message and action for the code, so the agent's no longer names
+  its limit (it read "…its monthly budget of $10.00").
+
+- **`GET /api/v1/admin/orchestration/costs/alerts` returns `globalCap.spent`
+  only to the install org** (§110 t-788). The global total sums every org's
+  spend, so at `multi` an admin in a customer org gets `spent: null`, with
+  `cap` and `exceeded` as before. `GlobalCapStatus.spent` in
+  `lib/orchestration/llm/cost-reports.ts` is now `number | null`.
 
 - **Backup export and import run in one named org, and the shared part moves
   only for the install org** (§109 t-738). Both

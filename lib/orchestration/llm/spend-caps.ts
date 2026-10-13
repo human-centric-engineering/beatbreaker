@@ -31,24 +31,37 @@
  * while the total is being read may be counted twice until the entry expires.
  * That errs towards refusing early, never towards letting spend through.
  *
- * **The caps themselves are cached for {@link CAP_SETTING_TTL_MS}**, so a gated
- * call makes no database read at all while its entries are warm. A write
- * clears them in the process that made it: `PATCH /api/v1/admin/orgs/[id]`
- * calls {@link forgetOrgCap}, and the settings PATCH calls
- * {@link forgetGlobalCap}. Another process sees the change within the TTL.
+ * **The caps themselves are cached**, so a gated call makes no database read
+ * at all while its entries are warm. An org's cap is cached here for
+ * {@link CAP_SETTING_TTL_MS}, and `PATCH /api/v1/admin/orgs/[id]` clears it
+ * with {@link forgetOrgCap}. The global cap is read from
+ * `getOrchestrationSettings()`, whose cache the settings PATCH and the backup
+ * importer already clear. Another process sees either change within 30s.
  *
- * Tenancy posture: the global total and the global cap are shared by
- * decision, since the global cap is install-wide by definition; the org
- * totals and org caps are row-keyed, by org id, and filled by queries that
- * filter on that id.
+ * **A chat turn can hold paid calls for an agent's own cap.** That cap is
+ * known only to the chat handler, which still answers on a local model once
+ * it is reached. It runs the turn inside {@link withPaidCallHold} and sets the
+ * hold when it finds the cap reached, and this gate then refuses every paid
+ * call the turn makes, the summarizer, embeddings and tools included, not
+ * only the main stream.
+ *
+ * Tenancy posture: the global total is shared by decision, since the global
+ * cap is install-wide by definition; the org totals and org caps are
+ * row-keyed, by org id, and filled by queries that filter on that id; the
+ * paid-call hold is async-local, one per chat turn.
  *
  * Platform-agnostic: no Next.js imports.
  */
 
+import { AsyncLocalStorage } from 'node:async_hooks';
 import { prisma } from '@/lib/db/client';
 import { logger } from '@/lib/logging';
 import { globalSpendSince } from '@/lib/orchestration/admin/global-config-usage';
 import { ProviderError, SPEND_CAP_CODES } from '@/lib/orchestration/llm/provider';
+import {
+  getOrchestrationSettings,
+  invalidateOrchestrationSettingsCache,
+} from '@/lib/orchestration/settings';
 import { loadOrgQuotas } from '@/lib/tenancy/org-settings';
 import { getTenantContext, isMultiTenant } from '@/lib/tenancy/context';
 import { INSTALL_ORG_ID } from '@/lib/tenancy/constants';
@@ -56,73 +69,39 @@ import { INSTALL_ORG_ID } from '@/lib/tenancy/constants';
 /** How long a month-to-date total is served from the cache. */
 export const SPEND_TOTAL_TTL_MS = 10_000;
 
-/** How long a cap's configured value is served from the cache. */
+/** How long an org's configured cap is served from the cache. */
 export const CAP_SETTING_TTL_MS = 30_000;
 
-/** A cached lookup. The promise is cached, so concurrent misses share one read. */
-interface CapEntry<T> {
+/** A cached org cap. */
+interface CapEntry {
   cachedAt: number;
-  value: Promise<T>;
+  value: Promise<number | null>;
 }
 
-let globalCapEntry: CapEntry<number | null> | null = null;
-const orgCapEntries = new Map<string, CapEntry<number | null>>();
+const orgCapEntries = new Map<string, CapEntry>();
 
-/** `read()` through `entry`, refilling it when stale and dropping a failed read. */
-function cachedCap<T>(
-  current: CapEntry<T> | null | undefined,
-  read: () => Promise<T>,
-  store: (entry: CapEntry<T> | null) => void,
-  stillCurrent: () => CapEntry<T> | null | undefined
-): Promise<T> {
+/**
+ * The org's `quotas.monthlyBudgetUsd`, cached; `null` when it has none. The
+ * lookup is cached, so concurrent misses share one read, and a failed read is
+ * dropped rather than kept as an answer.
+ */
+function orgCapSetting(orgId: string): Promise<number | null> {
+  const current = orgCapEntries.get(orgId);
   if (current && Date.now() - current.cachedAt < CAP_SETTING_TTL_MS) return current.value;
-  const entry: CapEntry<T> = { cachedAt: Date.now(), value: read() };
-  store(entry);
+  const entry: CapEntry = {
+    cachedAt: Date.now(),
+    value: loadOrgQuotas(orgId).then((quotas) => quotas.monthlyBudgetUsd ?? null),
+  };
+  orgCapEntries.set(orgId, entry);
   entry.value.catch(() => {
-    if (stillCurrent() === entry) store(null);
+    if (orgCapEntries.get(orgId) === entry) orgCapEntries.delete(orgId);
   });
   return entry.value;
-}
-
-/** `AiOrchestrationSettings.globalMonthlyBudgetUsd`, cached. */
-function globalCapSetting(): Promise<number | null> {
-  return cachedCap(
-    globalCapEntry,
-    async () => {
-      const settings = await prisma.aiOrchestrationSettings.findUnique({
-        where: { slug: 'global' },
-        select: { globalMonthlyBudgetUsd: true },
-      });
-      return settings?.globalMonthlyBudgetUsd ?? null;
-    },
-    (next) => {
-      globalCapEntry = next;
-    },
-    () => globalCapEntry
-  );
-}
-
-/** The org's `quotas.monthlyBudgetUsd`, cached; `null` when it has none. */
-function orgCapSetting(orgId: string): Promise<number | null> {
-  return cachedCap(
-    orgCapEntries.get(orgId),
-    async () => (await loadOrgQuotas(orgId)).monthlyBudgetUsd ?? null,
-    (next) => {
-      if (next === null) orgCapEntries.delete(orgId);
-      else orgCapEntries.set(orgId, next);
-    },
-    () => orgCapEntries.get(orgId)
-  );
 }
 
 /** Drop one org's cached cap after a write, so this process enforces the new one at once. */
 export function forgetOrgCap(orgId: string): void {
   orgCapEntries.delete(orgId);
-}
-
-/** Drop the cached global cap after the settings row is written. */
-export function forgetGlobalCap(): void {
-  globalCapEntry = null;
 }
 
 /** Midnight UTC on the first of `now`'s month: where every monthly budget starts. */
@@ -252,8 +231,8 @@ export function noteSpend(orgId: string | null, costUsd: number, at: Date = new 
 export function forgetSpendCaps(): void {
   globalEntry = null;
   orgEntries.clear();
-  globalCapEntry = null;
   orgCapEntries.clear();
+  invalidateOrchestrationSettingsCache();
 }
 
 /** The global cap and what it is checked against. */
@@ -271,7 +250,7 @@ export interface GlobalCapState {
  * failure means for it.
  */
 export async function getGlobalCapState(): Promise<GlobalCapState> {
-  const cap = await globalCapSetting();
+  const cap = (await getOrchestrationSettings()).globalMonthlyBudgetUsd;
   if (cap === null) return { cap: null, spent: 0, exceeded: false };
   const spent = await getMonthToDateGlobalSpend();
   return { cap, spent, exceeded: spent >= cap };
@@ -299,26 +278,107 @@ export async function getOrgCapState(orgId: string | null): Promise<OrgCapState 
   return { limit: monthlyBudgetUsd, spent, exceeded: spent >= monthlyBudgetUsd };
 }
 
+/** What a cap-read failure is logged with, beside the error. */
+type CapReadContext = Record<string, unknown>;
+
+function warnCapSkipped(cap: 'global' | 'org', context: CapReadContext, err: unknown): null {
+  logger.warn(`Spend caps: the ${cap} cap could not be read, so it is skipped`, {
+    ...context,
+    error: err instanceof Error ? err.message : String(err),
+  });
+  return null;
+}
+
+/**
+ * {@link getGlobalCapState}, or `null` when it cannot be read. A cap that
+ * cannot be read is skipped rather than refusing everything: a settings read
+ * that fails must not stop every AI call on the install. Every enforcing
+ * caller reads the caps through this and {@link orgCapStateOrSkip}, so they
+ * all treat a failure the same way.
+ */
+export function globalCapStateOrSkip(context: CapReadContext): Promise<GlobalCapState | null> {
+  return getGlobalCapState().catch((err: unknown) => warnCapSkipped('global', context, err));
+}
+
+/** {@link getOrgCapState}, or `null` when it cannot be read; see {@link globalCapStateOrSkip}. */
+export function orgCapStateOrSkip(
+  orgId: string | null,
+  context: CapReadContext
+): Promise<OrgCapState | null> {
+  return getOrgCapState(orgId).catch((err: unknown) =>
+    warnCapSkipped('org', { orgId, ...context }, err)
+  );
+}
+
+/** Which cap refused a paid call. */
+export type SpendCap = keyof typeof SPEND_CAP_CODES;
+
+/**
+ * A chat turn's hold on paid calls. `cap` is set when the turn finds a cap
+ * reached but goes on, on a local model; from then on the gate refuses every
+ * paid call the turn makes. Mutable, so the handler can set it part way
+ * through a turn that is already running inside {@link withPaidCallHold}.
+ */
+export interface PaidCallHold {
+  cap: SpendCap | null;
+}
+
+const paidCallHold = new AsyncLocalStorage<PaidCallHold>();
+
+/**
+ * Drive `inner` with `hold` as the paid-call hold for everything it does: each
+ * `next()` runs inside the store, and the awaits it makes carry the store
+ * with them, so a capability, a summarizer call or a fire-and-forget
+ * embedding started by the turn sees the hold as the main stream does. The
+ * shape of `withSpanGenerator`, which carries the OTEL context the same way.
+ * A nested turn (an agent calling another agent) runs under its own hold.
+ */
+export async function* withPaidCallHold<T, R>(
+  hold: PaidCallHold,
+  inner: AsyncGenerator<T, R, unknown>
+): AsyncGenerator<T, R, unknown> {
+  try {
+    while (true) {
+      const result = await paidCallHold.run(hold, () => inner.next());
+      if (result.done) return result.value;
+      yield result.value;
+    }
+  } finally {
+    // As `yield*` would: let the inner's own finally run when the consumer
+    // stops early. A no-op on a generator that has already finished.
+    await inner.return(undefined as R);
+  }
+}
+
 /**
  * A paid vendor call refused because a monthly spend cap has been reached.
- * A request fault (`isRequestFault`): it is not retried, not failed over, and
- * never reaches a circuit breaker.
+ * A request fault (`isRequestFault`): it is not retried and never reaches a
+ * circuit breaker. Failing over is left to provider selection, which skips a
+ * paid candidate the caps refuse and so can still reach a local one
+ * (`getProviderWithFallbacks`, and chat's mid-stream failover).
+ *
+ * The message is for the operator reading a failed execution or a log; chat
+ * shows its reader the registry's words for the code instead
+ * (`getUserFacingError`).
  */
 export class SpendCapExceededError extends ProviderError {
-  readonly cap: 'org' | 'global';
+  readonly cap: SpendCap;
   readonly providerSlug: string;
-  constructor(cap: 'org' | 'global', providerSlug: string) {
-    super(
-      cap === 'org'
-        ? "This organisation has reached its monthly AI budget, so the call to a paid provider was refused. A platform admin can raise the organisation's cap (PATCH /api/v1/admin/orgs/[id], settings.quotas), or the work can use a local model."
-        : 'This platform has reached its global monthly AI budget, so the call to a paid provider was refused. A platform admin can raise the global cap in the orchestration settings, or the work can use a local model.',
-      { code: SPEND_CAP_CODES[cap], retriable: false }
-    );
+  constructor(cap: SpendCap, providerSlug: string) {
+    super(OPERATOR_MESSAGES[cap], { code: SPEND_CAP_CODES[cap], retriable: false });
     this.name = 'SpendCapExceededError';
     this.cap = cap;
     this.providerSlug = providerSlug;
   }
 }
+
+const OPERATOR_MESSAGES: Record<SpendCap, string> = {
+  agent:
+    "This agent has reached its monthly budget, so the call to a paid provider was refused. An admin can raise the agent's budget, or the agent can use a local model.",
+  org: "This organisation has reached its monthly AI budget, so the call to a paid provider was refused. A platform admin can raise the organisation's cap (PATCH /api/v1/admin/orgs/[id], settings.quotas), or the work can use a local model.",
+  global:
+    'This platform has reached its global monthly AI budget, so the call to a paid provider was refused. A platform admin can raise the global cap in the orchestration settings, or the work can use a local model.',
+};
 
 /**
  * The org the current call is made for: the tenant context's, or at `single`
@@ -332,45 +392,50 @@ function orgOfCall(): string | null {
 }
 
 /**
- * The call-time spend gate. Throws {@link SpendCapExceededError} when the
- * global cap, or the cap of the org the call is made for, has been reached,
- * unless the provider is local.
+ * The refusal a paid call to `providerSlug` would meet now, or `null` when it
+ * may go ahead. Never throws: provider selection asks this of each candidate
+ * so it can pass over a refused paid one and reach a local one.
  *
  * The global cap is checked first, as in the chat handler's refusal: it is the
- * one nobody in the org can lift. A failure reading either cap is logged and
- * that cap skipped, as `checkBudget()` does, so a settings read that fails
- * does not stop every AI call on the install.
+ * one nobody in the org can lift. Then the org's, then a hold the chat turn has
+ * set for its agent's cap. A cap that cannot be read is skipped
+ * ({@link globalCapStateOrSkip}).
  */
-export async function assertWithinSpendCaps(providerSlug: string, isLocal: boolean): Promise<void> {
-  if (isLocal) return;
+export async function spendCapRefusal(
+  providerSlug: string,
+  isLocal: boolean
+): Promise<SpendCapExceededError | null> {
+  if (isLocal) return null;
   const orgId = orgOfCall();
   const [global, org] = await Promise.all([
-    getGlobalCapState().catch((err: unknown) => {
-      logger.warn('Spend gate: global cap lookup failed, skipping the global cap', {
-        providerSlug,
-        error: err instanceof Error ? err.message : String(err),
-      });
-      return null;
-    }),
-    getOrgCapState(orgId).catch((err: unknown) => {
-      logger.warn('Spend gate: org cap lookup failed, skipping the org cap', {
-        providerSlug,
-        orgId,
-        error: err instanceof Error ? err.message : String(err),
-      });
-      return null;
-    }),
+    globalCapStateOrSkip({ providerSlug }),
+    orgCapStateOrSkip(orgId, { providerSlug }),
   ]);
 
-  const cap = global?.exceeded ? 'global' : org?.exceeded ? 'org' : null;
-  if (cap === null) return;
+  const cap: SpendCap | null = global?.exceeded
+    ? 'global'
+    : org?.exceeded
+      ? 'org'
+      : (paidCallHold.getStore()?.cap ?? null);
+  if (cap === null) return null;
   logger.warn('Refusing a paid provider call: monthly spend cap reached', {
     providerSlug,
     cap,
     orgId,
     ...(cap === 'global'
       ? { limitUsd: global?.cap, spentUsd: global?.spent }
-      : { limitUsd: org?.limit, spentUsd: org?.spent }),
+      : cap === 'org'
+        ? { limitUsd: org?.limit, spentUsd: org?.spent }
+        : {}),
   });
-  throw new SpendCapExceededError(cap, providerSlug);
+  return new SpendCapExceededError(cap, providerSlug);
+}
+
+/**
+ * The call-time spend gate: throws the {@link spendCapRefusal} for a paid
+ * call, if there is one. Run by the provider manager before every vendor call.
+ */
+export async function assertWithinSpendCaps(providerSlug: string, isLocal: boolean): Promise<void> {
+  const refusal = await spendCapRefusal(providerSlug, isLocal);
+  if (refusal) throw refusal;
 }
