@@ -15,6 +15,19 @@ argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
   steps a bar holds (`num × sub`) and how they group into pulses. It never
   changes how long a step lasts. The transport, swing, the MIDI writer and the
   engraver all rely on this.
+- **A break has one tempo; a section may play at a ratio of it** (11-e-ii-g):
+  `Pattern.tempoRatio` is `0.5` or `2`, absent for ×1. The slider, the trainer's
+  ramp, speed records and session targets are the break's tempo; anything that
+  turns a tempo into seconds reads `sectionBpm(bpm, pattern)` — the transport
+  (and its count-in, at the first section's ratio), `performStep`'s Humanise,
+  `playability` (which takes the break's tempo and judges a section at its own),
+  the MIDI writer (a tempo event at each change) and the community grid's
+  density. The top tempo is `maxBpmOf(sections)`: each section's meter ceiling
+  over its ratio, never past `TEMPO_TOP` (380, under the wire's 400). The
+  bottom is `minBpmOf(sections)`: 50, or 100 with a section at ×½, so none
+  plays under 50. `clonePattern` carries the ratio; a section built from
+  another (Build B, BeatBuddy's new section) takes its ratio as it takes its
+  meter.
 - **Every bar carries every lane, full length**, even lanes the pattern does not
   use (`pattern.lanes` says which it does). Turning a lane on never reshapes a
   bar.
@@ -81,7 +94,7 @@ argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
 | `schema.ts`        | Zod schemas for everything from outside: `sharePayloadSchema`, `packedPatternSchema`, `styleAttrsSchema`, `feelSchema`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | `catalogue/*`      | The data layer, the row schemas and the admin write shapes. Server-side. See `catalogue.md`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `perform.ts`       | `performStep`: **the one place a written note becomes a sound** — GM note, 0–1 velocity, swing-and-feel offset. The speakers, the live MIDI port and the MIDI file all voice from it. Also `LEVELS`, the cymbal bands, `midiVelocity` and `valueForVelocity` (what `readMidi` reads by). See _One performance_ below.                                                                                                                                                                                                                                                                                              |
-| `midi.ts`          | `buildMidi`: a format-0 Standard MIDI File, GM drum map on channel 10. Every note's velocity and position come from `performStep`, so the file is the performance you hear. A time signature heads the file and is written again at each bar whose meter changes it (A in 7/8, B in 4/4); a change of grid alone (4/4 to `4/4-6`) writes none.                                                                                                                                                                                                                                                                     |
+| `midi.ts`          | `buildMidi`: a format-0 Standard MIDI File, GM drum map on channel 10. Every note's velocity and position come from `performStep`, so the file is the performance you hear. A time signature heads the file and is written again at each bar whose meter changes it (A in 7/8, B in 4/4); a change of grid alone (4/4 to `4/4-6`) writes none. A tempo does the same at each change of a section's tempo ratio, the ticks unchanged.                                                                                                                                                                               |
 | `text.ts`          | `toText` / `fromText`: a pattern as one line per lane per bar, in the library's characters plus the percussion lanes. How BeatBuddy reads and writes a pattern. `fromText` is strict and names the bar, lane and step it refuses. See _The text notation_ below.                                                                                                                                                                                                                                                                                                                                                   |
 | `tidy.ts`          | `tidy`: the deterministic clean-up behind "tidy up notes" — six rules, every change reported, never adds a note, idempotent.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `midi-read.ts`     | `readMidi`: the inverse of `buildMidi`. GM map to lanes, quantised to sixteenths, meter and tempo from the file. Bounds-checked; a bad file is an error, not an exception.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
@@ -121,6 +134,7 @@ itself. All three are checked by the same schema.
     "sd": 12345,       // seed, uint32
     "bb": [4, 12],     // backbeat steps, 0–63
     "mt": "4/4",       // absent in v2 → 4/4; unknown → 4/4
+    "tr": 2,           // tempo ratio, 0.5 or 2 — v7; absent is ×1
     "ln": ["k","s","h","r","c"],   // absent in v2 → the five base lanes
     "pc": { "p1": "tamb", "p2": "shaker" },   // keys p1/p2, values PERC_KEYS
     "bl": "s",         // backbeat lane
@@ -134,6 +148,12 @@ itself. All three are checked by the same schema.
   "C": { … }           // v6: C to Z, each optional, each a packed pattern in its own meter
 }
 ```
+
+**Version 7 (11-e-ii-g) adds a section's tempo ratio** (`tr`). It is written
+only when a section has one — a break without one is the v5 or v6 code it was,
+byte for byte — because a v6 reader would strip the key and play the section at
+the break's tempo; a v7 header makes it refuse instead. A `tr` under a v6-or-older
+header is refused.
 
 **Version 6 (11-e-ii) adds sections C to Z** beside A and B, which stay
 required. `breakPayload` writes v6 only when a break has a section past B or an

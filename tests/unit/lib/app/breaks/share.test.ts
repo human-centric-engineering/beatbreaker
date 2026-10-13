@@ -107,7 +107,7 @@ describe('encodeBreak / decodeBreak', () => {
   });
 
   it('writes a break of A and B as v5, so its code does not change (11-e-ii)', () => {
-    expect(SHARE_VERSION).toBe(6);
+    expect(SHARE_VERSION).toBe(7);
     expect(SHARE_VERSION_AB).toBe(5);
     const raw: unknown = JSON.parse(atob(encodeBreak(docFor('funk'))));
     expect(sharePayloadSchema.parse(raw).ver).toBe(SHARE_VERSION_AB);

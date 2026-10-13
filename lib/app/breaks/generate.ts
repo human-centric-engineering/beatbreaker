@@ -40,6 +40,7 @@ import {
   writePerc,
 } from '@/lib/app/breaks/pattern';
 import { clamp, makeRng, wpick, type Rng } from '@/lib/app/breaks/rng';
+import type { TempoRatio } from '@/lib/app/breaks/sections';
 import {
   partKey,
   pickSection,
@@ -868,6 +869,12 @@ export interface GenerateOptions {
    * a style that has songs picks among those in the meter, from the seed.
    */
   song?: string;
+  /**
+   * How fast the pattern plays against the break's tempo (11-e-ii-g). Absent,
+   * a section of a song takes its own ratio, and anything else none; 1 is
+   * none, whatever the section says.
+   */
+  tempoRatio?: TempoRatio | 1;
   voice?: 'hat' | 'ride';
   lanes?: LaneKey[];
   perc?: Partial<Record<PercLaneKey, string>>;
@@ -957,6 +964,7 @@ export function generatePattern(opts: GenerateOptions): Pattern {
       ? { song: picked, section: pickSection(params, picked, songRng, meterKey) }
       : undefined);
   const songKey = part ? partKey(part.song, part.section) : undefined;
+  const ratio = opts.tempoRatio ?? part?.section?.tempoRatio;
   const base = withSong(params, songKey);
   const m = meterOf(meterKey);
   const style = styleIn(base, meterKey);
@@ -980,6 +988,7 @@ export function generatePattern(opts: GenerateOptions): Pattern {
     // only where there is one, so a pattern without stays the shape it was
     ...(songKey ? { song: songKey } : {}),
     meter: meterKey,
+    ...(ratio && ratio !== 1 ? { tempoRatio: ratio } : {}),
     voice: style.ride ? 'ride' : (opts.voice ?? 'hat'),
     lanes: lanes.slice(),
     perc: { ...perc },

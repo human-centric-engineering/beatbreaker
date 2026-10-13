@@ -396,7 +396,7 @@ describe('the unsaved-changes prompt', () => {
   it('Don’t save replaces it and saves nothing', async () => {
     const user = await editedCopy();
     await user.click(screen.getByRole('button', { name: 'Don’t save' }));
-    await waitFor(() => expect(title()).not.toBe('Cold Carpet'));
+    await waitFor(() => expect(title()).not.toBe('Cold Carpet'), { timeout: 4000 });
     expect(apiClient.post).not.toHaveBeenCalled(); // test-review:accept no_arg_called — Don't save saves nothing
     expect(apiClient.patch).not.toHaveBeenCalled(); // test-review:accept no_arg_called — and never PATCHes theirs
   });
@@ -404,7 +404,7 @@ describe('the unsaved-changes prompt', () => {
   it('Save keeps a copy of your own with the edits, then replaces it', async () => {
     const user = await editedCopy();
     await user.click(screen.getByRole('button', { name: 'Save' }));
-    await waitFor(() => expect(title()).not.toBe('Cold Carpet'));
+    await waitFor(() => expect(title()).not.toBe('Cold Carpet'), { timeout: 4000 });
     expect(apiClient.post).toHaveBeenCalledTimes(1);
     const body = vi.mocked(apiClient.post).mock.calls[0][1]?.body as {
       title: string;

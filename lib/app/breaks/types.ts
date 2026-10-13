@@ -18,7 +18,7 @@
  * untrusted values enter.
  */
 
-import type { SectionLetter } from '@/lib/app/breaks/sections';
+import type { SectionLetter, TempoRatio } from '@/lib/app/breaks/sections';
 
 /** Lanes every style gets. */
 export type BaseLaneKey = 'k' | 's' | 'h' | 'r' | 'c';
@@ -106,6 +106,12 @@ export interface Pattern {
   song?: string;
   /** Key into `METERS`. */
   meter: string;
+  /**
+   * How fast this section plays against the break's tempo, ×½ or ×2
+   * (11-e-ii-g). Absent is ×1: the break's tempo, as every pattern played
+   * before sections could differ.
+   */
+  tempoRatio?: TempoRatio;
   /** Seed the generator ran from — what makes a break reproducible. */
   seed: number;
   /** Which cymbal carries the ostinato. */
@@ -502,6 +508,11 @@ export interface SongSection {
   label: string;
   /** How many bars New writes; absent, the length the pickers hold. */
   bars?: number;
+  /**
+   * How fast it plays against the song's tempo (11-e-ii-g): Angel of Death's
+   * break at ×½. Its own `bpm` is the record's, at the speed it plays.
+   */
+  tempoRatio?: TempoRatio;
   /**
    * The song keys this section was before the song was written in sections
    * ('sherpa-triplets'), so a pattern saved under one still lays the same

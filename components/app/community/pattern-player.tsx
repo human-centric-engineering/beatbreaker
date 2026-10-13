@@ -56,8 +56,8 @@ export function PatternPlayer({
   kits: Record<string, CatalogueKit>;
 }) {
   const doc = useMemo(() => breakDocFromPayload(payload), [payload]);
-  // the lowest of the sections' ceilings: one tempo plays them all
-  const ceiling = maxBpmOf(patternsOf(doc).map((p) => p.meter));
+  // the lowest of the sections' ceilings, each over its tempo ratio: one tempo plays them all
+  const ceiling = maxBpmOf(patternsOf(doc));
   // a break saved past its ceiling (A in 12/8 at 280 beside a 4/4 B) starts at it
   const [bpm, setBpm] = useState(() => Math.min(Math.round(doc.bpm), ceiling));
   const [level, setLevel] = useState(doc.level);

@@ -7,7 +7,7 @@ import type { PatternSharing } from '@/components/app/breaks/use-break-console';
 import { StepEditor } from '@/components/app/breaks/step-editor';
 import { DrummerView } from '@/components/app/studio/drummer/drummer-view';
 import { PinButton } from '@/components/app/studio/pin-button';
-import { Segmented } from '@/components/app/studio/segmented';
+import { type Segment, Segmented } from '@/components/app/studio/segmented';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
@@ -15,7 +15,13 @@ import { type SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { GRID_SIZE, GRID_SIZE_MAX, GRID_SIZE_MIN, STAGE_VIEW } from '@/lib/app/breaks/browser-keys';
 import { publicPath } from '@/lib/app/breaks/community/visibility';
 import { type Engraving } from '@/lib/app/breaks/engrave';
-import { MAX_ARRANGEMENT, cycleLetter } from '@/lib/app/breaks/sections';
+import {
+  MAX_ARRANGEMENT,
+  type TempoRatio,
+  cycleLetter,
+  ratioLabel,
+  ratioOf,
+} from '@/lib/app/breaks/sections';
 import { songPartOf } from '@/lib/app/breaks/songs';
 import { engrave } from '@/lib/app/breaks/engrave';
 import { LAYER_BLURB, LAYER_NAMES } from '@/lib/app/breaks/layers';
@@ -72,6 +78,13 @@ function BasedOn({ credit }: { credit: PatternSharing['basedOn'] }) {
     </p>
   );
 }
+
+/** A section's tempo against the break's: half, the same, double. */
+const TEMPO_CHOICES: Segment<TempoRatio | 1>[] = [
+  { value: 0.5, face: ratioLabel(0.5), title: "Half the break's tempo" },
+  { value: 1, face: ratioLabel(1), title: "The break's tempo" },
+  { value: 2, face: ratioLabel(2), title: "Double the break's tempo" },
+];
 
 /**
  * Which song the pattern plays, for a style that has songs (a drummer playing
@@ -147,6 +160,15 @@ export function Stage() {
   const shown: SectionLetter[] = viewMode === 'both' ? c.letters : [viewMode];
   /** The section on show, when it is one a break can do without. */
   const deletable = viewMode !== 'both' && viewMode !== 'A' && viewMode !== 'B' ? viewMode : null;
+  /** The section on show, when one is: its tempo ratio is picked beside it. */
+  const single = viewMode !== 'both' ? viewMode : null;
+  /* A stave names its section under All, and its speed wherever it is not the
+     break's (11-e-ii-g): engraving prints no tempo, so the letter carries it. */
+  const staveLabel = (letter: SectionLetter): string | undefined => {
+    const r = ratioOf(c.patterns[letter]);
+    if (r !== 1) return `${letter} ${ratioLabel(r)}`;
+    return viewMode === 'both' ? letter : undefined;
+  };
   /* What BeatBuddy just changed, as the chart indexes steps: any lane changed
      on a step lights that step. */
   const flashSteps = useMemo(() => {
@@ -189,7 +211,7 @@ export function Stage() {
               : undefined
           }
           engraving={eng}
-          label={c.viewMode === 'both' ? letter : undefined}
+          label={staveLabel(letter)}
           playing={live && c.position?.letter === letter}
           flash={live ? flashSteps[letter] : undefined}
           flashSeq={live ? c.flash?.seq : undefined}
@@ -481,6 +503,17 @@ export function Stage() {
             >
               Delete {deletable}
             </button>
+          ) : null}
+          {/* How fast the section on show plays against the break's tempo
+              (11-e-ii-g): Landlord's fast section at double its slow one. */}
+          {single && c.patterns[single] ? (
+            <Segmented<TempoRatio | 1>
+              small
+              label={`Section ${single}'s tempo`}
+              options={TEMPO_CHOICES}
+              value={ratioOf(c.patterns[single])}
+              onChange={(r) => c.setSectionTempo(single, r)}
+            />
           ) : null}
         </div>
       </div>

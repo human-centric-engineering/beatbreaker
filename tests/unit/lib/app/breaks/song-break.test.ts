@@ -21,7 +21,7 @@ import {
   partKey,
   songBpm,
   songMeter,
-  songMeters,
+  songPaces,
   songOf,
   songPartOf,
   withSong,
@@ -153,7 +153,11 @@ describe('the tempo of a song in sections', () => {
   });
 
   it('names every meter it plays in, the first first', () => {
-    expect(songMeters(STYLES.klek, songIn('klek', 'sherpa'))).toEqual(['12/8', '4/4', '4/4']);
+    expect(songPaces(STYLES.klek, songIn('klek', 'sherpa')).map((p) => p.meter)).toEqual([
+      '12/8',
+      '4/4',
+      '4/4',
+    ]);
     expect(songMeter(STYLES.klek, songIn('klek', 'sherpa'))).toBe('12/8');
   });
 });

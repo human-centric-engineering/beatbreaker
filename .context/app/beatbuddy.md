@@ -160,6 +160,15 @@ disagree.
   famous break write an A and a B, so the sections past B go, with their slots;
   a song written in sections writes every one of its sections instead, with its
   arrangement, at a tempo its slowest meter allows.
+- **A section at a tempo ratio (11-e-ii-g)** is reported by `get_pattern` as
+  `tempoRatio` (0.5 or 2), its text headed with the tempo it plays at.
+  `write_bars` keeps the ratio of a section it rewrites, holds the break's
+  tempo to that section's ceiling over its ratio (and names the ratio when it
+  slows the tempo), and gives a new section A's ratio, as it gives it A's
+  meter. `set_playback` sets one: `section` and `tempoRatio` (0.5, 1 or 2)
+  together, the tempo brought into the new range when none is named, as the
+  Studio's picker does. A tempo under the floor (100 with a section at ×½) is
+  `tempo_out_of_range`.
 - **Every mutating tool goes through `editWorkspace()`** (`edit.ts`): read the
   workspace, apply the edit, hold the result to `sharePayloadSchema`, write if
   the rev has not moved. A lost write is made again on the newer pattern, up to
@@ -185,7 +194,8 @@ changes, sections }`, which is what the drawer applies.
 - **`set_playback` does not do count-in.** The plan listed it, but count-in is
   a `StudioSettings` field of the person's, not part of a pattern, and every
   other tool edits the pattern. The tempo range is the Studio's: 50 to
-  `maxBpmOf` the sections' meters, the lowest of their ceilings.
+  `maxBpmOf` the sections, the lowest of their meters' ceilings, each over its
+  tempo ratio (a B at ×2 holds the break to half B's ceiling).
 - **The instructions changed in the seed only.** The seed's agent `update` branch
   leaves an admin's edits alone, so the new line about dependent edits reaches a
   fresh install, not an existing agent row. On an existing install, paste it in

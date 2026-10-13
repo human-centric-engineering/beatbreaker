@@ -202,10 +202,18 @@ few words of `feel`, a `weight`, and `params`: any style field except
   section's params again. The schema holds such a key to 38 characters.
   - **The tempo is the song's**, one for the break: `songBpm` is its range
     held to every section's playable top, and the ceiling is the lowest of
-    the sections' meters. A section that would need another tempo (×½, ×2)
-    cannot be written yet (11-e-ii-g), so Angel of Death, Landlord and Llegué
-    llegué stay split. Sherpa's triplet section is 12/8 at the song's 180:
+    the sections' meters. Sherpa's triplet section is 12/8 at the song's 180:
     the eighth is the same speed either side of the change.
+  - **A section may play at half or double the song's tempo** (11-e-ii-g):
+    `tempoRatio: 0.5 | 2` on the section, which the pattern it writes
+    carries. Its own `bpm` is the record's, at the speed it plays, and
+    `songBpm` divides it by the ratio before taking the range every section
+    shares; the ceiling is each section's meter's over its ratio
+    (`songPaces`). Angel of Death's break plays at ×½ of the skank; Landlord's
+    fast section at ×2 of its slow one — in sixteenths, so it is held to
+    4/4's 190 and the song to 95, where `landlord-fast` was held before.
+    Llegué llegué was never split: Moore's opening at 59 is the Guararey
+    tumbao with the hats in sixteenths, the same notes at the same speed.
   - **Old keys still read.** A section's `aliases` are the keys it had as a
     song of its own (`sherpa-triplets`, `lucy-verse`); a bare key of a song
     in sections is the section that aliases it, else the first. The schema

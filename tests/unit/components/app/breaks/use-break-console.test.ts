@@ -2143,6 +2143,97 @@ describe('sections past B (11-e-ii)', () => {
   });
 });
 
+describe('a section at a tempo ratio (11-e-ii-g)', () => {
+  function abCode(bpm: number) {
+    const funk = catalogue.styles.funk;
+    const at = (seed: number) =>
+      generatePattern({ style: funk, meter: '4/4', seed, bars: 1, density: 50, ghosts: 50 });
+    return encodeBreak({ bpm, swing: 0, level: 5, arrangement: ['A', 'B'], A: at(5), B: at(6) });
+  }
+
+  it('plays B at double time, bringing the tempo down to the new ceiling; one Undo puts both back', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.loadCode(abCode(120));
+    });
+    expect(result.current.bpmCeiling).toBe(190);
+    let ok = false;
+    act(() => {
+      ok = result.current.setSectionTempo('B', 2);
+    });
+    expect(ok).toBe(true);
+    expect(result.current.patterns.B?.tempoRatio).toBe(2);
+    expect(result.current.patterns.A?.tempoRatio).toBeUndefined();
+    // 4/4 tops out at 190, so B at ×2 holds the break to 95
+    expect(result.current.bpmCeiling).toBe(95);
+    expect(result.current.bpm).toBe(95);
+    act(() => result.current.undo());
+    expect(result.current.patterns.B?.tempoRatio).toBeUndefined();
+    expect(result.current.bpm).toBe(120);
+  });
+
+  it('takes a ratio off again at ×1, and refuses one it already plays at or a section it has not got', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.loadCode(abCode(90));
+    });
+    const out: boolean[] = [];
+    act(() => {
+      out.push(result.current.setSectionTempo('A', 1));
+      out.push(result.current.setSectionTempo('C', 2));
+    });
+    expect(out).toEqual([false, false]);
+    act(() => {
+      result.current.setSectionTempo('A', 0.5);
+    });
+    expect(result.current.patterns.A?.tempoRatio).toBe(0.5);
+    act(() => {
+      result.current.setSectionTempo('A', 1);
+    });
+    expect(result.current.patterns.A).not.toHaveProperty('tempoRatio');
+  });
+
+  it('plays A at half time, raising a tempo under the floor to it, and holds the slider there', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.loadCode(abCode(70));
+    });
+    expect(result.current.bpmFloor).toBe(50);
+    act(() => {
+      result.current.setSectionTempo('A', 0.5);
+    });
+    // A at ×½ under 70 would play at 35: the break comes up to 100
+    expect(result.current.bpmFloor).toBe(100);
+    expect(result.current.bpm).toBe(100);
+    act(() => result.current.setBpm(60));
+    expect(result.current.bpm).toBe(100);
+    act(() => result.current.undo());
+    expect(result.current.bpm).toBe(70);
+    expect(result.current.bpmFloor).toBe(50);
+  });
+
+  it('keeps the ratio through a new take of the section', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.loadCode(abCode(90));
+    });
+    act(() => {
+      result.current.setSectionTempo('B', 2);
+    });
+    act(() => result.current.setViewMode('B'));
+    const before = result.current.patterns.B;
+    act(() => {
+      result.current.regenerate();
+    });
+    expect(result.current.patterns.B).not.toBe(before);
+    expect(result.current.patterns.B?.tempoRatio).toBe(2);
+    act(() => {
+      result.current.newBreak('B');
+    });
+    expect(result.current.patterns.B?.tempoRatio).toBe(2);
+  });
+});
+
 describe('arrangementForNew', () => {
   const pat = generatePattern({
     style: catalogue.styles.funk,

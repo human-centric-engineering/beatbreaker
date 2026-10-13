@@ -14,6 +14,7 @@ import {
   type TransportSnapshot,
   maxBpm,
   maxBpmOf,
+  minBpmOf,
   soloInPlay,
 } from '@/lib/app/breaks/audio/transport';
 import {
@@ -43,9 +44,12 @@ import {
   MAX_BREAK_BARS,
   type MaybeSections,
   type Sections,
+  type TempoRatio,
+  hasTempoRatios,
   lettersOf,
   nextLetter,
   patternsOf,
+  ratioOf,
   totalBars,
 } from '@/lib/app/breaks/sections';
 import type { StoredLink } from '@/lib/app/breaks/links';
@@ -81,7 +85,7 @@ import { songBreak, writePart } from '@/lib/app/breaks/song-break';
 import {
   pickSong,
   songMeter,
-  songMeters,
+  songPaces,
   songOf,
   songTempo,
   withSong,
@@ -336,6 +340,8 @@ export interface BreakConsole {
    */
   quickTempo: (pct: number) => void;
   bpmCeiling: number;
+  /** The lowest tempo the break may take: 50, or 100 with a section at ×½ (11-e-ii-g). */
+  bpmFloor: number;
   playing: boolean;
   togglePlay: () => void;
   loops: number;
@@ -490,6 +496,13 @@ export interface BreakConsole {
    * A and B stay: every break has them. One Undo puts it back, slots and all.
    */
   deleteSection: (letter: SectionLetter) => boolean;
+  /**
+   * Play a section at half, the same or double the break's tempo (11-e-ii-g).
+   * One Undo, the tempo with it: a ratio that lowers the break's ceiling
+   * brings the tempo down to it. False, and nothing done, when the section is
+   * not there or already plays at that ratio.
+   */
+  setSectionTempo: (letter: SectionLetter, ratio: TempoRatio | 1) => boolean;
   /** False, and nothing done, when the section's style is not in the catalogue. */
   applyDoctor: (move: DoctorMove) => boolean;
   cycleCell: (
@@ -644,6 +657,8 @@ interface Setup {
   bpm: number;
   /** Which of the style's songs, where it has them. */
   song?: string;
+  /** The section's tempo ratio; absent, a song section's own (11-e-ii-g). */
+  tempoRatio?: TempoRatio | 1;
 }
 
 /**
@@ -861,8 +876,15 @@ export function useBreakConsole(
      held to the lowest of theirs instead: one tempo plays them all, so a B in
      4/4 holds an A in eighths to 190. */
   const sectionMeters = [...new Set(patternsOf(patterns).map((p) => p.meter))];
-  const mixedTop = sectionMeters.length > 1 ? maxBpmOf(sectionMeters) : null;
+  /* A section at a tempo ratio holds it the same way: a B at ×2 holds the
+     break to half B's ceiling (11-e-ii-g). */
+  const mixedTop =
+    sectionMeters.length > 1 || hasTempoRatios(patterns) ? maxBpmOf(patternsOf(patterns)) : null;
   const bpmCeiling = mixedTop ?? maxBpm(meter);
+  /* And the bottom: a section at ×½ plays at half the break's tempo, so the
+     break goes no lower than twice the floor, or that section would play
+     slower than anything else the Studio does. */
+  const bpmFloor = minBpmOf(patternsOf(patterns));
 
   const setSize = useCallback(
     (n: number) => setSizeRaw(clamp(Math.round(n * 100) / 100, SIZE_MIN, SIZE_MAX)),
@@ -883,13 +905,13 @@ export function useBreakConsole(
   const placeTempo = useCallback(
     (n: number) => {
       const top = bpmCeiling;
-      const v = clamp(Math.round(n), 50, top);
-      const base = matchOn ? clamp(Math.round(v / (LAYER_TEMPO[level] ?? 1)), 50, top) : v;
+      const v = clamp(Math.round(n), bpmFloor, top);
+      const base = matchOn ? clamp(Math.round(v / (LAYER_TEMPO[level] ?? 1)), bpmFloor, top) : v;
       setBaseBpm(base);
       setBpmRaw(v);
       return base;
     },
-    [bpmCeiling, matchOn, level]
+    [bpmCeiling, bpmFloor, matchOn, level]
   );
 
   const setBpm = useCallback(
@@ -907,9 +929,9 @@ export function useBreakConsole(
   const quickTempo = useCallback(
     (pct: number) => {
       const written = matchOn ? baseBpm * (LAYER_TEMPO[level] ?? 1) : baseBpm;
-      setBpmRaw(clamp(Math.round((written * pct) / 100), 50, bpmCeiling));
+      setBpmRaw(clamp(Math.round((written * pct) / 100), bpmFloor, bpmCeiling));
     },
-    [matchOn, baseBpm, level, bpmCeiling]
+    [matchOn, baseBpm, level, bpmCeiling, bpmFloor]
   );
 
   /**
@@ -933,8 +955,21 @@ export function useBreakConsole(
      layer should be practised, measured against the break's own tempo. */
   useEffect(() => {
     if (!matchOn) return;
-    setBpmRaw(clamp(Math.round(baseBpm * (LAYER_TEMPO[level] ?? 1)), 50, bpmCeiling));
-  }, [matchOn, level, bpmCeiling, baseBpm, setBpmRaw]);
+    setBpmRaw(clamp(Math.round(baseBpm * (LAYER_TEMPO[level] ?? 1)), bpmFloor, bpmCeiling));
+  }, [matchOn, level, bpmCeiling, bpmFloor, baseBpm, setBpmRaw]);
+
+  /* A section set to ×½ under a tempo below the floor brings the tempo up to
+     it, as one set to ×2 brings it down to the ceiling. One Undo of the ratio
+     puts the tempo back with it (`setSectionTempo` records both). Only when
+     the floor rises: a practice session may play under 50 on purpose. */
+  const lastFloor = useRef(bpmFloor);
+  useEffect(() => {
+    const rose = bpmFloor > lastFloor.current;
+    lastFloor.current = bpmFloor;
+    if (!rose) return;
+    if (bpm < bpmFloor) setBpmRaw(bpmFloor);
+    if (baseBpm < bpmFloor) setBaseBpm(bpmFloor);
+  }, [bpm, baseBpm, bpmFloor, setBpmRaw]);
 
   /**
    * The tempo a break in two meters brought down to its ceiling, and the base
@@ -1190,6 +1225,7 @@ export function useBreakConsole(
           ghosts,
           seed: Math.floor(Math.random() * 0xffffffff),
           bpm: setup.bpm,
+          tempoRatio: setup.tempoRatio,
           custom: lanesMode === 'custom' ? customLanes : null,
         });
       /* A regenerate has to come out different: a style of a few written
@@ -1225,11 +1261,14 @@ export function useBreakConsole(
         const stage = patterns[which] ?? patterns.A;
         const song = stage?.style === style ? stage.song : undefined;
         /* Judged at the tempo it will play at: beside the other sections, the
-           break is held to the lowest of their meters' ceilings. */
+           break is held to the lowest of their meters' ceilings, each over its
+           tempo ratio. The section keeps its own ratio. */
         const others = lettersOf(patterns)
           .filter((L) => L !== which)
-          .map((L) => patterns[L]?.meter);
-        const at = Math.min(bpm, maxBpmOf([meter, ...others]));
+          .map((L) => patterns[L]);
+        const tempoRatio = patterns[which]?.tempoRatio ?? 1;
+        const pace = tempoRatio === 1 ? meter : { meter, tempoRatio };
+        const at = Math.min(bpm, maxBpmOf([pace, ...others]));
         /* Held to the bars the break has room for: the other sections keep
            theirs, so a new section no longer than this keeps it within
            MAX_BREAK_BARS, which a save and a share code are held to. Never
@@ -1237,7 +1276,14 @@ export function useBreakConsole(
         const room = MAX_BREAK_BARS - (totalBars(patterns) - (patterns[which]?.bars.length ?? 0));
         // used up: the section they were picked for is this one
         pickedForNext.current = false;
-        generate(which, { style, meter, bars: Math.max(1, Math.min(bars, room)), bpm: at, song });
+        generate(which, {
+          style,
+          meter,
+          bars: Math.max(1, Math.min(bars, room)),
+          bpm: at,
+          song,
+          tempoRatio,
+        });
         return true;
       }
       /* A whole new pattern always rolls: in the style you chose, or, where
@@ -1267,7 +1313,7 @@ export function useBreakConsole(
       chosen.current = {};
       pickedForNext.current = false;
       // a song in sections plays at a tempo its slowest meter allows
-      const top = params && song ? maxBpmOf(songMeters(params, song)) : maxBpm(next.meter);
+      const top = params && song ? maxBpmOf(songPaces(params, song)) : maxBpm(next.meter);
       const start = params && song ? songTempo(params, song, Math.random) : settings.startBpm;
       const base = locks.bpm ? baseBpm : clamp(start, 50, top);
       const at = matchOn ? Math.round(base * (LAYER_TEMPO[level] ?? 1)) : base;
@@ -1349,6 +1395,8 @@ export function useBreakConsole(
         bars: stage.bars.length,
         bpm,
         song: stage.song,
+        // a new take plays at the speed the section did
+        tempoRatio: stage.tempoRatio ?? 1,
       },
       stage
     );
@@ -1383,9 +1431,14 @@ export function useBreakConsole(
     // the same song as the section on the stage, when it is in the same style
     const stage = patterns[editing];
     const song = stage?.style === style ? stage.song : undefined;
-    const at = Math.min(bpm, maxBpmOf([meter, ...patternsOf(patterns).map((p) => p.meter)]));
+    /* At the pace the stage's section plays, where it is that song's part;
+       at the break's tempo otherwise — never a ratio from the catalogue you
+       took off the stage (11-e-ii-g). */
+    const tempoRatio = song ? ratioOf(stage) : 1;
+    const pace = tempoRatio === 1 ? meter : { meter, tempoRatio };
+    const at = Math.min(bpm, maxBpmOf([pace, ...patternsOf(patterns)]));
     pickedForNext.current = false;
-    generate(letter, { style, meter, bars, bpm: at, song });
+    generate(letter, { style, meter, bars, bpm: at, song, tempoRatio });
     setArrangement((a) => (a.length < MAX_ARRANGEMENT ? [...a, letter] : a));
     setViewMode(letter);
     setTouched(letter);
@@ -1415,6 +1468,25 @@ export function useBreakConsole(
       setArrangement((a) => {
         const kept = a.filter((L) => L !== letter);
         return kept.length ? kept : ['A'];
+      });
+      return true;
+    },
+    [patterns, pushHistory]
+  );
+
+  const setSectionTempo = useCallback(
+    (letter: SectionLetter, ratio: TempoRatio | 1): boolean => {
+      const pat = patterns[letter];
+      if (!pat || ratioOf(pat) === ratio) return false;
+      // the tempo may come down to a new ceiling, so one Undo takes both back
+      pushHistory(true);
+      setPatterns((prev) => {
+        const p = prev[letter];
+        if (!p) return prev;
+        const next = clonePattern(p);
+        if (ratio === 1) delete next.tempoRatio;
+        else next.tempoRatio = ratio;
+        return { ...prev, [letter]: next };
       });
       return true;
     },
@@ -2235,7 +2307,7 @@ export function useBreakConsole(
     const atMeter = song ? songMeter(styleRow.params, song) : meter;
     /* A locked tempo stays, held under the song meter's ceiling as New holds
        it, and stays the base tempo it was. */
-    const top = song ? maxBpmOf(songMeters(styleRow.params, song)) : maxBpm(atMeter);
+    const top = song ? maxBpmOf(songPaces(styleRow.params, song)) : maxBpm(atMeter);
     const atBpm =
       song && !locks.bpm
         ? clamp(songTempo(styleRow.params, song, Math.random), 50, top)
@@ -2390,9 +2462,7 @@ export function useBreakConsole(
     (stored: SharePayload, title: string, at?: PracticePlace): boolean => {
       try {
         const doc = breakDocFromPayload(stored, (key) => catalogue.styles[key]);
-        const bpmAt = at
-          ? clamp(Math.round(at.bpm), 50, maxBpmOf(patternsOf(doc).map((p) => p.meter)))
-          : doc.bpm;
+        const bpmAt = at ? clamp(Math.round(at.bpm), 50, maxBpmOf(patternsOf(doc))) : doc.bpm;
         // the row's title, for the reason the arrival path gives
         putDoc({
           ...doc,
@@ -2477,6 +2547,7 @@ export function useBreakConsole(
     setBpm,
     quickTempo,
     bpmCeiling,
+    bpmFloor,
     playing,
     togglePlay,
     loops,
@@ -2551,6 +2622,7 @@ export function useBreakConsole(
     addSection,
     addSectionBlocked,
     deleteSection,
+    setSectionTempo,
     applyDoctor,
     cycleCell,
     setCell,

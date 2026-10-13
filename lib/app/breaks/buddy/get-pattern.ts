@@ -43,7 +43,7 @@ export class GetPatternCapability extends BaseCapability<Args, GetPatternData> {
   readonly functionDefinition: CapabilityFunctionDefinition = {
     name: 'get_pattern',
     description:
-      "Read the drum pattern the user has open in the Studio. Returns each section (A, B and any others the break has, up to Z, each in its own meter) as text — one row per lane per bar, with a count row — plus the tempo, swing, the layer being shown, the arrangement, and the critic's score and any playability problems. Call this before changing anything unless the user wants something brand new. Don't call it in the same step as a change: every change returns the sections it touched.",
+      "Read the drum pattern the user has open in the Studio. Returns each section (A, B and any others the break has, up to Z, each in its own meter, and with tempoRatio where it plays at half or double the break's tempo) as text — one row per lane per bar, with a count row — plus the tempo, swing, the layer being shown, the arrangement, and the critic's score and any playability problems. Call this before changing anything unless the user wants something brand new. Don't call it in the same step as a change: every change returns the sections it touched.",
     parameters: { type: 'object', properties: {} },
   };
 
