@@ -12,6 +12,8 @@
  *   - every tenant-owned read the admin list endpoints sit on answers A's
  *     rows and none of B's — after asserting the population is non-empty,
  *     since an absence assertion passes for free on an empty set;
+ *   - the budget caps (§110 t-788): the global spend total, asked from A,
+ *     counts B's cost row, and an org cap stops A's agent and not B's;
  *   - the raw-SQL paths: vector search (`searchKnowledge`), cost reports
  *     (`getCostSummary` / `getCostBreakdown`), conversation semantic search
  *     (`searchConversationEmbeddings`), and the message embedder's INSERT,
@@ -124,7 +126,7 @@ import { eraseOrg } from '@/lib/privacy/erase-org';
 import { exportUserData } from '@/lib/privacy/export-user';
 import { eraseUser } from '@/lib/privacy/erase-user';
 import { registerErasureCleanupHook } from '@/lib/privacy/erasure-hooks';
-import { writeOrgProviderPolicy } from '@/lib/tenancy/org-settings';
+import { writeOrgProviderPolicy, writeOrgQuotas } from '@/lib/tenancy/org-settings';
 import { forgetOrgProviderPolicy } from '@/lib/orchestration/llm/org-provider-policy';
 import { hashApiKey } from '@/lib/auth/api-keys';
 import { resolveApiKey } from '@/lib/auth/api-keys';
@@ -141,6 +143,7 @@ import { searchKnowledge } from '@/lib/orchestration/knowledge/search';
 import { backfillMissingEmbeddings } from '@/lib/orchestration/chat/message-embedder';
 import { searchConversationEmbeddings } from '@/lib/orchestration/chat/conversation-semantic-search';
 import { getCostBreakdown, getCostSummary } from '@/lib/orchestration/llm/cost-reports';
+import { checkBudget, getMonthToDateGlobalSpend } from '@/lib/orchestration/llm/cost-tracker';
 import { signHookPayload } from '@/lib/orchestration/hooks/signing';
 import { POST as inboundPost } from '@/app/api/v1/inbound/[channel]/[slug]/route';
 import { withAdminAuth } from '@/lib/auth/guards';
@@ -692,6 +695,37 @@ async function main(): Promise<void> {
       breakdownAgents.includes(a.agentId) && !breakdownAgents.includes(b.agentId),
       "cost breakdown by agent as A carries A's agent and not B's"
     );
+
+    // The global budget cap totals every org (§110 t-788). Read in A's scope,
+    // the policy would hide B's row and make the "global" cap a per-org one.
+    const plainTotalInA = await runAsOrg(a.orgId, async () => {
+      const agg = await prisma.aiCostLog.aggregate({
+        where: { createdAt: { gte: dayAgo } },
+        _sum: { totalCostUsd: true },
+      });
+      return agg._sum.totalCostUsd ?? 0;
+    });
+    const globalFromA = await runAsOrg(a.orgId, () => getMonthToDateGlobalSpend());
+    check(
+      globalFromA >= plainTotalInA + b.costUsd - 1e-9,
+      `global spend asked from A counts B's row (${globalFromA} >= ${plainTotalInA} + ${b.costUsd})`
+    );
+
+    // An org cap stops its own org's turns and not another's (§110 t-788).
+    await writeOrgQuotas(a.orgId, { monthlyBudgetUsd: a.costUsd / 2 });
+    await writeOrgQuotas(b.orgId, { monthlyBudgetUsd: b.costUsd * 10 });
+    const budgetA = await runAsOrg(a.orgId, () => checkBudget(a.agentId));
+    const budgetB = await runAsOrg(b.orgId, () => checkBudget(b.agentId));
+    check(
+      budgetA.orgCapExceeded === true && (budgetA.org?.spent ?? 0) >= a.costUsd,
+      `A's cap, below A's spend, stops A (${JSON.stringify(budgetA.org)})`
+    );
+    check(
+      budgetB.orgCapExceeded === undefined && (budgetB.org?.spent ?? 0) >= b.costUsd,
+      `B's spend is B's alone, under B's cap (${JSON.stringify(budgetB.org)})`
+    );
+    await writeOrgQuotas(a.orgId, null);
+    await writeOrgQuotas(b.orgId, null);
 
     const convSearch = (who: OrgFixture, topic: string) =>
       runAsOrg(who.orgId, () =>
