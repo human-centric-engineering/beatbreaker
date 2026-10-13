@@ -484,6 +484,54 @@ describe('StreamingChatHandler', () => {
     expect(getProviderWithFallbacks).not.toHaveBeenCalled();
   });
 
+  // 2c — each cap has its own code (§110 t-788) -------------------------------
+  it.each([
+    [
+      'the agent',
+      { limit: 10 },
+      'budget_exceeded',
+      'agent',
+      /This agent has reached its monthly budget of \$10\.00/,
+    ],
+    [
+      'the org',
+      { limit: null, orgCapExceeded: true, org: { limit: 40, spent: 41 } },
+      'org_budget_exceeded',
+      'org',
+      /Your organisation has reached its monthly AI budget/,
+    ],
+    [
+      'the platform',
+      { limit: 10, orgCapExceeded: true, globalCapExceeded: true },
+      'global_budget_exceeded',
+      'global',
+      /This platform has reached its monthly AI budget/,
+    ],
+  ])('names %s cap when it stops the turn', async (_label, budget, code, cap, message) => {
+    (checkBudget as ReturnType<typeof vi.fn>).mockResolvedValue({
+      withinBudget: false,
+      spent: 11,
+      remaining: null,
+      ...budget,
+    });
+
+    const events = await collect(streamChat(baseRequest));
+
+    expect(events).toHaveLength(1);
+    expect(events[0]).toMatchObject({ type: 'error', code });
+    const text = (events[0] as { message: string }).message;
+    expect(text).toMatch(message);
+    // The org and platform caps are not the visitor's to know.
+    if (cap !== 'agent') expect(text).not.toMatch(/\$/);
+    await vi.waitFor(() =>
+      expect(dispatchWebhookEvent).toHaveBeenCalledWith(
+        'budget_exceeded',
+        expect.objectContaining({ cap })
+      )
+    );
+    expect(getProviderWithFallbacks).not.toHaveBeenCalled();
+  });
+
   // 3 -----------------------------------------------------------------------
   it('hydrates the model registry before reading the history budget from it (#813)', async () => {
     // The handler sizes history from `getModel(model).maxContext` before it
@@ -3360,6 +3408,47 @@ describe('mid-loop budget re-check', () => {
       type: 'error',
       code: 'budget_exceeded',
     });
+    expect(budgetCallCount).toBe(2);
+  });
+
+  it.each([
+    ['org_budget_exceeded', { orgCapExceeded: true }],
+    ['global_budget_exceeded', { globalCapExceeded: true }],
+  ])('yields %s when that cap is reached after a tool call iteration', async (code, flags) => {
+    let budgetCallCount = 0;
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    (checkBudget as ReturnType<typeof vi.fn>).mockImplementation(() => {
+      budgetCallCount++;
+      if (budgetCallCount === 1) {
+        return Promise.resolve({ withinBudget: true, spent: 5, limit: null, remaining: null });
+      }
+      return Promise.resolve({
+        withinBudget: false,
+        spent: 6,
+        limit: null,
+        remaining: null,
+        ...flags,
+      });
+    });
+    const provider = mockProvider([
+      [
+        { type: 'tool_call', toolCall: { id: 'tc1', name: 'search', arguments: {} } },
+        { type: 'done', usage: { inputTokens: 100, outputTokens: 50 } },
+      ],
+    ]);
+    (getProviderWithFallbacks as ReturnType<typeof vi.fn>).mockResolvedValue({
+      provider,
+      usedSlug: 'anthropic',
+    });
+    (capabilityDispatcher.dispatch as ReturnType<typeof vi.fn>).mockResolvedValue({
+      success: true,
+      data: 'result',
+    });
+
+    const events = await collect(streamChat(baseRequest));
+    const errorEvt = events.find((e: unknown) => (e as Record<string, unknown>).type === 'error');
+
+    expect(errorEvt).toMatchObject({ type: 'error', code });
     expect(budgetCallCount).toBe(2);
   });
 

@@ -57,7 +57,7 @@ import { revokeUserSessions } from '@/lib/auth/sessions';
 import { INSTALL_ORG_ID } from '@/lib/tenancy/constants';
 import { initialMembershipFor } from '@/lib/tenancy/membership';
 import { orgIdParamSchema, type OrgSettingsPatch } from '@/lib/validations/tenancy';
-import { applyRetentionPatch } from '@/lib/tenancy/org-settings';
+import { applyOrgSettingsPatch } from '@/lib/tenancy/org-settings';
 import {
   DEFAULT_ORG_ROLE,
   ORG_OWNER_ROLE,
@@ -335,11 +335,8 @@ export async function updateOrg(
     ...(patch.status !== undefined && { status: patch.status }),
   };
 
-  // Keyed on `settings`, not on `settings.retention`: a patch naming another
-  // slice of the column must still take the transaction, or it would report a
-  // change it did not make. `orgSettingsPatchSchema` admits only `retention`
-  // today, so this is the branch being right ahead of the second slice rather
-  // than a reachable bug.
+  // Keyed on `settings`, not on one slice of it: a patch naming any slice of
+  // the column (`retention`, `quotas`) takes the transaction.
   const settingsPatch = patch.settings;
 
   const updated =
@@ -357,7 +354,7 @@ export async function updateOrg(
             where: { id: orgId },
             data: {
               ...data,
-              settings: applyRetentionPatch(row.settings, settingsPatch.retention),
+              settings: applyOrgSettingsPatch(row.settings, settingsPatch),
             },
             select: orgSelect,
           });
@@ -370,6 +367,12 @@ export async function updateOrg(
     ...(settingsPatch?.retention !== undefined && {
       retention:
         settingsPatch.retention === null || Object.keys(settingsPatch.retention).length === 0
+          ? 'cleared'
+          : 'set',
+    }),
+    ...(settingsPatch?.quotas !== undefined && {
+      quotas:
+        settingsPatch.quotas === null || Object.keys(settingsPatch.quotas).length === 0
           ? 'cleared'
           : 'set',
     }),

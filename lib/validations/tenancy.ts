@@ -217,16 +217,49 @@ export const orgProviderPolicyInputSchema = z
 export type OrgProviderPolicyInput = z.infer<typeof orgProviderPolicyInputSchema>;
 
 /**
+ * One org's caps as STORED in `Org.settings.quotas` (§110 t-788).
+ *
+ * `monthlyBudgetUsd` is the most the org's AI calls may cost in a UTC
+ * calendar month, checked by `checkBudget()` beside the agent's own budget and
+ * the global cap — which stays install-wide and sits above every org's.
+ * Absent means no org cap. Zero is allowed and blocks every paid call, as it
+ * does for the global cap, whose bounds these mirror.
+ *
+ * Every key optional, so the slice can take more caps (§110's request cap)
+ * without a stored value going stale. `.strict()` on write: an unknown key is
+ * a typo that would be stored and never enforced. The read in
+ * `lib/tenancy/org-settings.ts` goes key by key instead, so one unreadable key
+ * does not discard the rest.
+ */
+export const orgQuotasSchema = z
+  .object({
+    monthlyBudgetUsd: z
+      .number()
+      .nonnegative('Monthly budget must be zero or positive')
+      .max(1_000_000, 'Monthly budget must be at most $1,000,000')
+      .optional(),
+  })
+  .strict();
+
+export type OrgQuotas = z.infer<typeof orgQuotasSchema>;
+
+/** The caps an org's `quotas` slice may name, for the per-key read. */
+export const ORG_QUOTA_KEYS = ['monthlyBudgetUsd'] as const;
+
+/**
  * The platform-owned slices of `Org.settings` a PATCH may write.
  *
  * `retention: null` removes the slice, so the org inherits every global
  * window again. Omitting `retention` leaves the stored slice alone, and any
  * other key a fork keeps in `settings` is preserved either way — the write
- * replaces this slice rather than merging into unknown JSON.
+ * replaces this slice rather than merging into unknown JSON. `quotas` follows
+ * the same rules; at `multi` only the install org may write it (the route
+ * enforces that), so an org's own admins cannot raise their own cap.
  */
 export const orgSettingsPatchSchema = z
   .object({
     retention: orgRetentionSchema.nullable().optional(),
+    quotas: orgQuotasSchema.nullable().optional(),
   })
   .strict()
   .refine((settings) => Object.keys(settings).length > 0, {
@@ -237,7 +270,7 @@ export type OrgSettingsPatch = z.infer<typeof orgSettingsPatchSchema>;
 
 /**
  * `PATCH /api/v1/admin/orgs/[id]` body — rename, re-slug, suspend, reinstate,
- * or set the org's own retention windows. At least one key; the route refuses
+ * or set the org's own retention windows or caps. At least one key; the route refuses
  * an empty object.
  */
 export const updateOrgSchema = z

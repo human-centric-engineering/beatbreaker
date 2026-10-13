@@ -16,7 +16,7 @@ import { validateQueryParams, validateRequestBody } from '@/lib/api/validation';
 import { getRouteLogger } from '@/lib/api/context';
 import { getClientIP } from '@/lib/security/ip';
 import { createAgentSchema, listAgentsQuerySchema } from '@/lib/validations/orchestration';
-import { getMonthToDateGlobalSpend } from '@/lib/orchestration/llm/cost-tracker';
+import { getGlobalCapState } from '@/lib/orchestration/llm/cost-tracker';
 import { logAdminAction } from '@/lib/orchestration/audit/admin-audit-logger';
 import { assertAgentSlugNotReserved } from '@/lib/orchestration/agents/platform-agent-guard';
 import {
@@ -111,24 +111,15 @@ export const GET = withAdminAuth(async (request, _session) => {
       const now = new Date();
       const monthStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
 
-      const [spendGroups, settings] = await Promise.all([
+      const [spendGroups, globalCap] = await Promise.all([
         prisma.aiCostLog.groupBy({
           by: ['agentId'],
           where: { agentId: { in: agentIds }, createdAt: { gte: monthStart } },
           _sum: { totalCostUsd: true },
         }),
-        prisma.aiOrchestrationSettings.findUnique({
-          where: { slug: 'global' },
-          select: { globalMonthlyBudgetUsd: true },
-        }),
+        getGlobalCapState(),
       ]);
-
-      let globalCapExceeded = false;
-      const globalCap = settings?.globalMonthlyBudgetUsd ?? null;
-      if (globalCap !== null) {
-        const globalSpent = await getMonthToDateGlobalSpend();
-        globalCapExceeded = globalSpent >= globalCap;
-      }
+      const globalCapExceeded = globalCap.exceeded;
 
       const spendByAgent = new Map(spendGroups.map((g) => [g.agentId, g._sum.totalCostUsd ?? 0]));
 

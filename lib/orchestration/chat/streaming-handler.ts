@@ -55,7 +55,12 @@ import { resolveAgentProviderAndModel } from '@/lib/orchestration/llm/agent-reso
 import { resolveEffectivePrompt } from '@/lib/orchestration/agents/resolve-effective-prompt';
 import { touchAgentLastActive } from '@/lib/orchestration/agents/touch-last-active';
 import { isRequestFault, ProviderError, type LlmProvider } from '@/lib/orchestration/llm/provider';
-import { calculateCost, checkBudget, logCost } from '@/lib/orchestration/llm/cost-tracker';
+import {
+  calculateCost,
+  checkBudget,
+  logCost,
+  type BudgetStatus,
+} from '@/lib/orchestration/llm/cost-tracker';
 import { resolveMaxCostPerTurn } from '@/lib/orchestration/llm/cost-caps';
 import { withAgentBudgetLock } from '@/lib/orchestration/llm/budget-mutex';
 import { dispatchWebhookEvent } from '@/lib/orchestration/webhooks/dispatcher';
@@ -473,11 +478,8 @@ export class StreamingChatHandler {
       }
 
       if (!budget.withinBudget) {
-        const limitStr = budget.limit !== null ? `$${budget.limit.toFixed(2)}` : 'its';
-        yield errorEvent(
-          'budget_exceeded',
-          `This agent has reached its monthly budget of ${limitStr}. Contact an admin to increase the limit or switch to a local model.`
-        );
+        const refusal = budgetRefusal(budget);
+        yield errorEvent(refusal.code, refusal.message);
         // Resolve the actor name out-of-band so the synchronous chat-stream
         // path doesn't block the SSE `error` event we yielded above. The
         // webhook dispatcher creates the delivery row inside this call,
@@ -498,6 +500,8 @@ export class StreamingChatHandler {
             conversationId,
             usedUsd: budget.spent,
             limitUsd: budget.limit,
+            // Which cap stopped the turn; `usedUsd` / `limitUsd` stay the agent's.
+            cap: refusal.cap,
           });
         })();
         return;
@@ -2108,11 +2112,8 @@ export class StreamingChatHandler {
         // prevent TOCTOU overruns when concurrent requests hit the same agent).
         const midBudget = await withAgentBudgetLock(agent.id, () => checkBudget(agent.id));
         if (!midBudget.withinBudget) {
-          const limitStr = midBudget.limit !== null ? `$${midBudget.limit.toFixed(2)}` : 'its';
-          yield errorEvent(
-            'budget_exceeded',
-            `This agent has reached its monthly budget of ${limitStr}. Contact an admin to increase the limit or switch to a local model.`
-          );
+          const refusal = budgetRefusal(midBudget);
+          yield errorEvent(refusal.code, refusal.message);
           return;
         }
 
@@ -3109,6 +3110,42 @@ function isClientAbort(err: unknown, signal?: AbortSignal): boolean {
 
 function errorEvent(code: string, message: string): ChatEvent {
   return { type: 'error', code, message };
+}
+
+/**
+ * The code and words for a turn `checkBudget` refused, naming the cap that
+ * did it (§110 t-788). The global cap first, then the org's, then the agent's:
+ * the widest cap is the one no admin of this agent or org can lift, so it is
+ * the one worth saying. The org and global messages name no amount — the
+ * reader may be an embed visitor, and those caps are not theirs to know.
+ */
+function budgetRefusal(budget: BudgetStatus): {
+  code: 'budget_exceeded' | 'org_budget_exceeded' | 'global_budget_exceeded';
+  cap: 'agent' | 'org' | 'global';
+  message: string;
+} {
+  if (budget.globalCapExceeded) {
+    return {
+      code: 'global_budget_exceeded',
+      cap: 'global',
+      message:
+        'This platform has reached its monthly AI budget. Contact a platform admin to raise the limit or switch to a local model.',
+    };
+  }
+  if (budget.orgCapExceeded) {
+    return {
+      code: 'org_budget_exceeded',
+      cap: 'org',
+      message:
+        'Your organisation has reached its monthly AI budget. Contact a platform admin to raise the limit or switch to a local model.',
+    };
+  }
+  const limitStr = budget.limit !== null ? `$${budget.limit.toFixed(2)}` : 'its';
+  return {
+    code: 'budget_exceeded',
+    cap: 'agent',
+    message: `This agent has reached its monthly budget of ${limitStr}. Contact an admin to increase the limit or switch to a local model.`,
+  };
 }
 
 /**
