@@ -3353,6 +3353,55 @@ much. The drum machines are still missing; they are 9-vi-e.
 | ------ | ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 9-vi-d | Synth voices draw into a given destination; `SynthSource` renders and plays them; per-voice re-render | Tests: a synth hit creates one source node; a knob change re-renders only that voice; the voice plays live until its new render is ready (`synth-source.test.ts`); the live graph unchanged (`engine.test.ts`). Owner by ear |
 
+**9-vi-e reconciled, 2026-10-13 (branch `phase-9-vi-e`, on `phase-9-vi-d`).**
+Read against the tree at `9fd190db`:
+
+- **The machines draw live as well as rendered.** 9-vi-d plays a voice
+  live while it re-renders, and a kit still rendering is live too. Live, a
+  drift kit today is the synth with `SAMPLE_STAND_IN`'s numbers, so turning
+  an 808 knob would play the synth. `machines.ts` draws into the same `Draw`
+  as `voices.ts`. `BreakAudio` asks the sources, then the machine when the
+  kit is `drift`, then the synth. `SynthSource` renders `drift` kits too,
+  from the machine's own 0..1 knobs (`BreakAudio.knobs`, not `P`).
+- **A resonator is drawn as its ring.** §8's "short impulse into a high-Q
+  bandpass" is a damped sine; a `BiquadFilterNode` driven by one sample gives
+  a level that moves with Q. The voices draw the damped sine and the click
+  separately, at levels that hold as the knobs move.
+- **Velocity is a gain on a machine,** which has accent, not velocity. Every
+  machine slot renders one layer. Takes keep their noise but not ±1.5% pitch
+  and ±5% decay: a machine is the same every hit.
+- **Level and the kit's trim are applied when a take plays,** so moving
+  Level re-renders nothing. The trims were measured against driftbox's
+  voices, which were never installed. They start at 1 and are set by ear.
+- **The toms are the machine's,** tuned by the `t` knobs in Hz and seconds,
+  as now (`SYNTH_ONLY`).
+- **What each machine has (`DRIFT_MAP`):**
+  - **808:** kick, snare (and ghost), rim shot as `sCross`, closed and open
+    hat, three toms; ride and crash borrowed from the 909, as now.
+  - **909:** kick, snare, rim shot as `sCross`, hats, ride (and bell, the
+    same ride), crash, three toms.
+  - **606:** kick, snare, hats, its one cymbal as the crash, two toms (a
+    third between them); ride from the 909.
+  - **Linn-style:** kick, snare, sidestick as `sCross`, hats, ride, crash,
+    three toms. A tuned approximation from the 909's models; its hint says
+    so.
+  - A slot a machine does not have falls back as a pack's does: to its
+    `fall` (a foot hat to the closed hat), else the synthesised voice.
+    Clap and cowbell wait.
+- **The Kit panel's help text** still says the synthesised kits are a graph
+  per hit, which 9-vi-d ended. It goes, with "not ported yet".
+
+**9-vi-e built, 2026-10-13.** As reconciled. Four machines play, live and
+rendered: the 808, 909, 606 and Linn-style kit. The seed has 26 kits. The
+808's and 909's hints say what is modelled and what is approximated. **Still
+to do by hand:** the owner A/B-listens to the 808 and 909 against a recording
+of each, played on the owner's side and never shipped, and sets the four
+trims by ear.
+
+| PR     | What                                                                                                                  | Done when                                                                                                                                                                                     |
+| ------ | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 9-vi-e | `machines.ts`: 808 and 909 models, 606 and Linn tables; drawn live and rendered by `SynthSource`; `drift` implemented | The picker no longer shows "not ported yet" (`kit-panel.test.tsx`); `setKit` takes them (`use-break-console.test.ts`); machine voices and renders (`machines.test.ts`); the owner A/B-listens |
+
 **Not in Phase 9:** cymbal chokes (grabs), crash 2 as a separate lane
 rather than a value, and rolls longer than one step. See `sound-plan.md` §10.
 

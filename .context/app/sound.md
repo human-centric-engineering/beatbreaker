@@ -448,6 +448,42 @@ and your samples.
 - **Closing the engine** disposes its sources: no render starts or lands
   after it.
 
+## The drum machines (9-vi-e)
+
+The TR-808, TR-909, TR-606 and Linn-style kits are `engine: 'drift'` rows
+whose voices are models built here, in `machines.ts`. No recording of either
+classic machine could be licensed, and the `@driftbox/engine` the rows were
+first declared against was never installed.
+
+- **A model and a table.** A model is a way of making a sound: an analog
+  kick (a damped sine with a pitch drop and a click, through saturation), a
+  snare of two tones and noise, an 808-family hat of six square waves through
+  two bands, a 909-family hat of noise through resonant bands, a cymbal of
+  metal and noise, a rim shot, a tom. A table is the ranges one machine's
+  0..1 knobs move it over. The 606 is the 808's models with its own tables;
+  the Linn-style kit is the 909's. `MACHINE_VOICES` holds each by the id
+  `DRIFT_MAP` names, and each says how long it rings (`seconds`), which sizes
+  its render.
+- **Knobs.** Tune, Decay, Tone, Colour, Level and Room are the machine's
+  0..1 (`DRIFT_PARAM_DEFS`); what each one moves is the model's. Toms are
+  tuned in Hz and seconds by the `t` knobs (`SYNTH_ONLY`). A missing knob
+  reads as the middle.
+- **Live and rendered.** `BreakAudio` asks the sources, then the machine,
+  then the synth. So a machine kit plays its own voices live while its renders
+  are on the way or a knob moves, and `BreakAudio.knobs` hands them the 0..1
+  numbers. `P` would hand them the synth's stand-in. `SynthSource` renders only
+  the slots the machine has: one layer of three takes, not strayed, because a
+  machine is the same every hit.
+- **Level and trim** are a gain when a hit plays, live or rendered
+  (`machineGain`), so Level re-renders nothing. The trims start at 1, set by
+  ear.
+- **What each has (`DRIFT_MAP`).** Kick, snare and its ghost, closed and
+  open hat, ride and bell, crash, three toms. The rim shot or sidestick is
+  `sCross` (not the 606). The 808's ride and crash are the 909's, and so is
+  the 606's ride. The 606's one cymbal is its crash. A slot a machine does
+  not have falls back as a pack's does: to its `fall` (a foot hat to the
+  closed hat), else the synthesised voice. Clap and cowbell wait.
+
 ## Tests
 
 | File                                                              | Holds                                                                                                                                                                                                                                                                                                                                    |
@@ -455,6 +491,7 @@ and your samples.
 | `tests/unit/lib/app/breaks/audio/packs.test.ts`                   | Round-robins never repeat back to back; the flat shape plays as before; the shelf; the wobble bounds; a kit from two folders; Level, Tune, Decay; mixed kits                                                                                                                                                                             |
 | `tests/unit/scripts/kits/pieces.test.ts`                          | Each piece once; a lent piece one key; every recorded kit as pieces plays the same files at the same trims                                                                                                                                                                                                                               |
 | `tests/unit/lib/app/breaks/catalogue/pieces.test.ts`              | Resolving a piece, `from`, a sample of yours, a piece that is gone                                                                                                                                                                                                                                                                       |
+| `tests/unit/lib/app/breaks/audio/machines.test.ts`                | Every `DRIFT_MAP` id has a voice; every voice draws into its `Draw` and rings inside a render; the 808 and 909 kicks' tuning and sweep; the 808 hats' six squares; open-hat tails; falls; Level × trim live and rendered; machine renders: their slots only, one layer, takes not strayed, no re-render for Level                        |
 | `tests/unit/lib/app/breaks/audio/synth-source.test.ts`            | A rendered hit is one source node; layers only on the snare strokes; the room channel and `playTake`'s split; velocity as gain; no take twice; one voice at a time; a knob plays live and re-renders its voice once, debounced; an overtaken render is dropped; a kit change goes live; too-long and missing decays; close stops renders |
 | `tests/unit/lib/app/breaks/audio/engine.test.ts`                  | The master chain to the ceiling; the ceiling curve; lane channels, pans, room; choking every open hat; the 9-iv slots and their synthesised voices                                                                                                                                                                                       |
 | `tests/unit/lib/app/breaks/articulations.test.ts`                 | 9-iv end to end: the wire, the layers, graces and Humanise, MIDI write and read for every value, the critic, `tidy`, the generator, the notation key                                                                                                                                                                                     |

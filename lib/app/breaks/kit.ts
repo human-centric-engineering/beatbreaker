@@ -15,8 +15,8 @@
  * - `synth` — the five acoustic kits. Drawn by `voices.ts`, rendered ahead
  *   into takes when the kit is picked and played like samples (9-vi-d); the
  *   live graph plays until the renders land. Costs nothing to ship.
- * - `drift` — TR-808 / TR-909 voice models, rendered through an
- *   `OfflineAudioContext` into one buffer per velocity layer when a knob moves.
+ * - `drift` — drum-machine voice models (808, 909, 606, Linn-style), built
+ *   here in `audio/machines.ts` and rendered ahead as the synth is (9-vi-e).
  * - `pack` — recorded kits, decoded on first use.
  * - `user` — your own kits: samples you uploaded to your account (D20),
  *   fetched from the owner-checked audio route and decoded on first use.
@@ -249,15 +249,17 @@ export function kitEngine(kit: Kit | undefined | null): KitEngine {
 }
 
 /**
- * The engines that actually have an implementation behind them.
- *
- * `drift` — the TR-808 / TR-909 voice models — is declared by two kits in the
- * table but not yet ported. Without this it would not fail: it would fall
- * through to the synthesised voices with the Machine kit's parameters, so
- * picking "TR-909" would quietly give you something else and sound like a poor
- * 909 rather than a missing one. The kit picker reads this and says so instead.
+ * The engines that actually have an implementation behind them — all four,
+ * since the machines were built (9-vi-e). The set stays: a fork that declares
+ * an engine before building it gets a disabled picker entry, not a kit that
+ * quietly plays the synth instead.
  */
-const IMPLEMENTED_ENGINES: ReadonlySet<KitEngine> = new Set<KitEngine>(['synth', 'pack', 'user']);
+const IMPLEMENTED_ENGINES: ReadonlySet<KitEngine> = new Set<KitEngine>([
+  'synth',
+  'drift',
+  'pack',
+  'user',
+]);
 
 /**
  * Whether this kit can actually be played.
@@ -314,31 +316,69 @@ export function kitGroups(kits: readonly ResolvedKit[]): { label: string; keys: 
 }
 
 /**
- * Which driftbox voice plays each lane and variant.
+ * Which machine voice (`audio/machines.ts`) plays each slot, by machine.
  *
- * The 808 has no ride and no crash — borrowing the 909's is the honest fix;
- * pretending a cowbell is a ride is not.
+ * A slot a machine does not have is not here, and falls back as a pack's
+ * does: to the slot's `fall`, else the synthesised voice. The 808's ride and
+ * crash are the 909's, and so is the 606's ride — borrowing another machine's
+ * is the honest fix; pretending a cowbell is a ride is not. A rim shot plays
+ * as the cross-stick (9-vi-e). The ghost is the snare, played soft.
  */
 export const DRIFT_MAP: Record<string, Record<string, string>> = {
   '909': {
     k: '909.bd',
     s: '909.sd',
     sGhost: '909.sd',
+    sCross: '909.rs',
     h: '909.ch',
     hOpen: '909.oh',
     r: '909.rd',
     rBell: '909.rd',
     c: '909.cr',
+    t1: '909.ht',
+    t2: '909.mt',
+    t3: '909.lt',
   },
   '808': {
     k: '808.bd',
     s: '808.sd',
     sGhost: '808.sd',
+    sCross: '808.rs',
     h: '808.ch',
     hOpen: '808.oh',
     r: '909.rd',
     rBell: '909.rd',
     c: '909.cr',
+    t1: '808.ht',
+    t2: '808.mt',
+    t3: '808.lt',
+  },
+  '606': {
+    k: '606.bd',
+    s: '606.sd',
+    sGhost: '606.sd',
+    h: '606.ch',
+    hOpen: '606.oh',
+    r: '909.rd',
+    rBell: '909.rd',
+    c: '606.cy',
+    t1: '606.ht',
+    t2: '606.mt',
+    t3: '606.lt',
+  },
+  linn: {
+    k: 'linn.bd',
+    s: 'linn.sd',
+    sGhost: 'linn.sd',
+    sCross: 'linn.ss',
+    h: 'linn.ch',
+    hOpen: 'linn.oh',
+    r: 'linn.rd',
+    rBell: 'linn.rd',
+    c: 'linn.cr',
+    t1: 'linn.ht',
+    t2: 'linn.mt',
+    t3: 'linn.lt',
   },
 };
 

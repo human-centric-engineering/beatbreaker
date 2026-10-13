@@ -424,7 +424,7 @@ describe('P()', () => {
 
   it('stands in with SAMPLE_STAND_IN for a non-synth-lane voice on a non-synth kit', () => {
     const audio = newEngine();
-    audio.setKit(TR909, null); // engine: 'drift' — not yet implemented as its own synth
+    audio.setKit(TR909, null); // engine: 'drift' — its own voices are `machines.ts`'s
     /* The same numbers this test always asserted — they were the Machine kit's
        — but they are `SAMPLE_STAND_IN` in `kit.ts` now rather than a row, and
        deliberately so: a drum-machine or sample kit stores 0..1 knobs and the
