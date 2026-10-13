@@ -3393,10 +3393,8 @@ Read against the tree at `9fd190db`:
 
 **9-vi-e built, 2026-10-13.** As reconciled. Four machines play, live and
 rendered: the 808, 909, 606 and Linn-style kit. The seed has 26 kits. The
-808's and 909's hints say what is modelled and what is approximated. **Still
-to do by hand:** the owner A/B-listens to the 808 and 909 against a recording
-of each, played on the owner's side and never shipped, and sets the four
-trims by ear.
+808's and 909's hints say what is modelled and what is approximated. The
+owner listened on 2026-10-13 and signed all four off as they are, trims at 1.
 
 | PR     | What                                                                                                                  | Done when                                                                                                                                                                                     |
 | ------ | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
