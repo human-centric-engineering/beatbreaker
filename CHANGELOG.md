@@ -32,9 +32,11 @@ release process.
   `enforcedModels()`) says which models it checks: `AiUserMemory`,
   `AiConversation` and `AiMessage` in this release (t-802 adds the second two:
   a message is checked through its conversation, a live share admits another
-  member's conversation, and a checked read may follow the ownership relation
+  member's conversation on a `withAdminAuth` request only — the surface a share
+  consents to, where the read is audit-logged — and a checked read may follow the ownership relation
   without a `where` of its own). A platform admin, a job, and any install with no narrowed caller
-  get byte-identical queries. See
+  get byte-identical queries. `SubjectEntry.readsShared` (absent means `false`)
+  and `OwnerReader.readsShared` carry the surface. See
   [Authorization → The owner chokepoint](./.context/auth/authorization.md#the-owner-chokepoint).
 
 - **The subject context and the owner classification** (§115 t-800), the two

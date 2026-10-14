@@ -586,14 +586,20 @@ async function visible(who: string, a: OrgFixture, b: OrgFixture) {
 /**
  * Run `fn` as `principal`, the way `withAuth` / `withAdminAuth` do: the real
  * policy answers the filter and the ownerless reads, and the owner layer reads
- * them from the subject context.
+ * them from the subject context. `readsShared` defaults to `withAdminAuth`'s
+ * answer; pass `false` for a `withAuth` route.
  */
-async function asPrincipal<T>(principal: AuthorizationPrincipal, fn: () => Promise<T>): Promise<T> {
+async function asPrincipal<T>(
+  principal: AuthorizationPrincipal,
+  fn: () => Promise<T>,
+  { readsShared = true }: { readsShared?: boolean } = {}
+): Promise<T> {
   return runAsSubject(
     {
       principal,
       resolveFilter: () => subjectScope(principal),
       unattributedReads: await resolveUnattributedReads(principal),
+      readsShared,
     },
     fn
   );
@@ -2181,6 +2187,18 @@ async function main(): Promise<void> {
       sharedById.thread?.messages.length === 1 && sharedById.message !== null,
       'the org ADMIN opens the shared thread and its message by id'
     );
+    // A share consents to the admin surface only: the same caller on a
+    // `withAuth` route is refused the thread, as any member would be.
+    await rejects(
+      () =>
+        asPrincipal(
+          orgAdmin,
+          () => inOrgA(() => prisma.aiConversation.findUnique({ where: { id: tShared.id } })),
+          { readsShared: false }
+        ),
+      refusedConversation,
+      'the shared thread is refused by id off the admin surface'
+    );
 
     // Sunrise's default admits only platform staff to ownerless rows, and they
     // are not narrowed. A fork's policy may admit its org admins too: the same
@@ -2196,6 +2214,7 @@ async function main(): Promise<void> {
           principal: orgAdmin,
           resolveFilter: () => subjectScope(orgAdmin),
           unattributedReads: ownerlessViewer.unattributedReads,
+          readsShared: true,
         },
         fn
       );

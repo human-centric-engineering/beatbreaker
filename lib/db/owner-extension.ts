@@ -26,9 +26,10 @@
  *     — or names no owner and the caller may read ownerless rows of that kind
  *     (`session.unattributedReads`). So `{ OR: [{ userId: me }, { userId: null }] }`
  *     passes for a caller admitted to ownerless rows, and `{ agentId }` alone
- *     does not. A model's `alsoVisible` arm confines too: a conversation's
- *     `share` filtered to live shares (`revokedAt: null`, no expiry or one in
- *     the future). A child owned `through` a parent (a message, through its
+ *     does not. A model's `alsoVisible` arm confines too, for a caller that
+ *     reads shares (`OwnerReader.readsShared`, a `withAdminAuth` request): a
+ *     conversation's `share` filtered to live shares (`revokedAt: null`, no
+ *     expiry or one in the future). A child owned `through` a parent (a message, through its
  *     conversation) confines when its filter on that relation would confine
  *     the parent.
  *   • `findUnique` (and `findUniqueOrThrow`) runs whatever its filter, and the
@@ -174,10 +175,17 @@ export class OwnerReadRefusedError extends Error {
   }
 }
 
-/** The caller a read is checked for: whose rows, and which ownerless kinds. */
+/** The caller a read is checked for: whose rows, which ownerless kinds, and whether shares count. */
 export interface OwnerReader {
   userId: string;
   unattributedReads: UnattributedReads;
+  /**
+   * Whether a model's `alsoVisible` arms admit rows for this caller. A share is
+   * its owner's consent to the admin surface, where every shared read is
+   * audit-logged (`.context/security/conversation-access.md`) — not to other
+   * members — so only a `withAdminAuth` request reads through one.
+   */
+  readsShared: boolean;
 }
 
 /**
@@ -186,7 +194,11 @@ export interface OwnerReader {
  */
 export function readerFor(scope: SubjectReadScope): OwnerReader | null {
   if (scope.kind !== 'subject' || scope.filter.userId === undefined) return null;
-  return { userId: scope.filter.userId, unattributedReads: scope.unattributedReads };
+  return {
+    userId: scope.filter.userId,
+    unattributedReads: scope.unattributedReads,
+    readsShared: scope.readsShared,
+  };
 }
 
 /** One model's fields, indexed once so the analysis never scans them. */
@@ -426,6 +438,7 @@ export function whereConfines(
     if (ownerLeafConfines(schema, c.owner, c.ownerless, key, value, reader)) return true;
     if (key === ownerRelation && ownerRelationConfines(c.ownerless, value, reader)) return true;
     if (
+      reader.readsShared &&
       (c.alsoVisible ?? []).some((arm) => ALSO_VISIBLE_RELATION[arm] === key) &&
       activeShareConfines(value)
     ) {
@@ -543,7 +556,7 @@ export function readablePredicate(
     arms.push({ [field]: { is: readablePredicate(schema, parent, reader) } });
     if (readsOwnerless(reader, c.ownerless)) arms.push({ [field]: null });
   }
-  for (const arm of c.alsoVisible ?? []) {
+  for (const arm of reader.readsShared ? (c.alsoVisible ?? []) : []) {
     arms.push({
       // An owned row only, as `conversationVisibilityWhere`'s share arm: a
       // share is the owner's consent, and a row nobody owns has no owner to

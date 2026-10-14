@@ -183,7 +183,7 @@ const db = withOwnerChecks(tenancyOnly, {
 function as<T>(
   filter: SubjectFilter,
   fn: () => Promise<T>,
-  extra: { onConfinedRead?: () => void } = {}
+  extra: { onConfinedRead?: () => void; readsShared?: boolean } = {}
 ): Promise<T> {
   return runAsSubject(
     {
@@ -198,6 +198,8 @@ function as<T>(
 }
 const asMember = <T>(fn: () => Promise<T>) => as({ userId: ME }, fn);
 const asPlatformAdmin = <T>(fn: () => Promise<T>) => as({}, fn);
+/** Narrowed to their own rows, on the admin surface: a share admits rows. */
+const asNarrowedAdmin = <T>(fn: () => Promise<T>) => as({ userId: ME }, fn, { readsShared: true });
 
 const memory = (userId: string) => ({
   id: `mem-${userId}`,
@@ -488,6 +490,7 @@ describe('withOwnerChecks — conversations and messages (t-802)', () => {
         filter: { userId: ME },
         resolveFilter: () => Promise.resolve({ userId: ME }),
         unattributedReads: { ...NO_UNATTRIBUTED, conversation: true },
+        readsShared: true,
       },
       fn
     );
@@ -525,8 +528,8 @@ describe('withOwnerChecks — conversations and messages (t-802)', () => {
   });
 
   it('admits a share arm only while it selects live shares', async () => {
-    await asMember(() => db.aiConversation.count({ where: { share: live() } }));
-    await asMember(() =>
+    await asNarrowedAdmin(() => db.aiConversation.count({ where: { share: live() } }));
+    await asNarrowedAdmin(() =>
       db.aiConversation.count({ where: { share: { is: { revokedAt: null, expiresAt: null } } } })
     );
     for (const share of [
@@ -537,10 +540,19 @@ describe('withOwnerChecks — conversations and messages (t-802)', () => {
       { isNot: { revokedAt: { not: null } } },
     ]) {
       await expect(
-        asMember(() => db.aiConversation.count({ where: { share } })),
+        asNarrowedAdmin(() => db.aiConversation.count({ where: { share } })),
         JSON.stringify(share)
       ).rejects.toMatchObject({ reason: 'unconfined-filter' });
     }
+  });
+
+  it('admits no share arm off the admin surface', async () => {
+    // A share is consent to the admin surface, where the read is audit-logged
+    // — not to other members, so a `withAuth` caller cannot list through one.
+    await expect(
+      asMember(() => db.aiConversation.count({ where: { share: live() } }))
+    ).rejects.toMatchObject({ reason: 'unconfined-filter' });
+    expect(statements).toHaveLength(0);
   });
 
   it('lets a checked read follow the ownership relation in either direction without its own where', async () => {
@@ -622,15 +634,25 @@ describe('withOwnerChecks — conversations and messages (t-802)', () => {
     ).rejects.toMatchObject({ code: 'P2025' });
   });
 
-  it("reads another member's shared thread by id, and refuses an unshared one", async () => {
+  it("reads another member's shared thread by id on the admin surface, and refuses an unshared one", async () => {
     tableAnswers = { ai_conversation: [[conversation(OTHER)]] };
-    await asMember(() => db.aiConversation.findUnique({ where: { id: CONV } }));
+    await asNarrowedAdmin(() => db.aiConversation.findUnique({ where: { id: CONV } }));
     expect(statements[0].sql).toMatch(/ai_conversation_share/);
 
     tableAnswers = { ai_conversation: [[], [{ id: CONV }]] };
     await expect(
+      asNarrowedAdmin(() => db.aiConversation.findUnique({ where: { id: CONV } }))
+    ).rejects.toMatchObject({ reason: 'foreign-row' });
+  });
+
+  it("refuses another member's shared thread by id off the admin surface", async () => {
+    // Narrowed without the share arm, the shared row misses and the existence
+    // ask finds it: refused, not admitted through the share.
+    tableAnswers = { ai_conversation: [[], [{ id: CONV }]] };
+    await expect(
       asMember(() => db.aiConversation.findUnique({ where: { id: CONV } }))
     ).rejects.toMatchObject({ reason: 'foreign-row' });
+    expect(statements[0].sql).not.toMatch(/ai_conversation_share/);
   });
 
   it('narrows inside a transaction on the transaction', async () => {
@@ -648,9 +670,13 @@ describe('withOwnerChecks — conversations and messages (t-802)', () => {
 
   it('narrows an unconfined findFirst to the rows the caller may read, share arm included', async () => {
     tableAnswers = { ai_conversation: [[]] };
-    await asMember(() => db.aiConversation.findFirst({ where: { agentId: AGENT } }));
+    await asNarrowedAdmin(() => db.aiConversation.findFirst({ where: { agentId: AGENT } }));
     expect(statements[0].sql).toMatch(/ai_conversation_share/);
     expect(statements[0].args).toContain(ME);
+
+    statements.length = 0;
+    await asMember(() => db.aiConversation.findFirst({ where: { agentId: AGENT } }));
+    expect(statements[0].sql).not.toMatch(/ai_conversation_share/);
   });
 });
 
@@ -739,6 +765,7 @@ describe('whereConfines / rowReadable', () => {
   const reader = (reads: Partial<UnattributedReads> = {}): OwnerReader => ({
     userId: ME,
     unattributedReads: { ...NO_UNATTRIBUTED, ...reads },
+    readsShared: false,
   });
 
   it('admits an ownerless arm only for a caller the policy lets read ownerless rows', () => {
@@ -806,12 +833,17 @@ describe('whereConfines / rowReadable', () => {
   it('builds a readable predicate that its own analysis accepts, for every enforced model', () => {
     const s = readOwnerSchema(base, enforcedModels());
     for (const reads of [{}, { conversation: true }]) {
-      for (const model of enforcedModels()) {
-        const where = readablePredicate(s, model, reader(reads));
-        expect(whereConfines(s, model, where, reader(reads)), model).toBe(true);
+      for (const readsShared of [false, true]) {
+        for (const model of enforcedModels()) {
+          const r = { ...reader(reads), readsShared };
+          const where = readablePredicate(s, model, r);
+          expect(whereConfines(s, model, where, r), model).toBe(true);
+        }
       }
     }
     expect(readablePredicate(s, 'AiUserMemory', reader())).toEqual({ userId: ME });
+    // Off the admin surface a conversation has no share arm to admit.
+    expect(readablePredicate(s, 'AiConversation', reader())).toEqual({ userId: ME });
   });
 
   it('names the path of the first unconfined relation', () => {
@@ -833,6 +865,7 @@ describe('whereConfines / rowReadable', () => {
         principal: { userId: ME, credential: 'session' },
         filter: {},
         unattributedReads: NO_UNATTRIBUTED,
+        readsShared: true,
       })
     ).toBeNull();
     expect(

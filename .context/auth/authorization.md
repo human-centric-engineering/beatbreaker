@@ -944,6 +944,21 @@ the shape `conversationVisibilityWhere` emits — so a list built from that
 fragment passes as it is, and a message read through it
 (`conversation: conversationVisibilityWhere(session)`) does too.
 
+**A share counts only on a `withAdminAuth` request.** A share is its owner's
+consent for an admin to view the thread, and every such read is audit-logged
+([conversation access](../security/conversation-access.md)) — it is not consent
+to other members. So the guard enters the subject with `readsShared` set only
+for `withAdminAuth`; on a `withAuth` route, for any caller, the share arm
+neither confines a filter nor joins the narrowed predicate, and another
+member's shared thread read by id is refused. A fork that adds a surface a
+share should reach (a compliance-officer route, say) enters it with
+`readsShared: true` and audits the read there.
+
+The expiry bound is checked against the clock with 60 seconds of slack, so
+**build the visibility fragment for each query** rather than once per request
+and reused across slow awaits: a fragment older than that is refused as
+`unconfined-filter`.
+
 ```ts
 // Confined — passes
 prisma.aiUserMemory.findMany({ where: { userId: session.user.id, agentId } });
