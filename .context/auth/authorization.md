@@ -868,9 +868,10 @@ owner predicate belongs with it. Until then:
   guards run every handler inside `runAsSubject()`, carrying the principal they
   built. `getSubjectReadScope()` answers `none` (no guard entered one), `subject`
   with the policy's `SubjectFilter` (`{ userId }` narrowed, `{}` not), or
-  `admitted`. The policy is asked lazily and at most once per request; a
-  `'policy'` route hands over the answer it already has, so `session.subjectFilter`
-  and the data layer cannot disagree. The scope follows the async subtree, so a
+  `admitted`. The policy is asked lazily and at most once per request (a failed
+  answer is not kept — the next read asks again); a `'policy'` route hands over
+  the answer it already has, so `session.subjectFilter` and the data layer
+  cannot disagree. The scope follows the async subtree, so a
   streamed body or an interactive `$transaction` keeps it and a maintenance job
   never has one.
 - **Who enters no subject, on purpose.** Background jobs, and the credential

@@ -91,6 +91,26 @@ describe('inside a subject', () => {
     });
   });
 
+  it('copies the filter the guard handed over, so the route mutating its own cannot widen the data layer', async () => {
+    const routeFilter: { userId?: string } = { userId: 'member-1' };
+    await runAsSubject(entryFor('member-1', { filter: routeFilter }), async () => {
+      delete routeFilter.userId;
+      expect(await getSubjectReadScope()).toMatchObject({ filter: { userId: 'member-1' } });
+    });
+  });
+
+  it('does not memoise a failed answer — the next read asks again', async () => {
+    const resolveFilter = vi
+      .fn<SubjectEntry['resolveFilter']>()
+      .mockRejectedValueOnce(new Error('fallback failed'))
+      .mockResolvedValueOnce({ userId: 'member-1' });
+    await runAsSubject(entryFor('member-1', { resolveFilter }), async () => {
+      await expect(getSubjectReadScope()).rejects.toThrow('fallback failed');
+      expect(await getSubjectReadScope()).toMatchObject({ filter: { userId: 'member-1' } });
+    });
+    expect(resolveFilter).toHaveBeenCalledTimes(2);
+  });
+
   it('does not leak past the callback, even when it throws', async () => {
     await expect(
       runAsSubject(entryFor('member-1'), () => Promise.reject(new Error('boom')))

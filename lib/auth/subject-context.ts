@@ -58,12 +58,13 @@ export interface SubjectEntry {
   /** The principal the guard built and the policy was asked about. */
   principal: AuthorizationPrincipal;
   /**
-   * The policy's answer, when the guard already computed it. Reused as is, so
-   * the route's `session.subjectFilter` and the data layer agree by
-   * construction.
+   * The policy's answer, when the guard already computed it. Reused, so the
+   * route's `session.subjectFilter` and the data layer agree by construction —
+   * but copied on entry, so a handler that mutates the object it was handed
+   * cannot change the data layer's answer for the rest of the request.
    */
   filter?: SubjectFilter;
-  /** Computes the answer when {@link filter} is absent. Called at most once. */
+  /** Computes the answer when {@link filter} is absent. Called at most once unless it fails. */
   resolveFilter: () => Promise<SubjectFilter>;
   /** The ownerless kinds this caller may read — the guard's resolved record. */
   unattributedReads: UnattributedReads;
@@ -108,7 +109,7 @@ async function settleInside<T>(fn: () => Promise<T>): Promise<T> {
  * nothing else should — see the module header for who deliberately does not.
  */
 export function runAsSubject<T>(entry: SubjectEntry, fn: () => Promise<T>): Promise<T> {
-  const memo = { filter: entry.filter ? Promise.resolve(entry.filter) : null };
+  const memo = { filter: entry.filter ? Promise.resolve({ ...entry.filter }) : null };
   return subjectContext.run({ entry, memo, admitted: null }, () => settleInside(fn));
 }
 
@@ -142,7 +143,9 @@ export function runAcrossOwners<T>(reason: string, fn: () => Promise<T>): Promis
  *
  * Never throws for a policy failure: `subjectScope()` (what the guard hands in
  * as `resolveFilter`) already answers from safe mode — the caller's own rows —
- * when the policy throws or returns something unusable.
+ * when the policy throws or returns something unusable. Should that fallback
+ * itself fail, the failure is not memoised: this read rejects, and the next one
+ * asks again rather than inheriting the same rejection for the whole request.
  */
 export async function getSubjectReadScope(): Promise<SubjectReadScope> {
   const store = subjectContext.getStore();
@@ -151,7 +154,10 @@ export async function getSubjectReadScope(): Promise<SubjectReadScope> {
   if (store.admitted !== null) {
     return { kind: 'admitted', reason: store.admitted, principal: entry.principal };
   }
-  memo.filter ??= entry.resolveFilter();
+  memo.filter ??= entry.resolveFilter().catch((err: unknown) => {
+    memo.filter = null;
+    throw err;
+  });
   return {
     kind: 'subject',
     principal: entry.principal,
