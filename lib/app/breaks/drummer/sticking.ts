@@ -336,6 +336,29 @@ function writtenStep(bar: Bar, i: number, ch: string): StepHands[] | null {
   return [step];
 }
 
+/**
+ * A bar's sticking row from the hand each lane is played with (D60): a
+ * polyrhythm entry says "right hand on the floor tom, left on the snare", and
+ * this writes the letter each step needs for the drummer to play it so. The
+ * letter names the hand for the note {@link writtenStep} hands out first, so
+ * where two lanes land together (the shared downbeat of a 3:2) the first
+ * gets its own hand and the other the other one. A step whose notes have no
+ * hand named is left to the drummer (`.`).
+ */
+export function stickingFromHands(bar: Bar, hands: Partial<Record<LaneKey, 'R' | 'L'>>): string {
+  let row = '';
+  for (let i = 0; i < bar.k.length; i++) {
+    const notes = handNotes(bar, i);
+    const main = notes.find((lane) => DRUMS.includes(lane)) ?? notes[0];
+    const own = main ? hands[main] : undefined;
+    const rest = notes.find((lane) => lane !== main && hands[lane]);
+    if (own) row += own;
+    else if (rest) row += hands[rest] === 'R' ? 'L' : 'R';
+    else row += '.';
+  }
+  return row;
+}
+
 /** The ways a step's notes can be shared between the hands; `turn` says hand to hand, and whose go it is. */
 function choices(bar: Bar, i: number, turn?: Hand, sticking?: string | null): StepHands[] {
   const written = sticking?.[i] ? writtenStep(bar, i, sticking[i]) : null;

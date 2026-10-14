@@ -12,7 +12,7 @@ import { percussionSource } from '@/lib/app/breaks/catalogue/types';
 import { humaniseAmount, humaniseSeed } from '@/lib/app/breaks/humanise';
 import { withTuning } from '@/lib/app/breaks/kit';
 import { DEFAULT_MIX } from '@/lib/app/breaks/lanes';
-import { LAYER_NAMES, reducePattern } from '@/lib/app/breaks/layers';
+import { patternLayerName, reducePattern } from '@/lib/app/breaks/layers';
 import type { SharePayload } from '@/lib/app/breaks/schema';
 import { lettersOf, patternsOf } from '@/lib/app/breaks/sections';
 import { breakDocFromPayload } from '@/lib/app/breaks/share';
@@ -193,7 +193,10 @@ export function PatternPlayer({
           className="w-56"
           value={String(level)}
           onValueChange={(v) => setLevel(Number(v))}
-          options={LEVELS.map((n) => ({ value: String(n), label: `${n} · ${LAYER_NAMES[n]}` }))}
+          options={LEVELS.map((n) => ({
+            value: String(n),
+            label: `${n} · ${patternLayerName(n, doc.A)}`,
+          }))}
         />
       </div>
 

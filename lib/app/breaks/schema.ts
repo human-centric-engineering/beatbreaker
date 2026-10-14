@@ -128,6 +128,41 @@ export const styleAttrsSchema = z.object({
 /** A row of written sticking: a hand or `.` a step (D44). */
 const STICKING_ROW = /^[.RLrl]*$/;
 
+/* Bounds on a packed bar. The longest meter (15/8) is 30 steps, and a bar is
+   every lane's row joined by `|`; the caps leave room without letting a pasted
+   code carry a megabyte of digits into the database. */
+const MAX_ROW = 32;
+
+const typedLane = z.enum(LANES as [LaneKey, ...LaneKey[]]);
+
+/** The devices a polyrhythm entry may name (plan §3). */
+export const POLY_DEVICES = [
+  'cross-rhythm',
+  'hemiola',
+  'grouping',
+  'polymeter',
+  'timeline',
+  'ostinato',
+] as const;
+
+/**
+ * A polyrhythm entry's streams (Phase 12, {@link Poly}). The cross pulse is
+ * held to a bar of the longest meter: `beat` steps apart, `count` to a cycle,
+ * and a cycle no longer than the eight bars a pattern may have.
+ */
+export const polySchema = z
+  .object({
+    device: z.enum(POLY_DEVICES),
+    ratio: z.string().min(1).max(10),
+    pulse: z.array(typedLane).min(1).max(LANES.length),
+    cross: z.array(typedLane).min(1).max(LANES.length),
+    beat: z.number().int().min(1).max(MAX_ROW),
+    count: z.number().int().min(2).max(16),
+    hands: z.partialRecord(typedLane, z.enum(['R', 'L'])).optional(),
+  })
+  .refine((p) => p.beat * p.count <= 8 * MAX_ROW, 'a cycle longer than a pattern')
+  .refine((p) => !p.pulse.some((L) => p.cross.includes(L)), 'a lane is in one stream, not both');
+
 export const patternSchema = z.object({
   name: z.string().max(120),
   style: styleKey,
@@ -149,13 +184,10 @@ export const patternSchema = z.object({
   pins: z.array(z.record(laneKey, z.array(z.number().int().min(0).max(5))).nullable()).nullable(),
   sticking: z.array(z.string().max(32).regex(STICKING_ROW).nullable()).max(8).nullable().optional(),
   fixed: z.boolean().optional(),
+  poly: polySchema.optional(),
   bars: z.array(barSchema).min(1).max(8),
 });
 
-/* Bounds on a packed bar. The longest meter (15/8) is 30 steps, and a bar is
-   every lane's row joined by `|`; the caps leave room without letting a pasted
-   code carry a megabyte of digits into the database. */
-const MAX_ROW = 32;
 const MAX_BAR_STRING = LANES.length * (MAX_ROW + 1);
 
 /**
@@ -305,6 +337,12 @@ export const packedPatternSchema = z.object({
     .optional(),
   /** fixed: every layer plays it whole (D45) — optional and additive, as `sk` is */
   fx: z.literal(1).optional(),
+  /**
+   * A polyrhythm entry's streams (Phase 12) — optional and additive, as `fx`
+   * is: an older reader drops it and plays the whole figure at every layer,
+   * which is what it heard before.
+   */
+  py: polySchema.optional(),
   /** bars, each one every lane's row joined by `|` */
   b: z.array(packedBar).min(1).max(8),
 });
@@ -468,6 +506,7 @@ function repairPacked(p: unknown, v5: boolean): unknown {
       return o;
     });
   }
+  if ('py' in p && !polySchema.safeParse(p.py).success) delete out.py;
   if (Array.isArray(p.sk)) {
     out.sk = p.sk
       .slice(0, 8)

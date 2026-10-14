@@ -10,6 +10,7 @@ import type {
 } from '@/lib/app/breaks/catalogue/types';
 import { COMBINATIONS, KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
+import { POLYRHYTHMS } from '@/prisma/seeds/app-beatbreaker/data/polyrhythms';
 import { RUDIMENTS } from '@/prisma/seeds/app-beatbreaker/data/rudiments';
 import { STYLES, STYLE_GROUPS } from '@/prisma/seeds/app-beatbreaker/data/styles';
 
@@ -120,6 +121,15 @@ export function testRudiments(): CatalogueLibrary {
     title: 'Rudiments',
     description: 'The forty International Drum Rudiments.',
     entries: entriesOf(RUDIMENTS, 'rudiment'),
+  };
+}
+
+export function testPolyrhythms(): CatalogueLibrary {
+  return {
+    key: 'polyrhythms',
+    title: 'Polyrhythms',
+    description: 'Two rhythms at once, each named for what it is.',
+    entries: entriesOf(POLYRHYTHMS, 'poly'),
   };
 }
 

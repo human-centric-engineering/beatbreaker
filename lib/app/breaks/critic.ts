@@ -104,7 +104,10 @@ export function playability(pat: Pattern, bpm0: number): Playability {
 
     let empties = 0;
     for (let i = 0; i < nSteps; i++) if ((doubleKick || !b.k[i]) && !b.s[i]) empties++;
-    if (empties < airFloor && !stuck) airless = true;
+    /* A polyrhythm exercise (Phase 12) is two streams written out, not a
+       groove: its air is the space between the streams, and it has none to
+       leave for a groove that is not there. */
+    if (empties < airFloor && !stuck && !pat.poly) airless = true;
   }
 
   if (doubleKick) kickRun = false;

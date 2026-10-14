@@ -92,6 +92,13 @@ describe('the catalogue is data, not code', () => {
     const data = join(ROOT, 'prisma/seeds/app-beatbreaker/data');
     const files = readdirSync(data).sort();
     // `drummer-model/` is the drummer records (Phase 11), read by the lineage seed
-    expect(files).toEqual(['drummer-model', 'kits.ts', 'library.ts', 'rudiments.ts', 'styles.ts']);
+    expect(files).toEqual([
+      'drummer-model',
+      'kits.ts',
+      'library.ts',
+      'polyrhythms.ts',
+      'rudiments.ts',
+      'styles.ts',
+    ]);
   });
 });

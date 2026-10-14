@@ -301,6 +301,26 @@ describe('POST /api/v1/breaks/doctor', () => {
       error: { message: expect.stringMatching(/rudiment is written out/) },
     });
   });
+
+  it('refuses a polyrhythm, which is written out too (Phase 12)', async () => {
+    const doc = packPattern({
+      ...directPattern(5),
+      poly: {
+        device: 'cross-rhythm',
+        ratio: '3:2',
+        pulse: ['s'],
+        cross: ['k'],
+        beat: 4,
+        count: 3,
+      },
+    });
+    const res = await DOCTOR(post('doctor', { styleKey: 'funk', doc, move: 'ghosts+' }));
+    expect(res.status).toBe(400);
+    expect(await res.json()).toMatchObject({
+      success: false,
+      error: { message: expect.stringMatching(/polyrhythm is written out/) },
+    });
+  });
 });
 
 describe('POST /api/v1/breaks/critique', () => {

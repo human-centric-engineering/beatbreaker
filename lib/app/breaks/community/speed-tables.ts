@@ -223,6 +223,8 @@ export interface ListedBest {
   title: string;
   /** The published pattern's address; null for a famous break, which has no page. */
   slug: string | null;
+  /** Its style key, which names its layers: a polyrhythm's are its streams. */
+  style: string;
   level: number;
   bpm: number;
   recordedAt: string;
@@ -271,8 +273,10 @@ export async function listedBests(userId: string): Promise<ListedBest[]> {
       recordedAt: true,
       videoUrl: true,
       gridHash: true,
-      breakRef: { select: { id: true, title: true, slug: true, gridHash: true, doc: true } },
-      libraryEntry: { select: { id: true, title: true, doc: true } },
+      breakRef: {
+        select: { id: true, title: true, slug: true, style: true, gridHash: true, doc: true },
+      },
+      libraryEntry: { select: { id: true, title: true, styleKey: true, doc: true } },
     },
   });
 
@@ -300,6 +304,7 @@ export async function listedBests(userId: string): Promise<ListedBest[]> {
     out.push({
       title: b?.title ?? e?.title ?? '',
       slug: b?.slug ?? null,
+      style: b?.style ?? e?.styleKey ?? '',
       level: r.level,
       bpm: r.bpm,
       recordedAt: r.recordedAt.toISOString(),

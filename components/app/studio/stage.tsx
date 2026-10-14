@@ -24,7 +24,7 @@ import {
 } from '@/lib/app/breaks/sections';
 import { songPartOf } from '@/lib/app/breaks/songs';
 import { engrave } from '@/lib/app/breaks/engrave';
-import { LAYER_BLURB, LAYER_NAMES } from '@/lib/app/breaks/layers';
+import { layerBlurbsFor, layerNamesFor } from '@/lib/app/breaks/layers';
 import { styleLabel } from '@/lib/app/breaks/library';
 import { parseReferenceLink, type StoredLink } from '@/lib/app/breaks/links';
 import type { Pattern } from '@/lib/app/breaks/types';
@@ -156,6 +156,14 @@ export function Stage() {
   }, [c.position, engravings]);
 
   const style = c.catalogue.styles[c.style]?.params;
+  /* A polyrhythm's layers are its streams built up, and say so (D54), in
+     the order they are counted. The section on the stage decides: All shows
+     A's. Its streams, not its style key, since they are what the layers
+     reduce by. */
+  const poly = (c.viewMode === 'both' ? c.view.A : c.view[c.viewMode])?.poly;
+  const layerNames = layerNamesFor(!!poly, c.feelCross);
+  const layerBlurbs = layerBlurbsFor(!!poly, c.feelCross);
+  const [crossNum, pulseNum] = poly?.ratio.includes(':') ? poly.ratio.split(':') : [];
   const viewMode = c.viewMode;
   const shown: SectionLetter[] = viewMode === 'both' ? c.letters : [viewMode];
   /** The section on show, when it is one a break can do without. */
@@ -266,7 +274,7 @@ export function Stage() {
               </span>
               <span className="chip">seed {String(c.view.A.seed).slice(-4)}</span>
               <span className="chip rust">
-                Layer {c.level} · {LAYER_NAMES[c.level]}
+                Layer {c.level} · {layerNames[c.level]}
               </span>
               {style?.feel && c.feel ? <span className="chip teal">{style.feel.label}</span> : null}
             </div>
@@ -307,7 +315,7 @@ export function Stage() {
             small
             options={[1, 2, 3, 4, 5].map((n) => ({
               value: n,
-              title: `${LAYER_BLURB[n]} (${n})`,
+              title: `${layerBlurbs[n]} (${n})`,
               keyshortcuts: String(n),
               /* The name leads (E12); the number is the key that picks it. */
               face: (
@@ -315,13 +323,37 @@ export function Stage() {
                   <span className="layer-key" aria-hidden="true">
                     {n}
                   </span>
-                  {LAYER_NAMES[n]}
+                  {layerNames[n]}
                 </>
               ),
             }))}
             value={c.level}
             onChange={c.setLevel}
           />
+
+          {/* A polyrhythm is learnt felt both ways round (D54): which of its
+              streams you count is layer 1, and what the click plays. */}
+          {poly ? (
+            <Segmented
+              label="Count"
+              small
+              options={[
+                {
+                  value: false,
+                  face: pulseNum ? `The ${pulseNum}` : 'The pulse',
+                  title: 'Count the pulse: layer 1 plays it alone, and the click is the beat',
+                },
+                {
+                  value: true,
+                  face: crossNum ? `The ${crossNum}` : `The ${poly.ratio}`,
+                  title:
+                    'Count the cross-rhythm: layer 1 plays it alone, and the click follows it, louder at the start of each cycle',
+                },
+              ]}
+              value={c.feelCross}
+              onChange={c.setFeelCross}
+            />
+          ) : null}
         </div>
 
         {stageView === 'drummer' ? (
@@ -357,7 +389,7 @@ export function Stage() {
                   disabled={!c.next}
                   title={
                     c.next
-                      ? `Show what ${LAYER_NAMES[c.level + 1]} adds, in faint ink`
+                      ? `Show what ${layerNames[c.level + 1]} adds, in faint ink`
                       : 'Full break is the whole break — there is nothing above it'
                   }
                 >

@@ -10,13 +10,17 @@ import { PATTERNS_TABS, type PatternsTab } from '@/components/app/shell/studio-a
 import { PinButton, SHELF_LABEL } from '@/components/app/studio/pin-button';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
-import { isUnsaved, type UnsavedItem } from '@/components/app/studio/use-practice-history';
+import {
+  isUnsaved,
+  trailStyle,
+  type UnsavedItem,
+} from '@/components/app/studio/use-practice-history';
 import { SelectMenu } from '@/components/app/ui/select-menu';
 import { apiClient } from '@/lib/api/client';
 import { PATTERNS_TAB } from '@/lib/app/breaks/browser-keys';
 import { type CatalogueEntry, libraryGroups } from '@/lib/app/breaks/catalogue/types';
 import { FULL_LAYER, layerName } from '@/lib/app/breaks/layers';
-import { RUDIMENTS_LIBRARY, styleLabel } from '@/lib/app/breaks/library';
+import { PRACTICE_LIBRARIES, styleLabel } from '@/lib/app/breaks/library';
 import { DEFAULT_METER, METER_KEYS } from '@/lib/app/breaks/meter';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import { logger } from '@/lib/logging';
@@ -203,7 +207,7 @@ export function ShelfList({ shelf, empty }: { shelf: Shelf; empty: React.ReactNo
             title={t.title}
             level={t.level}
             mine={t.mine}
-            sub={t.level === undefined ? who : `${who} · ${layerName(t.level)}`}
+            sub={t.level === undefined ? who : `${who} · ${layerName(t.level, t.style)}`}
             right={tempo(t.bpm, t.meter)}
           />
         );
@@ -235,7 +239,7 @@ function UnsavedRow({ item, onOpen }: { item: UnsavedItem; onOpen: () => void })
           <b>{item.target.title}</b>
           <span>{item.name}</span>
         </div>
-        <span className="bpm">{`${layerName(item.level)} · ${item.bpm}`}</span>
+        <span className="bpm">{`${layerName(item.level, trailStyle(item))} · ${item.bpm}`}</span>
       </button>
     </div>
   );
@@ -277,7 +281,7 @@ function RecentList() {
                   ? 'Your pattern'
                   : 'Shared with you'
             }
-            right={`${layerName(item.level)} · ${item.bpm}`}
+            right={`${layerName(item.level, trailStyle(item))} · ${item.bpm}`}
             level={item.level}
             mine={item.target.kind === 'break' && item.target.mine}
             // the history opens at the layer and tempo you left it
@@ -451,7 +455,7 @@ function AllList() {
               key={r.id}
               target={{ breakId: r.id }}
               title={r.title}
-              sub={`${styleLabel(r.style)} · ${layerName(r.level)}`}
+              sub={`${styleLabel(r.style)} · ${layerName(r.level, r.style)}`}
               level={r.level}
               right={tempo(r.bpm, r.meter)}
               mine
@@ -486,8 +490,8 @@ function matches(entry: CatalogueEntry, filter: Filter): boolean {
 /** Every library the catalogue holds, filtered here — the rows are already in the page. */
 function LibrariesList() {
   const c = useStudio();
-  // the rudiments have their own card, in Generate (Phase 10)
-  const libraries = c.catalogue.libraries.filter((l) => l.key !== RUDIMENTS_LIBRARY);
+  // the rudiments and the polyrhythms have their own cards, in Generate (Phases 10 and 12)
+  const libraries = c.catalogue.libraries.filter((l) => !PRACTICE_LIBRARIES.includes(l.key));
   const [filter, setFilter] = useState<Filter>(NO_FILTER);
   const styles = useMemo(
     () => [...new Set(libraries.flatMap((l) => l.entries.map((e) => e.styleKey)))],
@@ -543,7 +547,7 @@ function LibrariesList() {
         <StudioHelp title="The libraries">
           The main groove off each record — a bar or two of it, in the meter it was played in. Fills
           and variations are not here. The feel studies at the bottom are written rather than
-          transcribed, and say so. The rudiments are in Generate.
+          transcribed, and say so. The rudiments and the polyrhythms are in Generate.
         </StudioHelp>
       </div>
     </>

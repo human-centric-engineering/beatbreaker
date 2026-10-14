@@ -13,11 +13,17 @@ import {
 } from '@/lib/app/breaks/catalogue/schemas';
 import { COMBINATIONS_GROUP, KIT_GROUP_LABELS, kitEngine } from '@/lib/app/breaks/kit';
 import { KIT_CREDITS } from '@/lib/app/breaks/kit-credits.generated';
-import { type LibraryItem, RUDIMENTS_LIBRARY, patternFromLibrary } from '@/lib/app/breaks/library';
+import {
+  type LibraryItem,
+  POLYRHYTHMS_LIBRARY,
+  RUDIMENTS_LIBRARY,
+  patternFromLibrary,
+} from '@/lib/app/breaks/library';
 import { packPattern } from '@/lib/app/breaks/share';
 import type { ResolvedStyle } from '@/lib/app/breaks/types';
 import { COMBINATIONS, KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
+import { POLYRHYTHMS } from '@/prisma/seeds/app-beatbreaker/data/polyrhythms';
 import { RUDIMENTS } from '@/prisma/seeds/app-beatbreaker/data/rudiments';
 import { STYLES, STYLE_GROUPS } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import type { SeedContext, SeedUnit } from '@/prisma/runner';
@@ -33,7 +39,7 @@ import {
 import { RECIPES } from '@/scripts/kits/recipes';
 
 /**
- * The catalogue: 70 styles, 47 famous breaks, 40 rudiments, 26 kits, six
+ * The catalogue: 70 styles, 47 famous breaks, 40 rudiments, 25 polyrhythms, 26 kits, six
  * combinations and the pieces they are made of.
  *
  * This is where content became data (D13). The three tables it fills used to be
@@ -458,6 +464,15 @@ const LIBRARIES: SeededLibrary[] = [
     position: 1,
     items: RUDIMENTS,
   },
+  {
+    key: POLYRHYTHMS_LIBRARY,
+    title: 'Polyrhythms',
+    description:
+      'Two rhythms at once — cross-rhythms, hemiola, groupings, polymeter and timelines — each named for what it is, ' +
+      'with its two streams written so the layers build it up one at a time.',
+    position: 2,
+    items: POLYRHYTHMS,
+  },
 ];
 
 /** The manifest: each pack's slots, read through the slot schema. */
@@ -510,6 +525,7 @@ const unit: SeedUnit = {
     'data/styles.ts',
     'data/library.ts',
     'data/rudiments.ts',
+    'data/polyrhythms.ts',
     'data/kits.ts',
     '../../../public/kits/manifest.json',
     '../../../scripts/kits/pieces.ts',
@@ -517,6 +533,8 @@ const unit: SeedUnit = {
     '../../../lib/app/breaks/library.ts',
     '../../../lib/app/breaks/pattern.ts',
     '../../../lib/app/breaks/share.ts',
+    // the hands a polyrhythm names, written into its sticking (D60)
+    '../../../lib/app/breaks/drummer/sticking.ts',
     // each piece's credit (`seedPieces`), so a corrected credit re-runs the unit
     '../../../lib/app/breaks/kit-credits.generated.ts',
     '../../../scripts/kits/sources.ts',

@@ -168,6 +168,7 @@ function asSixteenths(p: Pattern): Pattern {
     sticking: p.sticking
       ? p.sticking.map((row) => (row ? `${row.split('').join('.')}.` : row))
       : null,
+    ...(p.poly ? { poly: { ...p.poly, beat: p.poly.beat * 2 } } : {}),
     pins: p.pins
       ? p.pins.map((b) => {
           if (!b) return b;
@@ -200,6 +201,12 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
   const { perSystem } = opts;
 
   const guideH = opts.guides ? 18 * scale : 0;
+  /* A polyrhythm (Phase 12) prints the cross-rhythm's own count under the
+     beat's, whatever the guides setting says: the two counts against each
+     other are what it teaches, as a rudiment's sticking is. */
+  const poly = pat.poly;
+  const polyH = poly ? 16 * scale : 0;
+  const cycle = poly ? poly.beat * poly.count : 0;
   /* Auxiliary percussion is not kit notation and does not belong on the kit
      staff. It gets its own one-line staff per instrument, above the drums, the
      way an added percussion part is written on a chart. */
@@ -209,7 +216,7 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
   const hasFoot = lanes.includes(FOOT_LANE);
   const showSticking = !!opts.sticking || !!pat.sticking?.some(Boolean);
   const lower = (showSticking ? 5.9 * SP : 4.5 * SP) + (hasFoot ? 0.6 * SP : 0);
-  const sysH = guideH + percH + upper + 4 * SP + lower;
+  const sysH = guideH + polyH + percH + upper + 4 * SP + lower;
 
   const systems = Math.ceil(pat.bars.length / perSystem);
   const widest = Math.min(perSystem, pat.bars.length);
@@ -222,7 +229,7 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
 
   for (let sys = 0; sys < systems; sys++) {
     const sysOrigin = sys * sysH;
-    const percTop = sysOrigin + guideH;
+    const percTop = sysOrigin + guideH + polyH;
     const staffTop = percTop + percH + upper;
     const staffBottom = staffTop + 4 * SP;
     const y = (step: number): number => staffBottom - step * (SP / 2);
@@ -378,13 +385,72 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
         }
       }
 
+      // the cross-rhythm's count: its pulses numbered, 1 at the start of each cycle
+      if (poly) {
+        const yy = sysOrigin + guideH + 11 * scale;
+        if (bi === 0) {
+          out.add(
+            'text',
+            {
+              // beside the count, clear of the bar number at the far left
+              x: leftPad - 6 * scale,
+              y: yy,
+              fill: ink,
+              'text-anchor': 'end',
+              'font-size': `${9 * scale}px`,
+              'font-family': 'var(--f-mono)',
+              'font-weight': '600',
+            },
+            poly.ratio
+          );
+        }
+        for (let i = 0; i < nSteps; i++) {
+          const at = barIndex * nSteps + i;
+          if (at % poly.beat) continue;
+          const nth = (Math.floor(at / poly.beat) % poly.count) + 1;
+          out.add(
+            'text',
+            {
+              x: xs(i),
+              y: yy,
+              fill: nth === 1 ? ink : 'var(--faint)',
+              'text-anchor': 'middle',
+              'font-size': `${9.5 * scale}px`,
+              'font-family': 'var(--f-mono)',
+              'font-weight': nth === 1 ? '600' : '400',
+              'font-style': 'italic',
+            },
+            String(nth)
+          );
+        }
+        /* Where a cycle neither fits a bar a whole number of times nor spans
+           whole bars (a 3/4 laid over 4/4), a dashed line marks each new
+           cycle inside a bar. A 3:2 comes round every half-bar, and threes
+           of sixteenths on the bar line three bars on: neither needs one. */
+        if (nSteps % cycle && cycle % nSteps) {
+          for (let i = 1; i < nSteps; i++) {
+            if ((barIndex * nSteps + i) % cycle) continue;
+            const xl = x0 + i * slotW;
+            out.add('line', {
+              x1: xl,
+              x2: xl,
+              y1: yy + 3 * scale,
+              y2: staffBottom,
+              stroke: 'var(--faint)',
+              'stroke-width': Math.max(1, scale),
+              'stroke-dasharray': `${3 * scale} ${3 * scale}`,
+            });
+          }
+        }
+      }
+
       // playhead anchors
       for (let i = 0; i < nSteps; i++) {
         map[barIndex * nSteps + i] = {
           x: x0 + i * slotW,
-          y: sysOrigin + guideH,
+          y: sysOrigin + guideH + polyH,
           w: slotW,
-          h: sysH - guideH,
+          h: sysH - guideH - polyH,
         };
       }
 
@@ -433,7 +499,13 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
           );
           const hand = stickingAt(pat.sticking, barIndex, i);
           const cymbal = !!(bar.h[i] || bar.r[i] || bar.c[i]);
-          if (hand && (drum || cymbal)) {
+          const drums = ['s', ...tomLanes].filter((L) => !!bar[L as LaneKey][i]).length;
+          if (pat.poly?.hands && hand && drums > 1 && !cymbal && !graces) {
+            /* two drums at once, a hand each: the shared 1 of a 3:2 whose
+               lanes name their hands. Both hands play it, whichever the
+               sticking names, so it reads the same either way. */
+            lab = 'R+L';
+          } else if (hand && (drum || cymbal)) {
             // the hand written, its graces on the other hand unless written lower case
             const main = hand.toUpperCase();
             const opposite = main === 'R' ? 'L' : 'R';

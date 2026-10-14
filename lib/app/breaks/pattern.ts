@@ -18,6 +18,7 @@ import type {
   Pattern,
   PercLaneKey,
   Pins,
+  Poly,
   Sticking,
   Style,
   StyleAttrs,
@@ -73,6 +74,16 @@ export function cloneBar(b: Bar): Bar {
   };
 }
 
+/** A copy of a pattern's streams: nothing edits one in place, but the lane lists are arrays. */
+export function clonePoly(poly: Poly): Poly {
+  return {
+    ...poly,
+    pulse: poly.pulse.slice(),
+    cross: poly.cross.slice(),
+    ...(poly.hands ? { hands: { ...poly.hands } } : {}),
+  };
+}
+
 export function clonePattern(p: Pattern): Pattern {
   return {
     name: p.name,
@@ -95,6 +106,7 @@ export function clonePattern(p: Pattern): Pattern {
     pins: clonePins(p.pins),
     ...(p.sticking ? { sticking: p.sticking.slice() } : {}),
     ...(p.fixed ? { fixed: true } : {}),
+    ...(p.poly ? { poly: clonePoly(p.poly) } : {}),
     backbeats: p.backbeats.slice(),
     bars: p.bars.map(cloneBar),
   };
@@ -343,6 +355,9 @@ export interface BarSpec {
   t3?: string;
   /** `f` chick */
   hf?: string;
+  /** `X` hit · `O` open or high stroke, in the percussion slots (a bell timeline) */
+  p1?: string;
+  p2?: string;
   /**
    * Not a lane: the sticking written under the bar, `R`/`L` (or `r`/`l`, the
    * graces on the same hand) a step and `.` for none (D44). `parseBar` leaves
@@ -381,6 +396,8 @@ export function parseBar(spec: BarSpec, n?: number): Bar {
   put('t2', spec.t2, { X: 1, A: 2, F: 3 });
   put('t3', spec.t3, { X: 1, A: 2, F: 3 });
   put('hf', spec.hf, { f: 1 });
+  put('p1', spec.p1, { X: 1, O: 2 });
+  put('p2', spec.p2, { X: 1, O: 2 });
   return b;
 }
 

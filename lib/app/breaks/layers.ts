@@ -1,7 +1,8 @@
-import { PERC_LANES, TOM_LANES, plainValue } from '@/lib/app/breaks/lanes';
+import { LANES, PERC_LANES, TOM_LANES, plainValue } from '@/lib/app/breaks/lanes';
 import { M44, groupsOf, isGroupStart } from '@/lib/app/breaks/meter';
 import { cloneBar, clonePattern, meterOfPat } from '@/lib/app/breaks/pattern';
-import type { Bar, LaneKey, Meter, Pattern } from '@/lib/app/breaks/types';
+import { POLYRHYTHM_STYLE } from '@/lib/app/breaks/style-keys';
+import type { Bar, LaneKey, Meter, Pattern, Poly } from '@/lib/app/breaks/types';
 
 /**
  * Difficulty layers. **Layer 5 is what's stored**; 1–4 are derived views of the
@@ -27,11 +28,94 @@ export const LAYER_NAMES: Record<number, string> = {
 };
 
 /**
- * A layer as a player reads it: by name, not number. A level outside 1–5
- * (an old history row, say) still reads as something.
+ * A polyrhythm's layers (Phase 12, D54): not a groove thinned, but the figure
+ * built up a stream at a time, the way it is taught — each stream alone, then
+ * both, then the accents, then everything around them.
  */
-export function layerName(level: number): string {
-  return LAYER_NAMES[level] ?? `Layer ${level}`;
+export const POLY_LAYER_NAMES: Record<number, string> = {
+  1: 'Pulse',
+  2: 'Cross-rhythm',
+  3: 'Together',
+  4: 'Accented',
+  5: 'Full figure',
+};
+
+export const POLY_LAYER_BLURB: Record<number, string> = {
+  1: 'the pulse you count, alone',
+  2: 'the rhythm set against it, alone',
+  3: 'both streams together, evenly — where the accents are not the figure itself',
+  4: 'both streams, each with its accents',
+  5: 'the whole figure, with everything around the two streams',
+};
+
+/**
+ * The devices whose accents are the figure: threes of sixteenths are only
+ * threes because of where the accent falls, and a 3/4 laid over 4/4 is only
+ * 3/4 by its downbeats. Their layers keep the accents from the start; levelled
+ * out, there would be nothing to learn.
+ */
+const ACCENTS_ARE_THE_FIGURE: Poly['device'][] = ['grouping', 'polymeter', 'timeline'];
+
+/**
+ * Counted the other way round, the first two layers trade places: layer 1 is
+ * the cross-rhythm alone and layer 2 the pulse (D54).
+ */
+const FELT_CROSS_NAMES: Record<number, string> = {
+  ...POLY_LAYER_NAMES,
+  1: POLY_LAYER_NAMES[2],
+  2: POLY_LAYER_NAMES[1],
+};
+
+const FELT_CROSS_BLURB: Record<number, string> = {
+  ...POLY_LAYER_BLURB,
+  1: 'the cross-rhythm, counted as the pulse, alone',
+  2: 'the pulse set against it, alone',
+};
+
+/**
+ * The layer names a pattern on the stage is read with: a polyrhythm's own
+ * (`poly`: it has streams), or the groove's. What it is decides, not its
+ * style key, since that is what decides how its layers reduce.
+ */
+export function layerNamesFor(poly: boolean, feelCross = false): Record<number, string> {
+  if (!poly) return LAYER_NAMES;
+  return feelCross ? FELT_CROSS_NAMES : POLY_LAYER_NAMES;
+}
+
+/** What each layer adds, for a pattern on the stage. See {@link layerNamesFor}. */
+export function layerBlurbsFor(poly: boolean, feelCross = false): Record<number, string> {
+  if (!poly) return LAYER_BLURB;
+  return feelCross ? FELT_CROSS_BLURB : POLY_LAYER_BLURB;
+}
+
+/**
+ * The layer whose notes `level` plays, as a speed is kept: counted
+ * the other way round, a polyrhythm's layer 1 plays what layer 2 does counted
+ * the usual way, and the other way about. Kept so, a speed at "Cross-rhythm"
+ * is the cross-rhythm alone, whichever way it was counted.
+ */
+export function recordedLevel(level: number, poly: boolean, feelCross: boolean): number {
+  return poly && feelCross && (level === 1 || level === 2) ? 3 - level : level;
+}
+
+/**
+ * A stored layer as a player reads it: by name, not number. A level outside
+ * 1–5 (an old history row, say) still reads as something. Pass the target's
+ * style where it is known, so a polyrhythm's layer reads as what it plays —
+ * counted the usual way, which is how {@link recordedLevel} keeps it.
+ */
+export function layerName(level: number, style?: string | null): string {
+  return layerNameIn(layerNamesFor(style === POLYRHYTHM_STYLE), level);
+}
+
+/** A layer of `pat` as a player reads it: a polyrhythm's by its streams. */
+export function patternLayerName(level: number, pat: Pick<Pattern, 'poly'>): string {
+  return layerNameIn(layerNamesFor(!!pat.poly), level);
+}
+
+/** A layer's name in `names`, or "Layer 6" for one they have no name for. */
+export function layerNameIn(names: Record<number, string>, level: number): string {
+  return names[level] ?? `Layer ${level}`;
 }
 
 export const LAYER_BLURB: Record<number, string> = {
@@ -137,11 +221,60 @@ export function reduceBar(
   return b;
 }
 
-/** The whole break as it looks at one layer. */
-export function reducePattern(pat: Pattern, level: number): Pattern {
+/** A value at one level: an accent as a hit, an ornament as its plain stroke. */
+function evenValue(lane: LaneKey, v: number): number {
+  const plain = plainValue(lane, v);
+  if (lane === 's') return plain === 3 ? 2 : plain;
+  if (lane === 'k' || lane === 'h' || TOM_LANES.includes(lane)) return plain === 2 ? 1 : plain;
+  return plain;
+}
+
+/**
+ * One bar of a polyrhythm at a layer (D54). `first` is the stream you count:
+ * the pulse, or the cross-rhythm when you feel it the other way round.
+ */
+function reducePolyBar(
+  bar: Bar,
+  level: number,
+  first: LaneKey[],
+  second: LaneKey[],
+  even: boolean,
+  pins?: Partial<Record<LaneKey, number[]>>
+): Bar {
+  const b = cloneBar(bar);
+  if (level >= 5) return b;
+  const kept = level === 1 ? first : level === 2 ? second : [...first, ...second];
+  // a note you placed is kept from the layer you placed it at, as in a groove
+  const pinned = (L: LaneKey, i: number) => !!(pins?.[L]?.[i] && level >= pins[L][i]);
+  for (const L of LANES) {
+    const keep = kept.includes(L);
+    b[L] = b[L].map((v, i) =>
+      pinned(L, i) ? v : !keep ? 0 : even && level <= 3 ? evenValue(L, v) : v
+    );
+  }
+  return b;
+}
+
+/** The two streams in the order they are learnt: the one counted first. */
+export function streamsOf(poly: Poly, feelCross = false): [LaneKey[], LaneKey[]] {
+  return feelCross ? [poly.cross, poly.pulse] : [poly.pulse, poly.cross];
+}
+
+/**
+ * The whole break as it looks at one layer. A polyrhythm (Phase 12) is built
+ * up a stream at a time; `feelCross` counts its cross-rhythm as the pulse, so
+ * layer 1 is the three of a 3:2 rather than the two.
+ */
+export function reducePattern(pat: Pattern, level: number, feelCross = false): Pattern {
   const p = clonePattern(pat);
   // a rudiment is the same at every layer (D45)
   if (pat.fixed) return p;
+  if (pat.poly) {
+    const [first, second] = streamsOf(pat.poly, feelCross);
+    const even = !ACCENTS_ARE_THE_FIGURE.includes(pat.poly.device);
+    p.bars = pat.bars.map((b, i) => reducePolyBar(b, level, first, second, even, pat.pins?.[i]));
+    return p;
+  }
   const m = meterOfPat(pat);
   p.bars = pat.bars.map((b, i) => reduceBar(b, level, m, pat.hasRide, pat.hasHat, pat.pins?.[i]));
   return p;

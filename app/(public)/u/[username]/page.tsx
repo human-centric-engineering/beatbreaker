@@ -120,7 +120,7 @@ function ListedBests({ bests }: { bests: ListedBest[] }) {
             <span className="font-medium">
               {b.slug ? <Link href={`${publicPath(b.slug)}#speeds`}>{b.title}</Link> : b.title}
             </span>
-            <span className="text-muted-foreground text-sm">{layerName(b.level)}</span>
+            <span className="text-muted-foreground text-sm">{layerName(b.level, b.style)}</span>
             <span className="font-mono font-semibold">{b.bpm} bpm</span>
             <span className="text-muted-foreground text-sm">{b.recordedAt.slice(0, 10)}</span>
             {b.video ? (

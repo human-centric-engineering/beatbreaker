@@ -133,6 +133,7 @@ function blankSection(a: Pattern, letter: SectionLetter): Pattern {
   /* A's tempo ratio stays, as its meter does: a section built from another
      takes its pace, as Build B does. `set_playback` sets another. */
   delete out.fixed;
+  delete out.poly;
   return out;
 }
 
@@ -188,6 +189,8 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
     next.pins = null;
     next.sticking = null;
     delete next.fixed;
+    // new bars are not the polyrhythm's two streams; a bar or two rewritten keeps them
+    delete next.poly;
     const found = backbeatsOf(next.bars);
     next.backbeats = found.length
       ? found

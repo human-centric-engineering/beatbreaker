@@ -300,6 +300,8 @@ the rest are sequential because each stands on the one before.
 10 Rudiments  (after 9-iv's articulations; 10-a model ─► 10-b library)
 
 11 Drummers  (11-a standard ─► 11-b map ─► 11-c, 11-d, 11-e drummers ─► 11-f BeatBuddy ─► 11-g five more)
+
+12 Polyrhythms  (12-a library ─► 12-b records ─► 12-c fills ─► 12-d tuplets ─► 12-e, 12-f, 12-g drummers)
 ```
 
 ### Phase 0 — Groundwork · S
@@ -4326,6 +4328,91 @@ like the styles were before D16); verified transcriptions (every pattern
 stays `archetype` or `approximation` until stems are checked); personas
 that look like the drummer.
 
+### Phase 12 — Polyrhythms · L
+
+**Goal:** polyrhythms as a drummer learns and plays them. A practice library
+of them, built to be learnt one stream at a time; polyrhythmic fills from the
+drummers who play that way; true tuplets on the chart; and the drummers known
+for polyrhythm in the databank, each device sourced and named for what it is.
+The why, the research and the sources are in
+[`polyrhythm-plan.md`](./polyrhythm-plan.md).
+
+**In short:**
+
+- **One vocabulary, honestly applied** (plan §3). Cross-rhythm and hemiola
+  are polyrhythms; grouping, polymeter, metric modulation, displacement,
+  timeline and ostinato are named as themselves.
+- **Most of it fits today's grids.** 3:2, 3:4, 4:3, 6:4, hemiola, groupings,
+  polymeter and metric modulation ship first, with no change to the wire
+  version.
+- **True tuplets are spans over the grid (D53)**, on wire v8, one span across
+  every lane it touches. MIDI import keeps them (D55).
+- **The library teaches a stream at a time (D54)**, with a hand named for each
+  stream (D60).
+- **Fills come from sourced devices only (D56)**, on a salted stream, so no
+  other style changes.
+- **Five new drummers, then a researched second wave (D57)**, and two genre
+  styles (D58).
+
+**Done when:**
+
+- The Generate drawer has a Polyrhythms card beside Rudiments. A 3:2 opens,
+  plays the pulse at layer 1, the three at 2 and both at 3, prints a count row
+  for each, and the 3D drummer plays the three with the hand the entry names.
+- Elvin Jones's style writes three-over-four fills that resolve on the next
+  1, and no style without poly fills generates a different pattern from
+  before.
+- A 5:4 plays five even notes against four, prints a bracketed 5, and
+  survives a MIDI round trip.
+- Haake, Carey, Hoenig, Roach and Prieto are playable with songs, and every
+  drummer's polyrhythmic devices are tagged with sources or recorded as
+  searched and not found.
+
+**The PRs:**
+
+| #    | What                                                                                                                                                                                                                                                                                                                   | Done when                                                                                                                                                                                                      |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 12-a | **The library on today's grids:** `streams`, `counts`, `cycles`, `hands` on the pattern (optional keys, no bump); stream layers; feel either side; count rows, cycle lines and RH/LH labels; the drummer obeys a lane's hand; the click on either stream; a generic library card; shelves 1–5 and 7; the ladder preset | A 3:2 builds up by layer and prints two count rows; each handing puts the drummer's hands where it says; a 3/4-over-4/4 draws its cycle lines; a pre-12-a reader strips the new keys and plays the full figure |
+| 12-b | **The records:** schema 1.5 `devices`; tags on existing drummers; a transcription-level search for those with none; research § AC; the lineage map's device filter; BeatBuddy reads the devices                                                                                                                        | The validator refuses an unsourced device; every drummer has a device or a recorded search; BeatBuddy names Tony Williams for "threes over the bar", with the source                                           |
+| 12-c | **Polyrhythmic fills on the grid:** `polyFill`/`polyFills`, `addPolyFill` on a salted stream, over the bar line, in both phrase builders; the critic's span rule; `fitHands`; clave guards; `styleIn`; layers; the doctor                                                                                              | Every golden unchanged; Elvin's fills resolve on the 1 and pass `playability`; no clave crossed; poly fills appear at their rate over 200 seeds                                                                |
+| 12-d | **Tuplet spans, wire v8:** model, wire, playback, MIDI out and in, chart bracket, editor, drummer timeline, critic, layers, BeatBuddy text; shelf 6; tuplet fills; tempo ratios ×3/2, ×4/3 and their inverses, and shelf 7 (metric modulation)                                                                         | A 5:4 is exact to the sample, bracketed, and round-trips through MIDI; a quintuplet round the toms is one bracket; imported triplets stay triplets; a code without `tu` keeps its bytes and `gridHash`         |
+| 12-e | **Haake and Carey**, with styles, songs, kits and records                                                                                                                                                                                                                                                              | Records validate at 1.5 with sourced devices; styles have songs and poly fills; the record↔style test passes                                                                                                   |
+| 12-f | **Hoenig, Roach, Prieto**, and `agbekor` and `mozambique`                                                                                                                                                                                                                                                              | As 12-e; the genre styles never cross their clave or bell                                                                                                                                                      |
+| 12-g | **The second wave**, researched to song level first                                                                                                                                                                                                                                                                    | Each named drummer is added, or recorded as searched and not sourced                                                                                                                                           |
+
+**Not in Phase 12:** BeatBuddy writing tuplet spans; a "make this a 3:2"
+command; polytempo; a limb row per step (D60 covers the exercises); closing
+the rudiments' rolls with 32nd spans, which 12-d makes possible.
+
+**12-a built, 2026-10-14 (branch `phase-12-a-polyrhythm-library`).** What
+reconciling it against the tree changed from the plan:
+
+- **One wire key, `py`, not four.** `st` was already the style key. The
+  streams, the cross pulse (`beat` steps apart, `count` to a cycle), the
+  device, the ratio and the hands are one optional object, and the count
+  row, the cycle lines and the cross click are all derived from it. No
+  `counts` or `cycles` field was needed.
+- **The hands are the sticking.** The drummer already obeys a written R/L
+  row (D44), so `poly.hands` is compiled into it by `stickingFromHands`
+  rather than given its own path; the shared downbeat of a 3:2 prints `R+L`.
+- **Layer 3 is "Together", not "Both, even".** Levelling the accents erases
+  a grouping or a polymeter, whose accents are the figure; only a
+  cross-rhythm or hemiola is levelled there.
+- **The click has no "both".** Both streams already sound; what a drummer
+  needs is which one is counted, so _Count: the 2 / the 3_ moves layer 1 and
+  the click together.
+- **Metric modulation moves to 12-d.** A section's tempo ratio is only ×½ or
+  ×2 on wire v7; ×3/2 and ×4/3 are new values, so they need v8, which 12-d
+  brings anyway. 12-a ships five shelves, 25 entries.
+- **No resultant mnemonics.** No citable source was found for "hot cup of
+  tea" and the like, so the chart numbers the pulses instead.
+- **A session names a polyrhythm's layers.** An item's target now carries
+  its pattern's style, so the editor, the session bar and the public page
+  say _Pulse_ rather than _Skeleton_.
+- **Not looked at in a browser** (the owner is on Arc). The card, the
+  count toggle and the layer names are held by component tests over the real
+  Studio; every entry's streams, playability and hands by `polyrhythms.test.ts`.
+
 ---
 
 ## 5. Ergonomic review — method and first findings
@@ -4698,6 +4785,23 @@ already cascade and already export.
 | --- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | D51 | How BeatBuddy reads the records | **Two read tools over the lineage tables, not a knowledge base.** Revises D48's last sentence. Twenty records need no retrieval; a vector store needs an embedding job and loses the confidence and the masked-persona rule the tables already keep.        |
 | D52 | BeatBuddy's per-turn cost cap   | **Raise it to $0.20.** A drummer comparison (11-f) costs $0.10–0.14 on `gpt-4.1`, and crossing the cap mid-turn stops the answer. The monthly budget still bounds the total. The seed's value only reaches a new install; an existing one is an admin edit. |
+
+### Decided — 2026-10-14
+
+Phase 12, settled on the owner's rule: what is right for drummers using the
+app, not what is easiest to build. The reasons are in
+[`polyrhythm-plan.md`](./polyrhythm-plan.md) §9.
+
+| #   | Decision                         | Outcome                                                                                                                                                                                                                               |
+| --- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D53 | How a true tuplet is held        | **Tuplet spans over the existing grid, on wire v8**, one span across every lane it touches. Not a finer grid: a drummer reads and edits a tuplet as a bracketed figure, and a finer grid would break every style and the link budget. |
+| D54 | The layers on a polyrhythm entry | **Build up a stream at a time** (pulse, cross, both, accented, full) from `Pattern.streams`; either stream can be felt as the pulse.                                                                                                  |
+| D55 | Tuplets in this phase            | **Yes, as 12-d, with MIDI import that keeps triplets and tuplets** instead of rounding them to 16ths.                                                                                                                                 |
+| D56 | Who gets polyrhythmic fills      | **Drummers with a sourced device**, after a transcription-level search for each one without. Displacement in clave is written and labelled as displacement.                                                                           |
+| D57 | Which new drummers               | **Haake, Carey; Hoenig, Roach, Prieto; then a researched second wave** (Harrison, Bozzio, Haynes, DeJohnette, Sánchez, Colaiuta, Berroa if distinct), each once its devices hold at song level.                                       |
+| D58 | New genre styles                 | **`agbekor` and `mozambique`**; polymeter lives in Haake's and Carey's own styles.                                                                                                                                                    |
+| D59 | Where the practice area lives    | **A card in the Generate drawer, beside Rudiments.**                                                                                                                                                                                  |
+| D60 | Which hand plays which stream    | **A hand per lane on a polyrhythm entry** (`Pattern.hands`, `hd`), obeyed by the 3D drummer and labelled RH/LH on the chart, every two-hand entry in both handings.                                                                   |
 
 ### Still open
 

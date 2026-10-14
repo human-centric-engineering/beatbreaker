@@ -348,6 +348,38 @@ describe('toView (via readSession) — target defaults', () => {
   });
 });
 
+describe('toView (via readSession) — the style that names the layers (Phase 12)', () => {
+  it("carries a break's style and a library entry's, so a polyrhythm's layers read as its streams", async () => {
+    vi.mocked(prisma.practiceSession.findFirst).mockResolvedValue(
+      sessionRow({
+        items: [
+          itemRow({ breakRef: { ...itemRow().breakRef, style: 'funk' } }),
+          itemRow({
+            id: 'citem0000000000000000002',
+            position: 1,
+            breakId: null,
+            breakRef: null,
+            libraryEntryId: 'centry000000000000000001',
+            libraryEntry: {
+              id: 'centry000000000000000001',
+              title: '3:2, hands — the three on the floor tom',
+              meter: '4/4-6',
+              bpm: 60,
+              styleKey: 'polyrhythm',
+              library: { visibility: 'system' },
+            },
+          }),
+        ],
+      }) as never
+    );
+
+    const result = await readSession(USER_ID, SESSION_ID);
+
+    expect(result?.items[0].target).toMatchObject({ kind: 'break', style: 'funk' });
+    expect(result?.items[1].target).toMatchObject({ kind: 'entry', style: 'polyrhythm' });
+  });
+});
+
 describe('toView (via readSession) — copiedFrom', () => {
   it('credits the username and the slug, when the parent is still link-shared', async () => {
     vi.mocked(prisma.practiceSession.findFirst).mockResolvedValue(

@@ -28,6 +28,8 @@ import { type SlotPlan, tempoAt } from '@/lib/app/practice/climb';
 export interface RunnerItem {
   title: string;
   level: number;
+  /** Its pattern's style key, which names its layers: a polyrhythm's are its streams (Phase 12). */
+  style?: string;
   /** Null when its pattern was deleted or made private: the slot is skipped. */
   plan: SlotPlan | null;
 }

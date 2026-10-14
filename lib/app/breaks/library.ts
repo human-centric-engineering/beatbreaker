@@ -2,17 +2,28 @@ import { BASE_LANES, FOOT_LANE, TOM_LANES, percRoster } from '@/lib/app/breaks/l
 import { DEFAULT_METER, METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import {
   type BarSpec,
+  clonePoly,
   parseBar,
   stickingRow,
   styleAttrs,
   tidySticking,
 } from '@/lib/app/breaks/pattern';
-import type { CymbalVoice, LaneKey, Pattern, ResolvedStyle } from '@/lib/app/breaks/types';
+import { stickingFromHands } from '@/lib/app/breaks/drummer/sticking';
+import { POLYRHYTHM_STYLE, RUDIMENT_STYLE } from '@/lib/app/breaks/style-keys';
+import type {
+  CymbalVoice,
+  LaneKey,
+  Pattern,
+  PercLaneKey,
+  Poly,
+  ResolvedStyle,
+} from '@/lib/app/breaks/types';
 
 /**
  * The system pattern libraries: the famous breaks — the main groove off each
- * record, a bar or two of it, in the meter it was played in — and the
- * rudiments (Phase 10), the snare alone with its sticking written.
+ * record, a bar or two of it, in the meter it was played in — the rudiments
+ * (Phase 10), the snare alone with its sticking written, and the polyrhythms
+ * (Phase 12), each with its two streams named.
  *
  * **The entries themselves are not here any more.** They are `LibraryEntry`
  * rows, seeded from `prisma/seeds/app-beatbreaker/data/library.ts` (D13), and
@@ -50,22 +61,39 @@ export interface LibraryItem {
   lanes?: LaneKey[];
   /** Every layer plays it whole (D45): {@link Pattern.fixed}. */
   fixed?: boolean;
+  /**
+   * A polyrhythm's streams (Phase 12): {@link Pattern.poly}. Its `hands` are
+   * written into the sticking too, so the drummer plays them (D60).
+   */
+  poly?: Poly;
+  /** What sits in the percussion slots, where the entry has no style to say: a bell timeline's cowbell. */
+  perc?: Partial<Record<PercLaneKey, string>>;
   bars: BarSpec[];
 }
 
-/**
- * The style key every rudiment carries (D45). It is not a style row: there is
- * nothing to generate, regenerate or doctor a rudiment from, and the Studio
- * offers none of them for it.
- */
-export const RUDIMENT_STYLE = 'rudiment';
+export { POLYRHYTHM_STYLE, RUDIMENT_STYLE };
 
 /** The rudiments' library key: shown in Generate rather than among the libraries. */
 export const RUDIMENTS_LIBRARY = 'rudiments';
 
-/** What a style key reads as where the catalogue has no row for it: the key, or "Rudiment". */
+/** The polyrhythms' library key: shown in Generate beside the rudiments (D59). */
+export const POLYRHYTHMS_LIBRARY = 'polyrhythms';
+
+/**
+ * The style keys that are not styles: what each reads as, and what it is
+ * called where it cannot be rewritten.
+ */
+const WRITTEN_KEYS: Record<string, { label: string; what: string }> = {
+  [RUDIMENT_STYLE]: { label: 'Rudiment', what: 'A rudiment' },
+  [POLYRHYTHM_STYLE]: { label: 'Polyrhythm', what: 'A polyrhythm' },
+};
+
+/** The libraries Generate shows as cards of their own, and the Libraries tab leaves out. */
+export const PRACTICE_LIBRARIES: readonly string[] = [RUDIMENTS_LIBRARY, POLYRHYTHMS_LIBRARY];
+
+/** What a style key reads as where the catalogue has no row for it: the key, or "Rudiment", "Polyrhythm". */
 export function unlistedStyleLabel(key: string): string {
-  return key === RUDIMENT_STYLE ? 'Rudiment' : key;
+  return WRITTEN_KEYS[key]?.label ?? key;
 }
 
 /** A style key's name: its catalogue row's label, or {@link unlistedStyleLabel} without one. */
@@ -83,8 +111,9 @@ export function styleLabel(
  * `done` finishes "so it cannot be …".
  */
 export function noStyleReason(key: string, section: string, done: string): string {
-  return key === RUDIMENT_STYLE
-    ? `A rudiment is written out, not generated from a style, so it cannot be ${done}`
+  const written = WRITTEN_KEYS[key];
+  return written
+    ? `${written.what} is written out, not generated from a style, so it cannot be ${done}`
     : `Section ${section}'s style is not in the catalogue, so it cannot be ${done}`;
 }
 
@@ -122,7 +151,17 @@ export function patternFromLibrary(
     }
   }
   const bars = item.bars.map((spec) => parseBar(spec, steps));
-  const sticking = tidySticking(item.bars.map((spec) => stickingRow(spec.hands, steps)));
+  /* A polyrhythm names a hand for each lane (D60); a bar that writes its own
+     sticking keeps it, and every other bar gets the lanes' hands. */
+  const laneHands = item.poly?.hands;
+  const sticking = tidySticking(
+    item.bars.map((spec, bi) =>
+      stickingRow(
+        spec.hands ?? (laneHands ? stickingFromHands(bars[bi], laneHands) : undefined),
+        steps
+      )
+    )
+  );
 
   return {
     name: item.title,
@@ -136,7 +175,7 @@ export function patternFromLibrary(
     seed: 1000 + index,
     voice: item.voice ?? 'hat',
     lanes,
-    perc: percRoster(params),
+    perc: { ...percRoster(params), ...item.perc },
     backbeats: (item.backbeats ?? params?.backbeats ?? []).slice(),
     bbLane: 's',
     hasRide: false,
@@ -144,6 +183,7 @@ export function patternFromLibrary(
     pins: null,
     ...(sticking ? { sticking } : {}),
     ...(item.fixed ? { fixed: true } : {}),
+    ...(item.poly ? { poly: clonePoly(item.poly) } : {}),
     bars,
   };
 }

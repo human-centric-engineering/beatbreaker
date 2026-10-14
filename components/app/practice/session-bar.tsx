@@ -40,7 +40,7 @@ export function SessionBar() {
         {live && current && plan ? (
           <span aria-live="polite">
             Pattern {live.index + 1} of {items.length} · {current.title} ·{' '}
-            {layerName(current.level)}
+            {layerName(current.level, current.style)}
           </span>
         ) : run?.phase === 'done' ? (
           <span>

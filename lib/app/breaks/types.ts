@@ -71,6 +71,46 @@ export type Pins = Array<Partial<Record<LaneKey, number[]>> | undefined>;
  */
 export type Sticking = Array<string | null>;
 
+/**
+ * What a polyrhythm entry is (Phase 12, plan §3): the device, named for what
+ * it is. A grouping or a polymeter is not called a polyrhythm, and a clave is
+ * a timeline, not a ratio.
+ */
+export type PolyDevice =
+  'cross-rhythm' | 'hemiola' | 'grouping' | 'polymeter' | 'timeline' | 'ostinato';
+
+/** A hand a lane is played with: `R` the lead hand, `L` the other (D60). */
+export type LaneHand = 'R' | 'L';
+
+/**
+ * A polyrhythm library entry's two streams (Phase 12, D54, D60): the pulse
+ * you count and the rhythm set against it, each a set of lanes, so the layers
+ * can play one without the other.
+ *
+ * The cross pulse is **every `beat` steps from the pattern's first step**,
+ * counted across bar lines, `count` of them to a cycle. That is what the
+ * chart's second count row numbers, what the click follows when you feel the
+ * cross-rhythm, and, where a cycle is not a whole number of bars (a grouping,
+ * a polymeter), where the chart draws its cycle lines.
+ */
+export interface Poly {
+  device: PolyDevice;
+  /** How it is named on the chart, beside its count: `3:2`, `4:3`, `3/4`, `3s`. Ten characters at most. */
+  ratio: string;
+  pulse: LaneKey[];
+  cross: LaneKey[];
+  /** Grid steps between cross pulses. */
+  beat: number;
+  /** Cross pulses to a cycle. */
+  count: number;
+  /**
+   * The hand each lane is played with. The library writes it into the
+   * sticking too, so the drummer plays it and the chart prints it; this is
+   * what labels the lanes.
+   */
+  hands?: Partial<Record<LaneKey, LaneHand>>;
+}
+
 export interface Pattern {
   name: string;
   /** Key of the `Style` row it was generated from. */
@@ -150,6 +190,12 @@ export interface Pattern {
    * else, whose layers are derived as ever.
    */
   fixed?: boolean;
+  /**
+   * A polyrhythm entry's streams (Phase 12). Absent on everything else. With
+   * it the layers build the figure up a stream at a time rather than thinning
+   * a groove (D54).
+   */
+  poly?: Poly;
   bars: Bar[];
 }
 

@@ -48,6 +48,8 @@ function makeFake(overrides: Partial<Studio> = {}): Studio {
     entryEdited: false,
     bpm: 94.4,
     level: 2,
+    view: { A: null, B: null },
+    feelCross: false,
     doc: {
       variationOf: null,
       sharing: { visibility: 'private', slug: null, basedOn: null },
@@ -186,6 +188,24 @@ describe('marking a speed', () => {
 
     expect(screen.getByText('94 bpm')).toBeInTheDocument();
     expect(screen.getByText(/at Groove$/)).toBeInTheDocument();
+  });
+
+  it('files a polyrhythm counted the other way round at the layer whose notes it plays', async () => {
+    const user = userEvent.setup();
+    vi.mocked(apiClient.post).mockResolvedValue({});
+    // layer 1 counted in three plays the cross-rhythm alone: layer 2's notes
+    renderCard({
+      level: 1,
+      feelCross: true,
+      view: { A: { poly: { ratio: '3:2' } }, B: null } as unknown as Studio['view'],
+    });
+    await user.click(await screen.findByRole('button', { name: 'Mark my speed · 94 bpm' }));
+    expect(screen.getByText(/at Cross-rhythm$/)).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Save' }));
+    expect(apiClient.post).toHaveBeenCalledWith('/api/v1/speed-records', {
+      body: { ...BREAK_TARGET, bpm: 94, level: 2 },
+    });
   });
 
   it('shows the video rule, marks the field invalid, and disables Save for an off-allowlist link', async () => {

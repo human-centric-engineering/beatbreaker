@@ -5,6 +5,7 @@ import unit, { seedKeyOf } from '@/prisma/seeds/app-beatbreaker/001-catalogue';
 import { COMBINATIONS, KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
 import { YOUR_KIT_KEY_PREFIX } from '@/lib/app/breaks/samples/limits';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
+import { POLYRHYTHMS } from '@/prisma/seeds/app-beatbreaker/data/polyrhythms';
 import { RUDIMENTS } from '@/prisma/seeds/app-beatbreaker/data/rudiments';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { packedPatternSchema } from '@/lib/app/breaks/schema';
@@ -192,13 +193,17 @@ describe('the catalogue seed', () => {
     expect(prisma.styleVersion.rows).toHaveLength(Object.keys(STYLES).length);
     expect(entriesOf(prisma, 'famous-breaks')).toHaveLength(LIBRARY.length);
     expect(entriesOf(prisma, 'rudiments')).toHaveLength(RUDIMENTS.length);
-    expect(prisma.libraryEntry.rows).toHaveLength(LIBRARY.length + RUDIMENTS.length);
+    expect(entriesOf(prisma, 'polyrhythms')).toHaveLength(POLYRHYTHMS.length);
+    expect(prisma.libraryEntry.rows).toHaveLength(
+      LIBRARY.length + RUDIMENTS.length + POLYRHYTHMS.length
+    );
     expect(prisma.kit.rows).toHaveLength(
       Object.keys(KITS).length + Object.keys(COMBINATIONS).length
     );
     expect(prisma.patternLibrary.rows.map((r) => [r.key, r.position])).toEqual([
       ['famous-breaks', 0],
       ['rudiments', 1],
+      ['polyrhythms', 2],
     ]);
   });
 
@@ -317,8 +322,9 @@ describe('the catalogue seed', () => {
     try {
       await seed(prisma);
       expect(entriesOf(prisma, 'famous-breaks')).toHaveLength(LIBRARY.length);
-      // and nothing goes from the library beside it
+      // and nothing goes from the libraries beside it
       expect(entriesOf(prisma, 'rudiments')).toHaveLength(RUDIMENTS.length);
+      expect(entriesOf(prisma, 'polyrhythms')).toHaveLength(POLYRHYTHMS.length);
     } finally {
       if (removed) LIBRARY.push(removed);
     }

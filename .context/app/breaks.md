@@ -190,6 +190,42 @@ writing a bar takes the sticking with the notes.
 every layer, so a rudiment's accents and flams are there at L1. Optional and
 additive, like `sk`; only rudiments carry it.
 
+**`py` is a polyrhythm's two streams (Phase 12, D54)**: `{ device, ratio,
+pulse, cross, beat, count, hands? }` (`polySchema`). Optional and additive,
+like `fx`: an older reader strips it and plays the whole figure at every
+layer, which is what it played before. A lane is in one stream, not both; the
+ratio is ten characters at most, because the chart prints it beside the
+count; and a cycle (`beat × count`) is no longer than eight bars of the
+longest meter. A stored row whose `py` does not read loses it rather than
+being refused. On a pattern it is `Pattern.poly`, and it changes three things:
+
+- **The layers build it up** (`reducePattern`, `POLY_LAYER_NAMES`): 1 the
+  pulse lanes alone, 2 the cross lanes alone, 3 both, 4 both with their
+  accents, 5 everything. Layer 3 levels a cross-rhythm's accents; a grouping,
+  polymeter or timeline keeps them, because there they are the figure. A
+  pinned note is kept from its layer up, as in a groove. The console's
+  `feelCross` swaps the streams, so layer 1 is the cross-rhythm, and
+  `layerNamesFor(poly, feelCross)` swaps the names with them. Opening another
+  entry or pattern counts it the usual way again. A speed is kept at the layer
+  whose notes it plays (`recordedLevel`), so _Cross-rhythm_ on a table is the
+  cross-rhythm alone, whichever way it was counted. The stage names layers
+  from the pattern's streams, not its style key; a stored row that has only a
+  style uses `layerName(level, style)`.
+- **The chart counts both** (`engrave`): a second, italic count row numbers
+  the cross pulses from the pattern's first step across the bar lines, 1 at
+  each cycle, with the ratio beside it; a cycle that neither fits a bar nor
+  spans whole bars (3/4 over 4/4) gets a dashed line where it comes round.
+  Where both hands land on two drums together on a pattern whose lanes name
+  their hands, the sticking row reads `R+L`. Editing a bar of such a pattern
+  writes its named hands again for the new notes.
+- **The click can follow the cross pulse** (`crossClick`): with `feelCross`
+  on, it clicks every cross pulse, louder at each cycle's 1, instead of the
+  meter's beat.
+
+The critic asks no air of a pattern with `py`. Clearing a section or
+BeatBuddy rewriting the whole of it drops `py`; rewriting a bar or two keeps
+it. The doctor refuses a polyrhythm as it refuses a rudiment.
+
 **Version 4 is what makes a pattern stand on its own.** `sa` is a snapshot of
 the five style attributes playback, the critic and the MIDI export read, so a
 break plays, scores and exports identically on an installation that has never

@@ -82,6 +82,12 @@ export interface TransportSnapshot {
   click: boolean;
   /** 4 clicks the pulse (quarters, or dotted quarters in compound time); 8 clicks every eighth. See {@link isClickStep}. */
   clickSub: number;
+  /**
+   * A polyrhythm counted in its cross-rhythm (Phase 12, D54): the click is
+   * the cross pulse, louder at the start of each cycle, rather than the
+   * meter's. Ignored on a pattern without streams.
+   */
+  feelCross?: boolean;
   /** Count-in bars. */
   countIn: number;
   /** BPM added each time the arrangement comes round. */
@@ -485,7 +491,12 @@ export class Transport {
       out?.hit(v.note, v.velocity, when, until[n]);
     });
 
-    if (snap.click && isClickStep(m, i, snap.clickSub)) this.audio.click(t, i === 0);
+    if (snap.click) {
+      const cross = snap.feelCross && livePat.poly ? crossClick(livePat, pos.barIdx, i) : null;
+      if (cross) {
+        if (cross.on) this.audio.click(t, cross.accent);
+      } else if (isClickStep(m, i, snap.clickSub)) this.audio.click(t, i === 0);
+    }
 
     if (this.cb.onStep) {
       const after = this.seq[(this.seqIndex + 1) % this.seq.length];
@@ -606,6 +617,23 @@ export class Transport {
  */
 export function isClickStep(m: Meter, step: number, clickSub: number): boolean {
   return clickSub >= 8 ? step % 2 === 0 : isGroupStart(m, step);
+}
+
+/**
+ * The click on a polyrhythm felt in its cross-rhythm (D54): every cross pulse,
+ * counted from the pattern's first step across the bar lines, and the first
+ * of each cycle accented — the 1 of the three in a 3:2, the downbeat of the
+ * 3/4 laid over 4/4. Null on a pattern without streams.
+ */
+export function crossClick(
+  pat: Pattern,
+  bar: number,
+  step: number
+): { on: boolean; accent: boolean } | null {
+  if (!pat.poly) return null;
+  const at = bar * patSteps(pat) + step;
+  const { beat, count } = pat.poly;
+  return { on: at % beat === 0, accent: at % (beat * count) === 0 };
 }
 
 /** Which beat of the bar a step falls on, 1-based — for the position readout. */
