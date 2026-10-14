@@ -148,8 +148,12 @@ describe('DELETE /api/v1/admin/orchestration/conversations/:id', () => {
 
       await DELETE(makeRequest(), makeParams(CONV_ID));
 
+      // Narrowed to the bases a delete admits (own, or nobody's), so the
+      // owner layer sees the returned row confined.
       expect(vi.mocked(prisma.aiConversation.delete)).toHaveBeenCalledWith(
-        expect.objectContaining({ where: { id: CONV_ID } })
+        expect.objectContaining({
+          where: { id: CONV_ID, AND: [{ OR: [{ userId: ADMIN_ID }, { userId: null }] }] },
+        })
       );
     });
 
@@ -225,8 +229,12 @@ describe('DELETE /api/v1/admin/orchestration/conversations/:id', () => {
       const response = await DELETE(makeRequest(), makeParams(CONV_ID));
 
       expect(response.status).toBe(200);
+      // Narrowed to the bases a delete admits (own, or nobody's), so the
+      // owner layer sees the returned row confined.
       expect(vi.mocked(prisma.aiConversation.delete)).toHaveBeenCalledWith(
-        expect.objectContaining({ where: { id: CONV_ID } })
+        expect.objectContaining({
+          where: { id: CONV_ID, AND: [{ OR: [{ userId: ADMIN_ID }, { userId: null }] }] },
+        })
       );
       // Destroying a third party's correspondence is never routine
       // self-service: it leaves an audit row naming the admin and the basis.

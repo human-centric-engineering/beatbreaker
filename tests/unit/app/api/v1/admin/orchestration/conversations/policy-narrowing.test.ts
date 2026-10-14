@@ -320,7 +320,10 @@ describe('writes over an inbound thread, targeted and bulk', () => {
       );
 
       expect(response.status).toBe(200);
-      expect(prisma.aiConversation.delete).toHaveBeenCalledWith({ where: { id: CONV_ID } });
+      // The write names the bases it admits, so the ownerless arm is in it.
+      expect(prisma.aiConversation.delete).toHaveBeenCalledWith({
+        where: { id: CONV_ID, AND: [{ OR: [{ userId: ADMIN_ID }, { userId: null }] }] },
+      });
       // Destroying a third party's messages is never routine self-service.
       expect(logConversationAccess).toHaveBeenCalledWith(
         expect.objectContaining({ action: 'conversation.deleted', accessBasis: 'system' })

@@ -26,14 +26,21 @@
  *     — or names no owner and the caller may read ownerless rows of that kind
  *     (`session.unattributedReads`). So `{ OR: [{ userId: me }, { userId: null }] }`
  *     passes for a caller admitted to ownerless rows, and `{ agentId }` alone
- *     does not.
+ *     does not. A model's `alsoVisible` arm confines too: a conversation's
+ *     `share` filtered to live shares (`revokedAt: null`, no expiry or one in
+ *     the future). A child owned `through` a parent (a message, through its
+ *     conversation) confines when its filter on that relation would confine
+ *     the parent.
  *   • `findUnique` (and `findUniqueOrThrow`) runs whatever its filter, and the
  *     row that comes back is checked: someone else's, or an ownerless one the
  *     caller may not read, is refused. A route that fetches by id and checks
  *     the owner afterwards keeps working, and gains a backstop for the day it
- *     forgets.
+ *     forgets. Where the row's own owner column cannot decide — a `through`
+ *     owner, or a model with an `alsoVisible` arm — the layer asks once more
+ *     for the same `id` narrowed to {@link readablePredicate}, through the
+ *     same operation, so inside a transaction it sees the transaction's rows.
  *   • `findFirst` (and `findFirstOrThrow`) with a filter that does not confine
- *     it has the caller's own predicate added to that filter. Checking its row
+ *     it has {@link readablePredicate} added to that filter. Checking its row
  *     afterwards would refuse or pass depending on which matching row the
  *     database returned first; narrowed, it returns the caller's first match,
  *     or none.
@@ -45,7 +52,10 @@
  *   • An `include` / `select` reaching an enforced model from any root (a
  *     `user.findUnique({ include: { aiUserMemories: true } })`) must confine
  *     that relation with its own `where`, or it is refused. A `_count` of
- *     one is held to the same rule.
+ *     one is held to the same rule. The exception is the ownership relation
+ *     itself, followed out of a node that is checked — a conversation's
+ *     `messages`, a message's `conversation`: the far side is readable exactly
+ *     when the near side is, so it inherits the check.
  *
  * A refusal throws {@link OwnerReadRefusedError} in every environment. There
  * is no log-only mode: that records a leak rather than stopping it.
@@ -538,7 +548,11 @@ export function readablePredicate(
   return arms.length === 1 ? arms[0] : { OR: arms };
 }
 
-/** May `reader` read a row of `model` whose owner column holds `owner`? */
+/**
+ * May `reader` read a row of `model` whose owner column holds `owner`? Decides
+ * only for a model whose owner column is the whole answer; one owned
+ * `through` a parent, or with an `alsoVisible` arm, is confirmed by `id`.
+ */
 export function rowReadable(
   schema: OwnerSchema,
   model: string,

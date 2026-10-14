@@ -191,18 +191,27 @@ export async function executeChatTurn(
   //    Restrict to user/assistant roles — system rows are auto-composed
   //    from agent settings, and tool rows belong to agent_call paths
   //    that chat_turn deliberately doesn't replay.
+  //    Read through the conversation rather than by `conversationId`: this
+  //    executor has no session to narrow by, and the owner layer
+  //    (`lib/db/owner-extension.ts`) lets messages inherit the check their
+  //    conversation's read passed. For a narrowed caller, a conversation it
+  //    may not read is refused here as it was in step 2.
   const historyLimit = config.historyLimit ?? DEFAULT_HISTORY_LIMIT;
   const priorMessages =
     historyLimit > 0
-      ? await prisma.aiMessage.findMany({
-          where: {
-            conversationId,
-            role: { in: [...ROLES_TO_LOAD] },
-          },
-          orderBy: { createdAt: 'desc' },
-          take: historyLimit,
-          select: { role: true, content: true },
-        })
+      ? ((
+          await prisma.aiConversation.findUnique({
+            where: { id: conversationId },
+            select: {
+              messages: {
+                where: { role: { in: [...ROLES_TO_LOAD] } },
+                orderBy: { createdAt: 'desc' },
+                take: historyLimit,
+                select: { role: true, content: true },
+              },
+            },
+          })
+        )?.messages ?? [])
       : [];
   // findMany returned newest-first to honour `take`; flip to chronological.
   const priorMessagesAsc = priorMessages.reverse();

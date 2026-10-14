@@ -167,8 +167,12 @@ export async function adminCanViewConversation(
   conversationId: string,
   session: AuthenticatedSession
 ): Promise<AdminCanViewResult> {
+  // Narrowed by the set face, so the owner layer (`lib/db/owner-extension.ts`)
+  // sees a confined read and a conversation this caller may not see comes back
+  // as no row rather than a refusal — the classification below still decides
+  // the basis, and agrees with the filter by the pinned tests.
   const conversation = await prisma.aiConversation.findUnique({
-    where: { id: conversationId },
+    where: { id: conversationId, AND: [conversationVisibilityWhere(session)] },
     select: {
       userId: true,
       share: {
