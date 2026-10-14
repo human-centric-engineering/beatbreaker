@@ -67,7 +67,7 @@ async function openShelf(user: ReturnType<typeof userEvent.setup>, name: string)
 
 /** An entry's row: its title, then the credit line. */
 const rowOf = (shelf: ReturnType<typeof within>, title: string) =>
-  shelf.getByRole('button', { name: (n) => n.startsWith(`${title} Cross-rhythm`) });
+  shelf.getByRole('button', { name: (n: string) => n.startsWith(`${title} Cross-rhythm`) });
 
 async function card() {
   return within(
