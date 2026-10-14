@@ -103,7 +103,11 @@ export const POST = withAdminAuth(async (request, session) => {
   const referenceRequired = body.metricConfigs.filter((m) => getGrader(m.slug).referenceRequired);
   if (referenceRequired.length > 0) {
     const missing = await prisma.aiDatasetCase.count({
-      where: { datasetId: dataset.id, expectedOutput: null },
+      where: {
+        datasetId: dataset.id,
+        dataset: datasetVisibilityWhere(session),
+        expectedOutput: null,
+      },
     });
     if (missing > 0) {
       throw new ValidationError(

@@ -90,12 +90,16 @@ interface CaseResult {
   costUsd: number;
   errorCode: string | null;
   errorMessage: string | null;
+  /** `null` when the run's dataset is no longer one this admin may see. */
   datasetCase: {
     input: unknown;
     expectedOutput: string | null;
     metadata: Record<string, unknown> | null;
-  };
+  } | null;
 }
+
+/** Shown in place of a case's input when its dataset is no longer visible to this admin. */
+const CASE_UNAVAILABLE = 'Not available: you can no longer see the dataset this case came from.';
 
 const STATUS_STYLES: Record<RunDetail['status'], string> = {
   queued: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200',
@@ -405,9 +409,13 @@ export function RunDetailView({ runId }: { runId: string }): React.ReactElement 
                     <TableCell className="font-mono">{c.casePosition}</TableCell>
                     <TableCell className="max-w-xs">
                       <div className="line-clamp-2 text-xs">
-                        {typeof c.datasetCase.input === 'string'
-                          ? c.datasetCase.input
-                          : JSON.stringify(c.datasetCase.input)}
+                        {c.datasetCase === null ? (
+                          <span className="text-muted-foreground">{CASE_UNAVAILABLE}</span>
+                        ) : typeof c.datasetCase.input === 'string' ? (
+                          c.datasetCase.input
+                        ) : (
+                          JSON.stringify(c.datasetCase.input)
+                        )}
                       </div>
                     </TableCell>
                     {run.metricConfigs.map((m) => {
@@ -444,12 +452,14 @@ export function RunDetailView({ runId }: { runId: string }): React.ReactElement 
               <div className="max-h-[70vh] space-y-4 overflow-y-auto">
                 <Section title="Input">
                   <pre className="bg-muted rounded p-3 text-xs whitespace-pre-wrap">
-                    {typeof selected.datasetCase.input === 'string'
-                      ? selected.datasetCase.input
-                      : JSON.stringify(selected.datasetCase.input, null, 2)}
+                    {selected.datasetCase === null
+                      ? CASE_UNAVAILABLE
+                      : typeof selected.datasetCase.input === 'string'
+                        ? selected.datasetCase.input
+                        : JSON.stringify(selected.datasetCase.input, null, 2)}
                   </pre>
                 </Section>
-                {selected.datasetCase.expectedOutput ? (
+                {selected.datasetCase?.expectedOutput ? (
                   <Section title="Expected output">
                     <pre className="bg-muted rounded p-3 text-xs whitespace-pre-wrap">
                       {selected.datasetCase.expectedOutput}

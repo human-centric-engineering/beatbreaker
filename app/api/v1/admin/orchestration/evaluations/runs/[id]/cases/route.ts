@@ -5,7 +5,8 @@
  *   Cursor-paginated by casePosition. Each item carries the case's
  *   subjectOutput, metricScores, latency, cost, and any errorCode —
  *   enough for the per-case drill-in UI to render without a second
- *   fetch.
+ *   fetch. `datasetCase` is `null` when the run's dataset is no longer
+ *   one the caller may see (another member claimed it).
  */
 
 import { withAdminAuth } from '@/lib/auth/guards';
@@ -16,6 +17,8 @@ import { validateQueryParams } from '@/lib/api/validation';
 import { getRouteLogger } from '@/lib/api/context';
 import { cuidSchema } from '@/lib/validations/common';
 import { listRunCasesQuerySchema } from '@/lib/validations/orchestration-evaluations';
+import { datasetVisibilityWhere } from '@/lib/orchestration/access/dataset-access';
+import { loadScoredCases } from '@/lib/orchestration/evaluations/datasets/scored-cases';
 
 export const GET = withAdminAuth<{ id: string }>(async (request, session, { params }) => {
   const log = await getRouteLogger(request);
@@ -35,16 +38,27 @@ export const GET = withAdminAuth<{ id: string }>(async (request, session, { para
   if (!run) throw new NotFoundError(`Run ${id} not found`);
 
   const results = await prisma.aiEvaluationCaseResult.findMany({
-    where: { runId: id, ...(cursor !== undefined ? { casePosition: { gt: cursor } } : {}) },
+    where: {
+      runId: id,
+      // The run checked above, named again so the owner layer sees the read is
+      // confined to the caller's run.
+      run: { userId: session.user.id },
+      ...(cursor !== undefined ? { casePosition: { gt: cursor } } : {}),
+    },
     orderBy: { casePosition: 'asc' },
     take: limit + 1,
-    include: {
-      datasetCase: { select: { input: true, expectedOutput: true, metadata: true } },
-    },
   });
   const hasMore = results.length > limit;
-  const items = hasMore ? results.slice(0, limit) : results;
-  const nextCursor = hasMore ? items[items.length - 1].casePosition : null;
+  const page = hasMore ? results.slice(0, limit) : results;
+  const nextCursor = hasMore ? page[page.length - 1].casePosition : null;
+
+  // The cases these results scored, through the dataset's visibility: `null`
+  // when the dataset has since become another member's (`scored-cases.ts`).
+  const cases = await loadScoredCases(
+    page.map((r) => r.datasetCaseId),
+    datasetVisibilityWhere(session)
+  );
+  const items = page.map((r) => ({ ...r, datasetCase: cases.get(r.datasetCaseId) ?? null }));
   log.info('Listed run case results', { runId: id, returned: items.length });
   return successResponse({ items, nextCursor });
 });

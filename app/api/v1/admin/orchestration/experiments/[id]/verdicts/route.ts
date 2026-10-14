@@ -40,6 +40,8 @@ import { pairwiseVerdictLimiter, createRateLimitResponse } from '@/lib/security/
 import { pairwiseJudgeAgentGrader } from '@/lib/orchestration/evaluations/graders/pairwise/judge-agent';
 import type { PairwiseVerdictCase, PairwiseVerdictSummary } from '@/types/orchestration';
 import { platformSlugWhere } from '@/lib/orchestration/agents/platform-agent-guard';
+import { datasetVisibilityWhere } from '@/lib/orchestration/access/dataset-access';
+import { loadScoredCases } from '@/lib/orchestration/evaluations/datasets/scored-cases';
 
 type Params = { id: string };
 
@@ -157,25 +159,31 @@ export const POST = withAdminAuth<Params>(
       throw new ValidationError(`Agent "${body.judgeAgentSlug}" is not an active judge agent`);
     }
 
+    // Each variant's results, from runs the caller may read: the run routes'
+    // rule, and what lets the owner layer (§115) see the reads are confined.
     const [resultsA, resultsB] = await Promise.all([
       prisma.aiEvaluationCaseResult.findMany({
-        where: { runId: variantA.evaluationRunId },
+        where: { runId: variantA.evaluationRunId, run: { userId: session.user.id } },
         select: {
           casePosition: true,
           subjectOutput: true,
-          datasetCase: {
-            select: { input: true, expectedOutput: true },
-          },
+          datasetCaseId: true,
         },
       }),
       prisma.aiEvaluationCaseResult.findMany({
-        where: { runId: variantB.evaluationRunId },
+        where: { runId: variantB.evaluationRunId, run: { userId: session.user.id } },
         select: {
           casePosition: true,
           subjectOutput: true,
         },
       }),
     ]);
+    // The cases variant A scored, through the dataset's visibility — checked
+    // above, so every one is here unless the dataset changed hands since.
+    const casesA = await loadScoredCases(
+      resultsA.map((r) => r.datasetCaseId),
+      datasetVisibilityWhere(session)
+    );
 
     const bByPosition = new Map<number, string>();
     for (const r of resultsB) bByPosition.set(r.casePosition, r.subjectOutput);
@@ -193,10 +201,20 @@ export const POST = withAdminAuth<Params>(
 
     for (const r of resultsA) {
       const outputB = bByPosition.get(r.casePosition);
+      const datasetCase = casesA.get(r.datasetCaseId);
+      if (datasetCase === undefined) {
+        missing.push({
+          casePosition: r.casePosition,
+          verdict: 'tie',
+          reasoning: 'the dataset case is no longer one you may see',
+          error: 'missing_dataset_case',
+        });
+        continue;
+      }
       const userInput =
-        typeof r.datasetCase.input === 'string'
-          ? r.datasetCase.input
-          : JSON.stringify(r.datasetCase.input);
+        typeof datasetCase.input === 'string'
+          ? datasetCase.input
+          : JSON.stringify(datasetCase.input);
       if (outputB === undefined) {
         missing.push({
           casePosition: r.casePosition,
@@ -209,7 +227,7 @@ export const POST = withAdminAuth<Params>(
       pairs.push({
         position: r.casePosition,
         userInput,
-        ...(r.datasetCase.expectedOutput ? { expectedOutput: r.datasetCase.expectedOutput } : {}),
+        ...(datasetCase.expectedOutput ? { expectedOutput: datasetCase.expectedOutput } : {}),
         outputA: r.subjectOutput,
         outputB,
       });

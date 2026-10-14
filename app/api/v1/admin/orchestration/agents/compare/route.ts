@@ -82,8 +82,13 @@ async function getAgentStats(agentId: string) {
         prisma.aiConversation.count({ where: { agentId } })
       ),
       prisma.aiAgentCapability.count({ where: { agentId } }),
-      prisma.aiEvaluationSession.count({ where: { agentId } }),
-      prisma.aiEvaluationSession.count({ where: { agentId, status: 'completed' } }),
+      // Install-wide too (header, t-682): two numbers per agent, no session row.
+      runAcrossOwners('agent comparison: an install-wide evaluation count per agent', () =>
+        prisma.aiEvaluationSession.count({ where: { agentId } })
+      ),
+      runAcrossOwners('agent comparison: an install-wide evaluation count per agent', () =>
+        prisma.aiEvaluationSession.count({ where: { agentId, status: 'completed' } })
+      ),
     ]);
 
   if (!agent) return null;

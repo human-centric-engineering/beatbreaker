@@ -45,7 +45,12 @@ export const GET = withAdminAuth<{ id: string }>(async (request, session, { para
   const { searchParams } = new URL(request.url);
   const { limit, before } = validateQueryParams(searchParams, evaluationLogsQuerySchema);
 
-  const where: Prisma.AiEvaluationLogWhereInput = { sessionId };
+  // The session checked above, named again so the owner layer sees the read
+  // is confined to the caller's session.
+  const where: Prisma.AiEvaluationLogWhereInput = {
+    sessionId,
+    session: { userId: session.user.id },
+  };
   if (before !== undefined) where.sequenceNumber = { lt: before };
 
   const logs = await prisma.aiEvaluationLog.findMany({

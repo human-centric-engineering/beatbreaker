@@ -42,7 +42,7 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
   }
 
   const cancelled = await prisma.aiEvaluationRun.update({
-    where: { id },
+    where: { id, userId: session.user.id },
     data: { status: 'cancelled', completedAt: new Date(), lockedBy: null, lockedAt: null },
   });
   log.info('Run cancelled', { runId: id, priorStatus: run.status });

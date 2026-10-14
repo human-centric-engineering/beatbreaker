@@ -40,6 +40,7 @@ vi.mock('@/lib/db/client', () => ({
     aiExperiment: { findFirst: vi.fn(), update: vi.fn() },
     aiAgent: { findFirst: vi.fn() },
     aiEvaluationCaseResult: { findMany: vi.fn() },
+    aiDatasetCase: { findMany: vi.fn() },
   },
 }));
 
@@ -352,8 +353,22 @@ describe('POST /experiments/:id/verdicts — ownership + validation', () => {
   });
 });
 
+/** The cases variant A's results point at, as the visibility-narrowed read returns them. */
+function answerCases(): void {
+  vi.mocked(prisma.aiDatasetCase.findMany).mockImplementation((async (args: {
+    where: { id: { in: string[] } };
+  }) =>
+    args.where.id.in.map((id) => ({
+      id,
+      input: `q${id.slice('case-'.length)}`,
+      expectedOutput: id === 'case-0' ? 'e0' : null,
+      metadata: null,
+    }))) as never);
+}
+
 describe('POST /experiments/:id/verdicts — happy path', () => {
   beforeEach(() => {
+    answerCases();
     vi.mocked(auth.api.getSession).mockResolvedValue(mockAdminUser());
     vi.mocked(prisma.aiExperiment.findFirst).mockResolvedValue(makeExperiment() as never);
     vi.mocked(prisma.aiAgent.findFirst).mockResolvedValue({
@@ -370,17 +385,17 @@ describe('POST /experiments/:id/verdicts — happy path', () => {
         {
           casePosition: 0,
           subjectOutput: 'A0',
-          datasetCase: { input: 'q0', expectedOutput: 'e0' },
+          datasetCaseId: 'case-0',
         },
         {
           casePosition: 1,
           subjectOutput: 'A1',
-          datasetCase: { input: 'q1', expectedOutput: null },
+          datasetCaseId: 'case-1',
         },
         {
           casePosition: 2,
           subjectOutput: 'A2',
-          datasetCase: { input: 'q2', expectedOutput: null },
+          datasetCaseId: 'case-2',
         },
       ] as never)
       .mockResolvedValueOnce([
@@ -432,12 +447,12 @@ describe('POST /experiments/:id/verdicts — happy path', () => {
         {
           casePosition: 0,
           subjectOutput: 'A0',
-          datasetCase: { input: 'q0', expectedOutput: null },
+          datasetCaseId: 'case-0',
         },
         {
           casePosition: 1,
           subjectOutput: 'A1',
-          datasetCase: { input: 'q1', expectedOutput: null },
+          datasetCaseId: 'case-1',
         },
       ] as never)
       .mockResolvedValueOnce([
@@ -465,18 +480,48 @@ describe('POST /experiments/:id/verdicts — happy path', () => {
     expect(body.data.counts).toEqual({ A: 1, B: 0, tie: 0 });
   });
 
+  it("reads each variant's results through the caller's runs, and fails a case whose dataset it can no longer see", async () => {
+    vi.mocked(prisma.aiEvaluationCaseResult.findMany)
+      .mockResolvedValueOnce([
+        { casePosition: 0, subjectOutput: 'A0', datasetCaseId: 'case-0' },
+        { casePosition: 1, subjectOutput: 'A1', datasetCaseId: 'case-1' },
+      ] as never)
+      .mockResolvedValueOnce([
+        { casePosition: 0, subjectOutput: 'B0' },
+        { casePosition: 1, subjectOutput: 'B1' },
+      ] as never);
+    // Only case 0 comes back through the dataset's visibility.
+    vi.mocked(prisma.aiDatasetCase.findMany).mockResolvedValueOnce([
+      { id: 'case-0', input: 'q0', expectedOutput: null, metadata: null },
+    ] as never);
+    grade.mockResolvedValueOnce({ verdict: 'A', reasoning: 'fine' });
+
+    const res = await POST(makeRequest(defaultBody()), ctx());
+
+    expect(res.status).toBe(200);
+    for (const [call] of vi.mocked(prisma.aiEvaluationCaseResult.findMany).mock.calls) {
+      expect(call?.where).toMatchObject({ run: { userId: ADMIN_ID } });
+    }
+    const body = await parseJson<{
+      data: { casesScored: number; perCase: Array<{ casePosition: number; error?: string }> };
+    }>(res);
+    expect(body.data.casesScored).toBe(1);
+    expect(body.data.perCase.find((c) => c.casePosition === 1)?.error).toBe('missing_dataset_case');
+    expect(grade).toHaveBeenCalledTimes(1);
+  });
+
   it('marks unpaired positions as failed without invoking the grader', async () => {
     vi.mocked(prisma.aiEvaluationCaseResult.findMany)
       .mockResolvedValueOnce([
         {
           casePosition: 0,
           subjectOutput: 'A0',
-          datasetCase: { input: 'q0', expectedOutput: null },
+          datasetCaseId: 'case-0',
         },
         {
           casePosition: 1,
           subjectOutput: 'A1',
-          datasetCase: { input: 'q1', expectedOutput: null },
+          datasetCaseId: 'case-1',
         },
       ] as never)
       .mockResolvedValueOnce([
