@@ -135,10 +135,12 @@ export const OWNER_CLASSIFICATION = {
     owner: { column: 'userId' },
     ownerless: 'conversation',
     alsoVisible: ['active-share'],
+    enforced: true,
   },
   AiMessage: {
     kind: 'personal',
     owner: { through: { field: 'conversation', parent: 'AiConversation' } },
+    enforced: true,
   },
   AiMessageEmbedding: {
     kind: 'personal',

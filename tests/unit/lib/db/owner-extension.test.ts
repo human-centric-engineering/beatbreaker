@@ -24,6 +24,7 @@ import type {
 import { withTenancy, type TenancyClient } from '@/lib/db/tenancy-extension';
 import {
   OwnerReadRefusedError,
+  readablePredicate,
   readOwnerSchema,
   readerFor,
   rowReadable,
@@ -59,6 +60,12 @@ interface Statement {
 const statements: Statement[] = [];
 /** The rows the next `ai_user_memory` SELECT answers with, by column name. */
 let memoryRows: Record<string, unknown>[] = [];
+/**
+ * Per table other than memories, the answers its SELECTs give, in order; the
+ * last one repeats. A single-row read the layer confirms is two SELECTs, so a
+ * test says what each returns.
+ */
+let tableAnswers: Record<string, Record<string, unknown>[][]> = {};
 
 const DATE_COLUMNS = new Set(['createdAt', 'updatedAt']);
 
@@ -74,18 +81,28 @@ function selectedColumns(sql: string): string[] {
   );
 }
 
+function rowsFor(sql: string): Record<string, unknown>[] | null {
+  if (/^SELECT .* FROM "public"\."ai_user_memory"/.test(sql)) return memoryRows;
+  const table = /^SELECT .*? FROM "public"\."(\w+)"/.exec(sql)?.[1];
+  const queue = table === undefined ? undefined : tableAnswers[table];
+  if (!queue || queue.length === 0) return null;
+  return queue.length > 1 ? (queue.shift() ?? []) : queue[0];
+}
+
 function answer(q: SqlQuery): SqlResultSet {
   if (/^SELECT COUNT\(\*\)/.test(q.sql)) {
     return { columnNames: ['_count$_all'], columnTypes: [ColumnTypeEnum.Int32], rows: [[0]] };
   }
-  if (/^SELECT .* FROM "public"\."ai_user_memory"/.test(q.sql)) {
+  const found = rowsFor(q.sql);
+  if (found !== null) {
+    const rows = found;
     const cols = selectedColumns(q.sql);
     return {
       columnNames: cols,
       columnTypes: cols.map((c) =>
         DATE_COLUMNS.has(c) ? ColumnTypeEnum.DateTime : ColumnTypeEnum.Text
       ),
-      rows: memoryRows.map((row) =>
+      rows: rows.map((row) =>
         cols.map((c) => (DATE_COLUMNS.has(c) ? '2026-10-14T00:00:00.000Z' : (row[c] ?? null)))
       ),
     };
@@ -194,6 +211,7 @@ const memory = (userId: string) => ({
 beforeEach(() => {
   statements.length = 0;
   memoryRows = [];
+  tableAnswers = {};
   confinedReads.mockClear();
   uncheckedReads.mockClear();
 });
@@ -391,9 +409,10 @@ describe('withOwnerChecks — a narrowed caller', () => {
         db.aiAgent.findMany({ select: { id: true, _count: { select: { userMemories: true } } } })
       )
     ).rejects.toMatchObject({ reason: 'unconfined-relation' });
+    // `_count: true` counts every relation, conversations and memories among them.
     await expect(
       asMember(() => db.aiAgent.findMany({ include: { _count: true } }))
-    ).rejects.toThrow(/AiAgent\._count\.userMemories/);
+    ).rejects.toThrow(/AiAgent\._count\.(conversations|userMemories)/);
     // Deeper: a non-enforced relation whose own include reaches memories.
     await expect(
       asMember(() =>
@@ -421,14 +440,14 @@ describe('withOwnerChecks — a narrowed caller', () => {
   });
 
   it('leaves a model that is not enforced alone, and tells the guard nothing checked it', async () => {
-    // AiConversation is personal but not enforced until t-802.
-    await asMember(() => db.aiConversation.findMany());
+    // AiWorkflowExecution is personal but not enforced until t-803.
+    await asMember(() => db.aiWorkflowExecution.findMany());
     expect(statements).toHaveLength(1);
     expect(uncheckedReads).toHaveBeenCalledTimes(1);
 
     // Reached through an include, too.
     await asMember(() =>
-      db.user.findUnique({ where: { id: ME }, include: { aiConversations: true } })
+      db.user.findUnique({ where: { id: ME }, include: { aiWorkflowExecutions: true } })
     );
     expect(uncheckedReads).toHaveBeenCalledTimes(2);
 
@@ -446,6 +465,178 @@ describe('withOwnerChecks — a narrowed caller', () => {
       onConfinedRead: seen,
     });
     expect(seen).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('withOwnerChecks — conversations and messages (t-802)', () => {
+  const CONV = 'cmconv0000000000000000cv01';
+  const conversation = (userId: string | null) => ({
+    id: CONV,
+    userId,
+    agentId: AGENT,
+    orgId: 'install',
+  });
+  const message = { id: 'cmmsg00000000000000000ms01', conversationId: CONV, role: 'user' };
+  const live = () => ({
+    revokedAt: null,
+    OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
+  });
+  const asAdmitted = <T>(fn: () => Promise<T>) =>
+    runAsSubject(
+      {
+        principal: { userId: ME, credential: 'session' },
+        filter: { userId: ME },
+        resolveFilter: () => Promise.resolve({ userId: ME }),
+        unattributedReads: { ...NO_UNATTRIBUTED, conversation: true },
+      },
+      fn
+    );
+
+  it('refuses an unnarrowed list of conversations or messages, before any SQL', async () => {
+    await expect(
+      asMember(() => db.aiConversation.findMany({ where: { agentId: AGENT } }))
+    ).rejects.toMatchObject({ reason: 'unconfined-filter' });
+    await expect(
+      asMember(() => db.aiMessage.count({ where: { conversationId: CONV } }))
+    ).rejects.toMatchObject({ reason: 'unconfined-filter' });
+    expect(statements).toHaveLength(0);
+  });
+
+  it('passes the three arms conversationVisibilityWhere emits, and a message list through its conversation', async () => {
+    await asAdmitted(() =>
+      db.aiConversation.findMany({
+        where: {
+          AND: [
+            { OR: [{ userId: ME }, { userId: null }, { userId: { not: null }, share: live() }] },
+            { agentId: AGENT },
+          ],
+        },
+      })
+    );
+    await asMember(() =>
+      db.aiMessage.findMany({ where: { conversationId: CONV, conversation: { userId: ME } } })
+    );
+    // The ownerless arm is the policy's: a caller it refuses cannot use it.
+    await expect(
+      asMember(() =>
+        db.aiConversation.findMany({ where: { OR: [{ userId: ME }, { userId: null }] } })
+      )
+    ).rejects.toMatchObject({ reason: 'unconfined-filter' });
+  });
+
+  it('admits a share arm only while it selects live shares', async () => {
+    await asMember(() => db.aiConversation.count({ where: { share: live() } }));
+    await asMember(() =>
+      db.aiConversation.count({ where: { share: { is: { revokedAt: null, expiresAt: null } } } })
+    );
+    for (const share of [
+      { revokedAt: null },
+      { expiresAt: null },
+      { revokedAt: null, OR: [{ expiresAt: null }, { expiresAt: { gt: new Date(0) } }] },
+      { revokedAt: null, OR: [{ expiresAt: null }, { createdAt: { gt: new Date() } }] },
+      { isNot: { revokedAt: { not: null } } },
+    ]) {
+      await expect(
+        asMember(() => db.aiConversation.count({ where: { share } })),
+        JSON.stringify(share)
+      ).rejects.toMatchObject({ reason: 'unconfined-filter' });
+    }
+  });
+
+  it('lets a checked read follow the ownership relation in either direction without its own where', async () => {
+    tableAnswers = { ai_conversation: [[conversation(ME)]], ai_message: [[message]] };
+    await asMember(() =>
+      db.aiConversation.findMany({
+        where: { userId: ME },
+        include: { messages: true, _count: { select: { messages: true } } },
+      })
+    );
+    await asMember(() =>
+      db.aiMessage.findMany({
+        where: { conversation: { userId: ME } },
+        include: { conversation: { include: { messages: true } } },
+      })
+    );
+  });
+
+  it('holds the same relation to a where when nothing checked the node it leaves', async () => {
+    // A create returns a row nothing checked, so reading up to its conversation needs a where it cannot carry.
+    await expect(
+      asMember(() =>
+        db.aiMessage.create({
+          data: { conversationId: CONV, role: 'user', content: 'x' },
+          include: { conversation: true },
+        })
+      )
+    ).rejects.toMatchObject({ reason: 'unconfined-relation' });
+    // From an agent, the conversations need their own where; under them, messages inherit.
+    await expect(
+      asMember(() => db.aiAgent.findMany({ include: { conversations: true } }))
+    ).rejects.toThrow(/AiAgent\.conversations/);
+    await asMember(() =>
+      db.aiAgent.findMany({
+        include: { conversations: { where: { userId: ME }, include: { messages: true } } },
+      })
+    );
+    // A message's cost logs are not its ownership relation.
+    await expect(
+      asMember(() => db.aiCostLog.findMany({ include: { conversation: true } }))
+    ).rejects.toMatchObject({ reason: 'unconfined-relation' });
+  });
+
+  it("confirms a message read by id against its conversation, and refuses another member's", async () => {
+    // First SELECT: the message. Second: the same id, narrowed — none.
+    tableAnswers = { ai_message: [[message], []] };
+    await expect(
+      asMember(() => db.aiMessage.findUnique({ where: { id: message.id } }))
+    ).rejects.toMatchObject({ reason: 'foreign-row' });
+    const confirm = statements.at(-1);
+    expect(confirm?.sql).toMatch(/ai_conversation/);
+    expect(confirm?.args).toContain(ME);
+
+    statements.length = 0;
+    tableAnswers = { ai_message: [[message], [{ id: message.id }]] };
+    const row = await asMember(() =>
+      db.aiMessage.findUnique({ where: { id: message.id }, select: { role: true } })
+    );
+    // Only what was asked for comes back, though the layer needed the id.
+    expect(row).toEqual({ role: 'user' });
+    expect(statements).toHaveLength(2);
+  });
+
+  it('refuses a findUniqueOrThrow whose confirmation finds nothing, as a refusal rather than not-found', async () => {
+    tableAnswers = { ai_message: [[message], []] };
+    await expect(
+      asMember(() => db.aiMessage.findUniqueOrThrow({ where: { id: message.id } }))
+    ).rejects.toBeInstanceOf(OwnerReadRefusedError);
+  });
+
+  it("confirms a conversation read by id, so another member's shared thread passes and an unshared one does not", async () => {
+    tableAnswers = { ai_conversation: [[conversation(OTHER)], [{ id: CONV }]] };
+    await asMember(() => db.aiConversation.findUnique({ where: { id: CONV } }));
+    const confirm = statements.at(-1);
+    expect(confirm?.sql).toMatch(/ai_conversation_share/);
+
+    tableAnswers = { ai_conversation: [[conversation(OTHER)], []] };
+    await expect(
+      asMember(() => db.aiConversation.findUnique({ where: { id: CONV } }))
+    ).rejects.toMatchObject({ reason: 'foreign-row' });
+  });
+
+  it('confirms inside a transaction on the transaction', async () => {
+    tableAnswers = { ai_message: [[message], []] };
+    await expect(
+      asMember(() =>
+        db.$transaction((tx) => tx.aiMessage.findUnique({ where: { id: message.id } }))
+      )
+    ).rejects.toMatchObject({ reason: 'foreign-row' });
+  });
+
+  it('narrows an unconfined findFirst to the rows the caller may read, share arm included', async () => {
+    tableAnswers = { ai_conversation: [[]] };
+    await asMember(() => db.aiConversation.findFirst({ where: { agentId: AGENT } }));
+    expect(statements[0].sql).toMatch(/ai_conversation_share/);
+    expect(statements[0].args).toContain(ME);
   });
 });
 
@@ -493,6 +684,13 @@ describe('neutrality', () => {
       update: { value: 'v', updatedAt: AT },
     });
     await client.$transaction((tx) => tx.aiUserMemory.findMany());
+    await client.aiConversation.findMany({
+      where: { agentId: AGENT },
+      include: { messages: true },
+    });
+    await client.aiConversation.findUnique({ where: { id: 'cmconv0000000000000000cv01' } });
+    await client.aiMessage.findFirst({ where: { role: 'user' } });
+    await client.aiMessage.count();
   };
 
   const sqlOf = async (run: () => Promise<void>): Promise<Statement[]> => {
@@ -591,6 +789,17 @@ describe('whereConfines / rowReadable', () => {
     expect(whereConfines(schema, 'AiUserMemory', undefined, reader())).toBe(false);
   });
 
+  it('builds a readable predicate that its own analysis accepts, for every enforced model', () => {
+    const s = readOwnerSchema(base, enforcedModels());
+    for (const reads of [{}, { conversation: true }]) {
+      for (const model of enforcedModels()) {
+        const where = readablePredicate(s, model, reader(reads));
+        expect(whereConfines(s, model, where, reader(reads)), model).toBe(true);
+      }
+    }
+    expect(readablePredicate(s, 'AiUserMemory', reader())).toEqual({ userId: ME });
+  });
+
   it('names the path of the first unconfined relation', () => {
     expect(
       unconfinedRelation(
@@ -623,13 +832,29 @@ describe('whereConfines / rowReadable', () => {
 });
 
 describe('readOwnerSchema', () => {
-  it('refuses to enforce a model the layer cannot fully check yet', () => {
-    expect(() => readOwnerSchema(base, ['AiMessage'])).toThrow(/through a relation.*t-802/);
-    expect(() => readOwnerSchema(base, ['AiConversation'])).toThrow(/alsoVisible.*t-802/);
+  it('refuses to enforce a model the layer cannot fully check', () => {
+    // A child held to a rule its parent is not.
+    expect(() => readOwnerSchema(base, ['AiMessage'])).toThrow(
+      /owned through AiConversation, which is not enforced/
+    );
     expect(() => readOwnerSchema(base, ['AiAgent'])).toThrow(/not classified personal/);
+    expect(() =>
+      readOwnerSchema(base, ['AiAgent'], () => ({
+        kind: 'personal',
+        owner: { column: 'createdBy' },
+        alsoVisible: ['active-share'],
+      }))
+    ).toThrow(/declares active-share but has no share relation/);
+    expect(() =>
+      readOwnerSchema(base, ['AiAgent'], () => ({
+        kind: 'personal',
+        owner: { through: { field: 'parentAgent', parent: 'AiConversation' } },
+      }))
+    ).toThrow(/AiAgent\.parentAgent is not a relation to AiConversation/);
+    expect(() => readOwnerSchema(base, ['AiConversation', 'AiMessage'])).not.toThrow();
   });
 
-  it('enforces exactly AiUserMemory in this release', () => {
-    expect(enforcedModels()).toEqual(['AiUserMemory']);
+  it('enforces conversations, messages and memories in this release', () => {
+    expect([...enforcedModels()].sort()).toEqual(['AiConversation', 'AiMessage', 'AiUserMemory']);
   });
 });
