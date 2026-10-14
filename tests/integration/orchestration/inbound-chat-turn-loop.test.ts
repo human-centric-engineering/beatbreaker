@@ -96,14 +96,17 @@ vi.mock('@/lib/db/client', () => {
           }) => {
             const conversation = conversationStore.find((c) => c.id === where.id);
             if (!conversation) return null;
-            // The executor reads history through its conversation (§115 t-802).
+            // The executor reads its history with the conversation (§115 t-802).
             if (!select?.messages) return conversation;
             // Sort DESC by createdAt (newest first), as the real query does, then `take`.
             const all = messageStore
               .filter((m) => m.conversationId === where.id)
               .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
             const take = select.messages.take;
-            return { messages: typeof take === 'number' ? all.slice(0, take) : all };
+            return {
+              ...conversation,
+              messages: typeof take === 'number' ? all.slice(0, take) : all,
+            };
           }
         ),
       },
