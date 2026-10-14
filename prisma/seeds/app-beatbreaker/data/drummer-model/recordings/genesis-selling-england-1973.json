@@ -1,0 +1,49 @@
+{
+  "id": "rec:genesis-selling-england-1973",
+  "title": "Selling England by the Pound",
+  "artist": "Genesis",
+  "release": "Charisma",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "Peter Gabriel",
+      "role": "vocals"
+    },
+    {
+      "name": "Tony Banks",
+      "role": "keyboards"
+    },
+    {
+      "name": "Mike Rutherford",
+      "role": "bass, guitar"
+    },
+    {
+      "name": "Steve Hackett",
+      "role": "guitar"
+    },
+    {
+      "name": "Phil Collins",
+      "role": "drums, percussion"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-collins",
+      "name": "Phil Collins",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The Cinema Show's keyboard solo in 7/8: the hat opened on 1, 3 and after 6 and closed by the foot.",
+      "pattern_ids": ["pattern:phil-collins-cinema-show-7-8"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia", "src:phil-collins-drumeo-12"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:phil-collins-wikipedia", "src:phil-collins-drumeo-12"]
+  }
+}

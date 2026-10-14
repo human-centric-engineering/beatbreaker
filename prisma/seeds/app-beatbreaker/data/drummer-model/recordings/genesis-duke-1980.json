@@ -1,0 +1,41 @@
+{
+  "id": "rec:genesis-duke-1980",
+  "title": "Duke",
+  "artist": "Genesis",
+  "release": "Charisma",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:pop-rock-session"],
+  "personnel": [
+    {
+      "name": "Tony Banks",
+      "role": "keyboards"
+    },
+    {
+      "name": "Mike Rutherford",
+      "role": "bass, guitar"
+    },
+    {
+      "name": "Phil Collins",
+      "role": "drums, percussion, vocals"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-collins",
+      "name": "Phil Collins",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Turn It On Again, a bar of 6/4 and one of 7/4 that he spotted were thirteen; Behind the Lines' ride bell against the hat at 164.",
+      "pattern_ids": ["pattern:phil-collins-turn-it-on-again"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:turn-it-on-again-wikipedia", "src:phil-collins-drumeo-12"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:turn-it-on-again-wikipedia", "src:phil-collins-drumeo-12"]
+  }
+}

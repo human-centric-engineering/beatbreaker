@@ -1,0 +1,49 @@
+{
+  "id": "rec:genesis-foxtrot-1972",
+  "title": "Foxtrot",
+  "artist": "Genesis",
+  "release": "Charisma",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "Peter Gabriel",
+      "role": "vocals, flute"
+    },
+    {
+      "name": "Tony Banks",
+      "role": "keyboards"
+    },
+    {
+      "name": "Mike Rutherford",
+      "role": "bass, guitar"
+    },
+    {
+      "name": "Steve Hackett",
+      "role": "guitar"
+    },
+    {
+      "name": "Phil Collins",
+      "role": "drums, percussion, vocals"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-collins",
+      "name": "Phil Collins",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Supper's Ready's last part, Apocalypse in 9/8: nine counted as two, two, two, two and one, with a flam and the kick running into the bar line.",
+      "pattern_ids": ["pattern:phil-collins-apocalypse-9-8"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia", "src:phil-collins-drumeo-12"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:phil-collins-wikipedia", "src:phil-collins-drumeo-12"]
+  }
+}

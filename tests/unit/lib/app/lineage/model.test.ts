@@ -103,6 +103,7 @@ describe('the drummer model', () => {
       'drummer:klek-de-poitrine',
       'drummer:mitch-mitchell',
       'drummer:omar-hakim',
+      'drummer:phil-collins',
       'drummer:ringo-starr',
       'drummer:steve-gadd',
       'drummer:stewart-copeland',

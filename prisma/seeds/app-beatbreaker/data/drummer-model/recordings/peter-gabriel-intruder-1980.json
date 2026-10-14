@@ -1,0 +1,48 @@
+{
+  "id": "rec:peter-gabriel-intruder-1980",
+  "title": "Intruder",
+  "artist": "Peter Gabriel",
+  "release": "Charisma (Peter Gabriel, third album)",
+  "year": 1980,
+  "type": "studio_track",
+  "style_ids": ["style:new-wave", "style:experimental-rock"],
+  "personnel": [
+    {
+      "name": "Peter Gabriel",
+      "role": "vocals, synthesiser"
+    },
+    {
+      "name": "Phil Collins",
+      "role": "drums"
+    }
+  ],
+  "tempo_bpm": 94,
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-collins",
+      "name": "Phil Collins",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Where the gated drum sound began: Gabriel had him play without cymbals, and Padgham and Lillywhite compressed and gated the talkback mic over the kit.",
+      "pattern_ids": ["pattern:phil-collins-intruder"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gated-reverb-wikipedia", "src:songsterr-1070567"]
+      },
+      "notable_moments": [
+        {
+          "category": "studio_story",
+          "description": "No cymbals on the drum track; the gated room sound came from the overhead talkback mic.",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:gated-reverb-wikipedia"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:gated-reverb-wikipedia", "src:songsterr-1070567"]
+  }
+}

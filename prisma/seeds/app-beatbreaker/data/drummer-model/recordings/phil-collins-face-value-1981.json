@@ -1,0 +1,66 @@
+{
+  "id": "rec:phil-collins-face-value-1981",
+  "title": "Face Value",
+  "artist": "Phil Collins",
+  "release": "Virgin / Atlantic",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:new-wave"],
+  "personnel": [
+    {
+      "name": "Phil Collins",
+      "role": "vocals, drums, drum machine, keyboards"
+    },
+    {
+      "name": "Daryl Stuermer",
+      "role": "guitar"
+    },
+    {
+      "name": "John Giblin",
+      "role": "bass"
+    },
+    {
+      "name": "Hugh Padgham",
+      "role": "co-producer, engineer"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-collins",
+      "name": "Phil Collins",
+      "drummer_role": "leader",
+      "significance": 0.8,
+      "why_it_matters": "In the Air Tonight: a Roland CR-78 under the verses, then the most air-drummed fill there is, two toms and a kick in threes, and his gated kit. I Missed Again with the horns.",
+      "pattern_ids": [
+        "pattern:phil-collins-in-the-air-tonight-fill",
+        "pattern:phil-collins-in-the-air-tonight-groove"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:in-the-air-tonight-wikipedia", "src:phil-collins-drumeo-12"]
+      },
+      "notable_moments": [
+        {
+          "category": "fill",
+          "description": "The break at 3:40: two toms struck together and a kick, in threes down the kit; no kick between the last two tom hits, Collins says.",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:phil-collins-drumeo-12", "src:in-the-air-tonight-wikipedia"]
+          }
+        },
+        {
+          "category": "sound",
+          "description": "Gated reverb on the drums; the verse is a CR-78.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:in-the-air-tonight-wikipedia"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:in-the-air-tonight-wikipedia", "src:phil-collins-drumeo-12"]
+  }
+}

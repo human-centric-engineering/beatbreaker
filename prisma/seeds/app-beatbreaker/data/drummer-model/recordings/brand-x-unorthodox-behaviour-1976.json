@@ -1,0 +1,45 @@
+{
+  "id": "rec:brand-x-unorthodox-behaviour-1976",
+  "title": "Unorthodox Behaviour",
+  "artist": "Brand X",
+  "release": "Charisma",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "John Goodsall",
+      "role": "guitar"
+    },
+    {
+      "name": "Percy Jones",
+      "role": "bass"
+    },
+    {
+      "name": "Robin Lumley",
+      "role": "keyboards"
+    },
+    {
+      "name": "Phil Collins",
+      "role": "drums, percussion"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-collins",
+      "name": "Phil Collins",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Brand X's first album: jazz-rock with Percy Jones on fretless bass, Collins in odd meters at speed. Nuclear Burn opens it in 11/8.",
+      "pattern_ids": ["pattern:phil-collins-nuclear-burn"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:unorthodox-behaviour-wikipedia", "src:phil-collins-drumeo-12"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:unorthodox-behaviour-wikipedia", "src:phil-collins-drumeo-12"]
+  }
+}

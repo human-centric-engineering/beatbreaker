@@ -3081,6 +3081,154 @@ songsterr.com/a/wsa/angine-de-poitrine-tabs-a524708?inst=drum, tabs 5022558,
 4664492, 5353242, 4664503 (each read through songsterr.com/api/meta/{id} and
 its revisions).
 
+## X. Phil Collins (2026-10-14)
+
+The `collins` style plays **songs** the way `baker` does (T): each New picks
+one of his records, and its tempo, meter and grooves come with it. His record
+(`drummer-model/drummers/phil-collins.json`) is new in 11-g, written from this
+section.
+
+**Which records are his.** Credits checked on Wikipedia. He joined Genesis on
+8 August 1970 and plays every drum part on its records from _Nursery Cryme_;
+from _A Trick of the Tail_ (1976) he is the singer too, and on tour Bill
+Bruford (1976) and then Chester Thompson drummed while he sang, but the
+studio drums are his. In Brand X he plays on _Unorthodox Behaviour_ (1976),
+_Moroccan Roll_ (1977), _Livestock_ and part of _Product_ (1979), which he
+shares with Mike Clark; "...And So to F..." is his tune and his drums. On
+Peter Gabriel's third album he drums on "Intruder". On Philip Bailey's "Easy
+Lover" (1984) he sings, drums and produces. On his own records, In the Air
+Tonight's verses are a **Roland CR-78** ("the Disco-2 pattern, plus some
+programming", Wikipedia); the drums after the break are his kit.
+
+**How he played.** Wikipedia: rudiments under Lloyd Ryan and then Frank King;
+Ringo Starr and Roger Powell of the Action (who brought him Motown and Stax)
+first; Buddy Rich's view of the hi-hat "prompted him to stop using a second
+bass drum and start using the hi-hat"; among the drummers he names are Billy
+Cobham, Tony Williams, Elvin Jones, Ginger Baker, Bonham, Keith Moon, Charlie
+Watts, Airto Moreira and Sonny Payne. His kits have always been set up
+left-handed (DrumSpy, via a search summary). The gated sound began on
+Gabriel's "Intruder": Gabriel had him play without cymbals, and Hugh Padgham
+and Steve Lillywhite opened the overhead talkback mic, "heavily compressed as
+well as using a gate" (Wikipedia, Gated reverb); Collins and Padgham used it on
+_Face Value_. On odd meters, of "...And So to F...", which is in nine: "I'm fine
+with seven because seven's an easy one, yet apart from that, I've never been
+able to just flow in and out of odd times"; he sang Percy Jones's bass line to
+get through it ("If I deviate from that, I'd be sunk"; Far Out, via a search
+summary, the page refused the fetch). Turn It On Again: Rutherford had the
+riff slower, "And Phil said ... 'Do you realize it is in 13/8?'"; its verse
+and chorus alternate 6/4 and 7/4 (Wikipedia). Squonk "was designed to
+resemble Led Zeppelin's 'Kashmir'", and Los Endos's rhythm came from Brand X
+and Santana's "Promise of a Fisherman" (Wikipedia, A Trick of the Tail). Of
+the In the Air Tonight break, Collins: "There's no kick in between the last
+two tom hits" (quoted by Drumeo).
+
+**What the style encodes.** No new field. The gated songs (Intruder, In the
+Air Tonight, I Don't Care Anymore) write no cymbal and turn the phrase's crash
+off (`phraseMark.crash: false`); their backbeat is a rimshot. His fill is the
+In the Air Tonight break: two toms struck together and a kick, in threes
+down the kit, then the floor tom and the kick in turn (`fills`, weighted
+highest, and `fillsGrow`). Two other fills are his concert-tom habit (two toms
+together in eighths, the kick between) and Easy Lover's flams between the rack
+toms (`flam` 0.2). `ghostBias` 0.3 for Brand X's ghosted sixteenths, off in
+the gated songs. Kits: `bigRoom` (Big Rusty in a big room) for the 1980s;
+`drs` for 1970s Genesis; `osdk`, with its wide dynamic range, for Brand X's
+ghost notes; `bigrusty` for Squonk.
+
+**In the Air Tonight** is a song in two sections. A is the verse, the CR-78
+alone: its hats (open on 1 and 4, closed on the "and"s) on the hat lane and
+its conga on the `conga` slot, which takes no hand; the phrase always ends on
+the break (`fillChance: 1`), with no crash or kick to mark it. B is the drums:
+the tab's kit track (a kick, a rimshot on 2 and 4, a ghost before and after)
+under the machine's hats. The kit is the sampled `bigRoom` throughout, so it is
+not on `drummer-kits.test.ts`'s list: the machine's part is written on sampled
+hats and a conga rather than a CR-78.
+
+**Grids.** Nine songs follow human Songsterr transcriptions (each tab's
+`aiGenerated` flag checked through the meta API), read bar by bar with the
+most common bars kept; four follow Drumeo's published notation, and Supper's
+Ready takes a bar from each. Where a tab's length can be checked against the
+record at its marked tempo, it matches (In the Air Tonight 323 s at 95 against
+334; I Missed Again 224 against 221; I Don't Care Anymore 300 against 302;
+Squonk 391 against 387; Intruder 291 against 294).
+
+| Song                               | Year | Tempo (quarter)                                            | Meter     | What defines it                                                             | Source of the bars                     |
+| ---------------------------------- | ---- | ---------------------------------------------------------- | --------- | --------------------------------------------------------------------------- | -------------------------------------- |
+| In the Air Tonight                 | 1981 | 95 (tab, Drumeo); 96 (Wikipedia)                           | 4/4       | CR-78 verse; the break; kick and rimshot, no cymbal of his own              | Songsterr 50420 (human); Drumeo (fill) |
+| Intruder (Peter Gabriel)           | 1980 | 94 (tab; length matches); songbpm 105                      | 4/4       | no cymbals at all: kick and gated snare                                     | Songsterr 1070567 (human)              |
+| I Missed Again                     | 1981 | 108 (tab; length matches)                                  | 4/4       | hats open on the "and"s of 1 and 4                                          | Songsterr 1061008 (human)              |
+| I Don't Care Anymore               | 1982 | 140 (tab; length matches)                                  | 4/4       | a two-bar tom ostinato in eighths for a cymbal                              | Songsterr 669676 (human, early)        |
+| Easy Lover (Philip Bailey)         | 1984 | 132 (tab); 129 (songbpm, Drumeo)                           | 4/4       | straight eighths, kick on the "and"s of 2 and 4                             | Songsterr 33578 (human)                |
+| Turn It On Again                   | 1980 | 126–128 (tab); 128 (songbpm)                               | 6/4 + 7/4 | a rock beat run across a bar of 6/4 and one of 7/4                          | Songsterr 36367 (human)                |
+| Behind the Lines                   | 1980 | 164 (Drumeo, songbpm)                                      | 4/4       | the ride's bell on the beats, the hat between                               | Drumeo                                 |
+| Squonk                             | 1976 | 86 (tab, songbpm; length matches)                          | 4/4       | slow and heavy, snare accented                                              | Songsterr 36370 (human)                |
+| Dance on a Volcano                 | 1976 | 110–123 (tab); 114 (songbpm)                               | 7/8       | kick and hat foot on every eighth; ride; the bell over a busy snare         | Songsterr 36377 (human)                |
+| The Cinema Show                    | 1973 | 119 (Drumeo: eighth = 238); 134 (songbpm)                  | 7/8       | hat opened on 1, 3 and after 6, closed by the foot                          | Drumeo                                 |
+| Supper's Ready (Apocalypse in 9/8) | 1972 | 94 (Drumeo: eighth = 188)                                  | 9/8       | 2+2+2+2+1, a flam, the kick running into the bar line                       | Drumeo; Songsterr 61645 (human)        |
+| ...And So to F... (Brand X)        | 1979 | 156 (tab); played at 140–150                               | 9/8       | the ride in eighths, the kick on the bass line                              | Songsterr 1477092 (human)              |
+| Nuclear Burn (Brand X)             | 1976 | 153 (Drumeo: eighth = 306); songbpm 173; played at 140–150 | 11/8      | a bar of 4/4 in ghosted sixteenths, then two threes, hat closed by the foot | Drumeo                                 |
+
+- **The In the Air Tonight break** follows Drumeo, not the tab: the tab puts
+  a kick between the last two tom hits, which Collins says is the usual
+  mistake. Drumeo's two noteheads together are written as two toms at once:
+  rack toms for the first three groups, rack and floor for the fourth, then
+  the floor tom alone.
+- **Turn It On Again** is written in the tab as one bar of 13/4: the rock beat
+  carried across twelve beats and one more. It is the 6/4 and 7/4 the record
+  plays, so it is two one-bar sections in turn (`arrangement: A B A B`), with
+  a fill on one bar in five and a crash on one in four.
+- **Behind the Lines**: Drumeo's first bar. Its second ends in sixteenths of
+  bell and ghosted snare, which at 164 is faster than the run rule allows.
+- **The Cinema Show** leaves out Drumeo's ghosts on 9 and 12, so four steps of
+  the 7/8 bar stay clear of kick and snare, as the critic asks; with them the
+  bar had two, and a variation's added kick took one more.
+- **...And So to F...** keeps the tab's 9/8 bars with air in them. Its densest
+  bars, the ride and kick together on the bass line and the snare in every gap
+  between, run the snare four sixteenths at a time and leave no quarter of the
+  bar clear: the critic refuses both, so they are not here. The tab marks 156;
+  sixteenths without a gap stop at 150 here, so the song opens a little under
+  the record, as does Nuclear Burn.
+
+**Left out.** "Watcher of the Skies" (Drumeo, 6/4 at 120): the snare and hat in
+unison, "four consecutive one-handed strokes" on the snare, which the critic
+calls a run, and too little air; it was written and taken out. "Los Endos":
+its main theme is sixteenths at 170–180, past the run rule. "Firth of Fifth":
+a bar of 13/16, which no meter here holds. "Abacab" (Songsterr 36360): its
+bars sit an eighth late against the record's backbeat, so the barring is in
+doubt. Every Brand X tab on Songsterr but "...And So to F..." is
+machine-made ("Nuclear Burn"'s drum track is "regenerated"); Moroccan Roll's
+tracks have none. "Second Home by the Sea" (Simmons SDS-V) and "Mama" and
+"Sussudio" (drum machines) would need a synthesised kit.
+
+**Found on the way, not changed.**
+
+- He plays a left-handed kit. The 3D drummer plays every kit right-handed; the
+  record says left-handed and nothing else does.
+- Gated reverb is not a kit parameter: `room` is a send, not a gate.
+  `bigRoom` is the nearest sampled kit.
+- In the Air Tonight's CR-78 has a third voice (the tab's MIDI note 27, an
+  eighth-note part with an accent on 2 every other bar) that could not be
+  identified, so it is not written.
+- Drumeo's Cinema Show bar has two ghosts as 32nds at the end of its second
+  group; the grid holds one.
+- The 11/8 meter groups 3+3+3+2, and Nuclear Burn is 2+2+2+2+3; the steps are
+  the same, only the beaming differs.
+
+Sources: Wikipedia — [Phil Collins](https://en.wikipedia.org/wiki/Phil_Collins),
+[In the Air Tonight](https://en.wikipedia.org/wiki/In_the_Air_Tonight),
+[Gated reverb](https://en.wikipedia.org/wiki/Gated_reverb),
+[Turn It On Again](https://en.wikipedia.org/wiki/Turn_It_On_Again),
+[A Trick of the Tail](https://en.wikipedia.org/wiki/A_Trick_of_the_Tail),
+[Unorthodox Behaviour](https://en.wikipedia.org/wiki/Unorthodox_Behaviour),
+[Product](<https://en.wikipedia.org/wiki/Product_(Brand_X_album)>);
+[Drumeo, The 12 Most Iconic Phil Collins Drum Parts](https://www.drumeo.com/beat/iconic-phil-collins-drum-parts/)
+(notation read from its SVGs);
+[Far Out, And So to F](https://faroutmagazine.co.uk/the-one-song-phil-collins-struggled-to-play-right) (via search summary);
+[DrumSpy, left-handed drummers](https://drumspy.com/?p=15769) (via search summary);
+Songsterr tabs 50420, 1070567, 1061008, 669676, 33578, 36367, 36370, 36377,
+61645, 1477092 (`https://www.songsterr.com/api/meta/<id>` for the
+`aiGenerated` flag); [songbpm.com](https://songbpm.com/@genesis) (Genesis,
+Phil Collins, Brand X, Peter Gabriel, Philip Bailey).
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

@@ -15382,6 +15382,527 @@ export const STYLES: Record<string, Style> = {
       },
     ],
   },
+  collins: {
+    label: 'Phil Collins',
+    drummer: true,
+    hint: "Genesis, Brand X, Peter Gabriel and his own records: a jazz-fusion drummer in Brand X's odd meters, the driving engine of 1970s Genesis, then the gated drums of the 1980s, a kick and a huge snare with no cymbal of his own. Fills of two toms struck together, a kick between. Each New plays one of thirteen of his songs at its record tempo: In the Air Tonight's CR-78 verse and its fill, Intruder with no cymbals at all, Nuclear Burn in 11/8 and ...And So to F... in nine for Brand X, The Cinema Show and Dance on a Volcano in 7/8, Supper's Ready in 9/8, Turn It On Again in 6/4 and 7/4. The stage names the song. Every one follows a human transcription.",
+    toms: true,
+    // the gated 1980s sound: Big Rusty played hard in a big room; his Genesis and Brand X songs name their own
+    kit: 'bigRoom',
+    hats: 8,
+    // the 4/4 songs; the fill down the toms in sixteenths holds the style itself at 150
+    bpm: [86, 150],
+    swing: 0,
+    // Brand X's ghost notes; the gated songs turn them off
+    ghostBias: 0.3,
+    ghostWeights: {},
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 11,
+    hatDepth: 0.5,
+    // the gated backbeat is a rimshot
+    rimshot: 0.35,
+    // the Easy Lover intro's flams on the rack toms
+    flam: 0.2,
+    midFills: 0.2,
+    // the fills that made him famous grow through the phrase
+    fillsGrow: true,
+    // the record's `beat_placement`: centre, inferred; a big, even drummer, not a loose one
+    feel: { label: 'On the beat, big', k: 0, s: 0.01, t1: 0.01, t2: 0.01, t3: 0.01, jitter: 0.01 },
+    kick1: [
+      ['1010', 3],
+      ['1000', 2],
+      ['1011', 1],
+    ],
+    kick: [
+      ['0000', 2],
+      ['0010', 1.5],
+      ['1010', 1],
+      ['0011', 0.8],
+    ],
+    /* Every bar is from one of the transcriptions below: the gated songs'
+       kick and rimshot, the solo records' hats, Squonk's half-time weight
+       and Behind the Lines' bell against the hat. */
+    figures: [
+      // Intruder: no cymbals, a kick and a gated rimshot
+      [{ s: '....5.......5...', k: '1.1...1...1.....' }, 1.6],
+      // In the Air Tonight, after the fill: the CR-78's hats under his kick and rimshot
+      [{ h: '3.1...1...1.3.1.', s: '.1..5.......5..1', k: '1.11..1.........' }, 1.4],
+      // I Missed Again: the hats open on the "and"s of 1 and 4
+      [
+        {
+          c: '1...............',
+          h: '..3.1.1.1.1.1.3.',
+          s: '....2.......2...',
+          k: '1.1.....1.1...1.',
+        },
+        1.2,
+      ],
+      // Easy Lover
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.....1.' }, 1.0],
+      // Squonk: heavy, the snare accented
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.1.....' }, 1.0],
+      // Behind the Lines: the ride's bell against the hat
+      [
+        {
+          r: '2...2...2.......',
+          h: '..1...1.....1...',
+          c: '..........1.....',
+          s: '....2...........',
+          k: '1.1.....1.1.....',
+        },
+        0.8,
+      ],
+    ],
+    fills: [
+      /* In the Air Tonight (Drumeo's transcription): two toms struck together
+         and a kick, in threes down the kit, then the floor tom and the kick */
+      [
+        {
+          t1: '22.22.22........',
+          t2: '22.22.22.22.....',
+          t3: '.........22.2.2.',
+          k: '..1..1..1..1.1.1',
+        },
+        1.6,
+      ],
+      // sixteenths down the concert toms, two on each (four on the snare is a run the critic stops)
+      [{ s: '22......', t1: '..22....', t2: '....22..', t3: '......22' }, 1.2],
+      // two toms together in eighths, the kick between
+      [{ t1: '2.2.....', t2: '2.2.2.2.', t3: '....2.2.', k: '.1.1.1.1' }, 1.0],
+      // Easy Lover's intro: flams back and forth between two rack toms
+      [{ t1: '3...3...', t2: '..3...3.', k: '.1...1..' }, 0.8],
+    ],
+    /* His records: one New picks one, and the stage names it. Credits
+       checked on Wikipedia: he plays every drum part named here (on Genesis's
+       records from 1971; on Brand X's Unorthodox Behaviour and Product; on
+       Peter Gabriel's third album, Intruder; on Philip Bailey's Easy Lover).
+       Nine follow human Songsterr transcriptions (each tab's `aiGenerated`
+       flag checked), read bar by bar with the most common bars kept; four
+       follow Drumeo's transcriptions (Nuclear Burn, The Cinema Show, Behind
+       the Lines, and Supper's Ready beside its tab). See
+       the Phil Collins section of `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'in-the-air-tonight',
+        title: 'In the Air Tonight',
+        feel: 'the CR-78 alone under the verse, then the fill, two toms and a kick in threes, and the gated drums',
+        weight: 1.8,
+        params: {
+          bpm: [93, 97],
+          swing: 0,
+          ghostBias: 0,
+          midFills: 0,
+          // the CR-78's conga, under both halves (Songsterr 50420, the drum machine's track)
+          perc: [{ inst: 'conga', steps: [2, 6, 12] }],
+          fills: [
+            [
+              {
+                t1: '22.22.22........',
+                t2: '22.22.22.22.....',
+                t3: '.........22.2.2.',
+                k: '..1..1..1..1.1.1',
+              },
+              1,
+            ],
+          ],
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the verse: the CR-78 alone, then the fill',
+            params: {
+              // his drums do not come in until the fill, which ends the verse every time
+              phraseMark: { crash: false, kick: false },
+              fillChance: 1,
+              figures: [[{ h: '3.1...1...1.3.1.' }, 2]],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the drums come in',
+            params: {
+              phraseMark: { crash: false },
+              /* Songsterr 50420, his kit's track: a kick and a gated rimshot,
+                 no cymbal of his own; the machine's hats go on */
+              figures: [
+                [{ h: '3.1...1...1.3.1.', s: '....5.......5...', k: '1.1.............' }, 2],
+                [{ h: '3.1...1...1.3.1.', s: '....5.......5...', k: '1.11............' }, 1.2],
+                [{ h: '3.1...1...1.3.1.', s: '.1..5.......5..1', k: '1.11..1.........' }, 1.0],
+                [{ h: '3.1...1...1.3.1.', s: '....5.......5..1', k: '..1.......1.....' }, 0.6],
+              ],
+              // a rimshot and two rack-tom strokes into the next phrase
+              fills: [[{ s: '55..', t1: '..11' }, 1]],
+            },
+          },
+        ],
+      },
+      {
+        key: 'intruder',
+        title: 'Intruder',
+        feel: "Peter Gabriel's, 1980: no cymbals at all, a kick and a gated snare, where the gated sound began",
+        weight: 1.2,
+        params: {
+          bpm: [92, 96],
+          swing: 0,
+          ghostBias: 0,
+          phraseMark: { crash: false },
+          // Songsterr 1070567 (human)
+          figures: [
+            [{ s: '....5.......5...', k: '1.1...1...1.....' }, 2],
+            [{ s: '....5.......5...', k: '1.1...1.1.1.....' }, 0.8],
+            [{ s: '....5.......5...', t3: '1.1...1...1.....', k: '1.1...1...1.....' }, 0.6],
+            [{ t3: '1.......1.......', k: '1.......1.1.1...' }, 0.6],
+          ],
+          fills: [
+            [{ t1: '22..', t3: '..22' }, 1],
+            [{ s: '5..5', t3: '.22.' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'i-missed-again',
+        title: 'I Missed Again',
+        feel: 'the horns’ song: hats opening on the "and"s of 1 and 4, the kick pushing the "and"s',
+        weight: 1.0,
+        params: {
+          bpm: [106, 110],
+          swing: 0,
+          // Songsterr 1061008 (human)
+          figures: [
+            [
+              {
+                c: '1...............',
+                h: '..3.1.1.1.1.1.3.',
+                s: '....2.......2...',
+                k: '1.1.....1.1...1.',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.1.1.3.....',
+                s: '....2.......22..',
+                t1: '..............1.',
+                k: '1.1.....1.1.....',
+              },
+              1.2,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'i-dont-care-anymore',
+        title: "I Don't Care Anymore",
+        feel: 'a tom ostinato in eighths instead of a cymbal, two bars long, the snare joining in the bridge',
+        weight: 1.0,
+        params: {
+          bpm: [138, 142],
+          swing: 0,
+          ghostBias: 0,
+          phraseMark: { crash: false },
+          // Songsterr 669676 (human, an early tab): two bars, the second answering the first
+          figures: [
+            [
+              {
+                t1: '..................1.1.1.1.1.1...',
+                t2: '1.1.1.1.1.1.1.1...............1.',
+                t3: '........1...1...................',
+                k: '............1...1...............',
+              },
+              2,
+            ],
+            // the bridge: the snare on 3
+            [
+              {
+                s: '........2...............2.......',
+                t1: '..1.1.1.1.1.1...................',
+                t2: '..............1.1.1.1.1...1.1.1.',
+                t3: '........................1...1...',
+                k: '1...........................1...',
+              },
+              1,
+            ],
+          ],
+          // the outro's bar: a crash and the snare into the 1
+          fills: [
+            [{ c: '......2.', s: '..2...2.', t2: '....1...', t3: '1...1...', k: '....1...' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'easy-lover',
+        title: 'Easy Lover',
+        feel: 'Philip Bailey\'s duet, 1984: straight eighths, the kick on the "and"s of 2 and 4',
+        weight: 1.0,
+        params: {
+          bpm: [128, 132],
+          swing: 0,
+          // Songsterr 33578 (human)
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.....1.' }, 2],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1...1...1.' }, 1.0],
+            [{ h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '1.....1.1.....1.' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'turn-it-on-again',
+        title: 'Turn It On Again',
+        feel: 'thirteen beats a bar, a bar of 6/4 and one of 7/4, the backbeat running straight across them',
+        weight: 1.2,
+        params: {
+          bpm: [126, 130],
+          swing: 0,
+          // one bar each way: a fill or a crash every bar would not be the song
+          fillChance: 0.2,
+          phraseMark: { crash: 0.25 },
+          fills: [[{ s: '22..', t1: '..2.', t3: '...2' }, 1]],
+        },
+        /* Songsterr 36367 (human) writes the verse as one bar of 13/4: a rock
+           beat for twelve beats and one more. It is 6/4 and 7/4, and the
+           record plays it that way. */
+        sections: [
+          {
+            letter: 'A',
+            label: 'the 6/4 bar',
+            bars: 1,
+            params: {
+              meter: '6/4',
+              figures: [
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '....2.......2.......2...',
+                    k: '1.......1.1.....1.......',
+                  },
+                  2,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the 7/4 bar',
+            bars: 1,
+            params: {
+              meter: '7/4',
+              figures: [
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.3.',
+                    s: '....2.......2.......2...2...',
+                    k: '1.1.....1.......1.1...1.....',
+                  },
+                  2,
+                ],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'B', 'A', 'B'],
+      },
+      {
+        key: 'behind-the-lines',
+        title: 'Behind the Lines',
+        feel: 'fast, the ride’s bell on the beats and the hat between, a crash on the "and" of 3',
+        weight: 0.8,
+        params: {
+          bpm: [160, 166],
+          swing: 0,
+          ghostBias: 0,
+          // Drumeo's transcription, its first bar: the second has sixteenths this tempo cannot run
+          figures: [
+            [
+              {
+                r: '2...2...2.......',
+                h: '..1...1.....1...',
+                c: '..........1.....',
+                s: '....2...........',
+                k: '1.1.....1.1.....',
+              },
+              2,
+            ],
+          ],
+          fills: [[{ s: '2.2.....', t1: '....2...', t3: '......2.' }, 1]],
+        },
+      },
+      {
+        key: 'squonk',
+        title: 'Squonk',
+        feel: 'slow and heavy, meant to sound like Kashmir: the snare accented, the hats in eighths, then the ride',
+        weight: 0.9,
+        params: {
+          bpm: [84, 88],
+          swing: 0,
+          kit: 'bigrusty',
+          // Songsterr 5142879 (human)
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.1.....' }, 2],
+            [
+              {
+                c: '....2.......2...',
+                r: '1.1...1.1.1...1.',
+                s: '....3.......3...',
+                k: '1.1.....1.1.....',
+              },
+              1.2,
+            ],
+            [{ h: '113.113.113.113.', s: '....3.......3...', k: '1.......1.......' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'dance-on-a-volcano',
+        title: 'Dance on a Volcano',
+        feel: '7/8: the kick and the hat foot on every eighth, then the ride, then the bell over a busy snare',
+        weight: 1.0,
+        params: {
+          meter: '7/8',
+          bpm: [112, 123],
+          swing: 0,
+          kit: 'drs',
+          // Songsterr 36377 (human), its 7/8 bars
+          figures: [
+            [
+              {
+                h: '...........3..',
+                hf: '1.1.1.1.1.1.1.',
+                s: '...........2..',
+                k: '1.1.1.1.1.1.1.',
+              },
+              2,
+            ],
+            [
+              {
+                c: '2.............',
+                r: '..1.1.1.1.1.1.',
+                s: '........2.....',
+                k: '1.....1.....1.',
+              },
+              1.5,
+            ],
+            [{ r: '2.1.2.1.2..2.1', s: '....2..1.11.1.', k: '1.11....1..1..' }, 1.4],
+          ],
+          fills: [
+            [{ s: '22......', t1: '..1.....', t2: '...1111.', t3: '.......1' }, 1.2],
+            [{ t2: '11...', t3: '...1.' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'the-cinema-show',
+        title: 'The Cinema Show',
+        feel: '7/8 under the keyboard solo: the hat opening on 1, 3 and after 6, the foot closing it',
+        weight: 1.0,
+        params: {
+          meter: '7/8',
+          bpm: [117, 121],
+          swing: 0,
+          ghostBias: 0,
+          kit: 'drs',
+          /* Drumeo's transcription (eighth = 238), without its ghosts on 9 and
+             12: the critic wants four steps of the bar clear of kick and snare,
+             and a variation's added kick takes one */
+          figures: [
+            [
+              {
+                h: '3.1.3.1.1.13..',
+                hf: '..1...1......1',
+                s: '....2..1.....1',
+                k: '1..1..1.1.11..',
+              },
+              2,
+            ],
+          ],
+          fills: [[{ s: '22.....', t1: '..22...', t2: '....22.', t3: '......2' }, 1]],
+        },
+      },
+      {
+        key: 'apocalypse-in-9-8',
+        title: "Supper's Ready (Apocalypse in 9/8)",
+        feel: '9/8 counted in twos and a one: the hat in eighths, a flam, the kick running into the bar line',
+        weight: 1.0,
+        params: {
+          meter: '9/8',
+          bpm: [92, 96],
+          swing: 0,
+          kit: 'drs',
+          figures: [
+            // Drumeo's transcription (eighth = 188)
+            [{ h: '1...2.1.2.1.1.1.11', s: '226.2.....2..1.2..', k: '......1.1...1.1.11' }, 2],
+            // Songsterr 61645 (human): the first organ solo
+            [{ h: '1.1.1.1.1.3.1.3.1.', s: '....2...2...2...2.', k: '1.1...1...1...1...' }, 1.2],
+            // and its second verse: a crash, then the snare in threes
+            [{ c: '2.................', s: '2.222.222.222.222.', k: '1.1...1...1...1...' }, 0.8],
+          ],
+          fills: [[{ s: '22....', t1: '..22..', t3: '....22' }, 1]],
+        },
+      },
+      {
+        key: 'and-so-to-f',
+        title: '...And So to F...',
+        feel: "Brand X, 1979: in nine, the ride in eighths and the kick on the bass line's notes",
+        weight: 1.2,
+        params: {
+          meter: '9/8',
+          /* the tab marks 156; sixteenths without a gap stop at 150 here, so
+             the song opens a little under the record */
+          bpm: [140, 150],
+          swing: 0,
+          ghostBias: 0,
+          kit: 'osdk',
+          /* Songsterr 1477092 (human), its 9/8 bars with air in them. Its
+             densest, ride and kick together and the snare in every gap between,
+             run the snare four sixteenths at a time and leave no quarter of the
+             bar clear of kick and snare, so the critic will not pass them. */
+          figures: [
+            [{ r: '1.111.1.1.1.1.1.1.', s: '.2..2..2.2..2.....', k: '1.........1...1...' }, 1.6],
+            [
+              {
+                c: '1.1...............',
+                r: '....1.1.1.1.1.1.1.',
+                s: '......2...........',
+                k: '1.1.....1.1..1..1.',
+              },
+              1.2,
+            ],
+            [{ r: '1.1.1.1.1.1.1.1.1.', s: '................2.', k: '..1..1..1.1.1.....' }, 1.0],
+            [{ h: '1.1.1.1.1.1.1.1.1.', s: '..............2...', k: '1.11.1.1.1..11..1.' }, 1.0],
+            [{ h: '113.11111111111111', s: '2.................', k: '....1..1..1.1...11' }, 0.8],
+          ],
+          fills: [[{ s: '222......', t1: '...222...', t3: '......222' }, 1]],
+        },
+      },
+      {
+        key: 'nuclear-burn',
+        title: 'Nuclear Burn',
+        feel: 'Brand X, 1976: 11/8, a bar of 4/4 in ghosted sixteenths and two threes, the open hat closed by the foot',
+        weight: 1.2,
+        params: {
+          meter: '11/8',
+          /* Drumeo's transcription (eighth = 306, a quarter of 153); songbpm
+             says 173. Ghosted sixteenths without a gap stop at 150 here. */
+          bpm: [140, 150],
+          swing: 0,
+          ghostBias: 0,
+          kit: 'osdk',
+          figures: [
+            [
+              {
+                h: '3.1.1.1.1.111.1.3..3..',
+                hf: '..1..............1..1.',
+                s: '.1..31.1.1..11.1.11.11',
+                k: '1...............1..1..',
+              },
+              2,
+            ],
+          ],
+          fills: [[{ s: '1.11.1', t1: '.2....', t3: '....2.' }, 1]],
+        },
+      },
+    ],
+  },
 };
 
 /**
@@ -15421,7 +15942,7 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
   ['Metal', ['metal', 'gallop', 'thrash', 'doublekick', 'groove', 'doom']],
   ['Jamaica', ['reggae', 'dub']],
   ['Afro-Latin', ['afrobeat', 'son', 'rumba', 'mambo', 'songo', 'samba', 'reggaeton']],
-  ['Rock drummers', ['mitchell', 'bonham', 'ringo', 'copeland', 'baker', 'klek']],
+  ['Rock drummers', ['mitchell', 'bonham', 'ringo', 'copeland', 'baker', 'klek', 'collins']],
   ['Metal drummers', ['lombardo', 'davies']],
   ['Funk drummers', ['stubblefield', 'jabostarks', 'bernardpurdie']],
   ['Session drummers', ['gadd', 'hakim']],

@@ -299,7 +299,7 @@ the rest are sequential because each stands on the one before.
 
 10 Rudiments  (after 9-iv's articulations; 10-a model ─► 10-b library)
 
-11 Drummers  (11-a standard ─► 11-b map ─► 11-c, 11-d, 11-e drummers ─► 11-f BeatBuddy)
+11 Drummers  (11-a standard ─► 11-b map ─► 11-c, 11-d, 11-e drummers ─► 11-f BeatBuddy ─► 11-g five more)
 ```
 
 ### Phase 0 — Groundwork · S
@@ -3624,6 +3624,7 @@ stays).
 | 11-e    | **Rock, metal and beyond:** Ginger Baker, Dave Lombardo, Adrienne Davies, Klek de Poitrine                                                                                                                           | The same; Klek's record keeps the persona policy                                                                                                                                                                                                                                                                       |
 | 11-e-ii | **Sections A–Z, each in its own meter.** A break holds up to 26 sections; songs written as sections; the split songs merged                                                                                          | A break with sections in different meters plays, engraves, exports and shares; old codes read unchanged                                                                                                                                                                                                                |
 | 11-f    | **BeatBuddy reads the records.** A knowledge base built from the records, scoped to BeatBuddy                                                                                                                        | Its answer about a drummer cites the record                                                                                                                                                                                                                                                                            |
+| 11-g    | **Five more:** Phil Collins, Billy Cobham, Lenny White, Michael Shrieve, Cindy Blackman Santana                                                                                                                      | Each has a record and a drummer style with songs; the catalogue tests pass at the new counts; every song plays at a tempo `playableBpm` allows and writes a break the critic passes                                                                                                                                    |
 
 **11-b reconciled against the tree, 2026-10-11** (branch `phase-11-b-lineage-map`):
 
@@ -4221,6 +4222,45 @@ reconciled, with these found on the way:
   sentence runs on past initials and abbreviations (`J.R.`, `Mr.`, `c.`). Each
   record is read once per search. The test tables follow the lookup's order
   and leave the order of names to the database.
+
+**11-g reconciled against the tree, 2026-10-14** (branch
+`phase-11-g-five-drummers`): the owner asked for five more, researched one at a
+time, in this order — Phil Collins (Brand X above all, through to In the Air
+Tonight), Billy Cobham, Lenny White, Michael Shrieve and Cindy Blackman Santana.
+
+- **None has a record.** Three are stubs already: `drummer:billy-cobham` and
+  `drummer:cindy-blackman` from Yussef Dayes's record, `drummer:michael-shrieve`
+  from Santana's Oye Como Va, and Tony Williams's record names
+  `drummer:cindy-blackman-santana`. Two ids for one person is the Cozy Cole
+  fault 11-a fixed; her record is `drummer:cindy-blackman-santana`, her name
+  since 2010, and Dayes's reference moves to it.
+- **Each is a record and a style, as in 11-c–e**: the record from the research,
+  the style with songs, `style_key` both ways, research in
+  `drumming-research.md` as §X onwards. One PR, one commit a drummer, so each
+  lands green with its tests and counts.
+- **Keys**: `collins`, `cobham`, `lennywhite` (`white` alone says nothing),
+  `shrieve`, `cindyblackman`. None is taken.
+- **The rules stay**: sampled kits only (a drum machine is written on sampled
+  voices unless the record is the machine alone); every groove an
+  approximation from a human transcription where one exists; credits checked
+  song by song; no new style fields. A tune whose bars the critic refuses is
+  left out and said so, not forced.
+- **A test for the five** (`fusion-santana.test.ts`), like 11-e's: each filed
+  with their family, every song's range needing no cut, no bar needing three
+  hands, every song's break passing the critic at its own tempo.
+
+**Built, 2026-10-14:**
+
+- **Phil Collins** (§X): 13 songs, Rock drummers. Nine from human Songsterr
+  tabs, four from Drumeo's notation. Brand X's Nuclear Burn (11/8) and
+  ...And So to F... (9/8), Genesis in 7/8, 9/8 and 6/4 + 7/4 (Turn It On Again
+  as two one-bar sections in turn), Intruder and the gated records with no
+  cymbal, and In the Air Tonight as two sections: the CR-78 verse ending on the
+  break, then his drums. The break follows Drumeo, not the tab, whose kick
+  between the last two tom hits Collins calls the usual mistake. Watcher of the
+  Skies was written and taken out: its four one-handed snare strokes are a run
+  the critic refuses. Brand X's two songs open at 150, a little under the
+  record, where the run rule stops sixteenths without a gap.
 
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern

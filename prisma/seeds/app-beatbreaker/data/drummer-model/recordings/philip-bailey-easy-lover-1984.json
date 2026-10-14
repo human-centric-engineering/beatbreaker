@@ -1,0 +1,38 @@
+{
+  "id": "rec:philip-bailey-easy-lover-1984",
+  "title": "Easy Lover",
+  "artist": "Philip Bailey and Phil Collins",
+  "release": "Columbia (Chinese Wall)",
+  "year": 1984,
+  "type": "studio_track",
+  "style_ids": ["style:pop-rock-session"],
+  "personnel": [
+    {
+      "name": "Philip Bailey",
+      "role": "vocals"
+    },
+    {
+      "name": "Phil Collins",
+      "role": "vocals, drums, producer"
+    }
+  ],
+  "tempo_bpm": 129,
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-collins",
+      "name": "Phil Collins",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "His duet with Philip Bailey, which he produced and drummed on: an eight-bar intro of flams between the rack toms, then straight eighths.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia", "src:phil-collins-drumeo-12"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:phil-collins-wikipedia", "src:phil-collins-drumeo-12"]
+  }
+}

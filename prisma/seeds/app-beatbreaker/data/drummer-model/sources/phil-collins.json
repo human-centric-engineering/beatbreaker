@@ -1,0 +1,188 @@
+[
+  {
+    "id": "src:phil-collins-wikipedia",
+    "type": "encyclopedia",
+    "title": "Phil Collins - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Phil_Collins",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Birth, teachers (Lloyd Ryan, Frank King), the influences he named, Genesis from 1970, Brand X, Modern Drummer Hall of Fame 2012, kit (Gretsch from 1983, Noble & Cooley snares, Sabian), the nerve injury that stopped him drumming."
+  },
+  {
+    "id": "src:in-the-air-tonight-wikipedia",
+    "type": "encyclopedia",
+    "title": "In the Air Tonight - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/In_the_Air_Tonight",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Roland CR-78 (its Disco-2 pattern plus programming), 96 bpm, the gated drum break, Hugh Padgham at Townhouse Studios."
+  },
+  {
+    "id": "src:gated-reverb-wikipedia",
+    "type": "encyclopedia",
+    "title": "Gated reverb - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Gated_reverb",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Lillywhite and Padgham, Collins playing without cymbals on Peter Gabriel's Intruder; the talkback mic, compressed and gated."
+  },
+  {
+    "id": "src:turn-it-on-again-wikipedia",
+    "type": "encyclopedia",
+    "title": "Turn It On Again - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Turn_It_On_Again",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Verse and chorus alternate 6/4 and 7/4 (13/4); Rutherford: Collins told him it was in 13."
+  },
+  {
+    "id": "src:trick-of-the-tail-wikipedia",
+    "type": "encyclopedia",
+    "title": "A Trick of the Tail - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/A_Trick_of_the_Tail",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Squonk meant to resemble Kashmir; Los Endos's rhythm from Brand X and Santana's Promise of a Fisherman; Collins drums on the record, Bruford live."
+  },
+  {
+    "id": "src:product-brand-x-wikipedia",
+    "type": "encyclopedia",
+    "title": "Product (Brand X album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Product_(Brand_X_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-14"
+  },
+  {
+    "id": "src:unorthodox-behaviour-wikipedia",
+    "type": "encyclopedia",
+    "title": "Unorthodox Behaviour - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Unorthodox_Behaviour",
+    "reliability": 0.7,
+    "accessed": "2026-10-14"
+  },
+  {
+    "id": "src:phil-collins-faroutmagazine-and-so-to-f",
+    "type": "magazine",
+    "title": "Far Out, why Phil Collins struggled to play 'And So to F'",
+    "url": "https://faroutmagazine.co.uk/the-one-song-phil-collins-struggled-to-play-right",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "Read through a search summary (the page refused the fetch): the tune is in nine; he sang Percy Jones's bass line to keep his place; 'I'm fine with seven ... apart from that, I've never been able to just flow in and out of odd times.'"
+  },
+  {
+    "id": "src:phil-collins-drumeo-12",
+    "type": "transcription",
+    "title": "Drumeo, The 12 Most Iconic Phil Collins Drum Parts",
+    "url": "https://www.drumeo.com/beat/iconic-phil-collins-drum-parts/",
+    "reliability": 0.8,
+    "accessed": "2026-10-14",
+    "notes": "Notation for In the Air Tonight's fill (95 bpm), Nuclear Burn (11/8, eighth = 306), The Cinema Show (7/8, eighth = 238), Supper's Ready (9/8, eighth = 188), Behind the Lines (164), Watcher of the Skies (6/4, 120), Easy Lover's intro. Quotes Collins: 'There's no kick in between the last two tom hits.'"
+  },
+  {
+    "id": "src:phil-collins-drumspy-left-handed",
+    "type": "analysis",
+    "title": "DrumSpy, the most famous left-handed drummers",
+    "url": "https://drumspy.com/?p=15769",
+    "reliability": 0.5,
+    "accessed": "2026-10-14",
+    "notes": "His kits have always been set up left-handed (search summary)."
+  },
+  {
+    "id": "src:phil-collins-songbpm",
+    "type": "analysis",
+    "title": "songbpm.com: Phil Collins, Genesis, Brand X, Peter Gabriel, Philip Bailey",
+    "url": "https://songbpm.com/@genesis",
+    "reliability": 0.6,
+    "accessed": "2026-10-14"
+  },
+  {
+    "id": "src:songsterr-50420",
+    "type": "transcription",
+    "title": "Songsterr 50420: In the Air Tonight (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=50420",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-1070567",
+    "type": "transcription",
+    "title": "Songsterr 1070567: Peter Gabriel, Intruder (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=1070567",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-1061008",
+    "type": "transcription",
+    "title": "Songsterr 1061008: I Missed Again (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=1061008",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-669676",
+    "type": "transcription",
+    "title": "Songsterr 669676: I Don't Care Anymore (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=669676",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-33578",
+    "type": "transcription",
+    "title": "Songsterr 33578: Philip Bailey, Easy Lover (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=33578",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-36367",
+    "type": "transcription",
+    "title": "Songsterr 36367: Genesis, Turn It On Again (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=36367",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-36370",
+    "type": "transcription",
+    "title": "Songsterr 36370: Genesis, Squonk (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=36370",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-36377",
+    "type": "transcription",
+    "title": "Songsterr 36377: Genesis, Dance on a Volcano (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=36377",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-61645",
+    "type": "transcription",
+    "title": "Songsterr 61645: Genesis, Supper's Ready (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=61645",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-1477092",
+    "type": "transcription",
+    "title": "Songsterr 1477092: Brand X, ...And So to F... (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=1477092",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  }
+]

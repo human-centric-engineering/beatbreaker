@@ -1,0 +1,33 @@
+{
+  "id": "rec:phil-collins-hello-i-must-be-going-1982",
+  "title": "Hello, I Must Be Going!",
+  "artist": "Phil Collins",
+  "release": "Virgin / Atlantic",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:new-wave"],
+  "personnel": [
+    {
+      "name": "Phil Collins",
+      "role": "vocals, drums, keyboards"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-collins",
+      "name": "Phil Collins",
+      "drummer_role": "leader",
+      "significance": 0.8,
+      "why_it_matters": "I Don't Care Anymore: a tom ostinato in eighths, gated, in place of a cymbal.",
+      "pattern_ids": ["pattern:phil-collins-i-dont-care-anymore"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia", "src:songsterr-669676"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:phil-collins-wikipedia", "src:songsterr-669676"]
+  }
+}

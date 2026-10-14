@@ -1,0 +1,45 @@
+{
+  "id": "rec:genesis-trick-of-the-tail-1976",
+  "title": "A Trick of the Tail",
+  "artist": "Genesis",
+  "release": "Charisma",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "Tony Banks",
+      "role": "keyboards"
+    },
+    {
+      "name": "Mike Rutherford",
+      "role": "bass, guitar"
+    },
+    {
+      "name": "Steve Hackett",
+      "role": "guitar"
+    },
+    {
+      "name": "Phil Collins",
+      "role": "drums, percussion, vocals"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-collins",
+      "name": "Phil Collins",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "His first album as Genesis's singer, still its drummer in the studio: Dance on a Volcano in 7/8, Squonk's Kashmir-like weight, and Los Endos, whose rhythm he brought from Brand X.",
+      "pattern_ids": ["pattern:phil-collins-dance-on-a-volcano"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:trick-of-the-tail-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:trick-of-the-tail-wikipedia"]
+  }
+}

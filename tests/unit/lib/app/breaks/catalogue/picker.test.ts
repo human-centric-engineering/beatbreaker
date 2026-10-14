@@ -99,6 +99,7 @@ describe('drummerSection', () => {
       'copeland',
       'baker',
       'klek',
+      'collins',
       'lombardo',
       'davies',
       'stubblefield',
