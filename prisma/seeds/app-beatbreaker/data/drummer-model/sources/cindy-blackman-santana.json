@@ -1,0 +1,109 @@
+[
+  {
+    "id": "src:cindy-blackman-santana-wikipedia",
+    "type": "encyclopedia",
+    "title": "Cindy Blackman Santana - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Cindy_Blackman_Santana",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Born 18 November 1959, Yellow Springs, Ohio; Hartt School; Berklee with Alan Dawson, Tony Williams's teacher; to New York 1982; Art Blakey 'like a father'; Arcane (1987); Kravitz's drummer from 1993, eighteen years; Another Lifetime (2010); married Carlos Santana 19 December 2010; Corazón, Africa Speaks, Blessings and Miracles; Give the Drummer Some (2020)."
+  },
+  {
+    "id": "src:cindy-blackman-md-2008",
+    "type": "magazine",
+    "title": "Modern Drummer, Cindy Blackman: The Lady Comes To Play (April 2008)",
+    "url": "https://www.moderndrummer.com/2008/04/cindy-blackman/",
+    "reliability": 0.8,
+    "accessed": "2026-10-14",
+    "notes": "Tony on Four & More; 'I'm chasing the legends of Art Blakey, Tony Williams, and Elvin Jones'; 'You better smack those drums'; a 1950s Gretsch round-badge Broadkaster."
+  },
+  {
+    "id": "src:cindy-blackman-drummercafe-gumbo",
+    "type": "transcription",
+    "title": "Bart Elliott, Cindy Blackman's Smooth Struttin' New Awlins Gumbo (Drummer Cafe, 2015)",
+    "url": "https://drummercafe.com/education/lessons/cindy-blackman-smooth-struttin-new-awlins-gumbo",
+    "reliability": 0.75,
+    "accessed": "2026-10-14",
+    "notes": "The groove she played at the start of her Vic Firth Interview Spotlight: a gallop on the ride, ghosts in the left hand, a kick and hat-foot ostinato."
+  },
+  {
+    "id": "src:cindy-blackman-drum-magazine-kravitz",
+    "type": "magazine",
+    "title": "DRUM! Magazine, Lenny Kravitz drummers, studio and live",
+    "url": "https://drummagazine.com/lenny-krawitz-drummers/",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "Via search summary: her only studio performance with Kravitz is 'Straight Cold Player' on 5 (1998); Kravitz plays most instruments on his records himself."
+  },
+  {
+    "id": "src:africa-speaks-wikipedia",
+    "type": "encyclopedia",
+    "title": "Africa Speaks (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Africa_Speaks_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Rick Rubin, ten days at Shangri-La, 49 songs; Cindy Blackman Santana on drums; Breaking Down the Door the first single, 19 April 2019."
+  },
+  {
+    "id": "src:blessings-and-miracles-wikipedia",
+    "type": "encyclopedia",
+    "title": "Blessings and Miracles - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Blessings_and_Miracles",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Drums on all but tracks 4 (Joy: Derek Mixon) and 7."
+  },
+  {
+    "id": "src:santana-corazon-live-2014",
+    "type": "news",
+    "title": "Santana, Corazón, Live from Mexico: Live It to Believe It (santana.com)",
+    "url": "https://santana.com/news/were-proud-to-announce-sept-9th-release-of-corazon-live-from-mexico-live-it-to-believe-it/",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Recorded 14 December 2013 in Guadalajara; released 9 September 2014 (search summary); Corazón Espinado with Fher Olvera and her on drums."
+  },
+  {
+    "id": "src:she-got-game-2026",
+    "type": "news",
+    "title": "Black America Web, Public Enemy reboots He Got Game as a women's anthem",
+    "url": "https://blackamericaweb.com/2026/02/05/public-enemy-he-got-game-as-a-women-power/",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "Released 4 February 2026; Cindy Blackman Santana on drums, Blu DeTiger bass, Grace Bowers guitar (search summary)."
+  },
+  {
+    "id": "src:cindy-blackman-songbpm",
+    "type": "analysis",
+    "title": "songbpm.com: Santana",
+    "url": "https://songbpm.com/@santana",
+    "reliability": 0.6,
+    "accessed": "2026-10-14"
+  },
+  {
+    "id": "src:songsterr-4521944",
+    "type": "transcription",
+    "title": "Songsterr 4521944: Santana, Breaking Down the Door (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=4521944",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-5178015",
+    "type": "transcription",
+    "title": "Songsterr 5178015: Santana, Corazón Espinado (Live from Mexico) (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=5178015",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-3917543",
+    "type": "transcription",
+    "title": "Songsterr 3917543: Public Enemy, She Got Game (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=3917543",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  }
+]

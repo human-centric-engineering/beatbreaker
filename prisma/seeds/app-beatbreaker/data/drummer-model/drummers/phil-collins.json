@@ -12,7 +12,8 @@
       "Settle Nuclear Burn's tempo: Drumeo's eighth = 306 (153) against songbpm's 173.",
       "Which In the Air Tonight voices are the CR-78's: the tab's third machine voice (GM 27) is not identified.",
       "Kit by era: Gretsch in Genesis, Premier and Pearl, Gretsch again from 1983; concert toms; check against interviews.",
-      "Read the 1979 Modern Drummer feature (paywalled) for his own words."
+      "Read the 1979 Modern Drummer feature (paywalled) for his own words.",
+      "What Collins meant by 'There's no kick in between the last two tom hits' (quoted by Drumeo), when Drumeo's notation beside it has the kick on the 'e' of 4 between two floor-tom pairs."
     ]
   },
   "identity": {
@@ -420,7 +421,7 @@
         "evidence": {
           "confidence": "widely_reported",
           "source_ids": ["src:phil-collins-drumeo-12", "src:songsterr-50420"],
-          "note": "Drumeo's notation. Songsterr 50420 has a kick between the last two tom hits, which Collins says is the usual mistake."
+          "note": "Drumeo's notation; Songsterr 50420 agrees on the notes and puts the kick on 4 a triplet late. Drumeo prints Collins's 'There's no kick in between the last two tom hits' beside notation with the kick on the 'e' and the 'a' of 4; not reconciled."
         },
         "time_signature": {
           "numerator": 4,
@@ -1262,10 +1263,7 @@
         }
       }
     ],
-    "common_misconceptions": [
-      "That the In the Air Tonight fill has a kick between its last two tom hits: Collins says it has not.",
-      "That the whole song has live drums: the verses are a CR-78."
-    ]
+    "common_misconceptions": ["That the whole song has live drums: the verses are a CR-78."]
   },
   "beatbreaker": {
     "style_key": "collins",
@@ -1282,10 +1280,7 @@
       "Odd meters written as grooves.",
       "Ghosted sixteenths in Brand X."
     ],
-    "avoid": [
-      "Cymbal wash on the gated songs",
-      "A kick between the last two tom hits of the In the Air Tonight break"
-    ],
+    "avoid": ["Cymbal wash on the gated songs"],
     "lineage_display": {
       "primary_ancestors": [
         "drummer:buddy-rich",

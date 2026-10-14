@@ -1,0 +1,41 @@
+{
+  "id": "rec:santana-africa-speaks-2019",
+  "title": "Africa Speaks",
+  "artist": "Santana",
+  "release": "Concord",
+  "year": 2019,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:rock", "style:west-african"],
+  "personnel": [
+    {
+      "name": "Carlos Santana",
+      "role": "guitar"
+    },
+    {
+      "name": "Buika",
+      "role": "vocals"
+    },
+    {
+      "name": "Cindy Blackman Santana",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:cindy-blackman-santana",
+      "name": "Cindy Blackman Santana",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Recorded with Rick Rubin in ten days, live in the room. Breaking Down the Door: the snare a figure over four on the floor.",
+      "pattern_ids": ["pattern:cindy-blackman-santana-breaking-down-the-door"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:africa-speaks-wikipedia", "src:songsterr-4521944"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:africa-speaks-wikipedia", "src:songsterr-4521944"]
+  }
+}

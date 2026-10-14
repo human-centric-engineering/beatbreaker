@@ -3167,11 +3167,15 @@ Squonk 391 against 387; Intruder 291 against 294).
 | ...And So to F... (Brand X)        | 1979 | 156 (tab); played at 140–150                               | 9/8       | the ride in eighths, the kick on the bass line                              | Songsterr 1477092 (human)              |
 | Nuclear Burn (Brand X)             | 1976 | 153 (Drumeo: eighth = 306); songbpm 173; played at 140–150 | 11/8      | a bar of 4/4 in ghosted sixteenths, then two threes, hat closed by the foot | Drumeo                                 |
 
-- **The In the Air Tonight break** follows Drumeo, not the tab: the tab puts
-  a kick between the last two tom hits, which Collins says is the usual
-  mistake. Drumeo's two noteheads together are written as two toms at once:
-  rack toms for the first three groups, rack and floor for the fourth, then
-  the floor tom alone.
+- **The In the Air Tonight break** follows Drumeo. The tab agrees on the
+  notes and puts its kick on 4 a triplet late, near the "e". Drumeo's two
+  noteheads together are written as two toms at once: rack toms for the
+  first three groups, rack and floor for the fourth, then the floor tom
+  (Drumeo's last two are two floor toms together, and there is one floor tom
+  here). Drumeo prints Collins's "There's no kick in between the last two tom
+  hits" beside notation that has the kick on the "e" and the "a" of 4,
+  between and after those two floor-tom pairs. The two are not reconciled
+  here: the notes follow the notation, and the record asks what he meant.
 - **Turn It On Again** is written in the tab as one bar of 13/4: the rock beat
   carried across twelve beats and one more. It is the 6/4 and 7/4 the record
   plays, so it is two one-bar sections in turn (`arrangement: A B A B`), with
@@ -3504,6 +3508,89 @@ Sources: [Wikipedia, Michael Shrieve](https://en.wikipedia.org/wiki/Michael_Shri
 [UltimateSantana, Michael Shrieve](https://www.ultimatesantana.com/resources/the-band/michael-shrieve/);
 Songsterr tabs 1621352, 17533, 3582839, 1621303, 1621357, 357, 17329, 1815434,
 17440; [songbpm.com](https://songbpm.com/@santana).
+
+## AB. Cindy Blackman Santana (2026-10-14)
+
+The `cindyblackman` style plays **songs**, as `collins` does (X). Her record
+(`drummer-model/drummers/cindy-blackman-santana.json`) is new in 11-g. She was
+two stubs: Tony Williams's record named her `drummer:cindy-blackman-santana`
+and Yussef Dayes's `drummer:cindy-blackman`, which is the two-nodes-for-one-
+person fault 11-a fixed for Cozy Cole. Her record keeps the first (her name
+since 2010) and Dayes's reference moves to it; a test holds it.
+
+**Which records are hers.** Wikipedia: born 18 November 1959 in Yellow
+Springs, Ohio; the Hartt School from eleven, then Berklee with Alan Dawson,
+who had taught Tony Williams; to New York in 1982; _Arcane_ (1987) as leader
+with Wallace Roney, Joe Henderson and Kenny Garrett; Lenny Kravitz's drummer
+from 1993 for eighteen years; _Another Lifetime_ (2010), a Tony Williams
+tribute; married Carlos Santana on 19 December 2010; on _Corazón_ (2014),
+_Africa Speaks_ (2019) and _Blessings and Miracles_ (2021); _Give the Drummer
+Some_ (2020). **Kravitz**: he plays most instruments on his own records, the
+drums included; her one studio track with him is "Straight Cold Player" on
+_5_ (1998), per DRUM! (via a search summary). She is in the "Are You Gonna Go
+My Way" video, but the record's drums are his, so no Kravitz hit is used.
+_Africa Speaks_: Rick Rubin, ten days at Shangri-La, forty-nine songs, her on
+drums. _Blessings and Miracles_: her on all but "Joy" (Derek Mixon) and track
+7, so the human "Joy" tab is not hers. The live "Corazón Espinado" is from
+_Corazón, Live from Mexico: Live It to Believe It_, Guadalajara, 14 December
+2013, released 9 September 2014; the studio version (1999, _Supernatural_)
+predates her. Public Enemy's "She Got Game" (4 February 2026) credits her
+on drums. Modern Drummer has just covered her new record, _Coherence_
+(October 2026), with Carlos Santana and John McLaughlin among its guests; no
+transcription of it exists yet.
+
+**How she played.** Modern Drummer (2008): hearing Tony Williams on _Four &
+More_, "I was trippin'"; "I'm chasing the legends of Art Blakey, Tony
+Williams, and Elvin Jones, I'd better be ready"; "You better smack those
+drums, because those cats weren't messing around"; a 1950s Gretsch
+round-badge Broadkaster at home. Wikipedia: Blakey "really was like a father to
+me. I learned a lot just watching him." Bart Elliott (Drummer Cafe, 2015)
+transcribed the groove she opened her Vic Firth interview with: "a wonderful
+mix of New Orleans funk, latin and jazz", a gallop on the ride (an eighth and
+two sixteenths) over ghosts in the left hand, the kick and the hat foot in a
+one-bar ostinato.
+
+**What the style encodes.** The `bigrusty` kit (thick, hit hard, a big wash of
+cymbal); `rimshot` 0.35 ("smack those drums"); a feel on top, after Williams
+(inferred); `buzz` 0.1 for the roll that opens She Got Game's chorus. Her Vic
+Firth groove is a style figure, not a song: it names no record.
+
+| Song                    | Year | Tempo (quarter)                        | What defines it                                                               | Source of the bars        |
+| ----------------------- | ---- | -------------------------------------- | ----------------------------------------------------------------------------- | ------------------------- |
+| Breaking Down the Door  | 2019 | 102 (tab); 103 (songbpm)               | the kick on every beat, the snare on the "a" of 1 and 3, the "and" of 2 and 4 | Songsterr 4521944 (human) |
+| Corazón Espinado (live) | 2014 | 128 (tab); the 1999 studio take is 120 | hats, then the ride, then the crash and snare on every beat                   | Songsterr 5178015 (human) |
+| She Got Game            | 2026 | 100 (tab)                              | the kick on the "a" of 2 and the 3, the hats filling in sixteenths            | Songsterr 3917543 (human) |
+
+- **Breaking Down the Door**'s backbeat is its snare figure (the "a" of 1, the
+  "and" of 2, the "a" of 3, the "and" of 4), so it has its own fill, the tab's
+  turnaround with a crash on the "and" of 4 over that figure: the style's
+  fills put the snare on the beat and the critic then found no backbeat.
+- **She Got Game**'s roll into the chorus is twelve sixteenths on the snare,
+  which the critic calls a run; it is written as buzz strokes on the eighths,
+  then the backbeat on 4, with the kick into the 1 (the tab's three kicks
+  are two here, the third a triple the critic refuses on one foot).
+
+**Left out.** Every Kravitz hit (his drums); "Joy" (Derek Mixon); the Playing
+for Change "Oye Como Va", "Yo Soy la Luz", "Corazón Espinado" (studio, live
+990131), "Move", "Saideira": machine-made or not hers. Her jazz records,
+Spectrum Road and _Coherence_ have no transcription found, and they are the
+heart of her playing: the record asks for them.
+
+**Found on the way, not changed.**
+
+- She has three songs. Like Lenny White's, her style is thinner than her
+  playing because only three of her records have a human transcription.
+
+Sources: Wikipedia — [Cindy Blackman Santana](https://en.wikipedia.org/wiki/Cindy_Blackman_Santana),
+[Africa Speaks](<https://en.wikipedia.org/wiki/Africa_Speaks_(album)>),
+[Blessings and Miracles](https://en.wikipedia.org/wiki/Blessings_and_Miracles);
+[Modern Drummer, The Lady Comes To Play (2008)](https://www.moderndrummer.com/2008/04/cindy-blackman/);
+[Modern Drummer, Coherence (2026)](https://www.moderndrummer.com/article/cindy-blackman-santana-talks-about-her-new-record-coherence/);
+[Drummer Cafe, Smooth Struttin' New Awlins Gumbo](https://drummercafe.com/education/lessons/cindy-blackman-smooth-struttin-new-awlins-gumbo);
+[DRUM!, Lenny Kravitz drummers](https://drummagazine.com/lenny-krawitz-drummers/) (via search summary);
+[santana.com, Corazón Live from Mexico](https://santana.com/news/were-proud-to-announce-sept-9th-release-of-corazon-live-from-mexico-live-it-to-believe-it/) (via search summary);
+[Black America Web, She Got Game](https://blackamericaweb.com/2026/02/05/public-enemy-he-got-game-as-a-women-power/) (via search summary);
+Songsterr tabs 4521944, 5178015, 3917543; [songbpm.com](https://songbpm.com/@santana).
 
 ## Sources
 

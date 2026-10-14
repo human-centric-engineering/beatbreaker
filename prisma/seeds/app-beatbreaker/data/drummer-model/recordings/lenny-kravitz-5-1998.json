@@ -1,0 +1,37 @@
+{
+  "id": "rec:lenny-kravitz-5-1998",
+  "title": "5",
+  "artist": "Lenny Kravitz",
+  "release": "Virgin",
+  "year": 1998,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "personnel": [
+    {
+      "name": "Lenny Kravitz",
+      "role": "vocals, most instruments"
+    },
+    {
+      "name": "Cindy Blackman",
+      "role": "drums (Straight Cold Player)"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:cindy-blackman-santana",
+      "name": "Cindy Blackman Santana",
+      "drummer_role": "co_drummer",
+      "significance": 0.3,
+      "why_it_matters": "Her one studio track with Kravitz, Straight Cold Player; he plays the drums on the rest himself, and on his other records. She was his touring drummer for eighteen years.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cindy-blackman-drum-magazine-kravitz"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:cindy-blackman-drum-magazine-kravitz"]
+  }
+}

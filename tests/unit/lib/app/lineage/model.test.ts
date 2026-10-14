@@ -94,6 +94,7 @@ describe('the drummer model', () => {
       'drummer:bernard-purdie',
       'drummer:billy-cobham',
       'drummer:changuito',
+      'drummer:cindy-blackman-santana',
       'drummer:clyde-stubblefield',
       'drummer:dave-lombardo',
       'drummer:elvin-jones',

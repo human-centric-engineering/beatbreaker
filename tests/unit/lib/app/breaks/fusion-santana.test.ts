@@ -14,6 +14,7 @@ import { describe, expect, it } from 'vitest';
 
 import { maxBpm } from '@/lib/app/breaks/audio/transport';
 import { playability } from '@/lib/app/breaks/critic';
+import { generatePattern } from '@/lib/app/breaks/generate';
 import { PERC_LANES, handLanes, handsAt, percRoster } from '@/lib/app/breaks/lanes';
 import { meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
@@ -29,6 +30,7 @@ import {
 } from '@/lib/app/breaks/songs';
 import type { LaneKey } from '@/lib/app/breaks/types';
 import { STYLES, STYLE_GROUPS } from '@/prisma/seeds/app-beatbreaker/data/styles';
+import { DRUMMER_MODEL_DIR, readCorpus } from '@/scripts/lineage/read-corpus';
 import { testStyle } from '@/tests/helpers/catalogue';
 
 const FAMILIES: Record<string, string> = {
@@ -36,6 +38,7 @@ const FAMILIES: Record<string, string> = {
   cobham: 'Fusion drummers',
   lennywhite: 'Fusion drummers',
   shrieve: 'Rock drummers',
+  cindyblackman: 'Rock drummers',
 };
 
 /** The Studio's tempo control stops here. */
@@ -130,5 +133,55 @@ describe.each(Object.keys(FAMILIES))('%s', (key) => {
         }
       }
     }
+  });
+});
+
+describe('Cobham’s two bass drums', () => {
+  /* Two Fibes bass drums, not a double pedal; to the generator, the critic
+     and the 3D drummer that is `doubleKick`, and Quadrant 4's shuffle is on
+     both. */
+  it('are on every one of his songs', () => {
+    const st = STYLES.cobham;
+    expect(st.doubleKick).toBe(true);
+    for (const { song, section } of songParts(st)) {
+      const pat = generatePattern({
+        style: testStyle('cobham'),
+        song: partKey(song, section),
+        seed: 1,
+        bars: 4,
+        density: 50,
+        ghosts: 50,
+      });
+      expect(pat.attrs?.doubleKick, song.key).toBe(true);
+    }
+  });
+});
+
+describe('the In the Air Tonight break', () => {
+  /* Drumeo's notation: two toms struck together and a kick, in threes down
+     the kit, then the floor tom and the kick in turn. */
+  it('is two toms together and a kick in threes, then the floor and the kick', () => {
+    const song = (STYLES.collins.songs ?? []).find((x) => x.key === 'in-the-air-tonight');
+    const [[fill]] = song?.params.fills ?? [];
+    const at = (i: number) =>
+      (['t1', 't2', 't3', 'k'] as const).filter((l) => (fill[l] ?? '')[i] && fill[l]![i] !== '.');
+    for (const i of [0, 1, 3, 4, 6, 7, 9, 10]) expect(at(i), `step ${i}`).toHaveLength(2);
+    for (const i of [2, 5, 8, 11, 13, 15]) expect(at(i), `step ${i}`).toEqual(['k']);
+    for (const i of [12, 14]) expect(at(i), `step ${i}`).toEqual(['t3']);
+  });
+});
+
+describe('Cindy Blackman Santana', () => {
+  const corpus = readCorpus(DRUMMER_MODEL_DIR);
+
+  /* Tony Williams's record named her `drummer:cindy-blackman-santana` and
+     Yussef Dayes's `drummer:cindy-blackman`: two nodes for one person, the
+     fault 11-a fixed for Cozy Cole. Her record keeps the first. */
+  it('is one person in the model', () => {
+    const text = JSON.stringify([...corpus.drummers, ...corpus.recordings]);
+    expect(text).not.toMatch(/"drummer:cindy-blackman"/);
+    expect(corpus.drummers.map(({ record }) => record.meta.id)).toContain(
+      'drummer:cindy-blackman-santana'
+    );
   });
 });

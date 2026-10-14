@@ -101,6 +101,7 @@ describe('drummerSection', () => {
       'klek',
       'collins',
       'shrieve',
+      'cindyblackman',
       'lombardo',
       'davies',
       'stubblefield',

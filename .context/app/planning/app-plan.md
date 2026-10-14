@@ -4256,8 +4256,9 @@ Tonight), Billy Cobham, Lenny White, Michael Shrieve and Cindy Blackman Santana.
   ...And So to F... (9/8), Genesis in 7/8, 9/8 and 6/4 + 7/4 (Turn It On Again
   as two one-bar sections in turn), Intruder and the gated records with no
   cymbal, and In the Air Tonight as two sections: the CR-78 verse ending on the
-  break, then his drums. The break follows Drumeo, not the tab, whose kick
-  between the last two tom hits Collins calls the usual mistake. Watcher of the
+  break, then his drums. The break follows Drumeo's notation; the remark of
+  Collins's that Drumeo prints beside it is not reconciled with it, and the
+  record asks. Watcher of the
   Skies was written and taken out: its four one-handed snare strokes are a run
   the critic refuses. Brand X's two songs open at 150, a little under the
   record, where the run rule stops sixteenths without a gap.
@@ -4286,6 +4287,34 @@ Tonight), Billy Cobham, Lenny White, Michael Shrieve and Cindy Blackman Santana.
   no drummer's hands, so his kit part stays his. The 1968 Fillmore tabs are Bob
   Livingston's and are not used. The Oye Como Va recording's `ev` key is now
   `evidence`.
+
+- **Cindy Blackman Santana** (§AB): 3 songs, Rock drummers, each from a human
+  Songsterr tab: Santana's Breaking Down the Door and Corazón Espinado (live, 2013) and Public Enemy's She Got Game. Kravitz played the drums on his own
+  hits (hers is one track on _5_), so none is used; her jazz records have no
+  transcription found. Her Vic Firth groove (Bart Elliott's transcription) is a
+  style figure. One id: Dayes's `drummer:cindy-blackman` now points at
+  `drummer:cindy-blackman-santana`, held by a test.
+- **Corrected on the way**: the Collins section first said the In the Air
+  Tonight tab had "the usual mistake", a kick between the last two tom hits.
+  Drumeo's own notation has the kick there too, beside the remark it quotes;
+  the notes were right and the prose is now, and the record asks what he meant.
+- **Found across the five, not changed:**
+  - The critic's air rule (a quarter of the bar clear of kick and snare)
+    counts ghost notes, so linear fusion sixteenths never pass: Cobham's Vital
+    Transformation, Bishop's Spectrum bar and Collins's busiest Brand X bars
+    are out for it. A rule that let ghosts count as air would let them in, and
+    would move the goldens of every style the generator re-picks for.
+  - No sextuplet meter goes past 190 and no 3/4 past 190, so a fast triplet
+    shuffle is swung eighths (Quadrant 4) and a fast 3/4 has no grid
+    (Medieval Overture).
+  - Open-handed (Cobham, White) and left-handed (Collins) are record fields;
+    the 3D drummer plays every kit right-handed and crossed.
+  - Lenny White and Cindy Blackman Santana have three songs each, because
+    only three of their records each have a human transcription. Nothing was
+    invented to fill them out.
+- **Counts**: 62 styles and 25 drummers, 1,305 style-and-meter pairs; a
+  Fusion drummers group. Not checked in a browser (no Chrome); the picker and
+  the pages are held by their tests.
 
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern

@@ -16560,6 +16560,158 @@ export const STYLES: Record<string, Style> = {
       },
     ],
   },
+  cindyblackman: {
+    label: 'Cindy Blackman Santana',
+    drummer: true,
+    hint: "Jazz drummer first, taught by Tony Williams's teacher Alan Dawson and chasing Blakey, Williams and Elvin; eighteen years behind Lenny Kravitz on stage; since 2010 Santana's drummer. She smacks the drums: big backbeats, the crash ridden on the beat, the hat opening on every \"and\". Each New plays one of three of her songs at its record tempo: Santana's Breaking Down the Door, its snare a figure over four on the floor; Corazón Espinado live; and Public Enemy's She Got Game. The stage names the song. All three follow human transcriptions. Her own jazz records and Kravitz's (on which, bar one track, he played the drums himself) have none.",
+    toms: true,
+    // Big Rusty: thick, hit hard, with a big wash of cymbal
+    kit: 'bigrusty',
+    hats: 8,
+    bpm: [96, 150],
+    swing: 0,
+    ghostBias: 0.25,
+    ghostWeights: {},
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 11,
+    hatDepth: 0.6,
+    // "you better smack those drums"
+    rimshot: 0.35,
+    flam: 0.1,
+    buzz: 0.1,
+    midFills: 0.25,
+    // on top, after Tony Williams (inferred)
+    feel: { label: 'On top, hard', k: -0.01, s: -0.01, h: -0.01, r: -0.01, jitter: 0.01 },
+    kick1: [
+      ['1010', 3],
+      ['1000', 2],
+      ['1001', 1],
+    ],
+    kick: [
+      ['0000', 2],
+      ['0010', 1.5],
+      ['1010', 1],
+      ['0011', 0.6],
+    ],
+    /* Every bar is from one of the transcriptions below, or the groove she
+       played for Vic Firth. */
+    figures: [
+      // Breaking Down the Door: the snare a figure over four on the floor
+      [{ h: '1.1.1.1.1.1.1.1.', s: '...2..2....2..2.', k: '1...1...1...1...' }, 1.4],
+      // Corazón Espinado, live
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1...1.....' }, 1.2],
+      // She Got Game: the kick pushing the "and" of 2 and 3
+      [{ h: '1.1.1.111.1.1.1.', s: '....2.......2...', k: '1......11.1.....' }, 1.2],
+      /* her Vic Firth interview groove (Bart Elliott's transcription): a
+         gallop on the ride, ghosts in the left hand, the kick and the hat
+         foot in an ostinato */
+      [
+        {
+          r: '1.111.111.111.11',
+          hf: '..1.......1....1',
+          s: '.1.1.1.1.1.1.1.1',
+          k: '1......11.......',
+        },
+        0.8,
+      ],
+      // Corazón Espinado: riding the ride in eighths
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.......1.' }, 0.8],
+    ],
+    fills: [
+      // Corazón Espinado: the crash and the snare on every beat, the kick under
+      [{ c: '1...1...1...1...', s: '2...2...2...2...', k: '1.1...1.1.1...1.' }, 1.2],
+      // She Got Game's roll into the chorus, written as buzz strokes, then the backbeat, the kick into the 1
+      [{ s: '8.8.8.8.8.8.2...', k: '............1.1.' }, 1.0],
+      // the rack tom with the snare on 4
+      [{ s: '2...', t1: '2...' }, 0.8],
+    ],
+    /* Her records: one New picks one, and the stage names it. Credits checked:
+       Africa Speaks (2019) has her on drums throughout; She Got Game (2026)
+       credits her; the live Corazón Espinado tab names her track. Each follows
+       a human Songsterr tab (its `aiGenerated` flag checked). See the Cindy
+       Blackman Santana section of `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'breaking-down-the-door',
+        title: 'Breaking Down the Door',
+        feel: 'Africa Speaks, 2019: the kick on every beat, the snare on the "a" of 1 and 3 and the "and" of 2 and 4',
+        weight: 1.6,
+        params: {
+          bpm: [100, 104],
+          swing: 0,
+          // Songsterr 4521944 (human)
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '...2..2....2..2.', k: '1...1...1...1...' }, 2],
+            [{ h: '1111111111111111', s: '...2..2....2..2.', k: '1...1...1...1...' }, 1.2],
+            [{ h: '3.3.3.3.3.3.3.3.', s: '...2..2....2..2.', k: '1...1...1...1...' }, 1.0],
+            [
+              {
+                c: '1...............',
+                h: '..3.3.3.3.3.3.3.',
+                s: '...2..2....2..2.',
+                k: '1...1...1...1...',
+              },
+              0.8,
+            ],
+            [{ h: '..1...1...1...1.', s: '...4..4....4..4.', k: '1...1...1...1...' }, 0.6],
+          ],
+          // the tab's turnaround: a crash on the "and" of 4 over the snare figure, which a fill must not drop
+          fills: [
+            [
+              {
+                c: '..............1.',
+                h: '3.3.3.3.3.3.3...',
+                s: '...2..2....2..2.',
+                k: '1...1...1...1...',
+              },
+              1,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'corazon-espinado',
+        title: 'Corazón Espinado (live)',
+        feel: 'Santana with Fher Olvera, live in Mexico: eighths on the hat, then the ride, then the crash and snare on every beat',
+        weight: 1.2,
+        params: {
+          bpm: [124, 130],
+          swing: 0,
+          // Songsterr 5178015 (human), the track named for her
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1...1.....' }, 2],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.......' }, 1.6],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.........' }, 1.4],
+            [{ h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1.1...1.1.1.....' }, 0.8],
+            [{ c: '1...1...1...1...', s: '2...2...2...2...', k: '1.1...1.1.1...1.' }, 0.6],
+          ],
+          fills: [
+            [{ c: '1...1...1...1...', s: '2...2...2...2...', k: '1.1...1.1.1...1.' }, 1],
+            [{ s: '2...', t1: '2...' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'she-got-game',
+        title: 'She Got Game',
+        feel: 'Public Enemy\'s, 2026: the kick on the "a" of 2 and the 3, the hats filling in sixteenths',
+        weight: 1.0,
+        params: {
+          bpm: [98, 102],
+          swing: 0,
+          // Songsterr 3917543 (human)
+          figures: [
+            [{ h: '1.1.1.111.1.1.1.', s: '....2.......2...', k: '1......11.1.....' }, 2],
+            [{ h: '1.1.111111111111', s: '....2.......2...', k: '1......11.1.....' }, 1.4],
+            [{ h: '1.1.11111111113.', s: '....2.......2...', k: '1......11.1.....' }, 0.8],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2....2..2..2', k: '1..1...11.1.....' }, 0.6],
+          ],
+          fills: [[{ s: '8.8.8.8.8.8.2...', k: '............1.1.' }, 1]],
+        },
+      },
+    ],
+  },
 };
 
 /**
@@ -16601,7 +16753,17 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
   ['Afro-Latin', ['afrobeat', 'son', 'rumba', 'mambo', 'songo', 'samba', 'reggaeton']],
   [
     'Rock drummers',
-    ['mitchell', 'bonham', 'ringo', 'copeland', 'baker', 'klek', 'collins', 'shrieve'],
+    [
+      'mitchell',
+      'bonham',
+      'ringo',
+      'copeland',
+      'baker',
+      'klek',
+      'collins',
+      'shrieve',
+      'cindyblackman',
+    ],
   ],
   ['Metal drummers', ['lombardo', 'davies']],
   ['Funk drummers', ['stubblefield', 'jabostarks', 'bernardpurdie']],
