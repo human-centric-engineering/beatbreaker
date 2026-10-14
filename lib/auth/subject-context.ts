@@ -41,6 +41,17 @@
  * handler starts — a streamed response body, a `$transaction`, a fire-and-forget
  * promise — keeps the subject, and work it did not start does not see it.
  *
+ * That is right for a streamed body and wrong for work that acts for someone
+ * else once it is started. Resuming an approved execution runs the
+ * execution's owner's workflow, not the approver's, and through the
+ * approval-token route it has no subject at all; inherited from an approving
+ * admin it would read that owner's rows narrowed to the admin. So a library
+ * function whose work belongs to no person in the request says so itself, with
+ * {@link runAcrossOwners} and its reason (`resumeApprovedExecution` does), and
+ * every caller — a guarded route, a token route, the scheduler — gets the same
+ * answer. Decided on §115 t-801 over detaching the subject at each call site,
+ * which every new fire-and-forget would have to remember.
+ *
  * Not imported by the authorization module, and importing nothing from it at
  * runtime: the data layer reads this, and `lib/db/client.ts` must not reach the
  * fork's policy file through an import chain.
@@ -68,6 +79,12 @@ export interface SubjectEntry {
   resolveFilter: () => Promise<SubjectFilter>;
   /** The ownerless kinds this caller may read — the guard's resolved record. */
   unattributedReads: UnattributedReads;
+  /**
+   * Called when the data layer checked a personal read for this caller and it
+   * passed (§115 t-801) — the guard counts it as the route having used the
+   * policy's answer. See {@link noteConfinedRead}.
+   */
+  onConfinedRead?: () => void;
 }
 
 /**
@@ -91,8 +108,11 @@ export type SubjectReadScope =
 
 interface SubjectStore {
   entry: SubjectEntry;
-  /** Shared by every reader in the request: the policy is asked once. */
-  memo: { filter: Promise<SubjectFilter> | null };
+  /**
+   * Shared by every reader in the request: the policy is asked once, and each
+   * crossing reason is logged once.
+   */
+  memo: { filter: Promise<SubjectFilter> | null; crossings: Set<string> };
   /** Set by {@link runAcrossOwners}; scoped to its callback. */
   admitted: string | null;
 }
@@ -109,7 +129,10 @@ async function settleInside<T>(fn: () => Promise<T>): Promise<T> {
  * nothing else should — see the module header for who deliberately does not.
  */
 export function runAsSubject<T>(entry: SubjectEntry, fn: () => Promise<T>): Promise<T> {
-  const memo = { filter: entry.filter ? Promise.resolve({ ...entry.filter }) : null };
+  const memo = {
+    filter: entry.filter ? Promise.resolve({ ...entry.filter }) : null,
+    crossings: new Set<string>(),
+  };
   return subjectContext.run({ entry, memo, admitted: null }, () => settleInside(fn));
 }
 
@@ -121,8 +144,10 @@ export function runAsSubject<T>(entry: SubjectEntry, fn: () => Promise<T>): Prom
  * reconcile acting for the org rather than the person. The `reason` is
  * logged on every entry, as `runAsSystem`'s is, because an unexplained
  * crossing is exactly what a review needs to find; the sites are meant to be
- * few and greppable. Outside a subject (a job) it changes nothing and logs
- * nothing: there was no narrowing to cross.
+ * few and greppable. Logged once per reason per request, so a crossing wrapped
+ * around a per-row helper is one line rather than one per row. Outside a
+ * subject (a job) it changes nothing and logs nothing: there was no narrowing
+ * to cross.
  *
  * Not a tenancy bypass. The org wall stays where it is; this only lifts the
  * owner check inside it.
@@ -130,10 +155,13 @@ export function runAsSubject<T>(entry: SubjectEntry, fn: () => Promise<T>): Prom
 export function runAcrossOwners<T>(reason: string, fn: () => Promise<T>): Promise<T> {
   const current = subjectContext.getStore();
   if (!current) return settleInside(fn);
-  logger.info('Reading across owners', {
-    reason,
-    userId: current.entry.principal.userId,
-  });
+  if (!current.memo.crossings.has(reason)) {
+    current.memo.crossings.add(reason);
+    logger.info('Reading across owners', {
+      reason,
+      userId: current.entry.principal.userId,
+    });
+  }
   return subjectContext.run({ ...current, admitted: reason }, () => settleInside(fn));
 }
 
@@ -167,4 +195,13 @@ export async function getSubjectReadScope(): Promise<SubjectReadScope> {
     filter: { ...(await memo.filter) },
     unattributedReads: entry.unattributedReads,
   };
+}
+
+/**
+ * Tell the guard that the data layer checked a personal read for the current
+ * subject and it passed. Called by `lib/db/owner-extension.ts`; a no-op outside
+ * a subject.
+ */
+export function noteConfinedRead(): void {
+  subjectContext.getStore()?.entry.onConfinedRead?.();
 }
