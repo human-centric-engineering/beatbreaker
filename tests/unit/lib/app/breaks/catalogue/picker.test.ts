@@ -111,6 +111,7 @@ describe('drummerSection', () => {
       'yussefdayes',
       'elvinjones',
       'cobham',
+      'lennywhite',
       'puente',
       'changuito',
       'horaciohernandez',

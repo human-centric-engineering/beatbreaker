@@ -1,0 +1,45 @@
+{
+  "id": "rec:return-to-forever-romantic-warrior-1976",
+  "title": "Romantic Warrior",
+  "artist": "Return to Forever",
+  "release": "Columbia",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "Chick Corea",
+      "role": "keyboards, percussion"
+    },
+    {
+      "name": "Al Di Meola",
+      "role": "guitars"
+    },
+    {
+      "name": "Stanley Clarke",
+      "role": "bass"
+    },
+    {
+      "name": "Lenny White",
+      "role": "drums, percussion"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lenny-white",
+      "name": "Lenny White",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "Return to Forever's best-selling album, and his Sorceress. Duel of the Jester and the Tyrant runs eleven minutes through heavy half-time, unison passages and 7/8.",
+      "pattern_ids": ["pattern:lenny-white-duel-half-time", "pattern:lenny-white-duel-7-8"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:romantic-warrior-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:romantic-warrior-wikipedia"]
+  }
+}

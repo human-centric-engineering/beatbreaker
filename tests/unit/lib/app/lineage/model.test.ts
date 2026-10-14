@@ -102,6 +102,7 @@ describe('the drummer model', () => {
       'drummer:jabo-starks',
       'drummer:john-bonham',
       'drummer:klek-de-poitrine',
+      'drummer:lenny-white',
       'drummer:mitch-mitchell',
       'drummer:omar-hakim',
       'drummer:phil-collins',

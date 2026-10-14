@@ -1,0 +1,33 @@
+{
+  "id": "rec:twennynine-morning-sunrise-1979",
+  "title": "Morning Sunrise",
+  "artist": "Twennynine featuring Lenny White",
+  "release": "Elektra",
+  "year": 1979,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul", "style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "Lenny White",
+      "role": "drums, leader"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lenny-white",
+      "name": "Lenny White",
+      "drummer_role": "leader",
+      "significance": 0.5,
+      "why_it_matters": "His own soul-jazz band: a cross-stick in the 7/4 opening, then a slow verse on the hat.",
+      "pattern_ids": ["pattern:lenny-white-morning-sunrise"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lenny-white-wikipedia", "src:songsterr-3084901"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:lenny-white-wikipedia", "src:songsterr-3084901"]
+  }
+}

@@ -16139,6 +16139,201 @@ export const STYLES: Record<string, Style> = {
       },
     ],
   },
+  lennywhite: {
+    label: 'Lenny White',
+    drummer: true,
+    hint: "Bitches Brew, Red Clay, then Return to Forever with Chick Corea, Stanley Clarke and Al Di Meola: one of fusion's founding drummers, self-taught, open-handed (the hat and even the ride in his left hand), on the front of the beat. A tune drummer more than a groove drummer, with big statements that cut across the bar. Each New plays one of three of his songs at its record tempo: Duel of the Jester and the Tyrant's heavy half-time and its 7/8, Land of the Midnight Sun's sixteenths with Al Di Meola, and Twennynine's Morning Sunrise, in 7/4 and 4/4. The stage names the song. All three follow human transcriptions; none was found for Sorceress, Vulcan Worlds or Red Clay.",
+    toms: true,
+    // a real kit recorded properly; his own 1970s sound is not described closely enough to tune one
+    kit: 'muldjord',
+    // open-handed: sixteenths on the hat in the left hand alone, the right on the snare
+    oneHandHats: true,
+    hats: 8,
+    bpm: [69, 150],
+    swing: 0,
+    ghostBias: 0.2,
+    ghostWeights: {},
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 11,
+    hatDepth: 0.5,
+    rimshot: 0.15,
+    flam: 0.1,
+    midFills: 0.3,
+    // Bishop: "really on the front of the beat" (Red Clay)
+    feel: {
+      label: 'On the front of the beat',
+      k: -0.02,
+      s: -0.02,
+      h: -0.02,
+      r: -0.02,
+      jitter: 0.01,
+    },
+    // Bishop: "big accompanying statements that were not always on the same grid as the primary groove"
+    crossRhythm: 0.25,
+    crossRhythms: [[{ every: 6, lanes: { s: 3, k: 1 }, bars: 2 }, 1]],
+    kick1: [
+      ['1010', 3],
+      ['1000', 2],
+      ['1011', 1],
+    ],
+    kick: [
+      ['0000', 2],
+      ['0010', 1.5],
+      ['1010', 1],
+      ['0011', 0.6],
+    ],
+    /* Every bar is from one of the transcriptions below. */
+    figures: [
+      // Duel of the Jester and the Tyrant: the half-time, the snare on 3
+      [{ h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.1...1.........' }, 1.4],
+      // and its rock beat
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1.....1.1.....' }, 1.0],
+      [{ r: '1...1...1...1...', s: '....2.......2...', k: '1.1...1...1.....' }, 0.8],
+      // Land of the Midnight Sun: sixteenths in one hand, the snare in pairs
+      [{ h: '1111111131113...', s: '....22......2.2.', k: '1.11..1.1.......' }, 1.2],
+      // Morning Sunrise
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......11......' }, 1.0],
+    ],
+    fills: [
+      // Duel's 7/8 fill: three on the snare, then the rack and the mid tom in eighths
+      [{ s: '222..........', t1: '....1.1......', t2: '........1.1.1' }, 1.2],
+      // Morning Sunrise: the mid tom and the kick together, then the floor
+      [{ t2: '1..1....', t3: '......1.', k: '1..1..1.' }, 1.0],
+      // Land of the Midnight Sun: four on the mid tom
+      [{ t2: '2222' }, 0.8],
+    ],
+    /* His records: one New picks one, and the stage names it. Credits checked
+       on Wikipedia: he is Return to Forever's only drummer on Romantic Warrior,
+       Twennynine is his band, and on Al Di Meola's Land of the Midnight Sun he
+       drums on the title track (Steve Gadd and Alphonse Mouzon on others). Each
+       follows a human Songsterr tab (its `aiGenerated` flag checked), read bar
+       by bar with the most common bars kept. See the Lenny White section of
+       `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'duel-of-the-jester-and-the-tyrant',
+        title: 'Duel of the Jester and the Tyrant',
+        feel: 'Romantic Warrior, 1976: heavy half-time with the snare on 3, then a passage in 7/8 on the ride',
+        weight: 1.4,
+        params: {
+          bpm: [150, 160],
+          swing: 0,
+          // in eighths: sixteenths without a gap stop at 150
+          fills: [[{ s: '2.2.....', t1: '....2...', t2: '......2.' }, 1]],
+        },
+        // Songsterr 914514 (human)
+        sections: [
+          {
+            letter: 'A',
+            label: 'the half-time',
+            params: {
+              figures: [
+                [{ h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.1...1.........' }, 2],
+                [{ h: '1...1...1...1...', s: '........2.......', k: '1.1...1.........' }, 1.4],
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1.....1.1.....' }, 0.8],
+                // the band in unison: a crash, the kick on every eighth
+                [{ c: '1...............', s: '........2.......', k: '1.1.1.1.1.1.1.1.' }, 0.6],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the 7/8',
+            params: {
+              meter: '7/8',
+              figures: [
+                [{ r: '1...1...1...1.', s: '..22....2...2.', k: '....1.1...1...' }, 1],
+                [{ r: '1...1...1...1.', s: '..2.....2...2.', k: '1.....1...1...' }, 1],
+                [{ r: '1.1.1.1.1.1.1.', s: '....2.........', k: '1.......1.1...' }, 1],
+                [{ h: '1...1...1...1.', s: '............2.', k: '1.1...1...1...' }, 0.8],
+              ],
+              fills: [[{ s: '222..........', t1: '....1.1......', t2: '........1.1.1' }, 1]],
+            },
+          },
+        ],
+      },
+      {
+        key: 'land-of-the-midnight-sun',
+        title: 'Land of the Midnight Sun',
+        feel: "Al Di Meola's, 1976: sixteenths on the hat in one hand, the snare in pairs, the hat opening on 3",
+        weight: 1.2,
+        params: {
+          bpm: [116, 124],
+          swing: 0,
+          // Songsterr 414449 (human, an early tab)
+          figures: [
+            [{ h: '1111111131113...', s: '....22......2.2.', k: '1.11..1.1.......' }, 2],
+            [{ h: '1111111111113...', s: '....22......2.2.', k: '1.11..1.1.......' }, 1.6],
+            [
+              {
+                r: '1...............',
+                h: '..11113.1.111111',
+                s: '.....2.....2...2',
+                k: '1.......1.1.1...',
+              },
+              1.0,
+            ],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 0.8],
+          ],
+          fills: [
+            [{ t2: '2222' }, 1],
+            [{ s: '22.22...', t1: '.....22.', t3: '.......2' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'morning-sunrise',
+        title: 'Morning Sunrise',
+        feel: 'Twennynine, 1979: slow soul, a cross-stick in the 7/4 opening, then eighths on the hat',
+        weight: 1.0,
+        params: {
+          bpm: [69, 73],
+          swing: 0,
+          fills: [[{ t2: '1..1....', t3: '......1.', k: '1..1..1.' }, 1]],
+        },
+        // Songsterr 3084901 (human)
+        sections: [
+          {
+            letter: 'A',
+            label: 'the 7/4 opening',
+            params: {
+              meter: '7/4',
+              figures: [
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '....4.......4.......4.......',
+                    k: '1.......1.......1.......1...',
+                  },
+                  1.2,
+                ],
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '....2.......2.......2.......',
+                    k: '1.......1.......1.......1...',
+                  },
+                  0.8,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the verse',
+            params: {
+              figures: [
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 2],
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......11......' }, 1.2],
+                [{ h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '1.......11......' }, 0.6],
+              ],
+            },
+          },
+        ],
+      },
+    ],
+  },
 };
 
 /**
@@ -16183,7 +16378,7 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
   ['Funk drummers', ['stubblefield', 'jabostarks', 'bernardpurdie']],
   ['Session drummers', ['gadd', 'hakim']],
   ['Jazz drummers', ['tonywilliams', 'yussefdayes', 'elvinjones']],
-  ['Fusion drummers', ['cobham']],
+  ['Fusion drummers', ['cobham', 'lennywhite']],
   ['Latin drummers', ['puente', 'changuito', 'horaciohernandez']],
   ['Afrobeat drummers', ['tonyallen']],
 ];

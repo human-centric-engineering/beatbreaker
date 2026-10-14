@@ -1,0 +1,50 @@
+{
+  "id": "rec:freddie-hubbard-red-clay-1970",
+  "title": "Red Clay",
+  "artist": "Freddie Hubbard",
+  "release": "CTI",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:post-bop"],
+  "personnel": [
+    {
+      "name": "Freddie Hubbard",
+      "role": "trumpet"
+    },
+    {
+      "name": "Joe Henderson",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Herbie Hancock",
+      "role": "keyboards"
+    },
+    {
+      "name": "Ron Carter",
+      "role": "bass"
+    },
+    {
+      "name": "Lenny White",
+      "role": "drums"
+    }
+  ],
+  "tempo_bpm": 67,
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lenny-white",
+      "name": "Lenny White",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The title track's vamp, 'really on the front of the beat' at 64-70 (Bishop), and a double-time feel at the same tempo under the sax. No transcription of the groove found.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lenny-white-wikipedia", "src:lenny-white-bishop-red-clay"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:lenny-white-wikipedia", "src:lenny-white-bishop-red-clay"]
+  }
+}

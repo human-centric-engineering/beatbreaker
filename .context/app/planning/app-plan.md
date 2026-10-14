@@ -4271,6 +4271,14 @@ Tonight), Billy Cobham, Lenny White, Michael Shrieve and Cindy Blackman Santana.
   clearest case of his linear sixteenths, is left out: the critic's air rule
   counts every ghost as a note.
 
+- **Lenny White** (§Z): 3 songs, Fusion drummers, each from a human Songsterr
+  tab: Duel of the Jester and the Tyrant (half-time and 7/8 sections), Land of
+  the Midnight Sun, and Twennynine's Morning Sunrise (7/4 and 4/4). Every other
+  tab of his is machine-made or missing; Sorceress, Red Clay and Vulcan Worlds
+  wait for transcriptions rather than being invented. Open-handed
+  (`oneHandHats`), on the front of the beat, with an accent cycle across the
+  bar for his statements off the grid.
+
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
 stays `archetype` or `approximation` until stems are checked); personas

@@ -1,0 +1,100 @@
+[
+  {
+    "id": "src:lenny-white-wikipedia",
+    "type": "encyclopedia",
+    "title": "Lenny White - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Lenny_White",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Born Leonard White III, 19 December 1949, Queens; self-taught; first gig with Jackie McLean, who recommended him for Bitches Brew; Freddie Hubbard's Red Clay; Return to Forever 1972-76; Venusian Summer, Big City; Twennynine; Azteca; produced Echoes of an Era; 'one of the founding fathers of jazz fusion'; Magnificent Seven dedicated to Tony Williams and others."
+  },
+  {
+    "id": "src:romantic-warrior-wikipedia",
+    "type": "encyclopedia",
+    "title": "Romantic Warrior - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Romantic_Warrior",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Recorded February 1976 at Caribou Ranch; White on drums and percussion; his Sorceress 'starts with a funky riff'; the band's best seller, gold."
+  },
+  {
+    "id": "src:return-to-forever-wikipedia",
+    "type": "encyclopedia",
+    "title": "Return to Forever - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Return_to_Forever",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Drummers: Airto Moreira (1972-73), Steve Gadd (1973), Lenny White (1973-76 and reunions), Gerry Brown (1977). 'Gadd was unwilling to tour with the band ... Lenny White ... replaced Gadd and Lewis.'"
+  },
+  {
+    "id": "src:land-of-the-midnight-sun-wikipedia",
+    "type": "encyclopedia",
+    "title": "Land of the Midnight Sun (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Land_of_the_Midnight_Sun_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "White drums on track 2, the title track; Steve Gadd on 1, Alphonse Mouzon on 5. July and August 1975."
+  },
+  {
+    "id": "src:lenny-white-bishop-2019",
+    "type": "analysis",
+    "title": "Todd Bishop, Notes on a Lenny White performance (cruiseshipdrummer.com, 2019)",
+    "url": "https://cruiseshipdrummer.com/2019/09/12/notes-on-a-lenny-white-performance/",
+    "reliability": 0.8,
+    "accessed": "2026-10-14",
+    "notes": "Cymbals reversed on a right-handed kit (ride on the left); singles and doubles; 'tune oriented'; 'big accompanying statements that were not always on the same grid as the primary groove'; Tony Williams in the 1960s a formative influence."
+  },
+  {
+    "id": "src:lenny-white-bishop-red-clay",
+    "type": "analysis",
+    "title": "Todd Bishop, Groove o' the day: Lenny White - Red Clay",
+    "url": "https://cruiseshipdrummer.com/2014/03/28/groove-o-the-day-lenny-white-red-clay/",
+    "reliability": 0.8,
+    "accessed": "2026-10-14",
+    "notes": "Measured 64-70 bpm, the second bar of the vamp a little faster; 'really on the front of the beat'; a double-time feel in the sax solo at the same tempo. No notation of the groove."
+  },
+  {
+    "id": "src:lenny-white-md-magician",
+    "type": "magazine",
+    "title": "Modern Drummer, 'The Magician' transcription by Marc Atkinson (preview)",
+    "url": "https://www.moderndrummer.com/article/the-magician-transcription-by-marc-atkinson/",
+    "reliability": 0.8,
+    "accessed": "2026-10-14",
+    "notes": "Preview only: 'he plays openhanded, utilizing his left hand on the hi-hat and right hand on the snare, and even riding with his left hand.'"
+  },
+  {
+    "id": "src:lenny-white-songbpm",
+    "type": "analysis",
+    "title": "songbpm.com: Al Di Meola, Twennynine, Freddie Hubbard",
+    "url": "https://songbpm.com/@al-di-meola",
+    "reliability": 0.6,
+    "accessed": "2026-10-14"
+  },
+  {
+    "id": "src:songsterr-914514",
+    "type": "transcription",
+    "title": "Songsterr 914514: Return to Forever, Duel of the Jester and the Tyrant (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=914514",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-414449",
+    "type": "transcription",
+    "title": "Songsterr 414449: Al Di Meola, Land of the Midnight Sun (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=414449",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-3084901",
+    "type": "transcription",
+    "title": "Songsterr 3084901: Twennynine, Morning Sunrise (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=3084901",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  }
+]

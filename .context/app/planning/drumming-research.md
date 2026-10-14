@@ -3345,6 +3345,91 @@ Todd Bishop — [Let's talk about Billy Cobham](https://cruiseshipdrummer.com/20
 Songsterr tabs 64400, 791843, 519969, 1324254, 13040, 42451;
 [songbpm.com](https://songbpm.com/@billy-cobham).
 
+## Z. Lenny White (2026-10-14)
+
+The `lennywhite` style plays **songs**, as `collins` does (X). His record
+(`drummer-model/drummers/lenny-white.json`) is new in 11-g. He has only three
+songs: of all the drummers here, he is the one whose records have the fewest
+free transcriptions, and none was written without one.
+
+**Which records are his.** Credits checked on Wikipedia. Born Leonard White
+III, 19 December 1949, in Queens; self-taught; his first gig was with Jackie
+McLean, who recommended him for Miles Davis's _Bitches Brew_ (1969, with Jack
+DeJohnette and Don Alias also drumming); then Freddie Hubbard's _Red Clay_
+(1970). Return to Forever's drummers: Airto Moreira (1972-73), Steve Gadd
+(1973), Lenny White (1973-76 and the reunions), Gerry Brown (1977). "Gadd was
+unwilling to tour with the band ... Lenny White ... replaced Gadd and Lewis"
+(Wikipedia, Return to Forever). He is the only drummer on _Romantic Warrior_
+(February 1976), whose "Sorceress" is his tune. On Al Di Meola's _Land of the
+Midnight Sun_ he drums on the title track only (Steve Gadd on "The Wizard",
+Alphonse Mouzon on the suite). On _Elegant Gypsy_ Wikipedia gives him "Midnight
+Tango" and "Race with Devil on Spanish Highway"; the only tabs found contradict
+that (one's drum track is named Steve Gadd; the other is "Race with Devil on
+_Turkish_ Highway", a later record), so neither is used. Twennynine (1979-81)
+is his own band.
+
+**How he played.** Modern Drummer's preview of Marc Atkinson's transcription
+of "The Magician": "he plays openhanded, utilizing his left hand on the hi-hat
+and right hand on the snare, and even riding with his left hand", with "many
+grooves and fills leading with the left". Todd Bishop, hearing him live in
+2019: cymbals reversed on a right-handed kit (the ride on the left); "his
+denser playing was economical and non-technical ... lots of singles and
+doubles"; "tune oriented", with "big accompanying statements that were not
+always on the same grid as the primary groove"; "Tony's playing in the 60s was
+clearly a formative influence". Bishop on Red Clay: "really on the front of
+the beat", measured at 64-70 bpm, the vamp's second bar a little faster, and a
+double-time feel under the saxophone solo at the same tempo.
+
+**What the style encodes.** `oneHandHats` (open-handed: the sixteenths in the
+left hand, the right free for the snare); a feel on the front of the beat (the
+kick, snare, hat and ride all a fiftieth of a sixteenth early); a cross-rhythm
+(`crossRhythm` 0.25: an accent on snare and kick every six sixteenths across
+the last two bars) for the statements off the grid; `midFills` 0.3. The kit is
+`muldjord`, a real kit recorded properly; nothing found describes his 1970s
+sound closely enough to tune one to it.
+
+| Song                              | Year | Tempo (quarter)          | Meter     | What defines it                                              | Source of the bars        |
+| --------------------------------- | ---- | ------------------------ | --------- | ------------------------------------------------------------ | ------------------------- |
+| Duel of the Jester and the Tyrant | 1976 | 150–160 (tab)            | 4/4 + 7/8 | heavy half-time, snare on 3; unison eighths; 7/8 on the ride | Songsterr 914514 (human)  |
+| Land of the Midnight Sun          | 1976 | 120 (tab); 119 (songbpm) | 4/4       | sixteenths on the hat in one hand, the snare in pairs        | Songsterr 414449 (human)  |
+| Morning Sunrise (Twennynine)      | 1979 | 71 (tab, songbpm)        | 7/4 + 4/4 | a cross-stick in the 7/4 opening; slow eighths in the verse  | Songsterr 3084901 (human) |
+
+- **Duel** is two sections: A the half-time theme (the tab's most common bars,
+  with the band's unison of eighth-note kicks under a crash); B its 7/8, on
+  the ride, and its fill (three on the snare, then the rack and mid toms in
+  eighths). A's fills are in eighths, because sixteenths without a gap stop at
+  150 and the song runs to 160.
+- **Morning Sunrise** opens in 7/4 in the tab, so A is the 7/4 and B the
+  verse.
+
+**Left out.** "Medieval Overture" (Songsterr 515705, human): 3/4 at 240 in
+the tab, past 3/4's 190 here; the bars are eighths and the bell, and could be
+written if the tempo is checked. "The Musician" (RTF, 2019): its drum track is
+"regenerated". "Hymn of the Seventh Galaxy", "Majestic Dance", "The Magician",
+"Vulcan Worlds", "After the Cosmic Rain", "Captain Señor Mouse", "Red Clay",
+"Best of Friends", "Butter", "Tropical Nights", "Sweet Dreamer": machine-made
+tabs. "Sorceress", "Dayride", "No Mystery", "Spanish Key": no tab at all.
+"Invitation" (Joe Henderson, Bishop's transcription): the image and PDF are
+gone. "Miles Runs the Voodoo Down" has three drummers and its groove is Don
+Alias's.
+
+**Found on the way, not changed.**
+
+- Open-handed is a record field; the 3D drummer crosses for the hat as for
+  everyone, and plays the ride with the right hand where he used his left.
+- No sixteenth meter in 3/4 goes past 190, so a fast 3/4 in eighths has no
+  grid (there is a `4/4-8` but no `3/4-8`).
+
+Sources: Wikipedia — [Lenny White](https://en.wikipedia.org/wiki/Lenny_White),
+[Return to Forever](https://en.wikipedia.org/wiki/Return_to_Forever),
+[Romantic Warrior](https://en.wikipedia.org/wiki/Romantic_Warrior),
+[Land of the Midnight Sun](<https://en.wikipedia.org/wiki/Land_of_the_Midnight_Sun_(album)>),
+[Elegant Gypsy](https://en.wikipedia.org/wiki/Elegant_Gypsy);
+Todd Bishop — [Notes on a Lenny White performance](https://cruiseshipdrummer.com/2019/09/12/notes-on-a-lenny-white-performance/),
+[Red Clay](https://cruiseshipdrummer.com/2014/03/28/groove-o-the-day-lenny-white-red-clay/);
+[Modern Drummer, The Magician (preview)](https://www.moderndrummer.com/article/the-magician-transcription-by-marc-atkinson/);
+Songsterr tabs 914514, 414449, 3084901; [songbpm.com](https://songbpm.com/@al-di-meola).
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

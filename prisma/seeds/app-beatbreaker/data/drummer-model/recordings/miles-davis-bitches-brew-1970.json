@@ -1,0 +1,45 @@
+{
+  "id": "rec:miles-davis-bitches-brew-1970",
+  "title": "Bitches Brew",
+  "artist": "Miles Davis",
+  "release": "Columbia",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "Miles Davis",
+      "role": "trumpet"
+    },
+    {
+      "name": "Jack DeJohnette",
+      "role": "drums"
+    },
+    {
+      "name": "Lenny White",
+      "role": "drums"
+    },
+    {
+      "name": "Don Alias",
+      "role": "drums, congas"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lenny-white",
+      "name": "Lenny White",
+      "drummer_role": "co_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Recorded August 1969 with two and three drummers at once; Jackie McLean recommended him. Not transcribed here.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lenny-white-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:lenny-white-wikipedia"]
+  }
+}
