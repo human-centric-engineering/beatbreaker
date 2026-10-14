@@ -18,6 +18,16 @@ release process.
 
 ### Added
 
+- **The drum machines (BeatBreaker Phase 9-vi-e).** The TR-808 and TR-909
+  kits play, and TR-606 and Linn-style kits join them. Their voices are
+  models built in `lib/app/breaks/audio/machines.ts` (`MACHINE_VOICES`,
+  `drawMachineSlot`, `machineHas`, `machineGain`), drawn live and rendered
+  ahead by `SynthSource`. `BreakAudio.knobs` reads a voice's own knobs.
+  `DRIFT_MAP` gains the rim shot, toms and the two new machines, and `drift`
+  is an implemented engine, so the picker's "not ported yet" is gone.
+  `kitIsPlayable` takes a `drift` kit only when `DRIFT_MAP` knows its
+  machine.
+
 - **Synthesised kits rendered ahead (BeatBreaker Phase 9-vi-d).** The five
   synthesised kits play from takes rendered through an `OfflineAudioContext`
   when the kit is picked: one source node a hit, and never the same take

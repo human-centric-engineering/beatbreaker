@@ -70,10 +70,11 @@ export function KitPanel() {
         <div className="card-hd">
           <h3>Kit</h3>
           <StudioHelp title="Kits">
-            The five synthesised kits are a graph per hit, so every knob is live. The recorded kits
-            decode on first pick, and any lane still arriving falls through to the synthesised voice
-            — a half-loaded kit still plays. A kit of your own is your samples, kept in your
-            account. The TR-808 and TR-909 voice models are the one engine not ported yet.
+            The synthesised kits and the drum machines are rendered when you pick one, and play live
+            until the renders land; a knob plays its drum live until it is rendered again. The
+            machines are models built here, not recordings. The recorded kits decode on first pick,
+            and any lane still arriving falls through to the synthesised voice — a half-loaded kit
+            still plays. A kit of your own is your samples, kept in your account.
           </StudioHelp>
         </div>
         <div className="card-bd">
@@ -88,8 +89,9 @@ export function KitPanel() {
                 options: group.keys.map((k) => ({
                   value: k,
                   label: kits[k].label,
+                  // an engine a fork declares before building it (every one here is built)
                   disabled: !kitIsPlayable(kits[k]),
-                  note: kitIsPlayable(kits[k]) ? undefined : 'not ported yet',
+                  note: kitIsPlayable(kits[k]) ? undefined : 'not built yet',
                 })),
               }))}
             />

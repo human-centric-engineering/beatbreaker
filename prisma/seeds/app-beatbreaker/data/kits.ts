@@ -1,7 +1,7 @@
 /**
  * The kit table — seed data.
  *
- * 24 kits across three engines, each a plain parameter object plus an engine
+ * 26 kits across three engines, each a plain parameter object plus an engine
  * name, so a kit is a row rather than a branch in playback and a user's tuning
  * is a saved override of these numbers. Then six combinations of the recorded
  * kits' pieces (9-vi-c), at the end of the file.
@@ -92,15 +92,17 @@ export const KITS: Record<string, Kit> = {
     p: { tune: 1.06, level: 0.9, tone: 1.14, room: 0.05 },
   },
 
-  /* ---- drum-machine kits: voices come from @driftbox/engine, baked to buffers ----
+  /* ---- drum-machine kits: voice models built here (lib/app/breaks/audio/machines.ts) ----
      Knobs here are the machine's own 0..1 knobs, not Hz and seconds, because that
-     is what the circuit models take. `room` is still our send, not theirs.        */
+     is what the voice models take; `level` is a gain when a hit plays. The toms
+     and percussion are the synth's units (SYNTH_ONLY). `room` is still our send.
+     Trims start at 1 and are set by ear against the synthesised kits (9-vi-e). */
   tr909: {
     label: 'TR-909',
     engine: 'drift',
     machine: '909',
-    trim: 0.68,
-    hint: 'Roland TR-909 voice models — analogue kick and snare, 6-bit PCM hats and cymbals. Baked to samples once, then played back like samples.',
+    trim: 1,
+    hint: 'Roland TR-909, modelled: analogue kick, snare and toms, rim shot. The real hats and cymbals were 6-bit samples; these are noise and metal approximations of them.',
     master: { lp: 18000, drive: 1.15, room: 0.06 },
     k: { tune: 0.34, decay: 0.42, tone: 0.5, colour: 0.0, level: 0.86, room: 0.02 },
     s: { tune: 0.5, decay: 0.42, tone: 0.52, colour: 0.58, level: 0.72, room: 0.06 },
@@ -114,8 +116,8 @@ export const KITS: Record<string, Kit> = {
     label: 'TR-808',
     engine: 'drift',
     machine: '808',
-    trim: 0.62,
-    hint: 'Roland TR-808 voice models. The 808 never had a ride or a crash, so those two come from the 909 — everything else is 808.',
+    trim: 1,
+    hint: "Roland TR-808, modelled: the long kick, the snare, rim shot, the six-square-wave hats and three toms. The ride and crash are the 909's.",
     master: { lp: 16500, drive: 1.1, room: 0.05 },
     k: { tune: 0.42, decay: 0.3, tone: 0.34, colour: 0.55, level: 0.88, room: 0.02 },
     s: { tune: 0.5, decay: 0.4, tone: 0.5, colour: 0.55, level: 0.7, room: 0.06 },
@@ -124,6 +126,36 @@ export const KITS: Record<string, Kit> = {
     c: { tune: 0.5, decay: 0.62, tone: 0.5, colour: 0.5, level: 0.55, room: 0.12 },
     t: { tune: 76, decay: 0.7, tone: 0.18, room: 0.05 },
     p: { tune: 1.02, level: 0.9, tone: 1.05, room: 0.05 },
+  },
+  tr606: {
+    label: 'TR-606',
+    engine: 'drift',
+    machine: '606',
+    trim: 1,
+    hint: "Roland TR-606, modelled from the 808's circuits with its own tunings: a short, high kick, a noisy snare, thin hats and one cymbal on the crash. The ride is the 909's.",
+    master: { lp: 17000, drive: 1.1, room: 0.05 },
+    k: { tune: 0.5, decay: 0.4, tone: 0.45, colour: 0.3, level: 0.9, room: 0.02 },
+    s: { tune: 0.5, decay: 0.35, tone: 0.6, colour: 0.6, level: 0.72, room: 0.05 },
+    h: { tune: 0.55, decay: 0.3, tone: 0.6, colour: 0.55, level: 0.55, room: 0.03 },
+    r: { tune: 0.5, decay: 0.5, tone: 0.5, colour: 0.5, level: 0.5, room: 0.06 },
+    c: { tune: 0.5, decay: 0.5, tone: 0.5, colour: 0.5, level: 0.5, room: 0.1 },
+    t: { tune: 96, decay: 0.42, tone: 0.2, room: 0.04 },
+    p: { tune: 1.04, level: 0.9, tone: 1.1, room: 0.04 },
+  },
+  linn: {
+    label: 'Linn-style',
+    engine: 'drift',
+    machine: 'linn',
+    trim: 1,
+    hint: "In the manner of an early-'80s sampling drum machine: a punchy kick, a fat snare, sidestick, crisp hats. Not the LinnDrum's recordings — the 909's models, tuned towards it.",
+    master: { lp: 16000, drive: 1.15, room: 0.12 },
+    k: { tune: 0.45, decay: 0.4, tone: 0.4, colour: 0.25, level: 0.88, room: 0.03 },
+    s: { tune: 0.4, decay: 0.55, tone: 0.55, colour: 0.45, level: 0.72, room: 0.14 },
+    h: { tune: 0.5, decay: 0.35, tone: 0.45, colour: 0.5, level: 0.55, room: 0.05 },
+    r: { tune: 0.5, decay: 0.55, tone: 0.5, colour: 0.45, level: 0.5, room: 0.1 },
+    c: { tune: 0.5, decay: 0.6, tone: 0.5, colour: 0.55, level: 0.5, room: 0.14 },
+    t: { tune: 88, decay: 0.5, tone: 0.3, room: 0.1 },
+    p: { tune: 1.0, level: 0.9, tone: 1.0, room: 0.08 },
   },
 
   /* ---- recorded kits that ship with the page (see packs.js) ---- */

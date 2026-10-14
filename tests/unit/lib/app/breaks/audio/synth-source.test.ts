@@ -514,6 +514,27 @@ describe('SynthSource', () => {
     );
   });
 
+  it("plays a slot that did not render live, not its fall's render", async () => {
+    vi.spyOn(logger, 'warn').mockImplementation(() => {});
+    /* The voices render one after another, k, s, then h's slots in order: h
+       then hOpen. The browser refuses the open hat's takes, and only those. */
+    const before = rendersOf('k') + rendersOf('s') + VARIATIONS;
+    let n = 0;
+    const refusing: MakeOffline = (channels, length, rate) => {
+      const i = n++;
+      if (i >= before && i < before + VARIATIONS) throw new Error('refused');
+      return make(channels, length, rate);
+    };
+    const audio = new BreakAudio();
+    audio.samples = new SourceStack([new SynthSource(undefined, refusing)]);
+    audio.setKit(STUDIO70, withTuning(STUDIO70, undefined));
+    const ctx = audio.init() as unknown as FakeAudioContext;
+    await rendered();
+    // the closed hat plays its render; the open one is drawn live, not the closed take
+    expect(oscillators(recordNodes(ctx, () => audio.hat(2, 1)))).toHaveLength(0);
+    expect(oscillators(recordNodes(ctx, () => audio.hat(3, 1, true))).length).toBeGreaterThan(0);
+  });
+
   it('renders a tom whose row has no decay, as the live tom plays it', async () => {
     const sound = withTuning(STUDIO70, undefined);
     const { decay: _decay, ...noDecay } = sound.t;

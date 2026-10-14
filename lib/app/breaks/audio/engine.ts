@@ -1,3 +1,4 @@
+import { drawMachineSlot, machineGain, machineHas } from '@/lib/app/breaks/audio/machines';
 import * as voices from '@/lib/app/breaks/audio/voices';
 import {
   type KitSampleSlot,
@@ -346,6 +347,15 @@ export class BreakAudio {
     if (!SYNTH_ONLY[voice] && kitEngine(this.kit) !== 'synth') {
       return SAMPLE_STAND_IN[voice];
     }
+    return this.knobs(voice);
+  }
+
+  /**
+   * A voice's own knobs, in the kit's own units: your tuning over the kit's.
+   * Unlike {@link P}, never the synth's stand-in — a drum machine's are 0..1,
+   * which is what its voices read.
+   */
+  knobs(voice: string): VoiceParams {
     return this.sound?.[voice] ?? (this.kit ?? SYNTH_FALLBACK)[voice as 'k'];
   }
 
@@ -653,6 +663,36 @@ export class BreakAudio {
     return { g, end: t + buf.duration };
   }
 
+  /**
+   * Draw a slot on the kit's drum machine, live (9-vi-e) — while its render
+   * is on its way, or a knob is moving. False unless the kit is a machine
+   * with that slot or the slot's `fall`; the synthesised voice then plays it,
+   * as it does a slot a pack is missing.
+   */
+  private machineHit(t: number, slotId: string, vel: number): boolean {
+    const kit = this.kit;
+    if (!this.ctx || !kit || kitEngine(kit) !== 'drift') return false;
+    const slot = SLOT_BY_ID[slotId];
+    if (!slot) return false;
+    const id = machineHas(kit.machine, slotId)
+      ? slotId
+      : slot.fall && machineHas(kit.machine, slot.fall)
+        ? slot.fall
+        : null;
+    if (!id) return false;
+    const P = this.knobs(slot.voice);
+    const tail = drawMachineSlot(
+      this.live(),
+      kit.machine,
+      id,
+      t,
+      vel * machineGain(kit.trim, P),
+      P
+    );
+    if (tail) this.noteHatTail(tail);
+    return true;
+  }
+
   private sampleHit(t: number, slotId: string, vel: number): boolean {
     if (!this.ctx || !this.samples) return false;
     if (!SLOT_BY_ID[slotId]) return false;
@@ -662,12 +702,13 @@ export class BreakAudio {
   /* ---- voices: a sample if a source has one, else drawn live (`voices.ts`) ---- */
 
   kick(t: number, vel: number): void {
-    if (this.sampleHit(t, 'k', vel)) return;
+    if (this.sampleHit(t, 'k', vel) || this.machineHit(t, 'k', vel)) return;
     voices.kick(this.live(), t, vel, this.P('k'));
   }
 
   snare(t: number, vel: number, ghost?: boolean, cross?: boolean, rim?: boolean): void {
-    if (this.sampleHit(t, rim ? 'sRim' : cross ? 'sCross' : ghost ? 'sGhost' : 's', vel)) return;
+    const slot = rim ? 'sRim' : cross ? 'sCross' : ghost ? 'sGhost' : 's';
+    if (this.sampleHit(t, slot, vel) || this.machineHit(t, slot, vel)) return;
     const stroke = rim ? 'rim' : cross ? 'cross' : ghost ? 'ghost' : undefined;
     voices.snare(this.live(), t, vel, this.P('s'), stroke);
   }
@@ -691,31 +732,34 @@ export class BreakAudio {
        (`HALF_OPEN_SCALE` in `perform.ts`). Here it is played as written. */
     if (half) {
       const at = Math.min(1, vel / HALF_OPEN_SCALE);
-      if (this.sampleHit(t, 'hHalf', at)) return;
+      if (this.sampleHit(t, 'hHalf', at) || this.machineHit(t, 'hHalf', at)) return;
       const tail = voices.hat(this.live(), t, at, this.P('h'), 'half');
       if (tail) this.noteHatTail(tail);
       return;
     }
-    if (this.sampleHit(t, pedal ? 'hFoot' : open ? 'hOpen' : 'h', vel)) return;
+    const slot = pedal ? 'hFoot' : open ? 'hOpen' : 'h';
+    if (this.sampleHit(t, slot, vel) || this.machineHit(t, slot, vel)) return;
     const stroke = pedal ? 'pedal' : open ? 'open' : undefined;
     const tail = voices.hat(this.live(), t, vel, this.P('h'), stroke);
     if (tail) this.noteHatTail(tail);
   }
 
   ride(t: number, vel: number, bell?: boolean): void {
-    if (this.sampleHit(t, bell ? 'rBell' : 'r', vel)) return;
+    const slot = bell ? 'rBell' : 'r';
+    if (this.sampleHit(t, slot, vel) || this.machineHit(t, slot, vel)) return;
     voices.ride(this.live(), t, vel, this.P('r'), bell);
   }
 
   /** The crash lane's cymbals: the crash, a second crash, a china and a splash. */
   crash(t: number, vel: number, cymbal?: 'c2' | 'cChina' | 'cSplash'): void {
-    if (this.sampleHit(t, cymbal ?? 'c', vel)) return;
+    const slot = cymbal ?? 'c';
+    if (this.sampleHit(t, slot, vel) || this.machineHit(t, slot, vel)) return;
     voices.crash(this.live(), t, vel, this.P('c'), cymbal);
   }
 
   /** Three drums off one voice: the knob tunes the floor tom and the rack toms sit above it. */
   tom(t: number, vel: number, lane: string): void {
-    if (this.sampleHit(t, lane, vel)) return;
+    if (this.sampleHit(t, lane, vel) || this.machineHit(t, lane, vel)) return;
     voices.tom(this.live(), t, vel, this.P('t'), lane);
   }
 

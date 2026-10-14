@@ -33,7 +33,7 @@ import {
 import { RECIPES } from '@/scripts/kits/recipes';
 
 /**
- * The catalogue: 70 styles, 47 famous breaks, 40 rudiments, 24 kits, six
+ * The catalogue: 70 styles, 47 famous breaks, 40 rudiments, 26 kits, six
  * combinations and the pieces they are made of.
  *
  * This is where content became data (D13). The three tables it fills used to be

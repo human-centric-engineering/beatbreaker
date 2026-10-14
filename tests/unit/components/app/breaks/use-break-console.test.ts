@@ -837,11 +837,12 @@ describe('sections in different meters (11-e-ii-a)', () => {
 });
 
 describe('the kit', () => {
-  it('refuses a kit whose engine is not ported, and one that does not exist', async () => {
+  it('takes a drum machine now they are built (9-vi-e), and refuses a kit that does not exist', async () => {
     const { result } = await mount();
     act(() => result.current.setKit('tr909'));
+    expect(result.current.kit).toBe('tr909');
     act(() => result.current.setKit('nope'));
-    expect(result.current.kit).toBe('studio70');
+    expect(result.current.kit).toBe('tr909');
   });
 
   it('does not fall back to a kit key the catalogue no longer has', async () => {

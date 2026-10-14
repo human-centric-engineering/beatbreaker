@@ -171,15 +171,17 @@ describe('KitPanel', () => {
     expect(await screen.findByText('No Web Audio in this browser')).toBeTruthy();
   });
 
-  it('marks a not-yet-ported kit as disabled, with a note in its label', async () => {
+  it('offers the drum machines, built since 9-vi-e, with no note against them', async () => {
     const user = userEvent.setup();
     renderPanel();
     const kit = await screen.findByLabelText<HTMLButtonElement>('Kit');
 
-    const option = within(await openMenu(user, kit)).getByRole('option', {
-      name: /TR-909 — not ported yet/,
-    });
-    expect(option).toHaveAttribute('aria-disabled', 'true');
+    const menu = within(await openMenu(user, kit));
+    for (const label of ['TR-909', 'TR-808', 'TR-606', 'Linn-style']) {
+      const option = menu.getByRole('option', { name: label });
+      expect(option).not.toHaveAttribute('aria-disabled', 'true');
+    }
+    expect(menu.queryByText(/not (ported|built) yet/)).toBeNull();
   });
 
   it('switches the voice knobs and hint per voice, including the toms/perc "aux" hint', async () => {

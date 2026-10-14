@@ -1,6 +1,7 @@
 import type { BreakAudio, SampleSource } from '@/lib/app/breaks/audio/engine';
 import { type MakeOffline, browserOffline } from '@/lib/app/breaks/audio/offline';
 import { pickTake } from '@/lib/app/breaks/audio/packs';
+import { machineGain, machineHas, machineVoice } from '@/lib/app/breaks/audio/machines';
 import { type Draw, drawSlot } from '@/lib/app/breaks/audio/voices';
 import { SLOT_BY_ID, type VoiceParams, kitEngine } from '@/lib/app/breaks/kit';
 import { makeRng } from '@/lib/app/breaks/rng';
@@ -42,6 +43,11 @@ import { logger } from '@/lib/logging';
  *   would not render. So does every voice in a browser without
  *   `OfflineAudioContext`.
  *
+ * The drum machines (9-vi-e) render the same way, from `machines.ts`: only
+ * the slots each machine has, one layer each (a machine has accent, not
+ * velocity), takes that differ only in their noise, and the lane's Level and
+ * the kit's trim applied when a take plays.
+ *
  * Percussion stays live: it is shared by every kit, and a recorded perc plays
  * first anyway.
  */
@@ -55,6 +61,12 @@ export const RENDERED: Record<string, readonly string[]> = {
   c: ['c', 'c2', 'cChina', 'cSplash'],
   t: ['t1', 't2', 't3'],
 };
+
+/** The slots a voice renders: all of them for the synth, those a machine has for a machine. */
+function slotsOf(voice: string, machine: string | undefined): readonly string[] {
+  if (machine === undefined) return RENDERED[voice];
+  return RENDERED[voice].filter((slot) => machineHas(machine, slot));
+}
 
 /** The velocities a slot whose sound changes with velocity is rendered at. */
 export const LAYERS: readonly number[] = [0.2, 0.4, 0.6, 0.8, 1];
@@ -87,11 +99,16 @@ const NOISE_S = 2;
 /**
  * What a voice's render depends on: its knobs but its room, which is sent
  * when it plays, and the rate it is rendered at. A voice whose signature has
- * not changed keeps its render.
+ * not changed keeps its render. A machine's Level is a gain when it plays,
+ * too, so it is left out with the room.
  */
-export function signature(P: VoiceParams, rate: number): string {
+export function signature(
+  P: VoiceParams,
+  rate: number,
+  playback: readonly string[] = ['room']
+): string {
   const keys = Object.keys(P)
-    .filter((k) => k !== 'room')
+    .filter((k) => !playback.includes(k))
     .sort();
   return JSON.stringify([rate, keys.map((k) => [k, P[k]])]);
 }
@@ -139,8 +156,11 @@ export function seededNoise(ctx: BaseAudioContext, rate: number, seed: number): 
 /**
  * One take of one slot: its knobs strayed by the seed, drawn at `vel` into a
  * context of its own, rendered, and its silent end cut off. Null for a slot
- * the synth does not draw, or a take longer than {@link MAX_RENDER_S}.
- * Rejects if the browser will not render it.
+ * the synth (or `machine`) does not draw, or a take longer than
+ * {@link MAX_RENDER_S}. Rejects if the browser will not render it.
+ *
+ * A machine's take is not strayed: a drum machine is the same every hit, and
+ * its takes differ only in their noise.
  *
  * Two channels come back when some part of the voice sends the room a
  * different amount from the rest: channel 0 is the voice, channel 1 what it
@@ -153,15 +173,21 @@ export async function renderTake(
   vel: number,
   P: VoiceParams,
   seed: number,
-  noise?: (ctx: BaseAudioContext) => AudioBuffer
+  noise?: (ctx: BaseAudioContext) => AudioBuffer,
+  machine?: string
 ): Promise<AudioBuffer | null> {
   const rand = makeRng(seed);
-  const pitch = 1 + (rand() * 2 - 1) * PITCH_SPREAD;
-  const ring = 1 + (rand() * 2 - 1) * DECAY_SPREAD;
-  const at: VoiceParams = { ...P, tune: P.tune * pitch, decay: P.decay * ring };
-  if (P.open !== undefined) at.open = P.open * ring;
+  const voice = machine ? machineVoice(machine, slot) : null;
+  if (machine && !voice) return null;
+  let at = P;
+  if (!voice) {
+    const pitch = 1 + (rand() * 2 - 1) * PITCH_SPREAD;
+    const ring = 1 + (rand() * 2 - 1) * DECAY_SPREAD;
+    at = { ...P, tune: P.tune * pitch, decay: P.decay * ring };
+    if (P.open !== undefined) at.open = P.open * ring;
+  }
 
-  const seconds = renderSeconds(at);
+  const seconds = voice ? voice.seconds(at) : renderSeconds(at);
   if (!(seconds <= MAX_RENDER_S)) return null;
   const ctx = make(2, Math.ceil(rate * seconds), rate);
   const merger = ctx.createChannelMerger(2);
@@ -184,7 +210,8 @@ export async function renderTake(
     },
     rand,
   };
-  if (!drawSlot(d, slot, 0, vel, at)) return null;
+  if (voice) voice.draw(d, 0, vel, at);
+  else if (!drawSlot(d, slot, 0, vel, at)) return null;
   const out = await ctx.startRendering();
   return keep(ctx, out, split ? 2 : 1);
 }
@@ -243,7 +270,9 @@ export class SynthSource implements SampleSource {
 
   refresh(engine: BreakAudio): void {
     const kit = engine.kit;
-    const key = kit && kitEngine(kit) === 'synth' && this.make ? kit.key : null;
+    const engineOf = kitEngine(kit);
+    const renders = engineOf === 'synth' || engineOf === 'drift';
+    const key = kit && renders && this.make ? kit.key : null;
     if (key !== this.kitKey) {
       this.drop();
       this.kitKey = key;
@@ -251,10 +280,13 @@ export class SynthSource implements SampleSource {
     const ctx = engine.ctx;
     if (!key || !ctx) return;
 
+    const machine = engineOf === 'drift' ? (kit?.machine ?? '') : undefined;
     for (const voice of Object.keys(RENDERED)) {
-      const P = engine.P(voice);
+      const slots = slotsOf(voice, machine);
+      if (!slots.length) continue;
+      const P = engine.knobs(voice);
       const rate = ctx.sampleRate;
-      const sig = signature(P, rate);
+      const sig = signature(P, rate, machine === undefined ? ['room'] : ['room', 'level']);
       if (this.voices.get(voice)?.sig === sig) {
         // back where it was: whatever was on its way is not wanted now
         this.cancel(voice);
@@ -268,7 +300,9 @@ export class SynthSource implements SampleSource {
         voice,
         setTimeout(() => {
           this.timers.delete(voice);
-          this.queue = this.queue.then(() => this.render(gen, key, voice, P, rate, sig));
+          this.queue = this.queue.then(() =>
+            this.render(gen, key, voice, slots, machine, P, rate, sig)
+          );
         }, DEBOUNCE_MS)
       );
     }
@@ -318,6 +352,8 @@ export class SynthSource implements SampleSource {
     gen: number,
     key: string,
     voice: string,
+    slotIds: readonly string[],
+    machine: string | undefined,
     P: VoiceParams,
     rate: number,
     sig: string
@@ -328,19 +364,26 @@ export class SynthSource implements SampleSource {
 
     const slots: Record<string, Layer[]> = {};
     const live: string[] = [];
-    for (const slot of RENDERED[voice]) {
-      const vels = SHAPED_BY_VELOCITY.has(slot) ? LAYERS : [1];
+    for (const slot of slotIds) {
+      const vels = machine === undefined && SHAPED_BY_VELOCITY.has(slot) ? LAYERS : [1];
       const layers: Layer[] = [];
       let why = 'longer than a render';
       for (const [li, v] of vels.entries()) {
         const bufs = await Promise.all(
           Array.from({ length: VARIATIONS }, (_, i) =>
-            renderTake(make, rate, slot, v, P, seedOf(slot, li, i), this.noise(i, rate)).catch(
-              (err: unknown) => {
-                why = err instanceof Error ? err.message : String(err);
-                return null;
-              }
-            )
+            renderTake(
+              make,
+              rate,
+              slot,
+              v,
+              P,
+              seedOf(slot, li, i),
+              this.noise(i, rate),
+              machine
+            ).catch((err: unknown) => {
+              why = err instanceof Error ? err.message : String(err);
+              return null;
+            })
           )
         );
         if (!current()) return;
@@ -364,13 +407,23 @@ export class SynthSource implements SampleSource {
     if (!slot) return false;
     // re-rendering: the live voice is where the knob is now
     if (this.wanted.has(slot.voice)) return false;
-    const layers = this.voices.get(slot.voice)?.slots[slotId];
+    const rendered = this.voices.get(slot.voice)?.slots;
+    const kit = engine.kit;
+    const machine = kitEngine(kit) === 'drift' ? kit?.machine : undefined;
+    /* A slot this machine does not have plays its `fall`, as a pack's does.
+       One that did not render — the synth's, or a machine's own — plays live. */
+    const layers = rendered?.[slotId]?.length
+      ? rendered[slotId]
+      : slot.fall && machine !== undefined && !machineHas(machine, slotId)
+        ? rendered?.[slot.fall]
+        : undefined;
     if (!layers?.length) return false;
 
     const layer = nearestLayer(layers, vel);
     const i = pickTake(layer.takes.length, this.lastTake.get(slotId), engine.rand);
     this.lastTake.set(slotId, i);
-    const played = engine.playTake(t, layer.takes[i], vel / layer.v, slot.voice);
+    const gain = machine !== undefined ? machineGain(kit?.trim, engine.knobs(slot.voice)) : 1;
+    const played = engine.playTake(t, layer.takes[i], (vel / layer.v) * gain, slot.voice);
     if (slotId === 'hOpen' || slotId === 'hHalf') engine.noteHatTail(played);
     return true;
   }
