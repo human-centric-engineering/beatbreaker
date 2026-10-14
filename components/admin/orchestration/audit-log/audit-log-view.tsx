@@ -1,7 +1,10 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { API } from '@/lib/api/endpoints';
+import { parseApiResponse } from '@/lib/api/parse-response';
+import { logger } from '@/lib/logging';
+import { parsePaginationMeta } from '@/lib/validations/common';
 import {
   Table,
   TableBody,
@@ -88,16 +91,31 @@ export function AuditLogView() {
   const [dateTo, setDateTo] = useState('');
 
   const limit = 25;
+  const latestRequest = useRef(0);
 
+  // Only a real change to the search resets the page. Scheduling on mount as
+  // well sent anyone who paged within 300ms of load back to page 1 (t-799).
   useEffect(() => {
+    const next = search.trim();
+    if (next === debouncedSearch) return;
     const handle = setTimeout(() => {
-      setDebouncedSearch(search.trim());
+      setDebouncedSearch(next);
       setPage(1);
     }, 300);
     return () => clearTimeout(handle);
-  }, [search]);
+  }, [search, debouncedSearch]);
 
   const fetchEntries = useCallback(async () => {
+    // Only the latest request may write state: an older one that resolves
+    // late would otherwise show rows for a page or filter no longer selected.
+    const seq = ++latestRequest.current;
+    const isCurrent = () => seq === latestRequest.current;
+    // A failed load clears the rows, so the last page's entries are not shown
+    // under a page or filter they don't belong to.
+    const fail = (message: string) => {
+      setError(message);
+      setEntries([]);
+    };
     setLoading(true);
     setError(null);
     setExpandedId(null);
@@ -108,23 +126,27 @@ export function AuditLogView() {
       if (dateFrom) params.set('dateFrom', dateFrom);
       if (dateTo) params.set('dateTo', dateTo);
       const res = await fetch(`${API.ADMIN.ORCHESTRATION.AUDIT_LOG}?${params}`);
+      if (!isCurrent()) return;
       if (!res.ok) {
-        setError('Failed to load audit log. Please try again.');
+        fail('Failed to load audit log. Please try again.');
         return;
       }
-      const json = (await res.json()) as {
-        success: boolean;
-        data: AuditEntry[];
-        meta: { total: number };
-      };
-      if (json.success) {
-        setEntries(json.data);
-        setTotal(json.meta.total);
-      } else {
-        setError('Server returned an error. Please try again.');
+      const body = await parseApiResponse<AuditEntry[]>(res);
+      if (!isCurrent()) return;
+      const meta = body.success ? parsePaginationMeta(body.meta) : null;
+      if (!body.success || !Array.isArray(body.data) || !meta) {
+        fail('Server returned an error. Please try again.');
+        return;
       }
+      setEntries(body.data);
+      setTotal(meta.total);
+    } catch (err) {
+      // A network failure, or a body that isn't a JSON API response
+      if (!isCurrent()) return;
+      logger.error('audit log fetch failed', err);
+      fail('Failed to load audit log. Please try again.');
     } finally {
-      setLoading(false);
+      if (isCurrent()) setLoading(false);
     }
   }, [page, entityType, debouncedSearch, dateFrom, dateTo]);
 
