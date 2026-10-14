@@ -113,7 +113,7 @@ interface WorkflowCostEstimateModel {
   inputTokens: number;
   outputTokens: number;
   costUsd: number;
-  pricingKnown: boolean; // false when getModel(modelId) returns undefined or has zero pricing — UI should render "pricing unknown" instead of $0
+  pricingKnown: boolean; // false when getModel(modelId) returns undefined or is marked pricingUnknown — UI should render "pricing unknown" instead of $0. A free model (local tier, or a rate set to 0) is priced, at $0
 }
 
 interface WorkflowCostEstimate {
