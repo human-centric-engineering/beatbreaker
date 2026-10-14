@@ -252,6 +252,21 @@ release process.
 
 ### Fixed
 
+- **Embeddings from Google, Mistral and Cohere models are costed instead of
+  recorded as free** (t-775). `calculateEmbeddingCost()` read only its own
+  rate table, which covers OpenAI and Voyage, so `text-embedding-004`,
+  `mistral-embed` and the Cohere `embed-*-v3.0` models were logged at $0 —
+  knowledge ingestion and the query embedding behind every knowledge search
+  included — although the Model Matrix prices them. A model missing from the
+  table is now priced from the registry; one neither prices is logged with
+  `metadata.pricing = 'unknown'`, as chat turns are. Embedding costs for these
+  models rise from $0 from this release.
+- **Cost estimates no longer call a free model "pricing unknown"** (t-776).
+  `GET /workflows/:id/cost-estimate` and the evaluation estimate set
+  `pricingKnown: false` for any model whose rate was 0, including local models
+  and Model Matrix rows priced at an explicit 0, while runtime records those
+  turns as free and priced. `pricingKnown` is now `false` only for a model the
+  registry lacks or one whose matrix row has no cost.
 - **Bulk agent actions no longer reach deleted agents** (t-795).
   `POST /api/v1/admin/orchestration/agents/bulk` filtered out system agents
   but not ones deleted through `DELETE /agents/:id`, so a deleted agent's id

@@ -53,6 +53,7 @@ const {
 } = await import('@/lib/orchestration/llm/model-registry');
 const {
   calculateCost,
+  calculateEmbeddingCost,
   logCost,
   checkBudget,
   getAgentCosts,
@@ -214,6 +215,94 @@ describe('calculateCost / logCost — unpriced turns (#813)', () => {
     expect(priced.totalCostUsd).toBeGreaterThan(0);
     expect(priced.metadata).toBeUndefined();
     expect(free.metadata).toBeUndefined();
+  });
+});
+
+describe('calculateEmbeddingCost — rate sources (t-775)', () => {
+  function embeddingEntry(overrides: Partial<ModelInfo>): ModelInfo {
+    return {
+      id: 'mistral-embed',
+      name: 'Mistral Embed',
+      provider: 'mistral',
+      tier: 'budget',
+      inputCostPerMillion: 0.1,
+      outputCostPerMillion: 0.1,
+      maxContext: 8_000,
+      supportsTools: false,
+      ...overrides,
+    };
+  }
+
+  beforeEach(() => {
+    resetRegistry();
+    vi.mocked(prisma.aiCostLog.create).mockResolvedValue({} as never);
+  });
+
+  it('prices a model the built-in table lacks from its Model Matrix rate', () => {
+    registerModels([embeddingEntry({})]);
+
+    const cost = calculateEmbeddingCost('mistral-embed', 2_000_000);
+
+    // 2M tokens × $0.10 / 1M
+    expect(cost.totalCostUsd).toBeCloseTo(0.2, 10);
+    expect(cost.inputCostUsd).toBeCloseTo(0.2, 10);
+    expect(cost.outputCostUsd).toBe(0);
+    expect(cost).not.toHaveProperty('unpriced');
+  });
+
+  it('prices a model the table names from the table, not the registry', () => {
+    // A registry rate that disagrees with the table's list price loses.
+    registerModels([embeddingEntry({ id: 'text-embedding-3-small', inputCostPerMillion: 9 })]);
+
+    const cost = calculateEmbeddingCost('text-embedding-3-small', 1_000_000);
+
+    expect(cost.totalCostUsd).toBeCloseTo(0.02, 10);
+  });
+
+  it.each([
+    ['in neither the table nor the registry', null],
+    ['registered from a matrix row with no cost', embeddingEntry({ pricingUnknown: true })],
+  ])('marks a model %s as unpriced', (_label, registered) => {
+    if (registered) registerModels([registered]);
+
+    const cost = calculateEmbeddingCost('mistral-embed', 1_000);
+
+    expect(cost).toEqual({
+      inputCostUsd: 0,
+      outputCostUsd: 0,
+      totalCostUsd: 0,
+      isLocal: false,
+      unpriced: true,
+    });
+  });
+
+  it('stamps pricing: unknown on an unpriced embedding row', async () => {
+    await logCost({
+      model: 'embed-model-nobody-priced',
+      provider: 'acme',
+      inputTokens: 1_000,
+      outputTokens: 0,
+      operation: 'embedding',
+    });
+
+    const data = vi.mocked(prisma.aiCostLog.create).mock.calls[0][0].data;
+    expect(data.totalCostUsd).toBe(0);
+    expect(data.metadata).toEqual({ pricing: 'unknown' });
+  });
+
+  it('does not stamp a local provider embedding as unpriced', async () => {
+    await logCost({
+      model: 'nomic-embed-text',
+      provider: 'ollama',
+      inputTokens: 1_000,
+      outputTokens: 0,
+      operation: 'embedding',
+      isLocal: true,
+    });
+
+    const data = vi.mocked(prisma.aiCostLog.create).mock.calls[0][0].data;
+    expect(data.isLocal).toBe(true);
+    expect(data.metadata).toBeUndefined();
   });
 });
 
