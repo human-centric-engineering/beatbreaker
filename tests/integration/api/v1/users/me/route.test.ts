@@ -84,6 +84,16 @@ vi.mock('@/lib/db/client', () => ({
       findMany: vi.fn(),
       updateMany: vi.fn(),
     },
+    // eraseUser's config-recipient clear (t-791).
+    aiOrchestrationSettings: {
+      update: vi.fn(),
+    },
+    aiWorkflow: {
+      update: vi.fn(),
+    },
+    aiWorkflowVersion: {
+      update: vi.fn(),
+    },
     aiWebhookDelivery: {
       updateMany: vi.fn(),
       findMany: vi.fn(),
@@ -341,6 +351,18 @@ describe('DELETE /api/v1/users/me — eraseUser integration chain', () => {
       expect(prisma.user.delete).toHaveBeenCalledWith({
         where: { id: SESSION_USER_ID },
       });
+      // The config-recipient clear (t-791) ran on the real chain: the escalation
+      // list (verified address), the drafts and the versions were all asked.
+      const rawSql = vi
+        .mocked(prisma.$queryRaw)
+        .mock.calls.map((call) => (call[0] as unknown as TemplateStringsArray).join('?'));
+      for (const table of [
+        /FROM ai_orchestration_settings\s/,
+        /FROM ai_workflow\s/,
+        /FROM ai_workflow_version\s/,
+      ]) {
+        expect(rawSql.some((sql) => table.test(sql))).toBe(true);
+      }
 
       // Cookies are cleared after a successful erase
       expect(mockCookieStore.delete).toHaveBeenCalledWith('better-auth.session_token');
