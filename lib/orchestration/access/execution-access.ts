@@ -166,7 +166,13 @@ export function adminCanViewExecution(
  * ```
  */
 export function executionVisibilityWhere(
-  session: AuthenticatedSession
+  // Only what it reads, so the leakage harness can call it without a whole
+  // session (as `conversationVisibilityWhere`). Spelled inline:
+  // `scripts/ci/ownerless-surfaces.ts` recognises a helper by
+  // `AuthenticatedSession` appearing in its parameter's type.
+  session: Pick<AuthenticatedSession, 'unattributedReads'> & {
+    user: Pick<AuthenticatedSession['user'], 'id'>;
+  }
 ): Prisma.AiWorkflowExecutionWhereInput {
   const mine = { userId: session.user.id };
 

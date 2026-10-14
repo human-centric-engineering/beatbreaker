@@ -192,6 +192,8 @@ import { exportOrchestrationConfig } from '@/lib/orchestration/backup/exporter';
 import { importOrchestrationConfig } from '@/lib/orchestration/backup/importer';
 import { DEFAULT_ORG_ROLE, ORG_ADMIN_ROLE, ORG_OWNER_ROLE } from '@/lib/tenancy/roles';
 import { conversationVisibilityWhere } from '@/lib/orchestration/access/conversation-access';
+import { executionVisibilityWhere } from '@/lib/orchestration/access/execution-access';
+import { runScopedJob } from '@/lib/orchestration/maintenance/job-scope';
 import { DEFAULT_USER_ROLE, PLATFORM_ADMIN_ROLE } from '@/lib/auth/roles';
 import { subjectScope, type AuthorizationPrincipal } from '@/lib/auth/authorization';
 import { resolveUnattributedReads } from '@/lib/auth/orphan-reads';
@@ -2262,6 +2264,175 @@ async function main(): Promise<void> {
         ),
       refusedConversation,
       'member one is refused member two’s message looked up by id'
+    );
+
+    // ── [16d] …nor the other's workflow runs (§115 t-803) ─────────────────
+    // A run each member started and one a schedule started, which nobody
+    // owns. The narrowed org ADMIN lists neither member's run, keeps the
+    // ownerless one where the policy admits it, and is refused an unnarrowed
+    // read; a run count per workflow and a maintenance job fired from their
+    // request read across owners because they say so.
+    console.log(
+      '\n[16d] two members of A: an org ADMIN reads no member’s workflow run, and keeps ownerless ones where admitted'
+    );
+    const run = (userId: string | null) =>
+      inOrgA(() =>
+        prisma.aiWorkflowExecution.create({
+          data: {
+            workflowId: a.workflowId,
+            status: 'completed',
+            inputData: { smoke: PREFIX },
+            executionTrace: [],
+            userId,
+          },
+        })
+      );
+    const r1 = await run(m1.userId);
+    const r2 = await run(m2.userId);
+    const rSystem = await run(null);
+    const runIds = [r1.id, r2.id, rSystem.id];
+    const refusedRun = /Refused AiWorkflowExecution\.(findMany|count|findUnique)/;
+    const executionsAdmitted = orgAdminViewer.unattributedReads.execution;
+
+    // The population is non-empty, and every run is in A (fp6).
+    const allRuns = await asPrincipal(
+      { userId: a.ownerId, role: PLATFORM_ADMIN_ROLE, credential: 'session' },
+      () => inOrgA(() => prisma.aiWorkflowExecution.findMany({ where: { id: { in: runIds } } }))
+    );
+    check(allRuns.length === 3, 'a platform admin in A sees all three runs');
+
+    const listedRuns = await asPrincipal(orgAdmin, () =>
+      inOrgA(() =>
+        prisma.aiWorkflowExecution.findMany({
+          where: { AND: [executionVisibilityWhere(orgAdminViewer), { id: { in: runIds } }] },
+          select: { id: true },
+        })
+      )
+    );
+    const visibleRuns = new Set(listedRuns.map((r) => r.id));
+    check(
+      !visibleRuns.has(r1.id) && !visibleRuns.has(r2.id),
+      'the org ADMIN’s executions list holds neither member’s run'
+    );
+    check(
+      visibleRuns.has(rSystem.id) === executionsAdmitted,
+      `the org ADMIN’s list ${executionsAdmitted ? 'keeps' : 'drops'} the ownerless run, as the policy answers`
+    );
+    await rejects(
+      () =>
+        asPrincipal(orgAdmin, () =>
+          inOrgA(() => prisma.aiWorkflowExecution.findMany({ where: { workflowId: a.workflowId } }))
+        ),
+      refusedRun,
+      'the org ADMIN is refused an unnarrowed list of the workflow’s runs'
+    );
+    await rejects(
+      () => asPrincipal(orgAdmin, () => inOrgA(() => prisma.aiWorkflowExecution.count())),
+      refusedRun,
+      'the org ADMIN is refused an unnarrowed count of runs'
+    );
+    for (const [r, label] of [
+      [r1, 'member one’s'],
+      [r2, 'member two’s'],
+    ] as const) {
+      await rejects(
+        () =>
+          asPrincipal(orgAdmin, () =>
+            inOrgA(() => prisma.aiWorkflowExecution.findUnique({ where: { id: r.id } }))
+          ),
+        refusedRun,
+        `the org ADMIN is refused ${label} run looked up by id`
+      );
+    }
+
+    // A fork's policy that admits its org admins to ownerless runs: the same
+    // narrowed admin keeps the scheduled run, and still no member's.
+    const executionViewer = {
+      user: orgAdminViewer.user,
+      unattributedReads: { ...orgAdminViewer.unattributedReads, execution: true },
+    };
+    const asRunAdmittedAdmin = <T>(fn: () => Promise<T>) =>
+      runAsSubject(
+        {
+          principal: orgAdmin,
+          resolveFilter: () => subjectScope(orgAdmin),
+          unattributedReads: executionViewer.unattributedReads,
+          readsShared: true,
+        },
+        fn
+      );
+    const admittedRuns = await asRunAdmittedAdmin(() =>
+      inOrgA(() =>
+        prisma.aiWorkflowExecution.findMany({
+          where: { AND: [executionVisibilityWhere(executionViewer), { id: { in: runIds } }] },
+          select: { id: true },
+        })
+      )
+    );
+    check(
+      admittedRuns.length === 1 && admittedRuns[0].id === rSystem.id,
+      'an org ADMIN a policy admits to ownerless runs lists the scheduled run, and no member’s'
+    );
+    const systemById = await asRunAdmittedAdmin(() =>
+      inOrgA(() => prisma.aiWorkflowExecution.findUnique({ where: { id: rSystem.id } }))
+    );
+    check(systemById?.id === rSystem.id, 'that admin opens the scheduled run by id');
+    await rejects(
+      () =>
+        asRunAdmittedAdmin(() =>
+          inOrgA(() => prisma.aiWorkflowExecution.findUnique({ where: { id: r1.id } }))
+        ),
+      refusedRun,
+      'that admin is still refused member one’s run by id'
+    );
+
+    const ownRun = await asPrincipal(m1.principal, () =>
+      inOrgA(() => prisma.aiWorkflowExecution.findUnique({ where: { id: r1.id } }))
+    );
+    check(ownRun?.id === r1.id, 'member one opens their own run by id');
+
+    // The declared crossings: a run count per workflow (the workflows list),
+    // and a maintenance job fired from the org ADMIN's request.
+    await rejects(
+      () =>
+        asPrincipal(orgAdmin, () =>
+          inOrgA(() =>
+            prisma.aiWorkflow.findMany({
+              where: { id: a.workflowId },
+              include: { _count: { select: { executions: true } } },
+            })
+          )
+        ),
+      /Refused AiWorkflow\.findMany/,
+      'the org ADMIN is refused a per-workflow run count outside a crossing'
+    );
+    const counted = await asPrincipal(orgAdmin, () =>
+      runAcrossOwners('smoke: a run count per workflow', () =>
+        inOrgA(() =>
+          prisma.aiWorkflow.findUnique({
+            where: { id: a.workflowId },
+            include: { _count: { select: { executions: true } } },
+          })
+        )
+      )
+    );
+    check(
+      (counted?._count.executions ?? 0) >= 3,
+      `a declared crossing counts every member’s runs (${counted?._count.executions})`
+    );
+    const jobCount = await asPrincipal(orgAdmin, () =>
+      runScopedJob({
+        name: 'smoke-runs',
+        scope: 'per-org',
+        run: () => prisma.aiWorkflowExecution.count({ where: { id: { in: runIds } } }),
+        foundWork: () => false,
+      })
+    );
+    // One org: the job's own number. Several: folded into `total`.
+    const jobTotal = typeof jobCount.result === 'number' ? jobCount.result : jobCount.result.total;
+    check(
+      jobTotal === 3,
+      `a maintenance job fired from the org ADMIN’s request reads every run (${JSON.stringify(jobCount.result)})`
     );
 
     console.log(
