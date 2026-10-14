@@ -252,7 +252,8 @@ export function kitEngine(kit: Kit | undefined | null): KitEngine {
  * The engines that actually have an implementation behind them — all four,
  * since the machines were built (9-vi-e). The set stays: a fork that declares
  * an engine before building it gets a disabled picker entry, not a kit that
- * quietly plays the synth instead.
+ * quietly plays the synth instead. A `drift` kit must also name a machine
+ * that is built ({@link kitIsPlayable}).
  */
 const IMPLEMENTED_ENGINES: ReadonlySet<KitEngine> = new Set<KitEngine>([
   'synth',
@@ -279,9 +280,10 @@ const IMPLEMENTED_ENGINES: ReadonlySet<KitEngine> = new Set<KitEngine>([
 export function kitIsPlayable(kit: Kit | undefined | null): boolean {
   if (!kit) return false;
   const engine = kitEngine(kit);
+  if (!IMPLEMENTED_ENGINES.has(engine)) return false;
   // a drum machine plays only if it is one of the machines built
   if (engine === 'drift') return kit.machine !== undefined && Object.hasOwn(DRIFT_MAP, kit.machine);
-  return IMPLEMENTED_ENGINES.has(engine);
+  return true;
 }
 
 /**
@@ -327,8 +329,13 @@ export function kitGroups(kits: readonly ResolvedKit[]): { label: string; keys: 
  * A slot a machine does not have is not here, and falls back as a pack's
  * does: to the slot's `fall`, else the synthesised voice. The 808's ride and
  * crash are the 909's, and so is the 606's ride — borrowing another machine's
- * is the honest fix; pretending a cowbell is a ride is not. A rim shot plays
- * as the cross-stick (9-vi-e). The ghost is the snare, played soft.
+ * is the honest fix; pretending a cowbell is a ride is not. A machine's one
+ * rim voice plays both the cross-stick and the rimshot; the 606 had none, so
+ * both play the synth's. The half-open hat is the machine's hat, part open.
+ * A second crash is the crash; a china and a splash no machine had, and by
+ * 9-iv's rule (`SLOTS`) they play the synth's rather than the crash. The
+ * ghost is the snare, played soft. A slot that names the same voice as
+ * another renders once (`synth-source.ts`).
  */
 export const DRIFT_MAP: Record<string, Record<string, string>> = {
   '909': {
@@ -336,11 +343,14 @@ export const DRIFT_MAP: Record<string, Record<string, string>> = {
     s: '909.sd',
     sGhost: '909.sd',
     sCross: '909.rs',
+    sRim: '909.rs',
     h: '909.ch',
     hOpen: '909.oh',
+    hHalf: '909.hh',
     r: '909.rd',
     rBell: '909.rd',
     c: '909.cr',
+    c2: '909.cr',
     t1: '909.ht',
     t2: '909.mt',
     t3: '909.lt',
@@ -350,11 +360,14 @@ export const DRIFT_MAP: Record<string, Record<string, string>> = {
     s: '808.sd',
     sGhost: '808.sd',
     sCross: '808.rs',
+    sRim: '808.rs',
     h: '808.ch',
     hOpen: '808.oh',
+    hHalf: '808.hh',
     r: '909.rd',
     rBell: '909.rd',
     c: '909.cr',
+    c2: '909.cr',
     t1: '808.ht',
     t2: '808.mt',
     t3: '808.lt',
@@ -365,9 +378,11 @@ export const DRIFT_MAP: Record<string, Record<string, string>> = {
     sGhost: '606.sd',
     h: '606.ch',
     hOpen: '606.oh',
+    hHalf: '606.hh',
     r: '909.rd',
     rBell: '909.rd',
     c: '606.cy',
+    c2: '606.cy',
     t1: '606.ht',
     t2: '606.mt',
     t3: '606.lt',
@@ -377,11 +392,14 @@ export const DRIFT_MAP: Record<string, Record<string, string>> = {
     s: 'linn.sd',
     sGhost: 'linn.sd',
     sCross: 'linn.ss',
+    sRim: 'linn.ss',
     h: 'linn.ch',
     hOpen: 'linn.oh',
+    hHalf: 'linn.hh',
     r: 'linn.rd',
     rBell: 'linn.rd',
     c: 'linn.cr',
+    c2: 'linn.cr',
     t1: 'linn.ht',
     t2: 'linn.mt',
     t3: 'linn.lt',

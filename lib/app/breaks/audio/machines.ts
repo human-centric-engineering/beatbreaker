@@ -1,5 +1,5 @@
 import { type Draw, type Tail, mkEnv, noiseSrc } from '@/lib/app/breaks/audio/voices';
-import { DRIFT_MAP, type VoiceParams } from '@/lib/app/breaks/kit';
+import { DRIFT_MAP, SLOT_BY_ID, type VoiceParams } from '@/lib/app/breaks/kit';
 
 /**
  * The drum machines, built here (9-vi-e, `sound-plan.md` §8).
@@ -31,6 +31,11 @@ export interface MachineVoice {
   draw: (d: Draw, t: number, vel: number, P: VoiceParams) => Tail | null;
   /** How long it rings at these knobs, seconds: how long a render of it is. */
   seconds: (P: VoiceParams) => number;
+  /**
+   * Whether it draws noise. Its takes differ only in their noise, so one
+   * that draws none renders one take, not three the same.
+   */
+  noisy: boolean;
 }
 
 /** Past a voice's ring, for its oscillators' stop and the render's length. */
@@ -176,7 +181,7 @@ function kick(tab: KickTable): MachineVoice {
     d.send(out, 'k');
     return null;
   };
-  return { draw, seconds };
+  return { draw, seconds, noisy: true };
 }
 
 interface SnareTable {
@@ -224,7 +229,7 @@ function snare(tab: SnareTable): MachineVoice {
     });
     return null;
   };
-  return { draw, seconds };
+  return { draw, seconds, noisy: true };
 }
 
 interface RimTable {
@@ -255,7 +260,7 @@ function rim(tab: RimTable): MachineVoice {
     hiss(d, t, { type: 'highpass', f: 4000, peak: vel * 0.25, ring: 0.004, voice: 's' });
     return null;
   };
-  return { draw, seconds };
+  return { draw, seconds, noisy: true };
 }
 
 /** The 808's six square waves, Hz: the metal every 808 and 606 hat and cymbal is made from. */
@@ -275,17 +280,27 @@ interface MetalTable {
   peak: number;
 }
 
+type Stroke = 'closed' | 'half' | 'open';
+
+/**
+ * How long a hat rings, by stroke: a half-open hat (9-iv) halfway between
+ * shut and open, by ratio, as a part-open hat is heard.
+ */
+function ringOf(tab: { closed: Range; open: Range }, stroke: Stroke): Range {
+  if (stroke !== 'half') return tab[stroke];
+  return [Math.sqrt(tab.closed[0] * tab.open[0]), Math.sqrt(tab.closed[1] * tab.open[1])];
+}
+
 /**
  * An 808-family hat or cymbal: six square waves through two bandpasses
- * (about 3.4 and 7.1 kHz on the 808), then a highpass.
+ * (about 3.4 and 7.1 kHz on the 808), then a highpass. No noise, so one take.
  */
-function metalHat(tab: MetalTable, stroke: 'closed' | 'open'): MachineVoice {
-  const seconds = (P: VoiceParams) =>
-    log(stroke === 'open' ? tab.open : tab.closed, knob(P, 'decay')) + PAST;
+function metalHat(tab: MetalTable, stroke: Stroke): MachineVoice {
+  const seconds = (P: VoiceParams) => log(ringOf(tab, stroke), knob(P, 'decay')) + PAST;
   const draw: MachineVoice['draw'] = (d, t, vel, P) => {
     const ctx = d.ctx;
     const size = lin(tab.size, knob(P, 'tune'));
-    const len = log(stroke === 'open' ? tab.open : tab.closed, knob(P, 'decay'));
+    const len = log(ringOf(tab, stroke), knob(P, 'decay'));
     const mix = knob(P, 'colour');
     const hp = ctx.createBiquadFilter();
     hp.type = 'highpass';
@@ -313,9 +328,9 @@ function metalHat(tab: MetalTable, stroke: 'closed' | 'open'): MachineVoice {
       osc.start(t);
       osc.stop(t + len + 0.05);
     }
-    return stroke === 'open' ? { g, end: t + len } : null;
+    return stroke === 'closed' ? null : { g, end: t + len };
   };
-  return { draw, seconds };
+  return { draw, seconds, noisy: false };
 }
 
 interface NoiseHatTable {
@@ -334,13 +349,12 @@ interface NoiseHatTable {
  * A 909-family hat: noise through two resonant bands and a highpass. The
  * real 909's hats were 6-bit samples; this is an approximation of them.
  */
-function noiseHat(tab: NoiseHatTable, stroke: 'closed' | 'open'): MachineVoice {
-  const seconds = (P: VoiceParams) =>
-    log(stroke === 'open' ? tab.open : tab.closed, knob(P, 'decay')) + PAST;
+function noiseHat(tab: NoiseHatTable, stroke: Stroke): MachineVoice {
+  const seconds = (P: VoiceParams) => log(ringOf(tab, stroke), knob(P, 'decay')) + PAST;
   const draw: MachineVoice['draw'] = (d, t, vel, P) => {
     const ctx = d.ctx;
     const size = log(tab.size, knob(P, 'tune'));
-    const len = log(stroke === 'open' ? tab.open : tab.closed, knob(P, 'decay'));
+    const len = log(ringOf(tab, stroke), knob(P, 'decay'));
     const hp = ctx.createBiquadFilter();
     hp.type = 'highpass';
     hp.frequency.value = log(tab.hp, knob(P, 'tone'));
@@ -358,9 +372,9 @@ function noiseHat(tab: NoiseHatTable, stroke: 'closed' | 'open'): MachineVoice {
     }
     n.start(t);
     n.stop(t + len + 0.05);
-    return stroke === 'open' ? { g, end: t + len } : null;
+    return stroke === 'closed' ? null : { g, end: t + len };
   };
-  return { draw, seconds };
+  return { draw, seconds, noisy: true };
 }
 
 interface CymbalTable {
@@ -431,7 +445,7 @@ function cymbal(tab: CymbalTable): MachineVoice {
     }
     return null;
   };
-  return { draw, seconds };
+  return { draw, seconds, noisy: true };
 }
 
 interface TomTable {
@@ -473,7 +487,7 @@ function tom(tab: TomTable): MachineVoice {
     }
     return null;
   };
-  return { draw, seconds };
+  return { draw, seconds, noisy: true };
 }
 
 /* ---- tables ------------------------------------------------------------ */
@@ -615,6 +629,7 @@ const TOM_909 = (mult: number): TomTable => ({
 function asCrash(voice: MachineVoice): MachineVoice {
   return {
     seconds: voice.seconds,
+    noisy: voice.noisy,
     draw: (d, t, vel, P) => {
       voice.draw({ ...d, send: (n, _v, e) => d.send(n, 'c', e) }, t, vel, P);
       return null;
@@ -632,6 +647,7 @@ export const MACHINE_VOICES: Record<string, MachineVoice> = {
   '808.rs': rim(RIM_808),
   '808.ch': metalHat(HATS_808, 'closed'),
   '808.oh': metalHat(HATS_808, 'open'),
+  '808.hh': metalHat(HATS_808, 'half'),
   '808.lt': tom(TOM_808(1)),
   '808.mt': tom(TOM_808(1.33)),
   '808.ht': tom(TOM_808(1.7)),
@@ -641,6 +657,7 @@ export const MACHINE_VOICES: Record<string, MachineVoice> = {
   '909.rs': rim(RIM_909),
   '909.ch': noiseHat(HATS_909, 'closed'),
   '909.oh': noiseHat(HATS_909, 'open'),
+  '909.hh': noiseHat(HATS_909, 'half'),
   '909.rd': cymbal(RIDE_909),
   '909.cr': cymbal(CRASH_909),
   '909.lt': tom(TOM_909(1)),
@@ -651,6 +668,7 @@ export const MACHINE_VOICES: Record<string, MachineVoice> = {
   '606.sd': snare(SNARE_606),
   '606.ch': metalHat(HATS_606, 'closed'),
   '606.oh': metalHat(HATS_606, 'open'),
+  '606.hh': metalHat(HATS_606, 'half'),
   '606.cy': asCrash(metalHat(CYMBAL_606, 'open')),
   '606.lt': tom(TOM_808(1.15)),
   '606.mt': tom(TOM_808(1.4)),
@@ -661,6 +679,7 @@ export const MACHINE_VOICES: Record<string, MachineVoice> = {
   'linn.ss': rim(SIDESTICK_LINN),
   'linn.ch': noiseHat(HATS_LINN, 'closed'),
   'linn.oh': noiseHat(HATS_LINN, 'open'),
+  'linn.hh': noiseHat(HATS_LINN, 'half'),
   'linn.rd': cymbal(RIDE_LINN),
   'linn.cr': cymbal(CRASH_LINN),
   'linn.lt': tom(TOM_909(1)),
@@ -677,6 +696,18 @@ export function machineVoice(machine: string | undefined, slot: string): Machine
 /** Whether a machine has a slot of its own. */
 export function machineHas(machine: string | undefined, slot: string): boolean {
   return machineVoice(machine, slot) !== null;
+}
+
+/**
+ * The slot a machine plays for `slot`: the slot itself if the machine has it,
+ * else its `fall` if the machine has that, as a pack's falls back. Null when
+ * neither: the synthesised voice then plays it. Live playback and the renders
+ * both ask this, so the two cannot disagree.
+ */
+export function machineSlot(machine: string | undefined, slot: string): string | null {
+  if (machineHas(machine, slot)) return slot;
+  const fall = SLOT_BY_ID[slot]?.fall;
+  return fall && machineHas(machine, fall) ? fall : null;
 }
 
 /**

@@ -1,4 +1,4 @@
-import { drawMachineSlot, machineGain, machineHas } from '@/lib/app/breaks/audio/machines';
+import { drawMachineSlot, machineGain, machineSlot } from '@/lib/app/breaks/audio/machines';
 import * as voices from '@/lib/app/breaks/audio/voices';
 import {
   type KitSampleSlot,
@@ -674,11 +674,7 @@ export class BreakAudio {
     if (!this.ctx || !kit || kitEngine(kit) !== 'drift') return false;
     const slot = SLOT_BY_ID[slotId];
     if (!slot) return false;
-    const id = machineHas(kit.machine, slotId)
-      ? slotId
-      : slot.fall && machineHas(kit.machine, slot.fall)
-        ? slot.fall
-        : null;
+    const id = machineSlot(kit.machine, slotId);
     if (!id) return false;
     const P = this.knobs(slot.voice);
     const tail = drawMachineSlot(
