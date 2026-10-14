@@ -113,6 +113,13 @@ export const ALWAYS_RUN_TESTS: readonly AlwaysRunEntry[] = [
       'chain connects that module to this test.',
   },
   {
+    path: 'tests/unit/lib/orchestration/access/owner-layer-agreement.test.ts',
+    reason:
+      'reads each ownerless-roster file and the callers it names as `via` by path, ' +
+      'to check the crossing or the absent guard its owner-layer disposition claims; ' +
+      'an edit that removes a crossing changes no import this test follows.',
+  },
+  {
     path: 'tests/unit/lib/privacy/export-sources.test.ts',
     reason:
       'parses `prisma/schema/*.prisma` and fails until every model with a ' +

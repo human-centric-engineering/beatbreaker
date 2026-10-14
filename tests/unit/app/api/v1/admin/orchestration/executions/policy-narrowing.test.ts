@@ -94,6 +94,8 @@ vi.mock('@/lib/logging', () => ({
 // ─── Imports (after vi.mock calls) ───────────────────────────────────────────
 
 import { auth } from '@/lib/auth/config';
+import { getSubjectReadScope } from '@/lib/auth/subject-context';
+import { executeApproval } from '@/lib/orchestration/approval-actions';
 import { prisma } from '@/lib/db/client';
 import {
   registerAuthorizationPolicy,
@@ -302,6 +304,31 @@ describe('delegated approvers, under a policy that denies unattributed reads', (
     );
 
     expect(response.status).toBe(200);
+  });
+
+  it('reads the run, and approves it, across owners — the nomination is only in the trace', async () => {
+    // A named approver's run is one the owner layer (§115 t-803) would refuse
+    // a narrowed approver: the read and the act go through
+    // `acrossOwnersForApproval`, so both see a declared crossing.
+    const seen: string[] = [];
+    vi.mocked(prisma.aiWorkflowExecution.findUnique).mockImplementation((async () => {
+      seen.push(`read:${(await getSubjectReadScope()).kind}`);
+      return pausedSystemRunAwaiting(ADMIN_ID);
+    }) as never);
+    vi.mocked(executeApproval).mockImplementationOnce(async () => {
+      seen.push(`act:${(await getSubjectReadScope()).kind}`);
+      return { status: 'running' } as never;
+    });
+
+    const response = await approveExecution(
+      makePostRequest(`/executions/${EXEC_ID}/approve`, {
+        approvalPayload: { decision: 'approved' },
+      }),
+      { params: Promise.resolve({ id: EXEC_ID }) }
+    );
+
+    expect(response.status).toBe(200);
+    expect(seen).toEqual(['read:admitted', 'act:admitted']);
   });
 
   it('404s the same run for an admin the trace does not name', async () => {

@@ -13,6 +13,7 @@
 
 import { Prisma } from '@prisma/client';
 import { withAdminAuth } from '@/lib/auth/guards';
+import { runAcrossOwners } from '@/lib/auth/subject-context';
 import { prisma } from '@/lib/db/client';
 import { paginatedResponse, successResponse } from '@/lib/api/responses';
 import { ConflictError } from '@/lib/api/errors';
@@ -48,18 +49,22 @@ export const GET = withAdminAuth(async (request, _session) => {
   }
 
   const [workflows, total] = await Promise.all([
-    prisma.aiWorkflow.findMany({
-      where,
-      orderBy: { createdAt: 'desc' },
-      skip,
-      take: limit,
-      include: {
-        _count: { select: { executions: true } },
-        // Templates list page hydrates the canvas from the published snapshot;
-        // the regular workflows table doesn't read it but the cost is small.
-        publishedVersion: { select: { id: true, version: true, snapshot: true } },
-      },
-    }),
+    // `_count.executions` is how much the workflow has been run, across every
+    // member — a number per workflow, no run row (as the agents list, t-802).
+    runAcrossOwners('workflow list: a run count per workflow', () =>
+      prisma.aiWorkflow.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit,
+        include: {
+          _count: { select: { executions: true } },
+          // Templates list page hydrates the canvas from the published snapshot;
+          // the regular workflows table doesn't read it but the cost is small.
+          publishedVersion: { select: { id: true, version: true, snapshot: true } },
+        },
+      })
+    ),
     prisma.aiWorkflow.count({ where }),
   ]);
 

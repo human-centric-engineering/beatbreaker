@@ -37,6 +37,7 @@
  * shapes anyway.
  */
 
+import { runAcrossOwners } from '@/lib/auth/subject-context';
 import { prisma } from '@/lib/db/client';
 import { logger } from '@/lib/logging';
 import { getModel, refreshFromOpenRouter } from '@/lib/orchestration/llm/model-registry';
@@ -921,12 +922,17 @@ async function loadPastRuns(
   workflowId: string,
   supervisorStepIds: ReadonlySet<string>
 ): Promise<PastRunSummary[]> {
-  const executions = await prisma.aiWorkflowExecution.findMany({
-    where: { workflowId, status: 'completed' },
-    select: { id: true, inputData: true },
-    orderBy: { completedAt: 'desc' },
-    take: 100,
-  });
+  // Every member's runs of this workflow, whoever asks: the estimate is a
+  // figure for the workflow, and nothing of a run leaves this module but the
+  // numbers below.
+  const executions = await runAcrossOwners('cost estimate: past runs of a workflow', () =>
+    prisma.aiWorkflowExecution.findMany({
+      where: { workflowId, status: 'completed' },
+      select: { id: true, inputData: true },
+      orderBy: { completedAt: 'desc' },
+      take: 100,
+    })
+  );
 
   if (executions.length === 0) return [];
 

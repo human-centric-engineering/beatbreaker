@@ -40,7 +40,10 @@ import { ConflictError, NotFoundError, ValidationError } from '@/lib/api/errors'
 import { getRouteLogger } from '@/lib/api/context';
 import { logger } from '@/lib/logging';
 import { cuidSchema } from '@/lib/validations/common';
-import { adminCanViewExecution } from '@/lib/orchestration/access/execution-access';
+import {
+  adminCanViewExecution,
+  executionVisibilityWhere,
+} from '@/lib/orchestration/access/execution-access';
 import { executionTraceSchema, priorSupervisorReportSchema } from '@/lib/validations/orchestration';
 import {
   CostOperation,
@@ -301,8 +304,10 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
     }
   }
 
+  // Confined as the read above was, so the owner layer sees a write it can
+  // check: the row it returns is one this caller may read.
   await prisma.aiWorkflowExecution.update({
-    where: { id },
+    where: { id, AND: [executionVisibilityWhere(session)] },
     data: {
       supervisorVerdict: finalReport.verdict,
       supervisorScore: finalReport.score,
