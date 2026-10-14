@@ -6,6 +6,7 @@ import {
   remapList,
   remapWeights,
 } from '@/lib/app/breaks/meter';
+import { polyFillsIn } from '@/lib/app/breaks/poly-fill';
 import type { PercSpec, Style } from '@/lib/app/breaks/types';
 
 /**
@@ -94,6 +95,13 @@ export function styleIn(st: Style, meterKey: string): Style {
      back on its kick cells. */
   delete out.figures;
   delete out.fills;
+  /* A poly fill is a cell of note values, not a bar: it travels by the
+     quarter note, and one whose notes leave the grid is dropped (12-c). */
+  if (st.polyFills) {
+    const carried = polyFillsIn(st.polyFills, from, to);
+    if (carried.length) out.polyFills = carried;
+    else delete out.polyFills;
+  }
   const stepLists = [
     'backbeats',
     'forceKick',

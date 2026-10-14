@@ -586,6 +586,16 @@ _Together_ and keeps the accents where they are the figure; the click
 follows whichever stream you count, with no "both"; metric modulation (shelf 7) moves to 12-d, because ×3/2 needs wire v8; and the resultant mnemonics are
 left out for want of a source. 12-a has 25 entries on five shelves.
 
+### 12-c against the tree
+
+Built 2026-10-14; [`app-plan.md`](./app-plan.md#phase-12--polyrhythms--l)
+§ 12-c built has the list. In short: a poly fill is one cell repeated back
+from the bar line, landing on the 1; the vocabularies are § AC's sourced
+devices, which make Elvin's three-over-four his three-beat polymeter rather
+than an unsourced 3:4; the pattern records each span (`ps`, additive) so the
+critic, the layers and `fitHands` can find it after a share; and the critic
+scores a span as the plain fill it replaced, so it is kept at its rate.
+
 ## 9. Decisions
 
 ### Decided — 2026-10-14

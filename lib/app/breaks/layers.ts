@@ -1,6 +1,7 @@
 import { LANES, PERC_LANES, TOM_LANES, plainValue } from '@/lib/app/breaks/lanes';
 import { M44, groupsOf, isGroupStart } from '@/lib/app/breaks/meter';
 import { cloneBar, clonePattern, meterOfPat } from '@/lib/app/breaks/pattern';
+import { spanStepsIn, withPlainSpans } from '@/lib/app/breaks/poly-fill';
 import { POLYRHYTHM_STYLE } from '@/lib/app/breaks/style-keys';
 import type { Bar, LaneKey, Meter, Pattern, Poly } from '@/lib/app/breaks/types';
 
@@ -264,6 +265,10 @@ export function streamsOf(poly: Poly, feelCross = false): [LaneKey[], LaneKey[]]
  * The whole break as it looks at one layer. A polyrhythm (Phase 12) is built
  * up a stream at a time; `feelCross` counts its cross-rhythm as the pulse, so
  * layer 1 is the three of a 3:2 rather than the two.
+ *
+ * A poly fill (12-c) is a figure, not detail: it plays whole at layers 4 and
+ * 5, and below them the span plays the plain fill it took the place of,
+ * reduced as any fill is — thinned, it would be neither.
  */
 export function reducePattern(pat: Pattern, level: number, feelCross = false): Pattern {
   const p = clonePattern(pat);
@@ -276,6 +281,13 @@ export function reducePattern(pat: Pattern, level: number, feelCross = false): P
     return p;
   }
   const m = meterOfPat(pat);
-  p.bars = pat.bars.map((b, i) => reduceBar(b, level, m, pat.hasRide, pat.hasHat, pat.pins?.[i]));
+  const spans = !!pat.polySpans?.length && level < 5;
+  const from = spans && level <= 3 ? withPlainSpans(pat, level) : pat.bars;
+  p.bars = from.map((b, i) => reduceBar(b, level, m, pat.hasRide, pat.hasHat, pat.pins?.[i]));
+  if (spans && level === 4) {
+    p.bars.forEach((b, bi) => {
+      for (const i of spanStepsIn(pat, bi)) for (const L of LANES) b[L][i] = pat.bars[bi][L][i];
+    });
+  }
   return p;
 }

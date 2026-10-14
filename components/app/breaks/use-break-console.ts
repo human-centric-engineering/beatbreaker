@@ -95,6 +95,7 @@ import {
 import { styleIn, swingAtTempo, swingFor } from '@/lib/app/breaks/styles';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import { stickingFromHands } from '@/lib/app/breaks/drummer/sticking';
+import { keptPolySpans } from '@/lib/app/breaks/poly-fill';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import { percussionSource } from '@/lib/app/breaks/catalogue/types';
 import type { LaneKey, Pattern, ResolvedStyle, Style } from '@/lib/app/breaks/types';
@@ -1595,6 +1596,10 @@ export function useBreakConsole(
         next.bars[bar][lane][step] = value;
         if (value) setPin(next, bar, lane, step, level);
         restickBar(next, bar);
+        // a poly fill whose accent you changed is not the drummer's figure any more (12-c)
+        const spans = keptPolySpans(pat, next);
+        if (spans) next.polySpans = spans;
+        else delete next.polySpans;
         return { ...prev, [letter]: next };
       });
     },
@@ -1618,6 +1623,7 @@ export function useBreakConsole(
     // whatever is drawn next is not the rudiment or the polyrhythm, so its layers derive as ever
     delete next.fixed;
     delete next.poly;
+    delete next.polySpans;
     setPatterns((prev) => ({ ...prev, [editing]: next }));
   }, [patterns, editing, pushHistory]);
 

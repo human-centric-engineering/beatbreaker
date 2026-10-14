@@ -226,6 +226,33 @@ The critic asks no air of a pattern with `py`. Clearing a section or
 BeatBuddy rewriting the whole of it drops `py`; rewriting a bar or two keeps
 it. The doctor refuses a polyrhythm as it refuses a rudiment.
 
+**`ps` is where a poly fill was written (12-c)**: `[{ b, a, n, d, r?, e, p }]`
+on the wire, `Pattern.polySpans` (`PolySpan`, `polySpanSchema`) on a pattern:
+the bar and step it starts on, the steps it covers (ending on a bar line, at
+most two bars), the device and ratio, the steps between its accents, and
+`plain`, what the span played before (the plain fill or the groove) for each
+lane it changed. Optional and additive, like `py`: an older reader drops it
+and plays the same notes. Each `plain` value is held to its lane's values,
+and a span that does not fit its pattern's bars is left out on reading
+(`spansOf`), not trusted. It changes four things:
+
+- **The critic judges the span as a fill** (`playability`): a snare run in
+  it, a backbeat under it and its lack of air are not faults; the hands are
+  still counted. `critique` scores the span as its `plain`, so
+  `generateGood`'s taste for grooves cannot choose against the drummer's
+  figure.
+- **The layers play it whole or not at all** (`reducePattern`): whole at 4
+  and 5; below them the span plays `plain`, reduced as any bar is. A note
+  pinned in the span keeps its layer.
+- **`fitHands` keeps its accents**: on an accent step the cymbal goes first
+  and the figure's note last.
+- **The edits keep it while its accents stand** (`keptPolySpans`): a step
+  edit, a doctor move, Build B or BeatBuddy rewriting a bar or two keeps a
+  span whose accent notes are unchanged and drops one whose are not.
+  Clearing a section or rewriting the whole of it drops them all. The
+  doctor's _Fill the last bar_ writes the style's poly fill as often as not,
+  where the style has one.
+
 **Version 4 is what makes a pattern stand on its own.** `sa` is a snapshot of
 the five style attributes playback, the critic and the MIDI export read, so a
 break plays, scores and exports identically on an installation that has never

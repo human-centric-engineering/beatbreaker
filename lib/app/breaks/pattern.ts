@@ -19,6 +19,7 @@ import type {
   PercLaneKey,
   Pins,
   Poly,
+  PolySpan,
   Sticking,
   Style,
   StyleAttrs,
@@ -84,6 +85,14 @@ export function clonePoly(poly: Poly): Poly {
   };
 }
 
+/** A copy of a poly fill's span (12-c): its plain rows are arrays. */
+export function clonePolySpan(s: PolySpan): PolySpan {
+  return {
+    ...s,
+    plain: Object.fromEntries(Object.entries(s.plain).map(([L, row]) => [L, row?.slice()])),
+  };
+}
+
 export function clonePattern(p: Pattern): Pattern {
   return {
     name: p.name,
@@ -107,6 +116,7 @@ export function clonePattern(p: Pattern): Pattern {
     ...(p.sticking ? { sticking: p.sticking.slice() } : {}),
     ...(p.fixed ? { fixed: true } : {}),
     ...(p.poly ? { poly: clonePoly(p.poly) } : {}),
+    ...(p.polySpans?.length ? { polySpans: p.polySpans.map(clonePolySpan) } : {}),
     backbeats: p.backbeats.slice(),
     bars: p.bars.map(cloneBar),
   };

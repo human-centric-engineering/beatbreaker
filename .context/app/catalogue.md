@@ -162,6 +162,30 @@ few words of `feel`, a `weight`, and `params`: any style field except
     line over the end of the phrase. For example `{ every: 3, lanes: { s: 5 } }`
     in eighths gives dotted-quarter rimshots, and `every: 14` gives 7/4 over
     4/4.
+  - `polyFills` and `polyFill` (12-c): a drummer's polyrhythmic fills, and the
+    chance a phrase ends on one. A poly fill is one `cell` (a figure, every
+    row as long as the others) repeated `cells` times, counted back from the
+    bar line so the cycle lands on the next 1, which gets a crash and a kick.
+    It reaches back over one bar line at most, and never into the first bar.
+    `orchestrate` moves the cell's snare row round the drums a cell at a time
+    (a snare accent becomes a tom accent; a tom has no ghost). `time: true`
+    keeps the cymbal going under it, as comping; without it the hands leave
+    the cymbals, as in a fill. `kick: 'pulse'` puts the kick on every pulse
+    of the span. `device` is `cross-rhythm`, `hemiola`, `grouping` or
+    `polymeter`, with `ratio` (`n:m`) for the first two.
+    - **Only from a sourced device (D56).** `poly-fill.test.ts` holds every
+      vocabulary to a device of that kind in the drummer's record, played in
+      fills, solos or comping, with a source. Displacement and timelines are
+      never written as poly fills.
+    - **A poly fill is in the meter of the part that names it.** A song or
+      section in another meter carries an inherited one by the quarter note
+      (`withSong`, `styleIn`, `polyFillsIn`), and drops one whose notes leave
+      the grid. One whose cells fall on the meter's own pulses (a 3/4 cycle
+      in a 3/4 song, dotted quarters in 12/8) is never drawn.
+    - **The draw is on a stream of its own**, salted and mixed off the seed,
+      and a style without `polyFill` draws nothing, so its output is
+      byte-for-byte what it was. Tony Williams has the vocabulary on the
+      style and the rate on his acoustic jazz songs only.
 - **Two more generator params:**
   - `fillOrder`: the order a generated fill goes round the toms, high to
     floor by default. Ringo leads from the floor tom (`['t3', 't1', 't2']`).

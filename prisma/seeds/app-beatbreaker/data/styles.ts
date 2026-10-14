@@ -5110,6 +5110,35 @@ export const STYLES: Record<string, Style> = {
        take a field away, only set one, and his rock and fusion songs need
        none of them. Each jazz song sets its own. */
     ghostWeights: { 2: 0.3, 6: 0.3, 10: 0.3, 14: 0.3 },
+    /* Poly fills (12-c), from his record: threes over the bar line, a 3/4
+       cycle over the band's 4/4 while the hats keep the 4 (Goodman on
+       Vertigo and Teo's Bag), and dotted quarters against the pulse, two in
+       the time of three, as the way into it (Vertigo). Comping over the
+       time, counted back from the bar line to land on the 1. Only his
+       acoustic jazz songs draw for one (`polyFill` on each); in a waltz the
+       3/4 cycle is the bar and drops out, and the dotted quarters are a
+       hemiola. His 5s and 7s are not sourced and are not here. */
+    polyFills: [
+      [
+        {
+          device: 'polymeter',
+          cell: { s: '3...........', k: '2...........' },
+          cells: 2,
+          time: true,
+        },
+        1,
+      ],
+      [
+        {
+          device: 'cross-rhythm',
+          ratio: '2:3',
+          cell: { s: '3.....', k: '1.....' },
+          cells: 4,
+          time: true,
+        },
+        1,
+      ],
+    ],
     kick1: [
       ['0000', 8],
       ['0010', 1.2],
@@ -5175,6 +5204,7 @@ export const STYLES: Record<string, Style> = {
         feel: 'up-tempo, live: the ride on the beat, the foot on all four, the band break filled in threes (record 300–356)',
         weight: 1.2,
         params: {
+          polyFill: 0.3,
           swingCurve: true,
           meter: '4/4-8',
           backbeats: [2, 6],
@@ -5208,6 +5238,7 @@ export const STYLES: Record<string, Style> = {
         feel: 'live on Four & More, twice the speed of the 1959 record: chatter between the kick and the snare (record 270–324)',
         weight: 1.0,
         params: {
+          polyFill: 0.3,
           swingCurve: true,
           meter: '4/4-8',
           backbeats: [2, 6],
@@ -5244,6 +5275,7 @@ export const STYLES: Record<string, Style> = {
         feel: 'the fastest of them, speeding up all the way, swing almost even (record 292–372)',
         weight: 1.0,
         params: {
+          polyFill: 0.3,
           swingCurve: true,
           meter: '4/4-8',
           backbeats: [2, 6],
@@ -5275,6 +5307,7 @@ export const STYLES: Record<string, Style> = {
         feel: 'quarters on the ride, the foot on all four, rimshots kicking the breaks (record 310–340)',
         weight: 0.8,
         params: {
+          polyFill: 0.3,
           swingCurve: true,
           meter: '4/4-8',
           backbeats: [2, 6],
@@ -5304,6 +5337,7 @@ export const STYLES: Record<string, Style> = {
         feel: 'Out to Lunch bop: the ride in quarters, kick and snare chattering in pairs (record 280–300)',
         weight: 0.7,
         params: {
+          polyFill: 0.3,
           swingCurve: true,
           meter: '4/4-8',
           backbeats: [2, 6],
@@ -5330,6 +5364,7 @@ export const STYLES: Record<string, Style> = {
         feel: 'the swing after his march-like snare solo opens the record (record 250–266)',
         weight: 0.8,
         params: {
+          polyFill: 0.3,
           swingCurve: true,
           meter: '4/4-8',
           backbeats: [2, 6],
@@ -5359,6 +5394,7 @@ export const STYLES: Record<string, Style> = {
         feel: 'phrases in threes running across the bar line (record 290–310)',
         weight: 0.7,
         params: {
+          polyFill: 0.3,
           swingCurve: true,
           meter: '4/4-8',
           backbeats: [2, 6],
@@ -5431,6 +5467,7 @@ export const STYLES: Record<string, Style> = {
         feel: 'broken time: the ride in pieces, the snare and the kick answering the horns (record 250–270)',
         weight: 0.9,
         params: {
+          polyFill: 0.3,
           swingCurve: true,
           meter: '4/4-8',
           backbeats: [2, 6],
@@ -5458,6 +5495,7 @@ export const STYLES: Record<string, Style> = {
         feel: 'a fast three over four: the cymbal in dotted quarters against the foot (record 236–256)',
         weight: 0.6,
         params: {
+          polyFill: 0.3,
           swingCurve: true,
           meter: '4/4-8',
           backbeats: [2, 6],
@@ -5489,6 +5527,7 @@ export const STYLES: Record<string, Style> = {
         feel: 'the 1980s quintet: hard bop, big rimshots, the foot back on 2 and 4 (record 290–310)',
         weight: 0.7,
         params: {
+          polyFill: 0.3,
           swingCurve: true,
           meter: '4/4-8',
           backbeats: [2, 6],
@@ -5615,6 +5654,7 @@ export const STYLES: Record<string, Style> = {
         feel: 'a jazz waltz with Jackie McLean: hemiolas, the ride across the bar line',
         weight: 0.6,
         params: {
+          polyFill: 0.3,
           swingCurve: true,
           meter: '3/4',
           backbeats: [4, 8],
@@ -10450,6 +10490,14 @@ export const STYLES: Record<string, Style> = {
     fillChance: 0.6,
     midFills: 0,
     phraseMark: { crash: 0.5 },
+    /* Poly fills (12-c), from his record's grouping: a three-note cell, hand,
+       hand, foot, moved across the beat until it comes round to the 1 (Love
+       for Sale, verified). Drawn in the funk and samba songs, where his fills
+       run; the ballads and the pop sessions stay plain. */
+    polyFills: [
+      [{ device: 'grouping', cell: { s: '3..', t1: '.1.', k: '..1' }, cells: 4 }, 1],
+      [{ device: 'grouping', cell: { s: '3..', t1: '.1.', k: '..1' }, cells: 8 }, 1],
+    ],
     kick1: [
       ['1000', 3],
       ['1010', 1.5],
@@ -10607,6 +10655,7 @@ export const STYLES: Record<string, Style> = {
         feel: 'the verse: hats opening on the "and"s of 1 and 3, a cross-stick on 2 and 4',
         weight: 1.4,
         params: {
+          polyFill: 0.25,
           bpm: [116, 122],
           swing: 0,
           swingRange: [0, 6],
@@ -10632,6 +10681,7 @@ export const STYLES: Record<string, Style> = {
         feel: 'a rollicking funk sixteenth on the hats, the small rack tom answering the backbeat',
         weight: 1.1,
         params: {
+          polyFill: 0.25,
           bpm: [116, 124],
           swing: 0,
           swingRange: [0, 6],
@@ -10660,6 +10710,7 @@ export const STYLES: Record<string, Style> = {
         feel: 'funk-samba: the backbeat on 2 pushed a sixteenth early, the floor tom on 1, then the hands in turn',
         weight: 1.1,
         params: {
+          polyFill: 0.25,
           bpm: [126, 134],
           swing: 0,
           swingRange: [0, 6],
@@ -10692,6 +10743,7 @@ export const STYLES: Record<string, Style> = {
         feel: 'a samba on the kit: eighths on the ride, the clave on the rim, the surdo in the kick',
         weight: 0.9,
         params: {
+          polyFill: 0.25,
           bpm: [132, 138],
           swing: 0,
           ghostWeights: {},
@@ -11412,6 +11464,24 @@ export const STYLES: Record<string, Style> = {
     midFills: 0.4,
     phraseMark: { crash: 0.4 },
     crossRhythm: 0.35,
+    /* Poly fills (12-c), from his record's polymeter: "cycles of three or
+       five beats on top of the 4/4 bar while the ride keeps going", landing
+       on the middle triplet. A three-beat cycle on the floor tom and kick,
+       counted back from the bar line so it comes round on the 1. The five is
+       left out: one cycle of it is not a cycle. The waltzes and the fast
+       tunes set their own, in their own meters. */
+    polyFill: 0.3,
+    polyFills: [
+      [
+        {
+          device: 'polymeter',
+          cell: { t3: '2.................', k: '1.................', s: '..1.....1.....1.2.' },
+          cells: 2,
+          time: true,
+        },
+        1,
+      ],
+    ],
     kick1: [
       ['1000', 4],
       ['0000', 3],
@@ -11444,6 +11514,31 @@ export const STYLES: Record<string, Style> = {
         feel: 'the 1960 waltz in 9/8: the "and" of 1 leaned on, triplets under the ride (record 179)',
         weight: 1.6,
         params: {
+          // his hemiola (12-c): two even beats over the bar of three, the ride keeping the waltz
+          polyFills: [
+            [
+              {
+                device: 'hemiola',
+                ratio: '2:3',
+                cell: { s: '3........', k: '1........' },
+                cells: 2,
+                orchestrate: ['s', 't3'],
+                time: true,
+              },
+              1,
+            ],
+            [
+              {
+                device: 'hemiola',
+                ratio: '2:3',
+                cell: { s: '3........', k: '1........' },
+                cells: 4,
+                orchestrate: ['s', 't3'],
+                time: true,
+              },
+              1,
+            ],
+          ],
           meter: '9/8',
           bpm: [258, 279],
           swing: 0,
@@ -11512,6 +11607,31 @@ export const STYLES: Record<string, Style> = {
         feel: 'live at Birdland, 1963: a fast 3/4 swing with two cross-beats in every bar (record about 200)',
         weight: 1.3,
         params: {
+          // his hemiola (12-c): two even beats over the bar of three, the ride keeping the waltz
+          polyFills: [
+            [
+              {
+                device: 'hemiola',
+                ratio: '2:3',
+                cell: { s: '3........', k: '1........' },
+                cells: 2,
+                orchestrate: ['s', 't3'],
+                time: true,
+              },
+              1,
+            ],
+            [
+              {
+                device: 'hemiola',
+                ratio: '2:3',
+                cell: { s: '3........', k: '1........' },
+                cells: 4,
+                orchestrate: ['s', 't3'],
+                time: true,
+              },
+              1,
+            ],
+          ],
           meter: '9/8',
           bpm: [282, 300],
           swing: 0,
@@ -11964,6 +12084,18 @@ export const STYLES: Record<string, Style> = {
         feel: 'the Vanguard, 1961: a fast blues, no piano, the snare on the "ands", the foot on 2 and 4 (record 235–244)',
         weight: 1.2,
         params: {
+          // the three-beat cycle (12-c) in eighths, as the meter is
+          polyFills: [
+            [
+              {
+                device: 'polymeter',
+                cell: { t3: '2.....', k: '1.....', s: '...1.2' },
+                cells: 2,
+                time: true,
+              },
+              1,
+            ],
+          ],
           meter: '4/4-8',
           swingCurve: true,
           bpm: [226, 246],
@@ -11998,6 +12130,18 @@ export const STYLES: Record<string, Style> = {
         feel: 'live at the Vanguard, 1961: a gallop with the swing nearly even, phrases in three across the bar (record 272–293)',
         weight: 1.2,
         params: {
+          // the three-beat cycle (12-c) in eighths, as the meter is
+          polyFills: [
+            [
+              {
+                device: 'polymeter',
+                cell: { t3: '2.....', k: '1.....', s: '...1.2' },
+                cells: 2,
+                time: true,
+              },
+              1,
+            ],
+          ],
           meter: '4/4-8',
           swingCurve: true,
           bpm: [240, 280],
@@ -12031,6 +12175,18 @@ export const STYLES: Record<string, Style> = {
         feel: 'A Love Supreme, part 3: his solo opens it, then the fastest swing on the record, the toms rolling (record 277–300)',
         weight: 1.1,
         params: {
+          // the three-beat cycle (12-c) in eighths, as the meter is
+          polyFills: [
+            [
+              {
+                device: 'polymeter',
+                cell: { t3: '2.....', k: '1.....', s: '...1.2' },
+                cells: 2,
+                time: true,
+              },
+              1,
+            ],
+          ],
           meter: '4/4-8',
           swingCurve: true,
           bpm: [240, 280],
@@ -14201,6 +14357,15 @@ export const STYLES: Record<string, Style> = {
       // the record's archetype: a dotted-8th accent across the bar line (not from a tab)
       [{ every: 3, lanes: { s: 3 }, bars: 2 }, 0.5],
     ],
+    /* Poly fills (12-c), from his record's grouping, which it marks as needing
+       verification: kick and snare together on every dotted quarter, and
+       threes of 16ths on the snare, laid over the 4/4 for a build. Drawn
+       less often than a verified device would be. */
+    polyFill: 0.2,
+    polyFills: [
+      [{ device: 'grouping', cell: { s: '3.....', k: '2.....' }, cells: 4 }, 1],
+      [{ device: 'grouping', cell: { s: '322' }, cells: 8 }, 1],
+    ],
     kick1: [
       ['1000', 3],
       ['1010', 1],
@@ -15409,6 +15574,14 @@ export const STYLES: Record<string, Style> = {
     fillsGrow: true,
     // the record's `beat_placement`: centre, inferred; a big, even drummer, not a loose one
     feel: { label: 'On the beat, big', k: 0, s: 0.01, t1: 0.01, t2: 0.01, t3: 0.01, jitter: 0.01 },
+    /* Poly fills (12-c), from his record's grouping: threes of 16ths run
+       across the beat round the toms, the shape of the In the Air Tonight
+       fill (likely). Each three on one drum, high to floor. */
+    polyFill: 0.25,
+    polyFills: [
+      [{ device: 'grouping', cell: { s: '311' }, cells: 4, orchestrate: ['t1', 't2', 't3'] }, 1],
+      [{ device: 'grouping', cell: { s: '311' }, cells: 8, orchestrate: ['t1', 't2', 't3'] }, 1],
+    ],
     kick1: [
       ['1010', 3],
       ['1000', 2],
@@ -16359,6 +16532,14 @@ export const STYLES: Record<string, Style> = {
     fillsGrow: true,
     // "a flow of energy that isn't locked to the rhythm": loose, not ahead or behind
     feel: { label: 'Loose, flowing', k: 0, s: 0, jitter: 0.02 },
+    /* Poly fills (12-c), from his record's grouping: in the Woodstock solo the
+       snare runs in threes of 16ths over a kick on every beat until the
+       accents come round (likely). */
+    polyFill: 0.25,
+    polyFills: [
+      [{ device: 'grouping', cell: { s: '322' }, cells: 4, kick: 'pulse' }, 1],
+      [{ device: 'grouping', cell: { s: '322' }, cells: 8, kick: 'pulse' }, 1],
+    ],
     kick1: [
       ['1001', 2],
       ['1010', 2],

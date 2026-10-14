@@ -46,6 +46,8 @@ record, the graph, the API, and the map and pages that show them.
   pattern id would resolve, then vanish from the citation), and a
   cross-rhythm or hemiola without its ratio. A
   drummer with none found gets a `devices_search`, never an invented device.
+  A style's `polyFills` (12-c) are written only from these devices: one the
+  record plays in fills, solos or comping (`poly-fill.test.ts`).
 - **Don't put the graph in the vector store.** Traversal, direction and filters
   need rows. BeatBuddy reads the same tables (11-f): `find_drummers` and
   `get_drummer` in `lib/app/breaks/buddy/`, through `listDrummers`,
