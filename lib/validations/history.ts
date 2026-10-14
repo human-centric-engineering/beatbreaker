@@ -38,12 +38,20 @@ export type RecordVisitInput = z.infer<typeof recordVisitSchema>;
  * cast. Only what the Studio uses is held to a shape.
  */
 const visitedTargetSchema = z.discriminatedUnion('kind', [
-  z.object({ kind: z.literal('break'), id: z.string(), title: z.string(), mine: z.boolean() }),
+  z.object({
+    kind: z.literal('break'),
+    id: z.string(),
+    title: z.string(),
+    mine: z.boolean(),
+    // which names its layers: a polyrhythm's are its streams
+    style: z.string().optional(),
+  }),
   z.object({
     kind: z.literal('entry'),
     id: z.string(),
     title: z.string(),
     artist: z.string(),
+    styleKey: z.string().optional(),
   }),
 ]);
 

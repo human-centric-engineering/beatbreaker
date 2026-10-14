@@ -5,7 +5,8 @@ import { SpeedVideo } from '@/components/app/community/speed-video';
 import { Button } from '@/components/ui/button';
 import type { SpeedTableRow } from '@/lib/app/breaks/community/speed-tables';
 import { publicPath } from '@/lib/app/breaks/community/visibility';
-import { LAYER_NAMES } from '@/lib/app/breaks/layers';
+import { layerNameIn, layerNamesFor } from '@/lib/app/breaks/layers';
+import { POLYRHYTHM_STYLE } from '@/lib/app/breaks/style-keys';
 
 /**
  * The _Speeds_ section on a published pattern's page (Phase 7C): its table at
@@ -22,6 +23,7 @@ import { LAYER_NAMES } from '@/lib/app/breaks/layers';
 export function SpeedsSection({
   slug,
   title,
+  style,
   rows,
   total,
   nextCursor,
@@ -32,6 +34,8 @@ export function SpeedsSection({
 }: {
   slug: string;
   title: string;
+  /** The pattern's style key, which names its layers: a polyrhythm's are its streams. */
+  style: string;
   rows: SpeedTableRow[];
   total: number;
   nextCursor: string | null;
@@ -41,6 +45,8 @@ export function SpeedsSection({
   /** The reader's username, so their own row offers no Report. */
   viewer: string | null;
 }) {
+  const names = layerNamesFor(style === POLYRHYTHM_STYLE);
+  const levelName = layerNameIn(names, level);
   const href = (q: { level?: number; video?: boolean; cursor?: string }) => {
     const params = new URLSearchParams();
     params.set('speeds', String(q.level ?? level));
@@ -62,7 +68,7 @@ export function SpeedsSection({
       </div>
 
       <nav aria-label="Layer" className="flex flex-wrap gap-2">
-        {Object.entries(LAYER_NAMES).map(([n, name]) => {
+        {Object.entries(names).map(([n, name]) => {
           const current = Number(n) === level;
           return (
             <Link
@@ -89,7 +95,7 @@ export function SpeedsSection({
       {rows.length ? (
         <>
           <p className="text-muted-foreground text-sm">
-            {total} drummer{total === 1 ? '' : 's'} at {LAYER_NAMES[level]}
+            {total} drummer{total === 1 ? '' : 's'} at {levelName}
             {videoOnly ? ', with a video' : ''}.
           </p>
           <ol className="divide-y rounded-lg border">
@@ -128,8 +134,8 @@ export function SpeedsSection({
       ) : (
         <p className="text-muted-foreground">
           {videoOnly
-            ? `No speeds with a video at ${LAYER_NAMES[level]} yet.`
-            : `Nobody has recorded a speed at ${LAYER_NAMES[level]} yet. Open it in the Studio and mark yours from the Practise drawer.`}
+            ? `No speeds with a video at ${levelName} yet.`
+            : `Nobody has recorded a speed at ${levelName} yet. Open it in the Studio and mark yours from the Practise drawer.`}
         </p>
       )}
     </section>

@@ -4,7 +4,6 @@ import type { NewItem } from '@/components/app/practice/session-api';
 import { LibraryCard } from '@/components/app/studio/panels/library-card';
 import type { CatalogueEntry } from '@/lib/app/breaks/catalogue/types';
 import { POLYRHYTHMS_LIBRARY } from '@/lib/app/breaks/library';
-import { SESSION_ITEMS_MAX } from '@/lib/validations/practice-sessions';
 
 /** The layers a ladder climbs, an entry at a time: the pulse alone, the cross-rhythm alone, the whole figure. */
 export const LADDER_LAYERS = [1, 2, 5] as const;
@@ -12,15 +11,13 @@ export const LADDER_LAYERS = [1, 2, 5] as const;
 /**
  * A shelf as a polyrhythm ladder (Phase 12): each entry three times running,
  * at its pulse, its cross-rhythm and the whole figure, each climbing to its
- * tempo — how a polyrhythm is learnt. As many entries as fit a session.
+ * tempo — how a polyrhythm is learnt. Every entry: the session takes as many
+ * whole entries as fit, and says so (`SessionFromShelf`'s `per`).
  */
 export function ladderItems(entries: readonly CatalogueEntry[]): NewItem[] {
-  const fit = Math.floor(SESSION_ITEMS_MAX / LADDER_LAYERS.length);
-  return entries
-    .slice(0, fit)
-    .flatMap((entry) =>
-      LADDER_LAYERS.map((level) => ({ target: { libraryEntryId: entry.id }, level }))
-    );
+  return entries.flatMap((entry) =>
+    LADDER_LAYERS.map((level) => ({ target: { libraryEntryId: entry.id }, level }))
+  );
 }
 
 /** The polyrhythms, in Generate beside the rudiments (D59). See {@link LibraryCard}. */
@@ -44,6 +41,7 @@ export function PolyrhythmsCard({ onClose }: { onClose?: () => void }) {
       }
       shelfItems={ladderItems}
       shelfLabel="Make a ladder session from this shelf"
+      shelfPer={LADDER_LAYERS.length}
       onClose={onClose}
     />
   );

@@ -70,6 +70,13 @@ export function isUnsaved(item: TrailItem): item is UnsavedItem {
   return item.target.kind === 'unsaved';
 }
 
+/** A trail item's style key, which names its layers. */
+export function trailStyle(item: TrailItem): string | undefined {
+  if (isUnsaved(item)) return item.payload.A.st;
+  const t = item.target;
+  return t.kind === 'entry' ? t.styleKey : t.style;
+}
+
 /** "Unsaved · 14:02", at the time it was left. */
 export function unsavedTitle(at: Date): string {
   const two = (n: number) => String(n).padStart(2, '0');

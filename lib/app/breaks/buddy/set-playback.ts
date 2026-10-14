@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { maxBpmOf, minBpmOf } from '@/lib/app/breaks/audio/transport';
 import { type EditData, editWorkspace } from '@/lib/app/breaks/buddy/edit';
-import { FULL_LAYER, layerName } from '@/lib/app/breaks/layers';
+import { FULL_LAYER, patternLayerName } from '@/lib/app/breaks/layers';
 import {
   SECTION_LETTERS,
   type SectionLetter,
@@ -145,7 +145,9 @@ export class SetPlaybackCapability extends BaseCapability<Args, EditData> {
         : null,
       args.bpm !== undefined || after.bpm !== outcome.before.bpm ? `${after.bpm} bpm` : null,
       args.swing !== undefined ? `swing ${after.swing}` : null,
-      args.layer !== undefined ? `layer ${after.level} (${layerName(after.level)})` : null,
+      args.layer !== undefined
+        ? `layer ${after.level} (${patternLayerName(after.level, after.A)})`
+        : null,
     ].filter((p): p is string => p !== null);
 
     return this.success({

@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { type SectionView, decodeWorkspace, viewSection } from '@/lib/app/breaks/buddy/describe';
 import { readWorkspace } from '@/lib/app/breaks/buddy/workspace';
-import { layerName } from '@/lib/app/breaks/layers';
+import { patternLayerName } from '@/lib/app/breaks/layers';
 import { type SectionLetter, lettersOf } from '@/lib/app/breaks/sections';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
 import type {
@@ -66,7 +66,7 @@ export class GetPatternCapability extends BaseCapability<Args, GetPatternData> {
       bpm: doc.bpm,
       swing: doc.swing,
       layer: doc.level,
-      layerName: layerName(doc.level),
+      layerName: patternLayerName(doc.level, doc.A),
       arrangement: doc.arrangement,
       sections: lettersOf(doc).flatMap((s) => {
         const pat = doc[s];

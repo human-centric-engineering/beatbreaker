@@ -51,7 +51,8 @@ function PractisingCard({
   styleLabel: (key: string) => string;
 }) {
   const { target } = card;
-  const style = styleLabel(target.kind === 'break' ? target.style : target.styleKey);
+  const styleKey = target.kind === 'break' ? target.style : target.styleKey;
+  const style = styleLabel(styleKey);
   return (
     <li>
       <Card className="flex h-full flex-col">
@@ -78,7 +79,7 @@ function PractisingCard({
             ) : null}
             <dt>Tempo</dt>
             <dd>
-              {card.bpm} BPM · {layerName(card.level)}
+              {card.bpm} BPM · {layerName(card.level, styleKey)}
             </dd>
             <dt>Last opened</dt>
             <dd>{card.lastOpenedAt ? <ClientDate date={card.lastOpenedAt} /> : 'Not yet'}</dd>

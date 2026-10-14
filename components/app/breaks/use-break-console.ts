@@ -68,6 +68,7 @@ import {
   clonePattern,
   dropBarSticking,
   resolveLanes,
+  stickingRow,
   setPin,
   writePerc,
 } from '@/lib/app/breaks/pattern';
@@ -93,6 +94,7 @@ import {
 } from '@/lib/app/breaks/songs';
 import { styleIn, swingAtTempo, swingFor } from '@/lib/app/breaks/styles';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
+import { stickingFromHands } from '@/lib/app/breaks/drummer/sticking';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import { percussionSource } from '@/lib/app/breaks/catalogue/types';
 import type { LaneKey, Pattern, ResolvedStyle, Style } from '@/lib/app/breaks/types';
@@ -100,6 +102,22 @@ import { type VoiceParams, kitEngine, kitIsPlayable, withTuning } from '@/lib/ap
 import { useStudioSettings } from '@/components/app/breaks/use-studio-settings';
 import { logger } from '@/lib/logging';
 import { DEFAULT_STUDIO_SETTINGS, type StudioSettings } from '@/lib/validations/studio-settings';
+
+/**
+ * Take one bar's written hands off `p` after its notes changed, in place. A
+ * polyrhythm whose lanes name their hands (D60) has them written again for the
+ * bar's new notes, so the drummer and the chart keep playing it so.
+ */
+function restickBar(p: Pattern, bar: number): void {
+  dropBarSticking(p, bar);
+  const hands = p.poly?.hands;
+  if (!hands) return;
+  const row = stickingRow(stickingFromHands(p.bars[bar], hands), p.bars[bar].k.length);
+  if (!row) return;
+  const sticking = p.sticking ?? p.bars.map(() => null);
+  sticking[bar] = row;
+  p.sticking = sticking;
+}
 
 /**
  * All of the console's state, and every action that changes it.
@@ -1545,7 +1563,7 @@ export function useBreakConsole(
       const v = (shown + (back ? states - 1 : 1)) % states;
       next.bars[bar][lane][step] = v;
       if (v) setPin(next, bar, lane, step, level);
-      dropBarSticking(next, bar);
+      restickBar(next, bar);
       setPatterns((prev) => ({ ...prev, [letter]: next }));
     },
     [patterns, level, feelCross, pushHistory]
@@ -1576,7 +1594,7 @@ export function useBreakConsole(
         const next = clonePattern(pat);
         next.bars[bar][lane][step] = value;
         if (value) setPin(next, bar, lane, step, level);
-        dropBarSticking(next, bar);
+        restickBar(next, bar);
         return { ...prev, [letter]: next };
       });
     },
@@ -1696,6 +1714,8 @@ export function useBreakConsole(
       }
       chosen.current = {};
       pickedForNext.current = false;
+      // a polyrhythm opens counted the usual way: the ladder climbs pulse, cross, full
+      setFeelCross(false);
       setStyleRaw(entry.styleKey);
       setMeterRaw(pat.meter);
       setBarsRaw(pat.bars.length);
@@ -2416,6 +2436,7 @@ export function useBreakConsole(
       setBarsRaw(on.bars.length);
       chosen.current = {};
       pickedForNext.current = false;
+      setFeelCross(false);
       setTries(null);
     },
     [pushHistory, baseFor, holdSwing, editing]

@@ -310,6 +310,7 @@ describe('listedBests', () => {
         id: BREAK_ID,
         title: 'Cold Carpet',
         slug: 'cold000001',
+        style: 'funk',
         gridHash: 'current-hash',
         doc: null,
       },
@@ -326,6 +327,7 @@ describe('listedBests', () => {
     const result = await listedBests(USER_ID);
     expect(result).toHaveLength(1);
     expect(result[0].bpm).toBe(190);
+    expect(result[0].style).toBe('funk');
   });
 
   it('drops a record whose gridHash no longer matches the target, then lets the next matching one through', async () => {
@@ -350,19 +352,21 @@ describe('listedBests', () => {
         bpm: 190,
         gridHash: expectedHash,
         breakRef: null,
-        libraryEntry: { id: ENTRY_ID, title: 'Famous Break', doc },
+        libraryEntry: { id: ENTRY_ID, title: 'Famous Break', styleKey: 'polyrhythm', doc },
       }),
       record({
         level: 2,
         bpm: 150,
         gridHash: expectedHash,
         breakRef: null,
-        libraryEntry: { id: ENTRY_ID, title: 'Famous Break', doc },
+        libraryEntry: { id: ENTRY_ID, title: 'Famous Break', styleKey: 'polyrhythm', doc },
       }),
     ] as never);
 
     const result = await listedBests(USER_ID);
     expect(result).toHaveLength(2);
+    // the entry's style key, which names its layers
+    expect(result.map((r) => r.style)).toEqual(['polyrhythm', 'polyrhythm']);
     // sectionHash makes exactly one crypto.subtle.digest call; memoised per
     // target, so two records on the same entry cost one call, not two
     expect(digestSpy).toHaveBeenCalledTimes(1);

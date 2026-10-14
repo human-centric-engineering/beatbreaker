@@ -1,7 +1,7 @@
 import { LANES, PERC_LANES, TOM_LANES, plainValue } from '@/lib/app/breaks/lanes';
-import { POLYRHYTHM_STYLE } from '@/lib/app/breaks/library';
 import { M44, groupsOf, isGroupStart } from '@/lib/app/breaks/meter';
 import { cloneBar, clonePattern, meterOfPat } from '@/lib/app/breaks/pattern';
+import { POLYRHYTHM_STYLE } from '@/lib/app/breaks/style-keys';
 import type { Bar, LaneKey, Meter, Pattern, Poly } from '@/lib/app/breaks/types';
 
 /**
@@ -56,23 +56,66 @@ export const POLY_LAYER_BLURB: Record<number, string> = {
  */
 const ACCENTS_ARE_THE_FIGURE: Poly['device'][] = ['grouping', 'polymeter', 'timeline'];
 
-/** The layer names a pattern in `style` is read with: a polyrhythm's own, or the groove's. */
-export function layerNamesFor(style?: string | null): Record<number, string> {
-  return style === POLYRHYTHM_STYLE ? POLY_LAYER_NAMES : LAYER_NAMES;
+/**
+ * Counted the other way round, the first two layers trade places: layer 1 is
+ * the cross-rhythm alone and layer 2 the pulse (D54).
+ */
+const FELT_CROSS_NAMES: Record<number, string> = {
+  ...POLY_LAYER_NAMES,
+  1: POLY_LAYER_NAMES[2],
+  2: POLY_LAYER_NAMES[1],
+};
+
+const FELT_CROSS_BLURB: Record<number, string> = {
+  ...POLY_LAYER_BLURB,
+  1: 'the cross-rhythm, counted as the pulse, alone',
+  2: 'the pulse set against it, alone',
+};
+
+/**
+ * The layer names a pattern on the stage is read with: a polyrhythm's own
+ * (`poly`: it has streams), or the groove's. What it is decides, not its
+ * style key, since that is what decides how its layers reduce.
+ */
+export function layerNamesFor(poly: boolean, feelCross = false): Record<number, string> {
+  if (!poly) return LAYER_NAMES;
+  return feelCross ? FELT_CROSS_NAMES : POLY_LAYER_NAMES;
 }
 
-/** What each layer adds, for a pattern in `style`. */
-export function layerBlurbsFor(style?: string | null): Record<number, string> {
-  return style === POLYRHYTHM_STYLE ? POLY_LAYER_BLURB : LAYER_BLURB;
+/** What each layer adds, for a pattern on the stage. See {@link layerNamesFor}. */
+export function layerBlurbsFor(poly: boolean, feelCross = false): Record<number, string> {
+  if (!poly) return LAYER_BLURB;
+  return feelCross ? FELT_CROSS_BLURB : POLY_LAYER_BLURB;
 }
 
 /**
- * A layer as a player reads it: by name, not number. A level outside 1–5
- * (an old history row, say) still reads as something. Pass the pattern's
- * style where it is known, so a polyrhythm's layer reads as what it plays.
+ * The layer whose notes `level` plays, as a speed is kept: counted
+ * the other way round, a polyrhythm's layer 1 plays what layer 2 does counted
+ * the usual way, and the other way about. Kept so, a speed at "Cross-rhythm"
+ * is the cross-rhythm alone, whichever way it was counted.
+ */
+export function recordedLevel(level: number, poly: boolean, feelCross: boolean): number {
+  return poly && feelCross && (level === 1 || level === 2) ? 3 - level : level;
+}
+
+/**
+ * A stored layer as a player reads it: by name, not number. A level outside
+ * 1–5 (an old history row, say) still reads as something. Pass the target's
+ * style where it is known, so a polyrhythm's layer reads as what it plays —
+ * counted the usual way, which is how {@link recordedLevel} keeps it.
  */
 export function layerName(level: number, style?: string | null): string {
-  return layerNamesFor(style)[level] ?? `Layer ${level}`;
+  return layerNameIn(layerNamesFor(style === POLYRHYTHM_STYLE), level);
+}
+
+/** A layer of `pat` as a player reads it: a polyrhythm's by its streams. */
+export function patternLayerName(level: number, pat: Pick<Pattern, 'poly'>): string {
+  return layerNameIn(layerNamesFor(!!pat.poly), level);
+}
+
+/** A layer's name in `names`, or "Layer 6" for one they have no name for. */
+export function layerNameIn(names: Record<number, string>, level: number): string {
+  return names[level] ?? `Layer ${level}`;
 }
 
 export const LAYER_BLURB: Record<number, string> = {

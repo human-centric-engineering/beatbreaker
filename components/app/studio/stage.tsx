@@ -156,11 +156,13 @@ export function Stage() {
   }, [c.position, engravings]);
 
   const style = c.catalogue.styles[c.style]?.params;
-  /* A polyrhythm's layers are its streams built up, and say so (D54). The
-     section on the stage decides: All shows A's. */
-  const layerNames = layerNamesFor(c.style);
-  const layerBlurbs = layerBlurbsFor(c.style);
+  /* A polyrhythm's layers are its streams built up, and say so (D54), in
+     the order they are counted. The section on the stage decides: All shows
+     A's. Its streams, not its style key, since they are what the layers
+     reduce by. */
   const poly = (c.viewMode === 'both' ? c.view.A : c.view[c.viewMode])?.poly;
+  const layerNames = layerNamesFor(!!poly, c.feelCross);
+  const layerBlurbs = layerBlurbsFor(!!poly, c.feelCross);
   const [crossNum, pulseNum] = poly?.ratio.includes(':') ? poly.ratio.split(':') : [];
   const viewMode = c.viewMode;
   const shown: SectionLetter[] = viewMode === 'both' ? c.letters : [viewMode];

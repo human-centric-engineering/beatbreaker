@@ -154,6 +154,7 @@ export default async function PublicPatternPage({ params, searchParams }: Props)
         <SpeedsSection
           slug={pattern.slug}
           title={pattern.title}
+          style={pattern.style}
           rows={speeds.rows}
           total={speeds.total}
           nextCursor={speeds.nextCursor}

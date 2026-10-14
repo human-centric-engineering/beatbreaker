@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { StudioTransport } from '@/components/app/shell/studio-transport';
 import { ToolMenu, type Tool } from '@/components/app/shell/tool-rail';
 import { useStudio } from '@/components/app/studio/studio-provider';
+import { trailStyle } from '@/components/app/studio/use-practice-history';
 import { BrandMark } from '@/components/brand/brand-mark';
 import { HeaderActions } from '@/components/layouts/header-actions';
 import { AUTH_LANDING_ROUTE } from '@/lib/auth-landing/route';
@@ -90,7 +91,7 @@ function BackButton() {
       aria-label={to ? `Back to ${to.target.title}` : 'Back — nothing opened before this'}
       title={
         to
-          ? `Back to ${to.target.title} — ${layerName(to.level)} at ${to.bpm} (Alt+←)`
+          ? `Back to ${to.target.title} — ${layerName(to.level, trailStyle(to))} at ${to.bpm} (Alt+←)`
           : 'Nothing to go back to'
       }
     >

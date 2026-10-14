@@ -500,8 +500,10 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
           const hand = stickingAt(pat.sticking, barIndex, i);
           const cymbal = !!(bar.h[i] || bar.r[i] || bar.c[i]);
           const drums = ['s', ...tomLanes].filter((L) => !!bar[L as LaneKey][i]).length;
-          if (hand && drums > 1 && !cymbal) {
-            // two drums at once, a hand each: the shared 1 of a 3:2
+          if (pat.poly?.hands && hand && drums > 1 && !cymbal && !graces) {
+            /* two drums at once, a hand each: the shared 1 of a 3:2 whose
+               lanes name their hands. Both hands play it, whichever the
+               sticking names, so it reads the same either way. */
             lab = 'R+L';
           } else if (hand && (drum || cymbal)) {
             // the hand written, its graces on the other hand unless written lower case

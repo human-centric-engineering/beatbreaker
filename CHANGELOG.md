@@ -25,8 +25,11 @@ release process.
   an entry's two streams and its cross pulse, packed on the wire as an
   optional `py` (no new version: an older reader drops it). `reducePattern`
   takes a third argument, `feelCross`, and builds a polyrhythm up a stream at
-  a time (`POLY_LAYER_NAMES`, `POLY_LAYER_BLURB`, `layerNamesFor`,
-  `layerBlurbsFor`; `layerName` takes the style). `crossClick` and
+  a time (`POLY_LAYER_NAMES`, `POLY_LAYER_BLURB`; `layerNamesFor` and
+  `layerBlurbsFor` take whether the pattern has streams and `feelCross`;
+  `layerName` takes the style; `patternLayerName`, `layerNameIn` and
+  `recordedLevel` are new). `RUDIMENT_STYLE` and `POLYRHYTHM_STYLE` live in
+  `style-keys.ts`, re-exported from `library.ts`. `crossClick` and
   `TransportSnapshot.feelCross` click the cross pulse. `stickingFromHands`
   writes a lane's named hand into the sticking. `LibraryItem` gains `poly`
   and `perc`, `BarSpec` gains `p1`/`p2`, and `POLYRHYTHM_STYLE`,

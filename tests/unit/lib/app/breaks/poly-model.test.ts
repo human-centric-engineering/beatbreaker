@@ -19,6 +19,8 @@ import {
   POLY_LAYER_NAMES,
   layerName,
   layerNamesFor,
+  patternLayerName,
+  recordedLevel,
   reducePattern,
 } from '@/lib/app/breaks/layers';
 import {
@@ -170,12 +172,37 @@ describe('the layers (D54)', () => {
   });
 
   it('are named for what they play on a polyrhythm, and as ever elsewhere', () => {
-    expect(layerNamesFor(POLYRHYTHM_STYLE)).toBe(POLY_LAYER_NAMES);
-    expect(layerNamesFor('funk')).toBe(LAYER_NAMES);
+    expect(layerNamesFor(true)).toBe(POLY_LAYER_NAMES);
+    expect(layerNamesFor(false)).toBe(LAYER_NAMES);
+    expect(layerNamesFor(false, true)).toBe(LAYER_NAMES);
+    expect(patternLayerName(1, polyPattern())).toBe('Pulse');
+    expect(patternLayerName(1, polyPattern(null))).toBe('Skeleton');
     expect(layerName(1, POLYRHYTHM_STYLE)).toBe('Pulse');
     expect(layerName(2, POLYRHYTHM_STYLE)).toBe('Cross-rhythm');
     expect(layerName(1)).toBe('Skeleton');
     expect(layerName(9, POLYRHYTHM_STYLE)).toBe('Layer 9');
+  });
+
+  it('trade names at 1 and 2 when counted the other way round, as their notes do', () => {
+    const felt = layerNamesFor(true, true);
+    expect([1, 2, 3, 4, 5].map((n) => felt[n])).toEqual([
+      'Cross-rhythm',
+      'Pulse',
+      'Together',
+      'Accented',
+      'Full figure',
+    ]);
+    const pat = polyPattern();
+    expect(reducePattern(pat, 1, true)).toEqual(reducePattern(pat, 2));
+    expect(reducePattern(pat, 2, true)).toEqual(reducePattern(pat, 1));
+  });
+
+  it('keep a speed at the layer whose notes it plays', () => {
+    expect(recordedLevel(1, true, true)).toBe(2);
+    expect(recordedLevel(2, true, true)).toBe(1);
+    expect(recordedLevel(3, true, true)).toBe(3);
+    expect(recordedLevel(1, true, false)).toBe(1);
+    expect(recordedLevel(1, false, true)).toBe(1);
   });
 });
 
@@ -258,6 +285,14 @@ describe('the chart', () => {
         .filter((n) => n.text?.startsWith('R+L'))
         .map((n) => n.text)
     ).toEqual(['R+L ●', 'R+L']);
+  });
+
+  it('prints the written hand where a pattern without named hands has two drums together', () => {
+    const pat = polyPattern(null);
+    pat.style = 'funk';
+    pat.sticking = [stickingFromHands(pat.bars[0], THREE_TWO.hands!)];
+    expect(texts(pat).some((n) => n.text?.startsWith('R+L'))).toBe(false);
+    expect(texts(pat).some((n) => n.text === 'L ●')).toBe(true);
   });
 
   it('marks a cycle that ends inside a bar, and none that ends on a bar line', () => {

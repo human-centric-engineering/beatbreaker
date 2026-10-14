@@ -24,6 +24,7 @@ export function LibraryCard({
   help,
   shelfItems,
   shelfLabel,
+  shelfPer,
   onClose,
 }: {
   libraryKey: string;
@@ -36,6 +37,8 @@ export function LibraryCard({
   shelfItems?: (entries: CatalogueEntry[]) => NewItem[];
   /** What that button says. */
   shelfLabel?: string;
+  /** How many of its items each entry is. */
+  shelfPer?: number;
   onClose?: () => void;
 }) {
   const c = useStudio();
@@ -78,6 +81,7 @@ export function LibraryCard({
                 shelf={group}
                 items={shelfItems(items)}
                 label={shelfLabel}
+                per={shelfPer}
                 compact
               />
             ) : null}

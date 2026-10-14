@@ -162,9 +162,10 @@ per minute, is shown in the menu as _Full_.
 **A polyrhythm shelf makes a ladder** (Phase 12): _Make a ladder session from
 this shelf_ in the Polyrhythms card (Generate) puts each entry in three times
 running, at layer 1 (the pulse), 2 (the cross-rhythm) and 5 (the whole
-figure), each climbing to its tempo (`ladderItems`, `LADDER_LAYERS`) — four
-entries to a session of twelve. It is the ordinary items list; a session may
-name one pattern more than once.
+figure), each climbing to its tempo (`ladderItems`, `LADDER_LAYERS`). A
+session of twelve holds four entries: `SessionFromShelf`'s `per` cuts a longer
+shelf at a whole entry and says _The first 4_. It is the ordinary items list;
+a session may name one pattern more than once.
 
 **An item's target carries its pattern's style** (`target.style`: a break's
 `style` column, an entry's `styleKey`), and the public read carries it as

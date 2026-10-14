@@ -8,7 +8,7 @@
  * The real Studio and the real `session-api` over a mocked `apiClient`.
  */
 
-import { render, screen, within } from '@testing-library/react';
+import { act, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -122,6 +122,9 @@ describe('PolyrhythmsCard', () => {
         .slice(0, 4)
         .flatMap((e) => LADDER_LAYERS.map((level) => ({ libraryEntryId: e.id, level })))
     );
+    // six entries on the shelf, four of them fit: it says so
+    expect(entries.length).toBeGreaterThan(4);
+    expect(shelf.getByText('The first 4')).toBeInTheDocument();
   });
 
   it('shows nothing for a library with no entries', async () => {
@@ -132,11 +135,11 @@ describe('PolyrhythmsCard', () => {
 });
 
 describe('ladderItems', () => {
-  it('fills a session: four entries, three layers each, in shelf order', () => {
+  it('makes every entry three layers, in shelf order, leaving the cut to the session', () => {
     const entries = testPolyrhythms().entries;
     const items = ladderItems(entries);
-    expect(items).toHaveLength(12);
-    expect(items.map((i) => i.level)).toEqual([1, 2, 5, 1, 2, 5, 1, 2, 5, 1, 2, 5]);
+    expect(items).toHaveLength(entries.length * 3);
+    expect(items.slice(0, 6).map((i) => i.level)).toEqual([1, 2, 5, 1, 2, 5]);
     expect(items[3].target).toEqual({ libraryEntryId: entries[1].id });
   });
 });
@@ -164,6 +167,50 @@ describe('a polyrhythm on the stage', () => {
     await user.click(count.getByRole('radio', { name: 'The 3' }));
     expect(studio!.feelCross).toBe(true);
     expect(lanesOnShow()).toEqual(['t3']);
+    // layer 1 is now the cross-rhythm, and is called so
+    expect(layers.getAllByRole('radio').map((r) => r.textContent?.slice(1, 13))).toEqual([
+      'Cross-rhythm',
+      'Pulse',
+      'Together',
+      'Accented',
+      'Full figure',
+    ]);
+  });
+
+  it('opens the next entry counted the usual way', async () => {
+    const user = userEvent.setup();
+    mount(testPolyrhythms(), true);
+    const shelf = await openShelf(user, 'Two against three');
+    await user.click(rowOf(shelf, FLOOR_TOM));
+    const count = within(screen.getByRole('radiogroup', { name: 'Count' }));
+    await user.click(count.getByRole('radio', { name: 'The 3' }));
+    expect(studio!.feelCross).toBe(true);
+
+    await user.click(rowOf(shelf, '3:2, hands — the three on the snare'));
+    expect(studio!.view.A?.name).toBe('3:2, hands — the three on the snare');
+    expect(studio!.feelCross).toBe(false);
+  });
+
+  it('names its layers as a groove once its streams are cleared', async () => {
+    const user = userEvent.setup();
+    mount(testPolyrhythms(), true);
+    await user.click(rowOf(await openShelf(user, 'Two against three'), FLOOR_TOM));
+    act(() => studio!.clearSection());
+    const layers = within(screen.getByRole('radiogroup', { name: 'Difficulty layer' }));
+    expect(layers.getAllByRole('radio')[0]).toHaveTextContent('Skeleton');
+  });
+
+  it('keeps the hands its lanes name in a bar whose notes you edit', async () => {
+    const user = userEvent.setup();
+    mount(testPolyrhythms(), true);
+    await user.click(rowOf(await openShelf(user, 'Two against three'), FLOOR_TOM));
+    const before = studio!.patterns.A!.sticking?.[0];
+    expect(before).toMatch(/[RL]/);
+
+    act(() => studio!.cycleCell('A', 0, 'k', 2, false));
+    const after = studio!.patterns.A!;
+    expect(after.bars[0].k[2]).toBeTruthy();
+    expect(after.sticking?.[0]).toBe(before);
   });
 
   it('offers no count on a groove', async () => {

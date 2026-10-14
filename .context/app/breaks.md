@@ -204,12 +204,20 @@ being refused. On a pattern it is `Pattern.poly`, and it changes three things:
   accents, 5 everything. Layer 3 levels a cross-rhythm's accents; a grouping,
   polymeter or timeline keeps them, because there they are the figure. A
   pinned note is kept from its layer up, as in a groove. The console's
-  `feelCross` swaps the streams, so layer 1 is the cross-rhythm.
+  `feelCross` swaps the streams, so layer 1 is the cross-rhythm, and
+  `layerNamesFor(poly, feelCross)` swaps the names with them. Opening another
+  entry or pattern counts it the usual way again. A speed is kept at the layer
+  whose notes it plays (`recordedLevel`), so _Cross-rhythm_ on a table is the
+  cross-rhythm alone, whichever way it was counted. The stage names layers
+  from the pattern's streams, not its style key; a stored row that has only a
+  style uses `layerName(level, style)`.
 - **The chart counts both** (`engrave`): a second, italic count row numbers
   the cross pulses from the pattern's first step across the bar lines, 1 at
   each cycle, with the ratio beside it; a cycle that neither fits a bar nor
   spans whole bars (3/4 over 4/4) gets a dashed line where it comes round.
-  Where both hands land on two drums together, the sticking row reads `R+L`.
+  Where both hands land on two drums together on a pattern whose lanes name
+  their hands, the sticking row reads `R+L`. Editing a bar of such a pattern
+  writes its named hands again for the new notes.
 - **The click can follow the cross pulse** (`crossClick`): with `feelCross`
   on, it clicks every cross pulse, louder at each cycle's 1, instead of the
   meter's beat.

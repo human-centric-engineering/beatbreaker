@@ -9,6 +9,7 @@ import {
   tidySticking,
 } from '@/lib/app/breaks/pattern';
 import { stickingFromHands } from '@/lib/app/breaks/drummer/sticking';
+import { POLYRHYTHM_STYLE, RUDIMENT_STYLE } from '@/lib/app/breaks/style-keys';
 import type {
   CymbalVoice,
   LaneKey,
@@ -70,22 +71,10 @@ export interface LibraryItem {
   bars: BarSpec[];
 }
 
-/**
- * The style key every rudiment carries (D45). It is not a style row: there is
- * nothing to generate, regenerate or doctor a rudiment from, and the Studio
- * offers none of them for it.
- */
-export const RUDIMENT_STYLE = 'rudiment';
+export { POLYRHYTHM_STYLE, RUDIMENT_STYLE };
 
 /** The rudiments' library key: shown in Generate rather than among the libraries. */
 export const RUDIMENTS_LIBRARY = 'rudiments';
-
-/**
- * The style key every polyrhythm carries (Phase 12). Not a style row, for the
- * reason a rudiment's is not: a polyrhythm entry is written out, and New,
- * Regenerate and the doctor leave it alone.
- */
-export const POLYRHYTHM_STYLE = 'polyrhythm';
 
 /** The polyrhythms' library key: shown in Generate beside the rudiments (D59). */
 export const POLYRHYTHMS_LIBRARY = 'polyrhythms';

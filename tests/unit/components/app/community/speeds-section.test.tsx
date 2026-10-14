@@ -44,6 +44,7 @@ function base() {
   return {
     slug: SLUG,
     title: 'Cold Carpet',
+    style: 'funk',
     rows: [row()],
     total: 1,
     nextCursor: null as string | null,
@@ -66,6 +67,16 @@ describe('the layer switcher', () => {
     const skeleton = within(nav).getByRole('link', { name: 'Skeleton' });
     expect(skeleton).toHaveAttribute('href', `/p/${SLUG}?speeds=1#speeds`);
     expect(skeleton).not.toHaveAttribute('aria-current');
+  });
+
+  it("names a polyrhythm's layers for its streams", () => {
+    render(<SpeedsSection {...base()} style="polyrhythm" />);
+    const nav = screen.getByRole('navigation', { name: 'Layer' });
+    expect(within(nav).getByRole('link', { name: 'Cross-rhythm' })).toHaveAttribute(
+      'aria-current',
+      'true'
+    );
+    expect(screen.getByText(/at Cross-rhythm/)).toBeInTheDocument();
   });
 
   it('keeps video=1 on every layer link while Video only is on', () => {

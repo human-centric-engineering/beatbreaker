@@ -248,6 +248,7 @@ describe('listed bests (7C)', () => {
       {
         title: 'Cold Carpet',
         slug: 'cold000001',
+        style: 'funk',
         level: 2,
         bpm: 118,
         recordedAt: '2026-09-02T10:00:00.000Z',
@@ -260,7 +261,8 @@ describe('listed bests (7C)', () => {
       {
         title: 'Cold Sweat',
         slug: null,
-        level: 5,
+        style: 'polyrhythm',
+        level: 1,
         bpm: 104,
         recordedAt: '2026-09-01T10:00:00.000Z',
         video: null,
@@ -271,6 +273,8 @@ describe('listed bests (7C)', () => {
     const section = screen.getByRole('region', { name: 'Speeds' });
     expect(section).toHaveTextContent('118 bpm');
     expect(section).toHaveTextContent('Groove');
+    // a polyrhythm's layer is named for its stream
+    expect(section).toHaveTextContent('Pulse');
     expect(screen.getByRole('link', { name: 'Cold Carpet' })).toHaveAttribute(
       'href',
       '/p/cold000001#speeds'

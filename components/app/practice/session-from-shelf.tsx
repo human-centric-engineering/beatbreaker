@@ -27,6 +27,7 @@ export function SessionFromShelf({
   items,
   compact = false,
   label = 'Make a session from this shelf',
+  per = 1,
   className,
 }: {
   /** The shelf's name, which names the session. */
@@ -36,6 +37,11 @@ export function SessionFromShelf({
   compact?: boolean;
   /** What the button says, where the session is not one item a pattern (the polyrhythm ladder). */
   label?: string;
+  /**
+   * How many items each pattern is (the ladder's three). A session too short
+   * for them all takes whole patterns, never part of one.
+   */
+  per?: number;
   className?: string;
 }) {
   const router = useRouter();
@@ -44,11 +50,15 @@ export function SessionFromShelf({
 
   if (!items.length) return null;
 
+  const fits = Math.floor(SESSION_ITEMS_MAX / per);
+  const over = items.length > fits * per;
+  const kept = over ? items.slice(0, fits * per) : items;
+
   const make = async () => {
     setBusy(true);
     setError(null);
     try {
-      const session = await createSessionWith(shelf, items);
+      const session = await createSessionWith(shelf, kept);
       router.push(sessionPath(session.id));
     } catch (err) {
       setError(
@@ -60,8 +70,7 @@ export function SessionFromShelf({
     }
   };
 
-  const over = items.length > SESSION_ITEMS_MAX;
-  const hint = over ? `${label} — the first ${SESSION_ITEMS_MAX} patterns` : label;
+  const hint = over ? `${label} — the first ${fits} patterns` : label;
 
   return (
     <div className={cn('flex flex-wrap items-center gap-2', className)}>
@@ -88,9 +97,7 @@ export function SessionFromShelf({
         </Button>
       )}
       {over ? (
-        <span className={compact ? 'hint' : 'text-muted-foreground text-xs'}>
-          The first {SESSION_ITEMS_MAX}
-        </span>
+        <span className={compact ? 'hint' : 'text-muted-foreground text-xs'}>The first {fits}</span>
       ) : null}
       {error ? (
         <span role="alert" className={compact ? 'hint' : 'text-destructive text-sm'}>
