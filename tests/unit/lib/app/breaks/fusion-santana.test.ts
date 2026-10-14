@@ -185,3 +185,14 @@ describe('Cindy Blackman Santana', () => {
     );
   });
 });
+
+describe('Jo Jones', () => {
+  /* Bernard Purdie's record names him `drummer:papa-jo-jones`; Cobham's cites
+     him too, and the two must meet at one node */
+  it('is one person in the model', () => {
+    const corpus = readCorpus(DRUMMER_MODEL_DIR);
+    const text = JSON.stringify([...corpus.drummers, ...corpus.recordings]);
+    expect(text).not.toMatch(/"drummer:jo-jones"/);
+    expect(text.match(/"drummer:papa-jo-jones"/g)?.length).toBeGreaterThanOrEqual(3);
+  });
+});

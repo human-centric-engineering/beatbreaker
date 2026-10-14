@@ -677,9 +677,9 @@
     {
       "type": "cites_as_influence",
       "target": {
-        "name": "Jo Jones",
+        "name": "Papa Jo Jones",
         "kind": "drummer",
-        "id": "drummer:jo-jones"
+        "id": "drummer:papa-jo-jones"
       },
       "evidence": {
         "confidence": "verified",

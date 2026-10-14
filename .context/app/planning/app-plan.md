@@ -4286,7 +4286,12 @@ Tonight), Billy Cobham, Lenny White, Michael Shrieve and Cindy Blackman Santana.
   Wind. Santana's percussion section goes on the percussion lanes, which take
   no drummer's hands, so his kit part stays his. The 1968 Fillmore tabs are Bob
   Livingston's and are not used. The Oye Como Va recording's `ev` key is now
-  `evidence`.
+  `evidence`, and its kit credit is verified, as on Abraxas. **Still open:**
+  six drum performances in five other recordings (Changuito's Ritmo y Candela,
+  White Room, Message in a Bottle, Fela Live! with Ginger Baker, Dance Mania)
+  still key their evidence `ev`, which `parseCorpus` neither reads nor
+  rejects, so that evidence is dropped. The fix is a strict schema that fails
+  on an unknown key, not file-by-file renames.
 
 - **Cindy Blackman Santana** (§AB): 3 songs, Rock drummers, each from a human
   Songsterr tab: Santana's Breaking Down the Door and Corazón Espinado (live, 2013) and Public Enemy's She Got Game. Kravitz played the drums on his own

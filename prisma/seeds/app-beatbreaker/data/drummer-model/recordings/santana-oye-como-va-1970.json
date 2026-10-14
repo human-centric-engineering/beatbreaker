@@ -14,8 +14,9 @@
       "significance": 0.5,
       "why_it_matters": "Rock-Latin version of Puente's tune that introduced it to a new generation.",
       "evidence": {
-        "confidence": "likely",
-        "note": "Kit credit to confirm; percussion section also prominent."
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-wikipedia"],
+        "note": "He plays the kit on Abraxas; the percussion section is also prominent."
       }
     }
   ],

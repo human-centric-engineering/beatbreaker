@@ -15568,6 +15568,7 @@ export const STYLES: Record<string, Style> = {
         params: {
           bpm: [106, 110],
           swing: 0,
+          ghostBias: 0,
           // Songsterr 1061008 (human)
           figures: [
             [
@@ -15638,6 +15639,7 @@ export const STYLES: Record<string, Style> = {
         params: {
           bpm: [128, 132],
           swing: 0,
+          ghostBias: 0,
           // Songsterr 33578 (human)
           figures: [
             [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.....1.' }, 2],
@@ -16490,7 +16492,8 @@ export const STYLES: Record<string, Style> = {
           bpm: [118, 126],
           swing: 0,
           ghostBias: 0,
-          // the bongos, written into his track in the tab: someone else's hands
+          /* the bongos, written into his track in the tab: someone else's hands,
+             played on the congas, the nearest drum the percussion lanes have */
           perc: [{ inst: 'conga', steps: [0, 2, 3, 4, 8, 10, 11, 12] }],
           // Songsterr 357 (human)
           figures: [
