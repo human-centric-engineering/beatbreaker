@@ -54,6 +54,8 @@ function tableUrl(
 
 export function SpeedsCard() {
   const c = useStudio();
+  // a polyrhythm's layers are its streams, and are named so (Phase 12)
+  const style = c.style;
   const target = c.stagePin;
   const { speeds, record, remove, version } = useSpeeds(target, c.say);
   const bpm = Math.round(c.bpm);
@@ -115,7 +117,8 @@ export function SpeedsCard() {
           <>
             {place ? (
               <p className="speeds-place">
-                You&apos;re <b>{ordinal(place.position)}</b> of {place.of} at {layerName(level)}.
+                You&apos;re <b>{ordinal(place.position)}</b> of {place.of} at{' '}
+                {layerName(level, style)}.
               </p>
             ) : speeds?.public && !speeds.hasUsername ? (
               <p className="hint">Choose a username in Settings to appear on this table.</p>
@@ -138,7 +141,7 @@ export function SpeedsCard() {
                 noValidate
               >
                 <p className="speeds-now">
-                  <b>{bpm} bpm</b> at {layerName(level)}
+                  <b>{bpm} bpm</b> at {layerName(level, style)}
                 </p>
                 <div className="field">
                   <label htmlFor="bb-speed-video">
@@ -246,12 +249,12 @@ export function SpeedsCard() {
               </div>
             )}
 
-            {speeds?.records.length ? <Progress records={speeds.records} /> : null}
+            {speeds?.records.length ? <Progress records={speeds.records} style={c.style} /> : null}
             {speeds?.records.length ? (
-              <Recent records={speeds.records} onDelete={(id) => void remove(id)} />
+              <Recent records={speeds.records} style={c.style} onDelete={(id) => void remove(id)} />
             ) : null}
 
-            {url && top ? <TableTop rows={top} level={level} /> : null}
+            {url && top ? <TableTop rows={top} level={level} style={c.style} /> : null}
           </>
         )}
       </div>
@@ -263,7 +266,7 @@ export function SpeedsCard() {
  * Your best per layer, and a line of every record at it, oldest to newest —
  * the progress. Only layers you have recorded at.
  */
-function Progress({ records }: { records: SpeedRecordView[] }) {
+function Progress({ records, style }: { records: SpeedRecordView[]; style: string }) {
   const byLevel = new Map<number, SpeedRecordView[]>();
   for (const r of [...records].reverse()) {
     byLevel.set(r.level, [...(byLevel.get(r.level) ?? []), r]);
@@ -276,7 +279,7 @@ function Progress({ records }: { records: SpeedRecordView[] }) {
         const best = Math.max(...list.map((r) => r.bpm));
         return (
           <li key={level}>
-            <span className="speeds-layer">{layerName(level)}</span>
+            <span className="speeds-layer">{layerName(level, style)}</span>
             <Sparkline values={list.map((r) => r.bpm)} />
             <span className="speeds-best">
               best <b>{best}</b>
@@ -312,9 +315,12 @@ function Sparkline({ values }: { values: number[] }) {
 
 function Recent({
   records,
+  style,
   onDelete,
 }: {
   records: SpeedRecordView[];
+  /** The stage's style, which names its layers. */
+  style: string;
   onDelete: (id: string) => void;
 }) {
   return (
@@ -324,14 +330,14 @@ function Recent({
         {records.slice(0, RECENT_SHOWN).map((r) => (
           <li key={r.id}>
             <span>
-              <b>{r.bpm}</b> · {layerName(r.level)} · {r.recordedAt.slice(0, 10)}
+              <b>{r.bpm}</b> · {layerName(r.level, style)} · {r.recordedAt.slice(0, 10)}
               {r.video ? ' · video' : ''}
               {r.listed ? ' · listed' : ''}
             </span>
             <button
               type="button"
               className="mini"
-              aria-label={`Delete ${r.bpm} bpm at ${layerName(r.level)} on ${r.recordedAt.slice(0, 10)}`}
+              aria-label={`Delete ${r.bpm} bpm at ${layerName(r.level, style)} on ${r.recordedAt.slice(0, 10)}`}
               onClick={() => onDelete(r.id)}
             >
               ✕
@@ -346,7 +352,9 @@ function Recent({
 function TableTop({
   rows,
   level,
+  style,
 }: {
+  style: string;
   rows: Array<{
     id: string;
     position: number;
@@ -358,7 +366,7 @@ function TableTop({
 }) {
   return (
     <div className="field">
-      <span className="fieldlab">Table · {layerName(level)}</span>
+      <span className="fieldlab">Table · {layerName(level, style)}</span>
       {rows.length ? (
         <ol className="speeds-table">
           {rows.map((r) => (

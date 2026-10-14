@@ -216,6 +216,8 @@ const itemTargetSchema = z.discriminatedUnion('kind', [
     mine: z.boolean(),
     /** Its `/p/` address, when it has one and is shared. */
     slug: z.string().nullable(),
+    /** Its style key, which names its layers: a polyrhythm's are its streams (Phase 12). */
+    style: z.string().optional(),
   }),
   z.object({
     kind: z.literal('entry'),
@@ -223,6 +225,7 @@ const itemTargetSchema = z.discriminatedUnion('kind', [
     title: z.string(),
     meter: z.string(),
     bpm: z.number().int(),
+    style: z.string().optional(),
   }),
 ]);
 
@@ -344,6 +347,8 @@ const publicItemSchema = z.discriminatedUnion('available', [
     position: z.number().int(),
     title: z.string(),
     link: publicItemLinkSchema,
+    /** Its style key, which names its layers (Phase 12). */
+    style: z.string().nullable().optional(),
     level: levelSchema,
     minutes: z.number().int(),
     targetBpm: z.number().int(),

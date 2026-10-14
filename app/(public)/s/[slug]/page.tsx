@@ -116,7 +116,7 @@ export default async function SharedSessionPage({ params }: Props) {
                     </Link>
                   </h2>
                   <span className="text-muted-foreground text-sm">
-                    {item.minutes} min · {layerName(item.level)}
+                    {item.minutes} min · {layerName(item.level, item.style)}
                   </span>
                 </div>
                 <p>

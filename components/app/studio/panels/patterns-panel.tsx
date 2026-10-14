@@ -16,7 +16,7 @@ import { apiClient } from '@/lib/api/client';
 import { PATTERNS_TAB } from '@/lib/app/breaks/browser-keys';
 import { type CatalogueEntry, libraryGroups } from '@/lib/app/breaks/catalogue/types';
 import { FULL_LAYER, layerName } from '@/lib/app/breaks/layers';
-import { RUDIMENTS_LIBRARY, styleLabel } from '@/lib/app/breaks/library';
+import { PRACTICE_LIBRARIES, styleLabel } from '@/lib/app/breaks/library';
 import { DEFAULT_METER, METER_KEYS } from '@/lib/app/breaks/meter';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import { logger } from '@/lib/logging';
@@ -451,7 +451,7 @@ function AllList() {
               key={r.id}
               target={{ breakId: r.id }}
               title={r.title}
-              sub={`${styleLabel(r.style)} · ${layerName(r.level)}`}
+              sub={`${styleLabel(r.style)} · ${layerName(r.level, r.style)}`}
               level={r.level}
               right={tempo(r.bpm, r.meter)}
               mine
@@ -486,8 +486,8 @@ function matches(entry: CatalogueEntry, filter: Filter): boolean {
 /** Every library the catalogue holds, filtered here — the rows are already in the page. */
 function LibrariesList() {
   const c = useStudio();
-  // the rudiments have their own card, in Generate (Phase 10)
-  const libraries = c.catalogue.libraries.filter((l) => l.key !== RUDIMENTS_LIBRARY);
+  // the rudiments and the polyrhythms have their own cards, in Generate (Phases 10 and 12)
+  const libraries = c.catalogue.libraries.filter((l) => !PRACTICE_LIBRARIES.includes(l.key));
   const [filter, setFilter] = useState<Filter>(NO_FILTER);
   const styles = useMemo(
     () => [...new Set(libraries.flatMap((l) => l.entries.map((e) => e.styleKey)))],
@@ -543,7 +543,7 @@ function LibrariesList() {
         <StudioHelp title="The libraries">
           The main groove off each record — a bar or two of it, in the meter it was played in. Fills
           and variations are not here. The feel studies at the bottom are written rather than
-          transcribed, and say so. The rudiments are in Generate.
+          transcribed, and say so. The rudiments and the polyrhythms are in Generate.
         </StudioHelp>
       </div>
     </>

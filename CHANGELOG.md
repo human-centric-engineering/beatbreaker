@@ -18,6 +18,23 @@ release process.
 
 ### Added
 
+- **Polyrhythms (BeatBreaker Phase 12-a).** A third system library,
+  `polyrhythms`: 25 entries on five shelves (two against three, three and
+  four, groupings over four, polymeter, timelines and clave), each named for
+  the device it is. `Pattern.poly` (`Poly`, `PolyDevice`, `polySchema`) holds
+  an entry's two streams and its cross pulse, packed on the wire as an
+  optional `py` (no new version: an older reader drops it). `reducePattern`
+  takes a third argument, `feelCross`, and builds a polyrhythm up a stream at
+  a time (`POLY_LAYER_NAMES`, `POLY_LAYER_BLURB`, `layerNamesFor`,
+  `layerBlurbsFor`; `layerName` takes the style). `crossClick` and
+  `TransportSnapshot.feelCross` click the cross pulse. `stickingFromHands`
+  writes a lane's named hand into the sticking. `LibraryItem` gains `poly`
+  and `perc`, `BarSpec` gains `p1`/`p2`, and `POLYRHYTHM_STYLE`,
+  `POLYRHYTHMS_LIBRARY` and `PRACTICE_LIBRARIES` join `library.ts`.
+  `LibraryCard` is the Rudiments card made generic, and `PolyrhythmsCard`
+  (with `ladderItems`) sits beside it. A practice session item's target, and
+  the public session item, carry the pattern's `style`.
+
 - **The drum machines (BeatBreaker Phase 9-vi-e).** The TR-808 and TR-909
   kits play, and TR-606 and Linn-style kits join them. Their voices are
   models built in `lib/app/breaks/audio/machines.ts` (`MACHINE_VOICES`,

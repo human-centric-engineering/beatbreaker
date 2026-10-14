@@ -181,6 +181,8 @@ export async function getPublicSession(slug: string): Promise<PublicSession | nu
       position: item.position,
       title: pattern.title,
       link: pattern.link,
+      // names its layers: a polyrhythm's are its streams (Phase 12)
+      style: b?.slug ? b.style : (e?.styleKey ?? null),
       level: item.level,
       minutes: item.minutes,
       targetBpm,

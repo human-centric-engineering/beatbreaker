@@ -518,7 +518,7 @@ export function SessionEditor({ initial }: { initial: SessionView }) {
                       onValueChange={(v) => patch(index, { level: Number(v) })}
                       options={Object.keys(LAYER_NAMES).map((level) => ({
                         value: level,
-                        label: layerName(Number(level)),
+                        label: layerName(Number(level), item.target?.style),
                       }))}
                     />
                   </div>

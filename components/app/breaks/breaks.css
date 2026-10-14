@@ -1483,10 +1483,10 @@
 }
 /* A shelf of rudiments in Generate (Phase 10): folded until opened, headed
    like a list heading. */
-.bb .rudiment-shelf {
+.bb .practice-shelf {
   border-bottom: 1px solid var(--line-soft);
 }
-.bb .rudiment-shelf > summary {
+.bb .practice-shelf > summary {
   font-family: var(--f-mono);
   font-size: 10.5px;
   letter-spacing: 0.07em;
@@ -1495,10 +1495,10 @@
   padding: 10px 2px;
   cursor: pointer;
 }
-.bb .rudiment-shelf > summary .hint {
+.bb .practice-shelf > summary .hint {
   text-transform: none;
 }
-.bb .rudiment-shelf[open] > .list {
+.bb .practice-shelf[open] > .list {
   padding-bottom: 10px;
 }
 .bb .empty {

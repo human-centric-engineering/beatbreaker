@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import type { Tool } from '@/components/app/shell/tool-rail';
 import { Slider } from '@/components/app/studio/panels/controls';
+import { PolyrhythmsCard } from '@/components/app/studio/panels/polyrhythms-card';
 import { RudimentsCard } from '@/components/app/studio/panels/rudiments-card';
 import { ScoreCard } from '@/components/app/studio/panels/score-card';
 import { Segmented } from '@/components/app/studio/segmented';
@@ -334,6 +335,7 @@ export function GeneratePanel({
       </div>
 
       <RudimentsCard onClose={onClose} />
+      <PolyrhythmsCard onClose={onClose} />
 
       <ScoreCard />
     </>

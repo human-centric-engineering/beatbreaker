@@ -242,7 +242,7 @@ describe('GeneratePanel — the rudiments', () => {
     );
     const card = (await screen.findByRole('heading', { name: 'Rudiments' })).closest('.card');
     expect(card).not.toBeNull();
-    const shelves = card!.querySelectorAll('details.rudiment-shelf');
+    const shelves = card!.querySelectorAll('details.practice-shelf');
     expect(shelves).toHaveLength(6);
 
     await user.click(within(card as HTMLElement).getByText(/Diddle rudiments/));

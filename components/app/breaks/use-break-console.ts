@@ -192,11 +192,11 @@ function sectionsOfDoc(doc: Sections): MaybeSections {
 }
 
 /** Every section reduced to a layer — how they sound and look there. */
-function reduceSections(sections: MaybeSections, level: number): MaybeSections {
+function reduceSections(sections: MaybeSections, level: number, feelCross = false): MaybeSections {
   const out: MaybeSections = {};
   for (const L of lettersOf(sections)) {
     const p = sections[L];
-    if (p) out[L] = reducePattern(p, level);
+    if (p) out[L] = reducePattern(p, level, feelCross);
   }
   return out;
 }
@@ -436,6 +436,9 @@ export interface BreakConsole {
   setClick: (b: boolean) => void;
   clickSub: number;
   setClickSub: (n: number) => void;
+  /** A polyrhythm counted in its cross-rhythm: layer 1 and the click follow it (D54). */
+  feelCross: boolean;
+  setFeelCross: (b: boolean) => void;
   countIn: number;
   setCountIn: (n: number) => void;
   ramp: number;
@@ -851,6 +854,10 @@ export function useBreakConsole(
 
   const [click, setClick] = useState(false);
   const [clickSub, setClickSub] = useState(4);
+  /* A polyrhythm felt the other way round (Phase 12, D54): its cross-rhythm
+     is the pulse you count, so layer 1 plays it alone and the click follows
+     it. Nothing on any other pattern reads it. */
+  const [feelCross, setFeelCross] = useState(false);
   const [ramp, setRamp] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [loops, setLoops] = useState(0);
@@ -1028,12 +1035,15 @@ export function useBreakConsole(
 
   /* ---- derived: the sections as they sound and look ------------------- */
 
-  const view = useMemo(() => reduceSections(patterns, level), [patterns, level]);
+  const view = useMemo(
+    () => reduceSections(patterns, level, feelCross),
+    [patterns, level, feelCross]
+  );
 
   /* Layer 5 is what's stored, so there is nothing above it to preview. */
   const next = useMemo(
-    () => (level >= 5 ? null : reduceSections(patterns, level + 1)),
-    [patterns, level]
+    () => (level >= 5 ? null : reduceSections(patterns, level + 1, feelCross)),
+    [patterns, level, feelCross]
   );
 
   /* ---- the catalogue, resolved ---------------------------------------
@@ -1531,14 +1541,14 @@ export function useBreakConsole(
       const next = clonePattern(pat);
       // edits are written against the stored break (L5), which is what a layer is a view of
       const states = LANE_STATES[lane] ?? 2;
-      const shown = reducePattern(pat, level).bars[bar][lane][step];
+      const shown = reducePattern(pat, level, feelCross).bars[bar][lane][step];
       const v = (shown + (back ? states - 1 : 1)) % states;
       next.bars[bar][lane][step] = v;
       if (v) setPin(next, bar, lane, step, level);
       dropBarSticking(next, bar);
       setPatterns((prev) => ({ ...prev, [letter]: next }));
     },
-    [patterns, level, pushHistory]
+    [patterns, level, feelCross, pushHistory]
   );
 
   const setCell = useCallback(
@@ -1587,8 +1597,9 @@ export function useBreakConsole(
     for (const bar of next.bars) for (const lane of LANES) bar[lane].fill(0);
     next.pins = null;
     delete next.sticking;
-    // whatever is drawn next is not the rudiment, so its layers derive as ever
+    // whatever is drawn next is not the rudiment or the polyrhythm, so its layers derive as ever
     delete next.fixed;
+    delete next.poly;
     setPatterns((prev) => ({ ...prev, [editing]: next }));
   }, [patterns, editing, pushHistory]);
 
@@ -1873,6 +1884,7 @@ export function useBreakConsole(
       humanise: humanisePlay,
       click,
       clickSub,
+      feelCross,
       countIn,
       ramp: sessionHold ? 0 : ramp,
       ceiling,
@@ -1891,6 +1903,7 @@ export function useBreakConsole(
       humanisePlay,
       click,
       clickSub,
+      feelCross,
       countIn,
       ramp,
       sessionHold,
@@ -2597,6 +2610,8 @@ export function useBreakConsole(
     setClick,
     clickSub,
     setClickSub,
+    feelCross,
+    setFeelCross,
     countIn,
     setCountIn,
     ramp,

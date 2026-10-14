@@ -24,7 +24,7 @@ import { withAuth } from '@/lib/auth/guards';
 import { getStyle, listStyles, styleLookup } from '@/lib/app/breaks/catalogue/data';
 import { critique, playability } from '@/lib/app/breaks/critic';
 import { type DoctorMove, doctor } from '@/lib/app/breaks/doctor';
-import { RUDIMENT_STYLE, noStyleReason } from '@/lib/app/breaks/library';
+import { POLYRHYTHM_STYLE, RUDIMENT_STYLE, noStyleReason } from '@/lib/app/breaks/library';
 import { packPattern, patternFromPacked } from '@/lib/app/breaks/share';
 import { doctorBreakSchema } from '@/lib/validations/break-operations';
 
@@ -42,8 +42,10 @@ export const POST = withAuth(
        versions — rebuild the snapshot a v4 one carries. It costs one cached
        read and means an old share code can be doctored. */
     const pattern = patternFromPacked(input.doc, styleLookup(await listStyles()));
-    if (pattern.fixed) {
-      return errorResponse(noStyleReason(RUDIMENT_STYLE, 'A', 'doctored'), {
+    // written out, not generated: a rudiment (D45) or a polyrhythm (Phase 12)
+    if (pattern.fixed || pattern.poly) {
+      const key = pattern.poly ? POLYRHYTHM_STYLE : RUDIMENT_STYLE;
+      return errorResponse(noStyleReason(key, 'A', 'doctored'), {
         code: ErrorCodes.VALIDATION_ERROR,
         status: 400,
       });

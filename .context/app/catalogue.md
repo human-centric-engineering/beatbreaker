@@ -420,14 +420,15 @@ one twice.
 
 ## Seeding
 
-`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 87 styles (62 genres and 25 drummers), two
-libraries — 47 famous breaks (`data/library.ts`) and 40 rudiments
-(`data/rudiments.ts`, Phase 10) — 24 kits and six combinations (9-vi-c). Its data lives beside it under `data/`, and
+`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 87 styles (62 genres and 25 drummers), three
+libraries — 47 famous breaks (`data/library.ts`), 40 rudiments
+(`data/rudiments.ts`, Phase 10) and 25 polyrhythms (`data/polyrhythms.ts`,
+Phase 12) — 24 kits and six combinations (9-vi-c). Its data lives beside it under `data/`, and
 **only that seed imports it**.
 
 - Upserts by key, so **re-seeding is a no-op**. (The runner also skips a unit
   whose content hash has not moved — that is an optimisation, not the guarantee.)
-- The unit declares `hashInputs` naming the three data files and
+- The unit declares `hashInputs` naming the data files and
   `public/kits/manifest.json`, so editing one re-runs it.
 - **Each library is a `SeededLibrary`** in the `LIBRARIES` list (key, title,
   description, position, items); one writer seeds them all. A re-seed updates
@@ -442,6 +443,24 @@ libraries — 47 famous breaks (`data/library.ts`) and 40 rudiments
   is no 32nd-note meter. **They are shown in Generate, not the Libraries
   tab:** `RudimentsCard` lists the library keyed `RUDIMENTS_LIBRARY` on its
   shelves, and the Patterns drawer's Libraries tab leaves it out.
+- **The polyrhythms (Phase 12, D54, D59, D60)** are the third library, keyed
+  `POLYRHYTHMS_LIBRARY`, style key `polyrhythm` (`POLYRHYTHM_STYLE`), which is
+  not a style row either. Each entry carries `poly` (packed as `py`): its
+  device (cross-rhythm, hemiola, grouping, polymeter, timeline or ostinato,
+  named for what it is), a short ratio label, the pulse and cross lanes, and
+  the cross pulse as `beat` steps apart, `count` to a cycle. A grouping or a
+  polymeter is as many bars as it takes to come back to the 1, so a cycle is
+  always whole bars. Where an entry names a hand for a lane (`poly.hands`),
+  `patternFromLibrary` writes it into the sticking (`stickingFromHands`), so
+  the drummer plays it so; each two-hand cross-rhythm comes in both
+  handings. An entry may say what is in its percussion slots (`perc`: the
+  bell's cowbell, the clave), and `BarSpec` writes `p1`/`p2` (`X` hit, `O`
+  open). The layers build an entry up a stream at a time rather than
+  thinning it (see [`breaks.md`](./breaks.md) § `py`). `PolyrhythmsCard`
+  shows it in Generate beside the rudiments, each shelf able to become a
+  ladder session; both cards are `LibraryCard`, and `PRACTICE_LIBRARIES` is
+  what the Libraries tab leaves out. `unlistedStyleLabel` and
+  `noStyleReason` read a small table of the keys that are not styles.
 - Library entries are **converted to wire-v4 documents at seed time** by
   `patternFromLibrary` + `packPattern`, with the style's snapshot baked in. A
   client shows an entry without the bar-string parser, and retuning a style later

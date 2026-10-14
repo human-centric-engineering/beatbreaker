@@ -62,6 +62,7 @@ export const ITEM_SELECT = {
       title: true,
       meter: true,
       bpm: true,
+      style: true,
       visibility: true,
       slug: true,
       // what its top tempo is read from: the lowest of its sections' ceilings
@@ -74,6 +75,7 @@ export const ITEM_SELECT = {
       title: true,
       meter: true,
       bpm: true,
+      styleKey: true,
       library: { select: { visibility: true } },
     },
   },
@@ -114,6 +116,7 @@ export function readableTarget(row: ItemRow, userId: string): SessionItemView['t
       title: b.title,
       meter: b.meter,
       bpm: b.bpm,
+      style: b.style,
       mine: b.userId === userId,
       // the address only while it works for someone else too
       slug: readVisibility(b.visibility) === 'private' ? null : b.slug,
@@ -121,7 +124,14 @@ export function readableTarget(row: ItemRow, userId: string): SessionItemView['t
   }
   const e = row.libraryEntry;
   if (e && e.library.visibility === PUBLIC.visibility) {
-    return { kind: 'entry', id: e.id, title: e.title, meter: e.meter, bpm: e.bpm };
+    return {
+      kind: 'entry',
+      id: e.id,
+      title: e.title,
+      meter: e.meter,
+      bpm: e.bpm,
+      style: e.styleKey,
+    };
   }
   return null;
 }

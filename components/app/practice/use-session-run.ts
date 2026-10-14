@@ -105,6 +105,7 @@ export function useSessionRun({
         ? session.items.map((item) => ({
             title: item.title,
             level: item.level,
+            style: item.target?.style,
             plan:
               item.target && item.targetBpm !== null
                 ? slotPlan(item.minutes, item.targetBpm, effectiveClimb(session, item))

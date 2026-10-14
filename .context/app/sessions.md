@@ -31,7 +31,7 @@ time split, the climb, the three tables and `/api/v1/practice-sessions`) and
   saved break's from its document, the lowest of its sections' ceilings), are
   read from the database, and a new pattern is checked visible to the caller by the same
   rule that opens it (`openableBy`, or `PUBLIC` for a library entry: a famous
-  break or a rudiment).
+  break, a rudiment or a polyrhythm).
 - **Don't change an item's pattern.** An item kept in the list by `id` keeps
   its target. A different pattern is a new item.
 - **Don't send a kept item's pattern back.** The items route takes the whole
@@ -49,7 +49,7 @@ time split, the climb, the three tables and `/api/v1/practice-sessions`) and
   closed mid-session leaves your settings as they were.
 - **Don't share a session someone else could not play.** Sharing checks
   every item is readable by anyone — a pattern shared by link or published,
-  or a library entry (a famous break or a rudiment) — and refuses, naming the ones that are not. A pattern
+  or a library entry (a famous break, a rudiment or a polyrhythm) — and refuses, naming the ones that are not. A pattern
   made private later is `available: false` on the public read, with no title.
 - **Don't put a user id in the public read.** `getPublicSession` reads the
   owner's id only to look up their username and their bests, and drops it.
@@ -158,6 +158,19 @@ focus moves to the other one.
 minutes each (`defaultTotal`), named after the pattern or the shelf. The
 targets are worked out on the server. A session with twelve patterns, or one
 per minute, is shown in the menu as _Full_.
+
+**A polyrhythm shelf makes a ladder** (Phase 12): _Make a ladder session from
+this shelf_ in the Polyrhythms card (Generate) puts each entry in three times
+running, at layer 1 (the pulse), 2 (the cross-rhythm) and 5 (the whole
+figure), each climbing to its tempo (`ladderItems`, `LADDER_LAYERS`) — four
+entries to a session of twelve. It is the ordinary items list; a session may
+name one pattern more than once.
+
+**An item's target carries its pattern's style** (`target.style`: a break's
+`style` column, an entry's `styleKey`), and the public read carries it as
+`style`. The editor, the session bar and `/s/[slug]` name the layer through
+`layerName(level, style)`, so a polyrhythm's layer 1 reads _Pulse_, not
+_Skeleton_.
 
 ## Running one (7D-iii)
 

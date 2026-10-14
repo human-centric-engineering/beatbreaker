@@ -26,6 +26,7 @@ export function SessionFromShelf({
   shelf,
   items,
   compact = false,
+  label = 'Make a session from this shelf',
   className,
 }: {
   /** The shelf's name, which names the session. */
@@ -33,6 +34,8 @@ export function SessionFromShelf({
   items: NewItem[];
   /** The Studio drawer's small button rather than Home's. */
   compact?: boolean;
+  /** What the button says, where the session is not one item a pattern (the polyrhythm ladder). */
+  label?: string;
   className?: string;
 }) {
   const router = useRouter();
@@ -58,7 +61,6 @@ export function SessionFromShelf({
   };
 
   const over = items.length > SESSION_ITEMS_MAX;
-  const label = 'Make a session from this shelf';
   const hint = over ? `${label} — the first ${SESSION_ITEMS_MAX} patterns` : label;
 
   return (

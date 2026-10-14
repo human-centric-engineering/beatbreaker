@@ -4375,7 +4375,7 @@ The why, the research and the sources are in
 | 12-a | **The library on today's grids:** `streams`, `counts`, `cycles`, `hands` on the pattern (optional keys, no bump); stream layers; feel either side; count rows, cycle lines and RH/LH labels; the drummer obeys a lane's hand; the click on either stream; a generic library card; shelves 1–5 and 7; the ladder preset | A 3:2 builds up by layer and prints two count rows; each handing puts the drummer's hands where it says; a 3/4-over-4/4 draws its cycle lines; a pre-12-a reader strips the new keys and plays the full figure |
 | 12-b | **The records:** schema 1.5 `devices`; tags on existing drummers; a transcription-level search for those with none; research § AC; the lineage map's device filter; BeatBuddy reads the devices                                                                                                                        | The validator refuses an unsourced device; every drummer has a device or a recorded search; BeatBuddy names Tony Williams for "threes over the bar", with the source                                           |
 | 12-c | **Polyrhythmic fills on the grid:** `polyFill`/`polyFills`, `addPolyFill` on a salted stream, over the bar line, in both phrase builders; the critic's span rule; `fitHands`; clave guards; `styleIn`; layers; the doctor                                                                                              | Every golden unchanged; Elvin's fills resolve on the 1 and pass `playability`; no clave crossed; poly fills appear at their rate over 200 seeds                                                                |
-| 12-d | **Tuplet spans, wire v8:** model, wire, playback, MIDI out and in, chart bracket, editor, drummer timeline, critic, layers, BeatBuddy text; shelf 6; tuplet fills                                                                                                                                                      | A 5:4 is exact to the sample, bracketed, and round-trips through MIDI; a quintuplet round the toms is one bracket; imported triplets stay triplets; a code without `tu` keeps its bytes and `gridHash`         |
+| 12-d | **Tuplet spans, wire v8:** model, wire, playback, MIDI out and in, chart bracket, editor, drummer timeline, critic, layers, BeatBuddy text; shelf 6; tuplet fills; tempo ratios ×3/2, ×4/3 and their inverses, and shelf 7 (metric modulation)                                                                         | A 5:4 is exact to the sample, bracketed, and round-trips through MIDI; a quintuplet round the toms is one bracket; imported triplets stay triplets; a code without `tu` keeps its bytes and `gridHash`         |
 | 12-e | **Haake and Carey**, with styles, songs, kits and records                                                                                                                                                                                                                                                              | Records validate at 1.5 with sourced devices; styles have songs and poly fills; the record↔style test passes                                                                                                   |
 | 12-f | **Hoenig, Roach, Prieto**, and `agbekor` and `mozambique`                                                                                                                                                                                                                                                              | As 12-e; the genre styles never cross their clave or bell                                                                                                                                                      |
 | 12-g | **The second wave**, researched to song level first                                                                                                                                                                                                                                                                    | Each named drummer is added, or recorded as searched and not sourced                                                                                                                                           |
@@ -4383,6 +4383,35 @@ The why, the research and the sources are in
 **Not in Phase 12:** BeatBuddy writing tuplet spans; a "make this a 3:2"
 command; polytempo; a limb row per step (D60 covers the exercises); closing
 the rudiments' rolls with 32nd spans, which 12-d makes possible.
+
+**12-a built, 2026-10-14 (branch `phase-12-a-polyrhythm-library`).** What
+reconciling it against the tree changed from the plan:
+
+- **One wire key, `py`, not four.** `st` was already the style key. The
+  streams, the cross pulse (`beat` steps apart, `count` to a cycle), the
+  device, the ratio and the hands are one optional object, and the count
+  row, the cycle lines and the cross click are all derived from it. No
+  `counts` or `cycles` field was needed.
+- **The hands are the sticking.** The drummer already obeys a written R/L
+  row (D44), so `poly.hands` is compiled into it by `stickingFromHands`
+  rather than given its own path; the shared downbeat of a 3:2 prints `R+L`.
+- **Layer 3 is "Together", not "Both, even".** Levelling the accents erases
+  a grouping or a polymeter, whose accents are the figure; only a
+  cross-rhythm or hemiola is levelled there.
+- **The click has no "both".** Both streams already sound; what a drummer
+  needs is which one is counted, so _Count: the 2 / the 3_ moves layer 1 and
+  the click together.
+- **Metric modulation moves to 12-d.** A section's tempo ratio is only ×½ or
+  ×2 on wire v7; ×3/2 and ×4/3 are new values, so they need v8, which 12-d
+  brings anyway. 12-a ships five shelves, 25 entries.
+- **No resultant mnemonics.** No citable source was found for "hot cup of
+  tea" and the like, so the chart numbers the pulses instead.
+- **A session names a polyrhythm's layers.** An item's target now carries
+  its pattern's style, so the editor, the session bar and the public page
+  say _Pulse_ rather than _Skeleton_.
+- **Not looked at in a browser** (the owner is on Arc). The card, the
+  count toggle and the layer names are held by component tests over the real
+  Studio; every entry's streams, playability and hands by `polyrhythms.test.ts`.
 
 ---
 

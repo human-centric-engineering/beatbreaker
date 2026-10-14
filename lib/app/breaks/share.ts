@@ -1,7 +1,13 @@
 import { BASE_LANES, LANES, percRoster } from '@/lib/app/breaks/lanes';
 import { DEFAULT_METER, METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { LAYER_V1_TO_V2 } from '@/lib/app/breaks/layers';
-import { emptyBar, stickingRow, styleAttrs, tidySticking } from '@/lib/app/breaks/pattern';
+import {
+  clonePoly,
+  emptyBar,
+  stickingRow,
+  styleAttrs,
+  tidySticking,
+} from '@/lib/app/breaks/pattern';
 import { type PackedPattern, type SharePayload, sharePayloadSchema } from '@/lib/app/breaks/schema';
 import {
   EXTRA_LETTERS,
@@ -138,6 +144,7 @@ export function packPattern(p: Pattern): PackedPattern {
       ? { sk: p.sticking.map((row) => (row && /[RLrl]/.test(row) ? row : (0 as const))) }
       : {}),
     ...(p.fixed ? { fx: 1 as const } : {}),
+    ...(p.poly ? { py: clonePoly(p.poly) } : {}),
     b: p.bars.map((bar) => LANES.map((L) => bar[L].join('')).join('|')),
   };
 }
@@ -249,6 +256,7 @@ export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Patte
     pins,
     ...(sticking ? { sticking } : {}),
     ...(p.fx ? { fixed: true } : {}),
+    ...(p.py ? { poly: clonePoly(p.py) } : {}),
     bars: p.b.map((row) => {
       const parts = row.split('|');
       const bar = emptyBar(n);
