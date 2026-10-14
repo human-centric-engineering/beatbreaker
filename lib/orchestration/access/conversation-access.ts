@@ -112,6 +112,15 @@ import { prisma } from '@/lib/db/client';
 export type AccessBasis = 'owner' | 'shared' | 'system';
 
 /**
+ * What {@link conversationVisibilityWhere} reads off a session: who is asking,
+ * and the policy's answer about ownerless threads. An `AuthenticatedSession`
+ * is one; so is anything else that carries both answers.
+ */
+export type ConversationViewer = Pick<AuthenticatedSession, 'unattributedReads'> & {
+  user: Pick<AuthenticatedSession['user'], 'id'>;
+};
+
+/**
  * The answer, as a discriminated union on `ok`.
  *
  * **A permitted result always carries a basis, and the type says so.** This
@@ -242,7 +251,7 @@ export async function adminCanViewConversation(
  * way the policy arm is not.
  */
 export function conversationVisibilityWhere(
-  session: AuthenticatedSession,
+  session: ConversationViewer,
   options: { excludeShared?: boolean } = {}
 ): Prisma.AiConversationWhereInput {
   const arms: Prisma.AiConversationWhereInput[] = [{ userId: session.user.id }];

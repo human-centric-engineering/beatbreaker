@@ -36,9 +36,10 @@
  *     caller may not read, is refused. A route that fetches by id and checks
  *     the owner afterwards keeps working, and gains a backstop for the day it
  *     forgets. Where the row's own owner column cannot decide — a `through`
- *     owner, or a model with an `alsoVisible` arm — the layer asks once more
- *     for the same `id` narrowed to {@link readablePredicate}, through the
- *     same operation, so inside a transaction it sees the transaction's rows.
+ *     owner, or a model with an `alsoVisible` arm — the read runs narrowed to
+ *     {@link readablePredicate} instead, and only a miss asks (on the tenancy
+ *     layer, by the same unique key) whether a row matched that this caller
+ *     may not read, to refuse it rather than report it absent.
  *   • `findFirst` (and `findFirstOrThrow`) with a filter that does not confine
  *     it has {@link readablePredicate} added to that filter. Checking its row
  *     afterwards would refuse or pass depending on which matching row the
@@ -290,8 +291,8 @@ const ALSO_VISIBLE_RELATION = { 'active-share': 'share' } as const;
  * A `through` owner is checked as its parent's predicate, so the parent must
  * be enforced too — otherwise a child would be held to a rule its parent is
  * not. A single-row read of a model whose readability is not on the row
- * itself (a `through` owner, or an `alsoVisible` arm) is confirmed by its
- * `id`, so the model needs one. Failing here rather than at the first query
+ * itself (a `through` owner, or an `alsoVisible` arm) that misses asks
+ * whether the row exists by selecting its `id`, so the model needs one. Failing here rather than at the first query
  * is what keeps a half-supported model from being switched on by a one-line
  * classification change.
  */
@@ -335,7 +336,7 @@ function assertEnforceable(
 /**
  * Whether a returned row's own owner column decides if it is readable. Not so
  * for a `through` owner (the owner is on the parent) or an `alsoVisible` arm
- * (the share's state is on another row): those rows are confirmed by `id`.
+ * (the share's state is on another row): those reads are narrowed instead.
  */
 function confirmsByOwnerColumn(
   c: Extract<OwnerClassification, { kind: 'personal' }>
@@ -550,8 +551,8 @@ export function readablePredicate(
 
 /**
  * May `reader` read a row of `model` whose owner column holds `owner`? Decides
- * only for a model whose owner column is the whole answer; one owned
- * `through` a parent, or with an `alsoVisible` arm, is confirmed by `id`.
+ * only for a model whose owner column is the whole answer; a read of one
+ * owned `through` a parent, or with an `alsoVisible` arm, is narrowed instead.
  */
 export function rowReadable(
   schema: OwnerSchema,
@@ -765,23 +766,42 @@ function withOwnerColumn(args: unknown, column: string): { args: unknown; strip:
   return { args, strip: false };
 }
 
+/** Prisma's not-found error, which a `findUniqueOrThrow` raises on a miss. */
+function isNotFound(err: unknown): boolean {
+  return isRecord(err) && err.code === 'P2025';
+}
+
+/** `where` with `predicate` added as one more conjunct, keeping any `AND` it carries. */
+function andWith(where: unknown, predicate: Record<string, unknown>): Record<string, unknown> {
+  const base = isRecord(where) ? where : {};
+  const existing: unknown[] =
+    base.AND === undefined ? [] : Array.isArray(base.AND) ? base.AND : [base.AND];
+  return { ...base, AND: [...existing, predicate] };
+}
+
 /**
- * Is the row with this `id` among the rows `predicate` selects? Asked through
- * the operation's own `query` (a `findUnique` or `findUniqueOrThrow`), so the
- * miss of the second is its not-found error, which here means "no".
+ * Does a row match this unique `where` at all? Asked on `client` — the tenancy
+ * layer, below this one — so the org's scope is set and the owner check is
+ * not. Not on the operation's own `query`: a second call to it runs with no
+ * tenancy scope, where the policies hide every row (§115 t-802, found by the
+ * two-member harness). Outside any interactive transaction the caller is in,
+ * so a row that transaction created and has not committed is not seen: the
+ * read then answers "none" — which never discloses a row, and only loses the
+ * loud refusal for that one case.
  */
-async function confirmReadable(
-  query: (args: unknown) => Promise<unknown>,
-  id: unknown,
-  predicate: Record<string, unknown>
+async function existsOutside(
+  client: TenancyClient,
+  model: string,
+  where: unknown
 ): Promise<boolean> {
-  try {
-    const found = await query({ where: { id, AND: [predicate] }, select: { id: true } });
-    return isRecord(found);
-  } catch (err) {
-    if (isRecord(err) && err.code === 'P2025') return false;
-    throw err;
+  const delegate: unknown = (client as unknown as Record<string, unknown>)[
+    model.charAt(0).toLowerCase() + model.slice(1)
+  ];
+  if (!isRecord(delegate) || typeof delegate.findUnique !== 'function') {
+    throw new Error(`Owner layer: no client delegate for ${model}`);
   }
+  const findUnique = delegate.findUnique as (args: unknown) => Promise<unknown>;
+  return isRecord(await findUnique.call(delegate, { where, select: { id: true } }));
 }
 
 /** Apply the owner chokepoint to an already tenancy-extended client. */
@@ -855,30 +875,51 @@ export function withOwnerChecks(
       });
     }
 
-    // A read by unique key whose filter does not confine it: run it, then
-    // check the row that came back — by its owner column where that decides,
-    // otherwise by asking again for the same row narrowed to what this caller
-    // may read. The second ask is the same operation on the same client, so
-    // inside a transaction it sees the transaction's rows.
-    const key = confirmsByOwnerColumn(c) ? c.owner.column : 'id';
-    const sent = withOwnerColumn(params.args, key);
-    const row = await query(sent.args);
-    if (!isRecord(row)) return row;
-    const readable = confirmsByOwnerColumn(c)
-      ? rowReadable(schema, model, row[key], reader)
-      : await confirmReadable(query, row[key], readablePredicate(schema, model, reader));
-    if (!readable) {
-      throw new OwnerReadRefusedError(
+    const foreignRow = () =>
+      new OwnerReadRefusedError(
         model,
         operation,
         'foreign-row',
         'the row it returned belongs to someone else.'
       );
+
+    // A read by unique key whose filter does not confine it, where the row's
+    // own owner column decides: run it, then check the row that came back.
+    if (confirmsByOwnerColumn(c)) {
+      const column = c.owner.column;
+      const sent = withOwnerColumn(params.args, column);
+      const row = await query(sent.args);
+      if (!isRecord(row)) return row;
+      if (!rowReadable(schema, model, row[column], reader)) throw foreignRow();
+      options.onConfinedRead();
+      if (!sent.strip) return row;
+      const { [column]: _owner, ...rest } = row;
+      return rest;
     }
-    options.onConfinedRead();
-    if (!sent.strip) return row;
-    const { [key]: _key, ...rest } = row;
-    return rest;
+
+    // Where it does not — a `through` owner, or an `alsoVisible` arm — the
+    // read runs narrowed to what this caller may read, in the caller's own
+    // transaction: a readable row costs nothing extra. Only a miss asks
+    // whether some row matched that this caller may not read, to refuse it
+    // rather than report it absent.
+    let row: unknown;
+    let miss: Error | null = null;
+    try {
+      row = await query({
+        ...(isRecord(params.args) ? params.args : {}),
+        where: andWith(where, readablePredicate(schema, model, reader)),
+      });
+    } catch (err) {
+      if (!(err instanceof Error) || !isNotFound(err)) throw err;
+      miss = err;
+    }
+    if (isRecord(row)) {
+      options.onConfinedRead();
+      return row;
+    }
+    if (await existsOutside(client, model, where)) throw foreignRow();
+    if (miss !== null) throw miss;
+    return row;
   }
 
   // Applied over the tenancy layer, so its `$transaction` override hands this

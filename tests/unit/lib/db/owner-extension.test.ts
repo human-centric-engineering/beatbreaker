@@ -584,47 +584,61 @@ describe('withOwnerChecks — conversations and messages (t-802)', () => {
     ).rejects.toMatchObject({ reason: 'unconfined-relation' });
   });
 
-  it("confirms a message read by id against its conversation, and refuses another member's", async () => {
-    // First SELECT: the message. Second: the same id, narrowed — none.
-    tableAnswers = { ai_message: [[message], []] };
-    await expect(
-      asMember(() => db.aiMessage.findUnique({ where: { id: message.id } }))
-    ).rejects.toMatchObject({ reason: 'foreign-row' });
-    const confirm = statements.at(-1);
-    expect(confirm?.sql).toMatch(/ai_conversation/);
-    expect(confirm?.args).toContain(ME);
-
-    statements.length = 0;
-    tableAnswers = { ai_message: [[message], [{ id: message.id }]] };
+  it('reads a message by id narrowed through its conversation, in one query when it is readable', async () => {
+    tableAnswers = { ai_message: [[message]] };
     const row = await asMember(() =>
       db.aiMessage.findUnique({ where: { id: message.id }, select: { role: true } })
     );
-    // Only what was asked for comes back, though the layer needed the id.
     expect(row).toEqual({ role: 'user' });
-    expect(statements).toHaveLength(2);
+    expect(statements).toHaveLength(1);
+    expect(statements[0].sql).toMatch(/ai_conversation/);
+    expect(statements[0].args).toContain(ME);
   });
 
-  it('refuses a findUniqueOrThrow whose confirmation finds nothing, as a refusal rather than not-found', async () => {
-    tableAnswers = { ai_message: [[message], []] };
+  it("refuses another member's message by id, and answers none for one that does not exist", async () => {
+    // Narrowed: nothing. Existence, asked below this layer: the row is there.
+    tableAnswers = { ai_message: [[], [{ id: message.id }]] };
+    await expect(
+      asMember(() => db.aiMessage.findUnique({ where: { id: message.id } }))
+    ).rejects.toMatchObject({ reason: 'foreign-row' });
+    // The existence ask is the bare unique key, not narrowed.
+    expect(statements).toHaveLength(2);
+    expect(statements[1].sql).not.toMatch(/ai_conversation/);
+
+    tableAnswers = { ai_message: [[], []] };
+    await expect(
+      asMember(() => db.aiMessage.findUnique({ where: { id: message.id } }))
+    ).resolves.toBeNull();
+  });
+
+  it('refuses a findUniqueOrThrow of a foreign row, and keeps not-found for a missing one', async () => {
+    tableAnswers = { ai_message: [[], [{ id: message.id }]] };
     await expect(
       asMember(() => db.aiMessage.findUniqueOrThrow({ where: { id: message.id } }))
     ).rejects.toBeInstanceOf(OwnerReadRefusedError);
+    tableAnswers = { ai_message: [[], []] };
+    await expect(
+      asMember(() => db.aiMessage.findUniqueOrThrow({ where: { id: message.id } }))
+    ).rejects.toMatchObject({ code: 'P2025' });
   });
 
-  it("confirms a conversation read by id, so another member's shared thread passes and an unshared one does not", async () => {
-    tableAnswers = { ai_conversation: [[conversation(OTHER)], [{ id: CONV }]] };
+  it("reads another member's shared thread by id, and refuses an unshared one", async () => {
+    tableAnswers = { ai_conversation: [[conversation(OTHER)]] };
     await asMember(() => db.aiConversation.findUnique({ where: { id: CONV } }));
-    const confirm = statements.at(-1);
-    expect(confirm?.sql).toMatch(/ai_conversation_share/);
+    expect(statements[0].sql).toMatch(/ai_conversation_share/);
 
-    tableAnswers = { ai_conversation: [[conversation(OTHER)], []] };
+    tableAnswers = { ai_conversation: [[], [{ id: CONV }]] };
     await expect(
       asMember(() => db.aiConversation.findUnique({ where: { id: CONV } }))
     ).rejects.toMatchObject({ reason: 'foreign-row' });
   });
 
-  it('confirms inside a transaction on the transaction', async () => {
-    tableAnswers = { ai_message: [[message], []] };
+  it('narrows inside a transaction on the transaction', async () => {
+    tableAnswers = { ai_message: [[message]] };
+    await asMember(() =>
+      db.$transaction((tx) => tx.aiMessage.findUnique({ where: { id: message.id } }))
+    );
+    tableAnswers = { ai_message: [[], [{ id: message.id }]] };
     await expect(
       asMember(() =>
         db.$transaction((tx) => tx.aiMessage.findUnique({ where: { id: message.id } }))
