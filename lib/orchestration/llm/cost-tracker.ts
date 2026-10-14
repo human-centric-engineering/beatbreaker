@@ -115,7 +115,8 @@ export const EMBEDDING_USD_PER_MILLION_TOKENS: Record<string, number> = {
  * prices returns zeroed costs with `unpriced: true`, so it still produces
  * an `AiCostLog` row for volume tracking, marked as unknown, not free.
  *
- * Always returns `isLocal: false` — "rate unknown" is NOT "local". The
+ * Returns `isLocal: false` unless the registry lists the model at the local
+ * tier, as `calculateCost` does — "rate unknown" is NOT "local". The
  * caller is responsible for setting `isLocal` from `provider.isLocal`
  * (true Ollama-style local models) via `logCost`'s OR. An earlier
  * version inferred local-ness from a zero rate, which incorrectly
@@ -130,8 +131,14 @@ export function calculateEmbeddingCost(modelId: string, inputTokens: number): Co
   let ratePerMillion = EMBEDDING_USD_PER_MILLION_TOKENS[modelId];
   if (ratePerMillion === undefined) {
     const model = getModel(modelId);
+    if (model?.tier === 'local') {
+      return { inputCostUsd: 0, outputCostUsd: 0, totalCostUsd: 0, isLocal: true };
+    }
     if (!model || model.pricingUnknown) {
-      logger.warn('Embedding cost: model has no price, treating as zero cost', {
+      // Debug, not warn: this runs on every knowledge search, twice (the
+      // embedder and `logCost` both cost the call), and the row it produces
+      // already says `pricing: 'unknown'`.
+      logger.debug('Embedding cost: model has no price, treating as zero cost', {
         model: modelId,
       });
       return { inputCostUsd: 0, outputCostUsd: 0, totalCostUsd: 0, isLocal: false, unpriced: true };

@@ -276,6 +276,16 @@ describe('calculateEmbeddingCost — rate sources (t-775)', () => {
     });
   });
 
+  it('treats a local-tier registry model as local and free, even with no cost', () => {
+    registerModels([
+      embeddingEntry({ id: 'nomic-embed-text', tier: 'local', pricingUnknown: true }),
+    ]);
+
+    const cost = calculateEmbeddingCost('nomic-embed-text', 1_000);
+
+    expect(cost).toEqual({ inputCostUsd: 0, outputCostUsd: 0, totalCostUsd: 0, isLocal: true });
+  });
+
   it('stamps pricing: unknown on an unpriced embedding row', async () => {
     await logCost({
       model: 'embed-model-nobody-priced',
