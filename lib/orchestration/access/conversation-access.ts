@@ -228,6 +228,11 @@ export async function adminCanViewConversation(
  * const where = { AND: [conversationVisibilityWhere(session), ...filters] };
  * ```
  *
+ * **Build it for each query; do not hold one across awaits.** The share arm
+ * stamps `expiresAt > now` when it is built, and the owner layer
+ * (`lib/db/owner-extension.ts`) refuses a bound more than a minute old as
+ * unconfined — so a fragment reused after a slow query fails the next one.
+ *
  * **The share arm repeats `isShareActive`'s predicate inline, and has to.**
  * Prisma's query builder takes data, not a function, so the rule exists twice
  * by construction: once as TypeScript for a row already fetched, once as a

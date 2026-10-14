@@ -94,6 +94,11 @@ function acrossOwners<T>(fn: () => Promise<T>): Promise<T> {
  * thread for a caller the policy does not narrow, and the threads this caller
  * may open for one it does. Asked of the same answer the owner layer reads, so
  * the two cannot disagree about who is narrowed.
+ *
+ * Built for each query, never once and reused across awaits: the share arm
+ * carries `expiresAt > now`, and the owner layer refuses a bound more than a
+ * minute old as `unconfined-filter`. A slow first query would otherwise fail
+ * the second.
  */
 async function textScope(
   session: AuthenticatedSession,
@@ -198,14 +203,13 @@ export async function getUnansweredQuestions(
 ): Promise<UnansweredEntry[]> {
   const { from, to } = resolveDateRange(query);
   const limit = query.limit ?? 20;
-  const scope = await textScope(session, query.agentId);
 
   // Find assistant messages with hedging phrases
   const hedgingMessages = await prisma.aiMessage.findMany({
     where: {
       role: 'assistant',
       createdAt: { gte: from, lte: to },
-      conversation: scope,
+      conversation: await textScope(session, query.agentId),
       OR: HEDGING_PHRASES.map((phrase) => ({ content: { contains: phrase } })),
     },
     select: {
@@ -230,7 +234,7 @@ export async function getUnansweredQuestions(
     where: {
       conversationId: { in: conversationIds },
       role: 'user',
-      conversation: scope,
+      conversation: await textScope(session, query.agentId),
     },
     select: { conversationId: true, content: true, createdAt: true },
     orderBy: { createdAt: 'desc' },
@@ -553,12 +557,11 @@ export async function getFeedbackSummary(
   byAgent.sort((a, b) => b.total - a.total);
 
   // Recent negatively-rated messages — quoted, so read through the text scope.
-  const negativeScope = await textScope(session, query.agentId);
   const recentNegative = await prisma.aiMessage.findMany({
     where: {
       rating: -1,
       ratedAt: { gte: from, lte: to },
-      conversation: negativeScope,
+      conversation: await textScope(session, query.agentId),
     },
     select: {
       id: true,
@@ -580,7 +583,7 @@ export async function getFeedbackSummary(
           where: {
             conversationId: { in: negConversationIds },
             role: 'user',
-            conversation: negativeScope,
+            conversation: await textScope(session, query.agentId),
           },
           select: { conversationId: true, content: true, createdAt: true },
           orderBy: { createdAt: 'desc' },
