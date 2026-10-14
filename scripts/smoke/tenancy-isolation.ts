@@ -186,7 +186,8 @@ import {
 import { INSTALL_ORG_ID } from '@/lib/tenancy/constants';
 import { exportOrchestrationConfig } from '@/lib/orchestration/backup/exporter';
 import { importOrchestrationConfig } from '@/lib/orchestration/backup/importer';
-import { DEFAULT_ORG_ROLE } from '@/lib/tenancy/roles';
+import { DEFAULT_ORG_ROLE, ORG_OWNER_ROLE } from '@/lib/tenancy/roles';
+import { DEFAULT_USER_ROLE, PLATFORM_ADMIN_ROLE } from '@/lib/auth/roles';
 import { subjectScope, type AuthorizationPrincipal } from '@/lib/auth/authorization';
 import { resolveUnattributedReads } from '@/lib/auth/orphan-reads';
 import { runAcrossOwners, runAsSubject } from '@/lib/auth/subject-context';
@@ -1935,7 +1936,7 @@ async function main(): Promise<void> {
       );
       const principal: AuthorizationPrincipal = {
         userId: user.id,
-        role: 'USER',
+        role: DEFAULT_USER_ROLE,
         credential: 'session',
         orgId: a.orgId,
         orgRole: DEFAULT_ORG_ROLE,
@@ -1950,7 +1951,7 @@ async function main(): Promise<void> {
 
     // The population is non-empty, and both rows are in A (fp6).
     const bothSeen = await asPrincipal(
-      { userId: a.ownerId, role: 'ADMIN', credential: 'session' },
+      { userId: a.ownerId, role: PLATFORM_ADMIN_ROLE, credential: 'session' },
       () => inOrgA(() => prisma.aiUserMemory.findMany({ where: { agentId: a.agentId } }))
     );
     check(
@@ -2003,10 +2004,10 @@ async function main(): Promise<void> {
         asPrincipal(
           {
             userId: a.ownerId,
-            role: 'USER',
+            role: DEFAULT_USER_ROLE,
             credential: 'session',
             orgId: a.orgId,
-            orgRole: 'OWNER',
+            orgRole: ORG_OWNER_ROLE,
           },
           () => inOrgA(() => prisma.aiUserMemory.findMany({ where: { agentId: a.agentId } }))
         ),
