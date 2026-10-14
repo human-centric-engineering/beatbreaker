@@ -194,27 +194,33 @@ export const OWNER_CLASSIFICATION = {
   AiEvaluationSession: {
     kind: 'personal',
     owner: { column: 'userId' },
+    enforced: true,
   },
   AiEvaluationLog: {
     kind: 'personal',
     owner: { through: { field: 'session', parent: 'AiEvaluationSession' } },
+    enforced: true,
   },
   AiDataset: {
     kind: 'personal',
     owner: { column: 'userId' },
     ownerless: 'dataset',
+    enforced: true,
   },
   AiDatasetCase: {
     kind: 'personal',
     owner: { through: { field: 'dataset', parent: 'AiDataset' } },
+    enforced: true,
   },
   AiEvaluationRun: {
     kind: 'personal',
     owner: { column: 'userId' },
+    enforced: true,
   },
   AiEvaluationCaseResult: {
     kind: 'personal',
     owner: { through: { field: 'run', parent: 'AiEvaluationRun' } },
+    enforced: true,
   },
 
   // ── knowledge ─────────────────────────────────────────────────────────────
@@ -291,6 +297,7 @@ export const OWNER_CLASSIFICATION = {
     kind: 'personal',
     owner: { column: 'userId' },
     ownerless: 'execution',
+    enforced: true,
   },
   AiWorkflowStepDispatch: {
     kind: 'not-personal',

@@ -442,15 +442,13 @@ describe('withOwnerChecks — a narrowed caller', () => {
   });
 
   it('leaves a model that is not enforced alone, and tells the guard nothing checked it', async () => {
-    // AiWorkflowExecution is personal but not enforced until t-803.
-    await asMember(() => db.aiWorkflowExecution.findMany());
+    // AiApiKey is personal but not enforced.
+    await asMember(() => db.aiApiKey.findMany());
     expect(statements).toHaveLength(1);
     expect(uncheckedReads).toHaveBeenCalledTimes(1);
 
     // Reached through an include, too.
-    await asMember(() =>
-      db.user.findUnique({ where: { id: ME }, include: { aiWorkflowExecutions: true } })
-    );
+    await asMember(() => db.user.findUnique({ where: { id: ME }, include: { aiApiKeys: true } }));
     expect(uncheckedReads).toHaveBeenCalledTimes(2);
 
     // An enforced read, and a read of a model that is not personal, are not unchecked.
@@ -680,6 +678,97 @@ describe('withOwnerChecks — conversations and messages (t-802)', () => {
   });
 });
 
+describe('withOwnerChecks — a to-one relation, checked on its row (t-803)', () => {
+  const DATASET = 'cmdset0000000000000000ds01';
+  const run = { id: 'cmrun00000000000000000rn01', userId: ME, datasetId: DATASET, name: 'r' };
+  const dataset = (userId: string | null) => ({ id: DATASET, userId, name: 'd' });
+  const runWithDataset = () =>
+    db.aiEvaluationRun.findMany({
+      where: { userId: ME },
+      include: { dataset: { select: { id: true, name: true } } },
+    });
+
+  it("refuses a run's dataset that belongs to another member", async () => {
+    tableAnswers = { ai_evaluation_run: [[run]], ai_dataset: [[dataset(OTHER)]] };
+    await expect(asMember(runWithDataset)).rejects.toMatchObject({
+      name: 'OwnerReadRefusedError',
+      reason: 'foreign-row',
+    });
+  });
+
+  it("passes the caller's own dataset, selecting the owner column only to check it", async () => {
+    tableAnswers = { ai_evaluation_run: [[run]], ai_dataset: [[dataset(ME)]] };
+    const rows = await asMember(runWithDataset);
+    expect(rows[0]?.dataset).toEqual({ id: DATASET, name: 'd' });
+    expect(statements.find((s) => s.sql.includes('FROM "public"."ai_dataset"'))?.sql).toContain(
+      '"ai_dataset"."userId"'
+    );
+  });
+
+  it('admits an ownerless dataset only for a caller the policy lets read ownerless datasets', async () => {
+    tableAnswers = { ai_evaluation_run: [[run]], ai_dataset: [[dataset(null)]] };
+    await expect(asMember(runWithDataset)).rejects.toMatchObject({ reason: 'foreign-row' });
+
+    tableAnswers = { ai_evaluation_run: [[run]], ai_dataset: [[dataset(null)]] };
+    await expect(
+      runAsSubject(
+        {
+          principal: { userId: ME, credential: 'session' },
+          filter: { userId: ME },
+          resolveFilter: () => Promise.resolve({ userId: ME }),
+          unattributedReads: { ...NO_UNATTRIBUTED, dataset: true },
+        },
+        runWithDataset
+      )
+    ).resolves.toHaveLength(1);
+  });
+
+  it('checks the row from a root nothing else checks, at any depth', async () => {
+    // An experiment is personal and not enforced; its variant's run is.
+    tableAnswers = {
+      ai_experiment: [[{ id: 'cmexp00000000000000000ex01', createdBy: ME }]],
+      ai_experiment_variant: [
+        [
+          {
+            id: 'cmvar00000000000000000va01',
+            experimentId: 'cmexp00000000000000000ex01',
+            evaluationRunId: run.id,
+          },
+        ],
+      ],
+      ai_evaluation_run: [[{ ...run, userId: OTHER }]],
+    };
+    await expect(
+      asMember(() =>
+        db.aiExperiment.findMany({
+          where: { createdBy: ME },
+          include: { variants: { include: { evaluationRun: { select: { id: true } } } } },
+        })
+      )
+    ).rejects.toMatchObject({ reason: 'foreign-row' });
+  });
+
+  it('still refuses a to-one whose owner is reached through a parent', async () => {
+    await expect(
+      asMember(() =>
+        db.aiEvaluationCaseResult.findMany({
+          where: { run: { userId: ME } },
+          include: { datasetCase: true },
+        })
+      )
+    ).rejects.toMatchObject({ reason: 'unconfined-relation' });
+    expect(statements).toHaveLength(0);
+  });
+
+  it('sends the include unchanged for a caller who is not narrowed', async () => {
+    tableAnswers = { ai_evaluation_run: [[run]], ai_dataset: [[dataset(OTHER)]] };
+    await asPlatformAdmin(runWithDataset);
+    expect(statements.find((s) => s.sql.includes('FROM "public"."ai_dataset"'))?.sql).not.toContain(
+      '"ai_dataset"."userId"'
+    );
+  });
+});
+
 describe('withOwnerChecks — callers that are not narrowed', () => {
   it('passes every read for a platform admin, a job and a declared crossing', async () => {
     memoryRows = [memory(OTHER)];
@@ -901,7 +990,18 @@ describe('readOwnerSchema', () => {
     expect(() => readOwnerSchema(base, ['AiConversation', 'AiMessage'])).not.toThrow();
   });
 
-  it('enforces conversations, messages and memories in this release', () => {
-    expect([...enforcedModels()].sort()).toEqual(['AiConversation', 'AiMessage', 'AiUserMemory']);
+  it('enforces conversations, messages, memories, executions, evaluations and datasets in this release', () => {
+    expect([...enforcedModels()].sort()).toEqual([
+      'AiConversation',
+      'AiDataset',
+      'AiDatasetCase',
+      'AiEvaluationCaseResult',
+      'AiEvaluationLog',
+      'AiEvaluationRun',
+      'AiEvaluationSession',
+      'AiMessage',
+      'AiUserMemory',
+      'AiWorkflowExecution',
+    ]);
   });
 });
