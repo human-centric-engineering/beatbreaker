@@ -1,0 +1,1300 @@
+{
+  "meta": {
+    "id": "drummer:phil-collins",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-14",
+    "updated": "2026-10-14",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Transcribe the Brand X records from stems: Nuclear Burn beyond its 11/8 bar, Born Ugly, Disco Suicide; every Brand X tab online but one is machine-made.",
+      "Settle Nuclear Burn's tempo: Drumeo's eighth = 306 (153) against songbpm's 173.",
+      "Which In the Air Tonight voices are the CR-78's: the tab's third machine voice (GM 27) is not identified.",
+      "Kit by era: Gretsch in Genesis, Premier and Pearl, Gretsch again from 1983; concert toms; check against interviews.",
+      "Read the 1979 Modern Drummer feature (paywalled) for his own words.",
+      "What Collins meant by 'There's no kick in between the last two tom hits' (quoted by Drumeo), when Drumeo's notation beside it has the kick on the 'e' of 4 between two floor-tom pairs."
+    ]
+  },
+  "identity": {
+    "name": "Phil Collins",
+    "full_name": "Philip David Charles Collins",
+    "born": {
+      "date": "1951-01-30",
+      "place": "Putney Hospital, London, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London (Chiswick, Hounslow)", "Genesis (from 1970)", "Brand X (1975 to 1979)"],
+    "handedness": "left",
+    "kit_orientation": "left_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "vocals"],
+    "active": {
+      "from": 1966,
+      "to": 2022
+    },
+    "roles": ["band_member", "bandleader", "session", "composer", "producer"],
+    "summary": "Genesis's drummer from 1970 and later its singer; a jazz-fusion player in Brand X, with Percy Jones, in odd meters at speed; then, with Hugh Padgham, the gated drum sound of the 1980s: a kick, a huge snare, toms, no cymbal of his own, and the In the Air Tonight fill."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "teachers": [
+      {
+        "name": "Lloyd Ryan",
+        "drummer_id": "drummer:lloyd-ryan",
+        "role": "Rudiments.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-collins-wikipedia"]
+        }
+      },
+      {
+        "name": "Frank King",
+        "drummer_id": "drummer:frank-king",
+        "role": "Rudiments, after Ryan.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-collins-wikipedia"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Big band and jazz drumming",
+        "impact": "Buddy Rich's view of the hi-hat made him drop a second bass drum and use the hat.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-collins-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Motown and Stax soul",
+        "impact": "Roger Powell of the Action introduced him to it.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-collins-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Jazz-rock fusion",
+        "impact": "Cobham, Williams and Airto among the drummers he named; Brand X was his fusion band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:phil-collins-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "A toy drum kit at five; his uncles built him a makeshift one.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-collins-wikipedia"]
+        }
+      },
+      {
+        "year": 1970,
+        "event": "Joined Genesis on 8 August 1970, answering an advert in Melody Maker.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-collins-wikipedia"]
+        }
+      },
+      {
+        "year": 1975,
+        "event": "Joined Brand X.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-collins-wikipedia"]
+        }
+      },
+      {
+        "year": 1980,
+        "event": "Drummed without cymbals on Peter Gabriel's Intruder, where the gated sound was found.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:gated-reverb-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:phil-collins-genesis-70s",
+      "label": "Genesis, the drummer",
+      "years": {
+        "from": 1970,
+        "to": 1977
+      },
+      "context": "Nursery Cryme to Wind & Wuthering; from 1976 the singer too, with Bruford and then Chester Thompson drumming live.",
+      "defining_traits": [
+        "odd meters (6/4, 7/8, 9/8)",
+        "hat opened and closed by the foot",
+        "two toms together"
+      ],
+      "key_recording_ids": [
+        "rec:genesis-foxtrot-1972",
+        "rec:genesis-selling-england-1973",
+        "rec:genesis-trick-of-the-tail-1976"
+      ]
+    },
+    {
+      "id": "era:phil-collins-brand-x",
+      "label": "Brand X",
+      "years": {
+        "from": 1975,
+        "to": 1979
+      },
+      "context": "Jazz-rock with Percy Jones, John Goodsall and Robin Lumley: Unorthodox Behaviour, Moroccan Roll, Livestock, part of Product.",
+      "defining_traits": ["ghosted sixteenths", "odd meters at speed", "loose, open fusion time"],
+      "key_recording_ids": ["rec:brand-x-unorthodox-behaviour-1976", "rec:brand-x-product-1979"]
+    },
+    {
+      "id": "era:phil-collins-gated",
+      "label": "The gated sound",
+      "years": {
+        "from": 1980,
+        "to": 1990
+      },
+      "context": "Peter Gabriel's third album, Duke, Face Value and his solo records, produced with Hugh Padgham.",
+      "defining_traits": [
+        "gated reverb",
+        "no cymbals",
+        "tom fills in threes",
+        "drum machine under live drums"
+      ],
+      "style_shift": "From fusion detail to big, sparse, produced drums.",
+      "key_recording_ids": [
+        "rec:peter-gabriel-intruder-1980",
+        "rec:genesis-duke-1980",
+        "rec:phil-collins-face-value-1981",
+        "rec:phil-collins-hello-i-must-be-going-1982"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.8,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.7,
+        "authority": 0.7,
+        "notes": "Brand X."
+      },
+      {
+        "style_id": "style:new-wave",
+        "weight": 0.4,
+        "authority": 0.6,
+        "notes": "The gated sound with Peter Gabriel."
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.5,
+        "authority": 0.6
+      }
+    ],
+    "versatility": 0.8,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "driver",
+    "descriptors": [
+      "musical",
+      "big-sounding",
+      "fill-driven",
+      "odd-meter fluent in Genesis",
+      "serves the song"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "No measurement found."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "notes": "Straight; Brand X has a loose sixteenth lilt."
+    },
+    "dynamics": {
+      "range": 0.8,
+      "default_level": "f",
+      "ghost_note_level": 35,
+      "accent_level": 120,
+      "balance": "Ghosted snare in Brand X; in the 1980s a big kick and snare and little else."
+    },
+    "density": {
+      "groove_notes_per_bar": [4, 22],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.5
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [80, 160],
+    "timekeeping_context": ["click", "sequencer"],
+    "interaction": "Locks with the bass line: in ...And So to F... he sang it to keep his place.",
+    "descriptors": ["solid", "big", "driving"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Two toms at once",
+        "description": "Both hands on two toms together, as in the In the Air Tonight break.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:phil-collins-drumeo-12"]
+        }
+      },
+      {
+        "name": "Ghosted sixteenths",
+        "description": "A bar of ghost notes round the backbeat in Brand X (Nuclear Burn).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:phil-collins-drumeo-12"]
+        }
+      },
+      {
+        "name": "Flams on the toms",
+        "description": "Easy Lover's intro goes back and forth between two rack toms with flams.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:phil-collins-drumeo-12"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Open hat closed by the foot",
+        "description": "An open hat over the kick, closed on the next sixteenth or eighth (The Cinema Show, Nuclear Burn).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:phil-collins-drumeo-12"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.75,
+      "linear_playing": 0.4,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.4,
+      "odd_meter_fluency": 0.75
+    },
+    "voice_language": {
+      "snare": "Ghosts in Brand X; a gated rimshot in the 1980s.",
+      "kick": "Under the toms in fills, between the strokes.",
+      "toms": "Concert toms, two at a time, a kick between.",
+      "hihat": "Opened and closed by the foot in odd meters."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.05,
+      "mallets": 0.05
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "warm 1970s Gretsch kit",
+      "gated reverb on the 1980s records",
+      "huge snare and toms"
+    ],
+    "cymbal_character": "Few cymbals on the gated records; Sabian from the 1980s.",
+    "by_era": [
+      {
+        "era_id": "era:phil-collins-genesis-70s",
+        "description": "Gretsch, open and warm."
+      },
+      {
+        "era_id": "era:phil-collins-gated",
+        "description": "Gated room sound from a compressed overhead talkback mic; concert toms."
+      }
+    ],
+    "sample_hints": {
+      "70s": "Open, warm studio kit.",
+      "80s": "Big room, gated short, rimshot snare."
+    },
+    "evidence": {
+      "confidence": "widely_reported",
+      "source_ids": ["src:phil-collins-wikipedia", "src:gated-reverb-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:phil-collins-itat-fill",
+      "label": "The In the Air Tonight break",
+      "category": "fill",
+      "description": "Two toms struck together and a kick, in threes down the kit, then floor tom and kick in turn.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-collins-drumeo-12", "src:in-the-air-tonight-wikipedia"]
+      },
+      "pattern_ids": ["pattern:phil-collins-in-the-air-tonight-fill"],
+      "heard_on": [
+        {
+          "recording_id": "rec:phil-collins-face-value-1981"
+        }
+      ]
+    },
+    {
+      "id": "trait:phil-collins-gated-no-cymbals",
+      "label": "Gated drums, no cymbals",
+      "category": "sound",
+      "description": "A big gated kick, snare and toms with no cymbal of his own, first on Intruder.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gated-reverb-wikipedia"]
+      },
+      "pattern_ids": ["pattern:phil-collins-intruder"],
+      "heard_on": [
+        {
+          "recording_id": "rec:peter-gabriel-intruder-1980"
+        }
+      ]
+    },
+    {
+      "id": "trait:phil-collins-odd-meters",
+      "label": "Odd meters that drive",
+      "category": "groove",
+      "description": "7/8, 9/8, 11/8 and 13 played as grooves, not puzzles; he said seven came easily and nine he had to sing through.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-collins-drumeo-12", "src:phil-collins-faroutmagazine-and-so-to-f"]
+      },
+      "pattern_ids": [
+        "pattern:phil-collins-nuclear-burn",
+        "pattern:phil-collins-cinema-show-7-8",
+        "pattern:phil-collins-apocalypse-9-8",
+        "pattern:phil-collins-turn-it-on-again"
+      ]
+    },
+    {
+      "id": "trait:phil-collins-machine-and-kit",
+      "label": "Drum machine under live drums",
+      "category": "studio_practice",
+      "description": "A CR-78 under the verse of In the Air Tonight, his kit over it after the break.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:in-the-air-tonight-wikipedia"]
+      },
+      "pattern_ids": ["pattern:phil-collins-in-the-air-tonight-groove"]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:phil-collins-in-the-air-tonight-fill",
+        "name": "In the Air Tonight: the break",
+        "type": "fill",
+        "function": "The break into the drums, two toms together and a kick in threes",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:phil-collins-drumeo-12", "src:songsterr-50420"],
+          "note": "Drumeo's notation; Songsterr 50420 agrees on the notes and puts the kick on 4 a triplet late. Drumeo prints Collins's 'There's no kick in between the last two tom hits' beside notation with the kick on the 'e' and the 'a' of 4; not reconciled."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 95,
+          "playable_range_bpm": [93, 97]
+        },
+        "lanes": {
+          "tom_1": "XX.XX.XX........",
+          "tom_2": "XX.XX.XX.XX.....",
+          "floor_tom_1": ".........XX.X.X.",
+          "kick": "..x..x..x..x.x.x"
+        },
+        "source": {
+          "recording_id": "rec:phil-collins-face-value-1981",
+          "transcription_source_id": "src:phil-collins-drumeo-12"
+        },
+        "tags": ["fill", "gated reverb", "1981"]
+      },
+      {
+        "id": "pattern:phil-collins-in-the-air-tonight-groove",
+        "name": "In the Air Tonight: the drums",
+        "type": "groove",
+        "function": "After the break: the CR-78 hats, his kick and gated rimshot",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-50420"],
+          "note": "Songsterr 50420, the kit and CR-78 tracks laid together."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 95,
+          "playable_range_bpm": [93, 97]
+        },
+        "lanes": {
+          "hihat": "o.x...x...x.o.x.",
+          "snare": "....r.......r...",
+          "kick": "x.x.............",
+          "conga": "..x...x.....x..."
+        },
+        "source": {
+          "recording_id": "rec:phil-collins-face-value-1981",
+          "transcription_source_id": "src:songsterr-50420"
+        }
+      },
+      {
+        "id": "pattern:phil-collins-intruder",
+        "name": "Intruder: no cymbals",
+        "type": "groove",
+        "function": "Kick and gated snare, no cymbals",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1070567"],
+          "note": "The tab's most common bar (87 of 114)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 94,
+          "playable_range_bpm": [92, 96]
+        },
+        "lanes": {
+          "snare": "....r.......r...",
+          "kick": "x.x...x...x....."
+        },
+        "source": {
+          "recording_id": "rec:peter-gabriel-intruder-1980",
+          "transcription_source_id": "src:songsterr-1070567"
+        }
+      },
+      {
+        "id": "pattern:phil-collins-i-dont-care-anymore",
+        "name": "I Don't Care Anymore: the tom ostinato",
+        "type": "ostinato",
+        "function": "Toms in eighths in place of a cymbal",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-669676"],
+          "note": "Two bars, the second answering the first."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [138, 142]
+        },
+        "lanes": {
+          "tom_1": "................|..x.x.x.x.x.x...",
+          "tom_2": "x.x.x.x.x.x.x.x.|..............x.",
+          "floor_tom_1": "........x...x...|................",
+          "kick": "............x...|x..............."
+        },
+        "source": {
+          "recording_id": "rec:phil-collins-hello-i-must-be-going-1982",
+          "transcription_source_id": "src:songsterr-669676"
+        }
+      },
+      {
+        "id": "pattern:phil-collins-turn-it-on-again",
+        "name": "Turn It On Again: 6/4 and 7/4",
+        "type": "groove",
+        "function": "Verse: a rock beat across a bar of 6/4 and one of 7/4",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-36367", "src:turn-it-on-again-wikipedia"],
+          "note": "The tab writes it as one bar of 13/4."
+        },
+        "time_signature": {
+          "numerator": 13,
+          "denominator": 4,
+          "grouping": [6, 7]
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [126, 130]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.o.",
+          "snare": "....x.......x.......x.......x.......x.......x...x...",
+          "kick": "x.......x.x.....x.......x.x.....x.......x.x...x....."
+        },
+        "source": {
+          "recording_id": "rec:genesis-duke-1980",
+          "transcription_source_id": "src:songsterr-36367"
+        }
+      },
+      {
+        "id": "pattern:phil-collins-dance-on-a-volcano",
+        "name": "Dance on a Volcano: 7/8",
+        "type": "groove",
+        "function": "The ride section in 7/8",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-36377"]
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 114,
+          "playable_range_bpm": [112, 123]
+        },
+        "lanes": {
+          "crash_1": "x.............",
+          "ride": "..x.x.x.x.x.x.",
+          "snare": "........x.....",
+          "kick": "x.....x.....x."
+        },
+        "source": {
+          "recording_id": "rec:genesis-trick-of-the-tail-1976",
+          "transcription_source_id": "src:songsterr-36377"
+        }
+      },
+      {
+        "id": "pattern:phil-collins-cinema-show-7-8",
+        "name": "The Cinema Show: 7/8",
+        "type": "groove",
+        "function": "Under the keyboard solo",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:phil-collins-drumeo-12"],
+          "note": "Drumeo's notation, with the ghosts on 9 and 12."
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 119,
+          "playable_range_bpm": [117, 121]
+        },
+        "lanes": {
+          "hihat": "o.x.o.x.x.xo..",
+          "hihat_pedal": "..k...k......k",
+          "snare": "....x..g.g..gg",
+          "kick": "x..x..x.x.xx.."
+        },
+        "source": {
+          "recording_id": "rec:genesis-selling-england-1973",
+          "transcription_source_id": "src:phil-collins-drumeo-12"
+        }
+      },
+      {
+        "id": "pattern:phil-collins-apocalypse-9-8",
+        "name": "Supper's Ready: Apocalypse in 9/8",
+        "type": "groove",
+        "function": "Nine counted 2+2+2+2+1",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:phil-collins-drumeo-12"]
+        },
+        "time_signature": {
+          "numerator": 9,
+          "denominator": 8,
+          "grouping": [2, 2, 2, 2, 1]
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 94,
+          "playable_range_bpm": [92, 96]
+        },
+        "lanes": {
+          "hihat": "x...X.x.X.x.x.x.xx",
+          "snare": "xxf.x.....x..g.x..",
+          "kick": "......x.x...x.x.xx"
+        },
+        "source": {
+          "recording_id": "rec:genesis-foxtrot-1972",
+          "transcription_source_id": "src:phil-collins-drumeo-12"
+        }
+      },
+      {
+        "id": "pattern:phil-collins-and-so-to-f",
+        "name": "...And So to F...: nine",
+        "type": "groove",
+        "function": "Ride and the bass line",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1477092"],
+          "note": "The tab marks 156."
+        },
+        "time_signature": {
+          "numerator": 9,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 156,
+          "playable_range_bpm": [140, 150]
+        },
+        "lanes": {
+          "ride": "x.xxx.x.x.x.x.x.x.",
+          "snare": ".x..x..x.x..x.....",
+          "kick": "x.........x...x..."
+        },
+        "source": {
+          "recording_id": "rec:brand-x-product-1979",
+          "transcription_source_id": "src:songsterr-1477092"
+        }
+      },
+      {
+        "id": "pattern:phil-collins-nuclear-burn",
+        "name": "Nuclear Burn: 11/8",
+        "type": "groove",
+        "function": "A bar of 4/4 in ghosted sixteenths and two threes",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:phil-collins-drumeo-12", "src:phil-collins-songbpm"],
+          "note": "Drumeo: eighth = 306; songbpm 173."
+        },
+        "time_signature": {
+          "numerator": 11,
+          "denominator": 8,
+          "grouping": [2, 2, 2, 2, 3]
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 153,
+          "playable_range_bpm": [140, 150]
+        },
+        "lanes": {
+          "hihat": "o.x.x.x.x.xxx.x.o..o..",
+          "hihat_pedal": "..k..............k..k.",
+          "snare": ".g..Xg.g.g..gg.g.gg.gg",
+          "kick": "x...............x..x.."
+        },
+        "source": {
+          "recording_id": "rec:brand-x-unorthodox-behaviour-1976",
+          "transcription_source_id": "src:phil-collins-drumeo-12"
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:phil-collins-gretsch",
+      "label": "Gretsch kit with concert toms",
+      "context": "both",
+      "layout_notes": "Set up left-handed. Gretsch from 1983 (and in 1970s Genesis), Noble & Cooley snares, Remo heads, Sabian cymbals; Premier and Pearl in between.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:phil-collins-wikipedia", "src:phil-collins-drumspy-left-handed"],
+        "note": "Concert toms from photographs and general knowledge; verify."
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Genesis",
+      "type": "band_member",
+      "years": {
+        "from": 1970,
+        "to": 1996
+      },
+      "bandmates": [
+        {
+          "name": "Peter Gabriel"
+        },
+        {
+          "name": "Tony Banks"
+        },
+        {
+          "name": "Mike Rutherford"
+        },
+        {
+          "name": "Steve Hackett"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia"]
+      }
+    },
+    {
+      "name": "Brand X",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 1979
+      },
+      "bandmates": [
+        {
+          "name": "Percy Jones"
+        },
+        {
+          "name": "John Goodsall"
+        },
+        {
+          "name": "Robin Lumley"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia"]
+      }
+    },
+    {
+      "name": "Phil Collins (solo)",
+      "type": "bandleader",
+      "years": {
+        "from": 1981,
+        "to": 2022
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:brand-x-unorthodox-behaviour-1976",
+    "rec:brand-x-product-1979",
+    "rec:genesis-foxtrot-1972",
+    "rec:genesis-selling-england-1973",
+    "rec:genesis-trick-of-the-tail-1976",
+    "rec:genesis-duke-1980",
+    "rec:peter-gabriel-intruder-1980",
+    "rec:phil-collins-face-value-1981",
+    "rec:phil-collins-hello-i-must-be-going-1982",
+    "rec:philip-bailey-easy-lover-1984"
+  ],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Lloyd Ryan",
+        "kind": "teacher",
+        "id": "drummer:lloyd-ryan"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia"],
+        "note": "Rudiments."
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Frank King",
+        "kind": "teacher",
+        "id": "drummer:frank-king"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia"],
+        "note": "Rudiments, after Ryan."
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia"],
+        "note": "Rich's view of the hi-hat made him drop his second bass drum."
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia"]
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Billy Cobham",
+        "kind": "drummer",
+        "id": "drummer:billy-cobham"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-collins-wikipedia"],
+        "note": "Named among his influences."
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-collins-wikipedia"],
+        "note": "Named among his influences."
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-collins-wikipedia"],
+        "note": "Named among his influences."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-collins-wikipedia"],
+        "note": "Named among his influences."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-collins-wikipedia"],
+        "note": "Named among his influences; Squonk was meant to sound like Kashmir."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-collins-wikipedia"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Charlie Watts",
+        "kind": "drummer",
+        "id": "drummer:charlie-watts"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-collins-wikipedia"]
+      },
+      "strength": 0.4
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Airto Moreira",
+        "kind": "drummer",
+        "id": "drummer:airto-moreira"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-collins-wikipedia"]
+      },
+      "strength": 0.4
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Sonny Payne",
+        "kind": "drummer",
+        "id": "drummer:sonny-payne"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-collins-wikipedia"]
+      },
+      "strength": 0.4
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Roger Powell",
+        "kind": "drummer",
+        "id": "drummer:roger-powell"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia"],
+        "note": "The Action's drummer, who brought him Motown and Stax."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "John Mayhew",
+        "kind": "drummer",
+        "id": "drummer:john-mayhew"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia"],
+        "note": "Took the Genesis drum chair in 1970."
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Peter Gabriel",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia"]
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Tony Banks",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia"]
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Mike Rutherford",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia"]
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Percy Jones",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:unorthodox-behaviour-wikipedia"],
+        "note": "Brand X."
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Bill Bruford",
+        "kind": "drummer",
+        "id": "drummer:bill-bruford"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:trick-of-the-tail-wikipedia"],
+        "note": "Genesis on tour, 1976."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Chester Thompson",
+        "kind": "drummer",
+        "id": "drummer:chester-thompson"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-collins-wikipedia"],
+        "note": "Genesis on tour from 1977, and his own band."
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Nic Collins",
+        "kind": "drummer",
+        "id": "drummer:nic-collins"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-collins-wikipedia"],
+        "note": "His son, also a drummer, who played with him on tour."
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Taylor Hawkins",
+        "kind": "drummer",
+        "id": "drummer:taylor-hawkins"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-collins-wikipedia"],
+        "note": "Cites him as an influence (Wikipedia)."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Mike Portnoy",
+        "kind": "drummer",
+        "id": "drummer:mike-portnoy"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-collins-wikipedia"],
+        "note": "Cites him as an influence (Wikipedia)."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Neil Peart",
+        "kind": "drummer",
+        "id": "drummer:neil-peart"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-collins-wikipedia"],
+        "note": "Cites him as an influence (Wikipedia)."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Marco Minnemann",
+        "kind": "drummer",
+        "id": "drummer:marco-minnemann"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-collins-wikipedia"],
+        "note": "Cites him as an influence (Wikipedia)."
+      },
+      "strength": 0.5
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Serve the song: hold back, and give it everything when the song asks.",
+        "paraphrase_of_source_id": "src:phil-collins-wikipedia"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "The gated drum sound, with Padgham and Lillywhite, on Intruder and In the Air Tonight",
+      "The most air-drummed fill in rock",
+      "Odd-meter prog grooves that a rock audience could feel",
+      "Drum machine and live kit on one record"
+    ],
+    "accolades": [
+      {
+        "award": "Modern Drummer Hall of Fame",
+        "year": 2012,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-collins-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Rolling Stone's 100 greatest drummers.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-collins-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": ["That the whole song has live drums: the verses are a CR-78."]
+  },
+  "beatbreaker": {
+    "style_key": "collins",
+    "headline_pattern_ids": [
+      "pattern:phil-collins-in-the-air-tonight-fill",
+      "pattern:phil-collins-nuclear-burn",
+      "pattern:phil-collins-intruder",
+      "pattern:phil-collins-cinema-show-7-8"
+    ],
+    "default_kit_sound": "Big gated room kit for the 1980s; open, warm studio kit for Genesis and Brand X",
+    "generation_rules": [
+      "Tom fills of two toms struck together with a kick between.",
+      "No cymbals on the gated songs.",
+      "Odd meters written as grooves.",
+      "Ghosted sixteenths in Brand X."
+    ],
+    "avoid": ["Cymbal wash on the gated songs"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:buddy-rich",
+        "drummer:ringo-starr",
+        "drummer:billy-cobham",
+        "drummer:tony-williams"
+      ],
+      "primary_descendants": [
+        "drummer:taylor-hawkins",
+        "drummer:mike-portnoy",
+        "drummer:nic-collins"
+      ],
+      "lineage_blurb": "Rudiments from Lloyd Ryan, the hat from Buddy Rich, fusion from Cobham and Williams; then the sound everyone in the 1980s wanted."
+    },
+    "tags": ["prog", "fusion", "gated reverb", "80s", "odd meters", "genesis"]
+  }
+}

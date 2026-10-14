@@ -1,0 +1,127 @@
+[
+  {
+    "id": "src:michael-shrieve-wikipedia",
+    "type": "encyclopedia",
+    "title": "Michael Shrieve - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Michael_Shrieve",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Born 6 July 1949, San Francisco, raised in Redwood City; joined Santana at 19 the day he jammed with them; Woodstock 16 August 1969; Santana to Borboletta and Lotus (1969-74); co-wrote four Caravanserai tracks and co-produced it; Automatic Man, Go, Mick Jagger; Rock and Roll Hall of Fame 1998."
+  },
+  {
+    "id": "src:michael-shrieve-ultimatesantana",
+    "type": "biography",
+    "title": "UltimateSantana: Michael Shrieve",
+    "url": "https://www.ultimatesantana.com/resources/the-band/michael-shrieve/",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "'a staggering array of complicated, jazz-influenced patterns that not only complemented, but enhanced the syncopated percussion team' (Areas and Carabello); introduced Carlos to Miles Davis and Coltrane (likely)."
+  },
+  {
+    "id": "src:michael-shrieve-breath-of-fresh-air",
+    "type": "interview",
+    "title": "A Breath of Fresh Air: Santana's drummer Michael Shrieve on life, music and beyond (transcript)",
+    "url": "https://abreathoffreshair.com.au/transcript/transcript-santanas-drummer-michael-shrieve-on-life-music-and-beyond/",
+    "reliability": 0.75,
+    "accessed": "2026-10-14",
+    "notes": "'I started with big band drummers like Buddy Rich and Gene Krupa and then I got into Tony Williams, [Jack DeJohnette], Roy Haynes'; Santana followed him home the night they asked him; 'We played to each other.'"
+  },
+  {
+    "id": "src:michael-shrieve-md-1983",
+    "type": "magazine",
+    "title": "Scott K. Fish, Michael Shrieve pt 1 (Modern Drummer interview, July 1983)",
+    "url": "https://scottkfish.com/2025/01/23/michael-shrieve-pt-1-of-2/",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Summary page only: 'I see it as a flow of energy. Let's say the rhythm I play contains a flow of energy that isn't locked to the rhythm.'"
+  },
+  {
+    "id": "src:santana-songbpm",
+    "type": "analysis",
+    "title": "songbpm.com: Santana",
+    "url": "https://songbpm.com/@santana",
+    "reliability": 0.6,
+    "accessed": "2026-10-14"
+  },
+  {
+    "id": "src:songsterr-1621352",
+    "type": "transcription",
+    "title": "Songsterr 1621352: Santana, Soul Sacrifice (Live at Woodstock) (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=1621352",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-17533",
+    "type": "transcription",
+    "title": "Songsterr 17533: Santana, Soul Sacrifice (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=17533",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-3582839",
+    "type": "transcription",
+    "title": "Songsterr 3582839: Santana, Evil Ways (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=3582839",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-1621303",
+    "type": "transcription",
+    "title": "Songsterr 1621303: Santana, Persuasion (Live at Woodstock) (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=1621303",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-1621357",
+    "type": "transcription",
+    "title": "Songsterr 1621357: Santana, Fried Neck Bones and Some Home Fries (Live at Woodstock) (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=1621357",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-357",
+    "type": "transcription",
+    "title": "Songsterr 357: Santana, Black Magic Woman (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=357",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-17329",
+    "type": "transcription",
+    "title": "Songsterr 17329: Santana, Samba Pa Ti (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=17329",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-1815434",
+    "type": "transcription",
+    "title": "Songsterr 1815434: Santana, Taboo (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=1815434",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-17440",
+    "type": "transcription",
+    "title": "Songsterr 17440: Santana, Song of the Wind (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=17440",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  }
+]

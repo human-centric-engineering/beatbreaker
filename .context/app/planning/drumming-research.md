@@ -3081,6 +3081,517 @@ songsterr.com/a/wsa/angine-de-poitrine-tabs-a524708?inst=drum, tabs 5022558,
 4664492, 5353242, 4664503 (each read through songsterr.com/api/meta/{id} and
 its revisions).
 
+## X. Phil Collins (2026-10-14)
+
+The `collins` style plays **songs** the way `baker` does (T): each New picks
+one of his records, and its tempo, meter and grooves come with it. His record
+(`drummer-model/drummers/phil-collins.json`) is new in 11-g, written from this
+section.
+
+**Which records are his.** Credits checked on Wikipedia. He joined Genesis on
+8 August 1970 and plays every drum part on its records from _Nursery Cryme_;
+from _A Trick of the Tail_ (1976) he is the singer too, and on tour Bill
+Bruford (1976) and then Chester Thompson drummed while he sang, but the
+studio drums are his. In Brand X he plays on _Unorthodox Behaviour_ (1976),
+_Moroccan Roll_ (1977), _Livestock_ and part of _Product_ (1979), which he
+shares with Mike Clark; "...And So to F..." is his tune and his drums. On
+Peter Gabriel's third album he drums on "Intruder". On Philip Bailey's "Easy
+Lover" (1984) he sings, drums and produces. On his own records, In the Air
+Tonight's verses are a **Roland CR-78** ("the Disco-2 pattern, plus some
+programming", Wikipedia); the drums after the break are his kit.
+
+**How he played.** Wikipedia: rudiments under Lloyd Ryan and then Frank King;
+Ringo Starr and Roger Powell of the Action (who brought him Motown and Stax)
+first; Buddy Rich's view of the hi-hat "prompted him to stop using a second
+bass drum and start using the hi-hat"; among the drummers he names are Billy
+Cobham, Tony Williams, Elvin Jones, Ginger Baker, Bonham, Keith Moon, Charlie
+Watts, Airto Moreira and Sonny Payne. His kits have always been set up
+left-handed (DrumSpy, via a search summary). The gated sound began on
+Gabriel's "Intruder": Gabriel had him play without cymbals, and Hugh Padgham
+and Steve Lillywhite opened the overhead talkback mic, "heavily compressed as
+well as using a gate" (Wikipedia, Gated reverb); Collins and Padgham used it on
+_Face Value_. On odd meters, of "...And So to F...", which is in nine: "I'm fine
+with seven because seven's an easy one, yet apart from that, I've never been
+able to just flow in and out of odd times"; he sang Percy Jones's bass line to
+get through it ("If I deviate from that, I'd be sunk"; Far Out, via a search
+summary, the page refused the fetch). Turn It On Again: Rutherford had the
+riff slower, "And Phil said ... 'Do you realize it is in 13/8?'"; its verse
+and chorus alternate 6/4 and 7/4 (Wikipedia). Squonk "was designed to
+resemble Led Zeppelin's 'Kashmir'", and Los Endos's rhythm came from Brand X
+and Santana's "Promise of a Fisherman" (Wikipedia, A Trick of the Tail). Of
+the In the Air Tonight break, Collins: "There's no kick in between the last
+two tom hits" (quoted by Drumeo).
+
+**What the style encodes.** No new field. The gated songs (Intruder, In the
+Air Tonight, I Don't Care Anymore) write no cymbal and turn the phrase's crash
+off (`phraseMark.crash: false`); their backbeat is a rimshot. His fill is the
+In the Air Tonight break: two toms struck together and a kick, in threes
+down the kit, then the floor tom and the kick in turn (`fills`, weighted
+highest, and `fillsGrow`). Two other fills are his concert-tom habit (two toms
+together in eighths, the kick between) and Easy Lover's flams between the rack
+toms (`flam` 0.2). `ghostBias` 0.3 for Brand X's ghosted sixteenths, off in
+the gated songs. Kits: `bigRoom` (Big Rusty in a big room) for the 1980s;
+`drs` for 1970s Genesis; `osdk`, with its wide dynamic range, for Brand X's
+ghost notes; `bigrusty` for Squonk.
+
+**In the Air Tonight** is a song in two sections. A is the verse, the CR-78
+alone: its hats (open on 1 and 4, closed on the "and"s) on the hat lane and
+its conga on the `conga` slot, which takes no hand; the phrase always ends on
+the break (`fillChance: 1`), with no crash or kick to mark it. B is the drums:
+the tab's kit track (a kick, a rimshot on 2 and 4, a ghost before and after)
+under the machine's hats. The kit is the sampled `bigRoom` throughout, so it is
+not on `drummer-kits.test.ts`'s list: the machine's part is written on sampled
+hats and a conga rather than a CR-78.
+
+**Grids.** Nine songs follow human Songsterr transcriptions (each tab's
+`aiGenerated` flag checked through the meta API), read bar by bar with the
+most common bars kept; four follow Drumeo's published notation, and Supper's
+Ready takes a bar from each. Where a tab's length can be checked against the
+record at its marked tempo, it matches (In the Air Tonight 323 s at 95 against
+334; I Missed Again 224 against 221; I Don't Care Anymore 300 against 302;
+Squonk 391 against 387; Intruder 291 against 294).
+
+| Song                               | Year | Tempo (quarter)                                            | Meter     | What defines it                                                             | Source of the bars                     |
+| ---------------------------------- | ---- | ---------------------------------------------------------- | --------- | --------------------------------------------------------------------------- | -------------------------------------- |
+| In the Air Tonight                 | 1981 | 95 (tab, Drumeo); 96 (Wikipedia)                           | 4/4       | CR-78 verse; the break; kick and rimshot, no cymbal of his own              | Songsterr 50420 (human); Drumeo (fill) |
+| Intruder (Peter Gabriel)           | 1980 | 94 (tab; length matches); songbpm 105                      | 4/4       | no cymbals at all: kick and gated snare                                     | Songsterr 1070567 (human)              |
+| I Missed Again                     | 1981 | 108 (tab; length matches)                                  | 4/4       | hats open on the "and"s of 1 and 4                                          | Songsterr 1061008 (human)              |
+| I Don't Care Anymore               | 1982 | 140 (tab; length matches)                                  | 4/4       | a two-bar tom ostinato in eighths for a cymbal                              | Songsterr 669676 (human, early)        |
+| Easy Lover (Philip Bailey)         | 1984 | 132 (tab); 129 (songbpm, Drumeo)                           | 4/4       | straight eighths, kick on the "and"s of 2 and 4                             | Songsterr 33578 (human)                |
+| Turn It On Again                   | 1980 | 126–128 (tab); 128 (songbpm)                               | 6/4 + 7/4 | a rock beat run across a bar of 6/4 and one of 7/4                          | Songsterr 36367 (human)                |
+| Behind the Lines                   | 1980 | 164 (Drumeo, songbpm)                                      | 4/4       | the ride's bell on the beats, the hat between                               | Drumeo                                 |
+| Squonk                             | 1976 | 86 (tab, songbpm; length matches)                          | 4/4       | slow and heavy, snare accented                                              | Songsterr 36370 (human)                |
+| Dance on a Volcano                 | 1976 | 110–123 (tab); 114 (songbpm)                               | 7/8       | kick and hat foot on every eighth; ride; the bell over a busy snare         | Songsterr 36377 (human)                |
+| The Cinema Show                    | 1973 | 119 (Drumeo: eighth = 238); 134 (songbpm)                  | 7/8       | hat opened on 1, 3 and after 6, closed by the foot                          | Drumeo                                 |
+| Supper's Ready (Apocalypse in 9/8) | 1972 | 94 (Drumeo: eighth = 188)                                  | 9/8       | 2+2+2+2+1, a flam, the kick running into the bar line                       | Drumeo; Songsterr 61645 (human)        |
+| ...And So to F... (Brand X)        | 1979 | 156 (tab); played at 140–150                               | 9/8       | the ride in eighths, the kick on the bass line                              | Songsterr 1477092 (human)              |
+| Nuclear Burn (Brand X)             | 1976 | 153 (Drumeo: eighth = 306); songbpm 173; played at 140–150 | 11/8      | a bar of 4/4 in ghosted sixteenths, then two threes, hat closed by the foot | Drumeo                                 |
+
+- **The In the Air Tonight break** follows Drumeo. The tab agrees on the
+  notes and puts its kick on 4 a triplet late, near the "e". Drumeo's two
+  noteheads together are written as two toms at once: rack toms for the
+  first three groups, rack and floor for the fourth, then the floor tom
+  (Drumeo's last two are two floor toms together, and there is one floor tom
+  here). Drumeo prints Collins's "There's no kick in between the last two tom
+  hits" beside notation that has the kick on the "e" and the "a" of 4,
+  between and after those two floor-tom pairs. The two are not reconciled
+  here: the notes follow the notation, and the record asks what he meant.
+- **Turn It On Again** is written in the tab as one bar of 13/4: the rock beat
+  carried across twelve beats and one more. It is the 6/4 and 7/4 the record
+  plays, so it is two one-bar sections in turn (`arrangement: A B A B`), with
+  a fill on one bar in five and a crash on one in four.
+- **Behind the Lines**: Drumeo's first bar. Its second ends in sixteenths of
+  bell and ghosted snare, which at 164 is faster than the run rule allows.
+- **The Cinema Show** leaves out Drumeo's ghosts on 9 and 12, so four steps of
+  the 7/8 bar stay clear of kick and snare, as the critic asks; with them the
+  bar had two, and a variation's added kick took one more.
+- **...And So to F...** keeps the tab's 9/8 bars with air in them. Its densest
+  bars, the ride and kick together on the bass line and the snare in every gap
+  between, run the snare four sixteenths at a time and leave no quarter of the
+  bar clear: the critic refuses both, so they are not here. The tab marks 156;
+  sixteenths without a gap stop at 150 here, so the song opens a little under
+  the record, as does Nuclear Burn.
+
+**Left out.** "Watcher of the Skies" (Drumeo, 6/4 at 120): the snare and hat in
+unison, "four consecutive one-handed strokes" on the snare, which the critic
+calls a run, and too little air; it was written and taken out. "Los Endos":
+its main theme is sixteenths at 170–180, past the run rule. "Firth of Fifth":
+a bar of 13/16, which no meter here holds. "Abacab" (Songsterr 36360): its
+bars sit an eighth late against the record's backbeat, so the barring is in
+doubt. Every Brand X tab on Songsterr but "...And So to F..." is
+machine-made ("Nuclear Burn"'s drum track is "regenerated"); Moroccan Roll's
+tracks have none. "Second Home by the Sea" (Simmons SDS-V) and "Mama" and
+"Sussudio" (drum machines) would need a synthesised kit.
+
+**Found on the way, not changed.**
+
+- He plays a left-handed kit. The 3D drummer plays every kit right-handed; the
+  record says left-handed and nothing else does.
+- Gated reverb is not a kit parameter: `room` is a send, not a gate.
+  `bigRoom` is the nearest sampled kit.
+- In the Air Tonight's CR-78 has a third voice (the tab's MIDI note 27, an
+  eighth-note part with an accent on 2 every other bar) that could not be
+  identified, so it is not written.
+- Drumeo's Cinema Show bar has two ghosts as 32nds at the end of its second
+  group; the grid holds one.
+- The 11/8 meter groups 3+3+3+2, and Nuclear Burn is 2+2+2+2+3; the steps are
+  the same, only the beaming differs.
+
+Sources: Wikipedia — [Phil Collins](https://en.wikipedia.org/wiki/Phil_Collins),
+[In the Air Tonight](https://en.wikipedia.org/wiki/In_the_Air_Tonight),
+[Gated reverb](https://en.wikipedia.org/wiki/Gated_reverb),
+[Turn It On Again](https://en.wikipedia.org/wiki/Turn_It_On_Again),
+[A Trick of the Tail](https://en.wikipedia.org/wiki/A_Trick_of_the_Tail),
+[Unorthodox Behaviour](https://en.wikipedia.org/wiki/Unorthodox_Behaviour),
+[Product](<https://en.wikipedia.org/wiki/Product_(Brand_X_album)>);
+[Drumeo, The 12 Most Iconic Phil Collins Drum Parts](https://www.drumeo.com/beat/iconic-phil-collins-drum-parts/)
+(notation read from its SVGs);
+[Far Out, And So to F](https://faroutmagazine.co.uk/the-one-song-phil-collins-struggled-to-play-right) (via search summary);
+[DrumSpy, left-handed drummers](https://drumspy.com/?p=15769) (via search summary);
+Songsterr tabs 50420, 1070567, 1061008, 669676, 33578, 36367, 36370, 36377,
+61645, 1477092 (`https://www.songsterr.com/api/meta/<id>` for the
+`aiGenerated` flag); [songbpm.com](https://songbpm.com/@genesis) (Genesis,
+Phil Collins, Brand X, Peter Gabriel, Philip Bailey).
+
+## Y. Billy Cobham (2026-10-14)
+
+The `cobham` style plays **songs**, as `collins` does (X). His record
+(`drummer-model/drummers/billy-cobham.json`) is new in 11-g; until now he was a
+stub named by Yussef Dayes's record, and keeps the id it gave him,
+`drummer:billy-cobham`.
+
+**Which records are his.** Credits checked on Wikipedia. Spectrum (recorded
+14-16 May 1973): he plays on every track but "To the Women in My Life", a solo
+piano piece by Jan Hammer; Tommy Bolin and Lee Sklar are on Quadrant 4,
+Stratus and Red Baron, Ron Carter on Spectrum. The Mahavishnu Orchestra's _The
+Inner Mounting Flame_ (1971) and _Birds of Fire_ (1973) are his; its
+"Visions of the Emerald Beyond" (1975, with "Be Happy") is Narada Michael
+Walden's, so not used. Miles Davis: _A Tribute to Jack Johnson_, _Big Fun_,
+_Live-Evil_, _Get Up with It_. George Benson's _White Rabbit_ (CTI, November
+1971). **The Headhunters:** no source found credits him with Herbie Hancock's
+Headhunters, whose drummers were Harvey Mason and then Mike Clark; Wikipedia's
+article names no connection, and a search turned up none. He played with
+Hancock elsewhere, and with George Duke, Stanley Clarke and many others; the
+record notes the Headhunters claim as a likely misconception.
+
+**How he played.** Wikipedia: born in Colón, Panama, 16 May 1944; drums from
+four, with his father (a weekend pianist) from eight; his first kit at fifteen
+on getting into the High School of Music & Art; a US Army band 1965-68; Horace
+Silver; a house drummer for Atlantic. "Cobham plays his drums using the
+open-handed technique." His mid-1970s kit: "two Fibes bass drums, a custom
+Duffy snare, two flared-shell rack toms ... four Fibes rack toms, two Fibes
+floor toms ... a hi-hat, five Zildjian cymbals, and one hanging 36-inch gong."
+He cites Buddy Rich, Jo Jones and Louie Bellson, and Tony Williams, Elvin
+Jones, Jimmy Cobb, Roy Haynes, Max Roach and Art Blakey. Phil Collins: "Billy
+Cobham played some of the finest drumming I've ever heard on that record" (The
+Inner Mounting Flame). Todd Bishop (cruiseshipdrummer.com, 2020): "snare
+drummy", "the first major player to play the drums open handed"; fills of "a
+lot of singles, and a lot of open rolls with accented singles"; the bass drum
+"in normal funk ways, and for accents, and ostinatos, often tied to the
+cymbals"; "an energy sound, not a deep 'power' sound"; a snare "tuned rather
+high, with the snares highly tensioned"; and the china "mounted upside down",
+which "was widely copied". A search summary credits Quadrant 4 with a
+"double bass drum shuffle" (from the description of Bergamini's Hudson Music
+book of transcriptions, which was not read).
+
+**What the style encodes.** `doubleKick` (two bass drums, every song); the
+`police` kit (the DRS kit with its snare raised: Bishop's tight, high snare);
+`hats: 16` and, for Stratus, `oneHandHats` (sixteenths on the hat with one
+hand, the other on the snare, which is what open-handed allows);
+`anticipate` 0.2 with `anticipateCymbal: 3`, so an anticipated "and" of 4
+lands on the china; `midFills` 0.35 and `fillsGrow` (he fills often, in
+singles round the kit); a feel a hair on top (Bishop's "energy sound",
+inferred). The test's list of china players gains him.
+
+**Grids.** Six songs follow human Songsterr tabs (each tab's `aiGenerated`
+flag checked), read bar by bar with the most common bars kept; White Rabbit
+follows Todd Bishop's transcription.
+
+| Song                   | Year | Tempo (quarter)                                 | Meter          | What defines it                                                 | Source of the bars          |
+| ---------------------- | ---- | ----------------------------------------------- | -------------- | --------------------------------------------------------------- | --------------------------- |
+| Stratus                | 1973 | 90 (tab); 86 (songbpm)                          | 4/4            | one-handed sixteenths; snare on 2, the "e" of 3 and 4           | Songsterr 64400 (human)     |
+| Red Baron              | 1973 | 88 (tab); 89 (songbpm)                          | 4/4            | eighths; the same snare; the kick on the "a" of 1               | Songsterr 791843 (human)    |
+| Quadrant 4             | 1973 | 240 (tab); 242 (songbpm)                        | 4/4 in eighths | both bass drums on every eighth, swung, under a jazz ride       | Songsterr 519969 (human)    |
+| Spectrum               | 1973 | 110 (tab); songbpm 125                          | 7/8            | hat opening on the "and"s of 1 and 3, snare between the kicks   | Songsterr 1324254 (human)   |
+| Meeting of the Spirits | 1971 | 176–186 (tab)                                   | 6/4            | ride and hat foot, one snare a bar                              | Songsterr 13040 (human)     |
+| Birds of Fire          | 1973 | 98 (tab); songbpm 109                           | 9/8            | ride and hat foot in eighths, snare in pairs, kick off the beat | Songsterr 42451 (human)     |
+| White Rabbit (Benson)  | 1971 | 111 (songbpm; not confirmed by a second source) | 4/4            | a funk beat, then the ride's bell                               | Todd Bishop's transcription |
+
+- **Quadrant 4** is written in the tab in triplets: the ride's spang-a-lang,
+  the snare on 2 and 4 with a ghost on the middle triplet of 1 and 3, and the
+  kick on every beat and its last triplet. Sextuplet 4/4 stops at 190 here, and
+  12/8 would put its dotted quarter at 240, a slider of 360, past 300; so it is
+  4/4 in eighths, swung to a triplet (`swing` 90–100), where the last triplet is
+  the swung "and". The two ghosts on the middle triplet have no step and are
+  left out. With two bass drums the kick is on every eighth.
+- **Spectrum**: the tab's bar, not Bishop's. Bishop's has a sixteenth triplet
+  on the last eighth (LRL, the last note lightly accented) and leaves one step
+  of the fourteen clear of kick and snare, which the critic calls airless; the
+  tab's leaves four. Its 32nds on 6 are left out.
+- **White Rabbit**: Bishop's funk beat and two of his three bell bars. The third
+  leaves two steps clear of kick and snare. His first phase, the flamenco beat,
+  puts a sixteenth triplet and two sixteenths in one beat, which no grid here
+  holds.
+- **Stratus**'s section E puts crashes on the bass line with both feet under
+  them; it is a light third figure.
+
+**Left out.** "Vital Transformation" (Songsterr 12855, human, 9/8): linear
+sixteenths with kick or snare on every step but one, which the critic refuses
+as airless; it is the song that most shows how he played, and it waits on a
+rule for linear grooves. "Dance of Maya" (420191): its drum track is not in
+General MIDI notes, and its 20/8 has no meter here. "Lila's Dance" (20/8 and
+14/8), "Faith" (10/8, and its credit is not checked), "Miles Beyond" and
+"Awakening" (bars too sparse to read). "Crosswinds", "Panhandler", "Sorcery"
+and "Do What You Wanna" are machine-made. "The Dancer" (Stanley Clarke, Bishop's
+transcription): a reader says it may be Steve Gadd or Gerry Brown. Right Off
+(Jack Johnson), The Noonward Race, One Word and Taurian Matador have no free
+transcription found.
+
+**Found on the way, not changed.**
+
+- The critic's air rule (a quarter of the bar clear of kick and snare) refuses
+  the linear sixteenths that are much of his Mahavishnu playing, ghosts
+  included: a ghost counts as a note. Vital Transformation and Bishop's
+  Spectrum bar are the cases.
+- Open-handed is a record field only: the 3D drummer crosses its hands for the
+  hat as it does for everyone.
+- There is no sextuplet meter above 190, so a fast triplet shuffle has to be
+  swung eighths, which loses the middle triplet.
+- The china is the crash lane's value 3; there is no second china or gong.
+
+Sources: Wikipedia — [Billy Cobham](https://en.wikipedia.org/wiki/Billy_Cobham),
+[Spectrum](<https://en.wikipedia.org/wiki/Spectrum_(Billy_Cobham_album)>),
+[White Rabbit (George Benson album)](<https://en.wikipedia.org/wiki/White_Rabbit_(George_Benson_album)>) (via search summary);
+Todd Bishop — [Let's talk about Billy Cobham](https://cruiseshipdrummer.com/2020/09/02/lets-talk-about-billy-cobham/),
+[White Rabbit](https://cruiseshipdrummer.com/2023/01/24/groove-o-the-day-billy-cobham-white-rabbit/),
+[in 7/8](https://cruiseshipdrummer.com/2012/06/14/groove-o-the-day-billy-cobham-in-7-8/);
+[Hudson Music, COBHAM](https://hudsonmusic.com/product/cobham) (via search summary);
+Songsterr tabs 64400, 791843, 519969, 1324254, 13040, 42451;
+[songbpm.com](https://songbpm.com/@billy-cobham).
+
+## Z. Lenny White (2026-10-14)
+
+The `lennywhite` style plays **songs**, as `collins` does (X). His record
+(`drummer-model/drummers/lenny-white.json`) is new in 11-g. He has only three
+songs: of all the drummers here, he is the one whose records have the fewest
+free transcriptions, and none was written without one.
+
+**Which records are his.** Credits checked on Wikipedia. Born Leonard White
+III, 19 December 1949, in Queens; self-taught; his first gig was with Jackie
+McLean, who recommended him for Miles Davis's _Bitches Brew_ (1969, with Jack
+DeJohnette and Don Alias also drumming); then Freddie Hubbard's _Red Clay_
+(1970). Return to Forever's drummers: Airto Moreira (1972-73), Steve Gadd
+(1973), Lenny White (1973-76 and the reunions), Gerry Brown (1977). "Gadd was
+unwilling to tour with the band ... Lenny White ... replaced Gadd and Lewis"
+(Wikipedia, Return to Forever). He is the only drummer on _Romantic Warrior_
+(February 1976), whose "Sorceress" is his tune. On Al Di Meola's _Land of the
+Midnight Sun_ he drums on the title track only (Steve Gadd on "The Wizard",
+Alphonse Mouzon on the suite). On _Elegant Gypsy_ Wikipedia gives him "Midnight
+Tango" and "Race with Devil on Spanish Highway"; the only tabs found contradict
+that (one's drum track is named Steve Gadd; the other is "Race with Devil on
+_Turkish_ Highway", a later record), so neither is used. Twennynine (1979-81)
+is his own band.
+
+**How he played.** Modern Drummer's preview of Marc Atkinson's transcription
+of "The Magician": "he plays openhanded, utilizing his left hand on the hi-hat
+and right hand on the snare, and even riding with his left hand", with "many
+grooves and fills leading with the left". Todd Bishop, hearing him live in
+2019: cymbals reversed on a right-handed kit (the ride on the left); "his
+denser playing was economical and non-technical ... lots of singles and
+doubles"; "tune oriented", with "big accompanying statements that were not
+always on the same grid as the primary groove"; "Tony's playing in the 60s was
+clearly a formative influence". Bishop on Red Clay: "really on the front of
+the beat", measured at 64-70 bpm, the vamp's second bar a little faster, and a
+double-time feel under the saxophone solo at the same tempo.
+
+**What the style encodes.** `oneHandHats` (open-handed: the sixteenths in the
+left hand, the right free for the snare); a feel on the front of the beat (the
+kick, snare, hat and ride all a fiftieth of a sixteenth early); a cross-rhythm
+(`crossRhythm` 0.25: an accent on snare and kick every six sixteenths across
+the last two bars) for the statements off the grid; `midFills` 0.3. The kit is
+`muldjord`, a real kit recorded properly; nothing found describes his 1970s
+sound closely enough to tune one to it.
+
+| Song                              | Year | Tempo (quarter)          | Meter     | What defines it                                              | Source of the bars        |
+| --------------------------------- | ---- | ------------------------ | --------- | ------------------------------------------------------------ | ------------------------- |
+| Duel of the Jester and the Tyrant | 1976 | 150–160 (tab)            | 4/4 + 7/8 | heavy half-time, snare on 3; unison eighths; 7/8 on the ride | Songsterr 914514 (human)  |
+| Land of the Midnight Sun          | 1976 | 120 (tab); 119 (songbpm) | 4/4       | sixteenths on the hat in one hand, the snare in pairs        | Songsterr 414449 (human)  |
+| Morning Sunrise (Twennynine)      | 1979 | 71 (tab, songbpm)        | 7/4 + 4/4 | a cross-stick in the 7/4 opening; slow eighths in the verse  | Songsterr 3084901 (human) |
+
+- **Duel** is two sections: A the half-time theme (the tab's most common bars,
+  with the band's unison of eighth-note kicks under a crash); B its 7/8, on
+  the ride, and its fill (three on the snare, then the rack and mid toms in
+  eighths). A's fills are in eighths, because sixteenths without a gap stop at
+  150 and the song runs to 160.
+- **Morning Sunrise** opens in 7/4 in the tab, so A is the 7/4 and B the
+  verse.
+
+**Left out.** "Medieval Overture" (Songsterr 515705, human): 3/4 at 240 in
+the tab, past 3/4's 190 here; the bars are eighths and the bell, and could be
+written if the tempo is checked. "The Musician" (RTF, 2019): its drum track is
+"regenerated". "Hymn of the Seventh Galaxy", "Majestic Dance", "The Magician",
+"Vulcan Worlds", "After the Cosmic Rain", "Captain Señor Mouse", "Red Clay",
+"Best of Friends", "Butter", "Tropical Nights", "Sweet Dreamer": machine-made
+tabs. "Sorceress", "Dayride", "No Mystery", "Spanish Key": no tab at all.
+"Invitation" (Joe Henderson, Bishop's transcription): the image and PDF are
+gone. "Miles Runs the Voodoo Down" has three drummers and its groove is Don
+Alias's.
+
+**Found on the way, not changed.**
+
+- Open-handed is a record field; the 3D drummer crosses for the hat as for
+  everyone, and plays the ride with the right hand where he used his left.
+- No sixteenth meter in 3/4 goes past 190, so a fast 3/4 in eighths has no
+  grid (there is a `4/4-8` but no `3/4-8`).
+
+Sources: Wikipedia — [Lenny White](https://en.wikipedia.org/wiki/Lenny_White),
+[Return to Forever](https://en.wikipedia.org/wiki/Return_to_Forever),
+[Romantic Warrior](https://en.wikipedia.org/wiki/Romantic_Warrior),
+[Land of the Midnight Sun](<https://en.wikipedia.org/wiki/Land_of_the_Midnight_Sun_(album)>),
+[Elegant Gypsy](https://en.wikipedia.org/wiki/Elegant_Gypsy);
+Todd Bishop — [Notes on a Lenny White performance](https://cruiseshipdrummer.com/2019/09/12/notes-on-a-lenny-white-performance/),
+[Red Clay](https://cruiseshipdrummer.com/2014/03/28/groove-o-the-day-lenny-white-red-clay/);
+[Modern Drummer, The Magician (preview)](https://www.moderndrummer.com/article/the-magician-transcription-by-marc-atkinson/);
+Songsterr tabs 914514, 414449, 3084901; [songbpm.com](https://songbpm.com/@al-di-meola).
+
+## AA. Michael Shrieve (2026-10-14)
+
+The `shrieve` style plays **songs**, as `collins` does (X). His record
+(`drummer-model/drummers/michael-shrieve.json`) is new in 11-g; he was a stub
+named by Santana's "Oye Como Va" recording, and keeps that id. That recording
+had its drummer's evidence under `ev`, not `evidence`; it is renamed.
+
+**Which records are his.** Wikipedia: born 6 July 1949 in San Francisco,
+raised in Redwood City; at nineteen he "jammed with Santana at a recording
+studio and was invited to join that day"; Woodstock on 16 August 1969; seven
+albums, 1969-74 (Santana, Abraxas, Santana III, Caravanserai, Welcome,
+Borboletta, Lotus); he co-wrote four of Caravanserai's tracks and co-produced
+it. In his own words (A Breath of Fresh Air): the band "just had a big falling
+out with the drummer", remembered him, and "literally followed me home to my
+parents' house". So the 1968 _Live at the Fillmore_ shows, whose tabs exist,
+are Bob Livingston's, not his, and are not used. Santana's percussion section
+was Michael Carabello (congas) and José "Chepito" Areas (timbales); on
+Caravanserai, Mingo Lewis and Armando Peraza.
+
+**How he played.** "I started with big band drummers like Buddy Rich and Gene
+Krupa and then I got into Tony Williams, [Jack DeJohnette], Roy Haynes" (the
+transcript writes "Jackie Jeanette"). From the 1983 Modern Drummer interview,
+as Scott K. Fish quotes it: "I see it as a flow of energy. Let's say the rhythm
+I play contains a flow of energy that isn't locked to the rhythm."
+UltimateSantana: "a staggering array of complicated, jazz-influenced patterns
+that not only complemented, but enhanced the syncopated percussion team." "We
+played to each other. We don't play to the crowd." A search summary says he
+studied Elvin, Haynes, Philly Joe and Tony Williams with his friend Lenny
+White; no page found says so, so the record has no edge for it and asks.
+
+**What the style encodes.** The `sixties` kit (an open, ringing 1960s Ludwig);
+a loose feel with no lean (`jitter` 0.02: "not locked to the rhythm");
+`fillsGrow` (Soul Sacrifice builds to its solo); and, in the songs, **the
+percussion section on the percussion lanes**: Carabello's congas under Soul
+Sacrifice, the bongos under Black Magic Woman, the maracas and cabasa under
+Song of the Wind. Those slots take no drummer's hands, as they were other
+players'. The style's figures are his kit parts only.
+
+| Song                         | Year | Tempo (quarter)                  | What defines it                                                  | Source of the bars        |
+| ---------------------------- | ---- | -------------------------------- | ---------------------------------------------------------------- | ------------------------- |
+| Soul Sacrifice (Woodstock)   | 1969 | 132 (tab); 136 (songbpm, studio) | riding the crash on the beat; the solo's snare in threes         | Songsterr 1621352 (human) |
+| Evil Ways                    | 1969 | 120 (tab); 117 (songbpm)         | eighths on the hat, a cross-stick verse, the ride in the outro   | Songsterr 3582839 (human) |
+| Persuasion (Woodstock)       | 1969 | 126–138 (tab); 131 (songbpm)     | hats, then floor tom and kick together in eighths                | Songsterr 1621303 (human) |
+| Fried Neck Bones (Woodstock) | 1969 | 120–130 (tab)                    | the ride in eighths; crashes on 1 and the "and" of 2             | Songsterr 1621357 (human) |
+| Black Magic Woman            | 1970 | 120 (tab); 124 (songbpm)         | the hat open in threes and a kick, the bongos playing the groove | Songsterr 357 (human)     |
+| Samba Pa Ti                  | 1970 | 88 (tab); 92 (songbpm)           | sixteenths on the hat, two on the snare                          | Songsterr 17329 (human)   |
+| Taboo                        | 1971 | 85 (tab); 90 (songbpm)           | slow; a cross-stick verse; the hat open on the "and"s            | Songsterr 1815434 (human) |
+| Song of the Wind             | 1972 | 94 (tab); 90 (songbpm)           | a cross-stick tresillo with maracas and cabasa                   | Songsterr 17440 (human)   |
+
+- **Soul Sacrifice** follows the Woodstock tab; the congas are from the studio
+  tab (17533), whose drum track has them merged into his part.
+- **Black Magic Woman**'s tab writes the bongos in his track; they go on the
+  conga slot (there is no bongo), and his part is the hat and the kick.
+- **Samba Pa Ti**'s tab gives the samba section hats and snare only, no kick,
+  and it is kept as written.
+
+**Left out.** "Waiting" (Woodstock): its drum track is "regenerated". "Savor",
+"Jingo" (studio and Woodstock), "No One to Depend On", "Incident at
+Neshabur", "Toussaint L'Overture": machine-made tabs. "Oye Como Va" (61155):
+the tab has bongos and no kit. "Batuka": the tab is cymbal swells. The 1968
+Fillmore tabs: Bob Livingston.
+
+**Found on the way, not changed.**
+
+- There is no bongo instrument; the conga slot stands in for it.
+- Two Santana percussionists at once (congas and timbales) need two slots;
+  each song here writes the one its tab gives.
+
+Sources: [Wikipedia, Michael Shrieve](https://en.wikipedia.org/wiki/Michael_Shrieve);
+[A Breath of Fresh Air, transcript](https://abreathoffreshair.com.au/transcript/transcript-santanas-drummer-michael-shrieve-on-life-music-and-beyond/);
+[Scott K. Fish, Michael Shrieve pt 1](https://scottkfish.com/2025/01/23/michael-shrieve-pt-1-of-2/);
+[UltimateSantana, Michael Shrieve](https://www.ultimatesantana.com/resources/the-band/michael-shrieve/);
+Songsterr tabs 1621352, 17533, 3582839, 1621303, 1621357, 357, 17329, 1815434,
+17440; [songbpm.com](https://songbpm.com/@santana).
+
+## AB. Cindy Blackman Santana (2026-10-14)
+
+The `cindyblackman` style plays **songs**, as `collins` does (X). Her record
+(`drummer-model/drummers/cindy-blackman-santana.json`) is new in 11-g. She was
+two stubs: Tony Williams's record named her `drummer:cindy-blackman-santana`
+and Yussef Dayes's `drummer:cindy-blackman`, which is the two-nodes-for-one-
+person fault 11-a fixed for Cozy Cole. Her record keeps the first (her name
+since 2010) and Dayes's reference moves to it; a test holds it.
+
+**Which records are hers.** Wikipedia: born 18 November 1959 in Yellow
+Springs, Ohio; the Hartt School from eleven, then Berklee with Alan Dawson,
+who had taught Tony Williams; to New York in 1982; _Arcane_ (1987) as leader
+with Wallace Roney, Joe Henderson and Kenny Garrett; Lenny Kravitz's drummer
+from 1993 for eighteen years; _Another Lifetime_ (2010), a Tony Williams
+tribute; married Carlos Santana on 19 December 2010; on _Corazón_ (2014),
+_Africa Speaks_ (2019) and _Blessings and Miracles_ (2021); _Give the Drummer
+Some_ (2020). **Kravitz**: he plays most instruments on his own records, the
+drums included; her one studio track with him is "Straight Cold Player" on
+_5_ (1998), per DRUM! (via a search summary). She is in the "Are You Gonna Go
+My Way" video, but the record's drums are his, so no Kravitz hit is used.
+_Africa Speaks_: Rick Rubin, ten days at Shangri-La, forty-nine songs, her on
+drums. _Blessings and Miracles_: her on all but "Joy" (Derek Mixon) and track
+7, so the human "Joy" tab is not hers. The live "Corazón Espinado" is from
+_Corazón, Live from Mexico: Live It to Believe It_, Guadalajara, 14 December
+2013, released 9 September 2014; the studio version (1999, _Supernatural_)
+predates her. Public Enemy's "She Got Game" (4 February 2026) credits her
+on drums. Modern Drummer has just covered her new record, _Coherence_
+(October 2026), with Carlos Santana and John McLaughlin among its guests; no
+transcription of it exists yet.
+
+**How she played.** Modern Drummer (2008): hearing Tony Williams on _Four &
+More_, "I was trippin'"; "I'm chasing the legends of Art Blakey, Tony
+Williams, and Elvin Jones, I'd better be ready"; "You better smack those
+drums, because those cats weren't messing around"; a 1950s Gretsch
+round-badge Broadkaster at home. Wikipedia: Blakey "really was like a father to
+me. I learned a lot just watching him." Bart Elliott (Drummer Cafe, 2015)
+transcribed the groove she opened her Vic Firth interview with: "a wonderful
+mix of New Orleans funk, latin and jazz", a gallop on the ride (an eighth and
+two sixteenths) over ghosts in the left hand, the kick and the hat foot in a
+one-bar ostinato.
+
+**What the style encodes.** The `bigrusty` kit (thick, hit hard, a big wash of
+cymbal); `rimshot` 0.35 ("smack those drums"); a feel on top, after Williams
+(inferred); `buzz` 0.1 for the roll that opens She Got Game's chorus. Her Vic
+Firth groove is a style figure, not a song: it names no record.
+
+| Song                    | Year | Tempo (quarter)                        | What defines it                                                               | Source of the bars        |
+| ----------------------- | ---- | -------------------------------------- | ----------------------------------------------------------------------------- | ------------------------- |
+| Breaking Down the Door  | 2019 | 102 (tab); 103 (songbpm)               | the kick on every beat, the snare on the "a" of 1 and 3, the "and" of 2 and 4 | Songsterr 4521944 (human) |
+| Corazón Espinado (live) | 2014 | 128 (tab); the 1999 studio take is 120 | hats, then the ride, then the crash and snare on every beat                   | Songsterr 5178015 (human) |
+| She Got Game            | 2026 | 100 (tab)                              | the kick on the "a" of 2 and the 3, the hats filling in sixteenths            | Songsterr 3917543 (human) |
+
+- **Breaking Down the Door**'s backbeat is its snare figure (the "a" of 1, the
+  "and" of 2, the "a" of 3, the "and" of 4), so it has its own fill, the tab's
+  turnaround with a crash on the "and" of 4 over that figure: the style's
+  fills put the snare on the beat and the critic then found no backbeat.
+- **She Got Game**'s roll into the chorus is twelve sixteenths on the snare,
+  which the critic calls a run; it is written as buzz strokes on the eighths,
+  then the backbeat on 4, with the kick into the 1 (the tab's three kicks
+  are two here, the third a triple the critic refuses on one foot).
+
+**Left out.** Every Kravitz hit (his drums); "Joy" (Derek Mixon); the Playing
+for Change "Oye Como Va", "Yo Soy la Luz", "Corazón Espinado" (studio, live
+990131), "Move", "Saideira": machine-made or not hers. Her jazz records,
+Spectrum Road and _Coherence_ have no transcription found, and they are the
+heart of her playing: the record asks for them.
+
+**Found on the way, not changed.**
+
+- She has three songs. Like Lenny White's, her style is thinner than her
+  playing because only three of her records have a human transcription.
+
+Sources: Wikipedia — [Cindy Blackman Santana](https://en.wikipedia.org/wiki/Cindy_Blackman_Santana),
+[Africa Speaks](<https://en.wikipedia.org/wiki/Africa_Speaks_(album)>),
+[Blessings and Miracles](https://en.wikipedia.org/wiki/Blessings_and_Miracles);
+[Modern Drummer, The Lady Comes To Play (2008)](https://www.moderndrummer.com/2008/04/cindy-blackman/);
+[Modern Drummer, Coherence (2026)](https://www.moderndrummer.com/article/cindy-blackman-santana-talks-about-her-new-record-coherence/);
+[Drummer Cafe, Smooth Struttin' New Awlins Gumbo](https://drummercafe.com/education/lessons/cindy-blackman-smooth-struttin-new-awlins-gumbo);
+[DRUM!, Lenny Kravitz drummers](https://drummagazine.com/lenny-krawitz-drummers/) (via search summary);
+[santana.com, Corazón Live from Mexico](https://santana.com/news/were-proud-to-announce-sept-9th-release-of-corazon-live-from-mexico-live-it-to-believe-it/) (via search summary);
+[Black America Web, She Got Game](https://blackamericaweb.com/2026/02/05/public-enemy-he-got-game-as-a-women-power/) (via search summary);
+Songsterr tabs 4521944, 5178015, 3917543; [songbpm.com](https://songbpm.com/@santana).
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

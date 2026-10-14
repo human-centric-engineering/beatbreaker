@@ -1,0 +1,44 @@
+{
+  "id": "rec:brand-x-product-1979",
+  "title": "Product",
+  "artist": "Brand X",
+  "release": "Charisma",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "John Goodsall",
+      "role": "guitar"
+    },
+    {
+      "name": "Percy Jones",
+      "role": "bass"
+    },
+    {
+      "name": "Phil Collins",
+      "role": "drums, vocals"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-collins",
+      "name": "Phil Collins",
+      "drummer_role": "co_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Collins back on drums for half the album; he wrote ...And So to F..., in nine, and got through it by singing Percy Jones's bass line.",
+      "pattern_ids": ["pattern:phil-collins-and-so-to-f"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:product-brand-x-wikipedia",
+          "src:phil-collins-faroutmagazine-and-so-to-f"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:product-brand-x-wikipedia", "src:phil-collins-faroutmagazine-and-so-to-f"]
+  }
+}

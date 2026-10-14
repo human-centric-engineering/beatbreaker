@@ -1,0 +1,41 @@
+{
+  "id": "rec:al-di-meola-land-of-the-midnight-sun-1976",
+  "title": "Land of the Midnight Sun",
+  "artist": "Al Di Meola",
+  "release": "Columbia",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "Al Di Meola",
+      "role": "guitars"
+    },
+    {
+      "name": "Jaco Pastorius",
+      "role": "bass (title track)"
+    },
+    {
+      "name": "Lenny White",
+      "role": "drums (title track)"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lenny-white",
+      "name": "Lenny White",
+      "drummer_role": "co_drummer",
+      "significance": 0.6,
+      "why_it_matters": "The title track: sixteenths on the hat in one hand, the snare in pairs, under Di Meola and Jaco Pastorius.",
+      "pattern_ids": ["pattern:lenny-white-land-of-the-midnight-sun"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:land-of-the-midnight-sun-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:land-of-the-midnight-sun-wikipedia"]
+  }
+}

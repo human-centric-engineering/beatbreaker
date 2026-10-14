@@ -1,0 +1,49 @@
+{
+  "id": "rec:mahavishnu-birds-of-fire-1973",
+  "title": "Birds of Fire",
+  "artist": "Mahavishnu Orchestra",
+  "release": "Columbia",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "John McLaughlin",
+      "role": "guitar"
+    },
+    {
+      "name": "Jan Hammer",
+      "role": "keyboards"
+    },
+    {
+      "name": "Jerry Goodman",
+      "role": "violin"
+    },
+    {
+      "name": "Rick Laird",
+      "role": "bass"
+    },
+    {
+      "name": "Billy Cobham",
+      "role": "drums, percussion"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:billy-cobham",
+      "name": "Billy Cobham",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The second: the title track in nine, the ride and hat foot in eighths over the snare in pairs.",
+      "pattern_ids": ["pattern:billy-cobham-birds-of-fire"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:billy-cobham-wikipedia"]
+  }
+}

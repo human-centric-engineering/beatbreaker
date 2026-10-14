@@ -1,0 +1,665 @@
+{
+  "meta": {
+    "id": "drummer:lenny-white",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.4,
+    "created": "2026-10-14",
+    "updated": "2026-10-14",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Transcribe Sorceress, Vulcan Worlds, Dayride and The Magician; Modern Drummer published The Magician (paywalled).",
+      "Transcribe Red Clay's vamp; Bishop measured 64-70 and the feel but gave no notation.",
+      "Medieval Overture (Songsterr 515705, human) is 3/4 at 240, past what 3/4 plays here; check the tempo and consider a grid that can.",
+      "Which tracks on Bitches Brew carry him, and which side of the stereo."
+    ]
+  },
+  "identity": {
+    "name": "Lenny White",
+    "full_name": "Leonard White III",
+    "born": {
+      "date": "1949-12-19",
+      "place": "Queens, New York City, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lenny-white-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York jazz (from the late 1960s)"],
+    "handedness": "unknown",
+    "kit_orientation": "open_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1967,
+      "to": 2026
+    },
+    "roles": ["band_member", "bandleader", "session", "composer", "producer", "educator"],
+    "summary": "One of fusion's founding drummers: self-taught, on Bitches Brew and Red Clay at twenty, then Return to Forever's drummer through Romantic Warrior. Open-handed, on the front of the beat, a tune drummer whose big statements cut across the bar."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "teachers": [],
+    "traditions": [
+      {
+        "tradition": "1960s jazz drumming",
+        "impact": "Tony Williams's 1960s playing, Bishop hears, formed him.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lenny-white-bishop-2019"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Self-taught; his father took him to jazz gigs.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:lenny-white-wikipedia"]
+        }
+      },
+      {
+        "event": "First gig with Jackie McLean at The Gold Lounge.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:lenny-white-wikipedia"]
+        }
+      },
+      {
+        "year": 1969,
+        "event": "Bitches Brew, on McLean's recommendation.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:lenny-white-wikipedia"]
+        }
+      },
+      {
+        "year": 1972,
+        "event": "Joined Chick Corea's Return to Forever.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:lenny-white-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:lenny-white-early",
+      "label": "Miles, Hubbard and Joe Henderson",
+      "years": {
+        "from": 1969,
+        "to": 1972
+      },
+      "context": "Bitches Brew, Red Clay, In Pursuit of Blackness, Azteca.",
+      "defining_traits": ["on the front of the beat", "jazz-funk vamps"],
+      "key_recording_ids": [
+        "rec:miles-davis-bitches-brew-1970",
+        "rec:freddie-hubbard-red-clay-1970"
+      ]
+    },
+    {
+      "id": "era:lenny-white-rtf",
+      "label": "Return to Forever",
+      "years": {
+        "from": 1973,
+        "to": 1976
+      },
+      "context": "Hymn of the Seventh Galaxy to Romantic Warrior, with Corea, Clarke and Di Meola.",
+      "defining_traits": ["rock volume", "odd meters", "big statements across the bar"],
+      "key_recording_ids": [
+        "rec:return-to-forever-romantic-warrior-1976",
+        "rec:al-di-meola-land-of-the-midnight-sun-1976"
+      ]
+    },
+    {
+      "id": "era:lenny-white-twennynine",
+      "label": "Solo records and Twennynine",
+      "years": {
+        "from": 1975,
+        "to": 1982
+      },
+      "context": "Venusian Summer, Big City, The Adventures of Astral Pirates; Twennynine; producing Echoes of an Era.",
+      "defining_traits": ["soul and funk"],
+      "key_recording_ids": ["rec:twennynine-morning-sunrise-1979"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.6,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.5,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.3,
+        "authority": 0.4
+      }
+    ],
+    "versatility": 0.8,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "conversational",
+    "descriptors": ["on the front of the beat", "tune-oriented", "open-handed", "powerful"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:lenny-white-bishop-red-clay"],
+        "note": "Bishop: 'really on the front of the beat' (Red Clay)."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0
+    },
+    "dynamics": {
+      "range": 0.8,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 120,
+      "balance": "Big statements over the time."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 22],
+      "fill_frequency": "every_4_bars",
+      "space_usage": 0.4
+    },
+    "consistency": 0.8,
+    "tempo_comfort_bpm": [64, 240],
+    "timekeeping_context": ["free"],
+    "interaction": "Tune-oriented: the tune and the four- and eight-bar phrase organise his playing (Bishop).",
+    "descriptors": ["pushing", "tune-led"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Open-handed",
+        "description": "The left hand on the hat and even on the ride, the right on the snare; many grooves and fills lead with the left.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lenny-white-md-magician", "src:lenny-white-bishop-2019"]
+        }
+      },
+      {
+        "name": "Singles and doubles",
+        "description": "Dense passages played with singles and doubles, economically.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lenny-white-bishop-2019"]
+        }
+      }
+    ],
+    "foot_techniques": [],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.85,
+      "linear_playing": 0.3,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 0.5,
+      "odd_meter_fluency": 0.8
+    },
+    "voice_language": {
+      "hihat": "In the left hand, sixteenths with one hand.",
+      "snare": "Pairs and statements across the bar.",
+      "ride": "On the left, played with the left hand."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.2,
+      "mallets": 0.1
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["big 1970s fusion kit"],
+    "cymbal_character": "Ride on the left, crash on the right (live, 2019).",
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:lenny-white-bishop-2019"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:lenny-white-open-handed",
+      "label": "Open-handed, leading with the left",
+      "category": "technique",
+      "description": "The hat and even the ride in his left hand; grooves and fills lead with the left.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:lenny-white-md-magician", "src:lenny-white-bishop-2019"]
+      },
+      "pattern_ids": ["pattern:lenny-white-land-of-the-midnight-sun"]
+    },
+    {
+      "id": "trait:lenny-white-front-of-beat",
+      "label": "On the front of the beat",
+      "category": "feel",
+      "description": "Pushes the time forward, as on Red Clay.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:lenny-white-bishop-red-clay"]
+      }
+    },
+    {
+      "id": "trait:lenny-white-statements",
+      "label": "Statements across the grid",
+      "category": "musical_approach",
+      "description": "Big accompanying statements that do not sit on the groove's grid.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:lenny-white-bishop-2019"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:lenny-white-duel-half-time",
+        "name": "Duel of the Jester and the Tyrant: half-time",
+        "type": "groove",
+        "function": "The heavy theme",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-914514"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 155,
+          "playable_range_bpm": [150, 160]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "........x.......",
+          "kick": "x.x...x........."
+        },
+        "source": {
+          "recording_id": "rec:return-to-forever-romantic-warrior-1976",
+          "transcription_source_id": "src:songsterr-914514"
+        }
+      },
+      {
+        "id": "pattern:lenny-white-duel-7-8",
+        "name": "Duel of the Jester and the Tyrant: 7/8",
+        "type": "groove",
+        "function": "The 7/8 passage on the ride",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-914514"]
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 155,
+          "playable_range_bpm": [150, 160]
+        },
+        "lanes": {
+          "ride": "x...x...x...x.",
+          "snare": "..xx....x...x.",
+          "kick": "....x.x...x..."
+        },
+        "source": {
+          "recording_id": "rec:return-to-forever-romantic-warrior-1976",
+          "transcription_source_id": "src:songsterr-914514"
+        }
+      },
+      {
+        "id": "pattern:lenny-white-land-of-the-midnight-sun",
+        "name": "Land of the Midnight Sun: one-handed sixteenths",
+        "type": "groove",
+        "function": "The title track",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-414449", "src:lenny-white-md-magician"],
+          "note": "Open-handed: the sixteenths in the left hand."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [116, 124]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxoxxxo...",
+          "snare": "....xx......x.x.",
+          "kick": "x.xx..x.x......."
+        },
+        "source": {
+          "recording_id": "rec:al-di-meola-land-of-the-midnight-sun-1976",
+          "transcription_source_id": "src:songsterr-414449"
+        }
+      },
+      {
+        "id": "pattern:lenny-white-morning-sunrise",
+        "name": "Morning Sunrise: 7/4",
+        "type": "groove",
+        "function": "The opening",
+        "style_ids": ["style:rnb-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3084901"]
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 71,
+          "playable_range_bpm": [69, 73]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.x.x.x.x.x.x.",
+          "snare": "....c.......c.......c.......",
+          "kick": "x.......x.......x.......x..."
+        },
+        "source": {
+          "recording_id": "rec:twennynine-morning-sunrise-1979",
+          "transcription_source_id": "src:songsterr-3084901"
+        }
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Return to Forever",
+      "type": "band_member",
+      "years": {
+        "from": 1973,
+        "to": 1976
+      },
+      "bandmates": [
+        {
+          "name": "Chick Corea"
+        },
+        {
+          "name": "Stanley Clarke"
+        },
+        {
+          "name": "Al Di Meola"
+        },
+        {
+          "name": "Bill Connors"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lenny-white-wikipedia"]
+      }
+    },
+    {
+      "name": "Twennynine",
+      "type": "bandleader",
+      "years": {
+        "from": 1979,
+        "to": 1981
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lenny-white-wikipedia"]
+      }
+    },
+    {
+      "name": "Azteca",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 1973
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lenny-white-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:return-to-forever-romantic-warrior-1976",
+    "rec:al-di-meola-land-of-the-midnight-sun-1976",
+    "rec:twennynine-morning-sunrise-1979",
+    "rec:miles-davis-bitches-brew-1970",
+    "rec:freddie-hubbard-red-clay-1970"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:lenny-white-bishop-2019"],
+        "note": "Bishop hears Tony's 1960s playing as formative; White dedicated Magnificent Seven to Williams among others."
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "mentored_by",
+      "target": {
+        "name": "Jackie McLean",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lenny-white-wikipedia"],
+        "note": "His first gig; McLean recommended him to Miles Davis."
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Chick Corea",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lenny-white-wikipedia"]
+      },
+      "strength": 1.0
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Stanley Clarke",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lenny-white-wikipedia"],
+        "note": "Return to Forever, and Corea, Clarke & White."
+      },
+      "strength": 1.0
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Al Di Meola",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:romantic-warrior-wikipedia"]
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Miles Davis",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lenny-white-wikipedia"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Jack DeJohnette",
+        "kind": "drummer",
+        "id": "drummer:jack-dejohnette"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lenny-white-wikipedia"],
+        "note": "Bitches Brew."
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Don Alias",
+        "kind": "drummer",
+        "id": "drummer:don-alias"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:lenny-white-wikipedia"],
+        "note": "Bitches Brew."
+      },
+      "strength": 0.4
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Freddie Hubbard",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lenny-white-wikipedia"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Steve Gadd",
+        "kind": "drummer",
+        "id": "drummer:steve-gadd"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:return-to-forever-wikipedia"],
+        "note": "Return to Forever, 1973: Gadd would not tour and risk his session work."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Gerry Brown",
+        "kind": "drummer",
+        "id": "drummer:gerry-brown"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:return-to-forever-wikipedia"],
+        "note": "Return to Forever, 1977."
+      },
+      "strength": 0.4
+    }
+  ],
+  "legacy": {
+    "influence_score": 0.7,
+    "innovations": ["Rock power in Return to Forever's fusion", "Open-handed fusion drumming"],
+    "accolades": [
+      {
+        "award": "Three Grammy Awards and a Latin Grammy",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:lenny-white-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": []
+  },
+  "beatbreaker": {
+    "style_key": "lennywhite",
+    "headline_pattern_ids": [
+      "pattern:lenny-white-duel-half-time",
+      "pattern:lenny-white-duel-7-8",
+      "pattern:lenny-white-land-of-the-midnight-sun"
+    ],
+    "default_kit_sound": "Big, live 1970s fusion kit",
+    "generation_rules": [
+      "Open-handed: sixteenths on the hat in one hand.",
+      "On the front of the beat.",
+      "Accents that cut across the bar."
+    ],
+    "avoid": ["Laid-back feel"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:tony-williams"],
+      "primary_descendants": [],
+      "lineage_blurb": "Tony Williams's 1960s playing, taught himself, then Miles and Return to Forever."
+    },
+    "tags": ["fusion", "return to forever", "open-handed", "70s"]
+  }
+}

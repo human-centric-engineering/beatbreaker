@@ -1,0 +1,45 @@
+{
+  "id": "rec:miles-davis-jack-johnson-1971",
+  "title": "A Tribute to Jack Johnson",
+  "artist": "Miles Davis",
+  "release": "Columbia",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:rock"],
+  "personnel": [
+    {
+      "name": "Miles Davis",
+      "role": "trumpet"
+    },
+    {
+      "name": "John McLaughlin",
+      "role": "guitar"
+    },
+    {
+      "name": "Michael Henderson",
+      "role": "bass"
+    },
+    {
+      "name": "Billy Cobham",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:billy-cobham",
+      "name": "Billy Cobham",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Right Off: twenty minutes of rock-shuffle time under McLaughlin's riff, recorded in 1970. Not yet transcribed here.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:billy-cobham-wikipedia"]
+  }
+}

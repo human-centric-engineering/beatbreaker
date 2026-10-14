@@ -1,0 +1,48 @@
+{
+  "id": "rec:public-enemy-she-got-game-2026",
+  "title": "She Got Game",
+  "artist": "Public Enemy",
+  "year": 2026,
+  "type": "studio_track",
+  "style_ids": ["style:hip-hop-breakbeat", "style:rock"],
+  "personnel": [
+    {
+      "name": "Flavor Flav",
+      "role": "producer"
+    },
+    {
+      "name": "Flau'Jae Johnson",
+      "role": "vocals"
+    },
+    {
+      "name": "Cindy Blackman Santana",
+      "role": "drums"
+    },
+    {
+      "name": "Blu DeTiger",
+      "role": "bass"
+    },
+    {
+      "name": "Grace Bowers",
+      "role": "guitar"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:cindy-blackman-santana",
+      "name": "Cindy Blackman Santana",
+      "drummer_role": "sole_drummer",
+      "significance": 0.5,
+      "why_it_matters": "He Got Game remade as a women's anthem: the kick pushing the 'a' of 2 and the 3, the hats filling in sixteenths.",
+      "pattern_ids": ["pattern:cindy-blackman-santana-she-got-game"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:she-got-game-2026", "src:songsterr-3917543"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:she-got-game-2026", "src:songsterr-3917543"]
+  }
+}

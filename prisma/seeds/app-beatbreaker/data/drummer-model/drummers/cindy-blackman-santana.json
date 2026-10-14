@@ -1,0 +1,648 @@
+{
+  "meta": {
+    "id": "drummer:cindy-blackman-santana",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.4,
+    "created": "2026-10-14",
+    "updated": "2026-10-14",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Transcribe her jazz records (Arcane, Telepathy, Another Lifetime, Coherence): no free transcription found, and they are the heart of her playing.",
+      "Transcribe Straight Cold Player, her one studio track with Kravitz.",
+      "Spectrum Road (with Jack Bruce, Vernon Reid and John Medeski, a Lifetime tribute): confirm and transcribe.",
+      "Her kit by era: the 1950s Gretsch Broadkaster at home; what she plays with Santana."
+    ]
+  },
+  "identity": {
+    "name": "Cindy Blackman Santana",
+    "born": {
+      "date": "1959-11-18",
+      "place": "Yellow Springs, Ohio, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cindy-blackman-santana-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Hartford and Boston (training)", "New York jazz (from 1982)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "vocals"],
+    "active": {
+      "from": 1982,
+      "to": 2026
+    },
+    "roles": ["bandleader", "band_member", "touring", "composer"],
+    "summary": "A jazz drummer in the line of Alan Dawson and Tony Williams, chasing Blakey, Williams and Elvin, with eleven records as a leader; Lenny Kravitz's touring drummer for eighteen years; Santana's since 2010. She hits hard: big backbeats, the crash ridden, the hat opening on every 'and'."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "teachers": [
+      {
+        "name": "Alan Dawson",
+        "drummer_id": "drummer:alan-dawson",
+        "role": "At Berklee; Tony Williams's teacher.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:cindy-blackman-santana-wikipedia"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Modern jazz drumming",
+        "impact": "Tony Williams above all; Art Blakey and Elvin Jones.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:cindy-blackman-santana-wikipedia", "src:cindy-blackman-md-2008"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Saw a drum kit at a pool party at seven: \"it was completely right from the second I saw them.\"",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:cindy-blackman-santana-wikipedia"]
+        }
+      },
+      {
+        "event": "Heard Tony Williams on Four & More, recorded when he was sixteen.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:cindy-blackman-md-2008"]
+        }
+      },
+      {
+        "year": 1982,
+        "event": "Left Berklee after three semesters for New York.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:cindy-blackman-santana-wikipedia"]
+        }
+      },
+      {
+        "year": 1993,
+        "event": "Joined Lenny Kravitz after a phone audition.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:cindy-blackman-santana-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:cindy-blackman-jazz",
+      "label": "New York jazz and her own records",
+      "years": {
+        "from": 1982,
+        "to": 1993
+      },
+      "context": "Arcane (1987) with Wallace Roney, Joe Henderson and Kenny Garrett; Code Red; Telepathy.",
+      "defining_traits": ["Tony Williams-inspired time", "fast ride"]
+    },
+    {
+      "id": "era:cindy-blackman-kravitz",
+      "label": "Lenny Kravitz",
+      "years": {
+        "from": 1993,
+        "to": 2011
+      },
+      "context": "His touring drummer; one studio track (Straight Cold Player).",
+      "defining_traits": ["big rock backbeat"],
+      "key_recording_ids": ["rec:lenny-kravitz-5-1998"]
+    },
+    {
+      "id": "era:cindy-blackman-santana",
+      "label": "Santana",
+      "years": {
+        "from": 2010,
+        "to": 2026
+      },
+      "context": "Corazón, Africa Speaks, Blessings and Miracles; Another Lifetime (2010), Give the Drummer Some (2020) and Coherence (2026) as leader.",
+      "defining_traits": ["the crash ridden", "snare figures over four on the floor"],
+      "key_recording_ids": [
+        "rec:santana-corazon-live-mexico-2014",
+        "rec:santana-africa-speaks-2019"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.9,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.8,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.9,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 0.6,
+        "authority": 0.6,
+        "name": "Latin rock (Santana)"
+      }
+    ],
+    "versatility": 0.85,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "driver",
+    "descriptors": ["powerful", "jazz-rooted", "big-hearted", "hard-hitting"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "After Tony Williams; no measurement found."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0
+    },
+    "dynamics": {
+      "range": 0.9,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 124,
+      "balance": "'You better smack those drums.'"
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 24],
+      "fill_frequency": "every_4_bars",
+      "space_usage": 0.35
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [90, 300],
+    "timekeeping_context": ["free"],
+    "interaction": "Plays to the band, big.",
+    "descriptors": ["strong", "driving"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american", "traditional"],
+    "hand_techniques": [
+      {
+        "name": "Gallop on the ride",
+        "description": "An eighth and two sixteenths on the ride over ghosts in the left hand (her Vic Firth groove).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cindy-blackman-drummercafe-gumbo"]
+        }
+      },
+      {
+        "name": "Riding the crash",
+        "description": "Crash and snare on every beat to build a section (Corazón Espinado).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5178015"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Kick and hat-foot ostinato",
+        "description": "A one-bar ostinato of kick and hat foot under the hands.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cindy-blackman-drummercafe-gumbo"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.9,
+      "linear_playing": 0.3,
+      "ostinato_usage": 0.6,
+      "polyrhythm_usage": 0.6,
+      "odd_meter_fluency": 0.6
+    },
+    "voice_language": {
+      "snare": "Big backbeats; figures off the beat over four on the floor.",
+      "cymbals": "The crash ridden; the hat opening on the \"and\"s."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.2,
+      "mallets": 0.1
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": ["big, hard-hit rock kit with Santana and Kravitz", "a 1950s Gretsch at home"],
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:cindy-blackman-md-2008"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:cindy-blackman-santana-power",
+      "label": "Smack the drums",
+      "category": "feel",
+      "description": "Hits hard, like the jazz drummers she chased: 'those cats weren't messing around'.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cindy-blackman-md-2008"]
+      },
+      "pattern_ids": ["pattern:cindy-blackman-santana-corazon-espinado"]
+    },
+    {
+      "id": "trait:cindy-blackman-santana-snare-figure",
+      "label": "A snare figure over four on the floor",
+      "category": "groove",
+      "description": "Breaking Down the Door: the snare on the 'a' of 1, the 'and' of 2, 3 and 4 over a kick on every beat.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-4521944"]
+      },
+      "pattern_ids": ["pattern:cindy-blackman-santana-breaking-down-the-door"]
+    },
+    {
+      "id": "trait:cindy-blackman-santana-tony-lineage",
+      "label": "Tony Williams's line",
+      "category": "musical_approach",
+      "description": "Taught by his teacher, Alan Dawson; Another Lifetime is her tribute to his Lifetime.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cindy-blackman-santana-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:cindy-blackman-santana-breaking-down-the-door",
+        "name": "Breaking Down the Door",
+        "type": "groove",
+        "function": "The verse",
+        "style_ids": ["style:latin-jazz", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4521944"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 102,
+          "playable_range_bpm": [100, 104]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "...x..x....x..x.",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:santana-africa-speaks-2019",
+          "transcription_source_id": "src:songsterr-4521944"
+        }
+      },
+      {
+        "id": "pattern:cindy-blackman-santana-corazon-espinado",
+        "name": "Corazón Espinado (live)",
+        "type": "groove",
+        "function": "The verse",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5178015"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [124, 130]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.....x...x....."
+        },
+        "source": {
+          "recording_id": "rec:santana-corazon-live-mexico-2014",
+          "transcription_source_id": "src:songsterr-5178015"
+        }
+      },
+      {
+        "id": "pattern:cindy-blackman-santana-she-got-game",
+        "name": "She Got Game",
+        "type": "groove",
+        "function": "The verse",
+        "style_ids": ["style:hip-hop-breakbeat"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3917543"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 100,
+          "playable_range_bpm": [98, 102]
+        },
+        "lanes": {
+          "hihat": "x.x.x.xxx.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x......xx.x....."
+        },
+        "source": {
+          "recording_id": "rec:public-enemy-she-got-game-2026",
+          "transcription_source_id": "src:songsterr-3917543"
+        }
+      },
+      {
+        "id": "pattern:cindy-blackman-santana-gumbo",
+        "name": "Smooth Struttin' New Awlins Gumbo",
+        "type": "groove",
+        "function": "Her Vic Firth interview groove",
+        "style_ids": ["style:new-orleans-second-line", "style:latin-jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cindy-blackman-drummercafe-gumbo"],
+          "note": "Played, not recorded: the groove she opened her Vic Firth interview with."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 100,
+          "playable_range_bpm": [90, 110]
+        },
+        "lanes": {
+          "ride": "x.xxx.xxx.xxx.xx",
+          "hihat_pedal": "..k.......k....k",
+          "snare": ".g.g.g.g.g.g.g.g",
+          "kick": "x......xx......."
+        },
+        "source": {
+          "transcription_source_id": "src:cindy-blackman-drummercafe-gumbo"
+        }
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Lenny Kravitz",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1993,
+        "to": 2011
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cindy-blackman-santana-wikipedia"]
+      }
+    },
+    {
+      "name": "Santana",
+      "type": "band_member",
+      "years": {
+        "from": 2010,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "Carlos Santana"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cindy-blackman-santana-wikipedia"]
+      }
+    },
+    {
+      "name": "Cindy Blackman Santana (bands as leader)",
+      "type": "bandleader",
+      "years": {
+        "from": 1987,
+        "to": 2026
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cindy-blackman-santana-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:santana-africa-speaks-2019",
+    "rec:santana-corazon-live-mexico-2014",
+    "rec:public-enemy-she-got-game-2026",
+    "rec:lenny-kravitz-5-1998"
+  ],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Alan Dawson",
+        "kind": "teacher",
+        "id": "drummer:alan-dawson"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cindy-blackman-santana-wikipedia"],
+        "note": "At Berklee; Dawson had taught Tony Williams."
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cindy-blackman-md-2008"],
+        "note": "Hearing him on Four & More; Another Lifetime (2010) is her tribute to his Lifetime."
+      },
+      "strength": 1.0
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cindy-blackman-santana-wikipedia"],
+        "note": "'He really was like a father to me. I learned a lot just watching him.'"
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cindy-blackman-md-2008"],
+        "note": "'I'm chasing the legends of Art Blakey, Tony Williams, and Elvin Jones.'"
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Carlos Santana",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cindy-blackman-santana-wikipedia"],
+        "note": "Married in 2010."
+      },
+      "strength": 1.0
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Lenny Kravitz",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cindy-blackman-santana-wikipedia"],
+        "note": "His touring drummer, 1993 on, eighteen years."
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Joe Henderson",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cindy-blackman-santana-wikipedia"],
+        "note": "Arcane (1987)."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Wallace Roney",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cindy-blackman-santana-wikipedia"],
+        "note": "Arcane (1987)."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Yussef Dayes",
+        "kind": "drummer",
+        "id": "drummer:yussef-dayes"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:yussef-dayes-wdet-2023"]
+      },
+      "strength": 0.4
+    }
+  ],
+  "legacy": {
+    "influence_score": 0.7,
+    "innovations": [
+      "Tony Williams's language carried into arena rock",
+      "A woman leading from the drum chair in jazz and rock alike"
+    ],
+    "accolades": [],
+    "common_misconceptions": [
+      "That she plays the drums on Kravitz's hits: he played them himself; she played them on stage and in the Are You Gonna Go My Way video."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "cindyblackman",
+    "headline_pattern_ids": [
+      "pattern:cindy-blackman-santana-breaking-down-the-door",
+      "pattern:cindy-blackman-santana-gumbo",
+      "pattern:cindy-blackman-santana-corazon-espinado"
+    ],
+    "default_kit_sound": "Big, hard-hit rock kit with a wash of cymbal",
+    "generation_rules": [
+      "Big backbeats, rimshots.",
+      "Ride the crash to build.",
+      "Snare figures over a steady kick."
+    ],
+    "avoid": ["Timid dynamics"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:alan-dawson",
+        "drummer:tony-williams",
+        "drummer:art-blakey",
+        "drummer:elvin-jones"
+      ],
+      "primary_descendants": ["drummer:yussef-dayes"],
+      "lineage_blurb": "Alan Dawson's student, after Tony Williams; Blakey, Williams and Elvin the legends she chased; then Kravitz's stage and Santana's band."
+    },
+    "tags": ["jazz", "rock", "santana", "kravitz", "tony williams"]
+  }
+}

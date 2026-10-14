@@ -921,9 +921,9 @@
     {
       "type": "cites_as_influence",
       "target": {
-        "name": "Cindy Blackman",
+        "name": "Cindy Blackman Santana",
         "kind": "drummer",
-        "id": "drummer:cindy-blackman"
+        "id": "drummer:cindy-blackman-santana"
       },
       "evidence": {
         "confidence": "widely_reported",

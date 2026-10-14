@@ -1,0 +1,41 @@
+{
+  "id": "rec:santana-corazon-live-mexico-2014",
+  "title": "Corazón Espinado (Corazón, Live from Mexico)",
+  "artist": "Santana with Fher Olvera",
+  "release": "RCA / Sony Latin",
+  "year": 2014,
+  "type": "live_track",
+  "style_ids": ["style:latin-jazz", "style:rock"],
+  "personnel": [
+    {
+      "name": "Carlos Santana",
+      "role": "guitar"
+    },
+    {
+      "name": "Fher Olvera",
+      "role": "vocals"
+    },
+    {
+      "name": "Cindy Blackman Santana",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:cindy-blackman-santana",
+      "name": "Cindy Blackman Santana",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Guadalajara, 14 December 2013: eighths on the hat, then the ride, then the crash and snare on every beat.",
+      "pattern_ids": ["pattern:cindy-blackman-santana-corazon-espinado"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:santana-corazon-live-2014", "src:songsterr-5178015"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:santana-corazon-live-2014", "src:songsterr-5178015"]
+  }
+}

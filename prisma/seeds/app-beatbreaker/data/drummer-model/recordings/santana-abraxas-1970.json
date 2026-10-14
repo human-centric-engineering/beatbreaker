@@ -1,0 +1,53 @@
+{
+  "id": "rec:santana-abraxas-1970",
+  "title": "Abraxas",
+  "artist": "Santana",
+  "release": "Columbia",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:rock"],
+  "personnel": [
+    {
+      "name": "Carlos Santana",
+      "role": "guitar"
+    },
+    {
+      "name": "Gregg Rolie",
+      "role": "organ, vocals"
+    },
+    {
+      "name": "David Brown",
+      "role": "bass"
+    },
+    {
+      "name": "Michael Carabello",
+      "role": "congas, percussion"
+    },
+    {
+      "name": "José \"Chepito\" Areas",
+      "role": "timbales, percussion"
+    },
+    {
+      "name": "Michael Shrieve",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:michael-shrieve",
+      "name": "Michael Shrieve",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Black Magic Woman / Gypsy Queen, Oye Como Va and Samba Pa Ti.",
+      "pattern_ids": ["pattern:michael-shrieve-black-magic-woman"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-wikipedia", "src:songsterr-357"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:michael-shrieve-wikipedia", "src:songsterr-357"]
+  }
+}
