@@ -115,7 +115,11 @@ const FILTER_CHECKED_OPS: ReadonlySet<string> = new Set([
   'groupBy',
 ]);
 
-/** Reads of one row by a unique key: run, then the row is checked. */
+/**
+ * Reads of one row by a unique key: run, then the row is checked — except on
+ * `through` and `alsoVisible` models, where the read is narrowed to the
+ * caller's predicate and a miss is resolved with `existsOutside`.
+ */
 const RESULT_CHECKED_OPS: ReadonlySet<string> = new Set(['findUnique', 'findUniqueOrThrow']);
 
 /** Reads of the first match: the caller's own predicate is added to the filter. */
@@ -541,6 +545,10 @@ export function readablePredicate(
   }
   for (const arm of c.alsoVisible ?? []) {
     arms.push({
+      // An owned row only, as `conversationVisibilityWhere`'s share arm: a
+      // share is the owner's consent, and a row nobody owns has no owner to
+      // give it — so the two faces agree about an ownerless, shared row.
+      ...('column' in c.owner ? { [c.owner.column]: { not: null } } : {}),
       [ALSO_VISIBLE_RELATION[arm]]: {
         is: { revokedAt: null, OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }] },
       },
