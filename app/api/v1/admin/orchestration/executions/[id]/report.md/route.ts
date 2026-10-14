@@ -25,6 +25,7 @@ import { logger } from '@/lib/logging';
 import { cuidSchema } from '@/lib/validations/common';
 import { adminCanViewExecution } from '@/lib/orchestration/access/execution-access';
 import { executionTraceSchema, supervisorReportSchema } from '@/lib/validations/orchestration';
+import { withDisplayUrls } from '@/lib/orchestration/trace/display-urls';
 import {
   renderExecutionMarkdown,
   type RenderExecutionInfo,
@@ -65,7 +66,8 @@ export const GET = withAdminAuth<{ id: string }>(async (_request, session, { par
     );
   }
 
-  const trace = executionTraceSchema.parse(execution.executionTrace);
+  // URL-bearing values shortened for display (t-777), as on the detail route.
+  const trace = withDisplayUrls(executionTraceSchema.parse(execution.executionTrace));
 
   // Validate the persisted supervisorReport JSON against the shared
   // schema. On parse failure (legacy row, hand-edit, mid-deploy drift)
@@ -94,8 +96,8 @@ export const GET = withAdminAuth<{ id: string }>(async (_request, session, { par
     startedAt: execution.startedAt?.toISOString() ?? null,
     completedAt: execution.completedAt?.toISOString() ?? null,
     createdAt: execution.createdAt.toISOString(),
-    inputData: execution.inputData,
-    outputData: execution.outputData,
+    inputData: withDisplayUrls(execution.inputData),
+    outputData: withDisplayUrls(execution.outputData),
     errorMessage: execution.errorMessage,
     supervisorVerdict: execution.supervisorVerdict,
     supervisorScore: execution.supervisorScore,

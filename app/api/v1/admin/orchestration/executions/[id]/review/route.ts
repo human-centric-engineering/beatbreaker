@@ -138,6 +138,7 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
 
   // Parse the persisted trace through the validator — drops noise.
   const trace = executionTraceSchema.parse(execution.executionTrace);
+  // Webhook and API URLs are reduced inside runSupervisorAssessment (t-777).
   const stepOutputs = stepOutputsFromTrace(trace);
 
   if (Object.keys(stepOutputs).length === 0) {

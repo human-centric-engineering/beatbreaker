@@ -203,8 +203,12 @@ async function executeNotification(
   } else {
     // Webhook channel
     try {
+      // The event would go to every subscription to `workflow_notification`
+      // and be stored on each delivery row, so it carries the step's URL in
+      // its reduced form only (t-777). No subscription can select that event
+      // today, so this step sends nothing to `webhookUrl` (t-794).
       await dispatchWebhookEvent('workflow_notification', {
-        webhookUrl: config.webhookUrl,
+        webhookUrl: loggableUrl(config.webhookUrl),
         body,
         workflowId: ctx.workflowId,
         workflowName,
