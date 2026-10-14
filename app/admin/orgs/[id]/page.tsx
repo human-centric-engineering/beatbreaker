@@ -7,10 +7,12 @@ import {
   type OrgProviderOption,
   type OrgProviderPolicyView,
 } from '@/components/admin/orgs/org-providers-form';
+import { OrgUsageSummary } from '@/components/admin/orgs/org-usage-summary';
 import { Badge } from '@/components/ui/badge';
 import { API } from '@/lib/api/endpoints';
 import { parseApiResponse, serverFetch } from '@/lib/api/server-fetch';
 import { logger } from '@/lib/logging';
+import type { OrgUsageReport } from '@/lib/orchestration/llm/cost-reports';
 import { parsePaginationMeta } from '@/lib/validations/common';
 
 export const metadata: Metadata = {
@@ -53,6 +55,26 @@ async function getOrg(id: string): Promise<OrgDetail | null> {
   return body.data;
 }
 
+/**
+ * This org's usage this month, from the per-org usage endpoint narrowed to
+ * it. `'refused'` when the endpoint refuses the caller: at `multi` only the
+ * install org may see what an org has spent.
+ */
+async function getOrgUsage(id: string): Promise<OrgUsageReport | 'refused' | null> {
+  try {
+    const res = await serverFetch(
+      `${API.ADMIN.ORCHESTRATION.COSTS_ORGS}?orgId=${encodeURIComponent(id)}`
+    );
+    if (res.status === 403) return 'refused';
+    if (!res.ok) return null;
+    const body = await parseApiResponse<OrgUsageReport>(res);
+    return body.success ? body.data : null;
+  } catch (err) {
+    logger.error('org page: usage fetch failed', err, { orgId: id });
+    return null;
+  }
+}
+
 /** The most providers the list endpoint returns per page. */
 const PROVIDER_PAGE = 100;
 
@@ -91,7 +113,8 @@ async function getAllProviders(): Promise<OrgProviderOption[] | null> {
  * Admin — one organisation (§120 t-745).
  *
  * Server shell: the org (`GET /api/v1/admin/orgs/[id]`), its provider policy
- * (`GET …/providers`) and the provider list, in parallel. Only the approved
+ * (`GET …/providers`), the provider list and its usage this month against
+ * its cap (`GET /api/v1/admin/orchestration/costs/orgs?orgId=`), in parallel. Only the approved
  * providers are editable here; rename, suspend and members stay API-only. A
  * missing org is a 404, and any other failure to load it goes to the error
  * boundary. A policy or provider fetch that fails says so in place of the
@@ -99,10 +122,11 @@ async function getAllProviders(): Promise<OrgProviderOption[] | null> {
  */
 export default async function OrgPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const [org, policy, providers] = await Promise.all([
+  const [org, policy, providers, usage] = await Promise.all([
     getOrg(id),
     fetchData<OrgProviderPolicyView>(API.ADMIN.orgProviders(id), 'provider policy'),
     getAllProviders(),
+    getOrgUsage(id),
   ]);
 
   if (!org) notFound();
@@ -132,6 +156,21 @@ export default async function OrgPage({ params }: { params: Promise<{ id: string
           {org.members.length === 1 ? '' : 's'}
         </p>
       </header>
+
+      <section className="space-y-3 rounded-md border p-4">
+        <h2 className="text-lg font-medium">AI usage this month</h2>
+        {usage === 'refused' ? (
+          <p className="text-muted-foreground text-sm">
+            Usage can only be viewed from the install organisation.
+          </p>
+        ) : usage && usage.orgs[0] ? (
+          <OrgUsageSummary period={usage.period} row={usage.orgs[0]} />
+        ) : (
+          <p className="text-destructive text-sm">
+            This month&apos;s usage could not be loaded. Reload the page to try again.
+          </p>
+        )}
+      </section>
 
       <section className="space-y-3 rounded-md border p-4">
         <h2 className="text-lg font-medium">Approved providers</h2>

@@ -21,7 +21,7 @@ import { validateTaskDefaults } from '@/lib/orchestration/llm/model-registry';
 import { reviewSchemaSchema } from '@/lib/orchestration/review-schema/types';
 import { provenanceItemArraySchema } from '@/lib/orchestration/provenance/types';
 import { validateScopes, listValidApiKeyScopes } from '@/lib/auth/api-key-scopes';
-import { jurisdictionSchema } from '@/lib/validations/tenancy';
+import { jurisdictionSchema, orgIdSchema } from '@/lib/validations/tenancy';
 
 // ============================================================================
 // Shared Schemas
@@ -2640,6 +2640,20 @@ export const costBreakdownQuerySchema = z
       path: ['dateTo'],
     }
   );
+
+/**
+ * Per-org usage query (GET /admin/orchestration/costs/orgs, §110 t-790).
+ *
+ * `period` is a UTC calendar month, `YYYY-MM`; omitted, it is the current
+ * one. `orgId` narrows the answer to one org.
+ */
+export const orgUsageQuerySchema = z.object({
+  period: z
+    .string()
+    .regex(/^\d{4}-(0[1-9]|1[0-2])$/, 'period must be a month in the form YYYY-MM')
+    .optional(),
+  orgId: orgIdSchema.optional(),
+});
 
 /** List evaluations query (GET /admin/orchestration/evaluations). */
 export const listEvaluationsQuerySchema = paginationQuerySchema.extend({

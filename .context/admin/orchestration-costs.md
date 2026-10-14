@@ -17,6 +17,8 @@ Admin page at `/admin/orchestration/costs`. Surfaces every spend / budget signal
 ├──────────────────────────────┬──────────────────────────────────┤
 │ Per-agent spend table        │ Per-model breakdown table        │
 ├──────────────────────────────┴──────────────────────────────────┤
+│ Per-org usage table  (only with more than one org)              │
+├─────────────────────────────────────────────────────────────────┤
 │ Local vs cloud panel  (pie + savings callout)                   │
 ├─────────────────────────────────────────────────────────────────┤
 │ Pricing reference  (collapsible — model rates, source, synced)  │
@@ -31,7 +33,7 @@ The default-models form and global monthly cap used to live on this page; they w
 
 ## Data sources
 
-The server shell fires four parallel null-safe fetches via `serverFetch()`. Any upstream failure renders an empty state in its section — the page never throws.
+The server shell fires five parallel null-safe fetches via `serverFetch()`. Any upstream failure renders an empty state in its section — the page never throws.
 
 | Section                | Endpoint                                                    | Notes                                                  |
 | ---------------------- | ----------------------------------------------------------- | ------------------------------------------------------ |
@@ -42,6 +44,7 @@ The server shell fires four parallel null-safe fetches via `serverFetch()`. Any 
 | Per-model table        | `GET /costs/summary` (`byModel[]`) + `GET /models`          | Keyed `provider::modelId` — see below                  |
 | Local vs cloud panel   | `GET /costs/summary.localSavings` + `byModel[]` + `/models` | `localSavings: null` → muted placeholder, never throws |
 | Budget alerts list     | `GET /costs/alerts`                                         | Returns `{ alerts, globalCap }` — sorted by severity   |
+| Per-org usage table    | `GET /costs/orgs`                                           | Install org only at `multi`; hidden with one org       |
 
 ### Per-model rows carry their provider
 
@@ -129,6 +132,17 @@ An org can have a cap of its own: `monthlyBudgetUsd` under the `quotas` key of `
 - **Every change is audited.** A caps write through `PATCH /api/v1/admin/orgs/[id]` records an `org.quotas.update` entry in the admin audit log (entity type `org`), with the caps it replaced and the caps it stored. `writeOrgQuotas()` called from a fork's own code writes no audit entry; that code owns its own record.
 - **The agents list agrees.** Each agent's `_budget` in `GET /api/v1/admin/orchestration/agents` applies its org's cap as `checkBudget()` does, and carries `orgCapExceeded: true` when the org is over it.
 - **Known limit: it can be overrun a little.** `withAgentBudgetLock` is keyed by agent, so two agents in one org can both pass the org check at the same time and each go over by up to one turn. The org's month-to-date total is also cached for 10 seconds per process, as the global one is, so spend made by another process is seen within that window. The global cap has the same bounds.
+
+### Per-org usage
+
+`GET /api/v1/admin/orchestration/costs/orgs?period=YYYY-MM` returns each org's spend, call count and tokens for one UTC calendar month, with its `quotas.monthlyBudgetUsd` and `utilisation` beside them (§110 t-790). It is the data a fork builds plans and invoices from. Plans, pricing and invoices stay the fork's. `period` defaults to the current month, the same period `checkBudget()` and the org cap use. `orgId` narrows the answer to one org.
+
+- **It reads every tenant's spend, so at `multi` only the install org may ask.** A platform admin switched into a customer org gets 403 (`details.reason: shared_settings_install_org_only`), even when asking only for that org. An unbound admin API key is allowed, as the install org. This is the same rule the caps are written under.
+- **The rollup runs in the system scope.** `getOrgUsage()` in `lib/orchestration/llm/cost-reports.ts` groups `AiCostLog` by `orgId` under `runAsSystem`, using the `(orgId, createdAt)` index. Inside the caller's org the `org_isolation` policy would hide every other org's rows. Orgs with no spend are listed with zeros.
+- **Detached spend has its own bucket.** Rows with no org (an erased org's spend is kept and its `orgId` set to `NULL`) come back as `detached`, shown on the table as **No org**. They still count towards the global cap.
+- **At `single` it is one install-org row**, totalling every row in the month, `NULL`-org rows included, and `detached` is `null`. The page hides the table then, since the summary cards already show that total.
+- **Where it shows.** The costs page shows the per-org table when the endpoint returns more than one org. If the endpoint refuses the caller, the table is not shown. The org detail page (`/admin/orgs/[id]`) asks for its own org (`?orgId=`) and shows month-to-date spend against the cap. In a customer org it says that usage can only be viewed from the install org.
+- **A cap of `0` has no utilisation.** It means "no paid calls", so `utilisation` is `null` and the table says **Paid calls off**.
 
 ### What the chat user sees
 

@@ -7,6 +7,7 @@
  *   - `getCostBreakdown` — group by day / agent / model for a date range
  *   - `getCostSummary`   — today / week / month totals + byAgent + byModel + 30-day trend
  *   - `getBudgetAlerts`  — agents at or above the warning threshold (>=80%)
+ *   - `getOrgUsage`      — each org's spend for one UTC calendar month, against its cap
  *
  * All month / day boundaries are computed in **UTC** to match
  * `cost-tracker.ts#checkBudget`.
@@ -17,6 +18,9 @@ import { logger } from '@/lib/logging';
 import { calculateLocalSavings, getGlobalCapState } from '@/lib/orchestration/llm/cost-tracker';
 import { utcMonthStart } from '@/lib/orchestration/llm/spend-caps';
 import { canChangeSharedSettings } from '@/lib/tenancy/shared-settings';
+import { isMultiTenant, runAsSystem } from '@/lib/tenancy/context';
+import { INSTALL_ORG_ID } from '@/lib/tenancy/constants';
+import { readOrgQuotas } from '@/lib/tenancy/org-settings';
 import type { LocalSavingsResult } from '@/types/orchestration';
 
 // ----------------------------------------------------------------------------
@@ -120,6 +124,53 @@ export interface GlobalCapStatus {
   spent: number | null;
   /** True when the spend has reached the cap: every paid AI call is refused. */
   exceeded: boolean;
+}
+
+/** Spend, calls and tokens for one bucket of `AiCostLog` rows. */
+export interface UsageTotals {
+  totalCostUsd: number;
+  inputTokens: number;
+  outputTokens: number;
+  /** Number of cost rows: one per metered call. */
+  count: number;
+}
+
+/** One org's usage for the period, beside its monthly cap. */
+export interface OrgUsageRow extends UsageTotals {
+  orgId: string;
+  name: string;
+  slug: string;
+  status: string;
+  /** The org's `quotas.monthlyBudgetUsd`; `null` when it has set none. */
+  monthlyBudgetUsd: number | null;
+  /** `spend / cap` (can exceed 1). `null` when there is no cap, or the cap is 0. */
+  utilisation: number | null;
+}
+
+export interface OrgUsageReport {
+  /** The UTC calendar month, `YYYY-MM`. */
+  period: string;
+  /** Inclusive start of the month, ISO. */
+  periodStart: string;
+  /** Exclusive end of the month (the next month's start), ISO. */
+  periodEnd: string;
+  /** Every org (or the one asked for), highest spend first. Orgs with no spend are included. */
+  orgs: OrgUsageRow[];
+  /**
+   * Rows with no org: an erased org's detached spend (`onDelete: SetNull`) and
+   * legacy rows. `null` at `single`, where those rows are the install org's
+   * and are counted in its row.
+   */
+  detached: UsageTotals | null;
+  /** Every row in the period: the org rows plus the detached bucket. */
+  totals: UsageTotals;
+}
+
+export interface OrgUsageOptions {
+  /** The UTC calendar month, `YYYY-MM`. */
+  period: string;
+  /** Narrow `orgs` to this one org. The detached bucket is then `null`. */
+  orgId?: string;
 }
 
 // ----------------------------------------------------------------------------
@@ -495,4 +546,131 @@ export async function getGlobalCapStatus(): Promise<GlobalCapStatus> {
     });
     return { cap: null, spent: 0, exceeded: false };
   }
+}
+
+// ----------------------------------------------------------------------------
+// getOrgUsage
+// ----------------------------------------------------------------------------
+
+function emptyTotals(): UsageTotals {
+  return { totalCostUsd: 0, inputTokens: 0, outputTokens: 0, count: 0 };
+}
+
+function addTotals(acc: UsageTotals, add: UsageTotals): UsageTotals {
+  acc.totalCostUsd += add.totalCostUsd;
+  acc.inputTokens += add.inputTokens;
+  acc.outputTokens += add.outputTokens;
+  acc.count += add.count;
+  return acc;
+}
+
+/** `[start, end)` of a `YYYY-MM` month in UTC. The caller has validated the format. */
+export function utcMonthBounds(period: string): { start: Date; end: Date } {
+  const [year, month] = period.split('-').map(Number);
+  return {
+    start: new Date(Date.UTC(year, month - 1, 1)),
+    end: new Date(Date.UTC(year, month, 1)),
+  };
+}
+
+/**
+ * Each org's AI usage for one UTC calendar month — the period `checkBudget()`
+ * and the org cap use — with its `quotas.monthlyBudgetUsd` beside it (§110
+ * t-790). The usage data a fork builds plans and invoices from; plans,
+ * pricing and invoices themselves are the fork's.
+ *
+ * **At `multi` it reads every tenant's spend**, so it runs in the system
+ * scope (`runAsSystem`, the audited bypass): inside the caller's org the
+ * `org_isolation` policy would hide every other org's rows. Only an
+ * install-org caller may be given its answer —
+ * `GET /api/v1/admin/orchestration/costs/orgs` is where that is enforced.
+ * Rows with no org (an erased org's detached spend) come back as a separate
+ * bucket rather than under any org.
+ *
+ * **At `single` there is one org**, so the answer is one install-org row
+ * totalling every row in the month, `NULL`-org legacy rows included, as the
+ * global cap counts them.
+ */
+export async function getOrgUsage(opts: OrgUsageOptions): Promise<OrgUsageReport> {
+  const { start, end } = utcMonthBounds(opts.period);
+  const multi = isMultiTenant();
+  const orgFilter = multi ? opts.orgId : undefined;
+
+  const read = async () => {
+    const [grouped, orgs] = await Promise.all([
+      prisma.aiCostLog.groupBy({
+        by: ['orgId'],
+        where: {
+          createdAt: { gte: start, lt: end },
+          ...(orgFilter !== undefined ? { orgId: orgFilter } : {}),
+        },
+        _sum: { totalCostUsd: true, inputTokens: true, outputTokens: true },
+        _count: { _all: true },
+      }),
+      prisma.org.findMany({
+        where: multi ? (orgFilter !== undefined ? { id: orgFilter } : {}) : { id: INSTALL_ORG_ID },
+        select: { id: true, name: true, slug: true, status: true, settings: true },
+      }),
+    ]);
+    return { grouped, orgs };
+  };
+
+  const { grouped, orgs } = multi
+    ? await runAsSystem('org usage rollup (every org spend for one month)', read)
+    : await read();
+
+  const byOrg = new Map<string | null, UsageTotals>();
+  for (const g of grouped) {
+    byOrg.set(g.orgId, {
+      totalCostUsd: g._sum.totalCostUsd ?? 0,
+      inputTokens: g._sum.inputTokens ?? 0,
+      outputTokens: g._sum.outputTokens ?? 0,
+      count: g._count._all,
+    });
+  }
+
+  let detached: UsageTotals | null = null;
+  if (multi) {
+    // A row naming an org that no longer exists cannot happen (the FK sets it
+    // NULL on erasure), but if it did it would be missing from every org row,
+    // so it is counted as detached rather than dropped.
+    const known = new Set(orgs.map((o) => o.id));
+    if (orgFilter === undefined) {
+      detached = emptyTotals();
+      for (const [orgId, totals] of byOrg) {
+        if (orgId === null || !known.has(orgId)) addTotals(detached, totals);
+      }
+    }
+  }
+
+  // At `single` the one org is the install org: asking for any other is asking for none.
+  const listed = multi || opts.orgId === undefined ? orgs : orgs.filter((o) => o.id === opts.orgId);
+  const rows: OrgUsageRow[] = listed.map((org) => {
+    const usage = multi
+      ? (byOrg.get(org.id) ?? emptyTotals())
+      : [...byOrg.values()].reduce(addTotals, emptyTotals());
+    const cap = readOrgQuotas(org.settings, { orgId: org.id }).monthlyBudgetUsd ?? null;
+    return {
+      orgId: org.id,
+      name: org.name,
+      slug: org.slug,
+      status: org.status,
+      ...usage,
+      monthlyBudgetUsd: cap,
+      utilisation: cap !== null && cap > 0 ? usage.totalCostUsd / cap : null,
+    };
+  });
+  rows.sort((a, b) => b.totalCostUsd - a.totalCostUsd || a.name.localeCompare(b.name));
+
+  const totals = rows.reduce<UsageTotals>((acc, r) => addTotals(acc, r), emptyTotals());
+  if (detached) addTotals(totals, detached);
+
+  return {
+    period: opts.period,
+    periodStart: start.toISOString(),
+    periodEnd: end.toISOString(),
+    orgs: rows,
+    detached,
+    totals,
+  };
 }

@@ -267,6 +267,7 @@ export const API = {
       COSTS: '/api/v1/admin/orchestration/costs',
       COSTS_SUMMARY: '/api/v1/admin/orchestration/costs/summary',
       COSTS_ALERTS: '/api/v1/admin/orchestration/costs/alerts',
+      COSTS_ORGS: '/api/v1/admin/orchestration/costs/orgs',
       ANALYTICS_TOPICS: '/api/v1/admin/orchestration/analytics/topics',
       ANALYTICS_UNANSWERED: '/api/v1/admin/orchestration/analytics/unanswered',
       ANALYTICS_ENGAGEMENT: '/api/v1/admin/orchestration/analytics/engagement',
