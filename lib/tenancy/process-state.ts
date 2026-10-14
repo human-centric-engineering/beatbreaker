@@ -439,6 +439,12 @@ export const PROCESS_STATE: readonly ProcessStateDeclaration[] = [
     why: "One chat turn's hold on paid calls, set when the turn goes on, on a local model, past its agent's reached budget (§110 t-788); the gate reads it for every paid call that turn makes. The handle is module-level, the hold is per turn, and a nested turn runs under its own.",
   },
   {
+    file: 'lib/auth/subject-context.ts',
+    holders: ['subjectContext'],
+    posture: 'async-local',
+    why: "Whose rows one request may read (§115 t-800): the principal a guard entered and that request's memoised policy answer. The handle is module-level; the store is per request, and nothing outside a guarded handler sees one.",
+  },
+  {
     file: 'lib/tenancy/context.ts',
     holders: ['tenantContext'],
     posture: 'async-local',
