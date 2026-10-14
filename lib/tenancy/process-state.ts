@@ -219,6 +219,13 @@ export const PROCESS_STATE: readonly ProcessStateDeclaration[] = [
     why: "Each org's month-to-date spend and its monthly cap (§110 t-788), filled by an `aggregate` filtered on `orgId` and a `findUnique` on the org id, so an entry is that org's whatever scope filled it. A caps write through the orgs API clears that org's cap; `logCost` adds this process's rows to its total. The 10-second (spend) and 30-second (cap) TTLs are how long another process's spend or write can go unseen.",
   },
   {
+    file: 'lib/security/org-request-cap.ts',
+    holders: ['globalForOrgCaps', 'capEntries', 'memberships', 'windows'],
+    posture: 'row-keyed',
+    keyedBy: 'org id (memberships: user id + org id)',
+    why: "Each org's `quotas.requestsPerMinute` and its request window (§110 t-789), filled by a `findUnique` on the org id, and counted only for the org a verified principal acts for; and whether a user may enter an org, filled by the guards' membership read for that pair. The cap cache is on globalThis so the orgs API, in the server bundle, clears the copy the proxy reads; the 30-second TTLs are how long another process may enforce an old cap, or count a removed member. The windows are per process, like the section tiers.",
+  },
+  {
     file: 'lib/orchestration/llm/budget-mutex.ts',
     holders: ['locks'],
     posture: 'row-keyed',

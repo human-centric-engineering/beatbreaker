@@ -111,11 +111,13 @@ Three things about the shape are decisions, not defaults:
   `PUT /api/v1/admin/orgs/[id]/providers`. Unlike `retention`, an unreadable
   `providers` slice reads as "no provider", not as a default (see
   [LLM providers](../orchestration/llm-providers.md#per-org-approved-providers-core-at-multi)).
-  `quotas` (§110 t-788) holds the org's own caps, today `monthlyBudgetUsd`,
-  written through `PATCH /api/v1/admin/orgs/[id]` from the install org only,
-  or by a fork's billing code through `writeOrgQuotas()`. An unreadable cap is
-  dropped, leaving the org with no cap of its own (see
-  [Costs](../admin/orchestration-costs.md#per-org-monthly-budget-cap)).
+  `quotas` (§110 t-788, t-789) holds the org's own caps, `monthlyBudgetUsd`
+  and `requestsPerMinute`, written through `PATCH /api/v1/admin/orgs/[id]`
+  from the install org only, or by a fork's billing code through
+  `writeOrgQuotas()`. An unreadable cap is dropped, leaving the org with no
+  cap of its own (see
+  [Costs](../admin/orchestration-costs.md#per-org-monthly-budget-cap) and
+  [Rate limiting](../security/rate-limiting.md#per-org-request-cap)).
   `lib/tenancy/org-settings.ts` is the whole of what the platform reads and
   writes there. It **replaces its own slice rather than the object**, in a
   serializable read-modify-write, so a fork's keys, and the other platform

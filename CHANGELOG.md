@@ -76,6 +76,27 @@ release process.
   process, so another process's spend is seen within that window. See
   [Costs → Per-org monthly budget cap](./.context/admin/orchestration-costs.md#per-org-monthly-budget-cap).
 
+- **A per-org API request cap** (§110 t-789). `Org.settings.quotas` gains
+  `requestsPerMinute` (a whole number, 1–100,000), written exactly as
+  `monthlyBudgetUsd` is and under the same install-org-only rule. At `multi`,
+  `applyRateLimit` counts every request from a caller acting for an org
+  against that org's cap, in a second counter that
+  runs after the matched per-caller rule; both must pass. The org is the one
+  the guard will enter (a fork's tenant resolver's answer, else the session's
+  `activeOrgId`) or the org column of the API or MCP key row, and a user, or a
+  user key's owner, is counted only while an active member of it. The
+  `x-sunrise-org` header is never used to choose it. Embed-widget traffic,
+  `/api/v1/admin/**`, `/api/v1/orgs` and `/api/v1/orgs/switch` are not
+  counted. A user API key on a session-keyed route counts against its org. Nothing changes at `single`, or for an
+  org with no `requestsPerMinute`. Each org's cap is cached for 30 seconds:
+  code calling `writeOrgQuotas()` directly calls `forgetOrgRequestCap(orgId)`
+  from `lib/security/org-request-cap.ts` after it. Known limits: another
+  instance can enforce an old cap for up to 30 seconds, and each instance
+  counts separately, as the section tiers do. `'org'` is deliberately **not**
+  a built-in rate-limit key, so a fork that registered its own `'org'`
+  resolver from the old recipe still boots. See
+  [Rate limiting → Per-org request cap](./.context/security/rate-limiting.md#per-org-request-cap).
+
 ### Changed
 
 - **The org and global monthly budget caps hold every paid AI call, not only

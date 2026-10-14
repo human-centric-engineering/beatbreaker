@@ -43,6 +43,10 @@ vi.mock('@/lib/orchestration/audit/admin-audit-logger', () => ({
 }));
 const mockForgetOrgCap = vi.hoisted(() => vi.fn());
 vi.mock('@/lib/orchestration/llm/spend-caps', () => ({ forgetOrgCap: mockForgetOrgCap }));
+const mockForgetOrgRequestCap = vi.hoisted(() => vi.fn());
+vi.mock('@/lib/security/org-request-cap', () => ({
+  forgetOrgRequestCap: mockForgetOrgRequestCap,
+}));
 vi.mock('@/lib/privacy/erase-org', () => ({ eraseOrg: vi.fn() }));
 vi.mock('@/lib/orchestration/retention-windows', () => ({ readRetentionWindows: vi.fn() }));
 
@@ -176,6 +180,23 @@ describe('PATCH /api/v1/admin/orgs/[id] — settings.quotas at multi', () => {
     expect(writtenFrom).toEqual([INSTALL_ORG_ID]);
   });
 
+  it('refuses a request cap from a customer org, and lets the install org set it (§110 t-789)', async () => {
+    const REQUEST_CAP = { settings: { quotas: { requestsPerMinute: 600 } } };
+
+    signedIn('ADMIN', CUSTOMER);
+    const refused = await patch(REQUEST_CAP);
+    expect(refused.status).toBe(403);
+    expect(mockUpdateOrg).not.toHaveBeenCalled(); // test-review:accept no_arg_called — refused before the write
+
+    signedIn('ADMIN', INSTALL_ORG_ID);
+    const allowed = await patch(REQUEST_CAP);
+    expect(allowed.status).toBe(200);
+    expect(mockUpdateOrg).toHaveBeenCalledWith(CUSTOMER, REQUEST_CAP);
+    expect(writtenFrom).toEqual([INSTALL_ORG_ID]);
+    // So the proxy in this process counts against the new cap on its next request.
+    expect(mockForgetOrgRequestCap).toHaveBeenCalledWith(CUSTOMER);
+  });
+
   it('lets an unbound admin API key set it, as the install org', async () => {
     mockGetSession.mockResolvedValue(null);
     mockResolveApiKey.mockResolvedValue({
@@ -247,6 +268,11 @@ describe('PATCH /api/v1/admin/orgs/[id] — settings.quotas at multi', () => {
       400
     );
     expect((await patch({ settings: { quotas: { budget: 5 } } })).status).toBe(400);
+    expect((await patch({ settings: { quotas: { requestsPerMinute: 0 } } })).status).toBe(400);
+    expect((await patch({ settings: { quotas: { requestsPerMinute: 1.5 } } })).status).toBe(400);
+    expect((await patch({ settings: { quotas: { requestsPerMinute: 100_001 } } })).status).toBe(
+      400
+    );
     expect(mockUpdateOrg).not.toHaveBeenCalled(); // test-review:accept no_arg_called — rejected by validation
   });
 });

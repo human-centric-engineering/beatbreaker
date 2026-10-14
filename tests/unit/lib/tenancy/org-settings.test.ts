@@ -441,6 +441,21 @@ describe('the org caps (§110 t-788)', () => {
     );
   });
 
+  it('reads the request cap beside the budget, dropping only an unreadable one (§110 t-789)', () => {
+    expect(
+      readOrgQuotas({ quotas: { monthlyBudgetUsd: 10, requestsPerMinute: 600 } }, { orgId: ORG_A })
+    ).toEqual({ monthlyBudgetUsd: 10, requestsPerMinute: 600 });
+    expect(mockLogger.warn).not.toHaveBeenCalled();
+
+    expect(
+      readOrgQuotas({ quotas: { monthlyBudgetUsd: 10, requestsPerMinute: 0.5 } }, { orgId: ORG_A })
+    ).toEqual({ monthlyBudgetUsd: 10 });
+    expect(mockLogger.warn).toHaveBeenCalledWith(
+      'Dropped malformed org caps; the org is not capped by them',
+      { orgId: ORG_A, keys: ['requestsPerMinute'] }
+    );
+  });
+
   it('ignores a key it does not know, keeping the caps it does', () => {
     expect(readOrgQuotas({ quotas: { monthlyBudgetUsd: 10, futureCap: 3 } })).toEqual({
       monthlyBudgetUsd: 10,
