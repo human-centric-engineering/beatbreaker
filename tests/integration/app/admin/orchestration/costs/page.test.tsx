@@ -10,6 +10,8 @@
  * - Happy path: all 5 parallel fetches succeed, page sections render
  * - Every fetch rejects: page renders stable empty-state layout, does not throw
  * - Partial failure: some fetches fail, rest still render
+ * - An envelope with success: false is treated as not loaded
+ * - The per-org usage table renders from /costs/orgs (§110 t-790)
  *
  * @see app/admin/orchestration/costs/page.tsx
  */
@@ -255,5 +257,66 @@ describe('CostsPage (server component)', () => {
     // this distinguishes the "non-ok" path from the "throws" path
     // covered by the previous test.
     expect(logger.error).not.toHaveBeenCalled();
+  });
+
+  it('treats an envelope with success: false as not loaded, without logging', async () => {
+    const { serverFetch, parseApiResponse } = await import('@/lib/api/server-fetch');
+    const { logger } = await import('@/lib/logging');
+    vi.mocked(serverFetch).mockResolvedValue({ ok: true } as Response);
+    vi.mocked(parseApiResponse).mockResolvedValue({
+      success: false,
+      error: { code: 'INTERNAL_ERROR', message: 'boom' },
+    });
+
+    const { default: CostsPage } = await import('@/app/admin/orchestration/costs/page');
+
+    render(await CostsPage());
+
+    expect(screen.getByRole('heading', { name: /costs & budget/i })).toBeInTheDocument();
+    expect(screen.getByText('No agent spend recorded this month.')).toBeInTheDocument();
+    expect(screen.queryByTestId('per-org-usage-table')).not.toBeInTheDocument();
+    expect(logger.error).not.toHaveBeenCalled();
+  });
+
+  it('renders the per-org usage table from /costs/orgs when there is more than one org', async () => {
+    const { serverFetch, parseApiResponse } = await import('@/lib/api/server-fetch');
+    const orgRow = (orgId: string, name: string, totalCostUsd: number) => ({
+      orgId,
+      name,
+      slug: orgId,
+      status: 'ACTIVE',
+      totalCostUsd,
+      inputTokens: 100,
+      outputTokens: 10,
+      count: 1,
+      monthlyBudgetUsd: null,
+      utilisation: null,
+    });
+    const bodies: Record<string, unknown> = {
+      '/api/v1/admin/orchestration/costs/orgs': {
+        period: '2026-10',
+        periodStart: '2026-10-01T00:00:00.000Z',
+        periodEnd: '2026-11-01T00:00:00.000Z',
+        orgs: [orgRow('acme', 'Acme', 5), orgRow('install', 'Install', 1)],
+        detached: null,
+        totals: { totalCostUsd: 6, inputTokens: 200, outputTokens: 20, count: 2 },
+      },
+    };
+    // Keyed by path rather than call order: five fetches race in Promise.all.
+    vi.mocked(serverFetch).mockImplementation(
+      async (path: string) => ({ ok: path in bodies, path }) as unknown as Response
+    );
+    vi.mocked(parseApiResponse).mockImplementation((async (res: { path: string }) => ({
+      success: true,
+      data: bodies[res.path],
+    })) as never);
+
+    const { default: CostsPage } = await import('@/app/admin/orchestration/costs/page');
+
+    render(await CostsPage());
+
+    expect(serverFetch).toHaveBeenCalledWith('/api/v1/admin/orchestration/costs/orgs');
+    expect(screen.getByTestId('per-org-usage-table')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Acme' })).toHaveAttribute('href', '/admin/orgs/acme');
   });
 });
