@@ -30,6 +30,9 @@ import { sanitizeUrl } from '@/lib/security/sanitize';
 
 const slugSchema = z.string().min(1).max(120);
 
+/** A source address worth linking to from a public page. */
+const WEB_ADDRESS = /^https?:\/\//i;
+
 /* Read once for the metadata and the page. A genre is a node too, but not a
    person: it has no page here. */
 const profileFor = cache(async (slug: string) => {
@@ -232,9 +235,11 @@ export default async function DrummerPage({ params }: { params: Params }) {
                 <p className="text-muted-foreground">
                   {d.sources.length === 1 ? 'Source: ' : 'Sources: '}
                   {d.sources.map((src, i) => {
-                    const href = src.url ? sanitizeUrl(src.url) : '';
+                    /* Only a web address is a link: a source may name a book,
+                       or a path inside the repo, which is no use to a reader. */
+                    const href = src.url && WEB_ADDRESS.test(src.url) ? sanitizeUrl(src.url) : '';
                     return (
-                      <span key={src.title}>
+                      <span key={`${i}-${src.title}`}>
                         {i > 0 && '; '}
                         {href ? (
                           <a

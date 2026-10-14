@@ -204,17 +204,21 @@ describe('Plays', () => {
     expect(svg().querySelectorAll('[data-lit]')).toHaveLength(0);
   });
 
-  it('dims anyone a trace lights who does not play it', async () => {
+  it('keeps the traced person lit whatever they play, and dims the rest who do not', async () => {
     const user = userEvent.setup();
     show();
     await pickOption(user, playsPicker(), 'cross-rhythm');
     await pickOption(user, tracePicker(), 'drummer:beta');
-    // Beta is traced but plays no cross-rhythm; Alpha and Gamma are both
+    // Beta is traced and plays no cross-rhythm, but the status is about Beta
+    expect(lit('Beta')).toBe('true');
     expect(lit('Alpha')).toBe('true');
     expect(lit('Gamma')).toBe('true');
-    expect(lit('Beta')).toBe('false');
+    // off the trace, and no player either
     expect(lit('Delta')).toBe('false');
     expect(status()).toBe('Beta: learned from 1, passed on to 1.');
+    // the trace's links to players stay lit; a link to a non-player does not
+    expect(edge('influence')?.getAttribute('data-lit')).toBe('true');
+    expect(edge('peer')?.getAttribute('data-lit')).toBe('false');
   });
 });
 

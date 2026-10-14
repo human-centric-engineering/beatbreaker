@@ -4446,7 +4446,14 @@ reconciling it against the tree, and the sourcing pass, changed from the plan:
   12-c writes vocabularies only from what § AC sources.
 - **BeatBuddy's instructions gained one paragraph** for device questions;
   the previous text joins `SUPERSEDED_BEATBUDDY_INSTRUCTIONS`. `find_drummers`'
-  full list grows from about 8.5 KB to 13 KB with the device lines.
+  full list grows from about 8.5 KB to 13 KB with the device lines, each held
+  to its description's first sentence; `get_drummer` has the rest.
+- **Review round (code review, 10 findings, all addressed):** a ratio is one
+  search word (3:2 is not 2:3); a device's source ids must be sources, not
+  just ids that resolve; the traced person stays lit under "Plays"; only an
+  `http(s)` source is a link; a stored device that no longer reads is logged;
+  places are searchable; source keys are unique; `isOneOf` moved to
+  `types.ts` so the client map can share it.
 - **Not looked at in a browser** (the owner is on Arc). The map filter and
   the page section are held by component tests.
 

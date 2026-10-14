@@ -84,11 +84,14 @@ export function firstSentence(text: string | null): string | null {
   return text;
 }
 
-/** A device in one line: its kind and ratio, where it is played, and what it is. */
+/**
+ * A device in one line: its kind and ratio, where it is played, and the first
+ * sentence of what it is. get_drummer has the rest, with the sources.
+ */
 export function deviceLine(d: LineageDevice): string {
   const name = [d.kind, d.ratio].filter(Boolean).join(' ');
   const where = d.where.length > 0 ? ` (${d.where.join(', ')})` : '';
-  return `${name}${where}: ${d.description}`;
+  return `${name}${where}: ${firstSentence(d.description) ?? d.description}`;
 }
 
 /** A drummer with their record read once: both the match and the summary use it. */
@@ -112,14 +115,18 @@ function summarise({ entry: { node }, record }: Read): DrummerSummary {
   };
 }
 
-/** Accents folded, lower case, split into words. */
+/**
+ * Accents folded, lower case, split into words. A ratio stays one word, so
+ * "3:2" never matches a 2:3.
+ */
 function words(text: string): string[] {
-  return text
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .split(/[^\p{L}\p{N}]+/u)
-    .filter(Boolean);
+  return (
+    text
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .match(/\d+:\d+|[\p{L}\p{N}]+/gu) ?? []
+  );
 }
 
 /**
@@ -138,7 +145,13 @@ function vocabulary({ entry: { node }, record }: Read): string[] {
       ...(record?.descriptors ?? []),
       ...(record?.traits.map((t) => t.label) ?? []),
       ...(record?.from ?? []),
-      ...node.devices.flatMap((d) => [d.kind, d.ratio ?? '', d.description, ...d.examples]),
+      ...node.devices.flatMap((d) => [
+        d.kind,
+        d.ratio ?? '',
+        ...d.where,
+        d.description,
+        ...d.examples,
+      ]),
     ].join(' ')
   );
 }

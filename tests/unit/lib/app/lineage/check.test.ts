@@ -186,7 +186,35 @@ describe('checkCorpus', () => {
         description: 'The backbeat moved by an eighth.',
         evidence: { confidence: 'likely', source_ids: ['src:nowhere'] },
       });
-      expect(checkCorpus(c)).toEqual(['drummers/0.json: unresolved reference src:nowhere']);
+      expect(checkCorpus(c)).toEqual([
+        'drummers/0.json: unresolved reference src:nowhere',
+        'drummers/0.json devices[0] (displacement): src:nowhere is not in the source registry',
+      ]);
+    });
+
+    it('refuses a source id that resolves to something other than a source', () => {
+      const c = corpusOf({
+        drummers: [
+          drummer('a', {
+            vocabulary: { patterns: [pattern()] },
+            technique_profile: {
+              coordination: {
+                devices: [
+                  {
+                    kind: 'grouping',
+                    description: 'Threes of 16ths.',
+                    evidence: { confidence: 'likely', source_ids: ['src:s', 'pattern:p'] },
+                  },
+                ],
+              },
+            },
+          }),
+        ],
+        sources: [source],
+      });
+      expect(checkCorpus(c)).toEqual([
+        'drummers/0.json devices[0] (grouping): pattern:p is not in the source registry',
+      ]);
     });
 
     it('refuses a cross-rhythm or a hemiola without its ratio', () => {

@@ -112,13 +112,20 @@ export function checkCorpus(corpus: Corpus): string[] {
     }
   }
 
+  const sources = new Set(corpus.sources.map(({ record }) => record.id));
   /* A device is a claim about how someone plays: it cites a source (D56), and
      a cross-rhythm says which one. That it resolves is the reference rule's. */
   for (const { file, record } of corpus.drummers) {
     const devices = record.technique_profile?.coordination?.devices ?? [];
     for (const [i, d] of devices.entries()) {
       const name = `${file} devices[${i}] (${d.kind})`;
-      if ((d.evidence?.source_ids ?? []).length === 0) errors.push(`${name}: cites no source`);
+      const cited = d.evidence?.source_ids ?? [];
+      if (cited.length === 0) errors.push(`${name}: cites no source`);
+      /* The builder resolves these against the registry alone, so a pattern
+         or recording id here would resolve, then vanish from the citation. */
+      for (const id of cited) {
+        if (!sources.has(id)) errors.push(`${name}: ${id} is not in the source registry`);
+      }
       if ((d.kind === 'cross-rhythm' || d.kind === 'hemiola') && !d.ratio) {
         errors.push(`${name}: a ${d.kind} needs its ratio`);
       }

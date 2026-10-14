@@ -25,6 +25,7 @@ import {
   listDrummers,
 } from '@/lib/app/lineage/data';
 import { prisma } from '@/lib/db/client';
+import { logger } from '@/lib/logging';
 
 function nodeRow(id: string, extra: Record<string, unknown> = {}) {
   return {
@@ -113,7 +114,8 @@ describe('getLineageGraph', () => {
 });
 
 describe('a node’s devices', () => {
-  it('reads the stored devices and drops one that does not read', async () => {
+  it('reads the stored devices, and drops and logs one that does not read', async () => {
+    const warn = vi.spyOn(logger, 'warn').mockImplementation(() => undefined);
     const good = {
       kind: 'hemiola',
       ratio: '3:2',
@@ -133,6 +135,39 @@ describe('a node’s devices', () => {
 
     expect(graph.nodes[0].devices).toEqual([good]);
     expect(graph.nodes[1].devices).toEqual([]);
+    expect(warn).toHaveBeenCalledWith(expect.stringMatching(/do not read/), {
+      nodeId: 'drummer:a',
+      dropped: 2,
+    });
+    expect(warn).toHaveBeenCalledWith(expect.any(String), { nodeId: 'drummer:b', dropped: 1 });
+    warn.mockRestore();
+  });
+
+  it('drops a device whose sources were lost, and logs nothing for a node with none', async () => {
+    const warn = vi.spyOn(logger, 'warn').mockImplementation(() => undefined);
+    findNodes.mockResolvedValue([
+      nodeRow('drummer:a', {
+        devices: [
+          {
+            kind: 'grouping',
+            ratio: null,
+            where: [],
+            description: 'Threes.',
+            examples: [],
+            confidence: null,
+            sources: [],
+          },
+        ],
+      }),
+      nodeRow('drummer:b'),
+    ] as never);
+    findEdges.mockResolvedValue([] as never);
+
+    const graph = await getLineageGraph();
+
+    expect(graph.nodes[0].devices).toEqual([]);
+    expect(warn).toHaveBeenCalledTimes(1);
+    warn.mockRestore();
   });
 });
 

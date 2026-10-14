@@ -42,7 +42,9 @@ record, the graph, the API, and the map and pages that show them.
   source.** A record's `devices` (12-b) use one vocabulary, where only
   `cross-rhythm` and `hemiola` are polyrhythms; an odd meter, a sextuplet
   lick or a reputation is not a device. `checkCorpus` refuses a device that
-  cites no source, and a cross-rhythm or hemiola without its ratio. A
+  cites no source, or cites an id that is not in the source registry (a
+  pattern id would resolve, then vanish from the citation), and a
+  cross-rhythm or hemiola without its ratio. A
   drummer with none found gets a `devices_search`, never an invented device.
 - **Don't put the graph in the vector store.** Traversal, direction and filters
   need rows. BeatBuddy reads the same tables (11-f): `find_drummers` and
@@ -134,7 +136,7 @@ recording has the drummer on it; lanes fit `numerator × steps_per_beat` and
 persona; no `transcribed_*` before `verified`; every relationship type has an
 entry in `RELATIONSHIPS` (the builder skips one that does not, so it would
 vanish from the map); every device cites a source, and a cross-rhythm or
-hemiola has its ratio. A recording's performers must be `drummer:` ids — the
+hemiola has its ratio, and every id a device cites is a source. A recording's performers must be `drummer:` ids — the
 parser refuses anything else.
 
 `checkGraph(graph)`: what the built graph must be before it is written. Every
@@ -152,7 +154,9 @@ the data export with that reason:
   `devices` (12-b) is the builder's `LineageDevice[]`: the record's devices
   with each source looked up in the registry (title and URL), because the
   registry itself is not stored. `[]` for a stub; read through Zod in
-  `data.ts`, which drops a device that does not read.
+  `data.ts`, which drops a device that does not read (or has lost its
+  sources) and logs a warning: the rows and the vocabulary have drifted, and
+  the seed wants a re-run.
 - `LineageEdge` — `fromId`, `toId` (cascade), `relation`, `kind`, `directed`,
   `strength`, `confidence`, `scope`, `declaredBy`, `recordingId`.
 - `LineageRecording` — `id`, `title`, `artist`, `year`, `drummerIds`, `record`.
@@ -180,10 +184,10 @@ it needs.
 
 ## The map and the pages (11-b)
 
-| Route              | What                                                                                                                                                                                                                                                                      |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/drummers`        | The map (`components/app/drummers/lineage-map.tsx`) from `md` up; the list (`lineage-list.tsx`) below it. `?trace=<slug>` opens it with that person traced.                                                                                                               |
-| `/drummers/[slug]` | Any person by slug (a genre 404s). A record: summary, traits with confidence, technique, rhythmic devices with their sources (12-b), eras, recordings, learned from / passed on to / around them. A stub: the links that name it. **Play** → `/studio?style=<style_key>`. |
+| Route              | What                                                                                                                                                                                                                                                                                                           |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/drummers`        | The map (`components/app/drummers/lineage-map.tsx`) from `md` up; the list (`lineage-list.tsx`) below it. `?trace=<slug>` opens it with that person traced.                                                                                                                                                    |
+| `/drummers/[slug]` | Any person by slug (a genre 404s). A record: summary, traits with confidence, technique, rhythmic devices with their sources (12-b; only an `http(s)` address is a link), eras, recordings, learned from / passed on to / around them. A stub: the links that name it. **Play** → `/studio?style=<style_key>`. |
 
 Both are public server components reading `lib/app/lineage/data.ts`; the
 public nav lists Drummers and the sitemap lists `/drummers` and every
@@ -215,8 +219,9 @@ clears. Filters: link kinds (checkboxes) and a confidence floor;
 a stub left with no visible edge is hidden. **Plays** (12-b) offers the
 device kinds some record names; picking one keeps those drummers lit, dims
 everyone else and every link not between two of them, and names them in the
-status line. It composes with a trace: a traced person who does not play it
-is dimmed too. Pan is the scrolling box; zoom
+status line. It composes with a trace: the traced person stays lit whatever
+they play, since the status line is about them, and everyone else must be on
+the trace and play the device. Pan is the scrolling box; zoom
 is three buttons (50–150%). Each person is a `next/link` inside the SVG, so
 Tab walks the map in band order.
 

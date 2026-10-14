@@ -187,7 +187,9 @@ disagree.
   are not in the tables, so the citation is the record, not its sources —
   except for a **rhythmic device** (12-b), whose sources the seed resolves
   onto the node. `find_drummers` gives each drummer's devices one line each
-  (`cross-rhythm 3:2 (fills, solos): …`) and matches a query against them;
+  (`cross-rhythm 3:2 (fills, solos): ` and the description's first sentence)
+  and matches a query against their kind, ratio, places, description and
+  examples, keeping a ratio one word so "3:2" never finds a 2:3;
   `get_drummer` returns them whole, sources included. The instructions say
   that for "who plays threes over the bar?" BeatBuddy lists the drummers,
   reads the ones that fit, names the device's source as well as the record,

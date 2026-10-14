@@ -397,6 +397,32 @@ describe('rhythmic devices (12-b)', () => {
     expect(screen.queryByRole('link', { name: 'Bad' })).toBeNull();
   });
 
+  it('links only a web address, and shows two sources of one title both', async () => {
+    vi.mocked(getLineageProfile).mockResolvedValue(
+      profile({
+        node: {
+          ...BONHAM,
+          devices: [
+            lineageDevice('grouping', {
+              sources: [
+                { title: 'Same title', url: 'https://example.com/a' },
+                { title: 'Same title', url: 'https://example.com/b' },
+                { title: 'In the repo', url: '.context/app/planning/drumming-research.md' },
+              ],
+            }),
+          ],
+        },
+        record: bonhamRecord(),
+      })
+    );
+    await show('john-bonham');
+    expect(
+      screen.getAllByRole('link', { name: 'Same title' }).map((a) => a.getAttribute('href'))
+    ).toEqual(['https://example.com/a', 'https://example.com/b']);
+    expect(screen.getByText(/In the repo/)).toBeDefined();
+    expect(screen.queryByRole('link', { name: 'In the repo' })).toBeNull();
+  });
+
   it('has no section for a drummer whose record names none', async () => {
     vi.mocked(getLineageProfile).mockResolvedValue(
       profile({ node: BONHAM, record: bonhamRecord() })

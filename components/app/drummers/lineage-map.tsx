@@ -19,7 +19,7 @@ import {
   meetsConfidence,
   traceLineage,
 } from '@/lib/app/lineage/layout';
-import { type Confidence, DEVICE_KINDS, type DeviceKind } from '@/lib/app/lineage/types';
+import { type Confidence, DEVICE_KINDS, type DeviceKind, isOneOf } from '@/lib/app/lineage/types';
 import { cn } from '@/lib/utils';
 
 /**
@@ -53,10 +53,6 @@ const FLOORS: { value: Confidence | ''; label: string }[] = [
 
 function isFloor(value: string): value is Confidence | '' {
   return FLOORS.some((f) => f.value === value);
-}
-
-function isDevice(value: string): value is DeviceKind {
-  return DEVICE_KINDS.some((k) => k === value);
 }
 
 const ZOOMS = [0.5, 0.75, 1, 1.25, 1.5] as const;
@@ -103,15 +99,21 @@ export function LineageMap({ layout, initialTrace = null }: LineageMapProps) {
       })),
     ];
   }, [layout.nodes]);
+  /* Who plays the picked device, earliest first; null when nothing is picked. */
   const players = useMemo(
     () =>
       plays === ''
         ? null
-        : layout.nodes.filter((n) => n.devices.includes(plays)).sort((a, b) => a.x - b.x),
+        : {
+            label: DEVICE_LABELS[plays],
+            nodes: layout.nodes.filter((n) => n.devices.includes(plays)).sort((a, b) => a.x - b.x),
+          },
     [layout.nodes, plays]
   );
-  const playerIds = useMemo(() => (players ? new Set(players.map((n) => n.id)) : null), [players]);
-  const isPlayer = (id: string) => !playerIds || playerIds.has(id);
+  const playerIds = useMemo(
+    () => (players ? new Set(players.nodes.map((n) => n.id)) : null),
+    [players]
+  );
 
   /* Esc lets go of a trace, wherever focus is — the select's own list closes first. */
   const tracing = hovered !== null || focused !== null || picked !== null;
@@ -129,8 +131,13 @@ export function LineageMap({ layout, initialTrace = null }: LineageMapProps) {
 
   const focus = hovered ?? focused ?? picked;
   const trace = useMemo(() => (focus ? traceLineage(edges, focus) : null), [edges, focus]);
+  /* With both on, the traced person stays lit whatever they play: the status
+     line is about them. Everyone else must be on the trace and a player. */
+  const isPlayer = (id: string) => !playerIds || playerIds.has(id) || id === focus;
   const lit = (id: string) =>
-    !trace || id === focus || trace.ancestors.has(id) || trace.descendants.has(id);
+    isPlayer(id) &&
+    (!trace || id === focus || trace.ancestors.has(id) || trace.descendants.has(id));
+  const dim = trace !== null || playerIds !== null;
 
   const traceable = useMemo(
     () =>
@@ -147,8 +154,8 @@ export function LineageMap({ layout, initialTrace = null }: LineageMapProps) {
   const status =
     tracedNode && trace
       ? `${tracedNode.label}: learned from ${trace.ancestors.size}, passed on to ${trace.descendants.size}.`
-      : players && plays !== ''
-        ? `${DEVICE_LABELS[plays]}: ${players.map((n) => n.label).join(', ')}.`
+      : players
+        ? `${players.label}: ${players.nodes.map((n) => n.label).join(', ')}.`
         : '';
 
   const toggleKind = (kind: MapEdgeKind, on: boolean) =>
@@ -214,7 +221,7 @@ export function LineageMap({ layout, initialTrace = null }: LineageMapProps) {
             id={`${uid}-plays`}
             className="min-w-48"
             value={plays}
-            onValueChange={(v) => setPlays(v === '' || !isDevice(v) ? '' : v)}
+            onValueChange={(v) => setPlays(isOneOf(DEVICE_KINDS, v) ? v : '')}
             options={deviceOptions}
           />
         </div>
@@ -358,7 +365,6 @@ export function LineageMap({ layout, initialTrace = null }: LineageMapProps) {
               if (!a || !b) return null;
               const on =
                 (trace ? trace.edges.has(e.id) : true) && isPlayer(e.from) && isPlayer(e.to);
-              const dim = trace !== null || playerIds !== null;
               return (
                 <path
                   key={e.id}
@@ -376,8 +382,7 @@ export function LineageMap({ layout, initialTrace = null }: LineageMapProps) {
           </g>
 
           {nodes.map((n) => {
-            const on = lit(n.id) && isPlayer(n.id);
-            const dim = trace !== null || playerIds !== null;
+            const on = lit(n.id);
             const year =
               n.year === null
                 ? 'dates unknown'

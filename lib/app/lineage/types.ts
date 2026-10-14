@@ -7,6 +7,11 @@
  * `/api/v1/catalogue/lineage`. See `.context/app/drummers.md`.
  */
 
+/** True when `value` is one of `values`: narrows a string to a vocabulary. */
+export function isOneOf<T extends string>(values: readonly T[], value: string): value is T {
+  return values.some((v) => v === value);
+}
+
 /** What a node is. A `drummer` may be modelled (it has a record) or a stub. */
 export const NODE_KINDS = [
   'drummer',
