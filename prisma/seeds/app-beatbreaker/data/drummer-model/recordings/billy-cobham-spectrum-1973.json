@@ -1,0 +1,75 @@
+{
+  "id": "rec:billy-cobham-spectrum-1973",
+  "title": "Spectrum",
+  "artist": "Billy Cobham",
+  "release": "Atlantic",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "Billy Cobham",
+      "role": "drums, percussion, producer"
+    },
+    {
+      "name": "Jan Hammer",
+      "role": "keyboards, Moog"
+    },
+    {
+      "name": "Tommy Bolin",
+      "role": "guitar"
+    },
+    {
+      "name": "Lee Sklar",
+      "role": "bass"
+    },
+    {
+      "name": "Ron Carter",
+      "role": "acoustic bass (Spectrum)"
+    },
+    {
+      "name": "Joe Farrell",
+      "role": "saxophones, flute"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:billy-cobham",
+      "name": "Billy Cobham",
+      "drummer_role": "leader",
+      "significance": 0.95,
+      "why_it_matters": "His first album as leader, No. 1 on the jazz chart: Quadrant 4's two-bass-drum shuffle, Stratus's one-handed sixteenths (Massive Attack's Safe from Harm samples it), Red Baron, and the 7/8 of the title track.",
+      "pattern_ids": [
+        "pattern:billy-cobham-stratus",
+        "pattern:billy-cobham-quadrant-4",
+        "pattern:billy-cobham-spectrum-7-8"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:spectrum-cobham-wikipedia", "src:billy-cobham-wikipedia"]
+      },
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "Stratus: sixteenths on the hat with one hand, the snare on 2, the 'e' of 3 and 4.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-64400"]
+          }
+        },
+        {
+          "category": "groove",
+          "description": "Quadrant 4: a shuffle on both bass drums at about 240.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-519969", "src:billy-cobham-hudson-book"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:spectrum-cobham-wikipedia", "src:billy-cobham-wikipedia"]
+  }
+}

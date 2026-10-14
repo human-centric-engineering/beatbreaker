@@ -92,6 +92,7 @@ describe('the drummer model', () => {
     expect(playable).toEqual([
       'drummer:adrienne-davies',
       'drummer:bernard-purdie',
+      'drummer:billy-cobham',
       'drummer:changuito',
       'drummer:clyde-stubblefield',
       'drummer:dave-lombardo',

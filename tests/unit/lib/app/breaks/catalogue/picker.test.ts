@@ -110,6 +110,7 @@ describe('drummerSection', () => {
       'tonywilliams',
       'yussefdayes',
       'elvinjones',
+      'cobham',
       'puente',
       'changuito',
       'horaciohernandez',
@@ -121,6 +122,7 @@ describe('drummerSection', () => {
       'Funk drummers',
       'Session drummers',
       'Jazz drummers',
+      'Fusion drummers',
       'Latin drummers',
       'Afrobeat drummers',
     ]);

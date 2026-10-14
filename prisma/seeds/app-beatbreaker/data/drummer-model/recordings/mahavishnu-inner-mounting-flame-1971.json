@@ -1,0 +1,49 @@
+{
+  "id": "rec:mahavishnu-inner-mounting-flame-1971",
+  "title": "The Inner Mounting Flame",
+  "artist": "Mahavishnu Orchestra",
+  "release": "Columbia",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "John McLaughlin",
+      "role": "guitar"
+    },
+    {
+      "name": "Jan Hammer",
+      "role": "keyboards"
+    },
+    {
+      "name": "Jerry Goodman",
+      "role": "violin"
+    },
+    {
+      "name": "Rick Laird",
+      "role": "bass"
+    },
+    {
+      "name": "Billy Cobham",
+      "role": "drums, percussion"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:billy-cobham",
+      "name": "Billy Cobham",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "The first Mahavishnu album: odd meters at volume and speed. Phil Collins: 'Billy Cobham played some of the finest drumming I've ever heard on that record.'",
+      "pattern_ids": ["pattern:billy-cobham-meeting-of-the-spirits"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:billy-cobham-wikipedia"]
+  }
+}

@@ -1,0 +1,1001 @@
+{
+  "meta": {
+    "id": "drummer:billy-cobham",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-14",
+    "updated": "2026-10-14",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Transcribe Right Off (A Tribute to Jack Johnson) and the Mahavishnu tunes no human tab covers: The Noonward Race, One Word, Vital Transformation's linear sixteenths.",
+      "Spectrum's tempo: the tab's 110 against songbpm's 125; Birds of Fire 98 against 109; White Rabbit's 111 is songbpm's alone.",
+      "Read the Hudson Music book (Bergamini) for the published transcriptions of Quadrant 4, Stratus and Red Baron.",
+      "He is said to keep time with his left foot (interviews); Bishop rarely hears it. Check."
+    ]
+  },
+  "identity": {
+    "name": "Billy Cobham",
+    "full_name": "William Emanuel Cobham Jr.",
+    "born": {
+      "date": "1944-05-16",
+      "place": "Colón, Panama",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"],
+        "note": "Full name from general knowledge; date and place from Wikipedia."
+      }
+    },
+    "nationality": ["Panamanian", "American"],
+    "home_scenes": ["New York (from age three)", "Switzerland (from 1985)"],
+    "handedness": "right",
+    "kit_orientation": "open_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1959,
+      "to": 2026
+    },
+    "roles": ["band_member", "bandleader", "session", "composer", "producer", "educator"],
+    "summary": "The drummer who took fusion's chops to a new level: open-handed on a huge kit with two bass drums, a tight high snare and an upside-down china. Miles Davis's Jack Johnson sessions, the Mahavishnu Orchestra's odd meters at volume, then his own Spectrum: Stratus, Quadrant 4, Red Baron."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "teachers": [],
+    "traditions": [
+      {
+        "tradition": "Big-band drumming",
+        "impact": "Buddy Rich, Jo Jones and Louie Bellson among those he cites.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:billy-cobham-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Modern jazz drumming",
+        "impact": "Tony Williams, Elvin Jones, Jimmy Cobb, Roy Haynes, Max Roach and Art Blakey.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:billy-cobham-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Military band",
+        "impact": "Three years in a US Army band (1965-68).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:billy-cobham-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Drums from four; played with his father, a weekend pianist, from eight.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:billy-cobham-wikipedia"]
+        }
+      },
+      {
+        "event": "His first kit at fifteen, on getting into the High School of Music & Art in New York.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:billy-cobham-wikipedia"]
+        }
+      },
+      {
+        "year": 1968,
+        "event": "Joined Horace Silver's quintet; then a house drummer for Atlantic Records.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:billy-cobham-wikipedia"]
+        }
+      },
+      {
+        "year": 1971,
+        "event": "Started the Mahavishnu Orchestra with John McLaughlin.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:billy-cobham-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:billy-cobham-miles",
+      "label": "Sessions and Miles Davis",
+      "years": {
+        "from": 1968,
+        "to": 1971
+      },
+      "context": "Horace Silver, Dreams, Atlantic and CTI sessions, Miles Davis (Jack Johnson, Live-Evil, Big Fun).",
+      "defining_traits": ["rock time under jazz", "session versatility"],
+      "key_recording_ids": [
+        "rec:miles-davis-jack-johnson-1971",
+        "rec:george-benson-white-rabbit-1971"
+      ]
+    },
+    {
+      "id": "era:billy-cobham-mahavishnu",
+      "label": "Mahavishnu Orchestra",
+      "years": {
+        "from": 1971,
+        "to": 1973
+      },
+      "context": "With John McLaughlin, Jan Hammer, Jerry Goodman and Rick Laird.",
+      "defining_traits": ["odd meters at volume", "two bass drums", "singles round a huge kit"],
+      "key_recording_ids": [
+        "rec:mahavishnu-inner-mounting-flame-1971",
+        "rec:mahavishnu-birds-of-fire-1973"
+      ]
+    },
+    {
+      "id": "era:billy-cobham-spectrum",
+      "label": "Spectrum and his own bands",
+      "years": {
+        "from": 1973,
+        "to": 1980
+      },
+      "context": "Spectrum, Crosswinds, Total Eclipse, the Billy Cobham-George Duke Band.",
+      "defining_traits": ["one-handed sixteenths", "double-bass shuffle", "funk-fusion"],
+      "key_recording_ids": ["rec:billy-cobham-spectrum-1973"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.5,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.5,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.4,
+        "authority": 0.5
+      }
+    ],
+    "versatility": 0.8,
+    "groove_vs_chops": 0.7,
+    "role_tendency": "driver",
+    "descriptors": ["powerful", "fast", "open-handed", "energetic", "snare-driven"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:billy-cobham-bishop-2020"],
+        "note": "Bishop's 'energy sound'; no measurement found."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "Straight sixteenths; Quadrant 4 is a hard triplet shuffle."
+    },
+    "dynamics": {
+      "range": 0.8,
+      "default_level": "f",
+      "ghost_note_level": 50,
+      "accent_level": 124,
+      "balance": "Unaccented notes played strong (Bishop); a tight, high snare carries it."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 26],
+      "fill_frequency": "every_4_bars",
+      "space_usage": 0.3
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [80, 250],
+    "timekeeping_context": ["free"],
+    "interaction": "Drives the band; doubles riffs with the kicks and crashes (Stratus, section E).",
+    "descriptors": ["driving", "on top", "relentless"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american", "traditional"],
+    "hand_techniques": [
+      {
+        "name": "Open-handed",
+        "description": "The left hand on the hat, the right free on the snare, without crossing.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:billy-cobham-wikipedia", "src:billy-cobham-bishop-2020"]
+        }
+      },
+      {
+        "name": "Singles and open rolls",
+        "description": "Fills of single strokes and open rolls with accented singles.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:billy-cobham-bishop-2020"]
+        }
+      },
+      {
+        "name": "One-handed sixteenths",
+        "description": "Sixteenths on the hat with one hand while the other plays the snare (Stratus).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-64400"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Two bass drums",
+        "description": "A shuffle on both bass drums (Quadrant 4), ostinatos tied to the cymbals.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:billy-cobham-wikipedia",
+            "src:billy-cobham-hudson-book",
+            "src:billy-cobham-bishop-2020"
+          ]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.9,
+      "linear_playing": 0.5,
+      "ostinato_usage": 0.6,
+      "polyrhythm_usage": 0.5,
+      "odd_meter_fluency": 0.9,
+      "double_bass": 0.8
+    },
+    "voice_language": {
+      "snare": "Tight and high; strong unaccented notes.",
+      "kick": "Two bass drums: funk patterns, accents and ostinatos.",
+      "toms": "Live and throaty, singles round the kit.",
+      "hihat": "Played open-handed; sixteenths with one hand.",
+      "cymbals": "An upside-down china for accents."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.05,
+      "mallets": 0.1
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "tight, dry, high snare",
+      "live, throaty toms",
+      "large but controlled bass drums",
+      "upside-down china"
+    ],
+    "cymbal_character": "Zildjian in the 1970s; a china mounted upside down; a 36-inch gong.",
+    "by_era": [
+      {
+        "era_id": "era:billy-cobham-mahavishnu",
+        "description": "Fibes: two bass drums, flared rack toms, four more rack toms, two floor toms, a gong."
+      }
+    ],
+    "sample_hints": {
+      "70s": "Bright, tight snare; resonant toms; two kicks."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:billy-cobham-wikipedia", "src:billy-cobham-bishop-2020"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:billy-cobham-open-handed",
+      "label": "Open-handed",
+      "category": "technique",
+      "description": "The first major drummer to play open-handed: no crossed hands, the right hand free for the snare and toms.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia", "src:billy-cobham-bishop-2020"]
+      },
+      "pattern_ids": ["pattern:billy-cobham-stratus"]
+    },
+    {
+      "id": "trait:billy-cobham-double-bass-shuffle",
+      "label": "The two-bass-drum shuffle",
+      "category": "groove",
+      "description": "Quadrant 4: both bass drums on every beat and its last triplet at about 240.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-519969", "src:billy-cobham-hudson-book"]
+      },
+      "pattern_ids": ["pattern:billy-cobham-quadrant-4"]
+    },
+    {
+      "id": "trait:billy-cobham-odd-meters",
+      "label": "Odd meters at full power",
+      "category": "musical_approach",
+      "description": "The Mahavishnu Orchestra in 6/4, 9/8 and longer, played as hard as rock.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      },
+      "pattern_ids": [
+        "pattern:billy-cobham-meeting-of-the-spirits",
+        "pattern:billy-cobham-birds-of-fire",
+        "pattern:billy-cobham-spectrum-7-8"
+      ]
+    },
+    {
+      "id": "trait:billy-cobham-china",
+      "label": "The upside-down china",
+      "category": "sound",
+      "description": "A Chinese cymbal mounted upside down, used for accents and widely copied.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:billy-cobham-bishop-2020"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:billy-cobham-stratus",
+        "name": "Stratus: one-handed sixteenths",
+        "type": "groove",
+        "function": "The vamp under the solos",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-64400"],
+          "note": "The tab's most common bar."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 88,
+          "playable_range_bpm": [86, 90]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxxxxxx",
+          "snare": "....x....x..x...",
+          "kick": "x......xx.x....."
+        },
+        "source": {
+          "recording_id": "rec:billy-cobham-spectrum-1973",
+          "transcription_source_id": "src:songsterr-64400"
+        },
+        "tags": ["open-handed", "sampled"]
+      },
+      {
+        "id": "pattern:billy-cobham-quadrant-4",
+        "name": "Quadrant 4: the two-bass-drum shuffle",
+        "type": "groove",
+        "function": "The shuffle at 240",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-519969", "src:billy-cobham-hudson-book"],
+          "note": "In the tab's triplets: kicks on every beat and its last triplet, ghosts on the middle one."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 240,
+          "playable_range_bpm": [236, 244]
+        },
+        "lanes": {
+          "ride": "x.....x...x.x.....x...x.",
+          "snare": "..g...x.......g...x.....",
+          "kick": "x...x.x...x.x...x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:billy-cobham-spectrum-1973",
+          "transcription_source_id": "src:songsterr-519969"
+        },
+        "tags": ["double bass", "shuffle"]
+      },
+      {
+        "id": "pattern:billy-cobham-spectrum-7-8",
+        "name": "Spectrum: 7/8",
+        "type": "groove",
+        "function": "The title track",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1324254", "src:billy-cobham-bishop-spectrum"]
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 110,
+          "playable_range_bpm": [110, 124]
+        },
+        "lanes": {
+          "hihat": "x.xox.x.x.xo..",
+          "hihat_pedal": "............k.",
+          "snare": ".gg.xg.x.x..x.",
+          "kick": "x..x.......x.."
+        },
+        "source": {
+          "recording_id": "rec:billy-cobham-spectrum-1973",
+          "transcription_source_id": "src:songsterr-1324254"
+        }
+      },
+      {
+        "id": "pattern:billy-cobham-meeting-of-the-spirits",
+        "name": "Meeting of the Spirits: 6/4",
+        "type": "groove",
+        "function": "Under the arpeggios",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-13040"]
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 180,
+          "playable_range_bpm": [176, 186]
+        },
+        "lanes": {
+          "ride": "x...x.x.x...x.x.x...x.x.",
+          "hihat_pedal": "k...k...k...k...k...k...",
+          "snare": "............x...........",
+          "kick": "x.....x...x...........x."
+        },
+        "source": {
+          "recording_id": "rec:mahavishnu-inner-mounting-flame-1971",
+          "transcription_source_id": "src:songsterr-13040"
+        }
+      },
+      {
+        "id": "pattern:billy-cobham-birds-of-fire",
+        "name": "Birds of Fire: 9/8",
+        "type": "groove",
+        "function": "The main theme",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-42451"]
+        },
+        "time_signature": {
+          "numerator": 9,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 98,
+          "playable_range_bpm": [98, 108]
+        },
+        "lanes": {
+          "ride": "..x.x.x.x.x.x.x.x.",
+          "hihat_pedal": "k.k.k.k.k.k.k.k.k.",
+          "snare": "..gg..x.gg..x.gg..",
+          "kick": "x....x.....x.....x"
+        },
+        "source": {
+          "recording_id": "rec:mahavishnu-birds-of-fire-1973",
+          "transcription_source_id": "src:songsterr-42451"
+        }
+      },
+      {
+        "id": "pattern:billy-cobham-white-rabbit",
+        "name": "White Rabbit: on the bell",
+        "type": "groove",
+        "function": "The ride-bell phase",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:billy-cobham-bishop-white-rabbit"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 111,
+          "playable_range_bpm": [106, 114]
+        },
+        "lanes": {
+          "ride": "..B...B...BB..B.",
+          "snare": "....X..x.x..X..x",
+          "kick": "x..x....x..x...."
+        },
+        "source": {
+          "recording_id": "rec:george-benson-white-rabbit-1971",
+          "transcription_source_id": "src:billy-cobham-bishop-white-rabbit"
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:billy-cobham-fibes",
+      "label": "Fibes kit, mid-1970s",
+      "era_ids": ["era:billy-cobham-mahavishnu", "era:billy-cobham-spectrum"],
+      "context": "both",
+      "layout_notes": "Two Fibes bass drums, a custom Duffy snare, two flared-shell rack toms, four Fibes rack toms, two floor toms, a hi-hat, five Zildjian cymbals and a 36-inch gong. Later Tama.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Horace Silver Quintet",
+      "type": "band_member",
+      "years": {
+        "from": 1968,
+        "to": 1969
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      }
+    },
+    {
+      "name": "Miles Davis",
+      "type": "session_regular",
+      "years": {
+        "from": 1970,
+        "to": 1972
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      }
+    },
+    {
+      "name": "Mahavishnu Orchestra",
+      "type": "band_member",
+      "years": {
+        "from": 1971,
+        "to": 1973
+      },
+      "bandmates": [
+        {
+          "name": "John McLaughlin"
+        },
+        {
+          "name": "Jan Hammer"
+        },
+        {
+          "name": "Jerry Goodman"
+        },
+        {
+          "name": "Rick Laird"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      }
+    },
+    {
+      "name": "Billy Cobham (bands as leader)",
+      "type": "bandleader",
+      "years": {
+        "from": 1973,
+        "to": 2026
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:billy-cobham-spectrum-1973",
+    "rec:mahavishnu-inner-mounting-flame-1971",
+    "rec:mahavishnu-birds-of-fire-1973",
+    "rec:george-benson-white-rabbit-1971",
+    "rec:miles-davis-jack-johnson-1971"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jo Jones",
+        "kind": "drummer",
+        "id": "drummer:jo-jones"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Louie Bellson",
+        "kind": "drummer",
+        "id": "drummer:louie-bellson"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jimmy Cobb",
+        "kind": "drummer",
+        "id": "drummer:jimmy-cobb"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Roy Haynes",
+        "kind": "drummer",
+        "id": "drummer:roy-haynes"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Manuel Cobham",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"],
+        "note": "His father, a hospital statistician who played piano at weekends; Billy joined him at eight."
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "John McLaughlin",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      },
+      "strength": 1.0
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Jan Hammer",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Miles Davis",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Horace Silver",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Rick Laird",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"],
+        "note": "Mahavishnu Orchestra."
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Lee Sklar",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:spectrum-cobham-wikipedia"],
+        "note": "Spectrum."
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Narada Michael Walden",
+        "kind": "drummer",
+        "id": "drummer:narada-michael-walden"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:billy-cobham-wikipedia"],
+        "note": "The second Mahavishnu Orchestra, 1974."
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Phil Collins",
+        "kind": "drummer",
+        "id": "drummer:phil-collins"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"],
+        "note": "Collins named The Inner Mounting Flame as a key influence."
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Danny Carey",
+        "kind": "drummer",
+        "id": "drummer:danny-carey"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Bill Bruford",
+        "kind": "drummer",
+        "id": "drummer:bill-bruford"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      },
+      "strength": 0.5
+    }
+  ],
+  "legacy": {
+    "influence_score": 0.9,
+    "innovations": [
+      "Open-handed drumming brought to the front of fusion",
+      "Two bass drums and a huge kit in jazz-rock",
+      "The upside-down china",
+      "Stratus, one of fusion's most sampled grooves"
+    ],
+    "accolades": [
+      {
+        "award": "Modern Drummer Hall of Fame",
+        "year": 1987,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:billy-cobham-wikipedia"]
+        }
+      },
+      {
+        "award": "Percussive Arts Society Hall of Fame",
+        "year": 2006,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:billy-cobham-wikipedia"]
+        }
+      },
+      {
+        "award": "Classic Drummer Hall of Fame",
+        "year": 2013,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:billy-cobham-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Stratus is the main sample in Massive Attack's Safe from Harm.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:spectrum-cobham-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he played in Herbie Hancock's Headhunters: no source checked here credits him there (Harvey Mason and Mike Clark were its drummers)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "cobham",
+    "headline_pattern_ids": [
+      "pattern:billy-cobham-stratus",
+      "pattern:billy-cobham-quadrant-4",
+      "pattern:billy-cobham-birds-of-fire"
+    ],
+    "default_kit_sound": "Bright, tight 1970s kit: high snare, live toms, two kicks, a china",
+    "generation_rules": [
+      "Two bass drums: kicks may run.",
+      "Sixteenths on the hat with one hand in Stratus.",
+      "Fills of singles round the kit; the china on an anticipated \"and\" of 4.",
+      "Odd meters written as grooves."
+    ],
+    "avoid": ["A lazy, laid-back feel", "Fills only at the end of eight bars"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:tony-williams",
+        "drummer:buddy-rich",
+        "drummer:elvin-jones",
+        "drummer:louie-bellson"
+      ],
+      "primary_descendants": [
+        "drummer:phil-collins",
+        "drummer:danny-carey",
+        "drummer:yussef-dayes"
+      ],
+      "lineage_blurb": "Big-band power from Rich and Bellson, modern time from Tony Williams and Elvin, turned open-handed and loud in Mahavishnu."
+    },
+    "tags": ["fusion", "mahavishnu", "open-handed", "double bass", "70s", "odd meters"]
+  }
+}

@@ -33,6 +33,7 @@ import { testStyle } from '@/tests/helpers/catalogue';
 
 const FAMILIES: Record<string, string> = {
   collins: 'Rock drummers',
+  cobham: 'Fusion drummers',
 };
 
 /** The Studio's tempo control stops here. */

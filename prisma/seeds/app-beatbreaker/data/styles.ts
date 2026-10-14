@@ -15903,6 +15903,242 @@ export const STYLES: Record<string, Style> = {
       },
     ],
   },
+  cobham: {
+    label: 'Billy Cobham',
+    drummer: true,
+    hint: "Miles Davis, the Mahavishnu Orchestra and his own Spectrum: the drummer who took fusion's chops to a new level, open-handed, on two bass drums, with a tight, high snare and an upside-down china. Sixteenths on the hat with one hand while the other works the snare, a shuffle on both bass drums at 240, and grooves in 6/4, 7/8 and 9/8 that never stop driving. Each New plays one of seven of his songs at its record tempo: Stratus, Red Baron, Quadrant 4 and Spectrum, Mahavishnu's Meeting of the Spirits and Birds of Fire, and George Benson's White Rabbit. The stage names the song. Every one follows a human transcription.",
+    toms: true,
+    // Bishop: a tight, dry, high snare, live and throaty toms; the DRS kit with its snare raised
+    kit: 'police',
+    // two Fibes bass drums
+    doubleKick: true,
+    hats: 16,
+    // the 4/4 songs; sixteenths without a gap hold the style itself at 150
+    bpm: [86, 150],
+    swing: 0,
+    ghostBias: 0.3,
+    ghostWeights: {},
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 13,
+    hatDepth: 0.6,
+    rimshot: 0.2,
+    flam: 0.15,
+    // Bishop: a lot of singles round the kit, and fills often
+    midFills: 0.35,
+    fillsGrow: true,
+    // the china he mounted upside down, on an anticipated "and" of 4
+    anticipate: 0.2,
+    anticipateCymbal: 3,
+    // Bishop: "an energy sound": on top of the beat (inferred)
+    feel: { label: 'On top, driving', k: -0.01, s: -0.01, h: -0.01, jitter: 0.01 },
+    kick1: [
+      ['1001', 3],
+      ['1000', 2],
+      ['1011', 1],
+    ],
+    kick: [
+      ['0000', 1.5],
+      ['0011', 1.5],
+      ['0100', 1],
+      ['1010', 1],
+    ],
+    /* Every bar is from one of the transcriptions below: Stratus's one-handed
+       sixteenths, Red Baron's eighths, White Rabbit's funk and its bell. */
+    figures: [
+      // Stratus: the snare on 2, the "e" of 3 and 4
+      [{ h: '1111111111111111', s: '....2....2..2...', k: '1......11.1.....' }, 1.6],
+      [{ h: '1111111111111111', s: '....2....2..2...', k: '1......1..11....' }, 1.0],
+      // Red Baron
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1..1..1...1.....' }, 1.2],
+      // White Rabbit (Bishop): the funk beat, then on the ride's bell
+      [{ h: '1.111.1.1.3.1.1.', s: '....3..2.2...3.2', k: '1..1....1.1.....' }, 1.0],
+      [{ r: '..2...2...22..2.', s: '....3..2.2..3..2', k: '1..1....1..1....' }, 0.8],
+    ],
+    fills: [
+      // singles round the kit, two to a drum
+      [{ s: '22......', t1: '..22....', t2: '....22..', t3: '......22' }, 1.4],
+      // Stratus: the rack tom twice, then the floor
+      [{ t2: '22.', t3: '..2' }, 1.0],
+      // in threes: the snare accented, then two toms
+      [{ s: '3..3..', t1: '.2..2.', t3: '..2..2' }, 1.0],
+      // both bass drums under the toms
+      [{ t1: '2.2.....', t2: '....2.2.', k: '.1.1.1.1' }, 0.8],
+    ],
+    /* His records: one New picks one, and the stage names it. Credits checked
+       on Wikipedia: he plays drums on all of Spectrum bar To the Women in My
+       Life, on the Mahavishnu Orchestra's first two albums, and on George
+       Benson's White Rabbit. Six follow human Songsterr transcriptions
+       (each tab's `aiGenerated` flag checked), read bar by bar with the most
+       common bars kept; White Rabbit follows Todd Bishop's. See the Billy
+       Cobham section of `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'stratus',
+        title: 'Stratus',
+        feel: 'sixteenths on the hat with one hand, the snare on 2, the "e" of 3 and 4, the kick round it',
+        weight: 1.8,
+        params: {
+          bpm: [86, 90],
+          swing: 0,
+          // the hat hand alone, the other on the snare
+          oneHandHats: true,
+          // Songsterr 64400 (human)
+          figures: [
+            [{ h: '1111111111111111', s: '....2....2..2...', k: '1......11.1.....' }, 2],
+            [{ h: '1111111111111111', s: '....2....2..2...', k: '1......1..11....' }, 1.2],
+            // section E: crashes on the bass line, both feet under them
+            [{ c: '...1.1..1.1..2..', s: '..2....2....2...', k: '1..1.1.11.1.11..' }, 0.6],
+          ],
+          fills: [[{ t2: '22.', t3: '..2' }, 1]],
+        },
+      },
+      {
+        key: 'red-baron',
+        title: 'Red Baron',
+        feel: 'eighths on the hat, the snare on 2, the "e" of 3 and 4, the kick on the "a" of 1',
+        weight: 1.4,
+        params: {
+          bpm: [86, 90],
+          swing: 0,
+          // Songsterr 791843 (human)
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1..1..1...1.....' }, 2],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2....2..2...', k: '1.....1...1.....' }, 1.6],
+            [{ h: '1.1.1.1.1.1.1.3.', s: '....2....2..2...', k: '1..1..1...1.....' }, 1.0],
+            [{ h: '1.1.1.3.1.1.1.1.', s: '....2....2..2..2', k: '1..1..1...1.....' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'quadrant-4',
+        title: 'Quadrant 4',
+        feel: 'a shuffle at 240 on both bass drums, every beat and its last triplet, under a jazz ride',
+        weight: 1.6,
+        params: {
+          /* Songsterr 519969 (human) writes it in triplets. Sextuplet 4/4
+             stops at 190, so it is written in swung eighths: the last
+             triplet is the swung "and", and the two ghosts on a middle
+             triplet have nowhere to go. */
+          meter: '4/4-8',
+          bpm: [236, 244],
+          swingUnit: 8,
+          swing: 100,
+          swingRange: [90, 100],
+          ghostBias: 0,
+          figures: [
+            [{ r: '1.111.11', s: '..2...2.', k: '11111111' }, 2],
+            [{ c: '1.......', r: '..111.11', s: '..2...2.', k: '11111111' }, 0.6],
+          ],
+          // the head's fill: the snare and the rack tom in turn, in swung eighths
+          fills: [[{ s: '2.2.', t1: '.2.2' }, 1]],
+        },
+      },
+      {
+        key: 'spectrum',
+        title: 'Spectrum',
+        feel: '7/8, the hat opening on the "and" of 1 and of 3, the snare filling between the kicks',
+        weight: 1.2,
+        params: {
+          meter: '7/8',
+          bpm: [110, 124],
+          swing: 0,
+          // Songsterr 1324254 (human), its 32nds on 6 left out
+          figures: [
+            [
+              {
+                h: '1.131.1.1.13..',
+                hf: '............1.',
+                s: '.11.21.2.2..2.',
+                k: '1..1.......1..',
+              },
+              2,
+            ],
+            [{ h: '1.1.1.1.1.13..', s: '....21.2.22.2.', k: '1.......1.....' }, 0.8],
+          ],
+          fills: [[{ s: '22..', t1: '..22' }, 1]],
+        },
+      },
+      {
+        key: 'meeting-of-the-spirits',
+        title: 'Meeting of the Spirits',
+        feel: "the Mahavishnu Orchestra's first, 6/4 at 180: the ride and the hat foot, one snare a bar",
+        weight: 1.2,
+        params: {
+          meter: '6/4',
+          bpm: [176, 186],
+          swing: 0,
+          ghostBias: 0,
+          // Songsterr 13040 (human)
+          figures: [
+            [
+              {
+                r: '1...1.1.1...1.1.1...1.1.',
+                hf: '1...1...1...1...1...1...',
+                s: '............2...........',
+                k: '1.....1...1...........1.',
+              },
+              2,
+            ],
+            [
+              {
+                c: '2.......................',
+                r: '....1.1.1...1.1.1...1.1.',
+                hf: '1...1...1...1...1...1...',
+                s: '............2...........',
+                k: '1.....1.......1...1...1.',
+              },
+              1.2,
+            ],
+          ],
+          // in eighths: sixteenths do not run at 180
+          fills: [[{ s: '2.2.....', t1: '....2...', t3: '......2.' }, 1]],
+        },
+      },
+      {
+        key: 'birds-of-fire',
+        title: 'Birds of Fire',
+        feel: '9/8: the ride and the hat foot in eighths, the snare in pairs, the kick on the offbeats',
+        weight: 1.2,
+        params: {
+          meter: '9/8',
+          bpm: [98, 108],
+          swing: 0,
+          ghostBias: 0,
+          // Songsterr 42451 (human)
+          figures: [
+            [
+              {
+                c: '1................2',
+                r: '..1.1.1.1.1.1.1.1.',
+                hf: '1.1.1.1.1.1.1.1.1.',
+                s: '..11..2.11..2.11..',
+                k: '1....1.....1.....1',
+              },
+              2,
+            ],
+          ],
+          fills: [[{ s: '22....', t1: '..22..', t2: '....22' }, 1]],
+        },
+      },
+      {
+        key: 'white-rabbit',
+        title: 'White Rabbit',
+        feel: "George Benson's, 1971: a funk beat out of the flamenco, then moved to the ride's bell",
+        weight: 1.0,
+        params: {
+          bpm: [106, 114],
+          swing: 0,
+          // Todd Bishop's transcription: its funk beat, then two of its three bell bars
+          figures: [
+            [{ h: '1.111.1.1.3.1.1.', s: '....3..2.2...3.2', k: '1..1....1.1.....' }, 1.2],
+            [{ r: '..2...2...22..2.', s: '....3..2.2..3..2', k: '1..1....1..1....' }, 1.2],
+            [{ r: '..2...2...22.22.', s: '.2..3..2.2..3..2', k: '1..1....1..1.1..' }, 1.0],
+          ],
+        },
+      },
+    ],
+  },
 };
 
 /**
@@ -15947,6 +16183,7 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
   ['Funk drummers', ['stubblefield', 'jabostarks', 'bernardpurdie']],
   ['Session drummers', ['gadd', 'hakim']],
   ['Jazz drummers', ['tonywilliams', 'yussefdayes', 'elvinjones']],
+  ['Fusion drummers', ['cobham']],
   ['Latin drummers', ['puente', 'changuito', 'horaciohernandez']],
   ['Afrobeat drummers', ['tonyallen']],
 ];

@@ -3229,6 +3229,122 @@ Songsterr tabs 50420, 1070567, 1061008, 669676, 33578, 36367, 36370, 36377,
 `aiGenerated` flag); [songbpm.com](https://songbpm.com/@genesis) (Genesis,
 Phil Collins, Brand X, Peter Gabriel, Philip Bailey).
 
+## Y. Billy Cobham (2026-10-14)
+
+The `cobham` style plays **songs**, as `collins` does (X). His record
+(`drummer-model/drummers/billy-cobham.json`) is new in 11-g; until now he was a
+stub named by Yussef Dayes's record, and keeps the id it gave him,
+`drummer:billy-cobham`.
+
+**Which records are his.** Credits checked on Wikipedia. Spectrum (recorded
+14-16 May 1973): he plays on every track but "To the Women in My Life", a solo
+piano piece by Jan Hammer; Tommy Bolin and Lee Sklar are on Quadrant 4,
+Stratus and Red Baron, Ron Carter on Spectrum. The Mahavishnu Orchestra's _The
+Inner Mounting Flame_ (1971) and _Birds of Fire_ (1973) are his; its
+"Visions of the Emerald Beyond" (1975, with "Be Happy") is Narada Michael
+Walden's, so not used. Miles Davis: _A Tribute to Jack Johnson_, _Big Fun_,
+_Live-Evil_, _Get Up with It_. George Benson's _White Rabbit_ (CTI, November
+1971). **The Headhunters:** no source found credits him with Herbie Hancock's
+Headhunters, whose drummers were Harvey Mason and then Mike Clark; Wikipedia's
+article names no connection, and a search turned up none. He played with
+Hancock elsewhere, and with George Duke, Stanley Clarke and many others; the
+record notes the Headhunters claim as a likely misconception.
+
+**How he played.** Wikipedia: born in Colón, Panama, 16 May 1944; drums from
+four, with his father (a weekend pianist) from eight; his first kit at fifteen
+on getting into the High School of Music & Art; a US Army band 1965-68; Horace
+Silver; a house drummer for Atlantic. "Cobham plays his drums using the
+open-handed technique." His mid-1970s kit: "two Fibes bass drums, a custom
+Duffy snare, two flared-shell rack toms ... four Fibes rack toms, two Fibes
+floor toms ... a hi-hat, five Zildjian cymbals, and one hanging 36-inch gong."
+He cites Buddy Rich, Jo Jones and Louie Bellson, and Tony Williams, Elvin
+Jones, Jimmy Cobb, Roy Haynes, Max Roach and Art Blakey. Phil Collins: "Billy
+Cobham played some of the finest drumming I've ever heard on that record" (The
+Inner Mounting Flame). Todd Bishop (cruiseshipdrummer.com, 2020): "snare
+drummy", "the first major player to play the drums open handed"; fills of "a
+lot of singles, and a lot of open rolls with accented singles"; the bass drum
+"in normal funk ways, and for accents, and ostinatos, often tied to the
+cymbals"; "an energy sound, not a deep 'power' sound"; a snare "tuned rather
+high, with the snares highly tensioned"; and the china "mounted upside down",
+which "was widely copied". A search summary credits Quadrant 4 with a
+"double bass drum shuffle" (from the description of Bergamini's Hudson Music
+book of transcriptions, which was not read).
+
+**What the style encodes.** `doubleKick` (two bass drums, every song); the
+`police` kit (the DRS kit with its snare raised: Bishop's tight, high snare);
+`hats: 16` and, for Stratus, `oneHandHats` (sixteenths on the hat with one
+hand, the other on the snare, which is what open-handed allows);
+`anticipate` 0.2 with `anticipateCymbal: 3`, so an anticipated "and" of 4
+lands on the china; `midFills` 0.35 and `fillsGrow` (he fills often, in
+singles round the kit); a feel a hair on top (Bishop's "energy sound",
+inferred). The test's list of china players gains him.
+
+**Grids.** Six songs follow human Songsterr tabs (each tab's `aiGenerated`
+flag checked), read bar by bar with the most common bars kept; White Rabbit
+follows Todd Bishop's transcription.
+
+| Song                   | Year | Tempo (quarter)                                 | Meter          | What defines it                                                 | Source of the bars          |
+| ---------------------- | ---- | ----------------------------------------------- | -------------- | --------------------------------------------------------------- | --------------------------- |
+| Stratus                | 1973 | 90 (tab); 86 (songbpm)                          | 4/4            | one-handed sixteenths; snare on 2, the "e" of 3 and 4           | Songsterr 64400 (human)     |
+| Red Baron              | 1973 | 88 (tab); 89 (songbpm)                          | 4/4            | eighths; the same snare; the kick on the "a" of 1               | Songsterr 791843 (human)    |
+| Quadrant 4             | 1973 | 240 (tab); 242 (songbpm)                        | 4/4 in eighths | both bass drums on every eighth, swung, under a jazz ride       | Songsterr 519969 (human)    |
+| Spectrum               | 1973 | 110 (tab); songbpm 125                          | 7/8            | hat opening on the "and"s of 1 and 3, snare between the kicks   | Songsterr 1324254 (human)   |
+| Meeting of the Spirits | 1971 | 176–186 (tab)                                   | 6/4            | ride and hat foot, one snare a bar                              | Songsterr 13040 (human)     |
+| Birds of Fire          | 1973 | 98 (tab); songbpm 109                           | 9/8            | ride and hat foot in eighths, snare in pairs, kick off the beat | Songsterr 42451 (human)     |
+| White Rabbit (Benson)  | 1971 | 111 (songbpm; not confirmed by a second source) | 4/4            | a funk beat, then the ride's bell                               | Todd Bishop's transcription |
+
+- **Quadrant 4** is written in the tab in triplets: the ride's spang-a-lang,
+  the snare on 2 and 4 with a ghost on the middle triplet of 1 and 3, and the
+  kick on every beat and its last triplet. Sextuplet 4/4 stops at 190 here, and
+  12/8 would put its dotted quarter at 240, a slider of 360, past 300; so it is
+  4/4 in eighths, swung to a triplet (`swing` 90–100), where the last triplet is
+  the swung "and". The two ghosts on the middle triplet have no step and are
+  left out. With two bass drums the kick is on every eighth.
+- **Spectrum**: the tab's bar, not Bishop's. Bishop's has a sixteenth triplet
+  on the last eighth (LRL, the last note lightly accented) and leaves one step
+  of the fourteen clear of kick and snare, which the critic calls airless; the
+  tab's leaves four. Its 32nds on 6 are left out.
+- **White Rabbit**: Bishop's funk beat and two of his three bell bars. The third
+  leaves two steps clear of kick and snare. His first phase, the flamenco beat,
+  puts a sixteenth triplet and two sixteenths in one beat, which no grid here
+  holds.
+- **Stratus**'s section E puts crashes on the bass line with both feet under
+  them; it is a light third figure.
+
+**Left out.** "Vital Transformation" (Songsterr 12855, human, 9/8): linear
+sixteenths with kick or snare on every step but one, which the critic refuses
+as airless; it is the song that most shows how he played, and it waits on a
+rule for linear grooves. "Dance of Maya" (420191): its drum track is not in
+General MIDI notes, and its 20/8 has no meter here. "Lila's Dance" (20/8 and
+14/8), "Faith" (10/8, and its credit is not checked), "Miles Beyond" and
+"Awakening" (bars too sparse to read). "Crosswinds", "Panhandler", "Sorcery"
+and "Do What You Wanna" are machine-made. "The Dancer" (Stanley Clarke, Bishop's
+transcription): a reader says it may be Steve Gadd or Gerry Brown. Right Off
+(Jack Johnson), The Noonward Race, One Word and Taurian Matador have no free
+transcription found.
+
+**Found on the way, not changed.**
+
+- The critic's air rule (a quarter of the bar clear of kick and snare) refuses
+  the linear sixteenths that are much of his Mahavishnu playing, ghosts
+  included: a ghost counts as a note. Vital Transformation and Bishop's
+  Spectrum bar are the cases.
+- Open-handed is a record field only: the 3D drummer crosses its hands for the
+  hat as it does for everyone.
+- There is no sextuplet meter above 190, so a fast triplet shuffle has to be
+  swung eighths, which loses the middle triplet.
+- The china is the crash lane's value 3; there is no second china or gong.
+
+Sources: Wikipedia — [Billy Cobham](https://en.wikipedia.org/wiki/Billy_Cobham),
+[Spectrum](<https://en.wikipedia.org/wiki/Spectrum_(Billy_Cobham_album)>),
+[White Rabbit (George Benson album)](<https://en.wikipedia.org/wiki/White_Rabbit_(George_Benson_album)>) (via search summary);
+Todd Bishop — [Let's talk about Billy Cobham](https://cruiseshipdrummer.com/2020/09/02/lets-talk-about-billy-cobham/),
+[White Rabbit](https://cruiseshipdrummer.com/2023/01/24/groove-o-the-day-billy-cobham-white-rabbit/),
+[in 7/8](https://cruiseshipdrummer.com/2012/06/14/groove-o-the-day-billy-cobham-in-7-8/);
+[Hudson Music, COBHAM](https://hudsonmusic.com/product/cobham) (via search summary);
+Songsterr tabs 64400, 791843, 519969, 1324254, 13040, 42451;
+[songbpm.com](https://songbpm.com/@billy-cobham).
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

@@ -4262,6 +4262,15 @@ Tonight), Billy Cobham, Lenny White, Michael Shrieve and Cindy Blackman Santana.
   the critic refuses. Brand X's two songs open at 150, a little under the
   record, where the run rule stops sixteenths without a gap.
 
+- **Billy Cobham** (§Y): 7 songs, a new **Fusion drummers** group. Six from
+  human Songsterr tabs, White Rabbit from Todd Bishop's. Two bass drums on
+  every song; Stratus's sixteenths with one hand (`oneHandHats`); Quadrant 4's
+  triplet shuffle at 240 in swung eighths, the only grid that goes that fast;
+  his anticipations land on the china he hung upside down. No source credits
+  him with the Headhunters; the record says so. Vital Transformation, the
+  clearest case of his linear sixteenths, is left out: the critic's air rule
+  counts every ghost as a note.
+
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
 stays `archetype` or `approximation` until stems are checked); personas

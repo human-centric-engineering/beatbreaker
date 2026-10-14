@@ -1,0 +1,51 @@
+{
+  "id": "rec:george-benson-white-rabbit-1971",
+  "title": "White Rabbit",
+  "artist": "George Benson",
+  "release": "CTI",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:latin-jazz"],
+  "personnel": [
+    {
+      "name": "George Benson",
+      "role": "guitar"
+    },
+    {
+      "name": "Herbie Hancock",
+      "role": "piano"
+    },
+    {
+      "name": "Ron Carter",
+      "role": "bass"
+    },
+    {
+      "name": "Billy Cobham",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:billy-cobham",
+      "name": "Billy Cobham",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "A CTI session: Jefferson Airplane's song as a flamenco beat that turns to funk and then to the ride's bell (Todd Bishop's transcription).",
+      "pattern_ids": ["pattern:billy-cobham-white-rabbit"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:george-benson-white-rabbit-wikipedia",
+          "src:billy-cobham-bishop-white-rabbit"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:george-benson-white-rabbit-wikipedia",
+      "src:billy-cobham-bishop-white-rabbit"
+    ]
+  }
+}

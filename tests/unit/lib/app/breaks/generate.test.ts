@@ -52,7 +52,7 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 62 styles and 21 drummers in 15 meters — the numbers the site copy quotes', () => {
+  it('is 62 styles and 22 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
     expect(TEST_STYLE_KEYS.length - drummers.length).toBe(62);
     expect([...drummers].sort()).toEqual([
@@ -60,6 +60,7 @@ describe('the style table', () => {
       'bernardpurdie',
       'bonham',
       'changuito',
+      'cobham',
       'collins',
       'copeland',
       'davies',
@@ -81,7 +82,7 @@ describe('the style table', () => {
     // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
     expect(METER_KEYS).toHaveLength(15);
     expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
-    expect(COMBOS).toHaveLength(1245);
+    expect(COMBOS).toHaveLength(1260);
   });
 });
 
@@ -584,8 +585,9 @@ describe('the rock, jazz and blues styles', () => {
   const METAL = ['metal', 'gallop', 'thrash', 'doublekick', 'groove', 'doom'];
   const ROCK = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.figures && !METAL.includes(k));
   /* a stack is the nearest thing the crash lane has to a china; Lombardo, a
-     metal drummer filed with the drummers, plays a real one */
-  const CHINA_PLAYERS = ['yussefdayes', 'lombardo'];
+     metal drummer filed with the drummers, plays a real one, and Cobham hung
+     his upside down */
+  const CHINA_PLAYERS = ['yussefdayes', 'lombardo', 'cobham'];
   /* A clave groove is a few bars that stay in clave, not a stock of grooves to
      vary: Puente's and Changuito's own figures are two each, and their songs
      carry the rest; Puente's fills are two, the abanico and its answer. The

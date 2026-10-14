@@ -1,0 +1,127 @@
+[
+  {
+    "id": "src:billy-cobham-wikipedia",
+    "type": "encyclopedia",
+    "title": "Billy Cobham - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Billy_Cobham",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Born in Colón, Panama; drums from four, with his father at eight; Music & Art High School; Army band 1965-68; Horace Silver; Miles Davis (A Tribute to Jack Johnson, Big Fun, Live-Evil, Get Up with It); the Mahavishnu Orchestra (1971-73); Spectrum No. 1 on the jazz chart; open-handed; his 1970s kit; the drummers he cites; Collins on The Inner Mounting Flame; halls of fame. No Headhunters credit."
+  },
+  {
+    "id": "src:spectrum-cobham-wikipedia",
+    "type": "encyclopedia",
+    "title": "Spectrum (Billy Cobham album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Spectrum_(Billy_Cobham_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Recorded 14-16 May 1973. Tommy Bolin and Lee Sklar on Quadrant 4, Taurian Matador, Stratus and Red Baron; Ron Carter, Joe Farrell, Jimmy Owens and Ray Barretto on Spectrum; Cobham does not play on To the Women in My Life. Stratus is the sample in Massive Attack's Safe from Harm."
+  },
+  {
+    "id": "src:billy-cobham-bishop-2020",
+    "type": "analysis",
+    "title": "Todd Bishop, Let's talk about Billy Cobham (cruiseshipdrummer.com, 2020)",
+    "url": "https://cruiseshipdrummer.com/2020/09/02/lets-talk-about-billy-cobham/",
+    "reliability": 0.8,
+    "accessed": "2026-10-14",
+    "notes": "'Snare drummy'; 'the first major player to play the drums open handed'; singles and open rolls with accented singles; 'an energy sound, not a deep power sound'; a tight, dry, high snare; the china mounted upside down."
+  },
+  {
+    "id": "src:billy-cobham-bishop-white-rabbit",
+    "type": "transcription",
+    "title": "Todd Bishop, Groove o' the day: Billy Cobham - White Rabbit",
+    "url": "https://cruiseshipdrummer.com/2023/01/24/groove-o-the-day-billy-cobham-white-rabbit/",
+    "reliability": 0.8,
+    "accessed": "2026-10-14",
+    "notes": "Three phases: the flamenco beat (hat foot on 2 and 4), the funk beat, and the bell of the ride accenting the \"and\"s."
+  },
+  {
+    "id": "src:billy-cobham-bishop-spectrum",
+    "type": "transcription",
+    "title": "Todd Bishop, Groove o' the day: Billy Cobham in 7/8",
+    "url": "https://cruiseshipdrummer.com/2012/06/14/groove-o-the-day-billy-cobham-in-7-8/",
+    "reliability": 0.8,
+    "accessed": "2026-10-14",
+    "notes": "Spectrum: unaccented notes played strong, a light accent on the last note of a sixteenth triplet, sticking LRL."
+  },
+  {
+    "id": "src:billy-cobham-hudson-book",
+    "type": "book",
+    "title": "Joe Bergamini, COBHAM: The Music and Drumming of Billy Cobham (Hudson Music)",
+    "url": "https://hudsonmusic.com/product/cobham",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Not read: its contents (Right Off, Quadrant 4, Stratus, Spectrum, Red Baron, Spanish Moss, Heather, Solarization) and the double-bass shuffle of Quadrant 4 are from a search summary."
+  },
+  {
+    "id": "src:george-benson-white-rabbit-wikipedia",
+    "type": "encyclopedia",
+    "title": "White Rabbit (George Benson album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/White_Rabbit_(George_Benson_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Recorded November 1971 at Van Gelder Studio; Cobham on drums (search summary)."
+  },
+  {
+    "id": "src:billy-cobham-songbpm",
+    "type": "analysis",
+    "title": "songbpm.com: Billy Cobham, Mahavishnu Orchestra, George Benson",
+    "url": "https://songbpm.com/@billy-cobham",
+    "reliability": 0.6,
+    "accessed": "2026-10-14"
+  },
+  {
+    "id": "src:songsterr-64400",
+    "type": "transcription",
+    "title": "Songsterr 64400: Stratus (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=64400",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-791843",
+    "type": "transcription",
+    "title": "Songsterr 791843: Red Baron (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=791843",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-519969",
+    "type": "transcription",
+    "title": "Songsterr 519969: Quadrant 4 (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=519969",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-1324254",
+    "type": "transcription",
+    "title": "Songsterr 1324254: Spectrum (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=1324254",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-13040",
+    "type": "transcription",
+    "title": "Songsterr 13040: Mahavishnu Orchestra, Meeting of the Spirits (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=13040",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:songsterr-42451",
+    "type": "transcription",
+    "title": "Songsterr 42451: Mahavishnu Orchestra, Birds of Fire (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=42451",
+    "reliability": 0.6,
+    "accessed": "2026-10-14",
+    "notes": "aiGenerated false, checked through the meta API."
+  }
+]
