@@ -193,7 +193,7 @@ describe('POST /api/v1/admin/orchestration/agents/bulk', () => {
     });
     // The write touches exactly those agents, so none changes without a version.
     expect(prisma.aiAgent.updateMany).toHaveBeenCalledWith({
-      where: { id: { in: AGENT_IDS } },
+      where: { id: { in: AGENT_IDS }, deletedAt: null },
       data: { isActive: action === 'activate' },
     });
     const writeAt = (prisma.aiAgent.updateMany as ReturnType<typeof vi.fn>).mock
@@ -234,10 +234,39 @@ describe('POST /api/v1/admin/orchestration/agents/bulk', () => {
 
   it('returns correct affected count when some agents are system', async () => {
     vi.mocked(auth.api.getSession).mockResolvedValue(mockAdminUser());
+    // The system agent is filtered out by the query, so only one is eligible.
+    (prisma.aiAgent.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { id: AGENT_IDS[0], isActive: false },
+    ]);
     (prisma.aiAgent.updateMany as ReturnType<typeof vi.fn>).mockResolvedValue({ count: 1 });
     const res = await POST(makeRequest({ action: 'activate', agentIds: AGENT_IDS }));
     const body = (await res.json()) as { data: Record<string, unknown> };
-    expect(body.data).toMatchObject({ requested: 2, affected: 1 });
+    expect(body.data).toMatchObject({ requested: 2, affected: 1, skipped: [AGENT_IDS[1]] });
+  });
+
+  it('lists a repeated skipped id once', async () => {
+    vi.mocked(auth.api.getSession).mockResolvedValue(mockAdminUser());
+    (prisma.aiAgent.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { id: AGENT_IDS[0], isActive: false },
+    ]);
+    (prisma.aiAgent.updateMany as ReturnType<typeof vi.fn>).mockResolvedValue({ count: 1 });
+    const res = await POST(
+      makeRequest({ action: 'activate', agentIds: [AGENT_IDS[0], AGENT_IDS[1], AGENT_IDS[1]] })
+    );
+    const body = (await res.json()) as { data: Record<string, unknown> };
+    expect(body.data.skipped).toEqual([AGENT_IDS[1]]);
+  });
+
+  it('rolls back with a retryable 409 when a selected agent is deleted before the write', async () => {
+    vi.mocked(auth.api.getSession).mockResolvedValue(mockAdminUser());
+    // Both were live when read, but a concurrent DELETE committed first, so
+    // the write's `deletedAt: null` re-check reaches only one.
+    (prisma.aiAgent.updateMany as ReturnType<typeof vi.fn>).mockResolvedValue({ count: 1 });
+
+    const res = await POST(makeRequest({ action: 'activate', agentIds: AGENT_IDS }));
+
+    expect(res.status).toBe(409);
+    expect(recordAgentVersion).not.toHaveBeenCalled();
   });
 
   // ── Excluded agents ───────────────────────────────────────────────────────
@@ -263,7 +292,7 @@ describe('POST /api/v1/admin/orchestration/agents/bulk', () => {
       const body = (await res.json()) as { data: Record<string, unknown> };
       expect(body.data).toMatchObject({ requested: 2, affected: 1, skipped: [AGENT_IDS[1]] });
       expect(prisma.aiAgent.updateMany).toHaveBeenCalledWith({
-        where: { id: { in: [AGENT_IDS[0]] } },
+        where: { id: { in: [AGENT_IDS[0]] }, deletedAt: null },
         data: { isActive: action === 'activate' },
       });
       expect(recordAgentVersion).toHaveBeenCalledTimes(1);
@@ -284,7 +313,7 @@ describe('POST /api/v1/admin/orchestration/agents/bulk', () => {
     const body = (await res.json()) as { data: Record<string, unknown> };
     expect(body.data).toMatchObject({ requested: 2, affected: 1, skipped: [] });
     expect(prisma.aiAgent.updateMany).toHaveBeenCalledWith({
-      where: { id: { in: [AGENT_IDS[0]] } },
+      where: { id: { in: [AGENT_IDS[0]] }, deletedAt: null },
       data: { isActive: true },
     });
     expect(recordAgentVersion).toHaveBeenCalledTimes(1);

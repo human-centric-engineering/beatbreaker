@@ -38,6 +38,9 @@ const BULK_VERSION_LABELS = {
   delete: 'Bulk delete',
 } as const;
 
+/** A selected agent was deleted before the write reached it. */
+class BulkTargetsChangedError extends Error {}
+
 export const POST = withAdminAuth(async (request, session) => {
   const clientIP = getClientIP(request);
 
@@ -72,24 +75,32 @@ export const POST = withAdminAuth(async (request, session) => {
         // Delete is a soft delete, so it sets isActive = false like deactivate.
         // Exactly the agents selected above: a wider `where` could also catch
         // one a concurrent edit flipped meanwhile, which would get no version.
+        // `deletedAt: null` is re-checked here because a DELETE committing
+        // after the read above would otherwise be revived by this write.
+        const targetIds = targets.map((t) => t.id);
         const result = await tx.aiAgent.updateMany({
-          where: { id: { in: targets.map((t) => t.id) } },
+          where: { id: { in: targetIds }, deletedAt: null },
           data: { isActive },
         });
+        if (result.count !== targetIds.length) {
+          // Roll back rather than version an agent the write did not change.
+          throw new BulkTargetsChangedError();
+        }
         for (const { id } of targets) {
           await recordAgentVersion(tx, id, { label, createdBy: session.user.id });
         }
         return {
           affected: result.count,
-          skipped: agentIds.filter((id) => !eligibleIds.has(id)),
+          skipped: [...new Set(agentIds)].filter((id) => !eligibleIds.has(id)),
         };
       },
       { timeout: AGENT_BATCH_TRANSACTION_TIMEOUT_MS }
     )
     .catch((err: unknown) => {
-      // A concurrent edit to one of these agents took a version number. The
-      // transaction rolled back, so the action can be retried.
-      if (isAgentVersionConflict(err)) {
+      // A concurrent edit to one of these agents took a version number, or
+      // deleted one after it was selected. The transaction rolled back, so
+      // the action can be retried.
+      if (isAgentVersionConflict(err) || err instanceof BulkTargetsChangedError) {
         throw new ConflictError('Bulk action conflicted with a concurrent change. Please retry.');
       }
       throw err;
