@@ -4279,6 +4279,14 @@ Tonight), Billy Cobham, Lenny White, Michael Shrieve and Cindy Blackman Santana.
   (`oneHandHats`), on the front of the beat, with an accent cycle across the
   bar for his statements off the grid.
 
+- **Michael Shrieve** (§AA): 8 songs, Rock drummers, each from a human
+  Songsterr tab: Soul Sacrifice, Persuasion and Fried Neck Bones as at
+  Woodstock, Evil Ways, Black Magic Woman, Samba Pa Ti, Taboo and Song of the
+  Wind. Santana's percussion section goes on the percussion lanes, which take
+  no drummer's hands, so his kit part stays his. The 1968 Fillmore tabs are Bob
+  Livingston's and are not used. The Oye Como Va recording's `ev` key is now
+  `evidence`.
+
 **Not in Phase 11:** editing records in the admin (they are seed content,
 like the styles were before D16); verified transcriptions (every pattern
 stays `archetype` or `approximation` until stems are checked); personas

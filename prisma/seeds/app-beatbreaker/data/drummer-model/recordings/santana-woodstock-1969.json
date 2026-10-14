@@ -1,0 +1,66 @@
+{
+  "id": "rec:santana-woodstock-1969",
+  "title": "Soul Sacrifice (Woodstock)",
+  "artist": "Santana",
+  "release": "Woodstock (film and album, 1970)",
+  "year": 1969,
+  "type": "live_track",
+  "style_ids": ["style:latin-jazz", "style:rock"],
+  "personnel": [
+    {
+      "name": "Carlos Santana",
+      "role": "guitar"
+    },
+    {
+      "name": "Gregg Rolie",
+      "role": "organ, vocals"
+    },
+    {
+      "name": "David Brown",
+      "role": "bass"
+    },
+    {
+      "name": "Michael Carabello",
+      "role": "congas, percussion"
+    },
+    {
+      "name": "José \"Chepito\" Areas",
+      "role": "timbales, percussion"
+    },
+    {
+      "name": "Michael Shrieve",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:michael-shrieve",
+      "name": "Michael Shrieve",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Woodstock, 16 August 1969, a month after he turned twenty: riding the crash over the congas and timbales, then the drum solo the film made famous.",
+      "pattern_ids": [
+        "pattern:michael-shrieve-soul-sacrifice",
+        "pattern:michael-shrieve-soul-sacrifice-solo"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-wikipedia", "src:songsterr-1621352"]
+      },
+      "notable_moments": [
+        {
+          "category": "solo",
+          "description": "The drum solo in Soul Sacrifice, 'electrifying' in the film; he rates his 1970 Tanglewood solo higher.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:michael-shrieve-wikipedia"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:michael-shrieve-wikipedia", "src:songsterr-1621352"]
+  }
+}

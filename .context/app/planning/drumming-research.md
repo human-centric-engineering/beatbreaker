@@ -3430,6 +3430,81 @@ Todd Bishop — [Notes on a Lenny White performance](https://cruiseshipdrummer.c
 [Modern Drummer, The Magician (preview)](https://www.moderndrummer.com/article/the-magician-transcription-by-marc-atkinson/);
 Songsterr tabs 914514, 414449, 3084901; [songbpm.com](https://songbpm.com/@al-di-meola).
 
+## AA. Michael Shrieve (2026-10-14)
+
+The `shrieve` style plays **songs**, as `collins` does (X). His record
+(`drummer-model/drummers/michael-shrieve.json`) is new in 11-g; he was a stub
+named by Santana's "Oye Como Va" recording, and keeps that id. That recording
+had its drummer's evidence under `ev`, not `evidence`; it is renamed.
+
+**Which records are his.** Wikipedia: born 6 July 1949 in San Francisco,
+raised in Redwood City; at nineteen he "jammed with Santana at a recording
+studio and was invited to join that day"; Woodstock on 16 August 1969; seven
+albums, 1969-74 (Santana, Abraxas, Santana III, Caravanserai, Welcome,
+Borboletta, Lotus); he co-wrote four of Caravanserai's tracks and co-produced
+it. In his own words (A Breath of Fresh Air): the band "just had a big falling
+out with the drummer", remembered him, and "literally followed me home to my
+parents' house". So the 1968 _Live at the Fillmore_ shows, whose tabs exist,
+are Bob Livingston's, not his, and are not used. Santana's percussion section
+was Michael Carabello (congas) and José "Chepito" Areas (timbales); on
+Caravanserai, Mingo Lewis and Armando Peraza.
+
+**How he played.** "I started with big band drummers like Buddy Rich and Gene
+Krupa and then I got into Tony Williams, [Jack DeJohnette], Roy Haynes" (the
+transcript writes "Jackie Jeanette"). From the 1983 Modern Drummer interview,
+as Scott K. Fish quotes it: "I see it as a flow of energy. Let's say the rhythm
+I play contains a flow of energy that isn't locked to the rhythm."
+UltimateSantana: "a staggering array of complicated, jazz-influenced patterns
+that not only complemented, but enhanced the syncopated percussion team." "We
+played to each other. We don't play to the crowd." A search summary says he
+studied Elvin, Haynes, Philly Joe and Tony Williams with his friend Lenny
+White; no page found says so, so the record has no edge for it and asks.
+
+**What the style encodes.** The `sixties` kit (an open, ringing 1960s Ludwig);
+a loose feel with no lean (`jitter` 0.02: "not locked to the rhythm");
+`fillsGrow` (Soul Sacrifice builds to its solo); and, in the songs, **the
+percussion section on the percussion lanes**: Carabello's congas under Soul
+Sacrifice, the bongos under Black Magic Woman, the maracas and cabasa under
+Song of the Wind. Those slots take no drummer's hands, as they were other
+players'. The style's figures are his kit parts only.
+
+| Song                         | Year | Tempo (quarter)                  | What defines it                                                  | Source of the bars        |
+| ---------------------------- | ---- | -------------------------------- | ---------------------------------------------------------------- | ------------------------- |
+| Soul Sacrifice (Woodstock)   | 1969 | 132 (tab); 136 (songbpm, studio) | riding the crash on the beat; the solo's snare in threes         | Songsterr 1621352 (human) |
+| Evil Ways                    | 1969 | 120 (tab); 117 (songbpm)         | eighths on the hat, a cross-stick verse, the ride in the outro   | Songsterr 3582839 (human) |
+| Persuasion (Woodstock)       | 1969 | 126–138 (tab); 131 (songbpm)     | hats, then floor tom and kick together in eighths                | Songsterr 1621303 (human) |
+| Fried Neck Bones (Woodstock) | 1969 | 120–130 (tab)                    | the ride in eighths; crashes on 1 and the "and" of 2             | Songsterr 1621357 (human) |
+| Black Magic Woman            | 1970 | 120 (tab); 124 (songbpm)         | the hat open in threes and a kick, the bongos playing the groove | Songsterr 357 (human)     |
+| Samba Pa Ti                  | 1970 | 88 (tab); 92 (songbpm)           | sixteenths on the hat, two on the snare                          | Songsterr 17329 (human)   |
+| Taboo                        | 1971 | 85 (tab); 90 (songbpm)           | slow; a cross-stick verse; the hat open on the "and"s            | Songsterr 1815434 (human) |
+| Song of the Wind             | 1972 | 94 (tab); 90 (songbpm)           | a cross-stick tresillo with maracas and cabasa                   | Songsterr 17440 (human)   |
+
+- **Soul Sacrifice** follows the Woodstock tab; the congas are from the studio
+  tab (17533), whose drum track has them merged into his part.
+- **Black Magic Woman**'s tab writes the bongos in his track; they go on the
+  conga slot (there is no bongo), and his part is the hat and the kick.
+- **Samba Pa Ti**'s tab gives the samba section hats and snare only, no kick,
+  and it is kept as written.
+
+**Left out.** "Waiting" (Woodstock): its drum track is "regenerated". "Savor",
+"Jingo" (studio and Woodstock), "No One to Depend On", "Incident at
+Neshabur", "Toussaint L'Overture": machine-made tabs. "Oye Como Va" (61155):
+the tab has bongos and no kit. "Batuka": the tab is cymbal swells. The 1968
+Fillmore tabs: Bob Livingston.
+
+**Found on the way, not changed.**
+
+- There is no bongo instrument; the conga slot stands in for it.
+- Two Santana percussionists at once (congas and timbales) need two slots;
+  each song here writes the one its tab gives.
+
+Sources: [Wikipedia, Michael Shrieve](https://en.wikipedia.org/wiki/Michael_Shrieve);
+[A Breath of Fresh Air, transcript](https://abreathoffreshair.com.au/transcript/transcript-santanas-drummer-michael-shrieve-on-life-music-and-beyond/);
+[Scott K. Fish, Michael Shrieve pt 1](https://scottkfish.com/2025/01/23/michael-shrieve-pt-1-of-2/);
+[UltimateSantana, Michael Shrieve](https://www.ultimatesantana.com/resources/the-band/michael-shrieve/);
+Songsterr tabs 1621352, 17533, 3582839, 1621303, 1621357, 357, 17329, 1815434,
+17440; [songbpm.com](https://songbpm.com/@santana).
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

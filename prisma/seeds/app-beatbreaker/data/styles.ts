@@ -16334,6 +16334,232 @@ export const STYLES: Record<string, Style> = {
       },
     ],
   },
+  shrieve: {
+    label: 'Michael Shrieve',
+    drummer: true,
+    hint: "Santana from Woodstock to Welcome: a jazz-minded twenty-year-old who joined the band the day he jammed with it, and played rock time and jazz-influenced patterns into the congas and timbales of Michael Carabello and Chepito Areas. Riding the crash on every beat, a cross-stick in a tresillo, the floor tom over the kick, and Soul Sacrifice's solo. Each New plays one of eight of his songs at its record tempo: Soul Sacrifice as at Woodstock, Evil Ways, Persuasion and Fried Neck Bones, Black Magic Woman, Samba Pa Ti, Taboo and Song of the Wind. The percussion section is on the percussion lanes. The stage names the song. Every one follows a human transcription.",
+    toms: true,
+    // a 1960s Ludwig, open and ringing
+    kit: 'sixties',
+    hats: 8,
+    bpm: [84, 150],
+    swing: 0,
+    ghostBias: 0.15,
+    ghostWeights: {},
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 10,
+    hatDepth: 0.5,
+    rimshot: 0.1,
+    flam: 0.15,
+    midFills: 0.3,
+    // Soul Sacrifice builds to its solo
+    fillsGrow: true,
+    // "a flow of energy that isn't locked to the rhythm": loose, not ahead or behind
+    feel: { label: 'Loose, flowing', k: 0, s: 0, jitter: 0.02 },
+    kick1: [
+      ['1001', 2],
+      ['1010', 2],
+      ['1000', 1.5],
+    ],
+    kick: [
+      ['0000', 2],
+      ['0010', 1.5],
+      ['1010', 1],
+      ['0011', 0.8],
+    ],
+    /* Every bar is from one of the transcriptions below. */
+    figures: [
+      // Evil Ways
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.....1.' }, 1.4],
+      // Soul Sacrifice at Woodstock: riding the crash on every beat
+      [{ c: '1...1...1...1...', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1.2],
+      // Fried Neck Bones: the ride in eighths
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1.0],
+      // Song of the Wind: a cross-stick in a tresillo
+      [{ h: '1.1.1.1.1.1.1.1.', s: '4.....4.....4...', k: '1.....1.1.....1.' }, 1.0],
+      // Taboo: the hat open on the "and"s, the kick in pairs
+      [
+        {
+          c: '1...............',
+          h: '..3.3.3.3.3.3.3.',
+          s: '....2...2...2...',
+          k: '1.11..1...11..1.',
+        },
+        0.8,
+      ],
+    ],
+    fills: [
+      // Fried Neck Bones: two on the snare, two on the mid tom, two on the floor
+      [{ s: '22....', t2: '..11..', t3: '....11' }, 1.4],
+      // Evil Ways: two on the snare, two on the mid tom, the kick under
+      [{ s: '22..', t2: '..11', k: '1.1.' }, 1.2],
+      // Soul Sacrifice: the floor tom over the kick on the beat
+      [{ t3: '1.111.11', k: '1...1...' }, 1.0],
+    ],
+    /* His records: one New picks one, and the stage names it. Credits checked
+       on Wikipedia: he is Santana's drummer from 1969 to 1974, so every
+       record and Woodstock is his, not the 1968 Fillmore shows, which were Bob
+       Livingston's. Each follows a human Songsterr tab (its `aiGenerated`
+       flag checked), read bar by bar with the most common bars kept. See the
+       Michael Shrieve section of `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'soul-sacrifice',
+        title: 'Soul Sacrifice',
+        feel: 'Woodstock, 1969: riding the crash on every beat, the congas under it, then the solo over the kick',
+        weight: 1.8,
+        params: {
+          bpm: [128, 138],
+          swing: 0,
+          // Michael Carabello's congas, from the studio tab (Songsterr 17533)
+          perc: [{ inst: 'conga', steps: [0, 2, 3, 4, 6, 7, 8, 13, 15] }],
+          // Songsterr 1621352 (human), Woodstock
+          figures: [
+            [{ c: '1...1...1...1...', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 2],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1.....' }, 1.4],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 1.0],
+            // the solo: the snare in threes over the kick on every beat
+            [{ c: '1...............', s: '..222.222.222.22', k: '1...1...1...1...' }, 1.0],
+            // and the floor tom over it
+            [{ t3: '1.111.111.111.11', k: '1...1...1...1...' }, 0.6],
+          ],
+          fills: [[{ t3: '1.111.11', k: '1...1...' }, 1]],
+        },
+      },
+      {
+        key: 'evil-ways',
+        title: 'Evil Ways',
+        feel: 'the first album, 1969: eighths on the hat, a cross-stick in the verse, the ride in the outro',
+        weight: 1.4,
+        params: {
+          bpm: [116, 122],
+          swing: 0,
+          // Songsterr 3582839 (human)
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.....1.' }, 2],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....4.......4...', k: '1.....1.1.....1.' }, 1.0],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '4...4...4...4...', k: '1.....1.1.....1.' }, 0.8],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....4.......4...', k: '..1...1.1.1...1.' }, 0.8],
+            [{ r: '1.111.111.1.1.11', s: '....2.......2...', k: '1.1....1.1.1.11.' }, 0.8],
+          ],
+          fills: [[{ s: '22..', t2: '..11', k: '1.1.' }, 1]],
+        },
+      },
+      {
+        key: 'persuasion',
+        title: 'Persuasion',
+        feel: 'Woodstock, 1969: eighths on the hat, then the floor tom and the kick together in eighths',
+        weight: 0.8,
+        params: {
+          bpm: [126, 136],
+          swing: 0,
+          // Songsterr 1621303 (human), Woodstock
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 2],
+            [{ h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1.2],
+            [{ t3: '1.1.1.1.1.1.1.1.', k: '1.1.1.1.1.1.1.1.' }, 1.0],
+            [{ c: '1.1.1.1.1.1.1.1.', k: '1.1.1.1.1.1.1.1.' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'fried-neck-bones',
+        title: 'Fried Neck Bones and Some Home Fries',
+        feel: 'Woodstock, 1969: the ride in eighths, then crashes on 1 and the "and" of 2',
+        weight: 0.8,
+        params: {
+          bpm: [120, 130],
+          swing: 0,
+          // Songsterr 4222846 (human), Woodstock
+          figures: [
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 2],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 1.2],
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 1.0],
+            [{ c: '1.....1.........', s: '....2.......2...', k: '1.....1...1...1.' }, 0.8],
+          ],
+          fills: [[{ s: '22....', t2: '..11..', t3: '....11' }, 1]],
+        },
+      },
+      {
+        key: 'black-magic-woman',
+        title: 'Black Magic Woman',
+        feel: 'Abraxas, 1970: the hat open in threes and a kick, while the bongos play the groove',
+        weight: 1.2,
+        params: {
+          bpm: [118, 126],
+          swing: 0,
+          ghostBias: 0,
+          // the bongos, written into his track in the tab: someone else's hands
+          perc: [{ inst: 'conga', steps: [0, 2, 3, 4, 8, 10, 11, 12] }],
+          // Songsterr 357 (human)
+          figures: [
+            [{ h: '3.333.333.333.33', k: '1.............1.' }, 2],
+            [{ h: '3.333.333.333.33', k: '1...............' }, 1.2],
+          ],
+          fills: [[{ s: '22..', t2: '..11' }, 1]],
+        },
+      },
+      {
+        key: 'samba-pa-ti',
+        title: 'Samba Pa Ti',
+        feel: 'Abraxas, 1970: the samba after the ballad, sixteenths on the hat and two on the snare',
+        weight: 0.8,
+        params: {
+          bpm: [86, 94],
+          swing: 0,
+          ghostBias: 0,
+          // Songsterr 17329 (human), its drum kit's track
+          figures: [[{ h: '1111111111111111', s: '...........2.2..' }, 2]],
+          fills: [[{ s: '22....', t2: '..11..', t3: '....11' }, 1]],
+        },
+      },
+      {
+        key: 'taboo',
+        title: 'Taboo',
+        feel: 'Santana III, 1971: slow, a cross-stick in the verse, the hat open on the "and"s in the chorus',
+        weight: 0.9,
+        params: {
+          bpm: [84, 92],
+          swing: 0,
+          // Songsterr 1815434 (human)
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1.....' }, 2],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....4.......4...', k: '1.......1.1...1.' }, 1.4],
+            [
+              {
+                c: '1...............',
+                h: '..3.3.3.3.3.3.3.',
+                s: '....2...2...2...',
+                k: '1.11..1...11..1.',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'song-of-the-wind',
+        title: 'Song of the Wind',
+        feel: 'Caravanserai, 1972: a cross-stick in a tresillo under the guitar, maracas and cabasa beside it',
+        weight: 1.0,
+        params: {
+          bpm: [88, 96],
+          swing: 0,
+          ghostBias: 0,
+          // the maracas on the beat and the cabasa between, the percussion section's
+          perc: [{ inst: 'shaker', steps: [0, 2, 4, 6, 8, 10, 12, 14], accents: [0, 4, 8, 12] }],
+          // Songsterr 17440 (human, an early tab)
+          figures: [
+            [{ h: '1.1.1.1.1.1.1.1.', s: '4.....4.....4...', k: '1.....1.1.....1.' }, 2],
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....4.....4.....', k: '1.....1.1.....1.' }, 1.4],
+            [{ h: '1.1.111.1.1.1.1.', s: '4.....4.....4...', k: '1.....1.1.....1.' }, 0.8],
+            [{ h: '1.1.1.1.1.3.1.1.', s: '4.....4.....4...', k: '1.....1.1.....1.' }, 0.6],
+          ],
+        },
+      },
+    ],
+  },
 };
 
 /**
@@ -16373,7 +16599,10 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
   ['Metal', ['metal', 'gallop', 'thrash', 'doublekick', 'groove', 'doom']],
   ['Jamaica', ['reggae', 'dub']],
   ['Afro-Latin', ['afrobeat', 'son', 'rumba', 'mambo', 'songo', 'samba', 'reggaeton']],
-  ['Rock drummers', ['mitchell', 'bonham', 'ringo', 'copeland', 'baker', 'klek', 'collins']],
+  [
+    'Rock drummers',
+    ['mitchell', 'bonham', 'ringo', 'copeland', 'baker', 'klek', 'collins', 'shrieve'],
+  ],
   ['Metal drummers', ['lombardo', 'davies']],
   ['Funk drummers', ['stubblefield', 'jabostarks', 'bernardpurdie']],
   ['Session drummers', ['gadd', 'hakim']],

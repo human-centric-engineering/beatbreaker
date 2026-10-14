@@ -1,0 +1,65 @@
+{
+  "id": "rec:santana-caravanserai-1972",
+  "title": "Caravanserai",
+  "artist": "Santana",
+  "release": "Columbia",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:latin-jazz"],
+  "personnel": [
+    {
+      "name": "Carlos Santana",
+      "role": "guitar"
+    },
+    {
+      "name": "Neal Schon",
+      "role": "guitar"
+    },
+    {
+      "name": "Gregg Rolie",
+      "role": "keyboards"
+    },
+    {
+      "name": "Michael Shrieve",
+      "role": "drums, co-producer"
+    },
+    {
+      "name": "José \"Chepito\" Areas",
+      "role": "percussion"
+    },
+    {
+      "name": "James Mingo Lewis",
+      "role": "percussion"
+    },
+    {
+      "name": "Armando Peraza",
+      "role": "percussion"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:michael-shrieve",
+      "name": "Michael Shrieve",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "The turn to jazz-rock: he co-wrote four of its ten tracks and co-produced it. Song of the Wind's cross-stick tresillo.",
+      "pattern_ids": ["pattern:michael-shrieve-song-of-the-wind"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:michael-shrieve-wikipedia",
+          "src:michael-shrieve-ultimatesantana",
+          "src:songsterr-17440"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:michael-shrieve-wikipedia",
+      "src:michael-shrieve-ultimatesantana",
+      "src:songsterr-17440"
+    ]
+  }
+}

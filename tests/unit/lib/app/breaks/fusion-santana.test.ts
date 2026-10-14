@@ -35,6 +35,7 @@ const FAMILIES: Record<string, string> = {
   collins: 'Rock drummers',
   cobham: 'Fusion drummers',
   lennywhite: 'Fusion drummers',
+  shrieve: 'Rock drummers',
 };
 
 /** The Studio's tempo control stops here. */

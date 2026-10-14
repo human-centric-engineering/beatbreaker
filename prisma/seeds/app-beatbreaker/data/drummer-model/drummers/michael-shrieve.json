@@ -1,0 +1,735 @@
+{
+  "meta": {
+    "id": "drummer:michael-shrieve",
+    "schema_version": "1.4.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-14",
+    "updated": "2026-10-14",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Transcribe the Soul Sacrifice solo whole, and the 1970 Tanglewood one he rates higher.",
+      "Separate his part from the percussionists' in the tabs that merge them (Black Magic Woman puts the bongos in his track).",
+      "Read the July 1983 Modern Drummer interview whole.",
+      "Confirm that he studied the jazz drummers with Lenny White (a search summary says so; no page found).",
+      "Kit by era: the Woodstock kit and cymbals."
+    ]
+  },
+  "identity": {
+    "name": "Michael Shrieve",
+    "full_name": "Michael Shrieve",
+    "born": {
+      "date": "1949-07-06",
+      "place": "San Francisco, California, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["San Francisco Bay Area (Redwood City)", "Seattle (later)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "electronic percussion"],
+    "active": {
+      "from": 1966,
+      "to": 2026
+    },
+    "roles": ["band_member", "bandleader", "composer", "producer", "session"],
+    "summary": "Santana's drummer from Woodstock to Lotus: a jazz-minded twenty-year-old who played rock time and jazz-influenced patterns into the congas and timbales of Carabello and Areas, then steered the band towards Caravanserai's jazz-rock."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "teachers": [],
+    "traditions": [
+      {
+        "tradition": "Big-band drumming",
+        "impact": "Buddy Rich and Gene Krupa first.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:michael-shrieve-breath-of-fresh-air"]
+        }
+      },
+      {
+        "tradition": "Modern jazz drumming",
+        "impact": "Then Tony Williams, Jack DeJohnette and Roy Haynes.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:michael-shrieve-breath-of-fresh-air"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1969,
+        "event": "Jammed with Santana while they made their first album, after they had fallen out with their drummer; they followed him home that night.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:michael-shrieve-wikipedia", "src:michael-shrieve-breath-of-fresh-air"]
+        }
+      },
+      {
+        "year": 1969,
+        "event": "Woodstock, 16 August, aged twenty.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:michael-shrieve-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:michael-shrieve-santana",
+      "label": "Santana",
+      "years": {
+        "from": 1969,
+        "to": 1974
+      },
+      "context": "Santana, Abraxas, Santana III, Caravanserai, Welcome, Borboletta, Lotus.",
+      "defining_traits": [
+        "rock time in a Latin percussion section",
+        "jazz-influenced patterns",
+        "riding the crash"
+      ],
+      "key_recording_ids": [
+        "rec:santana-woodstock-1969",
+        "rec:santana-santana-1969",
+        "rec:santana-abraxas-1970",
+        "rec:santana-iii-1971",
+        "rec:santana-caravanserai-1972"
+      ]
+    },
+    {
+      "id": "era:michael-shrieve-later",
+      "label": "Automatic Man, Go, electronics, scores",
+      "years": {
+        "from": 1975,
+        "to": 2026
+      },
+      "context": "Automatic Man, Go with Stomu Yamashta and Steve Winwood, Mick Jagger, electronic percussion, film scores, Spellbinder.",
+      "defining_traits": ["electronic percussion", "texture"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 0.9,
+        "authority": 0.8,
+        "name": "Latin rock"
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.9,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.6,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "weight": 0.4,
+        "authority": 0.5
+      }
+    ],
+    "versatility": 0.8,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "hybrid",
+    "descriptors": ["jazz-minded", "energetic", "flowing", "young"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "variable",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:michael-shrieve-md-1983"],
+        "note": "'a flow of energy that isn't locked to the rhythm'"
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.05
+    },
+    "dynamics": {
+      "range": 0.9,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 120,
+      "balance": "Cymbals and kick under the percussion section."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 20],
+      "fill_frequency": "every_4_bars",
+      "space_usage": 0.4
+    },
+    "consistency": 0.7,
+    "tempo_comfort_bpm": [84, 140],
+    "timekeeping_context": ["free"],
+    "interaction": "'We played to each other': inside the percussion section, not on top of it.",
+    "descriptors": ["loose", "flowing"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american", "traditional"],
+    "hand_techniques": [
+      {
+        "name": "Riding the crash",
+        "description": "Quarters on the crash under the band (Soul Sacrifice).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1621352"]
+        }
+      },
+      {
+        "name": "Cross-stick tresillo",
+        "description": "The cross-stick on 1, the \"and\" of 2 and 4 (Song of the Wind).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17440"]
+        }
+      },
+      {
+        "name": "Snare in threes",
+        "description": "Groups of three sixteenths on the snare over the kick (the Woodstock solo).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1621352"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Kick on every beat under a solo",
+        "description": "Under the Woodstock solo.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1621352"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.75,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.6,
+      "odd_meter_fluency": 0.4
+    },
+    "voice_language": {
+      "cymbals": "The crash ridden on the beat.",
+      "snare": "Cross-sticks in Latin figures; threes in the solo.",
+      "toms": "Floor tom over the kick."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.1,
+      "mallets": 0.2
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["open late-1960s kit", "washy crash"],
+    "evidence": {
+      "confidence": "inferred",
+      "note": "From the records; no kit list found."
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:michael-shrieve-woodstock-solo",
+      "label": "The Woodstock solo",
+      "category": "musical_approach",
+      "description": "Soul Sacrifice at Woodstock: the snare in threes over the kick on every beat, the floor tom, the band falling back in.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-wikipedia"]
+      },
+      "pattern_ids": ["pattern:michael-shrieve-soul-sacrifice-solo"],
+      "heard_on": [
+        {
+          "recording_id": "rec:santana-woodstock-1969"
+        }
+      ]
+    },
+    {
+      "id": "trait:michael-shrieve-in-the-percussion",
+      "label": "A kit inside a percussion section",
+      "category": "musical_approach",
+      "description": "Jazz-influenced patterns that complement the congas and timbales rather than double them.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:michael-shrieve-ultimatesantana"]
+      },
+      "pattern_ids": [
+        "pattern:michael-shrieve-soul-sacrifice",
+        "pattern:michael-shrieve-song-of-the-wind"
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:michael-shrieve-soul-sacrifice",
+        "name": "Soul Sacrifice: riding the crash",
+        "type": "groove",
+        "function": "The theme at Woodstock",
+        "style_ids": ["style:latin-jazz", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1621352", "src:songsterr-17533"],
+          "note": "Congas from the studio tab."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 132,
+          "playable_range_bpm": [128, 138]
+        },
+        "lanes": {
+          "crash_1": "x...x...x...x...",
+          "snare": "....x.......x...",
+          "kick": "x.x...x.x.x...x.",
+          "conga": "x.xxx.xxx....x.x"
+        },
+        "source": {
+          "recording_id": "rec:santana-woodstock-1969",
+          "transcription_source_id": "src:songsterr-1621352"
+        }
+      },
+      {
+        "id": "pattern:michael-shrieve-soul-sacrifice-solo",
+        "name": "Soul Sacrifice: the solo",
+        "type": "solo_phrase",
+        "function": "The snare in threes over the kick on every beat",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1621352"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 132,
+          "playable_range_bpm": [128, 138]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "snare": "..xxx.xxx.xxx.xx",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:santana-woodstock-1969",
+          "transcription_source_id": "src:songsterr-1621352"
+        }
+      },
+      {
+        "id": "pattern:michael-shrieve-evil-ways",
+        "name": "Evil Ways",
+        "type": "groove",
+        "function": "The verse",
+        "style_ids": ["style:latin-jazz", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3582839"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 117,
+          "playable_range_bpm": [116, 122]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x.....x."
+        },
+        "source": {
+          "recording_id": "rec:santana-santana-1969",
+          "transcription_source_id": "src:songsterr-3582839"
+        }
+      },
+      {
+        "id": "pattern:michael-shrieve-black-magic-woman",
+        "name": "Black Magic Woman",
+        "type": "groove",
+        "function": "The intro: the hat open in threes under the bongos",
+        "style_ids": ["style:latin-jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-357"],
+          "note": "The bongos are in his track in the tab; they are the percussion section."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 124,
+          "playable_range_bpm": [118, 126]
+        },
+        "lanes": {
+          "hihat": "o.ooo.ooo.ooo.oo",
+          "kick": "x.............x.",
+          "bongo": "x.xxx...x.xxx..."
+        },
+        "source": {
+          "recording_id": "rec:santana-abraxas-1970",
+          "transcription_source_id": "src:songsterr-357"
+        }
+      },
+      {
+        "id": "pattern:michael-shrieve-song-of-the-wind",
+        "name": "Song of the Wind: cross-stick tresillo",
+        "type": "groove",
+        "function": "Under the guitar",
+        "style_ids": ["style:latin-jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17440"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 90,
+          "playable_range_bpm": [88, 96]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "c.....c.....c...",
+          "kick": "x.....x.x.....x.",
+          "shaker": "x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:santana-caravanserai-1972",
+          "transcription_source_id": "src:songsterr-17440"
+        }
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Santana",
+      "type": "band_member",
+      "years": {
+        "from": 1969,
+        "to": 1974
+      },
+      "bandmates": [
+        {
+          "name": "Carlos Santana"
+        },
+        {
+          "name": "Gregg Rolie"
+        },
+        {
+          "name": "David Brown"
+        },
+        {
+          "name": "Michael Carabello"
+        },
+        {
+          "name": "José \"Chepito\" Areas"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-wikipedia"]
+      }
+    },
+    {
+      "name": "Automatic Man",
+      "type": "band_member",
+      "years": {
+        "from": 1976,
+        "to": 1977
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-wikipedia"]
+      }
+    },
+    {
+      "name": "Go",
+      "type": "band_member",
+      "years": {
+        "from": 1976,
+        "to": 1977
+      },
+      "bandmates": [
+        {
+          "name": "Stomu Yamashta"
+        },
+        {
+          "name": "Steve Winwood"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:santana-woodstock-1969",
+    "rec:santana-santana-1969",
+    "rec:santana-abraxas-1970",
+    "rec:santana-oye-como-va-1970",
+    "rec:santana-iii-1971",
+    "rec:santana-caravanserai-1972"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-breath-of-fresh-air"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-breath-of-fresh-air"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-breath-of-fresh-air"]
+      },
+      "strength": 0.7
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jack DeJohnette",
+        "kind": "drummer",
+        "id": "drummer:jack-dejohnette"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-breath-of-fresh-air"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Roy Haynes",
+        "kind": "drummer",
+        "id": "drummer:roy-haynes"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-breath-of-fresh-air"]
+      },
+      "strength": 0.6
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "note": "They recorded together (Dave Hill, The Compassionate Drummer, a profile)."
+      },
+      "strength": 0.4
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Carlos Santana",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-wikipedia"]
+      },
+      "strength": 1.0
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Michael Carabello",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-ultimatesantana"],
+        "note": "Congas."
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "José \"Chepito\" Areas",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-ultimatesantana"],
+        "note": "Timbales."
+      },
+      "strength": 0.9
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "David Brown",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-wikipedia"]
+      },
+      "strength": 0.8
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Bob Livingston",
+        "kind": "drummer",
+        "id": "drummer:bob-livingston"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:michael-shrieve-breath-of-fresh-air"],
+        "note": "Santana's drummer at the 1968 Fillmore shows; 'they just had a big falling out with the drummer'."
+      },
+      "strength": 0.4
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Stomu Yamashta",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:michael-shrieve-wikipedia"],
+        "note": "Go."
+      },
+      "strength": 0.5
+    }
+  ],
+  "legacy": {
+    "influence_score": 0.65,
+    "innovations": [
+      "Jazz-influenced kit playing inside a Latin rock percussion section",
+      "The Woodstock Soul Sacrifice solo",
+      "Early electronic percussion"
+    ],
+    "accolades": [
+      {
+        "award": "Rock and Roll Hall of Fame (with Santana)",
+        "year": 1998,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:michael-shrieve-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": ["That he played the 1968 Fillmore shows: those were Bob Livingston."]
+  },
+  "beatbreaker": {
+    "style_key": "shrieve",
+    "headline_pattern_ids": [
+      "pattern:michael-shrieve-soul-sacrifice",
+      "pattern:michael-shrieve-soul-sacrifice-solo",
+      "pattern:michael-shrieve-song-of-the-wind"
+    ],
+    "default_kit_sound": "Open, ringing late-1960s kit",
+    "generation_rules": [
+      "The percussion section on the percussion lanes, the kit inside it.",
+      "Ride the crash on the beat.",
+      "Loose time."
+    ],
+    "avoid": ["Doubling the conga part on the kit"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:tony-williams", "drummer:buddy-rich", "drummer:roy-haynes"],
+      "primary_descendants": [],
+      "lineage_blurb": "Rich and Krupa, then Tony Williams, DeJohnette and Haynes, played into a Latin rock band at twenty."
+    },
+    "tags": ["santana", "latin rock", "woodstock", "60s", "70s"]
+  }
+}

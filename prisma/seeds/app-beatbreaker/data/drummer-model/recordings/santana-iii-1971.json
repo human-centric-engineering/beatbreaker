@@ -1,0 +1,65 @@
+{
+  "id": "rec:santana-iii-1971",
+  "title": "Santana III",
+  "artist": "Santana",
+  "release": "Columbia",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:rock"],
+  "personnel": [
+    {
+      "name": "Carlos Santana",
+      "role": "guitar"
+    },
+    {
+      "name": "Gregg Rolie",
+      "role": "organ, vocals"
+    },
+    {
+      "name": "David Brown",
+      "role": "bass"
+    },
+    {
+      "name": "Michael Carabello",
+      "role": "congas, percussion"
+    },
+    {
+      "name": "José \"Chepito\" Areas",
+      "role": "timbales, percussion"
+    },
+    {
+      "name": "Michael Shrieve",
+      "role": "drums"
+    },
+    {
+      "name": "Neal Schon",
+      "role": "guitar"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:michael-shrieve",
+      "name": "Michael Shrieve",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Taboo, slow, with a cross-stick verse; he helped produce the album.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:michael-shrieve-wikipedia",
+          "src:michael-shrieve-ultimatesantana",
+          "src:songsterr-1815434"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:michael-shrieve-wikipedia",
+      "src:michael-shrieve-ultimatesantana",
+      "src:songsterr-1815434"
+    ]
+  }
+}
