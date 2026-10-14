@@ -312,20 +312,20 @@ All routes guarded by `withAdminAuth` (admin role required). Mutating
 routes inherit the default 100/min rate-limit cap from
 `lib/security/rate-limit-policy.ts`.
 
-| Method | Path                  | Purpose                                                  |
-| ------ | --------------------- | -------------------------------------------------------- |
-| GET    | `/datasets`           | Paginated list (q, tag filters)                          |
-| POST   | `/datasets`           | Multipart upload OR JSON body                            |
-| GET    | `/datasets/:id`       | Detail + first 50 cases                                  |
-| PATCH  | `/datasets/:id`       | Rename / re-tag (no hash change)                         |
-| DELETE | `/datasets/:id`       | Refuses if a non-terminal run references it              |
-| GET    | `/datasets/:id/cases` | Cursor-paginated cases                                   |
-| GET    | `/runs`               | Paginated list (status, subject, dataset, agent filters) |
-| POST   | `/runs`               | Queue a run after full pre-flight                        |
-| GET    | `/runs/:id`           | Detail + summary (UI polls every 3s while active)        |
-| GET    | `/runs/:id/cases`     | Per-case results, cursor-paginated                       |
-| POST   | `/runs/:id/cancel`    | Queued/running → cancelled                               |
-| GET    | `/graders`            | Registry contents — drives the metric picker             |
+| Method | Path                  | Purpose                                                                                                               |
+| ------ | --------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| GET    | `/datasets`           | Paginated list (q, tag filters)                                                                                       |
+| POST   | `/datasets`           | Multipart upload OR JSON body                                                                                         |
+| GET    | `/datasets/:id`       | Detail + first 50 cases                                                                                               |
+| PATCH  | `/datasets/:id`       | Rename / re-tag (no hash change)                                                                                      |
+| DELETE | `/datasets/:id`       | Refuses if a non-terminal run references it                                                                           |
+| GET    | `/datasets/:id/cases` | Cursor-paginated cases                                                                                                |
+| GET    | `/runs`               | Paginated list (status, subject, dataset, agent filters)                                                              |
+| POST   | `/runs`               | Queue a run after full pre-flight                                                                                     |
+| GET    | `/runs/:id`           | Detail + summary (UI polls every 3s while active)                                                                     |
+| GET    | `/runs/:id/cases`     | Per-case results, cursor-paginated; `datasetCase` is `null` when the run's dataset is no longer visible to the caller |
+| POST   | `/runs/:id/cancel`    | Queued/running → cancelled                                                                                            |
+| GET    | `/graders`            | Registry contents — drives the metric picker                                                                          |
 
 All under `/api/v1/admin/orchestration/evaluations/`.
 

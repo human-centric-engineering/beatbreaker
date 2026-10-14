@@ -30,7 +30,7 @@
  * or that is listed with a path the schema does not have. **Never delete a row
  * to make it pass** — an unlisted personal model is one the data layer will
  * not guard. A fork's own models are not covered here yet; the seam for them
- * is §115 t-804.
+ * is §115 t-807.
  *
  * **Platform rows (§116) are outside this list by construction.** The rows
  * every org may read — `isSystem` / `isTemplate` / `scope = 'system'` — all sit

@@ -889,9 +889,8 @@ that reads them ([The owner chokepoint](#the-owner-chokepoint), t-801):
   request (a crossing around a per-row helper is one line, not one per row). A
   platform admin's export crosses nothing and logs nothing. It lifts only the
   owner check, never the org wall. Outside a
-  subject it does nothing. Core's crossings: the subject-data export when an
-  admin exports someone else, the org export, and resuming an approved
-  execution.
+  subject it does nothing. Core's crossings are listed under
+  [The owner chokepoint](#the-owner-chokepoint).
 - **`lib/db/owner-classification.ts` — which models are personal, and how the
   owner is reached.** A user column (`AiConversation.userId`,
   `AiWebhookSubscription.createdBy`) or a relation to a personal parent
@@ -899,8 +898,13 @@ that reads them ([The owner chokepoint](#the-owner-chokepoint), t-801):
   scope it to its owner — the access helpers above are the evidence — so agents,
   workflows, knowledge and cost logs are `not-personal`, each with its reason.
   `tests/unit/lib/db/owner-classification.test.ts` parses the core schema and
-  fails on an unclassified model linked to a user or to a personal model. Fork
-  schema files are not covered until §115 t-804 gives forks a seam.
+  fails on an unclassified model linked to a user or to a personal model.
+- **A fork's own models are not classified yet.** There is no seam for a fork
+  to add rows to the classification, so a model in `app.prisma` or a
+  `framework-*.prisma` file is never checked by the owner layer, whatever it
+  holds; it is narrowed only by the fork's own routes, as before §115. Editing
+  `OWNER_CLASSIFICATION` works but is a core edit the fork carries through every
+  sync. The seam is §115 t-807.
 
 The webhook-subscription read above is personal by this classification, so
 when its model is enforced the exporter has to name its crossing with
@@ -917,17 +921,21 @@ anyone else (a platform admin, an `admin` API key, a job, a guard-less route, a
 read inside `runAcrossOwners`) it sends the query it was handed, unchanged;
 `tests/unit/lib/db/owner-extension.test.ts` compares the SQL with and without it.
 
-**Enforced today: `AiUserMemory`, `AiConversation`, `AiMessage`** (memory in
-t-801, conversations and messages in t-802). Executions, evaluations and
-datasets follow in t-803, each when its call sites comply.
+**Enforced:** `AiUserMemory` (t-801), `AiConversation` and `AiMessage` (t-802),
+`AiWorkflowExecution`, `AiEvaluationSession`, `AiEvaluationLog`, `AiDataset`,
+`AiDatasetCase`, `AiEvaluationRun` and `AiEvaluationCaseResult` (t-803). The
+personal models still classified but not enforced — `AiApiKey`,
+`AiMessageEmbedding`, `AiWebhookSubscription`, `AiWebhookDelivery`,
+`AiExperiment`, `AiExperimentVariant` — are narrowed by their routes alone.
 
-| Operation                                                              | Rule                                                                                                                                                                                                                                                                                                                        |
-| ---------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `findMany`, `count`, `aggregate`, `groupBy`                            | The `where` must **confine** the read: every row it can match is one the caller may read. Otherwise refused before any SQL.                                                                                                                                                                                                 |
-| `findUnique` (and `OrThrow`)                                           | Runs whatever the filter. The row returned is refused if it is someone else's, or ownerless and the caller may not read that kind. For a model whose row cannot decide alone — owned `through` a parent, or with a share arm — the read runs narrowed instead, and a miss asks whether a foreign row matched, to refuse it. |
-| `findFirst` (and `OrThrow`)                                            | An unconfined `where` has the caller's readable predicate added, so it returns the caller's first match or none — never whichever row the database found first.                                                                                                                                                             |
-| `update`, `upsert`, `delete`, `updateManyAndReturn`                    | They return the row they write, so the `where` must confine them. Otherwise refused before any SQL: checking the row afterwards would be after the write.                                                                                                                                                                   |
-| An `include` / `select` / `_count` of an enforced model, from any root | That relation must carry its own confining `where`. `user.findUnique({ include: { aiUserMemories: true } })` is refused. The exception is the ownership relation followed out of a checked read: a conversation's `messages`, a message's `conversation`.                                                                   |
+| Operation                                                              | Rule                                                                                                                                                                                                                                                                                                                          |
+| ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `findMany`, `count`, `aggregate`, `groupBy`                            | The `where` must **confine** the read: every row it can match is one the caller may read. Otherwise refused before any SQL.                                                                                                                                                                                                   |
+| `findUnique` (and `OrThrow`)                                           | Runs whatever the filter. The row returned is refused if it is someone else's, or ownerless and the caller may not read that kind. For a model whose row cannot decide alone — owned `through` a parent, or with a share arm — the read runs narrowed instead, and a miss asks whether a foreign row matched, to refuse it.   |
+| `findFirst` (and `OrThrow`)                                            | An unconfined `where` has the caller's readable predicate added, so it returns the caller's first match or none — never whichever row the database found first.                                                                                                                                                               |
+| `update`, `upsert`, `delete`, `updateManyAndReturn`                    | They return the row they write, so the `where` must confine them. Otherwise refused before any SQL: checking the row afterwards would be after the write.                                                                                                                                                                     |
+| An `include` / `select` / `_count` of an enforced model, from any root | That relation must carry its own confining `where`. `user.findUnique({ include: { aiUserMemories: true } })` is refused. The exception is the ownership relation followed out of a checked read: a conversation's `messages`, a message's `conversation`.                                                                     |
+| A to-one `include` / `select` of an enforced model                     | It cannot carry a `where`. When the target's own owner column decides a row (a run's `dataset`, a variant's `evaluationRun`), that column is selected with it and the row returned is refused if the caller may not read it. A to-one reaching a `through` owner or a share model (a case result's `datasetCase`) is refused. |
 
 **Confines**, as a tree: every key of a `where` is a conjunct, so one confining
 conjunct (at any depth under `AND`) confines the whole; an `OR` confines only
@@ -980,8 +988,8 @@ the layer checked and passed for this caller counts as the route having used the
 policy's answer, so a handler that never touches `session.subjectFilter` but
 whose personal reads are confined is not reported. That holds only while every
 personal read in the route was one the layer checks: a read of a personal model
-not enforced yet (an execution, until t-803) was narrowed by nothing but the
-route, so the route is reported as before.
+not enforced yet (an experiment, say) was narrowed by nothing but the route, so
+the route is reported as before.
 
 **Not checked:** whether a write is allowed (changing another member's row is
 the route's `canAdminister` decision — the layer refuses only the row a
@@ -997,15 +1005,45 @@ runs every principal through the default policy, safe mode and a delegating fork
 policy, and asserts `canRead` on a subject, a list filtered to that subject and
 a row that subject owns all get the same answer. The two-member scenarios in
 `scripts/smoke/tenancy-isolation.ts` ([16b] memory, [16c] conversations and
-messages) prove it against real Postgres, as the restricted role.
+messages, [16d] workflow runs) prove it against real Postgres, as the
+restricted role. `tests/unit/lib/orchestration/access/owner-layer-agreement.test.ts`
+holds the access helpers and the layer together: `executionVisibilityWhere`,
+`datasetVisibilityWhere` and `conversationVisibilityWhere` confine on the layer
+for every policy answer, the layer's readable predicate is the helper's, and
+every row of the ownerless roster (`ownerless-surfaces.ts`) names how the layer
+treats its reads — confined, checked by id, a declared crossing, no subject, or
+writes only.
 
-**Core's own crossings.** Per-agent conversation counts (the agents list and
-compare) and the analytics figures run under `runAcrossOwners`: they return
-numbers, never a row. The analytics reads that quote message text — popular
-topics, unanswered questions, content gaps, recent negative feedback — do not
-cross: for a narrowed caller they read through `conversationVisibilityWhere`,
-so an org admin sees words only from threads they could open. A fork that wants
-its org admins to read members' words widens the policy for them.
+**Core's own crossings.** Each names its reason, and is logged when it crosses.
+
+- **Counts and figures, never a row:** per-agent conversation and evaluation
+  counts (the agents list and compare), the workflows list's run count per
+  workflow, a capability's execution times across evaluations, the workflow
+  cost estimate over past runs, and the analytics figures. The analytics reads
+  that quote message text — popular topics, unanswered questions, content gaps,
+  recent negative feedback — do not cross: for a narrowed caller they read
+  through `conversationVisibilityWhere`, so an org admin sees words only from
+  threads they could open. A fork that wants its org admins to read members'
+  words widens the policy for them.
+- **Work that acts for someone else:** resuming an approved execution, and every
+  maintenance job (`runScopedJob`) — a tick fired from an admin's session acts
+  for the org, not the admin.
+- **The approver nomination:** approve, reject and cancel read the run through
+  `acrossOwnersForApproval` (`execution-access.ts`), because the nomination is
+  in the run's trace and no `where` can say it. They answer 404 unless the
+  caller may see the run or the trace names them, and act across owners only for
+  a named approver.
+- **A dataset delete** sees anyone's queued or running run on it, and names the
+  run only to its owner.
+- **Exports:** the subject-data export when an admin exports someone else, and
+  the org export.
+
+**A run's cases, after its dataset changes hands.** A case result reaches its
+dataset case through a to-one the layer refuses, so run results, pairwise
+verdicts and failure seeds read the cases in a second query through
+`datasetVisibilityWhere` (`lib/orchestration/evaluations/datasets/scored-cases.ts`).
+When another member has since claimed the run's (orphaned) dataset, the run keeps
+its scores and outputs and its cases come back absent.
 
 **Cost:** 0.3–3 µs per read, measured (design doc, Spike register item 8).
 
