@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:ringo-starr",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.5,
     "created": "2026-10-11",
@@ -201,7 +201,14 @@
       "linear_playing": 0.3,
       "ostinato_usage": 0.6,
       "polyrhythm_usage": 0.2,
-      "odd_meter_fluency": 0.5
+      "odd_meter_fluency": 0.5,
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Alan W. Pollack, Notes on ... (Wayback copies): Happiness Is a Warm Gun, Ticket to Ride, Tomorrow Never Knows, Come Together, I Want You (She's So Heavy) and about ten more; the archive then refused connections"
+        ],
+        "note": "Searched, none found. Ticket to Ride is syncopation following the riff, Come Together's fills are sextuplets, Happiness Is a Warm Gun changes meter. About 175 of Pollack's pages were not read."
+      }
     },
     "voice_language": {
       "hihat": "Loose, swung, accents often left-handed.",

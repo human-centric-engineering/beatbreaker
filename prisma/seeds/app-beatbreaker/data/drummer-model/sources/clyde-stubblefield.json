@@ -142,5 +142,14 @@
     "reliability": 0.6,
     "accessed": "2026-10-11",
     "notes": "Internal: .context/app/planning/drumming-research.md section E; which records are his, how he played, and the grids behind the stubblefield style."
+  },
+  {
+    "id": "src:stubblefield-moore-five-funk-beats",
+    "type": "transcription",
+    "title": "Stanton Moore, Five Funk Beats You Should Know (Stanton Moore Drum Academy, 2021)",
+    "url": "https://digitalspace.bradfordcollege.ac.uk/10626679/wp-content/uploads/sites/278/2022/03/Five_Funk_Beats_You_Should_Know.pdf",
+    "reliability": 0.85,
+    "accessed": "2026-10-14",
+    "notes": "Cold Sweat: \"the displaced snare on the & of beat 4 in the first measure\". Soul Power and Sex Machine (Jabo Starks): a jazz ride pattern in the right hand over jazz-style ghost notes, which Jabo confirmed to Moore."
   }
 ]

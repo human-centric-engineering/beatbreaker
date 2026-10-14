@@ -98,6 +98,7 @@ describe('sitemap', () => {
       genres: [],
       tags: [],
       summary: null,
+      devices: [],
     });
 
     it('lists /drummers and every drummer with a record, not stubs or genres', async () => {

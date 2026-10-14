@@ -9,6 +9,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { FieldHelp } from '@/components/ui/field-help';
 import { Label } from '@/components/ui/label';
 import {
+  DEVICE_LABELS,
   EDGE_KIND_LABELS,
   MAP_EDGE_KINDS,
   type LineageLayout,
@@ -18,7 +19,7 @@ import {
   meetsConfidence,
   traceLineage,
 } from '@/lib/app/lineage/layout';
-import type { Confidence } from '@/lib/app/lineage/types';
+import { type Confidence, DEVICE_KINDS, type DeviceKind, isOneOf } from '@/lib/app/lineage/types';
 import { cn } from '@/lib/utils';
 
 /**
@@ -29,7 +30,8 @@ import { cn } from '@/lib/utils';
  * The layout comes from the server, so the first HTML is the whole map. Point
  * at or tab to a person and everyone they learned from and everyone who
  * learned from them lights up; "Trace" keeps one lit. Each person is a link to
- * their page. Filters thin the edges by kind and by how sure the claim is.
+ * their page. Filters thin the edges by kind and by how sure the claim is, and
+ * "Plays" picks out the drummers whose record names a rhythmic device (12-b).
  */
 
 const KIND_COLOUR: Record<MapEdgeKind, { stroke: string; fill: string; swatch: string }> = {
@@ -65,6 +67,7 @@ export function LineageMap({ layout, initialTrace = null }: LineageMapProps) {
   const uid = useId();
   const [kinds, setKinds] = useState<ReadonlySet<MapEdgeKind>>(() => new Set(MAP_EDGE_KINDS));
   const [floor, setFloor] = useState<Confidence | ''>('');
+  const [plays, setPlays] = useState<DeviceKind | ''>('');
   const [picked, setPicked] = useState<string | null>(initialTrace);
   /* Hover and keyboard focus are kept apart, so leaving one never drops the other. */
   const [hovered, setHovered] = useState<string | null>(null);
@@ -85,6 +88,33 @@ export function LineageMap({ layout, initialTrace = null }: LineageMapProps) {
   }, [layout.nodes, edges]);
   const byId = useMemo(() => new Map(layout.nodes.map((n) => [n.id, n])), [layout.nodes]);
 
+  /* Only the devices some record names, in the vocabulary's order. */
+  const deviceOptions = useMemo(() => {
+    const named = new Set(layout.nodes.flatMap((n) => n.devices));
+    return [
+      { value: '', label: 'Anything' },
+      ...DEVICE_KINDS.filter((k) => named.has(k)).map((k) => ({
+        value: k,
+        label: DEVICE_LABELS[k],
+      })),
+    ];
+  }, [layout.nodes]);
+  /* Who plays the picked device, earliest first; null when nothing is picked. */
+  const players = useMemo(
+    () =>
+      plays === ''
+        ? null
+        : {
+            label: DEVICE_LABELS[plays],
+            nodes: layout.nodes.filter((n) => n.devices.includes(plays)).sort((a, b) => a.x - b.x),
+          },
+    [layout.nodes, plays]
+  );
+  const playerIds = useMemo(
+    () => (players ? new Set(players.nodes.map((n) => n.id)) : null),
+    [players]
+  );
+
   /* Esc lets go of a trace, wherever focus is — the select's own list closes first. */
   const tracing = hovered !== null || focused !== null || picked !== null;
   useEffect(() => {
@@ -101,8 +131,13 @@ export function LineageMap({ layout, initialTrace = null }: LineageMapProps) {
 
   const focus = hovered ?? focused ?? picked;
   const trace = useMemo(() => (focus ? traceLineage(edges, focus) : null), [edges, focus]);
+  /* With both on, the traced person stays lit whatever they play: the status
+     line is about them. Everyone else must be on the trace and a player. */
+  const isPlayer = (id: string) => !playerIds || playerIds.has(id) || id === focus;
   const lit = (id: string) =>
-    !trace || id === focus || trace.ancestors.has(id) || trace.descendants.has(id);
+    isPlayer(id) &&
+    (!trace || id === focus || trace.ancestors.has(id) || trace.descendants.has(id));
+  const dim = trace !== null || playerIds !== null;
 
   const traceable = useMemo(
     () =>
@@ -119,7 +154,9 @@ export function LineageMap({ layout, initialTrace = null }: LineageMapProps) {
   const status =
     tracedNode && trace
       ? `${tracedNode.label}: learned from ${trace.ancestors.size}, passed on to ${trace.descendants.size}.`
-      : '';
+      : players
+        ? `${players.label}: ${players.nodes.map((n) => n.label).join(', ')}.`
+        : '';
 
   const toggleKind = (kind: MapEdgeKind, on: boolean) =>
     setKinds((was) => {
@@ -168,6 +205,24 @@ export function LineageMap({ layout, initialTrace = null }: LineageMapProps) {
               if (isFloor(v)) setFloor(v);
             }}
             options={FLOORS}
+          />
+        </div>
+        <div className="flex flex-col gap-1">
+          <Label htmlFor={`${uid}-plays`} className="flex items-center gap-1">
+            Plays
+            <FieldHelp title="Plays">
+              Picks out the drummers whose record names this device, with a source for it, and dims
+              the rest. Only cross-rhythm and hemiola are polyrhythms; the others are what is often
+              called one, named for what they are. A drummer&apos;s page lists the sources. Default:
+              anything.
+            </FieldHelp>
+          </Label>
+          <SelectMenu
+            id={`${uid}-plays`}
+            className="min-w-48"
+            value={plays}
+            onValueChange={(v) => setPlays(isOneOf(DEVICE_KINDS, v) ? v : '')}
+            options={deviceOptions}
           />
         </div>
         <div className="flex items-center gap-1" role="group" aria-label="Zoom">
@@ -308,18 +363,19 @@ export function LineageMap({ layout, initialTrace = null }: LineageMapProps) {
               const a = byId.get(e.from);
               const b = byId.get(e.to);
               if (!a || !b) return null;
-              const on = trace ? trace.edges.has(e.id) : true;
+              const on =
+                (trace ? trace.edges.has(e.id) : true) && isPlayer(e.from) && isPlayer(e.to);
               return (
                 <path
                   key={e.id}
                   d={edgePath(a, b)}
                   className={cn(KIND_COLOUR[e.kind].stroke, 'transition-opacity')}
-                  strokeWidth={trace && on ? 2 : 1.25}
-                  strokeOpacity={trace ? (on ? 0.95 : 0.07) : 0.45}
+                  strokeWidth={dim && on ? 2 : 1.25}
+                  strokeOpacity={dim ? (on ? 0.95 : 0.07) : 0.45}
                   strokeDasharray={isTentative(e.confidence) ? '4 3' : undefined}
                   markerEnd={e.directed ? `url(#${uid}-arrow-${e.kind})` : undefined}
                   data-kind={e.kind}
-                  data-lit={trace ? String(on) : undefined}
+                  data-lit={dim ? String(on) : undefined}
                 />
               );
             })}
@@ -344,7 +400,7 @@ export function LineageMap({ layout, initialTrace = null }: LineageMapProps) {
                 onBlur={() => setFocused(null)}
                 className="group outline-none"
                 data-node={n.id}
-                data-lit={trace ? String(on) : undefined}
+                data-lit={dim ? String(on) : undefined}
               >
                 <g opacity={on ? 1 : 0.2} className="transition-opacity">
                   <circle

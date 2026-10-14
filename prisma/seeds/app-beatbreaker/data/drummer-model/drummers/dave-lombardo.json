@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:dave-lombardo",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.5,
     "created": "2026-10-11",
@@ -269,7 +269,18 @@
       "polyrhythm_usage": 0.5,
       "odd_meter_fluency": 0.6,
       "double_bass": 1.0,
-      "foot_ostinato_usage": 0.8
+      "foot_ostinato_usage": 0.8,
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Wikipedia: Angel of Death (Slayer song)",
+          "Blabbermouth (2023): the Angel of Death break began as a drum solo",
+          "NPR/KUNC (2023): From Slayer to Tito Puente",
+          "Metal Injection and AllMusic interviews (both refused the fetch)",
+          "Searches for Raining Blood, Postmortem and Seasons in the Abyss transcriptions, and for Fantômas and Rites of Percussion interviews"
+        ],
+        "note": "Searched, none found. The Angel of Death tom figure he calls 'a very typical Tito Puente' figure is not named as a clave or any timeline by a source."
+      }
     },
     "voice_language": {
       "hihat": "Open, washy or replaced by crash and china at high tempo.",

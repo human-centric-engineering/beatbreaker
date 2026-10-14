@@ -184,5 +184,14 @@
     "reliability": 0.6,
     "accessed": "2026-10-14",
     "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:phil-collins-drumeo-fills",
+    "type": "video_lesson",
+    "title": "JJ Jones, 5+ Intermediate Drum Fills (Drumeo, The Beat, 2022)",
+    "url": "https://drumeo.com/beat/?p=27821",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "\"A grouping of three 16ths forms the basis of possibly the most famous drum fill of all time\" (In the Air Tonight)."
   }
 ]

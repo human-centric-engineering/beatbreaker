@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:tito-puente",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.5,
     "created": "2026-10-11",
@@ -240,7 +240,40 @@
       "linear_playing": 0.5,
       "ostinato_usage": 0.8,
       "polyrhythm_usage": 0.7,
-      "odd_meter_fluency": 0.2
+      "odd_meter_fluency": 0.2,
+      "devices": [
+        {
+          "kind": "timeline",
+          "where": ["groove"],
+          "description": "Everything is played in clave: the two-bar clave is the fixed frame, and a section that starts on its other side keeps the pattern while the feeling changes.",
+          "examples": [],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:puente-pas-hall-of-fame"]
+          }
+        },
+        {
+          "kind": "ostinato-independence",
+          "where": ["groove"],
+          "description": "Cáscara on the timbale shells with bass drum and cymbal hits set against it to kick the band's figures.",
+          "examples": ["Oye negra", "El Botellero", "Eco (Machito Orchestra, 1942)"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:puente-jazz-com"],
+            "note": "Described, not notated."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Percussive Arts Society Hall of Fame: Tito Puente",
+          "jazz.com encyclopedia: Puente, Tito",
+          "Hudson Music: Drumming with the Mambo King (no contents online)",
+          "mycongaplace forum: David Peñalosa on 6/8 timbales (a forum post, not used)"
+        ],
+        "note": "Clave and a layered ostinato found. No sourced cross-rhythm: the 6/8 bembé on timbales is a lead only."
+      }
     },
     "voice_language": {
       "percussion": "Timbales (hembra and macho), paila, mambo bell, cha-cha bell, timbalitos, thunder drums."

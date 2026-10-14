@@ -81,6 +81,52 @@ describe('find_drummers', () => {
   });
 });
 
+describe('find_drummers and rhythmic devices (12-b)', () => {
+  it('lists each drummer’s devices in one line each: kind, ratio, where, what', async () => {
+    const tony = (await find({})).find((d) => d.slug === 'tony-williams');
+    expect(tony?.devices).toContainEqual(expect.stringMatching(/^cross-rhythm 2:3 \(comping\): /));
+    expect(tony?.devices).toContainEqual(
+      expect.stringMatching(/^polymeter \(comping\): Threes over the bar line/)
+    );
+  });
+
+  it('finds who plays threes over the bar by the words a drummer would use', async () => {
+    expect((await find({ query: 'threes over the bar' })).map((d) => d.slug)).toContain(
+      'tony-williams'
+    );
+  });
+
+  it('keeps a ratio whole: 3:2 is not 2:3', async () => {
+    expect((await find({ query: '2:3' })).map((d) => d.slug).sort()).toEqual([
+      'elvin-jones',
+      'tony-williams',
+    ]);
+    const threeTwo = (await find({ query: '3:2' })).map((d) => d.slug);
+    expect(threeTwo).not.toContain('elvin-jones');
+    expect(threeTwo).not.toContain('tony-williams');
+  });
+
+  it('matches where a device is played', async () => {
+    const slugs = (await find({ query: 'grouping fills' })).map((d) => d.slug);
+    expect(slugs).toEqual(expect.arrayContaining(['steve-gadd', 'phil-collins']));
+    expect(slugs).not.toContain('michael-shrieve'); // his threes are in a solo
+  });
+
+  it('gives only the first sentence of a device; get_drummer has the rest', async () => {
+    const bonham = (await find({})).find((d) => d.slug === 'john-bonham');
+    expect(bonham?.devices[0]).toBe(
+      'polymeter (groove): He holds a plain 4/4 while the riff runs in groups of three over it, so the two only line up every few bars.'
+    );
+  });
+
+  it('finds a device by its kind', async () => {
+    expect((await find({ query: 'hemiola' })).map((d) => d.slug)).toEqual(['elvin-jones']);
+    const modulation = (await find({ query: 'metric modulation' })).map((d) => d.slug);
+    expect(modulation).toEqual(expect.arrayContaining(['tony-williams', 'klek-de-poitrine']));
+    expect(modulation).not.toContain('ringo-starr');
+  });
+});
+
 describe('firstSentence', () => {
   it('ends at a stop before a capital', () => {
     expect(firstSentence('Deep time. Steely Dan.')).toBe('Deep time.');

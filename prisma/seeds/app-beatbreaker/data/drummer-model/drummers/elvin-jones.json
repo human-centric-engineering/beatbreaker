@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:elvin-jones",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.5,
     "created": "2026-10-11",
@@ -286,7 +286,50 @@
       "ostinato_usage": 0.3,
       "polyrhythm_usage": 1.0,
       "odd_meter_fluency": 0.6,
-      "notes": "Different metres played independently by hands and feet into a flow of shifting accents."
+      "notes": "Different metres played independently by hands and feet into a flow of shifting accents.",
+      "devices": [
+        {
+          "kind": "hemiola",
+          "ratio": "2:3",
+          "where": ["groove", "comping"],
+          "description": "In the jazz waltz he lays two even beats over each bar of three, so 3/4 and 6/8 sound at the same time.",
+          "examples": ["Afro Blue", "My Favorite Things"],
+          "pattern_ids": ["pattern:elvin-waltz-archetype"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:elvin-jones-afro-blue-wikipedia",
+              "src:elvin-jones-bishop-key-players",
+              "src:jazzonthetube-elvin"
+            ],
+            "note": "Wikipedia: Jones superimposed two cross-beats over every measure of a 3/4 waltz (2:3). Bishop: an omnipresent 3/4 and 6/8 cross rhythm."
+          }
+        },
+        {
+          "kind": "polymeter",
+          "where": ["solos", "comping"],
+          "description": "He phrases in cycles of three or five beats on top of the 4/4 bar while the ride keeps going, often landing on the middle triplet.",
+          "examples": ["Anthropology", "Dear John C."],
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": [
+              "src:elvin-jones-ljs-trading-fours",
+              "src:elvin-jones-bishop-key-players"
+            ],
+            "note": "Learn Jazz Standards: 3/4 and 5/4 phrases on top of the 4/4 bar (trading fours on Anthropology, Dear John C.). Bishop: a strong tendency to phrase in 3/4 even in 4/4."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Todd Bishop, Key players: Elvin Jones",
+          "Learn Jazz Standards: comping and trading fours like Elvin Jones",
+          "Wikipedia: Afro Blue",
+          "Britannica: Elvin Jones"
+        ],
+        "note": "The waltz 2:3 is sourced. A 3:4 cross-rhythm in groups of four triplet partials is not named by any source read, so it is left out."
+      }
     },
     "voice_language": {
       "ride": "Broad, legato, the melodic thread; often more of a wash than a rigid spang-a-lang.",

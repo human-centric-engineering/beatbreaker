@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:lenny-white",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.4,
     "created": "2026-10-14",
@@ -212,7 +212,15 @@
       "linear_playing": 0.3,
       "ostinato_usage": 0.3,
       "polyrhythm_usage": 0.5,
-      "odd_meter_fluency": 0.8
+      "odd_meter_fluency": 0.8,
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Todd Bishop, cruiseshipdrummer.com (2019): accents 'not always on the same grid as the primary groove'",
+          "drumming-research.md section Z"
+        ],
+        "note": "Searched, none sourced. Bishop's line does not say groupings, and the style's accent every six 16ths is BeatBreaker's reading."
+      }
     },
     "voice_language": {
       "hihat": "In the left hand, sixteenths with one hand.",

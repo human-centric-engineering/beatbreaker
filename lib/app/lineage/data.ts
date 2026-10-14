@@ -7,13 +7,20 @@
  * already gets a 304.
  */
 
+import { z } from 'zod';
+
 import { slugOf } from '@/lib/app/lineage/build';
 import { prisma } from '@/lib/db/client';
+import { logger } from '@/lib/logging';
 import {
   CONFIDENCES,
   type Confidence,
+  DEVICE_KINDS,
+  DEVICE_PLACES,
   EDGE_KINDS,
   type EdgeKind,
+  isOneOf,
+  type LineageDevice,
   type LineageEdge,
   type LineageGraph,
   type LineageNode,
@@ -36,10 +43,37 @@ const NODE_FIELDS = {
   genres: true,
   tags: true,
   summary: true,
+  devices: true,
 } as const;
 
-function isOneOf<T extends string>(values: readonly T[], value: string): value is T {
-  return values.some((v) => v === value);
+/**
+ * The stored devices, read rather than cast. One that does not read is
+ * dropped and logged: it means the stored rows and the vocabulary have
+ * drifted apart, and the seed needs a re-run.
+ */
+const deviceSchema = z.object({
+  kind: z.enum(DEVICE_KINDS),
+  ratio: z.string().nullable(),
+  where: z.array(z.enum(DEVICE_PLACES)),
+  description: z.string(),
+  examples: z.array(z.string()),
+  confidence: z.enum(CONFIDENCES).nullable(),
+  sources: z.array(z.object({ title: z.string(), url: z.string().nullable() })).min(1),
+});
+
+function toDevices(nodeId: string, json: unknown): LineageDevice[] {
+  const stored = Array.isArray(json) ? json : [json];
+  const devices = stored.flatMap((d) => {
+    const read = deviceSchema.safeParse(d);
+    return read.success ? [read.data] : [];
+  });
+  if (devices.length < stored.length) {
+    logger.warn('Lineage: stored devices that do not read were dropped', {
+      nodeId,
+      dropped: stored.length - devices.length,
+    });
+  }
+  return devices;
 }
 
 function oneOf<T extends string>(values: readonly T[], value: string, fallback: T): T {
@@ -59,6 +93,7 @@ function toNode(row: Pick<NodeRow, keyof typeof NODE_FIELDS>): LineageNode {
     genres: row.genres,
     tags: row.tags,
     summary: row.summary,
+    devices: toDevices(row.id, row.devices),
   };
 }
 

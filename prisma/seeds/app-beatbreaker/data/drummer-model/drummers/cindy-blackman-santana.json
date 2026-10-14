@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:cindy-blackman-santana",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.4,
     "created": "2026-10-14",
@@ -227,7 +227,29 @@
       "linear_playing": 0.3,
       "ostinato_usage": 0.6,
       "polyrhythm_usage": 0.6,
-      "odd_meter_fluency": 0.6
+      "odd_meter_fluency": 0.6,
+      "devices": [
+        {
+          "kind": "ostinato-independence",
+          "where": ["groove"],
+          "description": "The bass drum and hat foot keep one ostinato and the ride a gallop (an eighth and two sixteenths), while the left hand plays melody and ghost notes on the snare over both.",
+          "examples": ["Smooth Struttin' New Awlins Gumbo (her Vic Firth interview groove)"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:cindy-blackman-drummercafe-gumbo"]
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Drummer Cafe: Smooth Struttin' New Awlins Gumbo (Bart Elliott, 2015)",
+          "Modern Drummer: 'The Lady Comes To Play' (Ken Micallef, 2008)",
+          "Burning Ambulance podcast #85",
+          "Searches for Another Lifetime, Spectrum Road and Arcane transcriptions (none online)"
+        ],
+        "note": "One ostinato found. No cross-rhythm, grouping or metric modulation at transcription level."
+      }
     },
     "voice_language": {
       "snare": "Big backbeats; figures off the beat over four on the floor.",

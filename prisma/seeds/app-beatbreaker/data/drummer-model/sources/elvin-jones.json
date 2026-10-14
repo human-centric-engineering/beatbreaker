@@ -1,0 +1,38 @@
+[
+  {
+    "id": "src:elvin-jones-bishop-key-players",
+    "type": "analysis",
+    "title": "Todd Bishop, Key players: Elvin Jones (Cruise Ship Drummer)",
+    "url": "https://shipdrummer.blogspot.com/2017/05/key-players-elvin-jones.html",
+    "reliability": 0.75,
+    "accessed": "2026-10-14",
+    "notes": "'He has a polyrhythm built into his playing, with an omnipresent 3/4 and 6/8 cross rhythm'; phrasing in 3/4 over 4/4."
+  },
+  {
+    "id": "src:elvin-jones-ljs-trading-fours",
+    "type": "video_lesson",
+    "title": "Learn Jazz Standards: Trading fours like Elvin Jones, style and analysis",
+    "url": "https://www.learnjazzstandards.com/blog/learning-jazz/drums/trading-fours-like-elvin-jones-style-and-analysis/",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "3/4 and 5/4 phrases on top of the 4/4 bar; landing on the second (middle) triplet; Anthropology from Dear John C."
+  },
+  {
+    "id": "src:elvin-jones-ljs-comping",
+    "type": "video_lesson",
+    "title": "Learn Jazz Standards: How to comp on the drums like Elvin Jones",
+    "url": "https://www.learnjazzstandards.com/blog/learning-jazz/drums/how-to-comp-on-the-drums-like-elvin-jones/",
+    "reliability": 0.65,
+    "accessed": "2026-10-14",
+    "notes": "Odd accent placing; phrases starting and ending on beats 2 or 4 so often 'it would create the illusion that the metric of the tune had changed'."
+  },
+  {
+    "id": "src:elvin-jones-afro-blue-wikipedia",
+    "type": "encyclopedia",
+    "title": "Afro Blue - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Afro_Blue",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "Jones superimposed two cross-beats over every measure of a 3/4 waltz (2:3) on Coltrane's 1963 recording."
+  }
+]

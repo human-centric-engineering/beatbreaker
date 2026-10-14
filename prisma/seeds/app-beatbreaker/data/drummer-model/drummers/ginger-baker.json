@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:ginger-baker",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.5,
     "created": "2026-10-11",
@@ -231,7 +231,30 @@
       "ostinato_usage": 0.8,
       "polyrhythm_usage": 0.85,
       "odd_meter_fluency": 0.6,
-      "double_bass": 0.9
+      "double_bass": 0.9,
+      "devices": [
+        {
+          "kind": "ostinato-independence",
+          "where": ["solos"],
+          "description": "In his Toad solo the two bass drums hold an ostinato while the hands build tom melodies, with hi-hat and ride layered on top.",
+          "examples": ["Toad"],
+          "pattern_ids": ["pattern:baker-toad-ostinato-archetype"],
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:ginger-baker-toad-wikipedia", "src:wiki-mirror-baker"],
+            "note": "Wikipedia (Toad): complementary rhythms on the hi-hat, ride cymbal, double-bass drums and tom-toms simultaneously. Not in the plan's table; added because it is sourced."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Wikipedia: Toad (instrumental)",
+          "drumming-research.md section T (his Fela-era records: no meter found)",
+          "The record's 12/8 tom pattern (inferred, no source)"
+        ],
+        "note": "An ostinato found (Toad). The 3:2 tom figure over a duple kick is not sourced, so it is not tagged."
+      }
     },
     "voice_language": {
       "toms": "Lead voice; melodic, African-tinged patterns.",

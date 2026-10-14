@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:klek-de-poitrine",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.35,
     "created": "2026-10-11",
@@ -199,7 +199,43 @@
       "ostinato_usage": 0.8,
       "polyrhythm_usage": 0.6,
       "odd_meter_fluency": 0.6,
-      "notes": "Band is noted for complex rhythms and polyrhythm; drum-level detail unconfirmed."
+      "notes": "Band is noted for complex rhythms and polyrhythm; drum-level detail unconfirmed.",
+      "devices": [
+        {
+          "kind": "grouping",
+          "where": ["groove", "fills"],
+          "description": "Accents in threes laid over 4/4 for builds: kick and snare together on every dotted quarter for three bars, and threes of 16ths on the snare.",
+          "examples": ["Sherpa"],
+          "pattern_ids": ["pattern:klek-polymetric-accent-archetype"],
+          "evidence": {
+            "confidence": "needs_verification",
+            "source_ids": ["src:songsterr-angine"],
+            "note": "Human Songsterr tabs of Sherpa (5022558, 3886668) show the dotted-quarter build; the record's dotted-8th (threes of 16ths) snare accent is not from a tab and is unconfirmed."
+          }
+        },
+        {
+          "kind": "polymeter",
+          "where": ["groove"],
+          "description": "On Fabienk the loops stay in 7/8 while the drums play three bars of 4/4 and a bar of 2/4, meeting the loop every 14 beats.",
+          "examples": ["Fabienk", "Tohogd"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:klek-de-poitrine-musicradar-fabienk", "src:songsterr-angine"],
+            "note": "MusicRadar spells out the 14-beat cycle (it calls it metric modulation; by the vocabulary it is polymeter). Tohogd's tab lays 4/4 across 7/8 the same way. Not in the plan's table; added because it is sourced."
+          }
+        },
+        {
+          "kind": "metric-modulation",
+          "where": ["groove"],
+          "description": "Sarniezz goes from 12/8 at a dotted quarter of 116 to 4/4 at 174 with the eighth held, so the pulse changes from three eighths to two.",
+          "examples": ["Sarniezz", "Sherpa"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-angine"],
+            "note": "Human tabs 5245273, 4536298, 4887063, 4967459; two mark it 'Rhythmic modulation'. Sherpa's triplet section at 120 becomes 180, the triplet eighth becoming the eighth."
+          }
+        }
+      ]
     },
     "voice_language": {
       "hihat": "Driving 8ths and 16ths (to verify).",

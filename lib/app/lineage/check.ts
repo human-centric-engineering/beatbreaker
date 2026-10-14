@@ -5,7 +5,7 @@
  * Shape is the schemas' job (Ajv, in the test). This is what a schema cannot
  * say: that ids are unique and resolve, that a recording a drummer lists has
  * them on it, that a pattern's lanes fit its grid, that a masked performer's
- * real identity is not stored.
+ * real identity is not stored, that every rhythmic device cites a source.
  */
 
 import { RELATIONSHIPS } from '@/lib/app/lineage/build';
@@ -108,6 +108,26 @@ export function checkCorpus(corpus: Corpus): string[] {
       for (const f of ['full_name', 'born', 'died']) {
         if (f in identity)
           errors.push(`${file}: identity.${f} must not be stored for a private persona`);
+      }
+    }
+  }
+
+  const sources = new Set(corpus.sources.map(({ record }) => record.id));
+  /* A device is a claim about how someone plays: it cites a source (D56), and
+     a cross-rhythm says which one. That it resolves is the reference rule's. */
+  for (const { file, record } of corpus.drummers) {
+    const devices = record.technique_profile?.coordination?.devices ?? [];
+    for (const [i, d] of devices.entries()) {
+      const name = `${file} devices[${i}] (${d.kind})`;
+      const cited = d.evidence?.source_ids ?? [];
+      if (cited.length === 0) errors.push(`${name}: cites no source`);
+      /* The builder resolves these against the registry alone, so a pattern
+         or recording id here would resolve, then vanish from the citation. */
+      for (const id of cited) {
+        if (!sources.has(id)) errors.push(`${name}: ${id} is not in the source registry`);
+      }
+      if ((d.kind === 'cross-rhythm' || d.kind === 'hemiola') && !d.ratio) {
+        errors.push(`${name}: a ${d.kind} needs its ratio`);
       }
     }
   }

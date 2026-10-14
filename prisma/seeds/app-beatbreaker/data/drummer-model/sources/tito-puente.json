@@ -1,0 +1,20 @@
+[
+  {
+    "id": "src:puente-pas-hall-of-fame",
+    "type": "biography",
+    "title": "Percussive Arts Society Hall of Fame: Tito Puente",
+    "url": "https://pas.org/?p=7879",
+    "reliability": 0.85,
+    "accessed": "2026-10-14",
+    "notes": "His words: \"Clave — very important\"; \"The clave doesn't change; the feeling changes.\" Wrote the clave at the bottom of his scores."
+  },
+  {
+    "id": "src:puente-jazz-com",
+    "type": "encyclopedia",
+    "title": "Puente, Tito (jazz.com encyclopedia)",
+    "url": "https://jazz.com/encyclopedia/puente-tito-ernesto-antonio-jr",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "The 1942 Machito Decca sides: cáscara on the timbales with bass drum and cymbals to \"kick\" the arrangement."
+  }
+]

@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:changuito",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.45,
     "created": "2026-10-11",
@@ -265,7 +265,21 @@
       "linear_playing": 0.6,
       "ostinato_usage": 0.9,
       "polyrhythm_usage": 0.8,
-      "odd_meter_fluency": 0.3
+      "odd_meter_fluency": 0.3,
+      "devices": [
+        {
+          "kind": "displacement",
+          "where": ["groove"],
+          "description": "In songo he moves parts off the beat inside the clave: the hands displaced on timbales and congas, and the kick taken off the downbeat onto the bombo.",
+          "examples": ["Sandunguera"],
+          "pattern_ids": ["pattern:changuito-songo-archetype"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:kosamusic-changuito", "src:changuito-timba-moore"],
+            "note": "KoSA: the technical displacement of hands sealed a distinctive touch (and names Sandunguera). Kevin Moore (timba.com): his most significant change was moving the kick from the downbeat to the bombos."
+          }
+        }
+      ]
     },
     "voice_language": {
       "percussion": "Timbales, cha-cha and bongó bells, woodblocks, electronic pads, cymbals.",

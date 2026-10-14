@@ -10,7 +10,7 @@
 
 import { z } from 'zod';
 
-import { CONFIDENCES, NODE_KINDS } from '@/lib/app/lineage/types';
+import { CONFIDENCES, DEVICE_KINDS, DEVICE_PLACES, NODE_KINDS } from '@/lib/app/lineage/types';
 
 const id = z
   .string()
@@ -20,6 +20,26 @@ const id = z
 const drummerId = z.string().regex(/^drummer:[a-z0-9][a-z0-9-]*$/);
 
 const evidence = z.looseObject({ confidence: z.enum(CONFIDENCES).optional() });
+
+/**
+ * A rhythmic device (schema 1.5). Its evidence is optional here so that a
+ * device citing nothing reaches `checkCorpus`, which names it, rather than
+ * failing the parse.
+ */
+export const deviceSchema = z.looseObject({
+  kind: z.enum(DEVICE_KINDS),
+  ratio: z
+    .string()
+    .regex(/^[1-9][0-9]?:[1-9][0-9]?$/)
+    .optional(),
+  where: z.array(z.enum(DEVICE_PLACES)).optional(),
+  description: z.string().min(1),
+  examples: z.array(z.string().min(1)).optional(),
+  evidence: z
+    .looseObject({ confidence: z.enum(CONFIDENCES).optional(), source_ids: z.array(id).optional() })
+    .optional(),
+});
+export type DeviceRecord = z.infer<typeof deviceSchema>;
 
 const yearRange = z.looseObject({
   from: z.number().int().optional(),
@@ -49,6 +69,18 @@ export const drummerRecordSchema = z.looseObject({
   style_profile: z.looseObject({
     genres: z.array(z.looseObject({ style_id: id.optional(), weight: z.number().optional() })),
   }),
+  technique_profile: z
+    .looseObject({
+      coordination: z
+        .looseObject({
+          devices: z.array(deviceSchema).optional(),
+          devices_search: z
+            .looseObject({ date: z.string(), searched: z.array(z.string()) })
+            .optional(),
+        })
+        .optional(),
+    })
+    .optional(),
   relationships: z.array(relationshipSchema).optional(),
   key_recording_ids: z.array(id).optional(),
   beatbreaker: z
@@ -80,7 +112,12 @@ export const styleRecordSchema = z.looseObject({
 });
 export type StyleRecord = z.infer<typeof styleRecordSchema>;
 
-export const sourceRecordSchema = z.looseObject({ id, type: z.string(), title: z.string() });
+export const sourceRecordSchema = z.looseObject({
+  id,
+  type: z.string(),
+  title: z.string(),
+  url: z.string().optional(),
+});
 export type SourceRecord = z.infer<typeof sourceRecordSchema>;
 
 /** Every record in the model, parsed. `file` is where each came from, for messages. */

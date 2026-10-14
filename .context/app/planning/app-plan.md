@@ -4413,6 +4413,50 @@ reconciling it against the tree changed from the plan:
   count toggle and the layer names are held by component tests over the real
   Studio; every entry's streams, playability and hands by `polyrhythms.test.ts`.
 
+**12-b built, 2026-10-14 (branch `phase-12-b-polyrhythm-records`).** What
+reconciling it against the tree, and the sourcing pass, changed from the plan:
+
+- **Devices carry `evidence`, not a flat `confidence` and `sources`.** That is
+  how every other claim in the model is written, so the reference check
+  resolves a device's `source_ids` with no new rule. `checkCorpus` adds two:
+  a device must cite a source, and a cross-rhythm or hemiola must give its
+  ratio. A drummer with no device gets `devices_search` (date, what was read,
+  leads), and `model.test.ts` holds every record to one or the other.
+- **The sources are resolved onto the node.** The registry is not in the
+  database, so the builder looks each device's sources up and the seed writes
+  them to a new `LineageNode.devices` JSON column. The map, the page and
+  BeatBuddy all read that.
+- **Each drummer's page lists their devices with linked sources.** The plan
+  had only the map filter and BeatBuddy; the page is where a drummer can
+  check the source for themselves.
+- **The map's filter is "Plays".** It dims rather than hides, so a player's
+  place in the lineage stays visible, and it offers only the kinds some
+  record names.
+- **Tony Williams' threes are polymeter.** Goodman (read in full) has them
+  as a 3/4 cycle over 4/4, on _Vertigo_ and _Teo's Bag_, not on _So What_ and
+  _Joshua_ as his record said. That is polymeter by plan §3. The true
+  cross-rhythm is his 2:3 dotted quarters on _Vertigo_. BeatBuddy still names
+  him for "threes over the bar", with Goodman as the source. VOA 2012 is a
+  reputation line and is not used.
+- **Fewer sourced polyrhythms than §6 assumed.** Not sourced, and left as
+  leads: Elvin's 3:4, Baker's 3:2, Mitchell's 2:3, Lenny White's groupings.
+  Copeland's displacement is the kick moved off the 1, not the backbeat moved
+  by an eighth. The full table is in
+  [`drumming-research.md` § AC](./drumming-research.md#ac-polyrhythm-the-devices-sourced-2026-10-14).
+  12-c writes vocabularies only from what § AC sources.
+- **BeatBuddy's instructions gained one paragraph** for device questions;
+  the previous text joins `SUPERSEDED_BEATBUDDY_INSTRUCTIONS`. `find_drummers`'
+  full list grows from about 8.5 KB to 13 KB with the device lines, each held
+  to its description's first sentence; `get_drummer` has the rest.
+- **Review round (code review, 10 findings, all addressed):** a ratio is one
+  search word (3:2 is not 2:3); a device's source ids must be sources, not
+  just ids that resolve; the traced person stays lit under "Plays"; only an
+  `http(s)` source is a link; a stored device that no longer reads is logged;
+  places are searchable; source keys are unique; `isOneOf` moved to
+  `types.ts` so the client map can share it.
+- **Not looked at in a browser** (the owner is on Arc). The map filter and
+  the page section are held by component tests.
+
 ---
 
 ## 5. Ergonomic review — method and first findings

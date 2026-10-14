@@ -152,5 +152,32 @@
     "reliability": 0.7,
     "accessed": "2026-10-11",
     "notes": "Porcaro describes the Rosanna shuffle as Purdie shuffle plus Bonham's Fool in the Rain feel plus Bo Diddley."
+  },
+  {
+    "id": "src:bonham-mehldau-rock-hemiolas",
+    "type": "analysis",
+    "title": "Brad Mehldau, Rock Hemiolas (essay)",
+    "url": "https://www.bradmehldaumusic.com/rock-hemiolas",
+    "reliability": 0.8,
+    "accessed": "2026-10-14",
+    "notes": "Kashmir: \"John Bonham plays a relentless rock beat in 4/4\" while the riff \"is in groups of three\"."
+  },
+  {
+    "id": "src:bonham-guitar-player-kashmir",
+    "type": "magazine",
+    "title": "Phil Weller, Jimmy Page on the writing of Kashmir (Guitar Player, 2025)",
+    "url": "https://guitarplayer.com/guitarists/jimmy-page-on-the-writing-of-kashmir",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "The riff in 3/4 with Bonham in steady 4/4 (the writer's words, with Page quoted on writing it with Bonham)."
+  },
+  {
+    "id": "src:bonham-louder-black-dog",
+    "type": "interview",
+    "title": "Niall Doherty and Fraser Lewry, How Led Zeppelin created the rhythmic swing of Black Dog (Louder)",
+    "url": "https://www.loudersound.com/features/black-dog-led-zeppelin-riff",
+    "reliability": 0.8,
+    "accessed": "2026-10-14",
+    "notes": "John Paul Jones (from Classic Rock): \"I told Bonzo he had to keep playing four-to-the-bar all the way through Black Dog.\""
   }
 ]

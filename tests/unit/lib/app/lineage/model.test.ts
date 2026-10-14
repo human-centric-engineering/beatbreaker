@@ -62,11 +62,35 @@ describe('the drummer model', () => {
     expect(failures).toEqual([]);
   });
 
-  it('holds every record at schema 1.4.0', () => {
+  it('holds every record at schema 1.5.0', () => {
     const behind = corpus.drummers
-      .filter(({ record }) => record.meta.schema_version !== '1.4.0')
+      .filter(({ record }) => record.meta.schema_version !== '1.5.0')
       .map(({ file }) => file);
     expect(behind).toEqual([]);
+  });
+
+  /* D56: no drummer is left without a device before a transcription-level
+     search. A record names its devices, or the search that found none. */
+  it('gives every drummer a sourced device or a recorded search for one', () => {
+    const unsearched = corpus.drummers
+      .filter(({ record }) => {
+        const c = record.technique_profile?.coordination;
+        return (c?.devices ?? []).length === 0 && c?.devices_search === undefined;
+      })
+      .map(({ file }) => file);
+    expect(unsearched).toEqual([]);
+  });
+
+  /* Goodman's thesis has the threes as a 3/4 cycle over 4/4: a polymeter,
+     named as one, with the dotted-quarter 2:3 under it as the cross-rhythm. */
+  it('names Tony Williams for threes over the bar line, with a source', () => {
+    const tony = buildLineage(corpus).nodes.find((n) => n.id === 'drummer:tony-williams');
+    const threes = tony?.devices.find((d) => /threes over the bar/i.test(d.description));
+    expect(threes?.kind).toBe('polymeter');
+    expect(threes?.sources.map((s) => s.title)).toContainEqual(expect.stringMatching(/Goodman/));
+    expect(tony?.devices).toContainEqual(
+      expect.objectContaining({ kind: 'cross-rhythm', ratio: '2:3' })
+    );
   });
 
   it('breaks none of the rules a schema cannot state', () => {

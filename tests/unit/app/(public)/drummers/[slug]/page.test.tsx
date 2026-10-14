@@ -28,7 +28,7 @@ vi.mock('next/navigation', () => ({
 import DrummerPage, { generateMetadata } from '@/app/(public)/drummers/[slug]/page';
 import { getLineageProfile, type LineageProfile } from '@/lib/app/lineage/data';
 import type { LineageNode } from '@/lib/app/lineage/types';
-import { lineageEdge, lineageNode } from '@/tests/helpers/lineage-graph';
+import { lineageDevice, lineageEdge, lineageNode } from '@/tests/helpers/lineage-graph';
 
 const params = (slug: string) => ({ params: Promise.resolve({ slug }) });
 
@@ -339,6 +339,96 @@ describe('a named drummer’s record', () => {
     vi.mocked(getLineageProfile).mockResolvedValue(profile({ node: BONHAM, record }));
     await show('john-bonham');
     expect(screen.getAllByText('John Bonham')).toHaveLength(1); // the heading only
+  });
+});
+
+describe('rhythmic devices (12-b)', () => {
+  it('lists each device with its ratio, where, confidence, examples and linked sources', async () => {
+    vi.mocked(getLineageProfile).mockResolvedValue(
+      profile({
+        node: {
+          ...BONHAM,
+          devices: [
+            lineageDevice('cross-rhythm', {
+              ratio: '3:2',
+              where: ['fills', 'solos'],
+              description: 'Threes over the bar line.',
+              examples: ['Moby Dick'],
+              confidence: 'likely',
+              sources: [
+                { title: 'A transcription', url: 'https://example.com/t' },
+                { title: 'A book', url: null },
+              ],
+            }),
+          ],
+        },
+        record: bonhamRecord(),
+      })
+    );
+    await show('john-bonham');
+
+    const section = screen.getByRole('heading', { name: 'Rhythmic devices' }).closest('section')!;
+    expect(section.textContent).toContain('Cross-rhythm 3:2 · fills, solos · Likely');
+    expect(section.textContent).toContain('Threes over the bar line.');
+    expect(section.textContent).toContain('Heard on: Moby Dick');
+    expect(section.textContent).toContain('Sources: A transcription; A book');
+    expect(screen.getByRole('link', { name: 'A transcription' }).getAttribute('href')).toBe(
+      'https://example.com/t'
+    );
+    expect(screen.queryByRole('link', { name: 'A book' })).toBeNull();
+  });
+
+  it('never links a source whose address is not a web address', async () => {
+    vi.mocked(getLineageProfile).mockResolvedValue(
+      profile({
+        node: {
+          ...BONHAM,
+          devices: [
+            lineageDevice('grouping', {
+              sources: [{ title: 'Bad', url: 'javascript:alert(1)' }],
+            }),
+          ],
+        },
+        record: bonhamRecord(),
+      })
+    );
+    await show('john-bonham');
+    expect(screen.getByText(/Source:/).textContent).toContain('Bad');
+    expect(screen.queryByRole('link', { name: 'Bad' })).toBeNull();
+  });
+
+  it('links only a web address, and shows two sources of one title both', async () => {
+    vi.mocked(getLineageProfile).mockResolvedValue(
+      profile({
+        node: {
+          ...BONHAM,
+          devices: [
+            lineageDevice('grouping', {
+              sources: [
+                { title: 'Same title', url: 'https://example.com/a' },
+                { title: 'Same title', url: 'https://example.com/b' },
+                { title: 'In the repo', url: '.context/app/planning/drumming-research.md' },
+              ],
+            }),
+          ],
+        },
+        record: bonhamRecord(),
+      })
+    );
+    await show('john-bonham');
+    expect(
+      screen.getAllByRole('link', { name: 'Same title' }).map((a) => a.getAttribute('href'))
+    ).toEqual(['https://example.com/a', 'https://example.com/b']);
+    expect(screen.getByText(/In the repo/)).toBeDefined();
+    expect(screen.queryByRole('link', { name: 'In the repo' })).toBeNull();
+  });
+
+  it('has no section for a drummer whose record names none', async () => {
+    vi.mocked(getLineageProfile).mockResolvedValue(
+      profile({ node: BONHAM, record: bonhamRecord() })
+    );
+    await show('john-bonham');
+    expect(screen.queryByRole('heading', { name: 'Rhythmic devices' })).toBeNull();
   });
 });
 

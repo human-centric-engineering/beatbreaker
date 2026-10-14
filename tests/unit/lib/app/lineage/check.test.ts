@@ -148,6 +148,86 @@ describe('checkCorpus', () => {
       'drummers/0.json: relationship type apprenticed_to has no entry in RELATIONSHIPS',
     ]);
   });
+
+  describe('devices', () => {
+    const source = { id: 'src:s', type: 'transcription', title: 'A transcription' };
+    const withDevice = (device: Record<string, unknown>) =>
+      corpusOf({
+        drummers: [drummer('a', { technique_profile: { coordination: { devices: [device] } } })],
+        sources: [source],
+      });
+
+    it('passes a device that cites a source', () => {
+      const c = withDevice({
+        kind: 'cross-rhythm',
+        ratio: '3:2',
+        description: 'Threes over the bar line.',
+        evidence: { confidence: 'likely', source_ids: ['src:s'] },
+      });
+      expect(checkCorpus(c)).toEqual([]);
+    });
+
+    it('refuses a device that cites no source, with or without evidence', () => {
+      const bare = withDevice({ kind: 'grouping', description: 'Threes of 16ths.' });
+      const empty = withDevice({
+        kind: 'grouping',
+        description: 'Threes of 16ths.',
+        evidence: { confidence: 'likely', source_ids: [] },
+      });
+      expect(checkCorpus(bare)).toEqual(['drummers/0.json devices[0] (grouping): cites no source']);
+      expect(checkCorpus(empty)).toEqual([
+        'drummers/0.json devices[0] (grouping): cites no source',
+      ]);
+    });
+
+    it('refuses a source that is not in the registry', () => {
+      const c = withDevice({
+        kind: 'displacement',
+        description: 'The backbeat moved by an eighth.',
+        evidence: { confidence: 'likely', source_ids: ['src:nowhere'] },
+      });
+      expect(checkCorpus(c)).toEqual([
+        'drummers/0.json: unresolved reference src:nowhere',
+        'drummers/0.json devices[0] (displacement): src:nowhere is not in the source registry',
+      ]);
+    });
+
+    it('refuses a source id that resolves to something other than a source', () => {
+      const c = corpusOf({
+        drummers: [
+          drummer('a', {
+            vocabulary: { patterns: [pattern()] },
+            technique_profile: {
+              coordination: {
+                devices: [
+                  {
+                    kind: 'grouping',
+                    description: 'Threes of 16ths.',
+                    evidence: { confidence: 'likely', source_ids: ['src:s', 'pattern:p'] },
+                  },
+                ],
+              },
+            },
+          }),
+        ],
+        sources: [source],
+      });
+      expect(checkCorpus(c)).toEqual([
+        'drummers/0.json devices[0] (grouping): pattern:p is not in the source registry',
+      ]);
+    });
+
+    it('refuses a cross-rhythm or a hemiola without its ratio', () => {
+      const c = withDevice({
+        kind: 'hemiola',
+        description: 'Crashes every dotted quarter in a waltz.',
+        evidence: { confidence: 'likely', source_ids: ['src:s'] },
+      });
+      expect(checkCorpus(c)).toEqual([
+        'drummers/0.json devices[0] (hemiola): a hemiola needs its ratio',
+      ]);
+    });
+  });
 });
 
 describe('checkGraph', () => {

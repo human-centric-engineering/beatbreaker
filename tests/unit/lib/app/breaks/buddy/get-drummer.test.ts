@@ -85,6 +85,16 @@ describe('get_drummer', () => {
     expect(roach).toMatchObject({ modelled: false, record: null, style: null });
     expect(roach.cite).toMatch(/no record of Max Roach/);
     expect([...roach.learnedFrom, ...roach.passedOnTo, ...roach.around].length).toBeGreaterThan(0);
+    expect(roach.devices).toEqual([]);
+  });
+
+  it('gives the rhythmic devices with their sources, to name with the answer (12-b)', async () => {
+    const { devices } = dataOf(await get('Tony Williams'));
+    const threes = devices.find((d) => /threes over the bar/i.test(d.description));
+    expect(threes?.kind).toBe('polymeter');
+    expect(threes?.sources.length).toBeGreaterThan(0);
+    expect(threes?.sources.every((s) => s.title.length > 0)).toBe(true);
+    expect(devices.find((d) => d.kind === 'cross-rhythm')?.ratio).toBe('2:3');
   });
 
   it('refuses a genre, which has no page, as it refuses a name nobody has', async () => {

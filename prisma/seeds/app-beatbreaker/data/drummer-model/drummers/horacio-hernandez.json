@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:horacio-hernandez",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.45,
     "created": "2026-10-11",
@@ -257,7 +257,47 @@
       "odd_meter_fluency": 0.7,
       "foot_ostinato_usage": 1.0,
       "double_bass": 0.3,
-      "notes": "Four-way independence is his defining skill."
+      "notes": "Four-way independence is his defining skill.",
+      "devices": [
+        {
+          "kind": "timeline",
+          "where": ["groove", "solos"],
+          "description": "He plays the clave with his left foot on a pedal cowbell, jam block or hi-hat, so the guide pattern runs under everything his hands and right foot do.",
+          "examples": ["Our Family", "Rumbatella"],
+          "pattern_ids": [
+            "pattern:hernandez-songo-clave-archetype",
+            "pattern:hernandez-cascara-independence-archetype"
+          ],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:pearl-hernandez",
+              "src:sfjazz-hernandez",
+              "src:horacio-hernandez-tigerbill-mdfest"
+            ],
+            "note": "Pearl: the clave with his left foot on the hi-hat or the cowbell with the foot pedal. Tiger Bill: 'Our Family' opens with his trademark left-foot clave."
+          }
+        },
+        {
+          "kind": "ostinato-independence",
+          "where": ["groove", "solos"],
+          "description": "Four-way independence: clave on the left foot, the bass tumbao on the kick, and bell or cascara plus conga and timbale parts in the hands, each limb its own part.",
+          "examples": ["Our Family"],
+          "pattern_ids": [
+            "pattern:hernandez-songo-clave-archetype",
+            "pattern:hernandez-cascara-independence-archetype"
+          ],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:pearl-hernandez",
+              "src:drummercafe-hernandez",
+              "src:horacio-hernandez-tigerbill-cic"
+            ],
+            "note": "Pearl: left-foot clave while the right foot supports the bass line. Tiger Bill on Conversations in Clave: three- and four-limb ostinato patterns."
+          }
+        }
+      ]
     },
     "voice_language": {
       "hihat": "Often a clave or ostinato voice played by foot.",

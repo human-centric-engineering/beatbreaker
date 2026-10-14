@@ -10,7 +10,7 @@ export function drummer(
   extra: Record<string, unknown> = {}
 ): Record<string, unknown> {
   return {
-    meta: { id: `drummer:${slug}`, schema_version: '1.4.0', record_status: 'draft' },
+    meta: { id: `drummer:${slug}`, schema_version: '1.5.0', record_status: 'draft' },
     identity: { name: slug.replace(/-/g, ' '), active: { from: 1960 } },
     style_profile: { genres: [{ style_id: 'style:funk', weight: 1 }] },
     feel_profile: {},

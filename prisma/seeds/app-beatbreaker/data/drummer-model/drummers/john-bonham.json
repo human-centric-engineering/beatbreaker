@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:john-bonham",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.55,
     "created": "2026-10-11",
@@ -252,7 +252,41 @@
       "linear_playing": 0.6,
       "ostinato_usage": 0.4,
       "polyrhythm_usage": 0.4,
-      "odd_meter_fluency": 0.5
+      "odd_meter_fluency": 0.5,
+      "devices": [
+        {
+          "kind": "polymeter",
+          "where": ["groove"],
+          "description": "He holds a plain 4/4 while the riff runs in groups of three over it, so the two only line up every few bars. The three is in the riff; his job is the steady 4.",
+          "examples": ["Kashmir (Physical Graffiti, 1975)"],
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:bonham-mehldau-rock-hemiolas", "src:bonham-guitar-player-kashmir"]
+          }
+        },
+        {
+          "kind": "polymeter",
+          "where": ["groove"],
+          "description": "Told to keep four to the bar straight through a riff that turns round in odd lengths, so the riff falls across his bar lines and comes back to the beat.",
+          "examples": ["Black Dog (Led Zeppelin IV, 1971)"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:bonham-louder-black-dog"],
+            "note": "John Paul Jones's own account."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Brad Mehldau, Rock Hemiolas",
+          "Guitar Player (2025): Jimmy Page on the writing of Kashmir",
+          "Wikipedia: Kashmir (song)",
+          "Louder: the rhythmic swing of Black Dog (John Paul Jones)",
+          "Searches for Bonham transcriptions of a cross-rhythm in his own part"
+        ],
+        "note": "Two polymeters, in both of which he holds the 4. The Bonham triplet is a sextuplet lick, not a cross-rhythm; The Crunge, The Ocean and Four Sticks are odd meters."
+      }
     },
     "voice_language": {
       "kick": "Huge, often doubled, tied to the riff.",

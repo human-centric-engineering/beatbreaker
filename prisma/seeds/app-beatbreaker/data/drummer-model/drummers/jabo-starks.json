@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:jabo-starks",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.5,
     "created": "2026-10-11",
@@ -260,7 +260,28 @@
       "linear_playing": 0.2,
       "ostinato_usage": 0.8,
       "polyrhythm_usage": 0.2,
-      "odd_meter_fluency": 0.1
+      "odd_meter_fluency": 0.1,
+      "devices": [
+        {
+          "kind": "ostinato-independence",
+          "where": ["groove"],
+          "description": "The right hand plays a jazz ride pattern turned into funk sixteenths while the left hand plays the ghost notes a jazz drummer would comp under a ride, with the backbeat on top.",
+          "examples": ["Soul Power (1971)", "Sex Machine (1970)"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:stubblefield-moore-five-funk-beats"],
+            "note": "Moore's notation; Jabo confirmed the ride-pattern idea to him."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Stanton Moore, Five Funk Beats You Should Know (2021)",
+          "Modern Drummer, September 1999 Stubblefield/Starks interview (no copy found)"
+        ],
+        "note": "An ostinato found. His light sixteenth swing is a feel, not a second pulse."
+      }
     },
     "voice_language": {
       "hihat": "Swinging, steady, the main motor.",

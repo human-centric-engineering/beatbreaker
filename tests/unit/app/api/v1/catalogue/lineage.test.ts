@@ -29,6 +29,7 @@ const PURDIE: LineageNode = {
   genres: ['style:rnb-soul'],
   tags: ['shuffle'],
   summary: 'Session drummer.',
+  devices: [],
 };
 const PORCARO: LineageNode = {
   ...PURDIE,
