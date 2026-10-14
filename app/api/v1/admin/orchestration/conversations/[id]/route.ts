@@ -148,14 +148,13 @@ export const DELETE = withAdminAuth<{ id: string }>(async (request, session, { p
     throw new NotFoundError(`Conversation ${id} not found`);
   }
 
-  const ownedOrSystem = conversationVisibilityWhere(session, { excludeShared: true });
-  const existing = await prisma.aiConversation.findUnique({
-    where: { id, AND: [ownedOrSystem] },
+  // Narrowed to the rows this admin may destroy, and returning the title the
+  // audit row needs. A row deleted or reassigned since the check above misses
+  // and throws P2025, which the shared handler renders as 404.
+  const existing = await prisma.aiConversation.delete({
+    where: { id, AND: [conversationVisibilityWhere(session, { excludeShared: true })] },
     select: { title: true },
   });
-  if (!existing) throw new NotFoundError(`Conversation ${id} not found`);
-
-  await prisma.aiConversation.delete({ where: { id, AND: [ownedOrSystem] } });
 
   // Destroying an inbound thread destroys a third party's messages. That is
   // often the correct answer to their erasure request, but it is never
