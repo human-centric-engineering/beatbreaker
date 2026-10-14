@@ -344,9 +344,10 @@ answer, not a replacement for a boundary core has already decided.
 **The marker cannot see past the route.** The `ownership` declaration below is
 about the handler; a route that declares `{ decidedBy: 'nothing' }` and calls a
 library function that reads every row is exactly as leaky as it was before. The
-standing example is `lib/orchestration/backup/exporter.ts:93`, reached by
-`GET /api/v1/admin/orchestration/backup/export`, which reads every webhook
-subscription's `url` and `emailAddress` with no owner filter. What changed is
+standing example is the webhook-subscription read in
+`lib/orchestration/backup/exporter.ts` (`readConfig`), reached by
+`GET /api/v1/admin/orchestration/backup/export`, which reads every
+subscription's `url` and `emailAddress` in the org with no owner filter. What changed is
 that the route now has to say so in its own source, which is the difference
 between an unreviewed omission and a reviewed decision. Closing it properly
 needs a control at the query, which is the tenancy chokepoint in
@@ -857,6 +858,45 @@ owner predicate belongs with it. Until then:
 - Prefer `{ decidedBy: 'policy' }` to `{ decidedBy: 'nothing' }` when the route
   reads anything owned. `'nothing'` is a claim about the whole call tree beneath
   the handler, and it is the one the marker cannot check.
+
+### The subject context and the owner classification (§115)
+
+§115 moves the owner check to the query. Two inputs land first (t-800), and
+**nothing enforces them yet** — t-801 adds the check:
+
+- **`lib/auth/subject-context.ts` — whose rows this call stack may read.** Both
+  guards run every handler inside `runAsSubject()`, carrying the principal they
+  built. `getSubjectReadScope()` answers `none` (no guard entered one), `subject`
+  with the policy's `SubjectFilter` (`{ userId }` narrowed, `{}` not), or
+  `admitted`. The policy is asked lazily and at most once per request (a failed
+  answer is not kept — the next read asks again); a `'policy'` route hands over
+  the answer it already has, so `session.subjectFilter` and the data layer
+  cannot disagree. The scope follows the async subtree, so a
+  streamed body or an interactive `$transaction` keeps it and a maintenance job
+  never has one.
+- **Who enters no subject, on purpose.** Background jobs, and the credential
+  routes that never consulted the policy — MCP, embed, webhook and inbound
+  triggers, approval tokens. Their credential is not a person the policy
+  narrows, so "no subject" (not narrowed) is the honest answer there.
+- **`runAcrossOwners(reason, fn)` — the deliberate crossing.** For code that
+  must read other members' personal rows for a narrowed caller (an org-wide
+  aggregate, an org backup). Logs the reason at info on every entry, like
+  `runAsSystem`; lifts only the owner check, never the org wall. Outside a
+  subject it does nothing.
+- **`lib/db/owner-classification.ts` — which models are personal, and how the
+  owner is reached.** A user column (`AiConversation.userId`,
+  `AiWebhookSubscription.createdBy`) or a relation to a personal parent
+  (`AiMessage` → `conversation`). A model is personal because the routes already
+  scope it to its owner — the access helpers above are the evidence — so agents,
+  workflows, knowledge and cost logs are `not-personal`, each with its reason.
+  `tests/unit/lib/db/owner-classification.test.ts` parses the core schema and
+  fails on an unclassified model linked to a user or to a personal model. Fork
+  schema files are not covered until §115 t-804 gives forks a seam.
+
+The webhook-subscription read above is personal by this classification, so
+when its model is enforced the exporter has to name its crossing with
+`runAcrossOwners` — an org backup is a deliberate read of every admin's
+subscriptions, and saying so is the point.
 
 ---
 

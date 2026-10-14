@@ -1,0 +1,311 @@
+/**
+ * Owner classification — which models are private to one person inside an org
+ * (§115 t-800).
+ *
+ * The org wall (§107) is enforced by Postgres. The wall *inside* an org — an
+ * org ADMIN must not read a MEMBER's conversation — is enforced today route by
+ * route (`lib/orchestration/access/*`, the guards' ownership declarations), and
+ * §115's data-layer assertion (t-801) needs to know which models it guards
+ * and how each one's owner is reached. This is that list, and nothing else
+ * decides it.
+ *
+ * Every model with a foreign key to `User`, and every model with a foreign key
+ * to a personal model, is exactly one of:
+ *
+ *   • **personal** — a row is its owner's. Reached either by a column on the
+ *     row (`userId` → User) or `through` a relation to a personal parent (an
+ *     `AiMessage` is its conversation's). A model is personal here **because
+ *     the platform already scopes its reads to the owner**: the route layer's
+ *     access helpers and ownership declarations are the evidence, and the parity
+ *     test (t-801) holds the two together. Classifying something personal that
+ *     the routes treat as shared would make the data layer refuse reads the
+ *     product means to allow.
+ *   • **not-personal** — the user link records who *did* something (authored
+ *     config, incurred a cost, holds a membership), not who the row is
+ *     private to. Carries the reason, because "why is this not narrowed?" is the
+ *     question a reviewer asks.
+ *
+ * `tests/unit/lib/db/owner-classification.test.ts` parses `prisma/schema` and
+ * fails naming any model that has such a foreign key and is not listed here,
+ * or that is listed with a path the schema does not have. **Never delete a row
+ * to make it pass** — an unlisted personal model is one the data layer will
+ * not guard. A fork's own models are not covered here yet; the seam for them
+ * is §115 t-804.
+ *
+ * **Platform rows (§116) are outside this list by construction.** The rows
+ * every org may read — `isSystem` / `isTemplate` / `scope = 'system'` — all sit
+ * on config models, none of which is personal; the test asserts no personal
+ * model carries those columns, so the owner check never has to admit them.
+ *
+ * Read-only data: nothing enforces it until t-801.
+ *
+ * @see lib/auth/subject-context.ts — whose rows the current caller may read
+ * @see .context/auth/authorization.md — "Owner classification"
+ */
+import type { UnattributedReadKind } from '@/lib/auth/orphan-reads';
+
+/** How a personal row's owner is reached. */
+export type OwnerPath =
+  /** A column on the row itself, holding the owning user's id. */
+  | { column: string }
+  /**
+   * A required-or-optional relation to a personal parent; the row is the
+   * parent's owner's. `field` is the relation field on this model.
+   */
+  | { through: { field: string; parent: string } };
+
+export type OwnerClassification =
+  | {
+      kind: 'personal';
+      owner: OwnerPath;
+      /**
+       * When the owner can be missing (a null column, or a null relation), the
+       * ownerless-read kind that decides whether a narrowed caller may read
+       * such a row — `session.unattributedReads[kind]`. Absent means an ownerless
+       * row is nobody's to read but an unnarrowed caller.
+       */
+      ownerless?: UnattributedReadKind;
+      /**
+       * Other people's rows a narrowed caller may still read, by the product's
+       * own rule. `'active-share'`: a conversation its owner shared, while the
+       * share is live (`conversationVisibilityWhere`'s third arm).
+       */
+      alsoVisible?: readonly 'active-share'[];
+    }
+  | { kind: 'not-personal'; because: string };
+
+/**
+ * The classification. Keyed by Prisma model name; grouped by schema file.
+ */
+export const OWNER_CLASSIFICATION = {
+  // ── auth / tenancy ────────────────────────────────────────────────────────
+  Session: {
+    kind: 'not-personal',
+    because:
+      'Read by the auth layer to establish who the caller is — before any subject exists to narrow by.',
+  },
+  Account: {
+    kind: 'not-personal',
+    because: 'Credential row read by the auth layer before any subject exists.',
+  },
+  OrgMembership: {
+    kind: 'not-personal',
+    because:
+      'Decides which org a request acts for; an org roster is read by its admins (canAdminister on the org), not owner-scoped.',
+  },
+  AiApiKey: {
+    kind: 'personal',
+    owner: { column: 'userId' },
+  },
+
+  // ── platform ──────────────────────────────────────────────────────────────
+  FeatureFlag: {
+    kind: 'not-personal',
+    because: 'Global config shared by every org; createdBy is authorship.',
+  },
+  DataErasureReceipt: {
+    kind: 'not-personal',
+    because:
+      'Compliance record of an erasure, read by those who audit; the subject no longer exists to own it.',
+  },
+
+  // ── conversations ─────────────────────────────────────────────────────────
+  AiConversation: {
+    kind: 'personal',
+    owner: { column: 'userId' },
+    ownerless: 'conversation',
+    alsoVisible: ['active-share'],
+  },
+  AiMessage: {
+    kind: 'personal',
+    owner: { through: { field: 'conversation', parent: 'AiConversation' } },
+  },
+  AiMessageEmbedding: {
+    kind: 'personal',
+    owner: { through: { field: 'message', parent: 'AiMessage' } },
+  },
+  AiConversationShare: {
+    kind: 'not-personal',
+    because:
+      'An access grant read by its token to admit a recipient; the conversation it names is what is personal, and it is checked there.',
+  },
+  AiOutboundMessage: {
+    kind: 'not-personal',
+    because:
+      'Channel delivery outbox, read by the dispatcher acting for the org — never listed to a person.',
+  },
+  AiUserMemory: {
+    kind: 'personal',
+    owner: { column: 'userId' },
+  },
+  AiEventHook: {
+    kind: 'not-personal',
+    because:
+      'Org config, admin-global: every admin reads every hook (webhook-delivery-access.ts). createdBy is authorship.',
+  },
+
+  // ── agents ────────────────────────────────────────────────────────────────
+  AiAgent: {
+    kind: 'not-personal',
+    because: 'Org config shared by the org; createdBy is authorship.',
+  },
+  AiAgentProfile: {
+    kind: 'not-personal',
+    because: 'Global config shared by every org; createdBy is authorship.',
+  },
+  AiAgentInviteToken: {
+    kind: 'not-personal',
+    because: "Agent access grant managed by the agent's admins; createdBy is authorship.",
+  },
+  AiAgentVersion: {
+    kind: 'not-personal',
+    because: "Snapshot of org config (an agent's history); createdBy is authorship.",
+  },
+  AiAgentEmbedToken: {
+    kind: 'not-personal',
+    because: "Embed credential managed by the agent's admins; createdBy is authorship.",
+  },
+
+  // ── evaluation ────────────────────────────────────────────────────────────
+  AiEvaluationSession: {
+    kind: 'personal',
+    owner: { column: 'userId' },
+  },
+  AiEvaluationLog: {
+    kind: 'personal',
+    owner: { through: { field: 'session', parent: 'AiEvaluationSession' } },
+  },
+  AiDataset: {
+    kind: 'personal',
+    owner: { column: 'userId' },
+    ownerless: 'dataset',
+  },
+  AiDatasetCase: {
+    kind: 'personal',
+    owner: { through: { field: 'dataset', parent: 'AiDataset' } },
+  },
+  AiEvaluationRun: {
+    kind: 'personal',
+    owner: { column: 'userId' },
+  },
+  AiEvaluationCaseResult: {
+    kind: 'personal',
+    owner: { through: { field: 'run', parent: 'AiEvaluationRun' } },
+  },
+
+  // ── knowledge ─────────────────────────────────────────────────────────────
+  AiKnowledgeDocument: {
+    kind: 'not-personal',
+    because: 'Org knowledge shared through grants; uploadedBy is authorship.',
+  },
+  AiKnowledgeDocumentRevision: {
+    kind: 'not-personal',
+    because: 'History of org knowledge; actorId records who made the change.',
+  },
+  AiKnowledgeDocumentPendingChange: {
+    kind: 'not-personal',
+    because: 'A proposed change to org knowledge, reviewed by its admins; actorId is authorship.',
+  },
+
+  // ── ops ───────────────────────────────────────────────────────────────────
+  AiWebhookSubscription: {
+    kind: 'personal',
+    owner: { column: 'createdBy' },
+  },
+  AiWebhookDelivery: {
+    kind: 'personal',
+    owner: { through: { field: 'subscription', parent: 'AiWebhookSubscription' } },
+    ownerless: 'webhookDelivery',
+  },
+  AiAdminAuditLog: {
+    kind: 'not-personal',
+    because: 'Immutable audit record; userId is the actor, read by those who audit.',
+  },
+  AiExperiment: {
+    kind: 'personal',
+    owner: { column: 'createdBy' },
+    ownerless: 'experiment',
+  },
+  AiExperimentVariant: {
+    kind: 'personal',
+    owner: { through: { field: 'experiment', parent: 'AiExperiment' } },
+  },
+
+  // ── providers / cost ──────────────────────────────────────────────────────
+  AiCostLog: {
+    kind: 'not-personal',
+    because:
+      'Spend record attributing usage; read as org and install aggregates by budget enforcement and the costs pages, never listed per person.',
+  },
+  AiProviderConfig: {
+    kind: 'not-personal',
+    because: 'Global config shared by every org; createdBy is authorship.',
+  },
+  AiProviderModel: {
+    kind: 'not-personal',
+    because: 'Global config shared by every org; createdBy is authorship.',
+  },
+
+  // ── workflows ─────────────────────────────────────────────────────────────
+  AiWorkflow: {
+    kind: 'not-personal',
+    because: 'Org config shared by the org; createdBy is authorship.',
+  },
+  AiWorkflowVersion: {
+    kind: 'not-personal',
+    because: "Snapshot of org config (a workflow's history); createdBy is authorship.",
+  },
+  AiWorkflowSchedule: {
+    kind: 'not-personal',
+    because: 'Org config; createdBy is authorship.',
+  },
+  AiWorkflowTrigger: {
+    kind: 'not-personal',
+    because: 'Org config; createdBy is authorship.',
+  },
+  AiWorkflowExecution: {
+    kind: 'personal',
+    owner: { column: 'userId' },
+    ownerless: 'execution',
+  },
+  AiWorkflowStepDispatch: {
+    kind: 'not-personal',
+    because:
+      'Engine bookkeeping for an execution, read by the engine acting for the org; the execution itself is what is personal.',
+  },
+  AiWorkflowRunningStep: {
+    kind: 'not-personal',
+    because:
+      'Engine lease bookkeeping, read by the engine and the platform live-engine view; the execution itself is what is personal.',
+  },
+  AiWorkflowExecutionLeaseEvent: {
+    kind: 'not-personal',
+    because:
+      'Engine lease history, read by the engine and the platform live-engine view; the execution itself is what is personal.',
+  },
+
+  // ── mcp ───────────────────────────────────────────────────────────────────
+  McpExposedPrompt: {
+    kind: 'not-personal',
+    because: 'Global MCP config; createdBy is authorship.',
+  },
+  McpApiKey: {
+    kind: 'not-personal',
+    because:
+      'Admin-provisioned integration credential, managed by the org; createdBy is authorship.',
+  },
+} as const satisfies Record<string, OwnerClassification>;
+
+export type ClassifiedModel = keyof typeof OWNER_CLASSIFICATION;
+
+/** The classification for `model`, or `null` for a model with no owner link. */
+export function ownerClassificationOf(model: string): OwnerClassification | null {
+  return (OWNER_CLASSIFICATION as Record<string, OwnerClassification>)[model] ?? null;
+}
+
+/** Every personal model, by name. */
+export function personalModels(): string[] {
+  return Object.entries(OWNER_CLASSIFICATION as Record<string, OwnerClassification>)
+    .filter(([, c]) => c.kind === 'personal')
+    .map(([model]) => model);
+}

@@ -53,6 +53,7 @@ import {
 import { resolveUnattributedReads, type UnattributedReads } from '@/lib/auth/orphan-reads';
 import { env } from '@/lib/env';
 import { runAsOrg } from '@/lib/tenancy/context';
+import { runAsSubject } from '@/lib/auth/subject-context';
 import {
   enterApiKeyOrg,
   enterSessionOrg,
@@ -1129,10 +1130,23 @@ async function runHandler(args: {
   // literal so the accessor still satisfies the interface at construction.
   Object.defineProperty(authenticated, 'subjectFilter', { enumerable: false });
 
-  const response =
-    args.context !== undefined
-      ? await args.handler(args.request, authenticated, args.context)
-      : await args.handler(args.request, authenticated);
+  // The handler runs as this principal, so the data layer can ask whose rows it
+  // may read (§115, `lib/auth/subject-context.ts`) without the route passing
+  // anything down. Handed the filter when it was computed above, so the route
+  // and the data layer are given the same answer; asked lazily otherwise, so a
+  // `'self'` route that never touches a personal model still costs nothing.
+  const response = await runAsSubject(
+    {
+      principal: args.principal,
+      filter: filterIsUsable ? filter : undefined,
+      resolveFilter: () => subjectScope(args.principal),
+      unattributedReads,
+    },
+    async () =>
+      args.context !== undefined
+        ? await args.handler(args.request, authenticated, args.context)
+        : await args.handler(args.request, authenticated)
+  );
 
   // After the handler, not before: whether it consulted the filter is only
   // knowable once it has run. A handler that threw is not checked — no response
