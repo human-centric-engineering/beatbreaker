@@ -40,6 +40,7 @@ const edgeKinds = () =>
 const status = () => document.querySelector('[aria-live="polite"]')?.textContent;
 const tracePicker = () => screen.getByRole('combobox', { name: /^Trace a drummer/ });
 const floorPicker = () => screen.getByRole('combobox', { name: /^How sure/ });
+const playsPicker = () => screen.getByRole('combobox', { name: /^Plays/ });
 const kindBox = (name: string) => screen.getByRole('checkbox', { name });
 
 describe('the people', () => {
@@ -164,6 +165,56 @@ describe('tracing by pointing', () => {
     expect(lit('Gamma')).toBe('true');
     expect(lit('Delta')).toBe('false');
     expect(status()).toMatch(/^Beta:/);
+  });
+});
+
+describe('Plays', () => {
+  it('offers only the devices some record names, in the vocabulary’s order, after Anything', async () => {
+    const user = userEvent.setup();
+    show();
+    await user.click(playsPicker());
+    const options = [...menuOf(playsPicker()).querySelectorAll('[role="option"]')].map(
+      (o) => o.textContent
+    );
+    expect(options).toEqual(['Anything', 'Cross-rhythm', 'Groupings']);
+  });
+
+  it('picks out the drummers who play it, names them in order, and dims the rest', async () => {
+    const user = userEvent.setup();
+    show();
+    await pickOption(user, playsPicker(), 'cross-rhythm');
+
+    expect(lit('Alpha')).toBe('true');
+    expect(lit('Gamma')).toBe('true');
+    expect(lit('Beta')).toBe('false');
+    expect(lit('Echo')).toBe('false');
+    expect(status()).toBe('Cross-rhythm: Alpha, Gamma.');
+    // a link is lit only between two who both play it
+    expect(edge('influence')?.getAttribute('data-lit')).toBe('false');
+  });
+
+  it('lights a link between two players, and lets go on Anything', async () => {
+    const user = userEvent.setup();
+    show();
+    await pickOption(user, playsPicker(), 'grouping');
+    expect(edge('teacher')?.getAttribute('data-lit')).toBe('true');
+    expect(status()).toBe('Groupings: Beta, Gamma.');
+
+    await pickOption(user, playsPicker(), '');
+    expect(svg().querySelectorAll('[data-lit]')).toHaveLength(0);
+  });
+
+  it('dims anyone a trace lights who does not play it', async () => {
+    const user = userEvent.setup();
+    show();
+    await pickOption(user, playsPicker(), 'cross-rhythm');
+    await pickOption(user, tracePicker(), 'drummer:beta');
+    // Beta is traced but plays no cross-rhythm; Alpha and Gamma are both
+    expect(lit('Alpha')).toBe('true');
+    expect(lit('Gamma')).toBe('true');
+    expect(lit('Beta')).toBe('false');
+    expect(lit('Delta')).toBe('false');
+    expect(status()).toBe('Beta: learned from 1, passed on to 1.');
   });
 });
 

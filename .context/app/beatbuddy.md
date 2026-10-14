@@ -184,7 +184,15 @@ disagree.
   the record, its status and its page. The instructions say to look a drummer
   up before answering, to cite the record, to say when a claim is only likely,
   and never to say there is no record unless a tool has. The records' sources
-  are not in the tables, so the citation is the record, not its sources.
+  are not in the tables, so the citation is the record, not its sources —
+  except for a **rhythmic device** (12-b), whose sources the seed resolves
+  onto the node. `find_drummers` gives each drummer's devices one line each
+  (`cross-rhythm 3:2 (fills, solos): …`) and matches a query against them;
+  `get_drummer` returns them whole, sources included. The instructions say
+  that for "who plays threes over the bar?" BeatBuddy lists the drummers,
+  reads the ones that fit, names the device's source as well as the record,
+  and calls a device what the record calls it (only a cross-rhythm or a
+  hemiola is a polyrhythm).
 - **A comparison turn is the dearest BeatBuddy makes.** "Who plays like Purdie
   but busier?" is `find_drummers` and two `get_drummer`s: $0.10–0.14 on
   `gpt-4.1` in the live check (2026-10-13), so the seeded per-turn cap is

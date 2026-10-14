@@ -66,6 +66,7 @@ export async function seedLineage({ prisma, logger }: SeedContext, corpus: Corpu
           genres: n.genres,
           tags: n.tags,
           summary: n.summary,
+          devices: z.array(jsonObject).parse(n.devices),
           // a stub has no record: the column is left NULL
           ...(record === undefined ? {} : { record: jsonObject.parse(record) }),
         };

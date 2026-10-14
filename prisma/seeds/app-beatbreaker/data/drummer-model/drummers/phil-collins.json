@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:phil-collins",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.5,
     "created": "2026-10-14",
@@ -295,7 +295,29 @@
       "linear_playing": 0.4,
       "ostinato_usage": 0.4,
       "polyrhythm_usage": 0.4,
-      "odd_meter_fluency": 0.75
+      "odd_meter_fluency": 0.75,
+      "devices": [
+        {
+          "kind": "grouping",
+          "where": ["fills"],
+          "description": "Groups of three 16ths run across the beat round the toms: the shape of the famous In the Air Tonight fill.",
+          "examples": ["In the Air Tonight (Face Value, 1981)"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:phil-collins-drumeo-fills"]
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Drumeo: 5+ Intermediate Drum Fills (JJ Jones, 2022)",
+          "Drumeo: The 12 Most Iconic Phil Collins Drum Parts (Brandon Toews, 2022)",
+          "Drumeo: The Genius of Phil Collins (2024)",
+          "Searches for Brand X (Nuclear Burn) and Genesis (Los Endos, Squonk, Duke's Travels) transcriptions and Modern Drummer interviews"
+        ],
+        "note": "One grouping found. Nuclear Burn (11/8), Watcher of the Skies (6/4) and The Cinema Show (7/8) are odd meter, not devices."
+      }
     },
     "voice_language": {
       "snare": "Ghosts in Brand X; a gated rimshot in the 1980s.",

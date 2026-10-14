@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:stewart-copeland",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.5,
     "created": "2026-10-11",
@@ -233,7 +233,43 @@
       "linear_playing": 0.5,
       "ostinato_usage": 0.5,
       "polyrhythm_usage": 0.5,
-      "odd_meter_fluency": 0.5
+      "odd_meter_fluency": 0.5,
+      "devices": [
+        {
+          "kind": "displacement",
+          "where": ["groove"],
+          "description": "In reggae-flavoured verses he moves the kick off the 1, onto 2 and 4 where the skank would sit, or drops it after beat 2.",
+          "examples": ["Walking On The Moon", "Roxanne"],
+          "pattern_ids": ["pattern:copeland-walking-on-the-moon-archetype"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:musicradar-copeland-howto"],
+            "note": "MusicRadar: Walking On The Moon has the bass drum unusually on beats 2 and 4; Roxanne's verse has it under the snare on 2 and nothing on 3 and 4. It does not describe a backbeat moved by an eighth."
+          }
+        },
+        {
+          "kind": "grouping",
+          "where": ["groove"],
+          "description": "A cross-stick on a dotted-eighth rhythm (every three 16ths) against straight eighths or 16ths in the right hand.",
+          "examples": [],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:musicradar-copeland-howto"],
+            "note": "MusicRadar Examples 3A/3B: cross-rhythmic patterns where the left hand plays a dotted eighth-note rhythm; no song named. Not in the plan's table; added because it is sourced."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Music UK interview, August 1983 (muzines): the dropped beat, the hi-hat echo footswitch",
+          "Electronics & Music Maker, August 1985, 'African Rhythms' (muzines)",
+          "Thomann blog, 'Dissecting Stewart Copeland' (2020)",
+          "Far Out: how The Police created Walking on the Moon",
+          "MusicRadar's how-to and Police-career pieces (bodies would not load)"
+        ],
+        "note": "Nothing beyond the displacement. The echo's timing is never given, so no dotted-eighth three-against-four is claimed; his hemiola stays a song-level cross-rhythm in the catalogue."
+      }
     },
     "voice_language": {
       "hihat": "Lead voice; accents, openings, ornaments; 13in hats.",

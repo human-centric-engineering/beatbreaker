@@ -105,7 +105,7 @@
           "$ref": "common.schema.json#/$defs/Id"
         },
         "schema_version": {
-          "const": "1.4.0",
+          "const": "1.5.0",
           "description": "Every record is at the current version; the test refuses an older one."
         },
         "record_status": {
@@ -690,6 +690,16 @@
             },
             "double_bass": {
               "$ref": "common.schema.json#/$defs/Weight"
+            },
+            "devices": {
+              "type": "array",
+              "description": "Rhythmic devices this drummer plays, each named for what it is and sourced (1.5). Only cross-rhythm and hemiola are polyrhythms.",
+              "items": {
+                "$ref": "#/$defs/Device"
+              }
+            },
+            "devices_search": {
+              "$ref": "#/$defs/DeviceSearch"
             }
           }
         },
@@ -1254,6 +1264,94 @@
           "type": "string",
           "pattern": "^[a-z][a-z0-9]*$",
           "description": "The key of this drummer's playable style in BeatBreaker's catalogue (a style marked drummer: true). Every drummer style has exactly one record naming it, and every style_key names one."
+        }
+      }
+    },
+    "Device": {
+      "type": "object",
+      "required": ["kind", "description", "evidence"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "cross-rhythm",
+            "hemiola",
+            "grouping",
+            "polymeter",
+            "metric-modulation",
+            "displacement",
+            "timeline",
+            "ostinato-independence",
+            "polytempo"
+          ]
+        },
+        "ratio": {
+          "type": "string",
+          "pattern": "^[1-9][0-9]?:[1-9][0-9]?$",
+          "description": "n:m, the cross pulse first: 3:2 is three in the time of two."
+        },
+        "where": {
+          "type": "array",
+          "items": {
+            "enum": ["groove", "comping", "fills", "solos"]
+          },
+          "uniqueItems": true
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "examples": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Songs or albums, as the source names them. No timestamps."
+        },
+        "pattern_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/Id"
+          }
+        },
+        "evidence": {
+          "allOf": [
+            {
+              "$ref": "common.schema.json#/$defs/Evidence"
+            },
+            {
+              "required": ["source_ids"],
+              "properties": {
+                "source_ids": {
+                  "minItems": 1
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "DeviceSearch": {
+      "type": "object",
+      "description": "The transcription-level search for devices (12-b): when it was made and what was read, whether or not it found one.",
+      "required": ["date", "searched"],
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "searched": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "note": {
+          "type": "string"
         }
       }
     }

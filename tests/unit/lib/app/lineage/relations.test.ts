@@ -21,6 +21,7 @@ function node(id: string, label: string): LineageNode {
     genres: [],
     tags: [],
     summary: null,
+    devices: [],
   };
 }
 

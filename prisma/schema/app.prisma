@@ -923,6 +923,8 @@ model LineageNode {
   genres     String[]
   tags       String[]
   summary    String?
+  /// The record's rhythmic devices with their sources resolved (`LineageDevice[]`, 12-b). `[]` for a stub.
+  devices    Json     @default("[]")
   /// The whole record, as the model holds it. Null for a stub.
   record     Json?
   updatedAt  DateTime @updatedAt

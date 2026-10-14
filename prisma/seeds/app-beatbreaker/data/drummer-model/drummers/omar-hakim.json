@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:omar-hakim",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.45,
     "created": "2026-10-11",
@@ -247,7 +247,19 @@
       "linear_playing": 0.6,
       "ostinato_usage": 0.6,
       "polyrhythm_usage": 0.6,
-      "odd_meter_fluency": 0.8
+      "odd_meter_fluency": 0.8,
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Todd Bishop, cruiseshipdrummer.com: 'Unpacking a groove: Predator' and the Omar Hakim tag page",
+          "Modern Drummer: 'Walk the Walk' drum part demonstration (2014)",
+          "Ableton: 'Omar Hakim: Human Rhythms' (2014)",
+          "Bonedo: Ingo Baron interview (2024)",
+          "Drummer Cafe review of Omar Hakim – Complete (2010)",
+          "Searches for Weather Report, Sting and Let's Groove transcriptions"
+        ],
+        "note": "Searched, none found. A 9/8 groove (Ableton) is odd meter."
+      }
     },
     "voice_language": {
       "hihat": "Main time voice in pop and funk; open-hat offbeats for dance feels.",

@@ -8,10 +8,19 @@
  *   Beta ──peer── Delta ◀──succession (speculative)── Echo
  *   Foxtrot: modelled, no edges, no start year
  *
+ * Devices: Alpha and Gamma play cross-rhythms, Beta groupings; nobody plays
+ * the rest, so the map offers only those two.
+ *
  * Each kind is used once so a test can find an edge by `path[data-kind=…]`.
  */
 
-import type { LineageEdge, LineageGraph, LineageNode } from '@/lib/app/lineage/types';
+import type {
+  DeviceKind,
+  LineageDevice,
+  LineageEdge,
+  LineageGraph,
+  LineageNode,
+} from '@/lib/app/lineage/types';
 
 export function lineageNode(slug: string, extra: Partial<LineageNode> = {}): LineageNode {
   return {
@@ -26,6 +35,20 @@ export function lineageNode(slug: string, extra: Partial<LineageNode> = {}): Lin
     genres: ['style:funk'],
     tags: [],
     summary: null,
+    devices: [],
+    ...extra,
+  };
+}
+
+export function lineageDevice(kind: DeviceKind, extra: Partial<LineageDevice> = {}): LineageDevice {
+  return {
+    kind,
+    ratio: kind === 'cross-rhythm' ? '3:2' : null,
+    where: ['fills'],
+    description: `A ${kind}.`,
+    examples: [],
+    confidence: 'likely',
+    sources: [{ title: 'A transcription', url: 'https://example.com/t' }],
     ...extra,
   };
 }
@@ -55,9 +78,12 @@ export function lineageEdge(
 export function mapGraph(): LineageGraph {
   return {
     nodes: [
-      lineageNode('alpha', { activeFrom: 1950 }),
-      lineageNode('beta', { activeFrom: 1960 }),
-      lineageNode('gamma', { activeFrom: 1970 }),
+      lineageNode('alpha', { activeFrom: 1950, devices: [lineageDevice('cross-rhythm')] }),
+      lineageNode('beta', { activeFrom: 1960, devices: [lineageDevice('grouping')] }),
+      lineageNode('gamma', {
+        activeFrom: 1970,
+        devices: [lineageDevice('cross-rhythm'), lineageDevice('grouping')],
+      }),
       lineageNode('delta', { activeFrom: 1960 }),
       // a stub: no record, no year of its own, here only for its edge
       lineageNode('echo', { modelled: false, activeFrom: null, genres: [] }),

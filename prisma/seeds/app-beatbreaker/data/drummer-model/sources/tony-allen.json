@@ -89,5 +89,14 @@
     "url": "https://afropop.org/client-uploads/pdf/Beat36TAllen.pdf",
     "reliability": 0.7,
     "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:tony-allen-md-2011",
+    "type": "magazine",
+    "title": "Tony Allen: Afrobeat Innovator (Modern Drummer, October 2011)",
+    "url": "https://moderndrummer.com/2011/10/tony-allen-afrobeat-innovator",
+    "reliability": 0.8,
+    "accessed": "2026-10-14",
+    "notes": "Hat patterns that \"make cruel demands on limb independence\" set against kick and snare."
   }
 ]

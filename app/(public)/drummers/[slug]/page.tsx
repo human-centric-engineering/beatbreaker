@@ -8,15 +8,22 @@ import { studioStyleHref } from '@/components/app/shell/studio-address';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getLineageProfile } from '@/lib/app/lineage/data';
-import { CONFIDENCE_LABELS, EDGE_KIND_LABELS, isMapEdge } from '@/lib/app/lineage/layout';
+import {
+  CONFIDENCE_LABELS,
+  DEVICE_LABELS,
+  EDGE_KIND_LABELS,
+  isMapEdge,
+} from '@/lib/app/lineage/layout';
 import { readDrummerRecord } from '@/lib/app/lineage/record';
 import { type Relation, relationsOf } from '@/lib/app/lineage/relations';
+import { sanitizeUrl } from '@/lib/security/sanitize';
 
 /**
  * One person in the lineage — `/drummers/[slug]` (Phase 11-b). Public.
  *
  * A drummer with a record gets the record: who they are, what marks their
- * playing and how sure each claim is, the recordings, and who they learned
+ * playing and how sure each claim is, the rhythmic devices they play with the
+ * sources for each (12-b), the recordings, and who they learned
  * from and passed it on to. **Play** opens the Studio on their style. Someone
  * the records only name (a stub) gets the links that name them.
  */
@@ -190,6 +197,60 @@ export default async function DrummerPage({ params }: { params: Params }) {
               <li key={t.name} className="text-sm">
                 <span className="font-medium">{t.name}</span>
                 {t.description && <span className="text-muted-foreground"> — {t.description}</span>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {record && node.devices.length > 0 && (
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold">Rhythmic devices</h2>
+          <ul className="space-y-3">
+            {node.devices.map((d) => (
+              <li key={`${d.kind}-${d.ratio ?? ''}-${d.description}`} className="text-sm">
+                <p className="font-medium">
+                  {DEVICE_LABELS[d.kind]}
+                  {d.ratio && ` ${d.ratio}`}
+                  {d.where.length > 0 && (
+                    <span className="text-muted-foreground font-normal">
+                      {' '}
+                      · {d.where.join(', ')}
+                    </span>
+                  )}
+                  {d.confidence && (
+                    <span className="text-muted-foreground font-normal">
+                      {' '}
+                      · {CONFIDENCE_LABELS[d.confidence]}
+                    </span>
+                  )}
+                </p>
+                <p className="text-muted-foreground">{d.description}</p>
+                {d.examples.length > 0 && (
+                  <p className="text-muted-foreground">Heard on: {d.examples.join('; ')}</p>
+                )}
+                <p className="text-muted-foreground">
+                  {d.sources.length === 1 ? 'Source: ' : 'Sources: '}
+                  {d.sources.map((src, i) => {
+                    const href = src.url ? sanitizeUrl(src.url) : '';
+                    return (
+                      <span key={src.title}>
+                        {i > 0 && '; '}
+                        {href ? (
+                          <a
+                            href={href}
+                            rel="noopener noreferrer"
+                            className="underline underline-offset-4"
+                          >
+                            {src.title}
+                          </a>
+                        ) : (
+                          src.title
+                        )}
+                      </span>
+                    );
+                  })}
+                </p>
               </li>
             ))}
           </ul>

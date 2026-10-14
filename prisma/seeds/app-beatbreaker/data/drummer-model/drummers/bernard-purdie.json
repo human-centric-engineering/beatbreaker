@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:bernard-purdie",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.5,
     "created": "2026-10-11",
@@ -267,7 +267,15 @@
       "linear_playing": 0.3,
       "ostinato_usage": 0.7,
       "polyrhythm_usage": 0.3,
-      "odd_meter_fluency": 0.3
+      "odd_meter_fluency": 0.3,
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Drumeo: How to play the Purdie shuffle (with Purdie)",
+          "Brian Sweet's 1993 Purdie interview (paywalled)"
+        ],
+        "note": "Searched, none found. The Purdie shuffle is triplets over a half-time backbeat: a swung subdivision with no second pulse."
+      }
     },
     "voice_language": {
       "hihat": "Shuffled or straight, accented; the engine of the groove.",

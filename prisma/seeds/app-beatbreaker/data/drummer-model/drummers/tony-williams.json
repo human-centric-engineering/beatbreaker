@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:tony-williams",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.5,
     "created": "2026-10-11",
@@ -332,7 +332,78 @@
       "linear_playing": 0.6,
       "ostinato_usage": 0.4,
       "polyrhythm_usage": 0.85,
-      "odd_meter_fluency": 0.6
+      "odd_meter_fluency": 0.6,
+      "devices": [
+        {
+          "kind": "polymeter",
+          "where": ["comping"],
+          "description": "Threes over the bar line: a 3/4 cycle laid over the band's 4/4 for twelve bars until he brings the 4/4 back, and later a short figure repeating three times across two bars of 4/4 while the hats keep the 4.",
+          "examples": ["Vertigo (Jackie McLean, 1963)", "Teo's Bag (Circle in the Round, 1968)"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:tony-williams-goodman-2011"],
+            "note": "Goodman 2011, pp. 328-331 and 353-355, transcribed."
+          }
+        },
+        {
+          "kind": "cross-rhythm",
+          "ratio": "2:3",
+          "where": ["comping"],
+          "description": "Dotted quarters against the quarter-note pulse, two in the time of three, with the bassist joining him, as the way into the 3/4 over 4/4.",
+          "examples": ["Vertigo (Jackie McLean, 1963)"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:tony-williams-goodman-2011"],
+            "note": "Goodman 2011, p. 330: Butch Warren 'joins Williams in the superimposition of dotted quarter-notes'."
+          }
+        },
+        {
+          "kind": "polymeter",
+          "where": ["comping"],
+          "description": "A 7/4 cycle over 4/4: with Herbie Hancock he accents every seventh beat in unison snare and kick for the rest of the chorus.",
+          "examples": ["So What (Miles in Tokyo, 1964)"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:tony-williams-goodman-2011"],
+            "note": "Goodman 2011, pp. 222-225."
+          }
+        },
+        {
+          "kind": "metric-modulation",
+          "where": ["comping"],
+          "description": "A new tempo from a subdivision of the old: on Footprints the old dotted eighth becomes the new quarter; on Fall and I Fall in Love Too Easily a triplet becomes the quarter of a 3/4.",
+          "examples": [
+            "Footprints (Miles Smiles, 1966)",
+            "Fall (Nefertiti, 1967)",
+            "I Fall in Love Too Easily (Live at the Plugged Nickel, 1965)",
+            "Limbo (Sorcerer, 1967)"
+          ],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:tony-williams-goodman-2011"],
+            "note": "Goodman 2011, pp. 200-201 and 228-231; Limbo named, not analysed."
+          }
+        },
+        {
+          "kind": "polytempo",
+          "where": ["comping"],
+          "description": "A faster pulse laid over the unchanged walking bass for about half a minute, then settled back into the band's tempo.",
+          "examples": ["No Blues (Live at the Plugged Nickel, 1965)"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:tony-williams-goodman-2011"],
+            "note": "Goodman 2011, pp. 225-226, who also calls it superimposed metric modulation."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Dave Goodman, Tony Williams' drumset ideology to 1969 (PhD thesis, Sydney, 2011), read in full",
+          "VOA, 2012-03-15 (a reputation line naming no recording; not used)"
+        ],
+        "note": "The threes over the bar are a 3/4 cycle over 4/4 on Vertigo and Teo's Bag, not So What or Joshua as the record once said; So What (Tokyo) is 7/4 over 4/4. No source found for his 5s and 7s as tuplets."
+      }
     },
     "voice_language": {
       "ride": "Light and fast; in pieces when the time breaks up.",
@@ -403,7 +474,7 @@
       "id": "trait:tony-williams-broken-time",
       "label": "Broken time and threes over the bar",
       "category": "musical_approach",
-      "description": "Breaks the time into fragments and runs accents in three across the bar line, as on So What and Joshua.",
+      "description": "Breaks the time into fragments and lays cycles of other lengths over the bar line: a 3/4 cycle over 4/4 on Vertigo (Jackie McLean) and Teo's Bag, a 7/4 one on the Tokyo So What.",
       "audibility": "noticeable_to_drummers",
       "frequency": "signature",
       "evidence": {

@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:michael-shrieve",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.45,
     "created": "2026-10-14",
@@ -219,7 +219,29 @@
       "linear_playing": 0.2,
       "ostinato_usage": 0.5,
       "polyrhythm_usage": 0.6,
-      "odd_meter_fluency": 0.4
+      "odd_meter_fluency": 0.4,
+      "devices": [
+        {
+          "kind": "grouping",
+          "where": ["solos"],
+          "description": "In the Woodstock solo the snare runs in groups of three 16ths over a kick on every beat, so the accents cross the beat until they come round.",
+          "examples": ["Soul Sacrifice"],
+          "pattern_ids": ["pattern:michael-shrieve-soul-sacrifice-solo"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-1621352"],
+            "note": "Human Songsterr tab of Soul Sacrifice (Live at Woodstock)."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Songsterr: Soul Sacrifice (Live at Woodstock), a human tab",
+          "drumming-research.md section AA"
+        ],
+        "note": "A grouping found in a community tab, not a published transcription."
+      }
     },
     "voice_language": {
       "cymbals": "The crash ridden on the beat.",

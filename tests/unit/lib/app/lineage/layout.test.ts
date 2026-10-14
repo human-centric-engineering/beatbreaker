@@ -19,7 +19,13 @@ import {
   meetsConfidence,
   traceLineage,
 } from '@/lib/app/lineage/layout';
-import type { LineageEdge, LineageGraph, LineageNode } from '@/lib/app/lineage/types';
+import type {
+  DeviceKind,
+  LineageDevice,
+  LineageEdge,
+  LineageGraph,
+  LineageNode,
+} from '@/lib/app/lineage/types';
 import { DRUMMER_MODEL_DIR, readCorpus } from '@/scripts/lineage/read-corpus';
 
 function node(id: string, over: Partial<LineageNode> = {}): LineageNode {
@@ -36,6 +42,7 @@ function node(id: string, over: Partial<LineageNode> = {}): LineageNode {
     genres: [],
     tags: [],
     summary: null,
+    devices: [],
     ...over,
   };
 }
@@ -297,6 +304,29 @@ describe('layoutLineage', () => {
     expect(new Set(ys).size).toBe(3);
     const band = l.bands.find((b) => b.family === 'funk-soul')!;
     expect(band.height).toBe(3 * LAYOUT.rowHeight + 2 * LAYOUT.bandPadding);
+  });
+
+  it('carries the kinds of device a record names, each once, for the map’s filter', () => {
+    const device = (kind: DeviceKind): LineageDevice => ({
+      kind,
+      ratio: null,
+      where: [],
+      description: kind,
+      examples: [],
+      confidence: null,
+      sources: [{ title: 'S', url: null }],
+    });
+    const l = layoutLineage({
+      nodes: [
+        node('drummer:a', {
+          modelled: true,
+          activeFrom: 1960,
+          devices: [device('grouping'), device('displacement'), device('grouping')],
+        }),
+      ],
+      edges: [],
+    });
+    expect(l.nodes[0].devices).toEqual(['grouping', 'displacement']);
   });
 
   it('is the same map every time for the same graph', () => {

@@ -38,6 +38,12 @@ record, the graph, the API, and the map and pages that show them.
 - **Don't show a record field by casting it.** The stored record is unchecked
   JSON; a page reads it through `readDrummerRecord`, which drops a field that
   does not read and never returns a masked performer's name or dates.
+- **Don't call a device a polyrhythm unless it is one, or add one without a
+  source.** A record's `devices` (12-b) use one vocabulary, where only
+  `cross-rhythm` and `hemiola` are polyrhythms; an odd meter, a sextuplet
+  lick or a reputation is not a device. `checkCorpus` refuses a device that
+  cites no source, and a cross-rhythm or hemiola without its ratio. A
+  drummer with none found gets a `devices_search`, never an invented device.
 - **Don't put the graph in the vector store.** Traversal, direction and filters
   need rows. BeatBuddy reads the same tables (11-f): `find_drummers` and
   `get_drummer` in `lib/app/breaks/buddy/`, through `listDrummers`,
@@ -46,7 +52,7 @@ record, the graph, the API, and the map and pages that show them.
 
 ## The model
 
-The owner's drummer model, v1.4. Its own README is in the folder; the layout:
+The owner's drummer model, v1.5. Its own README is in the folder; the layout:
 
 | Folder        | What                                                                                                            |
 | ------------- | --------------------------------------------------------------------------------------------------------------- |
@@ -69,6 +75,18 @@ becomes a stub on the map.
 - Five records: Bonham, Stubblefield, Tony Williams, Tony Allen, Yussef Dayes
   (written from `planning/drumming-research.md` §E–K), with their recordings and
   sources, and the styles `hard-rock`, `uk-jazz`, `broken-beat`.
+
+**What v1.5 added (12-b):**
+
+- `technique_profile.coordination.devices[]`: `kind` (the vocabulary of
+  `polyrhythm-plan.md` §3, `DEVICE_KINDS` in `types.ts`), `ratio` (`n:m`, the
+  cross pulse first), `where` (`groove`, `comping`, `fills`, `solos`),
+  `description`, `examples` (songs as the source names them, no timestamps),
+  `pattern_ids`, and `evidence` with at least one `source_ids`.
+- `technique_profile.coordination.devices_search`: the date and what was read
+  in the transcription-level search, with a note of leads that did not hold.
+  `model.test.ts` holds every record to a device or a search (D56).
+- `schema_version` is `const: "1.5.0"`. `polyrhythm_usage` stays as a weight.
 
 **What the builder fixes** (the model's `tools/validate.py` did these wrong):
 
@@ -115,7 +133,8 @@ recording has the drummer on it; lanes fit `numerator × steps_per_beat` and
 `bars`; a clave's carrying voice has a lane; no stored identity for a private
 persona; no `transcribed_*` before `verified`; every relationship type has an
 entry in `RELATIONSHIPS` (the builder skips one that does not, so it would
-vanish from the map). A recording's performers must be `drummer:` ids — the
+vanish from the map); every device cites a source, and a cross-rhythm or
+hemiola has its ratio. A recording's performers must be `drummer:` ids — the
 parser refuses anything else.
 
 `checkGraph(graph)`: what the built graph must be before it is written. Every
@@ -130,6 +149,10 @@ the data export with that reason:
 - `LineageNode` — every node. `id` is the model id, `slug` the URL slug (a
   drummer's is bare, `bernard-purdie`; others keep their kind,
   `style-songo`). `record` holds the whole model record for a modelled one.
+  `devices` (12-b) is the builder's `LineageDevice[]`: the record's devices
+  with each source looked up in the registry (title and URL), because the
+  registry itself is not stored. `[]` for a stub; read through Zod in
+  `data.ts`, which drops a device that does not read.
 - `LineageEdge` — `fromId`, `toId` (cascade), `relation`, `kind`, `directed`,
   `strength`, `confidence`, `scope`, `declaredBy`, `recordingId`.
 - `LineageRecording` — `id`, `title`, `artist`, `year`, `drummerIds`, `record`.
@@ -157,10 +180,10 @@ it needs.
 
 ## The map and the pages (11-b)
 
-| Route              | What                                                                                                                                                                                                                          |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/drummers`        | The map (`components/app/drummers/lineage-map.tsx`) from `md` up; the list (`lineage-list.tsx`) below it. `?trace=<slug>` opens it with that person traced.                                                                   |
-| `/drummers/[slug]` | Any person by slug (a genre 404s). A record: summary, traits with confidence, technique, eras, recordings, learned from / passed on to / around them. A stub: the links that name it. **Play** → `/studio?style=<style_key>`. |
+| Route              | What                                                                                                                                                                                                                                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/drummers`        | The map (`components/app/drummers/lineage-map.tsx`) from `md` up; the list (`lineage-list.tsx`) below it. `?trace=<slug>` opens it with that person traced.                                                                                                               |
+| `/drummers/[slug]` | Any person by slug (a genre 404s). A record: summary, traits with confidence, technique, rhythmic devices with their sources (12-b), eras, recordings, learned from / passed on to / around them. A stub: the links that name it. **Play** → `/studio?style=<style_key>`. |
 
 Both are public server components reading `lib/app/lineage/data.ts`; the
 public nav lists Drummers and the sitemap lists `/drummers` and every
@@ -189,7 +212,11 @@ person traces them (`traceLineage`); hover and keyboard focus are tracked
 apart, so one leaving never drops the other. The "Trace a drummer" select
 keeps a trace and lists the records plus whoever `?trace=` named; Esc
 clears. Filters: link kinds (checkboxes) and a confidence floor;
-a stub left with no visible edge is hidden. Pan is the scrolling box; zoom
+a stub left with no visible edge is hidden. **Plays** (12-b) offers the
+device kinds some record names; picking one keeps those drummers lit, dims
+everyone else and every link not between two of them, and names them in the
+status line. It composes with a trace: a traced person who does not play it
+is dimmed too. Pan is the scrolling box; zoom
 is three buttons (50–150%). Each person is a `next/link` inside the SVG, so
 Tab walks the map in band order.
 
@@ -204,10 +231,11 @@ every record has a `style_key`; one added without it gets no Play.
 
 ## Adding a drummer
 
-1. Write `drummers/<slug>.json` at schema 1.4.0, modelled on
+1. Write `drummers/<slug>.json` at schema 1.5.0, modelled on
    `bernard-purdie.json`: evidence on every claim, `transcription.status`
    `archetype` or `draft`, relationships with `drummer:` ids where the person
-   is a drummer.
+   is a drummer. Name their rhythmic `devices` with sources, or record the
+   `devices_search` that found none.
 2. Add `recordings/` for the key recordings (or a `drum_performances` entry to
    one that exists), and `sources/<slug>.json`.
 3. If it is playable, add the style (`catalogue.md`) and set
@@ -219,7 +247,7 @@ every record has a `style_key`; one added without it gets no Play.
 
 | File                                                          | What it holds                                                                                                          |
 | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `tests/unit/lib/app/lineage/model.test.ts`                    | the real records: Ajv against the schemas, the checks, style ↔ record, the graph                                       |
+| `tests/unit/lib/app/lineage/model.test.ts`                    | the real records: Ajv against the schemas, the checks, style ↔ record, the graph, a device or a search for each        |
 | `tests/unit/lib/app/lineage/build.test.ts`                    | the builder's decisions: direction, merging, stubs, ids                                                                |
 | `tests/unit/lib/app/lineage/check.test.ts`                    | each rule, broken once                                                                                                 |
 | `tests/unit/prisma/seeds/app-beatbreaker/004-lineage.test.ts` | the seed: writes it all, idempotent, updates changed edges, clears a stub's record, refuses a bad corpus or slug clash |

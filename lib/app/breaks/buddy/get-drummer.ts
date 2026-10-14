@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { findLineageSlug, getLineageProfile } from '@/lib/app/lineage/data';
 import { type DrummerRecord, readDrummerRecord } from '@/lib/app/lineage/record';
 import { type Relation, relationsOf } from '@/lib/app/lineage/relations';
+import type { LineageDevice } from '@/lib/app/lineage/types';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
 import type {
   CapabilityContext,
@@ -42,6 +43,12 @@ export interface DrummerRecordData {
   style: string | null;
   record: Omit<DrummerRecord, 'name'> | null;
   /**
+   * The rhythmic devices the record names (12-b), each with its sources: what
+   * to name when saying how they play one. Only `cross-rhythm` and `hemiola`
+   * are polyrhythms. Empty for someone without a record.
+   */
+  devices: LineageDevice[];
+  /**
    * One line each, `Name (relation, confidence)` — the record's own word for
    * the relation (`cites_as_influence`, `studied_with`…). Short, because a
    * comparison reads several records in one turn under its cost cap.
@@ -65,7 +72,7 @@ export class GetDrummerCapability extends BaseCapability<Args, DrummerRecordData
   readonly functionDefinition: CapabilityFunctionDefinition = {
     name: 'get_drummer',
     description:
-      "Read one drummer's record in BeatBreaker: who they are, their eras, how they play (descriptors, signature traits, techniques), who they learned from and passed it on to, their key recordings, and the style key to play like them. Each trait and relation says how sure the record is. Base what you say about a drummer on this and cite it with `cite`.",
+      "Read one drummer's record in BeatBreaker: who they are, their eras, how they play (descriptors, signature traits, techniques, and rhythmic devices such as cross-rhythms, each with its sources), who they learned from and passed it on to, their key recordings, and the style key to play like them. Each trait and relation says how sure the record is. Base what you say about a drummer on this and cite it with `cite`; when you say they play a device, name its source as well.",
     parameters: {
       type: 'object',
       properties: {
@@ -118,6 +125,7 @@ export class GetDrummerCapability extends BaseCapability<Args, DrummerRecordData
           : `BeatBreaker has no record of ${node.label}: only other drummers' records name them (${page})`,
       style: node.styleKey,
       record,
+      devices: read !== null ? node.devices : [],
       learnedFrom: relations.learnedFrom.map(relation),
       passedOnTo: relations.passedOnTo.map(relation),
       around: around.map(relation),

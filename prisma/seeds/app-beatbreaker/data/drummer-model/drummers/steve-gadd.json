@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:steve-gadd",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.55,
     "created": "2026-10-11",
@@ -420,7 +420,41 @@
       "ostinato_usage": 0.7,
       "polyrhythm_usage": 0.5,
       "odd_meter_fluency": 0.7,
-      "notes": "Ostinato-based Latin patterns (mozambique) with the hands and feet working as independent voices."
+      "notes": "Ostinato-based Latin patterns (mozambique) with the hands and feet working as independent voices.",
+      "devices": [
+        {
+          "kind": "ostinato-independence",
+          "where": ["groove"],
+          "description": "A New York mozambique on the kit, played with two sticks in each hand so one drummer sounds like two. The bell on the record is Ralph MacDonald's, not his.",
+          "examples": ["Late in the Evening"],
+          "pattern_ids": ["pattern:gadd-mozambique-archetype"],
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:steve-gadd-late-in-the-evening-wikipedia"],
+            "note": "Wikipedia: a New York City-style Cuban mozambique groove, played with two pairs of sticks, one in each hand. The feet come from lessons, not the source; Ralph MacDonald played the record's cowbell and temple blocks."
+          }
+        },
+        {
+          "kind": "grouping",
+          "where": ["fills", "solos"],
+          "description": "A three-note cell moved across the beat over two, four and eight bars, starting from each place in turn until it comes round to the one.",
+          "examples": ["Love for Sale (Burning for Buddy, Vol. 1, 1994)"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:gadd-hudson-advanced-groupings"],
+            "note": "His own lesson. The product copy calls it polyrhythmic; it is a grouping."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Hudson Music: Advanced Groupings & Fills (Drum Guru), Rudimental Concepts Part 1, Jazz Concepts & 'Aja'",
+          "Todd Bishop, cruiseshipdrummer.com: Samba Song solo, 'That Steve Gadd lick', Autumn Leaves",
+          "MusicRadar: Career in beats (body would not load)"
+        ],
+        "note": "A grouping found, beside the mozambique. The Samba Song solo has a figure three 16ths long from bar 29 (Bishop), but how far it repeats is not stated. 'That Steve Gadd lick' (Afro) is a triplet inside a triplet in one lick, not a cross-rhythm."
+      }
     },
     "voice_language": {
       "hihat": "Precise, articulate, often quiet; used melodically in linear patterns rather than as a wash.",

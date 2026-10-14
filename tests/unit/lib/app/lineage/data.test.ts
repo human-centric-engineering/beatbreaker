@@ -39,6 +39,7 @@ function nodeRow(id: string, extra: Record<string, unknown> = {}) {
     genres: [],
     tags: [],
     summary: null,
+    devices: [],
     ...extra,
   };
 }
@@ -108,6 +109,30 @@ describe('getLineageGraph', () => {
       scope: 'individual',
     });
     expect(graph.edges[1]).toMatchObject({ confidence: null, scope: 'band' });
+  });
+});
+
+describe('a node’s devices', () => {
+  it('reads the stored devices and drops one that does not read', async () => {
+    const good = {
+      kind: 'hemiola',
+      ratio: '3:2',
+      where: ['groove'],
+      description: 'Crashes every dotted quarter.',
+      examples: [],
+      confidence: 'verified',
+      sources: [{ title: 'A source', url: null }],
+    };
+    findNodes.mockResolvedValue([
+      nodeRow('drummer:a', { devices: [good, { kind: 'samba-swing' }, 'nonsense'] }),
+      nodeRow('drummer:b', { devices: { not: 'a list' } }),
+    ] as never);
+    findEdges.mockResolvedValue([] as never);
+
+    const graph = await getLineageGraph();
+
+    expect(graph.nodes[0].devices).toEqual([good]);
+    expect(graph.nodes[1].devices).toEqual([]);
   });
 });
 

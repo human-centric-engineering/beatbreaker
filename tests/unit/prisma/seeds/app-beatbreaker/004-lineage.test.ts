@@ -110,6 +110,12 @@ describe('the lineage seed', () => {
     const purdie = prisma.lineageNode.rows.find((r) => r.id === 'drummer:bernard-purdie');
     expect(purdie).toMatchObject({ slug: 'bernard-purdie', modelled: true, kind: 'drummer' });
     expect(purdie?.record).toMatchObject({ identity: { name: 'Bernard Purdie' } });
+
+    // the devices go in with their sources resolved, as the builder made them
+    const tony = graph.nodes.find((n) => n.id === 'drummer:tony-williams');
+    const row = prisma.lineageNode.rows.find((r) => r.id === 'drummer:tony-williams');
+    expect(tony?.devices.length).toBeGreaterThan(0);
+    expect(row?.devices).toEqual(tony?.devices);
   });
 
   it('stores a stub with no record, and a recording with its drummers', async () => {
@@ -119,6 +125,7 @@ describe('the lineage seed', () => {
     const b = prisma.lineageNode.rows.find((r) => r.id === 'drummer:b');
     expect(b).toMatchObject({ modelled: false });
     expect(b && 'record' in b).toBe(false);
+    expect(b?.devices).toEqual([]);
     expect(prisma.lineageRecording.rows).toEqual([
       expect.objectContaining({ id: 'rec:r', drummerIds: ['drummer:a', 'drummer:c'] }),
     ]);
@@ -188,6 +195,21 @@ describe('the lineage seed', () => {
     });
     await expect(run(prisma, masked)).rejects.toThrow(/must not be stored for a private persona/);
     expect(snapshot(prisma)).toBe(before);
+  });
+
+  it('refuses a device that cites no source', async () => {
+    const prisma = fakePrisma();
+    const unsourced = corpusOf({
+      drummers: [
+        drummer('a', {
+          technique_profile: {
+            coordination: { devices: [{ kind: 'polymeter', description: 'Riff in 3 over 4.' }] },
+          },
+        }),
+      ],
+    });
+    await expect(run(prisma, unsourced)).rejects.toThrow(/cites no source/);
+    expect(prisma.lineageNode.rows).toEqual([]);
   });
 
   it('names a slug two nodes share instead of failing on the constraint', async () => {

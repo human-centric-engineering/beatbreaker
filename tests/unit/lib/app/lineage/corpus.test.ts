@@ -29,7 +29,7 @@ describe('parseCorpus', () => {
   });
 
   it('refuses an id outside the model’s namespaces', () => {
-    const odd = { ...drummer('a'), meta: { id: 'person:a', schema_version: '1.4.0' } };
+    const odd = { ...drummer('a'), meta: { id: 'person:a', schema_version: '1.5.0' } };
     expect(() =>
       parseCorpus({ ...empty, drummers: [{ file: 'drummers/a.json', json: odd }] })
     ).toThrow(/drummers\/a\.json/);

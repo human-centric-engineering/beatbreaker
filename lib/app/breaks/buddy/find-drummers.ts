@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 import { type DrummerEntry, listDrummers } from '@/lib/app/lineage/data';
 import { type DrummerRecord, readDrummerRecord } from '@/lib/app/lineage/record';
+import type { LineageDevice } from '@/lib/app/lineage/types';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
 import type {
   CapabilityContext,
@@ -47,6 +48,11 @@ export interface DrummerSummary {
   /** The first sentence; get_drummer has the rest. */
   summary: string | null;
   descriptors: string[];
+  /**
+   * The rhythmic devices the record names (12-b), one line each:
+   * `cross-rhythm 3:2 (fills): …`. get_drummer has their sources.
+   */
+  devices: string[];
 }
 
 export interface FindDrummersData {
@@ -78,6 +84,13 @@ export function firstSentence(text: string | null): string | null {
   return text;
 }
 
+/** A device in one line: its kind and ratio, where it is played, and what it is. */
+export function deviceLine(d: LineageDevice): string {
+  const name = [d.kind, d.ratio].filter(Boolean).join(' ');
+  const where = d.where.length > 0 ? ` (${d.where.join(', ')})` : '';
+  return `${name}${where}: ${d.description}`;
+}
+
 /** A drummer with their record read once: both the match and the summary use it. */
 interface Read {
   entry: DrummerEntry;
@@ -95,6 +108,7 @@ function summarise({ entry: { node }, record }: Read): DrummerSummary {
     genres: node.genres.map((g) => g.replace(/^style:/, '')),
     summary: firstSentence(node.summary),
     descriptors: (record?.descriptors ?? []).slice(0, DESCRIPTORS),
+    devices: node.devices.map(deviceLine),
   };
 }
 
@@ -110,7 +124,8 @@ function words(text: string): string[] {
 
 /**
  * Every word a query may match: the name, the style, the genres, the summary,
- * the describing words and traits, where they are from.
+ * the describing words and traits, where they are from, and the rhythmic
+ * devices they play ("cross", "3:2", "threes over the bar").
  */
 function vocabulary({ entry: { node }, record }: Read): string[] {
   return words(
@@ -123,6 +138,7 @@ function vocabulary({ entry: { node }, record }: Read): string[] {
       ...(record?.descriptors ?? []),
       ...(record?.traits.map((t) => t.label) ?? []),
       ...(record?.from ?? []),
+      ...node.devices.flatMap((d) => [d.kind, d.ratio ?? '', d.description, ...d.examples]),
     ].join(' ')
   );
 }
@@ -134,14 +150,14 @@ export class FindDrummersCapability extends BaseCapability<Args, FindDrummersDat
   readonly functionDefinition: CapabilityFunctionDefinition = {
     name: 'find_drummers',
     description:
-      "Find drummers in BeatBreaker's records. With no query, lists every drummer with a record: name, years, the style key to play like them, genres, a summary and the words their record describes them by. Use that, with no query, to compare drummers (who plays like whom, who is busier, who came first). A query (a name, or a word like 'shuffle') narrows the list to drummers matching every word, and also finds people the records only mention, marked modelled: false. Then call get_drummer for one drummer's record.",
+      "Find drummers in BeatBreaker's records. With no query, lists every drummer with a record: name, years, the style key to play like them, genres, a summary, the words their record describes them by, and the rhythmic devices they play (cross-rhythm, hemiola, grouping, polymeter, metric modulation, displacement, timeline, ostinato independence), each with its ratio and where it is played. Use that, with no query, to compare drummers (who plays like whom, who is busier, who came first) or to find who plays a device (who plays threes over the bar, who plays 3:2). A query (a name, or a word like 'shuffle') narrows the list to drummers matching every word, and also finds people the records only mention, marked modelled: false. Then call get_drummer for one drummer's record.",
     parameters: {
       type: 'object',
       properties: {
         query: {
           type: 'string',
           description:
-            'Optional. Words to match in the name, genres, style, summary and traits; each matches the start of a word. Leave it out to list every drummer with a record.',
+            'Optional. Words to match in the name, genres, style, summary, traits and devices; each matches the start of a word. Leave it out to list every drummer with a record.',
         },
       },
     },

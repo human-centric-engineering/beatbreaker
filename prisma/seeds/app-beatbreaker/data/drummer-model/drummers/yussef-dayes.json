@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:yussef-dayes",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.5,
     "created": "2026-10-11",
@@ -338,7 +338,17 @@
       "linear_playing": 0.85,
       "ostinato_usage": 0.4,
       "polyrhythm_usage": 0.5,
-      "odd_meter_fluency": 0.4
+      "odd_meter_fluency": 0.4,
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Crack Magazine: 'Chasing the rhythm with Yussef Dayes'",
+          "Stamp the Wax: Yussef Dayes' 10 favourite drummers",
+          "The SGNL: Malibu (2025)",
+          "Drum Hub: the Black Classical Music beat sheet, the paradiddles page, Strings of Light and Love Is the Message breakdowns (notation behind a signup)"
+        ],
+        "note": "Searched, none found. Lead: Drum Hub's sheet reportedly has the Pon di Plaza rim clicks on dotted 8ths, a grouping of threes, but the notation could not be read. Sabar is an influence he names, not a device."
+      }
     },
     "voice_language": {
       "hihat": "Busy 16ths or linear fragments, accented opens at bar ends.",

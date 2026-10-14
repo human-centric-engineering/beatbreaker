@@ -13,6 +13,7 @@
 import {
   CONFIDENCES,
   type Confidence,
+  type DeviceKind,
   type EdgeKind,
   type LineageEdge,
   type LineageGraph,
@@ -112,6 +113,19 @@ export const EDGE_KIND_LABELS: Record<MapEdgeKind, string> = {
   recording: 'Same record',
 };
 
+/** A device as a drummer says it. Only the first two are polyrhythms. */
+export const DEVICE_LABELS: Record<DeviceKind, string> = {
+  'cross-rhythm': 'Cross-rhythm',
+  hemiola: 'Hemiola',
+  grouping: 'Groupings',
+  polymeter: 'Polymeter',
+  'metric-modulation': 'Metric modulation',
+  displacement: 'Displacement',
+  timeline: 'Timeline (clave, bell)',
+  'ostinato-independence': 'Ostinato independence',
+  polytempo: 'Polytempo',
+};
+
 export const CONFIDENCE_LABELS: Record<Confidence, string> = {
   verified: 'Verified',
   widely_reported: 'Widely reported',
@@ -203,6 +217,8 @@ export interface PlacedNode {
   kind: NodeKind;
   modelled: boolean;
   styleKey: string | null;
+  /** The kinds of rhythmic device the record names, for the map's filter. */
+  devices: DeviceKind[];
   family: Family;
   /** The year the column stands for: the record's, or one inferred from the edges. */
   year: number | null;
@@ -397,6 +413,7 @@ export function layoutLineage(graph: LineageGraph): LineageLayout {
         kind: m.n.kind,
         modelled: m.n.modelled,
         styleKey: m.n.styleKey,
+        devices: [...new Set(m.n.devices.map((d) => d.kind))],
         family,
         year: m.year,
         inferred: m.inferred,

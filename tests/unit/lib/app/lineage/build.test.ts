@@ -300,6 +300,56 @@ describe('buildLineage', () => {
       tags: ['x'],
     });
   });
+
+  it('carries a drummer’s devices with their sources looked up, and gives a stub none', () => {
+    const g = buildLineage(
+      corpusOf({
+        drummers: [
+          drummer('a', {
+            technique_profile: {
+              coordination: {
+                devices: [
+                  {
+                    kind: 'cross-rhythm',
+                    ratio: '3:2',
+                    where: ['fills'],
+                    description: 'Threes over the bar line.',
+                    examples: ['So What'],
+                    evidence: { confidence: 'likely', source_ids: ['src:t', 'src:u'] },
+                  },
+                ],
+              },
+            },
+            relationships: [rel('influenced_by', { name: 'Stub Person', id: 'drummer:stub' })],
+          }),
+        ],
+        sources: [
+          {
+            id: 'src:t',
+            type: 'transcription',
+            title: 'A transcription',
+            url: 'https://t.example',
+          },
+          { id: 'src:u', type: 'interview', title: 'An interview' },
+        ],
+      })
+    );
+    expect(g.nodes.find((n) => n.id === 'drummer:a')?.devices).toEqual([
+      {
+        kind: 'cross-rhythm',
+        ratio: '3:2',
+        where: ['fills'],
+        description: 'Threes over the bar line.',
+        examples: ['So What'],
+        confidence: 'likely',
+        sources: [
+          { title: 'A transcription', url: 'https://t.example' },
+          { title: 'An interview', url: null },
+        ],
+      },
+    ]);
+    expect(g.nodes.find((n) => n.id === 'drummer:stub')?.devices).toEqual([]);
+  });
 });
 
 describe('slugs', () => {

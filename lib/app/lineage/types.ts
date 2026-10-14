@@ -52,6 +52,48 @@ export const CONFIDENCES = [
 ] as const;
 export type Confidence = (typeof CONFIDENCES)[number];
 
+/**
+ * A rhythmic device a drummer plays (schema 1.5, Phase 12-b), named for what
+ * it is. Only `cross-rhythm` and `hemiola` are polyrhythms; the rest are what
+ * popular writing often calls one. See `polyrhythm-plan.md` §3.
+ */
+export const DEVICE_KINDS = [
+  'cross-rhythm',
+  'hemiola',
+  'grouping',
+  'polymeter',
+  'metric-modulation',
+  'displacement',
+  'timeline',
+  'ostinato-independence',
+  'polytempo',
+] as const;
+export type DeviceKind = (typeof DEVICE_KINDS)[number];
+
+/** Where in the music a device is played. */
+export const DEVICE_PLACES = ['groove', 'comping', 'fills', 'solos'] as const;
+export type DevicePlace = (typeof DEVICE_PLACES)[number];
+
+/** A source a device cites, resolved from the model's registry. */
+export interface LineageSource {
+  title: string;
+  url: string | null;
+}
+
+/** One device from a drummer's record, with its sources resolved for citing. */
+export interface LineageDevice {
+  kind: DeviceKind;
+  /** `n:m`, the cross pulse first: `3:2` is three in the time of two. */
+  ratio: string | null;
+  where: DevicePlace[];
+  description: string;
+  /** Songs or albums it is heard on, as the source names them. */
+  examples: string[];
+  confidence: Confidence | null;
+  /** Never empty: the check refuses a device without one. */
+  sources: LineageSource[];
+}
+
 export interface LineageNode {
   /** The model id, e.g. `drummer:bernard-purdie`. Never changes. */
   id: string;
@@ -69,6 +111,8 @@ export interface LineageNode {
   genres: string[];
   tags: string[];
   summary: string | null;
+  /** The rhythmic devices the record names, sourced (12-b). Empty for a stub. */
+  devices: LineageDevice[];
 }
 
 export interface LineageEdge {

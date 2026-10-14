@@ -1,4 +1,4 @@
-# Drummer Model (v1.4)
+# Drummer Model (v1.5)
 
 Data model for BeatBreaker: drummers, their playable vocabulary, the recordings they played on, the styles they belong to, and the lineage between them.
 
@@ -87,3 +87,10 @@ Any claim can carry `evidence` with a confidence (`verified`, `widely_reported`,
 - `meta.schema_version` is `const: "1.4.0"`.
 - `sources/` may hold several files.
 - Records for John Bonham, Clyde Stubblefield, Tony Williams, Tony Allen and Yussef Dayes; styles `hard-rock`, `uk-jazz`, `broken-beat`.
+
+## v1.5 additions (BeatBreaker Phase 12-b)
+
+- `technique_profile.coordination.devices[]`: the rhythmic devices a drummer plays, each with a `kind` from one vocabulary (`cross-rhythm`, `hemiola`, `grouping`, `polymeter`, `metric-modulation`, `displacement`, `timeline`, `ostinato-independence`, `polytempo`), an optional `ratio` (`n:m`, the cross pulse first), `where` it is played, a `description`, `examples`, and `evidence` that must cite at least one source. Only `cross-rhythm` and `hemiola` are polyrhythms; the rest are named for what they are.
+- `technique_profile.coordination.devices_search`: the transcription-level search made for devices — its date and what was read — so a drummer with no device says it was looked for. Every drummer record has a device or a search (a test holds it).
+- `polyrhythm_usage` stays, as a weight.
+- `meta.schema_version` is `const: "1.5.0"`.

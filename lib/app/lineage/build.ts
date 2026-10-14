@@ -16,10 +16,11 @@
 
 import { createHash } from 'crypto';
 
-import type { Corpus, DrummerRecord } from '@/lib/app/lineage/corpus';
+import type { Corpus, DrummerRecord, SourceRecord } from '@/lib/app/lineage/corpus';
 import type {
   Confidence,
   EdgeKind,
+  LineageDevice,
   LineageEdge,
   LineageGraph,
   LineageNode,
@@ -158,10 +159,27 @@ function stub(id: string, label: string, kind: NodeKind): LineageNode {
     genres: [],
     tags: [],
     summary: null,
+    devices: [],
   };
 }
 
-function drummerNode(d: DrummerRecord): LineageNode {
+/** A record's devices, each with its sources looked up in the registry for citing. */
+function devicesOf(d: DrummerRecord, sources: ReadonlyMap<string, SourceRecord>): LineageDevice[] {
+  return (d.technique_profile?.coordination?.devices ?? []).map((v) => ({
+    kind: v.kind,
+    ratio: v.ratio ?? null,
+    where: v.where ?? [],
+    description: v.description,
+    examples: v.examples ?? [],
+    confidence: v.evidence?.confidence ?? null,
+    sources: (v.evidence?.source_ids ?? []).flatMap((sid) => {
+      const s = sources.get(sid);
+      return s ? [{ title: s.title, url: s.url ?? null }] : [];
+    }),
+  }));
+}
+
+function drummerNode(d: DrummerRecord, sources: ReadonlyMap<string, SourceRecord>): LineageNode {
   const genres = [...d.style_profile.genres]
     .sort((a, b) => (b.weight ?? 0) - (a.weight ?? 0))
     .flatMap((g) => (g.style_id ? [g.style_id] : []));
@@ -177,6 +195,7 @@ function drummerNode(d: DrummerRecord): LineageNode {
     genres,
     tags: d.beatbreaker?.tags ?? [],
     summary: d.identity.summary ?? null,
+    devices: devicesOf(d, sources),
   };
 }
 
@@ -197,7 +216,10 @@ function drummerNode(d: DrummerRecord): LineageNode {
 export function buildLineage(corpus: Corpus): LineageGraph {
   const nodes = new Map<string, LineageNode>();
 
-  for (const { record } of corpus.drummers) nodes.set(record.meta.id, drummerNode(record));
+  const sources = new Map(corpus.sources.map(({ record }) => [record.id, record]));
+  for (const { record } of corpus.drummers) {
+    nodes.set(record.meta.id, drummerNode(record, sources));
+  }
   for (const { record: s } of corpus.styles) {
     nodes.set(s.id, {
       ...stub(s.id, s.name, 'style'),

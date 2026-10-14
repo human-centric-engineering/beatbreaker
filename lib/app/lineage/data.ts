@@ -7,13 +7,18 @@
  * already gets a 304.
  */
 
+import { z } from 'zod';
+
 import { slugOf } from '@/lib/app/lineage/build';
 import { prisma } from '@/lib/db/client';
 import {
   CONFIDENCES,
   type Confidence,
+  DEVICE_KINDS,
+  DEVICE_PLACES,
   EDGE_KINDS,
   type EdgeKind,
+  type LineageDevice,
   type LineageEdge,
   type LineageGraph,
   type LineageNode,
@@ -36,7 +41,27 @@ const NODE_FIELDS = {
   genres: true,
   tags: true,
   summary: true,
+  devices: true,
 } as const;
+
+/** The stored devices, read rather than cast; one that does not read is dropped. */
+const deviceSchema = z.object({
+  kind: z.enum(DEVICE_KINDS),
+  ratio: z.string().nullable(),
+  where: z.array(z.enum(DEVICE_PLACES)),
+  description: z.string(),
+  examples: z.array(z.string()),
+  confidence: z.enum(CONFIDENCES).nullable(),
+  sources: z.array(z.object({ title: z.string(), url: z.string().nullable() })),
+});
+
+function toDevices(json: unknown): LineageDevice[] {
+  if (!Array.isArray(json)) return [];
+  return json.flatMap((d) => {
+    const read = deviceSchema.safeParse(d);
+    return read.success ? [read.data] : [];
+  });
+}
 
 function isOneOf<T extends string>(values: readonly T[], value: string): value is T {
   return values.some((v) => v === value);
@@ -59,6 +84,7 @@ function toNode(row: Pick<NodeRow, keyof typeof NODE_FIELDS>): LineageNode {
     genres: row.genres,
     tags: row.tags,
     summary: row.summary,
+    devices: toDevices(row.devices),
   };
 }
 

@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:mitch-mitchell",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.5,
     "created": "2026-10-11",
@@ -199,7 +199,16 @@
       "linear_playing": 0.4,
       "ostinato_usage": 0.4,
       "polyrhythm_usage": 0.8,
-      "odd_meter_fluency": 0.6
+      "odd_meter_fluency": 0.6,
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Modern Drummer: Mitch Mitchell, drummers weigh in (John Riley)",
+          "Wikipedia: Manic Depression (song)",
+          "drumming-research.md section C (his songs, from tabs and recordings)"
+        ],
+        "note": "Searched, none sourced. Manic Depression is an Elvin-style jazz waltz in compound triple time (Riley; Wikipedia), but no source names a 2:3 or a hemiola in his own part."
+      }
     },
     "voice_language": {
       "ride": "Jazz ride time.",

@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "drummer:tony-allen",
-    "schema_version": "1.4.0",
+    "schema_version": "1.5.0",
     "record_status": "draft",
     "completeness": 0.55,
     "created": "2026-10-11",
@@ -274,7 +274,43 @@
       "ostinato_usage": 0.95,
       "polyrhythm_usage": 0.7,
       "odd_meter_fluency": 0.2,
-      "foot_ostinato_usage": 0.95
+      "foot_ostinato_usage": 0.95,
+      "devices": [
+        {
+          "kind": "ostinato-independence",
+          "where": ["groove"],
+          "description": "Each limb holds its own part: the hand on the hi-hat, snare clusters, paired kicks and the hi-hat foot on every 'and', locking together like a percussion section.",
+          "examples": ["Water No Get Enemy"],
+          "pattern_ids": [
+            "pattern:allen-first-pattern",
+            "pattern:allen-snare-on-one",
+            "pattern:allen-water-no-get-enemy"
+          ],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:tony-allen-poitevin",
+              "src:tony-allen-rollingstone-patterns",
+              "src:tony-allen-globe-obit",
+              "src:tony-allen-songsterr-wnge",
+              "src:tony-allen-md-2011"
+            ],
+            "note": "His own on-camera demonstration of the five Afrobeat patterns, transcribed by Poitevin; no ratio between the layers is sourced, so none is given."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-14",
+        "searched": [
+          "Modern Drummer: 'Tony Allen: Afrobeat Innovator' (2011) and 'Tony Allen passes' (2020)",
+          "Afropop: Michael Veal on Tony Allen (2020)",
+          "Thomas Brett, 'On the Drumming of Tony Allen' (2014), on the autobiography with Michael Veal",
+          "cruiseshipdrummer.com African music category (the posts would not load)",
+          "Scribd 'Drummer Afrobeat' (only the intro readable)",
+          "Searches for a co-written Afrobeat drum method (none found)"
+        ],
+        "note": "No ratio is sourced; the interlocking independence is. Unread leads: the Scribd document and Bishop's African Message and No Agreement posts."
+      }
     },
     "voice_language": {
       "hihat": "Hand figure '1 & a' with half-open strokes; the foot chicks every 'and'.",

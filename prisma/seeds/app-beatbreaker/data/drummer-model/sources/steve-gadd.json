@@ -1,0 +1,20 @@
+[
+  {
+    "id": "src:steve-gadd-late-in-the-evening-wikipedia",
+    "type": "encyclopedia",
+    "title": "Late in the Evening - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Late_in_the_Evening",
+    "reliability": 0.7,
+    "accessed": "2026-10-14",
+    "notes": "A New York City-style Cuban mozambique groove by Gadd, played with two pairs of sticks, one in each hand, to sound like two drummers; Ralph MacDonald on cowbell and temple blocks."
+  },
+  {
+    "id": "src:gadd-hudson-advanced-groupings",
+    "type": "video_lesson",
+    "title": "Steve Gadd, Advanced Groupings & Fills (Drum Guru lesson, Hudson Music)",
+    "url": "https://hudsonmusic.com/?p=43934",
+    "reliability": 0.85,
+    "accessed": "2026-10-14",
+    "notes": "His own lesson: a three-note grouping in 2-, 4- and 8-bar phrases, and how he used it in the Love for Sale break on Burning for Buddy."
+  }
+]
