@@ -1,12 +1,11 @@
-'use client';
-
 /**
  * PerOrgUsageTable — each org's spend this month against its monthly cap
  * (§110 t-790).
  *
  * Fed by `GET /api/v1/admin/orchestration/costs/orgs`, one call for every
- * row. Rendered only when there is more than one org: at `single` the one
- * org's spend is already the month total on the summary cards. The detached
+ * row. Rendered only with more than one org, or spend from an erased org:
+ * at `single` the one org's spend is already the month total on the summary
+ * cards. The detached
  * row is spend whose org has been erased; it still counts towards the global
  * cap, so it is shown rather than dropped.
  */

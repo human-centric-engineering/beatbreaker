@@ -14,7 +14,7 @@
  *   2. Budget alerts list  — pause-agent optimistic action
  *   3. Trend chart         — 30-day stacked by tier
  *   4. Per-agent table + per-model table (2-col on lg)
- *   5. Per-org table       — only when there is more than one org
+ *   5. Per-org table       — only with more than one org, or erased orgs' spend
  *   6. Local vs cloud panel
  *
  * The default-models form used to live here too; it now lives on the
@@ -86,7 +86,9 @@ export function CostsView({
         <PerModelBreakdownTable rows={summary?.byModel ?? null} models={models} />
       </div>
 
-      {orgUsage && orgUsage.orgs.length > 1 && <PerOrgUsageTable report={orgUsage} />}
+      {orgUsage && (orgUsage.orgs.length > 1 || (orgUsage.detached?.count ?? 0) > 0) && (
+        <PerOrgUsageTable report={orgUsage} />
+      )}
 
       <LocalVsCloudPanel summary={summary} models={models} />
 

@@ -6,7 +6,7 @@
  * Test Coverage:
  * - Spend, calls and tokens for the period
  * - Usage against the cap as a utilisation bar
- * - "No cap set" and no bar without a cap; no bar at a cap of 0
+ * - "No cap set" and no bar without a cap; "Paid calls off" and no bar at a cap of 0
  *
  * @see components/admin/orgs/org-usage-summary.tsx
  */
@@ -63,5 +63,6 @@ describe('OrgUsageSummary', () => {
     expect(screen.queryByText('No cap set')).not.toBeInTheDocument();
     expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
     expect(screen.queryByText('No budget set')).not.toBeInTheDocument();
+    expect(screen.getByText('Paid calls off')).toBeInTheDocument();
   });
 });

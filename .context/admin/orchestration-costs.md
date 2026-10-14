@@ -17,7 +17,7 @@ Admin page at `/admin/orchestration/costs`. Surfaces every spend / budget signal
 ├──────────────────────────────┬──────────────────────────────────┤
 │ Per-agent spend table        │ Per-model breakdown table        │
 ├──────────────────────────────┴──────────────────────────────────┤
-│ Per-org usage table  (only with more than one org)              │
+│ Per-org usage table  (more than one org, or detached spend)     │
 ├─────────────────────────────────────────────────────────────────┤
 │ Local vs cloud panel  (pie + savings callout)                   │
 ├─────────────────────────────────────────────────────────────────┤
@@ -44,7 +44,7 @@ The server shell fires five parallel null-safe fetches via `serverFetch()`. Any 
 | Per-model table        | `GET /costs/summary` (`byModel[]`) + `GET /models`          | Keyed `provider::modelId` — see below                  |
 | Local vs cloud panel   | `GET /costs/summary.localSavings` + `byModel[]` + `/models` | `localSavings: null` → muted placeholder, never throws |
 | Budget alerts list     | `GET /costs/alerts`                                         | Returns `{ alerts, globalCap }` — sorted by severity   |
-| Per-org usage table    | `GET /costs/orgs`                                           | Install org only at `multi`; hidden with one org       |
+| Per-org usage table    | `GET /costs/orgs`                                           | Install org only at `multi`; see Per-org usage         |
 
 ### Per-model rows carry their provider
 
@@ -141,8 +141,8 @@ An org can have a cap of its own: `monthlyBudgetUsd` under the `quotas` key of `
 - **The rollup runs in the system scope.** `getOrgUsage()` in `lib/orchestration/llm/cost-reports.ts` groups `AiCostLog` by `orgId` under `runAsSystem`, using the `(orgId, createdAt)` index. Inside the caller's org the `org_isolation` policy would hide every other org's rows. Orgs with no spend are listed with zeros.
 - **Detached spend has its own bucket.** Rows with no org (an erased org's spend is kept and its `orgId` set to `NULL`) come back as `detached`, shown on the table as **No org**. They still count towards the global cap.
 - **At `single` it is one install-org row**, totalling every row in the month, `NULL`-org rows included, and `detached` is `null`. The page hides the table then, since the summary cards already show that total.
-- **Where it shows.** The costs page shows the per-org table when the endpoint returns more than one org. If the endpoint refuses the caller, the table is not shown. The org detail page (`/admin/orgs/[id]`) asks for its own org (`?orgId=`) and shows month-to-date spend against the cap. In a customer org it says that usage can only be viewed from the install org.
-- **A cap of `0` has no utilisation.** It means "no paid calls", so `utilisation` is `null` and the table says **Paid calls off**.
+- **Where it shows.** The costs page shows the per-org table when the endpoint returns more than one org, or any detached spend. If the endpoint refuses the caller, the table is not shown. The org detail page (`/admin/orgs/[id]`) asks for its own org (`?orgId=`) and shows month-to-date spend against the cap. In a customer org it says that usage can only be viewed from the install org.
+- **A cap of `0` has no utilisation.** It means "no paid calls", so `utilisation` is `null`, and both the table and the org page say **Paid calls off**.
 
 ### What the chat user sees
 

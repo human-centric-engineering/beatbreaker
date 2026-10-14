@@ -2645,12 +2645,14 @@ export const costBreakdownQuerySchema = z
  * Per-org usage query (GET /admin/orchestration/costs/orgs, §110 t-790).
  *
  * `period` is a UTC calendar month, `YYYY-MM`; omitted, it is the current
- * one. `orgId` narrows the answer to one org.
+ * one. The year starts at 1000: `Date.UTC` reads 0–99 as 1900–1999, so a
+ * year below 100 would report one period and sum another. `orgId` narrows
+ * the answer to one org.
  */
 export const orgUsageQuerySchema = z.object({
   period: z
     .string()
-    .regex(/^\d{4}-(0[1-9]|1[0-2])$/, 'period must be a month in the form YYYY-MM')
+    .regex(/^[1-9]\d{3}-(0[1-9]|1[0-2])$/, 'period must be a month in the form YYYY-MM')
     .optional(),
   orgId: orgIdSchema.optional(),
 });

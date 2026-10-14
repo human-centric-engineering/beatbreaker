@@ -345,6 +345,14 @@ describe('CostsView', () => {
       expect(screen.queryByTestId('per-org-usage-table')).not.toBeInTheDocument();
     });
 
+    it("shows it with one org when an erased org's spend is detached", () => {
+      renderWith({
+        ...report(['install']),
+        detached: { totalCostUsd: 2, inputTokens: 20, outputTokens: 2, count: 1 },
+      });
+      expect(screen.getByTestId('per-org-usage-table')).toHaveAttribute('data-org-count', '1');
+    });
+
     it('hides it when the usage could not be loaded or was refused', () => {
       renderWith(null);
       expect(screen.queryByTestId('per-org-usage-table')).not.toBeInTheDocument();

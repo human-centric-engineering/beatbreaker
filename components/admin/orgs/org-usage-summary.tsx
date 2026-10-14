@@ -50,6 +50,11 @@ export function OrgUsageSummary({ period, row }: OrgUsageSummaryProps) {
             ) : (
               <Usd value={row.monthlyBudgetUsd} />
             )}
+            {row.monthlyBudgetUsd === 0 && (
+              <span className="text-muted-foreground block text-xs font-normal">
+                Paid calls off
+              </span>
+            )}
           </dd>
         </div>
         <div>

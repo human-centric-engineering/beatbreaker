@@ -178,7 +178,7 @@ describe('GET /api/v1/admin/orchestration/costs/orgs at multi', () => {
     expect(mockGetOrgUsage).toHaveBeenCalledTimes(1);
   });
 
-  it.each(['2026-13', '2026-1', 'October', '2026-10-01'])(
+  it.each(['2026-13', '2026-1', 'October', '2026-10-01', '0050-03', '0000-01'])(
     'rejects a period that is not a YYYY-MM month (%s)',
     async (period) => {
       signedIn('ADMIN', INSTALL_ORG_ID);

@@ -1124,7 +1124,7 @@ Agents without a budget, or with `monthlyBudgetUsd <= 0`, are filtered out.
 
 ### `GET /costs/orgs`
 
-Each org's AI usage for one UTC calendar month (§110 t-790). Query: `period?` (`YYYY-MM`, defaults to the current month; any other shape → `400`) and `orgId?` (narrow to one org).
+Each org's AI usage for one UTC calendar month (§110 t-790). Query: `period?` (`YYYY-MM`, year 1000 or later, defaults to the current month; any other shape → `400`) and `orgId?` (narrow to one org).
 
 Returns `{ period, periodStart, periodEnd, orgs: [{ orgId, name, slug, status, totalCostUsd, inputTokens, outputTokens, count, monthlyBudgetUsd, utilisation }], detached, totals }`. `orgs` lists every org, highest spend first, zero-spend orgs included. `monthlyBudgetUsd` is the org's `quotas.monthlyBudgetUsd` (`null` when unset). `utilisation` is spend / cap, `null` with no cap or a cap of `0`. `detached` is `{ totalCostUsd, inputTokens, outputTokens, count }` for rows with no org, or `null` at `single` and when `orgId` is given. `totals` is every row in the month.
 
