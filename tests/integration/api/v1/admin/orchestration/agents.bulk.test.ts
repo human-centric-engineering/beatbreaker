@@ -4,7 +4,7 @@
  * POST /api/v1/admin/orchestration/agents/bulk
  *
  * Applies activate, deactivate, or delete actions to multiple agents.
- * System agents are excluded from all mutations.
+ * System agents and deleted agents are excluded from all mutations.
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
@@ -84,8 +84,10 @@ describe('POST /api/v1/admin/orchestration/agents/bulk', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     (prisma.aiAgent.updateMany as ReturnType<typeof vi.fn>).mockResolvedValue({ count: 2 });
+    // Matches the request: neither agent is a system or deleted agent.
+    // `isActive` is null so every action finds both needing a change.
     (prisma.aiAgent.findMany as ReturnType<typeof vi.fn>).mockResolvedValue(
-      AGENT_IDS.map((id) => ({ id }))
+      AGENT_IDS.map((id) => ({ id, isActive: null }))
     );
   });
 
@@ -184,11 +186,10 @@ describe('POST /api/v1/admin/orchestration/agents/bulk', () => {
       expect(ensureBaselineVersion).toHaveBeenCalledWith(prisma, id, adminId);
       expect(recordAgentVersion).toHaveBeenCalledWith(prisma, id, { label, createdBy: adminId });
     }
-    // The targets are the agents the write will change: system agents
-    // excluded, and so is any agent already in the requested state.
+    // The candidates exclude system and deleted agents.
     expect(prisma.aiAgent.findMany).toHaveBeenCalledWith({
-      where: { id: { in: AGENT_IDS }, isSystem: false, isActive: action !== 'activate' },
-      select: { id: true },
+      where: { id: { in: AGENT_IDS }, isSystem: false, deletedAt: null },
+      select: { id: true, isActive: true },
     });
     // The write touches exactly those agents, so none changes without a version.
     expect(prisma.aiAgent.updateMany).toHaveBeenCalledWith({
@@ -237,5 +238,55 @@ describe('POST /api/v1/admin/orchestration/agents/bulk', () => {
     const res = await POST(makeRequest({ action: 'activate', agentIds: AGENT_IDS }));
     const body = (await res.json()) as { data: Record<string, unknown> };
     expect(body.data).toMatchObject({ requested: 2, affected: 1 });
+  });
+
+  // ── Excluded agents ───────────────────────────────────────────────────────
+
+  it.each(['activate', 'deactivate', 'delete'])(
+    '%s never reaches a deleted agent, and reports it as skipped',
+    async (action) => {
+      vi.mocked(auth.api.getSession).mockResolvedValue(mockAdminUser());
+      // The second agent was deleted, so the query that excludes deleted
+      // agents returns only the first.
+      vi.mocked(prisma.aiAgent.findMany).mockImplementation((async (args: {
+        where: { deletedAt?: null };
+      }) =>
+        AGENT_IDS.filter((id, i) => i === 0 || args.where.deletedAt !== null).map((id) => ({
+          id,
+          isActive: null,
+        }))) as never);
+      (prisma.aiAgent.updateMany as ReturnType<typeof vi.fn>).mockResolvedValue({ count: 1 });
+
+      const res = await POST(makeRequest({ action, agentIds: AGENT_IDS }));
+
+      expect(res.status).toBe(200);
+      const body = (await res.json()) as { data: Record<string, unknown> };
+      expect(body.data).toMatchObject({ requested: 2, affected: 1, skipped: [AGENT_IDS[1]] });
+      expect(prisma.aiAgent.updateMany).toHaveBeenCalledWith({
+        where: { id: { in: [AGENT_IDS[0]] } },
+        data: { isActive: action === 'activate' },
+      });
+      expect(recordAgentVersion).toHaveBeenCalledTimes(1);
+      expect(recordAgentVersion).not.toHaveBeenCalledWith(prisma, AGENT_IDS[1], expect.anything());
+    }
+  );
+
+  it('leaves an agent already in the requested state unwritten and unversioned', async () => {
+    vi.mocked(auth.api.getSession).mockResolvedValue(mockAdminUser());
+    (prisma.aiAgent.findMany as ReturnType<typeof vi.fn>).mockResolvedValue([
+      { id: AGENT_IDS[0], isActive: false },
+      { id: AGENT_IDS[1], isActive: true },
+    ]);
+    (prisma.aiAgent.updateMany as ReturnType<typeof vi.fn>).mockResolvedValue({ count: 1 });
+
+    const res = await POST(makeRequest({ action: 'activate', agentIds: AGENT_IDS }));
+
+    const body = (await res.json()) as { data: Record<string, unknown> };
+    expect(body.data).toMatchObject({ requested: 2, affected: 1, skipped: [] });
+    expect(prisma.aiAgent.updateMany).toHaveBeenCalledWith({
+      where: { id: { in: [AGENT_IDS[0]] } },
+      data: { isActive: true },
+    });
+    expect(recordAgentVersion).toHaveBeenCalledTimes(1);
   });
 });

@@ -252,6 +252,14 @@ release process.
 
 ### Fixed
 
+- **Bulk agent actions no longer reach deleted agents** (t-795).
+  `POST /api/v1/admin/orchestration/agents/bulk` filtered out system agents
+  but not ones deleted through `DELETE /agents/:id`, so a deleted agent's id
+  in the selection made it active again and gave it a new version. Deleted
+  agents are now excluded from every action, and the response gains
+  `skipped`: the requested ids the action could not reach (system, deleted,
+  or unknown).
+
 - **The global monthly budget cap totals every org's spend again at
   `multi`** (§110 t-788). `checkBudget()` summed month-to-date spend inside
   the acting org's scope, where the `org_isolation` policy hides other orgs'
