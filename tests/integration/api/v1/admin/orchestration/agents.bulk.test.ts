@@ -251,7 +251,7 @@ describe('POST /api/v1/admin/orchestration/agents/bulk', () => {
       vi.mocked(prisma.aiAgent.findMany).mockImplementation((async (args: {
         where: { deletedAt?: null };
       }) =>
-        AGENT_IDS.filter((id, i) => i === 0 || args.where.deletedAt !== null).map((id) => ({
+        AGENT_IDS.filter((_id, i) => i === 0 || args.where.deletedAt !== null).map((id) => ({
           id,
           isActive: null,
         }))) as never);
