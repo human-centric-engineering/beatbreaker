@@ -1,9 +1,15 @@
 import type { BreakAudio, SampleSource } from '@/lib/app/breaks/audio/engine';
 import { type MakeOffline, browserOffline } from '@/lib/app/breaks/audio/offline';
 import { pickTake } from '@/lib/app/breaks/audio/packs';
-import { machineGain, machineHas, machineVoice } from '@/lib/app/breaks/audio/machines';
+import {
+  type MachineVoice,
+  machineGain,
+  machineHas,
+  machineSlot,
+  machineVoice,
+} from '@/lib/app/breaks/audio/machines';
 import { type Draw, drawSlot } from '@/lib/app/breaks/audio/voices';
-import { SLOT_BY_ID, type VoiceParams, kitEngine } from '@/lib/app/breaks/kit';
+import { SLOT_BY_ID, type VoiceParams, kitEngine, kitIsPlayable } from '@/lib/app/breaks/kit';
 import { makeRng } from '@/lib/app/breaks/rng';
 import { logger } from '@/lib/logging';
 
@@ -45,8 +51,9 @@ import { logger } from '@/lib/logging';
  *
  * The drum machines (9-vi-e) render the same way, from `machines.ts`: only
  * the slots each machine has, one layer each (a machine has accent, not
- * velocity), takes that differ only in their noise, and the lane's Level and
- * the kit's trim applied when a take plays.
+ * velocity), takes that differ only in their noise (one take for a voice
+ * that draws none), a slot that names the same voice as another sharing its
+ * render, and the lane's Level and the kit's trim applied when a take plays.
  *
  * Percussion stays live: it is shared by every kit, and a recorded perc plays
  * first anyway.
@@ -61,6 +68,11 @@ export const RENDERED: Record<string, readonly string[]> = {
   c: ['c', 'c2', 'cChina', 'cSplash'],
   t: ['t1', 't2', 't3'],
 };
+
+/** The machine a kit renders and plays from, or undefined for the synth: `refresh` and `hit` agree. */
+function machineOf(kit: BreakAudio['kit']): string | undefined {
+  return kitEngine(kit) === 'drift' ? kit?.machine : undefined;
+}
 
 /** The slots a voice renders: all of them for the synth, those a machine has for a machine. */
 function slotsOf(voice: string, machine: string | undefined): readonly string[] {
@@ -271,7 +283,8 @@ export class SynthSource implements SampleSource {
   refresh(engine: BreakAudio): void {
     const kit = engine.kit;
     const engineOf = kitEngine(kit);
-    const renders = engineOf === 'synth' || engineOf === 'drift';
+    // a drum machine renders only if it is one built: `hit` then reads the same machine
+    const renders = engineOf === 'synth' || (engineOf === 'drift' && kitIsPlayable(kit));
     const key = kit && renders && this.make ? kit.key : null;
     if (key !== this.kitKey) {
       this.drop();
@@ -280,7 +293,7 @@ export class SynthSource implements SampleSource {
     const ctx = engine.ctx;
     if (!key || !ctx) return;
 
-    const machine = engineOf === 'drift' ? (kit?.machine ?? '') : undefined;
+    const machine = machineOf(kit);
     for (const voice of Object.keys(RENDERED)) {
       const slots = slotsOf(voice, machine);
       if (!slots.length) continue;
@@ -364,13 +377,23 @@ export class SynthSource implements SampleSource {
 
     const slots: Record<string, Layer[]> = {};
     const live: string[] = [];
+    // a machine slot that names a voice already rendered shares its render
+    const byVoice = new Map<MachineVoice, string>();
     for (const slot of slotIds) {
+      const mv = machine === undefined ? null : machineVoice(machine, slot);
+      const same = mv ? byVoice.get(mv) : undefined;
+      if (same !== undefined) {
+        if (slots[same]) slots[slot] = slots[same];
+        continue;
+      }
+      if (mv) byVoice.set(mv, slot);
       const vels = machine === undefined && SHAPED_BY_VELOCITY.has(slot) ? LAYERS : [1];
+      const takes = mv && !mv.noisy ? 1 : VARIATIONS;
       const layers: Layer[] = [];
       let why = 'longer than a render';
       for (const [li, v] of vels.entries()) {
         const bufs = await Promise.all(
-          Array.from({ length: VARIATIONS }, (_, i) =>
+          Array.from({ length: takes }, (_, i) =>
             renderTake(
               make,
               rate,
@@ -387,8 +410,8 @@ export class SynthSource implements SampleSource {
           )
         );
         if (!current()) return;
-        const takes = bufs.filter((buf): buf is AudioBuffer => buf !== null);
-        if (takes.length) layers.push({ v, takes });
+        const good = bufs.filter((buf): buf is AudioBuffer => buf !== null);
+        if (good.length) layers.push({ v, takes: good });
       }
       if (layers.length) slots[slot] = layers;
       else live.push(`${slot}: ${why}`);
@@ -409,14 +432,12 @@ export class SynthSource implements SampleSource {
     if (this.wanted.has(slot.voice)) return false;
     const rendered = this.voices.get(slot.voice)?.slots;
     const kit = engine.kit;
-    const machine = kitEngine(kit) === 'drift' ? kit?.machine : undefined;
-    /* A slot this machine does not have plays its `fall`, as a pack's does.
-       One that did not render — the synth's, or a machine's own — plays live. */
-    const layers = rendered?.[slotId]?.length
-      ? rendered[slotId]
-      : slot.fall && machine !== undefined && !machineHas(machine, slotId)
-        ? rendered?.[slot.fall]
-        : undefined;
+    const machine = machineOf(kit);
+    /* A slot this machine does not have plays its `fall`, as a pack's does
+       (`machineSlot`, which live playback asks too). One that did not render —
+       the synth's, or a machine's own — plays live. */
+    const id = machine === undefined ? slotId : machineSlot(machine, slotId);
+    const layers = id ? rendered?.[id] : undefined;
     if (!layers?.length) return false;
 
     const layer = nearestLayer(layers, vel);

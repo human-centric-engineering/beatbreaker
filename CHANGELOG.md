@@ -23,7 +23,8 @@ release process.
   models built in `lib/app/breaks/audio/machines.ts` (`MACHINE_VOICES`,
   `drawMachineSlot`, `machineHas`, `machineGain`), drawn live and rendered
   ahead by `SynthSource`. `BreakAudio.knobs` reads a voice's own knobs.
-  `DRIFT_MAP` gains the rim shot, toms and the two new machines, and `drift`
+  `DRIFT_MAP` gains the rim shot (cross-stick and rimshot), the half-open
+  hat, a second crash, toms and the two new machines, and `drift`
   is an implemented engine, so the picker's "not ported yet" is gone.
   `kitIsPlayable` takes a `drift` kit only when `DRIFT_MAP` knows its
   machine.

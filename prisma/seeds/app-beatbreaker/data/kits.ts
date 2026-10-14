@@ -96,7 +96,8 @@ export const KITS: Record<string, Kit> = {
      Knobs here are the machine's own 0..1 knobs, not Hz and seconds, because that
      is what the voice models take; `level` is a gain when a hit plays. The toms
      and percussion are the synth's units (SYNTH_ONLY). `room` is still our send.
-     Trims start at 1 and are set by ear against the synthesised kits (9-vi-e). */
+     Trims are 1: the owner listened against the synthesised kits on 2026-10-13
+     and signed all four off at that level (9-vi-e). */
   tr909: {
     label: 'TR-909',
     engine: 'drift',

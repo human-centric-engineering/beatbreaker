@@ -18,6 +18,8 @@ import {
   drawMachineSlot,
   machineGain,
   machineHas,
+  machineSlot,
+  machineVoice,
 } from '@/lib/app/breaks/audio/machines';
 import type { MakeOffline } from '@/lib/app/breaks/audio/offline';
 import {
@@ -198,14 +200,40 @@ describe('MACHINE_VOICES', () => {
     );
   });
 
-  it('returns an open hat’s tail to choke, and none for a closed one', () => {
+  it('returns an open or half-open hat’s tail to choke, and none for a closed one', () => {
     for (const machine of ['808', '909', '606', 'linn']) {
       const { d } = drawInto();
       const P = { tune: 0.5, decay: 0.5, tone: 0.5, colour: 0.5 };
       expect(drawMachineSlot(d, machine, 'hOpen', 1, 1, P)).toMatchObject({
         end: expect.any(Number),
       });
+      expect(drawMachineSlot(d, machine, 'hHalf', 1, 1, P)).toMatchObject({
+        end: expect.any(Number),
+      });
       expect(drawMachineSlot(d, machine, 'h', 1, 1, P)).toBeNull();
+    }
+  });
+
+  it('rings a half-open hat between the closed and the open, at every decay', () => {
+    for (const machine of ['808', '909', '606', 'linn']) {
+      for (const decay of [0, 0.5, 1]) {
+        const P = { tune: 0.5, decay, tone: 0.5, colour: 0.5 };
+        const [closed, half, open] = ['h', 'hHalf', 'hOpen'].map(
+          (slot) => machineVoice(machine, slot)?.seconds(P) ?? NaN
+        );
+        expect(half, `${machine} @ ${decay}`).toBeGreaterThan(closed);
+        expect(half, `${machine} @ ${decay}`).toBeLessThan(open);
+      }
+    }
+  });
+
+  it('says a voice that draws no noise is not noisy: the 808-family metal', () => {
+    for (const [id, voice] of Object.entries(MACHINE_VOICES)) {
+      const { d, ctx } = drawInto();
+      voice.draw(d, 0, 1, { tune: 0.5, decay: 0.5, tone: 0.5, colour: 0.5 });
+      // noise is a looping buffer source (`noiseSrc`); nothing else here loops
+      const draws = ctx.nodes.some((n) => n instanceof FakeAudioBufferSourceNode && n.loop);
+      expect(voice.noisy, id).toBe(draws);
     }
   });
 
@@ -246,13 +274,38 @@ describe('MACHINE_VOICES', () => {
 });
 
 describe('drawMachineSlot and machineHas', () => {
-  it("is undefined for a slot the machine does not have — the 808's rimshot, its china", () => {
+  it("is undefined for a slot the machine does not have — the 606's rimshot, the 808's china", () => {
     const { d } = drawInto();
-    expect(drawMachineSlot(d, '808', 'sRim', 0, 1, {})).toBeUndefined();
+    expect(drawMachineSlot(d, '606', 'sRim', 0, 1, {})).toBeUndefined();
     expect(machineHas('808', 'cChina')).toBe(false);
+    expect(machineHas('808', 'cSplash')).toBe(false);
     expect(machineHas('808', 'sCross')).toBe(true);
     expect(machineHas(undefined, 'k')).toBe(false);
     expect(machineHas('707', 'k')).toBe(false);
+  });
+
+  it('plays a machine’s one rim voice for both the cross-stick and the rimshot', () => {
+    expect(machineVoice('808', 'sRim')).toBe(MACHINE_VOICES['808.rs']);
+    expect(machineVoice('909', 'sRim')).toBe(MACHINE_VOICES['909.rs']);
+    expect(machineVoice('linn', 'sRim')).toBe(MACHINE_VOICES['linn.ss']);
+    expect(machineVoice('linn', 'sCross')).toBe(MACHINE_VOICES['linn.ss']);
+  });
+
+  it('plays a second crash as the crash, on every machine', () => {
+    for (const machine of ['808', '909', '606', 'linn']) {
+      expect(machineVoice(machine, 'c2'), machine).toBe(machineVoice(machine, 'c'));
+    }
+  });
+});
+
+describe('machineSlot', () => {
+  it('is the slot when the machine has it, its fall when only that, else null', () => {
+    expect(machineSlot('808', 'hHalf')).toBe('hHalf');
+    expect(machineSlot('808', 'hFoot')).toBe('h'); // no foot hat; its fall is the closed hat
+    expect(machineSlot('606', 'sCross')).toBe('s'); // no rim voice; the cross-stick falls to the snare
+    expect(machineSlot('606', 'sRim')).toBeNull(); // no rim voice, and a rimshot has no fall
+    expect(machineSlot('808', 'cChina')).toBeNull();
+    expect(machineSlot(undefined, 'k')).toBeNull();
   });
 });
 
@@ -312,23 +365,45 @@ describe('the drum-machine kits', () => {
     expect(peak).toBeCloseTo(0.8 * TR808.s.level * 0.5 * 0.62, 6); // the lower tone's share
   });
 
-  it('fall back as a pack does: a foot hat to the closed hat, a rimshot to the synth', () => {
+  it('fall back as a pack does: a foot hat to the closed hat, a 606 rimshot to the synth', () => {
     const { audio, ctx } = engineWith(TR808, undefined, false);
     const foot = oscillators(recordNodes(ctx, () => audio.hat(1, 1, false, true)));
     expect(foot).toHaveLength(6); // the 808's closed hat: six squares, each into both bands
-    const rim = oscillators(recordNodes(ctx, () => audio.snare(1, 1, false, false, true)));
+
+    const { audio: a606, ctx: c606 } = engineWith(TR606, undefined, false);
+    const rim = oscillators(recordNodes(c606, () => a606.snare(1, 1, false, false, true)));
     // the synthesised rimshot: the snare's six modes and two rim partials, at the stand-in's tune
     expect(rim).toHaveLength(8);
     expect(rim[0].frequency.events[0]).toMatchObject({ value: SAMPLE_STAND_IN.s.tune });
   });
 
-  it("render the machine's own slots, one layer of three takes each", async () => {
+  it("play the 808's own rim shot and half-open hat live, not the synth's stand-ins", () => {
+    const { audio, ctx } = engineWith(TR808, undefined, false);
+    const rim = oscillators(recordNodes(ctx, () => audio.snare(1, 1, false, false, true)));
+    expect(rim).toHaveLength(2); // the rim voice's two triangle tones
+    expect(rim.every((o) => o.type === 'triangle')).toBe(true);
+
+    const half = oscillators(recordNodes(ctx, () => audio.hat(2, 1, false, false, true)));
+    expect(half).toHaveLength(6); // the 808's six squares
+    expect(half.every((o) => o.type === 'square')).toBe(true);
+  });
+
+  it("render each of the machine's voices once, one layer of three takes each", async () => {
     const { audio, ctx } = engineWith(TR909);
     await rendered();
-    const slots = Object.values(RENDERED)
-      .flat()
-      .filter((slot) => machineHas('909', slot));
-    expect(FakeOfflineAudioContext.made).toHaveLength(slots.length * VARIATIONS);
+    // a ghost names the snare's voice and a bell the ride's: those share a render
+    const voices = new Set(
+      Object.values(RENDERED)
+        .flat()
+        .map((slot) => machineVoice('909', slot))
+        .filter((v) => v !== null)
+    );
+    expect(voices.size).toBeLessThan(
+      Object.values(RENDERED)
+        .flat()
+        .filter((slot) => machineHas('909', slot)).length
+    );
+    expect(FakeOfflineAudioContext.made).toHaveLength(voices.size * VARIATIONS);
     const nodes = recordNodes(ctx, () => audio.kick(2, 1));
     expect(played(nodes)).toHaveLength(1);
     expect(oscillators(nodes)).toHaveLength(0);
@@ -362,6 +437,36 @@ describe('the drum-machine kits', () => {
     const quieter = played(recordNodes(ctx, () => audio.kick(3, 0.8)))[0];
     const g2 = quieter.outputs[0] as FakeGainNode;
     expect((g2.gain.events[0] as { value: number }).value).toBeCloseTo(0.8 * 0.3 * 0.5, 9);
+  });
+
+  it('render one take of a voice that draws no noise: the 808’s hats', async () => {
+    engineWith(TR808);
+    await rendered();
+    const hats = new Set(['808.ch', '808.oh', '808.hh'].map((id) => MACHINE_VOICES[id]));
+    const voices = new Set(
+      Object.values(RENDERED)
+        .flat()
+        .map((slot) => machineVoice('808', slot))
+        .filter((v) => v !== null)
+    );
+    const others = [...voices].filter((v) => !hats.has(v)).length;
+    expect(FakeOfflineAudioContext.made).toHaveLength(hats.size + others * VARIATIONS);
+  });
+
+  it('play a shared render for each slot that names it: the ghost, the bell, the rimshot', async () => {
+    const { audio, ctx } = engineWith(TR909);
+    await rendered();
+    expect(played(recordNodes(ctx, () => audio.snare(2, 0.3, true)))).toHaveLength(1);
+    expect(played(recordNodes(ctx, () => audio.ride(2, 1, true)))).toHaveLength(1);
+    const rim = recordNodes(ctx, () => audio.snare(2, 1, false, false, true));
+    expect(played(rim)).toHaveLength(1);
+    expect(oscillators(rim)).toHaveLength(0);
+  });
+
+  it('render nothing for a drum-machine kit that names no machine built here', async () => {
+    engineWith({ ...TR909, key: 'tr707', machine: '707' });
+    await rendered();
+    expect(FakeOfflineAudioContext.made).toHaveLength(0);
   });
 
   it('play a rendered fall: the foot hat from the closed hat’s render', async () => {
