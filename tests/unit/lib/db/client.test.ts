@@ -354,7 +354,8 @@ describe('lib/db/client', () => {
     it('wraps the tenancy client in the owner layer, schema read off the base client', async () => {
       const { MockPrismaClient, mockReadOwnerSchema, mockWithOwnerChecks } =
         await importClientWithEnv({ NODE_ENV: 'development' });
-      const { getSubjectReadScope, noteConfinedRead } = await import('@/lib/auth/subject-context');
+      const { getSubjectReadScope, noteConfinedRead, noteUncheckedRead } =
+        await import('@/lib/auth/subject-context');
       const { enforcedModels } = await import('@/lib/db/owner-classification');
 
       // The schema comes from the base client (the extended one is a Proxy),
@@ -367,6 +368,7 @@ describe('lib/db/client', () => {
         schema: mockReadOwnerSchema.mock.results[0].value,
         getSubjectReadScope,
         onConfinedRead: noteConfinedRead,
+        onUncheckedRead: noteUncheckedRead,
       });
     });
 

@@ -45,7 +45,7 @@ import { auth } from '@/lib/auth/config';
 import { resolveApiKey } from '@/lib/auth/api-keys';
 import { logger } from '@/lib/logging';
 import { withAuth, withAdminAuth, type AuthenticatedSession } from '@/lib/auth/guards';
-import { noteConfinedRead } from '@/lib/auth/subject-context';
+import { noteConfinedRead, noteUncheckedRead } from '@/lib/auth/subject-context';
 import {
   DEFAULT_AUTHORIZATION_POLICY,
   registerAuthorizationPolicy,
@@ -305,6 +305,21 @@ describe('the four ways to satisfy the obligation', () => {
 
     expect(response.status).toBe(200);
     expect(ownershipReports()).toHaveLength(0);
+  });
+
+  it("still reports 'policy' when the handler also read a personal model the data layer does not check", async () => {
+    // One confined memory read does not vouch for an unnarrowed conversation
+    // list in the same handler: nothing checked that one.
+    await withAuth(
+      () => {
+        noteConfinedRead();
+        noteUncheckedRead();
+        return ok();
+      },
+      { ownership: { decidedBy: 'policy' } }
+    )(request());
+
+    expect(ownershipReports()).toHaveLength(1);
   });
 
   it("rejects 'policy' when the handler never reads the filter — claiming is not enough", async () => {

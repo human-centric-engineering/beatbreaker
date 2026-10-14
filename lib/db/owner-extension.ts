@@ -21,16 +21,27 @@
  *     *confines* the read: every row it can match is one the caller may read.
  *     The `where` is analysed as a tree — any `AND` conjunct that confines
  *     confines the whole; an `OR` confines when every arm does; `NOT` never
- *     does. A leaf confines when it names the owner as the subject, or names
- *     no owner and the caller may read ownerless rows of that kind
+ *     does. A leaf confines when it names the owner as the subject — by the
+ *     owner column, or by the relation its foreign key is (`user: { id: me }`)
+ *     — or names no owner and the caller may read ownerless rows of that kind
  *     (`session.unattributedReads`). So `{ OR: [{ userId: me }, { userId: null }] }`
  *     passes for a caller admitted to ownerless rows, and `{ agentId }` alone
  *     does not.
- *   • `findUnique` / `findFirst` (and the `OrThrow` forms) run whatever their
- *     filter, and the row that comes back is checked: someone else's, or an
- *     ownerless one the caller may not read, is refused. A route that fetches
- *     by id and checks the owner afterwards keeps working, and gains a
- *     backstop for the day it forgets.
+ *   • `findUnique` (and `findUniqueOrThrow`) runs whatever its filter, and the
+ *     row that comes back is checked: someone else's, or an ownerless one the
+ *     caller may not read, is refused. A route that fetches by id and checks
+ *     the owner afterwards keeps working, and gains a backstop for the day it
+ *     forgets.
+ *   • `findFirst` (and `findFirstOrThrow`) with a filter that does not confine
+ *     it has the caller's own predicate added to that filter. Checking its row
+ *     afterwards would refuse or pass depending on which matching row the
+ *     database returned first; narrowed, it returns the caller's first match,
+ *     or none.
+ *   • A write that returns the row it writes — `update`, `upsert`, `delete`,
+ *     `updateManyAndReturn` — must carry a filter that confines it, or it is
+ *     refused before it runs. It would otherwise read another member's row
+ *     back to the caller; checking that row afterwards is too late, as the
+ *     write has happened.
  *   • An `include` / `select` reaching an enforced model from any root (a
  *     `user.findUnique({ include: { aiUserMemories: true } })`) must confine
  *     that relation with its own `where`, or it is refused. A `_count` of
@@ -43,14 +54,23 @@
  * with `runAcrossOwners(reason, fn)`, which is logged.
  *
  * **What is not checked**, and why:
- *   • **Writes.** An `update` / `delete` of another member's row is a write
- *     decision the routes make (`canAdminister`); this layer guards reads.
+ *   • **Whether a write is allowed.** Whether a member may change another
+ *     member's row is a write decision the routes make (`canAdminister`); this
+ *     layer refuses only the read a returning write would carry back. A
+ *     `create`, or a write that returns a count (`updateMany`, `deleteMany`),
+ *     returns nothing the caller did not send.
  *   • **A relation filter that only tests existence**
  *     (`aiAgent.findMany({ where: { userMemories: { some: … } } })`): it
  *     returns the root's rows, not the personal ones.
  *   • **Raw SQL** (`model === undefined`). No `where` reaches it; every raw
  *     read of an enforced table is in the manifest
  *     `tests/unit/lib/db/owner-raw-sql-manifest.test.ts` keeps.
+ *
+ * **What it tells the guard.** A checked read that passed is reported
+ * (`onConfinedRead`), and so is a read of a personal model not enforced yet
+ * (`onUncheckedRead`): the guard counts the first as the route having used
+ * the policy's answer only when there was none of the second
+ * (`reportOwnershipGap` in `lib/auth/guards.ts`).
  *
  * **Cost.** Off the enforced models a read pays one set lookup, plus a walk
  * of its `include` / `select` when it has one. An enforced read under a
@@ -70,7 +90,11 @@ import {
   type OwnerPath,
 } from '@/lib/db/owner-classification';
 import type { TenancyClient } from '@/lib/db/tenancy-extension';
-import { readRuntimeDataModel, type RuntimeDataModel } from '@/lib/tenancy/classification';
+import {
+  readInlineSchema,
+  readRuntimeDataModel,
+  type RuntimeDataModel,
+} from '@/lib/tenancy/classification';
 
 /** Reads whose filter must confine them: their result cannot be checked row by row. */
 const FILTER_CHECKED_OPS: ReadonlySet<string> = new Set([
@@ -80,13 +104,27 @@ const FILTER_CHECKED_OPS: ReadonlySet<string> = new Set([
   'groupBy',
 ]);
 
-/** Reads of at most one row: run, then the row is checked. */
-const RESULT_CHECKED_OPS: ReadonlySet<string> = new Set([
-  'findUnique',
-  'findUniqueOrThrow',
-  'findFirst',
-  'findFirstOrThrow',
+/** Reads of one row by a unique key: run, then the row is checked. */
+const RESULT_CHECKED_OPS: ReadonlySet<string> = new Set(['findUnique', 'findUniqueOrThrow']);
+
+/** Reads of the first match: the caller's own predicate is added to the filter. */
+const NARROWED_OPS: ReadonlySet<string> = new Set(['findFirst', 'findFirstOrThrow']);
+
+/** Writes that return the rows they write: their filter must confine them. */
+const RETURNING_WRITE_OPS: ReadonlySet<string> = new Set([
+  'update',
+  'upsert',
+  'delete',
+  'updateManyAndReturn',
 ]);
+
+function isReadOp(operation: string): boolean {
+  return (
+    FILTER_CHECKED_OPS.has(operation) ||
+    RESULT_CHECKED_OPS.has(operation) ||
+    NARROWED_OPS.has(operation)
+  );
+}
 
 /** Why a read was refused. */
 export type OwnerRefusalReason =
@@ -94,6 +132,8 @@ export type OwnerRefusalReason =
   | 'unconfined-filter'
   /** A single-row read that returned a row this caller may not read. */
   | 'foreign-row'
+  /** A write that returns its row, whose filter does not confine it. */
+  | 'unconfined-write'
   /** An `include` / `select` / `_count` of an enforced relation with no confining `where`. */
   | 'unconfined-relation';
 
@@ -134,11 +174,28 @@ export function readerFor(scope: SubjectReadScope): OwnerReader | null {
   return { userId: scope.filter.userId, unattributedReads: scope.unattributedReads };
 }
 
+/** One model's fields, indexed once so the analysis never scans them. */
+interface ModelIndex {
+  /** Every field name, scalar and relation. */
+  fields: ReadonlySet<string>;
+  /** Each relation field's target model. */
+  relations: ReadonlyMap<string, string>;
+}
+
 /** What the analysis reads about the schema and the classification. */
 export interface OwnerSchema {
-  rdm: RuntimeDataModel;
+  /** Per model, its fields — built once from the runtime data model. */
+  models: ReadonlyMap<string, ModelIndex>;
   /** Models the layer enforces. */
   enforced: ReadonlySet<string>;
+  /** Personal models not enforced yet: a read of one is not checked, and the guard is told. */
+  unchecked: ReadonlySet<string>;
+  /**
+   * Per enforced model, the to-one relation whose foreign key is its owner
+   * column (`user` for `userId`), so `user: { id: me }` confines as
+   * `userId: me` does. Absent when the schema declares none.
+   */
+  ownerRelation: ReadonlyMap<string, string>;
   /** The classification of a model, or `null`. Injected so tests can classify a fixture. */
   classify: (model: string) => OwnerClassification | null;
 }
@@ -151,7 +208,57 @@ export function readOwnerSchema(
 ): OwnerSchema {
   const rdm = readRuntimeDataModel(client);
   for (const model of enforced) assertEnforceable(model, classify(model), rdm);
-  return { rdm, enforced: new Set(enforced), classify };
+
+  const enforcedSet = new Set(enforced);
+  const models = new Map<string, ModelIndex>();
+  const unchecked = new Set<string>();
+  for (const [name, model] of Object.entries(rdm.models)) {
+    models.set(name, {
+      fields: new Set(model.fields.map((f) => f.name)),
+      relations: new Map(
+        model.fields.filter((f) => f.kind === 'object').map((f) => [f.name, f.type])
+      ),
+    });
+    if (!enforcedSet.has(name) && classify(name)?.kind === 'personal') unchecked.add(name);
+  }
+
+  const ownerRelation = new Map<string, string>();
+  if (enforced.length > 0) {
+    const schemaText = readInlineSchema(client);
+    for (const model of enforced) {
+      const c = classify(model);
+      if (c?.kind !== 'personal' || !('column' in c.owner)) continue;
+      const relation = ownerRelationIn(schemaText, model, c.owner.column);
+      if (relation !== null) ownerRelation.set(model, relation);
+    }
+  }
+
+  return { models, enforced: enforcedSet, unchecked, ownerRelation, classify };
+}
+
+/**
+ * The relation field of `model` declared `@relation(fields: [column],
+ * references: [id])`, read from the schema text: the compact runtime data
+ * model does not record which fields a relation's foreign key is.
+ */
+function ownerRelationIn(schemaText: string, model: string, column: string): string | null {
+  let inside = false;
+  for (const line of schemaText.split('\n')) {
+    if (!inside) {
+      inside = new RegExp(`^model\\s+${model}\\s*\\{`).test(line);
+      continue;
+    }
+    if (line.startsWith('}')) return null;
+    const relation = /^\s*(\w+)\s+\w+\??\s+@relation\((.*)\)/.exec(line);
+    if (
+      relation &&
+      new RegExp(`\\bfields:\\s*\\[\\s*${column}\\s*\\]`).test(relation[2]) &&
+      /\breferences:\s*\[\s*id\s*\]/.test(relation[2])
+    ) {
+      return relation[1];
+    }
+  }
+  return null;
 }
 
 /**
@@ -243,7 +350,8 @@ export function whereConfines(
   if (!isRecord(where)) return false;
   const c = personal(schema, model);
   if (!c) return false;
-  const fields = schema.rdm.models[model]?.fields ?? [];
+  const fields = schema.models.get(model)?.fields;
+  const ownerRelation = schema.ownerRelation.get(model);
 
   for (const [key, value] of Object.entries(where)) {
     if (key === 'AND') {
@@ -262,8 +370,9 @@ export function whereConfines(
     }
     if (key === 'NOT') continue;
     if (ownerLeafConfines(schema, c.owner, c.ownerless, key, value, reader)) return true;
+    if (key === ownerRelation && ownerRelationConfines(c.ownerless, value, reader)) return true;
     // A compound unique key: not a field, and its value names fields.
-    if (!fields.some((f) => f.name === key) && isRecord(value)) {
+    if (!fields?.has(key) && isRecord(value)) {
       if (whereConfines(schema, model, value, reader)) return true;
     }
   }
@@ -295,6 +404,23 @@ function ownerLeafConfines(
   return whereConfines(schema, parent, toOneInner(value), reader);
 }
 
+/**
+ * Does a filter on the owner relation (`user: { id: me }`, `user: { is: { id: me } }`)
+ * pin the owner as `userId: me` would? `user: null` is the ownerless arm.
+ */
+function ownerRelationConfines(
+  ownerless: UnattributedReadKind | undefined,
+  value: unknown,
+  reader: OwnerReader
+): boolean {
+  if (value === null || (isRecord(value) && value.is === null)) {
+    return readsOwnerless(reader, ownerless);
+  }
+  if (!isRecord(value)) return false;
+  const inner = toOneInner(value);
+  return isRecord(inner) && pinsTo(inner.id, reader.userId);
+}
+
 /** May `reader` read a row of `model` whose owner column holds `owner`? */
 export function rowReadable(
   schema: OwnerSchema,
@@ -308,49 +434,106 @@ export function rowReadable(
   return owner === null && readsOwnerless(reader, c.ownerless);
 }
 
+/** An enforced relation a read's `include` / `select` reaches, with the `where` it carries. */
+interface EnforcedNode {
+  /** Dotted path from the root, for the refusal message. */
+  path: string;
+  model: string;
+  /** Absent for a to-one relation or a bare `_count`, which cannot carry one. */
+  where: unknown;
+}
+
+/** What a read's `include` / `select` reaches, found in one pure walk. */
+export interface SelectionScan {
+  enforced: EnforcedNode[];
+  /** Whether it reaches a personal model not enforced yet. */
+  touchesUnchecked: boolean;
+}
+
 /**
- * Does this read's `include` / `select` mention an enforced relation at any
- * depth? Pure and cheap: decides whether the subject is worth looking up.
+ * Walk a read's `include` / `select` once, at any depth. Pure, and needs no
+ * subject: the reader is looked up only when the walk found an enforced
+ * relation, and then each one is checked against it.
  */
-export function selectionTouchesEnforced(
+export function scanSelection(schema: OwnerSchema, model: string, args: unknown): SelectionScan {
+  const scan: SelectionScan = { enforced: [], touchesUnchecked: false };
+  scanArgs(schema, model, args, model, scan);
+  return scan;
+}
+
+function scanArgs(
   schema: OwnerSchema,
   model: string,
-  args: unknown
-): boolean {
-  if (!isRecord(args)) return false;
-  return (
-    selectionNodeTouches(schema, model, args.include) ||
-    selectionNodeTouches(schema, model, args.select)
-  );
+  args: unknown,
+  path: string,
+  scan: SelectionScan
+): void {
+  if (!isRecord(args)) return;
+  scanNode(schema, model, args.include, path, scan);
+  scanNode(schema, model, args.select, path, scan);
 }
 
-function relationTarget(schema: OwnerSchema, model: string, field: string): string | undefined {
-  return schema.rdm.models[model]?.fields.find((f) => f.kind === 'object' && f.name === field)
-    ?.type;
-}
-
-function selectionNodeTouches(schema: OwnerSchema, model: string, node: unknown): boolean {
-  if (!isRecord(node)) return false;
+function scanNode(
+  schema: OwnerSchema,
+  model: string,
+  node: unknown,
+  path: string,
+  scan: SelectionScan
+): void {
+  if (!isRecord(node)) return;
+  const relations = schema.models.get(model)?.relations;
+  if (!relations) return;
   for (const [key, value] of Object.entries(node)) {
     if (value === false || value === undefined) continue;
     if (key === '_count') {
-      if (value === true) return countableEnforced(schema, model).length > 0;
-      if (isRecord(value) && selectionNodeTouches(schema, model, value.select)) return true;
+      // `_count: true` counts every relation; `_count: { select }` the named ones.
+      const counted: [string, unknown][] =
+        value === true
+          ? [...relations.keys()].map((rel) => [rel, true])
+          : isRecord(value) && isRecord(value.select)
+            ? Object.entries(value.select)
+            : [];
+      for (const [rel, sel] of counted) {
+        const target = relations.get(rel);
+        if (target === undefined || !schema.enforced.has(target) || sel === false) continue;
+        scan.enforced.push({
+          path: `${path}._count.${rel}`,
+          model: target,
+          where: isRecord(sel) ? sel.where : undefined,
+        });
+      }
       continue;
     }
-    const target = relationTarget(schema, model, key);
+    const target = relations.get(key);
     if (target === undefined) continue;
-    if (schema.enforced.has(target)) return true;
-    if (selectionTouchesEnforced(schema, target, value)) return true;
+    const here = `${path}.${key}`;
+    // Every include of an enforced relation must carry a `where` that confines
+    // it. A to-one relation cannot take one, so reading up to an enforced
+    // parent is refused too; nothing does that to `AiUserMemory`, and t-802
+    // decides it for messages reading their conversation.
+    if (schema.enforced.has(target)) {
+      scan.enforced.push({
+        path: here,
+        model: target,
+        where: isRecord(value) ? value.where : undefined,
+      });
+    } else if (schema.unchecked.has(target)) {
+      scan.touchesUnchecked = true;
+    }
+    scanArgs(schema, target, value, here, scan);
   }
-  return false;
 }
 
-/** The relation fields of `model` that lead straight to an enforced model. */
-function countableEnforced(schema: OwnerSchema, model: string): string[] {
-  return (schema.rdm.models[model]?.fields ?? [])
-    .filter((f) => f.kind === 'object' && schema.enforced.has(f.type))
-    .map((f) => f.name);
+/** The first enforced relation in `scan` whose `where` does not confine it for `reader`, or `null`. */
+function firstUnconfined(
+  schema: OwnerSchema,
+  scan: SelectionScan,
+  reader: OwnerReader
+): string | null {
+  for (const node of scan.enforced) {
+    if (!whereConfines(schema, node.model, node.where, reader)) return node.path;
+  }
+  return null;
 }
 
 /**
@@ -361,59 +544,9 @@ export function unconfinedRelation(
   schema: OwnerSchema,
   model: string,
   args: unknown,
-  reader: OwnerReader,
-  path = model
+  reader: OwnerReader
 ): string | null {
-  if (!isRecord(args)) return null;
-  return (
-    unconfinedInSelection(schema, model, args.include, reader, path) ??
-    unconfinedInSelection(schema, model, args.select, reader, path)
-  );
-}
-
-function unconfinedInSelection(
-  schema: OwnerSchema,
-  model: string,
-  node: unknown,
-  reader: OwnerReader,
-  path: string
-): string | null {
-  if (!isRecord(node)) return null;
-  for (const [key, value] of Object.entries(node)) {
-    if (value === false || value === undefined) continue;
-    if (key === '_count') {
-      if (value === true) {
-        const counted = countableEnforced(schema, model);
-        if (counted.length > 0) return `${path}._count.${counted[0]}`;
-        continue;
-      }
-      if (!isRecord(value) || !isRecord(value.select)) continue;
-      for (const [rel, sel] of Object.entries(value.select)) {
-        const target = relationTarget(schema, model, rel);
-        if (target === undefined || !schema.enforced.has(target) || sel === false) continue;
-        if (!(isRecord(sel) && whereConfines(schema, target, sel.where, reader))) {
-          return `${path}._count.${rel}`;
-        }
-      }
-      continue;
-    }
-    const target = relationTarget(schema, model, key);
-    if (target === undefined) continue;
-    const here = `${path}.${key}`;
-    // Every include of an enforced relation must carry a `where` that confines
-    // it. A to-one relation cannot take one, so reading up to an enforced
-    // parent is refused too; nothing does that to `AiUserMemory`, and t-802
-    // decides it for messages reading their conversation.
-    if (
-      schema.enforced.has(target) &&
-      !(isRecord(value) && whereConfines(schema, target, value.where, reader))
-    ) {
-      return here;
-    }
-    const deeper = unconfinedRelation(schema, target, value, reader, here);
-    if (deeper !== null) return deeper;
-  }
-  return null;
+  return firstUnconfined(schema, scanSelection(schema, model, args), reader);
 }
 
 /**
@@ -437,9 +570,16 @@ export interface OwnerExtensionOptions {
    * Told when an enforced read under a narrowed caller passed the check
    * (`noteConfinedRead`). The guard counts that as the route having used the
    * policy's answer (`reportOwnershipGap`): the data layer narrowed the read
-   * for it.
+   * for it — but only when the route read no personal model this layer does
+   * not check yet, which {@link onUncheckedRead} reports.
    */
   onConfinedRead: () => void;
+  /**
+   * Told when a read reaches a personal model not enforced yet, for any
+   * caller (`noteUncheckedRead`). Nothing checked that read, so a confined
+   * read elsewhere in the route says nothing about it.
+   */
+  onUncheckedRead: () => void;
 }
 
 /**
@@ -470,17 +610,19 @@ export function withOwnerChecks(
     const { model, operation, query } = params;
     if (model === undefined || schema.enforced.size === 0) return query(params.args);
 
-    const isEnforcedRead =
-      schema.enforced.has(model) &&
-      (FILTER_CHECKED_OPS.has(operation) || RESULT_CHECKED_OPS.has(operation));
-    if (!isEnforcedRead && !selectionTouchesEnforced(schema, model, params.args)) {
-      return query(params.args);
+    const isRead = isReadOp(operation);
+    const scan = scanSelection(schema, model, params.args);
+    if (scan.touchesUnchecked || (isRead && schema.unchecked.has(model))) {
+      options.onUncheckedRead();
     }
+
+    const isChecked = schema.enforced.has(model) && (isRead || RETURNING_WRITE_OPS.has(operation));
+    if (!isChecked && scan.enforced.length === 0) return query(params.args);
 
     const reader = readerFor(await options.getSubjectReadScope());
     if (reader === null) return query(params.args);
 
-    const relation = unconfinedRelation(schema, model, params.args, reader);
+    const relation = firstUnconfined(schema, scan, reader);
     if (relation !== null) {
       throw new OwnerReadRefusedError(
         model,
@@ -489,12 +631,20 @@ export function withOwnerChecks(
         `${relation} reads an enforced model with no where that confines it.`
       );
     }
-    if (!isEnforcedRead) return query(params.args);
+    if (!isChecked) return query(params.args);
 
     const where = isRecord(params.args) ? params.args.where : undefined;
     if (whereConfines(schema, model, where, reader)) {
-      options.onConfinedRead();
+      if (isRead) options.onConfinedRead();
       return query(params.args);
+    }
+    if (RETURNING_WRITE_OPS.has(operation)) {
+      throw new OwnerReadRefusedError(
+        model,
+        operation,
+        'unconfined-write',
+        'it returns the row it writes, and its where does not confine it to rows this caller may read.'
+      );
     }
     if (FILTER_CHECKED_OPS.has(operation)) {
       throw new OwnerReadRefusedError(
@@ -505,11 +655,26 @@ export function withOwnerChecks(
       );
     }
 
-    // A single-row read whose filter does not confine it: run it, then check
-    // the row that came back.
     const c = personal(schema, model);
     const column = c && 'column' in c.owner ? c.owner.column : null;
-    if (column === null) throw new Error(`Owner layer: ${model} has no owner column`);
+    if (c === null || column === null) throw new Error(`Owner layer: ${model} has no owner column`);
+
+    // The first match of a filter that does not confine it: narrowed to the
+    // caller's own rows, so the answer does not depend on which match the
+    // database happens to return first.
+    if (NARROWED_OPS.has(operation)) {
+      const own: Record<string, unknown> = readsOwnerless(reader, c.ownerless)
+        ? { OR: [{ [column]: reader.userId }, { [column]: null }] }
+        : { [column]: reader.userId };
+      options.onConfinedRead();
+      return query({
+        ...(isRecord(params.args) ? params.args : {}),
+        where: { AND: where === undefined ? [own] : [where, own] },
+      });
+    }
+
+    // A read by unique key whose filter does not confine it: run it, then
+    // check the row that came back.
     const sent = withOwnerColumn(params.args, column);
     const row = await query(sent.args);
     if (!isRecord(row)) return row;

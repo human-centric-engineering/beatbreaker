@@ -642,7 +642,8 @@ export class OwnershipDecisionMissingError extends Error {
  *
  * 1. `ownership: { decidedBy: 'policy' }` **and** the handler read
  *    `session.subjectFilter`, or a personal read the owner layer checked for
- *    this caller passed (`lib/db/owner-extension.ts`). Declaring without reading is reported separately,
+ *    this caller passed and the route read no personal model the layer does
+ *    not check yet (`lib/db/owner-extension.ts`). Declaring without reading is reported separately,
  *    with its own message, because it is a different mistake: the author knew
  *    the rule and the query still went out unnarrowed.
  * 2. `ownership: { decidedBy: 'resource', … }` — the policy decided about the
@@ -680,6 +681,12 @@ function reportOwnershipGap(options: {
    * route that relied on it has used the policy's answer.
    */
   dataLayerConfined: boolean;
+  /**
+   * The route read a personal model the owner layer does not check yet. That
+   * read was narrowed by nothing but the route, so {@link dataLayerConfined}
+   * says nothing about it and does not excuse the route.
+   */
+  dataLayerUnchecked: boolean;
   principal: AuthorizationPrincipal;
   state: OwnershipReportState;
 }): void {
@@ -708,9 +715,11 @@ function reportOwnershipGap(options: {
       // that forgot, so it is reported and the remedy is one line: read the
       // filter before the early return. A read the owner layer checked and
       // passed counts too (§115 t-801): the data layer narrowed it for the
-      // route, which is the answer the declaration promised.
+      // route, which is the answer the declaration promised — unless the
+      // route also read a personal model the layer does not check yet, which
+      // nothing narrowed.
       complaint =
-        options.filterRead || options.dataLayerConfined
+        options.filterRead || (options.dataLayerConfined && !options.dataLayerUnchecked)
           ? null
           : `${options.guard}: this route declares ownership { decidedBy: 'policy' } but never read session.subjectFilter, so the policy did not narrow anything it did. If the handler returned early without building its query, read the filter before that return.`;
       break;
@@ -1086,6 +1095,7 @@ async function runHandler(args: {
   const filter: SubjectFilter = filterIsUsable ? { ...(await subjectScope(args.principal)) } : {};
   let filterRead = false;
   let dataLayerConfined = false;
+  let dataLayerUnchecked = false;
 
   // One principal, built by the guard and handed on — never rebuilt by the
   // handler. See {@link AuthenticatedSession} for what reconstruction cost.
@@ -1155,6 +1165,9 @@ async function runHandler(args: {
       onConfinedRead: () => {
         dataLayerConfined = true;
       },
+      onUncheckedRead: () => {
+        dataLayerUnchecked = true;
+      },
     },
     async () =>
       args.context !== undefined
@@ -1180,6 +1193,7 @@ async function runHandler(args: {
     filter,
     filterRead,
     dataLayerConfined,
+    dataLayerUnchecked,
     principal: args.principal,
   });
 

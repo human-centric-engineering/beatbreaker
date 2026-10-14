@@ -36,6 +36,7 @@ import { enforcedModels } from '@/lib/db/owner-classification';
 import {
   getSubjectReadScope,
   noteConfinedRead,
+  noteUncheckedRead,
   runAcrossOwners,
   runAsSubject,
 } from '@/lib/auth/subject-context';
@@ -147,12 +148,17 @@ const tenancyOnly: TenancyClient = withTenancy(base, {
   installOrgId: 'install',
 });
 const confinedReads = vi.fn();
+const uncheckedReads = vi.fn();
 const db = withOwnerChecks(tenancyOnly, {
   schema: readOwnerSchema(base, enforcedModels()),
   getSubjectReadScope,
   onConfinedRead: () => {
     confinedReads();
     noteConfinedRead();
+  },
+  onUncheckedRead: () => {
+    uncheckedReads();
+    noteUncheckedRead();
   },
 });
 
@@ -189,6 +195,7 @@ beforeEach(() => {
   statements.length = 0;
   memoryRows = [];
   confinedReads.mockClear();
+  uncheckedReads.mockClear();
 });
 
 // ---------------------------------------------------------------------------
@@ -263,9 +270,6 @@ describe('withOwnerChecks — a narrowed caller', () => {
     await expect(
       asMember(() => db.aiUserMemory.findUnique({ where: { id: `mem-${OTHER}` } }))
     ).rejects.toMatchObject({ reason: 'foreign-row' });
-    await expect(
-      asMember(() => db.aiUserMemory.findFirst({ where: { key: 'k' } }))
-    ).rejects.toMatchObject({ reason: 'foreign-row' });
 
     memoryRows = [memory(ME)];
     const own = await asMember(() => db.aiUserMemory.findUnique({ where: { id: `mem-${ME}` } }));
@@ -286,6 +290,77 @@ describe('withOwnerChecks — a narrowed caller', () => {
       db.aiUserMemory.findUnique({ where: { id: `mem-${ME}` }, select: { value: true } })
     );
     expect(own).toEqual({ value: 'v' });
+  });
+
+  it("narrows an unconfined findFirst to the caller's own rows rather than checking whichever row came first", async () => {
+    // Checking the returned row would refuse or pass depending on which match
+    // the database returned first; narrowed, the caller's own row is found.
+    memoryRows = [memory(ME)];
+    const row = await asMember(() =>
+      db.aiUserMemory.findFirst({ where: { key: 'k' }, orderBy: { updatedAt: 'desc' } })
+    );
+    expect(row?.userId).toBe(ME);
+    expect(statements).toHaveLength(1);
+    expect(statements[0].sql).toMatch(/"userId" = \$\d/);
+    expect(statements[0].args).toContain(ME);
+    expect(statements[0].args).toContain('k');
+
+    // With no where at all, the caller's predicate is the whole filter.
+    statements.length = 0;
+    await asMember(() => db.aiUserMemory.findFirstOrThrow());
+    expect(statements[0].args).toContain(ME);
+    expect(confinedReads).toHaveBeenCalledTimes(2);
+  });
+
+  it("refuses a write that would return another member's row, before any SQL", async () => {
+    const other = { id: `mem-${OTHER}` };
+    await expect(
+      asMember(() => db.aiUserMemory.update({ where: other, data: {} }))
+    ).rejects.toMatchObject({ reason: 'unconfined-write' });
+    await expect(asMember(() => db.aiUserMemory.delete({ where: other }))).rejects.toMatchObject({
+      reason: 'unconfined-write',
+    });
+    await expect(
+      asMember(() =>
+        db.aiUserMemory.upsert({
+          where: { userId_agentId_key: { userId: OTHER, agentId: AGENT, key: 'k' } },
+          create: { userId: OTHER, agentId: AGENT, key: 'k', value: 'v' },
+          update: {},
+        })
+      )
+    ).rejects.toMatchObject({ reason: 'unconfined-write' });
+    await expect(
+      asMember(() => db.aiUserMemory.updateManyAndReturn({ where: { agentId: AGENT }, data: {} }))
+    ).rejects.toMatchObject({ reason: 'unconfined-write' });
+    expect(statements).toEqual([]);
+  });
+
+  it("lets a write confined to the caller's own rows, and a write returning only a count, through", async () => {
+    memoryRows = [memory(ME)];
+    await asMember(() =>
+      db.aiUserMemory.upsert({
+        where: { userId_agentId_key: { userId: ME, agentId: AGENT, key: 'k' } },
+        create: { id: 'mem-new', userId: ME, agentId: AGENT, key: 'k', value: 'v' },
+        update: { value: 'v' },
+      })
+    );
+    await asMember(() => db.aiUserMemory.deleteMany({ where: { agentId: AGENT } }));
+    expect(statements.length).toBeGreaterThan(0);
+    // A write is not a read the guard can count.
+    expect(confinedReads).not.toHaveBeenCalled();
+  });
+
+  it('confines on the owner relation as on the owner column', async () => {
+    memoryRows = [memory(ME)];
+    await asMember(() => db.aiUserMemory.findMany({ where: { user: { id: ME } } }));
+    await asMember(() => db.aiUserMemory.count({ where: { user: { is: { id: ME } } } }));
+    expect(confinedReads).toHaveBeenCalledTimes(2);
+    await expect(
+      asMember(() => db.aiUserMemory.findMany({ where: { user: { id: OTHER } } }))
+    ).rejects.toBeInstanceOf(OwnerReadRefusedError);
+    await expect(
+      asMember(() => db.aiUserMemory.findMany({ where: { user: { email: 'me@example.com' } } }))
+    ).rejects.toBeInstanceOf(OwnerReadRefusedError);
   });
 
   it('passes a single-row read that found nothing', async () => {
@@ -345,10 +420,23 @@ describe('withOwnerChecks — a narrowed caller', () => {
     ).rejects.toBeInstanceOf(OwnerReadRefusedError);
   });
 
-  it('leaves a model that is not enforced alone', async () => {
+  it('leaves a model that is not enforced alone, and tells the guard nothing checked it', async () => {
     // AiConversation is personal but not enforced until t-802.
     await asMember(() => db.aiConversation.findMany());
     expect(statements).toHaveLength(1);
+    expect(uncheckedReads).toHaveBeenCalledTimes(1);
+
+    // Reached through an include, too.
+    await asMember(() =>
+      db.user.findUnique({ where: { id: ME }, include: { aiConversations: true } })
+    );
+    expect(uncheckedReads).toHaveBeenCalledTimes(2);
+
+    // An enforced read, and a read of a model that is not personal, are not unchecked.
+    memoryRows = [memory(ME)];
+    await asMember(() => db.aiUserMemory.findMany({ where: { userId: ME } }));
+    await asMember(() => db.aiAgent.findMany());
+    expect(uncheckedReads).toHaveBeenCalledTimes(2);
   });
 
   it("tells the guard's callback a confined read happened", async () => {
@@ -478,6 +566,22 @@ describe('whereConfines / rowReadable', () => {
     expect(
       whereConfines(s, 'AiMessage', { conversation: { isNot: { userId: OTHER } } }, reader())
     ).toBe(false);
+  });
+
+  it('confines on the owner relation, by id, and nowhere else', () => {
+    expect(whereConfines(schema, 'AiUserMemory', { user: { id: ME } }, reader())).toBe(true);
+    expect(whereConfines(schema, 'AiUserMemory', { user: { is: { id: ME } } }, reader())).toBe(
+      true
+    );
+    expect(whereConfines(schema, 'AiUserMemory', { user: { id: { equals: ME } } }, reader())).toBe(
+      true
+    );
+    expect(whereConfines(schema, 'AiUserMemory', { user: { id: OTHER } }, reader())).toBe(false);
+    expect(
+      whereConfines(schema, 'AiUserMemory', { user: { isNot: { id: OTHER } } }, reader())
+    ).toBe(false);
+    // `agent` is a relation, but not the owner's.
+    expect(whereConfines(schema, 'AiUserMemory', { agent: { id: ME } }, reader())).toBe(false);
   });
 
   it('treats an empty OR and an empty in as matching nothing, and an empty where as everything', () => {

@@ -5,7 +5,11 @@ import { env } from '@/lib/env';
 import { withTenancy, type TenancyClient } from '@/lib/db/tenancy-extension';
 import { readOwnerSchema, withOwnerChecks } from '@/lib/db/owner-extension';
 import { enforcedModels } from '@/lib/db/owner-classification';
-import { getSubjectReadScope, noteConfinedRead } from '@/lib/auth/subject-context';
+import {
+  getSubjectReadScope,
+  noteConfinedRead,
+  noteUncheckedRead,
+} from '@/lib/auth/subject-context';
 import { getTenantContext, isMultiTenant } from '@/lib/tenancy/context';
 import { INSTALL_ORG_ID } from '@/lib/tenancy/constants';
 
@@ -124,6 +128,7 @@ export const prisma: TenancyClient = withOwnerChecks(
     schema: readOwnerSchema(baseClient, enforcedModels()),
     getSubjectReadScope,
     onConfinedRead: noteConfinedRead,
+    onUncheckedRead: noteUncheckedRead,
   }
 );
 

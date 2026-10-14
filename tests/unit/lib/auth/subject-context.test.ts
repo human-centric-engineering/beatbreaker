@@ -18,6 +18,7 @@ import { logger } from '@/lib/logging';
 import {
   getSubjectReadScope,
   noteConfinedRead,
+  noteUncheckedRead,
   runAcrossOwners,
   runAsSubject,
   type SubjectEntry,
@@ -175,6 +176,19 @@ describe('runAcrossOwners logging', () => {
     );
     expect(logger.info).toHaveBeenCalledTimes(3);
   });
+
+  it('logs nothing when nothing was crossed', async () => {
+    // A caller the policy does not narrow (a platform admin) had no check to cross.
+    await runAsSubject(
+      entryFor('admin-1', { resolveFilter: vi.fn(() => Promise.resolve({})) }),
+      () => runAcrossOwners('an admin export', () => getSubjectReadScope())
+    );
+    // A narrowed caller whose crossing made no read the owner layer checks.
+    await runAsSubject(entryFor('member-1'), () =>
+      runAcrossOwners('a crossing that read nothing personal', () => Promise.resolve())
+    );
+    expect(logger.info).not.toHaveBeenCalled();
+  });
 });
 
 describe('noteConfinedRead', () => {
@@ -186,6 +200,18 @@ describe('noteConfinedRead', () => {
       return Promise.resolve();
     });
     expect(onConfinedRead).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('noteUncheckedRead', () => {
+  it("calls the entering guard's callback, and is a no-op outside a subject", async () => {
+    const onUncheckedRead = vi.fn();
+    noteUncheckedRead();
+    await runAsSubject({ ...entryFor('member-1'), onUncheckedRead }, () => {
+      noteUncheckedRead();
+      return Promise.resolve();
+    });
+    expect(onUncheckedRead).toHaveBeenCalledTimes(1);
   });
 });
 

@@ -883,9 +883,12 @@ that reads them ([The owner chokepoint](#the-owner-chokepoint), t-801):
   narrows, so "no subject" (not narrowed) is the honest answer there.
 - **`runAcrossOwners(reason, fn)` — the deliberate crossing.** For code that
   must read other members' personal rows for a narrowed caller (an org-wide
-  aggregate, an org backup). Logs the reason at info, like `runAsSystem`, once
-  per reason per request (a crossing around a per-row helper is one line, not
-  one per row); lifts only the owner check, never the org wall. Outside a
+  aggregate, an org backup). Logs the reason at info, like `runAsSystem`, when
+  it crosses something — the first read inside it that the owner layer would
+  have checked, for a caller the policy narrowed — and once per reason per
+  request (a crossing around a per-row helper is one line, not one per row). A
+  platform admin's export crosses nothing and logs nothing. It lifts only the
+  owner check, never the org wall. Outside a
   subject it does nothing. Core's crossings: the subject-data export when an
   admin exports someone else, the org export, and resuming an approved
   execution.
@@ -917,16 +920,19 @@ read inside `runAcrossOwners`) it sends the query it was handed, unchanged;
 **Enforced today: `AiUserMemory`.** Conversations and messages follow in t-802,
 executions, evaluations and datasets in t-803, each when its call sites comply.
 
-| Read                                                                   | Rule                                                                                                                               |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `findMany`, `count`, `aggregate`, `groupBy`                            | The `where` must **confine** the read: every row it can match is one the caller may read. Otherwise refused before any SQL.        |
-| `findUnique`, `findFirst` (and `OrThrow`)                              | Runs whatever the filter. The row returned is refused if it is someone else's, or ownerless and the caller may not read that kind. |
-| An `include` / `select` / `_count` of an enforced model, from any root | That relation must carry its own confining `where`. `user.findUnique({ include: { aiUserMemories: true } })` is refused.           |
+| Operation                                                              | Rule                                                                                                                                                       |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `findMany`, `count`, `aggregate`, `groupBy`                            | The `where` must **confine** the read: every row it can match is one the caller may read. Otherwise refused before any SQL.                                |
+| `findUnique` (and `OrThrow`)                                           | Runs whatever the filter. The row returned is refused if it is someone else's, or ownerless and the caller may not read that kind.                         |
+| `findFirst` (and `OrThrow`)                                            | An unconfined `where` has the caller's own predicate added, so it returns the caller's first match or none — never whichever row the database found first. |
+| `update`, `upsert`, `delete`, `updateManyAndReturn`                    | They return the row they write, so the `where` must confine them. Otherwise refused before any SQL: checking the row afterwards would be after the write.  |
+| An `include` / `select` / `_count` of an enforced model, from any root | That relation must carry its own confining `where`. `user.findUnique({ include: { aiUserMemories: true } })` is refused.                                   |
 
 **Confines**, as a tree: every key of a `where` is a conjunct, so one confining
 conjunct (at any depth under `AND`) confines the whole; an `OR` confines only
 when every arm does; `NOT` never does. A leaf confines when it pins the owner
-to the caller (`userId: me`, `{ equals: me }`, `{ in: [me] }`), or to null for a
+to the caller (`userId: me`, `{ equals: me }`, `{ in: [me] }`, or through the
+owner relation, `user: { id: me }` / `user: { is: { id: me } }`), or to null for a
 model with an `ownerless` kind the caller may read
 (`session.unattributedReads`). A compound unique key (`userId_agentId_key`) is
 read as its fields. A child owned `through` a parent is analysed as the parent's
@@ -951,10 +957,15 @@ genuinely must read across owners for a narrowed caller wraps the read in
 **A `'policy'` route that relies on the layer is not an ownership gap.** A read
 the layer checked and passed for this caller counts as the route having used the
 policy's answer, so a handler that never touches `session.subjectFilter` but
-whose personal reads are confined is not reported.
+whose personal reads are confined is not reported. That holds only while every
+personal read in the route was one the layer checks: a read of a personal model
+not enforced yet (a conversation, until t-802) was narrowed by nothing but the
+route, so the route is reported as before.
 
-**Not checked:** writes (an `update` or `delete` of another member's row is the
-route's `canAdminister` decision); relation filters that only test existence
+**Not checked:** whether a write is allowed (changing another member's row is
+the route's `canAdminister` decision — the layer refuses only the row a
+returning write would hand back), and writes that return nothing the caller did
+not send (`create`, `updateMany`, `deleteMany`); relation filters that only test existence
 (`aiAgent.findMany({ where: { userMemories: { some: … } } })` returns agents);
 and raw SQL, which arrives with no model. Every raw read of an enforced table is
 listed, with its reason, in `tests/unit/lib/db/owner-raw-sql-manifest.test.ts`,

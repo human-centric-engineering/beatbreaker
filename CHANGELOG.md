@@ -22,8 +22,11 @@ release process.
   (`withOwnerChecks()`), a second `$extends` layer over the tenancy client.
   For a caller the policy narrowed to their own rows, a list, count or
   aggregate of an enforced personal model must carry a `where` that confines
-  it to rows the caller may read, a single-row read is checked on the row it
-  returns, and an `include` of one from any root must be confined too. A
+  it to rows the caller may read, a `findUnique` is checked on the row it
+  returns, an unconfined `findFirst` is narrowed to the caller's own rows, a
+  write that returns its row (`update`, `upsert`, `delete`,
+  `updateManyAndReturn`) must be confined, and an `include` of one from any
+  root must be confined too. A
   refusal throws the new `OwnerReadRefusedError`, which `handleAPIError`
   answers as a 404. A classification entry's `enforced: true` (and
   `enforcedModels()`) says which models it checks: `AiUserMemory` in this
@@ -171,14 +174,16 @@ release process.
 
 ### Changed
 
-- **`runAcrossOwners` logs once per reason per request** (§115 t-801), not on
-  every entry, and core declares its own crossings with it: the subject-data
+- **`runAcrossOwners` logs once per reason per request, and only when it
+  crossed something** (§115 t-801) — the first read inside it the owner layer
+  would have checked, for a narrowed caller — not on every entry; and core declares its own crossings with it: the subject-data
   export when an admin exports someone else (`exportUserData`), the org export
   (`exportOrgData`), and `resumeApprovedExecution`, which runs the execution's
   owner's workflow rather than reading narrowed to whoever approved it. A
   `decidedBy: 'policy'` route whose personal reads the owner layer checked is
   no longer reported as an ownership gap for not reading
-  `session.subjectFilter`.
+  `session.subjectFilter`, unless it also read a personal model the layer does
+  not check yet.
 - **The org and global monthly budget caps hold every paid AI call, not only
   chat** (§110 t-788). Only the streaming chat handler checked them, so
   workflow steps, the orchestrator, evaluations, judges, knowledge ingestion

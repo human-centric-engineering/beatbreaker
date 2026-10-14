@@ -85,6 +85,12 @@ export interface SubjectEntry {
    * policy's answer. See {@link noteConfinedRead}.
    */
   onConfinedRead?: () => void;
+  /**
+   * Called when a read reached a personal model the data layer does not check
+   * yet — the guard then does not count {@link onConfinedRead} as covering the
+   * route. See {@link noteUncheckedRead}.
+   */
+  onUncheckedRead?: () => void;
 }
 
 /**
@@ -142,12 +148,14 @@ export function runAsSubject<T>(entry: SubjectEntry, fn: () => Promise<T>): Prom
  * For the code that genuinely must see other members' personal rows for a
  * narrowed caller — an org-wide aggregate that returns only numbers, a
  * reconcile acting for the org rather than the person. The `reason` is
- * logged on every entry, as `runAsSystem`'s is, because an unexplained
- * crossing is exactly what a review needs to find; the sites are meant to be
- * few and greppable. Logged once per reason per request, so a crossing wrapped
- * around a per-row helper is one line rather than one per row. Outside a
- * subject (a job) it changes nothing and logs nothing: there was no narrowing
- * to cross.
+ * logged, as `runAsSystem`'s is, because an unexplained crossing is exactly
+ * what a review needs to find; the sites are meant to be few and greppable.
+ * It is logged when a crossing happens — the first read inside `fn` that the
+ * owner layer would have checked, for a caller the policy narrowed — and once
+ * per reason per request, so a crossing wrapped around a per-row helper is one
+ * line rather than one per row. A caller who is not narrowed (a platform
+ * admin) crosses nothing and logs nothing; outside a subject (a job) it
+ * changes nothing at all.
  *
  * Not a tenancy bypass. The org wall stays where it is; this only lifts the
  * owner check inside it.
@@ -155,13 +163,6 @@ export function runAsSubject<T>(entry: SubjectEntry, fn: () => Promise<T>): Prom
 export function runAcrossOwners<T>(reason: string, fn: () => Promise<T>): Promise<T> {
   const current = subjectContext.getStore();
   if (!current) return settleInside(fn);
-  if (!current.memo.crossings.has(reason)) {
-    current.memo.crossings.add(reason);
-    logger.info('Reading across owners', {
-      reason,
-      userId: current.entry.principal.userId,
-    });
-  }
   return subjectContext.run({ ...current, admitted: reason }, () => settleInside(fn));
 }
 
@@ -178,21 +179,32 @@ export function runAcrossOwners<T>(reason: string, fn: () => Promise<T>): Promis
 export async function getSubjectReadScope(): Promise<SubjectReadScope> {
   const store = subjectContext.getStore();
   if (!store) return { kind: 'none' };
-  const { entry, memo } = store;
-  if (store.admitted !== null) {
-    return { kind: 'admitted', reason: store.admitted, principal: entry.principal };
-  }
+  const { entry, memo, admitted } = store;
   memo.filter ??= entry.resolveFilter().catch((err: unknown) => {
     memo.filter = null;
     throw err;
   });
+  // Copied, as the guard copies the policy's answer: the memo is shared by
+  // every reader in the request, and a caller that mutated what it was handed
+  // would change the next reader's scope.
+  const filter = { ...(await memo.filter) };
+  if (admitted !== null) {
+    // Logged here rather than on entering `runAcrossOwners`: only now is there
+    // a read the owner layer would have checked, and only a narrowed caller
+    // had a check to cross.
+    if (filter.userId !== undefined && !memo.crossings.has(admitted)) {
+      memo.crossings.add(admitted);
+      logger.info('Reading across owners', {
+        reason: admitted,
+        userId: entry.principal.userId,
+      });
+    }
+    return { kind: 'admitted', reason: admitted, principal: entry.principal };
+  }
   return {
     kind: 'subject',
     principal: entry.principal,
-    // Copied, as the guard copies the policy's answer: the memo is shared by
-    // every reader in the request, and a caller that mutated what it was handed
-    // would change the next reader's scope.
-    filter: { ...(await memo.filter) },
+    filter,
     unattributedReads: entry.unattributedReads,
   };
 }
@@ -204,4 +216,12 @@ export async function getSubjectReadScope(): Promise<SubjectReadScope> {
  */
 export function noteConfinedRead(): void {
   subjectContext.getStore()?.entry.onConfinedRead?.();
+}
+
+/**
+ * Tell the guard that a read reached a personal model the owner layer does not
+ * check yet. Called by `lib/db/owner-extension.ts`; a no-op outside a subject.
+ */
+export function noteUncheckedRead(): void {
+  subjectContext.getStore()?.entry.onUncheckedRead?.();
 }
