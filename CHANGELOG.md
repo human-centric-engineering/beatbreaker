@@ -18,6 +18,18 @@ release process.
 
 ### Added
 
+- **The subject context and the owner classification** (§115 t-800), the two
+  inputs of the within-org owner check. `lib/auth/subject-context.ts`:
+  `withAuth` / `withAdminAuth` now run every handler inside `runAsSubject()`,
+  and `getSubjectReadScope()` tells code below the route whose rows the caller
+  may read (the policy's `subjectScope`, asked lazily and at most once per
+  request). `runAcrossOwners(reason, fn)` marks a deliberate read across owners
+  and logs its reason. `lib/db/owner-classification.ts` (`OWNER_CLASSIFICATION`,
+  `ownerClassificationOf()`, `personalModels()`) says which models are private
+  to one person and how each row's owner is reached, enforced against the core
+  schema by test. Nothing is enforced yet, and no query changes; the check is
+  §115 t-801. See
+  [Authorization → The subject context](./.context/auth/authorization.md#the-subject-context-and-the-owner-classification-115).
 - **`GET /admin/orchestration/hooks/deliveries`** and **`GET
   /admin/orchestration/webhooks/deliveries`** (§109 t-739). Deliveries across
   every hook, or every subscription the admin may see, in any status,

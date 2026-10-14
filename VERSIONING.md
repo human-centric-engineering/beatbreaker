@@ -140,6 +140,10 @@ covered by the version contract.
     `set_config` at `multi`; the tenant context `lib/tenancy/context.ts`
     — `getTenantContext` / `requireTenantContext` / `requireOrgId` /
     `runAsOrg` / `runAsSystem` / `runAsCredentialLookup` / `forEachOrg` —
+    the subject context `lib/auth/subject-context.ts` —
+    `runAsSubject` / `getSubjectReadScope` / `runAcrossOwners` — and the owner
+    classification `lib/db/owner-classification.ts`
+    (`OWNER_CLASSIFICATION` / `ownerClassificationOf` / `personalModels`) —
     plus the `x-sunrise-org` request-header contract between `proxy.ts` and
     the guards; and the operator surface that turns the capability on —
     `MIGRATE_DATABASE_URL`, `db:tenancy:enable|disable|role`,
