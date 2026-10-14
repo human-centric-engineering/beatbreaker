@@ -85,8 +85,6 @@ export interface RuntimeDataModelField {
   type: string;
   /** Present on relation fields; the two ends of a relation share it. */
   relationName?: string;
-  /** A list relation (or list scalar). Read by the owner layer to tell a to-many relation from a to-one. */
-  isList?: boolean;
 }
 export interface RuntimeDataModelModel {
   fields: RuntimeDataModelField[];

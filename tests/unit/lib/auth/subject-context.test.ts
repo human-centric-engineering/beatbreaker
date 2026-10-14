@@ -17,6 +17,7 @@ vi.mock('@/lib/logging', () => ({
 import { logger } from '@/lib/logging';
 import {
   getSubjectReadScope,
+  noteConfinedRead,
   runAcrossOwners,
   runAsSubject,
   type SubjectEntry,
@@ -152,6 +153,39 @@ describe('runAcrossOwners', () => {
       reason: 'org-wide count for the dashboard',
       userId: 'member-1',
     });
+  });
+});
+
+describe('runAcrossOwners logging', () => {
+  it('logs each reason once per request, however many times it is entered', async () => {
+    await runAsSubject(entryFor('member-1'), async () => {
+      for (let i = 0; i < 3; i += 1) {
+        await runAcrossOwners('a per-row helper', () => getSubjectReadScope());
+      }
+      await runAcrossOwners('another reason', () => getSubjectReadScope());
+    });
+    expect(vi.mocked(logger.info).mock.calls.map((c) => c[1])).toEqual([
+      { reason: 'a per-row helper', userId: 'member-1' },
+      { reason: 'another reason', userId: 'member-1' },
+    ]);
+
+    // A second request logs the same reason again: the dedupe is per request.
+    await runAsSubject(entryFor('member-2'), () =>
+      runAcrossOwners('a per-row helper', () => getSubjectReadScope())
+    );
+    expect(logger.info).toHaveBeenCalledTimes(3);
+  });
+});
+
+describe('noteConfinedRead', () => {
+  it("calls the entering guard's callback, and is a no-op outside a subject", async () => {
+    const onConfinedRead = vi.fn();
+    noteConfinedRead();
+    await runAsSubject({ ...entryFor('member-1'), onConfinedRead }, () => {
+      noteConfinedRead();
+      return Promise.resolve();
+    });
+    expect(onConfinedRead).toHaveBeenCalledTimes(1);
   });
 });
 

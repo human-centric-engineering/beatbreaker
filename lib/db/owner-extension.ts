@@ -400,13 +400,15 @@ function unconfinedInSelection(
     const target = relationTarget(schema, model, key);
     if (target === undefined) continue;
     const here = `${path}.${key}`;
-    if (schema.enforced.has(target)) {
-      const c = personal(schema, target);
-      // A to-one relation to an enforced row (rare: a child reading up to a
-      // personal parent) has no `where` to confine it; a list relation must.
-      const isList = schema.rdm.models[model]?.fields.find((f) => f.name === key)?.isList === true;
-      if (!isList || !c) return here;
-      if (!(isRecord(value) && whereConfines(schema, target, value.where, reader))) return here;
+    // Every include of an enforced relation must carry a `where` that confines
+    // it. A to-one relation cannot take one, so reading up to an enforced
+    // parent is refused too; nothing does that to `AiUserMemory`, and t-802
+    // decides it for messages reading their conversation.
+    if (
+      schema.enforced.has(target) &&
+      !(isRecord(value) && whereConfines(schema, target, value.where, reader))
+    ) {
+      return here;
     }
     const deeper = unconfinedRelation(schema, target, value, reader, here);
     if (deeper !== null) return deeper;
