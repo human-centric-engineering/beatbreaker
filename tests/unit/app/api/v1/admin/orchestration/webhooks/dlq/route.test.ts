@@ -23,11 +23,6 @@ vi.mock('@/lib/db/client', () => ({
     aiWebhookDelivery: { findMany: vi.fn(), count: vi.fn() },
   },
 }));
-vi.mock('@/lib/security/rate-limit', () => ({
-  adminLimiter: { check: vi.fn(() => ({ success: true })) },
-  createRateLimitResponse: vi.fn(),
-}));
-vi.mock('@/lib/security/ip', () => ({ getClientIP: vi.fn(() => '127.0.0.1') }));
 
 import { GET } from '@/app/api/v1/admin/orchestration/webhooks/dlq/route';
 import { auth } from '@/lib/auth/config';

@@ -23,8 +23,6 @@ import { withAdminAuth } from '@/lib/auth/guards';
 import { prisma } from '@/lib/db/client';
 import { paginatedResponse } from '@/lib/api/responses';
 import { ValidationError } from '@/lib/api/errors';
-import { adminLimiter, createRateLimitResponse } from '@/lib/security/rate-limit';
-import { getClientIP } from '@/lib/security/ip';
 import { cuidSchema } from '@/lib/validations/common';
 import { webhookDeliveryVisibilityWhere } from '@/lib/orchestration/access/webhook-delivery-access';
 
@@ -39,10 +37,6 @@ const querySchema = z.object({
 });
 
 export const GET = withAdminAuth(async (request: NextRequest, session) => {
-  const clientIP = getClientIP(request);
-  const rateLimit = adminLimiter.check(clientIP);
-  if (!rateLimit.success) return createRateLimitResponse(rateLimit);
-
   const url = new URL(request.url);
   const parsed = querySchema.safeParse({
     page: url.searchParams.get('page') ?? undefined,

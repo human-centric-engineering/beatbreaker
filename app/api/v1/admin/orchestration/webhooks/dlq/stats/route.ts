@@ -17,15 +17,9 @@ import type { NextRequest } from 'next/server';
 import { withAdminAuth } from '@/lib/auth/guards';
 import { prisma } from '@/lib/db/client';
 import { successResponse } from '@/lib/api/responses';
-import { adminLimiter, createRateLimitResponse } from '@/lib/security/rate-limit';
-import { getClientIP } from '@/lib/security/ip';
 import { webhookDeliveryVisibilityWhere } from '@/lib/orchestration/access/webhook-delivery-access';
 
 export const GET = withAdminAuth(async (request: NextRequest, session) => {
-  const clientIP = getClientIP(request);
-  const rateLimit = adminLimiter.check(clientIP);
-  if (!rateLimit.success) return createRateLimitResponse(rateLimit);
-
   const scope = {
     AND: [webhookDeliveryVisibilityWhere(session), { status: 'exhausted' as const }],
   };

@@ -23,10 +23,6 @@ vi.mock('@/lib/db/client', () => ({
     aiWebhookDelivery: { findUnique: vi.fn(), delete: vi.fn() },
   },
 }));
-vi.mock('@/lib/security/rate-limit', () => ({
-  adminLimiter: { check: vi.fn(() => ({ success: true })) },
-  createRateLimitResponse: vi.fn(),
-}));
 vi.mock('@/lib/security/ip', () => ({ getClientIP: vi.fn(() => '127.0.0.1') }));
 vi.mock('@/lib/orchestration/audit/admin-audit-logger', () => ({
   logAdminAction: vi.fn(),

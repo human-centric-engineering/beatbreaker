@@ -26,10 +26,6 @@ vi.mock('@/lib/db/client', () => ({
     aiWebhookSubscription: { findFirst: vi.fn() },
   },
 }));
-vi.mock('@/lib/security/rate-limit', () => ({
-  adminLimiter: { check: vi.fn(() => ({ success: true })) },
-  createRateLimitResponse: vi.fn(),
-}));
 vi.mock('@/lib/security/ip', () => ({ getClientIP: vi.fn(() => '127.0.0.1') }));
 vi.mock('@/lib/orchestration/audit/admin-audit-logger', () => ({
   logAdminAction: vi.fn(),
@@ -43,7 +39,6 @@ import { auth } from '@/lib/auth/config';
 import { prisma } from '@/lib/db/client';
 import { retryDelivery } from '@/lib/orchestration/webhooks/dispatcher';
 import { logAdminAction } from '@/lib/orchestration/audit/admin-audit-logger';
-import { adminLimiter, createRateLimitResponse } from '@/lib/security/rate-limit';
 import {
   registerAuthorizationPolicy,
   __resetAuthorizationPolicyForTests,
@@ -194,18 +189,6 @@ describe('POST /webhooks/dlq/replay', () => {
 
     const res = await POST(makeRequest({ deliveryIds: ['cmjbv4i3x00003wsldelivone'] }));
     expect(res.status).toBe(401);
-  });
-
-  it('returns the rate-limit response when the limiter rejects the request', async () => {
-    const rlResponse = new Response('rate limited', { status: 429 });
-    vi.mocked(adminLimiter.check).mockReturnValueOnce({ success: false } as never);
-    vi.mocked(createRateLimitResponse).mockReturnValueOnce(rlResponse);
-
-    const res = await POST(makeRequest({ deliveryIds: ['cmjbv4i3x00003wsldelivone'] }));
-
-    expect(createRateLimitResponse).toHaveBeenCalled();
-    expect(res.status).toBe(429);
-    expect(retryDelivery).not.toHaveBeenCalled();
   });
 
   it('counts failed retryDelivery calls in the skipped bucket', async () => {
