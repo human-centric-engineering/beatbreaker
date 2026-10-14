@@ -96,6 +96,19 @@ release process.
   a built-in rate-limit key, so a fork that registered its own `'org'`
   resolver from the old recipe still boots. See
   [Rate limiting → Per-org request cap](./.context/security/rate-limiting.md#per-org-request-cap).
+- **`GET /api/v1/admin/orchestration/costs/orgs`** (§110 t-790). Each org's
+  AI spend, call count and tokens for one UTC calendar month (`period=YYYY-MM`,
+  defaulting to the current one; `orgId` narrows it to one org), beside its
+  `quotas.monthlyBudgetUsd` and the share of it spent, plus a `detached` bucket
+  for rows with no org. The usage data a fork's plans and invoices are built
+  from, via `getOrgUsage()` in `lib/orchestration/llm/cost-reports.ts`. At
+  `multi` only the install org or an unbound admin API key may call it (403,
+  `details.reason: shared_settings_install_org_only`, for anyone else), since
+  the answer is every tenant's spend. At `single` it returns one install-org
+  row. The costs page shows it as a per-org table when there is more than one
+  org, and the org detail page shows the org's month-to-date spend against its
+  cap. See
+  [Costs → Per-org usage](./.context/admin/orchestration-costs.md#per-org-usage).
 
 ### Changed
 
