@@ -10,6 +10,7 @@ import type {
   BudgetAlert,
   CostSummary,
   GlobalCapStatus,
+  OrgUsageReport,
 } from '@/lib/orchestration/llm/cost-reports';
 import type { ModelInfo } from '@/lib/orchestration/llm/types';
 
@@ -32,6 +33,9 @@ export const metadata: Metadata = {
  *   - `/costs?groupBy=model` → 30-day per-model rows for client-side tier synthesis
  *   - `/models`             → model registry (tier + local badge)
  *   - `/settings`           → singleton for the Configuration form
+ *   - `/costs/orgs`         → each org's spend this month against its cap (shown
+ *                             only with more than one org; refused outside the
+ *                             install org at `multi`, which hides the table)
  *
  * Every fetch is wrapped so that an upstream failure renders an empty
  * state rather than throwing. This mirrors `app/admin/orchestration/page.tsx`.
@@ -92,6 +96,19 @@ async function getPerModel30Day(): Promise<PerModelDaily[] | null> {
   }
 }
 
+async function getOrgUsage(): Promise<OrgUsageReport | null> {
+  try {
+    const res = await serverFetch(API.ADMIN.ORCHESTRATION.COSTS_ORGS);
+    // 403: an admin switched into a customer org may not see every org's spend.
+    if (!res.ok) return null;
+    const body = await parseApiResponse<OrgUsageReport>(res);
+    return body.success ? body.data : null;
+  } catch (err) {
+    logger.error('costs page: failed to load per-org usage', err);
+    return null;
+  }
+}
+
 interface ModelsResponse {
   models: ModelInfo[];
   fetchedAt: number;
@@ -116,11 +133,12 @@ export default async function CostsPage() {
 
   // Settings are no longer needed here — the default-models form moved
   // to the Settings page; the Costs page keeps a footer link to it.
-  const [summary, alertsResponse, perModel, modelsResponse] = await Promise.all([
+  const [summary, alertsResponse, perModel, modelsResponse, orgUsage] = await Promise.all([
     getCostSummary(),
     getBudgetAlerts(),
     getPerModel30Day(),
     getModels(),
+    getOrgUsage(),
   ]);
 
   return (
@@ -162,6 +180,7 @@ export default async function CostsPage() {
         perModel={perModel}
         models={modelsResponse?.models ?? null}
         registryFetchedAt={modelsResponse?.fetchedAt ?? null}
+        orgUsage={orgUsage}
       />
     </div>
   );

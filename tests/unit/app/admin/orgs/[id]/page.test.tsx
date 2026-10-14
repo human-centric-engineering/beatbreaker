@@ -1,8 +1,9 @@
 // @vitest-environment happy-dom
 
 /**
- * Admin — one organisation (§120 t-745): the org, its approved providers and
- * the provider list, fetched in parallel.
+ * Admin — one organisation (§120 t-745): the org, its approved providers,
+ * the provider list and its usage this month against its cap (§110 t-790),
+ * fetched in parallel.
  *
  * @see app/admin/orgs/[id]/page.tsx
  */
@@ -44,6 +45,7 @@ const ID = 'cmorg00000000000000grant';
 const ORG_PATH = `/api/v1/admin/orgs/${ID}`;
 const POLICY_PATH = `/api/v1/admin/orgs/${ID}/providers`;
 const PROVIDERS_PATH = '/api/v1/admin/orchestration/providers?page=1&limit=100';
+const USAGE_PATH = `/api/v1/admin/orchestration/costs/orgs?orgId=${ID}`;
 
 /**
  * Answer each path with its body. A path mapped to `null` (or not mapped) is a
@@ -226,5 +228,75 @@ describe('OrgPage', () => {
     render(await OrgPage({ params }));
 
     expect(screen.getByText(/approved providers could not be loaded/)).toBeInTheDocument();
+  });
+
+  describe('AI usage this month (§110 t-790)', () => {
+    const USAGE = {
+      period: '2026-10',
+      periodStart: '2026-10-01T00:00:00.000Z',
+      periodEnd: '2026-11-01T00:00:00.000Z',
+      orgs: [
+        {
+          orgId: ID,
+          name: 'Acme',
+          slug: 'acme',
+          status: 'ACTIVE',
+          totalCostUsd: 40,
+          inputTokens: 900,
+          outputTokens: 100,
+          count: 12,
+          monthlyBudgetUsd: 50,
+          utilisation: 0.8,
+        },
+      ],
+      detached: null,
+      totals: { totalCostUsd: 40, inputTokens: 900, outputTokens: 100, count: 12 },
+    };
+
+    it("shows the org's spend against its cap, from the usage endpoint narrowed to it", async () => {
+      serve({
+        [ORG_PATH]: ORG,
+        [POLICY_PATH]: POLICY,
+        [PROVIDERS_PATH]: PROVIDERS,
+        [USAGE_PATH]: USAGE,
+      });
+
+      render(await OrgPage({ params }));
+
+      expect(serverFetch).toHaveBeenCalledWith(USAGE_PATH);
+      expect(screen.getByTestId('org-usage-summary')).toBeInTheDocument();
+      expect(screen.getByText('Spend (2026-10)')).toBeInTheDocument();
+      expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '80');
+    });
+
+    it('says usage is install-org only when the endpoint refuses the caller', async () => {
+      serve({
+        [ORG_PATH]: ORG,
+        [POLICY_PATH]: POLICY,
+        [PROVIDERS_PATH]: PROVIDERS,
+        [USAGE_PATH]: 403,
+      });
+
+      render(await OrgPage({ params }));
+
+      expect(
+        screen.getByText('Usage can only be viewed from the install organisation.')
+      ).toBeInTheDocument();
+      expect(screen.queryByTestId('org-usage-summary')).not.toBeInTheDocument();
+    });
+
+    it('says the usage could not be loaded when the fetch fails, and still renders the rest', async () => {
+      serve({
+        [ORG_PATH]: ORG,
+        [POLICY_PATH]: POLICY,
+        [PROVIDERS_PATH]: PROVIDERS,
+        [USAGE_PATH]: 500,
+      });
+
+      render(await OrgPage({ params }));
+
+      expect(screen.getByText(/usage could not be loaded/)).toBeInTheDocument();
+      expect(screen.getByRole('checkbox', { name: /Anthropic/ })).toBeChecked();
+    });
   });
 });

@@ -110,6 +110,13 @@ is on:
   cap, and at `single` nothing is counted. Another instance can enforce an old cap for up
   to 30 seconds, and with several instances each counts separately. See
   [Rate limiting → Per-org request cap](../security/rate-limiting.md#per-org-request-cap).
+- **Each org's monthly AI usage is visible to the install org** (§110 t-790).
+  `GET /api/v1/admin/orchestration/costs/orgs?period=YYYY-MM` returns every
+  org's spend, calls and tokens for a UTC calendar month against its budget
+  cap, plus erased orgs' detached spend. The costs page shows it as a per-org
+  table and each org's page shows its month to date. Only the install org may
+  read it. Plans, pricing and invoices built on it are yours. See
+  [Costs → Per-org usage](../admin/orchestration-costs.md#per-org-usage).
 - **The data subject is per org.** `eraseUser` / `exportUserData` act inside
   the org the request entered: a person with memberships in several orgs is
   erased from, and exported from, the org that asked — the tenant is the

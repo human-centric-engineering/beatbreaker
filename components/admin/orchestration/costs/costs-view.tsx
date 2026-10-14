@@ -14,7 +14,8 @@
  *   2. Budget alerts list  — pause-agent optimistic action
  *   3. Trend chart         — 30-day stacked by tier
  *   4. Per-agent table + per-model table (2-col on lg)
- *   5. Local vs cloud panel
+ *   5. Per-org table       — only with more than one org, or erased orgs' spend
+ *   6. Local vs cloud panel
  *
  * The default-models form used to live here too; it now lives on the
  * Settings page where developers actually look for it. A small footer
@@ -31,6 +32,7 @@ import { CostTrendChart } from '@/components/admin/orchestration/costs/cost-tren
 import { LocalVsCloudPanel } from '@/components/admin/orchestration/costs/local-vs-cloud-panel';
 import { PerAgentCostTable } from '@/components/admin/orchestration/costs/per-agent-cost-table';
 import { PerModelBreakdownTable } from '@/components/admin/orchestration/costs/per-model-breakdown-table';
+import { PerOrgUsageTable } from '@/components/admin/orchestration/costs/per-org-usage-table';
 import { PricingReference } from '@/components/admin/orchestration/costs/pricing-reference';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -38,6 +40,7 @@ import type {
   BudgetAlert,
   CostSummary,
   GlobalCapStatus,
+  OrgUsageReport,
 } from '@/lib/orchestration/llm/cost-reports';
 import type { ModelInfo } from '@/lib/orchestration/llm/types';
 
@@ -54,6 +57,11 @@ export interface CostsViewProps {
   models: ModelInfo[] | null;
   /** Epoch ms when OpenRouter pricing was last fetched. null/0 = static fallback. */
   registryFetchedAt?: number | null;
+  /**
+   * Each org's spend this month. `null` when it could not be loaded, or the
+   * caller is outside the install org at `multi` (the endpoint refuses them).
+   */
+  orgUsage?: OrgUsageReport | null;
 }
 
 export function CostsView({
@@ -63,6 +71,7 @@ export function CostsView({
   perModel,
   models,
   registryFetchedAt,
+  orgUsage,
 }: CostsViewProps) {
   return (
     <div className="space-y-8">
@@ -76,6 +85,10 @@ export function CostsView({
         <PerAgentCostTable rows={summary?.byAgent ?? null} />
         <PerModelBreakdownTable rows={summary?.byModel ?? null} models={models} />
       </div>
+
+      {orgUsage && (orgUsage.orgs.length > 1 || (orgUsage.detached?.count ?? 0) > 0) && (
+        <PerOrgUsageTable report={orgUsage} />
+      )}
 
       <LocalVsCloudPanel summary={summary} models={models} />
 

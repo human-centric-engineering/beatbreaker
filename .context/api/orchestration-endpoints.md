@@ -102,6 +102,7 @@ Validation schemas for every request body / query live in `lib/validations/orche
 | `/costs`                                  | GET                | Breakdown by day / agent / model                                                                                                                                                                                           | 3.4     |
 | `/costs/summary`                          | GET                | Today / week / month + per-agent + trend                                                                                                                                                                                   | 3.4     |
 | `/costs/alerts`                           | GET                | Agents ≥ 80% of their budget                                                                                                                                                                                               | 3.4     |
+| `/costs/orgs`                             | GET                | Each org's month spend vs its cap (install org only at multi)                                                                                                                                                              | §110    |
 | `/settings`                               | GET, PATCH         | Task-type defaults + global monthly budget cap                                                                                                                                                                             | 4.4     |
 | `/agents/:id/budget`                      | GET                | Read-only budget status                                                                                                                                                                                                    | 3.4     |
 | `/agents/:id/evaluation-trend`            | GET                | Per-agent F/G/R quality trend across completed sessions                                                                                                                                                                    | 7.6     |
@@ -1120,6 +1121,14 @@ Returns every agent with a `monthlyBudgetUsd` at or above 80% utilisation. Sever
 | `>= 1.0`    | `critical` |
 
 Agents without a budget, or with `monthlyBudgetUsd <= 0`, are filtered out.
+
+### `GET /costs/orgs`
+
+Each org's AI usage for one UTC calendar month (§110 t-790). Query: `period?` (`YYYY-MM`, year 1000 or later, defaults to the current month; any other shape → `400`) and `orgId?` (narrow to one org).
+
+Returns `{ period, periodStart, periodEnd, orgs: [{ orgId, name, slug, status, totalCostUsd, inputTokens, outputTokens, count, monthlyBudgetUsd, utilisation }], detached, totals }`. `orgs` lists every org, highest spend first, zero-spend orgs included. `monthlyBudgetUsd` is the org's `quotas.monthlyBudgetUsd` (`null` when unset). `utilisation` is spend / cap, `null` with no cap or a cap of `0`. `detached` is `{ totalCostUsd, inputTokens, outputTokens, count }` for rows with no org, or `null` at `single` and when `orgId` is given. `totals` is every row in the month.
+
+At `TENANCY_MODE=multi` only the install org, or an unbound admin API key, may call it: anyone else gets `403` with `details.reason: shared_settings_install_org_only`, because the answer is every tenant's spend. At `single` it returns one install-org row. See [`../admin/orchestration-costs.md` § Per-org usage](../admin/orchestration-costs.md#per-org-usage).
 
 ### `GET /agents/:id/budget`
 
