@@ -19,7 +19,7 @@ import { prisma } from '@/lib/db/client';
 import { successResponse } from '@/lib/api/responses';
 import { webhookDeliveryVisibilityWhere } from '@/lib/orchestration/access/webhook-delivery-access';
 
-export const GET = withAdminAuth(async (request: NextRequest, session) => {
+export const GET = withAdminAuth(async (_request: NextRequest, session) => {
   const scope = {
     AND: [webhookDeliveryVisibilityWhere(session), { status: 'exhausted' as const }],
   };
