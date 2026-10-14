@@ -89,9 +89,10 @@ export const PDF_USD_PER_PDF = 0.005;
  * `prisma/seeds/009-provider-models.ts` so admins running the seeded
  * registry see the same numbers in cost reports.
  *
- * Unknown / unseeded embedding models fall back to `0` — recorded for
- * volume tracking, but treated as free until promoted into this map or
- * the `AiProviderModel` table. Local providers (Ollama nomic-embed-text,
+ * A model missing from this map is priced from the model registry, which
+ * carries the Model Matrix's `costPerMillionTokens` (Google, Mistral and
+ * Cohere embeddings are priced there, not here). A model neither prices is
+ * recorded at $0 for volume tracking and marked unpriced. Local providers (Ollama nomic-embed-text,
  * etc.) are intentionally absent: the `provider.isLocal` flag flips them
  * to `isLocal: true` in `logCost` so they always cost $0.
  */
@@ -108,11 +109,14 @@ export const EMBEDDING_USD_PER_MILLION_TOKENS: Record<string, number> = {
 /**
  * Compute the USD cost of an embedding call from the model id and the
  * input-token count reported by the provider's `usage.prompt_tokens`.
- * Returns zeroed costs for unknown models (with a debug log) so an
- * out-of-table model still produces an `AiCostLog` row for volume
- * tracking — just without dollar attribution until added.
+ * The rate comes from `EMBEDDING_USD_PER_MILLION_TOKENS` first — the exact
+ * list price for the models it names — then from the registry, whose
+ * single matrix rate is exactly an embedding's one rate. A model neither
+ * prices returns zeroed costs with `unpriced: true`, so it still produces
+ * an `AiCostLog` row for volume tracking, marked as unknown, not free.
  *
- * Always returns `isLocal: false` — "rate unknown" is NOT "local". The
+ * Returns `isLocal: false` unless the registry lists the model at the local
+ * tier, as `calculateCost` does — "rate unknown" is NOT "local". The
  * caller is responsible for setting `isLocal` from `provider.isLocal`
  * (true Ollama-style local models) via `logCost`'s OR. An earlier
  * version inferred local-ness from a zero rate, which incorrectly
@@ -124,7 +128,23 @@ export function calculateEmbeddingCost(modelId: string, inputTokens: number): Co
   if (!Number.isFinite(inputTokens) || inputTokens <= 0) {
     return { inputCostUsd: 0, outputCostUsd: 0, totalCostUsd: 0, isLocal: false };
   }
-  const ratePerMillion = EMBEDDING_USD_PER_MILLION_TOKENS[modelId] ?? 0;
+  let ratePerMillion = EMBEDDING_USD_PER_MILLION_TOKENS[modelId];
+  if (ratePerMillion === undefined) {
+    const model = getModel(modelId);
+    if (model?.tier === 'local') {
+      return { inputCostUsd: 0, outputCostUsd: 0, totalCostUsd: 0, isLocal: true };
+    }
+    if (!model || model.pricingUnknown) {
+      // Debug, not warn: this runs on every knowledge search, twice (the
+      // embedder and `logCost` both cost the call), and the row it produces
+      // already says `pricing: 'unknown'`.
+      logger.debug('Embedding cost: model has no price, treating as zero cost', {
+        model: modelId,
+      });
+      return { inputCostUsd: 0, outputCostUsd: 0, totalCostUsd: 0, isLocal: false, unpriced: true };
+    }
+    ratePerMillion = model.inputCostPerMillion;
+  }
   const totalCostUsd = (inputTokens / 1_000_000) * ratePerMillion;
   return {
     inputCostUsd: totalCostUsd,

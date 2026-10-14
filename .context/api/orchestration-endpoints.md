@@ -253,9 +253,9 @@ Optional body: `{ name?: string, slug?: string }`. Defaults: name = `"{source.na
 
 ### `POST /agents/bulk`
 
-Bulk agent operations. Body: `{ action: 'activate' | 'deactivate' | 'delete', agentIds: string[] }`. System agents (`isSystem = true`) are excluded from all mutations. Delete is a soft delete (sets `isActive = false`).
+Bulk agent operations. Body: `{ action: 'activate' | 'deactivate' | 'delete', agentIds: string[] }`. System agents (`isSystem = true`) and agents deleted through `DELETE /agents/:id` (`deletedAt` set) are excluded from all mutations and get no version. Delete is a soft delete (sets `isActive = false`).
 
-Response: `{ action, requested, affected }` — `affected` may be less than `requested` when system agents are filtered out. `isActive` is versioned, so each agent the action changes gets a new agent version in the same transaction; a concurrent edit that takes a version number returns a retryable `409`.
+Response: `{ action, requested, affected, skipped }` — `skipped` lists the requested ids the action cannot reach: system agents, deleted agents, and ids that match no agent. `affected` counts the agents actually changed, so it is also lower than `requested` when an agent was already in the requested state. `isActive` is versioned, so each agent the action changes gets a new agent version in the same transaction; a concurrent edit that takes a version number, or a delete that lands after an agent was selected, returns a retryable `409`.
 
 ### `GET /agents/compare`
 
